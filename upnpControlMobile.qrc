@@ -1,0 +1,24 @@
+<RCC>
+    <qresource prefix="/">
+        <file>AudioTrackDelegateMobile.qml</file>
+        <file>binaryLight.qml</file>
+        <file>genericDeviceMobile.qml</file>
+        <file>mediaAlbumViewMobile.qml</file>
+        <file>MediaPlayerControlMobile.qml</file>
+        <file>MediaServerEntryMobile.qml</file>
+        <file>mediaServerListingMobile.qml</file>
+        <file>mediaServerMobile.qml</file>
+        <file>RatingStar.qml</file>
+        <file>upnpControlMobile.qml</file>
+        <file>media-playback-pause.svg</file>
+        <file>media-playback-start.svg</file>
+        <file>media-skip-backward.svg</file>
+        <file>media-skip-forward.svg</file>
+        <file>player-volume-muted.svg</file>
+        <file>player-volume.svg</file>
+        <file>audio-x-generic.svg</file>
+        <file>folder.svg</file>
+        <file>media-optical-audio.svg</file>
+        <file>MediaContentDirectoryMobile.qml</file>
+    </qresource>
+</RCC>

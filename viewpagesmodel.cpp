@@ -141,6 +141,11 @@ RemoteServerEntry* ViewPagesModel::remoteServer(int index) const
     return d->mRemoteServers.at(index).data();
 }
 
+RemoteServerEntry *ViewPagesModel::remoteServer(QModelIndex index) const
+{
+    return remoteServer(index.row());
+}
+
 void ViewPagesModel::setWithPlaylist(bool value)
 {
     d->mWithPlaylist = value;

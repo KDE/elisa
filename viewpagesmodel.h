@@ -60,6 +60,8 @@ public:
 
     Q_INVOKABLE RemoteServerEntry *remoteServer(int index) const;
 
+    Q_INVOKABLE RemoteServerEntry *remoteServer(QModelIndex index) const;
+
     void setWithPlaylist(bool value);
 
     bool withPlaylist() const;

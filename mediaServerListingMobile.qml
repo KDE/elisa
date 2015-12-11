@@ -7,29 +7,28 @@ import QtMultimedia 5.4
 
 Item {
     property UpnpControlContentDirectory contentDirectoryService
-    property string rootId
+    property var rootIndex
     property StackView stackView
     property UpnpContentDirectoryModel contentModel
     property MediaPlayList playListModel
+
+    id: rootElement
 
     Rectangle {
         color: 'white'
         width: parent.width
         height: parent.height
 
-        Flickable {
-            width: parent.width
-            height: parent.height
+        ScrollView {
+            anchors.fill: parent
             GridView {
                 id: contentDirectoryView
                 snapMode: GridView.SnapToRow
-                width: parent.width
-                height: parent.height
 
                 model: DelegateModel {
                     id: delegateContentModel
                     model: contentModel
-                    rootIndex: contentModel.indexFromId(rootId)
+                    rootIndex: rootElement.rootIndex
 
                     delegate: Rectangle {
                         id: mediaServerEntry
@@ -60,7 +59,7 @@ Item {
                                 else if (itemClass == UpnpContentDirectoryModel.Album)
                                 {
                                     stackView.push({
-                                                       item: Qt.resolvedUrl("mediaAlbumViewMobile.qml"),
+                                                       item: Qt.resolvedUrl("MediaAlbumView.qml"),
                                                        properties: {
                                                            'contentDirectoryService': contentDirectoryService,
                                                            'rootId': contentModel.objectIdByIndex(delegateContentModel.modelIndex(mediaServerEntry.DelegateModel.itemsIndex)),
@@ -73,10 +72,10 @@ Item {
                                 else
                                 {
                                     stackView.push({
-                                                       item: Qt.resolvedUrl("mediaServerListingMobile.qml"),
+                                                       item: Qt.resolvedUrl("MediaServerListing.qml"),
                                                        properties: {
                                                            'contentDirectoryService': contentDirectoryService,
-                                                           'rootId': contentModel.objectIdByIndex(delegateContentModel.modelIndex(mediaServerEntry.DelegateModel.itemsIndex)),
+                                                           'rootIndex': delegateContentModel.modelIndex(mediaServerEntry.DelegateModel.itemsIndex),
                                                            'stackView': stackView,
                                                            'contentModel': contentModel,
                                                            'playListModel': playListModel

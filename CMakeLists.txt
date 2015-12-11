@@ -54,6 +54,7 @@ target_link_libraries(upnpControl
         upnpQt
         Qt5::Quick
         Qt5::Widgets
+        Qt5::Multimedia
 )
 
 if (${KF5Declarative_FOUND})

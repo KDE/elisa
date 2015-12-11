@@ -63,3 +63,12 @@ target_link_libraries(upnpControl
         KF5::Declarative
 )
 endif()
+
+set(playListTest_SOURCES
+    mediaplaylist.cpp
+    playlistcontroler.cpp
+    playlisttests.cpp
+)
+
+add_executable(playListTest ${playListTest_SOURCES})
+target_link_libraries(playListTest Qt5::Test Qt5::Core)

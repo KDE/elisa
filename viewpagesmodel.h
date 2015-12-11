@@ -35,6 +35,11 @@ class ViewPagesModel : public QAbstractListModel
 {
     Q_OBJECT
 
+    Q_PROPERTY(bool withPlaylist
+               READ withPlaylist
+               WRITE setWithPlaylist
+               NOTIFY withPlaylistChanged)
+
 public:
 
     enum ColumnsRoles {
@@ -55,6 +60,10 @@ public:
 
     Q_INVOKABLE RemoteServerEntry *remoteServer(int index) const;
 
+    void setWithPlaylist(bool value);
+
+    bool withPlaylist() const;
+
 public Q_SLOTS:
 
     void newDevice(QSharedPointer<UpnpDiscoveryResult> serviceDiscovery);
@@ -66,6 +75,10 @@ private Q_SLOTS:
     void deviceDescriptionChanged(const QString &uuid);
 
     void descriptionParsed(const QString &UDN);
+
+Q_SIGNALS:
+
+    void withPlaylistChanged();
 
 private:
 

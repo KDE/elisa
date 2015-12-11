@@ -53,11 +53,14 @@ public:
     QList<QSharedPointer<RemoteServerEntry> > mRemoteServers;
 
     QNetworkAccessManager mNetworkAccess;
+
+    bool mWithPlaylist;
 };
 
 ViewPagesModel::ViewPagesModel(QObject *parent)
     : QAbstractListModel(parent), d(new ViewPagesModelPrivate)
 {
+    d->mWithPlaylist = true;
 }
 
 ViewPagesModel::~ViewPagesModel()
@@ -71,6 +74,10 @@ int ViewPagesModel::rowCount(const QModelIndex &parent) const
         return 0;
     }
 
+    if (!d->mWithPlaylist) {
+        return d->mAllDevices.size();
+    }
+
     return d->mAllDevices.size() + 1;
 }
 
@@ -81,6 +88,10 @@ QVariant ViewPagesModel::data(const QModelIndex &index, int role) const
     }
 
     if (index.row() < 0 || index.row() >= d->mAllDevices.size() + 1) {
+        return QVariant();
+    }
+
+    if (!d->mWithPlaylist && index.row() >= d->mAllDevices.size()) {
         return QVariant();
     }
 
@@ -98,7 +109,7 @@ QVariant ViewPagesModel::data(const QModelIndex &index, int role) const
         case ColumnsRoles::UDNRole:
             return d->mAllHostsUUID[index.row()];
         }
-    } else {
+    } else if (d->mWithPlaylist) {
         switch(convertedRole)
         {
         case ColumnsRoles::NameRole:
@@ -128,6 +139,17 @@ RemoteServerEntry* ViewPagesModel::remoteServer(int index) const
     }
 
     return d->mRemoteServers.at(index).data();
+}
+
+void ViewPagesModel::setWithPlaylist(bool value)
+{
+    d->mWithPlaylist = value;
+    Q_EMIT withPlaylistChanged();
+}
+
+bool ViewPagesModel::withPlaylist() const
+{
+    return d->mWithPlaylist;
 }
 
 void ViewPagesModel::newDevice(QSharedPointer<UpnpDiscoveryResult> serviceDiscovery)

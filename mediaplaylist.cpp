@@ -19,8 +19,6 @@
 
 #include "mediaplaylist.h"
 
-#include "upnpcontentdirectorymodel.h"
-
 #include <QtCore/QPersistentModelIndex>
 #include <QtCore/QList>
 #include <QtCore/QDebug>

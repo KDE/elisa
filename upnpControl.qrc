@@ -13,9 +13,26 @@
         <file>MediaAlbumView.qml</file>
         <file>MediaServer.qml</file>
         <file>HeaderBar.qml</file>
+        <file>audio-x-generic.svg</file>
+        <file>folder.svg</file>
+        <file>media-optical-audio.svg</file>
+        <file>media-playback-pause.svg</file>
+        <file>media-playback-start.svg</file>
+        <file>media-skip-backward.svg</file>
+        <file>media-skip-forward.svg</file>
+        <file>player-volume-muted.svg</file>
+        <file>player-volume.svg</file>
+        <file alias="MediaServerPage.qml">MediaServerPageMobile.qml</file>
     </qresource>
     <qresource prefix="/+android">
         <file alias="MediaServer.qml">MediaServerMobile.qml</file>
+        <file alias="MediaContentDirectory.qml">MediaContentDirectoryMobile.qml</file>
+        <file alias="AudioTrackDelegate.qml">AudioTrackDelegateMobile.qml</file>
+        <file alias="MediaAlbumView.qml">MediaAlbumViewMobile.qml</file>
+        <file alias="MediaPlayerControl.qml">MediaPlayerControlMobile.qml</file>
+        <file alias="MediaServerListing.qml">MediaServerListingMobile.qml</file>
+        <file alias="MediaServerPage.qml">MediaServerPageMobile.qml</file>
+        <file>RatingStar.qml</file>
     </qresource>
     <qresource prefix="/imports">
         <file alias="org/kde/plasma/mobilecomponents/qmldir">../mobilecomponents/qml/qmldir</file>

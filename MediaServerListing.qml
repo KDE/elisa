@@ -47,7 +47,7 @@ Item {
                                 if (itemClass == UpnpContentDirectoryModel.AudioTrack)
                                 {
                                     stackView.push({
-                                                       item: Qt.resolvedUrl("mediaPlayer.qml"),
+                                                       page: Qt.resolvedUrl("mediaPlayer.qml"),
                                                        properties: {
                                                            'audioUrl': '',
                                                            'stackView': stackView,
@@ -58,28 +58,24 @@ Item {
                                 }
                                 else if (itemClass == UpnpContentDirectoryModel.Album)
                                 {
-                                    stackView.push({
-                                                       item: Qt.resolvedUrl("MediaAlbumView.qml"),
-                                                       properties: {
-                                                           'contentDirectoryService': contentDirectoryService,
-                                                           'rootId': contentModel.objectIdByIndex(delegateContentModel.modelIndex(mediaServerEntry.DelegateModel.itemsIndex)),
-                                                           'stackView': stackView,
-                                                           'contentModel': contentModel,
-                                                           'playListModel': playListModel
-                                                       }
+                                    stackView.push(Qt.resolvedUrl("MediaAlbumView.qml"),
+                                                   {
+                                                       'contentDirectoryService': contentDirectoryService,
+                                                       'rootId': contentModel.objectIdByIndex(delegateContentModel.modelIndex(mediaServerEntry.DelegateModel.itemsIndex)),
+                                                       'stackView': stackView,
+                                                       'contentModel': contentModel,
+                                                       'playListModel': playListModel
                                                    })
                                 }
                                 else
                                 {
-                                    stackView.push({
-                                                       item: Qt.resolvedUrl("MediaServerListing.qml"),
-                                                       properties: {
-                                                           'contentDirectoryService': contentDirectoryService,
-                                                           'rootIndex': delegateContentModel.modelIndex(mediaServerEntry.DelegateModel.itemsIndex),
-                                                           'stackView': stackView,
-                                                           'contentModel': contentModel,
-                                                           'playListModel': playListModel
-                                                       }
+                                    stackView.push(Qt.resolvedUrl("MediaServerListing.qml"),
+                                                   {
+                                                       'contentDirectoryService': contentDirectoryService,
+                                                       'rootIndex': delegateContentModel.modelIndex(mediaServerEntry.DelegateModel.itemsIndex),
+                                                       'stackView': stackView,
+                                                       'contentModel': contentModel,
+                                                       'playListModel': playListModel
                                                    })
                                 }
                             }

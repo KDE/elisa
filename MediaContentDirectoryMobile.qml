@@ -4,35 +4,31 @@ import QtQuick.Controls.Styles 1.2
 import QtQuick.Layouts 1.1
 import QtQuick.Window 2.2
 import org.mgallien.QmlExtension 1.0
+import org.kde.plasma.mobilecomponents 0.2 as MobileComponents
 import QtMultimedia 5.4
 
-Item {
-    property var remoteMediaServer: ({})
+MobileComponents.Page {
     property var pagesModel
-    property StackView parentStackView
+    property var contentDirectoryModel
     property MediaPlayList playListModel
-
-    property string globalBrowseFlag: 'BrowseDirectChildren'
-    property string globalFilter: '*'
-    property string globalSortCriteria: ''
+    property var remoteMediaServer: ({})
 
     id: contentDirectoryRoot
 
-    UpnpContentDirectoryModel {
-        id: contentDirectoryModel
-        browseFlag: globalBrowseFlag
-        filter: globalFilter
-        sortCriteria: globalSortCriteria
-        contentDirectory: remoteMediaServer.contentDirectory
-
-        onContentDirectoryChanged: listingView.initialItem.rootIndex = contentDirectoryModel.indexFromId('0')
-    }
+    objectName: "ServerContent"
+    color: MobileComponents.Theme.viewBackgroundColor
 
     ColumnLayout {
         anchors.fill: parent
         spacing: 0
 
-        Button {
+        MobileComponents.Heading {
+            Layout.bottomMargin: MobileComponents.Units.largeSpacing
+            text: "Server Content"
+            Layout.fillWidth: true
+        }
+
+        /*Button {
             id: backButton
 
             height: Screen.pixelDensity * 8.
@@ -41,34 +37,16 @@ Item {
             Layout.maximumHeight: height
             Layout.fillWidth: true
 
-            onClicked: if (listingView.depth > 1) {
-                           listingView.pop()
-                       } else {
-                           parentStackView.pop()
-                       }
+            onClicked: parentStackView.pop()
             text: 'Back'
-        }
+        }*/
+    }
 
-        StackView {
-            id: listingView
-
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-
-            initialItem: MediaServerListing {
-                contentDirectoryService: remoteMediaServer.contentDirectory
-                rootIndex: remoteMediaServer ? '0' : ''
-                stackView: listingView
-                contentModel: contentDirectoryModel
-                playListModel: contentDirectoryRoot.playListModel
-            }
-
-            // Implements back key navigation
-            focus: true
-            Keys.onReleased: if (event.key === Qt.Key_Back && stackView.depth > 1) {
-                                 stackView.pop();
-                                 event.accepted = true;
-                             }
-        }
+    MediaServerListing {
+        contentDirectoryService: contentDirectoryModel.contentDirectory
+        rootIndex: '0'
+        contentModel: contentDirectoryModel
+        playListModel: contentDirectoryRoot.playListModel
+        visible: false
     }
 }

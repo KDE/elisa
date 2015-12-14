@@ -108,6 +108,28 @@ Item {
             }
         }
 
+        Item {
+            Layout.preferredWidth: width
+            Layout.minimumWidth: width
+            Layout.maximumWidth: width
+            width: Screen.pixelDensity * 2
+        }
+
+        Button {
+            id: playButton
+            iconName: 'media-playback-start'
+
+            visible: showHoverButtons && !isPlaying
+
+            Layout.preferredWidth: parent.height * 0.5
+            Layout.preferredHeight: parent.height * 0.5
+            Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+            Layout.maximumWidth: parent.height * 0.7
+            Layout.maximumHeight: parent.height * 0.7
+            width: parent.height * 0.7
+            height: parent.height * 0.7
+        }
+
         Image {
             id: playIcon
             source: 'image://icon/media-playback-start'

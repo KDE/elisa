@@ -1,47 +1,66 @@
 import QtQuick 2.4
+import QtQuick.Window 2.2
 import QtQuick.Controls 1.2
 import QtQuick.Controls.Styles 1.2
+import QtQuick.Layouts 1.2
 import QtQml.Models 2.1
 import org.mgallien.QmlExtension 1.0
+import org.kde.plasma.mobilecomponents 0.2 as MobileComponents
 import QtMultimedia 5.4
 
-Item {
+MobileComponents.Page {
     property UpnpControlContentDirectory contentDirectoryService
     property var rootIndex
-    property StackView stackView
     property UpnpContentDirectoryModel contentModel
     property MediaPlayList playListModel
 
     id: rootElement
 
-    Rectangle {
-        color: 'white'
-        width: parent.width
-        height: parent.height
+    color: MobileComponents.Theme.viewBackgroundColor
+    flickable: contentDirectoryView
+
+    ColumnLayout {
+        anchors.fill: parent
+
+        MobileComponents.Heading {
+            Layout.bottomMargin: MobileComponents.Units.largeSpacing
+            text: "UPnP Content"
+            Layout.fillWidth: true
+        }
 
         ScrollView {
-            anchors.fill: parent
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+
             GridView {
                 id: contentDirectoryView
+
                 snapMode: GridView.SnapToRow
+                boundsBehavior: Flickable.StopAtBounds
+                focus: true
+                clip: true
+
+                cellWidth: Screen.pixelDensity * 30.
+                cellHeight: Screen.pixelDensity * 20.
+
+                Layout.fillHeight: true
+                Layout.fillWidth: true
 
                 model: DelegateModel {
                     id: delegateContentModel
                     model: contentModel
                     rootIndex: rootElement.rootIndex
 
-                    delegate: Rectangle {
+                    delegate: MobileComponents.ListItem {
                         id: mediaServerEntry
 
-                        color: 'white'
                         width: contentDirectoryView.cellWidth
                         height: contentDirectoryView.cellHeight
 
                         MouseArea {
                             id: clickHandle
 
-                            width: parent.width
-                            height: parent.height
+                            anchors.fill: parent
 
                             onClicked: {
                                 if (itemClass == UpnpContentDirectoryModel.AudioTrack)
@@ -58,45 +77,41 @@ Item {
                                 }
                                 else if (itemClass == UpnpContentDirectoryModel.Album)
                                 {
-                                    stackView.push({
-                                                       item: Qt.resolvedUrl("MediaAlbumView.qml"),
-                                                       properties: {
-                                                           'contentDirectoryService': contentDirectoryService,
-                                                           'rootId': contentModel.objectIdByIndex(delegateContentModel.modelIndex(mediaServerEntry.DelegateModel.itemsIndex)),
-                                                           'stackView': stackView,
-                                                           'contentModel': contentModel,
-                                                           'playListModel': playListModel
-                                                       }
+                                    stackView.push(Qt.resolvedUrl("MediaAlbumView.qml"),
+                                                   {
+                                                       'contentDirectoryService': contentDirectoryService,
+                                                       'rootId': contentModel.objectIdByIndex(delegateContentModel.modelIndex(mediaServerEntry.DelegateModel.itemsIndex)),
+                                                       'stackView': stackView,
+                                                       'contentModel': contentModel,
+                                                       'playListModel': playListModel
                                                    })
                                 }
                                 else
                                 {
-                                    stackView.push({
-                                                       item: Qt.resolvedUrl("MediaServerListing.qml"),
-                                                       properties: {
-                                                           'contentDirectoryService': contentDirectoryService,
-                                                           'rootIndex': delegateContentModel.modelIndex(mediaServerEntry.DelegateModel.itemsIndex),
-                                                           'stackView': stackView,
-                                                           'contentModel': contentModel,
-                                                           'playListModel': playListModel
-                                                       }
+                                    stackView.push(Qt.resolvedUrl("MediaServerListing.qml"),
+                                                   {
+                                                       'contentDirectoryService': contentDirectoryService,
+                                                       'rootIndex': delegateContentModel.modelIndex(mediaServerEntry.DelegateModel.itemsIndex),
+                                                       'stackView': stackView,
+                                                       'contentModel': contentModel,
+                                                       'playListModel': playListModel
                                                    })
                                 }
                             }
                         }
 
-                        Column {
-                            width: parent.width
-                            height: parent.height
+                        ColumnLayout {
+                            anchors.fill: parent
 
                             Image {
                                 id: playIcon
                                 source: image
-                                width: parent.height * 0.8
-                                height: parent.height * 0.8
-                                sourceSize.width: width
-                                sourceSize.height: width
+                                sourceSize.width: Layout.preferredWidth
+                                sourceSize.height: Layout.preferredWidth
                                 fillMode: Image.PreserveAspectFit
+
+                                Layout.fillHeight: true
+                                Layout.alignment: Qt.AlignTop | Qt.AlignHCenter
                             }
 
                             Label {
@@ -105,14 +120,15 @@ Item {
                                           title
                                       else
                                           ''
-                                width: parent.width
                                 elide: "ElideRight"
+                                horizontalAlignment: Text.AlignHCenter
+
+                                Layout.fillWidth: true
+                                Layout.alignment: Qt.AlignBottom | Qt.AlignHCenter
                             }
                         }
                     }
                 }
-
-                focus: true
             }
         }
     }

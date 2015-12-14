@@ -1,5 +1,6 @@
 import QtQuick 2.3
 import QtQuick.Controls 1.2
+import QtQuick.Layouts 1.2
 import QtMultimedia 5.4
 import org.mgallien.QmlExtension 1.0
 import org.kde.plasma.mobilecomponents 0.2 as MobileComponents
@@ -84,34 +85,9 @@ MobileComponents.ApplicationWindow {
     }
 
     property Item stackView: pageStack
-    initialPage: ListView {
-        id: serverView
-        model: serverListModel
-
-        delegate: MobileComponents.ListItem {
-            height: 120
-            enabled: true
-
-            MobileComponents.Label {
-                id: nameLabel
-                anchors.fill: parent
-                width: serverView.width
-                text: model.name
-            }
-
-
-            onClicked: {
-                console.log("have been clicked " + index)
-                contentDirectory.remoteMediaServer = serverListModel.remoteServer(index)
-                rootItem.stackView.push(contentDirectory)
-            }
-        }
-    }
-
-    MediaContentDirectory {
-        id: contentDirectory
-        parentStackView: rootItem.stackView
+    initialPage: MediaServerPage {
+        id: listServerPage
+        serverModel: serverListModel
         playListModel: playListModelItem
-        visible: false
     }
 }

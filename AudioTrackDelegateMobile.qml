@@ -1,11 +1,13 @@
-import QtQuick 2.2
-import QtQuick.Window 2.2
+import QtQuick 2.4
+import QtQuick.Layouts 1.2
 import QtQuick.Controls 1.2
+import QtQuick.Window 2.2
 import QtQuick.Controls.Styles 1.2
-import QtQuick.Layouts 1.1
+import org.kde.plasma.mobilecomponents 0.2 as MobileComponents
 
-Item {
+MobileComponents.ListItem {
     id: viewAlbumDelegate
+    enabled: true
 
     property string title
     property string artist
@@ -13,70 +15,130 @@ Item {
     property string duration
     property int trackRating
     property bool isPlaying
+    property bool showHoverButtons
+    property int itemIndex
 
-    RowLayout {
-        width: parent.width
-        height: parent.height
+    signal remove(int indexToRemove)
+
+    content: RowLayout {
         spacing: 0
+        anchors.fill: parent
 
-        Image {
-            id: mainIcon
-            source: itemDecoration
-            Layout.preferredWidth: parent.height * 0.9
-            Layout.preferredHeight: parent.height * 0.9
-            width: parent.height * 0.9
-            height: parent.height * 0.9
-            sourceSize.width: width
-            sourceSize.height: width
-            fillMode: Image.PreserveAspectFit
-            Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+        ColumnLayout {
+            Layout.preferredWidth: parent.height
+            Layout.preferredHeight: parent.height
+            Layout.fillHeight: true
+            Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
+            spacing: 0
+
+            Item {
+                Layout.preferredHeight: 1
+                Layout.minimumHeight: 1
+                Layout.maximumHeight: 1
+            }
+
+            Image {
+                id: mainIcon
+                source: itemDecoration
+                Layout.preferredWidth: parent.height - 2
+                Layout.preferredHeight: parent.height - 2
+                width: parent.height - 2
+                sourceSize.width: width
+                sourceSize.height: width
+                fillMode: Image.PreserveAspectFit
+                Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+
+                Button {
+                    id: removeButton
+                    iconName: 'list-remove'
+
+                    anchors.fill: parent
+
+                    visible: showHoverButtons
+                    opacity: 0.8
+                    enabled: true
+
+                    onClicked: remove(itemIndex)
+                }
+            }
+
+            Item {
+                Layout.preferredHeight: Screen.pixelDensity * 0.5
+                Layout.minimumHeight: Screen.pixelDensity * 0.5
+                Layout.maximumHeight: Screen.pixelDensity * 0.5
+            }
         }
 
         ColumnLayout {
-            Layout.preferredWidth: Screen.pixelDensity * 2
+            Layout.preferredWidth: Screen.pixelDensity * 12.
             Layout.preferredHeight: viewAlbumDelegate.height
+            Layout.fillHeight: true
             Layout.fillWidth: true
             Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
             spacing: 0
 
             Item {
-                Layout.preferredHeight: Screen.pixelDensity * 2
-                Layout.minimumHeight: Screen.pixelDensity * 2
-                Layout.maximumHeight: Screen.pixelDensity * 2
+                Layout.fillHeight: true
+                Layout.fillWidth: true
             }
 
-            Label {
+            MobileComponents.Label {
                 id: mainLabel
                 text: title
-                Layout.preferredWidth: Screen.pixelDensity * 25
+                Layout.preferredWidth: Screen.pixelDensity * 12
                 Layout.fillWidth: true
-                Layout.alignment: Qt.AlignLeft
+                Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
                 elide: "ElideRight"
+                verticalAlignment: Text.AlignTop
+            }
+
+            Item {
+                Layout.preferredHeight: Screen.pixelDensity * 3.
+                Layout.minimumHeight: Screen.pixelDensity * 3.
+                Layout.maximumHeight: Screen.pixelDensity * 3.
+                Layout.fillWidth: true
+            }
+
+            MobileComponents.Label {
+                id: authorLabel
+                text: artist + ' - ' + album
+                Layout.preferredWidth: Screen.pixelDensity * 12
+                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
+                elide: "ElideRight"
+                verticalAlignment: Text.AlignTop
             }
 
             Item {
                 Layout.fillHeight: true
-            }
-
-            Label {
-                id: authorLabel
-                text: artist
-                Layout.preferredWidth: Screen.pixelDensity * 20
                 Layout.fillWidth: true
-                Layout.alignment: Qt.AlignLeft
-                elide: "ElideRight"
             }
+        }
 
-            Item {
-                Layout.preferredHeight: Screen.pixelDensity * 2
-                Layout.minimumHeight: Screen.pixelDensity * 2
-                Layout.maximumHeight: Screen.pixelDensity * 2
-            }
+        Item {
+            Layout.preferredWidth: Screen.pixelDensity * 0.5
+            Layout.minimumWidth: Screen.pixelDensity * 0.5
+            Layout.maximumWidth: Screen.pixelDensity * 0.5
+        }
+
+        Button {
+            id: playButton
+            iconName: 'media-playback-start'
+
+            visible: showHoverButtons && !isPlaying
+
+            Layout.preferredWidth: parent.height * 0.5
+            Layout.preferredHeight: parent.height * 0.5
+            Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+            Layout.maximumWidth: parent.height * 0.7
+            Layout.maximumHeight: parent.height * 0.7
+            width: parent.height * 0.7
+            height: parent.height * 0.7
         }
 
         Image {
             id: playIcon
-            source: 'qrc:/audio-x-generic.svg'
+            source: 'image://icon/media-playback-start'
             Layout.preferredWidth: parent.height * 0.5
             Layout.preferredHeight: parent.height * 0.5
             Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
@@ -91,10 +153,11 @@ Item {
         }
 
         Item {
-            Layout.preferredWidth: width
-            Layout.minimumWidth: width
-            Layout.maximumWidth: width
-            width: Screen.pixelDensity * 5
+            Layout.preferredWidth: Screen.pixelDensity * 0.5
+            Layout.minimumWidth: Screen.pixelDensity * 0.5
+            Layout.maximumWidth: Screen.pixelDensity * 0.5
+
+            visible: (showHoverButtons && !isPlaying) || isPlaying
         }
 
         ColumnLayout {
@@ -104,12 +167,12 @@ Item {
             spacing: 0
 
             Item {
-                Layout.preferredHeight: Screen.pixelDensity * 2
-                Layout.minimumHeight: Screen.pixelDensity * 2
-                Layout.maximumHeight: Screen.pixelDensity * 2
+                Layout.preferredHeight: Screen.pixelDensity * 2.
+                Layout.minimumHeight: Screen.pixelDensity * 2.
+                Layout.maximumHeight: Screen.pixelDensity * 2.
             }
 
-            Label {
+            MobileComponents.Label {
                 id: durationLabel
                 text: duration
                 elide: "ElideRight"
@@ -119,25 +182,12 @@ Item {
             Item {
                 Layout.fillHeight: true
             }
-
-            RatingStar {
-                id: mainRating
-                starSize: 20
-                starRating: trackRating
-                Layout.alignment: Qt.AlignRight
-            }
-
-            Item {
-                Layout.preferredHeight: Screen.pixelDensity * 2
-                Layout.minimumHeight: Screen.pixelDensity * 2
-                Layout.maximumHeight: Screen.pixelDensity * 2
-            }
         }
 
         Item {
-            Layout.preferredWidth: Screen.pixelDensity * 4
-            Layout.minimumWidth: Screen.pixelDensity * 4
-            Layout.maximumWidth: Screen.pixelDensity * 4
+            Layout.preferredWidth: Screen.pixelDensity * 0.5
+            Layout.minimumWidth: Screen.pixelDensity * 0.5
+            Layout.maximumWidth: Screen.pixelDensity * 0.5
         }
     }
 }

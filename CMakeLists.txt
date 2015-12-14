@@ -6,9 +6,7 @@ set(upnpControl_SOURCES
     playlistcontroler.cpp
     viewpagesmodel.cpp
     remoteserverentry.cpp
-    upnpControl.qml
     MediaServer.qml
-    genericDevice.qml
     MediaServerListing.qml
     MediaAlbumView.qml
     RatingStar.qml
@@ -20,14 +18,13 @@ set(upnpControl_SOURCES
     HeaderBar.qml
     MediaServerMobile.qml
     AudioTrackDelegateMobile.qml
-    genericDeviceMobile.qml
-    upnpControlMobile.qml
-    mediaServerMobile.qml
-    mediaServerListingMobile.qml
-    mediaAlbumViewMobile.qml
+    MediaServerMobile.qml
+    MediaServerListingMobile.qml
+    MediaAlbumViewMobile.qml
     MediaPlayerControlMobile.qml
     MediaServerEntryMobile.qml
     MediaContentDirectoryMobile.qml
+    MediaServerPageMobile.qml
     ../mobilecomponents/qml/ActionGroup.qml
     ../mobilecomponents/qml/GlobalDrawer.qml
     ../mobilecomponents/qml/Label.qml
@@ -41,6 +38,10 @@ set(upnpControl_SOURCES
     ../mobilecomponents/qml/IconGrid.qml
     ../mobilecomponents/qml/ListItemWithActions.qml
     ../mobilecomponents/qml/PageRow.qml
+    ../mobilecomponents/qml/private/AbstractDrawer.qml
+    ../mobilecomponents/qml/private/ActionButtonArrow.qml
+    ../mobilecomponents/qml/private/ActionButton.qml
+    ../mobilecomponents/qml/private/PageStack.js
 )
 
 qt5_add_resources(upnpControl_SOURCES upnpControl.qrc)
@@ -55,6 +56,7 @@ target_link_libraries(upnpControl
         Qt5::Quick
         Qt5::Widgets
         Qt5::Multimedia
+        Qt5::Svg
 )
 
 if (${KF5Declarative_FOUND})

@@ -12,12 +12,23 @@ MobileComponents.ApplicationWindow {
 
     globalDrawer: MobileComponents.GlobalDrawer {
         title: "UPnP Player"
-    }
+        titleIcon: "applications-graphics"
+        bannerImageSource: "banner.jpg"
 
-    contextDrawer: MobileComponents.ContextDrawer {
-        id: contextDrawer
-        actions: rootItem.pageStack.currentPage ? rootItem.pageStack.currentPage.contextualActions : null
-        title: "Actions"
+        actions: [
+            Action {
+                text: "Browse Media Servers"
+                onTriggered: {
+                    stackView.push(listServerPage)
+                }
+            },
+            Action {
+                text: "Play List"
+                onTriggered: {
+                    stackView.push(playListPage)
+                }
+            }
+        ]
     }
 
     property UpnpDeviceDescription aDevice
@@ -39,17 +50,21 @@ MobileComponents.ApplicationWindow {
     Audio {
         id: audioPlayer
 
-        //muted: playControlItem.muted
+        muted: playControlItem.muted
+        volume: playControlItem.volume
 
-        //volume: playControlItem.volume
         source: playListControler.playerSource
 
         onPlaying: playListControler.playerPlaying()
         onPaused: playListControler.playerPaused()
         onStopped: playListControler.playerStopped()
-        onPositionChanged: playListControler.audioPlayerPositionChanged(position)
+        onPositionChanged: {
+            console.log('Audio: ' + status)
+            playListControler.audioPlayerPositionChanged(position)
+        }
         onStatusChanged: playListControler.audioPlayerFinished(status == Audio.EndOfMedia)
         onErrorChanged: console.log(errorString)
+        onError: console.log('audio player ' + error + ' ' + errorString)
     }
 
     MediaPlayList {
@@ -84,10 +99,23 @@ MobileComponents.ApplicationWindow {
         withPlaylist: false
     }
 
-    property Item stackView: pageStack
-    initialPage: MediaServerPage {
+    MediaPlayPage {
+        id: playListPage
+        targetPlayListControler: playListControler
+        targetAudioPlayer: audioPlayer
+        playListModel: playListModelItem
+
+        visible: false
+    }
+
+    MediaServerPage {
         id: listServerPage
         serverModel: serverListModel
-        playListModel: playListModelItem
+        globalPlayListModel: playListModelItem
+
+        visible: false
     }
+
+    property Item stackView: pageStack
+    initialPage: listServerPage
 }

@@ -60,7 +60,6 @@ ApplicationWindow {
         onStopped: playListControler.playerStopped()
         onPositionChanged: playListControler.audioPlayerPositionChanged(position)
         onStatusChanged: playListControler.audioPlayerFinished(status == Audio.EndOfMedia)
-        onErrorChanged: console.log(errorString)
     }
 
     MediaPlayList {

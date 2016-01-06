@@ -255,7 +255,6 @@ int PlayListControler::remainingTracks() const
 
 void PlayListControler::setRandomPlay(bool value)
 {
-    qDebug() << "PlayListControler::setRandomPlay" << (value ? "true" : "false");
     mRandomPlay = value;
     Q_EMIT randomPlayChanged();
 }
@@ -267,7 +266,6 @@ bool PlayListControler::randomPlay() const
 
 void PlayListControler::setRepeatPlay(bool value)
 {
-    qDebug() << "PlayListControler::setRepeatPlay" << (value ? "true" : "false");
     mRepeatPlay = value;
     Q_EMIT repeatPlayChanged();
 }
@@ -295,6 +293,8 @@ void PlayListControler::playListLayoutChanged(const QList<QPersistentModelIndex>
 {
     Q_UNUSED(parents);
     Q_UNUSED(hint);
+
+    qDebug() << "PlayListControler::playListLayoutChanged" << "not implemented";
 }
 
 void PlayListControler::tracksInserted(const QModelIndex &parent, int first, int last)
@@ -319,6 +319,8 @@ void PlayListControler::tracksMoved(const QModelIndex &parent, int start, int en
     Q_UNUSED(end);
     Q_UNUSED(destination);
     Q_UNUSED(row);
+
+    qDebug() << "PlayListControler::tracksMoved" << "not implemented";
 }
 
 void PlayListControler::tracksRemoved(const QModelIndex &parent, int first, int last)

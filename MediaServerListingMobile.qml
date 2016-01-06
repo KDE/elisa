@@ -17,7 +17,6 @@ MobileComponents.Page {
     id: rootElement
 
     color: MobileComponents.Theme.viewBackgroundColor
-    flickable: contentDirectoryView
 
     ColumnLayout {
         anchors.fill: parent

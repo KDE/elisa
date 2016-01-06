@@ -157,6 +157,7 @@ int MediaPlayList::trackCount() const
 void MediaPlayList::enqueue(const QModelIndex &newTrack)
 {
     beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size());
+    qDebug() << "MediaPlayList::enqueue" << newTrack << newTrack.data(ColumnsRoles::TitleRole);
     d->mData.push_back(newTrack);
     d->mIsPlaying.push_back(false);
     endInsertRows();

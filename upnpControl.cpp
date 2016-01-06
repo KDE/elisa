@@ -88,7 +88,5 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
 
     engine.load(QUrl(QStringLiteral("qrc:/MediaServer.qml")));
 
-    app.exec();
-
-    return 0;
+    return app.exec();
 }

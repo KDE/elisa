@@ -25,6 +25,7 @@ set(upnpControl_SOURCES
     MediaServerEntryMobile.qml
     MediaContentDirectoryMobile.qml
     MediaServerPageMobile.qml
+    MediaPlayPageMobile.qml
     ../mobilecomponents/qml/ActionGroup.qml
     ../mobilecomponents/qml/GlobalDrawer.qml
     ../mobilecomponents/qml/Label.qml

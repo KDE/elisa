@@ -8,7 +8,7 @@ import org.mgallien.QmlExtension 1.0
 
 MobileComponents.Page {
     property var serverModel
-    property var playListModel
+    property var globalPlayListModel
     property string globalBrowseFlag: 'BrowseDirectChildren'
     property string globalFilter: '*'
     property string globalSortCriteria: ''
@@ -17,7 +17,6 @@ MobileComponents.Page {
 
     objectName: "ServerList"
     color: MobileComponents.Theme.viewBackgroundColor
-    flickable: serverView
 
     ColumnLayout {
         anchors.fill: parent
@@ -49,9 +48,9 @@ MobileComponents.Page {
 
 
                     onClicked: {
-                        console.log("have been clicked " + index)
                         contentDirectoryItem.contentDirectoryService = serverModel.remoteServer(index).contentDirectory
                         contentDirectoryModelItem.contentDirectory = serverModel.remoteServer(index).contentDirectory
+                        contentDirectoryItem.rootIndex = contentDirectoryModelItem.indexFromId('0')
                         stackView.push(contentDirectoryItem)
                     }
                 }
@@ -62,9 +61,8 @@ MobileComponents.Page {
     MediaServerListing {
         id: contentDirectoryItem
 
-        //contentDirectoryService: serverModel.remoteServer(index).contentDirectory
         rootIndex: contentDirectoryModelItem.indexFromId('0')
-        playListModel: playListModel
+        playListModel: globalPlayListModel
         contentModel: contentDirectoryModelItem
 
         visible: false

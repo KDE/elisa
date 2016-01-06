@@ -18,7 +18,6 @@ MobileComponents.Page {
     id: rootElement
 
     color: MobileComponents.Theme.viewBackgroundColor
-    flickable: contentDirectoryView
 
     ColumnLayout {
         anchors.fill: parent
@@ -71,6 +70,8 @@ MobileComponents.Page {
                                        model.isPlaying
                                    else
                                        false
+
+                        onClicked: playListModel.enqueue(contentDirectoryView.model.modelIndex(index))
                     }
                 }
 

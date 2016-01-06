@@ -23,6 +23,7 @@
         <file>player-volume-muted.svg</file>
         <file>player-volume.svg</file>
         <file alias="MediaServerPage.qml">MediaServerPageMobile.qml</file>
+        <file alias="MediaPlayPage.qml">MediaPlayPageMobile.qml</file>
     </qresource>
     <qresource prefix="/+android">
         <file alias="MediaServer.qml">MediaServerMobile.qml</file>
@@ -33,6 +34,7 @@
         <file alias="MediaServerListing.qml">MediaServerListingMobile.qml</file>
         <file alias="MediaServerPage.qml">MediaServerPageMobile.qml</file>
         <file>RatingStar.qml</file>
+        <file alias="MediaPlayPage.qml">MediaPlayPageMobile.qml</file>
     </qresource>
     <qresource prefix="/imports">
         <file alias="org/kde/plasma/mobilecomponents/qmldir">../mobilecomponents/qml/qmldir</file>

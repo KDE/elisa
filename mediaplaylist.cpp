@@ -95,7 +95,11 @@ bool MediaPlayList::setData(const QModelIndex &index, const QVariant &value, int
         return false;
     }
 
-    if (index.row() < 0 || index.row() > d->mData.size()) {
+    if (index.row() < 0 || index.row() >= d->mData.size()) {
+        return false;
+    }
+
+    if (index.row() < 0 || index.row() >= d->mIsPlaying.size()) {
         return false;
     }
 

@@ -1,70 +1,72 @@
 include_directories(${upnp-qt_BINARY_DIR})
 
-set(upnpControl_SOURCES
-    upnpControl.cpp
-    mediaplaylist.cpp
-    playlistcontroler.cpp
-    viewpagesmodel.cpp
-    remoteserverentry.cpp
-    MediaServer.qml
-    MediaServerListing.qml
-    MediaAlbumView.qml
-    RatingStar.qml
-    AudioTrackDelegate.qml
-    MediaPlayerControl.qml
-    MediaServerEntry.qml
-    MediaContentDirectory.qml
-    MediaPlayListView.qml
-    HeaderBar.qml
-    MediaServerMobile.qml
-    AudioTrackDelegateMobile.qml
-    MediaServerMobile.qml
-    MediaServerListingMobile.qml
-    MediaAlbumViewMobile.qml
-    MediaPlayerControlMobile.qml
-    MediaServerEntryMobile.qml
-    MediaContentDirectoryMobile.qml
-    MediaServerPageMobile.qml
-    MediaPlayPageMobile.qml
-    ../mobilecomponents/qml/ActionGroup.qml
-    ../mobilecomponents/qml/GlobalDrawer.qml
-    ../mobilecomponents/qml/Label.qml
-    ../mobilecomponents/qml/OverlayDrawer.qml
-    ../mobilecomponents/qml/SplitDrawer.qml
-    ../mobilecomponents/qml/ApplicationWindow.qml
-    ../mobilecomponents/qml/Heading.qml
-    ../mobilecomponents/qml/ListItem.qml
-    ../mobilecomponents/qml/Page.qml
-    ../mobilecomponents/qml/ContextDrawer.qml
-    ../mobilecomponents/qml/IconGrid.qml
-    ../mobilecomponents/qml/ListItemWithActions.qml
-    ../mobilecomponents/qml/PageRow.qml
-    ../mobilecomponents/qml/private/AbstractDrawer.qml
-    ../mobilecomponents/qml/private/ActionButtonArrow.qml
-    ../mobilecomponents/qml/private/ActionButton.qml
-    ../mobilecomponents/qml/private/PageStack.js
-)
+if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
+    set(upnpControl_SOURCES
+        upnpControl.cpp
+        mediaplaylist.cpp
+        playlistcontroler.cpp
+        viewpagesmodel.cpp
+        remoteserverentry.cpp
+        MediaServer.qml
+        MediaServerListing.qml
+        MediaAlbumView.qml
+        RatingStar.qml
+        AudioTrackDelegate.qml
+        MediaPlayerControl.qml
+        MediaServerEntry.qml
+        MediaContentDirectory.qml
+        MediaPlayListView.qml
+        HeaderBar.qml
+        MediaServerMobile.qml
+        AudioTrackDelegateMobile.qml
+        MediaServerMobile.qml
+        MediaServerListingMobile.qml
+        MediaAlbumViewMobile.qml
+        MediaPlayerControlMobile.qml
+        MediaServerEntryMobile.qml
+        MediaContentDirectoryMobile.qml
+        MediaServerPageMobile.qml
+        MediaPlayPageMobile.qml
+        ../mobilecomponents/qml/ActionGroup.qml
+        ../mobilecomponents/qml/GlobalDrawer.qml
+        ../mobilecomponents/qml/Label.qml
+        ../mobilecomponents/qml/OverlayDrawer.qml
+        ../mobilecomponents/qml/SplitDrawer.qml
+        ../mobilecomponents/qml/ApplicationWindow.qml
+        ../mobilecomponents/qml/Heading.qml
+        ../mobilecomponents/qml/ListItem.qml
+        ../mobilecomponents/qml/Page.qml
+        ../mobilecomponents/qml/ContextDrawer.qml
+        ../mobilecomponents/qml/IconGrid.qml
+        ../mobilecomponents/qml/ListItemWithActions.qml
+        ../mobilecomponents/qml/PageRow.qml
+        ../mobilecomponents/qml/private/AbstractDrawer.qml
+        ../mobilecomponents/qml/private/ActionButtonArrow.qml
+        ../mobilecomponents/qml/private/ActionButton.qml
+        ../mobilecomponents/qml/private/PageStack.js
+    )
 
-qt5_add_resources(upnpControl_SOURCES upnpControl.qrc)
+    qt5_add_resources(upnpControl_SOURCES upnpControl.qrc)
 
-add_executable(upnpControl ${upnpControl_SOURCES})
+    add_executable(upnpControl ${upnpControl_SOURCES})
 
-target_include_directories(upnpControl PRIVATE ${KDSoap_INCLUDE_DIRS})
+    target_include_directories(upnpControl PRIVATE ${KDSoap_INCLUDE_DIRS})
 
-target_link_libraries(upnpControl
-    LINK_PRIVATE
-        upnpQt
-        Qt5::Quick
-        Qt5::Widgets
-        Qt5::Multimedia
-        Qt5::Svg
-)
+    target_link_libraries(upnpControl
+        LINK_PRIVATE
+            upnpQt
+            Qt5::Quick
+            Qt5::Widgets
+            Qt5::Multimedia
+            Qt5::Svg
+    )
 
-if (${KF5Declarative_FOUND})
-target_link_libraries(upnpControl
-    LINK_PRIVATE
-        KF5::Declarative
-)
+    if (${KF5Declarative_FOUND})
+    target_link_libraries(upnpControl
+        LINK_PRIVATE
+            KF5::Declarative
+    )
+    endif()
 endif()
 
 set(playListTest_SOURCES

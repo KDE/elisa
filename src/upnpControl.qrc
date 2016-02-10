@@ -36,30 +36,5 @@
         <file>RatingStar.qml</file>
         <file alias="MediaPlayPage.qml">MediaPlayPageMobile.qml</file>
     </qresource>
-    <qresource prefix="/imports">
-        <file alias="org/kde/plasma/mobilecomponents/qmldir">../mobilecomponents/qml/qmldir</file>
-        <file alias="org/kde/plasma/mobilecomponents/ActionGroup.qml">../mobilecomponents/qml/ActionGroup.qml</file>
-        <file alias="org/kde/plasma/mobilecomponents/ApplicationWindow.qml">../mobilecomponents/qml/ApplicationWindow.qml</file>
-        <file alias="org/kde/plasma/mobilecomponents/GlobalDrawer.qml">../mobilecomponents/qml/GlobalDrawer.qml</file>
-        <file alias="org/kde/plasma/mobilecomponents/ContextDrawer.qml">../mobilecomponents/qml/ContextDrawer.qml</file>
-        <file alias="org/kde/plasma/mobilecomponents/Page.qml">../mobilecomponents/qml/Page.qml</file>
-        <file alias="org/kde/plasma/mobilecomponents/Heading.qml">../mobilecomponents/qml/Heading.qml</file>
-        <file alias="org/kde/plasma/mobilecomponents/PageRow.qml">../mobilecomponents/qml/PageRow.qml</file>
-        <file alias="org/kde/plasma/mobilecomponents/Label.qml">../mobilecomponents/qml/Label.qml</file>
-        <file alias="org/kde/plasma/mobilecomponents/ListItem.qml">../mobilecomponents/qml/ListItem.qml</file>
-        <file alias="org/kde/plasma/mobilecomponents/OverlayDrawer.qml">../mobilecomponents/qml/OverlayDrawer.qml</file>
-        <file alias="org/kde/plasma/mobilecomponents/Icon.qml">../mobilecomponents/fallbacktheme/Icon.qml</file>
-        <file alias="org/kde/plasma/mobilecomponents/Theme.qml">../mobilecomponents/fallbacktheme/Theme.qml</file>
-        <file alias="org/kde/plasma/mobilecomponents/Units.qml">../mobilecomponents/fallbacktheme/Units.qml</file>
-        <file alias="org/kde/plasma/mobilecomponents/private/ActionButton.qml">../mobilecomponents/qml/private/ActionButton.qml</file>
-        <file alias="org/kde/plasma/mobilecomponents/private/ActionButtonArrow.qml">../mobilecomponents/qml/private/ActionButtonArrow.qml</file>
-        <file alias="org/kde/plasma/mobilecomponents/private/AbstractDrawer.qml">../mobilecomponents/qml/private/AbstractDrawer.qml</file>
-        <file alias="org/kde/plasma/mobilecomponents/private/PageStack.js">../mobilecomponents/qml/private/PageStack.js</file>
-        <file alias="org/kde/plasma/mobilecomponents/icons/distribute-horizontal-x.svg">../mobilecomponents/icons/distribute-horizontal-x.svg</file>
-        <file alias="org/kde/plasma/mobilecomponents/icons/document-edit.svg">../mobilecomponents/icons/document-edit.svg</file>
-        <file alias="org/kde/plasma/mobilecomponents/icons/document-save.svg">../mobilecomponents/icons/document-save.svg</file>
-        <file alias="org/kde/plasma/mobilecomponents/icons/go-next.svg">../mobilecomponents/icons/go-next.svg</file>
-        <file alias="org/kde/plasma/mobilecomponents/icons/go-previous.svg">../mobilecomponents/icons/go-previous.svg</file>
-        <file alias="org/kde/plasma/mobilecomponents/icons/view-readermode.svg">../mobilecomponents/icons/view-readermode.svg</file>
-    </qresource>
+    <qresource prefix="/imports"/>
 </RCC>

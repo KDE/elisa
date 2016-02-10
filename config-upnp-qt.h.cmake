@@ -1,0 +1,1 @@
+#cmakedefine01 KF5Declarative_FOUND

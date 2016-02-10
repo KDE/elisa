@@ -1,79 +1,41 @@
-include_directories(${upnp-qt_BINARY_DIR})
+cmake_minimum_required(VERSION 3.3)
 
-if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
-    set(upnpControl_SOURCES
-        upnpControl.cpp
-        mediaplaylist.cpp
-        playlistcontroler.cpp
-        viewpagesmodel.cpp
-        remoteserverentry.cpp
-        MediaServer.qml
-        MediaServerListing.qml
-        MediaAlbumView.qml
-        RatingStar.qml
-        AudioTrackDelegate.qml
-        MediaPlayerControl.qml
-        MediaServerEntry.qml
-        MediaContentDirectory.qml
-        MediaPlayListView.qml
-        HeaderBar.qml
-        MediaServerMobile.qml
-        AudioTrackDelegateMobile.qml
-        MediaServerMobile.qml
-        MediaServerListingMobile.qml
-        MediaAlbumViewMobile.qml
-        MediaPlayerControlMobile.qml
-        MediaServerEntryMobile.qml
-        MediaContentDirectoryMobile.qml
-        MediaServerPageMobile.qml
-        MediaPlayPageMobile.qml
-        ../mobilecomponents/qml/ActionGroup.qml
-        ../mobilecomponents/qml/GlobalDrawer.qml
-        ../mobilecomponents/qml/Label.qml
-        ../mobilecomponents/qml/OverlayDrawer.qml
-        ../mobilecomponents/qml/SplitDrawer.qml
-        ../mobilecomponents/qml/ApplicationWindow.qml
-        ../mobilecomponents/qml/Heading.qml
-        ../mobilecomponents/qml/ListItem.qml
-        ../mobilecomponents/qml/Page.qml
-        ../mobilecomponents/qml/ContextDrawer.qml
-        ../mobilecomponents/qml/IconGrid.qml
-        ../mobilecomponents/qml/ListItemWithActions.qml
-        ../mobilecomponents/qml/PageRow.qml
-        ../mobilecomponents/qml/private/AbstractDrawer.qml
-        ../mobilecomponents/qml/private/ActionButtonArrow.qml
-        ../mobilecomponents/qml/private/ActionButton.qml
-        ../mobilecomponents/qml/private/PageStack.js
-    )
+project(elisa)
 
-    qt5_add_resources(upnpControl_SOURCES upnpControl.qrc)
+find_package(ECM 5.15.0 REQUIRED NO_MODULE)
+set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
 
-    add_executable(upnpControl ${upnpControl_SOURCES})
+include(KDEInstallDirs)
+include(KDEFrameworkCompilerSettings)
+include(KDECMakeSettings)
 
-    target_include_directories(upnpControl PRIVATE ${KDSoap_INCLUDE_DIRS})
+set(REQUIRED_QT_VERSION "5.4.0")
+find_package(Qt5 ${REQUIRED_QT_VERSION} CONFIG REQUIRED Core Network Xml Qml WebSockets)
+find_package(Qt5 ${REQUIRED_QT_VERSION} CONFIG OPTIONAL_COMPONENTS Quick Widgets Multimedia Svg Test)
 
-    target_link_libraries(upnpControl
-        LINK_PRIVATE
-            upnpQt
-            Qt5::Quick
-            Qt5::Widgets
-            Qt5::Multimedia
-            Qt5::Svg
-    )
+find_package(KDSoap CONFIG REQUIRED)
+find_package(KF5Declarative CONFIG)
+find_package(UPNPQT CONFIG REQUIRED)
 
-    if (${KF5Declarative_FOUND})
-    target_link_libraries(upnpControl
-        LINK_PRIVATE
-            KF5::Declarative
-    )
+include(FeatureSummary)
+include(GenerateExportHeader)
+include(ECMSetupVersion)
+include(ECMGenerateHeaders)
+include(CMakePackageConfigHelpers)
+
+if (CMAKE_SYSTEM_NAME STREQUAL Android)
+    set(QT_QMAKE_EXECUTABLE "$ENV{Qt5_android}/bin/qmake")
+    # workaround until this fix is in released ECM
+    if(ECM_VERSION VERSION_LESS "5.15.0")
+        add_definitions(-DANDROID)
     endif()
 endif()
 
-set(playListTest_SOURCES
-    mediaplaylist.cpp
-    playlistcontroler.cpp
-    playlisttests.cpp
-)
+configure_file(config-upnp-qt.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-upnp-qt.h )
 
-add_executable(playListTest ${playListTest_SOURCES})
-target_link_libraries(playListTest Qt5::Test Qt5::Core)
+add_subdirectory(src)
+#add_subdirectory(tests)
+#add_subdirectory(autotests)
+
+feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
+

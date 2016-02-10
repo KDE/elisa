@@ -24,6 +24,7 @@
         <file>player-volume.svg</file>
         <file alias="MediaServerPage.qml">MediaServerPageMobile.qml</file>
         <file alias="MediaPlayPage.qml">MediaPlayPageMobile.qml</file>
+        <file>background.jpg</file>
     </qresource>
     <qresource prefix="/+android">
         <file alias="MediaServer.qml">MediaServerMobile.qml</file>

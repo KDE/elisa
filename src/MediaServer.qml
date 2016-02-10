@@ -11,7 +11,7 @@ ApplicationWindow {
     visible: true
     minimumWidth: 800
     minimumHeight: 400
-    title: 'upnp'
+    title: 'Music'
     id: mainWindow
 
     property UpnpDeviceDescription aDevice
@@ -153,14 +153,14 @@ ApplicationWindow {
                 rowDelegate: Rectangle {
                     color: '#EFF0F1'
 
-                    height: Screen.pixelDensity * 12.
+                    height: Screen.pixelDensity * 8.
                     width: viewModeView.width
                 }
 
                 model: viewModeModel
 
                 itemDelegate: Rectangle {
-                    height: Screen.pixelDensity * 12.
+                    height: Screen.pixelDensity * 8.
                     width: viewModeView.width
                     color: if (styleData.selected)
                                '#3DAEE9'
@@ -168,9 +168,20 @@ ApplicationWindow {
                                '#EFF0F1'
                     Label {
                         id: nameLabel
-                        anchors.fill: parent
-                        width: viewModeView.width
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        anchors.leftMargin: Screen.pixelDensity * 2.
+                        anchors.rightMargin: Screen.pixelDensity * 2.
+                        verticalAlignment: "AlignVCenter"
+
                         text: model.name
+
+                        color: if (styleData.selected)
+                                   'white'
+                               else
+                                   'black'
+
                     }
                 }
 

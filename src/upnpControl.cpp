@@ -25,12 +25,12 @@
 #include "upnpcontrolabstractservice.h"
 #include "upnpdevicemodel.h"
 #include "upnpbasictypes.h"
-#include "upnpcontrolswitchpower.h"
 #include "upnpcontrolconnectionmanager.h"
 #include "upnpcontrolmediaserver.h"
 #include "upnpcontrolcontentdirectory.h"
 #include "upnpcontentdirectorymodel.h"
 #include "upnpdevicedescription.h"
+#include "upnpalbummodel.h"
 
 #include "mediaplaylist.h"
 #include "playlistcontroler.h"
@@ -58,7 +58,6 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
     qmlRegisterType<UpnpControlAbstractDevice>("org.mgallien.QmlExtension", 1, 0, "UpnpControlAbstractDevice");
     qmlRegisterType<UpnpControlAbstractService>("org.mgallien.QmlExtension", 1, 0, "UpnpControlAbstractService");
     qmlRegisterType<UpnpDeviceModel>("org.mgallien.QmlExtension", 1, 0, "UpnpDeviceModel");
-    qmlRegisterType<UpnpControlSwitchPower>("org.mgallien.QmlExtension", 1, 0, "UpnpControlSwitchPower");
     qmlRegisterType<UpnpControlConnectionManager>("org.mgallien.QmlExtension", 1, 0, "UpnpControlConnectionManager");
     qmlRegisterType<UpnpControlMediaServer>("org.mgallien.QmlExtension", 1, 0, "UpnpControlMediaServer");
     qmlRegisterType<UpnpControlContentDirectory>("org.mgallien.QmlExtension", 1, 0, "UpnpControlContentDirectory");
@@ -68,6 +67,7 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
     qmlRegisterType<MediaPlayList>("org.mgallien.QmlExtension", 1, 0, "MediaPlayList");
     qmlRegisterType<PlayListControler>("org.mgallien.QmlExtension", 1, 0, "PlayListControler");
     qmlRegisterType<ViewPagesModel>("org.mgallien.QmlExtension", 1, 0, "ViewPagesModel");
+    qmlRegisterType<UpnpAlbumModel>("org.mgallien.QmlExtension", 1, 0, "UpnpAlbumModel");
 
     qRegisterMetaType<A_ARG_TYPE_InstanceID>();
     qRegisterMetaType<QPointer<UpnpAbstractDevice> >();
@@ -75,6 +75,7 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
     qRegisterMetaType<UpnpContentDirectoryModel*>();
     qRegisterMetaType<UpnpDeviceDescription*>();
     qRegisterMetaType<RemoteServerEntry*>();
+    qRegisterMetaType<QAbstractItemModel*>();
 
     QQmlApplicationEngine engine;
     engine.addImportPath(QStringLiteral("qrc:/imports"));

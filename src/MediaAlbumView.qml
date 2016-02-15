@@ -11,7 +11,7 @@ Item {
     property UpnpControlContentDirectory contentDirectoryService
     property string rootId
     property StackView stackView
-    property UpnpContentDirectoryModel contentModel
+    property UpnpAlbumModel contentModel
     property MediaPlayList playListModel
 
     width: stackView.width

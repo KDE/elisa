@@ -18,7 +18,7 @@ Item {
 
     id: contentDirectoryRoot
 
-    UpnpContentDirectoryModel {
+    UpnpAlbumModel {
         id: contentDirectoryModel
         browseFlag: globalBrowseFlag
         filter: globalFilter

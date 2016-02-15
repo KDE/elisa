@@ -27,6 +27,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         MediaContentDirectoryMobile.qml
         MediaServerPageMobile.qml
         MediaPlayPageMobile.qml
+        upnpalbummodel.cpp
     )
 
     qt5_add_resources(upnpControl_SOURCES upnpControl.qrc)
@@ -41,6 +42,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
             Qt5::Widgets
             Qt5::Multimedia
             Qt5::Svg
+            Qt5::Xml
             UPNP::upnpQt
     )
 

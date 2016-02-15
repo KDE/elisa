@@ -9,7 +9,7 @@ Item {
     property UpnpControlContentDirectory contentDirectoryService
     property var rootIndex
     property StackView stackView
-    property UpnpContentDirectoryModel contentModel
+    property UpnpAlbumModel contentModel
     property MediaPlayList playListModel
 
     id: rootElement

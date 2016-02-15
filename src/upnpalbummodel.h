@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Matthieu Gallien <matthieu_gallien@yahoo.fr>
+ * Copyright 2015-2016 Matthieu Gallien <matthieu_gallien@yahoo.fr>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -22,12 +22,16 @@
 
 #include <QtCore/QAbstractItemModel>
 
+#include "musicalbum.h"
+#include "musicaudiotrack.h"
+
 class UpnpAlbumModelPrivate;
 class UpnpSsdpEngine;
 class UpnpControlAbstractDevice;
 class UpnpControlContentDirectory;
 struct UpnpDiscoveryResult;
 class QDomNode;
+class MusicStatistics;
 
 class UpnpAlbumModel : public QAbstractItemModel
 {
@@ -53,12 +57,18 @@ class UpnpAlbumModel : public QAbstractItemModel
                WRITE setSortCriteria
                NOTIFY sortCriteriaChanged)
 
+    Q_PROPERTY(MusicStatistics* musicDatabase
+               READ musicDatabase
+               WRITE setMusicDatabase
+               NOTIFY musicDatabaseChanged)
+
 public:
 
     enum ItemClass {
         Container = 0,
         Album = 1,
-        AudioTrack = 2,
+        Artist = 2,
+        AudioTrack = 3,
     };
 
     enum ColumnsRoles {
@@ -113,6 +123,8 @@ public:
 
     const QString& sortCriteria() const;
 
+    MusicStatistics* musicDatabase() const;
+
 Q_SIGNALS:
 
     void contentDirectoryChanged();
@@ -122,6 +134,12 @@ Q_SIGNALS:
     void filterChanged();
 
     void sortCriteriaChanged();
+
+    void musicDatabaseChanged();
+
+    void newAlbum(const MusicAlbum &album);
+
+    void newAudioTrack(const MusicAudioTrack &audioTrack);
 
 public Q_SLOTS:
 
@@ -133,7 +151,7 @@ public Q_SLOTS:
 
     void setSortCriteria(const QString &criteria);
 
-    void scanAll();
+    void setMusicDatabase(MusicStatistics* musicDatabase);
 
 private Q_SLOTS:
 
@@ -151,7 +169,6 @@ private:
                               QHash<quintptr, QHash<ColumnsRoles, QVariant> > &newData);
 
     UpnpAlbumModelPrivate *d;
-
 };
 
 

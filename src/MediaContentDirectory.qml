@@ -24,8 +24,13 @@ Item {
         filter: globalFilter
         sortCriteria: globalSortCriteria
         contentDirectory: remoteMediaServer.contentDirectory
+        musicDatabase: musicStats
 
         onContentDirectoryChanged: listingView.initialItem.rootIndex = contentDirectoryModel.indexFromId('0')
+    }
+
+    MusicStatistics {
+        id: musicStats
     }
 
     ColumnLayout {

@@ -28,6 +28,9 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         MediaServerPageMobile.qml
         MediaPlayPageMobile.qml
         upnpalbummodel.cpp
+        musicstatistics.cpp
+        musicalbum.cpp
+        musicaudiotrack.cpp
     )
 
     qt5_add_resources(upnpControl_SOURCES upnpControl.qrc)

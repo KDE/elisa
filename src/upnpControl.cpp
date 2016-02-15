@@ -36,6 +36,7 @@
 #include "playlistcontroler.h"
 #include "viewpagesmodel.h"
 #include "remoteserverentry.h"
+#include "musicstatistics.h"
 
 #if KF5Declarative_FOUND
 #include <KDeclarative/KDeclarative>
@@ -68,6 +69,7 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
     qmlRegisterType<PlayListControler>("org.mgallien.QmlExtension", 1, 0, "PlayListControler");
     qmlRegisterType<ViewPagesModel>("org.mgallien.QmlExtension", 1, 0, "ViewPagesModel");
     qmlRegisterType<UpnpAlbumModel>("org.mgallien.QmlExtension", 1, 0, "UpnpAlbumModel");
+    qmlRegisterType<MusicStatistics>("org.mgallien.QmlExtension", 1, 0, "MusicStatistics");
 
     qRegisterMetaType<A_ARG_TYPE_InstanceID>();
     qRegisterMetaType<QPointer<UpnpAbstractDevice> >();

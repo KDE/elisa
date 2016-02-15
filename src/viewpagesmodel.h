@@ -40,6 +40,11 @@ class ViewPagesModel : public QAbstractListModel
                WRITE setWithPlaylist
                NOTIFY withPlaylistChanged)
 
+    Q_PROPERTY(QString deviceId
+               READ deviceId
+               WRITE setDeviceId
+               NOTIFY deviceIdChanged)
+
 public:
 
     enum ColumnsRoles {
@@ -66,11 +71,15 @@ public:
 
     bool withPlaylist() const;
 
+    QString deviceId() const;
+
 public Q_SLOTS:
 
     void newDevice(QSharedPointer<UpnpDiscoveryResult> serviceDiscovery);
 
     void removedDevice(QSharedPointer<UpnpDiscoveryResult> serviceDiscovery);
+
+    void setDeviceId(QString deviceId);
 
 private Q_SLOTS:
 
@@ -81,6 +90,8 @@ private Q_SLOTS:
 Q_SIGNALS:
 
     void withPlaylistChanged();
+
+    void deviceIdChanged(QString deviceId);
 
 private:
 

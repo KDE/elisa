@@ -32,6 +32,9 @@ ApplicationWindow {
 
     ViewPagesModel {
         id: viewModeModel
+
+        deviceId: 'urn:schemas-upnp-org:device:MediaServer:1'
+
         property var mediaServiceComponent
         property var mediaViewComponent
 

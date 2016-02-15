@@ -55,6 +55,9 @@ public:
     QNetworkAccessManager mNetworkAccess;
 
     bool mWithPlaylist;
+
+    QString mDeviceId;
+
 };
 
 ViewPagesModel::ViewPagesModel(QObject *parent)
@@ -157,9 +160,15 @@ bool ViewPagesModel::withPlaylist() const
     return d->mWithPlaylist;
 }
 
+QString ViewPagesModel::deviceId() const
+{
+    return d->mDeviceId;
+}
+
 void ViewPagesModel::newDevice(QSharedPointer<UpnpDiscoveryResult> serviceDiscovery)
 {
-    if (serviceDiscovery->nt() == QStringLiteral("urn:schemas-upnp-org:device:MediaServer:1")) {
+    //qDebug() << "ViewPagesModel::newDevice" << serviceDiscovery->nt() << d->mDeviceId;
+    if (serviceDiscovery->nt() == d->mDeviceId) {
         const QString &deviceUuid = serviceDiscovery->usn().mid(5, 36);
         if (!d->mAllDeviceDiscoveryResults.contains(deviceUuid)) {
             beginInsertRows(QModelIndex(), d->mAllDevices.size(), d->mAllDevices.size());
@@ -193,10 +202,19 @@ void ViewPagesModel::newDevice(QSharedPointer<UpnpDiscoveryResult> serviceDiscov
 
 void ViewPagesModel::removedDevice(QSharedPointer<UpnpDiscoveryResult> serviceDiscovery)
 {
-    if (serviceDiscovery->nt() == QStringLiteral("urn:schemas-upnp-org:device:MediaServer:1")) {
+    if (serviceDiscovery->nt() == d->mDeviceId) {
         qDebug() << "nt" << serviceDiscovery->nt();
         qDebug() << "usn" << serviceDiscovery->usn();
     }
+}
+
+void ViewPagesModel::setDeviceId(QString deviceId)
+{
+    if (d->mDeviceId == deviceId)
+        return;
+
+    d->mDeviceId = deviceId;
+    emit deviceIdChanged(deviceId);
 }
 
 void ViewPagesModel::deviceDescriptionChanged(const QString &uuid)

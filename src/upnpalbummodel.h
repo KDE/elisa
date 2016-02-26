@@ -32,6 +32,7 @@ class UpnpControlContentDirectory;
 struct UpnpDiscoveryResult;
 class QDomNode;
 class MusicStatistics;
+class DidlParser;
 
 class UpnpAlbumModel : public QAbstractItemModel
 {
@@ -42,25 +43,14 @@ class UpnpAlbumModel : public QAbstractItemModel
                WRITE setContentDirectory
                NOTIFY contentDirectoryChanged)
 
-    Q_PROPERTY(QString browseFlag
-               READ browseFlag
-               WRITE setBrowseFlag
-               NOTIFY browseFlagChanged)
-
-    Q_PROPERTY(QString filter
-               READ filter
-               WRITE setFilter
-               NOTIFY filterChanged)
-
-    Q_PROPERTY(QString sortCriteria
-               READ sortCriteria
-               WRITE setSortCriteria
-               NOTIFY sortCriteriaChanged)
-
     Q_PROPERTY(MusicStatistics* musicDatabase
                READ musicDatabase
                WRITE setMusicDatabase
                NOTIFY musicDatabaseChanged)
+
+    Q_PROPERTY(DidlParser* didlParser
+               READ didlParser
+               NOTIFY didlParserChanged)
 
 public:
 
@@ -117,25 +107,17 @@ public:
 
     UpnpControlContentDirectory* contentDirectory() const;
 
-    const QString& browseFlag() const;
-
-    const QString& filter() const;
-
-    const QString& sortCriteria() const;
-
     MusicStatistics* musicDatabase() const;
+
+    DidlParser* didlParser() const;
 
 Q_SIGNALS:
 
     void contentDirectoryChanged();
 
-    void browseFlagChanged();
-
-    void filterChanged();
-
-    void sortCriteriaChanged();
-
     void musicDatabaseChanged();
+
+    void didlParserChanged();
 
     void newAlbum(const MusicAlbum &album);
 
@@ -145,28 +127,13 @@ public Q_SLOTS:
 
     void setContentDirectory(UpnpControlContentDirectory *directory);
 
-    void setBrowseFlag(const QString &flag);
-
-    void setFilter(const QString &flag);
-
-    void setSortCriteria(const QString &criteria);
-
     void setMusicDatabase(MusicStatistics* musicDatabase);
 
 private Q_SLOTS:
 
-    void browseFinished(const QString &result, int numberReturned, int totalMatches, int systemUpdateID, bool success);
-
 private:
 
     QModelIndex indexFromInternalId(quintptr internalId) const;
-
-    void decodeContainerNode(const QDomNode &containerNode, QList<quintptr> &newDataIds,
-                             QHash<QString, quintptr> newIdMappings,
-                             QHash<quintptr, QHash<UpnpAlbumModel::ColumnsRoles, QVariant>> &newData);
-
-    void decodeAudioTrackNode(const QDomNode &itemNode, QList<quintptr> &newDataIds, QHash<QString, quintptr> newIdMappings,
-                              QHash<quintptr, QHash<ColumnsRoles, QVariant> > &newData);
 
     UpnpAlbumModelPrivate *d;
 };

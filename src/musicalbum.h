@@ -30,6 +30,10 @@ public:
 
     MusicAlbum();
 
+    QString mId;
+
+    QString mParentId;
+
     int mTracksCount = 0;
 
     QString mTitle;
@@ -37,6 +41,9 @@ public:
     QString mArtist;
 
     QUrl mAlbumArtURI;
+
+    QUrl mResourceURI;
+
 };
 
 #endif // MUSICALBUM_H

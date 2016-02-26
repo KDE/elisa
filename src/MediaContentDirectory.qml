@@ -20,9 +20,11 @@ Item {
 
     UpnpAlbumModel {
         id: contentDirectoryModel
-        browseFlag: globalBrowseFlag
-        filter: globalFilter
-        sortCriteria: globalSortCriteria
+
+        didlParser.browseFlag: globalBrowseFlag
+        didlParser.filter: globalFilter
+        didlParser.sortCriteria: globalSortCriteria
+        didlParser.contentDirectory: remoteMediaServer.contentDirectory
         contentDirectory: remoteMediaServer.contentDirectory
         musicDatabase: musicStats
 

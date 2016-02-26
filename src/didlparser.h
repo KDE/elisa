@@ -1,0 +1,143 @@
+/*
+ * Copyright 2015-2016 Matthieu Gallien <matthieu_gallien@yahoo.fr>
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public License
+ * along with this library; see the file COPYING.LIB.  If not, write to
+ * the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301, USA.
+ */
+
+#ifndef DIDLPARSER_H
+#define DIDLPARSER_H
+
+#include "musicalbum.h"
+#include "musicaudiotrack.h"
+
+#include <QtCore/QObject>
+#include <QtCore/QList>
+#include <QtCore/QHash>
+#include <QtCore/QVariant>
+#include <QtCore/QString>
+
+#include <memory>
+
+class QDomNode;
+class UpnpControlContentDirectory;
+class DidlParserPrivate;
+
+class DidlParser : public QObject
+{
+
+    Q_OBJECT
+
+    Q_PROPERTY(QString browseFlag
+               READ browseFlag
+               WRITE setBrowseFlag
+               NOTIFY browseFlagChanged)
+
+    Q_PROPERTY(QString filter
+               READ filter
+               WRITE setFilter
+               NOTIFY filterChanged)
+
+    Q_PROPERTY(QString sortCriteria
+               READ sortCriteria
+               WRITE setSortCriteria
+               NOTIFY sortCriteriaChanged)
+
+    Q_PROPERTY(QString searchCriteria
+               READ searchCriteria
+               WRITE setSearchCriteria
+               NOTIFY searchCriteriaChanged)
+
+    Q_PROPERTY(QString parentId
+               READ parentId
+               WRITE setParentId
+               NOTIFY parentIdChanged)
+
+    Q_PROPERTY(UpnpControlContentDirectory* contentDirectory
+               READ contentDirectory
+               WRITE setContentDirectory
+               NOTIFY contentDirectoryChanged)
+
+public:
+
+    explicit DidlParser(QObject *parent = 0);
+
+    virtual ~DidlParser();
+
+    const QString& browseFlag() const;
+
+    const QString& filter() const;
+
+    const QString& sortCriteria() const;
+
+    const QString& searchCriteria() const;
+
+    UpnpControlContentDirectory* contentDirectory() const;
+
+    void browse();
+
+    void search();
+
+    QString parentId() const;
+
+Q_SIGNALS:
+
+    void browseFlagChanged();
+
+    void filterChanged();
+
+    void sortCriteriaChanged();
+
+    void searchCriteriaChanged();
+
+    void contentDirectoryChanged();
+
+    void parentIdChanged();
+
+public Q_SLOTS:
+
+    void setBrowseFlag(const QString &flag);
+
+    void setFilter(const QString &flag);
+
+    void setSortCriteria(const QString &criteria);
+
+    void setSearchCriteria(const QString &criteria);
+
+    void setContentDirectory(UpnpControlContentDirectory *directory);
+
+    void setParentId(QString parentId);
+
+    void systemUpdateIDChanged();
+
+private Q_SLOTS:
+
+    void browseFinished(const QString &result, int numberReturned, int totalMatches,
+                        int systemUpdateID, bool success);
+
+    void searchFinished(const QString &result, int numberReturned, int totalMatches,
+                        int systemUpdateID, bool success);
+
+private:
+
+    void decodeContainerNode(const QDomNode &containerNode, QHash<QString, MusicAlbum> &newData);
+
+    void decodeAudioTrackNode(const QDomNode &itemNode, QHash<QString, MusicAudioTrack> &newData);
+
+    std::unique_ptr<DidlParserPrivate> d;
+
+};
+
+#endif // DIDLPARSER_H

@@ -22,6 +22,7 @@
 
 #include <QtCore/QString>
 #include <QtCore/QTime>
+#include <QtCore/QUrl>
 
 class MusicAudioTrack
 {
@@ -30,6 +31,10 @@ public:
 
     MusicAudioTrack();
 
+    QString mId;
+
+    QString mParentId;
+
     QString mTitle;
 
     QString mArtist;
@@ -37,6 +42,8 @@ public:
     QString mAlbumName;
 
     QTime mDuration;
+
+    QUrl mResourceURI;
 
 };
 

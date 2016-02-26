@@ -19,6 +19,7 @@
 
 #include "upnpalbummodel.h"
 #include "musicstatistics.h"
+#include "didlparser.h"
 
 #include <upnpcontrolcontentdirectory.h>
 
@@ -32,12 +33,6 @@ class UpnpAlbumModelPrivate
 public:
 
     UpnpControlContentDirectory *mContentDirectory = nullptr;
-
-    QString mBrowseFlag;
-
-    QString mFilter;
-
-    QString mSortCriteria;
 
     quintptr mLastInternalId = 1;
 
@@ -53,6 +48,8 @@ public:
 
     MusicStatistics *mMusicDatabase = nullptr;
 
+    DidlParser mDidlParser;
+
 };
 
 UpnpAlbumModel::UpnpAlbumModel(QObject *parent) : QAbstractItemModel(parent), d(new UpnpAlbumModelPrivate)
@@ -63,6 +60,8 @@ UpnpAlbumModel::UpnpAlbumModel(QObject *parent) : QAbstractItemModel(parent), d(
 
     d->mData[d->mLastInternalId] = QHash<UpnpAlbumModel::ColumnsRoles, QVariant>();
     d->mData[d->mLastInternalId][ColumnsRoles::IdRole] = QStringLiteral("0");
+
+    d->mDidlParser.setSearchCriteria(QStringLiteral("upnp:class = \"object.container.album.musicAlbum\""));
 }
 
 UpnpAlbumModel::~UpnpAlbumModel()
@@ -139,11 +138,12 @@ void UpnpAlbumModel::fetchMore(const QModelIndex &parent)
 
     qDebug() << "UpnpAlbumModel::fetchMore" << "OK";
 
+    d->mDidlParser.setParentId(d->mData[parentInternalId][ColumnsRoles::IdRole].toString());
+
     if (d->mData[parentInternalId][ColumnsRoles::IdRole].toString() == QStringLiteral("0")) {
-        d->mContentDirectory->search(d->mData[parentInternalId][ColumnsRoles::IdRole].toString(),
-                QStringLiteral("upnp:class derivedfrom \"object.container.album.musicAlbum\""), d->mFilter, 0, 0, d->mSortCriteria);
+        d->mDidlParser.search();
     } else {
-        d->mContentDirectory->browse(d->mData[parentInternalId][ColumnsRoles::IdRole].toString(), d->mBrowseFlag, d->mFilter, 0, 0, d->mSortCriteria);
+        d->mDidlParser.browse();
     }
 }
 
@@ -353,42 +353,14 @@ UpnpControlContentDirectory *UpnpAlbumModel::contentDirectory() const
     return d->mContentDirectory;
 }
 
-const QString &UpnpAlbumModel::browseFlag() const
-{
-    return d->mBrowseFlag;
-}
-
-void UpnpAlbumModel::setBrowseFlag(const QString &flag)
-{
-    d->mBrowseFlag = flag;
-    Q_EMIT browseFlagChanged();
-}
-
-const QString &UpnpAlbumModel::filter() const
-{
-    return d->mFilter;
-}
-
-void UpnpAlbumModel::setFilter(const QString &flag)
-{
-    d->mFilter = flag;
-    Q_EMIT filterChanged();
-}
-
-const QString &UpnpAlbumModel::sortCriteria() const
-{
-    return d->mSortCriteria;
-}
-
 MusicStatistics *UpnpAlbumModel::musicDatabase() const
 {
     return d->mMusicDatabase;
 }
 
-void UpnpAlbumModel::setSortCriteria(const QString &criteria)
+DidlParser *UpnpAlbumModel::didlParser() const
 {
-    d->mSortCriteria = criteria;
-    Q_EMIT sortCriteriaChanged();
+    return &d->mDidlParser;
 }
 
 void UpnpAlbumModel::setContentDirectory(UpnpControlContentDirectory *directory)
@@ -396,10 +368,9 @@ void UpnpAlbumModel::setContentDirectory(UpnpControlContentDirectory *directory)
     if (directory) {
         beginResetModel();
     }
-
     if (d->mContentDirectory) {
-        disconnect(d->mContentDirectory, &UpnpControlContentDirectory::browseFinished, this, &UpnpAlbumModel::browseFinished);
-        disconnect(d->mContentDirectory, &UpnpControlContentDirectory::searchFinished, this, &UpnpAlbumModel::browseFinished);
+        disconnect(d->mContentDirectory, &UpnpControlContentDirectory::systemUpdateIDChanged,
+                   &d->mDidlParser, &DidlParser::systemUpdateIDChanged);
     }
 
     d->mContentDirectory = directory;
@@ -409,8 +380,9 @@ void UpnpAlbumModel::setContentDirectory(UpnpControlContentDirectory *directory)
         return;
     }
 
-    connect(d->mContentDirectory, &UpnpControlContentDirectory::browseFinished, this, &UpnpAlbumModel::browseFinished);
-    connect(d->mContentDirectory, &UpnpControlContentDirectory::searchFinished, this, &UpnpAlbumModel::browseFinished);
+    connect(d->mContentDirectory, &UpnpControlContentDirectory::systemUpdateIDChanged,
+            &d->mDidlParser, &DidlParser::systemUpdateIDChanged);
+
     endResetModel();
 
     Q_EMIT contentDirectoryChanged();
@@ -434,86 +406,6 @@ void UpnpAlbumModel::setMusicDatabase(MusicStatistics *musicDatabase)
     }
 
     emit musicDatabaseChanged();
-}
-
-void UpnpAlbumModel::browseFinished(const QString &result, int numberReturned, int totalMatches, int systemUpdateID, bool success)
-{
-    Q_UNUSED(numberReturned)
-    Q_UNUSED(totalMatches)
-    Q_UNUSED(systemUpdateID)
-
-    qDebug() << "UpnpAlbumModel::browseFinished" << numberReturned;
-
-    if (!success) {
-        qDebug() << "UpnpAlbumModel::browseFinished" << "in error";
-        return;
-    }
-
-    if (d->mCurrentUpdateId == -1 || d->mCurrentUpdateId != systemUpdateID) {
-        d->mCurrentUpdateId = systemUpdateID;
-    }
-
-    QDomDocument browseDescription;
-    browseDescription.setContent(result);
-
-    browseDescription.documentElement();
-
-    QList<quintptr> newDataIds;
-    QHash<QString, quintptr> newIdMappings;
-    decltype(d->mData) newData;
-
-    auto containerList = browseDescription.elementsByTagName(QStringLiteral("container"));
-    qDebug() << "UpnpAlbumModel::browseFinished" << containerList.length();
-    for (int containerIndex = 0; containerIndex < containerList.length(); ++containerIndex) {
-        const QDomNode &containerNode(containerList.at(containerIndex));
-        if (!containerNode.isNull()) {
-            decodeContainerNode(containerNode, newDataIds, newIdMappings, newData);
-        }
-    }
-
-    auto itemList = browseDescription.elementsByTagName(QStringLiteral("item"));
-    for (int itemIndex = 0; itemIndex < itemList.length(); ++itemIndex) {
-        const QDomNode &itemNode(itemList.at(itemIndex));
-        if (!itemNode.isNull()) {
-            decodeAudioTrackNode(itemNode, newDataIds, newIdMappings, newData);
-        }
-    }
-
-    qDebug() << "UpnpAlbumModel::browseFinished" << "decoding finished";
-    if (!newDataIds.isEmpty()) {
-        QString parentId = newData[newDataIds.first()][ColumnsRoles::ParentIdRole].toString();
-
-        if (!d->mUpnpIds.contains(parentId)) {
-            return;
-        }
-
-        auto parentInternalId = d->mUpnpIds[parentId];
-
-        if (!d->mData.contains(parentInternalId)) {
-            return;
-        }
-
-        auto &childData = d->mChilds[parentInternalId];
-
-        if (!childData.isEmpty() && d->mCurrentUpdateId == systemUpdateID) {
-            return;
-        }
-
-        if (!childData.isEmpty()) {
-            beginRemoveRows(indexFromInternalId(parentInternalId), 0, childData.size() - 1);
-            d->mChilds[parentInternalId].clear();
-            endRemoveRows();
-        }
-
-        qDebug() << "UpnpAlbumModel::browseFinished" << newDataIds.size();
-        beginInsertRows(indexFromInternalId(parentInternalId), 0, newDataIds.size() - 1);
-        for (auto childInternalId : newDataIds) {
-            d->mChilds[parentInternalId].push_back(childInternalId);
-            d->mUpnpIds[newData[childInternalId][ColumnsRoles::IdRole].toString()] = childInternalId;
-            d->mData[childInternalId] = newData[childInternalId];
-        }
-        endInsertRows();
-    }
 }
 
 QModelIndex UpnpAlbumModel::indexFromInternalId(quintptr internalId) const
@@ -559,147 +451,6 @@ QModelIndex UpnpAlbumModel::indexFromInternalId(quintptr internalId) const
 
     // I have no parent
     return {};
-}
-
-void UpnpAlbumModel::decodeContainerNode(const QDomNode &containerNode, QList<quintptr> &newDataIds,
-                                         QHash<QString, quintptr> newIdMappings,
-                                         QHash<quintptr, QHash<ColumnsRoles, QVariant> > &newData)
-{
-    auto parentID = containerNode.toElement().attribute(QStringLiteral("parentID"));
-    const auto &id = containerNode.toElement().attribute(QStringLiteral("id"));
-
-    if (!d->mUpnpIds.contains(parentID)) {
-        //qDebug() << "UpnpAlbumModel::browseFinished" << "unknown parent id" << parentID << d->mUpnpIds.keys();
-
-        parentID = QStringLiteral("0");
-    }
-
-    ++(d->mLastInternalId);
-    newDataIds.push_back(d->mLastInternalId);
-    newIdMappings[id] = d->mLastInternalId;
-    auto &chilData = newData[d->mLastInternalId];
-
-    MusicAlbum album;
-
-    chilData[ParentIdRole] = parentID;
-    chilData[IdRole] = id;
-
-    const QString &childCount = containerNode.toElement().attribute(QStringLiteral("childCount"));
-    chilData[ColumnsRoles::CountRole] = childCount;
-    album.mTracksCount = childCount.toInt();
-
-    const QDomNode &titleNode = containerNode.firstChildElement(QStringLiteral("dc:title"));
-    if (!titleNode.isNull()) {
-        chilData[ColumnsRoles::TitleRole] = titleNode.toElement().text();
-        album.mTitle = titleNode.toElement().text();
-    }
-
-    const QDomNode &authorNode = containerNode.firstChildElement(QStringLiteral("upnp:artist"));
-    if (!authorNode.isNull()) {
-        chilData[ColumnsRoles::ArtistRole] = authorNode.toElement().text();
-        album.mArtist = authorNode.toElement().text();
-    }
-
-    const QDomNode &resourceNode = containerNode.firstChildElement(QStringLiteral("res"));
-    if (!resourceNode.isNull()) {
-        chilData[ColumnsRoles::ResourceRole] = resourceNode.toElement().text();
-    }
-
-    const QDomNode &classNode = containerNode.firstChildElement(QStringLiteral("upnp:class"));
-    if (classNode.toElement().text().startsWith(QStringLiteral("object.container.album.musicAlbum"))) {
-        chilData[ColumnsRoles::ItemClassRole] = UpnpAlbumModel::Album;
-    } else if (classNode.toElement().text().startsWith(QStringLiteral("object.container.person.musicArtist"))) {
-        chilData[ColumnsRoles::ItemClassRole] = UpnpAlbumModel::Artist;
-    } else if (classNode.toElement().text().startsWith(QStringLiteral("object.container"))) {
-        chilData[ColumnsRoles::ItemClassRole] = UpnpAlbumModel::Container;
-    }
-
-    const QDomNode &albumArtNode = containerNode.firstChildElement(QStringLiteral("upnp:albumArtURI"));
-    if (!albumArtNode.isNull()) {
-        chilData[ColumnsRoles::ImageRole] = albumArtNode.toElement().text();
-        album.mAlbumArtURI = QUrl::fromUserInput(albumArtNode.toElement().text());
-    }
-
-    Q_EMIT newAlbum(album);
-}
-
-void UpnpAlbumModel::decodeAudioTrackNode(const QDomNode &itemNode, QList<quintptr> &newDataIds, QHash<QString, quintptr> newIdMappings,
-                                          QHash<quintptr, QHash<ColumnsRoles, QVariant> > &newData)
-{
-    const QString &parentID = itemNode.toElement().attribute(QStringLiteral("parentID"));
-    const QString &id = itemNode.toElement().attribute(QStringLiteral("id"));
-
-    if (!d->mUpnpIds.contains(parentID)) {
-        qDebug() << "UpnpAlbumModel::browseFinished" << "unknown parent id";
-        return;
-    }
-
-    ++(d->mLastInternalId);
-    newDataIds.push_back(d->mLastInternalId);
-    newIdMappings[id] = d->mLastInternalId;
-    auto &chilData = newData[d->mLastInternalId];
-
-    MusicAudioTrack audioTrack;
-
-    chilData[ParentIdRole] = parentID;
-    chilData[IdRole] = id;
-
-    const QDomNode &titleNode = itemNode.firstChildElement(QStringLiteral("dc:title"));
-    if (!titleNode.isNull()) {
-        chilData[ColumnsRoles::TitleRole] = titleNode.toElement().text();
-        audioTrack.mTitle = titleNode.toElement().text();
-    }
-
-    const QDomNode &authorNode = itemNode.firstChildElement(QStringLiteral("upnp:artist"));
-    if (!authorNode.isNull()) {
-        chilData[ColumnsRoles::ArtistRole] = authorNode.toElement().text();
-        audioTrack.mArtist = authorNode.toElement().text();
-    }
-
-    const QDomNode &albumNode = itemNode.firstChildElement(QStringLiteral("upnp:album"));
-    if (!albumNode.isNull()) {
-        chilData[ColumnsRoles::AlbumRole] = albumNode.toElement().text();
-        audioTrack.mAlbumName = albumNode.toElement().text();
-    }
-
-    const QDomNode &resourceNode = itemNode.firstChildElement(QStringLiteral("res"));
-    if (!resourceNode.isNull()) {
-        chilData[ColumnsRoles::ResourceRole] = resourceNode.toElement().text();
-        if (resourceNode.attributes().contains(QStringLiteral("duration"))) {
-            const QDomNode &durationNode = resourceNode.attributes().namedItem(QStringLiteral("duration"));
-            QString durationValue = durationNode.nodeValue();
-            if (durationValue.startsWith(QStringLiteral("0:"))) {
-                durationValue = durationValue.mid(2);
-            }
-            if (durationValue.contains(uint('.'))) {
-                durationValue = durationValue.split(QStringLiteral(".")).first();
-            }
-
-            chilData[ColumnsRoles::DurationRole] = durationValue;
-            audioTrack.mDuration = QTime::fromString(durationValue, QStringLiteral("mm:ss"));
-            if (!audioTrack.mDuration.isValid()) {
-                audioTrack.mDuration = QTime::fromString(durationValue, QStringLiteral("hh:mm:ss"));
-                if (!audioTrack.mDuration.isValid()) {
-                    audioTrack.mDuration = QTime::fromString(durationValue, QStringLiteral("hh:mm:ss.z"));
-                }
-            }
-        }
-        if (resourceNode.attributes().contains(QStringLiteral("artist"))) {
-            const QDomNode &artistNode = resourceNode.attributes().namedItem(QStringLiteral("artist"));
-            chilData[ColumnsRoles::ArtistRole] = artistNode.nodeValue();
-        }
-    }
-
-    const QDomNode &classNode = itemNode.firstChildElement(QStringLiteral("upnp:class"));
-    if (!classNode.isNull()) {
-        if (classNode.toElement().text().startsWith(QStringLiteral("object.item.audioItem.musicTrack"))) {
-            chilData[ColumnsRoles::ItemClassRole] = UpnpAlbumModel::AudioTrack;
-        } else if (classNode.toElement().text().startsWith(QStringLiteral("object.item.audioItem"))) {
-            chilData[ColumnsRoles::ItemClassRole] = UpnpAlbumModel::AudioTrack;
-        }
-    }
-
-    Q_EMIT newAudioTrack(audioTrack);
 }
 
 

@@ -31,6 +31,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         musicstatistics.cpp
         musicalbum.cpp
         musicaudiotrack.cpp
+        didlparser.cpp
     )
 
     qt5_add_resources(upnpControl_SOURCES upnpControl.qrc)

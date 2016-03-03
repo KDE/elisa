@@ -244,6 +244,15 @@ ApplicationWindow {
                     }
                 }
             }
+            Rectangle {
+                Layout.preferredWidth: Screen.pixelDensity * 50.
+                Layout.minimumWidth: Screen.pixelDensity * 50.
+                Layout.maximumWidth: Screen.pixelDensity * 50.
+
+                Layout.fillHeight: true
+
+                color: '#EFF0F1'
+            }
         }
     }
 }

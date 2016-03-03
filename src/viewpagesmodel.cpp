@@ -108,7 +108,7 @@ QVariant ViewPagesModel::data(const QModelIndex &index, int role) const
         switch(convertedRole)
         {
         case ColumnsRoles::NameRole:
-            return d->mAllHostsDescription[d->mAllHostsUUID[index.row()]]->friendlyName();
+            return QString(d->mAllHostsDescription[d->mAllHostsUUID[index.row()]]->friendlyName() + QStringLiteral(" - Albums"));
         case ColumnsRoles::UDNRole:
             return d->mAllHostsUUID[index.row()];
         }

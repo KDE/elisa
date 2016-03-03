@@ -99,12 +99,6 @@ public:
 
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
 
-    Q_INVOKABLE QString objectIdByIndex(const QModelIndex &index) const;
-
-    Q_INVOKABLE QVariant getUrl(const QModelIndex &index) const;
-
-    Q_INVOKABLE QModelIndex indexFromId(const QString &id) const;
-
     UpnpControlContentDirectory* contentDirectory() const;
 
     MusicStatistics* musicDatabase() const;
@@ -131,9 +125,13 @@ public Q_SLOTS:
 
 private Q_SLOTS:
 
+    void contentChanged(const QString &parentId);
+
 private:
 
-    QModelIndex indexFromInternalId(quintptr internalId) const;
+    QVariant internalDataAlbum(const QModelIndex &index, int role, DidlParser *currentParser) const;
+
+    QVariant internalDataTrack(const QModelIndex &index, int role, DidlParser *currentParser) const;
 
     UpnpAlbumModelPrivate *d;
 };

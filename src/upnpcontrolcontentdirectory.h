@@ -96,16 +96,6 @@ Q_SIGNALS:
 
 private Q_SLOTS:
 
-    //void finishedGetSearchCapabilitiesCall(KDSoapPendingCallWatcher *self);
-
-    //void finishedGetSortCapabilitiesCall(KDSoapPendingCallWatcher *self);
-
-    //void finishedGetSystemUpdateIDCall(KDSoapPendingCallWatcher *self);
-
-    //void finishedSearchCall(KDSoapPendingCallWatcher *self);
-
-    //void finishedBrowseCall(KDSoapPendingCallWatcher *self);
-
 protected:
 
     void parseServiceDescription(QIODevice *serviceDescriptionContent) override;

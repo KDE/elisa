@@ -31,6 +31,7 @@
 
 #include <memory>
 
+class UpnpControlAbstractServiceReply;
 class QDomNode;
 class UpnpControlContentDirectory;
 class DidlParserPrivate;
@@ -70,6 +71,10 @@ class DidlParser : public QObject
                WRITE setContentDirectory
                NOTIFY contentDirectoryChanged)
 
+    Q_PROPERTY(bool isDataValid
+               READ isDataValid
+               NOTIFY isDataValidChanged)
+
 public:
 
     explicit DidlParser(QObject *parent = 0);
@@ -86,11 +91,21 @@ public:
 
     UpnpControlContentDirectory* contentDirectory() const;
 
+    bool isDataValid() const;
+
     void browse();
 
     void search();
 
     QString parentId() const;
+
+    const QList<QString> &newAlbumIds() const;
+
+    const QHash<QString, MusicAlbum> &newAlbums() const;
+
+    const QList<QString> &newMusicTrackIds() const;
+
+    const QHash<QString, MusicAudioTrack> &newMusicTracks() const;
 
 Q_SIGNALS:
 
@@ -103,6 +118,8 @@ Q_SIGNALS:
     void searchCriteriaChanged();
 
     void contentDirectoryChanged();
+
+    void isDataValidChanged(const QString &parentId);
 
     void parentIdChanged();
 
@@ -124,17 +141,15 @@ public Q_SLOTS:
 
 private Q_SLOTS:
 
-    void browseFinished(const QString &result, int numberReturned, int totalMatches,
-                        int systemUpdateID, bool success);
+    void browseFinished(UpnpControlAbstractServiceReply *self);
 
-    void searchFinished(const QString &result, int numberReturned, int totalMatches,
-                        int systemUpdateID, bool success);
+    void searchFinished(UpnpControlAbstractServiceReply *self);
 
 private:
 
-    void decodeContainerNode(const QDomNode &containerNode, QHash<QString, MusicAlbum> &newData);
+    void decodeContainerNode(const QDomNode &containerNode, QHash<QString, MusicAlbum> &newData, QList<QString> &newDataIds);
 
-    void decodeAudioTrackNode(const QDomNode &itemNode, QHash<QString, MusicAudioTrack> &newData);
+    void decodeAudioTrackNode(const QDomNode &itemNode, QHash<QString, MusicAudioTrack> &newData, QList<QString> &newDataIds);
 
     std::unique_ptr<DidlParserPrivate> d;
 

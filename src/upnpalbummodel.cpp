@@ -26,6 +26,7 @@
 #include <QtXml/QDomDocument>
 
 #include <QtCore/QUrl>
+#include <QtCore/QPointer>
 #include <QtCore/QDebug>
 
 class UpnpAlbumModelPrivate
@@ -34,34 +35,23 @@ public:
 
     UpnpControlContentDirectory *mContentDirectory = nullptr;
 
-    quintptr mLastInternalId = 1;
-
-    QHash<QString, quintptr> mUpnpIds;
-
-    QHash<quintptr, QVector<quintptr> > mChilds;
-
-    QHash<quintptr, QHash<UpnpAlbumModel::ColumnsRoles, QVariant> > mData;
-
-    int mCurrentUpdateId = -1;
-
     bool mUseLocalIcons = false;
 
     MusicStatistics *mMusicDatabase = nullptr;
 
     DidlParser mDidlParser;
 
+    QList<QString> mChilds;
+
+    QHash<QString, QPointer<DidlParser>> mAlbumParsers;
 };
 
 UpnpAlbumModel::UpnpAlbumModel(QObject *parent) : QAbstractItemModel(parent), d(new UpnpAlbumModelPrivate)
 {
-    d->mUpnpIds[QStringLiteral("0")] = d->mLastInternalId;
-
-    d->mChilds[d->mLastInternalId] = QVector<quintptr>();
-
-    d->mData[d->mLastInternalId] = QHash<UpnpAlbumModel::ColumnsRoles, QVariant>();
-    d->mData[d->mLastInternalId][ColumnsRoles::IdRole] = QStringLiteral("0");
-
     d->mDidlParser.setSearchCriteria(QStringLiteral("upnp:class = \"object.container.album.musicAlbum\""));
+    d->mDidlParser.setParentId(QStringLiteral("0"));
+
+    connect(&d->mDidlParser, &DidlParser::isDataValidChanged, this, &UpnpAlbumModel::contentChanged);
 }
 
 UpnpAlbumModel::~UpnpAlbumModel()
@@ -72,14 +62,20 @@ UpnpAlbumModel::~UpnpAlbumModel()
 int UpnpAlbumModel::rowCount(const QModelIndex &parent) const
 {
     if (!parent.isValid()) {
-        return 1;
+        return d->mDidlParser.newAlbumIds().size();
     }
 
-    if (!d->mChilds.contains(parent.internalId())) {
+    if (!d->mAlbumParsers.contains(d->mChilds[parent.row()])) {
         return 0;
     }
 
-    return d->mChilds[parent.internalId()].size();
+    auto childParser = d->mAlbumParsers[d->mChilds[parent.row()]];
+
+    if (!childParser) {
+        return 0;
+    }
+
+    return childParser->newMusicTrackIds().size();
 }
 
 QHash<int, QByteArray> UpnpAlbumModel::roleNames() const
@@ -105,45 +101,39 @@ bool UpnpAlbumModel::canFetchMore(const QModelIndex &parent) const
         return false;
     }
 
-    auto parentInternalId = parent.internalId();
+    if (parent.internalId() != 0) {
+        return false;
+    }
 
-    if (!d->mChilds.contains(parentInternalId)) {
+    if (!d->mAlbumParsers.contains(d->mChilds[parent.row()])) {
         return true;
     }
 
-    return d->mChilds[parentInternalId].isEmpty();
+    auto childParser = d->mAlbumParsers[d->mChilds[parent.row()]];
+
+    if (!childParser) {
+        return true;
+    }
+
+    return false;
 }
 
 void UpnpAlbumModel::fetchMore(const QModelIndex &parent)
 {
-    qDebug() << "UpnpAlbumModel::fetchMore";
+    if (!d->mAlbumParsers.contains(d->mChilds[parent.row()])) {
+        d->mAlbumParsers[d->mChilds[parent.row()]] = new DidlParser(this);
 
-    if (!d->mContentDirectory) {
-        return;
-    }
+        auto newParser = d->mAlbumParsers[d->mChilds[parent.row()]];
 
-    if (!parent.isValid()) {
-        return;
-    }
+        newParser->setBrowseFlag(d->mDidlParser.browseFlag());
+        newParser->setFilter(d->mDidlParser.filter());
+        newParser->setSortCriteria(d->mDidlParser.sortCriteria());
+        newParser->setContentDirectory(d->mDidlParser.contentDirectory());
+        newParser->setParentId(d->mChilds[parent.row()]);
 
-    auto parentInternalId = parent.internalId();
+        connect(newParser, &DidlParser::isDataValidChanged, this, &UpnpAlbumModel::contentChanged);
 
-    if (!d->mData.contains(parentInternalId)) {
-        return;
-    }
-
-    if (!d->mData[parentInternalId].contains(ColumnsRoles::IdRole)) {
-        return;
-    }
-
-    qDebug() << "UpnpAlbumModel::fetchMore" << "OK";
-
-    d->mDidlParser.setParentId(d->mData[parentInternalId][ColumnsRoles::IdRole].toString());
-
-    if (d->mData[parentInternalId][ColumnsRoles::IdRole].toString() == QStringLiteral("0")) {
-        d->mDidlParser.search();
-    } else {
-        d->mDidlParser.browse();
+        newParser->browse();
     }
 }
 
@@ -159,95 +149,135 @@ Qt::ItemFlags UpnpAlbumModel::flags(const QModelIndex &index) const
 QVariant UpnpAlbumModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid()) {
-        return QVariant();
+        return {};
     }
 
     if (index.column() != 0) {
-        return QVariant();
+        return {};
     }
 
     if (index.row() < 0) {
-        return QVariant();
+        return {};
     }
 
-    if (!d->mData.contains(index.internalId())) {
-        return QVariant();
+    if (index.row() >= d->mDidlParser.newAlbumIds().size()) {
+        return {};
     }
 
+    if (index.internalId() != 0) {
+        if (!d->mAlbumParsers.contains(d->mChilds[index.internalId() - 1])) {
+            return 0;
+        }
+
+        auto childParser = d->mAlbumParsers[d->mChilds[index.internalId() - 1]];
+
+        if (!childParser) {
+            return 0;
+        }
+
+        return internalDataTrack(index, role, childParser);
+    }
+
+    return internalDataAlbum(index, role, &d->mDidlParser);
+}
+
+QVariant UpnpAlbumModel::internalDataAlbum(const QModelIndex &index, int role, DidlParser *currentParser) const
+{
     ColumnsRoles convertedRole = static_cast<ColumnsRoles>(role);
 
-    switch(role)
+    const auto &albumId = currentParser->newAlbumIds()[index.row()];
+
+    switch(convertedRole)
     {
     case ColumnsRoles::TitleRole:
-        return d->mData[index.internalId()][convertedRole];
+        return currentParser->newAlbums()[albumId].mTitle;
     case ColumnsRoles::DurationRole:
-        return d->mData[index.internalId()][convertedRole];
+        return {};
     case ColumnsRoles::CreatorRole:
-        return d->mData[index.internalId()][convertedRole];
+        return {};
     case ColumnsRoles::ArtistRole:
-        return d->mData[index.internalId()][convertedRole];
+        return currentParser->newAlbums()[albumId].mArtist;
     case ColumnsRoles::AlbumRole:
-        return d->mData[index.internalId()][convertedRole];
+        return {};
+    case ColumnsRoles::RatingRole:
+        return {};
+    case ColumnsRoles::ImageRole:
+        if (currentParser->newAlbums()[albumId].mAlbumArtURI.isValid()) {
+            return currentParser->newAlbums()[albumId].mAlbumArtURI;
+        } else {
+            if (d->mUseLocalIcons) {
+                return QUrl(QStringLiteral("qrc:/media-optical-audio.svg"));
+            } else {
+                return QUrl(QStringLiteral("image://icon/media-optical-audio"));
+            }
+        }
+    case ColumnsRoles::ResourceRole:
+        return currentParser->newAlbums()[albumId].mResourceURI;
+    case ColumnsRoles::ItemClassRole:
+        return {};
+    case ColumnsRoles::CountRole:
+        return currentParser->newAlbums()[albumId].mTracksCount;
+    case ColumnsRoles::IdRole:
+        return currentParser->newAlbums()[albumId].mId;
+    case ColumnsRoles::ParentIdRole:
+        return currentParser->newAlbums()[albumId].mParentId;
+    case ColumnsRoles::IsPlayingRole:
+        return {};
+    }
+
+    return {};
+}
+
+QVariant UpnpAlbumModel::internalDataTrack(const QModelIndex &index, int role, DidlParser *currentParser) const
+{
+    ColumnsRoles convertedRole = static_cast<ColumnsRoles>(role);
+
+    const auto &musicTrackId = currentParser->newMusicTrackIds()[index.row()];
+
+    switch(convertedRole)
+    {
+    case ColumnsRoles::TitleRole:
+        return currentParser->newMusicTracks()[musicTrackId].mTitle;
+    case ColumnsRoles::DurationRole:
+        if (currentParser->newMusicTracks()[musicTrackId].mDuration.hour() == 0) {
+            return currentParser->newMusicTracks()[musicTrackId].mDuration.toString(QStringLiteral("mm:ss"));
+        } else {
+            return currentParser->newMusicTracks()[musicTrackId].mDuration.toString();
+        }
+    case ColumnsRoles::CreatorRole:
+        return currentParser->newMusicTracks()[musicTrackId].mArtist;
+    case ColumnsRoles::ArtistRole:
+        return currentParser->newMusicTracks()[musicTrackId].mArtist;
+    case ColumnsRoles::AlbumRole:
+        return currentParser->newMusicTracks()[musicTrackId].mAlbumName;
     case ColumnsRoles::RatingRole:
         return 0;
     case ColumnsRoles::ImageRole:
-        switch (d->mData[index.internalId()][ColumnsRoles::ItemClassRole].value<int>())
-        {
-        case UpnpAlbumModel::Album:
-            if (!d->mData[index.internalId()][ColumnsRoles::ImageRole].toString().isEmpty()) {
-                return d->mData[index.internalId()][ColumnsRoles::ImageRole].toUrl();
-            } else {
-                if (d->mUseLocalIcons) {
-                    return QUrl(QStringLiteral("qrc:/media-optical-audio.svg"));
-                } else {
-                    return QUrl(QStringLiteral("image://icon/media-optical-audio"));
-                }
-            }
-        case UpnpAlbumModel::Container:
-            if (d->mUseLocalIcons) {
-                return QUrl(QStringLiteral("qrc:/folder.svg"));
-            } else {
-                return QUrl(QStringLiteral("image://icon/folder"));
-            }
-        case UpnpAlbumModel::AudioTrack:
-            return data(index.parent(), role);
-        }
+        return data(index.parent(), role);
     case ColumnsRoles::ResourceRole:
-        return d->mData[index.internalId()][convertedRole];
+        return currentParser->newMusicTracks()[musicTrackId].mResourceURI;
     case ColumnsRoles::ItemClassRole:
-        return d->mData[index.internalId()][convertedRole];
+        return {};
     case ColumnsRoles::CountRole:
-        return d->mData[index.internalId()][convertedRole];
+        return {};
     case ColumnsRoles::IdRole:
-        return d->mData[index.internalId()][convertedRole];
+        return currentParser->newMusicTracks()[musicTrackId].mId;
     case ColumnsRoles::ParentIdRole:
-        return d->mData[index.internalId()][convertedRole];
+        return currentParser->newMusicTracks()[musicTrackId].mParentId;
     case ColumnsRoles::IsPlayingRole:
-        return d->mData[index.internalId()][convertedRole];
+        return false;
     }
 
-    return QVariant();
+    return {};
 }
 
 QModelIndex UpnpAlbumModel::index(int row, int column, const QModelIndex &parent) const
 {
     if (!parent.isValid()) {
-        return createIndex(0, 0, 1);
+        return createIndex(row, column, quintptr(0));
     }
 
-    if (!d->mChilds.contains(parent.internalId())) {
-        return {};
-    }
-
-    if (row < 0 && row >= d->mChilds[parent.internalId()].size()) {
-        return {};
-    }
-
-    if (column != 0) {
-        return {};
-    }
-
-    return createIndex(row, column, d->mChilds[parent.internalId()][row]);
+    return createIndex(row, column, quintptr(parent.row()) + 1);
 }
 
 QModelIndex UpnpAlbumModel::parent(const QModelIndex &child) const
@@ -257,69 +287,11 @@ QModelIndex UpnpAlbumModel::parent(const QModelIndex &child) const
         return {};
     }
 
-    // data knows child internal id
-    if (!d->mData.contains(child.internalId())) {
+    if (child.internalId() == 0) {
         return {};
     }
 
-    const auto &childData = d->mData[child.internalId()];
-
-    // child data has upnp id of parent
-    if (!childData.contains(ColumnsRoles::ParentIdRole)) {
-        return {};
-    }
-
-    const auto &parentStringId = childData[ColumnsRoles::ParentIdRole].toString();
-
-    // upnp ids has the internal id of parent
-    if (!d->mUpnpIds.contains(parentStringId)) {
-        return {};
-    }
-
-    auto parentInternalId = d->mUpnpIds[parentStringId];
-
-    // special case if we are already at top of model
-    if (parentStringId == QStringLiteral("0")) {
-        return createIndex(0, 0, parentInternalId);
-    }
-
-    // data knows parent internal id
-    if (!d->mData.contains(parentInternalId)) {
-        return {};
-    }
-
-    const auto &parentData = d->mData[parentInternalId];
-
-    // parent data has upnp id of parent
-    if (!parentData.contains(ColumnsRoles::ParentIdRole)) {
-        return {};
-    }
-
-    const auto &grandParentStringId = parentData[ColumnsRoles::ParentIdRole].toString();
-
-    // upnp ids has the internal id of grand parent
-    if (!d->mUpnpIds.contains(grandParentStringId)) {
-        return {};
-    }
-
-    auto grandParentInternalId = d->mUpnpIds[grandParentStringId];
-
-    // childs of grand parent are known
-    if (!d->mChilds.contains(grandParentInternalId)) {
-        return {};
-    }
-
-    const auto &allUncles = d->mChilds[grandParentInternalId];
-
-    // look for my parent
-    for (int i = 0; i < allUncles.size(); ++i) {
-        if (allUncles[i] == parentInternalId) {
-            return createIndex(i, 0, parentInternalId);
-        }
-    }
-
-    // I have no parent
-    return {};
+    return createIndex(int(child.internalId() - 1), 0, quintptr(0));
 }
 
 int UpnpAlbumModel::columnCount(const QModelIndex &parent) const
@@ -327,25 +299,6 @@ int UpnpAlbumModel::columnCount(const QModelIndex &parent) const
     Q_UNUSED(parent);
 
     return 1;
-}
-
-QString UpnpAlbumModel::objectIdByIndex(const QModelIndex &index) const
-{
-    return data(index, ColumnsRoles::IdRole).toString();
-}
-
-QVariant UpnpAlbumModel::getUrl(const QModelIndex &index) const
-{
-    return data(index, ColumnsRoles::ResourceRole);
-}
-
-QModelIndex UpnpAlbumModel::indexFromId(const QString &id) const
-{
-    if (!d->mUpnpIds.contains(id)) {
-        return {};
-    }
-
-    return indexFromInternalId(d->mUpnpIds[id]);
 }
 
 UpnpControlContentDirectory *UpnpAlbumModel::contentDirectory() const
@@ -383,6 +336,8 @@ void UpnpAlbumModel::setContentDirectory(UpnpControlContentDirectory *directory)
     connect(d->mContentDirectory, &UpnpControlContentDirectory::systemUpdateIDChanged,
             &d->mDidlParser, &DidlParser::systemUpdateIDChanged);
 
+    d->mDidlParser.search();
+
     endResetModel();
 
     Q_EMIT contentDirectoryChanged();
@@ -408,49 +363,36 @@ void UpnpAlbumModel::setMusicDatabase(MusicStatistics *musicDatabase)
     emit musicDatabaseChanged();
 }
 
-QModelIndex UpnpAlbumModel::indexFromInternalId(quintptr internalId) const
+void UpnpAlbumModel::contentChanged(const QString &parentId)
 {
-    if (internalId == 1) {
-        return createIndex(0, 0, internalId);
+    if (parentId == QStringLiteral("0")) {
+        beginResetModel();
+
+        d->mChilds = d->mDidlParser.newAlbumIds();
+
+        endResetModel();
+        return;
     }
 
-    // data knows child internal id
-    if (!d->mData.contains(internalId)) {
-        return {};
+    auto indexChild = d->mChilds.indexOf(parentId);
+
+    if (indexChild == -1) {
+        return;
     }
 
-    const auto &childData = d->mData[internalId];
-
-    // child data has upnp id of parent
-    if (!childData.contains(ColumnsRoles::ParentIdRole)) {
-        return {};
+    if (!d->mAlbumParsers.contains(parentId)) {
+        return;
     }
 
-    const auto &parentStringId = childData[ColumnsRoles::ParentIdRole].toString();
+    auto childParser = d->mAlbumParsers[parentId];
 
-    // upnp ids has the internal id of parent
-    if (!d->mUpnpIds.contains(parentStringId)) {
-        return {};
+    if (!childParser) {
+        return;
     }
 
-    auto parentInternalId = d->mUpnpIds[parentStringId];
+    beginInsertRows(index(indexChild, 0), 0, childParser->newMusicTrackIds().size() - 1);
 
-    // childs of parent are known
-    if (!d->mChilds.contains(parentInternalId)) {
-        return {};
-    }
-
-    const auto &allUncles = d->mChilds[parentInternalId];
-
-    // look for my parent
-    for (int i = 0; i < allUncles.size(); ++i) {
-        if (allUncles[i] == internalId) {
-            return createIndex(i, 0, internalId);
-        }
-    }
-
-    // I have no parent
-    return {};
+    endInsertRows();
 }
 
 

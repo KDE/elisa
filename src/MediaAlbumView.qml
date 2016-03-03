@@ -8,8 +8,9 @@ import QtMultimedia 5.4
 import QtQuick.Layouts 1.2
 
 Item {
+    id: topListing
     property UpnpControlContentDirectory contentDirectoryService
-    property string rootId
+    property var rootIndex
     property StackView stackView
     property UpnpAlbumModel contentModel
     property MediaPlayList playListModel
@@ -39,7 +40,7 @@ Item {
 
             model: DelegateModel {
                 model: contentModel
-                rootIndex: contentModel.indexFromId(rootId)
+                rootIndex: topListing.rootIndex
 
                 delegate: AudioTrackDelegate {
                     height: Screen.pixelDensity * 15.

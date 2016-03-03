@@ -19,7 +19,8 @@
 
 #include "didlparser.h"
 
-#include <upnpcontrolcontentdirectory.h>
+#include "upnpcontrolcontentdirectory.h"
+#include "upnpcontrolabstractservicereply.h"
 
 #include <QtXml/QDomDocument>
 #include <QtXml/QDomNode>
@@ -42,7 +43,13 @@ public:
 
     UpnpControlContentDirectory *mContentDirectory = nullptr;
 
+    bool mIsDataValid = false;
+
+    QList<QString> mNewAlbumIds;
+
     QHash<QString, MusicAlbum> mNewAlbums;
+
+    QList<QString> mNewMusicTrackIds;
 
     QHash<QString, MusicAudioTrack> mNewMusicTracks;
 
@@ -81,6 +88,11 @@ UpnpControlContentDirectory *DidlParser::contentDirectory() const
     return d->mContentDirectory;
 }
 
+bool DidlParser::isDataValid() const
+{
+    return d->mIsDataValid;
+}
+
 void DidlParser::setBrowseFlag(const QString &flag)
 {
     d->mBrowseFlag = flag;
@@ -107,14 +119,6 @@ void DidlParser::setSearchCriteria(const QString &criteria)
 
 void DidlParser::setContentDirectory(UpnpControlContentDirectory *directory)
 {
-    if (d->mContentDirectory) {
-        connect(d->mContentDirectory, &UpnpControlContentDirectory::browseFinished,
-                this, &DidlParser::browseFinished);
-
-        connect(d->mContentDirectory, &UpnpControlContentDirectory::searchFinished,
-                this, &DidlParser::searchFinished);
-    }
-
     d->mContentDirectory = directory;
 
     if (!d->mContentDirectory) {
@@ -141,12 +145,16 @@ void DidlParser::systemUpdateIDChanged()
 
 void DidlParser::browse()
 {
-    d->mContentDirectory->browse(d->mParentId, d->mBrowseFlag, d->mFilter, 0, 0, d->mSortCriteria);
+    auto upnpAnswer = d->mContentDirectory->browse(d->mParentId, d->mBrowseFlag, d->mFilter, 0, 0, d->mSortCriteria);
+
+    connect(upnpAnswer, &UpnpControlAbstractServiceReply::finished, this, &DidlParser::browseFinished);
 }
 
 void DidlParser::search()
 {
-    d->mContentDirectory->search(d->mParentId, d->mSearchCriteria, d->mFilter, 0, 0, d->mSortCriteria);
+    auto upnpAnswer = d->mContentDirectory->search(d->mParentId, d->mSearchCriteria, d->mFilter, 0, 0, d->mSortCriteria);
+
+    connect(upnpAnswer, &UpnpControlAbstractServiceReply::finished, this, &DidlParser::searchFinished);
 }
 
 QString DidlParser::parentId() const
@@ -154,12 +162,39 @@ QString DidlParser::parentId() const
     return d->mParentId;
 }
 
-void DidlParser::browseFinished(const QString &result, int numberReturned, int totalMatches,
-                                int systemUpdateID, bool success)
+const QList<QString> &DidlParser::newAlbumIds() const
 {
-    Q_UNUSED(numberReturned)
-    Q_UNUSED(totalMatches)
-    Q_UNUSED(systemUpdateID)
+    return d->mNewAlbumIds;
+}
+
+const QHash<QString, MusicAlbum> &DidlParser::newAlbums() const
+{
+    return d->mNewAlbums;
+}
+
+const QList<QString> &DidlParser::newMusicTrackIds() const
+{
+    return d->mNewMusicTrackIds;
+}
+
+const QHash<QString, MusicAudioTrack> &DidlParser::newMusicTracks() const
+{
+    return d->mNewMusicTracks;
+}
+
+void DidlParser::browseFinished(UpnpControlAbstractServiceReply *self)
+{
+    QString result = self->result()[QStringLiteral("Result")].toString();
+    bool success = self->success();
+
+    if (!success) {
+        d->mIsDataValid = false;
+        Q_EMIT isDataValidChanged(d->mParentId);
+
+        return;
+    }
+
+    qDebug() << "DidlParser::browseFinished" << (success ? "true" : "false");
 
     QDomDocument browseDescription;
     browseDescription.setContent(result);
@@ -167,60 +202,80 @@ void DidlParser::browseFinished(const QString &result, int numberReturned, int t
     browseDescription.documentElement();
 
     auto containerList = browseDescription.elementsByTagName(QStringLiteral("container"));
-    qDebug() << "DidlParser::browseFinished" << containerList.length();
+    qDebug() << "DidlParser::browseFinished" << containerList.length() << d->mParentId;
     for (int containerIndex = 0; containerIndex < containerList.length(); ++containerIndex) {
         const QDomNode &containerNode(containerList.at(containerIndex));
         if (!containerNode.isNull()) {
-            decodeContainerNode(containerNode, d->mNewAlbums);
+            decodeContainerNode(containerNode, d->mNewAlbums, d->mNewAlbumIds);
         }
     }
 
     auto itemList = browseDescription.elementsByTagName(QStringLiteral("item"));
-    qDebug() << "DidlParser::browseFinished" << itemList.length();
+    qDebug() << "DidlParser::browseFinished" << itemList.length() << d->mParentId;
     for (int itemIndex = 0; itemIndex < itemList.length(); ++itemIndex) {
         const QDomNode &itemNode(itemList.at(itemIndex));
         if (!itemNode.isNull()) {
-            decodeAudioTrackNode(itemNode, d->mNewMusicTracks);
+            decodeAudioTrackNode(itemNode, d->mNewMusicTracks, d->mNewMusicTrackIds);
         }
     }
+
+    d->mIsDataValid = true;
+    Q_EMIT isDataValidChanged(d->mParentId);
 }
 
-void DidlParser::searchFinished(const QString &result, int numberReturned, int totalMatches,
-                                int systemUpdateID, bool success)
+void DidlParser::searchFinished(UpnpControlAbstractServiceReply *self)
 {
-    Q_UNUSED(numberReturned)
-    Q_UNUSED(totalMatches)
-    Q_UNUSED(systemUpdateID)
+    QString result = self->result()[QStringLiteral("Result")].toString();
+    bool success = self->success();
+
+    qDebug() << "DidlParser::searchFinished" << (success ? "true" : "false");
+
+    if (!success) {
+        d->mIsDataValid = false;
+        Q_EMIT isDataValidChanged(d->mParentId);
+
+        return;
+    }
 
     QDomDocument browseDescription;
     browseDescription.setContent(result);
 
     browseDescription.documentElement();
 
+    d->mNewAlbumIds.clear();
+    d->mNewAlbums.clear();
+    d->mNewMusicTracks.clear();
+    d->mNewMusicTrackIds.clear();
+
     auto containerList = browseDescription.elementsByTagName(QStringLiteral("container"));
-    qDebug() << "DidlParser::browseFinished" << containerList.length();
+    qDebug() << "DidlParser::searchFinished" << containerList.length();
     for (int containerIndex = 0; containerIndex < containerList.length(); ++containerIndex) {
         const QDomNode &containerNode(containerList.at(containerIndex));
         if (!containerNode.isNull()) {
-            decodeContainerNode(containerNode, d->mNewAlbums);
+            decodeContainerNode(containerNode, d->mNewAlbums, d->mNewAlbumIds);
         }
     }
 
     auto itemList = browseDescription.elementsByTagName(QStringLiteral("item"));
-    qDebug() << "DidlParser::browseFinished" << itemList.length();
+    qDebug() << "DidlParser::searchFinished" << itemList.length();
     for (int itemIndex = 0; itemIndex < itemList.length(); ++itemIndex) {
         const QDomNode &itemNode(itemList.at(itemIndex));
         if (!itemNode.isNull()) {
-            decodeAudioTrackNode(itemNode, d->mNewMusicTracks);
+            decodeAudioTrackNode(itemNode, d->mNewMusicTracks, d->mNewMusicTrackIds);
         }
     }
+
+    d->mIsDataValid = true;
+    Q_EMIT isDataValidChanged(d->mParentId);
 }
 
-void DidlParser::decodeContainerNode(const QDomNode &containerNode, QHash<QString, MusicAlbum> &newData)
+void DidlParser::decodeContainerNode(const QDomNode &containerNode, QHash<QString, MusicAlbum> &newData,
+                                     QList<QString> &newDataIds)
 {
     auto parentID = containerNode.toElement().attribute(QStringLiteral("parentID"));
     const auto &id = containerNode.toElement().attribute(QStringLiteral("id"));
 
+    newDataIds.push_back(id);
     auto &chilData = newData[id];
 
     chilData.mParentId = parentID;
@@ -261,10 +316,13 @@ void DidlParser::decodeContainerNode(const QDomNode &containerNode, QHash<QStrin
     }
 }
 
-void DidlParser::decodeAudioTrackNode(const QDomNode &itemNode, QHash<QString, MusicAudioTrack> &newData)
+void DidlParser::decodeAudioTrackNode(const QDomNode &itemNode, QHash<QString, MusicAudioTrack> &newData,
+                                      QList<QString> &newDataIds)
 {
     const QString &parentID = itemNode.toElement().attribute(QStringLiteral("parentID"));
     const QString &id = itemNode.toElement().attribute(QStringLiteral("id"));
+
+    newDataIds.push_back(id);
     auto &chilData = newData[id];
 
     chilData.mParentId = parentID;

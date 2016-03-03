@@ -27,8 +27,6 @@ Item {
         didlParser.contentDirectory: remoteMediaServer.contentDirectory
         contentDirectory: remoteMediaServer.contentDirectory
         musicDatabase: musicStats
-
-        onContentDirectoryChanged: listingView.initialItem.rootIndex = contentDirectoryModel.indexFromId('0')
     }
 
     MusicStatistics {

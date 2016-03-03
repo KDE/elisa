@@ -80,9 +80,6 @@ UpnpControlAbstractServiceReply *UpnpControlContentDirectory::getSearchCapabilit
 {
     auto pendingAnswer = callAction(QStringLiteral("GetSearchCapabilities"), {});
 
-    //connect(replyHandler, &KDSoapPendingCallWatcher::finished, this, &UpnpControlContentDirectory::finishedGetSearchCapabilitiesCall);
-    //connect(replyHandler, &KDSoapPendingCallWatcher::finished, upnpReply, &UpnpControlAbstractServiceReply::finished);
-
     return pendingAnswer;
 }
 
@@ -90,18 +87,12 @@ UpnpControlAbstractServiceReply *UpnpControlContentDirectory::getSortCapabilitie
 {
     auto pendingAnswer = callAction(QStringLiteral("GetSortCapabilities"), {});
 
-    //connect(replyHandler, &KDSoapPendingCallWatcher::finished, this, &UpnpControlContentDirectory::finishedGetSortCapabilitiesCall);
-    //connect(replyHandler, &KDSoapPendingCallWatcher::finished, upnpReply, &UpnpControlAbstractServiceReply::finished);
-
     return pendingAnswer;
 }
 
 UpnpControlAbstractServiceReply *UpnpControlContentDirectory::getSystemUpdateID()
 {
     auto pendingAnswer = callAction(QStringLiteral("GetSystemUpdateID"), {});
-
-    //connect(replyHandler, &KDSoapPendingCallWatcher::finished, this, &UpnpControlContentDirectory::finishedGetSystemUpdateIDCall);
-    //connect(replyHandler, &KDSoapPendingCallWatcher::finished, upnpReply, &UpnpControlAbstractServiceReply::finished);
 
     return pendingAnswer;
 }
@@ -112,9 +103,6 @@ UpnpControlAbstractServiceReply *UpnpControlContentDirectory::search(const QStri
 {
     auto pendingAnswer = callAction(QStringLiteral("Search"), {objectID, searchCriteria, filter, startingIndex, requestedCount, sortCriteria});
 
-    //connect(replyHandler, &KDSoapPendingCallWatcher::finished, this, &UpnpControlContentDirectory::finishedSearchCall);
-    //connect(replyHandler, &KDSoapPendingCallWatcher::finished, upnpReply, &UpnpControlAbstractServiceReply::finished);
-
     return pendingAnswer;
 }
 
@@ -123,9 +111,6 @@ UpnpControlAbstractServiceReply *UpnpControlContentDirectory::browse(const QStri
                                          int requestedCount, const QString &sortCriteria)
 {
     auto pendingAnswer = callAction(QStringLiteral("Browse"), {objectID, browseFlag, filter, startingIndex, requestedCount, sortCriteria});
-
-    //connect(replyHandler, &KDSoapPendingCallWatcher::finished, this, &UpnpControlContentDirectory::finishedBrowseCall);
-    //connect(replyHandler, &KDSoapPendingCallWatcher::finished, upnpReply, &UpnpControlAbstractServiceReply::finished);
 
     return pendingAnswer;
 }

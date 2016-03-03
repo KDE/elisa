@@ -69,15 +69,15 @@ public:
 
 public Q_SLOTS:
 
-    void getProtocolInfo();
+    UpnpControlAbstractServiceReply *getProtocolInfo();
 
-    void prepareForConnection(const QString &remoteProtocolInfo, const QString &remoteUDN, const QString &remoteServiceID, int remotePeerConnectionID, const QString &connectionDirection);
+    UpnpControlAbstractServiceReply *prepareForConnection(const QString &remoteProtocolInfo, const QString &remoteUDN, const QString &remoteServiceID, int remotePeerConnectionID, const QString &connectionDirection);
 
-    void connectionComplete(int currentConnectionID);
+    UpnpControlAbstractServiceReply *connectionComplete(int currentConnectionID);
 
-    void getCurrentConnectionIDs();
+    UpnpControlAbstractServiceReply *getCurrentConnectionIDs();
 
-    void getCurrentConnectionInfo(int currentConnectionID);
+    UpnpControlAbstractServiceReply *getCurrentConnectionInfo(int currentConnectionID);
 
 Q_SIGNALS:
 
@@ -91,29 +91,7 @@ Q_SIGNALS:
 
     void hasConnectionCompleteChanged();
 
-    void getProtocolInfoFinished(bool success);
-
-    void prepareForConnectionFinished(bool success);
-
-    void connectionCompleteFinished(bool success);
-
-    void getCurrentConnectionIDsFinished(bool success);
-
-    void getCurrentConnectionInfoFinished(int rcsID, int avTransportID, const QString &protocolInfo,
-                                          const QString &connectionManager, int peerConnectionID,
-                                          const QString &direction, const QString &connectionStatus, bool success);
-
 private Q_SLOTS:
-
-    void finishedGetProtocolInfoCall(KDSoapPendingCallWatcher *self);
-
-    void finishedPrepareForConnectionCall(KDSoapPendingCallWatcher *self);
-
-    void finishedConnectionCompleteCall(KDSoapPendingCallWatcher *self);
-
-    void finishedGetCurrentConnectionIDsCall(KDSoapPendingCallWatcher *self);
-
-    void finishedGetCurrentConnectionInfoCall(KDSoapPendingCallWatcher *self);
 
 protected:
 

@@ -73,16 +73,14 @@ bool UpnpControlConnectionManager::hasConnectionComplete() const
     return d->mHasConnectionComplete;
 }
 
-void UpnpControlConnectionManager::getProtocolInfo()
+UpnpControlAbstractServiceReply *UpnpControlConnectionManager::getProtocolInfo()
 {
-    const KDSoapPendingCall &pendingAnswer(callAction(QStringLiteral("GetProtocolInfo"), {}));
+    auto pendingAnswer = callAction(QStringLiteral("GetProtocolInfo"), {});
 
-    auto replyHandler = new KDSoapPendingCallWatcher(pendingAnswer, this);
-
-    connect(replyHandler, &KDSoapPendingCallWatcher::finished, this, &UpnpControlConnectionManager::finishedGetProtocolInfoCall);
+    return pendingAnswer;
 }
 
-void UpnpControlConnectionManager::prepareForConnection(const QString &remoteProtocolInfo,
+UpnpControlAbstractServiceReply *UpnpControlConnectionManager::prepareForConnection(const QString &remoteProtocolInfo,
                                                         const QString &remoteUDN,
                                                         const QString &remoteServiceID,
                                                         int remotePeerConnectionID,
@@ -90,41 +88,34 @@ void UpnpControlConnectionManager::prepareForConnection(const QString &remotePro
 {
     const QString &remoteConnectionManager(remoteUDN + QStringLiteral("/") + remoteServiceID);
 
-    const KDSoapPendingCall &pendingAnswer(callAction(QStringLiteral("PrepareForConnection"),
-                                                      {remoteProtocolInfo, remoteConnectionManager, remotePeerConnectionID, connectionDirection}));
+    auto pendingAnswer = callAction(QStringLiteral("PrepareForConnection"),
+                                    {remoteConnectionManager, remotePeerConnectionID, connectionDirection});
 
-    auto replyHandler = new KDSoapPendingCallWatcher(pendingAnswer, this);
-
-    connect(replyHandler, &KDSoapPendingCallWatcher::finished, this, &UpnpControlConnectionManager::finishedPrepareForConnectionCall);
+    return pendingAnswer;
 }
 
-void UpnpControlConnectionManager::connectionComplete(int currentConnectionID)
+UpnpControlAbstractServiceReply *UpnpControlConnectionManager::connectionComplete(int currentConnectionID)
 {
-    const KDSoapPendingCall &pendingAnswer(callAction(QStringLiteral("ConnectionComplete"), {currentConnectionID}));
+    auto pendingAnswer = callAction(QStringLiteral("ConnectionComplete"), {currentConnectionID});
 
-    auto replyHandler = new KDSoapPendingCallWatcher(pendingAnswer, this);
-
-    connect(replyHandler, &KDSoapPendingCallWatcher::finished, this, &UpnpControlConnectionManager::finishedConnectionCompleteCall);
+    return pendingAnswer;
 }
 
-void UpnpControlConnectionManager::getCurrentConnectionIDs()
+UpnpControlAbstractServiceReply *UpnpControlConnectionManager::getCurrentConnectionIDs()
 {
-    const KDSoapPendingCall &pendingAnswer(callAction(QStringLiteral("GetCurrentConnectionIDs"), {}));
+    auto pendingAnswer = callAction(QStringLiteral("GetCurrentConnectionIDs"), {});
 
-    auto replyHandler = new KDSoapPendingCallWatcher(pendingAnswer, this);
-
-    connect(replyHandler, &KDSoapPendingCallWatcher::finished, this, &UpnpControlConnectionManager::finishedGetCurrentConnectionIDsCall);
+    return pendingAnswer;
 }
 
-void UpnpControlConnectionManager::getCurrentConnectionInfo(int currentConnectionID)
+UpnpControlAbstractServiceReply *UpnpControlConnectionManager::getCurrentConnectionInfo(int currentConnectionID)
 {
-    const KDSoapPendingCall &pendingAnswer(callAction(QStringLiteral("GetCurrentConnectionInfo"), {currentConnectionID}));
+    auto pendingAnswer = callAction(QStringLiteral("GetCurrentConnectionInfo"), {currentConnectionID});
 
-    auto replyHandler = new KDSoapPendingCallWatcher(pendingAnswer, this);
-
-    connect(replyHandler, &KDSoapPendingCallWatcher::finished, this, &UpnpControlConnectionManager::finishedGetCurrentConnectionInfoCall);
+    return pendingAnswer;
 }
 
+#if 0
 void UpnpControlConnectionManager::finishedGetProtocolInfoCall(KDSoapPendingCallWatcher *self)
 {
     self->deleteLater();
@@ -224,6 +215,7 @@ void UpnpControlConnectionManager::finishedGetCurrentConnectionInfoCall(KDSoapPe
     Q_EMIT getCurrentConnectionInfoFinished(rcsID, avTransportID, protocolInfo, connectionManager, peerConnectionID,
                                             direction, connectionStatus, !self->returnMessage().isFault());
 }
+#endif
 
 void UpnpControlConnectionManager::parseServiceDescription(QIODevice *serviceDescriptionContent)
 {

@@ -7,6 +7,11 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         playlistcontroler.cpp
         viewpagesmodel.cpp
         remoteserverentry.cpp
+        upnpcontrolcontentdirectory.cpp
+        upnpcontentdirectorymodel.cpp
+        upnpdevicemodel.cpp
+        upnpcontrolconnectionmanager.cpp
+        upnpcontrolmediaserver.cpp
         MediaServer.qml
         MediaServerListing.qml
         MediaAlbumView.qml

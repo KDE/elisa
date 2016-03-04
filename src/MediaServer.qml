@@ -129,7 +129,7 @@ ApplicationWindow {
             playEnabled: playListControler.playControlEnabled
             isPlaying: playListControler.musicPlaying
 
-            Layout.preferredHeight: Screen.pixelDensity * 16.
+            Layout.preferredHeight: Screen.pixelDensity * 10.
             Layout.minimumHeight: Layout.preferredHeight
             Layout.maximumHeight: Layout.preferredHeight
             Layout.fillWidth: true
@@ -250,15 +250,6 @@ ApplicationWindow {
                         }
                     }
                 }
-            }
-            Rectangle {
-                Layout.preferredWidth: Screen.pixelDensity * 50.
-                Layout.minimumWidth: Screen.pixelDensity * 50.
-                Layout.maximumWidth: Screen.pixelDensity * 50.
-
-                Layout.fillHeight: true
-
-                color: '#EFF0F1'
             }
         }
     }

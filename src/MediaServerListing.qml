@@ -68,8 +68,8 @@ Item {
                         BrightnessContrast {
                             anchors.fill: playAction
                             source: playAction
-                            brightness: 0.9
-                            contrast: 0.9
+                            brightness: 1.0
+                            contrast: 1.0
 
                             MouseArea {
                                 id: clickHandle

@@ -35,6 +35,23 @@ Item {
         anchors.fill: parent
         spacing: 0
 
+        Button {
+            id: backButton
+
+            height: Screen.pixelDensity * 8.
+            Layout.preferredHeight: height
+            Layout.minimumHeight: height
+            Layout.maximumHeight: height
+            Layout.fillWidth: true
+
+            onClicked: if (listingView.depth > 1) {
+                           listingView.pop()
+                       } else {
+                           parentStackView.pop()
+                       }
+            text: 'Back'
+        }
+
         TableView {
             id: contentDirectoryView
 

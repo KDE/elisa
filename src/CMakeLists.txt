@@ -1,7 +1,7 @@
 include_directories(${elisa_BINARY_DIR})
 
 if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
-    set(upnpControl_SOURCES
+    set(elisa_SOURCES
         upnpControl.cpp
         mediaplaylist.cpp
         playlistcontroler.cpp
@@ -39,13 +39,13 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         didlparser.cpp
     )
 
-    qt5_add_resources(upnpControl_SOURCES upnpControl.qrc)
+    qt5_add_resources(elisa_SOURCES upnpControl.qrc)
 
-    add_executable(upnpControl ${upnpControl_SOURCES})
+    add_executable(elisa ${elisa_SOURCES})
 
-    target_include_directories(upnpControl PRIVATE ${KDSoap_INCLUDE_DIRS})
+    target_include_directories(elisa PRIVATE ${KDSoap_INCLUDE_DIRS})
 
-    target_link_libraries(upnpControl
+    target_link_libraries(elisa
         LINK_PRIVATE
             Qt5::Quick
             Qt5::Widgets
@@ -58,7 +58,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
     )
 
     if (${KF5Declarative_FOUND})
-    target_link_libraries(upnpControl
+    target_link_libraries(elisa
         LINK_PRIVATE
             KF5::Declarative
     )

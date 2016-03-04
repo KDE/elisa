@@ -9,8 +9,8 @@ import QtMultimedia 5.4
 
 ApplicationWindow {
     visible: true
-    minimumWidth: 800
-    minimumHeight: 400
+    minimumWidth: 1000
+    minimumHeight: 600
     title: 'Music'
     id: mainWindow
 

@@ -84,7 +84,11 @@ Item {
                                                        'rootIndex': delegateContentModel.modelIndex(mediaServerEntry.DelegateModel.itemsIndex),
                                                        'stackView': stackView,
                                                        'contentModel': contentModel,
-                                                       'playListModel': playListModel
+                                                       'playListModel': playListModel,
+                                                       'albumArtUrl': image,
+                                                       'albumName': title,
+                                                       'artistName': artist,
+                                                       'tracksCount': count
                                                    })
                                 }
                             }

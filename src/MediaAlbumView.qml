@@ -14,6 +14,10 @@ Item {
     property StackView stackView
     property UpnpAlbumModel contentModel
     property MediaPlayList playListModel
+    property var albumName
+    property var artistName
+    property var tracksCount
+    property var albumArtUrl
 
     width: stackView.width
     height: stackView.height
@@ -52,60 +56,204 @@ Item {
             text: 'Back'
         }
 
-        TableView {
-            id: contentDirectoryView
+        RowLayout {
+            Layout.fillHeight: true
+            Layout.fillWidth: true
 
-            model: DelegateModel {
-                model: contentModel
-                rootIndex: topListing.rootIndex
+            spacing: 0
 
-                delegate: AudioTrackDelegate {
-                    height: Screen.pixelDensity * 15.
-                    width: contentDirectoryView.width
-                    title: if (model != undefined && model.title !== undefined)
-                               model.title
-                           else
-                               ''
-                    artist: if (model != undefined && model.artist !== undefined)
-                                model.artist
-                            else
-                                ''
-                    itemDecoration: if (model != undefined && model.image !== undefined)
-                                        model.image
+            ColumnLayout {
+                Layout.preferredWidth: topListing.width / 2
+                Layout.fillHeight: true
+
+                spacing: 0
+
+                TableView {
+                    id: contentDirectoryView
+
+                    model: DelegateModel {
+                        model: contentModel
+                        rootIndex: topListing.rootIndex
+
+                        delegate: AudioTrackDelegate {
+                            height: Screen.pixelDensity * 15.
+                            width: contentDirectoryView.width
+                            title: if (model != undefined && model.title !== undefined)
+                                       model.title
+                                   else
+                                       ''
+                            artist: if (model != undefined && model.artist !== undefined)
+                                        model.artist
                                     else
                                         ''
-                    duration: if (model != undefined && model.duration !== undefined)
-                                  model.duration
-                              else
-                                  ''
-                    trackRating: if (model != undefined && model.rating !== undefined)
-                                     model.rating
-                                 else
-                                     ''
-                    isPlaying: if (model != undefined && model.isPlaying !== undefined)
-                                   model.isPlaying
-                               else
-                                   false
+                            itemDecoration: if (model != undefined && model.image !== undefined)
+                                                model.image
+                                            else
+                                                ''
+                            duration: if (model != undefined && model.duration !== undefined)
+                                          model.duration
+                                      else
+                                          ''
+                            trackRating: if (model != undefined && model.rating !== undefined)
+                                             model.rating
+                                         else
+                                             ''
+                            isPlaying: if (model != undefined && model.isPlaying !== undefined)
+                                           model.isPlaying
+                                       else
+                                           false
+                        }
+                    }
+
+                    backgroundVisible: false
+                    headerVisible: false
+                    frameVisible: false
+                    focus: true
+                    rowDelegate: rowDelegate
+
+                    onClicked: {
+                        playListModel.enqueue(model.modelIndex(row))
+                    }
+
+                    TableViewColumn {
+                        role: "title"
+                        title: "Title"
+                    }
+
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
                 }
             }
 
-            backgroundVisible: false
-            headerVisible: false
-            frameVisible: false
-            focus: true
-            rowDelegate: rowDelegate
+            Rectangle {
+                border.width: 1
+                border.color: "#DDDDDD"
+                color: "#DDDDDD"
 
-            onClicked: {
-                playListModel.enqueue(model.modelIndex(row))
+                Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+
+                Layout.preferredHeight: parent.height - Screen.pixelDensity * 5.
+                Layout.preferredWidth: 1
+                Layout.minimumWidth: 1
+                Layout.maximumWidth: 1
             }
 
-            TableViewColumn {
-                role: "title"
-                title: "Title"
-            }
+            ColumnLayout {
+                Layout.preferredWidth: topListing.width / 2
+                Layout.fillHeight: true
 
-            Layout.fillHeight: true
-            Layout.fillWidth: true
+                spacing: 0
+
+                Image {
+                    id: albumIcon
+                    source: albumArtUrl
+                    Layout.preferredWidth: width
+                    Layout.preferredHeight: height
+                    Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+                    Layout.maximumWidth: width
+                    Layout.maximumHeight: height
+                    width: Screen.pixelDensity * 45.
+                    height: Screen.pixelDensity * 45.
+                    sourceSize.width: width
+                    sourceSize.height: width
+                    fillMode: Image.PreserveAspectFit
+                }
+
+                Item {
+                    Layout.preferredHeight: Screen.pixelDensity * 0.5
+                    Layout.minimumHeight: Screen.pixelDensity * 0.5
+                    Layout.maximumHeight: Screen.pixelDensity * 0.5
+                }
+
+                Label {
+                    id: titleLabel
+                    text: if (albumName !== undefined)
+                              albumName
+                          else
+                              ''
+                    font.weight: Font.Bold
+                    horizontalAlignment: Text.AlignLeft
+
+                    Layout.preferredWidth: topListing.cellWidth * 0.9
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
+
+                    elide: "ElideRight"
+                }
+
+                Label {
+                    id: artistLabel
+                    text: if (artistName !== undefined)
+                              artistName
+                          else
+                              ''
+                    font.weight: Font.Normal
+                    horizontalAlignment: Text.AlignLeft
+
+                    Layout.preferredWidth: topListing.cellWidth * 0.9
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
+
+                    elide: "ElideRight"
+                }
+
+                Label {
+                    id: numberLabel
+                    text: if (tracksCount === 1)
+                              tracksCount + ' Song'
+                          else
+                              tracksCount + ' Songs'
+
+                    font.weight: Font.Light
+                    horizontalAlignment: Text.AlignLeft
+
+                    Layout.preferredWidth: topListing.cellWidth * 0.9
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
+
+                    elide: "ElideRight"
+                }
+
+                Item {
+                    Layout.preferredHeight: Screen.pixelDensity * 2.
+                    Layout.minimumHeight: Screen.pixelDensity * 2.
+                    Layout.maximumHeight: Screen.pixelDensity * 2.
+                }
+
+                RowLayout {
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: Screen.pixelDensity * 2.
+
+                    spacing: 0
+
+                    Item {
+                        Layout.preferredWidth: Screen.pixelDensity * 2.
+                        Layout.minimumWidth: Screen.pixelDensity * 2.
+                        Layout.maximumWidth: Screen.pixelDensity * 2.
+                    }
+
+                    Image {
+                        id: artistJumpIcon
+                        source: 'image://icon/view-media-artist'
+                        Layout.preferredWidth: width
+                        Layout.preferredHeight: height
+                        Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+                        Layout.maximumWidth: width
+                        Layout.maximumHeight: height
+                        width: Screen.pixelDensity * 8.
+                        height: Screen.pixelDensity * 8.
+                        sourceSize.width: width
+                        sourceSize.height: width
+                        fillMode: Image.PreserveAspectFit
+                    }
+
+                    Label {
+                        text: if (artistName !== undefined)
+                                  artistName
+                              else
+                                  ''
+                        font.weight: Font.Normal
+                        horizontalAlignment: Text.AlignLeft
+                    }
+                }
+            }
         }
     }
 }

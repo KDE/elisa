@@ -43,6 +43,11 @@
 #include <KDeclarative/KDeclarative>
 #endif
 
+#include <KI18n/KLocalizedString>
+#include <KCoreAddons/KAboutData>
+
+#include <QtGui/QIcon>
+
 #include <QtWidgets/QApplication>
 
 #include <QtQml/QQmlApplicationEngine>
@@ -80,6 +85,25 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
     qRegisterMetaType<UpnpDeviceDescription*>();
     qRegisterMetaType<RemoteServerEntry*>();
     qRegisterMetaType<QAbstractItemModel*>();
+
+    KLocalizedString::setApplicationDomain("elisa");
+
+    KAboutData aboutData( QStringLiteral("elisa"),
+                          i18n("Elisa"),
+                          QStringLiteral("0.1"),
+                          i18n("A Simple Music Player written with KDE Frameworks"),
+                          KAboutLicense::LGPL_V3,
+                          i18n("(c) 2015-2016, Matthieu Gallien <mgallien@mgallien.fr>"));
+
+    aboutData.addAuthor(i18n("Matthieu Gallien"),i18n("Author"), QStringLiteral("mgallien@mgallien.fr"));
+    QApplication::setWindowIcon(QIcon::fromTheme(QStringLiteral("new-audio-alarm")));
+
+    QCommandLineParser parser;
+    parser.addHelpOption();
+    parser.addVersionOption();
+    aboutData.setupCommandLine(&parser);
+    parser.process(app);
+    aboutData.processCommandLine(&parser);
 
     QQmlApplicationEngine engine;
     engine.addImportPath(QStringLiteral("qrc:/imports"));

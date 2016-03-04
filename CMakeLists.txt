@@ -18,6 +18,8 @@ find_package(Qt5 ${REQUIRED_QT_VERSION} CONFIG OPTIONAL_COMPONENTS Quick Widgets
 
 find_package(KDSoap CONFIG REQUIRED)
 find_package(KF5Declarative CONFIG)
+find_package(KF5I18n CONFIG REQUIRED)
+find_package(KF5CoreAddons CONFIG REQUIRED)
 find_package(UPNPQT CONFIG REQUIRED)
 
 include(FeatureSummary)

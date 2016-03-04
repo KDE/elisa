@@ -17,6 +17,13 @@ ApplicationWindow {
     property UpnpDeviceDescription aDevice
     property UpnpControlConnectionManager connectionManager
 
+    Action {
+        id: quitAction
+        text: qsTr("&Quit")
+        shortcut: StandardKey.Quit
+        onTriggered: Qt.quit()
+    }
+
     UpnpSsdpEngine {
         id: mySsdpEngine
 

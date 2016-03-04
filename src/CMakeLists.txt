@@ -52,6 +52,8 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
             Qt5::Multimedia
             Qt5::Svg
             Qt5::Xml
+            KF5::I18n
+            KF5::CoreAddons
             UPNP::upnpQt
     )
 

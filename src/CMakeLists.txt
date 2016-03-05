@@ -37,6 +37,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         musicalbum.cpp
         musicaudiotrack.cpp
         didlparser.cpp
+        albumfilterproxymodel.cpp
     )
 
     qt5_add_resources(elisa_SOURCES upnpControl.qrc)

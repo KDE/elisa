@@ -18,10 +18,18 @@ Item {
 
     id: rootElement
 
+    AlbumFilterProxyModel {
+        id: filterProxyModel
+
+        sourceModel: contentModel
+
+        filterText: filterTextInput.text
+    }
+
     DelegateModel {
         id: delegateContentModel
-        model: contentModel
-        rootIndex: rootElement.rootIndex
+        model: filterProxyModel
+        rootIndex: filterProxyModel.mapFromSource(rootElement.rootIndex)
 
         delegate: Rectangle {
             id: mediaServerEntry
@@ -81,7 +89,7 @@ Item {
                                     stackView.push(Qt.resolvedUrl("MediaAlbumView.qml"),
                                                    {
                                                        'contentDirectoryService': contentDirectoryService,
-                                                       'rootIndex': delegateContentModel.modelIndex(mediaServerEntry.DelegateModel.itemsIndex),
+                                                       'rootIndex': filterProxyModel.mapToSource(delegateContentModel.modelIndex(mediaServerEntry.DelegateModel.itemsIndex)),
                                                        'stackView': stackView,
                                                        'contentModel': contentModel,
                                                        'playListModel': playListModel,
@@ -182,23 +190,45 @@ Item {
         }
     }
 
-    Rectangle {
-        color: 'white'
-        width: parent.width
-        height: parent.height
+    ColumnLayout {
+        anchors.fill: parent
+        spacing: 0
 
-        ScrollView {
-            anchors.fill: parent
-            GridView {
-                id: contentDirectoryView
-                snapMode: GridView.SnapToRow
+        RowLayout {
+            Layout.fillWidth: true
 
-                cellWidth: Screen.pixelDensity * 40.
-                cellHeight: Screen.pixelDensity * 60.
+            Label {
+                text: 'Filter: '
+            }
 
-                model: delegateContentModel
+            TextField {
+                id: filterTextInput
 
-                focus: true
+                placeholderText: 'Filter'
+
+                Layout.fillWidth: true
+            }
+        }
+
+        Rectangle {
+            color: 'white'
+
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+
+            ScrollView {
+                anchors.fill: parent
+                GridView {
+                    id: contentDirectoryView
+                    snapMode: GridView.SnapToRow
+
+                    cellWidth: Screen.pixelDensity * 40.
+                    cellHeight: Screen.pixelDensity * 60.
+
+                    model: delegateContentModel
+
+                    focus: true
+                }
             }
         }
     }

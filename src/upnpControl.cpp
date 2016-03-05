@@ -38,6 +38,7 @@
 #include "viewpagesmodel.h"
 #include "remoteserverentry.h"
 #include "musicstatistics.h"
+#include "albumfilterproxymodel.h"
 
 #if KF5Declarative_FOUND
 #include <KDeclarative/KDeclarative>
@@ -70,6 +71,7 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
     qmlRegisterType<UpnpControlContentDirectory>("org.mgallien.QmlExtension", 1, 0, "UpnpControlContentDirectory");
     qmlRegisterType<UpnpContentDirectoryModel>("org.mgallien.QmlExtension", 1, 0, "UpnpContentDirectoryModel");
     qmlRegisterType<UpnpDeviceDescription>("org.mgallien.QmlExtension", 1, 0, "UpnpDeviceDescription");
+    qmlRegisterType<AlbumFilterProxyModel>("org.mgallien.QmlExtension", 1, 0, "AlbumFilterProxyModel");
 
     qmlRegisterType<MediaPlayList>("org.mgallien.QmlExtension", 1, 0, "MediaPlayList");
     qmlRegisterType<PlayListControler>("org.mgallien.QmlExtension", 1, 0, "PlayListControler");

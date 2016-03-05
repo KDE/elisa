@@ -232,6 +232,10 @@ QVariant UpnpAlbumModel::internalDataTrack(const QModelIndex &index, int role, D
 {
     ColumnsRoles convertedRole = static_cast<ColumnsRoles>(role);
 
+    if (index.row() < 0 || index.row() >= currentParser->newMusicTrackIds().size()) {
+        return {};
+    }
+
     const auto &musicTrackId = currentParser->newMusicTrackIds()[index.row()];
 
     switch(convertedRole)

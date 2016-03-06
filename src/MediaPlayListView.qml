@@ -120,18 +120,13 @@ Item {
 
                     isPlaying: model.isPlaying
                     showHoverButtons: false
-                    itemIndex: index
 
-                    onRemove: playListModel.removeRows(indexToRemove, 1, playListView.model.rootIndex)
+                    hoverAction: Action {
+                        id: playListRemove
 
-                    MouseArea {
-                        anchors.fill: parent
-                        propagateComposedEvents: true
-                        hoverEnabled: true
-                        acceptedButtons: Qt.NoButton
+                        iconSource: 'image://icon/list-remove'
 
-                        onEntered: parent.showHoverButtons = true
-                        onExited: parent.showHoverButtons = false
+                        onTriggered: playListModel.removeRows(index, 1, playListView.model.rootIndex)
                     }
                 }
             }

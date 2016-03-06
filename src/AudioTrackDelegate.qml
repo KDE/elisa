@@ -1,7 +1,9 @@
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
+import QtQuick 2.4
+import QtQuick.Layouts 1.2
 import QtQuick.Controls 1.2
 import QtQuick.Window 2.2
+import QtGraphicalEffects 1.0
+import org.mgallien.QmlExtension 1.0
 
 Item {
     id: viewAlbumDelegate
@@ -13,9 +15,7 @@ Item {
     property int trackRating
     property bool isPlaying
     property bool showHoverButtons
-    property int itemIndex
-
-    signal remove(int indexToRemove)
+    property Action hoverAction
 
     RowLayout {
         width: parent.width
@@ -45,17 +45,58 @@ Item {
                 fillMode: Image.PreserveAspectFit
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
 
-                Button {
-                    id: removeButton
-                    iconName: 'list-remove'
+                Rectangle {
+                    id: hoverLayer
 
                     anchors.fill: parent
 
-                    visible: showHoverButtons
-                    opacity: 0.8
-                    enabled: true
+                    color: 'black'
+                    opacity: 0.7
+                    visible: false
 
-                    onClicked: remove(itemIndex)
+                    BrightnessContrast {
+                        anchors.fill: playAction
+                        source: playAction
+                        brightness: 1.0
+                        contrast: 1.0
+
+                        MouseArea {
+                            id: clickHandle
+
+                            anchors.fill: parent
+                            acceptedButtons: Qt.LeftButton
+
+                            onClicked: hoverAction.trigger(clickHandle)
+                        }
+                    }
+
+                    Image {
+                        id: playAction
+                        source: hoverAction.iconSource
+
+                        anchors.centerIn: parent
+
+                        opacity: 1
+                        visible: false
+
+                        width: Screen.pixelDensity * 10
+                        height: Screen.pixelDensity * 10
+                        sourceSize.width: width
+                        sourceSize.height: width
+                        fillMode: Image.PreserveAspectFit
+                    }
+                }
+
+                MouseArea {
+                    id: hoverHandle
+
+                    hoverEnabled: true
+
+                    anchors.fill: parent
+                    propagateComposedEvents: true
+
+                    onEntered: hoverLayer.visible = true
+                    onExited: hoverLayer.visible = false
                 }
             }
 

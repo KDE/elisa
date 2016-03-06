@@ -78,6 +78,15 @@ Item {
                         delegate: AudioTrackDelegate {
                             height: Screen.pixelDensity * 15.
                             width: contentDirectoryView.width
+
+                            hoverAction: Action {
+                                id: queueTrack
+
+                                iconSource: 'image://icon/media-playback-start'
+
+                                onTriggered: topListing.playListModel.enqueue(contentDirectoryView.model.modelIndex(index))
+                            }
+
                             title: if (model != undefined && model.title !== undefined)
                                        model.title
                                    else
@@ -110,10 +119,6 @@ Item {
                     frameVisible: false
                     focus: true
                     rowDelegate: rowDelegate
-
-                    onClicked: {
-                        playListModel.enqueue(model.modelIndex(row))
-                    }
 
                     TableViewColumn {
                         role: "title"

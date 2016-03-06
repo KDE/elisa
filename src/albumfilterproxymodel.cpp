@@ -24,7 +24,6 @@
 AlbumFilterProxyModel::AlbumFilterProxyModel(QObject *parent) : QSortFilterProxyModel(parent), mFilterText()
 {
     setFilterCaseSensitivity(Qt::CaseInsensitive);
-    setFilterRole(UpnpAlbumModel::TitleRole);
 }
 
 AlbumFilterProxyModel::~AlbumFilterProxyModel()
@@ -53,9 +52,31 @@ void AlbumFilterProxyModel::setFilterText(QString filterText)
 
     mFilterText = filterText;
 
-    setFilterRegExp(mFilterText);
+    mFilterExpression.setPattern(mFilterText);
+    mFilterExpression.setPatternOptions(QRegularExpression::CaseInsensitiveOption);
+    mFilterExpression.optimize();
+
+    invalidate();
 
     Q_EMIT filterTextChanged(mFilterText);
+}
+
+bool AlbumFilterProxyModel::filterAcceptsRow(int source_row, const QModelIndex &source_parent) const
+{
+    bool result = true;
+
+    for (int column = 0, columnCount = sourceModel()->columnCount(source_parent); result && column < columnCount; ++column) {
+        auto currentIndex = sourceModel()->index(source_row, column, source_parent);
+
+        const auto &titleValue = sourceModel()->data(currentIndex, UpnpAlbumModel::TitleRole).toString();
+        const auto &artistValue = sourceModel()->data(currentIndex, UpnpAlbumModel::ArtistRole).toString();
+
+        if (!mFilterExpression.match(titleValue).hasMatch() && !mFilterExpression.match(artistValue).hasMatch()) {
+            result = false;
+        }
+    }
+
+    return result;
 }
 
 

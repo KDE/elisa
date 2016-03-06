@@ -21,6 +21,7 @@
 #define ALBUMFILTERPROXYMODEL_H
 
 #include <QtCore/QSortFilterProxyModel>
+#include <QtCore/QRegularExpression>
 
 class AlbumFilterProxyModel : public QSortFilterProxyModel
 {
@@ -52,9 +53,15 @@ Q_SIGNALS:
 
     void filterTextChanged(QString filterText);
 
+protected:
+
+    bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override;
+
 private:
 
     QString mFilterText;
+
+    QRegularExpression mFilterExpression;
 
 };
 

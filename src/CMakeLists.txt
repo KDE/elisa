@@ -33,6 +33,8 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         MediaServerPageMobile.qml
         MediaPlayPageMobile.qml
         upnpalbummodel.cpp
+        localalbummodel.cpp
+        localbaloofilelisting.cpp
         musicstatistics.cpp
         musicalbum.cpp
         musicaudiotrack.cpp
@@ -55,6 +57,8 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
             Qt5::Xml
             KF5::I18n
             KF5::CoreAddons
+            KF5::Baloo
+            KF5::FileMetaData
             UPNP::upnpQt
     )
 

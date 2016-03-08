@@ -32,6 +32,7 @@
 #include "upnpdevicedescription.h"
 #include "upnpalbummodel.h"
 #include "didlparser.h"
+#include "localalbummodel.h"
 
 #include "mediaplaylist.h"
 #include "playlistcontroler.h"
@@ -79,6 +80,7 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
     qmlRegisterType<UpnpAlbumModel>("org.mgallien.QmlExtension", 1, 0, "UpnpAlbumModel");
     qmlRegisterType<MusicStatistics>("org.mgallien.QmlExtension", 1, 0, "MusicStatistics");
     qmlRegisterType<DidlParser>("org.mgallien.QmlExtension", 1, 0, "DidlParser");
+    qmlRegisterType<LocalAlbumModel>("org.mgallien.QmlExtension", 1, 0, "LocalAlbumModel");
 
     qRegisterMetaType<A_ARG_TYPE_InstanceID>();
     qRegisterMetaType<QPointer<UpnpAbstractDevice> >();

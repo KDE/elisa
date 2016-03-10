@@ -20,6 +20,8 @@
 #include "localalbummodel.h"
 #include "musicstatistics.h"
 #include "localbaloofilelisting.h"
+#include "localbalootrack.h"
+#include "localbalooalbum.h"
 
 #include <Baloo/File>
 
@@ -27,7 +29,6 @@
 #include <QtCore/QThread>
 #include <QtCore/QTimer>
 #include <QtCore/QPointer>
-#include <QtCore/QDebug>
 
 class LocalAlbumModelPrivate
 {
@@ -37,13 +38,14 @@ public:
 
     MusicStatistics *mMusicDatabase = nullptr;
 
-    QList<QString> mChilds;
-
-    QHash<QString, QPointer<QObject>> mAlbumParsers;
-
     QThread mBalooQueryThread;
 
     LocalBalooFileListing mFileListing;
+
+    QMap<quintptr, LocalBalooAlbum> mAlbumsData;
+
+    QList<quintptr> mAlbumIds;
+
 };
 
 LocalAlbumModel::LocalAlbumModel(QObject *parent) : QAbstractItemModel(parent), d(new LocalAlbumModelPrivate)
@@ -52,9 +54,9 @@ LocalAlbumModel::LocalAlbumModel(QObject *parent) : QAbstractItemModel(parent), 
     d->mFileListing.moveToThread(&d->mBalooQueryThread);
 
     connect(this, &LocalAlbumModel::refreshContent, &d->mFileListing, &LocalBalooFileListing::refreshContent, Qt::QueuedConnection);
+    connect(&d->mFileListing, &LocalBalooFileListing::tracksList, this, &LocalAlbumModel::tracksList);
 
     Q_EMIT refreshContent();
-    qDebug() << "LocalAlbumModel::LocalAlbumModel" << QThread::currentThreadId();
 }
 
 LocalAlbumModel::~LocalAlbumModel()
@@ -65,17 +67,7 @@ LocalAlbumModel::~LocalAlbumModel()
 int LocalAlbumModel::rowCount(const QModelIndex &parent) const
 {
     if (!parent.isValid()) {
-        return 0;
-    }
-
-    if (!d->mAlbumParsers.contains(d->mChilds[parent.row()])) {
-        return 0;
-    }
-
-    auto childParser = d->mAlbumParsers[d->mChilds[parent.row()]];
-
-    if (!childParser) {
-        return 0;
+        return d->mAlbumsData.size();
     }
 
     return 0;
@@ -96,35 +88,6 @@ QHash<int, QByteArray> LocalAlbumModel::roleNames() const
     roles[static_cast<int>(ColumnsRoles::IsPlayingRole)] = "isPlaying";
 
     return roles;
-}
-
-bool LocalAlbumModel::canFetchMore(const QModelIndex &parent) const
-{
-    if (!parent.isValid()) {
-        return false;
-    }
-
-    if (parent.internalId() != 0) {
-        return false;
-    }
-
-    if (!d->mAlbumParsers.contains(d->mChilds[parent.row()])) {
-        return true;
-    }
-
-    auto childParser = d->mAlbumParsers[d->mChilds[parent.row()]];
-
-    if (!childParser) {
-        return true;
-    }
-
-    return false;
-}
-
-void LocalAlbumModel::fetchMore(const QModelIndex &parent)
-{
-    if (!d->mAlbumParsers.contains(d->mChilds[parent.row()])) {
-    }
 }
 
 Qt::ItemFlags LocalAlbumModel::flags(const QModelIndex &index) const
@@ -150,51 +113,46 @@ QVariant LocalAlbumModel::data(const QModelIndex &index, int role) const
         return {};
     }
 
-    if (index.row() >= 0) {
+    if (index.parent().isValid()) {
         return {};
     }
 
-    if (index.internalId() != 0) {
-        if (!d->mAlbumParsers.contains(d->mChilds[index.internalId() - 1])) {
-            return 0;
-        }
-
-        auto childParser = d->mAlbumParsers[d->mChilds[index.internalId() - 1]];
-
-        if (!childParser) {
-            return 0;
-        }
-
+    if (index.row() >= d->mAlbumsData.size()) {
         return {};
     }
 
-    return {};
+    auto itAlbum = d->mAlbumsData.find(index.internalId());
+
+    if (itAlbum == d->mAlbumsData.end()) {
+        return {};
+    }
+
+    return internalDataAlbum(index, role);
 }
 
-#if 0
-QVariant LocalAlbumModel::internalDataAlbum(const QModelIndex &index, int role, DidlParser *currentParser) const
+QVariant LocalAlbumModel::internalDataAlbum(const QModelIndex &index, int role) const
 {
     ColumnsRoles convertedRole = static_cast<ColumnsRoles>(role);
 
-    const auto &albumId = currentParser->newAlbumIds()[index.row()];
+    const auto &albumData = d->mAlbumsData[index.internalId()];
 
     switch(convertedRole)
     {
     case ColumnsRoles::TitleRole:
-        return currentParser->newAlbums()[albumId].mTitle;
+        return albumData.mTitle;
     case ColumnsRoles::DurationRole:
         return {};
     case ColumnsRoles::CreatorRole:
         return {};
     case ColumnsRoles::ArtistRole:
-        return currentParser->newAlbums()[albumId].mArtist;
+        return albumData.mArtist;
     case ColumnsRoles::AlbumRole:
         return {};
     case ColumnsRoles::RatingRole:
         return {};
     case ColumnsRoles::ImageRole:
-        if (currentParser->newAlbums()[albumId].mAlbumArtURI.isValid()) {
-            return currentParser->newAlbums()[albumId].mAlbumArtURI;
+        if (albumData.mCoverFile.isValid()) {
+            return albumData.mCoverFile;
         } else {
             if (d->mUseLocalIcons) {
                 return QUrl(QStringLiteral("qrc:/media-optical-audio.svg"));
@@ -203,15 +161,13 @@ QVariant LocalAlbumModel::internalDataAlbum(const QModelIndex &index, int role, 
             }
         }
     case ColumnsRoles::ResourceRole:
-        return currentParser->newAlbums()[albumId].mResourceURI;
+        return {};
     case ColumnsRoles::ItemClassRole:
         return {};
     case ColumnsRoles::CountRole:
-        return currentParser->newAlbums()[albumId].mTracksCount;
+        return albumData.mNbTracks;
     case ColumnsRoles::IdRole:
-        return currentParser->newAlbums()[albumId].mId;
-    case ColumnsRoles::ParentIdRole:
-        return currentParser->newAlbums()[albumId].mParentId;
+        return albumData.mTitle;
     case ColumnsRoles::IsPlayingRole:
         return {};
     }
@@ -219,6 +175,7 @@ QVariant LocalAlbumModel::internalDataAlbum(const QModelIndex &index, int role, 
     return {};
 }
 
+#if 0
 QVariant LocalAlbumModel::internalDataTrack(const QModelIndex &index, int role, DidlParser *currentParser) const
 {
     ColumnsRoles convertedRole = static_cast<ColumnsRoles>(role);
@@ -270,10 +227,10 @@ QVariant LocalAlbumModel::internalDataTrack(const QModelIndex &index, int role, 
 QModelIndex LocalAlbumModel::index(int row, int column, const QModelIndex &parent) const
 {
     if (!parent.isValid()) {
-        return createIndex(row, column, quintptr(0));
+        return createIndex(row, column, quintptr(d->mAlbumIds[row]));
     }
 
-    return createIndex(row, column, quintptr(parent.row()) + 1);
+    return createIndex(row, column, nullptr);
 }
 
 QModelIndex LocalAlbumModel::parent(const QModelIndex &child) const
@@ -287,7 +244,12 @@ QModelIndex LocalAlbumModel::parent(const QModelIndex &child) const
         return {};
     }
 
-    return createIndex(int(child.internalId() - 1), 0, quintptr(0));
+    auto itAlbum = d->mAlbumsData.find(child.internalId());
+    if (itAlbum != d->mAlbumsData.end()) {
+        return {};
+    }
+
+    return {};
 }
 
 int LocalAlbumModel::columnCount(const QModelIndex &parent) const
@@ -322,36 +284,31 @@ void LocalAlbumModel::setMusicDatabase(MusicStatistics *musicDatabase)
     emit musicDatabaseChanged();
 }
 
-void LocalAlbumModel::contentChanged(const QString &parentId)
+void LocalAlbumModel::tracksList(const QHash<QString, QList<LocalBalooTrack> > &tracks)
 {
-    if (parentId == QStringLiteral("0")) {
-        beginResetModel();
+    beginResetModel();
 
-        d->mChilds = {};
+    d->mAlbumsData.clear();
+    d->mAlbumIds.clear();
 
-        endResetModel();
-        return;
+    quintptr currentElementId = 1;
+    for (auto album : tracks) {
+        const auto &firstTrack = album.first();
+        d->mAlbumIds.push_back(currentElementId);
+        auto &newAlbum = d->mAlbumsData[currentElementId];
+        ++currentElementId;
+
+        newAlbum.mArtist = firstTrack.mArtist;
+        newAlbum.mTitle = firstTrack.mAlbum;
+        newAlbum.mNbTracks = album.size();
+
+        for(auto track : album) {
+            newAlbum.mTracks[currentElementId] = track;
+            ++currentElementId;
+        }
     }
 
-    auto indexChild = d->mChilds.indexOf(parentId);
-
-    if (indexChild == -1) {
-        return;
-    }
-
-    if (!d->mAlbumParsers.contains(parentId)) {
-        return;
-    }
-
-    auto childParser = d->mAlbumParsers[parentId];
-
-    if (!childParser) {
-        return;
-    }
-
-    beginInsertRows(index(indexChild, 0), 0, 0);
-
-    endInsertRows();
+    endResetModel();
 }
 
 #include "moc_localalbummodel.cpp"

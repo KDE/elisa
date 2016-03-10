@@ -33,6 +33,7 @@
 #include "upnpalbummodel.h"
 #include "didlparser.h"
 #include "localalbummodel.h"
+#include "localbalootrack.h"
 
 #include "mediaplaylist.h"
 #include "playlistcontroler.h"
@@ -89,6 +90,7 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
     qRegisterMetaType<UpnpDeviceDescription*>();
     qRegisterMetaType<RemoteServerEntry*>();
     qRegisterMetaType<QAbstractItemModel*>();
+    qRegisterMetaType<QHash<QString,QList<LocalBalooTrack> >>();
 
     KLocalizedString::setApplicationDomain("elisa");
 

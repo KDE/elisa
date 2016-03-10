@@ -35,6 +35,8 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         upnpalbummodel.cpp
         localalbummodel.cpp
         localbaloofilelisting.cpp
+        localbalootrack.cpp
+        localbalooalbum.cpp
         musicstatistics.cpp
         musicalbum.cpp
         musicaudiotrack.cpp

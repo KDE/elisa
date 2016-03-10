@@ -17,41 +17,32 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef LOCALBALOOFILELISTING_H
-#define LOCALBALOOFILELISTING_H
+#ifndef LOCALBALOOTRACK_H
+#define LOCALBALOOTRACK_H
 
-#include <QtCore/QObject>
+#include <QtCore/QList>
+#include <QtCore/QHash>
 #include <QtCore/QString>
 #include <QtCore/QUrl>
+#include <QtCore/QMetaType>
 
-#include <memory>
-
-class LocalBalooFileListingPrivate;
-class LocalBalooTrack;
-
-class LocalBalooFileListing : public QObject
+class LocalBalooTrack
 {
-
-    Q_OBJECT
-
 public:
+    LocalBalooTrack();
 
-    explicit LocalBalooFileListing(QObject *parent = 0);
+    QString mArtist;
 
-    virtual ~LocalBalooFileListing();
+    QString mTitle;
 
-Q_SIGNALS:
+    QString mAlbum;
 
-    void tracksList(const QHash<QString, QList<LocalBalooTrack>> &tracks);
+    double mDuration = 0;
 
-public Q_SLOTS:
-
-    void refreshContent();
-
-private:
-
-    std::unique_ptr<LocalBalooFileListingPrivate> d;
+    QUrl mFile;
 
 };
 
-#endif // LOCALBALOOFILELISTING_H
+Q_DECLARE_METATYPE(LocalBalooTrack)
+
+#endif // LOCALBALOOTRACK_H

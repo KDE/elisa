@@ -19,6 +19,8 @@
 
 #include "localbaloofilelisting.h"
 
+#include "localbalootrack.h"
+
 #include <Baloo/Query>
 #include <Baloo/File>
 
@@ -26,12 +28,15 @@
 
 #include <QtCore/QThread>
 #include <QtCore/QDebug>
+#include <QtCore/QHash>
 
 class LocalBalooFileListingPrivate
 {
 public:
 
     Baloo::Query mQuery;
+
+    QHash<QString, QList<LocalBalooTrack>> mAllAlbums;
 
 };
 
@@ -48,37 +53,53 @@ void LocalBalooFileListing::refreshContent()
 {
     auto resultIterator = d->mQuery.exec();
 
+    qDebug() << "LocalBalooFileListing::refreshContent";
 
+    int cptTracks = 0;
 
     while(resultIterator.next()) {
         Baloo::File match(resultIterator.filePath());
         match.load();
 
-        qDebug() << "LocalBalooFileListing::refreshContent";
-
         const auto &allProperties = match.properties();
 
         auto titleProperty = allProperties.find(KFileMetaData::Property::Title);
         auto durationProperty = allProperties.find(KFileMetaData::Property::Duration);
-        auto authorProperty = allProperties.find(KFileMetaData::Property::Author);
+        auto artistProperty = allProperties.find(KFileMetaData::Property::Artist);
         auto albumProperty = allProperties.find(KFileMetaData::Property::Album);
 
-        if (titleProperty != allProperties.end()) {
-            qDebug() << "title" << *titleProperty;
-        }
-
-        if (durationProperty != allProperties.end()) {
-            qDebug() << "duration" << *durationProperty;
-        }
-
-        if (authorProperty != allProperties.end()) {
-            qDebug() << "author" << *authorProperty;
-        }
-
         if (albumProperty != allProperties.end()) {
-            qDebug() << "album" << *albumProperty;
+            auto albumValue = albumProperty->toString();
+            auto &allTracks = d->mAllAlbums[albumValue];
+
+            LocalBalooTrack newTrack;
+
+            newTrack.mAlbum = albumValue;
+            ++cptTracks;
+
+            if (artistProperty != allProperties.end()) {
+                newTrack.mArtist = artistProperty->toString();
+            }
+
+            if (durationProperty != allProperties.end()) {
+                newTrack.mDuration = durationProperty->toDouble();
+            }
+
+            if (titleProperty != allProperties.end()) {
+                newTrack.mTitle = titleProperty->toString();
+            }
+
+            newTrack.mFile = QUrl::fromLocalFile(resultIterator.filePath());
+
+            allTracks.push_back(newTrack);
         }
     }
+
+    qDebug() << d->mAllAlbums.size();
+    qDebug() << d->mAllAlbums.keys();
+    qDebug() << cptTracks;
+
+    Q_EMIT tracksList(d->mAllAlbums);
 }
 
 

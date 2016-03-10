@@ -21,12 +21,16 @@
 #define LOCALALBUMMODEL_H
 
 #include <QtCore/QAbstractItemModel>
+#include <QtCore/QList>
+#include <QtCore/QHash>
+#include <QtCore/QString>
 
 #include "musicalbum.h"
 #include "musicaudiotrack.h"
 
 class LocalAlbumModelPrivate;
 class MusicStatistics;
+class LocalBalooTrack;
 
 class LocalAlbumModel : public QAbstractItemModel
 {
@@ -58,8 +62,7 @@ public:
         ItemClassRole = ResourceRole + 1,
         CountRole = ItemClassRole + 1,
         IdRole = CountRole + 1,
-        ParentIdRole = IdRole + 1,
-        IsPlayingRole = ParentIdRole + 1,
+        IsPlayingRole = IdRole + 1,
     };
 
     explicit LocalAlbumModel(QObject *parent = 0);
@@ -69,10 +72,6 @@ public:
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
 
     QHash<int, QByteArray> roleNames() const override;
-
-    bool canFetchMore(const QModelIndex &parent) const override;
-
-    void fetchMore(const QModelIndex &parent) override;
 
     Qt::ItemFlags flags(const QModelIndex &index) const override;
 
@@ -102,9 +101,11 @@ public Q_SLOTS:
 
 private Q_SLOTS:
 
-    void contentChanged(const QString &parentId);
+    void tracksList(const QHash<QString, QList<LocalBalooTrack>> &tracks);
 
 private:
+
+    QVariant internalDataAlbum(const QModelIndex &index, int role) const;
 
     LocalAlbumModelPrivate *d;
 };

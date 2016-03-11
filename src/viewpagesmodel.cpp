@@ -174,14 +174,10 @@ RemoteServerEntry *ViewPagesModel::remoteServer(QModelIndex index) const
 
 UpnpAlbumModel *ViewPagesModel::remoteAlbumModel(int index) const
 {
-    qDebug() << "ViewPagesModel::remoteAlbumModel" << index;
-
     if (index < 0 || index > d->mRemoteServers.size() - 1) {
-        qDebug() << "ViewPagesModel::remoteAlbumModel" << nullptr;
         return nullptr;
     }
 
-    qDebug() << "ViewPagesModel::remoteAlbumModel" << d->mRemoteServers.at(index)->albumModel();
     return d->mRemoteServers.at(index)->albumModel();
 }
 
@@ -218,7 +214,6 @@ const QString &ViewPagesModel::sortCriteria() const
 
 void ViewPagesModel::newDevice(QSharedPointer<UpnpDiscoveryResult> serviceDiscovery)
 {
-    //qDebug() << "ViewPagesModel::newDevice" << serviceDiscovery->nt() << d->mDeviceId;
     if (serviceDiscovery->nt() == d->mDeviceId) {
         const QString &deviceUuid = serviceDiscovery->usn().mid(5, 36);
         if (!d->mAllDeviceDiscoveryResults.contains(deviceUuid)) {

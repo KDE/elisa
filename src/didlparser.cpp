@@ -25,8 +25,6 @@
 #include <QtXml/QDomDocument>
 #include <QtXml/QDomNode>
 
-#include <QtCore/QDebug>
-
 class DidlParserPrivate
 {
 public:
@@ -194,15 +192,12 @@ void DidlParser::browseFinished(UpnpControlAbstractServiceReply *self)
         return;
     }
 
-    qDebug() << "DidlParser::browseFinished" << (success ? "true" : "false");
-
     QDomDocument browseDescription;
     browseDescription.setContent(result);
 
     browseDescription.documentElement();
 
     auto containerList = browseDescription.elementsByTagName(QStringLiteral("container"));
-    qDebug() << "DidlParser::browseFinished" << containerList.length() << d->mParentId;
     for (int containerIndex = 0; containerIndex < containerList.length(); ++containerIndex) {
         const QDomNode &containerNode(containerList.at(containerIndex));
         if (!containerNode.isNull()) {
@@ -211,7 +206,6 @@ void DidlParser::browseFinished(UpnpControlAbstractServiceReply *self)
     }
 
     auto itemList = browseDescription.elementsByTagName(QStringLiteral("item"));
-    qDebug() << "DidlParser::browseFinished" << itemList.length() << d->mParentId;
     for (int itemIndex = 0; itemIndex < itemList.length(); ++itemIndex) {
         const QDomNode &itemNode(itemList.at(itemIndex));
         if (!itemNode.isNull()) {
@@ -227,8 +221,6 @@ void DidlParser::searchFinished(UpnpControlAbstractServiceReply *self)
 {
     QString result = self->result()[QStringLiteral("Result")].toString();
     bool success = self->success();
-
-    qDebug() << "DidlParser::searchFinished" << (success ? "true" : "false");
 
     if (!success) {
         d->mIsDataValid = false;
@@ -248,7 +240,6 @@ void DidlParser::searchFinished(UpnpControlAbstractServiceReply *self)
     d->mNewMusicTrackIds.clear();
 
     auto containerList = browseDescription.elementsByTagName(QStringLiteral("container"));
-    qDebug() << "DidlParser::searchFinished" << containerList.length();
     for (int containerIndex = 0; containerIndex < containerList.length(); ++containerIndex) {
         const QDomNode &containerNode(containerList.at(containerIndex));
         if (!containerNode.isNull()) {
@@ -257,7 +248,6 @@ void DidlParser::searchFinished(UpnpControlAbstractServiceReply *self)
     }
 
     auto itemList = browseDescription.elementsByTagName(QStringLiteral("item"));
-    qDebug() << "DidlParser::searchFinished" << itemList.length();
     for (int itemIndex = 0; itemIndex < itemList.length(); ++itemIndex) {
         const QDomNode &itemNode(itemList.at(itemIndex));
         if (!itemNode.isNull()) {

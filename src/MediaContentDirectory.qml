@@ -7,27 +7,11 @@ import org.mgallien.QmlExtension 1.0
 import QtMultimedia 5.4
 
 Item {
-    property var remoteMediaServer: ({})
     property var pagesModel
-    property StackView parentStackView
+    property var contentDirectoryModel
     property MediaPlayList playListModel
 
-    property string globalBrowseFlag: 'BrowseDirectChildren'
-    property string globalFilter: '*'
-    property string globalSortCriteria: ''
-
     id: contentDirectoryRoot
-
-    UpnpAlbumModel {
-        id: contentDirectoryModel
-
-        didlParser.browseFlag: globalBrowseFlag
-        didlParser.filter: globalFilter
-        didlParser.sortCriteria: globalSortCriteria
-        didlParser.contentDirectory: remoteMediaServer.contentDirectory
-        contentDirectory: remoteMediaServer.contentDirectory
-        musicDatabase: musicStats
-    }
 
     MusicStatistics {
         id: musicStats
@@ -66,8 +50,6 @@ Item {
             }
 
             initialItem: MediaServerListing {
-                contentDirectoryService: remoteMediaServer.contentDirectory
-                rootIndex: remoteMediaServer ? '0' : ''
                 stackView: listingView
                 contentModel: contentDirectoryModel
                 playListModel: contentDirectoryRoot.playListModel

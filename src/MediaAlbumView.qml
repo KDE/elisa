@@ -9,10 +9,9 @@ import QtQuick.Layouts 1.2
 
 Item {
     id: topListing
-    property UpnpControlContentDirectory contentDirectoryService
     property var rootIndex
     property StackView stackView
-    property UpnpAlbumModel contentModel
+    property var contentModel
     property MediaPlayList playListModel
     property var albumName
     property var artistName

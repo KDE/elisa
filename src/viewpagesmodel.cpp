@@ -23,6 +23,7 @@
 #include "upnpdiscoveryresult.h"
 #include "upnpdevicedescriptionparser.h"
 #include "upnpcontrolcontentdirectory.h"
+#include "upnpalbummodel.h"
 
 #include "remoteserverentry.h"
 
@@ -57,6 +58,12 @@ public:
     bool mWithPlaylist;
 
     QString mDeviceId;
+
+    QString mBrowseFlag;
+
+    QString mFilter;
+
+    QString mSortCriteria;
 
 };
 
@@ -149,6 +156,19 @@ RemoteServerEntry *ViewPagesModel::remoteServer(QModelIndex index) const
     return remoteServer(index.row());
 }
 
+UpnpAlbumModel *ViewPagesModel::remoteAlbumModel(int index) const
+{
+    qDebug() << "ViewPagesModel::remoteAlbumModel" << index;
+
+    if (index < 0 || index > d->mRemoteServers.size() - 1) {
+        qDebug() << "ViewPagesModel::remoteAlbumModel" << nullptr;
+        return nullptr;
+    }
+
+    qDebug() << "ViewPagesModel::remoteAlbumModel" << d->mRemoteServers.at(index)->albumModel();
+    return d->mRemoteServers.at(index)->albumModel();
+}
+
 void ViewPagesModel::setWithPlaylist(bool value)
 {
     d->mWithPlaylist = value;
@@ -163,6 +183,21 @@ bool ViewPagesModel::withPlaylist() const
 QString ViewPagesModel::deviceId() const
 {
     return d->mDeviceId;
+}
+
+const QString &ViewPagesModel::browseFlag() const
+{
+    return d->mBrowseFlag;
+}
+
+const QString &ViewPagesModel::filter() const
+{
+    return d->mFilter;
+}
+
+const QString &ViewPagesModel::sortCriteria() const
+{
+    return d->mSortCriteria;
 }
 
 void ViewPagesModel::newDevice(QSharedPointer<UpnpDiscoveryResult> serviceDiscovery)
@@ -190,6 +225,10 @@ void ViewPagesModel::newDevice(QSharedPointer<UpnpDiscoveryResult> serviceDiscov
                                                                                                 d->mDeviceDescriptionParsers[decodedUdn],
                                                                                                 this)));
 
+            d->mRemoteServers.last()->albumModel()->setBrowseFlag(browseFlag());
+            d->mRemoteServers.last()->albumModel()->setFilter(filter());
+            d->mRemoteServers.last()->albumModel()->setSortCriteria(sortCriteria());
+
             connect(&d->mNetworkAccess, &QNetworkAccessManager::finished, d->mDeviceDescriptionParsers[decodedUdn].data(), &UpnpDeviceDescriptionParser::finishedDownload);
             connect(d->mDeviceDescriptionParsers[decodedUdn].data(), &UpnpDeviceDescriptionParser::descriptionParsed, this, &ViewPagesModel::descriptionParsed);
 
@@ -215,6 +254,24 @@ void ViewPagesModel::setDeviceId(QString deviceId)
 
     d->mDeviceId = deviceId;
     emit deviceIdChanged(deviceId);
+}
+
+void ViewPagesModel::setBrowseFlag(const QString &flag)
+{
+    d->mBrowseFlag = flag;
+    Q_EMIT browseFlagChanged();
+}
+
+void ViewPagesModel::setFilter(const QString &flag)
+{
+    d->mFilter = flag;
+    Q_EMIT filterChanged();
+}
+
+void ViewPagesModel::setSortCriteria(const QString &criteria)
+{
+    d->mSortCriteria = criteria;
+    Q_EMIT sortCriteriaChanged();
 }
 
 void ViewPagesModel::deviceDescriptionChanged(const QString &uuid)

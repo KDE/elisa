@@ -17,6 +17,10 @@ ApplicationWindow {
     property UpnpDeviceDescription aDevice
     property UpnpControlConnectionManager connectionManager
 
+    property string globalBrowseFlag: 'BrowseDirectChildren'
+    property string globalFilter: '*'
+    property string globalSortCriteria: ''
+
     Action {
         id: quitAction
         text: qsTr("&Quit")
@@ -46,6 +50,10 @@ ApplicationWindow {
 
         deviceId: 'urn:schemas-upnp-org:device:MediaServer:1'
 
+        browseFlag: globalBrowseFlag
+        filter: globalFilter
+        sortCriteria: globalSortCriteria
+
         property var mediaServiceComponent
         property var mediaViewComponent
 
@@ -57,7 +65,7 @@ ApplicationWindow {
             mainContentView.getTab(first).item.width = mainContentView.width
             mainContentView.getTab(first).item.height = mainContentView.height
             mainContentView.getTab(first).item.z = 0
-            mainContentView.getTab(first).item.remoteMediaServer = viewModeModel.remoteServer(first)
+            mainContentView.getTab(first).item.contentDirectoryModel = viewModeModel.remoteAlbumModel(first)
         }
     }
 

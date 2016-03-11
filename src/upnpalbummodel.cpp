@@ -41,6 +41,12 @@ public:
 
     DidlParser mDidlParser;
 
+    QString mBrowseFlag;
+
+    QString mFilter;
+
+    QString mSortCriteria;
+
     QList<QString> mChilds;
 
     QHash<QString, QPointer<DidlParser>> mAlbumParsers;
@@ -320,6 +326,21 @@ DidlParser *UpnpAlbumModel::didlParser() const
     return &d->mDidlParser;
 }
 
+const QString &UpnpAlbumModel::browseFlag() const
+{
+    return d->mBrowseFlag;
+}
+
+const QString &UpnpAlbumModel::filter() const
+{
+    return d->mFilter;
+}
+
+const QString &UpnpAlbumModel::sortCriteria() const
+{
+    return d->mSortCriteria;
+}
+
 void UpnpAlbumModel::setContentDirectory(UpnpControlContentDirectory *directory)
 {
     if (directory) {
@@ -340,6 +361,10 @@ void UpnpAlbumModel::setContentDirectory(UpnpControlContentDirectory *directory)
     connect(d->mContentDirectory, &UpnpControlContentDirectory::systemUpdateIDChanged,
             &d->mDidlParser, &DidlParser::systemUpdateIDChanged);
 
+    d->mDidlParser.setContentDirectory(directory);
+    d->mDidlParser.setBrowseFlag(browseFlag());
+    d->mDidlParser.setFilter(filter());
+    d->mDidlParser.setSortCriteria(sortCriteria());
     d->mDidlParser.search();
 
     endResetModel();
@@ -365,6 +390,24 @@ void UpnpAlbumModel::setMusicDatabase(MusicStatistics *musicDatabase)
     }
 
     emit musicDatabaseChanged();
+}
+
+void UpnpAlbumModel::setBrowseFlag(const QString &flag)
+{
+    d->mBrowseFlag = flag;
+    Q_EMIT browseFlagChanged();
+}
+
+void UpnpAlbumModel::setFilter(const QString &flag)
+{
+    d->mFilter = flag;
+    Q_EMIT filterChanged();
+}
+
+void UpnpAlbumModel::setSortCriteria(const QString &criteria)
+{
+    d->mSortCriteria = criteria;
+    Q_EMIT sortCriteriaChanged();
 }
 
 void UpnpAlbumModel::contentChanged(const QString &parentId)

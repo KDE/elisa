@@ -26,6 +26,7 @@
 class UpnpControlContentDirectory;
 class UpnpDeviceDescription;
 class UpnpDeviceDescriptionParser;
+class UpnpAlbumModel;
 
 class RemoteServerEntry : public QObject
 {
@@ -36,6 +37,10 @@ class RemoteServerEntry : public QObject
                READ contentDirectory
                WRITE setContentDirectory
                NOTIFY contentDirectoryChanged)
+
+    Q_PROPERTY(UpnpAlbumModel* albumModel
+               READ albumModel
+               NOTIFY albumModelChanged)
 
     Q_PROPERTY(bool isReady
                READ isReady
@@ -56,11 +61,15 @@ public:
 
     void setIsReady(bool value);
 
+    UpnpAlbumModel* albumModel() const;
+
 Q_SIGNALS:
 
     void contentDirectoryChanged();
 
     void isReadyChanged();
+
+    void albumModelChanged();
 
 public Q_SLOTS:
 
@@ -76,6 +85,9 @@ private:
 
     QSharedPointer<UpnpDeviceDescriptionParser> mDeviceParser;
 
+    QSharedPointer<UpnpAlbumModel> mAlbumModel;
+
+    QSharedPointer<UpnpControlContentDirectory> mNewService;
 };
 
 #endif // REMOTESERVERENTRY_H

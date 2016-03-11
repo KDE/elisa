@@ -52,6 +52,21 @@ class UpnpAlbumModel : public QAbstractItemModel
                READ didlParser
                NOTIFY didlParserChanged)
 
+    Q_PROPERTY(QString browseFlag
+               READ browseFlag
+               WRITE setBrowseFlag
+               NOTIFY browseFlagChanged)
+
+    Q_PROPERTY(QString filter
+               READ filter
+               WRITE setFilter
+               NOTIFY filterChanged)
+
+    Q_PROPERTY(QString sortCriteria
+               READ sortCriteria
+               WRITE setSortCriteria
+               NOTIFY sortCriteriaChanged)
+
 public:
 
     enum ItemClass {
@@ -105,6 +120,12 @@ public:
 
     DidlParser* didlParser() const;
 
+    const QString& browseFlag() const;
+
+    const QString& filter() const;
+
+    const QString& sortCriteria() const;
+
 Q_SIGNALS:
 
     void contentDirectoryChanged();
@@ -112,6 +133,12 @@ Q_SIGNALS:
     void musicDatabaseChanged();
 
     void didlParserChanged();
+
+    void browseFlagChanged();
+
+    void filterChanged();
+
+    void sortCriteriaChanged();
 
     void newAlbum(const MusicAlbum &album);
 
@@ -122,6 +149,12 @@ public Q_SLOTS:
     void setContentDirectory(UpnpControlContentDirectory *directory);
 
     void setMusicDatabase(MusicStatistics* musicDatabase);
+
+    void setBrowseFlag(const QString &flag);
+
+    void setFilter(const QString &flag);
+
+    void setSortCriteria(const QString &criteria);
 
 private Q_SLOTS:
 

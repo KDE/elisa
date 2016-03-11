@@ -30,6 +30,7 @@ class ViewPagesModelPrivate;
 class UpnpDiscoveryResult;
 class UpnpControlContentDirectory;
 class RemoteServerEntry;
+class UpnpAlbumModel;
 
 class ViewPagesModel : public QAbstractListModel
 {
@@ -44,6 +45,21 @@ class ViewPagesModel : public QAbstractListModel
                READ deviceId
                WRITE setDeviceId
                NOTIFY deviceIdChanged)
+
+    Q_PROPERTY(QString browseFlag
+               READ browseFlag
+               WRITE setBrowseFlag
+               NOTIFY browseFlagChanged)
+
+    Q_PROPERTY(QString filter
+               READ filter
+               WRITE setFilter
+               NOTIFY filterChanged)
+
+    Q_PROPERTY(QString sortCriteria
+               READ sortCriteria
+               WRITE setSortCriteria
+               NOTIFY sortCriteriaChanged)
 
 public:
 
@@ -67,11 +83,19 @@ public:
 
     Q_INVOKABLE RemoteServerEntry *remoteServer(QModelIndex index) const;
 
+    Q_INVOKABLE UpnpAlbumModel *remoteAlbumModel(int index) const;
+
     void setWithPlaylist(bool value);
 
     bool withPlaylist() const;
 
     QString deviceId() const;
+
+    const QString& browseFlag() const;
+
+    const QString& filter() const;
+
+    const QString& sortCriteria() const;
 
 public Q_SLOTS:
 
@@ -80,6 +104,12 @@ public Q_SLOTS:
     void removedDevice(QSharedPointer<UpnpDiscoveryResult> serviceDiscovery);
 
     void setDeviceId(QString deviceId);
+
+    void setBrowseFlag(const QString &flag);
+
+    void setFilter(const QString &flag);
+
+    void setSortCriteria(const QString &criteria);
 
 private Q_SLOTS:
 
@@ -92,6 +122,12 @@ Q_SIGNALS:
     void withPlaylistChanged();
 
     void deviceIdChanged(QString deviceId);
+
+    void browseFlagChanged();
+
+    void filterChanged();
+
+    void sortCriteriaChanged();
 
 private:
 

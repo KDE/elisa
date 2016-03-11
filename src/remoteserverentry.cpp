@@ -23,30 +23,23 @@
 #include "upnpdevicedescription.h"
 #include "upnpservicedescription.h"
 #include "upnpdevicedescriptionparser.h"
+#include "upnpalbummodel.h"
 
 #include <QtCore/QDebug>
 
 RemoteServerEntry::RemoteServerEntry(QSharedPointer<UpnpDeviceDescription> device,
                                      QSharedPointer<UpnpDeviceDescriptionParser> deviceParser,
                                      QObject *parent)
-    : QObject(parent), mIsReady(false), mDevice(device), mDeviceParser(deviceParser)
+    : QObject(parent), mIsReady(false), mDevice(device), mDeviceParser(deviceParser), mAlbumModel(new UpnpAlbumModel)
 {
     connect(mDeviceParser.data(), &UpnpDeviceDescriptionParser::descriptionParsed, this, &RemoteServerEntry::descriptionParsed);
+
+    mNewService.reset(new UpnpControlContentDirectory());
 }
 
 UpnpControlContentDirectory *RemoteServerEntry::contentDirectory() const
 {
-    QScopedPointer<UpnpControlContentDirectory> newService(new UpnpControlContentDirectory());
-
-    const auto &allServices = mDevice->servicesName();
-    auto serviceIndex = allServices.indexOf(QStringLiteral("urn:schemas-upnp-org:service:ContentDirectory:1"));
-    if (serviceIndex == -1) {
-        return nullptr;
-    }
-
-    newService->setDescription(mDevice->serviceByIndex(serviceIndex).data());
-
-    return newService.take();
+    return mNewService.data();
 }
 
 void RemoteServerEntry::setContentDirectory(UpnpControlContentDirectory *value)
@@ -65,10 +58,26 @@ void RemoteServerEntry::setIsReady(bool value)
     Q_EMIT isReadyChanged();
 }
 
+UpnpAlbumModel *RemoteServerEntry::albumModel() const
+{
+    return mAlbumModel.data();
+}
+
 void RemoteServerEntry::descriptionParsed(const QString &UDN)
 {
     Q_UNUSED(UDN);
     mDeviceParser.clear();
+
+    const auto &allServices = mDevice->servicesName();
+    auto serviceIndex = allServices.indexOf(QStringLiteral("urn:schemas-upnp-org:service:ContentDirectory:1"));
+    if (serviceIndex == -1) {
+        return;
+    }
+
+    mNewService->setDescription(mDevice->serviceByIndex(serviceIndex).data());
+
+    mAlbumModel->setContentDirectory(mNewService.data());
+
     setIsReady(true);
     Q_EMIT contentDirectoryChanged();
 }

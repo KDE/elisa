@@ -10,10 +10,9 @@ import QtMultimedia 5.4
 import org.mgallien.QmlExtension 1.0
 
 Item {
-    property UpnpControlContentDirectory contentDirectoryService
     property var rootIndex
     property StackView stackView
-    property UpnpAlbumModel contentModel
+    property var contentModel
     property MediaPlayList playListModel
 
     id: rootElement
@@ -29,7 +28,6 @@ Item {
     DelegateModel {
         id: delegateContentModel
         model: filterProxyModel
-        rootIndex: filterProxyModel.mapFromSource(rootElement.rootIndex)
 
         delegate: Rectangle {
             id: mediaServerEntry
@@ -88,7 +86,6 @@ Item {
                                 onClicked: {
                                     stackView.push(Qt.resolvedUrl("MediaAlbumView.qml"),
                                                    {
-                                                       'contentDirectoryService': contentDirectoryService,
                                                        'rootIndex': filterProxyModel.mapToSource(delegateContentModel.modelIndex(mediaServerEntry.DelegateModel.itemsIndex)),
                                                        'stackView': stackView,
                                                        'contentModel': contentModel,

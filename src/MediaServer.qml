@@ -240,6 +240,19 @@ ApplicationWindow {
                 }
 
                 Tab {
+                    MediaContentDirectory {
+                        id: localAlbums
+
+                        pagesModel: viewModeModel
+                        playListModel: playListModelItem
+                        contentDirectoryModel: LocalAlbumModel {
+                        }
+
+                        anchors.fill: parent
+                    }
+                }
+
+                Tab {
                     Rectangle {
                         anchors.fill: parent
                         color: "#FFFFFF"

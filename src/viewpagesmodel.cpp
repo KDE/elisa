@@ -88,25 +88,29 @@ int ViewPagesModel::rowCount(const QModelIndex &parent) const
         return d->mAllDevices.size();
     }
 
-    return d->mAllDevices.size() + 1;
+    if (!d->mWithPlaylist) {
+        return d->mAllDevices.size() + 1;
+    }
+
+    return d->mAllDevices.size() + 2;
 }
 
 QVariant ViewPagesModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid()) {
-        return QVariant();
+        return {};
     }
 
-    if (index.row() < 0 || index.row() >= d->mAllDevices.size() + 1) {
-        return QVariant();
+    if (index.row() < 0 || (index.row() >= d->mAllDevices.size() + 2 && d->mWithPlaylist)) {
+        return {};
     }
 
-    if (!d->mWithPlaylist && index.row() >= d->mAllDevices.size()) {
-        return QVariant();
+    if (!d->mWithPlaylist && index.row() >= d->mAllDevices.size() + 1) {
+        return {};
     }
 
     if (role < ColumnsRoles::NameRole || role > ColumnsRoles::UDNRole) {
-        return QVariant();
+        return {};
     }
 
     ColumnsRoles convertedRole = static_cast<ColumnsRoles>(role);
@@ -119,17 +123,29 @@ QVariant ViewPagesModel::data(const QModelIndex &index, int role) const
         case ColumnsRoles::UDNRole:
             return d->mAllHostsUUID[index.row()];
         }
-    } else if (d->mWithPlaylist) {
-        switch(convertedRole)
-        {
-        case ColumnsRoles::NameRole:
-            return QStringLiteral("Play List");
-        default:
-            return QVariant();
+    } else {
+        if (index.row() - d->mAllDevices.size() == 0) {
+            switch(convertedRole)
+            {
+            case ColumnsRoles::NameRole:
+                return QStringLiteral("Local Albums");
+            default:
+                return {};
+            }
+        } else {
+            if (d->mWithPlaylist && index.row() - d->mAllDevices.size() == 1) {
+                switch(convertedRole)
+                {
+                case ColumnsRoles::NameRole:
+                    return QStringLiteral("Play List");
+                default:
+                    return {};
+                }
+            }
         }
     }
 
-    return QVariant();
+    return {};
 }
 
 QHash<int, QByteArray> ViewPagesModel::roleNames() const

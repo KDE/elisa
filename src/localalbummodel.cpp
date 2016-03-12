@@ -204,7 +204,7 @@ QVariant LocalAlbumModel::internalDataTrack(const LocalBalooTrack &track, const 
         return track.mTitle;
     case ColumnsRoles::DurationRole:
     {
-        QTime trackDuration(0, 0, track.mDuration);
+        QTime trackDuration = QTime::fromMSecsSinceStartOfDay(1000 * track.mDuration);
         if (trackDuration.hour() == 0) {
             return trackDuration.toString(QStringLiteral("mm:ss"));
         } else {

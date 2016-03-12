@@ -46,6 +46,8 @@ public:
 
     QList<quintptr> mAlbumIds;
 
+    QMap<quintptr, quintptr> mTracksInAlbums;
+
 };
 
 LocalAlbumModel::LocalAlbumModel(QObject *parent) : QAbstractItemModel(parent), d(new LocalAlbumModelPrivate)
@@ -70,7 +72,12 @@ int LocalAlbumModel::rowCount(const QModelIndex &parent) const
         return d->mAlbumsData.size();
     }
 
-    return 0;
+    auto itAlbum = d->mAlbumsData.find(parent.internalId());
+    if (itAlbum == d->mAlbumsData.end()) {
+        return 0;
+    }
+
+    return itAlbum->mTrackIds.size();
 }
 
 QHash<int, QByteArray> LocalAlbumModel::roleNames() const
@@ -113,21 +120,33 @@ QVariant LocalAlbumModel::data(const QModelIndex &index, int role) const
         return {};
     }
 
-    if (index.parent().isValid()) {
-        return {};
-    }
-
-    if (index.row() >= d->mAlbumsData.size()) {
-        return {};
-    }
-
     auto itAlbum = d->mAlbumsData.find(index.internalId());
+    if (itAlbum != d->mAlbumsData.end()) {
+        return internalDataAlbum(index, role);
+    }
 
+    auto itTrack = d->mTracksInAlbums.find(index.internalId());
+    if (itTrack == d->mTracksInAlbums.end()) {
+        return {};
+    }
+
+    auto albumId = itTrack.value();
+    itAlbum = d->mAlbumsData.find(albumId);
     if (itAlbum == d->mAlbumsData.end()) {
         return {};
     }
 
-    return internalDataAlbum(index, role);
+    const auto &currentAlbum = *itAlbum;
+    if (index.row() < 0 || index.row() >= currentAlbum.mNbTracks) {
+        return {};
+    }
+
+    auto itTrackInCurrentAlbum = currentAlbum.mTracks.find(index.internalId());
+    if (itTrackInCurrentAlbum == currentAlbum.mTracks.end()) {
+        return {};
+    }
+
+    return internalDataTrack(itTrackInCurrentAlbum.value(), index, role);
 }
 
 QVariant LocalAlbumModel::internalDataAlbum(const QModelIndex &index, int role) const
@@ -175,62 +194,70 @@ QVariant LocalAlbumModel::internalDataAlbum(const QModelIndex &index, int role) 
     return {};
 }
 
-#if 0
-QVariant LocalAlbumModel::internalDataTrack(const QModelIndex &index, int role, DidlParser *currentParser) const
+QVariant LocalAlbumModel::internalDataTrack(const LocalBalooTrack &track, const QModelIndex &index, int role) const
 {
     ColumnsRoles convertedRole = static_cast<ColumnsRoles>(role);
-
-    if (index.row() < 0 || index.row() >= currentParser->newMusicTrackIds().size()) {
-        return {};
-    }
-
-    const auto &musicTrackId = currentParser->newMusicTrackIds()[index.row()];
 
     switch(convertedRole)
     {
     case ColumnsRoles::TitleRole:
-        return currentParser->newMusicTracks()[musicTrackId].mTitle;
+        return track.mTitle;
     case ColumnsRoles::DurationRole:
-        if (currentParser->newMusicTracks()[musicTrackId].mDuration.hour() == 0) {
-            return currentParser->newMusicTracks()[musicTrackId].mDuration.toString(QStringLiteral("mm:ss"));
+    {
+        QTime trackDuration(0, 0, track.mDuration);
+        if (trackDuration.hour() == 0) {
+            return trackDuration.toString(QStringLiteral("mm:ss"));
         } else {
-            return currentParser->newMusicTracks()[musicTrackId].mDuration.toString();
+            return trackDuration.toString();
         }
+    }
     case ColumnsRoles::CreatorRole:
-        return currentParser->newMusicTracks()[musicTrackId].mArtist;
+        return track.mArtist;
     case ColumnsRoles::ArtistRole:
-        return currentParser->newMusicTracks()[musicTrackId].mArtist;
+        return track.mArtist;
     case ColumnsRoles::AlbumRole:
-        return currentParser->newMusicTracks()[musicTrackId].mAlbumName;
+        return track.mAlbum;
     case ColumnsRoles::RatingRole:
         return 0;
     case ColumnsRoles::ImageRole:
         return data(index.parent(), role);
     case ColumnsRoles::ResourceRole:
-        return currentParser->newMusicTracks()[musicTrackId].mResourceURI;
+        return track.mFile;
     case ColumnsRoles::ItemClassRole:
         return {};
     case ColumnsRoles::CountRole:
         return {};
     case ColumnsRoles::IdRole:
-        return currentParser->newMusicTracks()[musicTrackId].mId;
-    case ColumnsRoles::ParentIdRole:
-        return currentParser->newMusicTracks()[musicTrackId].mParentId;
+        return track.mTitle;
     case ColumnsRoles::IsPlayingRole:
         return false;
     }
 
     return {};
 }
-#endif
 
 QModelIndex LocalAlbumModel::index(int row, int column, const QModelIndex &parent) const
 {
+    if (column != 0) {
+        return {};
+    }
+
     if (!parent.isValid()) {
         return createIndex(row, column, quintptr(d->mAlbumIds[row]));
     }
 
-    return createIndex(row, column, nullptr);
+    auto itAlbum = d->mAlbumsData.find(parent.internalId());
+    if (itAlbum == d->mAlbumsData.end()) {
+        return {};
+    }
+
+    const auto &currentAlbum = *itAlbum;
+
+    if (row >= currentAlbum.mTrackIds.size()) {
+        return {};
+    }
+
+    return createIndex(row, column, currentAlbum.mTrackIds[row]);
 }
 
 QModelIndex LocalAlbumModel::parent(const QModelIndex &child) const
@@ -249,7 +276,18 @@ QModelIndex LocalAlbumModel::parent(const QModelIndex &child) const
         return {};
     }
 
-    return {};
+    auto itTrack = d->mTracksInAlbums.find(child.internalId());
+    if (itTrack == d->mTracksInAlbums.end()) {
+        return {};
+    }
+
+    auto albumId = itTrack.value();
+    int albumPosition = d->mAlbumIds.indexOf(albumId);
+    if (albumPosition == -1) {
+        return {};
+    }
+
+    return index(albumPosition, 0);
 }
 
 int LocalAlbumModel::columnCount(const QModelIndex &parent) const
@@ -284,7 +322,7 @@ void LocalAlbumModel::setMusicDatabase(MusicStatistics *musicDatabase)
     emit musicDatabaseChanged();
 }
 
-void LocalAlbumModel::tracksList(const QHash<QString, QList<LocalBalooTrack> > &tracks)
+void LocalAlbumModel::tracksList(const QHash<QString, QList<LocalBalooTrack> > &tracks, const QHash<QString, QString> &covers)
 {
     beginResetModel();
 
@@ -296,14 +334,18 @@ void LocalAlbumModel::tracksList(const QHash<QString, QList<LocalBalooTrack> > &
         const auto &firstTrack = album.first();
         d->mAlbumIds.push_back(currentElementId);
         auto &newAlbum = d->mAlbumsData[currentElementId];
+        auto albumId = currentElementId;
         ++currentElementId;
 
         newAlbum.mArtist = firstTrack.mArtist;
         newAlbum.mTitle = firstTrack.mAlbum;
         newAlbum.mNbTracks = album.size();
+        newAlbum.mCoverFile = QUrl::fromLocalFile(covers[firstTrack.mAlbum]);
 
         for(auto track : album) {
             newAlbum.mTracks[currentElementId] = track;
+            newAlbum.mTrackIds.push_back(currentElementId);
+            d->mTracksInAlbums[currentElementId] = albumId;
             ++currentElementId;
         }
     }

@@ -101,11 +101,14 @@ public Q_SLOTS:
 
 private Q_SLOTS:
 
-    void tracksList(const QHash<QString, QList<LocalBalooTrack>> &tracks);
+    void tracksList(const QHash<QString, QList<LocalBalooTrack>> &tracks,
+                    const QHash<QString, QString> &covers);
 
 private:
 
     QVariant internalDataAlbum(const QModelIndex &index, int role) const;
+
+    QVariant internalDataTrack(const LocalBalooTrack &track, const QModelIndex &index, int role) const;
 
     LocalAlbumModelPrivate *d;
 };

@@ -29,6 +29,8 @@
 #include <QtCore/QThread>
 #include <QtCore/QDebug>
 #include <QtCore/QHash>
+#include <QtCore/QFileInfo>
+#include <QtCore/QDir>
 
 class LocalBalooFileListingPrivate
 {
@@ -37,6 +39,8 @@ public:
     Baloo::Query mQuery;
 
     QHash<QString, QList<LocalBalooTrack>> mAllAlbums;
+
+    QHash<QString, QString> mAllAlbumCover;
 
 };
 
@@ -90,6 +94,11 @@ void LocalBalooFileListing::refreshContent()
             }
 
             newTrack.mFile = QUrl::fromLocalFile(resultIterator.filePath());
+            QFileInfo trackFilePath(resultIterator.filePath());
+            QFileInfo coverFilePath(trackFilePath.dir().filePath(QStringLiteral("cover.jpg")));
+            if (coverFilePath.exists()) {
+                d->mAllAlbumCover[albumValue] = coverFilePath.absoluteFilePath();
+            }
 
             allTracks.push_back(newTrack);
         }
@@ -99,7 +108,7 @@ void LocalBalooFileListing::refreshContent()
     qDebug() << d->mAllAlbums.keys();
     qDebug() << cptTracks;
 
-    Q_EMIT tracksList(d->mAllAlbums);
+    Q_EMIT tracksList(d->mAllAlbums, d->mAllAlbumCover);
 }
 
 

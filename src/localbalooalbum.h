@@ -45,6 +45,8 @@ public:
 
     QMap<quintptr, LocalBalooTrack> mTracks;
 
+    QList<quintptr> mTrackIds;
+
 };
 
 Q_DECLARE_METATYPE(LocalBalooAlbum)

@@ -91,6 +91,7 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
     qRegisterMetaType<RemoteServerEntry*>();
     qRegisterMetaType<QAbstractItemModel*>();
     qRegisterMetaType<QHash<QString,QList<LocalBalooTrack> >>();
+    qRegisterMetaType<QHash<QString,QString>>();
 
     KLocalizedString::setApplicationDomain("elisa");
 

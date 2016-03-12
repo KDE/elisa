@@ -41,10 +41,6 @@ ApplicationWindow {
         onRemovedService: viewModeModel.removedDevice(serviceDiscovery)
     }
 
-    LocalAlbumModel {
-        id: localModel
-    }
-
     ViewPagesModel {
         id: viewModeModel
 

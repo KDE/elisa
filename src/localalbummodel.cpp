@@ -29,6 +29,12 @@
 #include <QtCore/QThread>
 #include <QtCore/QTimer>
 #include <QtCore/QPointer>
+#include <QtCore/QVector>
+
+#include <QtSql/QSqlDatabase>
+#include <QtSql/QSqlQuery>
+#include <QtSql/QSqlRecord>
+#include <QtSql/QSqlError>
 
 class LocalAlbumModelPrivate
 {
@@ -42,11 +48,11 @@ public:
 
     LocalBalooFileListing mFileListing;
 
-    QMap<quintptr, LocalBalooAlbum> mAlbumsData;
-
-    QList<quintptr> mAlbumIds;
+    QVector<LocalBalooAlbum> mAlbumsData;
 
     QMap<quintptr, quintptr> mTracksInAlbums;
+
+    QSqlDatabase mTracksDatabase;
 
 };
 
@@ -57,6 +63,15 @@ LocalAlbumModel::LocalAlbumModel(QObject *parent) : QAbstractItemModel(parent), 
 
     connect(this, &LocalAlbumModel::refreshContent, &d->mFileListing, &LocalBalooFileListing::refreshContent, Qt::QueuedConnection);
     connect(&d->mFileListing, &LocalBalooFileListing::tracksList, this, &LocalAlbumModel::tracksList);
+
+    d->mTracksDatabase = QSqlDatabase::addDatabase(QStringLiteral("QSQLITE"));
+    d->mTracksDatabase.setDatabaseName(QStringLiteral(":memory:"));
+    auto result = d->mTracksDatabase.open();
+    if (result) {
+        qDebug() << "database open";
+    } else {
+        qDebug() << "database not open";
+    }
 
     Q_EMIT refreshContent();
 }
@@ -72,12 +87,11 @@ int LocalAlbumModel::rowCount(const QModelIndex &parent) const
         return d->mAlbumsData.size();
     }
 
-    auto itAlbum = d->mAlbumsData.find(parent.internalId());
-    if (itAlbum == d->mAlbumsData.end()) {
+    if (parent.row() < 0 || parent.row() >= d->mAlbumsData.size()) {
         return 0;
     }
 
-    return itAlbum->mTrackIds.size();
+    return d->mAlbumsData[parent.row()].mTrackIds.size();
 }
 
 QHash<int, QByteArray> LocalAlbumModel::roleNames() const
@@ -120,9 +134,15 @@ QVariant LocalAlbumModel::data(const QModelIndex &index, int role) const
         return {};
     }
 
-    auto itAlbum = d->mAlbumsData.find(index.internalId());
-    if (itAlbum != d->mAlbumsData.end()) {
-        return internalDataAlbum(index, role);
+    if (!index.parent().isValid()) {
+        if (index.internalId() == 0) {
+            if (index.row() < 0 || index.row() >= d->mAlbumsData.size()) {
+                return {};
+            }
+
+            const auto &itAlbum = d->mAlbumsData[index.row()];
+            return internalDataAlbum(itAlbum, role);
+        }
     }
 
     auto itTrack = d->mTracksInAlbums.find(index.internalId());
@@ -131,12 +151,12 @@ QVariant LocalAlbumModel::data(const QModelIndex &index, int role) const
     }
 
     auto albumId = itTrack.value();
-    itAlbum = d->mAlbumsData.find(albumId);
-    if (itAlbum == d->mAlbumsData.end()) {
+    if (albumId >= quintptr(d->mAlbumsData.size())) {
         return {};
     }
 
-    const auto &currentAlbum = *itAlbum;
+    const auto &currentAlbum = d->mAlbumsData[albumId];
+
     if (index.row() < 0 || index.row() >= currentAlbum.mNbTracks) {
         return {};
     }
@@ -149,11 +169,9 @@ QVariant LocalAlbumModel::data(const QModelIndex &index, int role) const
     return internalDataTrack(itTrackInCurrentAlbum.value(), index, role);
 }
 
-QVariant LocalAlbumModel::internalDataAlbum(const QModelIndex &index, int role) const
+QVariant LocalAlbumModel::internalDataAlbum(const LocalBalooAlbum &albumData, int role) const
 {
     ColumnsRoles convertedRole = static_cast<ColumnsRoles>(role);
-
-    const auto &albumData = d->mAlbumsData[index.internalId()];
 
     switch(convertedRole)
     {
@@ -236,6 +254,24 @@ QVariant LocalAlbumModel::internalDataTrack(const LocalBalooTrack &track, const 
     return {};
 }
 
+void LocalAlbumModel::initDatabase()
+{
+    if (d->mTracksDatabase.tables().contains(QStringLiteral("Tracks"))) {
+        return;
+    }
+
+    QSqlQuery createSchemaQuery(d->mTracksDatabase);
+
+    createSchemaQuery.exec(QStringLiteral("CREATE TABLE `Tracks` (`ID` INTEGER PRIMARY KEY NOT NULL, "
+                                          "`Title` TEXT NOT NULL, "
+                                          "`Album` TEXT NOT NULL, "
+                                          "`Artist` TEXT NOT NULL, "
+                                          "`FileName` TEXT NOT NULL UNIQUE, "
+                                          "UNIQUE (`Title`, `Album`, `Artist`))"));
+
+    qDebug() << "LocalAlbumModel::initDatabase" << createSchemaQuery.lastError();
+}
+
 QModelIndex LocalAlbumModel::index(int row, int column, const QModelIndex &parent) const
 {
     if (column != 0) {
@@ -243,15 +279,14 @@ QModelIndex LocalAlbumModel::index(int row, int column, const QModelIndex &paren
     }
 
     if (!parent.isValid()) {
-        return createIndex(row, column, quintptr(d->mAlbumIds[row]));
+        return createIndex(row, column, nullptr);
     }
 
-    auto itAlbum = d->mAlbumsData.find(parent.internalId());
-    if (itAlbum == d->mAlbumsData.end()) {
+    if (parent.row() < 0 || parent.row() >= d->mAlbumsData.size()) {
         return {};
     }
 
-    const auto &currentAlbum = *itAlbum;
+    const auto &currentAlbum = d->mAlbumsData[parent.row()];
 
     if (row >= currentAlbum.mTrackIds.size()) {
         return {};
@@ -262,17 +297,11 @@ QModelIndex LocalAlbumModel::index(int row, int column, const QModelIndex &paren
 
 QModelIndex LocalAlbumModel::parent(const QModelIndex &child) const
 {
-    // child is valid
     if (!child.isValid()) {
         return {};
     }
 
     if (child.internalId() == 0) {
-        return {};
-    }
-
-    auto itAlbum = d->mAlbumsData.find(child.internalId());
-    if (itAlbum != d->mAlbumsData.end()) {
         return {};
     }
 
@@ -282,12 +311,8 @@ QModelIndex LocalAlbumModel::parent(const QModelIndex &child) const
     }
 
     auto albumId = itTrack.value();
-    int albumPosition = d->mAlbumIds.indexOf(albumId);
-    if (albumPosition == -1) {
-        return {};
-    }
 
-    return index(albumPosition, 0);
+    return index(albumId, 0);
 }
 
 int LocalAlbumModel::columnCount(const QModelIndex &parent) const
@@ -326,28 +351,65 @@ void LocalAlbumModel::tracksList(const QHash<QString, QList<LocalBalooTrack> > &
 {
     beginResetModel();
 
-    d->mAlbumsData.clear();
-    d->mAlbumIds.clear();
+    initDatabase();
 
-    quintptr currentElementId = 1;
+    d->mAlbumsData.clear();
+
+    QSqlQuery trackQuery(d->mTracksDatabase);
+
+    quintptr albumId = 0;
     for (auto album : tracks) {
         const auto &firstTrack = album.first();
-        d->mAlbumIds.push_back(currentElementId);
-        auto &newAlbum = d->mAlbumsData[currentElementId];
-        auto albumId = currentElementId;
-        ++currentElementId;
+        d->mAlbumsData.push_back({});
+        auto &newAlbum = d->mAlbumsData[albumId];
 
         newAlbum.mArtist = firstTrack.mArtist;
         newAlbum.mTitle = firstTrack.mAlbum;
-        newAlbum.mNbTracks = album.size();
         newAlbum.mCoverFile = QUrl::fromLocalFile(covers[firstTrack.mAlbum]);
 
         for(auto track : album) {
+            quintptr currentElementId = 0;
+            auto selectQuery = QStringLiteral("SELECT ID FROM `Tracks` "
+                                                       "WHERE "
+                                                       "`Title` = \"%1\" AND "
+                                                       "`Album` = \"%2\" AND "
+                                                       "`Artist` = \"%3\"");
+
+            auto insertQuery = QStringLiteral("INSERT INTO Tracks (`Title`, `Album`, `Artist`, `FileName`)"
+                                                       "VALUES (\"%1\", \"%2\", \"%3\", \"%4\")");
+
+            auto realSelectQuery(selectQuery.arg(track.mTitle, track.mAlbum, track.mArtist));
+
+            trackQuery.exec(realSelectQuery);
+
+            if (!trackQuery.isSelect()) {
+                qDebug() << "LocalAlbumModel::tracksList" << "not select" << realSelectQuery;
+                qDebug() << "LocalAlbumModel::tracksList" << trackQuery.lastError();
+            }
+
+            if (!trackQuery.isActive()) {
+                qDebug() << "LocalAlbumModel::tracksList" << "not active" << realSelectQuery;
+            }
+
+            if (trackQuery.next()) {
+                currentElementId = trackQuery.record().value(0).toInt();
+                continue;
+            } else {
+                trackQuery.exec(insertQuery.arg(track.mTitle, track.mAlbum, track.mArtist, track.mFile.toString()));
+
+                trackQuery.exec(realSelectQuery);
+
+                if (trackQuery.next()) {
+                    currentElementId = trackQuery.record().value(0).toInt();
+                }
+            }
+
             newAlbum.mTracks[currentElementId] = track;
             newAlbum.mTrackIds.push_back(currentElementId);
             d->mTracksInAlbums[currentElementId] = albumId;
-            ++currentElementId;
         }
+        newAlbum.mNbTracks = newAlbum.mTracks.size();
+        ++albumId;
     }
 
     endResetModel();

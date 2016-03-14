@@ -31,6 +31,7 @@
 class LocalAlbumModelPrivate;
 class MusicStatistics;
 class LocalBalooTrack;
+class LocalBalooAlbum;
 
 class LocalAlbumModel : public QAbstractItemModel
 {
@@ -106,9 +107,11 @@ private Q_SLOTS:
 
 private:
 
-    QVariant internalDataAlbum(const QModelIndex &index, int role) const;
+    QVariant internalDataAlbum(const LocalBalooAlbum &albumData, int role) const;
 
     QVariant internalDataTrack(const LocalBalooTrack &track, const QModelIndex &index, int role) const;
+
+    void initDatabase();
 
     LocalAlbumModelPrivate *d;
 };

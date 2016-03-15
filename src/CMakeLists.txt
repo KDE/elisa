@@ -32,6 +32,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         MediaContentDirectoryMobile.qml
         MediaServerPageMobile.qml
         MediaPlayPageMobile.qml
+        ContextView.qml
         upnpalbummodel.cpp
         localalbummodel.cpp
         localbaloofilelisting.cpp

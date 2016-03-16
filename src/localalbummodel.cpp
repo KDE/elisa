@@ -461,6 +461,10 @@ void LocalAlbumModel::tracksList(const QHash<QString, QList<LocalBalooTrack> > &
         for(auto track : album) {
             quintptr currentElementId = 0;
 
+            if (track.mArtist.isEmpty()) {
+                track.mArtist = newAlbum.mArtist;
+            }
+
             selectTrackQuery.bindValue(QStringLiteral(":title"), track.mTitle);
             selectTrackQuery.bindValue(QStringLiteral(":album"), track.mAlbum);
             selectTrackQuery.bindValue(QStringLiteral(":artist"), track.mArtist);

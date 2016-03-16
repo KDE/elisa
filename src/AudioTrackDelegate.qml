@@ -86,18 +86,6 @@ Item {
                         fillMode: Image.PreserveAspectFit
                     }
                 }
-
-                MouseArea {
-                    id: hoverHandle
-
-                    hoverEnabled: true
-
-                    anchors.fill: parent
-                    propagateComposedEvents: true
-
-                    onEntered: hoverLayer.visible = true
-                    onExited: hoverLayer.visible = false
-                }
             }
 
             Item {
@@ -236,6 +224,18 @@ Item {
             Layout.minimumWidth: Screen.pixelDensity * 6.
             Layout.maximumWidth: Screen.pixelDensity * 6.
         }
+    }
+
+    MouseArea {
+        id: hoverHandle
+
+        hoverEnabled: true
+
+        anchors.fill: parent
+        propagateComposedEvents: true
+
+        onEntered: hoverLayer.visible = true
+        onExited: hoverLayer.visible = false
     }
 }
 

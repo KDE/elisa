@@ -355,7 +355,20 @@ void LocalAlbumModel::tracksList(const QHash<QString, QList<LocalBalooTrack> > &
 
     d->mAlbumsData.clear();
 
-    QSqlQuery trackQuery(d->mTracksDatabase);
+    auto selectQueryText = QStringLiteral("SELECT ID FROM `Tracks` "
+                                               "WHERE "
+                                               "`Title` = :title AND "
+                                               "`Album` = :album AND "
+                                               "`Artist` = :artist");
+
+    QSqlQuery selectQuery(d->mTracksDatabase);
+    selectQuery.prepare(selectQueryText);
+
+    auto insertQueryText = QStringLiteral("INSERT INTO Tracks (`Title`, `Album`, `Artist`, `FileName`)"
+                                               "VALUES (:title, :album, :artist, :fileName)");
+
+    QSqlQuery insertQuery(d->mTracksDatabase);
+    insertQuery.prepare(insertQueryText);
 
     quintptr albumId = 0;
     for (auto album : tracks) {
@@ -369,38 +382,37 @@ void LocalAlbumModel::tracksList(const QHash<QString, QList<LocalBalooTrack> > &
 
         for(auto track : album) {
             quintptr currentElementId = 0;
-            auto selectQuery = QStringLiteral("SELECT ID FROM `Tracks` "
-                                                       "WHERE "
-                                                       "`Title` = \"%1\" AND "
-                                                       "`Album` = \"%2\" AND "
-                                                       "`Artist` = \"%3\"");
 
-            auto insertQuery = QStringLiteral("INSERT INTO Tracks (`Title`, `Album`, `Artist`, `FileName`)"
-                                                       "VALUES (\"%1\", \"%2\", \"%3\", \"%4\")");
+            selectQuery.bindValue(QStringLiteral(":title"), track.mTitle);
+            selectQuery.bindValue(QStringLiteral(":album"), track.mAlbum);
+            selectQuery.bindValue(QStringLiteral(":artist"), track.mArtist);
 
-            auto realSelectQuery(selectQuery.arg(track.mTitle, track.mAlbum, track.mArtist));
+            selectQuery.exec();
 
-            trackQuery.exec(realSelectQuery);
-
-            if (!trackQuery.isSelect()) {
-                qDebug() << "LocalAlbumModel::tracksList" << "not select" << realSelectQuery;
-                qDebug() << "LocalAlbumModel::tracksList" << trackQuery.lastError();
+            if (!selectQuery.isSelect()) {
+                qDebug() << "LocalAlbumModel::tracksList" << "not select" << selectQuery.lastQuery();
+                qDebug() << "LocalAlbumModel::tracksList" << selectQuery.lastError();
             }
 
-            if (!trackQuery.isActive()) {
-                qDebug() << "LocalAlbumModel::tracksList" << "not active" << realSelectQuery;
+            if (!selectQuery.isActive()) {
+                qDebug() << "LocalAlbumModel::tracksList" << "not active" << selectQuery.lastQuery();
             }
 
-            if (trackQuery.next()) {
-                currentElementId = trackQuery.record().value(0).toInt();
+            if (selectQuery.next()) {
+                currentElementId = selectQuery.record().value(0).toInt();
                 continue;
             } else {
-                trackQuery.exec(insertQuery.arg(track.mTitle, track.mAlbum, track.mArtist, track.mFile.toString()));
+                insertQuery.bindValue(QStringLiteral(":title"), track.mTitle);
+                insertQuery.bindValue(QStringLiteral(":album"), track.mAlbum);
+                insertQuery.bindValue(QStringLiteral(":artist"), track.mArtist);
+                insertQuery.bindValue(QStringLiteral(":fileName"), track.mFile);
 
-                trackQuery.exec(realSelectQuery);
+                insertQuery.exec();
 
-                if (trackQuery.next()) {
-                    currentElementId = trackQuery.record().value(0).toInt();
+                selectQuery.exec();
+
+                if (selectQuery.next()) {
+                    currentElementId = selectQuery.record().value(0).toInt();
                 }
             }
 

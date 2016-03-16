@@ -50,7 +50,7 @@ void ProgressIndicator::setPosition(int position)
     if (currentProgress.hour() == 0) {
         mProgressDuration = currentProgress.toString(QStringLiteral("m:ss"));
     } else {
-        mProgressDuration = currentProgress.toString();
+        mProgressDuration = currentProgress.toString(QStringLiteral("h:mm:ss"));
     }
 
     Q_EMIT positionChanged();

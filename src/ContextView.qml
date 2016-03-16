@@ -78,6 +78,8 @@ Item {
                   else
                       tracksCount + ' Songs'
 
+            visible: tracksCount !== undefined
+
             font.weight: Font.Light
             horizontalAlignment: Text.AlignHCenter
 

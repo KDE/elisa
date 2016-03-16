@@ -264,7 +264,6 @@ ApplicationWindow {
                         artistName: playListControler.artist
                         albumName: playListControler.album
                         albumArtUrl: playListControler.image
-                        tracksCount: playListModelItem.trackCount
 
                         anchors.fill: parent
                         anchors.margins: 3

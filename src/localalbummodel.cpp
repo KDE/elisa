@@ -66,6 +66,7 @@ LocalAlbumModel::LocalAlbumModel(QObject *parent) : QAbstractItemModel(parent), 
 
     d->mTracksDatabase = QSqlDatabase::addDatabase(QStringLiteral("QSQLITE"));
     d->mTracksDatabase.setDatabaseName(QStringLiteral(":memory:"));
+    d->mTracksDatabase.setConnectOptions(QStringLiteral("foreign_keys = ON"));
     auto result = d->mTracksDatabase.open();
     if (result) {
         qDebug() << "database open";

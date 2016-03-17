@@ -99,11 +99,11 @@ public:
 
     QString parentId() const;
 
-    const QList<QString> &newAlbumIds() const;
+    const QVector<QString> &newAlbumIds() const;
 
     const QHash<QString, MusicAlbum> &newAlbums() const;
 
-    const QList<QString> &newMusicTrackIds() const;
+    const QVector<QString> &newMusicTrackIds() const;
 
     const QHash<QString, MusicAudioTrack> &newMusicTracks() const;
 
@@ -147,9 +147,9 @@ private Q_SLOTS:
 
 private:
 
-    void decodeContainerNode(const QDomNode &containerNode, QHash<QString, MusicAlbum> &newData, QList<QString> &newDataIds);
+    void decodeContainerNode(const QDomNode &containerNode, QHash<QString, MusicAlbum> &newData, QVector<QString> &newDataIds);
 
-    void decodeAudioTrackNode(const QDomNode &itemNode, QHash<QString, MusicAudioTrack> &newData, QList<QString> &newDataIds);
+    void decodeAudioTrackNode(const QDomNode &itemNode, QHash<QString, MusicAudioTrack> &newData, QVector<QString> &newDataIds);
 
     std::unique_ptr<DidlParserPrivate> d;
 

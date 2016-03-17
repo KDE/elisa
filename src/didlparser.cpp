@@ -22,6 +22,9 @@
 #include "upnpcontrolcontentdirectory.h"
 #include "upnpcontrolabstractservicereply.h"
 
+#include <QtCore/QVector>
+#include <QtCore/QString>
+
 #include <QtXml/QDomDocument>
 #include <QtXml/QDomNode>
 
@@ -43,11 +46,11 @@ public:
 
     bool mIsDataValid = false;
 
-    QList<QString> mNewAlbumIds;
+    QVector<QString> mNewAlbumIds;
 
     QHash<QString, MusicAlbum> mNewAlbums;
 
-    QList<QString> mNewMusicTrackIds;
+    QVector<QString> mNewMusicTrackIds;
 
     QHash<QString, MusicAudioTrack> mNewMusicTracks;
 
@@ -160,7 +163,7 @@ QString DidlParser::parentId() const
     return d->mParentId;
 }
 
-const QList<QString> &DidlParser::newAlbumIds() const
+const QVector<QString> &DidlParser::newAlbumIds() const
 {
     return d->mNewAlbumIds;
 }
@@ -170,7 +173,7 @@ const QHash<QString, MusicAlbum> &DidlParser::newAlbums() const
     return d->mNewAlbums;
 }
 
-const QList<QString> &DidlParser::newMusicTrackIds() const
+const QVector<QString> &DidlParser::newMusicTrackIds() const
 {
     return d->mNewMusicTrackIds;
 }
@@ -260,7 +263,7 @@ void DidlParser::searchFinished(UpnpControlAbstractServiceReply *self)
 }
 
 void DidlParser::decodeContainerNode(const QDomNode &containerNode, QHash<QString, MusicAlbum> &newData,
-                                     QList<QString> &newDataIds)
+                                     QVector<QString> &newDataIds)
 {
     auto parentID = containerNode.toElement().attribute(QStringLiteral("parentID"));
     const auto &id = containerNode.toElement().attribute(QStringLiteral("id"));
@@ -307,7 +310,7 @@ void DidlParser::decodeContainerNode(const QDomNode &containerNode, QHash<QStrin
 }
 
 void DidlParser::decodeAudioTrackNode(const QDomNode &itemNode, QHash<QString, MusicAudioTrack> &newData,
-                                      QList<QString> &newDataIds)
+                                      QVector<QString> &newDataIds)
 {
     const QString &parentID = itemNode.toElement().attribute(QStringLiteral("parentID"));
     const QString &id = itemNode.toElement().attribute(QStringLiteral("id"));

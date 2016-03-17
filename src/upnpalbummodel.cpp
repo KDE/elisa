@@ -25,6 +25,7 @@
 
 #include <QtXml/QDomDocument>
 
+#include <QtCore/QVector>
 #include <QtCore/QUrl>
 #include <QtCore/QPointer>
 #include <QtCore/QDebug>
@@ -47,7 +48,7 @@ public:
 
     QString mSortCriteria;
 
-    QList<QString> mChilds;
+    QVector<QString> mChilds;
 
     QHash<QString, QPointer<DidlParser>> mAlbumParsers;
 };

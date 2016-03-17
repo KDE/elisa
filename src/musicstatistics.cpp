@@ -32,7 +32,7 @@ void MusicStatistics::newAlbum(const MusicAlbum &album)
 
 void MusicStatistics::newAudioTrack(const MusicAudioTrack &audioTrack)
 {
-qDebug() << "new audio track" << audioTrack.mAlbumName << audioTrack.mTitle << audioTrack.mArtist << audioTrack.mDuration;
+    qDebug() << "new audio track" << audioTrack.mAlbumName << audioTrack.mTitle << audioTrack.mArtist << audioTrack.mDuration;
 }
 
 

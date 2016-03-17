@@ -81,10 +81,10 @@ UpnpControlAbstractServiceReply *UpnpControlConnectionManager::getProtocolInfo()
 }
 
 UpnpControlAbstractServiceReply *UpnpControlConnectionManager::prepareForConnection(const QString &remoteProtocolInfo,
-                                                        const QString &remoteUDN,
-                                                        const QString &remoteServiceID,
-                                                        int remotePeerConnectionID,
-                                                        const QString &connectionDirection)
+                                                                                    const QString &remoteUDN,
+                                                                                    const QString &remoteServiceID,
+                                                                                    int remotePeerConnectionID,
+                                                                                    const QString &connectionDirection)
 {
     Q_UNUSED(remoteProtocolInfo);
 

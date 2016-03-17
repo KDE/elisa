@@ -621,7 +621,7 @@ void UpnpContentDirectoryModel::browseFinished(const QString &result, int number
 
         qDebug() << "UpnpContentDirectoryModel::browseFinished" << newDataIds.size();
         beginInsertRows(indexFromInternalId(parentInternalId), 0, newDataIds.size() - 1);
-        for (auto childInternalId : newDataIds) {
+        for (auto childInternalId : const_cast<const decltype(newDataIds)&>(newDataIds)) {
             d->mChilds[parentInternalId].push_back(childInternalId);
             d->mUpnpIds[newData[childInternalId][ColumnsRoles::IdRole].toString()] = childInternalId;
             d->mData[childInternalId] = newData[childInternalId];

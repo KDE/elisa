@@ -185,7 +185,8 @@ const QHash<QString, MusicAudioTrack> &DidlParser::newMusicTracks() const
 
 void DidlParser::browseFinished(UpnpControlAbstractServiceReply *self)
 {
-    QString result = self->result()[QStringLiteral("Result")].toString();
+    const auto &resultData = self->result();
+    QString result = resultData[QStringLiteral("Result")].toString();
     bool success = self->success();
 
     if (!success) {
@@ -222,7 +223,8 @@ void DidlParser::browseFinished(UpnpControlAbstractServiceReply *self)
 
 void DidlParser::searchFinished(UpnpControlAbstractServiceReply *self)
 {
-    QString result = self->result()[QStringLiteral("Result")].toString();
+    const auto &resultData = self->result();
+    QString result = resultData[QStringLiteral("Result")].toString();
     bool success = self->success();
 
     if (!success) {

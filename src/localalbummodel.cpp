@@ -398,10 +398,10 @@ void LocalAlbumModel::tracksList(const QHash<QString, QList<LocalBalooTrack> > &
     insertAlbumQuery.prepare(insertAlbumQueryText);
 
     quintptr albumId = 0;
-    for (auto album : tracks) {
+    for (const auto &album : tracks) {
         LocalBalooAlbum newAlbum;
 
-        for(auto track : album) {
+        for(const auto &track : album) {
             if (newAlbum.mArtist.isNull()) {
                 newAlbum.mArtist = track.mArtist;
             }
@@ -460,16 +460,17 @@ void LocalAlbumModel::tracksList(const QHash<QString, QList<LocalBalooTrack> > &
             }
         }
 
-        for(auto track : album) {
+        for(const auto &track : album) {
             quintptr currentElementId = 0;
+            QString artistName = track.mArtist;
 
-            if (track.mArtist.isEmpty()) {
-                track.mArtist = newAlbum.mArtist;
+            if (artistName.isEmpty()) {
+                artistName = newAlbum.mArtist;
             }
 
             selectTrackQuery.bindValue(QStringLiteral(":title"), track.mTitle);
             selectTrackQuery.bindValue(QStringLiteral(":album"), track.mAlbum);
-            selectTrackQuery.bindValue(QStringLiteral(":artist"), track.mArtist);
+            selectTrackQuery.bindValue(QStringLiteral(":artist"), artistName);
 
             selectTrackQuery.exec();
 
@@ -484,7 +485,7 @@ void LocalAlbumModel::tracksList(const QHash<QString, QList<LocalBalooTrack> > &
             } else {
                 insertTrackQuery.bindValue(QStringLiteral(":title"), track.mTitle);
                 insertTrackQuery.bindValue(QStringLiteral(":album"), track.mAlbum);
-                insertTrackQuery.bindValue(QStringLiteral(":artist"), track.mArtist);
+                insertTrackQuery.bindValue(QStringLiteral(":artist"), artistName);
                 insertTrackQuery.bindValue(QStringLiteral(":fileName"), track.mFile);
 
                 insertTrackQuery.exec();
@@ -507,9 +508,11 @@ void LocalAlbumModel::tracksList(const QHash<QString, QList<LocalBalooTrack> > &
             }
 
             newAlbum.mTracks[currentElementId] = track;
+            newAlbum.mTracks[currentElementId].mArtist = artistName;
             newAlbum.mTrackIds.push_back(currentElementId);
             d->mTracksInAlbums[currentElementId] = albumId;
         }
+
         newAlbum.mNbTracks = newAlbum.mTracks.size();
 
         d->mAlbumsData.push_back(newAlbum);

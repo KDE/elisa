@@ -29,7 +29,7 @@ class UpnpAlbumModelPrivate;
 class UpnpSsdpEngine;
 class UpnpControlAbstractDevice;
 class UpnpControlContentDirectory;
-struct UpnpDiscoveryResult;
+class UpnpDiscoveryResult;
 class QDomNode;
 class MusicStatistics;
 class DidlParser;

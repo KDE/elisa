@@ -27,7 +27,7 @@
 class UpnpDeviceModelPrivate;
 class UpnpSsdpEngine;
 class UpnpDeviceDescription;
-struct UpnpDiscoveryResult;
+class UpnpDiscoveryResult;
 class QIODevice;
 class QNetworkReply;
 

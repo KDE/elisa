@@ -28,7 +28,7 @@ class UpnpContentDirectoryModelPrivate;
 class UpnpSsdpEngine;
 class UpnpControlAbstractDevice;
 class UpnpControlContentDirectory;
-struct UpnpDiscoveryResult;
+class UpnpDiscoveryResult;
 
 class UPNPQT_EXPORT UpnpContentDirectoryModel : public QAbstractItemModel
 {

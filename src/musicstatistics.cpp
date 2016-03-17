@@ -27,6 +27,7 @@ MusicStatistics::MusicStatistics(QObject *parent) : QObject(parent)
 
 void MusicStatistics::newAlbum(const MusicAlbum &album)
 {
+    Q_UNUSED(album);
 }
 
 void MusicStatistics::newAudioTrack(const MusicAudioTrack &audioTrack)

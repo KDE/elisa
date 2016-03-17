@@ -86,6 +86,8 @@ UpnpControlAbstractServiceReply *UpnpControlConnectionManager::prepareForConnect
                                                         int remotePeerConnectionID,
                                                         const QString &connectionDirection)
 {
+    Q_UNUSED(remoteProtocolInfo);
+
     const QString &remoteConnectionManager(remoteUDN + QStringLiteral("/") + remoteServiceID);
 
     auto pendingAnswer = callAction(QStringLiteral("PrepareForConnection"),

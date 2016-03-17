@@ -257,19 +257,6 @@ QVariant LocalAlbumModel::internalDataTrack(const LocalBalooTrack &track, const 
 
 void LocalAlbumModel::initDatabase()
 {
-    if (!d->mTracksDatabase.tables().contains(QStringLiteral("Tracks"))) {
-        QSqlQuery createSchemaQuery(d->mTracksDatabase);
-
-        createSchemaQuery.exec(QStringLiteral("CREATE TABLE `Tracks` (`ID` INTEGER PRIMARY KEY NOT NULL, "
-                                              "`Title` TEXT NOT NULL, "
-                                              "`Album` TEXT NOT NULL, "
-                                              "`Artist` TEXT NOT NULL, "
-                                              "`FileName` TEXT NOT NULL UNIQUE, "
-                                              "UNIQUE (`Title`, `Album`, `Artist`))"));
-
-        qDebug() << "LocalAlbumModel::initDatabase" << createSchemaQuery.lastError();
-    }
-
     if (!d->mTracksDatabase.tables().contains(QStringLiteral("Albums"))) {
         QSqlQuery createSchemaQuery(d->mTracksDatabase);
 
@@ -279,6 +266,20 @@ void LocalAlbumModel::initDatabase()
                                               "`CoverFileName` TEXT NOT NULL, "
                                               "`TracksCount` INTEGER NOT NULL, "
                                               "UNIQUE (`Title`, `Artist`))"));
+
+        qDebug() << "LocalAlbumModel::initDatabase" << createSchemaQuery.lastError();
+    }
+
+    if (!d->mTracksDatabase.tables().contains(QStringLiteral("Tracks"))) {
+        QSqlQuery createSchemaQuery(d->mTracksDatabase);
+
+        createSchemaQuery.exec(QStringLiteral("CREATE TABLE `Tracks` (`ID` INTEGER PRIMARY KEY NOT NULL, "
+                                              "`Title` TEXT NOT NULL, "
+                                              "`Album` TEXT NOT NULL, "
+                                              "`Artist` TEXT NOT NULL, "
+                                              "`FileName` TEXT NOT NULL UNIQUE, "
+                                              "UNIQUE (`Title`, `Album`, `Artist`), "
+                                              "CONSTRAINT fk_album FOREIGN KEY (`Album`, `Artist`) REFERENCES `Albums`(`Title`, `Artist`))"));
 
         qDebug() << "LocalAlbumModel::initDatabase" << createSchemaQuery.lastError();
     }

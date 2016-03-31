@@ -342,6 +342,11 @@ const QString &UpnpAlbumModel::sortCriteria() const
     return d->mSortCriteria;
 }
 
+bool UpnpAlbumModel::useLocalIcons() const
+{
+    return d->mUseLocalIcons;
+}
+
 void UpnpAlbumModel::setContentDirectory(UpnpControlContentDirectory *directory)
 {
     if (directory) {
@@ -409,6 +414,15 @@ void UpnpAlbumModel::setSortCriteria(const QString &criteria)
 {
     d->mSortCriteria = criteria;
     Q_EMIT sortCriteriaChanged();
+}
+
+void UpnpAlbumModel::setUseLocalIcons(bool useLocalIcons)
+{
+    if (d->mUseLocalIcons == useLocalIcons)
+        return;
+
+    d->mUseLocalIcons = useLocalIcons;
+    emit useLocalIconsChanged();
 }
 
 void UpnpAlbumModel::contentChanged(const QString &parentId)

@@ -67,6 +67,11 @@ class UpnpAlbumModel : public QAbstractItemModel
                WRITE setSortCriteria
                NOTIFY sortCriteriaChanged)
 
+    Q_PROPERTY(bool useLocalIcons
+               READ useLocalIcons
+               WRITE setUseLocalIcons
+               NOTIFY useLocalIconsChanged)
+
 public:
 
     enum ItemClass {
@@ -126,6 +131,8 @@ public:
 
     const QString& sortCriteria() const;
 
+    bool useLocalIcons() const;
+
 Q_SIGNALS:
 
     void contentDirectoryChanged();
@@ -144,6 +151,8 @@ Q_SIGNALS:
 
     void newAudioTrack(const MusicAudioTrack &audioTrack);
 
+    void useLocalIconsChanged();
+
 public Q_SLOTS:
 
     void setContentDirectory(UpnpControlContentDirectory *directory);
@@ -155,6 +164,8 @@ public Q_SLOTS:
     void setFilter(const QString &flag);
 
     void setSortCriteria(const QString &criteria);
+
+    void setUseLocalIcons(bool useLocalIcons);
 
 private Q_SLOTS:
 

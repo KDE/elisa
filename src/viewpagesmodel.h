@@ -61,6 +61,11 @@ class ViewPagesModel : public QAbstractListModel
                WRITE setSortCriteria
                NOTIFY sortCriteriaChanged)
 
+    Q_PROPERTY(bool useLocalIcons
+               READ useLocalIcons
+               WRITE setUseLocalIcons
+               NOTIFY useLocalIconsChanged)
+
 public:
 
     enum ColumnsRoles {
@@ -97,6 +102,8 @@ public:
 
     const QString& sortCriteria() const;
 
+    bool useLocalIcons() const;
+
 public Q_SLOTS:
 
     void newDevice(QSharedPointer<UpnpDiscoveryResult> serviceDiscovery);
@@ -110,6 +117,8 @@ public Q_SLOTS:
     void setFilter(const QString &flag);
 
     void setSortCriteria(const QString &criteria);
+
+    void setUseLocalIcons(bool useLocalIcons);
 
 private Q_SLOTS:
 
@@ -128,6 +137,8 @@ Q_SIGNALS:
     void filterChanged();
 
     void sortCriteriaChanged();
+
+    void useLocalIconsChanged();
 
 private:
 

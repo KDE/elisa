@@ -55,7 +55,7 @@ public:
 
     QNetworkAccessManager mNetworkAccess;
 
-    bool mWithPlaylist;
+    bool mWithPlaylist = true;
 
     QString mDeviceId;
 
@@ -65,12 +65,13 @@ public:
 
     QString mSortCriteria;
 
+    bool mUseLocalIcons = false;
+
 };
 
 ViewPagesModel::ViewPagesModel(QObject *parent)
     : QAbstractListModel(parent), d(new ViewPagesModelPrivate)
 {
-    d->mWithPlaylist = true;
 }
 
 ViewPagesModel::~ViewPagesModel()
@@ -212,6 +213,11 @@ const QString &ViewPagesModel::sortCriteria() const
     return d->mSortCriteria;
 }
 
+bool ViewPagesModel::useLocalIcons() const
+{
+    return d->mUseLocalIcons;
+}
+
 void ViewPagesModel::newDevice(QSharedPointer<UpnpDiscoveryResult> serviceDiscovery)
 {
     if (serviceDiscovery->nt() == d->mDeviceId) {
@@ -239,6 +245,7 @@ void ViewPagesModel::newDevice(QSharedPointer<UpnpDiscoveryResult> serviceDiscov
             d->mRemoteServers.last()->albumModel()->setBrowseFlag(browseFlag());
             d->mRemoteServers.last()->albumModel()->setFilter(filter());
             d->mRemoteServers.last()->albumModel()->setSortCriteria(sortCriteria());
+            d->mRemoteServers.last()->albumModel()->setUseLocalIcons(d->mUseLocalIcons);
 
             connect(&d->mNetworkAccess, &QNetworkAccessManager::finished, d->mDeviceDescriptionParsers[decodedUdn].data(), &UpnpDeviceDescriptionParser::finishedDownload);
             connect(d->mDeviceDescriptionParsers[decodedUdn].data(), &UpnpDeviceDescriptionParser::descriptionParsed, this, &ViewPagesModel::descriptionParsed);
@@ -283,6 +290,15 @@ void ViewPagesModel::setSortCriteria(const QString &criteria)
 {
     d->mSortCriteria = criteria;
     Q_EMIT sortCriteriaChanged();
+}
+
+void ViewPagesModel::setUseLocalIcons(bool useLocalIcons)
+{
+    if (d->mUseLocalIcons == useLocalIcons)
+        return;
+
+    d->mUseLocalIcons = useLocalIcons;
+    emit useLocalIconsChanged();
 }
 
 void ViewPagesModel::deviceDescriptionChanged(const QString &uuid)

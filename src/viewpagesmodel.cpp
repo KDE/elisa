@@ -305,6 +305,9 @@ void ViewPagesModel::deviceDescriptionChanged(const QString &uuid)
 {
     int deviceIndex = d->mAllHostsUUID.indexOf(uuid);
 
+    d->mRemoteServers[deviceIndex]->albumModel()->setServerName(d->mAllHostsDescription[d->mAllHostsUUID[deviceIndex]]->friendlyName());
+
+
     if (deviceIndex != -1) {
         Q_EMIT dataChanged(index(deviceIndex), index(deviceIndex));
     }

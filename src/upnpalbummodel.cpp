@@ -51,6 +51,8 @@ public:
     QVector<QString> mChilds;
 
     QHash<QString, QPointer<DidlParser>> mAlbumParsers;
+
+    QString mServerName;
 };
 
 UpnpAlbumModel::UpnpAlbumModel(QObject *parent) : QAbstractItemModel(parent), d(new UpnpAlbumModelPrivate)
@@ -342,6 +344,11 @@ const QString &UpnpAlbumModel::sortCriteria() const
     return d->mSortCriteria;
 }
 
+QString UpnpAlbumModel::serverName() const
+{
+    return d->mServerName;
+}
+
 bool UpnpAlbumModel::useLocalIcons() const
 {
     return d->mUseLocalIcons;
@@ -414,6 +421,15 @@ void UpnpAlbumModel::setSortCriteria(const QString &criteria)
 {
     d->mSortCriteria = criteria;
     Q_EMIT sortCriteriaChanged();
+}
+
+void UpnpAlbumModel::setServerName(QString serverName)
+{
+    if (d->mServerName == serverName)
+        return;
+
+    d->mServerName = serverName;
+    emit serverNameChanged();
 }
 
 void UpnpAlbumModel::setUseLocalIcons(bool useLocalIcons)

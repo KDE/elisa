@@ -67,6 +67,11 @@ class UpnpAlbumModel : public QAbstractItemModel
                WRITE setSortCriteria
                NOTIFY sortCriteriaChanged)
 
+    Q_PROPERTY(QString serverName
+               READ serverName
+               WRITE setServerName
+               NOTIFY serverNameChanged)
+
     Q_PROPERTY(bool useLocalIcons
                READ useLocalIcons
                WRITE setUseLocalIcons
@@ -131,6 +136,8 @@ public:
 
     const QString& sortCriteria() const;
 
+    QString serverName() const;
+
     bool useLocalIcons() const;
 
 Q_SIGNALS:
@@ -151,6 +158,8 @@ Q_SIGNALS:
 
     void newAudioTrack(const MusicAudioTrack &audioTrack);
 
+    void serverNameChanged();
+
     void useLocalIconsChanged();
 
 public Q_SLOTS:
@@ -164,6 +173,8 @@ public Q_SLOTS:
     void setFilter(const QString &flag);
 
     void setSortCriteria(const QString &criteria);
+
+    void setServerName(QString serverName);
 
     void setUseLocalIcons(bool useLocalIcons);
 

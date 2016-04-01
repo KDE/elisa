@@ -43,13 +43,15 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
     )
 
     if (KF5Baloo_FOUND)
-        set(elisa_SOURCES
-            ${elisa_SOURCES}
-            localalbummodel.cpp
-            localbaloofilelisting.cpp
-            localbalootrack.cpp
-            localbalooalbum.cpp
-            )
+        if (Qt5DBus_FOUND)
+            set(elisa_SOURCES
+                ${elisa_SOURCES}
+                localalbummodel.cpp
+                localbaloofilelisting.cpp
+                localbalootrack.cpp
+                localbalooalbum.cpp
+                )
+        endif()
     endif()
 
     if (${KF5Declarative_FOUND})
@@ -72,6 +74,13 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
             Qt5::Sql
             UPNP::upnpQt
     )
+
+    if (Qt5DBus_FOUND)
+        target_link_libraries(elisa
+            LINK_PRIVATE
+                Qt5::DBus
+        )
+    endif()
 
     if (KF5I18n_FOUND)
         target_link_libraries(elisa

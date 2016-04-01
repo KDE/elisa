@@ -49,6 +49,14 @@ public Q_SLOTS:
 
     void refreshContent();
 
+    void init();
+
+private Q_SLOTS:
+
+    void slotFinishedIndexingFile(QString fileName);
+
+    void slotFileMetaDataChanged(QStringList fileList);
+
 private:
 
     std::unique_ptr<LocalBalooFileListingPrivate> d;

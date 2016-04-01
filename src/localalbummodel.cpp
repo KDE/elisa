@@ -74,6 +74,8 @@ LocalAlbumModel::LocalAlbumModel(QObject *parent) : QAbstractItemModel(parent), 
         qDebug() << "database not open";
     }
 
+    QMetaObject::invokeMethod(&d->mFileListing, "init", Qt::QueuedConnection);
+
     Q_EMIT refreshContent();
 }
 

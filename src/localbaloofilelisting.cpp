@@ -1,5 +1,6 @@
 /*
  * Copyright 2016 Matthieu Gallien <matthieu_gallien@yahoo.fr>
+ * Copyright (C) 2014 Vishesh Handa <me@vhanda.in>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -26,6 +27,8 @@
 
 #include <KFileMetaData/Properties>
 
+#include <QtDBus/QDBusConnection>
+
 #include <QtCore/QThread>
 #include <QtCore/QDebug>
 #include <QtCore/QHash>
@@ -50,6 +53,25 @@ LocalBalooFileListing::LocalBalooFileListing(QObject *parent) : QObject(parent),
 }
 
 LocalBalooFileListing::~LocalBalooFileListing()
+{
+}
+
+void LocalBalooFileListing::init()
+{
+    QDBusConnection con = QDBusConnection::sessionBus();
+
+    bool connectResult = con.connect(QString(), QStringLiteral("/fileindexer"), QStringLiteral("org.kde.baloo.fileindexer"),
+                                QStringLiteral("finishedIndexingFile"), this, SLOT(slotFinishedIndexingFile(QString)));
+
+    connectResult = con.connect(QString(), QStringLiteral("/files"), QStringLiteral("org.kde"),
+                QStringLiteral("changed"), this, SLOT(slotFileMetaDataChanged(QStringList)));
+}
+
+void LocalBalooFileListing::slotFinishedIndexingFile(QString fileName)
+{
+}
+
+void LocalBalooFileListing::slotFileMetaDataChanged(QStringList fileList)
 {
 }
 

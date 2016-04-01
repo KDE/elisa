@@ -32,6 +32,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         MediaContentDirectoryMobile.qml
         MediaServerPageMobile.qml
         MediaPlayPageMobile.qml
+        HeaderBarMobile.qml
         ContextView.qml
         upnpalbummodel.cpp
         musicstatistics.cpp
@@ -54,13 +55,15 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         endif()
     endif()
 
-    if (${KF5Declarative_FOUND})
-        qt5_add_resources(elisa_SOURCES upnpControl.qrc)
-    else()
+    #if (${KF5Declarative_FOUND})
+    #    qt5_add_resources(elisa_SOURCES upnpControl.qrc)
+    #else()
         qt5_add_resources(elisa_SOURCES upnpControlMobile.qrc)
-    endif()
+    #endif()
 
     add_executable(elisa ${elisa_SOURCES})
+
+    set_target_properties(elisa PROPERTIES LINK_FLAGS "-Wl,--no-undefined")
 
     target_include_directories(elisa PRIVATE ${KDSoap_INCLUDE_DIRS})
 

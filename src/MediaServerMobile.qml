@@ -3,19 +3,23 @@ import QtQuick.Controls 1.2
 import QtQuick.Layouts 1.2
 import QtMultimedia 5.4
 import org.mgallien.QmlExtension 1.0
-import org.kde.plasma.mobilecomponents 0.2 as MobileComponents
+import org.kde.kirigami 1.0 as MobileComponents
 
 MobileComponents.ApplicationWindow {
     visible: true
-    title: qsTr("UPnP Player")
+    title: qsTr("Elisa")
     id: rootItem
+
+    property string globalBrowseFlag: 'BrowseDirectChildren'
+    property string globalFilter: '*'
+    property string globalSortCriteria: ''
 
     globalDrawer: MobileComponents.GlobalDrawer {
         title: "UPnP Player"
-        titleIcon: "applications-graphics"
-        bannerImageSource: "banner.jpg"
+        titleIcon: Qt.resolvedUrl("new-audio-alarm.svg")
+        bannerImageSource: "background.jpg"
 
-        actions: [
+        /*actions: [
             Action {
                 text: "Browse Media Servers"
                 onTriggered: {
@@ -28,7 +32,7 @@ MobileComponents.ApplicationWindow {
                     stackView.push(playListPage)
                 }
             }
-        ]
+        ]*/
     }
 
     property UpnpDeviceDescription aDevice
@@ -50,8 +54,8 @@ MobileComponents.ApplicationWindow {
     Audio {
         id: audioPlayer
 
-        muted: playControlItem.muted
-        volume: playControlItem.volume
+        muted: false
+        volume: 1.0
 
         source: playListControler.playerSource
 
@@ -93,10 +97,18 @@ MobileComponents.ApplicationWindow {
 
     ViewPagesModel {
         id: serverListModel
-        property var mediaServiceComponent
-        property var mediaViewComponent
+
+        deviceId: 'urn:schemas-upnp-org:device:MediaServer:1'
+
+        browseFlag: globalBrowseFlag
+        filter: globalFilter
+        sortCriteria: globalSortCriteria
 
         withPlaylist: false
+        useLocalIcons: true
+
+        property var mediaServiceComponent
+        property var mediaViewComponent
     }
 
     MediaPlayPage {
@@ -117,5 +129,5 @@ MobileComponents.ApplicationWindow {
     }
 
     property Item stackView: pageStack
-    initialPage: listServerPage
+    pageStack.initialPage: listServerPage
 }

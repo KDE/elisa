@@ -5,7 +5,7 @@ import QtQuick.Window 2.2
 import QtQuick.Dialogs 1.2
 import QtQml.Models 2.1
 import QtMultimedia 5.4
-import org.kde.plasma.mobilecomponents 0.2 as MobileComponents
+import org.kde.kirigami 1.0 as MobileComponents
 import org.mgallien.QmlExtension 1.0
 
 MobileComponents.Page {
@@ -16,7 +16,6 @@ MobileComponents.Page {
     id: rootItem
 
     objectName: "ServerList"
-    color: MobileComponents.Theme.viewBackgroundColor
 
     ColumnLayout {
         anchors.fill: parent

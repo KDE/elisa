@@ -3,9 +3,9 @@ import QtQuick.Layouts 1.2
 import QtQuick.Controls 1.2
 import QtQuick.Window 2.2
 import QtQuick.Controls.Styles 1.2
-import org.kde.plasma.mobilecomponents 0.2 as MobileComponents
+import org.kde.kirigami 1.0 as MobileComponents
 
-MobileComponents.ListItem {
+MobileComponents.SwipeListItem {
     id: viewAlbumDelegate
     enabled: true
 
@@ -20,7 +20,7 @@ MobileComponents.ListItem {
 
     signal remove(int indexToRemove)
 
-    content: RowLayout {
+    RowLayout {
         spacing: 0
         anchors.fill: parent
 

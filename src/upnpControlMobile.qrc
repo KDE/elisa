@@ -1,24 +1,51 @@
 <RCC>
     <qresource prefix="/">
-        <file>AudioTrackDelegateMobile.qml</file>
-        <file>binaryLight.qml</file>
-        <file>genericDeviceMobile.qml</file>
-        <file>mediaAlbumViewMobile.qml</file>
-        <file>MediaPlayerControlMobile.qml</file>
-        <file>MediaServerEntryMobile.qml</file>
-        <file>mediaServerListingMobile.qml</file>
-        <file>mediaServerMobile.qml</file>
+        <file alias="MediaServer.qml">MediaServerMobile.qml</file>
+        <file alias="MediaServerPage.qml">MediaServerPageMobile.qml</file>
+        <file alias="MediaPlayPage.qml">MediaPlayPageMobile.qml</file>
+        <file alias="AudioTrackDelegate.qml">AudioTrackDelegateMobile.qml</file>
+        <file alias="MediaAlbumView.qml">MediaAlbumViewMobile.qml</file>
+        <file alias="MediaContentDirectory.qml">MediaContentDirectoryMobile.qml</file>
+        <file alias="MediaPlayerControl.qml">MediaPlayerControlMobile.qml</file>
+        <file alias="MediaServerEntry.qml">MediaServerEntryMobile.qml</file>
+        <file alias="MediaServerListing.qml">MediaServerListingMobile.qml</file>
+        <file alias="HeaderBar.qml">HeaderBarMobile.qml</file>
         <file>RatingStar.qml</file>
-        <file>upnpControlMobile.qml</file>
-        <file>media-playback-pause.svg</file>
-        <file>media-playback-start.svg</file>
         <file>media-skip-backward.svg</file>
         <file>media-skip-forward.svg</file>
-        <file>player-volume-muted.svg</file>
-        <file>player-volume.svg</file>
-        <file>audio-x-generic.svg</file>
+        <file>media-playback-start.svg</file>
+        <file>background.jpg</file>
+        <file>new-audio-alarm.svg</file>
         <file>folder.svg</file>
         <file>media-optical-audio.svg</file>
-        <file>MediaContentDirectoryMobile.qml</file>
+    </qresource>
+    <qresource prefix="/imports">
+        <file alias="org/kde/kirigami/qmldir">mobilecomponents/qmldir</file>
+        <file alias="org/kde/kirigami/ApplicationWindow.qml">mobilecomponents/ApplicationWindow.qml</file>
+        <file alias="org/kde/kirigami/BasicListItem.qml">mobilecomponents/BasicListItem.qml</file>
+        <file alias="org/kde/kirigami/GlobalDrawer.qml">mobilecomponents/GlobalDrawer.qml</file>
+        <file alias="org/kde/kirigami/ContextDrawer.qml">mobilecomponents/ContextDrawer.qml</file>
+        <file alias="org/kde/kirigami/Page.qml">mobilecomponents/Page.qml</file>
+        <file alias="org/kde/kirigami/Heading.qml">mobilecomponents/Heading.qml</file>
+        <file alias="org/kde/kirigami/Label.qml">mobilecomponents/Label.qml</file>
+        <file alias="org/kde/kirigami/OverlayDrawer.qml">mobilecomponents/OverlayDrawer.qml</file>
+        <file alias="org/kde/kirigami/private/ActionButton.qml">mobilecomponents/private/ActionButton.qml</file>
+        <file alias="org/kde/kirigami/private/AbstractDrawer.qml">mobilecomponents/private/AbstractDrawer.qml</file>
+        <file alias="org/kde/kirigami/private/PageStack.js">mobilecomponents/private/PageStack.js</file>
+        <file alias="org/kde/kirigami/private/PassiveNotification.qml">mobilecomponents/private/PassiveNotification.qml</file>
+        <file alias="org/kde/kirigami/AbstractListItem.qml">mobilecomponents/AbstractListItem.qml</file>
+        <file alias="org/kde/kirigami/Action.qml">mobilecomponents/Action.qml</file>
+        <file alias="org/kde/kirigami/ApplicationHeader.qml">mobilecomponents/ApplicationHeader.qml</file>
+        <file alias="org/kde/kirigami/OverlaySheet.qml">mobilecomponents/OverlaySheet.qml</file>
+        <file alias="org/kde/kirigami/ScrollablePage.qml">mobilecomponents/ScrollablePage.qml</file>
+        <file alias="org/kde/kirigami/SplitDrawer.qml">mobilecomponents/SplitDrawer.qml</file>
+        <file alias="org/kde/kirigami/SwipeListItem.qml">mobilecomponents/SwipeListItem.qml</file>
+        <file alias="org/kde/kirigami/Icon.qml">mobilecomponents/fallbacktheme/Icon.qml</file>
+        <file alias="org/kde/kirigami/Theme.qml">mobilecomponents/fallbacktheme/Theme.qml</file>
+        <file alias="org/kde/kirigami/Units.qml">mobilecomponents/fallbacktheme/Units.qml</file>
+        <file alias="org/kde/kirigami/private/ContextIcon.qml">mobilecomponents/private/ContextIcon.qml</file>
+        <file alias="org/kde/kirigami/private/MenuIcon.qml">mobilecomponents/private/MenuIcon.qml</file>
+        <file alias="org/kde/kirigami/private/PageRow.qml">mobilecomponents/private/PageRow.qml</file>
+        <file alias="org/kde/kirigami/private/RefreshableScrollView.qml">mobilecomponents/private/RefreshableScrollView.qml</file>
     </qresource>
 </RCC>

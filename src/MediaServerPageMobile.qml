@@ -3,7 +3,8 @@ import QtQuick.Controls 1.2
 import QtQuick.Layouts 1.2
 import QtQuick.Window 2.2
 import QtQuick.Dialogs 1.2
-import org.kde.plasma.mobilecomponents 0.2 as MobileComponents
+import QtQml.Models 2.1
+import org.kde.kirigami 1.0 as MobileComponents
 import org.mgallien.QmlExtension 1.0
 
 MobileComponents.Page {
@@ -16,7 +17,6 @@ MobileComponents.Page {
     id: rootItem
 
     objectName: "ServerList"
-    color: MobileComponents.Theme.viewBackgroundColor
 
     ColumnLayout {
         anchors.fill: parent
@@ -33,47 +33,36 @@ MobileComponents.Page {
 
             ListView {
                 id: serverView
-                model: serverModel
-                anchors.fill: parent
+                model: DelegateModel {
+                    model: serverModel
 
-                delegate: MobileComponents.ListItem {
-                    height: 120
-                    enabled: true
+                    delegate: MobileComponents.SwipeListItem {
+                        height: 120
+                        enabled: true
 
-                    content: MobileComponents.Label {
-                        id: nameLabel
-                        anchors.fill: parent
-                        text: model.name
-                    }
+                        MobileComponents.Label {
+                            id: nameLabel
+                            anchors.fill: parent
+                            text: model.name
+                        }
 
 
-                    onClicked: {
-                        contentDirectoryItem.contentDirectoryService = serverModel.remoteServer(index).contentDirectory
-                        contentDirectoryModelItem.contentDirectory = serverModel.remoteServer(index).contentDirectory
-                        contentDirectoryItem.rootIndex = contentDirectoryModelItem.indexFromId('0')
-                        stackView.push(contentDirectoryItem)
+                        onClicked: {
+                            contentDirectoryItem.contentModel = serverModel.remoteAlbumModel(DelegateModel.itemsIndex)
+                            contentDirectoryItem.serverName = serverModel.remoteAlbumModel(DelegateModel.itemsIndex).serverName
+                            stackView.push(contentDirectoryItem)
+                        }
                     }
                 }
             }
         }
-    }
 
-    MediaServerListing {
-        id: contentDirectoryItem
+        MediaServerListing {
+            id: contentDirectoryItem
 
-        rootIndex: contentDirectoryModelItem.indexFromId('0')
-        playListModel: globalPlayListModel
-        contentModel: contentDirectoryModelItem
+            playListModel: globalPlayListModel
 
-        visible: false
-    }
-
-    UpnpContentDirectoryModel {
-        id: contentDirectoryModelItem
-        browseFlag: globalBrowseFlag
-        filter: globalFilter
-        sortCriteria: globalSortCriteria
-        contentDirectory: contentDirectoryItem.contentDirectoryService
-        useLocalIcons: true
+            visible: false
+        }
     }
 }

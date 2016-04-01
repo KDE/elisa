@@ -1,0 +1,22 @@
+module org.kde.kirigami
+#plugin kirigamiplugin
+
+singleton Units 1.0 Units.qml
+singleton Theme 1.0 Theme.qml
+
+OverlayDrawer 1.0 OverlayDrawer.qml
+SplitDrawer 1.0 SplitDrawer.qml
+Action 1.0 Action.qml
+ApplicationWindow 1.0 ApplicationWindow.qml
+ContextDrawer 1.0 ContextDrawer.qml
+GlobalDrawer 1.0 GlobalDrawer.qml
+Page 1.0 Page.qml
+Icon 1.0 Icon.qml
+Label 1.0 Label.qml
+Heading 1.0 Heading.qml
+HeaderItem 1.0 HeaderItem.qml
+ScrollablePage 1.0 ScrollablePage.qml
+AbstractListItem 1.0 AbstractListItem.qml
+BasicListItem 1.0 BasicListItem.qml
+SwipeListItem 1.0 SwipeListItem.qml
+OverlaySheet 1.0 OverlaySheet.qml

@@ -4,20 +4,20 @@ import QtQuick.Controls 1.2
 import QtQuick.Controls.Styles 1.2
 import QtQml.Models 2.1
 import org.mgallien.QmlExtension 1.0
-import org.kde.plasma.mobilecomponents 0.2 as MobileComponents
+import org.kde.kirigami 1.0 as MobileComponents
 import QtMultimedia 5.4
 import QtQuick.Layouts 1.2
 
 MobileComponents.Page {
-    property UpnpControlContentDirectory contentDirectoryService
-    property string rootId
-    property StackView stackView
-    property UpnpContentDirectoryModel contentModel
+    id: topListing
+
+    property var rootIndex
+    property var contentModel
     property MediaPlayList playListModel
-
-    id: rootElement
-
-    color: MobileComponents.Theme.viewBackgroundColor
+    property var albumName
+    property var artistName
+    property var tracksCount
+    property var albumArtUrl
 
     ColumnLayout {
         anchors.fill: parent
@@ -41,7 +41,7 @@ MobileComponents.Page {
 
                 model: DelegateModel {
                     model: contentModel
-                    rootIndex: contentModel.indexFromId(rootId)
+                    rootIndex: topListing.rootIndex
 
                     delegate: AudioTrackDelegate {
                         height: Screen.pixelDensity * 12.

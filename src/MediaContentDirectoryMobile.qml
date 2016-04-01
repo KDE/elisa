@@ -4,7 +4,7 @@ import QtQuick.Controls.Styles 1.2
 import QtQuick.Layouts 1.1
 import QtQuick.Window 2.2
 import org.mgallien.QmlExtension 1.0
-import org.kde.plasma.mobilecomponents 0.2 as MobileComponents
+import org.kde.kirigami 1.0 as MobileComponents
 import QtMultimedia 5.4
 
 MobileComponents.Page {

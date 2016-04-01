@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.2
+import org.kde.kirigami 1.0 as MobileComponents
 
 Item {
     property string imageName

@@ -34,10 +34,6 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         MediaPlayPageMobile.qml
         ContextView.qml
         upnpalbummodel.cpp
-        localalbummodel.cpp
-        localbaloofilelisting.cpp
-        localbalootrack.cpp
-        localbalooalbum.cpp
         musicstatistics.cpp
         musicalbum.cpp
         musicaudiotrack.cpp
@@ -46,7 +42,21 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         progressindicator.cpp
     )
 
-    qt5_add_resources(elisa_SOURCES upnpControl.qrc)
+    if (KF5Baloo_FOUND)
+        set(elisa_SOURCES
+            ${elisa_SOURCES}
+            localalbummodel.cpp
+            localbaloofilelisting.cpp
+            localbalootrack.cpp
+            localbalooalbum.cpp
+            )
+    endif()
+
+    if (${KF5Declarative_FOUND})
+        qt5_add_resources(elisa_SOURCES upnpControl.qrc)
+    else()
+        qt5_add_resources(elisa_SOURCES upnpControlMobile.qrc)
+    endif()
 
     add_executable(elisa ${elisa_SOURCES})
 
@@ -60,18 +70,42 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
             Qt5::Svg
             Qt5::Xml
             Qt5::Sql
-            KF5::I18n
-            KF5::CoreAddons
-            KF5::Baloo
-            KF5::FileMetaData
             UPNP::upnpQt
     )
 
-    if (${KF5Declarative_FOUND})
-    target_link_libraries(elisa
-        LINK_PRIVATE
-            KF5::Declarative
-    )
+    if (KF5I18n_FOUND)
+        target_link_libraries(elisa
+            LINK_PRIVATE
+                KF5::I18n
+        )
+    endif()
+
+    if (KF5FileMetaData_FOUND)
+        target_link_libraries(elisa
+            LINK_PRIVATE
+                KF5::FileMetaData
+        )
+    endif()
+
+    if (KF5CoreAddons_FOUND)
+        target_link_libraries(elisa
+            LINK_PRIVATE
+                KF5::CoreAddons
+        )
+    endif()
+
+    if (KF5Baloo_FOUND)
+        target_link_libraries(elisa
+            LINK_PRIVATE
+                KF5::Baloo
+        )
+    endif()
+
+    if (KF5Declarative_FOUND)
+        target_link_libraries(elisa
+            LINK_PRIVATE
+                KF5::Declarative
+        )
     endif()
 endif()
 

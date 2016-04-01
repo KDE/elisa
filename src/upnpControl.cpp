@@ -32,8 +32,12 @@
 #include "upnpdevicedescription.h"
 #include "upnpalbummodel.h"
 #include "didlparser.h"
+
+#if defined KF5Baloo_FOUND && KF5Baloo_FOUND
 #include "localalbummodel.h"
 #include "localbalootrack.h"
+#endif
+
 #include "progressindicator.h"
 
 #include "mediaplaylist.h"
@@ -43,12 +47,17 @@
 #include "musicstatistics.h"
 #include "albumfilterproxymodel.h"
 
-#if KF5Declarative_FOUND
+#if defined KF5Declarative_FOUND && KF5Declarative_FOUND
 #include <KDeclarative/KDeclarative>
 #endif
 
+#if defined KF5I18n_FOUND && KF5I18n_FOUND
 #include <KI18n/KLocalizedString>
+#endif
+
+#if defined KF5CoreAddons_FOUND && KF5CoreAddons_FOUND
 #include <KCoreAddons/KAboutData>
+#endif
 
 #include <QtGui/QIcon>
 
@@ -82,8 +91,12 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
     qmlRegisterType<UpnpAlbumModel>("org.mgallien.QmlExtension", 1, 0, "UpnpAlbumModel");
     qmlRegisterType<MusicStatistics>("org.mgallien.QmlExtension", 1, 0, "MusicStatistics");
     qmlRegisterType<DidlParser>("org.mgallien.QmlExtension", 1, 0, "DidlParser");
-    qmlRegisterType<LocalAlbumModel>("org.mgallien.QmlExtension", 1, 0, "LocalAlbumModel");
     qmlRegisterType<ProgressIndicator>("org.mgallien.QmlExtension", 1, 0, "ProgressIndicator");
+
+#if defined KF5Baloo_FOUND && KF5Baloo_FOUND
+    qmlRegisterType<LocalAlbumModel>("org.mgallien.QmlExtension", 1, 0, "LocalAlbumModel");
+    qRegisterMetaType<QHash<QString,QList<LocalBalooTrack> >>();
+#endif
 
     qRegisterMetaType<A_ARG_TYPE_InstanceID>();
     qRegisterMetaType<QPointer<UpnpAbstractDevice> >();
@@ -92,11 +105,13 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
     qRegisterMetaType<UpnpDeviceDescription*>();
     qRegisterMetaType<RemoteServerEntry*>();
     qRegisterMetaType<QAbstractItemModel*>();
-    qRegisterMetaType<QHash<QString,QList<LocalBalooTrack> >>();
     qRegisterMetaType<QHash<QString,QString>>();
 
+#if defined KF5I18n_FOUND && KF5I18n_FOUND
     KLocalizedString::setApplicationDomain("elisa");
+#endif
 
+#if defined KF5CoreAddons_FOUND && KF5CoreAddons_FOUND
     KAboutData aboutData( QStringLiteral("elisa"),
                           i18n("Elisa"),
                           QStringLiteral("0.1"),
@@ -113,12 +128,13 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
     aboutData.setupCommandLine(&parser);
     parser.process(app);
     aboutData.processCommandLine(&parser);
+#endif
 
     QQmlApplicationEngine engine;
     engine.addImportPath(QStringLiteral("qrc:/imports"));
     QQmlFileSelector selector(&engine);
 
-#if KF5Declarative_FOUND
+#if defined KF5Declarative_FOUND && KF5Declarative_FOUND
     KDeclarative::KDeclarative decl;
     decl.setDeclarativeEngine(&engine);
     decl.setupBindings();

@@ -18,6 +18,7 @@
         <file>new-audio-alarm.svg</file>
         <file>folder.svg</file>
         <file>media-optical-audio.svg</file>
+        <file>media-playback-pause.svg</file>
     </qresource>
     <qresource prefix="/imports">
         <file alias="org/kde/kirigami/qmldir">mobilecomponents/qmldir</file>

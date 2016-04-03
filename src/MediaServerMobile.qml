@@ -1,7 +1,7 @@
 import QtQuick 2.3
 import QtQuick.Controls 1.2
 import QtQuick.Layouts 1.2
-import QtMultimedia 5.4
+import QtMultimedia 5.6
 import org.mgallien.QmlExtension 1.0
 import org.kde.kirigami 1.0 as MobileComponents
 
@@ -19,20 +19,21 @@ MobileComponents.ApplicationWindow {
         titleIcon: Qt.resolvedUrl("new-audio-alarm.svg")
         bannerImageSource: "background.jpg"
 
-        /*actions: [
-            Action {
+        actions: [
+            MobileComponents.Action {
                 text: "Browse Media Servers"
                 onTriggered: {
+                    clear()
                     stackView.push(listServerPage)
                 }
             },
-            Action {
+            MobileComponents.Action {
                 text: "Play List"
                 onTriggered: {
                     stackView.push(playListPage)
                 }
             }
-        ]*/
+        ]
     }
 
     property UpnpDeviceDescription aDevice
@@ -54,21 +55,16 @@ MobileComponents.ApplicationWindow {
     Audio {
         id: audioPlayer
 
-        muted: false
-        volume: 1.0
+        muted: playControlItem.muted
 
+        volume: playControlItem.volume
         source: playListControler.playerSource
 
         onPlaying: playListControler.playerPlaying()
         onPaused: playListControler.playerPaused()
         onStopped: playListControler.playerStopped()
-        onPositionChanged: {
-            console.log('Audio: ' + status)
-            playListControler.audioPlayerPositionChanged(position)
-        }
+        onPositionChanged: playListControler.audioPlayerPositionChanged(position)
         onStatusChanged: playListControler.audioPlayerFinished(status == Audio.EndOfMedia)
-        onErrorChanged: console.log(errorString)
-        onError: console.log('audio player ' + error + ' ' + errorString)
     }
 
     MediaPlayList {

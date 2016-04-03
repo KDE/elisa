@@ -55,11 +55,11 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         endif()
     endif()
 
-    #if (${KF5Declarative_FOUND})
-    #    qt5_add_resources(elisa_SOURCES upnpControl.qrc)
-    #else()
+    if (${KF5Declarative_FOUND})
+        qt5_add_resources(elisa_SOURCES upnpControl.qrc)
+    else()
         qt5_add_resources(elisa_SOURCES upnpControlMobile.qrc)
-    #endif()
+    endif()
 
     add_executable(elisa ${elisa_SOURCES})
 

@@ -121,12 +121,14 @@ Item {
                 width: Screen.pixelDensity * 2
             }
 
+            ProgressIndicator {
+                id: timeIndicator
+                position: musicWidget.position
+            }
+
             Label {
                 id: positionLabel
-                text: if (musicWidget.position / 1000 % 60 < 10)
-                          '0:0' + (musicWidget.position / 1000 % 60).toFixed(0)
-                      else
-                          (musicWidget.position / 1000 / 60).toFixed(0) + ':' + (musicWidget.position / 1000 % 60).toFixed(0)
+                text: timeIndicator.progressDuration
                 Layout.alignment: Qt.AlignVCenter
             }
 

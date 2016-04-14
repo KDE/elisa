@@ -134,29 +134,12 @@ AbstractDrawer {
             color: "black"
             opacity: Math.min(0.4, 0.4 * (browserFrame.x / sidebar.width))
         }
-        LinearGradient {
-            width: Units.gridUnit/2
+        EdgeShadow {
             anchors {
                 right: parent.left
                 top: parent.top
                 bottom: parent.bottom
                 rightMargin: -1
-            }
-            start: Qt.point(0, 0)
-            end: Qt.point(Units.gridUnit/2, 0)
-            gradient: Gradient {
-                GradientStop {
-                    position: 0.0
-                    color: "transparent"
-                }
-                GradientStop {
-                    position: 0.7
-                    color: Qt.rgba(0, 0, 0, 0.15)
-                }
-                GradientStop {
-                    position: 1.0
-                    color: Qt.rgba(0, 0, 0, 0.3)
-                }
             }
         }
 

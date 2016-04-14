@@ -122,7 +122,7 @@ OverlayDrawer {
      * }
      * @endcode
      */
-    property list<Action> actions
+    property list<QtObject> actions
 
 
     /**
@@ -149,150 +149,167 @@ OverlayDrawer {
      */
     default property alias content: mainContent.data
 
-    handleVisible: applicationWindow() ? applicationWindow().controlsVisible : true
+    handleVisible: typeof(applicationWindow)===typeof(Function) && applicationWindow() ? applicationWindow().controlsVisible : true
 
-    contentItem: ColumnLayout {
-        id: mainColumn
+    contentItem: Controls.ScrollView {
         anchors.fill: parent
-        spacing: 0
-        implicitWidth: Units.gridUnit * 12
+        implicitWidth: Math.min (Math.max(Units.gridUnit * 12, title.width), root.parent.width * 0.8)
+        Flickable {
+            id: mainFlickable
+            contentWidth: width
+            contentHeight: mainColumn.height
+            ColumnLayout {
+                id: mainColumn
+                width: mainFlickable.width
+                spacing: 0
+                height: Math.max(mainFlickable.height, implicitHeight)
 
-        Image {
-            id: bannerImage
-            Layout.fillWidth: true
+                Image {
+                    id: bannerImage
+                    Layout.fillWidth: true
 
-            Layout.preferredWidth: title.implicitWidth
-            Layout.preferredHeight: bannerImageSource != "" ? Math.max(title.implicitHeight, Math.floor(width / (sourceSize.width/sourceSize.height))) : title.implicitHeight
-            Layout.minimumHeight: Math.max(headingIcon.height, heading.height) + Units.smallSpacing * 2
+                    Layout.preferredWidth: title.implicitWidth
+                    Layout.preferredHeight: bannerImageSource != "" ? Math.max(title.implicitHeight, Math.floor(width / (sourceSize.width/sourceSize.height))) : title.implicitHeight
+                    Layout.minimumHeight: Math.max(headingIcon.height, heading.height) + Units.smallSpacing * 2
 
-            fillMode: Image.PreserveAspectCrop
-            asynchronous: true
+                    fillMode: Image.PreserveAspectCrop
+                    asynchronous: true
 
-            anchors {
-                left: parent.left
-                right: parent.right
-                top: parent.top
-            }
-
-            LinearGradient {
-                anchors {
-                    left: parent.left
-                    right: parent.right
-                    top: parent.top
-                }
-                visible: bannerImageSource != ""
-                height: title.height * 1.3
-                start: Qt.point(0, 0)
-                end: Qt.point(0, height)
-                gradient: Gradient {
-                    GradientStop {
-                        position: 0.0
-                        color: Qt.rgba(0, 0, 0, 0.8)
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                        top: parent.top
                     }
-                    GradientStop {
-                        position: 1.0
-                        color: "transparent"
+
+                    LinearGradient {
+                        anchors {
+                            left: parent.left
+                            right: parent.right
+                            top: parent.top
+                        }
+                        visible: bannerImageSource != ""
+                        height: title.height * 1.3
+                        start: Qt.point(0, 0)
+                        end: Qt.point(0, height)
+                        gradient: Gradient {
+                            GradientStop {
+                                position: 0.0
+                                color: Qt.rgba(0, 0, 0, 0.8)
+                            }
+                            GradientStop {
+                                position: 1.0
+                                color: "transparent"
+                            }
+                        }
+                    }
+
+                    RowLayout {
+                        id: title
+                        anchors {
+                            left: parent.left
+                            top: parent.top
+                            margins: Units.smallSpacing * 2
+                        }
+                        Icon {
+                            id: headingIcon
+                            Layout.minimumWidth: Units.iconSizes.large
+                            Layout.minimumHeight: width
+                        }
+                        Heading {
+                            id: heading
+                            level: 1
+                            color: bannerImageSource != "" ? "white" : Theme.textColor
+                        }
+                        Item {
+                            height: 1
+                            Layout.minimumWidth: heading.height
+                        }
                     }
                 }
-            }
 
-            RowLayout {
-                id: title
-                anchors {
-                    left: parent.left
-                    top: parent.top
-                    margins: Units.smallSpacing * 2
+                Rectangle {
+                    color: Theme.textColor
+                    opacity: 0.2
+                    Layout.fillWidth: true
+                    Layout.minimumHeight: 1
                 }
-                Icon {
-                    id: headingIcon
-                    Layout.minimumWidth: Units.iconSizes.large
-                    Layout.minimumHeight: width
-                }
-                Heading {
-                    id: heading
-                    level: 1
-                    color: bannerImageSource != "" ? "white" : Theme.textColor
+
+                Controls.StackView {
+                    id: stackView
+                    Layout.fillWidth: true
+                    Layout.minimumHeight: currentItem.implicitHeight
+                    initialItem: menuComponent
                 }
                 Item {
-                    height: 1
-                    Layout.minimumWidth: heading.height
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    Layout.minimumHeight: Units.smallSpacing
                 }
-            }
-        }
 
-        Rectangle {
-            color: Theme.textColor
-            opacity: 0.2
-            Layout.fillWidth: true
-            Layout.minimumHeight: 1
-        }
-
-        Controls.StackView {
-            id: stackView
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-            initialItem: menuComponent
-        }
-
-        ColumnLayout {
-            id: mainContent
-            Layout.alignment: Qt.AlignHCenter
-            Layout.minimumWidth: parent.width - Units.smallSpacing*2
-            Layout.maximumWidth: Layout.minimumWidth
-            Layout.fillWidth: false
-            Layout.fillHeight: true
-            visible: children.length > 0
-        }
-        Item {
-            Layout.minimumWidth: Units.smallSpacing
-            Layout.minimumHeight: Units.smallSpacing
-        }
-
-        Component {
-            id: menuComponent
-            ListView {
-                id: optionMenu
-                clip: true
-
-                model: actions
-                property int level: 0
-
-                interactive: contentHeight > height
-
-                footer: BasicListItem {
-                    visible: level > 0
-                    supportsMouseEvents: true
-                    icon: "go-previous"
-                    label: typeof i18n !== "undefined" ? i18n("Back") : "Back"
-                    onClicked: stackView.pop()
+                ColumnLayout {
+                    id: mainContent
+                    Layout.alignment: Qt.AlignHCenter
+                    Layout.minimumWidth: parent.width - Units.smallSpacing*2
+                    Layout.maximumWidth: Layout.minimumWidth
+                    Layout.fillWidth: false
+                    Layout.fillHeight: true
+                    visible: children.length > 0
                 }
-                delegate: BasicListItem {
-                    supportsMouseEvents: true
-                    checked: modelData.checked
-                    icon: modelData.iconName
-                    label: modelData.text
-                    visible: model ? model.visible : modelData.visible
-                    enabled: model ? model.enabled : modelData.enabled
-                    opacity: enabled ? 1.0 : 0.3
+                Item {
+                    Layout.minimumWidth: Units.smallSpacing
+                    Layout.minimumHeight: Units.smallSpacing
+                }
 
-                    Icon {
-                        anchors {
-                            top: parent.top
-                            bottom: parent.bottom
-                            right: parent.right
+                Component {
+                    id: menuComponent
+                    ColumnLayout {
+                        id: optionMenu
+                        spacing: 0
+                        property alias model: actionsRepeater.model
+
+                        property int level: 0
+
+
+                        Repeater {
+                            id: actionsRepeater
+                            model: actions
+                            delegate: BasicListItem {
+                                supportsMouseEvents: true
+                                checked: modelData.checked
+                                icon: modelData.iconName
+                                label: modelData.text
+                                visible: model ? model.visible || model.visible===undefined : modelData.visible
+                                enabled: model ? model.enabled : modelData.enabled
+                                opacity: enabled ? 1.0 : 0.3
+
+                                Icon {
+                                    anchors {
+                                        top: parent.top
+                                        bottom: parent.bottom
+                                        right: parent.right
+                                    }
+                                    width: height
+                                    source: "go-next"
+                                    visible: modelData.children!==undefined && modelData.children.length > 0
+                                }
+
+                                onClicked: {
+                                    if (modelData.children!==undefined && modelData.children.length > 0) {
+                                        stackView.push(menuComponent, {"model": modelData.children, "level": level + 1});
+                                    } else {
+                                        modelData.trigger();
+                                        stackView.pop(stackView.initialItem);
+                                        root.opened = false;
+                                    }
+                                }
+                            }
                         }
-                        width: height
-                        source: "go-next"
-                        visible: modelData.children.length > 0
-                    }
-
-                    onClicked: {
-                        if (modelData.children.length > 0) {
-                            stackView.push(menuComponent, {"model": modelData.children, "level": level + 1});
-                        } else {
-                            modelData.trigger();
-                            stackView.pop(stackView.initialItem);
-                            root.opened = false;
+                        BasicListItem {
+                            visible: level > 0
+                            supportsMouseEvents: true
+                            icon: "go-previous"
+                            label: typeof i18n !== "undefined" ? i18n("Back") : "Back"
+                            onClicked: stackView.pop()
                         }
                     }
                 }

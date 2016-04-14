@@ -20,7 +20,7 @@
 import QtQuick 2.5
 import QtQuick.Controls 1.3
 import org.kde.kirigami 1.0
-import QtGraphicalEffects 1.0
+import "private"
 
 /**
  * An overlay sheet that covers the current Page content.
@@ -69,12 +69,18 @@ Item {
 
     function open() {
         root.visible = true;
+        openAnimation.from = -root.height;
+        openAnimation.to = openAnimation.topOpenPosition;
         openAnimation.running = true;
         root.opened = true;
     }
 
     function close() {
-        closeAnimation.to = -height;
+        if (mainFlickable.contentY < 0) {
+            closeAnimation.to = -height;
+        } else {
+            closeAnimation.to = flickableContents.height;
+        }
         closeAnimation.running = true;
     }
 
@@ -96,68 +102,22 @@ Item {
             y: -mainFlickable.contentY
             height: mainFlickable.contentHeight
 
-            LinearGradient {
-                height: Units.gridUnit/2
+            EdgeShadow {
+                edge: Qt.BottomEdge
                 anchors {
                     right: parent.right
                     left: parent.left
                     bottom: parent.top
                 }
-
-                start: Qt.point(0, Units.gridUnit/2)
-                end: Qt.point(0, 0)
-                gradient: Gradient {
-                    GradientStop {
-                        position: 0.0
-                        color: Qt.rgba(0, 0, 0, 0.4)
-                    }
-                    GradientStop {
-                        position: 0.3
-                        color: Qt.rgba(0, 0, 0, 0.1)
-                    }
-                    GradientStop {
-                        position: 1.0
-                        color:  "transparent"
-                    }
-                }
-                Behavior on opacity {
-                    OpacityAnimator {
-                        duration: Units.longDuration
-                        easing.type: Easing.InOutQuad
-                    }
-                }
             }
-
-            LinearGradient {
-                height: Units.gridUnit/2
+            EdgeShadow {
+                edge: Qt.TopEdge
                 anchors {
                     right: parent.right
                     left: parent.left
                     top: parent.bottom
                 }
 
-                start: Qt.point(0, 0)
-                end: Qt.point(0, Units.gridUnit/2)
-                gradient: Gradient {
-                    GradientStop {
-                        position: 0.0
-                        color: Qt.rgba(0, 0, 0, 0.4)
-                    }
-                    GradientStop {
-                        position: 0.3
-                        color: Qt.rgba(0, 0, 0, 0.1)
-                    }
-                    GradientStop {
-                        position: 1.0
-                        color:  "transparent"
-                    }
-                }
-                Behavior on opacity {
-                    OpacityAnimator {
-                        duration: Units.longDuration
-                        easing.type: Easing.InOutQuad
-                    }
-                }
             }
         }
     }
@@ -165,6 +125,20 @@ Item {
     default property Item contentItem
 
     Component.onCompleted: {
+        //try to find a Page and reparent directly to it
+        var pageCandidate = root.parent;
+        while (pageCandidate) {
+            //QML doesn't have typeof support to qml types, try asses by checking at some properties as an euristic
+            if (pageCandidate.contentItem !== undefined &&
+                pageCandidate.title !== undefined &&
+                pageCandidate.contextualActions !== undefined) {
+                break;
+            }
+            pageCandidate = pageCandidate.parent;
+        }
+        if (pageCandidate != root.parent) {
+            root.parent = pageCandidate;
+        }
         backgroundChanged();
         contentItemChanged();
     }
@@ -185,12 +159,14 @@ Item {
 
     NumberAnimation {
         id: openAnimation
+        property int topOpenPosition: Math.min(-root.height*0.15, flickableContents.height - root.height + Units.gridUnit * 5)
+        property int bottomOpenPosition: (flickableContents.height - root.height) + (Units.gridUnit * 5)
         target: mainFlickable
         properties: "contentY"
         from: -root.height
-        to: Math.min(-root.height*0.15, flickableContents.height - root.height)
+        to: topOpenPosition
         duration: Units.longDuration
-        easing.type: Easing.InOutQuad
+        easing.type: Easing.OutQuad
     }
 
     SequentialAnimation {
@@ -201,48 +177,72 @@ Item {
             properties: "contentY"
             to: closeAnimation.to
             duration: Units.longDuration
-            easing.type: Easing.InOutQuad
+            easing.type: Easing.InQuad
         }
         ScriptAction {
             script: root.visible = root.opened = false;
         }
     }
 
-    ScrollView {
-        id: scrollView
-        z: 2
+    MouseArea {
         anchors.fill: parent
-        Flickable {
-            id: mainFlickable
-            topMargin: height
-            contentWidth: width
-            contentHeight: flickableContents.height;
-            Item {
-                id: flickableContents
-                width: root.width
-                height: contentItem.height + topPadding + bottomPadding + Units.iconSizes.medium + Units.gridUnit
+        z: 2
+        drag.filterChildren: true
+
+        onClicked: {
+            var pos = mapToItem(flickableContents, mouse.x, mouse.y);
+            if (!flickableContents.contains(pos)) {
+                root.close();
+            }
+        }
+
+        ScrollView {
+            id: scrollView
+            anchors.fill: parent
+            Flickable {
+                id: mainFlickable
+                topMargin: height
+                contentWidth: width
+                contentHeight: flickableContents.height;
                 Item {
-                    id: contentItemParent
-                    anchors {
-                        fill: parent
-                        leftMargin: leftPadding
-                        topMargin: topPadding
-                        rightMargin: rightPadding
-                        bottomMargin: bottomPadding
+                    id: flickableContents
+                    width: root.width
+                    height: contentItem.height + topPadding + bottomPadding + Units.iconSizes.medium + Units.gridUnit
+                    Item {
+                        id: contentItemParent
+                        anchors {
+                            fill: parent
+                            leftMargin: leftPadding
+                            topMargin: topPadding
+                            rightMargin: rightPadding
+                            bottomMargin: bottomPadding
+                        }
                     }
                 }
-            }
-            bottomMargin: height
-            onMovementEnded: {
-                if ((root.height + mainFlickable.contentY) < root.height/2) {
-                    closeAnimation.to = -root.height;
-                    closeAnimation.running = true;
-                } else if ((root.height*0.6 + mainFlickable.contentY) > flickableContents.height) {
-                    closeAnimation.to = flickableContents.height
-                    closeAnimation.running = true;
+                bottomMargin: height
+                onMovementEnded: {
+                    //close
+                    if ((root.height + mainFlickable.contentY) < root.height/2) {
+                        closeAnimation.to = -root.height;
+                        closeAnimation.running = true;
+                    } else if ((root.height*0.6 + mainFlickable.contentY) > flickableContents.height) {
+                        closeAnimation.to = flickableContents.height
+                        closeAnimation.running = true;
+
+                    //reset to the default opened position
+                    } else if (mainFlickable.contentY < openAnimation.topOpenPosition) {
+                        openAnimation.from = mainFlickable.contentY;
+                        openAnimation.to = openAnimation.topOpenPosition;
+                        openAnimation.running = true;
+                    //reset to the default "bottom" opened position
+                    } else if (mainFlickable.contentY > openAnimation.bottomOpenPosition) {
+                        openAnimation.from = mainFlickable.contentY;
+                        openAnimation.to = openAnimation.bottomOpenPosition;
+                        openAnimation.running = true;
+                    }
                 }
+                onFlickEnded: movementEnded();
             }
-            onFlickEnded: movementEnded();
         }
     }
 }

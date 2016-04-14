@@ -19,8 +19,9 @@
 
 import QtQuick 2.5
 import QtQuick.Layouts 1.2
+import QtQuick.Controls.Private 1.0
 import org.kde.kirigami 1.0
-import QtGraphicalEffects 1.0
+import "private"
 
 /**
  * An item delegate Intended to support extra actions obtainable
@@ -30,9 +31,9 @@ import QtGraphicalEffects 1.0
  * @code
  * ListView {
  *     model: myModel
- *     delegate: ActionsForListItem {
- *         BasicListItem {
- *             label: model.text
+ *     delegate: SwipeListItem {
+ *         Label {
+ *             text: model.text
  *         }
  *         actions: [
  *              Action {
@@ -145,11 +146,17 @@ Item {
         parent: itemMouse
         anchors.fill: parent
         visible: listItem.ListView.view ? listItem.ListView.view.highlight === null : true
-        opacity: itemMouse.containsMouse && !itemMouse.pressed ? 0.5 : 1
+        Rectangle {
+            anchors.fill: parent
+            visible: !Settings.isMobile
+            color: Theme.highlightColor
+            opacity: itemMouse.containsMouse && !itemMouse.pressed ? 0.2 : 0
+            Behavior on opacity { NumberAnimation { duration: Units.longDuration } }
+        }
         Behavior on color {
             ColorAnimation { duration: Units.longDuration }
         }
-        Behavior on opacity { NumberAnimation { duration: Units.longDuration } }
+        
 
         Rectangle {
             id: separator
@@ -161,7 +168,7 @@ Item {
                 right: parent.right
                 bottom: parent.bottom
             }
-            height: Math.round(Units.smallSpacing / 3);
+            height: Math.ceil(Units.smallSpacing / 5);
         }
     }
 
@@ -177,54 +184,20 @@ Item {
             color: Theme.backgroundColor
             anchors.fill: parent
         }
-        LinearGradient {
-            height: Units.gridUnit/2
+        EdgeShadow {
+            edge: Qt.TopEdge
             anchors {
                 right: parent.right
                 left: parent.left
                 top: parent.top
             }
-
-            start: Qt.point(0, 0)
-            end: Qt.point(0, Units.gridUnit/2)
-            gradient: Gradient {
-                GradientStop {
-                    position: 0.0
-                    color: Qt.rgba(0, 0, 0, 0.2)
-                }
-                GradientStop {
-                    position: 0.3
-                    color: Qt.rgba(0, 0, 0, 0.1)
-                }
-                GradientStop {
-                    position: 1.0
-                    color:  "transparent"
-                }
-            }
         }
-        LinearGradient {
-            width: Units.gridUnit/2
+        EdgeShadow {
+            edge: Qt.LeftEdge
             x: behindItem.width - (behindItem.width * listItem.position)
             anchors {
                 top: parent.top
                 bottom: parent.bottom
-            }
-
-            start: Qt.point(0, 0)
-            end: Qt.point(Units.gridUnit/2, 0)
-            gradient: Gradient {
-                GradientStop {
-                    position: 0.0
-                    color: Qt.rgba(0, 0, 0, 0.2)
-                }
-                GradientStop {
-                    position: 0.3
-                    color: Qt.rgba(0, 0, 0, 0.1)
-                }
-                GradientStop {
-                    position: 1.0
-                    color:  "transparent"
-                }
             }
         }
     }
@@ -337,7 +310,7 @@ Item {
             }
             positionAnimation.running = true;
         }
-        property real internalPosition:  (mainFlickable.contentX/(listItem.width-listItem.height));
+        readonly property real internalPosition:  (mainFlickable.contentX/(listItem.width-listItem.height));
         onInternalPositionChanged: {
             listItem.position = internalPosition;
         }
@@ -353,6 +326,7 @@ Item {
                     top: parent.top
                     bottom: parent.bottom
                 }
+                hoverEnabled: !Settings.isMobile
                 width: mainFlickable.width
                 onClicked: listItem.clicked()
                 onPressAndHold: listItem.pressAndHold()

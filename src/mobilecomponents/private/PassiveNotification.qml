@@ -98,7 +98,7 @@ MouseArea {
             properties: "y"
             to: appearAnimation.appear ? 0 : background.height
             duration: Units.longDuration
-            easing.type: Easing.InOutQuad
+            easing.type: appearAnimation.appear ? Easing.OutQuad : Easing.InQuad
         }
     }
 

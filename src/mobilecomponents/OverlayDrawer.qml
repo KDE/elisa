@@ -33,7 +33,7 @@ import "private"
 AbstractDrawer {
     id: root
     anchors.fill: parent
-    z: 9999
+    z: opened ? 9999 : 9998
 
 //BEGIN Properties
     /**
@@ -174,12 +174,14 @@ AbstractDrawer {
     }
 
 
-    NumberAnimation {
+    //NOTE: it's a PropertyAnimation instead of a NumberAnimation because
+    //NumberAnimation doesn't have NOTIFY signal on to property
+    PropertyAnimation {
         id: mainAnim
         target: mainFlickable
         properties: (root.edge == Qt.RightEdge || root.edge == Qt.LeftEdge) ? "contentX" : "contentY"
         duration: Units.longDuration
-        easing.type: Easing.InOutQuad
+        easing.type: mainAnim.to > 0 ? Easing.InQuad : Easing.OutQuad
     }
 
     MouseArea {
@@ -191,8 +193,8 @@ AbstractDrawer {
             bottom: root.edge == Qt.TopEdge ? undefined : parent.bottom
         }
         z: 99
-        width: Units.smallSpacing * 2
-        height: Units.smallSpacing * 2
+        width: Units.smallSpacing * 3
+        height: Units.smallSpacing * 3
         property int startMouseX
         property real oldMouseX
         property int startMouseY
@@ -350,7 +352,7 @@ AbstractDrawer {
             contentWidth: mainItem.width
             contentHeight: mainItem.height
             boundsBehavior: Flickable.StopAtBounds
-            property real internalPosition: {
+            readonly property real internalPosition: {
                 switch (root.edge) {
                 case Qt.RightEdge:
                     return mainFlickable.contentX/drawerPage.width;
@@ -430,11 +432,12 @@ AbstractDrawer {
                         }
                     }
                     transform: Translate {
+                        id: translateTransform
                         x: root.handleVisible ? 0 : (root.edge == Qt.LeftEdge ? -drawerHandle.width : drawerHandle.width)
                         Behavior on x {
                             NumberAnimation {
                                 duration: Units.longDuration
-                                easing.type: Easing.InOutQuad
+                                easing.type: !root.handleVisible ? Easing.OutQuad : Easing.InQuad
                             }
                         }
                     }
@@ -463,15 +466,14 @@ AbstractDrawer {
                         horizontalOffset: 0
                         verticalOffset: 0
                         radius: Units.gridUnit
-                        samples: radius * 2
+                        samples: 32
                         color: Qt.rgba(0, 0, 0, 0.5)
                         source: drawerHandle
                     }
                 }
 
-                LinearGradient {
-                    width: Units.gridUnit/2
-                    height: Units.gridUnit/2
+                EdgeShadow {
+                    edge: root.edge
                     anchors {
                         right: root.edge == Qt.RightEdge ? drawerPage.left : (root.edge == Qt.LeftEdge ? undefined : parent.right)
                         left: root.edge == Qt.LeftEdge ? drawerPage.right : (root.edge == Qt.RightEdge ? undefined : parent.left)
@@ -480,22 +482,7 @@ AbstractDrawer {
                     }
 
                     opacity: root.position == 0 ? 0 : 1
-                    start: Qt.point(0, 0)
-                    end: (root.edge == Qt.RightEdge || root.edge == Qt.LeftEdge) ? Qt.point(Units.gridUnit/2, 0) : Qt.point(0, Units.gridUnit/2)
-                    gradient: Gradient {
-                        GradientStop {
-                            position: 0.0
-                            color: root.edge == Qt.LeftEdge ? Qt.rgba(0, 0, 0, 0.3) : "transparent"
-                        }
-                        GradientStop {
-                            position: root.edge == Qt.LeftEdge ? 0.3 : 0.7
-                            color: Qt.rgba(0, 0, 0, 0.15)
-                        }
-                        GradientStop {
-                            position: 1.0
-                            color: root.edge == Qt.LeftEdge ? "transparent" : Qt.rgba(0, 0, 0, 0.3)
-                        }
-                    }
+
                     Behavior on opacity {
                         NumberAnimation {
                             duration: Units.longDuration

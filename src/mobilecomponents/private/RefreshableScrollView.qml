@@ -19,6 +19,7 @@
 
 import QtQuick 2.5
 import QtQuick.Controls 1.3
+import QtGraphicalEffects 1.0
 import QtQuick.Layouts 1.2
 import org.kde.kirigami 1.0
 
@@ -107,35 +108,45 @@ ScrollView {
 
     children: [
         Item {
+            id: busyIndicatorFrame
             z: 99
             y: -root.flickableItem.contentY-height
             width: root.flickableItem.width
-            height: root.flickableItem.topMargin
+            height: busyIndicator.height + Units.gridUnit * 2
             BusyIndicator {
                 id: busyIndicator
                 anchors.centerIn: parent
                 running: root.refreshing
-                visible: root.refreshing || parent.y < root.flickableItem.topMargin
-                opacity: supportsRefreshing ? (root.refreshing ? 1 : (parent.y/(busyIndicator.height*2))) : 0
-                rotation: root.refreshing ? 0 : 360 * opacity
+                visible: root.refreshing
+                //Android busywidget QQC seems to be broken at custom sizes
             }
-            Label {
-                id: label
+            Rectangle {
+                id: spinnerProgress
                 anchors {
-                    bottom: parent.bottom
-                    horizontalCenter: parent.horizontalCenter
-                    bottomMargin: Units.gridUnit * 2
+                    fill: busyIndicator
+                    margins: Math.ceil(Units.smallSpacing/2)
                 }
-                //FIXME: how to translate at this tier?
-                text: "Pull down to refresh"
-                opacity: supportsRefreshing ? (root.refreshing ? 0 : Math.min(1, ((parent.height - Units.gridUnit * 8) + parent.y) / (Units.gridUnit * 9))) : 0
-                Behavior on opacity {
-                    OpacityAnimator {
-                        duration: Units.longDuration
-                        easing.type: Easing.InOutQuad
-                    }
+                radius: width
+                visible: supportsRefreshing && !refreshing && progress > 0
+                color: "transparent"
+                opacity: 0.8
+                border.color: Theme.viewBackgroundColor
+                border.width: Math.ceil(Units.smallSpacing/4)
+                property real progress: supportsRefreshing && !refreshing ? (parent.y/busyIndicatorFrame.height) : 0
+                
+            }
+            ConicalGradient {
+                source: spinnerProgress
+                visible: spinnerProgress.visible
+                anchors.fill: spinnerProgress
+                gradient: Gradient {
+                    GradientStop { position: 0.00; color: Theme.highlightColor }
+                    GradientStop { position: spinnerProgress.progress; color: Theme.highlightColor }
+                    GradientStop { position: spinnerProgress.progress + 0.01; color: "transparent" }
+                    GradientStop { position: 1.00; color: "transparent" }
                 }
             }
+
             Rectangle {
                 color: Theme.textColor
                 opacity: 0.2
@@ -146,27 +157,55 @@ ScrollView {
                 }
                 //only show in ListViews
                 visible: root.flickableItem == root.contentItem
-                height: Math.round(Units.smallSpacing / 3);
+                height: Math.ceil(Units.smallSpacing / 5);
             }
             onYChanged: {
+                if (y > busyIndicatorFrame.height*1.5 + topPadding && applicationWindow() && root.flickableItem.atYBeginning && applicationWindow().pageStack.anchors.bottomMargin == 0 && root.width < root.height) {
+                    //here assume applicationWindow().pageStack has a translate as transform
+                    applicationWindow().pageStack.transform[0].y = root.height/2;
+                    overshootResetTimer.restart();
+                    canOvershootBackTimer.restart();
+                }
+
                 if (!supportsRefreshing) {
                     return;
                 }
-                if (!root.refreshing && y > busyIndicator.height*2) {
+                if (!root.refreshing && y > busyIndicatorFrame.height/2 + topPadding) {
                     root.refreshing = true;
+                }
+            }
+            Timer {
+                id: overshootResetTimer
+                interval: 8000
+                onTriggered: {
+                    applicationWindow().pageStack.transform[0].y = 0;
+                }
+            }
+            //HACK?
+            Timer {
+                id: canOvershootBackTimer
+                interval: 800
+            }
+            Connections {
+                target: root.flickableItem
+                onMovementEnded: {
+                    if (!canOvershootBackTimer.running &&
+                        applicationWindow().pageStack.transform[0].y > 0) {
+                        applicationWindow().pageStack.transform[0].y = 0;
+                    }
                 }
             }
             Binding {
                 target: root.flickableItem
                 property: "topMargin"
-                value: height/2
+                value: root.topPadding + (root.refreshing ? busyIndicatorFrame.height : 0)
             }
 
 
             Binding {
                 target: root.flickableItem
                 property: "bottomMargin"
-                value: Math.max((root.height - root.flickableItem.contentHeight), Units.gridUnit * 5)
+                value: Units.gridUnit * 5
             }
 
             Binding {
@@ -181,8 +220,8 @@ ScrollView {
                 interval: 100
                 onTriggered: {
                     if (applicationWindow() && applicationWindow().header) {
-                        flickableItem.contentY = -applicationWindow().header.Layout.preferredHeight;
-                        applicationWindow().header.y = -applicationWindow().header.height +applicationWindow().header.Layout.preferredHeight;
+                        flickableItem.contentY = -applicationWindow().header.preferredHeight;
+                        applicationWindow().header.y = -applicationWindow().header.maximumHeight +applicationWindow().header.preferredHeight;
                     }
 
                     if (root.contentItem == root.flickableItem) {

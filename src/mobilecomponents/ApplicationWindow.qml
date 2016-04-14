@@ -17,7 +17,7 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-import QtQuick 2.1
+import QtQuick 2.5
 import QtQuick.Controls 1.3
 import "private"
 import org.kde.kirigami 1.0
@@ -158,8 +158,8 @@ ApplicationWindow {
     *
     * To achieve a titlebar that stays completely fixed just set the 3 sizes as the same
     */
-    property Item header: ApplicationHeader {
-    }
+    property ApplicationHeader header: ApplicationHeader {
+            }
 
     /**
      * controlsVisible: bool
@@ -170,36 +170,79 @@ ApplicationWindow {
     property bool controlsVisible: true
 
 
+    MouseArea {
+        anchors.fill: parent
+        onClicked: overscroll.y = 0
+        Rectangle {
+            anchors.fill: parent
+            color: Theme.complementaryBackgroundColor
+            opacity: 0.15
+        }
+    }
+
     PageRow {
         id: __pageStack
         anchors {
             fill: parent
-            //HACK: workaround a bug in android keyboard management
-            bottomMargin: Qt.platform.os == "android" ? 0 : Qt.inputMethod.keyboardRectangle.height
+            //HACK: workaround a bug in android iOS keyboard management
+            bottomMargin: ((Qt.platform.os == "android" || Qt.platform.os == "ios") && !Qt.inputMethod.visible) ? 0 : Qt.inputMethod.keyboardRectangle.height
+            onBottomMarginChanged: {
+                if (bottomMargin > 0) {
+                    overscroll.y = 0;
+                }
+            }
+        }
+        onCurrentIndexChanged: overscroll.y = 0;
+
+        Rectangle {
+            z: -1
+            anchors.fill: parent
+            color: Theme.backgroundColor
+        }
+        //Don't want overscroll in landscape mode
+        onWidthChanged: {
+            if (width > height) {
+                overscroll.y = 0;
+            }
+        }
+
+        transform: Translate {
+            id: overscroll
+            Behavior on y {
+                NumberAnimation {
+                    duration: Units.longDuration
+                    easing.type: Easing.InOutQuad
+                }
+            }
         }
         focus: true
+
+        function goBack() {
+            if (root.contextDrawer && root.contextDrawer.opened) {
+                root.contextDrawer.close();
+            } else if (root.globalDrawer && root.globalDrawer.opened) {
+                root.globalDrawer.close();
+            } else if (__pageStack.depth >= 1) {
+                var backEvent = {accepted: false}
+                __pageStack.currentItem.backRequested(backEvent);
+                if (!backEvent.accepted) {
+                    if (__pageStack.depth > 1) {
+                        __pageStack.currentIndex = Math.max(0, __pageStack.currentIndex - 1);
+                    } else {
+                        Qt.quit();
+                    }
+                }
+            } else {
+                Qt.quit();
+            }
+        }
+
         Keys.onReleased: {
             if (event.key == Qt.Key_Back ||
             (event.key === Qt.Key_Left && (event.modifiers & Qt.AltModifier))) {
                 event.accepted = true;
 
-                if (root.contextDrawer && root.contextDrawer.opened) {
-                    root.contextDrawer.close();
-                } else if (root.globalDrawer && root.globalDrawer.opened) {
-                    root.globalDrawer.close();
-                } else if (__pageStack.depth >= 1) {
-                    var backEvent = {accepted: false}
-                    __pageStack.currentItem.backRequested(backEvent);
-                    if (!backEvent.accepted) {
-                        if (__pageStack.depth > 1) {
-                            __pageStack.currentIndex = Math.max(0, __pageStack.currentIndex - 1);
-                        } else {
-                            Qt.quit();
-                        }
-                    }
-                } else {
-                    Qt.quit();
-                }
+                goBack();
             }
         }
     }

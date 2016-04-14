@@ -176,6 +176,11 @@ Item {
 
 //END FUNCTIONS
     onCurrentIndexChanged: {
+        if (actualRoot.currentIndex < 0 ||
+            actualRoot.currentIndex >= Engine.pageStack.length) {
+            return;
+        }
+
         internal.syncWithCurrentIndex();
 
         actualRoot.currentItem = Engine.pageStack[actualRoot.currentIndex].page;
@@ -260,6 +265,11 @@ Item {
 
         function syncIndexWithPosition() {
             if (scrollAnimation.running) {
+                return;
+            }
+
+            var mapped = actualRoot.currentItem.mapToItem(mainFlickable, 0, 0);
+            if (mapped.x >= 0 && mapped.x + actualRoot.currentItem.width <= actualRoot.width) {
                 return;
             }
 
@@ -444,7 +454,7 @@ Item {
                     bottom: parent.bottom
                     right: actualContainer.right
                 }
-                width: 1
+                width: Math.ceil(Units.smallSpacing / 5);
                 color: Theme.textColor
                 opacity: 0.3
                 visible: container.pageDepth < actualRoot.depth

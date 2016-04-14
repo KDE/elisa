@@ -22,7 +22,6 @@ import QtQuick.Controls 1.3
 import QtQuick.Layouts 1.2
 import "private"
 import org.kde.kirigami 1.0
-import QtGraphicalEffects 1.0
 
 
 /**
@@ -30,9 +29,9 @@ import QtGraphicalEffects 1.0
  * Scrolling the main page will make it taller or shorter (trough the point of going away)
  * It's a behavior similar to the typical mobile web browser adressbar
  * the minimum, preferred and maximum heights of the item can be controlled with
- * * Layout.minimumHeight: default is 0, i.e. hidden
- * * Layout.preferredHeight: default is Units.gridUnit * 1.6
- * * Layout.maximumHeight: default is Units.gridUnit * 3
+ * * minimumHeight: default is 0, i.e. hidden
+ * * preferredHeight: default is Units.gridUnit * 1.6
+ * * maximumHeight: default is Units.gridUnit * 3
  *
  * To achieve a titlebar that stays completely fixed just set the 3 sizes as the same
  */
@@ -44,16 +43,17 @@ Rectangle {
         right: parent.right
     }
     color: Theme.highlightColor
-    Layout.minimumHeight: 0
-    Layout.preferredHeight: Units.gridUnit * 1.6
-    Layout.maximumHeight: Units.gridUnit * 3
+    property int minimumHeight: 0
+    property int preferredHeight: Units.gridUnit * 1.6
+    property int maximumHeight: Units.gridUnit * 3
+    property alias contentItem: titleList
 
-    height: Layout.maximumHeight
+    height: maximumHeight
 
-    y: -height + Layout.preferredHeight
+    y: -maximumHeight + preferredHeight
 
     property QtObject __appWindow: applicationWindow();
-    parent: __appWindow.contentItem;
+    parent: __appWindow.pageStack;
 
     transform: Translate {
         id: translateTransform
@@ -61,7 +61,7 @@ Rectangle {
         Behavior on y {
             NumberAnimation {
                 duration: Units.longDuration
-                easing.type: Easing.InOutQuad
+                easing.type: translateTransform.y < 0 ? Easing.OutQuad : Easing.InQuad
             }
         }
     }
@@ -78,8 +78,22 @@ Rectangle {
                 __appWindow.pageStack.currentItem.flickable.atYEnd) {
                 return;
             }
-            headerItem.y = Math.min(0, Math.max(-headerItem.height + headerItem.Layout.minimumHeight, headerItem.y + oldContentY - __appWindow.pageStack.currentItem.flickable.contentY))
-            oldContentY = __appWindow.pageStack.currentItem.flickable.contentY
+
+            if (titleList.wideScreen) {
+                headerItem.y = -headerItem.maximumHeight + headerItem.preferredHeight;
+            } else {
+                headerItem.y = Math.min(0, Math.max(-headerItem.height + headerItem.minimumHeight, headerItem.y + oldContentY - __appWindow.pageStack.currentItem.flickable.contentY));
+                oldContentY = __appWindow.pageStack.currentItem.flickable.contentY;
+            }
+        }
+        onMovementEnded: {
+            if (headerItem.y > -headerItem.maximumHeight + headerItem.preferredHeight) {
+                //if don't change the position if more then preferredSize is shown
+            } else if (headerItem.y > -headerItem.maximumHeight + headerItem.preferredHeight - headerItem.preferredHeight/2 ) {
+                headerItem.y = -headerItem.maximumHeight + headerItem.preferredHeight;
+            } else {
+                headerItem.y = -headerItem.maximumHeight;
+            }
         }
     }
     Connections {
@@ -93,7 +107,7 @@ Rectangle {
             } else {
                 headerSlideConnection.oldContentY = 0;
             }
-            headerItem.y = -headerItem.height + headerItem.Layout.preferredHeight;
+            headerItem.y = -headerItem.maximumHeight + headerItem.preferredHeight;
         }
 
         onContentChildrenChanged: {
@@ -125,11 +139,27 @@ Rectangle {
 
     ListView {
         id: titleList
+        property Translate overshootTransform
+        Component.onCompleted: {
+            if (applicationWindow() && applicationWindow().pageStack.transform[0]) {
+                overshootTransform = applicationWindow().pageStack.transform[0]
+            }
+            //only on iOs put the back button on top left corner
+            if (Qt.platform.os == "ios") {
+                var component = Qt.createComponent(Qt.resolvedUrl("private/BackButton.qml"));
+                print(component.error);
+                titleList.backButton = component.createObject(headerItem);
+            }
+        }
+        property Item backButton
+        clip: true
         anchors {
             fill: parent
-            topMargin: Math.min(headerItem.height - headerItem.Layout.preferredHeight, -headerItem.y)
+            leftMargin: backButton ? backButton.width : 0
+            topMargin: overshootTransform && overshootTransform.y > 0 ? 0 : Math.min(headerItem.height - headerItem.preferredHeight, -headerItem.y)
         }
-        property bool wideScreen: __appWindow.pageStack.currentItem && __appWindow.pageStack.currentItem.width > 0 && __appWindow.pageStack.width > __appWindow.pageStack.currentItem.width
+        cacheBuffer: __appWindow.pageStack.width
+        property bool wideScreen: __appWindow.pageStack.width > __appWindow.pageStack.height
         orientation: ListView.Horizontal
         boundsBehavior: Flickable.StopAtBounds
         //FIXME: proper implmentation needs Qt 5.6 for new ObjectModel api
@@ -137,7 +167,7 @@ Rectangle {
             id: model
         }
         //__appWindow.pageStack.depth
-        spacing: wideScreen ? 0 : Units.gridUnit
+        spacing: 0
         currentIndex: __appWindow.pageStack.currentIndex
         snapMode: ListView.SnapToItem
 
@@ -158,28 +188,46 @@ Rectangle {
                 __appWindow.pageStack.contentItem.movementEnded();
             }
         }
+
+        NumberAnimation {
+            id: scrollTopAnimation
+            target: __appWindow.pageStack.currentItem.flickable || null
+            properties: "contentY"
+            to: 0
+            duration: Units.longDuration
+            easing.type: Easing.InOutQuad
+        }
+
         delegate: MouseArea {
             width: {
                 //more columns shown?
                 if (titleList.wideScreen) {
                     return __appWindow.pageStack.defaultColumnWidth;
                 } else {
-                    return Math.min(titleList.width, delegateRoot.implicitWidth);
+                    return Math.min(titleList.width, delegateRoot.implicitWidth + Units.gridUnit + Units.smallSpacing);
                 }
             }
             height: titleList.height
-            onClicked: __appWindow.pageStack.currentIndex = model.index
+            onClicked: {
+                //scroll up if current otherwise make current
+                if (__appWindow.pageStack.currentIndex == model.index) {
+                    scrollTopAnimation.running = true;
+                } else {
+                    __appWindow.pageStack.currentIndex = model.index;
+                }
+            }
             Row {
                 id: delegateRoot
+                x: Units.smallSpacing
 
                 spacing: Units.gridUnit
                 Rectangle {
                     opacity: model.index > 0 ? 0.4 : 0
-                    visible: !titleList.wideScreen
+                    visible: !titleList.wideScreen && opacity > 0
                     color: Theme.viewBackgroundColor
                     anchors.verticalCenter: parent.verticalCenter
                     width: height
-                    height: Math.min(Units.gridUnit, title.height / 2)
+                    height: Math.min(Units.gridUnit/2, title.height / 2)
                     radius: width
                 }
                 Heading {
@@ -205,31 +253,14 @@ Rectangle {
             }
         }
     }
-    LinearGradient {
+    EdgeShadow {
         id: shadow
-        height: Units.gridUnit/2
+        edge: Qt.TopEdge
         opacity: headerItem.y > -headerItem.height ? 1 : 0
         anchors {
             right: parent.right
             left: parent.left
             top: parent.bottom
-        }
-
-        start: Qt.point(0, 0)
-        end: Qt.point(0, Units.gridUnit/2)
-        gradient: Gradient {
-            GradientStop {
-                position: 0.0
-                color: Qt.rgba(0, 0, 0, 0.2)
-            }
-            GradientStop {
-                position: 0.3
-                color: Qt.rgba(0, 0, 0, 0.1)
-            }
-            GradientStop {
-                position: 1.0
-                color:  "transparent"
-            }
         }
         Behavior on opacity {
             OpacityAnimator {

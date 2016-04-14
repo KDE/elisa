@@ -47,7 +47,7 @@ Item {
      * topPadding: int
      * default contents padding at top
      */
-    property int topPadding: Units.gridUnit + (applicationWindow() && applicationWindow().header ? Units.gridUnit * 1.6 : 0)
+    property int topPadding: Units.gridUnit + (applicationWindow() && applicationWindow().header ? applicationWindow().header.preferredHeight : 0)
 
     /**
      * rightPadding: int
@@ -62,10 +62,10 @@ Item {
     property int bottomPadding: Units.gridUnit
 
     /**
-     * contentItem: Item
-     * The main item contained in this Page
+     * contentData: Item
+     * The main items contained in this Page
      */
-    default property Item contentItem
+    default property alias contentData: container.data
 
     /**
      * flickable: Flickable
@@ -154,6 +154,10 @@ Item {
      */
     property Item background
 
+    //HACK: trigger a signal that will convince the ApplicationHeader to reload titles
+    //FIXME: when the 5.6 branch is merged, do it properly as PageRow will have a proper model
+    onTitleChanged: applicationWindow().pageStack.contentChildrenChanged();
+
     onBackgroundChanged: {
         background.z = -1;
         background.parent = root;
@@ -203,12 +207,6 @@ Item {
         action: root.mainAction
         anchors.bottom: parent.bottom
         x: parent.width/2 - width/2
-    }
-
-    Binding {
-        target: root.contentItem
-        property: "parent"
-        value: container
     }
 
     Item {

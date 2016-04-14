@@ -118,6 +118,10 @@ Page {
     children: [
         RefreshableScrollView {
             id: scrollView
+            topPadding: (applicationWindow() && applicationWindow().header ? applicationWindow().header.preferredHeight : 0) + (contentItem == flickable ? 0 : Units.gridUnit)
+            leftPadding: contentItem == flickable ? 0 : Units.gridUnit
+            rightPadding: contentItem == flickable ? 0 : Units.gridUnit
+            bottomPadding: contentItem == flickable ? 0 : Units.gridUnit
             anchors {
                 fill: parent
             }
@@ -138,8 +142,8 @@ Page {
          }
          overlay.oldContentItem = root.contentItem
     }
-    Component.onCompleted: {
-        if (contentItem == flickable) {
+  /*  Component.onCompleted: {
+        if (0&&contentItem == flickable) {
             leftPadding = 0;
             topPadding = 0;
             rightPadding = 0;
@@ -151,6 +155,6 @@ Page {
             rightPadding = Units.gridUnit;
             bottomPadding = Units.gridUnit;
         }
-    }
+    }*/
     
 }

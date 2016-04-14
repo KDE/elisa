@@ -62,8 +62,8 @@ Item {
         drag {
             target: button
             axis: Drag.XAxis
-            minimumX: contextDrawer.enabled ? 0 : button.parent.width/2 - button.width/2
-            maximumX: globalDrawer.enabled ? button.parent.width : button.parent.width/2 - button.width/2
+            minimumX: contextDrawer && contextDrawer.enabled ? 0 : button.parent.width/2 - button.width/2
+            maximumX: globalDrawer && globalDrawer.enabled ? button.parent.width : button.parent.width/2 - button.width/2
         }
 
         transform: Translate {
@@ -142,7 +142,7 @@ Item {
             target: translateTransform
             properties: "y"
             duration: Units.longDuration
-            easing.type: Easing.InOutQuad
+            easing.type: mouseArea.internalVisibility == true ? Easing.InQuad : Easing.OutQuad
         }
         Item {
             id: background

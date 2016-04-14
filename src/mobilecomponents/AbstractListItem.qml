@@ -18,6 +18,7 @@
  */
 
 import QtQuick 2.1
+import QtQuick.Controls.Private 1.0
 import org.kde.kirigami 1.0
 
 /**
@@ -103,11 +104,16 @@ Rectangle {
         parent: itemMouse
         anchors.fill: parent
         visible: listItem.ListView.view ? listItem.ListView.view.highlight === null : true
-        opacity: itemMouse.containsMouse && !itemMouse.pressed ? 0.5 : 1
+        Rectangle {
+            anchors.fill: parent
+            visible: !Settings.isMobile
+            color: Theme.highlightColor
+            opacity: itemMouse.containsMouse && !itemMouse.pressed ? 0.2 : 0
+            Behavior on opacity { NumberAnimation { duration: Units.longDuration } }
+        }
         Behavior on color {
             ColorAnimation { duration: Units.longDuration }
         }
-        Behavior on opacity { NumberAnimation { duration: Units.longDuration } }
 
         Rectangle {
             id: separator
@@ -119,7 +125,7 @@ Rectangle {
                 right: parent.right
                 bottom: parent.bottom
             }
-            height: Math.round(Units.smallSpacing / 3);
+            height: Math.ceil(Units.smallSpacing / 5);
         }
     }
 
@@ -142,7 +148,7 @@ Rectangle {
         property bool changeBackgroundOnPress: !listItem.checked && !listItem.sectionDelegate
         anchors.fill: parent
         enabled: false
-        hoverEnabled: true
+        hoverEnabled: !Settings.isMobile
 
         onClicked: listItem.clicked()
         onPressAndHold: listItem.pressAndHold()

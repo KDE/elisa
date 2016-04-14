@@ -7,7 +7,7 @@ import QtQml.Models 2.1
 import org.mgallien.QmlExtension 1.0
 import org.kde.kirigami 1.0 as MobileComponents
 import QtGraphicalEffects 1.0
-import QtMultimedia 5.4
+import QtMultimedia 5.5
 
 MobileComponents.Page {
     property var contentModel
@@ -16,15 +16,10 @@ MobileComponents.Page {
     property string serverName
 
     id: rootElement
+    title: serverName
 
     ColumnLayout {
         anchors.fill: parent
-
-        MobileComponents.Heading {
-            Layout.bottomMargin: MobileComponents.Units.largeSpacing
-            text: serverName
-            Layout.fillWidth: true
-        }
 
         AlbumFilterProxyModel {
             id: filterProxyModel
@@ -98,69 +93,24 @@ MobileComponents.Page {
 
                                 Layout.alignment: Qt.AlignHCenter
 
-                                Rectangle {
-                                    id: hoverLayer
-
-                                    anchors.fill: parent
-
-                                    color: 'black'
-                                    opacity: 0.7
-                                    visible: false
-
-                                    BrightnessContrast {
-                                        anchors.fill: playAction
-                                        source: playAction
-                                        brightness: 1.0
-                                        contrast: 1.0
-
-                                        MouseArea {
-                                            id: clickHandle
-
-                                            anchors.fill: parent
-                                            acceptedButtons: Qt.LeftButton
-
-                                            onClicked: {
-                                                stackView.push(Qt.resolvedUrl("MediaAlbumView.qml"),
-                                                               {
-                                                                   'rootIndex': filterProxyModel.mapToSource(delegateContentModel.modelIndex(mediaServerEntry.DelegateModel.itemsIndex)),
-                                                                   'contentModel': contentModel,
-                                                                   'playListModel': playListModel,
-                                                                   'albumArtUrl': image,
-                                                                   'albumName': title,
-                                                                   'artistName': artist,
-                                                                   'tracksCount': count
-                                                               })
-                                            }
-                                        }
-                                    }
-
-                                    Image {
-                                        id: playAction
-                                        source: 'image://icon/document-open-folder'
-
-                                        anchors.centerIn: parent
-
-                                        opacity: 1
-                                        visible: false
-
-                                        width: Screen.pixelDensity * 10
-                                        height: Screen.pixelDensity * 10
-                                        sourceSize.width: width
-                                        sourceSize.height: width
-                                        fillMode: Image.PreserveAspectFit
-                                    }
-                                }
-
                                 MouseArea {
-                                    id: hoverHandle
-
-                                    hoverEnabled: true
+                                    id: clickHandle
 
                                     anchors.fill: parent
                                     propagateComposedEvents: true
 
-                                    onEntered: hoverLayer.visible = true
-                                    onExited: hoverLayer.visible = false
+                                    onClicked: {
+                                        stackView.push(Qt.resolvedUrl("MediaAlbumView.qml"),
+                                                       {
+                                                           'rootIndex': filterProxyModel.mapToSource(delegateContentModel.modelIndex(mediaServerEntry.DelegateModel.itemsIndex)),
+                                                           'contentModel': contentModel,
+                                                           'playListModel': playListModel,
+                                                           'albumArtUrl': image,
+                                                           'albumName': title,
+                                                           'artistName': artist,
+                                                           'tracksCount': count
+                                                       })
+                                    }
                                 }
                             }
 

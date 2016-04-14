@@ -23,6 +23,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         MediaPlayListView.qml
         HeaderBar.qml
         MediaServerMobile.qml
+        AbstractAudioTrackDelegateMobile.qml
         AudioTrackDelegateMobile.qml
         MediaServerMobile.qml
         MediaServerListingMobile.qml

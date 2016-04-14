@@ -5,11 +5,13 @@ import QtQuick.Controls.Styles 1.2
 import QtQml.Models 2.1
 import org.mgallien.QmlExtension 1.0
 import org.kde.kirigami 1.0 as MobileComponents
-import QtMultimedia 5.4
+import QtMultimedia 5.5
 import QtQuick.Layouts 1.2
 
 MobileComponents.Page {
     id: topListing
+
+    title: albumName
 
     property var rootIndex
     property var contentModel
@@ -21,12 +23,6 @@ MobileComponents.Page {
 
     ColumnLayout {
         anchors.fill: parent
-
-        MobileComponents.Heading {
-            Layout.bottomMargin: MobileComponents.Units.largeSpacing
-            text: "Album"
-            Layout.fillWidth: true
-        }
 
         ScrollView {
             Layout.fillHeight: true
@@ -44,32 +40,11 @@ MobileComponents.Page {
                     rootIndex: topListing.rootIndex
 
                     delegate: AudioTrackDelegate {
-                        height: Screen.pixelDensity * 12.
-                        width: contentDirectoryView.width
-                        title: if (model != undefined && model.title !== undefined)
-                                   model.title
-                               else
-                                   ''
-                        artist: if (model != undefined && model.artist !== undefined)
-                                    model.artist
-                                else
-                                    ''
-                        itemDecoration: if (model != undefined && model.image !== undefined)
-                                            model.image
-                                        else
-                                            ''
-                        duration: if (model != undefined && model.duration !== undefined)
-                                      model.duration
-                                  else
-                                      ''
-                        trackRating: if (model != undefined && model.rating !== undefined)
-                                         model.rating
-                                     else
-                                         ''
-                        isPlaying: if (model != undefined && model.isPlaying !== undefined)
-                                       model.isPlaying
-                                   else
-                                       false
+                        title: (model != undefined && model.title !== undefined) ? model.title : ''
+                        artist: (model != undefined && model.artist !== undefined) ? model.artist : ''
+                        album: (model != undefined && model.album !== undefined) ? model.album : ''
+                        itemDecoration: (model != undefined && model.image !== undefined) ? model.image : ''
+                        duration: (model != undefined && model.duration !== undefined) ? model.duration : ''
 
                         onClicked: playListModel.enqueue(contentDirectoryView.model.modelIndex(index))
                     }

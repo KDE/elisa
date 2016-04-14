@@ -4,7 +4,7 @@ import QtQuick.Layouts 1.2
 import QtQuick.Window 2.2
 import QtQuick.Dialogs 1.2
 import QtQml.Models 2.1
-import QtMultimedia 5.4
+import QtMultimedia 5.5
 import org.kde.kirigami 1.0 as MobileComponents
 import org.mgallien.QmlExtension 1.0
 
@@ -14,17 +14,12 @@ MobileComponents.Page {
     property var playListModel
 
     id: rootItem
+    title: "Local Playlist"
 
     objectName: "ServerList"
 
     ColumnLayout {
         anchors.fill: parent
-
-        MobileComponents.Heading {
-            Layout.bottomMargin: MobileComponents.Units.largeSpacing
-            text: "Local Playlist"
-            Layout.fillWidth: true
-        }
 
         HeaderBar {
             id: headerBar
@@ -78,44 +73,16 @@ MobileComponents.Page {
                     model: playListModel
 
                     delegate: AudioTrackDelegate {
-                        height: Screen.pixelDensity * 15.
+                        height: Screen.pixelDensity * 12.
                         width: playListView.width
-                        title: if (model != undefined && model.title !== undefined)
-                                   model.title
-                               else
-                                   ''
-                        artist: if (model != undefined && model.artist !== undefined)
-                                    model.artist
-                                else
-                                    ''
-                        itemDecoration: if (model != undefined && model.image !== undefined)
-                                            model.image
-                                        else
-                                            ''
-                        duration: if (model != undefined && model.duration !== undefined)
-                                      model.duration
-                                  else
-                                      ''
-                        trackRating: if (model != undefined && model.rating !== undefined)
-                                         model.rating
-                                     else
-                                         ''
 
-                        isPlaying: model.isPlaying
-                        showHoverButtons: false
-                        itemIndex: index
+                        title: (model != undefined && model.title !== undefined) ? model.title : ''
+                        artist: (model != undefined && model.artist !== undefined) ? model.artist : ''
+                        album: (model != undefined && model.album !== undefined) ? model.album : ''
+                        itemDecoration: (model != undefined && model.image !== undefined) ? model.image : ''
+                        duration: (model != undefined && model.duration !== undefined) ? model.duration : ''
 
-                        onRemove: playListModel.removeRows(indexToRemove, 1, playListView.model.rootIndex)
-
-                        MouseArea {
-                            anchors.fill: parent
-                            propagateComposedEvents: true
-                            hoverEnabled: true
-                            acceptedButtons: Qt.NoButton
-
-                            onEntered: parent.showHoverButtons = true
-                            onExited: parent.showHoverButtons = false
-                        }
+                        onClicked: playListModel.removeRows(index, 1, playListView.model.rootIndex)
                     }
                 }
 

@@ -5,7 +5,7 @@ import QtQuick.Layouts 1.1
 import QtQuick.Window 2.2
 import org.mgallien.QmlExtension 1.0
 import org.kde.kirigami 1.0 as MobileComponents
-import QtMultimedia 5.4
+import QtMultimedia 5.5
 
 MobileComponents.Page {
     property var pagesModel
@@ -21,12 +21,6 @@ MobileComponents.Page {
     ColumnLayout {
         anchors.fill: parent
         spacing: 0
-
-        MobileComponents.Heading {
-            Layout.bottomMargin: MobileComponents.Units.largeSpacing
-            text: "Server Content"
-            Layout.fillWidth: true
-        }
 
         /*Button {
             id: backButton

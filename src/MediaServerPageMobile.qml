@@ -15,17 +15,12 @@ MobileComponents.Page {
     property string globalSortCriteria: ''
 
     id: rootItem
+    title: "UPnP Servers"
 
     objectName: "ServerList"
 
     ColumnLayout {
         anchors.fill: parent
-
-        MobileComponents.Heading {
-            Layout.bottomMargin: MobileComponents.Units.largeSpacing
-            text: "UPnP Servers"
-            Layout.fillWidth: true
-        }
 
         ScrollView {
             Layout.fillHeight: true
@@ -36,9 +31,9 @@ MobileComponents.Page {
                 model: DelegateModel {
                     model: serverModel
 
-                    delegate: MobileComponents.SwipeListItem {
-                        height: 120
+                    delegate: MobileComponents.AbstractListItem {
                         enabled: true
+                        supportsMouseEvents: true
 
                         MobileComponents.Label {
                             id: nameLabel

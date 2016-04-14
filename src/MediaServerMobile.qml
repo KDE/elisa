@@ -1,7 +1,7 @@
 import QtQuick 2.3
 import QtQuick.Controls 1.2
 import QtQuick.Layouts 1.2
-import QtMultimedia 5.6
+import QtMultimedia 5.5
 import org.mgallien.QmlExtension 1.0
 import org.kde.kirigami 1.0 as MobileComponents
 

@@ -19,6 +19,7 @@
         <file>folder.svg</file>
         <file>media-optical-audio.svg</file>
         <file>media-playback-pause.svg</file>
+        <file>AbstractAudioTrackDelegateMobile.qml</file>
     </qresource>
     <qresource prefix="/imports">
         <file alias="org/kde/kirigami/qmldir">mobilecomponents/qmldir</file>
@@ -48,5 +49,7 @@
         <file alias="org/kde/kirigami/private/MenuIcon.qml">mobilecomponents/private/MenuIcon.qml</file>
         <file alias="org/kde/kirigami/private/PageRow.qml">mobilecomponents/private/PageRow.qml</file>
         <file alias="org/kde/kirigami/private/RefreshableScrollView.qml">mobilecomponents/private/RefreshableScrollView.qml</file>
+        <file alias="org/kde/kirigami/private/BackButton.qml">mobilecomponents/private/BackButton.qml</file>
+        <file alias="org/kde/kirigami/private/EdgeShadow.qml">mobilecomponents/private/EdgeShadow.qml</file>
     </qresource>
 </RCC>

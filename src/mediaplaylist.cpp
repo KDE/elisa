@@ -19,6 +19,7 @@
 
 #include "mediaplaylist.h"
 
+#include <QtCore/QUrl>
 #include <QtCore/QPersistentModelIndex>
 #include <QtCore/QList>
 #include <QtCore/QDebug>
@@ -166,6 +167,7 @@ void MediaPlayList::enqueue(const QModelIndex &newTrack)
     d->mIsPlaying.push_back(false);
     endInsertRows();
 
+    Q_EMIT trackHasBeenAdded(newTrack.data(ColumnsRoles::TitleRole).toString(), newTrack.data(ColumnsRoles::ImageRole).toUrl());
     Q_EMIT trackCountChanged();
 }
 

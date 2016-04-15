@@ -69,6 +69,8 @@ MobileComponents.ApplicationWindow {
 
     MediaPlayList {
         id: playListModelItem
+
+        onTrackHasBeenAdded: rootItem.showPassiveNotification('Track ' + title + ' has been added', 'short', "", {})
     }
 
     PlayListControler {

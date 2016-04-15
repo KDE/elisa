@@ -73,6 +73,8 @@ Q_SIGNALS:
 
     void trackCountChanged();
 
+    void trackHasBeenAdded(const QString &title, const QUrl &image);
+
 public Q_SLOTS:
 
 private:

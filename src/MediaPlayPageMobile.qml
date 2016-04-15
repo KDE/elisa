@@ -82,7 +82,18 @@ MobileComponents.Page {
                         itemDecoration: (model != undefined && model.image !== undefined) ? model.image : ''
                         duration: (model != undefined && model.duration !== undefined) ? model.duration : ''
 
-                        onClicked: playListModel.removeRows(index, 1, playListView.model.rootIndex)
+                        actions: [
+                            MobileComponents.Action {
+                                text: "Remove"
+                                iconName: "list-remove"
+                                onTriggered: playListModel.removeRows(index, 1, playListView.model.rootIndex)
+                            },
+                            MobileComponents.Action {
+                                text: "Play Now"
+                                iconName: "media-playback-start"
+                                onTriggered: targetPlayListControler.skipToTrack(index)
+                            }
+                        ]
                     }
                 }
 

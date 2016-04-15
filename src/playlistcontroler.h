@@ -295,6 +295,8 @@ public Q_SLOTS:
 
     void audioPlayerFinished(bool finished);
 
+    void skipToTrack(int position);
+
 private:
 
     void startPlayer();

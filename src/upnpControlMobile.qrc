@@ -52,5 +52,7 @@
         <file alias="org/kde/kirigami/private/RefreshableScrollView.qml">mobilecomponents/private/RefreshableScrollView.qml</file>
         <file alias="org/kde/kirigami/private/BackButton.qml">mobilecomponents/private/BackButton.qml</file>
         <file alias="org/kde/kirigami/private/EdgeShadow.qml">mobilecomponents/private/EdgeShadow.qml</file>
+        <file alias="/org/kde/kirigami/icons/list-remove.svg">list-remove.svg</file>
+        <file alias="/org/kde/kirigami/icons/media-playback-start.svg">media-playback-start.svg</file>
     </qresource>
 </RCC>

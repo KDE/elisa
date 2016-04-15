@@ -470,6 +470,24 @@ void PlayListControler::audioPlayerFinished(bool finished)
     }
 }
 
+void PlayListControler::skipToTrack(int position)
+{
+    if (!mPlayListModel) {
+        return;
+    }
+
+    if (!mCurrentTrack.isValid()) {
+        return;
+    }
+
+    mCurrentTrack = mPlayListModel->index(mCurrentTrack.row() + 1, mCurrentTrack.column(), mCurrentTrack.parent());
+
+    signaTrackChange();
+    if (mIsInPlayingState) {
+        startPlayer();
+    }
+}
+
 void PlayListControler::startPlayer()
 {
     mIsInPlayingState = true;

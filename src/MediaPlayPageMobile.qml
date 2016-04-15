@@ -21,7 +21,7 @@ MobileComponents.Page {
     ColumnLayout {
         anchors.fill: parent
 
-        HeaderBar {
+        HeaderBarMobile {
             id: headerBar
 
             Layout.preferredHeight: Screen.pixelDensity * 28.
@@ -37,7 +37,7 @@ MobileComponents.Page {
             ratingVisible: false
         }
 
-        MediaPlayerControl {
+        MediaPlayerControlMobile {
             id: playControlItem
 
             duration: targetAudioPlayer.duration
@@ -72,7 +72,7 @@ MobileComponents.Page {
                 model: DelegateModel {
                     model: playListModel
 
-                    delegate: AudioTrackDelegate {
+                    delegate: AudioTrackDelegateMobile {
                         height: Screen.pixelDensity * 12.
                         width: playListView.width
 

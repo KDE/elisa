@@ -100,7 +100,7 @@ MobileComponents.Page {
                                     propagateComposedEvents: true
 
                                     onClicked: {
-                                        stackView.push(Qt.resolvedUrl("MediaAlbumView.qml"),
+                                        stackView.push(Qt.resolvedUrl("MediaAlbumViewMobile.qml"),
                                                        {
                                                            'rootIndex': filterProxyModel.mapToSource(delegateContentModel.modelIndex(mediaServerEntry.DelegateModel.itemsIndex)),
                                                            'contentModel': contentModel,

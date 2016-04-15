@@ -107,7 +107,7 @@ MobileComponents.ApplicationWindow {
         property var mediaViewComponent
     }
 
-    MediaPlayPage {
+    MediaPlayPageMobile {
         id: playListPage
         targetPlayListControler: playListControler
         targetAudioPlayer: audioPlayer
@@ -116,7 +116,7 @@ MobileComponents.ApplicationWindow {
         visible: false
     }
 
-    MediaServerPage {
+    MediaServerPageMobile {
         id: listServerPage
         serverModel: serverListModel
         globalPlayListModel: playListModelItem

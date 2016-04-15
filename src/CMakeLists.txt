@@ -25,6 +25,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         MediaServerMobile.qml
         AbstractAudioTrackDelegateMobile.qml
         AudioTrackDelegateMobile.qml
+        AlbumTrackDelegateMobile.qml
         MediaServerMobile.qml
         MediaServerListingMobile.qml
         MediaAlbumViewMobile.qml

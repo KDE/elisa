@@ -52,7 +52,7 @@ MobileComponents.Page {
             }
         }
 
-        MediaServerListing {
+        MediaServerListingMobile {
             id: contentDirectoryItem
 
             playListModel: globalPlayListModel

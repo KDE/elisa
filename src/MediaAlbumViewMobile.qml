@@ -39,7 +39,7 @@ MobileComponents.Page {
                     model: contentModel
                     rootIndex: topListing.rootIndex
 
-                    delegate: AudioTrackDelegate {
+                    delegate: AlbumTrackDelegateMobile {
                         title: (model != undefined && model.title !== undefined) ? model.title : ''
                         artist: (model != undefined && model.artist !== undefined) ? model.artist : ''
                         album: (model != undefined && model.album !== undefined) ? model.album : ''

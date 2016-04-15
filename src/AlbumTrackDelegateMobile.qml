@@ -1,7 +1,7 @@
 import QtQuick 2.4
 import org.kde.kirigami 1.0 as MobileComponents
 
-MobileComponents.SwipeListItem {
+MobileComponents.AbstractListItem {
     id: viewAlbumDelegate
     enabled: true
     supportsMouseEvents: true

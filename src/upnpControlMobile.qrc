@@ -1,15 +1,15 @@
 <RCC>
     <qresource prefix="/">
         <file alias="MediaServer.qml">MediaServerMobile.qml</file>
-        <file alias="MediaServerPage.qml">MediaServerPageMobile.qml</file>
-        <file alias="MediaPlayPage.qml">MediaPlayPageMobile.qml</file>
-        <file alias="AudioTrackDelegate.qml">AudioTrackDelegateMobile.qml</file>
-        <file alias="MediaAlbumView.qml">MediaAlbumViewMobile.qml</file>
-        <file alias="MediaContentDirectory.qml">MediaContentDirectoryMobile.qml</file>
-        <file alias="MediaPlayerControl.qml">MediaPlayerControlMobile.qml</file>
-        <file alias="MediaServerEntry.qml">MediaServerEntryMobile.qml</file>
-        <file alias="MediaServerListing.qml">MediaServerListingMobile.qml</file>
-        <file alias="HeaderBar.qml">HeaderBarMobile.qml</file>
+        <file>MediaServerPageMobile.qml</file>
+        <file>MediaPlayPageMobile.qml</file>
+        <file>AudioTrackDelegateMobile.qml</file>
+        <file>MediaAlbumViewMobile.qml</file>
+        <file>MediaContentDirectoryMobile.qml</file>
+        <file>MediaPlayerControlMobile.qml</file>
+        <file>MediaServerEntryMobile.qml</file>
+        <file>MediaServerListingMobile.qml</file>
+        <file>HeaderBarMobile.qml</file>
         <file>RatingStar.qml</file>
         <file>media-skip-backward.svg</file>
         <file>media-skip-forward.svg</file>
@@ -20,6 +20,7 @@
         <file>media-optical-audio.svg</file>
         <file>media-playback-pause.svg</file>
         <file>AbstractAudioTrackDelegateMobile.qml</file>
+        <file>AlbumTrackDelegateMobile.qml</file>
     </qresource>
     <qresource prefix="/imports">
         <file alias="org/kde/kirigami/qmldir">mobilecomponents/qmldir</file>

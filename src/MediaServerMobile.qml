@@ -23,7 +23,7 @@ MobileComponents.ApplicationWindow {
             MobileComponents.Action {
                 text: "Browse Media Servers"
                 onTriggered: {
-                    clear()
+                    stackView.clear()
                     stackView.push(listServerPage)
                 }
             },

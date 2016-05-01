@@ -41,6 +41,8 @@ public:
 
     QString mAlbumName;
 
+    int mTrackNumber;
+
     QTime mDuration;
 
     QUrl mResourceURI;

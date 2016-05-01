@@ -360,6 +360,11 @@ void DidlParser::decodeAudioTrackNode(const QDomNode &itemNode, QHash<QString, M
             }
         }
 
+        const QDomNode &trackNumberNode = itemNode.firstChildElement(QStringLiteral("upnp:originalTrackNumber"));
+        if (!trackNumberNode.isNull()) {
+            chilData.mTrackNumber = trackNumberNode.toElement().text().toInt();
+        }
+
 #if 0
         if (resourceNode.attributes().contains(QStringLiteral("artist"))) {
             const QDomNode &artistNode = resourceNode.attributes().namedItem(QStringLiteral("artist"));

@@ -95,6 +95,7 @@ QHash<int, QByteArray> UpnpAlbumModel::roleNames() const
     roles[static_cast<int>(ColumnsRoles::DurationRole)] = "duration";
     roles[static_cast<int>(ColumnsRoles::ArtistRole)] = "artist";
     roles[static_cast<int>(ColumnsRoles::AlbumRole)] = "album";
+    roles[static_cast<int>(ColumnsRoles::TrackNumberRole)] = "trackNumber";
     roles[static_cast<int>(ColumnsRoles::RatingRole)] = "rating";
     roles[static_cast<int>(ColumnsRoles::ImageRole)] = "image";
     roles[static_cast<int>(ColumnsRoles::ItemClassRole)] = "itemClass";
@@ -263,6 +264,8 @@ QVariant UpnpAlbumModel::internalDataTrack(const QModelIndex &index, int role, D
         return currentParser->newMusicTracks()[musicTrackId].mArtist;
     case ColumnsRoles::AlbumRole:
         return currentParser->newMusicTracks()[musicTrackId].mAlbumName;
+    case ColumnsRoles::TrackNumberRole:
+        return currentParser->newMusicTracks()[musicTrackId].mTrackNumber;
     case ColumnsRoles::RatingRole:
         return 0;
     case ColumnsRoles::ImageRole:

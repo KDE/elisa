@@ -37,6 +37,8 @@ public:
 
     QString mAlbum;
 
+    int mTrackNumber;
+
     double mDuration = 0;
 
     QUrl mFile;

@@ -105,6 +105,7 @@ QHash<int, QByteArray> LocalAlbumModel::roleNames() const
     roles[static_cast<int>(ColumnsRoles::DurationRole)] = "duration";
     roles[static_cast<int>(ColumnsRoles::ArtistRole)] = "artist";
     roles[static_cast<int>(ColumnsRoles::AlbumRole)] = "album";
+    roles[static_cast<int>(ColumnsRoles::TrackNumberRole)] = "trackNumber";
     roles[static_cast<int>(ColumnsRoles::RatingRole)] = "rating";
     roles[static_cast<int>(ColumnsRoles::ImageRole)] = "image";
     roles[static_cast<int>(ColumnsRoles::ItemClassRole)] = "itemClass";
@@ -238,6 +239,8 @@ QVariant LocalAlbumModel::internalDataTrack(const LocalBalooTrack &track, const 
         return track.mArtist;
     case ColumnsRoles::AlbumRole:
         return track.mAlbum;
+    case ColumnsRoles::TrackNumberRole:
+        return track.mTrackNumber;
     case ColumnsRoles::RatingRole:
         return 0;
     case ColumnsRoles::ImageRole:

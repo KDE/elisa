@@ -35,6 +35,8 @@
 #include <QtCore/QFileInfo>
 #include <QtCore/QDir>
 
+#include <algorithm>
+
 class LocalBalooFileListingPrivate
 {
 public:
@@ -93,6 +95,7 @@ void LocalBalooFileListing::refreshContent()
         auto durationProperty = allProperties.find(KFileMetaData::Property::Duration);
         auto artistProperty = allProperties.find(KFileMetaData::Property::Artist);
         auto albumProperty = allProperties.find(KFileMetaData::Property::Album);
+        auto trackNumberProperty = allProperties.find(KFileMetaData::Property::TrackNumber);
 
         if (albumProperty != allProperties.end()) {
             auto albumValue = albumProperty->toString();
@@ -115,6 +118,10 @@ void LocalBalooFileListing::refreshContent()
                 newTrack.mTitle = titleProperty->toString();
             }
 
+            if (trackNumberProperty != allProperties.end()) {
+                newTrack.mTrackNumber = trackNumberProperty->toInt();
+            }
+
             newTrack.mFile = QUrl::fromLocalFile(resultIterator.filePath());
             QFileInfo trackFilePath(resultIterator.filePath());
             QFileInfo coverFilePath(trackFilePath.dir().filePath(QStringLiteral("cover.jpg")));
@@ -123,6 +130,8 @@ void LocalBalooFileListing::refreshContent()
             }
 
             allTracks.push_back(newTrack);
+
+            std::sort(allTracks.begin(), allTracks.end(), [](LocalBalooTrack left, LocalBalooTrack right) {return left.mTrackNumber <= right.mTrackNumber;});
         }
     }
 

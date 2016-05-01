@@ -12,6 +12,7 @@ Item {
     property string artist
     property string itemDecoration
     property string duration
+    property int trackNumber
     property int trackRating
     property bool isPlaying
     property bool showHoverButtons
@@ -110,7 +111,7 @@ Item {
 
             Label {
                 id: mainLabel
-                text: title
+                text: trackNumber + ' - ' + title
                 Layout.preferredWidth: Screen.pixelDensity * 12
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignLeft

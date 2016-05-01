@@ -102,6 +102,10 @@ Item {
                                           model.duration
                                       else
                                           ''
+                            trackNumber: if (model != undefined && model.trackNumber !== undefined)
+                                             model.trackNumber
+                                         else
+                                             ''
                             trackRating: if (model != undefined && model.rating !== undefined)
                                              model.rating
                                          else

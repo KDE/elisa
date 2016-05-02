@@ -43,7 +43,7 @@ public:
 
     Baloo::Query mQuery;
 
-    QHash<QString, QList<LocalBalooTrack>> mAllAlbums;
+    QHash<QString, QVector<LocalBalooTrack>> mAllAlbums;
 
     QHash<QString, QString> mAllAlbumCover;
 
@@ -130,8 +130,13 @@ void LocalBalooFileListing::refreshContent()
             }
 
             allTracks.push_back(newTrack);
+        }
 
-            std::sort(allTracks.begin(), allTracks.end(), [](LocalBalooTrack left, LocalBalooTrack right) {return left.mTrackNumber <= right.mTrackNumber;});
+        if (albumProperty != allProperties.end()) {
+            auto albumValue = albumProperty->toString();
+            auto &allTracks = d->mAllAlbums[albumValue];
+
+            std::sort(allTracks.begin(), allTracks.end(), [](const auto &left, const auto &right) {return left.mTrackNumber <= right.mTrackNumber;});
         }
     }
 

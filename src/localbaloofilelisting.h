@@ -42,7 +42,7 @@ public:
 
 Q_SIGNALS:
 
-    void tracksList(const QHash<QString, QList<LocalBalooTrack>> &tracks,
+    void tracksList(const QHash<QString, QVector<LocalBalooTrack>> &tracks,
                     const QHash<QString, QString> &covers);
 
 public Q_SLOTS:

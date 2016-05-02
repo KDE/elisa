@@ -95,7 +95,7 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
 
 #if defined KF5Baloo_FOUND && KF5Baloo_FOUND
     qmlRegisterType<LocalAlbumModel>("org.mgallien.QmlExtension", 1, 0, "LocalAlbumModel");
-    qRegisterMetaType<QHash<QString,QList<LocalBalooTrack> >>();
+    qRegisterMetaType<QHash<QString,QVector<LocalBalooTrack> >>();
 #endif
 
     qRegisterMetaType<A_ARG_TYPE_InstanceID>();

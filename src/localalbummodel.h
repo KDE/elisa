@@ -103,7 +103,7 @@ public Q_SLOTS:
 
 private Q_SLOTS:
 
-    void tracksList(const QHash<QString, QList<LocalBalooTrack>> &tracks,
+    void tracksList(const QHash<QString, QVector<LocalBalooTrack>> &tracks,
                     const QHash<QString, QString> &covers);
 
 private:

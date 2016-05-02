@@ -367,7 +367,7 @@ void LocalAlbumModel::setMusicDatabase(MusicStatistics *musicDatabase)
     emit musicDatabaseChanged();
 }
 
-void LocalAlbumModel::tracksList(const QHash<QString, QList<LocalBalooTrack> > &tracks, const QHash<QString, QString> &covers)
+void LocalAlbumModel::tracksList(const QHash<QString, QVector<LocalBalooTrack> > &tracks, const QHash<QString, QString> &covers)
 {
     beginResetModel();
 

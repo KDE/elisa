@@ -5,3 +5,5 @@
 #cmakedefine01 KF5CoreAddons_FOUND
 
 #cmakedefine01 KF5Baloo_FOUND
+
+#cmakedefine01 UPNPQT_FOUND

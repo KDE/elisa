@@ -6,12 +6,12 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         mediaplaylist.cpp
         playlistcontroler.cpp
         viewpagesmodel.cpp
-        remoteserverentry.cpp
-        upnpcontrolcontentdirectory.cpp
-        upnpcontentdirectorymodel.cpp
-        upnpdevicemodel.cpp
-        upnpcontrolconnectionmanager.cpp
-        upnpcontrolmediaserver.cpp
+        musicstatistics.cpp
+        musicalbum.cpp
+        musicaudiotrack.cpp
+        albumfilterproxymodel.cpp
+        progressindicator.cpp
+
         MediaServer.qml
         MediaServerListing.qml
         MediaAlbumView.qml
@@ -36,14 +36,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         MediaPlayPageMobile.qml
         HeaderBarMobile.qml
         ContextView.qml
-        upnpalbummodel.cpp
-        musicstatistics.cpp
-        musicalbum.cpp
-        musicaudiotrack.cpp
-        didlparser.cpp
-        albumfilterproxymodel.cpp
-        progressindicator.cpp
-    )
+        )
 
     if (KF5Baloo_FOUND)
         if (Qt5DBus_FOUND)
@@ -55,6 +48,20 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
                 localbalooalbum.cpp
                 )
         endif()
+    endif()
+
+    if (UPNPQT_FOUND)
+        set(elisa_SOURCES
+            ${elisa_SOURCES}
+            upnpalbummodel.cpp
+            upnpcontrolcontentdirectory.cpp
+            upnpcontentdirectorymodel.cpp
+            upnpdevicemodel.cpp
+            upnpcontrolconnectionmanager.cpp
+            upnpcontrolmediaserver.cpp
+            didlparser.cpp
+            remoteserverentry.cpp
+            )
     endif()
 
     if (${KF5Declarative_FOUND})
@@ -77,7 +84,6 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
             Qt5::Svg
             Qt5::Xml
             Qt5::Sql
-            UPNP::upnpQt
     )
 
     if (Qt5DBus_FOUND)
@@ -119,6 +125,13 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         target_link_libraries(elisa
             LINK_PRIVATE
                 KF5::Declarative
+        )
+    endif()
+
+    if (UPNPQT_FOUND)
+        target_link_libraries(elisa
+            LINK_PRIVATE
+                UPNP::upnpQt
         )
     endif()
 endif()

@@ -19,10 +19,15 @@
 
 #include "viewpagesmodel.h"
 
+#include "config-upnp-qt.h"
+
+#if defined UPNPQT_FOUND && UPNPQT_FOUND
 #include "upnpdevicedescription.h"
 #include "upnpdiscoveryresult.h"
 #include "upnpdevicedescriptionparser.h"
 #include "upnpcontrolcontentdirectory.h"
+#endif
+
 #include "upnpalbummodel.h"
 
 #include "remoteserverentry.h"
@@ -41,6 +46,7 @@ class ViewPagesModelPrivate
 {
 public:
 
+#if defined UPNPQT_FOUND && UPNPQT_FOUND
     QList<QSharedPointer<UpnpDiscoveryResult> > mAllDevices;
 
     QHash<QString, QSharedPointer<UpnpDiscoveryResult> > mAllDeviceDiscoveryResults;
@@ -54,8 +60,11 @@ public:
     QList<QSharedPointer<RemoteServerEntry> > mRemoteServers;
 
     QNetworkAccessManager mNetworkAccess;
+#endif
 
     bool mWithPlaylist = true;
+
+    bool mUseLocalIcons = false;
 
     QString mDeviceId;
 
@@ -64,8 +73,6 @@ public:
     QString mFilter;
 
     QString mSortCriteria;
-
-    bool mUseLocalIcons = false;
 
 };
 
@@ -85,6 +92,7 @@ int ViewPagesModel::rowCount(const QModelIndex &parent) const
         return 0;
     }
 
+#if defined UPNPQT_FOUND && UPNPQT_FOUND
     if (!d->mWithPlaylist) {
         return d->mAllDevices.size();
     }
@@ -94,6 +102,9 @@ int ViewPagesModel::rowCount(const QModelIndex &parent) const
     }
 
     return d->mAllDevices.size() + 2;
+#else
+    return d->mWithPlaylist;
+#endif
 }
 
 QVariant ViewPagesModel::data(const QModelIndex &index, int role) const
@@ -102,6 +113,13 @@ QVariant ViewPagesModel::data(const QModelIndex &index, int role) const
         return {};
     }
 
+    if (role < ColumnsRoles::NameRole || role > ColumnsRoles::UDNRole) {
+        return {};
+    }
+
+    ColumnsRoles convertedRole = static_cast<ColumnsRoles>(role);
+
+#if defined UPNPQT_FOUND && UPNPQT_FOUND
     if (index.row() < 0 || (index.row() >= d->mAllDevices.size() + 2 && d->mWithPlaylist)) {
         return {};
     }
@@ -109,12 +127,6 @@ QVariant ViewPagesModel::data(const QModelIndex &index, int role) const
     if (!d->mWithPlaylist && index.row() >= d->mAllDevices.size() + 1) {
         return {};
     }
-
-    if (role < ColumnsRoles::NameRole || role > ColumnsRoles::UDNRole) {
-        return {};
-    }
-
-    ColumnsRoles convertedRole = static_cast<ColumnsRoles>(role);
 
     if (index.row() < d->mAllDevices.size()) {
         switch(convertedRole)
@@ -145,6 +157,27 @@ QVariant ViewPagesModel::data(const QModelIndex &index, int role) const
             }
         }
     }
+#else
+    if (index.row() == 0) {
+        switch(convertedRole)
+        {
+        case ColumnsRoles::NameRole:
+            return QStringLiteral("Local Albums");
+        default:
+            return {};
+        }
+    } else {
+        if (d->mWithPlaylist && index.row() == 1) {
+            switch(convertedRole)
+            {
+            case ColumnsRoles::NameRole:
+                return QStringLiteral("Play List");
+            default:
+                return {};
+            }
+        }
+    }
+#endif
 
     return {};
 }
@@ -161,11 +194,17 @@ QHash<int, QByteArray> ViewPagesModel::roleNames() const
 
 RemoteServerEntry* ViewPagesModel::remoteServer(int index) const
 {
+#if defined UPNPQT_FOUND && UPNPQT_FOUND
     if (index < 0 || index > d->mRemoteServers.size() - 1) {
         return nullptr;
     }
 
     return d->mRemoteServers.at(index).data();
+#else
+    Q_UNUSED(index);
+
+    return nullptr;
+#endif
 }
 
 RemoteServerEntry *ViewPagesModel::remoteServer(QModelIndex index) const
@@ -175,11 +214,17 @@ RemoteServerEntry *ViewPagesModel::remoteServer(QModelIndex index) const
 
 UpnpAlbumModel *ViewPagesModel::remoteAlbumModel(int index) const
 {
+#if defined UPNPQT_FOUND && UPNPQT_FOUND
     if (index < 0 || index > d->mRemoteServers.size() - 1) {
         return nullptr;
     }
 
     return d->mRemoteServers.at(index)->albumModel();
+#else
+    Q_UNUSED(index);
+
+    return nullptr;
+#endif
 }
 
 void ViewPagesModel::setWithPlaylist(bool value)
@@ -220,6 +265,7 @@ bool ViewPagesModel::useLocalIcons() const
 
 void ViewPagesModel::newDevice(QSharedPointer<UpnpDiscoveryResult> serviceDiscovery)
 {
+#if defined UPNPQT_FOUND && UPNPQT_FOUND
     if (serviceDiscovery->nt() == d->mDeviceId) {
         const QString &deviceUuid = serviceDiscovery->usn().mid(5, 36);
         if (!d->mAllDeviceDiscoveryResults.contains(deviceUuid)) {
@@ -255,14 +301,21 @@ void ViewPagesModel::newDevice(QSharedPointer<UpnpDiscoveryResult> serviceDiscov
             endInsertRows();
         }
     }
+#else
+    Q_UNUSED(serviceDiscovery);
+#endif
 }
 
 void ViewPagesModel::removedDevice(QSharedPointer<UpnpDiscoveryResult> serviceDiscovery)
 {
+#if defined UPNPQT_FOUND && UPNPQT_FOUND
     if (serviceDiscovery->nt() == d->mDeviceId) {
         qDebug() << "nt" << serviceDiscovery->nt();
         qDebug() << "usn" << serviceDiscovery->usn();
     }
+#else
+    Q_UNUSED(serviceDiscovery);
+#endif
 }
 
 void ViewPagesModel::setDeviceId(QString deviceId)
@@ -303,6 +356,7 @@ void ViewPagesModel::setUseLocalIcons(bool useLocalIcons)
 
 void ViewPagesModel::deviceDescriptionChanged(const QString &uuid)
 {
+#if defined UPNPQT_FOUND && UPNPQT_FOUND
     int deviceIndex = d->mAllHostsUUID.indexOf(uuid);
 
     d->mRemoteServers[deviceIndex]->albumModel()->setServerName(d->mAllHostsDescription[d->mAllHostsUUID[deviceIndex]]->friendlyName());
@@ -311,11 +365,18 @@ void ViewPagesModel::deviceDescriptionChanged(const QString &uuid)
     if (deviceIndex != -1) {
         Q_EMIT dataChanged(index(deviceIndex), index(deviceIndex));
     }
+#else
+    Q_UNUSED(uuid);
+#endif
 }
 
 void ViewPagesModel::descriptionParsed(const QString &UDN)
 {
+#if defined UPNPQT_FOUND && UPNPQT_FOUND
     d->mDeviceDescriptionParsers.remove(UDN.mid(5));
+#else
+    Q_UNUSED(UDN);
+#endif
 }
 
 

@@ -19,6 +19,7 @@
 
 #include "config-upnp-qt.h"
 
+#if defined UPNPQT_FOUND && UPNPQT_FOUND
 #include "upnpssdpengine.h"
 #include "upnpabstractservice.h"
 #include "upnpcontrolabstractdevice.h"
@@ -32,6 +33,7 @@
 #include "upnpdevicedescription.h"
 #include "upnpalbummodel.h"
 #include "didlparser.h"
+#endif
 
 #if defined KF5Baloo_FOUND && KF5Baloo_FOUND
 #include "localalbummodel.h"
@@ -72,6 +74,7 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
+#if defined UPNPQT_FOUND && UPNPQT_FOUND
     qmlRegisterType<UpnpSsdpEngine>("org.mgallien.QmlExtension", 1, 0, "UpnpSsdpEngine");
     qmlRegisterType<UpnpAbstractDevice>("org.mgallien.QmlExtension", 1, 0, "UpnpAbstractDevice");
     qmlRegisterType<UpnpAbstractService>("org.mgallien.QmlExtension", 1, 0, "UpnpAbstractService");
@@ -80,23 +83,11 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
     qmlRegisterType<UpnpDeviceModel>("org.mgallien.QmlExtension", 1, 0, "UpnpDeviceModel");
     qmlRegisterType<UpnpControlConnectionManager>("org.mgallien.QmlExtension", 1, 0, "UpnpControlConnectionManager");
     qmlRegisterType<UpnpControlMediaServer>("org.mgallien.QmlExtension", 1, 0, "UpnpControlMediaServer");
-    qmlRegisterType<UpnpControlContentDirectory>("org.mgallien.QmlExtension", 1, 0, "UpnpControlContentDirectory");
     qmlRegisterType<UpnpContentDirectoryModel>("org.mgallien.QmlExtension", 1, 0, "UpnpContentDirectoryModel");
-    qmlRegisterType<UpnpDeviceDescription>("org.mgallien.QmlExtension", 1, 0, "UpnpDeviceDescription");
-    qmlRegisterType<AlbumFilterProxyModel>("org.mgallien.QmlExtension", 1, 0, "AlbumFilterProxyModel");
-
-    qmlRegisterType<MediaPlayList>("org.mgallien.QmlExtension", 1, 0, "MediaPlayList");
-    qmlRegisterType<PlayListControler>("org.mgallien.QmlExtension", 1, 0, "PlayListControler");
-    qmlRegisterType<ViewPagesModel>("org.mgallien.QmlExtension", 1, 0, "ViewPagesModel");
-    qmlRegisterType<UpnpAlbumModel>("org.mgallien.QmlExtension", 1, 0, "UpnpAlbumModel");
-    qmlRegisterType<MusicStatistics>("org.mgallien.QmlExtension", 1, 0, "MusicStatistics");
     qmlRegisterType<DidlParser>("org.mgallien.QmlExtension", 1, 0, "DidlParser");
-    qmlRegisterType<ProgressIndicator>("org.mgallien.QmlExtension", 1, 0, "ProgressIndicator");
-
-#if defined KF5Baloo_FOUND && KF5Baloo_FOUND
-    qmlRegisterType<LocalAlbumModel>("org.mgallien.QmlExtension", 1, 0, "LocalAlbumModel");
-    qRegisterMetaType<QHash<QString,QVector<LocalBalooTrack> >>();
-#endif
+    qmlRegisterType<UpnpControlContentDirectory>("org.mgallien.QmlExtension", 1, 0, "UpnpControlContentDirectory");
+    qmlRegisterType<UpnpDeviceDescription>("org.mgallien.QmlExtension", 1, 0, "UpnpDeviceDescription");
+    qmlRegisterType<UpnpAlbumModel>("org.mgallien.QmlExtension", 1, 0, "UpnpAlbumModel");
 
     qRegisterMetaType<A_ARG_TYPE_InstanceID>();
     qRegisterMetaType<QPointer<UpnpAbstractDevice> >();
@@ -104,6 +95,21 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
     qRegisterMetaType<UpnpContentDirectoryModel*>();
     qRegisterMetaType<UpnpDeviceDescription*>();
     qRegisterMetaType<RemoteServerEntry*>();
+#endif
+
+    qmlRegisterType<AlbumFilterProxyModel>("org.mgallien.QmlExtension", 1, 0, "AlbumFilterProxyModel");
+
+    qmlRegisterType<MediaPlayList>("org.mgallien.QmlExtension", 1, 0, "MediaPlayList");
+    qmlRegisterType<PlayListControler>("org.mgallien.QmlExtension", 1, 0, "PlayListControler");
+    qmlRegisterType<ViewPagesModel>("org.mgallien.QmlExtension", 1, 0, "ViewPagesModel");
+    qmlRegisterType<MusicStatistics>("org.mgallien.QmlExtension", 1, 0, "MusicStatistics");
+    qmlRegisterType<ProgressIndicator>("org.mgallien.QmlExtension", 1, 0, "ProgressIndicator");
+
+#if defined KF5Baloo_FOUND && KF5Baloo_FOUND
+    qmlRegisterType<LocalAlbumModel>("org.mgallien.QmlExtension", 1, 0, "LocalAlbumModel");
+    qRegisterMetaType<QHash<QString,QVector<LocalBalooTrack> >>();
+#endif
+
     qRegisterMetaType<QAbstractItemModel*>();
     qRegisterMetaType<QHash<QString,QString>>();
 

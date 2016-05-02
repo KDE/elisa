@@ -16,13 +16,14 @@ set(REQUIRED_QT_VERSION "5.4.0")
 find_package(Qt5 ${REQUIRED_QT_VERSION} CONFIG REQUIRED Core Network Xml Qml WebSockets Sql)
 find_package(Qt5 ${REQUIRED_QT_VERSION} CONFIG QUIET OPTIONAL_COMPONENTS Quick Widgets Multimedia Svg Test DBus)
 
-find_package(KDSoap CONFIG REQUIRED)
 find_package(KF5Declarative CONFIG QUIET)
 find_package(KF5I18n CONFIG QUIET)
 find_package(KF5CoreAddons CONFIG QUIET)
 find_package(KF5Baloo CONFIG QUIET)
 find_package(KF5FileMetaData CONFIG QUIET)
-find_package(UPNPQT CONFIG REQUIRED)
+
+find_package(KDSoap CONFIG QUIET)
+find_package(UPNPQT CONFIG QUIET)
 
 include(FeatureSummary)
 include(GenerateExportHeader)

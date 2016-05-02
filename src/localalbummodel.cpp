@@ -189,6 +189,8 @@ QVariant LocalAlbumModel::internalDataAlbum(const LocalBalooAlbum &albumData, in
         return albumData.mArtist;
     case ColumnsRoles::AlbumRole:
         return {};
+    case ColumnsRoles::TrackNumberRole:
+        return {};
     case ColumnsRoles::RatingRole:
         return {};
     case ColumnsRoles::ImageRole:

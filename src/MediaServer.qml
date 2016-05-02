@@ -257,7 +257,6 @@ ApplicationWindow {
                     MediaPlayListView {
                         id: playList
 
-                        connectionManager: mainWindow.connectionManager
                         playControl: playControlItem
                         playListModel: playListModelItem
 

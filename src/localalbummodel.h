@@ -20,105 +20,32 @@
 #ifndef LOCALALBUMMODEL_H
 #define LOCALALBUMMODEL_H
 
-#include <QtCore/QAbstractItemModel>
-#include <QtCore/QList>
-#include <QtCore/QHash>
-#include <QtCore/QString>
-
-#include "musicalbum.h"
-#include "musicaudiotrack.h"
+#include "abstractalbummodel.h"
 
 class LocalAlbumModelPrivate;
 class MusicStatistics;
 class LocalBalooTrack;
 class LocalBalooAlbum;
 
-class LocalAlbumModel : public QAbstractItemModel
+class LocalAlbumModel : public AbstractAlbumModel
 {
     Q_OBJECT
 
-    Q_PROPERTY(MusicStatistics* musicDatabase
-               READ musicDatabase
-               WRITE setMusicDatabase
-               NOTIFY musicDatabaseChanged)
-
 public:
-
-    enum ItemClass {
-        Container = 0,
-        Album = 1,
-        Artist = 2,
-        AudioTrack = 3,
-    };
-
-    enum ColumnsRoles {
-        TitleRole = Qt::UserRole + 1,
-        DurationRole = TitleRole + 1,
-        CreatorRole = DurationRole + 1,
-        ArtistRole = CreatorRole + 1,
-        AlbumRole = ArtistRole + 1,
-        TrackNumberRole = AlbumRole + 1,
-        RatingRole = TrackNumberRole + 1,
-        ImageRole = RatingRole + 1,
-        ResourceRole = ImageRole + 1,
-        ItemClassRole = ResourceRole + 1,
-        CountRole = ItemClassRole + 1,
-        IdRole = CountRole + 1,
-        IsPlayingRole = IdRole + 1,
-    };
 
     explicit LocalAlbumModel(QObject *parent = 0);
 
     virtual ~LocalAlbumModel();
 
-    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
-
-    QHash<int, QByteArray> roleNames() const override;
-
-    Qt::ItemFlags flags(const QModelIndex &index) const override;
-
-    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
-
-    QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const override;
-
-    QModelIndex parent(const QModelIndex &child) const override;
-
-    int columnCount(const QModelIndex &parent = QModelIndex()) const override;
-
-    MusicStatistics* musicDatabase() const;
-
 Q_SIGNALS:
-
-    void musicDatabaseChanged();
-
-    void newAlbum(const MusicAlbum &album);
-
-    void newAudioTrack(const MusicAudioTrack &audioTrack);
-
-    void refreshContent();
 
 public Q_SLOTS:
 
-    void setMusicDatabase(MusicStatistics* musicDatabase);
-
 private Q_SLOTS:
-
-    void tracksList(const QHash<QString, QVector<LocalBalooTrack>> &tracks,
-                    const QHash<QString, QString> &covers);
 
 private:
 
-    QVariant internalDataAlbum(const LocalBalooAlbum &albumData, int role) const;
-
-    QVariant internalDataTrack(const LocalBalooTrack &track, const QModelIndex &index, int role) const;
-
-    void initDatabase();
-
     LocalAlbumModelPrivate *d;
 };
-
-
-
-Q_DECLARE_METATYPE(LocalAlbumModel::ItemClass)
 
 #endif // LOCALALBUMMODEL_H

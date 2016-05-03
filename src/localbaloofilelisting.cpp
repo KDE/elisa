@@ -20,7 +20,7 @@
 
 #include "localbaloofilelisting.h"
 
-#include "localbalootrack.h"
+#include "musicaudiotrack.h"
 
 #include <Baloo/Query>
 #include <Baloo/File>
@@ -43,7 +43,7 @@ public:
 
     Baloo::Query mQuery;
 
-    QHash<QString, QVector<LocalBalooTrack>> mAllAlbums;
+    QHash<QString, QVector<MusicAudioTrack>> mAllAlbums;
 
     QHash<QString, QString> mAllAlbumCover;
 
@@ -101,9 +101,9 @@ void LocalBalooFileListing::refreshContent()
             auto albumValue = albumProperty->toString();
             auto &allTracks = d->mAllAlbums[albumValue];
 
-            LocalBalooTrack newTrack;
+            MusicAudioTrack newTrack;
 
-            newTrack.mAlbum = albumValue;
+            newTrack.mAlbumName = albumValue;
             ++cptTracks;
 
             if (artistProperty != allProperties.end()) {
@@ -111,7 +111,7 @@ void LocalBalooFileListing::refreshContent()
             }
 
             if (durationProperty != allProperties.end()) {
-                newTrack.mDuration = durationProperty->toDouble();
+                newTrack.mDuration = QTime::fromMSecsSinceStartOfDay(1000 * durationProperty->toDouble());
             }
 
             if (titleProperty != allProperties.end()) {
@@ -122,7 +122,7 @@ void LocalBalooFileListing::refreshContent()
                 newTrack.mTrackNumber = trackNumberProperty->toInt();
             }
 
-            newTrack.mFile = QUrl::fromLocalFile(resultIterator.filePath());
+            newTrack.mResourceURI = QUrl::fromLocalFile(resultIterator.filePath());
             QFileInfo trackFilePath(resultIterator.filePath());
             QFileInfo coverFilePath(trackFilePath.dir().filePath(QStringLiteral("cover.jpg")));
             if (coverFilePath.exists()) {

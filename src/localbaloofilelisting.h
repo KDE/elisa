@@ -23,11 +23,13 @@
 #include <QtCore/QObject>
 #include <QtCore/QString>
 #include <QtCore/QUrl>
+#include <QtCore/QHash>
+#include <QtCore/QVector>
 
 #include <memory>
 
 class LocalBalooFileListingPrivate;
-class LocalBalooTrack;
+class MusicAudioTrack;
 
 class LocalBalooFileListing : public QObject
 {
@@ -42,7 +44,7 @@ public:
 
 Q_SIGNALS:
 
-    void tracksList(const QHash<QString, QVector<LocalBalooTrack>> &tracks,
+    void tracksList(const QHash<QString, QVector<MusicAudioTrack>> &tracks,
                     const QHash<QString, QString> &covers);
 
 public Q_SLOTS:

@@ -20,8 +20,11 @@
 #ifndef MUSICALBUM_H
 #define MUSICALBUM_H
 
+#include "musicaudiotrack.h"
+
 #include <QtCore/QString>
 #include <QtCore/QUrl>
+#include <QtCore/QMap>
 
 class MusicAlbum
 {
@@ -43,6 +46,10 @@ public:
     QUrl mAlbumArtURI;
 
     QUrl mResourceURI;
+
+    QMap<quintptr, MusicAudioTrack> mTracks;
+
+    QList<quintptr> mTrackIds;
 
 };
 

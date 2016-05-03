@@ -23,6 +23,7 @@
 #include <QtCore/QString>
 #include <QtCore/QTime>
 #include <QtCore/QUrl>
+#include <QtCore/QMetaType>
 
 class MusicAudioTrack
 {
@@ -48,5 +49,7 @@ public:
     QUrl mResourceURI;
 
 };
+
+Q_DECLARE_METATYPE(MusicAudioTrack)
 
 #endif // MUSICAUDIOTRACK_H

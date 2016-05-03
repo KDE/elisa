@@ -37,7 +37,7 @@
 
 #if defined KF5Baloo_FOUND && KF5Baloo_FOUND
 #include "localalbummodel.h"
-#include "localbalootrack.h"
+#include "musicaudiotrack.h"
 #endif
 
 #include "progressindicator.h"
@@ -107,7 +107,7 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
 
 #if defined KF5Baloo_FOUND && KF5Baloo_FOUND
     qmlRegisterType<LocalAlbumModel>("org.mgallien.QmlExtension", 1, 0, "LocalAlbumModel");
-    qRegisterMetaType<QHash<QString,QVector<LocalBalooTrack> >>();
+    qRegisterMetaType<QHash<QString,QVector<MusicAudioTrack> >>();
 #endif
 
     qRegisterMetaType<QAbstractItemModel*>();

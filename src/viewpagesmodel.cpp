@@ -192,26 +192,6 @@ QHash<int, QByteArray> ViewPagesModel::roleNames() const
     return roles;
 }
 
-RemoteServerEntry* ViewPagesModel::remoteServer(int index) const
-{
-#if defined UPNPQT_FOUND && UPNPQT_FOUND
-    if (index < 0 || index > d->mRemoteServers.size() - 1) {
-        return nullptr;
-    }
-
-    return d->mRemoteServers.at(index).data();
-#else
-    Q_UNUSED(index);
-
-    return nullptr;
-#endif
-}
-
-RemoteServerEntry *ViewPagesModel::remoteServer(QModelIndex index) const
-{
-    return remoteServer(index.row());
-}
-
 UpnpAlbumModel *ViewPagesModel::remoteAlbumModel(int index) const
 {
 #if defined UPNPQT_FOUND && UPNPQT_FOUND

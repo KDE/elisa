@@ -84,10 +84,6 @@ public:
 
     QHash<int, QByteArray> roleNames() const override;
 
-    Q_INVOKABLE RemoteServerEntry *remoteServer(int index) const;
-
-    Q_INVOKABLE RemoteServerEntry *remoteServer(QModelIndex index) const;
-
     Q_INVOKABLE UpnpAlbumModel *remoteAlbumModel(int index) const;
 
     void setWithPlaylist(bool value);

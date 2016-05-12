@@ -71,8 +71,6 @@ Item {
                 // Disable smoothed so that the Item pixel from where we started the drag remains under the mouse cursor
                 drag.smoothed: false
 
-                preventStealing: true
-
                 onReleased: {
                     if (drag.active) {
                         emitMoveItemRequested();

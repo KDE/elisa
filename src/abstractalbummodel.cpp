@@ -50,7 +50,9 @@ public:
 
 AbstractAlbumModel::AbstractAlbumModel(QObject *parent) : QAbstractItemModel(parent), d(new AbstractAlbumModelPrivate)
 {
-    d->mTracksDatabase = QSqlDatabase::addDatabase(QStringLiteral("QSQLITE"));
+    static int databaseCounter = 1;
+    d->mTracksDatabase = QSqlDatabase::addDatabase(QStringLiteral("QSQLITE"), QStringLiteral("album%1").arg(databaseCounter));
+    ++databaseCounter;
     d->mTracksDatabase.setDatabaseName(QStringLiteral(":memory:"));
     d->mTracksDatabase.setConnectOptions(QStringLiteral("foreign_keys = ON"));
     auto result = d->mTracksDatabase.open();

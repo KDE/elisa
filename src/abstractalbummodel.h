@@ -99,6 +99,8 @@ public Q_SLOTS:
 
     void setMusicDatabase(MusicStatistics* musicDatabase);
 
+    void albumsList(const QVector<MusicAlbum> &allAlbums);
+
     void tracksList(const QHash<QString, QVector<MusicAudioTrack> > &tracks, const QHash<QString, QString> &covers);
 
 private Q_SLOTS:

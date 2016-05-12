@@ -20,7 +20,7 @@
 #ifndef UPNPALBUMMODEL_H
 #define UPNPALBUMMODEL_H
 
-#include <QtCore/QAbstractItemModel>
+#include "abstractalbummodel.h"
 
 #include "musicalbum.h"
 #include "musicaudiotrack.h"
@@ -34,7 +34,7 @@ class QDomNode;
 class MusicStatistics;
 class DidlParser;
 
-class UpnpAlbumModel : public QAbstractItemModel
+class UpnpAlbumModel : public AbstractAlbumModel
 {
     Q_OBJECT
 
@@ -42,11 +42,6 @@ class UpnpAlbumModel : public QAbstractItemModel
                READ contentDirectory
                WRITE setContentDirectory
                NOTIFY contentDirectoryChanged)
-
-    Q_PROPERTY(MusicStatistics* musicDatabase
-               READ musicDatabase
-               WRITE setMusicDatabase
-               NOTIFY musicDatabaseChanged)
 
     Q_PROPERTY(DidlParser* didlParser
                READ didlParser
@@ -79,55 +74,15 @@ class UpnpAlbumModel : public QAbstractItemModel
 
 public:
 
-    enum ItemClass {
-        Container = 0,
-        Album = 1,
-        Artist = 2,
-        AudioTrack = 3,
-    };
-
-    enum ColumnsRoles {
-        TitleRole = Qt::UserRole + 1,
-        DurationRole = TitleRole + 1,
-        CreatorRole = DurationRole + 1,
-        ArtistRole = CreatorRole + 1,
-        AlbumRole = ArtistRole + 1,
-        TrackNumberRole = AlbumRole + 1,
-        RatingRole = TrackNumberRole + 1,
-        ImageRole = RatingRole + 1,
-        ResourceRole = ImageRole + 1,
-        ItemClassRole = ResourceRole + 1,
-        CountRole = ItemClassRole + 1,
-        IdRole = CountRole + 1,
-        ParentIdRole = IdRole + 1,
-        IsPlayingRole = ParentIdRole + 1,
-    };
-
     explicit UpnpAlbumModel(QObject *parent = 0);
 
     virtual ~UpnpAlbumModel();
-
-    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
-
-    QHash<int, QByteArray> roleNames() const override;
 
     bool canFetchMore(const QModelIndex &parent) const override;
 
     void fetchMore(const QModelIndex &parent) override;
 
-    Qt::ItemFlags flags(const QModelIndex &index) const override;
-
-    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
-
-    QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const override;
-
-    QModelIndex parent(const QModelIndex &child) const override;
-
-    int columnCount(const QModelIndex &parent = QModelIndex()) const override;
-
     UpnpControlContentDirectory* contentDirectory() const;
-
-    MusicStatistics* musicDatabase() const;
 
     DidlParser* didlParser() const;
 
@@ -167,8 +122,6 @@ public Q_SLOTS:
 
     void setContentDirectory(UpnpControlContentDirectory *directory);
 
-    void setMusicDatabase(MusicStatistics* musicDatabase);
-
     void setBrowseFlag(const QString &flag);
 
     void setFilter(const QString &flag);
@@ -190,10 +143,7 @@ private:
     QVariant internalDataTrack(const QModelIndex &index, int role, DidlParser *currentParser) const;
 
     UpnpAlbumModelPrivate *d;
+
 };
-
-
-
-Q_DECLARE_METATYPE(UpnpAlbumModel::ItemClass)
 
 #endif // UPNPALBUMMODEL_H

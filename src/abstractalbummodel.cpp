@@ -42,6 +42,8 @@ public:
 
     QVector<MusicAlbum> mAlbumsData;
 
+    QMap<quintptr, int> mAlbumsIndex;
+
     QMap<quintptr, quintptr> mTracksInAlbums;
 
     QSqlDatabase mTracksDatabase;
@@ -80,7 +82,7 @@ int AbstractAlbumModel::rowCount(const QModelIndex &parent) const
         return 0;
     }
 
-    return d->mAlbumsData[parent.row()].mTracksCount;
+    return d->mAlbumsData[parent.row()].mTracks.size();
 }
 
 QHash<int, QByteArray> AbstractAlbumModel::roleNames() const
@@ -353,13 +355,90 @@ void AbstractAlbumModel::setMusicDatabase(MusicStatistics *musicDatabase)
     emit musicDatabaseChanged();
 }
 
-void AbstractAlbumModel::tracksList(const QHash<QString, QVector<MusicAudioTrack> > &tracks, const QHash<QString, QString> &covers)
+void AbstractAlbumModel::albumsList(const QVector<MusicAlbum> &allAlbums)
 {
     beginResetModel();
 
     initDatabase();
 
     d->mAlbumsData.clear();
+
+    auto selectAlbumQueryText = QStringLiteral("SELECT ID FROM `Albums` "
+                                          "WHERE "
+                                          "`Title` = :title AND "
+                                          "`Artist` = :artist");
+
+    QSqlQuery selectAlbumQuery(d->mTracksDatabase);
+    selectAlbumQuery.prepare(selectAlbumQueryText);
+
+    auto insertAlbumQueryText = QStringLiteral("INSERT INTO Albums (`Title`, `Artist`, `CoverFileName`, `TracksCount`)"
+                                          "VALUES (:title, :artist, :coverFileName, :tracksCount)");
+
+    QSqlQuery insertAlbumQuery(d->mTracksDatabase);
+    insertAlbumQuery.prepare(insertAlbumQueryText);
+
+    for(const auto &album : allAlbums) {
+        quintptr albumId = 0;
+
+        selectAlbumQuery.bindValue(QStringLiteral(":title"), album.mTitle);
+        selectAlbumQuery.bindValue(QStringLiteral(":artist"), album.mArtist);
+
+        selectAlbumQuery.exec();
+
+        if (!selectAlbumQuery.isSelect() || !selectAlbumQuery.isActive()) {
+            qDebug() << "AbstractAlbumModel::albumsList" << "not select" << selectAlbumQuery.lastQuery();
+            qDebug() << "AbstractAlbumModel::albumsList" << selectAlbumQuery.lastError();
+        }
+
+        if (selectAlbumQuery.next()) {
+            albumId = selectAlbumQuery.record().value(0).toInt() - 1;
+        } else {
+            insertAlbumQuery.bindValue(QStringLiteral(":title"), album.mTitle);
+            insertAlbumQuery.bindValue(QStringLiteral(":artist"), album.mArtist);
+            insertAlbumQuery.bindValue(QStringLiteral(":coverFileName"), album.mAlbumArtURI);
+            insertAlbumQuery.bindValue(QStringLiteral(":tracksCount"), 0);
+
+            insertAlbumQuery.exec();
+
+            if (!insertAlbumQuery.isActive()) {
+                qDebug() << "AbstractAlbumModel::albumsList" << "not select" << insertAlbumQuery.lastQuery();
+                qDebug() << "AbstractAlbumModel::albumsList" << insertAlbumQuery.lastError();
+
+                continue;
+            }
+
+            selectAlbumQuery.exec();
+
+            if (!selectAlbumQuery.isSelect() || !selectAlbumQuery.isActive()) {
+                qDebug() << "AbstractAlbumModel::albumsList" << "not select" << selectAlbumQuery.lastQuery();
+                qDebug() << "AbstractAlbumModel::albumsList" << selectAlbumQuery.lastError();
+
+                continue;
+            }
+
+            if (selectAlbumQuery.next()) {
+                albumId = selectAlbumQuery.record().value(0).toInt() - 1;
+            }
+        }
+
+        d->mAlbumsData.push_back(album);
+        d->mAlbumsIndex[albumId] = d->mAlbumsData.size() - 1;
+    }
+
+    endResetModel();
+}
+
+void AbstractAlbumModel::tracksList(const QHash<QString, QVector<MusicAudioTrack> > &tracks, const QHash<QString, QString> &covers)
+{
+    const bool insertManyAlbums = (tracks.size() > 10);
+
+    if (insertManyAlbums) {
+        beginResetModel();
+    }
+
+    initDatabase();
+
+    //d->mAlbumsData.clear();
 
     auto selectTrackQueryText = QStringLiteral("SELECT ID FROM `Tracks` "
                                           "WHERE "
@@ -425,6 +504,10 @@ void AbstractAlbumModel::tracksList(const QHash<QString, QVector<MusicAudioTrack
         if (selectAlbumQuery.next()) {
             albumId = selectAlbumQuery.record().value(0).toInt() - 1;
         } else {
+            if (!insertManyAlbums) {
+                beginInsertRows({}, d->mAlbumsData.size(), d->mAlbumsData.size());
+            }
+
             insertAlbumQuery.bindValue(QStringLiteral(":title"), newAlbum.mTitle);
             insertAlbumQuery.bindValue(QStringLiteral(":artist"), newAlbum.mArtist);
             insertAlbumQuery.bindValue(QStringLiteral(":coverFileName"), newAlbum.mAlbumArtURI);
@@ -451,6 +534,27 @@ void AbstractAlbumModel::tracksList(const QHash<QString, QVector<MusicAudioTrack
             if (selectAlbumQuery.next()) {
                 albumId = selectAlbumQuery.record().value(0).toInt() - 1;
             }
+
+            d->mAlbumsData.push_back(newAlbum);
+            d->mAlbumsIndex[albumId] = d->mAlbumsData.size() - 1;
+
+            if (!insertManyAlbums) {
+                endInsertRows();
+            }
+        }
+
+        auto &currentAlbum = d->mAlbumsData[d->mAlbumsIndex[albumId]];
+
+        if (!currentAlbum.mTrackIds.isEmpty()) {
+            beginRemoveRows(index(d->mAlbumsIndex[albumId], 0), 0, currentAlbum.mTrackIds.size() - 1);
+            currentAlbum.mTrackIds.clear();
+            currentAlbum.mTracks.clear();
+            currentAlbum.mTracksCount = 0;
+            endRemoveRows();
+        }
+
+        if (!insertManyAlbums) {
+            beginInsertRows(index(d->mAlbumsIndex[albumId], 0), 0, album.size() - 1);
         }
 
         for(const auto &track : album) {
@@ -458,7 +562,7 @@ void AbstractAlbumModel::tracksList(const QHash<QString, QVector<MusicAudioTrack
             QString artistName = track.mArtist;
 
             if (artistName.isEmpty()) {
-                artistName = newAlbum.mArtist;
+                artistName = currentAlbum.mArtist;
             }
 
             selectTrackQuery.bindValue(QStringLiteral(":title"), track.mTitle);
@@ -500,18 +604,21 @@ void AbstractAlbumModel::tracksList(const QHash<QString, QVector<MusicAudioTrack
                 }
             }
 
-            newAlbum.mTracks[currentElementId] = track;
-            newAlbum.mTracks[currentElementId].mArtist = artistName;
-            newAlbum.mTrackIds.push_back(currentElementId);
+            currentAlbum.mTracks[currentElementId] = track;
+            currentAlbum.mTracks[currentElementId].mArtist = artistName;
+            currentAlbum.mTrackIds.push_back(currentElementId);
             d->mTracksInAlbums[currentElementId] = albumId;
+            currentAlbum.mTracksCount = currentAlbum.mTracks.size();
         }
 
-        newAlbum.mTracksCount = newAlbum.mTracks.size();
-
-        d->mAlbumsData.push_back(newAlbum);
+        if (!insertManyAlbums) {
+            endInsertRows();
+        }
     }
 
-    endResetModel();
+    if (insertManyAlbums) {
+        endResetModel();
+    }
 }
 
 #include "moc_abstractalbummodel.cpp"

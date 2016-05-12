@@ -480,7 +480,7 @@ void PlayListControler::skipToTrack(int position)
         return;
     }
 
-    mCurrentTrack = mPlayListModel->index(mCurrentTrack.row() + 1, mCurrentTrack.column(), mCurrentTrack.parent());
+    mCurrentTrack = mPlayListModel->index(position, mCurrentTrack.column(), mCurrentTrack.parent());
 
     signaTrackChange();
     if (mIsInPlayingState) {

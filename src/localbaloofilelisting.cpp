@@ -140,10 +140,6 @@ void LocalBalooFileListing::refreshContent()
         }
     }
 
-    qDebug() << d->mAllAlbums.size();
-    qDebug() << d->mAllAlbums.keys();
-    qDebug() << cptTracks;
-
     Q_EMIT tracksList(d->mAllAlbums, d->mAllAlbumCover);
 }
 

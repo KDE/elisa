@@ -70,6 +70,8 @@ public:
 
     Q_INVOKABLE void enqueue(const QModelIndex &newTrack);
 
+    Q_INVOKABLE void move(int from, int to, int n);
+
 Q_SIGNALS:
 
     void trackCountChanged();

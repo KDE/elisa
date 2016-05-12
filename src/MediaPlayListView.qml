@@ -108,43 +108,51 @@ Item {
                 model: DelegateModel {
                     model: playListModel
 
-                    delegate: AudioTrackDelegate {
-                        height: Screen.pixelDensity * 15.
-                        width: playListView.width
-                        title: if (model != undefined && model.title !== undefined)
-                                   model.title
-                               else
-                                   ''
-                        artist: if (model != undefined && model.artist !== undefined)
-                                    model.artist
-                                else
-                                    ''
-                        itemDecoration: if (model != undefined && model.image !== undefined)
-                                            model.image
-                                        else
-                                            ''
-                        duration: if (model != undefined && model.duration !== undefined)
-                                      model.duration
-                                  else
-                                      ''
-                        trackNumber: if (model != undefined && model.trackNumber !== undefined)
-                                         model.trackNumber
-                                     else
-                                         ''
-                        trackRating: if (model != undefined && model.rating !== undefined)
-                                         model.rating
-                                     else
-                                         ''
+                    delegate: DraggableItem {
+                        AudioTrackDelegate {
+                            height: Screen.pixelDensity * 15.
+                            width: playListView.width
+                            title: if (model != undefined && model.title !== undefined)
+                                       model.title
+                                   else
+                                       ''
+                            artist: if (model != undefined && model.artist !== undefined)
+                                        model.artist
+                                    else
+                                        ''
+                            itemDecoration: if (model != undefined && model.image !== undefined)
+                                                model.image
+                                            else
+                                                ''
+                            duration: if (model != undefined && model.duration !== undefined)
+                                          model.duration
+                                      else
+                                          ''
+                            trackNumber: if (model != undefined && model.trackNumber !== undefined)
+                                             model.trackNumber
+                                         else
+                                             ''
+                            trackRating: if (model != undefined && model.rating !== undefined)
+                                             model.rating
+                                         else
+                                             ''
 
-                        isPlaying: model.isPlaying
-                        showHoverButtons: false
+                            isPlaying: model.isPlaying
+                            showHoverButtons: false
 
-                        hoverAction: Action {
-                            id: playListRemove
+                            hoverAction: Action {
+                                id: playListRemove
 
-                            iconSource: 'image://icon/list-remove'
+                                iconSource: 'image://icon/list-remove'
 
-                            onTriggered: playListModel.removeRows(index, 1, playListView.model.rootIndex)
+                                onTriggered: playListModel.removeRows(index, 1, playListView.model.rootIndex)
+                            }
+                        }
+
+                        draggedItemParent: topItem
+
+                        onMoveItemRequested: {
+                            playListModel.move(from, to, 1);
                         }
                     }
                 }

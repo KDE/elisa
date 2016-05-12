@@ -230,6 +230,8 @@ Item {
     MouseArea {
         id: hoverHandle
 
+        acceptedButtons: Qt.NoButton
+
         hoverEnabled: true
 
         anchors.fill: parent

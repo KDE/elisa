@@ -173,4 +173,15 @@ void MediaPlayList::enqueue(const QModelIndex &newTrack)
     Q_EMIT trackCountChanged();
 }
 
+void MediaPlayList::move(int from, int to, int n)
+{
+    QModelIndex moveParent;
+    beginResetModel();
+    for (auto cptItem = 0; cptItem < n; ++cptItem) {
+        d->mData.move(from, to);
+        d->mIsPlaying.move(from, to);
+    }
+    endResetModel();
+}
+
 #include "moc_mediaplaylist.cpp"

@@ -37,6 +37,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         MediaPlayPageMobile.qml
         HeaderBarMobile.qml
         ContextView.qml
+        DraggableItem.qml
         )
 
     if (KF5Baloo_FOUND)

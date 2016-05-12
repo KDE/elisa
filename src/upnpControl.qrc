@@ -26,6 +26,7 @@
         <file alias="MediaPlayPage.qml">MediaPlayPageMobile.qml</file>
         <file>background.jpg</file>
         <file>ContextView.qml</file>
+        <file>DraggableItem.qml</file>
     </qresource>
     <qresource prefix="/+android">
         <file alias="MediaServer.qml">MediaServerMobile.qml</file>

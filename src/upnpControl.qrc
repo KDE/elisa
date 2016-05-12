@@ -27,17 +27,6 @@
         <file>background.jpg</file>
         <file>ContextView.qml</file>
         <file>DraggableItem.qml</file>
+        <file>PassiveNotification.qml</file>
     </qresource>
-    <qresource prefix="/+android">
-        <file alias="MediaServer.qml">MediaServerMobile.qml</file>
-        <file alias="MediaContentDirectory.qml">MediaContentDirectoryMobile.qml</file>
-        <file alias="AudioTrackDelegate.qml">AudioTrackDelegateMobile.qml</file>
-        <file alias="MediaAlbumView.qml">MediaAlbumViewMobile.qml</file>
-        <file alias="MediaPlayerControl.qml">MediaPlayerControlMobile.qml</file>
-        <file alias="MediaServerListing.qml">MediaServerListingMobile.qml</file>
-        <file alias="MediaServerPage.qml">MediaServerPageMobile.qml</file>
-        <file>RatingStar.qml</file>
-        <file alias="MediaPlayPage.qml">MediaPlayPageMobile.qml</file>
-    </qresource>
-    <qresource prefix="/imports"/>
 </RCC>

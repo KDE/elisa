@@ -1,5 +1,6 @@
 /*
  * Copyright 2016 Matthieu Gallien <matthieu_gallien@yahoo.fr>
+ * Copyright 2015 Marco Martin <mart@kde.org>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -39,6 +40,40 @@ ApplicationWindow {
     property string globalBrowseFlag: 'BrowseDirectChildren'
     property string globalFilter: '*'
     property string globalSortCriteria: ''
+
+    /**
+     * Shows a little passive notification at the bottom of the app window
+     * lasting for few seconds, with an optional action button.
+     *
+     * @param message The text message to be shown to the user.
+     * @param timeout How long to show the message:
+     *            possible values: "short", "long" or the number of milliseconds
+     * @param actionText Text in the action button, if any.
+     * @param callBack A JavaScript function that will be executed when the
+     *            user clicks the button.
+     */
+    function showPassiveNotification(message, timeout, actionText, callBack) {
+        if (!internal.__passiveNotification) {
+            var component = Qt.createComponent(Qt.resolvedUrl('PassiveNotification.qml'));
+            internal.__passiveNotification = component.createObject(mainWindow);
+        }
+
+        internal.__passiveNotification.showNotification(message, timeout, actionText, callBack);
+    }
+
+    /**
+     * Hide the passive notification, if any is shown
+     */
+     function hidePassiveNotification() {
+         if(internal.__passiveNotification) {
+            internal.__passiveNotification.hideNotification();
+         }
+     }
+
+     QtObject {
+         id: internal
+         property Item __passiveNotification
+     }
 
     Action {
         id: quitAction
@@ -101,6 +136,8 @@ ApplicationWindow {
 
     MediaPlayList {
         id: playListModelItem
+
+        onTrackHasBeenAdded: mainWindow.showPassiveNotification('Track ' + title + ' has been added', 1500, "", {})
     }
 
     PlayListControler {

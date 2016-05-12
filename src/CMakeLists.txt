@@ -38,6 +38,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         HeaderBarMobile.qml
         ContextView.qml
         DraggableItem.qml
+        PassiveNotification.qml
         )
 
     if (KF5Baloo_FOUND)

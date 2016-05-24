@@ -311,7 +311,7 @@ void ViewPagesModel::setDeviceId(QString deviceId)
         return;
 
     d->mDeviceId = deviceId;
-    emit deviceIdChanged(deviceId);
+    Q_EMIT deviceIdChanged(deviceId);
 }
 
 void ViewPagesModel::setBrowseFlag(const QString &flag)
@@ -338,7 +338,7 @@ void ViewPagesModel::setUseLocalIcons(bool useLocalIcons)
         return;
 
     d->mUseLocalIcons = useLocalIcons;
-    emit useLocalIconsChanged();
+    Q_EMIT useLocalIconsChanged();
 }
 
 void ViewPagesModel::setAlbumDatabase(DatabaseInterface *albumDatabase)

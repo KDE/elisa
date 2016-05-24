@@ -31,6 +31,7 @@ class UpnpDiscoveryResult;
 class UpnpControlContentDirectory;
 class RemoteServerEntry;
 class UpnpAlbumModel;
+class DatabaseInterface;
 
 class ViewPagesModel : public QAbstractListModel
 {
@@ -66,6 +67,11 @@ class ViewPagesModel : public QAbstractListModel
                WRITE setUseLocalIcons
                NOTIFY useLocalIconsChanged)
 
+    Q_PROPERTY(DatabaseInterface* albumDatabase
+               READ albumDatabase
+               WRITE setAlbumDatabase
+               NOTIFY albumDatabaseChanged)
+
 public:
 
     enum ColumnsRoles {
@@ -100,6 +106,8 @@ public:
 
     bool useLocalIcons() const;
 
+    DatabaseInterface* albumDatabase() const;
+
 public Q_SLOTS:
 
     void newDevice(QSharedPointer<UpnpDiscoveryResult> serviceDiscovery);
@@ -115,6 +123,8 @@ public Q_SLOTS:
     void setSortCriteria(const QString &criteria);
 
     void setUseLocalIcons(bool useLocalIcons);
+
+    void setAlbumDatabase(DatabaseInterface* albumDatabase);
 
 private Q_SLOTS:
 
@@ -136,10 +146,11 @@ Q_SIGNALS:
 
     void useLocalIconsChanged();
 
+    void albumDatabaseChanged();
+
 private:
 
     ViewPagesModelPrivate *d;
-
 };
 
 #endif // VIEWPAGESMODEL_H

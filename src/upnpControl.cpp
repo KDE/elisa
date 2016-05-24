@@ -48,6 +48,7 @@
 #include "remoteserverentry.h"
 #include "musicstatistics.h"
 #include "albumfilterproxymodel.h"
+#include "databaseinterface.h"
 
 #if defined KF5Declarative_FOUND && KF5Declarative_FOUND
 #include <KDeclarative/KDeclarative>
@@ -98,12 +99,12 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
 #endif
 
     qmlRegisterType<AlbumFilterProxyModel>("org.mgallien.QmlExtension", 1, 0, "AlbumFilterProxyModel");
-
     qmlRegisterType<MediaPlayList>("org.mgallien.QmlExtension", 1, 0, "MediaPlayList");
     qmlRegisterType<PlayListControler>("org.mgallien.QmlExtension", 1, 0, "PlayListControler");
     qmlRegisterType<ViewPagesModel>("org.mgallien.QmlExtension", 1, 0, "ViewPagesModel");
     qmlRegisterType<MusicStatistics>("org.mgallien.QmlExtension", 1, 0, "MusicStatistics");
     qmlRegisterType<ProgressIndicator>("org.mgallien.QmlExtension", 1, 0, "ProgressIndicator");
+    qmlRegisterType<DatabaseInterface>("org.mgallien.QmlExtension", 1, 0, "DatabaseInterface");
 
 #if defined KF5Baloo_FOUND && KF5Baloo_FOUND
     qmlRegisterType<LocalAlbumModel>("org.mgallien.QmlExtension", 1, 0, "LocalAlbumModel");

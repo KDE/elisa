@@ -29,7 +29,7 @@
 #endif
 
 #include "upnpalbummodel.h"
-
+#include "databaseinterface.h"
 #include "remoteserverentry.h"
 
 #include <QtCore/QList>
@@ -73,6 +73,8 @@ public:
     QString mFilter;
 
     QString mSortCriteria;
+
+    DatabaseInterface* mAlbumDatabase = nullptr;
 
 };
 
@@ -243,6 +245,11 @@ bool ViewPagesModel::useLocalIcons() const
     return d->mUseLocalIcons;
 }
 
+DatabaseInterface *ViewPagesModel::albumDatabase() const
+{
+    return d->mAlbumDatabase;
+}
+
 void ViewPagesModel::newDevice(QSharedPointer<UpnpDiscoveryResult> serviceDiscovery)
 {
 #if defined UPNPQT_FOUND && UPNPQT_FOUND
@@ -332,6 +339,15 @@ void ViewPagesModel::setUseLocalIcons(bool useLocalIcons)
 
     d->mUseLocalIcons = useLocalIcons;
     emit useLocalIconsChanged();
+}
+
+void ViewPagesModel::setAlbumDatabase(DatabaseInterface *albumDatabase)
+{
+    if (d->mAlbumDatabase == albumDatabase)
+        return;
+
+    d->mAlbumDatabase = albumDatabase;
+    Q_EMIT albumDatabaseChanged();
 }
 
 void ViewPagesModel::deviceDescriptionChanged(const QString &uuid)

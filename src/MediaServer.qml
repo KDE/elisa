@@ -95,6 +95,10 @@ ApplicationWindow {
         onRemovedService: viewModeModel.removedDevice(serviceDiscovery)
     }
 
+    DatabaseInterface {
+        id: localAlbumDatabase
+    }
+
     ViewPagesModel {
         id: viewModeModel
 
@@ -103,6 +107,7 @@ ApplicationWindow {
         browseFlag: globalBrowseFlag
         filter: globalFilter
         sortCriteria: globalSortCriteria
+        albumDatabase: localAlbumDatabase
 
         property var mediaServiceComponent
         property var mediaViewComponent

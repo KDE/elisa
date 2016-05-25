@@ -45,6 +45,7 @@
 #include "mediaplaylist.h"
 #include "playlistcontroler.h"
 #include "viewpagesmodel.h"
+#include "upnpdiscoverallmusic.h"
 #include "remoteserverentry.h"
 #include "musicstatistics.h"
 #include "albumfilterproxymodel.h"
@@ -102,6 +103,7 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
     qmlRegisterType<MediaPlayList>("org.mgallien.QmlExtension", 1, 0, "MediaPlayList");
     qmlRegisterType<PlayListControler>("org.mgallien.QmlExtension", 1, 0, "PlayListControler");
     qmlRegisterType<ViewPagesModel>("org.mgallien.QmlExtension", 1, 0, "ViewPagesModel");
+    qmlRegisterType<UpnpDiscoverAllMusic>("org.mgallien.QmlExtension", 1, 0, "UpnpDiscoverAllMusic");
     qmlRegisterType<MusicStatistics>("org.mgallien.QmlExtension", 1, 0, "MusicStatistics");
     qmlRegisterType<ProgressIndicator>("org.mgallien.QmlExtension", 1, 0, "ProgressIndicator");
     qmlRegisterType<DatabaseInterface>("org.mgallien.QmlExtension", 1, 0, "DatabaseInterface");

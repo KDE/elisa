@@ -33,6 +33,8 @@ public:
 
     MusicAlbum();
 
+    bool mIsValid = false;
+
     QString mId;
 
     QString mParentId;

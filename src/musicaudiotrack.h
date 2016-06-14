@@ -32,6 +32,8 @@ public:
 
     MusicAudioTrack();
 
+    bool mIsValid = false;
+
     QString mId;
 
     QString mParentId;
@@ -42,7 +44,7 @@ public:
 
     QString mAlbumName;
 
-    int mTrackNumber;
+    int mTrackNumber = -1;
 
     QTime mDuration;
 

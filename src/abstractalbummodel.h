@@ -28,14 +28,16 @@
 #include "musicalbum.h"
 #include "musicaudiotrack.h"
 
+class DatabaseInterface;
 class AbstractAlbumModelPrivate;
 class MusicStatistics;
+class QMutex;
 
 class AbstractAlbumModel : public QAbstractItemModel
 {
     Q_OBJECT
 
-    Q_PROPERTY(MusicStatistics* musicDatabase
+    Q_PROPERTY(DatabaseInterface* musicDatabase
                READ musicDatabase
                WRITE setMusicDatabase
                NOTIFY musicDatabaseChanged)
@@ -83,7 +85,7 @@ public:
 
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
 
-    MusicStatistics* musicDatabase() const;
+    DatabaseInterface* musicDatabase() const;
 
 Q_SIGNALS:
 
@@ -97,11 +99,11 @@ Q_SIGNALS:
 
 public Q_SLOTS:
 
-    void setMusicDatabase(MusicStatistics* musicDatabase);
+    void setMusicDatabase(DatabaseInterface* musicDatabase);
 
     void albumsList(const QVector<MusicAlbum> &allAlbums);
 
-    void tracksList(const QHash<QString, QVector<MusicAudioTrack> > &tracks, const QHash<QString, QString> &covers);
+    void tracksList(QHash<QString, QVector<MusicAudioTrack> > tracks, QHash<QString, QString> covers);
 
 private Q_SLOTS:
 
@@ -110,8 +112,6 @@ private:
     QVariant internalDataAlbum(const MusicAlbum &albumData, int role) const;
 
     QVariant internalDataTrack(const MusicAudioTrack &track, const QModelIndex &index, int role) const;
-
-    void initDatabase();
 
     AbstractAlbumModelPrivate *d;
 };

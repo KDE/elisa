@@ -19,6 +19,7 @@
 
 #include "abstractalbummodel.h"
 #include "musicstatistics.h"
+#include "databaseinterface.h"
 
 #include <QtCore/QUrl>
 #include <QtCore/QTimer>
@@ -36,34 +37,17 @@ class AbstractAlbumModelPrivate
 {
 public:
 
+    AbstractAlbumModelPrivate()
+    {
+    }
+
+    DatabaseInterface *mMusicDatabase = new DatabaseInterface;
+
     bool mUseLocalIcons = false;
-
-    MusicStatistics *mMusicDatabase = nullptr;
-
-    QVector<MusicAlbum> mAlbumsData;
-
-    QMap<quintptr, int> mAlbumsIndex;
-
-    QMap<quintptr, quintptr> mTracksInAlbums;
-
-    QSqlDatabase mTracksDatabase;
-
 };
 
 AbstractAlbumModel::AbstractAlbumModel(QObject *parent) : QAbstractItemModel(parent), d(new AbstractAlbumModelPrivate)
 {
-    static int databaseCounter = 1;
-    d->mTracksDatabase = QSqlDatabase::addDatabase(QStringLiteral("QSQLITE"), QStringLiteral("album%1").arg(databaseCounter));
-    ++databaseCounter;
-    d->mTracksDatabase.setDatabaseName(QStringLiteral(":memory:"));
-    d->mTracksDatabase.setConnectOptions(QStringLiteral("foreign_keys = ON"));
-    auto result = d->mTracksDatabase.open();
-    if (result) {
-        qDebug() << "database open";
-    } else {
-        qDebug() << "database not open";
-    }
-
     Q_EMIT refreshContent();
 }
 
@@ -74,15 +58,22 @@ AbstractAlbumModel::~AbstractAlbumModel()
 
 int AbstractAlbumModel::rowCount(const QModelIndex &parent) const
 {
+    const auto albumCount = d->mMusicDatabase->albumCount();
+
     if (!parent.isValid()) {
-        return d->mAlbumsData.size();
+        return albumCount;
     }
 
-    if (parent.row() < 0 || parent.row() >= d->mAlbumsData.size()) {
+    if (parent.row() < 0 || parent.row() >= albumCount) {
         return 0;
     }
 
-    return d->mAlbumsData[parent.row()].mTracks.size();
+    const auto &currentAlbum = d->mMusicDatabase->albumFromIndex(parent.row());
+    if (!currentAlbum.mIsValid) {
+        return 0;
+    }
+
+    return currentAlbum.mTracks.size();
 }
 
 QHash<int, QByteArray> AbstractAlbumModel::roleNames() const
@@ -114,6 +105,8 @@ Qt::ItemFlags AbstractAlbumModel::flags(const QModelIndex &index) const
 
 QVariant AbstractAlbumModel::data(const QModelIndex &index, int role) const
 {
+    const auto albumCount = d->mMusicDatabase->albumCount();
+
     if (!index.isValid()) {
         return {};
     }
@@ -128,37 +121,33 @@ QVariant AbstractAlbumModel::data(const QModelIndex &index, int role) const
 
     if (!index.parent().isValid()) {
         if (index.internalId() == 0) {
-            if (index.row() < 0 || index.row() >= d->mAlbumsData.size()) {
+            if (index.row() < 0 || index.row() >= albumCount) {
                 return {};
             }
 
-            const auto &itAlbum = d->mAlbumsData[index.row()];
-            return internalDataAlbum(itAlbum, role);
+            const auto &currentAlbum = d->mMusicDatabase->albumFromIndex(index.row());
+
+            if (!currentAlbum.mIsValid) {
+                return {};
+            }
+
+            return internalDataAlbum(currentAlbum, role);
         }
     }
 
-    auto itTrack = d->mTracksInAlbums.find(index.internalId());
-    if (itTrack == d->mTracksInAlbums.end()) {
+    const auto &currentAlbum = d->mMusicDatabase->albumFromIndex(index.parent().row());
+
+    if (!currentAlbum.mIsValid) {
         return {};
     }
 
-    auto albumId = itTrack.value();
-    if (albumId >= quintptr(d->mAlbumsData.size())) {
+    const auto &currentTrack = currentAlbum.mTracks[currentAlbum.mTrackIds[index.row()]];
+
+    if (!currentTrack.mIsValid) {
         return {};
     }
 
-    const auto &currentAlbum = d->mAlbumsData[albumId];
-
-    if (index.row() < 0 || index.row() >= currentAlbum.mTracksCount) {
-        return {};
-    }
-
-    auto itTrackInCurrentAlbum = currentAlbum.mTracks.find(index.internalId());
-    if (itTrackInCurrentAlbum == currentAlbum.mTracks.end()) {
-        return {};
-    }
-
-    return internalDataTrack(itTrackInCurrentAlbum.value(), index, role);
+    return internalDataTrack(currentTrack, index, role);
 }
 
 QVariant AbstractAlbumModel::internalDataAlbum(const MusicAlbum &albumData, int role) const
@@ -250,36 +239,6 @@ QVariant AbstractAlbumModel::internalDataTrack(const MusicAudioTrack &track, con
     return {};
 }
 
-void AbstractAlbumModel::initDatabase()
-{
-    if (!d->mTracksDatabase.tables().contains(QStringLiteral("Albums"))) {
-        QSqlQuery createSchemaQuery(d->mTracksDatabase);
-
-        createSchemaQuery.exec(QStringLiteral("CREATE TABLE `Albums` (`ID` INTEGER PRIMARY KEY NOT NULL, "
-                                              "`Title` TEXT NOT NULL, "
-                                              "`Artist` TEXT NOT NULL, "
-                                              "`CoverFileName` TEXT NOT NULL, "
-                                              "`TracksCount` INTEGER NOT NULL, "
-                                              "UNIQUE (`Title`, `Artist`))"));
-
-        qDebug() << "AbstractAlbumModel::initDatabase" << createSchemaQuery.lastError();
-    }
-
-    if (!d->mTracksDatabase.tables().contains(QStringLiteral("Tracks"))) {
-        QSqlQuery createSchemaQuery(d->mTracksDatabase);
-
-        createSchemaQuery.exec(QStringLiteral("CREATE TABLE `Tracks` (`ID` INTEGER PRIMARY KEY NOT NULL, "
-                                              "`Title` TEXT NOT NULL, "
-                                              "`Album` TEXT NOT NULL, "
-                                              "`Artist` TEXT NOT NULL, "
-                                              "`FileName` TEXT NOT NULL UNIQUE, "
-                                              "UNIQUE (`Title`, `Album`, `Artist`), "
-                                              "CONSTRAINT fk_album FOREIGN KEY (`Album`, `Artist`) REFERENCES `Albums`(`Title`, `Artist`))"));
-
-        qDebug() << "AbstractAlbumModel::initDatabase" << createSchemaQuery.lastError();
-    }
-}
-
 QModelIndex AbstractAlbumModel::index(int row, int column, const QModelIndex &parent) const
 {
     if (column != 0) {
@@ -290,11 +249,13 @@ QModelIndex AbstractAlbumModel::index(int row, int column, const QModelIndex &pa
         return createIndex(row, column, nullptr);
     }
 
-    if (parent.row() < 0 || parent.row() >= d->mAlbumsData.size()) {
+    const auto albumCount = d->mMusicDatabase->albumCount();
+
+    if (parent.row() < 0 || parent.row() >= albumCount) {
         return {};
     }
 
-    const auto &currentAlbum = d->mAlbumsData[parent.row()];
+    const auto &currentAlbum = d->mMusicDatabase->albumFromIndex(parent.row());
 
     if (row >= currentAlbum.mTracksCount) {
         return {};
@@ -313,12 +274,7 @@ QModelIndex AbstractAlbumModel::parent(const QModelIndex &child) const
         return {};
     }
 
-    auto itTrack = d->mTracksInAlbums.find(child.internalId());
-    if (itTrack == d->mTracksInAlbums.end()) {
-        return {};
-    }
-
-    auto albumId = itTrack.value();
+    const auto albumId = d->mMusicDatabase->albumIdFromTrackId(child.internalId());
 
     return index(albumId, 0);
 }
@@ -330,26 +286,15 @@ int AbstractAlbumModel::columnCount(const QModelIndex &parent) const
     return 1;
 }
 
-MusicStatistics *AbstractAlbumModel::musicDatabase() const
+DatabaseInterface *AbstractAlbumModel::musicDatabase() const
 {
     return d->mMusicDatabase;
 }
 
-void AbstractAlbumModel::setMusicDatabase(MusicStatistics *musicDatabase)
+void AbstractAlbumModel::setMusicDatabase(DatabaseInterface *musicDatabase)
 {
-    if (d->mMusicDatabase == musicDatabase)
+    if (d->mMusicDatabase == musicDatabase) {
         return;
-
-    if (d->mMusicDatabase) {
-        disconnect(this, &AbstractAlbumModel::newAlbum, d->mMusicDatabase, &MusicStatistics::newAlbum);
-        disconnect(this, &AbstractAlbumModel::newAudioTrack, d->mMusicDatabase, &MusicStatistics::newAudioTrack);
-    }
-
-    d->mMusicDatabase = musicDatabase;
-
-    if (d->mMusicDatabase) {
-        connect(this, &AbstractAlbumModel::newAlbum, d->mMusicDatabase, &MusicStatistics::newAlbum);
-        connect(this, &AbstractAlbumModel::newAudioTrack, d->mMusicDatabase, &MusicStatistics::newAudioTrack);
     }
 
     emit musicDatabaseChanged();
@@ -358,267 +303,23 @@ void AbstractAlbumModel::setMusicDatabase(MusicStatistics *musicDatabase)
 void AbstractAlbumModel::albumsList(const QVector<MusicAlbum> &allAlbums)
 {
     beginResetModel();
-
-    initDatabase();
-
-    d->mAlbumsData.clear();
-
-    auto selectAlbumQueryText = QStringLiteral("SELECT ID FROM `Albums` "
-                                          "WHERE "
-                                          "`Title` = :title AND "
-                                          "`Artist` = :artist");
-
-    QSqlQuery selectAlbumQuery(d->mTracksDatabase);
-    selectAlbumQuery.prepare(selectAlbumQueryText);
-
-    auto insertAlbumQueryText = QStringLiteral("INSERT INTO Albums (`Title`, `Artist`, `CoverFileName`, `TracksCount`)"
-                                          "VALUES (:title, :artist, :coverFileName, :tracksCount)");
-
-    QSqlQuery insertAlbumQuery(d->mTracksDatabase);
-    insertAlbumQuery.prepare(insertAlbumQueryText);
-
-    for(const auto &album : allAlbums) {
-        quintptr albumId = 0;
-
-        selectAlbumQuery.bindValue(QStringLiteral(":title"), album.mTitle);
-        selectAlbumQuery.bindValue(QStringLiteral(":artist"), album.mArtist);
-
-        selectAlbumQuery.exec();
-
-        if (!selectAlbumQuery.isSelect() || !selectAlbumQuery.isActive()) {
-            qDebug() << "AbstractAlbumModel::albumsList" << "not select" << selectAlbumQuery.lastQuery();
-            qDebug() << "AbstractAlbumModel::albumsList" << selectAlbumQuery.lastError();
-        }
-
-        if (selectAlbumQuery.next()) {
-            albumId = selectAlbumQuery.record().value(0).toInt() - 1;
-        } else {
-            insertAlbumQuery.bindValue(QStringLiteral(":title"), album.mTitle);
-            insertAlbumQuery.bindValue(QStringLiteral(":artist"), album.mArtist);
-            insertAlbumQuery.bindValue(QStringLiteral(":coverFileName"), album.mAlbumArtURI);
-            insertAlbumQuery.bindValue(QStringLiteral(":tracksCount"), 0);
-
-            insertAlbumQuery.exec();
-
-            if (!insertAlbumQuery.isActive()) {
-                qDebug() << "AbstractAlbumModel::albumsList" << "not select" << insertAlbumQuery.lastQuery();
-                qDebug() << "AbstractAlbumModel::albumsList" << insertAlbumQuery.lastError();
-
-                continue;
-            }
-
-            selectAlbumQuery.exec();
-
-            if (!selectAlbumQuery.isSelect() || !selectAlbumQuery.isActive()) {
-                qDebug() << "AbstractAlbumModel::albumsList" << "not select" << selectAlbumQuery.lastQuery();
-                qDebug() << "AbstractAlbumModel::albumsList" << selectAlbumQuery.lastError();
-
-                continue;
-            }
-
-            if (selectAlbumQuery.next()) {
-                albumId = selectAlbumQuery.record().value(0).toInt() - 1;
-            }
-        }
-
-        d->mAlbumsData.push_back(album);
-        d->mAlbumsIndex[albumId] = d->mAlbumsData.size() - 1;
+    if (d->mMusicDatabase) {
+        d->mMusicDatabase->insertAlbumsList(allAlbums);
     }
-
     endResetModel();
+
+    return;
 }
 
-void AbstractAlbumModel::tracksList(const QHash<QString, QVector<MusicAudioTrack> > &tracks, const QHash<QString, QString> &covers)
+void AbstractAlbumModel::tracksList(QHash<QString, QVector<MusicAudioTrack> > tracks, QHash<QString, QString> covers)
 {
-    const bool insertManyAlbums = (tracks.size() > 10);
-
-    if (insertManyAlbums) {
-        beginResetModel();
+    beginResetModel();
+    if (d->mMusicDatabase) {
+        d->mMusicDatabase->insertTracksList(tracks, covers);
     }
+    endResetModel();
 
-    initDatabase();
-
-    //d->mAlbumsData.clear();
-
-    auto selectTrackQueryText = QStringLiteral("SELECT ID FROM `Tracks` "
-                                          "WHERE "
-                                          "`Title` = :title AND "
-                                          "`Album` = :album AND "
-                                          "`Artist` = :artist");
-
-    QSqlQuery selectTrackQuery(d->mTracksDatabase);
-    selectTrackQuery.prepare(selectTrackQueryText);
-
-    auto insertTrackQueryText = QStringLiteral("INSERT INTO Tracks (`Title`, `Album`, `Artist`, `FileName`)"
-                                          "VALUES (:title, :album, :artist, :fileName)");
-
-    QSqlQuery insertTrackQuery(d->mTracksDatabase);
-    insertTrackQuery.prepare(insertTrackQueryText);
-
-    auto selectAlbumQueryText = QStringLiteral("SELECT ID FROM `Albums` "
-                                          "WHERE "
-                                          "`Title` = :title AND "
-                                          "`Artist` = :artist");
-
-    QSqlQuery selectAlbumQuery(d->mTracksDatabase);
-    selectAlbumQuery.prepare(selectAlbumQueryText);
-
-    auto insertAlbumQueryText = QStringLiteral("INSERT INTO Albums (`Title`, `Artist`, `CoverFileName`, `TracksCount`)"
-                                          "VALUES (:title, :artist, :coverFileName, :tracksCount)");
-
-    QSqlQuery insertAlbumQuery(d->mTracksDatabase);
-    insertAlbumQuery.prepare(insertAlbumQueryText);
-
-    quintptr albumId = 0;
-    for (const auto &album : tracks) {
-        MusicAlbum newAlbum;
-
-        for(const auto &track : album) {
-            if (newAlbum.mArtist.isNull()) {
-                newAlbum.mArtist = track.mArtist;
-            }
-
-            if (newAlbum.mTitle.isNull()) {
-                newAlbum.mTitle = track.mAlbumName;
-            }
-
-            if (newAlbum.mAlbumArtURI.isEmpty()) {
-                newAlbum.mAlbumArtURI = QUrl::fromLocalFile(covers[track.mAlbumName]);
-            }
-
-            if (!newAlbum.mArtist.isNull() && !newAlbum.mTitle.isNull() && !newAlbum.mAlbumArtURI.isEmpty()) {
-                break;
-            }
-        }
-
-        selectAlbumQuery.bindValue(QStringLiteral(":title"), newAlbum.mTitle);
-        selectAlbumQuery.bindValue(QStringLiteral(":artist"), newAlbum.mArtist);
-
-        selectAlbumQuery.exec();
-
-        if (!selectAlbumQuery.isSelect() || !selectAlbumQuery.isActive()) {
-            qDebug() << "AbstractAlbumModel::tracksList" << "not select" << selectAlbumQuery.lastQuery();
-            qDebug() << "AbstractAlbumModel::tracksList" << selectAlbumQuery.lastError();
-        }
-
-        if (selectAlbumQuery.next()) {
-            albumId = selectAlbumQuery.record().value(0).toInt() - 1;
-        } else {
-            if (!insertManyAlbums) {
-                beginInsertRows({}, d->mAlbumsData.size(), d->mAlbumsData.size());
-            }
-
-            insertAlbumQuery.bindValue(QStringLiteral(":title"), newAlbum.mTitle);
-            insertAlbumQuery.bindValue(QStringLiteral(":artist"), newAlbum.mArtist);
-            insertAlbumQuery.bindValue(QStringLiteral(":coverFileName"), newAlbum.mAlbumArtURI);
-            insertAlbumQuery.bindValue(QStringLiteral(":tracksCount"), 0);
-
-            insertAlbumQuery.exec();
-
-            if (!insertAlbumQuery.isActive()) {
-                qDebug() << "AbstractAlbumModel::tracksList" << "not select" << insertAlbumQuery.lastQuery();
-                qDebug() << "AbstractAlbumModel::tracksList" << insertAlbumQuery.lastError();
-
-                continue;
-            }
-
-            selectAlbumQuery.exec();
-
-            if (!selectAlbumQuery.isSelect() || !selectAlbumQuery.isActive()) {
-                qDebug() << "AbstractAlbumModel::tracksList" << "not select" << selectAlbumQuery.lastQuery();
-                qDebug() << "AbstractAlbumModel::tracksList" << selectAlbumQuery.lastError();
-
-                continue;
-            }
-
-            if (selectAlbumQuery.next()) {
-                albumId = selectAlbumQuery.record().value(0).toInt() - 1;
-            }
-
-            d->mAlbumsData.push_back(newAlbum);
-            d->mAlbumsIndex[albumId] = d->mAlbumsData.size() - 1;
-
-            if (!insertManyAlbums) {
-                endInsertRows();
-            }
-        }
-
-        auto &currentAlbum = d->mAlbumsData[d->mAlbumsIndex[albumId]];
-
-        if (!currentAlbum.mTrackIds.isEmpty()) {
-            beginRemoveRows(index(d->mAlbumsIndex[albumId], 0), 0, currentAlbum.mTrackIds.size() - 1);
-            currentAlbum.mTrackIds.clear();
-            currentAlbum.mTracks.clear();
-            currentAlbum.mTracksCount = 0;
-            endRemoveRows();
-        }
-
-        if (!insertManyAlbums) {
-            beginInsertRows(index(d->mAlbumsIndex[albumId], 0), 0, album.size() - 1);
-        }
-
-        for(const auto &track : album) {
-            quintptr currentElementId = 0;
-            QString artistName = track.mArtist;
-
-            if (artistName.isEmpty()) {
-                artistName = currentAlbum.mArtist;
-            }
-
-            selectTrackQuery.bindValue(QStringLiteral(":title"), track.mTitle);
-            selectTrackQuery.bindValue(QStringLiteral(":album"), track.mAlbumName);
-            selectTrackQuery.bindValue(QStringLiteral(":artist"), artistName);
-
-            selectTrackQuery.exec();
-
-            if (!selectTrackQuery.isSelect() || !selectTrackQuery.isActive()) {
-                qDebug() << "AbstractAlbumModel::tracksList" << "not select" << selectTrackQuery.lastQuery();
-                qDebug() << "AbstractAlbumModel::tracksList" << selectTrackQuery.lastError();
-            }
-
-            if (selectTrackQuery.next()) {
-                currentElementId = selectTrackQuery.record().value(0).toInt();
-                continue;
-            } else {
-                insertTrackQuery.bindValue(QStringLiteral(":title"), track.mTitle);
-                insertTrackQuery.bindValue(QStringLiteral(":album"), track.mAlbumName);
-                insertTrackQuery.bindValue(QStringLiteral(":artist"), artistName);
-                insertTrackQuery.bindValue(QStringLiteral(":fileName"), track.mResourceURI);
-
-                insertTrackQuery.exec();
-
-                if (!insertTrackQuery.isActive()) {
-                    qDebug() << "AbstractAlbumModel::tracksList" << "not select" << insertTrackQuery.lastQuery();
-                    qDebug() << "AbstractAlbumModel::tracksList" << insertTrackQuery.lastError();
-                }
-
-                selectTrackQuery.exec();
-
-                if (!selectTrackQuery.isSelect() || !selectTrackQuery.isActive()) {
-                    qDebug() << "AbstractAlbumModel::tracksList" << "not select" << selectTrackQuery.lastQuery();
-                    qDebug() << "AbstractAlbumModel::tracksList" << selectTrackQuery.lastError();
-                }
-
-                if (selectTrackQuery.next()) {
-                    currentElementId = selectTrackQuery.record().value(0).toInt();
-                }
-            }
-
-            currentAlbum.mTracks[currentElementId] = track;
-            currentAlbum.mTracks[currentElementId].mArtist = artistName;
-            currentAlbum.mTrackIds.push_back(currentElementId);
-            d->mTracksInAlbums[currentElementId] = albumId;
-            currentAlbum.mTracksCount = currentAlbum.mTracks.size();
-        }
-
-        if (!insertManyAlbums) {
-            endInsertRows();
-        }
-    }
-
-    if (insertManyAlbums) {
-        endResetModel();
-    }
+    return;
 }
 
 #include "moc_abstractalbummodel.cpp"

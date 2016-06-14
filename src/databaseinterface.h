@@ -40,17 +40,25 @@ public:
 
     virtual ~DatabaseInterface();
 
+    MusicAlbum albumFromIndex(int albumIndex) const;
+
+    MusicAlbum albumFromId(quint64 albumId) const;
+
+    int albumIdFromTrackId(quintptr trackId) const;
+
+    int albumCount() const;
+
 Q_SIGNALS:
 
 public Q_SLOTS:
 
-    void albumsList(const QVector<MusicAlbum> &allAlbums);
+    void insertAlbumsList(const QVector<MusicAlbum> &allAlbums);
 
-    void tracksList(QHash<QString, QVector<MusicAudioTrack> > tracks, QHash<QString, QString> covers);
+    void insertTracksList(QHash<QString, QVector<MusicAudioTrack> > tracks, QHash<QString, QString> covers);
 
 private:
 
-    void initDatabase();
+    void initDatabase() const;
 
     DatabaseInterfacePrivate *d;
 

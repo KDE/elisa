@@ -77,6 +77,10 @@ bool UpnpAlbumModel::canFetchMore(const QModelIndex &parent) const
         return false;
     }
 
+    if (parent.row() < 0 || parent.row() > d->mChilds.size() -1) {
+        return false;
+    }
+
     if (!d->mAlbumParsers.contains(d->mChilds[parent.row()])) {
         return true;
     }

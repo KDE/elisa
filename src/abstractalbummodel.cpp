@@ -141,6 +141,10 @@ QVariant AbstractAlbumModel::data(const QModelIndex &index, int role) const
         return {};
     }
 
+    if (index.row() >= currentAlbum.mTracks.size()) {
+        return {};
+    }
+
     const auto &currentTrack = currentAlbum.mTracks[currentAlbum.mTrackIds[index.row()]];
 
     if (!currentTrack.mIsValid) {
@@ -313,11 +317,15 @@ void AbstractAlbumModel::albumsList(const QVector<MusicAlbum> &allAlbums)
 
 void AbstractAlbumModel::tracksList(QHash<QString, QVector<MusicAudioTrack> > tracks, QHash<QString, QString> covers)
 {
-    beginResetModel();
+    if (tracks.size() > 1) {
+        beginResetModel();
+    }
     if (d->mMusicDatabase) {
         d->mMusicDatabase->insertTracksList(tracks, covers);
     }
-    endResetModel();
+    if (tracks.size() > 1) {
+        endResetModel();
+    }
 
     return;
 }

@@ -61,7 +61,8 @@ MusicAlbum DatabaseInterface::albumFromIndex(int albumIndex) const
 
     MusicAlbum retrievedAlbum;
 
-    auto selectAlbumQueryText = QStringLiteral("SELECT `Title`, "
+    auto selectAlbumQueryText = QStringLiteral("SELECT `ID`, "
+                                               "`Title`, "
                                                "`AlbumInternalID`, "
                                                "`Artist`, "
                                                "`CoverFileName`, "
@@ -92,11 +93,14 @@ MusicAlbum DatabaseInterface::albumFromIndex(int albumIndex) const
         return retrievedAlbum;
     }
 
-    retrievedAlbum.mTitle = selectAlbumQuery.record().value(0).toString();
-    retrievedAlbum.mId = selectAlbumQuery.record().value(1).toString();
-    retrievedAlbum.mArtist = selectAlbumQuery.record().value(2).toString();
-    retrievedAlbum.mAlbumArtURI = selectAlbumQuery.record().value(3).toUrl();
-    retrievedAlbum.mTracksCount = selectAlbumQuery.record().value(4).toInt();
+    retrievedAlbum.mDatabaseId = selectAlbumQuery.record().value(0).toLongLong();
+    retrievedAlbum.mTitle = selectAlbumQuery.record().value(1).toString();
+    retrievedAlbum.mId = selectAlbumQuery.record().value(2).toString();
+    retrievedAlbum.mArtist = selectAlbumQuery.record().value(3).toString();
+    retrievedAlbum.mAlbumArtURI = selectAlbumQuery.record().value(4).toUrl();
+    retrievedAlbum.mTracksCount = selectAlbumQuery.record().value(5).toInt();
+    retrievedAlbum.mTracks = fetchTracks(retrievedAlbum.mDatabaseId);
+    retrievedAlbum.mTrackIds = retrievedAlbum.mTracks.keys();
     retrievedAlbum.mIsValid = true;
 
     return retrievedAlbum;
@@ -108,7 +112,8 @@ MusicAlbum DatabaseInterface::albumFromId(quint64 albumId) const
 
     MusicAlbum retrievedAlbum;
 
-    auto selectAlbumQueryText = QStringLiteral("SELECT `Title`, "
+    auto selectAlbumQueryText = QStringLiteral("SELECT `ID`, "
+                                               "`Title`, "
                                                "`AlbumInternalID`, "
                                                "`Artist`, "
                                                "`CoverFileName`, "
@@ -141,11 +146,14 @@ MusicAlbum DatabaseInterface::albumFromId(quint64 albumId) const
         return retrievedAlbum;
     }
 
-    retrievedAlbum.mTitle = selectAlbumQuery.record().value(0).toString();
-    retrievedAlbum.mId = selectAlbumQuery.record().value(1).toString();
-    retrievedAlbum.mArtist = selectAlbumQuery.record().value(2).toString();
-    retrievedAlbum.mAlbumArtURI = selectAlbumQuery.record().value(3).toUrl();
-    retrievedAlbum.mTracksCount = selectAlbumQuery.record().value(4).toInt();
+    retrievedAlbum.mDatabaseId = selectAlbumQuery.record().value(0).toLongLong();
+    retrievedAlbum.mTitle = selectAlbumQuery.record().value(1).toString();
+    retrievedAlbum.mId = selectAlbumQuery.record().value(2).toString();
+    retrievedAlbum.mArtist = selectAlbumQuery.record().value(3).toString();
+    retrievedAlbum.mAlbumArtURI = selectAlbumQuery.record().value(4).toUrl();
+    retrievedAlbum.mTracksCount = selectAlbumQuery.record().value(5).toInt();
+    retrievedAlbum.mTracks = fetchTracks(retrievedAlbum.mDatabaseId);
+    retrievedAlbum.mTrackIds = retrievedAlbum.mTracks.keys();
     retrievedAlbum.mIsValid = true;
 
     return retrievedAlbum;
@@ -326,8 +334,8 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
         qDebug() << "DatabaseInterface::insertTracksList" << selectTrackQuery.lastError();
     }
 
-    auto insertTrackQueryText = QStringLiteral("INSERT INTO Tracks (`Title`, `AlbumID`, `Artist`, `FileName`)"
-                                          "VALUES (:title, :album, :artist, :fileName)");
+    auto insertTrackQueryText = QStringLiteral("INSERT INTO Tracks (`Title`, `AlbumID`, `Artist`, `FileName`, `TrackNumber`)"
+                                          "VALUES (:title, :album, :artist, :fileName, :trackNumber)");
 
     QSqlQuery insertTrackQuery(d->mTracksDatabase);
     result = insertTrackQuery.prepare(insertTrackQueryText);
@@ -453,6 +461,7 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
                 insertTrackQuery.bindValue(QStringLiteral(":album"), albumId);
                 insertTrackQuery.bindValue(QStringLiteral(":artist"), artistName);
                 insertTrackQuery.bindValue(QStringLiteral(":fileName"), track.mResourceURI);
+                insertTrackQuery.bindValue(QStringLiteral(":trackNumber"), track.mTrackNumber);
 
                 result = insertTrackQuery.exec();
 
@@ -515,12 +524,13 @@ void DatabaseInterface::initDatabase() const
         QSqlQuery createSchemaQuery(d->mTracksDatabase);
 
         const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `Tracks` (`ID` INTEGER PRIMARY KEY NOT NULL, "
-                                              "`Title` TEXT NOT NULL, "
-                                              "`AlbumID` INTEGER NOT NULL, "
-                                              "`Artist` TEXT NOT NULL, "
-                                              "`FileName` TEXT NOT NULL UNIQUE, "
-                                              "UNIQUE (`Title`, `AlbumID`, `Artist`), "
-                                              "CONSTRAINT fk_album FOREIGN KEY (`AlbumID`) REFERENCES `Albums`(`ID`))"));
+                                                                   "`Title` TEXT NOT NULL, "
+                                                                   "`AlbumID` INTEGER NOT NULL, "
+                                                                   "`Artist` TEXT NOT NULL, "
+                                                                   "`FileName` TEXT NOT NULL UNIQUE, "
+                                                                   "`TrackNumber` INTEGER NOT NULL, "
+                                                                   "UNIQUE (`Title`, `AlbumID`, `Artist`), "
+                                                                   "CONSTRAINT fk_album FOREIGN KEY (`AlbumID`) REFERENCES `Albums`(`ID`))"));
 
         if (!result) {
             qDebug() << "AbstractAlbumModel::initDatabase" << createSchemaQuery.lastError();
@@ -541,6 +551,55 @@ void DatabaseInterface::initDatabase() const
             qDebug() << "AbstractAlbumModel::initDatabase" << createSchemaQuery.lastError();
         }
     }
+}
+
+QMap<qlonglong, MusicAudioTrack> DatabaseInterface::fetchTracks(qlonglong albumId) const
+{
+    QMap<qlonglong, MusicAudioTrack> allTracks;
+
+    auto selectTrackQueryText = QStringLiteral("SELECT `ID`, "
+                                               "`Title`, "
+                                               "`AlbumID`, "
+                                               "`Artist`, "
+                                               "`FileName`, "
+                                               "`TrackNumber` "
+                                               "FROM `Tracks` "
+                                               "WHERE "
+                                               "`AlbumID` = :albumId");
+
+    QSqlQuery selectTrackQuery(d->mTracksDatabase);
+    auto result = selectTrackQuery.prepare(selectTrackQueryText);
+
+    if (!result) {
+        qDebug() << "DatabaseInterface::fetchTracks" << selectTrackQuery.lastError();
+
+        return {};
+    }
+
+    selectTrackQuery.bindValue(QStringLiteral(":albumId"), albumId);
+
+    result = selectTrackQuery.exec();
+
+    if (!result || !selectTrackQuery.isSelect() || !selectTrackQuery.isActive()) {
+        qDebug() << "DatabaseInterface::fetchTracks" << "not select" << selectTrackQuery.lastQuery();
+        qDebug() << "DatabaseInterface::fetchTracks" << selectTrackQuery.lastError();
+    }
+
+    while (selectTrackQuery.next()) {
+        MusicAudioTrack newTrack;
+
+        newTrack.mDatabaseId = selectTrackQuery.record().value(0).toLongLong();
+        newTrack.mTitle = selectTrackQuery.record().value(1).toString();
+        newTrack.mParentId = selectTrackQuery.record().value(2).toString();
+        newTrack.mArtist = selectTrackQuery.record().value(3).toString();
+        newTrack.mResourceURI = selectTrackQuery.record().value(4).toUrl();
+        newTrack.mTrackNumber = selectTrackQuery.record().value(5).toInt();
+        newTrack.mIsValid = true;
+
+        allTracks[newTrack.mDatabaseId] = newTrack;
+    }
+
+    return allTracks;
 }
 
 

@@ -60,6 +60,8 @@ private:
 
     void initDatabase() const;
 
+    QMap<qlonglong, MusicAudioTrack> fetchTracks(qlonglong albumId) const;
+
     DatabaseInterfacePrivate *d;
 
 };

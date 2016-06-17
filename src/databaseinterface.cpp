@@ -106,7 +106,7 @@ MusicAlbum DatabaseInterface::albumFromIndex(int albumIndex) const
     return retrievedAlbum;
 }
 
-MusicAlbum DatabaseInterface::albumFromId(quint64 albumId) const
+MusicAlbum DatabaseInterface::albumFromId(qlonglong albumId) const
 {
     initDatabase();
 

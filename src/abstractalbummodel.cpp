@@ -265,7 +265,7 @@ QModelIndex AbstractAlbumModel::index(int row, int column, const QModelIndex &pa
         return {};
     }
 
-    return createIndex(row, column, currentAlbum.mTrackIds[row]);
+    return createIndex(row, column, currentAlbum.mDatabaseId);
 }
 
 QModelIndex AbstractAlbumModel::parent(const QModelIndex &child) const
@@ -278,9 +278,7 @@ QModelIndex AbstractAlbumModel::parent(const QModelIndex &child) const
         return {};
     }
 
-    const auto albumId = d->mMusicDatabase->albumIdFromTrackId(child.internalId());
-
-    return index(albumId, 0);
+    return index(child.internalId(), 0);
 }
 
 int AbstractAlbumModel::columnCount(const QModelIndex &parent) const

@@ -42,7 +42,7 @@ public:
 
     MusicAlbum albumFromIndex(int albumIndex) const;
 
-    MusicAlbum albumFromId(quint64 albumId) const;
+    MusicAlbum albumFromId(qlonglong albumId) const;
 
     int albumIdFromTrackId(quintptr trackId) const;
 

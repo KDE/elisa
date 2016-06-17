@@ -226,8 +226,6 @@ int DatabaseInterface::albumCount() const
 
 void DatabaseInterface::insertAlbumsList(const QVector<MusicAlbum> &allAlbums)
 {
-    qDebug() << "DatabaseInterface::insertAlbumsList";
-
     auto transactionResult = d->mTracksDatabase.transaction();
     if (!transactionResult) {
         qDebug() << "transaction failed";
@@ -311,8 +309,6 @@ void DatabaseInterface::insertAlbumsList(const QVector<MusicAlbum> &allAlbums)
 
 void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack> > tracks, QHash<QString, QString> covers)
 {
-    qDebug() << "DatabaseInterface::insertTracksList";
-
     initDatabase();
 
     auto transactionResult = d->mTracksDatabase.transaction();
@@ -402,7 +398,6 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
 
         if (selectAlbumQuery.next()) {
             albumId = selectAlbumQuery.record().value(0).toInt();
-            qDebug() << "DatabaseInterface::insertTracksList" << "albumId" << newAlbum.mTitle << albumId << newAlbum.mArtist;
         } else {
             insertAlbumQuery.bindValue(QStringLiteral(":title"), newAlbum.mTitle);
             insertAlbumQuery.bindValue(QStringLiteral(":artist"), newAlbum.mArtist);
@@ -429,7 +424,6 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
 
             if (selectAlbumQuery.next()) {
                 albumId = selectAlbumQuery.record().value(0).toInt();
-                qDebug() << "DatabaseInterface::insertTracksList" << "albumId" << newAlbum.mTitle << albumId << newAlbum.mArtist;
             }
         }
 
@@ -456,7 +450,6 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
                 //currentElementId = selectTrackQuery.record().value(0).toInt();
                 continue;
             } else {
-                qDebug() << "DatabaseInterface::insertTracksList" << "insert track" << track.mTitle << albumId << artistName << track.mAlbumName;
                 insertTrackQuery.bindValue(QStringLiteral(":title"), track.mTitle);
                 insertTrackQuery.bindValue(QStringLiteral(":album"), albumId);
                 insertTrackQuery.bindValue(QStringLiteral(":artist"), artistName);

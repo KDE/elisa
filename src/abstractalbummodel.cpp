@@ -26,8 +26,6 @@
 #include <QtCore/QPointer>
 #include <QtCore/QVector>
 
-#include <QtCore/QDebug>
-
 #include <QtSql/QSqlDatabase>
 #include <QtSql/QSqlQuery>
 #include <QtSql/QSqlRecord>

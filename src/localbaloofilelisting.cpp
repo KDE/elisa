@@ -65,8 +65,16 @@ void LocalBalooFileListing::init()
     bool connectResult = con.connect(QString(), QStringLiteral("/fileindexer"), QStringLiteral("org.kde.baloo.fileindexer"),
                                 QStringLiteral("finishedIndexingFile"), this, SLOT(slotFinishedIndexingFile(QString)));
 
+    if (!connectResult) {
+        qDebug() << "problem with baloo monitoring";
+    }
+
     connectResult = con.connect(QString(), QStringLiteral("/files"), QStringLiteral("org.kde"),
                 QStringLiteral("changed"), this, SLOT(slotFileMetaDataChanged(QStringList)));
+
+    if (!connectResult) {
+        qDebug() << "problem with baloo monitoring";
+    }
 }
 
 void LocalBalooFileListing::slotFinishedIndexingFile(QString fileName)

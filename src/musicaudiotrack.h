@@ -34,6 +34,8 @@ public:
 
     bool mIsValid = false;
 
+    qlonglong mDatabaseId = -1;
+
     QString mId;
 
     QString mParentId;

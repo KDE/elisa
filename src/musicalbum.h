@@ -35,6 +35,8 @@ public:
 
     bool mIsValid = false;
 
+    qlonglong mDatabaseId = -1;
+
     QString mId;
 
     QString mParentId;
@@ -49,9 +51,9 @@ public:
 
     QUrl mResourceURI;
 
-    QMap<quintptr, MusicAudioTrack> mTracks;
+    QMap<qlonglong, MusicAudioTrack> mTracks;
 
-    QList<quintptr> mTrackIds;
+    QList<qlonglong> mTrackIds;
 
 };
 

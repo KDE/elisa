@@ -278,7 +278,7 @@ QModelIndex AbstractAlbumModel::parent(const QModelIndex &child) const
         return {};
     }
 
-    return index(child.internalId(), 0);
+    return index(child.internalId() - 1, 0);
 }
 
 int AbstractAlbumModel::columnCount(const QModelIndex &parent) const

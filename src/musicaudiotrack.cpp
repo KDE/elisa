@@ -23,3 +23,9 @@ MusicAudioTrack::MusicAudioTrack()
 {
 
 }
+
+bool MusicAudioTrack::operator <(const MusicAudioTrack &other) const
+{
+    return mTrackNumber < other.mTrackNumber;
+}
+

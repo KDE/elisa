@@ -52,6 +52,8 @@ public:
 
     QUrl mResourceURI;
 
+    bool operator <(const MusicAudioTrack &other) const;
+
 };
 
 Q_DECLARE_METATYPE(MusicAudioTrack)

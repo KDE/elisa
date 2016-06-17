@@ -136,7 +136,7 @@ void LocalBalooFileListing::refreshContent()
             auto albumValue = albumProperty->toString();
             auto &allTracks = d->mAllAlbums[albumValue];
 
-            std::sort(allTracks.begin(), allTracks.end(), [](const auto &left, const auto &right) {return left.mTrackNumber <= right.mTrackNumber;});
+            std::sort(allTracks.begin(), allTracks.end());
         }
     }
 

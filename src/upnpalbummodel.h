@@ -138,10 +138,6 @@ private Q_SLOTS:
 
 private:
 
-    QVariant internalDataAlbum(const QModelIndex &index, int role, DidlParser *currentParser) const;
-
-    QVariant internalDataTrack(const QModelIndex &index, int role, DidlParser *currentParser) const;
-
     UpnpAlbumModelPrivate *d;
 
 };

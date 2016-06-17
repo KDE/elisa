@@ -113,53 +113,6 @@ void UpnpAlbumModel::fetchMore(const QModelIndex &parent)
     }
 }
 
-QVariant UpnpAlbumModel::internalDataTrack(const QModelIndex &index, int role, DidlParser *currentParser) const
-{
-    ColumnsRoles convertedRole = static_cast<ColumnsRoles>(role);
-
-    if (index.row() < 0 || index.row() >= currentParser->newMusicTrackIds().size()) {
-        return {};
-    }
-
-    const auto &musicTrackId = currentParser->newMusicTrackIds()[index.row()];
-
-    switch(convertedRole)
-    {
-    case ColumnsRoles::TitleRole:
-        return currentParser->newMusicTracks()[musicTrackId].mTitle;
-    case ColumnsRoles::DurationRole:
-        if (currentParser->newMusicTracks()[musicTrackId].mDuration.hour() == 0) {
-            return currentParser->newMusicTracks()[musicTrackId].mDuration.toString(QStringLiteral("mm:ss"));
-        } else {
-            return currentParser->newMusicTracks()[musicTrackId].mDuration.toString();
-        }
-    case ColumnsRoles::CreatorRole:
-        return currentParser->newMusicTracks()[musicTrackId].mArtist;
-    case ColumnsRoles::ArtistRole:
-        return currentParser->newMusicTracks()[musicTrackId].mArtist;
-    case ColumnsRoles::AlbumRole:
-        return currentParser->newMusicTracks()[musicTrackId].mAlbumName;
-    case ColumnsRoles::TrackNumberRole:
-        return currentParser->newMusicTracks()[musicTrackId].mTrackNumber;
-    case ColumnsRoles::RatingRole:
-        return 0;
-    case ColumnsRoles::ImageRole:
-        return data(index.parent(), role);
-    case ColumnsRoles::ResourceRole:
-        return currentParser->newMusicTracks()[musicTrackId].mResourceURI;
-    case ColumnsRoles::ItemClassRole:
-        return {};
-    case ColumnsRoles::CountRole:
-        return {};
-    case ColumnsRoles::IdRole:
-        return currentParser->newMusicTracks()[musicTrackId].mId;
-    case ColumnsRoles::IsPlayingRole:
-        return false;
-    }
-
-    return {};
-}
-
 UpnpControlContentDirectory *UpnpAlbumModel::contentDirectory() const
 {
     return d->mContentDirectory;

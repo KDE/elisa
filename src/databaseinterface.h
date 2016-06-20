@@ -48,6 +48,8 @@ public:
 
     int albumCount() const;
 
+    int albumPositionByIndex(qlonglong index) const;
+
 Q_SIGNALS:
 
 public Q_SLOTS:
@@ -61,6 +63,8 @@ private:
     void initDatabase() const;
 
     QMap<qlonglong, MusicAudioTrack> fetchTracks(qlonglong albumId) const;
+
+    void updateIndexCache();
 
     DatabaseInterfacePrivate *d;
 

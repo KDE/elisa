@@ -125,10 +125,6 @@ Item {
                                              model.trackNumber
                                          else
                                              ''
-                            trackRating: if (model != undefined && model.rating !== undefined)
-                                             model.rating
-                                         else
-                                             ''
                             isPlaying: if (model != undefined && model.isPlaying !== undefined)
                                            model.isPlaying
                                        else

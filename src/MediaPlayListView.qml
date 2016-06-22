@@ -151,11 +151,6 @@ Item {
                                              model.trackNumber
                                          else
                                              ''
-                            trackRating: if (model != undefined && model.rating !== undefined)
-                                             model.rating
-                                         else
-                                             ''
-
                             isPlaying: model.isPlaying
                             showHoverButtons: false
 

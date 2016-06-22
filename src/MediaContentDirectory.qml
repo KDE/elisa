@@ -71,6 +71,7 @@ Item {
             initialItem: MediaServerListing {
                 stackView: listingView
                 contentModel: contentDirectoryModel
+                musicDatabase: musicStats
                 playListModel: contentDirectoryRoot.playListModel
             }
 

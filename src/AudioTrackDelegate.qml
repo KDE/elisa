@@ -29,11 +29,10 @@ Item {
 
     property string title
     property string artist
-    property string itemDecoration
-    property string duration
+    property alias itemDecoration : mainIcon.source
+    property alias duration : durationLabel.text
     property int trackNumber
-    property int trackRating
-    property bool isPlaying
+    property alias isPlaying : playIcon.visible
     property bool showHoverButtons
     property Action hoverAction
 
@@ -65,45 +64,51 @@ Item {
                 fillMode: Image.PreserveAspectFit
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
 
-                Rectangle {
-                    id: hoverLayer
+                Loader {
+                    id: hoverLoader
+                    active: false
 
                     anchors.fill: parent
 
-                    color: 'black'
-                    opacity: 0.7
-                    visible: false
+                    sourceComponent: Rectangle {
+                        id: hoverLayer
 
-                    BrightnessContrast {
-                        anchors.fill: playAction
-                        source: playAction
-                        brightness: 1.0
-                        contrast: 1.0
+                        anchors.fill: parent
 
-                        MouseArea {
-                            id: clickHandle
+                        color: 'black'
+                        opacity: 0.7
 
-                            anchors.fill: parent
-                            acceptedButtons: Qt.LeftButton
+                        BrightnessContrast {
+                            anchors.fill: playAction
+                            source: playAction
+                            brightness: 1.0
+                            contrast: 1.0
 
-                            onClicked: hoverAction.trigger(clickHandle)
+                            MouseArea {
+                                id: clickHandle
+
+                                anchors.fill: parent
+                                acceptedButtons: Qt.LeftButton
+
+                                onClicked: hoverAction.trigger(clickHandle)
+                            }
                         }
-                    }
 
-                    Image {
-                        id: playAction
-                        source: hoverAction.iconSource
+                        Image {
+                            id: playAction
+                            source: hoverAction.iconSource
 
-                        anchors.centerIn: parent
+                            anchors.centerIn: parent
 
-                        opacity: 1
-                        visible: false
+                            opacity: 1
+                            visible: false
 
-                        width: Screen.pixelDensity * 10
-                        height: Screen.pixelDensity * 10
-                        sourceSize.width: width
-                        sourceSize.height: width
-                        fillMode: Image.PreserveAspectFit
+                            width: Screen.pixelDensity * 10
+                            height: Screen.pixelDensity * 10
+                            sourceSize.width: width
+                            sourceSize.height: width
+                            fillMode: Image.PreserveAspectFit
+                        }
                     }
                 }
             }
@@ -224,19 +229,6 @@ Item {
             Item {
                 Layout.fillHeight: true
             }
-
-            RatingStar {
-                id: mainRating
-                starSize: 20
-                starRating: trackRating
-                Layout.alignment: Qt.AlignRight
-            }
-
-            Item {
-                Layout.preferredHeight: Screen.pixelDensity * 3.
-                Layout.minimumHeight: Screen.pixelDensity * 3.
-                Layout.maximumHeight: Screen.pixelDensity * 3.
-            }
         }
 
         Item {
@@ -256,8 +248,8 @@ Item {
         anchors.fill: parent
         propagateComposedEvents: true
 
-        onEntered: hoverLayer.visible = true
-        onExited: hoverLayer.visible = false
+        onEntered: hoverLoader.active = true
+        onExited: hoverLoader.active = false
     }
 }
 

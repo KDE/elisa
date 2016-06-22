@@ -33,6 +33,7 @@ Item {
     property StackView stackView
     property var contentModel
     property MediaPlayList playListModel
+    property MusicStatistics musicDatabase
 
     id: rootElement
 
@@ -81,57 +82,63 @@ Item {
 
                     Layout.alignment: Qt.AlignHCenter
 
-                    Rectangle {
-                        id: hoverLayer
+                    Loader {
+                        id: hoverLoader
+                        active: false
 
                         anchors.fill: parent
 
-                        color: 'black'
-                        opacity: 0.7
-                        visible: false
+                        sourceComponent: Rectangle {
+                            id: hoverLayer
 
-                        BrightnessContrast {
-                            anchors.fill: playAction
-                            source: playAction
-                            brightness: 1.0
-                            contrast: 1.0
+                            anchors.fill: parent
 
-                            MouseArea {
-                                id: clickHandle
+                            color: 'black'
+                            opacity: 0.7
 
-                                anchors.fill: parent
-                                acceptedButtons: Qt.LeftButton
+                            BrightnessContrast {
+                                anchors.fill: playAction
+                                source: playAction
+                                brightness: 1.0
+                                contrast: 1.0
 
-                                onClicked: {
-                                    stackView.push(Qt.resolvedUrl("MediaAlbumView.qml"),
-                                                   {
-                                                       'rootIndex': filterProxyModel.mapToSource(delegateContentModel.modelIndex(mediaServerEntry.DelegateModel.itemsIndex)),
-                                                       'stackView': stackView,
-                                                       'contentModel': contentModel,
-                                                       'playListModel': playListModel,
-                                                       'albumArtUrl': image,
-                                                       'albumName': title,
-                                                       'artistName': artist,
-                                                       'tracksCount': count
-                                                   })
+                                MouseArea {
+                                    id: clickHandle
+
+                                    anchors.fill: parent
+                                    acceptedButtons: Qt.LeftButton
+
+                                    onClicked: {
+                                        stackView.push(Qt.resolvedUrl("MediaAlbumView.qml"),
+                                                       {
+                                                           'rootIndex': filterProxyModel.mapToSource(delegateContentModel.modelIndex(mediaServerEntry.DelegateModel.itemsIndex)),
+                                                           'stackView': stackView,
+                                                           'contentModel': contentModel,
+                                                           'playListModel': playListModel,
+                                                           'albumArtUrl': image,
+                                                           'albumName': title,
+                                                           'artistName': artist,
+                                                           'tracksCount': count
+                                                       })
+                                    }
                                 }
                             }
-                        }
 
-                        Image {
-                            id: playAction
-                            source: 'image://icon/document-open-folder'
+                            Image {
+                                id: playAction
+                                source: 'image://icon/document-open-folder'
 
-                            anchors.centerIn: parent
+                                anchors.centerIn: parent
 
-                            opacity: 1
-                            visible: false
+                                opacity: 1
+                                visible: false
 
-                            width: Screen.pixelDensity * 10
-                            height: Screen.pixelDensity * 10
-                            sourceSize.width: width
-                            sourceSize.height: width
-                            fillMode: Image.PreserveAspectFit
+                                width: Screen.pixelDensity * 10
+                                height: Screen.pixelDensity * 10
+                                sourceSize.width: width
+                                sourceSize.height: width
+                                fillMode: Image.PreserveAspectFit
+                            }
                         }
                     }
 
@@ -143,8 +150,8 @@ Item {
                         anchors.fill: parent
                         propagateComposedEvents: true
 
-                        onEntered: hoverLayer.visible = true
-                        onExited: hoverLayer.visible = false
+                        onEntered: hoverLoader.active = true
+                        onExited: hoverLoader.active = false
                     }
                 }
 
@@ -236,7 +243,6 @@ Item {
                 anchors.fill: parent
                 GridView {
                     id: contentDirectoryView
-                    snapMode: GridView.SnapToRow
 
                     cellWidth: Screen.pixelDensity * 40.
                     cellHeight: Screen.pixelDensity * 60.

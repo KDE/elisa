@@ -82,6 +82,12 @@ ApplicationWindow {
         onTriggered: Qt.quit()
     }
 
+    Mpris2 {
+        id: mpris2Interface
+
+        playerName: 'elisa'
+    }
+
     UpnpSsdpEngine {
         id: mySsdpEngine
 

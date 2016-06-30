@@ -51,6 +51,8 @@
 #include "albumfilterproxymodel.h"
 #include "databaseinterface.h"
 
+#include "mpris2/mpris2.h"
+
 #if defined KF5Declarative_FOUND && KF5Declarative_FOUND
 #include <KDeclarative/KDeclarative>
 #endif
@@ -107,6 +109,10 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
     qmlRegisterType<MusicStatistics>("org.mgallien.QmlExtension", 1, 0, "MusicStatistics");
     qmlRegisterType<ProgressIndicator>("org.mgallien.QmlExtension", 1, 0, "ProgressIndicator");
     qmlRegisterType<DatabaseInterface>("org.mgallien.QmlExtension", 1, 0, "DatabaseInterface");
+
+#if defined Qt5DBus_FOUND && Qt5DBus_FOUND
+    qmlRegisterType<Mpris2>("org.mgallien.QmlExtension", 1, 0, "Mpris2");
+#endif
 
 #if defined KF5Baloo_FOUND && KF5Baloo_FOUND
     qmlRegisterType<LocalAlbumModel>("org.mgallien.QmlExtension", 1, 0, "LocalAlbumModel");

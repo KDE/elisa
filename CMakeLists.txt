@@ -21,6 +21,7 @@ find_package(KF5I18n CONFIG QUIET)
 find_package(KF5CoreAddons CONFIG QUIET)
 find_package(KF5Baloo CONFIG QUIET)
 find_package(KF5FileMetaData CONFIG QUIET)
+find_package(KF5Service CONFIG QUIET)
 
 find_package(KDSoap CONFIG QUIET)
 find_package(UPNPQT CONFIG QUIET)
@@ -45,5 +46,5 @@ add_subdirectory(src)
 #add_subdirectory(tests)
 #add_subdirectory(autotests)
 
-feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
+feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)
 

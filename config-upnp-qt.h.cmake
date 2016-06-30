@@ -7,3 +7,5 @@
 #cmakedefine01 KF5Baloo_FOUND
 
 #cmakedefine01 UPNPQT_FOUND
+
+#cmakedefine01 Qt5DBus_FOUND

@@ -55,6 +55,16 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         endif()
     endif()
 
+    if (Qt5DBus_FOUND)
+        set(elisa_SOURCES
+            ${elisa_SOURCES}
+            mpris2/mpris2.cpp
+            mpris2/mediaplayer2.cpp
+            mpris2/mediaplayer2player.cpp
+            mpris2/mediaplayer2tracklist.cpp
+        )
+    endif()
+
     if (UPNPQT_FOUND)
         set(elisa_SOURCES
             ${elisa_SOURCES}
@@ -130,6 +140,13 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         target_link_libraries(elisa
             LINK_PRIVATE
                 KF5::Declarative
+        )
+    endif()
+
+    if (KF5Service_FOUND)
+        target_link_libraries(elisa
+            LINK_PRIVATE
+                KF5::Service
         )
     endif()
 

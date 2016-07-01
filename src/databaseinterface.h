@@ -64,6 +64,8 @@ private:
 
     QMap<qlonglong, MusicAudioTrack> fetchTracks(qlonglong albumId) const;
 
+    void updateTracksCount(qlonglong albumId, int tracksCount) const;
+
     void updateIndexCache();
 
     DatabaseInterfacePrivate *d;

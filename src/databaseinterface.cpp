@@ -27,6 +27,8 @@
 #include <QtCore/QVariant>
 #include <QtCore/QDebug>
 
+#include <algorithm>
+
 class DatabaseInterfacePrivate
 {
 public:
@@ -44,8 +46,8 @@ DatabaseInterface::DatabaseInterface(QObject *parent) : QObject(parent), d(new D
     static int databaseCounter = 1;
     d->mTracksDatabase = QSqlDatabase::addDatabase(QStringLiteral("QSQLITE"), QStringLiteral("album%1").arg(databaseCounter));
     ++databaseCounter;
-    d->mTracksDatabase.setDatabaseName(QStringLiteral(":memory:"));
-    d->mTracksDatabase.setConnectOptions(QStringLiteral("foreign_keys = ON"));
+    d->mTracksDatabase.setDatabaseName(QStringLiteral("file:memdb1?mode=memory&cache=shared"));
+    d->mTracksDatabase.setConnectOptions(QStringLiteral("foreign_keys = ON;QSQLITE_OPEN_URI;QSQLITE_ENABLE_SHARED_CACHE"));
     auto result = d->mTracksDatabase.open();
     if (result) {
         qDebug() << "database open";
@@ -197,18 +199,12 @@ int DatabaseInterface::albumPositionByIndex(qlonglong index) const
 
 void DatabaseInterface::insertAlbumsList(const QVector<MusicAlbum> &allAlbums)
 {
-    auto transactionResult = d->mTracksDatabase.transaction();
-    if (!transactionResult) {
-        qDebug() << "transaction failed";
-        return;
-    }
-
     initDatabase();
 
     auto selectAlbumQueryText = QStringLiteral("SELECT ID FROM `Albums` "
                                           "WHERE "
-                                          "`Title` = :title AND "
-                                          "`Artist` = :artist");
+                                          "`Title` = :title");/* AND "
+                                          "`Artist` = :artist");*/
 
     QSqlQuery selectAlbumQuery(d->mTracksDatabase);
     auto result = selectAlbumQuery.prepare(selectAlbumQueryText);
@@ -227,8 +223,13 @@ void DatabaseInterface::insertAlbumsList(const QVector<MusicAlbum> &allAlbums)
         qDebug() << "DatabaseInterface::insertAlbumsList" << insertAlbumQuery.lastError();
     }
 
+    int albumId = 0;
     for(const auto &album : allAlbums) {
-        //quintptr albumId = 0;
+        auto transactionResult = d->mTracksDatabase.transaction();
+        if (!transactionResult) {
+            qDebug() << "transaction failed";
+            return;
+        }
 
         selectAlbumQuery.bindValue(QStringLiteral(":title"), album.mTitle);
         selectAlbumQuery.bindValue(QStringLiteral(":artist"), album.mArtist);
@@ -241,18 +242,26 @@ void DatabaseInterface::insertAlbumsList(const QVector<MusicAlbum> &allAlbums)
         }
 
         if (selectAlbumQuery.next()) {
-            //albumId = selectAlbumQuery.record().value(0).toInt() - 1;
+            albumId = std::max(albumId, selectAlbumQuery.record().value(0).toInt());
         } else {
             insertAlbumQuery.bindValue(QStringLiteral(":title"), album.mTitle);
             insertAlbumQuery.bindValue(QStringLiteral(":artist"), album.mArtist);
             insertAlbumQuery.bindValue(QStringLiteral(":coverFileName"), album.mAlbumArtURI);
             insertAlbumQuery.bindValue(QStringLiteral(":tracksCount"), album.mTracksCount);
 
+            qDebug() << "new album" << album.mTitle;
+
             result = insertAlbumQuery.exec();
 
             if (!result || !insertAlbumQuery.isActive()) {
                 qDebug() << "DatabaseInterface::insertAlbumsList" << "not select" << insertAlbumQuery.lastQuery();
                 qDebug() << "DatabaseInterface::insertAlbumsList" << insertAlbumQuery.lastError();
+
+                transactionResult = d->mTracksDatabase.commit();
+                if (!transactionResult) {
+                    qDebug() << "commit failed";
+                    return;
+                }
 
                 continue;
             }
@@ -263,20 +272,28 @@ void DatabaseInterface::insertAlbumsList(const QVector<MusicAlbum> &allAlbums)
                 qDebug() << "DatabaseInterface::insertAlbumsList" << "not select" << selectAlbumQuery.lastQuery();
                 qDebug() << "DatabaseInterface::insertAlbumsList" << selectAlbumQuery.lastError();
 
+                transactionResult = d->mTracksDatabase.commit();
+                if (!transactionResult) {
+                    qDebug() << "commit failed";
+                    return;
+                }
+
                 continue;
             }
 
             if (selectAlbumQuery.next()) {
-                //albumId = selectAlbumQuery.record().value(0).toInt() - 1;
+                albumId = std::max(albumId, selectAlbumQuery.record().value(0).toInt());
             }
+        }
+
+        transactionResult = d->mTracksDatabase.commit();
+        if (!transactionResult) {
+            qDebug() << "commit failed";
+            return;
         }
     }
 
-    transactionResult = d->mTracksDatabase.commit();
-    if (!transactionResult) {
-        qDebug() << "commit failed";
-        return;
-    }
+    qDebug() << "maximum albumId" << albumId;
 
     updateIndexCache();
 }
@@ -284,12 +301,6 @@ void DatabaseInterface::insertAlbumsList(const QVector<MusicAlbum> &allAlbums)
 void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack> > tracks, QHash<QString, QString> covers)
 {
     initDatabase();
-
-    auto transactionResult = d->mTracksDatabase.transaction();
-    if (!transactionResult) {
-        qDebug() << "transaction failed";
-        return;
-    }
 
     auto selectTrackQueryText = QStringLiteral("SELECT ID FROM `Tracks` "
                                           "WHERE "
@@ -316,8 +327,8 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
 
     auto selectAlbumQueryText = QStringLiteral("SELECT ID FROM `Albums` "
                                           "WHERE "
-                                          "`Title` = :title AND "
-                                          "`Artist` = :artist");
+                                          "`Title` = :title");/* AND "
+                                          "`Artist` = :artist");*/
 
     QSqlQuery selectAlbumQuery(d->mTracksDatabase);
     result = selectAlbumQuery.prepare(selectAlbumQueryText);
@@ -336,9 +347,16 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
         qDebug() << "DatabaseInterface::insertTracksList" << insertAlbumQuery.lastError();
     }
 
+    int maximumAlbumId = 0;
     quintptr albumId = 0;
     for (const auto &album : tracks) {
         MusicAlbum newAlbum;
+
+        auto transactionResult = d->mTracksDatabase.transaction();
+        if (!transactionResult) {
+            qDebug() << "transaction failed";
+            return;
+        }
 
         for(const auto &track : album) {
             if (newAlbum.mArtist.isNull()) {
@@ -372,17 +390,26 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
 
         if (selectAlbumQuery.next()) {
             albumId = selectAlbumQuery.record().value(0).toInt();
+            maximumAlbumId = std::max(maximumAlbumId, selectAlbumQuery.record().value(0).toInt());
         } else {
             insertAlbumQuery.bindValue(QStringLiteral(":title"), newAlbum.mTitle);
             insertAlbumQuery.bindValue(QStringLiteral(":artist"), newAlbum.mArtist);
             insertAlbumQuery.bindValue(QStringLiteral(":coverFileName"), newAlbum.mAlbumArtURI);
             insertAlbumQuery.bindValue(QStringLiteral(":tracksCount"), newAlbum.mTracksCount);
 
+            qDebug() << "new album" << newAlbum.mTitle << newAlbum.mArtist;
+
             result = insertAlbumQuery.exec();
 
             if (!result) {
                 qDebug() << "DatabaseInterface::insertTracksList" << insertAlbumQuery.lastQuery();
                 qDebug() << "DatabaseInterface::insertTracksList" << insertAlbumQuery.lastError();
+
+                transactionResult = d->mTracksDatabase.commit();
+                if (!transactionResult) {
+                    qDebug() << "commit failed";
+                    return;
+                }
 
                 continue;
             }
@@ -393,11 +420,18 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
                 qDebug() << "DatabaseInterface::insertTracksList" << "not select" << selectAlbumQuery.lastQuery();
                 qDebug() << "DatabaseInterface::insertTracksList" << selectAlbumQuery.lastError();
 
+                transactionResult = d->mTracksDatabase.commit();
+                if (!transactionResult) {
+                    qDebug() << "commit failed";
+                    return;
+                }
+
                 continue;
             }
 
             if (selectAlbumQuery.next()) {
                 albumId = selectAlbumQuery.record().value(0).toInt();
+                maximumAlbumId = std::max(maximumAlbumId, selectAlbumQuery.record().value(0).toInt());
             }
         }
 
@@ -445,17 +479,20 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
                 }
 
                 if (selectTrackQuery.next()) {
-                    //currentElementId = selectTrackQuery.record().value(0).toInt();
+                    //auto currentElementId = selectTrackQuery.record().value(0).toInt();
+                    //qDebug() << "DatabaseInterface::insertTracksList" << "insert track" << track.mTitle << artistName << track.mAlbumName << currentElementId << albumId;
                 }
             }
         }
+
+        transactionResult = d->mTracksDatabase.commit();
+        if (!transactionResult) {
+            qDebug() << "commit failed";
+            return;
+        }
     }
 
-    transactionResult = d->mTracksDatabase.commit();
-    if (!transactionResult) {
-        qDebug() << "commit failed";
-        return;
-    }
+    qDebug() << "maximum albumId" << albumId;
 
     updateIndexCache();
 }
@@ -548,6 +585,8 @@ QMap<qlonglong, MusicAudioTrack> DatabaseInterface::fetchTracks(qlonglong albumI
                                                "WHERE "
                                                "`AlbumID` = :albumId");
 
+
+
     QSqlQuery selectTrackQuery(d->mTracksDatabase);
     auto result = selectTrackQuery.prepare(selectTrackQueryText);
 
@@ -580,7 +619,72 @@ QMap<qlonglong, MusicAudioTrack> DatabaseInterface::fetchTracks(qlonglong albumI
         allTracks[newTrack.mDatabaseId] = newTrack;
     }
 
+    updateTracksCount(albumId, allTracks.size());
+
     return allTracks;
+}
+
+void DatabaseInterface::updateTracksCount(qlonglong albumId, int tracksCount) const
+{
+
+    auto selectAlbumQueryText = QStringLiteral("SELECT `TracksCount` "
+                                               "FROM `Albums`"
+                                               "WHERE "
+                                               "`ID` = :albumId");
+
+    QSqlQuery selectAlbumQuery(d->mTracksDatabase);
+    auto result = selectAlbumQuery.prepare(selectAlbumQueryText);
+
+    if (!result) {
+        qDebug() << "DatabaseInterface::albumFromId" << selectAlbumQuery.lastError();
+
+        return;
+    }
+
+    selectAlbumQuery.bindValue(QStringLiteral(":albumId"), albumId);
+
+    result = selectAlbumQuery.exec();
+
+    if (!result || !selectAlbumQuery.isSelect() || !selectAlbumQuery.isActive()) {
+        qDebug() << "DatabaseInterface::albumFromId" << "not select" << selectAlbumQuery.lastQuery();
+        qDebug() << "DatabaseInterface::albumFromId" << selectAlbumQuery.lastError();
+
+        return;
+    }
+
+    if (!selectAlbumQuery.next()) {
+        return;
+    }
+
+    auto oldTracksCount = selectAlbumQuery.record().value(0).toInt();
+
+    if (oldTracksCount != tracksCount) {
+        auto updateAlbumQueryText = QStringLiteral("UPDATE `Albums` "
+                                                   "SET `TracksCount`=:tracksCount "
+                                                   "WHERE "
+                                                   "`ID` = :albumId");
+
+        QSqlQuery updateAlbumQuery(d->mTracksDatabase);
+        auto result = updateAlbumQuery.prepare(updateAlbumQueryText);
+
+        if (!result) {
+            qDebug() << "DatabaseInterface::albumFromId" << updateAlbumQuery.lastError();
+
+            return;
+        }
+
+        updateAlbumQuery.bindValue(QStringLiteral(":tracksCount"), tracksCount);
+        updateAlbumQuery.bindValue(QStringLiteral(":albumId"), albumId);
+
+        result = updateAlbumQuery.exec();
+
+        if (!result || !updateAlbumQuery.isActive()) {
+            qDebug() << "DatabaseInterface::albumFromId" << "not select" << updateAlbumQuery.lastQuery();
+            qDebug() << "DatabaseInterface::albumFromId" << updateAlbumQuery.lastError();
+
+            return;
+        }
+    }
 }
 
 void DatabaseInterface::updateIndexCache()

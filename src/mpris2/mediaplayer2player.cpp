@@ -48,6 +48,10 @@ MediaPlayer2Player::MediaPlayer2Player(PlayListControler *playListControler, QOb
             this, &MediaPlayer2Player::skipBackwardControlEnabledChanged);
     connect(m_playListControler, &PlayListControler::skipForwardControlEnabledChanged,
             this, &MediaPlayer2Player::skipForwardControlEnabledChanged);
+    connect(m_playListControler, &PlayListControler::musicPlayingChanged,
+            this, &MediaPlayer2Player::musicPlayingChanged);
+    connect(m_playListControler, &PlayListControler::musicPlayerStoppedChanged,
+            this, &MediaPlayer2Player::musicPlayerStoppedChanged);
 
     m_mediaPlayerPresent = 1;
 }
@@ -58,12 +62,17 @@ MediaPlayer2Player::~MediaPlayer2Player()
 
 QString MediaPlayer2Player::PlaybackStatus() const
 {
-    /*if (m_status == RuntimeData::PmcStatus::Stopped) {
+    if (!m_playListControler) {
         return QLatin1String("Stopped");
-    } else if (m_status == RuntimeData::PmcStatus::Paused) {
-        return QLatin1String("Paused");
-    } else*/
-        return QLatin1String("Playing");
+    }
+
+    if (m_playListControler->musicPlayerStopped()) {
+        return QStringLiteral("Stopped");
+    } else if (m_playListControler->musicPlaying()) {
+        return QStringLiteral("Playing");
+    } else {
+        return QStringLiteral("Paused");
+    }
 }
 
 bool MediaPlayer2Player::CanGoNext() const
@@ -269,6 +278,16 @@ void MediaPlayer2Player::skipForwardControlEnabledChanged()
     m_canGoNext = m_playListControler->skipForwardControlEnabled();
 
     signalPropertiesChange(QStringLiteral("CanGoNext"), CanGoNext());
+}
+
+void MediaPlayer2Player::musicPlayingChanged()
+{
+    signalPropertiesChange(QStringLiteral("PlaybackStatus"), PlaybackStatus());
+}
+
+void MediaPlayer2Player::musicPlayerStoppedChanged()
+{
+    signalPropertiesChange(QStringLiteral("PlaybackStatus"), PlaybackStatus());
 }
 
 QString MediaPlayer2Player::currentTrack() const

@@ -275,6 +275,11 @@ bool PlayListControler::repeatPlay() const
     return mRepeatPlay;
 }
 
+bool PlayListControler::musicPlayerStopped() const
+{
+    return mPlayerState == PlayerState::Stopped;
+}
+
 void PlayListControler::playListReset()
 {
     if (!mCurrentTrack.isValid()) {
@@ -372,6 +377,7 @@ void PlayListControler::playerPlaying()
     mPlayerState = PlayListControler::PlayerState::Playing;
     mPlayListModel->setData(mCurrentTrack, true, mIsPlayingRole);
     Q_EMIT musicPlayingChanged();
+    Q_EMIT musicPlayerStoppedChanged();
 }
 
 void PlayListControler::playerStopped()
@@ -379,6 +385,7 @@ void PlayListControler::playerStopped()
     mPlayListModel->setData(mCurrentTrack, false, mIsPlayingRole);
     mPlayerState = PlayListControler::PlayerState::Stopped;
     Q_EMIT musicPlayingChanged();
+    Q_EMIT musicPlayerStoppedChanged();
 }
 
 void PlayListControler::skipNextTrack()

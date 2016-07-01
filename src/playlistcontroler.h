@@ -51,6 +51,10 @@ class PlayListControler : public QObject
                READ musicPlaying
                NOTIFY musicPlayingChanged)
 
+    Q_PROPERTY(bool musicPlayerStopped
+               READ musicPlayerStopped
+               NOTIFY musicPlayerStoppedChanged)
+
     Q_PROPERTY(QAbstractItemModel* playListModel
                READ playListModel
                WRITE setPlayListModel
@@ -212,6 +216,8 @@ public:
 
     bool repeatPlay() const;
 
+    bool musicPlayerStopped() const;
+
 Q_SIGNALS:
 
     void playMusic();
@@ -263,6 +269,8 @@ Q_SIGNALS:
     void randomPlayChanged();
 
     void repeatPlayChanged();
+
+    void musicPlayerStoppedChanged();
 
 public Q_SLOTS:
 
@@ -342,7 +350,6 @@ private:
     bool mRepeatPlay;
 
     bool mIsInPlayingState;
-
 };
 
 #endif // PLAYLISTCONTROLER_H

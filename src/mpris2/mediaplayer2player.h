@@ -105,6 +105,10 @@ private Q_SLOTS:
 
     void skipForwardControlEnabledChanged();
 
+    void musicPlayingChanged();
+
+    void musicPlayerStoppedChanged();
+
 private:
     void signalPropertiesChange(const QString &property, const QVariant &value);
 

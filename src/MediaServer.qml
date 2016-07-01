@@ -86,6 +86,8 @@ ApplicationWindow {
         id: mpris2Interface
 
         playerName: 'elisa'
+        playListModel: playListModelItem
+        playListControler: playListControlerItem
     }
 
     UpnpSsdpEngine {
@@ -136,13 +138,13 @@ ApplicationWindow {
         muted: playControlItem.muted
 
         volume: playControlItem.volume
-        source: playListControler.playerSource
+        source: playListControlerItem.playerSource
 
-        onPlaying: playListControler.playerPlaying()
-        onPaused: playListControler.playerPaused()
-        onStopped: playListControler.playerStopped()
-        onPositionChanged: playListControler.audioPlayerPositionChanged(position)
-        onStatusChanged: playListControler.audioPlayerFinished(status == Audio.EndOfMedia)
+        onPlaying: playListControlerItem.playerPlaying()
+        onPaused: playListControlerItem.playerPaused()
+        onStopped: playListControlerItem.playerStopped()
+        onPositionChanged: playListControlerItem.audioPlayerPositionChanged(position)
+        onStatusChanged: playListControlerItem.audioPlayerFinished(status == Audio.EndOfMedia)
     }
 
     MediaPlayList {
@@ -152,7 +154,7 @@ ApplicationWindow {
     }
 
     PlayListControler {
-        id: playListControler
+        id: playListControlerItem
 
         playListModel: playListModelItem
 
@@ -183,11 +185,11 @@ ApplicationWindow {
             Layout.maximumHeight: Layout.preferredHeight
             Layout.fillWidth: true
 
-            tracksCount: playListControler.remainingTracks
-            album: playListControler.album
-            title: playListControler.title
-            artist: playListControler.artist
-            image: playListControler.image
+            tracksCount: playListControlerItem.remainingTracks
+            album: playListControlerItem.album
+            title: playListControlerItem.title
+            artist: playListControlerItem.artist
+            image: playListControlerItem.image
             ratingVisible: false
         }
 
@@ -198,22 +200,22 @@ ApplicationWindow {
             seekable: audioPlayer.seekable
 
             volume: 1.0
-            position: playListControler.playControlPosition
-            skipBackwardEnabled: playListControler.skipBackwardControlEnabled
-            skipForwardEnabled: playListControler.skipForwardControlEnabled
-            playEnabled: playListControler.playControlEnabled
-            isPlaying: playListControler.musicPlaying
+            position: playListControlerItem.playControlPosition
+            skipBackwardEnabled: playListControlerItem.skipBackwardControlEnabled
+            skipForwardEnabled: playListControlerItem.skipForwardControlEnabled
+            playEnabled: playListControlerItem.playControlEnabled
+            isPlaying: playListControlerItem.musicPlaying
 
             Layout.preferredHeight: Screen.pixelDensity * 10.
             Layout.minimumHeight: Layout.preferredHeight
             Layout.maximumHeight: Layout.preferredHeight
             Layout.fillWidth: true
 
-            onSeek: playListControler.playerSeek(position)
-            onPlay: playListControler.playPause()
-            onPause: playListControler.playPause()
-            onPlayPrevious: playListControler.skipPreviousTrack()
-            onPlayNext: playListControler.skipNextTrack()
+            onSeek: playListControlerItem.playerSeek(position)
+            onPlay: playListControlerItem.playPause()
+            onPause: playListControlerItem.playPause()
+            onPlayPrevious: playListControlerItem.skipPreviousTrack()
+            onPlayNext: playListControlerItem.skipNextTrack()
         }
 
         RowLayout {
@@ -327,17 +329,17 @@ ApplicationWindow {
                         playControl: playControlItem
                         playListModel: playListModelItem
 
-                        artistName: playListControler.artist
-                        albumName: playListControler.album
-                        albumArtUrl: playListControler.image
+                        artistName: playListControlerItem.artist
+                        albumName: playListControlerItem.album
+                        albumArtUrl: playListControlerItem.image
 
                         anchors.fill: parent
                         anchors.margins: 3
 
                         Component.onCompleted:
                         {
-                            playListControler.randomPlay = Qt.binding(function() { return playList.randomPlayChecked })
-                            playListControler.repeatPlay = Qt.binding(function() { return playList.repeatPlayChecked })
+                            playListControlerItem.randomPlay = Qt.binding(function() { return playList.randomPlayChecked })
+                            playListControlerItem.repeatPlay = Qt.binding(function() { return playList.repeatPlayChecked })
                         }
                     }
                 }

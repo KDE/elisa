@@ -1,9 +1,10 @@
 /***************************************************************************
  *   Copyright 2014 Ashish Madeti <ashishmadeti@gmail.com>                 *
+ *   Copyright 2016 Matthieu Gallien <mgallien@mgallien.fr>                *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
+ *   the Free Software Foundation; either version 3 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
  *   This program is distributed in the hope that it will be useful,       *
@@ -20,22 +21,26 @@
 #include "mediaplayer2tracklist.h"
 #include "mpris2.h"
 
-static const QString playlistTidPrefix(QStringLiteral("/org/kde/plasmamediacenter/playlist/"));
+#include "mediaplaylist.h"
+
+#include <QAbstractItemModel>
+
+static const QString playlistTidPrefix(QStringLiteral("/org/kde/elisa/playlist/"));
 static const QDBusObjectPath mprisNoTrack(QStringLiteral("/org/mpris/MediaPlayer2/TrackList/NoTrack"));
 
-MediaPlayer2Tracklist::MediaPlayer2Tracklist(QObject *parent)
-    : QDBusAbstractAdaptor(parent)
+MediaPlayer2Tracklist::MediaPlayer2Tracklist(QAbstractItemModel *playListModel, QObject *parent)
+    : QDBusAbstractAdaptor(parent), m_playListModel(playListModel)
 {
     qDBusRegisterMetaType< QList<QVariantMap> >();
 
-    /*QObject::connect(m_playlistModel, SIGNAL(rowsInserted(QModelIndex,int,int)), this, SLOT(rowsInsertedInModel(QModelIndex,int,int)));
-    QObject::connect(m_playlistModel, SIGNAL(rowsRemoved(QModelIndex,int,int)), this, SLOT(rowsRemovedFromModel(QModelIndex,int,int)));
-    QObject::connect(m_playlistModel, SIGNAL(modelReset()), this, SLOT(resetTrackIds()));
-    QObject::connect(m_playlistModel, SIGNAL(rowsMoved(QModelIndex,int,int,QModelIndex,int)), this, SLOT(rowsMovedInModel(QModelIndex,int,int,QModelIndex,int)));*/
+    QObject::connect(m_playListModel, &QAbstractItemModel::rowsInserted, this, &MediaPlayer2Tracklist::rowsInsertedInModel);
+    QObject::connect(m_playListModel, &QAbstractItemModel::rowsRemoved, this, &MediaPlayer2Tracklist::rowsRemovedFromModel);
+    QObject::connect(m_playListModel, SIGNAL(modelReset()), this, SLOT(resetTrackIds()));
+    QObject::connect(m_playListModel, SIGNAL(rowsMoved(QModelIndex,int,int,QModelIndex,int)), this, SLOT(rowsMovedInModel(QModelIndex,int,int,QModelIndex,int)));
 
-    /*for (int i = 0; i < m_playlistModel->rowCount(); i++) {
+    for (int i = 0; i < m_playListModel->rowCount(); i++) {
         m_orderedTrackIds << QDBusObjectPath(playlistTidPrefix + QString::number(tidCounter++));
-    }*/
+    }
 }
 
 MediaPlayer2Tracklist::~MediaPlayer2Tracklist()
@@ -63,6 +68,11 @@ QDBusObjectPath MediaPlayer2Tracklist::currentTrackId() const
     if (currentIndex() == -1) {
         return mprisNoTrack;
     }
+
+    if (currentIndex() < 0 || currentIndex() >= m_orderedTrackIds.size()) {
+        return mprisNoTrack;
+    }
+
     return m_orderedTrackIds.at(currentIndex());
 }
 
@@ -104,9 +114,9 @@ void MediaPlayer2Tracklist::rowsMovedInModel(const QModelIndex &sourceParent, in
 void MediaPlayer2Tracklist::resetTrackIds()
 {
     m_orderedTrackIds.clear();
-    /*for (int i = 0; i < m_playlistModel->rowCount(); i++) {
+    for (int i = 0; i < m_playListModel->rowCount(); i++) {
         m_orderedTrackIds << QDBusObjectPath(playlistTidPrefix + QString::number(tidCounter++));
-    }*/
+    }
 
     emit TrackListReplaced(Tracks(), currentTrackId());
 }
@@ -144,12 +154,12 @@ void MediaPlayer2Tracklist::GoTo(const QDBusObjectPath &trackId)
 {
     int newIndex = m_orderedTrackIds.indexOf(trackId);
     if (newIndex != -1) {
-        /*m_playlistModel->setCurrentIndex(newIndex);*/
+        //m_playListModel->setCurrentIndex(newIndex);
     }
 }
 
 QString MediaPlayer2Tracklist::urlOfIndex(int index) const
 {
-    return {}/*m_playlistModel->data(m_playlistModel->index(index, 0),
-                                 MediaCenter::MediaUrlRole).toString()*/;
+    return m_playListModel->data(m_playListModel->index(index, 0),
+                                 MediaPlayList::ResourceRole).toString();
 }

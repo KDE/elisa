@@ -1,10 +1,11 @@
 /***************************************************************************
  *   Copyright 2014 Sujith Haridasan <sujith.haridasan@kdemail.net>        *
  *   Copyright 2014 Ashish Madeti <ashishmadeti@gmail.com>                 *
+ *   Copyright 2016 Matthieu Gallien <mgallien@mgallien.fr>                *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
+ *   the Free Software Foundation; either version 3 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
  *   This program is distributed in the hope that it will be useful,       *
@@ -22,9 +23,12 @@
 #include "mediaplayer2.h"
 #include "mediaplayer2player.h"
 #include "mediaplayer2tracklist.h"
+#include "playlistcontroler.h"
 
 #include <QDBusConnection>
 #include <QDir>
+#include <QAbstractItemModel>
+
 #include <unistd.h>
 
 static const QString tmpPmcDirPath(QDir::tempPath() + QLatin1String("/plasma-mediacenter/covers/"));
@@ -52,8 +56,8 @@ void Mpris2::initDBusService()
         tmpPmcDir.mkpath(tmpPmcDirPath);
 
         m_mp2 = new MediaPlayer2(this);
-        m_mp2p = new MediaPlayer2Player(this);
-        m_mp2tl = new MediaPlayer2Tracklist(this);
+        m_mp2p = new MediaPlayer2Player(m_playListControler, this);
+        m_mp2tl = new MediaPlayer2Tracklist(m_playListModel, this);
 
         QDBusConnection::sessionBus().registerObject(QStringLiteral("/org/mpris/MediaPlayer2"), this, QDBusConnection::ExportAdaptors);
 
@@ -63,11 +67,6 @@ void Mpris2::initDBusService()
 
 Mpris2::~Mpris2()
 {
-}
-
-MediaPlayer2Player* Mpris2::getMediaPlayer2Player()
-{
-    return m_mp2p;
 }
 
 QString Mpris2::getCurrentTrackId()
@@ -122,6 +121,16 @@ QString Mpris2::playerName() const
     return m_playerName;
 }
 
+QAbstractItemModel *Mpris2::playListModel() const
+{
+    return m_playListModel;
+}
+
+PlayListControler *Mpris2::playListControler() const
+{
+    return m_playListControler;
+}
+
 void Mpris2::setPlayerName(QString playerName)
 {
     if (m_playerName == playerName)
@@ -129,9 +138,43 @@ void Mpris2::setPlayerName(QString playerName)
 
     m_playerName = playerName;
 
-    if (!m_mp2) {
-        initDBusService();
+    if (m_playListModel && m_playListControler && !m_playerName.isEmpty()) {
+        if (!m_mp2) {
+            initDBusService();
+        }
     }
 
     emit playerNameChanged();
+}
+
+void Mpris2::setPlayListModel(QAbstractItemModel *playListModel)
+{
+    if (m_playListModel == playListModel)
+        return;
+
+    m_playListModel = playListModel;
+
+    if (m_playListModel && m_playListControler && !m_playerName.isEmpty()) {
+        if (!m_mp2) {
+            initDBusService();
+        }
+    }
+
+    emit playListModelChanged();
+}
+
+void Mpris2::setPlayListControler(PlayListControler *playListControler)
+{
+    if (m_playListControler == playListControler)
+        return;
+
+    m_playListControler = playListControler;
+
+    if (m_playListModel && m_playListControler && !m_playerName.isEmpty()) {
+        if (!m_mp2) {
+            initDBusService();
+        }
+    }
+
+    emit playListControlerChanged();
 }

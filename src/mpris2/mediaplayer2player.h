@@ -1,10 +1,11 @@
 /***************************************************************************
  *   Copyright 2014 Sujith Haridasan <sujith.haridasan@kdemail.net>        *
  *   Copyright 2014 Ashish Madeti <ashishmadeti@gmail.com>                 *
+ *   Copyright 2016 Matthieu Gallien <mgallien@mgallien.fr>                *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
+ *   the Free Software Foundation; either version 3 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
  *   This program is distributed in the hope that it will be useful,       *
@@ -25,6 +26,8 @@
 #include <QDBusObjectPath>
 #include <QPointer>
 #include <QUrl>
+
+class PlayListControler;
 
 class MediaPlayer2Player : public QDBusAbstractAdaptor
 {
@@ -48,7 +51,7 @@ class MediaPlayer2Player : public QDBusAbstractAdaptor
     Q_PROPERTY(int mediaPlayerPresent READ mediaPlayerPresent WRITE setMediaPlayerPresent)
 
 public:
-    explicit MediaPlayer2Player(QObject* parent = 0);
+    explicit MediaPlayer2Player(PlayListControler *playListControler, QObject* parent = 0);
     ~MediaPlayer2Player();
 
     QString PlaybackStatus() const;
@@ -92,6 +95,16 @@ public Q_SLOTS:
     void SetPosition(const QDBusObjectPath& trackId, qlonglong pos);
     void OpenUri(QString uri) const;
 
+private Q_SLOTS:
+
+    void playerSourceChanged();
+
+    void playControlEnabledChanged();
+
+    void skipBackwardControlEnabledChanged();
+
+    void skipForwardControlEnabledChanged();
+
 private:
     void signalPropertiesChange(const QString &property, const QVariant &value);
 
@@ -103,12 +116,16 @@ private:
 
     QVariantMap m_metadata;
     QString m_currentTrack;
-    double m_rate;
-    double m_volume;
-    bool m_paused;
-    bool m_stopped;
-    int m_mediaPlayerPresent;
-    qlonglong m_position;
+    double m_rate = 0.0;
+    double m_volume = 0.0;
+    bool m_paused = false;
+    bool m_stopped = false;
+    int m_mediaPlayerPresent = 0;
+    bool m_canPlay = false;
+    bool m_canGoNext = false;
+    bool m_canGoPrevious = false;
+    qlonglong m_position = 0;
+    PlayListControler *m_playListControler = nullptr;
 };
 
 #endif // MEDIAPLAYER2PLAYER_H

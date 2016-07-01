@@ -47,8 +47,13 @@ public:
     bool CanEditTracks() const;
     QList<QDBusObjectPath> Tracks() const;
 
+    void setCurrentIndex(int newIndex);
     int currentIndex() const;
-    QDBusObjectPath currentTrackId() const;
+    QDBusObjectPath currentDBusTrackId() const;
+    QString currentTrackId() const;
+
+    QVariantMap getMetadataOf(const QString& url);
+    QVariantMap getMetadataOf(const QString& url, const QString& trackId);
 
 private Q_SLOTS:
     void rowsInsertedInModel(const QModelIndex &parentModel, int start, int end);
@@ -72,11 +77,18 @@ Q_SIGNALS:
 private:
     QString urlOfIndex(int index) const;
 
+    int indexOfURL(const QString &url);
+
+    QHash<QString, int> m_trackIndexFromURL;
+
     QList<QDBusObjectPath> m_orderedTrackIds;
 
     int tidCounter = 0;
 
     QAbstractItemModel* m_playListModel;
+
+    int m_currentIndex = -1;
+
 };
 
 #endif // MEDIAPLAYER2TRACKLIST_H

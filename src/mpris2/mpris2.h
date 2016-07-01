@@ -55,10 +55,6 @@ public:
     explicit Mpris2(QObject* parent = 0);
     ~Mpris2();
 
-    QString getCurrentTrackId();
-    QVariantMap getMetadataOf(const QString& url);
-    QVariantMap getMetadataOf(const QString& url, const QString& trackId);
-
     QString playerName() const;
 
     QAbstractItemModel* playListModel() const;

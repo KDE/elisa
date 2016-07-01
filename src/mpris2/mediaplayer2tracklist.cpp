@@ -40,6 +40,7 @@ MediaPlayer2Tracklist::MediaPlayer2Tracklist(QAbstractItemModel *playListModel, 
 
     for (int i = 0; i < m_playListModel->rowCount(); i++) {
         m_orderedTrackIds << QDBusObjectPath(playlistTidPrefix + QString::number(tidCounter++));
+        m_trackIndexFromURL[m_playListModel->data(m_playListModel->index(i, 0), MediaPlayList::ResourceRole).toString()] = i;
     }
 }
 
@@ -58,12 +59,17 @@ QList<QDBusObjectPath> MediaPlayer2Tracklist::Tracks() const
     return m_orderedTrackIds;
 }
 
-int MediaPlayer2Tracklist::currentIndex() const
+void MediaPlayer2Tracklist::setCurrentIndex(int newIndex)
 {
-    return 0/*m_playlistModel->currentIndex()*/;
+    m_currentIndex = newIndex;
 }
 
-QDBusObjectPath MediaPlayer2Tracklist::currentTrackId() const
+int MediaPlayer2Tracklist::currentIndex() const
+{
+    return m_currentIndex;
+}
+
+QDBusObjectPath MediaPlayer2Tracklist::currentDBusTrackId() const
 {
     if (currentIndex() == -1) {
         return mprisNoTrack;
@@ -76,15 +82,69 @@ QDBusObjectPath MediaPlayer2Tracklist::currentTrackId() const
     return m_orderedTrackIds.at(currentIndex());
 }
 
+QString MediaPlayer2Tracklist::currentTrackId() const
+{
+    if (currentIndex() != -1) {
+        return currentDBusTrackId().path();
+    }
+
+#if 0
+    QSharedPointer<PmcMedia> media = SingletonFactory::instanceFor<MediaLibrary>()->mediaForUrl(m_mp2p->currentTrack());
+    if (media) {
+        return QStringLiteral("/org/kde/plasmamediacenter/tid_") + media->sha();
+    }
+#endif
+
+    return QString(QStringLiteral("/org/mpris/MediaPlayer2/TrackList/NoTrack"));
+}
+
+QVariantMap MediaPlayer2Tracklist::getMetadataOf(const QString &url)
+{
+    QVariantMap metadata = getMetadataOf(url, currentTrackId());
+
+    return metadata;
+}
+
+QVariantMap MediaPlayer2Tracklist::getMetadataOf(const QString &url, const QString& trackId)
+{
+    QVariantMap metadata;
+
+    auto trackRow = indexOfURL(url);
+    if (trackRow == -1) {
+        return metadata;
+    }
+
+    auto trackIndex = m_playListModel->index(trackRow, 0);
+    if (!trackIndex.isValid()) {
+        return metadata;
+    }
+
+    metadata[QStringLiteral("mpris:trackid")] = QVariant::fromValue<QDBusObjectPath>(QDBusObjectPath(trackId)).toString();
+    metadata[QStringLiteral("mpris:length")] = qlonglong(m_playListModel->data(trackIndex, MediaPlayList::DurationRole).toInt()) * 1000000;
+    //convert seconds into micro-seconds
+    metadata[QStringLiteral("xesam:title")] = m_playListModel->data(trackIndex, MediaPlayList::TitleRole);
+    metadata[QStringLiteral("xesam:url")] = m_playListModel->data(trackIndex, MediaPlayList::ResourceRole).toString();
+    metadata[QStringLiteral("xesam:album")] = m_playListModel->data(trackIndex, MediaPlayList::AlbumRole);
+    metadata[QStringLiteral("xesam:artist")] = {m_playListModel->data(trackIndex, MediaPlayList::ArtistRole)};
+    metadata[QStringLiteral("mpris:artUrl")] = m_playListModel->data(trackIndex, MediaPlayList::ImageRole).toString();
+
+    return metadata;
+}
+
 void MediaPlayer2Tracklist::rowsInsertedInModel(const QModelIndex &parentModel, int start, int end)
 {
     Q_UNUSED(parentModel);
+
+    m_trackIndexFromURL.clear();
+    for (int i = 0; i < m_playListModel->rowCount(); i++) {
+        m_trackIndexFromURL[m_playListModel->data(m_playListModel->index(i, 0), MediaPlayList::ResourceRole).toString()] = i;
+    }
 
     QVariantMap metadata;
     QDBusObjectPath afterTrack;
     for (int i = start; i <= end; i++) {
         m_orderedTrackIds.insert(i, QDBusObjectPath(playlistTidPrefix + QString::number(tidCounter++)));
-        metadata = static_cast<Mpris2*>(parent())->getMetadataOf(urlOfIndex(i), m_orderedTrackIds[i].path());
+        metadata = getMetadataOf(urlOfIndex(i), m_orderedTrackIds[i].path());
         afterTrack = (i > 0) ? m_orderedTrackIds.at(i-1) : mprisNoTrack;
         emit TrackAdded(metadata, afterTrack);
     }
@@ -93,6 +153,11 @@ void MediaPlayer2Tracklist::rowsInsertedInModel(const QModelIndex &parentModel, 
 void MediaPlayer2Tracklist::rowsRemovedFromModel(const QModelIndex &parentModel, int start, int end)
 {
     Q_UNUSED(parentModel);
+
+    m_trackIndexFromURL.clear();
+    for (int i = 0; i < m_playListModel->rowCount(); i++) {
+        m_trackIndexFromURL[m_playListModel->data(m_playListModel->index(i, 0), MediaPlayList::ResourceRole).toString()] = i;
+    }
 
     for (int i = start; i <= end; i++) {
         emit TrackRemoved(m_orderedTrackIds.takeAt(i));
@@ -109,16 +174,23 @@ void MediaPlayer2Tracklist::rowsMovedInModel(const QModelIndex &sourceParent, in
     for (int i = 0, index = sourceStart; index <= sourceEnd; i++, index++) {
         m_orderedTrackIds.move(index, destinationRow + i);
     }
+
+    m_trackIndexFromURL.clear();
+    for (int i = 0; i < m_playListModel->rowCount(); i++) {
+        m_trackIndexFromURL[m_playListModel->data(m_playListModel->index(i, 0), MediaPlayList::ResourceRole).toString()] = i;
+    }
 }
 
 void MediaPlayer2Tracklist::resetTrackIds()
 {
     m_orderedTrackIds.clear();
+    m_trackIndexFromURL.clear();
     for (int i = 0; i < m_playListModel->rowCount(); i++) {
         m_orderedTrackIds << QDBusObjectPath(playlistTidPrefix + QString::number(tidCounter++));
+        m_trackIndexFromURL[m_playListModel->data(m_playListModel->index(i, 0), MediaPlayList::ResourceRole).toString()] = i;
     }
 
-    emit TrackListReplaced(Tracks(), currentTrackId());
+    emit TrackListReplaced(Tracks(), currentDBusTrackId());
 }
 
 QList<QVariantMap> MediaPlayer2Tracklist::GetTracksMetadata(const QList<QDBusObjectPath> &trackIds)
@@ -129,7 +201,7 @@ QList<QVariantMap> MediaPlayer2Tracklist::GetTracksMetadata(const QList<QDBusObj
     Q_FOREACH (const QDBusObjectPath& trackId, trackIds) {
         index = m_orderedTrackIds.indexOf(trackId);
         if (index != -1) {
-            metadataList << static_cast<Mpris2*>(parent())->getMetadataOf(urlOfIndex(index), trackId.path());
+            metadataList << getMetadataOf(urlOfIndex(index), trackId.path());
         }
     }
 
@@ -162,4 +234,19 @@ QString MediaPlayer2Tracklist::urlOfIndex(int index) const
 {
     return m_playListModel->data(m_playListModel->index(index, 0),
                                  MediaPlayList::ResourceRole).toString();
+}
+
+int MediaPlayer2Tracklist::indexOfURL(const QString &url)
+{
+    if (m_playListModel->rowCount() != m_trackIndexFromURL.size()) {
+        resetTrackIds();
+    }
+
+    auto urlIndex = m_trackIndexFromURL.find(url);
+
+    if (urlIndex == m_trackIndexFromURL.end()) {
+        return -1;
+    }
+
+    return urlIndex.value();
 }

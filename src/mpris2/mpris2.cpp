@@ -56,8 +56,8 @@ void Mpris2::initDBusService()
         tmpPmcDir.mkpath(tmpPmcDirPath);
 
         m_mp2 = new MediaPlayer2(this);
-        m_mp2p = new MediaPlayer2Player(m_playListControler, this);
         m_mp2tl = new MediaPlayer2Tracklist(m_playListModel, this);
+        m_mp2p = new MediaPlayer2Player(m_playListControler, m_mp2tl, this);
 
         QDBusConnection::sessionBus().registerObject(QStringLiteral("/org/mpris/MediaPlayer2"), this, QDBusConnection::ExportAdaptors);
 
@@ -67,53 +67,6 @@ void Mpris2::initDBusService()
 
 Mpris2::~Mpris2()
 {
-}
-
-QString Mpris2::getCurrentTrackId()
-{
-    if (m_mp2tl->currentIndex() != -1) {
-        return m_mp2tl->currentTrackId().path();
-    }
-
-#if 0
-    QSharedPointer<PmcMedia> media = SingletonFactory::instanceFor<MediaLibrary>()->mediaForUrl(m_mp2p->currentTrack());
-    if (media) {
-        return QStringLiteral("/org/kde/plasmamediacenter/tid_") + media->sha();
-    }
-#endif
-
-    return QString(QStringLiteral("/org/mpris/MediaPlayer2/TrackList/NoTrack"));
-}
-
-QVariantMap Mpris2::getMetadataOf(const QString &url)
-{
-    QVariantMap metadata = getMetadataOf(url, getCurrentTrackId());
-    return metadata;
-}
-
-QVariantMap Mpris2::getMetadataOf(const QString &url, const QString& trackId)
-{
-    QVariantMap metadata;
-    /*QSharedPointer<PmcMedia> media = SingletonFactory::instanceFor<MediaLibrary>()->mediaForUrl(url);
-    PmcImageCache *imageCache = SingletonFactory::instanceFor<PmcImageCache>();
-    if (media) {
-        metadata["mpris:trackid"] = QVariant::fromValue<QDBusObjectPath>(QDBusObjectPath(trackId));
-        metadata["mpris:length"] = qlonglong(media->duration())*1000000;
-        //convert seconds into micro-seconds
-        metadata["xesam:title"] = media->title();
-        metadata["xesam:url"] = media->url();
-        metadata["xesam:album"] = media->album();
-        metadata["xesam:artist"] = QStringList(media->artist());
-        metadata["xesam:genre"] = QStringList(media->genre());
-        if (imageCache->containsAlbumCover(media->album())) {
-            if (imageCache->getImage(imageCache->imageIdForAlbumCover(media->album()))
-                    .save(tmpPmcDirPath + media->album(), "PNG")) {
-            metadata["mpris:artUrl"] = QString(tmpPmcDirPath + media->album());
-            }
-        }
-    }*/
-
-    return metadata;
 }
 
 QString Mpris2::playerName() const

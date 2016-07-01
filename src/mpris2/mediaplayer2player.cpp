@@ -23,6 +23,7 @@
 #include "mpris2.h"
 
 #include "playlistcontroler.h"
+#include "mediaplayer2tracklist.h"
 
 #include <QCryptographicHash>
 #include <QStringList>
@@ -33,8 +34,11 @@
 static const double MAX_RATE = 32.0;
 static const double MIN_RATE = 0.0;
 
-MediaPlayer2Player::MediaPlayer2Player(PlayListControler *playListControler, QObject* parent)
-    : QDBusAbstractAdaptor(parent), m_playListControler(playListControler)
+MediaPlayer2Player::MediaPlayer2Player(PlayListControler *playListControler,
+                                       MediaPlayer2Tracklist *playerPlayList,
+                                       QObject* parent)
+    : QDBusAbstractAdaptor(parent), m_playListControler(playListControler),
+      m_playerPlayList(playerPlayList)
 {
     if (!m_playListControler) {
         return;
@@ -52,6 +56,8 @@ MediaPlayer2Player::MediaPlayer2Player(PlayListControler *playListControler, QOb
             this, &MediaPlayer2Player::musicPlayingChanged);
     connect(m_playListControler, &PlayListControler::musicPlayerStoppedChanged,
             this, &MediaPlayer2Player::musicPlayerStoppedChanged);
+    connect(m_playListControler, &PlayListControler::currentTrackPositionChanged,
+            this, &MediaPlayer2Player::currentTrackPositionChanged);
 
     m_mediaPlayerPresent = 1;
 }
@@ -223,8 +229,8 @@ void MediaPlayer2Player::emitSeeked(int pos)
 
 void MediaPlayer2Player::SetPosition(const QDBusObjectPath& trackId, qlonglong pos)
 {
-    if (trackId.path() == static_cast<Mpris2*>(parent())->getCurrentTrackId()) {
-        emit seek((pos - Position())/1000);
+    if (trackId.path() == m_playerPlayList->currentTrackId()) {
+        emit seek((pos - Position()) / 1000);
     }
 }
 
@@ -242,8 +248,7 @@ void MediaPlayer2Player::playerSourceChanged()
         return;
     }
 
-    m_currentTrack = m_playListControler->playerSource().toString();
-    signalPropertiesChange(QStringLiteral("Metadata"), m_playListControler->playerSource());
+    setCurrentTrack(m_playListControler->playerSource().toString());
 }
 
 void MediaPlayer2Player::playControlEnabledChanged()
@@ -290,6 +295,14 @@ void MediaPlayer2Player::musicPlayerStoppedChanged()
     signalPropertiesChange(QStringLiteral("PlaybackStatus"), PlaybackStatus());
 }
 
+void MediaPlayer2Player::currentTrackPositionChanged()
+{
+    m_playerPlayList->setCurrentIndex(m_playListControler->currentTrackPosition());
+    m_metadata = m_playerPlayList->getMetadataOf(m_currentTrack);
+
+    signalPropertiesChange(QStringLiteral("Metadata"), Metadata());
+}
+
 QString MediaPlayer2Player::currentTrack() const
 {
     return m_currentTrack;
@@ -298,7 +311,7 @@ QString MediaPlayer2Player::currentTrack() const
 void MediaPlayer2Player::setCurrentTrack(QString newTrack)
 {
     m_currentTrack = newTrack;
-    m_metadata = static_cast<Mpris2*>(parent())->getMetadataOf(m_currentTrack);
+    m_metadata = m_playerPlayList->getMetadataOf(m_currentTrack);
 
     signalPropertiesChange(QStringLiteral("Metadata"), Metadata());
 }

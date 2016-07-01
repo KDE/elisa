@@ -35,6 +35,10 @@ class PlayListControler : public QObject
                READ playerSource
                NOTIFY playerSourceChanged)
 
+    Q_PROPERTY(int currentTrackPosition
+               READ currentTrackPosition
+               NOTIFY currentTrackPositionChanged)
+
     Q_PROPERTY(bool playControlEnabled
                READ playControlEnabled
                NOTIFY playControlEnabledChanged)
@@ -218,6 +222,8 @@ public:
 
     bool musicPlayerStopped() const;
 
+    int currentTrackPosition() const;
+
 Q_SIGNALS:
 
     void playMusic();
@@ -271,6 +277,8 @@ Q_SIGNALS:
     void repeatPlayChanged();
 
     void musicPlayerStoppedChanged();
+
+    void currentTrackPositionChanged();
 
 public Q_SLOTS:
 
@@ -350,6 +358,7 @@ private:
     bool mRepeatPlay;
 
     bool mIsInPlayingState;
+
 };
 
 #endif // PLAYLISTCONTROLER_H

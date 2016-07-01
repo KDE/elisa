@@ -280,6 +280,11 @@ bool PlayListControler::musicPlayerStopped() const
     return mPlayerState == PlayerState::Stopped;
 }
 
+int PlayListControler::currentTrackPosition() const
+{
+    return mCurrentTrack.row();
+}
+
 void PlayListControler::playListReset()
 {
     if (!mCurrentTrack.isValid()) {
@@ -563,6 +568,7 @@ void PlayListControler::gotoNextTrack()
 void PlayListControler::signaTrackChange()
 {
     Q_EMIT playerSourceChanged();
+    Q_EMIT currentTrackPositionChanged();
     Q_EMIT artistChanged();
     Q_EMIT titleChanged();
     Q_EMIT albumChanged();

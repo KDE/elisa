@@ -28,6 +28,7 @@
 #include <QUrl>
 
 class PlayListControler;
+class MediaPlayer2Tracklist;
 
 class MediaPlayer2Player : public QDBusAbstractAdaptor
 {
@@ -51,7 +52,9 @@ class MediaPlayer2Player : public QDBusAbstractAdaptor
     Q_PROPERTY(int mediaPlayerPresent READ mediaPlayerPresent WRITE setMediaPlayerPresent)
 
 public:
-    explicit MediaPlayer2Player(PlayListControler *playListControler, QObject* parent = 0);
+    explicit MediaPlayer2Player(PlayListControler *playListControler,
+                                MediaPlayer2Tracklist *playerPlayList,
+                                QObject* parent = 0);
     ~MediaPlayer2Player();
 
     QString PlaybackStatus() const;
@@ -109,6 +112,8 @@ private Q_SLOTS:
 
     void musicPlayerStoppedChanged();
 
+    void currentTrackPositionChanged();
+
 private:
     void signalPropertiesChange(const QString &property, const QVariant &value);
 
@@ -130,6 +135,7 @@ private:
     bool m_canGoPrevious = false;
     qlonglong m_position = 0;
     PlayListControler *m_playListControler = nullptr;
+    MediaPlayer2Tracklist *m_playerPlayList = nullptr;
 };
 
 #endif // MEDIAPLAYER2PLAYER_H

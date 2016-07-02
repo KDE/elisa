@@ -72,6 +72,7 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
     {
     case ColumnsRoles::TitleRole:
     case ColumnsRoles::DurationRole:
+    case ColumnsRoles::MilliSecondsDurationRole:
     case ColumnsRoles::ArtistRole:
     case ColumnsRoles::AlbumRole:
     case ColumnsRoles::TrackNumberRole:

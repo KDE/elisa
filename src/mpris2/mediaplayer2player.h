@@ -114,6 +114,10 @@ private Q_SLOTS:
 
     void currentTrackPositionChanged();
 
+    void playerIsSeekableChanged();
+
+    void audioPositionChanged();
+
 private:
     void signalPropertiesChange(const QString &property, const QVariant &value);
 
@@ -136,6 +140,7 @@ private:
     qlonglong m_position = 0;
     PlayListControler *m_playListControler = nullptr;
     MediaPlayer2Tracklist *m_playerPlayList = nullptr;
+    bool m_playerIsSeekableChanged = false;
 };
 
 #endif // MEDIAPLAYER2PLAYER_H

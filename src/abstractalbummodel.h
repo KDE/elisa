@@ -54,7 +54,8 @@ public:
     enum ColumnsRoles {
         TitleRole = Qt::UserRole + 1,
         DurationRole = TitleRole + 1,
-        CreatorRole = DurationRole + 1,
+        MilliSecondsDurationRole = DurationRole + 1,
+        CreatorRole = MilliSecondsDurationRole + 1,
         ArtistRole = CreatorRole + 1,
         AlbumRole = ArtistRole + 1,
         TrackNumberRole = AlbumRole + 1,

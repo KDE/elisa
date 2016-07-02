@@ -315,8 +315,8 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
         qDebug() << "DatabaseInterface::insertTracksList" << selectTrackQuery.lastError();
     }
 
-    auto insertTrackQueryText = QStringLiteral("INSERT INTO Tracks (`Title`, `AlbumID`, `Artist`, `FileName`, `TrackNumber`)"
-                                          "VALUES (:title, :album, :artist, :fileName, :trackNumber)");
+    auto insertTrackQueryText = QStringLiteral("INSERT INTO `Tracks` (`Title`, `AlbumID`, `Artist`, `FileName`, `TrackNumber`, `Duration`)"
+                                          "VALUES (:title, :album, :artist, :fileName, :trackNumber, :trackDuration)");
 
     QSqlQuery insertTrackQuery(d->mTracksDatabase);
     result = insertTrackQuery.prepare(insertTrackQueryText);
@@ -337,7 +337,7 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
         qDebug() << "DatabaseInterface::insertTracksList" << selectAlbumQuery.lastError();
     }
 
-    auto insertAlbumQueryText = QStringLiteral("INSERT INTO Albums (`Title`, `Artist`, `CoverFileName`, `TracksCount`)"
+    auto insertAlbumQueryText = QStringLiteral("INSERT INTO `Albums` (`Title`, `Artist`, `CoverFileName`, `TracksCount`)"
                                           "VALUES (:title, :artist, :coverFileName, :tracksCount)");
 
     QSqlQuery insertAlbumQuery(d->mTracksDatabase);
@@ -463,6 +463,7 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
                 insertTrackQuery.bindValue(QStringLiteral(":artist"), artistName);
                 insertTrackQuery.bindValue(QStringLiteral(":fileName"), track.mResourceURI);
                 insertTrackQuery.bindValue(QStringLiteral(":trackNumber"), track.mTrackNumber);
+                insertTrackQuery.bindValue(QStringLiteral(":trackDuration"), QVariant::fromValue<qlonglong>(track.mDuration.msecsSinceStartOfDay()));
 
                 result = insertTrackQuery.exec();
 
@@ -536,6 +537,7 @@ void DatabaseInterface::initDatabase() const
                                                                    "`Artist` TEXT NOT NULL, "
                                                                    "`FileName` TEXT NOT NULL UNIQUE, "
                                                                    "`TrackNumber` INTEGER NOT NULL, "
+                                                                   "`Duration` INTEGER NOT NULL, "
                                                                    "UNIQUE (`Title`, `AlbumID`, `Artist`), "
                                                                    "CONSTRAINT fk_album FOREIGN KEY (`AlbumID`) REFERENCES `Albums`(`ID`))"));
 
@@ -580,7 +582,8 @@ QMap<qlonglong, MusicAudioTrack> DatabaseInterface::fetchTracks(qlonglong albumI
                                                "`AlbumID`, "
                                                "`Artist`, "
                                                "`FileName`, "
-                                               "`TrackNumber` "
+                                               "`TrackNumber`, "
+                                               "`Duration` "
                                                "FROM `Tracks` "
                                                "WHERE "
                                                "`AlbumID` = :albumId");
@@ -614,6 +617,7 @@ QMap<qlonglong, MusicAudioTrack> DatabaseInterface::fetchTracks(qlonglong albumI
         newTrack.mArtist = selectTrackQuery.record().value(3).toString();
         newTrack.mResourceURI = selectTrackQuery.record().value(4).toUrl();
         newTrack.mTrackNumber = selectTrackQuery.record().value(5).toInt();
+        newTrack.mDuration = QTime::fromMSecsSinceStartOfDay(selectTrackQuery.record().value(6).toInt());
         newTrack.mIsValid = true;
 
         allTracks[newTrack.mDatabaseId] = newTrack;

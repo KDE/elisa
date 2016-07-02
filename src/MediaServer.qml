@@ -166,6 +166,7 @@ ApplicationWindow {
         imageRole: MediaPlayList.ImageRole
 
         audioDuration: audioPlayer.duration
+        playerIsSeekable: audioPlayer.seekable
 
         onPlayMusic: audioPlayer.play()
         onPauseMusic: audioPlayer.pause()

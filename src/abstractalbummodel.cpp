@@ -161,6 +161,7 @@ QVariant AbstractAlbumModel::internalDataAlbum(const MusicAlbum &albumData, int 
     case ColumnsRoles::TitleRole:
         return albumData.mTitle;
     case ColumnsRoles::DurationRole:
+    case ColumnsRoles::MilliSecondsDurationRole:
         return {};
     case ColumnsRoles::CreatorRole:
         return {};
@@ -205,6 +206,8 @@ QVariant AbstractAlbumModel::internalDataTrack(const MusicAudioTrack &track, con
     {
     case ColumnsRoles::TitleRole:
         return track.mTitle;
+    case ColumnsRoles::MilliSecondsDurationRole:
+        return track.mDuration.msecsSinceStartOfDay();
     case ColumnsRoles::DurationRole:
     {
         QTime trackDuration = track.mDuration;

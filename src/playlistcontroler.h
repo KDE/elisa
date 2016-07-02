@@ -51,6 +51,11 @@ class PlayListControler : public QObject
                READ skipForwardControlEnabled
                NOTIFY skipForwardControlEnabledChanged)
 
+    Q_PROPERTY(bool playerIsSeekable
+               READ playerIsSeekable
+               WRITE setPlayerIsSeekable
+               NOTIFY playerIsSeekableChanged)
+
     Q_PROPERTY(bool musicPlaying
                READ musicPlaying
                NOTIFY musicPlayingChanged)
@@ -224,6 +229,8 @@ public:
 
     int currentTrackPosition() const;
 
+    bool playerIsSeekable() const;
+
 Q_SIGNALS:
 
     void playMusic();
@@ -280,6 +287,8 @@ Q_SIGNALS:
 
     void currentTrackPositionChanged();
 
+    void playerIsSeekableChanged();
+
 public Q_SLOTS:
 
     void playListReset();
@@ -312,6 +321,8 @@ public Q_SLOTS:
     void audioPlayerFinished(bool finished);
 
     void skipToTrack(int position);
+
+    void setPlayerIsSeekable(bool playerIsSeekable);
 
 private:
 
@@ -358,6 +369,8 @@ private:
     bool mRepeatPlay;
 
     bool mIsInPlayingState;
+
+    bool mPlayerIsSeekable;
 
 };
 

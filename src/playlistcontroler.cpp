@@ -285,6 +285,11 @@ int PlayListControler::currentTrackPosition() const
     return mCurrentTrack.row();
 }
 
+bool PlayListControler::playerIsSeekable() const
+{
+    return mPlayerIsSeekable;
+}
+
 void PlayListControler::playListReset()
 {
     if (!mCurrentTrack.isValid()) {
@@ -498,6 +503,15 @@ void PlayListControler::skipToTrack(int position)
     if (mIsInPlayingState) {
         startPlayer();
     }
+}
+
+void PlayListControler::setPlayerIsSeekable(bool playerIsSeekable)
+{
+    if (mPlayerIsSeekable == playerIsSeekable)
+        return;
+
+    mPlayerIsSeekable = playerIsSeekable;
+    emit playerIsSeekableChanged();
 }
 
 void PlayListControler::startPlayer()

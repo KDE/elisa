@@ -58,6 +58,10 @@ MediaPlayer2Player::MediaPlayer2Player(PlayListControler *playListControler,
             this, &MediaPlayer2Player::musicPlayerStoppedChanged);
     connect(m_playListControler, &PlayListControler::currentTrackPositionChanged,
             this, &MediaPlayer2Player::currentTrackPositionChanged);
+    connect(m_playListControler, &PlayListControler::playerIsSeekableChanged,
+            this, &MediaPlayer2Player::playerIsSeekableChanged);
+    connect(m_playListControler, &PlayListControler::audioPositionChanged,
+            this, &MediaPlayer2Player::audioPositionChanged);
 
     m_mediaPlayerPresent = 1;
 }
@@ -172,8 +176,8 @@ qlonglong MediaPlayer2Player::Position() const
 
 void MediaPlayer2Player::setPropertyPosition(int newPositionInMs)
 {
-    m_position = qlonglong(newPositionInMs)*1000;
-    //PMC stores postion in milli-seconds, Mpris likes it in micro-seconds
+    m_position = qlonglong(newPositionInMs) * 1000;
+    signalPropertiesChange(QStringLiteral("Position"), Position());
 }
 
 double MediaPlayer2Player::Rate() const
@@ -205,7 +209,7 @@ double MediaPlayer2Player::MaximumRate() const
 
 bool MediaPlayer2Player::CanSeek() const
 {
-    return mediaPlayerPresent();
+    return m_playerIsSeekableChanged;
 }
 
 bool MediaPlayer2Player::CanControl() const
@@ -217,14 +221,14 @@ void MediaPlayer2Player::Seek(qlonglong Offset) const
 {
     if (mediaPlayerPresent()) {
         //The seekTo function (to which this signal is linked to) accepts offset in milliseconds
-        int offset = Offset/1000;
+        int offset = Offset / 1000;
         emit seek(offset);
     }
 }
 
 void MediaPlayer2Player::emitSeeked(int pos)
 {
-    emit Seeked(qlonglong(pos)*1000);
+    emit Seeked(qlonglong(pos) * 1000);
 }
 
 void MediaPlayer2Player::SetPosition(const QDBusObjectPath& trackId, qlonglong pos)
@@ -303,6 +307,18 @@ void MediaPlayer2Player::currentTrackPositionChanged()
     signalPropertiesChange(QStringLiteral("Metadata"), Metadata());
 }
 
+void MediaPlayer2Player::playerIsSeekableChanged()
+{
+    m_playerIsSeekableChanged = m_playListControler->playerIsSeekable();
+
+    signalPropertiesChange(QStringLiteral("CanSeek"), CanSeek());
+}
+
+void MediaPlayer2Player::audioPositionChanged()
+{
+    setPropertyPosition(m_playListControler->audioPosition());
+}
+
 QString MediaPlayer2Player::currentTrack() const
 {
     return m_currentTrack;
@@ -330,7 +346,6 @@ void MediaPlayer2Player::setMediaPlayerPresent(int status)
         signalPropertiesChange(QStringLiteral("CanGoPrevious"), CanGoPrevious());
         signalPropertiesChange(QStringLiteral("CanPause"), CanPause());
         signalPropertiesChange(QStringLiteral("CanPlay"), CanPlay());
-        signalPropertiesChange(QStringLiteral("CanSeek"), CanSeek());
     }
 }
 

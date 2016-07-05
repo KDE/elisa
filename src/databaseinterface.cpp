@@ -39,6 +39,8 @@ public:
 
     QHash<qlonglong, int> mPositionByIndex;
 
+    QHash<int, MusicAlbum> mAlbumCache;
+
 };
 
 DatabaseInterface::DatabaseInterface(QObject *parent) : QObject(parent), d(new DatabaseInterfacePrivate)
@@ -71,7 +73,17 @@ MusicAlbum DatabaseInterface::albumFromIndex(int albumIndex) const
         return retrievedAlbum;
     }
 
-    return albumFromId(d->mIndexByPosition[albumIndex]);
+    auto itAlbum = d->mAlbumCache.find(albumIndex);
+
+    if (itAlbum == d->mAlbumCache.end()) {
+        const auto &result = albumFromId(d->mIndexByPosition[albumIndex]);
+
+        d->mAlbumCache[albumIndex] = result;
+
+        return result;
+    }
+
+    return *itAlbum;
 }
 
 MusicAlbum DatabaseInterface::albumFromId(qlonglong albumId) const
@@ -720,6 +732,7 @@ void DatabaseInterface::updateIndexCache()
 
     d->mIndexByPosition.clear();
     d->mPositionByIndex.clear();
+    d->mAlbumCache.clear();
 
     while(selectAlbumQuery.next()) {
         d->mPositionByIndex[selectAlbumQuery.record().value(0).toLongLong()] = d->mIndexByPosition.length();

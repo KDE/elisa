@@ -258,10 +258,10 @@ void UpnpAlbumModel::contentChanged(const QString &parentId)
 
     const auto &newTracks = childParser->newMusicTracks();
     for(const auto &oneTrack : newTracks) {
-        albumTracks[oneTrack.mAlbumName].push_back(oneTrack);
+        albumTracks[oneTrack.albumName()].push_back(oneTrack);
 
-        auto &allTracks = albumTracks[oneTrack.mAlbumName];
-        std::sort(allTracks.begin(), allTracks.end(), [](const auto &left, const auto &right) {return left.mTrackNumber <= right.mTrackNumber;});
+        auto &allTracks = albumTracks[oneTrack.albumName()];
+        std::sort(allTracks.begin(), allTracks.end(), [](const auto &left, const auto &right) {return left.trackNumber() <= right.trackNumber();});
     }
 
     tracksList(albumTracks, {});

@@ -39,7 +39,7 @@ public:
 
     QHash<qlonglong, int> mPositionByIndex;
 
-    QHash<int, MusicAlbum> mAlbumCache;
+    QHash<qlonglong, MusicAlbum> mAlbumCache;
 
 };
 
@@ -56,6 +56,8 @@ DatabaseInterface::DatabaseInterface(QObject *parent) : QObject(parent), d(new D
     } else {
         qDebug() << "database not open";
     }
+
+    initDatabase();
 }
 
 DatabaseInterface::~DatabaseInterface()
@@ -65,33 +67,18 @@ DatabaseInterface::~DatabaseInterface()
 
 MusicAlbum DatabaseInterface::albumFromIndex(int albumIndex) const
 {
-    initDatabase();
-
-    MusicAlbum retrievedAlbum;
 
     if (albumIndex < 0 || albumIndex >= d->mIndexByPosition.length()) {
-        return retrievedAlbum;
+        return {};
     }
 
-    auto itAlbum = d->mAlbumCache.find(albumIndex);
+    auto result = albumFromId(d->mIndexByPosition[albumIndex]);
 
-    if (itAlbum == d->mAlbumCache.end()) {
-        const auto &result = albumFromId(d->mIndexByPosition[albumIndex]);
-
-        d->mAlbumCache[albumIndex] = result;
-
-        return result;
-    }
-
-    return *itAlbum;
+    return result;
 }
 
 MusicAlbum DatabaseInterface::albumFromId(qlonglong albumId) const
 {
-    initDatabase();
-
-    MusicAlbum retrievedAlbum;
-
     auto selectAlbumQueryText = QStringLiteral("SELECT `ID`, "
                                                "`Title`, "
                                                "`AlbumInternalID`, "
@@ -108,7 +95,7 @@ MusicAlbum DatabaseInterface::albumFromId(qlonglong albumId) const
     if (!result) {
         qDebug() << "DatabaseInterface::albumFromId" << selectAlbumQuery.lastError();
 
-        return retrievedAlbum;
+        return {};
     }
 
     selectAlbumQuery.bindValue(QStringLiteral(":albumId"), albumId);
@@ -119,30 +106,38 @@ MusicAlbum DatabaseInterface::albumFromId(qlonglong albumId) const
         qDebug() << "DatabaseInterface::albumFromId" << "not select" << selectAlbumQuery.lastQuery();
         qDebug() << "DatabaseInterface::albumFromId" << selectAlbumQuery.lastError();
 
-        return retrievedAlbum;
+        return {};
     }
 
     if (!selectAlbumQuery.next()) {
+        return {};
+    }
+
+    auto itAlbum = d->mAlbumCache.find(albumId);
+
+    if (itAlbum == d->mAlbumCache.end()) {
+        MusicAlbum retrievedAlbum;
+
+        retrievedAlbum.setDatabaseId(selectAlbumQuery.record().value(0).toLongLong());
+        retrievedAlbum.setTitle(selectAlbumQuery.record().value(1).toString());
+        retrievedAlbum.setId(selectAlbumQuery.record().value(2).toString());
+        retrievedAlbum.setArtist(selectAlbumQuery.record().value(3).toString());
+        retrievedAlbum.setAlbumArtURI(selectAlbumQuery.record().value(4).toUrl());
+        retrievedAlbum.setTracksCount(selectAlbumQuery.record().value(5).toInt());
+        retrievedAlbum.setTracks(fetchTracks(retrievedAlbum.databaseId()));
+        retrievedAlbum.setTrackIds(retrievedAlbum.tracksKeys());
+        retrievedAlbum.setValid(true);
+
+        d->mAlbumCache[albumId] = retrievedAlbum;
+
         return retrievedAlbum;
     }
 
-    retrievedAlbum.mDatabaseId = selectAlbumQuery.record().value(0).toLongLong();
-    retrievedAlbum.mTitle = selectAlbumQuery.record().value(1).toString();
-    retrievedAlbum.mId = selectAlbumQuery.record().value(2).toString();
-    retrievedAlbum.mArtist = selectAlbumQuery.record().value(3).toString();
-    retrievedAlbum.mAlbumArtURI = selectAlbumQuery.record().value(4).toUrl();
-    retrievedAlbum.mTracksCount = selectAlbumQuery.record().value(5).toInt();
-    retrievedAlbum.mTracks = fetchTracks(retrievedAlbum.mDatabaseId);
-    retrievedAlbum.mTrackIds = retrievedAlbum.mTracks.keys();
-    retrievedAlbum.mIsValid = true;
-
-    return retrievedAlbum;
+    return itAlbum.value();
 }
 
 int DatabaseInterface::albumIdFromTrackId(quintptr trackId) const
 {
-    initDatabase();
-
     auto selectTrackQueryText = QStringLiteral("SELECT `AlbumID` FROM `Tracks` "
                                           "WHERE "
                                           "`ID` = :trackId");
@@ -174,8 +169,6 @@ int DatabaseInterface::albumIdFromTrackId(quintptr trackId) const
 
 int DatabaseInterface::albumCount() const
 {
-    initDatabase();
-
     auto selectAlbumQueryText = QStringLiteral("SELECT count(*) "
                                                "FROM Albums");
 
@@ -211,8 +204,6 @@ int DatabaseInterface::albumPositionByIndex(qlonglong index) const
 
 void DatabaseInterface::insertAlbumsList(const QVector<MusicAlbum> &allAlbums)
 {
-    initDatabase();
-
     auto selectAlbumQueryText = QStringLiteral("SELECT ID FROM `Albums` "
                                           "WHERE "
                                           "`Title` = :title");/* AND "
@@ -243,8 +234,8 @@ void DatabaseInterface::insertAlbumsList(const QVector<MusicAlbum> &allAlbums)
             return;
         }
 
-        selectAlbumQuery.bindValue(QStringLiteral(":title"), album.mTitle);
-        selectAlbumQuery.bindValue(QStringLiteral(":artist"), album.mArtist);
+        selectAlbumQuery.bindValue(QStringLiteral(":title"), album.title());
+        selectAlbumQuery.bindValue(QStringLiteral(":artist"), album.artist());
 
         result = selectAlbumQuery.exec();
 
@@ -256,12 +247,12 @@ void DatabaseInterface::insertAlbumsList(const QVector<MusicAlbum> &allAlbums)
         if (selectAlbumQuery.next()) {
             albumId = std::max(albumId, selectAlbumQuery.record().value(0).toInt());
         } else {
-            insertAlbumQuery.bindValue(QStringLiteral(":title"), album.mTitle);
-            insertAlbumQuery.bindValue(QStringLiteral(":artist"), album.mArtist);
-            insertAlbumQuery.bindValue(QStringLiteral(":coverFileName"), album.mAlbumArtURI);
-            insertAlbumQuery.bindValue(QStringLiteral(":tracksCount"), album.mTracksCount);
+            insertAlbumQuery.bindValue(QStringLiteral(":title"), album.title());
+            insertAlbumQuery.bindValue(QStringLiteral(":artist"), album.artist());
+            insertAlbumQuery.bindValue(QStringLiteral(":coverFileName"), album.albumArtURI());
+            insertAlbumQuery.bindValue(QStringLiteral(":tracksCount"), album.tracksCount());
 
-            qDebug() << "new album" << album.mTitle;
+            qDebug() << "new album" << album.title();
 
             result = insertAlbumQuery.exec();
 
@@ -312,8 +303,6 @@ void DatabaseInterface::insertAlbumsList(const QVector<MusicAlbum> &allAlbums)
 
 void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack> > tracks, QHash<QString, QString> covers)
 {
-    initDatabase();
-
     auto selectTrackQueryText = QStringLiteral("SELECT ID FROM `Tracks` "
                                           "WHERE "
                                           "`Title` = :title AND "
@@ -371,27 +360,27 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
         }
 
         for(const auto &track : album) {
-            if (newAlbum.mArtist.isNull()) {
-                newAlbum.mArtist = track.mArtist;
+            if (newAlbum.artist().isNull()) {
+                newAlbum.setArtist(track.artist());
             }
 
-            if (newAlbum.mTitle.isNull()) {
-                newAlbum.mTitle = track.mAlbumName;
+            if (newAlbum.title().isNull()) {
+                newAlbum.setTitle(track.albumName());
             }
 
-            if (newAlbum.mAlbumArtURI.isEmpty()) {
-                newAlbum.mAlbumArtURI = QUrl::fromLocalFile(covers[track.mAlbumName]);
+            if (newAlbum.albumArtURI().isEmpty()) {
+                newAlbum.setAlbumArtURI(QUrl::fromLocalFile(covers[track.albumName()]));
             }
 
-            if (!newAlbum.mArtist.isNull() && !newAlbum.mTitle.isNull() && !newAlbum.mAlbumArtURI.isEmpty()) {
+            if (!newAlbum.artist().isNull() && !newAlbum.title().isNull() && !newAlbum.albumArtURI().isEmpty()) {
                 break;
             }
         }
 
-        newAlbum.mTracksCount = album.size();
+        newAlbum.setTracksCount(album.size());
 
-        selectAlbumQuery.bindValue(QStringLiteral(":title"), newAlbum.mTitle);
-        selectAlbumQuery.bindValue(QStringLiteral(":artist"), newAlbum.mArtist);
+        selectAlbumQuery.bindValue(QStringLiteral(":title"), newAlbum.title());
+        selectAlbumQuery.bindValue(QStringLiteral(":artist"), newAlbum.artist());
 
         result = selectAlbumQuery.exec();
 
@@ -404,12 +393,12 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
             albumId = selectAlbumQuery.record().value(0).toInt();
             maximumAlbumId = std::max(maximumAlbumId, selectAlbumQuery.record().value(0).toInt());
         } else {
-            insertAlbumQuery.bindValue(QStringLiteral(":title"), newAlbum.mTitle);
-            insertAlbumQuery.bindValue(QStringLiteral(":artist"), newAlbum.mArtist);
-            insertAlbumQuery.bindValue(QStringLiteral(":coverFileName"), newAlbum.mAlbumArtURI);
-            insertAlbumQuery.bindValue(QStringLiteral(":tracksCount"), newAlbum.mTracksCount);
+            insertAlbumQuery.bindValue(QStringLiteral(":title"), newAlbum.title());
+            insertAlbumQuery.bindValue(QStringLiteral(":artist"), newAlbum.artist());
+            insertAlbumQuery.bindValue(QStringLiteral(":coverFileName"), newAlbum.albumArtURI());
+            insertAlbumQuery.bindValue(QStringLiteral(":tracksCount"), newAlbum.tracksCount());
 
-            qDebug() << "new album" << newAlbum.mTitle << newAlbum.mArtist;
+            qDebug() << "new album" << newAlbum.title() << newAlbum.artist();
 
             result = insertAlbumQuery.exec();
 
@@ -449,13 +438,13 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
 
         for(const auto &track : album) {
             //quintptr currentElementId = 0;
-            QString artistName = track.mArtist;
+            QString artistName = track.artist();
 
             if (artistName.isEmpty()) {
-                artistName = newAlbum.mArtist;
+                artistName = newAlbum.artist();
             }
 
-            selectTrackQuery.bindValue(QStringLiteral(":title"), track.mTitle);
+            selectTrackQuery.bindValue(QStringLiteral(":title"), track.title());
             selectTrackQuery.bindValue(QStringLiteral(":album"), albumId);
             selectTrackQuery.bindValue(QStringLiteral(":artist"), artistName);
 
@@ -470,12 +459,14 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
                 //currentElementId = selectTrackQuery.record().value(0).toInt();
                 continue;
             } else {
-                insertTrackQuery.bindValue(QStringLiteral(":title"), track.mTitle);
+                insertTrackQuery.bindValue(QStringLiteral(":title"), track.title());
                 insertTrackQuery.bindValue(QStringLiteral(":album"), albumId);
                 insertTrackQuery.bindValue(QStringLiteral(":artist"), artistName);
-                insertTrackQuery.bindValue(QStringLiteral(":fileName"), track.mResourceURI);
-                insertTrackQuery.bindValue(QStringLiteral(":trackNumber"), track.mTrackNumber);
-                insertTrackQuery.bindValue(QStringLiteral(":trackDuration"), QVariant::fromValue<qlonglong>(track.mDuration.msecsSinceStartOfDay()));
+                insertTrackQuery.bindValue(QStringLiteral(":fileName"), track.resourceURI());
+                insertTrackQuery.bindValue(QStringLiteral(":trackNumber"), track.trackNumber());
+                insertTrackQuery.bindValue(QStringLiteral(":trackDuration"), QVariant::fromValue<qlonglong>(track.duration().msecsSinceStartOfDay()));
+
+                qDebug() << track.title() << artistName << QVariant::fromValue<qlonglong>(track.duration().msecsSinceStartOfDay());
 
                 result = insertTrackQuery.exec();
 
@@ -623,16 +614,19 @@ QMap<qlonglong, MusicAudioTrack> DatabaseInterface::fetchTracks(qlonglong albumI
     while (selectTrackQuery.next()) {
         MusicAudioTrack newTrack;
 
-        newTrack.mDatabaseId = selectTrackQuery.record().value(0).toLongLong();
-        newTrack.mTitle = selectTrackQuery.record().value(1).toString();
-        newTrack.mParentId = selectTrackQuery.record().value(2).toString();
-        newTrack.mArtist = selectTrackQuery.record().value(3).toString();
-        newTrack.mResourceURI = selectTrackQuery.record().value(4).toUrl();
-        newTrack.mTrackNumber = selectTrackQuery.record().value(5).toInt();
-        newTrack.mDuration = QTime::fromMSecsSinceStartOfDay(selectTrackQuery.record().value(6).toInt());
-        newTrack.mIsValid = true;
+        newTrack.setDatabaseId(selectTrackQuery.record().value(0).toLongLong());
+        newTrack.setTitle(selectTrackQuery.record().value(1).toString());
+        newTrack.setParentId(selectTrackQuery.record().value(2).toString());
+        newTrack.setArtist(selectTrackQuery.record().value(3).toString());
+        newTrack.setResourceURI(selectTrackQuery.record().value(4).toUrl());
+        newTrack.setTrackNumber(selectTrackQuery.record().value(5).toInt());
 
-        allTracks[newTrack.mDatabaseId] = newTrack;
+        newTrack.setDuration(QTime::fromMSecsSinceStartOfDay(selectTrackQuery.record().value(6).toInt()));
+        qDebug() << newTrack.title() << newTrack.artist() << newTrack.duration() << selectTrackQuery.record().value(6) << selectTrackQuery.record().value(6).toInt();
+
+        newTrack.setValid(true);
+
+        allTracks[newTrack.databaseId()] = newTrack;
     }
 
     updateTracksCount(albumId, allTracks.size());
@@ -738,6 +732,8 @@ void DatabaseInterface::updateIndexCache()
         d->mPositionByIndex[selectAlbumQuery.record().value(0).toLongLong()] = d->mIndexByPosition.length();
         d->mIndexByPosition.push_back(selectAlbumQuery.record().value(0).toLongLong());
     }
+
+    Q_EMIT resetModel();
 }
 
 

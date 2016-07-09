@@ -273,25 +273,25 @@ void DidlParser::decodeContainerNode(const QDomNode &containerNode, QHash<QStrin
     newDataIds.push_back(id);
     auto &chilData = newData[id];
 
-    chilData.mParentId = parentID;
-    chilData.mId = id;
+    chilData.setParentId(parentID);
+    chilData.setId(id);
 
     const QString &childCount = containerNode.toElement().attribute(QStringLiteral("childCount"));
-    chilData.mTracksCount = childCount.toInt();
+    chilData.setTracksCount(childCount.toInt());
 
     const QDomNode &titleNode = containerNode.firstChildElement(QStringLiteral("dc:title"));
     if (!titleNode.isNull()) {
-        chilData.mTitle = titleNode.toElement().text();
+        chilData.setTitle(titleNode.toElement().text());
     }
 
     const QDomNode &authorNode = containerNode.firstChildElement(QStringLiteral("upnp:artist"));
     if (!authorNode.isNull()) {
-        chilData.mArtist = authorNode.toElement().text();
+        chilData.setArtist(authorNode.toElement().text());
     }
 
     const QDomNode &resourceNode = containerNode.firstChildElement(QStringLiteral("res"));
     if (!resourceNode.isNull()) {
-        chilData.mResourceURI = QUrl::fromUserInput(resourceNode.toElement().text());
+        chilData.setResourceURI(QUrl::fromUserInput(resourceNode.toElement().text()));
     }
 
 #if 0
@@ -307,7 +307,7 @@ void DidlParser::decodeContainerNode(const QDomNode &containerNode, QHash<QStrin
 
     const QDomNode &albumArtNode = containerNode.firstChildElement(QStringLiteral("upnp:albumArtURI"));
     if (!albumArtNode.isNull()) {
-        chilData.mAlbumArtURI = QUrl::fromUserInput(albumArtNode.toElement().text());
+        chilData.setAlbumArtURI(QUrl::fromUserInput(albumArtNode.toElement().text()));
     }
 }
 
@@ -320,27 +320,27 @@ void DidlParser::decodeAudioTrackNode(const QDomNode &itemNode, QHash<QString, M
     newDataIds.push_back(id);
     auto &chilData = newData[id];
 
-    chilData.mParentId = parentID;
-    chilData.mId = id;
+    chilData.setParentId(parentID);
+    chilData.setId(id);
 
     const QDomNode &titleNode = itemNode.firstChildElement(QStringLiteral("dc:title"));
     if (!titleNode.isNull()) {
-        chilData.mTitle = titleNode.toElement().text();
+        chilData.setTitle(titleNode.toElement().text());
     }
 
     const QDomNode &authorNode = itemNode.firstChildElement(QStringLiteral("upnp:artist"));
     if (!authorNode.isNull()) {
-        chilData.mArtist = authorNode.toElement().text();
+        chilData.setArtist(authorNode.toElement().text());
     }
 
     const QDomNode &albumNode = itemNode.firstChildElement(QStringLiteral("upnp:album"));
     if (!albumNode.isNull()) {
-        chilData.mAlbumName = albumNode.toElement().text();
+        chilData.setAlbumName(albumNode.toElement().text());
     }
 
     const QDomNode &resourceNode = itemNode.firstChildElement(QStringLiteral("res"));
     if (!resourceNode.isNull()) {
-        chilData.mResourceURI = QUrl::fromUserInput(resourceNode.toElement().text());
+        chilData.setResourceURI(QUrl::fromUserInput(resourceNode.toElement().text()));
         if (resourceNode.attributes().contains(QStringLiteral("duration"))) {
             const QDomNode &durationNode = resourceNode.attributes().namedItem(QStringLiteral("duration"));
             QString durationValue = durationNode.nodeValue();
@@ -351,18 +351,18 @@ void DidlParser::decodeAudioTrackNode(const QDomNode &itemNode, QHash<QString, M
                 durationValue = durationValue.split(QStringLiteral(".")).first();
             }
 
-            chilData.mDuration = QTime::fromString(durationValue, QStringLiteral("mm:ss"));
-            if (!chilData.mDuration.isValid()) {
-                chilData.mDuration = QTime::fromString(durationValue, QStringLiteral("hh:mm:ss"));
-                if (!chilData.mDuration.isValid()) {
-                    chilData.mDuration = QTime::fromString(durationValue, QStringLiteral("hh:mm:ss.z"));
+            chilData.setDuration(QTime::fromString(durationValue, QStringLiteral("mm:ss")));
+            if (!chilData.duration().isValid()) {
+                chilData.setDuration(QTime::fromString(durationValue, QStringLiteral("hh:mm:ss")));
+                if (!chilData.duration().isValid()) {
+                    chilData.setDuration(QTime::fromString(durationValue, QStringLiteral("hh:mm:ss.z")));
                 }
             }
         }
 
         const QDomNode &trackNumberNode = itemNode.firstChildElement(QStringLiteral("upnp:originalTrackNumber"));
         if (!trackNumberNode.isNull()) {
-            chilData.mTrackNumber = trackNumberNode.toElement().text().toInt();
+            chilData.setTrackNumber(trackNumberNode.toElement().text().toInt());
         }
 
 #if 0

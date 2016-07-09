@@ -111,26 +111,26 @@ void LocalBalooFileListing::refreshContent()
 
             MusicAudioTrack newTrack;
 
-            newTrack.mAlbumName = albumValue;
+            newTrack.setAlbumName(albumValue);
             ++cptTracks;
 
             if (artistProperty != allProperties.end()) {
-                newTrack.mArtist = artistProperty->toString();
+                newTrack.setArtist(artistProperty->toString());
             }
 
             if (durationProperty != allProperties.end()) {
-                newTrack.mDuration = QTime::fromMSecsSinceStartOfDay(1000 * durationProperty->toDouble());
+                newTrack.setDuration(QTime::fromMSecsSinceStartOfDay(1000 * durationProperty->toDouble()));
             }
 
             if (titleProperty != allProperties.end()) {
-                newTrack.mTitle = titleProperty->toString();
+                newTrack.setTitle(titleProperty->toString());
             }
 
             if (trackNumberProperty != allProperties.end()) {
-                newTrack.mTrackNumber = trackNumberProperty->toInt();
+                newTrack.setTrackNumber(trackNumberProperty->toInt());
             }
 
-            newTrack.mResourceURI = QUrl::fromLocalFile(resultIterator.filePath());
+            newTrack.setResourceURI(QUrl::fromLocalFile(resultIterator.filePath()));
             QFileInfo trackFilePath(resultIterator.filePath());
             QFileInfo coverFilePath(trackFilePath.dir().filePath(QStringLiteral("cover.jpg")));
             if (coverFilePath.exists()) {

@@ -47,6 +47,8 @@ public:
 AbstractAlbumModel::AbstractAlbumModel(QObject *parent) : QAbstractItemModel(parent), d(new AbstractAlbumModelPrivate)
 {
     Q_EMIT refreshContent();
+
+    connect(d->mMusicDatabase, &DatabaseInterface::resetModel, this, &AbstractAlbumModel::databaseReset);
 }
 
 AbstractAlbumModel::~AbstractAlbumModel()
@@ -67,11 +69,11 @@ int AbstractAlbumModel::rowCount(const QModelIndex &parent) const
     }
 
     const auto &currentAlbum = d->mMusicDatabase->albumFromIndex(parent.row());
-    if (!currentAlbum.mIsValid) {
+    if (!currentAlbum.isValid()) {
         return 0;
     }
 
-    return currentAlbum.mTracks.size();
+    return currentAlbum.tracksCount();
 }
 
 QHash<int, QByteArray> AbstractAlbumModel::roleNames() const
@@ -125,7 +127,7 @@ QVariant AbstractAlbumModel::data(const QModelIndex &index, int role) const
 
             const auto &currentAlbum = d->mMusicDatabase->albumFromIndex(index.row());
 
-            if (!currentAlbum.mIsValid) {
+            if (!currentAlbum.isValid()) {
                 return {};
             }
 
@@ -135,17 +137,17 @@ QVariant AbstractAlbumModel::data(const QModelIndex &index, int role) const
 
     const auto &currentAlbum = d->mMusicDatabase->albumFromIndex(index.parent().row());
 
-    if (!currentAlbum.mIsValid) {
+    if (!currentAlbum.isValid()) {
         return {};
     }
 
-    if (index.row() >= currentAlbum.mTracks.size()) {
+    if (index.row() >= currentAlbum.tracksCount()) {
         return {};
     }
 
-    const auto &currentTrack = currentAlbum.mTracks[currentAlbum.mTrackIds[index.row()]];
+    const auto &currentTrack = currentAlbum.trackFromIndex(index.row());
 
-    if (!currentTrack.mIsValid) {
+    if (!currentTrack.isValid()) {
         return {};
     }
 
@@ -159,14 +161,14 @@ QVariant AbstractAlbumModel::internalDataAlbum(const MusicAlbum &albumData, int 
     switch(convertedRole)
     {
     case ColumnsRoles::TitleRole:
-        return albumData.mTitle;
+        return albumData.title();
     case ColumnsRoles::DurationRole:
     case ColumnsRoles::MilliSecondsDurationRole:
         return {};
     case ColumnsRoles::CreatorRole:
         return {};
     case ColumnsRoles::ArtistRole:
-        return albumData.mArtist;
+        return albumData.artist();
     case ColumnsRoles::AlbumRole:
         return {};
     case ColumnsRoles::TrackNumberRole:
@@ -174,8 +176,10 @@ QVariant AbstractAlbumModel::internalDataAlbum(const MusicAlbum &albumData, int 
     case ColumnsRoles::RatingRole:
         return {};
     case ColumnsRoles::ImageRole:
-        if (albumData.mAlbumArtURI.isValid()) {
-            return albumData.mAlbumArtURI;
+    {
+        auto albumArt = albumData.albumArtURI();
+        if (albumArt.isValid()) {
+            return albumArt;
         } else {
             if (d->mUseLocalIcons) {
                 return QUrl(QStringLiteral("qrc:/media-optical-audio.svg"));
@@ -183,14 +187,15 @@ QVariant AbstractAlbumModel::internalDataAlbum(const MusicAlbum &albumData, int 
                 return QUrl(QStringLiteral("image://icon/media-optical-audio"));
             }
         }
+    }
     case ColumnsRoles::ResourceRole:
         return {};
     case ColumnsRoles::ItemClassRole:
         return {};
     case ColumnsRoles::CountRole:
-        return albumData.mTracksCount;
+        return albumData.tracksCount();
     case ColumnsRoles::IdRole:
-        return albumData.mTitle;
+        return albumData.title();
     case ColumnsRoles::IsPlayingRole:
         return {};
     }
@@ -205,12 +210,13 @@ QVariant AbstractAlbumModel::internalDataTrack(const MusicAudioTrack &track, con
     switch(convertedRole)
     {
     case ColumnsRoles::TitleRole:
-        return track.mTitle;
+        return track.title();
     case ColumnsRoles::MilliSecondsDurationRole:
-        return track.mDuration.msecsSinceStartOfDay();
+        qDebug() << "AbstractAlbumModel::internalDataTrack" << track.duration() << track.duration().msecsSinceStartOfDay();
+        return track.duration().msecsSinceStartOfDay();
     case ColumnsRoles::DurationRole:
     {
-        QTime trackDuration = track.mDuration;
+        QTime trackDuration = track.duration();
         if (trackDuration.hour() == 0) {
             return trackDuration.toString(QStringLiteral("mm:ss"));
         } else {
@@ -218,25 +224,25 @@ QVariant AbstractAlbumModel::internalDataTrack(const MusicAudioTrack &track, con
         }
     }
     case ColumnsRoles::CreatorRole:
-        return track.mArtist;
+        return track.artist();
     case ColumnsRoles::ArtistRole:
-        return track.mArtist;
+        return track.artist();
     case ColumnsRoles::AlbumRole:
-        return track.mAlbumName;
+        return track.albumName();
     case ColumnsRoles::TrackNumberRole:
-        return track.mTrackNumber;
+        return track.trackNumber();
     case ColumnsRoles::RatingRole:
         return 0;
     case ColumnsRoles::ImageRole:
         return data(index.parent(), role);
     case ColumnsRoles::ResourceRole:
-        return track.mResourceURI;
+        return track.resourceURI();
     case ColumnsRoles::ItemClassRole:
         return {};
     case ColumnsRoles::CountRole:
         return {};
     case ColumnsRoles::IdRole:
-        return track.mTitle;
+        return track.title();
     case ColumnsRoles::IsPlayingRole:
         return false;
     }
@@ -262,11 +268,11 @@ QModelIndex AbstractAlbumModel::index(int row, int column, const QModelIndex &pa
 
     const auto &currentAlbum = d->mMusicDatabase->albumFromIndex(parent.row());
 
-    if (row >= currentAlbum.mTracksCount) {
+    if (row >= currentAlbum.tracksCount()) {
         return {};
     }
 
-    return createIndex(row, column, d->mMusicDatabase->albumPositionByIndex(currentAlbum.mDatabaseId));
+    return createIndex(row, column, d->mMusicDatabase->albumPositionByIndex(currentAlbum.databaseId()));
 }
 
 QModelIndex AbstractAlbumModel::parent(const QModelIndex &child) const
@@ -327,6 +333,12 @@ void AbstractAlbumModel::tracksList(QHash<QString, QVector<MusicAudioTrack> > tr
     }
 
     return;
+}
+
+void AbstractAlbumModel::databaseReset()
+{
+    beginResetModel();
+    endResetModel();
 }
 
 #include "moc_abstractalbummodel.cpp"

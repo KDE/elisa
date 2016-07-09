@@ -19,13 +19,172 @@
 
 #include "musicaudiotrack.h"
 
-MusicAudioTrack::MusicAudioTrack()
+class MusicAudioTrackPrivate
 {
+public:
 
+    bool mIsValid = false;
+
+    qlonglong mDatabaseId = -1;
+
+    QString mId;
+
+    QString mParentId;
+
+    QString mTitle;
+
+    QString mArtist;
+
+    QString mAlbumName;
+
+    int mTrackNumber = -1;
+
+    QTime mDuration;
+
+    QUrl mResourceURI;
+
+};
+
+MusicAudioTrack::MusicAudioTrack() : d(new MusicAudioTrackPrivate)
+{
+}
+
+MusicAudioTrack::MusicAudioTrack(MusicAudioTrack &&other) : d(other.d)
+{
+    other.d = nullptr;
+}
+
+MusicAudioTrack::MusicAudioTrack(const MusicAudioTrack &other) : d(new MusicAudioTrackPrivate(*other.d))
+{
+}
+
+MusicAudioTrack::~MusicAudioTrack()
+{
+    delete d;
+}
+
+MusicAudioTrack& MusicAudioTrack::operator=(MusicAudioTrack &&other)
+{
+    if (this != &other) {
+        delete d;
+        d = other.d;
+        other.d = nullptr;
+    }
+
+    return *this;
+}
+
+MusicAudioTrack& MusicAudioTrack::operator=(const MusicAudioTrack &other)
+{
+    if (this != &other) {
+        (*d) = (*other.d);
+    }
+
+    return *this;
 }
 
 bool MusicAudioTrack::operator <(const MusicAudioTrack &other) const
 {
-    return mTrackNumber < other.mTrackNumber;
+    return d->mTrackNumber < other.d->mTrackNumber;
+}
+
+void MusicAudioTrack::setValid(bool value)
+{
+    d->mIsValid = value;
+}
+
+bool MusicAudioTrack::isValid() const
+{
+    return d->mIsValid;
+}
+
+void MusicAudioTrack::setDatabaseId(qlonglong value)
+{
+    d->mDatabaseId = value;
+}
+
+qlonglong MusicAudioTrack::databaseId() const
+{
+    return d->mDatabaseId;
+}
+
+void MusicAudioTrack::setId(const QString &value) const
+{
+    d->mId = value;
+}
+
+QString MusicAudioTrack::id() const
+{
+    return d->mId;
+}
+
+void MusicAudioTrack::setParentId(const QString &value) const
+{
+    d->mParentId = value;
+}
+
+QString MusicAudioTrack::parentId() const
+{
+    return d->mParentId;
+}
+
+void MusicAudioTrack::setTitle(const QString &value) const
+{
+    d->mTitle = value;
+}
+
+QString MusicAudioTrack::title() const
+{
+    return d->mTitle;
+}
+
+void MusicAudioTrack::setArtist(const QString &value) const
+{
+    d->mArtist = value;
+}
+
+QString MusicAudioTrack::artist() const
+{
+    return d->mArtist;
+}
+
+void MusicAudioTrack::setAlbumName(const QString &value) const
+{
+    d->mAlbumName = value;
+}
+
+QString MusicAudioTrack::albumName() const
+{
+    return d->mAlbumName;
+}
+
+void MusicAudioTrack::setTrackNumber(int value)
+{
+    d->mTrackNumber = value;
+}
+
+int MusicAudioTrack::trackNumber() const
+{
+    return d->mTrackNumber;
+}
+
+void MusicAudioTrack::setDuration(const QTime &value)
+{
+    d->mDuration = value;
+}
+
+const QTime &MusicAudioTrack::duration() const
+{
+    return d->mDuration;
+}
+
+void MusicAudioTrack::setResourceURI(const QUrl &value)
+{
+    d->mResourceURI = value;
+}
+
+const QUrl &MusicAudioTrack::resourceURI() const
+{
+    return d->mResourceURI;
 }
 

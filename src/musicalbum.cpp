@@ -19,7 +19,185 @@
 
 #include "musicalbum.h"
 
-MusicAlbum::MusicAlbum()
+class MusicAlbumPrivate
 {
+public:
 
+    bool mIsValid = false;
+
+    qlonglong mDatabaseId = -1;
+
+    QString mId;
+
+    QString mParentId;
+
+    int mTracksCount = 0;
+
+    QString mTitle;
+
+    QString mArtist;
+
+    QUrl mAlbumArtURI;
+
+    QUrl mResourceURI;
+
+    QMap<qlonglong, MusicAudioTrack> mTracks;
+
+    QList<qlonglong> mTrackIds;
+
+};
+
+MusicAlbum::MusicAlbum() : d(new MusicAlbumPrivate)
+{
 }
+
+MusicAlbum::MusicAlbum(MusicAlbum &&other) : d(other.d)
+{
+    other.d = nullptr;
+}
+
+MusicAlbum::MusicAlbum(const MusicAlbum &other) : d(new MusicAlbumPrivate(*other.d))
+{
+}
+
+MusicAlbum& MusicAlbum::operator=(MusicAlbum &&other)
+{
+    if (&other != this) {
+        delete d;
+        d = other.d;
+        other.d = nullptr;
+    }
+
+    return *this;
+}
+
+MusicAlbum& MusicAlbum::operator=(const MusicAlbum &other)
+{
+    if (&other != this) {
+        (*d) = (*other.d);
+    }
+
+    return *this;
+}
+
+MusicAlbum::~MusicAlbum()
+{
+    delete d;
+}
+
+void MusicAlbum::setValid(bool value)
+{
+    d->mIsValid = value;
+}
+
+bool MusicAlbum::isValid() const
+{
+    return d->mIsValid;
+}
+
+void MusicAlbum::setDatabaseId(qlonglong value)
+{
+    d->mDatabaseId = value;
+}
+
+qlonglong MusicAlbum::databaseId() const
+{
+    return d->mDatabaseId;
+}
+
+void MusicAlbum::setId(const QString &value)
+{
+    d->mId = value;
+}
+
+QString MusicAlbum::id() const
+{
+    return d->mId;
+}
+
+void MusicAlbum::setParentId(const QString &value)
+{
+    d->mParentId = value;
+}
+
+QString MusicAlbum::parentId() const
+{
+    return d->mParentId;
+}
+
+void MusicAlbum::setTracksCount(int count)
+{
+    d->mTracksCount = count;
+}
+
+int MusicAlbum::tracksCount() const
+{
+    const auto realTracksCount = d->mTracks.size();
+    return (realTracksCount == 0 ? d->mTracksCount : realTracksCount);
+}
+
+void MusicAlbum::setTitle(const QString &value)
+{
+    d->mTitle = value;
+}
+
+QString MusicAlbum::title() const
+{
+    return d->mTitle;
+}
+
+void MusicAlbum::setArtist(const QString &value)
+{
+    d->mArtist = value;
+}
+
+QString MusicAlbum::artist() const
+{
+    return d->mArtist;
+}
+
+void MusicAlbum::setAlbumArtURI(const QUrl &value)
+{
+    d->mAlbumArtURI = value;
+}
+
+QUrl MusicAlbum::albumArtURI() const
+{
+    return d->mAlbumArtURI;
+}
+
+void MusicAlbum::setResourceURI(const QUrl &value)
+{
+    d->mResourceURI = value;
+}
+
+QUrl MusicAlbum::resourceURI() const
+{
+    return d->mResourceURI;
+}
+
+void MusicAlbum::setTracks(const QMap<qlonglong, MusicAudioTrack> &allTracks)
+{
+    d->mTracks = allTracks;
+}
+
+QList<qlonglong> MusicAlbum::tracksKeys() const
+{
+    return d->mTracks.keys();
+}
+
+MusicAudioTrack MusicAlbum::trackFromIndex(int index) const
+{
+    return d->mTracks[d->mTrackIds[index]];
+}
+
+void MusicAlbum::setTrackIds(const QList<qlonglong> &allTracksIds)
+{
+    d->mTrackIds = allTracksIds;
+}
+
+qlonglong MusicAlbum::trackIdFromIndex(int index) const
+{
+    return d->mTrackIds[index];
+}
+

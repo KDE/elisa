@@ -52,6 +52,8 @@ public:
 
 Q_SIGNALS:
 
+    void resetModel();
+
 public Q_SLOTS:
 
     void insertAlbumsList(const QVector<MusicAlbum> &allAlbums);

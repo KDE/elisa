@@ -108,6 +108,8 @@ public Q_SLOTS:
 
 private Q_SLOTS:
 
+    void databaseReset();
+
 private:
 
     QVariant internalDataAlbum(const MusicAlbum &albumData, int role) const;

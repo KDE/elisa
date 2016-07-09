@@ -26,6 +26,8 @@
 #include <QtCore/QUrl>
 #include <QtCore/QMap>
 
+class MusicAlbumPrivate;
+
 class MusicAlbum
 {
 
@@ -33,27 +35,65 @@ public:
 
     MusicAlbum();
 
-    bool mIsValid = false;
+    MusicAlbum(MusicAlbum &&other);
 
-    qlonglong mDatabaseId = -1;
+    MusicAlbum(const MusicAlbum &other);
 
-    QString mId;
+    MusicAlbum& operator=(MusicAlbum &&other);
 
-    QString mParentId;
+    MusicAlbum& operator=(const MusicAlbum &other);
 
-    int mTracksCount = 0;
+    ~MusicAlbum();
 
-    QString mTitle;
+    void setValid(bool value);
 
-    QString mArtist;
+    bool isValid() const;
 
-    QUrl mAlbumArtURI;
+    void setDatabaseId(qlonglong value);
 
-    QUrl mResourceURI;
+    qlonglong databaseId() const;
 
-    QMap<qlonglong, MusicAudioTrack> mTracks;
+    void setId(const QString &value);
 
-    QList<qlonglong> mTrackIds;
+    QString id() const;
+
+    void setParentId(const QString &value);
+
+    QString parentId() const;
+
+    void setTracksCount(int count);
+
+    int tracksCount() const;
+
+    void setTitle(const QString &value);
+
+    QString title() const;
+
+    void setArtist(const QString &value);
+
+    QString artist() const;
+
+    void setAlbumArtURI(const QUrl &value);
+
+    QUrl albumArtURI() const;
+
+    void setResourceURI(const QUrl &value);
+
+    QUrl resourceURI() const;
+
+    void setTracks(const QMap<qlonglong, MusicAudioTrack> &allTracks);
+
+    QList<qlonglong> tracksKeys() const;
+
+    MusicAudioTrack trackFromIndex(int index) const;
+
+    void setTrackIds(const QList<qlonglong> &allTracksIds);
+
+    qlonglong trackIdFromIndex(int index) const;
+
+private:
+
+    MusicAlbumPrivate *d;
 
 };
 

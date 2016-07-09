@@ -25,6 +25,8 @@
 #include <QtCore/QUrl>
 #include <QtCore/QMetaType>
 
+class MusicAudioTrackPrivate;
+
 class MusicAudioTrack
 {
 
@@ -32,27 +34,61 @@ public:
 
     MusicAudioTrack();
 
-    bool mIsValid = false;
+    MusicAudioTrack(MusicAudioTrack &&other);
 
-    qlonglong mDatabaseId = -1;
+    MusicAudioTrack(const MusicAudioTrack &other);
 
-    QString mId;
+    ~MusicAudioTrack();
 
-    QString mParentId;
+    MusicAudioTrack& operator=(MusicAudioTrack &&other);
 
-    QString mTitle;
-
-    QString mArtist;
-
-    QString mAlbumName;
-
-    int mTrackNumber = -1;
-
-    QTime mDuration;
-
-    QUrl mResourceURI;
+    MusicAudioTrack& operator=(const MusicAudioTrack &other);
 
     bool operator <(const MusicAudioTrack &other) const;
+
+    void setValid(bool value);
+
+    bool isValid() const;
+
+    void setDatabaseId(qlonglong value);
+
+    qlonglong databaseId() const;
+
+    void setId(const QString &value) const;
+
+    QString id() const;
+
+    void setParentId(const QString &value) const;
+
+    QString parentId() const;
+
+    void setTitle(const QString &value) const;
+
+    QString title() const;
+
+    void setArtist(const QString &value) const;
+
+    QString artist() const;
+
+    void setAlbumName(const QString &value) const;
+
+    QString albumName() const;
+
+    void setTrackNumber(int value);
+
+    int trackNumber() const;
+
+    void setDuration(const QTime &value);
+
+    const QTime& duration() const;
+
+    void setResourceURI(const QUrl &value);
+
+    const QUrl& resourceURI() const;
+
+private:
+
+    MusicAudioTrackPrivate *d = nullptr;
 
 };
 

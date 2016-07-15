@@ -60,7 +60,7 @@ MediaPlayer2Player::MediaPlayer2Player(PlayListControler *playListControler,
             this, &MediaPlayer2Player::currentTrackPositionChanged);
     connect(m_playListControler, &PlayListControler::playerIsSeekableChanged,
             this, &MediaPlayer2Player::playerIsSeekableChanged);
-    connect(m_playListControler, &PlayListControler::audioPositionChanged,
+    connect(m_playListControler, &PlayListControler::playControlPositionChanged,
             this, &MediaPlayer2Player::audioPositionChanged);
 
     m_mediaPlayerPresent = 1;
@@ -316,7 +316,7 @@ void MediaPlayer2Player::playerIsSeekableChanged()
 
 void MediaPlayer2Player::audioPositionChanged()
 {
-    setPropertyPosition(m_playListControler->audioPosition());
+    setPropertyPosition(m_playListControler->playControlPosition());
 }
 
 QString MediaPlayer2Player::currentTrack() const

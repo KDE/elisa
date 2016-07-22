@@ -112,7 +112,7 @@ private Q_SLOTS:
 
 private:
 
-    QVariant internalDataAlbum(const MusicAlbum &albumData, int role) const;
+    QVariant internalDataAlbum(int albumIndex, int role) const;
 
     QVariant internalDataTrack(const MusicAudioTrack &track, const QModelIndex &index, int role) const;
 

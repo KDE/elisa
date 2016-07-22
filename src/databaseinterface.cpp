@@ -100,9 +100,19 @@ DatabaseInterface::~DatabaseInterface()
     delete d;
 }
 
+QVariant DatabaseInterface::albumDataFromIndex(int albumIndex, DatabaseInterface::AlbumData dataType)
+{
+    if (albumIndex < 0 || albumIndex >= d->mIndexByPosition.length()) {
+        return {};
+    }
+
+    auto result = albumDataFromId(d->mIndexByPosition[albumIndex], dataType);
+
+    return result;
+}
+
 MusicAlbum DatabaseInterface::albumFromIndex(int albumIndex) const
 {
-
     if (albumIndex < 0 || albumIndex >= d->mIndexByPosition.length()) {
         return {};
     }
@@ -112,9 +122,61 @@ MusicAlbum DatabaseInterface::albumFromIndex(int albumIndex) const
     return result;
 }
 
+QVariant DatabaseInterface::albumDataFromId(qlonglong albumId, DatabaseInterface::AlbumData dataType) const
+{
+    d->mSelectAlbumQuery.bindValue(QStringLiteral(":albumId"), albumId);
+
+    auto result = d->mSelectAlbumQuery.exec();
+
+    if (!result || !d->mSelectAlbumQuery.isSelect() || !d->mSelectAlbumQuery.isActive()) {
+        qDebug() << "DatabaseInterface::albumFromId" << "not select" << d->mSelectAlbumQuery.lastQuery();
+        qDebug() << "DatabaseInterface::albumFromId" << d->mSelectAlbumQuery.lastError();
+
+        return {};
+    }
+
+    if (!d->mSelectAlbumQuery.next()) {
+        return {};
+    }
+
+    auto itAlbum = d->mAlbumCache.find(albumId);
+
+    if (itAlbum == d->mAlbumCache.end()) {
+        MusicAlbum retrievedAlbum;
+
+        retrievedAlbum.setDatabaseId(d->mSelectAlbumQuery.record().value(0).toLongLong());
+        retrievedAlbum.setTitle(d->mSelectAlbumQuery.record().value(1).toString());
+        retrievedAlbum.setId(d->mSelectAlbumQuery.record().value(2).toString());
+        retrievedAlbum.setArtist(d->mSelectAlbumQuery.record().value(3).toString());
+        retrievedAlbum.setAlbumArtURI(d->mSelectAlbumQuery.record().value(4).toUrl());
+        retrievedAlbum.setTracksCount(d->mSelectAlbumQuery.record().value(5).toInt());
+        retrievedAlbum.setTracks(fetchTracks(retrievedAlbum.databaseId()));
+        retrievedAlbum.setTrackIds(retrievedAlbum.tracksKeys());
+        retrievedAlbum.setValid(true);
+
+        d->mAlbumCache[albumId] = retrievedAlbum;
+        itAlbum = d->mAlbumCache.find(albumId);
+    }
+
+    switch(dataType)
+    {
+    case DatabaseInterface::AlbumData::Id:
+        return itAlbum->id();
+    case DatabaseInterface::AlbumData::Image:
+        return itAlbum->albumArtURI();
+    case DatabaseInterface::AlbumData::Title:
+        return itAlbum->title();
+    case DatabaseInterface::AlbumData::Artist:
+        return itAlbum->artist();
+    case DatabaseInterface::AlbumData::TracksCount:
+        return itAlbum->tracksCount();
+    }
+
+    return {};
+}
+
 MusicAlbum DatabaseInterface::albumFromId(qlonglong albumId) const
 {
-
     d->mSelectAlbumQuery.bindValue(QStringLiteral(":albumId"), albumId);
 
     auto result = d->mSelectAlbumQuery.exec();

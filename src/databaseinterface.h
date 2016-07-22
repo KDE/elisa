@@ -27,6 +27,7 @@
 #include <QtCore/QString>
 #include <QtCore/QHash>
 #include <QtCore/QVector>
+#include <QtCore/QVariant>
 
 class DatabaseInterfacePrivate;
 
@@ -36,11 +37,23 @@ class DatabaseInterface : public QObject
 
 public:
 
+    enum class AlbumData {
+        Title,
+        Artist,
+        Image,
+        TracksCount,
+        Id,
+    };
+
     explicit DatabaseInterface(QObject *parent = 0);
 
     virtual ~DatabaseInterface();
 
+    QVariant albumDataFromIndex(int albumIndex, AlbumData dataType);
+
     MusicAlbum albumFromIndex(int albumIndex) const;
+
+    QVariant albumDataFromId(qlonglong albumId, AlbumData dataType) const;
 
     MusicAlbum albumFromId(qlonglong albumId) const;
 

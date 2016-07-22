@@ -125,13 +125,7 @@ QVariant AbstractAlbumModel::data(const QModelIndex &index, int role) const
                 return {};
             }
 
-            const auto &currentAlbum = d->mMusicDatabase->albumFromIndex(index.row());
-
-            if (!currentAlbum.isValid()) {
-                return {};
-            }
-
-            return internalDataAlbum(currentAlbum, role);
+            return internalDataAlbum(index.row(), role);
         }
     }
 
@@ -154,21 +148,21 @@ QVariant AbstractAlbumModel::data(const QModelIndex &index, int role) const
     return internalDataTrack(currentTrack, index, role);
 }
 
-QVariant AbstractAlbumModel::internalDataAlbum(const MusicAlbum &albumData, int role) const
+QVariant AbstractAlbumModel::internalDataAlbum(int albumIndex, int role) const
 {
     ColumnsRoles convertedRole = static_cast<ColumnsRoles>(role);
 
     switch(convertedRole)
     {
     case ColumnsRoles::TitleRole:
-        return albumData.title();
+        return d->mMusicDatabase->albumDataFromIndex(albumIndex, DatabaseInterface::AlbumData::Title);
     case ColumnsRoles::DurationRole:
     case ColumnsRoles::MilliSecondsDurationRole:
         return {};
     case ColumnsRoles::CreatorRole:
         return {};
     case ColumnsRoles::ArtistRole:
-        return albumData.artist();
+        return d->mMusicDatabase->albumDataFromIndex(albumIndex, DatabaseInterface::AlbumData::Artist);
     case ColumnsRoles::AlbumRole:
         return {};
     case ColumnsRoles::TrackNumberRole:
@@ -177,8 +171,8 @@ QVariant AbstractAlbumModel::internalDataAlbum(const MusicAlbum &albumData, int 
         return {};
     case ColumnsRoles::ImageRole:
     {
-        auto albumArt = albumData.albumArtURI();
-        if (albumArt.isValid()) {
+        auto albumArt = d->mMusicDatabase->albumDataFromIndex(albumIndex, DatabaseInterface::AlbumData::Image);
+        if (albumArt.isValid() && albumArt.toUrl().isValid()) {
             return albumArt;
         } else {
             if (d->mUseLocalIcons) {
@@ -193,9 +187,9 @@ QVariant AbstractAlbumModel::internalDataAlbum(const MusicAlbum &albumData, int 
     case ColumnsRoles::ItemClassRole:
         return {};
     case ColumnsRoles::CountRole:
-        return albumData.tracksCount();
+        return d->mMusicDatabase->albumDataFromIndex(albumIndex, DatabaseInterface::AlbumData::TracksCount);
     case ColumnsRoles::IdRole:
-        return albumData.title();
+        return d->mMusicDatabase->albumDataFromIndex(albumIndex, DatabaseInterface::AlbumData::Id);
     case ColumnsRoles::IsPlayingRole:
         return {};
     }

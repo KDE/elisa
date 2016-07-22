@@ -97,39 +97,10 @@ ApplicationWindow {
             mySsdpEngine.initialize();
             mySsdpEngine.searchAllUpnpDevice();
         }
-
-        onNewService: viewModeModel.newDevice(serviceDiscovery)
-
-        onRemovedService: viewModeModel.removedDevice(serviceDiscovery)
     }
 
     DatabaseInterface {
         id: localAlbumDatabase
-    }
-
-    ViewPagesModel {
-        id: viewModeModel
-
-        deviceId: 'urn:schemas-upnp-org:device:MediaServer:1'
-
-        browseFlag: globalBrowseFlag
-        filter: globalFilter
-        sortCriteria: globalSortCriteria
-        albumDatabase: localAlbumDatabase
-
-        property var mediaServiceComponent
-        property var mediaViewComponent
-
-        onRowsInserted: {
-            mainContentView.insertTab(first, '', Qt.createComponent(Qt.resolvedUrl('MediaContentDirectory.qml')))
-            mainContentView.getTab(first).active = true
-            mainContentView.getTab(first).item.pagesModel = viewModeModel
-            mainContentView.getTab(first).item.playListModel = playListModelItem
-            mainContentView.getTab(first).item.width = mainContentView.width
-            mainContentView.getTab(first).item.height = mainContentView.height
-            mainContentView.getTab(first).item.z = 0
-            mainContentView.getTab(first).item.contentDirectoryModel = viewModeModel.remoteAlbumModel(first)
-        }
     }
 
     Audio {
@@ -245,7 +216,17 @@ ApplicationWindow {
                     width: viewModeView.width
                 }
 
-                model: viewModeModel
+                model: ListModel {
+                    id: pageModel
+
+                    ListElement {
+                        name: 'All Albums'
+                    }
+
+                    ListElement {
+                        name: 'Play List'
+                    }
+                }
 
                 itemDelegate: Rectangle {
                     height: Screen.pixelDensity * 8.
@@ -309,7 +290,6 @@ ApplicationWindow {
                     MediaContentDirectory {
                         id: localAlbums
 
-                        pagesModel: viewModeModel
                         playListModel: playListModelItem
                         contentDirectoryModel: LocalAlbumModel {
                         }

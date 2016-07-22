@@ -206,7 +206,6 @@ QVariant AbstractAlbumModel::internalDataTrack(const MusicAudioTrack &track, con
     case ColumnsRoles::TitleRole:
         return track.title();
     case ColumnsRoles::MilliSecondsDurationRole:
-        qDebug() << "AbstractAlbumModel::internalDataTrack" << track.duration() << track.duration().msecsSinceStartOfDay();
         return track.duration().msecsSinceStartOfDay();
     case ColumnsRoles::DurationRole:
     {

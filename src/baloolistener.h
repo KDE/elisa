@@ -23,33 +23,33 @@
 #include <QObject>
 
 class BalooListenerPrivate;
-class AbstractAlbumModel;
+class DatabaseInterface;
 
 class BalooListener : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(AbstractAlbumModel* model
-               READ model
-               WRITE setModel
-               NOTIFY modelChanged)
+    Q_PROPERTY(DatabaseInterface* databaseInterface
+               READ databaseInterface
+               WRITE setDatabaseInterface
+               NOTIFY databaseInterfaceChanged)
 
 public:
     explicit BalooListener(QObject *parent = 0);
 
     virtual ~BalooListener();
 
-    AbstractAlbumModel* model() const;
+    DatabaseInterface* databaseInterface() const;
 
 Q_SIGNALS:
 
     void refreshContent();
 
-    void modelChanged();
+    void databaseInterfaceChanged();
 
 public Q_SLOTS:
 
-void setModel(AbstractAlbumModel* model);
+void setDatabaseInterface(DatabaseInterface* databaseInterface);
 
 private:
 

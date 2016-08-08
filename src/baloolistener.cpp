@@ -20,7 +20,7 @@
 #include "baloolistener.h"
 
 #include "localbaloofilelisting.h"
-#include "abstractalbummodel.h"
+#include "databaseinterface.h"
 
 #include <QtCore/QThread>
 
@@ -32,7 +32,7 @@ public:
 
     LocalBalooFileListing mFileListing;
 
-    AbstractAlbumModel* mModel = nullptr;
+    DatabaseInterface* mDatabaseInterface = nullptr;
 
 };
 
@@ -47,31 +47,31 @@ BalooListener::~BalooListener()
     delete d;
 }
 
-AbstractAlbumModel *BalooListener::model() const
+DatabaseInterface *BalooListener::databaseInterface() const
 {
-    return d->mModel;
+    return d->mDatabaseInterface;
 }
 
-void BalooListener::setModel(AbstractAlbumModel *model)
+void BalooListener::setDatabaseInterface(DatabaseInterface *model)
 {
-    if (d->mModel == model) {
+    if (d->mDatabaseInterface == model) {
         return;
     }
 
-    if (d->mModel) {
-        disconnect(d->mModel);
+    if (d->mDatabaseInterface) {
+        disconnect(d->mDatabaseInterface);
     }
 
-    d->mModel = model;
+    d->mDatabaseInterface = model;
 
-    if (d->mModel) {
+    if (d->mDatabaseInterface) {
         connect(this, &BalooListener::refreshContent, &d->mFileListing, &LocalBalooFileListing::refreshContent, Qt::QueuedConnection);
-        connect(&d->mFileListing, &LocalBalooFileListing::tracksList, d->mModel, &AbstractAlbumModel::tracksList);
+        connect(&d->mFileListing, &LocalBalooFileListing::tracksList, d->mDatabaseInterface, &DatabaseInterface::insertTracksList);
 
         QMetaObject::invokeMethod(&d->mFileListing, "init", Qt::QueuedConnection);
 
         Q_EMIT refreshContent();
     }
 
-    emit modelChanged();
+    emit databaseInterfaceChanged();
 }

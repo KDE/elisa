@@ -100,7 +100,7 @@ Q_SIGNALS:
 
     void contentDirectoryChanged();
 
-    void musicDatabaseChanged();
+    void databaseInterfaceChanged();
 
     void didlParserChanged();
 

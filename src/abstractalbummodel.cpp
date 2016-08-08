@@ -39,7 +39,7 @@ public:
     {
     }
 
-    DatabaseInterface *mMusicDatabase = new DatabaseInterface;
+    DatabaseInterface *mMusicDatabase = nullptr;
 
     bool mUseLocalIcons = false;
 };
@@ -47,8 +47,6 @@ public:
 AbstractAlbumModel::AbstractAlbumModel(QObject *parent) : QAbstractItemModel(parent), d(new AbstractAlbumModelPrivate)
 {
     Q_EMIT refreshContent();
-
-    connect(d->mMusicDatabase, &DatabaseInterface::resetModel, this, &AbstractAlbumModel::databaseReset);
 }
 
 AbstractAlbumModel::~AbstractAlbumModel()
@@ -58,6 +56,10 @@ AbstractAlbumModel::~AbstractAlbumModel()
 
 int AbstractAlbumModel::rowCount(const QModelIndex &parent) const
 {
+    if (!d->mMusicDatabase) {
+        return 0;
+    }
+
     const auto albumCount = d->mMusicDatabase->albumCount();
 
     if (!parent.isValid()) {
@@ -105,6 +107,10 @@ Qt::ItemFlags AbstractAlbumModel::flags(const QModelIndex &index) const
 
 QVariant AbstractAlbumModel::data(const QModelIndex &index, int role) const
 {
+    if (!d->mMusicDatabase) {
+        return {};
+    }
+
     const auto albumCount = d->mMusicDatabase->albumCount();
 
     if (!index.isValid()) {
@@ -150,6 +156,10 @@ QVariant AbstractAlbumModel::data(const QModelIndex &index, int role) const
 
 QVariant AbstractAlbumModel::internalDataAlbum(int albumIndex, int role) const
 {
+    if (!d->mMusicDatabase) {
+        return {};
+    }
+
     ColumnsRoles convertedRole = static_cast<ColumnsRoles>(role);
 
     switch(convertedRole)
@@ -288,18 +298,28 @@ int AbstractAlbumModel::columnCount(const QModelIndex &parent) const
     return 1;
 }
 
-DatabaseInterface *AbstractAlbumModel::musicDatabase() const
+DatabaseInterface *AbstractAlbumModel::databaseInterface() const
 {
     return d->mMusicDatabase;
 }
 
-void AbstractAlbumModel::setMusicDatabase(DatabaseInterface *musicDatabase)
+void AbstractAlbumModel::setDatabaseInterface(DatabaseInterface *musicDatabase)
 {
     if (d->mMusicDatabase == musicDatabase) {
         return;
     }
 
-    emit musicDatabaseChanged();
+    if (d->mMusicDatabase) {
+        disconnect(d->mMusicDatabase);
+    }
+
+    d->mMusicDatabase = musicDatabase;
+
+    if (d->mMusicDatabase) {
+        connect(d->mMusicDatabase, &DatabaseInterface::resetModel, this, &AbstractAlbumModel::databaseReset);
+    }
+
+    emit databaseInterfaceChanged();
 }
 
 void AbstractAlbumModel::albumsList(const QVector<MusicAlbum> &allAlbums)

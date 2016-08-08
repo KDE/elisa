@@ -88,13 +88,6 @@ QString MediaPlayer2Tracklist::currentTrackId() const
         return currentDBusTrackId().path();
     }
 
-#if 0
-    QSharedPointer<PmcMedia> media = SingletonFactory::instanceFor<MediaLibrary>()->mediaForUrl(m_mp2p->currentTrack());
-    if (media) {
-        return QStringLiteral("/org/kde/plasmamediacenter/tid_") + media->sha();
-    }
-#endif
-
     return QString(QStringLiteral("/org/mpris/MediaPlayer2/TrackList/NoTrack"));
 }
 

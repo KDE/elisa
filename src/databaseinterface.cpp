@@ -286,8 +286,6 @@ void DatabaseInterface::insertAlbumsList(const QVector<MusicAlbum> &allAlbums)
             d->mInsertAlbumQuery.bindValue(QStringLiteral(":coverFileName"), album.albumArtURI());
             d->mInsertAlbumQuery.bindValue(QStringLiteral(":tracksCount"), album.tracksCount());
 
-            qDebug() << "new album" << album.title();
-
             result = d->mInsertAlbumQuery.exec();
 
             if (!result || !d->mInsertAlbumQuery.isActive()) {
@@ -329,8 +327,6 @@ void DatabaseInterface::insertAlbumsList(const QVector<MusicAlbum> &allAlbums)
             return;
         }
     }
-
-    qDebug() << "maximum albumId" << albumId;
 
     updateIndexCache();
 }
@@ -386,8 +382,6 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
             d->mInsertAlbumQuery.bindValue(QStringLiteral(":artist"), newAlbum.artist());
             d->mInsertAlbumQuery.bindValue(QStringLiteral(":coverFileName"), newAlbum.albumArtURI());
             d->mInsertAlbumQuery.bindValue(QStringLiteral(":tracksCount"), newAlbum.tracksCount());
-
-            qDebug() << "new album" << newAlbum.title() << newAlbum.artist();
 
             result = d->mInsertAlbumQuery.exec();
 
@@ -455,8 +449,6 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
                 d->mInsertTrackQuery.bindValue(QStringLiteral(":trackNumber"), track.trackNumber());
                 d->mInsertTrackQuery.bindValue(QStringLiteral(":trackDuration"), QVariant::fromValue<qlonglong>(track.duration().msecsSinceStartOfDay()));
 
-                qDebug() << track.title() << artistName << QVariant::fromValue<qlonglong>(track.duration().msecsSinceStartOfDay());
-
                 result = d->mInsertTrackQuery.exec();
 
                 if (!result || !d->mInsertTrackQuery.isActive()) {
@@ -484,8 +476,6 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
             return;
         }
     }
-
-    qDebug() << "maximum albumId" << albumId;
 
     updateIndexCache();
 }
@@ -726,10 +716,7 @@ QMap<qlonglong, MusicAudioTrack> DatabaseInterface::fetchTracks(qlonglong albumI
         newTrack.setArtist(d->mSelectTrackQuery.record().value(3).toString());
         newTrack.setResourceURI(d->mSelectTrackQuery.record().value(4).toUrl());
         newTrack.setTrackNumber(d->mSelectTrackQuery.record().value(5).toInt());
-
         newTrack.setDuration(QTime::fromMSecsSinceStartOfDay(d->mSelectTrackQuery.record().value(6).toInt()));
-        qDebug() << newTrack.title() << newTrack.artist() << newTrack.duration() << d->mSelectTrackQuery.record().value(6) << d->mSelectTrackQuery.record().value(6).toInt();
-
         newTrack.setValid(true);
 
         allTracks[newTrack.databaseId()] = newTrack;

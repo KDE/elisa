@@ -89,8 +89,6 @@ void LocalBalooFileListing::refreshContent()
 {
     auto resultIterator = d->mQuery.exec();
 
-    qDebug() << "LocalBalooFileListing::refreshContent";
-
     int cptTracks = 0;
 
     while(resultIterator.next()) {

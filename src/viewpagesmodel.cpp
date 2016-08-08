@@ -194,21 +194,6 @@ QHash<int, QByteArray> ViewPagesModel::roleNames() const
     return roles;
 }
 
-UpnpAlbumModel *ViewPagesModel::remoteAlbumModel(int index) const
-{
-#if defined UPNPQT_FOUND && UPNPQT_FOUND
-    if (index < 0 || index > d->mRemoteServers.size() - 1) {
-        return nullptr;
-    }
-
-    return d->mRemoteServers.at(index)->albumModel();
-#else
-    Q_UNUSED(index);
-
-    return nullptr;
-#endif
-}
-
 void ViewPagesModel::setWithPlaylist(bool value)
 {
     d->mWithPlaylist = value;

@@ -30,7 +30,6 @@ class ViewPagesModelPrivate;
 class UpnpDiscoveryResult;
 class UpnpControlContentDirectory;
 class RemoteServerEntry;
-class UpnpAlbumModel;
 class DatabaseInterface;
 
 class ViewPagesModel : public QAbstractListModel
@@ -89,8 +88,6 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
     QHash<int, QByteArray> roleNames() const override;
-
-    Q_INVOKABLE UpnpAlbumModel *remoteAlbumModel(int index) const;
 
     void setWithPlaylist(bool value);
 

@@ -5,7 +5,6 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         upnpControl.cpp
         mediaplaylist.cpp
         playlistcontroler.cpp
-        viewpagesmodel.cpp
         musicstatistics.cpp
         musicalbum.cpp
         musicaudiotrack.cpp
@@ -47,10 +46,9 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         if (Qt5DBus_FOUND)
             set(elisa_SOURCES
                 ${elisa_SOURCES}
-                localalbummodel.cpp
                 localbaloofilelisting.cpp
                 localbalootrack.cpp
-                localbalooalbum.cpp
+                baloolistener.cpp
                 )
         endif()
     endif()
@@ -68,14 +66,12 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
     if (UPNPQT_FOUND)
         set(elisa_SOURCES
             ${elisa_SOURCES}
-            upnpalbummodel.cpp
             upnpcontrolcontentdirectory.cpp
             upnpcontentdirectorymodel.cpp
             upnpdevicemodel.cpp
             upnpcontrolconnectionmanager.cpp
             upnpcontrolmediaserver.cpp
             didlparser.cpp
-            remoteserverentry.cpp
             )
     endif()
 

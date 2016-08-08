@@ -19,6 +19,8 @@
 
 #include "config-upnp-qt.h"
 
+//#define QT_QML_DEBUG
+
 #if defined UPNPQT_FOUND && UPNPQT_FOUND
 #include "upnpssdpengine.h"
 #include "upnpabstractservice.h"
@@ -74,7 +76,9 @@
 #include <QtQml/QQmlApplicationEngine>
 #include <QtQml/QQmlEngine>
 #include <QtQml/QQmlFileSelector>
+#include <QtQml/QQmlDebuggingEnabler>
 #include <QtQml>
+
 
 int __attribute__((visibility("default"))) main(int argc, char *argv[])
 {
@@ -127,6 +131,8 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
 #if defined KF5I18n_FOUND && KF5I18n_FOUND
     KLocalizedString::setApplicationDomain("elisa");
 #endif
+
+    //QQmlDebuggingEnabler enabler;
 
 #if defined KF5CoreAddons_FOUND && KF5CoreAddons_FOUND
     KAboutData aboutData( QStringLiteral("elisa"),

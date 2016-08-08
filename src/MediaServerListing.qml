@@ -73,8 +73,8 @@ Item {
                     source: image
                     width: parent.height * 0.7
                     height: parent.height * 0.7
-                    sourceSize.width: width
-                    sourceSize.height: width
+                    sourceSize.width: parent.height * 0.7
+                    sourceSize.height: parent.height * 0.7
                     fillMode: Image.PreserveAspectFit
 
                     Layout.preferredWidth: contentDirectoryView.cellWidth * 0.9

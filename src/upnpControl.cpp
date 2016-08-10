@@ -39,7 +39,7 @@
 #endif
 
 #if defined KF5Baloo_FOUND && KF5Baloo_FOUND
-#include "baloolistener.h"
+#include "baloo/baloolistener.h"
 #endif
 
 #include "progressindicator.h"

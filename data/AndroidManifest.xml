@@ -1,13 +1,7 @@
 <?xml version="1.0"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="0.0.3" package="org.kde.upnpplayerqt" android:installLocation="auto" android:versionCode="7">
-        <application android:name="org.qtproject.qt5.android.bindings.QtApplication" android:label="UPnP Player" android:icon="@drawable/kde">
-                <activity android:name="org.qtproject.qt5.android.bindings.QtActivity"
-                          android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|layoutDirection|locale|fontScale|keyboard|keyboardHidden|navigation"
-                          android:label="Elisa"
-                          android:theme="@style/AppTheme"
-                          android:screenOrientation="unspecified"
-                          android:windowSoftInputMode="adjustResize"
-                          android:launchMode="singleTop">
+        <application android:name="org.qtproject.qt5.android.bindings.QtApplication" android:label="UPnP Player" android:icon="@drawable/icon">
+                <activity android:name="org.qtproject.qt5.android.bindings.QtActivity" android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|layoutDirection|locale|fontScale|keyboard|keyboardHidden|navigation" android:label="Elisa" android:theme="@style/AppTheme" android:screenOrientation="unspecified" android:windowSoftInputMode="adjustResize" android:launchMode="singleTop">
                         <intent-filter>
                                 <action android:name="android.intent.action.MAIN"/>
                                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -34,7 +28,7 @@
                 </activity>
         </application>
         <supports-screens android:anyDensity="true" android:normalScreens="true" android:smallScreens="true" android:largeScreens="true"/>
-        <uses-sdk android:minSdkVersion="10" android:targetSdkVersion="19"/>
+        <uses-sdk android:minSdkVersion="16" android:targetSdkVersion="16"/>
 
 
     <!--
@@ -50,4 +44,5 @@
     -->
     <!-- %%INSERT_FEATURES -->
 
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 </manifest>

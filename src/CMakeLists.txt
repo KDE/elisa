@@ -163,3 +163,7 @@ set(playListTest_SOURCES
 
 add_executable(playListTest ${playListTest_SOURCES})
 target_link_libraries(playListTest Qt5::Test Qt5::Core)
+
+if (KF5Kirigami_FOUND)
+    kirigami_package_breeze_icons(ICONS media-skip-backward media-skip-forward audio-x-generic folder go-next go-previous list-remove)
+endif()

@@ -26,6 +26,8 @@ find_package(KF5Service CONFIG QUIET)
 find_package(KDSoap CONFIG QUIET)
 find_package(UPNPQT CONFIG QUIET)
 
+find_package(KF5Kirigami CONFIG QUIET)
+
 include(FeatureSummary)
 include(GenerateExportHeader)
 include(ECMSetupVersion)

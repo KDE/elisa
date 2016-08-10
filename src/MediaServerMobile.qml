@@ -112,22 +112,6 @@ MobileComponents.ApplicationWindow {
         onAudioPositionChanged: audioPlayer.seek(audioPosition)
     }
 
-    ViewPagesModel {
-        id: serverListModel
-
-        deviceId: 'urn:schemas-upnp-org:device:MediaServer:1'
-
-        browseFlag: globalBrowseFlag
-        filter: globalFilter
-        sortCriteria: globalSortCriteria
-
-        withPlaylist: false
-        useLocalIcons: true
-
-        property var mediaServiceComponent
-        property var mediaViewComponent
-    }
-
     MediaPlayPageMobile {
         id: playListPage
         targetPlayListControler: playListControler

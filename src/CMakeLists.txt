@@ -65,14 +65,14 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
     if (UPNPQT_FOUND)
         set(elisa_SOURCES
             ${elisa_SOURCES}
-            upnpcontrolcontentdirectory.cpp
-            upnpcontentdirectorymodel.cpp
-            upnpdevicemodel.cpp
-            upnpcontrolconnectionmanager.cpp
-            upnpcontrolmediaserver.cpp
-            didlparser.cpp
-            upnplistener.cpp
-            upnpdiscoverallmusic.cpp
+            upnp/upnpcontrolcontentdirectory.cpp
+            upnp/upnpcontentdirectorymodel.cpp
+            upnp/upnpdevicemodel.cpp
+            upnp/upnpcontrolconnectionmanager.cpp
+            upnp/upnpcontrolmediaserver.cpp
+            upnp/didlparser.cpp
+            upnp/upnplistener.cpp
+            upnp/upnpdiscoverallmusic.cpp
             )
     endif()
 

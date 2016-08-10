@@ -26,16 +26,16 @@
 #include "upnpabstractservice.h"
 #include "upnpcontrolabstractdevice.h"
 #include "upnpcontrolabstractservice.h"
-#include "upnpdevicemodel.h"
+#include "upnp/upnpdevicemodel.h"
 #include "upnpbasictypes.h"
-#include "upnpcontrolconnectionmanager.h"
-#include "upnpcontrolmediaserver.h"
-#include "upnpcontrolcontentdirectory.h"
-#include "upnpcontentdirectorymodel.h"
+#include "upnp/upnpcontrolconnectionmanager.h"
+#include "upnp/upnpcontrolmediaserver.h"
+#include "upnp/upnpcontrolcontentdirectory.h"
+#include "upnp/upnpcontentdirectorymodel.h"
 #include "upnpdevicedescription.h"
-#include "didlparser.h"
-#include "upnpdiscoverallmusic.h"
-#include "upnplistener.h"
+#include "upnp/didlparser.h"
+#include "upnp/upnpdiscoverallmusic.h"
+#include "upnp/upnplistener.h"
 #endif
 
 #if defined KF5Baloo_FOUND && KF5Baloo_FOUND
@@ -46,7 +46,6 @@
 
 #include "mediaplaylist.h"
 #include "playlistcontroler.h"
-#include "upnpdiscoverallmusic.h"
 #include "musicstatistics.h"
 #include "albumfilterproxymodel.h"
 #include "databaseinterface.h"

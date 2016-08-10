@@ -1,0 +1,22 @@
+before_script:
+  - apt-get update -qq && apt-get install -y -qq cmake qtbase5-dev qtdeclarative5-dev libqt5sql5-sqlite libqt5svg5-dev libqt5multimedia5-plugins qtmultimedia5-dev
+
+elisa:
+  script:
+    - mkdir root
+    - git clone git://anongit.kde.org/extra-cmake-modules.git
+    - cd extra-cmake-modules
+    - git checkout v5.24.0
+    - pwd
+    - mkdir build
+    - pwd
+    - cd build
+    - cmake .. -DCMAKE_INSTALL_PREFIX=../../root -DCMAKE_PREFIX_PATH=../../root
+    - make install
+    - cd ..
+    - git clone https://gitlab.com/homeautomationqt/elisa.git
+    - cd elisa
+    - mkdir build
+    - cd build
+    - cmake .. -DCMAKE_INSTALL_PREFIX=../../root -DCMAKE_PREFIX_PATH=../../root
+    - make

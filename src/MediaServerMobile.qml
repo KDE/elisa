@@ -65,10 +65,10 @@ MobileComponents.ApplicationWindow {
             mySsdpEngine.initialize();
             mySsdpEngine.searchAllUpnpDevice();
         }
+    }
 
-        onNewService: serverListModel.newDevice(serviceDiscovery)
-
-        onRemovedService: serverListModel.removedDevice(serviceDiscovery)
+    DatabaseInterface {
+        id: localAlbumDatabase
     }
 
     Audio {

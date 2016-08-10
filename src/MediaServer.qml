@@ -99,6 +99,16 @@ ApplicationWindow {
         }
     }
 
+    UpnpDiscoverAllMusic {
+        id: myUpnpManager
+    }
+
+    UpnpListener {
+        databaseInterface: localAlbumDatabase
+        upnpManager: myUpnpManager
+        ssdpEngine: mySsdpEngine
+    }
+
     DatabaseInterface {
         id: localAlbumDatabase
     }

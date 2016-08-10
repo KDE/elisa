@@ -34,6 +34,8 @@
 #include "upnpcontentdirectorymodel.h"
 #include "upnpdevicedescription.h"
 #include "didlparser.h"
+#include "upnpdiscoverallmusic.h"
+#include "upnplistener.h"
 #endif
 
 #if defined KF5Baloo_FOUND && KF5Baloo_FOUND
@@ -86,6 +88,9 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
 
 #if defined UPNPQT_FOUND && UPNPQT_FOUND
     qmlRegisterType<UpnpSsdpEngine>("org.mgallien.QmlExtension", 1, 0, "UpnpSsdpEngine");
+    qmlRegisterType<UpnpDiscoverAllMusic>("org.mgallien.QmlExtension", 1, 0, "UpnpDiscoverAllMusic");
+    qmlRegisterType<UpnpListener>("org.mgallien.QmlExtension", 1, 0, "UpnpListener");
+
     qmlRegisterType<UpnpAbstractDevice>("org.mgallien.QmlExtension", 1, 0, "UpnpAbstractDevice");
     qmlRegisterType<UpnpAbstractService>("org.mgallien.QmlExtension", 1, 0, "UpnpAbstractService");
     qmlRegisterType<UpnpControlAbstractDevice>("org.mgallien.QmlExtension", 1, 0, "UpnpControlAbstractDevice");

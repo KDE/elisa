@@ -12,7 +12,6 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         progressindicator.cpp
         abstractalbummodel.cpp
         databaseinterface.cpp
-        upnpdiscoverallmusic.cpp
 
         MediaServer.qml
         MediaServerListing.qml
@@ -72,6 +71,8 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
             upnpcontrolconnectionmanager.cpp
             upnpcontrolmediaserver.cpp
             didlparser.cpp
+            upnplistener.cpp
+            upnpdiscoverallmusic.cpp
             )
     endif()
 

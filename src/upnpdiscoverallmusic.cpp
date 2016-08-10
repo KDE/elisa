@@ -24,12 +24,10 @@
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkReply>
 
-#if defined UPNPQT_FOUND && UPNPQT_FOUND
 #include "upnpdevicedescription.h"
 #include "upnpdiscoveryresult.h"
 #include "upnpdevicedescriptionparser.h"
 #include "upnpcontrolcontentdirectory.h"
-#endif
 
 #include "databaseinterface.h"
 
@@ -42,7 +40,6 @@ class UpnpDiscoverAllMusicPrivate
 {
 public:
 
-#if defined UPNPQT_FOUND && UPNPQT_FOUND
     QHash<QString, QSharedPointer<UpnpDiscoveryResult> > mAllDeviceDiscoveryResults;
 
     QHash<QString, QSharedPointer<UpnpDeviceDescription> > mAllHostsDescription;
@@ -52,7 +49,6 @@ public:
     QList<QString> mAllHostsUUID;
 
     QNetworkAccessManager mNetworkAccess;
-#endif
 
     QString mDeviceId;
 
@@ -102,7 +98,6 @@ DatabaseInterface *UpnpDiscoverAllMusic::albumDatabase() const
 
 void UpnpDiscoverAllMusic::newDevice(QSharedPointer<UpnpDiscoveryResult> serviceDiscovery)
 {
-#if defined UPNPQT_FOUND && UPNPQT_FOUND
     if (serviceDiscovery->nt() == d->mDeviceId) {
         const QString &deviceUuid = serviceDiscovery->usn().mid(5, 36);
         if (!d->mAllDeviceDiscoveryResults.contains(deviceUuid)) {
@@ -124,21 +119,14 @@ void UpnpDiscoverAllMusic::newDevice(QSharedPointer<UpnpDiscoveryResult> service
             d->mDeviceDescriptionParsers[decodedUdn]->downloadDeviceDescription(QUrl(serviceDiscovery->location()));
         }
     }
-#else
-    Q_UNUSED(serviceDiscovery);
-#endif
 }
 
 void UpnpDiscoverAllMusic::removedDevice(QSharedPointer<UpnpDiscoveryResult> serviceDiscovery)
 {
-#if defined UPNPQT_FOUND && UPNPQT_FOUND
     if (serviceDiscovery->nt() == d->mDeviceId) {
         qDebug() << "nt" << serviceDiscovery->nt();
         qDebug() << "usn" << serviceDiscovery->usn();
     }
-#else
-    Q_UNUSED(serviceDiscovery);
-#endif
 }
 
 void UpnpDiscoverAllMusic::setDeviceId(QString deviceId)
@@ -179,22 +167,14 @@ void UpnpDiscoverAllMusic::setAlbumDatabase(DatabaseInterface *albumDatabase)
 
 void UpnpDiscoverAllMusic::deviceDescriptionChanged(const QString &uuid)
 {
-#if defined UPNPQT_FOUND && UPNPQT_FOUND
     int deviceIndex = d->mAllHostsUUID.indexOf(uuid);
 
     //d->mRemoteServers[deviceIndex]->albumModel()->setServerName(d->mAllHostsDescription[d->mAllHostsUUID[deviceIndex]]->friendlyName());
-#else
-    Q_UNUSED(uuid);
-#endif
 }
 
 void UpnpDiscoverAllMusic::descriptionParsed(const QString &UDN)
 {
-#if defined UPNPQT_FOUND && UPNPQT_FOUND
     d->mDeviceDescriptionParsers.remove(UDN.mid(5));
-#else
-    Q_UNUSED(UDN);
-#endif
 }
 
 

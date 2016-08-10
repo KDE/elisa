@@ -75,3 +75,6 @@ void BalooListener::setDatabaseInterface(DatabaseInterface *model)
 
     emit databaseInterfaceChanged();
 }
+
+
+#include "moc_baloolistener.cpp"

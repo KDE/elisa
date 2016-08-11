@@ -101,6 +101,9 @@ ApplicationWindow {
 
     UpnpDiscoverAllMusic {
         id: myUpnpManager
+
+        deviceId: 'urn:schemas-upnp-org:service:ContentDirectory:1'
+        albumDatabase: localAlbumDatabase
     }
 
     UpnpListener {

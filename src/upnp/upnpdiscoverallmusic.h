@@ -107,6 +107,8 @@ private Q_SLOTS:
 
     void descriptionParsed(const QString &UDN);
 
+    void contentChanged(const QString &uuid, const QString &parentId);
+
 private:
 
     UpnpDiscoverAllMusicPrivate *d;

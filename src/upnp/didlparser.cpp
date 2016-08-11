@@ -21,6 +21,8 @@
 
 #include "upnpcontrolcontentdirectory.h"
 #include "upnpcontrolabstractservicereply.h"
+#include "upnpservicedescription.h"
+#include "upnpdevicedescription.h"
 
 #include <QtCore/QVector>
 #include <QtCore/QString>
@@ -53,6 +55,8 @@ public:
     QVector<QString> mNewMusicTrackIds;
 
     QHash<QString, MusicAudioTrack> mNewMusicTracks;
+
+    QHash<QString, QVector<MusicAudioTrack>> mNewTracksByAlbums;
 
 };
 
@@ -153,6 +157,10 @@ void DidlParser::browse()
 
 void DidlParser::search()
 {
+    if (!d->mContentDirectory) {
+        return;
+    }
+
     auto upnpAnswer = d->mContentDirectory->search(d->mParentId, d->mSearchCriteria, d->mFilter, 0, 0, d->mSortCriteria);
 
     connect(upnpAnswer, &UpnpControlAbstractServiceReply::finished, this, &DidlParser::searchFinished);
@@ -178,9 +186,9 @@ const QVector<QString> &DidlParser::newMusicTrackIds() const
     return d->mNewMusicTrackIds;
 }
 
-const QHash<QString, MusicAudioTrack> &DidlParser::newMusicTracks() const
+const QHash<QString, QVector<MusicAudioTrack>> &DidlParser::newMusicTracks() const
 {
-    return d->mNewMusicTracks;
+    return d->mNewTracksByAlbums;
 }
 
 void DidlParser::browseFinished(UpnpControlAbstractServiceReply *self)
@@ -191,7 +199,7 @@ void DidlParser::browseFinished(UpnpControlAbstractServiceReply *self)
 
     if (!success) {
         d->mIsDataValid = false;
-        Q_EMIT isDataValidChanged(d->mParentId);
+        Q_EMIT isDataValidChanged(d->mContentDirectory->description()->deviceDescription()->UDN().mid(5), d->mParentId);
 
         return;
     }
@@ -217,8 +225,17 @@ void DidlParser::browseFinished(UpnpControlAbstractServiceReply *self)
         }
     }
 
+    groupNewTracksByAlbums();
     d->mIsDataValid = true;
-    Q_EMIT isDataValidChanged(d->mParentId);
+    Q_EMIT isDataValidChanged(d->mContentDirectory->description()->deviceDescription()->UDN().mid(5), d->mParentId);
+}
+
+void DidlParser::groupNewTracksByAlbums()
+{
+    d->mNewTracksByAlbums.clear();
+    for(auto newTrack : d->mNewMusicTracks) {
+        d->mNewTracksByAlbums[newTrack.albumName()].push_back(newTrack);
+    }
 }
 
 void DidlParser::searchFinished(UpnpControlAbstractServiceReply *self)
@@ -229,7 +246,7 @@ void DidlParser::searchFinished(UpnpControlAbstractServiceReply *self)
 
     if (!success) {
         d->mIsDataValid = false;
-        Q_EMIT isDataValidChanged(d->mParentId);
+        Q_EMIT isDataValidChanged(d->mContentDirectory->description()->deviceDescription()->UDN().mid(5), d->mParentId);
 
         return;
     }
@@ -260,8 +277,9 @@ void DidlParser::searchFinished(UpnpControlAbstractServiceReply *self)
         }
     }
 
+    groupNewTracksByAlbums();
     d->mIsDataValid = true;
-    Q_EMIT isDataValidChanged(d->mParentId);
+    Q_EMIT isDataValidChanged(d->mContentDirectory->description()->deviceDescription()->UDN().mid(5), d->mParentId);
 }
 
 void DidlParser::decodeContainerNode(const QDomNode &containerNode, QHash<QString, MusicAlbum> &newData,

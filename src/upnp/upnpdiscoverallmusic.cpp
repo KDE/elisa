@@ -28,6 +28,7 @@
 #include "upnpdiscoveryresult.h"
 #include "upnpdevicedescriptionparser.h"
 #include "upnpcontrolcontentdirectory.h"
+#include "didlparser.h"
 
 #include "databaseinterface.h"
 
@@ -45,6 +46,10 @@ public:
     QHash<QString, QSharedPointer<UpnpDeviceDescription> > mAllHostsDescription;
 
     QHash<QString, QSharedPointer<UpnpDeviceDescriptionParser> > mDeviceDescriptionParsers;
+
+    QHash<QString, QSharedPointer<UpnpControlContentDirectory> > mControlContentDirectory;
+
+    QHash<QString, QSharedPointer<DidlParser>> mDidlParsers;
 
     QList<QString> mAllHostsUUID;
 
@@ -167,14 +172,50 @@ void UpnpDiscoverAllMusic::setAlbumDatabase(DatabaseInterface *albumDatabase)
 
 void UpnpDiscoverAllMusic::deviceDescriptionChanged(const QString &uuid)
 {
-    int deviceIndex = d->mAllHostsUUID.indexOf(uuid);
-
-    //d->mRemoteServers[deviceIndex]->albumModel()->setServerName(d->mAllHostsDescription[d->mAllHostsUUID[deviceIndex]]->friendlyName());
+    Q_UNUSED(uuid);
 }
 
 void UpnpDiscoverAllMusic::descriptionParsed(const QString &UDN)
 {
-    d->mDeviceDescriptionParsers.remove(UDN.mid(5));
+    QString uuid = UDN.mid(5);
+
+    d->mDeviceDescriptionParsers.remove(uuid);
+
+    int deviceIndex = d->mAllHostsUUID.indexOf(UDN.mid(5));
+
+    d->mControlContentDirectory[uuid] = QSharedPointer<UpnpControlContentDirectory>(new UpnpControlContentDirectory);
+    auto serviceDescription = d->mAllHostsDescription[d->mAllHostsUUID[deviceIndex]]->serviceById(QStringLiteral("urn:upnp-org:serviceId:ContentDirectory"));
+    d->mControlContentDirectory[uuid]->setDescription(serviceDescription.data());
+    d->mDidlParsers[uuid] = QSharedPointer<DidlParser>(new DidlParser);
+
+    auto currentDidlParser = d->mDidlParsers[uuid].data();
+    currentDidlParser->setSearchCriteria(QStringLiteral("upnp:class = \"object.item.audioItem.musicTrack\""));
+    currentDidlParser->setParentId(QStringLiteral("0"));
+    currentDidlParser->setContentDirectory(d->mControlContentDirectory[uuid].data());
+
+    connect(currentDidlParser, &DidlParser::isDataValidChanged, this, &UpnpDiscoverAllMusic::contentChanged);
+
+    currentDidlParser->search();
+}
+
+void UpnpDiscoverAllMusic::contentChanged(const QString &uuid, const QString &parentId)
+{
+    if (!d->mAlbumDatabase) {
+        return;
+    }
+
+    if (parentId == QStringLiteral("0")) {
+        auto currentDidlParser = d->mDidlParsers[uuid];
+        if (!currentDidlParser) {
+            return;
+        }
+
+        QVector<MusicAlbum> allAlbums;
+
+        const auto &allNewTracks = currentDidlParser->newMusicTracks();
+
+        d->mAlbumDatabase->insertTracksList(allNewTracks, {});
+    }
 }
 
 

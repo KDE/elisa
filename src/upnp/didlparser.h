@@ -105,7 +105,7 @@ public:
 
     const QVector<QString> &newMusicTrackIds() const;
 
-    const QHash<QString, MusicAudioTrack> &newMusicTracks() const;
+    const QHash<QString, QVector<MusicAudioTrack> > &newMusicTracks() const;
 
 Q_SIGNALS:
 
@@ -119,7 +119,7 @@ Q_SIGNALS:
 
     void contentDirectoryChanged();
 
-    void isDataValidChanged(const QString &parentId);
+    void isDataValidChanged(const QString &uuid, const QString &parentId);
 
     void parentIdChanged();
 
@@ -150,6 +150,8 @@ private:
     void decodeContainerNode(const QDomNode &containerNode, QHash<QString, MusicAlbum> &newData, QVector<QString> &newDataIds);
 
     void decodeAudioTrackNode(const QDomNode &itemNode, QHash<QString, MusicAudioTrack> &newData, QVector<QString> &newDataIds);
+
+    void groupNewTracksByAlbums();
 
     std::unique_ptr<DidlParserPrivate> d;
 

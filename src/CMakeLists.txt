@@ -67,7 +67,6 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
             ${elisa_SOURCES}
             upnp/upnpcontrolcontentdirectory.cpp
             upnp/upnpcontentdirectorymodel.cpp
-            upnp/upnpdevicemodel.cpp
             upnp/upnpcontrolconnectionmanager.cpp
             upnp/upnpcontrolmediaserver.cpp
             upnp/didlparser.cpp

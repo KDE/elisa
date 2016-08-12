@@ -148,20 +148,34 @@ void DidlParser::systemUpdateIDChanged()
     search();
 }
 
-void DidlParser::browse()
+void DidlParser::browse(int startIndex, int maximumNmberOfResults)
 {
-    auto upnpAnswer = d->mContentDirectory->browse(d->mParentId, d->mBrowseFlag, d->mFilter, 0, 0, d->mSortCriteria);
+    auto upnpAnswer = d->mContentDirectory->browse(d->mParentId, d->mBrowseFlag, d->mFilter, startIndex, maximumNmberOfResults, d->mSortCriteria);
+
+    if (startIndex == 0) {
+        d->mNewAlbumIds.clear();
+        d->mNewAlbums.clear();
+        d->mNewMusicTracks.clear();
+        d->mNewMusicTrackIds.clear();
+    }
 
     connect(upnpAnswer, &UpnpControlAbstractServiceReply::finished, this, &DidlParser::browseFinished);
 }
 
-void DidlParser::search()
+void DidlParser::search(int startIndex, int maximumNmberOfResults)
 {
     if (!d->mContentDirectory) {
         return;
     }
 
-    auto upnpAnswer = d->mContentDirectory->search(d->mParentId, d->mSearchCriteria, d->mFilter, 0, 0, d->mSortCriteria);
+    if (startIndex == 0) {
+        d->mNewAlbumIds.clear();
+        d->mNewAlbums.clear();
+        d->mNewMusicTracks.clear();
+        d->mNewMusicTrackIds.clear();
+    }
+
+    auto upnpAnswer = d->mContentDirectory->search(d->mParentId, d->mSearchCriteria, d->mFilter, startIndex, maximumNmberOfResults, d->mSortCriteria);
 
     connect(upnpAnswer, &UpnpControlAbstractServiceReply::finished, this, &DidlParser::searchFinished);
 }
@@ -255,11 +269,6 @@ void DidlParser::searchFinished(UpnpControlAbstractServiceReply *self)
     browseDescription.setContent(result);
 
     browseDescription.documentElement();
-
-    d->mNewAlbumIds.clear();
-    d->mNewAlbums.clear();
-    d->mNewMusicTracks.clear();
-    d->mNewMusicTrackIds.clear();
 
     auto containerList = browseDescription.elementsByTagName(QStringLiteral("container"));
     for (int containerIndex = 0; containerIndex < containerList.length(); ++containerIndex) {

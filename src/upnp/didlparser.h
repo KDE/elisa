@@ -93,9 +93,9 @@ public:
 
     bool isDataValid() const;
 
-    void browse();
+    void browse(int startIndex = 0, int maximumNmberOfResults = 0);
 
-    void search();
+    void search(int startIndex = 0, int maximumNmberOfResults = 0);
 
     QString parentId() const;
 

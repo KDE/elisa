@@ -95,7 +95,7 @@ public:
 
     void browse(int startIndex = 0, int maximumNmberOfResults = 0);
 
-    void search(int startIndex = 0, int maximumNmberOfResults = 0);
+    void search(int startIndex = 0, int maximumNumberOfResults = 0);
 
     QString parentId() const;
 

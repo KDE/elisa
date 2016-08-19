@@ -162,7 +162,7 @@ void DidlParser::browse(int startIndex, int maximumNmberOfResults)
     connect(upnpAnswer, &UpnpControlAbstractServiceReply::finished, this, &DidlParser::browseFinished);
 }
 
-void DidlParser::search(int startIndex, int maximumNmberOfResults)
+void DidlParser::search(int startIndex, int maximumNumberOfResults)
 {
     if (!d->mContentDirectory) {
         return;
@@ -175,7 +175,7 @@ void DidlParser::search(int startIndex, int maximumNmberOfResults)
         d->mNewMusicTrackIds.clear();
     }
 
-    auto upnpAnswer = d->mContentDirectory->search(d->mParentId, d->mSearchCriteria, d->mFilter, startIndex, maximumNmberOfResults, d->mSortCriteria);
+    auto upnpAnswer = d->mContentDirectory->search(d->mParentId, d->mSearchCriteria, d->mFilter, startIndex, maximumNumberOfResults, d->mSortCriteria);
 
     connect(upnpAnswer, &UpnpControlAbstractServiceReply::finished, this, &DidlParser::searchFinished);
 }
@@ -208,7 +208,7 @@ const QHash<QString, QVector<MusicAudioTrack>> &DidlParser::newMusicTracks() con
 void DidlParser::browseFinished(UpnpControlAbstractServiceReply *self)
 {
     const auto &resultData = self->result();
-    QString result = resultData[QStringLiteral("Result")].toString();
+
     bool success = self->success();
 
     if (!success) {
@@ -216,6 +216,31 @@ void DidlParser::browseFinished(UpnpControlAbstractServiceReply *self)
         Q_EMIT isDataValidChanged(d->mContentDirectory->description()->deviceDescription()->UDN().mid(5), d->mParentId);
 
         return;
+    }
+
+    QString result = resultData[QStringLiteral("Result")].toString();
+
+    bool intConvert;
+    auto numberReturned = resultData[QStringLiteral("NumberReturned")].toInt(&intConvert);
+
+    if (!intConvert) {
+        d->mIsDataValid = false;
+        Q_EMIT isDataValidChanged(d->mContentDirectory->description()->deviceDescription()->UDN().mid(5), d->mParentId);
+
+        return;
+    }
+
+    auto totalMatches = resultData[QStringLiteral("TotalMatches")].toInt(&intConvert);
+
+    if (!intConvert) {
+        d->mIsDataValid = false;
+        Q_EMIT isDataValidChanged(d->mContentDirectory->description()->deviceDescription()->UDN().mid(5), d->mParentId);
+
+        return;
+    }
+
+    if (totalMatches > numberReturned) {
+        browse(d->mNewMusicTracks.size() + numberReturned);
     }
 
     QDomDocument browseDescription;
@@ -255,7 +280,7 @@ void DidlParser::groupNewTracksByAlbums()
 void DidlParser::searchFinished(UpnpControlAbstractServiceReply *self)
 {
     const auto &resultData = self->result();
-    QString result = resultData[QStringLiteral("Result")].toString();
+
     bool success = self->success();
 
     if (!success) {
@@ -263,6 +288,31 @@ void DidlParser::searchFinished(UpnpControlAbstractServiceReply *self)
         Q_EMIT isDataValidChanged(d->mContentDirectory->description()->deviceDescription()->UDN().mid(5), d->mParentId);
 
         return;
+    }
+
+    QString result = resultData[QStringLiteral("Result")].toString();
+
+    bool intConvert;
+    auto numberReturned = resultData[QStringLiteral("NumberReturned")].toInt(&intConvert);
+
+    if (!intConvert) {
+        d->mIsDataValid = false;
+        Q_EMIT isDataValidChanged(d->mContentDirectory->description()->deviceDescription()->UDN().mid(5), d->mParentId);
+
+        return;
+    }
+
+    auto totalMatches = resultData[QStringLiteral("TotalMatches")].toInt(&intConvert);
+
+    if (!intConvert) {
+        d->mIsDataValid = false;
+        Q_EMIT isDataValidChanged(d->mContentDirectory->description()->deviceDescription()->UDN().mid(5), d->mParentId);
+
+        return;
+    }
+
+    if (totalMatches > numberReturned) {
+        search(d->mNewMusicTracks.size() + numberReturned, numberReturned);
     }
 
     QDomDocument browseDescription;

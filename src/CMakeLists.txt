@@ -10,7 +10,8 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         musicaudiotrack.cpp
         albumfilterproxymodel.cpp
         progressindicator.cpp
-        abstractalbummodel.cpp
+        albummodel.cpp
+        allalbumsmodel.cpp
         databaseinterface.cpp
 
         MediaServer.qml

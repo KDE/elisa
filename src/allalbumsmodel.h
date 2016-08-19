@@ -17,8 +17,8 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef ABSTRACTALBUMMODEL_H
-#define ABSTRACTALBUMMODEL_H
+#ifndef ALLALBUMSMODEL_H
+#define ALLALBUMSMODEL_H
 
 #include <QtCore/QAbstractItemModel>
 #include <QtCore/QVector>
@@ -29,11 +29,11 @@
 #include "musicaudiotrack.h"
 
 class DatabaseInterface;
-class AbstractAlbumModelPrivate;
+class AllAlbumsModelPrivate;
 class MusicStatistics;
 class QMutex;
 
-class AbstractAlbumModel : public QAbstractItemModel
+class AllAlbumsModel : public QAbstractItemModel
 {
     Q_OBJECT
 
@@ -68,9 +68,9 @@ public:
         IsPlayingRole = IdRole + 1,
     };
 
-    explicit AbstractAlbumModel(QObject *parent = 0);
+    explicit AllAlbumsModel(QObject *parent = 0);
 
-    virtual ~AbstractAlbumModel();
+    virtual ~AllAlbumsModel();
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
 
@@ -114,11 +114,9 @@ private:
 
     QVariant internalDataAlbum(int albumIndex, int role) const;
 
-    QVariant internalDataTrack(const MusicAudioTrack &track, const QModelIndex &index, int role) const;
-
-    AbstractAlbumModelPrivate *d;
+    AllAlbumsModelPrivate *d;
 };
 
-Q_DECLARE_METATYPE(AbstractAlbumModel::ItemClass)
+Q_DECLARE_METATYPE(AllAlbumsModel::ItemClass)
 
-#endif // ABSTRACTALBUMMODEL_H
+#endif // ALLALBUMSMODEL_H

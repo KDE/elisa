@@ -17,7 +17,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#include "abstractalbummodel.h"
+#include "albummodel.h"
 #include "musicstatistics.h"
 #include "databaseinterface.h"
 
@@ -31,11 +31,11 @@
 #include <QtSql/QSqlRecord>
 #include <QtSql/QSqlError>
 
-class AbstractAlbumModelPrivate
+class AlbumModelPrivate
 {
 public:
 
-    AbstractAlbumModelPrivate()
+    AlbumModelPrivate()
     {
     }
 
@@ -44,17 +44,17 @@ public:
     bool mUseLocalIcons = false;
 };
 
-AbstractAlbumModel::AbstractAlbumModel(QObject *parent) : QAbstractItemModel(parent), d(new AbstractAlbumModelPrivate)
+AlbumModel::AlbumModel(QObject *parent) : QAbstractItemModel(parent), d(new AlbumModelPrivate)
 {
     Q_EMIT refreshContent();
 }
 
-AbstractAlbumModel::~AbstractAlbumModel()
+AlbumModel::~AlbumModel()
 {
     delete d;
 }
 
-int AbstractAlbumModel::rowCount(const QModelIndex &parent) const
+int AlbumModel::rowCount(const QModelIndex &parent) const
 {
     if (!d->mMusicDatabase) {
         return 0;
@@ -78,7 +78,7 @@ int AbstractAlbumModel::rowCount(const QModelIndex &parent) const
     return currentAlbum.tracksCount();
 }
 
-QHash<int, QByteArray> AbstractAlbumModel::roleNames() const
+QHash<int, QByteArray> AlbumModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
 
@@ -96,7 +96,7 @@ QHash<int, QByteArray> AbstractAlbumModel::roleNames() const
     return roles;
 }
 
-Qt::ItemFlags AbstractAlbumModel::flags(const QModelIndex &index) const
+Qt::ItemFlags AlbumModel::flags(const QModelIndex &index) const
 {
     if (!index.isValid()) {
         return Qt::NoItemFlags;
@@ -105,7 +105,7 @@ Qt::ItemFlags AbstractAlbumModel::flags(const QModelIndex &index) const
     return Qt::ItemIsSelectable | Qt::ItemIsEnabled;
 }
 
-QVariant AbstractAlbumModel::data(const QModelIndex &index, int role) const
+QVariant AlbumModel::data(const QModelIndex &index, int role) const
 {
     if (!d->mMusicDatabase) {
         return {};
@@ -154,7 +154,7 @@ QVariant AbstractAlbumModel::data(const QModelIndex &index, int role) const
     return internalDataTrack(currentTrack, index, role);
 }
 
-QVariant AbstractAlbumModel::internalDataAlbum(int albumIndex, int role) const
+QVariant AlbumModel::internalDataAlbum(int albumIndex, int role) const
 {
     if (!d->mMusicDatabase) {
         return {};
@@ -207,7 +207,7 @@ QVariant AbstractAlbumModel::internalDataAlbum(int albumIndex, int role) const
     return {};
 }
 
-QVariant AbstractAlbumModel::internalDataTrack(const MusicAudioTrack &track, const QModelIndex &index, int role) const
+QVariant AlbumModel::internalDataTrack(const MusicAudioTrack &track, const QModelIndex &index, int role) const
 {
     ColumnsRoles convertedRole = static_cast<ColumnsRoles>(role);
 
@@ -253,7 +253,7 @@ QVariant AbstractAlbumModel::internalDataTrack(const MusicAudioTrack &track, con
     return {};
 }
 
-QModelIndex AbstractAlbumModel::index(int row, int column, const QModelIndex &parent) const
+QModelIndex AlbumModel::index(int row, int column, const QModelIndex &parent) const
 {
     if (column != 0) {
         return {};
@@ -278,7 +278,7 @@ QModelIndex AbstractAlbumModel::index(int row, int column, const QModelIndex &pa
     return createIndex(row, column, d->mMusicDatabase->albumPositionByIndex(currentAlbum.databaseId()));
 }
 
-QModelIndex AbstractAlbumModel::parent(const QModelIndex &child) const
+QModelIndex AlbumModel::parent(const QModelIndex &child) const
 {
     if (!child.isValid()) {
         return {};
@@ -291,19 +291,19 @@ QModelIndex AbstractAlbumModel::parent(const QModelIndex &child) const
     return index(child.internalId(), 0);
 }
 
-int AbstractAlbumModel::columnCount(const QModelIndex &parent) const
+int AlbumModel::columnCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent);
 
     return 1;
 }
 
-DatabaseInterface *AbstractAlbumModel::databaseInterface() const
+DatabaseInterface *AlbumModel::databaseInterface() const
 {
     return d->mMusicDatabase;
 }
 
-void AbstractAlbumModel::setDatabaseInterface(DatabaseInterface *musicDatabase)
+void AlbumModel::setDatabaseInterface(DatabaseInterface *musicDatabase)
 {
     if (d->mMusicDatabase == musicDatabase) {
         return;
@@ -316,13 +316,13 @@ void AbstractAlbumModel::setDatabaseInterface(DatabaseInterface *musicDatabase)
     d->mMusicDatabase = musicDatabase;
 
     if (d->mMusicDatabase) {
-        connect(d->mMusicDatabase, &DatabaseInterface::resetModel, this, &AbstractAlbumModel::databaseReset);
+        connect(d->mMusicDatabase, &DatabaseInterface::resetModel, this, &AlbumModel::databaseReset);
     }
 
     emit databaseInterfaceChanged();
 }
 
-void AbstractAlbumModel::albumsList(const QVector<MusicAlbum> &allAlbums)
+void AlbumModel::albumsList(const QVector<MusicAlbum> &allAlbums)
 {
     beginResetModel();
     if (d->mMusicDatabase) {
@@ -333,7 +333,7 @@ void AbstractAlbumModel::albumsList(const QVector<MusicAlbum> &allAlbums)
     return;
 }
 
-void AbstractAlbumModel::tracksList(QHash<QString, QVector<MusicAudioTrack> > tracks, QHash<QString, QString> covers)
+void AlbumModel::tracksList(QHash<QString, QVector<MusicAudioTrack> > tracks, QHash<QString, QString> covers)
 {
     if (tracks.size() > 1) {
         beginResetModel();
@@ -348,10 +348,10 @@ void AbstractAlbumModel::tracksList(QHash<QString, QVector<MusicAudioTrack> > tr
     return;
 }
 
-void AbstractAlbumModel::databaseReset()
+void AlbumModel::databaseReset()
 {
     beginResetModel();
     endResetModel();
 }
 
-#include "moc_abstractalbummodel.cpp"
+#include "moc_albummodel.cpp"

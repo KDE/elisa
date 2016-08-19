@@ -308,7 +308,7 @@ ApplicationWindow {
                         id: localAlbums
 
                         playListModel: playListModelItem
-                        contentDirectoryModel: AbstractAlbumModel {
+                        contentDirectoryModel: AllAlbumsModel {
                             id: musicModel
 
                             databaseInterface: localAlbumDatabase

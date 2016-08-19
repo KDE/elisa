@@ -48,7 +48,8 @@
 #include "musicstatistics.h"
 #include "albumfilterproxymodel.h"
 #include "databaseinterface.h"
-#include "abstractalbummodel.h"
+#include "allalbumsmodel.h"
+#include "albummodel.h"
 #include "musicaudiotrack.h"
 
 #if defined Qt5DBus_FOUND && Qt5DBus_FOUND
@@ -114,7 +115,8 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
     qmlRegisterType<MusicStatistics>("org.mgallien.QmlExtension", 1, 0, "MusicStatistics");
     qmlRegisterType<ProgressIndicator>("org.mgallien.QmlExtension", 1, 0, "ProgressIndicator");
     qmlRegisterType<DatabaseInterface>("org.mgallien.QmlExtension", 1, 0, "DatabaseInterface");
-    qmlRegisterType<AbstractAlbumModel>("org.mgallien.QmlExtension", 1, 0, "AbstractAlbumModel");
+    qmlRegisterType<AllAlbumsModel>("org.mgallien.QmlExtension", 1, 0, "AllAlbumsModel");
+    qmlRegisterType<AlbumModel>("org.mgallien.QmlExtension", 1, 0, "AlbumModel");
 
 #if defined Qt5DBus_FOUND && Qt5DBus_FOUND
     qmlRegisterType<Mpris2>("org.mgallien.QmlExtension", 1, 0, "Mpris2");

@@ -19,7 +19,7 @@
 
 #include "albumfilterproxymodel.h"
 
-#include "upnpalbummodel.h"
+#include "allalbumsmodel.h"
 
 AlbumFilterProxyModel::AlbumFilterProxyModel(QObject *parent) : QSortFilterProxyModel(parent), mFilterText()
 {
@@ -68,8 +68,8 @@ bool AlbumFilterProxyModel::filterAcceptsRow(int source_row, const QModelIndex &
     for (int column = 0, columnCount = sourceModel()->columnCount(source_parent); result && column < columnCount; ++column) {
         auto currentIndex = sourceModel()->index(source_row, column, source_parent);
 
-        const auto &titleValue = sourceModel()->data(currentIndex, UpnpAlbumModel::TitleRole).toString();
-        const auto &artistValue = sourceModel()->data(currentIndex, UpnpAlbumModel::ArtistRole).toString();
+        const auto &titleValue = sourceModel()->data(currentIndex, AllAlbumsModel::TitleRole).toString();
+        const auto &artistValue = sourceModel()->data(currentIndex, AllAlbumsModel::ArtistRole).toString();
 
         if (!mFilterExpression.match(titleValue).hasMatch() && !mFilterExpression.match(artistValue).hasMatch()) {
             result = false;

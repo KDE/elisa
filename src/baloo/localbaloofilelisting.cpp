@@ -45,7 +45,7 @@ public:
 
     QHash<QString, QVector<MusicAudioTrack>> mAllAlbums;
 
-    QHash<QString, QString> mAllAlbumCover;
+    QHash<QString, QUrl> mAllAlbumCover;
 
 };
 
@@ -132,7 +132,7 @@ void LocalBalooFileListing::refreshContent()
             QFileInfo trackFilePath(resultIterator.filePath());
             QFileInfo coverFilePath(trackFilePath.dir().filePath(QStringLiteral("cover.jpg")));
             if (coverFilePath.exists()) {
-                d->mAllAlbumCover[albumValue] = coverFilePath.absoluteFilePath();
+                d->mAllAlbumCover[albumValue] = QUrl::fromLocalFile(coverFilePath.absoluteFilePath());
             }
 
             allTracks.push_back(newTrack);

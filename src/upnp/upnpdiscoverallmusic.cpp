@@ -210,11 +210,9 @@ void UpnpDiscoverAllMusic::contentChanged(const QString &uuid, const QString &pa
             return;
         }
 
-        QVector<MusicAlbum> allAlbums;
-
         const auto &allNewTracks = currentDidlParser->newMusicTracks();
 
-        d->mAlbumDatabase->insertTracksList(allNewTracks, {});
+        d->mAlbumDatabase->insertTracksList(allNewTracks, currentDidlParser->covers());
     }
 }
 

@@ -71,7 +71,7 @@ public Q_SLOTS:
 
     void insertAlbumsList(const QVector<MusicAlbum> &allAlbums);
 
-    void insertTracksList(QHash<QString, QVector<MusicAudioTrack> > tracks, QHash<QString, QString> covers);
+    void insertTracksList(QHash<QString, QVector<MusicAudioTrack> > tracks, QHash<QString, QUrl> covers);
 
 private:
 

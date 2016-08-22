@@ -104,7 +104,7 @@ public Q_SLOTS:
 
     void albumsList(const QVector<MusicAlbum> &allAlbums);
 
-    void tracksList(QHash<QString, QVector<MusicAudioTrack> > tracks, QHash<QString, QString> covers);
+    void tracksList(QHash<QString, QVector<MusicAudioTrack> > tracks, QHash<QString, QUrl> covers);
 
 private Q_SLOTS:
 

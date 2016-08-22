@@ -58,6 +58,8 @@ public:
 
     QHash<QString, QVector<MusicAudioTrack>> mNewTracksByAlbums;
 
+    QHash<QString, QUrl> mCovers;
+
 };
 
 DidlParser::DidlParser(QObject *parent) : QObject(parent), d(new DidlParserPrivate)
@@ -157,6 +159,7 @@ void DidlParser::browse(int startIndex, int maximumNmberOfResults)
         d->mNewAlbums.clear();
         d->mNewMusicTracks.clear();
         d->mNewMusicTrackIds.clear();
+        d->mCovers.clear();
     }
 
     connect(upnpAnswer, &UpnpControlAbstractServiceReply::finished, this, &DidlParser::browseFinished);
@@ -173,6 +176,7 @@ void DidlParser::search(int startIndex, int maximumNumberOfResults)
         d->mNewAlbums.clear();
         d->mNewMusicTracks.clear();
         d->mNewMusicTrackIds.clear();
+        d->mCovers.clear();
     }
 
     auto upnpAnswer = d->mContentDirectory->search(d->mParentId, d->mSearchCriteria, d->mFilter, startIndex, maximumNumberOfResults, d->mSortCriteria);
@@ -203,6 +207,11 @@ const QVector<QString> &DidlParser::newMusicTrackIds() const
 const QHash<QString, QVector<MusicAudioTrack>> &DidlParser::newMusicTracks() const
 {
     return d->mNewTracksByAlbums;
+}
+
+const QHash<QString, QUrl> &DidlParser::covers() const
+{
+    return d->mCovers;
 }
 
 void DidlParser::browseFinished(UpnpControlAbstractServiceReply *self)
@@ -413,6 +422,11 @@ void DidlParser::decodeAudioTrackNode(const QDomNode &itemNode, QHash<QString, M
     const QDomNode &albumNode = itemNode.firstChildElement(QStringLiteral("upnp:album"));
     if (!albumNode.isNull()) {
         chilData.setAlbumName(albumNode.toElement().text());
+    }
+
+    const QDomNode &albumArtNode = itemNode.firstChildElement(QStringLiteral("upnp:albumArtURI"));
+    if (!albumArtNode.isNull()) {
+        d->mCovers[chilData.albumName()] = QUrl::fromUserInput(albumArtNode.toElement().text());
     }
 
     const QDomNode &resourceNode = itemNode.firstChildElement(QStringLiteral("res"));

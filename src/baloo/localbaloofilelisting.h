@@ -45,7 +45,7 @@ public:
 Q_SIGNALS:
 
     void tracksList(const QHash<QString, QVector<MusicAudioTrack>> &tracks,
-                    const QHash<QString, QString> &covers);
+                    const QHash<QString, QUrl> &covers);
 
 public Q_SLOTS:
 

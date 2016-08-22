@@ -331,7 +331,7 @@ void DatabaseInterface::insertAlbumsList(const QVector<MusicAlbum> &allAlbums)
     updateIndexCache();
 }
 
-void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack> > tracks, QHash<QString, QString> covers)
+void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack> > tracks, QHash<QString, QUrl> covers)
 {
     int maximumAlbumId = 0;
     quintptr albumId = 0;
@@ -354,7 +354,7 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
             }
 
             if (newAlbum.albumArtURI().isEmpty()) {
-                newAlbum.setAlbumArtURI(QUrl::fromLocalFile(covers[track.albumName()]));
+                newAlbum.setAlbumArtURI(covers[track.albumName()]);
             }
 
             if (!newAlbum.artist().isNull() && !newAlbum.title().isNull() && !newAlbum.albumArtURI().isEmpty()) {

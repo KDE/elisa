@@ -107,6 +107,8 @@ public:
 
     const QHash<QString, QVector<MusicAudioTrack> > &newMusicTracks() const;
 
+    const QHash<QString, QUrl>& covers() const;
+
 Q_SIGNALS:
 
     void browseFlagChanged();

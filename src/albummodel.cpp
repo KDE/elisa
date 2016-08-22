@@ -333,7 +333,7 @@ void AlbumModel::albumsList(const QVector<MusicAlbum> &allAlbums)
     return;
 }
 
-void AlbumModel::tracksList(QHash<QString, QVector<MusicAudioTrack> > tracks, QHash<QString, QString> covers)
+void AlbumModel::tracksList(QHash<QString, QVector<MusicAudioTrack> > tracks, QHash<QString, QUrl> covers)
 {
     if (tracks.size() > 1) {
         beginResetModel();

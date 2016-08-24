@@ -17,19 +17,17 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef UPNPLISTENER_H
-#define UPNPLISTENER_H
+#ifndef MUSICLISTENERSMANAGER_H
+#define MUSICLISTENERSMANAGER_H
 
 #include <QObject>
 
-class UpnpListenerPrivate;
-
+class MusicListenersManagerPrivate;
 class DatabaseInterface;
-class UpnpDiscoverAllMusic;
-class UpnpSsdpEngine;
 
-class UpnpListener : public QObject
+class MusicListenersManager : public QObject
 {
+
     Q_OBJECT
 
     Q_PROPERTY(DatabaseInterface* databaseInterface
@@ -39,15 +37,13 @@ class UpnpListener : public QObject
 
 public:
 
-    explicit UpnpListener(QObject *parent = 0);
+    explicit MusicListenersManager(QObject *parent = 0);
 
-    virtual ~UpnpListener();
+    virtual ~MusicListenersManager();
 
     DatabaseInterface* databaseInterface() const;
 
 Q_SIGNALS:
-
-    void refreshContent();
 
     void databaseInterfaceChanged();
 
@@ -57,8 +53,8 @@ public Q_SLOTS:
 
 private:
 
-    UpnpListenerPrivate *d = nullptr;
+    MusicListenersManagerPrivate *d;
 
 };
 
-#endif // UPNPLISTENER_H
+#endif // MUSICLISTENERSMANAGER_H

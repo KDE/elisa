@@ -29,14 +29,23 @@ public:
 
     DatabaseInterface* mDatabaseInterface = nullptr;
 
-    UpnpDiscoverAllMusic* mUpnpManager = nullptr;
+    UpnpDiscoverAllMusic mUpnpManager;
 
-    UpnpSsdpEngine* mSsdpEngine = nullptr;
+    UpnpSsdpEngine mSsdpEngine;
 
 };
 
 UpnpListener::UpnpListener(QObject *parent) : QObject(parent), d(new UpnpListenerPrivate)
 {
+    d->mSsdpEngine.initialize();
+    d->mSsdpEngine.searchAllUpnpDevice();
+
+    d->mUpnpManager.setDeviceId(QStringLiteral("urn:schemas-upnp-org:service:ContentDirectory:1"));
+
+    connect(&d->mSsdpEngine, &UpnpSsdpEngine::newService,
+            &d->mUpnpManager, &UpnpDiscoverAllMusic::newDevice);
+    connect(&d->mSsdpEngine, &UpnpSsdpEngine::removedService,
+            &d->mUpnpManager, &UpnpDiscoverAllMusic::removedDevice);
 }
 
 UpnpListener::~UpnpListener()
@@ -47,16 +56,6 @@ UpnpListener::~UpnpListener()
 DatabaseInterface *UpnpListener::databaseInterface() const
 {
     return d->mDatabaseInterface;
-}
-
-UpnpDiscoverAllMusic *UpnpListener::upnpManager() const
-{
-    return d->mUpnpManager;
-}
-
-UpnpSsdpEngine *UpnpListener::ssdpEngine() const
-{
-    return d->mSsdpEngine;
 }
 
 void UpnpListener::setDatabaseInterface(DatabaseInterface *model)
@@ -70,6 +69,7 @@ void UpnpListener::setDatabaseInterface(DatabaseInterface *model)
     }
 
     d->mDatabaseInterface = model;
+    d->mUpnpManager.setAlbumDatabase(d->mDatabaseInterface);
 
     if (d->mDatabaseInterface) {
         //connect(this, &UpnpListener::refreshContent, &d->mFileListing, &LocalBalooFileListing::refreshContent, Qt::QueuedConnection);
@@ -81,50 +81,6 @@ void UpnpListener::setDatabaseInterface(DatabaseInterface *model)
     }
 
     emit databaseInterfaceChanged();
-}
-
-void UpnpListener::setUpnpManager(UpnpDiscoverAllMusic *upnpManager)
-{
-    if (d->mUpnpManager == upnpManager) {
-        return;
-    }
-
-    if (d->mUpnpManager && d->mSsdpEngine) {
-        disconnect(d->mSsdpEngine, 0, d->mUpnpManager, 0);
-    }
-
-    d->mUpnpManager = upnpManager;
-
-    if (d->mUpnpManager && d->mSsdpEngine) {
-        connect(d->mSsdpEngine, &UpnpSsdpEngine::newService,
-                d->mUpnpManager, &UpnpDiscoverAllMusic::newDevice);
-        connect(d->mSsdpEngine, &UpnpSsdpEngine::removedService,
-                d->mUpnpManager, &UpnpDiscoverAllMusic::removedDevice);
-    }
-
-    emit upnpManagerChanged();
-}
-
-void UpnpListener::setSsdpEngine(UpnpSsdpEngine *ssdpEngine)
-{
-    if (d->mSsdpEngine == ssdpEngine) {
-        return;
-    }
-
-    if (d->mUpnpManager && d->mSsdpEngine) {
-        disconnect(d->mSsdpEngine, 0, d->mUpnpManager, 0);
-    }
-
-    d->mSsdpEngine = ssdpEngine;
-
-    if (d->mUpnpManager && d->mSsdpEngine) {
-        connect(d->mSsdpEngine, &UpnpSsdpEngine::newService,
-                d->mUpnpManager, &UpnpDiscoverAllMusic::newDevice);
-        connect(d->mSsdpEngine, &UpnpSsdpEngine::removedService,
-                d->mUpnpManager, &UpnpDiscoverAllMusic::removedDevice);
-    }
-
-    emit ssdpEngineChanged();
 }
 
 

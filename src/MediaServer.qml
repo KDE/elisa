@@ -34,9 +34,6 @@ ApplicationWindow {
     title: 'Music'
     id: mainWindow
 
-    property UpnpDeviceDescription aDevice
-    property UpnpControlConnectionManager connectionManager
-
     property string globalBrowseFlag: 'BrowseDirectChildren'
     property string globalFilter: '*'
     property string globalSortCriteria: ''
@@ -90,35 +87,13 @@ ApplicationWindow {
         playListControler: playListControlerItem
     }
 
-    UpnpSsdpEngine {
-        id: mySsdpEngine
-
-        Component.onCompleted: {
-            mySsdpEngine.initialize();
-            mySsdpEngine.searchAllUpnpDevice();
-        }
-    }
-
-    UpnpDiscoverAllMusic {
-        id: myUpnpManager
-
-        deviceId: 'urn:schemas-upnp-org:service:ContentDirectory:1'
-        albumDatabase: localAlbumDatabase
-    }
-
-    UpnpListener {
-        databaseInterface: localAlbumDatabase
-        upnpManager: myUpnpManager
-        ssdpEngine: mySsdpEngine
-    }
-
     DatabaseInterface {
         id: localAlbumDatabase
     }
 
-    /*BalooListener {
+    MusicListenersManager {
         databaseInterface: localAlbumDatabase
-    }*/
+    }
 
     Audio {
         id: audioPlayer

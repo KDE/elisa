@@ -34,15 +34,9 @@
 #include "upnpdevicedescription.h"
 #include "upnp/didlparser.h"
 #include "upnp/upnpdiscoverallmusic.h"
-#include "upnp/upnplistener.h"
-#endif
-
-#if defined KF5Baloo_FOUND && KF5Baloo_FOUND
-#include "baloo/baloolistener.h"
 #endif
 
 #include "progressindicator.h"
-
 #include "mediaplaylist.h"
 #include "playlistcontroler.h"
 #include "musicstatistics.h"
@@ -51,6 +45,7 @@
 #include "allalbumsmodel.h"
 #include "albummodel.h"
 #include "musicaudiotrack.h"
+#include "musiclistenersmanager.h"
 
 #if defined Qt5DBus_FOUND && Qt5DBus_FOUND
 #include "mpris2/mpris2.h"
@@ -88,7 +83,6 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
 #if defined UPNPQT_FOUND && UPNPQT_FOUND
     qmlRegisterType<UpnpSsdpEngine>("org.mgallien.QmlExtension", 1, 0, "UpnpSsdpEngine");
     qmlRegisterType<UpnpDiscoverAllMusic>("org.mgallien.QmlExtension", 1, 0, "UpnpDiscoverAllMusic");
-    qmlRegisterType<UpnpListener>("org.mgallien.QmlExtension", 1, 0, "UpnpListener");
 
     qmlRegisterType<UpnpAbstractDevice>("org.mgallien.QmlExtension", 1, 0, "UpnpAbstractDevice");
     qmlRegisterType<UpnpAbstractService>("org.mgallien.QmlExtension", 1, 0, "UpnpAbstractService");
@@ -111,12 +105,12 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
     qmlRegisterType<AlbumFilterProxyModel>("org.mgallien.QmlExtension", 1, 0, "AlbumFilterProxyModel");
     qmlRegisterType<MediaPlayList>("org.mgallien.QmlExtension", 1, 0, "MediaPlayList");
     qmlRegisterType<PlayListControler>("org.mgallien.QmlExtension", 1, 0, "PlayListControler");
-    qmlRegisterType<UpnpDiscoverAllMusic>("org.mgallien.QmlExtension", 1, 0, "UpnpDiscoverAllMusic");
     qmlRegisterType<MusicStatistics>("org.mgallien.QmlExtension", 1, 0, "MusicStatistics");
     qmlRegisterType<ProgressIndicator>("org.mgallien.QmlExtension", 1, 0, "ProgressIndicator");
     qmlRegisterType<DatabaseInterface>("org.mgallien.QmlExtension", 1, 0, "DatabaseInterface");
     qmlRegisterType<AllAlbumsModel>("org.mgallien.QmlExtension", 1, 0, "AllAlbumsModel");
     qmlRegisterType<AlbumModel>("org.mgallien.QmlExtension", 1, 0, "AlbumModel");
+    qmlRegisterType<MusicListenersManager>("org.mgallien.QmlExtension", 1, 0, "MusicListenersManager");
 
 #if defined Qt5DBus_FOUND && Qt5DBus_FOUND
     qmlRegisterType<Mpris2>("org.mgallien.QmlExtension", 1, 0, "Mpris2");
@@ -124,12 +118,8 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
     qRegisterMetaType<MediaPlayer2Tracklist*>();
 #endif
 
-#if defined KF5Baloo_FOUND && KF5Baloo_FOUND
-    qmlRegisterType<BalooListener>("org.mgallien.QmlExtension", 1, 0, "BalooListener");
-#endif
-
     qRegisterMetaType<QAbstractItemModel*>();
-    qRegisterMetaType<QHash<QString,QString>>();
+    qRegisterMetaType<QHash<QString,QUrl>>();
     qRegisterMetaType<QHash<QString,QVector<MusicAudioTrack> >>();
 
 #if defined KF5I18n_FOUND && KF5I18n_FOUND

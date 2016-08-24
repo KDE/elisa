@@ -42,6 +42,13 @@ public:
     DatabaseInterface *mMusicDatabase = nullptr;
 
     bool mUseLocalIcons = false;
+
+    QString mTitle;
+
+    QString mAuthor;
+
+    MusicAlbum mCurrentAlbum;
+
 };
 
 AlbumModel::AlbumModel(QObject *parent) : QAbstractItemModel(parent), d(new AlbumModelPrivate)
@@ -60,22 +67,20 @@ int AlbumModel::rowCount(const QModelIndex &parent) const
         return 0;
     }
 
-    const auto albumCount = d->mMusicDatabase->albumCount();
-
-    if (!parent.isValid()) {
-        return albumCount;
-    }
-
-    if (parent.row() < 0 || parent.row() >= albumCount) {
+    if (parent.isValid()) {
         return 0;
     }
 
-    const auto &currentAlbum = d->mMusicDatabase->albumFromIndex(parent.row());
-    if (!currentAlbum.isValid()) {
-        return 0;
+    if (!d->mCurrentAlbum.isValid()) {
+        const auto &currentAlbum = d->mMusicDatabase->albumFromTitleAndAuthor(d->mTitle, d->mAuthor);
+        if (!currentAlbum.isValid()) {
+            return 0;
+        }
+
+        d->mCurrentAlbum = currentAlbum;
     }
 
-    return currentAlbum.tracksCount();
+    return d->mCurrentAlbum.tracksCount();
 }
 
 QHash<int, QByteArray> AlbumModel::roleNames() const
@@ -107,107 +112,53 @@ Qt::ItemFlags AlbumModel::flags(const QModelIndex &index) const
 
 QVariant AlbumModel::data(const QModelIndex &index, int role) const
 {
+    auto result = QVariant();
+
     if (!d->mMusicDatabase) {
-        return {};
+        return result;
     }
 
-    const auto albumCount = d->mMusicDatabase->albumCount();
-
     if (!index.isValid()) {
-        return {};
+        return result;
     }
 
     if (index.column() != 0) {
-        return {};
+        return result;
     }
 
     if (index.row() < 0) {
-        return {};
+        return result;
     }
 
-    if (!index.parent().isValid()) {
-        if (index.internalId() == 0) {
-            if (index.row() < 0 || index.row() >= albumCount) {
-                return {};
-            }
+    if (index.parent().isValid()) {
+        return result;
+    }
 
-            return internalDataAlbum(index.row(), role);
+    if (!d->mCurrentAlbum.isValid()) {
+        const auto &currentAlbum = d->mMusicDatabase->albumFromTitleAndAuthor(d->mTitle, d->mAuthor);
+        if (!currentAlbum.isValid()) {
+            return result;
         }
+
+        d->mCurrentAlbum = currentAlbum;
     }
 
-    const auto &currentAlbum = d->mMusicDatabase->albumFromIndex(index.parent().row());
-
-    if (!currentAlbum.isValid()) {
-        return {};
+    if (index.row() >= d->mCurrentAlbum.tracksCount()) {
+        return result;
     }
 
-    if (index.row() >= currentAlbum.tracksCount()) {
-        return {};
-    }
-
-    const auto &currentTrack = currentAlbum.trackFromIndex(index.row());
+    const auto &currentTrack = d->mCurrentAlbum.trackFromIndex(index.row());
 
     if (!currentTrack.isValid()) {
-        return {};
+        return result;
     }
 
-    return internalDataTrack(currentTrack, index, role);
+    result = internalDataTrack(currentTrack, role);
+
+    return result;
 }
 
-QVariant AlbumModel::internalDataAlbum(int albumIndex, int role) const
-{
-    if (!d->mMusicDatabase) {
-        return {};
-    }
-
-    ColumnsRoles convertedRole = static_cast<ColumnsRoles>(role);
-
-    switch(convertedRole)
-    {
-    case ColumnsRoles::TitleRole:
-        return d->mMusicDatabase->albumDataFromIndex(albumIndex, DatabaseInterface::AlbumData::Title);
-    case ColumnsRoles::DurationRole:
-    case ColumnsRoles::MilliSecondsDurationRole:
-        return {};
-    case ColumnsRoles::CreatorRole:
-        return {};
-    case ColumnsRoles::ArtistRole:
-        return d->mMusicDatabase->albumDataFromIndex(albumIndex, DatabaseInterface::AlbumData::Artist);
-    case ColumnsRoles::AlbumRole:
-        return {};
-    case ColumnsRoles::TrackNumberRole:
-        return {};
-    case ColumnsRoles::RatingRole:
-        return {};
-    case ColumnsRoles::ImageRole:
-    {
-        auto albumArt = d->mMusicDatabase->albumDataFromIndex(albumIndex, DatabaseInterface::AlbumData::Image);
-        if (albumArt.isValid() && albumArt.toUrl().isValid()) {
-            return albumArt;
-        } else {
-            if (d->mUseLocalIcons) {
-                return QUrl(QStringLiteral("qrc:/media-optical-audio.svg"));
-            } else {
-                return QUrl(QStringLiteral("image://icon/media-optical-audio"));
-            }
-        }
-    }
-    case ColumnsRoles::ResourceRole:
-        return {};
-    case ColumnsRoles::ItemClassRole:
-        return {};
-    case ColumnsRoles::CountRole:
-        return d->mMusicDatabase->albumDataFromIndex(albumIndex, DatabaseInterface::AlbumData::TracksCount);
-    case ColumnsRoles::IdRole:
-        return d->mMusicDatabase->albumDataFromIndex(albumIndex, DatabaseInterface::AlbumData::Id);
-    case ColumnsRoles::IsPlayingRole:
-        return {};
-    }
-
-    return {};
-}
-
-QVariant AlbumModel::internalDataTrack(const MusicAudioTrack &track, const QModelIndex &index, int role) const
+QVariant AlbumModel::internalDataTrack(const MusicAudioTrack &track, int role) const
 {
     ColumnsRoles convertedRole = static_cast<ColumnsRoles>(role);
 
@@ -237,7 +188,7 @@ QVariant AlbumModel::internalDataTrack(const MusicAudioTrack &track, const QMode
     case ColumnsRoles::RatingRole:
         return 0;
     case ColumnsRoles::ImageRole:
-        return data(index.parent(), role);
+        return d->mCurrentAlbum.albumArtURI();
     case ColumnsRoles::ResourceRole:
         return track.resourceURI();
     case ColumnsRoles::ItemClassRole:
@@ -255,40 +206,38 @@ QVariant AlbumModel::internalDataTrack(const MusicAudioTrack &track, const QMode
 
 QModelIndex AlbumModel::index(int row, int column, const QModelIndex &parent) const
 {
+    auto result = QModelIndex();
+
     if (column != 0) {
-        return {};
+        return result;
     }
 
-    if (!parent.isValid()) {
-        return createIndex(row, column, nullptr);
+    if (parent.isValid()) {
+        return result;
     }
 
-    const auto albumCount = d->mMusicDatabase->albumCount();
-
-    if (parent.row() < 0 || parent.row() >= albumCount) {
-        return {};
+    const auto &currentAlbum = d->mMusicDatabase->albumFromTitleAndAuthor(d->mTitle, d->mAuthor);
+    if (!currentAlbum.isValid()) {
+        return result;
     }
-
-    const auto &currentAlbum = d->mMusicDatabase->albumFromIndex(parent.row());
+    if (currentAlbum.title() != d->mTitle) {
+        return result;
+    }
+    if (currentAlbum.artist() != d->mAuthor) {
+        return result;
+    }
 
     if (row >= currentAlbum.tracksCount()) {
-        return {};
+        return result;
     }
 
-    return createIndex(row, column, d->mMusicDatabase->albumPositionByIndex(currentAlbum.databaseId()));
+    return createIndex(row, column);
 }
 
 QModelIndex AlbumModel::parent(const QModelIndex &child) const
 {
-    if (!child.isValid()) {
-        return {};
-    }
-
-    if (child.internalId() == 0) {
-        return {};
-    }
-
-    return index(child.internalId(), 0);
+    Q_UNUSED(child)
+    return {};
 }
 
 int AlbumModel::columnCount(const QModelIndex &parent) const
@@ -301,6 +250,16 @@ int AlbumModel::columnCount(const QModelIndex &parent) const
 DatabaseInterface *AlbumModel::databaseInterface() const
 {
     return d->mMusicDatabase;
+}
+
+QString AlbumModel::title() const
+{
+    return d->mTitle;
+}
+
+QString AlbumModel::author() const
+{
+    return d->mAuthor;
 }
 
 void AlbumModel::setDatabaseInterface(DatabaseInterface *musicDatabase)
@@ -346,6 +305,24 @@ void AlbumModel::tracksList(QHash<QString, QVector<MusicAudioTrack> > tracks, QH
     }
 
     return;
+}
+
+void AlbumModel::setTitle(QString title)
+{
+    if (d->mTitle == title)
+        return;
+
+    d->mTitle = title;
+    emit titleChanged();
+}
+
+void AlbumModel::setAuthor(QString author)
+{
+    if (d->mAuthor == author)
+        return;
+
+    d->mAuthor = author;
+    emit authorChanged();
 }
 
 void AlbumModel::databaseReset()

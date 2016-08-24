@@ -42,6 +42,16 @@ class AlbumModel : public QAbstractItemModel
                WRITE setDatabaseInterface
                NOTIFY databaseInterfaceChanged)
 
+    Q_PROPERTY(QString title
+               READ title
+               WRITE setTitle
+               NOTIFY titleChanged)
+
+    Q_PROPERTY(QString author
+               READ author
+               WRITE setAuthor
+               NOTIFY authorChanged)
+
 public:
 
     enum ItemClass {
@@ -88,6 +98,10 @@ public:
 
     DatabaseInterface* databaseInterface() const;
 
+    QString title() const;
+
+    QString author() const;
+
 Q_SIGNALS:
 
     void databaseInterfaceChanged();
@@ -98,6 +112,10 @@ Q_SIGNALS:
 
     void refreshContent();
 
+    void titleChanged();
+
+    void authorChanged();
+
 public Q_SLOTS:
 
     void setDatabaseInterface(DatabaseInterface* databaseInterface);
@@ -106,15 +124,17 @@ public Q_SLOTS:
 
     void tracksList(QHash<QString, QVector<MusicAudioTrack> > tracks, QHash<QString, QUrl> covers);
 
+    void setTitle(QString title);
+
+    void setAuthor(QString author);
+
 private Q_SLOTS:
 
     void databaseReset();
 
 private:
 
-    QVariant internalDataAlbum(int albumIndex, int role) const;
-
-    QVariant internalDataTrack(const MusicAudioTrack &track, const QModelIndex &index, int role) const;
+    QVariant internalDataTrack(const MusicAudioTrack &track, int role) const;
 
     AlbumModelPrivate *d;
 

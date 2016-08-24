@@ -100,7 +100,50 @@ DatabaseInterface::~DatabaseInterface()
     delete d;
 }
 
-QVariant DatabaseInterface::albumDataFromIndex(int albumIndex, DatabaseInterface::AlbumData dataType)
+MusicAlbum DatabaseInterface::albumFromTitleAndAuthor(const QString &title, const QString &author) const
+{
+    auto result = MusicAlbum();
+
+    auto transactionResult = d->mTracksDatabase.transaction();
+    if (!transactionResult) {
+        qDebug() << "transaction failed";
+        return result;
+    }
+
+    d->mSelectAlbumIdFromTitleQuery.bindValue(QStringLiteral(":title"), title);
+    d->mSelectAlbumIdFromTitleQuery.bindValue(QStringLiteral(":artist"), author);
+
+    auto queryResult = d->mSelectAlbumIdFromTitleQuery.exec();
+
+    if (!queryResult || !d->mSelectAlbumIdFromTitleQuery.isSelect() || !d->mSelectAlbumIdFromTitleQuery.isActive()) {
+        qDebug() << "DatabaseInterface::insertAlbumsList" << "not select" << d->mSelectAlbumIdFromTitleQuery.lastQuery();
+        qDebug() << "DatabaseInterface::insertAlbumsList" << d->mSelectAlbumIdFromTitleQuery.lastError();
+    }
+
+    if (!d->mSelectAlbumIdFromTitleQuery.next()) {
+        transactionResult = d->mTracksDatabase.commit();
+        if (!transactionResult) {
+            qDebug() << "commit failed";
+            return result;
+        }
+
+        return result;
+    }
+
+    auto albumId = d->mSelectAlbumIdFromTitleQuery.record().value(0).toInt();
+
+    result = albumFromId(albumId);
+
+    transactionResult = d->mTracksDatabase.commit();
+    if (!transactionResult) {
+        qDebug() << "commit failed";
+        return result;
+    }
+
+    return result;
+}
+
+QVariant DatabaseInterface::albumDataFromIndex(int albumIndex, DatabaseInterface::AlbumData dataType) const
 {
     if (albumIndex < 0 || albumIndex >= d->mIndexByPosition.length()) {
         return {};

@@ -49,7 +49,9 @@ public:
 
     virtual ~DatabaseInterface();
 
-    QVariant albumDataFromIndex(int albumIndex, AlbumData dataType);
+    MusicAlbum albumFromTitleAndAuthor(const QString &title, const QString &author) const;
+
+    QVariant albumDataFromIndex(int albumIndex, AlbumData dataType) const;
 
     MusicAlbum albumFromIndex(int albumIndex) const;
 

@@ -209,7 +209,8 @@ QModelIndex AllAlbumsModel::index(int row, int column, const QModelIndex &parent
         return result;
     }
 
-    result = createIndex(row, column, nullptr);
+    result = createIndex(row, column);
+
     return result;
 }
 

@@ -49,7 +49,7 @@ Q_SIGNALS:
 
 public Q_SLOTS:
 
-void setDatabaseInterface(DatabaseInterface* databaseInterface);
+    void setDatabaseInterface(DatabaseInterface* databaseInterface);
 
 private:
 

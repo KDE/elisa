@@ -33,7 +33,7 @@ Item {
     property StackView stackView
     property var contentModel
     property MediaPlayList playListModel
-    property MusicStatistics musicDatabase
+    property var musicDatabase
 
     id: rootElement
 
@@ -111,9 +111,8 @@ Item {
                                     onClicked: {
                                         stackView.push(Qt.resolvedUrl("MediaAlbumView.qml"),
                                                        {
-                                                           'rootIndex': filterProxyModel.mapToSource(delegateContentModel.modelIndex(mediaServerEntry.DelegateModel.itemsIndex)),
                                                            'stackView': stackView,
-                                                           'contentModel': contentModel,
+                                                           'musicDatabase': musicDatabase,
                                                            'playListModel': playListModel,
                                                            'albumArtUrl': image,
                                                            'albumName': title,

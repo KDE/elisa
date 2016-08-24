@@ -27,18 +27,20 @@ import QtMultimedia 5.4
 
 Item {
     property var pagesModel
-    property var contentDirectoryModel
     property MediaPlayList playListModel
+    property var musicDatabase
 
     id: contentDirectoryRoot
-
-    MusicStatistics {
-        id: musicStats
-    }
 
     ColumnLayout {
         anchors.fill: parent
         spacing: 0
+
+        AllAlbumsModel {
+            id: contentDirectoryModel
+
+            databaseInterface: contentDirectoryRoot.musicDatabase
+        }
 
         StackView {
             id: listingView
@@ -71,7 +73,7 @@ Item {
             initialItem: MediaServerListing {
                 stackView: listingView
                 contentModel: contentDirectoryModel
-                musicDatabase: musicStats
+                musicDatabase: contentDirectoryRoot.musicDatabase
                 playListModel: contentDirectoryRoot.playListModel
             }
 

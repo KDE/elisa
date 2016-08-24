@@ -28,9 +28,9 @@ import QtQuick.Layouts 1.2
 
 Item {
     id: topListing
-    property var rootIndex
+
     property StackView stackView
-    property var contentModel
+    property var musicDatabase
     property MediaPlayList playListModel
     property var albumName
     property var artistName
@@ -51,6 +51,14 @@ Item {
                 anchors.fill: parent
             }
         }
+    }
+
+    AlbumModel {
+        id: contentModel
+
+        databaseInterface: musicDatabase
+        title: albumName
+        author: artistName
     }
 
     ColumnLayout {
@@ -91,7 +99,6 @@ Item {
 
                     model: DelegateModel {
                         model: contentModel
-                        rootIndex: topListing.rootIndex
 
                         delegate: AudioTrackDelegate {
                             height: Screen.pixelDensity * 15.

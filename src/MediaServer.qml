@@ -116,9 +116,9 @@ ApplicationWindow {
         id: localAlbumDatabase
     }
 
-    BalooListener {
+    /*BalooListener {
         databaseInterface: localAlbumDatabase
-    }
+    }*/
 
     Audio {
         id: audioPlayer
@@ -308,11 +308,7 @@ ApplicationWindow {
                         id: localAlbums
 
                         playListModel: playListModelItem
-                        contentDirectoryModel: AllAlbumsModel {
-                            id: musicModel
-
-                            databaseInterface: localAlbumDatabase
-                        }
+                        musicDatabase: localAlbumDatabase
 
                         anchors.fill: parent
                     }

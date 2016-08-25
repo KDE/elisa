@@ -31,9 +31,13 @@
 #include "baloo/baloolistener.h"
 #endif
 
+#include <QThread>
+
 class MusicListenersManagerPrivate
 {
 public:
+
+    QThread mListenersThread;
 
 #if defined UPNPQT_FOUND && UPNPQT_FOUND
     UpnpListener mUpnpListener;
@@ -43,13 +47,32 @@ public:
     BalooListener mBalooListener;
 #endif
 
-    DatabaseInterface* mDatabaseInterface = nullptr;
+    DatabaseInterface mDatabaseInterface;
+
+    DatabaseInterface* mViewDatabase = nullptr;
 
 };
 
 MusicListenersManager::MusicListenersManager(QObject *parent)
     : QObject(parent), d(new MusicListenersManagerPrivate)
 {
+    d->mListenersThread.start();
+
+    d->mDatabaseInterface.moveToThread(&d->mListenersThread);
+
+    connect(&d->mDatabaseInterface, &DatabaseInterface::databaseChanged,
+            this, &MusicListenersManager::musicDatabaseChanged);
+
+#if defined KF5Baloo_FOUND && KF5Baloo_FOUND
+    d->mBalooListener.setDatabaseInterface(&d->mDatabaseInterface);
+    d->mBalooListener.moveToThread(&d->mListenersThread);
+#endif
+#if defined UPNPQT_FOUND && UPNPQT_FOUND
+    d->mUpnpListener.setDatabaseInterface(&d->mDatabaseInterface);
+    d->mUpnpListener.moveToThread(&d->mListenersThread);
+#endif
+
+    d->mDatabaseInterface.init(QStringLiteral("listeners"));
 }
 
 MusicListenersManager::~MusicListenersManager()
@@ -57,31 +80,30 @@ MusicListenersManager::~MusicListenersManager()
     delete d;
 }
 
-DatabaseInterface *MusicListenersManager::databaseInterface() const
+DatabaseInterface *MusicListenersManager::viewDatabase() const
 {
-    return d->mDatabaseInterface;
+    return d->mViewDatabase;
 }
 
-void MusicListenersManager::setDatabaseInterface(DatabaseInterface *model)
+void MusicListenersManager::setViewDatabase(DatabaseInterface *viewDatabase)
 {
-    if (d->mDatabaseInterface == model) {
+    if (d->mViewDatabase == viewDatabase) {
         return;
     }
 
-    if (d->mDatabaseInterface) {
-        disconnect(d->mDatabaseInterface);
+    if (d->mViewDatabase) {
+        disconnect(&d->mDatabaseInterface, &DatabaseInterface::databaseChanged,
+                   d->mViewDatabase, &DatabaseInterface::databaseHasChanged);
     }
 
-    d->mDatabaseInterface = model;
+    d->mViewDatabase = viewDatabase;
 
-#if defined KF5Baloo_FOUND && KF5Baloo_FOUND
-    d->mBalooListener.setDatabaseInterface(model);
-#endif
-#if defined UPNPQT_FOUND && UPNPQT_FOUND
-    d->mUpnpListener.setDatabaseInterface(model);
-#endif
+    if (d->mViewDatabase) {
+        connect(&d->mDatabaseInterface, &DatabaseInterface::databaseChanged,
+                d->mViewDatabase, &DatabaseInterface::databaseHasChanged);
+    }
 
-    emit databaseInterfaceChanged();
+    emit viewDatabaseChanged();
 }
 
 

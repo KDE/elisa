@@ -30,10 +30,10 @@ class MusicListenersManager : public QObject
 
     Q_OBJECT
 
-    Q_PROPERTY(DatabaseInterface* databaseInterface
-               READ databaseInterface
-               WRITE setDatabaseInterface
-               NOTIFY databaseInterfaceChanged)
+    Q_PROPERTY(DatabaseInterface* viewDatabase
+               READ viewDatabase
+               WRITE setViewDatabase
+               NOTIFY viewDatabaseChanged)
 
 public:
 
@@ -41,15 +41,17 @@ public:
 
     virtual ~MusicListenersManager();
 
-    DatabaseInterface* databaseInterface() const;
+    DatabaseInterface* viewDatabase() const;
 
 Q_SIGNALS:
 
-    void databaseInterfaceChanged();
+    void musicDatabaseChanged();
+
+    void viewDatabaseChanged();
 
 public Q_SLOTS:
 
-    void setDatabaseInterface(DatabaseInterface* databaseInterface);
+void setViewDatabase(DatabaseInterface* viewDatabase);
 
 private:
 

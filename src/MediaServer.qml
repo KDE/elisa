@@ -89,10 +89,12 @@ ApplicationWindow {
 
     DatabaseInterface {
         id: localAlbumDatabase
+
+        Component.onCompleted: init('views')
     }
 
     MusicListenersManager {
-        databaseInterface: localAlbumDatabase
+        viewDatabase: localAlbumDatabase
     }
 
     Audio {

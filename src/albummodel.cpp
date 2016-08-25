@@ -275,7 +275,7 @@ void AlbumModel::setDatabaseInterface(DatabaseInterface *musicDatabase)
     d->mMusicDatabase = musicDatabase;
 
     if (d->mMusicDatabase) {
-        connect(d->mMusicDatabase, &DatabaseInterface::resetModel, this, &AlbumModel::databaseReset);
+        connect(d->mMusicDatabase, &DatabaseInterface::modelDataChanged, this, &AlbumModel::databaseReset);
     }
 
     emit databaseInterfaceChanged();

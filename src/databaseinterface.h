@@ -49,31 +49,29 @@ public:
 
     virtual ~DatabaseInterface();
 
+    Q_INVOKABLE void init(const QString &dbName);
+
     MusicAlbum albumFromTitleAndAuthor(const QString &title, const QString &author) const;
 
     QVariant albumDataFromIndex(int albumIndex, AlbumData dataType) const;
 
-    MusicAlbum albumFromIndex(int albumIndex) const;
-
-    QVariant albumDataFromId(qlonglong albumId, AlbumData dataType) const;
-
-    MusicAlbum albumFromId(qlonglong albumId) const;
-
-    int albumIdFromTrackId(quintptr trackId) const;
-
     int albumCount() const;
-
-    int albumPositionByIndex(qlonglong index) const;
 
 Q_SIGNALS:
 
-    void resetModel();
+    void databaseChanged(QVector<qlonglong> indexByPosition,
+                         QHash<qlonglong, int> positionByIndex);
+
+    void modelDataChanged();
 
 public Q_SLOTS:
 
     void insertAlbumsList(const QVector<MusicAlbum> &allAlbums);
 
     void insertTracksList(QHash<QString, QVector<MusicAudioTrack> > tracks, QHash<QString, QUrl> covers);
+
+    void databaseHasChanged(QVector<qlonglong> indexByPosition,
+                            QHash<qlonglong, int> positionByIndex);
 
 private:
 
@@ -84,6 +82,10 @@ private:
     void updateTracksCount(qlonglong albumId, int tracksCount) const;
 
     void updateIndexCache();
+
+    MusicAlbum internalAlbumFromId(qlonglong albumId) const;
+
+    QVariant internalAlbumDataFromId(qlonglong albumId, AlbumData dataType) const;
 
     DatabaseInterfacePrivate *d;
 

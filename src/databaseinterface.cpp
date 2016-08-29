@@ -797,7 +797,6 @@ void DatabaseInterface::updateIndexCache()
     d->mAlbumCache.clear();
 
     while(d->selectAllAlbumIdsQuery.next()) {
-        qDebug() << "DatabaseInterface::updateIndexCache" << d->mPositionByIndex.size();
         d->mPositionByIndex[d->selectAllAlbumIdsQuery.record().value(0).toLongLong()] = d->mIndexByPosition.length();
         d->mIndexByPosition.push_back(d->selectAllAlbumIdsQuery.record().value(0).toLongLong());
     }

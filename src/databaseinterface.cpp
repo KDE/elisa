@@ -794,8 +794,6 @@ void DatabaseInterface::updateIndexCache()
 {
     initDatabase();
 
-    MusicAlbum retrievedAlbum;
-
     auto result = d->selectAllAlbumIdsQuery.exec();
 
     if (!result || !d->selectAllAlbumIdsQuery.isSelect() || !d->selectAllAlbumIdsQuery.isActive()) {

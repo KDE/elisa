@@ -178,6 +178,11 @@ QVariant DatabaseInterface::albumDataFromIndex(int albumIndex, DatabaseInterface
     return result;
 }
 
+int DatabaseInterface::albumPositionFromId(qlonglong albumId) const
+{
+    return d->mPositionByIndex[albumId];
+}
+
 int DatabaseInterface::albumCount() const
 {
     auto result = 0;
@@ -695,7 +700,8 @@ void DatabaseInterface::initDatabase() const
     }
     {
         auto selectAlbumQueryText = QStringLiteral("SELECT `ID` "
-                                                   "FROM `Albums`");
+                                                   "FROM `Albums` "
+                                                   "ORDER BY `Title`");
 
         auto result = d->selectAllAlbumIdsQuery.prepare(selectAlbumQueryText);
 
@@ -799,18 +805,32 @@ void DatabaseInterface::updateIndexCache()
         return;
     }
 
-    d->mIndexByPosition.clear();
-    d->mPositionByIndex.clear();
-    d->mAlbumCache.clear();
+    auto newIndexByPosition = QVector<qlonglong>();
+    auto newAlbums = QVector<qlonglong>();
+    auto newPositionByIndex = QHash<qlonglong, int>();
 
     while(d->selectAllAlbumIdsQuery.next()) {
-        d->mPositionByIndex[d->selectAllAlbumIdsQuery.record().value(0).toLongLong()] = d->mIndexByPosition.length();
-        d->mIndexByPosition.push_back(d->selectAllAlbumIdsQuery.record().value(0).toLongLong());
+        auto albumId = d->selectAllAlbumIdsQuery.record().value(0).toLongLong();
+
+        if (d->mIndexByPosition.length() <= newIndexByPosition.length()) {
+            newAlbums.push_back(albumId);
+        } else {
+            if (d->mIndexByPosition[newIndexByPosition.length()] != albumId) {
+                newAlbums.push_back(albumId);
+            }
+        }
+
+        newIndexByPosition.push_back(albumId);
+        newPositionByIndex[albumId] = newIndexByPosition.length() - 1;
     }
 
     d->mSelectTrackQuery.finish();
 
-    Q_EMIT databaseChanged(d->mIndexByPosition, d->mPositionByIndex, {}, {});
+    d->mIndexByPosition = newIndexByPosition;
+    d->mPositionByIndex = newPositionByIndex;
+    d->mAlbumCache.clear();
+
+    Q_EMIT databaseChanged(d->mIndexByPosition, d->mPositionByIndex, newAlbums, {});
 }
 
 MusicAlbum DatabaseInterface::internalAlbumFromId(qlonglong albumId) const

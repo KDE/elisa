@@ -283,12 +283,18 @@ void AllAlbumsModel::tracksList(QHash<QString, QVector<MusicAudioTrack> > tracks
 
 void AllAlbumsModel::beginAlbumAdded(QVector<qlonglong> newAlbums)
 {
+    Q_UNUSED(newAlbums);
 }
 
 void AllAlbumsModel::endAlbumAdded(QVector<qlonglong> newAlbums)
 {
-    beginResetModel();
-    endResetModel();
+    auto commonParent = QModelIndex();
+
+    for(auto albumId : newAlbums) {
+        auto newAlbumPosition = d->mMusicDatabase->albumPositionFromId(albumId);
+        beginInsertRows(commonParent, newAlbumPosition, newAlbumPosition);
+        endInsertRows();
+    }
 }
 
 #include "moc_allalbumsmodel.cpp"

@@ -55,6 +55,8 @@ public:
 
     QVariant albumDataFromIndex(int albumIndex, AlbumData dataType) const;
 
+    int albumPositionFromId(qlonglong albumId) const;
+
     int albumCount() const;
 
 Q_SIGNALS:

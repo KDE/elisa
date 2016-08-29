@@ -464,20 +464,6 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
                 }
 
                 d->mInsertTrackQuery.finish();
-
-                result = d->mSelectTrackIfFromTitleAlbumArtistQuery.exec();
-
-                if (!result || !d->mSelectTrackIfFromTitleAlbumArtistQuery.isSelect() || !d->mSelectTrackIfFromTitleAlbumArtistQuery.isActive()) {
-                    qDebug() << "DatabaseInterface::insertTracksList" << "not select" << d->mSelectTrackIfFromTitleAlbumArtistQuery.lastQuery();
-                    qDebug() << "DatabaseInterface::insertTracksList" << d->mSelectTrackIfFromTitleAlbumArtistQuery.lastError();
-                }
-
-                if (d->mSelectTrackIfFromTitleAlbumArtistQuery.next()) {
-                    //auto currentElementId = selectTrackQuery.record().value(0).toInt();
-                    //qDebug() << "DatabaseInterface::insertTracksList" << "insert track" << track.mTitle << artistName << track.mAlbumName << currentElementId << albumId;
-                }
-
-                d->mSelectTrackIfFromTitleAlbumArtistQuery.finish();
             }
         }
 

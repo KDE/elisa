@@ -620,7 +620,7 @@ void DatabaseInterface::initDatabase() const
         }
     }
     {
-        auto selectAlbumIdFromTitleQueryText = QStringLiteral("SELECT ID FROM `Albums` "
+        auto selectAlbumIdFromTitleQueryText = QStringLiteral("SELECT `ID` FROM `Albums` "
                                               "WHERE "
                                               "`Title` = :title");
 

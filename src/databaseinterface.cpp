@@ -451,7 +451,7 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
                 continue;
             } else {
                 d->mSelectTrackIfFromTitleAlbumArtistQuery.finish();
-                d->mInsertTrackQuery.bindValue(QStringLiteral(":trackId"), d->mAlbumId);
+                d->mInsertTrackQuery.bindValue(QStringLiteral(":trackId"), d->mTrackId);
                 d->mInsertTrackQuery.bindValue(QStringLiteral(":title"), track.title());
                 d->mInsertTrackQuery.bindValue(QStringLiteral(":album"), albumId);
                 d->mInsertTrackQuery.bindValue(QStringLiteral(":artist"), artistName);
@@ -462,7 +462,7 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
                 result = d->mInsertTrackQuery.exec();
 
                 if (result && d->mInsertTrackQuery.isActive()) {
-                    ++d->mAlbumId;
+                    ++d->mTrackId;
                 } else {
                     qDebug() << "DatabaseInterface::insertTracksList" << d->mInsertTrackQuery.lastQuery();
                     qDebug() << "DatabaseInterface::insertTracksList" << d->mInsertTrackQuery.lastError();

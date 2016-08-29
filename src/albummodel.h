@@ -130,7 +130,9 @@ public Q_SLOTS:
 
 private Q_SLOTS:
 
-    void databaseReset();
+    void beginTrackAdded(QVector<qlonglong> newTracks);
+
+    void endTrackAdded(QVector<qlonglong> newTracks);
 
 private:
 

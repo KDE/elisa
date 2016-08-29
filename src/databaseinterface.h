@@ -59,10 +59,16 @@ public:
 
 Q_SIGNALS:
 
-    void databaseChanged(QVector<qlonglong> indexByPosition,
-                         QHash<qlonglong, int> positionByIndex);
+    void databaseChanged(QVector<qlonglong> indexByPosition, QHash<qlonglong, int> positionByIndex,
+                         QVector<qlonglong> newAlbums, QVector<qlonglong> newTracks);
 
-    void modelDataChanged();
+    void beginAlbumAdded(QVector<qlonglong> newAlbums);
+
+    void endAlbumAdded(QVector<qlonglong> newAlbums);
+
+    void beginTrackAdded(QVector<qlonglong> newTracks);
+
+    void endTrackAdded(QVector<qlonglong> newTracks);
 
 public Q_SLOTS:
 
@@ -70,8 +76,8 @@ public Q_SLOTS:
 
     void insertTracksList(QHash<QString, QVector<MusicAudioTrack> > tracks, QHash<QString, QUrl> covers);
 
-    void databaseHasChanged(QVector<qlonglong> indexByPosition,
-                            QHash<qlonglong, int> positionByIndex);
+    void databaseHasChanged(QVector<qlonglong> indexByPosition, QHash<qlonglong, int> positionByIndex,
+                            QVector<qlonglong> newAlbums, QVector<qlonglong> newTracks);
 
 private:
 

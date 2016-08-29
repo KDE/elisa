@@ -474,16 +474,23 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
         }
     }
 
+    qDebug() << "DatabaseInterface::insertTracksList" << "database changed";
+
     updateIndexCache();
 }
 
-void DatabaseInterface::databaseHasChanged(QVector<qlonglong> indexByPosition, QHash<qlonglong, int> positionByIndex)
+void DatabaseInterface::databaseHasChanged(QVector<qlonglong> indexByPosition, QHash<qlonglong, int> positionByIndex,
+                                           QVector<qlonglong> newAlbums, QVector<qlonglong> newTracks)
 {
+    Q_EMIT beginAlbumAdded(newAlbums);
+    Q_EMIT beginTrackAdded(newTracks);
+
     d->mIndexByPosition = indexByPosition;
     d->mPositionByIndex = positionByIndex;
     d->mAlbumCache.clear();
 
-    Q_EMIT modelDataChanged();
+    Q_EMIT endAlbumAdded(newAlbums);
+    Q_EMIT endTrackAdded(newTracks);
 }
 
 void DatabaseInterface::initDatabase() const
@@ -803,7 +810,7 @@ void DatabaseInterface::updateIndexCache()
 
     d->mSelectTrackQuery.finish();
 
-    Q_EMIT databaseChanged(d->mIndexByPosition, d->mPositionByIndex);
+    Q_EMIT databaseChanged(d->mIndexByPosition, d->mPositionByIndex, {}, {});
 }
 
 MusicAlbum DatabaseInterface::internalAlbumFromId(qlonglong albumId) const

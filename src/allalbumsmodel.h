@@ -108,7 +108,9 @@ public Q_SLOTS:
 
 private Q_SLOTS:
 
-    void databaseReset();
+    void beginAlbumAdded(QVector<qlonglong> newAlbums);
+
+    void endAlbumAdded(QVector<qlonglong> newAlbums);
 
 private:
 

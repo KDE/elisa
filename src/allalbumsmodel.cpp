@@ -248,7 +248,8 @@ void AllAlbumsModel::setDatabaseInterface(DatabaseInterface *musicDatabase)
     d->mMusicDatabase = musicDatabase;
 
     if (d->mMusicDatabase) {
-        connect(d->mMusicDatabase, &DatabaseInterface::modelDataChanged, this, &AllAlbumsModel::databaseReset);
+        connect(d->mMusicDatabase, &DatabaseInterface::beginAlbumAdded, this, &AllAlbumsModel::beginAlbumAdded);
+        connect(d->mMusicDatabase, &DatabaseInterface::endAlbumAdded, this, &AllAlbumsModel::endAlbumAdded);
     }
 
     emit databaseInterfaceChanged();
@@ -280,7 +281,11 @@ void AllAlbumsModel::tracksList(QHash<QString, QVector<MusicAudioTrack> > tracks
     return;
 }
 
-void AllAlbumsModel::databaseReset()
+void AllAlbumsModel::beginAlbumAdded(QVector<qlonglong> newAlbums)
+{
+}
+
+void AllAlbumsModel::endAlbumAdded(QVector<qlonglong> newAlbums)
 {
     beginResetModel();
     endResetModel();

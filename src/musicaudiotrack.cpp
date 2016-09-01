@@ -23,7 +23,18 @@ class MusicAudioTrackPrivate
 {
 public:
 
-    bool mIsValid = false;
+    MusicAudioTrackPrivate()
+    {
+    }
+
+    MusicAudioTrackPrivate(bool aValid, QString aId, QString aParentId,
+                           QString aTitle, QString aArtist, QString aAlbumName,
+                           int aTrackNumber, QTime aDuration, QUrl aResourceURI)
+        : mId(aId), mParentId(aParentId), mTitle(aTitle), mArtist(aArtist),
+          mAlbumName(aAlbumName), mTrackNumber(aTrackNumber), mDuration(aDuration),
+          mResourceURI(aResourceURI), mIsValid(aValid)
+    {
+    }
 
     qlonglong mDatabaseId = -1;
 
@@ -43,9 +54,18 @@ public:
 
     QUrl mResourceURI;
 
+    bool mIsValid = false;
+
 };
 
 MusicAudioTrack::MusicAudioTrack() : d(new MusicAudioTrackPrivate)
+{
+}
+
+MusicAudioTrack::MusicAudioTrack(bool aValid, QString aId, QString aParentId,
+                                 QString aTitle, QString aArtist, QString aAlbumName,
+                                 int aTrackNumber, QTime aDuration, QUrl aResourceURI)
+    : d(new MusicAudioTrackPrivate(aValid, aId, aParentId, aTitle, aArtist, aAlbumName, aTrackNumber, aDuration, aResourceURI))
 {
 }
 

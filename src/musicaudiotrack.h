@@ -34,6 +34,9 @@ public:
 
     MusicAudioTrack();
 
+    MusicAudioTrack(bool aValid, QString aId, QString aParentId, QString aTitle, QString aArtist, QString aAlbumName,
+                    int aTrackNumber, QTime aDuration, QUrl aResourceURI);
+
     MusicAudioTrack(MusicAudioTrack &&other);
 
     MusicAudioTrack(const MusicAudioTrack &other);

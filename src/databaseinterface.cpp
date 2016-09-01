@@ -504,15 +504,33 @@ void DatabaseInterface::databaseHasChanged(QVector<qlonglong> indexByPosition, Q
 
 void DatabaseInterface::initDatabase() const
 {
+    auto transactionResult = d->mTracksDatabase.transaction();
+    if (!transactionResult) {
+        qDebug() << "transaction failed";
+        return;
+    }
+
     if (!d->mTracksDatabase.tables().contains(QStringLiteral("DiscoverSource"))) {
+        transactionResult = d->mTracksDatabase.commit();
+        if (!transactionResult) {
+            qDebug() << "commit failed";
+            return;
+        }
+
         QSqlQuery createSchemaQuery(d->mTracksDatabase);
 
+        auto transactionResult = d->mTracksDatabase.transaction();
+        if (!transactionResult) {
+            qDebug() << "transaction failed";
+            return;
+        }
+
         const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `DiscoverSource` (`ID` INTEGER PRIMARY KEY NOT NULL, "
-                                              "`UUID` TEXT NOT NULL, "
-                                              "UNIQUE (`UUID`))"));
+                                                                   "`UUID` TEXT NOT NULL, "
+                                                                   "UNIQUE (`UUID`))"));
 
         if (!result) {
-            qDebug() << "AbstractAlbumModel::initDatabase" << createSchemaQuery.lastError();
+            qDebug() << "DatabaseInterface::initDatabase" << createSchemaQuery.lastError() << createSchemaQuery.lastError().nativeErrorCode();
         }
     }
 
@@ -528,7 +546,7 @@ void DatabaseInterface::initDatabase() const
                                                                    "UNIQUE (`Title`, `Artist`))"));
 
         if (!result) {
-            qDebug() << "AbstractAlbumModel::initDatabase" << createSchemaQuery.lastError();
+            qDebug() << "DatabaseInterface::initDatabase" << createSchemaQuery.lastError();
         }
     }
 
@@ -546,7 +564,7 @@ void DatabaseInterface::initDatabase() const
                                                                    "CONSTRAINT fk_album FOREIGN KEY (`AlbumID`) REFERENCES `Albums`(`ID`))"));
 
         if (!result) {
-            qDebug() << "AbstractAlbumModel::initDatabase" << createSchemaQuery.lastError();
+            qDebug() << "DatabaseInterface::initDatabase" << createSchemaQuery.lastError();
         }
     }
 
@@ -561,7 +579,7 @@ void DatabaseInterface::initDatabase() const
                                                                    "CONSTRAINT fk_discoverID FOREIGN KEY (`DiscoverID`) REFERENCES `DiscoverSource`(`ID`))"));
 
         if (!result) {
-            qDebug() << "AbstractAlbumModel::initDatabase" << createSchemaQuery.lastError();
+            qDebug() << "DatabaseInterface::initDatabase" << createSchemaQuery.lastError();
         }
     }
 
@@ -574,7 +592,7 @@ void DatabaseInterface::initDatabase() const
                                                                   "(`AlbumID`)"));
 
         if (!result) {
-            qDebug() << "AbstractAlbumModel::initDatabase" << createTrackIndex.lastError();
+            qDebug() << "DatabaseInterface::initDatabase" << createTrackIndex.lastError();
         }
     }
 
@@ -606,7 +624,8 @@ void DatabaseInterface::initDatabase() const
                                                    "`Duration` "
                                                    "FROM `Tracks` "
                                                    "WHERE "
-                                                   "`AlbumID` = :albumId");
+                                                   "`AlbumID` = :albumId "
+                                                   "ORDER BY `Title`");
 
         auto result = d->mSelectTrackQuery.prepare(selectTrackQueryText);
 
@@ -627,7 +646,7 @@ void DatabaseInterface::initDatabase() const
     }
     {
         auto selectCountAlbumsQueryText = QStringLiteral("SELECT count(*) "
-                                                   "FROM Albums");
+                                                   "FROM `Albums`");
 
         const auto result = d->mSelectCountAlbumsQuery.prepare(selectCountAlbumsQueryText);
 
@@ -712,8 +731,20 @@ void DatabaseInterface::initDatabase() const
         if (!result) {
             qDebug() << "DatabaseInterface::initDatabase" << d->selectAllAlbumIdsQuery.lastError();
 
+            transactionResult = d->mTracksDatabase.commit();
+            if (!transactionResult) {
+                qDebug() << "commit failed";
+                return;
+            }
+
             return;
         }
+    }
+
+    transactionResult = d->mTracksDatabase.commit();
+    if (!transactionResult) {
+        qDebug() << "commit failed";
+        return;
     }
 }
 

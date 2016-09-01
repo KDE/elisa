@@ -46,7 +46,7 @@ configure_file(config-upnp-qt.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-upnp-qt
 
 add_subdirectory(src)
 #add_subdirectory(tests)
-#add_subdirectory(autotests)
+add_subdirectory(autotests)
 
 feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)
 

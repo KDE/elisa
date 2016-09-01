@@ -31,7 +31,7 @@ ApplicationWindow {
     visible: true
     minimumWidth: 1000
     minimumHeight: 600
-    title: 'Music'
+    title: 'Elisa'
     id: mainWindow
 
     property string globalBrowseFlag: 'BrowseDirectChildren'

@@ -89,7 +89,7 @@ private:
 
     void updateTracksCount(qlonglong albumId, int tracksCount) const;
 
-    void updateIndexCache();
+    void updateIndexCache(QVector<qlonglong> newTracks);
 
     MusicAlbum internalAlbumFromId(qlonglong albumId) const;
 

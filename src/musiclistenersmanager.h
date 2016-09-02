@@ -51,7 +51,9 @@ Q_SIGNALS:
 
 public Q_SLOTS:
 
-void setViewDatabase(DatabaseInterface* viewDatabase);
+    void setViewDatabase(DatabaseInterface* viewDatabase);
+
+    void databaseReady();
 
 private:
 

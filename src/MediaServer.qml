@@ -90,7 +90,10 @@ ApplicationWindow {
     DatabaseInterface {
         id: localAlbumDatabase
 
-        Component.onCompleted: init('views')
+        Component.onCompleted: {
+            init('views');
+            initRequest();
+        }
     }
 
     MusicListenersManager {

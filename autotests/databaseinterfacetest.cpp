@@ -53,6 +53,8 @@ private Q_SLOTS:
         auto newCovers = QHash<QString, QUrl>();
 
         musicDb.init(QStringLiteral("testDb"));
+        musicDb.initDatabase();
+        musicDb.initRequest();
 
         newTracks[QStringLiteral("album1")] = {
             {true, QStringLiteral("$1"), QStringLiteral("0"), QStringLiteral("track1"),
@@ -119,35 +121,41 @@ private Q_SLOTS:
     void addMultipleTimeSameTracksMultiThread()
     {
 #if 0
+        DatabaseInterface musicDb;
+        musicDb.init(QStringLiteral("testDb"));
+        musicDb.initDatabase();
+        musicDb.initRequest();
+
         DatabaseInterface musicDbThread1;
         QThread thread1;
         musicDbThread1.moveToThread(&thread1);
         thread1.start();
         QMetaObject::invokeMethod(&musicDbThread1, "init", Qt::QueuedConnection, Q_ARG(QString, QStringLiteral("testDb1")));
+        QMetaObject::invokeMethod(&musicDbThread1, "initRequest", Qt::QueuedConnection);
 
         DatabaseInterface musicDbThread2;
         QThread thread2;
         musicDbThread2.moveToThread(&thread2);
         thread2.start();
         QMetaObject::invokeMethod(&musicDbThread2, "init", Qt::QueuedConnection, Q_ARG(QString, QStringLiteral("testDb2")));
+        QMetaObject::invokeMethod(&musicDbThread2, "initRequest", Qt::QueuedConnection);
 
         DatabaseInterface musicDbThread3;
         QThread thread3;
         musicDbThread3.moveToThread(&thread3);
         thread3.start();
         QMetaObject::invokeMethod(&musicDbThread3, "init", Qt::QueuedConnection, Q_ARG(QString, QStringLiteral("testDb3")));
+        QMetaObject::invokeMethod(&musicDbThread3, "initRequest", Qt::QueuedConnection);
 
         DatabaseInterface musicDbThread4;
         QThread thread4;
         musicDbThread4.moveToThread(&thread4);
         thread4.start();
         QMetaObject::invokeMethod(&musicDbThread4, "init", Qt::QueuedConnection, Q_ARG(QString, QStringLiteral("testDb4")));
+        QMetaObject::invokeMethod(&musicDbThread4, "initRequest", Qt::QueuedConnection);
 
         auto newTracks = QHash<QString, QVector<MusicAudioTrack>>();
         auto newCovers = QHash<QString, QUrl>();
-
-        DatabaseInterface musicDb;
-        musicDb.init(QStringLiteral("testDb"));
 
         newTracks[QStringLiteral("album1")] = {
             {true, QStringLiteral("$1"), QStringLiteral("0"), QStringLiteral("track1"),

@@ -104,8 +104,6 @@ void DatabaseInterface::init(const QString &dbName)
     qDebug() << "DatabaseInterface::init" << (tracksDatabase.driver()->hasFeature(QSqlDriver::Transactions) ? "yes" : "no");
 
     d = new DatabaseInterfacePrivate(tracksDatabase);
-
-    initDatabase();
 }
 
 MusicAlbum DatabaseInterface::albumFromTitleAndAuthor(const QString &title, const QString &author) const
@@ -511,19 +509,7 @@ void DatabaseInterface::initDatabase() const
     }
 
     if (!d->mTracksDatabase.tables().contains(QStringLiteral("DiscoverSource"))) {
-        transactionResult = d->mTracksDatabase.commit();
-        if (!transactionResult) {
-            qDebug() << "commit failed";
-            return;
-        }
-
         QSqlQuery createSchemaQuery(d->mTracksDatabase);
-
-        auto transactionResult = d->mTracksDatabase.transaction();
-        if (!transactionResult) {
-            qDebug() << "transaction failed";
-            return;
-        }
 
         const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `DiscoverSource` (`ID` INTEGER PRIMARY KEY NOT NULL, "
                                                                    "`UUID` TEXT NOT NULL, "
@@ -594,6 +580,21 @@ void DatabaseInterface::initDatabase() const
         if (!result) {
             qDebug() << "DatabaseInterface::initDatabase" << createTrackIndex.lastError();
         }
+    }
+
+    transactionResult = d->mTracksDatabase.commit();
+    if (!transactionResult) {
+        qDebug() << "commit failed";
+        return;
+    }
+}
+
+void DatabaseInterface::initRequest()
+{
+    auto transactionResult = d->mTracksDatabase.transaction();
+    if (!transactionResult) {
+        qDebug() << "transaction failed";
+        return;
     }
 
     {
@@ -730,22 +731,15 @@ void DatabaseInterface::initDatabase() const
 
         if (!result) {
             qDebug() << "DatabaseInterface::initDatabase" << d->selectAllAlbumIdsQuery.lastError();
-
-            transactionResult = d->mTracksDatabase.commit();
-            if (!transactionResult) {
-                qDebug() << "commit failed";
-                return;
-            }
-
-            return;
         }
     }
 
     transactionResult = d->mTracksDatabase.commit();
     if (!transactionResult) {
         qDebug() << "commit failed";
-        return;
     }
+
+    Q_EMIT requestsInitDone();
 }
 
 QMap<qlonglong, MusicAudioTrack> DatabaseInterface::fetchTracks(qlonglong albumId) const
@@ -827,7 +821,11 @@ void DatabaseInterface::updateTracksCount(qlonglong albumId, int tracksCount) co
 
 void DatabaseInterface::updateIndexCache(QVector<qlonglong> newTracks)
 {
-    initDatabase();
+    auto transactionResult = d->mTracksDatabase.transaction();
+    if (!transactionResult) {
+        qDebug() << "transaction failed";
+        return;
+    }
 
     auto result = d->selectAllAlbumIdsQuery.exec();
 
@@ -858,6 +856,12 @@ void DatabaseInterface::updateIndexCache(QVector<qlonglong> newTracks)
     }
 
     d->mSelectTrackQuery.finish();
+
+    transactionResult = d->mTracksDatabase.commit();
+    if (!transactionResult) {
+        qDebug() << "commit failed";
+        return;
+    }
 
     d->mIndexByPosition = newIndexByPosition;
     d->mPositionByIndex = newPositionByIndex;

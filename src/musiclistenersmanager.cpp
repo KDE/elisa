@@ -62,17 +62,15 @@ MusicListenersManager::MusicListenersManager(QObject *parent)
 
     connect(&d->mDatabaseInterface, &DatabaseInterface::databaseChanged,
             this, &MusicListenersManager::musicDatabaseChanged);
+    connect(&d->mDatabaseInterface, &DatabaseInterface::requestsInitDone,
+            this, &MusicListenersManager::databaseReady);
 
-#if defined KF5Baloo_FOUND && KF5Baloo_FOUND
-    d->mBalooListener.setDatabaseInterface(&d->mDatabaseInterface);
-    d->mBalooListener.moveToThread(&d->mListenersThread);
-#endif
-#if defined UPNPQT_FOUND && UPNPQT_FOUND
-    d->mUpnpListener.setDatabaseInterface(&d->mDatabaseInterface);
-    d->mUpnpListener.moveToThread(&d->mListenersThread);
-#endif
+    QMetaObject::invokeMethod(&d->mDatabaseInterface, "init", Qt::QueuedConnection,
+                              Q_ARG(QString, QStringLiteral("listeners")));
 
-    d->mDatabaseInterface.init(QStringLiteral("listeners"));
+    QMetaObject::invokeMethod(&d->mDatabaseInterface, "initDatabase", Qt::QueuedConnection);
+
+    QMetaObject::invokeMethod(&d->mDatabaseInterface, "initRequest", Qt::QueuedConnection);
 }
 
 MusicListenersManager::~MusicListenersManager()
@@ -104,6 +102,18 @@ void MusicListenersManager::setViewDatabase(DatabaseInterface *viewDatabase)
     }
 
     emit viewDatabaseChanged();
+}
+
+void MusicListenersManager::databaseReady()
+{
+#if defined KF5Baloo_FOUND && KF5Baloo_FOUND
+    d->mBalooListener.setDatabaseInterface(&d->mDatabaseInterface);
+    d->mBalooListener.moveToThread(&d->mListenersThread);
+#endif
+#if defined UPNPQT_FOUND && UPNPQT_FOUND
+    d->mUpnpListener.setDatabaseInterface(&d->mDatabaseInterface);
+    d->mUpnpListener.moveToThread(&d->mListenersThread);
+#endif
 }
 
 

@@ -51,6 +51,10 @@ public:
 
     Q_INVOKABLE void init(const QString &dbName);
 
+    Q_INVOKABLE void initDatabase() const;
+
+    Q_INVOKABLE void initRequest();
+
     MusicAlbum albumFromTitleAndAuthor(const QString &title, const QString &author) const;
 
     QVariant albumDataFromIndex(int albumIndex, AlbumData dataType) const;
@@ -72,6 +76,8 @@ Q_SIGNALS:
 
     void endTrackAdded(QVector<qlonglong> newTracks);
 
+    void requestsInitDone();
+
 public Q_SLOTS:
 
     void insertAlbumsList(const QVector<MusicAlbum> &allAlbums);
@@ -82,8 +88,6 @@ public Q_SLOTS:
                             QVector<qlonglong> newAlbums, QVector<qlonglong> newTracks);
 
 private:
-
-    void initDatabase() const;
 
     QMap<qlonglong, MusicAudioTrack> fetchTracks(qlonglong albumId) const;
 

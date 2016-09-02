@@ -176,6 +176,11 @@ QVariant DatabaseInterface::albumDataFromIndex(int albumIndex, DatabaseInterface
     return result;
 }
 
+QVariant DatabaseInterface::trackDataFromDatabaseId(qulonglong id, DatabaseInterface::TrackData dataType) const
+{
+    return {};
+}
+
 int DatabaseInterface::albumPositionFromId(qlonglong albumId) const
 {
     return d->mPositionByIndex[albumId];

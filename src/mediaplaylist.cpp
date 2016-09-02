@@ -18,6 +18,7 @@
  */
 
 #include "mediaplaylist.h"
+#include "databaseinterface.h"
 
 #include <QtCore/QUrl>
 #include <QtCore/QPersistentModelIndex>
@@ -28,9 +29,13 @@ class MediaPlayListPrivate
 {
 public:
 
-    QList<QPersistentModelIndex> mData;
+    QList<qulonglong> mData;
 
     QList<bool> mIsPlaying;
+
+    DatabaseInterface *mMusicDatabase = nullptr;
+
+    int mDatabaseIdRole = 0;
 
 };
 
@@ -71,20 +76,29 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
     switch(convertedRole)
     {
     case ColumnsRoles::TitleRole:
+        return d->mMusicDatabase->trackDataFromDatabaseId(d->mData[index.row()], DatabaseInterface::TrackData::Title);
     case ColumnsRoles::DurationRole:
+        return d->mMusicDatabase->trackDataFromDatabaseId(d->mData[index.row()], DatabaseInterface::TrackData::Duration);
     case ColumnsRoles::MilliSecondsDurationRole:
+        return d->mMusicDatabase->trackDataFromDatabaseId(d->mData[index.row()], DatabaseInterface::TrackData::MilliSecondsDuration);
     case ColumnsRoles::ArtistRole:
+        return d->mMusicDatabase->trackDataFromDatabaseId(d->mData[index.row()], DatabaseInterface::TrackData::Artist);
     case ColumnsRoles::AlbumRole:
+        return d->mMusicDatabase->trackDataFromDatabaseId(d->mData[index.row()], DatabaseInterface::TrackData::Album);
     case ColumnsRoles::TrackNumberRole:
-    case ColumnsRoles::RatingRole:
+        return d->mMusicDatabase->trackDataFromDatabaseId(d->mData[index.row()], DatabaseInterface::TrackData::TrackNumber);
+    case ColumnsRoles::ResourceRole:
+        return d->mMusicDatabase->trackDataFromDatabaseId(d->mData[index.row()], DatabaseInterface::TrackData::Resource);
     case ColumnsRoles::ImageRole:
+        return d->mMusicDatabase->trackDataFromDatabaseId(d->mData[index.row()], DatabaseInterface::TrackData::Image);
+    case ColumnsRoles::IdRole:
+        return d->mMusicDatabase->trackDataFromDatabaseId(d->mData[index.row()], DatabaseInterface::TrackData::Id);
+    case ColumnsRoles::RatingRole:
     case ColumnsRoles::ItemClassRole:
     case ColumnsRoles::CountRole:
     case ColumnsRoles::CreatorRole:
-    case ColumnsRoles::ResourceRole:
-    case ColumnsRoles::IdRole:
     case ColumnsRoles::ParentIdRole:
-        return d->mData[index.row()].data(role);
+        return QVariant();
     case ColumnsRoles::IsPlayingRole:
         return d->mIsPlaying[index.row()];
     }
@@ -166,7 +180,7 @@ void MediaPlayList::enqueue(const QModelIndex &newTrack)
 {
     beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size());
     qDebug() << "MediaPlayList::enqueue" << newTrack << newTrack.data(ColumnsRoles::TitleRole);
-    d->mData.push_back(newTrack);
+    d->mData.push_back(newTrack.data(d->mDatabaseIdRole).toULongLong());
     d->mIsPlaying.push_back(false);
     endInsertRows();
 
@@ -184,5 +198,40 @@ void MediaPlayList::move(int from, int to, int n)
     }
     endResetModel();
 }
+
+DatabaseInterface *MediaPlayList::databaseInterface() const
+{
+    return d->mMusicDatabase;
+}
+
+int MediaPlayList::databaseIdRole() const
+{
+    return d->mDatabaseIdRole;
+}
+
+void MediaPlayList::setDatabaseInterface(DatabaseInterface *musicDatabase)
+{
+    if (d->mMusicDatabase == musicDatabase) {
+        return;
+    }
+
+    if (d->mMusicDatabase) {
+        disconnect(d->mMusicDatabase);
+    }
+
+    d->mMusicDatabase = musicDatabase;
+
+    emit databaseInterfaceChanged();
+}
+
+void MediaPlayList::setDatabaseIdRole(int databaseIdRole)
+{
+    if (d->mDatabaseIdRole == databaseIdRole)
+        return;
+
+    d->mDatabaseIdRole = databaseIdRole;
+    emit databaseIdRoleChanged();
+}
+
 
 #include "moc_mediaplaylist.cpp"

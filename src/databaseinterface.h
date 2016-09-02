@@ -45,6 +45,18 @@ public:
         Id,
     };
 
+    enum class TrackData {
+        Title,
+        Artist,
+        Album,
+        Image,
+        Duration,
+        MilliSecondsDuration,
+        TrackNumber,
+        Resource,
+        Id,
+    };
+
     explicit DatabaseInterface(QObject *parent = 0);
 
     virtual ~DatabaseInterface();
@@ -58,6 +70,8 @@ public:
     MusicAlbum albumFromTitleAndAuthor(const QString &title, const QString &author) const;
 
     QVariant albumDataFromIndex(int albumIndex, AlbumData dataType) const;
+
+    QVariant trackDataFromDatabaseId(qulonglong id, TrackData dataType) const;
 
     int albumPositionFromId(qlonglong albumId) const;
 

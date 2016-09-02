@@ -23,14 +23,25 @@
 #include <QtCore/QAbstractListModel>
 
 class MediaPlayListPrivate;
+class DatabaseInterface;
 
 class MediaPlayList : public QAbstractListModel
 {
     Q_OBJECT
 
+    Q_PROPERTY(DatabaseInterface* databaseInterface
+               READ databaseInterface
+               WRITE setDatabaseInterface
+               NOTIFY databaseInterfaceChanged)
+
     Q_PROPERTY(int trackCount
                READ trackCount
                NOTIFY trackCountChanged)
+
+    Q_PROPERTY(int databaseIdRole
+               READ databaseIdRole
+               WRITE setDatabaseIdRole
+               NOTIFY databaseIdRoleChanged)
 
 public:
 
@@ -78,18 +89,32 @@ public:
 
     Q_INVOKABLE void move(int from, int to, int n);
 
+    DatabaseInterface* databaseInterface() const;
+
+    int databaseIdRole() const;
+
 Q_SIGNALS:
 
     void trackCountChanged();
 
     void trackHasBeenAdded(const QString &title, const QUrl &image);
 
+    void databaseInterfaceChanged();
+
+    void databaseIdRoleChanged();
+
 public Q_SLOTS:
+
+    void setDatabaseInterface(DatabaseInterface* musicDatabase);
+
+    void setDatabaseIdRole(int databaseIdRole);
 
 private:
 
     MediaPlayListPrivate *d;
 
 };
+
+
 
 #endif // MEDIAPLAYLIST_H

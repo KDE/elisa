@@ -1,11 +1,14 @@
 set(playListTest_SOURCES
     ../src/mediaplaylist.cpp
     ../src/playlistcontroler.cpp
+    ../src/databaseinterface.cpp
+    ../src/musicalbum.cpp
+    ../src/musicaudiotrack.cpp
     playlisttests.cpp
 )
 
 add_executable(playListTest ${playListTest_SOURCES})
-target_link_libraries(playListTest Qt5::Test Qt5::Core)
+target_link_libraries(playListTest Qt5::Test Qt5::Core Qt5::Sql)
 target_include_directories(playListTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 
 set(databaseInterfaceTest_SOURCES

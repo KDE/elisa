@@ -76,6 +76,7 @@ public:
         CountRole = ItemClassRole + 1,
         IdRole = CountRole + 1,
         IsPlayingRole = IdRole + 1,
+        DatabaseIdRole = IsPlayingRole + 1,
     };
 
     explicit AlbumModel(QObject *parent = 0);

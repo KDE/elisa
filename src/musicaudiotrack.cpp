@@ -36,7 +36,7 @@ public:
     {
     }
 
-    qlonglong mDatabaseId = -1;
+    qulonglong mDatabaseId = 0;
 
     QString mId;
 
@@ -118,12 +118,12 @@ bool MusicAudioTrack::isValid() const
     return d->mIsValid;
 }
 
-void MusicAudioTrack::setDatabaseId(qlonglong value)
+void MusicAudioTrack::setDatabaseId(qulonglong value)
 {
     d->mDatabaseId = value;
 }
 
-qlonglong MusicAudioTrack::databaseId() const
+qulonglong MusicAudioTrack::databaseId() const
 {
     return d->mDatabaseId;
 }

@@ -763,7 +763,7 @@ QMap<qlonglong, MusicAudioTrack> DatabaseInterface::fetchTracks(qlonglong albumI
     while (d->mSelectTrackQuery.next()) {
         MusicAudioTrack newTrack;
 
-        newTrack.setDatabaseId(d->mSelectTrackQuery.record().value(0).toLongLong());
+        newTrack.setDatabaseId(d->mSelectTrackQuery.record().value(0).toULongLong());
         newTrack.setTitle(d->mSelectTrackQuery.record().value(1).toString());
         newTrack.setParentId(d->mSelectTrackQuery.record().value(2).toString());
         newTrack.setArtist(d->mSelectTrackQuery.record().value(3).toString());

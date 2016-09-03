@@ -53,9 +53,9 @@ public:
 
     bool isValid() const;
 
-    void setDatabaseId(qlonglong value);
+    void setDatabaseId(qulonglong value);
 
-    qlonglong databaseId() const;
+    qulonglong databaseId() const;
 
     void setId(const QString &value) const;
 

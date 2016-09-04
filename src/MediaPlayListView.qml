@@ -65,7 +65,7 @@ Item {
             CheckBox {
                 id: shuffleOption
 
-                text: 'Shuffle'
+                text: i18n("Shuffle")
 
                 Layout.alignment: Qt.AlignVCenter
             }
@@ -79,7 +79,7 @@ Item {
             CheckBox {
                 id: repeatOption
 
-                text: 'Repeat'
+                text: i18n("Repeat")
 
                 Layout.alignment: Qt.AlignVCenter
             }
@@ -90,7 +90,7 @@ Item {
 
             Label {
                 id: playListInfo
-                text: playListView.rowCount + ' tracks'
+                text: i18np("1 track", "%1 tracks", playListView.rowCount)
 
                 Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
             }

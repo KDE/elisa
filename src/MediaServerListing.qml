@@ -220,13 +220,13 @@ Item {
             Layout.fillWidth: true
 
             Label {
-                text: 'Filter: '
+                text: i18n("Filter: ")
             }
 
             TextField {
                 id: filterTextInput
 
-                placeholderText: 'Filter'
+                placeholderText: i18nc("Placeholder text in the filter text box", "Filter")
 
                 Layout.fillWidth: true
             }

@@ -118,7 +118,7 @@ ApplicationWindow {
     MediaPlayList {
         id: playListModelItem
 
-        onTrackHasBeenAdded: mainWindow.showPassiveNotification('Track ' + title + ' has been added', 1500, "", {})
+        onTrackHasBeenAdded: mainWindow.showPassiveNotification(i18n("Track %1 has been added", title), 1500, "", {})
     }
 
     PlayListControler {

@@ -156,6 +156,7 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
 #if defined KF5Declarative_FOUND && KF5Declarative_FOUND
     KDeclarative::KDeclarative decl;
     decl.setDeclarativeEngine(&engine);
+    decl.setTranslationDomain(QStringLiteral("elisa"));
     decl.setupBindings();
 #endif
 

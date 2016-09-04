@@ -281,12 +281,12 @@ void AllAlbumsModel::tracksList(QHash<QString, QVector<MusicAudioTrack> > tracks
     return;
 }
 
-void AllAlbumsModel::beginAlbumAdded(QVector<qlonglong> newAlbums)
+void AllAlbumsModel::beginAlbumAdded(QVector<qulonglong> newAlbums)
 {
     Q_UNUSED(newAlbums);
 }
 
-void AllAlbumsModel::endAlbumAdded(QVector<qlonglong> newAlbums)
+void AllAlbumsModel::endAlbumAdded(QVector<qulonglong> newAlbums)
 {
     auto commonParent = QModelIndex();
 

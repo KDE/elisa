@@ -47,11 +47,11 @@ public:
 
     QSqlDatabase mTracksDatabase;
 
-    QVector<qlonglong> mIndexByPosition;
+    QVector<qulonglong> mIndexByPosition;
 
-    QHash<qlonglong, int> mPositionByIndex;
+    QHash<qulonglong, int> mPositionByIndex;
 
-    QHash<qlonglong, MusicAlbum> mAlbumCache;
+    QHash<qulonglong, MusicAlbum> mAlbumCache;
 
     QSqlQuery mSelectAlbumQuery;
 
@@ -75,9 +75,9 @@ public:
 
     QSqlQuery selectAllAlbumIdsQuery;
 
-    int mAlbumId = 0;
+    qulonglong mAlbumId = 0;
 
-    int mTrackId = 0;
+    qulonglong mTrackId = 0;
 
 };
 
@@ -181,7 +181,7 @@ QVariant DatabaseInterface::trackDataFromDatabaseId(qulonglong id, DatabaseInter
     return {};
 }
 
-int DatabaseInterface::albumPositionFromId(qlonglong albumId) const
+int DatabaseInterface::albumPositionFromId(qulonglong albumId) const
 {
     return d->mPositionByIndex[albumId];
 }
@@ -332,7 +332,7 @@ void DatabaseInterface::insertAlbumsList(const QVector<MusicAlbum> &allAlbums)
 
 void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack> > tracks, QHash<QString, QUrl> covers)
 {
-    auto newTracks = QVector<qlonglong>();
+    auto newTracks = QVector<qulonglong>();
     auto maximumAlbumId = qulonglong(0);
     quintptr albumId = 0;
     for (const auto &album : tracks) {
@@ -491,8 +491,8 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
     updateIndexCache(newTracks);
 }
 
-void DatabaseInterface::databaseHasChanged(QVector<qlonglong> indexByPosition, QHash<qlonglong, int> positionByIndex,
-                                           QVector<qlonglong> newAlbums, QVector<qlonglong> newTracks)
+void DatabaseInterface::databaseHasChanged(QVector<qulonglong> indexByPosition, QHash<qulonglong, int> positionByIndex,
+                                           QVector<qulonglong> newAlbums, QVector<qulonglong> newTracks)
 {
     Q_EMIT beginAlbumAdded(newAlbums);
     Q_EMIT beginTrackAdded(newTracks);
@@ -747,9 +747,9 @@ void DatabaseInterface::initRequest()
     Q_EMIT requestsInitDone();
 }
 
-QMap<qlonglong, MusicAudioTrack> DatabaseInterface::fetchTracks(qlonglong albumId) const
+QMap<qulonglong, MusicAudioTrack> DatabaseInterface::fetchTracks(qulonglong albumId) const
 {
-    QMap<qlonglong, MusicAudioTrack> allTracks;
+    auto allTracks = QMap<qulonglong, MusicAudioTrack>();
 
     d->mSelectTrackQuery.bindValue(QStringLiteral(":albumId"), albumId);
 
@@ -782,7 +782,7 @@ QMap<qlonglong, MusicAudioTrack> DatabaseInterface::fetchTracks(qlonglong albumI
     return allTracks;
 }
 
-void DatabaseInterface::updateTracksCount(qlonglong albumId, int tracksCount) const
+void DatabaseInterface::updateTracksCount(qulonglong albumId, int tracksCount) const
 {
     d->mSelectAlbumTrackCountQuery.bindValue(QStringLiteral(":albumId"), albumId);
 
@@ -824,7 +824,7 @@ void DatabaseInterface::updateTracksCount(qlonglong albumId, int tracksCount) co
     }
 }
 
-void DatabaseInterface::updateIndexCache(QVector<qlonglong> newTracks)
+void DatabaseInterface::updateIndexCache(QVector<qulonglong> newTracks)
 {
     auto transactionResult = d->mTracksDatabase.transaction();
     if (!transactionResult) {
@@ -841,12 +841,12 @@ void DatabaseInterface::updateIndexCache(QVector<qlonglong> newTracks)
         return;
     }
 
-    auto newIndexByPosition = QVector<qlonglong>();
-    auto newAlbums = QVector<qlonglong>();
-    auto newPositionByIndex = QHash<qlonglong, int>();
+    auto newIndexByPosition = QVector<qulonglong>();
+    auto newAlbums = QVector<qulonglong>();
+    auto newPositionByIndex = QHash<qulonglong, int>();
 
     while(d->selectAllAlbumIdsQuery.next()) {
-        auto albumId = d->selectAllAlbumIdsQuery.record().value(0).toLongLong();
+        auto albumId = d->selectAllAlbumIdsQuery.record().value(0).toULongLong();
 
         if (d->mIndexByPosition.length() <= newIndexByPosition.length()) {
             newAlbums.push_back(albumId);
@@ -875,7 +875,7 @@ void DatabaseInterface::updateIndexCache(QVector<qlonglong> newTracks)
     Q_EMIT databaseChanged(d->mIndexByPosition, d->mPositionByIndex, newAlbums, newTracks);
 }
 
-MusicAlbum DatabaseInterface::internalAlbumFromId(qlonglong albumId) const
+MusicAlbum DatabaseInterface::internalAlbumFromId(qulonglong albumId) const
 {
     auto retrievedAlbum = MusicAlbum();
 
@@ -905,7 +905,7 @@ MusicAlbum DatabaseInterface::internalAlbumFromId(qlonglong albumId) const
         return retrievedAlbum;
     }
 
-    retrievedAlbum.setDatabaseId(d->mSelectAlbumQuery.record().value(0).toLongLong());
+    retrievedAlbum.setDatabaseId(d->mSelectAlbumQuery.record().value(0).toULongLong());
     retrievedAlbum.setTitle(d->mSelectAlbumQuery.record().value(1).toString());
     retrievedAlbum.setId(d->mSelectAlbumQuery.record().value(2).toString());
     retrievedAlbum.setArtist(d->mSelectAlbumQuery.record().value(3).toString());
@@ -922,7 +922,7 @@ MusicAlbum DatabaseInterface::internalAlbumFromId(qlonglong albumId) const
     return retrievedAlbum;
 }
 
-QVariant DatabaseInterface::internalAlbumDataFromId(qlonglong albumId, DatabaseInterface::AlbumData dataType) const
+QVariant DatabaseInterface::internalAlbumDataFromId(qulonglong albumId, DatabaseInterface::AlbumData dataType) const
 {
     auto result = QVariant();
 

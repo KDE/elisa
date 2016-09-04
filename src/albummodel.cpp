@@ -329,11 +329,11 @@ void AlbumModel::setAuthor(QString author)
     emit authorChanged();
 }
 
-void AlbumModel::beginTrackAdded(QVector<qlonglong> newTracks)
+void AlbumModel::beginTrackAdded(QVector<qulonglong> newTracks)
 {
 }
 
-void AlbumModel::endTrackAdded(QVector<qlonglong> newTracks)
+void AlbumModel::endTrackAdded(QVector<qulonglong> newTracks)
 {
     beginResetModel();
     endResetModel();

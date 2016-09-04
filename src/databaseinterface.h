@@ -73,22 +73,22 @@ public:
 
     QVariant trackDataFromDatabaseId(qulonglong id, TrackData dataType) const;
 
-    int albumPositionFromId(qlonglong albumId) const;
+    int albumPositionFromId(qulonglong albumId) const;
 
     int albumCount() const;
 
 Q_SIGNALS:
 
-    void databaseChanged(QVector<qlonglong> indexByPosition, QHash<qlonglong, int> positionByIndex,
-                         QVector<qlonglong> newAlbums, QVector<qlonglong> newTracks);
+    void databaseChanged(QVector<qulonglong> indexByPosition, QHash<qulonglong, int> positionByIndex,
+                         QVector<qulonglong> newAlbums, QVector<qulonglong> newTracks);
 
-    void beginAlbumAdded(QVector<qlonglong> newAlbums);
+    void beginAlbumAdded(QVector<qulonglong> newAlbums);
 
-    void endAlbumAdded(QVector<qlonglong> newAlbums);
+    void endAlbumAdded(QVector<qulonglong> newAlbums);
 
-    void beginTrackAdded(QVector<qlonglong> newTracks);
+    void beginTrackAdded(QVector<qulonglong> newTracks);
 
-    void endTrackAdded(QVector<qlonglong> newTracks);
+    void endTrackAdded(QVector<qulonglong> newTracks);
 
     void requestsInitDone();
 
@@ -98,20 +98,20 @@ public Q_SLOTS:
 
     void insertTracksList(QHash<QString, QVector<MusicAudioTrack> > tracks, QHash<QString, QUrl> covers);
 
-    void databaseHasChanged(QVector<qlonglong> indexByPosition, QHash<qlonglong, int> positionByIndex,
-                            QVector<qlonglong> newAlbums, QVector<qlonglong> newTracks);
+    void databaseHasChanged(QVector<qulonglong> indexByPosition, QHash<qulonglong, int> positionByIndex,
+                            QVector<qulonglong> newAlbums, QVector<qulonglong> newTracks);
 
 private:
 
-    QMap<qlonglong, MusicAudioTrack> fetchTracks(qlonglong albumId) const;
+    QMap<qulonglong, MusicAudioTrack> fetchTracks(qulonglong albumId) const;
 
-    void updateTracksCount(qlonglong albumId, int tracksCount) const;
+    void updateTracksCount(qulonglong albumId, int tracksCount) const;
 
-    void updateIndexCache(QVector<qlonglong> newTracks);
+    void updateIndexCache(QVector<qulonglong> newTracks);
 
-    MusicAlbum internalAlbumFromId(qlonglong albumId) const;
+    MusicAlbum internalAlbumFromId(qulonglong albumId) const;
 
-    QVariant internalAlbumDataFromId(qlonglong albumId, AlbumData dataType) const;
+    QVariant internalAlbumDataFromId(qulonglong albumId, AlbumData dataType) const;
 
     DatabaseInterfacePrivate *d;
 

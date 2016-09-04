@@ -121,8 +121,8 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
     qRegisterMetaType<QAbstractItemModel*>();
     qRegisterMetaType<QHash<QString,QUrl>>("QHash<QString,QUrl>");
     qRegisterMetaType<QHash<QString,QVector<MusicAudioTrack>>>("QHash<QString,QVector<MusicAudioTrack>>");
-    qRegisterMetaType<QVector<qlonglong>>("QVector<qlonglong>");
-    qRegisterMetaType<QHash<qlonglong,int>>("QHash<qlonglong,int>");
+    qRegisterMetaType<QVector<qulonglong>>("QVector<qulonglong>");
+    qRegisterMetaType<QHash<qulonglong,int>>("QHash<qulonglong,int>");
 
 #if defined KF5I18n_FOUND && KF5I18n_FOUND
     KLocalizedString::setApplicationDomain("elisa");

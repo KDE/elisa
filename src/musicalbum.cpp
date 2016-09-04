@@ -23,15 +23,11 @@ class MusicAlbumPrivate
 {
 public:
 
-    bool mIsValid = false;
-
-    qlonglong mDatabaseId = -1;
+    qulonglong mDatabaseId = 0;
 
     QString mId;
 
     QString mParentId;
-
-    int mTracksCount = 0;
 
     QString mTitle;
 
@@ -41,9 +37,13 @@ public:
 
     QUrl mResourceURI;
 
-    QMap<qlonglong, MusicAudioTrack> mTracks;
+    QMap<qulonglong, MusicAudioTrack> mTracks;
 
-    QList<qlonglong> mTrackIds;
+    QList<qulonglong> mTrackIds;
+
+    int mTracksCount = 0;
+
+    bool mIsValid = false;
 
 };
 
@@ -95,12 +95,12 @@ bool MusicAlbum::isValid() const
     return d->mIsValid;
 }
 
-void MusicAlbum::setDatabaseId(qlonglong value)
+void MusicAlbum::setDatabaseId(qulonglong value)
 {
     d->mDatabaseId = value;
 }
 
-qlonglong MusicAlbum::databaseId() const
+qulonglong MusicAlbum::databaseId() const
 {
     return d->mDatabaseId;
 }
@@ -176,12 +176,12 @@ QUrl MusicAlbum::resourceURI() const
     return d->mResourceURI;
 }
 
-void MusicAlbum::setTracks(const QMap<qlonglong, MusicAudioTrack> &allTracks)
+void MusicAlbum::setTracks(const QMap<qulonglong, MusicAudioTrack> &allTracks)
 {
     d->mTracks = allTracks;
 }
 
-QList<qlonglong> MusicAlbum::tracksKeys() const
+QList<qulonglong> MusicAlbum::tracksKeys() const
 {
     return d->mTracks.keys();
 }
@@ -191,12 +191,12 @@ MusicAudioTrack MusicAlbum::trackFromIndex(int index) const
     return d->mTracks[d->mTrackIds[index]];
 }
 
-void MusicAlbum::setTrackIds(const QList<qlonglong> &allTracksIds)
+void MusicAlbum::setTrackIds(const QList<qulonglong> &allTracksIds)
 {
     d->mTrackIds = allTracksIds;
 }
 
-qlonglong MusicAlbum::trackIdFromIndex(int index) const
+qulonglong MusicAlbum::trackIdFromIndex(int index) const
 {
     return d->mTrackIds[index];
 }

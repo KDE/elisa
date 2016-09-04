@@ -78,7 +78,14 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
     case ColumnsRoles::TitleRole:
         return d->mMusicDatabase->trackDataFromDatabaseId(d->mData[index.row()], DatabaseInterface::TrackData::Title);
     case ColumnsRoles::DurationRole:
-        return d->mMusicDatabase->trackDataFromDatabaseId(d->mData[index.row()], DatabaseInterface::TrackData::Duration);
+    {
+        QTime trackDuration = d->mMusicDatabase->trackDataFromDatabaseId(d->mData[index.row()], DatabaseInterface::TrackData::Duration).toTime();
+        if (trackDuration.hour() == 0) {
+            return trackDuration.toString(QStringLiteral("mm:ss"));
+        } else {
+            return trackDuration.toString();
+        }
+    }
     case ColumnsRoles::MilliSecondsDurationRole:
         return d->mMusicDatabase->trackDataFromDatabaseId(d->mData[index.row()], DatabaseInterface::TrackData::MilliSecondsDuration);
     case ColumnsRoles::ArtistRole:

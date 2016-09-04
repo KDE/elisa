@@ -49,9 +49,9 @@ public:
 
     bool isValid() const;
 
-    void setDatabaseId(qlonglong value);
+    void setDatabaseId(qulonglong value);
 
-    qlonglong databaseId() const;
+    qulonglong databaseId() const;
 
     void setId(const QString &value);
 
@@ -81,15 +81,15 @@ public:
 
     QUrl resourceURI() const;
 
-    void setTracks(const QMap<qlonglong, MusicAudioTrack> &allTracks);
+    void setTracks(const QMap<qulonglong, MusicAudioTrack> &allTracks);
 
-    QList<qlonglong> tracksKeys() const;
+    QList<qulonglong> tracksKeys() const;
 
     MusicAudioTrack trackFromIndex(int index) const;
 
-    void setTrackIds(const QList<qlonglong> &allTracksIds);
+    void setTrackIds(const QList<qulonglong> &allTracksIds);
 
-    qlonglong trackIdFromIndex(int index) const;
+    qulonglong trackIdFromIndex(int index) const;
 
 private:
 

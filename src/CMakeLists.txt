@@ -141,13 +141,6 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         )
     endif()
 
-    if (KF5Service_FOUND)
-        target_link_libraries(elisa
-            LINK_PRIVATE
-                KF5::Service
-        )
-    endif()
-
     if (UPNPQT_FOUND)
         target_link_libraries(elisa
             LINK_PRIVATE

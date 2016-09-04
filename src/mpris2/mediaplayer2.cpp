@@ -23,8 +23,6 @@
 
 #include <QCoreApplication>
 
-#include <KService>
-
 MediaPlayer2::MediaPlayer2(QObject* parent)
     : QDBusAbstractAdaptor(parent)
 {

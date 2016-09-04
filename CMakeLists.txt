@@ -21,7 +21,6 @@ find_package(KF5I18n CONFIG QUIET)
 find_package(KF5CoreAddons CONFIG QUIET)
 find_package(KF5Baloo CONFIG QUIET)
 find_package(KF5FileMetaData CONFIG QUIET)
-find_package(KF5Service CONFIG QUIET)
 
 find_package(KDSoap CONFIG QUIET)
 find_package(UPNPQT CONFIG QUIET)

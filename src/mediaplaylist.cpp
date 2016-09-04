@@ -35,8 +35,6 @@ public:
 
     DatabaseInterface *mMusicDatabase = nullptr;
 
-    int mDatabaseIdRole = 0;
-
 };
 
 MediaPlayList::MediaPlayList(QObject *parent) : QAbstractListModel(parent), d(new MediaPlayListPrivate)
@@ -98,14 +96,10 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
         return d->mMusicDatabase->trackDataFromDatabaseId(d->mData[index.row()], DatabaseInterface::TrackData::Resource);
     case ColumnsRoles::ImageRole:
         return d->mMusicDatabase->trackDataFromDatabaseId(d->mData[index.row()], DatabaseInterface::TrackData::Image);
-    case ColumnsRoles::IdRole:
-        return d->mMusicDatabase->trackDataFromDatabaseId(d->mData[index.row()], DatabaseInterface::TrackData::Id);
     case ColumnsRoles::RatingRole:
-    case ColumnsRoles::ItemClassRole:
     case ColumnsRoles::CountRole:
     case ColumnsRoles::CreatorRole:
-    case ColumnsRoles::ParentIdRole:
-        return QVariant();
+            return QVariant();
     case ColumnsRoles::IsPlayingRole:
         return d->mIsPlaying[index.row()];
     }
@@ -159,7 +153,6 @@ QHash<int, QByteArray> MediaPlayList::roleNames() const
     roles[static_cast<int>(ColumnsRoles::TrackNumberRole)] = "trackNumber";
     roles[static_cast<int>(ColumnsRoles::RatingRole)] = "rating";
     roles[static_cast<int>(ColumnsRoles::ImageRole)] = "image";
-    roles[static_cast<int>(ColumnsRoles::ItemClassRole)] = "itemClass";
     roles[static_cast<int>(ColumnsRoles::CountRole)] = "count";
     roles[static_cast<int>(ColumnsRoles::IsPlayingRole)] = "isPlaying";
 
@@ -183,15 +176,14 @@ int MediaPlayList::trackCount() const
     return d->mData.size();
 }
 
-void MediaPlayList::enqueue(const QModelIndex &newTrack)
+void MediaPlayList::enqueue(qulonglong newTrackId)
 {
     beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size());
-    qDebug() << "MediaPlayList::enqueue" << newTrack << newTrack.data(ColumnsRoles::TitleRole);
-    d->mData.push_back(newTrack.data(d->mDatabaseIdRole).toULongLong());
+    d->mData.push_back(newTrackId);
     d->mIsPlaying.push_back(false);
     endInsertRows();
 
-    Q_EMIT trackHasBeenAdded(newTrack.data(ColumnsRoles::TitleRole).toString(), newTrack.data(ColumnsRoles::ImageRole).toUrl());
+    Q_EMIT trackHasBeenAdded(data(index(d->mData.size() - 1, 0), ColumnsRoles::TitleRole).toString(), data(index(d->mData.size() - 1, 0), ColumnsRoles::ImageRole).toUrl());
     Q_EMIT trackCountChanged();
 }
 
@@ -211,11 +203,6 @@ DatabaseInterface *MediaPlayList::databaseInterface() const
     return d->mMusicDatabase;
 }
 
-int MediaPlayList::databaseIdRole() const
-{
-    return d->mDatabaseIdRole;
-}
-
 void MediaPlayList::setDatabaseInterface(DatabaseInterface *musicDatabase)
 {
     if (d->mMusicDatabase == musicDatabase) {
@@ -229,15 +216,6 @@ void MediaPlayList::setDatabaseInterface(DatabaseInterface *musicDatabase)
     d->mMusicDatabase = musicDatabase;
 
     emit databaseInterfaceChanged();
-}
-
-void MediaPlayList::setDatabaseIdRole(int databaseIdRole)
-{
-    if (d->mDatabaseIdRole == databaseIdRole)
-        return;
-
-    d->mDatabaseIdRole = databaseIdRole;
-    emit databaseIdRoleChanged();
 }
 
 

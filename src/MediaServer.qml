@@ -118,6 +118,8 @@ ApplicationWindow {
     MediaPlayList {
         id: playListModelItem
 
+        databaseInterface: localAlbumDatabase
+
         onTrackHasBeenAdded: mainWindow.showPassiveNotification(i18n("Track %1 has been added", title), 1500, "", {})
     }
 

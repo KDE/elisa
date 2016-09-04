@@ -41,7 +41,8 @@ public:
           mSelectCountAlbumsQuery(mTracksDatabase), mSelectAlbumIdFromTitleQuery(mTracksDatabase),
           mInsertAlbumQuery(mTracksDatabase), mSelectTrackIfFromTitleAlbumArtistQuery(mTracksDatabase),
           mInsertTrackQuery(mTracksDatabase), mSelectAlbumTrackCountQuery(mTracksDatabase),
-          mUpdateAlbumQuery(mTracksDatabase), selectAllAlbumIdsQuery(mTracksDatabase)
+          mUpdateAlbumQuery(mTracksDatabase), selectAllAlbumIdsQuery(mTracksDatabase),
+          mSelectTrackFromIdQuery(mTracksDatabase)
     {
     }
 
@@ -74,6 +75,8 @@ public:
     QSqlQuery mUpdateAlbumQuery;
 
     QSqlQuery selectAllAlbumIdsQuery;
+
+    QSqlQuery mSelectTrackFromIdQuery;
 
     qulonglong mAlbumId = 0;
 
@@ -178,7 +181,70 @@ QVariant DatabaseInterface::albumDataFromIndex(int albumIndex, DatabaseInterface
 
 QVariant DatabaseInterface::trackDataFromDatabaseId(qulonglong id, DatabaseInterface::TrackData dataType) const
 {
-    return {};
+    auto result = QVariant();
+
+    auto transactionResult = d->mTracksDatabase.transaction();
+    if (!transactionResult) {
+        qDebug() << "transaction failed";
+        return result;
+    }
+
+    d->mSelectTrackFromIdQuery.bindValue(QStringLiteral(":trackId"), id);
+
+    auto queryResult = d->mSelectTrackFromIdQuery.exec();
+
+    if (!queryResult || !d->mSelectTrackFromIdQuery.isSelect() || !d->mSelectTrackFromIdQuery.isActive()) {
+        qDebug() << "DatabaseInterface::internalAlbumFromId" << "not select" << d->mSelectAlbumQuery.lastQuery();
+        qDebug() << "DatabaseInterface::internalAlbumFromId" << d->mSelectAlbumQuery.lastError();
+
+        d->mSelectTrackFromIdQuery.finish();
+
+        return result;
+    }
+
+    if (!d->mSelectTrackFromIdQuery.next()) {
+        d->mSelectTrackFromIdQuery.finish();
+
+        return result;
+    }
+
+    switch(dataType)
+    {
+    case DatabaseInterface::TrackData::Album:
+        result = internalAlbumDataFromId(d->mSelectTrackFromIdQuery.record().value(1).toULongLong(), DatabaseInterface::AlbumData::Title);
+        break;
+    case DatabaseInterface::TrackData::Artist:
+        result = d->mSelectTrackFromIdQuery.record().value(2).toString();
+        break;
+    case DatabaseInterface::TrackData::MilliSecondsDuration:
+        result = d->mSelectTrackFromIdQuery.record().value(5).toLongLong();
+        break;
+    case DatabaseInterface::TrackData::Duration:
+        result = QTime::fromMSecsSinceStartOfDay(d->mSelectTrackFromIdQuery.record().value(5).toInt());
+        break;
+    case DatabaseInterface::TrackData::Resource:
+        result = d->mSelectTrackFromIdQuery.record().value(3).toUrl();
+        break;
+    case DatabaseInterface::TrackData::Image:
+        result = internalAlbumDataFromId(d->mSelectTrackFromIdQuery.record().value(1).toULongLong(), DatabaseInterface::AlbumData::Image);
+        break;
+    case DatabaseInterface::TrackData::Title:
+        result = d->mSelectTrackFromIdQuery.record().value(0).toString();
+        break;
+    case DatabaseInterface::TrackData::TrackNumber:
+        result = d->mSelectTrackFromIdQuery.record().value(4).toInt();
+        break;
+    }
+
+    d->mSelectTrackFromIdQuery.finish();
+
+    transactionResult = d->mTracksDatabase.commit();
+    if (!transactionResult) {
+        qDebug() << "commit failed";
+        return result;
+    }
+
+    return result;
 }
 
 int DatabaseInterface::albumPositionFromId(qulonglong albumId) const
@@ -637,6 +703,24 @@ void DatabaseInterface::initRequest()
 
         if (!result) {
             qDebug() << "DatabaseInterface::initDatabase" << d->mSelectTrackQuery.lastError();
+        }
+    }
+    {
+        auto selectTrackFromIdQueryText = QStringLiteral("SELECT "
+                                                   "`Title`, "
+                                                   "`AlbumID`, "
+                                                   "`Artist`, "
+                                                   "`FileName`, "
+                                                   "`TrackNumber`, "
+                                                   "`Duration` "
+                                                   "FROM `Tracks` "
+                                                   "WHERE "
+                                                   "`ID` = :trackId");
+
+        auto result = d->mSelectTrackFromIdQuery.prepare(selectTrackFromIdQueryText);
+
+        if (!result) {
+            qDebug() << "DatabaseInterface::initDatabase" << d->mSelectTrackFromIdQuery.lastError();
         }
     }
     {

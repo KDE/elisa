@@ -109,7 +109,7 @@ Item {
 
                                 iconSource: 'image://icon/media-playback-start'
 
-                                onTriggered: topListing.playListModel.enqueue(contentDirectoryView.model.modelIndex(index))
+                                onTriggered: topListing.playListModel.enqueue(model.databaseId)
                             }
 
                             title: if (model != undefined && model.title !== undefined)

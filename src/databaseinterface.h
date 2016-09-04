@@ -54,7 +54,6 @@ public:
         MilliSecondsDuration,
         TrackNumber,
         Resource,
-        Id,
     };
 
     explicit DatabaseInterface(QObject *parent = 0);

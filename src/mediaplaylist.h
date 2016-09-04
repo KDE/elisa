@@ -38,11 +38,6 @@ class MediaPlayList : public QAbstractListModel
                READ trackCount
                NOTIFY trackCountChanged)
 
-    Q_PROPERTY(int databaseIdRole
-               READ databaseIdRole
-               WRITE setDatabaseIdRole
-               NOTIFY databaseIdRoleChanged)
-
 public:
 
     enum ColumnsRoles {
@@ -56,11 +51,8 @@ public:
         RatingRole = TrackNumberRole + 1,
         ImageRole = RatingRole + 1,
         ResourceRole = ImageRole + 1,
-        ItemClassRole = ResourceRole + 1,
-        CountRole = ItemClassRole + 1,
-        IdRole = CountRole + 1,
-        ParentIdRole = IdRole + 1,
-        IsPlayingRole = ParentIdRole + 1,
+        CountRole = ResourceRole + 1,
+        IsPlayingRole = CountRole + 1,
     };
 
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 5, 0))
@@ -85,13 +77,11 @@ public:
 
     int trackCount() const;
 
-    Q_INVOKABLE void enqueue(const QModelIndex &newTrack);
+    Q_INVOKABLE void enqueue(qulonglong newTrackId);
 
     Q_INVOKABLE void move(int from, int to, int n);
 
     DatabaseInterface* databaseInterface() const;
-
-    int databaseIdRole() const;
 
 Q_SIGNALS:
 
@@ -101,13 +91,9 @@ Q_SIGNALS:
 
     void databaseInterfaceChanged();
 
-    void databaseIdRoleChanged();
-
 public Q_SLOTS:
 
     void setDatabaseInterface(DatabaseInterface* musicDatabase);
-
-    void setDatabaseIdRole(int databaseIdRole);
 
 private:
 

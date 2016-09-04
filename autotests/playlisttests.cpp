@@ -52,8 +52,8 @@ private Q_SLOTS:
 
         QSignalSpy sourceChangedSpy(&playListControler, &PlayListControler::playerSourceChanged);
 
-        playList.enqueue(index1);
-        playList.enqueue(index2);
+        playList.enqueue(1);
+        playList.enqueue(2);
 
         sourceChangedSpy.wait();
     }

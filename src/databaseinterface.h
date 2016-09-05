@@ -74,7 +74,7 @@ public:
 
     int albumPositionFromId(qulonglong albumId) const;
 
-    int albumCount() const;
+    int albumCount(QString artist) const;
 
 Q_SIGNALS:
 

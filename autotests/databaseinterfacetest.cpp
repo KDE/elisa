@@ -114,8 +114,8 @@ private Q_SLOTS:
         musicDb.insertTracksList(newTracks, newCovers);
         musicDb.insertTracksList(newTracks, newCovers);
 
-        qDebug() << musicDb.albumCount();
-        QVERIFY(musicDb.albumCount() == 4);
+        qDebug() << musicDb.albumCount({});
+        QVERIFY(musicDb.albumCount({}) == 4);
     }
 
     void addMultipleTimeSameTracksMultiThread()

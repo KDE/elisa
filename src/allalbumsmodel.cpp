@@ -42,6 +42,9 @@ public:
     DatabaseInterface *mMusicDatabase = nullptr;
 
     bool mUseLocalIcons = false;
+
+    QString mArtist;
+
 };
 
 AllAlbumsModel::AllAlbumsModel(QObject *parent) : QAbstractItemModel(parent), d(new AllAlbumsModelPrivate)
@@ -66,7 +69,7 @@ int AllAlbumsModel::rowCount(const QModelIndex &parent) const
         return albumCount;
     }
 
-    albumCount = d->mMusicDatabase->albumCount();
+    albumCount = d->mMusicDatabase->albumCount(d->mArtist);
 
     return albumCount;
 }
@@ -105,7 +108,7 @@ QVariant AllAlbumsModel::data(const QModelIndex &index, int role) const
         return result;
     }
 
-    const auto albumCount = d->mMusicDatabase->albumCount();
+    const auto albumCount = d->mMusicDatabase->albumCount(d->mArtist);
 
     if (!index.isValid()) {
         return result;
@@ -232,6 +235,11 @@ DatabaseInterface *AllAlbumsModel::databaseInterface() const
     return d->mMusicDatabase;
 }
 
+QString AllAlbumsModel::artist() const
+{
+    return d->mArtist;
+}
+
 void AllAlbumsModel::setDatabaseInterface(DatabaseInterface *musicDatabase)
 {
     if (d->mMusicDatabase == musicDatabase) {
@@ -276,6 +284,18 @@ void AllAlbumsModel::tracksList(QHash<QString, QVector<MusicAudioTrack> > tracks
     }
 
     return;
+}
+
+void AllAlbumsModel::setArtist(QString artist)
+{
+    if (d->mArtist == artist) {
+        return;
+    }
+
+    beginResetModel();
+    d->mArtist = artist;
+    emit artistChanged();
+    endResetModel();
 }
 
 void AllAlbumsModel::beginAlbumAdded(QVector<qulonglong> newAlbums)

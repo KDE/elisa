@@ -42,6 +42,11 @@ class AllAlbumsModel : public QAbstractItemModel
                WRITE setDatabaseInterface
                NOTIFY databaseInterfaceChanged)
 
+    Q_PROPERTY(QString artist
+               READ artist
+               WRITE setArtist
+               NOTIFY artistChanged)
+
 public:
 
     enum ColumnsRoles {
@@ -80,6 +85,8 @@ public:
 
     DatabaseInterface* databaseInterface() const;
 
+    QString artist() const;
+
 Q_SIGNALS:
 
     void databaseInterfaceChanged();
@@ -90,6 +97,8 @@ Q_SIGNALS:
 
     void refreshContent();
 
+    void artistChanged();
+
 public Q_SLOTS:
 
     void setDatabaseInterface(DatabaseInterface* databaseInterface);
@@ -97,6 +106,8 @@ public Q_SLOTS:
     void albumsList(const QVector<MusicAlbum> &allAlbums);
 
     void tracksList(QHash<QString, QVector<MusicAudioTrack> > tracks, QHash<QString, QUrl> covers);
+
+    void setArtist(QString artist);
 
 private Q_SLOTS:
 
@@ -109,6 +120,7 @@ private:
     QVariant internalDataAlbum(int albumIndex, int role) const;
 
     AllAlbumsModelPrivate *d;
+
 };
 
 #endif // ALLALBUMSMODEL_H

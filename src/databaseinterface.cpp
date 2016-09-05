@@ -42,7 +42,7 @@ public:
           mInsertAlbumQuery(mTracksDatabase), mSelectTrackIfFromTitleAlbumArtistQuery(mTracksDatabase),
           mInsertTrackQuery(mTracksDatabase), mSelectAlbumTrackCountQuery(mTracksDatabase),
           mUpdateAlbumQuery(mTracksDatabase), selectAllAlbumIdsQuery(mTracksDatabase),
-          mSelectTrackFromIdQuery(mTracksDatabase)
+          mSelectTrackFromIdQuery(mTracksDatabase), mSelectCountAlbumsForArtistQuery(mTracksDatabase)
     {
     }
 
@@ -77,6 +77,8 @@ public:
     QSqlQuery selectAllAlbumIdsQuery;
 
     QSqlQuery mSelectTrackFromIdQuery;
+
+    QSqlQuery mSelectCountAlbumsForArtistQuery;
 
     qulonglong mAlbumId = 0;
 
@@ -252,7 +254,7 @@ int DatabaseInterface::albumPositionFromId(qulonglong albumId) const
     return d->mPositionByIndex[albumId];
 }
 
-int DatabaseInterface::albumCount() const
+int DatabaseInterface::albumCount(QString artist) const
 {
     auto result = 0;
 
@@ -266,38 +268,75 @@ int DatabaseInterface::albumCount() const
         return result;
     }
 
-    d->mSelectCountAlbumsQuery.exec();
+    if (artist.isEmpty()) {
+        d->mSelectCountAlbumsQuery.exec();
 
-    if (!d->mSelectCountAlbumsQuery.isSelect() || !d->mSelectCountAlbumsQuery.isActive()) {
-        qDebug() << "DatabaseInterface::albumsList" << "not select" << d->mSelectCountAlbumsQuery.lastQuery();
-        qDebug() << "DatabaseInterface::albumsList" << d->mSelectCountAlbumsQuery.lastError();
+        if (!d->mSelectCountAlbumsQuery.isSelect() || !d->mSelectCountAlbumsQuery.isActive()) {
+            qDebug() << "DatabaseInterface::albumsList" << "not select" << d->mSelectCountAlbumsQuery.lastQuery();
+            qDebug() << "DatabaseInterface::albumsList" << d->mSelectCountAlbumsQuery.lastError();
 
-        d->mSelectCountAlbumsQuery.finish();
+            d->mSelectCountAlbumsQuery.finish();
 
-        transactionResult = d->mTracksDatabase.commit();
-        if (!transactionResult) {
-            qDebug() << "commit failed";
+            transactionResult = d->mTracksDatabase.commit();
+            if (!transactionResult) {
+                qDebug() << "commit failed";
+                return result;
+            }
+
             return result;
         }
 
-        return result;
-    }
+        if (!d->mSelectCountAlbumsQuery.next()) {
+            d->mSelectCountAlbumsQuery.finish();
 
-    if (!d->mSelectCountAlbumsQuery.next()) {        
-        d->mSelectCountAlbumsQuery.finish();
+            transactionResult = d->mTracksDatabase.commit();
+            if (!transactionResult) {
+                qDebug() << "commit failed";
+                return result;
+            }
 
-        transactionResult = d->mTracksDatabase.commit();
-        if (!transactionResult) {
-            qDebug() << "commit failed";
             return result;
         }
 
-        return result;
+        result = d->mSelectCountAlbumsQuery.record().value(0).toInt();
+
+        d->mSelectCountAlbumsQuery.finish();
+    } else {
+        d->mSelectCountAlbumsForArtistQuery.bindValue(QStringLiteral(":artistName"), artist);
+
+        d->mSelectCountAlbumsForArtistQuery.exec();
+
+        if (!d->mSelectCountAlbumsForArtistQuery.isSelect() || !d->mSelectCountAlbumsForArtistQuery.isActive()) {
+            qDebug() << "DatabaseInterface::albumsList" << "not select" << d->mSelectCountAlbumsForArtistQuery.lastQuery();
+            qDebug() << "DatabaseInterface::albumsList" << d->mSelectCountAlbumsForArtistQuery.lastError();
+
+            d->mSelectCountAlbumsForArtistQuery.finish();
+
+            transactionResult = d->mTracksDatabase.commit();
+            if (!transactionResult) {
+                qDebug() << "commit failed";
+                return result;
+            }
+
+            return result;
+        }
+
+        if (!d->mSelectCountAlbumsForArtistQuery.next()) {
+            d->mSelectCountAlbumsForArtistQuery.finish();
+
+            transactionResult = d->mTracksDatabase.commit();
+            if (!transactionResult) {
+                qDebug() << "commit failed";
+                return result;
+            }
+
+            return result;
+        }
+
+        result = d->mSelectCountAlbumsForArtistQuery.record().value(0).toInt();
+
+        d->mSelectCountAlbumsForArtistQuery.finish();
     }
-
-    result = d->mSelectCountAlbumsQuery.record().value(0).toInt();
-
-    d->mSelectCountAlbumsQuery.finish();
 
     transactionResult = d->mTracksDatabase.commit();
     if (!transactionResult) {
@@ -742,6 +781,17 @@ void DatabaseInterface::initRequest()
 
         if (!result) {
             qDebug() << "DatabaseInterface::initDatabase" << d->mSelectCountAlbumsQuery.lastError();
+        }
+    }
+    {
+        auto selectCountAlbumsQueryText = QStringLiteral("SELECT count(*) "
+                                                         "FROM `Albums` "
+                                                         "WHERE `Artist` = :artistName");
+
+        const auto result = d->mSelectCountAlbumsForArtistQuery.prepare(selectCountAlbumsQueryText);
+
+        if (!result) {
+            qDebug() << "DatabaseInterface::initDatabase" << d->mSelectCountAlbumsForArtistQuery.lastError();
         }
     }
     {

@@ -44,13 +44,6 @@ class AllAlbumsModel : public QAbstractItemModel
 
 public:
 
-    enum ItemClass {
-        Container = 0,
-        Album = 1,
-        Artist = 2,
-        AudioTrack = 3,
-    };
-
     enum ColumnsRoles {
         TitleRole = Qt::UserRole + 1,
         DurationRole = TitleRole + 1,
@@ -62,8 +55,7 @@ public:
         RatingRole = TrackNumberRole + 1,
         ImageRole = RatingRole + 1,
         ResourceRole = ImageRole + 1,
-        ItemClassRole = ResourceRole + 1,
-        CountRole = ItemClassRole + 1,
+        CountRole = ResourceRole + 1,
         IdRole = CountRole + 1,
         IsPlayingRole = IdRole + 1,
     };
@@ -118,7 +110,5 @@ private:
 
     AllAlbumsModelPrivate *d;
 };
-
-Q_DECLARE_METATYPE(AllAlbumsModel::ItemClass)
 
 #endif // ALLALBUMSMODEL_H

@@ -82,7 +82,6 @@ QHash<int, QByteArray> AllAlbumsModel::roleNames() const
     roles[static_cast<int>(ColumnsRoles::TrackNumberRole)] = "trackNumber";
     roles[static_cast<int>(ColumnsRoles::RatingRole)] = "rating";
     roles[static_cast<int>(ColumnsRoles::ImageRole)] = "image";
-    roles[static_cast<int>(ColumnsRoles::ItemClassRole)] = "itemClass";
     roles[static_cast<int>(ColumnsRoles::CountRole)] = "count";
     roles[static_cast<int>(ColumnsRoles::IsPlayingRole)] = "isPlaying";
 
@@ -181,8 +180,6 @@ QVariant AllAlbumsModel::internalDataAlbum(int albumIndex, int role) const
         break;
     }
     case ColumnsRoles::ResourceRole:
-        break;
-    case ColumnsRoles::ItemClassRole:
         break;
     case ColumnsRoles::CountRole:
         result = d->mMusicDatabase->albumDataFromIndex(albumIndex, DatabaseInterface::AlbumData::TracksCount);

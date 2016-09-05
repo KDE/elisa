@@ -31,8 +31,8 @@
 #include <QDBusMessage>
 #include <QDBusConnection>
 
-static const double MAX_RATE = 32.0;
-static const double MIN_RATE = 0.0;
+static const double MAX_RATE = 1.0;
+static const double MIN_RATE = 1.0;
 
 MediaPlayer2Player::MediaPlayer2Player(PlayListControler *playListControler,
                                        MediaPlayer2Tracklist *playerPlayList,
@@ -231,19 +231,17 @@ void MediaPlayer2Player::emitSeeked(int pos)
     emit Seeked(qlonglong(pos) * 1000);
 }
 
-void MediaPlayer2Player::SetPosition(const QDBusObjectPath& trackId, qlonglong pos)
+void MediaPlayer2Player::SetPosition(QDBusObjectPath trackId, qlonglong pos) const
 {
     if (trackId.path() == m_playerPlayList->currentTrackId()) {
         emit seek((pos - Position()) / 1000);
+        m_playListControler->playerSeek((pos - Position()) / 1000);
     }
+    m_playListControler->playerSeek(pos / 1000);
 }
 
 void MediaPlayer2Player::OpenUri(QString uri) const
 {
-    QUrl url(uri);
-    if (url.isLocalFile()) {
-        emit playUrl(url);
-    }
 }
 
 void MediaPlayer2Player::playerSourceChanged()

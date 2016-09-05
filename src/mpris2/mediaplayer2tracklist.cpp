@@ -112,7 +112,7 @@ QVariantMap MediaPlayer2Tracklist::getMetadataOf(const QString &url, const QStri
         return metadata;
     }
 
-    metadata[QStringLiteral("mpris:trackid")] = QVariant::fromValue<QDBusObjectPath>(QDBusObjectPath(trackId)).toString();
+    metadata[QStringLiteral("mpris:trackid")] = QVariant::fromValue<QDBusObjectPath>(QDBusObjectPath(trackId));
     metadata[QStringLiteral("mpris:length")] = qlonglong(m_playListModel->data(trackIndex, MediaPlayList::MilliSecondsDurationRole).toInt()) * 1000;
     //convert milli-seconds into micro-seconds
     metadata[QStringLiteral("xesam:title")] = m_playListModel->data(trackIndex, MediaPlayList::TitleRole);

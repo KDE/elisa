@@ -83,9 +83,9 @@ Q_SIGNALS:
     void playPause() const;
     void stop() const;
     void seek(int offset) const;
-    void playUrl(QUrl url) const;
 
 public Q_SLOTS:
+
     void emitSeeked(int pos);
 
     void Next() const;
@@ -95,7 +95,7 @@ public Q_SLOTS:
     void Stop() const;
     void Play() const;
     void Seek(qlonglong Offset) const;
-    void SetPosition(const QDBusObjectPath& trackId, qlonglong pos);
+    void SetPosition(QDBusObjectPath trackId, qlonglong pos) const;
     void OpenUri(QString uri) const;
 
 private Q_SLOTS:
@@ -129,7 +129,7 @@ private:
 
     QVariantMap m_metadata;
     QString m_currentTrack;
-    double m_rate = 0.0;
+    double m_rate = 1.0;
     double m_volume = 0.0;
     bool m_paused = false;
     bool m_stopped = false;

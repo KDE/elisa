@@ -187,12 +187,9 @@ Item {
                 Label {
                     id: numberLabel
                     text: if (count != undefined)
-                              if (count == 1)
-                                  count + ' Song'
-                              else
-                                  count + ' Songs'
+                              i18np("1 Song", "%1 Songs", playListView.rowCount)
                           else
-                              '0 Songs'
+                              i18nc("Number of songs for an albu", '0 Songs')
 
                     font.weight: Font.Light
                     horizontalAlignment: Text.AlignLeft

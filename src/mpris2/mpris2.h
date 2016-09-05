@@ -70,7 +70,7 @@ public Q_SLOTS:
     void setPlayListControler(PlayListControler* playListControler);
 
 Q_SIGNALS:
-    void raisePMC() const;
+    void raisePlayer() const;
 
     void playerNameChanged();
 

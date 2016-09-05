@@ -60,7 +60,7 @@ public Q_SLOTS:
     void Raise() const;
 
 Q_SIGNALS:
-    void raisePMC() const;
+    void raisePlayer() const;
 
 };
 

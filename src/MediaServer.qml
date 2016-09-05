@@ -85,6 +85,12 @@ ApplicationWindow {
         playerName: 'elisa'
         playListModel: playListModelItem
         playListControler: playListControlerItem
+
+        onRaisePlayer:
+        {
+            mainWindow.raise()
+            mainWindow.requestActivate()
+        }
     }
 
     DatabaseInterface {

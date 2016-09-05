@@ -53,7 +53,7 @@ void MediaPlayer2::Quit() const
 
 void MediaPlayer2::Raise() const
 {
-    emit raisePMC();
+    emit raisePlayer();
 }
 
 QString MediaPlayer2::Identity() const

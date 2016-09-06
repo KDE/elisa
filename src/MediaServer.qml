@@ -73,16 +73,16 @@ ApplicationWindow {
     /**
      * Hide the passive notification, if any is shown
      */
-     function hidePassiveNotification() {
-         if(internal.__passiveNotification) {
+    function hidePassiveNotification() {
+        if(internal.__passiveNotification) {
             internal.__passiveNotification.hideNotification();
-         }
-     }
+        }
+    }
 
-     QtObject {
-         id: internal
-         property Item __passiveNotification
-     }
+    QtObject {
+        id: internal
+        property Item __passiveNotification
+    }
 
     Action {
         id: quitAction

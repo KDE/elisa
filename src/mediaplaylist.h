@@ -38,6 +38,11 @@ class MediaPlayList : public QAbstractListModel
                READ trackCount
                NOTIFY trackCountChanged)
 
+    Q_PROPERTY(QList<QVariant> persistentState
+               READ persistentState
+               WRITE setPersistentState
+               NOTIFY persistentStateChanged)
+
 public:
 
     enum ColumnsRoles {
@@ -83,6 +88,8 @@ public:
 
     DatabaseInterface* databaseInterface() const;
 
+    QList<QVariant> persistentState() const;
+
 Q_SIGNALS:
 
     void trackCountChanged();
@@ -91,9 +98,17 @@ Q_SIGNALS:
 
     void databaseInterfaceChanged();
 
+    void persistentStateChanged();
+
 public Q_SLOTS:
 
     void setDatabaseInterface(DatabaseInterface* musicDatabase);
+
+    void setPersistentState(QList<QVariant> persistentState);
+
+private Q_SLOTS:
+
+    void endTrackAdded(QVector<qulonglong> newTracks);
 
 private:
 

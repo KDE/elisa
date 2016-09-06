@@ -72,6 +72,8 @@ public:
 
     QVariant trackDataFromDatabaseId(qulonglong id, TrackData dataType) const;
 
+    qulonglong trackIdFromTitleAlbumArtist(QString title, QString album, QString artist) const;
+
     int albumPositionFromId(qulonglong albumId) const;
 
     int albumCount(QString artist) const;

@@ -35,6 +35,10 @@ public:
 
     DatabaseInterface *mMusicDatabase = nullptr;
 
+    QList<QVariant> mPersistentState;
+
+    bool mNeedReloadPlayList = false;
+
 };
 
 MediaPlayList::MediaPlayList(QObject *parent) : QAbstractListModel(parent), d(new MediaPlayListPrivate)
@@ -168,6 +172,8 @@ bool MediaPlayList::removeRows(int row, int count, const QModelIndex &parent)
     }
     endRemoveRows();
 
+    emit persistentStateChanged();
+
     return false;
 }
 
@@ -183,6 +189,7 @@ void MediaPlayList::enqueue(qulonglong newTrackId)
     d->mIsPlaying.push_back(false);
     endInsertRows();
 
+    emit persistentStateChanged();
     Q_EMIT trackHasBeenAdded(data(index(d->mData.size() - 1, 0), ColumnsRoles::TitleRole).toString(), data(index(d->mData.size() - 1, 0), ColumnsRoles::ImageRole).toUrl());
     Q_EMIT trackCountChanged();
 }
@@ -196,11 +203,30 @@ void MediaPlayList::move(int from, int to, int n)
         d->mIsPlaying.move(from, to);
     }
     endResetModel();
+
+    emit persistentStateChanged();
 }
 
 DatabaseInterface *MediaPlayList::databaseInterface() const
 {
     return d->mMusicDatabase;
+}
+
+QList<QVariant> MediaPlayList::persistentState() const
+{
+    auto result = QList<QVariant>();
+
+    for (auto trackId : d->mData) {
+        auto oneData = QList<QString>();
+
+        oneData.push_back(d->mMusicDatabase->trackDataFromDatabaseId(trackId, DatabaseInterface::TrackData::Title).toString());
+        oneData.push_back(d->mMusicDatabase->trackDataFromDatabaseId(trackId, DatabaseInterface::TrackData::Album).toString());
+        oneData.push_back(d->mMusicDatabase->trackDataFromDatabaseId(trackId, DatabaseInterface::TrackData::Artist).toString());
+
+        result.push_back(QVariant(oneData));
+    }
+
+    return result;
 }
 
 void MediaPlayList::setDatabaseInterface(DatabaseInterface *musicDatabase)
@@ -210,12 +236,48 @@ void MediaPlayList::setDatabaseInterface(DatabaseInterface *musicDatabase)
     }
 
     if (d->mMusicDatabase) {
-        disconnect(d->mMusicDatabase);
+        disconnect(d->mMusicDatabase, &DatabaseInterface::endTrackAdded,
+                   this, &MediaPlayList::endTrackAdded);
     }
 
     d->mMusicDatabase = musicDatabase;
 
+    connect(d->mMusicDatabase, &DatabaseInterface::endTrackAdded,
+            this, &MediaPlayList::endTrackAdded);
+
     emit databaseInterfaceChanged();
+}
+
+void MediaPlayList::setPersistentState(QList<QVariant> persistentState)
+{
+    qDebug() << "MediaPlayList::setPersistentState" << persistentState;
+
+    d->mPersistentState = persistentState;
+    d->mNeedReloadPlayList = true;
+
+    emit persistentStateChanged();
+}
+
+void MediaPlayList::endTrackAdded(QVector<qulonglong> newTracks)
+{
+    if (d->mNeedReloadPlayList) {
+        for (auto oneData : d->mPersistentState) {
+            auto trackData = oneData.toStringList();
+            if (trackData.size() != 3) {
+                continue;
+            }
+
+            auto restoredTitle = trackData[0];
+            auto restoredAlbum = trackData[1];
+            auto restoredArtist = trackData[2];
+
+            auto newTrackId = d->mMusicDatabase->trackIdFromTitleAlbumArtist(restoredTitle, restoredAlbum, restoredArtist);
+            enqueue(newTrackId);
+        }
+
+        d->mPersistentState.clear();
+        d->mNeedReloadPlayList = false;
+    }
 }
 
 

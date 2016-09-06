@@ -93,7 +93,13 @@ QString MediaPlayer2Tracklist::currentTrackId() const
 
 QVariantMap MediaPlayer2Tracklist::getMetadataOf(const QString &url)
 {
-    QVariantMap metadata = getMetadataOf(url, currentTrackId());
+    QVariantMap metadata;
+
+    if (url.isEmpty()) {
+        return metadata;
+    }
+
+    metadata = getMetadataOf(url, currentTrackId());
 
     return metadata;
 }

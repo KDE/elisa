@@ -26,13 +26,25 @@ import QtQuick.Window 2.2
 import QtQml.Models 2.1
 import org.mgallien.QmlExtension 1.0
 import QtMultimedia 5.4
+import Qt.labs.settings 1.0
 
 ApplicationWindow {
     visible: true
     minimumWidth: 1000
+    width: 1000
     minimumHeight: 600
+    height: 600
     title: 'Elisa'
     id: mainWindow
+
+    Settings {
+        property alias x: mainWindow.x
+        property alias y: mainWindow.y
+        property alias width: mainWindow.width
+        property alias height: mainWindow.height
+
+        property alias playListState: playListModelItem.persistentState
+    }
 
     property string globalBrowseFlag: 'BrowseDirectChildren'
     property string globalFilter: '*'

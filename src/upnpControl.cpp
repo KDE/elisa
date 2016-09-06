@@ -139,6 +139,8 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
                           i18n("(c) 2015-2016, Matthieu Gallien <mgallien@mgallien.fr>"));
 
     aboutData.addAuthor(i18n("Matthieu Gallien"),i18n("Author"), QStringLiteral("mgallien@mgallien.fr"));
+    KAboutData::setApplicationData(aboutData);
+
     QApplication::setWindowIcon(QIcon::fromTheme(QStringLiteral("new-audio-alarm")));
 
     QCommandLineParser parser;

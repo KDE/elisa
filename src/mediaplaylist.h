@@ -25,6 +25,33 @@
 class MediaPlayListPrivate;
 class DatabaseInterface;
 
+class MediaPlayListEntry
+{
+public:
+
+    MediaPlayListEntry() {
+    }
+
+    explicit MediaPlayListEntry(qulonglong id) : mId(id), mIsValid(true) {
+    }
+
+    MediaPlayListEntry(QString title, QString album, QString artist) : mTitle(title), mAlbum(album), mArtist(artist), mIsValid(false) {
+    }
+
+    QString mTitle;
+
+    QString mAlbum;
+
+    QString mArtist;
+
+    qulonglong mId = 0;
+
+    bool mIsValid = false;
+
+    bool mIsPlaying = false;
+
+};
+
 class MediaPlayList : public QAbstractListModel
 {
     Q_OBJECT
@@ -46,7 +73,8 @@ class MediaPlayList : public QAbstractListModel
 public:
 
     enum ColumnsRoles {
-        TitleRole = Qt::UserRole + 1,
+        IsValidRole = Qt::UserRole + 1,
+        TitleRole = IsValidRole + 1,
         DurationRole = TitleRole + 1,
         MilliSecondsDurationRole = DurationRole + 1,
         CreatorRole = MilliSecondsDurationRole + 1,
@@ -83,6 +111,8 @@ public:
     int trackCount() const;
 
     Q_INVOKABLE void enqueue(qulonglong newTrackId);
+
+    Q_INVOKABLE void enqueue(MediaPlayListEntry newEntry);
 
     Q_INVOKABLE void move(int from, int to, int n);
 

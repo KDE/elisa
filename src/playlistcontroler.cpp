@@ -97,6 +97,7 @@ void PlayListControler::setPlayListModel(QAbstractItemModel *aPlayListModel)
     connect(mPlayListModel, &QAbstractItemModel::rowsInserted, this, &PlayListControler::tracksInserted);
     connect(mPlayListModel, &QAbstractItemModel::rowsMoved, this, &PlayListControler::tracksMoved);
     connect(mPlayListModel, &QAbstractItemModel::rowsRemoved, this, &PlayListControler::tracksRemoved);
+    connect(mPlayListModel, &QAbstractItemModel::dataChanged, this, &PlayListControler::tracksDataChanged);
     connect(mPlayListModel, &QAbstractItemModel::modelReset, this, &PlayListControler::playListReset);
     connect(mPlayListModel, &QAbstractItemModel::layoutChanged, this, &PlayListControler::playListLayoutChanged);
 
@@ -325,6 +326,11 @@ void PlayListControler::tracksInserted(const QModelIndex &parent, int first, int
     Q_EMIT remainingTracksChanged();
     Q_EMIT playControlEnabledChanged();
     Q_EMIT skipForwardControlEnabledChanged();
+}
+
+void PlayListControler::tracksDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles)
+{
+    signaTrackChange();
 }
 
 void PlayListControler::tracksMoved(const QModelIndex &parent, int start, int end, const QModelIndex &destination, int row)

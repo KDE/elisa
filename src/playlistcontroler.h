@@ -306,6 +306,8 @@ public Q_SLOTS:
 
     void tracksRemoved(const QModelIndex & parent, int first, int last);
 
+    void tracksDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles = QVector<int> ());
+
     void playerPaused();
 
     void playerPlaying();

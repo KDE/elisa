@@ -65,7 +65,7 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
         return QVariant();
     }
 
-    if (index.row() < 0 || index.row() > d->mData.size()) {
+    if (index.row() < 0 || index.row() >= d->mData.size()) {
         return QVariant();
     }
 

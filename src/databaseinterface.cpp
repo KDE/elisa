@@ -87,6 +87,8 @@ public:
 
     qulonglong mTrackId = 0;
 
+    bool mInitFinished = false;
+
 };
 
 DatabaseInterface::DatabaseInterface(QObject *parent) : QObject(parent), d(nullptr)
@@ -187,6 +189,10 @@ QVariant DatabaseInterface::albumDataFromIndex(int albumIndex, DatabaseInterface
 QVariant DatabaseInterface::trackDataFromDatabaseId(qulonglong id, DatabaseInterface::TrackData dataType) const
 {
     auto result = QVariant();
+
+    if (!d || !d->mTracksDatabase.isValid() || !d->mInitFinished) {
+        return result;
+    }
 
     auto transactionResult = d->mTracksDatabase.transaction();
     if (!transactionResult) {
@@ -932,6 +938,7 @@ void DatabaseInterface::initRequest()
         qDebug() << "commit failed";
     }
 
+    d->mInitFinished = true;
     Q_EMIT requestsInitDone();
 }
 

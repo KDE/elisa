@@ -50,7 +50,6 @@
 #if defined Qt5DBus_FOUND && Qt5DBus_FOUND
 #include "mpris2/mpris2.h"
 #include "mpris2/mediaplayer2player.h"
-#include "mpris2/mediaplayer2tracklist.h"
 #endif
 
 #if defined KF5Declarative_FOUND && KF5Declarative_FOUND
@@ -115,7 +114,6 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
 #if defined Qt5DBus_FOUND && Qt5DBus_FOUND
     qmlRegisterType<Mpris2>("org.mgallien.QmlExtension", 1, 0, "Mpris2");
     qRegisterMetaType<MediaPlayer2Player*>();
-    qRegisterMetaType<MediaPlayer2Tracklist*>();
 #endif
 
     qRegisterMetaType<QAbstractItemModel*>();

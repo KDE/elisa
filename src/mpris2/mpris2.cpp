@@ -22,7 +22,6 @@
 #include "mpris2.h"
 #include "mediaplayer2.h"
 #include "mediaplayer2player.h"
-#include "mediaplayer2tracklist.h"
 #include "playlistcontroler.h"
 
 #include <QDBusConnection>
@@ -56,8 +55,7 @@ void Mpris2::initDBusService()
         tmpPmcDir.mkpath(tmpPmcDirPath);
 
         m_mp2 = new MediaPlayer2(this);
-        m_mp2tl = new MediaPlayer2Tracklist(m_playListModel, this);
-        m_mp2p = new MediaPlayer2Player(m_playListControler, m_mp2tl, this);
+        m_mp2p = new MediaPlayer2Player(m_playListControler, this);
 
         QDBusConnection::sessionBus().registerObject(QStringLiteral("/org/mpris/MediaPlayer2"), this, QDBusConnection::ExportAdaptors);
 

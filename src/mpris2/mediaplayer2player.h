@@ -48,12 +48,11 @@ class MediaPlayer2Player : public QDBusAbstractAdaptor
     Q_PROPERTY(bool CanPause READ CanPause)
     Q_PROPERTY(bool CanControl READ CanControl)
     Q_PROPERTY(bool CanSeek READ CanSeek)
-    Q_PROPERTY(QString currentTrack READ currentTrack WRITE setCurrentTrack)
+    Q_PROPERTY(int currentTrack READ currentTrack WRITE setCurrentTrack)
     Q_PROPERTY(int mediaPlayerPresent READ mediaPlayerPresent WRITE setMediaPlayerPresent)
 
 public:
     explicit MediaPlayer2Player(PlayListControler *playListControler,
-                                MediaPlayer2Tracklist *playerPlayList,
                                 QObject* parent = 0);
     ~MediaPlayer2Player();
 
@@ -70,7 +69,7 @@ public:
     bool CanPause() const;
     bool CanSeek() const;
     bool CanControl() const;
-    QString currentTrack() const;
+    int currentTrack() const;
     int mediaPlayerPresent() const;
 
 Q_SIGNALS:
@@ -112,8 +111,6 @@ private Q_SLOTS:
 
     void musicPlayerStoppedChanged();
 
-    void currentTrackPositionChanged();
-
     void playerIsSeekableChanged();
 
     void audioPositionChanged();
@@ -125,10 +122,13 @@ private:
     void setRate(double newRate);
     void setVolume(double volume);
     void setPropertyPosition(int newPositionInMs);
-    void setCurrentTrack(QString newTrack);
+    void setCurrentTrack(int newTrackPosition);
+
+    QVariantMap getMetadataOfCurrentTrack();
 
     QVariantMap m_metadata;
     QString m_currentTrack;
+    QString m_currentTrackId;
     double m_rate = 1.0;
     double m_volume = 0.0;
     bool m_paused = false;
@@ -139,7 +139,6 @@ private:
     bool m_canGoPrevious = false;
     qlonglong m_position = 0;
     PlayListControler *m_playListControler = nullptr;
-    MediaPlayer2Tracklist *m_playerPlayList = nullptr;
     bool m_playerIsSeekableChanged = false;
 };
 

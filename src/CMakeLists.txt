@@ -60,7 +60,6 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
             mpris2/mpris2.cpp
             mpris2/mediaplayer2.cpp
             mpris2/mediaplayer2player.cpp
-            mpris2/mediaplayer2tracklist.cpp
         )
     endif()
 

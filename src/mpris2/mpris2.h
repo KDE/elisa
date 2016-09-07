@@ -27,7 +27,6 @@
 #include <QVariantMap>
 
 class MediaPlayer2Player;
-class MediaPlayer2Tracklist;
 class MediaPlayer2;
 class QAbstractItemModel;
 class PlayListControler;
@@ -84,7 +83,6 @@ private:
 
     MediaPlayer2 *m_mp2 = nullptr;
     MediaPlayer2Player *m_mp2p = nullptr;
-    MediaPlayer2Tracklist *m_mp2tl = nullptr;
     QString m_playerName;
     QAbstractItemModel* m_playListModel = nullptr;
     PlayListControler* m_playListControler = nullptr;

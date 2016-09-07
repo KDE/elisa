@@ -122,7 +122,7 @@ MusicAlbum DatabaseInterface::albumFromTitleAndAuthor(const QString &title, cons
 
     auto transactionResult = d->mTracksDatabase.transaction();
     if (!transactionResult) {
-        qDebug() << "transaction failed";
+        qDebug() << "DatabaseInterface::albumFromTitleAndAuthor" << "transaction failed";
         return result;
     }
 
@@ -167,7 +167,7 @@ QVariant DatabaseInterface::albumDataFromIndex(int albumIndex, DatabaseInterface
 
     auto transactionResult = d->mTracksDatabase.transaction();
     if (!transactionResult) {
-        qDebug() << "transaction failed";
+        qDebug() << "DatabaseInterface::albumDataFromIndex" << "transaction failed";
         return result;
     }
 
@@ -196,7 +196,7 @@ QVariant DatabaseInterface::trackDataFromDatabaseId(qulonglong id, DatabaseInter
 
     auto transactionResult = d->mTracksDatabase.transaction();
     if (!transactionResult) {
-        qDebug() << "transaction failed";
+        qDebug() << "DatabaseInterface::trackDataFromDatabaseId" << "transaction failed";
         return result;
     }
 
@@ -264,7 +264,7 @@ qulonglong DatabaseInterface::trackIdFromTitleAlbumArtist(QString title, QString
 
     auto transactionResult = d->mTracksDatabase.transaction();
     if (!transactionResult) {
-        qDebug() << "transaction failed";
+        qDebug() << "DatabaseInterface::trackIdFromTitleAlbumArtist" << "transaction failed";
         return result;
     }
 
@@ -309,7 +309,7 @@ int DatabaseInterface::albumCount(QString artist) const
 
     auto transactionResult = d->mTracksDatabase.transaction();
     if (!transactionResult) {
-        qDebug() << "transaction failed";
+        qDebug() << "DatabaseInterface::albumCount" << "transaction failed";
         return result;
     }
 
@@ -398,7 +398,7 @@ void DatabaseInterface::insertAlbumsList(const QVector<MusicAlbum> &allAlbums)
     for(const auto &album : allAlbums) {
         auto transactionResult = d->mTracksDatabase.transaction();
         if (!transactionResult) {
-            qDebug() << "transaction failed";
+            qDebug() << "DatabaseInterface::insertAlbumsList" << "transaction failed";
             return;
         }
 
@@ -490,7 +490,7 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
 
         auto transactionResult = d->mTracksDatabase.transaction();
         if (!transactionResult) {
-            qDebug() << "transaction failed";
+            qDebug() << "DatabaseInterface::insertTracksList" << "transaction failed";
             return;
         }
 
@@ -659,7 +659,7 @@ void DatabaseInterface::initDatabase() const
 {
     auto transactionResult = d->mTracksDatabase.transaction();
     if (!transactionResult) {
-        qDebug() << "transaction failed";
+        qDebug() << "DatabaseInterface::initDatabase" << "transaction failed";
         return;
     }
 
@@ -748,7 +748,7 @@ void DatabaseInterface::initRequest()
 {
     auto transactionResult = d->mTracksDatabase.transaction();
     if (!transactionResult) {
-        qDebug() << "transaction failed";
+        qDebug() << "DatabaseInterface::initRequest" << "transaction failed";
         return;
     }
 
@@ -1023,7 +1023,7 @@ void DatabaseInterface::updateIndexCache(QVector<qulonglong> newTracks)
 {
     auto transactionResult = d->mTracksDatabase.transaction();
     if (!transactionResult) {
-        qDebug() << "transaction failed";
+        qDebug() << "DatabaseInterface::updateIndexCache" << "transaction failed";
         return;
     }
 

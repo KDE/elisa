@@ -237,11 +237,11 @@ ApplicationWindow {
                     id: pageModel
 
                     ListElement {
-                        name: 'All Albums'
+                        name: 'Now Playing'
                     }
 
                     ListElement {
-                        name: 'Play List'
+                        name: 'Albums'
                     }
                 }
 
@@ -304,17 +304,6 @@ ApplicationWindow {
                 }
 
                 Tab {
-                    MediaContentDirectory {
-                        id: localAlbums
-
-                        playListModel: playListModelItem
-                        musicDatabase: localAlbumDatabase
-
-                        anchors.fill: parent
-                    }
-                }
-
-                Tab {
                     Rectangle {
                         anchors.fill: parent
                         color: "#FFFFFF"
@@ -338,6 +327,17 @@ ApplicationWindow {
                             playListControlerItem.randomPlay = Qt.binding(function() { return playList.randomPlayChecked })
                             playListControlerItem.repeatPlay = Qt.binding(function() { return playList.repeatPlayChecked })
                         }
+                    }
+                }
+
+                Tab {
+                    MediaContentDirectory {
+                        id: localAlbums
+
+                        playListModel: playListModelItem
+                        musicDatabase: localAlbumDatabase
+
+                        anchors.fill: parent
                     }
                 }
             }

@@ -29,21 +29,29 @@ import QtMultimedia 5.4
 import Qt.labs.settings 1.0
 
 ApplicationWindow {
-    visible: true
-    minimumWidth: 1000
-    width: 1000
-    minimumHeight: 600
-    height: 600
-    title: 'Elisa'
     id: mainWindow
 
-    Settings {
-        property alias x: mainWindow.x
-        property alias y: mainWindow.y
-        property alias width: mainWindow.width
-        property alias height: mainWindow.height
+    visible: true
 
-        property alias playListState: playListModelItem.persistentState
+    minimumWidth: 1000
+    minimumHeight: 600
+
+    x: persistentSettings.x
+    y: persistentSettings.y
+    width: persistentSettings.width
+    height: persistentSettings.height
+
+    title: 'Elisa'
+
+    Settings {
+        id: persistentSettings
+
+        property int x
+        property int y
+        property int width
+        property int height
+
+        property var playListState
     }
 
     property string globalBrowseFlag: 'BrowseDirectChildren'
@@ -89,6 +97,19 @@ ApplicationWindow {
         text: i18nc('Action to quit the application', '&Quit')
         shortcut: StandardKey.Quit
         onTriggered: Qt.quit()
+    }
+
+    Connections {
+        target: Qt.application
+        onAboutToQuit:
+        {
+            persistentSettings.x = mainWindow.x;
+            persistentSettings.y = mainWindow.y;
+            persistentSettings.width = mainWindow.width;
+            persistentSettings.height = mainWindow.height;
+
+            persistentSettings.playListState = playListModelItem.persistentState;
+        }
     }
 
     Mpris2 {
@@ -137,6 +158,8 @@ ApplicationWindow {
         id: playListModelItem
 
         databaseInterface: localAlbumDatabase
+
+        persistentState: persistentSettings.playListState
 
         onTrackHasBeenAdded: mainWindow.showPassiveNotification(i18n("Track %1 has been added", title), 1500, "", {})
     }

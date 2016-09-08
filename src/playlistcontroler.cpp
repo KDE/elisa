@@ -519,9 +519,6 @@ void PlayListControler::skipToTrack(int position)
 
 void PlayListControler::setPlayerIsSeekable(bool playerIsSeekable)
 {
-    if (mPlayerIsSeekable == playerIsSeekable)
-        return;
-
     mPlayerIsSeekable = playerIsSeekable;
     emit playerIsSeekableChanged();
 }

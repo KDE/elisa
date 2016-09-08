@@ -99,6 +99,11 @@ class PlayListControler : public QObject
                WRITE setImageRole
                NOTIFY imageRoleChanged)
 
+    Q_PROPERTY(int isValidRole
+               READ isValidRole
+               WRITE setIsValidRole
+               NOTIFY isValidRoleChanged)
+
     Q_PROPERTY(int audioPosition
                READ audioPosition
                WRITE setAudioPosition
@@ -235,6 +240,8 @@ public:
 
     bool playerIsSeekable() const;
 
+    int isValidRole() const;
+
 Q_SIGNALS:
 
     void playMusic();
@@ -293,6 +300,8 @@ Q_SIGNALS:
 
     void playerIsSeekableChanged();
 
+    void isValidRoleChanged();
+
 public Q_SLOTS:
 
     void playListReset();
@@ -330,6 +339,8 @@ public Q_SLOTS:
 
     void setPlayerIsSeekable(bool playerIsSeekable);
 
+    void setIsValidRole(int isValidRole);
+
 private:
 
     void startPlayer();
@@ -344,40 +355,41 @@ private:
 
     void resetCurrentTrack();
 
-    QAbstractItemModel *mPlayListModel;
+    QAbstractItemModel *mPlayListModel = nullptr;
 
     QModelIndex mCurrentTrack;
 
-    int mUrlRole;
+    int mUrlRole = Qt::DisplayRole;
 
-    int mIsPlayingRole;
+    int mIsPlayingRole = Qt::DisplayRole;
 
-    int mArtistRole;
+    int mArtistRole = Qt::DisplayRole;
 
-    int mTitleRole;
+    int mTitleRole = Qt::DisplayRole;
 
-    int mAlbumRole;
+    int mAlbumRole = Qt::DisplayRole;
 
-    int mImageRole;
+    int mImageRole = Qt::DisplayRole;
 
-    PlayerState mPlayerState;
+    PlayerState mPlayerState = PlayListControler::PlayerState::Stopped;
 
-    int mAudioPosition;
+    int mAudioPosition = 0;
 
-    int mAudioDuration;
+    int mAudioDuration = 0;
 
-    int mRealAudioPosition;
+    int mRealAudioPosition = 0;
 
-    int mPlayControlPosition;
+    int mPlayControlPosition = 0;
 
-    bool mRandomPlay;
+    bool mRandomPlay = false;
 
-    bool mRepeatPlay;
+    bool mRepeatPlay = false;
 
-    bool mIsInPlayingState;
+    bool mIsInPlayingState = false;
 
-    bool mPlayerIsSeekable;
+    bool mPlayerIsSeekable = false;
 
+    int mIsValidRole = Qt::DisplayRole;
 };
 
 #endif // PLAYLISTCONTROLER_H

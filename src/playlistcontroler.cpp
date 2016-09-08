@@ -26,10 +26,7 @@
 #include <cstdlib>
 
 PlayListControler::PlayListControler(QObject *parent)
-    : QObject(parent), mPlayListModel(nullptr), mCurrentTrack(), mUrlRole(Qt::DisplayRole),
-      mIsPlayingRole(Qt::DisplayRole), mArtistRole(Qt::DisplayRole), mTitleRole(Qt::DisplayRole),
-      mAlbumRole(Qt::DisplayRole), mImageRole(Qt::DisplayRole), mPlayerState(PlayListControler::PlayerState::Stopped),
-      mAudioPosition(0), mPlayControlPosition(0), mRandomPlay(false), mRepeatPlay(false), mIsInPlayingState(false)
+    : QObject(parent)
 {
 }
 
@@ -291,6 +288,11 @@ bool PlayListControler::playerIsSeekable() const
     return mPlayerIsSeekable;
 }
 
+int PlayListControler::isValidRole() const
+{
+    return mIsValidRole;
+}
+
 void PlayListControler::playListReset()
 {
     if (!mCurrentTrack.isValid()) {
@@ -330,6 +332,10 @@ void PlayListControler::tracksInserted(const QModelIndex &parent, int first, int
 
 void PlayListControler::tracksDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles)
 {
+    if (!mCurrentTrack.isValid()) {
+        resetCurrentTrack();
+    }
+
     signaTrackChange();
 }
 
@@ -520,6 +526,12 @@ void PlayListControler::setPlayerIsSeekable(bool playerIsSeekable)
     emit playerIsSeekableChanged();
 }
 
+void PlayListControler::setIsValidRole(int isValidRole)
+{
+    mIsValidRole = isValidRole;
+    emit isValidRoleChanged();
+}
+
 void PlayListControler::startPlayer()
 {
     mIsInPlayingState = true;
@@ -600,8 +612,14 @@ void PlayListControler::signaTrackChange()
 
 void PlayListControler::resetCurrentTrack()
 {
-    mCurrentTrack = mPlayListModel->index(0, 0);
-    signaTrackChange();
+    for(int row = 0; row < mPlayListModel->rowCount(); ++row) {
+        mCurrentTrack = mPlayListModel->index(row, 0);
+        if (mCurrentTrack.data(mIsValidRole).toBool()) {
+            signaTrackChange();
+            break;
+        }
+        mCurrentTrack = {};
+    }
 }
 
 

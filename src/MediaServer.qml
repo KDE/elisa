@@ -152,6 +152,7 @@ ApplicationWindow {
         titleRole: MediaPlayList.TitleRole
         albumRole: MediaPlayList.AlbumRole
         imageRole: MediaPlayList.ImageRole
+        isValidRole: MediaPlayList.IsValidRole
 
         audioDuration: audioPlayer.duration
         playerIsSeekable: audioPlayer.seekable

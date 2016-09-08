@@ -290,9 +290,6 @@ void MediaPlayer2Player::musicPlayingChanged()
     signalPropertiesChange(QStringLiteral("PlaybackStatus"), PlaybackStatus());
 
     playerIsSeekableChanged();
-
-    m_metadata = getMetadataOfCurrentTrack();
-    signalPropertiesChange(QStringLiteral("Metadata"), Metadata());
 }
 
 void MediaPlayer2Player::musicPlayerStoppedChanged()

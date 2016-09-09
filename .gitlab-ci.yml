@@ -1,5 +1,6 @@
 before_script:
   - apt-get update -qq && apt-get install -y -qq cmake qtbase5-dev qtdeclarative5-dev libqt5sql5-sqlite libqt5svg5-dev libqt5multimedia5-plugins qtmultimedia5-dev
+  - apt-cache policy qtbase5-dev
 
 elisa:
   script:

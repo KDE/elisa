@@ -22,3 +22,15 @@ add_executable(databaseInterfaceTest ${databaseInterfaceTest_SOURCES})
 target_link_libraries(databaseInterfaceTest Qt5::Test Qt5::Core Qt5::Sql)
 target_include_directories(databaseInterfaceTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 
+set(playListControlerTest_SOURCES
+    ../src/playlistcontroler.cpp
+    ../src/mediaplaylist.cpp
+    ../src/databaseinterface.cpp
+    ../src/musicalbum.cpp
+    ../src/musicaudiotrack.cpp
+    playlistcontrolertest.cpp
+)
+
+add_executable(playListControlerTest ${playListControlerTest_SOURCES})
+target_link_libraries(playListControlerTest Qt5::Test Qt5::Core Qt5::Sql)
+target_include_directories(playListControlerTest PRIVATE ${CMAKE_SOURCE_DIR}/src)

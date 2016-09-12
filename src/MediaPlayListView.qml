@@ -28,7 +28,6 @@ import QtMultimedia 5.4
 
 Item {
     property StackView parentStackView
-    property MediaPlayerControl playControl
     property MediaPlayList playListModel
 
     property alias randomPlayChecked: shuffleOption.checked

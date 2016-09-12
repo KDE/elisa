@@ -122,6 +122,8 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
     qRegisterMetaType<QVector<qulonglong>>("QVector<qulonglong>");
     qRegisterMetaType<QHash<qulonglong,int>>("QHash<qulonglong,int>");
 
+    qRegisterMetaTypeStreamOperators<PlayListControler::PlayerState>("PlayListControler::PlayerState");
+
 #if defined KF5I18n_FOUND && KF5I18n_FOUND
     KLocalizedString::setApplicationDomain("elisa");
 #endif

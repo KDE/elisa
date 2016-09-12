@@ -52,6 +52,8 @@ ApplicationWindow {
         property int height
 
         property var playListState
+
+        property var playListControlerState
     }
 
     property string globalBrowseFlag: 'BrowseDirectChildren'
@@ -109,6 +111,7 @@ ApplicationWindow {
             persistentSettings.height = mainWindow.height;
 
             persistentSettings.playListState = playListModelItem.persistentState;
+            persistentSettings.playListControlerState = playListControlerItem.persistentState;
         }
     }
 
@@ -179,6 +182,8 @@ ApplicationWindow {
 
         audioDuration: audioPlayer.duration
         playerIsSeekable: audioPlayer.seekable
+
+        persistentState: persistentSettings.playListControlerState
 
         onPlayMusic: audioPlayer.play()
         onPauseMusic: audioPlayer.pause()
@@ -336,8 +341,10 @@ ApplicationWindow {
                     MediaPlayListView {
                         id: playList
 
-                        playControl: playControlItem
                         playListModel: playListModelItem
+
+                        randomPlayChecked: playListControlerItem.randomPlayControl
+                        repeatPlayChecked: playListControlerItem.repeatPlayControl
 
                         artistName: playListControlerItem.artist
                         albumName: playListControlerItem.album

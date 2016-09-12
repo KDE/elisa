@@ -22,6 +22,7 @@
 #include <QtCore/QTime>
 #include <QtCore/QTimer>
 #include <QtCore/QDebug>
+#include <QtCore/QDataStream>
 
 #include <cstdlib>
 
@@ -255,6 +256,7 @@ void PlayListControler::setRandomPlay(bool value)
 {
     mRandomPlay = value;
     Q_EMIT randomPlayChanged();
+    setRandomPlayControl(mRandomPlay);
 }
 
 bool PlayListControler::randomPlay() const
@@ -266,6 +268,7 @@ void PlayListControler::setRepeatPlay(bool value)
 {
     mRepeatPlay = value;
     Q_EMIT repeatPlayChanged();
+    setRepeatPlayControl(mRepeatPlay);
 }
 
 bool PlayListControler::repeatPlay() const
@@ -291,6 +294,29 @@ bool PlayListControler::playerIsSeekable() const
 int PlayListControler::isValidRole() const
 {
     return mIsValidRole;
+}
+
+QVariantMap PlayListControler::persistentState() const
+{
+    auto persistentStateValue = QVariantMap();
+
+    persistentStateValue[QStringLiteral("currentTrack")] = mCurrentTrack.row();
+    persistentStateValue[QStringLiteral("playControlPosition")] = mPlayControlPosition;
+    persistentStateValue[QStringLiteral("randomPlay")] = mRandomPlay;
+    persistentStateValue[QStringLiteral("repeatPlay")] = mRepeatPlay;
+    persistentStateValue[QStringLiteral("playerState")].setValue(mPlayerState);
+
+    return persistentStateValue;
+}
+
+bool PlayListControler::randomPlayControl() const
+{
+    return mRandomPlayControl;
+}
+
+bool PlayListControler::repeatPlayControl() const
+{
+    return mRepeatPlayControl;
 }
 
 void PlayListControler::playListReset()
@@ -323,20 +349,38 @@ void PlayListControler::tracksInserted(const QModelIndex &parent, int first, int
 
     if (!mCurrentTrack.isValid()) {
         resetCurrentTrack();
+        if (mCurrentTrack.isValid() && mCurrentTrack.data(mIsValidRole).toBool()) {
+            Q_EMIT playControlEnabledChanged();
+        }
+        restorePlayListPosition();
+        restorePlayerState();
     }
 
-    Q_EMIT remainingTracksChanged();
-    Q_EMIT playControlEnabledChanged();
-    Q_EMIT skipForwardControlEnabledChanged();
+    if (first <= mCurrentTrack.row() && mCurrentTrack.row() < last) {
+        Q_EMIT remainingTracksChanged();
+        Q_EMIT skipForwardControlEnabledChanged();
+    }
 }
 
 void PlayListControler::tracksDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles)
 {
-    if (!mCurrentTrack.isValid()) {
-        resetCurrentTrack();
-    }
+    for (auto oneRole : roles) {
+        if (oneRole == mIsPlayingRole) {
+            signaTrackChange();
 
-    signaTrackChange();
+            continue;
+        }
+
+        if (!mCurrentTrack.isValid()) {
+            resetCurrentTrack();
+        }
+
+        signaTrackChange();
+
+        if (mCurrentTrack.isValid() && mCurrentTrack.data(mIsValidRole).toBool()) {
+            restorePlayerState();
+        }
+    }
 }
 
 void PlayListControler::tracksMoved(const QModelIndex &parent, int start, int end, const QModelIndex &destination, int row)
@@ -529,6 +573,112 @@ void PlayListControler::setIsValidRole(int isValidRole)
     emit isValidRoleChanged();
 }
 
+void PlayListControler::restorePlayListPosition()
+{
+    auto playerCurrentTrack = mPersistentState.find(QStringLiteral("currentTrack"));
+    if (playerCurrentTrack != mPersistentState.end()) {
+        if (mPlayListModel) {
+            mCurrentTrack = mPlayListModel->index(playerCurrentTrack->toInt(), 0);
+            if (mCurrentTrack.isValid()) {
+                signaTrackChange();
+                Q_EMIT playControlPositionChanged();
+
+                mPersistentState.erase(playerCurrentTrack);
+            }
+        }
+    }
+}
+
+void PlayListControler::restorePlayControlPosition()
+{
+    auto playControlPositionStoredValue = mPersistentState.find(QStringLiteral("playControlPosition"));
+    if (playControlPositionStoredValue != mPersistentState.end()) {
+        mPlayControlPosition = playControlPositionStoredValue->toInt();
+        mPersistentState.erase(playControlPositionStoredValue);
+    }
+}
+
+void PlayListControler::restoreRandomPlay()
+{
+    auto randomPlayStoredValue = mPersistentState.find(QStringLiteral("randomPlay"));
+    if (randomPlayStoredValue != mPersistentState.end()) {
+        setRandomPlayControl(randomPlayStoredValue->toBool());
+        mPersistentState.erase(randomPlayStoredValue);
+    }
+}
+
+void PlayListControler::restoreRepeatPlay()
+{
+    auto repeatPlayStoredValue = mPersistentState.find(QStringLiteral("repeatPlay"));
+    if (repeatPlayStoredValue != mPersistentState.end()) {
+        setRepeatPlayControl(repeatPlayStoredValue->toBool());
+        mPersistentState.erase(repeatPlayStoredValue);
+    }
+}
+
+void PlayListControler::restorePlayerState()
+{
+    qDebug() << "PlayListControler::restorePlayerState" << mPersistentState;
+    auto playerStateStoredValue = mPersistentState.find(QStringLiteral("playerState"));
+    if (playerStateStoredValue != mPersistentState.end()) {
+        qDebug() << playerStateStoredValue.key() << playerStateStoredValue.value();
+        if (mCurrentTrack.isValid() && mCurrentTrack.data(mIsValidRole).toBool()) {
+            mPlayerState = playerStateStoredValue->value<PlayerState>();
+
+            switch (mPlayerState) {
+            case PlayerState::Playing:
+                startPlayer();
+                break;
+            case PlayerState::Paused:
+                pausePlayer();
+                break;
+            case PlayerState::Stopped:
+                stopPlayer();
+                break;
+            }
+
+            qDebug() << "PlayListControler::restorePlayerState" << mPersistentState;
+            mPersistentState.erase(playerStateStoredValue);
+            qDebug() << "PlayListControler::restorePlayerState" << mPersistentState;
+        }
+    }
+}
+
+void PlayListControler::setPersistentState(QVariantMap persistentStateValue)
+{
+    qDebug() << "PlayListControler::setPersistentState" << persistentStateValue;
+
+    mPersistentState = persistentStateValue;
+
+    restorePlayListPosition();
+    restorePlayControlPosition();
+    restoreRandomPlay();
+    restoreRepeatPlay();
+    restorePlayerState();
+
+    Q_EMIT persistentStateChanged();
+}
+
+void PlayListControler::setRandomPlayControl(bool randomPlayControl)
+{
+    if (mRandomPlayControl == randomPlayControl) {
+        return;
+    }
+
+    mRandomPlayControl = randomPlayControl;
+    Q_EMIT randomPlayControlChanged();
+}
+
+void PlayListControler::setRepeatPlayControl(bool repeatPlayControl)
+{
+    if (mRepeatPlayControl == repeatPlayControl) {
+        return;
+    }
+
+    mRepeatPlayControl = repeatPlayControl;
+    Q_EMIT repeatPlayControlChanged();
+}
+
 void PlayListControler::startPlayer()
 {
     mIsInPlayingState = true;
@@ -617,6 +767,20 @@ void PlayListControler::resetCurrentTrack()
         }
         mCurrentTrack = {};
     }
+}
+
+QDataStream &operator<<(QDataStream &out, const PlayListControler::PlayerState &state)
+{
+    out << static_cast<int>(state);
+    return out;
+}
+
+QDataStream &operator>>(QDataStream &in, PlayListControler::PlayerState &state)
+{
+    int value;
+    in >> value;
+    state = static_cast<PlayListControler::PlayerState>(value);
+    return in;
 }
 
 

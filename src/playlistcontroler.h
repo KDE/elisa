@@ -27,6 +27,8 @@
 #include <QtCore/QModelIndex>
 #include <QtCore/QUrl>
 
+class QDataStream;
+
 class PlayListControler : public QObject
 {
     Q_OBJECT
@@ -144,10 +146,25 @@ class PlayListControler : public QObject
                WRITE setRandomPlay
                NOTIFY randomPlayChanged)
 
+    Q_PROPERTY(bool randomPlayControl
+               READ randomPlayControl
+               WRITE setRandomPlayControl
+               NOTIFY randomPlayControlChanged)
+
     Q_PROPERTY(bool repeatPlay
                READ repeatPlay
                WRITE setRepeatPlay
                NOTIFY repeatPlayChanged)
+
+    Q_PROPERTY(bool repeatPlayControl
+               READ repeatPlayControl
+               WRITE setRepeatPlayControl
+               NOTIFY repeatPlayControlChanged)
+
+    Q_PROPERTY(QVariantMap persistentState
+               READ persistentState
+               WRITE setPersistentState
+               NOTIFY persistentStateChanged)
 
 public:
 
@@ -242,6 +259,12 @@ public:
 
     int isValidRole() const;
 
+    QVariantMap persistentState() const;
+
+    bool randomPlayControl() const;
+
+    bool repeatPlayControl() const;
+
 Q_SIGNALS:
 
     void playMusic();
@@ -302,6 +325,12 @@ Q_SIGNALS:
 
     void isValidRoleChanged();
 
+    void persistentStateChanged();
+
+    void randomPlayControlChanged();
+
+    void repeatPlayControlChanged();
+
 public Q_SLOTS:
 
     void playListReset();
@@ -341,6 +370,12 @@ public Q_SLOTS:
 
     void setIsValidRole(int isValidRole);
 
+    void setPersistentState(QVariantMap persistentStateValue);
+
+    void setRandomPlayControl(bool randomPlayControl);
+
+    void setRepeatPlayControl(bool repeatPlayControl);
+
 private:
 
     void startPlayer();
@@ -354,6 +389,16 @@ private:
     void signaTrackChange();
 
     void resetCurrentTrack();
+
+    void restorePlayListPosition();
+
+    void restorePlayControlPosition();
+
+    void restoreRandomPlay();
+
+    void restoreRepeatPlay();
+
+    void restorePlayerState();
 
     QAbstractItemModel *mPlayListModel = nullptr;
 
@@ -390,6 +435,16 @@ private:
     bool mPlayerIsSeekable = false;
 
     int mIsValidRole = Qt::DisplayRole;
+
+    QVariantMap mPersistentState;
+
+    bool mRandomPlayControl = false;
+
+    bool mRepeatPlayControl = false;
+
 };
+
+QDataStream& operator<<(QDataStream &out, const PlayListControler::PlayerState &state);
+QDataStream& operator>>(QDataStream &in, PlayListControler::PlayerState &state);
 
 #endif // PLAYLISTCONTROLER_H

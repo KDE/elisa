@@ -83,9 +83,9 @@ public:
 
     QSqlQuery mSelectTrackIdFromTitleAlbumArtistQuery;
 
-    qulonglong mAlbumId = 0;
+    qulonglong mAlbumId = 1;
 
-    qulonglong mTrackId = 0;
+    qulonglong mTrackId = 1;
 
     bool mInitFinished = false;
 

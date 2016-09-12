@@ -309,10 +309,12 @@ void MediaPlayList::endTrackAdded(QVector<qulonglong> newTracks)
 
         auto newTrackId = d->mMusicDatabase->trackIdFromTitleAlbumArtist(restoredTitle, restoredAlbum, restoredArtist);
 
-        oneEntry.mId = newTrackId;
-        oneEntry.mIsValid = true;
+        if (newTrackId != 0) {
+            oneEntry.mId = newTrackId;
+            oneEntry.mIsValid = true;
 
-        Q_EMIT dataChanged(index(i, 0), index(i, 0), {});
+            Q_EMIT dataChanged(index(i, 0), index(i, 0), {});
+        }
     }
 }
 

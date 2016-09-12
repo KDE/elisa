@@ -41,7 +41,7 @@ public:
           mSelectCountAlbumsQuery(mTracksDatabase), mSelectAlbumIdFromTitleQuery(mTracksDatabase),
           mInsertAlbumQuery(mTracksDatabase), mSelectTrackIdFromTitleAlbumIdArtistQuery(mTracksDatabase),
           mInsertTrackQuery(mTracksDatabase), mSelectAlbumTrackCountQuery(mTracksDatabase),
-          mUpdateAlbumQuery(mTracksDatabase), selectAllAlbumIdsQuery(mTracksDatabase),
+          mUpdateAlbumQuery(mTracksDatabase), mSelectAllAlbumIdsQuery(mTracksDatabase),
           mSelectTrackFromIdQuery(mTracksDatabase), mSelectCountAlbumsForArtistQuery(mTracksDatabase),
           mSelectTrackIdFromTitleAlbumArtistQuery(mTracksDatabase)
     {
@@ -75,7 +75,7 @@ public:
 
     QSqlQuery mUpdateAlbumQuery;
 
-    QSqlQuery selectAllAlbumIdsQuery;
+    QSqlQuery mSelectAllAlbumIdsQuery;
 
     QSqlQuery mSelectTrackFromIdQuery;
 
@@ -926,10 +926,10 @@ void DatabaseInterface::initRequest()
                                                    "FROM `Albums` "
                                                    "ORDER BY `Title`");
 
-        auto result = d->selectAllAlbumIdsQuery.prepare(selectAlbumQueryText);
+        auto result = d->mSelectAllAlbumIdsQuery.prepare(selectAlbumQueryText);
 
         if (!result) {
-            qDebug() << "DatabaseInterface::initDatabase" << d->selectAllAlbumIdsQuery.lastError();
+            qDebug() << "DatabaseInterface::initDatabase" << d->mSelectAllAlbumIdsQuery.lastError();
         }
     }
 
@@ -1027,11 +1027,11 @@ void DatabaseInterface::updateIndexCache(QVector<qulonglong> newTracks)
         return;
     }
 
-    auto result = d->selectAllAlbumIdsQuery.exec();
+    auto result = d->mSelectAllAlbumIdsQuery.exec();
 
-    if (!result || !d->selectAllAlbumIdsQuery.isSelect() || !d->selectAllAlbumIdsQuery.isActive()) {
-        qDebug() << "DatabaseInterface::updateIndexCache" << "not select" << d->selectAllAlbumIdsQuery.lastQuery();
-        qDebug() << "DatabaseInterface::updateIndexCache" << d->selectAllAlbumIdsQuery.lastError();
+    if (!result || !d->mSelectAllAlbumIdsQuery.isSelect() || !d->mSelectAllAlbumIdsQuery.isActive()) {
+        qDebug() << "DatabaseInterface::updateIndexCache" << "not select" << d->mSelectAllAlbumIdsQuery.lastQuery();
+        qDebug() << "DatabaseInterface::updateIndexCache" << d->mSelectAllAlbumIdsQuery.lastError();
 
         return;
     }
@@ -1040,8 +1040,8 @@ void DatabaseInterface::updateIndexCache(QVector<qulonglong> newTracks)
     auto newAlbums = QVector<qulonglong>();
     auto newPositionByIndex = QHash<qulonglong, int>();
 
-    while(d->selectAllAlbumIdsQuery.next()) {
-        auto albumId = d->selectAllAlbumIdsQuery.record().value(0).toULongLong();
+    while(d->mSelectAllAlbumIdsQuery.next()) {
+        auto albumId = d->mSelectAllAlbumIdsQuery.record().value(0).toULongLong();
 
         if (d->mIndexByPosition.length() <= newIndexByPosition.length()) {
             newAlbums.push_back(albumId);

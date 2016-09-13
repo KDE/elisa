@@ -14,6 +14,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         allalbumsmodel.cpp
         databaseinterface.cpp
         musiclistenersmanager.cpp
+        managemediaplayercontrol.cpp
 
         MediaServer.qml
         MediaServerListing.qml

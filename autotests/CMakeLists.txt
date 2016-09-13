@@ -34,3 +34,16 @@ set(playListControlerTest_SOURCES
 add_executable(playListControlerTest ${playListControlerTest_SOURCES})
 target_link_libraries(playListControlerTest Qt5::Test Qt5::Core Qt5::Sql)
 target_include_directories(playListControlerTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
+
+set(managemediaplayercontrolTest_SOURCES
+    ../src/managemediaplayercontrol.cpp
+    ../src/mediaplaylist.cpp
+    ../src/databaseinterface.cpp
+    ../src/musicalbum.cpp
+    ../src/musicaudiotrack.cpp
+    managemediaplayercontroltest.cpp
+)
+
+add_executable(managemediaplayercontrolTest ${managemediaplayercontrolTest_SOURCES})
+target_link_libraries(managemediaplayercontrolTest Qt5::Test Qt5::Core Qt5::Sql)
+target_include_directories(managemediaplayercontrolTest PRIVATE ${CMAKE_SOURCE_DIR}/src)

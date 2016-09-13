@@ -126,6 +126,8 @@ private Q_SLOTS:
 
     void playListTracksInserted(const QModelIndex &parent, int first, int last);
 
+    void playListTracksWillBeRemoved(const QModelIndex & parent, int first, int last);
+
     void playListTracksRemoved(const QModelIndex & parent, int first, int last);
 
     void playListReset();
@@ -135,6 +137,12 @@ private:
     QAbstractItemModel *mPlayListModel = nullptr;
 
     QPersistentModelIndex mCurrentTrack;
+
+    bool mCurrentTrackWillBeRemoved = false;
+
+    bool mSkipBackwardControlWasEnabled = false;
+
+    bool mSkipForwardControlWasEnabled = false;
 
     bool mIsInPlayingState = false;
 

@@ -128,16 +128,14 @@ void ManageMediaPlayerControl::playerStopped()
     if (mIsInPlayingState) {
         mIsInPlayingState = false;
 
-        if (!mCurrentTrack.isValid()) {
-            return;
-        }
+        if (mCurrentTrack.isValid()) {
+            if (mCurrentTrack.row() < mPlayListModel->rowCount() - 1) {
+                Q_EMIT skipForwardControlEnabledChanged();
+            }
 
-        if (mCurrentTrack.row() < mPlayListModel->rowCount() - 1) {
-            Q_EMIT skipForwardControlEnabledChanged();
-        }
-
-        if (mCurrentTrack.row() > 0) {
-            Q_EMIT skipBackwardControlEnabledChanged();
+            if (mCurrentTrack.row() > 0) {
+                Q_EMIT skipBackwardControlEnabledChanged();
+            }
         }
     }
 
@@ -206,6 +204,10 @@ void ManageMediaPlayerControl::playListTracksWillBeRemoved(const QModelIndex &pa
 {
     Q_UNUSED(parent);
 
+    mCurrentTrackWillBeRemoved = false;
+    mSkipBackwardControlWasEnabled = false;
+    mSkipForwardControlWasEnabled = false;
+
     if (!mCurrentTrack.isValid()) {
         return;
     }
@@ -221,6 +223,7 @@ void ManageMediaPlayerControl::playListTracksRemoved(const QModelIndex &parent, 
 
     if (mCurrentTrackWillBeRemoved) {
         Q_EMIT currentTrackChanged();
+        Q_EMIT playControlEnabledChanged();
     }
 
     if (!mCurrentTrack.isValid()) {

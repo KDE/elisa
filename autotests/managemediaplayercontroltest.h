@@ -41,6 +41,8 @@ private Q_SLOTS:
 
     void addItemInModelCase();
 
+    void addItemInModelCaseV2();
+
 };
 
 #endif // MANAGEMEDIAPLAYERCONTROLTEST_H

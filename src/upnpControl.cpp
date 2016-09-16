@@ -39,6 +39,7 @@
 #include "progressindicator.h"
 #include "mediaplaylist.h"
 #include "playlistcontroler.h"
+#include "managemediaplayercontrol.h"
 #include "musicstatistics.h"
 #include "albumfilterproxymodel.h"
 #include "databaseinterface.h"
@@ -104,6 +105,7 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
     qmlRegisterType<AlbumFilterProxyModel>("org.mgallien.QmlExtension", 1, 0, "AlbumFilterProxyModel");
     qmlRegisterType<MediaPlayList>("org.mgallien.QmlExtension", 1, 0, "MediaPlayList");
     qmlRegisterType<PlayListControler>("org.mgallien.QmlExtension", 1, 0, "PlayListControler");
+    qmlRegisterType<ManageMediaPlayerControl>("org.mgallien.QmlExtension", 1, 0, "ManageMediaPlayerControl");
     qmlRegisterType<MusicStatistics>("org.mgallien.QmlExtension", 1, 0, "MusicStatistics");
     qmlRegisterType<ProgressIndicator>("org.mgallien.QmlExtension", 1, 0, "ProgressIndicator");
     qmlRegisterType<DatabaseInterface>("org.mgallien.QmlExtension", 1, 0, "DatabaseInterface");
@@ -122,7 +124,7 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
     qRegisterMetaType<QVector<qulonglong>>("QVector<qulonglong>");
     qRegisterMetaType<QHash<qulonglong,int>>("QHash<qulonglong,int>");
 
-    qRegisterMetaTypeStreamOperators<PlayListControler::PlayerState>("PlayListControler::PlayerState");
+    qRegisterMetaTypeStreamOperators<ManageMediaPlayerControl::PlayerState>("PlayListControler::PlayerState");
 
 #if defined KF5I18n_FOUND && KF5I18n_FOUND
     KLocalizedString::setApplicationDomain("elisa");

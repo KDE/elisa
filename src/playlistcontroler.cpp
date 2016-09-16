@@ -22,7 +22,6 @@
 #include <QtCore/QTime>
 #include <QtCore/QTimer>
 #include <QtCore/QDebug>
-#include <QtCore/QDataStream>
 
 #include <cstdlib>
 
@@ -767,20 +766,6 @@ void PlayListControler::resetCurrentTrack()
         }
         mCurrentTrack = {};
     }
-}
-
-QDataStream &operator<<(QDataStream &out, const PlayListControler::PlayerState &state)
-{
-    out << static_cast<int>(state);
-    return out;
-}
-
-QDataStream &operator>>(QDataStream &in, PlayListControler::PlayerState &state)
-{
-    int value;
-    in >> value;
-    state = static_cast<PlayListControler::PlayerState>(value);
-    return in;
 }
 
 

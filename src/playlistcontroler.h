@@ -444,7 +444,4 @@ private:
 
 };
 
-QDataStream& operator<<(QDataStream &out, const PlayListControler::PlayerState &state);
-QDataStream& operator>>(QDataStream &in, PlayListControler::PlayerState &state);
-
 #endif // PLAYLISTCONTROLER_H

@@ -152,4 +152,7 @@ private:
 
 };
 
+QDataStream &operator<<(QDataStream &out, const ManageMediaPlayerControl::PlayerState &state);
+QDataStream &operator>>(QDataStream &in, ManageMediaPlayerControl::PlayerState &state);
+
 #endif // MANAGEMEDIAPLAYERCONTROL_H

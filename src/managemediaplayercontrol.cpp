@@ -19,6 +19,8 @@
 
 #include "managemediaplayercontrol.h"
 
+#include <QtCore/QDataStream>
+
 ManageMediaPlayerControl::ManageMediaPlayerControl(QObject *parent) : QObject(parent)
 {
 
@@ -278,6 +280,20 @@ QAbstractItemModel *ManageMediaPlayerControl::playListModel() const
 QPersistentModelIndex ManageMediaPlayerControl::currentTrack() const
 {
     return mCurrentTrack;
+}
+
+QDataStream &operator<<(QDataStream &out, const ManageMediaPlayerControl::PlayerState &state)
+{
+    out << static_cast<int>(state);
+    return out;
+}
+
+QDataStream &operator>>(QDataStream &in, ManageMediaPlayerControl::PlayerState &state)
+{
+    int value;
+    in >> value;
+    state = static_cast<ManageMediaPlayerControl::PlayerState>(value);
+    return in;
 }
 
 

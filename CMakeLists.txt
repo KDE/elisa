@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 14)
 
 set(REQUIRED_QT_VERSION "5.6.0")
-find_package(Qt5 ${REQUIRED_QT_VERSION} CONFIG REQUIRED Core Network Xml Qml Sql Multimedia Svg)
+find_package(Qt5 ${REQUIRED_QT_VERSION} CONFIG REQUIRED Core Network Xml Qml Sql Multimedia Svg Gui)
 find_package(Qt5 ${REQUIRED_QT_VERSION} CONFIG QUIET OPTIONAL_COMPONENTS Quick Widgets Test DBus WebSockets)
 
 find_package(ECM 5.24.0 REQUIRED NO_MODULE)

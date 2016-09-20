@@ -47,3 +47,16 @@ set(managemediaplayercontrolTest_SOURCES
 add_executable(managemediaplayercontrolTest ${managemediaplayercontrolTest_SOURCES})
 target_link_libraries(managemediaplayercontrolTest Qt5::Test Qt5::Core Qt5::Sql)
 target_include_directories(managemediaplayercontrolTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
+
+set(manageheaderbarTest_SOURCES
+    ../src/manageheaderbar.cpp
+    ../src/mediaplaylist.cpp
+    ../src/databaseinterface.cpp
+    ../src/musicalbum.cpp
+    ../src/musicaudiotrack.cpp
+    manageheaderbartest.cpp
+)
+
+add_executable(manageheaderbarTest ${manageheaderbarTest_SOURCES})
+target_link_libraries(manageheaderbarTest Qt5::Test Qt5::Core Qt5::Sql Qt5::Gui)
+target_include_directories(manageheaderbarTest PRIVATE ${CMAKE_SOURCE_DIR}/src)

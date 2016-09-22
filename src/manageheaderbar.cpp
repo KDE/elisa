@@ -320,10 +320,12 @@ void ManageHeaderBar::setCurrentTrack(QPersistentModelIndex currentTrack)
         return;
     }
 
+    auto oldRemainingTracksCount = remainingTracks();
+
     mCurrentTrack = currentTrack;
     Q_EMIT currentTrackChanged();
 
-    if (mCurrentTrack.isValid() && mCurrentTrack.row() < mPlayListModel->rowCount() - 1) {
+    if (mCurrentTrack.isValid() && oldRemainingTracksCount != remainingTracks()) {
         Q_EMIT remainingTracksChanged();
     }
 

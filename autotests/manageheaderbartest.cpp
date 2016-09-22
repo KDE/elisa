@@ -613,6 +613,53 @@ void ManageHeaderBarTest::completeCase()
     QCOMPARE(remainingTracksChangedSpy.count(), 3);
 
     QCOMPARE(myControl.remainingTracks(), 1);
+
+    auto lastItem = myPlayList.item(2, 0);
+    lastItem->setData(QUrl::fromUserInput(QStringLiteral("file://2.mp3")), ManageHeaderBarTest::ResourceRole);
+    lastItem->setData(QStringLiteral("artist1"), ManageHeaderBarTest::ArtistRole);
+    lastItem->setData(QStringLiteral("song2"), ManageHeaderBarTest::TitleRole);
+    lastItem->setData(QStringLiteral("album1"), ManageHeaderBarTest::AlbumRole);
+    lastItem->setData(QUrl::fromUserInput(QStringLiteral("file://image.png")), ManageHeaderBarTest::ImageRole);
+    lastItem->setData(true, ManageHeaderBarTest::IsValidRole);
+
+    QCOMPARE(currentTrackChangedSpy.count(), 3);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(artistRoleChangedSpy.count(), 1);
+    QCOMPARE(titleRoleChangedSpy.count(), 1);
+    QCOMPARE(albumRoleChangedSpy.count(), 1);
+    QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(isValidRoleChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
+    QCOMPARE(artistChangedSpy.count(), 3);
+    QCOMPARE(titleChangedSpy.count(), 3);
+    QCOMPARE(albumChangedSpy.count(), 3);
+    QCOMPARE(imageChangedSpy.count(), 3);
+    QCOMPARE(isValidChangedSpy.count(), 3);
+    QCOMPARE(remainingTracksChangedSpy.count(), 3);
+
+    myControl.setCurrentTrack(myPlayList.index(2, 0));
+
+    QCOMPARE(currentTrackChangedSpy.count(), 4);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(artistRoleChangedSpy.count(), 1);
+    QCOMPARE(titleRoleChangedSpy.count(), 1);
+    QCOMPARE(albumRoleChangedSpy.count(), 1);
+    QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(isValidRoleChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 4);
+    QCOMPARE(artistChangedSpy.count(), 3);
+    QCOMPARE(titleChangedSpy.count(), 4);
+    QCOMPARE(albumChangedSpy.count(), 3);
+    QCOMPARE(imageChangedSpy.count(), 3);
+    QCOMPARE(isValidChangedSpy.count(), 3);
+    QCOMPARE(remainingTracksChangedSpy.count(), 4);
+
+    QCOMPARE(myControl.currentTrack(), QPersistentModelIndex(myPlayList.index(2, 0)));
+    QCOMPARE(myControl.playerSource().toString(), QStringLiteral("file://2.mp3"));
+    QCOMPARE(myControl.title().toString(), QStringLiteral("song2"));
+    QCOMPARE(myControl.remainingTracks(), 0);
 }
 
 QTEST_MAIN(ManageHeaderBarTest)

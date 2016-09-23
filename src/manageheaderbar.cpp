@@ -245,7 +245,37 @@ void ManageHeaderBar::tracksRemoved(const QModelIndex &parent, int first, int la
     Q_UNUSED(first);
     Q_UNUSED(last);
 
-    Q_EMIT remainingTracksChanged();
+    if (!mCurrentTrack.isValid()) {
+        notifyPlayerSourceProperty();
+        notifyArtistProperty();
+        notifyTitleProperty();
+        notifyAlbumProperty();
+        notifyImageProperty();
+        notifyIsValidProperty();
+
+        if (mOldIsValid) {
+            if (mCurrentTrack.row() < last - first + mPlayListModel->rowCount()) {
+                Q_EMIT remainingTracks();
+            }
+        } else {
+            return;
+        }
+    }
+
+    if (mCurrentTrack.row() < first) {
+        Q_EMIT remainingTracksChanged();
+        return;
+    }
+
+    if (mCurrentTrack.row() == first) {
+        Q_EMIT remainingTracksChanged();
+        return;
+    }
+
+    if (mCurrentTrack.row() <= last) {
+        Q_EMIT remainingTracksChanged();
+        return;
+    }
 }
 
 void ManageHeaderBar::notifyPlayerSourceProperty()

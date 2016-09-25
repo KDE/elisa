@@ -207,6 +207,8 @@ private:
 
     void notifyIsValidProperty();
 
+    void notifyRemainingTracksProperty();
+
     QPersistentModelIndex mCurrentTrack;
 
     QAbstractItemModel *mPlayListModel = nullptr;
@@ -234,6 +236,8 @@ private:
     QVariant mOldImage;
 
     bool mOldIsValid = false;
+
+    int mOldRemainingTracks = 0;
 
 };
 

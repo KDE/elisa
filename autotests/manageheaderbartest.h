@@ -67,6 +67,8 @@ private Q_SLOTS:
 
     void setCurrentTrackAndInvalidCase();
 
+    void setCurrentTrackAndRemoveItCase();
+
 };
 
 #endif // MANAGEHEADERBARTEST_H

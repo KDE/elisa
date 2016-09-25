@@ -181,6 +181,7 @@ void ManageHeaderBar::tracksInserted(const QModelIndex &parent, int first, int l
     }
 
     Q_EMIT remainingTracksChanged();
+    mOldRemainingTracks = remainingTracks();
 }
 
 void ManageHeaderBar::tracksDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles)
@@ -252,30 +253,12 @@ void ManageHeaderBar::tracksRemoved(const QModelIndex &parent, int first, int la
         notifyAlbumProperty();
         notifyImageProperty();
         notifyIsValidProperty();
+        notifyRemainingTracksProperty();
 
-        if (mOldIsValid) {
-            if (mCurrentTrack.row() < last - first + mPlayListModel->rowCount()) {
-                Q_EMIT remainingTracks();
-            }
-        } else {
-            return;
-        }
-    }
-
-    if (mCurrentTrack.row() < first) {
-        Q_EMIT remainingTracksChanged();
         return;
     }
 
-    if (mCurrentTrack.row() == first) {
-        Q_EMIT remainingTracksChanged();
-        return;
-    }
-
-    if (mCurrentTrack.row() <= last) {
-        Q_EMIT remainingTracksChanged();
-        return;
-    }
+    notifyRemainingTracksProperty();
 }
 
 void ManageHeaderBar::notifyPlayerSourceProperty()
@@ -338,6 +321,16 @@ void ManageHeaderBar::notifyIsValidProperty()
     }
 }
 
+void ManageHeaderBar::notifyRemainingTracksProperty()
+{
+    auto newRemainingTracksValue = remainingTracks();
+    if (mOldRemainingTracks != newRemainingTracksValue) {
+        Q_EMIT remainingTracksChanged();
+
+        mOldRemainingTracks = newRemainingTracksValue;
+    }
+}
+
 void ManageHeaderBar::setIsValidRole(int isValidRole)
 {
     mIsValidRole = isValidRole;
@@ -357,6 +350,7 @@ void ManageHeaderBar::setCurrentTrack(QPersistentModelIndex currentTrack)
 
     if (mCurrentTrack.isValid() && oldRemainingTracksCount != remainingTracks()) {
         Q_EMIT remainingTracksChanged();
+        mOldRemainingTracks = remainingTracks();
     }
 
     notifyPlayerSourceProperty();

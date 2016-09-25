@@ -65,11 +65,6 @@ bool ManageMediaPlayerControl::skipForwardControlEnabled() const
     return (mCurrentTrack.row() < mPlayListModel->rowCount() - 1) && mIsInPlayingState;
 }
 
-int ManageMediaPlayerControl::playControlPosition() const
-{
-    return mPlayControlPosition;
-}
-
 bool ManageMediaPlayerControl::musicPlaying() const
 {
     return mPlayerState == ManageMediaPlayerControl::PlayerState::Playing;
@@ -173,16 +168,6 @@ void ManageMediaPlayerControl::setCurrentTrack(QPersistentModelIndex currentTrac
     if (oldValueSkipForward != skipForwardControlEnabled()) {
         Q_EMIT skipForwardControlEnabledChanged();
     }
-}
-
-void ManageMediaPlayerControl::setPlayControlPosition(int playControlPosition)
-{
-    if (mPlayControlPosition == playControlPosition) {
-        return;
-    }
-
-    mPlayControlPosition = playControlPosition;
-    Q_EMIT playControlPositionChanged();
 }
 
 void ManageMediaPlayerControl::playListTracksInserted(const QModelIndex &parent, int first, int last)

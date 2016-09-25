@@ -42,11 +42,6 @@ class ManageMediaPlayerControl : public QObject
                READ skipForwardControlEnabled
                NOTIFY skipForwardControlEnabledChanged)
 
-    Q_PROPERTY(int playControlPosition
-               READ playControlPosition
-               WRITE setPlayControlPosition
-               NOTIFY playControlPositionChanged)
-
     Q_PROPERTY(bool musicPlaying
                READ musicPlaying
                NOTIFY musicPlayingChanged)
@@ -84,8 +79,6 @@ public:
 
     bool skipForwardControlEnabled() const;
 
-    int playControlPosition() const;
-
     bool musicPlaying() const;
 
     QAbstractItemModel* playListModel() const;
@@ -99,8 +92,6 @@ Q_SIGNALS:
     void skipBackwardControlEnabledChanged();
 
     void skipForwardControlEnabledChanged();
-
-    void playControlPositionChanged();
 
     void musicPlayingChanged();
 
@@ -119,8 +110,6 @@ public Q_SLOTS:
     void playerStopped();
 
     void setCurrentTrack(QPersistentModelIndex currentTrack);
-
-    void setPlayControlPosition(int playControlPosition);
 
 private Q_SLOTS:
 
@@ -145,8 +134,6 @@ private:
     bool mSkipForwardControlWasEnabled = false;
 
     bool mIsInPlayingState = false;
-
-    int mPlayControlPosition = 0;
 
     PlayerState mPlayerState = ManageMediaPlayerControl::PlayerState::Stopped;
 

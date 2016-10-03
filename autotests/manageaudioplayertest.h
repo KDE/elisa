@@ -45,11 +45,7 @@ public:
         IsPlayingRole = CountRole + 1,
     };
 
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 5, 0))
     Q_ENUM(ColumnsRoles)
-#else
-    Q_ENUMS(ColumnsRoles)
-#endif
 
     explicit ManageAudioPlayerTest(QObject *parent = 0);
 
@@ -60,6 +56,8 @@ private Q_SLOTS:
     void initTestCase();
 
     void simpleInitialCase();
+
+    void noPlayCase();
 
 };
 

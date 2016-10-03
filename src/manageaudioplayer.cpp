@@ -19,6 +19,10 @@
 
 #include "manageaudioplayer.h"
 
+#include <QtCore/QTimer>
+
+#include <QtCore/QDebug>
+
 ManageAudioPlayer::ManageAudioPlayer(QObject *parent) : QObject(parent)
 {
 
@@ -53,6 +57,11 @@ int ManageAudioPlayer::playerPlaybackState() const
     return mPlayerPlaybackState;
 }
 
+int ManageAudioPlayer::playerError() const
+{
+    return mPlayerError;
+}
+
 void ManageAudioPlayer::setCurrentTrack(QPersistentModelIndex currentTrack)
 {
     if (mCurrentTrack == currentTrack) {
@@ -74,20 +83,109 @@ void ManageAudioPlayer::setUrlRole(int value)
 
 void ManageAudioPlayer::setPlayerStatus(int playerStatus)
 {
-    if (mPlayerStatus == playerStatus)
+    if (mPlayerStatus == playerStatus) {
         return;
+    }
 
-    mPlayerStatus = playerStatus;
+    if (playerStatus < static_cast<int>(NoMedia) || playerStatus > static_cast<int>(UnknownStatus)) {
+        return;
+    }
+
+    mPlayerStatus = static_cast<PlayerStatus>(playerStatus);
     Q_EMIT playerStatusChanged();
+    qDebug() << "ManageAudioPlayer::setPlayerStatus" << mPlayerStatus;
+
+    switch (mPlayerStatus) {
+    case NoMedia:
+        break;
+    case Loading:
+        break;
+    case Loaded:
+        if (mPlayingState) {
+            triggerPlay();
+        }
+        break;
+    case Buffering:
+        if (mPlayingState) {
+            triggerPlay();
+        }
+        break;
+    case Stalled:
+        break;
+    case Buffered:
+        break;
+    case EndOfMedia:
+        break;
+    case InvalidMedia:
+        break;
+    case UnknownStatus:
+        break;
+    }
 }
 
 void ManageAudioPlayer::setPlayerPlaybackState(int playerPlaybackState)
 {
-    if (mPlayerPlaybackState == playerPlaybackState)
+    if (mPlayerPlaybackState == playerPlaybackState) {
         return;
+    }
 
-    mPlayerPlaybackState = playerPlaybackState;
+    if (playerPlaybackState < static_cast<int>(StoppedState) || playerPlaybackState > static_cast<int>(PausedState)) {
+        return;
+    }
+
+    mPlayerPlaybackState = static_cast<PlayerPlaybackState>(playerPlaybackState);
     Q_EMIT playerPlaybackStateChanged();
+    qDebug() << "ManageAudioPlayer::setPlayerPlaybackState" << mPlayerPlaybackState;
+
+    switch(mPlayerPlaybackState) {
+    case StoppedState:
+        if (mPlayerStatus == EndOfMedia) {
+            triggerSkipNextTrack();
+        }
+        break;
+    case PlayingState:
+        break;
+    case PausedState:
+        break;
+    }
+}
+
+void ManageAudioPlayer::setPlayerError(int playerError)
+{
+    if (mPlayerError == playerError) {
+        return;
+    }
+
+    if (playerError < static_cast<int>(NoError) || playerError > static_cast<int>(ServiceMissing)) {
+        return;
+    }
+
+    mPlayerError = static_cast<PlayerErrorState>(playerError);
+    Q_EMIT playerErrorChanged();
+    qDebug() << "ManageAudioPlayer::setPlayerError" << mPlayerError;
+}
+
+void ManageAudioPlayer::playPause()
+{
+    mPlayingState = !mPlayingState;
+
+
+    if (mPlayingState) {
+        switch (mPlayerStatus) {
+        case Loaded:
+        case Buffering:
+            triggerPlay();
+            break;
+        case NoMedia:
+        case Loading:
+        case Stalled:
+        case Buffered:
+        case EndOfMedia:
+        case InvalidMedia:
+        case UnknownStatus:
+            break;
+        }
+    }
 }
 
 void ManageAudioPlayer::notifyPlayerSourceProperty()
@@ -98,6 +196,16 @@ void ManageAudioPlayer::notifyPlayerSourceProperty()
 
         mOldPlayerSource = newUrlValue;
     }
+}
+
+void ManageAudioPlayer::triggerPlay()
+{
+    QTimer::singleShot(0, [this]() {Q_EMIT playerPlay();});
+}
+
+void ManageAudioPlayer::triggerSkipNextTrack()
+{
+    QTimer::singleShot(0, [this]() {Q_EMIT skipNextTrack();});
 }
 
 

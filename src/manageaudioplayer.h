@@ -53,7 +53,45 @@ class ManageAudioPlayer : public QObject
                WRITE setPlayerPlaybackState
                NOTIFY playerPlaybackStateChanged)
 
+    Q_PROPERTY(int playerError
+               READ playerError
+               WRITE setPlayerError
+               NOTIFY playerErrorChanged)
+
 public:
+
+    enum PlayerStatus {
+        NoMedia = 0,
+        Loading = NoMedia + 1,
+        Loaded = Loading + 1,
+        Buffering = Loaded + 1,
+        Stalled = Buffering + 1,
+        Buffered = Stalled + 1,
+        EndOfMedia = Buffered + 1,
+        InvalidMedia = EndOfMedia + 1,
+        UnknownStatus = InvalidMedia + 1,
+    };
+
+    Q_ENUM(PlayerStatus)
+
+    enum PlayerPlaybackState {
+        PlayingState = 1,
+        PausedState = 2,
+        StoppedState = 0,
+    };
+
+    Q_ENUM(PlayerPlaybackState)
+
+    enum PlayerErrorState {
+        NoError = 0,
+        ResourceError = NoError + 1,
+        FormatError = ResourceError + 1,
+        NetworkError = FormatError + 1,
+        AccessDenied = NetworkError + 1,
+        ServiceMissing = AccessDenied + 1,
+    };
+
+    Q_ENUM(PlayerErrorState)
 
     explicit ManageAudioPlayer(QObject *parent = 0);
 
@@ -67,6 +105,8 @@ public:
 
     int playerPlaybackState() const;
 
+    int playerError() const;
+
 Q_SIGNALS:
 
     void currentTrackChanged();
@@ -79,6 +119,16 @@ Q_SIGNALS:
 
     void playerPlaybackStateChanged();
 
+    void playerErrorChanged();
+
+    void playerPlay();
+
+    void playerPause();
+
+    void playerStop();
+
+    void skipNextTrack();
+
 public Q_SLOTS:
 
     void setCurrentTrack(QPersistentModelIndex currentTrack);
@@ -89,9 +139,17 @@ public Q_SLOTS:
 
     void setPlayerPlaybackState(int playerPlaybackState);
 
+    void setPlayerError(int playerError);
+
+    void playPause();
+
 private:
 
     void notifyPlayerSourceProperty();
+
+    void triggerPlay();
+
+    void triggerSkipNextTrack();
 
     QPersistentModelIndex mCurrentTrack;
 
@@ -101,9 +159,13 @@ private:
 
     QVariant mOldPlayerSource;
 
-    int mPlayerStatus;
+    PlayerStatus mPlayerStatus = NoMedia;
 
-    int mPlayerPlaybackState;
+    PlayerPlaybackState mPlayerPlaybackState = StoppedState;
+
+    PlayerErrorState mPlayerError = NoError;
+
+    bool mPlayingState = false;
 
 };
 

@@ -43,6 +43,16 @@ class ManageAudioPlayer : public QObject
                WRITE setUrlRole
                NOTIFY urlRoleChanged)
 
+    Q_PROPERTY(int playerStatus
+               READ playerStatus
+               WRITE setPlayerStatus
+               NOTIFY playerStatusChanged)
+
+    Q_PROPERTY(int playerPlaybackState
+               READ playerPlaybackState
+               WRITE setPlayerPlaybackState
+               NOTIFY playerPlaybackStateChanged)
+
 public:
 
     explicit ManageAudioPlayer(QObject *parent = 0);
@@ -53,6 +63,10 @@ public:
 
     QUrl playerSource() const;
 
+    int playerStatus() const;
+
+    int playerPlaybackState() const;
+
 Q_SIGNALS:
 
     void currentTrackChanged();
@@ -61,11 +75,19 @@ Q_SIGNALS:
 
     void urlRoleChanged();
 
+    void playerStatusChanged();
+
+    void playerPlaybackStateChanged();
+
 public Q_SLOTS:
 
     void setCurrentTrack(QPersistentModelIndex currentTrack);
 
     void setUrlRole(int value);
+
+    void setPlayerStatus(int playerStatus);
+
+    void setPlayerPlaybackState(int playerPlaybackState);
 
 private:
 
@@ -78,6 +100,10 @@ private:
     int mUrlRole = Qt::DisplayRole;
 
     QVariant mOldPlayerSource;
+
+    int mPlayerStatus;
+
+    int mPlayerPlaybackState;
 
 };
 

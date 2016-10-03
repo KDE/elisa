@@ -43,6 +43,16 @@ QUrl ManageAudioPlayer::playerSource() const
     return mCurrentTrack.data(mUrlRole).toUrl();
 }
 
+int ManageAudioPlayer::playerStatus() const
+{
+    return mPlayerStatus;
+}
+
+int ManageAudioPlayer::playerPlaybackState() const
+{
+    return mPlayerPlaybackState;
+}
+
 void ManageAudioPlayer::setCurrentTrack(QPersistentModelIndex currentTrack)
 {
     if (mCurrentTrack == currentTrack) {
@@ -59,6 +69,25 @@ void ManageAudioPlayer::setUrlRole(int value)
 {
     mUrlRole = value;
     Q_EMIT urlRoleChanged();
+    notifyPlayerSourceProperty();
+}
+
+void ManageAudioPlayer::setPlayerStatus(int playerStatus)
+{
+    if (mPlayerStatus == playerStatus)
+        return;
+
+    mPlayerStatus = playerStatus;
+    Q_EMIT playerStatusChanged();
+}
+
+void ManageAudioPlayer::setPlayerPlaybackState(int playerPlaybackState)
+{
+    if (mPlayerPlaybackState == playerPlaybackState)
+        return;
+
+    mPlayerPlaybackState = playerPlaybackState;
+    Q_EMIT playerPlaybackStateChanged();
 }
 
 void ManageAudioPlayer::notifyPlayerSourceProperty()

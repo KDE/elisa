@@ -60,3 +60,12 @@ set(manageheaderbarTest_SOURCES
 add_executable(manageheaderbarTest ${manageheaderbarTest_SOURCES})
 target_link_libraries(manageheaderbarTest Qt5::Test Qt5::Core Qt5::Sql Qt5::Gui)
 target_include_directories(manageheaderbarTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
+
+set(manageaudioplayerTest_SOURCES
+    ../src/manageaudioplayer.cpp
+    manageaudioplayertest.cpp
+)
+
+add_executable(manageaudioplayerTest ${manageaudioplayerTest_SOURCES})
+target_link_libraries(manageaudioplayerTest Qt5::Test Qt5::Core)
+target_include_directories(manageaudioplayerTest PRIVATE ${CMAKE_SOURCE_DIR}/src)

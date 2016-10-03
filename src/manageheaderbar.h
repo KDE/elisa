@@ -41,11 +41,6 @@ class ManageHeaderBar : public QObject
                WRITE setPlayListModel
                NOTIFY playListModelChanged)
 
-    Q_PROPERTY(int urlRole
-               READ urlRole
-               WRITE setUrlRole
-               NOTIFY urlRoleChanged)
-
     Q_PROPERTY(int artistRole
                READ artistRole
                WRITE setArtistRole
@@ -70,10 +65,6 @@ class ManageHeaderBar : public QObject
                READ isValidRole
                WRITE setIsValidRole
                NOTIFY isValidRoleChanged)
-
-    Q_PROPERTY(QUrl playerSource
-               READ playerSource
-               NOTIFY playerSourceChanged)
 
     Q_PROPERTY(QVariant artist
                READ artist
@@ -107,8 +98,6 @@ public:
 
     QAbstractItemModel* playListModel() const;
 
-    int urlRole() const;
-
     int artistRole() const;
 
     int titleRole() const;
@@ -118,8 +107,6 @@ public:
     int imageRole() const;
 
     int isValidRole() const;
-
-    QUrl playerSource() const;
 
     QVariant artist() const;
 
@@ -139,8 +126,6 @@ Q_SIGNALS:
 
     void playListModelChanged();
 
-    void urlRoleChanged();
-
     void artistRoleChanged();
 
     void titleRoleChanged();
@@ -150,8 +135,6 @@ Q_SIGNALS:
     void imageRoleChanged();
 
     void isValidRoleChanged();
-
-    void playerSourceChanged();
 
     void artistChanged();
 
@@ -170,8 +153,6 @@ public Q_SLOTS:
     void setCurrentTrack(QPersistentModelIndex currentTrack);
 
     void setPlayListModel(QAbstractItemModel* aPlayListModel);
-
-    void setUrlRole(int value);
 
     void setArtistRole(int value);
 
@@ -195,8 +176,6 @@ public Q_SLOTS:
 
 private:
 
-    void notifyPlayerSourceProperty();
-
     void notifyArtistProperty();
 
     void notifyTitleProperty();
@@ -213,8 +192,6 @@ private:
 
     QAbstractItemModel *mPlayListModel = nullptr;
 
-    int mUrlRole = Qt::DisplayRole;
-
     int mArtistRole = Qt::DisplayRole;
 
     int mTitleRole = Qt::DisplayRole;
@@ -224,8 +201,6 @@ private:
     int mImageRole = Qt::DisplayRole;
 
     int mIsValidRole = Qt::DisplayRole;
-
-    QVariant mOldPlayerSource;
 
     QVariant mOldArtist;
 

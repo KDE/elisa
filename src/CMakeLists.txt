@@ -16,6 +16,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         musiclistenersmanager.cpp
         managemediaplayercontrol.cpp
         manageheaderbar.cpp
+        manageaudioplayer.cpp
 
         MediaServer.qml
         MediaServerListing.qml

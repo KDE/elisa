@@ -30,26 +30,6 @@ ManageHeaderBar::ManageHeaderBar(QObject *parent)
 {
 }
 
-QUrl ManageHeaderBar::playerSource() const
-{
-    if (!mCurrentTrack.isValid()) {
-        return QUrl();
-    }
-
-    return mCurrentTrack.data(mUrlRole).toUrl();
-}
-
-void ManageHeaderBar::setUrlRole(int value)
-{
-    mUrlRole = value;
-    Q_EMIT urlRoleChanged();
-}
-
-int ManageHeaderBar::urlRole() const
-{
-    return mUrlRole;
-}
-
 void ManageHeaderBar::setArtistRole(int value)
 {
     mArtistRole = value;
@@ -199,7 +179,6 @@ void ManageHeaderBar::tracksDataChanged(const QModelIndex &topLeft, const QModel
     }
 
     if (roles.isEmpty()) {
-        notifyPlayerSourceProperty();
         notifyArtistProperty();
         notifyTitleProperty();
         notifyAlbumProperty();
@@ -207,9 +186,6 @@ void ManageHeaderBar::tracksDataChanged(const QModelIndex &topLeft, const QModel
         notifyIsValidProperty();
     } else {
         for(auto oneRole : roles) {
-            if (oneRole == mUrlRole) {
-                notifyPlayerSourceProperty();
-            }
             if (oneRole == mArtistRole) {
                 notifyArtistProperty();
             }
@@ -247,7 +223,6 @@ void ManageHeaderBar::tracksRemoved(const QModelIndex &parent, int first, int la
     Q_UNUSED(last);
 
     if (!mCurrentTrack.isValid()) {
-        notifyPlayerSourceProperty();
         notifyArtistProperty();
         notifyTitleProperty();
         notifyAlbumProperty();
@@ -259,16 +234,6 @@ void ManageHeaderBar::tracksRemoved(const QModelIndex &parent, int first, int la
     }
 
     notifyRemainingTracksProperty();
-}
-
-void ManageHeaderBar::notifyPlayerSourceProperty()
-{
-    auto newUrlValue = mCurrentTrack.data(mUrlRole);
-    if (mOldPlayerSource != newUrlValue) {
-        Q_EMIT playerSourceChanged();
-
-        mOldPlayerSource = newUrlValue;
-    }
 }
 
 void ManageHeaderBar::notifyArtistProperty()
@@ -353,7 +318,6 @@ void ManageHeaderBar::setCurrentTrack(QPersistentModelIndex currentTrack)
         mOldRemainingTracks = remainingTracks();
     }
 
-    notifyPlayerSourceProperty();
     notifyArtistProperty();
     notifyTitleProperty();
     notifyAlbumProperty();

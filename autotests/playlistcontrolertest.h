@@ -37,11 +37,17 @@ private Q_SLOTS:
 
     void initTestCase();
 
-    void testRestorePersistentSettingsFromInvalidState();
+    void testBringUpCase();
 
-    void testRestorePersistentSettingsDirect();
+    void testBringUpAndDownCase();
 
-    void testRestorePersistentSettingsIndirect();
+    void testBringUpAndRemoveCase();
+
+    void testBringUpAndPlayCase();
+
+    void testBringUpAndSkipNextCase();
+
+    void testBringUpAndSkipPreviousCase();
 
 };
 

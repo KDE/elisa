@@ -28,7 +28,9 @@
 #include <QUrl>
 
 class PlayListControler;
-class MediaPlayer2Tracklist;
+class ManageAudioPlayer;
+class ManageMediaPlayerControl;
+class ManageHeaderBar;
 
 class MediaPlayer2Player : public QDBusAbstractAdaptor
 {
@@ -53,6 +55,9 @@ class MediaPlayer2Player : public QDBusAbstractAdaptor
 
 public:
     explicit MediaPlayer2Player(PlayListControler *playListControler,
+                                ManageAudioPlayer *manageAudioPlayer,
+                                ManageMediaPlayerControl* manageMediaPlayerControl,
+                                ManageHeaderBar * manageHeaderBar,
                                 QObject* parent = 0);
     ~MediaPlayer2Player();
 
@@ -107,9 +112,7 @@ private Q_SLOTS:
 
     void skipForwardControlEnabledChanged();
 
-    void musicPlayingChanged();
-
-    void musicPlayerStoppedChanged();
+    void playerPlaybackStateChanged();
 
     void playerIsSeekableChanged();
 
@@ -140,6 +143,9 @@ private:
     qlonglong m_position = 0;
     PlayListControler *m_playListControler = nullptr;
     bool m_playerIsSeekableChanged = false;
+    ManageAudioPlayer* m_manageAudioPlayer = nullptr;
+    ManageMediaPlayerControl* m_manageMediaPlayerControl = nullptr;
+    ManageHeaderBar * m_manageHeaderBar = nullptr;
 };
 
 #endif // MEDIAPLAYER2PLAYER_H

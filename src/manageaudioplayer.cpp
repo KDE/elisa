@@ -62,6 +62,21 @@ int ManageAudioPlayer::playerError() const
     return mPlayerError;
 }
 
+int ManageAudioPlayer::audioDuration() const
+{
+    return mAudioDuration;
+}
+
+bool ManageAudioPlayer::playerIsSeekable() const
+{
+    return mPlayerIsSeekable;
+}
+
+int ManageAudioPlayer::playControlPosition() const
+{
+    return mPlayControlPosition;
+}
+
 void ManageAudioPlayer::setCurrentTrack(QPersistentModelIndex currentTrack)
 {
     if (mCurrentTrack == currentTrack) {
@@ -220,6 +235,41 @@ void ManageAudioPlayer::playPause()
     case UnknownStatus:
         break;
     }
+}
+
+void ManageAudioPlayer::setAudioDuration(int audioDuration)
+{
+    if (mAudioDuration == audioDuration) {
+        return;
+    }
+
+    mAudioDuration = audioDuration;
+    Q_EMIT audioDurationChanged();
+}
+
+void ManageAudioPlayer::setPlayerIsSeekable(bool playerIsSeekable)
+{
+    if (mPlayerIsSeekable == playerIsSeekable) {
+        return;
+    }
+
+    mPlayerIsSeekable = playerIsSeekable;
+    Q_EMIT playerIsSeekableChanged();
+}
+
+void ManageAudioPlayer::setPlayControlPosition(int playControlPosition)
+{
+    if (mPlayControlPosition == playControlPosition) {
+        return;
+    }
+
+    mPlayControlPosition = playControlPosition;
+    Q_EMIT playControlPositionChanged();
+}
+
+void ManageAudioPlayer::playerSeek(int position)
+{
+
 }
 
 void ManageAudioPlayer::notifyPlayerSourceProperty()

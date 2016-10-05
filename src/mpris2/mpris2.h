@@ -30,6 +30,9 @@ class MediaPlayer2Player;
 class MediaPlayer2;
 class QAbstractItemModel;
 class PlayListControler;
+class ManageAudioPlayer;
+class ManageMediaPlayerControl;
+class ManageHeaderBar;
 
 class Mpris2 : public QObject
 {
@@ -50,6 +53,21 @@ class Mpris2 : public QObject
                WRITE setPlayListControler
                NOTIFY playListControlerChanged)
 
+    Q_PROPERTY(ManageAudioPlayer* audioPlayerManager
+               READ audioPlayerManager
+               WRITE setAudioPlayerManager
+               NOTIFY audioPlayerManagerChanged)
+
+    Q_PROPERTY(ManageMediaPlayerControl* manageMediaPlayerControl
+               READ manageMediaPlayerControl
+               WRITE setManageMediaPlayerControl
+               NOTIFY manageMediaPlayerControlChanged)
+
+    Q_PROPERTY(ManageHeaderBar* headerBarManager
+               READ headerBarManager
+               WRITE setHeaderBarManager
+               NOTIFY headerBarManagerChanged)
+
 public:
     explicit Mpris2(QObject* parent = 0);
     ~Mpris2();
@@ -60,6 +78,12 @@ public:
 
     PlayListControler* playListControler() const;
 
+    ManageAudioPlayer* audioPlayerManager() const;
+
+    ManageMediaPlayerControl* manageMediaPlayerControl() const;
+
+    ManageHeaderBar* headerBarManager() const;
+
 public Q_SLOTS:
 
     void setPlayerName(QString playerName);
@@ -67,6 +91,12 @@ public Q_SLOTS:
     void setPlayListModel(QAbstractItemModel* playListModel);
 
     void setPlayListControler(PlayListControler* playListControler);
+
+    void setAudioPlayerManager(ManageAudioPlayer* audioPlayerManager);
+
+    void setManageMediaPlayerControl(ManageMediaPlayerControl* manageMediaPlayerControl);
+
+    void setHeaderBarManager(ManageHeaderBar* headerBarManager);
 
 Q_SIGNALS:
     void raisePlayer() const;
@@ -77,6 +107,12 @@ Q_SIGNALS:
 
     void playListControlerChanged();
 
+    void audioPlayerManagerChanged();
+
+    void manageMediaPlayerControlChanged();
+
+    void headerBarManagerChanged();
+
 private:
 
     void initDBusService();
@@ -86,6 +122,9 @@ private:
     QString m_playerName;
     QAbstractItemModel* m_playListModel = nullptr;
     PlayListControler* m_playListControler = nullptr;
+    ManageAudioPlayer* m_manageAudioPlayer = nullptr;
+    ManageMediaPlayerControl* m_manageMediaPlayerControl = nullptr;
+    ManageHeaderBar* m_manageHeaderBar = nullptr;
 };
 
 #endif //MEDIACENTER_MPRIS2_H

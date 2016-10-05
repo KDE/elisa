@@ -58,6 +58,21 @@ class ManageAudioPlayer : public QObject
                WRITE setPlayerError
                NOTIFY playerErrorChanged)
 
+    Q_PROPERTY(int audioDuration
+               READ audioDuration
+               WRITE setAudioDuration
+               NOTIFY audioDurationChanged)
+
+    Q_PROPERTY(bool playerIsSeekable
+               READ playerIsSeekable
+               WRITE setPlayerIsSeekable
+               NOTIFY playerIsSeekableChanged)
+
+    Q_PROPERTY(int playControlPosition
+               READ playControlPosition
+               WRITE setPlayControlPosition
+               NOTIFY playControlPositionChanged)
+
 public:
 
     enum PlayerStatus {
@@ -107,6 +122,12 @@ public:
 
     int playerError() const;
 
+    int audioDuration() const;
+
+    bool playerIsSeekable() const;
+
+    int playControlPosition() const;
+
 Q_SIGNALS:
 
     void currentTrackChanged();
@@ -129,6 +150,12 @@ Q_SIGNALS:
 
     void skipNextTrack();
 
+    void audioDurationChanged();
+
+    void playerIsSeekableChanged();
+
+    void playControlPositionChanged();
+
 public Q_SLOTS:
 
     void setCurrentTrack(QPersistentModelIndex currentTrack);
@@ -142,6 +169,14 @@ public Q_SLOTS:
     void setPlayerError(int playerError);
 
     void playPause();
+
+    void setAudioDuration(int audioDuration);
+
+    void setPlayerIsSeekable(bool playerIsSeekable);
+
+    void setPlayControlPosition(int playControlPosition);
+
+    void playerSeek(int position);
 
 private:
 
@@ -172,6 +207,12 @@ private:
     bool mPlayingState = false;
 
     bool mSkippingCurrentTrack = false;
+
+    int mAudioDuration = 0;
+
+    bool mPlayerIsSeekable = false;
+
+    int mPlayControlPosition = 0;
 
 };
 

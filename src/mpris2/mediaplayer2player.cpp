@@ -23,6 +23,9 @@
 #include "mpris2.h"
 
 #include "playlistcontroler.h"
+#include "manageaudioplayer.h"
+#include "managemediaplayercontrol.h"
+#include "manageheaderbar.h"
 
 #include <QCryptographicHash>
 #include <QStringList>
@@ -30,35 +33,36 @@
 #include <QDBusMessage>
 #include <QDBusConnection>
 
+#include <QDebug>
+
 static const double MAX_RATE = 1.0;
 static const double MIN_RATE = 1.0;
 
 static const QString playlistTidPrefix(QStringLiteral("/org/kde/elisa/playlist/"));
 static const QDBusObjectPath mprisNoTrack(QStringLiteral("/org/mpris/MediaPlayer2/TrackList/NoTrack"));
 
-MediaPlayer2Player::MediaPlayer2Player(PlayListControler *playListControler,
-                                       QObject* parent)
-    : QDBusAbstractAdaptor(parent), m_playListControler(playListControler)
+MediaPlayer2Player::MediaPlayer2Player(PlayListControler *playListControler, ManageAudioPlayer *manageAudioPlayer,
+                                       ManageMediaPlayerControl *manageMediaPlayerControl, ManageHeaderBar *manageHeaderBar, QObject* parent)
+    : QDBusAbstractAdaptor(parent), m_playListControler(playListControler), m_manageAudioPlayer(manageAudioPlayer),
+      m_manageMediaPlayerControl(manageMediaPlayerControl), m_manageHeaderBar(manageHeaderBar)
 {
     if (!m_playListControler) {
         return;
     }
 
-    connect(m_playListControler, &PlayListControler::playerSourceChanged,
+    connect(m_manageAudioPlayer, &ManageAudioPlayer::playerSourceChanged,
             this, &MediaPlayer2Player::playerSourceChanged, Qt::QueuedConnection);
-    connect(m_playListControler, &PlayListControler::playControlEnabledChanged,
+    connect(m_manageMediaPlayerControl, &ManageMediaPlayerControl::playControlEnabledChanged,
             this, &MediaPlayer2Player::playControlEnabledChanged);
-    connect(m_playListControler, &PlayListControler::skipBackwardControlEnabledChanged,
+    connect(m_manageMediaPlayerControl, &ManageMediaPlayerControl::skipBackwardControlEnabledChanged,
             this, &MediaPlayer2Player::skipBackwardControlEnabledChanged);
-    connect(m_playListControler, &PlayListControler::skipForwardControlEnabledChanged,
+    connect(m_manageMediaPlayerControl, &ManageMediaPlayerControl::skipForwardControlEnabledChanged,
             this, &MediaPlayer2Player::skipForwardControlEnabledChanged);
-    connect(m_playListControler, &PlayListControler::musicPlayingChanged,
-            this, &MediaPlayer2Player::musicPlayingChanged);
-    connect(m_playListControler, &PlayListControler::musicPlayerStoppedChanged,
-            this, &MediaPlayer2Player::musicPlayerStoppedChanged);
-    connect(m_playListControler, &PlayListControler::playerIsSeekableChanged,
+    connect(m_manageAudioPlayer, &ManageAudioPlayer::playerPlaybackStateChanged,
+            this, &MediaPlayer2Player::playerPlaybackStateChanged);
+    connect(m_manageAudioPlayer, &ManageAudioPlayer::playerIsSeekableChanged,
             this, &MediaPlayer2Player::playerIsSeekableChanged);
-    connect(m_playListControler, &PlayListControler::playControlPositionChanged,
+    connect(m_manageAudioPlayer, &ManageAudioPlayer::playControlPositionChanged,
             this, &MediaPlayer2Player::audioPositionChanged);
 
     m_mediaPlayerPresent = 1;
@@ -74,9 +78,9 @@ QString MediaPlayer2Player::PlaybackStatus() const
         return QLatin1String("Stopped");
     }
 
-    if (m_playListControler->musicPlayerStopped()) {
+    if (m_manageAudioPlayer->playerPlaybackState() == ManageAudioPlayer::StoppedState) {
         return QStringLiteral("Stopped");
-    } else if (m_playListControler->musicPlaying()) {
+    } else if (m_manageAudioPlayer->playerPlaybackState() == ManageAudioPlayer::PlayingState) {
         return QStringLiteral("Playing");
     } else {
         return QStringLiteral("Paused");
@@ -119,7 +123,7 @@ bool MediaPlayer2Player::CanPause() const
 void MediaPlayer2Player::Pause() const
 {
     if (m_playListControler) {
-        m_playListControler->playPause();
+        m_manageAudioPlayer->playPause();
     }
 }
 
@@ -128,7 +132,7 @@ void MediaPlayer2Player::PlayPause()
     emit playPause();
 
     if (m_playListControler) {
-        m_playListControler->playPause();
+        m_manageAudioPlayer->playPause();
     }
 }
 
@@ -145,7 +149,7 @@ bool MediaPlayer2Player::CanPlay() const
 void MediaPlayer2Player::Play() const
 {
     if (m_playListControler) {
-        m_playListControler->playPause();
+        m_manageAudioPlayer->playPause();
     }
 }
 
@@ -233,9 +237,9 @@ void MediaPlayer2Player::SetPosition(QDBusObjectPath trackId, qlonglong pos) con
 {
     if (trackId.path() == m_currentTrackId) {
         emit seek((pos - Position()) / 1000);
-        m_playListControler->playerSeek((pos - Position()) / 1000);
+        m_manageAudioPlayer->playerSeek((pos - Position()) / 1000);
     }
-    m_playListControler->playerSeek(pos / 1000);
+    m_manageAudioPlayer->playerSeek(pos / 1000);
 }
 
 void MediaPlayer2Player::OpenUri(QString uri) const
@@ -248,7 +252,7 @@ void MediaPlayer2Player::playerSourceChanged()
         return;
     }
 
-    setCurrentTrack(m_playListControler->playControlPosition());
+    setCurrentTrack(m_manageAudioPlayer->playControlPosition());
 }
 
 void MediaPlayer2Player::playControlEnabledChanged()
@@ -257,7 +261,7 @@ void MediaPlayer2Player::playControlEnabledChanged()
         return;
     }
 
-    m_canPlay = m_playListControler->playControlEnabled();
+    m_canPlay = m_manageMediaPlayerControl->playControlEnabled();
 
     signalPropertiesChange(QStringLiteral("CanPause"), CanPause());
     signalPropertiesChange(QStringLiteral("CanPlay"), CanPlay());
@@ -269,7 +273,7 @@ void MediaPlayer2Player::skipBackwardControlEnabledChanged()
         return;
     }
 
-    m_canGoPrevious = m_playListControler->skipBackwardControlEnabled();
+    m_canGoPrevious = m_manageMediaPlayerControl->skipBackwardControlEnabled();
 
     signalPropertiesChange(QStringLiteral("CanGoPrevious"), CanGoPrevious());
 }
@@ -280,43 +284,38 @@ void MediaPlayer2Player::skipForwardControlEnabledChanged()
         return;
     }
 
-    m_canGoNext = m_playListControler->skipForwardControlEnabled();
+    m_canGoNext = m_manageMediaPlayerControl->skipForwardControlEnabled();
 
     signalPropertiesChange(QStringLiteral("CanGoNext"), CanGoNext());
 }
 
-void MediaPlayer2Player::musicPlayingChanged()
+void MediaPlayer2Player::playerPlaybackStateChanged()
 {
     signalPropertiesChange(QStringLiteral("PlaybackStatus"), PlaybackStatus());
 
     playerIsSeekableChanged();
 }
 
-void MediaPlayer2Player::musicPlayerStoppedChanged()
-{
-    signalPropertiesChange(QStringLiteral("PlaybackStatus"), PlaybackStatus());
-}
-
 void MediaPlayer2Player::playerIsSeekableChanged()
 {
-    m_playerIsSeekableChanged = m_playListControler->playerIsSeekable();
+    m_playerIsSeekableChanged = m_manageAudioPlayer->playerIsSeekable();
 
     signalPropertiesChange(QStringLiteral("CanSeek"), CanSeek());
 }
 
 void MediaPlayer2Player::audioPositionChanged()
 {
-    setPropertyPosition(m_playListControler->playControlPosition());
+    setPropertyPosition(m_manageAudioPlayer->playControlPosition());
 }
 
 int MediaPlayer2Player::currentTrack() const
 {
-    return m_playListControler->playControlPosition();
+    return m_manageAudioPlayer->playControlPosition();
 }
 
 void MediaPlayer2Player::setCurrentTrack(int newTrackPosition)
 {
-    m_currentTrack = m_playListControler->playerSource().toString();
+    m_currentTrack = m_manageAudioPlayer->playerSource().toString();
     m_currentTrackId = QDBusObjectPath(playlistTidPrefix + QString::number(newTrackPosition)).path();
 
     m_metadata = getMetadataOfCurrentTrack();
@@ -324,8 +323,7 @@ void MediaPlayer2Player::setCurrentTrack(int newTrackPosition)
 
     skipBackwardControlEnabledChanged();
     skipForwardControlEnabledChanged();
-    musicPlayingChanged();
-    musicPlayerStoppedChanged();
+    playerPlaybackStateChanged();
     playerIsSeekableChanged();
     audioPositionChanged();
 }
@@ -335,13 +333,13 @@ QVariantMap MediaPlayer2Player::getMetadataOfCurrentTrack()
     auto result = QVariantMap();
 
     result[QStringLiteral("mpris:trackid")] = QVariant::fromValue<QDBusObjectPath>(QDBusObjectPath(m_currentTrackId));
-    result[QStringLiteral("mpris:length")] = qlonglong(m_playListControler->audioDuration()) * 1000;
+    result[QStringLiteral("mpris:length")] = qlonglong(m_manageAudioPlayer->audioDuration()) * 1000;
     //convert milli-seconds into micro-seconds
-    result[QStringLiteral("xesam:title")] = m_playListControler->title();
-    result[QStringLiteral("xesam:url")] = m_playListControler->playerSource().toString();
-    result[QStringLiteral("xesam:album")] = m_playListControler->album();
-    result[QStringLiteral("xesam:artist")] = {m_playListControler->artist()};
-    result[QStringLiteral("mpris:artUrl")] = m_playListControler->image().toString();
+    result[QStringLiteral("xesam:title")] = m_manageHeaderBar->title();
+    result[QStringLiteral("xesam:url")] = m_manageAudioPlayer->playerSource().toString();
+    result[QStringLiteral("xesam:album")] = m_manageHeaderBar->album();
+    result[QStringLiteral("xesam:artist")] = {m_manageHeaderBar->artist()};
+    result[QStringLiteral("mpris:artUrl")] = m_manageHeaderBar->image().toString();
 
     return result;
 }

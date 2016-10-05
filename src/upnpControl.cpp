@@ -22,11 +22,6 @@
 //#define QT_QML_DEBUG
 
 #if defined UPNPQT_FOUND && UPNPQT_FOUND
-#include "upnpssdpengine.h"
-#include "upnpabstractservice.h"
-#include "upnpcontrolabstractdevice.h"
-#include "upnpcontrolabstractservice.h"
-#include "upnpbasictypes.h"
 #include "upnp/upnpcontrolconnectionmanager.h"
 #include "upnp/upnpcontrolmediaserver.h"
 #include "upnp/upnpcontrolcontentdirectory.h"
@@ -34,12 +29,20 @@
 #include "upnpdevicedescription.h"
 #include "upnp/didlparser.h"
 #include "upnp/upnpdiscoverallmusic.h"
+
+#include "upnpssdpengine.h"
+#include "upnpabstractservice.h"
+#include "upnpcontrolabstractdevice.h"
+#include "upnpcontrolabstractservice.h"
+#include "upnpbasictypes.h"
 #endif
 
 #include "progressindicator.h"
 #include "mediaplaylist.h"
 #include "playlistcontroler.h"
 #include "managemediaplayercontrol.h"
+#include "manageheaderbar.h"
+#include "manageaudioplayer.h"
 #include "musicstatistics.h"
 #include "albumfilterproxymodel.h"
 #include "databaseinterface.h"
@@ -106,6 +109,8 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
     qmlRegisterType<MediaPlayList>("org.mgallien.QmlExtension", 1, 0, "MediaPlayList");
     qmlRegisterType<PlayListControler>("org.mgallien.QmlExtension", 1, 0, "PlayListControler");
     qmlRegisterType<ManageMediaPlayerControl>("org.mgallien.QmlExtension", 1, 0, "ManageMediaPlayerControl");
+    qmlRegisterType<ManageHeaderBar>("org.mgallien.QmlExtension", 1, 0, "ManageHeaderBar");
+    qmlRegisterType<ManageAudioPlayer>("org.mgallien.QmlExtension", 1, 0, "ManageAudioPlayer");
     qmlRegisterType<MusicStatistics>("org.mgallien.QmlExtension", 1, 0, "MusicStatistics");
     qmlRegisterType<ProgressIndicator>("org.mgallien.QmlExtension", 1, 0, "ProgressIndicator");
     qmlRegisterType<DatabaseInterface>("org.mgallien.QmlExtension", 1, 0, "DatabaseInterface");

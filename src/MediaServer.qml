@@ -25,7 +25,7 @@ import QtQuick.Layouts 1.1
 import QtQuick.Window 2.2
 import QtQml.Models 2.1
 import org.mgallien.QmlExtension 1.0
-import QtMultimedia 5.4
+import QtMultimedia 5.6
 import Qt.labs.settings 1.0
 
 ApplicationWindow {
@@ -111,7 +111,7 @@ ApplicationWindow {
             persistentSettings.height = mainWindow.height;
 
             persistentSettings.playListState = playListModelItem.persistentState;
-            persistentSettings.playListControlerState = playListControlerItem.persistentState;
+            //persistentSettings.playListControlerState = playListControlerItem.persistentState;
         }
     }
 
@@ -121,6 +121,9 @@ ApplicationWindow {
         playerName: 'elisa'
         playListModel: playListModelItem
         playListControler: playListControlerItem
+        audioPlayerManager: manageAudioPlayer
+        headerBarManager: myHeaderBarManager
+        manageMediaPlayerControl: myPlayControlManager
 
         onRaisePlayer:
         {
@@ -145,16 +148,24 @@ ApplicationWindow {
     Audio {
         id: audioPlayer
 
+        audioRole: Audio.MusicRole
+
         muted: playControlItem.muted
 
         volume: playControlItem.volume
-        source: playListControlerItem.playerSource
+        source: manageAudioPlayer.playerSource
 
-        onPlaying: playListControlerItem.playerPlaying()
-        onPaused: playListControlerItem.playerPaused()
-        onStopped: playListControlerItem.playerStopped()
-        onPositionChanged: playListControlerItem.audioPlayerPositionChanged(position)
-        onStatusChanged: playListControlerItem.audioPlayerFinished(status == Audio.EndOfMedia)
+        onPlaying: {
+            myPlayControlManager.playerPlaying()
+        }
+
+        onPaused: {
+            myPlayControlManager.playerPaused()
+        }
+
+        onStopped: {
+            myPlayControlManager.playerStopped()
+        }
     }
 
     MediaPlayList {
@@ -172,23 +183,67 @@ ApplicationWindow {
 
         playListModel: playListModelItem
 
-        urlRole: MediaPlayList.ResourceRole
         isPlayingRole: MediaPlayList.IsPlayingRole
+        isValidRole: MediaPlayList.IsValidRole
+
+        //persistentState: persistentSettings.playListControlerState
+    }
+
+    ManageHeaderBar {
+        id: myHeaderBarManager
+
+        playListModel: playListModelItem
+        currentTrack: playListControlerItem.currentTrack
+
         artistRole: MediaPlayList.ArtistRole
         titleRole: MediaPlayList.TitleRole
         albumRole: MediaPlayList.AlbumRole
         imageRole: MediaPlayList.ImageRole
         isValidRole: MediaPlayList.IsValidRole
+    }
 
+    ManageAudioPlayer {
+        id: manageAudioPlayer
+
+        currentTrack: playListControlerItem.currentTrack
+        urlRole: MediaPlayList.ResourceRole
+
+        playerStatus: audioPlayer.status
+        playerPlaybackState: audioPlayer.playbackState
+        playerError: audioPlayer.error
         audioDuration: audioPlayer.duration
         playerIsSeekable: audioPlayer.seekable
 
-        persistentState: persistentSettings.playListControlerState
+        onPlayerPlay:
+        {
+            console.log('ManageAudioPlayer.playerPlay')
+            audioPlayer.play()
+        }
 
-        onPlayMusic: audioPlayer.play()
-        onPauseMusic: audioPlayer.pause()
-        onStopMusic: audioPlayer.stop()
-        onAudioPositionChanged: audioPlayer.seek(audioPosition)
+        onPlayerPause:
+        {
+            console.log('ManageAudioPlayer.playerPause')
+            audioPlayer.pause()
+        }
+
+        onPlayerStop:
+        {
+            console.log('ManageAudioPlayer.playerStop')
+            audioPlayer.stop()
+        }
+
+        onSkipNextTrack:
+        {
+            console.log('ManageAudioPlayer.skipNextTrack')
+            playListControlerItem.skipNextTrack()
+        }
+    }
+
+    ManageMediaPlayerControl {
+        id: myPlayControlManager
+
+        playListModel: playListModelItem
+        currentTrack: playListControlerItem.currentTrack
     }
 
     ColumnLayout {
@@ -203,11 +258,12 @@ ApplicationWindow {
             Layout.maximumHeight: Layout.preferredHeight
             Layout.fillWidth: true
 
-            tracksCount: playListControlerItem.remainingTracks
-            album: playListControlerItem.album
-            title: playListControlerItem.title
-            artist: playListControlerItem.artist
-            image: playListControlerItem.image
+            tracksCount: myHeaderBarManager.remainingTracks
+            album: myHeaderBarManager.album
+            title: myHeaderBarManager.title
+            artist: myHeaderBarManager.artist
+            image: myHeaderBarManager.image
+
             ratingVisible: false
         }
 
@@ -218,20 +274,22 @@ ApplicationWindow {
             seekable: audioPlayer.seekable
 
             volume: 1.0
-            position: playListControlerItem.playControlPosition
-            skipBackwardEnabled: playListControlerItem.skipBackwardControlEnabled
-            skipForwardEnabled: playListControlerItem.skipForwardControlEnabled
-            playEnabled: playListControlerItem.playControlEnabled
-            isPlaying: playListControlerItem.musicPlaying
+            position: audioPlayer.position
+            skipBackwardEnabled: myPlayControlManager.skipBackwardControlEnabled
+            skipForwardEnabled: myPlayControlManager.skipForwardControlEnabled
+            playEnabled: myPlayControlManager.playControlEnabled
+            isPlaying: myPlayControlManager.musicPlaying
 
             Layout.preferredHeight: Screen.pixelDensity * 10.
             Layout.minimumHeight: Layout.preferredHeight
             Layout.maximumHeight: Layout.preferredHeight
             Layout.fillWidth: true
 
-            onSeek: playListControlerItem.playerSeek(position)
-            onPlay: playListControlerItem.playPause()
-            onPause: playListControlerItem.playPause()
+            onSeek: audioPlayer.seek(position)
+
+            onPlay: manageAudioPlayer.playPause()
+            onPause: manageAudioPlayer.playPause()
+
             onPlayPrevious: playListControlerItem.skipPreviousTrack()
             onPlayNext: playListControlerItem.skipNextTrack()
         }
@@ -346,9 +404,9 @@ ApplicationWindow {
                         randomPlayChecked: playListControlerItem.randomPlayControl
                         repeatPlayChecked: playListControlerItem.repeatPlayControl
 
-                        artistName: playListControlerItem.artist
-                        albumName: playListControlerItem.album
-                        albumArtUrl: playListControlerItem.image
+                        artistName: myHeaderBarManager.artist
+                        albumName: myHeaderBarManager.album
+                        albumArtUrl: myHeaderBarManager.image
 
                         anchors.fill: parent
                         anchors.margins: 3

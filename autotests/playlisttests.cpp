@@ -50,12 +50,8 @@ private Q_SLOTS:
 
         QModelIndex index1, index2;
 
-        QSignalSpy sourceChangedSpy(&playListControler, &PlayListControler::playerSourceChanged);
-
         playList.enqueue(1);
         playList.enqueue(2);
-
-        sourceChangedSpy.wait();
     }
 };
 

@@ -55,7 +55,7 @@ void Mpris2::initDBusService()
         tmpPmcDir.mkpath(tmpPmcDirPath);
 
         m_mp2 = new MediaPlayer2(this);
-        m_mp2p = new MediaPlayer2Player(m_playListControler, this);
+        m_mp2p = new MediaPlayer2Player(m_playListControler, m_manageAudioPlayer, m_manageMediaPlayerControl, m_manageHeaderBar, this);
 
         QDBusConnection::sessionBus().registerObject(QStringLiteral("/org/mpris/MediaPlayer2"), this, QDBusConnection::ExportAdaptors);
 
@@ -82,14 +82,30 @@ PlayListControler *Mpris2::playListControler() const
     return m_playListControler;
 }
 
+ManageAudioPlayer *Mpris2::audioPlayerManager() const
+{
+    return m_manageAudioPlayer;
+}
+
+ManageMediaPlayerControl *Mpris2::manageMediaPlayerControl() const
+{
+    return m_manageMediaPlayerControl;
+}
+
+ManageHeaderBar *Mpris2::headerBarManager() const
+{
+    return m_manageHeaderBar;
+}
+
 void Mpris2::setPlayerName(QString playerName)
 {
-    if (m_playerName == playerName)
+    if (m_playerName == playerName) {
         return;
+    }
 
     m_playerName = playerName;
 
-    if (m_playListModel && m_playListControler && !m_playerName.isEmpty()) {
+    if (m_playListModel && m_playListControler && m_manageAudioPlayer && m_manageMediaPlayerControl && m_manageHeaderBar && !m_playerName.isEmpty()) {
         if (!m_mp2) {
             initDBusService();
         }
@@ -100,12 +116,13 @@ void Mpris2::setPlayerName(QString playerName)
 
 void Mpris2::setPlayListModel(QAbstractItemModel *playListModel)
 {
-    if (m_playListModel == playListModel)
+    if (m_playListModel == playListModel) {
         return;
+    }
 
     m_playListModel = playListModel;
 
-    if (m_playListModel && m_playListControler && !m_playerName.isEmpty()) {
+    if (m_playListModel && m_playListControler && m_manageAudioPlayer && m_manageMediaPlayerControl && m_manageHeaderBar && !m_playerName.isEmpty()) {
         if (!m_mp2) {
             initDBusService();
         }
@@ -116,16 +133,67 @@ void Mpris2::setPlayListModel(QAbstractItemModel *playListModel)
 
 void Mpris2::setPlayListControler(PlayListControler *playListControler)
 {
-    if (m_playListControler == playListControler)
+    if (m_playListControler == playListControler) {
         return;
+    }
 
     m_playListControler = playListControler;
 
-    if (m_playListModel && m_playListControler && !m_playerName.isEmpty()) {
+    if (m_playListModel && m_playListControler && m_manageAudioPlayer && m_manageMediaPlayerControl && m_manageHeaderBar && !m_playerName.isEmpty()) {
         if (!m_mp2) {
             initDBusService();
         }
     }
 
     emit playListControlerChanged();
+}
+
+void Mpris2::setAudioPlayerManager(ManageAudioPlayer *manageAudioPlayer)
+{
+    if (m_manageAudioPlayer == manageAudioPlayer) {
+        return;
+    }
+
+    m_manageAudioPlayer = manageAudioPlayer;
+
+    if (m_playListModel && m_playListControler && m_manageAudioPlayer && m_manageMediaPlayerControl && m_manageHeaderBar && !m_playerName.isEmpty()) {
+        if (!m_mp2) {
+            initDBusService();
+        }
+    }
+
+    emit audioPlayerManagerChanged();
+}
+
+void Mpris2::setManageMediaPlayerControl(ManageMediaPlayerControl *manageMediaPlayerControl)
+{
+    if (m_manageMediaPlayerControl == manageMediaPlayerControl) {
+        return;
+    }
+
+    m_manageMediaPlayerControl = manageMediaPlayerControl;
+
+    if (m_playListModel && m_playListControler && m_manageAudioPlayer && m_manageMediaPlayerControl && m_manageHeaderBar && !m_playerName.isEmpty()) {
+        if (!m_mp2) {
+            initDBusService();
+        }
+    }
+
+    emit manageMediaPlayerControlChanged();
+}
+
+void Mpris2::setHeaderBarManager(ManageHeaderBar *manageHeaderBar)
+{
+    if (m_manageHeaderBar == manageHeaderBar)
+        return;
+
+    m_manageHeaderBar = manageHeaderBar;
+
+    if (m_playListModel && m_playListControler && m_manageAudioPlayer && m_manageMediaPlayerControl && m_manageHeaderBar && !m_playerName.isEmpty()) {
+        if (!m_mp2) {
+            initDBusService();
+        }
+    }
+
+    emit headerBarManagerChanged();
 }

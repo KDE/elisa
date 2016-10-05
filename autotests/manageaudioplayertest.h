@@ -63,6 +63,14 @@ private Q_SLOTS:
 
     void skipPreviousTrack();
 
+    void playTrackAndskipNextTrack();
+
+    void playTrackAndskipPreviousTrack();
+
+    void skipNextTrackAndPlayTrack();
+
+    void skipPreviousTrackAndPlayTrack();
+
 };
 
 #endif // MANAGEAUDIOPLAYERTEST_H

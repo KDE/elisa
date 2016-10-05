@@ -234,42 +234,22 @@ void ManageAudioPlayer::notifyPlayerSourceProperty()
 
 void ManageAudioPlayer::triggerPlay()
 {
-    QTimer::singleShot(0, [this]() {this->emitPlay();});
+    QTimer::singleShot(0, [this]() {Q_EMIT playerPlay();});
 }
 
 void ManageAudioPlayer::triggerPause()
 {
-    QTimer::singleShot(0, [this]() {this->emitPause();});
+    QTimer::singleShot(0, [this]() {Q_EMIT playerPause();});
 }
 
 void ManageAudioPlayer::triggerStop()
 {
-    QTimer::singleShot(0, [this]() {this->emitStop();});
+    QTimer::singleShot(0, [this]() {Q_EMIT playerStop();});
 }
 
 void ManageAudioPlayer::triggerSkipNextTrack()
 {
-    QTimer::singleShot(0, [this]() {this->emitSkipNextTrack();});
-}
-
-void ManageAudioPlayer::emitPlay()
-{
-    Q_EMIT playerPlay();
-}
-
-void ManageAudioPlayer::emitPause()
-{
-    Q_EMIT playerPause();
-}
-
-void ManageAudioPlayer::emitStop()
-{
-    Q_EMIT playerStop();
-}
-
-void ManageAudioPlayer::emitSkipNextTrack()
-{
-    Q_EMIT skipNextTrack();
+    QTimer::singleShot(0, [this]() {Q_EMIT skipNextTrack();});
 }
 
 

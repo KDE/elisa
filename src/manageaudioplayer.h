@@ -155,14 +155,6 @@ private:
 
     void triggerSkipNextTrack();
 
-    void emitPlay();
-
-    void emitPause();
-
-    void emitStop();
-
-    void emitSkipNextTrack();
-
     QPersistentModelIndex mCurrentTrack;
 
     QAbstractItemModel *mPlayListModel = nullptr;

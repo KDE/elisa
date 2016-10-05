@@ -71,7 +71,18 @@ void ManageAudioPlayer::setCurrentTrack(QPersistentModelIndex currentTrack)
     mCurrentTrack = currentTrack;
     Q_EMIT currentTrackChanged();
 
-    notifyPlayerSourceProperty();
+    switch (mPlayerPlaybackState) {
+    case StoppedState:
+        notifyPlayerSourceProperty();
+        break;
+    case PlayingState:
+        triggerStop();
+        mSkippingCurrentTrack = true;
+        break;
+    case PausedState:
+        triggerStop();
+        break;
+    }
 }
 
 void ManageAudioPlayer::setUrlRole(int value)
@@ -137,16 +148,32 @@ void ManageAudioPlayer::setPlayerPlaybackState(int playerPlaybackState)
     Q_EMIT playerPlaybackStateChanged();
     qDebug() << "ManageAudioPlayer::setPlayerPlaybackState" << mPlayerPlaybackState;
 
-    switch(mPlayerPlaybackState) {
-    case StoppedState:
-        if (mPlayerStatus == EndOfMedia) {
-            triggerSkipNextTrack();
+    if (!mSkippingCurrentTrack) {
+        switch(mPlayerPlaybackState) {
+        case StoppedState:
+            if (mPlayerStatus == EndOfMedia) {
+                triggerSkipNextTrack();
+            }
+            break;
+        case PlayingState:
+            break;
+        case PausedState:
+            break;
         }
-        break;
-    case PlayingState:
-        break;
-    case PausedState:
-        break;
+    } else {
+        switch(mPlayerPlaybackState) {
+        case StoppedState:
+            notifyPlayerSourceProperty();
+            /*if (mPlayingState) {
+                triggerPlay();
+            }*/
+            mSkippingCurrentTrack = false;
+            break;
+        case PlayingState:
+            break;
+        case PausedState:
+            break;
+        }
     }
 }
 
@@ -169,22 +196,29 @@ void ManageAudioPlayer::playPause()
 {
     mPlayingState = !mPlayingState;
 
-
-    if (mPlayingState) {
-        switch (mPlayerStatus) {
-        case Loaded:
-        case Buffering:
+    switch (mPlayerStatus) {
+    case Loaded:
+    case Buffering:
+        if (mPlayingState) {
             triggerPlay();
-            break;
-        case NoMedia:
-        case Loading:
-        case Stalled:
-        case Buffered:
-        case EndOfMedia:
-        case InvalidMedia:
-        case UnknownStatus:
-            break;
+        } else {
+            triggerPause();
         }
+        break;
+    case EndOfMedia:
+        if (mPlayerPlaybackState == PlayingState && !mPlayingState) {
+            triggerPause();
+        } else if (mPlayerPlaybackState == PausedState && mPlayingState) {
+            triggerPlay();
+        }
+        break;
+    case NoMedia:
+    case Loading:
+    case Stalled:
+    case Buffered:
+    case InvalidMedia:
+    case UnknownStatus:
+        break;
     }
 }
 
@@ -200,12 +234,42 @@ void ManageAudioPlayer::notifyPlayerSourceProperty()
 
 void ManageAudioPlayer::triggerPlay()
 {
-    QTimer::singleShot(0, [this]() {Q_EMIT playerPlay();});
+    QTimer::singleShot(0, [this]() {this->emitPlay();});
+}
+
+void ManageAudioPlayer::triggerPause()
+{
+    QTimer::singleShot(0, [this]() {this->emitPause();});
+}
+
+void ManageAudioPlayer::triggerStop()
+{
+    QTimer::singleShot(0, [this]() {this->emitStop();});
 }
 
 void ManageAudioPlayer::triggerSkipNextTrack()
 {
-    QTimer::singleShot(0, [this]() {Q_EMIT skipNextTrack();});
+    QTimer::singleShot(0, [this]() {this->emitSkipNextTrack();});
+}
+
+void ManageAudioPlayer::emitPlay()
+{
+    Q_EMIT playerPlay();
+}
+
+void ManageAudioPlayer::emitPause()
+{
+    Q_EMIT playerPause();
+}
+
+void ManageAudioPlayer::emitStop()
+{
+    Q_EMIT playerStop();
+}
+
+void ManageAudioPlayer::emitSkipNextTrack()
+{
+    Q_EMIT skipNextTrack();
 }
 
 

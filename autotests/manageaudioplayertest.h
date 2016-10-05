@@ -59,6 +59,10 @@ private Q_SLOTS:
 
     void noPlayCase();
 
+    void skipNextTrack();
+
+    void skipPreviousTrack();
+
 };
 
 #endif // MANAGEAUDIOPLAYERTEST_H

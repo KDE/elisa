@@ -149,7 +149,19 @@ private:
 
     void triggerPlay();
 
+    void triggerPause();
+
+    void triggerStop();
+
     void triggerSkipNextTrack();
+
+    void emitPlay();
+
+    void emitPause();
+
+    void emitStop();
+
+    void emitSkipNextTrack();
 
     QPersistentModelIndex mCurrentTrack;
 
@@ -166,6 +178,8 @@ private:
     PlayerErrorState mPlayerError = NoError;
 
     bool mPlayingState = false;
+
+    bool mSkippingCurrentTrack = false;
 
 };
 

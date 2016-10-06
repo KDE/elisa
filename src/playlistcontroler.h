@@ -159,6 +159,8 @@ private:
 
     QPersistentModelIndex mCurrentTrack;
 
+    int mCurrentPlayListPosition = 0;
+
     bool mCurrentTrackIsValid = false;
 
     QAbstractItemModel *mPlayListModel = nullptr;

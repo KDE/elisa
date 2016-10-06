@@ -43,6 +43,8 @@ private Q_SLOTS:
 
     void testBringUpAndRemoveCase();
 
+    void testBringUpAndRemoveMultipleCase();
+
     void testBringUpAndPlayCase();
 
     void testBringUpAndSkipNextCase();

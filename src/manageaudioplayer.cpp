@@ -21,8 +21,6 @@
 
 #include <QtCore/QTimer>
 
-#include <QtCore/QDebug>
-
 ManageAudioPlayer::ManageAudioPlayer(QObject *parent) : QObject(parent)
 {
 
@@ -134,7 +132,6 @@ void ManageAudioPlayer::setPlayerStatus(int playerStatus)
 
     mPlayerStatus = static_cast<PlayerStatus>(playerStatus);
     Q_EMIT playerStatusChanged();
-    qDebug() << "ManageAudioPlayer::setPlayerStatus" << mPlayerStatus;
 
     switch (mPlayerStatus) {
     case NoMedia:
@@ -176,7 +173,6 @@ void ManageAudioPlayer::setPlayerPlaybackState(int playerPlaybackState)
 
     mPlayerPlaybackState = static_cast<PlayerPlaybackState>(playerPlaybackState);
     Q_EMIT playerPlaybackStateChanged();
-    qDebug() << "ManageAudioPlayer::setPlayerPlaybackState" << mPlayerPlaybackState;
 
     if (!mSkippingCurrentTrack) {
         switch(mPlayerPlaybackState) {
@@ -194,9 +190,6 @@ void ManageAudioPlayer::setPlayerPlaybackState(int playerPlaybackState)
         switch(mPlayerPlaybackState) {
         case StoppedState:
             notifyPlayerSourceProperty();
-            /*if (mPlayingState) {
-                triggerPlay();
-            }*/
             mSkippingCurrentTrack = false;
             break;
         case PlayingState:
@@ -219,7 +212,6 @@ void ManageAudioPlayer::setPlayerError(int playerError)
 
     mPlayerError = static_cast<PlayerErrorState>(playerError);
     Q_EMIT playerErrorChanged();
-    qDebug() << "ManageAudioPlayer::setPlayerError" << mPlayerError;
 }
 
 void ManageAudioPlayer::playPause()

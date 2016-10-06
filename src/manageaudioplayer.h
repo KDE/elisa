@@ -43,6 +43,11 @@ class ManageAudioPlayer : public QObject
                WRITE setUrlRole
                NOTIFY urlRoleChanged)
 
+    Q_PROPERTY(int isPlayingRole
+               READ isPlayingRole
+               WRITE setIsPlayingRole
+               NOTIFY isPlayingRoleChanged)
+
     Q_PROPERTY(int playerStatus
                READ playerStatus
                WRITE setPlayerStatus
@@ -114,6 +119,8 @@ public:
 
     int urlRole() const;
 
+    int isPlayingRole() const;
+
     QUrl playerSource() const;
 
     int playerStatus() const;
@@ -135,6 +142,8 @@ Q_SIGNALS:
     void playerSourceChanged();
 
     void urlRoleChanged();
+
+    void isPlayingRoleChanged();
 
     void playerStatusChanged();
 
@@ -161,6 +170,8 @@ public Q_SLOTS:
     void setCurrentTrack(QPersistentModelIndex currentTrack);
 
     void setUrlRole(int value);
+
+    void setIsPlayingRole(int value);
 
     void setPlayerStatus(int playerStatus);
 
@@ -195,6 +206,8 @@ private:
     QAbstractItemModel *mPlayListModel = nullptr;
 
     int mUrlRole = Qt::DisplayRole;
+
+    int mIsPlayingRole = Qt::DisplayRole;
 
     QVariant mOldPlayerSource;
 

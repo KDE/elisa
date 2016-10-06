@@ -52,7 +52,6 @@ void PlayListControlerTest::testBringUpCase()
 
     QSignalSpy currentTrackChangedSpy(&myControler, &PlayListControler::currentTrackChanged);
     QSignalSpy playListModelChangedSpy(&myControler, &PlayListControler::playListModelChanged);
-    QSignalSpy isPlayingRoleChangedSpy(&myControler, &PlayListControler::isPlayingRoleChanged);
     QSignalSpy isValidRoleChangedSpy(&myControler, &PlayListControler::isValidRoleChanged);
     QSignalSpy randomPlayChangedSpy(&myControler, &PlayListControler::randomPlayChanged);
     QSignalSpy randomPlayControlChangedSpy(&myControler, &PlayListControler::randomPlayControlChanged);
@@ -74,7 +73,6 @@ void PlayListControlerTest::testBringUpCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 0);
-    QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 0);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
     QCOMPARE(randomPlayControlChangedSpy.count(), 0);
@@ -85,7 +83,6 @@ void PlayListControlerTest::testBringUpCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 0);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
     QCOMPARE(randomPlayControlChangedSpy.count(), 0);
@@ -98,7 +95,6 @@ void PlayListControlerTest::testBringUpCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
     QCOMPARE(randomPlayControlChangedSpy.count(), 0);
@@ -143,7 +139,6 @@ void PlayListControlerTest::testBringUpCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
     QCOMPARE(randomPlayControlChangedSpy.count(), 0);
@@ -156,7 +151,6 @@ void PlayListControlerTest::testBringUpCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
     QCOMPARE(randomPlayControlChangedSpy.count(), 0);
@@ -173,7 +167,6 @@ void PlayListControlerTest::testBringUpAndDownCase()
 
     QSignalSpy currentTrackChangedSpy(&myControler, &PlayListControler::currentTrackChanged);
     QSignalSpy playListModelChangedSpy(&myControler, &PlayListControler::playListModelChanged);
-    QSignalSpy isPlayingRoleChangedSpy(&myControler, &PlayListControler::isPlayingRoleChanged);
     QSignalSpy isValidRoleChangedSpy(&myControler, &PlayListControler::isValidRoleChanged);
     QSignalSpy randomPlayChangedSpy(&myControler, &PlayListControler::randomPlayChanged);
     QSignalSpy randomPlayControlChangedSpy(&myControler, &PlayListControler::randomPlayControlChanged);
@@ -195,7 +188,6 @@ void PlayListControlerTest::testBringUpAndDownCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 0);
-    QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 0);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
     QCOMPARE(randomPlayControlChangedSpy.count(), 0);
@@ -206,7 +198,6 @@ void PlayListControlerTest::testBringUpAndDownCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 0);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
     QCOMPARE(randomPlayControlChangedSpy.count(), 0);
@@ -219,7 +210,6 @@ void PlayListControlerTest::testBringUpAndDownCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
     QCOMPARE(randomPlayControlChangedSpy.count(), 0);
@@ -264,7 +254,6 @@ void PlayListControlerTest::testBringUpAndDownCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
     QCOMPARE(randomPlayControlChangedSpy.count(), 0);
@@ -277,7 +266,6 @@ void PlayListControlerTest::testBringUpAndDownCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
     QCOMPARE(randomPlayControlChangedSpy.count(), 0);
@@ -290,7 +278,6 @@ void PlayListControlerTest::testBringUpAndDownCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
     QCOMPARE(randomPlayControlChangedSpy.count(), 0);
@@ -306,7 +293,6 @@ void PlayListControlerTest::testBringUpAndRemoveCase()
 
     QSignalSpy currentTrackChangedSpy(&myControler, &PlayListControler::currentTrackChanged);
     QSignalSpy playListModelChangedSpy(&myControler, &PlayListControler::playListModelChanged);
-    QSignalSpy isPlayingRoleChangedSpy(&myControler, &PlayListControler::isPlayingRoleChanged);
     QSignalSpy isValidRoleChangedSpy(&myControler, &PlayListControler::isValidRoleChanged);
     QSignalSpy randomPlayChangedSpy(&myControler, &PlayListControler::randomPlayChanged);
     QSignalSpy randomPlayControlChangedSpy(&myControler, &PlayListControler::randomPlayControlChanged);
@@ -334,7 +320,6 @@ void PlayListControlerTest::testBringUpAndRemoveCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 0);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
     QCOMPARE(randomPlayControlChangedSpy.count(), 0);
@@ -347,7 +332,6 @@ void PlayListControlerTest::testBringUpAndRemoveCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
     QCOMPARE(randomPlayControlChangedSpy.count(), 0);
@@ -355,19 +339,6 @@ void PlayListControlerTest::testBringUpAndRemoveCase()
     QCOMPARE(repeatPlayControlChangedSpy.count(), 0);
 
     QCOMPARE(myControler.isValidRole(), static_cast<int>(MediaPlayList::ColumnsRoles::IsValidRole));
-
-    myControler.setIsPlayingRole(MediaPlayList::ColumnsRoles::IsPlayingRole);
-
-    QCOMPARE(currentTrackChangedSpy.count(), 0);
-    QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
-    QCOMPARE(isValidRoleChangedSpy.count(), 1);
-    QCOMPARE(randomPlayChangedSpy.count(), 0);
-    QCOMPARE(randomPlayControlChangedSpy.count(), 0);
-    QCOMPARE(repeatPlayChangedSpy.count(), 0);
-    QCOMPARE(repeatPlayControlChangedSpy.count(), 0);
-
-    QCOMPARE(myControler.isPlayingRole(), static_cast<int>(MediaPlayList::ColumnsRoles::IsPlayingRole));
 
     auto newTracks = QHash<QString, QVector<MusicAudioTrack>>();
     auto newCovers = QHash<QString, QUrl>();
@@ -405,7 +376,6 @@ void PlayListControlerTest::testBringUpAndRemoveCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
     QCOMPARE(randomPlayControlChangedSpy.count(), 0);
@@ -418,7 +388,6 @@ void PlayListControlerTest::testBringUpAndRemoveCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
     QCOMPARE(randomPlayControlChangedSpy.count(), 0);
@@ -431,7 +400,6 @@ void PlayListControlerTest::testBringUpAndRemoveCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
     QCOMPARE(randomPlayControlChangedSpy.count(), 0);
@@ -447,7 +415,6 @@ void PlayListControlerTest::testBringUpAndPlayCase()
 
     QSignalSpy currentTrackChangedSpy(&myControler, &PlayListControler::currentTrackChanged);
     QSignalSpy playListModelChangedSpy(&myControler, &PlayListControler::playListModelChanged);
-    QSignalSpy isPlayingRoleChangedSpy(&myControler, &PlayListControler::isPlayingRoleChanged);
     QSignalSpy isValidRoleChangedSpy(&myControler, &PlayListControler::isValidRoleChanged);
     QSignalSpy randomPlayChangedSpy(&myControler, &PlayListControler::randomPlayChanged);
     QSignalSpy randomPlayControlChangedSpy(&myControler, &PlayListControler::randomPlayControlChanged);
@@ -475,7 +442,6 @@ void PlayListControlerTest::testBringUpAndPlayCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 0);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
     QCOMPARE(randomPlayControlChangedSpy.count(), 0);
@@ -488,7 +454,6 @@ void PlayListControlerTest::testBringUpAndPlayCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
     QCOMPARE(randomPlayControlChangedSpy.count(), 0);
@@ -496,19 +461,6 @@ void PlayListControlerTest::testBringUpAndPlayCase()
     QCOMPARE(repeatPlayControlChangedSpy.count(), 0);
 
     QCOMPARE(myControler.isValidRole(), static_cast<int>(MediaPlayList::ColumnsRoles::IsValidRole));
-
-    myControler.setIsPlayingRole(MediaPlayList::ColumnsRoles::IsPlayingRole);
-
-    QCOMPARE(currentTrackChangedSpy.count(), 0);
-    QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
-    QCOMPARE(isValidRoleChangedSpy.count(), 1);
-    QCOMPARE(randomPlayChangedSpy.count(), 0);
-    QCOMPARE(randomPlayControlChangedSpy.count(), 0);
-    QCOMPARE(repeatPlayChangedSpy.count(), 0);
-    QCOMPARE(repeatPlayControlChangedSpy.count(), 0);
-
-    QCOMPARE(myControler.isPlayingRole(), static_cast<int>(MediaPlayList::ColumnsRoles::IsPlayingRole));
 
     auto newTracks = QHash<QString, QVector<MusicAudioTrack>>();
     auto newCovers = QHash<QString, QUrl>();
@@ -546,7 +498,6 @@ void PlayListControlerTest::testBringUpAndPlayCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
     QCOMPARE(randomPlayControlChangedSpy.count(), 0);
@@ -560,7 +511,6 @@ void PlayListControlerTest::testBringUpAndPlayCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
     QCOMPARE(randomPlayControlChangedSpy.count(), 0);
@@ -573,7 +523,6 @@ void PlayListControlerTest::testBringUpAndPlayCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
     QCOMPARE(randomPlayControlChangedSpy.count(), 0);
@@ -589,7 +538,6 @@ void PlayListControlerTest::testBringUpAndSkipNextCase()
 
     QSignalSpy currentTrackChangedSpy(&myControler, &PlayListControler::currentTrackChanged);
     QSignalSpy playListModelChangedSpy(&myControler, &PlayListControler::playListModelChanged);
-    QSignalSpy isPlayingRoleChangedSpy(&myControler, &PlayListControler::isPlayingRoleChanged);
     QSignalSpy isValidRoleChangedSpy(&myControler, &PlayListControler::isValidRoleChanged);
     QSignalSpy randomPlayChangedSpy(&myControler, &PlayListControler::randomPlayChanged);
     QSignalSpy randomPlayControlChangedSpy(&myControler, &PlayListControler::randomPlayControlChanged);
@@ -617,7 +565,6 @@ void PlayListControlerTest::testBringUpAndSkipNextCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 0);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
     QCOMPARE(randomPlayControlChangedSpy.count(), 0);
@@ -630,7 +577,6 @@ void PlayListControlerTest::testBringUpAndSkipNextCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
     QCOMPARE(randomPlayControlChangedSpy.count(), 0);
@@ -638,19 +584,6 @@ void PlayListControlerTest::testBringUpAndSkipNextCase()
     QCOMPARE(repeatPlayControlChangedSpy.count(), 0);
 
     QCOMPARE(myControler.isValidRole(), static_cast<int>(MediaPlayList::ColumnsRoles::IsValidRole));
-
-    myControler.setIsPlayingRole(MediaPlayList::ColumnsRoles::IsPlayingRole);
-
-    QCOMPARE(currentTrackChangedSpy.count(), 0);
-    QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
-    QCOMPARE(isValidRoleChangedSpy.count(), 1);
-    QCOMPARE(randomPlayChangedSpy.count(), 0);
-    QCOMPARE(randomPlayControlChangedSpy.count(), 0);
-    QCOMPARE(repeatPlayChangedSpy.count(), 0);
-    QCOMPARE(repeatPlayControlChangedSpy.count(), 0);
-
-    QCOMPARE(myControler.isPlayingRole(), static_cast<int>(MediaPlayList::ColumnsRoles::IsPlayingRole));
 
     auto newTracks = QHash<QString, QVector<MusicAudioTrack>>();
     auto newCovers = QHash<QString, QUrl>();
@@ -688,7 +621,6 @@ void PlayListControlerTest::testBringUpAndSkipNextCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
     QCOMPARE(randomPlayControlChangedSpy.count(), 0);
@@ -702,7 +634,6 @@ void PlayListControlerTest::testBringUpAndSkipNextCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
     QCOMPARE(randomPlayControlChangedSpy.count(), 0);
@@ -715,7 +646,6 @@ void PlayListControlerTest::testBringUpAndSkipNextCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
     QCOMPARE(randomPlayControlChangedSpy.count(), 0);
@@ -731,7 +661,6 @@ void PlayListControlerTest::testBringUpAndSkipPreviousCase()
 
     QSignalSpy currentTrackChangedSpy(&myControler, &PlayListControler::currentTrackChanged);
     QSignalSpy playListModelChangedSpy(&myControler, &PlayListControler::playListModelChanged);
-    QSignalSpy isPlayingRoleChangedSpy(&myControler, &PlayListControler::isPlayingRoleChanged);
     QSignalSpy isValidRoleChangedSpy(&myControler, &PlayListControler::isValidRoleChanged);
     QSignalSpy randomPlayChangedSpy(&myControler, &PlayListControler::randomPlayChanged);
     QSignalSpy randomPlayControlChangedSpy(&myControler, &PlayListControler::randomPlayControlChanged);
@@ -759,7 +688,6 @@ void PlayListControlerTest::testBringUpAndSkipPreviousCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 0);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
     QCOMPARE(randomPlayControlChangedSpy.count(), 0);
@@ -772,7 +700,6 @@ void PlayListControlerTest::testBringUpAndSkipPreviousCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
     QCOMPARE(randomPlayControlChangedSpy.count(), 0);
@@ -780,19 +707,6 @@ void PlayListControlerTest::testBringUpAndSkipPreviousCase()
     QCOMPARE(repeatPlayControlChangedSpy.count(), 0);
 
     QCOMPARE(myControler.isValidRole(), static_cast<int>(MediaPlayList::ColumnsRoles::IsValidRole));
-
-    myControler.setIsPlayingRole(MediaPlayList::ColumnsRoles::IsPlayingRole);
-
-    QCOMPARE(currentTrackChangedSpy.count(), 0);
-    QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
-    QCOMPARE(isValidRoleChangedSpy.count(), 1);
-    QCOMPARE(randomPlayChangedSpy.count(), 0);
-    QCOMPARE(randomPlayControlChangedSpy.count(), 0);
-    QCOMPARE(repeatPlayChangedSpy.count(), 0);
-    QCOMPARE(repeatPlayControlChangedSpy.count(), 0);
-
-    QCOMPARE(myControler.isPlayingRole(), static_cast<int>(MediaPlayList::ColumnsRoles::IsPlayingRole));
 
     auto newTracks = QHash<QString, QVector<MusicAudioTrack>>();
     auto newCovers = QHash<QString, QUrl>();
@@ -830,7 +744,6 @@ void PlayListControlerTest::testBringUpAndSkipPreviousCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
     QCOMPARE(randomPlayControlChangedSpy.count(), 0);
@@ -844,7 +757,6 @@ void PlayListControlerTest::testBringUpAndSkipPreviousCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
     QCOMPARE(randomPlayControlChangedSpy.count(), 0);
@@ -857,7 +769,6 @@ void PlayListControlerTest::testBringUpAndSkipPreviousCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
     QCOMPARE(randomPlayControlChangedSpy.count(), 0);
@@ -870,7 +781,6 @@ void PlayListControlerTest::testBringUpAndSkipPreviousCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
     QCOMPARE(randomPlayControlChangedSpy.count(), 0);

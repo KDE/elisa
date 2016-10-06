@@ -183,7 +183,6 @@ ApplicationWindow {
 
         playListModel: playListModelItem
 
-        isPlayingRole: MediaPlayList.IsPlayingRole
         isValidRole: MediaPlayList.IsValidRole
 
         //persistentState: persistentSettings.playListControlerState
@@ -207,6 +206,7 @@ ApplicationWindow {
 
         currentTrack: playListControlerItem.currentTrack
         urlRole: MediaPlayList.ResourceRole
+        isPlayingRole: MediaPlayList.IsPlayingRole
 
         playerStatus: audioPlayer.status
         playerPlaybackState: audioPlayer.playbackState

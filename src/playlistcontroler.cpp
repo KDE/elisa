@@ -54,17 +54,6 @@ QAbstractItemModel *PlayListControler::playListModel() const
     return mPlayListModel;
 }
 
-void PlayListControler::setIsPlayingRole(int value)
-{
-    mIsPlayingRole = value;
-    Q_EMIT isPlayingRoleChanged();
-}
-
-int PlayListControler::isPlayingRole() const
-{
-    return mIsPlayingRole;
-}
-
 int PlayListControler::remainingTracks() const
 {
     if (!mCurrentTrack.isValid()) {
@@ -164,10 +153,6 @@ void PlayListControler::tracksDataChanged(const QModelIndex &topLeft, const QMod
     }
 
     for (auto oneRole : roles) {
-        if (oneRole == mIsPlayingRole) {
-            continue;
-        }
-
         if (!mCurrentTrack.isValid()) {
             resetCurrentTrack();
         }

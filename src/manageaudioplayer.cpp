@@ -38,6 +38,11 @@ int ManageAudioPlayer::urlRole() const
     return mUrlRole;
 }
 
+int ManageAudioPlayer::isPlayingRole() const
+{
+    return mIsPlayingRole;
+}
+
 QUrl ManageAudioPlayer::playerSource() const
 {
     if (!mCurrentTrack.isValid()) {
@@ -105,6 +110,16 @@ void ManageAudioPlayer::setUrlRole(int value)
     mUrlRole = value;
     Q_EMIT urlRoleChanged();
     notifyPlayerSourceProperty();
+}
+
+void ManageAudioPlayer::setIsPlayingRole(int value)
+{
+    if (mIsPlayingRole == value) {
+        return;
+    }
+
+    mIsPlayingRole = value;
+    Q_EMIT isPlayingRoleChanged();
 }
 
 void ManageAudioPlayer::setPlayerStatus(int playerStatus)

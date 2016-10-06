@@ -42,11 +42,6 @@ class PlayListControler : public QObject
                WRITE setPlayListModel
                NOTIFY playListModelChanged)
 
-    Q_PROPERTY(int isPlayingRole
-               READ isPlayingRole
-               WRITE setIsPlayingRole
-               NOTIFY isPlayingRoleChanged)
-
     Q_PROPERTY(int isValidRole
                READ isValidRole
                WRITE setIsValidRole
@@ -85,8 +80,6 @@ public:
 
     QAbstractItemModel* playListModel() const;
 
-    int isPlayingRole() const;
-
     int isValidRole() const;
 
     int remainingTracks() const;
@@ -107,8 +100,6 @@ Q_SIGNALS:
 
     void playListModelChanged();
 
-    void isPlayingRoleChanged();
-
     void isValidRoleChanged();
 
     void randomPlayChanged();
@@ -124,8 +115,6 @@ Q_SIGNALS:
 public Q_SLOTS:
 
     void setPlayListModel(QAbstractItemModel* aPlayListModel);
-
-    void setIsPlayingRole(int value);
 
     void setIsValidRole(int isValidRole);
 
@@ -173,8 +162,6 @@ private:
     bool mCurrentTrackIsValid = false;
 
     QAbstractItemModel *mPlayListModel = nullptr;
-
-    int mIsPlayingRole = Qt::DisplayRole;
 
     int mIsValidRole = Qt::DisplayRole;
 

@@ -147,8 +147,6 @@ void PlayListControlerTest::testBringUpCase()
 
     myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album2"), QStringLiteral("artist1")});
 
-    currentTrackChangedSpy.wait();
-
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
@@ -261,8 +259,6 @@ void PlayListControlerTest::testBringUpAndDownCase()
     QCOMPARE(repeatPlayControlChangedSpy.count(), 0);
 
     myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album2"), QStringLiteral("artist1")});
-
-    currentTrackChangedSpy.wait();
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -383,8 +379,6 @@ void PlayListControlerTest::testBringUpAndRemoveCase()
     QCOMPARE(repeatPlayControlChangedSpy.count(), 0);
 
     myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album2"), QStringLiteral("artist1")});
-
-    currentTrackChangedSpy.wait();
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -507,8 +501,6 @@ void PlayListControlerTest::testBringUpAndPlayCase()
     myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album2"), QStringLiteral("artist1")});
     myPlayList.enqueue({QStringLiteral("track3"), QStringLiteral("album1"), QStringLiteral("artist1")});
 
-    //currentTrackChangedSpy.wait();
-
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
@@ -630,8 +622,6 @@ void PlayListControlerTest::testBringUpAndSkipNextCase()
     myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album2"), QStringLiteral("artist1")});
     myPlayList.enqueue({QStringLiteral("track3"), QStringLiteral("album1"), QStringLiteral("artist1")});
 
-    //currentTrackChangedSpy.wait();
-
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
@@ -752,8 +742,6 @@ void PlayListControlerTest::testBringUpAndSkipPreviousCase()
 
     myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album2"), QStringLiteral("artist1")});
     myPlayList.enqueue({QStringLiteral("track3"), QStringLiteral("album1"), QStringLiteral("artist1")});
-
-    //currentTrackChangedSpy.wait();
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);

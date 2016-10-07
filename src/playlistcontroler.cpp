@@ -179,8 +179,7 @@ void PlayListControler::tracksRemoved(const QModelIndex &parent, int first, int 
     if (!mCurrentTrack.isValid()) {
         if (mCurrentTrackIsValid) {
             mCurrentTrack = mPlayListModel->index(mCurrentPlayListPosition, 0);
-            Q_EMIT currentTrackChanged();
-            mCurrentTrackIsValid = mCurrentTrack.isValid();
+            notifyCurrentTrackChanged();
         }
 
         return;
@@ -189,9 +188,7 @@ void PlayListControler::tracksRemoved(const QModelIndex &parent, int first, int 
     if (mCurrentTrack.row() < first || mCurrentTrack.row() > last) {
         if (mCurrentTrack.row() > last) {
             mCurrentTrack = mPlayListModel->index(mCurrentTrack.row() - (last - first + 1), 0);
-            mCurrentTrackIsValid = mCurrentTrack.isValid();
-
-            Q_EMIT currentTrackChanged();
+            notifyCurrentTrackChanged();
         }
 
         return;
@@ -203,8 +200,7 @@ void PlayListControler::tracksRemoved(const QModelIndex &parent, int first, int 
     }
 
     mCurrentTrack = mPlayListModel->index(first, 0);
-    mCurrentTrackIsValid = mCurrentTrack.isValid();
-    Q_EMIT currentTrackChanged();
+    notifyCurrentTrackChanged();
 }
 
 void PlayListControler::skipNextTrack()
@@ -222,8 +218,7 @@ void PlayListControler::skipNextTrack()
     }
 
     mCurrentTrack = mPlayListModel->index(mCurrentTrack.row() + 1, mCurrentTrack.column(), mCurrentTrack.parent());
-    mCurrentTrackIsValid = mCurrentTrack.isValid();
-    Q_EMIT currentTrackChanged();
+    notifyCurrentTrackChanged();
 }
 
 void PlayListControler::skipPreviousTrack()
@@ -241,8 +236,7 @@ void PlayListControler::skipPreviousTrack()
     }
 
     mCurrentTrack = mPlayListModel->index(mCurrentTrack.row() - 1, mCurrentTrack.column(), mCurrentTrack.parent());
-    mCurrentTrackIsValid = mCurrentTrack.isValid();
-    Q_EMIT currentTrackChanged();
+    notifyCurrentTrackChanged();
 }
 
 void PlayListControler::setIsValidRole(int isValidRole)
@@ -257,8 +251,7 @@ void PlayListControler::restorePlayListPosition()
     if (playerCurrentTrack != mPersistentState.end()) {
         if (mPlayListModel) {
             mCurrentTrack = mPlayListModel->index(playerCurrentTrack->toInt(), 0);
-            mCurrentTrackIsValid = mCurrentTrack.isValid();
-            Q_EMIT currentTrackChanged();
+            notifyCurrentTrackChanged();
 
             if (mCurrentTrack.isValid()) {
                 mPersistentState.erase(playerCurrentTrack);
@@ -282,6 +275,15 @@ void PlayListControler::restoreRepeatPlay()
     if (repeatPlayStoredValue != mPersistentState.end()) {
         setRepeatPlayControl(repeatPlayStoredValue->toBool());
         mPersistentState.erase(repeatPlayStoredValue);
+    }
+}
+
+void PlayListControler::notifyCurrentTrackChanged()
+{
+    Q_EMIT currentTrackChanged();
+    mCurrentTrackIsValid = mCurrentTrack.isValid();
+    if (mCurrentTrackIsValid) {
+        mCurrentPlayListPosition = mCurrentTrack.row();
     }
 }
 
@@ -342,12 +344,10 @@ void PlayListControler::gotoNextTrack()
         int randomValue = qrand();
         randomValue = randomValue % (mPlayListModel->rowCount(mCurrentTrack.parent()) + 1);
         mCurrentTrack = mPlayListModel->index(randomValue, mCurrentTrack.column(), mCurrentTrack.parent());
-        mCurrentTrackIsValid = mCurrentTrack.isValid();
     } else {
         mCurrentTrack = mPlayListModel->index(mCurrentTrack.row() + 1, mCurrentTrack.column(), mCurrentTrack.parent());
-        mCurrentTrackIsValid = mCurrentTrack.isValid();
     }
-    Q_EMIT currentTrackChanged();
+    notifyCurrentTrackChanged();
 }
 
 void PlayListControler::resetCurrentTrack()
@@ -357,8 +357,7 @@ void PlayListControler::resetCurrentTrack()
 
         if (candidateTrack.isValid() && candidateTrack.data(mIsValidRole).toBool()) {
             mCurrentTrack = candidateTrack;
-            mCurrentTrackIsValid = mCurrentTrack.isValid();
-            Q_EMIT currentTrackChanged();
+            notifyCurrentTrackChanged();
             break;
         }
     }

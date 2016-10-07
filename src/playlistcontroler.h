@@ -157,6 +157,8 @@ private:
 
     void restoreRepeatPlay();
 
+    void notifyCurrentTrackChanged();
+
     QPersistentModelIndex mCurrentTrack;
 
     int mCurrentPlayListPosition = 0;

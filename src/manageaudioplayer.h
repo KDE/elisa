@@ -214,6 +214,8 @@ private:
 
     QPersistentModelIndex mCurrentTrack;
 
+    QPersistentModelIndex mOldCurrentTrack;
+
     QAbstractItemModel *mPlayListModel = nullptr;
 
     int mUrlRole = Qt::DisplayRole;

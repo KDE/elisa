@@ -91,6 +91,7 @@ void ManageAudioPlayer::setCurrentTrack(QPersistentModelIndex currentTrack)
         return;
     }
 
+    mOldCurrentTrack = mCurrentTrack;
     mCurrentTrack = currentTrack;
     Q_EMIT currentTrackChanged();
 
@@ -195,8 +196,14 @@ void ManageAudioPlayer::setPlayerPlaybackState(int playerPlaybackState)
             if (mPlayerStatus == EndOfMedia) {
                 triggerSkipNextTrack();
             }
+            if (mPlayListModel && mCurrentTrack.isValid()) {
+                mPlayListModel->setData(mCurrentTrack, false, mIsPlayingRole);
+            }
             break;
         case PlayingState:
+            if (mPlayListModel && mCurrentTrack.isValid()) {
+                mPlayListModel->setData(mCurrentTrack, true, mIsPlayingRole);
+            }
             break;
         case PausedState:
             break;
@@ -206,8 +213,14 @@ void ManageAudioPlayer::setPlayerPlaybackState(int playerPlaybackState)
         case StoppedState:
             notifyPlayerSourceProperty();
             mSkippingCurrentTrack = false;
+            if (mPlayListModel && mOldCurrentTrack.isValid()) {
+                mPlayListModel->setData(mOldCurrentTrack, false, mIsPlayingRole);
+            }
             break;
         case PlayingState:
+            if (mPlayListModel && mCurrentTrack.isValid()) {
+                mPlayListModel->setData(mCurrentTrack, true, mIsPlayingRole);
+            }
             break;
         case PausedState:
             break;

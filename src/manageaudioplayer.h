@@ -34,6 +34,11 @@ class ManageAudioPlayer : public QObject
                WRITE setCurrentTrack
                NOTIFY currentTrackChanged)
 
+    Q_PROPERTY(QAbstractItemModel* playListModel
+               READ playListModel
+               WRITE setPlayListModel
+               NOTIFY playListModelChanged)
+
     Q_PROPERTY(QUrl playerSource
                READ playerSource
                NOTIFY playerSourceChanged)
@@ -117,6 +122,8 @@ public:
 
     QPersistentModelIndex currentTrack() const;
 
+    QAbstractItemModel* playListModel() const;
+
     int urlRole() const;
 
     int isPlayingRole() const;
@@ -138,6 +145,8 @@ public:
 Q_SIGNALS:
 
     void currentTrackChanged();
+
+    void playListModelChanged();
 
     void playerSourceChanged();
 
@@ -168,6 +177,8 @@ Q_SIGNALS:
 public Q_SLOTS:
 
     void setCurrentTrack(QPersistentModelIndex currentTrack);
+
+    void setPlayListModel(QAbstractItemModel* aPlayListModel);
 
     void setUrlRole(int value);
 

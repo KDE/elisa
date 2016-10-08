@@ -40,8 +40,10 @@ void ManageAudioPlayerTest::simpleInitialCase()
     QStandardItemModel myPlayList;
 
     QSignalSpy currentTrackChangedSpy(&myPlayer, &ManageAudioPlayer::currentTrackChanged);
+    QSignalSpy playListModelChangedSpy(&myPlayer, &ManageAudioPlayer::playListModelChanged);
     QSignalSpy playerSourceChangedSpy(&myPlayer, &ManageAudioPlayer::playerSourceChanged);
     QSignalSpy urlRoleChangedSpy(&myPlayer, &ManageAudioPlayer::urlRoleChanged);
+    QSignalSpy isPlayingRoleChangedSpy(&myPlayer, &ManageAudioPlayer::isPlayingRoleChanged);
     QSignalSpy playerStatusChangedSpy(&myPlayer, &ManageAudioPlayer::playerStatusChanged);
     QSignalSpy playerPlaybackStateChangedSpy(&myPlayer, &ManageAudioPlayer::playerPlaybackStateChanged);
     QSignalSpy playerErrorChangedSpy(&myPlayer, &ManageAudioPlayer::playerErrorChanged);
@@ -59,8 +61,10 @@ void ManageAudioPlayerTest::simpleInitialCase()
     myPlayList.item(2, 0)->setData(QUrl::fromUserInput(QStringLiteral("file:///3.mp3")), ManageAudioPlayerTest::ResourceRole);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 0);
     QCOMPARE(playerSourceChangedSpy.count(), 0);
     QCOMPARE(urlRoleChangedSpy.count(), 0);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -68,12 +72,35 @@ void ManageAudioPlayerTest::simpleInitialCase()
     QCOMPARE(playerPauseSpy.count(), 0);
     QCOMPARE(playerStopSpy.count(), 0);
     QCOMPARE(skipNextTrackSpy.count(), 0);
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+
+    myPlayer.setPlayListModel(&myPlayList);
+
+    QCOMPARE(currentTrackChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 0);
+    QCOMPARE(urlRoleChangedSpy.count(), 0);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
+    QCOMPARE(playerStatusChangedSpy.count(), 0);
+    QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
+    QCOMPARE(playerErrorChangedSpy.count(), 0);
+    QCOMPARE(playerPlaySpy.count(), 0);
+    QCOMPARE(playerPauseSpy.count(), 0);
+    QCOMPARE(playerStopSpy.count(), 0);
+    QCOMPARE(skipNextTrackSpy.count(), 0);
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
     myPlayer.setCurrentTrack(myPlayList.index(0, 0));
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 0);
     QCOMPARE(urlRoleChangedSpy.count(), 0);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -81,14 +108,19 @@ void ManageAudioPlayerTest::simpleInitialCase()
     QCOMPARE(playerPauseSpy.count(), 0);
     QCOMPARE(playerStopSpy.count(), 0);
     QCOMPARE(skipNextTrackSpy.count(), 0);
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
     QCOMPARE(myPlayer.currentTrack(), QPersistentModelIndex(myPlayList.index(0, 0)));
 
     myPlayer.setUrlRole(ManageAudioPlayerTest::ResourceRole);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -96,15 +128,40 @@ void ManageAudioPlayerTest::simpleInitialCase()
     QCOMPARE(playerPauseSpy.count(), 0);
     QCOMPARE(playerStopSpy.count(), 0);
     QCOMPARE(skipNextTrackSpy.count(), 0);
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
     QCOMPARE(myPlayer.urlRole(), static_cast<int>(ManageAudioPlayerTest::ResourceRole));
     QCOMPARE(myPlayer.playerSource(), QUrl::fromUserInput(QStringLiteral("file:///1.mp3")));
 
+    myPlayer.setIsPlayingRole(ManageAudioPlayerTest::IsPlayingRole);
+
+    QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
+    QCOMPARE(playerStatusChangedSpy.count(), 0);
+    QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
+    QCOMPARE(playerErrorChangedSpy.count(), 0);
+    QCOMPARE(playerPlaySpy.count(), 0);
+    QCOMPARE(playerPauseSpy.count(), 0);
+    QCOMPARE(playerStopSpy.count(), 0);
+    QCOMPARE(skipNextTrackSpy.count(), 0);
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+
+    QCOMPARE(myPlayer.isPlayingRole(), static_cast<int>(ManageAudioPlayerTest::IsPlayingRole));
+
     myPlayer.setPlayerStatus(ManageAudioPlayer::Loading);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -112,14 +169,19 @@ void ManageAudioPlayerTest::simpleInitialCase()
     QCOMPARE(playerPauseSpy.count(), 0);
     QCOMPARE(playerStopSpy.count(), 0);
     QCOMPARE(skipNextTrackSpy.count(), 0);
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
     QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loading));
 
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::StoppedState);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -127,12 +189,17 @@ void ManageAudioPlayerTest::simpleInitialCase()
     QCOMPARE(playerPauseSpy.count(), 0);
     QCOMPARE(playerStopSpy.count(), 0);
     QCOMPARE(skipNextTrackSpy.count(), 0);
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
     myPlayer.setPlayerError(ManageAudioPlayer::NoError);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -140,12 +207,17 @@ void ManageAudioPlayerTest::simpleInitialCase()
     QCOMPARE(playerPauseSpy.count(), 0);
     QCOMPARE(playerStopSpy.count(), 0);
     QCOMPARE(skipNextTrackSpy.count(), 0);
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
     myPlayer.setPlayerStatus(ManageAudioPlayer::Loaded);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 2);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -153,14 +225,19 @@ void ManageAudioPlayerTest::simpleInitialCase()
     QCOMPARE(playerPauseSpy.count(), 0);
     QCOMPARE(playerStopSpy.count(), 0);
     QCOMPARE(skipNextTrackSpy.count(), 0);
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
     QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loaded));
 
     myPlayer.setPlayerStatus(ManageAudioPlayer::Buffering);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -168,14 +245,19 @@ void ManageAudioPlayerTest::simpleInitialCase()
     QCOMPARE(playerPauseSpy.count(), 0);
     QCOMPARE(playerStopSpy.count(), 0);
     QCOMPARE(skipNextTrackSpy.count(), 0);
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
     QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Buffering));
 
     myPlayer.playPause();
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -183,12 +265,17 @@ void ManageAudioPlayerTest::simpleInitialCase()
     QCOMPARE(playerPauseSpy.count(), 0);
     QCOMPARE(playerStopSpy.count(), 0);
     QCOMPARE(skipNextTrackSpy.count(), 0);
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
     QCOMPARE(playerPlaySpy.wait(), true);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -196,12 +283,17 @@ void ManageAudioPlayerTest::simpleInitialCase()
     QCOMPARE(playerPauseSpy.count(), 0);
     QCOMPARE(playerStopSpy.count(), 0);
     QCOMPARE(skipNextTrackSpy.count(), 0);
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::PlayingState);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 1);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -209,14 +301,19 @@ void ManageAudioPlayerTest::simpleInitialCase()
     QCOMPARE(playerPauseSpy.count(), 0);
     QCOMPARE(playerStopSpy.count(), 0);
     QCOMPARE(skipNextTrackSpy.count(), 0);
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), true);
+    QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
     QCOMPARE(myPlayer.playerPlaybackState(), static_cast<int>(ManageAudioPlayer::PlayingState));
 
     myPlayer.setPlayerStatus(ManageAudioPlayer::EndOfMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 1);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -224,14 +321,19 @@ void ManageAudioPlayerTest::simpleInitialCase()
     QCOMPARE(playerPauseSpy.count(), 0);
     QCOMPARE(playerStopSpy.count(), 0);
     QCOMPARE(skipNextTrackSpy.count(), 0);
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), true);
+    QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
     QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::EndOfMedia));
 
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::StoppedState);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 2);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -239,14 +341,19 @@ void ManageAudioPlayerTest::simpleInitialCase()
     QCOMPARE(playerPauseSpy.count(), 0);
     QCOMPARE(playerStopSpy.count(), 0);
     QCOMPARE(skipNextTrackSpy.count(), 0);
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
     QCOMPARE(myPlayer.playerPlaybackState(), static_cast<int>(ManageAudioPlayer::StoppedState));
 
     myPlayer.setPlayerStatus(ManageAudioPlayer::InvalidMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 5);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 2);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -254,14 +361,19 @@ void ManageAudioPlayerTest::simpleInitialCase()
     QCOMPARE(playerPauseSpy.count(), 0);
     QCOMPARE(playerStopSpy.count(), 0);
     QCOMPARE(skipNextTrackSpy.count(), 0);
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
     QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::InvalidMedia));
 
     QCOMPARE(skipNextTrackSpy.wait(), true);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 5);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 2);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -269,6 +381,9 @@ void ManageAudioPlayerTest::simpleInitialCase()
     QCOMPARE(playerPauseSpy.count(), 0);
     QCOMPARE(playerStopSpy.count(), 0);
     QCOMPARE(skipNextTrackSpy.count(), 1);
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 }
 
 void ManageAudioPlayerTest::noPlayCase()
@@ -277,8 +392,10 @@ void ManageAudioPlayerTest::noPlayCase()
     QStandardItemModel myPlayList;
 
     QSignalSpy currentTrackChangedSpy(&myPlayer, &ManageAudioPlayer::currentTrackChanged);
+    QSignalSpy playListModelChangedSpy(&myPlayer, &ManageAudioPlayer::playListModelChanged);
     QSignalSpy playerSourceChangedSpy(&myPlayer, &ManageAudioPlayer::playerSourceChanged);
     QSignalSpy urlRoleChangedSpy(&myPlayer, &ManageAudioPlayer::urlRoleChanged);
+    QSignalSpy isPlayingRoleChangedSpy(&myPlayer, &ManageAudioPlayer::isPlayingRoleChanged);
     QSignalSpy playerStatusChangedSpy(&myPlayer, &ManageAudioPlayer::playerStatusChanged);
     QSignalSpy playerPlaybackStateChangedSpy(&myPlayer, &ManageAudioPlayer::playerPlaybackStateChanged);
     QSignalSpy playerErrorChangedSpy(&myPlayer, &ManageAudioPlayer::playerErrorChanged);
@@ -296,8 +413,25 @@ void ManageAudioPlayerTest::noPlayCase()
     myPlayList.item(2, 0)->setData(QUrl::fromUserInput(QStringLiteral("file:///3.mp3")), ManageAudioPlayerTest::ResourceRole);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 0);
     QCOMPARE(playerSourceChangedSpy.count(), 0);
     QCOMPARE(urlRoleChangedSpy.count(), 0);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
+    QCOMPARE(playerStatusChangedSpy.count(), 0);
+    QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
+    QCOMPARE(playerErrorChangedSpy.count(), 0);
+    QCOMPARE(playerPlaySpy.count(), 0);
+    QCOMPARE(playerPauseSpy.count(), 0);
+    QCOMPARE(playerStopSpy.count(), 0);
+    QCOMPARE(skipNextTrackSpy.count(), 0);
+
+    myPlayer.setPlayListModel(&myPlayList);
+
+    QCOMPARE(currentTrackChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 0);
+    QCOMPARE(urlRoleChangedSpy.count(), 0);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -309,8 +443,10 @@ void ManageAudioPlayerTest::noPlayCase()
     myPlayer.setCurrentTrack(myPlayList.index(0, 0));
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 0);
     QCOMPARE(urlRoleChangedSpy.count(), 0);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -324,8 +460,10 @@ void ManageAudioPlayerTest::noPlayCase()
     myPlayer.setUrlRole(ManageAudioPlayerTest::ResourceRole);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -337,11 +475,30 @@ void ManageAudioPlayerTest::noPlayCase()
     QCOMPARE(myPlayer.urlRole(), static_cast<int>(ManageAudioPlayerTest::ResourceRole));
     QCOMPARE(myPlayer.playerSource(), QUrl::fromUserInput(QStringLiteral("file:///1.mp3")));
 
+    myPlayer.setIsPlayingRole(ManageAudioPlayerTest::IsPlayingRole);
+
+    QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
+    QCOMPARE(playerStatusChangedSpy.count(), 0);
+    QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
+    QCOMPARE(playerErrorChangedSpy.count(), 0);
+    QCOMPARE(playerPlaySpy.count(), 0);
+    QCOMPARE(playerPauseSpy.count(), 0);
+    QCOMPARE(playerStopSpy.count(), 0);
+    QCOMPARE(skipNextTrackSpy.count(), 0);
+
+    QCOMPARE(myPlayer.isPlayingRole(), static_cast<int>(ManageAudioPlayerTest::IsPlayingRole));
+
     myPlayer.setPlayerStatus(ManageAudioPlayer::Loading);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -355,8 +512,10 @@ void ManageAudioPlayerTest::noPlayCase()
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::StoppedState);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -368,8 +527,10 @@ void ManageAudioPlayerTest::noPlayCase()
     myPlayer.setPlayerError(ManageAudioPlayer::NoError);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -381,8 +542,10 @@ void ManageAudioPlayerTest::noPlayCase()
     myPlayer.setPlayerStatus(ManageAudioPlayer::Loaded);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 2);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -394,8 +557,10 @@ void ManageAudioPlayerTest::noPlayCase()
     QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loaded));
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 2);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -407,8 +572,10 @@ void ManageAudioPlayerTest::noPlayCase()
     myPlayer.setPlayerStatus(ManageAudioPlayer::Buffering);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -422,8 +589,10 @@ void ManageAudioPlayerTest::noPlayCase()
     QCOMPARE(playerPlaySpy.wait(100), false);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -439,8 +608,10 @@ void ManageAudioPlayerTest::skipNextTrack()
     QStandardItemModel myPlayList;
 
     QSignalSpy currentTrackChangedSpy(&myPlayer, &ManageAudioPlayer::currentTrackChanged);
+    QSignalSpy playListModelChangedSpy(&myPlayer, &ManageAudioPlayer::playListModelChanged);
     QSignalSpy playerSourceChangedSpy(&myPlayer, &ManageAudioPlayer::playerSourceChanged);
     QSignalSpy urlRoleChangedSpy(&myPlayer, &ManageAudioPlayer::urlRoleChanged);
+    QSignalSpy isPlayingRoleChangedSpy(&myPlayer, &ManageAudioPlayer::isPlayingRoleChanged);
     QSignalSpy playerStatusChangedSpy(&myPlayer, &ManageAudioPlayer::playerStatusChanged);
     QSignalSpy playerPlaybackStateChangedSpy(&myPlayer, &ManageAudioPlayer::playerPlaybackStateChanged);
     QSignalSpy playerErrorChangedSpy(&myPlayer, &ManageAudioPlayer::playerErrorChanged);
@@ -458,8 +629,10 @@ void ManageAudioPlayerTest::skipNextTrack()
     myPlayList.item(2, 0)->setData(QUrl::fromUserInput(QStringLiteral("file:///3.mp3")), ManageAudioPlayerTest::ResourceRole);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 0);
     QCOMPARE(playerSourceChangedSpy.count(), 0);
     QCOMPARE(urlRoleChangedSpy.count(), 0);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -467,12 +640,35 @@ void ManageAudioPlayerTest::skipNextTrack()
     QCOMPARE(playerPauseSpy.count(), 0);
     QCOMPARE(playerStopSpy.count(), 0);
     QCOMPARE(skipNextTrackSpy.count(), 0);
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+
+    myPlayer.setPlayListModel(&myPlayList);
+
+    QCOMPARE(currentTrackChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 0);
+    QCOMPARE(urlRoleChangedSpy.count(), 0);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
+    QCOMPARE(playerStatusChangedSpy.count(), 0);
+    QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
+    QCOMPARE(playerErrorChangedSpy.count(), 0);
+    QCOMPARE(playerPlaySpy.count(), 0);
+    QCOMPARE(playerPauseSpy.count(), 0);
+    QCOMPARE(playerStopSpy.count(), 0);
+    QCOMPARE(skipNextTrackSpy.count(), 0);
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
     myPlayer.setCurrentTrack(myPlayList.index(0, 0));
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 0);
     QCOMPARE(urlRoleChangedSpy.count(), 0);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -480,14 +676,19 @@ void ManageAudioPlayerTest::skipNextTrack()
     QCOMPARE(playerPauseSpy.count(), 0);
     QCOMPARE(playerStopSpy.count(), 0);
     QCOMPARE(skipNextTrackSpy.count(), 0);
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
     QCOMPARE(myPlayer.currentTrack(), QPersistentModelIndex(myPlayList.index(0, 0)));
 
     myPlayer.setUrlRole(ManageAudioPlayerTest::ResourceRole);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -495,15 +696,40 @@ void ManageAudioPlayerTest::skipNextTrack()
     QCOMPARE(playerPauseSpy.count(), 0);
     QCOMPARE(playerStopSpy.count(), 0);
     QCOMPARE(skipNextTrackSpy.count(), 0);
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
     QCOMPARE(myPlayer.urlRole(), static_cast<int>(ManageAudioPlayerTest::ResourceRole));
     QCOMPARE(myPlayer.playerSource(), QUrl::fromUserInput(QStringLiteral("file:///1.mp3")));
 
+    myPlayer.setIsPlayingRole(ManageAudioPlayerTest::IsPlayingRole);
+
+    QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
+    QCOMPARE(playerStatusChangedSpy.count(), 0);
+    QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
+    QCOMPARE(playerErrorChangedSpy.count(), 0);
+    QCOMPARE(playerPlaySpy.count(), 0);
+    QCOMPARE(playerPauseSpy.count(), 0);
+    QCOMPARE(playerStopSpy.count(), 0);
+    QCOMPARE(skipNextTrackSpy.count(), 0);
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+
+    QCOMPARE(myPlayer.isPlayingRole(), static_cast<int>(ManageAudioPlayerTest::IsPlayingRole));
+
     myPlayer.setPlayerStatus(ManageAudioPlayer::Loading);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -511,14 +737,19 @@ void ManageAudioPlayerTest::skipNextTrack()
     QCOMPARE(playerPauseSpy.count(), 0);
     QCOMPARE(playerStopSpy.count(), 0);
     QCOMPARE(skipNextTrackSpy.count(), 0);
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
     QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loading));
 
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::StoppedState);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -526,12 +757,17 @@ void ManageAudioPlayerTest::skipNextTrack()
     QCOMPARE(playerPauseSpy.count(), 0);
     QCOMPARE(playerStopSpy.count(), 0);
     QCOMPARE(skipNextTrackSpy.count(), 0);
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
     myPlayer.setPlayerError(ManageAudioPlayer::NoError);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -539,12 +775,17 @@ void ManageAudioPlayerTest::skipNextTrack()
     QCOMPARE(playerPauseSpy.count(), 0);
     QCOMPARE(playerStopSpy.count(), 0);
     QCOMPARE(skipNextTrackSpy.count(), 0);
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
     myPlayer.setPlayerStatus(ManageAudioPlayer::Loaded);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 2);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -552,14 +793,19 @@ void ManageAudioPlayerTest::skipNextTrack()
     QCOMPARE(playerPauseSpy.count(), 0);
     QCOMPARE(playerStopSpy.count(), 0);
     QCOMPARE(skipNextTrackSpy.count(), 0);
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
     QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loaded));
 
     myPlayer.setPlayerStatus(ManageAudioPlayer::Buffering);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -567,14 +813,19 @@ void ManageAudioPlayerTest::skipNextTrack()
     QCOMPARE(playerPauseSpy.count(), 0);
     QCOMPARE(playerStopSpy.count(), 0);
     QCOMPARE(skipNextTrackSpy.count(), 0);
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
     QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Buffering));
 
     myPlayer.playPause();
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -582,12 +833,17 @@ void ManageAudioPlayerTest::skipNextTrack()
     QCOMPARE(playerPauseSpy.count(), 0);
     QCOMPARE(playerStopSpy.count(), 0);
     QCOMPARE(skipNextTrackSpy.count(), 0);
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
     QCOMPARE(playerPlaySpy.wait(), true);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -595,12 +851,17 @@ void ManageAudioPlayerTest::skipNextTrack()
     QCOMPARE(playerPauseSpy.count(), 0);
     QCOMPARE(playerStopSpy.count(), 0);
     QCOMPARE(skipNextTrackSpy.count(), 0);
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::PlayingState);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 1);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -608,14 +869,19 @@ void ManageAudioPlayerTest::skipNextTrack()
     QCOMPARE(playerPauseSpy.count(), 0);
     QCOMPARE(playerStopSpy.count(), 0);
     QCOMPARE(skipNextTrackSpy.count(), 0);
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), true);
+    QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
     QCOMPARE(myPlayer.playerPlaybackState(), static_cast<int>(ManageAudioPlayer::PlayingState));
 
     myPlayer.setPlayerStatus(ManageAudioPlayer::EndOfMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 1);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -623,14 +889,19 @@ void ManageAudioPlayerTest::skipNextTrack()
     QCOMPARE(playerPauseSpy.count(), 0);
     QCOMPARE(playerStopSpy.count(), 0);
     QCOMPARE(skipNextTrackSpy.count(), 0);
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), true);
+    QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
     QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::EndOfMedia));
 
     myPlayer.setCurrentTrack(myPlayList.index(1, 0));
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 1);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -638,14 +909,19 @@ void ManageAudioPlayerTest::skipNextTrack()
     QCOMPARE(playerPauseSpy.count(), 0);
     QCOMPARE(playerStopSpy.count(), 0);
     QCOMPARE(skipNextTrackSpy.count(), 0);
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), true);
+    QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
     QCOMPARE(myPlayer.currentTrack(), QPersistentModelIndex(myPlayList.index(1, 0)));
 
     QCOMPARE(playerStopSpy.wait(100), true);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 1);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -653,12 +929,17 @@ void ManageAudioPlayerTest::skipNextTrack()
     QCOMPARE(playerPauseSpy.count(), 0);
     QCOMPARE(playerStopSpy.count(), 1);
     QCOMPARE(skipNextTrackSpy.count(), 0);
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), true);
+    QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::StoppedState);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 2);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -666,6 +947,9 @@ void ManageAudioPlayerTest::skipNextTrack()
     QCOMPARE(playerPauseSpy.count(), 0);
     QCOMPARE(playerStopSpy.count(), 1);
     QCOMPARE(skipNextTrackSpy.count(), 0);
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
     QCOMPARE(myPlayer.playerPlaybackState(), static_cast<int>(ManageAudioPlayer::StoppedState));
 
@@ -674,8 +958,10 @@ void ManageAudioPlayerTest::skipNextTrack()
     myPlayer.setPlayerStatus(ManageAudioPlayer::Loaded);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 5);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 2);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -683,14 +969,19 @@ void ManageAudioPlayerTest::skipNextTrack()
     QCOMPARE(playerPauseSpy.count(), 0);
     QCOMPARE(playerStopSpy.count(), 1);
     QCOMPARE(skipNextTrackSpy.count(), 0);
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
     QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loaded));
 
     QCOMPARE(playerPlaySpy.wait(100), true);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 5);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 2);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -698,6 +989,9 @@ void ManageAudioPlayerTest::skipNextTrack()
     QCOMPARE(playerPauseSpy.count(), 0);
     QCOMPARE(playerStopSpy.count(), 1);
     QCOMPARE(skipNextTrackSpy.count(), 0);
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
+    QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 }
 
 void ManageAudioPlayerTest::skipPreviousTrack()
@@ -706,8 +1000,10 @@ void ManageAudioPlayerTest::skipPreviousTrack()
     QStandardItemModel myPlayList;
 
     QSignalSpy currentTrackChangedSpy(&myPlayer, &ManageAudioPlayer::currentTrackChanged);
+    QSignalSpy playListModelChangedSpy(&myPlayer, &ManageAudioPlayer::playListModelChanged);
     QSignalSpy playerSourceChangedSpy(&myPlayer, &ManageAudioPlayer::playerSourceChanged);
     QSignalSpy urlRoleChangedSpy(&myPlayer, &ManageAudioPlayer::urlRoleChanged);
+    QSignalSpy isPlayingRoleChangedSpy(&myPlayer, &ManageAudioPlayer::isPlayingRoleChanged);
     QSignalSpy playerStatusChangedSpy(&myPlayer, &ManageAudioPlayer::playerStatusChanged);
     QSignalSpy playerPlaybackStateChangedSpy(&myPlayer, &ManageAudioPlayer::playerPlaybackStateChanged);
     QSignalSpy playerErrorChangedSpy(&myPlayer, &ManageAudioPlayer::playerErrorChanged);
@@ -725,8 +1021,25 @@ void ManageAudioPlayerTest::skipPreviousTrack()
     myPlayList.item(2, 0)->setData(QUrl::fromUserInput(QStringLiteral("file:///3.mp3")), ManageAudioPlayerTest::ResourceRole);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 0);
     QCOMPARE(playerSourceChangedSpy.count(), 0);
     QCOMPARE(urlRoleChangedSpy.count(), 0);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
+    QCOMPARE(playerStatusChangedSpy.count(), 0);
+    QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
+    QCOMPARE(playerErrorChangedSpy.count(), 0);
+    QCOMPARE(playerPlaySpy.count(), 0);
+    QCOMPARE(playerPauseSpy.count(), 0);
+    QCOMPARE(playerStopSpy.count(), 0);
+    QCOMPARE(skipNextTrackSpy.count(), 0);
+
+    myPlayer.setPlayListModel(&myPlayList);
+
+    QCOMPARE(currentTrackChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 0);
+    QCOMPARE(urlRoleChangedSpy.count(), 0);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -738,8 +1051,10 @@ void ManageAudioPlayerTest::skipPreviousTrack()
     myPlayer.setCurrentTrack(myPlayList.index(1, 0));
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 0);
     QCOMPARE(urlRoleChangedSpy.count(), 0);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -753,8 +1068,10 @@ void ManageAudioPlayerTest::skipPreviousTrack()
     myPlayer.setUrlRole(ManageAudioPlayerTest::ResourceRole);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -766,11 +1083,31 @@ void ManageAudioPlayerTest::skipPreviousTrack()
     QCOMPARE(myPlayer.urlRole(), static_cast<int>(ManageAudioPlayerTest::ResourceRole));
     QCOMPARE(myPlayer.playerSource(), QUrl::fromUserInput(QStringLiteral("file:///2.mp3")));
 
+    myPlayer.setIsPlayingRole(ManageAudioPlayerTest::IsPlayingRole);
+
+    QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
+    QCOMPARE(playerStatusChangedSpy.count(), 0);
+    QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
+    QCOMPARE(playerErrorChangedSpy.count(), 0);
+    QCOMPARE(playerPlaySpy.count(), 0);
+    QCOMPARE(playerPauseSpy.count(), 0);
+    QCOMPARE(playerStopSpy.count(), 0);
+    QCOMPARE(skipNextTrackSpy.count(), 0);
+
+    QCOMPARE(myPlayer.isPlayingRole(), static_cast<int>(ManageAudioPlayerTest::IsPlayingRole));
+
     myPlayer.setPlayerStatus(ManageAudioPlayer::Loading);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -784,8 +1121,10 @@ void ManageAudioPlayerTest::skipPreviousTrack()
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::StoppedState);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -797,8 +1136,10 @@ void ManageAudioPlayerTest::skipPreviousTrack()
     myPlayer.setPlayerError(ManageAudioPlayer::NoError);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -810,8 +1151,10 @@ void ManageAudioPlayerTest::skipPreviousTrack()
     myPlayer.setPlayerStatus(ManageAudioPlayer::Loaded);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 2);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -825,8 +1168,10 @@ void ManageAudioPlayerTest::skipPreviousTrack()
     myPlayer.setPlayerStatus(ManageAudioPlayer::Buffering);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -840,8 +1185,10 @@ void ManageAudioPlayerTest::skipPreviousTrack()
     myPlayer.playPause();
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -853,8 +1200,10 @@ void ManageAudioPlayerTest::skipPreviousTrack()
     QCOMPARE(playerPlaySpy.wait(), true);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -866,8 +1215,10 @@ void ManageAudioPlayerTest::skipPreviousTrack()
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::PlayingState);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 1);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -881,8 +1232,10 @@ void ManageAudioPlayerTest::skipPreviousTrack()
     myPlayer.setPlayerStatus(ManageAudioPlayer::EndOfMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 1);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -896,8 +1249,10 @@ void ManageAudioPlayerTest::skipPreviousTrack()
     myPlayer.setCurrentTrack(myPlayList.index(0, 0));
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 1);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -911,8 +1266,10 @@ void ManageAudioPlayerTest::skipPreviousTrack()
     QCOMPARE(playerStopSpy.wait(100), true);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 1);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -924,8 +1281,10 @@ void ManageAudioPlayerTest::skipPreviousTrack()
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::StoppedState);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 2);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -941,8 +1300,10 @@ void ManageAudioPlayerTest::skipPreviousTrack()
     myPlayer.setPlayerStatus(ManageAudioPlayer::Loaded);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 5);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 2);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -956,8 +1317,10 @@ void ManageAudioPlayerTest::skipPreviousTrack()
     QCOMPARE(playerPlaySpy.wait(100), true);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 5);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 2);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -973,8 +1336,10 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
     QStandardItemModel myPlayList;
 
     QSignalSpy currentTrackChangedSpy(&myPlayer, &ManageAudioPlayer::currentTrackChanged);
+    QSignalSpy playListModelChangedSpy(&myPlayer, &ManageAudioPlayer::playListModelChanged);
     QSignalSpy playerSourceChangedSpy(&myPlayer, &ManageAudioPlayer::playerSourceChanged);
     QSignalSpy urlRoleChangedSpy(&myPlayer, &ManageAudioPlayer::urlRoleChanged);
+    QSignalSpy isPlayingRoleChangedSpy(&myPlayer, &ManageAudioPlayer::isPlayingRoleChanged);
     QSignalSpy playerStatusChangedSpy(&myPlayer, &ManageAudioPlayer::playerStatusChanged);
     QSignalSpy playerPlaybackStateChangedSpy(&myPlayer, &ManageAudioPlayer::playerPlaybackStateChanged);
     QSignalSpy playerErrorChangedSpy(&myPlayer, &ManageAudioPlayer::playerErrorChanged);
@@ -992,8 +1357,25 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
     myPlayList.item(2, 0)->setData(QUrl::fromUserInput(QStringLiteral("file:///3.mp3")), ManageAudioPlayerTest::ResourceRole);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 0);
     QCOMPARE(playerSourceChangedSpy.count(), 0);
     QCOMPARE(urlRoleChangedSpy.count(), 0);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
+    QCOMPARE(playerStatusChangedSpy.count(), 0);
+    QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
+    QCOMPARE(playerErrorChangedSpy.count(), 0);
+    QCOMPARE(playerPlaySpy.count(), 0);
+    QCOMPARE(playerPauseSpy.count(), 0);
+    QCOMPARE(playerStopSpy.count(), 0);
+    QCOMPARE(skipNextTrackSpy.count(), 0);
+
+    myPlayer.setPlayListModel(&myPlayList);
+
+    QCOMPARE(currentTrackChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 0);
+    QCOMPARE(urlRoleChangedSpy.count(), 0);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1005,8 +1387,10 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
     myPlayer.setCurrentTrack(myPlayList.index(0, 0));
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 0);
     QCOMPARE(urlRoleChangedSpy.count(), 0);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1020,8 +1404,10 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
     myPlayer.setUrlRole(ManageAudioPlayerTest::ResourceRole);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1033,11 +1419,30 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
     QCOMPARE(myPlayer.urlRole(), static_cast<int>(ManageAudioPlayerTest::ResourceRole));
     QCOMPARE(myPlayer.playerSource(), QUrl::fromUserInput(QStringLiteral("file:///1.mp3")));
 
+    myPlayer.setIsPlayingRole(ManageAudioPlayerTest::IsPlayingRole);
+
+    QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
+    QCOMPARE(playerStatusChangedSpy.count(), 0);
+    QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
+    QCOMPARE(playerErrorChangedSpy.count(), 0);
+    QCOMPARE(playerPlaySpy.count(), 0);
+    QCOMPARE(playerPauseSpy.count(), 0);
+    QCOMPARE(playerStopSpy.count(), 0);
+    QCOMPARE(skipNextTrackSpy.count(), 0);
+
+    QCOMPARE(myPlayer.isPlayingRole(), static_cast<int>(ManageAudioPlayerTest::IsPlayingRole));
+
     myPlayer.setPlayerStatus(ManageAudioPlayer::Loading);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1051,8 +1456,10 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::StoppedState);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1064,8 +1471,10 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
     myPlayer.setPlayerError(ManageAudioPlayer::NoError);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1077,8 +1486,10 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
     myPlayer.setPlayerStatus(ManageAudioPlayer::Loaded);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 2);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1092,8 +1503,10 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
     myPlayer.setPlayerStatus(ManageAudioPlayer::Buffering);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1107,8 +1520,10 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
     myPlayer.playPause();
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1120,8 +1535,10 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
     QCOMPARE(playerPlaySpy.wait(), true);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1133,8 +1550,10 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::PlayingState);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 1);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1148,8 +1567,10 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
     myPlayer.setPlayerStatus(ManageAudioPlayer::EndOfMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 1);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1163,8 +1584,10 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::StoppedState);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 2);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1178,8 +1601,10 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
     myPlayer.setPlayerStatus(ManageAudioPlayer::InvalidMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 5);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 2);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1193,8 +1618,10 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
     QCOMPARE(skipNextTrackSpy.wait(100), true);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 5);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 2);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1206,8 +1633,10 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
     myPlayer.setCurrentTrack(myPlayList.index(1, 0));
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 5);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 2);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1222,8 +1651,10 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
     myPlayer.setPlayerStatus(ManageAudioPlayer::Loaded);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 6);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 2);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1237,8 +1668,10 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
     QCOMPARE(playerPlaySpy.wait(100), true);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 6);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 2);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1250,8 +1683,10 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::PlayingState);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 6);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 3);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1265,8 +1700,10 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
     myPlayer.setPlayerStatus(ManageAudioPlayer::EndOfMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 7);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 3);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1280,8 +1717,10 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
     myPlayer.setCurrentTrack(myPlayList.index(2, 0));
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 7);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 3);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1295,8 +1734,10 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
     QCOMPARE(playerStopSpy.wait(100), true);
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 7);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 3);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1308,8 +1749,10 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::StoppedState);
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 7);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 4);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1326,8 +1769,10 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
     myPlayer.setPlayerStatus(ManageAudioPlayer::Loaded);
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 8);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 4);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1341,8 +1786,10 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
     QCOMPARE(playerPlaySpy.wait(100), true);
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 8);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 4);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1354,8 +1801,10 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::PlayingState);
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 8);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 5);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1373,8 +1822,10 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
     QStandardItemModel myPlayList;
 
     QSignalSpy currentTrackChangedSpy(&myPlayer, &ManageAudioPlayer::currentTrackChanged);
+    QSignalSpy playListModelChangedSpy(&myPlayer, &ManageAudioPlayer::playListModelChanged);
     QSignalSpy playerSourceChangedSpy(&myPlayer, &ManageAudioPlayer::playerSourceChanged);
     QSignalSpy urlRoleChangedSpy(&myPlayer, &ManageAudioPlayer::urlRoleChanged);
+    QSignalSpy isPlayingRoleChangedSpy(&myPlayer, &ManageAudioPlayer::isPlayingRoleChanged);
     QSignalSpy playerStatusChangedSpy(&myPlayer, &ManageAudioPlayer::playerStatusChanged);
     QSignalSpy playerPlaybackStateChangedSpy(&myPlayer, &ManageAudioPlayer::playerPlaybackStateChanged);
     QSignalSpy playerErrorChangedSpy(&myPlayer, &ManageAudioPlayer::playerErrorChanged);
@@ -1392,8 +1843,25 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
     myPlayList.item(2, 0)->setData(QUrl::fromUserInput(QStringLiteral("file:///3.mp3")), ManageAudioPlayerTest::ResourceRole);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 0);
     QCOMPARE(playerSourceChangedSpy.count(), 0);
     QCOMPARE(urlRoleChangedSpy.count(), 0);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
+    QCOMPARE(playerStatusChangedSpy.count(), 0);
+    QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
+    QCOMPARE(playerErrorChangedSpy.count(), 0);
+    QCOMPARE(playerPlaySpy.count(), 0);
+    QCOMPARE(playerPauseSpy.count(), 0);
+    QCOMPARE(playerStopSpy.count(), 0);
+    QCOMPARE(skipNextTrackSpy.count(), 0);
+
+    myPlayer.setPlayListModel(&myPlayList);
+
+    QCOMPARE(currentTrackChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 0);
+    QCOMPARE(urlRoleChangedSpy.count(), 0);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1405,8 +1873,10 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
     myPlayer.setCurrentTrack(myPlayList.index(1, 0));
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 0);
     QCOMPARE(urlRoleChangedSpy.count(), 0);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1420,8 +1890,10 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
     myPlayer.setUrlRole(ManageAudioPlayerTest::ResourceRole);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1433,11 +1905,30 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
     QCOMPARE(myPlayer.urlRole(), static_cast<int>(ManageAudioPlayerTest::ResourceRole));
     QCOMPARE(myPlayer.playerSource(), QUrl::fromUserInput(QStringLiteral("file:///2.mp3")));
 
+    myPlayer.setIsPlayingRole(ManageAudioPlayerTest::IsPlayingRole);
+
+    QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
+    QCOMPARE(playerStatusChangedSpy.count(), 0);
+    QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
+    QCOMPARE(playerErrorChangedSpy.count(), 0);
+    QCOMPARE(playerPlaySpy.count(), 0);
+    QCOMPARE(playerPauseSpy.count(), 0);
+    QCOMPARE(playerStopSpy.count(), 0);
+    QCOMPARE(skipNextTrackSpy.count(), 0);
+
+    QCOMPARE(myPlayer.isPlayingRole(), static_cast<int>(ManageAudioPlayerTest::IsPlayingRole));
+
     myPlayer.setPlayerStatus(ManageAudioPlayer::Loading);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1451,8 +1942,10 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::StoppedState);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1464,8 +1957,10 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
     myPlayer.setPlayerError(ManageAudioPlayer::NoError);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1477,8 +1972,10 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
     myPlayer.setPlayerStatus(ManageAudioPlayer::Loaded);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 2);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1492,8 +1989,10 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
     myPlayer.setPlayerStatus(ManageAudioPlayer::Buffering);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1507,8 +2006,10 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
     myPlayer.playPause();
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1520,8 +2021,10 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
     QCOMPARE(playerPlaySpy.wait(), true);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1533,8 +2036,10 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::PlayingState);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 1);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1548,8 +2053,10 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
     myPlayer.setPlayerStatus(ManageAudioPlayer::EndOfMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 1);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1563,8 +2070,10 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::StoppedState);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 2);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1578,8 +2087,10 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
     myPlayer.setPlayerStatus(ManageAudioPlayer::InvalidMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 5);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 2);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1593,8 +2104,10 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
     QCOMPARE(skipNextTrackSpy.wait(100), true);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 5);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 2);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1606,8 +2119,10 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
     myPlayer.setCurrentTrack(myPlayList.index(2, 0));
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 5);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 2);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1622,8 +2137,10 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
     myPlayer.setPlayerStatus(ManageAudioPlayer::Loaded);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 6);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 2);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1637,8 +2154,10 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
     QCOMPARE(playerPlaySpy.wait(100), true);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 6);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 2);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1650,8 +2169,10 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::PlayingState);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 6);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 3);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1665,8 +2186,10 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
     myPlayer.setPlayerStatus(ManageAudioPlayer::EndOfMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 7);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 3);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1680,8 +2203,10 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
     myPlayer.setCurrentTrack(myPlayList.index(1, 0));
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 7);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 3);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1695,8 +2220,10 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
     QCOMPARE(playerStopSpy.wait(100), true);
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 7);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 3);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1708,8 +2235,10 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::StoppedState);
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 7);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 4);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1726,8 +2255,10 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
     myPlayer.setPlayerStatus(ManageAudioPlayer::Loaded);
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 8);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 4);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1741,8 +2272,10 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
     QCOMPARE(playerPlaySpy.wait(100), true);
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 8);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 4);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1754,8 +2287,10 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::PlayingState);
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 8);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 5);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1773,8 +2308,10 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
     QStandardItemModel myPlayList;
 
     QSignalSpy currentTrackChangedSpy(&myPlayer, &ManageAudioPlayer::currentTrackChanged);
+    QSignalSpy playListModelChangedSpy(&myPlayer, &ManageAudioPlayer::playListModelChanged);
     QSignalSpy playerSourceChangedSpy(&myPlayer, &ManageAudioPlayer::playerSourceChanged);
     QSignalSpy urlRoleChangedSpy(&myPlayer, &ManageAudioPlayer::urlRoleChanged);
+    QSignalSpy isPlayingRoleChangedSpy(&myPlayer, &ManageAudioPlayer::isPlayingRoleChanged);
     QSignalSpy playerStatusChangedSpy(&myPlayer, &ManageAudioPlayer::playerStatusChanged);
     QSignalSpy playerPlaybackStateChangedSpy(&myPlayer, &ManageAudioPlayer::playerPlaybackStateChanged);
     QSignalSpy playerErrorChangedSpy(&myPlayer, &ManageAudioPlayer::playerErrorChanged);
@@ -1792,8 +2329,25 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
     myPlayList.item(2, 0)->setData(QUrl::fromUserInput(QStringLiteral("file:///3.mp3")), ManageAudioPlayerTest::ResourceRole);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 0);
     QCOMPARE(playerSourceChangedSpy.count(), 0);
     QCOMPARE(urlRoleChangedSpy.count(), 0);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
+    QCOMPARE(playerStatusChangedSpy.count(), 0);
+    QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
+    QCOMPARE(playerErrorChangedSpy.count(), 0);
+    QCOMPARE(playerPlaySpy.count(), 0);
+    QCOMPARE(playerPauseSpy.count(), 0);
+    QCOMPARE(playerStopSpy.count(), 0);
+    QCOMPARE(skipNextTrackSpy.count(), 0);
+
+    myPlayer.setPlayListModel(&myPlayList);
+
+    QCOMPARE(currentTrackChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 0);
+    QCOMPARE(urlRoleChangedSpy.count(), 0);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1805,8 +2359,10 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
     myPlayer.setCurrentTrack(myPlayList.index(0, 0));
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 0);
     QCOMPARE(urlRoleChangedSpy.count(), 0);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1820,8 +2376,10 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
     myPlayer.setUrlRole(ManageAudioPlayerTest::ResourceRole);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1833,11 +2391,30 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
     QCOMPARE(myPlayer.urlRole(), static_cast<int>(ManageAudioPlayerTest::ResourceRole));
     QCOMPARE(myPlayer.playerSource(), QUrl::fromUserInput(QStringLiteral("file:///1.mp3")));
 
+    myPlayer.setIsPlayingRole(ManageAudioPlayerTest::IsPlayingRole);
+
+    QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
+    QCOMPARE(playerStatusChangedSpy.count(), 0);
+    QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
+    QCOMPARE(playerErrorChangedSpy.count(), 0);
+    QCOMPARE(playerPlaySpy.count(), 0);
+    QCOMPARE(playerPauseSpy.count(), 0);
+    QCOMPARE(playerStopSpy.count(), 0);
+    QCOMPARE(skipNextTrackSpy.count(), 0);
+
+    QCOMPARE(myPlayer.isPlayingRole(), static_cast<int>(ManageAudioPlayerTest::IsPlayingRole));
+
     myPlayer.setPlayerStatus(ManageAudioPlayer::Loading);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1851,8 +2428,10 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::StoppedState);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1864,8 +2443,10 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
     myPlayer.setPlayerError(ManageAudioPlayer::NoError);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1877,8 +2458,10 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
     myPlayer.setPlayerStatus(ManageAudioPlayer::Loaded);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 2);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1892,8 +2475,10 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
     myPlayer.setPlayerStatus(ManageAudioPlayer::Buffering);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1907,8 +2492,10 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
     myPlayer.playPause();
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1920,8 +2507,10 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
     QCOMPARE(playerPlaySpy.wait(), true);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1933,8 +2522,10 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::PlayingState);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 1);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1948,8 +2539,10 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
     myPlayer.setPlayerStatus(ManageAudioPlayer::EndOfMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 1);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1963,8 +2556,10 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
     myPlayer.setCurrentTrack(myPlayList.index(1, 0));
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 1);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1978,8 +2573,10 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
     QCOMPARE(playerStopSpy.wait(100), true);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 1);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -1991,8 +2588,10 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::StoppedState);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 2);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -2009,8 +2608,10 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
     myPlayer.setPlayerStatus(ManageAudioPlayer::Loaded);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 5);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 2);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -2024,8 +2625,10 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
     QCOMPARE(playerPlaySpy.wait(100), true);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 5);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 2);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -2037,8 +2640,10 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::PlayingState);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 5);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 3);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -2052,8 +2657,10 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
     myPlayer.setPlayerStatus(ManageAudioPlayer::EndOfMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 6);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 3);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -2067,8 +2674,10 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::StoppedState);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 6);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 4);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -2082,8 +2691,10 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
     myPlayer.setPlayerStatus(ManageAudioPlayer::InvalidMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 7);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 4);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -2097,8 +2708,10 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
     QCOMPARE(skipNextTrackSpy.wait(100), true);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 7);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 4);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -2110,8 +2723,10 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
     myPlayer.setCurrentTrack(myPlayList.index(2, 0));
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 7);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 4);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -2126,8 +2741,10 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
     myPlayer.setPlayerStatus(ManageAudioPlayer::Loaded);
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 8);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 4);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -2141,8 +2758,10 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
     QCOMPARE(playerPlaySpy.wait(100), true);
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 8);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 4);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -2158,8 +2777,10 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
     QStandardItemModel myPlayList;
 
     QSignalSpy currentTrackChangedSpy(&myPlayer, &ManageAudioPlayer::currentTrackChanged);
+    QSignalSpy playListModelChangedSpy(&myPlayer, &ManageAudioPlayer::playListModelChanged);
     QSignalSpy playerSourceChangedSpy(&myPlayer, &ManageAudioPlayer::playerSourceChanged);
     QSignalSpy urlRoleChangedSpy(&myPlayer, &ManageAudioPlayer::urlRoleChanged);
+    QSignalSpy isPlayingRoleChangedSpy(&myPlayer, &ManageAudioPlayer::isPlayingRoleChanged);
     QSignalSpy playerStatusChangedSpy(&myPlayer, &ManageAudioPlayer::playerStatusChanged);
     QSignalSpy playerPlaybackStateChangedSpy(&myPlayer, &ManageAudioPlayer::playerPlaybackStateChanged);
     QSignalSpy playerErrorChangedSpy(&myPlayer, &ManageAudioPlayer::playerErrorChanged);
@@ -2177,8 +2798,25 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
     myPlayList.item(2, 0)->setData(QUrl::fromUserInput(QStringLiteral("file:///3.mp3")), ManageAudioPlayerTest::ResourceRole);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 0);
     QCOMPARE(playerSourceChangedSpy.count(), 0);
     QCOMPARE(urlRoleChangedSpy.count(), 0);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
+    QCOMPARE(playerStatusChangedSpy.count(), 0);
+    QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
+    QCOMPARE(playerErrorChangedSpy.count(), 0);
+    QCOMPARE(playerPlaySpy.count(), 0);
+    QCOMPARE(playerPauseSpy.count(), 0);
+    QCOMPARE(playerStopSpy.count(), 0);
+    QCOMPARE(skipNextTrackSpy.count(), 0);
+
+    myPlayer.setPlayListModel(&myPlayList);
+
+    QCOMPARE(currentTrackChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 0);
+    QCOMPARE(urlRoleChangedSpy.count(), 0);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -2190,8 +2828,10 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
     myPlayer.setCurrentTrack(myPlayList.index(1, 0));
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 0);
     QCOMPARE(urlRoleChangedSpy.count(), 0);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -2205,8 +2845,10 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
     myPlayer.setUrlRole(ManageAudioPlayerTest::ResourceRole);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -2218,11 +2860,30 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
     QCOMPARE(myPlayer.urlRole(), static_cast<int>(ManageAudioPlayerTest::ResourceRole));
     QCOMPARE(myPlayer.playerSource(), QUrl::fromUserInput(QStringLiteral("file:///2.mp3")));
 
+    myPlayer.setIsPlayingRole(ManageAudioPlayerTest::IsPlayingRole);
+
+    QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
+    QCOMPARE(playerStatusChangedSpy.count(), 0);
+    QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
+    QCOMPARE(playerErrorChangedSpy.count(), 0);
+    QCOMPARE(playerPlaySpy.count(), 0);
+    QCOMPARE(playerPauseSpy.count(), 0);
+    QCOMPARE(playerStopSpy.count(), 0);
+    QCOMPARE(skipNextTrackSpy.count(), 0);
+
+    QCOMPARE(myPlayer.isPlayingRole(), static_cast<int>(ManageAudioPlayerTest::IsPlayingRole));
+
     myPlayer.setPlayerStatus(ManageAudioPlayer::Loading);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -2236,8 +2897,10 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::StoppedState);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -2249,8 +2912,10 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
     myPlayer.setPlayerError(ManageAudioPlayer::NoError);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -2262,8 +2927,10 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
     myPlayer.setPlayerStatus(ManageAudioPlayer::Loaded);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 2);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -2277,8 +2944,10 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
     myPlayer.setPlayerStatus(ManageAudioPlayer::Buffering);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -2292,8 +2961,10 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
     myPlayer.playPause();
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -2305,8 +2976,10 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
     QCOMPARE(playerPlaySpy.wait(), true);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -2318,8 +2991,10 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::PlayingState);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 1);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -2333,8 +3008,10 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
     myPlayer.setPlayerStatus(ManageAudioPlayer::EndOfMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 1);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -2348,8 +3025,10 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
     myPlayer.setCurrentTrack(myPlayList.index(0, 0));
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 1);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -2363,8 +3042,10 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
     QCOMPARE(playerStopSpy.wait(100), true);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 1);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -2376,8 +3057,10 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::StoppedState);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 2);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -2394,8 +3077,10 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
     myPlayer.setPlayerStatus(ManageAudioPlayer::Loaded);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 5);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 2);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -2409,8 +3094,10 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
     QCOMPARE(playerPlaySpy.wait(100), true);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 5);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 2);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -2422,8 +3109,10 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::PlayingState);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 5);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 3);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -2437,8 +3126,10 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
     myPlayer.setPlayerStatus(ManageAudioPlayer::EndOfMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 6);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 3);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -2452,8 +3143,10 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::StoppedState);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 6);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 4);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -2467,8 +3160,10 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
     myPlayer.setPlayerStatus(ManageAudioPlayer::InvalidMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 7);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 4);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -2482,8 +3177,10 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
     QCOMPARE(skipNextTrackSpy.wait(100), true);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 7);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 4);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -2495,8 +3192,10 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
     myPlayer.setCurrentTrack(myPlayList.index(1, 0));
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 7);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 4);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -2511,8 +3210,10 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
     myPlayer.setPlayerStatus(ManageAudioPlayer::Loaded);
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 8);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 4);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
@@ -2526,8 +3227,10 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
     QCOMPARE(playerPlaySpy.wait(100), true);
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
+    QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 8);
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 4);
     QCOMPARE(playerErrorChangedSpy.count(), 0);

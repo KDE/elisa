@@ -31,6 +31,11 @@ QPersistentModelIndex ManageAudioPlayer::currentTrack() const
     return mCurrentTrack;
 }
 
+QAbstractItemModel *ManageAudioPlayer::playListModel() const
+{
+    return mPlayListModel;
+}
+
 int ManageAudioPlayer::urlRole() const
 {
     return mUrlRole;
@@ -101,6 +106,16 @@ void ManageAudioPlayer::setCurrentTrack(QPersistentModelIndex currentTrack)
         triggerStop();
         break;
     }
+}
+
+void ManageAudioPlayer::setPlayListModel(QAbstractItemModel *aPlayListModel)
+{
+    if (mPlayListModel == aPlayListModel) {
+        return;
+    }
+
+    mPlayListModel = aPlayListModel;
+    Q_EMIT playListModelChanged();
 }
 
 void ManageAudioPlayer::setUrlRole(int value)

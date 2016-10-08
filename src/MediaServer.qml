@@ -205,6 +205,7 @@ ApplicationWindow {
         id: manageAudioPlayer
 
         currentTrack: playListControlerItem.currentTrack
+        playListModel: playListModelItem
         urlRole: MediaPlayList.ResourceRole
         isPlayingRole: MediaPlayList.IsPlayingRole
 

@@ -185,6 +185,8 @@ ApplicationWindow {
 
         isValidRole: MediaPlayList.IsValidRole
 
+        onPlayListFinished: manageAudioPlayer.playListFinished()
+
         //persistentState: persistentSettings.playListControlerState
     }
 

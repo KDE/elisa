@@ -304,7 +304,11 @@ void ManageAudioPlayer::setPlayControlPosition(int playControlPosition)
 
 void ManageAudioPlayer::playerSeek(int position)
 {
+}
 
+void ManageAudioPlayer::playListFinished()
+{
+    mPlayingState = false;
 }
 
 void ManageAudioPlayer::notifyPlayerSourceProperty()

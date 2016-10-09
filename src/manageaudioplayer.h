@@ -200,6 +200,8 @@ public Q_SLOTS:
 
     void playerSeek(int position);
 
+    void playListFinished();
+
 private:
 
     void notifyPlayerSourceProperty();

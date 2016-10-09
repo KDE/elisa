@@ -71,6 +71,8 @@ private Q_SLOTS:
 
     void skipPreviousTrackAndPlayTrack();
 
+    void playLastCase();
+
 };
 
 #endif // MANAGEAUDIOPLAYERTEST_H

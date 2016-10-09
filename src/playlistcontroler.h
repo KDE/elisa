@@ -112,6 +112,8 @@ Q_SIGNALS:
 
     void persistentStateChanged();
 
+    void playListFinished();
+
 public Q_SLOTS:
 
     void setPlayListModel(QAbstractItemModel* aPlayListModel);

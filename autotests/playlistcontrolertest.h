@@ -53,6 +53,8 @@ private Q_SLOTS:
 
     void testBringUpAndSkipPreviousCase();
 
+    void finishPlayList();
+
 };
 
 #endif // PLAYLISTCONTROLERTEST_H

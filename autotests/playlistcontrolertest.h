@@ -57,6 +57,8 @@ private Q_SLOTS:
 
     void randomPlayList();
 
+    void continuePlayList();
+
 };
 
 #endif // PLAYLISTCONTROLERTEST_H

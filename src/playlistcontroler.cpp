@@ -216,14 +216,21 @@ void PlayListControler::skipNextTrack()
         return;
     }
 
-    if (mCurrentTrack.row() >= mPlayListModel->rowCount() - 1) {
+    if (!mRandomPlay && (mCurrentTrack.row() >= (mPlayListModel->rowCount() - 1))) {
         Q_EMIT playListFinished();
         resetCurrentTrack();
 
         return;
     }
 
-    mCurrentTrack = mPlayListModel->index(mCurrentTrack.row() + 1, mCurrentTrack.column(), mCurrentTrack.parent());
+    if (mRandomPlay) {
+        int randomValue = qrand();
+        randomValue = randomValue % (mPlayListModel->rowCount());
+        mCurrentTrack = mPlayListModel->index(randomValue, 0);
+    } else {
+        mCurrentTrack = mPlayListModel->index(mCurrentTrack.row() + 1, 0);
+    }
+
     notifyCurrentTrackChanged();
 }
 

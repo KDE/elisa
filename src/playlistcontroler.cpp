@@ -217,7 +217,10 @@ void PlayListControler::skipNextTrack()
     }
 
     if (!mRandomPlay && (mCurrentTrack.row() >= (mPlayListModel->rowCount() - 1))) {
-        Q_EMIT playListFinished();
+        if (!mRepeatPlay) {
+            Q_EMIT playListFinished();
+        }
+
         resetCurrentTrack();
 
         return;

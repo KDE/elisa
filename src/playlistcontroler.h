@@ -147,6 +147,8 @@ public Q_SLOTS:
 
     void skipPreviousTrack();
 
+    void seedRandomGenerator(uint seed);
+
 private:
 
     void gotoNextTrack();

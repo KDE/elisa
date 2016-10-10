@@ -188,6 +188,13 @@ ApplicationWindow {
         onPlayListFinished: manageAudioPlayer.playListFinished()
 
         //persistentState: persistentSettings.playListControlerState
+
+        Component.onCompleted:
+        {
+            var d = new Date();
+            var n = d.getMilliseconds();
+            seedRandomGenerator(n);
+        }
     }
 
     ManageHeaderBar {

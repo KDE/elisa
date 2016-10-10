@@ -245,6 +245,11 @@ void PlayListControler::skipPreviousTrack()
     notifyCurrentTrackChanged();
 }
 
+void PlayListControler::seedRandomGenerator(uint seed)
+{
+    qsrand(seed);
+}
+
 void PlayListControler::setIsValidRole(int isValidRole)
 {
     mIsValidRole = isValidRole;

@@ -341,36 +341,6 @@ void PlayListControler::setRepeatPlayControl(bool repeatPlayControl)
     Q_EMIT repeatPlayControlChanged();
 }
 
-void PlayListControler::gotoNextTrack()
-{
-    if (!mPlayListModel) {
-        return;
-    }
-
-    if (!mCurrentTrack.isValid()) {
-        return;
-    }
-
-    if (!mRandomPlay && (mCurrentTrack.row() >= mPlayListModel->rowCount(mCurrentTrack.parent()) - 1)) {
-        resetCurrentTrack();
-        return;
-    }
-
-    if (mRandomPlay) {
-        static bool firstTime = true;
-        if (firstTime) {
-            qsrand(QTime::currentTime().msec());
-            firstTime = false;
-        }
-        int randomValue = qrand();
-        randomValue = randomValue % (mPlayListModel->rowCount(mCurrentTrack.parent()) + 1);
-        mCurrentTrack = mPlayListModel->index(randomValue, mCurrentTrack.column(), mCurrentTrack.parent());
-    } else {
-        mCurrentTrack = mPlayListModel->index(mCurrentTrack.row() + 1, mCurrentTrack.column(), mCurrentTrack.parent());
-    }
-    notifyCurrentTrackChanged();
-}
-
 void PlayListControler::resetCurrentTrack()
 {
     for(int row = 0; row < mPlayListModel->rowCount(); ++row) {

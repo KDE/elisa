@@ -151,8 +151,6 @@ public Q_SLOTS:
 
 private:
 
-    void gotoNextTrack();
-
     void resetCurrentTrack();
 
     void restorePlayListPosition();

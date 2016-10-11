@@ -141,8 +141,10 @@ void PlayListControler::tracksInserted(const QModelIndex &parent, int first, int
     Q_UNUSED(first);
     Q_UNUSED(last);
 
-    if (!mCurrentTrack.isValid()) {
-        resetCurrentTrack();
+    if (restorePlayListPosition()) {
+        if (!mCurrentTrack.isValid()) {
+            resetCurrentTrack();
+        }
     }
 }
 
@@ -266,19 +268,27 @@ void PlayListControler::setIsValidRole(int isValidRole)
     emit isValidRoleChanged();
 }
 
-void PlayListControler::restorePlayListPosition()
+bool PlayListControler::restorePlayListPosition()
 {
+    auto result = bool(false);
+
     auto playerCurrentTrack = mPersistentState.find(QStringLiteral("currentTrack"));
     if (playerCurrentTrack != mPersistentState.end()) {
         if (mPlayListModel) {
-            mCurrentTrack = mPlayListModel->index(playerCurrentTrack->toInt(), 0);
-            notifyCurrentTrackChanged();
+            auto newIndex = mPlayListModel->index(playerCurrentTrack->toInt(), 0);
+            if (newIndex.isValid() && (newIndex != mCurrentTrack)) {
+                mCurrentTrack = newIndex;
+                notifyCurrentTrackChanged();
 
-            if (mCurrentTrack.isValid()) {
-                mPersistentState.erase(playerCurrentTrack);
+                if (mCurrentTrack.isValid()) {
+                    mPersistentState.erase(playerCurrentTrack);
+                    result = true;
+                }
             }
         }
     }
+
+    return result;
 }
 
 void PlayListControler::restoreRandomPlay()
@@ -310,6 +320,10 @@ void PlayListControler::notifyCurrentTrackChanged()
 
 void PlayListControler::setPersistentState(QVariantMap persistentStateValue)
 {
+    if (mPersistentState == persistentStateValue) {
+        return;
+    }
+
     qDebug() << "PlayListControler::setPersistentState" << persistentStateValue;
 
     mPersistentState = persistentStateValue;

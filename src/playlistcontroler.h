@@ -153,7 +153,7 @@ private:
 
     void resetCurrentTrack();
 
-    void restorePlayListPosition();
+    bool restorePlayListPosition();
 
     void restoreRandomPlay();
 

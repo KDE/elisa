@@ -174,6 +174,8 @@ Q_SIGNALS:
 
     void playControlPositionChanged();
 
+    void persistentStateChanged();
+
 public Q_SLOTS:
 
     void setCurrentTrack(QPersistentModelIndex currentTrack);

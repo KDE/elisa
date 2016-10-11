@@ -115,7 +115,16 @@ void ManageAudioPlayer::setPlayListModel(QAbstractItemModel *aPlayListModel)
         return;
     }
 
+    if (mPlayListModel) {
+        disconnect(mPlayListModel, &QAbstractItemModel::dataChanged, this, &ManageAudioPlayer::tracksDataChanged);
+    }
+
     mPlayListModel = aPlayListModel;
+
+    if (mPlayListModel) {
+        connect(mPlayListModel, &QAbstractItemModel::dataChanged, this, &ManageAudioPlayer::tracksDataChanged);
+    }
+
     Q_EMIT playListModelChanged();
 }
 
@@ -309,6 +318,31 @@ void ManageAudioPlayer::playerSeek(int position)
 void ManageAudioPlayer::playListFinished()
 {
     mPlayingState = false;
+}
+
+void ManageAudioPlayer::tracksDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles)
+{
+    if (!mCurrentTrack.isValid()) {
+        return;
+    }
+
+    if (mCurrentTrack.row() > bottomRight.row() || mCurrentTrack.row() < topLeft.row()) {
+        return;
+    }
+
+    if (mCurrentTrack.column() > bottomRight.column() || mCurrentTrack.column() < topLeft.column()) {
+        return;
+    }
+
+    if (roles.isEmpty()) {
+        notifyPlayerSourceProperty();
+    } else {
+        for(auto oneRole : roles) {
+            if (oneRole == mUrlRole) {
+                notifyPlayerSourceProperty();
+            }
+        }
+    }
 }
 
 void ManageAudioPlayer::notifyPlayerSourceProperty()

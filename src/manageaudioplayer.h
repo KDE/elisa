@@ -202,6 +202,8 @@ public Q_SLOTS:
 
     void playListFinished();
 
+    void tracksDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles);
+
 private:
 
     void notifyPlayerSourceProperty();

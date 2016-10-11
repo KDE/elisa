@@ -59,6 +59,8 @@ private Q_SLOTS:
 
     void continuePlayList();
 
+    void testRestoreSettings();
+
 };
 
 #endif // PLAYLISTCONTROLERTEST_H

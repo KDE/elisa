@@ -195,11 +195,6 @@ void PlayListControler::tracksRemoved(const QModelIndex &parent, int first, int 
     }
 
     if (mCurrentTrack.row() < first || mCurrentTrack.row() > last) {
-        if (mCurrentTrack.row() > last) {
-            mCurrentTrack = mPlayListModel->index(mCurrentTrack.row() - (last - first + 1), 0);
-            notifyCurrentTrackChanged();
-        }
-
         return;
     }
 

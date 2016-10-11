@@ -173,9 +173,6 @@ void ManageAudioPlayer::setPlayerStatus(int playerStatus)
     case Loading:
         break;
     case Loaded:
-        if (mPlayingState) {
-            triggerPlay();
-        }
         break;
     case Buffering:
         if (mPlayingState) {

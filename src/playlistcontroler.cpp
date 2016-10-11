@@ -33,7 +33,12 @@ PlayListControler::PlayListControler(QObject *parent)
 void PlayListControler::setPlayListModel(QAbstractItemModel *aPlayListModel)
 {
     if (mPlayListModel) {
-        disconnect(mPlayListModel);
+        disconnect(mPlayListModel, &QAbstractItemModel::rowsInserted, this, &PlayListControler::tracksInserted);
+        disconnect(mPlayListModel, &QAbstractItemModel::rowsMoved, this, &PlayListControler::tracksMoved);
+        disconnect(mPlayListModel, &QAbstractItemModel::rowsRemoved, this, &PlayListControler::tracksRemoved);
+        disconnect(mPlayListModel, &QAbstractItemModel::dataChanged, this, &PlayListControler::tracksDataChanged);
+        disconnect(mPlayListModel, &QAbstractItemModel::modelReset, this, &PlayListControler::playListReset);
+        disconnect(mPlayListModel, &QAbstractItemModel::layoutChanged, this, &PlayListControler::playListLayoutChanged);
     }
 
     mPlayListModel = aPlayListModel;
@@ -97,7 +102,6 @@ QVariantMap PlayListControler::persistentState() const
     auto persistentStateValue = QVariantMap();
 
     persistentStateValue[QStringLiteral("currentTrack")] = mCurrentTrack.row();
-    //persistentStateValue[QStringLiteral("playControlPosition")] = mPlayControlPosition;
     persistentStateValue[QStringLiteral("randomPlay")] = mRandomPlay;
     persistentStateValue[QStringLiteral("repeatPlay")] = mRepeatPlay;
 

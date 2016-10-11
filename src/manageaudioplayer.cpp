@@ -85,6 +85,15 @@ int ManageAudioPlayer::playControlPosition() const
     return mPlayControlPosition;
 }
 
+QVariantMap ManageAudioPlayer::persistentState() const
+{
+    auto persistentStateValue = QVariantMap();
+
+    persistentStateValue[QStringLiteral("isPlaying")] = mPlayingState;
+
+    return persistentStateValue;
+}
+
 void ManageAudioPlayer::setCurrentTrack(QPersistentModelIndex currentTrack)
 {
     if (mCurrentTrack == currentTrack) {
@@ -309,6 +318,24 @@ void ManageAudioPlayer::setPlayControlPosition(int playControlPosition)
 
     mPlayControlPosition = playControlPosition;
     Q_EMIT playControlPositionChanged();
+}
+
+void ManageAudioPlayer::setPersistentState(QVariantMap persistentStateValue)
+{
+    if (mPersistentState == persistentStateValue) {
+        return;
+    }
+
+    qDebug() << "ManageAudioPlayer::setPersistentState" << persistentStateValue;
+
+    mPersistentState = persistentStateValue;
+
+    auto isPlaying = mPersistentState.find(QStringLiteral("isPlaying"));
+    if (isPlaying != mPersistentState.end()) {
+        mPlayingState = isPlaying->toBool();
+    }
+
+    Q_EMIT persistentStateChanged();
 }
 
 void ManageAudioPlayer::playerSeek(int position)

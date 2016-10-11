@@ -83,6 +83,11 @@ class ManageAudioPlayer : public QObject
                WRITE setPlayControlPosition
                NOTIFY playControlPositionChanged)
 
+    Q_PROPERTY(QVariantMap persistentState
+               READ persistentState
+               WRITE setPersistentState
+               NOTIFY persistentStateChanged)
+
 public:
 
     enum PlayerStatus {
@@ -142,6 +147,8 @@ public:
 
     int playControlPosition() const;
 
+    QVariantMap persistentState() const;
+
 Q_SIGNALS:
 
     void currentTrackChanged();
@@ -200,6 +207,8 @@ public Q_SLOTS:
 
     void setPlayControlPosition(int playControlPosition);
 
+    void setPersistentState(QVariantMap persistentStateValue);
+
     void playerSeek(int position);
 
     void playListFinished();
@@ -245,6 +254,8 @@ private:
     bool mPlayerIsSeekable = false;
 
     int mPlayControlPosition = 0;
+
+    QVariantMap mPersistentState;
 
 };
 

@@ -98,7 +98,7 @@ ApplicationWindow {
 
     Action {
         id: quitAction
-        text: i18nc('Action to quit the application', '&Quit')
+        text: i18nc("Action to quit the application", "&Quit")
         shortcut: StandardKey.Quit
         onTriggered: Qt.quit()
     }

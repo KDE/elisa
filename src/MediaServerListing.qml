@@ -187,9 +187,9 @@ Item {
                 Label {
                     id: numberLabel
                     text: if (count != undefined)
-                              i18np("1 Song", "%1 Songs", count)
+                              i18np("1 track", "%1 tracks", count)
                           else
-                              i18nc("Number of songs for an album", '0 Songs')
+                              i18nc("Number of tracks for an album", "0 track")
 
                     font.weight: Font.Light
                     horizontalAlignment: Text.AlignLeft
@@ -217,7 +217,7 @@ Item {
             Layout.fillWidth: true
 
             Label {
-                text: i18n("Filter: ")
+                text: i18nc("before the TextField input of the filter", "Filter: ")
             }
 
             TextField {

@@ -79,7 +79,7 @@ Item {
                        } else {
                            parentStackView.pop()
                        }
-            text: 'Back'
+            text: i18nc("Back navigation button", "Back")
         }
 
         RowLayout {

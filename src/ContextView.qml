@@ -92,10 +92,7 @@ Item {
 
         Label {
             id: numberLabel
-            text: if (tracksCount === 1)
-                      tracksCount + ' Song'
-                  else
-                      tracksCount + ' Songs'
+            text: i18np("1 track", "%1 track", tracksCount)
 
             visible: tracksCount !== undefined
 

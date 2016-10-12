@@ -27,7 +27,7 @@ Item {
             anchors.bottom: parent.bottom
             anchors.right: parent.right
 
-            text: 'by Edward Betts (Own work) [CC BY-SA 3.0]'
+            text: i18nc("Copyright text shown for an image", "by Edward Betts (Own work) [CC BY-SA 3.0]")
             color: 'white'
             opacity: 0.4
         }
@@ -150,7 +150,7 @@ Item {
 
                 Label {
                     id: remainingTracksLabel
-                    text: tracksCount + ' tracks remaining'
+                    text: i18np("1 track remaining", "%1 tracks remaining", tracksCount)
                     Layout.alignment: Qt.AlignRight | Qt.AlignBottom
                     elide: "ElideRight"
                     visible: tracksCount > 0

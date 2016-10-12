@@ -54,6 +54,8 @@ ApplicationWindow {
         property var playListState
 
         property var playListControlerState
+
+        property var audioPlayerState
     }
 
     property string globalBrowseFlag: 'BrowseDirectChildren'
@@ -111,7 +113,8 @@ ApplicationWindow {
             persistentSettings.height = mainWindow.height;
 
             persistentSettings.playListState = playListModelItem.persistentState;
-            //persistentSettings.playListControlerState = playListControlerItem.persistentState;
+            persistentSettings.playListControlerState = playListControlerItem.persistentState;
+            persistentSettings.audioPlayerState = manageAudioPlayer.persistentState
         }
     }
 
@@ -187,7 +190,7 @@ ApplicationWindow {
 
         onPlayListFinished: manageAudioPlayer.playListFinished()
 
-        //persistentState: persistentSettings.playListControlerState
+        persistentState: persistentSettings.playListControlerState
 
         Component.onCompleted:
         {
@@ -224,29 +227,12 @@ ApplicationWindow {
         audioDuration: audioPlayer.duration
         playerIsSeekable: audioPlayer.seekable
 
-        onPlayerPlay:
-        {
-            console.log('ManageAudioPlayer.playerPlay')
-            audioPlayer.play()
-        }
+        persistentState: persistentSettings.audioPlayerState
 
-        onPlayerPause:
-        {
-            console.log('ManageAudioPlayer.playerPause')
-            audioPlayer.pause()
-        }
-
-        onPlayerStop:
-        {
-            console.log('ManageAudioPlayer.playerStop')
-            audioPlayer.stop()
-        }
-
-        onSkipNextTrack:
-        {
-            console.log('ManageAudioPlayer.skipNextTrack')
-            playListControlerItem.skipNextTrack()
-        }
+        onPlayerPlay: audioPlayer.play()
+        onPlayerPause: audioPlayer.pause()
+        onPlayerStop: audioPlayer.stop()
+        onSkipNextTrack: playListControlerItem.skipNextTrack()
     }
 
     ManageMediaPlayerControl {

@@ -120,6 +120,7 @@ Item {
                                         model.artist
                                     else
                                         ''
+                            album: albumName
                             itemDecoration: if (model != undefined && model.image !== undefined)
                                                 model.image
                                             else

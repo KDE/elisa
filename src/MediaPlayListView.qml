@@ -150,6 +150,7 @@ Item {
                                              model.trackNumber
                                          else
                                              ''
+                            album: albumContext.albumName
                             isPlaying: model.isPlaying
                             showHoverButtons: false
 

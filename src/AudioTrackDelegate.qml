@@ -29,6 +29,7 @@ Item {
 
     property string title
     property string artist
+    property string album
     property alias itemDecoration : mainIcon.source
     property alias duration : durationLabel.text
     property int trackNumber
@@ -120,6 +121,13 @@ Item {
             }
         }
 
+        Item {
+            Layout.preferredWidth: Screen.pixelDensity * 2
+            Layout.minimumWidth: Screen.pixelDensity * 2
+            Layout.maximumWidth: Screen.pixelDensity * 2
+            width: Screen.pixelDensity * 2
+        }
+
         ColumnLayout {
             Layout.preferredWidth: Screen.pixelDensity * 3.
             Layout.preferredHeight: viewAlbumDelegate.height
@@ -129,14 +137,15 @@ Item {
             spacing: 0
 
             Item {
-                Layout.preferredHeight: Screen.pixelDensity * 2.
-                Layout.minimumHeight: Screen.pixelDensity * 2.
-                Layout.maximumHeight: Screen.pixelDensity * 2.
+                Layout.preferredHeight: Screen.pixelDensity * 3.
+                Layout.minimumHeight: Screen.pixelDensity * 3.
+                Layout.maximumHeight: Screen.pixelDensity * 3.
             }
 
             Label {
                 id: mainLabel
                 text: trackNumber + ' - ' + title
+                font.weight: Font.Bold
                 Layout.preferredWidth: Screen.pixelDensity * 12
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignLeft
@@ -150,6 +159,7 @@ Item {
             Label {
                 id: authorLabel
                 text: artist + ' - ' + album
+                font.weight: Font.Light
                 Layout.preferredWidth: Screen.pixelDensity * 3
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignLeft
@@ -157,9 +167,9 @@ Item {
             }
 
             Item {
-                Layout.preferredHeight: Screen.pixelDensity * 2.
-                Layout.minimumHeight: Screen.pixelDensity * 2.
-                Layout.maximumHeight: Screen.pixelDensity * 2.
+                Layout.preferredHeight: Screen.pixelDensity * 3.
+                Layout.minimumHeight: Screen.pixelDensity * 3.
+                Layout.maximumHeight: Screen.pixelDensity * 3.
             }
         }
 
@@ -215,14 +225,15 @@ Item {
             spacing: 0
 
             Item {
-                Layout.preferredHeight: Screen.pixelDensity * 2.
-                Layout.minimumHeight: Screen.pixelDensity * 2.
-                Layout.maximumHeight: Screen.pixelDensity * 2.
+                Layout.preferredHeight: Screen.pixelDensity * 3.
+                Layout.minimumHeight: Screen.pixelDensity * 3.
+                Layout.maximumHeight: Screen.pixelDensity * 3.
             }
 
             Label {
                 id: durationLabel
                 text: duration
+                font.weight: Font.Bold
                 elide: "ElideRight"
                 Layout.alignment: Qt.AlignRight
             }

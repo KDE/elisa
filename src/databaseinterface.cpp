@@ -791,15 +791,15 @@ void DatabaseInterface::initRequest()
     }
     {
         auto selectTrackFromIdQueryText = QStringLiteral("SELECT "
-                                                   "`Title`, "
-                                                   "`AlbumID`, "
-                                                   "`Artist`, "
-                                                   "`FileName`, "
-                                                   "`TrackNumber`, "
-                                                   "`Duration` "
-                                                   "FROM `Tracks` "
-                                                   "WHERE "
-                                                   "`ID` = :trackId");
+                                                         "`Title`, "
+                                                         "`AlbumID`, "
+                                                         "`Artist`, "
+                                                         "`FileName`, "
+                                                         "`TrackNumber`, "
+                                                         "`Duration` "
+                                                         "FROM `Tracks` "
+                                                         "WHERE "
+                                                         "`ID` = :trackId");
 
         auto result = d->mSelectTrackFromIdQuery.prepare(selectTrackFromIdQueryText);
 
@@ -809,8 +809,8 @@ void DatabaseInterface::initRequest()
     }
     {
         auto selectAlbumIdOfTrackQueryText = QStringLiteral("SELECT `AlbumID` FROM `Tracks` "
-                                              "WHERE "
-                                              "`ID` = :trackId");
+                                                            "WHERE "
+                                                            "`ID` = :trackId");
 
         auto result = d->mSelectAlbumIdOfTrackQuery.prepare(selectAlbumIdOfTrackQueryText);
 
@@ -820,7 +820,7 @@ void DatabaseInterface::initRequest()
     }
     {
         auto selectCountAlbumsQueryText = QStringLiteral("SELECT count(*) "
-                                                   "FROM `Albums`");
+                                                         "FROM `Albums`");
 
         const auto result = d->mSelectCountAlbumsQuery.prepare(selectCountAlbumsQueryText);
 
@@ -841,8 +841,8 @@ void DatabaseInterface::initRequest()
     }
     {
         auto selectAlbumIdFromTitleQueryText = QStringLiteral("SELECT `ID` FROM `Albums` "
-                                              "WHERE "
-                                              "`Title` = :title");
+                                                              "WHERE "
+                                                              "`Title` = :title");
 
         auto result = d->mSelectAlbumIdFromTitleQuery.prepare(selectAlbumIdFromTitleQueryText);
 
@@ -852,7 +852,7 @@ void DatabaseInterface::initRequest()
     }
     {
         auto insertAlbumQueryText = QStringLiteral("INSERT INTO Albums (`ID`, `Title`, `Artist`, `CoverFileName`, `TracksCount`)"
-                                              "VALUES (:albumId, :title, :artist, :coverFileName, :tracksCount)");
+                                                   "VALUES (:albumId, :title, :artist, :coverFileName, :tracksCount)");
 
         auto result = d->mInsertAlbumQuery.prepare(insertAlbumQueryText);
 
@@ -862,10 +862,10 @@ void DatabaseInterface::initRequest()
     }
     {
         auto selectTrackQueryText = QStringLiteral("SELECT ID FROM `Tracks` "
-                                              "WHERE "
-                                              "`Title` = :title AND "
-                                              "`AlbumID` = :album AND "
-                                              "`Artist` = :artist");
+                                                   "WHERE "
+                                                   "`Title` = :title AND "
+                                                   "`AlbumID` = :album AND "
+                                                   "`Artist` = :artist");
 
         auto result = d->mSelectTrackIdFromTitleAlbumIdArtistQuery.prepare(selectTrackQueryText);
 
@@ -874,7 +874,7 @@ void DatabaseInterface::initRequest()
         }
 
         auto insertTrackQueryText = QStringLiteral("INSERT INTO `Tracks` (`ID`, `Title`, `AlbumID`, `Artist`, `FileName`, `TrackNumber`, `Duration`)"
-                                              "VALUES (:trackId, :title, :album, :artist, :fileName, :trackNumber, :trackDuration)");
+                                                   "VALUES (:trackId, :title, :album, :artist, :fileName, :trackNumber, :trackDuration)");
 
         result = d->mInsertTrackQuery.prepare(insertTrackQueryText);
 
@@ -899,9 +899,9 @@ void DatabaseInterface::initRequest()
     }
     {
         auto selectAlbumTrackCountQueryText = QStringLiteral("SELECT `TracksCount` "
-                                                   "FROM `Albums`"
-                                                   "WHERE "
-                                                   "`ID` = :albumId");
+                                                             "FROM `Albums`"
+                                                             "WHERE "
+                                                             "`ID` = :albumId");
 
         auto result = d->mSelectAlbumTrackCountQuery.prepare(selectAlbumTrackCountQueryText);
 

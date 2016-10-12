@@ -219,6 +219,17 @@ void MediaPlayList::enqueue(MediaPlayListEntry newEntry)
     emit persistentStateChanged();
     Q_EMIT trackHasBeenAdded(data(index(d->mData.size() - 1, 0), ColumnsRoles::TitleRole).toString(), data(index(d->mData.size() - 1, 0), ColumnsRoles::ImageRole).toUrl());
     Q_EMIT trackCountChanged();
+
+    if (d->mMusicDatabase && !newEntry.mIsValid) {
+        auto newTrackId = d->mMusicDatabase->trackIdFromTitleAlbumArtist(newEntry.mTitle, newEntry.mAlbum, newEntry.mArtist);
+
+        if (newTrackId != 0) {
+            d->mData.last().mId = newTrackId;
+            d->mData.last().mIsValid = true;
+
+            Q_EMIT dataChanged(index(rowCount() - 1, 0), index(rowCount() - 1, 0), {});
+        }
+    }
 }
 
 void MediaPlayList::move(int from, int to, int n)

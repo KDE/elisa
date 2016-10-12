@@ -60,9 +60,8 @@
 #include <KDeclarative/KDeclarative>
 #endif
 
-#if defined KF5I18n_FOUND && KF5I18n_FOUND
 #include <KI18n/KLocalizedString>
-#endif
+#include <KI18n/KLocalizedContext>
 
 #if defined KF5CoreAddons_FOUND && KF5CoreAddons_FOUND
 #include <KCoreAddons/KAboutData>
@@ -131,9 +130,7 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
 
     qRegisterMetaTypeStreamOperators<ManageMediaPlayerControl::PlayerState>("PlayListControler::PlayerState");
 
-#if defined KF5I18n_FOUND && KF5I18n_FOUND
     KLocalizedString::setApplicationDomain("elisa");
-#endif
 
     //QQmlDebuggingEnabler enabler;
 
@@ -165,9 +162,10 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
 #if defined KF5Declarative_FOUND && KF5Declarative_FOUND
     KDeclarative::KDeclarative decl;
     decl.setDeclarativeEngine(&engine);
-    decl.setTranslationDomain(QStringLiteral("elisa"));
     decl.setupBindings();
 #endif
+
+    engine.rootContext()->setContextObject(new KLocalizedContext(&engine));
 
     engine.load(QUrl(QStringLiteral("qrc:/MediaServer.qml")));
 

@@ -16,8 +16,9 @@ include(KDEInstallDirs)
 include(KDEFrameworkCompilerSettings)
 include(KDECMakeSettings)
 
-find_package(KF5Declarative CONFIG REQUIRED QUIET)
 find_package(KF5I18n CONFIG REQUIRED QUIET)
+
+find_package(KF5Declarative CONFIG QUIET)
 find_package(KF5CoreAddons CONFIG QUIET)
 find_package(KF5Baloo CONFIG QUIET)
 find_package(KF5FileMetaData CONFIG QUIET)

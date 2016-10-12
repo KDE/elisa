@@ -323,8 +323,6 @@ void ManageAudioPlayer::setPersistentState(QVariantMap persistentStateValue)
         return;
     }
 
-    qDebug() << "ManageAudioPlayer::setPersistentState" << persistentStateValue;
-
     mPersistentState = persistentStateValue;
 
     auto isPlaying = mPersistentState.find(QStringLiteral("isPlaying"));

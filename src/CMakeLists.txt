@@ -79,10 +79,10 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
             )
     endif()
 
-    if (${KF5Declarative_FOUND})
-        qt5_add_resources(elisa_SOURCES upnpControl.qrc)
-    else()
+    if (CMAKE_SYSTEM_NAME STREQUAL Android)
         qt5_add_resources(elisa_SOURCES upnpControlMobile.qrc)
+    else()
+        qt5_add_resources(elisa_SOURCES upnpControl.qrc)
     endif()
 
     add_executable(elisa ${elisa_SOURCES})

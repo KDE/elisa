@@ -124,13 +124,14 @@ Item {
             Layout.preferredWidth: Screen.pixelDensity * 3.
             Layout.preferredHeight: viewAlbumDelegate.height
             Layout.fillWidth: true
+            Layout.fillHeight: true
             Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
             spacing: 0
 
             Item {
-                Layout.preferredHeight: Screen.pixelDensity * 4.
-                Layout.minimumHeight: Screen.pixelDensity * 4.
-                Layout.maximumHeight: Screen.pixelDensity * 4.
+                Layout.preferredHeight: Screen.pixelDensity * 2.
+                Layout.minimumHeight: Screen.pixelDensity * 2.
+                Layout.maximumHeight: Screen.pixelDensity * 2.
             }
 
             Label {
@@ -156,9 +157,9 @@ Item {
             }
 
             Item {
-                Layout.preferredHeight: Screen.pixelDensity * 4.
-                Layout.minimumHeight: Screen.pixelDensity * 4.
-                Layout.maximumHeight: Screen.pixelDensity * 4.
+                Layout.preferredHeight: Screen.pixelDensity * 2.
+                Layout.minimumHeight: Screen.pixelDensity * 2.
+                Layout.maximumHeight: Screen.pixelDensity * 2.
             }
         }
 
@@ -214,9 +215,9 @@ Item {
             spacing: 0
 
             Item {
-                Layout.preferredHeight: Screen.pixelDensity * 3.
-                Layout.minimumHeight: Screen.pixelDensity * 3.
-                Layout.maximumHeight: Screen.pixelDensity * 3.
+                Layout.preferredHeight: Screen.pixelDensity * 2.
+                Layout.minimumHeight: Screen.pixelDensity * 2.
+                Layout.maximumHeight: Screen.pixelDensity * 2.
             }
 
             Label {

@@ -33,6 +33,8 @@ public:
 
     DatabaseInterface *mMusicDatabase = nullptr;
 
+    bool mUseLocalIcons = false;
+
 };
 
 MediaPlayList::MediaPlayList(QObject *parent) : QAbstractListModel(parent), d(new MediaPlayListPrivate)
@@ -100,7 +102,20 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
         case ColumnsRoles::ResourceRole:
             return d->mMusicDatabase->trackDataFromDatabaseId(d->mData[index.row()].mId, DatabaseInterface::TrackData::Resource);
         case ColumnsRoles::ImageRole:
-            return d->mMusicDatabase->trackDataFromDatabaseId(d->mData[index.row()].mId, DatabaseInterface::TrackData::Image);
+        {
+            QVariant result;
+            auto albumArt = d->mMusicDatabase->trackDataFromDatabaseId(d->mData[index.row()].mId, DatabaseInterface::TrackData::Image);
+            if (albumArt.isValid() && albumArt.toUrl().isValid()) {
+                result = albumArt;
+            } else {
+                if (d->mUseLocalIcons) {
+                    result = QUrl(QStringLiteral("qrc:/media-optical-audio.svg"));
+                } else {
+                    result = QUrl(QStringLiteral("image://icon/media-optical-audio"));
+                }
+            }
+            return result;
+        }
         case ColumnsRoles::RatingRole:
         case ColumnsRoles::CountRole:
         case ColumnsRoles::CreatorRole:

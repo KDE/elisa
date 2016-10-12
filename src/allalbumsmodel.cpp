@@ -39,11 +39,11 @@ public:
     {
     }
 
+    QString mArtist;
+
     DatabaseInterface *mMusicDatabase = nullptr;
 
     bool mUseLocalIcons = false;
-
-    QString mArtist;
 
 };
 

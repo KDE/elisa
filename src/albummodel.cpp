@@ -189,7 +189,20 @@ QVariant AlbumModel::internalDataTrack(const MusicAudioTrack &track, int role) c
     case ColumnsRoles::RatingRole:
         return 0;
     case ColumnsRoles::ImageRole:
-        return d->mCurrentAlbum.albumArtURI();
+    {
+        QVariant result;
+
+        if (d->mCurrentAlbum.albumArtURI().isValid()) {
+            result = d->mCurrentAlbum.albumArtURI();
+        } else {
+            if (d->mUseLocalIcons) {
+                result = QUrl(QStringLiteral("qrc:/media-optical-audio.svg"));
+            } else {
+                result = QUrl(QStringLiteral("image://icon/media-optical-audio"));
+            }
+        }
+        return result;
+    }
     case ColumnsRoles::ResourceRole:
         return track.resourceURI();
     case ColumnsRoles::ItemClassRole:

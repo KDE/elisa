@@ -145,10 +145,9 @@ void PlayListControler::tracksInserted(const QModelIndex &parent, int first, int
     Q_UNUSED(first);
     Q_UNUSED(last);
 
-    if (restorePlayListPosition()) {
-        if (!mCurrentTrack.isValid()) {
-            resetCurrentTrack();
-        }
+    restorePlayListPosition();
+    if (!mCurrentTrack.isValid()) {
+        resetCurrentTrack();
     }
 }
 
@@ -267,10 +266,8 @@ void PlayListControler::setIsValidRole(int isValidRole)
     emit isValidRoleChanged();
 }
 
-bool PlayListControler::restorePlayListPosition()
+void PlayListControler::restorePlayListPosition()
 {
-    auto result = bool(false);
-
     auto playerCurrentTrack = mPersistentState.find(QStringLiteral("currentTrack"));
     if (playerCurrentTrack != mPersistentState.end()) {
         if (mPlayListModel) {
@@ -281,13 +278,10 @@ bool PlayListControler::restorePlayListPosition()
 
                 if (mCurrentTrack.isValid()) {
                     mPersistentState.erase(playerCurrentTrack);
-                    result = true;
                 }
             }
         }
     }
-
-    return result;
 }
 
 void PlayListControler::restoreRandomPlay()

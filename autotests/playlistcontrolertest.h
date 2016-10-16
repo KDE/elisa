@@ -39,6 +39,8 @@ private Q_SLOTS:
 
     void testBringUpCase();
 
+    void testBringUpCaseFromNewAlbum();
+
     void testBringUpAndDownCase();
 
     void testBringUpAndRemoveCase();

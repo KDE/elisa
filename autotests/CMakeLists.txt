@@ -77,3 +77,16 @@ add_executable(manageaudioplayerTest ${manageaudioplayerTest_SOURCES})
 target_link_libraries(manageaudioplayerTest Qt5::Test Qt5::Core Qt5::Gui)
 target_include_directories(manageaudioplayerTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 add_test(manageaudioplayerTest manageaudioplayerTest)
+
+set(mediaplaylistTest_SOURCES
+    ../src/mediaplaylist.cpp
+    ../src/databaseinterface.cpp
+    ../src/musicalbum.cpp
+    ../src/musicaudiotrack.cpp
+    mediaplaylisttest.cpp
+)
+
+add_executable(mediaplaylistTest ${mediaplaylistTest_SOURCES})
+target_link_libraries(mediaplaylistTest Qt5::Test Qt5::Core Qt5::Sql Qt5::Gui)
+target_include_directories(mediaplaylistTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
+add_test(mediaplaylistTest mediaplaylistTest)

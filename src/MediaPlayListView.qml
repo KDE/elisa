@@ -127,7 +127,7 @@ Item {
                     model: playListModel
 
                     delegate: DraggableItem {
-                        AudioTrackDelegate {
+                        PlayListEntry {
                             height: Screen.pixelDensity * 15.
                             width: playListView.width
                             title: if (model != undefined && model.title !== undefined)

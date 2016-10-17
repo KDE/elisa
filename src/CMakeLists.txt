@@ -23,6 +23,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         MediaAlbumView.qml
         RatingStar.qml
         AudioTrackDelegate.qml
+        PlayListEntry.qml
         MediaPlayerControl.qml
         MediaServerEntry.qml
         MediaContentDirectory.qml
@@ -44,6 +45,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         ContextView.qml
         DraggableItem.qml
         PassiveNotification.qml
+        NavigationActionBar.qml
         )
 
     if (KF5Baloo_FOUND)

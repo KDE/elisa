@@ -28,5 +28,7 @@
         <file>ContextView.qml</file>
         <file>DraggableItem.qml</file>
         <file>PassiveNotification.qml</file>
+        <file>NavigationActionBar.qml</file>
+        <file>PlayListEntry.qml</file>
     </qresource>
 </RCC>

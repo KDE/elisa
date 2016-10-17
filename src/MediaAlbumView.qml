@@ -17,9 +17,9 @@
  * Boston, MA 02110-1301, USA.
  */
 
-import QtQuick 2.4
+import QtQuick 2.5
 import QtQuick.Window 2.2
-import QtQuick.Controls 1.2
+import QtQuick.Controls 1.4
 import QtQuick.Controls.Styles 1.2
 import QtQml.Models 2.1
 import org.mgallien.QmlExtension 1.0
@@ -65,23 +65,6 @@ Item {
         anchors.fill: parent
         spacing: 0
 
-        Button {
-            id: backButton
-
-            height: Screen.pixelDensity * 8.
-            Layout.preferredHeight: height
-            Layout.minimumHeight: height
-            Layout.maximumHeight: height
-            Layout.fillWidth: true
-
-            onClicked: if (listingView.depth > 1) {
-                           listingView.pop()
-                       } else {
-                           parentStackView.pop()
-                       }
-            text: i18nc("Back navigation button", "Back")
-        }
-
         RowLayout {
             Layout.fillHeight: true
             Layout.fillWidth: true
@@ -94,6 +77,24 @@ Item {
 
                 spacing: 0
 
+                NavigationActionBar {
+                    id: navBar
+
+                    height: Screen.pixelDensity * 25.
+
+                    Layout.preferredHeight: height
+                    Layout.minimumHeight: height
+                    Layout.maximumHeight: height
+                    Layout.fillWidth: true
+
+                    parentStackView: topListing.stackView
+                    playList: topListing.playListModel
+                    artist: topListing.artistName
+                    album: topListing.albumName
+                    image: topListing.albumArtUrl
+                    tracksCount: topListing.tracksCount
+                }
+
                 TableView {
                     id: contentDirectoryView
 
@@ -104,13 +105,8 @@ Item {
                             height: Screen.pixelDensity * 15.
                             width: contentDirectoryView.width
 
-                            hoverAction: Action {
-                                id: queueTrack
-
-                                iconSource: 'image://icon/media-playback-start'
-
-                                onTriggered: topListing.playListModel.enqueue(model.databaseId)
-                            }
+                            databaseId: model.databaseId
+                            playList: topListing.playListModel
 
                             title: if (model != undefined && model.title !== undefined)
                                        model.title
@@ -121,10 +117,6 @@ Item {
                                     else
                                         ''
                             album: albumName
-                            itemDecoration: if (model != undefined && model.image !== undefined)
-                                                model.image
-                                            else
-                                                ''
                             duration: if (model != undefined && model.duration !== undefined)
                                           model.duration
                                       else
@@ -133,10 +125,6 @@ Item {
                                              model.trackNumber
                                          else
                                              ''
-                            isPlaying: if (model != undefined && model.isPlaying !== undefined)
-                                           model.isPlaying
-                                       else
-                                           false
                         }
                     }
 

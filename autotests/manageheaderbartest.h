@@ -63,6 +63,8 @@ private Q_SLOTS:
 
     void setCurrentTrackCase();
 
+    void setCurrentTrackCaseFromNewAlbum();
+
     void completeCase();
 
     void setCurrentTrackAndInvalidCase();

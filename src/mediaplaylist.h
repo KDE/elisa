@@ -61,10 +61,6 @@ class MediaPlayList : public QAbstractListModel
                WRITE setDatabaseInterface
                NOTIFY databaseInterfaceChanged)
 
-    Q_PROPERTY(int trackCount
-               READ trackCount
-               NOTIFY trackCountChanged)
-
     Q_PROPERTY(QList<QVariant> persistentState
                READ persistentState
                WRITE setPersistentState
@@ -108,8 +104,6 @@ public:
 
     Q_INVOKABLE bool removeRows(int row, int count, const QModelIndex &parent = QModelIndex()) override;
 
-    int trackCount() const;
-
     Q_INVOKABLE void enqueue(qulonglong newTrackId);
 
     Q_INVOKABLE void enqueue(MediaPlayListEntry newEntry);
@@ -121,8 +115,6 @@ public:
     QList<QVariant> persistentState() const;
 
 Q_SIGNALS:
-
-    void trackCountChanged();
 
     void trackHasBeenAdded(const QString &title, const QUrl &image);
 

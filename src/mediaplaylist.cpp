@@ -215,11 +215,6 @@ bool MediaPlayList::removeRows(int row, int count, const QModelIndex &parent)
     return false;
 }
 
-int MediaPlayList::trackCount() const
-{
-    return d->mData.size();
-}
-
 void MediaPlayList::enqueue(qulonglong newTrackId)
 {
     enqueue(MediaPlayListEntry(newTrackId));
@@ -233,7 +228,6 @@ void MediaPlayList::enqueue(MediaPlayListEntry newEntry)
 
     emit persistentStateChanged();
     Q_EMIT trackHasBeenAdded(data(index(d->mData.size() - 1, 0), ColumnsRoles::TitleRole).toString(), data(index(d->mData.size() - 1, 0), ColumnsRoles::ImageRole).toUrl());
-    Q_EMIT trackCountChanged();
 
     if (d->mMusicDatabase && !newEntry.mIsValid) {
         auto newTrackId = d->mMusicDatabase->trackIdFromTitleAlbumArtist(newEntry.mTitle, newEntry.mAlbum, newEntry.mArtist);

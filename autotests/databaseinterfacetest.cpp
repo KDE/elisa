@@ -46,6 +46,12 @@ private Q_SLOTS:
         qRegisterMetaType<QHash<qlonglong,int>>("QHash<qlonglong,int>");
     }
 
+    void avoidCrashInTrackIdFromTitleAlbumArtist()
+    {
+        DatabaseInterface musicDb;
+        musicDb.trackIdFromTitleAlbumArtist(QStringLiteral("track1"), QStringLiteral("album3"), QStringLiteral("artist2"));
+    }
+
     void addMultipleTimeSameTracks()
     {
         DatabaseInterface musicDb;

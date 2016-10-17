@@ -262,6 +262,10 @@ qulonglong DatabaseInterface::trackIdFromTitleAlbumArtist(QString title, QString
 {
     auto result = qulonglong(0);
 
+    if (!d) {
+        return result;
+    }
+
     auto transactionResult = d->mTracksDatabase.transaction();
     if (!transactionResult) {
         qDebug() << "DatabaseInterface::trackIdFromTitleAlbumArtist" << "transaction failed";

@@ -220,6 +220,12 @@ void MediaPlayList::enqueue(qulonglong newTrackId)
     enqueue(MediaPlayListEntry(newTrackId));
 }
 
+void MediaPlayList::clearAndEnqueue(qulonglong newTrackId)
+{
+    clearPlayList();
+    enqueue(MediaPlayListEntry(newTrackId));
+}
+
 void MediaPlayList::enqueue(MediaPlayListEntry newEntry)
 {
     beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size());
@@ -251,6 +257,41 @@ void MediaPlayList::move(int from, int to, int n)
     endResetModel();
 
     emit persistentStateChanged();
+}
+
+void MediaPlayList::enqueue(QString albumName, QString artistName)
+{
+    if (!d->mMusicDatabase) {
+        return;
+    }
+
+    auto currentAlbum = d->mMusicDatabase->albumFromTitleAndAuthor(albumName, artistName);
+
+    for (auto oneTrackId : currentAlbum.tracksKeys()) {
+        enqueue(oneTrackId);
+    }
+}
+
+void MediaPlayList::clearAndEnqueue(QString albumName, QString artistName)
+{
+    if (!d->mMusicDatabase) {
+        return;
+    }
+
+    clearPlayList();
+
+    auto currentAlbum = d->mMusicDatabase->albumFromTitleAndAuthor(albumName, artistName);
+
+    for (auto oneTrackId : currentAlbum.tracksKeys()) {
+        enqueue(oneTrackId);
+    }
+}
+
+void MediaPlayList::clearPlayList()
+{
+    beginRemoveRows({}, 0, d->mData.count());
+    d->mData.clear();
+    endRemoveRows();
 }
 
 DatabaseInterface *MediaPlayList::databaseInterface() const

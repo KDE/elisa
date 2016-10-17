@@ -20,10 +20,6 @@
 #include "manageheaderbartest.h"
 
 #include "manageheaderbar.h"
-#include "mediaplaylist.h"
-#include "databaseinterface.h"
-#include "musicalbum.h"
-#include "musicaudiotrack.h"
 
 #include <QVariant>
 #include <QList>
@@ -42,7 +38,6 @@ ManageHeaderBarTest::ManageHeaderBarTest(QObject *parent) : QObject(parent)
 void ManageHeaderBarTest::initTestCase()
 {
     qRegisterMetaType<QHash<QString,QUrl>>("QHash<QString,QUrl>");
-    qRegisterMetaType<QHash<QString,QVector<MusicAudioTrack>>>("QHash<QString,QVector<MusicAudioTrack>>");
     qRegisterMetaType<QVector<qlonglong>>("QVector<qlonglong>");
     qRegisterMetaType<QHash<qlonglong,int>>("QHash<qlonglong,int>");
 }

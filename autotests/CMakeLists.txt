@@ -42,10 +42,6 @@ add_test(playListControlerTest playListControlerTest)
 
 set(managemediaplayercontrolTest_SOURCES
     ../src/managemediaplayercontrol.cpp
-    ../src/mediaplaylist.cpp
-    ../src/databaseinterface.cpp
-    ../src/musicalbum.cpp
-    ../src/musicaudiotrack.cpp
     managemediaplayercontroltest.cpp
 )
 
@@ -56,10 +52,6 @@ add_test(managemediaplayercontrolTest managemediaplayercontrolTest)
 
 set(manageheaderbarTest_SOURCES
     ../src/manageheaderbar.cpp
-    ../src/mediaplaylist.cpp
-    ../src/databaseinterface.cpp
-    ../src/musicalbum.cpp
-    ../src/musicaudiotrack.cpp
     manageheaderbartest.cpp
 )
 

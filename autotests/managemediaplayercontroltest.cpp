@@ -20,10 +20,6 @@
 #include "managemediaplayercontroltest.h"
 
 #include "managemediaplayercontrol.h"
-#include "mediaplaylist.h"
-#include "databaseinterface.h"
-#include "musicalbum.h"
-#include "musicaudiotrack.h"
 
 #include <QVariant>
 #include <QList>
@@ -40,7 +36,6 @@ ManageMediaPlayerControlTest::ManageMediaPlayerControlTest(QObject *parent) : QO
 void ManageMediaPlayerControlTest::initTestCase()
 {
     qRegisterMetaType<QHash<QString,QUrl>>("QHash<QString,QUrl>");
-    qRegisterMetaType<QHash<QString,QVector<MusicAudioTrack>>>("QHash<QString,QVector<MusicAudioTrack>>");
     qRegisterMetaType<QVector<qlonglong>>("QVector<qlonglong>");
     qRegisterMetaType<QHash<qlonglong,int>>("QHash<qlonglong,int>");
 }

@@ -361,7 +361,9 @@ ApplicationWindow {
 
                 onCurrentRowChanged:
                 {
-                    mainContentView.currentIndex = currentRow
+                    if (currentRow > 0) {
+                        mainContentView.currentIndex = currentRow - 1
+                    }
                 }
 
                 onRowCountChanged:
@@ -372,57 +374,120 @@ ApplicationWindow {
                 }
             }
 
-            TabView {
-                id: mainContentView
-
-                tabsVisible: false
-
+            Item {
                 Layout.fillHeight: true
                 Layout.fillWidth: true
-                z: 1
 
-                Rectangle {
+                RowLayout {
                     anchors.fill: parent
-                    color: "#FFFFFF"
-                }
+                    spacing: 0
 
-                Tab {
-                    Rectangle {
-                        anchors.fill: parent
-                        color: "#FFFFFF"
+                    id: contentZone
+
+                    TabView {
+                        id: mainContentView
+
+                        tabsVisible: false
+
+                        Layout.fillHeight: true
+
+                        Layout.minimumWidth: 0
+                        Layout.maximumWidth: 0
+                        Layout.preferredWidth: 0
+
+                        z: 1
+                        visible: Layout.minimumWidth != 0
+
+                        Rectangle {
+                            anchors.fill: parent
+                            color: "#FFFFFF"
+                        }
+
+                        Tab {
+                            MediaContentDirectory {
+                                id: localAlbums
+
+                                playListModel: playListModelItem
+                                musicDatabase: localAlbumDatabase
+
+                                anchors.fill: parent
+                            }
+                        }
                     }
+                    Rectangle {
+                        id: playListZone
 
-                    MediaPlayListView {
-                        id: playList
+                        Layout.fillHeight: true
 
-                        playListModel: playListModelItem
+                        Layout.minimumWidth: contentZone.width
+                        Layout.maximumWidth: contentZone.width
+                        Layout.preferredWidth: contentZone.width
 
-                        randomPlayChecked: playListControlerItem.randomPlayControl
-                        repeatPlayChecked: playListControlerItem.repeatPlayControl
+                        color: "#FFFFFF"
 
-                        artistName: myHeaderBarManager.artist
-                        albumName: myHeaderBarManager.album
-                        albumArtUrl: myHeaderBarManager.image
+                        MediaPlayListView {
+                            id: playList
 
-                        anchors.fill: parent
-                        anchors.margins: 3
+                            playListModel: playListModelItem
 
-                        Component.onCompleted:
-                        {
-                            playListControlerItem.randomPlay = Qt.binding(function() { return playList.randomPlayChecked })
-                            playListControlerItem.repeatPlay = Qt.binding(function() { return playList.repeatPlayChecked })
+                            randomPlayChecked: playListControlerItem.randomPlayControl
+                            repeatPlayChecked: playListControlerItem.repeatPlayControl
+
+                            artistName: myHeaderBarManager.artist
+                            albumName: myHeaderBarManager.album
+                            albumArtUrl: myHeaderBarManager.image
+
+                            anchors.fill: parent
+                            anchors.margins: 3
+
+                            Component.onCompleted:
+                            {
+                                playListControlerItem.randomPlay = Qt.binding(function() { return playList.randomPlayChecked })
+                                playListControlerItem.repeatPlay = Qt.binding(function() { return playList.repeatPlayChecked })
+                            }
                         }
                     }
                 }
 
-                Tab {
-                    MediaContentDirectory {
-                        id: localAlbums
-
-                        playListModel: playListModelItem
-                        musicDatabase: localAlbumDatabase
-
-                        anchors.fill: parent
+                states: [
+                    State {
+                        name: 'compact'
+                        when: viewModeView.currentRow > 0
+                        PropertyChanges {
+                            target: mainContentView
+                            Layout.minimumWidth: contentZone.width * 0.8
+                            Layout.maximumWidth: contentZone.width * 0.8
+                            Layout.preferredWidth: contentZone.width * 0.8
+                        }
+                        PropertyChanges {
+                            target: playListZone
+                            Layout.minimumWidth: contentZone.width * 0.2
+                            Layout.maximumWidth: contentZone.width * 0.2
+                            Layout.preferredWidth: contentZone.width * 0.2
+                        }
+                    },
+                    State {
+                        name: 'full'
+                        when: viewModeView.currentRow == 0
+                        PropertyChanges {
+                            target: mainContentView
+                            Layout.minimumWidth: 0
+                            Layout.maximumWidth: 0
+                            Layout.preferredWidth: 0
+                        }
+                        PropertyChanges {
+                            target: playListZone
+                            Layout.minimumWidth: contentZone.width
+                            Layout.maximumWidth: contentZone.width
+                            Layout.preferredWidth: contentZone.width
+                        }
+                    }
+                ]
+                transitions: Transition {
+                    NumberAnimation {
+                        properties: "Layout.minimumWidth, Layout.maximumWidth, Layout.preferredWidth"
+                        easing.type: Easing.InOutQuad
+                        duration: 300
                     }
                 }
             }

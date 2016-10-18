@@ -116,9 +116,18 @@ Item {
             TableView {
                 id: playListView
 
-                Layout.minimumWidth: topItem.width / 2
-                Layout.maximumWidth: topItem.width / 2
-                Layout.preferredWidth: topItem.width / 2
+                Layout.minimumWidth: if (topItem.width < 300)
+                                         topItem.width
+                                     else
+                                         topItem.width / 2
+                Layout.maximumWidth: if (topItem.width < 300)
+                                         topItem.width
+                                     else
+                                         topItem.width / 2
+                Layout.preferredWidth: if (topItem.width < 300)
+                                           topItem.width
+                                       else
+                                           topItem.width / 2
 
                 Layout.fillWidth: true
                 Layout.fillHeight: true
@@ -181,30 +190,72 @@ Item {
                     role: "title"
                     title: "Title"
                 }
+
+                Behavior on width {
+                    NumberAnimation {
+                        duration: 300
+                        easing.type: Easing.InOutQuad
+                    }
+                }
             }
 
             Rectangle {
+                id: viewSeparatorItem
+
                 border.width: 1
                 border.color: "#DDDDDD"
                 color: "#DDDDDD"
+                visible: Layout.minimumWidth != 0
 
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
 
                 Layout.preferredHeight: parent.height - Screen.pixelDensity * 5.
-                Layout.preferredWidth: 1
-                Layout.minimumWidth: 1
-                Layout.maximumWidth: 1
+                Layout.preferredWidth: if (topItem.width > 300)
+                                           1
+                                       else
+                                           0
+                Layout.minimumWidth: if (topItem.width > 300)
+                                         1
+                                     else
+                                         0
+                Layout.maximumWidth: if (topItem.width > 300)
+                                         1
+                                     else
+                                         0
+                Behavior on width {
+                    NumberAnimation {
+                        duration: 300
+                        easing.type: Easing.InOutQuad
+                    }
+                }
             }
 
             ContextView {
                 id: albumContext
 
-                Layout.minimumWidth: topItem.width / 2
-                Layout.maximumWidth: topItem.width / 2
-                Layout.preferredWidth: topItem.width / 2
+                visible: Layout.minimumWidth != 0
 
-                Layout.fillWidth: true
+                Layout.minimumWidth: if (topItem.width > 300)
+                                         topItem.width / 2
+                                     else
+                                         0
+                Layout.maximumWidth: if (topItem.width > 300)
+                                         topItem.width / 2
+                                     else
+                                         0
+                Layout.preferredWidth: if (topItem.width > 300)
+                                           topItem.width / 2
+                                       else
+                                           0
+
                 Layout.fillHeight: true
+
+                Behavior on width {
+                    NumberAnimation {
+                        duration: 300
+                        easing.type: Easing.InOutQuad
+                    }
+                }
             }
         }
     }

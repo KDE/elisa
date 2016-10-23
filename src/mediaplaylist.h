@@ -82,6 +82,7 @@ public:
         ResourceRole = ImageRole + 1,
         CountRole = ResourceRole + 1,
         IsPlayingRole = CountRole + 1,
+        HasAlbumHeader = IsPlayingRole + 1,
     };
 
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 5, 0))

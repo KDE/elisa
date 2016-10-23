@@ -41,6 +41,12 @@ private Q_SLOTS:
 
     void enqueueAlbumCase();
 
+    void removeFirstTrackOfAlbum();
+
+    void testHasHeader();
+
+    void testHasHeaderWithRestore();
+
 };
 
 #endif // MEDIAPLAYLISTTEST_H

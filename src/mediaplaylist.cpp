@@ -69,7 +69,7 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
         return QVariant();
     }
 
-    if (role < ColumnsRoles::IsValidRole || role > ColumnsRoles::IsPlayingRole) {
+    if (role < ColumnsRoles::IsValidRole || role > ColumnsRoles::HasAlbumHeader) {
         return QVariant();
     }
 
@@ -116,6 +116,17 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
             }
             return result;
         }
+        case ColumnsRoles::HasAlbumHeader:
+            if (index.row() > 0) {
+                auto currentAlbum = d->mMusicDatabase->trackDataFromDatabaseId(d->mData[index.row()].mId, DatabaseInterface::TrackData::Album).toString();
+                auto previousAlbum = d->mMusicDatabase->trackDataFromDatabaseId(d->mData[index.row() - 1].mId, DatabaseInterface::TrackData::Album).toString();
+                auto currentArtist = d->mMusicDatabase->trackDataFromDatabaseId(d->mData[index.row()].mId, DatabaseInterface::TrackData::Artist).toString();
+                auto previousArtist = d->mMusicDatabase->trackDataFromDatabaseId(d->mData[index.row() - 1].mId, DatabaseInterface::TrackData::Artist).toString();
+                if (currentAlbum == previousAlbum /*&& currentArtist == previousArtist*/) {
+                    return false;
+                }
+            }
+            return true;
         case ColumnsRoles::RatingRole:
         case ColumnsRoles::CountRole:
         case ColumnsRoles::CreatorRole:
@@ -138,6 +149,8 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
             return d->mData[index.row()].mAlbum;
         case ColumnsRoles::TrackNumberRole:
             return -1;
+        case ColumnsRoles::HasAlbumHeader:
+            return false;
         case ColumnsRoles::DurationRole:
         case ColumnsRoles::MilliSecondsDurationRole:
         case ColumnsRoles::ResourceRole:
@@ -164,7 +177,7 @@ bool MediaPlayList::setData(const QModelIndex &index, const QVariant &value, int
         return modelModified;
     }
 
-    if (role < ColumnsRoles::IsValidRole || role > ColumnsRoles::IsPlayingRole) {
+    if (role < ColumnsRoles::IsValidRole || role > ColumnsRoles::HasAlbumHeader) {
         return modelModified;
     }
 
@@ -198,6 +211,7 @@ QHash<int, QByteArray> MediaPlayList::roleNames() const
     roles[static_cast<int>(ColumnsRoles::ImageRole)] = "image";
     roles[static_cast<int>(ColumnsRoles::CountRole)] = "count";
     roles[static_cast<int>(ColumnsRoles::IsPlayingRole)] = "isPlaying";
+    roles[static_cast<int>(ColumnsRoles::HasAlbumHeader)] = "hasAlbumHeader";
 
     return roles;
 }
@@ -205,10 +219,23 @@ QHash<int, QByteArray> MediaPlayList::roleNames() const
 bool MediaPlayList::removeRows(int row, int count, const QModelIndex &parent)
 {
     beginRemoveRows(parent, row, row + count - 1);
+
+    bool willChangeData = false;
+
+    if (rowCount() > row + count + 1) {
+        if ((d->mData[row + count].mAlbum == d->mData[row + count + 1].mAlbum) && (d->mData[row + count].mTitle == d->mData[row + count + 1].mTitle)) {
+            willChangeData = true;
+        }
+    }
+
     for (int i = row, cpt = 0; cpt < count; ++i, ++cpt) {
         d->mData.removeAt(i);
     }
     endRemoveRows();
+
+    if (willChangeData) {
+        Q_EMIT dataChanged(index(row, 0), index(row, 0), {ColumnsRoles::HasAlbumHeader});
+    }
 
     emit persistentStateChanged();
 

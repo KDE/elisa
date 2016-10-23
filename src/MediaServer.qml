@@ -242,188 +242,209 @@ ApplicationWindow {
         currentTrack: playListControlerItem.currentTrack
     }
 
-    ColumnLayout {
+    Rectangle {
+        color: "white"
         anchors.fill: parent
-        spacing: 0
 
-        HeaderBar {
-            id: headerBar
-
-            Layout.preferredHeight: Screen.pixelDensity * 28.
-            Layout.minimumHeight: Layout.preferredHeight
-            Layout.maximumHeight: Layout.preferredHeight
-            Layout.fillWidth: true
-
-            tracksCount: myHeaderBarManager.remainingTracks
-            album: myHeaderBarManager.album
-            title: myHeaderBarManager.title
-            artist: myHeaderBarManager.artist
-            image: myHeaderBarManager.image
-
-            ratingVisible: false
-        }
-
-        MediaPlayerControl {
-            id: playControlItem
-
-            duration: audioPlayer.duration
-            seekable: audioPlayer.seekable
-
-            volume: 1.0
-            position: audioPlayer.position
-            skipBackwardEnabled: myPlayControlManager.skipBackwardControlEnabled
-            skipForwardEnabled: myPlayControlManager.skipForwardControlEnabled
-            playEnabled: myPlayControlManager.playControlEnabled
-            isPlaying: myPlayControlManager.musicPlaying
-
-            Layout.preferredHeight: Screen.pixelDensity * 10.
-            Layout.minimumHeight: Layout.preferredHeight
-            Layout.maximumHeight: Layout.preferredHeight
-            Layout.fillWidth: true
-
-            onSeek: audioPlayer.seek(position)
-
-            onPlay: manageAudioPlayer.playPause()
-            onPause: manageAudioPlayer.playPause()
-
-            onPlayPrevious: playListControlerItem.skipPreviousTrack()
-            onPlayNext: playListControlerItem.skipNextTrack()
-        }
-
-        RowLayout {
-            Layout.fillHeight: true
-            Layout.fillWidth: true
+        ColumnLayout {
+            anchors.fill: parent
             spacing: 0
 
-            TableView {
-                id: viewModeView
+            HeaderBar {
+                id: headerBar
 
-                Layout.fillHeight: true
-                Layout.preferredWidth: Screen.pixelDensity * 50.
-                Layout.minimumWidth: Screen.pixelDensity * 50.
-                Layout.maximumWidth: Screen.pixelDensity * 50.
-
-                headerVisible: false
-                frameVisible: false
-                focus: true
-                backgroundVisible: false
-                z: 2
-
-                rowDelegate: Rectangle {
-                    color: '#EFF0F1'
-
-                    height: Screen.pixelDensity * 8.
-                    width: viewModeView.width
-                }
-
-                model: ListModel {
-                    id: pageModel
-
-                    ListElement {
-                        name: 'Now Playing'
-                    }
-
-                    ListElement {
-                        name: 'Albums'
-                    }
-                }
-
-                itemDelegate: Rectangle {
-                    height: Screen.pixelDensity * 8.
-                    width: viewModeView.width
-                    color: if (styleData.selected)
-                               '#3DAEE9'
-                           else
-                               '#EFF0F1'
-                    Label {
-                        id: nameLabel
-                        anchors.verticalCenter: parent.verticalCenter
-                        anchors.left: parent.left
-                        anchors.right: parent.right
-                        anchors.leftMargin: Screen.pixelDensity * 2.
-                        anchors.rightMargin: Screen.pixelDensity * 2.
-                        verticalAlignment: "AlignVCenter"
-
-                        text: model.name
-
-                        color: if (styleData.selected)
-                                   'white'
-                               else
-                                   'black'
-
-                    }
-                }
-
-                TableViewColumn {
-                    role: 'name'
-                    width: viewModeView.width
-                }
-
-                onCurrentRowChanged:
-                {
-                    if (currentRow > 0) {
-                        mainContentView.currentIndex = currentRow - 1
-                    }
-                }
-
-                onRowCountChanged:
-                {
-                    viewModeView.selection.clear()
-                    viewModeView.currentRow = 0
-                    viewModeView.selection.select(0)
-                }
-            }
-
-            Item {
-                Layout.fillHeight: true
+                Layout.preferredHeight: Screen.pixelDensity * 28.
+                Layout.minimumHeight: Layout.preferredHeight
+                Layout.maximumHeight: Layout.preferredHeight
                 Layout.fillWidth: true
 
-                RowLayout {
-                    anchors.fill: parent
-                    spacing: 0
+                tracksCount: myHeaderBarManager.remainingTracks
+                album: myHeaderBarManager.album
+                title: myHeaderBarManager.title
+                artist: myHeaderBarManager.artist
+                image: myHeaderBarManager.image
 
-                    id: contentZone
+                ratingVisible: false
+            }
 
-                    TabView {
-                        id: mainContentView
+            MediaPlayerControl {
+                id: playControlItem
 
-                        tabsVisible: false
+                duration: audioPlayer.duration
+                seekable: audioPlayer.seekable
 
-                        Layout.fillHeight: true
+                volume: 1.0
+                position: audioPlayer.position
+                skipBackwardEnabled: myPlayControlManager.skipBackwardControlEnabled
+                skipForwardEnabled: myPlayControlManager.skipForwardControlEnabled
+                playEnabled: myPlayControlManager.playControlEnabled
+                isPlaying: myPlayControlManager.musicPlaying
 
-                        Layout.minimumWidth: 0
-                        Layout.maximumWidth: 0
-                        Layout.preferredWidth: 0
+                Layout.preferredHeight: Screen.pixelDensity * 10.
+                Layout.minimumHeight: Layout.preferredHeight
+                Layout.maximumHeight: Layout.preferredHeight
+                Layout.fillWidth: true
 
-                        z: 1
-                        visible: Layout.minimumWidth != 0
+                onSeek: audioPlayer.seek(position)
 
-                        Rectangle {
-                            anchors.fill: parent
-                            color: "#FFFFFF"
+                onPlay: manageAudioPlayer.playPause()
+                onPause: manageAudioPlayer.playPause()
+
+                onPlayPrevious: playListControlerItem.skipPreviousTrack()
+                onPlayNext: playListControlerItem.skipNextTrack()
+            }
+
+            RowLayout {
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+                spacing: 0
+
+                Rectangle {
+                    color: '#EFF0F1'
+
+                    Layout.fillHeight: true
+                    Layout.preferredWidth: Screen.pixelDensity * 50.
+                    Layout.minimumWidth: Screen.pixelDensity * 50.
+                    Layout.maximumWidth: Screen.pixelDensity * 50.
+
+                    TableView {
+                        id: viewModeView
+
+                        anchors.fill: parent
+
+                        headerVisible: false
+                        frameVisible: false
+                        focus: true
+                        backgroundVisible: false
+                        z: 2
+
+                        rowDelegate: Rectangle {
+                            color: '#EFF0F1'
+
+                            height: Screen.pixelDensity * 8.
+                            width: viewModeView.width
                         }
 
-                        Tab {
-                            MediaContentDirectory {
-                                id: localAlbums
+                        model: ListModel {
+                            id: pageModel
 
-                                playListModel: playListModelItem
-                                musicDatabase: localAlbumDatabase
+                            ListElement {
+                                name: 'Now Playing'
+                            }
 
-                                anchors.fill: parent
+                            ListElement {
+                                name: 'Albums'
                             }
                         }
+
+                        itemDelegate: Rectangle {
+                            height: Screen.pixelDensity * 8.
+                            width: viewModeView.width
+                            color: if (styleData.selected)
+                                       '#3DAEE9'
+                                   else
+                                       '#EFF0F1'
+                            Label {
+                                id: nameLabel
+                                anchors.verticalCenter: parent.verticalCenter
+                                anchors.left: parent.left
+                                anchors.right: parent.right
+                                anchors.leftMargin: Screen.pixelDensity * 2.
+                                anchors.rightMargin: Screen.pixelDensity * 2.
+                                verticalAlignment: "AlignVCenter"
+
+                                text: model.name
+
+                                color: if (styleData.selected)
+                                           'white'
+                                       else
+                                           'black'
+
+                            }
+                        }
+
+                        TableViewColumn {
+                            role: 'name'
+                            width: viewModeView.width
+                        }
+
+                        onCurrentRowChanged:
+                        {
+                            if (currentRow > 0) {
+                                mainContentView.currentIndex = currentRow - 1
+                            }
+                        }
+
+                        onRowCountChanged:
+                        {
+                            viewModeView.selection.clear()
+                            viewModeView.currentRow = 0
+                            viewModeView.selection.select(0)
+                        }
                     }
-                    Rectangle {
-                        id: playListZone
+                }
 
-                        Layout.fillHeight: true
+                Item {
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
 
-                        Layout.minimumWidth: contentZone.width
-                        Layout.maximumWidth: contentZone.width
-                        Layout.preferredWidth: contentZone.width
+                    RowLayout {
+                        anchors.fill: parent
+                        spacing: 0
 
-                        color: "#FFFFFF"
+                        id: contentZone
+
+                        TabView {
+                            id: mainContentView
+
+                            tabsVisible: false
+                            frameVisible: false
+
+                            Layout.leftMargin: Screen.pixelDensity * 0.5
+                            Layout.rightMargin: Screen.pixelDensity * 0.5
+
+                            Layout.fillHeight: true
+
+                            Layout.minimumWidth: 0
+                            Layout.maximumWidth: 0
+                            Layout.preferredWidth: 0
+
+                            //z: 1
+                            visible: Layout.minimumWidth != 0
+
+                            Tab {
+                                MediaContentDirectory {
+                                    id: localAlbums
+
+                                    playListModel: playListModelItem
+                                    musicDatabase: localAlbumDatabase
+
+                                    anchors.fill: parent
+                                }
+                            }
+                        }
+
+                        Rectangle {
+                            id: firstViewSeparatorItem
+
+                            border.width: 1
+                            border.color: "#DDDDDD"
+                            color: "#DDDDDD"
+                            visible: true
+
+                            Layout.bottomMargin: Screen.pixelDensity * 0.5
+                            Layout.topMargin: Screen.pixelDensity * 0.5
+
+                            Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+
+                            Layout.preferredHeight: parent.height - Screen.pixelDensity * 5.
+                            Layout.minimumHeight: parent.height - Screen.pixelDensity * 5.
+                            Layout.maximumHeight: parent.height - Screen.pixelDensity * 5.
+
+                            Layout.preferredWidth: 1
+                            Layout.minimumWidth: 1
+                            Layout.maximumWidth: 1
+                        }
 
                         MediaPlayListView {
                             id: playList
@@ -433,12 +454,11 @@ ApplicationWindow {
                             randomPlayChecked: playListControlerItem.randomPlayControl
                             repeatPlayChecked: playListControlerItem.repeatPlayControl
 
-                            artistName: myHeaderBarManager.artist
-                            albumName: myHeaderBarManager.album
-                            albumArtUrl: myHeaderBarManager.image
+                            Layout.fillHeight: true
 
-                            anchors.fill: parent
-                            anchors.margins: 3
+                            Layout.minimumWidth: contentZone.width
+                            Layout.maximumWidth: contentZone.width
+                            Layout.preferredWidth: contentZone.width
 
                             Component.onCompleted:
                             {
@@ -446,48 +466,117 @@ ApplicationWindow {
                                 playListControlerItem.repeatPlay = Qt.binding(function() { return playList.repeatPlayChecked })
                             }
                         }
-                    }
-                }
 
-                states: [
-                    State {
-                        name: 'compact'
-                        when: viewModeView.currentRow > 0
-                        PropertyChanges {
-                            target: mainContentView
-                            Layout.minimumWidth: contentZone.width * 0.8
-                            Layout.maximumWidth: contentZone.width * 0.8
-                            Layout.preferredWidth: contentZone.width * 0.8
+                        Rectangle {
+                            id: viewSeparatorItem
+
+                            border.width: 1
+                            border.color: "#DDDDDD"
+                            color: "#DDDDDD"
+                            visible: Layout.minimumWidth != 0
+
+                            Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+
+                            Layout.preferredHeight: parent.height - Screen.pixelDensity * 5.
+
+                            Layout.preferredWidth: 1
+                            Layout.minimumWidth: 1
+                            Layout.maximumWidth: 1
                         }
-                        PropertyChanges {
-                            target: playListZone
-                            Layout.minimumWidth: contentZone.width * 0.2
-                            Layout.maximumWidth: contentZone.width * 0.2
-                            Layout.preferredWidth: contentZone.width * 0.2
-                        }
-                    },
-                    State {
-                        name: 'full'
-                        when: viewModeView.currentRow == 0
-                        PropertyChanges {
-                            target: mainContentView
-                            Layout.minimumWidth: 0
-                            Layout.maximumWidth: 0
-                            Layout.preferredWidth: 0
-                        }
-                        PropertyChanges {
-                            target: playListZone
+
+                        ContextView {
+                            id: albumContext
+
+                            Layout.fillHeight: true
+
                             Layout.minimumWidth: contentZone.width
                             Layout.maximumWidth: contentZone.width
                             Layout.preferredWidth: contentZone.width
+
+                            visible: Layout.minimumWidth != 0
+
+                            artistName: myHeaderBarManager.artist
+                            albumName: myHeaderBarManager.album
+                            albumArtUrl: myHeaderBarManager.image
                         }
                     }
-                ]
-                transitions: Transition {
-                    NumberAnimation {
-                        properties: "Layout.minimumWidth, Layout.maximumWidth, Layout.preferredWidth"
-                        easing.type: Easing.InOutQuad
-                        duration: 300
+
+                    states: [
+                        State {
+                            name: 'compact'
+                            when: viewModeView.currentRow > 0
+                            PropertyChanges {
+                                target: mainContentView
+                                Layout.minimumWidth: contentZone.width * 0.66
+                                Layout.maximumWidth: contentZone.width * 0.66
+                                Layout.preferredWidth: contentZone.width * 0.66
+                            }
+                            PropertyChanges {
+                                target: firstViewSeparatorItem
+                                Layout.minimumWidth: 1
+                                Layout.maximumWidth: 1
+                                Layout.preferredWidth: 1
+                            }
+                            PropertyChanges {
+                                target: playList
+                                Layout.minimumWidth: contentZone.width * 0.33
+                                Layout.maximumWidth: contentZone.width * 0.33
+                                Layout.preferredWidth: contentZone.width * 0.33
+                            }
+                            PropertyChanges {
+                                target: viewSeparatorItem
+                                Layout.minimumWidth: 0
+                                Layout.maximumWidth: 0
+                                Layout.preferredWidth: 0
+                            }
+                            PropertyChanges {
+                                target: albumContext
+                                Layout.minimumWidth: 0
+                                Layout.maximumWidth: 0
+                                Layout.preferredWidth: 0
+                            }
+                        },
+                        State {
+                            name: 'full'
+                            when: viewModeView.currentRow == 0
+                            PropertyChanges {
+                                target: mainContentView
+                                Layout.minimumWidth: 0
+                                Layout.maximumWidth: 0
+                                Layout.preferredWidth: 0
+                            }
+                            PropertyChanges {
+                                target: firstViewSeparatorItem
+                                Layout.minimumWidth: 0
+                                Layout.maximumWidth: 0
+                                Layout.preferredWidth: 0
+                            }
+                            PropertyChanges {
+                                target: playList
+                                Layout.minimumWidth: contentZone.width / 2
+                                Layout.maximumWidth: contentZone.width / 2
+                                Layout.preferredWidth: contentZone.width / 2
+                            }
+                            PropertyChanges {
+                                target: viewSeparatorItem
+                                Layout.minimumWidth: 1
+                                Layout.maximumWidth: 1
+                                Layout.preferredWidth: 1
+                            }
+                            PropertyChanges {
+                                target: albumContext
+                                Layout.minimumWidth: contentZone.width / 2
+                                Layout.maximumWidth: contentZone.width / 2
+                                Layout.preferredWidth: contentZone.width / 2
+                            }
+                        }
+                    ]
+                    transitions: Transition {
+                        NumberAnimation {
+                            properties: "Layout.minimumWidth, Layout.maximumWidth, Layout.preferredWidth"
+                            easing.type: Easing.InOutQuad
+                            duration: 300
+                        }
                     }
                 }
             }

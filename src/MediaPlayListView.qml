@@ -33,11 +33,6 @@ Item {
     property alias randomPlayChecked: shuffleOption.checked
     property alias repeatPlayChecked: repeatOption.checked
 
-    property alias albumName: albumContext.albumName
-    property alias artistName: albumContext.artistName
-    property alias albumArtUrl: albumContext.albumArtUrl
-    property alias tracksCount: albumContext.tracksCount
-
     id: topItem
 
     Component {
@@ -60,6 +55,9 @@ Item {
             Layout.alignment: Qt.AlignVCenter
 
             Layout.fillWidth: true
+
+            Layout.leftMargin: Screen.pixelDensity * 1.
+            Layout.rightMargin: Screen.pixelDensity * 1.
 
             CheckBox {
                 id: shuffleOption
@@ -104,158 +102,81 @@ Item {
             Layout.preferredHeight: 1
             Layout.minimumHeight: 1
             Layout.maximumHeight: 1
+
+            Layout.leftMargin: Screen.pixelDensity * 2.5
+            Layout.rightMargin: Screen.pixelDensity * 2.5
         }
 
-        RowLayout {
-            id: contentLayout
-            spacing: 0
+        TableView {
+            id: playListView
 
-            Layout.fillHeight: true
             Layout.fillWidth: true
+            Layout.fillHeight: true
 
-            TableView {
-                id: playListView
+            model: DelegateModel {
+                model: playListModel
 
-                Layout.minimumWidth: if (topItem.width < 300)
-                                         topItem.width
+                delegate: DraggableItem {
+                    PlayListEntry {
+                        height: (model.hasAlbumHeader ? Screen.pixelDensity * 22.5 : Screen.pixelDensity * 6.)
+                        width: playListView.width
+                        hasAlbumHeader: if (model != undefined && model.hasAlbumHeader !== undefined)
+                                            model.hasAlbumHeader
+                                        else
+                                            true
+                        title: if (model != undefined && model.title !== undefined)
+                                   model.title
+                               else
+                                   ''
+                        artist: if (model != undefined && model.artist !== undefined)
+                                    model.artist
+                                else
+                                    ''
+                        itemDecoration: if (model != undefined && model.image !== undefined)
+                                            model.image
+                                        else
+                                            ''
+                        duration: if (model != undefined && model.duration !== undefined)
+                                      model.duration
+                                  else
+                                      ''
+                        trackNumber: if (model != undefined && model.trackNumber !== undefined)
+                                         model.trackNumber
                                      else
-                                         topItem.width / 2
-                Layout.maximumWidth: if (topItem.width < 300)
-                                         topItem.width
-                                     else
-                                         topItem.width / 2
-                Layout.preferredWidth: if (topItem.width < 300)
-                                           topItem.width
-                                       else
-                                           topItem.width / 2
+                                         ''
+                        album: if (model != undefined && model.album !== undefined)
+                                   model.album
+                               else
+                                   ''
+                        isPlaying: model.isPlaying
+                        showHoverButtons: false
 
-                Layout.fillWidth: true
-                Layout.fillHeight: true
+                        hoverAction: Action {
+                            id: playListRemove
 
-                model: DelegateModel {
-                    model: playListModel
+                            iconSource: 'image://icon/list-remove'
 
-                    delegate: DraggableItem {
-                        PlayListEntry {
-                            height: Screen.pixelDensity * 15.
-                            width: playListView.width
-                            title: if (model != undefined && model.title !== undefined)
-                                       model.title
-                                   else
-                                       ''
-                            artist: if (model != undefined && model.artist !== undefined)
-                                        model.artist
-                                    else
-                                        ''
-                            itemDecoration: if (model != undefined && model.image !== undefined)
-                                                model.image
-                                            else
-                                                ''
-                            duration: if (model != undefined && model.duration !== undefined)
-                                          model.duration
-                                      else
-                                          ''
-                            trackNumber: if (model != undefined && model.trackNumber !== undefined)
-                                             model.trackNumber
-                                         else
-                                             ''
-                            album: albumContext.albumName
-                            isPlaying: model.isPlaying
-                            showHoverButtons: false
-
-                            hoverAction: Action {
-                                id: playListRemove
-
-                                iconSource: 'image://icon/list-remove'
-
-                                onTriggered: playListModel.removeRows(index, 1, playListView.model.rootIndex)
-                            }
-                        }
-
-                        draggedItemParent: topItem
-
-                        onMoveItemRequested: {
-                            playListModel.move(from, to, 1);
+                            onTriggered: playListModel.removeRows(index, 1, playListView.model.rootIndex)
                         }
                     }
-                }
 
-                backgroundVisible: false
-                headerVisible: false
-                frameVisible: false
-                focus: true
-                rowDelegate: rowDelegate
+                    draggedItemParent: topItem
 
-                TableViewColumn {
-                    role: "title"
-                    title: "Title"
-                }
-
-                Behavior on width {
-                    NumberAnimation {
-                        duration: 300
-                        easing.type: Easing.InOutQuad
+                    onMoveItemRequested: {
+                        playListModel.move(from, to, 1);
                     }
                 }
             }
 
-            Rectangle {
-                id: viewSeparatorItem
+            backgroundVisible: false
+            headerVisible: false
+            frameVisible: false
+            focus: true
+            rowDelegate: rowDelegate
 
-                border.width: 1
-                border.color: "#DDDDDD"
-                color: "#DDDDDD"
-                visible: Layout.minimumWidth != 0
-
-                Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-
-                Layout.preferredHeight: parent.height - Screen.pixelDensity * 5.
-                Layout.preferredWidth: if (topItem.width > 300)
-                                           1
-                                       else
-                                           0
-                Layout.minimumWidth: if (topItem.width > 300)
-                                         1
-                                     else
-                                         0
-                Layout.maximumWidth: if (topItem.width > 300)
-                                         1
-                                     else
-                                         0
-                Behavior on width {
-                    NumberAnimation {
-                        duration: 300
-                        easing.type: Easing.InOutQuad
-                    }
-                }
-            }
-
-            ContextView {
-                id: albumContext
-
-                visible: Layout.minimumWidth != 0
-
-                Layout.minimumWidth: if (topItem.width > 300)
-                                         topItem.width / 2
-                                     else
-                                         0
-                Layout.maximumWidth: if (topItem.width > 300)
-                                         topItem.width / 2
-                                     else
-                                         0
-                Layout.preferredWidth: if (topItem.width > 300)
-                                           topItem.width / 2
-                                       else
-                                           0
-
-                Layout.fillHeight: true
-
-                Behavior on width {
-                    NumberAnimation {
-                        duration: 300
-                        easing.type: Easing.InOutQuad
-                    }
-                }
+            TableViewColumn {
+                role: "title"
+                title: "Title"
             }
         }
     }

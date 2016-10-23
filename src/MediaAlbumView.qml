@@ -65,108 +65,86 @@ Item {
         anchors.fill: parent
         spacing: 0
 
-        RowLayout {
+        NavigationActionBar {
+            id: navBar
+
+            height: Screen.pixelDensity * 25.
+
+            Layout.preferredHeight: height
+            Layout.minimumHeight: height
+            Layout.maximumHeight: height
+            Layout.fillWidth: true
+
+            parentStackView: topListing.stackView
+            playList: topListing.playListModel
+            artist: topListing.artistName
+            album: topListing.albumName
+            image: topListing.albumArtUrl
+            tracksCount: topListing.tracksCount
+        }
+
+        Rectangle {
+            border.width: 1
+            border.color: "#DDDDDD"
+            color: "#DDDDDD"
+
+            Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+
+            Layout.fillWidth: parent
+
+            Layout.leftMargin: Screen.pixelDensity * 2.5
+            Layout.rightMargin: Screen.pixelDensity * 2.5
+
+            Layout.preferredHeight: 1
+            Layout.minimumHeight: 1
+            Layout.maximumHeight: 1
+        }
+
+        TableView {
+            id: contentDirectoryView
+
             Layout.fillHeight: true
             Layout.fillWidth: true
 
-            spacing: 0
+            model: DelegateModel {
+                model: contentModel
 
-            ColumnLayout {
-                Layout.preferredWidth: topListing.width / 2
-                Layout.fillHeight: true
+                delegate: AudioTrackDelegate {
+                    height: Screen.pixelDensity * 15.
+                    width: contentDirectoryView.width
 
-                spacing: 0
-
-                NavigationActionBar {
-                    id: navBar
-
-                    height: Screen.pixelDensity * 25.
-
-                    Layout.preferredHeight: height
-                    Layout.minimumHeight: height
-                    Layout.maximumHeight: height
-                    Layout.fillWidth: true
-
-                    parentStackView: topListing.stackView
+                    databaseId: model.databaseId
                     playList: topListing.playListModel
-                    artist: topListing.artistName
-                    album: topListing.albumName
-                    image: topListing.albumArtUrl
-                    tracksCount: topListing.tracksCount
-                }
 
-                TableView {
-                    id: contentDirectoryView
-
-                    model: DelegateModel {
-                        model: contentModel
-
-                        delegate: AudioTrackDelegate {
-                            height: Screen.pixelDensity * 15.
-                            width: contentDirectoryView.width
-
-                            databaseId: model.databaseId
-                            playList: topListing.playListModel
-
-                            title: if (model != undefined && model.title !== undefined)
-                                       model.title
-                                   else
-                                       ''
-                            artist: if (model != undefined && model.artist !== undefined)
-                                        model.artist
-                                    else
-                                        ''
-                            album: albumName
-                            duration: if (model != undefined && model.duration !== undefined)
-                                          model.duration
-                                      else
-                                          ''
-                            trackNumber: if (model != undefined && model.trackNumber !== undefined)
-                                             model.trackNumber
-                                         else
-                                             ''
-                        }
-                    }
-
-                    backgroundVisible: false
-                    headerVisible: false
-                    frameVisible: false
-                    focus: true
-                    rowDelegate: rowDelegate
-
-                    TableViewColumn {
-                        role: "title"
-                        title: "Title"
-                    }
-
-                    Layout.fillHeight: true
-                    Layout.fillWidth: true
+                    title: if (model != undefined && model.title !== undefined)
+                               model.title
+                           else
+                               ''
+                    artist: if (model != undefined && model.artist !== undefined)
+                                model.artist
+                            else
+                                ''
+                    album: albumName
+                    duration: if (model != undefined && model.duration !== undefined)
+                                  model.duration
+                              else
+                                  ''
+                    trackNumber: if (model != undefined && model.trackNumber !== undefined)
+                                     model.trackNumber
+                                 else
+                                     ''
                 }
             }
 
-            Rectangle {
-                border.width: 1
-                border.color: "#DDDDDD"
-                color: "#DDDDDD"
+            backgroundVisible: false
+            headerVisible: false
+            frameVisible: false
+            focus: true
+            rowDelegate: rowDelegate
 
-                Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-
-                Layout.preferredHeight: parent.height - Screen.pixelDensity * 5.
-                Layout.preferredWidth: 1
-                Layout.minimumWidth: 1
-                Layout.maximumWidth: 1
-            }
-
-            ContextView {
-                id: albumContext
-
-                Layout.preferredWidth: topListing.width / 2
-                Layout.fillHeight: true
-
-                albumArtUrl: topListing.albumArtUrl
-                albumName: topListing.albumName
-                tracksCount: topListing.tracksCount
-                artistName: topListing.artistName
+            TableViewColumn {
+                role: "title"
+                title: "Title"
             }
         }
     }

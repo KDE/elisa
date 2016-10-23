@@ -35,24 +35,29 @@ Item {
     property int trackNumber
     property alias isPlaying : playIcon.visible
     property bool showHoverButtons
+    property bool hasAlbumHeader
     property Action hoverAction
 
-    RowLayout {
-        width: parent.width
-        height: parent.height
+    ColumnLayout {
         spacing: 0
 
-        ColumnLayout {
-            Layout.preferredWidth: parent.height
-            Layout.preferredHeight: parent.height
-            Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
-            spacing: 0
+        anchors.fill: parent
+        anchors.leftMargin: Screen.pixelDensity * 1.5
+        anchors.rightMargin: Screen.pixelDensity * 5.5
+        anchors.topMargin: 0
+        anchors.bottomMargin: 1
 
-            Item {
-                Layout.preferredHeight: 1
-                Layout.minimumHeight: 1
-                Layout.maximumHeight: 1
-            }
+        RowLayout {
+            id: headerRow
+
+            spacing: Screen.pixelDensity * 1.5
+
+            Layout.fillWidth: true
+            Layout.preferredHeight: Screen.pixelDensity * 15.
+            Layout.minimumHeight: Screen.pixelDensity * 15.
+            Layout.maximumHeight: Screen.pixelDensity * 15.
+
+            visible: hasAlbumHeader
 
             Image {
                 id: mainIcon
@@ -60,8 +65,9 @@ Item {
                 Layout.preferredWidth: parent.height - 2
                 Layout.preferredHeight: parent.height - 2
                 width: parent.height - 2
-                sourceSize.width: width
-                sourceSize.height: width
+                height: parent.height - 2
+                sourceSize.width: parent.height - 2
+                sourceSize.height: parent.height - 2
                 fillMode: Image.PreserveAspectFit
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
 
@@ -114,120 +120,93 @@ Item {
                 }
             }
 
-            Item {
-                Layout.preferredHeight: 1
-                Layout.minimumHeight: 1
-                Layout.maximumHeight: 1
+            ColumnLayout {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+
+                spacing: 0
+
+                Item {
+                    height: Screen.pixelDensity * 1.5
+                }
+
+                Label {
+                    id: mainLabel
+                    text: album
+                    font.weight: Font.Bold
+                    horizontalAlignment: "AlignHCenter"
+                    Layout.fillWidth: true
+                    Layout.alignment: Qt.AlignCenter
+                    elide: "ElideRight"
+                }
+
+                Item {
+                    Layout.fillHeight: true
+                }
+
+                Label {
+                    id: authorLabel
+                    text: artist
+                    font.weight: Font.Light
+                    horizontalAlignment: "AlignHCenter"
+                    Layout.fillWidth: true
+                    Layout.alignment: Qt.AlignCenter
+                    elide: "ElideRight"
+                }
+
+                Item {
+                    height: Screen.pixelDensity * 1.5
+                }
             }
         }
 
         Item {
-            Layout.preferredWidth: Screen.pixelDensity * 2
-            Layout.minimumWidth: Screen.pixelDensity * 2
-            Layout.maximumWidth: Screen.pixelDensity * 2
-            width: Screen.pixelDensity * 2
+            Layout.preferredHeight: (hasAlbumHeader ? Screen.pixelDensity * 1.5 : 0)
+            Layout.minimumHeight: (hasAlbumHeader ? Screen.pixelDensity * 1.5 : 0)
+            Layout.maximumHeight: (hasAlbumHeader ? Screen.pixelDensity * 1.5 : 0)
+
+            visible: hasAlbumHeader
         }
 
-        ColumnLayout {
-            Layout.preferredWidth: Screen.pixelDensity * 3.
-            Layout.preferredHeight: viewAlbumDelegate.height
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-            Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
-            spacing: 0
 
-            Item {
-                Layout.preferredHeight: Screen.pixelDensity * 3.
-                Layout.minimumHeight: Screen.pixelDensity * 3.
-                Layout.maximumHeight: Screen.pixelDensity * 3.
-            }
+        RowLayout {
+            id: trackRow
+
+            Layout.fillWidth: true
+            Layout.preferredHeight: Screen.pixelDensity * 5.
+            Layout.minimumHeight: Screen.pixelDensity * 5.
+            Layout.maximumHeight: Screen.pixelDensity * 5.
+
+            spacing: Screen.pixelDensity * 1.
 
             Label {
-                id: mainLabel
+                id: mainCompactLabel
+
                 text: trackNumber + ' - ' + title
                 font.weight: Font.Bold
-                Layout.preferredWidth: Screen.pixelDensity * 12
+
                 Layout.fillWidth: true
-                Layout.alignment: Qt.AlignLeft
+                Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
+
                 elide: "ElideRight"
             }
 
-            Item {
-                Layout.fillHeight: true
-            }
+            Image {
+                id: playIcon
 
-            Label {
-                id: authorLabel
-                text: artist + ' - ' + album
-                font.weight: Font.Light
-                Layout.preferredWidth: Screen.pixelDensity * 3
-                Layout.fillWidth: true
-                Layout.alignment: Qt.AlignLeft
-                elide: "ElideRight"
-            }
+                Layout.preferredWidth: parent.height * 1
+                Layout.preferredHeight: parent.height * 1
+                Layout.alignment: Qt.AlignTop | Qt.AlignHCenter
+                Layout.maximumWidth: parent.height * 1
+                Layout.maximumHeight: parent.height * 1
 
-            Item {
-                Layout.preferredHeight: Screen.pixelDensity * 3.
-                Layout.minimumHeight: Screen.pixelDensity * 3.
-                Layout.maximumHeight: Screen.pixelDensity * 3.
-            }
-        }
-
-        Item {
-            Layout.preferredWidth: width
-            Layout.minimumWidth: width
-            Layout.maximumWidth: width
-            width: Screen.pixelDensity * 2
-        }
-
-        Button {
-            id: playButton
-            iconName: 'media-playback-start'
-
-            visible: showHoverButtons && !isPlaying
-
-            Layout.preferredWidth: parent.height * 0.5
-            Layout.preferredHeight: parent.height * 0.5
-            Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-            Layout.maximumWidth: parent.height * 0.7
-            Layout.maximumHeight: parent.height * 0.7
-            width: parent.height * 0.7
-            height: parent.height * 0.7
-        }
-
-        Image {
-            id: playIcon
-            source: 'image://icon/media-playback-start'
-            Layout.preferredWidth: parent.height * 0.5
-            Layout.preferredHeight: parent.height * 0.5
-            Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-            Layout.maximumWidth: parent.height * 0.7
-            Layout.maximumHeight: parent.height * 0.7
-            width: parent.height * 0.7
-            height: parent.height * 0.7
-            sourceSize.width: width
-            sourceSize.height: width
-            fillMode: Image.PreserveAspectFit
-            visible: isPlaying
-        }
-
-        Item {
-            Layout.preferredWidth: width
-            Layout.minimumWidth: width
-            Layout.maximumWidth: width
-            width: Screen.pixelDensity * 12
-        }
-
-        ColumnLayout {
-            Layout.preferredHeight: viewAlbumDelegate.height
-            Layout.minimumHeight: viewAlbumDelegate.height
-            Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
-            spacing: 0
-
-            Item {
-                Layout.preferredHeight: Screen.pixelDensity * 3.
-                Layout.minimumHeight: Screen.pixelDensity * 3.
-                Layout.maximumHeight: Screen.pixelDensity * 3.
+                source: 'image://icon/media-playback-start'
+                width: parent.height * 1.
+                height: parent.height * 1.
+                sourceSize.width: parent.height * 1.
+                sourceSize.height: parent.height * 1.
+                fillMode: Image.PreserveAspectFit
+                visible: isPlaying
             }
 
             Label {
@@ -235,18 +214,30 @@ Item {
                 text: duration
                 font.weight: Font.Bold
                 elide: "ElideRight"
-                Layout.alignment: Qt.AlignRight
-            }
-
-            Item {
-                Layout.fillHeight: true
+                Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
             }
         }
 
-        Item {
-            Layout.preferredWidth: Screen.pixelDensity * 6.
-            Layout.minimumWidth: Screen.pixelDensity * 6.
-            Layout.maximumWidth: Screen.pixelDensity * 6.
+        Rectangle {
+            id: entrySeparatorItem
+
+            border.width: 0.5
+            border.color: "#DDDDDD"
+            color: "#DDDDDD"
+            visible: true
+
+            Layout.leftMargin: Screen.pixelDensity * 0.5
+            Layout.rightMargin: Screen.pixelDensity * 0.5
+
+            Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+
+            Layout.preferredWidth: parent.width - Screen.pixelDensity * 3.
+            Layout.minimumWidth: parent.width - Screen.pixelDensity * 3.
+            Layout.maximumWidth: parent.width - Screen.pixelDensity * 3.
+
+            Layout.preferredHeight: 1
+            Layout.minimumHeight: 1
+            Layout.maximumHeight: 1
         }
     }
 

@@ -226,6 +226,30 @@ Item {
                 placeholderText: i18nc("Placeholder text in the filter text box", "Filter")
 
                 Layout.fillWidth: true
+
+                Image {
+                    anchors { top: parent.top; right: parent.right}
+                    id: clearText
+                    fillMode: Image.PreserveAspectFit
+                    smooth: true
+                    visible: parent.text
+                    source: 'image://icon/edit-clear'
+                    height: parent.height
+                    width: parent.height
+                    sourceSize.width: parent.height
+                    sourceSize.height: parent.height
+
+                    MouseArea {
+                        id: clear
+                        anchors { horizontalCenter: parent.horizontalCenter; verticalCenter: parent.verticalCenter }
+                        height: parent.parent.height
+                        width: parent.parent.height
+                        onClicked: {
+                            parent.parent.text = ""
+                            parent.parent.forceActiveFocus()
+                        }
+                    }
+                }
             }
         }
 

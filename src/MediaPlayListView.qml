@@ -17,7 +17,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-import QtQuick 2.4
+import QtQuick 2.5
 import QtQuick.Controls 1.3
 import QtQuick.Controls.Styles 1.3
 import QtQuick.Layouts 1.1
@@ -116,7 +116,13 @@ Item {
             model: DelegateModel {
                 model: playListModel
 
+                groups: [
+                    DelegateModelGroup { name: "selected" }
+                ]
+
                 delegate: DraggableItem {
+                    id: item
+
                     PlayListEntry {
                         height: (model.hasAlbumHeader ? Screen.pixelDensity * 22.5 : Screen.pixelDensity * 6.)
                         width: playListView.width
@@ -149,15 +155,9 @@ Item {
                                else
                                    ''
                         isPlaying: model.isPlaying
-                        showHoverButtons: false
+                        isSelected: item.DelegateModel.inSelected
 
-                        hoverAction: Action {
-                            id: playListRemove
-
-                            iconSource: 'image://icon/list-remove'
-
-                            onTriggered: playListModel.removeRows(index, 1, playListView.model.rootIndex)
-                        }
+                        onClicked: item.DelegateModel.inSelected = !item.DelegateModel.inSelected
                     }
 
                     draggedItemParent: topItem

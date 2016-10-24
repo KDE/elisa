@@ -34,225 +34,185 @@ Item {
     property alias duration : durationLabel.text
     property int trackNumber
     property alias isPlaying : playIcon.visible
-    property bool showHoverButtons
+    property bool isSelected
     property bool hasAlbumHeader
-    property Action hoverAction
 
-    ColumnLayout {
-        spacing: 0
+    signal clicked()
 
-        anchors.fill: parent
-        anchors.leftMargin: Screen.pixelDensity * 1.5
-        anchors.rightMargin: Screen.pixelDensity * 5.5
-        anchors.topMargin: 0
-        anchors.bottomMargin: 1
+    Rectangle {
+        id: contentLayout
 
-        RowLayout {
-            id: headerRow
+        anchors.top: viewAlbumDelegate.top
+        anchors.left: viewAlbumDelegate.left
+        anchors.right: viewAlbumDelegate.right
+        anchors.bottom: viewAlbumDelegate.bottom
 
-            spacing: Screen.pixelDensity * 1.5
+        SystemPalette { id: myPalette; colorGroup: SystemPalette.Active }
 
-            Layout.fillWidth: true
-            Layout.preferredHeight: Screen.pixelDensity * 15.
-            Layout.minimumHeight: Screen.pixelDensity * 15.
-            Layout.maximumHeight: Screen.pixelDensity * 15.
+        color: (isSelected ? myPalette.highlight : myPalette.base)
 
-            visible: hasAlbumHeader
+        ColumnLayout {
+            spacing: 0
 
-            Image {
-                id: mainIcon
-                source: itemDecoration
-                Layout.preferredWidth: parent.height - 2
-                Layout.preferredHeight: parent.height - 2
-                width: parent.height - 2
-                height: parent.height - 2
-                sourceSize.width: parent.height - 2
-                sourceSize.height: parent.height - 2
-                fillMode: Image.PreserveAspectFit
-                Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+            anchors.fill: parent
+            anchors.leftMargin: Screen.pixelDensity * 1.5
+            anchors.rightMargin: Screen.pixelDensity * 5.5
+            anchors.topMargin: 0
+            anchors.bottomMargin: 1
 
-                Loader {
-                    id: hoverLoader
-                    active: false
+            RowLayout {
+                id: headerRow
 
-                    anchors.fill: parent
+                spacing: Screen.pixelDensity * 1.5
 
-                    sourceComponent: Rectangle {
-                        id: hoverLayer
+                Layout.fillWidth: true
+                Layout.preferredHeight: Screen.pixelDensity * 15.
+                Layout.minimumHeight: Screen.pixelDensity * 15.
+                Layout.maximumHeight: Screen.pixelDensity * 15.
 
-                        anchors.fill: parent
+                visible: hasAlbumHeader
 
-                        color: 'black'
-                        opacity: 0.7
+                Image {
+                    id: mainIcon
+                    source: itemDecoration
+                    Layout.preferredWidth: parent.height - 2
+                    Layout.preferredHeight: parent.height - 2
+                    width: parent.height - 2
+                    height: parent.height - 2
+                    sourceSize.width: parent.height - 2
+                    sourceSize.height: parent.height - 2
+                    fillMode: Image.PreserveAspectFit
+                    Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+                }
 
-                        BrightnessContrast {
-                            anchors.fill: playAction
-                            source: playAction
-                            brightness: 1.0
-                            contrast: 1.0
+                ColumnLayout {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
 
-                            MouseArea {
-                                id: clickHandle
+                    spacing: 0
 
-                                anchors.fill: parent
-                                acceptedButtons: Qt.LeftButton
+                    Item {
+                        height: Screen.pixelDensity * 1.5
+                    }
 
-                                onClicked: hoverAction.trigger(clickHandle)
-                            }
-                        }
+                    Label {
+                        id: mainLabel
+                        text: album
+                        font.weight: Font.Bold
+                        horizontalAlignment: "AlignHCenter"
+                        Layout.fillWidth: true
+                        Layout.alignment: Qt.AlignCenter
+                        elide: "ElideRight"
+                    }
 
-                        Image {
-                            id: playAction
-                            source: hoverAction.iconSource
+                    Item {
+                        Layout.fillHeight: true
+                    }
 
-                            anchors.centerIn: parent
+                    Label {
+                        id: authorLabel
+                        text: artist
+                        font.weight: Font.Light
+                        horizontalAlignment: "AlignHCenter"
+                        Layout.fillWidth: true
+                        Layout.alignment: Qt.AlignCenter
+                        elide: "ElideRight"
+                    }
 
-                            opacity: 1
-                            visible: false
-
-                            width: Screen.pixelDensity * 10
-                            height: Screen.pixelDensity * 10
-                            sourceSize.width: width
-                            sourceSize.height: width
-                            fillMode: Image.PreserveAspectFit
-                        }
+                    Item {
+                        height: Screen.pixelDensity * 1.5
                     }
                 }
             }
 
-            ColumnLayout {
+            Item {
+                Layout.preferredHeight: (hasAlbumHeader ? Screen.pixelDensity * 1.5 : 0)
+                Layout.minimumHeight: (hasAlbumHeader ? Screen.pixelDensity * 1.5 : 0)
+                Layout.maximumHeight: (hasAlbumHeader ? Screen.pixelDensity * 1.5 : 0)
+
+                visible: hasAlbumHeader
+            }
+
+
+            RowLayout {
+                id: trackRow
+
                 Layout.fillWidth: true
-                Layout.fillHeight: true
+                Layout.preferredHeight: Screen.pixelDensity * 5.
+                Layout.minimumHeight: Screen.pixelDensity * 5.
+                Layout.maximumHeight: Screen.pixelDensity * 5.
 
-                spacing: 0
-
-                Item {
-                    height: Screen.pixelDensity * 1.5
-                }
+                spacing: Screen.pixelDensity * 1.
 
                 Label {
-                    id: mainLabel
-                    text: album
+                    id: mainCompactLabel
+
+                    text: trackNumber + ' - ' + title
                     font.weight: Font.Bold
-                    horizontalAlignment: "AlignHCenter"
+
                     Layout.fillWidth: true
-                    Layout.alignment: Qt.AlignCenter
+                    Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
+
                     elide: "ElideRight"
                 }
 
-                Item {
-                    Layout.fillHeight: true
+                Image {
+                    id: playIcon
+
+                    Layout.preferredWidth: parent.height * 1
+                    Layout.preferredHeight: parent.height * 1
+                    Layout.alignment: Qt.AlignTop | Qt.AlignHCenter
+                    Layout.maximumWidth: parent.height * 1
+                    Layout.maximumHeight: parent.height * 1
+
+                    source: 'image://icon/media-playback-start'
+                    width: parent.height * 1.
+                    height: parent.height * 1.
+                    sourceSize.width: parent.height * 1.
+                    sourceSize.height: parent.height * 1.
+                    fillMode: Image.PreserveAspectFit
+                    visible: isPlaying
                 }
 
                 Label {
-                    id: authorLabel
-                    text: artist
-                    font.weight: Font.Light
-                    horizontalAlignment: "AlignHCenter"
-                    Layout.fillWidth: true
-                    Layout.alignment: Qt.AlignCenter
+                    id: durationLabel
+                    text: duration
+                    font.weight: Font.Bold
                     elide: "ElideRight"
-                }
-
-                Item {
-                    height: Screen.pixelDensity * 1.5
+                    Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
                 }
             }
         }
+    }
 
-        Item {
-            Layout.preferredHeight: (hasAlbumHeader ? Screen.pixelDensity * 1.5 : 0)
-            Layout.minimumHeight: (hasAlbumHeader ? Screen.pixelDensity * 1.5 : 0)
-            Layout.maximumHeight: (hasAlbumHeader ? Screen.pixelDensity * 1.5 : 0)
+    Rectangle {
+        id: entrySeparatorItem
 
-            visible: hasAlbumHeader
-        }
+        border.width: 0.5
+        border.color: "#DDDDDD"
+        color: "#DDDDDD"
+        visible: true
 
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
 
-        RowLayout {
-            id: trackRow
+        anchors.leftMargin: Screen.pixelDensity * 0.5
+        anchors.rightMargin: Screen.pixelDensity * 0.5
 
-            Layout.fillWidth: true
-            Layout.preferredHeight: Screen.pixelDensity * 5.
-            Layout.minimumHeight: Screen.pixelDensity * 5.
-            Layout.maximumHeight: Screen.pixelDensity * 5.
-
-            spacing: Screen.pixelDensity * 1.
-
-            Label {
-                id: mainCompactLabel
-
-                text: trackNumber + ' - ' + title
-                font.weight: Font.Bold
-
-                Layout.fillWidth: true
-                Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
-
-                elide: "ElideRight"
-            }
-
-            Image {
-                id: playIcon
-
-                Layout.preferredWidth: parent.height * 1
-                Layout.preferredHeight: parent.height * 1
-                Layout.alignment: Qt.AlignTop | Qt.AlignHCenter
-                Layout.maximumWidth: parent.height * 1
-                Layout.maximumHeight: parent.height * 1
-
-                source: 'image://icon/media-playback-start'
-                width: parent.height * 1.
-                height: parent.height * 1.
-                sourceSize.width: parent.height * 1.
-                sourceSize.height: parent.height * 1.
-                fillMode: Image.PreserveAspectFit
-                visible: isPlaying
-            }
-
-            Label {
-                id: durationLabel
-                text: duration
-                font.weight: Font.Bold
-                elide: "ElideRight"
-                Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
-            }
-        }
-
-        Rectangle {
-            id: entrySeparatorItem
-
-            border.width: 0.5
-            border.color: "#DDDDDD"
-            color: "#DDDDDD"
-            visible: true
-
-            Layout.leftMargin: Screen.pixelDensity * 0.5
-            Layout.rightMargin: Screen.pixelDensity * 0.5
-
-            Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-
-            Layout.preferredWidth: parent.width - Screen.pixelDensity * 3.
-            Layout.minimumWidth: parent.width - Screen.pixelDensity * 3.
-            Layout.maximumWidth: parent.width - Screen.pixelDensity * 3.
-
-            Layout.preferredHeight: 1
-            Layout.minimumHeight: 1
-            Layout.maximumHeight: 1
-        }
+        height: 1
     }
 
     MouseArea {
         id: hoverHandle
 
-        acceptedButtons: Qt.NoButton
+        acceptedButtons: Qt.LeftButton
 
-        hoverEnabled: true
-
-        anchors.fill: parent
         propagateComposedEvents: true
 
-        onEntered: hoverLoader.active = true
-        onExited: hoverLoader.active = false
+        anchors.fill: parent
+
+        onClicked: viewAlbumDelegate.clicked()
     }
 }
 

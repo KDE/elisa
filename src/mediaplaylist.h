@@ -137,6 +137,8 @@ public Q_SLOTS:
 
     void setPersistentState(QList<QVariant> persistentState);
 
+    void removeSelection(QList<int> selection);
+
 private Q_SLOTS:
 
     void endTrackAdded(QVector<qulonglong> newTracks);

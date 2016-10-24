@@ -25,6 +25,8 @@
 #include <QtCore/QList>
 #include <QtCore/QDebug>
 
+#include <algorithm>
+
 class MediaPlayListPrivate
 {
 public:
@@ -380,6 +382,15 @@ void MediaPlayList::setPersistentState(QList<QVariant> persistentState)
     }
 
     emit persistentStateChanged();
+}
+
+void MediaPlayList::removeSelection(QList<int> selection)
+{
+    std::sort(selection.begin(), selection.end());
+    std::reverse(selection.begin(), selection.end());
+    for (auto oneItem : selection) {
+        removeRow(oneItem);
+    }
 }
 
 void MediaPlayList::endTrackAdded(QVector<qulonglong> newTracks)

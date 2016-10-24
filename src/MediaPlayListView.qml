@@ -44,6 +44,22 @@ Item {
         }
     }
 
+    Action {
+        id: clearPlayList
+        iconName: "list-remove"
+        enabled: playListModelDelegate.groups[2].count > 0
+        onTriggered: {
+            var selectedItems = []
+            var myGroup = playListModelDelegate.groups[2]
+            for (var i = 0; i < myGroup.count; ++i) {
+                var myItem = myGroup.get(i)
+                selectedItems.push(myItem.itemsIndex)
+            }
+
+            playListModel.removeSelection(selectedItems)
+        }
+    }
+
     ColumnLayout {
         anchors.fill: parent
         spacing: 0
@@ -114,6 +130,7 @@ Item {
             Layout.fillHeight: true
 
             model: DelegateModel {
+                id: playListModelDelegate
                 model: playListModel
 
                 groups: [
@@ -177,6 +194,20 @@ Item {
             TableViewColumn {
                 role: "title"
                 title: "Title"
+            }
+        }
+
+        ToolBar {
+            id: actionBar
+
+            Layout.fillWidth: true
+
+            RowLayout {
+                anchors.fill: parent
+                ToolButton {
+                    action: clearPlayList
+                }
+                Item { Layout.fillWidth: true }
             }
         }
     }

@@ -29,6 +29,7 @@ import QtMultimedia 5.4
 Item {
     property StackView parentStackView
     property MediaPlayList playListModel
+    property var playListControler
 
     property alias randomPlayChecked: shuffleOption.checked
     property alias repeatPlayChecked: repeatOption.checked
@@ -51,11 +52,12 @@ Item {
 
     Action {
         id: clearPlayList
+        text: i18nc("Remove all tracks from play list", "Clear Play List")
         iconName: "list-remove"
-        enabled: playListModelDelegate.groups[2].count > 0
+        enabled: playListModelDelegate.items.count > 0
         onTriggered: {
             var selectedItems = []
-            var myGroup = playListModelDelegate.groups[2]
+            var myGroup = playListModelDelegate.items
             for (var i = 0; i < myGroup.count; ++i) {
                 var myItem = myGroup.get(i)
                 selectedItems.push(myItem.itemsIndex)
@@ -146,8 +148,9 @@ Item {
                     id: item
 
                     PlayListEntry {
-                        height: (model.hasAlbumHeader ? Screen.pixelDensity * 22.5 : Screen.pixelDensity * 6.)
+                        id: entry
                         width: playListView.width
+                        index: model.index
                         hasAlbumHeader: if (model != undefined && model.hasAlbumHeader !== undefined)
                                             model.hasAlbumHeader
                                         else
@@ -179,10 +182,33 @@ Item {
                         isPlaying: model.isPlaying
                         isSelected: item.DelegateModel.inSelected
 
-                        onClicked: item.DelegateModel.inSelected = !item.DelegateModel.inSelected
+                        playListModel: topItem.playListModel
+                        playListControler: topItem.playListControler
+
+                        contextMenu: Menu {
+                            MenuItem {
+                                action: entry.clearPlayListAction
+                            }
+                            MenuItem {
+                                action: entry.playNowAction
+                            }
+                        }
+
                     }
 
                     draggedItemParent: topItem
+
+                    onClicked:
+                    {
+                        var myGroup = playListModelDelegate.groups[2]
+                        if (myGroup.count > 0 && !DelegateModel.inSelected) {
+                            myGroup.remove(0, myGroup.count)
+                        }
+
+                        DelegateModel.inSelected = !DelegateModel.inSelected
+                    }
+
+                    onRightClicked: contentItem.contextMenu.popup()
 
                     onMoveItemRequested: {
                         playListModel.move(from, to, 1);
@@ -212,6 +238,7 @@ Item {
                 ToolButton {
                     action: clearPlayList
                 }
+
                 Item { Layout.fillWidth: true }
             }
         }

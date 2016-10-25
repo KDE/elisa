@@ -260,6 +260,21 @@ void PlayListControler::seedRandomGenerator(uint seed)
     qsrand(seed);
 }
 
+void PlayListControler::switchTo(int row)
+{
+    if (!mPlayListModel) {
+        return;
+    }
+
+    if (!mCurrentTrack.isValid()) {
+        return;
+    }
+
+    mCurrentTrack = mPlayListModel->index(row, 0);
+
+    notifyCurrentTrackChanged();
+}
+
 void PlayListControler::setIsValidRole(int isValidRole)
 {
     mIsValidRole = isValidRole;

@@ -233,7 +233,9 @@ Item {
                 Layout.fillWidth: true
 
                 Image {
-                    anchors { top: parent.top; right: parent.right}
+                    anchors.top: parent.top
+                    anchors.right: parent.right
+                    anchors.rightMargin: Screen.pixelDensity * 1
                     id: clearText
                     fillMode: Image.PreserveAspectFit
                     smooth: true

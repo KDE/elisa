@@ -449,6 +449,7 @@ ApplicationWindow {
                             id: playList
 
                             playListModel: playListModelItem
+                            playListControler: playListControlerItem
 
                             randomPlayChecked: playListControlerItem.randomPlayControl
                             repeatPlayChecked: playListControlerItem.repeatPlayControl

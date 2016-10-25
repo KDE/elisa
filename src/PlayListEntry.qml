@@ -27,6 +27,22 @@ import org.mgallien.QmlExtension 1.0
 Rectangle {
     id: viewAlbumDelegate
 
+    property string title
+    property string artist
+    property string album
+    property var index
+    property alias itemDecoration : mainIcon.source
+    property alias duration : durationLabel.text
+    property int trackNumber
+    property alias isPlaying : playIcon.visible
+    property bool isSelected
+    property bool hasAlbumHeader
+    property var playListModel
+    property var playListControler
+    property var contextMenu
+    property alias clearPlayListAction: removeFromPlayList
+    property alias playNowAction: playNow
+
     SystemPalette {
         id: myPalette
         colorGroup: SystemPalette.Active
@@ -34,120 +50,119 @@ Rectangle {
 
     color: myPalette.base
 
-    property string title
-    property string artist
-    property string album
-    property alias itemDecoration : mainIcon.source
-    property alias duration : durationLabel.text
-    property int trackNumber
-    property alias isPlaying : playIcon.visible
-    property bool isSelected
-    property bool hasAlbumHeader
+    height: (hasAlbumHeader ? (isSelected ? Screen.pixelDensity * 26 : Screen.pixelDensity * 22.5) : (isSelected ? Screen.pixelDensity * 9.5 : Screen.pixelDensity * 6.))
 
-    signal clicked()
+    Action {
+        id: removeFromPlayList
+        text: i18nc("Remove current track from play list", "Remove")
+        iconName: "list-remove"
+        onTriggered: {
+            playListModel.removeRows(viewAlbumDelegate.index, 1)
+        }
+    }
 
-    Rectangle {
-        id: contentLayout
+    Action {
+        id: playNow
+        text: i18nc("Play now current track from play list", "Play Now")
+        iconName: "media-playback-start"
+        enabled: !isPlaying
+        onTriggered: {
+            playListControler.switchTo(viewAlbumDelegate.index)
+        }
+    }
 
-        anchors.top: viewAlbumDelegate.top
-        anchors.left: viewAlbumDelegate.left
-        anchors.right: viewAlbumDelegate.right
-        anchors.bottom: viewAlbumDelegate.bottom
+    ColumnLayout {
+        spacing: 0
 
-        SystemPalette { id: myPalette; colorGroup: SystemPalette.Active }
+        anchors.fill: parent
+        anchors.leftMargin: Screen.pixelDensity * 1.5
+        anchors.rightMargin: Screen.pixelDensity * 5.5
+        anchors.topMargin: 0
+        anchors.bottomMargin: 1
 
-        color: (isSelected ? myPalette.highlight : myPalette.base)
+        RowLayout {
+            id: headerRow
 
-        ColumnLayout {
-            spacing: 0
+            spacing: Screen.pixelDensity * 1.5
 
-            anchors.fill: parent
-            anchors.leftMargin: Screen.pixelDensity * 1.5
-            anchors.rightMargin: Screen.pixelDensity * 5.5
-            anchors.topMargin: 0
-            anchors.bottomMargin: 1
+            Layout.fillWidth: true
+            Layout.preferredHeight: Screen.pixelDensity * 15.
+            Layout.minimumHeight: Screen.pixelDensity * 15.
+            Layout.maximumHeight: Screen.pixelDensity * 15.
 
-            RowLayout {
-                id: headerRow
+            visible: hasAlbumHeader
 
-                spacing: Screen.pixelDensity * 1.5
+            Image {
+                id: mainIcon
+                source: itemDecoration
+                Layout.minimumWidth: headerRow.height - 4
+                Layout.maximumWidth: headerRow.height - 4
+                Layout.preferredWidth: headerRow.height - 4
+                Layout.minimumHeight: headerRow.height - 4
+                Layout.maximumHeight: headerRow.height - 4
+                Layout.preferredHeight: headerRow.height - 4
+                sourceSize.width: headerRow.height - 4
+                sourceSize.height: parent.height - 4
+                fillMode: Image.PreserveAspectFit
+                Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+            }
 
+            ColumnLayout {
                 Layout.fillWidth: true
-                Layout.preferredHeight: Screen.pixelDensity * 15.
-                Layout.minimumHeight: Screen.pixelDensity * 15.
-                Layout.maximumHeight: Screen.pixelDensity * 15.
+                Layout.fillHeight: true
 
-                visible: hasAlbumHeader
+                spacing: 0
 
-                Image {
-                    id: mainIcon
-                    source: itemDecoration
-                    Layout.preferredWidth: parent.height - 2
-                    Layout.preferredHeight: parent.height - 2
-                    width: parent.height - 2
-                    height: parent.height - 2
-                    sourceSize.width: parent.height - 2
-                    sourceSize.height: parent.height - 2
-                    fillMode: Image.PreserveAspectFit
-                    Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+                Item {
+                    height: Screen.pixelDensity * 1.5
                 }
 
-                ColumnLayout {
+                Label {
+                    id: mainLabel
+                    text: album
+                    font.weight: Font.Bold
+                    horizontalAlignment: "AlignHCenter"
                     Layout.fillWidth: true
+                    Layout.alignment: Qt.AlignCenter
+                    elide: "ElideRight"
+                }
+
+                Item {
                     Layout.fillHeight: true
+                }
 
-                    spacing: 0
+                Label {
+                    id: authorLabel
+                    text: artist
+                    font.weight: Font.Light
+                    horizontalAlignment: "AlignHCenter"
+                    Layout.fillWidth: true
+                    Layout.alignment: Qt.AlignCenter
+                    elide: "ElideRight"
+                }
 
-                    Item {
-                        height: Screen.pixelDensity * 1.5
-                    }
-
-                    Label {
-                        id: mainLabel
-                        text: album
-                        font.weight: Font.Bold
-                        horizontalAlignment: "AlignHCenter"
-                        Layout.fillWidth: true
-                        Layout.alignment: Qt.AlignCenter
-                        elide: "ElideRight"
-                    }
-
-                    Item {
-                        Layout.fillHeight: true
-                    }
-
-                    Label {
-                        id: authorLabel
-                        text: artist
-                        font.weight: Font.Light
-                        horizontalAlignment: "AlignHCenter"
-                        Layout.fillWidth: true
-                        Layout.alignment: Qt.AlignCenter
-                        elide: "ElideRight"
-                    }
-
-                    Item {
-                        height: Screen.pixelDensity * 1.5
-                    }
+                Item {
+                    height: Screen.pixelDensity * 1.5
                 }
             }
+        }
 
-            Item {
-                Layout.preferredHeight: (hasAlbumHeader ? Screen.pixelDensity * 1.5 : 0)
-                Layout.minimumHeight: (hasAlbumHeader ? Screen.pixelDensity * 1.5 : 0)
-                Layout.maximumHeight: (hasAlbumHeader ? Screen.pixelDensity * 1.5 : 0)
+        Item {
+            Layout.preferredHeight: (hasAlbumHeader ? Screen.pixelDensity * 1.5 : 0)
+            Layout.minimumHeight: (hasAlbumHeader ? Screen.pixelDensity * 1.5 : 0)
+            Layout.maximumHeight: (hasAlbumHeader ? Screen.pixelDensity * 1.5 : 0)
 
-                visible: hasAlbumHeader
-            }
+            visible: hasAlbumHeader
+        }
 
+        Item {
+            Layout.fillWidth: true
+            Layout.fillHeight: true
 
             RowLayout {
                 id: trackRow
 
-                Layout.fillWidth: true
-                Layout.preferredHeight: Screen.pixelDensity * 5.
-                Layout.minimumHeight: Screen.pixelDensity * 5.
-                Layout.maximumHeight: Screen.pixelDensity * 5.
+                anchors.fill: parent
 
                 spacing: Screen.pixelDensity * 1.
 
@@ -161,6 +176,24 @@ Rectangle {
                     Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
 
                     elide: "ElideRight"
+                }
+
+                Item { Layout.fillWidth: true }
+
+                ToolButton {
+                    id: playNowButton
+
+                    visible: opacity > 0.1
+                    action: playNow
+                    Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+                }
+
+                ToolButton {
+                    id: removeButton
+
+                    visible: opacity > 0.1
+                    action: removeFromPlayList
+                    Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
                 }
 
                 Image {
@@ -210,16 +243,60 @@ Rectangle {
         height: 1
     }
 
-    MouseArea {
-        id: hoverHandle
-
-        acceptedButtons: Qt.LeftButton
-
-        propagateComposedEvents: true
-
-        anchors.fill: parent
-
-        onClicked: viewAlbumDelegate.clicked()
+    states: [
+        State {
+            name: 'notSelected'
+            when: !isSelected
+            PropertyChanges {
+                target: viewAlbumDelegate
+                height: Screen.pixelDensity * (hasAlbumHeader ? 22.5 : 6)
+            }
+            PropertyChanges {
+                target: removeButton
+                opacity: 0
+            }
+            PropertyChanges {
+                target: playNowButton
+                opacity: 0
+            }
+            PropertyChanges {
+                target: viewAlbumDelegate
+                color: myPalette.base
+            }
+        },
+        State {
+            name: 'selected'
+            when: isSelected
+            PropertyChanges {
+                target: viewAlbumDelegate
+                height: Screen.pixelDensity * (hasAlbumHeader ? 26 : 9.5)
+            }
+            PropertyChanges {
+                target: removeButton
+                opacity: 1
+            }
+            PropertyChanges {
+                target: playNowButton
+                opacity: 1
+            }
+            PropertyChanges {
+                target: viewAlbumDelegate
+                color: myPalette.highlight
+            }
+        }
+    ]
+    transitions: Transition {
+        ParallelAnimation {
+            NumberAnimation {
+                properties: "height, opacity"
+                easing.type: Easing.InOutQuad
+                duration: 50
+            }
+            ColorAnimation {
+                properties: "color"
+                duration: 200
+            }
+        }
     }
 }
 

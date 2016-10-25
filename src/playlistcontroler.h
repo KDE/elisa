@@ -149,6 +149,8 @@ public Q_SLOTS:
 
     void seedRandomGenerator(uint seed);
 
+    void switchTo(int row);
+
 private:
 
     void resetCurrentTrack();

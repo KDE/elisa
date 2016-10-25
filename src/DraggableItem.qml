@@ -27,6 +27,9 @@ Item {
     // Internal: shortcut to access the attached ListView from everywhere. Shorter than root.ListView.view
     property ListView _listView: ListView.view
 
+    signal clicked()
+    signal rightClicked()
+
     width: contentItem.width
     height: topPlaceholder.height + wrapperParent.height + bottomPlaceholder.height
 
@@ -76,10 +79,20 @@ Item {
                 // Disable smoothed so that the Item pixel from where we started the drag remains under the mouse cursor
                 drag.smoothed: false
 
+                acceptedButtons: Qt.RightButton | Qt.LeftButton
+
                 onReleased: {
                     if (drag.active) {
                         emitMoveItemRequested();
                     }
+                }
+
+                onClicked:
+                {
+                    if (mouse.button == Qt.LeftButton)
+                        root.clicked()
+                    if (mouse.button == Qt.RightButton)
+                        root.rightClicked()
                 }
             }
         }

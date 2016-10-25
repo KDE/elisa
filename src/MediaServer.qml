@@ -43,6 +43,11 @@ ApplicationWindow {
 
     title: 'Elisa'
 
+    SystemPalette {
+        id: myPalette
+        colorGroup: SystemPalette.Active
+    }
+
     Settings {
         id: persistentSettings
 
@@ -243,7 +248,7 @@ ApplicationWindow {
     }
 
     Rectangle {
-        color: "white"
+        color: myPalette.base
         anchors.fill: parent
 
         ColumnLayout {
@@ -300,7 +305,7 @@ ApplicationWindow {
                 spacing: 0
 
                 Rectangle {
-                    color: '#EFF0F1'
+                    color: myPalette.window
 
                     Layout.fillHeight: true
                     Layout.preferredWidth: Screen.pixelDensity * 50.
@@ -319,7 +324,7 @@ ApplicationWindow {
                         z: 2
 
                         rowDelegate: Rectangle {
-                            color: '#EFF0F1'
+                            color: myPalette.window
 
                             height: Screen.pixelDensity * 8.
                             width: viewModeView.width
@@ -340,10 +345,7 @@ ApplicationWindow {
                         itemDelegate: Rectangle {
                             height: Screen.pixelDensity * 8.
                             width: viewModeView.width
-                            color: if (styleData.selected)
-                                       '#3DAEE9'
-                                   else
-                                       '#EFF0F1'
+                            color: (styleData.selected ? myPalette.highlight : myPalette.window)
                             Label {
                                 id: nameLabel
                                 anchors.verticalCenter: parent.verticalCenter
@@ -355,10 +357,7 @@ ApplicationWindow {
 
                                 text: model.name
 
-                                color: if (styleData.selected)
-                                           'white'
-                                       else
-                                           'black'
+                                color: (styleData.selected ? myPalette.highlightedText : myPalette.text)
 
                             }
                         }
@@ -428,8 +427,8 @@ ApplicationWindow {
                             id: firstViewSeparatorItem
 
                             border.width: 1
-                            border.color: "#DDDDDD"
-                            color: "#DDDDDD"
+                            border.color: myPalette.mid
+                            color: myPalette.mid
                             visible: true
 
                             Layout.bottomMargin: Screen.pixelDensity * 0.5
@@ -471,8 +470,8 @@ ApplicationWindow {
                             id: viewSeparatorItem
 
                             border.width: 1
-                            border.color: "#DDDDDD"
-                            color: "#DDDDDD"
+                            border.color: myPalette.mid
+                            color: myPalette.mid
                             visible: Layout.minimumWidth != 0
 
                             Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter

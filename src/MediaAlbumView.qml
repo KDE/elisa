@@ -40,6 +40,11 @@ Item {
     width: stackView.width
     height: stackView.height
 
+    SystemPalette {
+        id: myPalette
+        colorGroup: SystemPalette.Active
+    }
+
     Component {
         id: rowDelegate
 
@@ -47,7 +52,7 @@ Item {
             id: rowDelegateContent
             height: Screen.pixelDensity * 15.
             Rectangle {
-                color: "#FFFFFF"
+                color: myPalette.base
                 anchors.fill: parent
             }
         }
@@ -85,8 +90,8 @@ Item {
 
         Rectangle {
             border.width: 1
-            border.color: "#DDDDDD"
-            color: "#DDDDDD"
+            border.color: myPalette.mid
+            color: myPalette.mid
 
             Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
 

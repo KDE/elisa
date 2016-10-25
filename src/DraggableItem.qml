@@ -6,7 +6,7 @@
  * Author: Aurélien Gâteau
  * License: BSD
  */
-import QtQuick 2.0
+import QtQuick 2.5
 
 Item {
     id: root
@@ -35,6 +35,11 @@ Item {
         contentItem.parent = contentItemWrapper;
     }
 
+    SystemPalette {
+        id: myPalette
+        colorGroup: SystemPalette.Active
+    }
+
     Rectangle {
         id: topPlaceholder
         anchors {
@@ -43,7 +48,7 @@ Item {
             top: parent.top
         }
         height: 0
-        color: "lightgrey"
+        color: myPalette.light
     }
 
     Item {
@@ -88,7 +93,7 @@ Item {
             top: wrapperParent.bottom
         }
         height: 0
-        color: "lightgrey"
+        color: myPalette.mid
     }
 
     SmoothedAnimation {

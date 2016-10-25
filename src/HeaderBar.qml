@@ -23,12 +23,17 @@ Item {
         sourceSize.width: parent.width
         //sourceSize.height: parent.height
 
+        SystemPalette {
+            id: myPalette
+            colorGroup: SystemPalette.Active
+        }
+
         Label {
             anchors.bottom: parent.bottom
             anchors.right: parent.right
 
             text: i18nc("Copyright text shown for an image", "by Edward Betts (Own work) [CC BY-SA 3.0]")
-            color: 'white'
+            color: myPalette.highlightedText
             opacity: 0.4
         }
 
@@ -97,7 +102,7 @@ Item {
                         Layout.fillWidth: true
                         Layout.alignment: Qt.AlignLeft
                         elide: "ElideRight"
-                        color: 'white'
+                        color: myPalette.highlightedText
                     }
 
                     Item {
@@ -110,7 +115,7 @@ Item {
                         Layout.fillWidth: true
                         Layout.alignment: Qt.AlignLeft
                         elide: "ElideRight"
-                        color: 'white'
+                        color: myPalette.highlightedText
                     }
 
                     Item {
@@ -123,7 +128,7 @@ Item {
                         Layout.fillWidth: true
                         Layout.alignment: Qt.AlignLeft
                         elide: "ElideRight"
-                        color: 'white'
+                        color: myPalette.highlightedText
                     }
 
                     Item {
@@ -154,7 +159,7 @@ Item {
                     Layout.alignment: Qt.AlignRight | Qt.AlignBottom
                     elide: "ElideRight"
                     visible: tracksCount > 0
-                    color: 'white'
+                    color: myPalette.highlightedText
                 }
 
                 Item {

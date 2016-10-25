@@ -37,6 +37,11 @@ Item {
 
     id: rootElement
 
+    SystemPalette {
+        id: myPalette
+        colorGroup: SystemPalette.Active
+    }
+
     AlbumFilterProxyModel {
         id: filterProxyModel
 
@@ -52,7 +57,7 @@ Item {
         delegate: Rectangle {
             id: mediaServerEntry
 
-            color: 'white'
+            color: myPalette.base
 
             width: contentDirectoryView.cellWidth
             height: contentDirectoryView.cellHeight
@@ -93,8 +98,8 @@ Item {
 
                             anchors.fill: parent
 
-                            color: 'black'
-                            opacity: 0.7
+                            color: myPalette.dark
+                            opacity: 0.85
 
                             BrightnessContrast {
                                 anchors.fill: playAction
@@ -254,7 +259,7 @@ Item {
         }
 
         Rectangle {
-            color: 'white'
+            color: myPalette.base
 
             Layout.fillHeight: true
             Layout.fillWidth: true

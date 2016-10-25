@@ -17,15 +17,22 @@
  * Boston, MA 02110-1301, USA.
  */
 
-import QtQuick 2.4
+import QtQuick 2.5
 import QtQuick.Layouts 1.2
 import QtQuick.Controls 1.2
 import QtQuick.Window 2.2
 import QtGraphicalEffects 1.0
 import org.mgallien.QmlExtension 1.0
 
-Item {
+Rectangle {
     id: viewAlbumDelegate
+
+    SystemPalette {
+        id: myPalette
+        colorGroup: SystemPalette.Active
+    }
+
+    color: myPalette.base
 
     property string title
     property string artist
@@ -189,8 +196,8 @@ Item {
         id: entrySeparatorItem
 
         border.width: 0.5
-        border.color: "#DDDDDD"
-        color: "#DDDDDD"
+        border.color: myPalette.mid
+        color: myPalette.mid
         visible: true
 
         anchors.bottom: parent.bottom

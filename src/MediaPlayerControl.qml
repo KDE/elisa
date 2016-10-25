@@ -44,8 +44,13 @@ Item {
 
     id: musicWidget
 
+    SystemPalette {
+        id: myPalette
+        colorGroup: SystemPalette.Active
+    }
+
     Rectangle {
-        color: '#C5CBD1'
+        color: myPalette.mid
         width: parent.width
         height: parent.height
 

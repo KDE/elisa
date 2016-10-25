@@ -35,6 +35,11 @@ Item {
 
     id: topItem
 
+    SystemPalette {
+        id: myPalette
+        colorGroup: SystemPalette.Active
+    }
+
     Component {
         id: rowDelegate
 
@@ -111,8 +116,8 @@ Item {
 
         Rectangle {
             border.width: 1
-            border.color: "#DDDDDD"
-            color: "#DDDDDD"
+            border.color: myPalette.mid
+            color: myPalette.mid
 
             Layout.fillWidth: true
             Layout.preferredHeight: 1

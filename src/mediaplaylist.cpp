@@ -295,9 +295,11 @@ void MediaPlayList::enqueue(QString albumName, QString artistName)
         return;
     }
 
-    auto currentAlbum = d->mMusicDatabase->albumFromTitleAndAuthor(albumName, artistName);
+    const auto currentAlbum = d->mMusicDatabase->albumFromTitleAndAuthor(albumName, artistName);
 
-    for (auto oneTrackId : currentAlbum.tracksKeys()) {
+    const auto allTracksKeys = currentAlbum.tracksKeys();
+
+    for (const auto oneTrackId : allTracksKeys) {
         enqueue(oneTrackId);
     }
 }
@@ -309,12 +311,7 @@ void MediaPlayList::clearAndEnqueue(QString albumName, QString artistName)
     }
 
     clearPlayList();
-
-    auto currentAlbum = d->mMusicDatabase->albumFromTitleAndAuthor(albumName, artistName);
-
-    for (auto oneTrackId : currentAlbum.tracksKeys()) {
-        enqueue(oneTrackId);
-    }
+    enqueue(albumName, artistName);
 }
 
 void MediaPlayList::clearPlayList()
@@ -333,7 +330,7 @@ QList<QVariant> MediaPlayList::persistentState() const
 {
     auto result = QList<QVariant>();
 
-    for (auto oneEntry : d->mData) {
+    for (auto &oneEntry : d->mData) {
         auto oneData = QList<QString>();
 
         oneData.push_back(d->mMusicDatabase->trackDataFromDatabaseId(oneEntry.mId, DatabaseInterface::TrackData::Title).toString());
@@ -369,7 +366,7 @@ void MediaPlayList::setPersistentState(QList<QVariant> persistentState)
 {
     qDebug() << "MediaPlayList::setPersistentState" << persistentState;
 
-    for (auto oneData : persistentState) {
+    for (auto &oneData : persistentState) {
         auto trackData = oneData.toStringList();
         if (trackData.size() != 3) {
             continue;

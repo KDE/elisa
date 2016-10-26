@@ -36,6 +36,7 @@ Rectangle {
     property int trackNumber
     property alias isPlaying : playIcon.visible
     property bool isSelected
+    property bool containsMouse
     property bool hasAlbumHeader
     property var playListModel
     property var playListControler
@@ -242,7 +243,7 @@ Rectangle {
     states: [
         State {
             name: 'notSelected'
-            when: !isSelected
+            when: !isSelected && !containsMouse
             PropertyChanges {
                 target: viewAlbumDelegate
                 height: Screen.pixelDensity * (hasAlbumHeader ? 22.5 : 6)
@@ -278,6 +279,26 @@ Rectangle {
             PropertyChanges {
                 target: viewAlbumDelegate
                 color: myPalette.highlight
+            }
+        },
+        State {
+            name: 'hoveredAndNotSelected'
+            when: !isSelected && containsMouse
+            PropertyChanges {
+                target: viewAlbumDelegate
+                height: Screen.pixelDensity * (hasAlbumHeader ? 26 : 9.5)
+            }
+            PropertyChanges {
+                target: removeButton
+                opacity: 1
+            }
+            PropertyChanges {
+                target: playNowButton
+                opacity: 1
+            }
+            PropertyChanges {
+                target: viewAlbumDelegate
+                color: myPalette.alternateBase
             }
         }
     ]

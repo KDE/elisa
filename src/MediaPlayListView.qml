@@ -181,6 +181,7 @@ Item {
                                    ''
                         isPlaying: model.isPlaying
                         isSelected: item.DelegateModel.inSelected
+                        containsMouse: item.containsMouse
 
                         playListModel: topItem.playListModel
                         playListControler: topItem.playListControler

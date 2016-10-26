@@ -11,7 +11,7 @@ import QtQuick 2.5
 Item {
     id: root
 
-    default property Item contentItem
+    default property alias contentItem: dragArea.contentItem
 
     // This item will become the parent of the dragged item during the drag operation
     property Item draggedItemParent
@@ -27,6 +27,8 @@ Item {
     // Internal: shortcut to access the attached ListView from everywhere. Shorter than root.ListView.view
     property ListView _listView: ListView.view
 
+    property alias containsMouse: dragArea.containsMouse
+
     signal clicked()
     signal rightClicked()
 
@@ -35,7 +37,7 @@ Item {
 
     // Make contentItem a child of contentItemWrapper
     onContentItemChanged: {
-        contentItem.parent = contentItemWrapper;
+        contentItem.parent = dragArea;
     }
 
     SystemPalette {
@@ -78,6 +80,11 @@ Item {
                 drag.target: parent
                 // Disable smoothed so that the Item pixel from where we started the drag remains under the mouse cursor
                 drag.smoothed: false
+
+                property Item contentItem
+
+                hoverEnabled: true
+                preventStealing: true
 
                 acceptedButtons: Qt.RightButton | Qt.LeftButton
 

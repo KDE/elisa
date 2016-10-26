@@ -68,7 +68,11 @@ Rectangle {
     }
 
     MouseArea {
+        id: hoverArea
+
         anchors.fill: parent
+
+        hoverEnabled: true
 
         acceptedButtons: Qt.RightButton | Qt.LeftButton
 
@@ -170,7 +174,7 @@ Rectangle {
     states: [
         State {
             name: 'notSelected'
-            when: !isSelected
+            when: !isSelected && !hoverArea.containsMouse
             PropertyChanges {
                 target: clearAndEnqueueButton
                 opacity: 0
@@ -199,7 +203,24 @@ Rectangle {
                 target: viewAlbumDelegate
                 color: myPalette.highlight
             }
+        },
+        State {
+            name: 'hoveredAndNotSelected'
+            when: !isSelected && hoverArea.containsMouse
+            PropertyChanges {
+                target: clearAndEnqueueButton
+                opacity: 1
+            }
+            PropertyChanges {
+                target: enqueueButton
+                opacity: 1
+            }
+            PropertyChanges {
+                target: viewAlbumDelegate
+                color: myPalette.alternateBase
+            }
         }
+
     ]
     transitions: Transition {
         ParallelAnimation {

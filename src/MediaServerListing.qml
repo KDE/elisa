@@ -234,8 +234,9 @@ Item {
 
                 Image {
                     anchors.top: parent.top
+                    anchors.bottom: parent.bottom
                     anchors.right: parent.right
-                    anchors.rightMargin: Screen.pixelDensity * 1
+                    anchors.margins: Screen.pixelDensity * 1
                     id: clearText
                     fillMode: Image.PreserveAspectFit
                     smooth: true

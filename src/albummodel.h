@@ -107,12 +107,6 @@ Q_SIGNALS:
 
     void databaseInterfaceChanged();
 
-    void newAlbum(const MusicAlbum &album);
-
-    void newAudioTrack(const MusicAudioTrack &audioTrack);
-
-    void refreshContent();
-
     void titleChanged();
 
     void authorChanged();
@@ -120,10 +114,6 @@ Q_SIGNALS:
 public Q_SLOTS:
 
     void setDatabaseInterface(DatabaseInterface* databaseInterface);
-
-    void albumsList(const QVector<MusicAlbum> &allAlbums);
-
-    void tracksList(QHash<QString, QVector<MusicAudioTrack> > tracks, QHash<QString, QUrl> covers);
 
     void setTitle(QString title);
 

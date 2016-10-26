@@ -26,11 +26,6 @@
 #include <QtCore/QPointer>
 #include <QtCore/QVector>
 
-#include <QtSql/QSqlDatabase>
-#include <QtSql/QSqlQuery>
-#include <QtSql/QSqlRecord>
-#include <QtSql/QSqlError>
-
 class AlbumModelPrivate
 {
 public:
@@ -53,7 +48,6 @@ public:
 
 AlbumModel::AlbumModel(QObject *parent) : QAbstractItemModel(parent), d(new AlbumModelPrivate)
 {
-    Q_EMIT refreshContent();
 }
 
 AlbumModel::~AlbumModel()
@@ -296,32 +290,6 @@ void AlbumModel::setDatabaseInterface(DatabaseInterface *musicDatabase)
     }
 
     emit databaseInterfaceChanged();
-}
-
-void AlbumModel::albumsList(const QVector<MusicAlbum> &allAlbums)
-{
-    beginResetModel();
-    if (d->mMusicDatabase) {
-        d->mMusicDatabase->insertAlbumsList(allAlbums);
-    }
-    endResetModel();
-
-    return;
-}
-
-void AlbumModel::tracksList(QHash<QString, QVector<MusicAudioTrack> > tracks, QHash<QString, QUrl> covers)
-{
-    if (tracks.size() > 1) {
-        beginResetModel();
-    }
-    if (d->mMusicDatabase) {
-        d->mMusicDatabase->insertTracksList(tracks, covers);
-    }
-    if (tracks.size() > 1) {
-        endResetModel();
-    }
-
-    return;
 }
 
 void AlbumModel::setTitle(QString title)

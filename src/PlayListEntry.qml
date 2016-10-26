@@ -209,6 +209,24 @@ Rectangle {
                     sourceSize.height: parent.height * 1.
                     fillMode: Image.PreserveAspectFit
                     visible: isPlaying
+
+                    SequentialAnimation on opacity {
+                        running: isPlaying
+                        loops: Animation.Infinite
+
+                        NumberAnimation {
+                            from: 0
+                            to: 1.
+                            duration: 1000
+                            easing.type: Easing.InOutQuad
+                        }
+                        NumberAnimation {
+                            from: 1
+                            to: 0
+                            duration: 1000
+                            easing.type: Easing.InOutQuad
+                        }
+                    }
                 }
 
                 Label {

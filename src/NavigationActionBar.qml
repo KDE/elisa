@@ -7,12 +7,40 @@ import QtQuick.Window 2.0
 Item {
     id: navigationBar
 
-    property alias parentStackView: backButton.parentStackView
+    property var parentStackView
     property var playList
     property string artist
     property string album
     property string image
     property string tracksCount
+
+    Action {
+        id: goPreviousAction
+        text: i18nc("navigate back in the views stack", "Back")
+        iconName: "go-previous"
+        onTriggered:
+        {
+            if (listingView.depth > 1) {
+                listingView.pop()
+            } else {
+                parentStackView.pop()
+            }
+        }
+    }
+
+    Action {
+        id: enqueueAction
+        text: i18nc("Add whole album to play list", "Enqueue")
+        iconName: "media-track-add-amarok"
+        onTriggered: playList.enqueue(album, artist)
+    }
+
+    Action {
+        id: clearAndEnqueueAction
+        text: i18nc("Clear play list and add whole album to play list", "Play Now and Replace Play List")
+        iconName: "media-playback-start"
+        onTriggered: playList.clearAndEnqueue(album, artist)
+    }
 
     RowLayout {
         anchors.fill: parent
@@ -26,26 +54,8 @@ Item {
             Layout.fillHeight: true
         }
 
-        Button {
-            id: backButton
-
-            property var parentStackView
-
-            iconName: 'go-previous'
-
-            height: Screen.pixelDensity * 8.
-            Layout.preferredHeight: height
-            Layout.minimumHeight: height
-            Layout.maximumHeight: height
-
-            Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
-
-            onClicked: if (listingView.depth > 1) {
-                           listingView.pop()
-                       } else {
-                           parentStackView.pop()
-                       }
-            text: i18nc("Back navigation button", "Back")
+        ToolButton {
+            action: goPreviousAction
         }
 
         Item {
@@ -121,31 +131,8 @@ Item {
             Layout.fillWidth: true
         }
 
-        Image {
-            id: addAlbum
-            MouseArea {
-                anchors.fill: parent
-                onClicked:
-                {
-                    console.log('enqueue ' + album + ' ' + artist)
-                    playList.enqueue(album, artist)
-                }
-            }
-            source: 'image://icon/media-track-add-amarok'
-            Layout.preferredWidth: Screen.pixelDensity * 11.
-            Layout.preferredHeight: Screen.pixelDensity * 11.
-            Layout.alignment: Qt.AlignVCenter
-            Layout.maximumWidth: Screen.pixelDensity * 11.
-            Layout.maximumHeight: Screen.pixelDensity * 11.
-            Layout.minimumWidth: Screen.pixelDensity * 11.
-            Layout.minimumHeight: Screen.pixelDensity * 11.
-            sourceSize.width: Screen.pixelDensity * 11.
-            sourceSize.height: Screen.pixelDensity * 11.
-            height: Screen.pixelDensity * 11.
-            width: Screen.pixelDensity * 11.
-            fillMode: Image.PreserveAspectFit
-            enabled: true
-            opacity: enabled ? 1.0 : 0.6
+        ToolButton {
+            action: enqueueAction
         }
 
         Item {
@@ -155,27 +142,8 @@ Item {
             Layout.fillHeight: true
         }
 
-        Image {
-            id: clearAddAlbum
-            MouseArea {
-                anchors.fill: parent
-                onClicked: playList.clearAndEnqueue(album, artist)
-            }
-            source: 'image://icon/media-playback-start'
-            Layout.preferredWidth: Screen.pixelDensity * 11.
-            Layout.preferredHeight: Screen.pixelDensity * 11.
-            Layout.alignment: Qt.AlignVCenter
-            Layout.maximumWidth: Screen.pixelDensity * 11.
-            Layout.maximumHeight: Screen.pixelDensity * 11.
-            Layout.minimumWidth: Screen.pixelDensity * 11.
-            Layout.minimumHeight: Screen.pixelDensity * 11.
-            sourceSize.width: Screen.pixelDensity * 11.
-            sourceSize.height: Screen.pixelDensity * 11.
-            height: Screen.pixelDensity * 11.
-            width: Screen.pixelDensity * 11.
-            fillMode: Image.PreserveAspectFit
-            enabled: true
-            opacity: enabled ? 1.0 : 0.6
+        ToolButton {
+            action: clearAndEnqueueAction
         }
 
         Item {

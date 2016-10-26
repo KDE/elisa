@@ -193,7 +193,6 @@ Item {
                                 action: entry.playNowAction
                             }
                         }
-
                     }
 
                     draggedItemParent: topItem

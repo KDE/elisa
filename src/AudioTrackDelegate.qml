@@ -24,7 +24,7 @@ import QtQuick.Window 2.2
 import QtGraphicalEffects 1.0
 import org.mgallien.QmlExtension 1.0
 
-Item {
+Rectangle {
     id: viewAlbumDelegate
 
     property string title
@@ -34,127 +34,184 @@ Item {
     property int trackNumber
     property var databaseId
     property var playList
+    property bool isSelected
+    property var contextMenu
+    property alias clearAndEnqueueAction: clearAndEnqueue
+    property alias enqueueAction: enqueue
 
-    RowLayout {
+    signal clicked()
+    signal rightClicked()
+
+    SystemPalette {
+        id: myPalette
+        colorGroup: SystemPalette.Active
+    }
+
+    color: myPalette.base
+
+    Action {
+        id: clearAndEnqueue
+        text: i18nc("Clear play list and enqueue current track", "Play Now and Replace Play List")
+        iconName: "media-playback-start"
+        onTriggered: {
+            playList.clearAndEnqueue(databaseId)
+        }
+    }
+
+    Action {
+        id: enqueue
+        text: i18nc("Enqueue current track", "Enqueue")
+        iconName: "media-track-add-amarok"
+        onTriggered: {
+            playList.enqueue(databaseId)
+        }
+    }
+
+    MouseArea {
         anchors.fill: parent
-        spacing: 0
 
-        Item {
-            Layout.preferredWidth: Screen.pixelDensity * 2
-            Layout.minimumWidth: Screen.pixelDensity * 2
-            Layout.maximumWidth: Screen.pixelDensity * 2
-            width: Screen.pixelDensity * 2
+        acceptedButtons: Qt.RightButton | Qt.LeftButton
+
+        onClicked:
+        {
+            if (mouse.button == Qt.LeftButton)
+                viewAlbumDelegate.clicked()
+            if (mouse.button == Qt.RightButton)
+                viewAlbumDelegate.rightClicked()
         }
 
-        ColumnLayout {
-            Layout.preferredHeight: viewAlbumDelegate.height
-
-            Layout.fillWidth: true
-
-            Layout.fillHeight: true
-            Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
+        RowLayout {
+            anchors.fill: parent
             spacing: 0
 
             Item {
-                Layout.preferredHeight: Screen.pixelDensity * 3.
-                Layout.minimumHeight: Screen.pixelDensity * 3.
-                Layout.maximumHeight: Screen.pixelDensity * 3.
+                Layout.preferredWidth: Screen.pixelDensity * 2
+                Layout.minimumWidth: Screen.pixelDensity * 2
+                Layout.maximumWidth: Screen.pixelDensity * 2
+                width: Screen.pixelDensity * 2
             }
 
-            Label {
-                id: mainLabel
-                text: trackNumber + ' - ' + title
-                font.weight: Font.Bold
-                Layout.preferredWidth: Screen.pixelDensity * 9
+            ColumnLayout {
+                Layout.preferredHeight: viewAlbumDelegate.height
+
                 Layout.fillWidth: true
-                Layout.alignment: Qt.AlignLeft
-                elide: "ElideRight"
-            }
 
-            Item {
                 Layout.fillHeight: true
-            }
+                Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
+                spacing: 0
 
-            Label {
-                id: durationLabel
-                text: duration
-                font.weight: Font.Light
-                Layout.preferredWidth: Screen.pixelDensity * 3
-                Layout.fillWidth: true
-                Layout.alignment: Qt.AlignLeft
-                elide: "ElideRight"
+                Item {
+                    Layout.preferredHeight: Screen.pixelDensity * 3.
+                    Layout.minimumHeight: Screen.pixelDensity * 3.
+                    Layout.maximumHeight: Screen.pixelDensity * 3.
+                }
+
+                Label {
+                    id: mainLabel
+                    text: trackNumber + ' - ' + title
+                    font.weight: Font.Bold
+                    Layout.preferredWidth: Screen.pixelDensity * 9
+                    Layout.fillWidth: true
+                    Layout.alignment: Qt.AlignLeft
+                    elide: "ElideRight"
+                }
+
+                Item {
+                    Layout.fillHeight: true
+                }
+
+                Label {
+                    id: durationLabel
+                    text: duration
+                    font.weight: Font.Light
+                    Layout.preferredWidth: Screen.pixelDensity * 3
+                    Layout.fillWidth: true
+                    Layout.alignment: Qt.AlignLeft
+                    elide: "ElideRight"
+                }
+
+                Item {
+                    Layout.preferredHeight: Screen.pixelDensity * 3.
+                    Layout.minimumHeight: Screen.pixelDensity * 3.
+                    Layout.maximumHeight: Screen.pixelDensity * 3.
+                }
             }
 
             Item {
-                Layout.preferredHeight: Screen.pixelDensity * 3.
-                Layout.minimumHeight: Screen.pixelDensity * 3.
-                Layout.maximumHeight: Screen.pixelDensity * 3.
+                Layout.preferredWidth: Screen.pixelDensity * 3.
+                Layout.minimumWidth: Screen.pixelDensity * 3.
+                Layout.maximumWidth: Screen.pixelDensity * 3.
+            }
+
+            ToolButton {
+                id: clearAndEnqueueButton
+
+                visible: opacity > 0.1
+                action: clearAndEnqueue
+                Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+            }
+
+            ToolButton {
+                id: enqueueButton
+
+                visible: opacity > 0.1
+                action: enqueue
+                Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+            }
+
+            Item {
+                Layout.preferredWidth: Screen.pixelDensity * 6.
+                Layout.minimumWidth: Screen.pixelDensity * 6.
+                Layout.maximumWidth: Screen.pixelDensity * 6.
             }
         }
+    }
 
-        Item {
-            Layout.preferredWidth: Screen.pixelDensity * 3.
-            Layout.minimumWidth: Screen.pixelDensity * 3.
-            Layout.maximumWidth: Screen.pixelDensity * 3.
-        }
-
-        Image {
-            id: addAlbum
-            MouseArea {
-                anchors.fill: parent
-                onClicked: playList.enqueue(databaseId)
+    states: [
+        State {
+            name: 'notSelected'
+            when: !isSelected
+            PropertyChanges {
+                target: clearAndEnqueueButton
+                opacity: 0
             }
-            source: 'image://icon/media-track-add-amarok'
-            Layout.preferredWidth: Screen.pixelDensity * 8.
-            Layout.preferredHeight: Screen.pixelDensity * 8.
-            Layout.alignment: Qt.AlignVCenter
-            Layout.maximumWidth: Screen.pixelDensity * 8.
-            Layout.maximumHeight: Screen.pixelDensity * 8.
-            Layout.minimumWidth: Screen.pixelDensity * 8.
-            Layout.minimumHeight: Screen.pixelDensity * 8.
-            sourceSize.width: Screen.pixelDensity * 8.
-            sourceSize.height: Screen.pixelDensity * 8.
-            height: Screen.pixelDensity * 8.
-            width: Screen.pixelDensity * 8.
-            fillMode: Image.PreserveAspectFit
-            enabled: true
-            opacity: enabled ? 1.0 : 0.6
-        }
-
-        Item {
-            Layout.preferredWidth: Screen.pixelDensity * 3.
-            Layout.minimumWidth: Screen.pixelDensity * 3.
-            Layout.maximumWidth: Screen.pixelDensity * 3.
-            Layout.fillHeight: true
-        }
-
-        Image {
-            id: clearAddAlbum
-            MouseArea {
-                anchors.fill: parent
-                onClicked: playList.clearAndEnqueue(databaseId)
+            PropertyChanges {
+                target: enqueueButton
+                opacity: 0
             }
-            source: 'image://icon/media-playback-start'
-            Layout.preferredWidth: Screen.pixelDensity * 8.
-            Layout.preferredHeight: Screen.pixelDensity * 8.
-            Layout.alignment: Qt.AlignVCenter
-            Layout.maximumWidth: Screen.pixelDensity * 8.
-            Layout.maximumHeight: Screen.pixelDensity * 8.
-            Layout.minimumWidth: Screen.pixelDensity * 8.
-            Layout.minimumHeight: Screen.pixelDensity * 8.
-            sourceSize.width: Screen.pixelDensity * 8.
-            sourceSize.height: Screen.pixelDensity * 8.
-            height: Screen.pixelDensity * 8.
-            width: Screen.pixelDensity * 8.
-            fillMode: Image.PreserveAspectFit
-            enabled: true
-            opacity: enabled ? 1.0 : 0.6
+            PropertyChanges {
+                target: viewAlbumDelegate
+                color: myPalette.base
+            }
+        },
+        State {
+            name: 'selected'
+            when: isSelected
+            PropertyChanges {
+                target: clearAndEnqueueButton
+                opacity: 1
+            }
+            PropertyChanges {
+                target: enqueueButton
+                opacity: 1
+            }
+            PropertyChanges {
+                target: viewAlbumDelegate
+                color: myPalette.highlight
+            }
         }
-
-        Item {
-            Layout.preferredWidth: Screen.pixelDensity * 6.
-            Layout.minimumWidth: Screen.pixelDensity * 6.
-            Layout.maximumWidth: Screen.pixelDensity * 6.
+    ]
+    transitions: Transition {
+        ParallelAnimation {
+            NumberAnimation {
+                properties: "height, opacity"
+                easing.type: Easing.InOutQuad
+                duration: 50
+            }
+            ColorAnimation {
+                properties: "color"
+                duration: 200
+            }
         }
     }
 }

@@ -114,7 +114,13 @@ Item {
             model: DelegateModel {
                 model: contentModel
 
+                groups: [
+                    DelegateModelGroup { name: "selected" }
+                ]
+
                 delegate: AudioTrackDelegate {
+                    id: entry
+
                     height: Screen.pixelDensity * 15.
                     width: contentDirectoryView.width
 
@@ -138,6 +144,28 @@ Item {
                                      model.trackNumber
                                  else
                                      ''
+                    isSelected: DelegateModel.inSelected
+
+                    contextMenu: Menu {
+                        MenuItem {
+                            action: entry.clearAndEnqueueAction
+                        }
+                        MenuItem {
+                            action: entry.enqueueAction
+                        }
+                    }
+
+                    onClicked:
+                    {
+                        var myGroup = contentDirectoryView.model.groups[2]
+                        if (myGroup.count > 0 && !DelegateModel.inSelected) {
+                            myGroup.remove(0, myGroup.count)
+                        }
+
+                        DelegateModel.inSelected = !DelegateModel.inSelected
+                    }
+
+                    onRightClicked: contextMenu.popup()
                 }
             }
 

@@ -91,21 +91,11 @@ Q_SIGNALS:
 
     void databaseInterfaceChanged();
 
-    void newAlbum(const MusicAlbum &album);
-
-    void newAudioTrack(const MusicAudioTrack &audioTrack);
-
-    void refreshContent();
-
     void artistChanged();
 
 public Q_SLOTS:
 
     void setDatabaseInterface(DatabaseInterface* databaseInterface);
-
-    void albumsList(const QVector<MusicAlbum> &allAlbums);
-
-    void tracksList(QHash<QString, QVector<MusicAudioTrack> > tracks, QHash<QString, QUrl> covers);
 
     void setArtist(QString artist);
 

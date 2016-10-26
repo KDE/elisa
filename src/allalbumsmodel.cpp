@@ -26,11 +26,6 @@
 #include <QtCore/QPointer>
 #include <QtCore/QVector>
 
-#include <QtSql/QSqlDatabase>
-#include <QtSql/QSqlQuery>
-#include <QtSql/QSqlRecord>
-#include <QtSql/QSqlError>
-
 class AllAlbumsModelPrivate
 {
 public:
@@ -49,7 +44,6 @@ public:
 
 AllAlbumsModel::AllAlbumsModel(QObject *parent) : QAbstractItemModel(parent), d(new AllAlbumsModelPrivate)
 {
-    Q_EMIT refreshContent();
 }
 
 AllAlbumsModel::~AllAlbumsModel()
@@ -258,32 +252,6 @@ void AllAlbumsModel::setDatabaseInterface(DatabaseInterface *musicDatabase)
     }
 
     emit databaseInterfaceChanged();
-}
-
-void AllAlbumsModel::albumsList(const QVector<MusicAlbum> &allAlbums)
-{
-    beginResetModel();
-    if (d->mMusicDatabase) {
-        d->mMusicDatabase->insertAlbumsList(allAlbums);
-    }
-    endResetModel();
-
-    return;
-}
-
-void AllAlbumsModel::tracksList(QHash<QString, QVector<MusicAudioTrack> > tracks, QHash<QString, QUrl> covers)
-{
-    if (tracks.size() > 1) {
-        beginResetModel();
-    }
-    if (d->mMusicDatabase) {
-        d->mMusicDatabase->insertTracksList(tracks, covers);
-    }
-    if (tracks.size() > 1) {
-        endResetModel();
-    }
-
-    return;
 }
 
 void AllAlbumsModel::setArtist(QString artist)

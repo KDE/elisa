@@ -264,7 +264,7 @@ Rectangle {
             when: !isSelected && !containsMouse
             PropertyChanges {
                 target: viewAlbumDelegate
-                height: Screen.pixelDensity * (hasAlbumHeader ? 22.5 : 6)
+                height: Screen.pixelDensity * (hasAlbumHeader ? 21 : 6)
             }
             PropertyChanges {
                 target: removeButton
@@ -284,7 +284,7 @@ Rectangle {
             when: isSelected
             PropertyChanges {
                 target: viewAlbumDelegate
-                height: Screen.pixelDensity * (hasAlbumHeader ? 26 : 9.5)
+                height: Screen.pixelDensity * (hasAlbumHeader ? 24.5 : 9.5)
             }
             PropertyChanges {
                 target: removeButton
@@ -304,7 +304,7 @@ Rectangle {
             when: !isSelected && containsMouse
             PropertyChanges {
                 target: viewAlbumDelegate
-                height: Screen.pixelDensity * (hasAlbumHeader ? 26 : 9.5)
+                height: Screen.pixelDensity * (hasAlbumHeader ? 24.5 : 9.5)
             }
             PropertyChanges {
                 target: removeButton

@@ -38,9 +38,6 @@
 static const double MAX_RATE = 1.0;
 static const double MIN_RATE = 1.0;
 
-static const QString playlistTidPrefix(QStringLiteral("/org/kde/elisa/playlist/"));
-static const QDBusObjectPath mprisNoTrack(QStringLiteral("/org/mpris/MediaPlayer2/TrackList/NoTrack"));
-
 MediaPlayer2Player::MediaPlayer2Player(PlayListControler *playListControler, ManageAudioPlayer *manageAudioPlayer,
                                        ManageMediaPlayerControl *manageMediaPlayerControl, ManageHeaderBar *manageHeaderBar, QObject* parent)
     : QDBusAbstractAdaptor(parent), m_playListControler(playListControler), m_manageAudioPlayer(manageAudioPlayer),
@@ -316,7 +313,7 @@ int MediaPlayer2Player::currentTrack() const
 void MediaPlayer2Player::setCurrentTrack(int newTrackPosition)
 {
     m_currentTrack = m_manageAudioPlayer->playerSource().toString();
-    m_currentTrackId = QDBusObjectPath(playlistTidPrefix + QString::number(newTrackPosition)).path();
+    m_currentTrackId = QDBusObjectPath(QStringLiteral("/org/kde/elisa/playlist/") + QString::number(newTrackPosition)).path();
 
     m_metadata = getMetadataOfCurrentTrack();
     signalPropertiesChange(QStringLiteral("Metadata"), Metadata());

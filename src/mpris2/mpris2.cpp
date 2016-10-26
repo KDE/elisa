@@ -30,8 +30,6 @@
 
 #include <unistd.h>
 
-static const QString tmpPmcDirPath(QDir::tempPath() + QLatin1String("/plasma-mediacenter/covers/"));
-
 Mpris2::Mpris2(QObject* parent)
     : QObject(parent)
 {
@@ -51,9 +49,6 @@ void Mpris2::initDBusService()
     }
 
     if (success) {
-        QDir tmpPmcDir;
-        tmpPmcDir.mkpath(tmpPmcDirPath);
-
         m_mp2 = new MediaPlayer2(this);
         m_mp2p = new MediaPlayer2Player(m_playListControler, m_manageAudioPlayer, m_manageMediaPlayerControl, m_manageHeaderBar, this);
 

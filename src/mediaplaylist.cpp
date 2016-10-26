@@ -122,9 +122,7 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
             if (index.row() > 0) {
                 auto currentAlbum = d->mMusicDatabase->trackDataFromDatabaseId(d->mData[index.row()].mId, DatabaseInterface::TrackData::Album).toString();
                 auto previousAlbum = d->mMusicDatabase->trackDataFromDatabaseId(d->mData[index.row() - 1].mId, DatabaseInterface::TrackData::Album).toString();
-                auto currentArtist = d->mMusicDatabase->trackDataFromDatabaseId(d->mData[index.row()].mId, DatabaseInterface::TrackData::Artist).toString();
-                auto previousArtist = d->mMusicDatabase->trackDataFromDatabaseId(d->mData[index.row() - 1].mId, DatabaseInterface::TrackData::Artist).toString();
-                if (currentAlbum == previousAlbum /*&& currentArtist == previousArtist*/) {
+                if (currentAlbum == previousAlbum) {
                     return false;
                 }
             }

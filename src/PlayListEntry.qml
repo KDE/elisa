@@ -50,7 +50,7 @@ Rectangle {
 
     color: myPalette.base
 
-    height: (hasAlbumHeader ? (isSelected ? Screen.pixelDensity * 26 : Screen.pixelDensity * 22.5) : (isSelected ? Screen.pixelDensity * 9.5 : Screen.pixelDensity * 6.))
+    height: (hasAlbumHeader ? (isSelected ? Screen.pixelDensity * 24.5 : Screen.pixelDensity * 21) : (isSelected ? Screen.pixelDensity * 9.5 : Screen.pixelDensity * 6.))
 
     Action {
         id: removeFromPlayList
@@ -80,11 +80,7 @@ Rectangle {
         anchors.topMargin: 0
         anchors.bottomMargin: 1
 
-        RowLayout {
-            id: headerRow
-
-            spacing: Screen.pixelDensity * 1.5
-
+        Item {
             Layout.fillWidth: true
             Layout.preferredHeight: Screen.pixelDensity * 15.
             Layout.minimumHeight: Screen.pixelDensity * 15.
@@ -92,67 +88,67 @@ Rectangle {
 
             visible: hasAlbumHeader
 
-            Image {
-                id: mainIcon
-                source: itemDecoration
-                Layout.minimumWidth: headerRow.height - 4
-                Layout.maximumWidth: headerRow.height - 4
-                Layout.preferredWidth: headerRow.height - 4
-                Layout.minimumHeight: headerRow.height - 4
-                Layout.maximumHeight: headerRow.height - 4
-                Layout.preferredHeight: headerRow.height - 4
-                sourceSize.width: headerRow.height - 4
-                sourceSize.height: parent.height - 4
-                fillMode: Image.PreserveAspectFit
-                Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-            }
+            RowLayout {
+                id: headerRow
 
-            ColumnLayout {
-                Layout.fillWidth: true
-                Layout.fillHeight: true
+                spacing: Screen.pixelDensity * 1.5
 
-                spacing: 0
+                anchors.fill: parent
 
-                Item {
-                    height: Screen.pixelDensity * 1.5
+                Image {
+                    id: mainIcon
+                    source: itemDecoration
+                    Layout.minimumWidth: headerRow.height - 4
+                    Layout.maximumWidth: headerRow.height - 4
+                    Layout.preferredWidth: headerRow.height - 4
+                    Layout.minimumHeight: headerRow.height - 4
+                    Layout.maximumHeight: headerRow.height - 4
+                    Layout.preferredHeight: headerRow.height - 4
+                    sourceSize.width: headerRow.height - 4
+                    sourceSize.height: parent.height - 4
+                    fillMode: Image.PreserveAspectFit
+                    Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
                 }
 
-                Label {
-                    id: mainLabel
-                    text: album
-                    font.weight: Font.Bold
-                    horizontalAlignment: "AlignHCenter"
+                ColumnLayout {
                     Layout.fillWidth: true
-                    Layout.alignment: Qt.AlignCenter
-                    elide: "ElideRight"
-                }
-
-                Item {
                     Layout.fillHeight: true
-                }
 
-                Label {
-                    id: authorLabel
-                    text: artist
-                    font.weight: Font.Light
-                    horizontalAlignment: "AlignHCenter"
-                    Layout.fillWidth: true
-                    Layout.alignment: Qt.AlignCenter
-                    elide: "ElideRight"
-                }
+                    spacing: 0
 
-                Item {
-                    height: Screen.pixelDensity * 1.5
+                    Item {
+                        height: Screen.pixelDensity * 1.5
+                    }
+
+                    Label {
+                        id: mainLabel
+                        text: album
+                        font.weight: Font.Bold
+                        horizontalAlignment: "AlignHCenter"
+                        Layout.fillWidth: true
+                        Layout.alignment: Qt.AlignCenter
+                        elide: "ElideRight"
+                    }
+
+                    Item {
+                        Layout.fillHeight: true
+                    }
+
+                    Label {
+                        id: authorLabel
+                        text: artist
+                        font.weight: Font.Light
+                        horizontalAlignment: "AlignHCenter"
+                        Layout.fillWidth: true
+                        Layout.alignment: Qt.AlignCenter
+                        elide: "ElideRight"
+                    }
+
+                    Item {
+                        height: Screen.pixelDensity * 1.5
+                    }
                 }
             }
-        }
-
-        Item {
-            Layout.preferredHeight: (hasAlbumHeader ? Screen.pixelDensity * 1.5 : 0)
-            Layout.minimumHeight: (hasAlbumHeader ? Screen.pixelDensity * 1.5 : 0)
-            Layout.maximumHeight: (hasAlbumHeader ? Screen.pixelDensity * 1.5 : 0)
-
-            visible: hasAlbumHeader
         }
 
         Item {

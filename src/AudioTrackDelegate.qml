@@ -148,18 +148,18 @@ Rectangle {
             }
 
             ToolButton {
-                id: clearAndEnqueueButton
-
-                visible: opacity > 0.1
-                action: clearAndEnqueue
-                Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
-            }
-
-            ToolButton {
                 id: enqueueButton
 
                 visible: opacity > 0.1
                 action: enqueue
+                Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+            }
+
+            ToolButton {
+                id: clearAndEnqueueButton
+
+                visible: opacity > 0.1
+                action: clearAndEnqueue
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
             }
 

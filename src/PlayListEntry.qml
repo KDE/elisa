@@ -218,13 +218,13 @@ Rectangle {
                             from: 0
                             to: 1.
                             duration: 1000
-                            easing.type: Easing.InOutQuad
+                            easing.type: Easing.InOutCubic
                         }
                         NumberAnimation {
                             from: 1
                             to: 0
                             duration: 1000
-                            easing.type: Easing.InOutQuad
+                            easing.type: Easing.InOutCubic
                         }
                     }
                 }

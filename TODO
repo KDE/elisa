@@ -1,0 +1,10 @@
+Toto list:
+
+* support albums with multiple discs
+* manage correctly the next button when repeat or random is active
+* manage correctly the current track when order is changed in play list
+* support multiple selection with Ctrl+Click
+* finish MPRIS2 support (current position and seek
+* improve and measure test coverage
+* improve the album list view (consistency with the other views)
+

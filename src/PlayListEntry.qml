@@ -198,9 +198,9 @@ Rectangle {
 
                     Layout.preferredWidth: parent.height * 1
                     Layout.preferredHeight: parent.height * 1
-                    Layout.alignment: Qt.AlignTop | Qt.AlignHCenter
-                    Layout.maximumWidth: parent.height * 1
-                    Layout.maximumHeight: parent.height * 1
+                    Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+                    Layout.maximumWidth: Screen.pixelDensity * 6
+                    Layout.maximumHeight: Screen.pixelDensity * 6
 
                     source: 'image://icon/media-playback-start'
                     width: parent.height * 1.

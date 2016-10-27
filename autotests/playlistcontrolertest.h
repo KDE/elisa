@@ -65,6 +65,8 @@ private Q_SLOTS:
 
     void removeBeforeCurrentTrack();
 
+    void switchToTrackTest();
+
 };
 
 #endif // PLAYLISTCONTROLERTEST_H

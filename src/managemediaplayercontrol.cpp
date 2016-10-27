@@ -62,7 +62,7 @@ bool ManageMediaPlayerControl::skipForwardControlEnabled() const
         return false;
     }
 
-    return (mCurrentTrack.row() < mPlayListModel->rowCount() - 1) && mIsInPlayingState;
+    return (mRandomOrContinuePlay || (mCurrentTrack.row() < mPlayListModel->rowCount() - 1)) && mIsInPlayingState;
 }
 
 bool ManageMediaPlayerControl::musicPlaying() const
@@ -166,6 +166,28 @@ void ManageMediaPlayerControl::setCurrentTrack(QPersistentModelIndex currentTrac
     }
 
     if (oldValueSkipForward != skipForwardControlEnabled()) {
+        Q_EMIT skipForwardControlEnabledChanged();
+    }
+}
+
+bool ManageMediaPlayerControl::randomOrContinuePlay() const
+{
+    return mRandomOrContinuePlay;
+}
+
+void ManageMediaPlayerControl::setRandomOrContinuePlay(bool randomOrContinuePlay)
+{
+    if (mRandomOrContinuePlay == randomOrContinuePlay) {
+        return;
+    }
+
+    auto oldNextTrackIsEnabled = skipForwardControlEnabled();
+
+    mRandomOrContinuePlay = randomOrContinuePlay;
+    Q_EMIT randomOrContinuePlayChanged();
+
+    auto newNextTrackIsEnabled = skipForwardControlEnabled();
+    if (oldNextTrackIsEnabled != newNextTrackIsEnabled) {
         Q_EMIT skipForwardControlEnabledChanged();
     }
 }

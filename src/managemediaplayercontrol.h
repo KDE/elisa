@@ -56,6 +56,11 @@ class ManageMediaPlayerControl : public QObject
                WRITE setCurrentTrack
                NOTIFY currentTrackChanged)
 
+    Q_PROPERTY(bool randomOrContinuePlay
+               READ randomOrContinuePlay
+               WRITE setRandomOrContinuePlay
+               NOTIFY randomOrContinuePlayChanged)
+
 public:
 
     enum class PlayerState
@@ -85,6 +90,8 @@ public:
 
     QPersistentModelIndex currentTrack() const;
 
+    bool randomOrContinuePlay() const;
+
 Q_SIGNALS:
 
     void playControlEnabledChanged();
@@ -99,6 +106,8 @@ Q_SIGNALS:
 
     void currentTrackChanged();
 
+    void randomOrContinuePlayChanged();
+
 public Q_SLOTS:
 
     void setPlayListModel(QAbstractItemModel* aPlayListModel);
@@ -110,6 +119,8 @@ public Q_SLOTS:
     void playerStopped();
 
     void setCurrentTrack(QPersistentModelIndex currentTrack);
+
+    void setRandomOrContinuePlay(bool randomOrContinuePlay);
 
 private Q_SLOTS:
 
@@ -136,6 +147,8 @@ private:
     bool mIsInPlayingState = false;
 
     PlayerState mPlayerState = ManageMediaPlayerControl::PlayerState::Stopped;
+
+    bool mRandomOrContinuePlay = false;
 
 };
 

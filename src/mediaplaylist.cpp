@@ -222,8 +222,8 @@ bool MediaPlayList::removeRows(int row, int count, const QModelIndex &parent)
 
     bool willChangeData = false;
 
-    if (rowCount() > row + count) {
-        auto currentAlbum = d->mMusicDatabase->trackDataFromDatabaseId(d->mData[row + count - 1].mId, DatabaseInterface::TrackData::Album).toString();
+    if (rowCount() > row + count && row > 0) {
+        auto currentAlbum = d->mMusicDatabase->trackDataFromDatabaseId(d->mData[row - 1].mId, DatabaseInterface::TrackData::Album).toString();
         auto nextAlbum = d->mMusicDatabase->trackDataFromDatabaseId(d->mData[row + count].mId, DatabaseInterface::TrackData::Album).toString();
 
         if (currentAlbum == nextAlbum) {

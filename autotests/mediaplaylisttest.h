@@ -47,6 +47,8 @@ private Q_SLOTS:
 
     void testHasHeaderWithRestore();
 
+    void testHasHeaderWithRemove();
+
 };
 
 #endif // MEDIAPLAYLISTTEST_H

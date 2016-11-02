@@ -124,6 +124,8 @@ public Q_SLOTS:
 
 private Q_SLOTS:
 
+    void playListTracksWillBeInserted(const QModelIndex &parent, int first, int last);
+
     void playListTracksInserted(const QModelIndex &parent, int first, int last);
 
     void playListTracksWillBeRemoved(const QModelIndex & parent, int first, int last);

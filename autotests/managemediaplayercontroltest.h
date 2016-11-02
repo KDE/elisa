@@ -43,9 +43,7 @@ private Q_SLOTS:
 
     void addItemInModelCaseV2();
 
-    void nextButtonAndRandomPlay();
-
-    void nextButtonAndContinuePlay();
+    void nextAndPreviousButtonAndRandomPlay();
 
 };
 

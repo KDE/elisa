@@ -49,7 +49,7 @@ bool ManageMediaPlayerControl::skipBackwardControlEnabled() const
         return false;
     }
 
-    return mCurrentTrack.row() > 0 && mIsInPlayingState;
+    return (mRandomOrContinuePlay || (mCurrentTrack.row() > 0)) && mIsInPlayingState;
 }
 
 bool ManageMediaPlayerControl::skipForwardControlEnabled() const
@@ -75,17 +75,22 @@ void ManageMediaPlayerControl::playerPaused()
     //qDebug() << "ManageMediaPlayerControl::playerPaused";
 
     if (!mIsInPlayingState) {
+        auto oldPreviousTrackIsEnabled = skipBackwardControlEnabled();
+        auto oldNextTrackIsEnabled = skipForwardControlEnabled();
+
         mIsInPlayingState = true;
 
         if (!mCurrentTrack.isValid()) {
             return;
         }
 
-        if (mCurrentTrack.row() < mPlayListModel->rowCount() - 1) {
+        auto newNextTrackIsEnabled = skipForwardControlEnabled();
+        if (oldNextTrackIsEnabled != newNextTrackIsEnabled) {
             Q_EMIT skipForwardControlEnabledChanged();
         }
 
-        if (mCurrentTrack.row() > 0) {
+        auto newPreviousTrackIsEnabled = skipBackwardControlEnabled();
+        if (oldPreviousTrackIsEnabled != newPreviousTrackIsEnabled) {
             Q_EMIT skipBackwardControlEnabledChanged();
         }
     }
@@ -96,20 +101,23 @@ void ManageMediaPlayerControl::playerPaused()
 
 void ManageMediaPlayerControl::playerPlaying()
 {
-    //qDebug() << "ManageMediaPlayerControl::playerPlaying";
-
     if (!mIsInPlayingState) {
+        auto oldPreviousTrackIsEnabled = skipBackwardControlEnabled();
+        auto oldNextTrackIsEnabled = skipForwardControlEnabled();
+
         mIsInPlayingState = true;
 
         if (!mCurrentTrack.isValid()) {
             return;
         }
 
-        if (mCurrentTrack.row() < mPlayListModel->rowCount() - 1) {
+        auto newNextTrackIsEnabled = skipForwardControlEnabled();
+        if (oldNextTrackIsEnabled != newNextTrackIsEnabled) {
             Q_EMIT skipForwardControlEnabledChanged();
         }
 
-        if (mCurrentTrack.row() > 0) {
+        auto newPreviousTrackIsEnabled = skipBackwardControlEnabled();
+        if (oldPreviousTrackIsEnabled != newPreviousTrackIsEnabled) {
             Q_EMIT skipBackwardControlEnabledChanged();
         }
     }
@@ -123,14 +131,19 @@ void ManageMediaPlayerControl::playerStopped()
     //qDebug() << "ManageMediaPlayerControl::playerStopped";
 
     if (mIsInPlayingState) {
+        auto oldPreviousTrackIsEnabled = skipBackwardControlEnabled();
+        auto oldNextTrackIsEnabled = skipForwardControlEnabled();
+
         mIsInPlayingState = false;
 
         if (mCurrentTrack.isValid()) {
-            if (mCurrentTrack.row() < mPlayListModel->rowCount() - 1) {
+            auto newNextTrackIsEnabled = skipForwardControlEnabled();
+            if (oldNextTrackIsEnabled != newNextTrackIsEnabled) {
                 Q_EMIT skipForwardControlEnabledChanged();
             }
 
-            if (mCurrentTrack.row() > 0) {
+            auto newPreviousTrackIsEnabled = skipBackwardControlEnabled();
+            if (oldPreviousTrackIsEnabled != newPreviousTrackIsEnabled) {
                 Q_EMIT skipBackwardControlEnabledChanged();
             }
         }
@@ -181,6 +194,7 @@ void ManageMediaPlayerControl::setRandomOrContinuePlay(bool randomOrContinuePlay
         return;
     }
 
+    auto oldPreviousTrackIsEnabled = skipBackwardControlEnabled();
     auto oldNextTrackIsEnabled = skipForwardControlEnabled();
 
     mRandomOrContinuePlay = randomOrContinuePlay;
@@ -190,6 +204,17 @@ void ManageMediaPlayerControl::setRandomOrContinuePlay(bool randomOrContinuePlay
     if (oldNextTrackIsEnabled != newNextTrackIsEnabled) {
         Q_EMIT skipForwardControlEnabledChanged();
     }
+
+    auto newPreviousTrackIsEnabled = skipBackwardControlEnabled();
+    if (oldPreviousTrackIsEnabled != newPreviousTrackIsEnabled) {
+        Q_EMIT skipBackwardControlEnabledChanged();
+    }
+}
+
+void ManageMediaPlayerControl::playListTracksWillBeInserted(const QModelIndex &parent, int first, int last)
+{
+    mSkipBackwardControlWasEnabled = skipBackwardControlEnabled();
+    mSkipForwardControlWasEnabled = skipForwardControlEnabled();
 }
 
 void ManageMediaPlayerControl::playListTracksInserted(const QModelIndex &parent, int first, int last)
@@ -197,14 +222,19 @@ void ManageMediaPlayerControl::playListTracksInserted(const QModelIndex &parent,
     Q_UNUSED(parent);
 
     if (!mCurrentTrack.isValid()) {
+        mSkipBackwardControlWasEnabled = false;
+        mSkipForwardControlWasEnabled = false;
+
         return;
     }
 
-    if (first > mCurrentTrack.row() && last + 1 == mPlayListModel->rowCount()) {
+    auto newNextTrackIsEnabled = skipForwardControlEnabled();
+    if (mSkipForwardControlWasEnabled != newNextTrackIsEnabled) {
         Q_EMIT skipForwardControlEnabledChanged();
     }
 
-    if (mCurrentTrack.row() == last + 1 && first == 0) {
+    auto newPreviousTrackIsEnabled = skipBackwardControlEnabled();
+    if (mSkipBackwardControlWasEnabled != newPreviousTrackIsEnabled) {
         Q_EMIT skipBackwardControlEnabledChanged();
     }
 }
@@ -213,11 +243,11 @@ void ManageMediaPlayerControl::playListTracksWillBeRemoved(const QModelIndex &pa
 {
     Q_UNUSED(parent);
 
-    mCurrentTrackWillBeRemoved = false;
-    mSkipBackwardControlWasEnabled = false;
-    mSkipForwardControlWasEnabled = false;
-
     if (!mCurrentTrack.isValid()) {
+        mCurrentTrackWillBeRemoved = false;
+        mSkipBackwardControlWasEnabled = false;
+        mSkipForwardControlWasEnabled = false;
+
         return;
     }
 
@@ -247,12 +277,14 @@ void ManageMediaPlayerControl::playListTracksRemoved(const QModelIndex &parent, 
         return;
     }
 
-    if (mSkipBackwardControlWasEnabled && mCurrentTrack.row() == 0) {
-        Q_EMIT skipBackwardControlEnabledChanged();
+    auto newNextTrackIsEnabled = skipForwardControlEnabled();
+    if (mSkipForwardControlWasEnabled != newNextTrackIsEnabled) {
+        Q_EMIT skipForwardControlEnabledChanged();
     }
 
-    if (mSkipForwardControlWasEnabled && mCurrentTrack.row() == (mPlayListModel->rowCount() - 1)) {
-        Q_EMIT skipForwardControlEnabledChanged();
+    auto newPreviousTrackIsEnabled = skipBackwardControlEnabled();
+    if (mSkipBackwardControlWasEnabled != newPreviousTrackIsEnabled) {
+        Q_EMIT skipBackwardControlEnabledChanged();
     }
 }
 
@@ -263,6 +295,7 @@ void ManageMediaPlayerControl::playListReset()
 void ManageMediaPlayerControl::setPlayListModel(QAbstractItemModel *aPlayListModel)
 {
     if (mPlayListModel) {
+        disconnect(mPlayListModel, &QAbstractItemModel::rowsAboutToBeInserted, this, &ManageMediaPlayerControl::playListTracksWillBeInserted);
         disconnect(mPlayListModel, &QAbstractItemModel::rowsInserted, this, &ManageMediaPlayerControl::playListTracksInserted);
         disconnect(mPlayListModel, &QAbstractItemModel::rowsAboutToBeRemoved, this, &ManageMediaPlayerControl::playListTracksWillBeRemoved);
         disconnect(mPlayListModel, &QAbstractItemModel::rowsRemoved, this, &ManageMediaPlayerControl::playListTracksRemoved);
@@ -271,6 +304,7 @@ void ManageMediaPlayerControl::setPlayListModel(QAbstractItemModel *aPlayListMod
 
     mPlayListModel = aPlayListModel;
 
+    connect(mPlayListModel, &QAbstractItemModel::rowsAboutToBeInserted, this, &ManageMediaPlayerControl::playListTracksWillBeInserted);
     connect(mPlayListModel, &QAbstractItemModel::rowsInserted, this, &ManageMediaPlayerControl::playListTracksInserted);
     connect(mPlayListModel, &QAbstractItemModel::rowsAboutToBeRemoved, this, &ManageMediaPlayerControl::playListTracksWillBeRemoved);
     connect(mPlayListModel, &QAbstractItemModel::rowsRemoved, this, &ManageMediaPlayerControl::playListTracksRemoved);

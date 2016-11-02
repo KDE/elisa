@@ -302,11 +302,7 @@ void ManageMediaPlayerControlTest::addItemInModelCaseV2()
     QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(currentTrackChangedSpy.count(), 2);
 }
-void ManageMediaPlayerControlTest::nextButtonAndRandomPlay()
-{
-}
-
-void ManageMediaPlayerControlTest::nextButtonAndContinuePlay()
+void ManageMediaPlayerControlTest::nextAndPreviousButtonAndRandomPlay()
 {
     QStringListModel myPlayList;
 
@@ -355,6 +351,9 @@ void ManageMediaPlayerControlTest::nextButtonAndContinuePlay()
     QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(currentTrackChangedSpy.count(), 1);
 
+    QCOMPARE(myControl.playControlEnabled(), true);
+    QCOMPARE(myControl.currentTrack(), QPersistentModelIndex(myPlayList.index(0, 0)));
+
     myControl.setRandomOrContinuePlay(true);
 
     QCOMPARE(playControlEnabledChangedSpy.count(), 1);
@@ -364,30 +363,27 @@ void ManageMediaPlayerControlTest::nextButtonAndContinuePlay()
     QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(currentTrackChangedSpy.count(), 1);
 
-    QCOMPARE(myControl.playControlEnabled(), true);
-    QCOMPARE(myControl.currentTrack(), QPersistentModelIndex(myPlayList.index(0, 0)));
-
     myControl.playerPlaying();
 
     QCOMPARE(playControlEnabledChangedSpy.count(), 1);
-    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(musicPlayingChangedSpy.count(), 1);
-    QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(currentTrackChangedSpy.count(), 1);
-
-    QCOMPARE(myControl.musicPlaying(), true);
-
-    QCOMPARE(myPlayList.insertRows(1, 2, {}), true);
-
-    QCOMPARE(playControlEnabledChangedSpy.count(), 1);
-    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 0);
+    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 1);
     QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 1);
     QCOMPARE(musicPlayingChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(currentTrackChangedSpy.count(), 1);
 
+    QCOMPARE(myControl.musicPlaying(), true);
     QCOMPARE(myControl.skipForwardControlEnabled(), true);
+    QCOMPARE(myControl.skipBackwardControlEnabled(), true);
+
+    QCOMPARE(myPlayList.insertRows(1, 2, {}), true);
+
+    QCOMPARE(playControlEnabledChangedSpy.count(), 1);
+    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 1);
+    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 1);
+    QCOMPARE(musicPlayingChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(currentTrackChangedSpy.count(), 1);
 
     QCOMPARE(myPlayList.insertRows(0, 2, {}), true);
 
@@ -398,18 +394,14 @@ void ManageMediaPlayerControlTest::nextButtonAndContinuePlay()
     QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(currentTrackChangedSpy.count(), 1);
 
-    QCOMPARE(myControl.skipBackwardControlEnabled(), true);
-
     QCOMPARE(myPlayList.removeRows(3, 2, {}), true);
 
     QCOMPARE(playControlEnabledChangedSpy.count(), 1);
     QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 1);
-    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 2);
+    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 1);
     QCOMPARE(musicPlayingChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(currentTrackChangedSpy.count(), 1);
-
-    QCOMPARE(myControl.skipForwardControlEnabled(), true);
 }
 
 

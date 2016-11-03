@@ -71,6 +71,8 @@ private Q_SLOTS:
 
     void setCurrentTrackAndRemoveItCase();
 
+    void insertBeforeCurrentTrack();
+
     void moveCurrentTrack();
 
     void moveAnotherTrack();

@@ -247,11 +247,21 @@ void PlayListControler::skipPreviousTrack()
         return;
     }
 
-    if (mCurrentTrack.row() <= 0) {
+    if (!mRandomPlay && !mRepeatPlay && mCurrentTrack.row() <= 0) {
         return;
     }
 
-    mCurrentTrack = mPlayListModel->index(mCurrentTrack.row() - 1, mCurrentTrack.column(), mCurrentTrack.parent());
+    if (mRandomPlay) {
+        int randomValue = qrand();
+        randomValue = randomValue % (mPlayListModel->rowCount());
+        mCurrentTrack = mPlayListModel->index(randomValue, 0);
+    } else {
+        if (mRepeatPlay) {
+            mCurrentTrack = mPlayListModel->index(mPlayListModel->rowCount() - 1, 0);
+        } else {
+            mCurrentTrack = mPlayListModel->index(mCurrentTrack.row() - 1, mCurrentTrack.column(), mCurrentTrack.parent());
+        }
+    }
     notifyCurrentTrackChanged();
 }
 

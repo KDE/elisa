@@ -464,6 +464,7 @@ ApplicationWindow {
                             {
                                 playListControlerItem.randomPlay = Qt.binding(function() { return playList.randomPlayChecked })
                                 playListControlerItem.repeatPlay = Qt.binding(function() { return playList.repeatPlayChecked })
+                                myPlayControlManager.randomOrContinuePlay = Qt.binding(function() { return playList.randomPlayChecked || playList.repeatPlayChecked })
                             }
                         }
 

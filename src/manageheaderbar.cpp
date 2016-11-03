@@ -205,6 +205,17 @@ void ManageHeaderBar::tracksDataChanged(const QModelIndex &topLeft, const QModel
     }
 }
 
+void ManageHeaderBar::tracksAboutToBeMoved(const QModelIndex &parent, int start, int end, const QModelIndex &destination, int row)
+{
+    Q_UNUSED(parent);
+    Q_UNUSED(start);
+    Q_UNUSED(end);
+    Q_UNUSED(destination);
+    Q_UNUSED(row);
+
+    mOldRemainingTracks = remainingTracks();
+}
+
 void ManageHeaderBar::tracksMoved(const QModelIndex &parent, int start, int end, const QModelIndex &destination, int row)
 {
     Q_UNUSED(parent);
@@ -213,7 +224,10 @@ void ManageHeaderBar::tracksMoved(const QModelIndex &parent, int start, int end,
     Q_UNUSED(destination);
     Q_UNUSED(row);
 
-    qDebug() << "ManageHeaderBar::tracksMoved" << "not implemented";
+    auto newRemainingTracks = remainingTracks();
+    if (mOldRemainingTracks != newRemainingTracks) {
+        Q_EMIT remainingTracksChanged();
+    }
 }
 
 void ManageHeaderBar::tracksRemoved(const QModelIndex &parent, int first, int last)
@@ -329,6 +343,7 @@ void ManageHeaderBar::setPlayListModel(QAbstractItemModel *aPlayListModel)
 {
     if (mPlayListModel) {
         disconnect(mPlayListModel, &QAbstractItemModel::rowsInserted, this, &ManageHeaderBar::tracksInserted);
+        disconnect(mPlayListModel, &QAbstractItemModel::rowsAboutToBeMoved, this, &ManageHeaderBar::tracksAboutToBeMoved);
         disconnect(mPlayListModel, &QAbstractItemModel::rowsMoved, this, &ManageHeaderBar::tracksMoved);
         disconnect(mPlayListModel, &QAbstractItemModel::rowsRemoved, this, &ManageHeaderBar::tracksRemoved);
         disconnect(mPlayListModel, &QAbstractItemModel::dataChanged, this, &ManageHeaderBar::tracksDataChanged);
@@ -338,6 +353,7 @@ void ManageHeaderBar::setPlayListModel(QAbstractItemModel *aPlayListModel)
     mPlayListModel = aPlayListModel;
 
     connect(mPlayListModel, &QAbstractItemModel::rowsInserted, this, &ManageHeaderBar::tracksInserted);
+    connect(mPlayListModel, &QAbstractItemModel::rowsAboutToBeMoved, this, &ManageHeaderBar::tracksAboutToBeMoved);
     connect(mPlayListModel, &QAbstractItemModel::rowsMoved, this, &ManageHeaderBar::tracksMoved);
     connect(mPlayListModel, &QAbstractItemModel::rowsRemoved, this, &ManageHeaderBar::tracksRemoved);
     connect(mPlayListModel, &QAbstractItemModel::dataChanged, this, &ManageHeaderBar::tracksDataChanged);

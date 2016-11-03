@@ -52,6 +52,10 @@ add_test(managemediaplayercontrolTest managemediaplayercontrolTest)
 
 set(manageheaderbarTest_SOURCES
     ../src/manageheaderbar.cpp
+    ../src/mediaplaylist.cpp
+    ../src/databaseinterface.cpp
+    ../src/musicalbum.cpp
+    ../src/musicaudiotrack.cpp
     manageheaderbartest.cpp
 )
 

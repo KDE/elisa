@@ -170,6 +170,8 @@ public Q_SLOTS:
 
     void tracksDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles);
 
+    void tracksAboutToBeMoved(const QModelIndex &parent, int start, int end, const QModelIndex &destination, int row);
+
     void tracksMoved(const QModelIndex &parent, int start, int end, const QModelIndex &destination, int row);
 
     void tracksRemoved(const QModelIndex &parent, int first, int last);

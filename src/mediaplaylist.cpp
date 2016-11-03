@@ -277,16 +277,33 @@ void MediaPlayList::enqueue(MediaPlayListEntry newEntry)
     }
 }
 
+bool MediaPlayList::moveRows(const QModelIndex &sourceParent, int sourceRow, int count, const QModelIndex &destinationParent, int destinationChild)
+{
+    if (sourceParent != destinationParent) {
+        return false;
+    }
+
+    if (!beginMoveRows(sourceParent, sourceRow, sourceRow + count - 1, destinationParent, destinationChild)) {
+        return false;
+    }
+
+    for (auto cptItem = 0; cptItem < count; ++cptItem) {
+        if (sourceRow < destinationChild) {
+            d->mData.move(sourceRow, destinationChild - 1);
+        } else {
+            d->mData.move(sourceRow, destinationChild);
+        }
+    }
+    endMoveRows();
+
+    Q_EMIT persistentStateChanged();
+
+    return true;
+}
+
 void MediaPlayList::move(int from, int to, int n)
 {
-    QModelIndex moveParent;
-    beginResetModel();
-    for (auto cptItem = 0; cptItem < n; ++cptItem) {
-        d->mData.move(from, to);
-    }
-    endResetModel();
-
-    emit persistentStateChanged();
+    moveRows({}, from, n, {}, to);
 }
 
 void MediaPlayList::enqueue(QString albumName, QString artistName)

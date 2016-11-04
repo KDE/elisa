@@ -20,7 +20,14 @@
 #include "managemediaplayercontroltest.h"
 
 #include "managemediaplayercontrol.h"
+#include "mediaplaylist.h"
+#include "databaseinterface.h"
+#include "musicaudiotrack.h"
 
+#include <QHash>
+#include <QString>
+#include <QUrl>
+#include <QVector>
 #include <QVariant>
 #include <QList>
 
@@ -402,6 +409,161 @@ void ManageMediaPlayerControlTest::nextAndPreviousButtonAndRandomPlay()
     QCOMPARE(musicPlayingChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+}
+
+void ManageMediaPlayerControlTest::setCurrentTrackTest()
+{
+    MediaPlayList myPlayList;
+    DatabaseInterface myDatabaseContent;
+    DatabaseInterface myDatabaseView;
+
+    myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
+    myDatabaseContent.initDatabase();
+    myDatabaseContent.initRequest();
+
+    myDatabaseView.init(QStringLiteral("testDbDirectView"));
+    myDatabaseView.initDatabase();
+    myDatabaseView.initRequest();
+
+    connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
+            &myDatabaseView, &DatabaseInterface::databaseHasChanged);
+
+    myPlayList.setDatabaseInterface(&myDatabaseView);
+
+    ManageMediaPlayerControl myControl;
+
+    QCOMPARE(myControl.playControlEnabled(), false);
+    QCOMPARE(myControl.skipBackwardControlEnabled(), false);
+    QCOMPARE(myControl.skipForwardControlEnabled(), false);
+    QCOMPARE(myControl.musicPlaying(), false);
+    QCOMPARE(myControl.playListModel(), static_cast<void*>(nullptr));
+    QCOMPARE(myControl.currentTrack().isValid(), false);
+
+    QSignalSpy playControlEnabledChangedSpy(&myControl, &ManageMediaPlayerControl::playControlEnabledChanged);
+    QSignalSpy skipBackwardControlEnabledChangedSpy(&myControl, &ManageMediaPlayerControl::skipBackwardControlEnabledChanged);
+    QSignalSpy skipForwardControlEnabledChangedSpy(&myControl, &ManageMediaPlayerControl::skipForwardControlEnabledChanged);
+    QSignalSpy musicPlayingChangedSpy(&myControl, &ManageMediaPlayerControl::musicPlayingChanged);
+    QSignalSpy playListModelChangedSpy(&myControl, &ManageMediaPlayerControl::playListModelChanged);
+    QSignalSpy currentTrackChangedSpy(&myControl, &ManageMediaPlayerControl::currentTrackChanged);
+
+    myControl.setPlayListModel(&myPlayList);
+
+    QCOMPARE(playControlEnabledChangedSpy.count(), 0);
+    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 0);
+    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 0);
+    QCOMPARE(musicPlayingChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(currentTrackChangedSpy.count(), 0);
+
+    QCOMPARE(myControl.playListModel(), &myPlayList);
+
+    auto newTracks = QHash<QString, QVector<MusicAudioTrack>>();
+    auto newCovers = QHash<QString, QUrl>();
+
+    newTracks[QStringLiteral("album1")] = {
+        {true, QStringLiteral("$1"), QStringLiteral("0"), QStringLiteral("track1"),
+            QStringLiteral("artist1"), QStringLiteral("album1"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$1"))}},
+        {true, QStringLiteral("$2"), QStringLiteral("0"), QStringLiteral("track2"),
+            QStringLiteral("artist1"), QStringLiteral("album1"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$2"))}},
+        {true, QStringLiteral("$3"), QStringLiteral("0"), QStringLiteral("track3"),
+            QStringLiteral("artist1"), QStringLiteral("album1"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$3"))}},
+        {true, QStringLiteral("$4"), QStringLiteral("0"), QStringLiteral("track4"),
+            QStringLiteral("artist1"), QStringLiteral("album1"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$4"))}},
+    };
+
+    newTracks[QStringLiteral("album2")] = {
+        {true, QStringLiteral("$5"), QStringLiteral("0"), QStringLiteral("track1"),
+            QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$5"))}},
+        {true, QStringLiteral("$6"), QStringLiteral("0"), QStringLiteral("track2"),
+            QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$6"))}},
+        {true, QStringLiteral("$7"), QStringLiteral("0"), QStringLiteral("track3"),
+            QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$7"))}},
+        {true, QStringLiteral("$8"), QStringLiteral("0"), QStringLiteral("track4"),
+            QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$8"))}},
+        {true, QStringLiteral("$9"), QStringLiteral("0"), QStringLiteral("track5"),
+            QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$9"))}},
+        {true, QStringLiteral("$10"), QStringLiteral("0"), QStringLiteral("track6"),
+            QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$10"))}}
+    };
+
+    newCovers[QStringLiteral("album1")] = QUrl::fromLocalFile(QStringLiteral("album1"));
+    newCovers[QStringLiteral("album2")] = QUrl::fromLocalFile(QStringLiteral("album2"));
+
+    myDatabaseContent.insertTracksList(newTracks, newCovers);
+
+    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album2"), QStringLiteral("artist1")});
+    myPlayList.enqueue({QStringLiteral("track2"), QStringLiteral("album1"), QStringLiteral("artist1")});
+
+    QCOMPARE(playControlEnabledChangedSpy.count(), 0);
+    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 0);
+    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 0);
+    QCOMPARE(musicPlayingChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(currentTrackChangedSpy.count(), 0);
+
+    myControl.setCurrentTrack(myPlayList.index(0, 0));
+
+    QCOMPARE(playControlEnabledChangedSpy.count(), 1);
+    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 0);
+    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 0);
+    QCOMPARE(musicPlayingChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(currentTrackChangedSpy.count(), 1);
+
+    QCOMPARE(myControl.playControlEnabled(), true);
+    QCOMPARE(myControl.currentTrack(), QPersistentModelIndex(myPlayList.index(0, 0)));
+
+    myControl.setCurrentTrack(myPlayList.index(0, 0));
+
+    QCOMPARE(playControlEnabledChangedSpy.count(), 1);
+    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 0);
+    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 0);
+    QCOMPARE(musicPlayingChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(currentTrackChangedSpy.count(), 1);
+}
+
+void ManageMediaPlayerControlTest::setPlayListModelTest()
+{
+    QStringListModel myPlayList;
+
+    ManageMediaPlayerControl myControl;
+
+    QCOMPARE(myControl.playControlEnabled(), false);
+    QCOMPARE(myControl.skipBackwardControlEnabled(), false);
+    QCOMPARE(myControl.skipForwardControlEnabled(), false);
+    QCOMPARE(myControl.musicPlaying(), false);
+    QCOMPARE(myControl.playListModel(), static_cast<void*>(nullptr));
+    QCOMPARE(myControl.currentTrack().isValid(), false);
+
+    QSignalSpy playControlEnabledChangedSpy(&myControl, &ManageMediaPlayerControl::playControlEnabledChanged);
+    QSignalSpy skipBackwardControlEnabledChangedSpy(&myControl, &ManageMediaPlayerControl::skipBackwardControlEnabledChanged);
+    QSignalSpy skipForwardControlEnabledChangedSpy(&myControl, &ManageMediaPlayerControl::skipForwardControlEnabledChanged);
+    QSignalSpy musicPlayingChangedSpy(&myControl, &ManageMediaPlayerControl::musicPlayingChanged);
+    QSignalSpy playListModelChangedSpy(&myControl, &ManageMediaPlayerControl::playListModelChanged);
+    QSignalSpy currentTrackChangedSpy(&myControl, &ManageMediaPlayerControl::currentTrackChanged);
+
+    myControl.setPlayListModel(&myPlayList);
+
+    QCOMPARE(playControlEnabledChangedSpy.count(), 0);
+    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 0);
+    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 0);
+    QCOMPARE(musicPlayingChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(currentTrackChangedSpy.count(), 0);
+
+    QCOMPARE(myControl.playListModel(), &myPlayList);
+
+    myControl.setPlayListModel(nullptr);
+
+    QCOMPARE(playControlEnabledChangedSpy.count(), 0);
+    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 0);
+    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 0);
+    QCOMPARE(musicPlayingChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 2);
+    QCOMPARE(currentTrackChangedSpy.count(), 0);
+
+    QCOMPARE(myControl.playListModel(), static_cast<QAbstractItemModel*>(nullptr));
 }
 
 

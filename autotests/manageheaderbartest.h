@@ -77,6 +77,10 @@ private Q_SLOTS:
 
     void moveAnotherTrack();
 
+    void setCurrentTrackTest();
+
+    void setPlayListModelTest();
+
 };
 
 #endif // MANAGEHEADERBARTEST_H

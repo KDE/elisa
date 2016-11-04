@@ -45,6 +45,10 @@ private Q_SLOTS:
 
     void nextAndPreviousButtonAndRandomPlay();
 
+    void setCurrentTrackTest();
+
+    void setPlayListModelTest();
+
 };
 
 #endif // MANAGEMEDIAPLAYERCONTROLTEST_H

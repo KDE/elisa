@@ -2088,6 +2088,341 @@ void ManageHeaderBarTest::moveAnotherTrack()
     QCOMPARE(myControl.remainingTracks(), 0);
 }
 
+void ManageHeaderBarTest::setCurrentTrackTest()
+{
+    MediaPlayList myPlayList;
+    DatabaseInterface myDatabaseContent;
+    DatabaseInterface myDatabaseView;
+
+    myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
+    myDatabaseContent.initDatabase();
+    myDatabaseContent.initRequest();
+
+    myDatabaseView.init(QStringLiteral("testDbDirectView"));
+    myDatabaseView.initDatabase();
+    myDatabaseView.initRequest();
+
+    connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
+            &myDatabaseView, &DatabaseInterface::databaseHasChanged);
+
+    myPlayList.setDatabaseInterface(&myDatabaseView);
+
+    ManageHeaderBar myControl;
+
+    QSignalSpy currentTrackChangedSpy(&myControl, &ManageHeaderBar::currentTrackChanged);
+    QSignalSpy playListModelChangedSpy(&myControl, &ManageHeaderBar::playListModelChanged);
+    QSignalSpy artistRoleChangedSpy(&myControl, &ManageHeaderBar::artistRoleChanged);
+    QSignalSpy titleRoleChangedSpy(&myControl, &ManageHeaderBar::titleRoleChanged);
+    QSignalSpy albumRoleChangedSpy(&myControl, &ManageHeaderBar::albumRoleChanged);
+    QSignalSpy imageRoleChangedSpy(&myControl, &ManageHeaderBar::imageRoleChanged);
+    QSignalSpy isValidRoleChangedSpy(&myControl, &ManageHeaderBar::isValidRoleChanged);
+    QSignalSpy artistChangedSpy(&myControl, &ManageHeaderBar::artistChanged);
+    QSignalSpy titleChangedSpy(&myControl, &ManageHeaderBar::titleChanged);
+    QSignalSpy albumChangedSpy(&myControl, &ManageHeaderBar::albumChanged);
+    QSignalSpy imageChangedSpy(&myControl, &ManageHeaderBar::imageChanged);
+    QSignalSpy isValidChangedSpy(&myControl, &ManageHeaderBar::isValidChanged);
+    QSignalSpy remainingTracksChangedSpy(&myControl, &ManageHeaderBar::remainingTracksChanged);
+
+    QCOMPARE(myControl.currentTrack().isValid(), false);
+    QCOMPARE(myControl.playListModel(), static_cast<void*>(nullptr));
+    QCOMPARE(myControl.artistRole(), static_cast<int>(Qt::DisplayRole));
+    QCOMPARE(myControl.titleRole(), static_cast<int>(Qt::DisplayRole));
+    QCOMPARE(myControl.albumRole(), static_cast<int>(Qt::DisplayRole));
+    QCOMPARE(myControl.imageRole(), static_cast<int>(Qt::DisplayRole));
+    QCOMPARE(myControl.isValidRole(), static_cast<int>(Qt::DisplayRole));
+    QCOMPARE(myControl.artist().toString().isEmpty(), true);
+    QCOMPARE(myControl.title().toString().isEmpty(), true);
+    QCOMPARE(myControl.album().toString().isEmpty(), true);
+    QCOMPARE(myControl.image().toString().isEmpty(), true);
+    QCOMPARE(myControl.isValid(), false);
+    QCOMPARE(myControl.remainingTracks(), 0);
+
+    myControl.setArtistRole(ManageHeaderBarTest::ArtistRole);
+
+    QCOMPARE(currentTrackChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 0);
+    QCOMPARE(artistRoleChangedSpy.count(), 1);
+    QCOMPARE(titleRoleChangedSpy.count(), 0);
+    QCOMPARE(albumRoleChangedSpy.count(), 0);
+    QCOMPARE(imageRoleChangedSpy.count(), 0);
+    QCOMPARE(isValidRoleChangedSpy.count(), 0);
+    QCOMPARE(artistChangedSpy.count(), 0);
+    QCOMPARE(titleChangedSpy.count(), 0);
+    QCOMPARE(albumChangedSpy.count(), 0);
+    QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(isValidChangedSpy.count(), 0);
+    QCOMPARE(remainingTracksChangedSpy.count(), 0);
+
+    QCOMPARE(myControl.artistRole(), static_cast<int>(ManageHeaderBarTest::ArtistRole));
+
+    myControl.setTitleRole(ManageHeaderBarTest::TitleRole);
+
+    QCOMPARE(currentTrackChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 0);
+    QCOMPARE(artistRoleChangedSpy.count(), 1);
+    QCOMPARE(titleRoleChangedSpy.count(), 1);
+    QCOMPARE(albumRoleChangedSpy.count(), 0);
+    QCOMPARE(imageRoleChangedSpy.count(), 0);
+    QCOMPARE(isValidRoleChangedSpy.count(), 0);
+    QCOMPARE(artistChangedSpy.count(), 0);
+    QCOMPARE(titleChangedSpy.count(), 0);
+    QCOMPARE(albumChangedSpy.count(), 0);
+    QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(isValidChangedSpy.count(), 0);
+    QCOMPARE(remainingTracksChangedSpy.count(), 0);
+
+    QCOMPARE(myControl.titleRole(), static_cast<int>(ManageHeaderBarTest::TitleRole));
+
+    myControl.setAlbumRole(ManageHeaderBarTest::AlbumRole);
+
+    QCOMPARE(currentTrackChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 0);
+    QCOMPARE(artistRoleChangedSpy.count(), 1);
+    QCOMPARE(titleRoleChangedSpy.count(), 1);
+    QCOMPARE(albumRoleChangedSpy.count(), 1);
+    QCOMPARE(imageRoleChangedSpy.count(), 0);
+    QCOMPARE(isValidRoleChangedSpy.count(), 0);
+    QCOMPARE(artistChangedSpy.count(), 0);
+    QCOMPARE(titleChangedSpy.count(), 0);
+    QCOMPARE(albumChangedSpy.count(), 0);
+    QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(isValidChangedSpy.count(), 0);
+    QCOMPARE(remainingTracksChangedSpy.count(), 0);
+
+    QCOMPARE(myControl.albumRole(), static_cast<int>(ManageHeaderBarTest::AlbumRole));
+
+    myControl.setImageRole(ManageHeaderBarTest::ImageRole);
+
+    QCOMPARE(currentTrackChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 0);
+    QCOMPARE(artistRoleChangedSpy.count(), 1);
+    QCOMPARE(titleRoleChangedSpy.count(), 1);
+    QCOMPARE(albumRoleChangedSpy.count(), 1);
+    QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(isValidRoleChangedSpy.count(), 0);
+    QCOMPARE(artistChangedSpy.count(), 0);
+    QCOMPARE(titleChangedSpy.count(), 0);
+    QCOMPARE(albumChangedSpy.count(), 0);
+    QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(isValidChangedSpy.count(), 0);
+    QCOMPARE(remainingTracksChangedSpy.count(), 0);
+
+    QCOMPARE(myControl.imageRole(), static_cast<int>(ManageHeaderBarTest::ImageRole));
+
+    myControl.setIsValidRole(ManageHeaderBarTest::IsValidRole);
+
+    QCOMPARE(currentTrackChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 0);
+    QCOMPARE(artistRoleChangedSpy.count(), 1);
+    QCOMPARE(titleRoleChangedSpy.count(), 1);
+    QCOMPARE(albumRoleChangedSpy.count(), 1);
+    QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(isValidRoleChangedSpy.count(), 1);
+    QCOMPARE(artistChangedSpy.count(), 0);
+    QCOMPARE(titleChangedSpy.count(), 0);
+    QCOMPARE(albumChangedSpy.count(), 0);
+    QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(isValidChangedSpy.count(), 0);
+    QCOMPARE(remainingTracksChangedSpy.count(), 0);
+
+    QCOMPARE(myControl.isValidRole(), static_cast<int>(ManageHeaderBarTest::IsValidRole));
+
+    myControl.setPlayListModel(&myPlayList);
+
+    QCOMPARE(currentTrackChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(artistRoleChangedSpy.count(), 1);
+    QCOMPARE(titleRoleChangedSpy.count(), 1);
+    QCOMPARE(albumRoleChangedSpy.count(), 1);
+    QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(isValidRoleChangedSpy.count(), 1);
+    QCOMPARE(artistChangedSpy.count(), 0);
+    QCOMPARE(titleChangedSpy.count(), 0);
+    QCOMPARE(albumChangedSpy.count(), 0);
+    QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(isValidChangedSpy.count(), 0);
+    QCOMPARE(remainingTracksChangedSpy.count(), 0);
+
+    QCOMPARE(myControl.playListModel(), &myPlayList);
+
+    auto newTracks = QHash<QString, QVector<MusicAudioTrack>>();
+    auto newCovers = QHash<QString, QUrl>();
+
+    newTracks[QStringLiteral("album1")] = {
+        {true, QStringLiteral("$1"), QStringLiteral("0"), QStringLiteral("track1"),
+            QStringLiteral("artist1"), QStringLiteral("album1"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$1"))}},
+        {true, QStringLiteral("$2"), QStringLiteral("0"), QStringLiteral("track2"),
+            QStringLiteral("artist1"), QStringLiteral("album1"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$2"))}},
+        {true, QStringLiteral("$3"), QStringLiteral("0"), QStringLiteral("track3"),
+            QStringLiteral("artist1"), QStringLiteral("album1"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$3"))}},
+        {true, QStringLiteral("$4"), QStringLiteral("0"), QStringLiteral("track4"),
+            QStringLiteral("artist1"), QStringLiteral("album1"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$4"))}},
+    };
+
+    newTracks[QStringLiteral("album2")] = {
+        {true, QStringLiteral("$5"), QStringLiteral("0"), QStringLiteral("track1"),
+            QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$5"))}},
+        {true, QStringLiteral("$6"), QStringLiteral("0"), QStringLiteral("track2"),
+            QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$6"))}},
+        {true, QStringLiteral("$7"), QStringLiteral("0"), QStringLiteral("track3"),
+            QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$7"))}},
+        {true, QStringLiteral("$8"), QStringLiteral("0"), QStringLiteral("track4"),
+            QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$8"))}},
+        {true, QStringLiteral("$9"), QStringLiteral("0"), QStringLiteral("track5"),
+            QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$9"))}},
+        {true, QStringLiteral("$10"), QStringLiteral("0"), QStringLiteral("track6"),
+            QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$10"))}}
+    };
+
+    newCovers[QStringLiteral("album1")] = QUrl::fromLocalFile(QStringLiteral("album1"));
+    newCovers[QStringLiteral("album2")] = QUrl::fromLocalFile(QStringLiteral("album2"));
+
+    myDatabaseContent.insertTracksList(newTracks, newCovers);
+
+    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album2"), QStringLiteral("artist1")});
+    myPlayList.enqueue({QStringLiteral("track2"), QStringLiteral("album1"), QStringLiteral("artist1")});
+
+    QCOMPARE(currentTrackChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(artistRoleChangedSpy.count(), 1);
+    QCOMPARE(titleRoleChangedSpy.count(), 1);
+    QCOMPARE(albumRoleChangedSpy.count(), 1);
+    QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(isValidRoleChangedSpy.count(), 1);
+    QCOMPARE(artistChangedSpy.count(), 0);
+    QCOMPARE(titleChangedSpy.count(), 0);
+    QCOMPARE(albumChangedSpy.count(), 0);
+    QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(isValidChangedSpy.count(), 0);
+    QCOMPARE(remainingTracksChangedSpy.count(), 0);
+
+    myControl.setCurrentTrack(myPlayList.index(0, 0));
+
+    QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(artistRoleChangedSpy.count(), 1);
+    QCOMPARE(titleRoleChangedSpy.count(), 1);
+    QCOMPARE(albumRoleChangedSpy.count(), 1);
+    QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(isValidRoleChangedSpy.count(), 1);
+    QCOMPARE(artistChangedSpy.count(), 1);
+    QCOMPARE(titleChangedSpy.count(), 1);
+    QCOMPARE(albumChangedSpy.count(), 1);
+    QCOMPARE(imageChangedSpy.count(), 1);
+    QCOMPARE(isValidChangedSpy.count(), 1);
+    QCOMPARE(remainingTracksChangedSpy.count(), 1);
+
+    QCOMPARE(myControl.currentTrack(), QPersistentModelIndex(myPlayList.index(0, 0)));
+    QCOMPARE(myControl.remainingTracks(), 1);
+    QCOMPARE(myControl.isValid(), true);
+    QCOMPARE(myControl.image(), QUrl::fromUserInput(QStringLiteral("file:album2")));
+    QCOMPARE(myControl.album(), QVariant(QStringLiteral("album2")));
+    QCOMPARE(myControl.artist(), QVariant(QStringLiteral("artist1")));
+    QCOMPARE(myControl.title(), QVariant(QStringLiteral("track1")));
+
+    myControl.setCurrentTrack(myPlayList.index(0, 0));
+
+    QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(artistRoleChangedSpy.count(), 1);
+    QCOMPARE(titleRoleChangedSpy.count(), 1);
+    QCOMPARE(albumRoleChangedSpy.count(), 1);
+    QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(isValidRoleChangedSpy.count(), 1);
+    QCOMPARE(artistChangedSpy.count(), 1);
+    QCOMPARE(titleChangedSpy.count(), 1);
+    QCOMPARE(albumChangedSpy.count(), 1);
+    QCOMPARE(imageChangedSpy.count(), 1);
+    QCOMPARE(isValidChangedSpy.count(), 1);
+    QCOMPARE(remainingTracksChangedSpy.count(), 1);
+}
+
+void ManageHeaderBarTest::setPlayListModelTest()
+{
+    MediaPlayList myPlayList;
+    DatabaseInterface myDatabaseContent;
+    DatabaseInterface myDatabaseView;
+
+    myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
+    myDatabaseContent.initDatabase();
+    myDatabaseContent.initRequest();
+
+    myDatabaseView.init(QStringLiteral("testDbDirectView"));
+    myDatabaseView.initDatabase();
+    myDatabaseView.initRequest();
+
+    connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
+            &myDatabaseView, &DatabaseInterface::databaseHasChanged);
+
+    myPlayList.setDatabaseInterface(&myDatabaseView);
+
+    ManageHeaderBar myControl;
+
+    QSignalSpy currentTrackChangedSpy(&myControl, &ManageHeaderBar::currentTrackChanged);
+    QSignalSpy playListModelChangedSpy(&myControl, &ManageHeaderBar::playListModelChanged);
+    QSignalSpy artistRoleChangedSpy(&myControl, &ManageHeaderBar::artistRoleChanged);
+    QSignalSpy titleRoleChangedSpy(&myControl, &ManageHeaderBar::titleRoleChanged);
+    QSignalSpy albumRoleChangedSpy(&myControl, &ManageHeaderBar::albumRoleChanged);
+    QSignalSpy imageRoleChangedSpy(&myControl, &ManageHeaderBar::imageRoleChanged);
+    QSignalSpy isValidRoleChangedSpy(&myControl, &ManageHeaderBar::isValidRoleChanged);
+    QSignalSpy artistChangedSpy(&myControl, &ManageHeaderBar::artistChanged);
+    QSignalSpy titleChangedSpy(&myControl, &ManageHeaderBar::titleChanged);
+    QSignalSpy albumChangedSpy(&myControl, &ManageHeaderBar::albumChanged);
+    QSignalSpy imageChangedSpy(&myControl, &ManageHeaderBar::imageChanged);
+    QSignalSpy isValidChangedSpy(&myControl, &ManageHeaderBar::isValidChanged);
+    QSignalSpy remainingTracksChangedSpy(&myControl, &ManageHeaderBar::remainingTracksChanged);
+
+    QCOMPARE(myControl.currentTrack().isValid(), false);
+    QCOMPARE(myControl.playListModel(), static_cast<void*>(nullptr));
+    QCOMPARE(myControl.artistRole(), static_cast<int>(Qt::DisplayRole));
+    QCOMPARE(myControl.titleRole(), static_cast<int>(Qt::DisplayRole));
+    QCOMPARE(myControl.albumRole(), static_cast<int>(Qt::DisplayRole));
+    QCOMPARE(myControl.imageRole(), static_cast<int>(Qt::DisplayRole));
+    QCOMPARE(myControl.isValidRole(), static_cast<int>(Qt::DisplayRole));
+    QCOMPARE(myControl.artist().toString().isEmpty(), true);
+    QCOMPARE(myControl.title().toString().isEmpty(), true);
+    QCOMPARE(myControl.album().toString().isEmpty(), true);
+    QCOMPARE(myControl.image().toString().isEmpty(), true);
+    QCOMPARE(myControl.isValid(), false);
+    QCOMPARE(myControl.remainingTracks(), 0);
+
+    myControl.setPlayListModel(&myPlayList);
+
+    QCOMPARE(currentTrackChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(artistRoleChangedSpy.count(), 0);
+    QCOMPARE(titleRoleChangedSpy.count(), 0);
+    QCOMPARE(albumRoleChangedSpy.count(), 0);
+    QCOMPARE(imageRoleChangedSpy.count(), 0);
+    QCOMPARE(isValidRoleChangedSpy.count(), 0);
+    QCOMPARE(artistChangedSpy.count(), 0);
+    QCOMPARE(titleChangedSpy.count(), 0);
+    QCOMPARE(albumChangedSpy.count(), 0);
+    QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(isValidChangedSpy.count(), 0);
+    QCOMPARE(remainingTracksChangedSpy.count(), 0);
+
+    QCOMPARE(myControl.playListModel(), &myPlayList);
+
+    myControl.setPlayListModel(nullptr);
+
+    QCOMPARE(currentTrackChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 2);
+    QCOMPARE(artistRoleChangedSpy.count(), 0);
+    QCOMPARE(titleRoleChangedSpy.count(), 0);
+    QCOMPARE(albumRoleChangedSpy.count(), 0);
+    QCOMPARE(imageRoleChangedSpy.count(), 0);
+    QCOMPARE(isValidRoleChangedSpy.count(), 0);
+    QCOMPARE(artistChangedSpy.count(), 0);
+    QCOMPARE(titleChangedSpy.count(), 0);
+    QCOMPARE(albumChangedSpy.count(), 0);
+    QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(isValidChangedSpy.count(), 0);
+    QCOMPARE(remainingTracksChangedSpy.count(), 0);
+
+    QCOMPARE(myControl.playListModel(), static_cast<QAbstractItemModel*>(nullptr));
+}
+
 QTEST_MAIN(ManageHeaderBarTest)
 
 

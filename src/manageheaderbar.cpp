@@ -352,12 +352,14 @@ void ManageHeaderBar::setPlayListModel(QAbstractItemModel *aPlayListModel)
 
     mPlayListModel = aPlayListModel;
 
-    connect(mPlayListModel, &QAbstractItemModel::rowsInserted, this, &ManageHeaderBar::tracksInserted);
-    connect(mPlayListModel, &QAbstractItemModel::rowsAboutToBeMoved, this, &ManageHeaderBar::tracksAboutToBeMoved);
-    connect(mPlayListModel, &QAbstractItemModel::rowsMoved, this, &ManageHeaderBar::tracksMoved);
-    connect(mPlayListModel, &QAbstractItemModel::rowsRemoved, this, &ManageHeaderBar::tracksRemoved);
-    connect(mPlayListModel, &QAbstractItemModel::dataChanged, this, &ManageHeaderBar::tracksDataChanged);
-    connect(mPlayListModel, &QAbstractItemModel::layoutChanged, this, &ManageHeaderBar::playListLayoutChanged);
+    if (mPlayListModel) {
+        connect(mPlayListModel, &QAbstractItemModel::rowsInserted, this, &ManageHeaderBar::tracksInserted);
+        connect(mPlayListModel, &QAbstractItemModel::rowsAboutToBeMoved, this, &ManageHeaderBar::tracksAboutToBeMoved);
+        connect(mPlayListModel, &QAbstractItemModel::rowsMoved, this, &ManageHeaderBar::tracksMoved);
+        connect(mPlayListModel, &QAbstractItemModel::rowsRemoved, this, &ManageHeaderBar::tracksRemoved);
+        connect(mPlayListModel, &QAbstractItemModel::dataChanged, this, &ManageHeaderBar::tracksDataChanged);
+        connect(mPlayListModel, &QAbstractItemModel::layoutChanged, this, &ManageHeaderBar::playListLayoutChanged);
+    }
 
     Q_EMIT playListModelChanged();
 }

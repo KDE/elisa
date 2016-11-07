@@ -134,6 +134,10 @@ private Q_SLOTS:
 
     void playListReset();
 
+    void tracksAboutToBeMoved(const QModelIndex &parent, int start, int end, const QModelIndex &destination, int row);
+
+    void tracksMoved(const QModelIndex &parent, int start, int end, const QModelIndex &destination, int row);
+
 private:
 
     QAbstractItemModel *mPlayListModel = nullptr;

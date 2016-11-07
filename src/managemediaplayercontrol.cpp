@@ -292,6 +292,37 @@ void ManageMediaPlayerControl::playListReset()
 {
 }
 
+void ManageMediaPlayerControl::tracksAboutToBeMoved(const QModelIndex &parent, int start, int end, const QModelIndex &destination, int row)
+{
+    Q_UNUSED(parent);
+    Q_UNUSED(start);
+    Q_UNUSED(end);
+    Q_UNUSED(destination);
+    Q_UNUSED(row);
+
+    mSkipBackwardControlWasEnabled = skipBackwardControlEnabled();
+    mSkipForwardControlWasEnabled = skipForwardControlEnabled();
+}
+
+void ManageMediaPlayerControl::tracksMoved(const QModelIndex &parent, int start, int end, const QModelIndex &destination, int row)
+{
+    Q_UNUSED(parent);
+    Q_UNUSED(start);
+    Q_UNUSED(end);
+    Q_UNUSED(destination);
+    Q_UNUSED(row);
+
+    auto newNextTrackIsEnabled = skipForwardControlEnabled();
+    if (mSkipForwardControlWasEnabled != newNextTrackIsEnabled) {
+        Q_EMIT skipForwardControlEnabledChanged();
+    }
+
+    auto newPreviousTrackIsEnabled = skipBackwardControlEnabled();
+    if (mSkipBackwardControlWasEnabled != newPreviousTrackIsEnabled) {
+        Q_EMIT skipBackwardControlEnabledChanged();
+    }
+}
+
 void ManageMediaPlayerControl::setPlayListModel(QAbstractItemModel *aPlayListModel)
 {
     if (mPlayListModel) {
@@ -299,16 +330,22 @@ void ManageMediaPlayerControl::setPlayListModel(QAbstractItemModel *aPlayListMod
         disconnect(mPlayListModel, &QAbstractItemModel::rowsInserted, this, &ManageMediaPlayerControl::playListTracksInserted);
         disconnect(mPlayListModel, &QAbstractItemModel::rowsAboutToBeRemoved, this, &ManageMediaPlayerControl::playListTracksWillBeRemoved);
         disconnect(mPlayListModel, &QAbstractItemModel::rowsRemoved, this, &ManageMediaPlayerControl::playListTracksRemoved);
+        disconnect(mPlayListModel, &QAbstractItemModel::rowsMoved, this, &ManageMediaPlayerControl::tracksMoved);
+        disconnect(mPlayListModel, &QAbstractItemModel::rowsAboutToBeMoved, this, &ManageMediaPlayerControl::tracksAboutToBeMoved);
         disconnect(mPlayListModel, &QAbstractItemModel::modelReset, this, &ManageMediaPlayerControl::playListReset);
     }
 
     mPlayListModel = aPlayListModel;
 
-    connect(mPlayListModel, &QAbstractItemModel::rowsAboutToBeInserted, this, &ManageMediaPlayerControl::playListTracksWillBeInserted);
-    connect(mPlayListModel, &QAbstractItemModel::rowsInserted, this, &ManageMediaPlayerControl::playListTracksInserted);
-    connect(mPlayListModel, &QAbstractItemModel::rowsAboutToBeRemoved, this, &ManageMediaPlayerControl::playListTracksWillBeRemoved);
-    connect(mPlayListModel, &QAbstractItemModel::rowsRemoved, this, &ManageMediaPlayerControl::playListTracksRemoved);
-    connect(mPlayListModel, &QAbstractItemModel::modelReset, this, &ManageMediaPlayerControl::playListReset);
+    if (mPlayListModel) {
+        connect(mPlayListModel, &QAbstractItemModel::rowsAboutToBeInserted, this, &ManageMediaPlayerControl::playListTracksWillBeInserted);
+        connect(mPlayListModel, &QAbstractItemModel::rowsInserted, this, &ManageMediaPlayerControl::playListTracksInserted);
+        connect(mPlayListModel, &QAbstractItemModel::rowsAboutToBeRemoved, this, &ManageMediaPlayerControl::playListTracksWillBeRemoved);
+        connect(mPlayListModel, &QAbstractItemModel::rowsRemoved, this, &ManageMediaPlayerControl::playListTracksRemoved);
+        connect(mPlayListModel, &QAbstractItemModel::rowsMoved, this, &ManageMediaPlayerControl::tracksMoved);
+        connect(mPlayListModel, &QAbstractItemModel::rowsAboutToBeMoved, this, &ManageMediaPlayerControl::tracksAboutToBeMoved);
+        connect(mPlayListModel, &QAbstractItemModel::modelReset, this, &ManageMediaPlayerControl::playListReset);
+    }
 
     Q_EMIT playListModelChanged();
 }

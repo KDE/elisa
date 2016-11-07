@@ -45,6 +45,10 @@ private Q_SLOTS:
 
     void nextAndPreviousButtonAndRandomPlay();
 
+    void moveCurrentTrack();
+
+    void moveAnotherTrack();
+
     void setCurrentTrackTest();
 
     void setPlayListModelTest();

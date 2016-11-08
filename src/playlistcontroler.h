@@ -137,8 +137,6 @@ public Q_SLOTS:
 
     void tracksInserted(const QModelIndex &parent, int first, int last);
 
-    void tracksMoved(const QModelIndex &parent, int start, int end, const QModelIndex &destination, int row);
-
     void tracksRemoved(const QModelIndex & parent, int first, int last);
 
     void tracksDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles = QVector<int> ());

@@ -34,7 +34,6 @@ void PlayListControler::setPlayListModel(QAbstractItemModel *aPlayListModel)
 {
     if (mPlayListModel) {
         disconnect(mPlayListModel, &QAbstractItemModel::rowsInserted, this, &PlayListControler::tracksInserted);
-        disconnect(mPlayListModel, &QAbstractItemModel::rowsMoved, this, &PlayListControler::tracksMoved);
         disconnect(mPlayListModel, &QAbstractItemModel::rowsRemoved, this, &PlayListControler::tracksRemoved);
         disconnect(mPlayListModel, &QAbstractItemModel::dataChanged, this, &PlayListControler::tracksDataChanged);
         disconnect(mPlayListModel, &QAbstractItemModel::modelReset, this, &PlayListControler::playListReset);
@@ -44,7 +43,6 @@ void PlayListControler::setPlayListModel(QAbstractItemModel *aPlayListModel)
     mPlayListModel = aPlayListModel;
 
     connect(mPlayListModel, &QAbstractItemModel::rowsInserted, this, &PlayListControler::tracksInserted);
-    connect(mPlayListModel, &QAbstractItemModel::rowsMoved, this, &PlayListControler::tracksMoved);
     connect(mPlayListModel, &QAbstractItemModel::rowsRemoved, this, &PlayListControler::tracksRemoved);
     connect(mPlayListModel, &QAbstractItemModel::dataChanged, this, &PlayListControler::tracksDataChanged);
     connect(mPlayListModel, &QAbstractItemModel::modelReset, this, &PlayListControler::playListReset);
@@ -162,17 +160,6 @@ void PlayListControler::tracksDataChanged(const QModelIndex &topLeft, const QMod
             resetCurrentTrack();
         }
     }
-}
-
-void PlayListControler::tracksMoved(const QModelIndex &parent, int start, int end, const QModelIndex &destination, int row)
-{
-    Q_UNUSED(parent);
-    Q_UNUSED(start);
-    Q_UNUSED(end);
-    Q_UNUSED(destination);
-    Q_UNUSED(row);
-
-    qDebug() << "PlayListControler::tracksMoved" << "not implemented";
 }
 
 void PlayListControler::tracksRemoved(const QModelIndex &parent, int first, int last)

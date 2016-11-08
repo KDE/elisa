@@ -145,6 +145,8 @@ private Q_SLOTS:
 
     void endTrackAdded(QVector<qulonglong> newTracks);
 
+    bool rowHasHeader(int row) const;
+
 private:
 
     MediaPlayListPrivate *d;

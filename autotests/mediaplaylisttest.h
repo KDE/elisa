@@ -49,6 +49,10 @@ private Q_SLOTS:
 
     void testHasHeaderWithRemove();
 
+    void testHasHeaderMoveFirst();
+
+    void testHasHeaderMoveAnother();
+
 };
 
 #endif // MEDIAPLAYLISTTEST_H

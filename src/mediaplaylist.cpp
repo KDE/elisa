@@ -119,14 +119,7 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
             return result;
         }
         case ColumnsRoles::HasAlbumHeader:
-            if (index.row() > 0) {
-                auto currentAlbum = d->mMusicDatabase->trackDataFromDatabaseId(d->mData[index.row()].mId, DatabaseInterface::TrackData::Album).toString();
-                auto previousAlbum = d->mMusicDatabase->trackDataFromDatabaseId(d->mData[index.row() - 1].mId, DatabaseInterface::TrackData::Album).toString();
-                if (currentAlbum == previousAlbum) {
-                    return false;
-                }
-            }
-            return true;
+            return rowHasHeader(index.row());
         case ColumnsRoles::RatingRole:
         case ColumnsRoles::CountRole:
         case ColumnsRoles::CreatorRole:
@@ -287,6 +280,12 @@ bool MediaPlayList::moveRows(const QModelIndex &sourceParent, int sourceRow, int
         return false;
     }
 
+    auto firstMovedTrackHasHeader = rowHasHeader(sourceRow);
+    auto nextTrackHasHeader = rowHasHeader(destinationChild);
+    if (sourceRow < destinationChild) {
+        nextTrackHasHeader = rowHasHeader(sourceRow + count);
+    }
+
     for (auto cptItem = 0; cptItem < count; ++cptItem) {
         if (sourceRow < destinationChild) {
             d->mData.move(sourceRow, destinationChild - 1);
@@ -294,7 +293,28 @@ bool MediaPlayList::moveRows(const QModelIndex &sourceParent, int sourceRow, int
             d->mData.move(sourceRow, destinationChild);
         }
     }
+
     endMoveRows();
+
+    if (sourceRow < destinationChild) {
+        if (firstMovedTrackHasHeader != rowHasHeader(destinationChild - count)) {
+            Q_EMIT dataChanged(index(destinationChild - count, 0), index(destinationChild - count, 0), {ColumnsRoles::HasAlbumHeader});
+        }
+    } else {
+        if (firstMovedTrackHasHeader != rowHasHeader(destinationChild)) {
+            Q_EMIT dataChanged(index(destinationChild, 0), index(destinationChild, 0), {ColumnsRoles::HasAlbumHeader});
+        }
+    }
+
+    if (sourceRow < destinationChild) {
+        if (nextTrackHasHeader != rowHasHeader(sourceRow)) {
+            Q_EMIT dataChanged(index(sourceRow, 0), index(sourceRow, 0), {ColumnsRoles::HasAlbumHeader});
+        }
+    } else {
+        if (nextTrackHasHeader != rowHasHeader(destinationChild + count)) {
+            Q_EMIT dataChanged(index(destinationChild + count, 0), index(destinationChild + count, 0), {ColumnsRoles::HasAlbumHeader});
+        }
+    }
 
     Q_EMIT persistentStateChanged();
 
@@ -430,6 +450,30 @@ void MediaPlayList::endTrackAdded(QVector<qulonglong> newTracks)
             Q_EMIT dataChanged(index(i, 0), index(i, 0), {});
         }
     }
+}
+
+bool MediaPlayList::rowHasHeader(int row) const
+{
+    if (row >= rowCount()) {
+        return false;
+    }
+
+    if (row < 0) {
+        return false;
+    }
+
+    if (row - 1 < 0) {
+        return true;
+    }
+
+    auto currentAlbum = d->mMusicDatabase->trackDataFromDatabaseId(d->mData[row].mId, DatabaseInterface::TrackData::Album).toString();
+    auto previousAlbum = d->mMusicDatabase->trackDataFromDatabaseId(d->mData[row - 1].mId, DatabaseInterface::TrackData::Album).toString();
+
+    if (currentAlbum == previousAlbum) {
+        return false;
+    }
+
+    return true;
 }
 
 

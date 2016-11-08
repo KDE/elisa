@@ -53,6 +53,10 @@ private Q_SLOTS:
 
     void testHasHeaderMoveAnother();
 
+    void testHasHeaderMoveFirstLikeQml();
+
+    void testHasHeaderMoveAnotherLikeQml();
+
 };
 
 #endif // MEDIAPLAYLISTTEST_H

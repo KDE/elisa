@@ -323,7 +323,11 @@ bool MediaPlayList::moveRows(const QModelIndex &sourceParent, int sourceRow, int
 
 void MediaPlayList::move(int from, int to, int n)
 {
-    moveRows({}, from, n, {}, to);
+    if (from < to) {
+        moveRows({}, from, n, {}, to + 1);
+    } else {
+        moveRows({}, from, n, {}, to);
+    }
 }
 
 void MediaPlayList::enqueue(QString albumName, QString artistName)

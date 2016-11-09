@@ -6,5 +6,4 @@ Toto list:
 * improve and measure test coverage
 * improve the album list view (consistency with the other views)
 * restore track position on quit and start
-* restore the volume and mute state on quit and start
 

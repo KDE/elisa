@@ -61,6 +61,9 @@ ApplicationWindow {
         property var playListControlerState
 
         property var audioPlayerState
+
+        property double playControlItemVolume
+        property bool playControlItemMuted
     }
 
     property string globalBrowseFlag: 'BrowseDirectChildren'
@@ -120,6 +123,9 @@ ApplicationWindow {
             persistentSettings.playListState = playListModelItem.persistentState;
             persistentSettings.playListControlerState = playListControlerItem.persistentState;
             persistentSettings.audioPlayerState = manageAudioPlayer.persistentState
+
+            persistentSettings.playControlItemVolume = playControlItem.volume
+            persistentSettings.playControlItemMuted = playControlItem.muted
         }
     }
 
@@ -278,7 +284,8 @@ ApplicationWindow {
                 duration: audioPlayer.duration
                 seekable: audioPlayer.seekable
 
-                volume: 1.0
+                volume: persistentSettings.playControlItemVolume
+                muted: persistentSettings.playControlItemMuted
                 position: audioPlayer.position
                 skipBackwardEnabled: myPlayControlManager.skipBackwardControlEnabled
                 skipForwardEnabled: myPlayControlManager.skipForwardControlEnabled

@@ -95,8 +95,6 @@ Q_SIGNALS:
 
 public Q_SLOTS:
 
-    void insertAlbumsList(const QVector<MusicAlbum> &allAlbums);
-
     void insertTracksList(QHash<QString, QVector<MusicAudioTrack> > tracks, QHash<QString, QUrl> covers);
 
     void databaseHasChanged(QVector<qulonglong> indexByPosition, QHash<qulonglong, int> positionByIndex,

@@ -136,6 +136,20 @@ Item {
             Layout.fillWidth: true
             Layout.fillHeight: true
 
+            TextEdit {
+                readOnly: true
+                visible: playListModelDelegate.count == 0
+                wrapMode: TextEdit.Wrap
+                renderType: TextEdit.NativeRendering
+
+                font.weight: Font.ExtraLight
+                font.pointSize: 12
+
+                text: i18nc("Text shown when play list is empty", "Your play list is empty.\nIn order to start, you can explore your music library with the left menu.\nUse the available buttons to add your selection.")
+                anchors.fill: parent
+                anchors.margins: Screen.pixelDensity * 2.
+            }
+
             model: DelegateModel {
                 id: playListModelDelegate
                 model: playListModel

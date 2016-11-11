@@ -110,7 +110,7 @@ Rectangle {
                     Layout.maximumHeight: Screen.pixelDensity * 3.
                 }
 
-                Label {
+                Text {
                     id: mainLabel
                     text: trackNumber + ' - ' + title
                     font.weight: Font.Bold
@@ -124,7 +124,7 @@ Rectangle {
                     Layout.fillHeight: true
                 }
 
-                Label {
+                Text {
                     id: durationLabel
                     text: duration
                     font.weight: Font.Light

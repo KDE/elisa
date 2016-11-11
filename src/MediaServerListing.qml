@@ -159,7 +159,7 @@ Item {
                     }
                 }
 
-                Label {
+                Text {
                     id: titleLabel
                     text: if (title != undefined)
                               title
@@ -174,7 +174,7 @@ Item {
                     elide: "ElideRight"
                 }
 
-                Label {
+                Text {
                     id: artistLabel
                     text: if (artist != undefined)
                               artist
@@ -189,7 +189,7 @@ Item {
                     elide: "ElideRight"
                 }
 
-                Label {
+                Text {
                     id: numberLabel
                     text: if (count != undefined)
                               i18np("1 track", "%1 tracks", count)
@@ -221,7 +221,7 @@ Item {
         RowLayout {
             Layout.fillWidth: true
 
-            Label {
+            Text {
                 text: i18nc("before the TextField input of the filter", "Filter: ")
             }
 

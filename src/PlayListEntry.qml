@@ -121,7 +121,7 @@ Rectangle {
                         height: Screen.pixelDensity * 1.5
                     }
 
-                    Label {
+                    Text {
                         id: mainLabel
                         text: album
                         font.weight: Font.Bold
@@ -135,7 +135,7 @@ Rectangle {
                         Layout.fillHeight: true
                     }
 
-                    Label {
+                    Text {
                         id: authorLabel
                         text: artist
                         font.weight: Font.Light
@@ -163,7 +163,7 @@ Rectangle {
 
                 spacing: Screen.pixelDensity * 1.
 
-                Label {
+                Text {
                     id: mainCompactLabel
 
                     text: trackNumber + ' - ' + title
@@ -229,7 +229,7 @@ Rectangle {
                     }
                 }
 
-                Label {
+                Text {
                     id: durationLabel
                     text: duration
                     font.weight: Font.Bold

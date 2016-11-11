@@ -353,7 +353,7 @@ ApplicationWindow {
                             height: Screen.pixelDensity * 8.
                             width: viewModeView.width
                             color: (styleData.selected ? myPalette.highlight : myPalette.window)
-                            Label {
+                            Text {
                                 id: nameLabel
                                 anchors.verticalCenter: parent.verticalCenter
                                 anchors.left: parent.left

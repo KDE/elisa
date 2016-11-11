@@ -108,7 +108,7 @@ Item {
                 Layout.fillWidth: true
             }
 
-            Label {
+            Text {
                 id: playListInfo
                 text: i18np("1 track", "%1 tracks", playListView.rowCount)
 

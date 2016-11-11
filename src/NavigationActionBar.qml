@@ -101,7 +101,7 @@ Item {
                 Layout.fillHeight: true
             }
 
-            Label {
+            Text {
                 id: authorLabel
                 text: artist
                 Layout.fillWidth: true
@@ -114,7 +114,7 @@ Item {
                 Layout.fillHeight: true
             }
 
-            Label {
+            Text {
                 id: albumLabel
                 text: album
                 Layout.fillWidth: true

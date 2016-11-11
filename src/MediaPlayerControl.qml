@@ -154,7 +154,7 @@ Item {
                 position: musicWidget.position
             }
 
-            Label {
+            Text {
                 id: positionLabel
                 text: timeIndicator.progressDuration
                 Layout.alignment: Qt.AlignVCenter

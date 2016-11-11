@@ -28,7 +28,7 @@ Item {
             colorGroup: SystemPalette.Active
         }
 
-        Label {
+        Text {
             anchors.bottom: parent.bottom
             anchors.right: parent.right
 
@@ -96,7 +96,7 @@ Item {
                         Layout.fillHeight: true
                     }
 
-                    Label {
+                    Text {
                         id: mainLabel
                         text: title
                         Layout.fillWidth: true
@@ -109,7 +109,7 @@ Item {
                         Layout.fillHeight: true
                     }
 
-                    Label {
+                    Text {
                         id: authorLabel
                         text: artist
                         Layout.fillWidth: true
@@ -122,7 +122,7 @@ Item {
                         Layout.fillHeight: true
                     }
 
-                    Label {
+                    Text {
                         id: albumLabel
                         text: album
                         Layout.fillWidth: true
@@ -153,7 +153,7 @@ Item {
                     Layout.fillWidth: true
                 }
 
-                Label {
+                Text {
                     id: remainingTracksLabel
                     text: i18np("1 track remaining", "%1 tracks remaining", tracksCount)
                     Layout.alignment: Qt.AlignRight | Qt.AlignBottom

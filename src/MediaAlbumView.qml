@@ -32,6 +32,7 @@ Item {
     property StackView stackView
     property var musicDatabase
     property MediaPlayList playListModel
+    property var playerControl
     property var albumName
     property var artistName
     property var tracksCount
@@ -82,6 +83,7 @@ Item {
 
             parentStackView: topListing.stackView
             playList: topListing.playListModel
+            playerControl: topListing.playerControl
             artist: topListing.artistName
             album: topListing.albumName
             image: topListing.albumArtUrl
@@ -126,6 +128,7 @@ Item {
 
                     databaseId: model.databaseId
                     playList: topListing.playListModel
+                    playerControl: topListing.playerControl
 
                     title: if (model != undefined && model.title !== undefined)
                                model.title

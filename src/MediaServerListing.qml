@@ -33,6 +33,7 @@ Item {
     property StackView stackView
     property var contentModel
     property MediaPlayList playListModel
+    property var playerControl
     property var musicDatabase
 
     id: rootElement
@@ -119,6 +120,7 @@ Item {
                                                            'stackView': stackView,
                                                            'musicDatabase': musicDatabase,
                                                            'playListModel': playListModel,
+                                                           'playerControl': playerControl,
                                                            'albumArtUrl': image,
                                                            'albumName': title,
                                                            'artistName': artist,

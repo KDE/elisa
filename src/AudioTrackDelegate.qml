@@ -34,6 +34,7 @@ Rectangle {
     property int trackNumber
     property var databaseId
     property var playList
+    property var playerControl
     property bool isSelected
     property var contextMenu
     property alias clearAndEnqueueAction: clearAndEnqueue
@@ -55,6 +56,7 @@ Rectangle {
         iconName: "media-playback-start"
         onTriggered: {
             playList.clearAndEnqueue(databaseId)
+            playerControl.playPause()
         }
     }
 

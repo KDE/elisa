@@ -9,6 +9,7 @@ Item {
 
     property var parentStackView
     property var playList
+    property var playerControl
     property string artist
     property string album
     property string image
@@ -39,7 +40,10 @@ Item {
         id: clearAndEnqueueAction
         text: i18nc("Clear play list and add whole album to play list", "Play Now and Replace Play List")
         iconName: "media-playback-start"
-        onTriggered: playList.clearAndEnqueue(album, artist)
+        onTriggered: {
+            playList.clearAndEnqueue(album, artist)
+            playerControl.playPause()
+        }
     }
 
     RowLayout {

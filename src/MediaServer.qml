@@ -424,6 +424,7 @@ ApplicationWindow {
 
                                     playListModel: playListModelItem
                                     musicDatabase: localAlbumDatabase
+                                    playerControl: manageAudioPlayer
 
                                     anchors.fill: parent
                                 }

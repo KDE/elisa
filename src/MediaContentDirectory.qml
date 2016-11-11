@@ -28,6 +28,7 @@ import QtMultimedia 5.4
 Item {
     property var pagesModel
     property MediaPlayList playListModel
+    property var playerControl
     property var musicDatabase
 
     id: contentDirectoryRoot
@@ -75,6 +76,7 @@ Item {
                 contentModel: contentDirectoryModel
                 musicDatabase: contentDirectoryRoot.musicDatabase
                 playListModel: contentDirectoryRoot.playListModel
+                playerControl: contentDirectoryRoot.playerControl
             }
 
             // Implements back key navigation

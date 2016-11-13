@@ -21,6 +21,7 @@
 #include "musicalbum.h"
 #include "musicaudiotrack.h"
 
+#include <QObject>
 #include <QUrl>
 #include <QString>
 #include <QHash>
@@ -410,39 +411,58 @@ private Q_SLOTS:
 
     void addMultipleTimeSameTracksMultiThread()
     {
-#if 0
         DatabaseInterface musicDb;
         musicDb.init(QStringLiteral("testDb"));
         musicDb.initDatabase();
         musicDb.initRequest();
 
         DatabaseInterface musicDbThread1;
+        QSignalSpy musicDbThread1Spy(&musicDbThread1, &DatabaseInterface::requestsInitDone);
+        QSignalSpy musicDbdatabaseChanged1Spy(&musicDbThread1, &DatabaseInterface::databaseChanged);
         QThread thread1;
+        QSignalSpy thread1FinishedSpy(&thread1, &QThread::finished);
         musicDbThread1.moveToThread(&thread1);
         thread1.start();
         QMetaObject::invokeMethod(&musicDbThread1, "init", Qt::QueuedConnection, Q_ARG(QString, QStringLiteral("testDb1")));
         QMetaObject::invokeMethod(&musicDbThread1, "initRequest", Qt::QueuedConnection);
 
+        musicDbThread1Spy.wait();
+
         DatabaseInterface musicDbThread2;
+        QSignalSpy musicDbThread2Spy(&musicDbThread2, &DatabaseInterface::requestsInitDone);
+        QSignalSpy musicDbdatabaseChanged2Spy(&musicDbThread2, &DatabaseInterface::databaseChanged);
         QThread thread2;
+        QSignalSpy thread2FinishedSpy(&thread2, &QThread::finished);
         musicDbThread2.moveToThread(&thread2);
         thread2.start();
         QMetaObject::invokeMethod(&musicDbThread2, "init", Qt::QueuedConnection, Q_ARG(QString, QStringLiteral("testDb2")));
         QMetaObject::invokeMethod(&musicDbThread2, "initRequest", Qt::QueuedConnection);
 
+        musicDbThread2Spy.wait();
+
         DatabaseInterface musicDbThread3;
+        QSignalSpy musicDbThread3Spy(&musicDbThread3, &DatabaseInterface::requestsInitDone);
+        QSignalSpy musicDbdatabaseChanged3Spy(&musicDbThread3, &DatabaseInterface::databaseChanged);
         QThread thread3;
+        QSignalSpy thread3FinishedSpy(&thread3, &QThread::finished);
         musicDbThread3.moveToThread(&thread3);
         thread3.start();
         QMetaObject::invokeMethod(&musicDbThread3, "init", Qt::QueuedConnection, Q_ARG(QString, QStringLiteral("testDb3")));
         QMetaObject::invokeMethod(&musicDbThread3, "initRequest", Qt::QueuedConnection);
 
+        musicDbThread3Spy.wait();
+
         DatabaseInterface musicDbThread4;
+        QSignalSpy musicDbThread4Spy(&musicDbThread4, &DatabaseInterface::requestsInitDone);
+        QSignalSpy musicDbdatabaseChanged4Spy(&musicDbThread4, &DatabaseInterface::databaseChanged);
         QThread thread4;
+        QSignalSpy thread4FinishedSpy(&thread4, &QThread::finished);
         musicDbThread4.moveToThread(&thread4);
         thread4.start();
         QMetaObject::invokeMethod(&musicDbThread4, "init", Qt::QueuedConnection, Q_ARG(QString, QStringLiteral("testDb4")));
         QMetaObject::invokeMethod(&musicDbThread4, "initRequest", Qt::QueuedConnection);
+
+        musicDbThread4Spy.wait();
 
         auto newTracks = QHash<QString, QVector<MusicAudioTrack>>();
         auto newCovers = QHash<QString, QUrl>();
@@ -552,9 +572,36 @@ private Q_SLOTS:
                                   QArgument<QHash<QString,QVector<MusicAudioTrack>>>("QHash<QString,QVector<MusicAudioTrack>>", newTracks),
                                   QArgument<QHash<QString, QUrl>>("QHash<QString,QUrl>", newCovers));
 
-        qDebug() << musicDb.albumCount();
-        QVERIFY(musicDb.albumCount() == 4);
-#endif
+        QCOMPARE(musicDbdatabaseChanged1Spy.wait(200), true);
+        QCOMPARE(musicDbdatabaseChanged1Spy.wait(200), true);
+        QCOMPARE(musicDbdatabaseChanged1Spy.wait(200), true);
+        QCOMPARE(musicDbdatabaseChanged1Spy.wait(200), true);
+        //QCOMPARE(musicDbdatabaseChanged2Spy.wait(200), true);
+        //QCOMPARE(musicDbdatabaseChanged2Spy.wait(200), true);
+        //QCOMPARE(musicDbdatabaseChanged2Spy.wait(200), true);
+        //QCOMPARE(musicDbdatabaseChanged2Spy.wait(200), true);
+        //QCOMPARE(musicDbdatabaseChanged3Spy.wait(200), true);
+        //QCOMPARE(musicDbdatabaseChanged3Spy.wait(200), true);
+        //QCOMPARE(musicDbdatabaseChanged3Spy.wait(200), true);
+        //QCOMPARE(musicDbdatabaseChanged3Spy.wait(200), true);
+        //QCOMPARE(musicDbdatabaseChanged4Spy.wait(200), true);
+        //QCOMPARE(musicDbdatabaseChanged4Spy.wait(200), true);
+        //QCOMPARE(musicDbdatabaseChanged4Spy.wait(200), true);
+        //QCOMPARE(musicDbdatabaseChanged4Spy.wait(200), true);
+
+        thread1.quit();
+        thread2.quit();
+        thread3.quit();
+        thread4.quit();
+
+        qDebug() << musicDbdatabaseChanged1Spy.count();
+
+        thread1FinishedSpy.wait();
+        thread2FinishedSpy.wait();
+        thread3FinishedSpy.wait();
+        thread4FinishedSpy.wait();
+
+        QCOMPARE(musicDb.albumCount({}), 4);
     }
 };
 

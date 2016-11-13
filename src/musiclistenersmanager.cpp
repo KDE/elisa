@@ -67,10 +67,6 @@ MusicListenersManager::MusicListenersManager(QObject *parent)
 
     QMetaObject::invokeMethod(&d->mDatabaseInterface, "init", Qt::QueuedConnection,
                               Q_ARG(QString, QStringLiteral("listeners")));
-
-    QMetaObject::invokeMethod(&d->mDatabaseInterface, "initDatabase", Qt::QueuedConnection);
-
-    QMetaObject::invokeMethod(&d->mDatabaseInterface, "initRequest", Qt::QueuedConnection);
 }
 
 MusicListenersManager::~MusicListenersManager()

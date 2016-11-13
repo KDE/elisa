@@ -62,10 +62,6 @@ public:
 
     Q_INVOKABLE void init(const QString &dbName);
 
-    Q_INVOKABLE void initDatabase() const;
-
-    Q_INVOKABLE void initRequest();
-
     MusicAlbum albumFromTitleAndAuthor(const QString &title, const QString &author) const;
 
     QVariant albumDataFromIndex(int albumIndex, AlbumData dataType) const;
@@ -102,6 +98,10 @@ public Q_SLOTS:
 
 private:
 
+    bool startTransaction() const;
+
+    bool finishTransaction() const;
+
     QMap<qulonglong, MusicAudioTrack> fetchTracks(qulonglong albumId) const;
 
     void updateTracksCount(qulonglong albumId, int tracksCount) const;
@@ -111,6 +111,10 @@ private:
     MusicAlbum internalAlbumFromId(qulonglong albumId) const;
 
     QVariant internalAlbumDataFromId(qulonglong albumId, AlbumData dataType) const;
+
+    void initDatabase() const;
+
+    void initRequest();
 
     DatabaseInterfacePrivate *d;
 

@@ -114,15 +114,17 @@ void DatabaseInterface::init(const QString &dbName)
     qDebug() << "DatabaseInterface::init" << (tracksDatabase.driver()->hasFeature(QSqlDriver::Transactions) ? "yes" : "no");
 
     d = new DatabaseInterfacePrivate(tracksDatabase);
+
+    initDatabase();
+    initRequest();
 }
 
 MusicAlbum DatabaseInterface::albumFromTitleAndAuthor(const QString &title, const QString &author) const
 {
     auto result = MusicAlbum();
 
-    auto transactionResult = d->mTracksDatabase.transaction();
+    auto transactionResult = startTransaction();
     if (!transactionResult) {
-        qDebug() << "DatabaseInterface::albumFromTitleAndAuthor" << "transaction failed";
         return result;
     }
 
@@ -137,9 +139,8 @@ MusicAlbum DatabaseInterface::albumFromTitleAndAuthor(const QString &title, cons
 
         d->mSelectAlbumIdFromTitleQuery.finish();
 
-        transactionResult = d->mTracksDatabase.commit();
+        transactionResult = finishTransaction();
         if (!transactionResult) {
-            qDebug() << "commit failed";
             return result;
         }
 
@@ -149,9 +150,8 @@ MusicAlbum DatabaseInterface::albumFromTitleAndAuthor(const QString &title, cons
     if (!d->mSelectAlbumIdFromTitleQuery.next()) {
         d->mSelectAlbumIdFromTitleQuery.finish();
 
-        transactionResult = d->mTracksDatabase.commit();
+        transactionResult = finishTransaction();
         if (!transactionResult) {
-            qDebug() << "commit failed";
             return result;
         }
 
@@ -163,9 +163,8 @@ MusicAlbum DatabaseInterface::albumFromTitleAndAuthor(const QString &title, cons
 
     result = internalAlbumFromId(albumId);
 
-    transactionResult = d->mTracksDatabase.commit();
+    transactionResult = finishTransaction();
     if (!transactionResult) {
-        qDebug() << "commit failed";
         return result;
     }
 
@@ -176,16 +175,14 @@ QVariant DatabaseInterface::albumDataFromIndex(int albumIndex, DatabaseInterface
 {
     auto result = QVariant();
 
-    auto transactionResult = d->mTracksDatabase.transaction();
+    auto transactionResult = startTransaction();
     if (!transactionResult) {
-        qDebug() << "DatabaseInterface::albumDataFromIndex" << "transaction failed";
         return result;
     }
 
     if (albumIndex < 0 || albumIndex >= d->mIndexByPosition.length()) {
-        transactionResult = d->mTracksDatabase.commit();
+        transactionResult = finishTransaction();
         if (!transactionResult) {
-            qDebug() << "commit failed";
             return result;
         }
 
@@ -194,9 +191,8 @@ QVariant DatabaseInterface::albumDataFromIndex(int albumIndex, DatabaseInterface
 
     result = internalAlbumDataFromId(d->mIndexByPosition[albumIndex], dataType);
 
-    transactionResult = d->mTracksDatabase.commit();
+    transactionResult = finishTransaction();
     if (!transactionResult) {
-        qDebug() << "commit failed";
         return result;
     }
 
@@ -211,9 +207,8 @@ QVariant DatabaseInterface::trackDataFromDatabaseId(qulonglong id, DatabaseInter
         return result;
     }
 
-    auto transactionResult = d->mTracksDatabase.transaction();
+    auto transactionResult = startTransaction();
     if (!transactionResult) {
-        qDebug() << "DatabaseInterface::trackDataFromDatabaseId" << "transaction failed";
         return result;
     }
 
@@ -227,9 +222,8 @@ QVariant DatabaseInterface::trackDataFromDatabaseId(qulonglong id, DatabaseInter
 
         d->mSelectTrackFromIdQuery.finish();
 
-        transactionResult = d->mTracksDatabase.commit();
+        transactionResult = finishTransaction();
         if (!transactionResult) {
-            qDebug() << "commit failed";
             return result;
         }
 
@@ -239,9 +233,8 @@ QVariant DatabaseInterface::trackDataFromDatabaseId(qulonglong id, DatabaseInter
     if (!d->mSelectTrackFromIdQuery.next()) {
         d->mSelectTrackFromIdQuery.finish();
 
-        transactionResult = d->mTracksDatabase.commit();
+        transactionResult = finishTransaction();
         if (!transactionResult) {
-            qDebug() << "commit failed";
             return result;
         }
 
@@ -278,9 +271,8 @@ QVariant DatabaseInterface::trackDataFromDatabaseId(qulonglong id, DatabaseInter
 
     d->mSelectTrackFromIdQuery.finish();
 
-    transactionResult = d->mTracksDatabase.commit();
+    transactionResult = finishTransaction();
     if (!transactionResult) {
-        qDebug() << "commit failed";
         return result;
     }
 
@@ -295,9 +287,8 @@ qulonglong DatabaseInterface::trackIdFromTitleAlbumArtist(QString title, QString
         return result;
     }
 
-    auto transactionResult = d->mTracksDatabase.transaction();
+    auto transactionResult = startTransaction();
     if (!transactionResult) {
-        qDebug() << "DatabaseInterface::trackIdFromTitleAlbumArtist" << "transaction failed";
         return result;
     }
 
@@ -313,9 +304,8 @@ qulonglong DatabaseInterface::trackIdFromTitleAlbumArtist(QString title, QString
 
         d->mSelectTrackIdFromTitleAlbumArtistQuery.finish();
 
-        transactionResult = d->mTracksDatabase.commit();
+        transactionResult = finishTransaction();
         if (!transactionResult) {
-            qDebug() << "commit failed";
             return result;
         }
     }
@@ -326,9 +316,8 @@ qulonglong DatabaseInterface::trackIdFromTitleAlbumArtist(QString title, QString
 
     d->mSelectTrackIdFromTitleAlbumArtistQuery.finish();
 
-    transactionResult = d->mTracksDatabase.commit();
+    transactionResult = finishTransaction();
     if (!transactionResult) {
-        qDebug() << "commit failed";
         return result;
     }
 
@@ -348,9 +337,8 @@ int DatabaseInterface::albumCount(QString artist) const
         return result;
     }
 
-    auto transactionResult = d->mTracksDatabase.transaction();
+    auto transactionResult = startTransaction();
     if (!transactionResult) {
-        qDebug() << "DatabaseInterface::albumCount" << "transaction failed";
         return result;
     }
 
@@ -363,9 +351,8 @@ int DatabaseInterface::albumCount(QString artist) const
 
             d->mSelectCountAlbumsQuery.finish();
 
-            transactionResult = d->mTracksDatabase.commit();
+            transactionResult = finishTransaction();
             if (!transactionResult) {
-                qDebug() << "commit failed";
                 return result;
             }
 
@@ -375,9 +362,8 @@ int DatabaseInterface::albumCount(QString artist) const
         if (!d->mSelectCountAlbumsQuery.next()) {
             d->mSelectCountAlbumsQuery.finish();
 
-            transactionResult = d->mTracksDatabase.commit();
+            transactionResult = finishTransaction();
             if (!transactionResult) {
-                qDebug() << "commit failed";
                 return result;
             }
 
@@ -398,9 +384,8 @@ int DatabaseInterface::albumCount(QString artist) const
 
             d->mSelectCountAlbumsForArtistQuery.finish();
 
-            transactionResult = d->mTracksDatabase.commit();
+            transactionResult = finishTransaction();
             if (!transactionResult) {
-                qDebug() << "commit failed";
                 return result;
             }
 
@@ -410,9 +395,8 @@ int DatabaseInterface::albumCount(QString artist) const
         if (!d->mSelectCountAlbumsForArtistQuery.next()) {
             d->mSelectCountAlbumsForArtistQuery.finish();
 
-            transactionResult = d->mTracksDatabase.commit();
+            transactionResult = finishTransaction();
             if (!transactionResult) {
-                qDebug() << "commit failed";
                 return result;
             }
 
@@ -424,9 +408,8 @@ int DatabaseInterface::albumCount(QString artist) const
         d->mSelectCountAlbumsForArtistQuery.finish();
     }
 
-    transactionResult = d->mTracksDatabase.commit();
+    transactionResult = finishTransaction();
     if (!transactionResult) {
-        qDebug() << "commit failed";
         return result;
     }
 
@@ -438,14 +421,14 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
     auto newTracks = QVector<qulonglong>();
     auto maximumAlbumId = qulonglong(0);
     quintptr albumId = 0;
+
+    auto transactionResult = startTransaction();
+    if (!transactionResult) {
+        return;
+    }
+
     for (const auto &album : tracks) {
         MusicAlbum newAlbum;
-
-        auto transactionResult = d->mTracksDatabase.transaction();
-        if (!transactionResult) {
-            qDebug() << "DatabaseInterface::insertTracksList" << "transaction failed";
-            return;
-        }
 
         for(const auto &track : album) {
             if (newAlbum.artist().isNull()) {
@@ -500,12 +483,6 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
 
                 d->mInsertAlbumQuery.finish();
 
-                transactionResult = d->mTracksDatabase.commit();
-                if (!transactionResult) {
-                    qDebug() << "commit failed";
-                    return;
-                }
-
                 continue;
             }
 
@@ -518,12 +495,6 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
                 qDebug() << "DatabaseInterface::insertTracksList" << d->mSelectAlbumIdFromTitleQuery.lastError();
 
                 d->mSelectAlbumIdFromTitleQuery.finish();
-
-                transactionResult = d->mTracksDatabase.commit();
-                if (!transactionResult) {
-                    qDebug() << "commit failed";
-                    return;
-                }
 
                 continue;
             }
@@ -581,15 +552,14 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
                 d->mInsertTrackQuery.finish();
             }
         }
-
-        transactionResult = d->mTracksDatabase.commit();
-        if (!transactionResult) {
-            qDebug() << "commit failed";
-            return;
-        }
     }
 
-    qDebug() << "DatabaseInterface::insertTracksList" << "database changed";
+    transactionResult = finishTransaction();
+    if (!transactionResult) {
+        return;
+    }
+
+    qDebug() << "DatabaseInterface::insertTracksList" << "database changed" << newTracks.count() << "new tracks";
 
     updateIndexCache(newTracks);
 }
@@ -608,11 +578,48 @@ void DatabaseInterface::databaseHasChanged(QVector<qulonglong> indexByPosition, 
     Q_EMIT endTrackAdded(newTracks);
 }
 
-void DatabaseInterface::initDatabase() const
+bool DatabaseInterface::startTransaction() const
 {
+    auto result = false;
+
+    static int cptTransaction = 0;
+
     auto transactionResult = d->mTracksDatabase.transaction();
     if (!transactionResult) {
-        qDebug() << "DatabaseInterface::initDatabase" << "transaction failed";
+        qDebug() << "transaction failed" << d->mTracksDatabase.lastError() << d->mTracksDatabase.lastError().driverText();
+
+        return result;
+    }
+
+    result = true;
+
+    ++cptTransaction;
+    qDebug() << "DatabaseInterface::startTransaction" << cptTransaction;
+
+    return result;
+}
+
+bool DatabaseInterface::finishTransaction() const
+{
+    auto result = false;
+
+    auto transactionResult = d->mTracksDatabase.commit();
+
+    if (!transactionResult) {
+        qDebug() << "commit failed" << d->mTracksDatabase.lastError() << d->mTracksDatabase.lastError().nativeErrorCode();
+
+        return result;
+    }
+
+    result = true;
+
+    return result;
+}
+
+void DatabaseInterface::initDatabase() const
+{
+    auto transactionResult = startTransaction();
+    if (!transactionResult) {
         return;
     }
 
@@ -690,18 +697,16 @@ void DatabaseInterface::initDatabase() const
         }
     }
 
-    transactionResult = d->mTracksDatabase.commit();
+    transactionResult = finishTransaction();
     if (!transactionResult) {
-        qDebug() << "commit failed";
         return;
     }
 }
 
 void DatabaseInterface::initRequest()
 {
-    auto transactionResult = d->mTracksDatabase.transaction();
+    auto transactionResult = startTransaction();
     if (!transactionResult) {
-        qDebug() << "DatabaseInterface::initRequest" << "transaction failed";
         return;
     }
 
@@ -886,10 +891,7 @@ void DatabaseInterface::initRequest()
         }
     }
 
-    transactionResult = d->mTracksDatabase.commit();
-    if (!transactionResult) {
-        qDebug() << "commit failed";
-    }
+    transactionResult = finishTransaction();
 
     d->mInitFinished = true;
     Q_EMIT requestsInitDone();
@@ -974,9 +976,8 @@ void DatabaseInterface::updateTracksCount(qulonglong albumId, int tracksCount) c
 
 void DatabaseInterface::updateIndexCache(QVector<qulonglong> newTracks)
 {
-    auto transactionResult = d->mTracksDatabase.transaction();
+    auto transactionResult = startTransaction();
     if (!transactionResult) {
-        qDebug() << "DatabaseInterface::updateIndexCache" << "transaction failed";
         return;
     }
 
@@ -1010,9 +1011,8 @@ void DatabaseInterface::updateIndexCache(QVector<qulonglong> newTracks)
 
     d->mSelectTrackQuery.finish();
 
-    transactionResult = d->mTracksDatabase.commit();
+    transactionResult = finishTransaction();
     if (!transactionResult) {
-        qDebug() << "commit failed";
         return;
     }
 

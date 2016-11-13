@@ -70,12 +70,8 @@ void MediaPlayListTest::simpleInitialCase()
     QCOMPARE(dataChangedSpy.count(), 0);
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
-    myDatabaseContent.initDatabase();
-    myDatabaseContent.initRequest();
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
-    myDatabaseView.initDatabase();
-    myDatabaseView.initRequest();
 
     connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
             &myDatabaseView, &DatabaseInterface::databaseHasChanged);
@@ -184,12 +180,8 @@ void MediaPlayListTest::enqueueAlbumCase()
     QCOMPARE(dataChangedSpy.count(), 0);
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
-    myDatabaseContent.initDatabase();
-    myDatabaseContent.initRequest();
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
-    myDatabaseView.initDatabase();
-    myDatabaseView.initRequest();
 
     connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
             &myDatabaseView, &DatabaseInterface::databaseHasChanged);
@@ -297,12 +289,8 @@ void MediaPlayListTest::removeFirstTrackOfAlbum()
     QCOMPARE(dataChangedSpy.count(), 0);
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
-    myDatabaseContent.initDatabase();
-    myDatabaseContent.initRequest();
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
-    myDatabaseView.initDatabase();
-    myDatabaseView.initRequest();
 
     connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
             &myDatabaseView, &DatabaseInterface::databaseHasChanged);
@@ -436,12 +424,8 @@ void MediaPlayListTest::testHasHeader()
     QCOMPARE(dataChangedSpy.count(), 0);
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
-    myDatabaseContent.initDatabase();
-    myDatabaseContent.initRequest();
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
-    myDatabaseView.initDatabase();
-    myDatabaseView.initRequest();
 
     connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
             &myDatabaseView, &DatabaseInterface::databaseHasChanged);
@@ -623,12 +607,8 @@ void MediaPlayListTest::testHasHeaderWithRestore()
     QCOMPARE(dataChangedSpy.count(), 0);
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
-    myDatabaseContent.initDatabase();
-    myDatabaseContent.initRequest();
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
-    myDatabaseView.initDatabase();
-    myDatabaseView.initRequest();
 
     connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
             &myDatabaseView, &DatabaseInterface::databaseHasChanged);
@@ -805,12 +785,8 @@ void MediaPlayListTest::testHasHeaderWithRemove()
     QCOMPARE(dataChangedSpy.count(), 0);
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
-    myDatabaseContent.initDatabase();
-    myDatabaseContent.initRequest();
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
-    myDatabaseView.initDatabase();
-    myDatabaseView.initRequest();
 
     connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
             &myDatabaseView, &DatabaseInterface::databaseHasChanged);
@@ -992,12 +968,8 @@ void MediaPlayListTest::testHasHeaderMoveFirst()
     QCOMPARE(dataChangedSpy.count(), 0);
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
-    myDatabaseContent.initDatabase();
-    myDatabaseContent.initRequest();
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
-    myDatabaseView.initDatabase();
-    myDatabaseView.initRequest();
 
     connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
             &myDatabaseView, &DatabaseInterface::databaseHasChanged);
@@ -1192,12 +1164,8 @@ void MediaPlayListTest::testHasHeaderMoveAnother()
     QCOMPARE(dataChangedSpy.count(), 0);
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
-    myDatabaseContent.initDatabase();
-    myDatabaseContent.initRequest();
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
-    myDatabaseView.initDatabase();
-    myDatabaseView.initRequest();
 
     connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
             &myDatabaseView, &DatabaseInterface::databaseHasChanged);
@@ -1392,12 +1360,8 @@ void MediaPlayListTest::testHasHeaderMoveFirstLikeQml()
     QCOMPARE(dataChangedSpy.count(), 0);
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
-    myDatabaseContent.initDatabase();
-    myDatabaseContent.initRequest();
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
-    myDatabaseView.initDatabase();
-    myDatabaseView.initRequest();
 
     connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
             &myDatabaseView, &DatabaseInterface::databaseHasChanged);
@@ -1592,12 +1556,8 @@ void MediaPlayListTest::testHasHeaderMoveAnotherLikeQml()
     QCOMPARE(dataChangedSpy.count(), 0);
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
-    myDatabaseContent.initDatabase();
-    myDatabaseContent.initRequest();
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
-    myDatabaseView.initDatabase();
-    myDatabaseView.initRequest();
 
     connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
             &myDatabaseView, &DatabaseInterface::databaseHasChanged);

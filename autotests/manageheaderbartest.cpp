@@ -1593,12 +1593,8 @@ void ManageHeaderBarTest::moveCurrentTrack()
     DatabaseInterface myDatabaseView;
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
-    myDatabaseContent.initDatabase();
-    myDatabaseContent.initRequest();
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
-    myDatabaseView.initDatabase();
-    myDatabaseView.initRequest();
 
     connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
             &myDatabaseView, &DatabaseInterface::databaseHasChanged);
@@ -1844,12 +1840,8 @@ void ManageHeaderBarTest::moveAnotherTrack()
     DatabaseInterface myDatabaseView;
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
-    myDatabaseContent.initDatabase();
-    myDatabaseContent.initRequest();
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
-    myDatabaseView.initDatabase();
-    myDatabaseView.initRequest();
 
     connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
             &myDatabaseView, &DatabaseInterface::databaseHasChanged);
@@ -2095,12 +2087,8 @@ void ManageHeaderBarTest::setCurrentTrackTest()
     DatabaseInterface myDatabaseView;
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
-    myDatabaseContent.initDatabase();
-    myDatabaseContent.initRequest();
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
-    myDatabaseView.initDatabase();
-    myDatabaseView.initRequest();
 
     connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
             &myDatabaseView, &DatabaseInterface::databaseHasChanged);
@@ -2344,12 +2332,8 @@ void ManageHeaderBarTest::setPlayListModelTest()
     DatabaseInterface myDatabaseView;
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
-    myDatabaseContent.initDatabase();
-    myDatabaseContent.initRequest();
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
-    myDatabaseView.initDatabase();
-    myDatabaseView.initRequest();
 
     connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
             &myDatabaseView, &DatabaseInterface::databaseHasChanged);

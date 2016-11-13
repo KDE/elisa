@@ -151,7 +151,6 @@ ApplicationWindow {
 
         Component.onCompleted: {
             init('views');
-            initRequest();
         }
     }
 

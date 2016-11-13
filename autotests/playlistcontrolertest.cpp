@@ -60,12 +60,8 @@ void PlayListControlerTest::testBringUpCase()
     QSignalSpy playListFinishedSpy(&myControler, &PlayListControler::playListFinished);
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
-    myDatabaseContent.initDatabase();
-    myDatabaseContent.initRequest();
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
-    myDatabaseView.initDatabase();
-    myDatabaseView.initRequest();
 
     connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
             &myDatabaseView, &DatabaseInterface::databaseHasChanged);
@@ -181,12 +177,8 @@ void PlayListControlerTest::testBringUpCaseFromNewAlbum()
     QSignalSpy playListFinishedSpy(&myControler, &PlayListControler::playListFinished);
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
-    myDatabaseContent.initDatabase();
-    myDatabaseContent.initRequest();
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
-    myDatabaseView.initDatabase();
-    myDatabaseView.initRequest();
 
     connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
             &myDatabaseView, &DatabaseInterface::databaseHasChanged);
@@ -303,12 +295,8 @@ void PlayListControlerTest::testBringUpAndDownCase()
     QSignalSpy playListFinishedSpy(&myControler, &PlayListControler::playListFinished);
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
-    myDatabaseContent.initDatabase();
-    myDatabaseContent.initRequest();
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
-    myDatabaseView.initDatabase();
-    myDatabaseView.initRequest();
 
     connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
             &myDatabaseView, &DatabaseInterface::databaseHasChanged);
@@ -438,12 +426,8 @@ void PlayListControlerTest::testBringUpAndRemoveCase()
     DatabaseInterface myDatabaseView;
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
-    myDatabaseContent.initDatabase();
-    myDatabaseContent.initRequest();
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
-    myDatabaseView.initDatabase();
-    myDatabaseView.initRequest();
 
     connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
             &myDatabaseView, &DatabaseInterface::databaseHasChanged);
@@ -564,12 +548,8 @@ void PlayListControlerTest::testBringUpAndRemoveMultipleCase()
     DatabaseInterface myDatabaseView;
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
-    myDatabaseContent.initDatabase();
-    myDatabaseContent.initRequest();
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
-    myDatabaseView.initDatabase();
-    myDatabaseView.initRequest();
 
     connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
             &myDatabaseView, &DatabaseInterface::databaseHasChanged);
@@ -701,12 +681,8 @@ void PlayListControlerTest::testBringUpAndRemoveMultipleNotBeginCase()
     DatabaseInterface myDatabaseView;
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
-    myDatabaseContent.initDatabase();
-    myDatabaseContent.initRequest();
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
-    myDatabaseView.initDatabase();
-    myDatabaseView.initRequest();
 
     connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
             &myDatabaseView, &DatabaseInterface::databaseHasChanged);
@@ -862,12 +838,8 @@ void PlayListControlerTest::testBringUpAndPlayCase()
     DatabaseInterface myDatabaseView;
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
-    myDatabaseContent.initDatabase();
-    myDatabaseContent.initRequest();
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
-    myDatabaseView.initDatabase();
-    myDatabaseView.initRequest();
 
     connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
             &myDatabaseView, &DatabaseInterface::databaseHasChanged);
@@ -989,12 +961,8 @@ void PlayListControlerTest::testBringUpAndSkipNextCase()
     DatabaseInterface myDatabaseView;
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
-    myDatabaseContent.initDatabase();
-    myDatabaseContent.initRequest();
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
-    myDatabaseView.initDatabase();
-    myDatabaseView.initRequest();
 
     connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
             &myDatabaseView, &DatabaseInterface::databaseHasChanged);
@@ -1116,12 +1084,8 @@ void PlayListControlerTest::testBringUpAndSkipPreviousCase()
     DatabaseInterface myDatabaseView;
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
-    myDatabaseContent.initDatabase();
-    myDatabaseContent.initRequest();
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
-    myDatabaseView.initDatabase();
-    myDatabaseView.initRequest();
 
     connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
             &myDatabaseView, &DatabaseInterface::databaseHasChanged);
@@ -1256,12 +1220,8 @@ void PlayListControlerTest::finishPlayList()
     DatabaseInterface myDatabaseView;
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
-    myDatabaseContent.initDatabase();
-    myDatabaseContent.initRequest();
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
-    myDatabaseView.initDatabase();
-    myDatabaseView.initRequest();
 
     connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
             &myDatabaseView, &DatabaseInterface::databaseHasChanged);
@@ -1396,12 +1356,8 @@ void PlayListControlerTest::randomPlayList()
     DatabaseInterface myDatabaseView;
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
-    myDatabaseContent.initDatabase();
-    myDatabaseContent.initRequest();
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
-    myDatabaseView.initDatabase();
-    myDatabaseView.initRequest();
 
     connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
             &myDatabaseView, &DatabaseInterface::databaseHasChanged);
@@ -1589,12 +1545,8 @@ void PlayListControlerTest::continuePlayList()
     DatabaseInterface myDatabaseView;
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
-    myDatabaseContent.initDatabase();
-    myDatabaseContent.initRequest();
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
-    myDatabaseView.initDatabase();
-    myDatabaseView.initRequest();
 
     connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
             &myDatabaseView, &DatabaseInterface::databaseHasChanged);
@@ -1782,12 +1734,8 @@ void PlayListControlerTest::testRestoreSettings()
     DatabaseInterface myDatabaseView;
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
-    myDatabaseContent.initDatabase();
-    myDatabaseContent.initRequest();
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
-    myDatabaseView.initDatabase();
-    myDatabaseView.initRequest();
 
     connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
             &myDatabaseView, &DatabaseInterface::databaseHasChanged);
@@ -1916,12 +1864,8 @@ void PlayListControlerTest::removeBeforeCurrentTrack()
     DatabaseInterface myDatabaseView;
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
-    myDatabaseContent.initDatabase();
-    myDatabaseContent.initRequest();
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
-    myDatabaseView.initDatabase();
-    myDatabaseView.initRequest();
 
     connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
             &myDatabaseView, &DatabaseInterface::databaseHasChanged);
@@ -2079,12 +2023,8 @@ void PlayListControlerTest::switchToTrackTest()
     DatabaseInterface myDatabaseView;
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
-    myDatabaseContent.initDatabase();
-    myDatabaseContent.initRequest();
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
-    myDatabaseView.initDatabase();
-    myDatabaseView.initRequest();
 
     connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
             &myDatabaseView, &DatabaseInterface::databaseHasChanged);

@@ -418,12 +418,8 @@ void ManageMediaPlayerControlTest::moveCurrentTrack()
     DatabaseInterface myDatabaseView;
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
-    myDatabaseContent.initDatabase();
-    myDatabaseContent.initRequest();
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
-    myDatabaseView.initDatabase();
-    myDatabaseView.initRequest();
 
     connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
             &myDatabaseView, &DatabaseInterface::databaseHasChanged);
@@ -545,12 +541,8 @@ void ManageMediaPlayerControlTest::moveAnotherTrack()
     DatabaseInterface myDatabaseView;
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
-    myDatabaseContent.initDatabase();
-    myDatabaseContent.initRequest();
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
-    myDatabaseView.initDatabase();
-    myDatabaseView.initRequest();
 
     connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
             &myDatabaseView, &DatabaseInterface::databaseHasChanged);
@@ -672,12 +664,8 @@ void ManageMediaPlayerControlTest::setCurrentTrackTest()
     DatabaseInterface myDatabaseView;
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
-    myDatabaseContent.initDatabase();
-    myDatabaseContent.initRequest();
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
-    myDatabaseView.initDatabase();
-    myDatabaseView.initRequest();
 
     connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
             &myDatabaseView, &DatabaseInterface::databaseHasChanged);

@@ -28,6 +28,9 @@
 #include <QVector>
 #include <QThread>
 #include <QMetaObject>
+#include <QtCore/QStandardPaths>
+#include <QtCore/QDir>
+#include <QtCore/QFile>
 
 #include <QDebug>
 
@@ -56,13 +59,22 @@ private Q_SLOTS:
 
     void addMultipleTimeSameTracks()
     {
+        auto configDirectory = QDir(QStandardPaths::writableLocation(QStandardPaths::QStandardPaths::AppDataLocation));
+        auto rootDirectory = QDir::root();
+        rootDirectory.mkpath(configDirectory.path());
+        auto fileName = configDirectory.filePath(QStringLiteral("elisaMusicDatabase.sqlite"));
+        QFile dbFile(fileName);
+        auto dbExists = dbFile.exists();
+
+        if (dbExists) {
+            QCOMPARE(dbFile.remove(), true);
+        }
+
         DatabaseInterface musicDb;
         auto newTracks = QHash<QString, QVector<MusicAudioTrack>>();
         auto newCovers = QHash<QString, QUrl>();
 
         musicDb.init(QStringLiteral("testDb"));
-        musicDb.initDatabase();
-        musicDb.initRequest();
 
         newTracks[QStringLiteral("album1")] = {
             {true, QStringLiteral("$1"), QStringLiteral("0"), QStringLiteral("track1"),
@@ -136,13 +148,22 @@ private Q_SLOTS:
 
     void simpleAccessor()
     {
+        auto configDirectory = QDir(QStandardPaths::writableLocation(QStandardPaths::QStandardPaths::AppDataLocation));
+        auto rootDirectory = QDir::root();
+        rootDirectory.mkpath(configDirectory.path());
+        auto fileName = configDirectory.filePath(QStringLiteral("elisaMusicDatabase.sqlite"));
+        QFile dbFile(fileName);
+        auto dbExists = dbFile.exists();
+
+        if (dbExists) {
+            QCOMPARE(dbFile.remove(), true);
+        }
+
         DatabaseInterface musicDb;
         auto newTracks = QHash<QString, QVector<MusicAudioTrack>>();
         auto newCovers = QHash<QString, QUrl>();
 
         musicDb.init(QStringLiteral("testDb"));
-        musicDb.initDatabase();
-        musicDb.initRequest();
 
         newTracks[QStringLiteral("album1")] = {
             {true, QStringLiteral("$1"), QStringLiteral("0"), QStringLiteral("track1"),
@@ -267,6 +288,17 @@ private Q_SLOTS:
 
     void simpleAccessorWithClientDatabase()
     {
+        auto configDirectory = QDir(QStandardPaths::writableLocation(QStandardPaths::QStandardPaths::AppDataLocation));
+        auto rootDirectory = QDir::root();
+        rootDirectory.mkpath(configDirectory.path());
+        auto fileName = configDirectory.filePath(QStringLiteral("elisaMusicDatabase.sqlite"));
+        QFile dbFile(fileName);
+        auto dbExists = dbFile.exists();
+
+        if (dbExists) {
+            QCOMPARE(dbFile.remove(), true);
+        }
+
         DatabaseInterface musicDb;
         DatabaseInterface clientDb;
 
@@ -274,12 +306,8 @@ private Q_SLOTS:
         auto newCovers = QHash<QString, QUrl>();
 
         musicDb.init(QStringLiteral("testDb"));
-        musicDb.initDatabase();
-        musicDb.initRequest();
 
         clientDb.init(QStringLiteral("clientDb"));
-        clientDb.initDatabase();
-        clientDb.initRequest();
 
         QSignalSpy musicDbChangedSpy(&musicDb, &DatabaseInterface::databaseChanged);
 
@@ -411,10 +439,19 @@ private Q_SLOTS:
 
     void addMultipleTimeSameTracksMultiThread()
     {
+        auto configDirectory = QDir(QStandardPaths::writableLocation(QStandardPaths::QStandardPaths::AppDataLocation));
+        auto rootDirectory = QDir::root();
+        rootDirectory.mkpath(configDirectory.path());
+        auto fileName = configDirectory.filePath(QStringLiteral("elisaMusicDatabase.sqlite"));
+        QFile dbFile(fileName);
+        auto dbExists = dbFile.exists();
+
+        if (dbExists) {
+            QCOMPARE(dbFile.remove(), true);
+        }
+
         DatabaseInterface musicDb;
         musicDb.init(QStringLiteral("testDb"));
-        musicDb.initDatabase();
-        musicDb.initRequest();
 
         DatabaseInterface musicDbThread1;
         QSignalSpy musicDbThread1Spy(&musicDbThread1, &DatabaseInterface::requestsInitDone);
@@ -424,7 +461,6 @@ private Q_SLOTS:
         musicDbThread1.moveToThread(&thread1);
         thread1.start();
         QMetaObject::invokeMethod(&musicDbThread1, "init", Qt::QueuedConnection, Q_ARG(QString, QStringLiteral("testDb1")));
-        QMetaObject::invokeMethod(&musicDbThread1, "initRequest", Qt::QueuedConnection);
 
         musicDbThread1Spy.wait();
 
@@ -436,7 +472,6 @@ private Q_SLOTS:
         musicDbThread2.moveToThread(&thread2);
         thread2.start();
         QMetaObject::invokeMethod(&musicDbThread2, "init", Qt::QueuedConnection, Q_ARG(QString, QStringLiteral("testDb2")));
-        QMetaObject::invokeMethod(&musicDbThread2, "initRequest", Qt::QueuedConnection);
 
         musicDbThread2Spy.wait();
 
@@ -448,7 +483,6 @@ private Q_SLOTS:
         musicDbThread3.moveToThread(&thread3);
         thread3.start();
         QMetaObject::invokeMethod(&musicDbThread3, "init", Qt::QueuedConnection, Q_ARG(QString, QStringLiteral("testDb3")));
-        QMetaObject::invokeMethod(&musicDbThread3, "initRequest", Qt::QueuedConnection);
 
         musicDbThread3Spy.wait();
 
@@ -460,7 +494,6 @@ private Q_SLOTS:
         musicDbThread4.moveToThread(&thread4);
         thread4.start();
         QMetaObject::invokeMethod(&musicDbThread4, "init", Qt::QueuedConnection, Q_ARG(QString, QStringLiteral("testDb4")));
-        QMetaObject::invokeMethod(&musicDbThread4, "initRequest", Qt::QueuedConnection);
 
         musicDbThread4Spy.wait();
 

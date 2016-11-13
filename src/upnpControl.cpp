@@ -82,6 +82,10 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
+    QApplication::setWindowIcon(QIcon::fromTheme(QStringLiteral("new-audio-alarm")));
+
+    KLocalizedString::setApplicationDomain("elisa");
+
 #if defined UPNPQT_FOUND && UPNPQT_FOUND
     qmlRegisterType<UpnpSsdpEngine>("org.mgallien.QmlExtension", 1, 0, "UpnpSsdpEngine");
     qmlRegisterType<UpnpDiscoverAllMusic>("org.mgallien.QmlExtension", 1, 0, "UpnpDiscoverAllMusic");
@@ -145,12 +149,11 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
     aboutData.addAuthor(i18n("Matthieu Gallien"),i18n("Author"), QStringLiteral("mgallien@mgallien.fr"));
     KAboutData::setApplicationData(aboutData);
 
-    QApplication::setWindowIcon(QIcon::fromTheme(QStringLiteral("new-audio-alarm")));
-
     QCommandLineParser parser;
     parser.addHelpOption();
     parser.addVersionOption();
     aboutData.setupCommandLine(&parser);
+
     parser.process(app);
     aboutData.processCommandLine(&parser);
 #endif

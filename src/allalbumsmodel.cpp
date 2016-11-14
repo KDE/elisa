@@ -40,6 +40,8 @@ public:
 
     bool mUseLocalIcons = false;
 
+    int mAlbumCount = 0;
+
 };
 
 AllAlbumsModel::AllAlbumsModel(QObject *parent) : QAbstractItemModel(parent), d(new AllAlbumsModelPrivate)
@@ -63,7 +65,7 @@ int AllAlbumsModel::rowCount(const QModelIndex &parent) const
         return albumCount;
     }
 
-    albumCount = d->mMusicDatabase->albumCount(d->mArtist);
+    albumCount = d->mAlbumCount;
 
     return albumCount;
 }
@@ -102,7 +104,7 @@ QVariant AllAlbumsModel::data(const QModelIndex &index, int role) const
         return result;
     }
 
-    const auto albumCount = d->mMusicDatabase->albumCount(d->mArtist);
+    const auto albumCount = d->mAlbumCount;
 
     if (!index.isValid()) {
         return result;
@@ -249,6 +251,8 @@ void AllAlbumsModel::setDatabaseInterface(DatabaseInterface *musicDatabase)
     if (d->mMusicDatabase) {
         connect(d->mMusicDatabase, &DatabaseInterface::beginAlbumAdded, this, &AllAlbumsModel::beginAlbumAdded);
         connect(d->mMusicDatabase, &DatabaseInterface::endAlbumAdded, this, &AllAlbumsModel::endAlbumAdded);
+
+        d->mAlbumCount = d->mMusicDatabase->albumCount({});
     }
 
     emit databaseInterfaceChanged();
@@ -280,6 +284,8 @@ void AllAlbumsModel::endAlbumAdded(QVector<qulonglong> newAlbums)
         beginInsertRows(commonParent, newAlbumPosition, newAlbumPosition);
         endInsertRows();
     }
+
+    d->mAlbumCount = d->mMusicDatabase->albumCount({});
 }
 
 #include "moc_allalbumsmodel.cpp"

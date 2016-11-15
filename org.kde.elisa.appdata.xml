@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component type="desktop">
+  <id>org.kde.elisa.desktop</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license> https://www.freedesktop.org/software/appstream/docs/chap-Metadata.html#tag-metadata_license </project_license>
+  <name>Elisa</name>
+  <summary>Simple Music Player</summary>
+  <description>
+    <p> A simple music player that should be easy to use. It does not require any configuration before one can use it. </p>
+  </description>
+  <url type="homepage">https://www.kde.org</url>
+  <url type="bugtracker">https://bugs.kde.org</url>
+  <url type="donation">https://www.kde.org/community/donations</url>
+  <screenshots>
+    <screenshot type="default">
+      <image>
+        https://www.freedesktop.org/software/appstream/docs/chap-Metadata.html#tag-screenshots
+        Central hosting is still being sorted out, poke sitter@kde.org for more info.
+      </image>
+    </screenshot>
+  </screenshots>
+  <provides>
+    <binary>elisa</binary>
+  </provides>
+  <project_group>KDE</project_group>
+</component>

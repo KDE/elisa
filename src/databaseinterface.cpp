@@ -175,25 +175,27 @@ QVariant DatabaseInterface::albumDataFromIndex(int albumIndex, DatabaseInterface
 {
     auto result = QVariant();
 
-    auto transactionResult = startTransaction();
-    if (!transactionResult) {
+    if (albumIndex < 0 || albumIndex >= d->mIndexByPosition.length()) {
         return result;
     }
 
-    if (albumIndex < 0 || albumIndex >= d->mIndexByPosition.length()) {
-        transactionResult = finishTransaction();
+    bool transactionInProgress = false;
+
+    if (!albumIsInCache(d->mIndexByPosition[albumIndex])) {
+        auto transactionResult = startTransaction();
         if (!transactionResult) {
             return result;
         }
-
-        return result;
+        transactionInProgress = true;
     }
 
     result = internalAlbumDataFromId(d->mIndexByPosition[albumIndex], dataType);
 
-    transactionResult = finishTransaction();
-    if (!transactionResult) {
-        return result;
+    if (transactionInProgress) {
+        auto transactionResult = finishTransaction();
+        if (!transactionResult) {
+            return result;
+        }
     }
 
     return result;
@@ -895,6 +897,12 @@ void DatabaseInterface::initRequest()
 
     d->mInitFinished = true;
     Q_EMIT requestsInitDone();
+}
+
+bool DatabaseInterface::albumIsInCache(qulonglong albumId) const
+{
+    auto itAlbum = d->mAlbumCache.find(albumId);
+    return itAlbum != d->mAlbumCache.end();
 }
 
 QMap<qulonglong, MusicAudioTrack> DatabaseInterface::fetchTracks(qulonglong albumId) const

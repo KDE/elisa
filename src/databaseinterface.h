@@ -116,6 +116,8 @@ private:
 
     void initRequest();
 
+    bool albumIsInCache(qulonglong albumId) const;
+
     DatabaseInterfacePrivate *d;
 
 };

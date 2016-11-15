@@ -1,0 +1,18 @@
+[Desktop Entry]
+Categories=Qt;KDE;Multimedia;
+Comment[en_US]=
+Comment=
+Exec=elisa
+GenericName=Screenshot Capture Utility
+Icon=new-audio-alarm
+MimeType=
+Name=Elisa
+Path=
+StartupNotify=false
+Terminal=false
+TerminalOptions=
+Type=Application
+X-DBUS-ServiceName=org.kde.Spectacle
+X-DBUS-StartupType=multi
+X-KDE-SubstituteUID=false
+X-KDE-Username=

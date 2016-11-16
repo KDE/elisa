@@ -605,34 +605,43 @@ private Q_SLOTS:
                                   QArgument<QHash<QString,QVector<MusicAudioTrack>>>("QHash<QString,QVector<MusicAudioTrack>>", newTracks),
                                   QArgument<QHash<QString, QUrl>>("QHash<QString,QUrl>", newCovers));
 
-        QCOMPARE(musicDbdatabaseChanged1Spy.wait(200), true);
-        QCOMPARE(musicDbdatabaseChanged1Spy.wait(200), true);
-        QCOMPARE(musicDbdatabaseChanged1Spy.wait(200), true);
-        QCOMPARE(musicDbdatabaseChanged1Spy.wait(200), true);
-        //QCOMPARE(musicDbdatabaseChanged2Spy.wait(200), true);
-        //QCOMPARE(musicDbdatabaseChanged2Spy.wait(200), true);
-        //QCOMPARE(musicDbdatabaseChanged2Spy.wait(200), true);
-        //QCOMPARE(musicDbdatabaseChanged2Spy.wait(200), true);
-        //QCOMPARE(musicDbdatabaseChanged3Spy.wait(200), true);
-        //QCOMPARE(musicDbdatabaseChanged3Spy.wait(200), true);
-        //QCOMPARE(musicDbdatabaseChanged3Spy.wait(200), true);
-        //QCOMPARE(musicDbdatabaseChanged3Spy.wait(200), true);
-        //QCOMPARE(musicDbdatabaseChanged4Spy.wait(200), true);
-        //QCOMPARE(musicDbdatabaseChanged4Spy.wait(200), true);
-        //QCOMPARE(musicDbdatabaseChanged4Spy.wait(200), true);
-        //QCOMPARE(musicDbdatabaseChanged4Spy.wait(200), true);
+        while(musicDbdatabaseChanged1Spy.count() < 4) {
+            QCOMPARE(musicDbdatabaseChanged1Spy.wait(200), true);
+        }
+        qDebug() << "thread 1 finished";
+
+        while(musicDbdatabaseChanged2Spy.count() < 4) {
+            QCOMPARE(musicDbdatabaseChanged2Spy.wait(200), true);
+        }
+        qDebug() << "thread 2 finished";
+
+        while(musicDbdatabaseChanged3Spy.count() < 4) {
+            QCOMPARE(musicDbdatabaseChanged3Spy.wait(200), true);
+        }
+        qDebug() << "thread 3 finished";
+
+        while(musicDbdatabaseChanged4Spy.count() < 4) {
+            QCOMPARE(musicDbdatabaseChanged4Spy.wait(200), true);
+        }
+        qDebug() << "thread 4 finished";
 
         thread1.quit();
         thread2.quit();
         thread3.quit();
         thread4.quit();
 
-        qDebug() << musicDbdatabaseChanged1Spy.count();
-
-        thread1FinishedSpy.wait();
-        thread2FinishedSpy.wait();
-        thread3FinishedSpy.wait();
-        thread4FinishedSpy.wait();
+        if (thread1.isRunning()) {
+            QCOMPARE(thread1FinishedSpy.wait(200), true);
+        }
+        if (thread2.isRunning()) {
+            QCOMPARE(thread2FinishedSpy.wait(200), true);
+        }
+        if (thread3.isRunning()) {
+            QCOMPARE(thread3FinishedSpy.wait(200), true);
+        }
+        if (thread4.isRunning()) {
+            QCOMPARE(thread4FinishedSpy.wait(200), true);
+        }
 
         QCOMPARE(musicDb.albumCount({}), 4);
     }

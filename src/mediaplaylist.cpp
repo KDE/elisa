@@ -143,7 +143,7 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
         case ColumnsRoles::TrackNumberRole:
             return -1;
         case ColumnsRoles::HasAlbumHeader:
-            return false;
+            return rowHasHeader(index.row());
         case ColumnsRoles::DurationRole:
         case ColumnsRoles::MilliSecondsDurationRole:
         case ColumnsRoles::ResourceRole:
@@ -267,6 +267,9 @@ void MediaPlayList::enqueue(MediaPlayListEntry newEntry)
 
             Q_EMIT dataChanged(index(rowCount() - 1, 0), index(rowCount() - 1, 0), {});
         }
+    }
+    if (!newEntry.mIsValid) {
+        Q_EMIT dataChanged(index(rowCount() - 1, 0), index(rowCount() - 1, 0), {MediaPlayList::HasAlbumHeader});
     }
 }
 
@@ -470,8 +473,19 @@ bool MediaPlayList::rowHasHeader(int row) const
         return true;
     }
 
-    auto currentAlbum = d->mMusicDatabase->trackDataFromDatabaseId(d->mData[row].mId, DatabaseInterface::TrackData::Album).toString();
-    auto previousAlbum = d->mMusicDatabase->trackDataFromDatabaseId(d->mData[row - 1].mId, DatabaseInterface::TrackData::Album).toString();
+    auto currentAlbum = QString();
+    if (d->mData[row].mIsValid) {
+        currentAlbum = d->mMusicDatabase->trackDataFromDatabaseId(d->mData[row].mId, DatabaseInterface::TrackData::Album).toString();
+    } else {
+        currentAlbum = d->mData[row].mAlbum;
+    }
+
+    auto previousAlbum = QString();
+    if (d->mData[row - 1].mIsValid) {
+        previousAlbum = d->mMusicDatabase->trackDataFromDatabaseId(d->mData[row - 1].mId, DatabaseInterface::TrackData::Album).toString();
+    } else {
+        previousAlbum = d->mData[row - 1].mAlbum;
+    }
 
     if (currentAlbum == previousAlbum) {
         return false;

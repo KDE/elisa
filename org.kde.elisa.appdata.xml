@@ -4,9 +4,27 @@
   <metadata_license>CC0-1.0</metadata_license>
   <project_license> https://www.freedesktop.org/software/appstream/docs/chap-Metadata.html#tag-metadata_license </project_license>
   <name>Elisa</name>
+  <name xml:lang="nl">Elisa</name>
+  <name xml:lang="pt">Elisa</name>
+  <name xml:lang="sk">Elisa</name>
+  <name xml:lang="sv">Elisa</name>
+  <name xml:lang="uk">Elisa</name>
+  <name xml:lang="x-test">xxElisaxx</name>
   <summary>Simple Music Player</summary>
+  <summary xml:lang="nl">Eenvoudige muziekspeler</summary>
+  <summary xml:lang="pt">Leitor de Música Simples</summary>
+  <summary xml:lang="sk">Jednoduchý hudobný prehliadač</summary>
+  <summary xml:lang="sv">Enkel musikspelare</summary>
+  <summary xml:lang="uk">Простий музичний програвач</summary>
+  <summary xml:lang="x-test">xxSimple Music Playerxx</summary>
   <description>
     <p> A simple music player that should be easy to use. It does not require any configuration before one can use it. </p>
+    <p xml:lang="nl">Eenvoudige muziekspeler die gemakkelijk te gebruiken is. Het vereist geen enkele configuratie om te gebruiken.</p>
+    <p xml:lang="pt">Um leitor de música simples que deveria ser simples de usar. Não necessita de nenhuma configuração antes de poder ser usado.</p>
+    <p xml:lang="sk">Jednoduchý hudobný prehliadač, ktorý by malo byť jednoduché používať. Nevyžaduje žiadne nastavenie pred použitím.</p>
+    <p xml:lang="sv">En enkel musikspelare som ska vara lättanvänd. Den kräver inga inställningar innan man kan använda den.</p>
+    <p xml:lang="uk">Простий у користуванні музичний програвач. Не потребує налаштовування перед користуванням.</p>
+    <p xml:lang="x-test">xxA simple music player that should be easy to use. It does not require any configuration before one can use it.xx</p>
   </description>
   <url type="homepage">https://www.kde.org</url>
   <url type="bugtracker">https://bugs.kde.org</url>

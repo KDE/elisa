@@ -606,9 +606,9 @@ void MediaPlayListTest::testHasHeaderWithRestore()
     QCOMPARE(persistentStateChangedSpy.count(), 0);
     QCOMPARE(dataChangedSpy.count(), 0);
 
-    myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
+    myDatabaseContent.init(QStringLiteral("testDbDirectContentHeaderWithRestore"));
 
-    myDatabaseView.init(QStringLiteral("testDbDirectView"));
+    myDatabaseView.init(QStringLiteral("testDbDirectViewHeaderWithRestore"));
 
     connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
             &myDatabaseView, &DatabaseInterface::databaseHasChanged);

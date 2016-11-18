@@ -101,19 +101,13 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
             Qt5::Svg
             Qt5::Xml
             Qt5::Sql
+            KF5::I18n
     )
 
     if (Qt5DBus_FOUND)
         target_link_libraries(elisa
             LINK_PRIVATE
                 Qt5::DBus
-        )
-    endif()
-
-    if (KF5I18n_FOUND)
-        target_link_libraries(elisa
-            LINK_PRIVATE
-                KF5::I18n
         )
     endif()
 

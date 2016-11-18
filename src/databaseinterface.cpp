@@ -19,6 +19,8 @@
 
 #include "databaseinterface.h"
 
+#include <KI18n/KLocalizedString>
+
 #include <QtSql/QSqlDatabase>
 #include <QtSql/QSqlDriver>
 #include <QtSql/QSqlQuery>
@@ -440,6 +442,9 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
             if (newAlbum.artist().isNull()) {
                 newAlbum.setArtist(track.artist());
             }
+            if (newAlbum.artist() != track.artist()) {
+                newAlbum.setArtist(i18nc("Artist name for albums with more than one artist (like compilations", "Various Artists"));
+            }
 
             if (newAlbum.title().isNull()) {
                 newAlbum.setTitle(track.albumName());
@@ -447,10 +452,6 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
 
             if (newAlbum.albumArtURI().isEmpty()) {
                 newAlbum.setAlbumArtURI(covers[track.albumName()]);
-            }
-
-            if (!newAlbum.artist().isNull() && !newAlbum.title().isNull() && !newAlbum.albumArtURI().isEmpty()) {
-                break;
             }
         }
 

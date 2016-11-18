@@ -97,6 +97,10 @@ DatabaseInterface::DatabaseInterface(QObject *parent) : QObject(parent), d(nullp
 
 DatabaseInterface::~DatabaseInterface()
 {
+    if (d) {
+        d->mTracksDatabase.close();
+    }
+
     delete d;
 }
 

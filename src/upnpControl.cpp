@@ -44,7 +44,6 @@
 #include "manageheaderbar.h"
 #include "manageaudioplayer.h"
 #include "musicstatistics.h"
-#include "albumfilterproxymodel.h"
 #include "databaseinterface.h"
 #include "allalbumsmodel.h"
 #include "albummodel.h"
@@ -108,7 +107,6 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
     qRegisterMetaType<UpnpDeviceDescription*>();
 #endif
 
-    qmlRegisterType<AlbumFilterProxyModel>("org.mgallien.QmlExtension", 1, 0, "AlbumFilterProxyModel");
     qmlRegisterType<MediaPlayList>("org.mgallien.QmlExtension", 1, 0, "MediaPlayList");
     qmlRegisterType<PlayListControler>("org.mgallien.QmlExtension", 1, 0, "PlayListControler");
     qmlRegisterType<ManageMediaPlayerControl>("org.mgallien.QmlExtension", 1, 0, "ManageMediaPlayerControl");

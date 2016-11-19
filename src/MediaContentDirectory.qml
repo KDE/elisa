@@ -37,12 +37,6 @@ Item {
         anchors.fill: parent
         spacing: 0
 
-        AllAlbumsModel {
-            id: contentDirectoryModel
-
-            databaseInterface: contentDirectoryRoot.musicDatabase
-        }
-
         StackView {
             id: listingView
 
@@ -73,7 +67,6 @@ Item {
 
             initialItem: MediaServerListing {
                 stackView: listingView
-                contentModel: contentDirectoryModel
                 musicDatabase: contentDirectoryRoot.musicDatabase
                 playListModel: contentDirectoryRoot.playListModel
                 playerControl: contentDirectoryRoot.playerControl

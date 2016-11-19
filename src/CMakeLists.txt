@@ -8,7 +8,6 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         musicstatistics.cpp
         musicalbum.cpp
         musicaudiotrack.cpp
-        albumfilterproxymodel.cpp
         progressindicator.cpp
         albummodel.cpp
         allalbumsmodel.cpp

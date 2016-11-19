@@ -225,11 +225,11 @@ private Q_SLOTS:
 
         QCOMPARE(musicDb.albumCount({}), 4);
 
-        auto firstAlbumTitle = musicDb.albumDataFromIndex(0, DatabaseInterface::AlbumData::Title);
-        auto firstAlbumArtist = musicDb.albumDataFromIndex(0, DatabaseInterface::AlbumData::Artist);
-        auto firstAlbumImage = musicDb.albumDataFromIndex(0, DatabaseInterface::AlbumData::Image);
-        auto firstAlbumTracksCount = musicDb.albumDataFromIndex(0, DatabaseInterface::AlbumData::TracksCount);
-        auto firstAlbumId = musicDb.albumDataFromIndex(0, DatabaseInterface::AlbumData::Id);
+        auto firstAlbumTitle = musicDb.albumDataFromIndex({}, 0, DatabaseInterface::AlbumData::Title);
+        auto firstAlbumArtist = musicDb.albumDataFromIndex({}, 0, DatabaseInterface::AlbumData::Artist);
+        auto firstAlbumImage = musicDb.albumDataFromIndex({}, 0, DatabaseInterface::AlbumData::Image);
+        auto firstAlbumTracksCount = musicDb.albumDataFromIndex({}, 0, DatabaseInterface::AlbumData::TracksCount);
+        auto firstAlbumId = musicDb.albumDataFromIndex({}, 0, DatabaseInterface::AlbumData::Id);
 
         QCOMPARE(firstAlbumTitle.isValid(), true);
         QCOMPARE(firstAlbumTitle.toString(), QStringLiteral("album1"));
@@ -242,10 +242,10 @@ private Q_SLOTS:
         QCOMPARE(firstAlbumId.isValid(), true);
         QCOMPARE(firstAlbumId.toInt(), 0);
 
-        auto firstInvalidAlbumTitle = musicDb.albumDataFromIndex(-1, DatabaseInterface::AlbumData::Title);
+        auto firstInvalidAlbumTitle = musicDb.albumDataFromIndex({}, -1, DatabaseInterface::AlbumData::Title);
         QCOMPARE(firstInvalidAlbumTitle.isValid(), false);
 
-        auto secondInvalidAlbumTitle = musicDb.albumDataFromIndex(4, DatabaseInterface::AlbumData::Title);
+        auto secondInvalidAlbumTitle = musicDb.albumDataFromIndex({}, 4, DatabaseInterface::AlbumData::Title);
         QCOMPARE(secondInvalidAlbumTitle.isValid(), false);
 
         auto invalidTrackId = musicDb.trackIdFromTitleAlbumArtist(QStringLiteral("track1"), QStringLiteral("album1"), QStringLiteral("invalidArtist1"));
@@ -376,11 +376,11 @@ private Q_SLOTS:
         QCOMPARE(clientDb.albumCount({}), 4);
         QCOMPARE(musicDbChangedSpy.count(), 4);
 
-        auto firstAlbumTitle = musicDb.albumDataFromIndex(0, DatabaseInterface::AlbumData::Title);
-        auto firstAlbumArtist = musicDb.albumDataFromIndex(0, DatabaseInterface::AlbumData::Artist);
-        auto firstAlbumImage = musicDb.albumDataFromIndex(0, DatabaseInterface::AlbumData::Image);
-        auto firstAlbumTracksCount = musicDb.albumDataFromIndex(0, DatabaseInterface::AlbumData::TracksCount);
-        auto firstAlbumId = musicDb.albumDataFromIndex(0, DatabaseInterface::AlbumData::Id);
+        auto firstAlbumTitle = musicDb.albumDataFromIndex({}, 0, DatabaseInterface::AlbumData::Title);
+        auto firstAlbumArtist = musicDb.albumDataFromIndex({}, 0, DatabaseInterface::AlbumData::Artist);
+        auto firstAlbumImage = musicDb.albumDataFromIndex({}, 0, DatabaseInterface::AlbumData::Image);
+        auto firstAlbumTracksCount = musicDb.albumDataFromIndex({}, 0, DatabaseInterface::AlbumData::TracksCount);
+        auto firstAlbumId = musicDb.albumDataFromIndex({}, 0, DatabaseInterface::AlbumData::Id);
 
         QCOMPARE(firstAlbumTitle.isValid(), true);
         QCOMPARE(firstAlbumTitle.toString(), QStringLiteral("album1"));
@@ -393,10 +393,10 @@ private Q_SLOTS:
         QCOMPARE(firstAlbumId.isValid(), true);
         QCOMPARE(firstAlbumId.toInt(), 0);
 
-        auto firstInvalidAlbumTitle = clientDb.albumDataFromIndex(-1, DatabaseInterface::AlbumData::Title);
+        auto firstInvalidAlbumTitle = clientDb.albumDataFromIndex({}, -1, DatabaseInterface::AlbumData::Title);
         QCOMPARE(firstInvalidAlbumTitle.isValid(), false);
 
-        auto secondInvalidAlbumTitle = clientDb.albumDataFromIndex(4, DatabaseInterface::AlbumData::Title);
+        auto secondInvalidAlbumTitle = clientDb.albumDataFromIndex({}, 4, DatabaseInterface::AlbumData::Title);
         QCOMPARE(secondInvalidAlbumTitle.isValid(), false);
 
         auto invalidTrackId = clientDb.trackIdFromTitleAlbumArtist(QStringLiteral("track1"), QStringLiteral("album1"), QStringLiteral("invalidArtist1"));
@@ -527,11 +527,11 @@ private Q_SLOTS:
         QCOMPARE(clientDb.albumCount({}), 4);
         QCOMPARE(musicDbChangedSpy.count(), 4);
 
-        auto firstAlbumTitle = musicDb.albumDataFromIndex(0, DatabaseInterface::AlbumData::Title);
-        auto firstAlbumArtist = musicDb.albumDataFromIndex(0, DatabaseInterface::AlbumData::Artist);
-        auto firstAlbumImage = musicDb.albumDataFromIndex(0, DatabaseInterface::AlbumData::Image);
-        auto firstAlbumTracksCount = musicDb.albumDataFromIndex(0, DatabaseInterface::AlbumData::TracksCount);
-        auto firstAlbumId = musicDb.albumDataFromIndex(0, DatabaseInterface::AlbumData::Id);
+        auto firstAlbumTitle = musicDb.albumDataFromIndex({}, 0, DatabaseInterface::AlbumData::Title);
+        auto firstAlbumArtist = musicDb.albumDataFromIndex({}, 0, DatabaseInterface::AlbumData::Artist);
+        auto firstAlbumImage = musicDb.albumDataFromIndex({}, 0, DatabaseInterface::AlbumData::Image);
+        auto firstAlbumTracksCount = musicDb.albumDataFromIndex({}, 0, DatabaseInterface::AlbumData::TracksCount);
+        auto firstAlbumId = musicDb.albumDataFromIndex({}, 0, DatabaseInterface::AlbumData::Id);
 
         QCOMPARE(firstAlbumTitle.isValid(), true);
         QCOMPARE(firstAlbumTitle.toString(), QStringLiteral("album1"));
@@ -544,10 +544,10 @@ private Q_SLOTS:
         QCOMPARE(firstAlbumId.isValid(), true);
         QCOMPARE(firstAlbumId.toInt(), 0);
 
-        auto firstInvalidAlbumTitle = clientDb.albumDataFromIndex(-1, DatabaseInterface::AlbumData::Title);
+        auto firstInvalidAlbumTitle = clientDb.albumDataFromIndex({}, -1, DatabaseInterface::AlbumData::Title);
         QCOMPARE(firstInvalidAlbumTitle.isValid(), false);
 
-        auto secondInvalidAlbumTitle = clientDb.albumDataFromIndex(4, DatabaseInterface::AlbumData::Title);
+        auto secondInvalidAlbumTitle = clientDb.albumDataFromIndex({}, 4, DatabaseInterface::AlbumData::Title);
         QCOMPARE(secondInvalidAlbumTitle.isValid(), false);
 
         auto invalidTrackId = clientDb.trackIdFromTitleAlbumArtist(QStringLiteral("track1"), QStringLiteral("album1"), QStringLiteral("invalidArtist1"));

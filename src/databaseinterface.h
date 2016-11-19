@@ -64,7 +64,9 @@ public:
 
     MusicAlbum albumFromTitleAndAuthor(const QString &title, const QString &author) const;
 
-    QVariant albumDataFromIndex(int albumIndex, AlbumData dataType) const;
+    QVector<MusicAlbum> allAlbums(QString artistFilter) const;
+
+    QVariant albumDataFromIndex(QString artistFilter, int albumIndex, AlbumData dataType) const;
 
     QVariant trackDataFromDatabaseId(qulonglong id, TrackData dataType) const;
 

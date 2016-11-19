@@ -42,6 +42,7 @@ public:
 
     int mAlbumCount = 0;
 
+    QVector<MusicAlbum> mAllAlbums;
 };
 
 AllAlbumsModel::AllAlbumsModel(QObject *parent) : QAbstractItemModel(parent), d(new AllAlbumsModelPrivate)
@@ -147,7 +148,7 @@ QVariant AllAlbumsModel::internalDataAlbum(int albumIndex, int role) const
     switch(convertedRole)
     {
     case ColumnsRoles::TitleRole:
-        result = d->mMusicDatabase->albumDataFromIndex(albumIndex, DatabaseInterface::AlbumData::Title);
+        result = d->mAllAlbums[albumIndex].title();
         break;
     case ColumnsRoles::DurationRole:
         break;
@@ -156,7 +157,7 @@ QVariant AllAlbumsModel::internalDataAlbum(int albumIndex, int role) const
     case ColumnsRoles::CreatorRole:
         break;
     case ColumnsRoles::ArtistRole:
-        result = d->mMusicDatabase->albumDataFromIndex(albumIndex, DatabaseInterface::AlbumData::Artist);
+        result = d->mAllAlbums[albumIndex].artist();
         break;
     case ColumnsRoles::AlbumRole:
         break;
@@ -166,8 +167,8 @@ QVariant AllAlbumsModel::internalDataAlbum(int albumIndex, int role) const
         break;
     case ColumnsRoles::ImageRole:
     {
-        auto albumArt = d->mMusicDatabase->albumDataFromIndex(albumIndex, DatabaseInterface::AlbumData::Image);
-        if (albumArt.isValid() && albumArt.toUrl().isValid()) {
+        auto albumArt = d->mAllAlbums[albumIndex].albumArtURI();
+        if (albumArt.isValid()) {
             result = albumArt;
         } else {
             if (d->mUseLocalIcons) {
@@ -181,10 +182,10 @@ QVariant AllAlbumsModel::internalDataAlbum(int albumIndex, int role) const
     case ColumnsRoles::ResourceRole:
         break;
     case ColumnsRoles::CountRole:
-        result = d->mMusicDatabase->albumDataFromIndex(albumIndex, DatabaseInterface::AlbumData::TracksCount);
+        result = d->mAllAlbums[albumIndex].tracksCount();
         break;
     case ColumnsRoles::IdRole:
-        result = d->mMusicDatabase->albumDataFromIndex(albumIndex, DatabaseInterface::AlbumData::Id);
+        result = d->mAllAlbums[albumIndex].id();
         break;
     case ColumnsRoles::IsPlayingRole:
         break;
@@ -255,6 +256,10 @@ void AllAlbumsModel::setDatabaseInterface(DatabaseInterface *musicDatabase)
         d->mAlbumCount = d->mMusicDatabase->albumCount({});
     }
 
+    beginResetModel();
+    d->mAllAlbums = d->mMusicDatabase->allAlbums(d->mArtist);
+    endResetModel();
+
     emit databaseInterfaceChanged();
 }
 
@@ -265,9 +270,14 @@ void AllAlbumsModel::setArtist(QString artist)
     }
 
     beginResetModel();
+
     d->mArtist = artist;
-    emit artistChanged();
+    d->mAllAlbums = d->mMusicDatabase->allAlbums(d->mArtist);
+    d->mAlbumCount = d->mAllAlbums.count();
+
     endResetModel();
+
+    emit artistChanged();
 }
 
 void AllAlbumsModel::beginAlbumAdded(QVector<qulonglong> newAlbums)
@@ -281,7 +291,9 @@ void AllAlbumsModel::endAlbumAdded(QVector<qulonglong> newAlbums)
 
     for(auto albumId : newAlbums) {
         auto newAlbumPosition = d->mMusicDatabase->albumPositionFromId(albumId);
+
         beginInsertRows(commonParent, newAlbumPosition, newAlbumPosition);
+        d->mAllAlbums = d->mMusicDatabase->allAlbums(d->mArtist);
         endInsertRows();
     }
 

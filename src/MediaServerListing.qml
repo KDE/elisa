@@ -31,7 +31,6 @@ import org.mgallien.QmlExtension 1.0
 Item {
     property var rootIndex
     property StackView stackView
-    property var contentModel
     property MediaPlayList playListModel
     property var playerControl
     property var musicDatabase
@@ -43,17 +42,17 @@ Item {
         colorGroup: SystemPalette.Active
     }
 
-    AlbumFilterProxyModel {
-        id: filterProxyModel
+    AllAlbumsModel {
+        id: contentDirectoryModel
 
-        sourceModel: contentModel
+        databaseInterface: contentDirectoryRoot.musicDatabase
 
-        filterText: filterTextInput.text
+        artist: filterTextInput.text
     }
 
     DelegateModel {
         id: delegateContentModel
-        model: filterProxyModel
+        model: contentDirectoryModel
 
         delegate: Rectangle {
             id: mediaServerEntry

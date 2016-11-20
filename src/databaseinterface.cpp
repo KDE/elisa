@@ -826,7 +826,7 @@ void DatabaseInterface::initRequest()
         auto result = d->mSelectTrackQuery.prepare(selectTrackQueryText);
 
         if (!result) {
-            qDebug() << "DatabaseInterface::initDatabase" << d->mSelectTrackQuery.lastError();
+            qDebug() << "DatabaseInterface::initRequest" << d->mSelectTrackQuery.lastError();
         }
     }
     {
@@ -844,7 +844,7 @@ void DatabaseInterface::initRequest()
         auto result = d->mSelectTrackFromIdQuery.prepare(selectTrackFromIdQueryText);
 
         if (!result) {
-            qDebug() << "DatabaseInterface::initDatabase" << d->mSelectTrackFromIdQuery.lastError();
+            qDebug() << "DatabaseInterface::initRequest" << d->mSelectTrackFromIdQuery.lastError();
         }
     }
     {
@@ -855,7 +855,7 @@ void DatabaseInterface::initRequest()
         auto result = d->mSelectAlbumIdOfTrackQuery.prepare(selectAlbumIdOfTrackQueryText);
 
         if (!result) {
-            qDebug() << "DatabaseInterface::initDatabase" << d->mSelectAlbumIdOfTrackQuery.lastError();
+            qDebug() << "DatabaseInterface::initRequest" << d->mSelectAlbumIdOfTrackQuery.lastError();
         }
     }
     {
@@ -865,7 +865,7 @@ void DatabaseInterface::initRequest()
         const auto result = d->mSelectCountAlbumsQuery.prepare(selectCountAlbumsQueryText);
 
         if (!result) {
-            qDebug() << "DatabaseInterface::initDatabase" << d->mSelectCountAlbumsQuery.lastError();
+            qDebug() << "DatabaseInterface::initRequest" << d->mSelectCountAlbumsQuery.lastError();
         }
     }
     {
@@ -876,7 +876,7 @@ void DatabaseInterface::initRequest()
         const auto result = d->mSelectCountAlbumsForArtistQuery.prepare(selectCountAlbumsQueryText);
 
         if (!result) {
-            qDebug() << "DatabaseInterface::initDatabase" << d->mSelectCountAlbumsForArtistQuery.lastError();
+            qDebug() << "DatabaseInterface::initRequest" << d->mSelectCountAlbumsForArtistQuery.lastError();
         }
     }
     {
@@ -887,7 +887,7 @@ void DatabaseInterface::initRequest()
         auto result = d->mSelectAlbumIdFromTitleQuery.prepare(selectAlbumIdFromTitleQueryText);
 
         if (!result) {
-            qDebug() << "DatabaseInterface::initDatabase" << d->mSelectAlbumIdFromTitleQuery.lastError();
+            qDebug() << "DatabaseInterface::initRequest" << d->mSelectAlbumIdFromTitleQuery.lastError();
         }
     }
     {
@@ -897,7 +897,7 @@ void DatabaseInterface::initRequest()
         auto result = d->mInsertAlbumQuery.prepare(insertAlbumQueryText);
 
         if (!result) {
-            qDebug() << "DatabaseInterface::initDatabase" << d->mInsertAlbumQuery.lastError();
+            qDebug() << "DatabaseInterface::initRequest" << d->mInsertAlbumQuery.lastError();
         }
     }
     {
@@ -910,7 +910,7 @@ void DatabaseInterface::initRequest()
         auto result = d->mSelectTrackIdFromTitleAlbumIdArtistQuery.prepare(selectTrackQueryText);
 
         if (!result) {
-            qDebug() << "DatabaseInterface::initDatabase" << d->mSelectTrackIdFromTitleAlbumIdArtistQuery.lastError();
+            qDebug() << "DatabaseInterface::initRequest" << d->mSelectTrackIdFromTitleAlbumIdArtistQuery.lastError();
         }
 
         auto insertTrackQueryText = QStringLiteral("INSERT INTO `Tracks` (`ID`, `Title`, `AlbumID`, `Artist`, `FileName`, `TrackNumber`, `Duration`)"
@@ -919,7 +919,7 @@ void DatabaseInterface::initRequest()
         result = d->mInsertTrackQuery.prepare(insertTrackQueryText);
 
         if (!result) {
-            qDebug() << "DatabaseInterface::initDatabase" << d->mInsertTrackQuery.lastError();
+            qDebug() << "DatabaseInterface::initRequest" << d->mInsertTrackQuery.lastError();
         }
     }
     {
@@ -934,7 +934,7 @@ void DatabaseInterface::initRequest()
         auto result = d->mSelectTrackIdFromTitleAlbumArtistQuery.prepare(selectTrackQueryText);
 
         if (!result) {
-            qDebug() << "DatabaseInterface::initDatabase" << d->mSelectTrackIdFromTitleAlbumArtistQuery.lastError();
+            qDebug() << "DatabaseInterface::initRequest" << d->mSelectTrackIdFromTitleAlbumArtistQuery.lastError();
         }
     }
     {
@@ -946,7 +946,7 @@ void DatabaseInterface::initRequest()
         auto result = d->mSelectAlbumTrackCountQuery.prepare(selectAlbumTrackCountQueryText);
 
         if (!result) {
-            qDebug() << "DatabaseInterface::initDatabase" << d->mSelectAlbumTrackCountQuery.lastError();
+            qDebug() << "DatabaseInterface::initRequest" << d->mSelectAlbumTrackCountQuery.lastError();
         }
     }
     {
@@ -958,7 +958,7 @@ void DatabaseInterface::initRequest()
         auto result = d->mUpdateAlbumQuery.prepare(updateAlbumQueryText);
 
         if (!result) {
-            qDebug() << "DatabaseInterface::initDatabase" << d->mUpdateAlbumQuery.lastError();
+            qDebug() << "DatabaseInterface::initRequest" << d->mUpdateAlbumQuery.lastError();
         }
     }
     {
@@ -969,7 +969,7 @@ void DatabaseInterface::initRequest()
         auto result = d->mSelectAllAlbumIdsQuery.prepare(selectAlbumQueryText);
 
         if (!result) {
-            qDebug() << "DatabaseInterface::initDatabase" << d->mSelectAllAlbumIdsQuery.lastError();
+            qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllAlbumIdsQuery.lastError();
         }
     }
 

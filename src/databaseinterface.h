@@ -120,6 +120,8 @@ private:
 
     bool albumIsInCache(qulonglong albumId) const;
 
+    qulonglong insertArtist(QString name);
+
     DatabaseInterfacePrivate *d;
 
 };

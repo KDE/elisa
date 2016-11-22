@@ -8,9 +8,11 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         musicstatistics.cpp
         musicalbum.cpp
         musicaudiotrack.cpp
+        musicartist.cpp
         progressindicator.cpp
         albummodel.cpp
         allalbumsmodel.cpp
+        allartistsmodel.cpp
         databaseinterface.cpp
         musiclistenersmanager.cpp
         managemediaplayercontrol.cpp

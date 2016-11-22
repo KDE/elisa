@@ -22,6 +22,7 @@
 
 #include "musicalbum.h"
 #include "musicaudiotrack.h"
+#include "musicartist.h"
 
 #include <QtCore/QObject>
 #include <QtCore/QString>
@@ -64,7 +65,11 @@ public:
 
     MusicAlbum albumFromTitleAndAuthor(const QString &title, const QString &author) const;
 
-    QVector<MusicAlbum> allAlbums(QString artistFilter) const;
+    QVector<MusicAlbum> allAlbums(QString filter) const;
+
+    QVector<MusicAlbum> allAlbumsFromArtist(QString artistName) const;
+
+    QVector<MusicArtist> allArtists(QString filter) const;
 
     QVariant albumDataFromIndex(QString artistFilter, int albumIndex, AlbumData dataType) const;
 

@@ -239,6 +239,59 @@ QVector<MusicAlbum> DatabaseInterface::allAlbums(QString filter) const
     return result;
 }
 
+QVector<MusicAlbum> DatabaseInterface::allAlbumsFromArtist(QString artistName) const
+{
+    auto result = QVector<MusicAlbum>();
+
+    auto transactionResult = startTransaction();
+    if (!transactionResult) {
+        return result;
+    }
+
+    d->mSelectAllAlbumsFromArtistQuery.bindValue(QStringLiteral(":artistName"), artistName);
+
+    auto queryResult = d->mSelectAllAlbumsFromArtistQuery.exec();
+
+    if (!queryResult || !d->mSelectAllAlbumsFromArtistQuery.isSelect() || !d->mSelectAllAlbumsFromArtistQuery.isActive()) {
+        qDebug() << "DatabaseInterface::updateIndexCache" << "not select" << d->mSelectAllAlbumsFromArtistQuery.lastQuery();
+        qDebug() << "DatabaseInterface::updateIndexCache" << d->mSelectAllAlbumsFromArtistQuery.lastError();
+
+        return result;
+    }
+
+    while(d->mSelectAllAlbumsFromArtistQuery.next()) {
+        auto newAlbum = MusicAlbum();
+
+        newAlbum.setDatabaseId(d->mSelectAllAlbumsFromArtistQuery.record().value(0).toULongLong());
+        newAlbum.setTitle(d->mSelectAllAlbumsFromArtistQuery.record().value(1).toString());
+        newAlbum.setId(d->mSelectAllAlbumsFromArtistQuery.record().value(2).toString());
+        newAlbum.setArtist(d->mSelectAllAlbumsFromArtistQuery.record().value(3).toString());
+        newAlbum.setAlbumArtURI(d->mSelectAllAlbumsFromArtistQuery.record().value(4).toUrl());
+        newAlbum.setTracksCount(d->mSelectAllAlbumsFromArtistQuery.record().value(5).toInt());
+        newAlbum.setTracks(fetchTracks(newAlbum.databaseId()));
+        newAlbum.setTrackIds(newAlbum.tracksKeys());
+        newAlbum.setValid(true);
+
+        result.push_back(newAlbum);
+    }
+
+    d->mSelectTrackQuery.finish();
+
+    transactionResult = finishTransaction();
+    if (!transactionResult) {
+        return result;
+    }
+
+    return result;
+}
+
+QVector<MusicArtist> DatabaseInterface::allArtists(QString filter) const
+{
+    auto result = QVector<MusicArtist>();
+
+    return result;
+}
+
 QVariant DatabaseInterface::albumDataFromIndex(QString artistFilter, int albumIndex, DatabaseInterface::AlbumData dataType) const
 {
     auto result = QVariant();

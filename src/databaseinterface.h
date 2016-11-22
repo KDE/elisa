@@ -63,7 +63,7 @@ public:
 
     Q_INVOKABLE void init(const QString &dbName);
 
-    MusicAlbum albumFromTitleAndAuthor(const QString &title, const QString &author) const;
+    MusicAlbum albumFromTitleAndAuthor(QString title, QString author) const;
 
     QVector<MusicAlbum> allAlbums(QString filter) const;
 

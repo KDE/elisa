@@ -139,7 +139,7 @@ void DatabaseInterface::init(const QString &dbName)
     initRequest();
 }
 
-MusicAlbum DatabaseInterface::albumFromTitleAndAuthor(const QString &title, const QString &author) const
+MusicAlbum DatabaseInterface::albumFromTitleAndAuthor(QString title, QString author) const
 {
     auto result = MusicAlbum();
 

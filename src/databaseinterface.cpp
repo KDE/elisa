@@ -292,36 +292,6 @@ QVector<MusicArtist> DatabaseInterface::allArtists(QString filter) const
     return result;
 }
 
-QVariant DatabaseInterface::albumDataFromIndex(QString artistFilter, int albumIndex, DatabaseInterface::AlbumData dataType) const
-{
-    auto result = QVariant();
-
-    if (albumIndex < 0 || albumIndex >= d->mIndexByPosition.length()) {
-        return result;
-    }
-
-    bool transactionInProgress = false;
-
-    if (!albumIsInCache(d->mIndexByPosition[albumIndex])) {
-        auto transactionResult = startTransaction();
-        if (!transactionResult) {
-            return result;
-        }
-        transactionInProgress = true;
-    }
-
-    result = internalAlbumDataFromId(d->mIndexByPosition[albumIndex], dataType);
-
-    if (transactionInProgress) {
-        auto transactionResult = finishTransaction();
-        if (!transactionResult) {
-            return result;
-        }
-    }
-
-    return result;
-}
-
 QVariant DatabaseInterface::trackDataFromDatabaseId(qulonglong id, DatabaseInterface::TrackData dataType) const
 {
     auto result = QVariant();

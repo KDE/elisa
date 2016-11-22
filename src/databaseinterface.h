@@ -71,8 +71,6 @@ public:
 
     QVector<MusicArtist> allArtists(QString filter) const;
 
-    QVariant albumDataFromIndex(QString artistFilter, int albumIndex, AlbumData dataType) const;
-
     QVariant trackDataFromDatabaseId(qulonglong id, TrackData dataType) const;
 
     qulonglong trackIdFromTitleAlbumArtist(QString title, QString album, QString artist) const;

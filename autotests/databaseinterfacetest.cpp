@@ -225,28 +225,19 @@ private Q_SLOTS:
 
         QCOMPARE(musicDb.albumCount({}), 4);
 
-        auto firstAlbumTitle = musicDb.albumDataFromIndex({}, 0, DatabaseInterface::AlbumData::Title);
-        auto firstAlbumArtist = musicDb.albumDataFromIndex({}, 0, DatabaseInterface::AlbumData::Artist);
-        auto firstAlbumImage = musicDb.albumDataFromIndex({}, 0, DatabaseInterface::AlbumData::Image);
-        auto firstAlbumTracksCount = musicDb.albumDataFromIndex({}, 0, DatabaseInterface::AlbumData::TracksCount);
-        auto firstAlbumId = musicDb.albumDataFromIndex({}, 0, DatabaseInterface::AlbumData::Id);
+        auto allAlbums = musicDb.allAlbums({});
 
-        QCOMPARE(firstAlbumTitle.isValid(), true);
-        QCOMPARE(firstAlbumTitle.toString(), QStringLiteral("album1"));
-        QCOMPARE(firstAlbumArtist.isValid(), true);
-        QCOMPARE(firstAlbumArtist.toString(), QStringLiteral("artist1"));
+        auto firstAlbumTitle = allAlbums[0].title();
+        auto firstAlbumArtist = allAlbums[0].artist();
+        auto firstAlbumImage = allAlbums[0].albumArtURI();
+        auto firstAlbumTracksCount = allAlbums[0].tracksCount();
+        auto firstAlbumId = allAlbums[0].databaseId();
+
+        QCOMPARE(firstAlbumTitle, QStringLiteral("album1"));
+        QCOMPARE(firstAlbumArtist, QStringLiteral("artist1"));
         QCOMPARE(firstAlbumImage.isValid(), true);
-        QCOMPARE(firstAlbumImage.toUrl(), QUrl::fromLocalFile(QStringLiteral("album1")));
-        QCOMPARE(firstAlbumTracksCount.isValid(), true);
-        QCOMPARE(firstAlbumTracksCount.toInt(), 4);
-        QCOMPARE(firstAlbumId.isValid(), true);
-        QCOMPARE(firstAlbumId.toInt(), 0);
-
-        auto firstInvalidAlbumTitle = musicDb.albumDataFromIndex({}, -1, DatabaseInterface::AlbumData::Title);
-        QCOMPARE(firstInvalidAlbumTitle.isValid(), false);
-
-        auto secondInvalidAlbumTitle = musicDb.albumDataFromIndex({}, 4, DatabaseInterface::AlbumData::Title);
-        QCOMPARE(secondInvalidAlbumTitle.isValid(), false);
+        QCOMPARE(firstAlbumImage, QUrl::fromLocalFile(QStringLiteral("album1")));
+        QCOMPARE(firstAlbumTracksCount, 4);
 
         auto invalidTrackId = musicDb.trackIdFromTitleAlbumArtist(QStringLiteral("track1"), QStringLiteral("album1"), QStringLiteral("invalidArtist1"));
         QCOMPARE(invalidTrackId, decltype(invalidTrackId)(0));
@@ -376,28 +367,19 @@ private Q_SLOTS:
         QCOMPARE(clientDb.albumCount({}), 4);
         QCOMPARE(musicDbChangedSpy.count(), 4);
 
-        auto firstAlbumTitle = musicDb.albumDataFromIndex({}, 0, DatabaseInterface::AlbumData::Title);
-        auto firstAlbumArtist = musicDb.albumDataFromIndex({}, 0, DatabaseInterface::AlbumData::Artist);
-        auto firstAlbumImage = musicDb.albumDataFromIndex({}, 0, DatabaseInterface::AlbumData::Image);
-        auto firstAlbumTracksCount = musicDb.albumDataFromIndex({}, 0, DatabaseInterface::AlbumData::TracksCount);
-        auto firstAlbumId = musicDb.albumDataFromIndex({}, 0, DatabaseInterface::AlbumData::Id);
+        auto allAlbums = musicDb.allAlbums({});
 
-        QCOMPARE(firstAlbumTitle.isValid(), true);
-        QCOMPARE(firstAlbumTitle.toString(), QStringLiteral("album1"));
-        QCOMPARE(firstAlbumArtist.isValid(), true);
-        QCOMPARE(firstAlbumArtist.toString(), QStringLiteral("artist1"));
+        auto firstAlbumTitle = allAlbums[0].title();
+        auto firstAlbumArtist = allAlbums[0].artist();
+        auto firstAlbumImage = allAlbums[0].albumArtURI();
+        auto firstAlbumTracksCount = allAlbums[0].tracksCount();
+        auto firstAlbumId = allAlbums[0].databaseId();
+
+        QCOMPARE(firstAlbumTitle, QStringLiteral("album1"));
+        QCOMPARE(firstAlbumArtist, QStringLiteral("artist1"));
         QCOMPARE(firstAlbumImage.isValid(), true);
-        QCOMPARE(firstAlbumImage.toUrl(), QUrl::fromLocalFile(QStringLiteral("album1")));
-        QCOMPARE(firstAlbumTracksCount.isValid(), true);
-        QCOMPARE(firstAlbumTracksCount.toInt(), 4);
-        QCOMPARE(firstAlbumId.isValid(), true);
-        QCOMPARE(firstAlbumId.toInt(), 0);
-
-        auto firstInvalidAlbumTitle = clientDb.albumDataFromIndex({}, -1, DatabaseInterface::AlbumData::Title);
-        QCOMPARE(firstInvalidAlbumTitle.isValid(), false);
-
-        auto secondInvalidAlbumTitle = clientDb.albumDataFromIndex({}, 4, DatabaseInterface::AlbumData::Title);
-        QCOMPARE(secondInvalidAlbumTitle.isValid(), false);
+        QCOMPARE(firstAlbumImage, QUrl::fromLocalFile(QStringLiteral("album1")));
+        QCOMPARE(firstAlbumTracksCount, 4);
 
         auto invalidTrackId = clientDb.trackIdFromTitleAlbumArtist(QStringLiteral("track1"), QStringLiteral("album1"), QStringLiteral("invalidArtist1"));
         QCOMPARE(invalidTrackId, decltype(invalidTrackId)(0));
@@ -527,28 +509,19 @@ private Q_SLOTS:
         QCOMPARE(clientDb.albumCount({}), 4);
         QCOMPARE(musicDbChangedSpy.count(), 4);
 
-        auto firstAlbumTitle = musicDb.albumDataFromIndex({}, 0, DatabaseInterface::AlbumData::Title);
-        auto firstAlbumArtist = musicDb.albumDataFromIndex({}, 0, DatabaseInterface::AlbumData::Artist);
-        auto firstAlbumImage = musicDb.albumDataFromIndex({}, 0, DatabaseInterface::AlbumData::Image);
-        auto firstAlbumTracksCount = musicDb.albumDataFromIndex({}, 0, DatabaseInterface::AlbumData::TracksCount);
-        auto firstAlbumId = musicDb.albumDataFromIndex({}, 0, DatabaseInterface::AlbumData::Id);
+        auto allAlbums = musicDb.allAlbums({});
 
-        QCOMPARE(firstAlbumTitle.isValid(), true);
-        QCOMPARE(firstAlbumTitle.toString(), QStringLiteral("album1"));
-        QCOMPARE(firstAlbumArtist.isValid(), true);
-        QCOMPARE(firstAlbumArtist.toString(), QStringLiteral("Various Artists"));
+        auto firstAlbumTitle = allAlbums[0].title();
+        auto firstAlbumArtist = allAlbums[0].artist();
+        auto firstAlbumImage = allAlbums[0].albumArtURI();
+        auto firstAlbumTracksCount = allAlbums[0].tracksCount();
+        auto firstAlbumId = allAlbums[0].databaseId();
+
+        QCOMPARE(firstAlbumTitle, QStringLiteral("album1"));
+        QCOMPARE(firstAlbumArtist, QStringLiteral("Various Artists"));
         QCOMPARE(firstAlbumImage.isValid(), true);
-        QCOMPARE(firstAlbumImage.toUrl(), QUrl::fromLocalFile(QStringLiteral("album1")));
-        QCOMPARE(firstAlbumTracksCount.isValid(), true);
-        QCOMPARE(firstAlbumTracksCount.toInt(), 4);
-        QCOMPARE(firstAlbumId.isValid(), true);
-        QCOMPARE(firstAlbumId.toInt(), 0);
-
-        auto firstInvalidAlbumTitle = clientDb.albumDataFromIndex({}, -1, DatabaseInterface::AlbumData::Title);
-        QCOMPARE(firstInvalidAlbumTitle.isValid(), false);
-
-        auto secondInvalidAlbumTitle = clientDb.albumDataFromIndex({}, 4, DatabaseInterface::AlbumData::Title);
-        QCOMPARE(secondInvalidAlbumTitle.isValid(), false);
+        QCOMPARE(firstAlbumImage, QUrl::fromLocalFile(QStringLiteral("album1")));
+        QCOMPARE(firstAlbumTracksCount, 4);
 
         auto invalidTrackId = clientDb.trackIdFromTitleAlbumArtist(QStringLiteral("track1"), QStringLiteral("album1"), QStringLiteral("invalidArtist1"));
         QCOMPARE(invalidTrackId, decltype(invalidTrackId)(0));

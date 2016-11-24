@@ -75,14 +75,11 @@ public:
 
     qulonglong trackIdFromTitleAlbumArtist(QString title, QString album, QString artist) const;
 
-    int albumPositionFromId(qulonglong albumId) const;
-
     int albumCount(QString artist) const;
 
 Q_SIGNALS:
 
-    void databaseChanged(QVector<qulonglong> indexByPosition, QHash<qulonglong, int> positionByIndex,
-                         QVector<qulonglong> newAlbums, QVector<qulonglong> newTracks);
+    void databaseChanged(QVector<qulonglong> newAlbums, QVector<qulonglong> newTracks);
 
     void beginAlbumAdded(QVector<qulonglong> newAlbums);
 
@@ -98,8 +95,7 @@ public Q_SLOTS:
 
     void insertTracksList(QHash<QString, QVector<MusicAudioTrack> > tracks, QHash<QString, QUrl> covers);
 
-    void databaseHasChanged(QVector<qulonglong> indexByPosition, QHash<qulonglong, int> positionByIndex,
-                            QVector<qulonglong> newAlbums, QVector<qulonglong> newTracks);
+    void databaseHasChanged(QVector<qulonglong> newAlbums, QVector<qulonglong> newTracks);
 
 private:
 
@@ -111,8 +107,6 @@ private:
 
     void updateTracksCount(qulonglong albumId, int tracksCount) const;
 
-    void updateIndexCache(QVector<qulonglong> newTracks);
-
     MusicAlbum internalAlbumFromId(qulonglong albumId) const;
 
     QVariant internalAlbumDataFromId(qulonglong albumId, AlbumData dataType) const;
@@ -120,8 +114,6 @@ private:
     void initDatabase() const;
 
     void initRequest();
-
-    bool albumIsInCache(qulonglong albumId) const;
 
     qulonglong insertArtist(QString name);
 

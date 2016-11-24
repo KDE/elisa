@@ -287,17 +287,10 @@ void AllAlbumsModel::beginAlbumAdded(QVector<qulonglong> newAlbums)
 
 void AllAlbumsModel::endAlbumAdded(QVector<qulonglong> newAlbums)
 {
-    auto commonParent = QModelIndex();
-
-    for(auto albumId : newAlbums) {
-        auto newAlbumPosition = d->mMusicDatabase->albumPositionFromId(albumId);
-
-        beginInsertRows(commonParent, newAlbumPosition, newAlbumPosition);
-        d->mAllAlbums = d->mMusicDatabase->allAlbums(d->mArtist);
-        endInsertRows();
-    }
-
+    beginResetModel();
+    d->mAllAlbums = d->mMusicDatabase->allAlbums(d->mArtist);
     d->mAlbumCount = d->mMusicDatabase->albumCount({});
+    endResetModel();
 }
 
 #include "moc_allalbumsmodel.cpp"

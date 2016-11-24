@@ -37,8 +37,7 @@ class DatabaseInterfacePrivate
 public:
 
     DatabaseInterfacePrivate(QSqlDatabase tracksDatabase)
-        : mTracksDatabase(tracksDatabase), mIndexByPosition(), mPositionByIndex(),
-          mAlbumCache(), mSelectAlbumQuery(mTracksDatabase),
+        : mTracksDatabase(tracksDatabase), mSelectAlbumQuery(mTracksDatabase),
           mSelectTrackQuery(mTracksDatabase), mSelectAlbumIdOfTrackQuery(mTracksDatabase),
           mSelectCountAlbumsQuery(mTracksDatabase), mSelectAlbumIdFromTitleQuery(mTracksDatabase),
           mInsertAlbumQuery(mTracksDatabase), mSelectTrackIdFromTitleAlbumIdArtistQuery(mTracksDatabase),
@@ -52,12 +51,6 @@ public:
     }
 
     QSqlDatabase mTracksDatabase;
-
-    QVector<qulonglong> mIndexByPosition;
-
-    QHash<qulonglong, int> mPositionByIndex;
-
-    QHash<qulonglong, MusicAlbum> mAlbumCache;
 
     QSqlQuery mSelectAlbumQuery;
 
@@ -417,11 +410,6 @@ qulonglong DatabaseInterface::trackIdFromTitleAlbumArtist(QString title, QString
     return result;
 }
 
-int DatabaseInterface::albumPositionFromId(qulonglong albumId) const
-{
-    return d->mPositionByIndex[albumId];
-}
-
 int DatabaseInterface::albumCount(QString artist) const
 {
     auto result = 0;
@@ -513,6 +501,7 @@ int DatabaseInterface::albumCount(QString artist) const
 
 void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack> > tracks, QHash<QString, QUrl> covers)
 {
+    auto newAddedAlbums = QVector<qulonglong>();
     auto newTracks = QVector<qulonglong>();
     auto maximumAlbumId = qulonglong(0);
     quintptr albumId = 0;
@@ -570,8 +559,10 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
             result = d->mInsertAlbumQuery.exec();
 
             if (result && d->mInsertAlbumQuery.isActive()) {
+                newAddedAlbums.push_back(d->mAlbumId);
                 ++d->mAlbumId;
             } else {
+                qDebug() << "DatabaseInterface::insertTracksList" << "error during album insert";
                 qDebug() << "DatabaseInterface::insertTracksList" << d->mInsertAlbumQuery.lastQuery();
                 qDebug() << "DatabaseInterface::insertTracksList" << d->mInsertAlbumQuery.lastError();
 
@@ -657,18 +648,13 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
 
     qDebug() << "DatabaseInterface::insertTracksList" << "database changed" << newTracks.count() << "new tracks";
 
-    updateIndexCache(newTracks);
+    Q_EMIT databaseChanged(newAddedAlbums, newTracks);
 }
 
-void DatabaseInterface::databaseHasChanged(QVector<qulonglong> indexByPosition, QHash<qulonglong, int> positionByIndex,
-                                           QVector<qulonglong> newAlbums, QVector<qulonglong> newTracks)
+void DatabaseInterface::databaseHasChanged(QVector<qulonglong> newAlbums, QVector<qulonglong> newTracks)
 {
     Q_EMIT beginAlbumAdded(newAlbums);
     Q_EMIT beginTrackAdded(newTracks);
-
-    d->mIndexByPosition = indexByPosition;
-    d->mPositionByIndex = positionByIndex;
-    d->mAlbumCache.clear();
 
     Q_EMIT endAlbumAdded(newAlbums);
     Q_EMIT endTrackAdded(newTracks);
@@ -1108,12 +1094,6 @@ void DatabaseInterface::initRequest()
     Q_EMIT requestsInitDone();
 }
 
-bool DatabaseInterface::albumIsInCache(qulonglong albumId) const
-{
-    auto itAlbum = d->mAlbumCache.find(albumId);
-    return itAlbum != d->mAlbumCache.end();
-}
-
 qulonglong DatabaseInterface::insertArtist(QString name)
 {
     auto result = qulonglong(0);
@@ -1241,65 +1221,9 @@ void DatabaseInterface::updateTracksCount(qulonglong albumId, int tracksCount) c
     }
 }
 
-void DatabaseInterface::updateIndexCache(QVector<qulonglong> newTracks)
-{
-    auto transactionResult = startTransaction();
-    if (!transactionResult) {
-        return;
-    }
-
-    auto result = d->mSelectAllAlbumIdsQuery.exec();
-
-    if (!result || !d->mSelectAllAlbumIdsQuery.isSelect() || !d->mSelectAllAlbumIdsQuery.isActive()) {
-        qDebug() << "DatabaseInterface::updateIndexCache" << "not select" << d->mSelectAllAlbumIdsQuery.lastQuery();
-        qDebug() << "DatabaseInterface::updateIndexCache" << d->mSelectAllAlbumIdsQuery.lastError();
-
-        return;
-    }
-
-    auto newIndexByPosition = QVector<qulonglong>();
-    auto newAlbums = QVector<qulonglong>();
-    auto newPositionByIndex = QHash<qulonglong, int>();
-
-    while(d->mSelectAllAlbumIdsQuery.next()) {
-        auto albumId = d->mSelectAllAlbumIdsQuery.record().value(0).toULongLong();
-
-        if (d->mIndexByPosition.length() <= newIndexByPosition.length()) {
-            newAlbums.push_back(albumId);
-        } else {
-            if (d->mIndexByPosition[newIndexByPosition.length()] != albumId) {
-                newAlbums.push_back(albumId);
-            }
-        }
-
-        newIndexByPosition.push_back(albumId);
-        newPositionByIndex[albumId] = newIndexByPosition.length() - 1;
-    }
-
-    d->mSelectTrackQuery.finish();
-
-    transactionResult = finishTransaction();
-    if (!transactionResult) {
-        return;
-    }
-
-    d->mIndexByPosition = newIndexByPosition;
-    d->mPositionByIndex = newPositionByIndex;
-    d->mAlbumCache.clear();
-
-    Q_EMIT databaseChanged(d->mIndexByPosition, d->mPositionByIndex, newAlbums, newTracks);
-}
-
 MusicAlbum DatabaseInterface::internalAlbumFromId(qulonglong albumId) const
 {
     auto retrievedAlbum = MusicAlbum();
-
-    auto itAlbum = d->mAlbumCache.find(albumId);
-    if (itAlbum != d->mAlbumCache.end()) {
-        retrievedAlbum = *itAlbum;
-
-        return retrievedAlbum;
-    }
 
     d->mSelectAlbumQuery.bindValue(QStringLiteral(":albumId"), albumId);
 
@@ -1329,8 +1253,6 @@ MusicAlbum DatabaseInterface::internalAlbumFromId(qulonglong albumId) const
     retrievedAlbum.setTracks(fetchTracks(retrievedAlbum.databaseId()));
     retrievedAlbum.setTrackIds(retrievedAlbum.tracksKeys());
     retrievedAlbum.setValid(true);
-
-    d->mAlbumCache[albumId] = retrievedAlbum;
 
     d->mSelectAlbumQuery.finish();
 

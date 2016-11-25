@@ -35,7 +35,7 @@ public:
     MusicAudioTrack();
 
     MusicAudioTrack(bool aValid, QString aId, QString aParentId, QString aTitle, QString aArtist, QString aAlbumName,
-                    int aTrackNumber, QTime aDuration, QUrl aResourceURI);
+                    int aTrackNumber, QTime aDuration, QUrl aResourceURI, QUrl aAlbumCover);
 
     MusicAudioTrack(MusicAudioTrack &&other);
 
@@ -76,6 +76,10 @@ public:
     void setAlbumName(const QString &value) const;
 
     QString albumName() const;
+
+    void setAlbumCover(const QUrl &value) const;
+
+    QUrl albumCover() const;
 
     void setTrackNumber(int value);
 

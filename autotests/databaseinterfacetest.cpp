@@ -78,50 +78,68 @@ private Q_SLOTS:
 
         newTracks[QStringLiteral("album1")] = {
             {true, QStringLiteral("$1"), QStringLiteral("0"), QStringLiteral("track1"),
-                QStringLiteral("artist1"), QStringLiteral("album1"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$1"))}},
+                QStringLiteral("artist1"), QStringLiteral("album1"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$1"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$1"))}},
             {true, QStringLiteral("$2"), QStringLiteral("0"), QStringLiteral("track2"),
-                QStringLiteral("artist1"), QStringLiteral("album1"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$2"))}},
+                QStringLiteral("artist1"), QStringLiteral("album1"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$2"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$2"))}},
             {true, QStringLiteral("$3"), QStringLiteral("0"), QStringLiteral("track3"),
-                QStringLiteral("artist1"), QStringLiteral("album1"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$3"))}},
+                QStringLiteral("artist1"), QStringLiteral("album1"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$3"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$3"))}},
             {true, QStringLiteral("$4"), QStringLiteral("0"), QStringLiteral("track4"),
-                QStringLiteral("artist1"), QStringLiteral("album1"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$4"))}},
+                QStringLiteral("artist1"), QStringLiteral("album1"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$4"))},
+                {QUrl::fromLocalFile(QStringLiteral("file://image$4"))}},
         };
 
         newTracks[QStringLiteral("album2")] = {
             {true, QStringLiteral("$5"), QStringLiteral("0"), QStringLiteral("track1"),
-                QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$5"))}},
+                QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$5"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$5"))}},
             {true, QStringLiteral("$6"), QStringLiteral("0"), QStringLiteral("track2"),
-                QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$6"))}},
+                QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$6"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$6"))}},
             {true, QStringLiteral("$7"), QStringLiteral("0"), QStringLiteral("track3"),
-                QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$7"))}},
+                QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$7"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$7"))}},
             {true, QStringLiteral("$8"), QStringLiteral("0"), QStringLiteral("track4"),
-                QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$8"))}},
+                QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$8"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$8"))}},
             {true, QStringLiteral("$9"), QStringLiteral("0"), QStringLiteral("track5"),
-                QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$9"))}},
+                QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$9"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$9"))}},
             {true, QStringLiteral("$10"), QStringLiteral("0"), QStringLiteral("track6"),
-                QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$10"))}}
+                QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$10"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$10"))}}
         };
 
         newTracks[QStringLiteral("album3")] = {
             {true, QStringLiteral("$11"), QStringLiteral("0"), QStringLiteral("track1"),
-                QStringLiteral("artist2"), QStringLiteral("album3"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$11"))}},
+                QStringLiteral("artist2"), QStringLiteral("album3"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$11"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$11"))}},
             {true, QStringLiteral("$12"), QStringLiteral("0"), QStringLiteral("track2"),
-                QStringLiteral("artist2"), QStringLiteral("album3"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$12"))}},
+                QStringLiteral("artist2"), QStringLiteral("album3"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$12"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$12"))}},
             {true, QStringLiteral("$13"), QStringLiteral("0"), QStringLiteral("track3"),
-                QStringLiteral("artist2"), QStringLiteral("album3"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$13"))}}
+                QStringLiteral("artist2"), QStringLiteral("album3"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$13"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$13"))}}
         };
 
         newTracks[QStringLiteral("album4")] = {
             {true, QStringLiteral("$14"), QStringLiteral("0"), QStringLiteral("track1"),
-                QStringLiteral("artist2"), QStringLiteral("album4"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$14"))}},
+                QStringLiteral("artist2"), QStringLiteral("album4"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$14"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$14"))}},
             {true, QStringLiteral("$15"), QStringLiteral("0"), QStringLiteral("track2"),
-                QStringLiteral("artist2"), QStringLiteral("album4"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$15"))}},
+                QStringLiteral("artist2"), QStringLiteral("album4"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$15"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$15"))}},
             {true, QStringLiteral("$16"), QStringLiteral("0"), QStringLiteral("track3"),
-                QStringLiteral("artist2"), QStringLiteral("album4"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$16"))}},
+                QStringLiteral("artist2"), QStringLiteral("album4"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$16"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$16"))}},
             {true, QStringLiteral("$17"), QStringLiteral("0"), QStringLiteral("track4"),
-                QStringLiteral("artist2"), QStringLiteral("album4"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$17"))}},
+                QStringLiteral("artist2"), QStringLiteral("album4"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$17"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$17"))}},
             {true, QStringLiteral("$18"), QStringLiteral("0"), QStringLiteral("track5"),
-                QStringLiteral("artist2"), QStringLiteral("album4"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$18"))}}
+                QStringLiteral("artist2"), QStringLiteral("album4"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$18"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$18"))}}
         };
 
         newCovers[QStringLiteral("album1")] = QUrl::fromLocalFile(QStringLiteral("album1"));
@@ -167,50 +185,68 @@ private Q_SLOTS:
 
         newTracks[QStringLiteral("album1")] = {
             {true, QStringLiteral("$1"), QStringLiteral("0"), QStringLiteral("track1"),
-                QStringLiteral("artist1"), QStringLiteral("album1"), 1, QTime::fromMSecsSinceStartOfDay(1), {QUrl::fromLocalFile(QStringLiteral("$1"))}},
+                QStringLiteral("artist1"), QStringLiteral("album1"), 1, QTime::fromMSecsSinceStartOfDay(1), {QUrl::fromLocalFile(QStringLiteral("$1"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$1"))}},
             {true, QStringLiteral("$2"), QStringLiteral("0"), QStringLiteral("track2"),
-                QStringLiteral("artist1"), QStringLiteral("album1"), 1, QTime::fromMSecsSinceStartOfDay(2), {QUrl::fromLocalFile(QStringLiteral("$2"))}},
+                QStringLiteral("artist1"), QStringLiteral("album1"), 2, QTime::fromMSecsSinceStartOfDay(2), {QUrl::fromLocalFile(QStringLiteral("$2"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$2"))}},
             {true, QStringLiteral("$3"), QStringLiteral("0"), QStringLiteral("track3"),
-                QStringLiteral("artist1"), QStringLiteral("album1"), 1, QTime::fromMSecsSinceStartOfDay(3), {QUrl::fromLocalFile(QStringLiteral("$3"))}},
+                QStringLiteral("artist1"), QStringLiteral("album1"), 3, QTime::fromMSecsSinceStartOfDay(3), {QUrl::fromLocalFile(QStringLiteral("$3"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$3"))}},
             {true, QStringLiteral("$4"), QStringLiteral("0"), QStringLiteral("track4"),
-                QStringLiteral("artist1"), QStringLiteral("album1"), 1, QTime::fromMSecsSinceStartOfDay(4), {QUrl::fromLocalFile(QStringLiteral("$4"))}},
+                QStringLiteral("artist1"), QStringLiteral("album1"), 4, QTime::fromMSecsSinceStartOfDay(4), {QUrl::fromLocalFile(QStringLiteral("$4"))},
+                {QUrl::fromLocalFile(QStringLiteral("file://image$4"))}},
         };
 
         newTracks[QStringLiteral("album2")] = {
             {true, QStringLiteral("$5"), QStringLiteral("0"), QStringLiteral("track1"),
-                QStringLiteral("artist1"), QStringLiteral("album2"), 1, QTime::fromMSecsSinceStartOfDay(5), {QUrl::fromLocalFile(QStringLiteral("$5"))}},
+                QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$5"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$5"))}},
             {true, QStringLiteral("$6"), QStringLiteral("0"), QStringLiteral("track2"),
-                QStringLiteral("artist1"), QStringLiteral("album2"), 1, QTime::fromMSecsSinceStartOfDay(6), {QUrl::fromLocalFile(QStringLiteral("$6"))}},
+                QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$6"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$6"))}},
             {true, QStringLiteral("$7"), QStringLiteral("0"), QStringLiteral("track3"),
-                QStringLiteral("artist1"), QStringLiteral("album2"), 1, QTime::fromMSecsSinceStartOfDay(7), {QUrl::fromLocalFile(QStringLiteral("$7"))}},
+                QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$7"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$7"))}},
             {true, QStringLiteral("$8"), QStringLiteral("0"), QStringLiteral("track4"),
-                QStringLiteral("artist1"), QStringLiteral("album2"), 1, QTime::fromMSecsSinceStartOfDay(8), {QUrl::fromLocalFile(QStringLiteral("$8"))}},
+                QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$8"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$8"))}},
             {true, QStringLiteral("$9"), QStringLiteral("0"), QStringLiteral("track5"),
-                QStringLiteral("artist1"), QStringLiteral("album2"), 1, QTime::fromMSecsSinceStartOfDay(9), {QUrl::fromLocalFile(QStringLiteral("$9"))}},
+                QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$9"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$9"))}},
             {true, QStringLiteral("$10"), QStringLiteral("0"), QStringLiteral("track6"),
-                QStringLiteral("artist1"), QStringLiteral("album2"), 1, QTime::fromMSecsSinceStartOfDay(10), {QUrl::fromLocalFile(QStringLiteral("$10"))}}
+                QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$10"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$10"))}}
         };
 
         newTracks[QStringLiteral("album3")] = {
             {true, QStringLiteral("$11"), QStringLiteral("0"), QStringLiteral("track1"),
-                QStringLiteral("artist2"), QStringLiteral("album3"), 1, QTime::fromMSecsSinceStartOfDay(11), {QUrl::fromLocalFile(QStringLiteral("$11"))}},
+                QStringLiteral("artist2"), QStringLiteral("album3"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$11"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$11"))}},
             {true, QStringLiteral("$12"), QStringLiteral("0"), QStringLiteral("track2"),
-                QStringLiteral("artist2"), QStringLiteral("album3"), 1, QTime::fromMSecsSinceStartOfDay(12), {QUrl::fromLocalFile(QStringLiteral("$12"))}},
+                QStringLiteral("artist2"), QStringLiteral("album3"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$12"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$12"))}},
             {true, QStringLiteral("$13"), QStringLiteral("0"), QStringLiteral("track3"),
-                QStringLiteral("artist2"), QStringLiteral("album3"), 1, QTime::fromMSecsSinceStartOfDay(13), {QUrl::fromLocalFile(QStringLiteral("$13"))}}
+                QStringLiteral("artist2"), QStringLiteral("album3"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$13"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$13"))}}
         };
 
         newTracks[QStringLiteral("album4")] = {
             {true, QStringLiteral("$14"), QStringLiteral("0"), QStringLiteral("track1"),
-                QStringLiteral("artist2"), QStringLiteral("album4"), 1, QTime::fromMSecsSinceStartOfDay(14), {QUrl::fromLocalFile(QStringLiteral("$14"))}},
+                QStringLiteral("artist2"), QStringLiteral("album4"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$14"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$14"))}},
             {true, QStringLiteral("$15"), QStringLiteral("0"), QStringLiteral("track2"),
-                QStringLiteral("artist2"), QStringLiteral("album4"), 1, QTime::fromMSecsSinceStartOfDay(15), {QUrl::fromLocalFile(QStringLiteral("$15"))}},
+                QStringLiteral("artist2"), QStringLiteral("album4"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$15"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$15"))}},
             {true, QStringLiteral("$16"), QStringLiteral("0"), QStringLiteral("track3"),
-                QStringLiteral("artist2"), QStringLiteral("album4"), 1, QTime::fromMSecsSinceStartOfDay(16), {QUrl::fromLocalFile(QStringLiteral("$16"))}},
+                QStringLiteral("artist2"), QStringLiteral("album4"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$16"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$16"))}},
             {true, QStringLiteral("$17"), QStringLiteral("0"), QStringLiteral("track4"),
-                QStringLiteral("artist2"), QStringLiteral("album4"), 1, QTime::fromMSecsSinceStartOfDay(17), {QUrl::fromLocalFile(QStringLiteral("$17"))}},
+                QStringLiteral("artist2"), QStringLiteral("album4"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$17"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$17"))}},
             {true, QStringLiteral("$18"), QStringLiteral("0"), QStringLiteral("track5"),
-                QStringLiteral("artist2"), QStringLiteral("album4"), 1, QTime::fromMSecsSinceStartOfDay(18), {QUrl::fromLocalFile(QStringLiteral("$18"))}}
+                QStringLiteral("artist2"), QStringLiteral("album4"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$18"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$18"))}}
         };
 
         newCovers[QStringLiteral("album1")] = QUrl::fromLocalFile(QStringLiteral("album1"));
@@ -244,37 +280,28 @@ private Q_SLOTS:
 
         auto trackId = musicDb.trackIdFromTitleAlbumArtist(QStringLiteral("track1"), QStringLiteral("album1"), QStringLiteral("artist1"));
 
-        auto firstTrackTitle = musicDb.trackDataFromDatabaseId(trackId, DatabaseInterface::TrackData::Title);
-        auto firstTrackArtist = musicDb.trackDataFromDatabaseId(trackId, DatabaseInterface::TrackData::Artist);
-        auto firstTrackAlbum = musicDb.trackDataFromDatabaseId(trackId, DatabaseInterface::TrackData::Album);
-        auto firstTrackImage = musicDb.trackDataFromDatabaseId(trackId, DatabaseInterface::TrackData::Image);
-        auto firstTrackDuration = musicDb.trackDataFromDatabaseId(trackId, DatabaseInterface::TrackData::Duration);
-        auto firstTrackMilliSecondsDuration = musicDb.trackDataFromDatabaseId(trackId, DatabaseInterface::TrackData::MilliSecondsDuration);
-        auto firstTrackTrackNumber = musicDb.trackDataFromDatabaseId(trackId, DatabaseInterface::TrackData::TrackNumber);
-        auto firstTrackResource = musicDb.trackDataFromDatabaseId(trackId, DatabaseInterface::TrackData::Resource);
+        auto firstTrack = musicDb.trackFromDatabaseId(trackId);
 
-        QCOMPARE(firstTrackTitle.isValid(), true);
-        QCOMPARE(firstTrackTitle.toString(), QStringLiteral("track1"));
-        QCOMPARE(firstTrackArtist.isValid(), true);
-        QCOMPARE(firstTrackArtist.toString(), QStringLiteral("artist1"));
-        QCOMPARE(firstTrackAlbum.isValid(), true);
-        QCOMPARE(firstTrackAlbum.toString(), QStringLiteral("album1"));
+        auto firstTrackTitle = firstTrack.title();
+        auto firstTrackArtist = firstTrack.artist();
+        auto firstTrackAlbum = firstTrack.albumName();
+        auto firstTrackImage = firstTrack.albumCover();
+        auto firstTrackDuration = firstTrack.duration();
+        auto firstTrackMilliSecondsDuration = firstTrack.duration().msecsSinceStartOfDay();
+        auto firstTrackTrackNumber = firstTrack.trackNumber();
+        auto firstTrackResource = firstTrack.resourceURI();
+
+        QCOMPARE(firstTrack.isValid(), true);
+        QCOMPARE(firstTrackTitle, QStringLiteral("track1"));
+        QCOMPARE(firstTrackArtist, QStringLiteral("artist1"));
+        QCOMPARE(firstTrackAlbum, QStringLiteral("album1"));
         QCOMPARE(firstTrackImage.isValid(), true);
-        QCOMPARE(firstTrackImage.toUrl(), QUrl::fromLocalFile(QStringLiteral("album1")));
-        QCOMPARE(firstTrackDuration.isValid(), true);
-        QCOMPARE(firstTrackDuration.toTime(), QTime::fromMSecsSinceStartOfDay(1));
-        QCOMPARE(firstTrackMilliSecondsDuration.isValid(), true);
-        QCOMPARE(firstTrackMilliSecondsDuration.toInt(), 1);
-        QCOMPARE(firstTrackTrackNumber.isValid(), true);
-        QCOMPARE(firstTrackTrackNumber.toInt(), 1);
+        QCOMPARE(firstTrackImage, QUrl::fromLocalFile(QStringLiteral("album1")));
+        QCOMPARE(firstTrackDuration, QTime::fromMSecsSinceStartOfDay(1));
+        QCOMPARE(firstTrackMilliSecondsDuration, 1);
+        QCOMPARE(firstTrackTrackNumber, 1);
         QCOMPARE(firstTrackResource.isValid(), true);
-        QCOMPARE(firstTrackResource.toUrl(), QUrl::fromLocalFile(QStringLiteral("$1")));
-
-        auto firstInvalidTrackTitle = musicDb.trackDataFromDatabaseId(-1, DatabaseInterface::TrackData::Title);
-        QCOMPARE(firstInvalidTrackTitle.isValid(), false);
-
-        auto secondInvalidTrackTitle = musicDb.trackDataFromDatabaseId(19, DatabaseInterface::TrackData::Title);
-        QCOMPARE(secondInvalidTrackTitle.isValid(), false);
+        QCOMPARE(firstTrackResource, QUrl::fromLocalFile(QStringLiteral("$1")));
     }
 
     void simpleAccessorWithClientDatabase()
@@ -307,50 +334,68 @@ private Q_SLOTS:
 
         newTracks[QStringLiteral("album1")] = {
             {true, QStringLiteral("$1"), QStringLiteral("0"), QStringLiteral("track1"),
-                QStringLiteral("artist1"), QStringLiteral("album1"), 1, QTime::fromMSecsSinceStartOfDay(1), {QUrl::fromLocalFile(QStringLiteral("$1"))}},
+                QStringLiteral("artist1"), QStringLiteral("album1"), 1, QTime::fromMSecsSinceStartOfDay(1), {QUrl::fromLocalFile(QStringLiteral("$1"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$1"))}},
             {true, QStringLiteral("$2"), QStringLiteral("0"), QStringLiteral("track2"),
-                QStringLiteral("artist1"), QStringLiteral("album1"), 1, QTime::fromMSecsSinceStartOfDay(2), {QUrl::fromLocalFile(QStringLiteral("$2"))}},
+                QStringLiteral("artist1"), QStringLiteral("album1"), 2, QTime::fromMSecsSinceStartOfDay(2), {QUrl::fromLocalFile(QStringLiteral("$2"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$2"))}},
             {true, QStringLiteral("$3"), QStringLiteral("0"), QStringLiteral("track3"),
-                QStringLiteral("artist1"), QStringLiteral("album1"), 1, QTime::fromMSecsSinceStartOfDay(3), {QUrl::fromLocalFile(QStringLiteral("$3"))}},
+                QStringLiteral("artist1"), QStringLiteral("album1"), 3, QTime::fromMSecsSinceStartOfDay(3), {QUrl::fromLocalFile(QStringLiteral("$3"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$3"))}},
             {true, QStringLiteral("$4"), QStringLiteral("0"), QStringLiteral("track4"),
-                QStringLiteral("artist1"), QStringLiteral("album1"), 1, QTime::fromMSecsSinceStartOfDay(4), {QUrl::fromLocalFile(QStringLiteral("$4"))}},
+                QStringLiteral("artist1"), QStringLiteral("album1"), 4, QTime::fromMSecsSinceStartOfDay(4), {QUrl::fromLocalFile(QStringLiteral("$4"))},
+                {QUrl::fromLocalFile(QStringLiteral("file://image$4"))}},
         };
 
         newTracks[QStringLiteral("album2")] = {
             {true, QStringLiteral("$5"), QStringLiteral("0"), QStringLiteral("track1"),
-                QStringLiteral("artist1"), QStringLiteral("album2"), 1, QTime::fromMSecsSinceStartOfDay(5), {QUrl::fromLocalFile(QStringLiteral("$5"))}},
+                QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$5"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$5"))}},
             {true, QStringLiteral("$6"), QStringLiteral("0"), QStringLiteral("track2"),
-                QStringLiteral("artist1"), QStringLiteral("album2"), 1, QTime::fromMSecsSinceStartOfDay(6), {QUrl::fromLocalFile(QStringLiteral("$6"))}},
+                QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$6"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$6"))}},
             {true, QStringLiteral("$7"), QStringLiteral("0"), QStringLiteral("track3"),
-                QStringLiteral("artist1"), QStringLiteral("album2"), 1, QTime::fromMSecsSinceStartOfDay(7), {QUrl::fromLocalFile(QStringLiteral("$7"))}},
+                QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$7"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$7"))}},
             {true, QStringLiteral("$8"), QStringLiteral("0"), QStringLiteral("track4"),
-                QStringLiteral("artist1"), QStringLiteral("album2"), 1, QTime::fromMSecsSinceStartOfDay(8), {QUrl::fromLocalFile(QStringLiteral("$8"))}},
+                QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$8"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$8"))}},
             {true, QStringLiteral("$9"), QStringLiteral("0"), QStringLiteral("track5"),
-                QStringLiteral("artist1"), QStringLiteral("album2"), 1, QTime::fromMSecsSinceStartOfDay(9), {QUrl::fromLocalFile(QStringLiteral("$9"))}},
+                QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$9"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$9"))}},
             {true, QStringLiteral("$10"), QStringLiteral("0"), QStringLiteral("track6"),
-                QStringLiteral("artist1"), QStringLiteral("album2"), 1, QTime::fromMSecsSinceStartOfDay(10), {QUrl::fromLocalFile(QStringLiteral("$10"))}}
+                QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$10"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$10"))}}
         };
 
         newTracks[QStringLiteral("album3")] = {
             {true, QStringLiteral("$11"), QStringLiteral("0"), QStringLiteral("track1"),
-                QStringLiteral("artist2"), QStringLiteral("album3"), 1, QTime::fromMSecsSinceStartOfDay(11), {QUrl::fromLocalFile(QStringLiteral("$11"))}},
+                QStringLiteral("artist2"), QStringLiteral("album3"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$11"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$11"))}},
             {true, QStringLiteral("$12"), QStringLiteral("0"), QStringLiteral("track2"),
-                QStringLiteral("artist2"), QStringLiteral("album3"), 1, QTime::fromMSecsSinceStartOfDay(12), {QUrl::fromLocalFile(QStringLiteral("$12"))}},
+                QStringLiteral("artist2"), QStringLiteral("album3"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$12"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$12"))}},
             {true, QStringLiteral("$13"), QStringLiteral("0"), QStringLiteral("track3"),
-                QStringLiteral("artist2"), QStringLiteral("album3"), 1, QTime::fromMSecsSinceStartOfDay(13), {QUrl::fromLocalFile(QStringLiteral("$13"))}}
+                QStringLiteral("artist2"), QStringLiteral("album3"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$13"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$13"))}}
         };
 
         newTracks[QStringLiteral("album4")] = {
             {true, QStringLiteral("$14"), QStringLiteral("0"), QStringLiteral("track1"),
-                QStringLiteral("artist2"), QStringLiteral("album4"), 1, QTime::fromMSecsSinceStartOfDay(14), {QUrl::fromLocalFile(QStringLiteral("$14"))}},
+                QStringLiteral("artist2"), QStringLiteral("album4"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$14"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$14"))}},
             {true, QStringLiteral("$15"), QStringLiteral("0"), QStringLiteral("track2"),
-                QStringLiteral("artist2"), QStringLiteral("album4"), 1, QTime::fromMSecsSinceStartOfDay(15), {QUrl::fromLocalFile(QStringLiteral("$15"))}},
+                QStringLiteral("artist2"), QStringLiteral("album4"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$15"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$15"))}},
             {true, QStringLiteral("$16"), QStringLiteral("0"), QStringLiteral("track3"),
-                QStringLiteral("artist2"), QStringLiteral("album4"), 1, QTime::fromMSecsSinceStartOfDay(16), {QUrl::fromLocalFile(QStringLiteral("$16"))}},
+                QStringLiteral("artist2"), QStringLiteral("album4"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$16"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$16"))}},
             {true, QStringLiteral("$17"), QStringLiteral("0"), QStringLiteral("track4"),
-                QStringLiteral("artist2"), QStringLiteral("album4"), 1, QTime::fromMSecsSinceStartOfDay(17), {QUrl::fromLocalFile(QStringLiteral("$17"))}},
+                QStringLiteral("artist2"), QStringLiteral("album4"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$17"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$17"))}},
             {true, QStringLiteral("$18"), QStringLiteral("0"), QStringLiteral("track5"),
-                QStringLiteral("artist2"), QStringLiteral("album4"), 1, QTime::fromMSecsSinceStartOfDay(18), {QUrl::fromLocalFile(QStringLiteral("$18"))}}
+                QStringLiteral("artist2"), QStringLiteral("album4"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$18"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$18"))}}
         };
 
         newCovers[QStringLiteral("album1")] = QUrl::fromLocalFile(QStringLiteral("album1"));
@@ -385,38 +430,28 @@ private Q_SLOTS:
         QCOMPARE(invalidTrackId, decltype(invalidTrackId)(0));
 
         auto trackId = clientDb.trackIdFromTitleAlbumArtist(QStringLiteral("track1"), QStringLiteral("album1"), QStringLiteral("artist1"));
+        auto firstTrack = musicDb.trackFromDatabaseId(trackId);
 
-        auto firstTrackTitle = clientDb.trackDataFromDatabaseId(trackId, DatabaseInterface::TrackData::Title);
-        auto firstTrackArtist = clientDb.trackDataFromDatabaseId(trackId, DatabaseInterface::TrackData::Artist);
-        auto firstTrackAlbum = clientDb.trackDataFromDatabaseId(trackId, DatabaseInterface::TrackData::Album);
-        auto firstTrackImage = clientDb.trackDataFromDatabaseId(trackId, DatabaseInterface::TrackData::Image);
-        auto firstTrackDuration = clientDb.trackDataFromDatabaseId(trackId, DatabaseInterface::TrackData::Duration);
-        auto firstTrackMilliSecondsDuration = clientDb.trackDataFromDatabaseId(trackId, DatabaseInterface::TrackData::MilliSecondsDuration);
-        auto firstTrackTrackNumber = clientDb.trackDataFromDatabaseId(trackId, DatabaseInterface::TrackData::TrackNumber);
-        auto firstTrackResource = clientDb.trackDataFromDatabaseId(trackId, DatabaseInterface::TrackData::Resource);
+        auto firstTrackTitle = firstTrack.title();
+        auto firstTrackArtist = firstTrack.artist();
+        auto firstTrackAlbum = firstTrack.albumName();
+        auto firstTrackImage = firstTrack.albumCover();
+        auto firstTrackDuration = firstTrack.duration();
+        auto firstTrackMilliSecondsDuration = firstTrack.duration().msecsSinceStartOfDay();
+        auto firstTrackTrackNumber = firstTrack.trackNumber();
+        auto firstTrackResource = firstTrack.resourceURI();
 
-        QCOMPARE(firstTrackTitle.isValid(), true);
-        QCOMPARE(firstTrackTitle.toString(), QStringLiteral("track1"));
-        QCOMPARE(firstTrackArtist.isValid(), true);
-        QCOMPARE(firstTrackArtist.toString(), QStringLiteral("artist1"));
-        QCOMPARE(firstTrackAlbum.isValid(), true);
-        QCOMPARE(firstTrackAlbum.toString(), QStringLiteral("album1"));
+        QCOMPARE(firstTrack.isValid(), true);
+        QCOMPARE(firstTrackTitle, QStringLiteral("track1"));
+        QCOMPARE(firstTrackArtist, QStringLiteral("artist1"));
+        QCOMPARE(firstTrackAlbum, QStringLiteral("album1"));
         QCOMPARE(firstTrackImage.isValid(), true);
-        QCOMPARE(firstTrackImage.toUrl(), QUrl::fromLocalFile(QStringLiteral("album1")));
-        QCOMPARE(firstTrackDuration.isValid(), true);
-        QCOMPARE(firstTrackDuration.toTime(), QTime::fromMSecsSinceStartOfDay(1));
-        QCOMPARE(firstTrackMilliSecondsDuration.isValid(), true);
-        QCOMPARE(firstTrackMilliSecondsDuration.toInt(), 1);
-        QCOMPARE(firstTrackTrackNumber.isValid(), true);
-        QCOMPARE(firstTrackTrackNumber.toInt(), 1);
+        QCOMPARE(firstTrackImage, QUrl::fromLocalFile(QStringLiteral("album1")));
+        QCOMPARE(firstTrackDuration, QTime::fromMSecsSinceStartOfDay(1));
+        QCOMPARE(firstTrackMilliSecondsDuration, 1);
+        QCOMPARE(firstTrackTrackNumber, 1);
         QCOMPARE(firstTrackResource.isValid(), true);
-        QCOMPARE(firstTrackResource.toUrl(), QUrl::fromLocalFile(QStringLiteral("$1")));
-
-        auto firstInvalidTrackTitle = clientDb.trackDataFromDatabaseId(-1, DatabaseInterface::TrackData::Title);
-        QCOMPARE(firstInvalidTrackTitle.isValid(), false);
-
-        auto secondInvalidTrackTitle = clientDb.trackDataFromDatabaseId(19, DatabaseInterface::TrackData::Title);
-        QCOMPARE(secondInvalidTrackTitle.isValid(), false);
+        QCOMPARE(firstTrackResource, QUrl::fromLocalFile(QStringLiteral("$1")));
     }
 
     void simpleAccessorWithClientDatabaseAndVariousArtistAlbum()
@@ -449,50 +484,68 @@ private Q_SLOTS:
 
         newTracks[QStringLiteral("album1")] = {
             {true, QStringLiteral("$1"), QStringLiteral("0"), QStringLiteral("track1"),
-                QStringLiteral("artist1"), QStringLiteral("album1"), 1, QTime::fromMSecsSinceStartOfDay(1), {QUrl::fromLocalFile(QStringLiteral("$1"))}},
+                QStringLiteral("artist1"), QStringLiteral("album1"), 1, QTime::fromMSecsSinceStartOfDay(1), {QUrl::fromLocalFile(QStringLiteral("$1"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$1"))}},
             {true, QStringLiteral("$2"), QStringLiteral("0"), QStringLiteral("track2"),
-                QStringLiteral("artist2"), QStringLiteral("album1"), 2, QTime::fromMSecsSinceStartOfDay(2), {QUrl::fromLocalFile(QStringLiteral("$2"))}},
+                QStringLiteral("artist2"), QStringLiteral("album1"), 2, QTime::fromMSecsSinceStartOfDay(2), {QUrl::fromLocalFile(QStringLiteral("$2"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$2"))}},
             {true, QStringLiteral("$3"), QStringLiteral("0"), QStringLiteral("track3"),
-                QStringLiteral("artist3"), QStringLiteral("album1"), 3, QTime::fromMSecsSinceStartOfDay(3), {QUrl::fromLocalFile(QStringLiteral("$3"))}},
+                QStringLiteral("artist3"), QStringLiteral("album1"), 3, QTime::fromMSecsSinceStartOfDay(3), {QUrl::fromLocalFile(QStringLiteral("$3"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$3"))}},
             {true, QStringLiteral("$4"), QStringLiteral("0"), QStringLiteral("track4"),
-                QStringLiteral("artist4"), QStringLiteral("album1"), 4, QTime::fromMSecsSinceStartOfDay(4), {QUrl::fromLocalFile(QStringLiteral("$4"))}},
+                QStringLiteral("artist4"), QStringLiteral("album1"), 4, QTime::fromMSecsSinceStartOfDay(4), {QUrl::fromLocalFile(QStringLiteral("$4"))},
+                {QUrl::fromLocalFile(QStringLiteral("file://image$4"))}},
         };
 
         newTracks[QStringLiteral("album2")] = {
             {true, QStringLiteral("$5"), QStringLiteral("0"), QStringLiteral("track1"),
-                QStringLiteral("artist1"), QStringLiteral("album2"), 1, QTime::fromMSecsSinceStartOfDay(5), {QUrl::fromLocalFile(QStringLiteral("$5"))}},
+                QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$5"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$5"))}},
             {true, QStringLiteral("$6"), QStringLiteral("0"), QStringLiteral("track2"),
-                QStringLiteral("artist1"), QStringLiteral("album2"), 2, QTime::fromMSecsSinceStartOfDay(6), {QUrl::fromLocalFile(QStringLiteral("$6"))}},
+                QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$6"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$6"))}},
             {true, QStringLiteral("$7"), QStringLiteral("0"), QStringLiteral("track3"),
-                QStringLiteral("artist1"), QStringLiteral("album2"), 3, QTime::fromMSecsSinceStartOfDay(7), {QUrl::fromLocalFile(QStringLiteral("$7"))}},
+                QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$7"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$7"))}},
             {true, QStringLiteral("$8"), QStringLiteral("0"), QStringLiteral("track4"),
-                QStringLiteral("artist1"), QStringLiteral("album2"), 4, QTime::fromMSecsSinceStartOfDay(8), {QUrl::fromLocalFile(QStringLiteral("$8"))}},
+                QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$8"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$8"))}},
             {true, QStringLiteral("$9"), QStringLiteral("0"), QStringLiteral("track5"),
-                QStringLiteral("artist1"), QStringLiteral("album2"), 5, QTime::fromMSecsSinceStartOfDay(9), {QUrl::fromLocalFile(QStringLiteral("$9"))}},
+                QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$9"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$9"))}},
             {true, QStringLiteral("$10"), QStringLiteral("0"), QStringLiteral("track6"),
-                QStringLiteral("artist1"), QStringLiteral("album2"), 6, QTime::fromMSecsSinceStartOfDay(10), {QUrl::fromLocalFile(QStringLiteral("$10"))}}
+                QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$10"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$10"))}}
         };
 
         newTracks[QStringLiteral("album3")] = {
             {true, QStringLiteral("$11"), QStringLiteral("0"), QStringLiteral("track1"),
-                QStringLiteral("artist2"), QStringLiteral("album3"), 1, QTime::fromMSecsSinceStartOfDay(11), {QUrl::fromLocalFile(QStringLiteral("$11"))}},
+                QStringLiteral("artist2"), QStringLiteral("album3"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$11"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$11"))}},
             {true, QStringLiteral("$12"), QStringLiteral("0"), QStringLiteral("track2"),
-                QStringLiteral("artist2"), QStringLiteral("album3"), 2, QTime::fromMSecsSinceStartOfDay(12), {QUrl::fromLocalFile(QStringLiteral("$12"))}},
+                QStringLiteral("artist2"), QStringLiteral("album3"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$12"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$12"))}},
             {true, QStringLiteral("$13"), QStringLiteral("0"), QStringLiteral("track3"),
-                QStringLiteral("artist2"), QStringLiteral("album3"), 3, QTime::fromMSecsSinceStartOfDay(13), {QUrl::fromLocalFile(QStringLiteral("$13"))}}
+                QStringLiteral("artist2"), QStringLiteral("album3"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$13"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$13"))}}
         };
 
         newTracks[QStringLiteral("album4")] = {
             {true, QStringLiteral("$14"), QStringLiteral("0"), QStringLiteral("track1"),
-                QStringLiteral("artist2"), QStringLiteral("album4"), 1, QTime::fromMSecsSinceStartOfDay(14), {QUrl::fromLocalFile(QStringLiteral("$14"))}},
+                QStringLiteral("artist2"), QStringLiteral("album4"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$14"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$14"))}},
             {true, QStringLiteral("$15"), QStringLiteral("0"), QStringLiteral("track2"),
-                QStringLiteral("artist2"), QStringLiteral("album4"), 2, QTime::fromMSecsSinceStartOfDay(15), {QUrl::fromLocalFile(QStringLiteral("$15"))}},
+                QStringLiteral("artist2"), QStringLiteral("album4"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$15"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$15"))}},
             {true, QStringLiteral("$16"), QStringLiteral("0"), QStringLiteral("track3"),
-                QStringLiteral("artist2"), QStringLiteral("album4"), 3, QTime::fromMSecsSinceStartOfDay(16), {QUrl::fromLocalFile(QStringLiteral("$16"))}},
+                QStringLiteral("artist2"), QStringLiteral("album4"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$16"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$16"))}},
             {true, QStringLiteral("$17"), QStringLiteral("0"), QStringLiteral("track4"),
-                QStringLiteral("artist2"), QStringLiteral("album4"), 4, QTime::fromMSecsSinceStartOfDay(17), {QUrl::fromLocalFile(QStringLiteral("$17"))}},
+                QStringLiteral("artist2"), QStringLiteral("album4"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$17"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$17"))}},
             {true, QStringLiteral("$18"), QStringLiteral("0"), QStringLiteral("track5"),
-                QStringLiteral("artist2"), QStringLiteral("album4"), 5, QTime::fromMSecsSinceStartOfDay(18), {QUrl::fromLocalFile(QStringLiteral("$18"))}}
+                QStringLiteral("artist2"), QStringLiteral("album4"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$18"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$18"))}}
         };
 
         newCovers[QStringLiteral("album1")] = QUrl::fromLocalFile(QStringLiteral("album1"));
@@ -527,122 +580,100 @@ private Q_SLOTS:
         QCOMPARE(invalidTrackId, decltype(invalidTrackId)(0));
 
         auto firstTrackId = clientDb.trackIdFromTitleAlbumArtist(QStringLiteral("track1"), QStringLiteral("album1"), QStringLiteral("artist1"));
+        auto firstTrack = musicDb.trackFromDatabaseId(firstTrackId);
 
-        auto firstTrackTitle = clientDb.trackDataFromDatabaseId(firstTrackId, DatabaseInterface::TrackData::Title);
-        auto firstTrackArtist = clientDb.trackDataFromDatabaseId(firstTrackId, DatabaseInterface::TrackData::Artist);
-        auto firstTrackAlbum = clientDb.trackDataFromDatabaseId(firstTrackId, DatabaseInterface::TrackData::Album);
-        auto firstTrackImage = clientDb.trackDataFromDatabaseId(firstTrackId, DatabaseInterface::TrackData::Image);
-        auto firstTrackDuration = clientDb.trackDataFromDatabaseId(firstTrackId, DatabaseInterface::TrackData::Duration);
-        auto firstTrackMilliSecondsDuration = clientDb.trackDataFromDatabaseId(firstTrackId, DatabaseInterface::TrackData::MilliSecondsDuration);
-        auto firstTrackTrackNumber = clientDb.trackDataFromDatabaseId(firstTrackId, DatabaseInterface::TrackData::TrackNumber);
-        auto firstTrackResource = clientDb.trackDataFromDatabaseId(firstTrackId, DatabaseInterface::TrackData::Resource);
+        auto firstTrackTitle = firstTrack.title();
+        auto firstTrackArtist = firstTrack.artist();
+        auto firstTrackAlbum = firstTrack.albumName();
+        auto firstTrackImage = firstTrack.albumCover();
+        auto firstTrackDuration = firstTrack.duration();
+        auto firstTrackMilliSecondsDuration = firstTrack.duration().msecsSinceStartOfDay();
+        auto firstTrackTrackNumber = firstTrack.trackNumber();
+        auto firstTrackResource = firstTrack.resourceURI();
 
-        QCOMPARE(firstTrackTitle.isValid(), true);
-        QCOMPARE(firstTrackTitle.toString(), QStringLiteral("track1"));
-        QCOMPARE(firstTrackArtist.isValid(), true);
-        QCOMPARE(firstTrackArtist.toString(), QStringLiteral("artist1"));
-        QCOMPARE(firstTrackAlbum.isValid(), true);
-        QCOMPARE(firstTrackAlbum.toString(), QStringLiteral("album1"));
+        QCOMPARE(firstTrack.isValid(), true);
+        QCOMPARE(firstTrackTitle, QStringLiteral("track1"));
+        QCOMPARE(firstTrackArtist, QStringLiteral("artist1"));
+        QCOMPARE(firstTrackAlbum, QStringLiteral("album1"));
         QCOMPARE(firstTrackImage.isValid(), true);
-        QCOMPARE(firstTrackImage.toUrl(), QUrl::fromLocalFile(QStringLiteral("album1")));
-        QCOMPARE(firstTrackDuration.isValid(), true);
-        QCOMPARE(firstTrackDuration.toTime(), QTime::fromMSecsSinceStartOfDay(1));
-        QCOMPARE(firstTrackMilliSecondsDuration.isValid(), true);
-        QCOMPARE(firstTrackMilliSecondsDuration.toInt(), 1);
-        QCOMPARE(firstTrackTrackNumber.isValid(), true);
-        QCOMPARE(firstTrackTrackNumber.toInt(), 1);
+        QCOMPARE(firstTrackImage, QUrl::fromLocalFile(QStringLiteral("album1")));
+        QCOMPARE(firstTrackDuration, QTime::fromMSecsSinceStartOfDay(1));
+        QCOMPARE(firstTrackMilliSecondsDuration, 1);
+        QCOMPARE(firstTrackTrackNumber, 1);
         QCOMPARE(firstTrackResource.isValid(), true);
-        QCOMPARE(firstTrackResource.toUrl(), QUrl::fromLocalFile(QStringLiteral("$1")));
+        QCOMPARE(firstTrackResource, QUrl::fromLocalFile(QStringLiteral("$1")));
 
         auto secondTrackId = clientDb.trackIdFromTitleAlbumArtist(QStringLiteral("track2"), QStringLiteral("album1"), QStringLiteral("artist2"));
+        auto secondTrack = musicDb.trackFromDatabaseId(secondTrackId);
 
-        auto secondTrackTitle = clientDb.trackDataFromDatabaseId(secondTrackId, DatabaseInterface::TrackData::Title);
-        auto secondTrackArtist = clientDb.trackDataFromDatabaseId(secondTrackId, DatabaseInterface::TrackData::Artist);
-        auto secondTrackAlbum = clientDb.trackDataFromDatabaseId(secondTrackId, DatabaseInterface::TrackData::Album);
-        auto secondTrackImage = clientDb.trackDataFromDatabaseId(secondTrackId, DatabaseInterface::TrackData::Image);
-        auto secondTrackDuration = clientDb.trackDataFromDatabaseId(secondTrackId, DatabaseInterface::TrackData::Duration);
-        auto secondTrackMilliSecondsDuration = clientDb.trackDataFromDatabaseId(secondTrackId, DatabaseInterface::TrackData::MilliSecondsDuration);
-        auto secondTrackTrackNumber = clientDb.trackDataFromDatabaseId(secondTrackId, DatabaseInterface::TrackData::TrackNumber);
-        auto secondTrackResource = clientDb.trackDataFromDatabaseId(secondTrackId, DatabaseInterface::TrackData::Resource);
+        auto secondTrackTitle = secondTrack.title();
+        auto secondTrackArtist = secondTrack.artist();
+        auto secondTrackAlbum = secondTrack.albumName();
+        auto seconfTrackImage = secondTrack.albumCover();
+        auto secondTrackDuration = secondTrack.duration();
+        auto secondTrackMilliSecondsDuration = secondTrack.duration().msecsSinceStartOfDay();
+        auto secondTrackTrackNumber = secondTrack.trackNumber();
+        auto secondTrackResource = secondTrack.resourceURI();
 
-        QCOMPARE(secondTrackTitle.isValid(), true);
-        QCOMPARE(secondTrackTitle.toString(), QStringLiteral("track2"));
-        QCOMPARE(secondTrackArtist.isValid(), true);
-        QCOMPARE(secondTrackArtist.toString(), QStringLiteral("artist2"));
-        QCOMPARE(secondTrackAlbum.isValid(), true);
-        QCOMPARE(secondTrackAlbum.toString(), QStringLiteral("album1"));
-        QCOMPARE(secondTrackImage.isValid(), true);
-        QCOMPARE(secondTrackImage.toUrl(), QUrl::fromLocalFile(QStringLiteral("album1")));
-        QCOMPARE(secondTrackDuration.isValid(), true);
-        QCOMPARE(secondTrackDuration.toTime(), QTime::fromMSecsSinceStartOfDay(2));
-        QCOMPARE(secondTrackMilliSecondsDuration.isValid(), true);
-        QCOMPARE(secondTrackMilliSecondsDuration.toInt(), 2);
-        QCOMPARE(secondTrackTrackNumber.isValid(), true);
-        QCOMPARE(secondTrackTrackNumber.toInt(), 2);
+        QCOMPARE(secondTrack.isValid(), true);
+        QCOMPARE(secondTrackTitle, QStringLiteral("track2"));
+        QCOMPARE(secondTrackArtist, QStringLiteral("artist2"));
+        QCOMPARE(secondTrackAlbum, QStringLiteral("album1"));
+        QCOMPARE(seconfTrackImage.isValid(), true);
+        QCOMPARE(seconfTrackImage, QUrl::fromLocalFile(QStringLiteral("album1")));
+        QCOMPARE(secondTrackDuration, QTime::fromMSecsSinceStartOfDay(2));
+        QCOMPARE(secondTrackMilliSecondsDuration, 2);
+        QCOMPARE(secondTrackTrackNumber, 2);
         QCOMPARE(secondTrackResource.isValid(), true);
-        QCOMPARE(secondTrackResource.toUrl(), QUrl::fromLocalFile(QStringLiteral("$2")));
+        QCOMPARE(secondTrackResource, QUrl::fromLocalFile(QStringLiteral("$2")));
 
         auto thirdTrackId = clientDb.trackIdFromTitleAlbumArtist(QStringLiteral("track3"), QStringLiteral("album1"), QStringLiteral("artist3"));
+        auto thirdTrack = musicDb.trackFromDatabaseId(thirdTrackId);
 
-        auto thirdTrackTitle = clientDb.trackDataFromDatabaseId(thirdTrackId, DatabaseInterface::TrackData::Title);
-        auto thirdTrackArtist = clientDb.trackDataFromDatabaseId(thirdTrackId, DatabaseInterface::TrackData::Artist);
-        auto thirdTrackAlbum = clientDb.trackDataFromDatabaseId(thirdTrackId, DatabaseInterface::TrackData::Album);
-        auto thirdTrackImage = clientDb.trackDataFromDatabaseId(thirdTrackId, DatabaseInterface::TrackData::Image);
-        auto thirdTrackDuration = clientDb.trackDataFromDatabaseId(thirdTrackId, DatabaseInterface::TrackData::Duration);
-        auto thirdTrackMilliSecondsDuration = clientDb.trackDataFromDatabaseId(thirdTrackId, DatabaseInterface::TrackData::MilliSecondsDuration);
-        auto thirdTrackTrackNumber = clientDb.trackDataFromDatabaseId(thirdTrackId, DatabaseInterface::TrackData::TrackNumber);
-        auto thirdTrackResource = clientDb.trackDataFromDatabaseId(thirdTrackId, DatabaseInterface::TrackData::Resource);
+        auto thirdTrackTitle = thirdTrack.title();
+        auto thirdTrackArtist = thirdTrack.artist();
+        auto thirdTrackAlbum = thirdTrack.albumName();
+        auto thirdTrackImage = thirdTrack.albumCover();
+        auto thirdTrackDuration = thirdTrack.duration();
+        auto thirdTrackMilliSecondsDuration = thirdTrack.duration().msecsSinceStartOfDay();
+        auto thirdTrackTrackNumber = thirdTrack.trackNumber();
+        auto thirdTrackResource = thirdTrack.resourceURI();
 
-        QCOMPARE(thirdTrackTitle.isValid(), true);
-        QCOMPARE(thirdTrackTitle.toString(), QStringLiteral("track3"));
-        QCOMPARE(thirdTrackArtist.isValid(), true);
-        QCOMPARE(thirdTrackArtist.toString(), QStringLiteral("artist3"));
-        QCOMPARE(thirdTrackAlbum.isValid(), true);
-        QCOMPARE(thirdTrackAlbum.toString(), QStringLiteral("album1"));
+        QCOMPARE(thirdTrack.isValid(), true);
+        QCOMPARE(thirdTrackTitle, QStringLiteral("track3"));
+        QCOMPARE(thirdTrackArtist, QStringLiteral("artist3"));
+        QCOMPARE(thirdTrackAlbum, QStringLiteral("album1"));
         QCOMPARE(thirdTrackImage.isValid(), true);
-        QCOMPARE(thirdTrackImage.toUrl(), QUrl::fromLocalFile(QStringLiteral("album1")));
-        QCOMPARE(thirdTrackDuration.isValid(), true);
-        QCOMPARE(thirdTrackDuration.toTime(), QTime::fromMSecsSinceStartOfDay(3));
-        QCOMPARE(thirdTrackMilliSecondsDuration.isValid(), true);
-        QCOMPARE(thirdTrackMilliSecondsDuration.toInt(), 3);
-        QCOMPARE(thirdTrackTrackNumber.isValid(), true);
-        QCOMPARE(thirdTrackTrackNumber.toInt(), 3);
+        QCOMPARE(thirdTrackImage, QUrl::fromLocalFile(QStringLiteral("album1")));
+        QCOMPARE(thirdTrackDuration, QTime::fromMSecsSinceStartOfDay(3));
+        QCOMPARE(thirdTrackMilliSecondsDuration, 3);
+        QCOMPARE(thirdTrackTrackNumber, 3);
         QCOMPARE(thirdTrackResource.isValid(), true);
-        QCOMPARE(thirdTrackResource.toUrl(), QUrl::fromLocalFile(QStringLiteral("$3")));
+        QCOMPARE(thirdTrackResource, QUrl::fromLocalFile(QStringLiteral("$3")));
 
         auto fourthTrackId = clientDb.trackIdFromTitleAlbumArtist(QStringLiteral("track4"), QStringLiteral("album1"), QStringLiteral("artist4"));
+        auto fourthTrack = musicDb.trackFromDatabaseId(fourthTrackId);
 
-        auto fourthTrackTitle = clientDb.trackDataFromDatabaseId(fourthTrackId, DatabaseInterface::TrackData::Title);
-        auto fourthTrackArtist = clientDb.trackDataFromDatabaseId(fourthTrackId, DatabaseInterface::TrackData::Artist);
-        auto fourthTrackAlbum = clientDb.trackDataFromDatabaseId(fourthTrackId, DatabaseInterface::TrackData::Album);
-        auto fourthTrackImage = clientDb.trackDataFromDatabaseId(fourthTrackId, DatabaseInterface::TrackData::Image);
-        auto fourthTrackDuration = clientDb.trackDataFromDatabaseId(fourthTrackId, DatabaseInterface::TrackData::Duration);
-        auto fourthTrackMilliSecondsDuration = clientDb.trackDataFromDatabaseId(fourthTrackId, DatabaseInterface::TrackData::MilliSecondsDuration);
-        auto fourthTrackTrackNumber = clientDb.trackDataFromDatabaseId(fourthTrackId, DatabaseInterface::TrackData::TrackNumber);
-        auto fourthTrackResource = clientDb.trackDataFromDatabaseId(fourthTrackId, DatabaseInterface::TrackData::Resource);
+        auto fourthTrackTitle = fourthTrack.title();
+        auto fourthTrackArtist = fourthTrack.artist();
+        auto fourthTrackAlbum = fourthTrack.albumName();
+        auto fourthTrackImage = fourthTrack.albumCover();
+        auto fourthTrackDuration = fourthTrack.duration();
+        auto fourthTrackMilliSecondsDuration = fourthTrack.duration().msecsSinceStartOfDay();
+        auto fourthTrackTrackNumber = fourthTrack.trackNumber();
+        auto fourthTrackResource = fourthTrack.resourceURI();
 
-        QCOMPARE(fourthTrackTitle.isValid(), true);
-        QCOMPARE(fourthTrackTitle.toString(), QStringLiteral("track4"));
-        QCOMPARE(fourthTrackArtist.isValid(), true);
-        QCOMPARE(fourthTrackArtist.toString(), QStringLiteral("artist4"));
-        QCOMPARE(fourthTrackAlbum.isValid(), true);
-        QCOMPARE(fourthTrackAlbum.toString(), QStringLiteral("album1"));
+        QCOMPARE(fourthTrack.isValid(), true);
+        QCOMPARE(fourthTrackTitle, QStringLiteral("track4"));
+        QCOMPARE(fourthTrackArtist, QStringLiteral("artist4"));
+        QCOMPARE(fourthTrackAlbum, QStringLiteral("album1"));
         QCOMPARE(fourthTrackImage.isValid(), true);
-        QCOMPARE(fourthTrackImage.toUrl(), QUrl::fromLocalFile(QStringLiteral("album1")));
-        QCOMPARE(fourthTrackDuration.isValid(), true);
-        QCOMPARE(fourthTrackDuration.toTime(), QTime::fromMSecsSinceStartOfDay(4));
-        QCOMPARE(fourthTrackMilliSecondsDuration.isValid(), true);
-        QCOMPARE(fourthTrackMilliSecondsDuration.toInt(), 4);
-        QCOMPARE(fourthTrackTrackNumber.isValid(), true);
-        QCOMPARE(fourthTrackTrackNumber.toInt(), 4);
+        QCOMPARE(fourthTrackImage, QUrl::fromLocalFile(QStringLiteral("album1")));
+        QCOMPARE(fourthTrackDuration, QTime::fromMSecsSinceStartOfDay(4));
+        QCOMPARE(fourthTrackMilliSecondsDuration, 4);
+        QCOMPARE(fourthTrackTrackNumber, 4);
         QCOMPARE(fourthTrackResource.isValid(), true);
-        QCOMPARE(fourthTrackResource.toUrl(), QUrl::fromLocalFile(QStringLiteral("$4")));
-
-        auto firstInvalidTrackTitle = clientDb.trackDataFromDatabaseId(-1, DatabaseInterface::TrackData::Title);
-        QCOMPARE(firstInvalidTrackTitle.isValid(), false);
-
-        auto secondInvalidTrackTitle = clientDb.trackDataFromDatabaseId(19, DatabaseInterface::TrackData::Title);
-        QCOMPARE(secondInvalidTrackTitle.isValid(), false);
+        QCOMPARE(fourthTrackResource, QUrl::fromLocalFile(QStringLiteral("$4")));
     }
 
     void addMultipleTimeSameTracksMultiThread()
@@ -712,50 +743,68 @@ private Q_SLOTS:
 
         newTracks[QStringLiteral("album1")] = {
             {true, QStringLiteral("$1"), QStringLiteral("0"), QStringLiteral("track1"),
-                QStringLiteral("artist1"), QStringLiteral("album1"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$1"))}},
+                QStringLiteral("artist1"), QStringLiteral("album1"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$1"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$1"))}},
             {true, QStringLiteral("$2"), QStringLiteral("0"), QStringLiteral("track2"),
-                QStringLiteral("artist1"), QStringLiteral("album1"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$2"))}},
+                QStringLiteral("artist1"), QStringLiteral("album1"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$2"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$2"))}},
             {true, QStringLiteral("$3"), QStringLiteral("0"), QStringLiteral("track3"),
-                QStringLiteral("artist1"), QStringLiteral("album1"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$3"))}},
+                QStringLiteral("artist1"), QStringLiteral("album1"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$3"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$3"))}},
             {true, QStringLiteral("$4"), QStringLiteral("0"), QStringLiteral("track4"),
-                QStringLiteral("artist1"), QStringLiteral("album1"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$4"))}},
+                QStringLiteral("artist1"), QStringLiteral("album1"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$4"))},
+                {QUrl::fromLocalFile(QStringLiteral("file://image$4"))}},
         };
 
         newTracks[QStringLiteral("album2")] = {
             {true, QStringLiteral("$5"), QStringLiteral("0"), QStringLiteral("track1"),
-                QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$5"))}},
+                QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$5"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$5"))}},
             {true, QStringLiteral("$6"), QStringLiteral("0"), QStringLiteral("track2"),
-                QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$6"))}},
+                QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$6"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$6"))}},
             {true, QStringLiteral("$7"), QStringLiteral("0"), QStringLiteral("track3"),
-                QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$7"))}},
+                QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$7"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$7"))}},
             {true, QStringLiteral("$8"), QStringLiteral("0"), QStringLiteral("track4"),
-                QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$8"))}},
+                QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$8"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$8"))}},
             {true, QStringLiteral("$9"), QStringLiteral("0"), QStringLiteral("track5"),
-                QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$9"))}},
+                QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$9"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$9"))}},
             {true, QStringLiteral("$10"), QStringLiteral("0"), QStringLiteral("track6"),
-                QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$10"))}}
+                QStringLiteral("artist1"), QStringLiteral("album2"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$10"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$10"))}}
         };
 
         newTracks[QStringLiteral("album3")] = {
             {true, QStringLiteral("$11"), QStringLiteral("0"), QStringLiteral("track1"),
-                QStringLiteral("artist2"), QStringLiteral("album3"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$11"))}},
+                QStringLiteral("artist2"), QStringLiteral("album3"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$11"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$11"))}},
             {true, QStringLiteral("$12"), QStringLiteral("0"), QStringLiteral("track2"),
-                QStringLiteral("artist2"), QStringLiteral("album3"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$12"))}},
+                QStringLiteral("artist2"), QStringLiteral("album3"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$12"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$12"))}},
             {true, QStringLiteral("$13"), QStringLiteral("0"), QStringLiteral("track3"),
-                QStringLiteral("artist2"), QStringLiteral("album3"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$13"))}}
+                QStringLiteral("artist2"), QStringLiteral("album3"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$13"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$13"))}}
         };
 
         newTracks[QStringLiteral("album4")] = {
             {true, QStringLiteral("$14"), QStringLiteral("0"), QStringLiteral("track1"),
-                QStringLiteral("artist2"), QStringLiteral("album4"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$14"))}},
+                QStringLiteral("artist2"), QStringLiteral("album4"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$14"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$14"))}},
             {true, QStringLiteral("$15"), QStringLiteral("0"), QStringLiteral("track2"),
-                QStringLiteral("artist2"), QStringLiteral("album4"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$15"))}},
+                QStringLiteral("artist2"), QStringLiteral("album4"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$15"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$15"))}},
             {true, QStringLiteral("$16"), QStringLiteral("0"), QStringLiteral("track3"),
-                QStringLiteral("artist2"), QStringLiteral("album4"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$16"))}},
+                QStringLiteral("artist2"), QStringLiteral("album4"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$16"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$16"))}},
             {true, QStringLiteral("$17"), QStringLiteral("0"), QStringLiteral("track4"),
-                QStringLiteral("artist2"), QStringLiteral("album4"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$17"))}},
+                QStringLiteral("artist2"), QStringLiteral("album4"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$17"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$17"))}},
             {true, QStringLiteral("$18"), QStringLiteral("0"), QStringLiteral("track5"),
-                QStringLiteral("artist2"), QStringLiteral("album4"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$18"))}}
+                QStringLiteral("artist2"), QStringLiteral("album4"), 1, {}, {QUrl::fromLocalFile(QStringLiteral("$18"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$18"))}}
         };
 
         newCovers[QStringLiteral("album1")] = QUrl::fromLocalFile(QStringLiteral("album1"));

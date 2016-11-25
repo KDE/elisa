@@ -285,9 +285,9 @@ QVector<MusicArtist> DatabaseInterface::allArtists(QString filter) const
     return result;
 }
 
-QVariant DatabaseInterface::trackDataFromDatabaseId(qulonglong id, DatabaseInterface::TrackData dataType) const
+MusicAudioTrack DatabaseInterface::trackFromDatabaseId(qulonglong id) const
 {
-    auto result = QVariant();
+    auto result = MusicAudioTrack();
 
     if (!d || !d->mTracksDatabase.isValid() || !d->mInitFinished) {
         return result;
@@ -327,33 +327,14 @@ QVariant DatabaseInterface::trackDataFromDatabaseId(qulonglong id, DatabaseInter
         return result;
     }
 
-    switch(dataType)
-    {
-    case DatabaseInterface::TrackData::Album:
-        result = internalAlbumDataFromId(d->mSelectTrackFromIdQuery.record().value(1).toULongLong(), DatabaseInterface::AlbumData::Title);
-        break;
-    case DatabaseInterface::TrackData::Artist:
-        result = d->mSelectTrackFromIdQuery.record().value(2).toString();
-        break;
-    case DatabaseInterface::TrackData::MilliSecondsDuration:
-        result = d->mSelectTrackFromIdQuery.record().value(5).toLongLong();
-        break;
-    case DatabaseInterface::TrackData::Duration:
-        result = QTime::fromMSecsSinceStartOfDay(d->mSelectTrackFromIdQuery.record().value(5).toInt());
-        break;
-    case DatabaseInterface::TrackData::Resource:
-        result = d->mSelectTrackFromIdQuery.record().value(3).toUrl();
-        break;
-    case DatabaseInterface::TrackData::Image:
-        result = internalAlbumDataFromId(d->mSelectTrackFromIdQuery.record().value(1).toULongLong(), DatabaseInterface::AlbumData::Image);
-        break;
-    case DatabaseInterface::TrackData::Title:
-        result = d->mSelectTrackFromIdQuery.record().value(0).toString();
-        break;
-    case DatabaseInterface::TrackData::TrackNumber:
-        result = d->mSelectTrackFromIdQuery.record().value(4).toInt();
-        break;
-    }
+    result.setAlbumName(internalAlbumDataFromId(d->mSelectTrackFromIdQuery.record().value(1).toULongLong(), DatabaseInterface::AlbumData::Title).toString());
+    result.setArtist(d->mSelectTrackFromIdQuery.record().value(2).toString());
+    result.setDuration(QTime::fromMSecsSinceStartOfDay(d->mSelectTrackFromIdQuery.record().value(5).toLongLong()));
+    result.setResourceURI(d->mSelectTrackFromIdQuery.record().value(3).toUrl());
+    result.setAlbumCover(internalAlbumDataFromId(d->mSelectTrackFromIdQuery.record().value(1).toULongLong(), DatabaseInterface::AlbumData::Image).toUrl());
+    result.setTitle(d->mSelectTrackFromIdQuery.record().value(0).toString());
+    result.setTrackNumber(d->mSelectTrackFromIdQuery.record().value(4).toInt());
+    result.setValid(true);
 
     d->mSelectTrackFromIdQuery.finish();
 

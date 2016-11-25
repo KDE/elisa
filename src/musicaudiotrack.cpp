@@ -29,10 +29,11 @@ public:
 
     MusicAudioTrackPrivate(bool aValid, QString aId, QString aParentId,
                            QString aTitle, QString aArtist, QString aAlbumName,
-                           int aTrackNumber, QTime aDuration, QUrl aResourceURI)
+                           int aTrackNumber, QTime aDuration, QUrl aResourceURI,
+                           QUrl aAlbumCover)
         : mId(aId), mParentId(aParentId), mTitle(aTitle), mArtist(aArtist),
           mAlbumName(aAlbumName), mTrackNumber(aTrackNumber), mDuration(aDuration),
-          mResourceURI(aResourceURI), mIsValid(aValid)
+          mResourceURI(aResourceURI), mAlbumCover(aAlbumCover), mIsValid(aValid)
     {
     }
 
@@ -54,6 +55,8 @@ public:
 
     QUrl mResourceURI;
 
+    QUrl mAlbumCover;
+
     bool mIsValid = false;
 
 };
@@ -64,8 +67,8 @@ MusicAudioTrack::MusicAudioTrack() : d(new MusicAudioTrackPrivate)
 
 MusicAudioTrack::MusicAudioTrack(bool aValid, QString aId, QString aParentId,
                                  QString aTitle, QString aArtist, QString aAlbumName,
-                                 int aTrackNumber, QTime aDuration, QUrl aResourceURI)
-    : d(new MusicAudioTrackPrivate(aValid, aId, aParentId, aTitle, aArtist, aAlbumName, aTrackNumber, aDuration, aResourceURI))
+                                 int aTrackNumber, QTime aDuration, QUrl aResourceURI, QUrl aAlbumCover)
+    : d(new MusicAudioTrackPrivate(aValid, aId, aParentId, aTitle, aArtist, aAlbumName, aTrackNumber, aDuration, aResourceURI, aAlbumCover))
 {
 }
 
@@ -176,6 +179,16 @@ void MusicAudioTrack::setAlbumName(const QString &value) const
 QString MusicAudioTrack::albumName() const
 {
     return d->mAlbumName;
+}
+
+void MusicAudioTrack::setAlbumCover(const QUrl &value) const
+{
+    d->mAlbumCover = value;
+}
+
+QUrl MusicAudioTrack::albumCover() const
+{
+    return d->mAlbumCover;
 }
 
 void MusicAudioTrack::setTrackNumber(int value)

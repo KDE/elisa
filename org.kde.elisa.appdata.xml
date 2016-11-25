@@ -5,6 +5,7 @@
   <project_license> https://www.freedesktop.org/software/appstream/docs/chap-Metadata.html#tag-metadata_license </project_license>
   <name>Elisa</name>
   <name xml:lang="ca">Elisa</name>
+  <name xml:lang="ca-valencia">Elisa</name>
   <name xml:lang="nl">Elisa</name>
   <name xml:lang="pt">Elisa</name>
   <name xml:lang="sk">Elisa</name>
@@ -13,6 +14,7 @@
   <name xml:lang="x-test">xxElisaxx</name>
   <summary>Simple Music Player</summary>
   <summary xml:lang="ca">Reproductor de música senzill</summary>
+  <summary xml:lang="ca-valencia">Reproductor de música senzill</summary>
   <summary xml:lang="nl">Eenvoudige muziekspeler</summary>
   <summary xml:lang="pt">Leitor de Música Simples</summary>
   <summary xml:lang="sk">Jednoduchý hudobný prehliadač</summary>
@@ -22,6 +24,7 @@
   <description>
     <p> A simple music player that should be easy to use. It does not require any configuration before one can use it. </p>
     <p xml:lang="ca">Un reproductor de música senzill que hauria de ser fàcil d'utilitzar. No requereix cap configuració abans de poder utilitzar-lo.</p>
+    <p xml:lang="ca-valencia">Un reproductor de música senzill que hauria de ser fàcil d'utilitzar. No requereix cap configuració abans de poder utilitzar-lo.</p>
     <p xml:lang="nl">Eenvoudige muziekspeler die gemakkelijk te gebruiken is. Het vereist geen enkele configuratie om te gebruiken.</p>
     <p xml:lang="pt">Um leitor de música simples que deveria ser simples de usar. Não necessita de nenhuma configuração antes de poder ser usado.</p>
     <p xml:lang="sk">Jednoduchý hudobný prehliadač, ktorý by malo byť jednoduché používať. Nevyžaduje žiadne nastavenie pred použitím.</p>

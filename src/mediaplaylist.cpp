@@ -255,6 +255,10 @@ void MediaPlayList::clearAndEnqueue(qulonglong newTrackId)
 
 void MediaPlayList::enqueue(MediaPlayListEntry newEntry)
 {
+    if (!d->mMusicDatabase) {
+        return;
+    }
+
     beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size());
     d->mData.push_back(newEntry);
     endInsertRows();

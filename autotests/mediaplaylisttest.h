@@ -57,6 +57,8 @@ private Q_SLOTS:
 
     void testHasHeaderMoveAnotherLikeQml();
 
+    void enqueueClearAndEnqueue();
+
 };
 
 #endif // MEDIAPLAYLISTTEST_H

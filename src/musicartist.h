@@ -20,6 +20,8 @@
 #ifndef MUSICARTIST_H
 #define MUSICARTIST_H
 
+#include <QtCore/QString>
+
 class MusicArtistPrivate;
 
 class MusicArtist
@@ -41,6 +43,8 @@ public:
     void setValid(bool value);
 
     bool isValid() const;
+
+    QString name() const;
 
 private:
 

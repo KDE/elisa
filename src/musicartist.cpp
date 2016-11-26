@@ -62,3 +62,8 @@ bool MusicArtist::isValid() const
 {
     return d->mIsValid;
 }
+
+QString MusicArtist::name() const
+{
+    return d->mName;
+}

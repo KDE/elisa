@@ -39,10 +39,10 @@ class AllArtistsModel : public QAbstractItemModel
                WRITE setDatabaseInterface
                NOTIFY databaseInterfaceChanged)
 
-    Q_PROPERTY(QString artist
-               READ artist
-               WRITE setArtist
-               NOTIFY artistChanged)
+    Q_PROPERTY(QString filter
+               READ filter
+               WRITE setFilter
+               NOTIFY filterChanged)
 
 public:
 
@@ -73,29 +73,28 @@ public:
 
     DatabaseInterface* databaseInterface() const;
 
-    QString artist() const;
+    QString filter() const;
 
 Q_SIGNALS:
 
     void databaseInterfaceChanged();
 
-    void artistChanged();
+    void filterChanged();
 
 public Q_SLOTS:
 
     void setDatabaseInterface(DatabaseInterface* databaseInterface);
 
-    void setArtist(QString artist);
+    void setFilter(const QString &filter);
+
 
 private Q_SLOTS:
 
-    void beginAlbumAdded(QVector<qulonglong> newAlbums);
+    void beginArtistAdded(QVector<qulonglong> newArtists);
 
-    void endAlbumAdded(QVector<qulonglong> newAlbums);
+    void endArtistAdded(QVector<qulonglong> newArtists);
 
 private:
-
-    QVariant internalDataAlbum(int albumIndex, int role) const;
 
     AllArtistsModelPrivate *d;
 

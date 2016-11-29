@@ -40,7 +40,7 @@ public:
 
     QVector<MusicArtist> mAllArtists;
 
-    int mAlbumCount = 0;
+    int mArtistsCount = 0;
 
     bool mUseLocalIcons = false;
 
@@ -67,7 +67,7 @@ int AllArtistsModel::rowCount(const QModelIndex &parent) const
         return albumCount;
     }
 
-    albumCount = d->mAlbumCount;
+    albumCount = d->mArtistsCount;
 
     return albumCount;
 }
@@ -101,7 +101,7 @@ QVariant AllArtistsModel::data(const QModelIndex &index, int role) const
         return result;
     }
 
-    const auto albumCount = d->mAlbumCount;
+    const auto artistsCount = d->mArtistsCount;
 
     if (!index.isValid()) {
         return result;
@@ -123,7 +123,7 @@ QVariant AllArtistsModel::data(const QModelIndex &index, int role) const
         return result;
     }
 
-    if (index.row() < 0 || index.row() >= albumCount) {
+    if (index.row() < 0 || index.row() >= artistsCount) {
         return result;
     }
 
@@ -203,12 +203,11 @@ void AllArtistsModel::setDatabaseInterface(DatabaseInterface *musicDatabase)
     if (d->mMusicDatabase) {
         connect(d->mMusicDatabase, &DatabaseInterface::beginAlbumAdded, this, &AllArtistsModel::beginArtistAdded);
         connect(d->mMusicDatabase, &DatabaseInterface::endAlbumAdded, this, &AllArtistsModel::endArtistAdded);
-
-        d->mAlbumCount = d->mMusicDatabase->albumCount({});
     }
 
     beginResetModel();
     d->mAllArtists = d->mMusicDatabase->allArtists(d->mFilter);
+    d->mArtistsCount = d->mAllArtists.count();
     endResetModel();
 
     emit databaseInterfaceChanged();
@@ -224,7 +223,7 @@ void AllArtistsModel::setFilter(const QString &filter)
 
     d->mFilter = filter;
     d->mAllArtists = d->mMusicDatabase->allArtists(d->mFilter);
-    d->mAlbumCount = d->mAllArtists.count();
+    d->mArtistsCount = d->mAllArtists.count();
 
     endResetModel();
 
@@ -240,7 +239,7 @@ void AllArtistsModel::endArtistAdded(QVector<qulonglong> newArtists)
 {
     beginResetModel();
     d->mAllArtists = d->mMusicDatabase->allArtists(d->mFilter);
-    d->mAlbumCount = d->mMusicDatabase->albumCount({});
+    d->mArtistsCount = d->mAllArtists.count();
     endResetModel();
 }
 

@@ -152,7 +152,7 @@ private Q_SLOTS:
         musicDb.insertTracksList(newTracks, newCovers);
         musicDb.insertTracksList(newTracks, newCovers);
 
-        QCOMPARE(musicDb.albumCount({}), 4);
+        QCOMPARE(musicDb.allAlbums({}).count(), 4);
 
         auto firstAlbum = musicDb.albumFromTitleAndAuthor(QStringLiteral("album1"), QStringLiteral("artist1"));
 
@@ -259,7 +259,7 @@ private Q_SLOTS:
         musicDb.insertTracksList(newTracks, newCovers);
         musicDb.insertTracksList(newTracks, newCovers);
 
-        QCOMPARE(musicDb.albumCount({}), 4);
+        QCOMPARE(musicDb.allAlbums({}).count(), 4);
 
         auto allAlbums = musicDb.allAlbums({});
 
@@ -408,8 +408,8 @@ private Q_SLOTS:
         musicDb.insertTracksList(newTracks, newCovers);
         musicDb.insertTracksList(newTracks, newCovers);
 
-        QCOMPARE(musicDb.albumCount({}), 4);
-        QCOMPARE(clientDb.albumCount({}), 4);
+        QCOMPARE(musicDb.allAlbums({}).count(), 4);
+        QCOMPARE(clientDb.allAlbums({}).count(), 4);
         QCOMPARE(musicDbChangedSpy.count(), 4);
 
         auto allAlbums = musicDb.allAlbums({});
@@ -558,8 +558,8 @@ private Q_SLOTS:
         musicDb.insertTracksList(newTracks, newCovers);
         musicDb.insertTracksList(newTracks, newCovers);
 
-        QCOMPARE(musicDb.albumCount({}), 4);
-        QCOMPARE(clientDb.albumCount({}), 4);
+        QCOMPARE(musicDb.allAlbums({}).count(), 4);
+        QCOMPARE(clientDb.allAlbums({}).count(), 4);
         QCOMPARE(musicDbChangedSpy.count(), 4);
 
         auto allAlbums = musicDb.allAlbums({});
@@ -902,7 +902,7 @@ private Q_SLOTS:
             QCOMPARE(thread4FinishedSpy.wait(200), true);
         }
 
-        QCOMPARE(musicDb.albumCount({}), 4);
+        QCOMPARE(musicDb.allAlbums({}).count(), 4);
     }
 };
 

@@ -252,12 +252,11 @@ void AllAlbumsModel::setDatabaseInterface(DatabaseInterface *musicDatabase)
     if (d->mMusicDatabase) {
         connect(d->mMusicDatabase, &DatabaseInterface::beginAlbumAdded, this, &AllAlbumsModel::beginAlbumAdded);
         connect(d->mMusicDatabase, &DatabaseInterface::endAlbumAdded, this, &AllAlbumsModel::endAlbumAdded);
-
-        d->mAlbumCount = d->mMusicDatabase->albumCount({});
     }
 
     beginResetModel();
     d->mAllAlbums = d->mMusicDatabase->allAlbums(d->mArtist);
+    d->mAlbumCount = d->mAllAlbums.count();
     endResetModel();
 
     emit databaseInterfaceChanged();
@@ -289,7 +288,7 @@ void AllAlbumsModel::endAlbumAdded(QVector<qulonglong> newAlbums)
 {
     beginResetModel();
     d->mAllAlbums = d->mMusicDatabase->allAlbums(d->mArtist);
-    d->mAlbumCount = d->mMusicDatabase->albumCount({});
+    d->mAlbumCount = d->mAllAlbums.count();
     endResetModel();
 }
 

@@ -75,8 +75,6 @@ public:
 
     qulonglong trackIdFromTitleAlbumArtist(QString title, QString album, QString artist) const;
 
-    int albumCount(QString artist) const;
-
 Q_SIGNALS:
 
     void databaseChanged(QVector<qulonglong> newAlbums, QVector<qulonglong> newTracks);

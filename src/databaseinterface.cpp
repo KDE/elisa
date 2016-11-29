@@ -38,11 +38,10 @@ public:
 
     DatabaseInterfacePrivate(QSqlDatabase tracksDatabase)
         : mTracksDatabase(tracksDatabase), mSelectAlbumQuery(mTracksDatabase),
-          mSelectTrackQuery(mTracksDatabase), mSelectAlbumIdOfTrackQuery(mTracksDatabase),
-          mSelectCountAlbumsQuery(mTracksDatabase), mSelectAlbumIdFromTitleQuery(mTracksDatabase),
+          mSelectTrackQuery(mTracksDatabase), mSelectAlbumIdFromTitleQuery(mTracksDatabase),
           mInsertAlbumQuery(mTracksDatabase), mSelectTrackIdFromTitleAlbumIdArtistQuery(mTracksDatabase),
           mInsertTrackQuery(mTracksDatabase), mSelectAlbumTrackCountQuery(mTracksDatabase),
-          mUpdateAlbumQuery(mTracksDatabase), mSelectAllAlbumIdsQuery(mTracksDatabase),
+          mUpdateAlbumQuery(mTracksDatabase),
           mSelectTrackFromIdQuery(mTracksDatabase), mSelectCountAlbumsForArtistQuery(mTracksDatabase),
           mSelectTrackIdFromTitleAlbumArtistQuery(mTracksDatabase), mSelectAllAlbumsWithFilterQuery(mTracksDatabase),
           mSelectAllAlbumsFromArtistQuery(mTracksDatabase), mSelectAllArtistsWithFilterQuery(mTracksDatabase),
@@ -56,10 +55,6 @@ public:
 
     QSqlQuery mSelectTrackQuery;
 
-    QSqlQuery mSelectAlbumIdOfTrackQuery;
-
-    QSqlQuery mSelectCountAlbumsQuery;
-
     QSqlQuery mSelectAlbumIdFromTitleQuery;
 
     QSqlQuery mInsertAlbumQuery;
@@ -71,8 +66,6 @@ public:
     QSqlQuery mSelectAlbumTrackCountQuery;
 
     QSqlQuery mUpdateAlbumQuery;
-
-    QSqlQuery mSelectAllAlbumIdsQuery;
 
     QSqlQuery mSelectTrackFromIdQuery;
 
@@ -849,27 +842,6 @@ void DatabaseInterface::initRequest()
         }
     }
     {
-        auto selectAlbumIdOfTrackQueryText = QStringLiteral("SELECT `AlbumID` FROM `Tracks` "
-                                                            "WHERE "
-                                                            "`ID` = :trackId");
-
-        auto result = d->mSelectAlbumIdOfTrackQuery.prepare(selectAlbumIdOfTrackQueryText);
-
-        if (!result) {
-            qDebug() << "DatabaseInterface::initRequest" << d->mSelectAlbumIdOfTrackQuery.lastError();
-        }
-    }
-    {
-        auto selectCountAlbumsQueryText = QStringLiteral("SELECT count(*) "
-                                                         "FROM `Albums`");
-
-        const auto result = d->mSelectCountAlbumsQuery.prepare(selectCountAlbumsQueryText);
-
-        if (!result) {
-            qDebug() << "DatabaseInterface::initRequest" << d->mSelectCountAlbumsQuery.lastError();
-        }
-    }
-    {
         auto selectCountAlbumsQueryText = QStringLiteral("SELECT count(*) "
                                                          "FROM `Albums` album, `Artists` artist "
                                                          "WHERE artist.`Name` like :artistName AND "
@@ -966,17 +938,6 @@ void DatabaseInterface::initRequest()
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mUpdateAlbumQuery.lastError();
-        }
-    }
-    {
-        auto selectAlbumQueryText = QStringLiteral("SELECT `ID` "
-                                                   "FROM `Albums` "
-                                                   "ORDER BY `Title`");
-
-        auto result = d->mSelectAllAlbumIdsQuery.prepare(selectAlbumQueryText);
-
-        if (!result) {
-            qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllAlbumIdsQuery.lastError();
         }
     }
 

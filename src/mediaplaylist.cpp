@@ -216,15 +216,10 @@ bool MediaPlayList::removeRows(int row, int count, const QModelIndex &parent)
 {
     beginRemoveRows(parent, row, row + count - 1);
 
-    bool willChangeData = false;
+    bool hadAlbumHeader = false;
 
-    if (rowCount() > row + count && row > 0) {
-        auto currentAlbum = d->mTrackData[row - 1].albumName();
-        auto nextAlbum = d->mTrackData[row + count].albumName();
-
-        if (currentAlbum == nextAlbum) {
-            willChangeData = true;
-        }
+    if (rowCount() > row + count) {
+        hadAlbumHeader = rowHasHeader(row + count);
     }
 
     for (int i = row, cpt = 0; cpt < count; ++i, ++cpt) {
@@ -233,11 +228,12 @@ bool MediaPlayList::removeRows(int row, int count, const QModelIndex &parent)
     }
     endRemoveRows();
 
-    if (willChangeData) {
+    if (hadAlbumHeader != rowHasHeader(row)) {
+        qDebug() << "dataChanged(index(row, 0), index(row, 0), {ColumnsRoles::HasAlbumHeader});" << row;
         Q_EMIT dataChanged(index(row, 0), index(row, 0), {ColumnsRoles::HasAlbumHeader});
     }
 
-    emit persistentStateChanged();
+    Q_EMIT persistentStateChanged();
 
     return false;
 }

@@ -997,6 +997,22 @@ void MediaPlayListTest::testHasHeaderWithRemove()
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), false);
+
+    myPlayList.removeRows(0, 1);
+
+    QCOMPARE(rowsAboutToBeRemovedSpy.count(), 2);
+    QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
+    QCOMPARE(rowsAboutToBeInsertedSpy.count(), 4);
+    QCOMPARE(rowsRemovedSpy.count(), 2);
+    QCOMPARE(rowsMovedSpy.count(), 0);
+    QCOMPARE(rowsInsertedSpy.count(), 4);
+    QCOMPARE(trackHasBeenAddedSpy.count(), 4);
+    QCOMPARE(databaseInterfaceChangedSpy.count(), 1);
+    QCOMPARE(persistentStateChangedSpy.count(), 6);
+    QCOMPARE(dataChangedSpy.count(), 2);
+
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
+    QCOMPARE(myPlayList.data(myPlayList.index(1, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), false);
 }
 
 void MediaPlayListTest::testHasHeaderMoveFirst()

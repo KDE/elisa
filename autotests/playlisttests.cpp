@@ -48,8 +48,6 @@ private Q_SLOTS:
 
         playListControler.setPlayListModel(&playList);
 
-        QModelIndex index1, index2;
-
         playList.enqueue(1);
         playList.enqueue(2);
     }

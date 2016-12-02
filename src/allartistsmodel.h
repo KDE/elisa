@@ -48,8 +48,8 @@ public:
 
     enum ColumnsRoles {
         NameRole = Qt::UserRole + 1,
-        AlbumsCountRole = NameRole + 1,
-        ImageRole = AlbumsCountRole + 1,
+        ArtistsCountRole = NameRole + 1,
+        ImageRole = ArtistsCountRole + 1,
         IdRole = ImageRole + 1,
     };
 

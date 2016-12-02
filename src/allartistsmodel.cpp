@@ -57,19 +57,19 @@ AllArtistsModel::~AllArtistsModel()
 
 int AllArtistsModel::rowCount(const QModelIndex &parent) const
 {
-    auto albumCount = 0;
+    auto artistCount = 0;
 
     if (!d->mMusicDatabase) {
-        return albumCount;
+        return artistCount;
     }
 
     if (parent.isValid()) {
-        return albumCount;
+        return artistCount;
     }
 
-    albumCount = d->mArtistsCount;
+    artistCount = d->mArtistsCount;
 
-    return albumCount;
+    return artistCount;
 }
 
 QHash<int, QByteArray> AllArtistsModel::roleNames() const
@@ -77,7 +77,7 @@ QHash<int, QByteArray> AllArtistsModel::roleNames() const
     QHash<int, QByteArray> roles;
 
     roles[static_cast<int>(ColumnsRoles::NameRole)] = "name";
-    roles[static_cast<int>(ColumnsRoles::AlbumsCountRole)] = "albumsCount";
+    roles[static_cast<int>(ColumnsRoles::ArtistsCountRole)] = "albumsCount";
     roles[static_cast<int>(ColumnsRoles::ImageRole)] = "image";
     roles[static_cast<int>(ColumnsRoles::IdRole)] = "id";
 
@@ -134,7 +134,8 @@ QVariant AllArtistsModel::data(const QModelIndex &index, int role) const
     case ColumnsRoles::NameRole:
         result = d->mAllArtists[index.row()].name();
         break;
-    case ColumnsRoles::AlbumsCountRole:
+    case ColumnsRoles::ArtistsCountRole:
+        result = d->mAllArtists[index.row()].albumsCount();
         break;
     case ColumnsRoles::ImageRole:
         break;
@@ -237,9 +238,12 @@ void AllArtistsModel::beginArtistAdded(QVector<qulonglong> newArtists)
 
 void AllArtistsModel::endArtistAdded(QVector<qulonglong> newArtists)
 {
+    Q_UNUSED(newArtists);
+
     beginResetModel();
     d->mAllArtists = d->mMusicDatabase->allArtists(d->mFilter);
     d->mArtistsCount = d->mAllArtists.count();
+
     endResetModel();
 }
 

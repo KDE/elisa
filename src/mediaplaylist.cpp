@@ -361,6 +361,24 @@ void MediaPlayList::enqueue(QString albumName, QString artistName)
     }
 }
 
+void MediaPlayList::enqueue(QString artistName)
+{
+    if (!d->mMusicDatabase) {
+        return;
+    }
+
+    qDebug() << "MediaPlayList::enqueue" << artistName;
+
+    const auto allTracks = d->mMusicDatabase->tracksFromAuthor(artistName);
+
+    qDebug() << "MediaPlayList::enqueue" << artistName << allTracks.size();
+
+    for (const auto &oneTrack : allTracks) {
+        qDebug() << "MediaPlayList::enqueue" << artistName << oneTrack.title() << oneTrack.albumName() << oneTrack.artist();
+        enqueue({oneTrack.title(), oneTrack.albumName(), oneTrack.artist()});
+    }
+}
+
 void MediaPlayList::clearAndEnqueue(QString albumName, QString artistName)
 {
     if (!d->mMusicDatabase) {
@@ -369,6 +387,16 @@ void MediaPlayList::clearAndEnqueue(QString albumName, QString artistName)
 
     clearPlayList();
     enqueue(albumName, artistName);
+}
+
+void MediaPlayList::clearAndEnqueue(QString artistName)
+{
+    if (!d->mMusicDatabase) {
+        return;
+    }
+
+    clearPlayList();
+    enqueue(artistName);
 }
 
 void MediaPlayList::clearPlayList()

@@ -107,17 +107,21 @@ public:
 
     Q_INVOKABLE void enqueue(qulonglong newTrackId);
 
+    Q_INVOKABLE void enqueue(MediaPlayListEntry newEntry);
+
+    Q_INVOKABLE void enqueue(QString albumName, QString artistName);
+
+    Q_INVOKABLE void enqueue(QString artistName);
+
     Q_INVOKABLE void clearAndEnqueue(qulonglong newTrackId);
 
-    Q_INVOKABLE void enqueue(MediaPlayListEntry newEntry);
+    Q_INVOKABLE void clearAndEnqueue(QString albumName, QString artistName);
+
+    Q_INVOKABLE void clearAndEnqueue(QString artistName);
 
     Q_INVOKABLE bool moveRows(const QModelIndex &sourceParent, int sourceRow, int count, const QModelIndex &destinationParent, int destinationChild) override;
 
     Q_INVOKABLE void move(int from, int to, int n);
-
-    Q_INVOKABLE void enqueue(QString albumName, QString artistName);
-
-    Q_INVOKABLE void clearAndEnqueue(QString albumName, QString artistName);
 
     Q_INVOKABLE void clearPlayList();
 

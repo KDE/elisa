@@ -961,7 +961,7 @@ void DatabaseInterface::initRequest()
     {
         auto selectCountAlbumsQueryText = QStringLiteral("SELECT count(*) "
                                                          "FROM `Albums` album, `Artists` artist "
-                                                         "WHERE artist.`Name` like :artistName AND "
+                                                         "WHERE artist.`Name` = :artistName AND "
                                                          "artist.`ID` = album.`ArtistID`");
 
         const auto result = d->mSelectCountAlbumsForArtistQuery.prepare(selectCountAlbumsQueryText);

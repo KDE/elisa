@@ -41,7 +41,7 @@ public:
           mSelectTrackQuery(mTracksDatabase), mSelectAlbumIdFromTitleQuery(mTracksDatabase),
           mInsertAlbumQuery(mTracksDatabase), mSelectTrackIdFromTitleAlbumIdArtistQuery(mTracksDatabase),
           mInsertTrackQuery(mTracksDatabase), mSelectAlbumTrackCountQuery(mTracksDatabase),
-          mUpdateAlbumQuery(mTracksDatabase),
+          mUpdateAlbumQuery(mTracksDatabase), mSelectTracksFromArtist(mTracksDatabase),
           mSelectTrackFromIdQuery(mTracksDatabase), mSelectCountAlbumsForArtistQuery(mTracksDatabase),
           mSelectTrackIdFromTitleAlbumArtistQuery(mTracksDatabase), mSelectAllAlbumsWithFilterQuery(mTracksDatabase),
           mSelectAllAlbumsFromArtistQuery(mTracksDatabase), mSelectAllArtistsWithFilterQuery(mTracksDatabase),
@@ -66,6 +66,8 @@ public:
     QSqlQuery mSelectAlbumTrackCountQuery;
 
     QSqlQuery mUpdateAlbumQuery;
+
+    QSqlQuery mSelectTracksFromArtist;
 
     QSqlQuery mSelectTrackFromIdQuery;
 
@@ -276,6 +278,55 @@ QVector<MusicArtist> DatabaseInterface::allArtists(QString filter) const
     auto result = QVector<MusicArtist>();
 
     return result;
+}
+
+QVector<MusicAudioTrack> DatabaseInterface::tracksFromAuthor(QString artistName) const
+{
+    auto allTracks = QVector<MusicAudioTrack>();
+
+    auto transactionResult = startTransaction();
+    if (!transactionResult) {
+        return allTracks;
+    }
+
+    d->mSelectTracksFromArtist.bindValue(QStringLiteral(":artistName"), artistName);
+
+    auto result = d->mSelectTracksFromArtist.exec();
+
+    if (!result || !d->mSelectTracksFromArtist.isSelect() || !d->mSelectTracksFromArtist.isActive()) {
+        qDebug() << "DatabaseInterface::tracksFromAuthor" << "not select" << d->mSelectTracksFromArtist.lastQuery();
+        qDebug() << "DatabaseInterface::tracksFromAuthor" << d->mSelectTracksFromArtist.lastError();
+
+        transactionResult = finishTransaction();
+        if (!transactionResult) {
+            return allTracks;
+        }
+    }
+
+    while (d->mSelectTracksFromArtist.next()) {
+        MusicAudioTrack newTrack;
+
+        newTrack.setDatabaseId(d->mSelectTracksFromArtist.record().value(1).toULongLong());
+        newTrack.setTitle(d->mSelectTracksFromArtist.record().value(0).toString());
+        newTrack.setAlbumName(d->mSelectTracksFromArtist.record().value(7).toString());
+        newTrack.setArtist(d->mSelectTracksFromArtist.record().value(2).toString());
+        newTrack.setResourceURI(d->mSelectTracksFromArtist.record().value(3).toUrl());
+        newTrack.setAlbumCover(d->mSelectTracksFromArtist.record().value(6).toUrl());
+        newTrack.setTrackNumber(d->mSelectTracksFromArtist.record().value(4).toInt());
+        newTrack.setDuration(QTime::fromMSecsSinceStartOfDay(d->mSelectTracksFromArtist.record().value(5).toInt()));
+        newTrack.setValid(true);
+
+        allTracks.push_back(newTrack);
+    }
+
+    d->mSelectTracksFromArtist.finish();
+
+    transactionResult = finishTransaction();
+    if (!transactionResult) {
+        return allTracks;
+    }
+
+    return allTracks;
 }
 
 MusicAudioTrack DatabaseInterface::trackFromDatabaseId(qulonglong id) const
@@ -938,6 +989,29 @@ void DatabaseInterface::initRequest()
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mUpdateAlbumQuery.lastError();
+        }
+    }
+    {
+        auto selectTracksFromArtistQueryText = QStringLiteral("SELECT "
+                                                              "tracks.`Title`, "
+                                                              "tracks.`ID`, "
+                                                              "artist.`Name`, "
+                                                              "tracks.`FileName`, "
+                                                              "tracks.`TrackNumber`, "
+                                                              "tracks.`Duration`, "
+                                                              "albums.`CoverFileName`, "
+                                                              "albums.`Title` "
+                                                              "FROM `Tracks` tracks, `Albums` albums, `Artists` artist "
+                                                              "WHERE "
+                                                              "artist.`Name` = :artistName AND "
+                                                              "tracks.`AlbumID` = albums.`ID` AND "
+                                                              "artist.`ID` = tracks.`ArtistID` "
+                                                              "ORDER BY tracks.`Title` ASC");
+
+        auto result = d->mSelectTracksFromArtist.prepare(selectTracksFromArtistQueryText);
+
+        if (!result) {
+            qDebug() << "DatabaseInterface::initRequest" << d->mSelectTracksFromArtist.lastError();
         }
     }
 

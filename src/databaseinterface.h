@@ -71,6 +71,8 @@ public:
 
     QVector<MusicArtist> allArtists(QString filter) const;
 
+    QVector<MusicAudioTrack> tracksFromAuthor(QString artistName) const;
+
     MusicAudioTrack trackFromDatabaseId(qulonglong id) const;
 
     qulonglong trackIdFromTitleAlbumArtist(QString title, QString album, QString artist) const;

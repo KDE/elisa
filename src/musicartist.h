@@ -44,7 +44,17 @@ public:
 
     bool isValid() const;
 
+    void setName(QString aName);
+
     QString name() const;
+
+    void setDatabaseId(qulonglong value);
+
+    qulonglong databaseId() const;
+
+    void setAlbumsCount(int value);
+
+    int albumsCount() const;
 
 private:
 

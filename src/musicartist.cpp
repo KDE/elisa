@@ -11,6 +11,8 @@ public:
 
     qulonglong mDatabaseId;
 
+    int mAlbumsCount = 0;
+
     bool mIsValid = false;
 
 };
@@ -63,7 +65,32 @@ bool MusicArtist::isValid() const
     return d->mIsValid;
 }
 
+void MusicArtist::setName(QString aName)
+{
+    d->mName = aName;
+}
+
 QString MusicArtist::name() const
 {
     return d->mName;
+}
+
+void MusicArtist::setDatabaseId(qulonglong value)
+{
+    d->mDatabaseId = value;
+}
+
+qulonglong MusicArtist::databaseId() const
+{
+    return d->mDatabaseId;
+}
+
+void MusicArtist::setAlbumsCount(int value)
+{
+    d->mAlbumsCount = value;
+}
+
+int MusicArtist::albumsCount() const
+{
+    return d->mAlbumsCount;
 }

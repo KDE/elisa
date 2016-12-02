@@ -6,6 +6,7 @@
   <name>Elisa</name>
   <name xml:lang="ca">Elisa</name>
   <name xml:lang="ca-valencia">Elisa</name>
+  <name xml:lang="cs">Elisa</name>
   <name xml:lang="de">Elisa</name>
   <name xml:lang="nl">Elisa</name>
   <name xml:lang="pt">Elisa</name>
@@ -16,6 +17,7 @@
   <summary>Simple Music Player</summary>
   <summary xml:lang="ca">Reproductor de música senzill</summary>
   <summary xml:lang="ca-valencia">Reproductor de música senzill</summary>
+  <summary xml:lang="cs">Jednoduchý přehrávač hudby</summary>
   <summary xml:lang="de">Einfache Medienwiedergabe</summary>
   <summary xml:lang="nl">Eenvoudige muziekspeler</summary>
   <summary xml:lang="pt">Leitor de Música Simples</summary>

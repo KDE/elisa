@@ -217,7 +217,7 @@ QVector<MusicAlbum> DatabaseInterface::allAlbums(QString filter) const
         result.push_back(newAlbum);
     }
 
-    d->mSelectTrackQuery.finish();
+    d->mSelectAllAlbumsWithFilterQuery.finish();
 
     transactionResult = finishTransaction();
     if (!transactionResult) {
@@ -263,7 +263,7 @@ QVector<MusicAlbum> DatabaseInterface::allAlbumsFromArtist(QString artistName) c
         result.push_back(newAlbum);
     }
 
-    d->mSelectTrackQuery.finish();
+    d->mSelectAllAlbumsFromArtistQuery.finish();
 
     transactionResult = finishTransaction();
     if (!transactionResult) {

@@ -47,6 +47,11 @@ class AllAlbumsModel : public QAbstractItemModel
                WRITE setArtist
                NOTIFY artistChanged)
 
+    Q_PROPERTY(bool exactMatch
+               READ exactMatch
+               WRITE setExactMatch
+               NOTIFY exactMatchChanged)
+
 public:
 
     enum ColumnsRoles {
@@ -87,17 +92,23 @@ public:
 
     QString artist() const;
 
+    bool exactMatch() const;
+
 Q_SIGNALS:
 
     void databaseInterfaceChanged();
 
     void artistChanged();
 
+    void exactMatchChanged();
+
 public Q_SLOTS:
 
     void setDatabaseInterface(DatabaseInterface* databaseInterface);
 
     void setArtist(QString artist);
+
+    void setExactMatch(bool exactMatch);
 
 private Q_SLOTS:
 

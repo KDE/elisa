@@ -38,11 +38,13 @@ public:
 
     DatabaseInterface *mMusicDatabase = nullptr;
 
-    bool mUseLocalIcons = false;
+    QVector<MusicAlbum> mAllAlbums;
 
     int mAlbumCount = 0;
 
-    QVector<MusicAlbum> mAllAlbums;
+    bool mUseLocalIcons = false;
+
+    bool mExactMatch = false;
 };
 
 AllAlbumsModel::AllAlbumsModel(QObject *parent) : QAbstractItemModel(parent), d(new AllAlbumsModelPrivate)
@@ -237,6 +239,11 @@ QString AllAlbumsModel::artist() const
     return d->mArtist;
 }
 
+bool AllAlbumsModel::exactMatch() const
+{
+    return d->mExactMatch;
+}
+
 void AllAlbumsModel::setDatabaseInterface(DatabaseInterface *musicDatabase)
 {
     if (d->mMusicDatabase == musicDatabase) {
@@ -255,7 +262,11 @@ void AllAlbumsModel::setDatabaseInterface(DatabaseInterface *musicDatabase)
     }
 
     beginResetModel();
-    d->mAllAlbums = d->mMusicDatabase->allAlbums(d->mArtist);
+    if (!d->mExactMatch) {
+        d->mAllAlbums = d->mMusicDatabase->allAlbums(d->mArtist);
+    } else {
+        d->mAllAlbums = d->mMusicDatabase->allAlbumsFromArtist(d->mArtist);
+    }
     d->mAlbumCount = d->mAllAlbums.count();
     endResetModel();
 
@@ -271,12 +282,38 @@ void AllAlbumsModel::setArtist(QString artist)
     beginResetModel();
 
     d->mArtist = artist;
-    d->mAllAlbums = d->mMusicDatabase->allAlbums(d->mArtist);
+    if (!d->mExactMatch) {
+        d->mAllAlbums = d->mMusicDatabase->allAlbums(d->mArtist);
+    } else {
+        d->mAllAlbums = d->mMusicDatabase->allAlbumsFromArtist(d->mArtist);
+    }
     d->mAlbumCount = d->mAllAlbums.count();
 
     endResetModel();
 
     emit artistChanged();
+}
+
+void AllAlbumsModel::setExactMatch(bool exactMatch)
+{
+    if (d->mExactMatch == exactMatch)
+        return;
+
+    beginResetModel();
+
+    d->mExactMatch = exactMatch;
+    if (d->mMusicDatabase) {
+        if (!d->mExactMatch) {
+            d->mAllAlbums = d->mMusicDatabase->allAlbums(d->mArtist);
+        } else {
+            d->mAllAlbums = d->mMusicDatabase->allAlbumsFromArtist(d->mArtist);
+        }
+    }
+    d->mAlbumCount = d->mAllAlbums.count();
+
+    endResetModel();
+
+    Q_EMIT exactMatchChanged();
 }
 
 void AllAlbumsModel::beginAlbumAdded(QVector<qulonglong> newAlbums)
@@ -287,7 +324,11 @@ void AllAlbumsModel::beginAlbumAdded(QVector<qulonglong> newAlbums)
 void AllAlbumsModel::endAlbumAdded(QVector<qulonglong> newAlbums)
 {
     beginResetModel();
-    d->mAllAlbums = d->mMusicDatabase->allAlbums(d->mArtist);
+    if (!d->mExactMatch) {
+        d->mAllAlbums = d->mMusicDatabase->allAlbums(d->mArtist);
+    } else {
+        d->mAllAlbums = d->mMusicDatabase->allAlbumsFromArtist(d->mArtist);
+    }
     d->mAlbumCount = d->mAllAlbums.count();
     endResetModel();
 }

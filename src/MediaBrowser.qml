@@ -26,10 +26,9 @@ import org.mgallien.QmlExtension 1.0
 import QtMultimedia 5.4
 
 Item {
-    property var pagesModel
     property MediaPlayList playListModel
-    property var playerControl
-    property var musicDatabase
+    property var firstPage
+    property alias stackView: listingView
 
     id: contentDirectoryRoot
 
@@ -65,17 +64,12 @@ Item {
                 }
             }
 
-            initialItem: MediaServerListing {
-                stackView: listingView
-                musicDatabase: contentDirectoryRoot.musicDatabase
-                playListModel: contentDirectoryRoot.playListModel
-                playerControl: contentDirectoryRoot.playerControl
-            }
+            initialItem: firstPage
 
             // Implements back key navigation
             focus: true
-            Keys.onReleased: if (event.key === Qt.Key_Back && stackView.depth > 1) {
-                                 stackView.pop();
+            Keys.onReleased: if (event.key === Qt.Key_Back && listingView.depth > 1) {
+                                 listingView.pop();
                                  event.accepted = true;
                              }
         }

@@ -20,14 +20,18 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         manageaudioplayer.cpp
 
         MediaServer.qml
-        MediaServerListing.qml
         MediaAlbumView.qml
         RatingStar.qml
         AudioTrackDelegate.qml
         PlayListEntry.qml
         MediaPlayerControl.qml
         MediaServerEntry.qml
-        MediaContentDirectory.qml
+        MediaAlbumDelegate.qml
+        MediaArtistDelegate.qml
+        MediaAllAlbumView.qml
+        MediaArtistAlbumView.qml
+        MediaAllArtistView.qml
+        MediaBrowser.qml
         MediaPlayListView.qml
         HeaderBar.qml
         MediaServerMobile.qml

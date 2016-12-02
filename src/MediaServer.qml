@@ -346,6 +346,10 @@ ApplicationWindow {
                             ListElement {
                                 name: 'Albums'
                             }
+
+                            ListElement {
+                                name: 'Artists'
+                            }
                         }
 
                         itemDelegate: Rectangle {
@@ -418,14 +422,32 @@ ApplicationWindow {
                             visible: Layout.minimumWidth != 0
 
                             Tab {
-                                MediaContentDirectory {
+                                MediaBrowser {
                                     id: localAlbums
 
-                                    playListModel: playListModelItem
-                                    musicDatabase: localAlbumDatabase
-                                    playerControl: manageAudioPlayer
+                                    anchors.fill: parent
+
+                                    firstPage: MediaAllAlbumView {
+                                        playListModel: playListModelItem
+                                        musicDatabase: localAlbumDatabase
+                                        playerControl: manageAudioPlayer
+                                        stackView: localAlbums.stackView
+                                    }
+                                }
+                            }
+
+                            Tab {
+                                MediaBrowser {
+                                    id: localArtists
 
                                     anchors.fill: parent
+
+                                    firstPage: MediaAllArtistView {
+                                        playListModel: playListModelItem
+                                        musicDatabase: localAlbumDatabase
+                                        playerControl: manageAudioPlayer
+                                        stackView: localArtists.stackView
+                                    }
                                 }
                             }
                         }

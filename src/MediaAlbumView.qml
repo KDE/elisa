@@ -88,6 +88,21 @@ Item {
             album: topListing.albumName
             image: topListing.albumArtUrl
             tracksCount: topListing.tracksCount
+
+            enqueueAction: Action {
+                text: i18nc("Add whole album to play list", "Enqueue")
+                iconName: "media-track-add-amarok"
+                onTriggered: topListing.playListModel.enqueue(topListing.albumName, topListing.artistName)
+            }
+
+            clearAndEnqueueAction: Action {
+                text: i18nc("Clear play list and add whole album to play list", "Play Now and Replace Play List")
+                iconName: "media-playback-start"
+                onTriggered: {
+                    topListing.playListModel.clearAndEnqueue(topListing.albumName, topListing.artistName)
+                    topListing.playerControl.playPause()
+                }
+            }
         }
 
         Rectangle {

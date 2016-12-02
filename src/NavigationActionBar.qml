@@ -14,6 +14,8 @@ Item {
     property string album
     property string image
     property string tracksCount
+    property var enqueueAction
+    property var clearAndEnqueueAction
 
     Action {
         id: goPreviousAction
@@ -26,23 +28,6 @@ Item {
             } else {
                 parentStackView.pop()
             }
-        }
-    }
-
-    Action {
-        id: enqueueAction
-        text: i18nc("Add whole album to play list", "Enqueue")
-        iconName: "media-track-add-amarok"
-        onTriggered: playList.enqueue(album, artist)
-    }
-
-    Action {
-        id: clearAndEnqueueAction
-        text: i18nc("Clear play list and add whole album to play list", "Play Now and Replace Play List")
-        iconName: "media-playback-start"
-        onTriggered: {
-            playList.clearAndEnqueue(album, artist)
-            playerControl.playPause()
         }
     }
 

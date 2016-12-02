@@ -47,6 +47,7 @@
 #include "databaseinterface.h"
 #include "allalbumsmodel.h"
 #include "albummodel.h"
+#include "allartistsmodel.h"
 #include "musicaudiotrack.h"
 #include "musiclistenersmanager.h"
 
@@ -116,6 +117,7 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
     qmlRegisterType<ProgressIndicator>("org.mgallien.QmlExtension", 1, 0, "ProgressIndicator");
     qmlRegisterType<DatabaseInterface>("org.mgallien.QmlExtension", 1, 0, "DatabaseInterface");
     qmlRegisterType<AllAlbumsModel>("org.mgallien.QmlExtension", 1, 0, "AllAlbumsModel");
+    qmlRegisterType<AllArtistsModel>("org.mgallien.QmlExtension", 1, 0, "AllArtistsModel");
     qmlRegisterType<AlbumModel>("org.mgallien.QmlExtension", 1, 0, "AlbumModel");
     qmlRegisterType<MusicListenersManager>("org.mgallien.QmlExtension", 1, 0, "MusicListenersManager");
 

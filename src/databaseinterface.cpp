@@ -277,6 +277,72 @@ QVector<MusicArtist> DatabaseInterface::allArtists(QString filter) const
 {
     auto result = QVector<MusicArtist>();
 
+    qDebug() << "DatabaseInterface::allArtists" << filter;
+
+    auto transactionResult = startTransaction();
+    if (!transactionResult) {
+        return result;
+    }
+
+    QString currentFilter(QStringLiteral("%%1%"));
+
+    d->mSelectAllArtistsWithFilterQuery.bindValue(QStringLiteral(":filter"), currentFilter.arg(filter));
+
+    auto queryResult = d->mSelectAllArtistsWithFilterQuery.exec();
+
+    if (!queryResult || !d->mSelectAllArtistsWithFilterQuery.isSelect() || !d->mSelectAllArtistsWithFilterQuery.isActive()) {
+        qDebug() << "DatabaseInterface::allArtists" << "not select" << d->mSelectAllArtistsWithFilterQuery.lastQuery();
+        qDebug() << "DatabaseInterface::allArtists" << d->mSelectAllArtistsWithFilterQuery.lastError();
+
+        d->mSelectAllArtistsWithFilterQuery.finish();
+
+        transactionResult = finishTransaction();
+        if (!transactionResult) {
+            return result;
+        }
+
+        return result;
+    }
+
+    while(d->mSelectAllArtistsWithFilterQuery.next()) {
+        auto newArtist = MusicArtist();
+
+        newArtist.setDatabaseId(d->mSelectAllArtistsWithFilterQuery.record().value(0).toULongLong());
+        newArtist.setName(d->mSelectAllArtistsWithFilterQuery.record().value(1).toString());
+        newArtist.setValid(true);
+
+        d->mSelectCountAlbumsForArtistQuery.bindValue(QStringLiteral(":artistName"), newArtist.name());
+
+        auto queryResult = d->mSelectCountAlbumsForArtistQuery.exec();
+
+        if (!queryResult || !d->mSelectCountAlbumsForArtistQuery.isSelect() || !d->mSelectCountAlbumsForArtistQuery.isActive() || !d->mSelectCountAlbumsForArtistQuery.next()) {
+            qDebug() << "DatabaseInterface::allArtists" << "not select" << d->mSelectCountAlbumsForArtistQuery.lastQuery();
+            qDebug() << "DatabaseInterface::allArtists" << d->mSelectCountAlbumsForArtistQuery.lastError();
+
+            d->mSelectCountAlbumsForArtistQuery.finish();
+
+            transactionResult = finishTransaction();
+            if (!transactionResult) {
+                return result;
+            }
+
+            return result;
+        }
+
+        newArtist.setAlbumsCount(d->mSelectCountAlbumsForArtistQuery.record().value(0).toInt());
+
+        d->mSelectCountAlbumsForArtistQuery.finish();
+
+        result.push_back(newArtist);
+    }
+
+    d->mSelectAllArtistsWithFilterQuery.finish();
+
+    transactionResult = finishTransaction();
+    if (!transactionResult) {
+        return result;
+    }
+
     return result;
 }
 

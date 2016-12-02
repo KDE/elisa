@@ -4,6 +4,7 @@ set(playListTest_SOURCES
     ../src/mediaplaylist.cpp
     ../src/playlistcontroler.cpp
     ../src/databaseinterface.cpp
+    ../src/musicartist.cpp
     ../src/musicalbum.cpp
     ../src/musicaudiotrack.cpp
     playlisttests.cpp
@@ -16,6 +17,7 @@ add_test(playListTest playListTest)
 
 set(databaseInterfaceTest_SOURCES
     ../src/databaseinterface.cpp
+    ../src/musicartist.cpp
     ../src/musicalbum.cpp
     ../src/musicaudiotrack.cpp
     databaseinterfacetest.cpp
@@ -30,6 +32,7 @@ set(playListControlerTest_SOURCES
     ../src/playlistcontroler.cpp
     ../src/mediaplaylist.cpp
     ../src/databaseinterface.cpp
+    ../src/musicartist.cpp
     ../src/musicalbum.cpp
     ../src/musicaudiotrack.cpp
     playlistcontrolertest.cpp
@@ -44,6 +47,7 @@ set(managemediaplayercontrolTest_SOURCES
     ../src/managemediaplayercontrol.cpp
     ../src/mediaplaylist.cpp
     ../src/databaseinterface.cpp
+    ../src/musicartist.cpp
     ../src/musicalbum.cpp
     ../src/musicaudiotrack.cpp
     managemediaplayercontroltest.cpp
@@ -58,6 +62,7 @@ set(manageheaderbarTest_SOURCES
     ../src/manageheaderbar.cpp
     ../src/mediaplaylist.cpp
     ../src/databaseinterface.cpp
+    ../src/musicartist.cpp
     ../src/musicalbum.cpp
     ../src/musicaudiotrack.cpp
     manageheaderbartest.cpp
@@ -81,6 +86,7 @@ add_test(manageaudioplayerTest manageaudioplayerTest)
 set(mediaplaylistTest_SOURCES
     ../src/mediaplaylist.cpp
     ../src/databaseinterface.cpp
+    ../src/musicartist.cpp
     ../src/musicalbum.cpp
     ../src/musicaudiotrack.cpp
     mediaplaylisttest.cpp

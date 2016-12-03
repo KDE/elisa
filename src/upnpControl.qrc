@@ -1,15 +1,9 @@
 <RCC>
     <qresource prefix="/">
         <file>AudioTrackDelegate.qml</file>
-        <file>binaryLight.qml</file>
-        <file>genericDevice.qml</file>
         <file>MediaPlayerControl.qml</file>
-        <file>MediaServerEntry.qml</file>
         <file>RatingStar.qml</file>
-        <file>upnpControl.qml</file>
-        <file>MediaContentDirectory.qml</file>
         <file>MediaPlayListView.qml</file>
-        <file>MediaServerListing.qml</file>
         <file>MediaAlbumView.qml</file>
         <file>MediaServer.qml</file>
         <file>HeaderBar.qml</file>
@@ -30,5 +24,11 @@
         <file>PassiveNotification.qml</file>
         <file>NavigationActionBar.qml</file>
         <file>PlayListEntry.qml</file>
+        <file>MediaBrowser.qml</file>
+        <file>MediaAlbumDelegate.qml</file>
+        <file>MediaArtistDelegate.qml</file>
+        <file>MediaAllAlbumView.qml</file>
+        <file>MediaArtistAlbumView.qml</file>
+        <file>MediaAllArtistView.qml</file>
     </qresource>
 </RCC>

@@ -57,6 +57,8 @@ private Q_SLOTS:
 
     void testHasHeaderMoveAnotherLikeQml();
 
+    void testHasHeaderYetAnotherMoveLikeQml();
+
     void enqueueClearAndEnqueue();
 
 };

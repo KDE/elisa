@@ -295,7 +295,8 @@ bool MediaPlayList::moveRows(const QModelIndex &sourceParent, int sourceRow, int
     }
 
     auto firstMovedTrackHasHeader = rowHasHeader(sourceRow);
-    auto nextTrackHasHeader = rowHasHeader(destinationChild);
+    auto nextTrackHasHeader = rowHasHeader(sourceRow + count);
+    auto futureNextTrackHasHeader = rowHasHeader(destinationChild);
     if (sourceRow < destinationChild) {
         nextTrackHasHeader = rowHasHeader(sourceRow + count);
     }
@@ -327,7 +328,17 @@ bool MediaPlayList::moveRows(const QModelIndex &sourceParent, int sourceRow, int
             Q_EMIT dataChanged(index(sourceRow, 0), index(sourceRow, 0), {ColumnsRoles::HasAlbumHeader});
         }
     } else {
-        if (nextTrackHasHeader != rowHasHeader(destinationChild + count)) {
+        if (nextTrackHasHeader != rowHasHeader(sourceRow + count)) {
+            Q_EMIT dataChanged(index(sourceRow + count, 0), index(sourceRow + count, 0), {ColumnsRoles::HasAlbumHeader});
+        }
+    }
+
+    if (sourceRow < destinationChild) {
+        if (futureNextTrackHasHeader != rowHasHeader(destinationChild + count - 1)) {
+            Q_EMIT dataChanged(index(destinationChild + count - 1, 0), index(destinationChild + count - 1, 0), {ColumnsRoles::HasAlbumHeader});
+        }
+    } else {
+        if (futureNextTrackHasHeader != rowHasHeader(destinationChild + count)) {
             Q_EMIT dataChanged(index(destinationChild + count, 0), index(destinationChild + count, 0), {ColumnsRoles::HasAlbumHeader});
         }
     }

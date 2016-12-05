@@ -51,8 +51,8 @@ Item {
 
     Rectangle {
         color: myPalette.mid
-        width: parent.width
-        height: parent.height
+
+        anchors.fill: parent
 
         RowLayout {
             anchors.fill: parent

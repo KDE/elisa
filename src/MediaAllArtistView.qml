@@ -102,7 +102,7 @@ Item {
                     id: contentDirectoryView
 
                     cellWidth: Screen.pixelDensity * 40.
-                    cellHeight: Screen.pixelDensity * 60.
+                    cellHeight: Screen.pixelDensity * 54.5
 
                     model: DelegateModel {
                         id: delegateContentModel

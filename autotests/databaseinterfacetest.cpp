@@ -57,6 +57,12 @@ private Q_SLOTS:
         musicDb.trackIdFromTitleAlbumArtist(QStringLiteral("track1"), QStringLiteral("album3"), QStringLiteral("artist2"));
     }
 
+    void avoidCrashInAllArtists()
+    {
+        DatabaseInterface musicDb;
+        musicDb.allArtists({});
+    }
+
     void addMultipleTimeSameTracks()
     {
         auto configDirectory = QDir(QStandardPaths::writableLocation(QStandardPaths::QStandardPaths::AppDataLocation));

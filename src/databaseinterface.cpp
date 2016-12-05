@@ -277,7 +277,9 @@ QVector<MusicArtist> DatabaseInterface::allArtists(QString filter) const
 {
     auto result = QVector<MusicArtist>();
 
-    qDebug() << "DatabaseInterface::allArtists" << filter;
+    if (!d) {
+        return result;
+    }
 
     auto transactionResult = startTransaction();
     if (!transactionResult) {

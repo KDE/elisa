@@ -63,6 +63,12 @@ private Q_SLOTS:
         musicDb.allArtists({});
     }
 
+    void avoidCrashInAllAlbums()
+    {
+        DatabaseInterface musicDb;
+        musicDb.allAlbums({});
+    }
+
     void addMultipleTimeSameTracks()
     {
         auto configDirectory = QDir(QStandardPaths::writableLocation(QStandardPaths::QStandardPaths::AppDataLocation));

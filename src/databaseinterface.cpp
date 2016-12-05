@@ -183,6 +183,10 @@ QVector<MusicAlbum> DatabaseInterface::allAlbums(QString filter) const
 {
     auto result = QVector<MusicAlbum>();
 
+    if (!d) {
+        return result;
+    }
+
     auto transactionResult = startTransaction();
     if (!transactionResult) {
         return result;

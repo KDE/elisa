@@ -377,13 +377,6 @@ ApplicationWindow {
                             width: viewModeView.width
                         }
 
-                        onCurrentRowChanged:
-                        {
-                            if (currentRow > 0) {
-                                mainContentView.currentIndex = currentRow - 1
-                            }
-                        }
-
                         onRowCountChanged:
                         {
                             viewModeView.selection.clear()
@@ -403,11 +396,8 @@ ApplicationWindow {
 
                         id: contentZone
 
-                        TabView {
+                        Item {
                             id: mainContentView
-
-                            tabsVisible: false
-                            frameVisible: false
 
                             Layout.leftMargin: Screen.pixelDensity * 0.5
                             Layout.rightMargin: Screen.pixelDensity * 0.5
@@ -421,34 +411,34 @@ ApplicationWindow {
                             //z: 1
                             visible: Layout.minimumWidth != 0
 
-                            Tab {
-                                MediaBrowser {
-                                    id: localAlbums
+                            MediaBrowser {
+                                id: localAlbums
 
-                                    anchors.fill: parent
+                                anchors.fill: parent
 
-                                    firstPage: MediaAllAlbumView {
-                                        playListModel: playListModelItem
-                                        musicDatabase: localAlbumDatabase
-                                        playerControl: manageAudioPlayer
-                                        stackView: localAlbums.stackView
-                                    }
+                                firstPage: MediaAllAlbumView {
+                                    playListModel: playListModelItem
+                                    musicDatabase: localAlbumDatabase
+                                    playerControl: manageAudioPlayer
+                                    stackView: localAlbums.stackView
                                 }
+
+                                visible: opacity > 0
                             }
 
-                            Tab {
-                                MediaBrowser {
-                                    id: localArtists
+                            MediaBrowser {
+                                id: localArtists
 
-                                    anchors.fill: parent
+                                anchors.fill: parent
 
-                                    firstPage: MediaAllArtistView {
-                                        playListModel: playListModelItem
-                                        musicDatabase: localAlbumDatabase
-                                        playerControl: manageAudioPlayer
-                                        stackView: localArtists.stackView
-                                    }
+                                firstPage: MediaAllArtistView {
+                                    playListModel: playListModelItem
+                                    musicDatabase: localAlbumDatabase
+                                    playerControl: manageAudioPlayer
+                                    stackView: localArtists.stackView
                                 }
+
+                                visible: opacity > 0
                             }
                         }
 
@@ -533,8 +523,8 @@ ApplicationWindow {
 
                     states: [
                         State {
-                            name: 'compact'
-                            when: viewModeView.currentRow > 0
+                            name: 'allAlbums'
+                            when: viewModeView.currentRow === 1
                             PropertyChanges {
                                 target: mainContentView
                                 Layout.minimumWidth: contentZone.width * 0.66
@@ -564,6 +554,56 @@ ApplicationWindow {
                                 Layout.minimumWidth: 0
                                 Layout.maximumWidth: 0
                                 Layout.preferredWidth: 0
+                            }
+                            PropertyChanges {
+                                target: localAlbums
+                                opacity: 1
+                            }
+                            PropertyChanges {
+                                target: localArtists
+                                opacity: 0
+                            }
+                        },
+                        State {
+                            name: 'allArtists'
+                            when: viewModeView.currentRow === 2
+                            PropertyChanges {
+                                target: mainContentView
+                                Layout.minimumWidth: contentZone.width * 0.66
+                                Layout.maximumWidth: contentZone.width * 0.66
+                                Layout.preferredWidth: contentZone.width * 0.66
+                            }
+                            PropertyChanges {
+                                target: firstViewSeparatorItem
+                                Layout.minimumWidth: 1
+                                Layout.maximumWidth: 1
+                                Layout.preferredWidth: 1
+                            }
+                            PropertyChanges {
+                                target: playList
+                                Layout.minimumWidth: contentZone.width * 0.33
+                                Layout.maximumWidth: contentZone.width * 0.33
+                                Layout.preferredWidth: contentZone.width * 0.33
+                            }
+                            PropertyChanges {
+                                target: viewSeparatorItem
+                                Layout.minimumWidth: 0
+                                Layout.maximumWidth: 0
+                                Layout.preferredWidth: 0
+                            }
+                            PropertyChanges {
+                                target: albumContext
+                                Layout.minimumWidth: 0
+                                Layout.maximumWidth: 0
+                                Layout.preferredWidth: 0
+                            }
+                            PropertyChanges {
+                                target: localAlbums
+                                opacity: 0
+                            }
+                            PropertyChanges {
+                                target: localArtists
+                                opacity: 1
                             }
                         },
                         State {
@@ -599,11 +639,19 @@ ApplicationWindow {
                                 Layout.maximumWidth: contentZone.width / 2
                                 Layout.preferredWidth: contentZone.width / 2
                             }
+                            PropertyChanges {
+                                target: localAlbums
+                                opacity: 0
+                            }
+                            PropertyChanges {
+                                target: localArtists
+                                opacity: 0
+                            }
                         }
                     ]
                     transitions: Transition {
                         NumberAnimation {
-                            properties: "Layout.minimumWidth, Layout.maximumWidth, Layout.preferredWidth"
+                            properties: "Layout.minimumWidth, Layout.maximumWidth, Layout.preferredWidth, opacity"
                             easing.type: Easing.InOutQuad
                             duration: 300
                         }

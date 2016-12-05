@@ -17,6 +17,7 @@ Item {
     Image {
         source: Qt.resolvedUrl('background.jpg')
 
+        anchors.margins: -2
         anchors.fill: parent
         fillMode: Image.PreserveAspectCrop
 
@@ -31,6 +32,8 @@ Item {
         Text {
             anchors.bottom: parent.bottom
             anchors.right: parent.right
+            anchors.bottomMargin: Screen.pixelDensity * 1.
+            anchors.rightMargin: Screen.pixelDensity * 1.
 
             text: i18nc("Copyright text shown for an image", "by Edward Betts (Own work) [CC BY-SA 3.0]")
             color: myPalette.highlightedText

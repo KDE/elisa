@@ -57,25 +57,54 @@ Rectangle {
             Layout.maximumHeight: Screen.pixelDensity * 0.5
         }
 
-        Image {
-            id: playIcon
-
-            width: parent.height * 0.7
-            height: parent.height * 0.7
-            sourceSize.width: parent.height * 0.7
-            sourceSize.height: parent.height * 0.7
-            fillMode: Image.PreserveAspectFit
+        Rectangle {
+            id: artistDecoration
 
             Layout.preferredWidth: mediaServerEntry.width * 0.9
             Layout.preferredHeight: mediaServerEntry.width * 0.9
 
             Layout.alignment: Qt.AlignHCenter
 
+            color: "steelblue"
+
+            Text {
+                anchors.fill: parent
+                anchors.margins: Screen.pixelDensity * 4.
+
+                text: mediaServerEntry.name.charAt(0)
+
+                color: "white"
+
+                fontSizeMode: Text.Fit
+                font.pixelSize: 150
+
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+            }
+
+            Loader {
+                anchors.fill: parent
+
+                active: false
+
+                Image {
+                    id: playIcon
+
+                    visible: false
+
+                    anchors.fill: parent
+
+                    sourceSize.width: mediaServerEntry.width * 0.9
+                    sourceSize.height: mediaServerEntry.width * 0.9
+                    fillMode: Image.PreserveAspectFit
+                }
+            }
+
             Loader {
                 id: hoverLoader
                 active: false
 
-                anchors.fill: parent
+                anchors.fill: artistDecoration
 
                 sourceComponent: Rectangle {
                     id: hoverLayer
@@ -136,7 +165,7 @@ Rectangle {
 
                 hoverEnabled: true
 
-                anchors.fill: parent
+                anchors.fill: artistDecoration
                 propagateComposedEvents: true
 
                 onEntered: hoverLoader.active = true

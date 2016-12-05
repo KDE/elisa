@@ -118,7 +118,11 @@ Item {
                             width: contentDirectoryView.cellWidth
                             height: contentDirectoryView.cellHeight
 
-                            image: model.image
+                            image: if (model.image)
+                                       model.image
+                                   else
+                                       ""
+
                             name: if (model.name)
                                       model.name
                                   else

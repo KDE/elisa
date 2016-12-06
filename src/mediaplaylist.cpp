@@ -275,6 +275,8 @@ void MediaPlayList::enqueue(MediaPlayListEntry newEntry)
     } else {
         if (d->mMusicDatabase && newEntry.mIsValid) {
             d->mTrackData.last() = d->mMusicDatabase->trackFromDatabaseId(newEntry.mId);
+
+            Q_EMIT dataChanged(index(rowCount() - 1, 0), index(rowCount() - 1, 0), {});
         }
     }
 

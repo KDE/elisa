@@ -16,8 +16,6 @@
         <file>media-skip-forward.svg</file>
         <file>player-volume-muted.svg</file>
         <file>player-volume.svg</file>
-        <file alias="MediaServerPage.qml">MediaServerPageMobile.qml</file>
-        <file alias="MediaPlayPage.qml">MediaPlayPageMobile.qml</file>
         <file>background.jpg</file>
         <file>ContextView.qml</file>
         <file>DraggableItem.qml</file>

@@ -20,37 +20,26 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         manageaudioplayer.cpp
 
         MediaServer.qml
-        MediaAlbumView.qml
+
         RatingStar.qml
         AudioTrackDelegate.qml
         PlayListEntry.qml
-        MediaPlayerControl.qml
-        MediaServerEntry.qml
         MediaAlbumDelegate.qml
         MediaArtistDelegate.qml
-        MediaAllAlbumView.qml
-        MediaArtistAlbumView.qml
-        MediaAllArtistView.qml
         MediaBrowser.qml
-        MediaPlayListView.qml
-        HeaderBar.qml
-        MediaServerMobile.qml
-        AbstractAudioTrackDelegateMobile.qml
-        AudioTrackDelegateMobile.qml
-        AlbumTrackDelegateMobile.qml
-        MediaServerMobile.qml
-        MediaServerListingMobile.qml
-        MediaAlbumViewMobile.qml
-        MediaPlayerControlMobile.qml
-        MediaServerEntryMobile.qml
-        MediaContentDirectoryMobile.qml
-        MediaServerPageMobile.qml
-        MediaPlayPageMobile.qml
-        HeaderBarMobile.qml
-        ContextView.qml
         DraggableItem.qml
         PassiveNotification.qml
+
+        HeaderBar.qml
         NavigationActionBar.qml
+        MediaPlayerControl.qml
+        ContextView.qml
+
+        MediaArtistAlbumView.qml
+        MediaPlayListView.qml
+        MediaAlbumView.qml
+        MediaAllAlbumView.qml
+        MediaAllArtistView.qml
         )
 
     if (KF5Baloo_FOUND)

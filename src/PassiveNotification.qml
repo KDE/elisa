@@ -42,9 +42,9 @@ MouseArea {
         appearAnimation.running = false;
         appearAnimation.appear = true;
         appearAnimation.running = true;
-        if (timeout == "short") {
+        if (timeout === "short") {
             timer.interval = 1000;
-        } else if (timeout == "long") {
+        } else if (timeout === "long") {
             timer.interval = 4500;
         } else if (timeout > 0) {
             timer.interval = timeout;

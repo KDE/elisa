@@ -138,7 +138,7 @@ Item {
 
             TextEdit {
                 readOnly: true
-                visible: playListModelDelegate.count == 0
+                visible: playListModelDelegate.count === 0
                 wrapMode: TextEdit.Wrap
                 renderType: TextEdit.NativeRendering
 

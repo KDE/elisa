@@ -291,7 +291,7 @@ ApplicationWindow {
                 playEnabled: myPlayControlManager.playControlEnabled
                 isPlaying: myPlayControlManager.musicPlaying
 
-                Layout.preferredHeight: Screen.pixelDensity * 10.
+                Layout.preferredHeight: Screen.pixelDensity * 12.
                 Layout.minimumHeight: Layout.preferredHeight
                 Layout.maximumHeight: Layout.preferredHeight
                 Layout.fillWidth: true

@@ -39,11 +39,6 @@ class AllArtistsModel : public QAbstractItemModel
                WRITE setDatabaseInterface
                NOTIFY databaseInterfaceChanged)
 
-    Q_PROPERTY(QString filter
-               READ filter
-               WRITE setFilter
-               NOTIFY filterChanged)
-
 public:
 
     enum ColumnsRoles {
@@ -52,6 +47,8 @@ public:
         ImageRole = ArtistsCountRole + 1,
         IdRole = ImageRole + 1,
     };
+
+    Q_ENUM(ColumnsRoles)
 
     explicit AllArtistsModel(QObject *parent = 0);
 
@@ -73,19 +70,13 @@ public:
 
     DatabaseInterface* databaseInterface() const;
 
-    QString filter() const;
-
 Q_SIGNALS:
 
     void databaseInterfaceChanged();
 
-    void filterChanged();
-
 public Q_SLOTS:
 
     void setDatabaseInterface(DatabaseInterface* databaseInterface);
-
-    void setFilter(const QString &filter);
 
 
 private Q_SLOTS:

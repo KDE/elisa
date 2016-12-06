@@ -69,7 +69,7 @@ public:
 
     QVector<MusicAlbum> allAlbumsFromArtist(QString artistName) const;
 
-    QVector<MusicArtist> allArtists(QString filter) const;
+    QVector<MusicArtist> allArtists() const;
 
     QVector<MusicAudioTrack> tracksFromAuthor(QString artistName) const;
 

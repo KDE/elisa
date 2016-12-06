@@ -107,11 +107,16 @@ Item {
                     model: DelegateModel {
                         id: delegateContentModel
 
-                        model: AllArtistsModel {
-                            id: allArtistsModel
+                        model: SortFilterProxyModel {
+                            sourceModel: AllArtistsModel {
+                                id: allArtistsModel
 
-                            databaseInterface: rootElement.musicDatabase
-                            filter: filterTextInput.text
+                                databaseInterface: rootElement.musicDatabase
+                            }
+
+                            filterRole: AllArtistsModel.NameRole
+
+                            filterRegExp: new RegExp(filterTextInput.text, 'i')
                         }
 
                         delegate: MediaArtistDelegate {

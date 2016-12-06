@@ -34,8 +34,6 @@ public:
     {
     }
 
-    QString mFilter;
-
     DatabaseInterface *mMusicDatabase = nullptr;
 
     QVector<MusicArtist> mAllArtists;
@@ -184,11 +182,6 @@ DatabaseInterface *AllArtistsModel::databaseInterface() const
     return d->mMusicDatabase;
 }
 
-QString AllArtistsModel::filter() const
-{
-    return d->mFilter;
-}
-
 void AllArtistsModel::setDatabaseInterface(DatabaseInterface *musicDatabase)
 {
     if (d->mMusicDatabase == musicDatabase) {
@@ -207,28 +200,11 @@ void AllArtistsModel::setDatabaseInterface(DatabaseInterface *musicDatabase)
     }
 
     beginResetModel();
-    d->mAllArtists = d->mMusicDatabase->allArtists(d->mFilter);
+    d->mAllArtists = d->mMusicDatabase->allArtists();
     d->mArtistsCount = d->mAllArtists.count();
     endResetModel();
 
     emit databaseInterfaceChanged();
-}
-
-void AllArtistsModel::setFilter(const QString &filter)
-{
-    if (d->mFilter == filter) {
-        return;
-    }
-
-    beginResetModel();
-
-    d->mFilter = filter;
-    d->mAllArtists = d->mMusicDatabase->allArtists(d->mFilter);
-    d->mArtistsCount = d->mAllArtists.count();
-
-    endResetModel();
-
-    Q_EMIT filterChanged();
 }
 
 void AllArtistsModel::beginArtistAdded(QVector<qulonglong> newArtists)
@@ -241,7 +217,7 @@ void AllArtistsModel::endArtistAdded(QVector<qulonglong> newArtists)
     Q_UNUSED(newArtists);
 
     beginResetModel();
-    d->mAllArtists = d->mMusicDatabase->allArtists(d->mFilter);
+    d->mAllArtists = d->mMusicDatabase->allArtists();
     d->mArtistsCount = d->mAllArtists.count();
 
     endResetModel();

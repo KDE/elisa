@@ -44,7 +44,7 @@ public:
           mUpdateAlbumQuery(mTracksDatabase), mSelectTracksFromArtist(mTracksDatabase),
           mSelectTrackFromIdQuery(mTracksDatabase), mSelectCountAlbumsForArtistQuery(mTracksDatabase),
           mSelectTrackIdFromTitleAlbumArtistQuery(mTracksDatabase), mSelectAllAlbumsWithFilterQuery(mTracksDatabase),
-          mSelectAllAlbumsFromArtistQuery(mTracksDatabase), mSelectAllArtistsWithFilterQuery(mTracksDatabase),
+          mSelectAllAlbumsFromArtistQuery(mTracksDatabase), mSelectAllArtistsQuery(mTracksDatabase),
           mInsertArtistsQuery(mTracksDatabase), mSelectArtistByNameQuery(mTracksDatabase)
     {
     }
@@ -79,7 +79,7 @@ public:
 
     QSqlQuery mSelectAllAlbumsFromArtistQuery;
 
-    QSqlQuery mSelectAllArtistsWithFilterQuery;
+    QSqlQuery mSelectAllArtistsQuery;
 
     QSqlQuery mInsertArtistsQuery;
 
@@ -277,7 +277,7 @@ QVector<MusicAlbum> DatabaseInterface::allAlbumsFromArtist(QString artistName) c
     return result;
 }
 
-QVector<MusicArtist> DatabaseInterface::allArtists(QString filter) const
+QVector<MusicArtist> DatabaseInterface::allArtists() const
 {
     auto result = QVector<MusicArtist>();
 
@@ -292,15 +292,13 @@ QVector<MusicArtist> DatabaseInterface::allArtists(QString filter) const
 
     QString currentFilter(QStringLiteral("%%1%"));
 
-    d->mSelectAllArtistsWithFilterQuery.bindValue(QStringLiteral(":filter"), currentFilter.arg(filter));
+    auto queryResult = d->mSelectAllArtistsQuery.exec();
 
-    auto queryResult = d->mSelectAllArtistsWithFilterQuery.exec();
+    if (!queryResult || !d->mSelectAllArtistsQuery.isSelect() || !d->mSelectAllArtistsQuery.isActive()) {
+        qDebug() << "DatabaseInterface::allArtists" << "not select" << d->mSelectAllArtistsQuery.lastQuery();
+        qDebug() << "DatabaseInterface::allArtists" << d->mSelectAllArtistsQuery.lastError();
 
-    if (!queryResult || !d->mSelectAllArtistsWithFilterQuery.isSelect() || !d->mSelectAllArtistsWithFilterQuery.isActive()) {
-        qDebug() << "DatabaseInterface::allArtists" << "not select" << d->mSelectAllArtistsWithFilterQuery.lastQuery();
-        qDebug() << "DatabaseInterface::allArtists" << d->mSelectAllArtistsWithFilterQuery.lastError();
-
-        d->mSelectAllArtistsWithFilterQuery.finish();
+        d->mSelectAllArtistsQuery.finish();
 
         transactionResult = finishTransaction();
         if (!transactionResult) {
@@ -310,11 +308,11 @@ QVector<MusicArtist> DatabaseInterface::allArtists(QString filter) const
         return result;
     }
 
-    while(d->mSelectAllArtistsWithFilterQuery.next()) {
+    while(d->mSelectAllArtistsQuery.next()) {
         auto newArtist = MusicArtist();
 
-        newArtist.setDatabaseId(d->mSelectAllArtistsWithFilterQuery.record().value(0).toULongLong());
-        newArtist.setName(d->mSelectAllArtistsWithFilterQuery.record().value(1).toString());
+        newArtist.setDatabaseId(d->mSelectAllArtistsQuery.record().value(0).toULongLong());
+        newArtist.setName(d->mSelectAllArtistsQuery.record().value(1).toString());
         newArtist.setValid(true);
 
         d->mSelectCountAlbumsForArtistQuery.bindValue(QStringLiteral(":artistName"), newArtist.name());
@@ -342,7 +340,7 @@ QVector<MusicArtist> DatabaseInterface::allArtists(QString filter) const
         result.push_back(newArtist);
     }
 
-    d->mSelectAllArtistsWithFilterQuery.finish();
+    d->mSelectAllArtistsQuery.finish();
 
     transactionResult = finishTransaction();
     if (!transactionResult) {
@@ -885,14 +883,12 @@ void DatabaseInterface::initRequest()
         auto selectAllArtistsWithFilterText = QStringLiteral("SELECT `ID`, "
                                                             "`Name` "
                                                             "FROM `Artists` "
-                                                            "WHERE "
-                                                            "`Name` like :filter "
                                                             "ORDER BY `Name`");
 
-        auto result = d->mSelectAllArtistsWithFilterQuery.prepare(selectAllArtistsWithFilterText);
+        auto result = d->mSelectAllArtistsQuery.prepare(selectAllArtistsWithFilterText);
 
         if (!result) {
-            qDebug() << "DatabaseInterface::initRequest" << selectAllArtistsWithFilterText << d->mSelectAllArtistsWithFilterQuery.lastError();
+            qDebug() << "DatabaseInterface::initRequest" << selectAllArtistsWithFilterText << d->mSelectAllArtistsQuery.lastError();
             qDebug() << d->mTracksDatabase.lastError();
         }
     }

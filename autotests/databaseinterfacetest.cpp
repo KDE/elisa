@@ -60,7 +60,7 @@ private Q_SLOTS:
     void avoidCrashInAllArtists()
     {
         DatabaseInterface musicDb;
-        musicDb.allArtists({});
+        musicDb.allArtists();
     }
 
     void avoidCrashInAllAlbums()

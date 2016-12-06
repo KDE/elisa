@@ -67,6 +67,8 @@
 #include <KCoreAddons/KAboutData>
 #endif
 
+#include <QtCore/QSortFilterProxyModel>
+
 #include <QtGui/QIcon>
 
 #include <QtWidgets/QApplication>
@@ -120,6 +122,7 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
     qmlRegisterType<AllArtistsModel>("org.mgallien.QmlExtension", 1, 0, "AllArtistsModel");
     qmlRegisterType<AlbumModel>("org.mgallien.QmlExtension", 1, 0, "AlbumModel");
     qmlRegisterType<MusicListenersManager>("org.mgallien.QmlExtension", 1, 0, "MusicListenersManager");
+    qmlRegisterType<QSortFilterProxyModel>("org.mgallien.QmlExtension", 1, 0, "SortFilterProxyModel");
 
 #if defined Qt5DBus_FOUND && Qt5DBus_FOUND
     qmlRegisterType<Mpris2>("org.mgallien.QmlExtension", 1, 0, "Mpris2");

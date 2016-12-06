@@ -108,11 +108,14 @@ Item {
                     model: DelegateModel {
                         id: delegateContentModel
 
-                        model: AllAlbumsModel {
-                            id: contentDirectoryModel
+                        model: AlbumFilterProxyModel {
+                            sourceModel: AllAlbumsModel {
+                                id: contentDirectoryModel
 
-                            databaseInterface: rootElement.musicDatabase
-                            artist: filterTextInput.text
+                                databaseInterface: rootElement.musicDatabase
+                            }
+
+                            filterText: filterTextInput.text
                         }
 
                         delegate: MediaAlbumDelegate {

@@ -18,6 +18,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         managemediaplayercontrol.cpp
         manageheaderbar.cpp
         manageaudioplayer.cpp
+        albumfilterproxymodel.cpp
 
         MediaServer.qml
 

@@ -71,6 +71,15 @@ Item {
         anchors.fill: parent
         spacing: 0
 
+        Text {
+            text: i18nc("text shown at the top of the play list", "Playlist")
+
+            Layout.topMargin: Screen.pixelDensity * 1.5
+            Layout.leftMargin: Screen.pixelDensity * 1.5
+            Layout.rightMargin: Screen.pixelDensity * 1.5
+            Layout.bottomMargin: Screen.pixelDensity * 3.5
+        }
+
         RowLayout {
             Layout.preferredHeight: Screen.pixelDensity * 5.5
             Layout.minimumHeight: Screen.pixelDensity * 5.5

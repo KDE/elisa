@@ -257,6 +257,7 @@ void MediaPlayList::enqueue(MediaPlayListEntry newEntry)
 
     beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size());
     d->mData.push_back(newEntry);
+    d->mTrackData.push_back({});
     endInsertRows();
 
     emit persistentStateChanged();
@@ -266,14 +267,14 @@ void MediaPlayList::enqueue(MediaPlayListEntry newEntry)
 
         if (newTrackId != 0) {
             d->mData.last().mId = newTrackId;
-            d->mTrackData.push_back(d->mMusicDatabase->trackFromDatabaseId(newTrackId));
+            d->mTrackData.last() = d->mMusicDatabase->trackFromDatabaseId(newTrackId);
             d->mData.last().mIsValid = true;
 
             Q_EMIT dataChanged(index(rowCount() - 1, 0), index(rowCount() - 1, 0), {});
         }
     } else {
         if (d->mMusicDatabase && newEntry.mIsValid) {
-            d->mTrackData.push_back(d->mMusicDatabase->trackFromDatabaseId(newEntry.mId));
+            d->mTrackData.last() = d->mMusicDatabase->trackFromDatabaseId(newEntry.mId);
         }
     }
 
@@ -506,7 +507,7 @@ void MediaPlayList::endTrackAdded(QVector<qulonglong> newTracks)
 
         if (newTrackId != 0) {
             oneEntry.mId = newTrackId;
-            d->mTrackData.push_back(d->mMusicDatabase->trackFromDatabaseId(newTrackId));
+            d->mTrackData[i] = d->mMusicDatabase->trackFromDatabaseId(newTrackId);
             oneEntry.mIsValid = true;
 
             Q_EMIT dataChanged(index(i, 0), index(i, 0), {});

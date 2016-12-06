@@ -61,6 +61,27 @@ private Q_SLOTS:
 
     void enqueueClearAndEnqueue();
 
+    void crashOnEnqueue();
+
+};
+
+class MediaPlayList;
+
+class CrashEnqueuePlayList : public QObject
+{
+    Q_OBJECT
+
+public:
+
+    CrashEnqueuePlayList(MediaPlayList *list, QObject *parent = 0);
+
+public Q_SLOTS:
+
+    void crashMediaPlayList();
+
+private:
+
+    MediaPlayList *mList = nullptr;
 };
 
 #endif // MEDIAPLAYLISTTEST_H

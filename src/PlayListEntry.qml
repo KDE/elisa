@@ -98,17 +98,22 @@ Rectangle {
 
                 Image {
                     id: mainIcon
+
                     source: itemDecoration
+
                     Layout.minimumWidth: headerRow.height - 4
                     Layout.maximumWidth: headerRow.height - 4
                     Layout.preferredWidth: headerRow.height - 4
                     Layout.minimumHeight: headerRow.height - 4
                     Layout.maximumHeight: headerRow.height - 4
                     Layout.preferredHeight: headerRow.height - 4
+                    Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+
                     sourceSize.width: headerRow.height - 4
                     sourceSize.height: parent.height - 4
+
                     fillMode: Image.PreserveAspectFit
-                    Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+                    asynchronous: true
                 }
 
                 ColumnLayout {

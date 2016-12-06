@@ -51,7 +51,7 @@ Rectangle {
 
     color: myPalette.base
 
-    height: (hasAlbumHeader ? (isSelected ? Screen.pixelDensity * 24.5 : Screen.pixelDensity * 21) : (isSelected ? Screen.pixelDensity * 9.5 : Screen.pixelDensity * 6.))
+    height: (hasAlbumHeader ? (isSelected && false ? Screen.pixelDensity * 24.5 : Screen.pixelDensity * 21) : (isSelected ? Screen.pixelDensity * 9.5 : Screen.pixelDensity * 6.))
 
     Action {
         id: removeFromPlayList
@@ -180,6 +180,9 @@ Rectangle {
                 ToolButton {
                     id: playNowButton
 
+                    implicitHeight: Screen.pixelDensity * 5.
+                    implicitWidth: Screen.pixelDensity * 5.
+
                     visible: opacity > 0.1
                     action: playNow
                     Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
@@ -187,6 +190,9 @@ Rectangle {
 
                 ToolButton {
                     id: removeButton
+
+                    implicitHeight: Screen.pixelDensity * 5.
+                    implicitWidth: Screen.pixelDensity * 5.
 
                     visible: opacity > 0.1
                     action: removeFromPlayList
@@ -284,7 +290,7 @@ Rectangle {
             when: isSelected
             PropertyChanges {
                 target: viewAlbumDelegate
-                height: Screen.pixelDensity * (hasAlbumHeader ? 24.5 : 9.5)
+                height: Screen.pixelDensity * (hasAlbumHeader ? 21 : 6)
             }
             PropertyChanges {
                 target: removeButton
@@ -304,7 +310,7 @@ Rectangle {
             when: !isSelected && containsMouse
             PropertyChanges {
                 target: viewAlbumDelegate
-                height: Screen.pixelDensity * (hasAlbumHeader ? 24.5 : 9.5)
+                height: Screen.pixelDensity * (hasAlbumHeader ? 21 : 6)
             }
             PropertyChanges {
                 target: removeButton

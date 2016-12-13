@@ -195,7 +195,7 @@ void UpnpDiscoverAllMusic::descriptionParsed(const QString &UDN)
 
     connect(currentDidlParser, &DidlParser::isDataValidChanged, this, &UpnpDiscoverAllMusic::contentChanged);
 
-    currentDidlParser->search(0, 100);
+    currentDidlParser->search(0, 0);
 }
 
 void UpnpDiscoverAllMusic::contentChanged(const QString &uuid, const QString &parentId)

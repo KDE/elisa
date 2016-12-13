@@ -56,30 +56,23 @@ Rectangle {
             Layout.maximumHeight: Screen.pixelDensity * 0.5
         }
 
-        Rectangle {
+        Image {
             id: artistDecoration
+
+            source: 'image://icon/view-media-artist'
 
             Layout.preferredWidth: mediaServerEntry.width * 0.9
             Layout.preferredHeight: mediaServerEntry.width * 0.9
 
+            width: mediaServerEntry.width * 0.9
+            height: mediaServerEntry.width * 0.9
+
+            sourceSize.width: mediaServerEntry.width * 0.9
+            sourceSize.height: mediaServerEntry.width * 0.9
+
+            fillMode: Image.PreserveAspectFit
+
             Layout.alignment: Qt.AlignHCenter
-
-            color: "steelblue"
-
-            Text {
-                anchors.fill: parent
-                anchors.margins: Screen.pixelDensity * 4.
-
-                text: mediaServerEntry.name.charAt(0)
-
-                color: "white"
-
-                fontSizeMode: Text.Fit
-                font.pixelSize: 150
-
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-            }
 
             Loader {
                 anchors.fill: parent

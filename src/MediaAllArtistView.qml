@@ -102,7 +102,7 @@ Item {
                     id: contentDirectoryView
 
                     cellWidth: Screen.pixelDensity * 40.
-                    cellHeight: Screen.pixelDensity * 54.5
+                    cellHeight: Screen.pixelDensity * 46
 
                     model: DelegateModel {
                         id: delegateContentModel
@@ -132,10 +132,6 @@ Item {
                                       model.name
                                   else
                                       ""
-                            albumsNumber: if (model.albumsCount !== undefined)
-                                              i18ncp("Number of albums for an artist", "1 album", "%1 albums", model.albumsCount)
-                                          else
-                                              i18nc("Number of albums for an artist", "0 album")
 
                             stackView: rootElement.stackView
 

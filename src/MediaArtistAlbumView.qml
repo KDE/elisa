@@ -36,7 +36,6 @@ Item {
     property var musicDatabase
 
     property alias artistName: navBar.artist
-    property alias albumsCount: navBar.tracksCount
 
     id: rootElement
 

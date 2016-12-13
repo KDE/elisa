@@ -35,7 +35,6 @@ Rectangle {
     property var musicDatabase
     property alias image: playIcon.source
     property alias name: nameLabel.text
-    property alias albumsNumber: numberLabel.text
 
     id: mediaServerEntry
 
@@ -136,7 +135,6 @@ Rectangle {
                                                        playerControl: mediaServerEntry.playerControl,
                                                        stackView: mediaServerEntry.stackView,
                                                        artistName: name,
-                                                       albumsCount: albumsNumber
                                                    }})
                             }
                         }
@@ -177,18 +175,6 @@ Rectangle {
             id: nameLabel
 
             font.weight: Font.Bold
-            horizontalAlignment: Text.AlignLeft
-
-            Layout.preferredWidth: mediaServerEntry.width * 0.9
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
-
-            elide: "ElideRight"
-        }
-
-        Text {
-            id: numberLabel
-
-            font.weight: Font.Light
             horizontalAlignment: Text.AlignLeft
 
             Layout.preferredWidth: mediaServerEntry.width * 0.9

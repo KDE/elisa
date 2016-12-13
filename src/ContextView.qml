@@ -125,16 +125,22 @@ Item {
 
             Image {
                 id: artistJumpIcon
+
                 source: 'image://icon/view-media-artist'
+
                 Layout.preferredWidth: width
                 Layout.preferredHeight: height
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
                 Layout.maximumWidth: width
                 Layout.maximumHeight: height
+
+                visible: artistName !== undefined
                 width: Screen.pixelDensity * 8.
                 height: Screen.pixelDensity * 8.
+
                 sourceSize.width: width
                 sourceSize.height: width
+
                 fillMode: Image.PreserveAspectFit
             }
 

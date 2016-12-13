@@ -94,6 +94,8 @@ public:
 
     QStringList allArtists() const;
 
+    QStringList allTracksTitle() const;
+
 private:
 
     MusicAlbumPrivate *d;

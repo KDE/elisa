@@ -217,3 +217,17 @@ QStringList MusicAlbum::allArtists() const
     return result;
 }
 
+QStringList MusicAlbum::allTracksTitle() const
+{
+    auto result = QList<QString>();
+
+    for (const auto &oneTrack : d->mTracks) {
+        result.push_back(oneTrack.title());
+    }
+
+    std::sort(result.begin(), result.end());
+    result.erase(std::unique(result.begin(), result.end()), result.end());
+
+    return result;
+}
+

@@ -53,16 +53,38 @@ void AlbumFilterProxyModel::setFilterText(QString filterText)
 
 bool AlbumFilterProxyModel::filterAcceptsRow(int source_row, const QModelIndex &source_parent) const
 {
-    bool result = true;
+    bool result = false;
 
-    for (int column = 0, columnCount = sourceModel()->columnCount(source_parent); result && column < columnCount; ++column) {
+    for (int column = 0, columnCount = sourceModel()->columnCount(source_parent); column < columnCount; ++column) {
         auto currentIndex = sourceModel()->index(source_row, column, source_parent);
 
         const auto &titleValue = sourceModel()->data(currentIndex, AllAlbumsModel::TitleRole).toString();
         const auto &artistValue = sourceModel()->data(currentIndex, AllAlbumsModel::ArtistRole).toString();
+        const auto &allArtistsValue = sourceModel()->data(currentIndex, AllAlbumsModel::AllArtistsRole).toStringList();
+        const auto &allTracksTitleValue = sourceModel()->data(currentIndex, AllAlbumsModel::AllTracksTitleRole).toStringList();
 
-        if (!mFilterExpression.match(titleValue).hasMatch() && !mFilterExpression.match(artistValue).hasMatch()) {
-            result = false;
+        if (mFilterExpression.match(titleValue).hasMatch()) {
+            result = true;
+            continue;
+        }
+
+        if (mFilterExpression.match(artistValue).hasMatch()) {
+            result = true;
+            continue;
+        }
+
+        for (const auto &oneArtist : allArtistsValue) {
+            if (mFilterExpression.match(oneArtist).hasMatch()) {
+                result = true;
+                break;
+            }
+        }
+        if (result) {
+            continue;
+        }
+
+        if (!result) {
+            break;
         }
     }
 

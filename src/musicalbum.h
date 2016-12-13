@@ -25,6 +25,7 @@
 #include <QtCore/QString>
 #include <QtCore/QUrl>
 #include <QtCore/QMap>
+#include <QtCore/QStringList>
 
 class MusicAlbumPrivate;
 
@@ -90,6 +91,8 @@ public:
     void setTrackIds(const QList<qulonglong> &allTracksIds);
 
     qulonglong trackIdFromIndex(int index) const;
+
+    QStringList allArtists() const;
 
 private:
 

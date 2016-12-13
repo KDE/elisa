@@ -19,6 +19,8 @@
 
 #include "musicalbum.h"
 
+#include <algorithm>
+
 class MusicAlbumPrivate
 {
 public:
@@ -199,5 +201,19 @@ void MusicAlbum::setTrackIds(const QList<qulonglong> &allTracksIds)
 qulonglong MusicAlbum::trackIdFromIndex(int index) const
 {
     return d->mTrackIds[index];
+}
+
+QStringList MusicAlbum::allArtists() const
+{
+    auto result = QList<QString>();
+
+    for (const auto &oneTrack : d->mTracks) {
+        result.push_back(oneTrack.artist());
+    }
+
+    std::sort(result.begin(), result.end());
+    result.erase(std::unique(result.begin(), result.end()), result.end());
+
+    return result;
 }
 

@@ -80,6 +80,7 @@ QHash<int, QByteArray> AllAlbumsModel::roleNames() const
     roles[static_cast<int>(ColumnsRoles::TitleRole)] = "title";
     roles[static_cast<int>(ColumnsRoles::DurationRole)] = "duration";
     roles[static_cast<int>(ColumnsRoles::ArtistRole)] = "artist";
+    roles[static_cast<int>(ColumnsRoles::AllArtistsRole)] = "allArtists";
     roles[static_cast<int>(ColumnsRoles::AlbumRole)] = "album";
     roles[static_cast<int>(ColumnsRoles::TrackNumberRole)] = "trackNumber";
     roles[static_cast<int>(ColumnsRoles::RatingRole)] = "rating";
@@ -160,6 +161,9 @@ QVariant AllAlbumsModel::internalDataAlbum(int albumIndex, int role) const
         break;
     case ColumnsRoles::ArtistRole:
         result = d->mAllAlbums[albumIndex].artist();
+        break;
+    case ColumnsRoles::AllArtistsRole:
+        result = d->mAllAlbums[albumIndex].allArtists();
         break;
     case ColumnsRoles::AlbumRole:
         break;

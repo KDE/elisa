@@ -1,11 +1,15 @@
 Toto list:
 
-* support albums with multiple discs
-* support multiple selection with Ctrl+Click
 * finish MPRIS2 support (current position and seek
+* restore track position on quit and start
+* support albums with multiple discs
+* improve management of album from various artists
+* fix all albums model when new albums are added
+* incremental changes from Baloo (new tracks, modified tracks, removed tracks)
+
+* support multiple selection with Ctrl+Click
 * improve and measure test coverage
 * improve the album list view (consistency with the other views)
-* restore track position on quit and start
 * add drag and drop to the play list
-* improve management of album from various artists
 * bring back UPnP support
+* add support to cancel at least some operations on play lists

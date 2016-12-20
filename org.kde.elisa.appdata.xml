@@ -16,7 +16,6 @@
   <name xml:lang="uk">Elisa</name>
   <name xml:lang="x-test">xxElisaxx</name>
   <summary>Simple Music Player</summary>
-  <summary xml:lang="ast">Reproductor cenciellu de música</summary>
   <summary xml:lang="ca">Reproductor de música senzill</summary>
   <summary xml:lang="ca-valencia">Reproductor de música senzill</summary>
   <summary xml:lang="cs">Jednoduchý přehrávač hudby</summary>
@@ -29,7 +28,6 @@
   <summary xml:lang="x-test">xxSimple Music Playerxx</summary>
   <description>
     <p> A simple music player that should be easy to use. It does not require any configuration before one can use it. </p>
-    <p xml:lang="ast">Un reproductor de música cenciellu que debería ser fácil d'usar. Nun rique configuración dala enantes que daquién puea usalu.</p>
     <p xml:lang="ca">Un reproductor de música senzill que hauria de ser fàcil d'utilitzar. No requereix cap configuració abans de poder utilitzar-lo.</p>
     <p xml:lang="ca-valencia">Un reproductor de música senzill que hauria de ser fàcil d'utilitzar. No requereix cap configuració abans de poder utilitzar-lo.</p>
     <p xml:lang="de">Ein einfacher Medienspieler, der leicht zu benutzen sein sollte. Er kann ganz ohne vorherige Konfiguration verwendet werden.</p>

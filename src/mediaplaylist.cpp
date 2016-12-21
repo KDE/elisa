@@ -494,6 +494,8 @@ void MediaPlayList::removeSelection(QList<int> selection)
 
 void MediaPlayList::endTrackAdded(QVector<qulonglong> newTracks)
 {
+    Q_UNUSED(newTracks);
+
     for (int i = 0; i < d->mData.size(); ++i) {
         auto &oneEntry = d->mData[i];
 

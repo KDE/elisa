@@ -279,7 +279,6 @@ private Q_SLOTS:
         auto firstAlbumArtist = allAlbums[0].artist();
         auto firstAlbumImage = allAlbums[0].albumArtURI();
         auto firstAlbumTracksCount = allAlbums[0].tracksCount();
-        auto firstAlbumId = allAlbums[0].databaseId();
 
         QCOMPARE(firstAlbumTitle, QStringLiteral("album1"));
         QCOMPARE(firstAlbumArtist, QStringLiteral("artist1"));
@@ -430,7 +429,6 @@ private Q_SLOTS:
         auto firstAlbumArtist = allAlbums[0].artist();
         auto firstAlbumImage = allAlbums[0].albumArtURI();
         auto firstAlbumTracksCount = allAlbums[0].tracksCount();
-        auto firstAlbumId = allAlbums[0].databaseId();
 
         QCOMPARE(firstAlbumTitle, QStringLiteral("album1"));
         QCOMPARE(firstAlbumArtist, QStringLiteral("artist1"));
@@ -580,7 +578,6 @@ private Q_SLOTS:
         auto firstAlbumArtist = allAlbums[0].artist();
         auto firstAlbumImage = allAlbums[0].albumArtURI();
         auto firstAlbumTracksCount = allAlbums[0].tracksCount();
-        auto firstAlbumId = allAlbums[0].databaseId();
 
         QCOMPARE(firstAlbumTitle, QStringLiteral("album1"));
         QCOMPARE(firstAlbumArtist, QStringLiteral("Various Artists"));

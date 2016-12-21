@@ -213,6 +213,10 @@ void ManageMediaPlayerControl::setRandomOrContinuePlay(bool randomOrContinuePlay
 
 void ManageMediaPlayerControl::playListTracksWillBeInserted(const QModelIndex &parent, int first, int last)
 {
+    Q_UNUSED(parent);
+    Q_UNUSED(first);
+    Q_UNUSED(last);
+
     mSkipBackwardControlWasEnabled = skipBackwardControlEnabled();
     mSkipForwardControlWasEnabled = skipForwardControlEnabled();
 }
@@ -220,6 +224,8 @@ void ManageMediaPlayerControl::playListTracksWillBeInserted(const QModelIndex &p
 void ManageMediaPlayerControl::playListTracksInserted(const QModelIndex &parent, int first, int last)
 {
     Q_UNUSED(parent);
+    Q_UNUSED(first);
+    Q_UNUSED(last);
 
     if (!mCurrentTrack.isValid()) {
         mSkipBackwardControlWasEnabled = false;
@@ -259,6 +265,8 @@ void ManageMediaPlayerControl::playListTracksWillBeRemoved(const QModelIndex &pa
 void ManageMediaPlayerControl::playListTracksRemoved(const QModelIndex &parent, int first, int last)
 {
     Q_UNUSED(parent);
+    Q_UNUSED(first);
+    Q_UNUSED(last);
 
     if (mCurrentTrackWillBeRemoved) {
         Q_EMIT currentTrackChanged();

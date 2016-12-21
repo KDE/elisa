@@ -79,10 +79,12 @@ void LocalBalooFileListing::init()
 
 void LocalBalooFileListing::slotFinishedIndexingFile(QString fileName)
 {
+    Q_UNUSED(fileName);
 }
 
 void LocalBalooFileListing::slotFileMetaDataChanged(QStringList fileList)
 {
+    Q_UNUSED(fileList);
 }
 
 void LocalBalooFileListing::refreshContent()

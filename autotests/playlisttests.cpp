@@ -41,7 +41,7 @@ private Q_SLOTS:
 
     void searchAll()
     {
-        QFETCH(int, searchType);
+        //QFETCH(int, searchType);
 
         MediaPlayList playList;
         PlayListControler playListControler;

@@ -151,14 +151,12 @@ void PlayListControler::tracksInserted(const QModelIndex &parent, int first, int
 
 void PlayListControler::tracksDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles)
 {
+    Q_UNUSED(topLeft);
+    Q_UNUSED(bottomRight);
+    Q_UNUSED(roles);
+
     if (!mCurrentTrack.isValid()) {
         resetCurrentTrack();
-    }
-
-    for (auto oneRole : roles) {
-        if (!mCurrentTrack.isValid()) {
-            resetCurrentTrack();
-        }
     }
 }
 

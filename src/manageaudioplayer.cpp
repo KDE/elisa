@@ -333,6 +333,7 @@ void ManageAudioPlayer::setPersistentState(QVariantMap persistentStateValue)
 
 void ManageAudioPlayer::playerSeek(int position)
 {
+    Q_UNUSED(position);
 }
 
 void ManageAudioPlayer::playListFinished()

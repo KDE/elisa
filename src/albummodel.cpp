@@ -312,10 +312,13 @@ void AlbumModel::setAuthor(QString author)
 
 void AlbumModel::beginTrackAdded(QVector<qulonglong> newTracks)
 {
+    Q_UNUSED(newTracks);
 }
 
 void AlbumModel::endTrackAdded(QVector<qulonglong> newTracks)
 {
+    Q_UNUSED(newTracks);
+
     beginResetModel();
     endResetModel();
 }

@@ -331,6 +331,8 @@ void AllAlbumsModel::beginAlbumAdded(QVector<qulonglong> newAlbums)
 
 void AllAlbumsModel::endAlbumAdded(QVector<qulonglong> newAlbums)
 {
+    Q_UNUSED(newAlbums);
+
     beginResetModel();
     if (!d->mExactMatch) {
         d->mAllAlbums = d->mMusicDatabase->allAlbums(d->mArtist);

@@ -241,6 +241,7 @@ void MediaPlayer2Player::SetPosition(QDBusObjectPath trackId, qlonglong pos) con
 
 void MediaPlayer2Player::OpenUri(QString uri) const
 {
+    Q_UNUSED(uri);
 }
 
 void MediaPlayer2Player::playerSourceChanged()

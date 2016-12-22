@@ -378,13 +378,14 @@ QVector<MusicAudioTrack> DatabaseInterface::tracksFromAuthor(QString artistName)
 
         newTrack.setDatabaseId(d->mSelectTracksFromArtist.record().value(1).toULongLong());
         newTrack.setTitle(d->mSelectTracksFromArtist.record().value(0).toString());
-        newTrack.setAlbumName(d->mSelectTracksFromArtist.record().value(7).toString());
-        newTrack.setAlbumArtist(d->mSelectTracksFromArtist.record().value(8).toString());
+        newTrack.setAlbumName(d->mSelectTracksFromArtist.record().value(8).toString());
+        newTrack.setAlbumArtist(d->mSelectTracksFromArtist.record().value(9).toString());
         newTrack.setArtist(d->mSelectTracksFromArtist.record().value(2).toString());
         newTrack.setResourceURI(d->mSelectTracksFromArtist.record().value(3).toUrl());
-        newTrack.setAlbumCover(d->mSelectTracksFromArtist.record().value(6).toUrl());
+        newTrack.setAlbumCover(d->mSelectTracksFromArtist.record().value(7).toUrl());
         newTrack.setTrackNumber(d->mSelectTracksFromArtist.record().value(4).toInt());
-        newTrack.setDuration(QTime::fromMSecsSinceStartOfDay(d->mSelectTracksFromArtist.record().value(5).toInt()));
+        newTrack.setDiscNumber(d->mSelectTracksFromArtist.record().value(5).toInt());
+        newTrack.setDuration(QTime::fromMSecsSinceStartOfDay(d->mSelectTracksFromArtist.record().value(7).toInt()));
         newTrack.setValid(true);
 
         allTracks.push_back(newTrack);
@@ -445,11 +446,12 @@ MusicAudioTrack DatabaseInterface::trackFromDatabaseId(qulonglong id) const
     result.setAlbumName(internalAlbumDataFromId(d->mSelectTrackFromIdQuery.record().value(1).toULongLong(), DatabaseInterface::AlbumData::Title).toString());
     result.setArtist(d->mSelectTrackFromIdQuery.record().value(2).toString());
     result.setAlbumArtist(d->mSelectTrackFromIdQuery.record().value(3).toString());
-    result.setDuration(QTime::fromMSecsSinceStartOfDay(d->mSelectTrackFromIdQuery.record().value(6).toLongLong()));
+    result.setDuration(QTime::fromMSecsSinceStartOfDay(d->mSelectTrackFromIdQuery.record().value(7).toLongLong()));
     result.setResourceURI(d->mSelectTrackFromIdQuery.record().value(4).toUrl());
     result.setAlbumCover(internalAlbumDataFromId(d->mSelectTrackFromIdQuery.record().value(1).toULongLong(), DatabaseInterface::AlbumData::Image).toUrl());
     result.setTitle(d->mSelectTrackFromIdQuery.record().value(0).toString());
     result.setTrackNumber(d->mSelectTrackFromIdQuery.record().value(5).toInt());
+    result.setDiscNumber(d->mSelectTrackFromIdQuery.record().value(6).toInt());
     result.setValid(true);
 
     d->mSelectTrackFromIdQuery.finish();
@@ -754,6 +756,7 @@ void DatabaseInterface::initDatabase() const
                                                                    "`ArtistID` INTEGER NOT NULL, "
                                                                    "`FileName` TEXT NOT NULL UNIQUE, "
                                                                    "`TrackNumber` INTEGER NOT NULL, "
+                                                                   "`DiscNumber` INTEGER, "
                                                                    "`Duration` INTEGER NOT NULL, "
                                                                    "UNIQUE (`Title`, `AlbumID`, `ArtistID`), "
                                                                    "CONSTRAINT fk_album FOREIGN KEY (`AlbumID`) REFERENCES `Albums`(`ID`), "
@@ -964,6 +967,7 @@ void DatabaseInterface::initRequest()
                                                    "artistAlbum.`Name`, "
                                                    "tracks.`FileName`, "
                                                    "tracks.`TrackNumber`, "
+                                                   "tracks.`DiscNumber`, "
                                                    "tracks.`Duration` "
                                                    "FROM `Tracks` tracks, `Artists` artist, `Artists` artistAlbum, `Albums` album "
                                                    "WHERE "
@@ -988,6 +992,7 @@ void DatabaseInterface::initRequest()
                                                          "artistAlbum.`Name`, "
                                                          "tracks.`FileName`, "
                                                          "tracks.`TrackNumber`, "
+                                                         "tracks.`DiscNumber`, "
                                                          "tracks.`Duration` "
                                                          "FROM `Tracks` tracks, `Artists` artist, `Artists` artistAlbum, `Albums` album "
                                                          "WHERE "
@@ -1108,6 +1113,7 @@ void DatabaseInterface::initRequest()
                                                               "artist.`Name`, "
                                                               "tracks.`FileName`, "
                                                               "tracks.`TrackNumber`, "
+                                                              "tracks.`DiscNumber`, "
                                                               "tracks.`Duration`, "
                                                               "albums.`CoverFileName`, "
                                                               "albums.`Title`, "
@@ -1207,7 +1213,8 @@ QMap<qulonglong, MusicAudioTrack> DatabaseInterface::fetchTracks(qulonglong albu
         newTrack.setAlbumArtist(d->mSelectTrackQuery.record().value(4).toString());
         newTrack.setResourceURI(d->mSelectTrackQuery.record().value(5).toUrl());
         newTrack.setTrackNumber(d->mSelectTrackQuery.record().value(6).toInt());
-        newTrack.setDuration(QTime::fromMSecsSinceStartOfDay(d->mSelectTrackQuery.record().value(7).toInt()));
+        newTrack.setDiscNumber(d->mSelectTrackQuery.record().value(7).toInt());
+        newTrack.setDuration(QTime::fromMSecsSinceStartOfDay(d->mSelectTrackQuery.record().value(8).toInt()));
         newTrack.setValid(true);
 
         allTracks[newTrack.databaseId()] = newTrack;

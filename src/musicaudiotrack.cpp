@@ -40,6 +40,17 @@ public:
     {
     }
 
+    MusicAudioTrackPrivate(bool aValid, QString aId, QString aParentId,
+                           QString aTitle, QString aArtist, QString aAlbumName, QString aAlbumArtist,
+                           int aTrackNumber, int aDiscNumber, QTime aDuration, QUrl aResourceURI,
+                           QUrl aAlbumCover)
+        : mId(aId), mParentId(aParentId), mTitle(aTitle), mArtist(aArtist),
+          mAlbumName(aAlbumName), mAlbumArtist(aAlbumArtist), mTrackNumber(aTrackNumber),
+          mDiscNumber(aDiscNumber), mDuration(aDuration), mResourceURI(aResourceURI),
+          mAlbumCover(aAlbumCover), mIsValid(aValid)
+    {
+    }
+
     qulonglong mDatabaseId = 0;
 
     QString mId;
@@ -55,6 +66,8 @@ public:
     QString mAlbumArtist;
 
     int mTrackNumber = -1;
+
+    int mDiscNumber = -1;
 
     QTime mDuration;
 
@@ -74,6 +87,14 @@ MusicAudioTrack::MusicAudioTrack(bool aValid, QString aId, QString aParentId,
                                  QString aTitle, QString aArtist, QString aAlbumName, QString aAlbumArtist,
                                  int aTrackNumber, QTime aDuration, QUrl aResourceURI, QUrl aAlbumCover)
     : d(new MusicAudioTrackPrivate(aValid, aId, aParentId, aTitle, aArtist, aAlbumName, aAlbumArtist, aTrackNumber, aDuration, aResourceURI, aAlbumCover))
+{
+}
+
+MusicAudioTrack::MusicAudioTrack(bool aValid, QString aId, QString aParentId,
+                                 QString aTitle, QString aArtist, QString aAlbumName,
+                                 QString aAlbumArtist, int aTrackNumber, int aDiscNumber,
+                                 QTime aDuration, QUrl aResourceURI, QUrl aAlbumCover)
+    : d(new MusicAudioTrackPrivate(aValid, aId, aParentId, aTitle, aArtist, aAlbumName, aAlbumArtist, aTrackNumber, aDiscNumber, aDuration, aResourceURI, aAlbumCover))
 {
 }
 
@@ -214,6 +235,16 @@ void MusicAudioTrack::setTrackNumber(int value)
 int MusicAudioTrack::trackNumber() const
 {
     return d->mTrackNumber;
+}
+
+void MusicAudioTrack::setDiscNumber(int value)
+{
+    d->mDiscNumber = value;
+}
+
+int MusicAudioTrack::discNumber() const
+{
+    return d->mDiscNumber;
 }
 
 void MusicAudioTrack::setDuration(const QTime &value)

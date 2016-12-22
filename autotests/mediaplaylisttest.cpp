@@ -158,7 +158,7 @@ void MediaPlayListTest::simpleInitialCase()
     QCOMPARE(trackHasBeenAddedSpy.count(), 1);
     QCOMPARE(databaseInterfaceChangedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 1);
-    QCOMPARE(dataChangedSpy.count(), 0);
+    QCOMPARE(dataChangedSpy.count(), 1);
 }
 
 void MediaPlayListTest::enqueueAlbumCase()
@@ -277,7 +277,7 @@ void MediaPlayListTest::enqueueAlbumCase()
     QCOMPARE(trackHasBeenAddedSpy.count(), 6);
     QCOMPARE(databaseInterfaceChangedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 6);
-    QCOMPARE(dataChangedSpy.count(), 0);
+    QCOMPARE(dataChangedSpy.count(), 6);
 }
 
 void MediaPlayListTest::removeFirstTrackOfAlbum()
@@ -396,7 +396,7 @@ void MediaPlayListTest::removeFirstTrackOfAlbum()
     QCOMPARE(trackHasBeenAddedSpy.count(), 6);
     QCOMPARE(databaseInterfaceChangedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 6);
-    QCOMPARE(dataChangedSpy.count(), 0);
+    QCOMPARE(dataChangedSpy.count(), 6);
 
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), false);
@@ -416,7 +416,7 @@ void MediaPlayListTest::removeFirstTrackOfAlbum()
     QCOMPARE(trackHasBeenAddedSpy.count(), 6);
     QCOMPARE(databaseInterfaceChangedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 7);
-    QCOMPARE(dataChangedSpy.count(), 1);
+    QCOMPARE(dataChangedSpy.count(), 7);
 
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), false);
@@ -542,7 +542,7 @@ void MediaPlayListTest::testHasHeader()
     QCOMPARE(trackHasBeenAddedSpy.count(), 1);
     QCOMPARE(databaseInterfaceChangedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 1);
-    QCOMPARE(dataChangedSpy.count(), 0);
+    QCOMPARE(dataChangedSpy.count(), 1);
 
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
 
@@ -558,7 +558,7 @@ void MediaPlayListTest::testHasHeader()
     QCOMPARE(trackHasBeenAddedSpy.count(), 2);
     QCOMPARE(databaseInterfaceChangedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 2);
-    QCOMPARE(dataChangedSpy.count(), 0);
+    QCOMPARE(dataChangedSpy.count(), 2);
 
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
@@ -575,7 +575,7 @@ void MediaPlayListTest::testHasHeader()
     QCOMPARE(trackHasBeenAddedSpy.count(), 3);
     QCOMPARE(databaseInterfaceChangedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 3);
-    QCOMPARE(dataChangedSpy.count(), 0);
+    QCOMPARE(dataChangedSpy.count(), 3);
 
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
@@ -593,7 +593,7 @@ void MediaPlayListTest::testHasHeader()
     QCOMPARE(trackHasBeenAddedSpy.count(), 4);
     QCOMPARE(databaseInterfaceChangedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 4);
-    QCOMPARE(dataChangedSpy.count(), 0);
+    QCOMPARE(dataChangedSpy.count(), 4);
 
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
@@ -611,7 +611,7 @@ void MediaPlayListTest::testHasHeader()
     QCOMPARE(trackHasBeenAddedSpy.count(), 4);
     QCOMPARE(databaseInterfaceChangedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 5);
-    QCOMPARE(dataChangedSpy.count(), 1);
+    QCOMPARE(dataChangedSpy.count(), 5);
 
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
@@ -798,7 +798,7 @@ void MediaPlayListTest::testHasHeaderWithRestore()
     QCOMPARE(trackHasBeenAddedSpy.count(), 4);
     QCOMPARE(databaseInterfaceChangedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 4);
-    QCOMPARE(dataChangedSpy.count(), 8);
+    QCOMPARE(dataChangedSpy.count(), 7);
 
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
@@ -923,7 +923,7 @@ void MediaPlayListTest::testHasHeaderWithRemove()
     QCOMPARE(trackHasBeenAddedSpy.count(), 1);
     QCOMPARE(databaseInterfaceChangedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 1);
-    QCOMPARE(dataChangedSpy.count(), 0);
+    QCOMPARE(dataChangedSpy.count(), 1);
 
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
 
@@ -939,7 +939,7 @@ void MediaPlayListTest::testHasHeaderWithRemove()
     QCOMPARE(trackHasBeenAddedSpy.count(), 2);
     QCOMPARE(databaseInterfaceChangedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 2);
-    QCOMPARE(dataChangedSpy.count(), 0);
+    QCOMPARE(dataChangedSpy.count(), 2);
 
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), false);
@@ -956,7 +956,7 @@ void MediaPlayListTest::testHasHeaderWithRemove()
     QCOMPARE(trackHasBeenAddedSpy.count(), 3);
     QCOMPARE(databaseInterfaceChangedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 3);
-    QCOMPARE(dataChangedSpy.count(), 0);
+    QCOMPARE(dataChangedSpy.count(), 3);
 
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), false);
@@ -974,7 +974,7 @@ void MediaPlayListTest::testHasHeaderWithRemove()
     QCOMPARE(trackHasBeenAddedSpy.count(), 4);
     QCOMPARE(databaseInterfaceChangedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 4);
-    QCOMPARE(dataChangedSpy.count(), 0);
+    QCOMPARE(dataChangedSpy.count(), 4);
 
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), false);
@@ -992,7 +992,7 @@ void MediaPlayListTest::testHasHeaderWithRemove()
     QCOMPARE(trackHasBeenAddedSpy.count(), 4);
     QCOMPARE(databaseInterfaceChangedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 5);
-    QCOMPARE(dataChangedSpy.count(), 1);
+    QCOMPARE(dataChangedSpy.count(), 5);
 
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), false);
@@ -1009,7 +1009,7 @@ void MediaPlayListTest::testHasHeaderWithRemove()
     QCOMPARE(trackHasBeenAddedSpy.count(), 4);
     QCOMPARE(databaseInterfaceChangedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 6);
-    QCOMPARE(dataChangedSpy.count(), 2);
+    QCOMPARE(dataChangedSpy.count(), 6);
 
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), false);
@@ -1132,7 +1132,7 @@ void MediaPlayListTest::testHasHeaderMoveFirst()
     QCOMPARE(trackHasBeenAddedSpy.count(), 1);
     QCOMPARE(databaseInterfaceChangedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 1);
-    QCOMPARE(dataChangedSpy.count(), 0);
+    QCOMPARE(dataChangedSpy.count(), 1);
 
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
 
@@ -1148,7 +1148,7 @@ void MediaPlayListTest::testHasHeaderMoveFirst()
     QCOMPARE(trackHasBeenAddedSpy.count(), 2);
     QCOMPARE(databaseInterfaceChangedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 2);
-    QCOMPARE(dataChangedSpy.count(), 0);
+    QCOMPARE(dataChangedSpy.count(), 2);
 
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), false);
@@ -1165,7 +1165,7 @@ void MediaPlayListTest::testHasHeaderMoveFirst()
     QCOMPARE(trackHasBeenAddedSpy.count(), 3);
     QCOMPARE(databaseInterfaceChangedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 3);
-    QCOMPARE(dataChangedSpy.count(), 0);
+    QCOMPARE(dataChangedSpy.count(), 3);
 
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), false);
@@ -1183,7 +1183,7 @@ void MediaPlayListTest::testHasHeaderMoveFirst()
     QCOMPARE(trackHasBeenAddedSpy.count(), 4);
     QCOMPARE(databaseInterfaceChangedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 4);
-    QCOMPARE(dataChangedSpy.count(), 0);
+    QCOMPARE(dataChangedSpy.count(), 4);
 
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), false);
@@ -1201,15 +1201,15 @@ void MediaPlayListTest::testHasHeaderMoveFirst()
     QCOMPARE(trackHasBeenAddedSpy.count(), 4);
     QCOMPARE(databaseInterfaceChangedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 5);
-    QCOMPARE(dataChangedSpy.count(), 2);
+    QCOMPARE(dataChangedSpy.count(), 6);
 
-    const auto &firstDataChanged = dataChangedSpy[0];
+    const auto &firstDataChanged = dataChangedSpy[4];
     QCOMPARE(firstDataChanged.count(), 3);
     QCOMPARE(firstDataChanged.at(0).value<QModelIndex>(), myPlayList.index(3, 0));
     QCOMPARE(firstDataChanged.at(1).value<QModelIndex>(), myPlayList.index(3, 0));
     QCOMPARE(firstDataChanged.at(2).value<QVector<int>>(), {MediaPlayList::HasAlbumHeader});
 
-    const auto &secondDataChanged = dataChangedSpy[1];
+    const auto &secondDataChanged = dataChangedSpy[5];
     QCOMPARE(secondDataChanged.count(), 3);
     QCOMPARE(secondDataChanged.at(0).value<QModelIndex>(), myPlayList.index(0, 0));
     QCOMPARE(secondDataChanged.at(1).value<QModelIndex>(), myPlayList.index(0, 0));
@@ -1338,7 +1338,7 @@ void MediaPlayListTest::testHasHeaderMoveAnother()
     QCOMPARE(trackHasBeenAddedSpy.count(), 1);
     QCOMPARE(databaseInterfaceChangedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 1);
-    QCOMPARE(dataChangedSpy.count(), 0);
+    QCOMPARE(dataChangedSpy.count(), 1);
 
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
 
@@ -1354,7 +1354,7 @@ void MediaPlayListTest::testHasHeaderMoveAnother()
     QCOMPARE(trackHasBeenAddedSpy.count(), 2);
     QCOMPARE(databaseInterfaceChangedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 2);
-    QCOMPARE(dataChangedSpy.count(), 0);
+    QCOMPARE(dataChangedSpy.count(), 2);
 
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), false);
@@ -1371,7 +1371,7 @@ void MediaPlayListTest::testHasHeaderMoveAnother()
     QCOMPARE(trackHasBeenAddedSpy.count(), 3);
     QCOMPARE(databaseInterfaceChangedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 3);
-    QCOMPARE(dataChangedSpy.count(), 0);
+    QCOMPARE(dataChangedSpy.count(), 3);
 
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), false);
@@ -1389,7 +1389,7 @@ void MediaPlayListTest::testHasHeaderMoveAnother()
     QCOMPARE(trackHasBeenAddedSpy.count(), 4);
     QCOMPARE(databaseInterfaceChangedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 4);
-    QCOMPARE(dataChangedSpy.count(), 0);
+    QCOMPARE(dataChangedSpy.count(), 4);
 
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), false);
@@ -1407,15 +1407,15 @@ void MediaPlayListTest::testHasHeaderMoveAnother()
     QCOMPARE(trackHasBeenAddedSpy.count(), 4);
     QCOMPARE(databaseInterfaceChangedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 5);
-    QCOMPARE(dataChangedSpy.count(), 2);
+    QCOMPARE(dataChangedSpy.count(), 6);
 
-    const auto &firstDataChanged = dataChangedSpy[0];
+    const auto &firstDataChanged = dataChangedSpy[4];
     QCOMPARE(firstDataChanged.count(), 3);
     QCOMPARE(firstDataChanged.at(0).value<QModelIndex>(), myPlayList.index(0, 0));
     QCOMPARE(firstDataChanged.at(1).value<QModelIndex>(), myPlayList.index(0, 0));
     QCOMPARE(firstDataChanged.at(2).value<QVector<int>>(), {MediaPlayList::HasAlbumHeader});
 
-    const auto &secondDataChanged = dataChangedSpy[1];
+    const auto &secondDataChanged = dataChangedSpy[5];
     QCOMPARE(secondDataChanged.count(), 3);
     QCOMPARE(secondDataChanged.at(0).value<QModelIndex>(), myPlayList.index(1, 0));
     QCOMPARE(secondDataChanged.at(1).value<QModelIndex>(), myPlayList.index(1, 0));
@@ -1544,7 +1544,7 @@ void MediaPlayListTest::testHasHeaderMoveFirstLikeQml()
     QCOMPARE(trackHasBeenAddedSpy.count(), 1);
     QCOMPARE(databaseInterfaceChangedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 1);
-    QCOMPARE(dataChangedSpy.count(), 0);
+    QCOMPARE(dataChangedSpy.count(), 1);
 
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
 
@@ -1560,7 +1560,7 @@ void MediaPlayListTest::testHasHeaderMoveFirstLikeQml()
     QCOMPARE(trackHasBeenAddedSpy.count(), 2);
     QCOMPARE(databaseInterfaceChangedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 2);
-    QCOMPARE(dataChangedSpy.count(), 0);
+    QCOMPARE(dataChangedSpy.count(), 2);
 
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), false);
@@ -1577,7 +1577,7 @@ void MediaPlayListTest::testHasHeaderMoveFirstLikeQml()
     QCOMPARE(trackHasBeenAddedSpy.count(), 3);
     QCOMPARE(databaseInterfaceChangedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 3);
-    QCOMPARE(dataChangedSpy.count(), 0);
+    QCOMPARE(dataChangedSpy.count(), 3);
 
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), false);
@@ -1595,7 +1595,7 @@ void MediaPlayListTest::testHasHeaderMoveFirstLikeQml()
     QCOMPARE(trackHasBeenAddedSpy.count(), 4);
     QCOMPARE(databaseInterfaceChangedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 4);
-    QCOMPARE(dataChangedSpy.count(), 0);
+    QCOMPARE(dataChangedSpy.count(), 4);
 
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), false);
@@ -1613,15 +1613,15 @@ void MediaPlayListTest::testHasHeaderMoveFirstLikeQml()
     QCOMPARE(trackHasBeenAddedSpy.count(), 4);
     QCOMPARE(databaseInterfaceChangedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 5);
-    QCOMPARE(dataChangedSpy.count(), 2);
+    QCOMPARE(dataChangedSpy.count(), 6);
 
-    const auto &firstDataChanged = dataChangedSpy[0];
+    const auto &firstDataChanged = dataChangedSpy[4];
     QCOMPARE(firstDataChanged.count(), 3);
     QCOMPARE(firstDataChanged.at(0).value<QModelIndex>(), myPlayList.index(3, 0));
     QCOMPARE(firstDataChanged.at(1).value<QModelIndex>(), myPlayList.index(3, 0));
     QCOMPARE(firstDataChanged.at(2).value<QVector<int>>(), {MediaPlayList::HasAlbumHeader});
 
-    const auto &secondDataChanged = dataChangedSpy[1];
+    const auto &secondDataChanged = dataChangedSpy[5];
     QCOMPARE(secondDataChanged.count(), 3);
     QCOMPARE(secondDataChanged.at(0).value<QModelIndex>(), myPlayList.index(0, 0));
     QCOMPARE(secondDataChanged.at(1).value<QModelIndex>(), myPlayList.index(0, 0));
@@ -1750,7 +1750,7 @@ void MediaPlayListTest::testHasHeaderMoveAnotherLikeQml()
     QCOMPARE(trackHasBeenAddedSpy.count(), 1);
     QCOMPARE(databaseInterfaceChangedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 1);
-    QCOMPARE(dataChangedSpy.count(), 0);
+    QCOMPARE(dataChangedSpy.count(), 1);
 
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
 
@@ -1766,7 +1766,7 @@ void MediaPlayListTest::testHasHeaderMoveAnotherLikeQml()
     QCOMPARE(trackHasBeenAddedSpy.count(), 2);
     QCOMPARE(databaseInterfaceChangedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 2);
-    QCOMPARE(dataChangedSpy.count(), 0);
+    QCOMPARE(dataChangedSpy.count(), 2);
 
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), false);
@@ -1783,7 +1783,7 @@ void MediaPlayListTest::testHasHeaderMoveAnotherLikeQml()
     QCOMPARE(trackHasBeenAddedSpy.count(), 3);
     QCOMPARE(databaseInterfaceChangedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 3);
-    QCOMPARE(dataChangedSpy.count(), 0);
+    QCOMPARE(dataChangedSpy.count(), 3);
 
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), false);
@@ -1801,7 +1801,7 @@ void MediaPlayListTest::testHasHeaderMoveAnotherLikeQml()
     QCOMPARE(trackHasBeenAddedSpy.count(), 4);
     QCOMPARE(databaseInterfaceChangedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 4);
-    QCOMPARE(dataChangedSpy.count(), 0);
+    QCOMPARE(dataChangedSpy.count(), 4);
 
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), false);
@@ -1819,15 +1819,15 @@ void MediaPlayListTest::testHasHeaderMoveAnotherLikeQml()
     QCOMPARE(trackHasBeenAddedSpy.count(), 4);
     QCOMPARE(databaseInterfaceChangedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 5);
-    QCOMPARE(dataChangedSpy.count(), 2);
+    QCOMPARE(dataChangedSpy.count(), 6);
 
-    const auto &firstDataChanged = dataChangedSpy[0];
+    const auto &firstDataChanged = dataChangedSpy[4];
     QCOMPARE(firstDataChanged.count(), 3);
     QCOMPARE(firstDataChanged.at(0).value<QModelIndex>(), myPlayList.index(0, 0));
     QCOMPARE(firstDataChanged.at(1).value<QModelIndex>(), myPlayList.index(0, 0));
     QCOMPARE(firstDataChanged.at(2).value<QVector<int>>(), {MediaPlayList::HasAlbumHeader});
 
-    const auto &secondDataChanged = dataChangedSpy[1];
+    const auto &secondDataChanged = dataChangedSpy[5];
     QCOMPARE(secondDataChanged.count(), 3);
     QCOMPARE(secondDataChanged.at(0).value<QModelIndex>(), myPlayList.index(1, 0));
     QCOMPARE(secondDataChanged.at(1).value<QModelIndex>(), myPlayList.index(1, 0));
@@ -1956,7 +1956,7 @@ void MediaPlayListTest::testHasHeaderYetAnotherMoveLikeQml()
     QCOMPARE(trackHasBeenAddedSpy.count(), 1);
     QCOMPARE(databaseInterfaceChangedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 1);
-    QCOMPARE(dataChangedSpy.count(), 0);
+    QCOMPARE(dataChangedSpy.count(), 1);
 
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
 
@@ -1972,7 +1972,7 @@ void MediaPlayListTest::testHasHeaderYetAnotherMoveLikeQml()
     QCOMPARE(trackHasBeenAddedSpy.count(), 2);
     QCOMPARE(databaseInterfaceChangedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 2);
-    QCOMPARE(dataChangedSpy.count(), 0);
+    QCOMPARE(dataChangedSpy.count(), 2);
 
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), false);
@@ -1989,7 +1989,7 @@ void MediaPlayListTest::testHasHeaderYetAnotherMoveLikeQml()
     QCOMPARE(trackHasBeenAddedSpy.count(), 3);
     QCOMPARE(databaseInterfaceChangedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 3);
-    QCOMPARE(dataChangedSpy.count(), 0);
+    QCOMPARE(dataChangedSpy.count(), 3);
 
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), false);
@@ -2007,7 +2007,7 @@ void MediaPlayListTest::testHasHeaderYetAnotherMoveLikeQml()
     QCOMPARE(trackHasBeenAddedSpy.count(), 4);
     QCOMPARE(databaseInterfaceChangedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 4);
-    QCOMPARE(dataChangedSpy.count(), 0);
+    QCOMPARE(dataChangedSpy.count(), 4);
 
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), false);
@@ -2025,15 +2025,15 @@ void MediaPlayListTest::testHasHeaderYetAnotherMoveLikeQml()
     QCOMPARE(trackHasBeenAddedSpy.count(), 4);
     QCOMPARE(databaseInterfaceChangedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 5);
-    QCOMPARE(dataChangedSpy.count(), 2);
+    QCOMPARE(dataChangedSpy.count(), 6);
 
-    const auto &firstDataChanged = dataChangedSpy[0];
+    const auto &firstDataChanged = dataChangedSpy[4];
     QCOMPARE(firstDataChanged.count(), 3);
     QCOMPARE(firstDataChanged.at(0).value<QModelIndex>(), myPlayList.index(0, 0));
     QCOMPARE(firstDataChanged.at(1).value<QModelIndex>(), myPlayList.index(0, 0));
     QCOMPARE(firstDataChanged.at(2).value<QVector<int>>(), {MediaPlayList::HasAlbumHeader});
 
-    const auto &secondDataChanged = dataChangedSpy[1];
+    const auto &secondDataChanged = dataChangedSpy[5];
     QCOMPARE(secondDataChanged.count(), 3);
     QCOMPARE(secondDataChanged.at(0).value<QModelIndex>(), myPlayList.index(3, 0));
     QCOMPARE(secondDataChanged.at(1).value<QModelIndex>(), myPlayList.index(3, 0));
@@ -2055,15 +2055,15 @@ void MediaPlayListTest::testHasHeaderYetAnotherMoveLikeQml()
     QCOMPARE(trackHasBeenAddedSpy.count(), 4);
     QCOMPARE(databaseInterfaceChangedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 6);
-    QCOMPARE(dataChangedSpy.count(), 4);
+    QCOMPARE(dataChangedSpy.count(), 8);
 
-    const auto &newFirstDataChanged = dataChangedSpy[2];
+    const auto &newFirstDataChanged = dataChangedSpy[6];
     QCOMPARE(newFirstDataChanged.count(), 3);
     QCOMPARE(newFirstDataChanged.at(0).value<QModelIndex>(), myPlayList.index(3, 0));
     QCOMPARE(newFirstDataChanged.at(1).value<QModelIndex>(), myPlayList.index(3, 0));
     QCOMPARE(newFirstDataChanged.at(2).value<QVector<int>>(), {MediaPlayList::HasAlbumHeader});
 
-    const auto &newSecondDataChanged = dataChangedSpy[3];
+    const auto &newSecondDataChanged = dataChangedSpy[7];
     QCOMPARE(newSecondDataChanged.count(), 3);
     QCOMPARE(newSecondDataChanged.at(0).value<QModelIndex>(), myPlayList.index(1, 0));
     QCOMPARE(newSecondDataChanged.at(1).value<QModelIndex>(), myPlayList.index(1, 0));
@@ -2192,7 +2192,7 @@ void MediaPlayListTest::enqueueClearAndEnqueue()
     QCOMPARE(trackHasBeenAddedSpy.count(), 1);
     QCOMPARE(databaseInterfaceChangedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 1);
-    QCOMPARE(dataChangedSpy.count(), 0);
+    QCOMPARE(dataChangedSpy.count(), 1);
 
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::TitleRole).toString(), QStringLiteral("track6"));
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::AlbumRole).toString(), QStringLiteral("album2"));
@@ -2210,7 +2210,7 @@ void MediaPlayListTest::enqueueClearAndEnqueue()
     QCOMPARE(trackHasBeenAddedSpy.count(), 2);
     QCOMPARE(databaseInterfaceChangedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 2);
-    QCOMPARE(dataChangedSpy.count(), 0);
+    QCOMPARE(dataChangedSpy.count(), 2);
 
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), MediaPlayList::TitleRole).toString(), QStringLiteral("track1"));
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), MediaPlayList::AlbumRole).toString(), QStringLiteral("album1"));
@@ -2227,7 +2227,7 @@ void MediaPlayListTest::enqueueClearAndEnqueue()
     QCOMPARE(trackHasBeenAddedSpy.count(), 6);
     QCOMPARE(databaseInterfaceChangedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 6);
-    QCOMPARE(dataChangedSpy.count(), 0);
+    QCOMPARE(dataChangedSpy.count(), 6);
 
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::TitleRole).toString(), QStringLiteral("track1"));
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::AlbumRole).toString(), QStringLiteral("album1"));
@@ -2363,7 +2363,7 @@ void MediaPlayListTest::crashOnEnqueue()
     QCOMPARE(trackHasBeenAddedSpy.count(), 1);
     QCOMPARE(databaseInterfaceChangedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 1);
-    QCOMPARE(dataChangedSpy.count(), 0);
+    QCOMPARE(dataChangedSpy.count(), 1);
 }
 
 

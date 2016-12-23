@@ -29,11 +29,12 @@ public:
 
     MusicAudioTrackPrivate(bool aValid, QString aId, QString aParentId,
                            QString aTitle, QString aArtist, QString aAlbumName,
-                           int aTrackNumber, QTime aDuration, QUrl aResourceURI,
-                           QUrl aAlbumCover)
+                           QString aAlbumArtist, int aTrackNumber, QTime aDuration,
+                           QUrl aResourceURI, QUrl aAlbumCover)
         : mId(aId), mParentId(aParentId), mTitle(aTitle), mArtist(aArtist),
-          mAlbumName(aAlbumName), mTrackNumber(aTrackNumber), mDuration(aDuration),
-          mResourceURI(aResourceURI), mAlbumCover(aAlbumCover), mIsValid(aValid)
+          mAlbumName(aAlbumName), mAlbumArtist(aAlbumArtist), mTrackNumber(aTrackNumber),
+          mDuration(aDuration), mResourceURI(aResourceURI), mAlbumCover(aAlbumCover),
+          mIsValid(aValid)
     {
     }
 
@@ -48,6 +49,8 @@ public:
     QString mArtist;
 
     QString mAlbumName;
+
+    QString mAlbumArtist;
 
     int mTrackNumber = -1;
 
@@ -66,9 +69,9 @@ MusicAudioTrack::MusicAudioTrack() : d(new MusicAudioTrackPrivate)
 }
 
 MusicAudioTrack::MusicAudioTrack(bool aValid, QString aId, QString aParentId,
-                                 QString aTitle, QString aArtist, QString aAlbumName,
+                                 QString aTitle, QString aArtist, QString aAlbumName, QString aAlbumArtist,
                                  int aTrackNumber, QTime aDuration, QUrl aResourceURI, QUrl aAlbumCover)
-    : d(new MusicAudioTrackPrivate(aValid, aId, aParentId, aTitle, aArtist, aAlbumName, aTrackNumber, aDuration, aResourceURI, aAlbumCover))
+    : d(new MusicAudioTrackPrivate(aValid, aId, aParentId, aTitle, aArtist, aAlbumName, aAlbumArtist, aTrackNumber, aDuration, aResourceURI, aAlbumCover))
 {
 }
 
@@ -179,6 +182,16 @@ void MusicAudioTrack::setAlbumName(const QString &value) const
 QString MusicAudioTrack::albumName() const
 {
     return d->mAlbumName;
+}
+
+void MusicAudioTrack::setAlbumArtist(const QString &value) const
+{
+    d->mAlbumArtist = value;
+}
+
+QString MusicAudioTrack::albumArtist() const
+{
+    return d->mAlbumArtist;
 }
 
 void MusicAudioTrack::setAlbumCover(const QUrl &value) const

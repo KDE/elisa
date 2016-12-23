@@ -103,6 +103,7 @@ void LocalBalooFileListing::refreshContent()
         auto durationProperty = allProperties.find(KFileMetaData::Property::Duration);
         auto artistProperty = allProperties.find(KFileMetaData::Property::Artist);
         auto albumProperty = allProperties.find(KFileMetaData::Property::Album);
+        auto albumArtistProperty = allProperties.find(KFileMetaData::Property::AlbumArtist);
         auto trackNumberProperty = allProperties.find(KFileMetaData::Property::TrackNumber);
 
         if (albumProperty != allProperties.end()) {
@@ -128,6 +129,10 @@ void LocalBalooFileListing::refreshContent()
 
             if (trackNumberProperty != allProperties.end()) {
                 newTrack.setTrackNumber(trackNumberProperty->toInt());
+            }
+
+            if (albumArtistProperty != allProperties.end()) {
+                newTrack.setAlbumArtist(albumArtistProperty->toString());
             }
 
             newTrack.setResourceURI(QUrl::fromLocalFile(resultIterator.filePath()));

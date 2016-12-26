@@ -10,6 +10,7 @@
   <name xml:lang="cs">Elisa</name>
   <name xml:lang="de">Elisa</name>
   <name xml:lang="nl">Elisa</name>
+  <name xml:lang="pl">Elisa</name>
   <name xml:lang="pt">Elisa</name>
   <name xml:lang="sk">Elisa</name>
   <name xml:lang="sv">Elisa</name>
@@ -21,6 +22,7 @@
   <summary xml:lang="cs">Jednoduchý přehrávač hudby</summary>
   <summary xml:lang="de">Einfache Medienwiedergabe</summary>
   <summary xml:lang="nl">Eenvoudige muziekspeler</summary>
+  <summary xml:lang="pl">Prosty odtwarzacz multimediów</summary>
   <summary xml:lang="pt">Leitor de Música Simples</summary>
   <summary xml:lang="sk">Jednoduchý hudobný prehliadač</summary>
   <summary xml:lang="sv">Enkel musikspelare</summary>
@@ -32,6 +34,7 @@
     <p xml:lang="ca-valencia">Un reproductor de música senzill que hauria de ser fàcil d'utilitzar. No requereix cap configuració abans de poder utilitzar-lo.</p>
     <p xml:lang="de">Ein einfacher Medienspieler, der leicht zu benutzen sein sollte. Er kann ganz ohne vorherige Konfiguration verwendet werden.</p>
     <p xml:lang="nl">Eenvoudige muziekspeler die gemakkelijk te gebruiken is. Het vereist geen enkele configuratie om te gebruiken.</p>
+    <p xml:lang="pl">Prosty odtwarzacz multimedióm, który powinien być łatwy w obsłudze. Nie wymaga żadnych ustawień do jego używania.</p>
     <p xml:lang="pt">Um leitor de música simples que deveria ser simples de usar. Não necessita de nenhuma configuração antes de poder ser usado.</p>
     <p xml:lang="sk">Jednoduchý hudobný prehliadač, ktorý by malo byť jednoduché používať. Nevyžaduje žiadne nastavenie pred použitím.</p>
     <p xml:lang="sv">En enkel musikspelare som ska vara lättanvänd. Den kräver inga inställningar innan man kan använda den.</p>

@@ -621,6 +621,56 @@ private Q_SLOTS:
 
         QCOMPARE(musicDb.allAlbums({}).count(), 4);
     }
+
+    void testAlbumsFromAuthor() {
+        auto configDirectory = QDir(QStandardPaths::writableLocation(QStandardPaths::QStandardPaths::AppDataLocation));
+        auto rootDirectory = QDir::root();
+        rootDirectory.mkpath(configDirectory.path());
+        auto fileName = configDirectory.filePath(QStringLiteral("elisaMusicDatabase.sqlite"));
+        QFile dbFile(fileName);
+        auto dbExists = dbFile.exists();
+
+        if (dbExists) {
+            QCOMPARE(dbFile.remove(), true);
+        }
+
+        DatabaseInterface musicDb;
+        DatabaseInterface clientDb;
+
+        musicDb.init(QStringLiteral("testDbVariousArtistAlbum"));
+
+        clientDb.init(QStringLiteral("clientDbVariousArtistAlbum"));
+
+        QSignalSpy musicDbChangedSpy(&musicDb, &DatabaseInterface::databaseChanged);
+
+        connect(&musicDb, &DatabaseInterface::databaseChanged,
+                &clientDb, &DatabaseInterface::databaseHasChanged);
+
+        musicDb.insertTracksList(mNewTracks, mNewCovers);
+
+        QCOMPARE(musicDb.allAlbums({}).count(), 4);
+        QCOMPARE(clientDb.allAlbums({}).count(), 4);
+        QCOMPARE(musicDbChangedSpy.count(), 1);
+
+        auto allAlbums = clientDb.allAlbumsFromArtist(QStringLiteral("artist1"));
+
+        QCOMPARE(allAlbums.size(), 2);
+
+        QCOMPARE(allAlbums[0].artist(), QStringLiteral("Various Artists"));
+        QCOMPARE(allAlbums[0].tracksCount(), 4);
+        QCOMPARE(allAlbums[0].trackFromIndex(0).albumArtist(), QStringLiteral("Various Artists"));
+        QCOMPARE(allAlbums[0].trackFromIndex(1).albumArtist(), QStringLiteral("Various Artists"));
+        QCOMPARE(allAlbums[0].trackFromIndex(2).albumArtist(), QStringLiteral("Various Artists"));
+        QCOMPARE(allAlbums[0].trackFromIndex(3).albumArtist(), QStringLiteral("Various Artists"));
+        QCOMPARE(allAlbums[1].artist(), QStringLiteral("artist1"));
+        QCOMPARE(allAlbums[1].tracksCount(), 6);
+        QCOMPARE(allAlbums[1].trackFromIndex(0).albumArtist(), QStringLiteral("artist1"));
+        QCOMPARE(allAlbums[1].trackFromIndex(1).albumArtist(), QStringLiteral("artist1"));
+        QCOMPARE(allAlbums[1].trackFromIndex(2).albumArtist(), QStringLiteral("artist1"));
+        QCOMPARE(allAlbums[1].trackFromIndex(3).albumArtist(), QStringLiteral("artist1"));
+        QCOMPARE(allAlbums[1].trackFromIndex(4).albumArtist(), QStringLiteral("artist1"));
+        QCOMPARE(allAlbums[1].trackFromIndex(5).albumArtist(), QStringLiteral("artist1"));
+    }
 };
 
 QTEST_MAIN(DatabaseInterfaceTests)

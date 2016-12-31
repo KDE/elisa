@@ -858,17 +858,23 @@ void DatabaseInterface::initRequest()
     }
 
     {
-        auto selectAllAlbumsFromArtistText = QStringLiteral("SELECT "
+        auto selectAllAlbumsFromArtistText = QStringLiteral("SELECT DISTINCT "
                                                             "album.`ID`, "
                                                             "album.`Title`, "
                                                             "album.`AlbumInternalID`, "
                                                             "artist.`Name`, "
                                                             "album.`CoverFileName`, "
                                                             "album.`TracksCount` "
-                                                            "FROM `Albums` album, `Artists` artist "
+                                                            "FROM `Albums` album, `Artists` artist, `Artists` trackArtist, `Tracks` tracks "
                                                             "WHERE "
                                                             "artist.`ID` = album.`ArtistID` AND "
-                                                            "artist.`Name` = :artistName "
+                                                            "tracks.`AlbumID` = album.`ID` AND "
+                                                            "trackArtist.`ID` = tracks.`ArtistID` AND "
+                                                            "( "
+                                                            "(artist.`Name` = :artistName) "
+                                                            "OR "
+                                                            "(trackArtist.`Name` = :artistName) "
+                                                            ") "
                                                             "ORDER BY album.`Title`");
 
         auto result = d->mSelectAllAlbumsFromArtistQuery.prepare(selectAllAlbumsFromArtistText);
@@ -926,19 +932,23 @@ void DatabaseInterface::initRequest()
                                                    "tracks.`Title`, "
                                                    "tracks.`AlbumID`, "
                                                    "artist.`Name`, "
+                                                   "artistAlbum.`Name`, "
                                                    "tracks.`FileName`, "
                                                    "tracks.`TrackNumber`, "
                                                    "tracks.`Duration` "
-                                                   "FROM `Tracks` tracks, `Artists` artist "
+                                                   "FROM `Tracks` tracks, `Artists` artist, `Artists` artistAlbum, `Albums` album "
                                                    "WHERE "
                                                    "tracks.`AlbumID` = :albumId AND "
-                                                   "artist.`ID` = tracks.`ArtistID` "
-                                                   "ORDER BY `Title`");
+                                                   "artist.`ID` = tracks.`ArtistID` AND "
+                                                   "album.`ID` = :albumId AND "
+                                                   "artistAlbum.`ID` = album.`ArtistID` "
+                                                   "ORDER BY tracks.`Title`");
 
         auto result = d->mSelectTrackQuery.prepare(selectTrackQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectTrackQuery.lastError();
+            qDebug() << "DatabaseInterface::initRequest" << d->mSelectTrackQuery.lastQuery();
         }
     }
     {
@@ -1159,9 +1169,10 @@ QMap<qulonglong, MusicAudioTrack> DatabaseInterface::fetchTracks(qulonglong albu
         newTrack.setTitle(d->mSelectTrackQuery.record().value(1).toString());
         newTrack.setParentId(d->mSelectTrackQuery.record().value(2).toString());
         newTrack.setArtist(d->mSelectTrackQuery.record().value(3).toString());
-        newTrack.setResourceURI(d->mSelectTrackQuery.record().value(4).toUrl());
-        newTrack.setTrackNumber(d->mSelectTrackQuery.record().value(5).toInt());
-        newTrack.setDuration(QTime::fromMSecsSinceStartOfDay(d->mSelectTrackQuery.record().value(6).toInt()));
+        newTrack.setAlbumArtist(d->mSelectTrackQuery.record().value(4).toString());
+        newTrack.setResourceURI(d->mSelectTrackQuery.record().value(5).toUrl());
+        newTrack.setTrackNumber(d->mSelectTrackQuery.record().value(6).toInt());
+        newTrack.setDuration(QTime::fromMSecsSinceStartOfDay(d->mSelectTrackQuery.record().value(7).toInt()));
         newTrack.setValid(true);
 
         allTracks[newTrack.databaseId()] = newTrack;

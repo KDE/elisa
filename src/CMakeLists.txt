@@ -48,7 +48,6 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
             set(elisa_SOURCES
                 ${elisa_SOURCES}
                 baloo/localbaloofilelisting.cpp
-                baloo/localbalootrack.cpp
                 baloo/baloolistener.cpp
                 )
         endif()

@@ -379,6 +379,7 @@ QVector<MusicAudioTrack> DatabaseInterface::tracksFromAuthor(QString artistName)
         newTrack.setDatabaseId(d->mSelectTracksFromArtist.record().value(1).toULongLong());
         newTrack.setTitle(d->mSelectTracksFromArtist.record().value(0).toString());
         newTrack.setAlbumName(d->mSelectTracksFromArtist.record().value(7).toString());
+        newTrack.setAlbumArtist(d->mSelectTracksFromArtist.record().value(8).toString());
         newTrack.setArtist(d->mSelectTracksFromArtist.record().value(2).toString());
         newTrack.setResourceURI(d->mSelectTracksFromArtist.record().value(3).toUrl());
         newTrack.setAlbumCover(d->mSelectTracksFromArtist.record().value(6).toUrl());
@@ -521,10 +522,11 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
         MusicAlbum newAlbum;
 
         for(const auto &track : album) {
-            if (newAlbum.artist().isNull()) {
-                newAlbum.setArtist(track.artist());
+            if (newAlbum.artist().isNull() && !track.albumArtist().isEmpty()) {
+                newAlbum.setArtist(track.albumArtist());
             }
-            if (newAlbum.artist() != track.artist()) {
+            if (!track.albumArtist().isEmpty() && newAlbum.artist() != track.albumArtist()) {
+                qDebug() << "DatabaseInterface::insertTracksList" << track.artist() << track.albumArtist();
                 newAlbum.setArtist(i18nc("Artist name for albums with more than one artist (like compilations", "Various Artists"));
             }
 
@@ -1078,13 +1080,16 @@ void DatabaseInterface::initRequest()
                                                               "tracks.`TrackNumber`, "
                                                               "tracks.`Duration`, "
                                                               "albums.`CoverFileName`, "
-                                                              "albums.`Title` "
-                                                              "FROM `Tracks` tracks, `Albums` albums, `Artists` artist "
+                                                              "albums.`Title`, "
+                                                              "albumArtist.`Name` "
+                                                              "FROM `Tracks` tracks, `Albums` albums, `Artists` artist, `Artists` albumArtist "
                                                               "WHERE "
                                                               "artist.`Name` = :artistName AND "
                                                               "tracks.`AlbumID` = albums.`ID` AND "
-                                                              "artist.`ID` = tracks.`ArtistID` "
-                                                              "ORDER BY tracks.`Title` ASC");
+                                                              "artist.`ID` = tracks.`ArtistID` AND "
+                                                              "albumArtist.`ID` = albums.`ArtistID` "
+                                                              "ORDER BY tracks.`Title` ASC, "
+                                                              "albums.`Title` ASC");
 
         auto result = d->mSelectTracksFromArtist.prepare(selectTracksFromArtistQueryText);
 

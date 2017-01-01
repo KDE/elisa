@@ -37,16 +37,16 @@ void MediaPlayListTest::initTestCase()
 {
     mNewTracks[QStringLiteral("album1")] = {
         {true, QStringLiteral("$1"), QStringLiteral("0"), QStringLiteral("track1"),
-            QStringLiteral("artist1"), QStringLiteral("album1"), QStringLiteral("artist1"), 1, QTime::fromMSecsSinceStartOfDay(1), {QUrl::fromLocalFile(QStringLiteral("$1"))},
+            QStringLiteral("artist1"), QStringLiteral("album1"), QStringLiteral("Various Artists"), 1, QTime::fromMSecsSinceStartOfDay(1), {QUrl::fromLocalFile(QStringLiteral("$1"))},
     {QUrl::fromLocalFile(QStringLiteral("file://image$1"))}},
         {true, QStringLiteral("$2"), QStringLiteral("0"), QStringLiteral("track2"),
-            QStringLiteral("artist2"), QStringLiteral("album1"), QStringLiteral("artist1"), 2, QTime::fromMSecsSinceStartOfDay(2), {QUrl::fromLocalFile(QStringLiteral("$2"))},
+            QStringLiteral("artist2"), QStringLiteral("album1"), QStringLiteral("Various Artists"), 2, QTime::fromMSecsSinceStartOfDay(2), {QUrl::fromLocalFile(QStringLiteral("$2"))},
     {QUrl::fromLocalFile(QStringLiteral("file://image$2"))}},
         {true, QStringLiteral("$3"), QStringLiteral("0"), QStringLiteral("track3"),
-            QStringLiteral("artist3"), QStringLiteral("album1"), QStringLiteral("artist1"), 3, QTime::fromMSecsSinceStartOfDay(3), {QUrl::fromLocalFile(QStringLiteral("$3"))},
+            QStringLiteral("artist3"), QStringLiteral("album1"), QStringLiteral("Various Artists"), 3, QTime::fromMSecsSinceStartOfDay(3), {QUrl::fromLocalFile(QStringLiteral("$3"))},
     {QUrl::fromLocalFile(QStringLiteral("file://image$3"))}},
         {true, QStringLiteral("$4"), QStringLiteral("0"), QStringLiteral("track4"),
-            QStringLiteral("artist4"), QStringLiteral("album1"), QStringLiteral("artist1"), 4, QTime::fromMSecsSinceStartOfDay(4), {QUrl::fromLocalFile(QStringLiteral("$4"))},
+            QStringLiteral("artist4"), QStringLiteral("album1"), QStringLiteral("Various Artists"), 4, QTime::fromMSecsSinceStartOfDay(4), {QUrl::fromLocalFile(QStringLiteral("$4"))},
             {QUrl::fromLocalFile(QStringLiteral("file://image$4"))}},
     };
 

@@ -798,7 +798,7 @@ void MediaPlayListTest::testHasHeaderWithRestore()
     QCOMPARE(trackHasBeenAddedSpy.count(), 4);
     QCOMPARE(databaseInterfaceChangedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 4);
-    QCOMPARE(dataChangedSpy.count(), 7);
+    QCOMPARE(dataChangedSpy.count(), 8);
 
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);

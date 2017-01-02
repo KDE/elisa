@@ -20,7 +20,13 @@
 #ifndef MEDIAPLAYLISTTEST_H
 #define MEDIAPLAYLISTTEST_H
 
+#include "musicaudiotrack.h"
+
 #include <QObject>
+#include <QHash>
+#include <QVector>
+#include <QUrl>
+#include <QString>
 
 class MediaPlayListTest : public QObject
 {
@@ -62,6 +68,11 @@ private Q_SLOTS:
     void enqueueClearAndEnqueue();
 
     void crashOnEnqueue();
+
+private:
+
+    QHash<QString, QVector<MusicAudioTrack>> mNewTracks;
+    QHash<QString, QUrl> mNewCovers;
 
 };
 

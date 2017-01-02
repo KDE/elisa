@@ -444,11 +444,12 @@ MusicAudioTrack DatabaseInterface::trackFromDatabaseId(qulonglong id) const
 
     result.setAlbumName(internalAlbumDataFromId(d->mSelectTrackFromIdQuery.record().value(1).toULongLong(), DatabaseInterface::AlbumData::Title).toString());
     result.setArtist(d->mSelectTrackFromIdQuery.record().value(2).toString());
-    result.setDuration(QTime::fromMSecsSinceStartOfDay(d->mSelectTrackFromIdQuery.record().value(5).toLongLong()));
-    result.setResourceURI(d->mSelectTrackFromIdQuery.record().value(3).toUrl());
+    result.setAlbumArtist(d->mSelectTrackFromIdQuery.record().value(3).toString());
+    result.setDuration(QTime::fromMSecsSinceStartOfDay(d->mSelectTrackFromIdQuery.record().value(6).toLongLong()));
+    result.setResourceURI(d->mSelectTrackFromIdQuery.record().value(4).toUrl());
     result.setAlbumCover(internalAlbumDataFromId(d->mSelectTrackFromIdQuery.record().value(1).toULongLong(), DatabaseInterface::AlbumData::Image).toUrl());
     result.setTitle(d->mSelectTrackFromIdQuery.record().value(0).toString());
-    result.setTrackNumber(d->mSelectTrackFromIdQuery.record().value(4).toInt());
+    result.setTrackNumber(d->mSelectTrackFromIdQuery.record().value(5).toInt());
     result.setValid(true);
 
     d->mSelectTrackFromIdQuery.finish();
@@ -958,13 +959,16 @@ void DatabaseInterface::initRequest()
                                                          "tracks.`Title`, "
                                                          "tracks.`AlbumID`, "
                                                          "artist.`Name`, "
+                                                         "artistAlbum.`Name`, "
                                                          "tracks.`FileName`, "
                                                          "tracks.`TrackNumber`, "
                                                          "tracks.`Duration` "
-                                                         "FROM `Tracks` tracks, `Artists` artist "
+                                                         "FROM `Tracks` tracks, `Artists` artist, `Artists` artistAlbum, `Albums` album "
                                                          "WHERE "
                                                          "tracks.`ID` = :trackId AND "
-                                                         "artist.`ID` = tracks.`ArtistID`");
+                                                         "artist.`ID` = tracks.`ArtistID` AND "
+                                                         "artistAlbum.`ID` = album.`ArtistID` AND "
+                                                         "tracks.`AlbumID` = album.`ID`");
 
         auto result = d->mSelectTrackFromIdQuery.prepare(selectTrackFromIdQueryText);
 

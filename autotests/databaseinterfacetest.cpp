@@ -225,6 +225,7 @@ private Q_SLOTS:
 
         auto firstTrackTitle = firstTrack.title();
         auto firstTrackArtist = firstTrack.artist();
+        auto firstTrackAlbumArtist = firstTrack.albumArtist();
         auto firstTrackAlbum = firstTrack.albumName();
         auto firstTrackImage = firstTrack.albumCover();
         auto firstTrackDuration = firstTrack.duration();
@@ -235,6 +236,7 @@ private Q_SLOTS:
         QCOMPARE(firstTrack.isValid(), true);
         QCOMPARE(firstTrackTitle, QStringLiteral("track1"));
         QCOMPARE(firstTrackArtist, QStringLiteral("artist1"));
+        QCOMPARE(firstTrackAlbumArtist, QStringLiteral("Various Artists"));
         QCOMPARE(firstTrackAlbum, QStringLiteral("album1"));
         QCOMPARE(firstTrackImage.isValid(), true);
         QCOMPARE(firstTrackImage, QUrl::fromLocalFile(QStringLiteral("album1")));
@@ -300,6 +302,7 @@ private Q_SLOTS:
 
         auto firstTrackTitle = firstTrack.title();
         auto firstTrackArtist = firstTrack.artist();
+        auto firstTrackAlbumArtist = firstTrack.albumArtist();
         auto firstTrackAlbum = firstTrack.albumName();
         auto firstTrackImage = firstTrack.albumCover();
         auto firstTrackDuration = firstTrack.duration();
@@ -310,6 +313,7 @@ private Q_SLOTS:
         QCOMPARE(firstTrack.isValid(), true);
         QCOMPARE(firstTrackTitle, QStringLiteral("track1"));
         QCOMPARE(firstTrackArtist, QStringLiteral("artist1"));
+        QCOMPARE(firstTrackAlbumArtist, QStringLiteral("Various Artists"));
         QCOMPARE(firstTrackAlbum, QStringLiteral("album1"));
         QCOMPARE(firstTrackImage.isValid(), true);
         QCOMPARE(firstTrackImage, QUrl::fromLocalFile(QStringLiteral("album1")));
@@ -375,6 +379,7 @@ private Q_SLOTS:
 
         auto firstTrackTitle = firstTrack.title();
         auto firstTrackArtist = firstTrack.artist();
+        auto firstTrackAlbumArtist = firstTrack.albumArtist();
         auto firstTrackAlbum = firstTrack.albumName();
         auto firstTrackImage = firstTrack.albumCover();
         auto firstTrackDuration = firstTrack.duration();
@@ -385,6 +390,7 @@ private Q_SLOTS:
         QCOMPARE(firstTrack.isValid(), true);
         QCOMPARE(firstTrackTitle, QStringLiteral("track1"));
         QCOMPARE(firstTrackArtist, QStringLiteral("artist1"));
+        QCOMPARE(firstTrackAlbumArtist, QStringLiteral("Various Artists"));
         QCOMPARE(firstTrackAlbum, QStringLiteral("album1"));
         QCOMPARE(firstTrackImage.isValid(), true);
         QCOMPARE(firstTrackImage, QUrl::fromLocalFile(QStringLiteral("album1")));
@@ -399,6 +405,7 @@ private Q_SLOTS:
 
         auto secondTrackTitle = secondTrack.title();
         auto secondTrackArtist = secondTrack.artist();
+        auto secondTrackAlbumArtist = secondTrack.albumArtist();
         auto secondTrackAlbum = secondTrack.albumName();
         auto seconfTrackImage = secondTrack.albumCover();
         auto secondTrackDuration = secondTrack.duration();
@@ -409,6 +416,7 @@ private Q_SLOTS:
         QCOMPARE(secondTrack.isValid(), true);
         QCOMPARE(secondTrackTitle, QStringLiteral("track2"));
         QCOMPARE(secondTrackArtist, QStringLiteral("artist2"));
+        QCOMPARE(secondTrackAlbumArtist, QStringLiteral("Various Artists"));
         QCOMPARE(secondTrackAlbum, QStringLiteral("album1"));
         QCOMPARE(seconfTrackImage.isValid(), true);
         QCOMPARE(seconfTrackImage, QUrl::fromLocalFile(QStringLiteral("album1")));
@@ -423,6 +431,7 @@ private Q_SLOTS:
 
         auto thirdTrackTitle = thirdTrack.title();
         auto thirdTrackArtist = thirdTrack.artist();
+        auto thirdTrackAlbumArtist = thirdTrack.albumArtist();
         auto thirdTrackAlbum = thirdTrack.albumName();
         auto thirdTrackImage = thirdTrack.albumCover();
         auto thirdTrackDuration = thirdTrack.duration();
@@ -433,6 +442,7 @@ private Q_SLOTS:
         QCOMPARE(thirdTrack.isValid(), true);
         QCOMPARE(thirdTrackTitle, QStringLiteral("track3"));
         QCOMPARE(thirdTrackArtist, QStringLiteral("artist3"));
+        QCOMPARE(thirdTrackAlbumArtist, QStringLiteral("Various Artists"));
         QCOMPARE(thirdTrackAlbum, QStringLiteral("album1"));
         QCOMPARE(thirdTrackImage.isValid(), true);
         QCOMPARE(thirdTrackImage, QUrl::fromLocalFile(QStringLiteral("album1")));
@@ -447,6 +457,7 @@ private Q_SLOTS:
 
         auto fourthTrackTitle = fourthTrack.title();
         auto fourthTrackArtist = fourthTrack.artist();
+        auto fourthTrackAlbumArtist = fourthTrack.albumArtist();
         auto fourthTrackAlbum = fourthTrack.albumName();
         auto fourthTrackImage = fourthTrack.albumCover();
         auto fourthTrackDuration = fourthTrack.duration();
@@ -457,6 +468,7 @@ private Q_SLOTS:
         QCOMPARE(fourthTrack.isValid(), true);
         QCOMPARE(fourthTrackTitle, QStringLiteral("track4"));
         QCOMPARE(fourthTrackArtist, QStringLiteral("artist4"));
+        QCOMPARE(fourthTrackAlbumArtist, QStringLiteral("Various Artists"));
         QCOMPARE(fourthTrackAlbum, QStringLiteral("album1"));
         QCOMPARE(fourthTrackImage.isValid(), true);
         QCOMPARE(fourthTrackImage, QUrl::fromLocalFile(QStringLiteral("album1")));

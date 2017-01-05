@@ -26,6 +26,7 @@
 #include <QtCore/QMetaType>
 
 class MusicAudioTrackPrivate;
+class QDebug;
 
 class MusicAudioTrack
 {
@@ -102,6 +103,8 @@ private:
     MusicAudioTrackPrivate *d = nullptr;
 
 };
+
+QDebug& operator<<(QDebug &stream, const MusicAudioTrack &data);
 
 Q_DECLARE_METATYPE(MusicAudioTrack)
 

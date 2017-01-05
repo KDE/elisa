@@ -21,6 +21,8 @@
 
 #include <algorithm>
 
+#include <QtCore/QDebug>
+
 class MusicAlbumPrivate
 {
 public:
@@ -231,3 +233,9 @@ QStringList MusicAlbum::allTracksTitle() const
     return result;
 }
 
+QDebug& operator<<(QDebug &stream, const MusicAlbum &data)
+{
+    stream << data.title() << " " << data.artist();
+
+    return stream;
+}

@@ -28,6 +28,7 @@
 #include <QtCore/QStringList>
 
 class MusicAlbumPrivate;
+class QDebug;
 
 class MusicAlbum
 {
@@ -101,5 +102,7 @@ private:
     MusicAlbumPrivate *d;
 
 };
+
+QDebug& operator<<(QDebug &stream, const MusicAlbum &data);
 
 #endif // MUSICALBUM_H

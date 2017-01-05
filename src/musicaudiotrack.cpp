@@ -19,6 +19,8 @@
 
 #include "musicaudiotrack.h"
 
+#include <QtCore/QDebug>
+
 class MusicAudioTrackPrivate
 {
 public:
@@ -234,3 +236,8 @@ const QUrl &MusicAudioTrack::resourceURI() const
     return d->mResourceURI;
 }
 
+QDebug& operator<<(QDebug &stream, const MusicAudioTrack &data)
+{
+    stream << data.title() << data.artist() << data.albumName() << data.albumArtist();
+    return stream;
+}

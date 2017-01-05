@@ -805,6 +805,32 @@ void DatabaseInterface::initDatabase() const
         }
     }
 
+    {
+        QSqlQuery createTrackIndex(d->mTracksDatabase);
+
+        const auto &result = createTrackIndex.exec(QStringLiteral("CREATE INDEX "
+                                                                  "IF NOT EXISTS "
+                                                                  "`TracksArtistIndex` ON `Tracks` "
+                                                                  "(`ArtistID`)"));
+
+        if (!result) {
+            qDebug() << "DatabaseInterface::initDatabase" << createTrackIndex.lastError();
+        }
+    }
+
+    {
+        QSqlQuery createTrackIndex(d->mTracksDatabase);
+
+        const auto &result = createTrackIndex.exec(QStringLiteral("CREATE INDEX "
+                                                                  "IF NOT EXISTS "
+                                                                  "`ArtistNameIndex` ON `Artists` "
+                                                                  "(`Name`)"));
+
+        if (!result) {
+            qDebug() << "DatabaseInterface::initDatabase" << createTrackIndex.lastError();
+        }
+    }
+
     transactionResult = finishTransaction();
     if (!transactionResult) {
         return;

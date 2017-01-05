@@ -414,9 +414,22 @@ void DidlParser::decodeAudioTrackNode(const QDomNode &itemNode, QHash<QString, M
         chilData.setTitle(titleNode.toElement().text());
     }
 
-    const QDomNode &authorNode = itemNode.firstChildElement(QStringLiteral("upnp:artist"));
+    const QDomNode &authorNode = itemNode.firstChildElement(QStringLiteral("dc:creator"));
     if (!authorNode.isNull()) {
         chilData.setArtist(authorNode.toElement().text());
+    }
+
+    const QDomNode &albumAuthorNode = itemNode.firstChildElement(QStringLiteral("upnp:artist"));
+    if (!albumAuthorNode.isNull()) {
+        chilData.setAlbumArtist(albumAuthorNode.toElement().text());
+    }
+
+    if (chilData.albumArtist().isEmpty()) {
+        chilData.setAlbumArtist(chilData.artist());
+    }
+
+    if (chilData.artist().isEmpty()) {
+        chilData.setArtist(chilData.albumArtist());
     }
 
     const QDomNode &albumNode = itemNode.firstChildElement(QStringLiteral("upnp:album"));

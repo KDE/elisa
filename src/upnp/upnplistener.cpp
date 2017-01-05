@@ -71,15 +71,6 @@ void UpnpListener::setDatabaseInterface(DatabaseInterface *model)
     d->mDatabaseInterface = model;
     d->mUpnpManager.setAlbumDatabase(d->mDatabaseInterface);
 
-    if (d->mDatabaseInterface) {
-        //connect(this, &UpnpListener::refreshContent, &d->mFileListing, &LocalBalooFileListing::refreshContent, Qt::QueuedConnection);
-        //connect(&d->mFileListing, &LocalBalooFileListing::tracksList, d->mDatabaseInterface, &DatabaseInterface::insertTracksList);
-
-        //QMetaObject::invokeMethod(&d->mFileListing, "init", Qt::QueuedConnection);
-
-        Q_EMIT refreshContent();
-    }
-
     emit databaseInterfaceChanged();
 }
 

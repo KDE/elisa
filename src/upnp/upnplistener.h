@@ -47,8 +47,6 @@ public:
 
 Q_SIGNALS:
 
-    void refreshContent();
-
     void databaseInterfaceChanged();
 
 public Q_SLOTS:

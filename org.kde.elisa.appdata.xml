@@ -9,6 +9,7 @@
   <name xml:lang="ca-valencia">Elisa</name>
   <name xml:lang="cs">Elisa</name>
   <name xml:lang="de">Elisa</name>
+  <name xml:lang="es">Elisa</name>
   <name xml:lang="nl">Elisa</name>
   <name xml:lang="pl">Elisa</name>
   <name xml:lang="pt">Elisa</name>
@@ -18,10 +19,12 @@
   <name xml:lang="x-test">xxElisaxx</name>
   <name xml:lang="zh-CN">Elisa</name>
   <summary>Simple Music Player</summary>
+  <summary xml:lang="ast">Reproductor cenciellu de música</summary>
   <summary xml:lang="ca">Reproductor de música senzill</summary>
   <summary xml:lang="ca-valencia">Reproductor de música senzill</summary>
   <summary xml:lang="cs">Jednoduchý přehrávač hudby</summary>
   <summary xml:lang="de">Einfache Medienwiedergabe</summary>
+  <summary xml:lang="es">Reproductor de música sencillo</summary>
   <summary xml:lang="nl">Eenvoudige muziekspeler</summary>
   <summary xml:lang="pl">Prosty odtwarzacz multimediów</summary>
   <summary xml:lang="pt">Leitor de Música Simples</summary>
@@ -32,9 +35,11 @@
   <summary xml:lang="zh-CN">简单的音乐播放器</summary>
   <description>
     <p> A simple music player that should be easy to use. It does not require any configuration before one can use it. </p>
+    <p xml:lang="ast">Un reproductor cenciellu de música que debería ser fácil d'usar. Nun rique configuración dala enantes que puea usase.</p>
     <p xml:lang="ca">Un reproductor de música senzill que hauria de ser fàcil d'utilitzar. No requereix cap configuració abans de poder utilitzar-lo.</p>
     <p xml:lang="ca-valencia">Un reproductor de música senzill que hauria de ser fàcil d'utilitzar. No requereix cap configuració abans de poder utilitzar-lo.</p>
     <p xml:lang="de">Ein einfacher Medienspieler, der leicht zu benutzen sein sollte. Er kann ganz ohne vorherige Konfiguration verwendet werden.</p>
+    <p xml:lang="es">Un sencillo reproductor de música que debería ser fácil de usar. No necesita ninguna configuración antes de poder usarlo.</p>
     <p xml:lang="nl">Eenvoudige muziekspeler die gemakkelijk te gebruiken is. Het vereist geen enkele configuratie om te gebruiken.</p>
     <p xml:lang="pl">Prosty odtwarzacz multimedióm, który powinien być łatwy w obsłudze. Nie wymaga żadnych ustawień do jego używania.</p>
     <p xml:lang="pt">Um leitor de música simples que deveria ser simples de usar. Não necessita de nenhuma configuração antes de poder ser usado.</p>

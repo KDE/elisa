@@ -1,6 +1,6 @@
 Toto list:
 
-* finish MPRIS2 support (current position and seek
+* finish MPRIS2 support (current position and seek)
 * restore track position on quit and start
 * support albums with multiple discs
 * improve management of album from various artists
@@ -13,3 +13,4 @@ Toto list:
 * add drag and drop to the play list
 * bring back UPnP support
 * add support to cancel at least some operations on play lists
+* not blocking models (currently all authors and all albums models blocks the UI when they are filled in

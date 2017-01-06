@@ -28,9 +28,9 @@ Rectangle {
     id: viewAlbumDelegate
 
     property string title
-    property string artist
-    property string album
-    property alias duration : durationLabel.text
+    property alias artist: artistLabel.text
+    property string albumArtist
+    property alias duration: durationLabel.text
     property int trackNumber
     property var databaseId
     property var playList
@@ -126,14 +126,37 @@ Rectangle {
                     Layout.fillHeight: true
                 }
 
-                Text {
-                    id: durationLabel
-                    text: duration
-                    font.weight: Font.Light
-                    Layout.preferredWidth: Screen.pixelDensity * 3
-                    Layout.fillWidth: true
-                    Layout.alignment: Qt.AlignLeft
-                    elide: "ElideRight"
+                Row {
+                    Text {
+                        id: artistLabel
+                        visible: artist !== albumArtist
+                        text: artist
+                        font.weight: Font.Light
+                        font.italic: true
+                        Layout.preferredWidth: Screen.pixelDensity * 3
+                        Layout.fillWidth: true
+                        Layout.alignment: Qt.AlignLeft
+                        elide: "ElideRight"
+                    }
+                    Text {
+                        id: artistSeparatorLabel
+                        visible: artist !== albumArtist
+                        text: ' - '
+                        font.weight: Font.Light
+                        Layout.preferredWidth: Screen.pixelDensity * 3
+                        Layout.fillWidth: true
+                        Layout.alignment: Qt.AlignLeft
+                        elide: "ElideRight"
+                    }
+                    Text {
+                        id: durationLabel
+                        text: duration
+                        font.weight: Font.Light
+                        Layout.preferredWidth: Screen.pixelDensity * 3
+                        Layout.fillWidth: true
+                        Layout.alignment: Qt.AlignLeft
+                        elide: "ElideRight"
+                    }
                 }
 
                 Item {

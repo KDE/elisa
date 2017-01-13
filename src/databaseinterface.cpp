@@ -635,6 +635,7 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
                 d->mInsertTrackQuery.bindValue(QStringLiteral(":artistId"), insertArtist(artistName));
                 d->mInsertTrackQuery.bindValue(QStringLiteral(":fileName"), track.resourceURI());
                 d->mInsertTrackQuery.bindValue(QStringLiteral(":trackNumber"), track.trackNumber());
+                d->mInsertTrackQuery.bindValue(QStringLiteral(":discNumber"), track.discNumber());
                 d->mInsertTrackQuery.bindValue(QStringLiteral(":trackDuration"), QVariant::fromValue<qlonglong>(track.duration().msecsSinceStartOfDay()));
 
                 result = d->mInsertTrackQuery.exec();
@@ -1056,8 +1057,8 @@ void DatabaseInterface::initRequest()
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectTrackIdFromTitleAlbumIdArtistQuery.lastError();
         }
 
-        auto insertTrackQueryText = QStringLiteral("INSERT INTO `Tracks` (`ID`, `Title`, `AlbumID`, `ArtistID`, `FileName`, `TrackNumber`, `Duration`) "
-                                                   "VALUES (:trackId, :title, :album, :artistId, :fileName, :trackNumber, :trackDuration)");
+        auto insertTrackQueryText = QStringLiteral("INSERT INTO `Tracks` (`ID`, `Title`, `AlbumID`, `ArtistID`, `FileName`, `TrackNumber`, `DiscNumber`, `Duration`) "
+                                                   "VALUES (:trackId, :title, :album, :artistId, :fileName, :trackNumber, :discNumber, :trackDuration)");
 
         result = d->mInsertTrackQuery.prepare(insertTrackQueryText);
 

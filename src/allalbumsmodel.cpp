@@ -79,15 +79,10 @@ QHash<int, QByteArray> AllAlbumsModel::roleNames() const
 
     roles[static_cast<int>(ColumnsRoles::TitleRole)] = "title";
     roles[static_cast<int>(ColumnsRoles::AllTracksTitleRole)] = "tracksTitle";
-    roles[static_cast<int>(ColumnsRoles::DurationRole)] = "duration";
     roles[static_cast<int>(ColumnsRoles::ArtistRole)] = "artist";
     roles[static_cast<int>(ColumnsRoles::AllArtistsRole)] = "allArtists";
-    roles[static_cast<int>(ColumnsRoles::AlbumRole)] = "album";
-    roles[static_cast<int>(ColumnsRoles::TrackNumberRole)] = "trackNumber";
-    roles[static_cast<int>(ColumnsRoles::RatingRole)] = "rating";
     roles[static_cast<int>(ColumnsRoles::ImageRole)] = "image";
     roles[static_cast<int>(ColumnsRoles::CountRole)] = "count";
-    roles[static_cast<int>(ColumnsRoles::IsPlayingRole)] = "isPlaying";
 
     return roles;
 }
@@ -157,23 +152,11 @@ QVariant AllAlbumsModel::internalDataAlbum(int albumIndex, int role) const
     case ColumnsRoles::AllTracksTitleRole:
         result = d->mAllAlbums[albumIndex].allTracksTitle();
         break;
-    case ColumnsRoles::DurationRole:
-        break;
-    case ColumnsRoles::MilliSecondsDurationRole:
-        break;
-    case ColumnsRoles::CreatorRole:
-        break;
     case ColumnsRoles::ArtistRole:
         result = d->mAllAlbums[albumIndex].artist();
         break;
     case ColumnsRoles::AllArtistsRole:
         result = d->mAllAlbums[albumIndex].allArtists();
-        break;
-    case ColumnsRoles::AlbumRole:
-        break;
-    case ColumnsRoles::TrackNumberRole:
-        break;
-    case ColumnsRoles::RatingRole:
         break;
     case ColumnsRoles::ImageRole:
     {
@@ -189,15 +172,11 @@ QVariant AllAlbumsModel::internalDataAlbum(int albumIndex, int role) const
         }
         break;
     }
-    case ColumnsRoles::ResourceRole:
-        break;
     case ColumnsRoles::CountRole:
         result = d->mAllAlbums[albumIndex].tracksCount();
         break;
     case ColumnsRoles::IdRole:
         result = d->mAllAlbums[albumIndex].id();
-        break;
-    case ColumnsRoles::IsPlayingRole:
         break;
     }
 

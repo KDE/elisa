@@ -57,19 +57,11 @@ public:
     enum ColumnsRoles {
         TitleRole = Qt::UserRole + 1,
         AllTracksTitleRole = TitleRole + 1,
-        DurationRole = AllTracksTitleRole + 1,
-        MilliSecondsDurationRole = DurationRole + 1,
-        CreatorRole = MilliSecondsDurationRole + 1,
-        ArtistRole = CreatorRole + 1,
+        ArtistRole = AllTracksTitleRole + 1,
         AllArtistsRole = ArtistRole + 1,
-        AlbumRole = AllArtistsRole + 1,
-        TrackNumberRole = AlbumRole + 1,
-        RatingRole = TrackNumberRole + 1,
-        ImageRole = RatingRole + 1,
-        ResourceRole = ImageRole + 1,
-        CountRole = ResourceRole + 1,
+        ImageRole = AllArtistsRole + 1,
+        CountRole = ImageRole + 1,
         IdRole = CountRole + 1,
-        IsPlayingRole = IdRole + 1,
     };
 
     explicit AllAlbumsModel(QObject *parent = 0);

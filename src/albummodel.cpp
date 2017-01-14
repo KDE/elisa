@@ -89,9 +89,6 @@ QHash<int, QByteArray> AlbumModel::roleNames() const
     roles[static_cast<int>(ColumnsRoles::TrackNumberRole)] = "trackNumber";
     roles[static_cast<int>(ColumnsRoles::RatingRole)] = "rating";
     roles[static_cast<int>(ColumnsRoles::ImageRole)] = "image";
-    roles[static_cast<int>(ColumnsRoles::ItemClassRole)] = "itemClass";
-    roles[static_cast<int>(ColumnsRoles::CountRole)] = "count";
-    roles[static_cast<int>(ColumnsRoles::IsPlayingRole)] = "isPlaying";
     roles[static_cast<int>(ColumnsRoles::DatabaseIdRole)] = "databaseId";
 
     return roles;
@@ -202,14 +199,8 @@ QVariant AlbumModel::internalDataTrack(const MusicAudioTrack &track, int role) c
     }
     case ColumnsRoles::ResourceRole:
         return track.resourceURI();
-    case ColumnsRoles::ItemClassRole:
-        return {};
-    case ColumnsRoles::CountRole:
-        return {};
     case ColumnsRoles::IdRole:
         return track.title();
-    case ColumnsRoles::IsPlayingRole:
-        return false;
     case ColumnsRoles::DatabaseIdRole:
         return track.databaseId();
     }

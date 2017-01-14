@@ -73,11 +73,8 @@ public:
         RatingRole = TrackNumberRole + 1,
         ImageRole = RatingRole + 1,
         ResourceRole = ImageRole + 1,
-        ItemClassRole = ResourceRole + 1,
-        CountRole = ItemClassRole + 1,
-        IdRole = CountRole + 1,
-        IsPlayingRole = IdRole + 1,
-        DatabaseIdRole = IsPlayingRole + 1,
+        IdRole = ResourceRole + 1,
+        DatabaseIdRole = IdRole + 1,
     };
 
     explicit AlbumModel(QObject *parent = 0);

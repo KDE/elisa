@@ -46,17 +46,6 @@ public:
         Id,
     };
 
-    enum class TrackData {
-        Title,
-        Artist,
-        Album,
-        Image,
-        Duration,
-        MilliSecondsDuration,
-        TrackNumber,
-        Resource,
-    };
-
     explicit DatabaseInterface(QObject *parent = 0);
 
     virtual ~DatabaseInterface();

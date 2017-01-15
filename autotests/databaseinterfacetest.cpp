@@ -54,13 +54,13 @@ private Q_SLOTS:
                 QStringLiteral("artist1"), QStringLiteral("album1"), QStringLiteral("Various Artists"), 1, 1, QTime::fromMSecsSinceStartOfDay(1), {QUrl::fromLocalFile(QStringLiteral("$1"))},
         {QUrl::fromLocalFile(QStringLiteral("file://image$1"))}},
             {true, QStringLiteral("$2"), QStringLiteral("0"), QStringLiteral("track2"),
-                QStringLiteral("artist2"), QStringLiteral("album1"), QStringLiteral("Various Artists"), 2, 1, QTime::fromMSecsSinceStartOfDay(2), {QUrl::fromLocalFile(QStringLiteral("$2"))},
+                QStringLiteral("artist2"), QStringLiteral("album1"), QStringLiteral("Various Artists"), 2, 2, QTime::fromMSecsSinceStartOfDay(2), {QUrl::fromLocalFile(QStringLiteral("$2"))},
         {QUrl::fromLocalFile(QStringLiteral("file://image$2"))}},
             {true, QStringLiteral("$3"), QStringLiteral("0"), QStringLiteral("track3"),
-                QStringLiteral("artist3"), QStringLiteral("album1"), QStringLiteral("Various Artists"), 3, 1, QTime::fromMSecsSinceStartOfDay(3), {QUrl::fromLocalFile(QStringLiteral("$3"))},
+                QStringLiteral("artist3"), QStringLiteral("album1"), QStringLiteral("Various Artists"), 3, 3, QTime::fromMSecsSinceStartOfDay(3), {QUrl::fromLocalFile(QStringLiteral("$3"))},
         {QUrl::fromLocalFile(QStringLiteral("file://image$3"))}},
             {true, QStringLiteral("$4"), QStringLiteral("0"), QStringLiteral("track4"),
-                QStringLiteral("artist4"), QStringLiteral("album1"), QStringLiteral("Various Artists"), 4, 1, QTime::fromMSecsSinceStartOfDay(4), {QUrl::fromLocalFile(QStringLiteral("$4"))},
+                QStringLiteral("artist4"), QStringLiteral("album1"), QStringLiteral("Various Artists"), 4, 4, QTime::fromMSecsSinceStartOfDay(4), {QUrl::fromLocalFile(QStringLiteral("$4"))},
                 {QUrl::fromLocalFile(QStringLiteral("file://image$4"))}},
         };
 
@@ -209,12 +209,14 @@ private Q_SLOTS:
         auto firstAlbumArtist = allAlbums[0].artist();
         auto firstAlbumImage = allAlbums[0].albumArtURI();
         auto firstAlbumTracksCount = allAlbums[0].tracksCount();
+        auto firstAlbumIsSingleDiscAlbum = allAlbums[0].isSingleDiscAlbum();
 
         QCOMPARE(firstAlbumTitle, QStringLiteral("album1"));
         QCOMPARE(firstAlbumArtist, QStringLiteral("Various Artists"));
         QCOMPARE(firstAlbumImage.isValid(), true);
         QCOMPARE(firstAlbumImage, QUrl::fromLocalFile(QStringLiteral("album1")));
         QCOMPARE(firstAlbumTracksCount, 4);
+        QCOMPARE(firstAlbumIsSingleDiscAlbum, false);
 
         auto invalidTrackId = musicDb.trackIdFromTitleAlbumArtist(QStringLiteral("track1"), QStringLiteral("album1"), QStringLiteral("invalidArtist1"));
         QCOMPARE(invalidTrackId, decltype(invalidTrackId)(0));
@@ -247,6 +249,19 @@ private Q_SLOTS:
         QCOMPARE(firstTrackDiscNumber, 1);
         QCOMPARE(firstTrackResource.isValid(), true);
         QCOMPARE(firstTrackResource, QUrl::fromLocalFile(QStringLiteral("$1")));
+
+        auto secondAlbumTitle = allAlbums[1].title();
+        auto secondAlbumArtist = allAlbums[1].artist();
+        auto secondAlbumImage = allAlbums[1].albumArtURI();
+        auto secondAlbumTracksCount = allAlbums[1].tracksCount();
+        auto secondAlbumIsSingleDiscAlbum = allAlbums[1].isSingleDiscAlbum();
+
+        QCOMPARE(secondAlbumTitle, QStringLiteral("album2"));
+        QCOMPARE(secondAlbumArtist, QStringLiteral("artist1"));
+        QCOMPARE(secondAlbumImage.isValid(), true);
+        QCOMPARE(secondAlbumImage, QUrl::fromLocalFile(QStringLiteral("album2")));
+        QCOMPARE(secondAlbumTracksCount, 6);
+        QCOMPARE(secondAlbumIsSingleDiscAlbum, true);
     }
 
     void simpleAccessorWithClientDatabase()
@@ -289,12 +304,14 @@ private Q_SLOTS:
         auto firstAlbumArtist = allAlbums[0].artist();
         auto firstAlbumImage = allAlbums[0].albumArtURI();
         auto firstAlbumTracksCount = allAlbums[0].tracksCount();
+        auto firstAlbumIsSingleDiscAlbum = allAlbums[0].isSingleDiscAlbum();
 
         QCOMPARE(firstAlbumTitle, QStringLiteral("album1"));
         QCOMPARE(firstAlbumArtist, QStringLiteral("Various Artists"));
         QCOMPARE(firstAlbumImage.isValid(), true);
         QCOMPARE(firstAlbumImage, QUrl::fromLocalFile(QStringLiteral("album1")));
         QCOMPARE(firstAlbumTracksCount, 4);
+        QCOMPARE(firstAlbumIsSingleDiscAlbum, false);
 
         auto invalidTrackId = clientDb.trackIdFromTitleAlbumArtist(QStringLiteral("track1"), QStringLiteral("album1"), QStringLiteral("invalidArtist1"));
         QCOMPARE(invalidTrackId, decltype(invalidTrackId)(0));
@@ -326,6 +343,19 @@ private Q_SLOTS:
         QCOMPARE(firstTrackDiscNumber, 1);
         QCOMPARE(firstTrackResource.isValid(), true);
         QCOMPARE(firstTrackResource, QUrl::fromLocalFile(QStringLiteral("$1")));
+
+        auto secondAlbumTitle = allAlbums[1].title();
+        auto secondAlbumArtist = allAlbums[1].artist();
+        auto secondAlbumImage = allAlbums[1].albumArtURI();
+        auto secondAlbumTracksCount = allAlbums[1].tracksCount();
+        auto secondAlbumIsSingleDiscAlbum = allAlbums[1].isSingleDiscAlbum();
+
+        QCOMPARE(secondAlbumTitle, QStringLiteral("album2"));
+        QCOMPARE(secondAlbumArtist, QStringLiteral("artist1"));
+        QCOMPARE(secondAlbumImage.isValid(), true);
+        QCOMPARE(secondAlbumImage, QUrl::fromLocalFile(QStringLiteral("album2")));
+        QCOMPARE(secondAlbumTracksCount, 6);
+        QCOMPARE(secondAlbumIsSingleDiscAlbum, true);
     }
 
     void simpleAccessorWithClientDatabaseAndVariousArtistAlbum()
@@ -368,12 +398,14 @@ private Q_SLOTS:
         auto firstAlbumArtist = allAlbums[0].artist();
         auto firstAlbumImage = allAlbums[0].albumArtURI();
         auto firstAlbumTracksCount = allAlbums[0].tracksCount();
+        auto firstAlbumIsSingleDiscAlbum = allAlbums[0].isSingleDiscAlbum();
 
         QCOMPARE(firstAlbumTitle, QStringLiteral("album1"));
         QCOMPARE(firstAlbumArtist, QStringLiteral("Various Artists"));
         QCOMPARE(firstAlbumImage.isValid(), true);
         QCOMPARE(firstAlbumImage, QUrl::fromLocalFile(QStringLiteral("album1")));
         QCOMPARE(firstAlbumTracksCount, 4);
+        QCOMPARE(firstAlbumIsSingleDiscAlbum, false);
 
         auto invalidTrackId = clientDb.trackIdFromTitleAlbumArtist(QStringLiteral("track1"), QStringLiteral("album1"), QStringLiteral("invalidArtist1"));
         QCOMPARE(invalidTrackId, decltype(invalidTrackId)(0));
@@ -430,7 +462,7 @@ private Q_SLOTS:
         QCOMPARE(secondTrackDuration, QTime::fromMSecsSinceStartOfDay(2));
         QCOMPARE(secondTrackMilliSecondsDuration, 2);
         QCOMPARE(secondTrackTrackNumber, 2);
-        QCOMPARE(secondTrackDiscNumber, 1);
+        QCOMPARE(secondTrackDiscNumber, 2);
         QCOMPARE(secondTrackResource.isValid(), true);
         QCOMPARE(secondTrackResource, QUrl::fromLocalFile(QStringLiteral("$2")));
 
@@ -458,7 +490,7 @@ private Q_SLOTS:
         QCOMPARE(thirdTrackDuration, QTime::fromMSecsSinceStartOfDay(3));
         QCOMPARE(thirdTrackMilliSecondsDuration, 3);
         QCOMPARE(thirdTrackTrackNumber, 3);
-        QCOMPARE(thirdTrackDiscNumber, 1);
+        QCOMPARE(thirdTrackDiscNumber, 3);
         QCOMPARE(thirdTrackResource.isValid(), true);
         QCOMPARE(thirdTrackResource, QUrl::fromLocalFile(QStringLiteral("$3")));
 
@@ -486,9 +518,22 @@ private Q_SLOTS:
         QCOMPARE(fourthTrackDuration, QTime::fromMSecsSinceStartOfDay(4));
         QCOMPARE(fourthTrackMilliSecondsDuration, 4);
         QCOMPARE(fourthTrackTrackNumber, 4);
-        QCOMPARE(fourthTrackDiscNumber, 1);
+        QCOMPARE(fourthTrackDiscNumber, 4);
         QCOMPARE(fourthTrackResource.isValid(), true);
         QCOMPARE(fourthTrackResource, QUrl::fromLocalFile(QStringLiteral("$4")));
+
+        auto secondAlbumTitle = allAlbums[1].title();
+        auto secondAlbumArtist = allAlbums[1].artist();
+        auto secondAlbumImage = allAlbums[1].albumArtURI();
+        auto secondAlbumTracksCount = allAlbums[1].tracksCount();
+        auto secondAlbumIsSingleDiscAlbum = allAlbums[1].isSingleDiscAlbum();
+
+        QCOMPARE(secondAlbumTitle, QStringLiteral("album2"));
+        QCOMPARE(secondAlbumArtist, QStringLiteral("artist1"));
+        QCOMPARE(secondAlbumImage.isValid(), true);
+        QCOMPARE(secondAlbumImage, QUrl::fromLocalFile(QStringLiteral("album2")));
+        QCOMPARE(secondAlbumTracksCount, 6);
+        QCOMPARE(secondAlbumIsSingleDiscAlbum, true);
     }
 
     void testTracksFromAuthor() {

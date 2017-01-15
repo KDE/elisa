@@ -214,6 +214,7 @@ QVector<MusicAlbum> DatabaseInterface::allAlbums(QString filter) const
         newAlbum.setArtist(d->mSelectAllAlbumsWithFilterQuery.record().value(3).toString());
         newAlbum.setAlbumArtURI(d->mSelectAllAlbumsWithFilterQuery.record().value(4).toUrl());
         newAlbum.setTracksCount(d->mSelectAllAlbumsWithFilterQuery.record().value(5).toInt());
+        newAlbum.setIsSingleDiscAlbum(d->mSelectAllAlbumsWithFilterQuery.record().value(6).toBool());
         newAlbum.setTracks(fetchTracks(newAlbum.databaseId()));
         newAlbum.setTrackIds(newAlbum.tracksKeys());
         newAlbum.setValid(true);
@@ -260,6 +261,7 @@ QVector<MusicAlbum> DatabaseInterface::allAlbumsFromArtist(QString artistName) c
         newAlbum.setArtist(d->mSelectAllAlbumsFromArtistQuery.record().value(3).toString());
         newAlbum.setAlbumArtURI(d->mSelectAllAlbumsFromArtistQuery.record().value(4).toUrl());
         newAlbum.setTracksCount(d->mSelectAllAlbumsFromArtistQuery.record().value(5).toInt());
+        newAlbum.setIsSingleDiscAlbum(d->mSelectAllAlbumsFromArtistQuery.record().value(6).toBool());
         newAlbum.setTracks(fetchTracks(newAlbum.databaseId()));
         newAlbum.setTrackIds(newAlbum.tracksKeys());
         newAlbum.setValid(true);
@@ -524,6 +526,8 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
     for (const auto &album : tracks) {
         MusicAlbum newAlbum;
 
+        int previousDiscNumber = album[0].discNumber();
+
         for(const auto &track : album) {
             if (newAlbum.artist().isNull() && !track.albumArtist().isEmpty()) {
                 newAlbum.setArtist(track.albumArtist());
@@ -539,6 +543,10 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
 
             if (newAlbum.albumArtURI().isEmpty()) {
                 newAlbum.setAlbumArtURI(covers[track.albumName()]);
+            }
+
+            if (previousDiscNumber != track.discNumber()) {
+                newAlbum.setIsSingleDiscAlbum(false);
             }
         }
 
@@ -566,6 +574,7 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
             d->mInsertAlbumQuery.bindValue(QStringLiteral(":artistId"), insertArtist(newAlbum.artist()));
             d->mInsertAlbumQuery.bindValue(QStringLiteral(":coverFileName"), newAlbum.albumArtURI());
             d->mInsertAlbumQuery.bindValue(QStringLiteral(":tracksCount"), newAlbum.tracksCount());
+            d->mInsertAlbumQuery.bindValue(QStringLiteral(":isSingleDiscAlbum"), newAlbum.isSingleDiscAlbum());
 
             result = d->mInsertAlbumQuery.exec();
 
@@ -738,6 +747,7 @@ void DatabaseInterface::initDatabase() const
                                                                    "`ArtistID` INTEGER NOT NULL, "
                                                                    "`CoverFileName` TEXT NOT NULL, "
                                                                    "`TracksCount` INTEGER NOT NULL, "
+                                                                   "`IsSingleDiscAlbum` BOOLEAN NOT NULL, "
                                                                    "`AlbumInternalID` TEXT, "
                                                                    "UNIQUE (`Title`, `ArtistID`), "
                                                                    "CONSTRAINT fk_artist FOREIGN KEY (`ArtistID`) REFERENCES `Artists`(`ID`))"));
@@ -855,7 +865,8 @@ void DatabaseInterface::initRequest()
                                                    "album.`AlbumInternalID`, "
                                                    "artist.`Name`, "
                                                    "album.`CoverFileName`, "
-                                                   "album.`TracksCount` "
+                                                   "album.`TracksCount`, "
+                                                   "album.`IsSingleDiscAlbum` "
                                                    "FROM `Albums` album, `Artists` artist "
                                                    "WHERE "
                                                    "album.`ID` = :albumId AND "
@@ -874,7 +885,8 @@ void DatabaseInterface::initRequest()
                                                             "album.`AlbumInternalID`, "
                                                             "artist.`Name`, "
                                                             "album.`CoverFileName`, "
-                                                            "album.`TracksCount` "
+                                                            "album.`TracksCount`, "
+                                                            "album.`IsSingleDiscAlbum` "
                                                             "FROM `Albums` album, `Artists` artist "
                                                             "WHERE "
                                                             "(album.`Title` like :albumFilter OR "
@@ -897,7 +909,8 @@ void DatabaseInterface::initRequest()
                                                             "album.`AlbumInternalID`, "
                                                             "artist.`Name`, "
                                                             "album.`CoverFileName`, "
-                                                            "album.`TracksCount` "
+                                                            "album.`TracksCount`, "
+                                                            "album.`IsSingleDiscAlbum` "
                                                             "FROM `Albums` album, `Artists` artist, `Artists` trackArtist, `Tracks` tracks "
                                                             "WHERE "
                                                             "artist.`ID` = album.`ArtistID` AND "
@@ -1032,8 +1045,8 @@ void DatabaseInterface::initRequest()
         }
     }
     {
-        auto insertAlbumQueryText = QStringLiteral("INSERT INTO Albums (`ID`, `Title`, `ArtistID`, `CoverFileName`, `TracksCount`) "
-                                                   "VALUES (:albumId, :title, :artistId, :coverFileName, :tracksCount)");
+        auto insertAlbumQueryText = QStringLiteral("INSERT INTO Albums (`ID`, `Title`, `ArtistID`, `CoverFileName`, `TracksCount`, `IsSingleDiscAlbum`) "
+                                                   "VALUES (:albumId, :title, :artistId, :coverFileName, :tracksCount, :isSingleDiscAlbum)");
 
         auto result = d->mInsertAlbumQuery.prepare(insertAlbumQueryText);
 
@@ -1299,6 +1312,7 @@ MusicAlbum DatabaseInterface::internalAlbumFromId(qulonglong albumId) const
     retrievedAlbum.setArtist(d->mSelectAlbumQuery.record().value(3).toString());
     retrievedAlbum.setAlbumArtURI(d->mSelectAlbumQuery.record().value(4).toUrl());
     retrievedAlbum.setTracksCount(d->mSelectAlbumQuery.record().value(5).toInt());
+    retrievedAlbum.setIsSingleDiscAlbum(d->mSelectAlbumQuery.record().value(6).toBool());
     retrievedAlbum.setTracks(fetchTracks(retrievedAlbum.databaseId()));
     retrievedAlbum.setTrackIds(retrievedAlbum.tracksKeys());
     retrievedAlbum.setValid(true);

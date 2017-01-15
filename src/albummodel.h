@@ -70,11 +70,13 @@ public:
         AlbumRole = ArtistRole + 1,
         AlbumArtistRole = AlbumRole + 1,
         TrackNumberRole = AlbumArtistRole + 1,
-        RatingRole = TrackNumberRole + 1,
+        DiscNumberRole = TrackNumberRole + 1,
+        RatingRole = DiscNumberRole + 1,
         ImageRole = RatingRole + 1,
         ResourceRole = ImageRole + 1,
         IdRole = ResourceRole + 1,
         DatabaseIdRole = IdRole + 1,
+        DiscFirstTrackRole = DatabaseIdRole + 1,
     };
 
     explicit AlbumModel(QObject *parent = 0);
@@ -125,7 +127,7 @@ private Q_SLOTS:
 
 private:
 
-    QVariant internalDataTrack(const MusicAudioTrack &track, int role) const;
+    QVariant internalDataTrack(const MusicAudioTrack &track, int role, int rowIndex) const;
 
     AlbumModelPrivate *d;
 

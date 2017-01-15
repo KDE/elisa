@@ -87,9 +87,11 @@ QHash<int, QByteArray> AlbumModel::roleNames() const
     roles[static_cast<int>(ColumnsRoles::AlbumRole)] = "album";
     roles[static_cast<int>(ColumnsRoles::AlbumArtistRole)] = "albumArtist";
     roles[static_cast<int>(ColumnsRoles::TrackNumberRole)] = "trackNumber";
+    roles[static_cast<int>(ColumnsRoles::DiscNumberRole)] = "discNumber";
     roles[static_cast<int>(ColumnsRoles::RatingRole)] = "rating";
     roles[static_cast<int>(ColumnsRoles::ImageRole)] = "image";
     roles[static_cast<int>(ColumnsRoles::DatabaseIdRole)] = "databaseId";
+    roles[static_cast<int>(ColumnsRoles::DiscFirstTrackRole)] = "isFirstTrackOfDisc";
 
     return roles;
 }
@@ -146,12 +148,12 @@ QVariant AlbumModel::data(const QModelIndex &index, int role) const
         return result;
     }
 
-    result = internalDataTrack(currentTrack, role);
+    result = internalDataTrack(currentTrack, role, index.row());
 
     return result;
 }
 
-QVariant AlbumModel::internalDataTrack(const MusicAudioTrack &track, int role) const
+QVariant AlbumModel::internalDataTrack(const MusicAudioTrack &track, int role, int rowIndex) const
 {
     auto result = QVariant();
 
@@ -189,6 +191,19 @@ QVariant AlbumModel::internalDataTrack(const MusicAudioTrack &track, int role) c
         break;
     case ColumnsRoles::TrackNumberRole:
         result = track.trackNumber();
+        break;
+    case ColumnsRoles::DiscNumberRole:
+        if (track.discNumber() > 0) {
+            result = track.discNumber();
+        }
+        break;
+    case ColumnsRoles::DiscFirstTrackRole:
+        if (rowIndex == 0) {
+            result = true;
+        } else {
+            auto previousTrack = d->mCurrentAlbum.trackFromIndex(rowIndex - 1);
+            result = (previousTrack.discNumber() != track.discNumber());
+        }
         break;
     case ColumnsRoles::RatingRole:
         result = 0;

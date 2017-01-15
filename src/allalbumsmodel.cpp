@@ -83,6 +83,7 @@ QHash<int, QByteArray> AllAlbumsModel::roleNames() const
     roles[static_cast<int>(ColumnsRoles::AllArtistsRole)] = "allArtists";
     roles[static_cast<int>(ColumnsRoles::ImageRole)] = "image";
     roles[static_cast<int>(ColumnsRoles::CountRole)] = "count";
+    roles[static_cast<int>(ColumnsRoles::IsSingleDiscAlbumRole)] = "isSingleDiscAlbum";
 
     return roles;
 }
@@ -177,6 +178,9 @@ QVariant AllAlbumsModel::internalDataAlbum(int albumIndex, int role) const
         break;
     case ColumnsRoles::IdRole:
         result = d->mAllAlbums[albumIndex].id();
+        break;
+    case ColumnsRoles::IsSingleDiscAlbumRole:
+        result = d->mAllAlbums[albumIndex].isSingleDiscAlbum();
         break;
     }
 

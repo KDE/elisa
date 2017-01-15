@@ -62,6 +62,7 @@ public:
         ImageRole = AllArtistsRole + 1,
         CountRole = ImageRole + 1,
         IdRole = CountRole + 1,
+        IsSingleDiscAlbumRole = IdRole + 1,
     };
 
     explicit AllAlbumsModel(QObject *parent = 0);

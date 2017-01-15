@@ -83,6 +83,10 @@ public:
 
     QUrl resourceURI() const;
 
+    void setIsSingleDiscAlbum(bool value);
+
+    bool isSingleDiscAlbum() const;
+
     void setTracks(const QMap<qulonglong, MusicAudioTrack> &allTracks);
 
     QList<qulonglong> tracksKeys() const;

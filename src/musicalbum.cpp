@@ -49,6 +49,8 @@ public:
 
     bool mIsValid = false;
 
+    bool mIsSingleDiscAlbum = true;
+
 };
 
 MusicAlbum::MusicAlbum() : d(new MusicAlbumPrivate)
@@ -178,6 +180,16 @@ void MusicAlbum::setResourceURI(const QUrl &value)
 QUrl MusicAlbum::resourceURI() const
 {
     return d->mResourceURI;
+}
+
+void MusicAlbum::setIsSingleDiscAlbum(bool value)
+{
+    d->mIsSingleDiscAlbum = value;
+}
+
+bool MusicAlbum::isSingleDiscAlbum() const
+{
+    return d->mIsSingleDiscAlbum;
 }
 
 void MusicAlbum::setTracks(const QMap<qulonglong, MusicAudioTrack> &allTracks)

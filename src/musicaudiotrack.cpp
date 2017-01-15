@@ -134,7 +134,8 @@ MusicAudioTrack& MusicAudioTrack::operator=(const MusicAudioTrack &other)
 
 bool MusicAudioTrack::operator <(const MusicAudioTrack &other) const
 {
-    return d->mTrackNumber < other.d->mTrackNumber;
+    return d->mDiscNumber < other.d->mDiscNumber ||
+           (d->mDiscNumber == other.d->mDiscNumber && d->mTrackNumber < other.d->mTrackNumber);
 }
 
 void MusicAudioTrack::setValid(bool value)

@@ -139,6 +139,8 @@ Item {
                                          else
                                              i18nc("Number of tracks for an album", "0 track")
 
+                            isSingleDiscAlbum: model.isSingleDiscAlbum
+
                             stackView: rootElement.stackView
 
                             playListModel: rootElement.playListModel

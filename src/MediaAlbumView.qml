@@ -37,6 +37,7 @@ Item {
     property var artistName
     property var tracksCount
     property var albumArtUrl
+    property bool isSingleDiscAlbum
 
     width: stackView.width
     height: stackView.height
@@ -138,7 +139,7 @@ Item {
                 delegate: AudioTrackDelegate {
                     id: entry
 
-                    height: Screen.pixelDensity * 15.
+                    height: ((model.isFirstTrackOfDisc && !isSingleDiscAlbum) ? Screen.pixelDensity * 22. : Screen.pixelDensity * 15.)
                     width: contentDirectoryView.width
 
                     databaseId: model.databaseId
@@ -165,6 +166,12 @@ Item {
                                      model.trackNumber
                                  else
                                      ''
+                    discNumber: if (model != undefined && model.discNumber !== undefined)
+                                     model.discNumber
+                                 else
+                                     ''
+                    isFirstTrackOfDisc: model.isFirstTrackOfDisc
+                    isSingleDiscAlbum: topListing.isSingleDiscAlbum
                     isSelected: DelegateModel.inSelected
 
                     contextMenu: Menu {

@@ -198,6 +198,10 @@ Item {
                                          model.trackNumber
                                      else
                                          ''
+                        discNumber: if (model != undefined && model.discNumber !== undefined)
+                                         model.discNumber
+                                     else
+                                         ''
                         album: if (model != undefined && model.album !== undefined)
                                    model.album
                                else

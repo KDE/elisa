@@ -24,7 +24,7 @@ import QtQuick.Window 2.2
 import QtGraphicalEffects 1.0
 import org.mgallien.QmlExtension 1.0
 
-Rectangle {
+Item {
     id: viewAlbumDelegate
 
     property string title
@@ -32,6 +32,9 @@ Rectangle {
     property string albumArtist
     property alias duration: durationLabel.text
     property int trackNumber
+    property int discNumber
+    property bool isFirstTrackOfDisc
+    property bool isSingleDiscAlbum
     property var databaseId
     property var playList
     property var playerControl
@@ -47,8 +50,6 @@ Rectangle {
         id: myPalette
         colorGroup: SystemPalette.Active
     }
-
-    color: myPalette.base
 
     Action {
         id: clearAndEnqueue
@@ -69,129 +70,168 @@ Rectangle {
         }
     }
 
-    MouseArea {
-        id: hoverArea
-
+    ColumnLayout {
         anchors.fill: parent
+        spacing: 0
 
-        hoverEnabled: true
+        Item {
+            Layout.preferredHeight: Screen.pixelDensity * 3.
+            Layout.minimumHeight: Screen.pixelDensity * 3.
+            Layout.maximumHeight: Screen.pixelDensity * 3.
 
-        acceptedButtons: Qt.RightButton | Qt.LeftButton
-
-        onClicked:
-        {
-            if (mouse.button == Qt.LeftButton)
-                viewAlbumDelegate.clicked()
-            if (mouse.button == Qt.RightButton)
-                viewAlbumDelegate.rightClicked()
+            visible: isFirstTrackOfDisc && !isSingleDiscAlbum
         }
 
-        RowLayout {
-            anchors.fill: parent
-            spacing: 0
+        Text {
+            id: discHeaderLabel
+            text: 'CD ' + discNumber
+            font.weight: Font.Bold
+            font.italic: true
+            Layout.preferredWidth: Screen.pixelDensity * 9
+            Layout.fillWidth: true
+            Layout.alignment: Qt.AlignLeft
+            elide: "ElideRight"
+            visible: isFirstTrackOfDisc && !isSingleDiscAlbum
+        }
 
-            Item {
-                Layout.preferredWidth: Screen.pixelDensity * 2
-                Layout.minimumWidth: Screen.pixelDensity * 2
-                Layout.maximumWidth: Screen.pixelDensity * 2
-                width: Screen.pixelDensity * 2
-            }
+        Item {
+            Layout.preferredHeight: (isFirstTrackOfDisc && !isSingleDiscAlbum ? Screen.pixelDensity * 1.5 : 0)
+            Layout.minimumHeight: (isFirstTrackOfDisc && !isSingleDiscAlbum ? Screen.pixelDensity * 1.5 : 0)
+            Layout.maximumHeight: (isFirstTrackOfDisc && !isSingleDiscAlbum ? Screen.pixelDensity * 1.5 : 0)
 
-            ColumnLayout {
-                Layout.preferredHeight: viewAlbumDelegate.height
+            visible: isFirstTrackOfDisc && !isSingleDiscAlbum
+        }
 
-                Layout.fillWidth: true
+        Rectangle {
+            id: highlightMarker
 
-                Layout.fillHeight: true
-                Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
-                spacing: 0
+            Layout.fillHeight: true
+            Layout.fillWidth: true
 
-                Item {
-                    Layout.preferredHeight: Screen.pixelDensity * 3.
-                    Layout.minimumHeight: Screen.pixelDensity * 3.
-                    Layout.maximumHeight: Screen.pixelDensity * 3.
+            color: myPalette.base
+
+            MouseArea {
+                id: hoverArea
+
+                anchors.fill: parent
+
+                hoverEnabled: true
+
+                acceptedButtons: Qt.RightButton | Qt.LeftButton
+
+                onClicked:
+                {
+                    if (mouse.button == Qt.LeftButton)
+                        viewAlbumDelegate.clicked()
+                    if (mouse.button == Qt.RightButton)
+                        viewAlbumDelegate.rightClicked()
                 }
 
-                Text {
-                    id: mainLabel
-                    text: trackNumber + ' - ' + title
-                    font.weight: Font.Bold
-                    Layout.preferredWidth: Screen.pixelDensity * 9
-                    Layout.fillWidth: true
-                    Layout.alignment: Qt.AlignLeft
-                    elide: "ElideRight"
-                }
+                RowLayout {
+                    anchors.fill: parent
+                    spacing: 0
 
-                Item {
-                    Layout.fillHeight: true
-                }
-
-                Row {
-                    Text {
-                        id: artistLabel
-                        visible: artist !== albumArtist
-                        text: artist
-                        font.weight: Font.Light
-                        font.italic: true
-                        Layout.preferredWidth: Screen.pixelDensity * 3
-                        Layout.fillWidth: true
-                        Layout.alignment: Qt.AlignLeft
-                        elide: "ElideRight"
+                    Item {
+                        Layout.preferredWidth: Screen.pixelDensity * 2
+                        Layout.minimumWidth: Screen.pixelDensity * 2
+                        Layout.maximumWidth: Screen.pixelDensity * 2
+                        width: Screen.pixelDensity * 2
                     }
-                    Text {
-                        id: artistSeparatorLabel
-                        visible: artist !== albumArtist
-                        text: ' - '
-                        font.weight: Font.Light
-                        Layout.preferredWidth: Screen.pixelDensity * 3
+
+                    ColumnLayout {
+                        Layout.preferredHeight: viewAlbumDelegate.height
+
                         Layout.fillWidth: true
-                        Layout.alignment: Qt.AlignLeft
-                        elide: "ElideRight"
+
+                        Layout.fillHeight: true
+                        Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
+                        spacing: 0
+
+                        Item {
+                            Layout.preferredHeight: (isFirstTrackOfDisc && !isSingleDiscAlbum ? Screen.pixelDensity * 1.5 : Screen.pixelDensity * 3.)
+                            Layout.minimumHeight: (isFirstTrackOfDisc && !isSingleDiscAlbum ? Screen.pixelDensity * 1.5 : Screen.pixelDensity * 3.)
+                            Layout.maximumHeight: (isFirstTrackOfDisc && !isSingleDiscAlbum ? Screen.pixelDensity * 1.5 : Screen.pixelDensity * 3.)
+                        }
+
+                        Text {
+                            id: mainLabel
+                            text: trackNumber + ' - ' + title
+                            font.weight: Font.Bold
+                            Layout.preferredWidth: Screen.pixelDensity * 9
+                            Layout.fillWidth: true
+                            Layout.alignment: Qt.AlignLeft
+                            Layout.leftMargin: (!isSingleDiscAlbum ? Screen.pixelDensity * 4 : 0)
+                            elide: "ElideRight"
+                        }
+
+                        Item {
+                            Layout.fillHeight: true
+                        }
+
+                        Row {
+                            Text {
+                                id: artistLabel
+                                visible: artist !== albumArtist
+                                text: artist
+                                font.weight: Font.Light
+                                font.italic: true
+                                elide: "ElideRight"
+                            }
+                            Text {
+                                id: artistSeparatorLabel
+                                visible: artist !== albumArtist
+                                text: ' - '
+                                font.weight: Font.Light
+                                elide: "ElideRight"
+                            }
+                            Text {
+                                id: durationLabel
+                                text: duration
+                                font.weight: Font.Light
+                                elide: "ElideRight"
+                            }
+
+                            Layout.preferredWidth: Screen.pixelDensity * 3
+                            Layout.fillWidth: true
+                            Layout.alignment: Qt.AlignLeft
+                            Layout.leftMargin: (!isSingleDiscAlbum ? Screen.pixelDensity * 4 : 0)
+                        }
+
+                        Item {
+                            Layout.preferredHeight: Screen.pixelDensity * 3.
+                            Layout.minimumHeight: Screen.pixelDensity * 3.
+                            Layout.maximumHeight: Screen.pixelDensity * 3.
+                        }
                     }
-                    Text {
-                        id: durationLabel
-                        text: duration
-                        font.weight: Font.Light
-                        Layout.preferredWidth: Screen.pixelDensity * 3
-                        Layout.fillWidth: true
-                        Layout.alignment: Qt.AlignLeft
-                        elide: "ElideRight"
+
+                    Item {
+                        Layout.preferredWidth: Screen.pixelDensity * 3.
+                        Layout.minimumWidth: Screen.pixelDensity * 3.
+                        Layout.maximumWidth: Screen.pixelDensity * 3.
+                    }
+
+                    ToolButton {
+                        id: enqueueButton
+
+                        visible: opacity > 0.1
+                        action: enqueue
+                        Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+                    }
+
+                    ToolButton {
+                        id: clearAndEnqueueButton
+
+                        visible: opacity > 0.1
+                        action: clearAndEnqueue
+                        Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+                    }
+
+                    Item {
+                        Layout.preferredWidth: Screen.pixelDensity * 6.
+                        Layout.minimumWidth: Screen.pixelDensity * 6.
+                        Layout.maximumWidth: Screen.pixelDensity * 6.
                     }
                 }
-
-                Item {
-                    Layout.preferredHeight: Screen.pixelDensity * 3.
-                    Layout.minimumHeight: Screen.pixelDensity * 3.
-                    Layout.maximumHeight: Screen.pixelDensity * 3.
-                }
-            }
-
-            Item {
-                Layout.preferredWidth: Screen.pixelDensity * 3.
-                Layout.minimumWidth: Screen.pixelDensity * 3.
-                Layout.maximumWidth: Screen.pixelDensity * 3.
-            }
-
-            ToolButton {
-                id: enqueueButton
-
-                visible: opacity > 0.1
-                action: enqueue
-                Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
-            }
-
-            ToolButton {
-                id: clearAndEnqueueButton
-
-                visible: opacity > 0.1
-                action: clearAndEnqueue
-                Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
-            }
-
-            Item {
-                Layout.preferredWidth: Screen.pixelDensity * 6.
-                Layout.minimumWidth: Screen.pixelDensity * 6.
-                Layout.maximumWidth: Screen.pixelDensity * 6.
             }
         }
     }
@@ -209,7 +249,7 @@ Rectangle {
                 opacity: 0
             }
             PropertyChanges {
-                target: viewAlbumDelegate
+                target: highlightMarker
                 color: myPalette.base
             }
         },
@@ -225,7 +265,7 @@ Rectangle {
                 opacity: 1
             }
             PropertyChanges {
-                target: viewAlbumDelegate
+                target: highlightMarker
                 color: myPalette.highlight
             }
         },
@@ -241,7 +281,7 @@ Rectangle {
                 opacity: 1
             }
             PropertyChanges {
-                target: viewAlbumDelegate
+                target: highlightMarker
                 color: myPalette.alternateBase
             }
         }

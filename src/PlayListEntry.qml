@@ -34,6 +34,7 @@ Rectangle {
     property alias itemDecoration : mainIcon.source
     property alias duration : durationLabel.text
     property int trackNumber
+    property int discNumber
     property alias isPlaying : playIcon.visible
     property bool isSelected
     property bool containsMouse
@@ -171,7 +172,7 @@ Rectangle {
                 Text {
                     id: mainCompactLabel
 
-                    text: trackNumber + ' - ' + title
+                    text: (discNumber ? discNumber + ' - ' + trackNumber + ' - ' + title : trackNumber + ' - ' + title)
                     font.weight: Font.Bold
 
                     Layout.fillWidth: true

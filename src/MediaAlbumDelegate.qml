@@ -37,6 +37,7 @@ Rectangle {
     property alias title: titleLabel.text
     property alias artist: artistLabel.text
     property alias trackNumber: numberLabel.text
+    property bool isSingleDiscAlbum
 
     id: mediaServerEntry
 
@@ -110,7 +111,8 @@ Rectangle {
                                                    'albumArtUrl': image,
                                                    'albumName': title,
                                                    'artistName': artist,
-                                                   'tracksCount': count
+                                                   'tracksCount': count,
+                                                   'isSingleDiscAlbum': mediaServerEntry.isSingleDiscAlbum
                                                })
                             }
                         }

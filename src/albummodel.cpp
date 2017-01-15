@@ -153,39 +153,48 @@ QVariant AlbumModel::data(const QModelIndex &index, int role) const
 
 QVariant AlbumModel::internalDataTrack(const MusicAudioTrack &track, int role) const
 {
+    auto result = QVariant();
+
     ColumnsRoles convertedRole = static_cast<ColumnsRoles>(role);
 
     switch(convertedRole)
     {
     case ColumnsRoles::TitleRole:
-        return track.title();
+        result = track.title();
+        break;
     case ColumnsRoles::MilliSecondsDurationRole:
-        return track.duration().msecsSinceStartOfDay();
+        result = track.duration().msecsSinceStartOfDay();
+        break;
     case ColumnsRoles::DurationRole:
     {
         QTime trackDuration = track.duration();
         if (trackDuration.hour() == 0) {
-            return trackDuration.toString(QStringLiteral("mm:ss"));
+            result = trackDuration.toString(QStringLiteral("mm:ss"));
         } else {
-            return trackDuration.toString();
+            result = trackDuration.toString();
         }
+        break;
     }
     case ColumnsRoles::CreatorRole:
-        return track.artist();
+        result = track.artist();
+        break;
     case ColumnsRoles::ArtistRole:
-        return track.artist();
+        result = track.artist();
+        break;
     case ColumnsRoles::AlbumRole:
-        return track.albumName();
+        result = track.albumName();
+        break;
     case ColumnsRoles::AlbumArtistRole:
-        return track.albumArtist();
+        result = track.albumArtist();
+        break;
     case ColumnsRoles::TrackNumberRole:
-        return track.trackNumber();
+        result = track.trackNumber();
+        break;
     case ColumnsRoles::RatingRole:
-        return 0;
+        result = 0;
+        break;
     case ColumnsRoles::ImageRole:
     {
-        QVariant result;
-
         if (d->mCurrentAlbum.albumArtURI().isValid()) {
             result = d->mCurrentAlbum.albumArtURI();
         } else {
@@ -195,17 +204,20 @@ QVariant AlbumModel::internalDataTrack(const MusicAudioTrack &track, int role) c
                 result = QUrl(QStringLiteral("image://icon/media-optical-audio"));
             }
         }
-        return result;
+        break;
     }
     case ColumnsRoles::ResourceRole:
-        return track.resourceURI();
+        result = track.resourceURI();
+        break;
     case ColumnsRoles::IdRole:
-        return track.title();
+        result = track.title();
+        break;
     case ColumnsRoles::DatabaseIdRole:
-        return track.databaseId();
+        result = track.databaseId();
+        break;
     }
 
-    return {};
+    return result;
 }
 
 QModelIndex AlbumModel::index(int row, int column, const QModelIndex &parent) const

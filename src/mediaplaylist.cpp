@@ -62,20 +62,22 @@ int MediaPlayList::rowCount(const QModelIndex &parent) const
 
 QVariant MediaPlayList::data(const QModelIndex &index, int role) const
 {
+    auto result = QVariant();
+
     if (!d->mMusicDatabase) {
-        return {};
+        return result;
     }
 
     if (!index.isValid()) {
-        return QVariant();
+        return result;
     }
 
     if (index.row() < 0 || index.row() >= d->mData.size()) {
-        return QVariant();
+        return result;
     }
 
     if (role < ColumnsRoles::IsValidRole || role > ColumnsRoles::HasAlbumHeader) {
-        return QVariant();
+        return result;
     }
 
     ColumnsRoles convertedRole = static_cast<ColumnsRoles>(role);
@@ -84,31 +86,38 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
         switch(convertedRole)
         {
         case ColumnsRoles::IsValidRole:
-            return d->mData[index.row()].mIsValid;
+            result = d->mData[index.row()].mIsValid;
+            break;
         case ColumnsRoles::TitleRole:
-            return d->mTrackData[index.row()].title();
+            result = d->mTrackData[index.row()].title();
+            break;
         case ColumnsRoles::DurationRole:
         {
             QTime trackDuration = d->mTrackData[index.row()].duration();
             if (trackDuration.hour() == 0) {
-                return trackDuration.toString(QStringLiteral("mm:ss"));
+                result = trackDuration.toString(QStringLiteral("mm:ss"));
             } else {
-                return trackDuration.toString();
+                result = trackDuration.toString();
             }
+            break;
         }
         case ColumnsRoles::MilliSecondsDurationRole:
-            return d->mTrackData[index.row()].duration().msecsSinceStartOfDay();
+            result = d->mTrackData[index.row()].duration().msecsSinceStartOfDay();
+            break;
         case ColumnsRoles::ArtistRole:
-            return d->mTrackData[index.row()].artist();
+            result = d->mTrackData[index.row()].artist();
+            break;
         case ColumnsRoles::AlbumRole:
-            return d->mTrackData[index.row()].albumName();
+            result = d->mTrackData[index.row()].albumName();
+            break;
         case ColumnsRoles::TrackNumberRole:
-            return d->mTrackData[index.row()].trackNumber();
+            result = d->mTrackData[index.row()].trackNumber();
+            break;
         case ColumnsRoles::ResourceRole:
-            return d->mTrackData[index.row()].resourceURI();
+            result = d->mTrackData[index.row()].resourceURI();
+            break;
         case ColumnsRoles::ImageRole:
         {
-            QVariant result;
             auto albumArt = d->mTrackData[index.row()].albumCover();
             if (albumArt.isValid()) {
                 result = albumArt;
@@ -119,46 +128,64 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
                     result = QUrl(QStringLiteral("image://icon/media-optical-audio"));
                 }
             }
-            return result;
+            break;
         }
         case ColumnsRoles::HasAlbumHeader:
-            return rowHasHeader(index.row());
+            result = rowHasHeader(index.row());
+            break;
         case ColumnsRoles::RatingRole:
+            break;
         case ColumnsRoles::CountRole:
+            break;
         case ColumnsRoles::CreatorRole:
-            return QVariant();
+            break;
         case ColumnsRoles::IsPlayingRole:
-            return d->mData[index.row()].mIsPlaying;
+            result = d->mData[index.row()].mIsPlaying;
+            break;
         }
     } else {
         switch(convertedRole)
         {
         case ColumnsRoles::IsValidRole:
-            return d->mData[index.row()].mIsValid;
+            result = d->mData[index.row()].mIsValid;
+            break;
         case ColumnsRoles::TitleRole:
-            return d->mData[index.row()].mTitle;
+            result = d->mData[index.row()].mTitle;
+            break;
         case ColumnsRoles::IsPlayingRole:
-            return d->mData[index.row()].mIsPlaying;
+            result = d->mData[index.row()].mIsPlaying;
+            break;
         case ColumnsRoles::ArtistRole:
-            return d->mData[index.row()].mArtist;
+            result = d->mData[index.row()].mArtist;
+            break;
         case ColumnsRoles::AlbumRole:
-            return d->mData[index.row()].mAlbum;
+            result = d->mData[index.row()].mAlbum;
+            break;
         case ColumnsRoles::TrackNumberRole:
-            return -1;
+            result = -1;
+            break;
         case ColumnsRoles::HasAlbumHeader:
-            return rowHasHeader(index.row());
+            result = rowHasHeader(index.row());
+            break;
         case ColumnsRoles::DurationRole:
+            break;
         case ColumnsRoles::MilliSecondsDurationRole:
+            break;
         case ColumnsRoles::ResourceRole:
+            break;
         case ColumnsRoles::RatingRole:
+            break;
         case ColumnsRoles::CountRole:
+            break;
         case ColumnsRoles::CreatorRole:
+            break;
         case ColumnsRoles::ImageRole:
-            return {QStringLiteral("")};
+            result = QStringLiteral("");
+            break;
         }
     }
 
-    return QVariant();
+    return result;
 }
 
 bool MediaPlayList::setData(const QModelIndex &index, const QVariant &value, int role)

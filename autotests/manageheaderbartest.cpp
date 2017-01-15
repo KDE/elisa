@@ -1631,7 +1631,7 @@ void ManageHeaderBarTest::moveCurrentTrack()
     QCOMPARE(myControl.isValid(), false);
     QCOMPARE(myControl.remainingTracks(), 0);
 
-    myControl.setArtistRole(ManageHeaderBarTest::ArtistRole);
+    myControl.setArtistRole(MediaPlayList::ArtistRole);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 0);
@@ -1647,9 +1647,9 @@ void ManageHeaderBarTest::moveCurrentTrack()
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
-    QCOMPARE(myControl.artistRole(), static_cast<int>(ManageHeaderBarTest::ArtistRole));
+    QCOMPARE(myControl.artistRole(), static_cast<int>(MediaPlayList::ArtistRole));
 
-    myControl.setTitleRole(ManageHeaderBarTest::TitleRole);
+    myControl.setTitleRole(MediaPlayList::TitleRole);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 0);
@@ -1665,9 +1665,9 @@ void ManageHeaderBarTest::moveCurrentTrack()
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
-    QCOMPARE(myControl.titleRole(), static_cast<int>(ManageHeaderBarTest::TitleRole));
+    QCOMPARE(myControl.titleRole(), static_cast<int>(MediaPlayList::TitleRole));
 
-    myControl.setAlbumRole(ManageHeaderBarTest::AlbumRole);
+    myControl.setAlbumRole(MediaPlayList::AlbumRole);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 0);
@@ -1683,9 +1683,9 @@ void ManageHeaderBarTest::moveCurrentTrack()
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
-    QCOMPARE(myControl.albumRole(), static_cast<int>(ManageHeaderBarTest::AlbumRole));
+    QCOMPARE(myControl.albumRole(), static_cast<int>(MediaPlayList::AlbumRole));
 
-    myControl.setImageRole(ManageHeaderBarTest::ImageRole);
+    myControl.setImageRole(MediaPlayList::ImageRole);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 0);
@@ -1701,9 +1701,9 @@ void ManageHeaderBarTest::moveCurrentTrack()
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
-    QCOMPARE(myControl.imageRole(), static_cast<int>(ManageHeaderBarTest::ImageRole));
+    QCOMPARE(myControl.imageRole(), static_cast<int>(MediaPlayList::ImageRole));
 
-    myControl.setIsValidRole(ManageHeaderBarTest::IsValidRole);
+    myControl.setIsValidRole(MediaPlayList::IsValidRole);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 0);
@@ -1719,7 +1719,7 @@ void ManageHeaderBarTest::moveCurrentTrack()
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
-    QCOMPARE(myControl.isValidRole(), static_cast<int>(ManageHeaderBarTest::IsValidRole));
+    QCOMPARE(myControl.isValidRole(), static_cast<int>(MediaPlayList::IsValidRole));
 
     myControl.setPlayListModel(&myPlayList);
 
@@ -1888,7 +1888,7 @@ void ManageHeaderBarTest::moveAnotherTrack()
     QCOMPARE(myControl.isValid(), false);
     QCOMPARE(myControl.remainingTracks(), 0);
 
-    myControl.setArtistRole(ManageHeaderBarTest::ArtistRole);
+    myControl.setArtistRole(MediaPlayList::ArtistRole);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 0);
@@ -1904,9 +1904,9 @@ void ManageHeaderBarTest::moveAnotherTrack()
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
-    QCOMPARE(myControl.artistRole(), static_cast<int>(ManageHeaderBarTest::ArtistRole));
+    QCOMPARE(myControl.artistRole(), static_cast<int>(MediaPlayList::ArtistRole));
 
-    myControl.setTitleRole(ManageHeaderBarTest::TitleRole);
+    myControl.setTitleRole(MediaPlayList::TitleRole);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 0);
@@ -1922,9 +1922,9 @@ void ManageHeaderBarTest::moveAnotherTrack()
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
-    QCOMPARE(myControl.titleRole(), static_cast<int>(ManageHeaderBarTest::TitleRole));
+    QCOMPARE(myControl.titleRole(), static_cast<int>(MediaPlayList::TitleRole));
 
-    myControl.setAlbumRole(ManageHeaderBarTest::AlbumRole);
+    myControl.setAlbumRole(MediaPlayList::AlbumRole);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 0);
@@ -1940,9 +1940,9 @@ void ManageHeaderBarTest::moveAnotherTrack()
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
-    QCOMPARE(myControl.albumRole(), static_cast<int>(ManageHeaderBarTest::AlbumRole));
+    QCOMPARE(myControl.albumRole(), static_cast<int>(MediaPlayList::AlbumRole));
 
-    myControl.setImageRole(ManageHeaderBarTest::ImageRole);
+    myControl.setImageRole(MediaPlayList::ImageRole);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 0);
@@ -1958,9 +1958,9 @@ void ManageHeaderBarTest::moveAnotherTrack()
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
-    QCOMPARE(myControl.imageRole(), static_cast<int>(ManageHeaderBarTest::ImageRole));
+    QCOMPARE(myControl.imageRole(), static_cast<int>(MediaPlayList::ImageRole));
 
-    myControl.setIsValidRole(ManageHeaderBarTest::IsValidRole);
+    myControl.setIsValidRole(MediaPlayList::IsValidRole);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 0);
@@ -1976,7 +1976,7 @@ void ManageHeaderBarTest::moveAnotherTrack()
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
-    QCOMPARE(myControl.isValidRole(), static_cast<int>(ManageHeaderBarTest::IsValidRole));
+    QCOMPARE(myControl.isValidRole(), static_cast<int>(MediaPlayList::IsValidRole));
 
     myControl.setPlayListModel(&myPlayList);
 
@@ -2145,7 +2145,7 @@ void ManageHeaderBarTest::setCurrentTrackTest()
     QCOMPARE(myControl.isValid(), false);
     QCOMPARE(myControl.remainingTracks(), 0);
 
-    myControl.setArtistRole(ManageHeaderBarTest::ArtistRole);
+    myControl.setArtistRole(MediaPlayList::ArtistRole);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 0);
@@ -2161,9 +2161,9 @@ void ManageHeaderBarTest::setCurrentTrackTest()
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
-    QCOMPARE(myControl.artistRole(), static_cast<int>(ManageHeaderBarTest::ArtistRole));
+    QCOMPARE(myControl.artistRole(), static_cast<int>(MediaPlayList::ArtistRole));
 
-    myControl.setTitleRole(ManageHeaderBarTest::TitleRole);
+    myControl.setTitleRole(MediaPlayList::TitleRole);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 0);
@@ -2179,9 +2179,9 @@ void ManageHeaderBarTest::setCurrentTrackTest()
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
-    QCOMPARE(myControl.titleRole(), static_cast<int>(ManageHeaderBarTest::TitleRole));
+    QCOMPARE(myControl.titleRole(), static_cast<int>(MediaPlayList::TitleRole));
 
-    myControl.setAlbumRole(ManageHeaderBarTest::AlbumRole);
+    myControl.setAlbumRole(MediaPlayList::AlbumRole);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 0);
@@ -2197,9 +2197,9 @@ void ManageHeaderBarTest::setCurrentTrackTest()
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
-    QCOMPARE(myControl.albumRole(), static_cast<int>(ManageHeaderBarTest::AlbumRole));
+    QCOMPARE(myControl.albumRole(), static_cast<int>(MediaPlayList::AlbumRole));
 
-    myControl.setImageRole(ManageHeaderBarTest::ImageRole);
+    myControl.setImageRole(MediaPlayList::ImageRole);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 0);
@@ -2215,9 +2215,9 @@ void ManageHeaderBarTest::setCurrentTrackTest()
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
-    QCOMPARE(myControl.imageRole(), static_cast<int>(ManageHeaderBarTest::ImageRole));
+    QCOMPARE(myControl.imageRole(), static_cast<int>(MediaPlayList::ImageRole));
 
-    myControl.setIsValidRole(ManageHeaderBarTest::IsValidRole);
+    myControl.setIsValidRole(MediaPlayList::IsValidRole);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 0);
@@ -2233,7 +2233,7 @@ void ManageHeaderBarTest::setCurrentTrackTest()
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
-    QCOMPARE(myControl.isValidRole(), static_cast<int>(ManageHeaderBarTest::IsValidRole));
+    QCOMPARE(myControl.isValidRole(), static_cast<int>(MediaPlayList::IsValidRole));
 
     myControl.setPlayListModel(&myPlayList);
 

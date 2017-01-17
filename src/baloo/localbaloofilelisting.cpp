@@ -135,6 +135,14 @@ void LocalBalooFileListing::refreshContent()
                 newTrack.setAlbumArtist(albumArtistProperty->toString());
             }
 
+            if (newTrack.albumArtist().isEmpty()) {
+                newTrack.setAlbumArtist(newTrack.artist());
+            }
+
+            if (newTrack.artist().isEmpty()) {
+                newTrack.setArtist(newTrack.albumArtist());
+            }
+
             newTrack.setResourceURI(QUrl::fromLocalFile(resultIterator.filePath()));
             QFileInfo trackFilePath(resultIterator.filePath());
             QFileInfo coverFilePath(trackFilePath.dir().filePath(QStringLiteral("cover.jpg")));

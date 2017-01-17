@@ -533,7 +533,6 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
                 newAlbum.setArtist(track.albumArtist());
             }
             if (!track.albumArtist().isEmpty() && newAlbum.artist() != track.albumArtist()) {
-                qDebug() << "DatabaseInterface::insertTracksList" << track.artist() << track.albumArtist();
                 newAlbum.setArtist(i18nc("Artist name for albums with more than one artist (like compilations", "Various Artists"));
             }
 
@@ -558,7 +557,8 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
         auto result = d->mSelectAlbumIdFromTitleQuery.exec();
 
         if (!result || !d->mSelectAlbumIdFromTitleQuery.isSelect() || !d->mSelectAlbumIdFromTitleQuery.isActive()) {
-            qDebug() << "DatabaseInterface::insertTracksList" << "not select" << d->mSelectAlbumIdFromTitleQuery.lastQuery();
+            qDebug() << "DatabaseInterface::insertTracksList" << d->mSelectAlbumIdFromTitleQuery.lastQuery();
+            qDebug() << "DatabaseInterface::insertTracksList" << d->mSelectAlbumIdFromTitleQuery.boundValues();
             qDebug() << "DatabaseInterface::insertTracksList" << d->mSelectAlbumIdFromTitleQuery.lastError();
         }
 
@@ -584,6 +584,7 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
             } else {
                 qDebug() << "DatabaseInterface::insertTracksList" << "error during album insert";
                 qDebug() << "DatabaseInterface::insertTracksList" << d->mInsertAlbumQuery.lastQuery();
+                qDebug() << "DatabaseInterface::insertTracksList" << d->mInsertAlbumQuery.boundValues();
                 qDebug() << "DatabaseInterface::insertTracksList" << d->mInsertAlbumQuery.lastError();
 
                 d->mInsertAlbumQuery.finish();
@@ -596,7 +597,8 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
             result = d->mSelectAlbumIdFromTitleQuery.exec();
 
             if (!result || !d->mSelectAlbumIdFromTitleQuery.isSelect() || !d->mSelectAlbumIdFromTitleQuery.isActive()) {
-                qDebug() << "DatabaseInterface::insertTracksList" << "not select" << d->mSelectAlbumIdFromTitleQuery.lastQuery();
+                qDebug() << "DatabaseInterface::insertTracksList" << d->mSelectAlbumIdFromTitleQuery.lastQuery();
+                qDebug() << "DatabaseInterface::insertTracksList" << d->mSelectAlbumIdFromTitleQuery.boundValues();
                 qDebug() << "DatabaseInterface::insertTracksList" << d->mSelectAlbumIdFromTitleQuery.lastError();
 
                 d->mSelectAlbumIdFromTitleQuery.finish();
@@ -626,7 +628,8 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
             result = d->mSelectTrackIdFromTitleAlbumIdArtistQuery.exec();
 
             if (!result || !d->mSelectTrackIdFromTitleAlbumIdArtistQuery.isSelect() || !d->mSelectTrackIdFromTitleAlbumIdArtistQuery.isActive()) {
-                qDebug() << "DatabaseInterface::insertTracksList" << "not select" << d->mSelectTrackIdFromTitleAlbumIdArtistQuery.lastQuery();
+                qDebug() << "DatabaseInterface::insertTracksList" << d->mSelectTrackIdFromTitleAlbumIdArtistQuery.lastQuery();
+                qDebug() << "DatabaseInterface::insertTracksList" << d->mSelectTrackIdFromTitleAlbumIdArtistQuery.boundValues();
                 qDebug() << "DatabaseInterface::insertTracksList" << d->mSelectTrackIdFromTitleAlbumIdArtistQuery.lastError();
             }
 
@@ -654,6 +657,7 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
                     ++d->mTrackId;
                 } else {
                     qDebug() << "DatabaseInterface::insertTracksList" << d->mInsertTrackQuery.lastQuery();
+                    qDebug() << "DatabaseInterface::insertTracksList" << d->mInsertTrackQuery.boundValues();
                     qDebug() << "DatabaseInterface::insertTracksList" << d->mInsertTrackQuery.lastError();
                 }
 
@@ -1163,8 +1167,9 @@ qulonglong DatabaseInterface::insertArtist(QString name)
     auto queryResult = d->mSelectArtistByNameQuery.exec();
 
     if (!queryResult || !d->mSelectArtistByNameQuery.isSelect() || !d->mSelectArtistByNameQuery.isActive()) {
-        qDebug() << "DatabaseInterface::fetchTracks" << "not select" << d->mSelectArtistByNameQuery.lastQuery();
-        qDebug() << "DatabaseInterface::fetchTracks" << d->mSelectArtistByNameQuery.lastError();
+        qDebug() << "DatabaseInterface::insertArtist" << d->mSelectArtistByNameQuery.lastQuery();
+        qDebug() << "DatabaseInterface::insertArtist" << d->mSelectArtistByNameQuery.boundValues();
+        qDebug() << "DatabaseInterface::insertArtist" << d->mSelectArtistByNameQuery.lastError();
 
         d->mSelectArtistByNameQuery.finish();
 
@@ -1187,8 +1192,9 @@ qulonglong DatabaseInterface::insertArtist(QString name)
     queryResult = d->mInsertArtistsQuery.exec();
 
     if (!queryResult || !d->mInsertArtistsQuery.isActive()) {
-        qDebug() << "DatabaseInterface::insertTracksList" << d->mInsertArtistsQuery.lastQuery();
-        qDebug() << "DatabaseInterface::insertTracksList" << d->mInsertArtistsQuery.lastError();
+        qDebug() << "DatabaseInterface::insertArtist" << d->mInsertArtistsQuery.lastQuery();
+        qDebug() << "DatabaseInterface::insertArtist" << d->mInsertArtistsQuery.boundValues();
+        qDebug() << "DatabaseInterface::insertArtist" << d->mInsertArtistsQuery.lastError();
 
         d->mInsertArtistsQuery.finish();
 

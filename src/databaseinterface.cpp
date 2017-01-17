@@ -560,6 +560,9 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
             qDebug() << "DatabaseInterface::insertTracksList" << d->mSelectAlbumIdFromTitleQuery.lastQuery();
             qDebug() << "DatabaseInterface::insertTracksList" << d->mSelectAlbumIdFromTitleQuery.boundValues();
             qDebug() << "DatabaseInterface::insertTracksList" << d->mSelectAlbumIdFromTitleQuery.lastError();
+
+            rollBackTransaction();
+            return;
         }
 
         if (d->mSelectAlbumIdFromTitleQuery.next()) {
@@ -589,7 +592,8 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
 
                 d->mInsertAlbumQuery.finish();
 
-                continue;
+                rollBackTransaction();
+                return;
             }
 
             d->mInsertAlbumQuery.finish();
@@ -603,7 +607,8 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
 
                 d->mSelectAlbumIdFromTitleQuery.finish();
 
-                continue;
+                rollBackTransaction();
+                return;
             }
 
             if (d->mSelectAlbumIdFromTitleQuery.next()) {
@@ -631,6 +636,9 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
                 qDebug() << "DatabaseInterface::insertTracksList" << d->mSelectTrackIdFromTitleAlbumIdArtistQuery.lastQuery();
                 qDebug() << "DatabaseInterface::insertTracksList" << d->mSelectTrackIdFromTitleAlbumIdArtistQuery.boundValues();
                 qDebug() << "DatabaseInterface::insertTracksList" << d->mSelectTrackIdFromTitleAlbumIdArtistQuery.lastError();
+
+                rollBackTransaction();
+                return;
             }
 
             if (d->mSelectTrackIdFromTitleAlbumIdArtistQuery.next()) {
@@ -659,6 +667,9 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
                     qDebug() << "DatabaseInterface::insertTracksList" << d->mInsertTrackQuery.lastQuery();
                     qDebug() << "DatabaseInterface::insertTracksList" << d->mInsertTrackQuery.boundValues();
                     qDebug() << "DatabaseInterface::insertTracksList" << d->mInsertTrackQuery.lastError();
+
+                    rollBackTransaction();
+                    return;
                 }
 
                 d->mInsertTrackQuery.finish();
@@ -711,6 +722,23 @@ bool DatabaseInterface::finishTransaction() const
     auto result = false;
 
     auto transactionResult = d->mTracksDatabase.commit();
+
+    if (!transactionResult) {
+        qDebug() << "commit failed" << d->mTracksDatabase.lastError() << d->mTracksDatabase.lastError().nativeErrorCode();
+
+        return result;
+    }
+
+    result = true;
+
+    return result;
+}
+
+bool DatabaseInterface::rollBackTransaction() const
+{
+    auto result = false;
+
+    auto transactionResult = d->mTracksDatabase.rollback();
 
     if (!transactionResult) {
         qDebug() << "commit failed" << d->mTracksDatabase.lastError() << d->mTracksDatabase.lastError().nativeErrorCode();
@@ -1065,7 +1093,7 @@ void DatabaseInterface::initRequest()
                                                    "WHERE "
                                                    "tracks.`Title` = :title AND "
                                                    "tracks.`AlbumID` = :album AND "
-                                                   "artist.`Name` = :artistId AND "
+                                                   "artist.`Name` = :artist AND "
                                                    "artist.`ID` = tracks.`ArtistID`");
 
         auto result = d->mSelectTrackIdFromTitleAlbumIdArtistQuery.prepare(selectTrackQueryText);

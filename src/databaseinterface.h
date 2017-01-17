@@ -92,6 +92,8 @@ private:
 
     bool finishTransaction() const;
 
+    bool rollBackTransaction() const;
+
     QMap<qulonglong, MusicAudioTrack> fetchTracks(qulonglong albumId) const;
 
     void updateTracksCount(qulonglong albumId, int tracksCount) const;

@@ -144,8 +144,12 @@ void MediaPlayListTest::simpleInitialCase()
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
 
-    connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
-            &myDatabaseView, &DatabaseInterface::databaseHasChanged);
+    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
+            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
+            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
+            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
 
     myPlayList.setDatabaseInterface(&myDatabaseView);
 
@@ -222,8 +226,12 @@ void MediaPlayListTest::enqueueAlbumCase()
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
 
-    connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
-            &myDatabaseView, &DatabaseInterface::databaseHasChanged);
+    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
+            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
+            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
+            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
 
     myPlayList.setDatabaseInterface(&myDatabaseView);
 
@@ -299,8 +307,12 @@ void MediaPlayListTest::removeFirstTrackOfAlbum()
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
 
-    connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
-            &myDatabaseView, &DatabaseInterface::databaseHasChanged);
+    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
+            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
+            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
+            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
 
     myPlayList.setDatabaseInterface(&myDatabaseView);
 
@@ -402,8 +414,12 @@ void MediaPlayListTest::testHasHeader()
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
 
-    connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
-            &myDatabaseView, &DatabaseInterface::databaseHasChanged);
+    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
+            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
+            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
+            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
 
     myPlayList.setDatabaseInterface(&myDatabaseView);
 
@@ -553,8 +569,12 @@ void MediaPlayListTest::testHasHeaderWithRestore()
 
     myDatabaseView.init(QStringLiteral("testDbDirectViewHeaderWithRestore"));
 
-    connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
-            &myDatabaseView, &DatabaseInterface::databaseHasChanged);
+    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
+            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
+            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
+            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
 
     myPlayList.setDatabaseInterface(&myDatabaseView);
 
@@ -648,7 +668,7 @@ void MediaPlayListTest::testHasHeaderWithRestore()
     QCOMPARE(trackHasBeenAddedSpy.count(), 4);
     QCOMPARE(databaseInterfaceChangedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 4);
-    QCOMPARE(dataChangedSpy.count(), 8);
+    QCOMPARE(dataChangedSpy.count(), 4);
 
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
@@ -688,8 +708,12 @@ void MediaPlayListTest::testHasHeaderWithRemove()
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
 
-    connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
-            &myDatabaseView, &DatabaseInterface::databaseHasChanged);
+    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
+            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
+            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
+            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
 
     myPlayList.setDatabaseInterface(&myDatabaseView);
 
@@ -855,8 +879,12 @@ void MediaPlayListTest::testHasHeaderMoveFirst()
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
 
-    connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
-            &myDatabaseView, &DatabaseInterface::databaseHasChanged);
+    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
+            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
+            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
+            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
 
     myPlayList.setDatabaseInterface(&myDatabaseView);
 
@@ -1019,8 +1047,12 @@ void MediaPlayListTest::testHasHeaderMoveAnother()
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
 
-    connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
-            &myDatabaseView, &DatabaseInterface::databaseHasChanged);
+    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
+            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
+            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
+            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
 
     myPlayList.setDatabaseInterface(&myDatabaseView);
 
@@ -1183,8 +1215,12 @@ void MediaPlayListTest::testHasHeaderMoveFirstLikeQml()
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
 
-    connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
-            &myDatabaseView, &DatabaseInterface::databaseHasChanged);
+    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
+            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
+            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
+            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
 
     myPlayList.setDatabaseInterface(&myDatabaseView);
 
@@ -1347,8 +1383,12 @@ void MediaPlayListTest::testHasHeaderMoveAnotherLikeQml()
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
 
-    connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
-            &myDatabaseView, &DatabaseInterface::databaseHasChanged);
+    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
+            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
+            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
+            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
 
     myPlayList.setDatabaseInterface(&myDatabaseView);
 
@@ -1511,8 +1551,12 @@ void MediaPlayListTest::testHasHeaderYetAnotherMoveLikeQml()
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
 
-    connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
-            &myDatabaseView, &DatabaseInterface::databaseHasChanged);
+    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
+            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
+            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
+            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
 
     myPlayList.setDatabaseInterface(&myDatabaseView);
 
@@ -1705,8 +1749,12 @@ void MediaPlayListTest::enqueueClearAndEnqueue()
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
 
-    connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
-            &myDatabaseView, &DatabaseInterface::databaseHasChanged);
+    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
+            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
+            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
+            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
 
     myPlayList.setDatabaseInterface(&myDatabaseView);
 
@@ -1846,8 +1894,12 @@ void MediaPlayListTest::crashOnEnqueue()
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
 
-    connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
-            &myDatabaseView, &DatabaseInterface::databaseHasChanged);
+    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
+            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
+            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
+            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
 
     myPlayList.setDatabaseInterface(&myDatabaseView);
 

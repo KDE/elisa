@@ -306,8 +306,7 @@ void AlbumModel::setDatabaseInterface(DatabaseInterface *musicDatabase)
     d->mMusicDatabase = musicDatabase;
 
     if (d->mMusicDatabase) {
-        connect(d->mMusicDatabase, &DatabaseInterface::beginTrackAdded, this, &AlbumModel::beginTrackAdded);
-        connect(d->mMusicDatabase, &DatabaseInterface::endTrackAdded, this, &AlbumModel::endTrackAdded);
+        connect(d->mMusicDatabase, &DatabaseInterface::trackAdded, this, &AlbumModel::trackAdded);
     }
 
     emit databaseInterfaceChanged();
@@ -331,14 +330,9 @@ void AlbumModel::setAuthor(QString author)
     emit authorChanged();
 }
 
-void AlbumModel::beginTrackAdded(QVector<qulonglong> newTracks)
+void AlbumModel::trackAdded(qulonglong newTrackId)
 {
-    Q_UNUSED(newTracks);
-}
-
-void AlbumModel::endTrackAdded(QVector<qulonglong> newTracks)
-{
-    Q_UNUSED(newTracks);
+    Q_UNUSED(newTrackId);
 
     beginResetModel();
     endResetModel();

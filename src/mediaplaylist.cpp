@@ -486,14 +486,14 @@ void MediaPlayList::setDatabaseInterface(DatabaseInterface *musicDatabase)
     }
 
     if (d->mMusicDatabase) {
-        disconnect(d->mMusicDatabase, &DatabaseInterface::endTrackAdded,
-                   this, &MediaPlayList::endTrackAdded);
+        disconnect(d->mMusicDatabase, &DatabaseInterface::trackAdded,
+                   this, &MediaPlayList::trackAdded);
     }
 
     d->mMusicDatabase = musicDatabase;
 
-    connect(d->mMusicDatabase, &DatabaseInterface::endTrackAdded,
-            this, &MediaPlayList::endTrackAdded);
+    connect(d->mMusicDatabase, &DatabaseInterface::trackAdded,
+            this, &MediaPlayList::trackAdded);
 
     emit databaseInterfaceChanged();
 }
@@ -527,9 +527,9 @@ void MediaPlayList::removeSelection(QList<int> selection)
     }
 }
 
-void MediaPlayList::endTrackAdded(QVector<qulonglong> newTracks)
+void MediaPlayList::trackAdded(qulonglong newTrackId)
 {
-    Q_UNUSED(newTracks);
+    Q_UNUSED(newTrackId);
 
     for (int i = 0; i < d->mData.size(); ++i) {
         auto &oneEntry = d->mData[i];

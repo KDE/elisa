@@ -284,10 +284,16 @@ private Q_SLOTS:
 
         clientDb.init(QStringLiteral("clientDb"));
 
-        QSignalSpy musicDbChangedSpy(&musicDb, &DatabaseInterface::databaseChanged);
+        QSignalSpy musicDbArtistAddedSpy(&musicDb, &DatabaseInterface::artistAdded);
+        QSignalSpy musicDbAlbumAddedSpy(&musicDb, &DatabaseInterface::albumAdded);
+        QSignalSpy musicDbTrackAddedSpy(&musicDb, &DatabaseInterface::trackAdded);
 
-        connect(&musicDb, &DatabaseInterface::databaseChanged,
-                &clientDb, &DatabaseInterface::databaseHasChanged);
+        connect(&musicDb, &DatabaseInterface::artistAdded,
+                &clientDb, &DatabaseInterface::databaseArtistAdded);
+        connect(&musicDb, &DatabaseInterface::albumAdded,
+                &clientDb, &DatabaseInterface::databaseAlbumAdded);
+        connect(&musicDb, &DatabaseInterface::trackAdded,
+                &clientDb, &DatabaseInterface::databaseTrackAdded);
 
         musicDb.insertTracksList(mNewTracks, mNewCovers);
         musicDb.insertTracksList(mNewTracks, mNewCovers);
@@ -296,7 +302,9 @@ private Q_SLOTS:
 
         QCOMPARE(musicDb.allAlbums({}).count(), 4);
         QCOMPARE(clientDb.allAlbums({}).count(), 4);
-        QCOMPARE(musicDbChangedSpy.count(), 4);
+        QCOMPARE(musicDbArtistAddedSpy.count(), 6);
+        QCOMPARE(musicDbAlbumAddedSpy.count(), 4);
+        QCOMPARE(musicDbTrackAddedSpy.count(), 18);
 
         auto allAlbums = musicDb.allAlbums({});
 
@@ -378,10 +386,16 @@ private Q_SLOTS:
 
         clientDb.init(QStringLiteral("clientDbVariousArtistAlbum"));
 
-        QSignalSpy musicDbChangedSpy(&musicDb, &DatabaseInterface::databaseChanged);
+        QSignalSpy musicDbArtistAddedSpy(&musicDb, &DatabaseInterface::artistAdded);
+        QSignalSpy musicDbAlbumAddedSpy(&musicDb, &DatabaseInterface::albumAdded);
+        QSignalSpy musicDbTrackAddedSpy(&musicDb, &DatabaseInterface::trackAdded);
 
-        connect(&musicDb, &DatabaseInterface::databaseChanged,
-                &clientDb, &DatabaseInterface::databaseHasChanged);
+        connect(&musicDb, &DatabaseInterface::artistAdded,
+                &clientDb, &DatabaseInterface::databaseArtistAdded);
+        connect(&musicDb, &DatabaseInterface::albumAdded,
+                &clientDb, &DatabaseInterface::databaseAlbumAdded);
+        connect(&musicDb, &DatabaseInterface::trackAdded,
+                &clientDb, &DatabaseInterface::databaseTrackAdded);
 
         musicDb.insertTracksList(mNewTracks, mNewCovers);
         musicDb.insertTracksList(mNewTracks, mNewCovers);
@@ -390,7 +404,9 @@ private Q_SLOTS:
 
         QCOMPARE(musicDb.allAlbums({}).count(), 4);
         QCOMPARE(clientDb.allAlbums({}).count(), 4);
-        QCOMPARE(musicDbChangedSpy.count(), 4);
+        QCOMPARE(musicDbArtistAddedSpy.count(), 6);
+        QCOMPARE(musicDbAlbumAddedSpy.count(), 4);
+        QCOMPARE(musicDbTrackAddedSpy.count(), 18);
 
         auto allAlbums = musicDb.allAlbums({});
 
@@ -555,16 +571,24 @@ private Q_SLOTS:
 
         clientDb.init(QStringLiteral("clientDbVariousArtistAlbum"));
 
-        QSignalSpy musicDbChangedSpy(&musicDb, &DatabaseInterface::databaseChanged);
+        QSignalSpy musicDbArtistAddedSpy(&musicDb, &DatabaseInterface::artistAdded);
+        QSignalSpy musicDbAlbumAddedSpy(&musicDb, &DatabaseInterface::albumAdded);
+        QSignalSpy musicDbTrackAddedSpy(&musicDb, &DatabaseInterface::trackAdded);
 
-        connect(&musicDb, &DatabaseInterface::databaseChanged,
-                &clientDb, &DatabaseInterface::databaseHasChanged);
+        connect(&musicDb, &DatabaseInterface::artistAdded,
+                &clientDb, &DatabaseInterface::databaseArtistAdded);
+        connect(&musicDb, &DatabaseInterface::albumAdded,
+                &clientDb, &DatabaseInterface::databaseAlbumAdded);
+        connect(&musicDb, &DatabaseInterface::trackAdded,
+                &clientDb, &DatabaseInterface::databaseTrackAdded);
 
         musicDb.insertTracksList(mNewTracks, mNewCovers);
 
         QCOMPARE(musicDb.allAlbums({}).count(), 4);
         QCOMPARE(clientDb.allAlbums({}).count(), 4);
-        QCOMPARE(musicDbChangedSpy.count(), 1);
+        QCOMPARE(musicDbArtistAddedSpy.count(), 6);
+        QCOMPARE(musicDbAlbumAddedSpy.count(), 4);
+        QCOMPARE(musicDbTrackAddedSpy.count(), 18);
 
         auto allTracks = clientDb.tracksFromAuthor(QStringLiteral("artist1"));
 
@@ -597,7 +621,9 @@ private Q_SLOTS:
 
         DatabaseInterface musicDbThread1;
         QSignalSpy musicDbThread1Spy(&musicDbThread1, &DatabaseInterface::requestsInitDone);
-        QSignalSpy musicDbdatabaseChanged1Spy(&musicDbThread1, &DatabaseInterface::databaseChanged);
+        QSignalSpy musicDbArtistAdded1Spy(&musicDbThread1, &DatabaseInterface::artistAdded);
+        QSignalSpy musicDbAlbumAdded1Spy(&musicDbThread1, &DatabaseInterface::albumAdded);
+        QSignalSpy musicDbTrackAdded1Spy(&musicDbThread1, &DatabaseInterface::trackAdded);
         QThread thread1;
         QSignalSpy thread1FinishedSpy(&thread1, &QThread::finished);
         musicDbThread1.moveToThread(&thread1);
@@ -608,7 +634,9 @@ private Q_SLOTS:
 
         DatabaseInterface musicDbThread2;
         QSignalSpy musicDbThread2Spy(&musicDbThread2, &DatabaseInterface::requestsInitDone);
-        QSignalSpy musicDbdatabaseChanged2Spy(&musicDbThread2, &DatabaseInterface::databaseChanged);
+        QSignalSpy musicDbArtistAdded2Spy(&musicDbThread2, &DatabaseInterface::artistAdded);
+        QSignalSpy musicDbAlbumAdded2Spy(&musicDbThread2, &DatabaseInterface::albumAdded);
+        QSignalSpy musicDbTrackAdded2Spy(&musicDbThread2, &DatabaseInterface::trackAdded);
         QThread thread2;
         QSignalSpy thread2FinishedSpy(&thread2, &QThread::finished);
         musicDbThread2.moveToThread(&thread2);
@@ -619,7 +647,9 @@ private Q_SLOTS:
 
         DatabaseInterface musicDbThread3;
         QSignalSpy musicDbThread3Spy(&musicDbThread3, &DatabaseInterface::requestsInitDone);
-        QSignalSpy musicDbdatabaseChanged3Spy(&musicDbThread3, &DatabaseInterface::databaseChanged);
+        QSignalSpy musicDbArtistAdded3Spy(&musicDbThread3, &DatabaseInterface::artistAdded);
+        QSignalSpy musicDbAlbumAdded3Spy(&musicDbThread3, &DatabaseInterface::albumAdded);
+        QSignalSpy musicDbTrackAdded3Spy(&musicDbThread3, &DatabaseInterface::trackAdded);
         QThread thread3;
         QSignalSpy thread3FinishedSpy(&thread3, &QThread::finished);
         musicDbThread3.moveToThread(&thread3);
@@ -630,7 +660,9 @@ private Q_SLOTS:
 
         DatabaseInterface musicDbThread4;
         QSignalSpy musicDbThread4Spy(&musicDbThread4, &DatabaseInterface::requestsInitDone);
-        QSignalSpy musicDbdatabaseChanged4Spy(&musicDbThread4, &DatabaseInterface::databaseChanged);
+        QSignalSpy musicDbArtistAdded4Spy(&musicDbThread4, &DatabaseInterface::artistAdded);
+        QSignalSpy musicDbAlbumAdded4Spy(&musicDbThread4, &DatabaseInterface::albumAdded);
+        QSignalSpy musicDbTrackAdded4Spy(&musicDbThread4, &DatabaseInterface::trackAdded);
         QThread thread4;
         QSignalSpy thread4FinishedSpy(&thread4, &QThread::finished);
         musicDbThread4.moveToThread(&thread4);
@@ -691,23 +723,23 @@ private Q_SLOTS:
                                   QArgument<QHash<QString,QVector<MusicAudioTrack>>>("QHash<QString,QVector<MusicAudioTrack>>", mNewTracks),
                                   QArgument<QHash<QString, QUrl>>("QHash<QString,QUrl>", mNewCovers));
 
-        while(musicDbdatabaseChanged1Spy.count() < 4) {
-            QCOMPARE(musicDbdatabaseChanged1Spy.wait(200), true);
+        while(musicDbAlbumAdded1Spy.count() < 4) {
+            QCOMPARE(musicDbAlbumAdded1Spy.wait(200), true);
         }
         qDebug() << "thread 1 finished";
 
-        while(musicDbdatabaseChanged2Spy.count() < 4) {
-            QCOMPARE(musicDbdatabaseChanged2Spy.wait(200), true);
+        while(musicDbAlbumAdded2Spy.count() < 4) {
+            QCOMPARE(musicDbAlbumAdded2Spy.wait(200), true);
         }
         qDebug() << "thread 2 finished";
 
-        while(musicDbdatabaseChanged3Spy.count() < 4) {
-            QCOMPARE(musicDbdatabaseChanged3Spy.wait(200), true);
+        while(musicDbAlbumAdded3Spy.count() < 4) {
+            QCOMPARE(musicDbAlbumAdded3Spy.wait(200), true);
         }
         qDebug() << "thread 3 finished";
 
-        while(musicDbdatabaseChanged4Spy.count() < 4) {
-            QCOMPARE(musicDbdatabaseChanged4Spy.wait(200), true);
+        while(musicDbAlbumAdded4Spy.count() < 4) {
+            QCOMPARE(musicDbAlbumAdded4Spy.wait(200), true);
         }
         qDebug() << "thread 4 finished";
 
@@ -751,16 +783,24 @@ private Q_SLOTS:
 
         clientDb.init(QStringLiteral("clientDbVariousArtistAlbum"));
 
-        QSignalSpy musicDbChangedSpy(&musicDb, &DatabaseInterface::databaseChanged);
+        QSignalSpy musicDbArtistAddedSpy(&musicDb, &DatabaseInterface::artistAdded);
+        QSignalSpy musicDbAlbumAddedSpy(&musicDb, &DatabaseInterface::albumAdded);
+        QSignalSpy musicDbTrackAddedSpy(&musicDb, &DatabaseInterface::trackAdded);
 
-        connect(&musicDb, &DatabaseInterface::databaseChanged,
-                &clientDb, &DatabaseInterface::databaseHasChanged);
+        connect(&musicDb, &DatabaseInterface::artistAdded,
+                &clientDb, &DatabaseInterface::databaseArtistAdded);
+        connect(&musicDb, &DatabaseInterface::albumAdded,
+                &clientDb, &DatabaseInterface::databaseAlbumAdded);
+        connect(&musicDb, &DatabaseInterface::trackAdded,
+                &clientDb, &DatabaseInterface::databaseTrackAdded);
 
         musicDb.insertTracksList(mNewTracks, mNewCovers);
 
         QCOMPARE(musicDb.allAlbums({}).count(), 4);
         QCOMPARE(clientDb.allAlbums({}).count(), 4);
-        QCOMPARE(musicDbChangedSpy.count(), 1);
+        QCOMPARE(musicDbArtistAddedSpy.count(), 6);
+        QCOMPARE(musicDbAlbumAddedSpy.count(), 4);
+        QCOMPARE(musicDbTrackAddedSpy.count(), 18);
 
         auto allAlbums = clientDb.allAlbumsFromArtist(QStringLiteral("artist1"));
 

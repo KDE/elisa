@@ -45,8 +45,6 @@ public:
 
 Q_SIGNALS:
 
-    void musicDatabaseChanged();
-
     void viewDatabaseChanged();
 
 public Q_SLOTS:

@@ -63,8 +63,12 @@ void PlayListControlerTest::testBringUpCase()
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
 
-    connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
-            &myDatabaseView, &DatabaseInterface::databaseHasChanged);
+    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
+            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
+            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
+            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
 
     myPlayList.setDatabaseInterface(&myDatabaseView);
 
@@ -190,8 +194,12 @@ void PlayListControlerTest::testBringUpCaseFromNewAlbum()
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
 
-    connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
-            &myDatabaseView, &DatabaseInterface::databaseHasChanged);
+    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
+            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
+            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
+            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
 
     myPlayList.setDatabaseInterface(&myDatabaseView);
 
@@ -318,8 +326,12 @@ void PlayListControlerTest::testBringUpAndDownCase()
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
 
-    connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
-            &myDatabaseView, &DatabaseInterface::databaseHasChanged);
+    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
+            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
+            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
+            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
 
     myPlayList.setDatabaseInterface(&myDatabaseView);
 
@@ -459,8 +471,12 @@ void PlayListControlerTest::testBringUpAndRemoveCase()
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
 
-    connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
-            &myDatabaseView, &DatabaseInterface::databaseHasChanged);
+    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
+            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
+            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
+            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
 
     myPlayList.setDatabaseInterface(&myDatabaseView);
 
@@ -591,8 +607,12 @@ void PlayListControlerTest::testBringUpAndRemoveMultipleCase()
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
 
-    connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
-            &myDatabaseView, &DatabaseInterface::databaseHasChanged);
+    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
+            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
+            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
+            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
 
     myPlayList.setDatabaseInterface(&myDatabaseView);
 
@@ -734,8 +754,12 @@ void PlayListControlerTest::testBringUpAndRemoveMultipleNotBeginCase()
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
 
-    connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
-            &myDatabaseView, &DatabaseInterface::databaseHasChanged);
+    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
+            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
+            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
+            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
 
     myPlayList.setDatabaseInterface(&myDatabaseView);
 
@@ -901,8 +925,12 @@ void PlayListControlerTest::testBringUpAndPlayCase()
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
 
-    connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
-            &myDatabaseView, &DatabaseInterface::databaseHasChanged);
+    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
+            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
+            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
+            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
 
     myPlayList.setDatabaseInterface(&myDatabaseView);
 
@@ -1034,8 +1062,12 @@ void PlayListControlerTest::testBringUpAndSkipNextCase()
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
 
-    connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
-            &myDatabaseView, &DatabaseInterface::databaseHasChanged);
+    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
+            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
+            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
+            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
 
     myPlayList.setDatabaseInterface(&myDatabaseView);
 
@@ -1167,8 +1199,12 @@ void PlayListControlerTest::testBringUpAndSkipPreviousCase()
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
 
-    connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
-            &myDatabaseView, &DatabaseInterface::databaseHasChanged);
+    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
+            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
+            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
+            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
 
     myPlayList.setDatabaseInterface(&myDatabaseView);
 
@@ -1313,8 +1349,12 @@ void PlayListControlerTest::finishPlayList()
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
 
-    connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
-            &myDatabaseView, &DatabaseInterface::databaseHasChanged);
+    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
+            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
+            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
+            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
 
     myPlayList.setDatabaseInterface(&myDatabaseView);
 
@@ -1459,8 +1499,12 @@ void PlayListControlerTest::randomPlayList()
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
 
-    connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
-            &myDatabaseView, &DatabaseInterface::databaseHasChanged);
+    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
+            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
+            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
+            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
 
     myPlayList.setDatabaseInterface(&myDatabaseView);
 
@@ -1658,8 +1702,12 @@ void PlayListControlerTest::continuePlayList()
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
 
-    connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
-            &myDatabaseView, &DatabaseInterface::databaseHasChanged);
+    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
+            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
+            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
+            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
 
     myPlayList.setDatabaseInterface(&myDatabaseView);
 
@@ -1857,8 +1905,12 @@ void PlayListControlerTest::testRestoreSettings()
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
 
-    connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
-            &myDatabaseView, &DatabaseInterface::databaseHasChanged);
+    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
+            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
+            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
+            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
 
     myPlayList.setDatabaseInterface(&myDatabaseView);
 
@@ -1997,8 +2049,12 @@ void PlayListControlerTest::removeBeforeCurrentTrack()
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
 
-    connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
-            &myDatabaseView, &DatabaseInterface::databaseHasChanged);
+    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
+            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
+            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
+            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
 
     myPlayList.setDatabaseInterface(&myDatabaseView);
 
@@ -2166,8 +2222,12 @@ void PlayListControlerTest::switchToTrackTest()
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
 
-    connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
-            &myDatabaseView, &DatabaseInterface::databaseHasChanged);
+    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
+            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
+            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
+            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
 
     myPlayList.setDatabaseInterface(&myDatabaseView);
 

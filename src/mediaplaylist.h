@@ -148,7 +148,7 @@ public Q_SLOTS:
 
 private Q_SLOTS:
 
-    void endTrackAdded(QVector<qulonglong> newTracks);
+    void trackAdded(qulonglong newTrackId);
 
     bool rowHasHeader(int row) const;
 

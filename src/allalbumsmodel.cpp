@@ -248,8 +248,7 @@ void AllAlbumsModel::setDatabaseInterface(DatabaseInterface *musicDatabase)
     d->mMusicDatabase = musicDatabase;
 
     if (d->mMusicDatabase) {
-        connect(d->mMusicDatabase, &DatabaseInterface::beginAlbumAdded, this, &AllAlbumsModel::beginAlbumAdded);
-        connect(d->mMusicDatabase, &DatabaseInterface::endAlbumAdded, this, &AllAlbumsModel::endAlbumAdded);
+        connect(d->mMusicDatabase, &DatabaseInterface::albumAdded, this, &AllAlbumsModel::albumAdded);
     }
 
     beginResetModel();
@@ -307,23 +306,16 @@ void AllAlbumsModel::setExactMatch(bool exactMatch)
     Q_EMIT exactMatchChanged();
 }
 
-void AllAlbumsModel::beginAlbumAdded(QVector<qulonglong> newAlbums)
+void AllAlbumsModel::albumAdded(qulonglong newAlbumId)
 {
-    Q_UNUSED(newAlbums);
-}
+    auto newAlbum = d->mMusicDatabase->albumFromId(newAlbumId);
 
-void AllAlbumsModel::endAlbumAdded(QVector<qulonglong> newAlbums)
-{
-    Q_UNUSED(newAlbums);
-
-    beginResetModel();
-    if (!d->mExactMatch) {
-        d->mAllAlbums = d->mMusicDatabase->allAlbums(d->mArtist);
-    } else {
-        d->mAllAlbums = d->mMusicDatabase->allAlbumsFromArtist(d->mArtist);
+    if (newAlbum.isValid()) {
+        beginInsertRows({}, d->mAllAlbums.size(), d->mAllAlbums.size());
+        d->mAllAlbums.push_back(newAlbum);
+        ++d->mAlbumCount;
+        endInsertRows();
     }
-    d->mAlbumCount = d->mAllAlbums.count();
-    endResetModel();
 }
 
 #include "moc_allalbumsmodel.cpp"

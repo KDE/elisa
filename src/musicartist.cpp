@@ -2,6 +2,7 @@
 
 #include <QtCore/QtGlobal>
 #include <QtCore/QString>
+#include <QtCore/QDebug>
 
 class MusicArtistPrivate
 {
@@ -93,4 +94,11 @@ void MusicArtist::setAlbumsCount(int value)
 int MusicArtist::albumsCount() const
 {
     return d->mAlbumsCount;
+}
+
+QDebug& operator<<(QDebug &stream, const MusicArtist &data)
+{
+    stream << data.name() << data.databaseId() << data.albumsCount() << (data.isValid() ? "is valid" : "is invalid");
+
+    return stream;
 }

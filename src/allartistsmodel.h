@@ -81,9 +81,7 @@ public Q_SLOTS:
 
 private Q_SLOTS:
 
-    void beginArtistAdded(QVector<qulonglong> newArtists);
-
-    void endArtistAdded(QVector<qulonglong> newArtists);
+    void artistAdded(qulonglong newArtistId);
 
 private:
 

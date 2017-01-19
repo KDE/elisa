@@ -148,10 +148,6 @@ ApplicationWindow {
 
     DatabaseInterface {
         id: localAlbumDatabase
-
-        Component.onCompleted: {
-            init('views');
-        }
     }
 
     MusicListenersManager {

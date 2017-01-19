@@ -31,7 +31,8 @@
 #include "baloo/baloolistener.h"
 #endif
 
-#include <QThread>
+#include <QtCore/QThread>
+#include <QtCore/QMutex>
 
 class MusicListenersManagerPrivate
 {
@@ -51,6 +52,8 @@ public:
 
     DatabaseInterface* mViewDatabase = nullptr;
 
+    QMutex mMutex;
+
 };
 
 MusicListenersManager::MusicListenersManager(QObject *parent)
@@ -60,8 +63,6 @@ MusicListenersManager::MusicListenersManager(QObject *parent)
 
     d->mDatabaseInterface.moveToThread(&d->mListenersThread);
 
-    connect(&d->mDatabaseInterface, &DatabaseInterface::databaseChanged,
-            this, &MusicListenersManager::musicDatabaseChanged);
     connect(&d->mDatabaseInterface, &DatabaseInterface::requestsInitDone,
             this, &MusicListenersManager::databaseReady);
 
@@ -86,15 +87,29 @@ void MusicListenersManager::setViewDatabase(DatabaseInterface *viewDatabase)
     }
 
     if (d->mViewDatabase) {
-        disconnect(&d->mDatabaseInterface, &DatabaseInterface::databaseChanged,
-                   d->mViewDatabase, &DatabaseInterface::databaseHasChanged);
+        disconnect(&d->mDatabaseInterface, &DatabaseInterface::artistAdded,
+                   d->mViewDatabase, &DatabaseInterface::databaseArtistAdded);
+        disconnect(&d->mDatabaseInterface, &DatabaseInterface::albumAdded,
+                   d->mViewDatabase, &DatabaseInterface::databaseAlbumAdded);
+        disconnect(&d->mDatabaseInterface, &DatabaseInterface::trackAdded,
+                   d->mViewDatabase, &DatabaseInterface::databaseTrackAdded);
     }
 
     d->mViewDatabase = viewDatabase;
 
     if (d->mViewDatabase) {
-        connect(&d->mDatabaseInterface, &DatabaseInterface::databaseChanged,
-                d->mViewDatabase, &DatabaseInterface::databaseHasChanged);
+        connect(d->mViewDatabase, &DatabaseInterface::requestsInitDone,
+                this, &MusicListenersManager::databaseReady);
+
+        QMetaObject::invokeMethod(d->mViewDatabase, "init", Qt::QueuedConnection,
+                                  Q_ARG(QString, QStringLiteral("views")));
+
+        connect(&d->mDatabaseInterface, &DatabaseInterface::artistAdded,
+                   d->mViewDatabase, &DatabaseInterface::databaseArtistAdded);
+        connect(&d->mDatabaseInterface, &DatabaseInterface::albumAdded,
+                   d->mViewDatabase, &DatabaseInterface::databaseAlbumAdded);
+        connect(&d->mDatabaseInterface, &DatabaseInterface::trackAdded,
+                   d->mViewDatabase, &DatabaseInterface::databaseTrackAdded);
     }
 
     emit viewDatabaseChanged();
@@ -102,6 +117,15 @@ void MusicListenersManager::setViewDatabase(DatabaseInterface *viewDatabase)
 
 void MusicListenersManager::databaseReady()
 {
+    if (sender() == d->mViewDatabase) {
+        d->mViewDatabase->setMutex(&d->mMutex);
+        return;
+    }
+
+    if (sender() == &d->mDatabaseInterface) {
+        d->mDatabaseInterface.setMutex(&d->mMutex);
+    }
+
 #if defined KF5Baloo_FOUND && KF5Baloo_FOUND
     d->mBalooListener.setDatabaseInterface(&d->mDatabaseInterface);
     d->mBalooListener.moveToThread(&d->mListenersThread);

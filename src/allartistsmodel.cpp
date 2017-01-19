@@ -195,8 +195,7 @@ void AllArtistsModel::setDatabaseInterface(DatabaseInterface *musicDatabase)
     d->mMusicDatabase = musicDatabase;
 
     if (d->mMusicDatabase) {
-        connect(d->mMusicDatabase, &DatabaseInterface::beginAlbumAdded, this, &AllArtistsModel::beginArtistAdded);
-        connect(d->mMusicDatabase, &DatabaseInterface::endAlbumAdded, this, &AllArtistsModel::endArtistAdded);
+        connect(d->mMusicDatabase, &DatabaseInterface::artistAdded, this, &AllArtistsModel::artistAdded);
     }
 
     beginResetModel();
@@ -207,20 +206,16 @@ void AllArtistsModel::setDatabaseInterface(DatabaseInterface *musicDatabase)
     emit databaseInterfaceChanged();
 }
 
-void AllArtistsModel::beginArtistAdded(QVector<qulonglong> newArtists)
+void AllArtistsModel::artistAdded(qulonglong newArtistId)
 {
-    Q_UNUSED(newArtists);
-}
+    auto newArtist = d->mMusicDatabase->artistFromId(newArtistId);
 
-void AllArtistsModel::endArtistAdded(QVector<qulonglong> newArtists)
-{
-    Q_UNUSED(newArtists);
-
-    beginResetModel();
-    d->mAllArtists = d->mMusicDatabase->allArtists();
-    d->mArtistsCount = d->mAllArtists.count();
-
-    endResetModel();
+    if (newArtist.isValid()) {
+        beginInsertRows({}, d->mAllArtists.size(), d->mAllArtists.size());
+        d->mAllArtists.push_back(newArtist);
+        ++d->mArtistsCount;
+        endInsertRows();
+    }
 }
 
 #include "moc_allartistsmodel.cpp"

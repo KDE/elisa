@@ -107,9 +107,7 @@ public Q_SLOTS:
 
 private Q_SLOTS:
 
-    void beginAlbumAdded(QVector<qulonglong> newAlbums);
-
-    void endAlbumAdded(QVector<qulonglong> newAlbums);
+    void albumAdded(qulonglong newAlbumId);
 
 private:
 

@@ -1596,8 +1596,12 @@ void ManageHeaderBarTest::moveCurrentTrack()
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
 
-    connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
-            &myDatabaseView, &DatabaseInterface::databaseHasChanged);
+    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
+            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
+            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
+            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
 
     myPlayList.setDatabaseInterface(&myDatabaseView);
 
@@ -1853,8 +1857,12 @@ void ManageHeaderBarTest::moveAnotherTrack()
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
 
-    connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
-            &myDatabaseView, &DatabaseInterface::databaseHasChanged);
+    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
+            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
+            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
+            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
 
     myPlayList.setDatabaseInterface(&myDatabaseView);
 
@@ -2110,8 +2118,12 @@ void ManageHeaderBarTest::setCurrentTrackTest()
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
 
-    connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
-            &myDatabaseView, &DatabaseInterface::databaseHasChanged);
+    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
+            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
+            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
+            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
 
     myPlayList.setDatabaseInterface(&myDatabaseView);
 
@@ -2365,8 +2377,12 @@ void ManageHeaderBarTest::setPlayListModelTest()
 
     myDatabaseView.init(QStringLiteral("testDbDirectView"));
 
-    connect(&myDatabaseContent, &DatabaseInterface::databaseChanged,
-            &myDatabaseView, &DatabaseInterface::databaseHasChanged);
+    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
+            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
+            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
+            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
 
     myPlayList.setDatabaseInterface(&myDatabaseView);
 

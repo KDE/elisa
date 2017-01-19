@@ -31,6 +31,7 @@
 #include <QtCore/QVariant>
 
 class DatabaseInterfacePrivate;
+class QMutex;
 
 class DatabaseInterface : public QObject
 {
@@ -50,6 +51,8 @@ public:
 
     virtual ~DatabaseInterface();
 
+    void setMutex(QMutex *value);
+
     Q_INVOKABLE void init(const QString &dbName);
 
     MusicAlbum albumFromTitleAndAuthor(QString title, QString author) const;
@@ -64,19 +67,19 @@ public:
 
     MusicAudioTrack trackFromDatabaseId(qulonglong id) const;
 
+    MusicAlbum albumFromId(qulonglong albumId) const;
+
+    MusicArtist artistFromId(qulonglong artistId) const;
+
     qulonglong trackIdFromTitleAlbumArtist(QString title, QString album, QString artist) const;
 
 Q_SIGNALS:
 
-    void databaseChanged(QVector<qulonglong> newAlbums, QVector<qulonglong> newTracks);
+    void artistAdded(qulonglong newArtistId);
 
-    void beginAlbumAdded(QVector<qulonglong> newAlbums);
+    void albumAdded(qulonglong newAlbumId);
 
-    void endAlbumAdded(QVector<qulonglong> newAlbums);
-
-    void beginTrackAdded(QVector<qulonglong> newTracks);
-
-    void endTrackAdded(QVector<qulonglong> newTracks);
+    void trackAdded(qulonglong newTrackId);
 
     void requestsInitDone();
 
@@ -84,7 +87,11 @@ public Q_SLOTS:
 
     void insertTracksList(QHash<QString, QVector<MusicAudioTrack> > tracks, QHash<QString, QUrl> covers);
 
-    void databaseHasChanged(QVector<qulonglong> newAlbums, QVector<qulonglong> newTracks);
+    void databaseArtistAdded(qulonglong newArtistId);
+
+    void databaseAlbumAdded(qulonglong newAlbumId);
+
+    void databaseTrackAdded(qulonglong newTrackId);
 
 private:
 

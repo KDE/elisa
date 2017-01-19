@@ -121,9 +121,7 @@ public Q_SLOTS:
 
 private Q_SLOTS:
 
-    void beginTrackAdded(QVector<qulonglong> newTracks);
-
-    void endTrackAdded(QVector<qulonglong> newTracks);
+    void trackAdded(qulonglong newTrackId);
 
 private:
 

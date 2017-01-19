@@ -23,6 +23,7 @@
 #include <QtCore/QString>
 
 class MusicArtistPrivate;
+class QDebug;
 
 class MusicArtist
 {
@@ -61,5 +62,7 @@ private:
     MusicArtistPrivate *d = nullptr;
 
 };
+
+QDebug& operator<<(QDebug &stream, const MusicArtist &data);
 
 #endif // MUSICARTIST_H

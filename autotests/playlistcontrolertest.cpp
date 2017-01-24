@@ -24,6 +24,7 @@
 #include "databaseinterface.h"
 #include "musicalbum.h"
 #include "musicaudiotrack.h"
+#include "trackslistener.h"
 
 #include <QVariant>
 #include <QList>
@@ -48,7 +49,7 @@ void PlayListControlerTest::testBringUpCase()
     PlayListControler myControler;
     MediaPlayList myPlayList;
     DatabaseInterface myDatabaseContent;
-    DatabaseInterface myDatabaseView;
+    TracksListener myListener(&myDatabaseContent);
 
     QSignalSpy currentTrackChangedSpy(&myControler, &PlayListControler::currentTrackChanged);
     QSignalSpy playListModelChangedSpy(&myControler, &PlayListControler::playListModelChanged);
@@ -61,16 +62,23 @@ void PlayListControlerTest::testBringUpCase()
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
-    myDatabaseView.init(QStringLiteral("testDbDirectView"));
-
-    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
-            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
-    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
-            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myListener, &TracksListener::trackChanged,
+            &myPlayList, &MediaPlayList::trackChanged,
+            Qt::QueuedConnection);
+    connect(&myListener, &TracksListener::albumAdded,
+            &myPlayList, &MediaPlayList::albumAdded,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newTrackByIdInList,
+            &myListener, &TracksListener::trackByIdInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newTrackByNameInList,
+            &myListener, &TracksListener::trackByNameInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newArtistInList,
+            &myListener, &TracksListener::newArtistInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
-
-    myPlayList.setDatabaseInterface(&myDatabaseView);
+            &myListener, &TracksListener::trackAdded);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 0);
@@ -162,6 +170,17 @@ void PlayListControlerTest::testBringUpCase()
 
     myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album2"), QStringLiteral("artist1")});
 
+    QCOMPARE(currentTrackChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(isValidRoleChangedSpy.count(), 1);
+    QCOMPARE(randomPlayChangedSpy.count(), 0);
+    QCOMPARE(randomPlayControlChangedSpy.count(), 0);
+    QCOMPARE(repeatPlayChangedSpy.count(), 0);
+    QCOMPARE(repeatPlayControlChangedSpy.count(), 0);
+    QCOMPARE(playListFinishedSpy.count(), 0);
+
+    QCOMPARE(currentTrackChangedSpy.wait(), true);
+
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
@@ -179,7 +198,7 @@ void PlayListControlerTest::testBringUpCaseFromNewAlbum()
     PlayListControler myControler;
     MediaPlayList myPlayList;
     DatabaseInterface myDatabaseContent;
-    DatabaseInterface myDatabaseView;
+    TracksListener myListener(&myDatabaseContent);
 
     QSignalSpy currentTrackChangedSpy(&myControler, &PlayListControler::currentTrackChanged);
     QSignalSpy playListModelChangedSpy(&myControler, &PlayListControler::playListModelChanged);
@@ -192,16 +211,23 @@ void PlayListControlerTest::testBringUpCaseFromNewAlbum()
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
-    myDatabaseView.init(QStringLiteral("testDbDirectView"));
-
-    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
-            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
-    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
-            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myListener, &TracksListener::trackChanged,
+            &myPlayList, &MediaPlayList::trackChanged,
+            Qt::QueuedConnection);
+    connect(&myListener, &TracksListener::albumAdded,
+            &myPlayList, &MediaPlayList::albumAdded,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newTrackByIdInList,
+            &myListener, &TracksListener::trackByIdInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newTrackByNameInList,
+            &myListener, &TracksListener::trackByNameInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newArtistInList,
+            &myListener, &TracksListener::newArtistInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
-
-    myPlayList.setDatabaseInterface(&myDatabaseView);
+            &myListener, &TracksListener::trackAdded);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 0);
@@ -291,7 +317,7 @@ void PlayListControlerTest::testBringUpCaseFromNewAlbum()
     QCOMPARE(repeatPlayControlChangedSpy.count(), 0);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
-    auto newTrackID = myDatabaseView.trackIdFromTitleAlbumArtist(QStringLiteral("track1"), QStringLiteral("album2"), QStringLiteral("artist1"));
+    auto newTrackID = myDatabaseContent.trackIdFromTitleAlbumArtist(QStringLiteral("track1"), QStringLiteral("album2"), QStringLiteral("artist1"));
     myPlayList.enqueue(newTrackID);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
@@ -311,7 +337,7 @@ void PlayListControlerTest::testBringUpAndDownCase()
     PlayListControler myControler;
     MediaPlayList myPlayList;
     DatabaseInterface myDatabaseContent;
-    DatabaseInterface myDatabaseView;
+    TracksListener myListener(&myDatabaseContent);
 
     QSignalSpy currentTrackChangedSpy(&myControler, &PlayListControler::currentTrackChanged);
     QSignalSpy playListModelChangedSpy(&myControler, &PlayListControler::playListModelChanged);
@@ -324,16 +350,23 @@ void PlayListControlerTest::testBringUpAndDownCase()
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
-    myDatabaseView.init(QStringLiteral("testDbDirectView"));
-
-    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
-            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
-    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
-            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myListener, &TracksListener::trackChanged,
+            &myPlayList, &MediaPlayList::trackChanged,
+            Qt::QueuedConnection);
+    connect(&myListener, &TracksListener::albumAdded,
+            &myPlayList, &MediaPlayList::albumAdded,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newTrackByIdInList,
+            &myListener, &TracksListener::trackByIdInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newTrackByNameInList,
+            &myListener, &TracksListener::trackByNameInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newArtistInList,
+            &myListener, &TracksListener::newArtistInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
-
-    myPlayList.setDatabaseInterface(&myDatabaseView);
+            &myListener, &TracksListener::trackAdded);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 0);
@@ -424,6 +457,17 @@ void PlayListControlerTest::testBringUpAndDownCase()
     QCOMPARE(playListFinishedSpy.count(), 0);
 
     myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album2"), QStringLiteral("artist1")});
+
+    QCOMPARE(currentTrackChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(isValidRoleChangedSpy.count(), 1);
+    QCOMPARE(randomPlayChangedSpy.count(), 0);
+    QCOMPARE(randomPlayControlChangedSpy.count(), 0);
+    QCOMPARE(repeatPlayChangedSpy.count(), 0);
+    QCOMPARE(repeatPlayControlChangedSpy.count(), 0);
+    QCOMPARE(playListFinishedSpy.count(), 0);
+
+    QCOMPARE(currentTrackChangedSpy.wait(), true);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -465,20 +509,27 @@ void PlayListControlerTest::testBringUpAndRemoveCase()
 
     MediaPlayList myPlayList;
     DatabaseInterface myDatabaseContent;
-    DatabaseInterface myDatabaseView;
+    TracksListener myListener(&myDatabaseContent);
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
-    myDatabaseView.init(QStringLiteral("testDbDirectView"));
-
-    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
-            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
-    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
-            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myListener, &TracksListener::trackChanged,
+            &myPlayList, &MediaPlayList::trackChanged,
+            Qt::QueuedConnection);
+    connect(&myListener, &TracksListener::albumAdded,
+            &myPlayList, &MediaPlayList::albumAdded,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newTrackByIdInList,
+            &myListener, &TracksListener::trackByIdInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newTrackByNameInList,
+            &myListener, &TracksListener::trackByNameInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newArtistInList,
+            &myListener, &TracksListener::newArtistInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
-
-    myPlayList.setDatabaseInterface(&myDatabaseView);
+            &myListener, &TracksListener::trackAdded);
 
     myControler.setPlayListModel(&myPlayList);
 
@@ -560,6 +611,17 @@ void PlayListControlerTest::testBringUpAndRemoveCase()
     QCOMPARE(playListFinishedSpy.count(), 0);
 
     myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album2"), QStringLiteral("artist1")});
+
+    QCOMPARE(currentTrackChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(isValidRoleChangedSpy.count(), 1);
+    QCOMPARE(randomPlayChangedSpy.count(), 0);
+    QCOMPARE(randomPlayControlChangedSpy.count(), 0);
+    QCOMPARE(repeatPlayChangedSpy.count(), 0);
+    QCOMPARE(repeatPlayControlChangedSpy.count(), 0);
+    QCOMPARE(playListFinishedSpy.count(), 0);
+
+    QCOMPARE(currentTrackChangedSpy.wait(), true);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -601,20 +663,27 @@ void PlayListControlerTest::testBringUpAndRemoveMultipleCase()
 
     MediaPlayList myPlayList;
     DatabaseInterface myDatabaseContent;
-    DatabaseInterface myDatabaseView;
+    TracksListener myListener(&myDatabaseContent);
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
-    myDatabaseView.init(QStringLiteral("testDbDirectView"));
-
-    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
-            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
-    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
-            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myListener, &TracksListener::trackChanged,
+            &myPlayList, &MediaPlayList::trackChanged,
+            Qt::QueuedConnection);
+    connect(&myListener, &TracksListener::albumAdded,
+            &myPlayList, &MediaPlayList::albumAdded,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newTrackByIdInList,
+            &myListener, &TracksListener::trackByIdInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newTrackByNameInList,
+            &myListener, &TracksListener::trackByNameInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newArtistInList,
+            &myListener, &TracksListener::newArtistInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
-
-    myPlayList.setDatabaseInterface(&myDatabaseView);
+            &myListener, &TracksListener::trackAdded);
 
     myControler.setPlayListModel(&myPlayList);
 
@@ -696,6 +765,17 @@ void PlayListControlerTest::testBringUpAndRemoveMultipleCase()
     QCOMPARE(playListFinishedSpy.count(), 0);
 
     myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album2"), QStringLiteral("artist1")});
+
+    QCOMPARE(currentTrackChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(isValidRoleChangedSpy.count(), 1);
+    QCOMPARE(randomPlayChangedSpy.count(), 0);
+    QCOMPARE(randomPlayControlChangedSpy.count(), 0);
+    QCOMPARE(repeatPlayChangedSpy.count(), 0);
+    QCOMPARE(repeatPlayControlChangedSpy.count(), 0);
+    QCOMPARE(playListFinishedSpy.count(), 0);
+
+    QCOMPARE(currentTrackChangedSpy.wait(), true);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -748,20 +828,27 @@ void PlayListControlerTest::testBringUpAndRemoveMultipleNotBeginCase()
 
     MediaPlayList myPlayList;
     DatabaseInterface myDatabaseContent;
-    DatabaseInterface myDatabaseView;
+    TracksListener myListener(&myDatabaseContent);
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
-    myDatabaseView.init(QStringLiteral("testDbDirectView"));
-
-    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
-            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
-    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
-            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myListener, &TracksListener::trackChanged,
+            &myPlayList, &MediaPlayList::trackChanged,
+            Qt::QueuedConnection);
+    connect(&myListener, &TracksListener::albumAdded,
+            &myPlayList, &MediaPlayList::albumAdded,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newTrackByIdInList,
+            &myListener, &TracksListener::trackByIdInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newTrackByNameInList,
+            &myListener, &TracksListener::trackByNameInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newArtistInList,
+            &myListener, &TracksListener::newArtistInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
-
-    myPlayList.setDatabaseInterface(&myDatabaseView);
+            &myListener, &TracksListener::trackAdded);
 
     myControler.setPlayListModel(&myPlayList);
 
@@ -843,6 +930,17 @@ void PlayListControlerTest::testBringUpAndRemoveMultipleNotBeginCase()
     QCOMPARE(playListFinishedSpy.count(), 0);
 
     myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album2"), QStringLiteral("artist1")});
+
+    QCOMPARE(currentTrackChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(isValidRoleChangedSpy.count(), 1);
+    QCOMPARE(randomPlayChangedSpy.count(), 0);
+    QCOMPARE(randomPlayControlChangedSpy.count(), 0);
+    QCOMPARE(repeatPlayChangedSpy.count(), 0);
+    QCOMPARE(repeatPlayControlChangedSpy.count(), 0);
+    QCOMPARE(playListFinishedSpy.count(), 0);
+
+    QCOMPARE(currentTrackChangedSpy.wait(), true);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -919,20 +1017,27 @@ void PlayListControlerTest::testBringUpAndPlayCase()
 
     MediaPlayList myPlayList;
     DatabaseInterface myDatabaseContent;
-    DatabaseInterface myDatabaseView;
+    TracksListener myListener(&myDatabaseContent);
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
-    myDatabaseView.init(QStringLiteral("testDbDirectView"));
-
-    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
-            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
-    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
-            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myListener, &TracksListener::trackChanged,
+            &myPlayList, &MediaPlayList::trackChanged,
+            Qt::QueuedConnection);
+    connect(&myListener, &TracksListener::albumAdded,
+            &myPlayList, &MediaPlayList::albumAdded,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newTrackByIdInList,
+            &myListener, &TracksListener::trackByIdInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newTrackByNameInList,
+            &myListener, &TracksListener::trackByNameInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newArtistInList,
+            &myListener, &TracksListener::newArtistInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
-
-    myPlayList.setDatabaseInterface(&myDatabaseView);
+            &myListener, &TracksListener::trackAdded);
 
     myControler.setPlayListModel(&myPlayList);
 
@@ -1015,6 +1120,17 @@ void PlayListControlerTest::testBringUpAndPlayCase()
 
     myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album2"), QStringLiteral("artist1")});
     myPlayList.enqueue({QStringLiteral("track3"), QStringLiteral("album1"), QStringLiteral("artist1")});
+
+    QCOMPARE(currentTrackChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(isValidRoleChangedSpy.count(), 1);
+    QCOMPARE(randomPlayChangedSpy.count(), 0);
+    QCOMPARE(randomPlayControlChangedSpy.count(), 0);
+    QCOMPARE(repeatPlayChangedSpy.count(), 0);
+    QCOMPARE(repeatPlayControlChangedSpy.count(), 0);
+    QCOMPARE(playListFinishedSpy.count(), 0);
+
+    QCOMPARE(currentTrackChangedSpy.wait(), true);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -1056,20 +1172,27 @@ void PlayListControlerTest::testBringUpAndSkipNextCase()
 
     MediaPlayList myPlayList;
     DatabaseInterface myDatabaseContent;
-    DatabaseInterface myDatabaseView;
+    TracksListener myListener(&myDatabaseContent);
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
-    myDatabaseView.init(QStringLiteral("testDbDirectView"));
-
-    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
-            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
-    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
-            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myListener, &TracksListener::trackChanged,
+            &myPlayList, &MediaPlayList::trackChanged,
+            Qt::QueuedConnection);
+    connect(&myListener, &TracksListener::albumAdded,
+            &myPlayList, &MediaPlayList::albumAdded,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newTrackByIdInList,
+            &myListener, &TracksListener::trackByIdInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newTrackByNameInList,
+            &myListener, &TracksListener::trackByNameInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newArtistInList,
+            &myListener, &TracksListener::newArtistInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
-
-    myPlayList.setDatabaseInterface(&myDatabaseView);
+            &myListener, &TracksListener::trackAdded);
 
     myControler.setPlayListModel(&myPlayList);
 
@@ -1152,6 +1275,17 @@ void PlayListControlerTest::testBringUpAndSkipNextCase()
 
     myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album2"), QStringLiteral("artist1")});
     myPlayList.enqueue({QStringLiteral("track3"), QStringLiteral("album1"), QStringLiteral("artist1")});
+
+    QCOMPARE(currentTrackChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(isValidRoleChangedSpy.count(), 1);
+    QCOMPARE(randomPlayChangedSpy.count(), 0);
+    QCOMPARE(randomPlayControlChangedSpy.count(), 0);
+    QCOMPARE(repeatPlayChangedSpy.count(), 0);
+    QCOMPARE(repeatPlayControlChangedSpy.count(), 0);
+    QCOMPARE(playListFinishedSpy.count(), 0);
+
+    QCOMPARE(currentTrackChangedSpy.wait(), true);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -1193,20 +1327,27 @@ void PlayListControlerTest::testBringUpAndSkipPreviousCase()
 
     MediaPlayList myPlayList;
     DatabaseInterface myDatabaseContent;
-    DatabaseInterface myDatabaseView;
+    TracksListener myListener(&myDatabaseContent);
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
-    myDatabaseView.init(QStringLiteral("testDbDirectView"));
-
-    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
-            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
-    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
-            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myListener, &TracksListener::trackChanged,
+            &myPlayList, &MediaPlayList::trackChanged,
+            Qt::QueuedConnection);
+    connect(&myListener, &TracksListener::albumAdded,
+            &myPlayList, &MediaPlayList::albumAdded,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newTrackByIdInList,
+            &myListener, &TracksListener::trackByIdInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newTrackByNameInList,
+            &myListener, &TracksListener::trackByNameInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newArtistInList,
+            &myListener, &TracksListener::newArtistInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
-
-    myPlayList.setDatabaseInterface(&myDatabaseView);
+            &myListener, &TracksListener::trackAdded);
 
     myControler.setPlayListModel(&myPlayList);
 
@@ -1289,6 +1430,17 @@ void PlayListControlerTest::testBringUpAndSkipPreviousCase()
 
     myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album2"), QStringLiteral("artist1")});
     myPlayList.enqueue({QStringLiteral("track3"), QStringLiteral("album1"), QStringLiteral("artist1")});
+
+    QCOMPARE(currentTrackChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(isValidRoleChangedSpy.count(), 1);
+    QCOMPARE(randomPlayChangedSpy.count(), 0);
+    QCOMPARE(randomPlayControlChangedSpy.count(), 0);
+    QCOMPARE(repeatPlayChangedSpy.count(), 0);
+    QCOMPARE(repeatPlayControlChangedSpy.count(), 0);
+    QCOMPARE(playListFinishedSpy.count(), 0);
+
+    QCOMPARE(currentTrackChangedSpy.wait(), true);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -1343,20 +1495,27 @@ void PlayListControlerTest::finishPlayList()
 
     MediaPlayList myPlayList;
     DatabaseInterface myDatabaseContent;
-    DatabaseInterface myDatabaseView;
+    TracksListener myListener(&myDatabaseContent);
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
-    myDatabaseView.init(QStringLiteral("testDbDirectView"));
-
-    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
-            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
-    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
-            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myListener, &TracksListener::trackChanged,
+            &myPlayList, &MediaPlayList::trackChanged,
+            Qt::QueuedConnection);
+    connect(&myListener, &TracksListener::albumAdded,
+            &myPlayList, &MediaPlayList::albumAdded,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newTrackByIdInList,
+            &myListener, &TracksListener::trackByIdInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newTrackByNameInList,
+            &myListener, &TracksListener::trackByNameInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newArtistInList,
+            &myListener, &TracksListener::newArtistInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
-
-    myPlayList.setDatabaseInterface(&myDatabaseView);
+            &myListener, &TracksListener::trackAdded);
 
     myControler.setPlayListModel(&myPlayList);
 
@@ -1440,6 +1599,17 @@ void PlayListControlerTest::finishPlayList()
     myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album2"), QStringLiteral("artist1")});
     myPlayList.enqueue({QStringLiteral("track3"), QStringLiteral("album1"), QStringLiteral("artist1")});
 
+    QCOMPARE(currentTrackChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(isValidRoleChangedSpy.count(), 1);
+    QCOMPARE(randomPlayChangedSpy.count(), 0);
+    QCOMPARE(randomPlayControlChangedSpy.count(), 0);
+    QCOMPARE(repeatPlayChangedSpy.count(), 0);
+    QCOMPARE(repeatPlayControlChangedSpy.count(), 0);
+    QCOMPARE(playListFinishedSpy.count(), 0);
+
+    QCOMPARE(currentTrackChangedSpy.wait(), true);
+
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
@@ -1493,20 +1663,27 @@ void PlayListControlerTest::randomPlayList()
 
     MediaPlayList myPlayList;
     DatabaseInterface myDatabaseContent;
-    DatabaseInterface myDatabaseView;
+    TracksListener myListener(&myDatabaseContent);
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
-    myDatabaseView.init(QStringLiteral("testDbDirectView"));
-
-    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
-            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
-    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
-            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myListener, &TracksListener::trackChanged,
+            &myPlayList, &MediaPlayList::trackChanged,
+            Qt::QueuedConnection);
+    connect(&myListener, &TracksListener::albumAdded,
+            &myPlayList, &MediaPlayList::albumAdded,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newTrackByIdInList,
+            &myListener, &TracksListener::trackByIdInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newTrackByNameInList,
+            &myListener, &TracksListener::trackByNameInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newArtistInList,
+            &myListener, &TracksListener::newArtistInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
-
-    myPlayList.setDatabaseInterface(&myDatabaseView);
+            &myListener, &TracksListener::trackAdded);
 
     myControler.setPlayListModel(&myPlayList);
 
@@ -1602,6 +1779,17 @@ void PlayListControlerTest::randomPlayList()
     myPlayList.enqueue({QStringLiteral("track3"), QStringLiteral("album1"), QStringLiteral("artist1")});
     myPlayList.enqueue({QStringLiteral("track5"), QStringLiteral("album2"), QStringLiteral("artist1")});
     myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album1"), QStringLiteral("artist1")});
+
+    QCOMPARE(currentTrackChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(isValidRoleChangedSpy.count(), 1);
+    QCOMPARE(randomPlayChangedSpy.count(), 0);
+    QCOMPARE(randomPlayControlChangedSpy.count(), 0);
+    QCOMPARE(repeatPlayChangedSpy.count(), 0);
+    QCOMPARE(repeatPlayControlChangedSpy.count(), 0);
+    QCOMPARE(playListFinishedSpy.count(), 0);
+
+    QCOMPARE(currentTrackChangedSpy.wait(), true);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -1696,20 +1884,27 @@ void PlayListControlerTest::continuePlayList()
 
     MediaPlayList myPlayList;
     DatabaseInterface myDatabaseContent;
-    DatabaseInterface myDatabaseView;
+    TracksListener myListener(&myDatabaseContent);
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
-    myDatabaseView.init(QStringLiteral("testDbDirectView"));
-
-    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
-            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
-    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
-            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myListener, &TracksListener::trackChanged,
+            &myPlayList, &MediaPlayList::trackChanged,
+            Qt::QueuedConnection);
+    connect(&myListener, &TracksListener::albumAdded,
+            &myPlayList, &MediaPlayList::albumAdded,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newTrackByIdInList,
+            &myListener, &TracksListener::trackByIdInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newTrackByNameInList,
+            &myListener, &TracksListener::trackByNameInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newArtistInList,
+            &myListener, &TracksListener::newArtistInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
-
-    myPlayList.setDatabaseInterface(&myDatabaseView);
+            &myListener, &TracksListener::trackAdded);
 
     myControler.setPlayListModel(&myPlayList);
 
@@ -1806,6 +2001,17 @@ void PlayListControlerTest::continuePlayList()
     myPlayList.enqueue({QStringLiteral("track5"), QStringLiteral("album2"), QStringLiteral("artist1")});
     myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album1"), QStringLiteral("artist1")});
 
+    QCOMPARE(currentTrackChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(isValidRoleChangedSpy.count(), 1);
+    QCOMPARE(randomPlayChangedSpy.count(), 0);
+    QCOMPARE(randomPlayControlChangedSpy.count(), 0);
+    QCOMPARE(repeatPlayChangedSpy.count(), 0);
+    QCOMPARE(repeatPlayControlChangedSpy.count(), 0);
+    QCOMPARE(playListFinishedSpy.count(), 0);
+
+    QCOMPARE(currentTrackChangedSpy.wait(), true);
+
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
@@ -1899,20 +2105,27 @@ void PlayListControlerTest::testRestoreSettings()
 
     MediaPlayList myPlayList;
     DatabaseInterface myDatabaseContent;
-    DatabaseInterface myDatabaseView;
+    TracksListener myListener(&myDatabaseContent);
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
-    myDatabaseView.init(QStringLiteral("testDbDirectView"));
-
-    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
-            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
-    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
-            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myListener, &TracksListener::trackChanged,
+            &myPlayList, &MediaPlayList::trackChanged,
+            Qt::QueuedConnection);
+    connect(&myListener, &TracksListener::albumAdded,
+            &myPlayList, &MediaPlayList::albumAdded,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newTrackByIdInList,
+            &myListener, &TracksListener::trackByIdInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newTrackByNameInList,
+            &myListener, &TracksListener::trackByNameInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newArtistInList,
+            &myListener, &TracksListener::newArtistInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
-
-    myPlayList.setDatabaseInterface(&myDatabaseView);
+            &myListener, &TracksListener::trackAdded);
 
     myControler.setPlayListModel(&myPlayList);
 
@@ -2016,7 +2229,7 @@ void PlayListControlerTest::testRestoreSettings()
     myPlayList.enqueue({QStringLiteral("track5"), QStringLiteral("album2"), QStringLiteral("artist1")});
     myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album1"), QStringLiteral("artist1")});
 
-    QCOMPARE(currentTrackChangedSpy.count(), 2);
+    QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
@@ -2043,20 +2256,27 @@ void PlayListControlerTest::removeBeforeCurrentTrack()
 
     MediaPlayList myPlayList;
     DatabaseInterface myDatabaseContent;
-    DatabaseInterface myDatabaseView;
+    TracksListener myListener(&myDatabaseContent);
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
-    myDatabaseView.init(QStringLiteral("testDbDirectView"));
-
-    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
-            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
-    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
-            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myListener, &TracksListener::trackChanged,
+            &myPlayList, &MediaPlayList::trackChanged,
+            Qt::QueuedConnection);
+    connect(&myListener, &TracksListener::albumAdded,
+            &myPlayList, &MediaPlayList::albumAdded,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newTrackByIdInList,
+            &myListener, &TracksListener::trackByIdInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newTrackByNameInList,
+            &myListener, &TracksListener::trackByNameInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newArtistInList,
+            &myListener, &TracksListener::newArtistInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
-
-    myPlayList.setDatabaseInterface(&myDatabaseView);
+            &myListener, &TracksListener::trackAdded);
 
     myControler.setPlayListModel(&myPlayList);
 
@@ -2139,6 +2359,17 @@ void PlayListControlerTest::removeBeforeCurrentTrack()
     myPlayList.enqueue({QStringLiteral("track5"), QStringLiteral("album2"), QStringLiteral("artist1")});
     myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album1"), QStringLiteral("artist1")});
 
+    QCOMPARE(currentTrackChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(isValidRoleChangedSpy.count(), 1);
+    QCOMPARE(randomPlayChangedSpy.count(), 0);
+    QCOMPARE(randomPlayControlChangedSpy.count(), 0);
+    QCOMPARE(repeatPlayChangedSpy.count(), 0);
+    QCOMPARE(repeatPlayControlChangedSpy.count(), 0);
+    QCOMPARE(playListFinishedSpy.count(), 0);
+
+    QCOMPARE(currentTrackChangedSpy.wait(), true);
+
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
@@ -2216,20 +2447,27 @@ void PlayListControlerTest::switchToTrackTest()
 
     MediaPlayList myPlayList;
     DatabaseInterface myDatabaseContent;
-    DatabaseInterface myDatabaseView;
+    TracksListener myListener(&myDatabaseContent);
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
-    myDatabaseView.init(QStringLiteral("testDbDirectView"));
-
-    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
-            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
-    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
-            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myListener, &TracksListener::trackChanged,
+            &myPlayList, &MediaPlayList::trackChanged,
+            Qt::QueuedConnection);
+    connect(&myListener, &TracksListener::albumAdded,
+            &myPlayList, &MediaPlayList::albumAdded,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newTrackByIdInList,
+            &myListener, &TracksListener::trackByIdInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newTrackByNameInList,
+            &myListener, &TracksListener::trackByNameInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newArtistInList,
+            &myListener, &TracksListener::newArtistInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
-
-    myPlayList.setDatabaseInterface(&myDatabaseView);
+            &myListener, &TracksListener::trackAdded);
 
     myControler.setPlayListModel(&myPlayList);
 
@@ -2315,6 +2553,17 @@ void PlayListControlerTest::switchToTrackTest()
     myPlayList.enqueue({QStringLiteral("track4"), QStringLiteral("album1"), QStringLiteral("artist1")});
     myPlayList.enqueue({QStringLiteral("track2"), QStringLiteral("album1"), QStringLiteral("artist1")});
     myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album1"), QStringLiteral("artist1")});
+
+    QCOMPARE(currentTrackChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(isValidRoleChangedSpy.count(), 1);
+    QCOMPARE(randomPlayChangedSpy.count(), 0);
+    QCOMPARE(randomPlayControlChangedSpy.count(), 0);
+    QCOMPARE(repeatPlayChangedSpy.count(), 0);
+    QCOMPARE(repeatPlayControlChangedSpy.count(), 0);
+    QCOMPARE(playListFinishedSpy.count(), 0);
+
+    QCOMPARE(currentTrackChangedSpy.wait(), true);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);

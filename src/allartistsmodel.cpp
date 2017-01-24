@@ -34,8 +34,6 @@ public:
     {
     }
 
-    DatabaseInterface *mMusicDatabase = nullptr;
-
     QVector<MusicArtist> mAllArtists;
 
     int mArtistsCount = 0;
@@ -56,10 +54,6 @@ AllArtistsModel::~AllArtistsModel()
 int AllArtistsModel::rowCount(const QModelIndex &parent) const
 {
     auto artistCount = 0;
-
-    if (!d->mMusicDatabase) {
-        return artistCount;
-    }
 
     if (parent.isValid()) {
         return artistCount;
@@ -94,10 +88,6 @@ Qt::ItemFlags AllArtistsModel::flags(const QModelIndex &index) const
 QVariant AllArtistsModel::data(const QModelIndex &index, int role) const
 {
     auto result = QVariant();
-
-    if (!d->mMusicDatabase) {
-        return result;
-    }
 
     const auto artistsCount = d->mArtistsCount;
 
@@ -177,39 +167,8 @@ int AllArtistsModel::columnCount(const QModelIndex &parent) const
     return 1;
 }
 
-DatabaseInterface *AllArtistsModel::databaseInterface() const
+void AllArtistsModel::artistAdded(MusicArtist newArtist)
 {
-    return d->mMusicDatabase;
-}
-
-void AllArtistsModel::setDatabaseInterface(DatabaseInterface *musicDatabase)
-{
-    if (d->mMusicDatabase == musicDatabase) {
-        return;
-    }
-
-    if (d->mMusicDatabase) {
-        disconnect(d->mMusicDatabase);
-    }
-
-    d->mMusicDatabase = musicDatabase;
-
-    if (d->mMusicDatabase) {
-        connect(d->mMusicDatabase, &DatabaseInterface::artistAdded, this, &AllArtistsModel::artistAdded);
-    }
-
-    beginResetModel();
-    d->mAllArtists = d->mMusicDatabase->allArtists();
-    d->mArtistsCount = d->mAllArtists.count();
-    endResetModel();
-
-    emit databaseInterfaceChanged();
-}
-
-void AllArtistsModel::artistAdded(qulonglong newArtistId)
-{
-    auto newArtist = d->mMusicDatabase->artistFromId(newArtistId);
-
     if (newArtist.isValid()) {
         beginInsertRows({}, d->mAllArtists.size(), d->mAllArtists.size());
         d->mAllArtists.push_back(newArtist);

@@ -1,9 +1,15 @@
 enable_testing()
 
+include_directories(${elisa_BINARY_DIR})
+
 set(playListTest_SOURCES
     ../src/mediaplaylist.cpp
     ../src/playlistcontroler.cpp
     ../src/databaseinterface.cpp
+    ../src/musiclistenersmanager.cpp
+    ../src/baloo/baloolistener.cpp
+    ../src/baloo/localbaloofilelisting.cpp
+    ../src/trackslistener.cpp
     ../src/musicartist.cpp
     ../src/musicalbum.cpp
     ../src/musicaudiotrack.cpp
@@ -11,7 +17,7 @@ set(playListTest_SOURCES
 )
 
 add_executable(playListTest ${playListTest_SOURCES})
-target_link_libraries(playListTest Qt5::Test Qt5::Core Qt5::Sql KF5::I18n)
+target_link_libraries(playListTest Qt5::Test Qt5::Core Qt5::Sql KF5::I18n KF5::Baloo Qt5::DBus)
 target_include_directories(playListTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 add_test(playListTest playListTest)
 
@@ -32,6 +38,10 @@ set(playListControlerTest_SOURCES
     ../src/playlistcontroler.cpp
     ../src/mediaplaylist.cpp
     ../src/databaseinterface.cpp
+    ../src/musiclistenersmanager.cpp
+    ../src/baloo/baloolistener.cpp
+    ../src/baloo/localbaloofilelisting.cpp
+    ../src/trackslistener.cpp
     ../src/musicartist.cpp
     ../src/musicalbum.cpp
     ../src/musicaudiotrack.cpp
@@ -39,7 +49,7 @@ set(playListControlerTest_SOURCES
 )
 
 add_executable(playListControlerTest ${playListControlerTest_SOURCES})
-target_link_libraries(playListControlerTest Qt5::Test Qt5::Core Qt5::Sql KF5::I18n)
+target_link_libraries(playListControlerTest Qt5::Test Qt5::Core Qt5::Sql KF5::I18n KF5::Baloo Qt5::DBus)
 target_include_directories(playListControlerTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 add_test(playListControlerTest playListControlerTest)
 
@@ -47,6 +57,10 @@ set(managemediaplayercontrolTest_SOURCES
     ../src/managemediaplayercontrol.cpp
     ../src/mediaplaylist.cpp
     ../src/databaseinterface.cpp
+    ../src/musiclistenersmanager.cpp
+    ../src/baloo/baloolistener.cpp
+    ../src/baloo/localbaloofilelisting.cpp
+    ../src/trackslistener.cpp
     ../src/musicartist.cpp
     ../src/musicalbum.cpp
     ../src/musicaudiotrack.cpp
@@ -54,7 +68,7 @@ set(managemediaplayercontrolTest_SOURCES
 )
 
 add_executable(managemediaplayercontrolTest ${managemediaplayercontrolTest_SOURCES})
-target_link_libraries(managemediaplayercontrolTest Qt5::Test Qt5::Core Qt5::Sql KF5::I18n)
+target_link_libraries(managemediaplayercontrolTest Qt5::Test Qt5::Core Qt5::Sql KF5::I18n KF5::Baloo Qt5::DBus)
 target_include_directories(managemediaplayercontrolTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 add_test(managemediaplayercontrolTest managemediaplayercontrolTest)
 
@@ -62,6 +76,11 @@ set(manageheaderbarTest_SOURCES
     ../src/manageheaderbar.cpp
     ../src/mediaplaylist.cpp
     ../src/databaseinterface.cpp
+    ../src/musiclistenersmanager.cpp
+    ../src/baloo/baloolistener.cpp
+    ../src/baloo/localbaloofilelisting.cpp
+    ../src/trackslistener.cpp
+    ../src/trackslistener.cpp
     ../src/musicartist.cpp
     ../src/musicalbum.cpp
     ../src/musicaudiotrack.cpp
@@ -69,7 +88,7 @@ set(manageheaderbarTest_SOURCES
 )
 
 add_executable(manageheaderbarTest ${manageheaderbarTest_SOURCES})
-target_link_libraries(manageheaderbarTest Qt5::Test Qt5::Core Qt5::Sql Qt5::Gui KF5::I18n)
+target_link_libraries(manageheaderbarTest Qt5::Test Qt5::Core Qt5::Sql Qt5::Gui KF5::I18n KF5::Baloo Qt5::DBus)
 target_include_directories(manageheaderbarTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 add_test(manageheaderbarTest manageheaderbarTest)
 
@@ -86,6 +105,10 @@ add_test(manageaudioplayerTest manageaudioplayerTest)
 set(mediaplaylistTest_SOURCES
     ../src/mediaplaylist.cpp
     ../src/databaseinterface.cpp
+    ../src/trackslistener.cpp
+    ../src/musiclistenersmanager.cpp
+    ../src/baloo/baloolistener.cpp
+    ../src/baloo/localbaloofilelisting.cpp
     ../src/musicartist.cpp
     ../src/musicalbum.cpp
     ../src/musicaudiotrack.cpp
@@ -93,6 +116,6 @@ set(mediaplaylistTest_SOURCES
 )
 
 add_executable(mediaplaylistTest ${mediaplaylistTest_SOURCES})
-target_link_libraries(mediaplaylistTest Qt5::Test Qt5::Core Qt5::Sql Qt5::Gui KF5::I18n)
+target_link_libraries(mediaplaylistTest Qt5::Test Qt5::Core Qt5::Sql Qt5::Gui KF5::I18n KF5::Baloo Qt5::DBus)
 target_include_directories(mediaplaylistTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 add_test(mediaplaylistTest mediaplaylistTest)

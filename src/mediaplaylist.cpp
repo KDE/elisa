@@ -20,6 +20,7 @@
 #include "mediaplaylist.h"
 #include "databaseinterface.h"
 #include "musicaudiotrack.h"
+#include "musiclistenersmanager.h"
 
 #include <QtCore/QUrl>
 #include <QtCore/QPersistentModelIndex>
@@ -36,9 +37,9 @@ public:
 
     QList<MusicAudioTrack> mTrackData;
 
-    DatabaseInterface *mMusicDatabase = nullptr;
-
     bool mUseLocalIcons = false;
+
+    MusicListenersManager* mMusicListenersManager = nullptr;
 
 };
 
@@ -63,10 +64,6 @@ int MediaPlayList::rowCount(const QModelIndex &parent) const
 QVariant MediaPlayList::data(const QModelIndex &index, int role) const
 {
     auto result = QVariant();
-
-    if (!d->mMusicDatabase) {
-        return result;
-    }
 
     if (!index.isValid()) {
         return result;
@@ -93,7 +90,7 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
             break;
         case ColumnsRoles::DurationRole:
         {
-            QTime trackDuration = d->mTrackData[index.row()].duration();
+            const QTime &trackDuration = d->mTrackData[index.row()].duration();
             if (trackDuration.hour() == 0) {
                 result = trackDuration.toString(QStringLiteral("mm:ss"));
             } else {
@@ -286,33 +283,17 @@ void MediaPlayList::clearAndEnqueue(qulonglong newTrackId)
 
 void MediaPlayList::enqueue(MediaPlayListEntry newEntry)
 {
-    if (!d->mMusicDatabase) {
-        return;
-    }
-
     beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size());
     d->mData.push_back(newEntry);
     d->mTrackData.push_back({});
     endInsertRows();
 
-    emit persistentStateChanged();
+    Q_EMIT persistentStateChanged();
 
-    if (d->mMusicDatabase && !newEntry.mIsValid) {
-        auto newTrackId = d->mMusicDatabase->trackIdFromTitleAlbumArtist(newEntry.mTitle, newEntry.mAlbum, newEntry.mArtist);
-
-        if (newTrackId != 0) {
-            d->mData.last().mId = newTrackId;
-            d->mTrackData.last() = d->mMusicDatabase->trackFromDatabaseId(newTrackId);
-            d->mData.last().mIsValid = true;
-
-            Q_EMIT dataChanged(index(rowCount() - 1, 0), index(rowCount() - 1, 0), {});
-        }
+    if (!newEntry.mIsValid) {
+        Q_EMIT newTrackByNameInList(newEntry.mTitle, newEntry.mArtist, newEntry.mAlbum);
     } else {
-        if (d->mMusicDatabase && newEntry.mIsValid) {
-            d->mTrackData.last() = d->mMusicDatabase->trackFromDatabaseId(newEntry.mId);
-
-            Q_EMIT dataChanged(index(rowCount() - 1, 0), index(rowCount() - 1, 0), {});
-        }
+        Q_EMIT newTrackByIdInList(newEntry.mId);
     }
 
     Q_EMIT trackHasBeenAdded(data(index(d->mData.size() - 1, 0), ColumnsRoles::TitleRole).toString(), data(index(d->mData.size() - 1, 0), ColumnsRoles::ImageRole).toUrl());
@@ -395,15 +376,9 @@ void MediaPlayList::move(int from, int to, int n)
     }
 }
 
-void MediaPlayList::enqueue(QString albumName, QString artistName)
+void MediaPlayList::enqueue(MusicAlbum album)
 {
-    if (!d->mMusicDatabase) {
-        return;
-    }
-
-    const auto currentAlbum = d->mMusicDatabase->albumFromTitleAndAuthor(albumName, artistName);
-
-    const auto allTracksKeys = currentAlbum.tracksKeys();
+    const auto allTracksKeys = album.tracksKeys();
 
     for (const auto oneTrackId : allTracksKeys) {
         enqueue(oneTrackId);
@@ -412,38 +387,22 @@ void MediaPlayList::enqueue(QString albumName, QString artistName)
 
 void MediaPlayList::enqueue(QString artistName)
 {
-    if (!d->mMusicDatabase) {
-        return;
-    }
+    beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size());
+    d->mData.push_back(MediaPlayListEntry{artistName});
+    d->mTrackData.push_back({});
+    endInsertRows();
 
-    qDebug() << "MediaPlayList::enqueue" << artistName;
-
-    const auto allTracks = d->mMusicDatabase->tracksFromAuthor(artistName);
-
-    qDebug() << "MediaPlayList::enqueue" << artistName << allTracks.size();
-
-    for (const auto &oneTrack : allTracks) {
-        qDebug() << "MediaPlayList::enqueue" << artistName << oneTrack.title() << oneTrack.albumName() << oneTrack.artist();
-        enqueue({oneTrack.title(), oneTrack.albumName(), oneTrack.artist()});
-    }
+    Q_EMIT newArtistInList(artistName);
 }
 
-void MediaPlayList::clearAndEnqueue(QString albumName, QString artistName)
+void MediaPlayList::clearAndEnqueue(MusicAlbum album)
 {
-    if (!d->mMusicDatabase) {
-        return;
-    }
-
     clearPlayList();
-    enqueue(albumName, artistName);
+    enqueue(album);
 }
 
 void MediaPlayList::clearAndEnqueue(QString artistName)
 {
-    if (!d->mMusicDatabase) {
-        return;
-    }
-
     clearPlayList();
     enqueue(artistName);
 }
@@ -456,46 +415,30 @@ void MediaPlayList::clearPlayList()
     endRemoveRows();
 }
 
-DatabaseInterface *MediaPlayList::databaseInterface() const
-{
-    return d->mMusicDatabase;
-}
-
 QList<QVariant> MediaPlayList::persistentState() const
 {
     auto result = QList<QVariant>();
 
-    for (auto &oneEntry : d->mData) {
+    for (int trackIndex = 0; trackIndex < d->mData.size(); ++trackIndex) {
         auto oneData = QList<QString>();
-        auto oneTrack = d->mMusicDatabase->trackFromDatabaseId(oneEntry.mId);
+        const auto &oneEntry = d->mData[trackIndex];
+        if (oneEntry.mIsValid) {
+            const auto &oneTrack = d->mTrackData[trackIndex];
 
-        oneData.push_back(oneTrack.title());
-        oneData.push_back(oneTrack.albumName());
-        oneData.push_back(oneTrack.artist());
+            oneData.push_back(oneTrack.title());
+            oneData.push_back(oneTrack.albumName());
+            oneData.push_back(oneTrack.artist());
 
-        result.push_back(QVariant(oneData));
+            result.push_back(QVariant(oneData));
+        }
     }
 
     return result;
 }
 
-void MediaPlayList::setDatabaseInterface(DatabaseInterface *musicDatabase)
+MusicListenersManager *MediaPlayList::musicListenersManager() const
 {
-    if (d->mMusicDatabase == musicDatabase) {
-        return;
-    }
-
-    if (d->mMusicDatabase) {
-        disconnect(d->mMusicDatabase, &DatabaseInterface::trackAdded,
-                   this, &MediaPlayList::trackAdded);
-    }
-
-    d->mMusicDatabase = musicDatabase;
-
-    connect(d->mMusicDatabase, &DatabaseInterface::trackAdded,
-            this, &MediaPlayList::trackAdded);
-
-    emit databaseInterfaceChanged();
+    return d->mMusicListenersManager;
 }
 
 void MediaPlayList::setPersistentState(QList<QVariant> persistentState)
@@ -527,31 +470,87 @@ void MediaPlayList::removeSelection(QList<int> selection)
     }
 }
 
-void MediaPlayList::trackAdded(qulonglong newTrackId)
+void MediaPlayList::albumAdded(const QVector<MusicAudioTrack> &tracks)
 {
-    Q_UNUSED(newTrackId);
+    for (int playListIndex = 0; playListIndex < d->mData.size(); ++playListIndex) {
+        auto &oneEntry = d->mData[playListIndex];
 
-    for (int i = 0; i < d->mData.size(); ++i) {
-        auto &oneEntry = d->mData[i];
-
-        if (oneEntry.mIsValid) {
+        if (!oneEntry.mIsArtist || oneEntry.mIsValid) {
             continue;
         }
 
-        auto restoredTitle = oneEntry.mTitle;
-        auto restoredAlbum = oneEntry.mAlbum;
-        auto restoredArtist = oneEntry.mArtist;
+        if (oneEntry.mArtist != tracks.first().artist()) {
+            continue;
+        }
 
-        auto newTrackId = d->mMusicDatabase->trackIdFromTitleAlbumArtist(restoredTitle, restoredAlbum, restoredArtist);
+        d->mTrackData[playListIndex] = tracks.first();
+        oneEntry.mId = tracks.first().databaseId();
+        oneEntry.mIsValid = true;
+        oneEntry.mIsArtist = false;
 
-        if (newTrackId != 0) {
-            oneEntry.mId = newTrackId;
-            d->mTrackData[i] = d->mMusicDatabase->trackFromDatabaseId(newTrackId);
+        Q_EMIT dataChanged(index(playListIndex, 0), index(playListIndex, 0), {});
+
+        beginInsertRows(QModelIndex(), playListIndex + 1, playListIndex - 1 + tracks.size());
+        for (int trackIndex = 1; trackIndex < tracks.size(); ++trackIndex) {
+            d->mData.push_back(MediaPlayListEntry{tracks[trackIndex].databaseId()});
+            d->mTrackData.push_back(tracks[trackIndex]);
+        }
+        endInsertRows();
+
+        Q_EMIT persistentStateChanged();
+    }
+}
+
+void MediaPlayList::trackChanged(MusicAudioTrack track)
+{
+    for (int i = 0; i < d->mData.size(); ++i) {
+        auto &oneEntry = d->mData[i];
+
+        if (!oneEntry.mIsArtist && oneEntry.mIsValid && !d->mTrackData[i].isValid()) {
+            if (track.databaseId() != oneEntry.mId) {
+                continue;
+            }
+
+            d->mTrackData[i] = track;
+
+            Q_EMIT dataChanged(index(i, 0), index(i, 0), {});
+            break;
+        } else if (!oneEntry.mIsArtist && !oneEntry.mIsValid) {
+            if (track.title() != oneEntry.mTitle) {
+                continue;
+            }
+
+            if (track.albumName() != oneEntry.mAlbum) {
+                continue;
+            }
+
+            if (track.artist() != oneEntry.mArtist) {
+                continue;
+            }
+
+            d->mTrackData[i] = track;
+            oneEntry.mId = track.databaseId();
             oneEntry.mIsValid = true;
 
             Q_EMIT dataChanged(index(i, 0), index(i, 0), {});
+            break;
         }
     }
+}
+
+void MediaPlayList::setMusicListenersManager(MusicListenersManager *musicListenersManager)
+{
+    if (d->mMusicListenersManager == musicListenersManager) {
+        return;
+    }
+
+    d->mMusicListenersManager = musicListenersManager;
+
+    if (d->mMusicListenersManager) {
+        d->mMusicListenersManager->subscribeForTracks(this);
+    }
+
+    Q_EMIT musicListenersManagerChanged();
 }
 
 bool MediaPlayList::rowHasHeader(int row) const

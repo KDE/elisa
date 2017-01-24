@@ -34,17 +34,12 @@ public:
     {
     }
 
-    QString mArtist;
-
-    DatabaseInterface *mMusicDatabase = nullptr;
-
     QVector<MusicAlbum> mAllAlbums;
 
     int mAlbumCount = 0;
 
     bool mUseLocalIcons = false;
 
-    bool mExactMatch = false;
 };
 
 AllAlbumsModel::AllAlbumsModel(QObject *parent) : QAbstractItemModel(parent), d(new AllAlbumsModelPrivate)
@@ -59,10 +54,6 @@ AllAlbumsModel::~AllAlbumsModel()
 int AllAlbumsModel::rowCount(const QModelIndex &parent) const
 {
     auto albumCount = 0;
-
-    if (!d->mMusicDatabase) {
-        return albumCount;
-    }
 
     if (parent.isValid()) {
         return albumCount;
@@ -84,6 +75,7 @@ QHash<int, QByteArray> AllAlbumsModel::roleNames() const
     roles[static_cast<int>(ColumnsRoles::ImageRole)] = "image";
     roles[static_cast<int>(ColumnsRoles::CountRole)] = "count";
     roles[static_cast<int>(ColumnsRoles::IsSingleDiscAlbumRole)] = "isSingleDiscAlbum";
+    roles[static_cast<int>(ColumnsRoles::AlbumDataRole)] = "albumData";
 
     return roles;
 }
@@ -100,10 +92,6 @@ Qt::ItemFlags AllAlbumsModel::flags(const QModelIndex &index) const
 QVariant AllAlbumsModel::data(const QModelIndex &index, int role) const
 {
     auto result = QVariant();
-
-    if (!d->mMusicDatabase) {
-        return result;
-    }
 
     const auto albumCount = d->mAlbumCount;
 
@@ -139,10 +127,6 @@ QVariant AllAlbumsModel::internalDataAlbum(int albumIndex, int role) const
 {
     auto result = QVariant();
 
-    if (!d->mMusicDatabase) {
-        return result;
-    }
-
     ColumnsRoles convertedRole = static_cast<ColumnsRoles>(role);
 
     switch(convertedRole)
@@ -157,7 +141,7 @@ QVariant AllAlbumsModel::internalDataAlbum(int albumIndex, int role) const
         result = d->mAllAlbums[albumIndex].artist();
         break;
     case ColumnsRoles::AllArtistsRole:
-        result = d->mAllAlbums[albumIndex].allArtists();
+        result = d->mAllAlbums[albumIndex].allArtists().join(QStringLiteral(", "));
         break;
     case ColumnsRoles::ImageRole:
     {
@@ -181,6 +165,9 @@ QVariant AllAlbumsModel::internalDataAlbum(int albumIndex, int role) const
         break;
     case ColumnsRoles::IsSingleDiscAlbumRole:
         result = d->mAllAlbums[albumIndex].isSingleDiscAlbum();
+        break;
+    case ColumnsRoles::AlbumDataRole:
+        result = QVariant::fromValue(d->mAllAlbums[albumIndex]);
         break;
     }
 
@@ -220,96 +207,8 @@ int AllAlbumsModel::columnCount(const QModelIndex &parent) const
     return 1;
 }
 
-DatabaseInterface *AllAlbumsModel::databaseInterface() const
+void AllAlbumsModel::albumAdded(MusicAlbum newAlbum)
 {
-    return d->mMusicDatabase;
-}
-
-QString AllAlbumsModel::artist() const
-{
-    return d->mArtist;
-}
-
-bool AllAlbumsModel::exactMatch() const
-{
-    return d->mExactMatch;
-}
-
-void AllAlbumsModel::setDatabaseInterface(DatabaseInterface *musicDatabase)
-{
-    if (d->mMusicDatabase == musicDatabase) {
-        return;
-    }
-
-    if (d->mMusicDatabase) {
-        disconnect(d->mMusicDatabase);
-    }
-
-    d->mMusicDatabase = musicDatabase;
-
-    if (d->mMusicDatabase) {
-        connect(d->mMusicDatabase, &DatabaseInterface::albumAdded, this, &AllAlbumsModel::albumAdded);
-    }
-
-    beginResetModel();
-    if (!d->mExactMatch) {
-        d->mAllAlbums = d->mMusicDatabase->allAlbums(d->mArtist);
-    } else {
-        d->mAllAlbums = d->mMusicDatabase->allAlbumsFromArtist(d->mArtist);
-    }
-    d->mAlbumCount = d->mAllAlbums.count();
-    endResetModel();
-
-    emit databaseInterfaceChanged();
-}
-
-void AllAlbumsModel::setArtist(QString artist)
-{
-    if (d->mArtist == artist) {
-        return;
-    }
-
-    beginResetModel();
-
-    d->mArtist = artist;
-    if (!d->mExactMatch) {
-        d->mAllAlbums = d->mMusicDatabase->allAlbums(d->mArtist);
-    } else {
-        d->mAllAlbums = d->mMusicDatabase->allAlbumsFromArtist(d->mArtist);
-    }
-    d->mAlbumCount = d->mAllAlbums.count();
-
-    endResetModel();
-
-    emit artistChanged();
-}
-
-void AllAlbumsModel::setExactMatch(bool exactMatch)
-{
-    if (d->mExactMatch == exactMatch)
-        return;
-
-    beginResetModel();
-
-    d->mExactMatch = exactMatch;
-    if (d->mMusicDatabase) {
-        if (!d->mExactMatch) {
-            d->mAllAlbums = d->mMusicDatabase->allAlbums(d->mArtist);
-        } else {
-            d->mAllAlbums = d->mMusicDatabase->allAlbumsFromArtist(d->mArtist);
-        }
-    }
-    d->mAlbumCount = d->mAllAlbums.count();
-
-    endResetModel();
-
-    Q_EMIT exactMatchChanged();
-}
-
-void AllAlbumsModel::albumAdded(qulonglong newAlbumId)
-{
-    auto newAlbum = d->mMusicDatabase->albumFromId(newAlbumId);
-
     if (newAlbum.isValid()) {
         beginInsertRows({}, d->mAllAlbums.size(), d->mAllAlbums.size());
         d->mAllAlbums.push_back(newAlbum);

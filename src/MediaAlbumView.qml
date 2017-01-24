@@ -30,7 +30,6 @@ Item {
     id: topListing
 
     property StackView stackView
-    property var musicDatabase
     property MediaPlayList playListModel
     property var playerControl
     property var albumName
@@ -38,6 +37,7 @@ Item {
     property var tracksCount
     property var albumArtUrl
     property bool isSingleDiscAlbum
+    property var albumData
 
     width: stackView.width
     height: stackView.height
@@ -63,9 +63,7 @@ Item {
     AlbumModel {
         id: contentModel
 
-        databaseInterface: musicDatabase
-        title: albumName
-        author: artistName
+        albumData: topListing.albumData
     }
 
     ColumnLayout {
@@ -93,14 +91,14 @@ Item {
             enqueueAction: Action {
                 text: i18nc("Add whole album to play list", "Enqueue")
                 iconName: "media-track-add-amarok"
-                onTriggered: topListing.playListModel.enqueue(topListing.albumName, topListing.artistName)
+                onTriggered: topListing.playListModel.enqueue(topListing.albumData)
             }
 
             clearAndEnqueueAction: Action {
                 text: i18nc("Clear play list and add whole album to play list", "Play Now and Replace Play List")
                 iconName: "media-playback-start"
                 onTriggered: {
-                    topListing.playListModel.clearAndEnqueue(topListing.albumName, topListing.artistName)
+                    topListing.playListModel.clearAndEnqueue(topListing.albumData)
                     topListing.playerControl.playPause()
                 }
             }

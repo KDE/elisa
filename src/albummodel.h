@@ -37,10 +37,10 @@ class AlbumModel : public QAbstractItemModel
 {
     Q_OBJECT
 
-    Q_PROPERTY(DatabaseInterface* databaseInterface
-               READ databaseInterface
-               WRITE setDatabaseInterface
-               NOTIFY databaseInterfaceChanged)
+    Q_PROPERTY(MusicAlbum albumData
+               READ albumData
+               WRITE setAlbumData
+               NOTIFY albumDataChanged)
 
     Q_PROPERTY(QString title
                READ title
@@ -97,7 +97,7 @@ public:
 
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
 
-    DatabaseInterface* databaseInterface() const;
+    MusicAlbum albumData() const;
 
     QString title() const;
 
@@ -105,7 +105,7 @@ public:
 
 Q_SIGNALS:
 
-    void databaseInterfaceChanged();
+    void albumDataChanged();
 
     void titleChanged();
 
@@ -113,7 +113,7 @@ Q_SIGNALS:
 
 public Q_SLOTS:
 
-    void setDatabaseInterface(DatabaseInterface* databaseInterface);
+    void setAlbumData(MusicAlbum album);
 
     void setTitle(QString title);
 

@@ -44,7 +44,6 @@
 #include "manageheaderbar.h"
 #include "manageaudioplayer.h"
 #include "musicstatistics.h"
-#include "databaseinterface.h"
 #include "allalbumsmodel.h"
 #include "albummodel.h"
 #include "allartistsmodel.h"
@@ -118,7 +117,6 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
     qmlRegisterType<ManageAudioPlayer>("org.mgallien.QmlExtension", 1, 0, "ManageAudioPlayer");
     qmlRegisterType<MusicStatistics>("org.mgallien.QmlExtension", 1, 0, "MusicStatistics");
     qmlRegisterType<ProgressIndicator>("org.mgallien.QmlExtension", 1, 0, "ProgressIndicator");
-    qmlRegisterType<DatabaseInterface>("org.mgallien.QmlExtension", 1, 0, "DatabaseInterface");
     qmlRegisterType<AllAlbumsModel>("org.mgallien.QmlExtension", 1, 0, "AllAlbumsModel");
     qmlRegisterType<AllArtistsModel>("org.mgallien.QmlExtension", 1, 0, "AllArtistsModel");
     qmlRegisterType<AlbumModel>("org.mgallien.QmlExtension", 1, 0, "AlbumModel");
@@ -136,6 +134,8 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
     qRegisterMetaType<QHash<QString,QVector<MusicAudioTrack>>>("QHash<QString,QVector<MusicAudioTrack>>");
     qRegisterMetaType<QVector<qulonglong>>("QVector<qulonglong>");
     qRegisterMetaType<QHash<qulonglong,int>>("QHash<qulonglong,int>");
+    qRegisterMetaType<MusicAlbum>("MusicAlbum");
+    qRegisterMetaType<MusicArtist>("MusicArtist");
 
     qRegisterMetaTypeStreamOperators<ManageMediaPlayerControl::PlayerState>("PlayListControler::PlayerState");
 

@@ -34,11 +34,6 @@ class AllArtistsModel : public QAbstractItemModel
 {
     Q_OBJECT
 
-    Q_PROPERTY(DatabaseInterface* databaseInterface
-               READ databaseInterface
-               WRITE setDatabaseInterface
-               NOTIFY databaseInterfaceChanged)
-
 public:
 
     enum ColumnsRoles {
@@ -68,20 +63,9 @@ public:
 
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
 
-    DatabaseInterface* databaseInterface() const;
-
-Q_SIGNALS:
-
-    void databaseInterfaceChanged();
-
 public Q_SLOTS:
 
-    void setDatabaseInterface(DatabaseInterface* databaseInterface);
-
-
-private Q_SLOTS:
-
-    void artistAdded(qulonglong newArtistId);
+    void artistAdded(MusicArtist newArtist);
 
 private:
 

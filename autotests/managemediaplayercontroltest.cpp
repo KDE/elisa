@@ -23,6 +23,7 @@
 #include "mediaplaylist.h"
 #include "databaseinterface.h"
 #include "musicaudiotrack.h"
+#include "trackslistener.h"
 
 #include <QHash>
 #include <QString>
@@ -415,20 +416,27 @@ void ManageMediaPlayerControlTest::moveCurrentTrack()
 {
     MediaPlayList myPlayList;
     DatabaseInterface myDatabaseContent;
-    DatabaseInterface myDatabaseView;
+    TracksListener myListener(&myDatabaseContent);
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
-    myDatabaseView.init(QStringLiteral("testDbDirectView"));
-
-    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
-            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
-    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
-            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myListener, &TracksListener::trackChanged,
+            &myPlayList, &MediaPlayList::trackChanged,
+            Qt::QueuedConnection);
+    connect(&myListener, &TracksListener::albumAdded,
+            &myPlayList, &MediaPlayList::albumAdded,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newTrackByIdInList,
+            &myListener, &TracksListener::trackByIdInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newTrackByNameInList,
+            &myListener, &TracksListener::trackByNameInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newArtistInList,
+            &myListener, &TracksListener::newArtistInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
-
-    myPlayList.setDatabaseInterface(&myDatabaseView);
+            &myListener, &TracksListener::trackAdded);
 
     ManageMediaPlayerControl myControl;
 
@@ -552,20 +560,27 @@ void ManageMediaPlayerControlTest::moveAnotherTrack()
 {
     MediaPlayList myPlayList;
     DatabaseInterface myDatabaseContent;
-    DatabaseInterface myDatabaseView;
+    TracksListener myListener(&myDatabaseContent);
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
-    myDatabaseView.init(QStringLiteral("testDbDirectView"));
-
-    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
-            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
-    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
-            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myListener, &TracksListener::trackChanged,
+            &myPlayList, &MediaPlayList::trackChanged,
+            Qt::QueuedConnection);
+    connect(&myListener, &TracksListener::albumAdded,
+            &myPlayList, &MediaPlayList::albumAdded,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newTrackByIdInList,
+            &myListener, &TracksListener::trackByIdInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newTrackByNameInList,
+            &myListener, &TracksListener::trackByNameInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newArtistInList,
+            &myListener, &TracksListener::newArtistInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
-
-    myPlayList.setDatabaseInterface(&myDatabaseView);
+            &myListener, &TracksListener::trackAdded);
 
     ManageMediaPlayerControl myControl;
 
@@ -689,20 +704,27 @@ void ManageMediaPlayerControlTest::setCurrentTrackTest()
 {
     MediaPlayList myPlayList;
     DatabaseInterface myDatabaseContent;
-    DatabaseInterface myDatabaseView;
+    TracksListener myListener(&myDatabaseContent);
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
-    myDatabaseView.init(QStringLiteral("testDbDirectView"));
-
-    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
-            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
-    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
-            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myListener, &TracksListener::trackChanged,
+            &myPlayList, &MediaPlayList::trackChanged,
+            Qt::QueuedConnection);
+    connect(&myListener, &TracksListener::albumAdded,
+            &myPlayList, &MediaPlayList::albumAdded,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newTrackByIdInList,
+            &myListener, &TracksListener::trackByIdInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newTrackByNameInList,
+            &myListener, &TracksListener::trackByNameInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newArtistInList,
+            &myListener, &TracksListener::newArtistInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
-
-    myPlayList.setDatabaseInterface(&myDatabaseView);
+            &myListener, &TracksListener::trackAdded);
 
     ManageMediaPlayerControl myControl;
 

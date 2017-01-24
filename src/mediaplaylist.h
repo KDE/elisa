@@ -20,10 +20,15 @@
 #ifndef MEDIAPLAYLIST_H
 #define MEDIAPLAYLIST_H
 
+#include "musicaudiotrack.h"
+#include "musicalbum.h"
+
 #include <QtCore/QAbstractListModel>
+#include <QtCore/QVector>
 
 class MediaPlayListPrivate;
 class DatabaseInterface;
+class MusicListenersManager;
 
 class MediaPlayListEntry
 {
@@ -35,7 +40,10 @@ public:
     explicit MediaPlayListEntry(qulonglong id) : mId(id), mIsValid(true) {
     }
 
-    MediaPlayListEntry(QString title, QString album, QString artist) : mTitle(title), mAlbum(album), mArtist(artist), mIsValid(false) {
+    MediaPlayListEntry(QString title, QString album, QString artist) : mTitle(title), mAlbum(album), mArtist(artist) {
+    }
+
+    explicit MediaPlayListEntry(QString artist) : mArtist(artist), mIsArtist(true) {
     }
 
     QString mTitle;
@@ -48,6 +56,8 @@ public:
 
     bool mIsValid = false;
 
+    bool mIsArtist = false;
+
     bool mIsPlaying = false;
 
 };
@@ -56,15 +66,15 @@ class MediaPlayList : public QAbstractListModel
 {
     Q_OBJECT
 
-    Q_PROPERTY(DatabaseInterface* databaseInterface
-               READ databaseInterface
-               WRITE setDatabaseInterface
-               NOTIFY databaseInterfaceChanged)
-
     Q_PROPERTY(QList<QVariant> persistentState
                READ persistentState
                WRITE setPersistentState
                NOTIFY persistentStateChanged)
+
+    Q_PROPERTY(MusicListenersManager* musicListenersManager
+               READ musicListenersManager
+               WRITE setMusicListenersManager
+               NOTIFY musicListenersManagerChanged)
 
 public:
 
@@ -86,11 +96,7 @@ public:
         HasAlbumHeader = IsPlayingRole + 1,
     };
 
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 5, 0))
     Q_ENUM(ColumnsRoles)
-#else
-    Q_ENUMS(ColumnsRoles)
-#endif
 
     MediaPlayList(QObject *parent = 0);
 
@@ -110,13 +116,13 @@ public:
 
     Q_INVOKABLE void enqueue(MediaPlayListEntry newEntry);
 
-    Q_INVOKABLE void enqueue(QString albumName, QString artistName);
+    Q_INVOKABLE void enqueue(MusicAlbum album);
 
     Q_INVOKABLE void enqueue(QString artistName);
 
     Q_INVOKABLE void clearAndEnqueue(qulonglong newTrackId);
 
-    Q_INVOKABLE void clearAndEnqueue(QString albumName, QString artistName);
+    Q_INVOKABLE void clearAndEnqueue(MusicAlbum album);
 
     Q_INVOKABLE void clearAndEnqueue(QString artistName);
 
@@ -126,29 +132,37 @@ public:
 
     Q_INVOKABLE void clearPlayList();
 
-    DatabaseInterface* databaseInterface() const;
-
     QList<QVariant> persistentState() const;
+
+    MusicListenersManager* musicListenersManager() const;
 
 Q_SIGNALS:
 
-    void trackHasBeenAdded(const QString &title, const QUrl &image);
+    void newTrackByNameInList(QString title, QString artist, QString album);
 
-    void databaseInterfaceChanged();
+    void newTrackByIdInList(qulonglong newTrackId);
+
+    void newArtistInList(QString artist);
+
+    void trackHasBeenAdded(const QString &title, const QUrl &image);
 
     void persistentStateChanged();
 
-public Q_SLOTS:
+    void musicListenersManagerChanged();
 
-    void setDatabaseInterface(DatabaseInterface* musicDatabase);
+public Q_SLOTS:
 
     void setPersistentState(QList<QVariant> persistentState);
 
     void removeSelection(QList<int> selection);
 
-private Q_SLOTS:
+    void albumAdded(const QVector<MusicAudioTrack> &tracks);
 
-    void trackAdded(qulonglong newTrackId);
+    void trackChanged(MusicAudioTrack track);
+
+    void setMusicListenersManager(MusicListenersManager* musicListenersManager);
+
+private Q_SLOTS:
 
     bool rowHasHeader(int row) const;
 

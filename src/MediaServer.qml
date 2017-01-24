@@ -146,12 +146,8 @@ ApplicationWindow {
         }
     }
 
-    DatabaseInterface {
-        id: localAlbumDatabase
-    }
-
     MusicListenersManager {
-        viewDatabase: localAlbumDatabase
+        id: allListeners
     }
 
     Audio {
@@ -180,9 +176,8 @@ ApplicationWindow {
     MediaPlayList {
         id: playListModelItem
 
-        databaseInterface: localAlbumDatabase
-
         persistentState: persistentSettings.playListState
+        musicListenersManager: allListeners
 
         onTrackHasBeenAdded: mainWindow.showPassiveNotification(i18n("Track %1 has been added", title), 1500, "", {})
     }
@@ -246,6 +241,26 @@ ApplicationWindow {
 
         playListModel: playListModelItem
         currentTrack: playListControlerItem.currentTrack
+    }
+
+    AllAlbumsModel {
+        id: allAlbumsModel
+    }
+
+    Connections {
+        target: allListeners
+
+        onAlbumAdded: allAlbumsModel.albumAdded(newAlbum)
+    }
+
+    AllArtistsModel {
+        id: allArtistsModel
+    }
+
+    Connections {
+        target: allListeners
+
+        onArtistAdded: allArtistsModel.artistAdded(newArtist)
     }
 
     Rectangle {
@@ -376,8 +391,8 @@ ApplicationWindow {
                         onRowCountChanged:
                         {
                             viewModeView.selection.clear()
-                            viewModeView.currentRow = 0
-                            viewModeView.selection.select(0)
+                            viewModeView.currentRow = 1
+                            viewModeView.selection.select(1)
                         }
                     }
                 }
@@ -414,9 +429,9 @@ ApplicationWindow {
 
                                 firstPage: MediaAllAlbumView {
                                     playListModel: playListModelItem
-                                    musicDatabase: localAlbumDatabase
                                     playerControl: manageAudioPlayer
                                     stackView: localAlbums.stackView
+                                    contentDirectoryModel: allAlbumsModel
                                 }
 
                                 visible: opacity > 0
@@ -429,9 +444,10 @@ ApplicationWindow {
 
                                 firstPage: MediaAllArtistView {
                                     playListModel: playListModelItem
-                                    musicDatabase: localAlbumDatabase
+                                    artistsModel: allArtistsModel
                                     playerControl: manageAudioPlayer
                                     stackView: localArtists.stackView
+                                    contentDirectoryModel: allAlbumsModel
                                 }
 
                                 visible: opacity > 0

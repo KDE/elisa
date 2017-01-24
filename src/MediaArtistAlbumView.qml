@@ -33,7 +33,7 @@ Item {
     property StackView stackView
     property MediaPlayList playListModel
     property var playerControl
-    property var musicDatabase
+    property var contentDirectoryModel
 
     property alias artistName: navBar.artist
 
@@ -112,13 +112,11 @@ Item {
                     model: DelegateModel {
                         id: delegateContentModel
 
-                        model: AllAlbumsModel {
-                            id: contentDirectoryModel
+                        model: SortFilterProxyModel {
+                            sourceModel: contentDirectoryModel
+                            filterRole: AllAlbumsModel.AllArtistsRole
 
-                            databaseInterface: rootElement.musicDatabase
-                            artist: artistName
-
-                            exactMatch: true
+                            filterRegExp: new RegExp('.*' + artistName + '.*', 'i')
                         }
 
                         delegate: MediaAlbumDelegate {
@@ -141,11 +139,12 @@ Item {
 
                             isSingleDiscAlbum: model.isSingleDiscAlbum
 
+                            albumData: model.albumData
+
                             stackView: rootElement.stackView
 
                             playListModel: rootElement.playListModel
                             playerControl: rootElement.playerControl
-                            musicDatabase: rootElement.musicDatabase
                         }
                     }
 

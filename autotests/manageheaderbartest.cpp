@@ -23,6 +23,7 @@
 #include "mediaplaylist.h"
 #include "databaseinterface.h"
 #include "musicaudiotrack.h"
+#include "trackslistener.h"
 
 #include <QHash>
 #include <QString>
@@ -1590,20 +1591,18 @@ void ManageHeaderBarTest::moveCurrentTrack()
 {
     MediaPlayList myPlayList;
     DatabaseInterface myDatabaseContent;
-    DatabaseInterface myDatabaseView;
+    TracksListener myListener(&myDatabaseContent);
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
-    myDatabaseView.init(QStringLiteral("testDbDirectView"));
-
-    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
-            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
-    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
-            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myListener, &TracksListener::trackChanged,
+            &myPlayList, &MediaPlayList::trackChanged);
+    connect(&myPlayList, &MediaPlayList::newTrackByIdInList,
+            &myListener, &TracksListener::trackByIdInList);
+    connect(&myPlayList, &MediaPlayList::newTrackByNameInList,
+            &myListener, &TracksListener::trackByNameInList);
     connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
-
-    myPlayList.setDatabaseInterface(&myDatabaseView);
+            &myListener, &TracksListener::trackAdded);
 
     ManageHeaderBar myControl;
 
@@ -1851,20 +1850,18 @@ void ManageHeaderBarTest::moveAnotherTrack()
 {
     MediaPlayList myPlayList;
     DatabaseInterface myDatabaseContent;
-    DatabaseInterface myDatabaseView;
+    TracksListener myListener(&myDatabaseContent);
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
-    myDatabaseView.init(QStringLiteral("testDbDirectView"));
-
-    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
-            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
-    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
-            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myListener, &TracksListener::trackChanged,
+            &myPlayList, &MediaPlayList::trackChanged);
+    connect(&myPlayList, &MediaPlayList::newTrackByIdInList,
+            &myListener, &TracksListener::trackByIdInList);
+    connect(&myPlayList, &MediaPlayList::newTrackByNameInList,
+            &myListener, &TracksListener::trackByNameInList);
     connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
-
-    myPlayList.setDatabaseInterface(&myDatabaseView);
+            &myListener, &TracksListener::trackAdded);
 
     ManageHeaderBar myControl;
 
@@ -2112,20 +2109,18 @@ void ManageHeaderBarTest::setCurrentTrackTest()
 {
     MediaPlayList myPlayList;
     DatabaseInterface myDatabaseContent;
-    DatabaseInterface myDatabaseView;
+    TracksListener myListener(&myDatabaseContent);
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
-    myDatabaseView.init(QStringLiteral("testDbDirectView"));
-
-    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
-            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
-    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
-            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myListener, &TracksListener::trackChanged,
+            &myPlayList, &MediaPlayList::trackChanged);
+    connect(&myPlayList, &MediaPlayList::newTrackByIdInList,
+            &myListener, &TracksListener::trackByIdInList);
+    connect(&myPlayList, &MediaPlayList::newTrackByNameInList,
+            &myListener, &TracksListener::trackByNameInList);
     connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
-
-    myPlayList.setDatabaseInterface(&myDatabaseView);
+            &myListener, &TracksListener::trackAdded);
 
     ManageHeaderBar myControl;
 
@@ -2371,20 +2366,18 @@ void ManageHeaderBarTest::setPlayListModelTest()
 {
     MediaPlayList myPlayList;
     DatabaseInterface myDatabaseContent;
-    DatabaseInterface myDatabaseView;
+    TracksListener myListener(&myDatabaseContent);
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
-    myDatabaseView.init(QStringLiteral("testDbDirectView"));
-
-    connect(&myDatabaseContent, &DatabaseInterface::artistAdded,
-            &myDatabaseView, &DatabaseInterface::databaseArtistAdded);
-    connect(&myDatabaseContent, &DatabaseInterface::albumAdded,
-            &myDatabaseView, &DatabaseInterface::databaseAlbumAdded);
+    connect(&myListener, &TracksListener::trackChanged,
+            &myPlayList, &MediaPlayList::trackChanged);
+    connect(&myPlayList, &MediaPlayList::newTrackByIdInList,
+            &myListener, &TracksListener::trackByIdInList);
+    connect(&myPlayList, &MediaPlayList::newTrackByNameInList,
+            &myListener, &TracksListener::trackByNameInList);
     connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myDatabaseView, &DatabaseInterface::databaseTrackAdded);
-
-    myPlayList.setDatabaseInterface(&myDatabaseView);
+            &myListener, &TracksListener::trackAdded);
 
     ManageHeaderBar myControl;
 

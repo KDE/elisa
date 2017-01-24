@@ -26,6 +26,7 @@
 #include <QtCore/QUrl>
 #include <QtCore/QMap>
 #include <QtCore/QStringList>
+#include <QtCore/QMetaType>
 
 class MusicAlbumPrivate;
 class QDebug;
@@ -108,5 +109,9 @@ private:
 };
 
 QDebug& operator<<(QDebug &stream, const MusicAlbum &data);
+
+bool operator==(const MusicAlbum &album1, const MusicAlbum &album2);
+
+Q_DECLARE_METATYPE(MusicAlbum)
 
 #endif // MUSICALBUM_H

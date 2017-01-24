@@ -34,8 +34,6 @@ public:
     {
     }
 
-    DatabaseInterface *mMusicDatabase = nullptr;
-
     bool mUseLocalIcons = false;
 
     QString mTitle;
@@ -57,21 +55,8 @@ AlbumModel::~AlbumModel()
 
 int AlbumModel::rowCount(const QModelIndex &parent) const
 {
-    if (!d->mMusicDatabase) {
-        return 0;
-    }
-
     if (parent.isValid()) {
         return 0;
-    }
-
-    if (!d->mCurrentAlbum.isValid()) {
-        const auto &currentAlbum = d->mMusicDatabase->albumFromTitleAndAuthor(d->mTitle, d->mAuthor);
-        if (!currentAlbum.isValid()) {
-            return 0;
-        }
-
-        d->mCurrentAlbum = currentAlbum;
     }
 
     return d->mCurrentAlbum.tracksCount();
@@ -109,10 +94,6 @@ QVariant AlbumModel::data(const QModelIndex &index, int role) const
 {
     auto result = QVariant();
 
-    if (!d->mMusicDatabase) {
-        return result;
-    }
-
     if (!index.isValid()) {
         return result;
     }
@@ -127,15 +108,6 @@ QVariant AlbumModel::data(const QModelIndex &index, int role) const
 
     if (index.parent().isValid()) {
         return result;
-    }
-
-    if (!d->mCurrentAlbum.isValid()) {
-        const auto &currentAlbum = d->mMusicDatabase->albumFromTitleAndAuthor(d->mTitle, d->mAuthor);
-        if (!currentAlbum.isValid()) {
-            return result;
-        }
-
-        d->mCurrentAlbum = currentAlbum;
     }
 
     if (index.row() >= d->mCurrentAlbum.tracksCount()) {
@@ -247,18 +219,7 @@ QModelIndex AlbumModel::index(int row, int column, const QModelIndex &parent) co
         return result;
     }
 
-    const auto &currentAlbum = d->mMusicDatabase->albumFromTitleAndAuthor(d->mTitle, d->mAuthor);
-    if (!currentAlbum.isValid()) {
-        return result;
-    }
-    if (currentAlbum.title() != d->mTitle) {
-        return result;
-    }
-    if (currentAlbum.artist() != d->mAuthor) {
-        return result;
-    }
-
-    if (row >= currentAlbum.tracksCount()) {
+    if (row >= d->mCurrentAlbum.tracksCount()) {
         return result;
     }
 
@@ -278,9 +239,9 @@ int AlbumModel::columnCount(const QModelIndex &parent) const
     return 1;
 }
 
-DatabaseInterface *AlbumModel::databaseInterface() const
+MusicAlbum AlbumModel::albumData() const
 {
-    return d->mMusicDatabase;
+    return d->mCurrentAlbum;
 }
 
 QString AlbumModel::title() const
@@ -293,23 +254,14 @@ QString AlbumModel::author() const
     return d->mAuthor;
 }
 
-void AlbumModel::setDatabaseInterface(DatabaseInterface *musicDatabase)
+void AlbumModel::setAlbumData(MusicAlbum album)
 {
-    if (d->mMusicDatabase == musicDatabase) {
+    if (d->mCurrentAlbum == album) {
         return;
     }
 
-    if (d->mMusicDatabase) {
-        disconnect(d->mMusicDatabase);
-    }
-
-    d->mMusicDatabase = musicDatabase;
-
-    if (d->mMusicDatabase) {
-        connect(d->mMusicDatabase, &DatabaseInterface::trackAdded, this, &AlbumModel::trackAdded);
-    }
-
-    emit databaseInterfaceChanged();
+    d->mCurrentAlbum = album;
+    Q_EMIT albumDataChanged();
 }
 
 void AlbumModel::setTitle(QString title)

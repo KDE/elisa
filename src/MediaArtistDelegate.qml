@@ -32,7 +32,7 @@ Rectangle {
     property StackView stackView
     property MediaPlayList playListModel
     property var playerControl
-    property var musicDatabase
+    property var contentDirectoryModel
     property alias image: playIcon.source
     property alias name: nameLabel.text
 
@@ -124,7 +124,7 @@ Rectangle {
                                                    properties :
                                                    {
                                                        playListModel: mediaServerEntry.playListModel,
-                                                       musicDatabase: mediaServerEntry.musicDatabase,
+                                                       contentDirectoryModel: mediaServerEntry.contentDirectoryModel,
                                                        playerControl: mediaServerEntry.playerControl,
                                                        stackView: mediaServerEntry.stackView,
                                                        artistName: name,

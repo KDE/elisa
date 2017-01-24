@@ -28,7 +28,6 @@
 #include "musicalbum.h"
 #include "musicaudiotrack.h"
 
-class DatabaseInterface;
 class AllAlbumsModelPrivate;
 class MusicStatistics;
 class QMutex;
@@ -36,21 +35,6 @@ class QMutex;
 class AllAlbumsModel : public QAbstractItemModel
 {
     Q_OBJECT
-
-    Q_PROPERTY(DatabaseInterface* databaseInterface
-               READ databaseInterface
-               WRITE setDatabaseInterface
-               NOTIFY databaseInterfaceChanged)
-
-    Q_PROPERTY(QString artist
-               READ artist
-               WRITE setArtist
-               NOTIFY artistChanged)
-
-    Q_PROPERTY(bool exactMatch
-               READ exactMatch
-               WRITE setExactMatch
-               NOTIFY exactMatchChanged)
 
 public:
 
@@ -63,7 +47,10 @@ public:
         CountRole = ImageRole + 1,
         IdRole = CountRole + 1,
         IsSingleDiscAlbumRole = IdRole + 1,
+        AlbumDataRole = IsSingleDiscAlbumRole + 1,
     };
+
+    Q_ENUM(ColumnsRoles)
 
     explicit AllAlbumsModel(QObject *parent = 0);
 
@@ -83,31 +70,9 @@ public:
 
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
 
-    DatabaseInterface* databaseInterface() const;
-
-    QString artist() const;
-
-    bool exactMatch() const;
-
-Q_SIGNALS:
-
-    void databaseInterfaceChanged();
-
-    void artistChanged();
-
-    void exactMatchChanged();
-
 public Q_SLOTS:
 
-    void setDatabaseInterface(DatabaseInterface* databaseInterface);
-
-    void setArtist(QString artist);
-
-    void setExactMatch(bool exactMatch);
-
-private Q_SLOTS:
-
-    void albumAdded(qulonglong newAlbumId);
+    void albumAdded(MusicAlbum newAlbum);
 
 private:
 

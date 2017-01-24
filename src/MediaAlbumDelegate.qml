@@ -32,12 +32,12 @@ Rectangle {
     property StackView stackView
     property MediaPlayList playListModel
     property var playerControl
-    property var musicDatabase
     property alias image: playIcon.source
     property alias title: titleLabel.text
     property alias artist: artistLabel.text
     property alias trackNumber: numberLabel.text
     property bool isSingleDiscAlbum
+    property var albumData
 
     id: mediaServerEntry
 
@@ -105,14 +105,14 @@ Rectangle {
                                 stackView.push(Qt.resolvedUrl("MediaAlbumView.qml"),
                                                {
                                                    'stackView': stackView,
-                                                   'musicDatabase': musicDatabase,
                                                    'playListModel': playListModel,
                                                    'playerControl': playerControl,
                                                    'albumArtUrl': image,
                                                    'albumName': title,
                                                    'artistName': artist,
                                                    'tracksCount': count,
-                                                   'isSingleDiscAlbum': mediaServerEntry.isSingleDiscAlbum
+                                                   'isSingleDiscAlbum': mediaServerEntry.isSingleDiscAlbum,
+                                                   'albumData': mediaServerEntry.albumData
                                                })
                             }
                         }

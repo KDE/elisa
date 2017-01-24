@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Matthieu Gallien <matthieu_gallien@yahoo.fr>
+ * Copyright 2017 Matthieu Gallien <matthieu_gallien@yahoo.fr>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -17,56 +17,44 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef MUSICLISTENERSMANAGER_H
-#define MUSICLISTENERSMANAGER_H
+#ifndef TRACKSLISTENER_H
+#define TRACKSLISTENER_H
 
-#include <QObject>
+#include <QtCore/QObject>
 
-#include "musicalbum.h"
-#include "musicartist.h"
 #include "musicaudiotrack.h"
 
-class MusicListenersManagerPrivate;
+class TracksListenerPrivate;
 class DatabaseInterface;
-class MediaPlayList;
 
-class MusicListenersManager : public QObject
+class TracksListener : public QObject
 {
-
     Q_OBJECT
-
-    Q_PROPERTY(DatabaseInterface* viewDatabase
-               READ viewDatabase
-               NOTIFY viewDatabaseChanged)
 
 public:
 
-    explicit MusicListenersManager(QObject *parent = 0);
-
-    virtual ~MusicListenersManager();
-
-    DatabaseInterface* viewDatabase() const;
-
-    void subscribeForTracks(MediaPlayList *client);
+    explicit TracksListener(DatabaseInterface *database, QObject *parent = 0);
 
 Q_SIGNALS:
 
-    void viewDatabaseChanged();
+    void trackChanged(MusicAudioTrack audioTrack);
 
-    void artistAdded(MusicArtist newArtist);
-
-    void albumAdded(MusicAlbum newAlbum);
-
-    void trackAdded(MusicAudioTrack newTrack);
+    void albumAdded(const QVector<MusicAudioTrack> &tracks);
 
 public Q_SLOTS:
 
-    void databaseReady();
+    void trackAdded(MusicAudioTrack newTrack);
+
+    void trackByNameInList(QString title, QString artist, QString album);
+
+    void trackByIdInList(qulonglong newTrackId);
+
+    void newArtistInList(QString artist);
 
 private:
 
-    MusicListenersManagerPrivate *d;
+    TracksListenerPrivate *d = nullptr;
 
 };
 
-#endif // MUSICLISTENERSMANAGER_H
+#endif // TRACKSLISTENER_H

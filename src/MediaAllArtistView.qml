@@ -31,8 +31,9 @@ import org.mgallien.QmlExtension 1.0
 Item {
     property var playerControl
     property var playListModel
-    property var musicDatabase
+    property var artistsModel
     property var stackView
+    property var contentDirectoryModel
 
     id: rootElement
 
@@ -108,11 +109,7 @@ Item {
                         id: delegateContentModel
 
                         model: SortFilterProxyModel {
-                            sourceModel: AllArtistsModel {
-                                id: allArtistsModel
-
-                                databaseInterface: rootElement.musicDatabase
-                            }
+                            sourceModel: artistsModel
 
                             filterRole: AllArtistsModel.NameRole
 
@@ -137,7 +134,7 @@ Item {
 
                             playListModel: rootElement.playListModel
                             playerControl: rootElement.playerControl
-                            musicDatabase: rootElement.musicDatabase
+                            contentDirectoryModel: rootElement.contentDirectoryModel
                         }
                     }
 

@@ -51,8 +51,6 @@ public:
 
     virtual ~DatabaseInterface();
 
-    void setMutex(QMutex *value);
-
     Q_INVOKABLE void init(const QString &dbName);
 
     MusicAlbum albumFromTitleAndAuthor(QString title, QString author) const;
@@ -67,19 +65,15 @@ public:
 
     MusicAudioTrack trackFromDatabaseId(qulonglong id) const;
 
-    MusicAlbum albumFromId(qulonglong albumId) const;
-
-    MusicArtist artistFromId(qulonglong artistId) const;
-
     qulonglong trackIdFromTitleAlbumArtist(QString title, QString album, QString artist) const;
 
 Q_SIGNALS:
 
-    void artistAdded(qulonglong newArtistId);
+    void artistAdded(MusicArtist newArtist);
 
-    void albumAdded(qulonglong newAlbumId);
+    void albumAdded(MusicAlbum newAlbum);
 
-    void trackAdded(qulonglong newTrackId);
+    void trackAdded(MusicAudioTrack newTrack);
 
     void requestsInitDone();
 
@@ -87,11 +81,11 @@ public Q_SLOTS:
 
     void insertTracksList(QHash<QString, QVector<MusicAudioTrack> > tracks, QHash<QString, QUrl> covers);
 
-    void databaseArtistAdded(qulonglong newArtistId);
+    void databaseArtistAdded(MusicArtist newArtist);
 
-    void databaseAlbumAdded(qulonglong newAlbumId);
+    void databaseAlbumAdded(MusicAlbum newAlbum);
 
-    void databaseTrackAdded(qulonglong newTrackId);
+    void databaseTrackAdded(MusicAudioTrack newTrack);
 
 private:
 
@@ -105,7 +99,11 @@ private:
 
     void updateTracksCount(qulonglong albumId, int tracksCount) const;
 
+    MusicArtist internalArtistFromId(qulonglong artistId) const;
+
     MusicAlbum internalAlbumFromId(qulonglong albumId) const;
+
+    MusicAudioTrack internalTrackFromDatabaseId(qulonglong id) const;
 
     QVariant internalAlbumDataFromId(qulonglong albumId, AlbumData dataType) const;
 

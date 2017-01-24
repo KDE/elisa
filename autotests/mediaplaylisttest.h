@@ -47,6 +47,8 @@ private Q_SLOTS:
 
     void enqueueAlbumCase();
 
+    void enqueueArtistCase();
+
     void removeFirstTrackOfAlbum();
 
     void testHasHeader();
@@ -68,6 +70,8 @@ private Q_SLOTS:
     void enqueueClearAndEnqueue();
 
     void crashOnEnqueue();
+
+    void restoreMultipleIdenticalTracks();
 
 private:
 

@@ -33,7 +33,7 @@ Item {
     property StackView stackView
     property MediaPlayList playListModel
     property var playerControl
-    property var musicDatabase
+    property var contentDirectoryModel
 
     id: rootElement
 
@@ -109,11 +109,7 @@ Item {
                         id: delegateContentModel
 
                         model: AlbumFilterProxyModel {
-                            sourceModel: AllAlbumsModel {
-                                id: contentDirectoryModel
-
-                                databaseInterface: rootElement.musicDatabase
-                            }
+                            sourceModel: rootElement.contentDirectoryModel
 
                             filterText: filterTextInput.text
                         }
@@ -138,11 +134,12 @@ Item {
 
                             isSingleDiscAlbum: model.isSingleDiscAlbum
 
+                            albumData: model.albumData
+
                             stackView: rootElement.stackView
 
                             playListModel: rootElement.playListModel
                             playerControl: rootElement.playerControl
-                            musicDatabase: rootElement.musicDatabase
                         }
                     }
 

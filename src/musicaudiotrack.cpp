@@ -270,6 +270,6 @@ const QUrl &MusicAudioTrack::resourceURI() const
 
 QDebug& operator<<(QDebug &stream, const MusicAudioTrack &data)
 {
-    stream << data.title() << data.artist() << data.albumName() << data.albumArtist();
+    stream << data.title() << data.artist() << data.albumName() << data.albumArtist() << data.duration();
     return stream;
 }

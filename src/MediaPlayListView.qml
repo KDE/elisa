@@ -145,6 +145,8 @@ Item {
             Layout.fillWidth: true
             Layout.fillHeight: true
 
+            flickableItem.boundsBehavior: Flickable.StopAtBounds
+
             TextEdit {
                 readOnly: true
                 visible: playListModelDelegate.count === 0

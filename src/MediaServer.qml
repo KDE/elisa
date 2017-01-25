@@ -332,6 +332,7 @@ ApplicationWindow {
                     TableView {
                         id: viewModeView
 
+                        flickableItem.boundsBehavior: Flickable.StopAtBounds
                         anchors.fill: parent
 
                         headerVisible: false

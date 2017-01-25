@@ -127,6 +127,8 @@ Item {
             Layout.fillHeight: true
             Layout.fillWidth: true
 
+            flickableItem.boundsBehavior: Flickable.StopAtBounds
+
             model: DelegateModel {
                 model: contentModel
 

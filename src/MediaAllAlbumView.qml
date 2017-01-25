@@ -99,6 +99,7 @@ Item {
 
             ScrollView {
                 anchors.fill: parent
+                flickableItem.boundsBehavior: Flickable.StopAtBounds
                 GridView {
                     id: contentDirectoryView
 

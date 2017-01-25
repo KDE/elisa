@@ -137,6 +137,7 @@ Item {
                 delegate: AudioTrackDelegate {
                     id: entry
 
+                    isAlternateColor: DelegateModel.itemsIndex % 2
                     height: ((model.isFirstTrackOfDisc && !isSingleDiscAlbum) ? Screen.pixelDensity * 22. : Screen.pixelDensity * 15.)
                     width: contentDirectoryView.width
 

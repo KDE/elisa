@@ -39,6 +39,7 @@ Item {
     property var playList
     property var playerControl
     property bool isSelected
+    property bool isAlternateColor
     property var contextMenu
     property alias clearAndEnqueueAction: clearAndEnqueue
     property alias enqueueAction: enqueue
@@ -108,7 +109,7 @@ Item {
             Layout.fillHeight: true
             Layout.fillWidth: true
 
-            color: myPalette.base
+            color: (isAlternateColor ? myPalette.alternateBase : myPalette.base)
 
             MouseArea {
                 id: hoverArea
@@ -250,7 +251,7 @@ Item {
             }
             PropertyChanges {
                 target: highlightMarker
-                color: myPalette.base
+                color: (isAlternateColor ? myPalette.alternateBase : myPalette.base)
             }
         },
         State {
@@ -282,7 +283,7 @@ Item {
             }
             PropertyChanges {
                 target: highlightMarker
-                color: myPalette.alternateBase
+                color: myPalette.mid
             }
         }
 

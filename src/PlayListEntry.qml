@@ -37,6 +37,7 @@ Rectangle {
     property int discNumber
     property alias isPlaying : playIcon.visible
     property bool isSelected
+    property bool isAlternateColor
     property bool containsMouse
     property bool hasAlbumHeader
     property var playListModel
@@ -50,7 +51,7 @@ Rectangle {
         colorGroup: SystemPalette.Active
     }
 
-    color: myPalette.base
+    color: (isAlternateColor ? myPalette.alternateBase : myPalette.base)
 
     height: (hasAlbumHeader ? (isSelected && false ? Screen.pixelDensity * 24.5 : Screen.pixelDensity * 21) : (isSelected ? Screen.pixelDensity * 9.5 : Screen.pixelDensity * 6.))
 
@@ -252,24 +253,6 @@ Rectangle {
         }
     }
 
-    Rectangle {
-        id: entrySeparatorItem
-
-        border.width: 0.5
-        border.color: myPalette.mid
-        color: myPalette.mid
-        visible: true
-
-        anchors.bottom: parent.bottom
-        anchors.left: parent.left
-        anchors.right: parent.right
-
-        anchors.leftMargin: Screen.pixelDensity * 0.5
-        anchors.rightMargin: Screen.pixelDensity * 0.5
-
-        height: 1
-    }
-
     states: [
         State {
             name: 'notSelected'
@@ -288,7 +271,7 @@ Rectangle {
             }
             PropertyChanges {
                 target: viewAlbumDelegate
-                color: myPalette.base
+                color: (isAlternateColor ? myPalette.alternateBase : myPalette.base)
             }
         },
         State {
@@ -328,7 +311,7 @@ Rectangle {
             }
             PropertyChanges {
                 target: viewAlbumDelegate
-                color: myPalette.alternateBase
+                color: myPalette.mid
             }
         }
     ]

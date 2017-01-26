@@ -176,6 +176,7 @@ Item {
                         id: entry
                         width: playListView.width
                         index: model.index
+                        isAlternateColor: item.DelegateModel.itemsIndex % 2
                         hasAlbumHeader: if (model != undefined && model.hasAlbumHeader !== undefined)
                                             model.hasAlbumHeader
                                         else

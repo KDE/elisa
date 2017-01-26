@@ -32,6 +32,8 @@
 #include "baloo/baloolistener.h"
 #endif
 
+#include "file/filelistener.h"
+
 #include <QtCore/QThread>
 #include <QtCore/QMutex>
 
@@ -50,6 +52,8 @@ public:
 #if defined KF5Baloo_FOUND && KF5Baloo_FOUND
     BalooListener mBalooListener;
 #endif
+
+    FileListener mFileListener;
 
     DatabaseInterface mDatabaseInterface;
 
@@ -110,6 +114,9 @@ void MusicListenersManager::databaseReady()
     d->mUpnpListener.setDatabaseInterface(&d->mDatabaseInterface);
     d->mUpnpListener.moveToThread(&d->mListenersThread);
 #endif
+
+    d->mFileListener.setDatabaseInterface(&d->mDatabaseInterface);
+    d->mFileListener.moveToThread(&d->mListenersThread);
 }
 
 

@@ -11,6 +11,8 @@ set(playListTest_SOURCES
     ../src/musicartist.cpp
     ../src/musicalbum.cpp
     ../src/musicaudiotrack.cpp
+    ../src/file/filelistener.cpp
+    ../src/file/localfilelisting.cpp
     playlisttests.cpp
 )
 
@@ -42,6 +44,9 @@ target_link_libraries(playListTest Qt5::Test Qt5::Core Qt5::Sql KF5::I18n)
 if (KF5Baloo_FOUND)
     target_link_libraries(playListTest KF5::Baloo Qt5::DBus)
 endif()
+if (KF5FileMetaData_FOUND)
+    target_link_libraries(playListTest KF5::FileMetaData)
+endif()
 if (UPNPQT_FOUND)
     target_link_libraries(playListTest Qt5::Xml UPNP::upnpQt)
 endif()
@@ -71,6 +76,8 @@ set(playListControlerTest_SOURCES
     ../src/musicartist.cpp
     ../src/musicalbum.cpp
     ../src/musicaudiotrack.cpp
+    ../src/file/filelistener.cpp
+    ../src/file/localfilelisting.cpp
     playlistcontrolertest.cpp
 )
 
@@ -103,6 +110,9 @@ target_link_libraries(playListControlerTest Qt5::Test Qt5::Core Qt5::Sql KF5::I1
 if (KF5Baloo_FOUND)
     target_link_libraries(playListControlerTest KF5::Baloo Qt5::DBus)
 endif()
+if (KF5FileMetaData_FOUND)
+    target_link_libraries(playListControlerTest KF5::FileMetaData)
+endif()
 if (UPNPQT_FOUND)
     target_link_libraries(playListControlerTest Qt5::Xml UPNP::upnpQt)
 endif()
@@ -119,6 +129,8 @@ set(managemediaplayercontrolTest_SOURCES
     ../src/musicartist.cpp
     ../src/musicalbum.cpp
     ../src/musicaudiotrack.cpp
+    ../src/file/filelistener.cpp
+    ../src/file/localfilelisting.cpp
     managemediaplayercontroltest.cpp
 )
 
@@ -151,6 +163,9 @@ target_link_libraries(managemediaplayercontrolTest Qt5::Test Qt5::Core Qt5::Sql 
 if (KF5Baloo_FOUND)
     target_link_libraries(managemediaplayercontrolTest KF5::Baloo Qt5::DBus)
 endif()
+if (KF5FileMetaData_FOUND)
+    target_link_libraries(managemediaplayercontrolTest KF5::FileMetaData)
+endif()
 if (UPNPQT_FOUND)
     target_link_libraries(managemediaplayercontrolTest Qt5::Xml UPNP::upnpQt)
 endif()
@@ -168,6 +183,8 @@ set(manageheaderbarTest_SOURCES
     ../src/musicartist.cpp
     ../src/musicalbum.cpp
     ../src/musicaudiotrack.cpp
+    ../src/file/filelistener.cpp
+    ../src/file/localfilelisting.cpp
     manageheaderbartest.cpp
 )
 
@@ -200,6 +217,9 @@ target_link_libraries(manageheaderbarTest Qt5::Test Qt5::Core Qt5::Sql Qt5::Gui 
 if (KF5Baloo_FOUND)
     target_link_libraries(manageheaderbarTest KF5::Baloo Qt5::DBus)
 endif()
+if (KF5FileMetaData_FOUND)
+    target_link_libraries(manageheaderbarTest KF5::FileMetaData)
+endif()
 if (UPNPQT_FOUND)
     target_link_libraries(manageheaderbarTest Qt5::Xml UPNP::upnpQt)
 endif()
@@ -225,6 +245,8 @@ set(mediaplaylistTest_SOURCES
     ../src/musicartist.cpp
     ../src/musicalbum.cpp
     ../src/musicaudiotrack.cpp
+    ../src/file/filelistener.cpp
+    ../src/file/localfilelisting.cpp
     mediaplaylisttest.cpp
 )
 
@@ -256,6 +278,9 @@ add_executable(mediaplaylistTest ${mediaplaylistTest_SOURCES})
 target_link_libraries(mediaplaylistTest Qt5::Test Qt5::Core Qt5::Sql Qt5::Gui KF5::I18n)
 if (KF5Baloo_FOUND)
     target_link_libraries(mediaplaylistTest KF5::Baloo Qt5::DBus)
+endif()
+if (KF5FileMetaData_FOUND)
+    target_link_libraries(mediaplaylistTest KF5::FileMetaData)
 endif()
 if (UPNPQT_FOUND)
     target_link_libraries(mediaplaylistTest Qt5::Xml UPNP::upnpQt)

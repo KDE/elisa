@@ -21,6 +21,9 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         albumfilterproxymodel.cpp
         trackslistener.cpp
 
+        file/filelistener.cpp
+        file/localfilelisting.cpp
+
         MediaServer.qml
 
         RatingStar.qml

@@ -62,11 +62,14 @@ Rectangle {
         Image {
             id: playIcon
 
-            width: parent.height * 0.7
-            height: parent.height * 0.7
-            sourceSize.width: parent.height * 0.7
-            sourceSize.height: parent.height * 0.7
+            width: mediaServerEntry.width * 0.9
+            height: mediaServerEntry.width * 0.9
+            sourceSize.width: mediaServerEntry.width * 0.9
+            sourceSize.height: mediaServerEntry.width * 0.9
             fillMode: Image.PreserveAspectFit
+            smooth: true
+
+            visible: false
 
             asynchronous: true
 
@@ -74,6 +77,23 @@ Rectangle {
             Layout.preferredHeight: mediaServerEntry.width * 0.9
 
             Layout.alignment: Qt.AlignHCenter
+        }
+
+        DropShadow {
+            source: playIcon
+
+            Layout.preferredWidth: mediaServerEntry.width * 0.9
+            Layout.preferredHeight: mediaServerEntry.width * 0.9
+
+            Layout.alignment: Qt.AlignHCenter
+
+            horizontalOffset: mediaServerEntry.width * 0.02
+            verticalOffset: mediaServerEntry.width * 0.02
+
+            radius: 5.0
+            samples: 11
+
+            color: myPalette.shadow
 
             Loader {
                 id: hoverLoader

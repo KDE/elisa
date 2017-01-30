@@ -72,7 +72,24 @@ Rectangle {
 
             fillMode: Image.PreserveAspectFit
 
+            smooth: true
+
             Layout.alignment: Qt.AlignHCenter
+
+            visible: false
+        }
+
+        DropShadow {
+            source: artistDecoration
+            anchors.fill: artistDecoration
+
+            horizontalOffset: mediaServerEntry.width * 0.02
+            verticalOffset: mediaServerEntry.width * 0.02
+
+            radius: 5.0
+            samples: 11
+
+            color: myPalette.shadow
 
             Loader {
                 anchors.fill: parent

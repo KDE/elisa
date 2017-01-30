@@ -33,7 +33,7 @@ Rectangle {
     property MediaPlayList playListModel
     property var playerControl
     property var contentDirectoryModel
-    property alias image: playIcon.source
+    property var image
     property alias name: nameLabel.text
 
     id: mediaServerEntry
@@ -41,6 +41,44 @@ Rectangle {
     SystemPalette {
         id: myPalette
         colorGroup: SystemPalette.Active
+    }
+
+    Action {
+        id: enqueueAction
+
+        text: i18nc("Add all tracks from artist to play list", "Enqueue")
+        iconName: "media-track-add-amarok"
+        onTriggered: mediaServerEntry.playListModel.enqueue(mediaServerEntry.name)
+    }
+
+    Action {
+        id: openAction
+
+        text: i18nc("Open artist view", "Open Artist")
+        iconName: 'document-open-folder'
+        onTriggered: {
+            stackView.push({
+                               item: Qt.resolvedUrl("MediaArtistAlbumView.qml"),
+                               properties :
+                               {
+                                   playListModel: mediaServerEntry.playListModel,
+                                   contentDirectoryModel: mediaServerEntry.contentDirectoryModel,
+                                   playerControl: mediaServerEntry.playerControl,
+                                   stackView: mediaServerEntry.stackView,
+                                   artistName: name,
+                               }})
+        }
+    }
+
+    Action {
+        id: enqueueAndPlayAction
+
+        text: i18nc("Clear play list and add all tracks from artist to play list", "Play Now and Replace Play List")
+        iconName: "media-playback-start"
+        onTriggered: {
+            mediaServerEntry.playListModel.clearAndEnqueue(mediaServerEntry.name)
+            mediaServerEntry.playerControl.playPause()
+        }
     }
 
     color: myPalette.base
@@ -91,93 +129,63 @@ Rectangle {
 
             color: myPalette.shadow
 
-            Loader {
-                anchors.fill: parent
-
-                active: false
-
-                Image {
-                    id: playIcon
-
-                    visible: false
-
-                    anchors.fill: parent
-
-                    sourceSize.width: mediaServerEntry.width * 0.9
-                    sourceSize.height: mediaServerEntry.width * 0.9
-                    fillMode: Image.PreserveAspectFit
-                }
-            }
-
-            Loader {
-                id: hoverLoader
-                active: false
-
-                anchors.fill: artistDecoration
-
-                sourceComponent: Rectangle {
-                    id: hoverLayer
-
-                    anchors.fill: parent
-
-                    color: myPalette.dark
-                    opacity: 0.85
-
-                    BrightnessContrast {
-                        anchors.fill: playAction
-                        source: playAction
-                        brightness: 1.0
-                        contrast: 1.0
-
-                        MouseArea {
-                            id: clickHandle
-
-                            anchors.fill: parent
-                            acceptedButtons: Qt.LeftButton
-
-                            onClicked: {
-                                stackView.push({
-                                                   item: Qt.resolvedUrl("MediaArtistAlbumView.qml"),
-                                                   properties :
-                                                   {
-                                                       playListModel: mediaServerEntry.playListModel,
-                                                       contentDirectoryModel: mediaServerEntry.contentDirectoryModel,
-                                                       playerControl: mediaServerEntry.playerControl,
-                                                       stackView: mediaServerEntry.stackView,
-                                                       artistName: name,
-                                                   }})
-                            }
-                        }
-                    }
-
-                    Image {
-                        id: playAction
-                        source: 'image://icon/document-open-folder'
-
-                        anchors.centerIn: parent
-
-                        opacity: 1
-                        visible: false
-
-                        width: Screen.pixelDensity * 10
-                        height: Screen.pixelDensity * 10
-                        sourceSize.width: width
-                        sourceSize.height: width
-                        fillMode: Image.PreserveAspectFit
-                    }
-                }
-            }
-
             MouseArea {
                 id: hoverHandle
 
                 hoverEnabled: true
 
-                anchors.fill: artistDecoration
+                anchors.fill: parent
                 propagateComposedEvents: true
 
                 onEntered: hoverLoader.active = true
                 onExited: hoverLoader.active = false
+
+                Loader {
+                    id: hoverLoader
+                    active: false
+
+                    anchors.fill: parent
+
+                    sourceComponent: Rectangle {
+                        id: hoverLayer
+
+                        anchors.fill: parent
+
+                        color: myPalette.light
+                        opacity: 0.85
+
+                        Row {
+                            anchors.centerIn: parent
+
+                            ToolButton {
+                                id: enqueueButton
+
+                                action: enqueueAction
+
+                                width: Screen.pixelDensity * 10
+                                height: Screen.pixelDensity * 10
+                            }
+
+                            ToolButton {
+                                id: openButton
+
+                                action: openAction
+
+                                width: Screen.pixelDensity * 10
+                                height: Screen.pixelDensity * 10
+                            }
+
+                            ToolButton {
+                                id: enqueueAndPlayButton
+
+                                action: enqueueAndPlayAction
+
+                                width: Screen.pixelDensity * 10
+                                height: Screen.pixelDensity * 10
+                            }
+                        }
+                    }
+                }
             }
         }
 

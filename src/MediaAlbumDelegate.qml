@@ -46,6 +46,46 @@ Rectangle {
         colorGroup: SystemPalette.Active
     }
 
+    Action {
+        id: enqueueAction
+
+        text: i18nc("Add whole album to play list", "Enqueue")
+        iconName: 'media-track-add-amarok'
+        onTriggered: mediaServerEntry.playListModel.enqueue(mediaServerEntry.albumData)
+    }
+
+    Action {
+        id: openAction
+
+        text: i18nc("Open album view", "Open Album")
+        iconName: 'document-open-folder'
+        onTriggered: {
+            stackView.push(Qt.resolvedUrl("MediaAlbumView.qml"),
+                           {
+                               'stackView': stackView,
+                               'playListModel': playListModel,
+                               'playerControl': playerControl,
+                               'albumArtUrl': image,
+                               'albumName': title,
+                               'artistName': artist,
+                               'tracksCount': count,
+                               'isSingleDiscAlbum': mediaServerEntry.isSingleDiscAlbum,
+                               'albumData': mediaServerEntry.albumData
+                           })
+        }
+    }
+
+    Action {
+        id: enqueueAndPlayAction
+
+        text: i18nc("Clear play list and add whole album to play list", "Play Now and Replace Play List")
+        iconName: 'media-playback-start'
+        onTriggered: {
+            mediaServerEntry.playListModel.clearAndEnqueue(mediaServerEntry.albumData)
+            mediaServerEntry.playerControl.playPause()
+        }
+    }
+
     color: myPalette.base
 
     ColumnLayout {
@@ -95,67 +135,6 @@ Rectangle {
 
             color: myPalette.shadow
 
-            Loader {
-                id: hoverLoader
-                active: false
-
-                anchors.fill: parent
-
-                sourceComponent: Rectangle {
-                    id: hoverLayer
-
-                    anchors.fill: parent
-
-                    color: myPalette.dark
-                    opacity: 0.85
-
-                    BrightnessContrast {
-                        anchors.fill: playAction
-                        source: playAction
-                        brightness: 1.0
-                        contrast: 1.0
-
-                        MouseArea {
-                            id: clickHandle
-
-                            anchors.fill: parent
-                            acceptedButtons: Qt.LeftButton
-
-                            onClicked: {
-                                stackView.push(Qt.resolvedUrl("MediaAlbumView.qml"),
-                                               {
-                                                   'stackView': stackView,
-                                                   'playListModel': playListModel,
-                                                   'playerControl': playerControl,
-                                                   'albumArtUrl': image,
-                                                   'albumName': title,
-                                                   'artistName': artist,
-                                                   'tracksCount': count,
-                                                   'isSingleDiscAlbum': mediaServerEntry.isSingleDiscAlbum,
-                                                   'albumData': mediaServerEntry.albumData
-                                               })
-                            }
-                        }
-                    }
-
-                    Image {
-                        id: playAction
-                        source: 'image://icon/document-open-folder'
-
-                        anchors.centerIn: parent
-
-                        opacity: 1
-                        visible: false
-
-                        width: Screen.pixelDensity * 10
-                        height: Screen.pixelDensity * 10
-                        sourceSize.width: width
-                        sourceSize.height: width
-                        fillMode: Image.PreserveAspectFit
-                    }
-                }
-            }
-
             MouseArea {
                 id: hoverHandle
 
@@ -166,6 +145,53 @@ Rectangle {
 
                 onEntered: hoverLoader.active = true
                 onExited: hoverLoader.active = false
+
+                Loader {
+                    id: hoverLoader
+                    active: false
+
+                    anchors.fill: parent
+
+                    sourceComponent: Rectangle {
+                        id: hoverLayer
+
+                        anchors.fill: parent
+
+                        color: myPalette.light
+                        opacity: 0.85
+
+                        Row {
+                            anchors.centerIn: parent
+
+                            ToolButton {
+                                id: enqueueButton
+
+                                action: enqueueAction
+
+                                width: Screen.pixelDensity * 10
+                                height: Screen.pixelDensity * 10
+                            }
+
+                            ToolButton {
+                                id: openButton
+
+                                action: openAction
+
+                                width: Screen.pixelDensity * 10
+                                height: Screen.pixelDensity * 10
+                            }
+
+                            ToolButton {
+                                id: enqueueAndPlayButton
+
+                                action: enqueueAndPlayAction
+
+                                width: Screen.pixelDensity * 10
+                                height: Screen.pixelDensity * 10
+                            }
+                        }
+                    }
+                }
             }
         }
 

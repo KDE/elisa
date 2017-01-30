@@ -2,7 +2,7 @@
 <component type="desktop">
   <id>org.kde.elisa.desktop</id>
   <metadata_license>CC0-1.0</metadata_license>
-  <project_license> https://www.freedesktop.org/software/appstream/docs/chap-Metadata.html#tag-metadata_license </project_license>
+  <project_license>LGPL-3.0</project_license>
   <name>Elisa</name>
   <name xml:lang="ast">Elisa</name>
   <name xml:lang="ca">Elisa</name>

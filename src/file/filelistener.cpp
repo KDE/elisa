@@ -67,6 +67,7 @@ void FileListener::setDatabaseInterface(DatabaseInterface *model)
     if (d->mDatabaseInterface) {
         connect(this, &FileListener::refreshContent, &d->mFileListing, &LocalFileListing::refreshContent, Qt::QueuedConnection);
         connect(&d->mFileListing, &LocalFileListing::tracksList, d->mDatabaseInterface, &DatabaseInterface::insertTracksList);
+        connect(&d->mFileListing, &LocalFileListing::removedTracksList, d->mDatabaseInterface, &DatabaseInterface::removeTracksList);
 
         QMetaObject::invokeMethod(&d->mFileListing, "init", Qt::QueuedConnection);
 

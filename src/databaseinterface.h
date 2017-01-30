@@ -29,6 +29,7 @@
 #include <QtCore/QHash>
 #include <QtCore/QVector>
 #include <QtCore/QVariant>
+#include <QtCore/QUrl>
 
 class DatabaseInterfacePrivate;
 class QMutex;
@@ -75,11 +76,25 @@ Q_SIGNALS:
 
     void trackAdded(MusicAudioTrack newTrack);
 
+    void artistRemoved(MusicArtist newArtist);
+
+    void albumRemoved(MusicAlbum newAlbum);
+
+    void trackRemoved(MusicAudioTrack newTrack);
+
+    void artistModified(MusicArtist newArtist);
+
+    void albumModified(MusicAlbum newAlbum);
+
+    void trackModified(MusicAudioTrack newTrack);
+
     void requestsInitDone();
 
 public Q_SLOTS:
 
     void insertTracksList(QHash<QString, QVector<MusicAudioTrack> > tracks, QHash<QString, QUrl> covers);
+
+    void removeTracksList(const QList<QUrl> removedTracks);
 
     void databaseArtistAdded(MusicArtist newArtist);
 

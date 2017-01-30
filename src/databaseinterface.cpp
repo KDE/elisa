@@ -47,7 +47,7 @@ public:
           mSelectTrackIdFromTitleAlbumArtistQuery(mTracksDatabase), mSelectAllAlbumsWithFilterQuery(mTracksDatabase),
           mSelectAllAlbumsFromArtistQuery(mTracksDatabase), mSelectAllArtistsQuery(mTracksDatabase),
           mInsertArtistsQuery(mTracksDatabase), mSelectArtistByNameQuery(mTracksDatabase),
-          mSelectArtistQuery(mTracksDatabase)
+          mSelectArtistQuery(mTracksDatabase), mSelectTrackFromFilePathQuery(mTracksDatabase)
     {
     }
 
@@ -89,6 +89,8 @@ public:
 
     QSqlQuery mSelectArtistQuery;
 
+    QSqlQuery mSelectTrackFromFilePathQuery;
+
     qulonglong mAlbumId = 1;
 
     qulonglong mArtistId = 1;
@@ -115,8 +117,10 @@ DatabaseInterface::~DatabaseInterface()
 void DatabaseInterface::init(const QString &dbName)
 {
     QSqlDatabase tracksDatabase = QSqlDatabase::addDatabase(QStringLiteral("QSQLITE"), dbName);
-    tracksDatabase.setDatabaseName(QStringLiteral("file:memdb1?mode=memory&cache=shared"));
-    tracksDatabase.setConnectOptions(QStringLiteral("foreign_keys = ON;QSQLITE_OPEN_URI;QSQLITE_ENABLE_SHARED_CACHE;QSQLITE_BUSY_TIMEOUT=500000"));
+
+    tracksDatabase.setDatabaseName(QStringLiteral("file:memdb1?mode=memory"));
+    tracksDatabase.setConnectOptions(QStringLiteral("foreign_keys = ON;locking_mode = EXCLUSIVE;QSQLITE_OPEN_URI;QSQLITE_BUSY_TIMEOUT=500000"));
+
     auto result = tracksDatabase.open();
     if (result) {
         qDebug() << "database open";
@@ -699,7 +703,7 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
                 d->mInsertTrackQuery.bindValue(QStringLiteral(":title"), track.title());
                 d->mInsertTrackQuery.bindValue(QStringLiteral(":album"), albumId);
                 d->mInsertTrackQuery.bindValue(QStringLiteral(":artistId"), insertArtist(artistName));
-                d->mInsertTrackQuery.bindValue(QStringLiteral(":fileName"), track.resourceURI());
+                d->mInsertTrackQuery.bindValue(QStringLiteral(":fileName"), track.resourceURI().toString());
                 d->mInsertTrackQuery.bindValue(QStringLiteral(":trackNumber"), track.trackNumber());
                 d->mInsertTrackQuery.bindValue(QStringLiteral(":discNumber"), track.discNumber());
                 d->mInsertTrackQuery.bindValue(QStringLiteral(":trackDuration"), QVariant::fromValue<qlonglong>(track.duration().msecsSinceStartOfDay()));
@@ -736,6 +740,52 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
     }
 
     qDebug() << "DatabaseInterface::insertTracksList" << "database changed" << newTracks.count() << "new tracks";
+}
+
+void DatabaseInterface::removeTracksList(const QList<QUrl> removedTracks)
+{
+    auto transactionResult = startTransaction();
+    if (!transactionResult) {
+        return;
+    }
+
+    for (auto removedTrackFileName : removedTracks) {
+        d->mSelectTrackFromFilePathQuery.bindValue(QStringLiteral(":filePath"), removedTrackFileName.toString());
+
+        auto result = d->mSelectTrackFromFilePathQuery.exec();
+
+        if (!result || !d->mSelectTrackFromFilePathQuery.isSelect() || !d->mSelectTrackFromFilePathQuery.isActive()) {
+            qDebug() << "DatabaseInterface::removeTracksList" << d->mSelectTrackFromFilePathQuery.lastQuery();
+            qDebug() << "DatabaseInterface::removeTracksList" << d->mSelectTrackFromFilePathQuery.boundValues();
+            qDebug() << "DatabaseInterface::removeTracksList" << d->mSelectTrackFromFilePathQuery.lastError();
+
+            continue;
+        }
+
+        while (d->mSelectTrackFromFilePathQuery.next()) {
+            MusicAudioTrack removedTrack;
+
+            removedTrack.setDatabaseId(d->mSelectTrackFromFilePathQuery.record().value(0).toULongLong());
+            removedTrack.setTitle(d->mSelectTrackFromFilePathQuery.record().value(1).toString());
+            removedTrack.setParentId(d->mSelectTrackFromFilePathQuery.record().value(2).toString());
+            removedTrack.setArtist(d->mSelectTrackFromFilePathQuery.record().value(3).toString());
+            removedTrack.setAlbumArtist(d->mSelectTrackFromFilePathQuery.record().value(4).toString());
+            removedTrack.setResourceURI(d->mSelectTrackFromFilePathQuery.record().value(5).toUrl());
+            removedTrack.setTrackNumber(d->mSelectTrackFromFilePathQuery.record().value(6).toInt());
+            removedTrack.setDiscNumber(d->mSelectTrackFromFilePathQuery.record().value(7).toInt());
+            removedTrack.setDuration(QTime::fromMSecsSinceStartOfDay(d->mSelectTrackFromFilePathQuery.record().value(8).toInt()));
+            removedTrack.setValid(true);
+
+            Q_EMIT trackRemoved(removedTrack);
+        }
+
+        d->mSelectTrackFromFilePathQuery.finish();
+    }
+
+    transactionResult = finishTransaction();
+    if (!transactionResult) {
+        return;
+    }
 }
 
 void DatabaseInterface::databaseArtistAdded(MusicArtist newArtist)
@@ -1244,6 +1294,32 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << selectArtistQueryText << d->mSelectArtistQuery.lastError();
             qDebug() << d->mTracksDatabase.lastError();
+        }
+    }
+
+    {
+        auto selectTrackFromFilePathQueryText = QStringLiteral("SELECT "
+                                                   "tracks.`ID`, "
+                                                   "tracks.`Title`, "
+                                                   "tracks.`AlbumID`, "
+                                                   "artist.`Name`, "
+                                                   "artistAlbum.`Name`, "
+                                                   "tracks.`FileName`, "
+                                                   "tracks.`TrackNumber`, "
+                                                   "tracks.`DiscNumber`, "
+                                                   "tracks.`Duration` "
+                                                   "FROM `Tracks` tracks, `Artists` artist, `Artists` artistAlbum, `Albums` album "
+                                                   "WHERE "
+                                                   "tracks.`AlbumID` = album.`ID` AND "
+                                                   "artist.`ID` = tracks.`ArtistID` AND "
+                                                   "artistAlbum.`ID` = album.`ArtistID` AND "
+                                                   "tracks.`FileName` = :filePath");
+
+        auto result = d->mSelectTrackFromFilePathQuery.prepare(selectTrackFromFilePathQueryText);
+
+        if (!result) {
+            qDebug() << "DatabaseInterface::initRequest" << d->mSelectTrackFromFilePathQuery.lastError();
+            qDebug() << "DatabaseInterface::initRequest" << d->mSelectTrackFromFilePathQuery.lastQuery();
         }
     }
 

@@ -51,67 +51,67 @@ private Q_SLOTS:
     {
         mNewTracks[QStringLiteral("album1")] = {
             {true, QStringLiteral("$1"), QStringLiteral("0"), QStringLiteral("track1"),
-                QStringLiteral("artist1"), QStringLiteral("album1"), QStringLiteral("Various Artists"), 1, 1, QTime::fromMSecsSinceStartOfDay(1), {QUrl::fromLocalFile(QStringLiteral("$1"))},
+                QStringLiteral("artist1"), QStringLiteral("album1"), QStringLiteral("Various Artists"), 1, 1, QTime::fromMSecsSinceStartOfDay(1), {QUrl::fromLocalFile(QStringLiteral("/$1"))},
         {QUrl::fromLocalFile(QStringLiteral("file://image$1"))}},
             {true, QStringLiteral("$2"), QStringLiteral("0"), QStringLiteral("track2"),
-                QStringLiteral("artist2"), QStringLiteral("album1"), QStringLiteral("Various Artists"), 2, 2, QTime::fromMSecsSinceStartOfDay(2), {QUrl::fromLocalFile(QStringLiteral("$2"))},
+                QStringLiteral("artist2"), QStringLiteral("album1"), QStringLiteral("Various Artists"), 2, 2, QTime::fromMSecsSinceStartOfDay(2), {QUrl::fromLocalFile(QStringLiteral("/$2"))},
         {QUrl::fromLocalFile(QStringLiteral("file://image$2"))}},
             {true, QStringLiteral("$3"), QStringLiteral("0"), QStringLiteral("track3"),
-                QStringLiteral("artist3"), QStringLiteral("album1"), QStringLiteral("Various Artists"), 3, 3, QTime::fromMSecsSinceStartOfDay(3), {QUrl::fromLocalFile(QStringLiteral("$3"))},
+                QStringLiteral("artist3"), QStringLiteral("album1"), QStringLiteral("Various Artists"), 3, 3, QTime::fromMSecsSinceStartOfDay(3), {QUrl::fromLocalFile(QStringLiteral("/$3"))},
         {QUrl::fromLocalFile(QStringLiteral("file://image$3"))}},
             {true, QStringLiteral("$4"), QStringLiteral("0"), QStringLiteral("track4"),
-                QStringLiteral("artist4"), QStringLiteral("album1"), QStringLiteral("Various Artists"), 4, 4, QTime::fromMSecsSinceStartOfDay(4), {QUrl::fromLocalFile(QStringLiteral("$4"))},
+                QStringLiteral("artist4"), QStringLiteral("album1"), QStringLiteral("Various Artists"), 4, 4, QTime::fromMSecsSinceStartOfDay(4), {QUrl::fromLocalFile(QStringLiteral("/$4"))},
                 {QUrl::fromLocalFile(QStringLiteral("file://image$4"))}},
         };
 
         mNewTracks[QStringLiteral("album2")] = {
             {true, QStringLiteral("$5"), QStringLiteral("0"), QStringLiteral("track1"),
-                QStringLiteral("artist1"), QStringLiteral("album2"), QStringLiteral("artist1"), 1, 1, QTime::fromMSecsSinceStartOfDay(5), {QUrl::fromLocalFile(QStringLiteral("$5"))},
+                QStringLiteral("artist1"), QStringLiteral("album2"), QStringLiteral("artist1"), 1, 1, QTime::fromMSecsSinceStartOfDay(5), {QUrl::fromLocalFile(QStringLiteral("/$5"))},
         {QUrl::fromLocalFile(QStringLiteral("file://image$5"))}},
             {true, QStringLiteral("$6"), QStringLiteral("0"), QStringLiteral("track2"),
-                QStringLiteral("artist1"), QStringLiteral("album2"), QStringLiteral("artist1"), 2, 1, QTime::fromMSecsSinceStartOfDay(6), {QUrl::fromLocalFile(QStringLiteral("$6"))},
+                QStringLiteral("artist1"), QStringLiteral("album2"), QStringLiteral("artist1"), 2, 1, QTime::fromMSecsSinceStartOfDay(6), {QUrl::fromLocalFile(QStringLiteral("/$6"))},
         {QUrl::fromLocalFile(QStringLiteral("file://image$6"))}},
             {true, QStringLiteral("$7"), QStringLiteral("0"), QStringLiteral("track3"),
-                QStringLiteral("artist1"), QStringLiteral("album2"), QStringLiteral("artist1"), 3, 1, QTime::fromMSecsSinceStartOfDay(7), {QUrl::fromLocalFile(QStringLiteral("$7"))},
+                QStringLiteral("artist1"), QStringLiteral("album2"), QStringLiteral("artist1"), 3, 1, QTime::fromMSecsSinceStartOfDay(7), {QUrl::fromLocalFile(QStringLiteral("/$7"))},
         {QUrl::fromLocalFile(QStringLiteral("file://image$7"))}},
             {true, QStringLiteral("$8"), QStringLiteral("0"), QStringLiteral("track4"),
-                QStringLiteral("artist1"), QStringLiteral("album2"), QStringLiteral("artist1"), 4, 1, QTime::fromMSecsSinceStartOfDay(8), {QUrl::fromLocalFile(QStringLiteral("$8"))},
+                QStringLiteral("artist1"), QStringLiteral("album2"), QStringLiteral("artist1"), 4, 1, QTime::fromMSecsSinceStartOfDay(8), {QUrl::fromLocalFile(QStringLiteral("/$8"))},
         {QUrl::fromLocalFile(QStringLiteral("file://image$8"))}},
             {true, QStringLiteral("$9"), QStringLiteral("0"), QStringLiteral("track5"),
-                QStringLiteral("artist1"), QStringLiteral("album2"), QStringLiteral("artist1"), 5, 1, QTime::fromMSecsSinceStartOfDay(9), {QUrl::fromLocalFile(QStringLiteral("$9"))},
+                QStringLiteral("artist1"), QStringLiteral("album2"), QStringLiteral("artist1"), 5, 1, QTime::fromMSecsSinceStartOfDay(9), {QUrl::fromLocalFile(QStringLiteral("/$9"))},
         {QUrl::fromLocalFile(QStringLiteral("file://image$9"))}},
             {true, QStringLiteral("$10"), QStringLiteral("0"), QStringLiteral("track6"),
-                QStringLiteral("artist1 and artist2"), QStringLiteral("album2"), QStringLiteral("artist1"), 6, 1, QTime::fromMSecsSinceStartOfDay(10), {QUrl::fromLocalFile(QStringLiteral("$10"))},
+                QStringLiteral("artist1 and artist2"), QStringLiteral("album2"), QStringLiteral("artist1"), 6, 1, QTime::fromMSecsSinceStartOfDay(10), {QUrl::fromLocalFile(QStringLiteral("/$10"))},
         {QUrl::fromLocalFile(QStringLiteral("file://image$10"))}}
         };
 
         mNewTracks[QStringLiteral("album3")] = {
             {true, QStringLiteral("$11"), QStringLiteral("0"), QStringLiteral("track1"),
-                QStringLiteral("artist2"), QStringLiteral("album3"), QStringLiteral("artist2"), 1, 1, QTime::fromMSecsSinceStartOfDay(11), {QUrl::fromLocalFile(QStringLiteral("$11"))},
+                QStringLiteral("artist2"), QStringLiteral("album3"), QStringLiteral("artist2"), 1, 1, QTime::fromMSecsSinceStartOfDay(11), {QUrl::fromLocalFile(QStringLiteral("/$11"))},
         {QUrl::fromLocalFile(QStringLiteral("file://image$11"))}},
             {true, QStringLiteral("$12"), QStringLiteral("0"), QStringLiteral("track2"),
-                QStringLiteral("artist2"), QStringLiteral("album3"), QStringLiteral("artist2"), 2, 1, QTime::fromMSecsSinceStartOfDay(12), {QUrl::fromLocalFile(QStringLiteral("$12"))},
+                QStringLiteral("artist2"), QStringLiteral("album3"), QStringLiteral("artist2"), 2, 1, QTime::fromMSecsSinceStartOfDay(12), {QUrl::fromLocalFile(QStringLiteral("/$12"))},
         {QUrl::fromLocalFile(QStringLiteral("file://image$12"))}},
             {true, QStringLiteral("$13"), QStringLiteral("0"), QStringLiteral("track3"),
-                QStringLiteral("artist2"), QStringLiteral("album3"), QStringLiteral("artist2"), 3, 1, QTime::fromMSecsSinceStartOfDay(13), {QUrl::fromLocalFile(QStringLiteral("$13"))},
+                QStringLiteral("artist2"), QStringLiteral("album3"), QStringLiteral("artist2"), 3, 1, QTime::fromMSecsSinceStartOfDay(13), {QUrl::fromLocalFile(QStringLiteral("/$13"))},
         {QUrl::fromLocalFile(QStringLiteral("file://image$13"))}}
         };
 
         mNewTracks[QStringLiteral("album4")] = {
             {true, QStringLiteral("$14"), QStringLiteral("0"), QStringLiteral("track1"),
-                QStringLiteral("artist2"), QStringLiteral("album4"), QStringLiteral(""), 1, 1, QTime::fromMSecsSinceStartOfDay(14), {QUrl::fromLocalFile(QStringLiteral("$14"))},
+                QStringLiteral("artist2"), QStringLiteral("album4"), QStringLiteral(""), 1, 1, QTime::fromMSecsSinceStartOfDay(14), {QUrl::fromLocalFile(QStringLiteral("/$14"))},
         {QUrl::fromLocalFile(QStringLiteral("file://image$14"))}},
             {true, QStringLiteral("$15"), QStringLiteral("0"), QStringLiteral("track2"),
-                QStringLiteral("artist2"), QStringLiteral("album4"), QStringLiteral(""), 2, 1, QTime::fromMSecsSinceStartOfDay(15), {QUrl::fromLocalFile(QStringLiteral("$15"))},
+                QStringLiteral("artist2"), QStringLiteral("album4"), QStringLiteral(""), 2, 1, QTime::fromMSecsSinceStartOfDay(15), {QUrl::fromLocalFile(QStringLiteral("/$15"))},
         {QUrl::fromLocalFile(QStringLiteral("file://image$15"))}},
             {true, QStringLiteral("$16"), QStringLiteral("0"), QStringLiteral("track3"),
-                QStringLiteral("artist2"), QStringLiteral("album4"), QStringLiteral(""), 3, 1, QTime::fromMSecsSinceStartOfDay(16), {QUrl::fromLocalFile(QStringLiteral("$16"))},
+                QStringLiteral("artist2"), QStringLiteral("album4"), QStringLiteral(""), 3, 1, QTime::fromMSecsSinceStartOfDay(16), {QUrl::fromLocalFile(QStringLiteral("/$16"))},
         {QUrl::fromLocalFile(QStringLiteral("file://image$16"))}},
             {true, QStringLiteral("$17"), QStringLiteral("0"), QStringLiteral("track4"),
-                QStringLiteral("artist2"), QStringLiteral("album4"), QStringLiteral(""), 4, 1, QTime::fromMSecsSinceStartOfDay(17), {QUrl::fromLocalFile(QStringLiteral("$17"))},
+                QStringLiteral("artist2"), QStringLiteral("album4"), QStringLiteral(""), 4, 1, QTime::fromMSecsSinceStartOfDay(17), {QUrl::fromLocalFile(QStringLiteral("/$17"))},
         {QUrl::fromLocalFile(QStringLiteral("file://image$17"))}},
             {true, QStringLiteral("$18"), QStringLiteral("0"), QStringLiteral("track5"),
-                QStringLiteral("artist2"), QStringLiteral("album4"), QStringLiteral(""), 5, 1, QTime::fromMSecsSinceStartOfDay(18), {QUrl::fromLocalFile(QStringLiteral("$18"))},
+                QStringLiteral("artist2"), QStringLiteral("album4"), QStringLiteral(""), 5, 1, QTime::fromMSecsSinceStartOfDay(18), {QUrl::fromLocalFile(QStringLiteral("/$18"))},
         {QUrl::fromLocalFile(QStringLiteral("file://image$18"))}}
         };
 
@@ -249,7 +249,7 @@ private Q_SLOTS:
         QCOMPARE(firstTrackTrackNumber, 1);
         QCOMPARE(firstTrackDiscNumber, 1);
         QCOMPARE(firstTrackResource.isValid(), true);
-        QCOMPARE(firstTrackResource, QUrl::fromLocalFile(QStringLiteral("$1")));
+        QCOMPARE(firstTrackResource, QUrl::fromLocalFile(QStringLiteral("/$1")));
 
         auto secondAlbumTitle = allAlbums[1].title();
         auto secondAlbumArtist = allAlbums[1].artist();
@@ -265,7 +265,7 @@ private Q_SLOTS:
         QCOMPARE(secondAlbumIsSingleDiscAlbum, true);
     }
 
-    void simpleAccessorWithClientDatabase()
+    void simpleAccessorAndVariousArtistAlbum()
     {
         auto configDirectory = QDir(QStandardPaths::writableLocation(QStandardPaths::QStandardPaths::AppDataLocation));
         auto rootDirectory = QDir::root();
@@ -279,124 +279,12 @@ private Q_SLOTS:
         }
 
         DatabaseInterface musicDb;
-        DatabaseInterface clientDb;
-
-        musicDb.init(QStringLiteral("testDb"));
-
-        clientDb.init(QStringLiteral("clientDb"));
-
-        QSignalSpy musicDbArtistAddedSpy(&musicDb, &DatabaseInterface::artistAdded);
-        QSignalSpy musicDbAlbumAddedSpy(&musicDb, &DatabaseInterface::albumAdded);
-        QSignalSpy musicDbTrackAddedSpy(&musicDb, &DatabaseInterface::trackAdded);
-
-        connect(&musicDb, &DatabaseInterface::artistAdded,
-                &clientDb, &DatabaseInterface::databaseArtistAdded);
-        connect(&musicDb, &DatabaseInterface::albumAdded,
-                &clientDb, &DatabaseInterface::databaseAlbumAdded);
-        connect(&musicDb, &DatabaseInterface::trackAdded,
-                &clientDb, &DatabaseInterface::databaseTrackAdded);
-
-        musicDb.insertTracksList(mNewTracks, mNewCovers);
-        musicDb.insertTracksList(mNewTracks, mNewCovers);
-        musicDb.insertTracksList(mNewTracks, mNewCovers);
-        musicDb.insertTracksList(mNewTracks, mNewCovers);
-
-        QCOMPARE(musicDb.allAlbums({}).count(), 3);
-        QCOMPARE(clientDb.allAlbums({}).count(), 3);
-        QCOMPARE(musicDbArtistAddedSpy.count(), 6);
-        QCOMPARE(musicDbAlbumAddedSpy.count(), 3);
-        QCOMPARE(musicDbTrackAddedSpy.count(), 13);
-
-        auto allAlbums = musicDb.allAlbums({});
-
-        auto firstAlbumTitle = allAlbums[0].title();
-        auto firstAlbumArtist = allAlbums[0].artist();
-        auto firstAlbumImage = allAlbums[0].albumArtURI();
-        auto firstAlbumTracksCount = allAlbums[0].tracksCount();
-        auto firstAlbumIsSingleDiscAlbum = allAlbums[0].isSingleDiscAlbum();
-
-        QCOMPARE(firstAlbumTitle, QStringLiteral("album1"));
-        QCOMPARE(firstAlbumArtist, QStringLiteral("Various Artists"));
-        QCOMPARE(firstAlbumImage.isValid(), true);
-        QCOMPARE(firstAlbumImage, QUrl::fromLocalFile(QStringLiteral("album1")));
-        QCOMPARE(firstAlbumTracksCount, 4);
-        QCOMPARE(firstAlbumIsSingleDiscAlbum, false);
-
-        auto invalidTrackId = clientDb.trackIdFromTitleAlbumArtist(QStringLiteral("track1"), QStringLiteral("album1"), QStringLiteral("invalidArtist1"));
-        QCOMPARE(invalidTrackId, decltype(invalidTrackId)(0));
-
-        auto trackId = clientDb.trackIdFromTitleAlbumArtist(QStringLiteral("track1"), QStringLiteral("album1"), QStringLiteral("artist1"));
-        auto firstTrack = musicDb.trackFromDatabaseId(trackId);
-
-        auto firstTrackTitle = firstTrack.title();
-        auto firstTrackArtist = firstTrack.artist();
-        auto firstTrackAlbumArtist = firstTrack.albumArtist();
-        auto firstTrackAlbum = firstTrack.albumName();
-        auto firstTrackImage = firstTrack.albumCover();
-        auto firstTrackDuration = firstTrack.duration();
-        auto firstTrackMilliSecondsDuration = firstTrack.duration().msecsSinceStartOfDay();
-        auto firstTrackTrackNumber = firstTrack.trackNumber();
-        auto firstTrackDiscNumber = firstTrack.discNumber();
-        auto firstTrackResource = firstTrack.resourceURI();
-
-        QCOMPARE(firstTrack.isValid(), true);
-        QCOMPARE(firstTrackTitle, QStringLiteral("track1"));
-        QCOMPARE(firstTrackArtist, QStringLiteral("artist1"));
-        QCOMPARE(firstTrackAlbumArtist, QStringLiteral("Various Artists"));
-        QCOMPARE(firstTrackAlbum, QStringLiteral("album1"));
-        QCOMPARE(firstTrackImage.isValid(), true);
-        QCOMPARE(firstTrackImage, QUrl::fromLocalFile(QStringLiteral("album1")));
-        QCOMPARE(firstTrackDuration, QTime::fromMSecsSinceStartOfDay(1));
-        QCOMPARE(firstTrackMilliSecondsDuration, 1);
-        QCOMPARE(firstTrackTrackNumber, 1);
-        QCOMPARE(firstTrackDiscNumber, 1);
-        QCOMPARE(firstTrackResource.isValid(), true);
-        QCOMPARE(firstTrackResource, QUrl::fromLocalFile(QStringLiteral("$1")));
-
-        auto secondAlbumTitle = allAlbums[1].title();
-        auto secondAlbumArtist = allAlbums[1].artist();
-        auto secondAlbumImage = allAlbums[1].albumArtURI();
-        auto secondAlbumTracksCount = allAlbums[1].tracksCount();
-        auto secondAlbumIsSingleDiscAlbum = allAlbums[1].isSingleDiscAlbum();
-
-        QCOMPARE(secondAlbumTitle, QStringLiteral("album2"));
-        QCOMPARE(secondAlbumArtist, QStringLiteral("artist1"));
-        QCOMPARE(secondAlbumImage.isValid(), true);
-        QCOMPARE(secondAlbumImage, QUrl::fromLocalFile(QStringLiteral("album2")));
-        QCOMPARE(secondAlbumTracksCount, 6);
-        QCOMPARE(secondAlbumIsSingleDiscAlbum, true);
-    }
-
-    void simpleAccessorWithClientDatabaseAndVariousArtistAlbum()
-    {
-        auto configDirectory = QDir(QStandardPaths::writableLocation(QStandardPaths::QStandardPaths::AppDataLocation));
-        auto rootDirectory = QDir::root();
-        rootDirectory.mkpath(configDirectory.path());
-        auto fileName = configDirectory.filePath(QStringLiteral("elisaMusicDatabase.sqlite"));
-        QFile dbFile(fileName);
-        auto dbExists = dbFile.exists();
-
-        if (dbExists) {
-            QCOMPARE(dbFile.remove(), true);
-        }
-
-        DatabaseInterface musicDb;
-        DatabaseInterface clientDb;
 
         musicDb.init(QStringLiteral("testDbVariousArtistAlbum"));
 
-        clientDb.init(QStringLiteral("clientDbVariousArtistAlbum"));
-
         QSignalSpy musicDbArtistAddedSpy(&musicDb, &DatabaseInterface::artistAdded);
         QSignalSpy musicDbAlbumAddedSpy(&musicDb, &DatabaseInterface::albumAdded);
         QSignalSpy musicDbTrackAddedSpy(&musicDb, &DatabaseInterface::trackAdded);
-
-        connect(&musicDb, &DatabaseInterface::artistAdded,
-                &clientDb, &DatabaseInterface::databaseArtistAdded);
-        connect(&musicDb, &DatabaseInterface::albumAdded,
-                &clientDb, &DatabaseInterface::databaseAlbumAdded);
-        connect(&musicDb, &DatabaseInterface::trackAdded,
-                &clientDb, &DatabaseInterface::databaseTrackAdded);
 
         musicDb.insertTracksList(mNewTracks, mNewCovers);
         musicDb.insertTracksList(mNewTracks, mNewCovers);
@@ -404,7 +292,6 @@ private Q_SLOTS:
         musicDb.insertTracksList(mNewTracks, mNewCovers);
 
         QCOMPARE(musicDb.allAlbums({}).count(), 3);
-        QCOMPARE(clientDb.allAlbums({}).count(), 3);
         QCOMPARE(musicDbArtistAddedSpy.count(), 6);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 3);
         QCOMPARE(musicDbTrackAddedSpy.count(), 13);
@@ -424,10 +311,10 @@ private Q_SLOTS:
         QCOMPARE(firstAlbumTracksCount, 4);
         QCOMPARE(firstAlbumIsSingleDiscAlbum, false);
 
-        auto invalidTrackId = clientDb.trackIdFromTitleAlbumArtist(QStringLiteral("track1"), QStringLiteral("album1"), QStringLiteral("invalidArtist1"));
+        auto invalidTrackId = musicDb.trackIdFromTitleAlbumArtist(QStringLiteral("track1"), QStringLiteral("album1"), QStringLiteral("invalidArtist1"));
         QCOMPARE(invalidTrackId, decltype(invalidTrackId)(0));
 
-        auto firstTrackId = clientDb.trackIdFromTitleAlbumArtist(QStringLiteral("track1"), QStringLiteral("album1"), QStringLiteral("artist1"));
+        auto firstTrackId = musicDb.trackIdFromTitleAlbumArtist(QStringLiteral("track1"), QStringLiteral("album1"), QStringLiteral("artist1"));
         auto firstTrack = musicDb.trackFromDatabaseId(firstTrackId);
 
         auto firstTrackTitle = firstTrack.title();
@@ -453,9 +340,9 @@ private Q_SLOTS:
         QCOMPARE(firstTrackTrackNumber, 1);
         QCOMPARE(firstTrackDiscNumber, 1);
         QCOMPARE(firstTrackResource.isValid(), true);
-        QCOMPARE(firstTrackResource, QUrl::fromLocalFile(QStringLiteral("$1")));
+        QCOMPARE(firstTrackResource, QUrl::fromLocalFile(QStringLiteral("/$1")));
 
-        auto secondTrackId = clientDb.trackIdFromTitleAlbumArtist(QStringLiteral("track2"), QStringLiteral("album1"), QStringLiteral("artist2"));
+        auto secondTrackId = musicDb.trackIdFromTitleAlbumArtist(QStringLiteral("track2"), QStringLiteral("album1"), QStringLiteral("artist2"));
         auto secondTrack = musicDb.trackFromDatabaseId(secondTrackId);
 
         auto secondTrackTitle = secondTrack.title();
@@ -481,9 +368,9 @@ private Q_SLOTS:
         QCOMPARE(secondTrackTrackNumber, 2);
         QCOMPARE(secondTrackDiscNumber, 2);
         QCOMPARE(secondTrackResource.isValid(), true);
-        QCOMPARE(secondTrackResource, QUrl::fromLocalFile(QStringLiteral("$2")));
+        QCOMPARE(secondTrackResource, QUrl::fromLocalFile(QStringLiteral("/$2")));
 
-        auto thirdTrackId = clientDb.trackIdFromTitleAlbumArtist(QStringLiteral("track3"), QStringLiteral("album1"), QStringLiteral("artist3"));
+        auto thirdTrackId = musicDb.trackIdFromTitleAlbumArtist(QStringLiteral("track3"), QStringLiteral("album1"), QStringLiteral("artist3"));
         auto thirdTrack = musicDb.trackFromDatabaseId(thirdTrackId);
 
         auto thirdTrackTitle = thirdTrack.title();
@@ -509,9 +396,9 @@ private Q_SLOTS:
         QCOMPARE(thirdTrackTrackNumber, 3);
         QCOMPARE(thirdTrackDiscNumber, 3);
         QCOMPARE(thirdTrackResource.isValid(), true);
-        QCOMPARE(thirdTrackResource, QUrl::fromLocalFile(QStringLiteral("$3")));
+        QCOMPARE(thirdTrackResource, QUrl::fromLocalFile(QStringLiteral("/$3")));
 
-        auto fourthTrackId = clientDb.trackIdFromTitleAlbumArtist(QStringLiteral("track4"), QStringLiteral("album1"), QStringLiteral("artist4"));
+        auto fourthTrackId = musicDb.trackIdFromTitleAlbumArtist(QStringLiteral("track4"), QStringLiteral("album1"), QStringLiteral("artist4"));
         auto fourthTrack = musicDb.trackFromDatabaseId(fourthTrackId);
 
         auto fourthTrackTitle = fourthTrack.title();
@@ -537,7 +424,7 @@ private Q_SLOTS:
         QCOMPARE(fourthTrackTrackNumber, 4);
         QCOMPARE(fourthTrackDiscNumber, 4);
         QCOMPARE(fourthTrackResource.isValid(), true);
-        QCOMPARE(fourthTrackResource, QUrl::fromLocalFile(QStringLiteral("$4")));
+        QCOMPARE(fourthTrackResource, QUrl::fromLocalFile(QStringLiteral("/$4")));
 
         auto secondAlbumTitle = allAlbums[1].title();
         auto secondAlbumArtist = allAlbums[1].artist();
@@ -566,32 +453,21 @@ private Q_SLOTS:
         }
 
         DatabaseInterface musicDb;
-        DatabaseInterface clientDb;
 
         musicDb.init(QStringLiteral("testDbVariousArtistAlbum"));
-
-        clientDb.init(QStringLiteral("clientDbVariousArtistAlbum"));
 
         QSignalSpy musicDbArtistAddedSpy(&musicDb, &DatabaseInterface::artistAdded);
         QSignalSpy musicDbAlbumAddedSpy(&musicDb, &DatabaseInterface::albumAdded);
         QSignalSpy musicDbTrackAddedSpy(&musicDb, &DatabaseInterface::trackAdded);
 
-        connect(&musicDb, &DatabaseInterface::artistAdded,
-                &clientDb, &DatabaseInterface::databaseArtistAdded);
-        connect(&musicDb, &DatabaseInterface::albumAdded,
-                &clientDb, &DatabaseInterface::databaseAlbumAdded);
-        connect(&musicDb, &DatabaseInterface::trackAdded,
-                &clientDb, &DatabaseInterface::databaseTrackAdded);
-
         musicDb.insertTracksList(mNewTracks, mNewCovers);
 
         QCOMPARE(musicDb.allAlbums({}).count(), 3);
-        QCOMPARE(clientDb.allAlbums({}).count(), 3);
         QCOMPARE(musicDbArtistAddedSpy.count(), 6);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 3);
         QCOMPARE(musicDbTrackAddedSpy.count(), 13);
 
-        auto allTracks = clientDb.tracksFromAuthor(QStringLiteral("artist1"));
+        auto allTracks = musicDb.tracksFromAuthor(QStringLiteral("artist1"));
 
         QCOMPARE(allTracks.size(), 6);
         QCOMPARE(allTracks[0].albumArtist(), QStringLiteral("Various Artists"));
@@ -778,32 +654,21 @@ private Q_SLOTS:
         }
 
         DatabaseInterface musicDb;
-        DatabaseInterface clientDb;
 
         musicDb.init(QStringLiteral("testDbVariousArtistAlbum"));
-
-        clientDb.init(QStringLiteral("clientDbVariousArtistAlbum"));
 
         QSignalSpy musicDbArtistAddedSpy(&musicDb, &DatabaseInterface::artistAdded);
         QSignalSpy musicDbAlbumAddedSpy(&musicDb, &DatabaseInterface::albumAdded);
         QSignalSpy musicDbTrackAddedSpy(&musicDb, &DatabaseInterface::trackAdded);
 
-        connect(&musicDb, &DatabaseInterface::artistAdded,
-                &clientDb, &DatabaseInterface::databaseArtistAdded);
-        connect(&musicDb, &DatabaseInterface::albumAdded,
-                &clientDb, &DatabaseInterface::databaseAlbumAdded);
-        connect(&musicDb, &DatabaseInterface::trackAdded,
-                &clientDb, &DatabaseInterface::databaseTrackAdded);
-
         musicDb.insertTracksList(mNewTracks, mNewCovers);
 
         QCOMPARE(musicDb.allAlbums({}).count(), 3);
-        QCOMPARE(clientDb.allAlbums({}).count(), 3);
         QCOMPARE(musicDbArtistAddedSpy.count(), 6);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 3);
         QCOMPARE(musicDbTrackAddedSpy.count(), 13);
 
-        auto allAlbums = clientDb.allAlbumsFromArtist(QStringLiteral("artist1"));
+        auto allAlbums = musicDb.allAlbumsFromArtist(QStringLiteral("artist1"));
 
         QCOMPARE(allAlbums.size(), 2);
 
@@ -821,6 +686,96 @@ private Q_SLOTS:
         QCOMPARE(allAlbums[1].trackFromIndex(3).albumArtist(), QStringLiteral("artist1"));
         QCOMPARE(allAlbums[1].trackFromIndex(4).albumArtist(), QStringLiteral("artist1"));
         QCOMPARE(allAlbums[1].trackFromIndex(5).albumArtist(), QStringLiteral("artist1"));
+    }
+
+    void removeOneTrack()
+    {
+        auto configDirectory = QDir(QStandardPaths::writableLocation(QStandardPaths::QStandardPaths::AppDataLocation));
+        auto rootDirectory = QDir::root();
+        rootDirectory.mkpath(configDirectory.path());
+        auto fileName = configDirectory.filePath(QStringLiteral("elisaMusicDatabase.sqlite"));
+        QFile dbFile(fileName);
+        auto dbExists = dbFile.exists();
+
+        if (dbExists) {
+            QCOMPARE(dbFile.remove(), true);
+        }
+
+        DatabaseInterface musicDb;
+
+        musicDb.init(QStringLiteral("testDb"));
+
+        QSignalSpy musicDbArtistAddedSpy(&musicDb, &DatabaseInterface::artistAdded);
+        QSignalSpy musicDbAlbumAddedSpy(&musicDb, &DatabaseInterface::albumAdded);
+        QSignalSpy musicDbTrackAddedSpy(&musicDb, &DatabaseInterface::trackAdded);
+        QSignalSpy musicDbArtistRemovedSpy(&musicDb, &DatabaseInterface::artistRemoved);
+        QSignalSpy musicDbAlbumRemovedSpy(&musicDb, &DatabaseInterface::albumRemoved);
+        QSignalSpy musicDbTrackRemovedSpy(&musicDb, &DatabaseInterface::trackRemoved);
+        QSignalSpy musicDbArtistModifiedSpy(&musicDb, &DatabaseInterface::artistModified);
+        QSignalSpy musicDbAlbumModifiedSpy(&musicDb, &DatabaseInterface::albumModified);
+        QSignalSpy musicDbTrackModifiedSpy(&musicDb, &DatabaseInterface::trackModified);
+
+        QCOMPARE(musicDb.allAlbums({}).count(), 0);
+        QCOMPARE(musicDb.allArtists().count(), 0);
+        QCOMPARE(musicDbArtistAddedSpy.count(), 0);
+        QCOMPARE(musicDbAlbumAddedSpy.count(), 0);
+        QCOMPARE(musicDbTrackAddedSpy.count(), 0);
+        QCOMPARE(musicDbArtistRemovedSpy.count(), 0);
+        QCOMPARE(musicDbAlbumRemovedSpy.count(), 0);
+        QCOMPARE(musicDbTrackRemovedSpy.count(), 0);
+        QCOMPARE(musicDbArtistModifiedSpy.count(), 0);
+        QCOMPARE(musicDbAlbumModifiedSpy.count(), 0);
+        QCOMPARE(musicDbTrackModifiedSpy.count(), 0);
+
+        musicDb.insertTracksList(mNewTracks, mNewCovers);
+
+        QCOMPARE(musicDb.allAlbums({}).count(), 3);
+        QCOMPARE(musicDb.allArtists().count(), 6);
+        QCOMPARE(musicDbArtistAddedSpy.count(), 6);
+        QCOMPARE(musicDbAlbumAddedSpy.count(), 3);
+        QCOMPARE(musicDbTrackAddedSpy.count(), 13);
+        QCOMPARE(musicDbArtistRemovedSpy.count(), 0);
+        QCOMPARE(musicDbAlbumRemovedSpy.count(), 0);
+        QCOMPARE(musicDbTrackRemovedSpy.count(), 0);
+        QCOMPARE(musicDbArtistModifiedSpy.count(), 0);
+        QCOMPARE(musicDbAlbumModifiedSpy.count(), 0);
+        QCOMPARE(musicDbTrackModifiedSpy.count(), 0);
+
+        auto allAlbums = musicDb.allAlbums({});
+
+        auto firstAlbumTitle = allAlbums[0].title();
+        auto firstAlbumArtist = allAlbums[0].artist();
+        auto firstAlbumImage = allAlbums[0].albumArtURI();
+        auto firstAlbumTracksCount = allAlbums[0].tracksCount();
+        auto firstAlbumIsSingleDiscAlbum = allAlbums[0].isSingleDiscAlbum();
+
+        QCOMPARE(firstAlbumTitle, QStringLiteral("album1"));
+        QCOMPARE(firstAlbumArtist, QStringLiteral("Various Artists"));
+        QCOMPARE(firstAlbumImage.isValid(), true);
+        QCOMPARE(firstAlbumImage, QUrl::fromLocalFile(QStringLiteral("album1")));
+        QCOMPARE(firstAlbumTracksCount, 4);
+        QCOMPARE(firstAlbumIsSingleDiscAlbum, false);
+
+        auto invalidTrackId = musicDb.trackIdFromTitleAlbumArtist(QStringLiteral("track1"), QStringLiteral("album1"), QStringLiteral("invalidArtist1"));
+        QCOMPARE(invalidTrackId, decltype(invalidTrackId)(0));
+
+        auto trackId = musicDb.trackIdFromTitleAlbumArtist(QStringLiteral("track1"), QStringLiteral("album1"), QStringLiteral("artist1"));
+
+        auto firstTrack = musicDb.trackFromDatabaseId(trackId);
+
+        musicDb.removeTracksList({firstTrack.resourceURI()});
+
+        QCOMPARE(musicDb.allAlbums({}).count(), 3);
+        QCOMPARE(musicDb.allArtists().count(), 6);
+        QCOMPARE(musicDbArtistAddedSpy.count(), 6);
+        QCOMPARE(musicDbAlbumAddedSpy.count(), 3);
+        QCOMPARE(musicDbTrackAddedSpy.count(), 13);
+        QCOMPARE(musicDbArtistRemovedSpy.count(), 0);
+        QCOMPARE(musicDbAlbumRemovedSpy.count(), 0);
+        QCOMPARE(musicDbTrackRemovedSpy.count(), 1);
+        QCOMPARE(musicDbArtistModifiedSpy.count(), 0);
+        //QCOMPARE(musicDbAlbumModifiedSpy.count(), 1);
+        QCOMPARE(musicDbTrackModifiedSpy.count(), 0);
     }
 };
 

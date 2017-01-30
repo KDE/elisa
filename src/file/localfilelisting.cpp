@@ -53,7 +53,7 @@ public:
 
     int mCptTracks = 0;
 
-    QHash<QString, QList<QString>> mDiscoveredFiles;
+    QHash<QString, QList<QUrl>> mDiscoveredFiles;
 
 };
 
@@ -86,12 +86,11 @@ void LocalFileListing::scanDirectory(const QString &path)
 {
     QDir rootDirectory(path);
 
-    qDebug() << "LocalFileListing::scanDirectory" << path;
-
     d->mFileSystemWatcher.addPath(path);
-    d->mDiscoveredFiles[path];
 
-    auto currentFilesList = QList<QString>();
+    auto &currentDirectoryListing = d->mDiscoveredFiles[path];
+
+    auto currentFilesList = QList<QUrl>();
 
     const auto entryList = rootDirectory.entryInfoList();
     for (auto oneEntry : entryList) {
@@ -111,48 +110,48 @@ void LocalFileListing::scanDirectory(const QString &path)
             continue;
         }
         if (oneEntry.isFile()) {
-            currentFilesList.push_back(newFilePath);
+            currentFilesList.push_back(QUrl::fromLocalFile(newFilePath));
         }
     }
 
     std::sort(currentFilesList.begin(), currentFilesList.end());
 
-    auto removedTracks = QList<QString>();
-    for (auto removedFilePath : d->mDiscoveredFiles[path]) {
-        qDebug() << "is" << removedFilePath << "still there";
+    auto removedTracks = QList<QUrl>();
+    for (const auto &removedFilePath : currentDirectoryListing) {
         auto itFilePath = std::find(currentFilesList.begin(), currentFilesList.end(), removedFilePath);
 
         if (itFilePath != currentFilesList.end()) {
-            qDebug() << "yes";
             continue;
         }
 
-        qDebug() << "no";
         removedTracks.push_back(removedFilePath);
     }
+    for (const auto &oneRemovedTask : removedTracks) {
+        auto itRemovedTrack = std::find(currentDirectoryListing.begin(), currentDirectoryListing.end(), oneRemovedTask);
+        currentDirectoryListing.erase(itRemovedTrack);
+    }
 
-    qDebug() << "LocalFileListing::scanDirectory" << removedTracks;
     Q_EMIT removedTracksList(removedTracks);
 
     for (auto newFilePath : currentFilesList) {
-        auto itFilePath = std::find(d->mDiscoveredFiles[path].begin(), d->mDiscoveredFiles[path].end(), newFilePath);
+        auto itFilePath = std::find(currentDirectoryListing.begin(), currentDirectoryListing.end(), newFilePath);
 
-        if (itFilePath != d->mDiscoveredFiles[path].end()) {
+        if (itFilePath != currentDirectoryListing.end()) {
             continue;
         }
 
-        d->mDiscoveredFiles[path].push_back(newFilePath);
+        currentDirectoryListing.push_back(newFilePath);
 
         QMimeDatabase mimeDb;
-        QString mimetype = mimeDb.mimeTypeForFile(newFilePath).name();
+        QString mimetype = mimeDb.mimeTypeForFile(newFilePath.toLocalFile()).name();
 
-        d->mFileSystemWatcher.addPath(newFilePath);
+        d->mFileSystemWatcher.addPath(newFilePath.toLocalFile());
 
         KFileMetaData::ExtractorCollection extractors;
         QList<KFileMetaData::Extractor*> exList = extractors.fetchExtractors(mimetype);
 
         KFileMetaData::Extractor* ex = exList.first();
-        KFileMetaData::SimpleExtractionResult result(newFilePath, mimetype,
+        KFileMetaData::SimpleExtractionResult result(newFilePath.toLocalFile(), mimetype,
                                                      KFileMetaData::ExtractionResult::ExtractMetaData);
 
         ex->extract(&result);
@@ -203,8 +202,8 @@ void LocalFileListing::scanDirectory(const QString &path)
                 newTrack.setArtist(newTrack.albumArtist());
             }
 
-            newTrack.setResourceURI(QUrl::fromLocalFile(newFilePath));
-            QFileInfo trackFilePath(newFilePath);
+            newTrack.setResourceURI(newFilePath);
+            QFileInfo trackFilePath(newFilePath.toLocalFile());
             QFileInfo coverFilePath(trackFilePath.dir().filePath(QStringLiteral("cover.jpg")));
             if (coverFilePath.exists()) {
                 d->mAllAlbumCover[albumValue] = QUrl::fromLocalFile(coverFilePath.absoluteFilePath());
@@ -224,7 +223,6 @@ void LocalFileListing::scanDirectory(const QString &path)
 
 void LocalFileListing::directoryChanged(const QString &path)
 {
-    qDebug() << "LocalFileListing::directoryChanged" << path;
     scanDirectory(path);
 
     for (auto oneAlbum : d->mAllAlbums) {

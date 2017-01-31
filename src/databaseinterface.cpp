@@ -150,7 +150,8 @@ MusicAlbum DatabaseInterface::albumFromTitleAndAuthor(QString title, QString aut
     auto queryResult = d->mSelectAlbumIdFromTitleQuery.exec();
 
     if (!queryResult || !d->mSelectAlbumIdFromTitleQuery.isSelect() || !d->mSelectAlbumIdFromTitleQuery.isActive()) {
-        qDebug() << "DatabaseInterface::albumFromTitleAndAuthor" << "not select" << d->mSelectAlbumIdFromTitleQuery.lastQuery();
+        qDebug() << "DatabaseInterface::albumFromTitleAndAuthor" << d->mSelectAlbumIdFromTitleQuery.lastQuery();
+        qDebug() << "DatabaseInterface::albumFromTitleAndAuthor" << d->mSelectAlbumIdFromTitleQuery.boundValues();
         qDebug() << "DatabaseInterface::albumFromTitleAndAuthor" << d->mSelectAlbumIdFromTitleQuery.lastError();
 
         d->mSelectAlbumIdFromTitleQuery.finish();
@@ -207,7 +208,8 @@ QVector<MusicAlbum> DatabaseInterface::allAlbums(QString filter) const
     auto queryResult = d->mSelectAllAlbumsWithFilterQuery.exec();
 
     if (!queryResult || !d->mSelectAllAlbumsWithFilterQuery.isSelect() || !d->mSelectAllAlbumsWithFilterQuery.isActive()) {
-        qDebug() << "DatabaseInterface::updateIndexCache" << "not select" << d->mSelectAllAlbumsWithFilterQuery.lastQuery();
+        qDebug() << "DatabaseInterface::updateIndexCache" << d->mSelectAllAlbumsWithFilterQuery.lastQuery();
+        qDebug() << "DatabaseInterface::updateIndexCache" << d->mSelectAllAlbumsWithFilterQuery.boundValues();
         qDebug() << "DatabaseInterface::updateIndexCache" << d->mSelectAllAlbumsWithFilterQuery.lastError();
 
         return result;
@@ -254,7 +256,8 @@ QVector<MusicAlbum> DatabaseInterface::allAlbumsFromArtist(QString artistName) c
     auto queryResult = d->mSelectAllAlbumsFromArtistQuery.exec();
 
     if (!queryResult || !d->mSelectAllAlbumsFromArtistQuery.isSelect() || !d->mSelectAllAlbumsFromArtistQuery.isActive()) {
-        qDebug() << "DatabaseInterface::updateIndexCache" << "not select" << d->mSelectAllAlbumsFromArtistQuery.lastQuery();
+        qDebug() << "DatabaseInterface::updateIndexCache" << d->mSelectAllAlbumsFromArtistQuery.lastQuery();
+        qDebug() << "DatabaseInterface::updateIndexCache" << d->mSelectAllAlbumsFromArtistQuery.boundValues();
         qDebug() << "DatabaseInterface::updateIndexCache" << d->mSelectAllAlbumsFromArtistQuery.lastError();
 
         return result;
@@ -305,7 +308,8 @@ QVector<MusicArtist> DatabaseInterface::allArtists() const
     auto queryResult = d->mSelectAllArtistsQuery.exec();
 
     if (!queryResult || !d->mSelectAllArtistsQuery.isSelect() || !d->mSelectAllArtistsQuery.isActive()) {
-        qDebug() << "DatabaseInterface::allArtists" << "not select" << d->mSelectAllArtistsQuery.lastQuery();
+        qDebug() << "DatabaseInterface::allArtists" << d->mSelectAllArtistsQuery.lastQuery();
+        qDebug() << "DatabaseInterface::allArtists" << d->mSelectAllArtistsQuery.boundValues();
         qDebug() << "DatabaseInterface::allArtists" << d->mSelectAllArtistsQuery.lastError();
 
         d->mSelectAllArtistsQuery.finish();
@@ -330,7 +334,8 @@ QVector<MusicArtist> DatabaseInterface::allArtists() const
         auto queryResult = d->mSelectCountAlbumsForArtistQuery.exec();
 
         if (!queryResult || !d->mSelectCountAlbumsForArtistQuery.isSelect() || !d->mSelectCountAlbumsForArtistQuery.isActive() || !d->mSelectCountAlbumsForArtistQuery.next()) {
-            qDebug() << "DatabaseInterface::allArtists" << "not select" << d->mSelectCountAlbumsForArtistQuery.lastQuery();
+            qDebug() << "DatabaseInterface::allArtists" << d->mSelectCountAlbumsForArtistQuery.lastQuery();
+            qDebug() << "DatabaseInterface::allArtists" << d->mSelectCountAlbumsForArtistQuery.boundValues();
             qDebug() << "DatabaseInterface::allArtists" << d->mSelectCountAlbumsForArtistQuery.lastError();
 
             d->mSelectCountAlbumsForArtistQuery.finish();
@@ -374,7 +379,8 @@ QVector<MusicAudioTrack> DatabaseInterface::tracksFromAuthor(QString artistName)
     auto result = d->mSelectTracksFromArtist.exec();
 
     if (!result || !d->mSelectTracksFromArtist.isSelect() || !d->mSelectTracksFromArtist.isActive()) {
-        qDebug() << "DatabaseInterface::tracksFromAuthor" << "not select" << d->mSelectTracksFromArtist.lastQuery();
+        qDebug() << "DatabaseInterface::tracksFromAuthor" << d->mSelectTracksFromArtist.lastQuery();
+        qDebug() << "DatabaseInterface::tracksFromAuthor" << d->mSelectTracksFromArtist.boundValues();
         qDebug() << "DatabaseInterface::tracksFromAuthor" << d->mSelectTracksFromArtist.lastError();
 
         transactionResult = finishTransaction();
@@ -509,7 +515,8 @@ qulonglong DatabaseInterface::trackIdFromTitleAlbumArtist(QString title, QString
     auto queryResult = d->mSelectTrackIdFromTitleAlbumArtistQuery.exec();
 
     if (!queryResult || !d->mSelectTrackIdFromTitleAlbumArtistQuery.isSelect() || !d->mSelectTrackIdFromTitleAlbumArtistQuery.isActive()) {
-        qDebug() << "DatabaseInterface::insertTracksList" << "not select" << d->mSelectTrackIdFromTitleAlbumArtistQuery.lastQuery();
+        qDebug() << "DatabaseInterface::insertTracksList" << d->mSelectTrackIdFromTitleAlbumArtistQuery.lastQuery();
+        qDebug() << "DatabaseInterface::insertTracksList" << d->mSelectTrackIdFromTitleAlbumArtistQuery.boundValues();
         qDebug() << "DatabaseInterface::insertTracksList" << d->mSelectTrackIdFromTitleAlbumArtistQuery.lastError();
 
         d->mSelectTrackIdFromTitleAlbumArtistQuery.finish();
@@ -1432,7 +1439,8 @@ void DatabaseInterface::updateTracksCount(qulonglong albumId, int tracksCount) c
     auto result = d->mSelectAlbumTrackCountQuery.exec();
 
     if (!result || !d->mSelectAlbumTrackCountQuery.isSelect() || !d->mSelectAlbumTrackCountQuery.isActive()) {
-        qDebug() << "DatabaseInterface::updateTracksCount" << "not select" << d->mSelectAlbumTrackCountQuery.lastQuery();
+        qDebug() << "DatabaseInterface::updateTracksCount" << d->mSelectAlbumTrackCountQuery.lastQuery();
+        qDebug() << "DatabaseInterface::updateTracksCount" << d->mSelectAlbumTrackCountQuery.boundValues();
         qDebug() << "DatabaseInterface::updateTracksCount" << d->mSelectAlbumTrackCountQuery.lastError();
 
         d->mSelectAlbumTrackCountQuery.finish();
@@ -1456,7 +1464,8 @@ void DatabaseInterface::updateTracksCount(qulonglong albumId, int tracksCount) c
         result = d->mUpdateAlbumQuery.exec();
 
         if (!result || !d->mUpdateAlbumQuery.isActive()) {
-            qDebug() << "DatabaseInterface::updateTracksCount" << "not select" << d->mUpdateAlbumQuery.lastQuery();
+            qDebug() << "DatabaseInterface::updateTracksCount" << d->mUpdateAlbumQuery.lastQuery();
+            qDebug() << "DatabaseInterface::updateTracksCount" << d->mUpdateAlbumQuery.boundValues();
             qDebug() << "DatabaseInterface::updateTracksCount" << d->mUpdateAlbumQuery.lastError();
 
             d->mUpdateAlbumQuery.finish();
@@ -1476,8 +1485,8 @@ MusicAlbum DatabaseInterface::internalAlbumFromId(qulonglong albumId) const
     auto result = d->mSelectAlbumQuery.exec();
 
     if (!result || !d->mSelectAlbumQuery.isSelect() || !d->mSelectAlbumQuery.isActive()) {
-        qDebug() << "DatabaseInterface::internalAlbumFromId" << "not select" << d->mSelectAlbumQuery.lastQuery();
-        qDebug() << "DatabaseInterface::internalAlbumFromId" << "not select" << d->mSelectAlbumQuery.boundValues();
+        qDebug() << "DatabaseInterface::internalAlbumFromId" << d->mSelectAlbumQuery.lastQuery();
+        qDebug() << "DatabaseInterface::internalAlbumFromId" << d->mSelectAlbumQuery.boundValues();
         qDebug() << "DatabaseInterface::internalAlbumFromId" << d->mSelectAlbumQuery.lastError();
 
         d->mSelectAlbumQuery.finish();
@@ -1520,8 +1529,8 @@ MusicAudioTrack DatabaseInterface::internalTrackFromDatabaseId(qulonglong id) co
     auto queryResult = d->mSelectTrackFromIdQuery.exec();
 
     if (!queryResult || !d->mSelectTrackFromIdQuery.isSelect() || !d->mSelectTrackFromIdQuery.isActive()) {
-        qDebug() << "DatabaseInterface::internalTrackFromDatabaseId" << "not select" << d->mSelectAlbumQuery.lastQuery();
-        qDebug() << "DatabaseInterface::internalTrackFromDatabaseId" << "not select" << d->mSelectAlbumQuery.boundValues();
+        qDebug() << "DatabaseInterface::internalTrackFromDatabaseId" << d->mSelectAlbumQuery.lastQuery();
+        qDebug() << "DatabaseInterface::internalTrackFromDatabaseId" << d->mSelectAlbumQuery.boundValues();
         qDebug() << "DatabaseInterface::internalTrackFromDatabaseId" << d->mSelectAlbumQuery.lastError();
 
         d->mSelectTrackFromIdQuery.finish();

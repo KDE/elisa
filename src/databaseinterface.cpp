@@ -543,6 +543,11 @@ qulonglong DatabaseInterface::trackIdFromTitleAlbumArtist(QString title, QString
 
 void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack> > tracks, QHash<QString, QUrl> covers)
 {
+    auto transactionResult = startTransaction();
+    if (!transactionResult) {
+        return;
+    }
+
     auto newAddedAlbums = QVector<qulonglong>();
     auto newTracks = QVector<qulonglong>();
     auto maximumAlbumId = qulonglong(0);
@@ -580,11 +585,6 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
         }
 
         newAlbum.setTracksCount(album.size());
-
-        auto transactionResult = startTransaction();
-        if (!transactionResult) {
-            return;
-        }
 
         d->mSelectAlbumIdFromTitleQuery.bindValue(QStringLiteral(":title"), newAlbum.title());
         d->mSelectAlbumIdFromTitleQuery.bindValue(QStringLiteral(":artistId"), insertArtist(newAlbum.artist()));
@@ -654,26 +654,11 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
             d->mSelectAlbumIdFromTitleQuery.finish();
         }
 
-        transactionResult = finishTransaction();
-        if (!transactionResult) {
-            return;
-        }
-
         for(const auto &track : album) {
-            auto transactionResult = startTransaction();
-            if (!transactionResult) {
-                return;
-            }
-
             QString artistName = track.artist();
 
             if (artistName.isEmpty()) {
                 artistName = newAlbum.artist();
-
-                transactionResult = finishTransaction();
-                if (!transactionResult) {
-                    return;
-                }
 
                 continue;
             }
@@ -697,11 +682,6 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
                 d->mTrackId = std::max(d->mTrackId, d->mSelectTrackIdFromTitleAlbumIdArtistQuery.record().value(0).toULongLong() + 1);
 
                 d->mSelectTrackIdFromTitleAlbumIdArtistQuery.finish();
-
-                transactionResult = finishTransaction();
-                if (!transactionResult) {
-                    return;
-                }
 
                 continue;
             } else {
@@ -734,16 +714,16 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
 
                 d->mInsertTrackQuery.finish();
             }
-
-            transactionResult = finishTransaction();
-            if (!transactionResult) {
-                return;
-            }
         }
 
         if (albumIsNew) {
             Q_EMIT albumAdded(internalAlbumFromId(d->mAlbumId - 1));
         }
+    }
+
+    transactionResult = finishTransaction();
+    if (!transactionResult) {
+        return;
     }
 
     qDebug() << "DatabaseInterface::insertTracksList" << "database changed" << newTracks.count() << "new tracks";

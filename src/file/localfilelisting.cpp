@@ -224,11 +224,7 @@ void LocalFileListing::directoryChanged(const QString &path)
 {
     scanDirectory(path);
 
-    for (auto oneAlbum : d->mAllAlbums) {
-        QHash<QString, QVector<MusicAudioTrack>> oneAlbumContainer;
-        oneAlbumContainer[oneAlbum.first().albumName()] = oneAlbum;
-        Q_EMIT tracksList(oneAlbumContainer, d->mAllAlbumCover);
-    }
+    Q_EMIT tracksList(d->mAllAlbums, d->mAllAlbumCover);
 }
 
 void LocalFileListing::fileChanged(const QString &path)

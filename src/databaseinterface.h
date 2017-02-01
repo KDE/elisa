@@ -56,9 +56,7 @@ public:
 
     MusicAlbum albumFromTitleAndAuthor(QString title, QString author) const;
 
-    QVector<MusicAlbum> allAlbums(QString filter) const;
-
-    QVector<MusicAlbum> allAlbumsFromArtist(QString artistName) const;
+    QVector<MusicAlbum> allAlbums() const;
 
     QVector<MusicArtist> allArtists() const;
 

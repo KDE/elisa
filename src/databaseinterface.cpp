@@ -135,7 +135,7 @@ void DatabaseInterface::init(const QString &dbName)
     initRequest();
 }
 
-MusicAlbum DatabaseInterface::albumFromTitleAndAuthor(QString title, QString author) const
+MusicAlbum DatabaseInterface::albumFromTitleAndAuthor(QString title) const
 {
     auto result = MusicAlbum();
 
@@ -144,41 +144,7 @@ MusicAlbum DatabaseInterface::albumFromTitleAndAuthor(QString title, QString aut
         return result;
     }
 
-    d->mSelectAlbumIdFromTitleQuery.bindValue(QStringLiteral(":title"), title);
-    d->mSelectAlbumIdFromTitleQuery.bindValue(QStringLiteral(":artist"), author);
-
-    auto queryResult = d->mSelectAlbumIdFromTitleQuery.exec();
-
-    if (!queryResult || !d->mSelectAlbumIdFromTitleQuery.isSelect() || !d->mSelectAlbumIdFromTitleQuery.isActive()) {
-        qDebug() << "DatabaseInterface::albumFromTitleAndAuthor" << d->mSelectAlbumIdFromTitleQuery.lastQuery();
-        qDebug() << "DatabaseInterface::albumFromTitleAndAuthor" << d->mSelectAlbumIdFromTitleQuery.boundValues();
-        qDebug() << "DatabaseInterface::albumFromTitleAndAuthor" << d->mSelectAlbumIdFromTitleQuery.lastError();
-
-        d->mSelectAlbumIdFromTitleQuery.finish();
-
-        transactionResult = finishTransaction();
-        if (!transactionResult) {
-            return result;
-        }
-
-        return result;
-    }
-
-    if (!d->mSelectAlbumIdFromTitleQuery.next()) {
-        d->mSelectAlbumIdFromTitleQuery.finish();
-
-        transactionResult = finishTransaction();
-        if (!transactionResult) {
-            return result;
-        }
-
-        return result;
-    }
-
-    auto albumId = d->mSelectAlbumIdFromTitleQuery.record().value(0).toULongLong();
-    d->mSelectAlbumIdFromTitleQuery.finish();
-
-    result = internalAlbumFromId(albumId);
+    result = internalAlbumFromTitleAndAuthor(title);
 
     transactionResult = finishTransaction();
     if (!transactionResult) {
@@ -709,9 +675,16 @@ void DatabaseInterface::removeTracksList(const QList<QUrl> removedTracks)
             removedTrack.setTrackNumber(d->mSelectTrackFromFilePathQuery.record().value(6).toInt());
             removedTrack.setDiscNumber(d->mSelectTrackFromFilePathQuery.record().value(7).toInt());
             removedTrack.setDuration(QTime::fromMSecsSinceStartOfDay(d->mSelectTrackFromFilePathQuery.record().value(8).toInt()));
+            removedTrack.setAlbumName(d->mSelectTrackFromFilePathQuery.record().value(9).toString());
             removedTrack.setValid(true);
 
             Q_EMIT trackRemoved(removedTrack);
+
+            const auto &modifiedAlbum = internalAlbumFromTitleAndAuthor(removedTrack.albumName());
+
+            if (modifiedAlbum.isValid() && !modifiedAlbum.isEmpty()) {
+                Q_EMIT albumModified(modifiedAlbum);
+            }
         }
 
         d->mSelectTrackFromFilePathQuery.finish();
@@ -1215,21 +1188,22 @@ void DatabaseInterface::initRequest()
 
     {
         auto selectTrackFromFilePathQueryText = QStringLiteral("SELECT "
-                                                   "tracks.`ID`, "
-                                                   "tracks.`Title`, "
-                                                   "tracks.`AlbumID`, "
-                                                   "artist.`Name`, "
-                                                   "artistAlbum.`Name`, "
-                                                   "tracks.`FileName`, "
-                                                   "tracks.`TrackNumber`, "
-                                                   "tracks.`DiscNumber`, "
-                                                   "tracks.`Duration` "
-                                                   "FROM `Tracks` tracks, `Artists` artist, `Artists` artistAlbum, `Albums` album "
-                                                   "WHERE "
-                                                   "tracks.`AlbumID` = album.`ID` AND "
-                                                   "artist.`ID` = tracks.`ArtistID` AND "
-                                                   "artistAlbum.`ID` = album.`ArtistID` AND "
-                                                   "tracks.`FileName` = :filePath");
+                                                               "tracks.`ID`, "
+                                                               "tracks.`Title`, "
+                                                               "tracks.`AlbumID`, "
+                                                               "artist.`Name`, "
+                                                               "artistAlbum.`Name`, "
+                                                               "tracks.`FileName`, "
+                                                               "tracks.`TrackNumber`, "
+                                                               "tracks.`DiscNumber`, "
+                                                               "tracks.`Duration`, "
+                                                               "album.`Title` "
+                                                               "FROM `Tracks` tracks, `Artists` artist, `Artists` artistAlbum, `Albums` album "
+                                                               "WHERE "
+                                                               "tracks.`AlbumID` = album.`ID` AND "
+                                                               "artist.`ID` = tracks.`ArtistID` AND "
+                                                               "artistAlbum.`ID` = album.`ArtistID` AND "
+                                                               "tracks.`FileName` = :filePath");
 
         auto result = d->mSelectTrackFromFilePathQuery.prepare(selectTrackFromFilePathQueryText);
 
@@ -1423,6 +1397,38 @@ MusicAlbum DatabaseInterface::internalAlbumFromId(qulonglong albumId) const
     d->mSelectAlbumQuery.finish();
 
     return retrievedAlbum;
+}
+
+MusicAlbum DatabaseInterface::internalAlbumFromTitleAndAuthor(QString title) const
+{
+    auto result = MusicAlbum();
+
+    d->mSelectAlbumIdFromTitleQuery.bindValue(QStringLiteral(":title"), title);
+
+    auto queryResult = d->mSelectAlbumIdFromTitleQuery.exec();
+
+    if (!queryResult || !d->mSelectAlbumIdFromTitleQuery.isSelect() || !d->mSelectAlbumIdFromTitleQuery.isActive()) {
+        qDebug() << "DatabaseInterface::albumFromTitleAndAuthor" << d->mSelectAlbumIdFromTitleQuery.lastQuery();
+        qDebug() << "DatabaseInterface::albumFromTitleAndAuthor" << d->mSelectAlbumIdFromTitleQuery.boundValues();
+        qDebug() << "DatabaseInterface::albumFromTitleAndAuthor" << d->mSelectAlbumIdFromTitleQuery.lastError();
+
+        d->mSelectAlbumIdFromTitleQuery.finish();
+
+        return result;
+    }
+
+    if (!d->mSelectAlbumIdFromTitleQuery.next()) {
+        d->mSelectAlbumIdFromTitleQuery.finish();
+
+        return result;
+    }
+
+    auto albumId = d->mSelectAlbumIdFromTitleQuery.record().value(0).toULongLong();
+    d->mSelectAlbumIdFromTitleQuery.finish();
+
+    result = internalAlbumFromId(albumId);
+
+    return result;
 }
 
 MusicAudioTrack DatabaseInterface::internalTrackFromDatabaseId(qulonglong id) const

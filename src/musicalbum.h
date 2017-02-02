@@ -102,6 +102,8 @@ public:
 
     QStringList allTracksTitle() const;
 
+    bool isEmpty() const;
+
 private:
 
     MusicAlbumPrivate *d;

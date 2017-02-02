@@ -245,6 +245,11 @@ QStringList MusicAlbum::allTracksTitle() const
     return result;
 }
 
+bool MusicAlbum::isEmpty() const
+{
+    return d->mTrackIds.isEmpty();
+}
+
 QDebug& operator<<(QDebug &stream, const MusicAlbum &data)
 {
     stream << data.title() << " " << data.artist();

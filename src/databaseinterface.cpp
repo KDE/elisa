@@ -799,11 +799,24 @@ void DatabaseInterface::initDatabase() const
         QSqlQuery createSchemaQuery(d->mTracksDatabase);
 
         const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `DiscoverSource` (`ID` INTEGER PRIMARY KEY NOT NULL, "
-                                                                   "`UUID` TEXT NOT NULL, "
+                                                                   "`UUID` VARCHAR(55) NOT NULL, "
                                                                    "UNIQUE (`UUID`))"));
 
         if (!result) {
             qDebug() << "DatabaseInterface::initDatabase" << createSchemaQuery.lastError() << createSchemaQuery.lastError().nativeErrorCode();
+        }
+    }
+
+    if (!d->mTracksDatabase.tables().contains(QStringLiteral("Artists"))) {
+        QSqlQuery createSchemaQuery(d->mTracksDatabase);
+
+        const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `Artists` (`ID` INTEGER PRIMARY KEY NOT NULL, "
+                                                                   "`Name` VARCHAR(55) NOT NULL, "
+                                                                   "UNIQUE (`Name`))"));
+
+        if (!result) {
+            qDebug() << "DatabaseInterface::initDatabase" << createSchemaQuery.lastQuery();
+            qDebug() << "DatabaseInterface::initDatabase" << createSchemaQuery.lastError();
         }
     }
 
@@ -812,14 +825,14 @@ void DatabaseInterface::initDatabase() const
 
         const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `Albums` ("
                                                                    "`ID` INTEGER PRIMARY KEY NOT NULL, "
-                                                                   "`Title` TEXT NOT NULL, "
+                                                                   "`Title` VARCHAR(55) NOT NULL, "
                                                                    "`ArtistID` INTEGER NOT NULL, "
-                                                                   "`CoverFileName` TEXT NOT NULL, "
+                                                                   "`CoverFileName` VARCHAR(255) NOT NULL, "
                                                                    "`TracksCount` INTEGER NOT NULL, "
                                                                    "`IsSingleDiscAlbum` BOOLEAN NOT NULL, "
-                                                                   "`AlbumInternalID` TEXT, "
+                                                                   "`AlbumInternalID` VARCHAR(55), "
                                                                    "UNIQUE (`Title`, `ArtistID`), "
-                                                                   "CONSTRAINT fk_artist FOREIGN KEY (`ArtistID`) REFERENCES `Artists`(`ID`))"));
+                                                                   "CONSTRAINT fk_albums_artist FOREIGN KEY (`ArtistID`) REFERENCES `Artists`(`ID`))"));
 
         if (!result) {
             qDebug() << "DatabaseInterface::initDatabase" << createSchemaQuery.lastError();
@@ -831,16 +844,16 @@ void DatabaseInterface::initDatabase() const
 
         const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `Tracks` ("
                                                                    "`ID` INTEGER PRIMARY KEY NOT NULL, "
-                                                                   "`Title` TEXT NOT NULL, "
+                                                                   "`Title` VARCHAR(85) NOT NULL, "
                                                                    "`AlbumID` INTEGER NOT NULL, "
                                                                    "`ArtistID` INTEGER NOT NULL, "
-                                                                   "`FileName` TEXT NOT NULL UNIQUE, "
+                                                                   "`FileName` VARCHAR(255) NOT NULL, "
                                                                    "`TrackNumber` INTEGER NOT NULL, "
                                                                    "`DiscNumber` INTEGER, "
                                                                    "`Duration` INTEGER NOT NULL, "
                                                                    "UNIQUE (`Title`, `AlbumID`, `ArtistID`), "
-                                                                   "CONSTRAINT fk_album FOREIGN KEY (`AlbumID`) REFERENCES `Albums`(`ID`), "
-                                                                   "CONSTRAINT fk_artist FOREIGN KEY (`ArtistID`) REFERENCES `Artists`(`ID`))"));
+                                                                   "CONSTRAINT fk_tracks_album FOREIGN KEY (`AlbumID`) REFERENCES `Albums`(`ID`), "
+                                                                   "CONSTRAINT fk_tracks_artist FOREIGN KEY (`ArtistID`) REFERENCES `Artists`(`ID`))"));
 
         if (!result) {
             qDebug() << "DatabaseInterface::initDatabase" << createSchemaQuery.lastError();
@@ -854,23 +867,10 @@ void DatabaseInterface::initDatabase() const
                                                                    "`TrackID` INTEGER NOT NULL, "
                                                                    "`DiscoverID` INTEGER NOT NULL, "
                                                                    "PRIMARY KEY (`TrackID`, `DiscoverID`), "
-                                                                   "CONSTRAINT fk_trackID FOREIGN KEY (`TrackID`) REFERENCES `Tracks`(`ID`), "
-                                                                   "CONSTRAINT fk_discoverID FOREIGN KEY (`DiscoverID`) REFERENCES `DiscoverSource`(`ID`))"));
+                                                                   "CONSTRAINT fk_tracksmapping_trackID FOREIGN KEY (`TrackID`) REFERENCES `Tracks`(`ID`), "
+                                                                   "CONSTRAINT fk_tracksmapping_discoverID FOREIGN KEY (`DiscoverID`) REFERENCES `DiscoverSource`(`ID`))"));
 
         if (!result) {
-            qDebug() << "DatabaseInterface::initDatabase" << createSchemaQuery.lastError();
-        }
-    }
-
-    if (!d->mTracksDatabase.tables().contains(QStringLiteral("Artists"))) {
-        QSqlQuery createSchemaQuery(d->mTracksDatabase);
-
-        const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `Artists` (`ID` INTEGER PRIMARY KEY NOT NULL, "
-                                                                   "`Name` TEXT NOT NULL, "
-                                                                   "UNIQUE (`Name`))"));
-
-        if (!result) {
-            qDebug() << "DatabaseInterface::initDatabase" << createSchemaQuery.lastQuery();
             qDebug() << "DatabaseInterface::initDatabase" << createSchemaQuery.lastError();
         }
     }
@@ -893,7 +893,7 @@ void DatabaseInterface::initDatabase() const
 
         const auto &result = createTrackIndex.exec(QStringLiteral("CREATE INDEX "
                                                                   "IF NOT EXISTS "
-                                                                  "`TracksArtistIndex` ON `Tracks` "
+                                                                  "`AlbumsArtistIndex` ON `Albums` "
                                                                   "(`ArtistID`)"));
 
         if (!result) {
@@ -906,8 +906,21 @@ void DatabaseInterface::initDatabase() const
 
         const auto &result = createTrackIndex.exec(QStringLiteral("CREATE INDEX "
                                                                   "IF NOT EXISTS "
-                                                                  "`ArtistNameIndex` ON `Artists` "
-                                                                  "(`Name`)"));
+                                                                  "`TracksFileNameIndex` ON `Tracks` "
+                                                                  "(`FileName`)"));
+
+        if (!result) {
+            qDebug() << "DatabaseInterface::initDatabase" << createTrackIndex.lastError();
+        }
+    }
+
+    {
+        QSqlQuery createTrackIndex(d->mTracksDatabase);
+
+        const auto &result = createTrackIndex.exec(QStringLiteral("CREATE INDEX "
+                                                                  "IF NOT EXISTS "
+                                                                  "`TracksArtistIDAlbumIDFileNameIndex` ON `Tracks` "
+                                                                  "(`ArtistID`, `AlbumID`, `FileName`)"));
 
         if (!result) {
             qDebug() << "DatabaseInterface::initDatabase" << createTrackIndex.lastError();
@@ -972,8 +985,7 @@ void DatabaseInterface::initRequest()
     {
         auto selectAllArtistsWithFilterText = QStringLiteral("SELECT `ID`, "
                                                             "`Name` "
-                                                            "FROM `Artists` "
-                                                            "ORDER BY `Name`");
+                                                            "FROM `Artists`");
 
         auto result = d->mSelectAllArtistsQuery.prepare(selectAllArtistsWithFilterText);
 

@@ -43,7 +43,7 @@ class MusicListenersManagerPrivate
 {
 public:
 
-    QThread mListenersThread;
+    QThread mDatabaseThread;
 
 #if defined UPNPQT_FOUND && UPNPQT_FOUND
     UpnpListener mUpnpListener;
@@ -62,9 +62,9 @@ public:
 MusicListenersManager::MusicListenersManager(QObject *parent)
     : QObject(parent), d(new MusicListenersManagerPrivate)
 {
-    d->mListenersThread.start();
+    d->mDatabaseThread.start();
 
-    d->mDatabaseInterface.moveToThread(&d->mListenersThread);
+    d->mDatabaseInterface.moveToThread(&d->mDatabaseThread);
 
     connect(&d->mDatabaseInterface, &DatabaseInterface::requestsInitDone,
             this, &MusicListenersManager::databaseReady);
@@ -94,7 +94,7 @@ void MusicListenersManager::subscribeForTracks(MediaPlayList *client)
 {
     auto helper = new TracksListener(&d->mDatabaseInterface);
 
-    helper->moveToThread(&d->mListenersThread);
+    helper->moveToThread(&d->mDatabaseThread);
 
     connect(helper, &TracksListener::trackChanged, client, &MediaPlayList::trackChanged);
     connect(helper, &TracksListener::albumAdded, client, &MediaPlayList::albumAdded);
@@ -108,15 +108,15 @@ void MusicListenersManager::databaseReady()
 {
 #if defined KF5Baloo_FOUND && KF5Baloo_FOUND
     d->mBalooListener.setDatabaseInterface(&d->mDatabaseInterface);
-    d->mBalooListener.moveToThread(&d->mListenersThread);
+    d->mBalooListener.moveToThread(&d->mDatabaseThread);
 #endif
 #if defined UPNPQT_FOUND && UPNPQT_FOUND
     d->mUpnpListener.setDatabaseInterface(&d->mDatabaseInterface);
-    d->mUpnpListener.moveToThread(&d->mListenersThread);
+    d->mUpnpListener.moveToThread(&d->mDatabaseThread);
 #endif
 
     d->mFileListener.setDatabaseInterface(&d->mDatabaseInterface);
-    d->mFileListener.moveToThread(&d->mListenersThread);
+    d->mFileListener.moveToThread(&d->mDatabaseThread);
 }
 
 

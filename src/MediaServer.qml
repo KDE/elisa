@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Matthieu Gallien <matthieu_gallien@yahoo.fr>
+ * Copyright 2016-2017 Matthieu Gallien <matthieu_gallien@yahoo.fr>
  * Copyright 2015 Marco Martin <mart@kde.org>
  *
  * This library is free software; you can redistribute it and/or

@@ -1,6 +1,5 @@
 /*
- * Copyright 2016 Matthieu Gallien <matthieu_gallien@yahoo.fr>
- * Copyright (C) 2014 Vishesh Handa <me@vhanda.in>
+ * Copyright 2016-2017 Matthieu Gallien <matthieu_gallien@yahoo.fr>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public

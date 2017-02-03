@@ -280,7 +280,7 @@ void MediaPlayListTest::enqueueAlbumCase()
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newArtistInListSpy.count(), 0);
 
-    myPlayList.enqueue(myDatabaseContent.albumFromTitleAndAuthor(QStringLiteral("album2")));
+    myPlayList.enqueue(myDatabaseContent.albumFromTitle(QStringLiteral("album2")));
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -556,7 +556,7 @@ void MediaPlayListTest::removeFirstTrackOfAlbum()
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newArtistInListSpy.count(), 0);
 
-    myPlayList.enqueue(myDatabaseContent.albumFromTitleAndAuthor(QStringLiteral("album2")));
+    myPlayList.enqueue(myDatabaseContent.albumFromTitle(QStringLiteral("album2")));
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -2634,7 +2634,7 @@ void MediaPlayListTest::enqueueClearAndEnqueue()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), MediaPlayList::TrackNumberRole).toInt(), 1);
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), MediaPlayList::DiscNumberRole).toInt(), 1);
 
-    myPlayList.clearAndEnqueue(myDatabaseContent.albumFromTitleAndAuthor(QStringLiteral("album1")));
+    myPlayList.clearAndEnqueue(myDatabaseContent.albumFromTitle(QStringLiteral("album1")));
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 1);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);

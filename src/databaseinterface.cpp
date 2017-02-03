@@ -143,7 +143,7 @@ void DatabaseInterface::init(const QString &dbName)
     initRequest();
 }
 
-MusicAlbum DatabaseInterface::albumFromTitleAndAuthor(QString title) const
+MusicAlbum DatabaseInterface::albumFromTitle(QString title) const
 {
     auto result = MusicAlbum();
 
@@ -152,7 +152,7 @@ MusicAlbum DatabaseInterface::albumFromTitleAndAuthor(QString title) const
         return result;
     }
 
-    result = internalAlbumFromTitleAndAuthor(title);
+    result = internalAlbumFromTitle(title);
 
     transactionResult = finishTransaction();
     if (!transactionResult) {
@@ -665,7 +665,7 @@ void DatabaseInterface::removeTracksList(const QList<QUrl> removedTracks)
         removeTrackInDatabase(oneRemovedTrack.databaseId());
         Q_EMIT trackRemoved(oneRemovedTrack);
 
-        const auto &modifiedAlbum = internalAlbumFromTitleAndAuthor(oneRemovedTrack.albumName());
+        const auto &modifiedAlbum = internalAlbumFromTitle(oneRemovedTrack.albumName());
         const auto &allArtistTracks = internalTracksFromAuthor(oneRemovedTrack.artist());
         const auto &removedArtistId = internalArtistIdFromName(oneRemovedTrack.artist());
         const auto &removedArtist = internalArtistFromId(removedArtistId);
@@ -1513,7 +1513,7 @@ MusicAlbum DatabaseInterface::internalAlbumFromId(qulonglong albumId) const
     return retrievedAlbum;
 }
 
-MusicAlbum DatabaseInterface::internalAlbumFromTitleAndAuthor(QString title) const
+MusicAlbum DatabaseInterface::internalAlbumFromTitle(QString title) const
 {
     auto result = MusicAlbum();
 

@@ -170,12 +170,12 @@ private Q_SLOTS:
 
         QCOMPARE(musicDb.allAlbums().count(), 3);
 
-        auto firstAlbum = musicDb.albumFromTitleAndAuthor(QStringLiteral("album1"));
+        auto firstAlbum = musicDb.albumFromTitle(QStringLiteral("album1"));
 
         QCOMPARE(firstAlbum.isValid(), true);
         QCOMPARE(firstAlbum.title(), QStringLiteral("album1"));
 
-        auto firstAlbumInvalid = musicDb.albumFromTitleAndAuthor(QStringLiteral("album1Invalid"));
+        auto firstAlbumInvalid = musicDb.albumFromTitle(QStringLiteral("album1Invalid"));
 
         QCOMPARE(firstAlbumInvalid.isValid(), false);
     }
@@ -822,7 +822,7 @@ private Q_SLOTS:
         QCOMPARE(musicDbAlbumModifiedSpy.count(), 3);
         QCOMPARE(musicDbTrackModifiedSpy.count(), 0);
 
-        auto removedAlbum = musicDb.albumFromTitleAndAuthor(QStringLiteral("album1"));
+        auto removedAlbum = musicDb.albumFromTitle(QStringLiteral("album1"));
 
         QCOMPARE(removedAlbum.isValid(), false);
     }

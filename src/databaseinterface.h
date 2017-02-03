@@ -122,11 +122,21 @@ private:
 
     QVariant internalAlbumDataFromId(qulonglong albumId, AlbumData dataType) const;
 
+    QVector<MusicAudioTrack> internalTracksFromAuthor(QString artistName) const;
+
     void initDatabase() const;
 
     void initRequest();
 
     qulonglong insertArtist(QString name);
+
+    qulonglong internalArtistIdFromName(QString name);
+
+    void removeTrackInDatabase(qulonglong trackId);
+
+    void removeAlbumInDatabase(qulonglong albumId);
+
+    void removeArtistInDatabase(qulonglong artistId);
 
     DatabaseInterfacePrivate *d;
 

@@ -262,6 +262,18 @@ ApplicationWindow {
         onAlbumAdded: allAlbumsModel.albumAdded(newAlbum)
     }
 
+    Connections {
+        target: allListeners
+
+        onAlbumRemoved: allAlbumsModel.albumRemoved(newAlbum)
+    }
+
+    Connections {
+        target: allListeners
+
+        onAlbumModified: allAlbumsModel.albumModified(newAlbum)
+    }
+
     AllArtistsModel {
         id: allArtistsModel
     }

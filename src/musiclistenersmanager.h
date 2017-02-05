@@ -59,6 +59,18 @@ Q_SIGNALS:
 
     void trackAdded(MusicAudioTrack newTrack);
 
+    void artistRemoved(MusicArtist newArtist);
+
+    void albumRemoved(MusicAlbum newAlbum);
+
+    void trackRemoved(MusicAudioTrack newTrack);
+
+    void artistModified(MusicArtist newArtist);
+
+    void albumModified(MusicAlbum newAlbum);
+
+    void trackModified(MusicAudioTrack newTrack);
+
 public Q_SLOTS:
 
     void databaseReady();

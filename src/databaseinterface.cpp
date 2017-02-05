@@ -614,8 +614,6 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
     if (!transactionResult) {
         return;
     }
-
-    qDebug() << "DatabaseInterface::insertTracksList" << "database changed" << newTracks.count() << "new tracks";
 }
 
 void DatabaseInterface::removeTracksList(const QList<QUrl> removedTracks)

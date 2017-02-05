@@ -78,6 +78,18 @@ MusicListenersManager::MusicListenersManager(QObject *parent)
                this, &MusicListenersManager::albumAdded);
     connect(&d->mDatabaseInterface, &DatabaseInterface::trackAdded,
                this, &MusicListenersManager::trackAdded);
+    connect(&d->mDatabaseInterface, &DatabaseInterface::artistRemoved,
+               this, &MusicListenersManager::artistRemoved);
+    connect(&d->mDatabaseInterface, &DatabaseInterface::albumRemoved,
+               this, &MusicListenersManager::albumRemoved);
+    connect(&d->mDatabaseInterface, &DatabaseInterface::trackRemoved,
+               this, &MusicListenersManager::trackRemoved);
+    connect(&d->mDatabaseInterface, &DatabaseInterface::artistModified,
+               this, &MusicListenersManager::artistModified);
+    connect(&d->mDatabaseInterface, &DatabaseInterface::albumModified,
+               this, &MusicListenersManager::albumModified);
+    connect(&d->mDatabaseInterface, &DatabaseInterface::trackModified,
+               this, &MusicListenersManager::trackModified);
 }
 
 MusicListenersManager::~MusicListenersManager()

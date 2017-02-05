@@ -288,3 +288,17 @@ endif()
 
 target_include_directories(mediaplaylistTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 add_test(mediaplaylistTest mediaplaylistTest)
+
+set(allalbumsmodeltest_SOURCES
+    ../src/databaseinterface.cpp
+    ../src/musicartist.cpp
+    ../src/musicalbum.cpp
+    ../src/musicaudiotrack.cpp
+    ../src/allalbumsmodel.cpp
+    allalbumsmodeltest.cpp
+)
+
+add_executable(allalbumsmodeltest ${allalbumsmodeltest_SOURCES})
+target_link_libraries(allalbumsmodeltest Qt5::Test Qt5::Core Qt5::Sql KF5::I18n)
+target_include_directories(allalbumsmodeltest PRIVATE ${CMAKE_SOURCE_DIR}/src)
+add_test(allalbumsmodeltest allalbumsmodeltest)

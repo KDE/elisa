@@ -26,6 +26,8 @@
 #include <QPointer>
 #include <QVector>
 
+#include <algorithm>
+
 class AllAlbumsModelPrivate
 {
 public:
@@ -215,6 +217,36 @@ void AllAlbumsModel::albumAdded(MusicAlbum newAlbum)
         ++d->mAlbumCount;
         endInsertRows();
     }
+}
+
+void AllAlbumsModel::albumRemoved(MusicAlbum removedAlbum)
+{
+    auto removedAlbumIterator = std::find(d->mAllAlbums.begin(), d->mAllAlbums.end(), removedAlbum);
+
+    if (removedAlbumIterator == d->mAllAlbums.end()) {
+        return;
+    }
+
+    int albumIndex = removedAlbumIterator - d->mAllAlbums.begin();
+
+    beginRemoveRows({}, albumIndex, albumIndex);
+    d->mAllAlbums.erase(removedAlbumIterator);
+    --d->mAlbumCount;
+    endRemoveRows();
+}
+
+void AllAlbumsModel::albumModified(MusicAlbum modifiedAlbum)
+{
+    auto modifiedAlbumIterator = std::find(d->mAllAlbums.begin(), d->mAllAlbums.end(), modifiedAlbum);
+
+    if (modifiedAlbumIterator == d->mAllAlbums.end()) {
+        return;
+    }
+
+    int albumIndex = modifiedAlbumIterator - d->mAllAlbums.begin();
+    d->mAllAlbums[albumIndex] = modifiedAlbum;
+
+    Q_EMIT dataChanged(index(albumIndex, 0), index(albumIndex, 0));
 }
 
 #include "moc_allalbumsmodel.cpp"

@@ -74,6 +74,10 @@ public Q_SLOTS:
 
     void albumAdded(MusicAlbum newAlbum);
 
+    void albumRemoved(MusicAlbum removedAlbum);
+
+    void albumModified(MusicAlbum modifiedAlbum);
+
 private:
 
     QVariant internalDataAlbum(int albumIndex, int role) const;

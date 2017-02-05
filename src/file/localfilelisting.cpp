@@ -49,6 +49,8 @@ public:
 
     QHash<QString, QUrl> mAllAlbumCover;
 
+    QHash<QUrl, QString> mAlbumNameFromTrackFile;
+
     int mCptTracks = 0;
 
     QHash<QString, QList<QUrl>> mDiscoveredFiles;
@@ -71,13 +73,6 @@ LocalFileListing::~LocalFileListing()
 
 void LocalFileListing::init()
 {
-    scanDirectory(d->mRootPath);
-
-    for (auto oneAlbum : d->mAllAlbums) {
-        QHash<QString, QVector<MusicAudioTrack>> oneAlbumContainer;
-        oneAlbumContainer[oneAlbum.first().albumName()] = oneAlbum;
-        Q_EMIT tracksList(oneAlbumContainer, d->mAllAlbumCover);
-    }
 }
 
 void LocalFileListing::scanDirectory(const QString &path)
@@ -125,11 +120,28 @@ void LocalFileListing::scanDirectory(const QString &path)
         removedTracks.push_back(removedFilePath);
     }
     for (const auto &oneRemovedTask : removedTracks) {
+        auto itAlbumName = d->mAlbumNameFromTrackFile.find(oneRemovedTask);
+
+        if (itAlbumName != d->mAlbumNameFromTrackFile.end()) {
+            auto itAlbum = d->mAllAlbums.find(*itAlbumName);
+            if (itAlbum != d->mAllAlbums.end()) {
+                for (auto itTrack = itAlbum->begin(); itTrack != itAlbum->end(); ) {
+                    if (itTrack->resourceURI() == oneRemovedTask) {
+                        itTrack = itAlbum->erase(itTrack);
+                    } else {
+                        ++itTrack;
+                    }
+                }
+            }
+        }
+
         auto itRemovedTrack = std::find(currentDirectoryListing.begin(), currentDirectoryListing.end(), oneRemovedTask);
         currentDirectoryListing.erase(itRemovedTrack);
     }
 
-    Q_EMIT removedTracksList(removedTracks);
+    if (!removedTracks.isEmpty()) {
+        Q_EMIT removedTracksList(removedTracks);
+    }
 
     for (auto newFilePath : currentFilesList) {
         auto itFilePath = std::find(currentDirectoryListing.begin(), currentDirectoryListing.end(), newFilePath);
@@ -208,6 +220,7 @@ void LocalFileListing::scanDirectory(const QString &path)
             }
 
             allTracks.push_back(newTrack);
+            d->mAlbumNameFromTrackFile[newTrack.resourceURI()] = newTrack.albumName();
         }
 
         if (albumProperty != allProperties.end()) {
@@ -228,12 +241,12 @@ void LocalFileListing::directoryChanged(const QString &path)
 
 void LocalFileListing::fileChanged(const QString &path)
 {
-    qDebug() << "LocalFileListing::fileChanged" << path;
 }
 
 void LocalFileListing::refreshContent()
 {
-    init();
+    scanDirectory(d->mRootPath);
+    Q_EMIT tracksList(d->mAllAlbums, d->mAllAlbumCover);
 }
 
 

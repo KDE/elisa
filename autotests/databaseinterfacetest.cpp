@@ -97,6 +97,7 @@ private Q_SLOTS:
         {QUrl::fromLocalFile(QStringLiteral("file://image$13"))}}
         };
 
+        // warning the following album has invalid tracks and will not get added: the album artist of all tracks is empty and as such the album cannot be created
         mNewTracks[QStringLiteral("album4")] = {
             {true, QStringLiteral("$14"), QStringLiteral("0"), QStringLiteral("track1"),
                 QStringLiteral("artist2"), QStringLiteral("album4"), QStringLiteral(""), 1, 1, QTime::fromMSecsSinceStartOfDay(14), {QUrl::fromLocalFile(QStringLiteral("/$14"))},

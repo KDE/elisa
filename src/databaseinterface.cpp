@@ -404,9 +404,9 @@ qulonglong DatabaseInterface::trackIdFromTitleAlbumArtist(QString title, QString
     auto queryResult = d->mSelectTrackIdFromTitleAlbumArtistQuery.exec();
 
     if (!queryResult || !d->mSelectTrackIdFromTitleAlbumArtistQuery.isSelect() || !d->mSelectTrackIdFromTitleAlbumArtistQuery.isActive()) {
-        qDebug() << "DatabaseInterface::insertTracksList" << d->mSelectTrackIdFromTitleAlbumArtistQuery.lastQuery();
-        qDebug() << "DatabaseInterface::insertTracksList" << d->mSelectTrackIdFromTitleAlbumArtistQuery.boundValues();
-        qDebug() << "DatabaseInterface::insertTracksList" << d->mSelectTrackIdFromTitleAlbumArtistQuery.lastError();
+        qDebug() << "DatabaseInterface::trackIdFromTitleAlbumArtist" << d->mSelectTrackIdFromTitleAlbumArtistQuery.lastQuery();
+        qDebug() << "DatabaseInterface::trackIdFromTitleAlbumArtist" << d->mSelectTrackIdFromTitleAlbumArtistQuery.boundValues();
+        qDebug() << "DatabaseInterface::trackIdFromTitleAlbumArtist" << d->mSelectTrackIdFromTitleAlbumArtistQuery.lastError();
 
         d->mSelectTrackIdFromTitleAlbumArtistQuery.finish();
 

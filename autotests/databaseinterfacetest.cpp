@@ -912,6 +912,157 @@ private Q_SLOTS:
         QCOMPARE(musicDbAlbumModifiedSpy.count(), 1);
         QCOMPARE(musicDbTrackModifiedSpy.count(), 0);
     }
+    void addOneTrack()
+    {
+        auto configDirectory = QDir(QStandardPaths::writableLocation(QStandardPaths::QStandardPaths::AppDataLocation));
+        auto rootDirectory = QDir::root();
+        rootDirectory.mkpath(configDirectory.path());
+        auto fileName = configDirectory.filePath(QStringLiteral("elisaMusicDatabase.sqlite"));
+        QFile dbFile(fileName);
+        auto dbExists = dbFile.exists();
+
+        if (dbExists) {
+            QCOMPARE(dbFile.remove(), true);
+        }
+
+        DatabaseInterface musicDb;
+
+        musicDb.init(QStringLiteral("testDb"));
+
+        QSignalSpy musicDbArtistAddedSpy(&musicDb, &DatabaseInterface::artistAdded);
+        QSignalSpy musicDbAlbumAddedSpy(&musicDb, &DatabaseInterface::albumAdded);
+        QSignalSpy musicDbTrackAddedSpy(&musicDb, &DatabaseInterface::trackAdded);
+        QSignalSpy musicDbArtistRemovedSpy(&musicDb, &DatabaseInterface::artistRemoved);
+        QSignalSpy musicDbAlbumRemovedSpy(&musicDb, &DatabaseInterface::albumRemoved);
+        QSignalSpy musicDbTrackRemovedSpy(&musicDb, &DatabaseInterface::trackRemoved);
+        QSignalSpy musicDbArtistModifiedSpy(&musicDb, &DatabaseInterface::artistModified);
+        QSignalSpy musicDbAlbumModifiedSpy(&musicDb, &DatabaseInterface::albumModified);
+        QSignalSpy musicDbTrackModifiedSpy(&musicDb, &DatabaseInterface::trackModified);
+
+        QCOMPARE(musicDb.allAlbums().count(), 0);
+        QCOMPARE(musicDb.allArtists().count(), 0);
+        QCOMPARE(musicDbArtistAddedSpy.count(), 0);
+        QCOMPARE(musicDbAlbumAddedSpy.count(), 0);
+        QCOMPARE(musicDbTrackAddedSpy.count(), 0);
+        QCOMPARE(musicDbArtistRemovedSpy.count(), 0);
+        QCOMPARE(musicDbAlbumRemovedSpy.count(), 0);
+        QCOMPARE(musicDbTrackRemovedSpy.count(), 0);
+        QCOMPARE(musicDbArtistModifiedSpy.count(), 0);
+        QCOMPARE(musicDbAlbumModifiedSpy.count(), 0);
+        QCOMPARE(musicDbTrackModifiedSpy.count(), 0);
+
+        musicDb.insertTracksList(mNewTracks, mNewCovers);
+
+        QCOMPARE(musicDb.allAlbums().count(), 3);
+        QCOMPARE(musicDb.allArtists().count(), 6);
+        QCOMPARE(musicDbArtistAddedSpy.count(), 6);
+        QCOMPARE(musicDbAlbumAddedSpy.count(), 3);
+        QCOMPARE(musicDbTrackAddedSpy.count(), 13);
+        QCOMPARE(musicDbArtistRemovedSpy.count(), 0);
+        QCOMPARE(musicDbAlbumRemovedSpy.count(), 0);
+        QCOMPARE(musicDbTrackRemovedSpy.count(), 0);
+        QCOMPARE(musicDbArtistModifiedSpy.count(), 0);
+        QCOMPARE(musicDbAlbumModifiedSpy.count(), 0);
+        QCOMPARE(musicDbTrackModifiedSpy.count(), 0);
+
+        auto newTrack = MusicAudioTrack{true, QStringLiteral("$19"), QStringLiteral("0"), QStringLiteral("track6"),
+                QStringLiteral("artist2"), QStringLiteral("album3"), QStringLiteral("artist2"), 6, 1, QTime::fromMSecsSinceStartOfDay(19), {QUrl::fromLocalFile(QStringLiteral("/$19"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$19"))}};
+        auto newTracks = QHash<QString, QVector<MusicAudioTrack>>();
+        newTracks[newTrack.albumName()].push_back(newTrack);
+
+        musicDb.insertTracksList(newTracks, mNewCovers);
+
+        QCOMPARE(musicDb.allAlbums().count(), 3);
+        QCOMPARE(musicDb.allArtists().count(), 6);
+        QCOMPARE(musicDbArtistAddedSpy.count(), 6);
+        QCOMPARE(musicDbAlbumAddedSpy.count(), 3);
+        QCOMPARE(musicDbTrackAddedSpy.count(), 14);
+        QCOMPARE(musicDbArtistRemovedSpy.count(), 0);
+        QCOMPARE(musicDbAlbumRemovedSpy.count(), 0);
+        QCOMPARE(musicDbTrackRemovedSpy.count(), 0);
+        QCOMPARE(musicDbArtistModifiedSpy.count(), 0);
+        QCOMPARE(musicDbAlbumModifiedSpy.count(), 1);
+        QCOMPARE(musicDbTrackModifiedSpy.count(), 0);
+    }
+
+    void addOneAlbum()
+    {
+        auto configDirectory = QDir(QStandardPaths::writableLocation(QStandardPaths::QStandardPaths::AppDataLocation));
+        auto rootDirectory = QDir::root();
+        rootDirectory.mkpath(configDirectory.path());
+        auto fileName = configDirectory.filePath(QStringLiteral("elisaMusicDatabase.sqlite"));
+        QFile dbFile(fileName);
+        auto dbExists = dbFile.exists();
+
+        if (dbExists) {
+            QCOMPARE(dbFile.remove(), true);
+        }
+
+        DatabaseInterface musicDb;
+
+        musicDb.init(QStringLiteral("testDb"));
+
+        QSignalSpy musicDbArtistAddedSpy(&musicDb, &DatabaseInterface::artistAdded);
+        QSignalSpy musicDbAlbumAddedSpy(&musicDb, &DatabaseInterface::albumAdded);
+        QSignalSpy musicDbTrackAddedSpy(&musicDb, &DatabaseInterface::trackAdded);
+        QSignalSpy musicDbArtistRemovedSpy(&musicDb, &DatabaseInterface::artistRemoved);
+        QSignalSpy musicDbAlbumRemovedSpy(&musicDb, &DatabaseInterface::albumRemoved);
+        QSignalSpy musicDbTrackRemovedSpy(&musicDb, &DatabaseInterface::trackRemoved);
+        QSignalSpy musicDbArtistModifiedSpy(&musicDb, &DatabaseInterface::artistModified);
+        QSignalSpy musicDbAlbumModifiedSpy(&musicDb, &DatabaseInterface::albumModified);
+        QSignalSpy musicDbTrackModifiedSpy(&musicDb, &DatabaseInterface::trackModified);
+
+        QCOMPARE(musicDb.allAlbums().count(), 0);
+        QCOMPARE(musicDb.allArtists().count(), 0);
+        QCOMPARE(musicDbArtistAddedSpy.count(), 0);
+        QCOMPARE(musicDbAlbumAddedSpy.count(), 0);
+        QCOMPARE(musicDbTrackAddedSpy.count(), 0);
+        QCOMPARE(musicDbArtistRemovedSpy.count(), 0);
+        QCOMPARE(musicDbAlbumRemovedSpy.count(), 0);
+        QCOMPARE(musicDbTrackRemovedSpy.count(), 0);
+        QCOMPARE(musicDbArtistModifiedSpy.count(), 0);
+        QCOMPARE(musicDbAlbumModifiedSpy.count(), 0);
+        QCOMPARE(musicDbTrackModifiedSpy.count(), 0);
+
+        musicDb.insertTracksList(mNewTracks, mNewCovers);
+
+        QCOMPARE(musicDb.allAlbums().count(), 3);
+        QCOMPARE(musicDb.allArtists().count(), 6);
+        QCOMPARE(musicDbArtistAddedSpy.count(), 6);
+        QCOMPARE(musicDbAlbumAddedSpy.count(), 3);
+        QCOMPARE(musicDbTrackAddedSpy.count(), 13);
+        QCOMPARE(musicDbArtistRemovedSpy.count(), 0);
+        QCOMPARE(musicDbAlbumRemovedSpy.count(), 0);
+        QCOMPARE(musicDbTrackRemovedSpy.count(), 0);
+        QCOMPARE(musicDbArtistModifiedSpy.count(), 0);
+        QCOMPARE(musicDbAlbumModifiedSpy.count(), 0);
+        QCOMPARE(musicDbTrackModifiedSpy.count(), 0);
+
+        auto newTrack = MusicAudioTrack{true, QStringLiteral("$19"), QStringLiteral("0"), QStringLiteral("track1"),
+                QStringLiteral("artist2"), QStringLiteral("album5"), QStringLiteral("artist2"), 1, 1, QTime::fromMSecsSinceStartOfDay(19), {QUrl::fromLocalFile(QStringLiteral("/$19"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$19"))}};
+        auto newTracks = QHash<QString, QVector<MusicAudioTrack>>();
+        newTracks[newTrack.albumName()].push_back(newTrack);
+
+        auto newCover = QUrl::fromLocalFile(QStringLiteral("album5"));
+        auto newCovers = QHash<QString, QUrl>();
+        newCovers[QStringLiteral("album5")] = newCover;
+
+        musicDb.insertTracksList(newTracks, newCovers);
+
+        QCOMPARE(musicDb.allAlbums().count(), 4);
+        QCOMPARE(musicDb.allArtists().count(), 6);
+        QCOMPARE(musicDbArtistAddedSpy.count(), 6);
+        QCOMPARE(musicDbAlbumAddedSpy.count(), 4);
+        QCOMPARE(musicDbTrackAddedSpy.count(), 14);
+        QCOMPARE(musicDbArtistRemovedSpy.count(), 0);
+        QCOMPARE(musicDbAlbumRemovedSpy.count(), 0);
+        QCOMPARE(musicDbTrackRemovedSpy.count(), 0);
+        QCOMPARE(musicDbArtistModifiedSpy.count(), 0);
+        QCOMPARE(musicDbAlbumModifiedSpy.count(), 0);
+        QCOMPARE(musicDbTrackModifiedSpy.count(), 0);
+    }
 };
 
 QTEST_MAIN(DatabaseInterfaceTests)

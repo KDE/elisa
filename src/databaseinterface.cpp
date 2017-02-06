@@ -444,6 +444,7 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
 
     for (const auto &album : tracks) {
         bool albumIsNew = false;
+        bool albumIsModified = false;
         MusicAlbum newAlbum;
 
         int previousDiscNumber = album[0].discNumber();
@@ -493,6 +494,7 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
             albumId = d->mSelectAlbumIdFromTitleQuery.record().value(0).toULongLong();
             maximumAlbumId = std::max(maximumAlbumId, d->mSelectAlbumIdFromTitleQuery.record().value(0).toULongLong());
             d->mSelectAlbumIdFromTitleQuery.finish();
+            albumIsModified = true;
         } else {
             d->mSelectAlbumIdFromTitleQuery.finish();
 
@@ -606,7 +608,10 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
         }
 
         if (albumIsNew) {
-            Q_EMIT albumAdded(internalAlbumFromId(d->mAlbumId - 1));
+            Q_EMIT albumAdded(internalAlbumFromId(albumId));
+        }
+        if (albumIsModified) {
+            Q_EMIT albumModified(internalAlbumFromId(albumId));
         }
     }
 

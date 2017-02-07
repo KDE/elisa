@@ -31,6 +31,7 @@ import org.mgallien.QmlExtension 1.0
 Rectangle {
     property StackView stackView
     property MediaPlayList playListModel
+    property var musicListener
     property var playerControl
     property var contentDirectoryModel
     property var image

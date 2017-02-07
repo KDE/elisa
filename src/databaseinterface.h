@@ -78,13 +78,13 @@ Q_SIGNALS:
 
     void albumRemoved(MusicAlbum newAlbum);
 
-    void trackRemoved(MusicAudioTrack newTrack);
+    void trackRemoved(MusicAudioTrack removedTrack);
 
     void artistModified(MusicArtist newArtist);
 
     void albumModified(MusicAlbum newAlbum);
 
-    void trackModified(MusicAudioTrack newTrack);
+    void trackModified(MusicAudioTrack modifiedTrack);
 
     void requestsInitDone();
 

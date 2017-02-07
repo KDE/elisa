@@ -31,6 +31,7 @@ import org.mgallien.QmlExtension 1.0
 Rectangle {
     property StackView stackView
     property MediaPlayList playListModel
+    property var musicListener
     property var playerControl
     property alias image: playIcon.source
     property alias title: titleLabel.text
@@ -64,6 +65,7 @@ Rectangle {
                            {
                                'stackView': stackView,
                                'playListModel': playListModel,
+                               'musicListener': musicListener,
                                'playerControl': playerControl,
                                'albumArtUrl': image,
                                'albumName': title,

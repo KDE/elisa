@@ -98,11 +98,17 @@ public:
 
     qulonglong trackIdFromIndex(int index) const;
 
+    int trackIndexFromId(qulonglong id) const;
+
     QStringList allArtists() const;
 
     QStringList allTracksTitle() const;
 
     bool isEmpty() const;
+
+    void removeTrackFromIndex(int index);
+
+    void insertTrack(MusicAudioTrack newTrack, int index);
 
 private:
 

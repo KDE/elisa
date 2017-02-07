@@ -31,6 +31,7 @@ Item {
 
     property StackView stackView
     property MediaPlayList playListModel
+    property var musicListener
     property var playerControl
     property var albumName
     property var artistName
@@ -64,6 +65,24 @@ Item {
         id: contentModel
 
         albumData: topListing.albumData
+    }
+
+    Connections {
+        target: musicListener
+
+        onTrackAdded: contentModel.trackAdded(newTrack)
+    }
+
+    Connections {
+        target: musicListener
+
+        onTrackRemoved: contentModel.trackRemoved(removedTrack)
+    }
+
+    Connections {
+        target: musicListener
+
+        onTrackModified: contentModel.trackModified(modifiedTrack)
     }
 
     ColumnLayout {

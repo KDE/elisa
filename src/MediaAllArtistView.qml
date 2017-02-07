@@ -34,6 +34,7 @@ Item {
     property var artistsModel
     property var stackView
     property var contentDirectoryModel
+    property var musicListener
 
     id: rootElement
 
@@ -121,6 +122,8 @@ Item {
                         delegate: MediaArtistDelegate {
                             width: contentDirectoryView.cellWidth
                             height: contentDirectoryView.cellHeight
+
+                            musicListener: rootElement.musicListener
 
                             image: if (model.image)
                                        model.image

@@ -21,6 +21,11 @@
 
 #include <algorithm>
 
+#include <QList>
+#include <QString>
+#include <QUrl>
+#include <QMap>
+
 #include <QDebug>
 
 class MusicAlbumPrivate
@@ -217,6 +222,21 @@ qulonglong MusicAlbum::trackIdFromIndex(int index) const
     return d->mTrackIds[index];
 }
 
+int MusicAlbum::trackIndexFromId(qulonglong id) const
+{
+    int result = -1;
+
+    auto itTrack = std::find(d->mTrackIds.begin(), d->mTrackIds.end(), id);
+
+    if (itTrack == d->mTrackIds.end()) {
+        return result;
+    }
+
+    result = itTrack - d->mTrackIds.begin();
+
+    return result;
+}
+
 QStringList MusicAlbum::allArtists() const
 {
     auto result = QList<QString>();
@@ -248,6 +268,24 @@ QStringList MusicAlbum::allTracksTitle() const
 bool MusicAlbum::isEmpty() const
 {
     return d->mTrackIds.isEmpty();
+}
+
+void MusicAlbum::removeTrackFromIndex(int index)
+{
+    if (index < 0 || index >= tracksCount()) {
+        return;
+    }
+
+    --d->mTracksCount;
+    d->mTracks.remove(d->mTrackIds.at(index));
+    d->mTrackIds.removeAt(index);
+}
+
+void MusicAlbum::insertTrack(MusicAudioTrack newTrack, int index)
+{
+    d->mTrackIds.insert(index, newTrack.databaseId());
+    d->mTracks[newTrack.databaseId()] = newTrack;
+    ++d->mTracksCount;
 }
 
 QDebug& operator<<(QDebug &stream, const MusicAlbum &data)

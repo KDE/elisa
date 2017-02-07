@@ -260,7 +260,16 @@ void AlbumModel::setAlbumData(MusicAlbum album)
         return;
     }
 
+    if (d->mCurrentAlbum.tracksCount() > 0) {
+        beginRemoveRows({}, 0, d->mCurrentAlbum.tracksCount() - 1);
+        d->mCurrentAlbum = {};
+        endRemoveRows();
+    }
+
+    beginInsertRows({}, 0, album.tracksCount() - 1);
     d->mCurrentAlbum = album;
+    endInsertRows();
+
     Q_EMIT albumDataChanged();
 }
 
@@ -282,12 +291,57 @@ void AlbumModel::setAuthor(QString author)
     emit authorChanged();
 }
 
-void AlbumModel::trackAdded(qulonglong newTrackId)
+void AlbumModel::trackAdded(MusicAudioTrack newTrack)
 {
-    Q_UNUSED(newTrackId);
+    if (newTrack.albumName() != d->mCurrentAlbum.title()) {
+        return;
+    }
 
-    beginResetModel();
-    endResetModel();
+    auto trackIndex = d->mCurrentAlbum.trackIndexFromId(newTrack.databaseId());
+
+    if (trackIndex != -1) {
+        return;
+    }
+
+    bool trackInserted = false;
+    for (int trackIndex = 0; trackIndex < d->mCurrentAlbum.tracksCount(); ++trackIndex) {
+        const auto &oneTrack = d->mCurrentAlbum.trackFromIndex(trackIndex);
+
+        if (oneTrack.discNumber() == newTrack.discNumber() && oneTrack.trackNumber() > newTrack.trackNumber()) {
+            beginInsertRows({}, trackIndex, trackIndex);
+            d->mCurrentAlbum.insertTrack(newTrack, trackIndex);
+            endInsertRows();
+            trackInserted = true;
+            break;
+        }
+    }
+
+    if (!trackInserted) {
+        beginInsertRows({}, d->mCurrentAlbum.tracksCount(), d->mCurrentAlbum.tracksCount());
+        d->mCurrentAlbum.insertTrack(newTrack, d->mCurrentAlbum.tracksCount());
+        endInsertRows();
+    }
+}
+
+void AlbumModel::trackModified(MusicAudioTrack modifiedTrack)
+{
+}
+
+void AlbumModel::trackRemoved(MusicAudioTrack removedTrack)
+{
+    if (removedTrack.albumName() != d->mCurrentAlbum.title()) {
+        return;
+    }
+
+    auto trackIndex = d->mCurrentAlbum.trackIndexFromId(removedTrack.databaseId());
+
+    if (trackIndex == -1) {
+        return;
+    }
+
+    beginRemoveRows({}, trackIndex, trackIndex);
+    d->mCurrentAlbum.removeTrackFromIndex(trackIndex);
+    endRemoveRows();
 }
 
 

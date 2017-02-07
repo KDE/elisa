@@ -32,6 +32,7 @@ Item {
     property var rootIndex
     property StackView stackView
     property MediaPlayList playListModel
+    property var musicListener
     property var playerControl
     property var contentDirectoryModel
 
@@ -119,6 +120,7 @@ Item {
                             width: contentDirectoryView.cellWidth
                             height: contentDirectoryView.cellHeight
 
+                            musicListener: rootElement.musicListener
                             image: model.image
                             title: if (model.title)
                                        model.title

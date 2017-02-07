@@ -121,9 +121,11 @@ public Q_SLOTS:
 
     void setAuthor(QString author);
 
-private Q_SLOTS:
+    void trackAdded(MusicAudioTrack newTrack);
 
-    void trackAdded(qulonglong newTrackId);
+    void trackModified(MusicAudioTrack modifiedTrack);
+
+    void trackRemoved(MusicAudioTrack removedTrack);
 
 private:
 

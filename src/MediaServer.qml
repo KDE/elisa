@@ -265,13 +265,13 @@ ApplicationWindow {
     Connections {
         target: allListeners
 
-        onAlbumRemoved: allAlbumsModel.albumRemoved(newAlbum)
+        onAlbumRemoved: allAlbumsModel.albumRemoved(removedAlbum)
     }
 
     Connections {
         target: allListeners
 
-        onAlbumModified: allAlbumsModel.albumModified(newAlbum)
+        onAlbumModified: allAlbumsModel.albumModified(modifiedAlbum)
     }
 
     AllArtistsModel {
@@ -541,6 +541,7 @@ ApplicationWindow {
                                     playListModel: playListModelItem
                                     playerControl: manageAudioPlayer
                                     stackView: localAlbums.stackView
+                                    musicListener: allListeners
                                     contentDirectoryModel: allAlbumsModel
                                 }
 
@@ -557,6 +558,7 @@ ApplicationWindow {
                                     artistsModel: allArtistsModel
                                     playerControl: manageAudioPlayer
                                     stackView: localArtists.stackView
+                                    musicListener: allListeners
                                     contentDirectoryModel: allAlbumsModel
                                 }
 

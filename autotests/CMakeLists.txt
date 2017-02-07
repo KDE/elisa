@@ -302,3 +302,17 @@ add_executable(allalbumsmodeltest ${allalbumsmodeltest_SOURCES})
 target_link_libraries(allalbumsmodeltest Qt5::Test Qt5::Core Qt5::Sql KF5::I18n)
 target_include_directories(allalbumsmodeltest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 add_test(allalbumsmodeltest allalbumsmodeltest)
+
+set(albummodeltest_SOURCES
+    ../src/databaseinterface.cpp
+    ../src/musicartist.cpp
+    ../src/musicalbum.cpp
+    ../src/musicaudiotrack.cpp
+    ../src/albummodel.cpp
+    albummodeltest.cpp
+)
+
+add_executable(albummodeltest ${albummodeltest_SOURCES})
+target_link_libraries(albummodeltest Qt5::Test Qt5::Core Qt5::Sql KF5::I18n)
+target_include_directories(albummodeltest PRIVATE ${CMAKE_SOURCE_DIR}/src)
+add_test(albummodeltest albummodeltest)

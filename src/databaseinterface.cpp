@@ -1390,8 +1390,8 @@ QMap<qulonglong, MusicAudioTrack> DatabaseInterface::fetchTracks(qulonglong albu
     auto result = d->mSelectTrackQuery.exec();
 
     if (!result || !d->mSelectTrackQuery.isSelect() || !d->mSelectTrackQuery.isActive()) {
-        qDebug() << "DatabaseInterface::fetchTracks" << "not select" << d->mSelectTrackQuery.lastQuery();
-        qDebug() << "DatabaseInterface::fetchTracks" << "not select" << d->mSelectTrackQuery.boundValues();
+        qDebug() << "DatabaseInterface::fetchTracks" << d->mSelectTrackQuery.lastQuery();
+        qDebug() << "DatabaseInterface::fetchTracks" << d->mSelectTrackQuery.boundValues();
         qDebug() << "DatabaseInterface::fetchTracks" << d->mSelectTrackQuery.lastError();
     }
 

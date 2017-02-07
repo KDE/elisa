@@ -110,6 +110,8 @@ private:
 
     QMap<qulonglong, MusicAudioTrack> fetchTracks(qulonglong albumId) const;
 
+    QList<qulonglong> fetchTrackIds(qulonglong albumId) const;
+
     void updateTracksCount(qulonglong albumId, int tracksCount) const;
 
     MusicArtist internalArtistFromId(qulonglong artistId) const;

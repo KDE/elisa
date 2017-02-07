@@ -59,11 +59,13 @@ private Q_SLOTS:
 
     void directoryChanged(const QString &path);
 
-    void fileChanged(const QString &path);
+    void fileChanged(const QString &modifiedFileName);
 
 private:
 
     void scanDirectory(const QString &path);
+
+    MusicAudioTrack scanOneFile(QUrl scanFile);
 
     std::unique_ptr<LocalFileListingPrivate> d;
 

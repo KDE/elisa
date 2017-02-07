@@ -107,8 +107,6 @@ void LocalFileListing::scanDirectory(const QString &path)
         }
     }
 
-    std::sort(currentFilesList.begin(), currentFilesList.end());
-
     auto removedTracks = QList<QUrl>();
     for (const auto &removedFilePath : currentDirectoryListing) {
         auto itFilePath = std::find(currentFilesList.begin(), currentFilesList.end(), removedFilePath);
@@ -152,82 +150,19 @@ void LocalFileListing::scanDirectory(const QString &path)
 
         currentDirectoryListing.push_back(newFilePath);
 
-        QMimeDatabase mimeDb;
-        QString mimetype = mimeDb.mimeTypeForFile(newFilePath.toLocalFile()).name();
+        auto newTrack = scanOneFile(newFilePath);
 
-        d->mFileSystemWatcher.addPath(newFilePath.toLocalFile());
-
-        KFileMetaData::ExtractorCollection extractors;
-        QList<KFileMetaData::Extractor*> exList = extractors.fetchExtractors(mimetype);
-
-        KFileMetaData::Extractor* ex = exList.first();
-        KFileMetaData::SimpleExtractionResult result(newFilePath.toLocalFile(), mimetype,
-                                                     KFileMetaData::ExtractionResult::ExtractMetaData);
-
-        ex->extract(&result);
-
-        const auto &allProperties = result.properties();
-
-        auto titleProperty = allProperties.find(KFileMetaData::Property::Title);
-        auto durationProperty = allProperties.find(KFileMetaData::Property::Duration);
-        auto artistProperty = allProperties.find(KFileMetaData::Property::Artist);
-        auto albumProperty = allProperties.find(KFileMetaData::Property::Album);
-        auto albumArtistProperty = allProperties.find(KFileMetaData::Property::AlbumArtist);
-        auto trackNumberProperty = allProperties.find(KFileMetaData::Property::TrackNumber);
-
-        if (albumProperty != allProperties.end()) {
-            auto albumValue = albumProperty->toString();
-            auto &allTracks = d->mAllAlbums[albumValue];
-
-            MusicAudioTrack newTrack;
-
-            newTrack.setAlbumName(albumValue);
-            ++d->mCptTracks;
-
-            if (artistProperty != allProperties.end()) {
-                newTrack.setArtist(artistProperty->toString());
-            }
-
-            if (durationProperty != allProperties.end()) {
-                newTrack.setDuration(QTime::fromMSecsSinceStartOfDay(1000 * durationProperty->toDouble()));
-            }
-
-            if (titleProperty != allProperties.end()) {
-                newTrack.setTitle(titleProperty->toString());
-            }
-
-            if (trackNumberProperty != allProperties.end()) {
-                newTrack.setTrackNumber(trackNumberProperty->toInt());
-            }
-
-            if (albumArtistProperty != allProperties.end()) {
-                newTrack.setAlbumArtist(albumArtistProperty->toString());
-            }
-
-            if (newTrack.albumArtist().isEmpty()) {
-                newTrack.setAlbumArtist(newTrack.artist());
-            }
-
-            if (newTrack.artist().isEmpty()) {
-                newTrack.setArtist(newTrack.albumArtist());
-            }
-
-            newTrack.setResourceURI(newFilePath);
-            QFileInfo trackFilePath(newFilePath.toLocalFile());
+        if (newTrack.isValid()) {
+            QFileInfo trackFilePath(newTrack.resourceURI().toLocalFile());
             QFileInfo coverFilePath(trackFilePath.dir().filePath(QStringLiteral("cover.jpg")));
             if (coverFilePath.exists()) {
-                d->mAllAlbumCover[albumValue] = QUrl::fromLocalFile(coverFilePath.absoluteFilePath());
+                d->mAllAlbumCover[newTrack.albumName()] = QUrl::fromLocalFile(coverFilePath.absoluteFilePath());
             }
+
+            auto &allTracks = d->mAllAlbums[newTrack.albumName()];
 
             allTracks.push_back(newTrack);
             d->mAlbumNameFromTrackFile[newTrack.resourceURI()] = newTrack.albumName();
-        }
-
-        if (albumProperty != allProperties.end()) {
-            auto albumValue = albumProperty->toString();
-            auto &allTracks = d->mAllAlbums[albumValue];
-
-            std::sort(allTracks.begin(), allTracks.end());
         }
     }
 }
@@ -239,14 +174,110 @@ void LocalFileListing::directoryChanged(const QString &path)
     Q_EMIT tracksList(d->mAllAlbums, d->mAllAlbumCover);
 }
 
-void LocalFileListing::fileChanged(const QString &path)
+void LocalFileListing::fileChanged(const QString &modifiedFileName)
 {
+    auto modifiedFile = QUrl::fromLocalFile(modifiedFileName);
+    auto itAlbumName = d->mAlbumNameFromTrackFile.find(modifiedFile);
+
+    if (itAlbumName != d->mAlbumNameFromTrackFile.end()) {
+        auto itAlbum = d->mAllAlbums.find(*itAlbumName);
+        if (itAlbum != d->mAllAlbums.end()) {
+            for (auto itTrack : *itAlbum) {
+                if (itTrack.resourceURI() == modifiedFile) {
+                    auto modifiedTrack = scanOneFile(modifiedFile);
+
+                    if (modifiedTrack.isValid()) {
+                        auto removedTracks = QList<QUrl>{modifiedFile};
+                        Q_EMIT removedTracksList(removedTracks);
+
+                        QHash<QString, QVector<MusicAudioTrack>> modifiedAlbum;
+
+                        auto &currentAlbum = modifiedAlbum[modifiedTrack.albumName()];
+                        currentAlbum.push_back(modifiedTrack);
+
+                        Q_EMIT tracksList(modifiedAlbum, d->mAllAlbumCover);
+                    }
+
+                    break;
+                }
+            }
+        }
+    }
 }
 
 void LocalFileListing::refreshContent()
 {
     scanDirectory(d->mRootPath);
     Q_EMIT tracksList(d->mAllAlbums, d->mAllAlbumCover);
+}
+
+MusicAudioTrack LocalFileListing::scanOneFile(QUrl scanFile)
+{
+    MusicAudioTrack newTrack;
+
+    QMimeDatabase mimeDb;
+    QString mimetype = mimeDb.mimeTypeForFile(scanFile.toLocalFile()).name();
+
+    d->mFileSystemWatcher.addPath(scanFile.toLocalFile());
+
+    KFileMetaData::ExtractorCollection extractors;
+    QList<KFileMetaData::Extractor*> exList = extractors.fetchExtractors(mimetype);
+
+    KFileMetaData::Extractor* ex = exList.first();
+    KFileMetaData::SimpleExtractionResult result(scanFile.toLocalFile(), mimetype,
+                                                 KFileMetaData::ExtractionResult::ExtractMetaData);
+
+    ex->extract(&result);
+
+    const auto &allProperties = result.properties();
+
+    auto titleProperty = allProperties.find(KFileMetaData::Property::Title);
+    auto durationProperty = allProperties.find(KFileMetaData::Property::Duration);
+    auto artistProperty = allProperties.find(KFileMetaData::Property::Artist);
+    auto albumProperty = allProperties.find(KFileMetaData::Property::Album);
+    auto albumArtistProperty = allProperties.find(KFileMetaData::Property::AlbumArtist);
+    auto trackNumberProperty = allProperties.find(KFileMetaData::Property::TrackNumber);
+
+    if (albumProperty != allProperties.end()) {
+        auto albumValue = albumProperty->toString();
+
+        newTrack.setAlbumName(albumValue);
+        ++d->mCptTracks;
+
+        if (artistProperty != allProperties.end()) {
+            newTrack.setArtist(artistProperty->toString());
+        }
+
+        if (durationProperty != allProperties.end()) {
+            newTrack.setDuration(QTime::fromMSecsSinceStartOfDay(1000 * durationProperty->toDouble()));
+        }
+
+        if (titleProperty != allProperties.end()) {
+            newTrack.setTitle(titleProperty->toString());
+        }
+
+        if (trackNumberProperty != allProperties.end()) {
+            newTrack.setTrackNumber(trackNumberProperty->toInt());
+        }
+
+        if (albumArtistProperty != allProperties.end()) {
+            newTrack.setAlbumArtist(albumArtistProperty->toString());
+        }
+
+        if (newTrack.albumArtist().isEmpty()) {
+            newTrack.setAlbumArtist(newTrack.artist());
+        }
+
+        if (newTrack.artist().isEmpty()) {
+            newTrack.setArtist(newTrack.albumArtist());
+        }
+
+        newTrack.setResourceURI(scanFile);
+
+        newTrack.setValid(true);
+    }
+
+    return newTrack;
 }
 
 

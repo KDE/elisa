@@ -117,14 +117,14 @@ void LocalFileListing::scanDirectory(const QString &path)
 
         removedTracks.push_back(removedFilePath);
     }
-    for (const auto &oneRemovedTask : removedTracks) {
-        auto itAlbumName = d->mAlbumNameFromTrackFile.find(oneRemovedTask);
+    for (const auto &oneRemovedTrack : removedTracks) {
+        auto itAlbumName = d->mAlbumNameFromTrackFile.find(oneRemovedTrack);
 
         if (itAlbumName != d->mAlbumNameFromTrackFile.end()) {
             auto itAlbum = d->mAllAlbums.find(*itAlbumName);
             if (itAlbum != d->mAllAlbums.end()) {
                 for (auto itTrack = itAlbum->begin(); itTrack != itAlbum->end(); ) {
-                    if (itTrack->resourceURI() == oneRemovedTask) {
+                    if (itTrack->resourceURI() == oneRemovedTrack) {
                         itTrack = itAlbum->erase(itTrack);
                     } else {
                         ++itTrack;
@@ -133,7 +133,7 @@ void LocalFileListing::scanDirectory(const QString &path)
             }
         }
 
-        auto itRemovedTrack = std::find(currentDirectoryListing.begin(), currentDirectoryListing.end(), oneRemovedTask);
+        auto itRemovedTrack = std::find(currentDirectoryListing.begin(), currentDirectoryListing.end(), oneRemovedTrack);
         currentDirectoryListing.erase(itRemovedTrack);
     }
 

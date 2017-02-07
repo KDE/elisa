@@ -79,6 +79,8 @@ public:
         DiscFirstTrackRole = DatabaseIdRole + 1,
     };
 
+    Q_ENUM(ColumnsRoles)
+
     explicit AlbumModel(QObject *parent = 0);
 
     virtual ~AlbumModel();

@@ -694,21 +694,6 @@ void DatabaseInterface::removeTracksList(const QList<QUrl> removedTracks)
     }
 }
 
-void DatabaseInterface::databaseArtistAdded(MusicArtist newArtist)
-{
-    Q_EMIT artistAdded(newArtist);
-}
-
-void DatabaseInterface::databaseAlbumAdded(MusicAlbum newAlbum)
-{
-    Q_EMIT albumAdded(newAlbum);
-}
-
-void DatabaseInterface::databaseTrackAdded(MusicAudioTrack newTrack)
-{
-    Q_EMIT trackAdded(newTrack);
-}
-
 bool DatabaseInterface::startTransaction() const
 {
     auto result = false;

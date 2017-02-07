@@ -94,12 +94,6 @@ public Q_SLOTS:
 
     void removeTracksList(const QList<QUrl> removedTracks);
 
-    void databaseArtistAdded(MusicArtist newArtist);
-
-    void databaseAlbumAdded(MusicAlbum newAlbum);
-
-    void databaseTrackAdded(MusicAudioTrack newTrack);
-
 private:
 
     bool startTransaction() const;

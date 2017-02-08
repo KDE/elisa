@@ -325,6 +325,18 @@ void AlbumModel::trackAdded(MusicAudioTrack newTrack)
 
 void AlbumModel::trackModified(MusicAudioTrack modifiedTrack)
 {
+    if (modifiedTrack.albumName() != d->mCurrentAlbum.title()) {
+        return;
+    }
+
+    auto trackIndex = d->mCurrentAlbum.trackIndexFromId(modifiedTrack.databaseId());
+
+    if (trackIndex == -1) {
+        return;
+    }
+
+    d->mCurrentAlbum.updateTrack(modifiedTrack, trackIndex);
+    Q_EMIT dataChanged(index(trackIndex, 0), index(trackIndex, 0));
 }
 
 void AlbumModel::trackRemoved(MusicAudioTrack removedTrack)

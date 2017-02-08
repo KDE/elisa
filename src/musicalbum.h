@@ -110,6 +110,8 @@ public:
 
     void insertTrack(MusicAudioTrack newTrack, int index);
 
+    void updateTrack(MusicAudioTrack modifiedTrack, int index);
+
 private:
 
     MusicAlbumPrivate *d;

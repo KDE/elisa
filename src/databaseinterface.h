@@ -94,6 +94,8 @@ public Q_SLOTS:
 
     void removeTracksList(const QList<QUrl> removedTracks);
 
+    void modifyTracksList(const QList<MusicAudioTrack> modifiedTracks);
+
 private:
 
     bool startTransaction() const;
@@ -115,6 +117,8 @@ private:
     MusicAlbum internalAlbumFromTitle(QString title) const;
 
     MusicAudioTrack internalTrackFromDatabaseId(qulonglong id) const;
+
+    qulonglong internalTrackIdFromTitleAlbumArtist(QString title, QString album, QString artist) const;
 
     QVariant internalAlbumDataFromId(qulonglong albumId, AlbumData dataType) const;
 

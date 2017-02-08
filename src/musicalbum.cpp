@@ -288,6 +288,11 @@ void MusicAlbum::insertTrack(MusicAudioTrack newTrack, int index)
     ++d->mTracksCount;
 }
 
+void MusicAlbum::updateTrack(MusicAudioTrack modifiedTrack, int index)
+{
+    d->mTracks[d->mTrackIds[index]] = modifiedTrack;
+}
+
 QDebug& operator<<(QDebug &stream, const MusicAlbum &data)
 {
     stream << data.title() << " " << data.artist();

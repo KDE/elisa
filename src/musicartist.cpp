@@ -121,3 +121,8 @@ QDebug& operator<<(QDebug &stream, const MusicArtist &data)
 
     return stream;
 }
+
+bool operator==(const MusicArtist &artist1, const MusicArtist &artist2)
+{
+    return artist1.name() == artist2.name() && artist1.albumsCount() == artist2.albumsCount();
+}

@@ -177,4 +177,25 @@ void AllArtistsModel::artistAdded(MusicArtist newArtist)
     }
 }
 
+void AllArtistsModel::artistRemoved(MusicArtist removedArtist)
+{
+    auto removedArtistIterator = std::find(d->mAllArtists.begin(), d->mAllArtists.end(), removedArtist);
+
+    if (removedArtistIterator == d->mAllArtists.end()) {
+        return;
+    }
+
+    int artistIndex = removedArtistIterator - d->mAllArtists.begin();
+
+    beginRemoveRows({}, artistIndex, artistIndex);
+    d->mAllArtists.erase(removedArtistIterator);
+    --d->mArtistsCount;
+    endRemoveRows();
+}
+
+void AllArtistsModel::artistModified(MusicArtist modifiedArtist)
+{
+    Q_UNUSED(modifiedArtist);
+}
+
 #include "moc_allartistsmodel.cpp"

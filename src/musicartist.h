@@ -65,4 +65,6 @@ private:
 
 QDebug& operator<<(QDebug &stream, const MusicArtist &data);
 
+bool operator==(const MusicArtist &artist1, const MusicArtist &artist2);
+
 #endif // MUSICARTIST_H

@@ -67,6 +67,10 @@ public Q_SLOTS:
 
     void artistAdded(MusicArtist newArtist);
 
+    void artistRemoved(MusicArtist removedArtist);
+
+    void artistModified(MusicArtist modifiedArtist);
+
 private:
 
     AllArtistsModelPrivate *d;

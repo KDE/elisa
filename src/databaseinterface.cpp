@@ -424,6 +424,10 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
         bool albumIsModified = false;
         MusicAlbum newAlbum;
 
+        if (album.isEmpty()) {
+            continue;
+        }
+
         int previousDiscNumber = album[0].discNumber();
 
         for(const auto &track : album) {

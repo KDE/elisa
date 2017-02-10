@@ -147,6 +147,29 @@ private Q_SLOTS:
         musicDb.allAlbums();
     }
 
+    void avoidCrashInWithEmptyAlbum()
+    {
+        auto configDirectory = QDir(QStandardPaths::writableLocation(QStandardPaths::QStandardPaths::AppDataLocation));
+        auto rootDirectory = QDir::root();
+        rootDirectory.mkpath(configDirectory.path());
+        auto fileName = configDirectory.filePath(QStringLiteral("elisaMusicDatabase.sqlite"));
+        QFile dbFile(fileName);
+        auto dbExists = dbFile.exists();
+
+        if (dbExists) {
+            QCOMPARE(dbFile.remove(), true);
+        }
+
+        DatabaseInterface musicDb;
+
+        musicDb.init(QStringLiteral("testDb"));
+
+        QHash<QString, QVector<MusicAudioTrack>> newTracks = mNewTracks;
+        newTracks[QStringLiteral("album5")];
+
+        musicDb.insertTracksList(newTracks, mNewCovers);
+    }
+
     void addMultipleTimeSameTracks()
     {
         auto configDirectory = QDir(QStandardPaths::writableLocation(QStandardPaths::QStandardPaths::AppDataLocation));

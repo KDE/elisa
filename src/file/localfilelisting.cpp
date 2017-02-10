@@ -131,6 +131,9 @@ void LocalFileListing::scanDirectory(const QString &path)
                     }
                 }
             }
+            if (itAlbum->isEmpty()) {
+                d->mAllAlbums.erase(itAlbum);
+            }
         }
 
         auto itRemovedTrack = std::find(currentDirectoryListing.begin(), currentDirectoryListing.end(), oneRemovedTrack);

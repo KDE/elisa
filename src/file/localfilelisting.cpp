@@ -223,6 +223,11 @@ MusicAudioTrack LocalFileListing::scanOneFile(QUrl scanFile)
     KFileMetaData::ExtractorCollection extractors;
     QList<KFileMetaData::Extractor*> exList = extractors.fetchExtractors(mimetype);
 
+    if (exList.isEmpty()) {
+        qDebug() << "LocalFileListing::scanOneFile" << "empty extractors list" << scanFile;
+        return newTrack;
+    }
+
     KFileMetaData::Extractor* ex = exList.first();
     KFileMetaData::SimpleExtractionResult result(scanFile.toLocalFile(), mimetype,
                                                  KFileMetaData::ExtractionResult::ExtractMetaData);

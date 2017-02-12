@@ -59,7 +59,7 @@ MediaPlayer2Player::MediaPlayer2Player(PlayListControler *playListControler, Man
             this, &MediaPlayer2Player::playerPlaybackStateChanged);
     connect(m_manageAudioPlayer, &ManageAudioPlayer::playerIsSeekableChanged,
             this, &MediaPlayer2Player::playerIsSeekableChanged);
-    connect(m_manageAudioPlayer, &ManageAudioPlayer::playControlPositionChanged,
+    connect(m_manageAudioPlayer, &ManageAudioPlayer::playerPositionChanged,
             this, &MediaPlayer2Player::audioPositionChanged);
 
     m_mediaPlayerPresent = 1;
@@ -303,7 +303,7 @@ void MediaPlayer2Player::playerIsSeekableChanged()
 
 void MediaPlayer2Player::audioPositionChanged()
 {
-    setPropertyPosition(m_manageAudioPlayer->playControlPosition());
+    setPropertyPosition(m_manageAudioPlayer->playerPosition());
 }
 
 int MediaPlayer2Player::currentTrack() const

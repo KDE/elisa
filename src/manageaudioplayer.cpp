@@ -80,9 +80,14 @@ bool ManageAudioPlayer::playerIsSeekable() const
     return mPlayerIsSeekable;
 }
 
+int ManageAudioPlayer::playerPosition() const
+{
+    return mPlayerPosition;
+}
+
 int ManageAudioPlayer::playControlPosition() const
 {
-    return mPlayControlPosition;
+    return mPlayerPosition;
 }
 
 QVariantMap ManageAudioPlayer::persistentState() const
@@ -90,6 +95,7 @@ QVariantMap ManageAudioPlayer::persistentState() const
     auto persistentStateValue = QVariantMap();
 
     persistentStateValue[QStringLiteral("isPlaying")] = mPlayingState;
+    persistentStateValue[QStringLiteral("playerPosition")] = mPlayerPosition;
 
     return persistentStateValue;
 }
@@ -214,6 +220,14 @@ void ManageAudioPlayer::setPlayerPlaybackState(int playerPlaybackState)
             }
             break;
         case PlayingState:
+            if (isFirstPlayTriggerSeek) {
+                isFirstPlayTriggerSeek = false;
+                auto playerPosition = mPersistentState.find(QStringLiteral("playerPosition"));
+                if (playerPosition != mPersistentState.end()) {
+                    mPlayerPosition = playerPosition->toInt();
+                    Q_EMIT seek(mPlayerPosition);
+                }
+            }
             if (mPlayListModel && mCurrentTrack.isValid()) {
                 mPlayListModel->setData(mCurrentTrack, true, mIsPlayingRole);
             }
@@ -231,6 +245,14 @@ void ManageAudioPlayer::setPlayerPlaybackState(int playerPlaybackState)
             }
             break;
         case PlayingState:
+            if (isFirstPlayTriggerSeek) {
+                isFirstPlayTriggerSeek = false;
+                auto playerPosition = mPersistentState.find(QStringLiteral("playerPosition"));
+                if (playerPosition != mPersistentState.end()) {
+                    mPlayerPosition = playerPosition->toInt();
+                    Q_EMIT seek(mPlayerPosition);
+                }
+            }
             if (mPlayListModel && mCurrentTrack.isValid()) {
                 mPlayListModel->setData(mCurrentTrack, true, mIsPlayingRole);
             }
@@ -305,14 +327,20 @@ void ManageAudioPlayer::setPlayerIsSeekable(bool playerIsSeekable)
     Q_EMIT playerIsSeekableChanged();
 }
 
-void ManageAudioPlayer::setPlayControlPosition(int playControlPosition)
+void ManageAudioPlayer::setPlayerPosition(int playerPosition)
 {
-    if (mPlayControlPosition == playControlPosition) {
+    if (mPlayerPosition == playerPosition) {
         return;
     }
 
-    mPlayControlPosition = playControlPosition;
-    Q_EMIT playControlPositionChanged();
+    mPlayerPosition = playerPosition;
+    Q_EMIT playerPositionChanged();
+    QTimer::singleShot(0, [this]() {Q_EMIT playControlPositionChanged();});
+}
+
+void ManageAudioPlayer::setPlayControlPosition(int playerPosition)
+{
+    Q_EMIT seek(playerPosition);
 }
 
 void ManageAudioPlayer::setPersistentState(QVariantMap persistentStateValue)

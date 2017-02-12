@@ -227,6 +227,7 @@ ApplicationWindow {
         playerError: audioPlayer.error
         audioDuration: audioPlayer.duration
         playerIsSeekable: audioPlayer.seekable
+        playerPosition: audioPlayer.position
 
         persistentState: persistentSettings.audioPlayerState
 
@@ -234,6 +235,7 @@ ApplicationWindow {
         onPlayerPause: audioPlayer.pause()
         onPlayerStop: audioPlayer.stop()
         onSkipNextTrack: playListControlerItem.skipNextTrack()
+        onSeek: audioPlayer.seek(position)
     }
 
     ManageMediaPlayerControl {

@@ -75,7 +75,11 @@ private Q_SLOTS:
 
     void playRestoredTrack();
 
-    void testRestoreSettings();
+    void testRestoreSettingsAutomaticPlay();
+
+    void testRestoreSettingsNoAutomaticPlay();
+
+    void testRestoreSettingsAutomaticPlayAndPosition();
 
     void playTrackPauseAndSkipNextTrack();
 

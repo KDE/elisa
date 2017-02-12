@@ -78,6 +78,11 @@ class ManageAudioPlayer : public QObject
                WRITE setPlayerIsSeekable
                NOTIFY playerIsSeekableChanged)
 
+    Q_PROPERTY(int playerPosition
+               READ playerPosition
+               WRITE setPlayerPosition
+               NOTIFY playerPositionChanged)
+
     Q_PROPERTY(int playControlPosition
                READ playControlPosition
                WRITE setPlayControlPosition
@@ -145,6 +150,8 @@ public:
 
     bool playerIsSeekable() const;
 
+    int playerPosition() const;
+
     int playControlPosition() const;
 
     QVariantMap persistentState() const;
@@ -179,9 +186,13 @@ Q_SIGNALS:
 
     void playerIsSeekableChanged();
 
+    void playerPositionChanged();
+
     void playControlPositionChanged();
 
     void persistentStateChanged();
+
+    void seek(int position);
 
 public Q_SLOTS:
 
@@ -205,7 +216,9 @@ public Q_SLOTS:
 
     void setPlayerIsSeekable(bool playerIsSeekable);
 
-    void setPlayControlPosition(int playControlPosition);
+    void setPlayerPosition(int playerPosition);
+
+    void setPlayControlPosition(int playerPosition);
 
     void setPersistentState(QVariantMap persistentStateValue);
 
@@ -253,7 +266,9 @@ private:
 
     bool mPlayerIsSeekable = false;
 
-    int mPlayControlPosition = 0;
+    int mPlayerPosition = 0;
+
+    bool isFirstPlayTriggerSeek = true;
 
     QVariantMap mPersistentState;
 

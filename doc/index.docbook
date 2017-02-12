@@ -17,7 +17,7 @@ as Authors, publish date, the abstract, and Keywords -->
 <author>
 <personname>
 <firstname>Matthieu</firstname>
-<surname>Ugnacious</surname>
+<surname>Gallien</surname>
 </personname>
 <email>matthieu_gallien@yahoo.fr</email>
 </author>
@@ -32,17 +32,7 @@ as Authors, publish date, the abstract, and Keywords -->
 
 <date>2017-02-11</date>
 
-<!--version information of Frameworks/Plasma/Applications this documentation is valid for.
-Example:
-Frameworks xx.yy for docbooks in frameworks
-Plasma xx.yy for docbooks in plasma workspace
-Applications xx.yy for docbooks released as Applications
-xx.yy (Applications xx.yy) for docbooks with own version released as Applications
-$applicationname xx.yy for applications with independent release schedule (extragear/playground)
--->
 <releaseinfo>Elisa 0.1</releaseinfo>
-
-<!-- Abstract about this handbook -->
 
 <abstract>
 <para>
@@ -65,26 +55,23 @@ $applicationname xx.yy for applications with independent release schedule (extra
 
 <para>
 &elisa; is a music player designed to be simple to use.
+It gets your music from different sources like local directories, Baloo indexer, ...
+</para>
+<para>
+&elisa; allows you to browse your music, build a playlist and plays it.
 </para>
 </chapter>
 
 <chapter id="using-kapp">
 <title>Using &elisa;</title>
 
-<!-- This chapter should tell the user how to use your app. You should use as
-many sections (Chapter, Sect1, Sect3, etc...) as is necessary to fully document
-your application. -->
-
 <para>
 
-<!-- Note that all graphics should be in .png format. Use no gifs because of
-patent issues. -->
-
 <screenshot>
-<screeninfo>Here's a screenshot of &elisa;</screeninfo>
+<screeninfo>Here's a screenshot of &elisa; start screen</screeninfo>
 	<mediaobject>
 	  <imageobject>
-	    <imagedata fileref="screenshot.png" format="PNG"/>
+	    <imagedata fileref="Screenshot_20170212_165351.png" format="PNG"/>
 	  </imageobject>
 	  <textobject>
 	    <phrase>Screenshot</phrase>
@@ -95,187 +82,54 @@ patent issues. -->
 
 
 <sect1 id="kapp-features">
-<title>More &elisa; features</title>
+<title>&elisa; features</title>
 
-<para>It slices! It dices! and it comes with a free toaster!</para>
 <para>
-The Squiggle Tool <guiicon><inlinemediaobject>
-	  <imageobject>
-	    <imagedata fileref="squiggle.png" format="PNG"/>
-	  </imageobject>
-	  <textobject>
-	    <phrase>Squiggle</phrase>
-	  </textobject>
-</inlinemediaobject></guiicon> is used to draw squiggly lines all over
-the &elisa; main window. It's not a bug, it's a feature!
+&elisa; provides two different tasks: browsing your music to build a playlist and playing music.
 </para>
-
-</sect1>
-</chapter>
-
-<chapter id="commands">
-<title>Command Reference</title>
-
-<!-- (OPTIONAL, BUT RECOMMENDED) This chapter should list all of the
-application windows and their menubar and toolbar commands for easy reference.
-Also include any keys that have a special function but have no equivalent in the
-menus or toolbars. 
-This may not be necessary for small apps or apps with no tool or menu bars.
-
-Don't bother users with well known kde menu items like Settings->Shortcuts etc. 
-
-Use cases for a command reference:
-
-Applications with many menu items (Kate/Konqueror) 
-Applications with different modes and menus (KWrite/Konqueror)
--> Enables search for menu items
-
-For Applications with default menu items and some special items where user 
-needs additional information use something like:
-"Apart from the common KDE menu items you find these action in the menu:
-
-File -> Special Action: Explanation of special action
-
-Tools -> Special Tool: Explanation of special tool
-
-Use variablelist markup for this
--->
-
-<sect1 id="kapp-mainwindow">
-<title>The main &elisa; window</title>
 
 <sect2>
-<title>The File Menu</title>
+<title>Browsing Music</title>
 <para>
-<variablelist>
-<varlistentry  id="file-new">
-<!-- Tip: With id's here, then you can use them like 
-"select <xref linkend="file-new"/> to open the file dialog"
-which will be expanded to:
-"select File->New (Ctrl+N) to open the file dialog"
--->
-<term><menuchoice>
-<shortcut>
-<keycombo action="simul">&Ctrl;<keycap>N</keycap></keycombo>
-</shortcut>
-<guimenu>File</guimenu>
-<guimenuitem>New</guimenuitem>
-</menuchoice></term>
-<listitem><para><action>Creates a new document</action></para></listitem>
-</varlistentry>
-
-<varlistentry  id="file-save">
-<term><menuchoice>
-<shortcut>
-<keycombo action="simul">&Ctrl;<keycap>S</keycap></keycombo>
-</shortcut>
-<guimenu>File</guimenu>
-<guimenuitem>Save</guimenuitem>
-</menuchoice></term>
-<listitem><para><action>Saves the document</action></para></listitem>
-</varlistentry>
-
-<varlistentry  id="file-quit">
-<term><menuchoice>
-<shortcut>
-<keycombo action="simul">&Ctrl;<keycap>Q</keycap></keycombo>
-</shortcut>
-<guimenu>File</guimenu>
-<guimenuitem>Quit</guimenuitem>
-</menuchoice></term>
-<listitem><para><action>Quits</action> &elisa;</para></listitem>
-</varlistentry>
-</variablelist>
+From the different sources of music, it collects all your music and analyses their metadata such that their title, artist, ...
+It provides two way to browse your music: a list of all albums or a list of all artists.
 </para>
-
-</sect2>
-
-<!-- Examples how to use the common menus Settings and Help -->
-
-<sect2 id="settings-help-menu">
-<title>The Settings and Help Menu</title>
 <para>
-&elisa; has the common &kde; <guimenu>Settings</guimenu> and <guimenu>Help</guimenu>
-menu items, for more information read the sections about the <ulink url="help:/fundamentals/ui.html#menus-settings"
->Settings Menu</ulink> and <ulink url="help:/fundamentals/ui.html#menus-help">Help Menu</ulink>
-of the &kde; Fundamentals.
+Each method uses an updated view of all your music along with a filter to allow to quickly find what you are looking for.
 </para>
-</sect2>
-
-<sect2 id="help-menu1">
-<title>The Help Menu</title>
 <para>
-&elisa; has the common &kde; <guimenu>Help</guimenu> menu item, for more information read the section
-about the <ulink url="help:/fundamentals/ui.html#menus-help">Help Menu</ulink> of the &kde; Fundamentals.
+The filter of the view of all albums is implemented on the title or the artist of albums or the list of artists of each track of an album.
+The filter of the view of all artists is implemented on the name of the artists.
 </para>
 </sect2>
 
-<sect2 id="menu-commands">
-<title>Menu Items</title>
-<para>Apart from the common &kde; menus described in the <ulink url="help:/fundamentals/ui.html#menus">Menu</ulink>
-chapter of the &kde; Fundamentals documentation &elisa; has these application specific menu entries:
+<sect2>
+<title>Building a Playlist</title>
+<para>
+When browsing your music, artists, albums and tracks can be added with a button shown when mouse is over it.
+It is also possible to clear the playlist and at the same time add some music.
 </para>
-<!-- variablelist -->
+<para>
+A toolbar below the playlist allow to operate on it. Currently it is only possible to clear it.
+</para>
 </sect2>
 
-<sect2 id="help-menu2">
-<title>The Help Menu</title>
-<para>&elisa; has a default &kde; <guimenu>Help</guimenu> menu as described in the
-<ulink url="help:/fundamentals/ui.html#menus-help">&kde; Fundamentals</ulink>
-with two additional entries:</para>
-<!-- variablelist -->
+<sect2>
+<title>Playing Music</title>
+<para>
+The playlist is read in the order of the tracks unless the <guilabel>Shuffle</guilabel> option is selected.
+At the end of the list playing is stopped unles the <guilabel>Repeat</guilabel> option is selected.
+</para>
+<para>
+It is possible to switch to the next or previous track in the list. If the mouse is over a track, it is possible to skip to it by pressing a button.
+</para>
+<para>
+The currently playing track is indicated by a flashing play icon.
+</para>
 </sect2>
 
 </sect1>
-</chapter>
 
-<chapter id="developers">
-<title>Developer's Guide to &elisa;</title>
-
-<!-- (OPTIONAL) A Programming/Scripting reference chapter should be
-used for apps that use plugins or that provide their own scripting hooks
-and/or development libraries. -->
-
-<para>
-Programming &elisa; plugins is a joy to behold.
-</para>
-
-
-</chapter>
-
-<chapter id="faq">
-<title>Questions and Answers</title>
-
-<!-- (OPTIONAL but recommended) This chapter should include all of the silly
-(and not-so-silly) newbie questions that fill up your mailbox. This chapter
-should be reserved for BRIEF questions and answers! If one question uses more
-than a page or so then it should probably be part of the
-"Using this Application" chapter instead. You should use links to
-cross-reference questions to the parts of your documentation that answer them.
-This is also a great place to provide pointers to other FAQ's if your users
-must do some complicated configuration on other programs in order for your
-application work. -->
-
-<qandaset id="faqlist">
-<qandaentry>
-<question>
-<para>My Mouse doesn't work. How do I quit &elisa;?</para>
-</question>
-<answer>
-<para>You silly goose! Check out the <link linkend="commands">Commands
-Section</link> for the answer.</para>
-</answer>
-</qandaentry>
-<qandaentry>
-<question>
-<para>Why can I not twiddle my documents?</para>
-</question>
-<answer>
-<para>You can only twiddle your documents if you have the foobar.lib
-installed.</para>
-</answer>
-</qandaentry>
-</qandaset>
 </chapter>
 
 <chapter id="credits">
@@ -291,20 +145,18 @@ distribution. -->
 &elisa;
 </para>
 <para>
-Program copyright 2010-2014 John Q. Hacker <email>jqh@kde.org</email>
+Program copyright 2015-2017 Matthieu Gallien <email>matthieu_gallien@yahoo.fr</email>
 </para>
 <para>
 Contributors:
 <itemizedlist>
-<listitem><para>Konqui the &kde; Dragon <email>konqui@kde.org</email></para>
-</listitem>
-<listitem><para>Tux the &Linux; Penguin <email>tux@linux.org</email></para>
+<listitem><para>Luigi Toscano (help for translations)<email>luigi.toscano@tiscali.it</email></para>
 </listitem>
 </itemizedlist>
 </para>
 
 <para>
-Documentation Copyright &copy; 2012-2014 George N. Ugnacious <email>gnu@kde.org</email>
+Documentation Copyright &copy; 2017 Matthieu Gallien <email>matthieu_gallien@yahoo.fr</email>
 </para>
 
 <!-- TRANS:CREDIT_FOR_TRANSLATORS -->
@@ -317,28 +169,15 @@ Documentation Copyright &copy; 2012-2014 George N. Ugnacious <email>gnu@kde.org<
      (NOTE:  All documentation are licensed under the FDL,
      regardless of what license the application uses) -->
 
-&underGPL;        	 <!-- GPL License -->
-&underBSDLicense;        <!-- BSD License -->
-&underArtisticLicense;   <!-- BSD Artistic License -->
-&underX11License;        <!-- X11 License  -->
+&underLGPL;        	 <!-- GPL License -->
 
 </chapter>
-
-<!-- Appendix Installation is optional, usually not required
-
-Entities &install.intro.documentation; + &install.compile.documentation; will be removed in later kdoctools
-
--->
 
 <appendix id="installation">
 <title>Installation</title>
 
 <sect1 id="getting-kapp">
 <title>How to obtain &elisa;</title>
-
-<!-- This first entity contains boiler plate for applications that are
-part of KDE archive.  You should remove it if you are releasing your
-application -->
 
 &install.intro.documentation;
 
@@ -347,34 +186,15 @@ application -->
 <sect1 id="requirements">
 <title>Requirements</title>
 
-<!--
-List any special requirements for your application here. This should include:
-.Libraries or other software that is not included in kdesupport or kf5
-.Hardware requirements like amount of RAM, disk space, graphics card
-capabilities, screen resolution, special expansion cards, etc.
-.Operating systems the app will run on. If your app is designed only for a
-specific OS, (you wrote a graphical LILO configurator for example) put this
-information here.
--->
-
 <para>
-In order to successfully use &elisa;, you need few libraries from
-&kf5; 5.1 (bar, baz). Foobar.lib is
-required in order to support the advanced &elisa; features. &elisa; uses
-about 5 megs of memory to run, but this may vary depending on your
-platform and configuration.
+There are no special requirements for use of &elisa;. Currently the only supported
+indexer is Baloo but support for Tracker and the indexer generally available on
+Windows are planned. It is also possible to have &elisa; index your music by itself.
 </para>
 
-<para>
-All required libraries as well as &elisa; itself can be found
-on <ulink url="ftp://ftp.kapp.org">The &elisa; home page</ulink>.
-</para>
-
-<!-- For a list of updates, you may refer to the application web site
-or the ChangeLog file, or ... -->
 <para>
 You can find a list of changes at <ulink
-url="http://apps.kde.org/kapp">http://apps.kde.org/kapp</ulink>.
+url="https://phabricator.kde.org/project/profile/193/">Elisa Project</ulink>.
 </para>
 </sect1>
 
@@ -392,8 +212,9 @@ url="http://apps.kde.org/kapp">http://apps.kde.org/kapp</ulink>.
 <sect1 id="configuration">
 <title>Configuration</title>
 
-<para>Don't forget to tell your system to start the <filename>dtd</filename>
-dicer-toaster daemon first, or &elisa; won't work!</para>
+<para>
+Currently no configuration is required before use of &elisa;.
+</para>
 
 </sect1>
 

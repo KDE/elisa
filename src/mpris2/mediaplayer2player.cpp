@@ -250,7 +250,7 @@ void MediaPlayer2Player::playerSourceChanged()
         return;
     }
 
-    setCurrentTrack(m_manageAudioPlayer->playControlPosition());
+    setCurrentTrack(m_manageAudioPlayer->playListPosition());
 }
 
 void MediaPlayer2Player::playControlEnabledChanged()
@@ -308,7 +308,7 @@ void MediaPlayer2Player::audioPositionChanged()
 
 int MediaPlayer2Player::currentTrack() const
 {
-    return m_manageAudioPlayer->playControlPosition();
+    return m_manageAudioPlayer->playListPosition();
 }
 
 void MediaPlayer2Player::setCurrentTrack(int newTrackPosition)

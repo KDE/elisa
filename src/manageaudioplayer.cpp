@@ -100,6 +100,15 @@ QVariantMap ManageAudioPlayer::persistentState() const
     return persistentStateValue;
 }
 
+int ManageAudioPlayer::playListPosition() const
+{
+    if (mCurrentTrack.isValid()) {
+        return mCurrentTrack.row();
+    }
+
+    return 0;
+}
+
 void ManageAudioPlayer::setCurrentTrack(QPersistentModelIndex currentTrack)
 {
     if (mCurrentTrack == currentTrack) {

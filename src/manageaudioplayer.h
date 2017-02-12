@@ -156,6 +156,8 @@ public:
 
     QVariantMap persistentState() const;
 
+    int playListPosition() const;
+
 Q_SIGNALS:
 
     void currentTrackChanged();

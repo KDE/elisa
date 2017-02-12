@@ -268,6 +268,8 @@ private:
 
     int mPlayerPosition = 0;
 
+    bool isFirstPlayTriggerPlay = true;
+
     bool isFirstPlayTriggerSeek = true;
 
     QVariantMap mPersistentState;

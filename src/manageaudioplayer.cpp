@@ -179,6 +179,13 @@ void ManageAudioPlayer::setPlayerStatus(int playerStatus)
     case Loaded:
         break;
     case Buffering:
+        if (isFirstPlayTriggerPlay) {
+            isFirstPlayTriggerPlay = false;
+            auto isPlaying = mPersistentState.find(QStringLiteral("isPlaying"));
+            if (isPlaying != mPersistentState.end()) {
+                mPlayingState = isPlaying->toBool();
+            }
+        }
         if (mPlayingState) {
             triggerPlay();
         }
@@ -284,6 +291,13 @@ void ManageAudioPlayer::playPause()
     switch (mPlayerStatus) {
     case Loaded:
     case Buffering:
+        if (isFirstPlayTriggerPlay) {
+            isFirstPlayTriggerPlay = false;
+            auto isPlaying = mPersistentState.find(QStringLiteral("isPlaying"));
+            if (isPlaying != mPersistentState.end()) {
+                mPlayingState = isPlaying->toBool();
+            }
+        }
         if (mPlayingState) {
             triggerPlay();
         } else {
@@ -350,11 +364,6 @@ void ManageAudioPlayer::setPersistentState(QVariantMap persistentStateValue)
     }
 
     mPersistentState = persistentStateValue;
-
-    auto isPlaying = mPersistentState.find(QStringLiteral("isPlaying"));
-    if (isPlaying != mPersistentState.end()) {
-        mPlayingState = isPlaying->toBool();
-    }
 
     Q_EMIT persistentStateChanged();
 }

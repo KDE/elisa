@@ -46,6 +46,7 @@ configure_file(config-upnp-qt.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-upnp-qt
 
 add_subdirectory(src)
 add_subdirectory(autotests)
+add_subdirectory(doc)
 
 install(
     PROGRAMS org.kde.elisa.desktop

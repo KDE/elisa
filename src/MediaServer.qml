@@ -353,16 +353,11 @@ ApplicationWindow {
                         model: ListModel {
                             id: pageModel
 
-                            ListElement {
-                                name: 'Now Playing'
-                            }
-
-                            ListElement {
-                                name: 'Albums'
-                            }
-
-                            ListElement {
-                                name: 'Artists'
+                            Component.onCompleted:
+                            {
+                                insert(0, {"name": i18nc("Title of the view of the playlist", "Now Playing")})
+                                insert(1, {"name": i18nc("Title of the view of all albums", "Albums")})
+                                insert(2, {"name": i18nc("Title of the view of all artists", "Artists")})
                             }
                         }
 

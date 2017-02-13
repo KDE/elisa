@@ -21,10 +21,10 @@
 #include "databaseinterface.h"
 #include "musicartist.h"
 
-#include <QtCore/QUrl>
-#include <QtCore/QTimer>
-#include <QtCore/QPointer>
-#include <QtCore/QVector>
+#include <QUrl>
+#include <QTimer>
+#include <QPointer>
+#include <QVector>
 
 class AllArtistsModelPrivate
 {

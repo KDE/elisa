@@ -24,8 +24,8 @@
 #include "upnpservicedescription.h"
 #include "upnpdevicedescription.h"
 
-#include <QtCore/QVector>
-#include <QtCore/QString>
+#include <QVector>
+#include <QString>
 
 #include <QtXml/QDomDocument>
 #include <QtXml/QDomNode>

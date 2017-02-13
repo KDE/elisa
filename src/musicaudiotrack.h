@@ -20,10 +20,10 @@
 #ifndef MUSICAUDIOTRACK_H
 #define MUSICAUDIOTRACK_H
 
-#include <QtCore/QString>
-#include <QtCore/QTime>
-#include <QtCore/QUrl>
-#include <QtCore/QMetaType>
+#include <QString>
+#include <QTime>
+#include <QUrl>
+#include <QMetaType>
 
 class MusicAudioTrackPrivate;
 class QDebug;

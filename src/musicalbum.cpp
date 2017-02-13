@@ -21,7 +21,7 @@
 
 #include <algorithm>
 
-#include <QtCore/QDebug>
+#include <QDebug>
 
 class MusicAlbumPrivate
 {

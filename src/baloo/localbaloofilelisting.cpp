@@ -29,11 +29,11 @@
 
 #include <QtDBus/QDBusConnection>
 
-#include <QtCore/QThread>
-#include <QtCore/QDebug>
-#include <QtCore/QHash>
-#include <QtCore/QFileInfo>
-#include <QtCore/QDir>
+#include <QThread>
+#include <QDebug>
+#include <QHash>
+#include <QFileInfo>
+#include <QDir>
 
 #include <algorithm>
 

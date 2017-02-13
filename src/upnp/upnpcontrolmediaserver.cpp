@@ -20,7 +20,7 @@
 #include "upnpcontrolmediaserver.h"
 #include "upnpcontrolconnectionmanager.h"
 
-#include <QtCore/QDebug>
+#include <QDebug>
 
 class UpnpControlMediaServerPrivate
 {

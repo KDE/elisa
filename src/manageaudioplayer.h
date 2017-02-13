@@ -20,10 +20,10 @@
 #ifndef MANAGEAUDIOPLAYER_H
 #define MANAGEAUDIOPLAYER_H
 
-#include <QtCore/QObject>
-#include <QtCore/QPersistentModelIndex>
-#include <QtCore/QAbstractItemModel>
-#include <QtCore/QUrl>
+#include <QObject>
+#include <QPersistentModelIndex>
+#include <QAbstractItemModel>
+#include <QUrl>
 
 class ManageAudioPlayer : public QObject
 {

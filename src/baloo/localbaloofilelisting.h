@@ -20,11 +20,11 @@
 #ifndef LOCALBALOOFILELISTING_H
 #define LOCALBALOOFILELISTING_H
 
-#include <QtCore/QObject>
-#include <QtCore/QString>
-#include <QtCore/QUrl>
-#include <QtCore/QHash>
-#include <QtCore/QVector>
+#include <QObject>
+#include <QString>
+#include <QUrl>
+#include <QHash>
+#include <QVector>
 
 #include <memory>
 

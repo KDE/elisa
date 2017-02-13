@@ -20,10 +20,10 @@
 #ifndef ALBUMMODEL_H
 #define ALBUMMODEL_H
 
-#include <QtCore/QAbstractItemModel>
-#include <QtCore/QVector>
-#include <QtCore/QHash>
-#include <QtCore/QString>
+#include <QAbstractItemModel>
+#include <QVector>
+#include <QHash>
+#include <QString>
 
 #include "musicalbum.h"
 #include "musicaudiotrack.h"

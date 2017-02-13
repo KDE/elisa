@@ -22,10 +22,10 @@
 #include "musicaudiotrack.h"
 #include "musiclistenersmanager.h"
 
-#include <QtCore/QUrl>
-#include <QtCore/QPersistentModelIndex>
-#include <QtCore/QList>
-#include <QtCore/QDebug>
+#include <QUrl>
+#include <QPersistentModelIndex>
+#include <QList>
+#include <QDebug>
 
 #include <algorithm>
 

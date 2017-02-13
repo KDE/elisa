@@ -20,8 +20,8 @@
 #ifndef UPNPDISCOVERALLMUSIC_H
 #define UPNPDISCOVERALLMUSIC_H
 
-#include <QtCore/QObject>
-#include <QtCore/QSharedPointer>
+#include <QObject>
+#include <QSharedPointer>
 
 class DatabaseInterface;
 class UpnpDiscoveryResult;

@@ -20,7 +20,7 @@
 #ifndef MUSICARTIST_H
 #define MUSICARTIST_H
 
-#include <QtCore/QString>
+#include <QString>
 
 class MusicArtistPrivate;
 class QDebug;

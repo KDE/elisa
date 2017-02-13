@@ -28,9 +28,9 @@
 #include <QVector>
 #include <QThread>
 #include <QMetaObject>
-#include <QtCore/QStandardPaths>
-#include <QtCore/QDir>
-#include <QtCore/QFile>
+#include <QStandardPaths>
+#include <QDir>
+#include <QFile>
 
 #include <QDebug>
 

@@ -20,8 +20,8 @@
 #ifndef ALBUMFILTERPROXYMODEL_H
 #define ALBUMFILTERPROXYMODEL_H
 
-#include <QtCore/QSortFilterProxyModel>
-#include <QtCore/QRegularExpression>
+#include <QSortFilterProxyModel>
+#include <QRegularExpression>
 
 class AlbumFilterProxyModel : public QSortFilterProxyModel
 {

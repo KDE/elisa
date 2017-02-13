@@ -67,17 +67,18 @@
 #include <KCoreAddons/KAboutData>
 #endif
 
-#include <QtCore/QSortFilterProxyModel>
+#include <QSortFilterProxyModel>
 
-#include <QtGui/QIcon>
+#include <QIcon>
 
-#include <QtWidgets/QApplication>
+#include <QApplication>
+#include <QCommandLineParser>
 
-#include <QtQml/QQmlApplicationEngine>
-#include <QtQml/QQmlEngine>
-#include <QtQml/QQmlFileSelector>
-#include <QtQml/QQmlDebuggingEnabler>
-#include <QtQml>
+#include <QQmlApplicationEngine>
+#include <QQmlEngine>
+#include <QQmlFileSelector>
+#include <QQmlDebuggingEnabler>
+#include <QQmlContext>
 
 
 int __attribute__((visibility("default"))) main(int argc, char *argv[])

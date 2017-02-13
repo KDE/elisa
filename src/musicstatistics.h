@@ -20,7 +20,7 @@
 #ifndef MUSICSTATISTICS_H
 #define MUSICSTATISTICS_H
 
-#include <QtCore/QObject>
+#include <QObject>
 
 #include "musicalbum.h"
 #include "musicaudiotrack.h"

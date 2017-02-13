@@ -24,12 +24,12 @@
 #include <QtXml/QDomElement>
 #include <QtXml/QDomNode>
 
-#include <QtCore/QHash>
-#include <QtCore/QString>
-#include <QtCore/QList>
-#include <QtCore/QDebug>
-#include <QtCore/QPointer>
-#include <QtCore/QUrl>
+#include <QHash>
+#include <QString>
+#include <QList>
+#include <QDebug>
+#include <QPointer>
+#include <QUrl>
 
 class UpnpContentDirectoryModelPrivate
 {

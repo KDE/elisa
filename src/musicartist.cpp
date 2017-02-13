@@ -19,9 +19,9 @@
 
 #include "musicartist.h"
 
-#include <QtCore/QtGlobal>
-#include <QtCore/QString>
-#include <QtCore/QDebug>
+#include <QtGlobal>
+#include <QString>
+#include <QDebug>
 
 class MusicArtistPrivate
 {

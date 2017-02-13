@@ -19,7 +19,7 @@
 
 #include "musicaudiotrack.h"
 
-#include <QtCore/QDebug>
+#include <QDebug>
 
 class MusicAudioTrackPrivate
 {

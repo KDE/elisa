@@ -34,8 +34,8 @@
 
 #include "file/filelistener.h"
 
-#include <QtCore/QThread>
-#include <QtCore/QMutex>
+#include <QThread>
+#include <QMutex>
 
 #include "trackslistener.h"
 

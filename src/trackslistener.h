@@ -20,7 +20,7 @@
 #ifndef TRACKSLISTENER_H
 #define TRACKSLISTENER_H
 
-#include <QtCore/QObject>
+#include <QObject>
 
 #include "musicaudiotrack.h"
 

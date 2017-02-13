@@ -23,8 +23,8 @@
 #include "musicaudiotrack.h"
 #include "musicalbum.h"
 
-#include <QtCore/QAbstractListModel>
-#include <QtCore/QVector>
+#include <QAbstractListModel>
+#include <QVector>
 
 class MediaPlayListPrivate;
 class DatabaseInterface;

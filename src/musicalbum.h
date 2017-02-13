@@ -22,11 +22,11 @@
 
 #include "musicaudiotrack.h"
 
-#include <QtCore/QString>
-#include <QtCore/QUrl>
-#include <QtCore/QMap>
-#include <QtCore/QStringList>
-#include <QtCore/QMetaType>
+#include <QString>
+#include <QUrl>
+#include <QMap>
+#include <QStringList>
+#include <QMetaType>
 
 class MusicAlbumPrivate;
 class QDebug;

@@ -19,7 +19,7 @@
 
 #include "manageaudioplayer.h"
 
-#include <QtCore/QTimer>
+#include <QTimer>
 
 ManageAudioPlayer::ManageAudioPlayer(QObject *parent) : QObject(parent)
 {

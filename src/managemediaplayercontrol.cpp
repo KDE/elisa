@@ -19,7 +19,7 @@
 
 #include "managemediaplayercontrol.h"
 
-#include <QtCore/QDataStream>
+#include <QDataStream>
 
 ManageMediaPlayerControl::ManageMediaPlayerControl(QObject *parent) : QObject(parent)
 {

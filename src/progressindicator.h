@@ -20,7 +20,7 @@
 #ifndef PROGRESSINDICATOR_H
 #define PROGRESSINDICATOR_H
 
-#include <QtCore/QObject>
+#include <QObject>
 
 class ProgressIndicator : public QObject
 {

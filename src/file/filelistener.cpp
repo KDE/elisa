@@ -22,7 +22,7 @@
 #include "localfilelisting.h"
 #include "databaseinterface.h"
 
-#include <QtCore/QThread>
+#include <QThread>
 
 class FileListenerPrivate
 {

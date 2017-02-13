@@ -22,7 +22,7 @@
 #include <KDSoapClient/KDSoapPendingCall.h>
 #include <KDSoapClient/KDSoapPendingCallWatcher.h>
 
-#include <QtCore/QDebug>
+#include <QDebug>
 
 class UpnpControlConnectionManagerPrivate
 {

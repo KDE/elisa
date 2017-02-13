@@ -20,10 +20,10 @@
 #ifndef ALLARTISTSMODEL_H
 #define ALLARTISTSMODEL_H
 
-#include <QtCore/QAbstractItemModel>
-#include <QtCore/QVector>
-#include <QtCore/QHash>
-#include <QtCore/QString>
+#include <QAbstractItemModel>
+#include <QVector>
+#include <QHash>
+#include <QString>
 
 #include "musicartist.h"
 

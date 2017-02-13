@@ -19,7 +19,7 @@
 
 #include "progressindicator.h"
 
-#include <QtCore/QTime>
+#include <QTime>
 
 ProgressIndicator::ProgressIndicator(QObject *parent) : QObject(parent)
 {

@@ -21,8 +21,8 @@
 
 #include "databaseinterface.h"
 
-#include <QtCore/QSet>
-#include <QtCore/QList>
+#include <QSet>
+#include <QList>
 
 #include <array>
 #include <algorithm>

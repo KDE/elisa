@@ -19,9 +19,9 @@
 
 #include "playlistcontroler.h"
 
-#include <QtCore/QTime>
-#include <QtCore/QTimer>
-#include <QtCore/QDebug>
+#include <QTime>
+#include <QTimer>
+#include <QDebug>
 
 #include <cstdlib>
 

@@ -19,7 +19,7 @@
 
 #include "musicstatistics.h"
 
-#include <QtCore/QDebug>
+#include <QDebug>
 
 MusicStatistics::MusicStatistics(QObject *parent) : QObject(parent)
 {

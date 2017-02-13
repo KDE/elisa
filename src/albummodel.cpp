@@ -21,10 +21,10 @@
 #include "musicstatistics.h"
 #include "databaseinterface.h"
 
-#include <QtCore/QUrl>
-#include <QtCore/QTimer>
-#include <QtCore/QPointer>
-#include <QtCore/QVector>
+#include <QUrl>
+#include <QTimer>
+#include <QPointer>
+#include <QVector>
 
 class AlbumModelPrivate
 {

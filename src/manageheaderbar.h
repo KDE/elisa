@@ -20,12 +20,12 @@
 #ifndef MANAGEHEADERBAR_H
 #define MANAGEHEADERBAR_H
 
-#include <QtCore/QObject>
-#include <QtCore/QList>
-#include <QtCore/QPersistentModelIndex>
-#include <QtCore/QAbstractItemModel>
-#include <QtCore/QModelIndex>
-#include <QtCore/QUrl>
+#include <QObject>
+#include <QList>
+#include <QPersistentModelIndex>
+#include <QAbstractItemModel>
+#include <QModelIndex>
+#include <QUrl>
 
 class ManageHeaderBar : public QObject
 {

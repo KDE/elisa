@@ -22,7 +22,7 @@
 
 #include "upnpQt_export.h"
 
-#include <QtCore/QAbstractItemModel>
+#include <QAbstractItemModel>
 
 class UpnpContentDirectoryModelPrivate;
 class UpnpSsdpEngine;

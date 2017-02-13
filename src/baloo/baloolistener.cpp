@@ -22,7 +22,7 @@
 #include "localbaloofilelisting.h"
 #include "databaseinterface.h"
 
-#include <QtCore/QThread>
+#include <QThread>
 
 class BalooListenerPrivate
 {

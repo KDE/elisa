@@ -27,9 +27,9 @@
 #include <QtSql/QSqlRecord>
 #include <QtSql/QSqlError>
 
-#include <QtCore/QMutex>
-#include <QtCore/QVariant>
-#include <QtCore/QDebug>
+#include <QMutex>
+#include <QVariant>
+#include <QDebug>
 
 #include <algorithm>
 

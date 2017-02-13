@@ -24,12 +24,12 @@
 #include "musicaudiotrack.h"
 #include "musicartist.h"
 
-#include <QtCore/QObject>
-#include <QtCore/QString>
-#include <QtCore/QHash>
-#include <QtCore/QVector>
-#include <QtCore/QVariant>
-#include <QtCore/QUrl>
+#include <QObject>
+#include <QString>
+#include <QHash>
+#include <QVector>
+#include <QVariant>
+#include <QUrl>
 
 class DatabaseInterfacePrivate;
 class QMutex;

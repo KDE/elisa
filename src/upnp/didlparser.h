@@ -23,11 +23,11 @@
 #include "musicalbum.h"
 #include "musicaudiotrack.h"
 
-#include <QtCore/QObject>
-#include <QtCore/QList>
-#include <QtCore/QHash>
-#include <QtCore/QVariant>
-#include <QtCore/QString>
+#include <QObject>
+#include <QList>
+#include <QHash>
+#include <QVariant>
+#include <QString>
 
 #include <memory>
 

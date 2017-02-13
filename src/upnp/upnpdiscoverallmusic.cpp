@@ -32,10 +32,10 @@
 
 #include "databaseinterface.h"
 
-#include <QtCore/QList>
-#include <QtCore/QHash>
-#include <QtCore/QString>
-#include <QtCore/QSharedPointer>
+#include <QList>
+#include <QHash>
+#include <QString>
+#include <QSharedPointer>
 
 class UpnpDiscoverAllMusicPrivate
 {

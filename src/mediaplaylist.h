@@ -98,7 +98,7 @@ public:
 
     Q_ENUM(ColumnsRoles)
 
-    MediaPlayList(QObject *parent = 0);
+    explicit MediaPlayList(QObject *parent = 0);
 
     ~MediaPlayList();
 

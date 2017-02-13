@@ -88,7 +88,7 @@ class CrashEnqueuePlayList : public QObject
 
 public:
 
-    CrashEnqueuePlayList(MediaPlayList *list, QObject *parent = 0);
+    explicit CrashEnqueuePlayList(MediaPlayList *list, QObject *parent = 0);
 
 public Q_SLOTS:
 

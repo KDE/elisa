@@ -79,7 +79,7 @@ public:
     };
     Q_ENUM(ColumnsRoles)
 
-    ViewPagesModel(QObject *parent = 0);
+    explicit ViewPagesModel(QObject *parent = 0);
 
     ~ViewPagesModel();
 

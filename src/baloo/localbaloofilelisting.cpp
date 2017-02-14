@@ -27,7 +27,7 @@
 
 #include <KFileMetaData/Properties>
 
-#include <QtDBus/QDBusConnection>
+#include <QDBusConnection>
 
 #include <QThread>
 #include <QDebug>

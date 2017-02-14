@@ -34,7 +34,7 @@
 
 #include <QStringListModel>
 
-#include <QtTest/QtTest>
+#include <QtTest>
 
 ManageMediaPlayerControlTest::ManageMediaPlayerControlTest(QObject *parent) : QObject(parent)
 {

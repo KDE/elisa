@@ -21,8 +21,8 @@
 
 #include "config-upnp-qt.h"
 
-#include <QtNetwork/QNetworkAccessManager>
-#include <QtNetwork/QNetworkReply>
+#include <QNetworkAccessManager>
+#include <QNetworkReply>
 
 #include "upnpdevicedescription.h"
 #include "upnpdiscoveryresult.h"

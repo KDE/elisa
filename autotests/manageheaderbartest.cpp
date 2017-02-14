@@ -36,7 +36,7 @@
 #include <QStandardItemModel>
 #include <QStandardItem>
 
-#include <QtTest/QtTest>
+#include <QtTest>
 
 ManageHeaderBarTest::ManageHeaderBarTest(QObject *parent) : QObject(parent)
 {

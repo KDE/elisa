@@ -21,11 +21,11 @@
 
 #include <KI18n/KLocalizedString>
 
-#include <QtSql/QSqlDatabase>
-#include <QtSql/QSqlDriver>
-#include <QtSql/QSqlQuery>
-#include <QtSql/QSqlRecord>
-#include <QtSql/QSqlError>
+#include <QSqlDatabase>
+#include <QSqlDriver>
+#include <QSqlQuery>
+#include <QSqlRecord>
+#include <QSqlError>
 
 #include <QMutex>
 #include <QVariant>

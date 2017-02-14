@@ -21,7 +21,7 @@
 
 #include "manageaudioplayer.h"
 
-#include <QtTest/QtTest>
+#include <QtTest>
 #include <QStandardItemModel>
 #include <QStandardItem>
 #include <QUrl>

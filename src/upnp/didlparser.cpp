@@ -27,8 +27,8 @@
 #include <QVector>
 #include <QString>
 
-#include <QtXml/QDomDocument>
-#include <QtXml/QDomNode>
+#include <QDomDocument>
+#include <QDomNode>
 
 class DidlParserPrivate
 {

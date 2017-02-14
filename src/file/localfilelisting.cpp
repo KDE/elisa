@@ -28,7 +28,6 @@
 #include <KFileMetaData/SimpleExtractionResult>
 
 #include <QThread>
-#include <QDebug>
 #include <QHash>
 #include <QFileInfo>
 #include <QDir>

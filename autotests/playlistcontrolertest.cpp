@@ -29,7 +29,7 @@
 #include <QVariant>
 #include <QList>
 
-#include <QtTest/QtTest>
+#include <QtTest>
 
 PlayListControlerTest::PlayListControlerTest(QObject *parent) : QObject(parent)
 {

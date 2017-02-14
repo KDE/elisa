@@ -20,9 +20,9 @@
 #include "upnpcontentdirectorymodel.h"
 #include "upnpcontrolcontentdirectory.h"
 
-#include <QtXml/QDomDocument>
-#include <QtXml/QDomElement>
-#include <QtXml/QDomNode>
+#include <QDomDocument>
+#include <QDomElement>
+#include <QDomNode>
 
 #include <QHash>
 #include <QString>

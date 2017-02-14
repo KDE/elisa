@@ -20,7 +20,7 @@
 #include "playlistcontroler.h"
 #include "mediaplaylist.h"
 
-#include <QtTest/QtTest>
+#include <QtTest>
 
 class PlayListTests: public QObject
 {

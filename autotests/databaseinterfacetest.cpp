@@ -34,7 +34,7 @@
 
 #include <QDebug>
 
-#include <QtTest/QtTest>
+#include <QtTest>
 
 class DatabaseInterfaceTests: public QObject
 {

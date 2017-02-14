@@ -160,6 +160,8 @@ public Q_SLOTS:
 
     void trackChanged(MusicAudioTrack track);
 
+    void trackRemoved(MusicAudioTrack track);
+
     void setMusicListenersManager(MusicListenersManager* musicListenersManager);
 
 private Q_SLOTS:

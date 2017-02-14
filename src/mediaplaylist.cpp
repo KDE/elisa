@@ -538,6 +538,25 @@ void MediaPlayList::trackChanged(MusicAudioTrack track)
     }
 }
 
+void MediaPlayList::trackRemoved(MusicAudioTrack track)
+{
+    for (int i = 0; i < d->mData.size(); ++i) {
+        auto &oneEntry = d->mData[i];
+
+        if (oneEntry.mIsValid) {
+            if (oneEntry.mId == track.databaseId()) {
+                oneEntry.mTitle = track.title();
+                oneEntry.mArtist = track.artist();
+                oneEntry.mAlbum = track.albumName();
+
+                oneEntry.mIsValid = false;
+
+                Q_EMIT dataChanged(index(i, 0), index(i, 0), {});
+            }
+        }
+    }
+}
+
 void MediaPlayList::setMusicListenersManager(MusicListenersManager *musicListenersManager)
 {
     if (d->mMusicListenersManager == musicListenersManager) {

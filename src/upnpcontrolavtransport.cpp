@@ -19,7 +19,7 @@
 
 #include "upnpcontrolavtransport.h"
 
-#include <QtCore/QDebug>
+#include <QDebug>
 
 UpnpControlAVTransport::UpnpControlAVTransport(QObject *parent) : UpnpControlAbstractService(parent)
 {

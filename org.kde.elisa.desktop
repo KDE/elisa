@@ -1,5 +1,5 @@
 [Desktop Entry]
-Categories=Qt;KDE;Multimedia;
+Categories=Qt;KDE;Audio;
 Comment=
 Exec=elisa
 GenericName=Elisa Music Player
@@ -36,8 +36,6 @@ Name[sv]=Elisa
 Name[uk]=Elisa
 Name[x-test]=xxElisaxx
 Name[zh_CN]=Elisa
-Path=
 StartupNotify=false
 Terminal=false
-TerminalOptions=
 Type=Application

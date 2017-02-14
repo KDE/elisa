@@ -20,6 +20,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         manageaudioplayer.cpp
         albumfilterproxymodel.cpp
         trackslistener.cpp
+        elisaapplication.cpp
 
         file/filelistener.cpp
         file/localfilelisting.cpp
@@ -94,6 +95,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
     target_link_libraries(elisa
         LINK_PRIVATE
             Qt5::Quick
+            Qt5::Gui
             Qt5::Widgets
             Qt5::Multimedia
             Qt5::Svg
@@ -134,6 +136,27 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         target_link_libraries(elisa
             LINK_PRIVATE
                 KF5::Declarative
+        )
+    endif()
+
+    if (KF5XmlGui_FOUND)
+        target_link_libraries(elisa
+            LINK_PRIVATE
+                KF5::XmlGui
+        )
+    endif()
+
+    if (KF5ConfigWidgets_FOUND)
+        target_link_libraries(elisa
+            LINK_PRIVATE
+                KF5::ConfigWidgets
+        )
+    endif()
+
+    if (KF5Config_FOUND)
+        target_link_libraries(elisa
+            LINK_PRIVATE
+                KF5::ConfigCore
         )
     endif()
 

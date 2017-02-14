@@ -50,6 +50,7 @@
 #include "musicaudiotrack.h"
 #include "musiclistenersmanager.h"
 #include "albumfilterproxymodel.h"
+#include "elisaapplication.h"
 
 #if defined Qt5DBus_FOUND && Qt5DBus_FOUND
 #include "mpris2/mpris2.h"
@@ -70,6 +71,7 @@
 #include <QSortFilterProxyModel>
 
 #include <QIcon>
+#include <QAction>
 
 #include <QApplication>
 #include <QCommandLineParser>
@@ -79,7 +81,6 @@
 #include <QQmlFileSelector>
 #include <QQmlDebuggingEnabler>
 #include <QQmlContext>
-
 
 int __attribute__((visibility("default"))) main(int argc, char *argv[])
 {
@@ -137,20 +138,23 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
     qRegisterMetaType<QHash<qulonglong,int>>("QHash<qulonglong,int>");
     qRegisterMetaType<MusicAlbum>("MusicAlbum");
     qRegisterMetaType<MusicArtist>("MusicArtist");
+    qRegisterMetaType<QAction*>();
+    qmlRegisterUncreatableType<ElisaApplication>("org.mgallien.QmlExtension", 1, 0, "ElisaApplication", QStringLiteral("only one and done in c++"));
 
     qRegisterMetaTypeStreamOperators<ManageMediaPlayerControl::PlayerState>("PlayListControler::PlayerState");
 
     KLocalizedString::setApplicationDomain("elisa");
+    ElisaApplication myApp;
 
     //QQmlDebuggingEnabler enabler;
 
 #if defined KF5CoreAddons_FOUND && KF5CoreAddons_FOUND
-    KAboutData aboutData( QStringLiteral("elisa"),
+    KAboutData aboutData( QStringLiteral("Elisa"),
                           i18n("Elisa"),
                           QStringLiteral("0.1"),
                           i18n("A Simple Music Player written with KDE Frameworks"),
                           KAboutLicense::LGPL_V3,
-                          i18n("(c) 2015-2016, Matthieu Gallien <mgallien@mgallien.fr>"));
+                          i18n("(c) 2015-2017, Matthieu Gallien <mgallien@mgallien.fr>"));
 
     aboutData.addAuthor(i18n("Matthieu Gallien"),i18n("Author"), QStringLiteral("mgallien@mgallien.fr"));
     KAboutData::setApplicationData(aboutData);
@@ -175,6 +179,7 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
 #endif
 
     engine.rootContext()->setContextObject(new KLocalizedContext(&engine));
+    engine.rootContext()->setContextProperty(QStringLiteral("elisa"), &myApp);
 
     engine.load(QUrl(QStringLiteral("qrc:/MediaServer.qml")));
 

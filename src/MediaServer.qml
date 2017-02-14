@@ -43,6 +43,12 @@ ApplicationWindow {
 
     title: 'Elisa'
 
+    property var helpAction: elisa.action("help_contents")
+    property var quitApplication: elisa.action("file_quit")
+    property var reportBugAction: elisa.action("help_report_bug")
+    property var aboutAppAction: elisa.action("help_about_app")
+    property var configureShortcutsAction: elisa.action("options_configure_keybinding")
+
     SystemPalette {
         id: myPalette
         colorGroup: SystemPalette.Active
@@ -64,6 +70,14 @@ ApplicationWindow {
 
         property double playControlItemVolume
         property bool playControlItemMuted
+    }
+
+    Action {
+        id: qmlQuitAction
+        text: quitApplication.text
+        shortcut: quitApplication.shortcut
+        iconName: elisa.iconName(quitApplication.icon)
+        onTriggered: quitApplication.trigger()
     }
 
     property string globalBrowseFlag: 'BrowseDirectChildren'
@@ -102,13 +116,6 @@ ApplicationWindow {
     QtObject {
         id: internal
         property Item __passiveNotification
-    }
-
-    Action {
-        id: quitAction
-        text: i18nc("Action to quit the application", "&Quit")
-        shortcut: StandardKey.Quit
-        onTriggered: Qt.quit()
     }
 
     Connections {
@@ -265,6 +272,74 @@ ApplicationWindow {
         onArtistAdded: allArtistsModel.artistAdded(newArtist)
     }
 
+    Connections {
+        target: allListeners
+
+        onArtistRemoved: allArtistsModel.artistRemoved(removedArtist)
+    }
+
+    Connections {
+        target: allListeners
+
+        onArtistModified: allArtistsModel.artistModified(modifiedArtist)
+    }
+
+    Menu {
+        id: applicationMenu
+        title: i18nc("open application menu", "Application Menu")
+
+        MenuItem {
+            action: qmlQuitAction
+        }
+
+        MenuSeparator {
+        }
+
+        MenuItem {
+            text: helpAction.text
+            shortcut: helpAction.shortcut
+            iconName: elisa.iconName(helpAction.icon)
+            onTriggered: helpAction.trigger()
+        }
+
+        MenuSeparator {
+        }
+
+        MenuItem {
+            text: reportBugAction.text
+            shortcut: reportBugAction.shortcut
+            iconName: elisa.iconName(reportBugAction.icon)
+            onTriggered: reportBugAction.trigger()
+        }
+
+        MenuSeparator {
+        }
+
+        MenuItem {
+            text: configureShortcutsAction.text
+            shortcut: configureShortcutsAction.shortcut
+            iconName: elisa.iconName(configureShortcutsAction.icon)
+            onTriggered: configureShortcutsAction.trigger()
+        }
+
+        MenuSeparator {
+        }
+
+        MenuItem {
+            text: aboutAppAction.text
+            shortcut: aboutAppAction.shortcut
+            iconName: elisa.iconName(aboutAppAction.icon)
+            onTriggered: aboutAppAction.trigger()
+        }
+    }
+
+    Action {
+        id: applicationMenuAction
+        text: i18nc("open application menu", "Application Menu")
+        iconName: "application-menu"
+        onTriggered: applicationMenu.popup()
+    }
+
     Rectangle {
         color: myPalette.base
         anchors.fill: parent
@@ -288,6 +363,31 @@ ApplicationWindow {
                 image: myHeaderBarManager.image
 
                 ratingVisible: false
+
+                ToolButton {
+                    id: menuButton
+
+                    action: applicationMenuAction
+
+                    z: 2
+
+                    anchors
+                    {
+                        right: parent.right
+                        top: parent.top
+                        rightMargin: Screen.pixelDensity * 4
+                        topMargin: Screen.pixelDensity * 4
+                    }
+                }
+                Rectangle {
+                    anchors.fill: menuButton
+
+                    z: 1
+
+                    radius: width / 2
+
+                    color: myPalette.window
+                }
             }
 
             MediaPlayerControl {

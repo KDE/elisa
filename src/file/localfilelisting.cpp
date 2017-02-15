@@ -32,6 +32,7 @@
 #include <QDir>
 #include <QFileSystemWatcher>
 #include <QMimeDatabase>
+#include <QStandardPaths>
 
 #include <QDebug>
 
@@ -59,12 +60,18 @@ public:
 
 LocalFileListing::LocalFileListing(QObject *parent) : QObject(parent), d(new LocalFileListingPrivate)
 {
-    d->mRootPath = QStringLiteral("/home/mgallien/Musique");
-
     connect(&d->mFileSystemWatcher, &QFileSystemWatcher::directoryChanged,
             this, &LocalFileListing::directoryChanged);
     connect(&d->mFileSystemWatcher, &QFileSystemWatcher::fileChanged,
             this, &LocalFileListing::fileChanged);
+
+    const auto &musicLocations(QStandardPaths::standardLocations(QStandardPaths::MusicLocation));
+
+    if (musicLocations.isEmpty()) {
+        return;
+    }
+
+    d->mRootPath = musicLocations.first();
 }
 
 LocalFileListing::~LocalFileListing()

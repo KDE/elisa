@@ -330,3 +330,17 @@ add_executable(allartistsmodeltest ${allartistsmodeltest_SOURCES})
 target_link_libraries(allartistsmodeltest Qt5::Test Qt5::Core Qt5::Sql KF5::I18n)
 target_include_directories(allartistsmodeltest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 add_test(allartistsmodeltest allartistsmodeltest)
+
+set(localfilelistingtest_SOURCES
+    ../src/file/localfilelisting.cpp
+    ../src/musicaudiotrack.cpp
+    localfilelistingtest.cpp
+)
+
+add_executable(localfilelistingtest ${localfilelistingtest_SOURCES})
+target_link_libraries(localfilelistingtest Qt5::Test Qt5::Core Qt5::Sql KF5::I18n)
+if (KF5FileMetaData_FOUND)
+    target_link_libraries(localfilelistingtest KF5::FileMetaData)
+endif()
+target_include_directories(localfilelistingtest PRIVATE ${CMAKE_SOURCE_DIR}/src)
+add_test(localfilelistingtest localfilelistingtest)

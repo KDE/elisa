@@ -56,6 +56,10 @@ public:
 
     QHash<QString, QList<QUrl>> mDiscoveredFiles;
 
+    QHash<QString, QList<QUrl>> mDiscoveredDirectories;
+
+    bool mNewTracks = false;
+
 };
 
 LocalFileListing::LocalFileListing(QObject *parent) : QObject(parent), d(new LocalFileListingPrivate)
@@ -78,20 +82,40 @@ LocalFileListing::~LocalFileListing()
 {
 }
 
+QString LocalFileListing::rootPath() const
+{
+    return d->mRootPath;
+}
+
 void LocalFileListing::init()
 {
+}
+
+void LocalFileListing::setRootPath(QString rootPath)
+{
+    if (d->mRootPath == rootPath) {
+        return;
+    }
+
+    d->mRootPath = rootPath;
+    Q_EMIT rootPathChanged();
 }
 
 void LocalFileListing::scanDirectory(const QString &path)
 {
     QDir rootDirectory(path);
+    rootDirectory.refresh();
 
-    d->mFileSystemWatcher.addPath(path);
+    if (rootDirectory.exists()) {
+        d->mFileSystemWatcher.addPath(path);
+    }
 
-    auto &currentDirectoryListing = d->mDiscoveredFiles[path];
+    auto &currentDirectoryListingFiles = d->mDiscoveredFiles[path];
+    auto &currentDirectoryListingDirectories = d->mDiscoveredDirectories[path];
 
     auto currentFilesList = QList<QUrl>();
 
+    rootDirectory.refresh();
     const auto entryList = rootDirectory.entryInfoList();
     for (auto oneEntry : entryList) {
         auto newFilePath = oneEntry.canonicalFilePath();
@@ -103,19 +127,28 @@ void LocalFileListing::scanDirectory(const QString &path)
             continue;
         }
 
-        if (oneEntry.isDir()) {
-            if (d->mDiscoveredFiles.find(newFilePath) == d->mDiscoveredFiles.end()) {
-                scanDirectory(newFilePath);
-            }
-            continue;
-        }
-        if (oneEntry.isFile()) {
+        if (oneEntry.isDir() || oneEntry.isFile()) {
             currentFilesList.push_back(QUrl::fromLocalFile(newFilePath));
         }
     }
 
+    for (const auto &removedDirectoryPath : currentDirectoryListingDirectories) {
+        auto itFilePath = std::find(currentFilesList.begin(), currentFilesList.end(), removedDirectoryPath);
+
+        if (itFilePath != currentFilesList.end()) {
+            continue;
+        }
+
+        scanDirectory(removedDirectoryPath.toLocalFile());
+
+        auto itRemovedDirectory = std::find(currentDirectoryListingDirectories.begin(), currentDirectoryListingDirectories.end(), removedDirectoryPath);
+        currentDirectoryListingDirectories.erase(itRemovedDirectory);
+
+        auto itRemovedFullDirectory = d->mDiscoveredDirectories.find(removedDirectoryPath.toLocalFile());
+        d->mDiscoveredDirectories.erase(itRemovedFullDirectory);
+    }
     auto removedTracks = QList<QUrl>();
-    for (const auto &removedFilePath : currentDirectoryListing) {
+    for (const auto &removedFilePath : currentDirectoryListingFiles) {
         auto itFilePath = std::find(currentFilesList.begin(), currentFilesList.end(), removedFilePath);
 
         if (itFilePath != currentFilesList.end()) {
@@ -143,8 +176,8 @@ void LocalFileListing::scanDirectory(const QString &path)
             }
         }
 
-        auto itRemovedTrack = std::find(currentDirectoryListing.begin(), currentDirectoryListing.end(), oneRemovedTrack);
-        currentDirectoryListing.erase(itRemovedTrack);
+        auto itRemovedTrack = std::find(currentDirectoryListingFiles.begin(), currentDirectoryListingFiles.end(), oneRemovedTrack);
+        currentDirectoryListingFiles.erase(itRemovedTrack);
     }
 
     if (!removedTracks.isEmpty()) {
@@ -152,13 +185,25 @@ void LocalFileListing::scanDirectory(const QString &path)
     }
 
     for (auto newFilePath : currentFilesList) {
-        auto itFilePath = std::find(currentDirectoryListing.begin(), currentDirectoryListing.end(), newFilePath);
+        auto itFilePath = std::find(currentDirectoryListingFiles.begin(), currentDirectoryListingFiles.end(), newFilePath);
 
-        if (itFilePath != currentDirectoryListing.end()) {
+        if (itFilePath != currentDirectoryListingFiles.end()) {
             continue;
         }
 
-        currentDirectoryListing.push_back(newFilePath);
+        QFileInfo oneEntry(newFilePath.toLocalFile());
+        if (oneEntry.isDir()) {
+            if (d->mDiscoveredDirectories.find(newFilePath.toLocalFile()) == d->mDiscoveredDirectories.end()) {
+                currentDirectoryListingDirectories.push_back(newFilePath);
+                scanDirectory(newFilePath.toLocalFile());
+            }
+            continue;
+        }
+        if (!oneEntry.isFile()) {
+            continue;
+        }
+
+        currentDirectoryListingFiles.push_back(newFilePath);
 
         auto newTrack = scanOneFile(newFilePath);
 
@@ -171,17 +216,26 @@ void LocalFileListing::scanDirectory(const QString &path)
 
             auto &allTracks = d->mAllAlbums[newTrack.albumName()];
 
+            d->mNewTracks = true;
             allTracks.push_back(newTrack);
             d->mAlbumNameFromTrackFile[newTrack.resourceURI()] = newTrack.albumName();
         }
+    }
+    if (currentDirectoryListingDirectories.isEmpty()) {
+        auto itRemovedFullDirectory = d->mDiscoveredDirectories.find(path);
+        d->mDiscoveredDirectories.erase(itRemovedFullDirectory);
     }
 }
 
 void LocalFileListing::directoryChanged(const QString &path)
 {
+    d->mNewTracks = false;
+
     scanDirectory(path);
 
-    Q_EMIT tracksList(d->mAllAlbums, d->mAllAlbumCover);
+    if (d->mNewTracks) {
+        Q_EMIT tracksList(d->mAllAlbums, d->mAllAlbumCover);
+    }
 }
 
 void LocalFileListing::fileChanged(const QString &modifiedFileName)
@@ -217,8 +271,7 @@ void LocalFileListing::fileChanged(const QString &modifiedFileName)
 
 void LocalFileListing::refreshContent()
 {
-    scanDirectory(d->mRootPath);
-    Q_EMIT tracksList(d->mAllAlbums, d->mAllAlbumCover);
+    directoryChanged(d->mRootPath);
 }
 
 MusicAudioTrack LocalFileListing::scanOneFile(QUrl scanFile)
@@ -228,7 +281,10 @@ MusicAudioTrack LocalFileListing::scanOneFile(QUrl scanFile)
     QMimeDatabase mimeDb;
     QString mimetype = mimeDb.mimeTypeForFile(scanFile.toLocalFile()).name();
 
-    d->mFileSystemWatcher.addPath(scanFile.toLocalFile());
+    QFileInfo scanFileInfo(scanFile.toLocalFile());
+    if (scanFileInfo.exists()) {
+        d->mFileSystemWatcher.addPath(scanFile.toLocalFile());
+    }
 
     KFileMetaData::ExtractorCollection extractors;
     QList<KFileMetaData::Extractor*> exList = extractors.fetchExtractors(mimetype);

@@ -36,11 +36,18 @@ class LocalFileListing : public QObject
 
     Q_OBJECT
 
+    Q_PROPERTY(QString rootPath
+               READ rootPath
+               WRITE setRootPath
+               NOTIFY rootPathChanged)
+
 public:
 
     explicit LocalFileListing(QObject *parent = 0);
 
     virtual ~LocalFileListing();
+
+    QString rootPath() const;
 
 Q_SIGNALS:
 
@@ -49,11 +56,15 @@ Q_SIGNALS:
 
     void removedTracksList(const QList<QUrl> &removedTracks);
 
+    void rootPathChanged();
+
 public Q_SLOTS:
 
     void refreshContent();
 
     void init();
+
+    void setRootPath(QString rootPath);
 
 private Q_SLOTS:
 

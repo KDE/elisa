@@ -36,6 +36,8 @@
 
 #include <QThread>
 #include <QMutex>
+#include <QStandardPaths>
+#include <QDir>
 
 #include "trackslistener.h"
 
@@ -69,8 +71,16 @@ MusicListenersManager::MusicListenersManager(QObject *parent)
     connect(&d->mDatabaseInterface, &DatabaseInterface::requestsInitDone,
             this, &MusicListenersManager::databaseReady);
 
+    const auto &localDataPaths = QStandardPaths::standardLocations(QStandardPaths::AppDataLocation);
+    auto databaseFileName = QString();
+    if (!localDataPaths.isEmpty()) {
+        QDir myDataDirectory;
+        myDataDirectory.mkpath(localDataPaths.first());
+        databaseFileName = localDataPaths.first() + QStringLiteral("/elisaDatabase.db");
+    }
+
     QMetaObject::invokeMethod(&d->mDatabaseInterface, "init", Qt::QueuedConnection,
-                              Q_ARG(QString, QStringLiteral("listeners")));
+                              Q_ARG(QString, QStringLiteral("listeners")), Q_ARG(QString, databaseFileName));
 
     connect(&d->mDatabaseInterface, &DatabaseInterface::artistAdded,
                this, &MusicListenersManager::artistAdded);

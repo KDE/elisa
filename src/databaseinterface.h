@@ -52,9 +52,11 @@ public:
 
     virtual ~DatabaseInterface();
 
-    Q_INVOKABLE void init(const QString &dbName);
+    Q_INVOKABLE void init(const QString &dbName, const QString &databaseFileName = {});
 
     MusicAlbum albumFromTitle(QString title) const;
+
+    QVector<MusicAudioTrack> allTracks() const;
 
     QVector<MusicAlbum> allAlbums() const;
 
@@ -137,6 +139,8 @@ private:
     void removeAlbumInDatabase(qulonglong albumId);
 
     void removeArtistInDatabase(qulonglong artistId);
+
+    void reloadExistingDatabase();
 
     DatabaseInterfacePrivate *d;
 

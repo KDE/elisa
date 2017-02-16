@@ -49,7 +49,7 @@ public:
           mInsertArtistsQuery(mTracksDatabase), mSelectArtistByNameQuery(mTracksDatabase),
           mSelectArtistQuery(mTracksDatabase), mSelectTrackFromFilePathQuery(mTracksDatabase),
           mRemoveTrackQuery(mTracksDatabase), mRemoveAlbumQuery(mTracksDatabase),
-          mRemoveArtistQuery(mTracksDatabase)
+          mRemoveArtistQuery(mTracksDatabase), mSelectAllTracksQuery(mTracksDatabase)
     {
     }
 
@@ -99,6 +99,8 @@ public:
 
     QSqlQuery mRemoveArtistQuery;
 
+    QSqlQuery mSelectAllTracksQuery;
+
     qulonglong mAlbumId = 1;
 
     qulonglong mArtistId = 1;
@@ -122,11 +124,15 @@ DatabaseInterface::~DatabaseInterface()
     delete d;
 }
 
-void DatabaseInterface::init(const QString &dbName)
+void DatabaseInterface::init(const QString &dbName, const QString &databaseFileName)
 {
     QSqlDatabase tracksDatabase = QSqlDatabase::addDatabase(QStringLiteral("QSQLITE"), dbName);
 
-    tracksDatabase.setDatabaseName(QStringLiteral("file:memdb1?mode=memory"));
+    if (!databaseFileName.isEmpty()) {
+        tracksDatabase.setDatabaseName(QStringLiteral("file:") + databaseFileName);
+    } else {
+        tracksDatabase.setDatabaseName(QStringLiteral("file:memdb1?mode=memory"));
+    }
     tracksDatabase.setConnectOptions(QStringLiteral("foreign_keys = ON;locking_mode = EXCLUSIVE;QSQLITE_OPEN_URI;QSQLITE_BUSY_TIMEOUT=500000"));
 
     auto result = tracksDatabase.open();
@@ -141,6 +147,10 @@ void DatabaseInterface::init(const QString &dbName)
 
     initDatabase();
     initRequest();
+
+    if (!databaseFileName.isEmpty()) {
+        reloadExistingDatabase();
+    }
 }
 
 MusicAlbum DatabaseInterface::albumFromTitle(QString title) const
@@ -153,6 +163,56 @@ MusicAlbum DatabaseInterface::albumFromTitle(QString title) const
     }
 
     result = internalAlbumFromTitle(title);
+
+    transactionResult = finishTransaction();
+    if (!transactionResult) {
+        return result;
+    }
+
+    return result;
+}
+
+QVector<MusicAudioTrack> DatabaseInterface::allTracks() const
+{
+    auto result = QVector<MusicAudioTrack>();
+
+    if (!d) {
+        return result;
+    }
+
+    auto transactionResult = startTransaction();
+    if (!transactionResult) {
+        return result;
+    }
+
+    auto queryResult = d->mSelectAllTracksQuery.exec();
+
+    if (!queryResult || !d->mSelectAllTracksQuery.isSelect() || !d->mSelectAllTracksQuery.isActive()) {
+        qDebug() << "DatabaseInterface::allAlbums" << d->mSelectAllTracksQuery.lastQuery();
+        qDebug() << "DatabaseInterface::allAlbums" << d->mSelectAllTracksQuery.boundValues();
+        qDebug() << "DatabaseInterface::allAlbums" << d->mSelectAllTracksQuery.lastError();
+
+        return result;
+    }
+
+    while(d->mSelectAllTracksQuery.next()) {
+        auto newTrack = MusicAudioTrack();
+
+        newTrack.setDatabaseId(d->mSelectAllTracksQuery.record().value(0).toULongLong());
+        newTrack.setTitle(d->mSelectAllTracksQuery.record().value(1).toString());
+        newTrack.setParentId(d->mSelectAllTracksQuery.record().value(2).toString());
+        newTrack.setArtist(d->mSelectAllTracksQuery.record().value(3).toString());
+        newTrack.setAlbumArtist(d->mSelectAllTracksQuery.record().value(4).toString());
+        newTrack.setResourceURI(d->mSelectAllTracksQuery.record().value(5).toUrl());
+        newTrack.setTrackNumber(d->mSelectAllTracksQuery.record().value(6).toInt());
+        newTrack.setDiscNumber(d->mSelectAllTracksQuery.record().value(7).toInt());
+        newTrack.setDuration(QTime::fromMSecsSinceStartOfDay(d->mSelectAllTracksQuery.record().value(8).toInt()));
+        newTrack.setValid(true);
+
+        result.push_back(newTrack);
+    }
+
+    d->mSelectAllTracksQuery.finish();
 
     transactionResult = finishTransaction();
     if (!transactionResult) {
@@ -1007,6 +1067,30 @@ void DatabaseInterface::initRequest()
     }
 
     {
+        auto selectAllTracksText = QStringLiteral("SELECT tracks.`ID`, "
+                                                  "tracks.`Title`, "
+                                                  "tracks.`AlbumID`, "
+                                                  "artist.`Name`, "
+                                                  "artistAlbum.`Name`, "
+                                                  "tracks.`FileName`, "
+                                                  "tracks.`TrackNumber`, "
+                                                  "tracks.`DiscNumber`, "
+                                                  "tracks.`Duration` "
+                                                  "FROM `Tracks` tracks, `Artists` artist, `Artists` artistAlbum, `Albums` album "
+                                                  "WHERE "
+                                                  "artist.`ID` = tracks.`ArtistID` AND "
+                                                  "tracks.`AlbumID` = album.`ID` AND "
+                                                  "artistAlbum.`ID` = album.`ArtistID`");
+
+        auto result = d->mSelectAllTracksQuery.prepare(selectAllTracksText);
+
+        if (!result) {
+            qDebug() << "DatabaseInterface::initRequest" << selectAllTracksText << d->mSelectAllTracksQuery.lastError();
+            qDebug() << d->mTracksDatabase.lastError();
+        }
+    }
+
+    {
         auto selectArtistByNameText = QStringLiteral("SELECT `ID`, "
                                                      "`Name` "
                                                      "FROM `Artists` "
@@ -1434,6 +1518,30 @@ void DatabaseInterface::removeArtistInDatabase(qulonglong artistId)
     }
 
     d->mRemoveArtistQuery.finish();
+}
+
+void DatabaseInterface::reloadExistingDatabase()
+{
+    const auto restoredArtists = allArtists();
+    for (const auto oneArtist : restoredArtists) {
+        d->mArtistId = std::max(d->mArtistId, oneArtist.databaseId());
+        Q_EMIT artistAdded(oneArtist);
+    }
+    ++d->mArtistId;
+
+    const auto restoredAlbums = allAlbums();
+    for (const auto oneAlbum : restoredAlbums) {
+        d->mAlbumId = std::max(d->mAlbumId, oneAlbum.databaseId());
+        Q_EMIT albumAdded(oneAlbum);
+    }
+    ++d->mAlbumId;
+
+    const auto restoredTracks = allTracks();
+    for (const auto oneTrack : restoredTracks) {
+        d->mTrackId = std::max(d->mTrackId, oneTrack.databaseId());
+        Q_EMIT trackAdded(oneTrack);
+    }
+    ++d->mTrackId;
 }
 
 QMap<qulonglong, MusicAudioTrack> DatabaseInterface::fetchTracks(qulonglong albumId) const

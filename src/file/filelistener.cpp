@@ -77,5 +77,11 @@ void FileListener::setDatabaseInterface(DatabaseInterface *model)
     emit databaseInterfaceChanged();
 }
 
+void FileListener::applicationAboutToQuit()
+{
+    d->mFileQueryThread.exit();
+    d->mFileQueryThread.wait();
+}
+
 
 #include "moc_filelistener.cpp"

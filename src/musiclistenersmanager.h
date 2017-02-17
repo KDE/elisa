@@ -71,9 +71,13 @@ Q_SIGNALS:
 
     void trackModified(MusicAudioTrack modifiedTrack);
 
+    void applicationIsTerminating();
+
 public Q_SLOTS:
 
     void databaseReady();
+
+    void applicationAboutToQuit();
 
 private:
 

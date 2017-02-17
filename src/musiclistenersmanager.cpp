@@ -21,9 +21,6 @@
 
 #include "config-upnp-qt.h"
 
-#include "databaseinterface.h"
-#include "mediaplaylist.h"
-
 #if defined UPNPQT_FOUND && UPNPQT_FOUND
 #include "upnp/upnplistener.h"
 #endif
@@ -32,14 +29,16 @@
 #include "baloo/baloolistener.h"
 #endif
 
+#include "databaseinterface.h"
+#include "mediaplaylist.h"
 #include "file/filelistener.h"
+#include "trackslistener.h"
 
 #include <QThread>
 #include <QMutex>
 #include <QStandardPaths>
 #include <QDir>
-
-#include "trackslistener.h"
+#include <QCoreApplication>
 
 class MusicListenersManagerPrivate
 {
@@ -100,6 +99,9 @@ MusicListenersManager::MusicListenersManager(QObject *parent)
                this, &MusicListenersManager::albumModified);
     connect(&d->mDatabaseInterface, &DatabaseInterface::trackModified,
                this, &MusicListenersManager::trackModified);
+
+    connect(QCoreApplication::instance(), &QCoreApplication::aboutToQuit,
+            this, &MusicListenersManager::applicationAboutToQuit);
 }
 
 MusicListenersManager::~MusicListenersManager()
@@ -133,14 +135,28 @@ void MusicListenersManager::databaseReady()
 #if defined KF5Baloo_FOUND && KF5Baloo_FOUND
     d->mBalooListener.setDatabaseInterface(&d->mDatabaseInterface);
     d->mBalooListener.moveToThread(&d->mDatabaseThread);
+    connect(this, &MusicListenersManager::applicationIsTerminating,
+            &d->mBalooListener, &BalooListener::applicationAboutToQuit, Qt::BlockingQueuedConnection);
 #endif
 #if defined UPNPQT_FOUND && UPNPQT_FOUND
     d->mUpnpListener.setDatabaseInterface(&d->mDatabaseInterface);
     d->mUpnpListener.moveToThread(&d->mDatabaseThread);
+    connect(this, &MusicListenersManager::applicationIsTerminating,
+            &d->mUpnpListener, &UpnpListener::applicationAboutToQuit, Qt::BlockingQueuedConnection);
 #endif
 
     d->mFileListener.setDatabaseInterface(&d->mDatabaseInterface);
     d->mFileListener.moveToThread(&d->mDatabaseThread);
+    connect(this, &MusicListenersManager::applicationIsTerminating,
+            &d->mFileListener, &FileListener::applicationAboutToQuit, Qt::BlockingQueuedConnection);
+}
+
+void MusicListenersManager::applicationAboutToQuit()
+{
+    Q_EMIT applicationIsTerminating();
+
+    d->mDatabaseThread.exit();
+    d->mDatabaseThread.wait();
 }
 
 

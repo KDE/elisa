@@ -51,6 +51,8 @@ public Q_SLOTS:
 
     void setDatabaseInterface(DatabaseInterface* databaseInterface);
 
+    void applicationAboutToQuit();
+
 private:
 
     FileListenerPrivate *d = nullptr;

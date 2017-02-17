@@ -76,5 +76,11 @@ void BalooListener::setDatabaseInterface(DatabaseInterface *model)
     emit databaseInterfaceChanged();
 }
 
+void BalooListener::applicationAboutToQuit()
+{
+    d->mBalooQueryThread.exit();
+    d->mBalooQueryThread.wait();
+}
+
 
 #include "moc_baloolistener.cpp"

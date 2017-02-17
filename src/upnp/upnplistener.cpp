@@ -74,5 +74,9 @@ void UpnpListener::setDatabaseInterface(DatabaseInterface *model)
     emit databaseInterfaceChanged();
 }
 
+void UpnpListener::applicationAboutToQuit()
+{
+}
+
 
 #include "moc_upnplistener.cpp"

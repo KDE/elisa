@@ -73,6 +73,8 @@ Q_SIGNALS:
 
     void applicationIsTerminating();
 
+    void databaseIsReady();
+
 public Q_SLOTS:
 
     void databaseReady();

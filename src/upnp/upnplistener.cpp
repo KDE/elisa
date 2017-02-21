@@ -27,8 +27,6 @@ class UpnpListenerPrivate
 {
 public:
 
-    DatabaseInterface* mDatabaseInterface = nullptr;
-
     UpnpDiscoverAllMusic mUpnpManager;
 
     UpnpSsdpEngine mSsdpEngine;
@@ -55,23 +53,14 @@ UpnpListener::~UpnpListener()
 
 DatabaseInterface *UpnpListener::databaseInterface() const
 {
-    return d->mDatabaseInterface;
+    return nullptr;
 }
 
 void UpnpListener::setDatabaseInterface(DatabaseInterface *model)
 {
-    if (d->mDatabaseInterface == model) {
-        return;
-    }
+    d->mUpnpManager.setAlbumDatabase(model);
 
-    if (d->mDatabaseInterface) {
-        disconnect(d->mDatabaseInterface);
-    }
-
-    d->mDatabaseInterface = model;
-    d->mUpnpManager.setAlbumDatabase(d->mDatabaseInterface);
-
-    emit databaseInterfaceChanged();
+    Q_EMIT databaseInterfaceChanged();
 }
 
 void UpnpListener::applicationAboutToQuit()

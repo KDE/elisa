@@ -48,11 +48,17 @@ Q_SIGNALS:
                     const QHash<QString, QUrl> &covers,
                     QString musicSource);
 
+    void initialTracksListRequired(QString musicSource);
+
 public Q_SLOTS:
 
     void refreshContent();
 
     void init();
+
+    void databaseIsReady();
+
+    void initialTracksList(QString musicSource, QVector<MusicAudioTrack> initialList);
 
 private Q_SLOTS:
 

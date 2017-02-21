@@ -69,6 +69,8 @@ MusicListenersManager::MusicListenersManager(QObject *parent)
 
     connect(&d->mDatabaseInterface, &DatabaseInterface::requestsInitDone,
             this, &MusicListenersManager::databaseReady);
+    connect(&d->mDatabaseInterface, &DatabaseInterface::requestsInitDone,
+            this, &MusicListenersManager::databaseIsReady);
 
     const auto &localDataPaths = QStandardPaths::standardLocations(QStandardPaths::AppDataLocation);
     auto databaseFileName = QString();
@@ -137,18 +139,36 @@ void MusicListenersManager::databaseReady()
     d->mBalooListener.moveToThread(&d->mDatabaseThread);
     connect(this, &MusicListenersManager::applicationIsTerminating,
             &d->mBalooListener, &BalooListener::applicationAboutToQuit, Qt::BlockingQueuedConnection);
+    connect(this, &MusicListenersManager::databaseIsReady,
+            &d->mBalooListener, &BalooListener::databaseReady);
+    connect(&d->mBalooListener, &BalooListener::initialTracksListRequired,
+            &d->mDatabaseInterface, &DatabaseInterface::initialTracksListRequired);
+    connect(&d->mDatabaseInterface, &DatabaseInterface::initialTracksList,
+            &d->mBalooListener, &BalooListener::initialTracksList);
 #endif
 #if defined UPNPQT_FOUND && UPNPQT_FOUND
     d->mUpnpListener.setDatabaseInterface(&d->mDatabaseInterface);
     d->mUpnpListener.moveToThread(&d->mDatabaseThread);
     connect(this, &MusicListenersManager::applicationIsTerminating,
             &d->mUpnpListener, &UpnpListener::applicationAboutToQuit, Qt::BlockingQueuedConnection);
+    connect(this, &MusicListenersManager::databaseIsReady,
+            &d->mUpnpListener, &UpnpListener::databaseReady);
+    connect(&d->mUpnpListener, &UpnpListener::initialTracksListRequired,
+            &d->mDatabaseInterface, &DatabaseInterface::initialTracksListRequired);
+    connect(&d->mDatabaseInterface, &DatabaseInterface::initialTracksList,
+            &d->mUpnpListener, &UpnpListener::initialTracksList);
 #endif
 
     d->mFileListener.setDatabaseInterface(&d->mDatabaseInterface);
     d->mFileListener.moveToThread(&d->mDatabaseThread);
     connect(this, &MusicListenersManager::applicationIsTerminating,
             &d->mFileListener, &FileListener::applicationAboutToQuit, Qt::BlockingQueuedConnection);
+    connect(this, &MusicListenersManager::databaseIsReady,
+            &d->mFileListener, &FileListener::databaseReady);
+    connect(&d->mFileListener, &FileListener::initialTracksListRequired,
+            &d->mDatabaseInterface, &DatabaseInterface::initialTracksListRequired);
+    connect(&d->mDatabaseInterface, &DatabaseInterface::initialTracksList,
+            &d->mFileListener, &FileListener::initialTracksList);
 }
 
 void MusicListenersManager::applicationAboutToQuit()

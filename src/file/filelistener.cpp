@@ -32,8 +32,6 @@ public:
 
     LocalFileListing mFileListing;
 
-    DatabaseInterface* mDatabaseInterface = nullptr;
-
 };
 
 FileListener::FileListener(QObject *parent) : QObject(parent), d(new FileListenerPrivate)
@@ -49,32 +47,22 @@ FileListener::~FileListener()
 
 DatabaseInterface *FileListener::databaseInterface() const
 {
-    return d->mDatabaseInterface;
+    return nullptr;
 }
 
 void FileListener::setDatabaseInterface(DatabaseInterface *model)
 {
-    if (d->mDatabaseInterface == model) {
-        return;
-    }
-
-    if (d->mDatabaseInterface) {
-        disconnect(d->mDatabaseInterface);
-    }
-
-    d->mDatabaseInterface = model;
-
-    if (d->mDatabaseInterface) {
-        connect(this, &FileListener::refreshContent, &d->mFileListing, &LocalFileListing::refreshContent, Qt::QueuedConnection);
-        connect(&d->mFileListing, &LocalFileListing::tracksList, d->mDatabaseInterface, &DatabaseInterface::insertTracksList);
-        connect(&d->mFileListing, &LocalFileListing::removedTracksList, d->mDatabaseInterface, &DatabaseInterface::removeTracksList);
+    if (model) {
+        connect(this, &FileListener::databaseReady, &d->mFileListing, &LocalFileListing::databaseIsReady);
+        connect(&d->mFileListing, &LocalFileListing::initialTracksListRequired, this, &FileListener::initialTracksListRequired);
+        connect(this, &FileListener::initialTracksList, &d->mFileListing, &LocalFileListing::initialTracksList);
+        connect(&d->mFileListing, &LocalFileListing::tracksList, model, &DatabaseInterface::insertTracksList);
+        connect(&d->mFileListing, &LocalFileListing::removedTracksList, model, &DatabaseInterface::removeTracksList);
 
         QMetaObject::invokeMethod(&d->mFileListing, "init", Qt::QueuedConnection);
-
-        Q_EMIT refreshContent();
     }
 
-    emit databaseInterfaceChanged();
+    Q_EMIT databaseInterfaceChanged();
 }
 
 void FileListener::applicationAboutToQuit()

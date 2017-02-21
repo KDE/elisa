@@ -135,7 +135,16 @@ MusicAudioTrack& MusicAudioTrack::operator=(const MusicAudioTrack &other)
 bool MusicAudioTrack::operator <(const MusicAudioTrack &other) const
 {
     return d->mDiscNumber < other.d->mDiscNumber ||
-           (d->mDiscNumber == other.d->mDiscNumber && d->mTrackNumber < other.d->mTrackNumber);
+            (d->mDiscNumber == other.d->mDiscNumber && d->mTrackNumber < other.d->mTrackNumber);
+}
+
+bool MusicAudioTrack::operator ==(const MusicAudioTrack &other) const
+{
+    return d->mTitle == other.d->mTitle && d->mArtist == other.d->mArtist &&
+            d->mAlbumName == other.d->mAlbumName && d->mAlbumArtist == other.d->mAlbumArtist &&
+            d->mTrackNumber == other.d->mTrackNumber && d->mDiscNumber == other.d->mDiscNumber &&
+            d->mDuration == other.d->mDuration && d->mResourceURI == other.d->mResourceURI &&
+            d->mAlbumCover == other.d->mAlbumCover;
 }
 
 void MusicAudioTrack::setValid(bool value)

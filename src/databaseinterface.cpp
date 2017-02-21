@@ -879,6 +879,11 @@ void DatabaseInterface::modifyTracksList(const QList<MusicAudioTrack> modifiedTr
     }
 }
 
+void DatabaseInterface::initialTracksListRequired(QString musicSource)
+{
+    Q_EMIT initialTracksList(musicSource, allTracksFromSource(musicSource));
+}
+
 bool DatabaseInterface::startTransaction() const
 {
     auto result = false;

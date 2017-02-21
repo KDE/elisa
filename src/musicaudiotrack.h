@@ -53,6 +53,8 @@ public:
 
     bool operator <(const MusicAudioTrack &other) const;
 
+    bool operator ==(const MusicAudioTrack &other) const;
+
     void setValid(bool value);
 
     bool isValid() const;

@@ -44,6 +44,8 @@ public:
 
     QHash<QString, QVector<MusicAudioTrack>> mAllAlbums;
 
+    QHash<QString, QVector<MusicAudioTrack>> mNewAlbums;
+
     QHash<QString, QUrl> mAllAlbumCover;
 
     QString mSourceName = QStringLiteral("baloo");
@@ -75,6 +77,31 @@ void LocalBalooFileListing::init()
 
     if (!connectResult) {
         qDebug() << "problem with baloo monitoring";
+    }
+}
+
+void LocalBalooFileListing::databaseIsReady()
+{
+    Q_EMIT initialTracksListRequired(d->mSourceName);
+}
+
+void LocalBalooFileListing::initialTracksList(QString musicSource, QVector<MusicAudioTrack> initialList)
+{
+    if (musicSource == d->mSourceName) {
+        d->mAllAlbums.clear();
+        d->mAllAlbumCover.clear();
+
+        qDebug() << "LocalBalooFileListing::initialTracksList" << initialList.count();
+
+        const auto &constInitialList = initialList;
+        for (const auto &oneTrack : constInitialList) {
+            d->mAllAlbums[oneTrack.albumName()].push_back(oneTrack);
+            d->mAllAlbumCover[oneTrack.albumName()] = oneTrack.albumCover();
+        }
+
+        qDebug() << "LocalBalooFileListing::initialTracksList" << d->mAllAlbums.count();
+
+        refreshContent();
     }
 }
 
@@ -151,18 +178,20 @@ void LocalBalooFileListing::refreshContent()
                 d->mAllAlbumCover[albumValue] = QUrl::fromLocalFile(coverFilePath.absoluteFilePath());
             }
 
-            allTracks.push_back(newTrack);
-        }
+            auto itTrack = std::find(allTracks.begin(), allTracks.end(), newTrack);
+            if (itTrack == allTracks.end()) {
+                allTracks.push_back(newTrack);
+                d->mNewAlbums[newTrack.albumName()].push_back(newTrack);
 
-        if (albumProperty != allProperties.end()) {
-            auto albumValue = albumProperty->toString();
-            auto &allTracks = d->mAllAlbums[albumValue];
+                auto &newTracks = d->mAllAlbums[newTrack.albumName()];
 
-            std::sort(allTracks.begin(), allTracks.end());
+                std::sort(allTracks.begin(), allTracks.end());
+                std::sort(newTracks.begin(), newTracks.end());
+            }
         }
     }
 
-    Q_EMIT tracksList(d->mAllAlbums, d->mAllAlbumCover, d->mSourceName);
+    Q_EMIT tracksList(d->mNewAlbums, d->mAllAlbumCover, d->mSourceName);
 }
 
 

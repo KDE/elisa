@@ -21,12 +21,15 @@
 #define UPNPLISTENER_H
 
 #include <QObject>
+#include <QVector>
+#include <QString>
 
 class UpnpListenerPrivate;
 
 class DatabaseInterface;
 class UpnpDiscoverAllMusic;
 class UpnpSsdpEngine;
+class MusicAudioTrack;
 
 class UpnpListener : public QObject
 {
@@ -48,6 +51,12 @@ public:
 Q_SIGNALS:
 
     void databaseInterfaceChanged();
+
+    void databaseReady();
+
+    void initialTracksListRequired(QString musicSource);
+
+    void initialTracksList(QString musicSource, QVector<MusicAudioTrack> initialList);
 
 public Q_SLOTS:
 

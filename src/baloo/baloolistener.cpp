@@ -32,8 +32,6 @@ public:
 
     LocalBalooFileListing mFileListing;
 
-    DatabaseInterface* mDatabaseInterface = nullptr;
-
 };
 
 BalooListener::BalooListener(QObject *parent) : QObject(parent), d(new BalooListenerPrivate)
@@ -49,31 +47,21 @@ BalooListener::~BalooListener()
 
 DatabaseInterface *BalooListener::databaseInterface() const
 {
-    return d->mDatabaseInterface;
+    return nullptr;
 }
 
 void BalooListener::setDatabaseInterface(DatabaseInterface *model)
 {
-    if (d->mDatabaseInterface == model) {
-        return;
-    }
-
-    if (d->mDatabaseInterface) {
-        disconnect(d->mDatabaseInterface);
-    }
-
-    d->mDatabaseInterface = model;
-
-    if (d->mDatabaseInterface) {
-        connect(this, &BalooListener::refreshContent, &d->mFileListing, &LocalBalooFileListing::refreshContent, Qt::QueuedConnection);
-        connect(&d->mFileListing, &LocalBalooFileListing::tracksList, d->mDatabaseInterface, &DatabaseInterface::insertTracksList);
+    if (model) {
+        connect(this, &BalooListener::databaseReady, &d->mFileListing, &LocalBalooFileListing::databaseIsReady);
+        connect(&d->mFileListing, &LocalBalooFileListing::initialTracksListRequired, this, &BalooListener::initialTracksListRequired);
+        connect(this, &BalooListener::initialTracksList, &d->mFileListing, &LocalBalooFileListing::initialTracksList);
+        connect(&d->mFileListing, &LocalBalooFileListing::tracksList, model, &DatabaseInterface::insertTracksList);
 
         QMetaObject::invokeMethod(&d->mFileListing, "init", Qt::QueuedConnection);
-
-        Q_EMIT refreshContent();
     }
 
-    emit databaseInterfaceChanged();
+    Q_EMIT databaseInterfaceChanged();
 }
 
 void BalooListener::applicationAboutToQuit()

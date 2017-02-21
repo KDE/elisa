@@ -103,6 +103,19 @@ void LocalFileListing::setRootPath(QString rootPath)
     Q_EMIT rootPathChanged();
 }
 
+void LocalFileListing::databaseIsReady()
+{
+    Q_EMIT initialTracksListRequired(d->mSourceName);
+}
+
+void LocalFileListing::initialTracksList(QString musicSource, QVector<MusicAudioTrack> initialList)
+{
+    if (musicSource == d->mSourceName) {
+        qDebug() << "LocalFileListing::initialTracksList" << initialList;
+        refreshContent();
+    }
+}
+
 void LocalFileListing::scanDirectory(const QString &path)
 {
     QDir rootDirectory(path);

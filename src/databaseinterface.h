@@ -92,6 +92,8 @@ Q_SIGNALS:
 
     void requestsInitDone();
 
+    void initialTracksList(QString musicSource, QVector<MusicAudioTrack> initialList);
+
 public Q_SLOTS:
 
     void insertTracksList(QHash<QString, QVector<MusicAudioTrack> > tracks, QHash<QString, QUrl> covers, QString musicSource);
@@ -99,6 +101,8 @@ public Q_SLOTS:
     void removeTracksList(const QList<QUrl> removedTracks);
 
     void modifyTracksList(const QList<MusicAudioTrack> modifiedTracks, QString musicSource);
+
+    void initialTracksListRequired(QString musicSource);
 
 private:
 

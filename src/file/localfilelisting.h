@@ -59,6 +59,8 @@ Q_SIGNALS:
 
     void rootPathChanged();
 
+    void initialTracksListRequired(QString musicSource);
+
 public Q_SLOTS:
 
     void refreshContent();
@@ -66,6 +68,10 @@ public Q_SLOTS:
     void init();
 
     void setRootPath(QString rootPath);
+
+    void databaseIsReady();
+
+    void initialTracksList(QString musicSource, QVector<MusicAudioTrack> initialList);
 
 private Q_SLOTS:
 

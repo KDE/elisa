@@ -21,9 +21,12 @@
 #define BALOOLISTENER_H
 
 #include <QObject>
+#include <QVector>
+#include <QString>
 
 class BalooListenerPrivate;
 class DatabaseInterface;
+class MusicAudioTrack;
 
 class BalooListener : public QObject
 {
@@ -43,9 +46,13 @@ public:
 
 Q_SIGNALS:
 
-    void refreshContent();
-
     void databaseInterfaceChanged();
+
+    void databaseReady();
+
+    void initialTracksListRequired(QString musicSource);
+
+    void initialTracksList(QString musicSource, QVector<MusicAudioTrack> initialList);
 
 public Q_SLOTS:
 

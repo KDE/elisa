@@ -157,7 +157,7 @@ void PlayListControlerTest::testBringUpCase()
     newCovers[QStringLiteral("album1")] = QUrl::fromLocalFile(QStringLiteral("album1"));
     newCovers[QStringLiteral("album2")] = QUrl::fromLocalFile(QStringLiteral("album2"));
 
-    myDatabaseContent.insertTracksList(newTracks, newCovers);
+    myDatabaseContent.insertTracksList(newTracks, newCovers, QStringLiteral("autoTest"));
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -306,7 +306,7 @@ void PlayListControlerTest::testBringUpCaseFromNewAlbum()
     newCovers[QStringLiteral("album1")] = QUrl::fromLocalFile(QStringLiteral("album1"));
     newCovers[QStringLiteral("album2")] = QUrl::fromLocalFile(QStringLiteral("album2"));
 
-    myDatabaseContent.insertTracksList(newTracks, newCovers);
+    myDatabaseContent.insertTracksList(newTracks, newCovers, QStringLiteral("autoTest"));
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -445,7 +445,7 @@ void PlayListControlerTest::testBringUpAndDownCase()
     newCovers[QStringLiteral("album1")] = QUrl::fromLocalFile(QStringLiteral("album1"));
     newCovers[QStringLiteral("album2")] = QUrl::fromLocalFile(QStringLiteral("album2"));
 
-    myDatabaseContent.insertTracksList(newTracks, newCovers);
+    myDatabaseContent.insertTracksList(newTracks, newCovers, QStringLiteral("autoTest"));
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -599,7 +599,7 @@ void PlayListControlerTest::testBringUpAndRemoveCase()
     newCovers[QStringLiteral("album1")] = QUrl::fromLocalFile(QStringLiteral("album1"));
     newCovers[QStringLiteral("album2")] = QUrl::fromLocalFile(QStringLiteral("album2"));
 
-    myDatabaseContent.insertTracksList(newTracks, newCovers);
+    myDatabaseContent.insertTracksList(newTracks, newCovers, QStringLiteral("autoTest"));
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -753,7 +753,7 @@ void PlayListControlerTest::testBringUpAndRemoveMultipleCase()
     newCovers[QStringLiteral("album1")] = QUrl::fromLocalFile(QStringLiteral("album1"));
     newCovers[QStringLiteral("album2")] = QUrl::fromLocalFile(QStringLiteral("album2"));
 
-    myDatabaseContent.insertTracksList(newTracks, newCovers);
+    myDatabaseContent.insertTracksList(newTracks, newCovers, QStringLiteral("autoTest"));
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -918,7 +918,7 @@ void PlayListControlerTest::testBringUpAndRemoveMultipleNotBeginCase()
     newCovers[QStringLiteral("album1")] = QUrl::fromLocalFile(QStringLiteral("album1"));
     newCovers[QStringLiteral("album2")] = QUrl::fromLocalFile(QStringLiteral("album2"));
 
-    myDatabaseContent.insertTracksList(newTracks, newCovers);
+    myDatabaseContent.insertTracksList(newTracks, newCovers, QStringLiteral("autoTest"));
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -1107,7 +1107,7 @@ void PlayListControlerTest::testBringUpAndPlayCase()
     newCovers[QStringLiteral("album1")] = QUrl::fromLocalFile(QStringLiteral("album1"));
     newCovers[QStringLiteral("album2")] = QUrl::fromLocalFile(QStringLiteral("album2"));
 
-    myDatabaseContent.insertTracksList(newTracks, newCovers);
+    myDatabaseContent.insertTracksList(newTracks, newCovers, QStringLiteral("autoTest"));
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -1262,7 +1262,7 @@ void PlayListControlerTest::testBringUpAndSkipNextCase()
     newCovers[QStringLiteral("album1")] = QUrl::fromLocalFile(QStringLiteral("album1"));
     newCovers[QStringLiteral("album2")] = QUrl::fromLocalFile(QStringLiteral("album2"));
 
-    myDatabaseContent.insertTracksList(newTracks, newCovers);
+    myDatabaseContent.insertTracksList(newTracks, newCovers, QStringLiteral("autoTest"));
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -1417,7 +1417,7 @@ void PlayListControlerTest::testBringUpAndSkipPreviousCase()
     newCovers[QStringLiteral("album1")] = QUrl::fromLocalFile(QStringLiteral("album1"));
     newCovers[QStringLiteral("album2")] = QUrl::fromLocalFile(QStringLiteral("album2"));
 
-    myDatabaseContent.insertTracksList(newTracks, newCovers);
+    myDatabaseContent.insertTracksList(newTracks, newCovers, QStringLiteral("autoTest"));
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -1585,7 +1585,7 @@ void PlayListControlerTest::finishPlayList()
     newCovers[QStringLiteral("album1")] = QUrl::fromLocalFile(QStringLiteral("album1"));
     newCovers[QStringLiteral("album2")] = QUrl::fromLocalFile(QStringLiteral("album2"));
 
-    myDatabaseContent.insertTracksList(newTracks, newCovers);
+    myDatabaseContent.insertTracksList(newTracks, newCovers, QStringLiteral("autoTest"));
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -1753,7 +1753,7 @@ void PlayListControlerTest::randomPlayList()
     newCovers[QStringLiteral("album1")] = QUrl::fromLocalFile(QStringLiteral("album1"));
     newCovers[QStringLiteral("album2")] = QUrl::fromLocalFile(QStringLiteral("album2"));
 
-    myDatabaseContent.insertTracksList(newTracks, newCovers);
+    myDatabaseContent.insertTracksList(newTracks, newCovers, QStringLiteral("autoTest"));
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -1974,7 +1974,7 @@ void PlayListControlerTest::continuePlayList()
     newCovers[QStringLiteral("album1")] = QUrl::fromLocalFile(QStringLiteral("album1"));
     newCovers[QStringLiteral("album2")] = QUrl::fromLocalFile(QStringLiteral("album2"));
 
-    myDatabaseContent.insertTracksList(newTracks, newCovers);
+    myDatabaseContent.insertTracksList(newTracks, newCovers, QStringLiteral("autoTest"));
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -2222,7 +2222,7 @@ void PlayListControlerTest::testRestoreSettings()
     newCovers[QStringLiteral("album1")] = QUrl::fromLocalFile(QStringLiteral("album1"));
     newCovers[QStringLiteral("album2")] = QUrl::fromLocalFile(QStringLiteral("album2"));
 
-    myDatabaseContent.insertTracksList(newTracks, newCovers);
+    myDatabaseContent.insertTracksList(newTracks, newCovers, QStringLiteral("autoTest"));
 
     myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album2"), QStringLiteral("artist1")});
     myPlayList.enqueue({QStringLiteral("track3"), QStringLiteral("album1"), QStringLiteral("artist1")});
@@ -2343,7 +2343,7 @@ void PlayListControlerTest::removeBeforeCurrentTrack()
     {QUrl::fromLocalFile(QStringLiteral("file://image$10"))}}
     };
 
-    myDatabaseContent.insertTracksList(newTracks, newCovers);
+    myDatabaseContent.insertTracksList(newTracks, newCovers, QStringLiteral("autoTest"));
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -2537,7 +2537,7 @@ void PlayListControlerTest::switchToTrackTest()
     newCovers[QStringLiteral("album1")] = QUrl::fromLocalFile(QStringLiteral("album1"));
     newCovers[QStringLiteral("album2")] = QUrl::fromLocalFile(QStringLiteral("album2"));
 
-    myDatabaseContent.insertTracksList(newTracks, newCovers);
+    myDatabaseContent.insertTracksList(newTracks, newCovers, QStringLiteral("autoTest"));
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 1);

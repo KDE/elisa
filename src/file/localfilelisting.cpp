@@ -60,6 +60,8 @@ public:
 
     bool mNewTracks = false;
 
+    QString mSourceName = QStringLiteral("local");
+
 };
 
 LocalFileListing::LocalFileListing(QObject *parent) : QObject(parent), d(new LocalFileListingPrivate)
@@ -234,7 +236,7 @@ void LocalFileListing::directoryChanged(const QString &path)
     scanDirectory(path);
 
     if (d->mNewTracks) {
-        Q_EMIT tracksList(d->mAllAlbums, d->mAllAlbumCover);
+        Q_EMIT tracksList(d->mAllAlbums, d->mAllAlbumCover, d->mSourceName);
     }
 }
 
@@ -259,7 +261,7 @@ void LocalFileListing::fileChanged(const QString &modifiedFileName)
                         auto &currentAlbum = modifiedAlbum[modifiedTrack.albumName()];
                         currentAlbum.push_back(modifiedTrack);
 
-                        Q_EMIT tracksList(modifiedAlbum, d->mAllAlbumCover);
+                        Q_EMIT tracksList(modifiedAlbum, d->mAllAlbumCover, d->mSourceName);
                     }
 
                     break;

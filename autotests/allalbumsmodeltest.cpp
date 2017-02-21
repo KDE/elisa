@@ -166,7 +166,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        musicDb.insertTracksList(mNewTracks, mNewCovers);
+        musicDb.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
         QCOMPARE(beginInsertRowsSpy.count(), 4);
         QCOMPARE(endInsertRowsSpy.count(), 4);
@@ -224,7 +224,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        musicDb.insertTracksList(mNewTracks, mNewCovers);
+        musicDb.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
         QCOMPARE(beginInsertRowsSpy.count(), 4);
         QCOMPARE(endInsertRowsSpy.count(), 4);
@@ -287,7 +287,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        musicDb.insertTracksList(mNewTracks, mNewCovers);
+        musicDb.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
         QCOMPARE(beginInsertRowsSpy.count(), 4);
         QCOMPARE(endInsertRowsSpy.count(), 4);
@@ -301,7 +301,7 @@ private Q_SLOTS:
         auto newTracks = QHash<QString, QVector<MusicAudioTrack>>();
         newTracks[newTrack.albumName()].push_back(newTrack);
 
-        musicDb.insertTracksList(newTracks, mNewCovers);
+        musicDb.insertTracksList(newTracks, mNewCovers, QStringLiteral("autoTest"));
 
         QCOMPARE(beginInsertRowsSpy.count(), 4);
         QCOMPARE(endInsertRowsSpy.count(), 4);
@@ -347,7 +347,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        musicDb.insertTracksList(mNewTracks, mNewCovers);
+        musicDb.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
         QCOMPARE(beginInsertRowsSpy.count(), 4);
         QCOMPARE(endInsertRowsSpy.count(), 4);
@@ -365,7 +365,7 @@ private Q_SLOTS:
         auto newCovers = QHash<QString, QUrl>();
         newCovers[QStringLiteral("album5")] = newCover;
 
-        musicDb.insertTracksList(newTracks, newCovers);
+        musicDb.insertTracksList(newTracks, newCovers, QStringLiteral("autoTest"));
 
         QCOMPARE(beginInsertRowsSpy.count(), 5);
         QCOMPARE(endInsertRowsSpy.count(), 5);

@@ -212,7 +212,7 @@ void UpnpDiscoverAllMusic::contentChanged(const QString &uuid, const QString &pa
 
         const auto &allNewTracks = currentDidlParser->newMusicTracks();
 
-        d->mAlbumDatabase->insertTracksList(allNewTracks, currentDidlParser->covers());
+        d->mAlbumDatabase->insertTracksList(allNewTracks, currentDidlParser->covers(), QStringLiteral("upnp"));
     }
 }
 

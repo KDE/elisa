@@ -58,6 +58,8 @@ public:
 
     QVector<MusicAudioTrack> allTracks() const;
 
+    QVector<MusicAudioTrack> allTracksFromSource(QString musicSource) const;
+
     QVector<MusicAlbum> allAlbums() const;
 
     QVector<MusicArtist> allArtists() const;
@@ -92,11 +94,11 @@ Q_SIGNALS:
 
 public Q_SLOTS:
 
-    void insertTracksList(QHash<QString, QVector<MusicAudioTrack> > tracks, QHash<QString, QUrl> covers);
+    void insertTracksList(QHash<QString, QVector<MusicAudioTrack> > tracks, QHash<QString, QUrl> covers, QString musicSource);
 
     void removeTracksList(const QList<QUrl> removedTracks);
 
-    void modifyTracksList(const QList<MusicAudioTrack> modifiedTracks);
+    void modifyTracksList(const QList<MusicAudioTrack> modifiedTracks, QString musicSource);
 
 private:
 
@@ -141,6 +143,10 @@ private:
     void removeArtistInDatabase(qulonglong artistId);
 
     void reloadExistingDatabase();
+
+    qulonglong insertMusicSource(QString name);
+
+    void insertTrackOrigin(qulonglong trackId, qulonglong discoverId);
 
     DatabaseInterfacePrivate *d;
 

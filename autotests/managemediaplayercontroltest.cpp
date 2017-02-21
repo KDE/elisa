@@ -507,7 +507,7 @@ void ManageMediaPlayerControlTest::moveCurrentTrack()
     newCovers[QStringLiteral("album1")] = QUrl::fromLocalFile(QStringLiteral("album1"));
     newCovers[QStringLiteral("album2")] = QUrl::fromLocalFile(QStringLiteral("album2"));
 
-    myDatabaseContent.insertTracksList(newTracks, newCovers);
+    myDatabaseContent.insertTracksList(newTracks, newCovers, QStringLiteral("autoTest"));
 
     myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album2"), QStringLiteral("artist1")});
     myPlayList.enqueue({QStringLiteral("track2"), QStringLiteral("album1"), QStringLiteral("artist1")});
@@ -651,7 +651,7 @@ void ManageMediaPlayerControlTest::moveAnotherTrack()
     newCovers[QStringLiteral("album1")] = QUrl::fromLocalFile(QStringLiteral("album1"));
     newCovers[QStringLiteral("album2")] = QUrl::fromLocalFile(QStringLiteral("album2"));
 
-    myDatabaseContent.insertTracksList(newTracks, newCovers);
+    myDatabaseContent.insertTracksList(newTracks, newCovers, QStringLiteral("autoTest"));
 
     myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album2"), QStringLiteral("artist1")});
     myPlayList.enqueue({QStringLiteral("track2"), QStringLiteral("album1"), QStringLiteral("artist1")});
@@ -795,7 +795,7 @@ void ManageMediaPlayerControlTest::setCurrentTrackTest()
     newCovers[QStringLiteral("album1")] = QUrl::fromLocalFile(QStringLiteral("album1"));
     newCovers[QStringLiteral("album2")] = QUrl::fromLocalFile(QStringLiteral("album2"));
 
-    myDatabaseContent.insertTracksList(newTracks, newCovers);
+    myDatabaseContent.insertTracksList(newTracks, newCovers, QStringLiteral("autoTest"));
 
     myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album2"), QStringLiteral("artist1")});
     myPlayList.enqueue({QStringLiteral("track2"), QStringLiteral("album1"), QStringLiteral("artist1")});

@@ -46,6 +46,8 @@ public:
 
     QHash<QString, QUrl> mAllAlbumCover;
 
+    QString mSourceName = QStringLiteral("baloo");
+
 };
 
 LocalBalooFileListing::LocalBalooFileListing(QObject *parent) : QObject(parent), d(new LocalBalooFileListingPrivate)
@@ -160,7 +162,7 @@ void LocalBalooFileListing::refreshContent()
         }
     }
 
-    Q_EMIT tracksList(d->mAllAlbums, d->mAllAlbumCover);
+    Q_EMIT tracksList(d->mAllAlbums, d->mAllAlbumCover, d->mSourceName);
 }
 
 

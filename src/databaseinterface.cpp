@@ -49,7 +49,9 @@ public:
           mInsertArtistsQuery(mTracksDatabase), mSelectArtistByNameQuery(mTracksDatabase),
           mSelectArtistQuery(mTracksDatabase), mSelectTrackFromFilePathQuery(mTracksDatabase),
           mRemoveTrackQuery(mTracksDatabase), mRemoveAlbumQuery(mTracksDatabase),
-          mRemoveArtistQuery(mTracksDatabase), mSelectAllTracksQuery(mTracksDatabase)
+          mRemoveArtistQuery(mTracksDatabase), mSelectAllTracksQuery(mTracksDatabase),
+          mInsertTrackMapping(mTracksDatabase), mSelectAllTracksFromSourceQuery(mTracksDatabase),
+          mInsertMusicSource(mTracksDatabase), mSelectMusicSource(mTracksDatabase)
     {
     }
 
@@ -101,11 +103,21 @@ public:
 
     QSqlQuery mSelectAllTracksQuery;
 
+    QSqlQuery mInsertTrackMapping;
+
+    QSqlQuery mSelectAllTracksFromSourceQuery;
+
+    QSqlQuery mInsertMusicSource;
+
+    QSqlQuery mSelectMusicSource;
+
     qulonglong mAlbumId = 1;
 
     qulonglong mArtistId = 1;
 
     qulonglong mTrackId = 1;
+
+    qulonglong mDiscoverId = 1;
 
     bool mInitFinished = false;
 
@@ -213,6 +225,59 @@ QVector<MusicAudioTrack> DatabaseInterface::allTracks() const
     }
 
     d->mSelectAllTracksQuery.finish();
+
+    transactionResult = finishTransaction();
+    if (!transactionResult) {
+        return result;
+    }
+
+    return result;
+}
+
+QVector<MusicAudioTrack> DatabaseInterface::allTracksFromSource(QString musicSource) const
+{
+    auto result = QVector<MusicAudioTrack>();
+
+    if (!d) {
+        return result;
+    }
+
+    auto transactionResult = startTransaction();
+    if (!transactionResult) {
+        return result;
+    }
+
+    d->mSelectAllTracksFromSourceQuery.bindValue(QStringLiteral(":source"), musicSource);
+
+    auto queryResult = d->mSelectAllTracksFromSourceQuery.exec();
+
+    if (!queryResult || !d->mSelectAllTracksFromSourceQuery.isSelect() || !d->mSelectAllTracksFromSourceQuery.isActive()) {
+        qDebug() << "DatabaseInterface::allAlbums" << d->mSelectAllTracksFromSourceQuery.lastQuery();
+        qDebug() << "DatabaseInterface::allAlbums" << d->mSelectAllTracksFromSourceQuery.boundValues();
+        qDebug() << "DatabaseInterface::allAlbums" << d->mSelectAllTracksFromSourceQuery.lastError();
+
+        return result;
+    }
+
+    while(d->mSelectAllTracksFromSourceQuery.next()) {
+        auto newTrack = MusicAudioTrack();
+
+        newTrack.setDatabaseId(d->mSelectAllTracksFromSourceQuery.record().value(0).toULongLong());
+        newTrack.setTitle(d->mSelectAllTracksFromSourceQuery.record().value(1).toString());
+        newTrack.setParentId(d->mSelectAllTracksFromSourceQuery.record().value(2).toString());
+        newTrack.setArtist(d->mSelectAllTracksFromSourceQuery.record().value(3).toString());
+        newTrack.setAlbumArtist(d->mSelectAllTracksFromSourceQuery.record().value(4).toString());
+        newTrack.setResourceURI(d->mSelectAllTracksFromSourceQuery.record().value(5).toUrl());
+        newTrack.setTrackNumber(d->mSelectAllTracksFromSourceQuery.record().value(6).toInt());
+        newTrack.setDiscNumber(d->mSelectAllTracksFromSourceQuery.record().value(7).toInt());
+        newTrack.setDuration(QTime::fromMSecsSinceStartOfDay(d->mSelectAllTracksFromSourceQuery.record().value(8).toInt()));
+        newTrack.setAlbumName(d->mSelectAllTracksFromSourceQuery.record().value(9).toString());
+        newTrack.setValid(true);
+
+        result.push_back(newTrack);
+    }
+
+    d->mSelectAllTracksFromSourceQuery.finish();
 
     transactionResult = finishTransaction();
     if (!transactionResult) {
@@ -467,8 +532,9 @@ qulonglong DatabaseInterface::trackIdFromTitleAlbumArtist(QString title, QString
     return result;
 }
 
-void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack> > tracks, QHash<QString, QUrl> covers)
+void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack> > tracks, QHash<QString, QUrl> covers, QString musicSource)
 {
+    qDebug() << "DatabaseInterface::insertTracksList" << tracks.count() << musicSource;
     auto transactionResult = startTransaction();
     if (!transactionResult) {
         return;
@@ -632,6 +698,8 @@ void DatabaseInterface::insertTracksList(QHash<QString, QVector<MusicAudioTrack>
                 if (result && d->mInsertTrackQuery.isActive()) {
                     newTracks.push_back(d->mTrackId);
 
+                    insertTrackOrigin(d->mTrackId, insertMusicSource(musicSource));
+
                     Q_EMIT trackAdded(internalTrackFromDatabaseId(d->mTrackId));
 
                     ++d->mTrackId;
@@ -735,7 +803,7 @@ void DatabaseInterface::removeTracksList(const QList<QUrl> removedTracks)
     }
 }
 
-void DatabaseInterface::modifyTracksList(const QList<MusicAudioTrack> modifiedTracks)
+void DatabaseInterface::modifyTracksList(const QList<MusicAudioTrack> modifiedTracks, QString musicSource)
 {
     auto transactionResult = startTransaction();
     if (!transactionResult) {
@@ -790,6 +858,8 @@ void DatabaseInterface::modifyTracksList(const QList<MusicAudioTrack> modifiedTr
 
         if (result && d->mInsertTrackQuery.isActive()) {
             d->mInsertTrackQuery.finish();
+
+            insertTrackOrigin(originTrackId, insertMusicSource(musicSource));
 
             Q_EMIT trackModified(internalTrackFromDatabaseId(originTrackId));
         } else {
@@ -870,8 +940,8 @@ void DatabaseInterface::initDatabase() const
         QSqlQuery createSchemaQuery(d->mTracksDatabase);
 
         const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `DiscoverSource` (`ID` INTEGER PRIMARY KEY NOT NULL, "
-                                                                   "`UUID` VARCHAR(55) NOT NULL, "
-                                                                   "UNIQUE (`UUID`))"));
+                                                                   "`Name` VARCHAR(55) NOT NULL, "
+                                                                   "UNIQUE (`Name`))"));
 
         if (!result) {
             qDebug() << "DatabaseInterface::initDatabase" << createSchemaQuery.lastError() << createSchemaQuery.lastError().nativeErrorCode();
@@ -1091,6 +1161,34 @@ void DatabaseInterface::initRequest()
     }
 
     {
+        auto selectAllTracksFromSourceQueryText = QStringLiteral("SELECT tracks.`ID`, "
+                                                                 "tracks.`Title`, "
+                                                                 "tracks.`AlbumID`, "
+                                                                 "artist.`Name`, "
+                                                                 "artistAlbum.`Name`, "
+                                                                 "tracks.`FileName`, "
+                                                                 "tracks.`TrackNumber`, "
+                                                                 "tracks.`DiscNumber`, "
+                                                                 "tracks.`Duration`, "
+                                                                 "album.`Title` "
+                                                                 "FROM `Tracks` tracks, `Artists` artist, `Artists` artistAlbum, `Albums` album , `TracksMapping` mappings, `DiscoverSource` source "
+                                                                 "WHERE "
+                                                                 "artist.`ID` = tracks.`ArtistID` AND "
+                                                                 "tracks.`AlbumID` = album.`ID` AND "
+                                                                 "artistAlbum.`ID` = album.`ArtistID` AND "
+                                                                 "source.`Name` = :source AND "
+                                                                 "source.`ID` = mappings.`DiscoverID` AND "
+                                                                 "mappings.`TrackID` = tracks.`ID`");
+
+        auto result = d->mSelectAllTracksFromSourceQuery.prepare(selectAllTracksFromSourceQueryText);
+
+        if (!result) {
+            qDebug() << "DatabaseInterface::initRequest" << selectAllTracksFromSourceQueryText << d->mSelectAllTracksFromSourceQuery.lastError();
+            qDebug() << d->mTracksDatabase.lastError();
+        }
+    }
+
+    {
         auto selectArtistByNameText = QStringLiteral("SELECT `ID`, "
                                                      "`Name` "
                                                      "FROM `Artists` "
@@ -1201,6 +1299,39 @@ void DatabaseInterface::initRequest()
             qDebug() << "DatabaseInterface::initRequest" << d->mInsertAlbumQuery.lastError();
         }
     }
+
+    {
+        auto insertTrackMappingQueryText = QStringLiteral("INSERT OR IGNORE INTO `TracksMapping` (`TrackID`, `DiscoverID`) "
+                                                   "VALUES (:trackId, :discoverId)");
+
+        auto result = d->mInsertTrackMapping.prepare(insertTrackMappingQueryText);
+
+        if (!result) {
+            qDebug() << "DatabaseInterface::initRequest" << d->mInsertTrackMapping.lastError();
+        }
+    }
+
+    {
+        auto insertMusicSourceQueryText = QStringLiteral("INSERT OR IGNORE INTO `DiscoverSource` (`ID`, `Name`) "
+                                                   "VALUES (:discoverId, :name)");
+
+        auto result = d->mInsertMusicSource.prepare(insertMusicSourceQueryText);
+
+        if (!result) {
+            qDebug() << "DatabaseInterface::initRequest" << d->mInsertMusicSource.lastError();
+        }
+    }
+
+    {
+        auto selectMusicSourceQueryText = QStringLiteral("SELECT `ID` FROM `DiscoverSource` WHERE `Name` = :name");
+
+        auto result = d->mSelectMusicSource.prepare(selectMusicSourceQueryText);
+
+        if (!result) {
+            qDebug() << "DatabaseInterface::initRequest" << d->mSelectMusicSource.lastError();
+        }
+    }
+
     {
         auto selectTrackQueryText = QStringLiteral("SELECT "
                                                    "tracks.ID "
@@ -1440,6 +1571,26 @@ qulonglong DatabaseInterface::insertArtist(QString name)
     return result;
 }
 
+void DatabaseInterface::insertTrackOrigin(qulonglong trackId, qulonglong discoverId)
+{
+    d->mInsertTrackMapping.bindValue(QStringLiteral(":trackId"), trackId);
+    d->mInsertTrackMapping.bindValue(QStringLiteral(":discoverId"), discoverId);
+
+    auto queryResult = d->mInsertTrackMapping.exec();
+
+    if (!queryResult || !d->mInsertTrackMapping.isActive()) {
+        qDebug() << "DatabaseInterface::insertArtist" << d->mInsertTrackMapping.lastQuery();
+        qDebug() << "DatabaseInterface::insertArtist" << d->mInsertTrackMapping.boundValues();
+        qDebug() << "DatabaseInterface::insertArtist" << d->mInsertTrackMapping.lastError();
+
+        d->mInsertTrackMapping.finish();
+
+        return;
+    }
+
+    d->mInsertTrackMapping.finish();
+}
+
 qulonglong DatabaseInterface::internalArtistIdFromName(QString name)
 {
     auto result = qulonglong(0);
@@ -1542,6 +1693,56 @@ void DatabaseInterface::reloadExistingDatabase()
         Q_EMIT trackAdded(oneTrack);
     }
     ++d->mTrackId;
+}
+
+qulonglong DatabaseInterface::insertMusicSource(QString name)
+{
+    qulonglong result = 0;
+
+    d->mSelectMusicSource.bindValue(QStringLiteral(":name"), name);
+
+    auto queryResult = d->mSelectMusicSource.exec();
+
+    if (!queryResult || !d->mSelectMusicSource.isSelect() || !d->mSelectMusicSource.isActive()) {
+        qDebug() << "DatabaseInterface::insertMusicSource" << d->mSelectMusicSource.lastQuery();
+        qDebug() << "DatabaseInterface::insertMusicSource" << d->mSelectMusicSource.boundValues();
+        qDebug() << "DatabaseInterface::insertMusicSource" << d->mSelectMusicSource.lastError();
+
+        d->mSelectMusicSource.finish();
+
+        return result;
+    }
+
+    if (d->mSelectMusicSource.next()) {
+        result = d->mSelectMusicSource.record().value(0).toULongLong();
+
+        d->mSelectMusicSource.finish();
+
+        return result;
+    }
+
+    d->mSelectMusicSource.finish();
+
+    d->mInsertMusicSource.bindValue(QStringLiteral(":discoverId"), d->mDiscoverId);
+    d->mInsertMusicSource.bindValue(QStringLiteral(":name"), name);
+
+    queryResult = d->mInsertMusicSource.exec();
+
+    if (!queryResult || !d->mInsertMusicSource.isActive()) {
+        qDebug() << "DatabaseInterface::insertMusicSource" << d->mInsertMusicSource.lastQuery();
+        qDebug() << "DatabaseInterface::insertMusicSource" << d->mInsertMusicSource.boundValues();
+        qDebug() << "DatabaseInterface::insertMusicSource" << d->mInsertMusicSource.lastError();
+
+        d->mInsertMusicSource.finish();
+
+        return d->mDiscoverId;
+    }
+
+    d->mInsertMusicSource.finish();
+
+    ++d->mDiscoverId;
+
+    return d->mDiscoverId - 1;
 }
 
 QMap<qulonglong, MusicAudioTrack> DatabaseInterface::fetchTracks(qulonglong albumId) const

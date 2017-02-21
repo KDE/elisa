@@ -37,8 +37,6 @@ public:
 
     QList<MusicAudioTrack> mTrackData;
 
-    bool mUseLocalIcons = false;
-
     MusicListenersManager* mMusicListenersManager = nullptr;
 
 };
@@ -123,12 +121,6 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
             auto albumArt = d->mTrackData[index.row()].albumCover();
             if (albumArt.isValid()) {
                 result = albumArt;
-            } else {
-                if (d->mUseLocalIcons) {
-                    result = QUrl(QStringLiteral("qrc:/media-optical-audio.svg"));
-                } else {
-                    result = QUrl(QStringLiteral("image://icon/media-optical-audio"));
-                }
             }
             break;
         }

@@ -104,8 +104,8 @@ Item {
                 GridView {
                     id: contentDirectoryView
 
-                    cellWidth: Screen.pixelDensity * 40.
-                    cellHeight: Screen.pixelDensity * 60.
+                    cellWidth: Screen.pixelDensity * 37.
+                    cellHeight: Screen.pixelDensity * 55.
 
                     model: DelegateModel {
                         id: delegateContentModel

@@ -40,8 +40,6 @@ public:
 
     int mAlbumCount = 0;
 
-    bool mUseLocalIcons = false;
-
 };
 
 AllAlbumsModel::AllAlbumsModel(QObject *parent) : QAbstractItemModel(parent), d(new AllAlbumsModelPrivate)
@@ -150,12 +148,6 @@ QVariant AllAlbumsModel::internalDataAlbum(int albumIndex, int role) const
         auto albumArt = d->mAllAlbums[albumIndex].albumArtURI();
         if (albumArt.isValid()) {
             result = albumArt;
-        } else {
-            if (d->mUseLocalIcons) {
-                result = QUrl(QStringLiteral("qrc:/media-optical-audio.svg"));
-            } else {
-                result = QUrl(QStringLiteral("image://icon/media-optical-audio"));
-            }
         }
         break;
     }

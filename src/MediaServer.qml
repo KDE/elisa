@@ -363,9 +363,9 @@ ApplicationWindow {
             HeaderBar {
                 id: headerBar
 
-                Layout.preferredHeight: Screen.pixelDensity * 28.
-                Layout.minimumHeight: Layout.preferredHeight
-                Layout.maximumHeight: Layout.preferredHeight
+                Layout.preferredHeight: Screen.pixelDensity * 40.
+                Layout.minimumHeight: Screen.pixelDensity * 40.
+                Layout.maximumHeight: Screen.pixelDensity * 40.
                 Layout.fillWidth: true
 
                 tracksCount: myHeaderBarManager.remainingTracks

@@ -33,7 +33,7 @@ Rectangle {
     property MediaPlayList playListModel
     property var musicListener
     property var playerControl
-    property alias image: playIcon.source
+    property var image
     property alias title: titleLabel.text
     property alias artist: artistLabel.text
     property alias trackNumber: numberLabel.text
@@ -110,6 +110,8 @@ Rectangle {
             sourceSize.height: mediaServerEntry.width * 0.9
             fillMode: Image.PreserveAspectFit
             smooth: true
+
+            source: (mediaServerEntry.image ? mediaServerEntry.image : 'image://icon/media-optical-audio')
 
             visible: false
 

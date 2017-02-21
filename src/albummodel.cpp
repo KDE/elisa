@@ -34,8 +34,6 @@ public:
     {
     }
 
-    bool mUseLocalIcons = false;
-
     QString mTitle;
 
     QString mAuthor;
@@ -184,12 +182,6 @@ QVariant AlbumModel::internalDataTrack(const MusicAudioTrack &track, int role, i
     {
         if (d->mCurrentAlbum.albumArtURI().isValid()) {
             result = d->mCurrentAlbum.albumArtURI();
-        } else {
-            if (d->mUseLocalIcons) {
-                result = QUrl(QStringLiteral("qrc:/media-optical-audio.svg"));
-            } else {
-                result = QUrl(QStringLiteral("image://icon/media-optical-audio"));
-            }
         }
         break;
     }

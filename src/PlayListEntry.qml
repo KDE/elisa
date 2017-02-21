@@ -31,7 +31,7 @@ Rectangle {
     property string artist
     property string album
     property var index
-    property alias itemDecoration : mainIcon.source
+    property var itemDecoration
     property alias duration : durationLabel.text
     property int trackNumber
     property int discNumber
@@ -101,7 +101,7 @@ Rectangle {
                 Image {
                     id: mainIcon
 
-                    source: itemDecoration
+                    source: (viewAlbumDelegate.itemDecoration ? viewAlbumDelegate.itemDecoration : 'image://icon/media-optical-audio')
 
                     Layout.minimumWidth: headerRow.height - 4
                     Layout.maximumWidth: headerRow.height - 4

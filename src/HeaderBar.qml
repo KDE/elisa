@@ -21,6 +21,7 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
 import QtQuick.Window 2.2
+import QtGraphicalEffects 1.0
 
 Item {
     id: headerBar
@@ -34,14 +35,52 @@ Item {
     property bool ratingVisible
 
     Image {
-        source: Qt.resolvedUrl('background.jpg')
+        id: background
+        source: (image ? image : Qt.resolvedUrl('background.jpg'))
+
 
         anchors.margins: -2
         anchors.fill: parent
         fillMode: Image.PreserveAspectCrop
 
         sourceSize.width: parent.width
-        //sourceSize.height: parent.height
+
+        visible: false
+    }
+
+    Desaturate {
+        id: desaturateBackground
+
+        anchors.fill: background
+        source: background
+        cached: true
+
+        desaturation: -0.2
+
+        visible: false
+    }
+
+    BrightnessContrast {
+        id: contrastBackground
+
+        anchors.fill: desaturateBackground
+        source: desaturateBackground
+        cached: true
+
+        brightness: -0.2
+        contrast: -0.1
+
+        visible: false
+    }
+
+    GaussianBlur {
+        anchors.fill: contrastBackground
+        source: contrastBackground
+        cached: true
+
+        radius: 32
+        deviation: 12
+        samples: 65
 
         SystemPalette {
             id: myPalette
@@ -57,6 +96,8 @@ Item {
             text: i18nc("Copyright text shown for an image", "by Edward Betts (Own work) [CC BY-SA 3.0]")
             color: myPalette.highlightedText
             opacity: 0.4
+
+            visible: !image
         }
 
         ColumnLayout {
@@ -72,9 +113,9 @@ Item {
                 spacing: 0
 
                 Layout.alignment: Qt.AlignVCenter
-                Layout.preferredHeight: Screen.pixelDensity * 20.
-                Layout.minimumHeight: Screen.pixelDensity * 20.
-                Layout.maximumHeight: Screen.pixelDensity * 20.
+                Layout.preferredHeight: Screen.pixelDensity * 34.
+                Layout.minimumHeight: Screen.pixelDensity * 34.
+                Layout.maximumHeight: Screen.pixelDensity * 34.
                 Layout.fillWidth: true
 
                 Item {
@@ -86,16 +127,44 @@ Item {
 
                 Image {
                     id: mainIcon
-                    source: image
+                    source: (image ? image : 'image://icon/media-optical-audio')
+
+                    sourceSize {
+                        width: Screen.pixelDensity * 34.
+                        height: Screen.pixelDensity * 34.
+                    }
+
                     fillMode: Image.PreserveAspectFit
 
                     Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-                    Layout.preferredHeight: Screen.pixelDensity * 20.
-                    Layout.minimumHeight: Screen.pixelDensity * 20.
-                    Layout.maximumHeight: Screen.pixelDensity * 20.
-                    Layout.preferredWidth: Screen.pixelDensity * 20.
-                    Layout.minimumWidth: Screen.pixelDensity * 20.
-                    Layout.maximumWidth: Screen.pixelDensity * 20.
+                    Layout.preferredHeight: Screen.pixelDensity * 34.
+                    Layout.minimumHeight: Screen.pixelDensity * 34.
+                    Layout.maximumHeight: Screen.pixelDensity * 34.
+                    Layout.preferredWidth: Screen.pixelDensity * 34.
+                    Layout.minimumWidth: Screen.pixelDensity * 34.
+                    Layout.maximumWidth: Screen.pixelDensity * 34.
+
+                    visible: false
+                }
+
+                DropShadow {
+                    source: mainIcon
+
+                    Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+                    Layout.preferredHeight: Screen.pixelDensity * 34.
+                    Layout.minimumHeight: Screen.pixelDensity * 34.
+                    Layout.maximumHeight: Screen.pixelDensity * 34.
+                    Layout.preferredWidth: Screen.pixelDensity * 34.
+                    Layout.minimumWidth: Screen.pixelDensity * 34.
+                    Layout.maximumWidth: Screen.pixelDensity * 34.
+
+                    horizontalOffset: Screen.pixelDensity * 0.02
+                    verticalOffset: Screen.pixelDensity * 0.02
+
+                    radius: 5.0
+                    samples: 11
+
+                    color: myPalette.shadow
                 }
 
                 Item {
@@ -123,8 +192,26 @@ Item {
                         text: title
                         Layout.fillWidth: true
                         Layout.alignment: Qt.AlignLeft
-                        elide: "ElideRight"
+                        elide: Text.ElideRight
                         color: myPalette.highlightedText
+                        font.pixelSize: 18
+
+                        visible: false
+                    }
+
+                    Glow {
+                        source: mainLabel
+
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: mainLabel.height
+                        Layout.alignment: Qt.AlignLeft
+
+                        cached: true
+
+                        color: myPalette.dark
+
+                        radius: 4.0
+                        samples: 9
                     }
 
                     Item {
@@ -138,6 +225,24 @@ Item {
                         Layout.alignment: Qt.AlignLeft
                         elide: "ElideRight"
                         color: myPalette.highlightedText
+                        font.pixelSize: 15
+
+                        visible: false
+                    }
+
+                    Glow {
+                        source: authorLabel
+
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: authorLabel.height
+                        Layout.alignment: Qt.AlignLeft
+
+                        cached: true
+
+                        color: myPalette.dark
+
+                        radius: 4.0
+                        samples: 9
                     }
 
                     Item {
@@ -151,6 +256,24 @@ Item {
                         Layout.alignment: Qt.AlignLeft
                         elide: "ElideRight"
                         color: myPalette.highlightedText
+                        font.pixelSize: 15
+
+                        visible: false
+                    }
+
+                    Glow {
+                        source: albumLabel
+
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: albumLabel.height
+                        Layout.alignment: Qt.AlignLeft
+
+                        cached: true
+
+                        color: myPalette.dark
+
+                        radius: 4.0
+                        samples: 9
                     }
 
                     Item {

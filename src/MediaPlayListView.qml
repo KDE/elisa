@@ -125,6 +125,10 @@ Item {
             }
         }
 
+        Item {
+            Layout.preferredHeight: Screen.pixelDensity * 0.4
+        }
+
         Rectangle {
             border.width: 1
             border.color: myPalette.mid
@@ -137,6 +141,10 @@ Item {
 
             Layout.leftMargin: Screen.pixelDensity * 2.5
             Layout.rightMargin: Screen.pixelDensity * 2.5
+        }
+
+        Item {
+            Layout.preferredHeight: Screen.pixelDensity * 0.4
         }
 
         TableView {

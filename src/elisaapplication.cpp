@@ -60,7 +60,7 @@ ElisaApplication::ElisaApplication(QObject *parent) : QObject(parent)
 void ElisaApplication::setupActions()
 {
 #if defined KF5XmlGui_FOUND && KF5XmlGui_FOUND
-    QAction *quitAction = KStandardAction::quit(QCoreApplication::instance(), &QCoreApplication::quit, &mCollection);
+    auto quitAction = KStandardAction::quit(QCoreApplication::instance(), &QCoreApplication::quit, &mCollection);
     mCollection.addAction(QStringLiteral("file_quit"), quitAction);
 
     if (KAuthorized::authorizeAction(QStringLiteral("help_contents"))) {

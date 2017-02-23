@@ -302,9 +302,11 @@ ApplicationWindow {
 
         MenuItem {
             action: qmlQuitAction
+            visible: qmlQuitAction.text !== ""
         }
 
         MenuSeparator {
+            visible: qmlQuitAction.text !== ""
         }
 
         MenuItem {
@@ -312,9 +314,11 @@ ApplicationWindow {
             shortcut: helpAction.shortcut
             iconName: elisa.iconName(helpAction.icon)
             onTriggered: helpAction.trigger()
+            visible: helpAction.text !== ""
         }
 
         MenuSeparator {
+            visible: helpAction.text !== ""
         }
 
         MenuItem {
@@ -322,9 +326,11 @@ ApplicationWindow {
             shortcut: reportBugAction.shortcut
             iconName: elisa.iconName(reportBugAction.icon)
             onTriggered: reportBugAction.trigger()
+            visible: reportBugAction.text !== ""
         }
 
         MenuSeparator {
+            visible: reportBugAction.text !== ""
         }
 
         MenuItem {
@@ -332,9 +338,11 @@ ApplicationWindow {
             shortcut: configureShortcutsAction.shortcut
             iconName: elisa.iconName(configureShortcutsAction.icon)
             onTriggered: configureShortcutsAction.trigger()
+            visible: configureShortcutsAction.text !== ""
         }
 
         MenuSeparator {
+            visible: configureShortcutsAction.text !== ""
         }
 
         MenuItem {
@@ -342,6 +350,7 @@ ApplicationWindow {
             shortcut: aboutAppAction.shortcut
             iconName: elisa.iconName(aboutAppAction.icon)
             onTriggered: aboutAppAction.trigger()
+            visible: aboutAppAction.text !== ""
         }
     }
 

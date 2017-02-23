@@ -195,6 +195,7 @@ Item {
                         elide: Text.ElideRight
                         color: myPalette.highlightedText
                         font.pixelSize: 18
+                        font.bold: true
 
                         visible: false
                     }
@@ -256,7 +257,8 @@ Item {
                         Layout.alignment: Qt.AlignLeft
                         elide: "ElideRight"
                         color: myPalette.highlightedText
-                        font.pixelSize: 15
+                        font.pixelSize: 12
+                        font.weight: Font.Light
 
                         visible: false
                     }

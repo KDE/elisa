@@ -149,7 +149,7 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
     //QQmlDebuggingEnabler enabler;
 
 #if defined KF5CoreAddons_FOUND && KF5CoreAddons_FOUND
-    KAboutData aboutData( QStringLiteral("Elisa"),
+    KAboutData aboutData( QStringLiteral("elisa"),
                           i18n("Elisa"),
                           QStringLiteral("0.1"),
                           i18n("A Simple Music Player written with KDE Frameworks"),

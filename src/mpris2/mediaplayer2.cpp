@@ -23,6 +23,12 @@
 
 #include <QCoreApplication>
 
+#include "config-upnp-qt.h"
+
+#if defined KF5CoreAddons_FOUND && KF5CoreAddons_FOUND
+#include <KCoreAddons/KAboutData>
+#endif
+
 MediaPlayer2::MediaPlayer2(QObject* parent)
     : QDBusAbstractAdaptor(parent)
 {
@@ -58,18 +64,20 @@ void MediaPlayer2::Raise() const
 
 QString MediaPlayer2::Identity() const
 {
-    return QString(); //KCmdLineArgs::aboutData()->programName();
+#if defined KF5CoreAddons_FOUND && KF5CoreAddons_FOUND
+    return KAboutData::applicationData().displayName();
+#else
+    return QString();
+#endif
 }
 
 QString MediaPlayer2::DesktopEntry() const
 {
-//    KService::Ptr app = KService::serviceByDesktopName(KCmdLineArgs::aboutData()->appName());
-
-//    if (app) {
-//        return app->desktopEntryName();
-//    }
-
+#if defined KF5CoreAddons_FOUND && KF5CoreAddons_FOUND
+    return KAboutData::applicationData().desktopFileName();
+#else
     return QString();
+#endif
 }
 
 QStringList MediaPlayer2::SupportedUriSchemes() const

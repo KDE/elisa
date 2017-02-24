@@ -56,6 +56,8 @@ public Q_SLOTS:
 
     void configureShortcuts();
 
+    void configureListeners();
+
 private:
 
 #if defined KF5XmlGui_FOUND && KF5XmlGui_FOUND

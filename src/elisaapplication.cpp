@@ -80,6 +80,9 @@ void ElisaApplication::setupActions()
 
     auto mKeyBindignsAction = KStandardAction::keyBindings(this, &ElisaApplication::configureShortcuts, this);
     mCollection.addAction(mKeyBindignsAction->objectName(), mKeyBindignsAction);
+
+    auto configureAction = KStandardAction::preferences(this, &ElisaApplication::configureListeners, this);
+    mCollection.addAction(QStringLiteral("options_configure"), configureAction);
 #endif
 }
 
@@ -120,6 +123,11 @@ void ElisaApplication::configureShortcuts()
     dlg.addCollection(&mCollection);
     qDebug() << "saving shortcuts..." << dlg.configure(/*bSaveSettings*/);
 #endif
+}
+
+void ElisaApplication::configureListeners()
+{
+
 }
 
 QAction * ElisaApplication::action(const QString& name)

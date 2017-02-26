@@ -154,7 +154,7 @@ private:
 
     qulonglong insertMusicSource(QString name);
 
-    void insertTrackOrigin(qulonglong trackId, qulonglong discoverId);
+    void insertTrackOrigin(qulonglong trackId, QUrl fileNameURI, qulonglong discoverId);
 
     DatabaseInterfacePrivate *d;
 

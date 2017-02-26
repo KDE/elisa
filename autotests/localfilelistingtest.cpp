@@ -52,7 +52,7 @@ private Q_SLOTS:
     {
         qRegisterMetaType<QHash<qulonglong,int>>("QHash<qulonglong,int>");
         qRegisterMetaType<QHash<QString,QUrl>>("QHash<QString,QUrl>");
-        qRegisterMetaType<QHash<QString,QVector<MusicAudioTrack>>>("QHash<QString,QVector<MusicAudioTrack>>");
+        qRegisterMetaType<QList<MusicAudioTrack>>("QList<MusicAudioTrack>");
         qRegisterMetaType<QVector<qlonglong>>("QVector<qlonglong>");
         qRegisterMetaType<QHash<qlonglong,int>>("QHash<qlonglong,int>");
         qRegisterMetaType<QList<QUrl>>("QList<QUrl>");
@@ -126,11 +126,10 @@ private Q_SLOTS:
         QCOMPARE(rootPathChangedSpy.count(), 1);
 
         auto newTracksSignal = tracksListSpy.at(0);
-        auto newTracks = newTracksSignal.at(0).value<QHash<QString, QVector<MusicAudioTrack>>>();
+        auto newTracks = newTracksSignal.at(0).value<QList<MusicAudioTrack>>();
         auto newCovers = newTracksSignal.at(1).value<QHash<QString, QUrl>>();
 
-        QCOMPARE(newTracks.count(), 1);
-        QCOMPARE(newTracks[newTracks.keys()[0]].count(), 3);
+        QCOMPARE(newTracks.count(), 3);
         QCOMPARE(newCovers.count(), 1);
     }
 
@@ -190,11 +189,10 @@ private Q_SLOTS:
         QCOMPARE(rootPathChangedSpy.count(), 1);
 
         auto newTracksSignal = tracksListSpy.at(0);
-        auto newTracks = newTracksSignal.at(0).value<QHash<QString, QVector<MusicAudioTrack>>>();
+        auto newTracks = newTracksSignal.at(0).value<QList<MusicAudioTrack>>();
         auto newCovers = newTracksSignal.at(1).value<QHash<QString, QUrl>>();
 
         QCOMPARE(newTracks.count(), 1);
-        QCOMPARE(newTracks[newTracks.keys()[0]].count(), 1);
         QCOMPARE(newCovers.count(), 1);
 
         QString commandLine(QStringLiteral("rm -rf ") + musicPath);
@@ -223,11 +221,10 @@ private Q_SLOTS:
         QCOMPARE(rootPathChangedSpy.count(), 1);
 
         auto newTracksSignalLast = tracksListSpy.at(1);
-        auto newTracksLast = newTracksSignalLast.at(0).value<QHash<QString, QVector<MusicAudioTrack>>>();
+        auto newTracksLast = newTracksSignalLast.at(0).value<QList<MusicAudioTrack>>();
         auto newCoversLast = newTracksSignalLast.at(1).value<QHash<QString, QUrl>>();
 
-        QCOMPARE(newTracksLast.count(), 1);
-        QCOMPARE(newTracksLast[newTracksLast.keys()[0]].count(), 1);
+        QCOMPARE(newTracksLast.count(), 2);
         QCOMPARE(newCoversLast.count(), 1);
     }
 
@@ -292,11 +289,10 @@ private Q_SLOTS:
         QCOMPARE(rootPathChangedSpy.count(), 1);
 
         auto newTracksSignal = tracksListSpy.at(0);
-        auto newTracks = newTracksSignal.at(0).value<QHash<QString, QVector<MusicAudioTrack>>>();
+        auto newTracks = newTracksSignal.at(0).value<QList<MusicAudioTrack>>();
         auto newCovers = newTracksSignal.at(1).value<QHash<QString, QUrl>>();
 
         QCOMPARE(newTracks.count(), 1);
-        QCOMPARE(newTracks[newTracks.keys()[0]].count(), 1);
         QCOMPARE(newCovers.count(), 1);
 
         QString commandLine(QStringLiteral("mv ") + musicPath + QStringLiteral(" ") + musicFriendPath);
@@ -326,11 +322,10 @@ private Q_SLOTS:
         QCOMPARE(rootPathChangedSpy.count(), 1);
 
         auto newTracksSignalLast = tracksListSpy.at(1);
-        auto newTracksLast = newTracksSignalLast.at(0).value<QHash<QString, QVector<MusicAudioTrack>>>();
+        auto newTracksLast = newTracksSignalLast.at(0).value<QList<MusicAudioTrack>>();
         auto newCoversLast = newTracksSignalLast.at(1).value<QHash<QString, QUrl>>();
 
-        QCOMPARE(newTracksLast.count(), 1);
-        QCOMPARE(newTracksLast[newTracksLast.keys()[0]].count(), 1);
+        QCOMPARE(newTracksLast.count(), 2);
         QCOMPARE(newCoversLast.count(), 1);
     }
 };

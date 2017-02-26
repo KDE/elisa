@@ -105,7 +105,7 @@ public:
 
     const QVector<QString> &newMusicTrackIds() const;
 
-    const QHash<QString, QVector<MusicAudioTrack> > &newMusicTracks() const;
+    const QList<MusicAudioTrack> &newMusicTracks() const;
 
     const QHash<QString, QUrl>& covers() const;
 

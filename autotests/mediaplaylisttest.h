@@ -75,7 +75,7 @@ private Q_SLOTS:
 
 private:
 
-    QHash<QString, QVector<MusicAudioTrack>> mNewTracks;
+    QList<MusicAudioTrack> mNewTracks;
     QHash<QString, QUrl> mNewCovers;
 
 };

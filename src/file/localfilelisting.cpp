@@ -48,6 +48,8 @@ public:
 
     QHash<QString, QVector<MusicAudioTrack>> mAllAlbums;
 
+    QList<MusicAudioTrack> mAllTracks;
+
     QHash<QString, QUrl> mAllAlbumCover;
 
     QHash<QUrl, QString> mAlbumNameFromTrackFile;
@@ -108,7 +110,7 @@ void LocalFileListing::databaseIsReady()
     Q_EMIT initialTracksListRequired(d->mSourceName);
 }
 
-void LocalFileListing::initialTracksList(QString musicSource, QVector<MusicAudioTrack> initialList)
+void LocalFileListing::initialTracksList(QString musicSource, QList<MusicAudioTrack> initialList)
 {
     if (musicSource == d->mSourceName) {
         qDebug() << "LocalFileListing::initialTracksList" << initialList;
@@ -233,6 +235,7 @@ void LocalFileListing::scanDirectory(const QString &path)
 
             d->mNewTracks = true;
             allTracks.push_back(newTrack);
+            d->mAllTracks.push_back(newTrack);
             d->mAlbumNameFromTrackFile[newTrack.resourceURI()] = newTrack.albumName();
         }
     }
@@ -249,7 +252,7 @@ void LocalFileListing::directoryChanged(const QString &path)
     scanDirectory(path);
 
     if (d->mNewTracks) {
-        Q_EMIT tracksList(d->mAllAlbums, d->mAllAlbumCover, d->mSourceName);
+        Q_EMIT tracksList(d->mAllTracks, d->mAllAlbumCover, d->mSourceName);
     }
 }
 
@@ -269,12 +272,7 @@ void LocalFileListing::fileChanged(const QString &modifiedFileName)
                         auto removedTracks = QList<QUrl>{modifiedFile};
                         Q_EMIT removedTracksList(removedTracks);
 
-                        QHash<QString, QVector<MusicAudioTrack>> modifiedAlbum;
-
-                        auto &currentAlbum = modifiedAlbum[modifiedTrack.albumName()];
-                        currentAlbum.push_back(modifiedTrack);
-
-                        Q_EMIT tracksList(modifiedAlbum, d->mAllAlbumCover, d->mSourceName);
+                        Q_EMIT tracksList({modifiedTrack}, d->mAllAlbumCover, d->mSourceName);
                     }
 
                     break;

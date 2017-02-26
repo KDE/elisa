@@ -46,6 +46,8 @@ public:
 
     QHash<QString, QVector<MusicAudioTrack>> mNewAlbums;
 
+    QList<MusicAudioTrack> mNewTracks;
+
     QHash<QString, QUrl> mAllAlbumCover;
 
     QString mSourceName = QStringLiteral("baloo");
@@ -85,7 +87,7 @@ void LocalBalooFileListing::databaseIsReady()
     Q_EMIT initialTracksListRequired(d->mSourceName);
 }
 
-void LocalBalooFileListing::initialTracksList(QString musicSource, QVector<MusicAudioTrack> initialList)
+void LocalBalooFileListing::initialTracksList(QString musicSource, QList<MusicAudioTrack> initialList)
 {
     if (musicSource == d->mSourceName) {
         d->mAllAlbums.clear();
@@ -96,6 +98,7 @@ void LocalBalooFileListing::initialTracksList(QString musicSource, QVector<Music
         const auto &constInitialList = initialList;
         for (const auto &oneTrack : constInitialList) {
             d->mAllAlbums[oneTrack.albumName()].push_back(oneTrack);
+            d->mNewTracks.push_back(oneTrack);
             d->mAllAlbumCover[oneTrack.albumName()] = oneTrack.albumCover();
         }
 
@@ -181,6 +184,7 @@ void LocalBalooFileListing::refreshContent()
             auto itTrack = std::find(allTracks.begin(), allTracks.end(), newTrack);
             if (itTrack == allTracks.end()) {
                 allTracks.push_back(newTrack);
+                d->mNewTracks.push_back(newTrack);
                 d->mNewAlbums[newTrack.albumName()].push_back(newTrack);
 
                 auto &newTracks = d->mAllAlbums[newTrack.albumName()];
@@ -191,7 +195,7 @@ void LocalBalooFileListing::refreshContent()
         }
     }
 
-    Q_EMIT tracksList(d->mNewAlbums, d->mAllAlbumCover, d->mSourceName);
+    Q_EMIT tracksList(d->mNewTracks, d->mAllAlbumCover, d->mSourceName);
 }
 
 

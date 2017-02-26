@@ -37,7 +37,7 @@ MediaPlayListTest::MediaPlayListTest(QObject *parent) : QObject(parent)
 
 void MediaPlayListTest::initTestCase()
 {
-    mNewTracks[QStringLiteral("album1")] = {
+    mNewTracks = {
         {true, QStringLiteral("$1"), QStringLiteral("0"), QStringLiteral("track1"),
             QStringLiteral("artist1"), QStringLiteral("album1"), QStringLiteral("Various Artists"), 1, 1, QTime::fromMSecsSinceStartOfDay(1000), {QUrl::fromLocalFile(QStringLiteral("$1"))},
     {QUrl::fromLocalFile(QStringLiteral("file://image$1"))}},
@@ -49,10 +49,7 @@ void MediaPlayListTest::initTestCase()
     {QUrl::fromLocalFile(QStringLiteral("file://image$3"))}},
         {true, QStringLiteral("$4"), QStringLiteral("0"), QStringLiteral("track4"),
             QStringLiteral("artist4"), QStringLiteral("album1"), QStringLiteral("Various Artists"), 4, 4, QTime::fromMSecsSinceStartOfDay(4000), {QUrl::fromLocalFile(QStringLiteral("$4"))},
-            {QUrl::fromLocalFile(QStringLiteral("file://image$4"))}},
-    };
-
-    mNewTracks[QStringLiteral("album2")] = {
+    {QUrl::fromLocalFile(QStringLiteral("file://image$4"))}},
         {true, QStringLiteral("$5"), QStringLiteral("0"), QStringLiteral("track1"),
             QStringLiteral("artist1"), QStringLiteral("album2"), QStringLiteral("artist1"), 1, 1, QTime::fromMSecsSinceStartOfDay(5000), {QUrl::fromLocalFile(QStringLiteral("$5"))},
     {QUrl::fromLocalFile(QStringLiteral("file://image$5"))}},
@@ -70,10 +67,7 @@ void MediaPlayListTest::initTestCase()
     {QUrl::fromLocalFile(QStringLiteral("file://image$9"))}},
         {true, QStringLiteral("$10"), QStringLiteral("0"), QStringLiteral("track6"),
             QStringLiteral("artist1 and artist2"), QStringLiteral("album2"), QStringLiteral("artist1"), 6, 1, QTime::fromMSecsSinceStartOfDay(10000), {QUrl::fromLocalFile(QStringLiteral("$10"))},
-    {QUrl::fromLocalFile(QStringLiteral("file://image$10"))}}
-    };
-
-    mNewTracks[QStringLiteral("album3")] = {
+    {QUrl::fromLocalFile(QStringLiteral("file://image$10"))}},
         {true, QStringLiteral("$11"), QStringLiteral("0"), QStringLiteral("track1"),
             QStringLiteral("artist2"), QStringLiteral("album3"), QStringLiteral("artist2"), 1, 1, QTime::fromMSecsSinceStartOfDay(11000), {QUrl::fromLocalFile(QStringLiteral("$11"))},
     {QUrl::fromLocalFile(QStringLiteral("file://image$11"))}},
@@ -82,10 +76,7 @@ void MediaPlayListTest::initTestCase()
     {QUrl::fromLocalFile(QStringLiteral("file://image$12"))}},
         {true, QStringLiteral("$13"), QStringLiteral("0"), QStringLiteral("track3"),
             QStringLiteral("artist2"), QStringLiteral("album3"), QStringLiteral("artist2"), 3, 1, QTime::fromMSecsSinceStartOfDay(13000), {QUrl::fromLocalFile(QStringLiteral("$13"))},
-    {QUrl::fromLocalFile(QStringLiteral("file://image$13"))}}
-    };
-
-    mNewTracks[QStringLiteral("album4")] = {
+    {QUrl::fromLocalFile(QStringLiteral("file://image$13"))}},
         {true, QStringLiteral("$14"), QStringLiteral("0"), QStringLiteral("track1"),
             QStringLiteral("artist2"), QStringLiteral("album4"), QStringLiteral("artist2"), 1, 1, QTime::fromMSecsSinceStartOfDay(14000), {QUrl::fromLocalFile(QStringLiteral("$14"))},
     {QUrl::fromLocalFile(QStringLiteral("file://image$14"))}},

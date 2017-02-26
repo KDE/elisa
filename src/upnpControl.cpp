@@ -133,7 +133,8 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
 
     qRegisterMetaType<QAbstractItemModel*>();
     qRegisterMetaType<QHash<QString,QUrl>>("QHash<QString,QUrl>");
-    qRegisterMetaType<QHash<QString,QVector<MusicAudioTrack>>>("QHash<QString,QVector<MusicAudioTrack>>");
+    qRegisterMetaType<QList<MusicAudioTrack>>("QList<MusicAudioTrack>");
+    qRegisterMetaType<QList<MusicAudioTrack>>("QVector<MusicAudioTrack>");
     qRegisterMetaType<QVector<qulonglong>>("QVector<qulonglong>");
     qRegisterMetaType<QHash<qulonglong,int>>("QHash<qulonglong,int>");
     qRegisterMetaType<MusicAlbum>("MusicAlbum");

@@ -43,14 +43,14 @@ class AlbumModelTests: public QObject
 
 private:
 
-    QHash<QString, QVector<MusicAudioTrack>> mNewTracks;
+    QList<MusicAudioTrack> mNewTracks;
     QHash<QString, QUrl> mNewCovers;
 
 private Q_SLOTS:
 
     void initTestCase()
     {
-        mNewTracks[QStringLiteral("album1")] = {
+        mNewTracks = {
             {true, QStringLiteral("$1"), QStringLiteral("0"), QStringLiteral("track1"),
                 QStringLiteral("artist1"), QStringLiteral("album1"), QStringLiteral("Various Artists"), 1, 1, QTime::fromMSecsSinceStartOfDay(1), {QUrl::fromLocalFile(QStringLiteral("/$1"))},
         {QUrl::fromLocalFile(QStringLiteral("file://image$1"))}},
@@ -62,10 +62,7 @@ private Q_SLOTS:
         {QUrl::fromLocalFile(QStringLiteral("file://image$3"))}},
             {true, QStringLiteral("$4"), QStringLiteral("0"), QStringLiteral("track4"),
                 QStringLiteral("artist4"), QStringLiteral("album1"), QStringLiteral("Various Artists"), 4, 4, QTime::fromMSecsSinceStartOfDay(4), {QUrl::fromLocalFile(QStringLiteral("/$4"))},
-                {QUrl::fromLocalFile(QStringLiteral("file://image$4"))}},
-        };
-
-        mNewTracks[QStringLiteral("album2")] = {
+        {QUrl::fromLocalFile(QStringLiteral("file://image$4"))}},
             {true, QStringLiteral("$5"), QStringLiteral("0"), QStringLiteral("track1"),
                 QStringLiteral("artist1"), QStringLiteral("album2"), QStringLiteral("artist1"), 1, 1, QTime::fromMSecsSinceStartOfDay(5), {QUrl::fromLocalFile(QStringLiteral("/$5"))},
         {QUrl::fromLocalFile(QStringLiteral("file://image$5"))}},
@@ -83,10 +80,7 @@ private Q_SLOTS:
         {QUrl::fromLocalFile(QStringLiteral("file://image$9"))}},
             {true, QStringLiteral("$10"), QStringLiteral("0"), QStringLiteral("track6"),
                 QStringLiteral("artist1 and artist2"), QStringLiteral("album2"), QStringLiteral("artist1"), 6, 1, QTime::fromMSecsSinceStartOfDay(10), {QUrl::fromLocalFile(QStringLiteral("/$10"))},
-        {QUrl::fromLocalFile(QStringLiteral("file://image$10"))}}
-        };
-
-        mNewTracks[QStringLiteral("album3")] = {
+        {QUrl::fromLocalFile(QStringLiteral("file://image$10"))}},
             {true, QStringLiteral("$11"), QStringLiteral("0"), QStringLiteral("track1"),
                 QStringLiteral("artist2"), QStringLiteral("album3"), QStringLiteral("artist2"), 1, 1, QTime::fromMSecsSinceStartOfDay(11), {QUrl::fromLocalFile(QStringLiteral("/$11"))},
         {QUrl::fromLocalFile(QStringLiteral("file://image$11"))}},
@@ -95,10 +89,7 @@ private Q_SLOTS:
         {QUrl::fromLocalFile(QStringLiteral("file://image$12"))}},
             {true, QStringLiteral("$13"), QStringLiteral("0"), QStringLiteral("track3"),
                 QStringLiteral("artist2"), QStringLiteral("album3"), QStringLiteral("artist2"), 3, 1, QTime::fromMSecsSinceStartOfDay(13), {QUrl::fromLocalFile(QStringLiteral("/$13"))},
-        {QUrl::fromLocalFile(QStringLiteral("file://image$13"))}}
-        };
-
-        mNewTracks[QStringLiteral("album4")] = {
+        {QUrl::fromLocalFile(QStringLiteral("file://image$13"))}},
             {true, QStringLiteral("$14"), QStringLiteral("0"), QStringLiteral("track1"),
                 QStringLiteral("artist2"), QStringLiteral("album4"), QStringLiteral("artist2"), 1, 1, QTime::fromMSecsSinceStartOfDay(14), {QUrl::fromLocalFile(QStringLiteral("/$14"))},
         {QUrl::fromLocalFile(QStringLiteral("file://image$14"))}},
@@ -123,7 +114,7 @@ private Q_SLOTS:
 
         qRegisterMetaType<QHash<qulonglong,int>>("QHash<qulonglong,int>");
         qRegisterMetaType<QHash<QString,QUrl>>("QHash<QString,QUrl>");
-        qRegisterMetaType<QHash<QString,QVector<MusicAudioTrack>>>("QHash<QString,QVector<MusicAudioTrack>>");
+        qRegisterMetaType<QList<MusicAudioTrack>>("QList<MusicAudioTrack>");
         qRegisterMetaType<QVector<qlonglong>>("QVector<qlonglong>");
         qRegisterMetaType<QHash<qlonglong,int>>("QHash<qlonglong,int>");
         qRegisterMetaType<MusicArtist>("MusicArtist");
@@ -322,8 +313,8 @@ private Q_SLOTS:
         auto newTrack = MusicAudioTrack{true, QStringLiteral("$19"), QStringLiteral("0"), QStringLiteral("track6"),
                 QStringLiteral("artist2"), QStringLiteral("album1"), QStringLiteral("Various Artists"), 6, 1, QTime::fromMSecsSinceStartOfDay(19), {QUrl::fromLocalFile(QStringLiteral("/$19"))},
         {QUrl::fromLocalFile(QStringLiteral("file://image$19"))}};
-        auto newTracks = QHash<QString, QVector<MusicAudioTrack>>();
-        newTracks[newTrack.albumName()].push_back(newTrack);
+        auto newTracks = QList<MusicAudioTrack>();
+        newTracks.push_back(newTrack);
 
         musicDb.insertTracksList(newTracks, mNewCovers, QStringLiteral("autoTest"));
 
@@ -341,8 +332,8 @@ private Q_SLOTS:
         auto secondNewTrack = MusicAudioTrack{true, QStringLiteral("$20"), QStringLiteral("0"), QStringLiteral("track5"),
                 QStringLiteral("artist2"), QStringLiteral("album1"), QStringLiteral("Various Artists"), 5, 1, QTime::fromMSecsSinceStartOfDay(20), {QUrl::fromLocalFile(QStringLiteral("/$20"))},
         {QUrl::fromLocalFile(QStringLiteral("file://image$20"))}};
-        auto secondNewTracks = QHash<QString, QVector<MusicAudioTrack>>();
-        secondNewTracks[secondNewTrack.albumName()].push_back(secondNewTrack);
+        auto secondNewTracks = QList<MusicAudioTrack>();
+        secondNewTracks.push_back(secondNewTrack);
 
         musicDb.insertTracksList(secondNewTracks, mNewCovers, QStringLiteral("autoTest"));
 

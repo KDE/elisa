@@ -52,7 +52,7 @@ Q_SIGNALS:
 
     void initialTracksListRequired(QString musicSource);
 
-    void initialTracksList(QString musicSource, QVector<MusicAudioTrack> initialList);
+    void initialTracksList(QString musicSource, QList<MusicAudioTrack> initialList);
 
 public Q_SLOTS:
 

@@ -58,6 +58,8 @@ public:
 
     QHash<QString, QVector<MusicAudioTrack>> mNewTracksByAlbums;
 
+    QList<MusicAudioTrack> mNewTracksList;
+
     QHash<QString, QUrl> mCovers;
 
 };
@@ -204,9 +206,9 @@ const QVector<QString> &DidlParser::newMusicTrackIds() const
     return d->mNewMusicTrackIds;
 }
 
-const QHash<QString, QVector<MusicAudioTrack>> &DidlParser::newMusicTracks() const
+const QList<MusicAudioTrack> &DidlParser::newMusicTracks() const
 {
-    return d->mNewTracksByAlbums;
+    return d->mNewTracksList;
 }
 
 const QHash<QString, QUrl> &DidlParser::covers() const

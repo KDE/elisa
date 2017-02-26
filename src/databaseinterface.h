@@ -54,19 +54,19 @@ public:
 
     Q_INVOKABLE void init(const QString &dbName, const QString &databaseFileName = {});
 
-    MusicAlbum albumFromTitle(QString title) const;
+    MusicAlbum albumFromTitle(QString title);
 
     QVector<MusicAudioTrack> allTracks() const;
 
-    QVector<MusicAudioTrack> allTracksFromSource(QString musicSource) const;
+    QList<MusicAudioTrack> allTracksFromSource(QString musicSource) const;
 
-    QVector<MusicAlbum> allAlbums() const;
+    QVector<MusicAlbum> allAlbums();
 
     QVector<MusicArtist> allArtists() const;
 
     QVector<MusicAudioTrack> tracksFromAuthor(QString artistName) const;
 
-    MusicAudioTrack trackFromDatabaseId(qulonglong id) const;
+    MusicAudioTrack trackFromDatabaseId(qulonglong id);
 
     qulonglong trackIdFromTitleAlbumArtist(QString title, QString album, QString artist) const;
 
@@ -92,11 +92,11 @@ Q_SIGNALS:
 
     void requestsInitDone();
 
-    void initialTracksList(QString musicSource, QVector<MusicAudioTrack> initialList);
+    void initialTracksList(QString musicSource, QList<MusicAudioTrack> initialList);
 
 public Q_SLOTS:
 
-    void insertTracksList(QHash<QString, QVector<MusicAudioTrack> > tracks, QHash<QString, QUrl> covers, QString musicSource);
+    void insertTracksList(QList<MusicAudioTrack> tracks, QHash<QString, QUrl> covers, QString musicSource);
 
     void removeTracksList(const QList<QUrl> removedTracks);
 
@@ -112,29 +112,33 @@ private:
 
     bool rollBackTransaction() const;
 
-    QMap<qulonglong, MusicAudioTrack> fetchTracks(qulonglong albumId) const;
+    QMap<qulonglong, MusicAudioTrack> fetchTracks(qulonglong albumId);
 
     QList<qulonglong> fetchTrackIds(qulonglong albumId) const;
 
-    void updateTracksCount(qulonglong albumId, int tracksCount) const;
+    void updateTracksCount(qulonglong albumId);
 
     MusicArtist internalArtistFromId(qulonglong artistId) const;
 
-    MusicAlbum internalAlbumFromId(qulonglong albumId) const;
+    MusicAlbum internalAlbumFromId(qulonglong albumId);
 
-    MusicAlbum internalAlbumFromTitle(QString title) const;
+    MusicAlbum internalAlbumFromTitle(QString title);
 
-    MusicAudioTrack internalTrackFromDatabaseId(qulonglong id) const;
+    MusicAudioTrack internalTrackFromDatabaseId(qulonglong id);
 
     qulonglong internalTrackIdFromTitleAlbumArtist(QString title, QString album, QString artist) const;
 
-    QVariant internalAlbumDataFromId(qulonglong albumId, AlbumData dataType) const;
+    QVariant internalAlbumDataFromId(qulonglong albumId, AlbumData dataType);
 
     QVector<MusicAudioTrack> internalTracksFromAuthor(QString artistName) const;
 
     void initDatabase() const;
 
     void initRequest();
+
+    qulonglong insertAlbum(QString title, QString albumArtist, QUrl albumArtURI, int tracksCount, bool isSingleDiscAlbum);
+
+    void updateIsSingleDiscAlbumFromId(qulonglong albumId) const;
 
     qulonglong insertArtist(QString name);
 

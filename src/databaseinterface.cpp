@@ -52,7 +52,8 @@ public:
           mRemoveArtistQuery(mTracksDatabase), mSelectAllTracksQuery(mTracksDatabase),
           mInsertTrackMapping(mTracksDatabase), mSelectAllTracksFromSourceQuery(mTracksDatabase),
           mInsertMusicSource(mTracksDatabase), mSelectMusicSource(mTracksDatabase),
-          mUpdateIsSingleDiscAlbumFromIdQuery(mTracksDatabase)
+          mUpdateIsSingleDiscAlbumFromIdQuery(mTracksDatabase), mSelectAllInvalidTracksFromSourceQuery(mTracksDatabase),
+          mInitialUpdateTracksValidity(mTracksDatabase)
     {
     }
 
@@ -113,6 +114,10 @@ public:
     QSqlQuery mSelectMusicSource;
 
     QSqlQuery mUpdateIsSingleDiscAlbumFromIdQuery;
+
+    QSqlQuery mSelectAllInvalidTracksFromSourceQuery;
+
+    QSqlQuery mInitialUpdateTracksValidity;
 
     qulonglong mAlbumId = 1;
 
@@ -281,6 +286,59 @@ QList<MusicAudioTrack> DatabaseInterface::allTracksFromSource(QString musicSourc
     }
 
     d->mSelectAllTracksFromSourceQuery.finish();
+
+    transactionResult = finishTransaction();
+    if (!transactionResult) {
+        return result;
+    }
+
+    return result;
+}
+
+QList<MusicAudioTrack> DatabaseInterface::allInvalidTracksFromSource(QString musicSource) const
+{
+    auto result = QList<MusicAudioTrack>();
+
+    if (!d) {
+        return result;
+    }
+
+    auto transactionResult = startTransaction();
+    if (!transactionResult) {
+        return result;
+    }
+
+    d->mSelectAllInvalidTracksFromSourceQuery.bindValue(QStringLiteral(":source"), musicSource);
+
+    auto queryResult = d->mSelectAllInvalidTracksFromSourceQuery.exec();
+
+    if (!queryResult || !d->mSelectAllInvalidTracksFromSourceQuery.isSelect() || !d->mSelectAllInvalidTracksFromSourceQuery.isActive()) {
+        qDebug() << "DatabaseInterface::allAlbums" << d->mSelectAllInvalidTracksFromSourceQuery.lastQuery();
+        qDebug() << "DatabaseInterface::allAlbums" << d->mSelectAllInvalidTracksFromSourceQuery.boundValues();
+        qDebug() << "DatabaseInterface::allAlbums" << d->mSelectAllInvalidTracksFromSourceQuery.lastError();
+
+        return result;
+    }
+
+    while(d->mSelectAllInvalidTracksFromSourceQuery.next()) {
+        auto newTrack = MusicAudioTrack();
+
+        newTrack.setDatabaseId(d->mSelectAllInvalidTracksFromSourceQuery.record().value(0).toULongLong());
+        newTrack.setTitle(d->mSelectAllInvalidTracksFromSourceQuery.record().value(1).toString());
+        newTrack.setParentId(d->mSelectAllInvalidTracksFromSourceQuery.record().value(2).toString());
+        newTrack.setArtist(d->mSelectAllInvalidTracksFromSourceQuery.record().value(3).toString());
+        newTrack.setAlbumArtist(d->mSelectAllInvalidTracksFromSourceQuery.record().value(4).toString());
+        newTrack.setResourceURI(d->mSelectAllInvalidTracksFromSourceQuery.record().value(5).toUrl());
+        newTrack.setTrackNumber(d->mSelectAllInvalidTracksFromSourceQuery.record().value(6).toInt());
+        newTrack.setDiscNumber(d->mSelectAllInvalidTracksFromSourceQuery.record().value(7).toInt());
+        newTrack.setDuration(QTime::fromMSecsSinceStartOfDay(d->mSelectAllInvalidTracksFromSourceQuery.record().value(8).toInt()));
+        newTrack.setAlbumName(d->mSelectAllInvalidTracksFromSourceQuery.record().value(9).toString());
+        newTrack.setValid(true);
+
+        result.push_back(newTrack);
+    }
+
+    d->mSelectAllInvalidTracksFromSourceQuery.finish();
 
     transactionResult = finishTransaction();
     if (!transactionResult) {
@@ -572,6 +630,8 @@ void DatabaseInterface::insertTracksList(QList<MusicAudioTrack> tracks, QHash<QS
         if (d->mSelectTrackIdFromTitleAlbumIdArtistQuery.next()) {
             d->mTrackId = std::max(d->mTrackId, d->mSelectTrackIdFromTitleAlbumIdArtistQuery.record().value(0).toULongLong() + 1);
 
+            insertTrackOrigin(d->mSelectTrackIdFromTitleAlbumIdArtistQuery.record().value(0).toULongLong(), track.resourceURI(), insertMusicSource(musicSource));
+
             d->mSelectTrackIdFromTitleAlbumIdArtistQuery.finish();
 
             continue;
@@ -613,6 +673,11 @@ void DatabaseInterface::insertTracksList(QList<MusicAudioTrack> tracks, QHash<QS
     transactionResult = finishTransaction();
     if (!transactionResult) {
         return;
+    }
+
+    const auto &tracksToRemove = allInvalidTracksFromSource(musicSource);
+    for (const auto &trackToRemove : tracksToRemove) {
+        removeTracksList({trackToRemove.resourceURI()});
     }
 }
 
@@ -1054,6 +1119,36 @@ void DatabaseInterface::initRequest()
     }
 
     {
+        auto selectAllInvalidTracksFromSourceQueryText = QStringLiteral("SELECT tracks.`ID`, "
+                                                                        "tracks.`Title`, "
+                                                                        "tracks.`AlbumID`, "
+                                                                        "artist.`Name`, "
+                                                                        "artistAlbum.`Name`, "
+                                                                        "mappings.`FileName`, "
+                                                                        "tracks.`TrackNumber`, "
+                                                                        "tracks.`DiscNumber`, "
+                                                                        "tracks.`Duration`, "
+                                                                        "album.`Title` "
+                                                                        "FROM `Tracks` tracks, `Artists` artist, `Artists` artistAlbum, "
+                                                                        "`Albums` album , `TracksMapping` mappings, `DiscoverSource` source "
+                                                                        "WHERE "
+                                                                        "artist.`ID` = tracks.`ArtistID` AND "
+                                                                        "tracks.`AlbumID` = album.`ID` AND "
+                                                                        "artistAlbum.`ID` = album.`ArtistID` AND "
+                                                                        "source.`Name` = :source AND "
+                                                                        "source.`ID` = mappings.`DiscoverID` AND "
+                                                                        "mappings.`TrackValid` = 0 AND "
+                                                                        "mappings.`TrackID` = tracks.`ID`");
+
+        auto result = d->mSelectAllInvalidTracksFromSourceQuery.prepare(selectAllInvalidTracksFromSourceQueryText);
+
+        if (!result) {
+            qDebug() << "DatabaseInterface::initRequest" << selectAllInvalidTracksFromSourceQueryText << d->mSelectAllInvalidTracksFromSourceQuery.lastError();
+            qDebug() << d->mTracksDatabase.lastError();
+        }
+    }
+
+    {
         auto selectAllTracksFromSourceQueryText = QStringLiteral("SELECT tracks.`ID`, "
                                                                  "tracks.`Title`, "
                                                                  "tracks.`AlbumID`, "
@@ -1197,10 +1292,20 @@ void DatabaseInterface::initRequest()
     }
 
     {
-        auto insertTrackMappingQueryText = QStringLiteral("INSERT OR IGNORE INTO `TracksMapping` (`TrackID`, `FileName`, `DiscoverID`, `TrackValid`) "
-                                                   "VALUES (:trackId, :fileName, :discoverId, 0)");
+        auto insertTrackMappingQueryText = QStringLiteral("INSERT OR REPLACE INTO `TracksMapping` (`TrackID`, `FileName`, `DiscoverID`, `TrackValid`) "
+                                                   "VALUES (:trackId, :fileName, :discoverId, 1)");
 
         auto result = d->mInsertTrackMapping.prepare(insertTrackMappingQueryText);
+
+        if (!result) {
+            qDebug() << "DatabaseInterface::initRequest" << d->mInsertTrackMapping.lastError();
+        }
+    }
+
+    {
+        auto initialUpdateTracksValidityQueryText = QStringLiteral("UPDATE `TracksMapping` SET `TrackValid` = 0");
+
+        auto result = d->mInitialUpdateTracksValidity.prepare(initialUpdateTracksValidityQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mInsertTrackMapping.lastError();
@@ -1670,6 +1775,19 @@ void DatabaseInterface::removeArtistInDatabase(qulonglong artistId)
 
 void DatabaseInterface::reloadExistingDatabase()
 {
+    auto transactionResult = startTransaction();
+    if (!transactionResult) {
+        return;
+    }
+
+    d->mInitialUpdateTracksValidity.exec();
+    qDebug() << "DatabaseInterface::reloadExistingDatabase";
+
+    transactionResult = finishTransaction();
+    if (!transactionResult) {
+        return;
+    }
+
     const auto restoredArtists = allArtists();
     for (const auto oneArtist : restoredArtists) {
         d->mArtistId = std::max(d->mArtistId, oneArtist.databaseId());

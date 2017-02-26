@@ -60,6 +60,8 @@ public:
 
     QList<MusicAudioTrack> allTracksFromSource(QString musicSource) const;
 
+    QList<MusicAudioTrack> allInvalidTracksFromSource(QString musicSource) const;
+
     QVector<MusicAlbum> allAlbums();
 
     QVector<MusicArtist> allArtists() const;

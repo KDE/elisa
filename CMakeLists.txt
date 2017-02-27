@@ -28,6 +28,11 @@ find_package(KF5ConfigWidgets CONFIG QUIET)
 find_package(KF5Config CONFIG QUIET)
 
 find_package(KDSoap CONFIG QUIET)
+set_package_properties(KDSoap PROPERTIES
+    DESCRIPTION "Tool for creating client applications for web services."
+    URL "https://www.kdab.com/development-resources/qt-tools/kd-soap/"
+    TYPE OPTIONAL)
+
 find_package(UPNPQT CONFIG QUIET)
 
 find_package(KF5Kirigami CONFIG QUIET)

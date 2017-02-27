@@ -58,8 +58,8 @@ ApplicationWindow {
 
         property int x
         property int y
-        property int width
-        property int height
+        property int width : 1000
+        property int height : 600
 
         property var playListState
 
@@ -67,8 +67,8 @@ ApplicationWindow {
 
         property var audioPlayerState
 
-        property double playControlItemVolume
-        property bool playControlItemMuted
+        property double playControlItemVolume : 1.0
+        property bool playControlItemMuted : false
     }
 
     Action {

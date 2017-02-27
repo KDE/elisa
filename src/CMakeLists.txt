@@ -160,6 +160,13 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         )
     endif()
 
+    if (KF5Crash_FOUND)
+        target_link_libraries(elisa
+            LINK_PRIVATE
+                KF5::Crash
+        )
+    endif()
+
     if (UPNPQT_FOUND)
         target_link_libraries(elisa
             LINK_PRIVATE

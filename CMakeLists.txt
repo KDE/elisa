@@ -26,6 +26,7 @@ find_package(KF5DocTools CONFIG QUIET)
 find_package(KF5XmlGui CONFIG QUIET)
 find_package(KF5ConfigWidgets CONFIG QUIET)
 find_package(KF5Config CONFIG QUIET)
+find_package(KF5Crash CONFIG QUIET)
 
 find_package(KDSoap CONFIG QUIET)
 set_package_properties(KDSoap PROPERTIES

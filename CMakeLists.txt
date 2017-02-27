@@ -34,6 +34,10 @@ set_package_properties(KDSoap PROPERTIES
     TYPE OPTIONAL)
 
 find_package(UPNPQT CONFIG QUIET)
+set_package_properties(UPNPQT PROPERTIES
+    DESCRIPTION "UPNP layer build with Qt 5."
+    URL "https://gitlab.com/homeautomationqt/upnp-player-qt"
+    TYPE OPTIONAL)
 
 find_package(KF5Kirigami CONFIG QUIET)
 

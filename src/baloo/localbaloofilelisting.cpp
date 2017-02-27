@@ -89,21 +89,9 @@ void LocalBalooFileListing::databaseIsReady()
 
 void LocalBalooFileListing::initialTracksList(QString musicSource, QList<MusicAudioTrack> initialList)
 {
+    Q_UNUSED(initialList);
+
     if (musicSource == d->mSourceName) {
-        d->mAllAlbums.clear();
-        d->mAllAlbumCover.clear();
-
-        qDebug() << "LocalBalooFileListing::initialTracksList" << initialList.count();
-
-        const auto &constInitialList = initialList;
-        for (const auto &oneTrack : constInitialList) {
-            d->mAllAlbums[oneTrack.albumName()].push_back(oneTrack);
-            d->mNewTracks.push_back(oneTrack);
-            d->mAllAlbumCover[oneTrack.albumName()] = oneTrack.albumCover();
-        }
-
-        qDebug() << "LocalBalooFileListing::initialTracksList" << d->mAllAlbums.count();
-
         refreshContent();
     }
 }

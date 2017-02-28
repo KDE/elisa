@@ -41,8 +41,6 @@ set_package_properties(UPNPQT PROPERTIES
     URL "https://gitlab.com/homeautomationqt/upnp-player-qt"
     TYPE OPTIONAL)
 
-find_package(KF5Kirigami CONFIG QUIET)
-
 include(FeatureSummary)
 include(GenerateExportHeader)
 include(ECMSetupVersion)

@@ -176,7 +176,3 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
 endif()
 
 install(TARGETS elisa ${INSTALL_TARGETS_DEFAULT_ARGS})
-
-if (KF5Kirigami_FOUND)
-    kirigami_package_breeze_icons(ICONS media-skip-backward media-skip-forward audio-x-generic folder go-next go-previous list-remove)
-endif()

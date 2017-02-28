@@ -209,7 +209,7 @@ Item {
 
                         cached: true
 
-                        color: myPalette.dark
+                        color: myPalette.shadow
 
                         radius: 4.0
                         samples: 9
@@ -240,7 +240,7 @@ Item {
 
                         cached: true
 
-                        color: myPalette.dark
+                        color: myPalette.shadow
 
                         radius: 4.0
                         samples: 9
@@ -272,7 +272,7 @@ Item {
 
                         cached: true
 
-                        color: myPalette.dark
+                        color: myPalette.shadow
 
                         radius: 4.0
                         samples: 9

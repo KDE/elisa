@@ -15,6 +15,7 @@ set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
 include(KDEInstallDirs)
 include(KDEFrameworkCompilerSettings)
 include(KDECMakeSettings)
+include(FeatureSummary)
 
 find_package(KF5I18n CONFIG REQUIRED QUIET)
 

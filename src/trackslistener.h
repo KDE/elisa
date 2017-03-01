@@ -39,7 +39,7 @@ Q_SIGNALS:
 
     void trackChanged(MusicAudioTrack audioTrack);
 
-    void albumAdded(const QVector<MusicAudioTrack> &tracks);
+    void albumAdded(const QList<MusicAudioTrack> &tracks);
 
 public Q_SLOTS:
 

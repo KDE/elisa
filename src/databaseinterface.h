@@ -27,7 +27,7 @@
 #include <QObject>
 #include <QString>
 #include <QHash>
-#include <QVector>
+#include <QList>
 #include <QVariant>
 #include <QUrl>
 
@@ -56,17 +56,17 @@ public:
 
     MusicAlbum albumFromTitle(QString title);
 
-    QVector<MusicAudioTrack> allTracks() const;
+    QList<MusicAudioTrack> allTracks() const;
 
     QList<MusicAudioTrack> allTracksFromSource(QString musicSource) const;
 
     QList<MusicAudioTrack> allInvalidTracksFromSource(QString musicSource) const;
 
-    QVector<MusicAlbum> allAlbums();
+    QList<MusicAlbum> allAlbums();
 
-    QVector<MusicArtist> allArtists() const;
+    QList<MusicArtist> allArtists() const;
 
-    QVector<MusicAudioTrack> tracksFromAuthor(QString artistName) const;
+    QList<MusicAudioTrack> tracksFromAuthor(QString artistName) const;
 
     MusicAudioTrack trackFromDatabaseId(qulonglong id);
 
@@ -132,7 +132,7 @@ private:
 
     QVariant internalAlbumDataFromId(qulonglong albumId, AlbumData dataType);
 
-    QVector<MusicAudioTrack> internalTracksFromAuthor(QString artistName) const;
+    QList<MusicAudioTrack> internalTracksFromAuthor(QString artistName) const;
 
     void initDatabase() const;
 

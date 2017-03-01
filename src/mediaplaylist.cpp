@@ -462,7 +462,7 @@ void MediaPlayList::removeSelection(QList<int> selection)
     }
 }
 
-void MediaPlayList::albumAdded(const QVector<MusicAudioTrack> &tracks)
+void MediaPlayList::albumAdded(const QList<MusicAudioTrack> tracks)
 {
     for (int playListIndex = 0; playListIndex < d->mData.size(); ++playListIndex) {
         auto &oneEntry = d->mData[playListIndex];

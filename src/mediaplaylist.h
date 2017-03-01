@@ -156,7 +156,7 @@ public Q_SLOTS:
 
     void removeSelection(QList<int> selection);
 
-    void albumAdded(const QVector<MusicAudioTrack> &tracks);
+    void albumAdded(const QList<MusicAudioTrack> tracks);
 
     void trackChanged(MusicAudioTrack track);
 

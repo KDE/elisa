@@ -192,9 +192,9 @@ MusicAlbum DatabaseInterface::albumFromTitle(QString title)
     return result;
 }
 
-QVector<MusicAudioTrack> DatabaseInterface::allTracks() const
+QList<MusicAudioTrack> DatabaseInterface::allTracks() const
 {
-    auto result = QVector<MusicAudioTrack>();
+    auto result = QList<MusicAudioTrack>();
 
     if (!d) {
         return result;
@@ -348,9 +348,9 @@ QList<MusicAudioTrack> DatabaseInterface::allInvalidTracksFromSource(QString mus
     return result;
 }
 
-QVector<MusicAlbum> DatabaseInterface::allAlbums()
+QList<MusicAlbum> DatabaseInterface::allAlbums()
 {
-    auto result = QVector<MusicAlbum>();
+    auto result = QList<MusicAlbum>();
 
     if (!d) {
         return result;
@@ -398,9 +398,9 @@ QVector<MusicAlbum> DatabaseInterface::allAlbums()
     return result;
 }
 
-QVector<MusicArtist> DatabaseInterface::allArtists() const
+QList<MusicArtist> DatabaseInterface::allArtists() const
 {
-    auto result = QVector<MusicArtist>();
+    auto result = QList<MusicArtist>();
 
     if (!d) {
         return result;
@@ -473,9 +473,9 @@ QVector<MusicArtist> DatabaseInterface::allArtists() const
     return result;
 }
 
-QVector<MusicAudioTrack> DatabaseInterface::tracksFromAuthor(QString artistName) const
+QList<MusicAudioTrack> DatabaseInterface::tracksFromAuthor(QString artistName) const
 {
-    auto allTracks = QVector<MusicAudioTrack>();
+    auto allTracks = QList<MusicAudioTrack>();
 
     auto transactionResult = startTransaction();
     if (!transactionResult) {
@@ -2170,9 +2170,9 @@ QVariant DatabaseInterface::internalAlbumDataFromId(qulonglong albumId, Database
     return result;
 }
 
-QVector<MusicAudioTrack> DatabaseInterface::internalTracksFromAuthor(QString artistName) const
+QList<MusicAudioTrack> DatabaseInterface::internalTracksFromAuthor(QString artistName) const
 {
-    auto allTracks = QVector<MusicAudioTrack>();
+    auto allTracks = QList<MusicAudioTrack>();
 
     d->mSelectTracksFromArtist.bindValue(QStringLiteral(":artistName"), artistName);
 

@@ -370,10 +370,8 @@ void MediaPlayList::move(int from, int to, int n)
 
 void MediaPlayList::enqueue(MusicAlbum album)
 {
-    const auto allTracksKeys = album.tracksKeys();
-
-    for (const auto oneTrackId : allTracksKeys) {
-        enqueue(oneTrackId);
+    for (auto oneTrackIndex = 0; oneTrackIndex < album.tracksCount(); ++oneTrackIndex) {
+        enqueue(album.trackFromIndex(oneTrackIndex).databaseId());
     }
 }
 

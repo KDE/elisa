@@ -212,6 +212,8 @@ public Q_SLOTS:
 
     void setPlayerError(int playerError);
 
+    void ensurePlay();
+
     void playPause();
 
     void setAudioDuration(int audioDuration);

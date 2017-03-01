@@ -58,7 +58,7 @@ Item {
         iconName: "media-playback-start"
         onTriggered: {
             playList.clearAndEnqueue(databaseId)
-            playerControl.playPause()
+            playerControl.ensurePlay()
         }
     }
 

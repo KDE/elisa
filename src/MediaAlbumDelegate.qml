@@ -84,7 +84,7 @@ Rectangle {
         iconName: 'media-playback-start'
         onTriggered: {
             mediaServerEntry.playListModel.clearAndEnqueue(mediaServerEntry.albumData)
-            mediaServerEntry.playerControl.playPause()
+            mediaServerEntry.playerControl.ensurePlay()
         }
     }
 

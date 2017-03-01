@@ -118,7 +118,7 @@ Item {
                 iconName: "media-playback-start"
                 onTriggered: {
                     topListing.playListModel.clearAndEnqueue(topListing.albumData)
-                    topListing.playerControl.playPause()
+                    topListing.playerControl.ensurePlay()
                 }
             }
         }

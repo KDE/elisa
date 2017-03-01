@@ -74,7 +74,7 @@ Item {
                 iconName: "media-playback-start"
                 onTriggered: {
                     rootElement.playListModel.clearAndEnqueue(rootElement.artistName)
-                    rootElement.playerControl.playPause()
+                    rootElement.playerControl.ensurePlay()
                 }
             }
         }

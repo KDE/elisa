@@ -293,6 +293,13 @@ void ManageAudioPlayer::setPlayerError(int playerError)
     Q_EMIT playerErrorChanged();
 }
 
+void ManageAudioPlayer::ensurePlay()
+{
+    if (!mPlayingState) {
+        playPause();
+    }
+}
+
 void ManageAudioPlayer::playPause()
 {
     mPlayingState = !mPlayingState;

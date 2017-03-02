@@ -234,7 +234,7 @@ private Q_SLOTS:
     }
 };
 
-QTEST_MAIN(AllArtistsModelTests)
+QTEST_GUILESS_MAIN(AllArtistsModelTests)
 
 
 #include "allartistsmodeltest.moc"

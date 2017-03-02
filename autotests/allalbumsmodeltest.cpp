@@ -333,7 +333,7 @@ private Q_SLOTS:
     }
 };
 
-QTEST_MAIN(AllAlbumsModelTests)
+QTEST_GUILESS_MAIN(AllAlbumsModelTests)
 
 
 #include "allalbumsmodeltest.moc"

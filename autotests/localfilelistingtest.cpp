@@ -439,7 +439,7 @@ private Q_SLOTS:
     }
 };
 
-QTEST_MAIN(LocalFileListingTests)
+QTEST_GUILESS_MAIN(LocalFileListingTests)
 
 
 #include "localfilelistingtest.moc"

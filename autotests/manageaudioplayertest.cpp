@@ -6566,7 +6566,7 @@ void ManageAudioPlayerTest::playTrackPauseAndSkipNextTrack()
     QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::EndOfMedia));
 }
 
-QTEST_MAIN(ManageAudioPlayerTest)
+QTEST_GUILESS_MAIN(ManageAudioPlayerTest)
 
 
 #include "moc_manageaudioplayertest.cpp"

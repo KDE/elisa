@@ -2449,7 +2449,7 @@ void ManageHeaderBarTest::setPlayListModelTest()
     QCOMPARE(myControl.playListModel(), static_cast<QAbstractItemModel*>(nullptr));
 }
 
-QTEST_MAIN(ManageHeaderBarTest)
+QTEST_GUILESS_MAIN(ManageHeaderBarTest)
 
 
 #include "moc_manageheaderbartest.cpp"

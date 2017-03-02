@@ -3003,7 +3003,7 @@ void PlayListControlerTest::singleTrack()
 }
 
 
-QTEST_MAIN(PlayListControlerTest)
+QTEST_GUILESS_MAIN(PlayListControlerTest)
 
 
 #include "moc_playlistcontrolertest.cpp"

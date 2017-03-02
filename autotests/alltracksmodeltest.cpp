@@ -446,7 +446,7 @@ private Q_SLOTS:
     }
 };
 
-QTEST_MAIN(AllTracksModelTests)
+QTEST_GUILESS_MAIN(AllTracksModelTests)
 
 
 #include "alltracksmodeltest.moc"

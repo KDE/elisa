@@ -2123,7 +2123,7 @@ private Q_SLOTS:
     }
 };
 
-QTEST_MAIN(DatabaseInterfaceTests)
+QTEST_GUILESS_MAIN(DatabaseInterfaceTests)
 
 
 #include "databaseinterfacetest.moc"

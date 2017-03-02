@@ -864,7 +864,7 @@ void ManageMediaPlayerControlTest::setPlayListModelTest()
 }
 
 
-QTEST_MAIN(ManageMediaPlayerControlTest)
+QTEST_GUILESS_MAIN(ManageMediaPlayerControlTest)
 
 
 #include "moc_managemediaplayercontroltest.cpp"

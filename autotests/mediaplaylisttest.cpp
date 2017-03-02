@@ -2937,7 +2937,7 @@ void CrashEnqueuePlayList::crashMediaPlayList()
     mList->data(mList->index(0, 0), MediaPlayList::ResourceRole);
 }
 
-QTEST_MAIN(MediaPlayListTest)
+QTEST_GUILESS_MAIN(MediaPlayListTest)
 
 
 #include "moc_mediaplaylisttest.cpp"

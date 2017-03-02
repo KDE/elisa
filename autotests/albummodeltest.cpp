@@ -385,7 +385,7 @@ private Q_SLOTS:
     }
 };
 
-QTEST_MAIN(AlbumModelTests)
+QTEST_GUILESS_MAIN(AlbumModelTests)
 
 
 #include "albummodeltest.moc"

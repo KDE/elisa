@@ -118,6 +118,8 @@ private Q_SLOTS:
 
     void audioPositionChanged();
 
+    void audioDurationChanged();
+
 private:
     void signalPropertiesChange(const QString &property, const QVariant &value);
 

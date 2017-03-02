@@ -61,6 +61,8 @@ MediaPlayer2Player::MediaPlayer2Player(PlayListControler *playListControler, Man
             this, &MediaPlayer2Player::playerIsSeekableChanged);
     connect(m_manageAudioPlayer, &ManageAudioPlayer::playerPositionChanged,
             this, &MediaPlayer2Player::audioPositionChanged);
+    connect(m_manageAudioPlayer, &ManageAudioPlayer::audioDurationChanged,
+            this, &MediaPlayer2Player::audioDurationChanged);
 
     m_mediaPlayerPresent = 1;
 }
@@ -177,6 +179,8 @@ void MediaPlayer2Player::setPropertyPosition(int newPositionInMs)
 {
     m_position = qlonglong(newPositionInMs) * 1000;
     signalPropertiesChange(QStringLiteral("Position"), Position());
+
+    Q_EMIT Seeked(m_position);
 }
 
 double MediaPlayer2Player::Rate() const
@@ -306,6 +310,18 @@ void MediaPlayer2Player::audioPositionChanged()
     setPropertyPosition(m_manageAudioPlayer->playerPosition());
 }
 
+void MediaPlayer2Player::audioDurationChanged()
+{
+    m_metadata = getMetadataOfCurrentTrack();
+    signalPropertiesChange(QStringLiteral("Metadata"), Metadata());
+
+    skipBackwardControlEnabledChanged();
+    skipForwardControlEnabledChanged();
+    playerPlaybackStateChanged();
+    playerIsSeekableChanged();
+    setPropertyPosition(m_manageAudioPlayer->playerPosition());
+}
+
 int MediaPlayer2Player::currentTrack() const
 {
     return m_manageAudioPlayer->playListPosition();
@@ -315,15 +331,6 @@ void MediaPlayer2Player::setCurrentTrack(int newTrackPosition)
 {
     m_currentTrack = m_manageAudioPlayer->playerSource().toString();
     m_currentTrackId = QDBusObjectPath(QStringLiteral("/org/kde/elisa/playlist/") + QString::number(newTrackPosition)).path();
-
-    m_metadata = getMetadataOfCurrentTrack();
-    signalPropertiesChange(QStringLiteral("Metadata"), Metadata());
-
-    skipBackwardControlEnabledChanged();
-    skipForwardControlEnabledChanged();
-    playerPlaybackStateChanged();
-    playerIsSeekableChanged();
-    audioPositionChanged();
 }
 
 QVariantMap MediaPlayer2Player::getMetadataOfCurrentTrack()

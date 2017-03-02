@@ -121,6 +121,11 @@ QPersistentModelIndex PlayListControler::currentTrack() const
     return mCurrentTrack;
 }
 
+int PlayListControler::currentTrackRow() const
+{
+    return mCurrentTrack.row();
+}
+
 void PlayListControler::playListReset()
 {
     if (!mCurrentTrack.isValid()) {
@@ -315,6 +320,7 @@ void PlayListControler::restoreRepeatPlay()
 void PlayListControler::notifyCurrentTrackChanged()
 {
     Q_EMIT currentTrackChanged();
+    Q_EMIT currentTrackRowChanged();
     mCurrentTrackIsValid = mCurrentTrack.isValid();
     if (mCurrentTrackIsValid) {
         mCurrentPlayListPosition = mCurrentTrack.row();

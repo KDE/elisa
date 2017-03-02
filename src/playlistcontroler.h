@@ -37,6 +37,10 @@ class PlayListControler : public QObject
                READ currentTrack
                NOTIFY currentTrackChanged)
 
+    Q_PROPERTY(int currentTrackRow
+               READ currentTrackRow
+               NOTIFY currentTrackRowChanged)
+
     Q_PROPERTY(QAbstractItemModel* playListModel
                READ playListModel
                WRITE setPlayListModel
@@ -78,6 +82,8 @@ public:
 
     QPersistentModelIndex currentTrack() const;
 
+    int currentTrackRow() const;
+
     QAbstractItemModel* playListModel() const;
 
     int isValidRole() const;
@@ -97,6 +103,8 @@ public:
 Q_SIGNALS:
 
     void currentTrackChanged();
+
+    void currentTrackRowChanged();
 
     void playListModelChanged();
 

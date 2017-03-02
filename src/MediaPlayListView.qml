@@ -67,6 +67,14 @@ Item {
         }
     }
 
+    Action {
+        id: showCurrentTrack
+        text: i18nc("Show currently played track inside playlist", "Show Current Track")
+        iconName: 'media-show-active-track-amarok'
+        enabled: playListModelDelegate.items.count > 0
+        onTriggered: playListView.positionViewAtRow(playListControler.currentTrackRow, ListView.Contain)
+    }
+
     ColumnLayout {
         anchors.fill: parent
         spacing: 0
@@ -275,6 +283,9 @@ Item {
                 anchors.fill: parent
                 ToolButton {
                     action: clearPlayList
+                }
+                ToolButton {
+                    action: showCurrentTrack
                 }
 
                 Item { Layout.fillWidth: true }

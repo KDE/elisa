@@ -187,8 +187,8 @@ Rectangle {
                 ToolButton {
                     id: playNowButton
 
-                    implicitHeight: Screen.pixelDensity * 5.
-                    implicitWidth: Screen.pixelDensity * 5.
+                    implicitHeight: Screen.pixelDensity * 6.
+                    implicitWidth: Screen.pixelDensity * 6.
 
                     visible: opacity > 0.1
                     action: playNow
@@ -198,8 +198,8 @@ Rectangle {
                 ToolButton {
                     id: removeButton
 
-                    implicitHeight: Screen.pixelDensity * 5.
-                    implicitWidth: Screen.pixelDensity * 5.
+                    implicitHeight: Screen.pixelDensity * 6.
+                    implicitWidth: Screen.pixelDensity * 6.
 
                     visible: opacity > 0.1
                     action: removeFromPlayList
@@ -245,7 +245,6 @@ Rectangle {
                 Text {
                     id: durationLabel
                     text: duration
-                    font.weight: Font.Bold
                     elide: "ElideRight"
                     Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
                 }
@@ -259,7 +258,7 @@ Rectangle {
             when: !isSelected && !containsMouse
             PropertyChanges {
                 target: viewAlbumDelegate
-                height: Screen.pixelDensity * (hasAlbumHeader ? 21 : 6)
+                height: Screen.pixelDensity * (hasAlbumHeader ? 21 : 7)
             }
             PropertyChanges {
                 target: removeButton
@@ -279,7 +278,7 @@ Rectangle {
             when: isSelected
             PropertyChanges {
                 target: viewAlbumDelegate
-                height: Screen.pixelDensity * (hasAlbumHeader ? 21 : 6)
+                height: Screen.pixelDensity * (hasAlbumHeader ? 21 : 7)
             }
             PropertyChanges {
                 target: removeButton
@@ -299,7 +298,7 @@ Rectangle {
             when: !isSelected && containsMouse
             PropertyChanges {
                 target: viewAlbumDelegate
-                height: Screen.pixelDensity * (hasAlbumHeader ? 21 : 6)
+                height: Screen.pixelDensity * (hasAlbumHeader ? 21 : 7)
             }
             PropertyChanges {
                 target: removeButton

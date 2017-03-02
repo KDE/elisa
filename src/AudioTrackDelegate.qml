@@ -139,80 +139,42 @@ Item {
                         width: Screen.pixelDensity * 2
                     }
 
-                    ColumnLayout {
-                        Layout.preferredHeight: viewAlbumDelegate.height
+                    Text {
+                        id: mainLabel
+                        text: trackNumber + ' - ' + title
+                        font.weight: Font.Bold
+                        Layout.alignment: Qt.AlignLeft
+                        Layout.leftMargin: (!isSingleDiscAlbum ? Screen.pixelDensity * 4 : 0)
+                        elide: "ElideRight"
+                    }
 
-                        Layout.fillWidth: true
+                    Text {
+                        id: artistSeparatorLabel
+                        visible: artist !== albumArtist
+                        text: ' - '
+                        font.weight: Font.Light
+                        elide: "ElideRight"
+                    }
 
-                        Layout.fillHeight: true
-                        Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
-                        spacing: 0
-
-                        Item {
-                            Layout.preferredHeight: (isFirstTrackOfDisc && !isSingleDiscAlbum ? Screen.pixelDensity * 1.5 : Screen.pixelDensity * 3.)
-                            Layout.minimumHeight: (isFirstTrackOfDisc && !isSingleDiscAlbum ? Screen.pixelDensity * 1.5 : Screen.pixelDensity * 3.)
-                            Layout.maximumHeight: (isFirstTrackOfDisc && !isSingleDiscAlbum ? Screen.pixelDensity * 1.5 : Screen.pixelDensity * 3.)
-                        }
-
-                        Text {
-                            id: mainLabel
-                            text: trackNumber + ' - ' + title
-                            font.weight: Font.Bold
-                            Layout.preferredWidth: Screen.pixelDensity * 9
-                            Layout.fillWidth: true
-                            Layout.alignment: Qt.AlignLeft
-                            Layout.leftMargin: (!isSingleDiscAlbum ? Screen.pixelDensity * 4 : 0)
-                            elide: "ElideRight"
-                        }
-
-                        Item {
-                            Layout.fillHeight: true
-                        }
-
-                        Row {
-                            Text {
-                                id: artistLabel
-                                visible: artist !== albumArtist
-                                text: artist
-                                font.weight: Font.Light
-                                font.italic: true
-                                elide: "ElideRight"
-                            }
-                            Text {
-                                id: artistSeparatorLabel
-                                visible: artist !== albumArtist
-                                text: ' - '
-                                font.weight: Font.Light
-                                elide: "ElideRight"
-                            }
-                            Text {
-                                id: durationLabel
-                                text: duration
-                                font.weight: Font.Light
-                                elide: "ElideRight"
-                            }
-
-                            Layout.preferredWidth: Screen.pixelDensity * 3
-                            Layout.fillWidth: true
-                            Layout.alignment: Qt.AlignLeft
-                            Layout.leftMargin: (!isSingleDiscAlbum ? Screen.pixelDensity * 4 : 0)
-                        }
-
-                        Item {
-                            Layout.preferredHeight: Screen.pixelDensity * 3.
-                            Layout.minimumHeight: Screen.pixelDensity * 3.
-                            Layout.maximumHeight: Screen.pixelDensity * 3.
-                        }
+                    Text {
+                        id: artistLabel
+                        visible: artist !== albumArtist
+                        text: artist
+                        font.weight: Font.Light
+                        font.italic: true
+                        elide: "ElideRight"
                     }
 
                     Item {
-                        Layout.preferredWidth: Screen.pixelDensity * 3.
-                        Layout.minimumWidth: Screen.pixelDensity * 3.
-                        Layout.maximumWidth: Screen.pixelDensity * 3.
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
                     }
 
                     ToolButton {
                         id: enqueueButton
+
+                        implicitHeight: Screen.pixelDensity * 6.
+                        implicitWidth: Screen.pixelDensity * 6.
 
                         visible: opacity > 0.1
                         action: enqueue
@@ -222,9 +184,25 @@ Item {
                     ToolButton {
                         id: clearAndEnqueueButton
 
+                        implicitHeight: Screen.pixelDensity * 6.
+                        implicitWidth: Screen.pixelDensity * 6.
+
                         visible: opacity > 0.1
                         action: clearAndEnqueue
                         Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+                    }
+
+                    Item {
+                        Layout.preferredWidth: Screen.pixelDensity * 3.
+                        Layout.minimumWidth: Screen.pixelDensity * 3.
+                        Layout.maximumWidth: Screen.pixelDensity * 3.
+                    }
+
+                    Text {
+                        id: durationLabel
+                        text: duration
+                        font.weight: Font.Light
+                        elide: "ElideRight"
                     }
 
                     Item {

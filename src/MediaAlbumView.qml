@@ -159,7 +159,7 @@ Item {
                     id: entry
 
                     isAlternateColor: DelegateModel.itemsIndex % 2
-                    height: ((model.isFirstTrackOfDisc && !isSingleDiscAlbum) ? Screen.pixelDensity * 22. : Screen.pixelDensity * 15.)
+                    height: ((model.isFirstTrackOfDisc && !isSingleDiscAlbum) ? Screen.pixelDensity * 15. : Screen.pixelDensity * 7.)
                     width: contentDirectoryView.width
 
                     databaseId: model.databaseId

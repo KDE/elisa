@@ -47,6 +47,10 @@ Item {
         anchors.fill: parent
         spacing: 0
 
+        Item {
+            Layout.preferredHeight: Screen.pixelDensity * 0.5
+        }
+
         RowLayout {
             id: filterRow
 

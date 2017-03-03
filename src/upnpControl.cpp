@@ -68,7 +68,7 @@
 #include <KCoreAddons/KAboutData>
 #endif
 
-#if defined KF5Crash_FOUND
+#if defined KF5Crash_FOUND && KF5Crash_FOUND
 #include <KCrash>
 #endif
 
@@ -90,7 +90,7 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
-#if defined KF5Crash_FOUND
+#if defined KF5Crash_FOUND && KF5Crash_FOUND
     KCrash::initialize();
 #endif
 

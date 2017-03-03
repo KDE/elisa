@@ -11,8 +11,6 @@ set(playListTest_SOURCES
     ../src/musicartist.cpp
     ../src/musicalbum.cpp
     ../src/musicaudiotrack.cpp
-    ../src/file/filelistener.cpp
-    ../src/file/localfilelisting.cpp
     playlisttests.cpp
 )
 
@@ -37,6 +35,14 @@ if (UPNPQT_FOUND)
         ../src/upnp/upnplistener.cpp
         ../src/upnp/upnpdiscoverallmusic.cpp
         )
+endif()
+
+if (KF5FileMetaData_FOUND)
+    set(playListTest_SOURCES
+        ${playListTest_SOURCES}
+        ../src/file/filelistener.cpp
+        ../src/file/localfilelisting.cpp
+    )
 endif()
 
 add_executable(playListTest ${playListTest_SOURCES})
@@ -76,8 +82,6 @@ set(playListControlerTest_SOURCES
     ../src/musicartist.cpp
     ../src/musicalbum.cpp
     ../src/musicaudiotrack.cpp
-    ../src/file/filelistener.cpp
-    ../src/file/localfilelisting.cpp
     playlistcontrolertest.cpp
 )
 
@@ -102,6 +106,14 @@ if (UPNPQT_FOUND)
         ../src/upnp/upnplistener.cpp
         ../src/upnp/upnpdiscoverallmusic.cpp
         )
+endif()
+
+if (KF5FileMetaData_FOUND)
+    set(playListControlerTest_SOURCES
+        ${playListControlerTest_SOURCES}
+        ../src/file/filelistener.cpp
+        ../src/file/localfilelisting.cpp
+    )
 endif()
 
 add_executable(playListControlerTest ${playListControlerTest_SOURCES})
@@ -129,8 +141,6 @@ set(managemediaplayercontrolTest_SOURCES
     ../src/musicartist.cpp
     ../src/musicalbum.cpp
     ../src/musicaudiotrack.cpp
-    ../src/file/filelistener.cpp
-    ../src/file/localfilelisting.cpp
     managemediaplayercontroltest.cpp
 )
 
@@ -155,6 +165,14 @@ if (UPNPQT_FOUND)
         ../src/upnp/upnplistener.cpp
         ../src/upnp/upnpdiscoverallmusic.cpp
         )
+endif()
+
+if (KF5FileMetaData_FOUND)
+    set(managemediaplayercontrolTest_SOURCES
+        ${managemediaplayercontrolTest_SOURCES}
+        ../src/file/filelistener.cpp
+        ../src/file/localfilelisting.cpp
+    )
 endif()
 
 add_executable(managemediaplayercontrolTest ${managemediaplayercontrolTest_SOURCES})
@@ -183,8 +201,6 @@ set(manageheaderbarTest_SOURCES
     ../src/musicartist.cpp
     ../src/musicalbum.cpp
     ../src/musicaudiotrack.cpp
-    ../src/file/filelistener.cpp
-    ../src/file/localfilelisting.cpp
     manageheaderbartest.cpp
 )
 
@@ -209,6 +225,14 @@ if (UPNPQT_FOUND)
         ../src/upnp/upnplistener.cpp
         ../src/upnp/upnpdiscoverallmusic.cpp
         )
+endif()
+
+if (KF5FileMetaData_FOUND)
+    set(manageheaderbarTest_SOURCES
+        ${manageheaderbarTest_SOURCES}
+        ../src/file/filelistener.cpp
+        ../src/file/localfilelisting.cpp
+    )
 endif()
 
 add_executable(manageheaderbarTest ${manageheaderbarTest_SOURCES})
@@ -245,8 +269,6 @@ set(mediaplaylistTest_SOURCES
     ../src/musicartist.cpp
     ../src/musicalbum.cpp
     ../src/musicaudiotrack.cpp
-    ../src/file/filelistener.cpp
-    ../src/file/localfilelisting.cpp
     mediaplaylisttest.cpp
 )
 
@@ -271,6 +293,14 @@ if (UPNPQT_FOUND)
         ../src/upnp/upnplistener.cpp
         ../src/upnp/upnpdiscoverallmusic.cpp
         )
+endif()
+
+if (KF5FileMetaData_FOUND)
+    set(mediaplaylistTest_SOURCES
+        ${mediaplaylistTest_SOURCES}
+        ../src/file/filelistener.cpp
+        ../src/file/localfilelisting.cpp
+    )
 endif()
 
 add_executable(mediaplaylistTest ${mediaplaylistTest_SOURCES})
@@ -331,16 +361,18 @@ target_link_libraries(allartistsmodeltest Qt5::Test Qt5::Core Qt5::Sql KF5::I18n
 target_include_directories(allartistsmodeltest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 add_test(allartistsmodeltest allartistsmodeltest)
 
-set(localfilelistingtest_SOURCES
-    ../src/file/localfilelisting.cpp
-    ../src/musicaudiotrack.cpp
-    localfilelistingtest.cpp
-)
-
-add_executable(localfilelistingtest ${localfilelistingtest_SOURCES})
-target_link_libraries(localfilelistingtest Qt5::Test Qt5::Core Qt5::Sql KF5::I18n)
 if (KF5FileMetaData_FOUND)
-    target_link_libraries(localfilelistingtest KF5::FileMetaData)
+    set(localfilelistingtest_SOURCES
+        ../src/file/localfilelisting.cpp
+        ../src/musicaudiotrack.cpp
+        localfilelistingtest.cpp
+    )
+
+    add_executable(localfilelistingtest ${localfilelistingtest_SOURCES})
+    target_link_libraries(localfilelistingtest Qt5::Test Qt5::Core Qt5::Sql KF5::I18n)
+    if (KF5FileMetaData_FOUND)
+        target_link_libraries(localfilelistingtest KF5::FileMetaData)
+    endif()
+    target_include_directories(localfilelistingtest PRIVATE ${CMAKE_SOURCE_DIR}/src)
+    add_test(localfilelistingtest localfilelistingtest)
 endif()
-target_include_directories(localfilelistingtest PRIVATE ${CMAKE_SOURCE_DIR}/src)
-add_test(localfilelistingtest localfilelistingtest)

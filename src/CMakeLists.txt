@@ -22,9 +22,6 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         trackslistener.cpp
         elisaapplication.cpp
 
-        file/filelistener.cpp
-        file/localfilelisting.cpp
-
         MediaServer.qml
 
         RatingStar.qml
@@ -78,6 +75,14 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
             upnp/upnplistener.cpp
             upnp/upnpdiscoverallmusic.cpp
             )
+    endif()
+
+    if (KF5FileMetaData_FOUND)
+        set(elisa_SOURCES
+            ${elisa_SOURCES}
+            file/filelistener.cpp
+            file/localfilelisting.cpp
+        )
     endif()
 
     if (CMAKE_SYSTEM_NAME STREQUAL Android)

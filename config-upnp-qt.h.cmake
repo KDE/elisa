@@ -14,6 +14,8 @@
 
 #cmakedefine01 KF5Crash_FOUND
 
+#cmakedefine01 KF5FileMetaData_FOUND
+
 #cmakedefine01 UPNPQT_FOUND
 
 #cmakedefine01 Qt5DBus_FOUND

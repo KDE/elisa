@@ -86,7 +86,6 @@ Q_SIGNALS:
     void previous() const;
     void playPause() const;
     void stop() const;
-    void seek(int offset) const;
 
 public Q_SLOTS:
 

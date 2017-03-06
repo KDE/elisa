@@ -223,9 +223,8 @@ bool MediaPlayer2Player::CanControl() const
 void MediaPlayer2Player::Seek(qlonglong Offset) const
 {
     if (mediaPlayerPresent()) {
-        //The seekTo function (to which this signal is linked to) accepts offset in milliseconds
         int offset = Offset / 1000;
-        emit seek(offset);
+        m_manageAudioPlayer->playerSeek(Position() + offset);
     }
 }
 
@@ -237,10 +236,8 @@ void MediaPlayer2Player::emitSeeked(int pos)
 void MediaPlayer2Player::SetPosition(QDBusObjectPath trackId, qlonglong pos) const
 {
     if (trackId.path() == m_currentTrackId) {
-        emit seek((pos - Position()) / 1000);
-        m_manageAudioPlayer->playerSeek((pos - Position()) / 1000);
+        m_manageAudioPlayer->playerSeek(pos / 1000);
     }
-    m_manageAudioPlayer->playerSeek(pos / 1000);
 }
 
 void MediaPlayer2Player::OpenUri(QString uri) const

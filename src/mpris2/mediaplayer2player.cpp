@@ -223,8 +223,8 @@ bool MediaPlayer2Player::CanControl() const
 void MediaPlayer2Player::Seek(qlonglong Offset) const
 {
     if (mediaPlayerPresent()) {
-        int offset = Offset / 1000;
-        m_manageAudioPlayer->playerSeek(Position() + offset);
+        int offset = (m_position + Offset) / 1000;
+        m_manageAudioPlayer->playerSeek(offset);
     }
 }
 

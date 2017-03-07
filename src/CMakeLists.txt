@@ -21,6 +21,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         albumfilterproxymodel.cpp
         trackslistener.cpp
         elisaapplication.cpp
+        audiowrapper.cpp
 
         MediaServer.qml
 

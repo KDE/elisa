@@ -51,6 +51,7 @@
 #include "musiclistenersmanager.h"
 #include "albumfilterproxymodel.h"
 #include "elisaapplication.h"
+#include "audiowrapper.h"
 
 #if defined Qt5DBus_FOUND && Qt5DBus_FOUND
 #include "mpris2/mpris2.h"
@@ -79,6 +80,7 @@
 
 #include <QApplication>
 #include <QCommandLineParser>
+#include <QtGlobal>
 
 #include <QQmlApplicationEngine>
 #include <QQmlEngine>
@@ -88,6 +90,8 @@
 
 int __attribute__((visibility("default"))) main(int argc, char *argv[])
 {
+    qputenv("QT_GSTREAMER_USE_PLAYBIN_VOLUME", "true");
+
     QApplication app(argc, argv);
 
 #if defined KF5Crash_FOUND && KF5Crash_FOUND
@@ -133,6 +137,7 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
     qmlRegisterType<MusicListenersManager>("org.mgallien.QmlExtension", 1, 0, "MusicListenersManager");
     qmlRegisterType<QSortFilterProxyModel>("org.mgallien.QmlExtension", 1, 0, "SortFilterProxyModel");
     qmlRegisterType<AlbumFilterProxyModel>("org.mgallien.QmlExtension", 1, 0, "AlbumFilterProxyModel");
+    qmlRegisterType<AudioWrapper>("org.mgallien.QmlExtension", 1, 0, "AudioWrapper");
 
 #if defined Qt5DBus_FOUND && Qt5DBus_FOUND
     qmlRegisterType<Mpris2>("org.mgallien.QmlExtension", 1, 0, "Mpris2");

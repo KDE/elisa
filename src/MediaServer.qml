@@ -122,14 +122,17 @@ ApplicationWindow {
         id: allListeners
     }
 
-    Audio {
+    AudioWrapper {
         id: audioPlayer
 
         audioRole: Audio.MusicRole
 
         muted: playControlItem.muted
 
-        volume: playControlItem.volume
+        volume: playControlItem.volume * 100
+
+        onVolumeChanged: playControlItem.volume = volume / 100.0
+
         source: manageAudioPlayer.playerSource
 
         onPlaying: {

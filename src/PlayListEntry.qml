@@ -53,7 +53,7 @@ Rectangle {
 
     color: (isAlternateColor ? myPalette.alternateBase : myPalette.base)
 
-    height: (hasAlbumHeader ? (isSelected && false ? Screen.pixelDensity * 24.5 : Screen.pixelDensity * 21) : (isSelected ? Screen.pixelDensity * 9.5 : Screen.pixelDensity * 6.))
+    height: (hasAlbumHeader ? Screen.pixelDensity * 21 : Screen.pixelDensity * 7.)
 
     Action {
         id: removeFromPlayList

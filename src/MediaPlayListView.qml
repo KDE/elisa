@@ -34,6 +34,8 @@ Item {
     property alias randomPlayChecked: shuffleOption.checked
     property alias repeatPlayChecked: repeatOption.checked
 
+    property int placeholderHeight: Screen.pixelDensity * 7.
+
     id: topItem
 
     SystemPalette {
@@ -187,6 +189,8 @@ Item {
 
                 delegate: DraggableItem {
                     id: item
+
+                    placeholderHeight: topItem.placeholderHeight
 
                     PlayListEntry {
                         id: entry

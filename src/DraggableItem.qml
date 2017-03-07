@@ -54,6 +54,8 @@ Item {
     width: contentItem.width
     height: topPlaceholder.height + wrapperParent.height + bottomPlaceholder.height
 
+    property int placeholderHeight
+
     // Make contentItem a child of contentItemWrapper
     onContentItemChanged: {
         contentItem.parent = dragArea;
@@ -72,7 +74,7 @@ Item {
             top: parent.top
         }
         height: 0
-        color: myPalette.light
+        color: myPalette.mid
     }
 
     Item {
@@ -159,7 +161,7 @@ Item {
             right: parent.right
             bottom: wrapperParent.verticalCenter
         }
-        height: contentItem.height
+        height: placeholderHeight
         sourceComponent: Component {
             DropArea {
                 property int dropIndex: 0
@@ -175,7 +177,7 @@ Item {
             top: wrapperParent.verticalCenter
         }
         property bool isLast: model.index === _listView.count - 1
-        height: isLast ? _listView.contentHeight - y : contentItem.height
+        height: isLast ? _listView.contentHeight - y : placeholderHeight
 
         property int dropIndex: model.index + 1
     }
@@ -219,11 +221,11 @@ Item {
             name: "droppingBelow"
             PropertyChanges {
                 target: bottomPlaceholder
-                height: contentItem.height
+                height: placeholderHeight
             }
             PropertyChanges {
                 target: bottomDropArea
-                height: contentItem.height * 2
+                height: contentItem.height
             }
         },
         State {
@@ -231,11 +233,11 @@ Item {
             name: "droppingAbove"
             PropertyChanges {
                 target: topPlaceholder
-                height: contentItem.height
+                height: placeholderHeight
             }
             PropertyChanges {
                 target: topDropAreaLoader
-                height: contentItem.height * 2
+                height: contentItem.height
             }
         }
     ]

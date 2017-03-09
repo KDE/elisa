@@ -238,15 +238,9 @@ Item {
                 id: volumeSlider
                 minimumValue: 0.0
                 maximumValue: 1.0
-                value: if (musicWidget.muted)
-                           0
-                       else
-                           musicWidget.volume
-                onValueChanged: {
-                    if (!musicWidget.muted) {
-                        musicWidget.volume = value
-                    }
-                }
+                value: musicWidget.volume
+                onValueChanged: musicWidget.volume = value
+                enabled: !muted
 
                 Layout.alignment: Qt.AlignVCenter
                 Layout.preferredWidth: width

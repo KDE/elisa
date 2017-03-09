@@ -132,6 +132,7 @@ ApplicationWindow {
         volume: playControlItem.volume * 100
 
         onVolumeChanged: playControlItem.volume = volume / 100.0
+        onMutedChanged: playControlItem.muted = muted
 
         source: manageAudioPlayer.playerSource
 

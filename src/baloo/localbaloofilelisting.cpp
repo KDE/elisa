@@ -25,6 +25,7 @@
 #include <Baloo/File>
 
 #include <KFileMetaData/Properties>
+#include <KFileMetaData/UserMetaData>
 
 #include <QDBusConnection>
 
@@ -124,6 +125,7 @@ void LocalBalooFileListing::refreshContent()
         auto albumProperty = allProperties.find(KFileMetaData::Property::Album);
         auto albumArtistProperty = allProperties.find(KFileMetaData::Property::AlbumArtist);
         auto trackNumberProperty = allProperties.find(KFileMetaData::Property::TrackNumber);
+        auto fileData = KFileMetaData::UserMetaData(resultIterator.filePath());
 
         if (albumProperty != allProperties.end()) {
             auto albumValue = albumProperty->toString();
@@ -161,6 +163,8 @@ void LocalBalooFileListing::refreshContent()
             if (newTrack.artist().isEmpty()) {
                 newTrack.setArtist(newTrack.albumArtist());
             }
+
+            newTrack.setRating(fileData.rating());
 
             newTrack.setResourceURI(QUrl::fromLocalFile(resultIterator.filePath()));
             QFileInfo trackFilePath(resultIterator.filePath());

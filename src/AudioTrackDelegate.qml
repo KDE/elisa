@@ -198,6 +198,14 @@ Item {
                         Layout.maximumWidth: Screen.pixelDensity * 3.
                     }
 
+                    RatingStar {
+                        starRating: rating / 2
+                        starSize: Screen.pixelDensity * 2.5
+
+                        Layout.leftMargin: Screen.pixelDensity * 1.5
+                        Layout.rightMargin: Screen.pixelDensity * 1.5
+                    }
+
                     Text {
                         id: durationLabel
                         text: duration

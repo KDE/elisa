@@ -38,15 +38,15 @@ RowLayout {
             width: starSize * 1.5
             height: starSize * 1.5
             anchors.centerIn: parent
-            sourceSize.width: width
-            sourceSize.height: width
+            sourceSize.width: starSize * 1.5
+            sourceSize.height: starSize * 1.5
             fillMode: Image.PreserveAspectFit
 
-            source: if (starRating == 1)
+            source: if (starRating >= 1)
                         'image://icon/rating'
                     else
                         'image://icon/draw-star'
-            opacity: if (starRating == 1)
+            opacity: if (starRating >= 1)
                         1
                     else
                         0.1
@@ -65,19 +65,21 @@ RowLayout {
         Layout.minimumHeight: starSize
         Layout.minimumWidth: starSize
 
+        Layout.leftMargin: starSize * 0.5
+
         Image {
             width: starSize * 1.5
             height: starSize * 1.5
             anchors.centerIn: parent
-            sourceSize.width: width
-            sourceSize.height: width
+            sourceSize.width: starSize * 1.5
+            sourceSize.height: starSize * 1.5
             fillMode: Image.PreserveAspectFit
 
-            source: if (starRating == 2)
+            source: if (starRating >= 2)
                         'image://icon/rating'
                     else
                         'image://icon/draw-star'
-            opacity: if (starRating == 2)
+            opacity: if (starRating >= 2)
                         1
                     else
                         0.1
@@ -96,19 +98,21 @@ RowLayout {
         Layout.minimumHeight: starSize
         Layout.minimumWidth: starSize
 
+        Layout.leftMargin: starSize * 0.5
+
         Image {
             width: starSize * 1.5
             height: starSize * 1.5
             anchors.centerIn: parent
-            sourceSize.width: width
-            sourceSize.height: width
+            sourceSize.width: starSize * 1.5
+            sourceSize.height: starSize * 1.5
             fillMode: Image.PreserveAspectFit
 
-            source: if (starRating == 3)
+            source: if (starRating >= 3)
                         'image://icon/rating'
                     else
                         'image://icon/draw-star'
-            opacity: if (starRating == 3)
+            opacity: if (starRating >= 3)
                         1
                     else
                         0.1
@@ -127,19 +131,21 @@ RowLayout {
         Layout.minimumHeight: starSize
         Layout.minimumWidth: starSize
 
+        Layout.leftMargin: starSize * 0.5
+
         Image {
             width: starSize * 1.5
             height: starSize * 1.5
             anchors.centerIn: parent
-            sourceSize.width: width
-            sourceSize.height: width
+            sourceSize.width: starSize * 1.5
+            sourceSize.height: starSize * 1.5
             fillMode: Image.PreserveAspectFit
 
-            source: if (starRating == 4)
+            source: if (starRating >= 4)
                         'image://icon/rating'
                     else
                         'image://icon/draw-star'
-            opacity: if (starRating == 4)
+            opacity: if (starRating >= 4)
                         1
                     else
                         0.1
@@ -158,19 +164,22 @@ RowLayout {
         Layout.minimumHeight: starSize
         Layout.minimumWidth: starSize
 
+        Layout.leftMargin: starSize * 0.5
+        Layout.rightMargin: starSize * 0.5
+
         Image {
             width: starSize * 1.5
             height: starSize * 1.5
             anchors.centerIn: parent
-            sourceSize.width: width
-            sourceSize.height: width
+            sourceSize.width: starSize * 1.5
+            sourceSize.height: starSize * 1.5
             fillMode: Image.PreserveAspectFit
 
-            source: if (starRating == 5)
+            source: if (starRating === 5)
                         'image://icon/rating'
                     else
                         'image://icon/draw-star'
-            opacity: if (starRating == 5)
+            opacity: if (starRating === 5)
                         1
                     else
                         0.1

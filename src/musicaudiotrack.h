@@ -36,10 +36,11 @@ public:
     MusicAudioTrack();
 
     MusicAudioTrack(bool aValid, QString aId, QString aParentId, QString aTitle, QString aArtist, QString aAlbumName,
-                    QString aAlbumArtist, int aTrackNumber, QTime aDuration, QUrl aResourceURI, QUrl aAlbumCover);
+                    QString aAlbumArtist, int aTrackNumber, QTime aDuration, QUrl aResourceURI, QUrl aAlbumCover, int rating);
 
     MusicAudioTrack(bool aValid, QString aId, QString aParentId, QString aTitle, QString aArtist, QString aAlbumName,
-                    QString aAlbumArtist, int aTrackNumber, int aDiscNumber, QTime aDuration, QUrl aResourceURI, QUrl aAlbumCover);
+                    QString aAlbumArtist, int aTrackNumber, int aDiscNumber, QTime aDuration, QUrl aResourceURI,
+                    QUrl aAlbumCover, int rating);
 
     MusicAudioTrack(MusicAudioTrack &&other);
 
@@ -106,6 +107,10 @@ public:
     void setResourceURI(const QUrl &value);
 
     const QUrl& resourceURI() const;
+
+    void setRating(int value) const;
+
+    int rating() const;
 
 private:
 

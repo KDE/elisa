@@ -176,7 +176,7 @@ QVariant AlbumModel::internalDataTrack(const MusicAudioTrack &track, int role, i
         }
         break;
     case ColumnsRoles::RatingRole:
-        result = 0;
+        result = track.rating();
         break;
     case ColumnsRoles::ImageRole:
     {

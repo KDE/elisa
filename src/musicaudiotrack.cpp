@@ -32,22 +32,22 @@ public:
     MusicAudioTrackPrivate(bool aValid, QString aId, QString aParentId,
                            QString aTitle, QString aArtist, QString aAlbumName,
                            QString aAlbumArtist, int aTrackNumber, QTime aDuration,
-                           QUrl aResourceURI, QUrl aAlbumCover)
+                           QUrl aResourceURI, QUrl aAlbumCover, int rating)
         : mId(aId), mParentId(aParentId), mTitle(aTitle), mArtist(aArtist),
           mAlbumName(aAlbumName), mAlbumArtist(aAlbumArtist), mTrackNumber(aTrackNumber),
           mDuration(aDuration), mResourceURI(aResourceURI), mAlbumCover(aAlbumCover),
-          mIsValid(aValid)
+          mRating(rating), mIsValid(aValid)
     {
     }
 
     MusicAudioTrackPrivate(bool aValid, QString aId, QString aParentId,
                            QString aTitle, QString aArtist, QString aAlbumName, QString aAlbumArtist,
                            int aTrackNumber, int aDiscNumber, QTime aDuration, QUrl aResourceURI,
-                           QUrl aAlbumCover)
+                           QUrl aAlbumCover, int rating)
         : mId(aId), mParentId(aParentId), mTitle(aTitle), mArtist(aArtist),
           mAlbumName(aAlbumName), mAlbumArtist(aAlbumArtist), mTrackNumber(aTrackNumber),
           mDiscNumber(aDiscNumber), mDuration(aDuration), mResourceURI(aResourceURI),
-          mAlbumCover(aAlbumCover), mIsValid(aValid)
+          mAlbumCover(aAlbumCover), mRating(rating), mIsValid(aValid)
     {
     }
 
@@ -75,6 +75,8 @@ public:
 
     QUrl mAlbumCover;
 
+    int mRating = -1;
+
     bool mIsValid = false;
 
 };
@@ -85,16 +87,16 @@ MusicAudioTrack::MusicAudioTrack() : d(new MusicAudioTrackPrivate)
 
 MusicAudioTrack::MusicAudioTrack(bool aValid, QString aId, QString aParentId,
                                  QString aTitle, QString aArtist, QString aAlbumName, QString aAlbumArtist,
-                                 int aTrackNumber, QTime aDuration, QUrl aResourceURI, QUrl aAlbumCover)
-    : d(new MusicAudioTrackPrivate(aValid, aId, aParentId, aTitle, aArtist, aAlbumName, aAlbumArtist, aTrackNumber, aDuration, aResourceURI, aAlbumCover))
+                                 int aTrackNumber, QTime aDuration, QUrl aResourceURI, QUrl aAlbumCover, int rating)
+    : d(new MusicAudioTrackPrivate(aValid, aId, aParentId, aTitle, aArtist, aAlbumName, aAlbumArtist, aTrackNumber, aDuration, aResourceURI, aAlbumCover, rating))
 {
 }
 
 MusicAudioTrack::MusicAudioTrack(bool aValid, QString aId, QString aParentId,
                                  QString aTitle, QString aArtist, QString aAlbumName,
                                  QString aAlbumArtist, int aTrackNumber, int aDiscNumber,
-                                 QTime aDuration, QUrl aResourceURI, QUrl aAlbumCover)
-    : d(new MusicAudioTrackPrivate(aValid, aId, aParentId, aTitle, aArtist, aAlbumName, aAlbumArtist, aTrackNumber, aDiscNumber, aDuration, aResourceURI, aAlbumCover))
+                                 QTime aDuration, QUrl aResourceURI, QUrl aAlbumCover, int rating)
+    : d(new MusicAudioTrackPrivate(aValid, aId, aParentId, aTitle, aArtist, aAlbumName, aAlbumArtist, aTrackNumber, aDiscNumber, aDuration, aResourceURI, aAlbumCover, rating))
 {
 }
 
@@ -144,7 +146,7 @@ bool MusicAudioTrack::operator ==(const MusicAudioTrack &other) const
             d->mAlbumName == other.d->mAlbumName && d->mAlbumArtist == other.d->mAlbumArtist &&
             d->mTrackNumber == other.d->mTrackNumber && d->mDiscNumber == other.d->mDiscNumber &&
             d->mDuration == other.d->mDuration && d->mResourceURI == other.d->mResourceURI &&
-            d->mAlbumCover == other.d->mAlbumCover;
+            d->mAlbumCover == other.d->mAlbumCover && d->mRating == other.d->mRating;
 }
 
 void MusicAudioTrack::setValid(bool value)
@@ -275,6 +277,16 @@ void MusicAudioTrack::setResourceURI(const QUrl &value)
 const QUrl &MusicAudioTrack::resourceURI() const
 {
     return d->mResourceURI;
+}
+
+void MusicAudioTrack::setRating(int value) const
+{
+    d->mRating = value;
+}
+
+int MusicAudioTrack::rating() const
+{
+    return d->mRating;
 }
 
 QDebug& operator<<(QDebug &stream, const MusicAudioTrack &data)

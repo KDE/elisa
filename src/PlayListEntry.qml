@@ -35,6 +35,7 @@ Rectangle {
     property alias duration : durationLabel.text
     property int trackNumber
     property int discNumber
+    property int rating
     property alias isPlaying : playIcon.visible
     property bool isSelected
     property bool isValid
@@ -241,6 +242,11 @@ Rectangle {
                     visible: opacity > 0.1
                     action: removeFromPlayList
                     Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+                }
+
+                RatingStar {
+                    starRating: rating / 2
+                    starSize: Screen.pixelDensity * 2.5
                 }
 
                 Image {

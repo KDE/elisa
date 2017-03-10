@@ -25,6 +25,7 @@
 #include <KFileMetaData/ExtractorCollection>
 #include <KFileMetaData/Extractor>
 #include <KFileMetaData/SimpleExtractionResult>
+#include <KFileMetaData/UserMetaData>
 
 #include <QThread>
 #include <QHash>
@@ -321,6 +322,7 @@ MusicAudioTrack LocalFileListing::scanOneFile(QUrl scanFile)
     auto albumProperty = allProperties.find(KFileMetaData::Property::Album);
     auto albumArtistProperty = allProperties.find(KFileMetaData::Property::AlbumArtist);
     auto trackNumberProperty = allProperties.find(KFileMetaData::Property::TrackNumber);
+    auto fileData = KFileMetaData::UserMetaData(scanFile.toLocalFile());
 
     if (albumProperty != allProperties.end()) {
         auto albumValue = albumProperty->toString();
@@ -357,6 +359,8 @@ MusicAudioTrack LocalFileListing::scanOneFile(QUrl scanFile)
         }
 
         newTrack.setResourceURI(scanFile);
+
+        newTrack.setRating(fileData.rating());
 
         newTrack.setValid(true);
     }

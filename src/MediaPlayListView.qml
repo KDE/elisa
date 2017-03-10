@@ -229,6 +229,7 @@ Item {
                                    model.album
                                else
                                    ''
+                        rating: model.rating
                         isValid: model.isValid
                         isPlaying: model.isPlaying
                         isSelected: item.DelegateModel.inSelected

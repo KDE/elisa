@@ -128,6 +128,7 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
             result = rowHasHeader(index.row());
             break;
         case ColumnsRoles::RatingRole:
+            result = d->mTrackData[index.row()].rating();
             break;
         case ColumnsRoles::CountRole:
             break;

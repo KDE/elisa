@@ -229,6 +229,7 @@ Item {
                                    model.album
                                else
                                    ''
+                        isValid: model.isValid
                         isPlaying: model.isPlaying
                         isSelected: item.DelegateModel.inSelected
                         containsMouse: item.containsMouse

@@ -37,6 +37,7 @@ Rectangle {
     property int discNumber
     property alias isPlaying : playIcon.visible
     property bool isSelected
+    property bool isValid
     property bool isAlternateColor
     property bool containsMouse
     property bool hasAlbumHeader
@@ -68,7 +69,7 @@ Rectangle {
         id: playNow
         text: i18nc("Play now current track from play list", "Play Now")
         iconName: "media-playback-start"
-        enabled: !isPlaying
+        enabled: !isPlaying && isValid
         onTriggered: {
             playListControler.switchTo(viewAlbumDelegate.index)
         }
@@ -101,7 +102,7 @@ Rectangle {
                 Image {
                     id: mainIcon
 
-                    source: (viewAlbumDelegate.itemDecoration ? viewAlbumDelegate.itemDecoration : 'image://icon/media-optical-audio')
+                    source: (isValid ? (viewAlbumDelegate.itemDecoration ? viewAlbumDelegate.itemDecoration : 'image://icon/media-optical-audio') : 'image://icon/error')
 
                     Layout.minimumWidth: headerRow.height - 4
                     Layout.maximumWidth: headerRow.height - 4
@@ -116,6 +117,26 @@ Rectangle {
 
                     fillMode: Image.PreserveAspectFit
                     asynchronous: true
+
+                    visible: isValid
+                }
+
+                BrightnessContrast {
+                    source: mainIcon
+
+                    cached: true
+
+                    visible: !isValid
+
+                    contrast: -0.9
+
+                    Layout.minimumWidth: headerRow.height - 4
+                    Layout.maximumWidth: headerRow.height - 4
+                    Layout.preferredWidth: headerRow.height - 4
+                    Layout.minimumHeight: headerRow.height - 4
+                    Layout.maximumHeight: headerRow.height - 4
+                    Layout.preferredHeight: headerRow.height - 4
+                    Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
                 }
 
                 ColumnLayout {
@@ -178,6 +199,22 @@ Rectangle {
 
                     Layout.fillWidth: true
                     Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
+
+                    visible: isValid
+
+                    elide: "ElideRight"
+                }
+
+                Text {
+                    id: mainInvalidCompactLabel
+
+                    text: title
+                    font.weight: Font.Bold
+
+                    Layout.fillWidth: true
+                    Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
+
+                    visible: !isValid
 
                     elide: "ElideRight"
                 }

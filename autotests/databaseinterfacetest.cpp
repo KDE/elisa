@@ -227,6 +227,85 @@ private Q_SLOTS:
         }
     }
 
+    void restoreModifiedTracksWidthDatabaseFile()
+    {
+        QTemporaryFile myTempDatabase;
+        myTempDatabase.open();
+
+        {
+            DatabaseInterface musicDb;
+
+            musicDb.init(QStringLiteral("testDb1"), myTempDatabase.fileName());
+
+            auto allNewTracks = mNewTracks;
+            allNewTracks.push_back({true, QStringLiteral("$19"), QStringLiteral("0"), QStringLiteral("track6"),
+                                    QStringLiteral("artist2"), QStringLiteral("album3"), QStringLiteral("artist2"), 6, 1, QTime::fromMSecsSinceStartOfDay(19),
+                                    {QUrl::fromLocalFile(QStringLiteral("/$19"))}, {QUrl::fromLocalFile(QStringLiteral("file://image$19"))}, 5});
+
+            musicDb.insertTracksList(allNewTracks, mNewCovers, QStringLiteral("autoTest"));
+
+            QCOMPARE(musicDb.allAlbums().count(), 3);
+
+            auto firstAlbum = musicDb.albumFromTitle(QStringLiteral("album1"));
+
+            QCOMPARE(firstAlbum.isValid(), true);
+            QCOMPARE(firstAlbum.title(), QStringLiteral("album1"));
+
+            auto firstAlbumInvalid = musicDb.albumFromTitle(QStringLiteral("album1Invalid"));
+
+            QCOMPARE(firstAlbumInvalid.isValid(), false);
+
+            auto fourthAlbum = musicDb.albumFromTitle(QStringLiteral("album3"));
+
+            QCOMPARE(fourthAlbum.isValid(), true);
+            QCOMPARE(fourthAlbum.title(), QStringLiteral("album3"));
+
+            QCOMPARE(fourthAlbum.tracksCount(), 4);
+
+            auto oneTrack = fourthAlbum.trackFromIndex(3);
+
+            QCOMPARE(oneTrack.isValid(), true);
+            QCOMPARE(oneTrack.rating(), 5);
+        }
+
+        {
+            DatabaseInterface musicDb;
+
+            musicDb.init(QStringLiteral("testDb2"), myTempDatabase.fileName());
+
+            auto allNewTracks = mNewTracks;
+            allNewTracks.push_back({true, QStringLiteral("$19"), QStringLiteral("0"), QStringLiteral("track6"),
+                                    QStringLiteral("artist2"), QStringLiteral("album3"), QStringLiteral("artist2"), 6, 1, QTime::fromMSecsSinceStartOfDay(19),
+                                    {QUrl::fromLocalFile(QStringLiteral("/$19"))}, {QUrl::fromLocalFile(QStringLiteral("file://image$19"))}, 3});
+
+            musicDb.insertTracksList(allNewTracks, mNewCovers, QStringLiteral("autoTest"));
+
+            QCOMPARE(musicDb.allAlbums().count(), 3);
+
+            auto firstAlbum = musicDb.albumFromTitle(QStringLiteral("album1"));
+
+            QCOMPARE(firstAlbum.isValid(), true);
+            QCOMPARE(firstAlbum.title(), QStringLiteral("album1"));
+
+            auto firstAlbumInvalid = musicDb.albumFromTitle(QStringLiteral("album1Invalid"));
+
+            QCOMPARE(firstAlbumInvalid.isValid(), false);
+
+            auto fourthAlbum = musicDb.albumFromTitle(QStringLiteral("album3"));
+
+            QCOMPARE(fourthAlbum.isValid(), true);
+            QCOMPARE(fourthAlbum.title(), QStringLiteral("album3"));
+
+            QCOMPARE(fourthAlbum.tracksCount(), 4);
+
+            auto oneTrack = fourthAlbum.trackFromIndex(3);
+
+            QCOMPARE(oneTrack.isValid(), true);
+            QCOMPARE(oneTrack.rating(), 3);
+        }
+    }
+
+
     void simpleAccessor()
     {
         auto configDirectory = QDir(QStandardPaths::writableLocation(QStandardPaths::QStandardPaths::AppDataLocation));

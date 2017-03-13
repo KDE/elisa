@@ -630,10 +630,41 @@ void DatabaseInterface::insertTracksList(QList<MusicAudioTrack> tracks, QHash<QS
             return;
         }
 
-        if (d->mSelectTrackIdFromTitleAlbumIdArtistQuery.next()) {
-            d->mTrackId = std::max(d->mTrackId, d->mSelectTrackIdFromTitleAlbumIdArtistQuery.record().value(0).toULongLong() + 1);
+        bool isUpdatedTrack = d->mSelectTrackIdFromTitleAlbumIdArtistQuery.next();
 
-            insertTrackOrigin(d->mSelectTrackIdFromTitleAlbumIdArtistQuery.record().value(0).toULongLong(), track.resourceURI(), insertMusicSource(musicSource));
+        if (isUpdatedTrack) {
+            auto originTrackId = d->mSelectTrackIdFromTitleAlbumIdArtistQuery.record().value(0).toULongLong();
+
+            removeTrackInDatabase(originTrackId);
+
+            d->mInsertTrackQuery.bindValue(QStringLiteral(":trackId"), originTrackId);
+            d->mInsertTrackQuery.bindValue(QStringLiteral(":title"), track.title());
+            d->mInsertTrackQuery.bindValue(QStringLiteral(":album"), albumId);
+            d->mInsertTrackQuery.bindValue(QStringLiteral(":artistId"), insertArtist(artistName));
+            d->mInsertTrackQuery.bindValue(QStringLiteral(":trackNumber"), track.trackNumber());
+            d->mInsertTrackQuery.bindValue(QStringLiteral(":discNumber"), track.discNumber());
+            d->mInsertTrackQuery.bindValue(QStringLiteral(":trackDuration"), QVariant::fromValue<qlonglong>(track.duration().msecsSinceStartOfDay()));
+            d->mInsertTrackQuery.bindValue(QStringLiteral(":trackRating"), track.rating());
+
+            result = d->mInsertTrackQuery.exec();
+
+            if (result && d->mInsertTrackQuery.isActive()) {
+                d->mInsertTrackQuery.finish();
+
+                insertTrackOrigin(d->mSelectTrackIdFromTitleAlbumIdArtistQuery.record().value(0).toULongLong(), track.resourceURI(), insertMusicSource(musicSource));
+
+                Q_EMIT trackModified(internalTrackFromDatabaseId(originTrackId));
+
+                d->mTrackId = std::max(d->mTrackId, originTrackId + 1);
+            } else {
+                d->mInsertTrackQuery.finish();
+
+                qDebug() << "DatabaseInterface::modifyTracksList" << d->mInsertTrackQuery.lastQuery();
+                qDebug() << "DatabaseInterface::modifyTracksList" << d->mInsertTrackQuery.boundValues();
+                qDebug() << "DatabaseInterface::modifyTracksList" << d->mInsertTrackQuery.lastError();
+
+                continue;
+            }
 
             d->mSelectTrackIdFromTitleAlbumIdArtistQuery.finish();
 

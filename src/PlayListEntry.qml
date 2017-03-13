@@ -244,11 +244,6 @@ Rectangle {
                     Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
                 }
 
-                RatingStar {
-                    starRating: rating / 2
-                    starSize: Screen.pixelDensity * 2.5
-                }
-
                 Image {
                     id: playIcon
 
@@ -283,6 +278,11 @@ Rectangle {
                             easing.type: Easing.InOutCubic
                         }
                     }
+                }
+
+                RatingStar {
+                    starRating: rating / 2
+                    starSize: Screen.pixelDensity * 2.5
                 }
 
                 Text {

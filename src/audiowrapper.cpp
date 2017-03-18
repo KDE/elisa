@@ -35,7 +35,7 @@ public:
 
 AudioWrapper::AudioWrapper(QObject *parent) : QObject(parent), d(new AudioWrapperPrivate)
 {
-    connect(&d->mPlayer, &QMediaPlayer::mutedChanged, this, &AudioWrapper::mutedChanged);
+    connect(&d->mPlayer, &QMediaPlayer::mutedChanged, this, &AudioWrapper::playerMutedChanged);
     connect(&d->mPlayer, &QMediaPlayer::volumeChanged, this, &AudioWrapper::playerVolumeChanged);
     connect(&d->mPlayer, &QMediaPlayer::mediaChanged, this, &AudioWrapper::sourceChanged);
     connect(&d->mPlayer, &QMediaPlayer::mediaStatusChanged, this, &AudioWrapper::statusChanged);
@@ -149,7 +149,8 @@ void AudioWrapper::setAudioRole(QAudio::Role audioRole)
 
 void AudioWrapper::playerStateChanged()
 {
-    switch(d->mPlayer.state()) {
+    switch(d->mPlayer.state())
+    {
     case QMediaPlayer::State::StoppedState:
         Q_EMIT stopped();
         break;
@@ -165,6 +166,11 @@ void AudioWrapper::playerStateChanged()
 void AudioWrapper::playerVolumeChanged()
 {
     QTimer::singleShot(0, [this]() {Q_EMIT volumeChanged();});
+}
+
+void AudioWrapper::playerMutedChanged()
+{
+    QTimer::singleShot(0, [this]() {Q_EMIT mutedChanged();});
 }
 
 

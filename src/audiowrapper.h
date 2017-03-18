@@ -156,6 +156,8 @@ private Q_SLOTS:
 
     void playerVolumeChanged();
 
+    void playerMutedChanged();
+
 private:
 
     AudioWrapperPrivate *d = nullptr;

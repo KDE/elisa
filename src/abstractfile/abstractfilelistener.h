@@ -17,36 +17,58 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef FILELISTENER_H
-#define FILELISTENER_H
-
-#include "../abstractfile/abstractfilelistener.h"
+#ifndef ABSTRACTFILELISTENER_H
+#define ABSTRACTFILELISTENER_H
 
 #include <QObject>
 #include <QVector>
 #include <QString>
 
-class FileListenerPrivate;
+class AbstractFileListenerPrivate;
 class DatabaseInterface;
 class MusicAudioTrack;
+class AbstractFileListing;
 
-class FileListener : public AbstractFileListener
+class AbstractFileListener : public QObject
 {
     Q_OBJECT
 
-public:
-    explicit FileListener(QObject *parent = 0);
+    Q_PROPERTY(DatabaseInterface* databaseInterface
+               READ databaseInterface
+               WRITE setDatabaseInterface
+               NOTIFY databaseInterfaceChanged)
 
-    virtual ~FileListener();
+public:
+    explicit AbstractFileListener(AbstractFileListing *aFileListing, QObject *parent = 0);
+
+    virtual ~AbstractFileListener();
+
+    DatabaseInterface* databaseInterface() const;
 
 Q_SIGNALS:
 
+    void databaseInterfaceChanged();
+
+    void databaseReady();
+
+    void initialTracksListRequired(QString musicSource);
+
+    void initialTracksList(QString musicSource, QList<MusicAudioTrack> initialList);
+
 public Q_SLOTS:
+
+    void setDatabaseInterface(DatabaseInterface* databaseInterface);
+
+    void applicationAboutToQuit();
+
+protected:
+
+    AbstractFileListing* fileListing() const;
 
 private:
 
-    FileListenerPrivate *d = nullptr;
+    AbstractFileListenerPrivate *d = nullptr;
 
 };
 
-#endif // FILELISTENER_H
+#endif // ABSTRACTFILELISTENER_H

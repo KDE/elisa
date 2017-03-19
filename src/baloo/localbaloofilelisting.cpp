@@ -51,11 +51,11 @@ public:
 
     QHash<QString, QUrl> mAllAlbumCover;
 
-    QString mSourceName = QStringLiteral("baloo");
+    bool initialScan = true;
 
 };
 
-LocalBalooFileListing::LocalBalooFileListing(QObject *parent) : QObject(parent), d(new LocalBalooFileListingPrivate)
+LocalBalooFileListing::LocalBalooFileListing(QObject *parent) : AbstractFileListing(QStringLiteral("baloo"), parent), d(new LocalBalooFileListingPrivate)
 {
     d->mQuery.addType(QStringLiteral("Audio"));
 }
@@ -64,130 +64,106 @@ LocalBalooFileListing::~LocalBalooFileListing()
 {
 }
 
-void LocalBalooFileListing::init()
-{
-    QDBusConnection con = QDBusConnection::sessionBus();
-
-    bool connectResult = con.connect(QString(), QStringLiteral("/fileindexer"), QStringLiteral("org.kde.baloo.fileindexer"),
-                                QStringLiteral("finishedIndexingFile"), this, SLOT(slotFinishedIndexingFile(QString)));
-
-    if (!connectResult) {
-        qDebug() << "problem with baloo monitoring";
-    }
-
-    connectResult = con.connect(QString(), QStringLiteral("/files"), QStringLiteral("org.kde"),
-                QStringLiteral("changed"), this, SLOT(slotFileMetaDataChanged(QStringList)));
-
-    if (!connectResult) {
-        qDebug() << "problem with baloo monitoring";
-    }
-}
-
-void LocalBalooFileListing::databaseIsReady()
-{
-    Q_EMIT initialTracksListRequired(d->mSourceName);
-}
-
-void LocalBalooFileListing::initialTracksList(QString musicSource, QList<MusicAudioTrack> initialList)
-{
-    Q_UNUSED(initialList);
-
-    if (musicSource == d->mSourceName) {
-        refreshContent();
-    }
-}
-
-void LocalBalooFileListing::slotFinishedIndexingFile(QString fileName)
-{
-    Q_UNUSED(fileName);
-}
-
-void LocalBalooFileListing::slotFileMetaDataChanged(QStringList fileList)
-{
-    Q_UNUSED(fileList);
-}
-
-void LocalBalooFileListing::refreshContent()
+void LocalBalooFileListing::triggerRefreshOfContent()
 {
     auto resultIterator = d->mQuery.exec();
 
-    int cptTracks = 0;
-
     while(resultIterator.next()) {
-        Baloo::File match(resultIterator.filePath());
-        match.load();
+        scanOneFile(QUrl::fromLocalFile(resultIterator.filePath()));
+    }
 
-        const auto &allProperties = match.properties();
+    Q_EMIT tracksList(d->mNewTracks, d->mAllAlbumCover, sourceName());
 
-        auto titleProperty = allProperties.find(KFileMetaData::Property::Title);
-        auto durationProperty = allProperties.find(KFileMetaData::Property::Duration);
-        auto artistProperty = allProperties.find(KFileMetaData::Property::Artist);
-        auto albumProperty = allProperties.find(KFileMetaData::Property::Album);
-        auto albumArtistProperty = allProperties.find(KFileMetaData::Property::AlbumArtist);
-        auto trackNumberProperty = allProperties.find(KFileMetaData::Property::TrackNumber);
-        auto fileData = KFileMetaData::UserMetaData(resultIterator.filePath());
+    d->initialScan = false;
+}
 
-        if (albumProperty != allProperties.end()) {
-            auto albumValue = albumProperty->toString();
-            auto &allTracks = d->mAllAlbums[albumValue];
+MusicAudioTrack LocalBalooFileListing::scanOneFile(QUrl scanFile)
+{
+    auto newTrack = MusicAudioTrack();
 
-            MusicAudioTrack newTrack;
+    if (!d->initialScan) {
+        newTrack = AbstractFileListing::scanOneFile(scanFile);
 
-            newTrack.setAlbumName(albumValue);
-            ++cptTracks;
+        return newTrack;
+    }
 
-            if (artistProperty != allProperties.end()) {
-                newTrack.setArtist(artistProperty->toString());
-            }
+    auto fileName = scanFile.toLocalFile();
+    auto scanFileInfo = QFileInfo(fileName);
 
-            if (durationProperty != allProperties.end()) {
-                newTrack.setDuration(QTime::fromMSecsSinceStartOfDay(1000 * durationProperty->toDouble()));
-            }
+    watchPath(fileName);
+    watchPath(scanFileInfo.absoluteDir().absolutePath());
 
-            if (titleProperty != allProperties.end()) {
-                newTrack.setTitle(titleProperty->toString());
-            }
+    Baloo::File match(fileName);
+    match.load();
 
-            if (trackNumberProperty != allProperties.end()) {
-                newTrack.setTrackNumber(trackNumberProperty->toInt());
-            }
+    const auto &allProperties = match.properties();
 
-            if (albumArtistProperty != allProperties.end()) {
-                newTrack.setAlbumArtist(albumArtistProperty->toString());
-            }
+    auto titleProperty = allProperties.find(KFileMetaData::Property::Title);
+    auto durationProperty = allProperties.find(KFileMetaData::Property::Duration);
+    auto artistProperty = allProperties.find(KFileMetaData::Property::Artist);
+    auto albumProperty = allProperties.find(KFileMetaData::Property::Album);
+    auto albumArtistProperty = allProperties.find(KFileMetaData::Property::AlbumArtist);
+    auto trackNumberProperty = allProperties.find(KFileMetaData::Property::TrackNumber);
+    auto fileData = KFileMetaData::UserMetaData(fileName);
 
-            if (newTrack.albumArtist().isEmpty()) {
-                newTrack.setAlbumArtist(newTrack.artist());
-            }
+    if (albumProperty != allProperties.end()) {
+        auto albumValue = albumProperty->toString();
+        auto &allTracks = d->mAllAlbums[albumValue];
 
-            if (newTrack.artist().isEmpty()) {
-                newTrack.setArtist(newTrack.albumArtist());
-            }
+        newTrack.setAlbumName(albumValue);
 
-            newTrack.setRating(fileData.rating());
+        if (artistProperty != allProperties.end()) {
+            newTrack.setArtist(artistProperty->toString());
+        }
 
-            newTrack.setResourceURI(QUrl::fromLocalFile(resultIterator.filePath()));
-            QFileInfo trackFilePath(resultIterator.filePath());
-            QFileInfo coverFilePath(trackFilePath.dir().filePath(QStringLiteral("cover.jpg")));
-            if (coverFilePath.exists()) {
-                d->mAllAlbumCover[albumValue] = QUrl::fromLocalFile(coverFilePath.absoluteFilePath());
-            }
+        if (durationProperty != allProperties.end()) {
+            newTrack.setDuration(QTime::fromMSecsSinceStartOfDay(1000 * durationProperty->toDouble()));
+        }
 
-            auto itTrack = std::find(allTracks.begin(), allTracks.end(), newTrack);
-            if (itTrack == allTracks.end()) {
-                allTracks.push_back(newTrack);
-                d->mNewTracks.push_back(newTrack);
-                d->mNewAlbums[newTrack.albumName()].push_back(newTrack);
+        if (titleProperty != allProperties.end()) {
+            newTrack.setTitle(titleProperty->toString());
+        }
 
-                auto &newTracks = d->mAllAlbums[newTrack.albumName()];
+        if (trackNumberProperty != allProperties.end()) {
+            newTrack.setTrackNumber(trackNumberProperty->toInt());
+        }
 
-                std::sort(allTracks.begin(), allTracks.end());
-                std::sort(newTracks.begin(), newTracks.end());
-            }
+        if (albumArtistProperty != allProperties.end()) {
+            newTrack.setAlbumArtist(albumArtistProperty->toString());
+        }
+
+        if (newTrack.albumArtist().isEmpty()) {
+            newTrack.setAlbumArtist(newTrack.artist());
+        }
+
+        if (newTrack.artist().isEmpty()) {
+            newTrack.setArtist(newTrack.albumArtist());
+        }
+
+        newTrack.setRating(fileData.rating());
+
+        addTrackFileInAlbum(scanFile, newTrack.albumName());
+        newTrack.setResourceURI(scanFile);
+
+        QFileInfo coverFilePath(scanFileInfo.dir().filePath(QStringLiteral("cover.jpg")));
+        if (coverFilePath.exists()) {
+            d->mAllAlbumCover[albumValue] = QUrl::fromLocalFile(coverFilePath.absoluteFilePath());
+        }
+
+        auto itTrack = std::find(allTracks.begin(), allTracks.end(), newTrack);
+        if (itTrack == allTracks.end()) {
+            allTracks.push_back(newTrack);
+            d->mNewTracks.push_back(newTrack);
+            d->mNewAlbums[newTrack.albumName()].push_back(newTrack);
+
+            auto &newTracks = d->mAllAlbums[newTrack.albumName()];
+
+            std::sort(allTracks.begin(), allTracks.end());
+            std::sort(newTracks.begin(), newTracks.end());
         }
     }
 
-    Q_EMIT tracksList(d->mNewTracks, d->mAllAlbumCover, d->mSourceName);
+    return newTrack;
 }
 
 

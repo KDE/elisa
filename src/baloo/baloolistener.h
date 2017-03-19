@@ -20,6 +20,8 @@
 #ifndef BALOOLISTENER_H
 #define BALOOLISTENER_H
 
+#include "../abstractfile/abstractfilelistener.h"
+
 #include <QObject>
 #include <QVector>
 #include <QString>
@@ -28,37 +30,18 @@ class BalooListenerPrivate;
 class DatabaseInterface;
 class MusicAudioTrack;
 
-class BalooListener : public QObject
+class BalooListener : public AbstractFileListener
 {
     Q_OBJECT
-
-    Q_PROPERTY(DatabaseInterface* databaseInterface
-               READ databaseInterface
-               WRITE setDatabaseInterface
-               NOTIFY databaseInterfaceChanged)
 
 public:
     explicit BalooListener(QObject *parent = 0);
 
     virtual ~BalooListener();
 
-    DatabaseInterface* databaseInterface() const;
-
 Q_SIGNALS:
 
-    void databaseInterfaceChanged();
-
-    void databaseReady();
-
-    void initialTracksListRequired(QString musicSource);
-
-    void initialTracksList(QString musicSource, QList<MusicAudioTrack> initialList);
-
 public Q_SLOTS:
-
-    void setDatabaseInterface(DatabaseInterface* databaseInterface);
-
-    void applicationAboutToQuit();
 
 private:
 

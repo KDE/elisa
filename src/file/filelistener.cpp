@@ -28,47 +28,15 @@ class FileListenerPrivate
 {
 public:
 
-    QThread mFileQueryThread;
-
-    LocalFileListing mFileListing;
-
 };
 
-FileListener::FileListener(QObject *parent) : QObject(parent), d(new FileListenerPrivate)
+FileListener::FileListener(QObject *parent) : AbstractFileListener(new LocalFileListing, parent), d(new FileListenerPrivate)
 {
-    d->mFileQueryThread.start();
-    d->mFileListing.moveToThread(&d->mFileQueryThread);
 }
 
 FileListener::~FileListener()
 {
     delete d;
-}
-
-DatabaseInterface *FileListener::databaseInterface() const
-{
-    return nullptr;
-}
-
-void FileListener::setDatabaseInterface(DatabaseInterface *model)
-{
-    if (model) {
-        connect(this, &FileListener::databaseReady, &d->mFileListing, &LocalFileListing::databaseIsReady);
-        connect(&d->mFileListing, &LocalFileListing::initialTracksListRequired, this, &FileListener::initialTracksListRequired);
-        connect(this, &FileListener::initialTracksList, &d->mFileListing, &LocalFileListing::initialTracksList);
-        connect(&d->mFileListing, &LocalFileListing::tracksList, model, &DatabaseInterface::insertTracksList);
-        connect(&d->mFileListing, &LocalFileListing::removedTracksList, model, &DatabaseInterface::removeTracksList);
-
-        QMetaObject::invokeMethod(&d->mFileListing, "init", Qt::QueuedConnection);
-    }
-
-    Q_EMIT databaseInterfaceChanged();
-}
-
-void FileListener::applicationAboutToQuit()
-{
-    d->mFileQueryThread.exit();
-    d->mFileQueryThread.wait();
 }
 
 

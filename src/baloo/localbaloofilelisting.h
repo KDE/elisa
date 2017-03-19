@@ -20,6 +20,8 @@
 #ifndef LOCALBALOOFILELISTING_H
 #define LOCALBALOOFILELISTING_H
 
+#include "../abstractfile/abstractfilelisting.h"
+
 #include <QObject>
 #include <QString>
 #include <QUrl>
@@ -31,7 +33,7 @@
 class LocalBalooFileListingPrivate;
 class MusicAudioTrack;
 
-class LocalBalooFileListing : public QObject
+class LocalBalooFileListing : public AbstractFileListing
 {
 
     Q_OBJECT
@@ -44,29 +46,15 @@ public:
 
 Q_SIGNALS:
 
-    void tracksList(QList<MusicAudioTrack> tracks,
-                    const QHash<QString, QUrl> &covers,
-                    QString musicSource);
-
-    void initialTracksListRequired(QString musicSource);
-
 public Q_SLOTS:
-
-    void refreshContent();
-
-    void init();
-
-    void databaseIsReady();
-
-    void initialTracksList(QString musicSource, QList<MusicAudioTrack> initialList);
 
 private Q_SLOTS:
 
-    void slotFinishedIndexingFile(QString fileName);
-
-    void slotFileMetaDataChanged(QStringList fileList);
-
 private:
+
+    void triggerRefreshOfContent() override;
+
+    MusicAudioTrack scanOneFile(QUrl scanFile) override;
 
     std::unique_ptr<LocalBalooFileListingPrivate> d;
 

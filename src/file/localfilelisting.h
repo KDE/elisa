@@ -20,18 +20,15 @@
 #ifndef LOCALFILELISTING_H
 #define LOCALFILELISTING_H
 
-#include <QObject>
+#include "../abstractfile/abstractfilelisting.h"
+
 #include <QString>
-#include <QUrl>
-#include <QHash>
-#include <QVector>
 
 #include <memory>
 
 class LocalFileListingPrivate;
-class MusicAudioTrack;
 
-class LocalFileListing : public QObject
+class LocalFileListing : public AbstractFileListing
 {
 
     Q_OBJECT
@@ -51,39 +48,15 @@ public:
 
 Q_SIGNALS:
 
-    void tracksList(QList<MusicAudioTrack> tracks,
-                    const QHash<QString, QUrl> &covers,
-                    QString musicSource);
-
-    void removedTracksList(const QList<QUrl> &removedTracks);
-
     void rootPathChanged();
-
-    void initialTracksListRequired(QString musicSource);
 
 public Q_SLOTS:
 
-    void refreshContent();
-
-    void init();
-
     void setRootPath(QString rootPath);
-
-    void databaseIsReady();
-
-    void initialTracksList(QString musicSource, QList<MusicAudioTrack> initialList);
-
-private Q_SLOTS:
-
-    void directoryChanged(const QString &path);
-
-    void fileChanged(const QString &modifiedFileName);
 
 private:
 
-    void scanDirectory(const QString &path);
-
-    MusicAudioTrack scanOneFile(QUrl scanFile);
+    void triggerRefreshOfContent() override;
 
     std::unique_ptr<LocalFileListingPrivate> d;
 

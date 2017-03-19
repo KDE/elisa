@@ -28,46 +28,15 @@ class BalooListenerPrivate
 {
 public:
 
-    QThread mBalooQueryThread;
-
-    LocalBalooFileListing mFileListing;
-
 };
 
-BalooListener::BalooListener(QObject *parent) : QObject(parent), d(new BalooListenerPrivate)
+BalooListener::BalooListener(QObject *parent) : AbstractFileListener(new LocalBalooFileListing, parent), d(new BalooListenerPrivate)
 {
-    d->mBalooQueryThread.start();
-    d->mFileListing.moveToThread(&d->mBalooQueryThread);
 }
 
 BalooListener::~BalooListener()
 {
     delete d;
-}
-
-DatabaseInterface *BalooListener::databaseInterface() const
-{
-    return nullptr;
-}
-
-void BalooListener::setDatabaseInterface(DatabaseInterface *model)
-{
-    if (model) {
-        connect(this, &BalooListener::databaseReady, &d->mFileListing, &LocalBalooFileListing::databaseIsReady);
-        connect(&d->mFileListing, &LocalBalooFileListing::initialTracksListRequired, this, &BalooListener::initialTracksListRequired);
-        connect(this, &BalooListener::initialTracksList, &d->mFileListing, &LocalBalooFileListing::initialTracksList);
-        connect(&d->mFileListing, &LocalBalooFileListing::tracksList, model, &DatabaseInterface::insertTracksList);
-
-        QMetaObject::invokeMethod(&d->mFileListing, "init", Qt::QueuedConnection);
-    }
-
-    Q_EMIT databaseInterfaceChanged();
-}
-
-void BalooListener::applicationAboutToQuit()
-{
-    d->mBalooQueryThread.exit();
-    d->mBalooQueryThread.wait();
 }
 
 

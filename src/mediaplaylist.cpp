@@ -497,15 +497,17 @@ void MediaPlayList::trackChanged(MusicAudioTrack track)
     for (int i = 0; i < d->mData.size(); ++i) {
         auto &oneEntry = d->mData[i];
 
-        if (!oneEntry.mIsArtist && oneEntry.mIsValid && !d->mTrackData[i].isValid()) {
+        if (!oneEntry.mIsArtist && oneEntry.mIsValid) {
             if (track.databaseId() != oneEntry.mId) {
                 continue;
             }
 
-            d->mTrackData[i] = track;
+            if (d->mTrackData[i] != track) {
+                d->mTrackData[i] = track;
 
-            Q_EMIT dataChanged(index(i, 0), index(i, 0), {});
-            break;
+                Q_EMIT dataChanged(index(i, 0), index(i, 0), {});
+            }
+            continue;
         } else if (!oneEntry.mIsArtist && !oneEntry.mIsValid) {
             if (track.title() != oneEntry.mTitle) {
                 continue;

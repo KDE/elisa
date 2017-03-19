@@ -158,6 +158,8 @@ private:
 
     void insertTrackOrigin(qulonglong trackId, QUrl fileNameURI, qulonglong discoverId);
 
+    void updateTrackOrigin(qulonglong trackId, QUrl fileNameURI, qulonglong discoverId);
+
     DatabaseInterfacePrivate *d;
 
 };

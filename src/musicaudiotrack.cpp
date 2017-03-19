@@ -149,6 +149,14 @@ bool MusicAudioTrack::operator ==(const MusicAudioTrack &other) const
             d->mAlbumCover == other.d->mAlbumCover && d->mRating == other.d->mRating;
 }
 
+bool MusicAudioTrack::operator !=(const MusicAudioTrack &other) const
+{
+    return d->mTitle != other.d->mTitle || d->mArtist != other.d->mArtist ||
+            d->mAlbumName != other.d->mAlbumName || d->mAlbumArtist != other.d->mAlbumArtist ||
+            d->mTrackNumber != other.d->mTrackNumber || d->mDiscNumber != other.d->mDiscNumber ||
+            d->mDuration != other.d->mDuration || d->mResourceURI != other.d->mResourceURI ||
+            d->mAlbumCover != other.d->mAlbumCover || d->mRating != other.d->mRating;}
+
 void MusicAudioTrack::setValid(bool value)
 {
     d->mIsValid = value;

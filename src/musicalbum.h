@@ -74,7 +74,7 @@ public:
 
     void setArtist(const QString &value);
 
-    QString artist() const;
+    const QString &artist() const;
 
     void setAlbumArtURI(const QUrl &value);
 

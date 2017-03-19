@@ -162,7 +162,7 @@ void MusicAlbum::setArtist(const QString &value)
     d->mArtist = value;
 }
 
-QString MusicAlbum::artist() const
+const QString &MusicAlbum::artist() const
 {
     return d->mArtist;
 }

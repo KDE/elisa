@@ -2037,6 +2037,11 @@ void ManageHeaderBarTest::moveAnotherTrack()
     newCovers[QStringLiteral("album1")] = QUrl::fromLocalFile(QStringLiteral("album1"));
     newCovers[QStringLiteral("album2")] = QUrl::fromLocalFile(QStringLiteral("album2"));
 
+    auto newFiles = QList<QUrl>();
+    for (const auto &oneTrack : newTracks) {
+        newFiles.push_back(oneTrack.resourceURI());
+    }
+
     myDatabaseContent.insertTracksList(newTracks, newCovers, QStringLiteral("autoTest"));
 
     myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album2"), QStringLiteral("artist1")});
@@ -2292,6 +2297,11 @@ void ManageHeaderBarTest::setCurrentTrackTest()
 
     newCovers[QStringLiteral("album1")] = QUrl::fromLocalFile(QStringLiteral("album1"));
     newCovers[QStringLiteral("album2")] = QUrl::fromLocalFile(QStringLiteral("album2"));
+
+    auto newFiles = QList<QUrl>();
+    for (const auto &oneTrack : newTracks) {
+        newFiles.push_back(oneTrack.resourceURI());
+    }
 
     myDatabaseContent.insertTracksList(newTracks, newCovers, QStringLiteral("autoTest"));
 

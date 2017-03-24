@@ -51,9 +51,7 @@ Q_SIGNALS:
 
     void databaseReady();
 
-    void initialTracksListRequired(QString musicSource);
-
-    void initialTracksList(QString musicSource, QList<MusicAudioTrack> initialList);
+    void newTrackFile(MusicAudioTrack newTrack);
 
 public Q_SLOTS:
 

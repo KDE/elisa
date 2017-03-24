@@ -143,8 +143,7 @@ void MusicAlbum::setTracksCount(int count)
 
 int MusicAlbum::tracksCount() const
 {
-    const auto realTracksCount = d->mTracks.size();
-    return (realTracksCount == 0 ? d->mTracksCount : realTracksCount);
+    return d->mTracks.size();
 }
 
 void MusicAlbum::setTitle(const QString &value)

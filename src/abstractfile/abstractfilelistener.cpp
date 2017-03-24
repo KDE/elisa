@@ -59,8 +59,7 @@ void AbstractFileListener::setDatabaseInterface(DatabaseInterface *model)
 {
     if (model) {
         connect(this, &AbstractFileListener::databaseReady, d->mFileListing, &AbstractFileListing::databaseIsReady);
-        connect(d->mFileListing, &AbstractFileListing::initialTracksListRequired, this, &AbstractFileListener::initialTracksListRequired);
-        connect(this, &AbstractFileListener::initialTracksList, d->mFileListing, &AbstractFileListing::initialTracksList);
+        connect(this, &AbstractFileListener::newTrackFile, d->mFileListing, &AbstractFileListing::newTrackFile);
         connect(d->mFileListing, &AbstractFileListing::tracksList, model, &DatabaseInterface::insertTracksList);
         connect(d->mFileListing, &AbstractFileListing::removedTracksList, model, &DatabaseInterface::removeTracksList);
         connect(d->mFileListing, &AbstractFileListing::modifyTracksList, model, &DatabaseInterface::modifyTracksList);

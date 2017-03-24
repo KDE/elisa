@@ -81,6 +81,8 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
     if (KF5FileMetaData_FOUND)
         set(elisa_SOURCES
             ${elisa_SOURCES}
+            abstractfile/abstractfilelistener.cpp
+            abstractfile/abstractfilelisting.cpp
             file/filelistener.cpp
             file/localfilelisting.cpp
         )

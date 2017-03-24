@@ -338,6 +338,11 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
+        auto newFiles = QList<QUrl>();
+        for (const auto &oneTrack : mNewTracks) {
+            newFiles.push_back(oneTrack.resourceURI());
+        }
+
         musicDb.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
         QCOMPARE(beginInsertRowsSpy.count(), 4);
@@ -355,6 +360,11 @@ private Q_SLOTS:
         auto newCover = QUrl::fromLocalFile(QStringLiteral("album5"));
         auto newCovers = QHash<QString, QUrl>();
         newCovers[QStringLiteral("album5")] = newCover;
+
+        auto newFiles2 = QList<QUrl>();
+        for (const auto &oneTrack : newTracks) {
+            newFiles2.push_back(oneTrack.resourceURI());
+        }
 
         musicDb.insertTracksList(newTracks, newCovers, QStringLiteral("autoTest"));
 

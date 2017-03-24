@@ -84,14 +84,16 @@ void AbstractFileListing::init()
 
 void AbstractFileListing::databaseIsReady()
 {
-    Q_EMIT initialTracksListRequired(d->mSourceName);
+    refreshContent();
 }
 
-void AbstractFileListing::initialTracksList(QString musicSource, QList<MusicAudioTrack> initialList)
+void AbstractFileListing::newTrackFile(MusicAudioTrack partialTrack)
 {
-    if (musicSource == d->mSourceName) {
-        qDebug() << "AbstractFileListing::initialTracksList" << initialList;
-        refreshContent();
+    const auto &newTrack = scanOneFile(partialTrack.resourceURI());
+
+    if (newTrack.isValid() && newTrack != partialTrack) {
+        qDebug() << "AbstractFileListing::newTrackFile" << d->mSourceName << partialTrack << newTrack;
+        Q_EMIT modifyTracksList({newTrack}, d->mAllAlbumCover);
     }
 }
 
@@ -236,7 +238,7 @@ void AbstractFileListing::fileChanged(const QString &modifiedFileName)
     if (modifiedTrack.isValid()) {
         qDebug() << "AbstractFileListing::fileChanged" << modifiedFileName << "modified track is valid";
 
-        Q_EMIT modifyTracksList({modifiedTrack}, d->mSourceName);
+        Q_EMIT modifyTracksList({modifiedTrack}, d->mAllAlbumCover);
     }
 }
 

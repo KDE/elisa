@@ -44,13 +44,11 @@ public:
 
 Q_SIGNALS:
 
-    void tracksList(QList<MusicAudioTrack> tracks,
-                    const QHash<QString, QUrl> &covers,
-                    QString musicSource);
+    void tracksList(QList<MusicAudioTrack> tracks, const QHash<QString, QUrl> &covers, QString musicSource);
 
     void removedTracksList(const QList<QUrl> &removedTracks);
 
-    void modifyTracksList(const QList<MusicAudioTrack> modifiedTracks, QString musicSource);
+    void modifyTracksList(const QList<MusicAudioTrack> &modifiedTracks, const QHash<QString, QUrl> &covers);
 
     void initialTracksListRequired(QString musicSource);
 
@@ -62,7 +60,7 @@ public Q_SLOTS:
 
     void databaseIsReady();
 
-    void initialTracksList(QString musicSource, QList<MusicAudioTrack> initialList);
+    void newTrackFile(MusicAudioTrack partialTrack);
 
 protected Q_SLOTS:
 

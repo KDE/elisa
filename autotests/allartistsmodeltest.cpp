@@ -157,6 +157,11 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
+        auto newFiles = QList<QUrl>();
+        for (const auto &oneTrack : mNewTracks) {
+            newFiles.push_back(oneTrack.resourceURI());
+        }
+
         musicDb.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
         QCOMPARE(beginInsertRowsSpy.count(), 6);
@@ -215,6 +220,11 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
+        auto newFiles = QList<QUrl>();
+        for (const auto &oneTrack : mNewTracks) {
+            newFiles.push_back(oneTrack.resourceURI());
+        }
+
         musicDb.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
         QCOMPARE(beginInsertRowsSpy.count(), 6);
@@ -228,6 +238,11 @@ private Q_SLOTS:
         {QUrl::fromLocalFile(QStringLiteral("file://image$19"))}, 5};
         auto newTracks = QList<MusicAudioTrack>();
         newTracks.push_back(newTrack);
+
+        auto newFiles2 = QList<QUrl>();
+        for (const auto &oneTrack : newTracks) {
+            newFiles2.push_back(oneTrack.resourceURI());
+        }
 
         musicDb.insertTracksList(newTracks, mNewCovers, QStringLiteral("autoTest"));
 

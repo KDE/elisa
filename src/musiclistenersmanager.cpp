@@ -144,10 +144,6 @@ void MusicListenersManager::databaseReady()
             &d->mBalooListener, &BalooListener::applicationAboutToQuit, Qt::BlockingQueuedConnection);
     connect(this, &MusicListenersManager::databaseIsReady,
             &d->mBalooListener, &BalooListener::databaseReady);
-    connect(&d->mBalooListener, &BalooListener::initialTracksListRequired,
-            &d->mDatabaseInterface, &DatabaseInterface::initialTracksListRequired);
-    connect(&d->mDatabaseInterface, &DatabaseInterface::initialTracksList,
-            &d->mBalooListener, &BalooListener::initialTracksList);
 #endif
 #if defined UPNPQT_FOUND && UPNPQT_FOUND
     d->mUpnpListener.setDatabaseInterface(&d->mDatabaseInterface);
@@ -169,10 +165,8 @@ void MusicListenersManager::databaseReady()
             &d->mFileListener, &FileListener::applicationAboutToQuit, Qt::BlockingQueuedConnection);
     connect(this, &MusicListenersManager::databaseIsReady,
             &d->mFileListener, &FileListener::databaseReady);
-    connect(&d->mFileListener, &FileListener::initialTracksListRequired,
-            &d->mDatabaseInterface, &DatabaseInterface::initialTracksListRequired);
-    connect(&d->mDatabaseInterface, &DatabaseInterface::initialTracksList,
-            &d->mFileListener, &FileListener::initialTracksList);
+    connect(&d->mDatabaseInterface, &DatabaseInterface::newTrackFile,
+            &d->mFileListener, &FileListener::newTrackFile);
 #endif
 }
 

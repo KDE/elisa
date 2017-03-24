@@ -53,7 +53,8 @@ public:
           mInsertTrackMapping(mTracksDatabase), mSelectAllTracksFromSourceQuery(mTracksDatabase),
           mInsertMusicSource(mTracksDatabase), mSelectMusicSource(mTracksDatabase),
           mUpdateIsSingleDiscAlbumFromIdQuery(mTracksDatabase), mSelectAllInvalidTracksFromSourceQuery(mTracksDatabase),
-          mInitialUpdateTracksValidity(mTracksDatabase), mUpdateTrackMapping(mTracksDatabase)
+          mInitialUpdateTracksValidity(mTracksDatabase), mUpdateTrackMapping(mTracksDatabase),
+          mSelectTracksMapping(mTracksDatabase), mSelectTracksMappingPriority(mTracksDatabase)
     {
     }
 
@@ -120,6 +121,10 @@ public:
     QSqlQuery mInitialUpdateTracksValidity;
 
     QSqlQuery mUpdateTrackMapping;
+
+    QSqlQuery mSelectTracksMapping;
+
+    QSqlQuery mSelectTracksMappingPriority;
 
     qulonglong mAlbumId = 1;
 
@@ -600,133 +605,48 @@ qulonglong DatabaseInterface::trackIdFromTitleAlbumArtist(QString title, QString
     return result;
 }
 
-void DatabaseInterface::insertTracksList(QList<MusicAudioTrack> tracks, QHash<QString, QUrl> covers, QString musicSource)
+void DatabaseInterface::insertTracksList(QList<MusicAudioTrack> tracks, const QHash<QString, QUrl> &covers, QString musicSource)
 {
-    qDebug() << "DatabaseInterface::insertTracksList" << tracks.count() << musicSource;
     auto transactionResult = startTransaction();
     if (!transactionResult) {
         return;
     }
 
-    auto newTracks = QVector<qulonglong>();
+    for(const auto &oneTrack : tracks) {
+        d->mSelectTracksMapping.bindValue(QStringLiteral(":fileName"), oneTrack.resourceURI());
 
-    for (const auto &track : tracks) {
-        QString artistName = track.artist();
+        auto result = d->mSelectTracksMapping.exec();
 
-        if (track.albumArtist().isEmpty()) {
-            continue;
-        }
+        if (!result || !d->mSelectTracksMapping.isSelect() || !d->mSelectTracksMapping.isActive()) {
+            qDebug() << "DatabaseInterface::insertTracksList" << d->mSelectTracksMapping.lastQuery();
+            qDebug() << "DatabaseInterface::insertTracksList" << d->mSelectTracksMapping.boundValues();
+            qDebug() << "DatabaseInterface::insertTracksList" << d->mSelectTracksMapping.lastError();
 
-        auto albumId = insertAlbum(track.albumName(), track.albumArtist(), covers[track.albumName()], 0, true);
-
-        d->mSelectTrackIdFromTitleAlbumIdArtistQuery.bindValue(QStringLiteral(":title"), track.title());
-        d->mSelectTrackIdFromTitleAlbumIdArtistQuery.bindValue(QStringLiteral(":album"), albumId);
-        d->mSelectTrackIdFromTitleAlbumIdArtistQuery.bindValue(QStringLiteral(":artist"), artistName);
-
-        auto result = d->mSelectTrackIdFromTitleAlbumIdArtistQuery.exec();
-
-        if (!result || !d->mSelectTrackIdFromTitleAlbumIdArtistQuery.isSelect() || !d->mSelectTrackIdFromTitleAlbumIdArtistQuery.isActive()) {
-            qDebug() << "DatabaseInterface::insertTracksList" << d->mSelectTrackIdFromTitleAlbumIdArtistQuery.lastQuery();
-            qDebug() << "DatabaseInterface::insertTracksList" << d->mSelectTrackIdFromTitleAlbumIdArtistQuery.boundValues();
-            qDebug() << "DatabaseInterface::insertTracksList" << d->mSelectTrackIdFromTitleAlbumIdArtistQuery.lastError();
+            d->mSelectTracksMapping.finish();
 
             rollBackTransaction();
             return;
         }
 
-        bool isUpdatedTrack = d->mSelectTrackIdFromTitleAlbumIdArtistQuery.next();
+        bool isNewTrack = !d->mSelectTracksMapping.next();
 
-        if (isUpdatedTrack) {
-            auto originTrackId = d->mSelectTrackIdFromTitleAlbumIdArtistQuery.record().value(0).toULongLong();
-            auto originTrackFileName = d->mSelectTrackIdFromTitleAlbumIdArtistQuery.record().value(1);
-
-            auto oldTrack = internalTrackFromDatabaseId(originTrackId);
-
-            if (oldTrack != track) {
-                removeTrackInDatabase(originTrackId);
-
-                d->mInsertTrackQuery.bindValue(QStringLiteral(":trackId"), originTrackId);
-                d->mInsertTrackQuery.bindValue(QStringLiteral(":title"), track.title());
-                d->mInsertTrackQuery.bindValue(QStringLiteral(":album"), albumId);
-                d->mInsertTrackQuery.bindValue(QStringLiteral(":artistId"), insertArtist(artistName));
-                d->mInsertTrackQuery.bindValue(QStringLiteral(":trackNumber"), track.trackNumber());
-                d->mInsertTrackQuery.bindValue(QStringLiteral(":discNumber"), track.discNumber());
-                d->mInsertTrackQuery.bindValue(QStringLiteral(":trackDuration"), QVariant::fromValue<qlonglong>(track.duration().msecsSinceStartOfDay()));
-                d->mInsertTrackQuery.bindValue(QStringLiteral(":trackRating"), track.rating());
-
-                result = d->mInsertTrackQuery.exec();
-
-                if (result && d->mInsertTrackQuery.isActive()) {
-                    d->mInsertTrackQuery.finish();
-
-                    updateTrackOrigin(d->mSelectTrackIdFromTitleAlbumIdArtistQuery.record().value(0).toULongLong(), originTrackFileName.toUrl(), insertMusicSource(musicSource));
-
-                    Q_EMIT trackModified(internalTrackFromDatabaseId(originTrackId));
-
-                    d->mTrackId = std::max(d->mTrackId, originTrackId + 1);
-                } else {
-                    d->mInsertTrackQuery.finish();
-
-                    qDebug() << "DatabaseInterface::modifyTracksList" << d->mInsertTrackQuery.lastQuery();
-                    qDebug() << "DatabaseInterface::modifyTracksList" << d->mInsertTrackQuery.boundValues();
-                    qDebug() << "DatabaseInterface::modifyTracksList" << d->mInsertTrackQuery.lastError();
-
-                    continue;
-                }
-            } else {
-                updateTrackOrigin(d->mSelectTrackIdFromTitleAlbumIdArtistQuery.record().value(0).toULongLong(), originTrackFileName.toUrl(), insertMusicSource(musicSource));
-            }
-
-            d->mSelectTrackIdFromTitleAlbumIdArtistQuery.finish();
-
-            continue;
+        if (isNewTrack) {
+            insertTrackOrigin(oneTrack.resourceURI(), insertMusicSource(musicSource));
         } else {
-            d->mSelectTrackIdFromTitleAlbumIdArtistQuery.finish();
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":trackId"), d->mTrackId);
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":title"), track.title());
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":album"), albumId);
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":artistId"), insertArtist(artistName));
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":trackNumber"), track.trackNumber());
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":discNumber"), track.discNumber());
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":trackDuration"), QVariant::fromValue<qlonglong>(track.duration().msecsSinceStartOfDay()));
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":trackRating"), track.rating());
-
-            result = d->mInsertTrackQuery.exec();
-
-            if (result && d->mInsertTrackQuery.isActive()) {
-                newTracks.push_back(d->mTrackId);
-
-                insertTrackOrigin(d->mTrackId, track.resourceURI(), insertMusicSource(musicSource));
-
-                Q_EMIT trackAdded(internalTrackFromDatabaseId(d->mTrackId));
-
-                ++d->mTrackId;
-            } else {
-                qDebug() << "DatabaseInterface::insertTracksList" << d->mInsertTrackQuery.lastQuery();
-                qDebug() << "DatabaseInterface::insertTracksList" << d->mInsertTrackQuery.boundValues();
-                qDebug() << "DatabaseInterface::insertTracksList" << d->mInsertTrackQuery.lastError();
-
-                rollBackTransaction();
-                return;
-            }
-
-            d->mInsertTrackQuery.finish();
-
-            updateIsSingleDiscAlbumFromId(albumId);
-            updateTracksCount(albumId);
+            updateTrackOrigin(d->mSelectTracksMapping.record().value(0).toULongLong(), oneTrack.resourceURI());
         }
+
+        d->mSelectTracksMapping.finish();
+
+        internalInsertTrack(oneTrack, covers, 0);
+
+        Q_EMIT newTrackFile(oneTrack);
     }
+
     transactionResult = finishTransaction();
     if (!transactionResult) {
         return;
     }
-
-    const auto &tracksToRemove = allInvalidTracksFromSource(musicSource);
-    for (const auto &trackToRemove : tracksToRemove) {
-        removeTracksList({trackToRemove.resourceURI()});
-    }
-
-    qDebug() << "DatabaseInterface::insertTracksList" << "end" << tracks.count() << musicSource;
 }
 
 void DatabaseInterface::removeTracksList(const QList<QUrl> removedTracks)
@@ -804,7 +724,7 @@ void DatabaseInterface::removeTracksList(const QList<QUrl> removedTracks)
     }
 }
 
-void DatabaseInterface::modifyTracksList(const QList<MusicAudioTrack> modifiedTracks, QString musicSource)
+void DatabaseInterface::modifyTracksList(const QList<MusicAudioTrack> &modifiedTracks, const QHash<QString, QUrl> &covers)
 {
     auto transactionResult = startTransaction();
     if (!transactionResult) {
@@ -812,39 +732,41 @@ void DatabaseInterface::modifyTracksList(const QList<MusicAudioTrack> modifiedTr
     }
 
     for (const auto &oneModifiedTrack : modifiedTracks) {
-        auto originTrackId = internalTrackIdFromTitleAlbumArtist(oneModifiedTrack.title(), oneModifiedTrack.albumName(), oneModifiedTrack.artist());
-
-        if (originTrackId == 0) {
+        if (oneModifiedTrack.albumArtist().isEmpty()) {
             continue;
         }
 
-        auto originTrack = internalTrackFromDatabaseId(originTrackId);
+        auto originTrackId = internalTrackIdFromFileName(oneModifiedTrack.resourceURI());
 
-        if (!originTrack.isValid()) {
+        auto originTrack = MusicAudioTrack();
+
+        if (originTrackId != 0) {
+            originTrack = internalTrackFromDatabaseId(originTrackId);
+        }
+
+        if (originTrack.isValid() && originTrack == oneModifiedTrack) {
             continue;
         }
 
-        d->mSelectAlbumIdFromTitleQuery.bindValue(QStringLiteral(":title"), oneModifiedTrack.albumName());
-        d->mSelectAlbumIdFromTitleQuery.bindValue(QStringLiteral(":artistId"), insertArtist(oneModifiedTrack.albumArtist()));
+        auto albumId = insertAlbum(oneModifiedTrack.albumName(), oneModifiedTrack.albumArtist(), covers[oneModifiedTrack.albumName()], 0, true);
 
-        auto result = d->mSelectAlbumIdFromTitleQuery.exec();
+        auto otherTrackId = internalTrackIdFromTitleAlbumArtist(oneModifiedTrack.title(), oneModifiedTrack.albumName(), oneModifiedTrack.artist());
 
-        if (!result || !d->mSelectAlbumIdFromTitleQuery.isSelect() || !d->mSelectAlbumIdFromTitleQuery.isActive()) {
-            qDebug() << "DatabaseInterface::modifyTracksList" << d->mSelectAlbumIdFromTitleQuery.lastQuery();
-            qDebug() << "DatabaseInterface::modifyTracksList" << d->mSelectAlbumIdFromTitleQuery.boundValues();
-            qDebug() << "DatabaseInterface::modifyTracksList" << d->mSelectAlbumIdFromTitleQuery.lastError();
+        if (originTrack.isValid() || otherTrackId != 0) {
+            if (otherTrackId != 0) {
+                originTrackId = otherTrackId;
+            }
 
-            continue;
+            const auto oldTrack = internalTrackFromDatabaseId(originTrackId);
+            if (oldTrack == oneModifiedTrack) {
+                updateTrackOrigin(originTrackId, oneModifiedTrack.resourceURI());
+                continue;
+            }
+
+            removeTrackInDatabase(originTrackId);
+        } else {
+            originTrackId = d->mTrackId;
         }
-
-        if (!d->mSelectAlbumIdFromTitleQuery.next()) {
-            continue;
-        }
-
-        auto albumId = d->mSelectAlbumIdFromTitleQuery.record().value(0).toULongLong();
-        d->mSelectAlbumIdFromTitleQuery.finish();
-
-        removeTrackInDatabase(originTrackId);
 
         d->mInsertTrackQuery.bindValue(QStringLiteral(":trackId"), originTrackId);
         d->mInsertTrackQuery.bindValue(QStringLiteral(":title"), oneModifiedTrack.title());
@@ -855,14 +777,25 @@ void DatabaseInterface::modifyTracksList(const QList<MusicAudioTrack> modifiedTr
         d->mInsertTrackQuery.bindValue(QStringLiteral(":trackDuration"), QVariant::fromValue<qlonglong>(oneModifiedTrack.duration().msecsSinceStartOfDay()));
         d->mInsertTrackQuery.bindValue(QStringLiteral(":trackRating"), oneModifiedTrack.rating());
 
-        result = d->mInsertTrackQuery.exec();
+        auto result = d->mInsertTrackQuery.exec();
 
         if (result && d->mInsertTrackQuery.isActive()) {
             d->mInsertTrackQuery.finish();
 
-            insertTrackOrigin(originTrackId, oneModifiedTrack.resourceURI(), insertMusicSource(musicSource));
+            if (!originTrack.isValid()) {
+                ++d->mTrackId;
+            }
 
-            Q_EMIT trackModified(internalTrackFromDatabaseId(originTrackId));
+            updateTrackOrigin(originTrackId, oneModifiedTrack.resourceURI());
+
+            if (originTrack.isValid() || otherTrackId != 0) {
+                Q_EMIT trackModified(internalTrackFromDatabaseId(originTrackId));
+            } else {
+                Q_EMIT trackAdded(internalTrackFromDatabaseId(originTrackId));
+            }
+
+            updateIsSingleDiscAlbumFromId(albumId);
+            updateTracksCount(albumId);
         } else {
             d->mInsertTrackQuery.finish();
 
@@ -878,11 +811,6 @@ void DatabaseInterface::modifyTracksList(const QList<MusicAudioTrack> modifiedTr
     if (!transactionResult) {
         return;
     }
-}
-
-void DatabaseInterface::initialTracksListRequired(QString musicSource)
-{
-    Q_EMIT initialTracksList(musicSource, allTracksFromSource(musicSource));
 }
 
 bool DatabaseInterface::startTransaction() const
@@ -1319,7 +1247,8 @@ void DatabaseInterface::initRequest()
                                                          "tracks.`TrackNumber`, "
                                                          "tracks.`DiscNumber`, "
                                                          "tracks.`Duration`, "
-                                                         "tracks.`Rating` "
+                                                         "tracks.`Rating`, "
+                                                         "album.`CoverFileName` "
                                                          "FROM `Tracks` tracks, `Artists` artist, `Artists` artistAlbum, `Albums` album, `TracksMapping` tracksMapping "
                                                          "WHERE "
                                                          "tracks.`ID` = :trackId AND "
@@ -1370,8 +1299,8 @@ void DatabaseInterface::initRequest()
     }
 
     {
-        auto insertTrackMappingQueryText = QStringLiteral("INSERT INTO `TracksMapping` (`TrackID`, `FileName`, `DiscoverID`, `Priority`, `TrackValid`) "
-                                                   "VALUES (:trackId, :fileName, :discoverId, :priority, 1)");
+        auto insertTrackMappingQueryText = QStringLiteral("INSERT INTO `TracksMapping` (`FileName`, `DiscoverID`, `Priority`, `TrackValid`) "
+                                                   "VALUES (:fileName, :discoverId, :priority, 1)");
 
         auto result = d->mInsertTrackMapping.prepare(insertTrackMappingQueryText);
 
@@ -1391,13 +1320,33 @@ void DatabaseInterface::initRequest()
     }
 
     {
-        auto initialUpdateTracksValidityQueryText = QStringLiteral("UPDATE `TracksMapping` SET `TrackValid` = 1 "
-                                                                   "WHERE `FileName` =:fileName");
+        auto initialUpdateTracksValidityQueryText = QStringLiteral("UPDATE `TracksMapping` SET `TrackValid` = 1, `TrackID` = :trackId, `Priority` = :priority "
+                                                                   "WHERE `FileName` = :fileName");
 
         auto result = d->mUpdateTrackMapping.prepare(initialUpdateTracksValidityQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mUpdateTrackMapping.lastError();
+        }
+    }
+
+    {
+        auto selectTracksMappingQueryText = QStringLiteral("SELECT `TrackID`, `FileName`, `DiscoverID`, `Priority` FROM `TracksMapping` WHERE `FileName` = :fileName");
+
+        auto result = d->mSelectTracksMapping.prepare(selectTracksMappingQueryText);
+
+        if (!result) {
+            qDebug() << "DatabaseInterface::initRequest" << d->mSelectTracksMapping.lastError();
+        }
+    }
+
+    {
+        auto selectTracksMappingPriorityQueryText = QStringLiteral("SELECT count(*) FROM `TracksMapping` WHERE `TrackID` = :trackId AND `FileName` != :fileName");
+
+        auto result = d->mSelectTracksMappingPriority.prepare(selectTracksMappingPriorityQueryText);
+
+        if (!result) {
+            qDebug() << "DatabaseInterface::initRequest" << d->mSelectTracksMappingPriority.lastError();
         }
     }
 
@@ -1697,9 +1646,9 @@ void DatabaseInterface::updateIsSingleDiscAlbumFromId(qulonglong albumId) const
     auto result = d->mUpdateIsSingleDiscAlbumFromIdQuery.exec();
 
     if (!result || !d->mUpdateIsSingleDiscAlbumFromIdQuery.isActive()) {
-        qDebug() << "DatabaseInterface::updateTracksCount" << d->mUpdateIsSingleDiscAlbumFromIdQuery.lastQuery();
-        qDebug() << "DatabaseInterface::updateTracksCount" << d->mUpdateIsSingleDiscAlbumFromIdQuery.boundValues();
-        qDebug() << "DatabaseInterface::updateTracksCount" << d->mUpdateIsSingleDiscAlbumFromIdQuery.lastError();
+        qDebug() << "DatabaseInterface::updateIsSingleDiscAlbumFromId" << d->mUpdateIsSingleDiscAlbumFromIdQuery.lastQuery();
+        qDebug() << "DatabaseInterface::updateIsSingleDiscAlbumFromId" << d->mUpdateIsSingleDiscAlbumFromIdQuery.boundValues();
+        qDebug() << "DatabaseInterface::updateIsSingleDiscAlbumFromId" << d->mUpdateIsSingleDiscAlbumFromIdQuery.lastError();
 
         d->mUpdateIsSingleDiscAlbumFromIdQuery.finish();
 
@@ -1767,9 +1716,8 @@ qulonglong DatabaseInterface::insertArtist(QString name)
     return result;
 }
 
-void DatabaseInterface::insertTrackOrigin(qulonglong trackId, QUrl fileNameURI, qulonglong discoverId)
+void DatabaseInterface::insertTrackOrigin(QUrl fileNameURI, qulonglong discoverId)
 {
-    d->mInsertTrackMapping.bindValue(QStringLiteral(":trackId"), trackId);
     d->mInsertTrackMapping.bindValue(QStringLiteral(":discoverId"), discoverId);
     d->mInsertTrackMapping.bindValue(QStringLiteral(":fileName"), fileNameURI);
     d->mInsertTrackMapping.bindValue(QStringLiteral(":priority"), 1);
@@ -1789,18 +1737,18 @@ void DatabaseInterface::insertTrackOrigin(qulonglong trackId, QUrl fileNameURI, 
     d->mInsertTrackMapping.finish();
 }
 
-void DatabaseInterface::updateTrackOrigin(qulonglong trackId, QUrl fileNameURI, qulonglong discoverId)
+void DatabaseInterface::updateTrackOrigin(qulonglong trackId, QUrl fileName)
 {
     d->mUpdateTrackMapping.bindValue(QStringLiteral(":trackId"), trackId);
-    d->mUpdateTrackMapping.bindValue(QStringLiteral(":discoverId"), discoverId);
-    d->mUpdateTrackMapping.bindValue(QStringLiteral(":fileName"), fileNameURI);
+    d->mUpdateTrackMapping.bindValue(QStringLiteral(":fileName"), fileName);
+    d->mUpdateTrackMapping.bindValue(QStringLiteral(":priority"), computeTrackPriority(trackId, fileName) + 1);
 
     auto queryResult = d->mUpdateTrackMapping.exec();
 
     if (!queryResult || !d->mUpdateTrackMapping.isActive()) {
-        qDebug() << "DatabaseInterface::updateArtist" << d->mUpdateTrackMapping.lastQuery();
-        qDebug() << "DatabaseInterface::updateArtist" << d->mUpdateTrackMapping.boundValues();
-        qDebug() << "DatabaseInterface::updateArtist" << d->mUpdateTrackMapping.lastError();
+        qDebug() << "DatabaseInterface::updateTrackOrigin" << d->mUpdateTrackMapping.lastQuery();
+        qDebug() << "DatabaseInterface::updateTrackOrigin" << d->mUpdateTrackMapping.boundValues();
+        qDebug() << "DatabaseInterface::updateTrackOrigin" << d->mUpdateTrackMapping.lastError();
 
         d->mUpdateTrackMapping.finish();
 
@@ -1808,6 +1756,94 @@ void DatabaseInterface::updateTrackOrigin(qulonglong trackId, QUrl fileNameURI, 
     }
 
     d->mInsertTrackMapping.finish();
+}
+
+int DatabaseInterface::computeTrackPriority(qulonglong trackId, QUrl fileName)
+{
+    auto result = int(0);
+
+    if (!d) {
+        return result;
+    }
+
+    d->mSelectTracksMappingPriority.bindValue(QStringLiteral(":trackId"), trackId);
+    d->mSelectTracksMappingPriority.bindValue(QStringLiteral(":fileName"), fileName);
+
+    auto queryResult = d->mSelectTracksMappingPriority.exec();
+
+    if (!queryResult || !d->mSelectTracksMappingPriority.isSelect() || !d->mSelectTracksMappingPriority.isActive()) {
+        qDebug() << "DatabaseInterface::internalTrackIdFromFileName" << d->mSelectTracksMappingPriority.lastQuery();
+        qDebug() << "DatabaseInterface::internalTrackIdFromFileName" << d->mSelectTracksMappingPriority.boundValues();
+        qDebug() << "DatabaseInterface::internalTrackIdFromFileName" << d->mSelectTracksMappingPriority.lastError();
+
+        d->mSelectTracksMappingPriority.finish();
+
+        return result;
+    }
+
+    if (d->mSelectTracksMappingPriority.next()) {
+        result = d->mSelectTracksMappingPriority.record().value(0).toInt();
+    }
+
+    d->mSelectTracksMappingPriority.finish();
+
+    return result;
+}
+
+void DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrack, const QHash<QString, QUrl> &covers, int originTrackId)
+{
+    if (oneTrack.albumArtist().isEmpty()) {
+        return;
+    }
+
+    auto albumId = insertAlbum(oneTrack.albumName(), oneTrack.albumArtist(), covers[oneTrack.albumName()], 0, true);
+
+    auto otherTrackId = internalTrackIdFromTitleAlbumArtist(oneTrack.title(), oneTrack.albumName(), oneTrack.artist());
+    bool isModifiedTrack = otherTrackId != 0;
+
+    if (isModifiedTrack) {
+        originTrackId = otherTrackId;
+
+        removeTrackInDatabase(originTrackId);
+    } else {
+        originTrackId = d->mTrackId;
+    }
+
+    d->mInsertTrackQuery.bindValue(QStringLiteral(":trackId"), originTrackId);
+    d->mInsertTrackQuery.bindValue(QStringLiteral(":title"), oneTrack.title());
+    d->mInsertTrackQuery.bindValue(QStringLiteral(":album"), albumId);
+    d->mInsertTrackQuery.bindValue(QStringLiteral(":artistId"), insertArtist(oneTrack.artist()));
+    d->mInsertTrackQuery.bindValue(QStringLiteral(":trackNumber"), oneTrack.trackNumber());
+    d->mInsertTrackQuery.bindValue(QStringLiteral(":discNumber"), oneTrack.discNumber());
+    d->mInsertTrackQuery.bindValue(QStringLiteral(":trackDuration"), QVariant::fromValue<qlonglong>(oneTrack.duration().msecsSinceStartOfDay()));
+    d->mInsertTrackQuery.bindValue(QStringLiteral(":trackRating"), oneTrack.rating());
+
+    auto result = d->mInsertTrackQuery.exec();
+
+    if (result && d->mInsertTrackQuery.isActive()) {
+        d->mInsertTrackQuery.finish();
+
+        if (!isModifiedTrack) {
+            ++d->mTrackId;
+        }
+
+        updateTrackOrigin(originTrackId, oneTrack.resourceURI());
+
+        if (isModifiedTrack) {
+            Q_EMIT trackModified(internalTrackFromDatabaseId(originTrackId));
+        } else {
+            Q_EMIT trackAdded(internalTrackFromDatabaseId(originTrackId));
+        }
+
+        updateIsSingleDiscAlbumFromId(albumId);
+        updateTracksCount(albumId);
+    } else {
+        d->mInsertTrackQuery.finish();
+
+        qDebug() << "DatabaseInterface::modifyTracksList" << d->mInsertTrackQuery.lastQuery();
+        qDebug() << "DatabaseInterface::modifyTracksList" << d->mInsertTrackQuery.boundValues();
+        qDebug() << "DatabaseInterface::modifyTracksList" << d->mInsertTrackQuery.lastError();
+    }
 }
 
 qulonglong DatabaseInterface::internalArtistIdFromName(QString name)
@@ -2137,8 +2173,8 @@ MusicAlbum DatabaseInterface::internalAlbumFromId(qulonglong albumId)
     retrievedAlbum.setAlbumArtURI(d->mSelectAlbumQuery.record().value(4).toUrl());
     retrievedAlbum.setTracksCount(d->mSelectAlbumQuery.record().value(5).toInt());
     retrievedAlbum.setIsSingleDiscAlbum(d->mSelectAlbumQuery.record().value(6).toBool());
-    retrievedAlbum.setTracks(fetchTracks(retrievedAlbum.databaseId()));
-    retrievedAlbum.setTrackIds(fetchTrackIds(retrievedAlbum.databaseId()));
+    retrievedAlbum.setTracks(fetchTracks(albumId));
+    retrievedAlbum.setTrackIds(fetchTrackIds(albumId));
     retrievedAlbum.setValid(true);
 
     d->mSelectAlbumQuery.finish();
@@ -2212,7 +2248,7 @@ MusicAudioTrack DatabaseInterface::internalTrackFromDatabaseId(qulonglong id)
     result.setAlbumArtist(d->mSelectTrackFromIdQuery.record().value(4).toString());
     result.setDuration(QTime::fromMSecsSinceStartOfDay(d->mSelectTrackFromIdQuery.record().value(8).toLongLong()));
     result.setResourceURI(d->mSelectTrackFromIdQuery.record().value(5).toUrl());
-    result.setAlbumCover(internalAlbumDataFromId(d->mSelectTrackFromIdQuery.record().value(2).toULongLong(), DatabaseInterface::AlbumData::Image).toUrl());
+    result.setAlbumCover(d->mSelectTrackFromIdQuery.record().value(10).toUrl());
     result.setTitle(d->mSelectTrackFromIdQuery.record().value(1).toString());
     result.setTrackNumber(d->mSelectTrackFromIdQuery.record().value(6).toInt());
     result.setDiscNumber(d->mSelectTrackFromIdQuery.record().value(7).toInt());
@@ -2253,6 +2289,39 @@ qulonglong DatabaseInterface::internalTrackIdFromTitleAlbumArtist(QString title,
     }
 
     d->mSelectTrackIdFromTitleAlbumArtistQuery.finish();
+
+    return result;
+}
+
+qulonglong DatabaseInterface::internalTrackIdFromFileName(const QUrl fileName) const
+{
+    auto result = qulonglong(0);
+
+    if (!d) {
+        return result;
+    }
+
+    d->mSelectTracksMapping.bindValue(QStringLiteral(":fileName"), fileName);
+
+    auto queryResult = d->mSelectTracksMapping.exec();
+
+    if (!queryResult || !d->mSelectTracksMapping.isSelect() || !d->mSelectTracksMapping.isActive()) {
+        qDebug() << "DatabaseInterface::internalTrackIdFromFileName" << d->mSelectTracksMapping.lastQuery();
+        qDebug() << "DatabaseInterface::internalTrackIdFromFileName" << d->mSelectTracksMapping.boundValues();
+        qDebug() << "DatabaseInterface::internalTrackIdFromFileName" << d->mSelectTracksMapping.lastError();
+
+        d->mSelectTracksMapping.finish();
+
+        return result;
+    }
+
+    if (d->mSelectTracksMapping.next()) {
+        if (d->mSelectTracksMapping.record().value(0).isValid()) {
+            result = d->mSelectTracksMapping.record().value(0).toInt();
+        }
+    }
+
+    d->mSelectTracksMapping.finish();
 
     return result;
 }

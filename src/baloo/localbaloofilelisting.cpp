@@ -51,8 +51,6 @@ public:
 
     QHash<QString, QUrl> mAllAlbumCover;
 
-    bool initialScan = true;
-
 };
 
 LocalBalooFileListing::LocalBalooFileListing(QObject *parent) : AbstractFileListing(QStringLiteral("baloo"), parent), d(new LocalBalooFileListingPrivate)
@@ -67,25 +65,18 @@ LocalBalooFileListing::~LocalBalooFileListing()
 void LocalBalooFileListing::triggerRefreshOfContent()
 {
     auto resultIterator = d->mQuery.exec();
+    auto newFiles = QList<MusicAudioTrack>();
 
     while(resultIterator.next()) {
-        scanOneFile(QUrl::fromLocalFile(resultIterator.filePath()));
+        newFiles.push_back(scanOneFile(QUrl::fromLocalFile(resultIterator.filePath())));
     }
 
-    Q_EMIT tracksList(d->mNewTracks, d->mAllAlbumCover, sourceName());
-
-    d->initialScan = false;
+    Q_EMIT tracksList(newFiles, d->mAllAlbumCover, sourceName());
 }
 
 MusicAudioTrack LocalBalooFileListing::scanOneFile(QUrl scanFile)
 {
     auto newTrack = MusicAudioTrack();
-
-    if (!d->initialScan) {
-        newTrack = AbstractFileListing::scanOneFile(scanFile);
-
-        return newTrack;
-    }
 
     auto fileName = scanFile.toLocalFile();
     auto scanFileInfo = QFileInfo(fileName);
@@ -161,6 +152,8 @@ MusicAudioTrack LocalBalooFileListing::scanOneFile(QUrl scanFile)
             std::sort(allTracks.begin(), allTracks.end());
             std::sort(newTracks.begin(), newTracks.end());
         }
+
+        newTrack.setValid(true);
     }
 
     return newTrack;

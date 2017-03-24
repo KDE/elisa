@@ -94,17 +94,15 @@ Q_SIGNALS:
 
     void requestsInitDone();
 
-    void initialTracksList(QString musicSource, QList<MusicAudioTrack> initialList);
+    void newTrackFile(MusicAudioTrack newTrack);
 
 public Q_SLOTS:
 
-    void insertTracksList(QList<MusicAudioTrack> tracks, QHash<QString, QUrl> covers, QString musicSource);
+    void insertTracksList(QList<MusicAudioTrack> tracks, const QHash<QString, QUrl> &covers, QString musicSource);
 
     void removeTracksList(const QList<QUrl> removedTracks);
 
-    void modifyTracksList(const QList<MusicAudioTrack> modifiedTracks, QString musicSource);
-
-    void initialTracksListRequired(QString musicSource);
+    void modifyTracksList(const QList<MusicAudioTrack> &modifiedTracks, const QHash<QString, QUrl> &covers);
 
 private:
 
@@ -129,6 +127,8 @@ private:
     MusicAudioTrack internalTrackFromDatabaseId(qulonglong id);
 
     qulonglong internalTrackIdFromTitleAlbumArtist(QString title, QString album, QString artist) const;
+
+    qulonglong internalTrackIdFromFileName(const QUrl fileName) const;
 
     QVariant internalAlbumDataFromId(qulonglong albumId, AlbumData dataType);
 
@@ -156,9 +156,13 @@ private:
 
     qulonglong insertMusicSource(QString name);
 
-    void insertTrackOrigin(qulonglong trackId, QUrl fileNameURI, qulonglong discoverId);
+    void insertTrackOrigin(QUrl fileNameURI, qulonglong discoverId);
 
-    void updateTrackOrigin(qulonglong trackId, QUrl fileNameURI, qulonglong discoverId);
+    void updateTrackOrigin(qulonglong trackId, QUrl fileName);
+
+    int computeTrackPriority(qulonglong trackId, QUrl fileName);
+
+    void internalInsertTrack(const MusicAudioTrack &oneModifiedTrack, const QHash<QString, QUrl> &covers, int originTrackId);
 
     DatabaseInterfacePrivate *d;
 

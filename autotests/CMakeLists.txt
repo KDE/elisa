@@ -42,6 +42,8 @@ if (KF5FileMetaData_FOUND)
         ${playListTest_SOURCES}
         ../src/file/filelistener.cpp
         ../src/file/localfilelisting.cpp
+        ../src/abstractfile/abstractfilelistener.cpp
+        ../src/abstractfile/abstractfilelisting.cpp
     )
 endif()
 
@@ -113,6 +115,8 @@ if (KF5FileMetaData_FOUND)
         ${playListControlerTest_SOURCES}
         ../src/file/filelistener.cpp
         ../src/file/localfilelisting.cpp
+        ../src/abstractfile/abstractfilelistener.cpp
+        ../src/abstractfile/abstractfilelisting.cpp
     )
 endif()
 
@@ -172,6 +176,8 @@ if (KF5FileMetaData_FOUND)
         ${managemediaplayercontrolTest_SOURCES}
         ../src/file/filelistener.cpp
         ../src/file/localfilelisting.cpp
+        ../src/abstractfile/abstractfilelistener.cpp
+        ../src/abstractfile/abstractfilelisting.cpp
     )
 endif()
 
@@ -232,6 +238,8 @@ if (KF5FileMetaData_FOUND)
         ${manageheaderbarTest_SOURCES}
         ../src/file/filelistener.cpp
         ../src/file/localfilelisting.cpp
+        ../src/abstractfile/abstractfilelistener.cpp
+        ../src/abstractfile/abstractfilelisting.cpp
     )
 endif()
 
@@ -300,6 +308,8 @@ if (KF5FileMetaData_FOUND)
         ${mediaplaylistTest_SOURCES}
         ../src/file/filelistener.cpp
         ../src/file/localfilelisting.cpp
+        ../src/abstractfile/abstractfilelistener.cpp
+        ../src/abstractfile/abstractfilelisting.cpp
     )
 endif()
 
@@ -364,6 +374,7 @@ add_test(allartistsmodeltest allartistsmodeltest)
 if (KF5FileMetaData_FOUND)
     set(localfilelistingtest_SOURCES
         ../src/file/localfilelisting.cpp
+        ../src/abstractfile/abstractfilelisting.cpp
         ../src/musicaudiotrack.cpp
         localfilelistingtest.cpp
     )

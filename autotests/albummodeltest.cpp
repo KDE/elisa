@@ -294,6 +294,11 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
+        auto newFiles = QList<QUrl>();
+        for (const auto &oneTrack : mNewTracks) {
+            newFiles.push_back(oneTrack.resourceURI());
+        }
+
         musicDb.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
@@ -316,6 +321,11 @@ private Q_SLOTS:
         auto newTracks = QList<MusicAudioTrack>();
         newTracks.push_back(newTrack);
 
+        auto newFiles2 = QList<QUrl>();
+        for (const auto &oneTrack : newTracks) {
+            newFiles2.push_back(oneTrack.resourceURI());
+        }
+
         musicDb.insertTracksList(newTracks, mNewCovers, QStringLiteral("autoTest"));
 
         QCOMPARE(beginInsertRowsSpy.count(), 2);
@@ -334,6 +344,11 @@ private Q_SLOTS:
         {QUrl::fromLocalFile(QStringLiteral("file://image$20"))}, 5};
         auto secondNewTracks = QList<MusicAudioTrack>();
         secondNewTracks.push_back(secondNewTrack);
+
+        auto newFiles3 = QList<QUrl>();
+        for (const auto &oneTrack : secondNewTracks) {
+            newFiles3.push_back(oneTrack.resourceURI());
+        }
 
         musicDb.insertTracksList(secondNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
@@ -386,6 +401,11 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
+        auto newFiles = QList<QUrl>();
+        for (const auto &oneTrack : mNewTracks) {
+            newFiles.push_back(oneTrack.resourceURI());
+        }
+
         musicDb.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
@@ -406,7 +426,7 @@ private Q_SLOTS:
                 QStringLiteral("artist3"), QStringLiteral("album1"), QStringLiteral("Various Artists"), 5, 3,
                 QTime::fromMSecsSinceStartOfDay(3), {QUrl::fromLocalFile(QStringLiteral("/$3"))}, {QUrl::fromLocalFile(QStringLiteral("file://image$3"))}, 5};
 
-        musicDb.modifyTracksList({modifiedTrack}, QStringLiteral("autoTest"));
+        musicDb.modifyTracksList({modifiedTrack}, mNewCovers);
 
         QCOMPARE(beginInsertRowsSpy.count(), 1);
         QCOMPARE(endInsertRowsSpy.count(), 1);

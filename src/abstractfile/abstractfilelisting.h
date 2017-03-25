@@ -72,15 +72,13 @@ protected:
 
     virtual void triggerRefreshOfContent();
 
-    void scanDirectory(const QString &path);
+    void scanDirectory(const QUrl &path);
 
     const QString &sourceName() const;
 
     virtual MusicAudioTrack scanOneFile(QUrl scanFile);
 
-    void watchPath(const QString &directoryName);
-
-    void addTrackFileInAlbum(const QUrl &fileName, const QString &albumName);
+    void watchPath(const QString &pathName);
 
 private:
 

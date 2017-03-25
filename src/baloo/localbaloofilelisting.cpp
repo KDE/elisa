@@ -133,7 +133,6 @@ MusicAudioTrack LocalBalooFileListing::scanOneFile(QUrl scanFile)
 
         newTrack.setRating(fileData.rating());
 
-        addTrackFileInAlbum(scanFile, newTrack.albumName());
         newTrack.setResourceURI(scanFile);
 
         QFileInfo coverFilePath(scanFileInfo.dir().filePath(QStringLiteral("cover.jpg")));

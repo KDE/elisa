@@ -48,19 +48,9 @@ public:
 
     QFileSystemWatcher mFileSystemWatcher;
 
-    QList<MusicAudioTrack> mAllTracks;
-
     QHash<QString, QUrl> mAllAlbumCover;
 
-    QHash<QUrl, QString> mAlbumNameFromTrackFile;
-
-    int mCptTracks = 0;
-
-    QHash<QString, QList<QUrl>> mDiscoveredFiles;
-
-    QHash<QString, QList<QUrl>> mDiscoveredDirectories;
-
-    bool mNewTracks = false;
+    QHash<QUrl, QList<QUrl>> mDiscoveredFiles;
 
     QString mSourceName;
 
@@ -97,38 +87,34 @@ void AbstractFileListing::newTrackFile(MusicAudioTrack partialTrack)
     }
 }
 
-void AbstractFileListing::scanDirectory(const QString &path)
+void AbstractFileListing::scanDirectory(const QUrl &path)
 {
-    QDir rootDirectory(path);
+    QDir rootDirectory(path.toLocalFile());
     rootDirectory.refresh();
 
     if (rootDirectory.exists()) {
-        watchPath(path);
+        watchPath(path.toLocalFile());
     }
 
     auto &currentDirectoryListingFiles = d->mDiscoveredFiles[path];
-    auto &currentDirectoryListingDirectories = d->mDiscoveredDirectories[path];
 
     auto currentFilesList = QList<QUrl>();
 
     rootDirectory.refresh();
-    const auto entryList = rootDirectory.entryInfoList();
+    const auto entryList = rootDirectory.entryInfoList(QDir::NoDotAndDotDot);
     for (auto oneEntry : entryList) {
-        auto newFilePath = oneEntry.canonicalFilePath();
+        auto newFilePath = QUrl::fromLocalFile(oneEntry.canonicalFilePath());
 
         if (newFilePath == path) {
             continue;
         }
-        if (newFilePath.size() < path.size()) {
-            continue;
-        }
 
         if (oneEntry.isDir() || oneEntry.isFile()) {
-            currentFilesList.push_back(QUrl::fromLocalFile(newFilePath));
+            currentFilesList.push_back(newFilePath);
         }
     }
 
-    for (const auto &removedDirectoryPath : currentDirectoryListingDirectories) {
+    /*for (const auto &removedDirectoryPath : currentDirectoryListingDirectories) {
         auto itFilePath = std::find(currentFilesList.begin(), currentFilesList.end(), removedDirectoryPath);
 
         if (itFilePath != currentFilesList.end()) {
@@ -142,7 +128,7 @@ void AbstractFileListing::scanDirectory(const QString &path)
 
         auto itRemovedFullDirectory = d->mDiscoveredDirectories.find(removedDirectoryPath.toLocalFile());
         d->mDiscoveredDirectories.erase(itRemovedFullDirectory);
-    }
+    }*/
     auto removedTracks = QList<QUrl>();
     for (const auto &removedFilePath : currentDirectoryListingFiles) {
         auto itFilePath = std::find(currentFilesList.begin(), currentFilesList.end(), removedFilePath);
@@ -154,11 +140,6 @@ void AbstractFileListing::scanDirectory(const QString &path)
         removedTracks.push_back(removedFilePath);
     }
     for (const auto &oneRemovedTrack : removedTracks) {
-        auto itAlbumName = d->mAlbumNameFromTrackFile.find(oneRemovedTrack);
-
-        if (itAlbumName != d->mAlbumNameFromTrackFile.end()) {
-        }
-
         auto itRemovedTrack = std::find(currentDirectoryListingFiles.begin(), currentDirectoryListingFiles.end(), oneRemovedTrack);
         currentDirectoryListingFiles.erase(itRemovedTrack);
     }
@@ -176,9 +157,9 @@ void AbstractFileListing::scanDirectory(const QString &path)
 
         QFileInfo oneEntry(newFilePath.toLocalFile());
         if (oneEntry.isDir()) {
-            if (d->mDiscoveredDirectories.find(newFilePath.toLocalFile()) == d->mDiscoveredDirectories.end()) {
-                currentDirectoryListingDirectories.push_back(newFilePath);
-                scanDirectory(newFilePath.toLocalFile());
+            if (d->mDiscoveredFiles.find(newFilePath) == d->mDiscoveredFiles.end()) {
+                //currentDirectoryListingDirectories.push_back(newFilePath);
+                scanDirectory(newFilePath);
             }
             continue;
         }
@@ -186,7 +167,7 @@ void AbstractFileListing::scanDirectory(const QString &path)
             continue;
         }
 
-        currentDirectoryListingFiles.push_back(newFilePath);
+        //currentDirectoryListingFiles.push_back(newFilePath);
 
         auto newTrack = scanOneFile(newFilePath);
 
@@ -196,16 +177,12 @@ void AbstractFileListing::scanDirectory(const QString &path)
             if (coverFilePath.exists()) {
                 d->mAllAlbumCover[newTrack.albumName()] = QUrl::fromLocalFile(coverFilePath.absoluteFilePath());
             }
-
-            d->mNewTracks = true;
-            d->mAllTracks.push_back(newTrack);
-            addTrackFileInAlbum(newTrack.resourceURI(), newTrack.albumName());
         }
     }
-    if (currentDirectoryListingDirectories.isEmpty()) {
+    /*if (currentDirectoryListingDirectories.isEmpty()) {
         auto itRemovedFullDirectory = d->mDiscoveredDirectories.find(path);
         d->mDiscoveredDirectories.erase(itRemovedFullDirectory);
-    }
+    }*/
 }
 
 const QString &AbstractFileListing::sourceName() const
@@ -217,14 +194,7 @@ void AbstractFileListing::directoryChanged(const QString &path)
 {
     qDebug() << "AbstractFileListing::directoryChanged" << path;
 
-    d->mNewTracks = false;
-
-    scanDirectory(path);
-
-    if (d->mNewTracks) {
-        qDebug() << "AbstractFileListing::directoryChanged" << "new tracks" << d->mAllTracks;
-        Q_EMIT tracksList(d->mAllTracks, d->mAllAlbumCover, d->mSourceName);
-    }
+    scanDirectory(QUrl::fromLocalFile(path));
 }
 
 void AbstractFileListing::fileChanged(const QString &modifiedFileName)
@@ -291,7 +261,6 @@ MusicAudioTrack AbstractFileListing::scanOneFile(QUrl scanFile)
         auto albumValue = albumProperty->toString();
 
         newTrack.setAlbumName(albumValue);
-        ++d->mCptTracks;
 
         if (artistProperty != allProperties.end()) {
             newTrack.setArtist(artistProperty->toString());
@@ -331,14 +300,9 @@ MusicAudioTrack AbstractFileListing::scanOneFile(QUrl scanFile)
     return newTrack;
 }
 
-void AbstractFileListing::watchPath(const QString &directoryName)
+void AbstractFileListing::watchPath(const QString &pathName)
 {
-    d->mFileSystemWatcher.addPath(directoryName);
-}
-
-void AbstractFileListing::addTrackFileInAlbum(const QUrl &fileName, const QString &albumName)
-{
-    d->mAlbumNameFromTrackFile[fileName] = albumName;
+    d->mFileSystemWatcher.addPath(pathName);
 }
 
 

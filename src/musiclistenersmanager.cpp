@@ -54,7 +54,7 @@ public:
     BalooListener mBalooListener;
 #endif
 
-#if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
+#if (!defined KF5Baloo_FOUND || !KF5Baloo_FOUND) && defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
     FileListener mFileListener;
 #endif
 
@@ -158,7 +158,7 @@ void MusicListenersManager::databaseReady()
             &d->mUpnpListener, &UpnpListener::initialTracksList);
 #endif
 
-#if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
+#if (!defined KF5Baloo_FOUND || !KF5Baloo_FOUND) && defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
     d->mFileListener.setDatabaseInterface(&d->mDatabaseInterface);
     d->mFileListener.moveToThread(&d->mDatabaseThread);
     connect(this, &MusicListenersManager::applicationIsTerminating,

@@ -195,7 +195,7 @@ Rectangle {
                 Text {
                     id: mainCompactLabel
 
-                    text: (discNumber ? discNumber + ' - ' + trackNumber + ' - ' + title : trackNumber + ' - ' + title)
+                    text: (discNumber ? discNumber + ' - ' + trackNumber : trackNumber) + ' - ' + title
                     font.weight: Font.Bold
 
                     Layout.fillWidth: true

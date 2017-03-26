@@ -790,6 +790,7 @@ void DatabaseInterface::modifyTracksList(const QList<MusicAudioTrack> &modifiedT
 
             if (originTrack.isValid() || otherTrackId != 0) {
                 Q_EMIT trackModified(internalTrackFromDatabaseId(originTrackId));
+                Q_EMIT albumModified(internalAlbumFromId(albumId));
             } else {
                 Q_EMIT trackAdded(internalTrackFromDatabaseId(originTrackId));
             }
@@ -1831,6 +1832,7 @@ void DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrack, con
 
         if (isModifiedTrack) {
             Q_EMIT trackModified(internalTrackFromDatabaseId(originTrackId));
+            Q_EMIT albumModified(internalAlbumFromId(albumId));
         } else {
             Q_EMIT trackAdded(internalTrackFromDatabaseId(originTrackId));
         }

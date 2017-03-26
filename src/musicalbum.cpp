@@ -303,3 +303,14 @@ bool operator==(const MusicAlbum &album1, const MusicAlbum &album2)
 {
     return album1.artist() == album2.artist() && album1.title() == album2.title();
 }
+
+int MusicAlbum::highestTrackRating() const
+{
+    int result = 0;
+
+    for (const auto &oneTrack : d->mTracks) {
+        result = std::max(result, oneTrack.rating());
+    }
+
+    return result;
+}

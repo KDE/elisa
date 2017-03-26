@@ -35,6 +35,11 @@ QString AlbumFilterProxyModel::filterText() const
     return mFilterText;
 }
 
+int AlbumFilterProxyModel::filterRating() const
+{
+    return mFilterRating;
+}
+
 void AlbumFilterProxyModel::setFilterText(QString filterText)
 {
     if (mFilterText == filterText)
@@ -51,6 +56,19 @@ void AlbumFilterProxyModel::setFilterText(QString filterText)
     Q_EMIT filterTextChanged(mFilterText);
 }
 
+void AlbumFilterProxyModel::setFilterRating(int filterRating)
+{
+    if (mFilterRating == filterRating) {
+        return;
+    }
+
+    mFilterRating = filterRating;
+
+    invalidate();
+
+    Q_EMIT filterRatingChanged(filterRating);
+}
+
 bool AlbumFilterProxyModel::filterAcceptsRow(int source_row, const QModelIndex &source_parent) const
 {
     bool result = false;
@@ -62,6 +80,12 @@ bool AlbumFilterProxyModel::filterAcceptsRow(int source_row, const QModelIndex &
         const auto &artistValue = sourceModel()->data(currentIndex, AllAlbumsModel::ArtistRole).toString();
         const auto &allArtistsValue = sourceModel()->data(currentIndex, AllAlbumsModel::AllArtistsRole).toStringList();
         const auto &allTracksTitleValue = sourceModel()->data(currentIndex, AllAlbumsModel::AllTracksTitleRole).toStringList();
+        const auto maximumRatingValue = sourceModel()->data(currentIndex, AllAlbumsModel::HighestTrackRating).toInt();
+
+        if (maximumRatingValue < mFilterRating) {
+            result = false;
+            continue;
+        }
 
         if (mFilterExpression.match(titleValue).hasMatch()) {
             result = true;
@@ -79,6 +103,7 @@ bool AlbumFilterProxyModel::filterAcceptsRow(int source_row, const QModelIndex &
                 break;
             }
         }
+
         if (result) {
             continue;
         }

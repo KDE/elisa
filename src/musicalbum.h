@@ -112,6 +112,8 @@ public:
 
     void updateTrack(MusicAudioTrack modifiedTrack, int index);
 
+    int highestTrackRating() const;
+
 private:
 
     MusicAlbumPrivate *d;

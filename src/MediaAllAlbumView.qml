@@ -94,6 +94,17 @@ Item {
                     }
                 }
             }
+
+            Text {
+                text: i18nc("before the Rating widget input of the filter", "Rating: ")
+                Layout.leftMargin: Screen.pixelDensity * 2
+            }
+
+            RatingStar {
+                id: ratingFilter
+
+                starSize: Screen.pixelDensity * 3
+            }
         }
 
         Rectangle {
@@ -118,6 +129,8 @@ Item {
                             sourceModel: rootElement.contentDirectoryModel
 
                             filterText: filterTextInput.text
+
+                            filterRating: ratingFilter.starRating
                         }
 
                         delegate: MediaAlbumDelegate {

@@ -33,6 +33,11 @@ class AlbumFilterProxyModel : public QSortFilterProxyModel
                WRITE setFilterText
                NOTIFY filterTextChanged)
 
+    Q_PROPERTY(int filterRating
+               READ filterRating
+               WRITE setFilterRating
+               NOTIFY filterRatingChanged)
+
 public:
 
     explicit AlbumFilterProxyModel(QObject *parent = 0);
@@ -41,13 +46,19 @@ public:
 
     QString filterText() const;
 
+    int filterRating() const;
+
 public Q_SLOTS:
 
     void setFilterText(QString filterText);
 
+    void setFilterRating(int filterRating);
+
 Q_SIGNALS:
 
     void filterTextChanged(QString filterText);
+
+    void filterRatingChanged(int filterRating);
 
 protected:
 
@@ -56,6 +67,8 @@ protected:
 private:
 
     QString mFilterText;
+
+    int mFilterRating = 0;
 
     QRegularExpression mFilterExpression;
 

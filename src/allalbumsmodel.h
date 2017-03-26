@@ -48,6 +48,7 @@ public:
         IdRole = CountRole + 1,
         IsSingleDiscAlbumRole = IdRole + 1,
         AlbumDataRole = IsSingleDiscAlbumRole + 1,
+        HighestTrackRating = AlbumDataRole + 1,
     };
 
     Q_ENUM(ColumnsRoles)

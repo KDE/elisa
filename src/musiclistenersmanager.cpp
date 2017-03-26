@@ -152,10 +152,6 @@ void MusicListenersManager::databaseReady()
             &d->mUpnpListener, &UpnpListener::applicationAboutToQuit, Qt::BlockingQueuedConnection);
     connect(this, &MusicListenersManager::databaseIsReady,
             &d->mUpnpListener, &UpnpListener::databaseReady);
-    connect(&d->mUpnpListener, &UpnpListener::initialTracksListRequired,
-            &d->mDatabaseInterface, &DatabaseInterface::initialTracksListRequired);
-    connect(&d->mDatabaseInterface, &DatabaseInterface::initialTracksList,
-            &d->mUpnpListener, &UpnpListener::initialTracksList);
 #endif
 
 #if (!defined KF5Baloo_FOUND || !KF5Baloo_FOUND) && defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND

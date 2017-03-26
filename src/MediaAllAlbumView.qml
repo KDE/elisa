@@ -103,6 +103,8 @@ Item {
             RatingStar {
                 id: ratingFilter
 
+                readOnly: false
+
                 starSize: Screen.pixelDensity * 3
             }
         }

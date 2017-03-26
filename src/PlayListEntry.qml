@@ -35,7 +35,7 @@ Rectangle {
     property alias duration : durationLabel.text
     property int trackNumber
     property int discNumber
-    property int rating
+    property alias rating: ratingWidget.starRating
     property alias isPlaying : playIcon.visible
     property bool isSelected
     property bool isValid
@@ -281,7 +281,8 @@ Rectangle {
                 }
 
                 RatingStar {
-                    starRating: rating / 2
+                    id: ratingWidget
+
                     starSize: Screen.pixelDensity * 2.5
                 }
 

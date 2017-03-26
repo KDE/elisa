@@ -33,6 +33,7 @@ Item {
     property alias duration: durationLabel.text
     property int trackNumber
     property int discNumber
+    property alias rating: ratingWidget.starRating
     property bool isFirstTrackOfDisc
     property bool isSingleDiscAlbum
     property var databaseId
@@ -199,7 +200,8 @@ Item {
                     }
 
                     RatingStar {
-                        starRating: rating / 2
+                        id: ratingWidget
+
                         starSize: Screen.pixelDensity * 2.5
 
                         Layout.leftMargin: Screen.pixelDensity * 1.5

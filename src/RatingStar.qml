@@ -23,6 +23,7 @@ import QtQuick.Layouts 1.1
 RowLayout {
     property int starSize
     property int starRating
+    property bool readOnly: true
 
     spacing: 0
 
@@ -42,43 +43,10 @@ RowLayout {
             sourceSize.height: starSize * 1.5
             fillMode: Image.PreserveAspectFit
 
-            source: if (starRating >= 1)
-                        'image://icon/rating'
-                    else
-                        'image://icon/draw-star'
-            opacity: if (starRating >= 1)
-                        1
-                    else
-                        0.1
-        }
-
-        MouseArea {
-            anchors.fill: parent
-            onClicked: rating = 1
-        }
-    }
-    Item {
-        Layout.preferredHeight: starSize
-        Layout.preferredWidth: starSize
-        Layout.maximumHeight: starSize
-        Layout.maximumWidth: starSize
-        Layout.minimumHeight: starSize
-        Layout.minimumWidth: starSize
-
-        Layout.leftMargin: starSize * 0.5
-
-        Image {
-            width: starSize * 1.5
-            height: starSize * 1.5
-            anchors.centerIn: parent
-            sourceSize.width: starSize * 1.5
-            sourceSize.height: starSize * 1.5
-            fillMode: Image.PreserveAspectFit
-
             source: if (starRating >= 2)
                         'image://icon/rating'
                     else
-                        'image://icon/draw-star'
+                        'image://icon/rating-unrated'
             opacity: if (starRating >= 2)
                         1
                     else
@@ -86,41 +54,9 @@ RowLayout {
         }
 
         MouseArea {
+            enabled: !readOnly
             anchors.fill: parent
-            onClicked: rating = 1
-        }
-    }
-    Item {
-        Layout.preferredHeight: starSize
-        Layout.preferredWidth: starSize
-        Layout.maximumHeight: starSize
-        Layout.maximumWidth: starSize
-        Layout.minimumHeight: starSize
-        Layout.minimumWidth: starSize
-
-        Layout.leftMargin: starSize * 0.5
-
-        Image {
-            width: starSize * 1.5
-            height: starSize * 1.5
-            anchors.centerIn: parent
-            sourceSize.width: starSize * 1.5
-            sourceSize.height: starSize * 1.5
-            fillMode: Image.PreserveAspectFit
-
-            source: if (starRating >= 3)
-                        'image://icon/rating'
-                    else
-                        'image://icon/draw-star'
-            opacity: if (starRating >= 3)
-                        1
-                    else
-                        0.1
-        }
-
-        MouseArea {
-            anchors.fill: parent
-            onClicked: rating = 1
+            onClicked: starRating = 2
         }
     }
     Item {
@@ -144,7 +80,7 @@ RowLayout {
             source: if (starRating >= 4)
                         'image://icon/rating'
                     else
-                        'image://icon/draw-star'
+                        'image://icon/rating-unrated'
             opacity: if (starRating >= 4)
                         1
                     else
@@ -152,8 +88,77 @@ RowLayout {
         }
 
         MouseArea {
+            enabled: !readOnly
             anchors.fill: parent
-            onClicked: rating = 1
+            onClicked: starRating = 4
+        }
+    }
+    Item {
+        Layout.preferredHeight: starSize
+        Layout.preferredWidth: starSize
+        Layout.maximumHeight: starSize
+        Layout.maximumWidth: starSize
+        Layout.minimumHeight: starSize
+        Layout.minimumWidth: starSize
+
+        Layout.leftMargin: starSize * 0.5
+
+        Image {
+            width: starSize * 1.5
+            height: starSize * 1.5
+            anchors.centerIn: parent
+            sourceSize.width: starSize * 1.5
+            sourceSize.height: starSize * 1.5
+            fillMode: Image.PreserveAspectFit
+
+            source: if (starRating >= 6)
+                        'image://icon/rating'
+                    else
+                        'image://icon/rating-unrated'
+            opacity: if (starRating >= 6)
+                        1
+                    else
+                        0.1
+        }
+
+        MouseArea {
+            enabled: !readOnly
+            anchors.fill: parent
+            onClicked: starRating = 6
+        }
+    }
+    Item {
+        Layout.preferredHeight: starSize
+        Layout.preferredWidth: starSize
+        Layout.maximumHeight: starSize
+        Layout.maximumWidth: starSize
+        Layout.minimumHeight: starSize
+        Layout.minimumWidth: starSize
+
+        Layout.leftMargin: starSize * 0.5
+
+        Image {
+            width: starSize * 1.5
+            height: starSize * 1.5
+            anchors.centerIn: parent
+            sourceSize.width: starSize * 1.5
+            sourceSize.height: starSize * 1.5
+            fillMode: Image.PreserveAspectFit
+
+            source: if (starRating >= 8)
+                        'image://icon/rating'
+                    else
+                        'image://icon/rating-unrated'
+            opacity: if (starRating >= 8)
+                        1
+                    else
+                        0.1
+        }
+
+        MouseArea {
+            enabled: !readOnly
+            anchors.fill: parent
+            onClicked: starRating = 8
         }
     }
     Item {
@@ -175,19 +180,20 @@ RowLayout {
             sourceSize.height: starSize * 1.5
             fillMode: Image.PreserveAspectFit
 
-            source: if (starRating === 5)
+            source: if (starRating === 10)
                         'image://icon/rating'
                     else
-                        'image://icon/draw-star'
-            opacity: if (starRating === 5)
+                        'image://icon/rating-unrated'
+            opacity: if (starRating === 10)
                         1
                     else
                         0.1
         }
 
         MouseArea {
+            enabled: !readOnly
             anchors.fill: parent
-            onClicked: rating = 1
+            onClicked: starRating = 10
         }
     }
 }

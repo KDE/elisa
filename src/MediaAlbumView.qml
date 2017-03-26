@@ -190,6 +190,10 @@ Item {
                                      model.discNumber
                                  else
                                      ''
+                    rating: if (model != undefined && model.rating !== undefined)
+                                     model.rating
+                                 else
+                                     0
                     isFirstTrackOfDisc: model.isFirstTrackOfDisc
                     isSingleDiscAlbum: topListing.isSingleDiscAlbum
                     isSelected: DelegateModel.inSelected

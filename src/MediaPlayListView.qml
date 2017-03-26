@@ -229,7 +229,10 @@ Item {
                                    model.album
                                else
                                    ''
-                        rating: model.rating
+                        rating: if (model != undefined && model.rating !== undefined)
+                                         model.rating
+                                     else
+                                         0
                         isValid: model.isValid
                         isPlaying: model.isPlaying
                         isSelected: item.DelegateModel.inSelected

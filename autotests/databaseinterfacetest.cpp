@@ -1269,7 +1269,7 @@ private Q_SLOTS:
         QCOMPARE(musicDbAlbumRemovedSpy.count(), 0);
         QCOMPARE(musicDbTrackRemovedSpy.count(), 0);
         QCOMPARE(musicDbArtistModifiedSpy.count(), 0);
-        QCOMPARE(musicDbAlbumModifiedSpy.count(), 13);
+        QCOMPARE(musicDbAlbumModifiedSpy.count(), 14);
         QCOMPARE(musicDbTrackModifiedSpy.count(), 1);
 
         auto allAlbums = musicDb.allAlbums();
@@ -1302,7 +1302,7 @@ private Q_SLOTS:
         QCOMPARE(musicDbAlbumRemovedSpy.count(), 0);
         QCOMPARE(musicDbTrackRemovedSpy.count(), 1);
         QCOMPARE(musicDbArtistModifiedSpy.count(), 0);
-        QCOMPARE(musicDbAlbumModifiedSpy.count(), 14);
+        QCOMPARE(musicDbAlbumModifiedSpy.count(), 15);
         QCOMPARE(musicDbTrackModifiedSpy.count(), 1);
 
         auto removedTrackId = musicDb.trackIdFromTitleAlbumArtist(QStringLiteral("track1"), QStringLiteral("album1"), QStringLiteral("artist1"));
@@ -1371,7 +1371,7 @@ private Q_SLOTS:
         QCOMPARE(musicDbAlbumRemovedSpy.count(), 0);
         QCOMPARE(musicDbTrackRemovedSpy.count(), 0);
         QCOMPARE(musicDbArtistModifiedSpy.count(), 0);
-        QCOMPARE(musicDbAlbumModifiedSpy.count(), 13);
+        QCOMPARE(musicDbAlbumModifiedSpy.count(), 14);
         QCOMPARE(musicDbTrackModifiedSpy.count(), 1);
 
         auto allAlbums = musicDb.allAlbums();
@@ -1409,7 +1409,7 @@ private Q_SLOTS:
         QCOMPARE(musicDbAlbumRemovedSpy.count(), 1);
         QCOMPARE(musicDbTrackRemovedSpy.count(), 4);
         QCOMPARE(musicDbArtistModifiedSpy.count(), 0);
-        QCOMPARE(musicDbAlbumModifiedSpy.count(), 17);
+        QCOMPARE(musicDbAlbumModifiedSpy.count(), 18);
         QCOMPARE(musicDbTrackModifiedSpy.count(), 1);
 
         auto removedAlbum = musicDb.albumFromTitle(QStringLiteral("album1"));
@@ -1479,7 +1479,7 @@ private Q_SLOTS:
         QCOMPARE(musicDbAlbumRemovedSpy.count(), 0);
         QCOMPARE(musicDbTrackRemovedSpy.count(), 0);
         QCOMPARE(musicDbArtistModifiedSpy.count(), 0);
-        QCOMPARE(musicDbAlbumModifiedSpy.count(), 13);
+        QCOMPARE(musicDbAlbumModifiedSpy.count(), 14);
         QCOMPARE(musicDbTrackModifiedSpy.count(), 1);
 
         auto allAlbums = musicDb.allAlbums();
@@ -1511,7 +1511,7 @@ private Q_SLOTS:
         QCOMPARE(musicDbAlbumRemovedSpy.count(), 0);
         QCOMPARE(musicDbTrackRemovedSpy.count(), 1);
         QCOMPARE(musicDbArtistModifiedSpy.count(), 0);
-        QCOMPARE(musicDbAlbumModifiedSpy.count(), 14);
+        QCOMPARE(musicDbAlbumModifiedSpy.count(), 15);
         QCOMPARE(musicDbTrackModifiedSpy.count(), 1);
     }
     void addOneTrack()
@@ -1576,7 +1576,7 @@ private Q_SLOTS:
         QCOMPARE(musicDbAlbumRemovedSpy.count(), 0);
         QCOMPARE(musicDbTrackRemovedSpy.count(), 0);
         QCOMPARE(musicDbArtistModifiedSpy.count(), 0);
-        QCOMPARE(musicDbAlbumModifiedSpy.count(), 13);
+        QCOMPARE(musicDbAlbumModifiedSpy.count(), 14);
         QCOMPARE(musicDbTrackModifiedSpy.count(), 1);
 
         auto newTrack = MusicAudioTrack{true, QStringLiteral("$19"), QStringLiteral("0"), QStringLiteral("track6"),
@@ -1598,7 +1598,7 @@ private Q_SLOTS:
         QCOMPARE(musicDbAlbumRemovedSpy.count(), 0);
         QCOMPARE(musicDbTrackRemovedSpy.count(), 0);
         QCOMPARE(musicDbArtistModifiedSpy.count(), 0);
-        QCOMPARE(musicDbAlbumModifiedSpy.count(), 14);
+        QCOMPARE(musicDbAlbumModifiedSpy.count(), 15);
         QCOMPARE(musicDbTrackModifiedSpy.count(), 1);
     }
 
@@ -1665,7 +1665,7 @@ private Q_SLOTS:
         QCOMPARE(musicDbAlbumRemovedSpy.count(), 0);
         QCOMPARE(musicDbTrackRemovedSpy.count(), 0);
         QCOMPARE(musicDbArtistModifiedSpy.count(), 0);
-        QCOMPARE(musicDbAlbumModifiedSpy.count(), 13);
+        QCOMPARE(musicDbAlbumModifiedSpy.count(), 14);
         QCOMPARE(musicDbTrackModifiedSpy.count(), 1);
 
         auto modifiedTrack = MusicAudioTrack{true, QStringLiteral("$3"), QStringLiteral("0"), QStringLiteral("track3"),
@@ -1683,7 +1683,7 @@ private Q_SLOTS:
         QCOMPARE(musicDbAlbumRemovedSpy.count(), 0);
         QCOMPARE(musicDbTrackRemovedSpy.count(), 0);
         QCOMPARE(musicDbArtistModifiedSpy.count(), 0);
-        QCOMPARE(musicDbAlbumModifiedSpy.count(), 13);
+        QCOMPARE(musicDbAlbumModifiedSpy.count(), 15);
         QCOMPARE(musicDbTrackModifiedSpy.count(), 2);
 
         auto trackId = musicDb.trackIdFromTitleAlbumArtist(QStringLiteral("track3"), QStringLiteral("album1"), QStringLiteral("artist3"));
@@ -1756,7 +1756,7 @@ private Q_SLOTS:
         QCOMPARE(musicDbAlbumRemovedSpy.count(), 0);
         QCOMPARE(musicDbTrackRemovedSpy.count(), 0);
         QCOMPARE(musicDbArtistModifiedSpy.count(), 0);
-        QCOMPARE(musicDbAlbumModifiedSpy.count(), 13);
+        QCOMPARE(musicDbAlbumModifiedSpy.count(), 14);
         QCOMPARE(musicDbTrackModifiedSpy.count(), 1);
 
         auto newTrack = MusicAudioTrack{true, QStringLiteral("$19"), QStringLiteral("0"), QStringLiteral("track1"),
@@ -1782,7 +1782,7 @@ private Q_SLOTS:
         QCOMPARE(musicDbAlbumRemovedSpy.count(), 0);
         QCOMPARE(musicDbTrackRemovedSpy.count(), 0);
         QCOMPARE(musicDbArtistModifiedSpy.count(), 0);
-        QCOMPARE(musicDbAlbumModifiedSpy.count(), 14);
+        QCOMPARE(musicDbAlbumModifiedSpy.count(), 15);
         QCOMPARE(musicDbTrackModifiedSpy.count(), 1);
     }
 
@@ -1848,7 +1848,7 @@ private Q_SLOTS:
         QCOMPARE(musicDbAlbumRemovedSpy.count(), 0);
         QCOMPARE(musicDbTrackRemovedSpy.count(), 0);
         QCOMPARE(musicDbArtistModifiedSpy.count(), 0);
-        QCOMPARE(musicDbAlbumModifiedSpy.count(), 13);
+        QCOMPARE(musicDbAlbumModifiedSpy.count(), 14);
         QCOMPARE(musicDbTrackModifiedSpy.count(), 1);
 
         auto newTrack = MusicAudioTrack{true, QStringLiteral("$19"), QStringLiteral("0"), QStringLiteral("track6"),
@@ -1875,7 +1875,7 @@ private Q_SLOTS:
         QCOMPARE(musicDbAlbumRemovedSpy.count(), 0);
         QCOMPARE(musicDbTrackRemovedSpy.count(), 0);
         QCOMPARE(musicDbArtistModifiedSpy.count(), 0);
-        QCOMPARE(musicDbAlbumModifiedSpy.count(), 14);
+        QCOMPARE(musicDbAlbumModifiedSpy.count(), 15);
         QCOMPARE(musicDbTrackModifiedSpy.count(), 1);
     }
 };

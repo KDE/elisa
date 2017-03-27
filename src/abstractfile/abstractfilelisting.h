@@ -50,8 +50,6 @@ Q_SIGNALS:
 
     void modifyTracksList(const QList<MusicAudioTrack> &modifiedTracks, const QHash<QString, QUrl> &covers);
 
-    void initialTracksListRequired(QString musicSource);
-
 public Q_SLOTS:
 
     void refreshContent();
@@ -72,13 +70,15 @@ protected:
 
     virtual void triggerRefreshOfContent();
 
-    void scanDirectory(const QUrl &path);
+    void scanDirectory(QList<MusicAudioTrack> &newFiles, const QUrl &path);
 
     const QString &sourceName() const;
 
     virtual MusicAudioTrack scanOneFile(QUrl scanFile);
 
     void watchPath(const QString &pathName);
+
+    void addFileInDirectory(const QUrl &newFile, const QUrl &directoryName);
 
 private:
 

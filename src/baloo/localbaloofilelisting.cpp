@@ -68,7 +68,12 @@ void LocalBalooFileListing::triggerRefreshOfContent()
     auto newFiles = QList<MusicAudioTrack>();
 
     while(resultIterator.next()) {
-        newFiles.push_back(scanOneFile(QUrl::fromLocalFile(resultIterator.filePath())));
+        const auto &newFileUrl = QUrl::fromLocalFile(resultIterator.filePath());
+        auto scanFileInfo = QFileInfo(resultIterator.filePath());
+        scanFileInfo.absoluteDir().absolutePath();
+
+        addFileInDirectory(newFileUrl, QUrl::fromLocalFile(scanFileInfo.absoluteDir().absolutePath()));
+        newFiles.push_back(scanOneFile(newFileUrl));
     }
 
     Q_EMIT tracksList(newFiles, d->mAllAlbumCover, sourceName());
@@ -153,6 +158,10 @@ MusicAudioTrack LocalBalooFileListing::scanOneFile(QUrl scanFile)
         }
 
         newTrack.setValid(true);
+    }
+
+    if (!newTrack.isValid()) {
+        newTrack = AbstractFileListing::scanOneFile(scanFile);
     }
 
     return newTrack;

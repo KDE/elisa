@@ -224,7 +224,7 @@ private Q_SLOTS:
         auto newTracksLast = newTracksSignalLast.at(0).value<QList<MusicAudioTrack>>();
         auto newCoversLast = newTracksSignalLast.at(1).value<QHash<QString, QUrl>>();
 
-        QCOMPARE(newTracksLast.count(), 2);
+        QCOMPARE(newTracksLast.count(), 1);
         QCOMPARE(newCoversLast.count(), 1);
     }
 

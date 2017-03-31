@@ -68,9 +68,11 @@ protected Q_SLOTS:
 
 protected:
 
+    virtual void executeInit();
+
     virtual void triggerRefreshOfContent();
 
-    void scanDirectory(QList<MusicAudioTrack> &newFiles, const QUrl &path);
+    void scanDirectory(QList<MusicAudioTrack> &newFiles, const QUrl &path, bool recursive = true);
 
     const QString &sourceName() const;
 
@@ -79,6 +81,16 @@ protected:
     void watchPath(const QString &pathName);
 
     void addFileInDirectory(const QUrl &newFile, const QUrl &directoryName);
+
+    void scanDirectoryTree(const QString &path);
+
+    bool fileExists(const QUrl &fileName, const QUrl &directoryName) const;
+
+    void setHandleNewFiles(bool handleThem);
+
+    void emitNewFiles(const QList<MusicAudioTrack> &tracks);
+
+    void addCover(const MusicAudioTrack &newTrack);
 
 private:
 

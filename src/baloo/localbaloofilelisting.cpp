@@ -28,12 +28,13 @@
 #include <KFileMetaData/UserMetaData>
 
 #include <QDBusConnection>
+#include <QDBusMessage>
 
 #include <QThread>
-#include <QDebug>
 #include <QHash>
 #include <QFileInfo>
 #include <QDir>
+#include <QDebug>
 
 #include <algorithm>
 
@@ -56,10 +57,43 @@ public:
 LocalBalooFileListing::LocalBalooFileListing(QObject *parent) : AbstractFileListing(QStringLiteral("baloo"), parent), d(new LocalBalooFileListingPrivate)
 {
     d->mQuery.addType(QStringLiteral("Audio"));
+    setHandleNewFiles(false);
 }
 
 LocalBalooFileListing::~LocalBalooFileListing()
 {
+}
+
+void LocalBalooFileListing::newBalooFile(QString fileName)
+{
+    auto newFile = QUrl::fromLocalFile(fileName);
+
+    auto newTrack = scanOneFile(newFile);
+
+    if (newTrack.isValid()) {
+        QFileInfo newFileInfo(fileName);
+
+        addFileInDirectory(newFile, QUrl::fromLocalFile(newFileInfo.absoluteDir().absolutePath()));
+
+        emitNewFiles({newTrack});
+    }
+}
+
+void LocalBalooFileListing::executeInit()
+{
+    auto sessionBus = QDBusConnection::sessionBus();
+
+    auto methodCall = QDBusMessage::createMethodCall(QStringLiteral("org.kde.baloo"), QStringLiteral("/fileindexer"),
+                                                     QStringLiteral("org.kde.baloo.fileindexer"), QStringLiteral("registerMonitor"));
+
+    auto answer = sessionBus.call(methodCall);
+
+    if (answer.type() != QDBusMessage::ReplyMessage) {
+        qDebug() << "LocalBalooFileListing::executeInit" << answer.errorName() << answer.errorMessage();
+    }
+
+    sessionBus.connect(QStringLiteral("org.kde.baloo"), QStringLiteral("/fileindexer"),
+                       QStringLiteral("org.kde.baloo.fileindexer"), QStringLiteral("finishedIndexingFile"), this, SLOT(newBalooFile(QString)));
 }
 
 void LocalBalooFileListing::triggerRefreshOfContent()
@@ -70,13 +104,20 @@ void LocalBalooFileListing::triggerRefreshOfContent()
     while(resultIterator.next()) {
         const auto &newFileUrl = QUrl::fromLocalFile(resultIterator.filePath());
         auto scanFileInfo = QFileInfo(resultIterator.filePath());
-        scanFileInfo.absoluteDir().absolutePath();
+        const auto currentDirectory = QUrl::fromLocalFile(scanFileInfo.absoluteDir().absolutePath());
 
-        addFileInDirectory(newFileUrl, QUrl::fromLocalFile(scanFileInfo.absoluteDir().absolutePath()));
-        newFiles.push_back(scanOneFile(newFileUrl));
+        addFileInDirectory(newFileUrl, currentDirectory);
+
+        const auto &newTrack = scanOneFile(newFileUrl);
+
+        if (newTrack.isValid()) {
+            newFiles.push_back(newTrack);
+        }
     }
 
-    Q_EMIT tracksList(newFiles, d->mAllAlbumCover, sourceName());
+    if (!newFiles.isEmpty()) {
+        emitNewFiles(newFiles);
+    }
 }
 
 MusicAudioTrack LocalBalooFileListing::scanOneFile(QUrl scanFile)
@@ -86,8 +127,9 @@ MusicAudioTrack LocalBalooFileListing::scanOneFile(QUrl scanFile)
     auto fileName = scanFile.toLocalFile();
     auto scanFileInfo = QFileInfo(fileName);
 
-    watchPath(fileName);
-    watchPath(scanFileInfo.absoluteDir().absolutePath());
+    if (scanFileInfo.exists()) {
+        watchPath(fileName);
+    }
 
     Baloo::File match(fileName);
     match.load();
@@ -162,6 +204,10 @@ MusicAudioTrack LocalBalooFileListing::scanOneFile(QUrl scanFile)
 
     if (!newTrack.isValid()) {
         newTrack = AbstractFileListing::scanOneFile(scanFile);
+    }
+
+    if (newTrack.isValid()) {
+        addCover(newTrack);
     }
 
     return newTrack;

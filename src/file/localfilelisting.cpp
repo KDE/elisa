@@ -79,7 +79,7 @@ void LocalFileListing::setRootPath(QString rootPath)
 
 void LocalFileListing::triggerRefreshOfContent()
 {
-    directoryChanged(d->mRootPath);
+    scanDirectoryTree(d->mRootPath);
 }
 
 

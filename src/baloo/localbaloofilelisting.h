@@ -50,7 +50,11 @@ public Q_SLOTS:
 
 private Q_SLOTS:
 
+    void newBalooFile(QString fileName);
+
 private:
+
+    void executeInit() override;
 
     void triggerRefreshOfContent() override;
 

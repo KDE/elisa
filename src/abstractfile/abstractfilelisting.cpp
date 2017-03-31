@@ -35,8 +35,6 @@
 #include <QMimeDatabase>
 #include <QSet>
 
-#include <QDebug>
-
 #include <algorithm>
 
 class AbstractFileListingPrivate
@@ -55,6 +53,8 @@ public:
 
     QString mSourceName;
 
+    bool mHandleNewFiles = true;
+
 };
 
 AbstractFileListing::AbstractFileListing(const QString &sourceName, QObject *parent) : QObject(parent), d(new AbstractFileListingPrivate(sourceName))
@@ -71,6 +71,7 @@ AbstractFileListing::~AbstractFileListing()
 
 void AbstractFileListing::init()
 {
+    executeInit();
 }
 
 void AbstractFileListing::databaseIsReady()
@@ -83,12 +84,11 @@ void AbstractFileListing::newTrackFile(MusicAudioTrack partialTrack)
     const auto &newTrack = scanOneFile(partialTrack.resourceURI());
 
     if (newTrack.isValid() && newTrack != partialTrack) {
-        qDebug() << "AbstractFileListing::newTrackFile" << d->mSourceName << partialTrack << newTrack;
         Q_EMIT modifyTracksList({newTrack}, d->mAllAlbumCover);
     }
 }
 
-void AbstractFileListing::scanDirectory(QList<MusicAudioTrack> &newFiles, const QUrl &path)
+void AbstractFileListing::scanDirectory(QList<MusicAudioTrack> &newFiles, const QUrl &path, bool recursive)
 {
     QDir rootDirectory(path.toLocalFile());
     rootDirectory.refresh();
@@ -102,7 +102,7 @@ void AbstractFileListing::scanDirectory(QList<MusicAudioTrack> &newFiles, const 
     auto currentFilesList = QSet<QUrl>();
 
     rootDirectory.refresh();
-    const auto entryList = rootDirectory.entryInfoList(QDir::NoDotAndDotDot | QDir::AllEntries);
+    const auto entryList = rootDirectory.entryInfoList(QDir::NoDotAndDotDot | QDir::Files | QDir::Dirs);
     for (auto oneEntry : entryList) {
         auto newFilePath = QUrl::fromLocalFile(oneEntry.canonicalFilePath());
 
@@ -124,10 +124,19 @@ void AbstractFileListing::scanDirectory(QList<MusicAudioTrack> &newFiles, const 
     for (const auto &oneRemovedTrack : removedTracks) {
         auto itRemovedTrack = std::find(currentDirectoryListingFiles.begin(), currentDirectoryListingFiles.end(), oneRemovedTrack);
         currentDirectoryListingFiles.erase(itRemovedTrack);
+
+        auto itRemovedDirectory = d->mDiscoveredFiles.find(oneRemovedTrack);
+        if (itRemovedDirectory != d->mDiscoveredFiles.end()) {
+            d->mDiscoveredFiles.erase(itRemovedDirectory);
+        }
     }
 
     if (!removedTracks.isEmpty()) {
         Q_EMIT removedTracksList(removedTracks);
+    }
+
+    if (!d->mHandleNewFiles) {
+        return;
     }
 
     for (auto newFilePath : currentFilesList) {
@@ -138,7 +147,7 @@ void AbstractFileListing::scanDirectory(QList<MusicAudioTrack> &newFiles, const 
         }
 
         QFileInfo oneEntry(newFilePath.toLocalFile());
-        if (oneEntry.isDir()) {
+        if (recursive && oneEntry.isDir()) {
             scanDirectory(newFiles, newFilePath);
             continue;
         }
@@ -149,11 +158,7 @@ void AbstractFileListing::scanDirectory(QList<MusicAudioTrack> &newFiles, const 
         auto newTrack = scanOneFile(newFilePath);
 
         if (newTrack.isValid()) {
-            QFileInfo trackFilePath(newTrack.resourceURI().toLocalFile());
-            QFileInfo coverFilePath(trackFilePath.dir().filePath(QStringLiteral("cover.jpg")));
-            if (coverFilePath.exists()) {
-                d->mAllAlbumCover[newTrack.albumName()] = QUrl::fromLocalFile(coverFilePath.absoluteFilePath());
-            }
+            addCover(newTrack);
 
             addFileInDirectory(newTrack.resourceURI(), path);
             newFiles.push_back(newTrack);
@@ -168,28 +173,27 @@ const QString &AbstractFileListing::sourceName() const
 
 void AbstractFileListing::directoryChanged(const QString &path)
 {
-    auto newFiles = QList<MusicAudioTrack>();
-
-    scanDirectory(newFiles, QUrl::fromLocalFile(path));
-
-    if (!newFiles.isEmpty()) {
-        Q_EMIT tracksList(newFiles, d->mAllAlbumCover, sourceName());
+    const auto directoryEntry = d->mDiscoveredFiles.find(QUrl::fromLocalFile(path));
+    if (directoryEntry == d->mDiscoveredFiles.end()) {
+        return;
     }
+
+    scanDirectoryTree(path);
 }
 
 void AbstractFileListing::fileChanged(const QString &modifiedFileName)
 {
-    qDebug() << "AbstractFileListing::fileChanged" << modifiedFileName;
-
     auto modifiedFile = QUrl::fromLocalFile(modifiedFileName);
 
     auto modifiedTrack = scanOneFile(modifiedFile);
 
     if (modifiedTrack.isValid()) {
-        qDebug() << "AbstractFileListing::fileChanged" << modifiedFileName << "modified track is valid";
-
         Q_EMIT modifyTracksList({modifiedTrack}, d->mAllAlbumCover);
     }
+}
+
+void AbstractFileListing::executeInit()
+{
 }
 
 void AbstractFileListing::triggerRefreshOfContent()
@@ -212,7 +216,6 @@ MusicAudioTrack AbstractFileListing::scanOneFile(QUrl scanFile)
     QList<KFileMetaData::Extractor*> exList = extractors.fetchExtractors(mimetype);
 
     if (exList.isEmpty()) {
-        qDebug() << "AbstractFileListing::scanOneFile" << "empty extractors list" << scanFile;
         return newTrack;
     }
 
@@ -287,9 +290,78 @@ void AbstractFileListing::watchPath(const QString &pathName)
 
 void AbstractFileListing::addFileInDirectory(const QUrl &newFile, const QUrl &directoryName)
 {
+    const auto directoryEntry = d->mDiscoveredFiles.find(directoryName);
+    if (directoryEntry == d->mDiscoveredFiles.end()) {
+        watchPath(directoryName.toLocalFile());
+
+        QDir currentDirectory(directoryName.toLocalFile());
+        if (currentDirectory.cdUp()) {
+            const auto parentDirectoryName = currentDirectory.absolutePath();
+            const auto parentDirectory = QUrl::fromLocalFile(parentDirectoryName);
+            const auto parentDirectoryEntry = d->mDiscoveredFiles.find(parentDirectory);
+            if (parentDirectoryEntry == d->mDiscoveredFiles.end()) {
+                watchPath(parentDirectoryName);
+            }
+
+            auto &parentCurrentDirectoryListingFiles = d->mDiscoveredFiles[parentDirectory];
+
+            parentCurrentDirectoryListingFiles.insert(directoryName);
+        }
+    }
     auto &currentDirectoryListingFiles = d->mDiscoveredFiles[directoryName];
 
     currentDirectoryListingFiles.insert(newFile);
+}
+
+void AbstractFileListing::scanDirectoryTree(const QString &path)
+{
+    auto newFiles = QList<MusicAudioTrack>();
+
+    scanDirectory(newFiles, QUrl::fromLocalFile(path));
+
+    if (!newFiles.isEmpty()) {
+        emitNewFiles(newFiles);
+    }
+}
+
+bool AbstractFileListing::fileExists(const QUrl &fileName, const QUrl &directoryName) const
+{
+    const auto directoryEntry = d->mDiscoveredFiles.find(directoryName);
+    if (directoryEntry == d->mDiscoveredFiles.end()) {
+        return false;
+    }
+
+    const auto fileEntry = directoryEntry->find(fileName);
+    if (fileEntry == directoryEntry->end()) {
+        return false;
+    }
+
+    return true;
+}
+
+void AbstractFileListing::setHandleNewFiles(bool handleThem)
+{
+    d->mHandleNewFiles = handleThem;
+}
+
+void AbstractFileListing::emitNewFiles(const QList<MusicAudioTrack> &tracks)
+{
+    Q_EMIT tracksList(tracks, d->mAllAlbumCover, d->mSourceName);
+}
+
+void AbstractFileListing::addCover(const MusicAudioTrack &newTrack)
+{
+    auto itCover = d->mAllAlbumCover.find(newTrack.albumName());
+    if (itCover != d->mAllAlbumCover.end()) {
+        return;
+    }
+
+    QFileInfo trackFilePath(newTrack.resourceURI().toLocalFile());
+    QFileInfo coverFilePath(trackFilePath.dir().filePath(QStringLiteral("cover.jpg")));
+
+    if (coverFilePath.exists()) {
+        d->mAllAlbumCover[newTrack.albumName()] = QUrl::fromLocalFile(coverFilePath.absoluteFilePath());
+    }
 }
 
 

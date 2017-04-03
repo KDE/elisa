@@ -92,6 +92,10 @@ protected:
 
     void addCover(const MusicAudioTrack &newTrack);
 
+    void removeDirectory(const QUrl &removedDirectory, QList<QUrl> &allRemovedFiles);
+
+    void removeFile(const QUrl &oneRemovedTrack, QList<QUrl> &allRemovedFiles);
+
 private:
 
     std::unique_ptr<AbstractFileListingPrivate> d;

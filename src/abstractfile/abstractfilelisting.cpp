@@ -121,18 +121,17 @@ void AbstractFileListing::scanDirectory(QList<MusicAudioTrack> &newFiles, const 
 
         removedTracks.push_back(removedFilePath);
     }
-    for (const auto &oneRemovedTrack : removedTracks) {
-        auto itRemovedTrack = std::find(currentDirectoryListingFiles.begin(), currentDirectoryListingFiles.end(), oneRemovedTrack);
-        currentDirectoryListingFiles.erase(itRemovedTrack);
 
-        auto itRemovedDirectory = d->mDiscoveredFiles.find(oneRemovedTrack);
-        if (itRemovedDirectory != d->mDiscoveredFiles.end()) {
-            d->mDiscoveredFiles.erase(itRemovedDirectory);
-        }
+    auto allRemovedTracks = QList<QUrl>();
+    for (const auto &oneRemovedTrack : removedTracks) {
+        removeFile(oneRemovedTrack, allRemovedTracks);
+    }
+    for (const auto &oneRemovedTrack : removedTracks) {
+        currentDirectoryListingFiles.remove(oneRemovedTrack);
     }
 
-    if (!removedTracks.isEmpty()) {
-        Q_EMIT removedTracksList(removedTracks);
+    if (!allRemovedTracks.isEmpty()) {
+        Q_EMIT removedTracksList(allRemovedTracks);
     }
 
     if (!d->mHandleNewFiles) {
@@ -362,6 +361,33 @@ void AbstractFileListing::addCover(const MusicAudioTrack &newTrack)
     if (coverFilePath.exists()) {
         d->mAllAlbumCover[newTrack.albumName()] = QUrl::fromLocalFile(coverFilePath.absoluteFilePath());
     }
+}
+
+void AbstractFileListing::removeDirectory(const QUrl &removedDirectory, QList<QUrl> &allRemovedFiles)
+{
+    auto itRemovedDirectory = d->mDiscoveredFiles.find(removedDirectory);
+
+    if (itRemovedDirectory == d->mDiscoveredFiles.end()) {
+        return;
+    }
+
+    for (auto itFile : *itRemovedDirectory) {
+        if (itFile.isValid() && !itFile.isEmpty()) {
+            removeFile(itFile, allRemovedFiles);
+        }
+    }
+
+    d->mDiscoveredFiles.erase(itRemovedDirectory);
+}
+
+void AbstractFileListing::removeFile(const QUrl &oneRemovedTrack, QList<QUrl> &allRemovedFiles)
+{
+    auto itRemovedDirectory = d->mDiscoveredFiles.find(oneRemovedTrack);
+    if (itRemovedDirectory != d->mDiscoveredFiles.end()) {
+        removeDirectory(oneRemovedTrack, allRemovedFiles);
+    }
+
+    allRemovedFiles.push_back(oneRemovedTrack);
 }
 
 

@@ -17,23 +17,27 @@
  * Boston, MA 02110-1301, USA.
  */
 
-import QtQuick 2.0
+import QtQuick 2.5
 import QtQuick.Layouts 1.1
+import QtGraphicalEffects 1.0
 
 RowLayout {
     property int starSize
     property int starRating
     property bool readOnly: true
 
+    property double hoverBrightness: 0.5
+    property double hoverContrast: 0.5
+
     spacing: 0
 
     Item {
-        Layout.preferredHeight: starSize
-        Layout.preferredWidth: starSize
-        Layout.maximumHeight: starSize
-        Layout.maximumWidth: starSize
-        Layout.minimumHeight: starSize
-        Layout.minimumWidth: starSize
+        Layout.preferredHeight: starSize * 1.5
+        Layout.preferredWidth: starSize * 1.5
+        Layout.maximumHeight: starSize * 1.5
+        Layout.maximumWidth: starSize * 1.5
+        Layout.minimumHeight: starSize * 1.5
+        Layout.minimumWidth: starSize * 1.5
 
         Image {
             width: starSize * 1.5
@@ -43,31 +47,42 @@ RowLayout {
             sourceSize.height: starSize * 1.5
             fillMode: Image.PreserveAspectFit
 
-            source: if (starRating >= 2)
+            layer.enabled: (mouseAreaOne.containsMouse && starRating !== 2) || (mouseAreaTwo.containsMouse && starRating !== 4) || (mouseAreaThree.containsMouse && starRating !== 6) ||
+                           (mouseAreaFour.containsMouse && starRating !== 8) || (mouseAreaFive.containsMouse && starRating !== 10)
+            layer.effect: BrightnessContrast {
+                brightness: hoverBrightness
+                contrast: hoverContrast
+            }
+
+            source: if (starRating >= 2 || mouseAreaOne.containsMouse || mouseAreaTwo.containsMouse || mouseAreaThree.containsMouse || mouseAreaFour.containsMouse || mouseAreaFive.containsMouse)
                         'image://icon/rating'
                     else
                         'image://icon/rating-unrated'
-            opacity: if (starRating >= 2)
+            opacity: if (starRating >= 2 || mouseAreaOne.containsMouse || mouseAreaTwo.containsMouse || mouseAreaThree.containsMouse || mouseAreaFour.containsMouse || mouseAreaFive.containsMouse)
                         1
                     else
                         0.1
         }
 
         MouseArea {
+            id: mouseAreaOne
             enabled: !readOnly
+            hoverEnabled: true
             anchors.fill: parent
-            onClicked: starRating = 2
+            onClicked: if (starRating !== 2) {
+                           starRating = 2
+                       } else {
+                           starRating = 0
+                       }
         }
     }
     Item {
-        Layout.preferredHeight: starSize
-        Layout.preferredWidth: starSize
-        Layout.maximumHeight: starSize
-        Layout.maximumWidth: starSize
-        Layout.minimumHeight: starSize
-        Layout.minimumWidth: starSize
-
-        Layout.leftMargin: starSize * 0.5
+        Layout.preferredHeight: starSize * 1.5
+        Layout.preferredWidth: starSize * 1.5
+        Layout.maximumHeight: starSize * 1.5
+        Layout.maximumWidth: starSize * 1.5
+        Layout.minimumHeight: starSize * 1.5
+        Layout.minimumWidth: starSize * 1.5
 
         Image {
             width: starSize * 1.5
@@ -77,31 +92,38 @@ RowLayout {
             sourceSize.height: starSize * 1.5
             fillMode: Image.PreserveAspectFit
 
-            source: if (starRating >= 4)
+            layer.enabled: (mouseAreaTwo.containsMouse && starRating !== 4) || (mouseAreaThree.containsMouse && starRating !== 6) ||
+                           (mouseAreaFour.containsMouse && starRating !== 8) || (mouseAreaFive.containsMouse && starRating !== 10)
+            layer.effect: BrightnessContrast {
+                brightness: hoverBrightness
+                contrast: hoverContrast
+            }
+
+            source: if (starRating >= 4 || mouseAreaTwo.containsMouse || mouseAreaThree.containsMouse || mouseAreaFour.containsMouse || mouseAreaFive.containsMouse)
                         'image://icon/rating'
                     else
                         'image://icon/rating-unrated'
-            opacity: if (starRating >= 4)
+            opacity: if (starRating >= 4 || mouseAreaTwo.containsMouse || mouseAreaThree.containsMouse || mouseAreaFour.containsMouse || mouseAreaFive.containsMouse)
                         1
                     else
                         0.1
         }
 
         MouseArea {
+            id: mouseAreaTwo
             enabled: !readOnly
+            hoverEnabled: true
             anchors.fill: parent
             onClicked: starRating = 4
         }
     }
     Item {
-        Layout.preferredHeight: starSize
-        Layout.preferredWidth: starSize
-        Layout.maximumHeight: starSize
-        Layout.maximumWidth: starSize
-        Layout.minimumHeight: starSize
-        Layout.minimumWidth: starSize
-
-        Layout.leftMargin: starSize * 0.5
+        Layout.preferredHeight: starSize * 1.5
+        Layout.preferredWidth: starSize * 1.5
+        Layout.maximumHeight: starSize * 1.5
+        Layout.maximumWidth: starSize * 1.5
+        Layout.minimumHeight: starSize * 1.5
+        Layout.minimumWidth: starSize * 1.5
 
         Image {
             width: starSize * 1.5
@@ -111,31 +133,37 @@ RowLayout {
             sourceSize.height: starSize * 1.5
             fillMode: Image.PreserveAspectFit
 
-            source: if (starRating >= 6)
+            layer.enabled: (mouseAreaThree.containsMouse && starRating !== 6) || (mouseAreaFour.containsMouse && starRating !== 8) || (mouseAreaFive.containsMouse && starRating !== 10)
+            layer.effect: BrightnessContrast {
+                brightness: hoverBrightness
+                contrast: hoverContrast
+            }
+
+            source: if (starRating >= 6 || mouseAreaThree.containsMouse || mouseAreaFour.containsMouse || mouseAreaFive.containsMouse)
                         'image://icon/rating'
                     else
                         'image://icon/rating-unrated'
-            opacity: if (starRating >= 6)
+            opacity: if (starRating >= 6 || mouseAreaThree.containsMouse || mouseAreaFour.containsMouse || mouseAreaFive.containsMouse)
                         1
                     else
                         0.1
         }
 
         MouseArea {
+            id: mouseAreaThree
             enabled: !readOnly
+            hoverEnabled: true
             anchors.fill: parent
             onClicked: starRating = 6
         }
     }
     Item {
-        Layout.preferredHeight: starSize
-        Layout.preferredWidth: starSize
-        Layout.maximumHeight: starSize
-        Layout.maximumWidth: starSize
-        Layout.minimumHeight: starSize
-        Layout.minimumWidth: starSize
-
-        Layout.leftMargin: starSize * 0.5
+        Layout.preferredHeight: starSize * 1.5
+        Layout.preferredWidth: starSize * 1.5
+        Layout.maximumHeight: starSize * 1.5
+        Layout.maximumWidth: starSize * 1.5
+        Layout.minimumHeight: starSize * 1.5
+        Layout.minimumWidth: starSize * 1.5
 
         Image {
             width: starSize * 1.5
@@ -145,31 +173,38 @@ RowLayout {
             sourceSize.height: starSize * 1.5
             fillMode: Image.PreserveAspectFit
 
-            source: if (starRating >= 8)
+            layer.enabled: (mouseAreaFour.containsMouse && starRating !== 8) || (mouseAreaFive.containsMouse && starRating !== 10)
+            layer.effect: BrightnessContrast {
+                brightness: hoverBrightness
+                contrast: hoverContrast
+            }
+
+            source: if (starRating >= 8 || mouseAreaFour.containsMouse || mouseAreaFive.containsMouse)
                         'image://icon/rating'
                     else
                         'image://icon/rating-unrated'
-            opacity: if (starRating >= 8)
+            opacity: if (starRating >= 8 || mouseAreaFour.containsMouse || mouseAreaFive.containsMouse)
                         1
                     else
                         0.1
         }
 
         MouseArea {
+            id: mouseAreaFour
             enabled: !readOnly
+            hoverEnabled: true
             anchors.fill: parent
             onClicked: starRating = 8
         }
     }
     Item {
-        Layout.preferredHeight: starSize
-        Layout.preferredWidth: starSize
-        Layout.maximumHeight: starSize
-        Layout.maximumWidth: starSize
-        Layout.minimumHeight: starSize
-        Layout.minimumWidth: starSize
+        Layout.preferredHeight: starSize * 1.5
+        Layout.preferredWidth: starSize * 1.5
+        Layout.maximumHeight: starSize * 1.5
+        Layout.maximumWidth: starSize * 1.5
+        Layout.minimumHeight: starSize * 1.5
+        Layout.minimumWidth: starSize * 1.5
 
-        Layout.leftMargin: starSize * 0.5
         Layout.rightMargin: starSize * 0.5
 
         Image {
@@ -180,18 +215,26 @@ RowLayout {
             sourceSize.height: starSize * 1.5
             fillMode: Image.PreserveAspectFit
 
-            source: if (starRating === 10)
+            layer.enabled: mouseAreaFive.containsMouse && starRating !== 10
+            layer.effect: BrightnessContrast {
+                brightness: hoverBrightness
+                contrast: hoverContrast
+            }
+
+            source: if (starRating === 10 || mouseAreaFive.containsMouse)
                         'image://icon/rating'
                     else
                         'image://icon/rating-unrated'
-            opacity: if (starRating === 10)
+            opacity: if (starRating === 10 || mouseAreaFive.containsMouse)
                         1
                     else
                         0.1
         }
 
         MouseArea {
+            id: mouseAreaFive
             enabled: !readOnly
+            hoverEnabled: true
             anchors.fill: parent
             onClicked: starRating = 10
         }

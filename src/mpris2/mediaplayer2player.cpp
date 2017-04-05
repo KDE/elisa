@@ -340,7 +340,7 @@ QVariantMap MediaPlayer2Player::getMetadataOfCurrentTrack()
     result[QStringLiteral("xesam:title")] = m_manageHeaderBar->title();
     result[QStringLiteral("xesam:url")] = m_manageAudioPlayer->playerSource().toString();
     result[QStringLiteral("xesam:album")] = m_manageHeaderBar->album();
-    result[QStringLiteral("xesam:artist")] = {m_manageHeaderBar->artist()};
+    result[QStringLiteral("xesam:artist")] = QStringList{m_manageHeaderBar->artist().toString()};
     result[QStringLiteral("mpris:artUrl")] = m_manageHeaderBar->image().toString();
 
     return result;

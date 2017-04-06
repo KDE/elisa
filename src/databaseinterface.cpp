@@ -280,17 +280,19 @@ QList<MusicAudioTrack> DatabaseInterface::allTracksFromSource(QString musicSourc
     while(d->mSelectAllTracksFromSourceQuery.next()) {
         auto newTrack = MusicAudioTrack();
 
-        newTrack.setDatabaseId(d->mSelectAllTracksFromSourceQuery.record().value(0).toULongLong());
-        newTrack.setTitle(d->mSelectAllTracksFromSourceQuery.record().value(1).toString());
-        newTrack.setParentId(d->mSelectAllTracksFromSourceQuery.record().value(2).toString());
-        newTrack.setArtist(d->mSelectAllTracksFromSourceQuery.record().value(3).toString());
-        newTrack.setAlbumArtist(d->mSelectAllTracksFromSourceQuery.record().value(4).toString());
-        newTrack.setResourceURI(d->mSelectAllTracksFromSourceQuery.record().value(5).toUrl());
-        newTrack.setTrackNumber(d->mSelectAllTracksFromSourceQuery.record().value(6).toInt());
-        newTrack.setDiscNumber(d->mSelectAllTracksFromSourceQuery.record().value(7).toInt());
-        newTrack.setDuration(QTime::fromMSecsSinceStartOfDay(d->mSelectAllTracksFromSourceQuery.record().value(8).toInt()));
-        newTrack.setAlbumName(d->mSelectAllTracksFromSourceQuery.record().value(9).toString());
-        newTrack.setRating(d->mSelectAllTracksFromSourceQuery.record().value(10).toInt());
+        const auto &currentRecord = d->mSelectAllTracksFromSourceQuery.record();
+
+        newTrack.setDatabaseId(currentRecord.value(0).toULongLong());
+        newTrack.setTitle(currentRecord.value(1).toString());
+        newTrack.setParentId(currentRecord.value(2).toString());
+        newTrack.setArtist(currentRecord.value(3).toString());
+        newTrack.setAlbumArtist(currentRecord.value(4).toString());
+        newTrack.setResourceURI(currentRecord.value(5).toUrl());
+        newTrack.setTrackNumber(currentRecord.value(6).toInt());
+        newTrack.setDiscNumber(currentRecord.value(7).toInt());
+        newTrack.setDuration(QTime::fromMSecsSinceStartOfDay(currentRecord.value(8).toInt()));
+        newTrack.setAlbumName(currentRecord.value(9).toString());
+        newTrack.setRating(currentRecord.value(10).toInt());
         newTrack.setValid(true);
 
         result.push_back(newTrack);
@@ -334,17 +336,19 @@ QList<MusicAudioTrack> DatabaseInterface::allInvalidTracksFromSource(QString mus
     while(d->mSelectAllInvalidTracksFromSourceQuery.next()) {
         auto newTrack = MusicAudioTrack();
 
-        newTrack.setDatabaseId(d->mSelectAllInvalidTracksFromSourceQuery.record().value(0).toULongLong());
-        newTrack.setTitle(d->mSelectAllInvalidTracksFromSourceQuery.record().value(1).toString());
-        newTrack.setParentId(d->mSelectAllInvalidTracksFromSourceQuery.record().value(2).toString());
-        newTrack.setArtist(d->mSelectAllInvalidTracksFromSourceQuery.record().value(3).toString());
-        newTrack.setAlbumArtist(d->mSelectAllInvalidTracksFromSourceQuery.record().value(4).toString());
-        newTrack.setResourceURI(d->mSelectAllInvalidTracksFromSourceQuery.record().value(5).toUrl());
-        newTrack.setTrackNumber(d->mSelectAllInvalidTracksFromSourceQuery.record().value(6).toInt());
-        newTrack.setDiscNumber(d->mSelectAllInvalidTracksFromSourceQuery.record().value(7).toInt());
-        newTrack.setDuration(QTime::fromMSecsSinceStartOfDay(d->mSelectAllInvalidTracksFromSourceQuery.record().value(8).toInt()));
-        newTrack.setAlbumName(d->mSelectAllInvalidTracksFromSourceQuery.record().value(9).toString());
-        newTrack.setRating(d->mSelectAllInvalidTracksFromSourceQuery.record().value(10).toInt());
+        const auto &currentRecord = d->mSelectAllInvalidTracksFromSourceQuery.record();
+
+        newTrack.setDatabaseId(currentRecord.value(0).toULongLong());
+        newTrack.setTitle(currentRecord.value(1).toString());
+        newTrack.setParentId(currentRecord.value(2).toString());
+        newTrack.setArtist(currentRecord.value(3).toString());
+        newTrack.setAlbumArtist(currentRecord.value(4).toString());
+        newTrack.setResourceURI(currentRecord.value(5).toUrl());
+        newTrack.setTrackNumber(currentRecord.value(6).toInt());
+        newTrack.setDiscNumber(currentRecord.value(7).toInt());
+        newTrack.setDuration(QTime::fromMSecsSinceStartOfDay(currentRecord.value(8).toInt()));
+        newTrack.setAlbumName(currentRecord.value(9).toString());
+        newTrack.setRating(currentRecord.value(10).toInt());
         newTrack.setValid(true);
 
         result.push_back(newTrack);
@@ -386,13 +390,15 @@ QList<MusicAlbum> DatabaseInterface::allAlbums()
     while(d->mSelectAllAlbumsQuery.next()) {
         auto newAlbum = MusicAlbum();
 
-        newAlbum.setDatabaseId(d->mSelectAllAlbumsQuery.record().value(0).toULongLong());
-        newAlbum.setTitle(d->mSelectAllAlbumsQuery.record().value(1).toString());
-        newAlbum.setId(d->mSelectAllAlbumsQuery.record().value(2).toString());
-        newAlbum.setArtist(d->mSelectAllAlbumsQuery.record().value(3).toString());
-        newAlbum.setAlbumArtURI(d->mSelectAllAlbumsQuery.record().value(4).toUrl());
-        newAlbum.setTracksCount(d->mSelectAllAlbumsQuery.record().value(5).toInt());
-        newAlbum.setIsSingleDiscAlbum(d->mSelectAllAlbumsQuery.record().value(6).toBool());
+        const auto &currentRecord = d->mSelectAllAlbumsQuery.record();
+
+        newAlbum.setDatabaseId(currentRecord.value(0).toULongLong());
+        newAlbum.setTitle(currentRecord.value(1).toString());
+        newAlbum.setId(currentRecord.value(2).toString());
+        newAlbum.setArtist(currentRecord.value(3).toString());
+        newAlbum.setAlbumArtURI(currentRecord.value(4).toUrl());
+        newAlbum.setTracksCount(currentRecord.value(5).toInt());
+        newAlbum.setIsSingleDiscAlbum(currentRecord.value(6).toBool());
         newAlbum.setTracks(fetchTracks(newAlbum.databaseId()));
         newAlbum.setTrackIds(fetchTrackIds(newAlbum.databaseId()));
         newAlbum.setValid(true);
@@ -445,8 +451,10 @@ QList<MusicArtist> DatabaseInterface::allArtists() const
     while(d->mSelectAllArtistsQuery.next()) {
         auto newArtist = MusicArtist();
 
-        newArtist.setDatabaseId(d->mSelectAllArtistsQuery.record().value(0).toULongLong());
-        newArtist.setName(d->mSelectAllArtistsQuery.record().value(1).toString());
+        const auto &currentRecord = d->mSelectAllArtistsQuery.record();
+
+        newArtist.setDatabaseId(currentRecord.value(0).toULongLong());
+        newArtist.setName(currentRecord.value(1).toString());
         newArtist.setValid(true);
 
         d->mSelectCountAlbumsForArtistQuery.bindValue(QStringLiteral(":artistName"), newArtist.name());
@@ -532,8 +540,10 @@ MusicArtist DatabaseInterface::internalArtistFromId(qulonglong artistId) const
         return result;
     }
 
-    result.setDatabaseId(d->mSelectArtistQuery.record().value(0).toULongLong());
-    result.setName(d->mSelectArtistQuery.record().value(1).toString());
+    const auto &currentRecord = d->mSelectArtistQuery.record();
+
+    result.setDatabaseId(currentRecord.value(0).toULongLong());
+    result.setName(currentRecord.value(1).toString());
     result.setValid(true);
 
     d->mSelectArtistQuery.finish();
@@ -674,17 +684,19 @@ void DatabaseInterface::removeTracksList(const QList<QUrl> removedTracks)
         while (d->mSelectTrackFromFilePathQuery.next()) {
             MusicAudioTrack removedTrack;
 
-            removedTrack.setDatabaseId(d->mSelectTrackFromFilePathQuery.record().value(0).toULongLong());
-            removedTrack.setTitle(d->mSelectTrackFromFilePathQuery.record().value(1).toString());
-            removedTrack.setParentId(d->mSelectTrackFromFilePathQuery.record().value(2).toString());
-            removedTrack.setArtist(d->mSelectTrackFromFilePathQuery.record().value(3).toString());
-            removedTrack.setAlbumArtist(d->mSelectTrackFromFilePathQuery.record().value(4).toString());
-            removedTrack.setResourceURI(d->mSelectTrackFromFilePathQuery.record().value(5).toUrl());
-            removedTrack.setTrackNumber(d->mSelectTrackFromFilePathQuery.record().value(6).toInt());
-            removedTrack.setDiscNumber(d->mSelectTrackFromFilePathQuery.record().value(7).toInt());
-            removedTrack.setDuration(QTime::fromMSecsSinceStartOfDay(d->mSelectTrackFromFilePathQuery.record().value(8).toInt()));
-            removedTrack.setAlbumName(d->mSelectTrackFromFilePathQuery.record().value(9).toString());
-            removedTrack.setRating(d->mSelectTrackFromFilePathQuery.record().value(10).toInt());
+            const auto &currentRecord = d->mSelectTrackFromFilePathQuery.record();
+
+            removedTrack.setDatabaseId(currentRecord.value(0).toULongLong());
+            removedTrack.setTitle(currentRecord.value(1).toString());
+            removedTrack.setParentId(currentRecord.value(2).toString());
+            removedTrack.setArtist(currentRecord.value(3).toString());
+            removedTrack.setAlbumArtist(currentRecord.value(4).toString());
+            removedTrack.setResourceURI(currentRecord.value(5).toUrl());
+            removedTrack.setTrackNumber(currentRecord.value(6).toInt());
+            removedTrack.setDiscNumber(currentRecord.value(7).toInt());
+            removedTrack.setDuration(QTime::fromMSecsSinceStartOfDay(currentRecord.value(8).toInt()));
+            removedTrack.setAlbumName(currentRecord.value(9).toString());
+            removedTrack.setRating(currentRecord.value(10).toInt());
             removedTrack.setValid(true);
 
             willRemoveTask.push_back(removedTrack);
@@ -2032,16 +2044,18 @@ QMap<qulonglong, MusicAudioTrack> DatabaseInterface::fetchTracks(qulonglong albu
     while (d->mSelectTrackQuery.next()) {
         MusicAudioTrack newTrack;
 
-        newTrack.setDatabaseId(d->mSelectTrackQuery.record().value(0).toULongLong());
-        newTrack.setTitle(d->mSelectTrackQuery.record().value(1).toString());
-        newTrack.setParentId(d->mSelectTrackQuery.record().value(2).toString());
-        newTrack.setArtist(d->mSelectTrackQuery.record().value(3).toString());
-        newTrack.setAlbumArtist(d->mSelectTrackQuery.record().value(4).toString());
-        newTrack.setResourceURI(d->mSelectTrackQuery.record().value(5).toUrl());
-        newTrack.setTrackNumber(d->mSelectTrackQuery.record().value(6).toInt());
-        newTrack.setDiscNumber(d->mSelectTrackQuery.record().value(7).toInt());
-        newTrack.setDuration(QTime::fromMSecsSinceStartOfDay(d->mSelectTrackQuery.record().value(8).toInt()));
-        newTrack.setRating(d->mSelectTrackQuery.record().value(9).toInt());
+        const auto &currentRecord = d->mSelectTrackQuery.record();
+
+        newTrack.setDatabaseId(currentRecord.value(0).toULongLong());
+        newTrack.setTitle(currentRecord.value(1).toString());
+        newTrack.setParentId(currentRecord.value(2).toString());
+        newTrack.setArtist(currentRecord.value(3).toString());
+        newTrack.setAlbumArtist(currentRecord.value(4).toString());
+        newTrack.setResourceURI(currentRecord.value(5).toUrl());
+        newTrack.setTrackNumber(currentRecord.value(6).toInt());
+        newTrack.setDiscNumber(currentRecord.value(7).toInt());
+        newTrack.setDuration(QTime::fromMSecsSinceStartOfDay(currentRecord.value(8).toInt()));
+        newTrack.setRating(currentRecord.value(9).toInt());
         newTrack.setValid(true);
 
         allTracks[newTrack.databaseId()] = newTrack;
@@ -2168,13 +2182,15 @@ MusicAlbum DatabaseInterface::internalAlbumFromId(qulonglong albumId)
         return retrievedAlbum;
     }
 
-    retrievedAlbum.setDatabaseId(d->mSelectAlbumQuery.record().value(0).toULongLong());
-    retrievedAlbum.setTitle(d->mSelectAlbumQuery.record().value(1).toString());
-    retrievedAlbum.setId(d->mSelectAlbumQuery.record().value(2).toString());
-    retrievedAlbum.setArtist(d->mSelectAlbumQuery.record().value(3).toString());
-    retrievedAlbum.setAlbumArtURI(d->mSelectAlbumQuery.record().value(4).toUrl());
-    retrievedAlbum.setTracksCount(d->mSelectAlbumQuery.record().value(5).toInt());
-    retrievedAlbum.setIsSingleDiscAlbum(d->mSelectAlbumQuery.record().value(6).toBool());
+    const auto &currentRecord = d->mSelectAlbumQuery.record();
+
+    retrievedAlbum.setDatabaseId(currentRecord.value(0).toULongLong());
+    retrievedAlbum.setTitle(currentRecord.value(1).toString());
+    retrievedAlbum.setId(currentRecord.value(2).toString());
+    retrievedAlbum.setArtist(currentRecord.value(3).toString());
+    retrievedAlbum.setAlbumArtURI(currentRecord.value(4).toUrl());
+    retrievedAlbum.setTracksCount(currentRecord.value(5).toInt());
+    retrievedAlbum.setIsSingleDiscAlbum(currentRecord.value(6).toBool());
     retrievedAlbum.setTracks(fetchTracks(albumId));
     retrievedAlbum.setTrackIds(fetchTrackIds(albumId));
     retrievedAlbum.setValid(true);
@@ -2244,17 +2260,19 @@ MusicAudioTrack DatabaseInterface::internalTrackFromDatabaseId(qulonglong id)
         return result;
     }
 
-    result.setDatabaseId(d->mSelectTrackFromIdQuery.record().value(0).toULongLong());
-    result.setAlbumName(internalAlbumDataFromId(d->mSelectTrackFromIdQuery.record().value(2).toULongLong(), DatabaseInterface::AlbumData::Title).toString());
-    result.setArtist(d->mSelectTrackFromIdQuery.record().value(3).toString());
-    result.setAlbumArtist(d->mSelectTrackFromIdQuery.record().value(4).toString());
-    result.setDuration(QTime::fromMSecsSinceStartOfDay(d->mSelectTrackFromIdQuery.record().value(8).toLongLong()));
-    result.setResourceURI(d->mSelectTrackFromIdQuery.record().value(5).toUrl());
-    result.setAlbumCover(d->mSelectTrackFromIdQuery.record().value(10).toUrl());
-    result.setTitle(d->mSelectTrackFromIdQuery.record().value(1).toString());
-    result.setTrackNumber(d->mSelectTrackFromIdQuery.record().value(6).toInt());
-    result.setDiscNumber(d->mSelectTrackFromIdQuery.record().value(7).toInt());
-    result.setRating(d->mSelectTrackFromIdQuery.record().value(9).toInt());
+    const auto &currentRecord = d->mSelectTrackFromIdQuery.record();
+
+    result.setDatabaseId(currentRecord.value(0).toULongLong());
+    result.setAlbumName(internalAlbumDataFromId(currentRecord.value(2).toULongLong(), DatabaseInterface::AlbumData::Title).toString());
+    result.setArtist(currentRecord.value(3).toString());
+    result.setAlbumArtist(currentRecord.value(4).toString());
+    result.setDuration(QTime::fromMSecsSinceStartOfDay(currentRecord.value(8).toLongLong()));
+    result.setResourceURI(currentRecord.value(5).toUrl());
+    result.setAlbumCover(currentRecord.value(10).toUrl());
+    result.setTitle(currentRecord.value(1).toString());
+    result.setTrackNumber(currentRecord.value(6).toInt());
+    result.setDiscNumber(currentRecord.value(7).toInt());
+    result.setRating(currentRecord.value(9).toInt());
     result.setValid(true);
 
     d->mSelectTrackFromIdQuery.finish();
@@ -2318,8 +2336,9 @@ qulonglong DatabaseInterface::internalTrackIdFromFileName(const QUrl fileName) c
     }
 
     if (d->mSelectTracksMapping.next()) {
-        if (d->mSelectTracksMapping.record().value(0).isValid()) {
-            result = d->mSelectTracksMapping.record().value(0).toInt();
+        const auto &currentRecordValue = d->mSelectTracksMapping.record().value(0);
+        if (currentRecordValue.isValid()) {
+            result = currentRecordValue.toInt();
         }
     }
 
@@ -2379,17 +2398,19 @@ QList<MusicAudioTrack> DatabaseInterface::internalTracksFromAuthor(QString artis
     while (d->mSelectTracksFromArtist.next()) {
         MusicAudioTrack newTrack;
 
-        newTrack.setDatabaseId(d->mSelectTracksFromArtist.record().value(1).toULongLong());
-        newTrack.setTitle(d->mSelectTracksFromArtist.record().value(0).toString());
-        newTrack.setAlbumName(d->mSelectTracksFromArtist.record().value(8).toString());
-        newTrack.setAlbumArtist(d->mSelectTracksFromArtist.record().value(9).toString());
-        newTrack.setArtist(d->mSelectTracksFromArtist.record().value(2).toString());
-        newTrack.setResourceURI(d->mSelectTracksFromArtist.record().value(3).toUrl());
-        newTrack.setAlbumCover(d->mSelectTracksFromArtist.record().value(7).toUrl());
-        newTrack.setTrackNumber(d->mSelectTracksFromArtist.record().value(4).toInt());
-        newTrack.setDiscNumber(d->mSelectTracksFromArtist.record().value(5).toInt());
-        newTrack.setDuration(QTime::fromMSecsSinceStartOfDay(d->mSelectTracksFromArtist.record().value(6).toInt()));
-        newTrack.setRating(d->mSelectTracksFromArtist.record().value(10).toInt());
+        const auto &currentRecord = d->mSelectTracksFromArtist.record();
+
+        newTrack.setDatabaseId(currentRecord.value(1).toULongLong());
+        newTrack.setTitle(currentRecord.value(0).toString());
+        newTrack.setAlbumName(currentRecord.value(8).toString());
+        newTrack.setAlbumArtist(currentRecord.value(9).toString());
+        newTrack.setArtist(currentRecord.value(2).toString());
+        newTrack.setResourceURI(currentRecord.value(3).toUrl());
+        newTrack.setAlbumCover(currentRecord.value(7).toUrl());
+        newTrack.setTrackNumber(currentRecord.value(4).toInt());
+        newTrack.setDiscNumber(currentRecord.value(5).toInt());
+        newTrack.setDuration(QTime::fromMSecsSinceStartOfDay(currentRecord.value(6).toInt()));
+        newTrack.setRating(currentRecord.value(10).toInt());
         newTrack.setValid(true);
 
         allTracks.push_back(newTrack);

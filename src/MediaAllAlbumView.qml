@@ -58,6 +58,8 @@ Item {
 
             Text {
                 text: i18nc("before the TextField input of the filter", "Filter: ")
+
+                color: myPalette.text
             }
 
             TextField {
@@ -97,6 +99,9 @@ Item {
 
             Text {
                 text: i18nc("before the Rating widget input of the filter", "Rating: ")
+
+                color: myPalette.text
+
                 Layout.leftMargin: Screen.pixelDensity * 2
             }
 

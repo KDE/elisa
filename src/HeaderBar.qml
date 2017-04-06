@@ -304,6 +304,7 @@ Item {
                     id: remainingTracksLabel
                     text: i18np("1 track remaining", "%1 tracks remaining", tracksCount)
                     Layout.alignment: Qt.AlignRight | Qt.AlignBottom
+                    Layout.bottomMargin: Screen.pixelDensity * 2
                     elide: "ElideRight"
                     visible: tracksCount > 0
                     color: myPalette.highlightedText

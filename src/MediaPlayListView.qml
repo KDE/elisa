@@ -84,6 +84,8 @@ Item {
         Text {
             text: i18nc("text shown at the top of the play list", "Playlist")
 
+            color: myPalette.text
+
             Layout.topMargin: Screen.pixelDensity * 1.5
             Layout.leftMargin: Screen.pixelDensity * 1.5
             Layout.rightMargin: Screen.pixelDensity * 1.5
@@ -129,7 +131,10 @@ Item {
 
             Text {
                 id: playListInfo
+
                 text: i18np("1 track", "%1 tracks", playListView.rowCount)
+
+                color: myPalette.text
 
                 Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
             }

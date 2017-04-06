@@ -203,6 +203,8 @@ Rectangle {
             id: titleLabel
 
             font.weight: Font.Bold
+            color: myPalette.text
+
             horizontalAlignment: Text.AlignLeft
 
             Layout.preferredWidth: mediaServerEntry.width * 0.9
@@ -215,6 +217,8 @@ Rectangle {
             id: artistLabel
 
             font.weight: Font.Normal
+            color: myPalette.text
+
             horizontalAlignment: Text.AlignLeft
 
             Layout.preferredWidth: mediaServerEntry.width * 0.9
@@ -227,6 +231,8 @@ Rectangle {
             id: numberLabel
 
             font.weight: Font.Light
+            color: myPalette.text
+
             horizontalAlignment: Text.AlignLeft
 
             Layout.preferredWidth: mediaServerEntry.width * 0.9

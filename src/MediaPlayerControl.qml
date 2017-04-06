@@ -156,7 +156,11 @@ Item {
 
             Text {
                 id: positionLabel
+
                 text: timeIndicator.progressDuration
+
+                color: myPalette.text
+
                 Layout.alignment: Qt.AlignVCenter
             }
 

@@ -86,13 +86,19 @@ Item {
 
         Text {
             id: discHeaderLabel
+
             text: 'CD ' + discNumber
+
             font.weight: Font.Bold
             font.italic: true
+            color: myPalette.text
+
             Layout.preferredWidth: Screen.pixelDensity * 9
             Layout.fillWidth: true
             Layout.alignment: Qt.AlignLeft
+
             elide: "ElideRight"
+
             visible: isFirstTrackOfDisc && !isSingleDiscAlbum
         }
 
@@ -142,27 +148,42 @@ Item {
 
                     Text {
                         id: mainLabel
+
                         text: trackNumber + ' - ' + title
+
                         font.weight: Font.Bold
+                        color: myPalette.text
+
                         Layout.alignment: Qt.AlignLeft
                         Layout.leftMargin: (!isSingleDiscAlbum ? Screen.pixelDensity * 4 : 0)
+
                         elide: "ElideRight"
                     }
 
                     Text {
                         id: artistSeparatorLabel
+
                         visible: artist !== albumArtist
+
                         text: ' - '
+
                         font.weight: Font.Light
+                        color: myPalette.text
+
                         elide: "ElideRight"
                     }
 
                     Text {
                         id: artistLabel
+
                         visible: artist !== albumArtist
+
                         text: artist
+
                         font.weight: Font.Light
                         font.italic: true
+                        color: myPalette.text
+
                         elide: "ElideRight"
                     }
 
@@ -210,8 +231,12 @@ Item {
 
                     Text {
                         id: durationLabel
+
                         text: duration
+
                         font.weight: Font.Light
+                        color: myPalette.text
+
                         elide: "ElideRight"
                     }
 

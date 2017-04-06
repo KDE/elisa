@@ -62,11 +62,15 @@ Item {
 
         Text {
             id: titleLabel
+
             text: if (albumName !== undefined)
                       albumName
                   else
                       ''
+
             font.weight: Font.Bold
+            color: myPalette.text
+
             horizontalAlignment: Text.AlignHCenter
 
             Layout.fillWidth: true
@@ -77,11 +81,15 @@ Item {
 
         Text {
             id: artistLabel
+
             text: if (artistName !== undefined)
                       artistName
                   else
                       ''
+
             font.weight: Font.Normal
+            color: myPalette.text
+
             horizontalAlignment: Text.AlignHCenter
 
             Layout.fillWidth: true
@@ -92,11 +100,14 @@ Item {
 
         Text {
             id: numberLabel
+
             text: i18np("1 track", "%1 track", tracksCount)
 
             visible: tracksCount !== undefined
 
             font.weight: Font.Light
+            color: myPalette.text
+
             horizontalAlignment: Text.AlignHCenter
 
             Layout.fillWidth: true
@@ -149,7 +160,10 @@ Item {
                           artistName
                       else
                           ''
+
                 font.weight: Font.Normal
+                color: myPalette.text
+
                 horizontalAlignment: Text.AlignLeft
             }
         }

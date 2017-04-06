@@ -58,6 +58,8 @@ Item {
 
             Text {
                 text: i18nc("before the TextField input of the filter", "Filter: ")
+
+                color: myPalette.text
             }
 
             TextField {

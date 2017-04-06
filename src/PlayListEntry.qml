@@ -153,10 +153,15 @@ Rectangle {
                     Text {
                         id: mainLabel
                         text: album
+
                         font.weight: Font.Bold
+                        color: myPalette.text
+
                         horizontalAlignment: "AlignHCenter"
+
                         Layout.fillWidth: true
                         Layout.alignment: Qt.AlignCenter
+
                         elide: "ElideRight"
                     }
 
@@ -166,11 +171,17 @@ Rectangle {
 
                     Text {
                         id: authorLabel
+
                         text: artist
+
                         font.weight: Font.Light
+                        color: myPalette.text
+
                         horizontalAlignment: "AlignHCenter"
+
                         Layout.fillWidth: true
                         Layout.alignment: Qt.AlignCenter
+
                         elide: "ElideRight"
                     }
 
@@ -196,7 +207,9 @@ Rectangle {
                     id: mainCompactLabel
 
                     text: (discNumber ? discNumber + ' - ' + trackNumber : trackNumber) + ' - ' + title
+
                     font.weight: Font.Bold
+                    color: myPalette.text
 
                     Layout.fillWidth: true
                     Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
@@ -210,7 +223,9 @@ Rectangle {
                     id: mainInvalidCompactLabel
 
                     text: title
+
                     font.weight: Font.Bold
+                    color: myPalette.text
 
                     Layout.fillWidth: true
                     Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
@@ -289,6 +304,9 @@ Rectangle {
                 Text {
                     id: durationLabel
                     text: duration
+
+                    color: myPalette.text
+
                     elide: "ElideRight"
                     Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
                 }

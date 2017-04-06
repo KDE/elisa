@@ -194,6 +194,8 @@ Rectangle {
             id: nameLabel
 
             font.weight: Font.Bold
+            color: myPalette.text
+
             horizontalAlignment: Text.AlignLeft
 
             Layout.preferredWidth: mediaServerEntry.width * 0.9

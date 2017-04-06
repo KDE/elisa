@@ -111,11 +111,16 @@ Item {
 
             Text {
                 id: authorLabel
+
                 text: artist
+
+                font.weight: Font.Bold
+                color: myPalette.text
+
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignLeft
+
                 elide: "ElideRight"
-                font.weight: Font.Bold
             }
 
             Item {
@@ -124,10 +129,15 @@ Item {
 
             Text {
                 id: albumLabel
+
                 text: album
+
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignLeft
+
                 elide: "ElideRight"
+
+                color: myPalette.text
             }
 
             Item {

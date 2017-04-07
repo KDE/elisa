@@ -400,7 +400,6 @@ QList<MusicAlbum> DatabaseInterface::allAlbums()
         newAlbum.setTracksCount(currentRecord.value(5).toInt());
         newAlbum.setIsSingleDiscAlbum(currentRecord.value(6).toBool());
         newAlbum.setTracks(fetchTracks(newAlbum.databaseId()));
-        newAlbum.setTrackIds(fetchTrackIds(newAlbum.databaseId()));
         newAlbum.setValid(true);
 
         result.push_back(newAlbum);
@@ -2027,9 +2026,9 @@ qulonglong DatabaseInterface::insertMusicSource(QString name)
     return d->mDiscoverId - 1;
 }
 
-QMap<qulonglong, MusicAudioTrack> DatabaseInterface::fetchTracks(qulonglong albumId)
+QList<MusicAudioTrack> DatabaseInterface::fetchTracks(qulonglong albumId)
 {
-    auto allTracks = QMap<qulonglong, MusicAudioTrack>();
+    auto allTracks = QList<MusicAudioTrack>();
 
     d->mSelectTrackQuery.bindValue(QStringLiteral(":albumId"), albumId);
 
@@ -2058,7 +2057,7 @@ QMap<qulonglong, MusicAudioTrack> DatabaseInterface::fetchTracks(qulonglong albu
         newTrack.setRating(currentRecord.value(9).toInt());
         newTrack.setValid(true);
 
-        allTracks[newTrack.databaseId()] = newTrack;
+        allTracks.push_back(newTrack);
     }
 
     d->mSelectTrackQuery.finish();
@@ -2066,29 +2065,6 @@ QMap<qulonglong, MusicAudioTrack> DatabaseInterface::fetchTracks(qulonglong albu
     updateTracksCount(albumId);
 
     return allTracks;
-}
-
-QList<qulonglong> DatabaseInterface::fetchTrackIds(qulonglong albumId) const
-{
-    auto allTrackIds = QList<qulonglong>();
-
-    d->mSelectTrackQuery.bindValue(QStringLiteral(":albumId"), albumId);
-
-    auto result = d->mSelectTrackQuery.exec();
-
-    if (!result || !d->mSelectTrackQuery.isSelect() || !d->mSelectTrackQuery.isActive()) {
-        qDebug() << "DatabaseInterface::fetchTrackIds" << d->mSelectTrackQuery.lastQuery();
-        qDebug() << "DatabaseInterface::fetchTrackIds" << d->mSelectTrackQuery.boundValues();
-        qDebug() << "DatabaseInterface::fetchTrackIds" << d->mSelectTrackQuery.lastError();
-    }
-
-    while (d->mSelectTrackQuery.next()) {
-        allTrackIds.push_back(d->mSelectTrackQuery.record().value(0).toULongLong());
-    }
-
-    d->mSelectTrackQuery.finish();
-
-    return allTrackIds;
 }
 
 void DatabaseInterface::updateTracksCount(qulonglong albumId)
@@ -2192,7 +2168,6 @@ MusicAlbum DatabaseInterface::internalAlbumFromId(qulonglong albumId)
     retrievedAlbum.setTracksCount(currentRecord.value(5).toInt());
     retrievedAlbum.setIsSingleDiscAlbum(currentRecord.value(6).toBool());
     retrievedAlbum.setTracks(fetchTracks(albumId));
-    retrievedAlbum.setTrackIds(fetchTrackIds(albumId));
     retrievedAlbum.setValid(true);
 
     d->mSelectAlbumQuery.finish();

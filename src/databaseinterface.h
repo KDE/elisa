@@ -112,9 +112,7 @@ private:
 
     bool rollBackTransaction() const;
 
-    QMap<qulonglong, MusicAudioTrack> fetchTracks(qulonglong albumId);
-
-    QList<qulonglong> fetchTrackIds(qulonglong albumId) const;
+    QList<MusicAudioTrack> fetchTracks(qulonglong albumId);
 
     void updateTracksCount(qulonglong albumId);
 

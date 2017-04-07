@@ -46,9 +46,7 @@ public:
 
     QUrl mResourceURI;
 
-    QMap<qulonglong, MusicAudioTrack> mTracks;
-
-    QList<qulonglong> mTrackIds;
+    QList<MusicAudioTrack> mTracks;
 
     int mTracksCount = 0;
 
@@ -196,42 +194,27 @@ bool MusicAlbum::isSingleDiscAlbum() const
     return d->mIsSingleDiscAlbum;
 }
 
-void MusicAlbum::setTracks(const QMap<qulonglong, MusicAudioTrack> &allTracks)
+void MusicAlbum::setTracks(const QList<MusicAudioTrack> &allTracks)
 {
     d->mTracks = allTracks;
 }
 
-QList<qulonglong> MusicAlbum::tracksKeys() const
-{
-    return d->mTracks.keys();
-}
-
 MusicAudioTrack MusicAlbum::trackFromIndex(int index) const
 {
-    return d->mTracks[d->mTrackIds[index]];
-}
-
-void MusicAlbum::setTrackIds(const QList<qulonglong> &allTracksIds)
-{
-    d->mTrackIds = allTracksIds;
-}
-
-qulonglong MusicAlbum::trackIdFromIndex(int index) const
-{
-    return d->mTrackIds[index];
+    return d->mTracks[index];
 }
 
 int MusicAlbum::trackIndexFromId(qulonglong id) const
 {
     int result = -1;
 
-    auto itTrack = std::find(d->mTrackIds.begin(), d->mTrackIds.end(), id);
-
-    if (itTrack == d->mTrackIds.end()) {
-        return result;
+    for (result = 0; result < d->mTracks.size(); ++result) {
+        if (d->mTracks[result].databaseId() == id) {
+            return result;
+        }
     }
 
-    result = itTrack - d->mTrackIds.begin();
+    result = -1;
 
     return result;
 }
@@ -266,7 +249,7 @@ QStringList MusicAlbum::allTracksTitle() const
 
 bool MusicAlbum::isEmpty() const
 {
-    return d->mTrackIds.isEmpty();
+    return d->mTracks.isEmpty();
 }
 
 void MusicAlbum::removeTrackFromIndex(int index)
@@ -276,20 +259,18 @@ void MusicAlbum::removeTrackFromIndex(int index)
     }
 
     --d->mTracksCount;
-    d->mTracks.remove(d->mTrackIds.at(index));
-    d->mTrackIds.removeAt(index);
+    d->mTracks.removeAt(index);
 }
 
 void MusicAlbum::insertTrack(MusicAudioTrack newTrack, int index)
 {
-    d->mTrackIds.insert(index, newTrack.databaseId());
-    d->mTracks[newTrack.databaseId()] = newTrack;
+    d->mTracks.insert(index, newTrack);
     ++d->mTracksCount;
 }
 
 void MusicAlbum::updateTrack(MusicAudioTrack modifiedTrack, int index)
 {
-    d->mTracks[d->mTrackIds[index]] = modifiedTrack;
+    d->mTracks[index] = modifiedTrack;
 }
 
 QDebug& operator<<(QDebug &stream, const MusicAlbum &data)

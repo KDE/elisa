@@ -88,13 +88,9 @@ public:
 
     bool isSingleDiscAlbum() const;
 
-    void setTracks(const QMap<qulonglong, MusicAudioTrack> &allTracks);
-
-    QList<qulonglong> tracksKeys() const;
+    void setTracks(const QList<MusicAudioTrack> &allTracks);
 
     MusicAudioTrack trackFromIndex(int index) const;
-
-    void setTrackIds(const QList<qulonglong> &allTracksIds);
 
     qulonglong trackIdFromIndex(int index) const;
 

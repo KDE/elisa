@@ -176,6 +176,8 @@ Item {
                 wrapMode: TextEdit.Wrap
                 renderType: TextEdit.NativeRendering
 
+                color: myPalette.text
+
                 font.weight: Font.ExtraLight
                 font.pointSize: 12
 
@@ -288,21 +290,31 @@ Item {
             }
         }
 
-        ToolBar {
+        Rectangle {
             id: actionBar
 
             Layout.fillWidth: true
+            Layout.bottomMargin: Screen.pixelDensity * 0.5
+            Layout.preferredHeight: Screen.pixelDensity * 10
+
+            color: myPalette.mid
 
             RowLayout {
+                id: actionBarLayout
+
                 anchors.fill: parent
+
                 ToolButton {
                     action: clearPlayList
+                    Layout.bottomMargin: Screen.pixelDensity * 1
                 }
                 ToolButton {
                     action: showCurrentTrack
+                    Layout.bottomMargin: Screen.pixelDensity * 1
                 }
-
-                Item { Layout.fillWidth: true }
+                Item {
+                    Layout.fillWidth: true
+                }
             }
         }
     }

@@ -72,7 +72,7 @@ protected:
 
     virtual void triggerRefreshOfContent();
 
-    void scanDirectory(QList<MusicAudioTrack> &newFiles, const QUrl &path, bool recursive = true);
+    void scanDirectory(QList<MusicAudioTrack> &newFiles, const QUrl &path);
 
     const QString &sourceName() const;
 
@@ -83,8 +83,6 @@ protected:
     void addFileInDirectory(const QUrl &newFile, const QUrl &directoryName);
 
     void scanDirectoryTree(const QString &path);
-
-    bool fileExists(const QUrl &fileName, const QUrl &directoryName) const;
 
     void setHandleNewFiles(bool handleThem);
 

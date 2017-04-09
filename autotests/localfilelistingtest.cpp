@@ -228,7 +228,7 @@ private Q_SLOTS:
         QCOMPARE(newCoversLast.count(), 1);
     }
 
-    void addAndMoveTracks()
+    void addTracksAndRemoveDirectory()
     {
         LocalFileListing myListing;
 
@@ -237,17 +237,14 @@ private Q_SLOTS:
         QString musicPath = QStringLiteral(LOCAL_FILE_TESTS_WORKING_PATH) + QStringLiteral("/music2/data/innerData");
         QDir musicDirectory(musicPath);
 
+        QString innerMusicPath = QStringLiteral(LOCAL_FILE_TESTS_WORKING_PATH) + QStringLiteral("/music2/data");
+
         QString musicParentPath = QStringLiteral(LOCAL_FILE_TESTS_WORKING_PATH) + QStringLiteral("/music2");
         QDir musicParentDirectory(musicParentPath);
+        QDir rootDirectory(QStringLiteral(LOCAL_FILE_TESTS_WORKING_PATH));
 
-        QString musicFriendPath = QStringLiteral(LOCAL_FILE_TESTS_WORKING_PATH) + QStringLiteral("/music3");
-        QDir musicFriendDirectory(musicFriendPath);
-
-        QCOMPARE(musicFriendDirectory.removeRecursively(), true);
-        QCOMPARE(musicParentDirectory.removeRecursively(), true);
-
-        musicFriendDirectory.mkpath(musicFriendPath);
-        musicDirectory.mkpath(musicPath);
+        musicParentDirectory.removeRecursively();
+        rootDirectory.mkpath(QStringLiteral("music2/data/innerData"));
 
         QSignalSpy tracksListSpy(&myListing, &LocalFileListing::tracksList);
         QSignalSpy removedTracksListSpy(&myListing, &LocalFileListing::removedTracksList);
@@ -295,6 +292,112 @@ private Q_SLOTS:
         QCOMPARE(newTracks.count(), 1);
         QCOMPARE(newCovers.count(), 1);
 
+        QString commandLine(QStringLiteral("rm -rf ") + innerMusicPath);
+        system(commandLine.toLatin1().data());
+
+        QCOMPARE(removedTracksListSpy.wait(), true);
+
+        QCOMPARE(tracksListSpy.count(), 1);
+        QCOMPARE(removedTracksListSpy.count(), 1);
+        QCOMPARE(rootPathChangedSpy.count(), 1);
+
+        auto removeSignal = removedTracksListSpy.at(0);
+        auto removedTracks = removeSignal.at(0).value<QList<QUrl>>();
+        QCOMPARE(removedTracks.isEmpty(), false);
+
+        QCOMPARE(rootDirectory.mkpath(QStringLiteral("music2/data/innerData")), true);
+        QCOMPARE(myTrack.copy(musicPath + QStringLiteral("/test.ogg")), true);
+        QCOMPARE(myCover.copy(musicPath + QStringLiteral("/cover.jpg")), true);
+
+        if (tracksListSpy.count() == 1) {
+            QCOMPARE(tracksListSpy.wait(), true);
+        }
+
+        QCOMPARE(tracksListSpy.count(), 2);
+        QCOMPARE(removedTracksListSpy.count(), 1);
+        QCOMPARE(rootPathChangedSpy.count(), 1);
+
+        auto newTracksSignalLast = tracksListSpy.at(1);
+        auto newTracksLast = newTracksSignalLast.at(0).value<QList<MusicAudioTrack>>();
+        auto newCoversLast = newTracksSignalLast.at(1).value<QHash<QString, QUrl>>();
+
+        QCOMPARE(newTracksLast.count(), 1);
+        QCOMPARE(newCoversLast.count(), 1);
+    }
+
+    void addAndMoveTracks()
+    {
+        LocalFileListing myListing;
+
+        QString musicOriginPath = QStringLiteral(LOCAL_FILE_TESTS_SAMPLE_FILES_PATH) + QStringLiteral("/music");
+
+        QString musicPath = QStringLiteral(LOCAL_FILE_TESTS_WORKING_PATH) + QStringLiteral("/music2/data/innerData");
+        QDir musicDirectory(musicPath);
+
+        QString musicParentPath = QStringLiteral(LOCAL_FILE_TESTS_WORKING_PATH) + QStringLiteral("/music2");
+        QDir musicParentDirectory(musicParentPath);
+
+        QString musicFriendPath = QStringLiteral(LOCAL_FILE_TESTS_WORKING_PATH) + QStringLiteral("/music3");
+        QDir musicFriendDirectory(musicFriendPath);
+
+        QCOMPARE(musicFriendDirectory.removeRecursively(), true);
+        QCOMPARE(musicParentDirectory.removeRecursively(), true);
+
+        musicFriendDirectory.mkpath(musicFriendPath);
+        musicDirectory.mkpath(musicPath);
+
+        QSignalSpy tracksListSpy(&myListing, &LocalFileListing::tracksList);
+        QSignalSpy removedTracksListSpy(&myListing, &LocalFileListing::removedTracksList);
+        QSignalSpy modifiedTracksListSpy(&myListing, &LocalFileListing::modifyTracksList);
+        QSignalSpy rootPathChangedSpy(&myListing, &LocalFileListing::rootPathChanged);
+
+        QCOMPARE(tracksListSpy.count(), 0);
+        QCOMPARE(removedTracksListSpy.count(), 0);
+        QCOMPARE(modifiedTracksListSpy.count(), 0);
+        QCOMPARE(rootPathChangedSpy.count(), 0);
+
+        myListing.init();
+
+        QCOMPARE(tracksListSpy.count(), 0);
+        QCOMPARE(removedTracksListSpy.count(), 0);
+        QCOMPARE(modifiedTracksListSpy.count(), 0);
+        QCOMPARE(rootPathChangedSpy.count(), 0);
+
+        myListing.setRootPath(musicParentPath);
+
+        QCOMPARE(tracksListSpy.count(), 0);
+        QCOMPARE(removedTracksListSpy.count(), 0);
+        QCOMPARE(modifiedTracksListSpy.count(), 0);
+        QCOMPARE(rootPathChangedSpy.count(), 1);
+
+        QCOMPARE(myListing.rootPath(), musicParentPath);
+
+        myListing.refreshContent();
+
+        QCOMPARE(tracksListSpy.count(), 0);
+        QCOMPARE(removedTracksListSpy.count(), 0);
+        QCOMPARE(modifiedTracksListSpy.count(), 0);
+        QCOMPARE(rootPathChangedSpy.count(), 1);
+
+        QFile myTrack(musicOriginPath + QStringLiteral("/test.ogg"));
+        myTrack.copy(musicPath + QStringLiteral("/test.ogg"));
+        QFile myCover(musicOriginPath + QStringLiteral("/cover.jpg"));
+        myCover.copy(musicPath + QStringLiteral("/cover.jpg"));
+
+        QCOMPARE(tracksListSpy.wait(), true);
+
+        QCOMPARE(tracksListSpy.count(), 1);
+        QCOMPARE(removedTracksListSpy.count(), 0);
+        QCOMPARE(modifiedTracksListSpy.count(), 0);
+        QCOMPARE(rootPathChangedSpy.count(), 1);
+
+        auto newTracksSignal = tracksListSpy.at(0);
+        auto newTracks = newTracksSignal.at(0).value<QList<MusicAudioTrack>>();
+        auto newCovers = newTracksSignal.at(1).value<QHash<QString, QUrl>>();
+
+        QCOMPARE(newTracks.count(), 1);
+        QCOMPARE(newCovers.count(), 1);
+
         QString commandLine(QStringLiteral("mv ") + musicPath + QStringLiteral(" ") + musicFriendPath);
         system(commandLine.toLatin1().data());
 
@@ -302,6 +405,7 @@ private Q_SLOTS:
 
         QCOMPARE(tracksListSpy.count(), 1);
         QCOMPARE(removedTracksListSpy.count(), 1);
+        QCOMPARE(modifiedTracksListSpy.count(), 0);
         QCOMPARE(rootPathChangedSpy.count(), 1);
 
         auto removeSignal = removedTracksListSpy.at(0);
@@ -319,13 +423,14 @@ private Q_SLOTS:
 
         QCOMPARE(tracksListSpy.count(), 2);
         QCOMPARE(removedTracksListSpy.count(), 1);
+        QCOMPARE(modifiedTracksListSpy.count(), 0);
         QCOMPARE(rootPathChangedSpy.count(), 1);
 
         auto newTracksSignalLast = tracksListSpy.at(1);
         auto newTracksLast = newTracksSignalLast.at(0).value<QList<MusicAudioTrack>>();
         auto newCoversLast = newTracksSignalLast.at(1).value<QHash<QString, QUrl>>();
 
-        QCOMPARE(newTracksLast.count(), 2);
+        QCOMPARE(newTracksLast.count(), 1);
         QCOMPARE(newCoversLast.count(), 1);
     }
 };

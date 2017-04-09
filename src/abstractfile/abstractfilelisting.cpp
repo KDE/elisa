@@ -34,6 +34,7 @@
 #include <QFileSystemWatcher>
 #include <QMimeDatabase>
 #include <QSet>
+#include <QPair>
 
 #include <algorithm>
 
@@ -49,7 +50,7 @@ public:
 
     QHash<QString, QUrl> mAllAlbumCover;
 
-    QHash<QUrl, QSet<QUrl>> mDiscoveredFiles;
+    QHash<QUrl, QSet<QPair<QUrl, bool>>> mDiscoveredFiles;
 
     QString mSourceName;
 
@@ -88,7 +89,7 @@ void AbstractFileListing::newTrackFile(MusicAudioTrack partialTrack)
     }
 }
 
-void AbstractFileListing::scanDirectory(QList<MusicAudioTrack> &newFiles, const QUrl &path, bool recursive)
+void AbstractFileListing::scanDirectory(QList<MusicAudioTrack> &newFiles, const QUrl &path)
 {
     QDir rootDirectory(path.toLocalFile());
     rootDirectory.refresh();
@@ -111,9 +112,9 @@ void AbstractFileListing::scanDirectory(QList<MusicAudioTrack> &newFiles, const 
         }
     }
 
-    auto removedTracks = QList<QUrl>();
+    auto removedTracks = QList<QPair<QUrl, bool>>();
     for (const auto &removedFilePath : currentDirectoryListingFiles) {
-        auto itFilePath = std::find(currentFilesList.begin(), currentFilesList.end(), removedFilePath);
+        auto itFilePath = std::find(currentFilesList.begin(), currentFilesList.end(), removedFilePath.first);
 
         if (itFilePath != currentFilesList.end()) {
             continue;
@@ -124,9 +125,14 @@ void AbstractFileListing::scanDirectory(QList<MusicAudioTrack> &newFiles, const 
 
     auto allRemovedTracks = QList<QUrl>();
     for (const auto &oneRemovedTrack : removedTracks) {
-        removeFile(oneRemovedTrack, allRemovedTracks);
+        if (oneRemovedTrack.second) {
+            allRemovedTracks.push_back(oneRemovedTrack.first);
+        } else {
+            removeFile(oneRemovedTrack.first, allRemovedTracks);
+        }
     }
     for (const auto &oneRemovedTrack : removedTracks) {
+        currentDirectoryListingFiles.remove(oneRemovedTrack);
         currentDirectoryListingFiles.remove(oneRemovedTrack);
     }
 
@@ -139,14 +145,16 @@ void AbstractFileListing::scanDirectory(QList<MusicAudioTrack> &newFiles, const 
     }
 
     for (auto newFilePath : currentFilesList) {
-        auto itFilePath = std::find(currentDirectoryListingFiles.begin(), currentDirectoryListingFiles.end(), newFilePath);
+        QFileInfo oneEntry(newFilePath.toLocalFile());
+
+        auto itFilePath = std::find(currentDirectoryListingFiles.begin(), currentDirectoryListingFiles.end(), QPair<QUrl, bool>{newFilePath, oneEntry.isFile()});
 
         if (itFilePath != currentDirectoryListingFiles.end()) {
             continue;
         }
 
-        QFileInfo oneEntry(newFilePath.toLocalFile());
-        if (recursive && oneEntry.isDir()) {
+        if (oneEntry.isDir()) {
+            addFileInDirectory(newFilePath, path);
             scanDirectory(newFiles, newFilePath);
             continue;
         }
@@ -304,12 +312,13 @@ void AbstractFileListing::addFileInDirectory(const QUrl &newFile, const QUrl &di
 
             auto &parentCurrentDirectoryListingFiles = d->mDiscoveredFiles[parentDirectory];
 
-            parentCurrentDirectoryListingFiles.insert(directoryName);
+            parentCurrentDirectoryListingFiles.insert({directoryName, false});
         }
     }
     auto &currentDirectoryListingFiles = d->mDiscoveredFiles[directoryName];
 
-    currentDirectoryListingFiles.insert(newFile);
+    QFileInfo isAFile(newFile.toLocalFile());
+    currentDirectoryListingFiles.insert({newFile, isAFile.isFile()});
 }
 
 void AbstractFileListing::scanDirectoryTree(const QString &path)
@@ -321,21 +330,6 @@ void AbstractFileListing::scanDirectoryTree(const QString &path)
     if (!newFiles.isEmpty()) {
         emitNewFiles(newFiles);
     }
-}
-
-bool AbstractFileListing::fileExists(const QUrl &fileName, const QUrl &directoryName) const
-{
-    const auto directoryEntry = d->mDiscoveredFiles.find(directoryName);
-    if (directoryEntry == d->mDiscoveredFiles.end()) {
-        return false;
-    }
-
-    const auto fileEntry = directoryEntry->find(fileName);
-    if (fileEntry == directoryEntry->end()) {
-        return false;
-    }
-
-    return true;
 }
 
 void AbstractFileListing::setHandleNewFiles(bool handleThem)
@@ -372,8 +366,11 @@ void AbstractFileListing::removeDirectory(const QUrl &removedDirectory, QList<QU
     }
 
     for (auto itFile : *itRemovedDirectory) {
-        if (itFile.isValid() && !itFile.isEmpty()) {
-            removeFile(itFile, allRemovedFiles);
+        if (itFile.first.isValid() && !itFile.first.isEmpty()) {
+            removeFile(itFile.first, allRemovedFiles);
+            if (itFile.second) {
+                allRemovedFiles.push_back(itFile.first);
+            }
         }
     }
 
@@ -386,8 +383,6 @@ void AbstractFileListing::removeFile(const QUrl &oneRemovedTrack, QList<QUrl> &a
     if (itRemovedDirectory != d->mDiscoveredFiles.end()) {
         removeDirectory(oneRemovedTrack, allRemovedFiles);
     }
-
-    allRemovedFiles.push_back(oneRemovedTrack);
 }
 
 

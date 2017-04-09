@@ -196,7 +196,6 @@ Item {
                                      0
                     isFirstTrackOfDisc: model.isFirstTrackOfDisc
                     isSingleDiscAlbum: topListing.isSingleDiscAlbum
-                    isSelected: DelegateModel.inSelected
 
                     contextMenu: Menu {
                         MenuItem {
@@ -205,16 +204,6 @@ Item {
                         MenuItem {
                             action: entry.enqueueAction
                         }
-                    }
-
-                    onClicked:
-                    {
-                        var myGroup = contentDirectoryView.model.groups[2]
-                        if (myGroup.count > 0 && !DelegateModel.inSelected) {
-                            myGroup.remove(0, myGroup.count)
-                        }
-
-                        DelegateModel.inSelected = !DelegateModel.inSelected
                     }
 
                     onRightClicked: contextMenu.popup()

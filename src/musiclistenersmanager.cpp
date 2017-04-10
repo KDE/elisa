@@ -71,8 +71,6 @@ MusicListenersManager::MusicListenersManager(QObject *parent)
 
     connect(&d->mDatabaseInterface, &DatabaseInterface::requestsInitDone,
             this, &MusicListenersManager::databaseReady);
-    connect(&d->mDatabaseInterface, &DatabaseInterface::requestsInitDone,
-            this, &MusicListenersManager::databaseIsReady);
 
     const auto &localDataPaths = QStandardPaths::standardLocations(QStandardPaths::AppDataLocation);
     auto databaseFileName = QString();
@@ -164,6 +162,8 @@ void MusicListenersManager::databaseReady()
     connect(&d->mDatabaseInterface, &DatabaseInterface::newTrackFile,
             &d->mFileListener, &FileListener::newTrackFile);
 #endif
+
+    Q_EMIT databaseIsReady();
 }
 
 void MusicListenersManager::applicationAboutToQuit()

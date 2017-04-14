@@ -67,6 +67,8 @@ private Q_SLOTS:
 
     void switchToTrackTest();
 
+    void singleTrack();
+
 };
 
 #endif // PLAYLISTCONTROLERTEST_H

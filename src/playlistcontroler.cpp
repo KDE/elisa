@@ -211,6 +211,11 @@ void PlayListControler::skipNextTrack()
             Q_EMIT playListFinished();
         }
 
+        if (mPlayListModel->rowCount() == 1) {
+            mCurrentTrack = QPersistentModelIndex{};
+            notifyCurrentTrackChanged();
+        }
+
         resetCurrentTrack();
 
         return;

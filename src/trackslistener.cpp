@@ -44,11 +44,20 @@ TracksListener::TracksListener(DatabaseInterface *database, QObject *parent) : Q
     d->mDatabase = database;
 }
 
-void TracksListener::trackAdded(MusicAudioTrack newTrack)
+void TracksListener::trackAdded(qulonglong id)
 {
-    if (d->mTracksByIdSet.find(newTrack.databaseId()) != d->mTracksByIdSet.end()) {
-        Q_EMIT trackChanged(newTrack);
+    if (d->mTracksByIdSet.find(id) != d->mTracksByIdSet.end()) {
+        const auto &newTrack = d->mDatabase->trackFromDatabaseId(id);
+
+        Q_EMIT trackHasChanged(newTrack);
     }
+
+    if (d->mTracksByNameSet.isEmpty()) {
+        return;
+    }
+
+    const auto &newTrack = d->mDatabase->trackFromDatabaseId(id);
+
     for (auto itTrack = d->mTracksByNameSet.begin(); itTrack != d->mTracksByNameSet.end(); ++itTrack) {
         if ((*itTrack)[0] != newTrack.title()) {
             continue;
@@ -62,7 +71,29 @@ void TracksListener::trackAdded(MusicAudioTrack newTrack)
             continue;
         }
 
-        Q_EMIT trackChanged(newTrack);
+        Q_EMIT trackHasChanged(newTrack);
+
+        d->mTracksByIdSet.insert(newTrack.databaseId());
+        d->mTracksByNameSet.erase(itTrack);
+        continue;
+    }
+}
+
+void TracksListener::trackRemoved(qulonglong id)
+{
+    if (d->mTracksByIdSet.find(id) != d->mTracksByIdSet.end()) {
+        const auto &newTrack = d->mDatabase->trackFromDatabaseId(id);
+
+        Q_EMIT trackHasBeenRemoved(newTrack);
+    }
+}
+
+void TracksListener::trackModified(qulonglong id)
+{
+    if (d->mTracksByIdSet.find(id) != d->mTracksByIdSet.end()) {
+        const auto &newTrack = d->mDatabase->trackFromDatabaseId(id);
+
+        Q_EMIT trackHasChanged(newTrack);
     }
 }
 
@@ -78,7 +109,7 @@ void TracksListener::trackByNameInList(QString title, QString artist, QString al
     auto newTrack = d->mDatabase->trackFromDatabaseId(newTrackId);
 
     if (newTrack.isValid()) {
-        Q_EMIT trackChanged(newTrack);
+        Q_EMIT trackHasChanged(newTrack);
     }
 }
 
@@ -88,7 +119,7 @@ void TracksListener::trackByIdInList(qulonglong newTrackId)
 
     auto newTrack = d->mDatabase->trackFromDatabaseId(newTrackId);
     if (newTrack.isValid()) {
-        Q_EMIT trackChanged(newTrack);
+        Q_EMIT trackHasChanged(newTrack);
     }
 }
 

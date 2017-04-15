@@ -136,12 +136,8 @@ private Q_SLOTS:
         DatabaseInterface musicDb;
         AlbumModel albumsModel;
 
-        connect(&musicDb, &DatabaseInterface::trackAdded,
-                &albumsModel, &AlbumModel::trackAdded);
-        connect(&musicDb, &DatabaseInterface::trackModified,
-                &albumsModel, &AlbumModel::trackModified);
-        connect(&musicDb, &DatabaseInterface::trackRemoved,
-                &albumsModel, &AlbumModel::trackRemoved);
+        connect(&musicDb, &DatabaseInterface::albumModified,
+                &albumsModel, &AlbumModel::albumModified);
 
         musicDb.init(QStringLiteral("testDb"));
 
@@ -202,12 +198,10 @@ private Q_SLOTS:
         DatabaseInterface musicDb;
         AlbumModel albumsModel;
 
-        connect(&musicDb, &DatabaseInterface::trackAdded,
-                &albumsModel, &AlbumModel::trackAdded);
-        connect(&musicDb, &DatabaseInterface::trackModified,
-                &albumsModel, &AlbumModel::trackModified);
-        connect(&musicDb, &DatabaseInterface::trackRemoved,
-                &albumsModel, &AlbumModel::trackRemoved);
+        connect(&musicDb, &DatabaseInterface::albumModified,
+                &albumsModel, &AlbumModel::albumModified);
+        connect(&musicDb, &DatabaseInterface::albumRemoved,
+                &albumsModel, &AlbumModel::albumRemoved);
 
         musicDb.init(QStringLiteral("testDb"));
 
@@ -273,12 +267,8 @@ private Q_SLOTS:
         DatabaseInterface musicDb;
         AlbumModel albumsModel;
 
-        connect(&musicDb, &DatabaseInterface::trackAdded,
-                &albumsModel, &AlbumModel::trackAdded);
-        connect(&musicDb, &DatabaseInterface::trackModified,
-                &albumsModel, &AlbumModel::trackModified);
-        connect(&musicDb, &DatabaseInterface::trackRemoved,
-                &albumsModel, &AlbumModel::trackRemoved);
+        connect(&musicDb, &DatabaseInterface::albumModified,
+                &albumsModel, &AlbumModel::albumModified);
 
         musicDb.init(QStringLiteral("testDb"));
 
@@ -380,12 +370,8 @@ private Q_SLOTS:
         DatabaseInterface musicDb;
         AlbumModel albumsModel;
 
-        connect(&musicDb, &DatabaseInterface::trackAdded,
-                &albumsModel, &AlbumModel::trackAdded);
-        connect(&musicDb, &DatabaseInterface::trackModified,
-                &albumsModel, &AlbumModel::trackModified);
-        connect(&musicDb, &DatabaseInterface::trackRemoved,
-                &albumsModel, &AlbumModel::trackRemoved);
+        connect(&musicDb, &DatabaseInterface::albumModified,
+                &albumsModel, &AlbumModel::albumModified);
 
         musicDb.init(QStringLiteral("testDb"));
 

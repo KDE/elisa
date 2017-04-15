@@ -163,7 +163,7 @@ private Q_SLOTS:
         QCOMPARE(endInsertRowsSpy.count(), 4);
         QCOMPARE(beginRemoveRowsSpy.count(), 0);
         QCOMPARE(endRemoveRowsSpy.count(), 0);
-        QCOMPARE(dataChangedSpy.count(), 18);
+        QCOMPARE(dataChangedSpy.count(), 4);
 
         auto trackId = musicDb.trackIdFromTitleAlbumArtist(QStringLiteral("track1"), QStringLiteral("album1"), QStringLiteral("artist1"));
 
@@ -175,7 +175,7 @@ private Q_SLOTS:
         QCOMPARE(endInsertRowsSpy.count(), 4);
         QCOMPARE(beginRemoveRowsSpy.count(), 0);
         QCOMPARE(endRemoveRowsSpy.count(), 0);
-        QCOMPARE(dataChangedSpy.count(), 19);
+        QCOMPARE(dataChangedSpy.count(), 5);
     }
 
     void removeOneAlbum()
@@ -221,7 +221,7 @@ private Q_SLOTS:
         QCOMPARE(endInsertRowsSpy.count(), 4);
         QCOMPARE(beginRemoveRowsSpy.count(), 0);
         QCOMPARE(endRemoveRowsSpy.count(), 0);
-        QCOMPARE(dataChangedSpy.count(), 18);
+        QCOMPARE(dataChangedSpy.count(), 4);
 
         auto firstTrackId = musicDb.trackIdFromTitleAlbumArtist(QStringLiteral("track1"), QStringLiteral("album1"), QStringLiteral("artist1"));
         auto firstTrack = musicDb.trackFromDatabaseId(firstTrackId);
@@ -238,7 +238,7 @@ private Q_SLOTS:
         QCOMPARE(endInsertRowsSpy.count(), 4);
         QCOMPARE(beginRemoveRowsSpy.count(), 1);
         QCOMPARE(endRemoveRowsSpy.count(), 1);
-        QCOMPARE(dataChangedSpy.count(), 22);
+        QCOMPARE(dataChangedSpy.count(), 4);
     }
 
     void addOneTrack()
@@ -284,7 +284,7 @@ private Q_SLOTS:
         QCOMPARE(endInsertRowsSpy.count(), 4);
         QCOMPARE(beginRemoveRowsSpy.count(), 0);
         QCOMPARE(endRemoveRowsSpy.count(), 0);
-        QCOMPARE(dataChangedSpy.count(), 18);
+        QCOMPARE(dataChangedSpy.count(), 4);
 
         auto newTrack = MusicAudioTrack{true, QStringLiteral("$19"), QStringLiteral("0"), QStringLiteral("track6"),
                 QStringLiteral("artist2"), QStringLiteral("album4"), QStringLiteral("artist2"), 6, 1, QTime::fromMSecsSinceStartOfDay(19), {QUrl::fromLocalFile(QStringLiteral("/$19"))},
@@ -298,7 +298,7 @@ private Q_SLOTS:
         QCOMPARE(endInsertRowsSpy.count(), 4);
         QCOMPARE(beginRemoveRowsSpy.count(), 0);
         QCOMPARE(endRemoveRowsSpy.count(), 0);
-        QCOMPARE(dataChangedSpy.count(), 19);
+        QCOMPARE(dataChangedSpy.count(), 5);
     }
 
     void addOneAlbum()
@@ -349,7 +349,7 @@ private Q_SLOTS:
         QCOMPARE(endInsertRowsSpy.count(), 4);
         QCOMPARE(beginRemoveRowsSpy.count(), 0);
         QCOMPARE(endRemoveRowsSpy.count(), 0);
-        QCOMPARE(dataChangedSpy.count(), 18);
+        QCOMPARE(dataChangedSpy.count(), 4);
 
         auto newTrack = MusicAudioTrack{true, QStringLiteral("$19"), QStringLiteral("0"), QStringLiteral("track1"),
                 QStringLiteral("artist2"), QStringLiteral("album5"), QStringLiteral("artist2"), 1, 1, QTime::fromMSecsSinceStartOfDay(19), {QUrl::fromLocalFile(QStringLiteral("/$19"))},
@@ -372,7 +372,7 @@ private Q_SLOTS:
         QCOMPARE(endInsertRowsSpy.count(), 5);
         QCOMPARE(beginRemoveRowsSpy.count(), 0);
         QCOMPARE(endRemoveRowsSpy.count(), 0);
-        QCOMPARE(dataChangedSpy.count(), 19);
+        QCOMPARE(dataChangedSpy.count(), 5);
     }
 };
 

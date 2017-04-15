@@ -283,6 +283,64 @@ void AlbumModel::setAuthor(QString author)
     emit authorChanged();
 }
 
+void AlbumModel::albumModified(MusicAlbum modifiedAlbum)
+{
+    if (modifiedAlbum.databaseId() != d->mCurrentAlbum.databaseId()) {
+        return;
+    }
+
+    auto removedTracks = QList<MusicAudioTrack>();
+
+    for (auto i = 0; i < d->mCurrentAlbum.tracksCount(); ++i) {
+        bool trackExist = false;
+
+        for (auto j = 0; j < modifiedAlbum.tracksCount() && !trackExist; ++j) {
+            trackExist = (d->mCurrentAlbum.trackIdFromIndex(i) == modifiedAlbum.trackIdFromIndex(j));
+            if (trackExist) {
+                const auto &oldTrack = d->mCurrentAlbum.trackFromIndex(i);
+                const auto &newTrack = modifiedAlbum.trackFromIndex(j);
+
+                if (oldTrack != newTrack) {
+                    trackModified(newTrack);
+                }
+            }
+        }
+
+        if (!trackExist) {
+            const auto &oldTrack = d->mCurrentAlbum.trackFromIndex(i);
+            removedTracks.push_back(oldTrack);
+        }
+    }
+
+    for (const auto &removedTrack : removedTracks) {
+        trackRemoved(removedTrack);
+    }
+
+    for (auto j = 0; j < modifiedAlbum.tracksCount(); ++j) {
+        bool trackExist = false;
+
+        for (auto i = 0; i < d->mCurrentAlbum.tracksCount() && !trackExist; ++i) {
+            trackExist = (d->mCurrentAlbum.trackIdFromIndex(i) == modifiedAlbum.trackIdFromIndex(j));
+        }
+
+        if (!trackExist) {
+            const auto &newTrack = modifiedAlbum.trackFromIndex(j);
+            trackAdded(newTrack);
+        }
+    }
+}
+
+void AlbumModel::albumRemoved(MusicAlbum modifiedAlbum)
+{
+    if (modifiedAlbum.databaseId() != d->mCurrentAlbum.databaseId()) {
+        return;
+    }
+
+    for (int trackIndex = d->mCurrentAlbum.tracksCount() - 1; trackIndex >= 0 ; --trackIndex) {
+        trackRemoved(d->mCurrentAlbum.trackFromIndex(trackIndex));
+    }
+}
+
 void AlbumModel::trackAdded(MusicAudioTrack newTrack)
 {
     if (newTrack.albumName() != d->mCurrentAlbum.title()) {

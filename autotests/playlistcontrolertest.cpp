@@ -62,7 +62,7 @@ void PlayListControlerTest::testBringUpCase()
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
-    connect(&myListener, &TracksListener::trackChanged,
+    connect(&myListener, &TracksListener::trackHasChanged,
             &myPlayList, &MediaPlayList::trackChanged,
             Qt::QueuedConnection);
     connect(&myListener, &TracksListener::albumAdded,
@@ -208,7 +208,7 @@ void PlayListControlerTest::testBringUpCaseFromNewAlbum()
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
-    connect(&myListener, &TracksListener::trackChanged,
+    connect(&myListener, &TracksListener::trackHasChanged,
             &myPlayList, &MediaPlayList::trackChanged,
             Qt::QueuedConnection);
     connect(&myListener, &TracksListener::albumAdded,
@@ -344,7 +344,7 @@ void PlayListControlerTest::testBringUpAndDownCase()
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
-    connect(&myListener, &TracksListener::trackChanged,
+    connect(&myListener, &TracksListener::trackHasChanged,
             &myPlayList, &MediaPlayList::trackChanged,
             Qt::QueuedConnection);
     connect(&myListener, &TracksListener::albumAdded,
@@ -504,7 +504,7 @@ void PlayListControlerTest::testBringUpAndRemoveCase()
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
-    connect(&myListener, &TracksListener::trackChanged,
+    connect(&myListener, &TracksListener::trackHasChanged,
             &myPlayList, &MediaPlayList::trackChanged,
             Qt::QueuedConnection);
     connect(&myListener, &TracksListener::albumAdded,
@@ -655,7 +655,7 @@ void PlayListControlerTest::testBringUpAndRemoveMultipleCase()
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
-    connect(&myListener, &TracksListener::trackChanged,
+    connect(&myListener, &TracksListener::trackHasChanged,
             &myPlayList, &MediaPlayList::trackChanged,
             Qt::QueuedConnection);
     connect(&myListener, &TracksListener::albumAdded,
@@ -817,7 +817,7 @@ void PlayListControlerTest::testBringUpAndRemoveMultipleNotBeginCase()
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
-    connect(&myListener, &TracksListener::trackChanged,
+    connect(&myListener, &TracksListener::trackHasChanged,
             &myPlayList, &MediaPlayList::trackChanged,
             Qt::QueuedConnection);
     connect(&myListener, &TracksListener::albumAdded,
@@ -1003,7 +1003,7 @@ void PlayListControlerTest::testBringUpAndPlayCase()
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
-    connect(&myListener, &TracksListener::trackChanged,
+    connect(&myListener, &TracksListener::trackHasChanged,
             &myPlayList, &MediaPlayList::trackChanged,
             Qt::QueuedConnection);
     connect(&myListener, &TracksListener::albumAdded,
@@ -1155,7 +1155,7 @@ void PlayListControlerTest::testBringUpAndSkipNextCase()
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
-    connect(&myListener, &TracksListener::trackChanged,
+    connect(&myListener, &TracksListener::trackHasChanged,
             &myPlayList, &MediaPlayList::trackChanged,
             Qt::QueuedConnection);
     connect(&myListener, &TracksListener::albumAdded,
@@ -1307,7 +1307,7 @@ void PlayListControlerTest::testBringUpAndSkipPreviousCase()
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
-    connect(&myListener, &TracksListener::trackChanged,
+    connect(&myListener, &TracksListener::trackHasChanged,
             &myPlayList, &MediaPlayList::trackChanged,
             Qt::QueuedConnection);
     connect(&myListener, &TracksListener::albumAdded,
@@ -1472,7 +1472,7 @@ void PlayListControlerTest::finishPlayList()
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
-    connect(&myListener, &TracksListener::trackChanged,
+    connect(&myListener, &TracksListener::trackHasChanged,
             &myPlayList, &MediaPlayList::trackChanged,
             Qt::QueuedConnection);
     connect(&myListener, &TracksListener::albumAdded,
@@ -1637,7 +1637,7 @@ void PlayListControlerTest::randomPlayList()
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
-    connect(&myListener, &TracksListener::trackChanged,
+    connect(&myListener, &TracksListener::trackHasChanged,
             &myPlayList, &MediaPlayList::trackChanged,
             Qt::QueuedConnection);
     connect(&myListener, &TracksListener::albumAdded,
@@ -1855,7 +1855,7 @@ void PlayListControlerTest::continuePlayList()
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
-    connect(&myListener, &TracksListener::trackChanged,
+    connect(&myListener, &TracksListener::trackHasChanged,
             &myPlayList, &MediaPlayList::trackChanged,
             Qt::QueuedConnection);
     connect(&myListener, &TracksListener::albumAdded,
@@ -2073,7 +2073,7 @@ void PlayListControlerTest::testRestoreSettings()
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
-    connect(&myListener, &TracksListener::trackChanged,
+    connect(&myListener, &TracksListener::trackHasChanged,
             &myPlayList, &MediaPlayList::trackChanged,
             Qt::QueuedConnection);
     connect(&myListener, &TracksListener::albumAdded,
@@ -2221,7 +2221,7 @@ void PlayListControlerTest::removeBeforeCurrentTrack()
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
-    connect(&myListener, &TracksListener::trackChanged,
+    connect(&myListener, &TracksListener::trackHasChanged,
             &myPlayList, &MediaPlayList::trackChanged,
             Qt::QueuedConnection);
     connect(&myListener, &TracksListener::albumAdded,
@@ -2409,7 +2409,7 @@ void PlayListControlerTest::switchToTrackTest()
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
-    connect(&myListener, &TracksListener::trackChanged,
+    connect(&myListener, &TracksListener::trackHasChanged,
             &myPlayList, &MediaPlayList::trackChanged,
             Qt::QueuedConnection);
     connect(&myListener, &TracksListener::albumAdded,
@@ -2564,7 +2564,7 @@ void PlayListControlerTest::singleTrack()
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
-    connect(&myListener, &TracksListener::trackChanged,
+    connect(&myListener, &TracksListener::trackHasChanged,
             &myPlayList, &MediaPlayList::trackChanged,
             Qt::QueuedConnection);
     connect(&myListener, &TracksListener::albumAdded,

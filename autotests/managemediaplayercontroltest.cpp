@@ -420,7 +420,7 @@ void ManageMediaPlayerControlTest::moveCurrentTrack()
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
-    connect(&myListener, &TracksListener::trackChanged,
+    connect(&myListener, &TracksListener::trackHasChanged,
             &myPlayList, &MediaPlayList::trackChanged,
             Qt::QueuedConnection);
     connect(&myListener, &TracksListener::albumAdded,
@@ -561,7 +561,7 @@ void ManageMediaPlayerControlTest::moveAnotherTrack()
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
-    connect(&myListener, &TracksListener::trackChanged,
+    connect(&myListener, &TracksListener::trackHasChanged,
             &myPlayList, &MediaPlayList::trackChanged,
             Qt::QueuedConnection);
     connect(&myListener, &TracksListener::albumAdded,
@@ -702,7 +702,7 @@ void ManageMediaPlayerControlTest::setCurrentTrackTest()
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
-    connect(&myListener, &TracksListener::trackChanged,
+    connect(&myListener, &TracksListener::trackHasChanged,
             &myPlayList, &MediaPlayList::trackChanged,
             Qt::QueuedConnection);
     connect(&myListener, &TracksListener::albumAdded,

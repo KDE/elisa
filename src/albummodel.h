@@ -121,13 +121,17 @@ public Q_SLOTS:
 
     void setAuthor(QString author);
 
+    void albumModified(MusicAlbum modifiedAlbum);
+
+    void albumRemoved(MusicAlbum modifiedAlbum);
+
+private:
+
     void trackAdded(MusicAudioTrack newTrack);
 
     void trackModified(MusicAudioTrack modifiedTrack);
 
     void trackRemoved(MusicAudioTrack removedTrack);
-
-private:
 
     QVariant internalDataTrack(const MusicAudioTrack &track, int role, int rowIndex) const;
 

@@ -37,13 +37,19 @@ public:
 
 Q_SIGNALS:
 
-    void trackChanged(MusicAudioTrack audioTrack);
+    void trackHasChanged(MusicAudioTrack audioTrack);
+
+    void trackHasBeenRemoved(MusicAudioTrack audioTrack);
 
     void albumAdded(const QList<MusicAudioTrack> &tracks);
 
 public Q_SLOTS:
 
-    void trackAdded(MusicAudioTrack newTrack);
+    void trackAdded(qulonglong id);
+
+    void trackRemoved(qulonglong id);
+
+    void trackModified(qulonglong id);
 
     void trackByNameInList(QString title, QString artist, QString album);
 

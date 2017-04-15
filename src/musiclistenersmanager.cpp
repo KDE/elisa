@@ -122,15 +122,15 @@ void MusicListenersManager::subscribeForTracks(MediaPlayList *client)
 
     helper->moveToThread(&d->mDatabaseThread);
 
-    connect(this, &MusicListenersManager::trackRemoved, client, &MediaPlayList::trackRemoved);
-    connect(this, &MusicListenersManager::trackAdded, client, &MediaPlayList::trackChanged);
-    connect(this, &MusicListenersManager::trackModified, client, &MediaPlayList::trackChanged);
-    connect(helper, &TracksListener::trackChanged, client, &MediaPlayList::trackChanged);
+    connect(this, &MusicListenersManager::trackRemoved, helper, &TracksListener::trackRemoved);
+    connect(this, &MusicListenersManager::trackAdded, helper, &TracksListener::trackAdded);
+    connect(this, &MusicListenersManager::trackModified, helper, &TracksListener::trackModified);
+    connect(helper, &TracksListener::trackHasChanged, client, &MediaPlayList::trackChanged);
+    connect(helper, &TracksListener::trackHasBeenRemoved, client, &MediaPlayList::trackRemoved);
     connect(helper, &TracksListener::albumAdded, client, &MediaPlayList::albumAdded);
     connect(client, &MediaPlayList::newTrackByIdInList, helper, &TracksListener::trackByIdInList);
     connect(client, &MediaPlayList::newTrackByNameInList, helper, &TracksListener::trackByNameInList);
     connect(client, &MediaPlayList::newArtistInList, helper, &TracksListener::newArtistInList);
-    connect(&d->mDatabaseInterface, &DatabaseInterface::trackAdded, helper, &TracksListener::trackAdded);
 }
 
 void MusicListenersManager::databaseReady()

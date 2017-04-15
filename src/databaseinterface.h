@@ -78,23 +78,21 @@ Q_SIGNALS:
 
     void albumAdded(MusicAlbum newAlbum);
 
-    void trackAdded(MusicAudioTrack newTrack);
+    void trackAdded(qulonglong id);
 
     void artistRemoved(MusicArtist removedArtist);
 
     void albumRemoved(MusicAlbum removedAlbum);
 
-    void trackRemoved(MusicAudioTrack removedTrack);
+    void trackRemoved(qulonglong id);
 
     void artistModified(MusicArtist modifiedArtist);
 
     void albumModified(MusicAlbum modifiedAlbum);
 
-    void trackModified(MusicAudioTrack modifiedTrack);
+    void trackModified(qulonglong id);
 
     void requestsInitDone();
-
-    void newTrackFile(MusicAudioTrack newTrack);
 
 public Q_SLOTS:
 
@@ -114,13 +112,15 @@ private:
 
     QList<MusicAudioTrack> fetchTracks(qulonglong albumId);
 
-    void updateTracksCount(qulonglong albumId);
+    bool updateTracksCount(qulonglong albumId);
 
     MusicArtist internalArtistFromId(qulonglong artistId) const;
 
     MusicAlbum internalAlbumFromId(qulonglong albumId);
 
     MusicAlbum internalAlbumFromTitle(QString title);
+
+    qulonglong internalAlbumIdFromTitle(QString title);
 
     MusicAudioTrack internalTrackFromDatabaseId(qulonglong id);
 
@@ -160,7 +160,7 @@ private:
 
     int computeTrackPriority(qulonglong trackId, QUrl fileName);
 
-    void internalInsertTrack(const MusicAudioTrack &oneModifiedTrack, const QHash<QString, QUrl> &covers, int originTrackId);
+    void internalInsertTrack(const MusicAudioTrack &oneModifiedTrack, const QHash<QString, QUrl> &covers, int originTrackId, QSet<qulonglong> &modifiedAlbumIds);
 
     DatabaseInterfacePrivate *d;
 

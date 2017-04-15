@@ -57,19 +57,19 @@ Q_SIGNALS:
 
     void albumAdded(MusicAlbum newAlbum);
 
-    void trackAdded(MusicAudioTrack newTrack);
+    void trackAdded(qulonglong id);
 
     void artistRemoved(MusicArtist removedArtist);
 
     void albumRemoved(MusicAlbum removedAlbum);
 
-    void trackRemoved(MusicAudioTrack removedTrack);
+    void trackRemoved(qulonglong id);
 
     void artistModified(MusicArtist modifiedArtist);
 
     void albumModified(MusicAlbum modifiedAlbum);
 
-    void trackModified(MusicAudioTrack modifiedTrack);
+    void trackModified(qulonglong id);
 
     void applicationIsTerminating();
 

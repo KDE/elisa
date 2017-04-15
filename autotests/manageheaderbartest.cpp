@@ -1595,7 +1595,7 @@ void ManageHeaderBarTest::moveCurrentTrack()
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
-    connect(&myListener, &TracksListener::trackChanged,
+    connect(&myListener, &TracksListener::trackHasChanged,
             &myPlayList, &MediaPlayList::trackChanged);
     connect(&myPlayList, &MediaPlayList::newTrackByIdInList,
             &myListener, &TracksListener::trackByIdInList);
@@ -1851,7 +1851,7 @@ void ManageHeaderBarTest::moveAnotherTrack()
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
-    connect(&myListener, &TracksListener::trackChanged,
+    connect(&myListener, &TracksListener::trackHasChanged,
             &myPlayList, &MediaPlayList::trackChanged);
     connect(&myPlayList, &MediaPlayList::newTrackByIdInList,
             &myListener, &TracksListener::trackByIdInList);
@@ -2112,7 +2112,7 @@ void ManageHeaderBarTest::setCurrentTrackTest()
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
-    connect(&myListener, &TracksListener::trackChanged,
+    connect(&myListener, &TracksListener::trackHasChanged,
             &myPlayList, &MediaPlayList::trackChanged);
     connect(&myPlayList, &MediaPlayList::newTrackByIdInList,
             &myListener, &TracksListener::trackByIdInList);
@@ -2371,7 +2371,7 @@ void ManageHeaderBarTest::setPlayListModelTest()
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
-    connect(&myListener, &TracksListener::trackChanged,
+    connect(&myListener, &TracksListener::trackHasChanged,
             &myPlayList, &MediaPlayList::trackChanged);
     connect(&myPlayList, &MediaPlayList::newTrackByIdInList,
             &myListener, &TracksListener::trackByIdInList);

@@ -204,6 +204,11 @@ MusicAudioTrack MusicAlbum::trackFromIndex(int index) const
     return d->mTracks[index];
 }
 
+qulonglong MusicAlbum::trackIdFromIndex(int index) const
+{
+    return d->mTracks[index].databaseId();
+}
+
 int MusicAlbum::trackIndexFromId(qulonglong id) const
 {
     int result = -1;

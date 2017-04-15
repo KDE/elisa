@@ -37,44 +37,6 @@
 
 #include <QtTest>
 
-class DatabaseMetadataFetcher : public QObject
-{
-    Q_OBJECT
-
-public:
-
-    explicit DatabaseMetadataFetcher(const QList<MusicAudioTrack> &newTracks,
-                                     QHash<QString, QUrl> newCovers,
-                                     QObject *parent = nullptr) : QObject(parent), mNewTracks(newTracks), mNewCovers(newCovers)
-    {
-    }
-
-Q_SIGNALS:
-
-    void modifyTracksList(const QList<MusicAudioTrack> &modifiedTracks, const QHash<QString, QUrl> &covers);
-
-public Q_SLOTS:
-
-    void newTrackFile(MusicAudioTrack newTrack)
-    {
-        for (const auto &oneTrack : mNewTracks) {
-            if (oneTrack.resourceURI() == newTrack.resourceURI()) {
-                if (oneTrack != newTrack) {
-                    Q_EMIT modifyTracksList({oneTrack}, mNewCovers);
-                }
-                break;
-            }
-        }
-    }
-
-private:
-
-    QList<MusicAudioTrack> mNewTracks;
-
-    QHash<QString, QUrl> mNewCovers;
-
-};
-
 class DatabaseInterfaceTests: public QObject
 {
     Q_OBJECT
@@ -194,12 +156,7 @@ private Q_SLOTS:
 
         DatabaseInterface musicDb;
 
-        DatabaseMetadataFetcher metadataFetcher(mNewTracks, mNewCovers);
-
         QSignalSpy musicDbTrackAddedSpy(&musicDb, &DatabaseInterface::trackAdded);
-
-        connect(&musicDb, &DatabaseInterface::newTrackFile, &metadataFetcher, &DatabaseMetadataFetcher::newTrackFile, Qt::QueuedConnection);
-        connect(&metadataFetcher, &DatabaseMetadataFetcher::modifyTracksList, &musicDb, &DatabaseInterface::modifyTracksList, Qt::QueuedConnection);
 
         musicDb.init(QStringLiteral("testDb"));
 
@@ -241,12 +198,7 @@ private Q_SLOTS:
         {
             DatabaseInterface musicDb;
 
-            DatabaseMetadataFetcher metadataFetcher(mNewTracks, mNewCovers);
-
             QSignalSpy musicDbTrackAddedSpy(&musicDb, &DatabaseInterface::trackAdded);
-
-            connect(&musicDb, &DatabaseInterface::newTrackFile, &metadataFetcher, &DatabaseMetadataFetcher::newTrackFile, Qt::QueuedConnection);
-            connect(&metadataFetcher, &DatabaseMetadataFetcher::modifyTracksList, &musicDb, &DatabaseInterface::modifyTracksList, Qt::QueuedConnection);
 
             musicDb.init(QStringLiteral("testDb1"), myTempDatabase.fileName());
 
@@ -269,12 +221,7 @@ private Q_SLOTS:
         {
             DatabaseInterface musicDb;
 
-            DatabaseMetadataFetcher metadataFetcher(mNewTracks, mNewCovers);
-
             QSignalSpy musicDbTrackAddedSpy(&musicDb, &DatabaseInterface::trackAdded);
-
-            connect(&musicDb, &DatabaseInterface::newTrackFile, &metadataFetcher, &DatabaseMetadataFetcher::newTrackFile, Qt::QueuedConnection);
-            connect(&metadataFetcher, &DatabaseMetadataFetcher::modifyTracksList, &musicDb, &DatabaseInterface::modifyTracksList, Qt::QueuedConnection);
 
             musicDb.init(QStringLiteral("testDb2"), myTempDatabase.fileName());
 
@@ -308,12 +255,7 @@ private Q_SLOTS:
                                     QStringLiteral("artist2"), QStringLiteral("album3"), QStringLiteral("artist2"), 6, 1, QTime::fromMSecsSinceStartOfDay(19),
                                     {QUrl::fromLocalFile(QStringLiteral("/$19"))}, {QUrl::fromLocalFile(QStringLiteral("album3"))}, 5});
 
-            DatabaseMetadataFetcher metadataFetcher(allNewTracks, mNewCovers);
-
             QSignalSpy musicDbTrackAddedSpy(&musicDb, &DatabaseInterface::trackAdded);
-
-            connect(&musicDb, &DatabaseInterface::newTrackFile, &metadataFetcher, &DatabaseMetadataFetcher::newTrackFile, Qt::QueuedConnection);
-            connect(&metadataFetcher, &DatabaseMetadataFetcher::modifyTracksList, &musicDb, &DatabaseInterface::modifyTracksList, Qt::QueuedConnection);
 
             musicDb.init(QStringLiteral("testDb1"), myTempDatabase.fileName());
 
@@ -353,12 +295,7 @@ private Q_SLOTS:
                                     QStringLiteral("artist2"), QStringLiteral("album3"), QStringLiteral("artist2"), 6, 1, QTime::fromMSecsSinceStartOfDay(19),
                                     {QUrl::fromLocalFile(QStringLiteral("/$19"))}, {QUrl::fromLocalFile(QStringLiteral("album3"))}, 3});
 
-            DatabaseMetadataFetcher metadataFetcher(allNewTracks, mNewCovers);
-
             QSignalSpy musicDbTrackAddedSpy(&musicDb, &DatabaseInterface::trackAdded);
-
-            connect(&musicDb, &DatabaseInterface::newTrackFile, &metadataFetcher, &DatabaseMetadataFetcher::newTrackFile, Qt::QueuedConnection);
-            connect(&metadataFetcher, &DatabaseMetadataFetcher::modifyTracksList, &musicDb, &DatabaseInterface::modifyTracksList, Qt::QueuedConnection);
 
             musicDb.init(QStringLiteral("testDb2"), myTempDatabase.fileName());
 
@@ -413,12 +350,7 @@ private Q_SLOTS:
 
         DatabaseInterface musicDb;
 
-        DatabaseMetadataFetcher metadataFetcher(mNewTracks, mNewCovers);
-
         QSignalSpy musicDbTrackAddedSpy(&musicDb, &DatabaseInterface::trackAdded);
-
-        connect(&musicDb, &DatabaseInterface::newTrackFile, &metadataFetcher, &DatabaseMetadataFetcher::newTrackFile, Qt::QueuedConnection);
-        connect(&metadataFetcher, &DatabaseMetadataFetcher::modifyTracksList, &musicDb, &DatabaseInterface::modifyTracksList, Qt::QueuedConnection);
 
         musicDb.init(QStringLiteral("testDb"));
 
@@ -513,11 +445,6 @@ private Q_SLOTS:
         }
 
         DatabaseInterface musicDb;
-
-        DatabaseMetadataFetcher metadataFetcher(mNewTracks, mNewCovers);
-
-        connect(&musicDb, &DatabaseInterface::newTrackFile, &metadataFetcher, &DatabaseMetadataFetcher::newTrackFile, Qt::QueuedConnection);
-        connect(&metadataFetcher, &DatabaseMetadataFetcher::modifyTracksList, &musicDb, &DatabaseInterface::modifyTracksList, Qt::QueuedConnection);
 
         musicDb.init(QStringLiteral("testDbVariousArtistAlbum"));
 
@@ -698,11 +625,6 @@ private Q_SLOTS:
     {
         DatabaseInterface musicDb;
 
-        DatabaseMetadataFetcher metadataFetcher(mNewTracks, mNewCovers);
-
-        connect(&musicDb, &DatabaseInterface::newTrackFile, &metadataFetcher, &DatabaseMetadataFetcher::newTrackFile, Qt::QueuedConnection);
-        connect(&metadataFetcher, &DatabaseMetadataFetcher::modifyTracksList, &musicDb, &DatabaseInterface::modifyTracksList, Qt::QueuedConnection);
-
         musicDb.init(QStringLiteral("testDbVariousArtistAlbum"));
 
         QSignalSpy musicDbArtistAddedSpy(&musicDb, &DatabaseInterface::artistAdded);
@@ -758,11 +680,6 @@ private Q_SLOTS:
 
         {
             DatabaseInterface musicDb;
-
-            DatabaseMetadataFetcher metadataFetcher(mNewTracks, mNewCovers);
-
-            connect(&musicDb, &DatabaseInterface::newTrackFile, &metadataFetcher, &DatabaseMetadataFetcher::newTrackFile, Qt::QueuedConnection);
-            connect(&metadataFetcher, &DatabaseMetadataFetcher::modifyTracksList, &musicDb, &DatabaseInterface::modifyTracksList, Qt::QueuedConnection);
 
             QSignalSpy musicDbArtistAddedSpy(&musicDb, &DatabaseInterface::artistAdded);
             QSignalSpy musicDbAlbumAddedSpy(&musicDb, &DatabaseInterface::albumAdded);
@@ -948,11 +865,6 @@ private Q_SLOTS:
 
         {
             DatabaseInterface musicDb;
-
-            DatabaseMetadataFetcher metadataFetcher(mNewTracks, mNewCovers);
-
-            connect(&musicDb, &DatabaseInterface::newTrackFile, &metadataFetcher, &DatabaseMetadataFetcher::newTrackFile, Qt::QueuedConnection);
-            connect(&metadataFetcher, &DatabaseMetadataFetcher::modifyTracksList, &musicDb, &DatabaseInterface::modifyTracksList, Qt::QueuedConnection);
 
             QSignalSpy musicDbArtistAddedSpy(&musicDb, &DatabaseInterface::artistAdded);
             QSignalSpy musicDbAlbumAddedSpy(&musicDb, &DatabaseInterface::albumAdded);
@@ -1171,11 +1083,6 @@ private Q_SLOTS:
 
         DatabaseInterface musicDb;
 
-        DatabaseMetadataFetcher metadataFetcher(mNewTracks, mNewCovers);
-
-        connect(&musicDb, &DatabaseInterface::newTrackFile, &metadataFetcher, &DatabaseMetadataFetcher::newTrackFile, Qt::QueuedConnection);
-        connect(&metadataFetcher, &DatabaseMetadataFetcher::modifyTracksList, &musicDb, &DatabaseInterface::modifyTracksList, Qt::QueuedConnection);
-
         musicDb.init(QStringLiteral("testDbVariousArtistAlbum"));
 
         QSignalSpy musicDbArtistAddedSpy(&musicDb, &DatabaseInterface::artistAdded);
@@ -1222,11 +1129,6 @@ private Q_SLOTS:
 
         DatabaseInterface musicDb;
 
-        DatabaseMetadataFetcher metadataFetcher(mNewTracks, mNewCovers);
-
-        connect(&musicDb, &DatabaseInterface::newTrackFile, &metadataFetcher, &DatabaseMetadataFetcher::newTrackFile, Qt::QueuedConnection);
-        connect(&metadataFetcher, &DatabaseMetadataFetcher::modifyTracksList, &musicDb, &DatabaseInterface::modifyTracksList, Qt::QueuedConnection);
-
         musicDb.init(QStringLiteral("testDb"));
 
         QSignalSpy musicDbArtistAddedSpy(&musicDb, &DatabaseInterface::artistAdded);
@@ -1269,7 +1171,7 @@ private Q_SLOTS:
         QCOMPARE(musicDbAlbumRemovedSpy.count(), 0);
         QCOMPARE(musicDbTrackRemovedSpy.count(), 0);
         QCOMPARE(musicDbArtistModifiedSpy.count(), 0);
-        QCOMPARE(musicDbAlbumModifiedSpy.count(), 14);
+        QCOMPARE(musicDbAlbumModifiedSpy.count(), 3);
         QCOMPARE(musicDbTrackModifiedSpy.count(), 1);
 
         auto allAlbums = musicDb.allAlbums();
@@ -1302,8 +1204,27 @@ private Q_SLOTS:
         QCOMPARE(musicDbAlbumRemovedSpy.count(), 0);
         QCOMPARE(musicDbTrackRemovedSpy.count(), 1);
         QCOMPARE(musicDbArtistModifiedSpy.count(), 0);
-        QCOMPARE(musicDbAlbumModifiedSpy.count(), 15);
+        QCOMPARE(musicDbAlbumModifiedSpy.count(), 4);
         QCOMPARE(musicDbTrackModifiedSpy.count(), 1);
+
+        auto allAlbumsV2 = musicDb.allAlbums();
+        const auto &firstAlbum = allAlbumsV2[0];
+
+        QCOMPARE(musicDb.allAlbums().isEmpty(), false);
+        QCOMPARE(firstAlbum.isValid(), true);
+
+        auto firstAlbumTitleV2 = firstAlbum.title();
+        auto firstAlbumArtistV2 = firstAlbum.artist();
+        auto firstAlbumImageV2 = firstAlbum.albumArtURI();
+        auto firstAlbumTracksCountV2 = firstAlbum.tracksCount();
+        auto firstAlbumIsSingleDiscAlbumV2 = firstAlbum.isSingleDiscAlbum();
+
+        QCOMPARE(firstAlbumTitleV2, QStringLiteral("album1"));
+        QCOMPARE(firstAlbumArtistV2, QStringLiteral("Various Artists"));
+        QCOMPARE(firstAlbumImageV2.isValid(), true);
+        QCOMPARE(firstAlbumImageV2, QUrl::fromLocalFile(QStringLiteral("album1")));
+        QCOMPARE(firstAlbumTracksCountV2, 3);
+        QCOMPARE(firstAlbumIsSingleDiscAlbumV2, false);
 
         auto removedTrackId = musicDb.trackIdFromTitleAlbumArtist(QStringLiteral("track1"), QStringLiteral("album1"), QStringLiteral("artist1"));
         QCOMPARE(removedTrackId, qulonglong(0));
@@ -1323,11 +1244,6 @@ private Q_SLOTS:
         }
 
         DatabaseInterface musicDb;
-
-        DatabaseMetadataFetcher metadataFetcher(mNewTracks, mNewCovers);
-
-        connect(&musicDb, &DatabaseInterface::newTrackFile, &metadataFetcher, &DatabaseMetadataFetcher::newTrackFile, Qt::QueuedConnection);
-        connect(&metadataFetcher, &DatabaseMetadataFetcher::modifyTracksList, &musicDb, &DatabaseInterface::modifyTracksList, Qt::QueuedConnection);
 
         musicDb.init(QStringLiteral("testDb"));
 
@@ -1371,7 +1287,7 @@ private Q_SLOTS:
         QCOMPARE(musicDbAlbumRemovedSpy.count(), 0);
         QCOMPARE(musicDbTrackRemovedSpy.count(), 0);
         QCOMPARE(musicDbArtistModifiedSpy.count(), 0);
-        QCOMPARE(musicDbAlbumModifiedSpy.count(), 14);
+        QCOMPARE(musicDbAlbumModifiedSpy.count(), 3);
         QCOMPARE(musicDbTrackModifiedSpy.count(), 1);
 
         auto allAlbums = musicDb.allAlbums();
@@ -1409,7 +1325,7 @@ private Q_SLOTS:
         QCOMPARE(musicDbAlbumRemovedSpy.count(), 1);
         QCOMPARE(musicDbTrackRemovedSpy.count(), 4);
         QCOMPARE(musicDbArtistModifiedSpy.count(), 0);
-        QCOMPARE(musicDbAlbumModifiedSpy.count(), 18);
+        QCOMPARE(musicDbAlbumModifiedSpy.count(), 3);
         QCOMPARE(musicDbTrackModifiedSpy.count(), 1);
 
         auto removedAlbum = musicDb.albumFromTitle(QStringLiteral("album1"));
@@ -1431,11 +1347,6 @@ private Q_SLOTS:
         }
 
         DatabaseInterface musicDb;
-
-        DatabaseMetadataFetcher metadataFetcher(mNewTracks, mNewCovers);
-
-        connect(&musicDb, &DatabaseInterface::newTrackFile, &metadataFetcher, &DatabaseMetadataFetcher::newTrackFile, Qt::QueuedConnection);
-        connect(&metadataFetcher, &DatabaseMetadataFetcher::modifyTracksList, &musicDb, &DatabaseInterface::modifyTracksList, Qt::QueuedConnection);
 
         musicDb.init(QStringLiteral("testDb"));
 
@@ -1479,7 +1390,7 @@ private Q_SLOTS:
         QCOMPARE(musicDbAlbumRemovedSpy.count(), 0);
         QCOMPARE(musicDbTrackRemovedSpy.count(), 0);
         QCOMPARE(musicDbArtistModifiedSpy.count(), 0);
-        QCOMPARE(musicDbAlbumModifiedSpy.count(), 14);
+        QCOMPARE(musicDbAlbumModifiedSpy.count(), 3);
         QCOMPARE(musicDbTrackModifiedSpy.count(), 1);
 
         auto allAlbums = musicDb.allAlbums();
@@ -1511,7 +1422,7 @@ private Q_SLOTS:
         QCOMPARE(musicDbAlbumRemovedSpy.count(), 0);
         QCOMPARE(musicDbTrackRemovedSpy.count(), 1);
         QCOMPARE(musicDbArtistModifiedSpy.count(), 0);
-        QCOMPARE(musicDbAlbumModifiedSpy.count(), 15);
+        QCOMPARE(musicDbAlbumModifiedSpy.count(), 4);
         QCOMPARE(musicDbTrackModifiedSpy.count(), 1);
     }
     void addOneTrack()
@@ -1528,11 +1439,6 @@ private Q_SLOTS:
         }
 
         DatabaseInterface musicDb;
-
-        DatabaseMetadataFetcher metadataFetcher(mNewTracks, mNewCovers);
-
-        connect(&musicDb, &DatabaseInterface::newTrackFile, &metadataFetcher, &DatabaseMetadataFetcher::newTrackFile, Qt::QueuedConnection);
-        connect(&metadataFetcher, &DatabaseMetadataFetcher::modifyTracksList, &musicDb, &DatabaseInterface::modifyTracksList, Qt::QueuedConnection);
 
         musicDb.init(QStringLiteral("testDb"));
 
@@ -1576,7 +1482,7 @@ private Q_SLOTS:
         QCOMPARE(musicDbAlbumRemovedSpy.count(), 0);
         QCOMPARE(musicDbTrackRemovedSpy.count(), 0);
         QCOMPARE(musicDbArtistModifiedSpy.count(), 0);
-        QCOMPARE(musicDbAlbumModifiedSpy.count(), 14);
+        QCOMPARE(musicDbAlbumModifiedSpy.count(), 3);
         QCOMPARE(musicDbTrackModifiedSpy.count(), 1);
 
         auto newTrack = MusicAudioTrack{true, QStringLiteral("$19"), QStringLiteral("0"), QStringLiteral("track6"),
@@ -1598,7 +1504,7 @@ private Q_SLOTS:
         QCOMPARE(musicDbAlbumRemovedSpy.count(), 0);
         QCOMPARE(musicDbTrackRemovedSpy.count(), 0);
         QCOMPARE(musicDbArtistModifiedSpy.count(), 0);
-        QCOMPARE(musicDbAlbumModifiedSpy.count(), 15);
+        QCOMPARE(musicDbAlbumModifiedSpy.count(), 4);
         QCOMPARE(musicDbTrackModifiedSpy.count(), 1);
     }
 
@@ -1617,11 +1523,6 @@ private Q_SLOTS:
         }
 
         DatabaseInterface musicDb;
-
-        DatabaseMetadataFetcher metadataFetcher(mNewTracks, mNewCovers);
-
-        connect(&musicDb, &DatabaseInterface::newTrackFile, &metadataFetcher, &DatabaseMetadataFetcher::newTrackFile, Qt::QueuedConnection);
-        connect(&metadataFetcher, &DatabaseMetadataFetcher::modifyTracksList, &musicDb, &DatabaseInterface::modifyTracksList, Qt::QueuedConnection);
 
         musicDb.init(QStringLiteral("testDb"));
 
@@ -1665,7 +1566,7 @@ private Q_SLOTS:
         QCOMPARE(musicDbAlbumRemovedSpy.count(), 0);
         QCOMPARE(musicDbTrackRemovedSpy.count(), 0);
         QCOMPARE(musicDbArtistModifiedSpy.count(), 0);
-        QCOMPARE(musicDbAlbumModifiedSpy.count(), 14);
+        QCOMPARE(musicDbAlbumModifiedSpy.count(), 3);
         QCOMPARE(musicDbTrackModifiedSpy.count(), 1);
 
         auto modifiedTrack = MusicAudioTrack{true, QStringLiteral("$3"), QStringLiteral("0"), QStringLiteral("track3"),
@@ -1683,7 +1584,7 @@ private Q_SLOTS:
         QCOMPARE(musicDbAlbumRemovedSpy.count(), 0);
         QCOMPARE(musicDbTrackRemovedSpy.count(), 0);
         QCOMPARE(musicDbArtistModifiedSpy.count(), 0);
-        QCOMPARE(musicDbAlbumModifiedSpy.count(), 15);
+        QCOMPARE(musicDbAlbumModifiedSpy.count(), 4);
         QCOMPARE(musicDbTrackModifiedSpy.count(), 2);
 
         auto trackId = musicDb.trackIdFromTitleAlbumArtist(QStringLiteral("track3"), QStringLiteral("album1"), QStringLiteral("artist3"));
@@ -1709,11 +1610,6 @@ private Q_SLOTS:
 
         DatabaseInterface musicDb;
 
-        DatabaseMetadataFetcher metadataFetcher(mNewTracks, mNewCovers);
-
-        connect(&musicDb, &DatabaseInterface::newTrackFile, &metadataFetcher, &DatabaseMetadataFetcher::newTrackFile, Qt::QueuedConnection);
-        connect(&metadataFetcher, &DatabaseMetadataFetcher::modifyTracksList, &musicDb, &DatabaseInterface::modifyTracksList, Qt::QueuedConnection);
-
         musicDb.init(QStringLiteral("testDb"));
 
         QSignalSpy musicDbArtistAddedSpy(&musicDb, &DatabaseInterface::artistAdded);
@@ -1756,7 +1652,7 @@ private Q_SLOTS:
         QCOMPARE(musicDbAlbumRemovedSpy.count(), 0);
         QCOMPARE(musicDbTrackRemovedSpy.count(), 0);
         QCOMPARE(musicDbArtistModifiedSpy.count(), 0);
-        QCOMPARE(musicDbAlbumModifiedSpy.count(), 14);
+        QCOMPARE(musicDbAlbumModifiedSpy.count(), 3);
         QCOMPARE(musicDbTrackModifiedSpy.count(), 1);
 
         auto newTrack = MusicAudioTrack{true, QStringLiteral("$19"), QStringLiteral("0"), QStringLiteral("track1"),
@@ -1782,7 +1678,7 @@ private Q_SLOTS:
         QCOMPARE(musicDbAlbumRemovedSpy.count(), 0);
         QCOMPARE(musicDbTrackRemovedSpy.count(), 0);
         QCOMPARE(musicDbArtistModifiedSpy.count(), 0);
-        QCOMPARE(musicDbAlbumModifiedSpy.count(), 15);
+        QCOMPARE(musicDbAlbumModifiedSpy.count(), 4);
         QCOMPARE(musicDbTrackModifiedSpy.count(), 1);
     }
 
@@ -1800,11 +1696,6 @@ private Q_SLOTS:
         }
 
         DatabaseInterface musicDb;
-
-        DatabaseMetadataFetcher metadataFetcher(mNewTracks, mNewCovers);
-
-        connect(&musicDb, &DatabaseInterface::newTrackFile, &metadataFetcher, &DatabaseMetadataFetcher::newTrackFile, Qt::QueuedConnection);
-        connect(&metadataFetcher, &DatabaseMetadataFetcher::modifyTracksList, &musicDb, &DatabaseInterface::modifyTracksList, Qt::QueuedConnection);
 
         musicDb.init(QStringLiteral("testDb"));
 
@@ -1848,7 +1739,7 @@ private Q_SLOTS:
         QCOMPARE(musicDbAlbumRemovedSpy.count(), 0);
         QCOMPARE(musicDbTrackRemovedSpy.count(), 0);
         QCOMPARE(musicDbArtistModifiedSpy.count(), 0);
-        QCOMPARE(musicDbAlbumModifiedSpy.count(), 14);
+        QCOMPARE(musicDbAlbumModifiedSpy.count(), 3);
         QCOMPARE(musicDbTrackModifiedSpy.count(), 1);
 
         auto newTrack = MusicAudioTrack{true, QStringLiteral("$19"), QStringLiteral("0"), QStringLiteral("track6"),
@@ -1875,7 +1766,7 @@ private Q_SLOTS:
         QCOMPARE(musicDbAlbumRemovedSpy.count(), 0);
         QCOMPARE(musicDbTrackRemovedSpy.count(), 0);
         QCOMPARE(musicDbArtistModifiedSpy.count(), 0);
-        QCOMPARE(musicDbAlbumModifiedSpy.count(), 15);
+        QCOMPARE(musicDbAlbumModifiedSpy.count(), 4);
         QCOMPARE(musicDbTrackModifiedSpy.count(), 1);
     }
 };

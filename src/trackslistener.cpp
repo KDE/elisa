@@ -99,7 +99,7 @@ void TracksListener::trackModified(qulonglong id)
 
 void TracksListener::trackByNameInList(QString title, QString artist, QString album)
 {
-    d->mTracksByNameSet.push_back({title, artist, album});
+    d->mTracksByNameSet.push_back({{title, artist, album}});
 
     auto newTrackId = d->mDatabase->trackIdFromTitleAlbumArtist(title, album, artist);
     if (newTrackId == 0) {

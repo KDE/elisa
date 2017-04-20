@@ -355,7 +355,8 @@ private Q_SLOTS:
         musicDb.init(QStringLiteral("testDb"));
 
         auto newFiles = QList<QUrl>();
-        for (const auto &oneTrack : mNewTracks) {
+        const auto &constNewTracks = mNewTracks;
+        for (const auto &oneTrack : constNewTracks) {
             newFiles.push_back(oneTrack.resourceURI());
         }
 
@@ -453,7 +454,8 @@ private Q_SLOTS:
         QSignalSpy musicDbTrackAddedSpy(&musicDb, &DatabaseInterface::trackAdded);
 
         auto newFiles = QList<QUrl>();
-        for (const auto &oneTrack : mNewTracks) {
+        const auto &constNewTracks = mNewTracks;
+        for (const auto &oneTrack : constNewTracks) {
             newFiles.push_back(oneTrack.resourceURI());
         }
 
@@ -632,7 +634,8 @@ private Q_SLOTS:
         QSignalSpy musicDbTrackAddedSpy(&musicDb, &DatabaseInterface::trackAdded);
 
         auto newFiles = QList<QUrl>();
-        for (const auto &oneTrack : mNewTracks) {
+        const auto &constNewTracks = mNewTracks;
+        for (const auto &oneTrack : constNewTracks) {
             newFiles.push_back(oneTrack.resourceURI());
         }
 
@@ -698,7 +701,8 @@ private Q_SLOTS:
             QCOMPARE(musicDbTrackAddedSpy.count(), 0);
 
             auto newFiles = QList<QUrl>();
-            for (const auto &oneTrack : mNewTracks) {
+            const auto &constNewTracks = mNewTracks;
+            for (const auto &oneTrack : constNewTracks) {
                 newFiles.push_back(oneTrack.resourceURI());
             }
 
@@ -883,7 +887,8 @@ private Q_SLOTS:
             QCOMPARE(musicDbTrackAddedSpy.count(), 13);
 
             auto newFiles = QList<QUrl>();
-            for (const auto &oneTrack : mNewTracks) {
+            const auto &constNewTracks = mNewTracks;
+            for (const auto &oneTrack : constNewTracks) {
                 newFiles.push_back(oneTrack.resourceURI());
             }
 
@@ -1090,7 +1095,8 @@ private Q_SLOTS:
         QSignalSpy musicDbTrackAddedSpy(&musicDb, &DatabaseInterface::trackAdded);
 
         auto newFiles = QList<QUrl>();
-        for (const auto &oneTrack : mNewTracks) {
+        const auto &constNewTracks = mNewTracks;
+        for (const auto &oneTrack : constNewTracks) {
             newFiles.push_back(oneTrack.resourceURI());
         }
 
@@ -1154,7 +1160,8 @@ private Q_SLOTS:
         QCOMPARE(musicDbTrackModifiedSpy.count(), 0);
 
         auto newFiles = QList<QUrl>();
-        for (const auto &oneTrack : mNewTracks) {
+        const auto &constNewTracks = mNewTracks;
+        for (const auto &oneTrack : constNewTracks) {
             newFiles.push_back(oneTrack.resourceURI());
         }
 
@@ -1270,7 +1277,8 @@ private Q_SLOTS:
         QCOMPARE(musicDbTrackModifiedSpy.count(), 0);
 
         auto newFiles = QList<QUrl>();
-        for (const auto &oneTrack : mNewTracks) {
+        const auto &constNewTracks = mNewTracks;
+        for (const auto &oneTrack : constNewTracks) {
             newFiles.push_back(oneTrack.resourceURI());
         }
 
@@ -1373,7 +1381,8 @@ private Q_SLOTS:
         QCOMPARE(musicDbTrackModifiedSpy.count(), 0);
 
         auto newFiles = QList<QUrl>();
-        for (const auto &oneTrack : mNewTracks) {
+        const auto &constNewTracks = mNewTracks;
+        for (const auto &oneTrack : constNewTracks) {
             newFiles.push_back(oneTrack.resourceURI());
         }
 
@@ -1465,7 +1474,8 @@ private Q_SLOTS:
         QCOMPARE(musicDbTrackModifiedSpy.count(), 0);
 
         auto newFiles = QList<QUrl>();
-        for (const auto &oneTrack : mNewTracks) {
+        const auto &constNewTracks = mNewTracks;
+        for (const auto &oneTrack : constNewTracks) {
             newFiles.push_back(oneTrack.resourceURI());
         }
 
@@ -1549,7 +1559,8 @@ private Q_SLOTS:
         QCOMPARE(musicDbTrackModifiedSpy.count(), 0);
 
         auto newFiles = QList<QUrl>();
-        for (const auto &oneTrack : mNewTracks) {
+        const auto &constNewTracks = mNewTracks;
+        for (const auto &oneTrack : constNewTracks) {
             newFiles.push_back(oneTrack.resourceURI());
         }
 
@@ -1635,7 +1646,8 @@ private Q_SLOTS:
         QCOMPARE(musicDbTrackModifiedSpy.count(), 0);
 
         auto newFiles = QList<QUrl>();
-        for (const auto &oneTrack : mNewTracks) {
+        const auto &constNewTracks = mNewTracks;
+        for (const auto &oneTrack : constNewTracks) {
             newFiles.push_back(oneTrack.resourceURI());
         }
 
@@ -1722,7 +1734,8 @@ private Q_SLOTS:
         QCOMPARE(musicDbTrackModifiedSpy.count(), 0);
 
         auto newFiles = QList<QUrl>();
-        for (const auto &oneTrack : mNewTracks) {
+        const auto &constNewTracks = mNewTracks;
+        for (const auto &oneTrack : constNewTracks) {
             newFiles.push_back(oneTrack.resourceURI());
         }
 

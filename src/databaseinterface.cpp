@@ -428,8 +428,6 @@ QList<MusicArtist> DatabaseInterface::allArtists() const
         return result;
     }
 
-    QString currentFilter(QStringLiteral("%%1%"));
-
     auto queryResult = d->mSelectAllArtistsQuery.exec();
 
     if (!queryResult || !d->mSelectAllArtistsQuery.isSelect() || !d->mSelectAllArtistsQuery.isActive()) {
@@ -652,7 +650,8 @@ void DatabaseInterface::insertTracksList(QList<MusicAudioTrack> tracks, const QH
         internalInsertTrack(oneTrack, covers, 0, modifiedAlbumIds);
     }
 
-    for (auto albumId : modifiedAlbumIds) {
+    const auto &constModifiedAlbumIds = modifiedAlbumIds;
+    for (auto albumId : constModifiedAlbumIds) {
         Q_EMIT albumModified(internalAlbumFromId(albumId));
     }
 
@@ -669,9 +668,9 @@ void DatabaseInterface::removeTracksList(const QList<QUrl> removedTracks)
         return;
     }
 
-    QList<MusicAudioTrack> willRemoveTask;
+    QList<MusicAudioTrack> willRemoveTrack;
 
-    for (auto removedTrackFileName : removedTracks) {
+    for (const auto &removedTrackFileName : removedTracks) {
         d->mSelectTrackFromFilePathQuery.bindValue(QStringLiteral(":filePath"), removedTrackFileName.toString());
 
         auto result = d->mSelectTrackFromFilePathQuery.exec();
@@ -702,7 +701,7 @@ void DatabaseInterface::removeTracksList(const QList<QUrl> removedTracks)
             removedTrack.setRating(currentRecord.value(10).toInt());
             removedTrack.setValid(true);
 
-            willRemoveTask.push_back(removedTrack);
+            willRemoveTrack.push_back(removedTrack);
         }
 
         d->mSelectTrackFromFilePathQuery.finish();
@@ -710,7 +709,7 @@ void DatabaseInterface::removeTracksList(const QList<QUrl> removedTracks)
 
     QSet<qulonglong> modifiedAlbums;
 
-    for (auto oneRemovedTrack : willRemoveTask) {
+    for (const auto &oneRemovedTrack : willRemoveTrack) {
         removeTrackInDatabase(oneRemovedTrack.databaseId());
         Q_EMIT trackRemoved(oneRemovedTrack.databaseId());
 
@@ -1972,21 +1971,21 @@ void DatabaseInterface::reloadExistingDatabase()
     }
 
     const auto restoredArtists = allArtists();
-    for (const auto oneArtist : restoredArtists) {
+    for (const auto &oneArtist : restoredArtists) {
         d->mArtistId = std::max(d->mArtistId, oneArtist.databaseId());
         Q_EMIT artistAdded(oneArtist);
     }
     ++d->mArtistId;
 
     const auto restoredAlbums = allAlbums();
-    for (const auto oneAlbum : restoredAlbums) {
+    for (const auto &oneAlbum : restoredAlbums) {
         d->mAlbumId = std::max(d->mAlbumId, oneAlbum.databaseId());
         Q_EMIT albumAdded(oneAlbum);
     }
     ++d->mAlbumId;
 
     const auto restoredTracks = allTracks();
-    for (const auto oneTrack : restoredTracks) {
+    for (const auto &oneTrack : restoredTracks) {
         d->mTrackId = std::max(d->mTrackId, oneTrack.databaseId());
         Q_EMIT trackAdded(oneTrack.databaseId());
     }

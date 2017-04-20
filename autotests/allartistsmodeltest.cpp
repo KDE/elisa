@@ -158,7 +158,8 @@ private Q_SLOTS:
         QCOMPARE(dataChangedSpy.count(), 0);
 
         auto newFiles = QList<QUrl>();
-        for (const auto &oneTrack : mNewTracks) {
+        const auto &constNewTracks = mNewTracks;
+        for (const auto &oneTrack : constNewTracks) {
             newFiles.push_back(oneTrack.resourceURI());
         }
 
@@ -221,7 +222,8 @@ private Q_SLOTS:
         QCOMPARE(dataChangedSpy.count(), 0);
 
         auto newFiles = QList<QUrl>();
-        for (const auto &oneTrack : mNewTracks) {
+        const auto &constNewTracks = mNewTracks;
+        for (const auto &oneTrack : constNewTracks) {
             newFiles.push_back(oneTrack.resourceURI());
         }
 

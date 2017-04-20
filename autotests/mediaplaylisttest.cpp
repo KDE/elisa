@@ -1483,14 +1483,14 @@ void MediaPlayListTest::testHasHeaderMoveFirst()
 
     const auto &firstDataChanged = dataChangedSpy[4];
     QCOMPARE(firstDataChanged.count(), 3);
-    QCOMPARE(firstDataChanged.at(0).value<QModelIndex>(), myPlayList.index(3, 0));
-    QCOMPARE(firstDataChanged.at(1).value<QModelIndex>(), myPlayList.index(3, 0));
+    QCOMPARE(firstDataChanged.at(0).toModelIndex(), myPlayList.index(3, 0));
+    QCOMPARE(firstDataChanged.at(1).toModelIndex(), myPlayList.index(3, 0));
     QCOMPARE(firstDataChanged.at(2).value<QVector<int>>(), {MediaPlayList::HasAlbumHeader});
 
     const auto &secondDataChanged = dataChangedSpy[5];
     QCOMPARE(secondDataChanged.count(), 3);
-    QCOMPARE(secondDataChanged.at(0).value<QModelIndex>(), myPlayList.index(0, 0));
-    QCOMPARE(secondDataChanged.at(1).value<QModelIndex>(), myPlayList.index(0, 0));
+    QCOMPARE(secondDataChanged.at(0).toModelIndex(), myPlayList.index(0, 0));
+    QCOMPARE(secondDataChanged.at(1).toModelIndex(), myPlayList.index(0, 0));
     QCOMPARE(secondDataChanged.at(2).value<QVector<int>>(), {MediaPlayList::HasAlbumHeader});
 
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
@@ -1721,14 +1721,14 @@ void MediaPlayListTest::testHasHeaderMoveAnother()
 
     const auto &firstDataChanged = dataChangedSpy[4];
     QCOMPARE(firstDataChanged.count(), 3);
-    QCOMPARE(firstDataChanged.at(0).value<QModelIndex>(), myPlayList.index(0, 0));
-    QCOMPARE(firstDataChanged.at(1).value<QModelIndex>(), myPlayList.index(0, 0));
+    QCOMPARE(firstDataChanged.at(0).toModelIndex(), myPlayList.index(0, 0));
+    QCOMPARE(firstDataChanged.at(1).toModelIndex(), myPlayList.index(0, 0));
     QCOMPARE(firstDataChanged.at(2).value<QVector<int>>(), {MediaPlayList::HasAlbumHeader});
 
     const auto &secondDataChanged = dataChangedSpy[5];
     QCOMPARE(secondDataChanged.count(), 3);
-    QCOMPARE(secondDataChanged.at(0).value<QModelIndex>(), myPlayList.index(1, 0));
-    QCOMPARE(secondDataChanged.at(1).value<QModelIndex>(), myPlayList.index(1, 0));
+    QCOMPARE(secondDataChanged.at(0).toModelIndex(), myPlayList.index(1, 0));
+    QCOMPARE(secondDataChanged.at(1).toModelIndex(), myPlayList.index(1, 0));
     QCOMPARE(secondDataChanged.at(2).value<QVector<int>>(), {MediaPlayList::HasAlbumHeader});
 
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
@@ -1959,14 +1959,14 @@ void MediaPlayListTest::testHasHeaderMoveFirstLikeQml()
 
     const auto &firstDataChanged = dataChangedSpy[4];
     QCOMPARE(firstDataChanged.count(), 3);
-    QCOMPARE(firstDataChanged.at(0).value<QModelIndex>(), myPlayList.index(3, 0));
-    QCOMPARE(firstDataChanged.at(1).value<QModelIndex>(), myPlayList.index(3, 0));
+    QCOMPARE(firstDataChanged.at(0).toModelIndex(), myPlayList.index(3, 0));
+    QCOMPARE(firstDataChanged.at(1).toModelIndex(), myPlayList.index(3, 0));
     QCOMPARE(firstDataChanged.at(2).value<QVector<int>>(), {MediaPlayList::HasAlbumHeader});
 
     const auto &secondDataChanged = dataChangedSpy[5];
     QCOMPARE(secondDataChanged.count(), 3);
-    QCOMPARE(secondDataChanged.at(0).value<QModelIndex>(), myPlayList.index(0, 0));
-    QCOMPARE(secondDataChanged.at(1).value<QModelIndex>(), myPlayList.index(0, 0));
+    QCOMPARE(secondDataChanged.at(0).toModelIndex(), myPlayList.index(0, 0));
+    QCOMPARE(secondDataChanged.at(1).toModelIndex(), myPlayList.index(0, 0));
     QCOMPARE(secondDataChanged.at(2).value<QVector<int>>(), {MediaPlayList::HasAlbumHeader});
 
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
@@ -2197,14 +2197,14 @@ void MediaPlayListTest::testHasHeaderMoveAnotherLikeQml()
 
     const auto &firstDataChanged = dataChangedSpy[4];
     QCOMPARE(firstDataChanged.count(), 3);
-    QCOMPARE(firstDataChanged.at(0).value<QModelIndex>(), myPlayList.index(0, 0));
-    QCOMPARE(firstDataChanged.at(1).value<QModelIndex>(), myPlayList.index(0, 0));
+    QCOMPARE(firstDataChanged.at(0).toModelIndex(), myPlayList.index(0, 0));
+    QCOMPARE(firstDataChanged.at(1).toModelIndex(), myPlayList.index(0, 0));
     QCOMPARE(firstDataChanged.at(2).value<QVector<int>>(), {MediaPlayList::HasAlbumHeader});
 
     const auto &secondDataChanged = dataChangedSpy[5];
     QCOMPARE(secondDataChanged.count(), 3);
-    QCOMPARE(secondDataChanged.at(0).value<QModelIndex>(), myPlayList.index(1, 0));
-    QCOMPARE(secondDataChanged.at(1).value<QModelIndex>(), myPlayList.index(1, 0));
+    QCOMPARE(secondDataChanged.at(0).toModelIndex(), myPlayList.index(1, 0));
+    QCOMPARE(secondDataChanged.at(1).toModelIndex(), myPlayList.index(1, 0));
     QCOMPARE(secondDataChanged.at(2).value<QVector<int>>(), {MediaPlayList::HasAlbumHeader});
 
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
@@ -2435,14 +2435,14 @@ void MediaPlayListTest::testHasHeaderYetAnotherMoveLikeQml()
 
     const auto &firstDataChanged = dataChangedSpy[4];
     QCOMPARE(firstDataChanged.count(), 3);
-    QCOMPARE(firstDataChanged.at(0).value<QModelIndex>(), myPlayList.index(0, 0));
-    QCOMPARE(firstDataChanged.at(1).value<QModelIndex>(), myPlayList.index(0, 0));
+    QCOMPARE(firstDataChanged.at(0).toModelIndex(), myPlayList.index(0, 0));
+    QCOMPARE(firstDataChanged.at(1).toModelIndex(), myPlayList.index(0, 0));
     QCOMPARE(firstDataChanged.at(2).value<QVector<int>>(), {MediaPlayList::HasAlbumHeader});
 
     const auto &secondDataChanged = dataChangedSpy[5];
     QCOMPARE(secondDataChanged.count(), 3);
-    QCOMPARE(secondDataChanged.at(0).value<QModelIndex>(), myPlayList.index(3, 0));
-    QCOMPARE(secondDataChanged.at(1).value<QModelIndex>(), myPlayList.index(3, 0));
+    QCOMPARE(secondDataChanged.at(0).toModelIndex(), myPlayList.index(3, 0));
+    QCOMPARE(secondDataChanged.at(1).toModelIndex(), myPlayList.index(3, 0));
     QCOMPARE(secondDataChanged.at(2).value<QVector<int>>(), {MediaPlayList::HasAlbumHeader});
 
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
@@ -2467,14 +2467,14 @@ void MediaPlayListTest::testHasHeaderYetAnotherMoveLikeQml()
 
     const auto &newFirstDataChanged = dataChangedSpy[6];
     QCOMPARE(newFirstDataChanged.count(), 3);
-    QCOMPARE(newFirstDataChanged.at(0).value<QModelIndex>(), myPlayList.index(3, 0));
-    QCOMPARE(newFirstDataChanged.at(1).value<QModelIndex>(), myPlayList.index(3, 0));
+    QCOMPARE(newFirstDataChanged.at(0).toModelIndex(), myPlayList.index(3, 0));
+    QCOMPARE(newFirstDataChanged.at(1).toModelIndex(), myPlayList.index(3, 0));
     QCOMPARE(newFirstDataChanged.at(2).value<QVector<int>>(), {MediaPlayList::HasAlbumHeader});
 
     const auto &newSecondDataChanged = dataChangedSpy[7];
     QCOMPARE(newSecondDataChanged.count(), 3);
-    QCOMPARE(newSecondDataChanged.at(0).value<QModelIndex>(), myPlayList.index(1, 0));
-    QCOMPARE(newSecondDataChanged.at(1).value<QModelIndex>(), myPlayList.index(1, 0));
+    QCOMPARE(newSecondDataChanged.at(0).toModelIndex(), myPlayList.index(1, 0));
+    QCOMPARE(newSecondDataChanged.at(1).toModelIndex(), myPlayList.index(1, 0));
     QCOMPARE(newSecondDataChanged.at(2).value<QVector<int>>(), {MediaPlayList::HasAlbumHeader});
 
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);

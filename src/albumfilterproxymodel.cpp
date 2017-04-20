@@ -79,7 +79,6 @@ bool AlbumFilterProxyModel::filterAcceptsRow(int source_row, const QModelIndex &
         const auto &titleValue = sourceModel()->data(currentIndex, AllAlbumsModel::TitleRole).toString();
         const auto &artistValue = sourceModel()->data(currentIndex, AllAlbumsModel::ArtistRole).toString();
         const auto &allArtistsValue = sourceModel()->data(currentIndex, AllAlbumsModel::AllArtistsRole).toStringList();
-        const auto &allTracksTitleValue = sourceModel()->data(currentIndex, AllAlbumsModel::AllTracksTitleRole).toStringList();
         const auto maximumRatingValue = sourceModel()->data(currentIndex, AllAlbumsModel::HighestTrackRating).toInt();
 
         if (maximumRatingValue < mFilterRating) {

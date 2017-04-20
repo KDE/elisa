@@ -228,7 +228,8 @@ QStringList MusicAlbum::allArtists() const
 {
     auto result = QList<QString>();
 
-    for (const auto &oneTrack : d->mTracks) {
+    const auto &allTracks = d->mTracks;
+    for (const auto &oneTrack : allTracks) {
         result.push_back(oneTrack.artist());
     }
 
@@ -242,7 +243,8 @@ QStringList MusicAlbum::allTracksTitle() const
 {
     auto result = QList<QString>();
 
-    for (const auto &oneTrack : d->mTracks) {
+    const auto &allTracks = d->mTracks;
+    for (const auto &oneTrack : allTracks) {
         result.push_back(oneTrack.title());
     }
 
@@ -294,7 +296,8 @@ int MusicAlbum::highestTrackRating() const
 {
     int result = 0;
 
-    for (const auto &oneTrack : d->mTracks) {
+    const auto &allTracks = d->mTracks;
+    for (const auto &oneTrack : allTracks) {
         result = std::max(result, oneTrack.rating());
     }
 

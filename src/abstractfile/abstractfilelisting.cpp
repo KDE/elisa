@@ -104,7 +104,7 @@ void AbstractFileListing::scanDirectory(QList<MusicAudioTrack> &newFiles, const 
 
     rootDirectory.refresh();
     const auto entryList = rootDirectory.entryInfoList(QDir::NoDotAndDotDot | QDir::Files | QDir::Dirs);
-    for (auto oneEntry : entryList) {
+    for (const auto &oneEntry : entryList) {
         auto newFilePath = QUrl::fromLocalFile(oneEntry.canonicalFilePath());
 
         if (oneEntry.isDir() || oneEntry.isFile()) {
@@ -112,7 +112,7 @@ void AbstractFileListing::scanDirectory(QList<MusicAudioTrack> &newFiles, const 
         }
     }
 
-    auto removedTracks = QList<QPair<QUrl, bool>>();
+    auto removedTracks = QVector<QPair<QUrl, bool>>();
     for (const auto &removedFilePath : currentDirectoryListingFiles) {
         auto itFilePath = std::find(currentFilesList.begin(), currentFilesList.end(), removedFilePath.first);
 
@@ -144,7 +144,7 @@ void AbstractFileListing::scanDirectory(QList<MusicAudioTrack> &newFiles, const 
         return;
     }
 
-    for (auto newFilePath : currentFilesList) {
+    for (const auto &newFilePath : currentFilesList) {
         QFileInfo oneEntry(newFilePath.toLocalFile());
 
         auto itFilePath = std::find(currentDirectoryListingFiles.begin(), currentDirectoryListingFiles.end(), QPair<QUrl, bool>{newFilePath, oneEntry.isFile()});
@@ -359,13 +359,14 @@ void AbstractFileListing::addCover(const MusicAudioTrack &newTrack)
 
 void AbstractFileListing::removeDirectory(const QUrl &removedDirectory, QList<QUrl> &allRemovedFiles)
 {
-    auto itRemovedDirectory = d->mDiscoveredFiles.find(removedDirectory);
+    const auto itRemovedDirectory = d->mDiscoveredFiles.find(removedDirectory);
 
     if (itRemovedDirectory == d->mDiscoveredFiles.end()) {
         return;
     }
 
-    for (auto itFile : *itRemovedDirectory) {
+    const auto &currentRemovedDirectory = *itRemovedDirectory;
+    for (const auto &itFile : currentRemovedDirectory) {
         if (itFile.first.isValid() && !itFile.first.isEmpty()) {
             removeFile(itFile.first, allRemovedFiles);
             if (itFile.second) {

@@ -1570,7 +1570,7 @@ void ManageHeaderBarTest::insertBeforeCurrentTrack()
     QCOMPARE(myControl.artist(), QVariant(QStringLiteral("artist1")));
     QCOMPARE(myControl.title(), QVariant(QStringLiteral("song1")));
 
-    myPlayList.insertRow(0, {new QStandardItem});
+    myPlayList.insertRow(0, new QStandardItem);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -2038,7 +2038,8 @@ void ManageHeaderBarTest::moveAnotherTrack()
     newCovers[QStringLiteral("album2")] = QUrl::fromLocalFile(QStringLiteral("album2"));
 
     auto newFiles = QList<QUrl>();
-    for (const auto &oneTrack : newTracks) {
+    const auto &constNewTracks = newTracks;
+    for (const auto &oneTrack : constNewTracks) {
         newFiles.push_back(oneTrack.resourceURI());
     }
 
@@ -2299,7 +2300,8 @@ void ManageHeaderBarTest::setCurrentTrackTest()
     newCovers[QStringLiteral("album2")] = QUrl::fromLocalFile(QStringLiteral("album2"));
 
     auto newFiles = QList<QUrl>();
-    for (const auto &oneTrack : newTracks) {
+    const auto &constNewTracks = newTracks;
+    for (const auto &oneTrack : constNewTracks) {
         newFiles.push_back(oneTrack.resourceURI());
     }
 

@@ -58,24 +58,26 @@ void TracksListener::trackAdded(qulonglong id)
 
     const auto &newTrack = d->mDatabase->trackFromDatabaseId(id);
 
-    for (auto itTrack = d->mTracksByNameSet.begin(); itTrack != d->mTracksByNameSet.end(); ++itTrack) {
+    for (auto itTrack = d->mTracksByNameSet.begin(); itTrack != d->mTracksByNameSet.end(); ) {
         if ((*itTrack)[0] != newTrack.title()) {
+            ++itTrack;
             continue;
         }
 
         if ((*itTrack)[1] != newTrack.artist()) {
+            ++itTrack;
             continue;
         }
 
         if ((*itTrack)[2] != newTrack.albumName()) {
+            ++itTrack;
             continue;
         }
 
         Q_EMIT trackHasChanged(newTrack);
 
         d->mTracksByIdSet.insert(newTrack.databaseId());
-        d->mTracksByNameSet.erase(itTrack);
-        continue;
+        itTrack = d->mTracksByNameSet.erase(itTrack);
     }
 }
 

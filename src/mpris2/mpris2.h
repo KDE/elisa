@@ -86,7 +86,7 @@ public:
 
 public Q_SLOTS:
 
-    void setPlayerName(QString playerName);
+    void setPlayerName(const QString &playerName);
 
     void setPlayListModel(QAbstractItemModel* playListModel);
 

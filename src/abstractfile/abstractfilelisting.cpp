@@ -80,7 +80,7 @@ void AbstractFileListing::databaseIsReady()
     refreshContent();
 }
 
-void AbstractFileListing::newTrackFile(MusicAudioTrack partialTrack)
+void AbstractFileListing::newTrackFile(const MusicAudioTrack &partialTrack)
 {
     const auto &newTrack = scanOneFile(partialTrack.resourceURI());
 
@@ -212,7 +212,7 @@ void AbstractFileListing::refreshContent()
     triggerRefreshOfContent();
 }
 
-MusicAudioTrack AbstractFileListing::scanOneFile(QUrl scanFile)
+MusicAudioTrack AbstractFileListing::scanOneFile(const QUrl &scanFile)
 {
     MusicAudioTrack newTrack;
 

@@ -50,7 +50,7 @@ public Q_SLOTS:
 
 private Q_SLOTS:
 
-    void newBalooFile(QString fileName);
+    void newBalooFile(const QString &fileName);
 
 private:
 
@@ -58,7 +58,7 @@ private:
 
     void triggerRefreshOfContent() override;
 
-    MusicAudioTrack scanOneFile(QUrl scanFile) override;
+    MusicAudioTrack scanOneFile(const QUrl &scanFile) override;
 
     std::unique_ptr<LocalBalooFileListingPrivate> d;
 

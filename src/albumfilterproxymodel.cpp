@@ -40,7 +40,7 @@ int AlbumFilterProxyModel::filterRating() const
     return mFilterRating;
 }
 
-void AlbumFilterProxyModel::setFilterText(QString filterText)
+void AlbumFilterProxyModel::setFilterText(const QString &filterText)
 {
     if (mFilterText == filterText)
         return;

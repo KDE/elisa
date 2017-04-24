@@ -29,10 +29,10 @@ public:
     {
     }
 
-    MusicAudioTrackPrivate(bool aValid, QString aId, QString aParentId,
-                           QString aTitle, QString aArtist, QString aAlbumName,
-                           QString aAlbumArtist, int aTrackNumber, QTime aDuration,
-                           QUrl aResourceURI, QUrl aAlbumCover, int rating)
+    MusicAudioTrackPrivate(bool aValid, const QString &aId, const QString &aParentId,
+                           const QString &aTitle, const QString &aArtist, const QString &aAlbumName,
+                           const QString &aAlbumArtist, int aTrackNumber, QTime aDuration,
+                           const QUrl &aResourceURI, const QUrl &aAlbumCover, int rating)
         : mId(aId), mParentId(aParentId), mTitle(aTitle), mArtist(aArtist),
           mAlbumName(aAlbumName), mAlbumArtist(aAlbumArtist), mTrackNumber(aTrackNumber),
           mDuration(aDuration), mResourceURI(aResourceURI), mAlbumCover(aAlbumCover),
@@ -40,10 +40,10 @@ public:
     {
     }
 
-    MusicAudioTrackPrivate(bool aValid, QString aId, QString aParentId,
-                           QString aTitle, QString aArtist, QString aAlbumName, QString aAlbumArtist,
-                           int aTrackNumber, int aDiscNumber, QTime aDuration, QUrl aResourceURI,
-                           QUrl aAlbumCover, int rating)
+    MusicAudioTrackPrivate(bool aValid, const QString &aId, const QString &aParentId,
+                           const QString &aTitle, const QString &aArtist, const QString &aAlbumName, const QString &aAlbumArtist,
+                           int aTrackNumber, int aDiscNumber, QTime aDuration, const QUrl &aResourceURI,
+                           const QUrl &aAlbumCover, int rating)
         : mId(aId), mParentId(aParentId), mTitle(aTitle), mArtist(aArtist),
           mAlbumName(aAlbumName), mAlbumArtist(aAlbumArtist), mTrackNumber(aTrackNumber),
           mDiscNumber(aDiscNumber), mDuration(aDuration), mResourceURI(aResourceURI),
@@ -85,17 +85,17 @@ MusicAudioTrack::MusicAudioTrack() : d(new MusicAudioTrackPrivate)
 {
 }
 
-MusicAudioTrack::MusicAudioTrack(bool aValid, QString aId, QString aParentId,
-                                 QString aTitle, QString aArtist, QString aAlbumName, QString aAlbumArtist,
-                                 int aTrackNumber, QTime aDuration, QUrl aResourceURI, QUrl aAlbumCover, int rating)
+MusicAudioTrack::MusicAudioTrack(bool aValid, const QString &aId, const QString &aParentId,
+                                 const QString &aTitle, const QString &aArtist, const QString &aAlbumName, const QString &aAlbumArtist,
+                                 int aTrackNumber, QTime aDuration, const QUrl &aResourceURI, const QUrl &aAlbumCover, int rating)
     : d(new MusicAudioTrackPrivate(aValid, aId, aParentId, aTitle, aArtist, aAlbumName, aAlbumArtist, aTrackNumber, aDuration, aResourceURI, aAlbumCover, rating))
 {
 }
 
-MusicAudioTrack::MusicAudioTrack(bool aValid, QString aId, QString aParentId,
-                                 QString aTitle, QString aArtist, QString aAlbumName,
-                                 QString aAlbumArtist, int aTrackNumber, int aDiscNumber,
-                                 QTime aDuration, QUrl aResourceURI, QUrl aAlbumCover, int rating)
+MusicAudioTrack::MusicAudioTrack(bool aValid, const QString &aId, const QString &aParentId,
+                                 const QString &aTitle, const QString &aArtist, const QString &aAlbumName,
+                                 const QString &aAlbumArtist, int aTrackNumber, int aDiscNumber,
+                                 QTime aDuration, const QUrl &aResourceURI, const QUrl &aAlbumCover, int rating)
     : d(new MusicAudioTrackPrivate(aValid, aId, aParentId, aTitle, aArtist, aAlbumName, aAlbumArtist, aTrackNumber, aDiscNumber, aDuration, aResourceURI, aAlbumCover, rating))
 {
 }
@@ -267,12 +267,12 @@ int MusicAudioTrack::discNumber() const
     return d->mDiscNumber;
 }
 
-void MusicAudioTrack::setDuration(const QTime &value)
+void MusicAudioTrack::setDuration(QTime value)
 {
     d->mDuration = value;
 }
 
-const QTime &MusicAudioTrack::duration() const
+QTime MusicAudioTrack::duration() const
 {
     return d->mDuration;
 }

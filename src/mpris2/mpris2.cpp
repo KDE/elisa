@@ -92,7 +92,7 @@ ManageHeaderBar *Mpris2::headerBarManager() const
     return m_manageHeaderBar;
 }
 
-void Mpris2::setPlayerName(QString playerName)
+void Mpris2::setPlayerName(const QString &playerName)
 {
     if (m_playerName == playerName) {
         return;

@@ -109,7 +109,7 @@ int ManageAudioPlayer::playListPosition() const
     return 0;
 }
 
-void ManageAudioPlayer::setCurrentTrack(QPersistentModelIndex currentTrack)
+void ManageAudioPlayer::setCurrentTrack(const QPersistentModelIndex &currentTrack)
 {
     if (mCurrentTrack == currentTrack) {
         return;
@@ -373,7 +373,7 @@ void ManageAudioPlayer::setPlayControlPosition(int playerPosition)
     Q_EMIT seek(playerPosition);
 }
 
-void ManageAudioPlayer::setPersistentState(QVariantMap persistentStateValue)
+void ManageAudioPlayer::setPersistentState(const QVariantMap &persistentStateValue)
 {
     if (mPersistentState == persistentStateValue) {
         return;

@@ -85,7 +85,7 @@ bool MusicArtist::isValid() const
     return d->mIsValid;
 }
 
-void MusicArtist::setName(QString aName)
+void MusicArtist::setName(const QString &aName)
 {
     d->mName = aName;
 }

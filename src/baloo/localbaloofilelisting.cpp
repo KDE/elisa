@@ -64,7 +64,7 @@ LocalBalooFileListing::~LocalBalooFileListing()
 {
 }
 
-void LocalBalooFileListing::newBalooFile(QString fileName)
+void LocalBalooFileListing::newBalooFile(const QString &fileName)
 {
     auto newFile = QUrl::fromLocalFile(fileName);
 
@@ -120,7 +120,7 @@ void LocalBalooFileListing::triggerRefreshOfContent()
     }
 }
 
-MusicAudioTrack LocalBalooFileListing::scanOneFile(QUrl scanFile)
+MusicAudioTrack LocalBalooFileListing::scanOneFile(const QUrl &scanFile)
 {
     auto newTrack = MusicAudioTrack();
 

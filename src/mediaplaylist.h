@@ -114,17 +114,17 @@ public:
 
     Q_INVOKABLE void enqueue(qulonglong newTrackId);
 
-    Q_INVOKABLE void enqueue(MediaPlayListEntry newEntry);
+    Q_INVOKABLE void enqueue(const MediaPlayListEntry &newEntry);
 
-    Q_INVOKABLE void enqueue(MusicAlbum album);
+    Q_INVOKABLE void enqueue(const MusicAlbum &album);
 
-    Q_INVOKABLE void enqueue(QString artistName);
+    Q_INVOKABLE void enqueue(const QString &artistName);
 
     Q_INVOKABLE void clearAndEnqueue(qulonglong newTrackId);
 
-    Q_INVOKABLE void clearAndEnqueue(MusicAlbum album);
+    Q_INVOKABLE void clearAndEnqueue(const MusicAlbum &album);
 
-    Q_INVOKABLE void clearAndEnqueue(QString artistName);
+    Q_INVOKABLE void clearAndEnqueue(const QString &artistName);
 
     Q_INVOKABLE bool moveRows(const QModelIndex &sourceParent, int sourceRow, int count, const QModelIndex &destinationParent, int destinationChild) override;
 
@@ -138,11 +138,11 @@ public:
 
 Q_SIGNALS:
 
-    void newTrackByNameInList(QString title, QString artist, QString album);
+    void newTrackByNameInList(const QString &title, const QString &artist, const QString &album);
 
     void newTrackByIdInList(qulonglong newTrackId);
 
-    void newArtistInList(QString artist);
+    void newArtistInList(const QString &artist);
 
     void trackHasBeenAdded(const QString &title, const QUrl &image);
 
@@ -152,15 +152,15 @@ Q_SIGNALS:
 
 public Q_SLOTS:
 
-    void setPersistentState(QList<QVariant> persistentState);
+    void setPersistentState(const QList<QVariant> &persistentState);
 
     void removeSelection(QList<int> selection);
 
-    void albumAdded(const QList<MusicAudioTrack> tracks);
+    void albumAdded(const QList<MusicAudioTrack> &tracks);
 
-    void trackChanged(MusicAudioTrack track);
+    void trackChanged(const MusicAudioTrack &track);
 
-    void trackRemoved(MusicAudioTrack track);
+    void trackRemoved(const MusicAudioTrack &track);
 
     void setMusicListenersManager(MusicListenersManager* musicListenersManager);
 

@@ -35,12 +35,12 @@ public:
 
     MusicAudioTrack();
 
-    MusicAudioTrack(bool aValid, QString aId, QString aParentId, QString aTitle, QString aArtist, QString aAlbumName,
-                    QString aAlbumArtist, int aTrackNumber, QTime aDuration, QUrl aResourceURI, QUrl aAlbumCover, int rating);
+    MusicAudioTrack(bool aValid, const QString &aId, const QString &aParentId, const QString &aTitle, const QString &aArtist, const QString &aAlbumName,
+                    const QString &aAlbumArtist, int aTrackNumber, QTime aDuration, const QUrl &aResourceURI, const QUrl &aAlbumCover, int rating);
 
-    MusicAudioTrack(bool aValid, QString aId, QString aParentId, QString aTitle, QString aArtist, QString aAlbumName,
-                    QString aAlbumArtist, int aTrackNumber, int aDiscNumber, QTime aDuration, QUrl aResourceURI,
-                    QUrl aAlbumCover, int rating);
+    MusicAudioTrack(bool aValid, const QString &aId, const QString &aParentId, const QString &aTitle, const QString &aArtist, const QString &aAlbumName,
+                    const QString &aAlbumArtist, int aTrackNumber, int aDiscNumber, QTime aDuration, const QUrl &aResourceURI,
+                    const QUrl &aAlbumCover, int rating);
 
     MusicAudioTrack(MusicAudioTrack &&other);
 
@@ -102,9 +102,9 @@ public:
 
     int discNumber() const;
 
-    void setDuration(const QTime &value);
+    void setDuration(QTime value);
 
-    const QTime& duration() const;
+    QTime duration() const;
 
     void setResourceURI(const QUrl &value);
 

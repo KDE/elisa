@@ -205,7 +205,7 @@ int AllAlbumsModel::columnCount(const QModelIndex &parent) const
     return 1;
 }
 
-void AllAlbumsModel::albumAdded(MusicAlbum newAlbum)
+void AllAlbumsModel::albumAdded(const MusicAlbum &newAlbum)
 {
     if (newAlbum.isValid()) {
         beginInsertRows({}, d->mAllAlbums.size(), d->mAllAlbums.size());
@@ -215,7 +215,7 @@ void AllAlbumsModel::albumAdded(MusicAlbum newAlbum)
     }
 }
 
-void AllAlbumsModel::albumRemoved(MusicAlbum removedAlbum)
+void AllAlbumsModel::albumRemoved(const MusicAlbum &removedAlbum)
 {
     auto removedAlbumIterator = std::find(d->mAllAlbums.begin(), d->mAllAlbums.end(), removedAlbum);
 
@@ -231,7 +231,7 @@ void AllAlbumsModel::albumRemoved(MusicAlbum removedAlbum)
     endRemoveRows();
 }
 
-void AllAlbumsModel::albumModified(MusicAlbum modifiedAlbum)
+void AllAlbumsModel::albumModified(const MusicAlbum &modifiedAlbum)
 {
     auto modifiedAlbumIterator = std::find(d->mAllAlbums.begin(), d->mAllAlbums.end(), modifiedAlbum);
 

@@ -150,7 +150,7 @@ Q_SIGNALS:
 
 public Q_SLOTS:
 
-    void setCurrentTrack(QPersistentModelIndex currentTrack);
+    void setCurrentTrack(const QPersistentModelIndex &currentTrack);
 
     void setPlayListModel(QAbstractItemModel* aPlayListModel);
 

@@ -73,17 +73,22 @@ MediaPlayer2Player::~MediaPlayer2Player()
 
 QString MediaPlayer2Player::PlaybackStatus() const
 {
+    QString result;
+
     if (!m_playListControler) {
-        return QLatin1String("Stopped");
+        result = QStringLiteral("Stopped");
+        return result;
     }
 
     if (m_manageAudioPlayer->playerPlaybackState() == ManageAudioPlayer::StoppedState) {
-        return QStringLiteral("Stopped");
+        result = QStringLiteral("Stopped");
     } else if (m_manageAudioPlayer->playerPlaybackState() == ManageAudioPlayer::PlayingState) {
-        return QStringLiteral("Playing");
+        result = QStringLiteral("Playing");
     } else {
-        return QStringLiteral("Paused");
+        result = QStringLiteral("Paused");
     }
+
+    return result;
 }
 
 bool MediaPlayer2Player::CanGoNext() const
@@ -233,14 +238,14 @@ void MediaPlayer2Player::emitSeeked(int pos)
     emit Seeked(qlonglong(pos) * 1000);
 }
 
-void MediaPlayer2Player::SetPosition(QDBusObjectPath trackId, qlonglong pos) const
+void MediaPlayer2Player::SetPosition(const QDBusObjectPath &trackId, qlonglong pos) const
 {
     if (trackId.path() == m_currentTrackId) {
         m_manageAudioPlayer->playerSeek(pos / 1000);
     }
 }
 
-void MediaPlayer2Player::OpenUri(QString uri) const
+void MediaPlayer2Player::OpenUri(const QString &uri) const
 {
     Q_UNUSED(uri);
 }

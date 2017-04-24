@@ -136,7 +136,7 @@ public Q_SLOTS:
 
     void setRepeatPlayControl(bool repeatPlayControl);
 
-    void setPersistentState(QVariantMap persistentStateValue);
+    void setPersistentState(const QVariantMap &persistentStateValue);
 
     void playListReset();
 

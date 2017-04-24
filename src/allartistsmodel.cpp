@@ -167,7 +167,7 @@ int AllArtistsModel::columnCount(const QModelIndex &parent) const
     return 1;
 }
 
-void AllArtistsModel::artistAdded(MusicArtist newArtist)
+void AllArtistsModel::artistAdded(const MusicArtist &newArtist)
 {
     if (newArtist.isValid()) {
         beginInsertRows({}, d->mAllArtists.size(), d->mAllArtists.size());
@@ -177,7 +177,7 @@ void AllArtistsModel::artistAdded(MusicArtist newArtist)
     }
 }
 
-void AllArtistsModel::artistRemoved(MusicArtist removedArtist)
+void AllArtistsModel::artistRemoved(const MusicArtist &removedArtist)
 {
     auto removedArtistIterator = std::find(d->mAllArtists.begin(), d->mAllArtists.end(), removedArtist);
 
@@ -193,7 +193,7 @@ void AllArtistsModel::artistRemoved(MusicArtist removedArtist)
     endRemoveRows();
 }
 
-void AllArtistsModel::artistModified(MusicArtist modifiedArtist)
+void AllArtistsModel::artistModified(const MusicArtist &modifiedArtist)
 {
     Q_UNUSED(modifiedArtist);
 }

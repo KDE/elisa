@@ -50,13 +50,13 @@ public:
 
 public Q_SLOTS:
 
-    void setFilterText(QString filterText);
+    void setFilterText(const QString &filterText);
 
     void setFilterRating(int filterRating);
 
 Q_SIGNALS:
 
-    void filterTextChanged(QString filterText);
+    void filterTextChanged(const QString &filterText);
 
     void filterRatingChanged(int filterRating);
 

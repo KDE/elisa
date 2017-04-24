@@ -54,41 +54,41 @@ public:
 
     Q_INVOKABLE void init(const QString &dbName, const QString &databaseFileName = {});
 
-    MusicAlbum albumFromTitle(QString title);
+    MusicAlbum albumFromTitle(const QString &title);
 
     QList<MusicAudioTrack> allTracks() const;
 
-    QList<MusicAudioTrack> allTracksFromSource(QString musicSource) const;
+    QList<MusicAudioTrack> allTracksFromSource(const QString &musicSource) const;
 
-    QList<MusicAudioTrack> allInvalidTracksFromSource(QString musicSource) const;
+    QList<MusicAudioTrack> allInvalidTracksFromSource(const QString &musicSource) const;
 
     QList<MusicAlbum> allAlbums();
 
     QList<MusicArtist> allArtists() const;
 
-    QList<MusicAudioTrack> tracksFromAuthor(QString artistName) const;
+    QList<MusicAudioTrack> tracksFromAuthor(const QString &artistName) const;
 
     MusicAudioTrack trackFromDatabaseId(qulonglong id);
 
-    qulonglong trackIdFromTitleAlbumArtist(QString title, QString album, QString artist) const;
+    qulonglong trackIdFromTitleAlbumArtist(const QString &title, const QString &album, const QString &artist) const;
 
 Q_SIGNALS:
 
-    void artistAdded(MusicArtist newArtist);
+    void artistAdded(const MusicArtist &newArtist);
 
-    void albumAdded(MusicAlbum newAlbum);
+    void albumAdded(const MusicAlbum &newAlbum);
 
     void trackAdded(qulonglong id);
 
-    void artistRemoved(MusicArtist removedArtist);
+    void artistRemoved(const MusicArtist &removedArtist);
 
-    void albumRemoved(MusicAlbum removedAlbum);
+    void albumRemoved(const MusicAlbum &removedAlbum);
 
     void trackRemoved(qulonglong id);
 
-    void artistModified(MusicArtist modifiedArtist);
+    void artistModified(const MusicArtist &modifiedArtist);
 
-    void albumModified(MusicAlbum modifiedAlbum);
+    void albumModified(const MusicAlbum &modifiedAlbum);
 
     void trackModified(qulonglong id);
 
@@ -96,9 +96,9 @@ Q_SIGNALS:
 
 public Q_SLOTS:
 
-    void insertTracksList(QList<MusicAudioTrack> tracks, const QHash<QString, QUrl> &covers, QString musicSource);
+    void insertTracksList(const QList<MusicAudioTrack> &tracks, const QHash<QString, QUrl> &covers, const QString &musicSource);
 
-    void removeTracksList(const QList<QUrl> removedTracks);
+    void removeTracksList(const QList<QUrl> &removedTracks);
 
     void modifyTracksList(const QList<MusicAudioTrack> &modifiedTracks, const QHash<QString, QUrl> &covers);
 
@@ -118,31 +118,31 @@ private:
 
     MusicAlbum internalAlbumFromId(qulonglong albumId);
 
-    MusicAlbum internalAlbumFromTitle(QString title);
+    MusicAlbum internalAlbumFromTitle(const QString &title);
 
-    qulonglong internalAlbumIdFromTitle(QString title);
+    qulonglong internalAlbumIdFromTitle(const QString &title);
 
     MusicAudioTrack internalTrackFromDatabaseId(qulonglong id);
 
-    qulonglong internalTrackIdFromTitleAlbumArtist(QString title, QString album, QString artist) const;
+    qulonglong internalTrackIdFromTitleAlbumArtist(const QString &title, const QString &album, const QString &artist) const;
 
-    qulonglong internalTrackIdFromFileName(const QUrl fileName) const;
+    qulonglong internalTrackIdFromFileName(const QUrl &fileName) const;
 
     QVariant internalAlbumDataFromId(qulonglong albumId, AlbumData dataType);
 
-    QList<MusicAudioTrack> internalTracksFromAuthor(QString artistName) const;
+    QList<MusicAudioTrack> internalTracksFromAuthor(const QString &artistName) const;
 
     void initDatabase() const;
 
     void initRequest();
 
-    qulonglong insertAlbum(QString title, QString albumArtist, QUrl albumArtURI, int tracksCount, bool isSingleDiscAlbum);
+    qulonglong insertAlbum(const QString &title, const QString &albumArtist, const QUrl &albumArtURI, int tracksCount, bool isSingleDiscAlbum);
 
     void updateIsSingleDiscAlbumFromId(qulonglong albumId) const;
 
-    qulonglong insertArtist(QString name);
+    qulonglong insertArtist(const QString &name);
 
-    qulonglong internalArtistIdFromName(QString name);
+    qulonglong internalArtistIdFromName(const QString &name);
 
     void removeTrackInDatabase(qulonglong trackId);
 
@@ -152,13 +152,13 @@ private:
 
     void reloadExistingDatabase();
 
-    qulonglong insertMusicSource(QString name);
+    qulonglong insertMusicSource(const QString &name);
 
-    void insertTrackOrigin(QUrl fileNameURI, qulonglong discoverId);
+    void insertTrackOrigin(const QUrl &fileNameURI, qulonglong discoverId);
 
-    void updateTrackOrigin(qulonglong trackId, QUrl fileName);
+    void updateTrackOrigin(qulonglong trackId, const QUrl &fileName);
 
-    int computeTrackPriority(qulonglong trackId, QUrl fileName);
+    int computeTrackPriority(qulonglong trackId, const QUrl &fileName);
 
     void internalInsertTrack(const MusicAudioTrack &oneModifiedTrack, const QHash<QString, QUrl> &covers, int originTrackId, QSet<qulonglong> &modifiedAlbumIds);
 

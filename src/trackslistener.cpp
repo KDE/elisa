@@ -99,7 +99,7 @@ void TracksListener::trackModified(qulonglong id)
     }
 }
 
-void TracksListener::trackByNameInList(QString title, QString artist, QString album)
+void TracksListener::trackByNameInList(const QString &title, const QString &artist, const QString &album)
 {
     d->mTracksByNameSet.push_back({{title, artist, album}});
 
@@ -125,7 +125,7 @@ void TracksListener::trackByIdInList(qulonglong newTrackId)
     }
 }
 
-void TracksListener::newArtistInList(QString artist)
+void TracksListener::newArtistInList(const QString &artist)
 {
     auto newTracks = d->mDatabase->tracksFromAuthor(artist);
     if (newTracks.isEmpty()) {

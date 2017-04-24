@@ -104,9 +104,9 @@ public:
 
     void removeTrackFromIndex(int index);
 
-    void insertTrack(MusicAudioTrack newTrack, int index);
+    void insertTrack(const MusicAudioTrack &newTrack, int index);
 
-    void updateTrack(MusicAudioTrack modifiedTrack, int index);
+    void updateTrack(const MusicAudioTrack &modifiedTrack, int index);
 
     int highestTrackRating() const;
 

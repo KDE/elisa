@@ -153,7 +153,7 @@ void ManageMediaPlayerControl::playerStopped()
     Q_EMIT musicPlayingChanged();
 }
 
-void ManageMediaPlayerControl::setCurrentTrack(QPersistentModelIndex currentTrack)
+void ManageMediaPlayerControl::setCurrentTrack(const QPersistentModelIndex &currentTrack)
 {
     if (mCurrentTrack == currentTrack) {
         return;

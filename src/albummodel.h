@@ -115,23 +115,23 @@ Q_SIGNALS:
 
 public Q_SLOTS:
 
-    void setAlbumData(MusicAlbum album);
+    void setAlbumData(const MusicAlbum &album);
 
-    void setTitle(QString title);
+    void setTitle(const QString &title);
 
-    void setAuthor(QString author);
+    void setAuthor(const QString &author);
 
-    void albumModified(MusicAlbum modifiedAlbum);
+    void albumModified(const MusicAlbum &modifiedAlbum);
 
-    void albumRemoved(MusicAlbum modifiedAlbum);
+    void albumRemoved(const MusicAlbum &modifiedAlbum);
 
 private:
 
-    void trackAdded(MusicAudioTrack newTrack);
+    void trackAdded(const MusicAudioTrack &newTrack);
 
-    void trackModified(MusicAudioTrack modifiedTrack);
+    void trackModified(const MusicAudioTrack &modifiedTrack);
 
-    void trackRemoved(MusicAudioTrack removedTrack);
+    void trackRemoved(const MusicAudioTrack &removedTrack);
 
     QVariant internalDataTrack(const MusicAudioTrack &track, int role, int rowIndex) const;
 

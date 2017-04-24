@@ -67,7 +67,7 @@ QString LocalFileListing::rootPath() const
     return d->mRootPath;
 }
 
-void LocalFileListing::setRootPath(QString rootPath)
+void LocalFileListing::setRootPath(const QString &rootPath)
 {
     if (d->mRootPath == rootPath) {
         return;

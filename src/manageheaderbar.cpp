@@ -316,7 +316,7 @@ void ManageHeaderBar::setIsValidRole(int isValidRole)
     emit isValidRoleChanged();
 }
 
-void ManageHeaderBar::setCurrentTrack(QPersistentModelIndex currentTrack)
+void ManageHeaderBar::setCurrentTrack(const QPersistentModelIndex &currentTrack)
 {
     if (mCurrentTrack == currentTrack) {
         return;

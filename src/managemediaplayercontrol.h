@@ -118,7 +118,7 @@ public Q_SLOTS:
 
     void playerStopped();
 
-    void setCurrentTrack(QPersistentModelIndex currentTrack);
+    void setCurrentTrack(const QPersistentModelIndex &currentTrack);
 
     void setRandomOrContinuePlay(bool randomOrContinuePlay);
 

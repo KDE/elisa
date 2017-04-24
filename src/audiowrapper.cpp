@@ -112,7 +112,7 @@ void AudioWrapper::setVolume(int volume)
     d->mPlayer.setVolume(volume);
 }
 
-void AudioWrapper::setSource(QUrl source)
+void AudioWrapper::setSource(const QUrl &source)
 {
     d->mPlayer.setMedia({source});
 }

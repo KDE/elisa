@@ -98,8 +98,8 @@ public Q_SLOTS:
     void Stop() const;
     void Play() const;
     void Seek(qlonglong Offset) const;
-    void SetPosition(QDBusObjectPath trackId, qlonglong pos) const;
-    void OpenUri(QString uri) const;
+    void SetPosition(const QDBusObjectPath &trackId, qlonglong pos) const;
+    void OpenUri(const QString &uri) const;
 
 private Q_SLOTS:
 

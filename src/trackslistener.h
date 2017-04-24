@@ -37,9 +37,9 @@ public:
 
 Q_SIGNALS:
 
-    void trackHasChanged(MusicAudioTrack audioTrack);
+    void trackHasChanged(const MusicAudioTrack &audioTrack);
 
-    void trackHasBeenRemoved(MusicAudioTrack audioTrack);
+    void trackHasBeenRemoved(const MusicAudioTrack &audioTrack);
 
     void albumAdded(const QList<MusicAudioTrack> &tracks);
 
@@ -51,11 +51,11 @@ public Q_SLOTS:
 
     void trackModified(qulonglong id);
 
-    void trackByNameInList(QString title, QString artist, QString album);
+    void trackByNameInList(const QString &title, const QString &artist, const QString &album);
 
     void trackByIdInList(qulonglong newTrackId);
 
-    void newArtistInList(QString artist);
+    void newArtistInList(const QString &artist);
 
 private:
 

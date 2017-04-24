@@ -274,7 +274,7 @@ void MediaPlayList::clearAndEnqueue(qulonglong newTrackId)
     enqueue(MediaPlayListEntry(newTrackId));
 }
 
-void MediaPlayList::enqueue(MediaPlayListEntry newEntry)
+void MediaPlayList::enqueue(const MediaPlayListEntry &newEntry)
 {
     beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size());
     d->mData.push_back(newEntry);
@@ -369,14 +369,14 @@ void MediaPlayList::move(int from, int to, int n)
     }
 }
 
-void MediaPlayList::enqueue(MusicAlbum album)
+void MediaPlayList::enqueue(const MusicAlbum &album)
 {
     for (auto oneTrackIndex = 0; oneTrackIndex < album.tracksCount(); ++oneTrackIndex) {
         enqueue(album.trackFromIndex(oneTrackIndex).databaseId());
     }
 }
 
-void MediaPlayList::enqueue(QString artistName)
+void MediaPlayList::enqueue(const QString &artistName)
 {
     beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size());
     d->mData.push_back(MediaPlayListEntry{artistName});
@@ -386,13 +386,13 @@ void MediaPlayList::enqueue(QString artistName)
     Q_EMIT newArtistInList(artistName);
 }
 
-void MediaPlayList::clearAndEnqueue(MusicAlbum album)
+void MediaPlayList::clearAndEnqueue(const MusicAlbum &album)
 {
     clearPlayList();
     enqueue(album);
 }
 
-void MediaPlayList::clearAndEnqueue(QString artistName)
+void MediaPlayList::clearAndEnqueue(const QString &artistName)
 {
     clearPlayList();
     enqueue(artistName);
@@ -432,7 +432,7 @@ MusicListenersManager *MediaPlayList::musicListenersManager() const
     return d->mMusicListenersManager;
 }
 
-void MediaPlayList::setPersistentState(QList<QVariant> persistentState)
+void MediaPlayList::setPersistentState(const QList<QVariant> &persistentState)
 {
     qDebug() << "MediaPlayList::setPersistentState" << persistentState;
 
@@ -461,7 +461,7 @@ void MediaPlayList::removeSelection(QList<int> selection)
     }
 }
 
-void MediaPlayList::albumAdded(const QList<MusicAudioTrack> tracks)
+void MediaPlayList::albumAdded(const QList<MusicAudioTrack> &tracks)
 {
     for (int playListIndex = 0; playListIndex < d->mData.size(); ++playListIndex) {
         auto &oneEntry = d->mData[playListIndex];
@@ -492,7 +492,7 @@ void MediaPlayList::albumAdded(const QList<MusicAudioTrack> tracks)
     }
 }
 
-void MediaPlayList::trackChanged(MusicAudioTrack track)
+void MediaPlayList::trackChanged(const MusicAudioTrack &track)
 {
     for (int i = 0; i < d->mData.size(); ++i) {
         auto &oneEntry = d->mData[i];
@@ -531,7 +531,7 @@ void MediaPlayList::trackChanged(MusicAudioTrack track)
     }
 }
 
-void MediaPlayList::trackRemoved(MusicAudioTrack track)
+void MediaPlayList::trackRemoved(const MusicAudioTrack &track)
 {
     for (int i = 0; i < d->mData.size(); ++i) {
         auto &oneEntry = d->mData[i];

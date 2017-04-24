@@ -332,7 +332,7 @@ void PlayListControler::notifyCurrentTrackChanged()
     }
 }
 
-void PlayListControler::setPersistentState(QVariantMap persistentStateValue)
+void PlayListControler::setPersistentState(const QVariantMap &persistentStateValue)
 {
     if (mPersistentState == persistentStateValue) {
         return;

@@ -51,7 +51,7 @@ Q_SIGNALS:
 
     void databaseReady();
 
-    void newTrackFile(MusicAudioTrack newTrack);
+    void newTrackFile(const MusicAudioTrack &newTrack);
 
 public Q_SLOTS:
 

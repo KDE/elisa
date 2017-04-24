@@ -44,7 +44,7 @@ public:
 
 Q_SIGNALS:
 
-    void tracksList(QList<MusicAudioTrack> tracks, const QHash<QString, QUrl> &covers, QString musicSource);
+    void tracksList(const QList<MusicAudioTrack> &tracks, const QHash<QString, QUrl> &covers, const QString &musicSource);
 
     void removedTracksList(const QList<QUrl> &removedTracks);
 
@@ -58,7 +58,7 @@ public Q_SLOTS:
 
     void databaseIsReady();
 
-    void newTrackFile(MusicAudioTrack partialTrack);
+    void newTrackFile(const MusicAudioTrack &partialTrack);
 
 protected Q_SLOTS:
 
@@ -76,7 +76,7 @@ protected:
 
     const QString &sourceName() const;
 
-    virtual MusicAudioTrack scanOneFile(QUrl scanFile);
+    virtual MusicAudioTrack scanOneFile(const QUrl &scanFile);
 
     void watchPath(const QString &pathName);
 

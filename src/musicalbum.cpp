@@ -228,6 +228,8 @@ QStringList MusicAlbum::allArtists() const
 {
     auto result = QList<QString>();
 
+    result.reserve(d->mTracks.size());
+
     const auto &allTracks = d->mTracks;
     for (const auto &oneTrack : allTracks) {
         result.push_back(oneTrack.artist());
@@ -242,6 +244,8 @@ QStringList MusicAlbum::allArtists() const
 QStringList MusicAlbum::allTracksTitle() const
 {
     auto result = QList<QString>();
+
+    result.reserve(d->mTracks.size());
 
     const auto &allTracks = d->mTracks;
     for (const auto &oneTrack : allTracks) {
@@ -269,13 +273,13 @@ void MusicAlbum::removeTrackFromIndex(int index)
     d->mTracks.removeAt(index);
 }
 
-void MusicAlbum::insertTrack(MusicAudioTrack newTrack, int index)
+void MusicAlbum::insertTrack(const MusicAudioTrack &newTrack, int index)
 {
     d->mTracks.insert(index, newTrack);
     ++d->mTracksCount;
 }
 
-void MusicAlbum::updateTrack(MusicAudioTrack modifiedTrack, int index)
+void MusicAlbum::updateTrack(const MusicAudioTrack &modifiedTrack, int index)
 {
     d->mTracks[index] = modifiedTrack;
 }

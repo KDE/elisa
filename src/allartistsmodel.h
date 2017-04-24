@@ -65,11 +65,11 @@ public:
 
 public Q_SLOTS:
 
-    void artistAdded(MusicArtist newArtist);
+    void artistAdded(const MusicArtist &newArtist);
 
-    void artistRemoved(MusicArtist removedArtist);
+    void artistRemoved(const MusicArtist &removedArtist);
 
-    void artistModified(MusicArtist modifiedArtist);
+    void artistModified(const MusicArtist &modifiedArtist);
 
 private:
 

@@ -45,7 +45,7 @@ public:
 
     bool isValid() const;
 
-    void setName(QString aName);
+    void setName(const QString &aName);
 
     QString name() const;
 

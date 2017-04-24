@@ -136,7 +136,7 @@ public Q_SLOTS:
 
     void setVolume(int volume);
 
-    void setSource(QUrl source);
+    void setSource(const QUrl &source);
 
     void setPosition(qint64 position);
 

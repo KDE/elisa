@@ -41,6 +41,12 @@ class LocalFileListingTests: public QObject
 {
     Q_OBJECT
 
+public:
+
+    LocalFileListingTests(QObject *parent = nullptr) : QObject(parent)
+    {
+    }
+
 private:
 
     QHash<QString, QVector<MusicAudioTrack>> mNewTracks;

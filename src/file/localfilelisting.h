@@ -52,7 +52,7 @@ Q_SIGNALS:
 
 public Q_SLOTS:
 
-    void setRootPath(QString rootPath);
+    void setRootPath(const QString &rootPath);
 
 private:
 

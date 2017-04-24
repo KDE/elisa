@@ -37,7 +37,7 @@ class DatabaseInterfacePrivate
 {
 public:
 
-    DatabaseInterfacePrivate(QSqlDatabase tracksDatabase)
+    DatabaseInterfacePrivate(const QSqlDatabase &tracksDatabase)
         : mTracksDatabase(tracksDatabase), mSelectAlbumQuery(mTracksDatabase),
           mSelectTrackQuery(mTracksDatabase), mSelectAlbumIdFromTitleQuery(mTracksDatabase),
           mInsertAlbumQuery(mTracksDatabase), mSelectTrackIdFromTitleAlbumIdArtistQuery(mTracksDatabase),
@@ -180,7 +180,7 @@ void DatabaseInterface::init(const QString &dbName, const QString &databaseFileN
     }
 }
 
-MusicAlbum DatabaseInterface::albumFromTitle(QString title)
+MusicAlbum DatabaseInterface::albumFromTitle(const QString &title)
 {
     auto result = MusicAlbum();
 
@@ -252,7 +252,7 @@ QList<MusicAudioTrack> DatabaseInterface::allTracks() const
     return result;
 }
 
-QList<MusicAudioTrack> DatabaseInterface::allTracksFromSource(QString musicSource) const
+QList<MusicAudioTrack> DatabaseInterface::allTracksFromSource(const QString &musicSource) const
 {
     auto result = QList<MusicAudioTrack>();
 
@@ -308,7 +308,7 @@ QList<MusicAudioTrack> DatabaseInterface::allTracksFromSource(QString musicSourc
     return result;
 }
 
-QList<MusicAudioTrack> DatabaseInterface::allInvalidTracksFromSource(QString musicSource) const
+QList<MusicAudioTrack> DatabaseInterface::allInvalidTracksFromSource(const QString &musicSource) const
 {
     auto result = QList<MusicAudioTrack>();
 
@@ -490,7 +490,7 @@ QList<MusicArtist> DatabaseInterface::allArtists() const
     return result;
 }
 
-QList<MusicAudioTrack> DatabaseInterface::tracksFromAuthor(QString artistName) const
+QList<MusicAudioTrack> DatabaseInterface::tracksFromAuthor(const QString &artistName) const
 {
     auto allTracks = QList<MusicAudioTrack>();
 
@@ -589,7 +589,7 @@ MusicAudioTrack DatabaseInterface::trackFromDatabaseId(qulonglong id)
     return result;
 }
 
-qulonglong DatabaseInterface::trackIdFromTitleAlbumArtist(QString title, QString album, QString artist) const
+qulonglong DatabaseInterface::trackIdFromTitleAlbumArtist(const QString &title, const QString &album, const QString &artist) const
 {
     auto result = qulonglong(0);
 
@@ -612,7 +612,7 @@ qulonglong DatabaseInterface::trackIdFromTitleAlbumArtist(QString title, QString
     return result;
 }
 
-void DatabaseInterface::insertTracksList(QList<MusicAudioTrack> tracks, const QHash<QString, QUrl> &covers, QString musicSource)
+void DatabaseInterface::insertTracksList(const QList<MusicAudioTrack> &tracks, const QHash<QString, QUrl> &covers, const QString &musicSource)
 {
     auto transactionResult = startTransaction();
     if (!transactionResult) {
@@ -661,7 +661,7 @@ void DatabaseInterface::insertTracksList(QList<MusicAudioTrack> tracks, const QH
     }
 }
 
-void DatabaseInterface::removeTracksList(const QList<QUrl> removedTracks)
+void DatabaseInterface::removeTracksList(const QList<QUrl> &removedTracks)
 {
     auto transactionResult = startTransaction();
     if (!transactionResult) {
@@ -1602,7 +1602,7 @@ void DatabaseInterface::initRequest()
     Q_EMIT requestsInitDone();
 }
 
-qulonglong DatabaseInterface::insertAlbum(QString title, QString albumArtist, QUrl albumArtURI, int tracksCount, bool isSingleDiscAlbum)
+qulonglong DatabaseInterface::insertAlbum(const QString &title, const QString &albumArtist, const QUrl &albumArtURI, int tracksCount, bool isSingleDiscAlbum)
 {
     auto result = qulonglong(0);
 
@@ -1684,7 +1684,7 @@ void DatabaseInterface::updateIsSingleDiscAlbumFromId(qulonglong albumId) const
     d->mUpdateIsSingleDiscAlbumFromIdQuery.finish();
 }
 
-qulonglong DatabaseInterface::insertArtist(QString name)
+qulonglong DatabaseInterface::insertArtist(const QString &name)
 {
     auto result = qulonglong(0);
 
@@ -1742,7 +1742,7 @@ qulonglong DatabaseInterface::insertArtist(QString name)
     return result;
 }
 
-void DatabaseInterface::insertTrackOrigin(QUrl fileNameURI, qulonglong discoverId)
+void DatabaseInterface::insertTrackOrigin(const QUrl &fileNameURI, qulonglong discoverId)
 {
     d->mInsertTrackMapping.bindValue(QStringLiteral(":discoverId"), discoverId);
     d->mInsertTrackMapping.bindValue(QStringLiteral(":fileName"), fileNameURI);
@@ -1763,7 +1763,7 @@ void DatabaseInterface::insertTrackOrigin(QUrl fileNameURI, qulonglong discoverI
     d->mInsertTrackMapping.finish();
 }
 
-void DatabaseInterface::updateTrackOrigin(qulonglong trackId, QUrl fileName)
+void DatabaseInterface::updateTrackOrigin(qulonglong trackId, const QUrl &fileName)
 {
     d->mUpdateTrackMapping.bindValue(QStringLiteral(":trackId"), trackId);
     d->mUpdateTrackMapping.bindValue(QStringLiteral(":fileName"), fileName);
@@ -1784,7 +1784,7 @@ void DatabaseInterface::updateTrackOrigin(qulonglong trackId, QUrl fileName)
     d->mInsertTrackMapping.finish();
 }
 
-int DatabaseInterface::computeTrackPriority(qulonglong trackId, QUrl fileName)
+int DatabaseInterface::computeTrackPriority(qulonglong trackId, const QUrl &fileName)
 {
     auto result = int(0);
 
@@ -1875,7 +1875,7 @@ void DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrack, con
     }
 }
 
-qulonglong DatabaseInterface::internalArtistIdFromName(QString name)
+qulonglong DatabaseInterface::internalArtistIdFromName(const QString &name)
 {
     auto result = qulonglong(0);
 
@@ -1992,7 +1992,7 @@ void DatabaseInterface::reloadExistingDatabase()
     ++d->mTrackId;
 }
 
-qulonglong DatabaseInterface::insertMusicSource(QString name)
+qulonglong DatabaseInterface::insertMusicSource(const QString &name)
 {
     qulonglong result = 0;
 
@@ -2194,7 +2194,7 @@ MusicAlbum DatabaseInterface::internalAlbumFromId(qulonglong albumId)
     return retrievedAlbum;
 }
 
-MusicAlbum DatabaseInterface::internalAlbumFromTitle(QString title)
+MusicAlbum DatabaseInterface::internalAlbumFromTitle(const QString &title)
 {
     auto result = MusicAlbum();
 
@@ -2226,7 +2226,7 @@ MusicAlbum DatabaseInterface::internalAlbumFromTitle(QString title)
     return result;
 }
 
-qulonglong DatabaseInterface::internalAlbumIdFromTitle(QString title)
+qulonglong DatabaseInterface::internalAlbumIdFromTitle(const QString &title)
 {
     auto result = qulonglong(0);
 
@@ -2304,7 +2304,7 @@ MusicAudioTrack DatabaseInterface::internalTrackFromDatabaseId(qulonglong id)
     return result;
 }
 
-qulonglong DatabaseInterface::internalTrackIdFromTitleAlbumArtist(QString title, QString album, QString artist) const
+qulonglong DatabaseInterface::internalTrackIdFromTitleAlbumArtist(const QString &title, const QString &album, const QString &artist) const
 {
     auto result = qulonglong(0);
 
@@ -2337,7 +2337,7 @@ qulonglong DatabaseInterface::internalTrackIdFromTitleAlbumArtist(QString title,
     return result;
 }
 
-qulonglong DatabaseInterface::internalTrackIdFromFileName(const QUrl fileName) const
+qulonglong DatabaseInterface::internalTrackIdFromFileName(const QUrl &fileName) const
 {
     auto result = qulonglong(0);
 
@@ -2403,7 +2403,7 @@ QVariant DatabaseInterface::internalAlbumDataFromId(qulonglong albumId, Database
     return result;
 }
 
-QList<MusicAudioTrack> DatabaseInterface::internalTracksFromAuthor(QString artistName) const
+QList<MusicAudioTrack> DatabaseInterface::internalTracksFromAuthor(const QString &artistName) const
 {
     auto allTracks = QList<MusicAudioTrack>();
 

@@ -53,21 +53,21 @@ Q_SIGNALS:
 
     void viewDatabaseChanged();
 
-    void artistAdded(MusicArtist newArtist);
+    void artistAdded(const MusicArtist &newArtist);
 
-    void albumAdded(MusicAlbum newAlbum);
+    void albumAdded(const MusicAlbum &newAlbum);
 
     void trackAdded(qulonglong id);
 
-    void artistRemoved(MusicArtist removedArtist);
+    void artistRemoved(const MusicArtist &removedArtist);
 
-    void albumRemoved(MusicAlbum removedAlbum);
+    void albumRemoved(const MusicAlbum &removedAlbum);
 
     void trackRemoved(qulonglong id);
 
-    void artistModified(MusicArtist modifiedArtist);
+    void artistModified(const MusicArtist &modifiedArtist);
 
-    void albumModified(MusicAlbum modifiedAlbum);
+    void albumModified(const MusicAlbum &modifiedAlbum);
 
     void trackModified(qulonglong id);
 

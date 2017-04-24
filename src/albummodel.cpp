@@ -246,7 +246,7 @@ QString AlbumModel::author() const
     return d->mAuthor;
 }
 
-void AlbumModel::setAlbumData(MusicAlbum album)
+void AlbumModel::setAlbumData(const MusicAlbum &album)
 {
     if (d->mCurrentAlbum == album) {
         return;
@@ -265,7 +265,7 @@ void AlbumModel::setAlbumData(MusicAlbum album)
     Q_EMIT albumDataChanged();
 }
 
-void AlbumModel::setTitle(QString title)
+void AlbumModel::setTitle(const QString &title)
 {
     if (d->mTitle == title)
         return;
@@ -274,7 +274,7 @@ void AlbumModel::setTitle(QString title)
     emit titleChanged();
 }
 
-void AlbumModel::setAuthor(QString author)
+void AlbumModel::setAuthor(const QString &author)
 {
     if (d->mAuthor == author)
         return;
@@ -283,7 +283,7 @@ void AlbumModel::setAuthor(QString author)
     emit authorChanged();
 }
 
-void AlbumModel::albumModified(MusicAlbum modifiedAlbum)
+void AlbumModel::albumModified(const MusicAlbum &modifiedAlbum)
 {
     if (modifiedAlbum.databaseId() != d->mCurrentAlbum.databaseId()) {
         return;
@@ -330,7 +330,7 @@ void AlbumModel::albumModified(MusicAlbum modifiedAlbum)
     }
 }
 
-void AlbumModel::albumRemoved(MusicAlbum modifiedAlbum)
+void AlbumModel::albumRemoved(const MusicAlbum &modifiedAlbum)
 {
     if (modifiedAlbum.databaseId() != d->mCurrentAlbum.databaseId()) {
         return;
@@ -341,7 +341,7 @@ void AlbumModel::albumRemoved(MusicAlbum modifiedAlbum)
     }
 }
 
-void AlbumModel::trackAdded(MusicAudioTrack newTrack)
+void AlbumModel::trackAdded(const MusicAudioTrack &newTrack)
 {
     if (newTrack.albumName() != d->mCurrentAlbum.title()) {
         return;
@@ -373,7 +373,7 @@ void AlbumModel::trackAdded(MusicAudioTrack newTrack)
     }
 }
 
-void AlbumModel::trackModified(MusicAudioTrack modifiedTrack)
+void AlbumModel::trackModified(const MusicAudioTrack &modifiedTrack)
 {
     if (modifiedTrack.albumName() != d->mCurrentAlbum.title()) {
         return;
@@ -389,7 +389,7 @@ void AlbumModel::trackModified(MusicAudioTrack modifiedTrack)
     Q_EMIT dataChanged(index(trackIndex, 0), index(trackIndex, 0));
 }
 
-void AlbumModel::trackRemoved(MusicAudioTrack removedTrack)
+void AlbumModel::trackRemoved(const MusicAudioTrack &removedTrack)
 {
     if (removedTrack.albumName() != d->mCurrentAlbum.title()) {
         return;

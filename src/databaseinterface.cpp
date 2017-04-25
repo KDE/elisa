@@ -1243,7 +1243,8 @@ void DatabaseInterface::initRequest()
                                                    "tracks.`TrackNumber`, "
                                                    "tracks.`DiscNumber`, "
                                                    "tracks.`Duration`, "
-                                                   "tracks.`Rating` "
+                                                   "tracks.`Rating`, "
+                                                   "album.`CoverFileName` "
                                                    "FROM `Tracks` tracks, `Artists` artist, `Artists` artistAlbum, `Albums` album, `TracksMapping` tracksMapping "
                                                    "WHERE "
                                                    "tracksMapping.`TrackID` = tracks.`ID` AND "
@@ -2067,6 +2068,7 @@ QList<MusicAudioTrack> DatabaseInterface::fetchTracks(qulonglong albumId)
         newTrack.setArtist(currentRecord.value(3).toString());
         newTrack.setAlbumName(currentRecord.value(4).toString());
         newTrack.setAlbumArtist(currentRecord.value(5).toString());
+        newTrack.setAlbumCover(currentRecord.value(11).toUrl());
         newTrack.setResourceURI(currentRecord.value(6).toUrl());
         newTrack.setTrackNumber(currentRecord.value(7).toInt());
         newTrack.setDiscNumber(currentRecord.value(8).toInt());

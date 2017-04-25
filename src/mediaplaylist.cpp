@@ -268,17 +268,32 @@ void MediaPlayList::enqueue(qulonglong newTrackId)
     enqueue(MediaPlayListEntry(newTrackId));
 }
 
+void MediaPlayList::enqueue(const MusicAudioTrack &newTrack)
+{
+    enqueue(MediaPlayListEntry(newTrack), newTrack);
+}
+
 void MediaPlayList::clearAndEnqueue(qulonglong newTrackId)
 {
     clearPlayList();
     enqueue(MediaPlayListEntry(newTrackId));
 }
 
-void MediaPlayList::enqueue(const MediaPlayListEntry &newEntry)
+void MediaPlayList::clearAndEnqueue(const MusicAudioTrack &newTrack)
+{
+    clearPlayList();
+    enqueue(MediaPlayListEntry(newTrack));
+}
+
+void MediaPlayList::enqueue(const MediaPlayListEntry &newEntry, const MusicAudioTrack &audioTrack)
 {
     beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size());
     d->mData.push_back(newEntry);
-    d->mTrackData.push_back({});
+    if (audioTrack.isValid()) {
+        d->mTrackData.push_back(audioTrack);
+    } else {
+        d->mTrackData.push_back({});
+    }
     endInsertRows();
 
     Q_EMIT persistentStateChanged();
@@ -372,7 +387,7 @@ void MediaPlayList::move(int from, int to, int n)
 void MediaPlayList::enqueue(const MusicAlbum &album)
 {
     for (auto oneTrackIndex = 0; oneTrackIndex < album.tracksCount(); ++oneTrackIndex) {
-        enqueue(album.trackFromIndex(oneTrackIndex).databaseId());
+        enqueue(album.trackFromIndex(oneTrackIndex));
     }
 }
 

@@ -40,10 +40,14 @@ public:
     explicit MediaPlayListEntry(qulonglong id) : mId(id), mIsValid(true) {
     }
 
-    MediaPlayListEntry(QString title, QString album, QString artist) : mTitle(title), mAlbum(album), mArtist(artist) {
+    MediaPlayListEntry(const QString &title, const QString &album, const QString &artist) : mTitle(title), mAlbum(album), mArtist(artist) {
     }
 
-    explicit MediaPlayListEntry(QString artist) : mArtist(artist), mIsArtist(true) {
+    explicit MediaPlayListEntry(const MusicAudioTrack &track)
+        : mTitle(track.title()), mAlbum(track.albumName()), mArtist(track.artist()), mId(track.databaseId()), mIsValid(true) {
+    }
+
+    explicit MediaPlayListEntry(const QString &artist) : mArtist(artist), mIsArtist(true) {
     }
 
     QString mTitle;
@@ -114,13 +118,17 @@ public:
 
     Q_INVOKABLE void enqueue(qulonglong newTrackId);
 
-    Q_INVOKABLE void enqueue(const MediaPlayListEntry &newEntry);
+    Q_INVOKABLE void enqueue(const MusicAudioTrack &newTrack);
+
+    Q_INVOKABLE void enqueue(const MediaPlayListEntry &newEntry, const MusicAudioTrack &audioTrack = {});
 
     Q_INVOKABLE void enqueue(const MusicAlbum &album);
 
     Q_INVOKABLE void enqueue(const QString &artistName);
 
     Q_INVOKABLE void clearAndEnqueue(qulonglong newTrackId);
+
+    Q_INVOKABLE void clearAndEnqueue(const MusicAudioTrack &newTrack);
 
     Q_INVOKABLE void clearAndEnqueue(const MusicAlbum &album);
 

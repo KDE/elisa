@@ -70,19 +70,13 @@ Item {
     Connections {
         target: musicListener
 
-        onTrackAdded: contentModel.trackAdded(newTrack)
+        onAlbumRemoved: contentModel.albumRemoved(removedAlbum)
     }
 
     Connections {
         target: musicListener
 
-        onTrackRemoved: contentModel.trackRemoved(removedTrack)
-    }
-
-    Connections {
-        target: musicListener
-
-        onTrackModified: contentModel.trackModified(modifiedTrack)
+        onAlbumModified: contentModel.albumModified(modifiedAlbum)
     }
 
     ColumnLayout {
@@ -170,30 +164,42 @@ Item {
                                model.title
                            else
                                ''
+
                     artist: if (model != undefined && model.artist !== undefined)
                                 model.artist
                             else
                                 ''
+
                     albumArtist: if (model != undefined && model.albumArtist !== undefined)
                                      model.albumArtist
                                  else
                                      ''
+
                     duration: if (model != undefined && model.duration !== undefined)
                                   model.duration
                               else
                                   ''
+
                     trackNumber: if (model != undefined && model.trackNumber !== undefined)
                                      model.trackNumber
                                  else
                                      ''
+
                     discNumber: if (model != undefined && model.discNumber !== undefined)
                                      model.discNumber
                                  else
                                      ''
+
                     rating: if (model != undefined && model.rating !== undefined)
                                      model.rating
                                  else
                                      0
+
+                    trackData: if (model != undefined && model.trackData !== undefined)
+                                   model.trackData
+                               else
+                                   ''
+
                     isFirstTrackOfDisc: model.isFirstTrackOfDisc
                     isSingleDiscAlbum: topListing.isSingleDiscAlbum
 

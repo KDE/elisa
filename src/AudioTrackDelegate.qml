@@ -42,6 +42,7 @@ Item {
     property bool isSelected
     property bool isAlternateColor
     property var contextMenu
+    property var trackData
     property alias clearAndEnqueueAction: clearAndEnqueue
     property alias enqueueAction: enqueue
 
@@ -58,7 +59,7 @@ Item {
         text: i18nc("Clear play list and enqueue current track", "Play Now and Replace Play List")
         iconName: "media-playback-start"
         onTriggered: {
-            playList.clearAndEnqueue(databaseId)
+            playList.clearAndEnqueue(trackData)
             playerControl.ensurePlay()
         }
     }
@@ -68,7 +69,7 @@ Item {
         text: i18nc("Enqueue current track", "Enqueue")
         iconName: "media-track-add-amarok"
         onTriggered: {
-            playList.enqueue(databaseId)
+            playList.enqueue(trackData)
         }
     }
 

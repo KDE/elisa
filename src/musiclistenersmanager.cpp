@@ -159,8 +159,6 @@ void MusicListenersManager::databaseReady()
             &d->mFileListener, &FileListener::applicationAboutToQuit, Qt::BlockingQueuedConnection);
     connect(this, &MusicListenersManager::databaseIsReady,
             &d->mFileListener, &FileListener::databaseReady);
-    connect(&d->mDatabaseInterface, &DatabaseInterface::newTrackFile,
-            &d->mFileListener, &FileListener::newTrackFile);
 #endif
 
     Q_EMIT databaseIsReady();

@@ -56,6 +56,8 @@ public:
 
     bool mHandleNewFiles = true;
 
+    KFileMetaData::ExtractorCollection mExtractors;
+
 };
 
 AbstractFileListing::AbstractFileListing(const QString &sourceName, QObject *parent) : QObject(parent), d(new AbstractFileListingPrivate(sourceName))
@@ -219,8 +221,7 @@ MusicAudioTrack AbstractFileListing::scanOneFile(const QUrl &scanFile)
     QMimeDatabase mimeDb;
     QString mimetype = mimeDb.mimeTypeForFile(scanFile.toLocalFile()).name();
 
-    KFileMetaData::ExtractorCollection extractors;
-    QList<KFileMetaData::Extractor*> exList = extractors.fetchExtractors(mimetype);
+    QList<KFileMetaData::Extractor*> exList = d->mExtractors.fetchExtractors(mimetype);
 
     if (exList.isEmpty()) {
         return newTrack;

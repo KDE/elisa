@@ -28,6 +28,12 @@
         <file alias="rating.svg">windows/rating.svg</file>
         <file alias="rating-unrated.svg">windows/rating-unrated.svg</file>
         <file alias="view-media-artist.svg">windows/view-media-artist.svg</file>
+        <file alias="media-playback-pause.svg">windows/media-playback-pause.svg</file>
+        <file alias="media-playback-start.svg">windows/media-playback-start.svg</file>
+        <file alias="media-skip-backward.svg">windows/media-skip-backward.svg</file>
+        <file alias="media-skip-forward.svg">windows/media-skip-forward.svg</file>
+        <file alias="player-volume-muted.svg">windows/player-volume-muted.svg</file>
+        <file alias="player-volume.svg">windows/player-volume.svg</file>
     </qresource>
     <qresource prefix="/+windows">
         <file alias="Theme.qml">windows/WindowsTheme.qml</file>

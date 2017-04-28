@@ -70,7 +70,7 @@ Item {
                         musicWidget.playPrevious()
                     }
                 }
-                source: elisaTheme.skipBackwardIcon
+                source: Qt.resolvedUrl(elisaTheme.skipBackwardIcon)
                 Layout.preferredWidth: width
                 Layout.preferredHeight: height
                 Layout.alignment: Qt.AlignVCenter
@@ -101,9 +101,9 @@ Item {
                 }
                 source: {
                     if (musicWidget.isPlaying)
-                        elisaTheme.pauseIcon
+                        Qt.resolvedUrl(elisaTheme.pauseIcon)
                     else
-                        elisaTheme.playIcon
+                        Qt.resolvedUrl(elisaTheme.playIcon)
                 }
                 Layout.preferredWidth: width
                 Layout.preferredHeight: height
@@ -129,7 +129,7 @@ Item {
                         musicWidget.playNext()
                     }
                 }
-                source: elisaTheme.skipForwardIcon
+                source: Qt.resolvedUrl(elisaTheme.skipForwardIcon)
                 Layout.preferredWidth: width
                 Layout.preferredHeight: height
                 Layout.alignment: Qt.AlignVCenter
@@ -218,9 +218,9 @@ Item {
                     onClicked: musicWidget.muted = !musicWidget.muted
                 }
                 source: if (musicWidget.muted)
-                            elisaTheme.playerVolumeMutedIcon
+                            Qt.resolvedUrl(elisaTheme.playerVolumeMutedIcon)
                         else
-                            elisaTheme.playerVolumeIcon
+                            Qt.resolvedUrl(elisaTheme.playerVolumeIcon)
                 Layout.preferredWidth: width
                 Layout.preferredHeight: height
                 Layout.alignment: Qt.AlignVCenter

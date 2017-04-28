@@ -115,7 +115,7 @@ Rectangle {
             fillMode: Image.PreserveAspectFit
             smooth: true
 
-            source: (mediaServerEntry.image ? mediaServerEntry.image : elisaTheme.albumCover)
+            source: (mediaServerEntry.image ? mediaServerEntry.image : Qt.resolvedUrl(elisaTheme.albumCover))
 
             visible: false
 

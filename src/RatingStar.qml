@@ -59,9 +59,9 @@ RowLayout {
             }
 
             source: if (starRating >= 2 || mouseAreaOne.containsMouse || mouseAreaTwo.containsMouse || mouseAreaThree.containsMouse || mouseAreaFour.containsMouse || mouseAreaFive.containsMouse)
-                        elisaTheme.ratingIcon
+                        Qt.resolvedUrl(elisaTheme.ratingIcon)
                     else
-                        elisaTheme.ratingUnratedIcon
+                        Qt.resolvedUrl(elisaTheme.ratingUnratedIcon)
             opacity: if (starRating >= 2 || mouseAreaOne.containsMouse || mouseAreaTwo.containsMouse || mouseAreaThree.containsMouse || mouseAreaFour.containsMouse || mouseAreaFive.containsMouse)
                         1
                     else
@@ -104,9 +104,9 @@ RowLayout {
             }
 
             source: if (starRating >= 4 || mouseAreaTwo.containsMouse || mouseAreaThree.containsMouse || mouseAreaFour.containsMouse || mouseAreaFive.containsMouse)
-                        elisaTheme.ratingIcon
+                        Qt.resolvedUrl(elisaTheme.ratingIcon)
                     else
-                        elisaTheme.ratingUnratedIcon
+                        Qt.resolvedUrl(elisaTheme.ratingUnratedIcon)
             opacity: if (starRating >= 4 || mouseAreaTwo.containsMouse || mouseAreaThree.containsMouse || mouseAreaFour.containsMouse || mouseAreaFive.containsMouse)
                         1
                     else
@@ -144,9 +144,9 @@ RowLayout {
             }
 
             source: if (starRating >= 6 || mouseAreaThree.containsMouse || mouseAreaFour.containsMouse || mouseAreaFive.containsMouse)
-                        elisaTheme.ratingIcon
+                        Qt.resolvedUrl(elisaTheme.ratingIcon)
                     else
-                        elisaTheme.ratingUnratedIcon
+                        Qt.resolvedUrl(elisaTheme.ratingUnratedIcon)
             opacity: if (starRating >= 6 || mouseAreaThree.containsMouse || mouseAreaFour.containsMouse || mouseAreaFive.containsMouse)
                         1
                     else
@@ -184,9 +184,9 @@ RowLayout {
             }
 
             source: if (starRating >= 8 || mouseAreaFour.containsMouse || mouseAreaFive.containsMouse)
-                        elisaTheme.ratingIcon
+                        Qt.resolvedUrl(elisaTheme.ratingIcon)
                     else
-                        elisaTheme.ratingUnratedIcon
+                        Qt.resolvedUrl(elisaTheme.ratingUnratedIcon)
             opacity: if (starRating >= 8 || mouseAreaFour.containsMouse || mouseAreaFive.containsMouse)
                         1
                     else
@@ -226,9 +226,9 @@ RowLayout {
             }
 
             source: if (starRating === 10 || mouseAreaFive.containsMouse)
-                        elisaTheme.ratingIcon
+                        Qt.resolvedUrl(elisaTheme.ratingIcon)
                     else
-                        elisaTheme.ratingUnratedIcon
+                        Qt.resolvedUrl(elisaTheme.ratingUnratedIcon)
             opacity: if (starRating === 10 || mouseAreaFive.containsMouse)
                         1
                     else

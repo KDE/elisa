@@ -141,7 +141,7 @@ Item {
             Image {
                 id: artistJumpIcon
 
-                source: elisaTheme.artistImage
+                source: Qt.resolvedUrl(elisaTheme.artistImage)
 
                 Layout.preferredWidth: width
                 Layout.preferredHeight: height

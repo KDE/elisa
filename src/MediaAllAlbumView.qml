@@ -82,7 +82,7 @@ Item {
                     fillMode: Image.PreserveAspectFit
                     smooth: true
                     visible: parent.text
-                    source: elisaTheme.clearIcon
+                    source: Qt.resolvedUrl(elisaTheme.clearIcon)
                     height: parent.height
                     width: parent.height
                     sourceSize.width: parent.height

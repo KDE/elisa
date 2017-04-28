@@ -107,7 +107,7 @@ Rectangle {
                 Image {
                     id: mainIcon
 
-                    source: (isValid ? (viewAlbumDelegate.itemDecoration ? viewAlbumDelegate.itemDecoration : elisaTheme.albumCover) : elisaTheme.errorIcon)
+                    source: (isValid ? (viewAlbumDelegate.itemDecoration ? viewAlbumDelegate.itemDecoration : Qt.resolvedUrl(elisaTheme.albumCover)) : Qt.resolvedUrl(elisaTheme.errorIcon))
 
                     Layout.minimumWidth: headerRow.height - 4
                     Layout.maximumWidth: headerRow.height - 4
@@ -272,7 +272,7 @@ Rectangle {
                     Layout.maximumWidth: Screen.pixelDensity * 6
                     Layout.maximumHeight: Screen.pixelDensity * 6
 
-                    source: elisaTheme.playIcon
+                    source: Qt.resolvedUrl(elisaTheme.playIcon)
                     width: parent.height * 1.
                     height: parent.height * 1.
                     sourceSize.width: parent.height * 1.

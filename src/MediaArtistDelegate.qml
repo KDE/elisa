@@ -102,7 +102,7 @@ Rectangle {
         Image {
             id: artistDecoration
 
-            source: elisaTheme.artistImage
+            source: Qt.resolvedUrl(elisaTheme.artistImage)
 
             Layout.preferredWidth: mediaServerEntry.width * 0.9
             Layout.preferredHeight: mediaServerEntry.width * 0.9

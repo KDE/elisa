@@ -131,7 +131,7 @@ Item {
 
                 Image {
                     id: mainIcon
-                    source: (image ? image : elisaTheme.albumCover)
+                    source: (image ? image : Qt.resolvedUrl(elisaTheme.albumCover))
 
                     sourceSize {
                         width: Screen.pixelDensity * 34.

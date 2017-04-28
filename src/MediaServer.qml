@@ -26,7 +26,6 @@ import QtQml.Models 2.1
 import org.mgallien.QmlExtension 1.0
 import QtMultimedia 5.6
 import Qt.labs.settings 1.0
-import QtWinExtras 1.0
 
 ApplicationWindow {
     id: mainWindow
@@ -106,10 +105,9 @@ ApplicationWindow {
         }
     }
 
-    Mpris2 {
-        id: mpris2Interface
+    PlatformIntegration {
+        id: platformInterface
 
-        playerName: 'elisa'
         playListModel: playListModelItem
         playListControler: playListControlerItem
         audioPlayerManager: manageAudioPlayer
@@ -191,28 +189,6 @@ ApplicationWindow {
         albumRole: MediaPlayList.AlbumRole
         imageRole: MediaPlayList.ImageRole
         isValidRole: MediaPlayList.IsValidRole
-    }
-
-    ThumbnailToolBar {
-        iconicThumbnailSource: (myHeaderBarManager.image ? myHeaderBarManager.image : Qt.resolvedUrl(elisaTheme.albumCover))
-
-        ThumbnailToolButton {
-            iconSource: Qt.resolvedUrl(elisaTheme.skipBackwardIcon)
-            onClicked: playListControlerItem.skipPreviousTrack()
-            enabled: myPlayControlManager.skipBackwardControlEnabled
-        }
-
-        ThumbnailToolButton {
-            iconSource: (myPlayControlManager.musicPlaying ? Qt.resolvedUrl(elisaTheme.pauseIcon) : Qt.resolvedUrl(elisaTheme.playIcon))
-            onClicked: manageAudioPlayer.playPause()
-            enabled: myPlayControlManager.playControlEnabled
-        }
-
-        ThumbnailToolButton {
-            iconSource: Qt.resolvedUrl(elisaTheme.skipForwardIcon)
-            onClicked: playListControlerItem.skipNextTrack()
-            enabled: myPlayControlManager.skipForwardControlEnabled
-        }
     }
 
     ManageAudioPlayer {

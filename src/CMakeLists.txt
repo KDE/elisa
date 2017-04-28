@@ -25,7 +25,9 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
 
         MediaServer.qml
         Theme.qml
+        PlatformIntegration.qml
         windows/WindowsTheme.qml
+        windows/PlatformIntegration.qml
 
         RatingStar.qml
         AudioTrackDelegate.qml

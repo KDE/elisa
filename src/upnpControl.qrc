@@ -34,8 +34,10 @@
         <file alias="media-skip-forward.svg">windows/media-skip-forward.svg</file>
         <file alias="player-volume-muted.svg">windows/player-volume-muted.svg</file>
         <file alias="player-volume.svg">windows/player-volume.svg</file>
+        <file>PlatformIntegration.qml</file>
     </qresource>
     <qresource prefix="/+windows">
         <file alias="Theme.qml">windows/WindowsTheme.qml</file>
+        <file alias="PlatformIntegration.qml">windows/PlatformIntegration.qml</file>
     </qresource>
 </RCC>

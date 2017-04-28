@@ -34,6 +34,10 @@ Item {
     property var tracksCount
     property var albumArtUrl
 
+    Theme {
+        id: elisaTheme
+    }
+
     ColumnLayout {
         anchors.fill: parent
 
@@ -137,7 +141,7 @@ Item {
             Image {
                 id: artistJumpIcon
 
-                source: 'image://icon/view-media-artist'
+                source: elisaTheme.artistImage
 
                 Layout.preferredWidth: width
                 Layout.preferredHeight: height

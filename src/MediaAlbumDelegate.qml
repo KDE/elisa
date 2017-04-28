@@ -47,6 +47,10 @@ Rectangle {
         colorGroup: SystemPalette.Active
     }
 
+    Theme {
+        id: elisaTheme
+    }
+
     Action {
         id: enqueueAction
 
@@ -111,7 +115,7 @@ Rectangle {
             fillMode: Image.PreserveAspectFit
             smooth: true
 
-            source: (mediaServerEntry.image ? mediaServerEntry.image : 'image://icon/media-optical-audio')
+            source: (mediaServerEntry.image ? mediaServerEntry.image : elisaTheme.albumCover)
 
             visible: false
 

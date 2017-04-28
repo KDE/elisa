@@ -34,6 +34,10 @@ Item {
     property int trackRating
     property bool ratingVisible
 
+    Theme {
+        id: elisaTheme
+    }
+
     Image {
         id: background
         source: (image ? image : Qt.resolvedUrl('background.jpg'))
@@ -127,7 +131,7 @@ Item {
 
                 Image {
                     id: mainIcon
-                    source: (image ? image : 'image://icon/media-optical-audio')
+                    source: (image ? image : elisaTheme.albumCover)
 
                     sourceSize {
                         width: Screen.pixelDensity * 34.

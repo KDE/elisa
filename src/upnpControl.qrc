@@ -9,13 +9,13 @@
         <file>HeaderBar.qml</file>
         <file>audio-x-generic.svg</file>
         <file>folder.svg</file>
-        <file>media-optical-audio.svg</file>
-        <file>media-playback-pause.svg</file>
-        <file>media-playback-start.svg</file>
-        <file>media-skip-backward.svg</file>
-        <file>media-skip-forward.svg</file>
-        <file>player-volume-muted.svg</file>
-        <file>player-volume.svg</file>
+        <file alias="+windows/media-optical-audio.svg">media-optical-audio.svg</file>
+        <file alias="+windows/media-playback-pause.svg">media-playback-pause.svg</file>
+        <file alias="+windows/media-playback-start.svg">media-playback-start.svg</file>
+        <file alias="+windows/media-skip-backward.svg">media-skip-backward.svg</file>
+        <file alias="+windows/media-skip-forward.svg">media-skip-forward.svg</file>
+        <file alias="+windows/player-volume-muted.svg">player-volume-muted.svg</file>
+        <file alias="+windows/player-volume.svg">player-volume.svg</file>
         <file>background.jpg</file>
         <file>ContextView.qml</file>
         <file>DraggableItem.qml</file>
@@ -28,5 +28,13 @@
         <file>MediaAllAlbumView.qml</file>
         <file>MediaArtistAlbumView.qml</file>
         <file>MediaAllArtistView.qml</file>
+        <file>Theme.qml</file>
+        <file alias="+windows/Theme.qml">windows/WindowsTheme.qml</file>
+        <file alias="+windows/edit-clear.svg">windows/edit-clear.svg</file>
+        <file alias="+windows/error.svg">windows/error.svg</file>
+        <file alias="+windows/media-optical-audio.svg">windows/media-optical-audio.svg</file>
+        <file alias="+windows/view-media-artist.svg">windows/view-media-artist.svg</file>
+        <file alias="+windows/rating-unrated.svg">windows/rating-unrated.svg</file>
+        <file alias="+windows/rating.svg">windows/rating.svg</file>
     </qresource>
 </RCC>

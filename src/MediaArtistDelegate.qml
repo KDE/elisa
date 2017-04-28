@@ -44,6 +44,10 @@ Rectangle {
         colorGroup: SystemPalette.Active
     }
 
+    Theme {
+        id: elisaTheme
+    }
+
     Action {
         id: enqueueAction
 
@@ -98,7 +102,7 @@ Rectangle {
         Image {
             id: artistDecoration
 
-            source: 'image://icon/view-media-artist'
+            source: elisaTheme.artistImage
 
             Layout.preferredWidth: mediaServerEntry.width * 0.9
             Layout.preferredHeight: mediaServerEntry.width * 0.9

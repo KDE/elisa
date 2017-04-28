@@ -49,6 +49,10 @@ Item {
         colorGroup: SystemPalette.Active
     }
 
+    Theme {
+        id: elisaTheme
+    }
+
     Rectangle {
         color: myPalette.mid
 
@@ -66,7 +70,7 @@ Item {
                         musicWidget.playPrevious()
                     }
                 }
-                source: 'image://icon/media-skip-backward'
+                source: elisaTheme.skipBackwardIcon
                 Layout.preferredWidth: width
                 Layout.preferredHeight: height
                 Layout.alignment: Qt.AlignVCenter
@@ -97,9 +101,9 @@ Item {
                 }
                 source: {
                     if (musicWidget.isPlaying)
-                        'image://icon/media-playback-pause'
+                        elisaTheme.pauseIcon
                     else
-                        'image://icon/media-playback-start'
+                        elisaTheme.playIcon
                 }
                 Layout.preferredWidth: width
                 Layout.preferredHeight: height
@@ -125,7 +129,7 @@ Item {
                         musicWidget.playNext()
                     }
                 }
-                source: 'image://icon/media-skip-forward'
+                source: elisaTheme.skipForwardIcon
                 Layout.preferredWidth: width
                 Layout.preferredHeight: height
                 Layout.alignment: Qt.AlignVCenter
@@ -214,9 +218,9 @@ Item {
                     onClicked: musicWidget.muted = !musicWidget.muted
                 }
                 source: if (musicWidget.muted)
-                            'image://icon/player-volume-muted'
+                            elisaTheme.playerVolumeMutedIcon
                         else
-                            'image://icon/player-volume'
+                            elisaTheme.playerVolumeIcon
                 Layout.preferredWidth: width
                 Layout.preferredHeight: height
                 Layout.alignment: Qt.AlignVCenter

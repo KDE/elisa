@@ -43,6 +43,10 @@ Item {
         colorGroup: SystemPalette.Active
     }
 
+    Theme {
+        id: elisaTheme
+    }
+
     ColumnLayout {
         anchors.fill: parent
         spacing: 0
@@ -78,7 +82,7 @@ Item {
                     fillMode: Image.PreserveAspectFit
                     smooth: true
                     visible: parent.text
-                    source: 'image://icon/edit-clear'
+                    source: elisaTheme.clearIcon
                     height: parent.height
                     width: parent.height
                     sourceSize.width: parent.height

@@ -53,6 +53,10 @@ Rectangle {
         colorGroup: SystemPalette.Active
     }
 
+    Theme {
+        id: elisaTheme
+    }
+
     color: (isAlternateColor ? myPalette.alternateBase : myPalette.base)
 
     height: (hasAlbumHeader ? Screen.pixelDensity * 21 : Screen.pixelDensity * 7.)
@@ -103,7 +107,7 @@ Rectangle {
                 Image {
                     id: mainIcon
 
-                    source: (isValid ? (viewAlbumDelegate.itemDecoration ? viewAlbumDelegate.itemDecoration : 'image://icon/media-optical-audio') : 'image://icon/error')
+                    source: (isValid ? (viewAlbumDelegate.itemDecoration ? viewAlbumDelegate.itemDecoration : elisaTheme.albumCover) : elisaTheme.errorIcon)
 
                     Layout.minimumWidth: headerRow.height - 4
                     Layout.maximumWidth: headerRow.height - 4
@@ -268,7 +272,7 @@ Rectangle {
                     Layout.maximumWidth: Screen.pixelDensity * 6
                     Layout.maximumHeight: Screen.pixelDensity * 6
 
-                    source: 'image://icon/media-playback-start'
+                    source: elisaTheme.playIcon
                     width: parent.height * 1.
                     height: parent.height * 1.
                     sourceSize.width: parent.height * 1.

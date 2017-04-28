@@ -24,6 +24,8 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         audiowrapper.cpp
 
         MediaServer.qml
+        Theme.qml
+        windows/WindowsTheme.qml
 
         RatingStar.qml
         AudioTrackDelegate.qml

@@ -91,6 +91,10 @@ void AbstractFileListing::newTrackFile(const MusicAudioTrack &partialTrack)
     }
 }
 
+void AbstractFileListing::applicationAboutToQuit()
+{
+}
+
 void AbstractFileListing::scanDirectory(QList<MusicAudioTrack> &newFiles, const QUrl &path)
 {
     QDir rootDirectory(path.toLocalFile());

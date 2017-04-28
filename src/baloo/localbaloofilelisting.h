@@ -44,6 +44,8 @@ public:
 
     virtual ~LocalBalooFileListing();
 
+    void applicationAboutToQuit() override;
+
 Q_SIGNALS:
 
 public Q_SLOTS:

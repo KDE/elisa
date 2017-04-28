@@ -42,6 +42,8 @@ public:
 
     virtual ~AbstractFileListing();
 
+    virtual void applicationAboutToQuit();
+
 Q_SIGNALS:
 
     void tracksList(const QList<MusicAudioTrack> &tracks, const QHash<QString, QUrl> &covers, const QString &musicSource);

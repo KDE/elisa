@@ -34,6 +34,7 @@
 #include <QHash>
 #include <QFileInfo>
 #include <QDir>
+#include <QAtomicInt>
 #include <QDebug>
 
 #include <algorithm>
@@ -52,6 +53,8 @@ public:
 
     QHash<QString, QUrl> mAllAlbumCover;
 
+    QAtomicInt mStopRequest = 0;
+
 };
 
 LocalBalooFileListing::LocalBalooFileListing(QObject *parent) : AbstractFileListing(QStringLiteral("baloo"), parent), d(new LocalBalooFileListingPrivate)
@@ -62,6 +65,11 @@ LocalBalooFileListing::LocalBalooFileListing(QObject *parent) : AbstractFileList
 
 LocalBalooFileListing::~LocalBalooFileListing()
 {
+}
+
+void LocalBalooFileListing::applicationAboutToQuit()
+{
+    d->mStopRequest = 1;
 }
 
 void LocalBalooFileListing::newBalooFile(const QString &fileName)
@@ -101,7 +109,7 @@ void LocalBalooFileListing::triggerRefreshOfContent()
     auto resultIterator = d->mQuery.exec();
     auto newFiles = QList<MusicAudioTrack>();
 
-    while(resultIterator.next()) {
+    while(resultIterator.next() && d->mStopRequest == 0) {
         const auto &newFileUrl = QUrl::fromLocalFile(resultIterator.filePath());
         auto scanFileInfo = QFileInfo(resultIterator.filePath());
         const auto currentDirectory = QUrl::fromLocalFile(scanFileInfo.absoluteDir().absolutePath());
@@ -115,7 +123,7 @@ void LocalBalooFileListing::triggerRefreshOfContent()
         }
     }
 
-    if (!newFiles.isEmpty()) {
+    if (!newFiles.isEmpty() && d->mStopRequest == 0) {
         emitNewFiles(newFiles);
     }
 }

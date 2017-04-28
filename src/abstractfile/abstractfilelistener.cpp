@@ -72,6 +72,8 @@ void AbstractFileListener::setDatabaseInterface(DatabaseInterface *model)
 
 void AbstractFileListener::applicationAboutToQuit()
 {
+    d->mFileListing->applicationAboutToQuit();
+
     d->mFileQueryThread.exit();
     d->mFileQueryThread.wait();
 }

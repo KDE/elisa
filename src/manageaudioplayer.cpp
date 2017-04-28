@@ -223,7 +223,6 @@ void ManageAudioPlayer::setPlayerPlaybackState(int playerPlaybackState)
     }
 
     mPlayerPlaybackState = static_cast<PlayerPlaybackState>(playerPlaybackState);
-    qDebug() << "ManageAudioPlayer::setPlayerPlaybackState" << mPlayerPlaybackState;
     Q_EMIT playerPlaybackStateChanged();
 
     if (!mSkippingCurrentTrack) {

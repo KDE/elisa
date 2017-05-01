@@ -59,6 +59,7 @@ Item {
             id: filterRow
 
             Layout.fillWidth: true
+            Layout.bottomMargin: Screen.pixelDensity * 0.5
 
             Text {
                 text: i18nc("before the TextField input of the filter", "Filter: ")

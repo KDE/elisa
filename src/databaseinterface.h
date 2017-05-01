@@ -72,6 +72,8 @@ public:
 
     qulonglong trackIdFromTitleAlbumArtist(const QString &title, const QString &album, const QString &artist) const;
 
+    void applicationAboutToQuit();
+
 Q_SIGNALS:
 
     void artistAdded(const MusicArtist &newArtist);

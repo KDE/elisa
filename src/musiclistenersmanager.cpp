@@ -166,6 +166,8 @@ void MusicListenersManager::databaseReady()
 
 void MusicListenersManager::applicationAboutToQuit()
 {
+    d->mDatabaseInterface.applicationAboutToQuit();
+
     Q_EMIT applicationIsTerminating();
 
     d->mDatabaseThread.exit();

@@ -29,6 +29,7 @@
 
 #include <QMutex>
 #include <QVariant>
+#include <QAtomicInt>
 #include <QDebug>
 
 #include <algorithm>
@@ -135,6 +136,8 @@ public:
     qulonglong mDiscoverId = 1;
 
     bool mInitFinished = false;
+
+    QAtomicInt mStopRequest = 0;
 
 };
 
@@ -612,6 +615,11 @@ qulonglong DatabaseInterface::trackIdFromTitleAlbumArtist(const QString &title, 
     return result;
 }
 
+void DatabaseInterface::applicationAboutToQuit()
+{
+    d->mStopRequest = 1;
+}
+
 void DatabaseInterface::insertTracksList(const QList<MusicAudioTrack> &tracks, const QHash<QString, QUrl> &covers, const QString &musicSource)
 {
     auto transactionResult = startTransaction();
@@ -648,6 +656,14 @@ void DatabaseInterface::insertTracksList(const QList<MusicAudioTrack> &tracks, c
         d->mSelectTracksMapping.finish();
 
         internalInsertTrack(oneTrack, covers, 0, modifiedAlbumIds);
+
+        if (d->mStopRequest == 1) {
+            transactionResult = finishTransaction();
+            if (!transactionResult) {
+                return;
+            }
+            return;
+        }
     }
 
     const auto &constModifiedAlbumIds = modifiedAlbumIds;

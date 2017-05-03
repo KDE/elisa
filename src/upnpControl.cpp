@@ -88,6 +88,11 @@
 #include <QQmlDebuggingEnabler>
 #include <QQmlContext>
 
+#if defined Qt5AndroidExtras_FOUND && Qt5AndroidExtras_FOUND
+#include <QAndroidJniObject>
+#include <QtAndroid>
+#endif
+
 int __attribute__((visibility("default"))) main(int argc, char *argv[])
 {
     qputenv("QT_GSTREAMER_USE_PLAYBIN_VOLUME", "true");
@@ -180,6 +185,15 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
 
     parser.process(app);
     aboutData.processCommandLine(&parser);
+#endif
+
+#if defined Qt5AndroidExtras_FOUND && Qt5AndroidExtras_FOUND
+    qDebug() << QCoreApplication::arguments();
+
+    QAndroidJniObject::callStaticMethod<void>("com/kde/elisa/ElisaService",
+                                              "startMyService",
+                                              "(Landroid/content/Context;)V",
+                                              QtAndroid::androidContext().object());
 #endif
 
     QQmlApplicationEngine engine;

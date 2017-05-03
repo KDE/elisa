@@ -26,8 +26,13 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         MediaServer.qml
         Theme.qml
         PlatformIntegration.qml
+
         windows/WindowsTheme.qml
         windows/PlatformIntegration.qml
+
+        android/MediaServer.qml
+        android/AndroidTheme.qml
+        android/PlatformIntegration.qml
 
         RatingStar.qml
         AudioTrackDelegate.qml
@@ -92,11 +97,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         )
     endif()
 
-    if (CMAKE_SYSTEM_NAME STREQUAL Android)
-        qt5_add_resources(elisa_SOURCES upnpControlMobile.qrc)
-    else()
-        qt5_add_resources(elisa_SOURCES upnpControl.qrc)
-    endif()
+    qt5_add_resources(elisa_SOURCES upnpControl.qrc)
 
     add_executable(elisa ${elisa_SOURCES})
 
@@ -120,6 +121,13 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         target_link_libraries(elisa
             LINK_PRIVATE
                 Qt5::DBus
+        )
+    endif()
+
+    if (Qt5AndroidExtras_FOUND)
+        target_link_libraries(elisa
+            LINK_PRIVATE
+                Qt5::AndroidExtras
         )
     endif()
 

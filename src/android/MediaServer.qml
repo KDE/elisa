@@ -17,36 +17,20 @@
  * Boston, MA 02110-1301, USA.
  */
 
-import QtQuick 2.4
-import QtQuick.Controls 1.3
-import QtQuick.Controls.Styles 1.3
-import QtQuick.Layouts 1.1
+import QtQuick 2.6
+import QtQuick.Controls 2.0
+import QtQuick.Layouts 1.3
 import QtQuick.Window 2.2
 import QtQml.Models 2.1
 import org.mgallien.QmlExtension 1.0
 import QtMultimedia 5.6
-import Qt.labs.settings 1.0
 
 ApplicationWindow {
     id: mainWindow
 
     visible: true
 
-    minimumWidth: 1000
-    minimumHeight: 600
-
-    x: persistentSettings.x
-    y: persistentSettings.y
-    width: persistentSettings.width
-    height: persistentSettings.height
-
     title: 'Elisa'
-
-    property var helpAction: elisa.action("help_contents")
-    property var quitApplication: elisa.action("file_quit")
-    property var reportBugAction: elisa.action("help_report_bug")
-    property var aboutAppAction: elisa.action("help_about_app")
-    property var configureShortcutsAction: elisa.action("options_configure_keybinding")
 
     SystemPalette {
         id: myPalette
@@ -57,53 +41,9 @@ ApplicationWindow {
         id: elisaTheme
     }
 
-    Settings {
-        id: persistentSettings
-
-        property int x
-        property int y
-        property int width : 1000
-        property int height : 600
-
-        property var playListState
-
-        property var playListControlerState
-
-        property var audioPlayerState
-
-        property double playControlItemVolume : 1.0
-        property bool playControlItemMuted : false
-    }
-
-    Action {
-        id: qmlQuitAction
-        text: quitApplication.text
-        shortcut: quitApplication.shortcut
-        iconName: elisa.iconName(quitApplication.icon)
-        onTriggered: quitApplication.trigger()
-    }
-
     property string globalBrowseFlag: 'BrowseDirectChildren'
     property string globalFilter: '*'
     property string globalSortCriteria: ''
-
-    Connections {
-        target: Qt.application
-        onAboutToQuit:
-        {
-            persistentSettings.x = mainWindow.x;
-            persistentSettings.y = mainWindow.y;
-            persistentSettings.width = mainWindow.width;
-            persistentSettings.height = mainWindow.height;
-
-            persistentSettings.playListState = playListModelItem.persistentState;
-            persistentSettings.playListControlerState = playListControlerItem.persistentState;
-            persistentSettings.audioPlayerState = manageAudioPlayer.persistentState
-
-            persistentSettings.playControlItemVolume = playControlItem.volume
-            persistentSettings.playControlItemMuted = playControlItem.muted
-        }
-    }
 
     PlatformIntegration {
         id: platformInterface
@@ -266,71 +206,6 @@ ApplicationWindow {
         onArtistModified: allArtistsModel.artistModified(modifiedArtist)
     }
 
-    Menu {
-        id: applicationMenu
-        title: i18nc("open application menu", "Application Menu")
-
-        MenuItem {
-            action: qmlQuitAction
-            visible: qmlQuitAction.text !== ""
-        }
-
-        MenuSeparator {
-            visible: qmlQuitAction.text !== ""
-        }
-
-        MenuItem {
-            text: helpAction.text
-            shortcut: helpAction.shortcut
-            iconName: elisa.iconName(helpAction.icon)
-            onTriggered: helpAction.trigger()
-            visible: helpAction.text !== ""
-        }
-
-        MenuSeparator {
-            visible: helpAction.text !== ""
-        }
-
-        MenuItem {
-            text: reportBugAction.text
-            shortcut: reportBugAction.shortcut
-            iconName: elisa.iconName(reportBugAction.icon)
-            onTriggered: reportBugAction.trigger()
-            visible: reportBugAction.text !== ""
-        }
-
-        MenuSeparator {
-            visible: reportBugAction.text !== ""
-        }
-
-        MenuItem {
-            text: configureShortcutsAction.text
-            shortcut: configureShortcutsAction.shortcut
-            iconName: elisa.iconName(configureShortcutsAction.icon)
-            onTriggered: configureShortcutsAction.trigger()
-            visible: configureShortcutsAction.text !== ""
-        }
-
-        MenuSeparator {
-            visible: configureShortcutsAction.text !== ""
-        }
-
-        MenuItem {
-            text: aboutAppAction.text
-            shortcut: aboutAppAction.shortcut
-            iconName: elisa.iconName(aboutAppAction.icon)
-            onTriggered: aboutAppAction.trigger()
-            visible: aboutAppAction.text !== ""
-        }
-    }
-
-    Action {
-        id: applicationMenuAction
-        text: i18nc("open application menu", "Application Menu")
-        iconName: "application-menu"
-        onTriggered: applicationMenu.popup()
-    }
-
     Rectangle {
         color: myPalette.base
         anchors.fill: parent
@@ -355,21 +230,6 @@ ApplicationWindow {
 
                 ratingVisible: false
 
-                ToolButton {
-                    id: menuButton
-
-                    action: applicationMenuAction
-
-                    z: 2
-
-                    anchors
-                    {
-                        right: parent.right
-                        top: parent.top
-                        rightMargin: Screen.pixelDensity * 4
-                        topMargin: Screen.pixelDensity * 4
-                    }
-                }
                 Rectangle {
                     anchors.fill: menuButton
 
@@ -421,69 +281,6 @@ ApplicationWindow {
                     Layout.preferredWidth: Screen.pixelDensity * 50.
                     Layout.minimumWidth: Screen.pixelDensity * 50.
                     Layout.maximumWidth: Screen.pixelDensity * 50.
-
-                    TableView {
-                        id: viewModeView
-
-                        flickableItem.boundsBehavior: Flickable.StopAtBounds
-                        anchors.fill: parent
-
-                        headerVisible: false
-                        frameVisible: false
-                        focus: true
-                        backgroundVisible: false
-                        z: 2
-
-                        rowDelegate: Rectangle {
-                            color: myPalette.window
-
-                            height: Screen.pixelDensity * 8.
-                            width: viewModeView.width
-                        }
-
-                        model: ListModel {
-                            id: pageModel
-
-                            Component.onCompleted:
-                            {
-                                insert(0, {"name": i18nc("Title of the view of the playlist", "Now Playing")})
-                                insert(1, {"name": i18nc("Title of the view of all albums", "Albums")})
-                                insert(2, {"name": i18nc("Title of the view of all artists", "Artists")})
-                            }
-                        }
-
-                        itemDelegate: Rectangle {
-                            height: Screen.pixelDensity * 8.
-                            width: viewModeView.width
-                            color: (styleData.selected ? myPalette.highlight : myPalette.window)
-                            Text {
-                                id: nameLabel
-                                anchors.verticalCenter: parent.verticalCenter
-                                anchors.left: parent.left
-                                anchors.right: parent.right
-                                anchors.leftMargin: Screen.pixelDensity * 2.
-                                anchors.rightMargin: Screen.pixelDensity * 2.
-                                verticalAlignment: "AlignVCenter"
-
-                                text: model.name
-
-                                color: (styleData.selected ? myPalette.highlightedText : myPalette.text)
-
-                            }
-                        }
-
-                        TableViewColumn {
-                            role: 'name'
-                            width: viewModeView.width
-                        }
-
-                        onRowCountChanged:
-                        {
-                            viewModeView.selection.clear()
-                            viewModeView.currentRow = 1
-                            viewModeView.selection.select(1)
-                        }
-                    }
                 }
 
                 Item {

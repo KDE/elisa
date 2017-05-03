@@ -40,4 +40,9 @@
         <file alias="Theme.qml">windows/WindowsTheme.qml</file>
         <file alias="PlatformIntegration.qml">windows/PlatformIntegration.qml</file>
     </qresource>
+    <qresource prefix="/+android">
+        <file alias="MediaServer.qml">android/MediaServer.qml</file>
+        <file alias="Theme.qml">android/AndroidTheme.qml</file>
+        <file alias="PlatformIntegration.qml">android/PlatformIntegration.qml</file>
+    </qresource>
 </RCC>

@@ -31,6 +31,7 @@ class PlayListControler;
 class ManageAudioPlayer;
 class ManageMediaPlayerControl;
 class ManageHeaderBar;
+class AudioWrapper;
 
 class MediaPlayer2Player : public QDBusAbstractAdaptor
 {
@@ -58,6 +59,7 @@ public:
                                 ManageAudioPlayer *manageAudioPlayer,
                                 ManageMediaPlayerControl* manageMediaPlayerControl,
                                 ManageHeaderBar * manageHeaderBar,
+                                AudioWrapper *audioPlayer,
                                 QObject* parent = 0);
     ~MediaPlayer2Player();
 
@@ -119,6 +121,8 @@ private Q_SLOTS:
 
     void audioDurationChanged();
 
+    void playerVolumeChanged();
+
 private:
     void signalPropertiesChange(const QString &property, const QVariant &value);
 
@@ -147,6 +151,7 @@ private:
     ManageAudioPlayer* m_manageAudioPlayer = nullptr;
     ManageMediaPlayerControl* m_manageMediaPlayerControl = nullptr;
     ManageHeaderBar * m_manageHeaderBar = nullptr;
+    AudioWrapper *m_audioPlayer = nullptr;
 };
 
 #endif // MEDIAPLAYER2PLAYER_H

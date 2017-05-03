@@ -50,7 +50,7 @@ void Mpris2::initDBusService()
 
     if (success) {
         m_mp2 = new MediaPlayer2(this);
-        m_mp2p = new MediaPlayer2Player(m_playListControler, m_manageAudioPlayer, m_manageMediaPlayerControl, m_manageHeaderBar, this);
+        m_mp2p = new MediaPlayer2Player(m_playListControler, m_manageAudioPlayer, m_manageMediaPlayerControl, m_manageHeaderBar, m_audioPlayer, this);
 
         QDBusConnection::sessionBus().registerObject(QStringLiteral("/org/mpris/MediaPlayer2"), this, QDBusConnection::ExportAdaptors);
 
@@ -92,6 +92,11 @@ ManageHeaderBar *Mpris2::headerBarManager() const
     return m_manageHeaderBar;
 }
 
+AudioWrapper *Mpris2::audioPlayer() const
+{
+    return m_audioPlayer;
+}
+
 void Mpris2::setPlayerName(const QString &playerName)
 {
     if (m_playerName == playerName) {
@@ -100,7 +105,7 @@ void Mpris2::setPlayerName(const QString &playerName)
 
     m_playerName = playerName;
 
-    if (m_playListModel && m_playListControler && m_manageAudioPlayer && m_manageMediaPlayerControl && m_manageHeaderBar && !m_playerName.isEmpty()) {
+    if (m_playListModel && m_playListControler && m_manageAudioPlayer && m_manageMediaPlayerControl && m_manageHeaderBar && m_audioPlayer && !m_playerName.isEmpty()) {
         if (!m_mp2) {
             initDBusService();
         }
@@ -117,7 +122,7 @@ void Mpris2::setPlayListModel(QAbstractItemModel *playListModel)
 
     m_playListModel = playListModel;
 
-    if (m_playListModel && m_playListControler && m_manageAudioPlayer && m_manageMediaPlayerControl && m_manageHeaderBar && !m_playerName.isEmpty()) {
+    if (m_playListModel && m_playListControler && m_manageAudioPlayer && m_manageMediaPlayerControl && m_manageHeaderBar && m_audioPlayer && !m_playerName.isEmpty()) {
         if (!m_mp2) {
             initDBusService();
         }
@@ -134,7 +139,7 @@ void Mpris2::setPlayListControler(PlayListControler *playListControler)
 
     m_playListControler = playListControler;
 
-    if (m_playListModel && m_playListControler && m_manageAudioPlayer && m_manageMediaPlayerControl && m_manageHeaderBar && !m_playerName.isEmpty()) {
+    if (m_playListModel && m_playListControler && m_manageAudioPlayer && m_manageMediaPlayerControl && m_manageHeaderBar && m_audioPlayer && !m_playerName.isEmpty()) {
         if (!m_mp2) {
             initDBusService();
         }
@@ -151,7 +156,7 @@ void Mpris2::setAudioPlayerManager(ManageAudioPlayer *manageAudioPlayer)
 
     m_manageAudioPlayer = manageAudioPlayer;
 
-    if (m_playListModel && m_playListControler && m_manageAudioPlayer && m_manageMediaPlayerControl && m_manageHeaderBar && !m_playerName.isEmpty()) {
+    if (m_playListModel && m_playListControler && m_manageAudioPlayer && m_manageMediaPlayerControl && m_manageHeaderBar && m_audioPlayer && !m_playerName.isEmpty()) {
         if (!m_mp2) {
             initDBusService();
         }
@@ -168,7 +173,7 @@ void Mpris2::setManageMediaPlayerControl(ManageMediaPlayerControl *manageMediaPl
 
     m_manageMediaPlayerControl = manageMediaPlayerControl;
 
-    if (m_playListModel && m_playListControler && m_manageAudioPlayer && m_manageMediaPlayerControl && m_manageHeaderBar && !m_playerName.isEmpty()) {
+    if (m_playListModel && m_playListControler && m_manageAudioPlayer && m_manageMediaPlayerControl && m_manageHeaderBar && m_audioPlayer && !m_playerName.isEmpty()) {
         if (!m_mp2) {
             initDBusService();
         }
@@ -184,7 +189,7 @@ void Mpris2::setHeaderBarManager(ManageHeaderBar *manageHeaderBar)
 
     m_manageHeaderBar = manageHeaderBar;
 
-    if (m_playListModel && m_playListControler && m_manageAudioPlayer && m_manageMediaPlayerControl && m_manageHeaderBar && !m_playerName.isEmpty()) {
+    if (m_playListModel && m_playListControler && m_manageAudioPlayer && m_manageMediaPlayerControl && m_manageHeaderBar && m_audioPlayer && !m_playerName.isEmpty()) {
         if (!m_mp2) {
             initDBusService();
         }
@@ -192,3 +197,21 @@ void Mpris2::setHeaderBarManager(ManageHeaderBar *manageHeaderBar)
 
     emit headerBarManagerChanged();
 }
+
+void Mpris2::setAudioPlayer(AudioWrapper *audioPlayer)
+{
+    if (m_audioPlayer == audioPlayer)
+        return;
+
+    m_audioPlayer = audioPlayer;
+
+    if (m_playListModel && m_playListControler && m_manageAudioPlayer && m_manageMediaPlayerControl && m_manageHeaderBar && m_audioPlayer && !m_playerName.isEmpty()) {
+        if (!m_mp2) {
+            initDBusService();
+        }
+    }
+
+    emit audioPlayerChanged();
+}
+
+#include "moc_mpris2.cpp"

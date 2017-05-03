@@ -26,6 +26,7 @@
 #include "manageaudioplayer.h"
 #include "managemediaplayercontrol.h"
 #include "manageheaderbar.h"
+#include "audiowrapper.h"
 
 #include <QCryptographicHash>
 #include <QStringList>
@@ -39,9 +40,9 @@ static const double MAX_RATE = 1.0;
 static const double MIN_RATE = 1.0;
 
 MediaPlayer2Player::MediaPlayer2Player(PlayListControler *playListControler, ManageAudioPlayer *manageAudioPlayer,
-                                       ManageMediaPlayerControl *manageMediaPlayerControl, ManageHeaderBar *manageHeaderBar, QObject* parent)
+                                       ManageMediaPlayerControl *manageMediaPlayerControl, ManageHeaderBar *manageHeaderBar, AudioWrapper *audioPlayer, QObject* parent)
     : QDBusAbstractAdaptor(parent), m_playListControler(playListControler), m_manageAudioPlayer(manageAudioPlayer),
-      m_manageMediaPlayerControl(manageMediaPlayerControl), m_manageHeaderBar(manageHeaderBar)
+      m_manageMediaPlayerControl(manageMediaPlayerControl), m_manageHeaderBar(manageHeaderBar), m_audioPlayer(audioPlayer)
 {
     if (!m_playListControler) {
         return;
@@ -63,6 +64,8 @@ MediaPlayer2Player::MediaPlayer2Player(PlayListControler *playListControler, Man
             this, &MediaPlayer2Player::audioPositionChanged);
     connect(m_manageAudioPlayer, &ManageAudioPlayer::audioDurationChanged,
             this, &MediaPlayer2Player::audioDurationChanged);
+    connect(m_audioPlayer, &AudioWrapper::volumeChanged,
+            this, &MediaPlayer2Player::playerVolumeChanged);
 
     m_mediaPlayerPresent = 1;
 }
@@ -166,6 +169,8 @@ void MediaPlayer2Player::setVolume(double volume)
 {
     m_volume= qBound(0.0, volume, 1.0);
     emit volumeChanged(m_volume);
+
+    m_audioPlayer->setVolume(100 * m_volume);
 
     signalPropertiesChange(QStringLiteral("Volume"), Volume());
 }
@@ -324,6 +329,11 @@ void MediaPlayer2Player::audioDurationChanged()
     setPropertyPosition(m_manageAudioPlayer->playerPosition());
 }
 
+void MediaPlayer2Player::playerVolumeChanged()
+{
+    setVolume(m_audioPlayer->volume() / 100.0);
+}
+
 int MediaPlayer2Player::currentTrack() const
 {
     return m_manageAudioPlayer->playListPosition();
@@ -382,3 +392,5 @@ void MediaPlayer2Player::signalPropertiesChange(const QString &property, const Q
 
     QDBusConnection::sessionBus().send(msg);
 }
+
+#include "moc_mediaplayer2player.cpp"

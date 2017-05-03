@@ -26,6 +26,7 @@ Item {
     property alias playListModel: mpris2Interface.playListModel
     property alias playListControler: mpris2Interface.playListControler
     property alias audioPlayerManager: mpris2Interface.audioPlayerManager
+    property alias player: mpris2Interface.audioPlayer
     property alias headerBarManager: mpris2Interface.headerBarManager
     property alias manageMediaPlayerControl: mpris2Interface.manageMediaPlayerControl
 

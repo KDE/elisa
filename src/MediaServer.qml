@@ -113,6 +113,7 @@ ApplicationWindow {
         audioPlayerManager: manageAudioPlayer
         headerBarManager: myHeaderBarManager
         manageMediaPlayerControl: myPlayControlManager
+        player: audioPlayer
 
         onRaisePlayer:
         {

@@ -33,6 +33,7 @@ class PlayListControler;
 class ManageAudioPlayer;
 class ManageMediaPlayerControl;
 class ManageHeaderBar;
+class AudioWrapper;
 
 class Mpris2 : public QObject
 {
@@ -68,6 +69,11 @@ class Mpris2 : public QObject
                WRITE setHeaderBarManager
                NOTIFY headerBarManagerChanged)
 
+    Q_PROPERTY(AudioWrapper* audioPlayer
+               READ audioPlayer
+               WRITE setAudioPlayer
+               NOTIFY audioPlayerChanged)
+
 public:
     explicit Mpris2(QObject* parent = 0);
     ~Mpris2();
@@ -84,6 +90,8 @@ public:
 
     ManageHeaderBar* headerBarManager() const;
 
+    AudioWrapper* audioPlayer() const;
+
 public Q_SLOTS:
 
     void setPlayerName(const QString &playerName);
@@ -97,6 +105,8 @@ public Q_SLOTS:
     void setManageMediaPlayerControl(ManageMediaPlayerControl* manageMediaPlayerControl);
 
     void setHeaderBarManager(ManageHeaderBar* headerBarManager);
+
+    void setAudioPlayer(AudioWrapper* audioPlayer);
 
 Q_SIGNALS:
     void raisePlayer() const;
@@ -113,6 +123,8 @@ Q_SIGNALS:
 
     void headerBarManagerChanged();
 
+    void audioPlayerChanged();
+
 private:
 
     void initDBusService();
@@ -125,6 +137,7 @@ private:
     ManageAudioPlayer* m_manageAudioPlayer = nullptr;
     ManageMediaPlayerControl* m_manageMediaPlayerControl = nullptr;
     ManageHeaderBar* m_manageHeaderBar = nullptr;
+    AudioWrapper* m_audioPlayer = nullptr;
 };
 
 #endif //MEDIACENTER_MPRIS2_H

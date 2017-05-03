@@ -26,6 +26,7 @@ Item {
     property var playListModel
     property var playListControler
     property var audioPlayerManager
+    property var player
     property var headerBarManager
     property var manageMediaPlayerControl
 

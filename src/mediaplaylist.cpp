@@ -206,10 +206,14 @@ bool MediaPlayList::setData(const QModelIndex &index, const QVariant &value, int
     switch(convertedRole)
     {
     case ColumnsRoles::IsPlayingRole:
+    {
         modelModified = true;
-        d->mData[index.row()].mIsPlaying = value.toBool();
+        PlayState newState = static_cast<PlayState>(value.toInt());
+        qDebug() << "MediaPlayList::setData" << newState;
+        d->mData[index.row()].mIsPlaying = newState;
         Q_EMIT dataChanged(index, index, {role});
         break;
+    }
     default:
         modelModified = false;
     }

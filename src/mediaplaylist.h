@@ -29,42 +29,7 @@
 class MediaPlayListPrivate;
 class DatabaseInterface;
 class MusicListenersManager;
-
-class MediaPlayListEntry
-{
-public:
-
-    MediaPlayListEntry() {
-    }
-
-    explicit MediaPlayListEntry(qulonglong id) : mId(id), mIsValid(true) {
-    }
-
-    MediaPlayListEntry(const QString &title, const QString &album, const QString &artist) : mTitle(title), mAlbum(album), mArtist(artist) {
-    }
-
-    explicit MediaPlayListEntry(const MusicAudioTrack &track)
-        : mTitle(track.title()), mAlbum(track.albumName()), mArtist(track.artist()), mId(track.databaseId()), mIsValid(true) {
-    }
-
-    explicit MediaPlayListEntry(const QString &artist) : mArtist(artist), mIsArtist(true) {
-    }
-
-    QString mTitle;
-
-    QString mAlbum;
-
-    QString mArtist;
-
-    qulonglong mId = 0;
-
-    bool mIsValid = false;
-
-    bool mIsArtist = false;
-
-    bool mIsPlaying = false;
-
-};
+class MediaPlayListEntry;
 
 class MediaPlayList : public QAbstractListModel
 {
@@ -101,6 +66,14 @@ public:
     };
 
     Q_ENUM(ColumnsRoles)
+
+    enum PlayState {
+        NotPlaying,
+        IsPlaying,
+        IsPaused,
+    };
+
+    Q_ENUM(PlayState)
 
     explicit MediaPlayList(QObject *parent = 0);
 
@@ -179,6 +152,42 @@ private Q_SLOTS:
 private:
 
     MediaPlayListPrivate *d;
+
+};
+
+class MediaPlayListEntry
+{
+public:
+
+    MediaPlayListEntry() {
+    }
+
+    explicit MediaPlayListEntry(qulonglong id) : mId(id), mIsValid(true) {
+    }
+
+    MediaPlayListEntry(const QString &title, const QString &album, const QString &artist) : mTitle(title), mAlbum(album), mArtist(artist) {
+    }
+
+    explicit MediaPlayListEntry(const MusicAudioTrack &track)
+        : mTitle(track.title()), mAlbum(track.albumName()), mArtist(track.artist()), mId(track.databaseId()), mIsValid(true) {
+    }
+
+    explicit MediaPlayListEntry(const QString &artist) : mArtist(artist), mIsArtist(true) {
+    }
+
+    QString mTitle;
+
+    QString mAlbum;
+
+    QString mArtist;
+
+    qulonglong mId = 0;
+
+    bool mIsValid = false;
+
+    bool mIsArtist = false;
+
+    MediaPlayList::PlayState mIsPlaying = MediaPlayList::NotPlaying;
 
 };
 

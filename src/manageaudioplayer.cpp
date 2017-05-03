@@ -19,6 +19,8 @@
 
 #include "manageaudioplayer.h"
 
+#include "mediaplaylist.h"
+
 #include <QTimer>
 
 ManageAudioPlayer::ManageAudioPlayer(QObject *parent) : QObject(parent)
@@ -232,7 +234,7 @@ void ManageAudioPlayer::setPlayerPlaybackState(int playerPlaybackState)
                 triggerSkipNextTrack();
             }
             if (mPlayListModel && mCurrentTrack.isValid()) {
-                mPlayListModel->setData(mCurrentTrack, false, mIsPlayingRole);
+                mPlayListModel->setData(mCurrentTrack, MediaPlayList::NotPlaying, mIsPlayingRole);
             }
             break;
         case PlayingState:
@@ -245,10 +247,13 @@ void ManageAudioPlayer::setPlayerPlaybackState(int playerPlaybackState)
                 }
             }
             if (mPlayListModel && mCurrentTrack.isValid()) {
-                mPlayListModel->setData(mCurrentTrack, true, mIsPlayingRole);
+                mPlayListModel->setData(mCurrentTrack, MediaPlayList::IsPlaying, mIsPlayingRole);
             }
             break;
         case PausedState:
+            if (mPlayListModel && mCurrentTrack.isValid()) {
+                mPlayListModel->setData(mCurrentTrack, MediaPlayList::IsPaused, mIsPlayingRole);
+            }
             break;
         }
     } else {
@@ -257,7 +262,7 @@ void ManageAudioPlayer::setPlayerPlaybackState(int playerPlaybackState)
             notifyPlayerSourceProperty();
             mSkippingCurrentTrack = false;
             if (mPlayListModel && mOldCurrentTrack.isValid()) {
-                mPlayListModel->setData(mOldCurrentTrack, false, mIsPlayingRole);
+                mPlayListModel->setData(mOldCurrentTrack, MediaPlayList::NotPlaying, mIsPlayingRole);
             }
             break;
         case PlayingState:
@@ -270,10 +275,13 @@ void ManageAudioPlayer::setPlayerPlaybackState(int playerPlaybackState)
                 }
             }
             if (mPlayListModel && mCurrentTrack.isValid()) {
-                mPlayListModel->setData(mCurrentTrack, true, mIsPlayingRole);
+                mPlayListModel->setData(mCurrentTrack, MediaPlayList::IsPlaying, mIsPlayingRole);
             }
             break;
         case PausedState:
+            if (mPlayListModel && mCurrentTrack.isValid()) {
+                mPlayListModel->setData(mCurrentTrack, MediaPlayList::IsPaused, mIsPlayingRole);
+            }
             break;
         }
     }

@@ -36,7 +36,7 @@ Rectangle {
     property int trackNumber
     property int discNumber
     property alias rating: ratingWidget.starRating
-    property alias isPlaying : playIcon.visible
+    property int isPlaying
     property bool isSelected
     property bool isValid
     property bool isAlternateColor
@@ -272,16 +272,16 @@ Rectangle {
                     Layout.maximumWidth: Screen.pixelDensity * 6
                     Layout.maximumHeight: Screen.pixelDensity * 6
 
-                    source: Qt.resolvedUrl(elisaTheme.playIcon)
+                    source: (isPlaying == MediaPlayList.IsPlaying ? Qt.resolvedUrl(elisaTheme.playIcon) : Qt.resolvedUrl(elisaTheme.pauseIcon))
                     width: parent.height * 1.
                     height: parent.height * 1.
                     sourceSize.width: parent.height * 1.
                     sourceSize.height: parent.height * 1.
                     fillMode: Image.PreserveAspectFit
-                    visible: isPlaying
+                    visible: isPlaying == MediaPlayList.IsPlaying || isPlaying == MediaPlayList.IsPaused
 
                     SequentialAnimation on opacity {
-                        running: isPlaying
+                        running: isPlaying == MediaPlayList.IsPlaying
                         loops: Animation.Infinite
 
                         NumberAnimation {
@@ -293,6 +293,17 @@ Rectangle {
                         NumberAnimation {
                             from: 1
                             to: 0
+                            duration: 1000
+                            easing.type: Easing.InOutCubic
+                        }
+                    }
+
+                    SequentialAnimation on opacity {
+                        running: isPlaying == MediaPlayList.IsPaused
+
+                        NumberAnimation {
+                            from: 0
+                            to: 1.
                             duration: 1000
                             easing.type: Easing.InOutCubic
                         }

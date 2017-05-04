@@ -38,6 +38,11 @@ Item {
         id: elisaTheme
     }
 
+    SystemPalette {
+        id: myPalette
+        colorGroup: SystemPalette.Active
+    }
+
     Image {
         id: background
         source: (image ? image : Qt.resolvedUrl('background.jpg'))
@@ -86,12 +91,7 @@ Item {
         deviation: 12
         samples: 65
 
-        SystemPalette {
-            id: myPalette
-            colorGroup: SystemPalette.Active
-        }
-
-        Text {
+        Label {
             anchors.bottom: parent.bottom
             anchors.right: parent.right
             anchors.bottomMargin: Screen.pixelDensity * 1.
@@ -182,104 +182,78 @@ Item {
                     spacing: 0
 
                     Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-                    Layout.preferredWidth: Screen.pixelDensity * 80.
-                    Layout.minimumWidth: Screen.pixelDensity * 80.
-                    Layout.maximumWidth: Screen.pixelDensity * 80.
+                    Layout.fillWidth: true
                     Layout.fillHeight: true
 
                     Item {
                         Layout.fillHeight: true
                     }
 
-                    Text {
+                    Label {
                         id: mainLabel
                         text: title
                         Layout.fillWidth: true
                         Layout.alignment: Qt.AlignLeft
                         elide: Text.ElideRight
                         color: myPalette.highlightedText
-                        font.pixelSize: 18
+                        font.pixelSize: font.pixelSize * 2
                         font.bold: true
 
-                        visible: false
-                    }
+                        layer.effect: Glow {
+                            cached: true
 
-                    Glow {
-                        source: mainLabel
+                            color: myPalette.shadow
 
-                        Layout.fillWidth: true
-                        Layout.preferredHeight: mainLabel.height
-                        Layout.alignment: Qt.AlignLeft
+                            radius: 4.0
+                            samples: 9
+                        }
 
-                        cached: true
-
-                        color: myPalette.shadow
-
-                        radius: 4.0
-                        samples: 9
                     }
 
                     Item {
                         Layout.fillHeight: true
                     }
 
-                    Text {
+                    Label {
                         id: authorLabel
                         text: artist
                         Layout.fillWidth: true
                         Layout.alignment: Qt.AlignLeft
-                        elide: "ElideRight"
+                        elide: Text.ElideRight
                         color: myPalette.highlightedText
-                        font.pixelSize: 15
+                        font.pixelSize: font.pixelSize * 1.5
 
-                        visible: false
-                    }
+                        layer.effect: Glow {
+                            cached: true
 
-                    Glow {
-                        source: authorLabel
+                            color: myPalette.shadow
 
-                        Layout.fillWidth: true
-                        Layout.preferredHeight: authorLabel.height
-                        Layout.alignment: Qt.AlignLeft
-
-                        cached: true
-
-                        color: myPalette.shadow
-
-                        radius: 4.0
-                        samples: 9
+                            radius: 4.0
+                            samples: 9
+                        }
                     }
 
                     Item {
                         Layout.fillHeight: true
                     }
 
-                    Text {
+                    Label {
                         id: albumLabel
                         text: album
                         Layout.fillWidth: true
                         Layout.alignment: Qt.AlignLeft
-                        elide: "ElideRight"
+                        elide: Text.ElideRight
                         color: myPalette.highlightedText
-                        font.pixelSize: 12
                         font.weight: Font.Light
 
-                        visible: false
-                    }
+                        layer.effect: Glow {
+                            cached: true
 
-                    Glow {
-                        source: albumLabel
+                            color: myPalette.shadow
 
-                        Layout.fillWidth: true
-                        Layout.preferredHeight: albumLabel.height
-                        Layout.alignment: Qt.AlignLeft
-
-                        cached: true
-
-                        color: myPalette.shadow
-
-                        radius: 4.0
-                        samples: 9
+                            radius: 4.0
+                            samples: 9
+                        }
                     }
 
                     Item {
@@ -301,15 +275,17 @@ Item {
 
                 Item {
                     Layout.fillHeight: true
-                    Layout.fillWidth: true
+                    Layout.preferredWidth: Screen.pixelDensity * 2.
+                    Layout.minimumWidth: Screen.pixelDensity * 2.
+                    Layout.maximumWidth: Screen.pixelDensity * 2.
                 }
 
-                Text {
+                Label {
                     id: remainingTracksLabel
                     text: i18np("1 track remaining", "%1 tracks remaining", tracksCount)
                     Layout.alignment: Qt.AlignRight | Qt.AlignBottom
                     Layout.bottomMargin: Screen.pixelDensity * 2
-                    elide: "ElideRight"
+                    elide: Text.ElideRight
                     visible: tracksCount > 0
                     color: myPalette.highlightedText
                 }

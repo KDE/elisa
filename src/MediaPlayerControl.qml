@@ -158,7 +158,7 @@ Item {
                 position: musicWidget.position
             }
 
-            Text {
+            Label {
                 id: positionLabel
 
                 text: timeIndicator.progressDuration

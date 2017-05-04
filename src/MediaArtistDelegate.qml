@@ -194,7 +194,7 @@ Rectangle {
             }
         }
 
-        Text {
+        Label {
             id: nameLabel
 
             font.weight: Font.Bold

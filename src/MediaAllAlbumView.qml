@@ -61,7 +61,7 @@ Item {
             Layout.fillWidth: true
             Layout.bottomMargin: Screen.pixelDensity * 0.5
 
-            Text {
+            Label {
                 text: i18nc("before the TextField input of the filter", "Filter: ")
 
                 color: myPalette.text
@@ -102,7 +102,7 @@ Item {
                 }
             }
 
-            Text {
+            Label {
                 text: i18nc("before the Rating widget input of the filter", "Rating: ")
 
                 color: myPalette.text

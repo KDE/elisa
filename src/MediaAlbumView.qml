@@ -154,7 +154,7 @@ Item {
 
                     isAlternateColor: DelegateModel.itemsIndex % 2
                     height: ((model.isFirstTrackOfDisc && !isSingleDiscAlbum) ? Screen.pixelDensity * 15. : Screen.pixelDensity * 7.)
-                    width: contentDirectoryView.width
+                    width: contentDirectoryView.viewport.width
 
                     databaseId: model.databaseId
                     playList: topListing.playListModel

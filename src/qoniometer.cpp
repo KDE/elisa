@@ -153,7 +153,7 @@ void QOniometer::doDots(QPainter *painter)
 
     const int centerX = width() / 2;
     const int centerY = height() / 2;
-    const int scale = qMin(height(), width());
+    const int scale = qMin(height(), width()) * 1.5;
     const int samplecount = m_rightBuffer.size();
     for (int i=0; i<samplecount; i++) {
         const float left = m_leftBuffer[i];
@@ -178,7 +178,7 @@ void QOniometer::doLines(QPainter *painter)
     float lastX, lastY;
     const int centerX = width() / 2;
     const int centerY = height() / 2;
-    const int scale = qMin(height(), width());
+    const int scale = qMin(height(), width()) * 1.5;
     const int samplecount = m_rightBuffer.size();
     for (int i=0; i<samplecount; i++) {
         const float left = m_leftBuffer[i];
@@ -206,7 +206,7 @@ void QOniometer::doColors(QPainter *painter)
     float lastX, lastY;
     const int centerX = width() / 2;
     const int centerY = height() / 2;
-    const int scale = qMax(height(), width());
+    const int scale = qMax(height(), width()) / 1.5;
     QPen pen;
     pen.setCapStyle(Qt::RoundCap);
     InlineHSV hsv;

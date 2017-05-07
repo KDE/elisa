@@ -46,7 +46,6 @@ private:
     void doSplines(QPainter *painter);
 
     Effect m_currentEffect;
-    int m_ghost;
     AudioWrapper *m_wrapper;
     QAudioBuffer m_lastBuffer;
     int m_bufferPos;

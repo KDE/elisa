@@ -118,9 +118,10 @@ void QOniometer::paint(QPainter *painter)
     m_backBuffer.fill(Qt::transparent);
 
     QPainter bufferPainter(&m_backBuffer);
-    bufferPainter.setOpacity(0.9);
+    bufferPainter.save();
+    bufferPainter.setOpacity(0.75);
     bufferPainter.drawImage(0, 0, oldBuffer);
-    bufferPainter.setOpacity(1);
+    bufferPainter.restore();
 
     switch(m_currentEffect) {
     case Dots:
@@ -149,7 +150,7 @@ void QOniometer::doDots(QPainter *painter)
     timer.start();
 
     painter->setRenderHint(QPainter::Antialiasing);
-    painter->setPen(QPen(QColor(255, 255, 255 ), 10, Qt::SolidLine, Qt::RoundCap));
+    painter->setPen(QPen(QColor(0, 0, 0 ), 10, Qt::SolidLine, Qt::RoundCap));
 
     const int centerX = width() / 2;
     const int centerY = height() / 2;
@@ -162,7 +163,7 @@ void QOniometer::doDots(QPainter *painter)
 
         const float ay = left - right;
         const float ax = left + right;
-        const float x = centerX - ax * scale;
+        const float x = centerX - ax * width() / 2;
         const float y = centerY - ay * height() * 1.3;
         if (i > 1) {
             painter->drawPoint(x, y);
@@ -201,12 +202,12 @@ void QOniometer::doLines(QPainter *painter)
 void QOniometer::doColors(QPainter *painter)
 {
     painter->setRenderHint(QPainter::Antialiasing);
-    painter->setPen(QPen(QColor(255, 255, 255), 5));
+//    painter->setPen(QPen(QColor(255, 255, 255), 5));
 
     float lastX, lastY;
     const int centerX = width() / 2;
     const int centerY = height() / 2;
-    const int scale = qMax(height(), width()) / 1.5;
+    const int scale = qMax(height(), width());
     QPen pen;
     pen.setCapStyle(Qt::RoundCap);
     InlineHSV hsv;
@@ -218,8 +219,8 @@ void QOniometer::doColors(QPainter *painter)
 
         const float ay = left - right;
         const float ax = left + right;
-        const float x = centerX - qSqrt(qAbs(ax)) * scale * ax/qAbs(ax);
-        const float y = centerY - qSqrt(qAbs(ay)) * scale * ay/qAbs(ay);
+        const float x = centerX - qSqrt(qAbs(ax)) * width()/2 * ax/qAbs(ax);
+        const float y = centerY - qSqrt(qAbs(ay)) * height()/2 * ay/qAbs(ay);
 
         if (i > 1) {
             const float incre = i * 359 / sampleCount;
@@ -240,7 +241,7 @@ void QOniometer::doColors(QPainter *painter)
 
 void QOniometer::doSplines(QPainter *painter)
 {
-    painter->setPen(QPen(QColor(255, 255, 255, 255 ), 1));
+    painter->setPen(QPen(QColor(0, 0, 0, 128 ), 1));
 
     const int centerX = width() / 2;
     const int centerY = height() / 2;
@@ -255,15 +256,15 @@ void QOniometer::doSplines(QPainter *painter)
         const float rightNext = m_rightBuffer[i+1];
 
 
-        const float ax = left + right;
-        const float ay = left - right;
-        const float x = centerX - ax * scale;
-        const float y = centerY - ay * scale;
+        const float ay = left + right;
+        const float ax = left - right;
+        const float x = centerX - ax * width();
+        const float y = centerY - ay * height() / 2;
 
-        const float axNext = leftNext + rightNext;
-        const float ayNext = leftNext - rightNext;
-        const float xNext = centerX - axNext * scale;
-        const float yNext = centerY - ayNext * scale;
+        const float ayNext = leftNext + rightNext;
+        const float axNext = leftNext - rightNext;
+        const float xNext = centerX - axNext * width();
+        const float yNext = centerY - ayNext * height() / 2;
 
         path.quadTo(x, y, xNext, yNext);
     }

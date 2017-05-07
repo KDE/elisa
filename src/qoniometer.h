@@ -38,9 +38,6 @@ private Q_SLOTS:
 
 protected:
     void geometryChanged(const QRectF &newGeometry, const QRectF &oldGeometry) override;
-//protected:
-//    virtual void resizeEvent(QResizeEvent*);
-//    virtual void keyPressEvent(QKeyEvent *);
 
 private:
     void doDots(QPainter *painter);
@@ -48,7 +45,6 @@ private:
     void doColors(QPainter *painter);
     void doSplines(QPainter *painter);
 
-//    PulseAudioMonitor m_monitor;
     Effect m_currentEffect;
     int m_ghost;
     AudioWrapper *m_wrapper;

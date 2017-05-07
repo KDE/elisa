@@ -46,6 +46,11 @@ void QOniometer::setPlayer(AudioWrapper *player)
     }
 }
 
+void QOniometer::selectNextEffect()
+{
+    m_currentEffect = Effect((m_currentEffect + 1) % EffectCount);
+}
+
 void QOniometer::onAudioBufferAvailable(const QAudioBuffer &buffer)
 {
     if (buffer.format().channelCount() != 2) {

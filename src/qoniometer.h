@@ -27,6 +27,8 @@ public:
 
     void setPlayer(AudioWrapper *player);
 
+    Q_INVOKABLE void selectNextEffect();
+
 Q_SIGNALS:
     void playerChanged();
 

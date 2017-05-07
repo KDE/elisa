@@ -452,4 +452,9 @@ Item {
             oldImage = newImage
         }
     }
+
+    MouseArea {
+        anchors.fill: parent
+        onClicked: visualizer.selectNextEffect()
+    }
 }

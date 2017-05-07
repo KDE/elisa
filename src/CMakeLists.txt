@@ -24,6 +24,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         audiowrapper.cpp
         alltracksmodel.cpp
         notificationitem.cpp
+        qoniometer.cpp
 
         MediaServer.qml
         Theme.qml

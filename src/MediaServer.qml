@@ -398,6 +398,7 @@ ApplicationWindow {
                     title: myHeaderBarManager.title
                     artist: myHeaderBarManager.artist
                     image: myHeaderBarManager.image
+                    player: audioPlayer
 
                     ratingVisible: false
 

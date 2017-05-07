@@ -55,6 +55,7 @@
 #include "alltracksmodel.h"
 #include "elisa_settings.h"
 #include "notificationitem.h"
+#include "qoniometer.h"
 
 #if defined Qt5DBus_FOUND && Qt5DBus_FOUND
 #include "mpris2/mpris2.h"
@@ -156,6 +157,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<AlbumFilterProxyModel>("org.mgallien.QmlExtension", 1, 0, "AlbumFilterProxyModel");
     qmlRegisterType<AudioWrapper>("org.mgallien.QmlExtension", 1, 0, "AudioWrapper");
     qmlRegisterType<NotificationItem>("org.mgallien.QmlExtension", 1, 0, "NotificationItem");
+    qmlRegisterType<QOniometer>("org.mgallien.QmlExtension", 1, 0, "QOniometer");
 
 #if defined Qt5DBus_FOUND && Qt5DBus_FOUND
     qmlRegisterType<Mpris2>("org.mgallien.QmlExtension", 1, 0, "Mpris2");

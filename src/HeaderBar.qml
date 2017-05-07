@@ -22,6 +22,7 @@ import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
 import QtQuick.Window 2.2
 import QtGraphicalEffects 1.0
+import org.mgallien.QmlExtension 1.0
 
 Item {
     id: headerBar
@@ -36,6 +37,7 @@ Item {
     property int trackRating
     property bool ratingVisible
     property alias playerControl: playControlItem
+    property alias player: visualizer.player
 
     onImageChanged:
     {
@@ -132,6 +134,11 @@ Item {
                     }
                 }
             }
+        }
+
+        QOniometer {
+            id: visualizer
+            anchors.fill: parent
         }
     }
 

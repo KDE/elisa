@@ -14,22 +14,19 @@ QOniometer::QOniometer(QQuickItem *parent)
     : QQuickPaintedItem(parent),
       m_currentEffect(Colors),
 //      m_currentEffect(Dots),
-      m_ghost(32),
+      m_ghost(8),
       m_wrapper(nullptr),
       m_bufferPos(0)
 {
 //    setWindowFlags(Qt::Dialog);
 //    resize(640, 480);
     QTimer *repaintTimer = new QTimer(this);
-    repaintTimer->setInterval(16);
+    repaintTimer->setInterval(50);
     //repaintTimer->setInterval(50);
     connect(repaintTimer, SIGNAL(timeout()), this, SLOT(update()));
     repaintTimer->start();
 
-    // TODO don't assume this
-    const int rate = 48000;
-    m_leftBuffer.resize(rate / 2);
-    m_rightBuffer.resize(rate / 2);
+    setRenderTarget(QQuickPaintedItem::FramebufferObject);
 
 //    m_monitor.start();
 }
@@ -105,32 +102,47 @@ void QOniometer::onAudioBufferAvailable(const QAudioBuffer &buffer)
         return;
     }
 
-    // todo make efficient, memcpy and stuff
-    for (int i=0; i<numSamples; i++) {
-        m_leftBuffer[m_bufferPos] = left[i];
-        m_rightBuffer[m_bufferPos] = right[i];
-        m_bufferPos =(m_bufferPos + 1) % m_rightBuffer.size();
-    }
+    m_leftBuffer = left;
+    m_rightBuffer = right;
+}
+
+void QOniometer::geometryChanged(const QRectF &newGeometry, const QRectF &oldGeometry)
+{
+    m_backBuffer = QImage(newGeometry.toAlignedRect().size(), QImage::Format_ARGB32_Premultiplied);
+    m_backBuffer.fill(Qt::transparent);
+
+    QQuickPaintedItem::geometryChanged(newGeometry, oldGeometry);
 }
 
 void QOniometer::paint(QPainter *painter)
 {
+    QImage oldBuffer = m_backBuffer;
+    m_backBuffer.fill(Qt::transparent);
+
+    QPainter bufferPainter(&m_backBuffer);
+    bufferPainter.setOpacity(0.9);
+    bufferPainter.drawImage(0, 0, oldBuffer);
+    bufferPainter.setOpacity(1);
+
     switch(m_currentEffect) {
     case Dots:
-        doDots(painter);
+        doDots(&bufferPainter);
         break;
     case Lines:
-        doLines(painter);
+        doLines(&bufferPainter);
         break;
     case Splines:
-        doSplines(painter);
+        doSplines(&bufferPainter);
         break;
     case Colors:
-        doColors(painter);
+        doColors(&bufferPainter);
         break;
     default:
         break;
     }
+    bufferPainter.end();
+
+    painter->drawImage(0, 0, m_backBuffer);
 }
 
 //void QOniometer::keyPressEvent(QKeyEvent *event)
@@ -155,7 +167,7 @@ void QOniometer::doDots(QPainter *painter)
     //newBuf.fill(Qt::transparent);
     //QPainter painter(&newBuf);
     //painter.setCompositionMode(QPainter::CompositionMode_Source);
-    painter->fillRect(0, 0, width(), height(), QColor(0, 0, 0, m_ghost));
+//    painter->fillRect(0, 0, width(), height(), QColor(0, 0, 0, m_ghost));
     painter->setRenderHint(QPainter::Antialiasing);
     painter->setPen(QPen(QColor(255, 255, 255 ), 10, Qt::SolidLine, Qt::RoundCap));
 
@@ -201,7 +213,7 @@ void QOniometer::doLines(QPainter *painter)
 {
     painter->setRenderHint(QPainter::Antialiasing);
     painter->setPen(QPen(QColor(255, 255, 255 ), 5));
-    painter->fillRect(0, 0, width(), height(), QColor(0, 0, 0, m_ghost));
+//    painter->fillRect(0, 0, width(), height(), QColor(0, 0, 0, m_ghost));
 
     float lastX, lastY;
     const int centerX = width() / 2;
@@ -236,12 +248,12 @@ void QOniometer::doColors(QPainter *painter)
     painter->setRenderHint(QPainter::Antialiasing);
     painter->setPen(QPen(QColor(255, 255, 255), 5));
 //    painter->fillRect(rect(), QColor(0, 0, 0, m_ghost));
-    painter->fillRect(0, 0, width(), height(), QColor(0, 0, 0, m_ghost));
+//    painter->fillRect(0, 0, width(), height(), QColor(0, 0, 0, m_ghost));
 
     float lastX, lastY;
     const int centerX = width() / 2;
     const int centerY = height() / 2;
-    const int scale = qMin(height(), width());
+    const int scale = qMax(height(), width());
 //    m_monitor.m_mutex.lock();
     QPen pen;
 //    pen.setWidth(30);
@@ -302,14 +314,14 @@ void QOniometer::doColors(QPainter *painter)
 
 void QOniometer::doSplines(QPainter *painter)
 {
-    painter->setRenderHint(QPainter::Antialiasing);
+//    painter->setRenderHint(QPainter::Antialiasing);
     painter->setPen(QPen(QColor(255, 255, 255, 255 ), 1));
 //    painter->fillRect(rect(), QColor(0, 0, 0, m_ghost));
-    painter->fillRect(0, 0, width(), height(), QColor(0, 0, 0, m_ghost));
+//    painter->fillRect(0, 0, width(), height(), QColor(0, 0, 0, m_ghost));
 
     const int centerX = width() / 2;
     const int centerY = height() / 2;
-    const int scale = qMin(height(), width());
+    const int scale = qMin(height(), width()) * 1.5;
 //    m_monitor.m_mutex.lock();
     QPainterPath path;
     path.moveTo(centerX, centerY);
@@ -324,9 +336,10 @@ void QOniometer::doSplines(QPainter *painter)
 
         const float ax = left + right;
         const float ay = left - right;
+//        const float x = centerX - ax * width();
         const float x = centerX - ax * scale;
-        //const float y = centerY - ay * scale;
-        const float y = centerY - ay * height() * 1.1;
+        const float y = centerY - ay * scale;
+//        const float y = centerY - ay * height() * 1.1;
 
         const float axNext = leftNext + rightNext;
         const float ayNext = leftNext - rightNext;

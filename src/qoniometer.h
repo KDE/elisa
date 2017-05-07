@@ -3,6 +3,7 @@
 
 #include <QQuickPaintedItem>
 #include <QMultiMap>
+#include <QImage>
 #include "audiowrapper.h"
 
 class QOniometer : public QQuickPaintedItem
@@ -21,7 +22,7 @@ public:
     Q_ENUM(Effect)
 
     QOniometer(QQuickItem *parent = 0);
-    virtual void paint(QPainter *painter);
+    virtual void paint(QPainter *painter) override;
     ~QOniometer();
 
     void setPlayer(AudioWrapper *player);
@@ -32,6 +33,9 @@ Q_SIGNALS:
 
 private Q_SLOTS:
     void onAudioBufferAvailable(const QAudioBuffer &buffer);
+
+protected:
+    void geometryChanged(const QRectF &newGeometry, const QRectF &oldGeometry) override;
 //protected:
 //    virtual void resizeEvent(QResizeEvent*);
 //    virtual void keyPressEvent(QKeyEvent *);
@@ -50,6 +54,7 @@ private:
     int m_bufferPos;
     QVector<float> m_leftBuffer;
     QVector<float> m_rightBuffer;
+    QImage m_backBuffer;
 };
 
 #endif // QONIOMETER_H

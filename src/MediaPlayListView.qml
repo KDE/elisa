@@ -81,7 +81,7 @@ Item {
         anchors.fill: parent
         spacing: 0
 
-        Label {
+        LabelWithToolTip {
             text: i18nc("text shown at the top of the play list", "Playlist")
 
             color: myPalette.text
@@ -129,7 +129,7 @@ Item {
                 Layout.fillWidth: true
             }
 
-            Label {
+            LabelWithToolTip {
                 id: playListInfo
 
                 text: i18np("1 track", "%1 tracks", playListView.rowCount)

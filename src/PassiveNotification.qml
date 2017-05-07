@@ -117,7 +117,7 @@ MouseArea {
         RowLayout {
             id: mainLayout
             anchors.centerIn: parent
-            Label {
+            LabelWithToolTip {
                 id: messageLabel
                 width: Math.min(root.parent.width - Screen.pixelDensity * 6, implicitWidth)
                 elide: Text.ElideRight

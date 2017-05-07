@@ -64,7 +64,7 @@ Item {
             Layout.maximumHeight: Screen.pixelDensity * 0.5
         }
 
-        Label {
+        LabelWithToolTip {
             id: titleLabel
 
             text: if (albumName !== undefined)
@@ -83,7 +83,7 @@ Item {
             elide: "ElideRight"
         }
 
-        Label {
+        LabelWithToolTip {
             id: artistLabel
 
             text: if (artistName !== undefined)
@@ -102,7 +102,7 @@ Item {
             elide: "ElideRight"
         }
 
-        Label {
+        LabelWithToolTip {
             id: numberLabel
 
             text: i18np("1 track", "%1 track", tracksCount)
@@ -159,7 +159,7 @@ Item {
                 fillMode: Image.PreserveAspectFit
             }
 
-            Label {
+            LabelWithToolTip {
                 text: if (artistName !== undefined)
                           artistName
                       else

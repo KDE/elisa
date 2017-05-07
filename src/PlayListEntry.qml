@@ -154,7 +154,7 @@ Rectangle {
                         height: Screen.pixelDensity * 1.5
                     }
 
-                    Label {
+                    LabelWithToolTip {
                         id: mainLabel
                         text: album
 
@@ -173,7 +173,7 @@ Rectangle {
                         Layout.fillHeight: true
                     }
 
-                    Label {
+                    LabelWithToolTip {
                         id: authorLabel
 
                         text: artist
@@ -207,7 +207,7 @@ Rectangle {
 
                 spacing: Screen.pixelDensity * 1.
 
-                Label {
+                LabelWithToolTip {
                     id: mainCompactLabel
 
                     text: (discNumber ? discNumber + ' - ' + trackNumber : trackNumber) + ' - ' + title
@@ -223,7 +223,7 @@ Rectangle {
                     elide: "ElideRight"
                 }
 
-                Label {
+                LabelWithToolTip {
                     id: mainInvalidCompactLabel
 
                     text: title
@@ -316,7 +316,7 @@ Rectangle {
                     starSize: Screen.pixelDensity * 2.5
                 }
 
-                Label {
+                LabelWithToolTip {
                     id: durationLabel
                     text: duration
 

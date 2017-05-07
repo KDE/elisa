@@ -91,7 +91,7 @@ Item {
         deviation: 12
         samples: 65
 
-        Label {
+        LabelWithToolTip {
             anchors.bottom: parent.bottom
             anchors.right: parent.right
             anchors.bottomMargin: Screen.pixelDensity * 1.
@@ -189,7 +189,7 @@ Item {
                         Layout.fillHeight: true
                     }
 
-                    Label {
+                    LabelWithToolTip {
                         id: mainLabel
                         text: title
                         Layout.fillWidth: true
@@ -214,7 +214,7 @@ Item {
                         Layout.fillHeight: true
                     }
 
-                    Label {
+                    LabelWithToolTip {
                         id: authorLabel
                         text: artist
                         Layout.fillWidth: true
@@ -237,7 +237,7 @@ Item {
                         Layout.fillHeight: true
                     }
 
-                    Label {
+                    LabelWithToolTip {
                         id: albumLabel
                         text: album
                         Layout.fillWidth: true
@@ -280,7 +280,7 @@ Item {
                     Layout.maximumWidth: Screen.pixelDensity * 2.
                 }
 
-                Label {
+                LabelWithToolTip {
                     id: remainingTracksLabel
                     text: i18np("1 track remaining", "%1 tracks remaining", tracksCount)
                     Layout.alignment: Qt.AlignRight | Qt.AlignBottom

@@ -85,7 +85,7 @@ Item {
             visible: isFirstTrackOfDisc && !isSingleDiscAlbum
         }
 
-        Label {
+        LabelWithToolTip {
             id: discHeaderLabel
 
             text: 'CD ' + discNumber
@@ -147,7 +147,7 @@ Item {
                         width: Screen.pixelDensity * 2
                     }
 
-                    Label {
+                    LabelWithToolTip {
                         id: mainLabel
 
                         text: trackNumber + ' - ' + title
@@ -161,7 +161,7 @@ Item {
                         elide: "ElideRight"
                     }
 
-                    Label {
+                    LabelWithToolTip {
                         id: artistSeparatorLabel
 
                         visible: artist !== albumArtist
@@ -174,7 +174,7 @@ Item {
                         elide: "ElideRight"
                     }
 
-                    Label {
+                    LabelWithToolTip {
                         id: artistLabel
 
                         visible: artist !== albumArtist
@@ -230,7 +230,7 @@ Item {
                         Layout.rightMargin: Screen.pixelDensity * 1.5
                     }
 
-                    Label {
+                    LabelWithToolTip {
                         id: durationLabel
 
                         text: duration

@@ -203,7 +203,7 @@ Rectangle {
             }
         }
 
-        Text {
+        LabelWithToolTip {
             id: titleLabel
 
             font.weight: Font.Bold
@@ -217,7 +217,7 @@ Rectangle {
             elide: "ElideRight"
         }
 
-        Text {
+        LabelWithToolTip {
             id: artistLabel
 
             font.weight: Font.Normal
@@ -231,7 +231,7 @@ Rectangle {
             elide: "ElideRight"
         }
 
-        Text {
+        LabelWithToolTip {
             id: numberLabel
 
             font.weight: Font.Light

@@ -194,7 +194,7 @@ Rectangle {
             }
         }
 
-        Label {
+        LabelWithToolTip {
             id: nameLabel
 
             font.weight: Font.Bold

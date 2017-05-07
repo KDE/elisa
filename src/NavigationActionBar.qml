@@ -109,7 +109,7 @@ Item {
                 Layout.fillHeight: true
             }
 
-            Label {
+            LabelWithToolTip {
                 id: authorLabel
 
                 text: artist
@@ -127,7 +127,7 @@ Item {
                 Layout.fillHeight: true
             }
 
-            Label {
+            LabelWithToolTip {
                 id: albumLabel
 
                 text: album

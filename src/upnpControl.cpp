@@ -93,7 +93,12 @@
 #include <QtAndroid>
 #endif
 
+#ifdef _MSC_VER
+// MSVC doesn't know __attribute__(...)
+int main(int argc, char *argv[])
+#else
 int __attribute__((visibility("default"))) main(int argc, char *argv[])
+#endif
 {
     qputenv("QT_GSTREAMER_USE_PLAYBIN_VOLUME", "true");
 

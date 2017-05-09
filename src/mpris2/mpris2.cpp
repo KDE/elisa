@@ -31,7 +31,7 @@
 #ifdef _MSC_VER
 // fix absence of <unistd.h> and getpid()
 #include <Windows.h>
-#define getpid (unsigned )GetCurrentProcessId
+#define getpid (unsigned)GetCurrentProcessId
 #else
 #include <unistd.h>
 #endif

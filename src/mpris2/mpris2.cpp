@@ -28,7 +28,13 @@
 #include <QDir>
 #include <QAbstractItemModel>
 
+#ifdef _MSC_VER
+// fix absence of <unistd.h> and getpid()
+#include <Windows.h>
+#define getpid (unsigned )GetCurrentProcessId
+#else
 #include <unistd.h>
+#endif
 
 Mpris2::Mpris2(QObject* parent)
     : QObject(parent)

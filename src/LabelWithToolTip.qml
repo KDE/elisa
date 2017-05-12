@@ -29,6 +29,7 @@ Label {
     Loader {
 
         active: theLabel.truncated
+        visible: theLabel.truncated
 
         MouseArea {
             anchors.fill: parent

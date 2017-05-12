@@ -93,7 +93,11 @@
 #include <QtAndroid>
 #endif
 
+#if defined Q_OS_ANDROID
 int __attribute__((visibility("default"))) main(int argc, char *argv[])
+#else
+int main(int argc, char *argv[])
+#endif
 {
     qputenv("QT_GSTREAMER_USE_PLAYBIN_VOLUME", "true");
 

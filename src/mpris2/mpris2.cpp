@@ -28,7 +28,9 @@
 #include <QDir>
 #include <QAbstractItemModel>
 
-#if defined Q_OS_WINDOWS
+#include <QtGlobal>
+
+#if defined Q_OS_WIN
 #include <Windows.h>
 #else
 #include <unistd.h>
@@ -49,7 +51,11 @@ void Mpris2::initDBusService()
     // or the name is already taken. In that event the MPRIS2 spec wants the
     // following:
     if (!success) {
+#if defined Q_OS_WIN
+        success = QDBusConnection::sessionBus().registerService(mspris2Name + QStringLiteral(".instance") + QString::number(GetCurrentProcessId()));
+#else
         success = QDBusConnection::sessionBus().registerService(mspris2Name + QStringLiteral(".instance") + QString::number(getpid()));
+#endif
     }
 
     if (success) {

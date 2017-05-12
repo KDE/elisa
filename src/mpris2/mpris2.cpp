@@ -28,7 +28,11 @@
 #include <QDir>
 #include <QAbstractItemModel>
 
+#if defined Q_OS_WINDOWS
+#include <Windows.h>
+#else
 #include <unistd.h>
+#endif
 
 Mpris2::Mpris2(QObject* parent)
     : QObject(parent)

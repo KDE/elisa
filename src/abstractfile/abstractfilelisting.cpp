@@ -36,6 +36,8 @@
 #include <QSet>
 #include <QPair>
 
+#include <QtGlobal>
+
 #include <algorithm>
 
 class AbstractFileListingPrivate
@@ -287,7 +289,9 @@ MusicAudioTrack AbstractFileListing::scanOneFile(const QUrl &scanFile)
 
         newTrack.setResourceURI(scanFile);
 
+#if defined Q_OS_LINUX && !defined Q_OS_ANDROID
         newTrack.setRating(fileData.rating());
+#endif
 
         newTrack.setValid(true);
     }

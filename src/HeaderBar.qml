@@ -99,12 +99,12 @@ Item {
 
             Item {
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-                Layout.preferredHeight: elisaTheme.coverImageSize
-                Layout.minimumHeight: elisaTheme.coverImageSize
-                Layout.maximumHeight: elisaTheme.coverImageSize
-                Layout.preferredWidth: elisaTheme.coverImageSize
-                Layout.minimumWidth: elisaTheme.coverImageSize
-                Layout.maximumWidth: elisaTheme.coverImageSize
+                Layout.preferredHeight: headerBar.height * 0.9
+                Layout.minimumHeight: headerBar.height * 0.9
+                Layout.maximumHeight: headerBar.height * 0.9
+                Layout.preferredWidth: headerBar.height * 0.9
+                Layout.minimumWidth: headerBar.height * 0.9
+                Layout.maximumWidth: headerBar.height * 0.9
                 Layout.leftMargin: headerBar.width * 0.15
 
                 Image {
@@ -115,8 +115,8 @@ Item {
                     source: (image ? image : Qt.resolvedUrl(elisaTheme.albumCover))
 
                     sourceSize {
-                        width: elisaTheme.coverImageSize
-                        height: elisaTheme.coverImageSize
+                        width: headerBar.height * 0.9
+                        height: headerBar.height * 0.9
                     }
 
                     fillMode: Image.PreserveAspectFit

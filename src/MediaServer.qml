@@ -341,9 +341,9 @@ ApplicationWindow {
             HeaderBar {
                 id: headerBar
 
-                Layout.preferredHeight: elisaTheme.coverImageSize * 1.1
-                Layout.minimumHeight: elisaTheme.coverImageSize * 1.1
-                Layout.maximumHeight: elisaTheme.coverImageSize * 1.1
+                Layout.preferredHeight: mainWindow.height * 0.2
+                Layout.minimumHeight: mainWindow.height * 0.2
+                Layout.maximumHeight: mainWindow.height * 0.2
                 Layout.fillWidth: true
 
                 tracksCount: myHeaderBarManager.remainingTracks

@@ -192,6 +192,7 @@ Item {
             horizontalAlignment: Text.AlignLeft
 
             Layout.preferredWidth: mediaServerEntry.width * 0.9
+            Layout.topMargin: elisaTheme.layoutVerticalMargin
             Layout.bottomMargin: elisaTheme.layoutVerticalMargin
             Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
 

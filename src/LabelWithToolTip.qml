@@ -26,7 +26,10 @@ import QtQuick.Window 2.2
 Label {
     id: theLabel
 
+    renderType: Text.NativeRendering
+
     Loader {
+        anchors.fill: parent
 
         active: theLabel.truncated
         visible: theLabel.truncated

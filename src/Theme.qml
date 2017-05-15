@@ -18,6 +18,7 @@
  */
 
 import QtQuick 2.0
+import QtQuick.Window 2.2
 
 Item {
     property string albumCover: 'image://icon/media-optical-audio'
@@ -32,4 +33,35 @@ Item {
     property string ratingIcon: 'image://icon/rating'
     property string ratingUnratedIcon: 'image://icon/rating-unrated'
     property string errorIcon: 'image://icon/error'
+
+    property int layoutHorizontalMargin: 8 * Screen.devicePixelRatio
+    property int layoutVerticalMargin: 6 * Screen.devicePixelRatio
+
+    property int delegateHeight: 28 * Screen.devicePixelRatio
+    property int delegateWithHeaderHeight: 84 * Screen.devicePixelRatio
+
+    property int coverImageSize: 180 * Screen.devicePixelRatio
+    property int smallImageSize: 32 * Screen.devicePixelRatio
+
+    property int tooltipRadius: 3 * Screen.devicePixelRatio
+    property int shadowOffset: 2 * Screen.devicePixelRatio
+
+    property int delegateToolButtonSize: 40 * Screen.devicePixelRatio
+    property int smallDelegateToolButtonSize: 20 * Screen.devicePixelRatio
+
+    property int ratingStarSize: 10 * Screen.devicePixelRatio
+
+    property int smallControlButtonHeight: 32 * Screen.devicePixelRatio
+    property int bigControlButtonHeight: 44 * Screen.devicePixelRatio
+    property int volumeSliderWidth: 140 * Screen.devicePixelRatio
+
+    property int dragDropPlaceholderHeight: 28 * Screen.devicePixelRatio
+
+    property int navigationBarHeight: 100 * Screen.devicePixelRatio
+    property int mediaPlayerControlHeight: 48 * Screen.devicePixelRatio
+
+    property int gridDelegateHeight: 168 * Screen.devicePixelRatio
+    property int gridDelegateWidth: 112 * Screen.devicePixelRatio
+
+    property int viewSelectorDelegateHeight: 32
 }

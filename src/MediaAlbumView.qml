@@ -47,17 +47,8 @@ Item {
         colorGroup: SystemPalette.Active
     }
 
-    Component {
-        id: rowDelegate
-
-        Item {
-            id: rowDelegateContent
-            height: Screen.pixelDensity * 15.
-            Rectangle {
-                color: myPalette.base
-                anchors.fill: parent
-            }
-        }
+    Theme {
+        id: elisaTheme
     }
 
     AlbumModel {
@@ -85,7 +76,7 @@ Item {
         NavigationActionBar {
             id: navBar
 
-            height: Screen.pixelDensity * 25.
+            height: elisaTheme.navigationBarHeight
 
             Layout.preferredHeight: height
             Layout.minimumHeight: height
@@ -97,7 +88,7 @@ Item {
             playerControl: topListing.playerControl
             artist: topListing.artistName
             album: topListing.albumName
-            image: topListing.albumArtUrl
+            image: (topListing.albumArtUrl ? topListing.albumArtUrl : elisaTheme.albumCover)
             tracksCount: topListing.tracksCount
 
             enqueueAction: Action {
@@ -125,8 +116,8 @@ Item {
 
             Layout.fillWidth: parent
 
-            Layout.leftMargin: Screen.pixelDensity * 2.5
-            Layout.rightMargin: Screen.pixelDensity * 2.5
+            Layout.leftMargin: elisaTheme.layoutHorizontalMargin
+            Layout.rightMargin: elisaTheme.layoutHorizontalMargin
 
             Layout.preferredHeight: 1
             Layout.minimumHeight: 1
@@ -152,7 +143,7 @@ Item {
                     id: entry
 
                     isAlternateColor: DelegateModel.itemsIndex % 2
-                    height: ((model.isFirstTrackOfDisc && !isSingleDiscAlbum) ? Screen.pixelDensity * 15. : Screen.pixelDensity * 7.)
+                    height: ((model.isFirstTrackOfDisc && !isSingleDiscAlbum) ? elisaTheme.delegateWithHeaderHeight : elisaTheme.delegateHeight)
                     width: contentDirectoryView.viewport.width
 
                     databaseId: model.databaseId
@@ -219,7 +210,6 @@ Item {
             headerVisible: false
             frameVisible: false
             focus: true
-            rowDelegate: rowDelegate
 
             TableViewColumn {
                 role: "title"

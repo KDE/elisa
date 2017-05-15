@@ -49,11 +49,6 @@ Item {
     signal clicked()
     signal rightClicked()
 
-    SystemPalette {
-        id: myPalette
-        colorGroup: SystemPalette.Active
-    }
-
     Action {
         id: clearAndEnqueue
         text: i18nc("Clear play list and enqueue current track", "Play Now and Replace Play List")
@@ -77,14 +72,6 @@ Item {
         anchors.fill: parent
         spacing: 0
 
-        Item {
-            Layout.preferredHeight: Screen.pixelDensity * 3.
-            Layout.minimumHeight: Screen.pixelDensity * 3.
-            Layout.maximumHeight: Screen.pixelDensity * 3.
-
-            visible: isFirstTrackOfDisc && !isSingleDiscAlbum
-        }
-
         LabelWithToolTip {
             id: discHeaderLabel
 
@@ -94,19 +81,13 @@ Item {
             font.italic: true
             color: myPalette.text
 
-            Layout.preferredWidth: Screen.pixelDensity * 9
+            Layout.topMargin: elisaTheme.layoutVerticalMargin * 2
+            Layout.bottomMargin: elisaTheme.layoutVerticalMargin
+            Layout.preferredWidth: elisaTheme.delegateHeight
             Layout.fillWidth: true
             Layout.alignment: Qt.AlignLeft
 
             elide: "ElideRight"
-
-            visible: isFirstTrackOfDisc && !isSingleDiscAlbum
-        }
-
-        Item {
-            Layout.preferredHeight: (isFirstTrackOfDisc && !isSingleDiscAlbum ? Screen.pixelDensity * 1.5 : 0)
-            Layout.minimumHeight: (isFirstTrackOfDisc && !isSingleDiscAlbum ? Screen.pixelDensity * 1.5 : 0)
-            Layout.maximumHeight: (isFirstTrackOfDisc && !isSingleDiscAlbum ? Screen.pixelDensity * 1.5 : 0)
 
             visible: isFirstTrackOfDisc && !isSingleDiscAlbum
         }
@@ -140,13 +121,6 @@ Item {
                     anchors.fill: parent
                     spacing: 0
 
-                    Item {
-                        Layout.preferredWidth: Screen.pixelDensity * 2
-                        Layout.minimumWidth: Screen.pixelDensity * 2
-                        Layout.maximumWidth: Screen.pixelDensity * 2
-                        width: Screen.pixelDensity * 2
-                    }
-
                     LabelWithToolTip {
                         id: mainLabel
 
@@ -156,7 +130,7 @@ Item {
                         color: myPalette.text
 
                         Layout.alignment: Qt.AlignLeft
-                        Layout.leftMargin: (!isSingleDiscAlbum ? Screen.pixelDensity * 4 : 0)
+                        Layout.leftMargin: (!isSingleDiscAlbum ? elisaTheme.layoutHorizontalMargin * 4 : elisaTheme.layoutHorizontalMargin)
 
                         elide: "ElideRight"
                     }
@@ -196,8 +170,8 @@ Item {
                     ToolButton {
                         id: enqueueButton
 
-                        implicitHeight: Screen.pixelDensity * 6.
-                        implicitWidth: Screen.pixelDensity * 6.
+                        implicitHeight: elisaTheme.delegateHeight * 0.75
+                        implicitWidth: elisaTheme.delegateHeight * 0.75
 
                         visible: opacity > 0.1
                         action: enqueue
@@ -207,27 +181,22 @@ Item {
                     ToolButton {
                         id: clearAndEnqueueButton
 
-                        implicitHeight: Screen.pixelDensity * 6.
-                        implicitWidth: Screen.pixelDensity * 6.
+                        implicitHeight: elisaTheme.delegateHeight * 0.75
+                        implicitWidth: elisaTheme.delegateHeight * 0.75
 
                         visible: opacity > 0.1
                         action: clearAndEnqueue
                         Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
-                    }
-
-                    Item {
-                        Layout.preferredWidth: Screen.pixelDensity * 3.
-                        Layout.minimumWidth: Screen.pixelDensity * 3.
-                        Layout.maximumWidth: Screen.pixelDensity * 3.
+                        Layout.rightMargin: elisaTheme.layoutHorizontalMargin
                     }
 
                     RatingStar {
                         id: ratingWidget
 
-                        starSize: Screen.pixelDensity * 2.5
+                        starSize: elisaTheme.ratingStarSize
 
-                        Layout.leftMargin: Screen.pixelDensity * 1.5
-                        Layout.rightMargin: Screen.pixelDensity * 1.5
+                        Layout.leftMargin: elisaTheme.layoutHorizontalMargin
+                        Layout.rightMargin: elisaTheme.layoutHorizontalMargin
                     }
 
                     LabelWithToolTip {
@@ -239,12 +208,8 @@ Item {
                         color: myPalette.text
 
                         elide: "ElideRight"
-                    }
 
-                    Item {
-                        Layout.preferredWidth: Screen.pixelDensity * 6.
-                        Layout.minimumWidth: Screen.pixelDensity * 6.
-                        Layout.maximumWidth: Screen.pixelDensity * 6.
+                        Layout.rightMargin: elisaTheme.layoutHorizontalMargin
                     }
                 }
             }

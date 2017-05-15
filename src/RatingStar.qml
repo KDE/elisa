@@ -31,10 +31,6 @@ RowLayout {
 
     spacing: 0
 
-    Theme {
-        id: elisaTheme
-    }
-
     Item {
         Layout.preferredHeight: starSize * 1.5
         Layout.preferredWidth: starSize * 1.5

@@ -64,31 +64,40 @@ Item {
 
             Image {
                 id: previousButton
+
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
                         musicWidget.playPrevious()
                     }
                 }
+
                 source: Qt.resolvedUrl(elisaTheme.skipBackwardIcon)
-                Layout.preferredWidth: width
-                Layout.preferredHeight: height
+
+                Layout.preferredWidth: elisaTheme.smallControlButtonHeight
+                Layout.preferredHeight: elisaTheme.smallControlButtonHeight
                 Layout.alignment: Qt.AlignVCenter
-                Layout.maximumWidth: width
-                Layout.maximumHeight: height
-                Layout.minimumWidth: width
-                Layout.minimumHeight: height
-                sourceSize.width: width
-                sourceSize.height: width
-                height: width
-                width: Screen.pixelDensity * 8.
+                Layout.maximumWidth: elisaTheme.smallControlButtonHeight
+                Layout.maximumHeight: elisaTheme.smallControlButtonHeight
+                Layout.minimumWidth: elisaTheme.smallControlButtonHeight
+                Layout.minimumHeight: elisaTheme.smallControlButtonHeight
+
+                sourceSize.width: elisaTheme.smallControlButtonHeight
+                sourceSize.height: elisaTheme.smallControlButtonHeight
+
+                height: elisaTheme.smallControlButtonHeight
+                width: elisaTheme.smallControlButtonHeight
+
                 fillMode: Image.PreserveAspectFit
+
                 enabled: skipBackwardEnabled
+
                 opacity: enabled ? 1.0 : 0.6
             }
 
             Image {
                 id: playPauseButton
+
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
@@ -99,63 +108,67 @@ Item {
                         }
                     }
                 }
+
                 source: {
                     if (musicWidget.isPlaying)
                         Qt.resolvedUrl(elisaTheme.pauseIcon)
                     else
                         Qt.resolvedUrl(elisaTheme.playIcon)
                 }
-                Layout.preferredWidth: width
-                Layout.preferredHeight: height
+
+                Layout.preferredWidth: elisaTheme.bigControlButtonHeight
+                Layout.preferredHeight: elisaTheme.bigControlButtonHeight
                 Layout.alignment: Qt.AlignVCenter
-                Layout.maximumWidth: width
-                Layout.maximumHeight: height
-                Layout.minimumWidth: width
-                Layout.minimumHeight: height
-                sourceSize.width: width
-                sourceSize.height: width
-                height: width
-                width: Screen.pixelDensity * 11.
+                Layout.maximumWidth: elisaTheme.bigControlButtonHeight
+                Layout.maximumHeight: elisaTheme.bigControlButtonHeight
+                Layout.minimumWidth: elisaTheme.bigControlButtonHeight
+                Layout.minimumHeight: elisaTheme.bigControlButtonHeight
+
+                sourceSize.width: elisaTheme.bigControlButtonHeight
+                sourceSize.height: elisaTheme.bigControlButtonHeight
+
+                height: elisaTheme.bigControlButtonHeight
+                width: elisaTheme.bigControlButtonHeight
+
                 fillMode: Image.PreserveAspectFit
+
                 enabled: playEnabled
+
                 opacity: enabled ? 1.0 : 0.6
             }
 
             Image {
                 id: nextButton
+
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
                         musicWidget.playNext()
                     }
                 }
+
                 source: Qt.resolvedUrl(elisaTheme.skipForwardIcon)
-                Layout.preferredWidth: width
-                Layout.preferredHeight: height
+
+                Layout.preferredWidth: elisaTheme.smallControlButtonHeight
+                Layout.preferredHeight: elisaTheme.smallControlButtonHeight
                 Layout.alignment: Qt.AlignVCenter
-                Layout.maximumWidth: width
-                Layout.maximumHeight: height
-                Layout.minimumWidth: width
-                Layout.minimumHeight: height
-                sourceSize.width: width
-                sourceSize.height: width
-                height: width
-                width: Screen.pixelDensity * 8.
+                Layout.maximumWidth: elisaTheme.smallControlButtonHeight
+                Layout.maximumHeight: elisaTheme.smallControlButtonHeight
+                Layout.minimumWidth: elisaTheme.smallControlButtonHeight
+                Layout.minimumHeight: elisaTheme.smallControlButtonHeight
+                Layout.rightMargin: elisaTheme.smallControlButtonHeight
+
+                sourceSize.width: elisaTheme.smallControlButtonHeight
+                sourceSize.height: elisaTheme.smallControlButtonHeight
+
+                height: elisaTheme.smallControlButtonHeight
+                width: elisaTheme.smallControlButtonHeight
+
                 fillMode: Image.PreserveAspectFit
+
                 enabled: skipForwardEnabled
+
                 opacity: enabled ? 1.0 : 0.6
-            }
-
-            Item {
-                Layout.preferredWidth: width
-                Layout.maximumWidth: width
-                Layout.minimumWidth: width
-                width: Screen.pixelDensity * 8.
-            }
-
-            ProgressIndicator {
-                id: timeIndicator
-                position: musicWidget.position
             }
 
             LabelWithToolTip {
@@ -166,13 +179,12 @@ Item {
                 color: myPalette.text
 
                 Layout.alignment: Qt.AlignVCenter
-            }
+                Layout.rightMargin: elisaTheme.layoutHorizontalMargin
 
-            Item {
-                Layout.preferredWidth: width
-                Layout.maximumWidth: width
-                Layout.minimumWidth: width
-                width: Screen.pixelDensity * 3.
+                ProgressIndicator {
+                    id: timeIndicator
+                    position: musicWidget.position
+                }
             }
 
             Slider {
@@ -180,11 +192,16 @@ Item {
                 property int seekValue
 
                 id: musicProgress
+
                 minimumValue: 0
                 maximumValue: musicWidget.duration
+
                 Layout.alignment: Qt.AlignVCenter
                 Layout.fillWidth: true
+                Layout.rightMargin: elisaTheme.layoutHorizontalMargin * 10
+
                 enabled: musicWidget.seekable && musicWidget.playEnabled
+
                 updateValueWhileDragging: true
 
                 onValueChanged: {
@@ -204,64 +221,55 @@ Item {
                 }
             }
 
-            Item {
-                Layout.preferredWidth: width
-                Layout.maximumWidth: width
-                Layout.minimumWidth: width
-                width: Screen.pixelDensity * 8.
-            }
-
             Image {
                 id: volumeIcon
+
                 MouseArea {
                     anchors.fill: parent
                     onClicked: musicWidget.muted = !musicWidget.muted
                 }
+
                 source: if (musicWidget.muted)
                             Qt.resolvedUrl(elisaTheme.playerVolumeMutedIcon)
                         else
                             Qt.resolvedUrl(elisaTheme.playerVolumeIcon)
-                Layout.preferredWidth: width
-                Layout.preferredHeight: height
-                Layout.alignment: Qt.AlignVCenter
-                Layout.maximumWidth: width
-                Layout.maximumHeight: height
-                Layout.minimumWidth: width
-                Layout.minimumHeight: height
-                sourceSize.width: width
-                sourceSize.height: width
-                height: width
-                width: Screen.pixelDensity * 8.
-                fillMode: Image.PreserveAspectFit
-            }
 
-            Item {
-                Layout.preferredWidth: width
-                Layout.maximumWidth: width
-                Layout.minimumWidth: width
-                width: Screen.pixelDensity * 3.
+                Layout.preferredWidth: elisaTheme.smallControlButtonHeight
+                Layout.preferredHeight: elisaTheme.smallControlButtonHeight
+                Layout.alignment: Qt.AlignVCenter
+                Layout.maximumWidth: elisaTheme.smallControlButtonHeight
+                Layout.maximumHeight: elisaTheme.smallControlButtonHeight
+                Layout.minimumWidth: elisaTheme.smallControlButtonHeight
+                Layout.minimumHeight: elisaTheme.smallControlButtonHeight
+                Layout.rightMargin: elisaTheme.layoutHorizontalMargin
+
+                sourceSize.width: elisaTheme.smallControlButtonHeight
+                sourceSize.height: elisaTheme.smallControlButtonHeight
+
+                height: elisaTheme.smallControlButtonHeight
+                width: elisaTheme.smallControlButtonHeight
+
+                fillMode: Image.PreserveAspectFit
             }
 
             Slider {
                 id: volumeSlider
+
                 minimumValue: 0.0
                 maximumValue: 1.0
                 value: musicWidget.volume
+
                 onValueChanged: musicWidget.volume = value
+
                 enabled: !muted
 
                 Layout.alignment: Qt.AlignVCenter
-                Layout.preferredWidth: width
-                Layout.maximumWidth: width
-                Layout.minimumWidth: width
-                width: Screen.pixelDensity * 35.
-            }
+                Layout.preferredWidth: elisaTheme.volumeSliderWidth
+                Layout.maximumWidth: elisaTheme.volumeSliderWidth
+                Layout.minimumWidth: elisaTheme.volumeSliderWidth
+                Layout.rightMargin: elisaTheme.layoutHorizontalMargin
 
-            Item {
-                Layout.preferredWidth: width
-                Layout.maximumWidth: width
-                Layout.minimumWidth: width
-                width: Screen.pixelDensity * 8.
+                width: elisaTheme.volumeSliderWidth
             }
         }
     }

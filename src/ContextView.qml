@@ -33,34 +33,33 @@ Item {
     property var tracksCount
     property var albumArtUrl
 
-    Theme {
-        id: elisaTheme
-    }
-
     ColumnLayout {
         anchors.fill: parent
 
         spacing: 0
 
+        Item {
+            Layout.fillHeight: true
+        }
+
         Image {
             id: albumIcon
             source: albumArtUrl
-            Layout.preferredWidth: width
-            Layout.preferredHeight: height
-            Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-            Layout.maximumWidth: width
-            Layout.maximumHeight: height
-            width: Screen.pixelDensity * 45.
-            height: Screen.pixelDensity * 45.
-            sourceSize.width: width
-            sourceSize.height: width
-            fillMode: Image.PreserveAspectFit
-        }
 
-        Item {
-            Layout.preferredHeight: Screen.pixelDensity * 0.5
-            Layout.minimumHeight: Screen.pixelDensity * 0.5
-            Layout.maximumHeight: Screen.pixelDensity * 0.5
+            Layout.preferredWidth: elisaTheme.coverImageSize
+            Layout.preferredHeight: elisaTheme.coverImageSize
+            Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+            Layout.maximumWidth: elisaTheme.coverImageSize
+            Layout.maximumHeight: elisaTheme.coverImageSize
+            Layout.bottomMargin: elisaTheme.layoutVerticalMargin
+
+            width: elisaTheme.coverImageSize
+            height: elisaTheme.coverImageSize
+
+            sourceSize.width: elisaTheme.coverImageSize
+            sourceSize.height: elisaTheme.coverImageSize
+
+            fillMode: Image.PreserveAspectFit
         }
 
         LabelWithToolTip {
@@ -78,6 +77,7 @@ Item {
 
             Layout.fillWidth: true
             Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
+            Layout.bottomMargin: elisaTheme.layoutVerticalMargin
 
             elide: "ElideRight"
         }
@@ -115,45 +115,38 @@ Item {
 
             Layout.fillWidth: true
             Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
+            Layout.bottomMargin: elisaTheme.layoutVerticalMargin
 
             elide: "ElideRight"
         }
 
         Item {
-            Layout.preferredHeight: Screen.pixelDensity * 2.
-            Layout.minimumHeight: Screen.pixelDensity * 2.
-            Layout.maximumHeight: Screen.pixelDensity * 2.
+            Layout.fillHeight: true
         }
 
         RowLayout {
             Layout.fillWidth: true
-            Layout.preferredHeight: Screen.pixelDensity * 2.
 
             spacing: 0
-
-            Item {
-                Layout.preferredWidth: Screen.pixelDensity * 2.
-                Layout.minimumWidth: Screen.pixelDensity * 2.
-                Layout.maximumWidth: Screen.pixelDensity * 2.
-            }
 
             Image {
                 id: artistJumpIcon
 
                 source: Qt.resolvedUrl(elisaTheme.artistImage)
 
-                Layout.preferredWidth: width
-                Layout.preferredHeight: height
+                Layout.preferredWidth: elisaTheme.smallImageSize
+                Layout.preferredHeight: elisaTheme.smallImageSize
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-                Layout.maximumWidth: width
-                Layout.maximumHeight: height
+                Layout.maximumWidth: elisaTheme.smallImageSize
+                Layout.maximumHeight: elisaTheme.smallImageSize
+                Layout.leftMargin: elisaTheme.layoutHorizontalMargin
 
                 visible: artistName !== undefined
-                width: Screen.pixelDensity * 8.
-                height: Screen.pixelDensity * 8.
+                width: elisaTheme.smallImageSize
+                height: elisaTheme.smallImageSize
 
-                sourceSize.width: width
-                sourceSize.height: width
+                sourceSize.width: elisaTheme.smallImageSize
+                sourceSize.height: elisaTheme.smallImageSize
 
                 fillMode: Image.PreserveAspectFit
             }

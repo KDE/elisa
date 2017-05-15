@@ -44,6 +44,10 @@ Item {
         colorGroup: SystemPalette.Active
     }
 
+    Theme {
+        id: elisaTheme
+    }
+
     ColumnLayout {
         anchors.fill: parent
         spacing: 0
@@ -51,7 +55,7 @@ Item {
         NavigationActionBar {
             id: navBar
 
-            height: Screen.pixelDensity * 25.
+            height: elisaTheme.navigationBarHeight
 
             Layout.preferredHeight: height
             Layout.minimumHeight: height
@@ -87,8 +91,8 @@ Item {
 
             Layout.fillWidth: parent
 
-            Layout.leftMargin: Screen.pixelDensity * 2.5
-            Layout.rightMargin: Screen.pixelDensity * 2.5
+            Layout.leftMargin: elisaTheme.layoutHorizontalMargin
+            Layout.rightMargin: elisaTheme.layoutHorizontalMargin
 
             Layout.preferredHeight: 1
             Layout.minimumHeight: 1
@@ -108,8 +112,8 @@ Item {
                 GridView {
                     id: contentDirectoryView
 
-                    cellWidth: Screen.pixelDensity * 40.
-                    cellHeight: Screen.pixelDensity * 60.
+                    cellWidth: elisaTheme.gridDelegateWidth
+                    cellHeight: elisaTheme.gridDelegateHeight
 
                     model: DelegateModel {
                         id: delegateContentModel

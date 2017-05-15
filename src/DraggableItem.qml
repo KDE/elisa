@@ -61,11 +61,6 @@ Item {
         contentItem.parent = dragArea;
     }
 
-    SystemPalette {
-        id: myPalette
-        colorGroup: SystemPalette.Active
-    }
-
     Rectangle {
         id: topPlaceholder
         anchors {

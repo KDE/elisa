@@ -50,15 +50,12 @@ Item {
         anchors.fill: parent
         spacing: 0
 
-        Item {
-            Layout.preferredHeight: Screen.pixelDensity * 0.5
-        }
-
         RowLayout {
             id: filterRow
 
             Layout.fillWidth: true
-            Layout.bottomMargin: Screen.pixelDensity * 0.5
+            Layout.topMargin: elisaTheme.layoutVerticalMargin
+            Layout.bottomMargin: elisaTheme.layoutVerticalMargin
 
             LabelWithToolTip {
                 text: i18nc("before the TextField input of the filter", "Filter: ")
@@ -77,7 +74,7 @@ Item {
                     anchors.top: parent.top
                     anchors.bottom: parent.bottom
                     anchors.right: parent.right
-                    anchors.margins: Screen.pixelDensity * 1
+                    anchors.margins: elisaTheme.layoutVerticalMargin
                     id: clearText
                     fillMode: Image.PreserveAspectFit
                     smooth: true
@@ -106,7 +103,7 @@ Item {
 
                 color: myPalette.text
 
-                Layout.leftMargin: Screen.pixelDensity * 2
+                Layout.leftMargin: elisaTheme.layoutHorizontalMargin
             }
 
             RatingStar {
@@ -114,7 +111,7 @@ Item {
 
                 readOnly: false
 
-                starSize: Screen.pixelDensity * 3
+                starSize: elisaTheme.ratingStarSize
             }
         }
 
@@ -130,8 +127,8 @@ Item {
                 GridView {
                     id: contentDirectoryView
 
-                    cellWidth: Screen.pixelDensity * 37.
-                    cellHeight: Screen.pixelDensity * 55.
+                    cellWidth: elisaTheme.gridDelegateWidth
+                    cellHeight: elisaTheme.gridDelegateHeight
 
                     model: DelegateModel {
                         id: delegateContentModel

@@ -41,15 +41,6 @@ Rectangle {
 
     id: mediaServerEntry
 
-    SystemPalette {
-        id: myPalette
-        colorGroup: SystemPalette.Active
-    }
-
-    Theme {
-        id: elisaTheme
-    }
-
     Action {
         id: enqueueAction
 
@@ -99,48 +90,39 @@ Rectangle {
         anchors.fill: parent
 
         Item {
-            Layout.preferredHeight: Screen.pixelDensity * 0.5
-            Layout.minimumHeight: Screen.pixelDensity * 0.5
-            Layout.maximumHeight: Screen.pixelDensity * 0.5
-        }
-
-        Image {
-            id: playIcon
-
-            width: mediaServerEntry.width * 0.9
-            height: mediaServerEntry.width * 0.9
-            sourceSize.width: mediaServerEntry.width * 0.9
-            sourceSize.height: mediaServerEntry.width * 0.9
-            fillMode: Image.PreserveAspectFit
-            smooth: true
-
-            source: (mediaServerEntry.image ? mediaServerEntry.image : Qt.resolvedUrl(elisaTheme.albumCover))
-
-            visible: false
-
-            asynchronous: true
-
-            Layout.preferredWidth: mediaServerEntry.width * 0.9
+            Layout.topMargin: elisaTheme.layoutVerticalMargin
             Layout.preferredHeight: mediaServerEntry.width * 0.9
-
-            Layout.alignment: Qt.AlignHCenter
-        }
-
-        DropShadow {
-            source: playIcon
-
             Layout.preferredWidth: mediaServerEntry.width * 0.9
-            Layout.preferredHeight: mediaServerEntry.width * 0.9
 
-            Layout.alignment: Qt.AlignHCenter
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
 
-            horizontalOffset: mediaServerEntry.width * 0.02
-            verticalOffset: mediaServerEntry.width * 0.02
+            Image {
+                id: coverImage
 
-            radius: 5.0
-            samples: 11
+                anchors.fill: parent
 
-            color: myPalette.shadow
+                sourceSize.width: mediaServerEntry.width * 0.9
+                sourceSize.height: mediaServerEntry.width * 0.9
+                fillMode: Image.PreserveAspectFit
+                smooth: true
+
+                source: (mediaServerEntry.image ? mediaServerEntry.image : Qt.resolvedUrl(elisaTheme.albumCover))
+
+                asynchronous: true
+
+                layer.enabled: true
+                layer.effect: DropShadow {
+                    horizontalOffset: mediaServerEntry.width * 0.02
+                    verticalOffset: mediaServerEntry.width * 0.02
+
+                    source: coverImage
+
+                    radius: 5.0
+                    samples: 11
+
+                    color: myPalette.shadow
+                }
+            }
 
             MouseArea {
                 id: hoverHandle
@@ -175,8 +157,8 @@ Rectangle {
 
                                 action: enqueueAction
 
-                                width: Screen.pixelDensity * 10
-                                height: Screen.pixelDensity * 10
+                                width: elisaTheme.delegateToolButtonSize
+                                height: elisaTheme.delegateToolButtonSize
                             }
 
                             ToolButton {
@@ -184,8 +166,8 @@ Rectangle {
 
                                 action: openAction
 
-                                width: Screen.pixelDensity * 10
-                                height: Screen.pixelDensity * 10
+                                width: elisaTheme.delegateToolButtonSize
+                                height: elisaTheme.delegateToolButtonSize
                             }
 
                             ToolButton {
@@ -193,8 +175,8 @@ Rectangle {
 
                                 action: enqueueAndPlayAction
 
-                                width: Screen.pixelDensity * 10
-                                height: Screen.pixelDensity * 10
+                                width: elisaTheme.delegateToolButtonSize
+                                height: elisaTheme.delegateToolButtonSize
                             }
                         }
                     }
@@ -240,14 +222,9 @@ Rectangle {
 
             Layout.preferredWidth: mediaServerEntry.width * 0.9
             Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
+            Layout.bottomMargin: elisaTheme.layoutVerticalMargin
 
             elide: "ElideRight"
-        }
-
-        Item {
-            Layout.preferredHeight: Screen.pixelDensity * 0.5
-            Layout.minimumHeight: Screen.pixelDensity * 0.5
-            Layout.maximumHeight: Screen.pixelDensity * 0.5
         }
     }
 }

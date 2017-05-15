@@ -34,274 +34,218 @@ Item {
     property int trackRating
     property bool ratingVisible
 
-    Theme {
-        id: elisaTheme
-    }
-
-    SystemPalette {
-        id: myPalette
-        colorGroup: SystemPalette.Active
-    }
-
     Image {
         id: background
         source: (image ? image : Qt.resolvedUrl('background.jpg'))
 
-
-        anchors.margins: -2
         anchors.fill: parent
         fillMode: Image.PreserveAspectCrop
 
         sourceSize.width: parent.width
 
-        visible: false
+        layer.enabled: true
+        layer.effect: Desaturate {
+            cached: true
+
+            desaturation: -0.2
+
+            layer.enabled: true
+            layer.effect: BrightnessContrast {
+                cached: true
+
+                brightness: -0.2
+                contrast: -0.1
+
+                layer.enabled: true
+                layer.effect: GaussianBlur {
+                    cached: true
+
+                    radius: 32
+                    deviation: 12
+                    samples: 65
+                }
+            }
+        }
     }
 
-    Desaturate {
-        id: desaturateBackground
+    LabelWithToolTip {
+        anchors.bottom: parent.bottom
+        anchors.right: parent.right
+        anchors.bottomMargin: elisaTheme.layoutVerticalMargin
+        anchors.rightMargin: elisaTheme.layoutVerticalMargin
 
-        anchors.fill: background
-        source: background
-        cached: true
+        text: i18nc("Copyright text shown for an image", "by Edward Betts (Own work) [CC BY-SA 3.0]")
+        color: myPalette.highlightedText
+        opacity: 0.4
 
-        desaturation: -0.2
-
-        visible: false
+        visible: !image
     }
 
-    BrightnessContrast {
-        id: contrastBackground
+    ColumnLayout {
+        anchors.fill: parent
+        spacing: 0
 
-        anchors.fill: desaturateBackground
-        source: desaturateBackground
-        cached: true
-
-        brightness: -0.2
-        contrast: -0.1
-
-        visible: false
-    }
-
-    GaussianBlur {
-        anchors.fill: contrastBackground
-        source: contrastBackground
-        cached: true
-
-        radius: 32
-        deviation: 12
-        samples: 65
-
-        LabelWithToolTip {
-            anchors.bottom: parent.bottom
-            anchors.right: parent.right
-            anchors.bottomMargin: Screen.pixelDensity * 1.
-            anchors.rightMargin: Screen.pixelDensity * 1.
-
-            text: i18nc("Copyright text shown for an image", "by Edward Betts (Own work) [CC BY-SA 3.0]")
-            color: myPalette.highlightedText
-            opacity: 0.4
-
-            visible: !image
+        Item {
+            Layout.fillHeight: true
+            Layout.fillWidth: true
         }
 
-        ColumnLayout {
-            anchors.fill: parent
+        RowLayout {
             spacing: 0
 
+            Layout.alignment: Qt.AlignVCenter
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+
             Item {
-                Layout.fillHeight: true
-                Layout.fillWidth: true
-            }
-
-            RowLayout {
-                spacing: 0
-
-                Layout.alignment: Qt.AlignVCenter
-                Layout.preferredHeight: Screen.pixelDensity * 34.
-                Layout.minimumHeight: Screen.pixelDensity * 34.
-                Layout.maximumHeight: Screen.pixelDensity * 34.
-                Layout.fillWidth: true
-
-                Item {
-                    Layout.preferredWidth: Screen.pixelDensity * 50.
-                    Layout.minimumWidth: Screen.pixelDensity * 50.
-                    Layout.maximumWidth: Screen.pixelDensity * 50.
-                    Layout.fillHeight: true
-                }
+                Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+                Layout.preferredHeight: elisaTheme.coverImageSize
+                Layout.minimumHeight: elisaTheme.coverImageSize
+                Layout.maximumHeight: elisaTheme.coverImageSize
+                Layout.preferredWidth: elisaTheme.coverImageSize
+                Layout.minimumWidth: elisaTheme.coverImageSize
+                Layout.maximumWidth: elisaTheme.coverImageSize
+                Layout.leftMargin: headerBar.width * 0.15
 
                 Image {
                     id: mainIcon
+
+                    anchors.fill: parent
+
                     source: (image ? image : Qt.resolvedUrl(elisaTheme.albumCover))
 
                     sourceSize {
-                        width: Screen.pixelDensity * 34.
-                        height: Screen.pixelDensity * 34.
+                        width: elisaTheme.coverImageSize
+                        height: elisaTheme.coverImageSize
                     }
 
                     fillMode: Image.PreserveAspectFit
 
-                    Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-                    Layout.preferredHeight: Screen.pixelDensity * 34.
-                    Layout.minimumHeight: Screen.pixelDensity * 34.
-                    Layout.maximumHeight: Screen.pixelDensity * 34.
-                    Layout.preferredWidth: Screen.pixelDensity * 34.
-                    Layout.minimumWidth: Screen.pixelDensity * 34.
-                    Layout.maximumWidth: Screen.pixelDensity * 34.
+                    layer.enabled: true
+                    layer.effect: DropShadow {
+                        horizontalOffset: elisaTheme.shadowOffset
+                        verticalOffset: elisaTheme.shadowOffset
 
-                    visible: false
-                }
+                        radius: 5.0
+                        samples: 11
 
-                DropShadow {
-                    source: mainIcon
-
-                    Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-                    Layout.preferredHeight: Screen.pixelDensity * 34.
-                    Layout.minimumHeight: Screen.pixelDensity * 34.
-                    Layout.maximumHeight: Screen.pixelDensity * 34.
-                    Layout.preferredWidth: Screen.pixelDensity * 34.
-                    Layout.minimumWidth: Screen.pixelDensity * 34.
-                    Layout.maximumWidth: Screen.pixelDensity * 34.
-
-                    horizontalOffset: Screen.pixelDensity * 0.02
-                    verticalOffset: Screen.pixelDensity * 0.02
-
-                    radius: 5.0
-                    samples: 11
-
-                    color: myPalette.shadow
-                }
-
-                Item {
-                    Layout.preferredWidth: Screen.pixelDensity * 2.
-                    Layout.minimumWidth: Screen.pixelDensity * 2.
-                    Layout.maximumWidth: Screen.pixelDensity * 2.
-                    Layout.fillHeight: true
-                }
-
-                ColumnLayout {
-                    spacing: 0
-
-                    Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-
-                    Item {
-                        Layout.fillHeight: true
-                    }
-
-                    LabelWithToolTip {
-                        id: mainLabel
-                        text: title
-                        Layout.fillWidth: true
-                        Layout.alignment: Qt.AlignLeft
-                        elide: Text.ElideRight
-                        color: myPalette.highlightedText
-                        font.pixelSize: font.pixelSize * 2
-                        font.bold: true
-
-                        layer.effect: Glow {
-                            cached: true
-
-                            color: myPalette.shadow
-
-                            radius: 4.0
-                            samples: 9
-                        }
-
-                    }
-
-                    Item {
-                        Layout.fillHeight: true
-                    }
-
-                    LabelWithToolTip {
-                        id: authorLabel
-                        text: artist
-                        Layout.fillWidth: true
-                        Layout.alignment: Qt.AlignLeft
-                        elide: Text.ElideRight
-                        color: myPalette.highlightedText
-                        font.pixelSize: font.pixelSize * 1.5
-
-                        layer.effect: Glow {
-                            cached: true
-
-                            color: myPalette.shadow
-
-                            radius: 4.0
-                            samples: 9
-                        }
-                    }
-
-                    Item {
-                        Layout.fillHeight: true
-                    }
-
-                    LabelWithToolTip {
-                        id: albumLabel
-                        text: album
-                        Layout.fillWidth: true
-                        Layout.alignment: Qt.AlignLeft
-                        elide: Text.ElideRight
-                        color: myPalette.highlightedText
-                        font.weight: Font.Light
-
-                        layer.effect: Glow {
-                            cached: true
-
-                            color: myPalette.shadow
-
-                            radius: 4.0
-                            samples: 9
-                        }
-                    }
-
-                    Item {
-                        Layout.fillHeight: true
-                    }
-
-                    RatingStar {
-                        id: mainRating
-                        visible: ratingVisible
-                        starSize: 20
-                        starRating: trackRating
-                        Layout.alignment: Qt.AlignLeft
-                    }
-
-                    Item {
-                        Layout.fillHeight: true
+                        color: myPalette.shadow
                     }
                 }
+            }
+
+            ColumnLayout {
+                spacing: 0
+
+                Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+                Layout.leftMargin: elisaTheme.layoutHorizontalMargin
+                Layout.fillWidth: true
+                Layout.fillHeight: true
 
                 Item {
                     Layout.fillHeight: true
-                    Layout.preferredWidth: Screen.pixelDensity * 2.
-                    Layout.minimumWidth: Screen.pixelDensity * 2.
-                    Layout.maximumWidth: Screen.pixelDensity * 2.
                 }
 
                 LabelWithToolTip {
-                    id: remainingTracksLabel
-                    text: i18np("1 track remaining", "%1 tracks remaining", tracksCount)
-                    Layout.alignment: Qt.AlignRight | Qt.AlignBottom
-                    Layout.bottomMargin: Screen.pixelDensity * 2
+                    id: mainLabel
+                    text: title
+                    Layout.fillWidth: true
+                    Layout.alignment: Qt.AlignLeft
                     elide: Text.ElideRight
-                    visible: tracksCount > 0
                     color: myPalette.highlightedText
+                    font.pixelSize: font.pixelSize * 2
+                    font.bold: true
+
+                    layer.effect: Glow {
+                        cached: true
+
+                        color: myPalette.shadow
+
+                        radius: 4.0
+                        samples: 9
+                    }
+
                 }
 
                 Item {
-                    Layout.preferredWidth: Screen.pixelDensity * 40.
-                    Layout.minimumWidth: Screen.pixelDensity * 40.
-                    Layout.maximumWidth: Screen.pixelDensity * 40.
+                    Layout.fillHeight: true
+                }
+
+                LabelWithToolTip {
+                    id: authorLabel
+                    text: artist
+                    Layout.fillWidth: true
+                    Layout.alignment: Qt.AlignLeft
+                    elide: Text.ElideRight
+                    color: myPalette.highlightedText
+                    font.pixelSize: font.pixelSize * 1.5
+
+                    layer.effect: Glow {
+                        cached: true
+
+                        color: myPalette.shadow
+
+                        radius: 4.0
+                        samples: 9
+                    }
+                }
+
+                Item {
+                    Layout.fillHeight: true
+                }
+
+                LabelWithToolTip {
+                    id: albumLabel
+                    text: album
+                    Layout.fillWidth: true
+                    Layout.alignment: Qt.AlignLeft
+                    elide: Text.ElideRight
+                    color: myPalette.highlightedText
+                    font.weight: Font.Light
+
+                    layer.effect: Glow {
+                        cached: true
+
+                        color: myPalette.shadow
+
+                        radius: 4.0
+                        samples: 9
+                    }
+                }
+
+                Item {
+                    Layout.fillHeight: true
+                }
+
+                RatingStar {
+                    id: mainRating
+                    visible: ratingVisible
+                    starSize: elisaTheme.ratingStarSize
+                    starRating: trackRating
+                    Layout.alignment: Qt.AlignLeft
+                }
+
+                Item {
                     Layout.fillHeight: true
                 }
             }
 
-            Item {
-                Layout.fillHeight: true
-                Layout.fillWidth: true
+            LabelWithToolTip {
+                id: remainingTracksLabel
+                text: i18np("1 track remaining", "%1 tracks remaining", tracksCount)
+                Layout.alignment: Qt.AlignRight | Qt.AlignBottom
+                Layout.bottomMargin: elisaTheme.layoutVerticalMargin
+                Layout.leftMargin: elisaTheme.layoutHorizontalMargin
+                Layout.rightMargin: elisaTheme.layoutHorizontalMargin
+                elide: Text.ElideRight
+                visible: tracksCount > 0
+                color: myPalette.highlightedText
             }
+        }
+
+        Item {
+            Layout.fillHeight: true
+            Layout.fillWidth: true
         }
     }
 }

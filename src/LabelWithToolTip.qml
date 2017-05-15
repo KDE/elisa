@@ -50,12 +50,12 @@ Label {
 
                 background: Rectangle {
                     color: myPalette.shadow
-                    radius: Screen.pixelDensity * 0.8
+                    radius: elisaTheme.tooltipRadius
 
                     layer.enabled: true
                     layer.effect: DropShadow {
-                        horizontalOffset: Screen.pixelDensity * 0.5
-                        verticalOffset: Screen.pixelDensity * 0.5
+                        horizontalOffset: elisaTheme.shadowOffset
+                        verticalOffset: elisaTheme.shadowOffset
                         radius: 8
                         samples: 17
                         color: myPalette.shadow

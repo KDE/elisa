@@ -47,19 +47,9 @@ Rectangle {
     property var contextMenu
     property alias clearPlayListAction: removeFromPlayList
     property alias playNowAction: playNow
-
-    SystemPalette {
-        id: myPalette
-        colorGroup: SystemPalette.Active
-    }
-
-    Theme {
-        id: elisaTheme
-    }
-
     color: (isAlternateColor ? myPalette.alternateBase : myPalette.base)
 
-    height: (hasAlbumHeader ? Screen.pixelDensity * 21 : Screen.pixelDensity * 7.)
+    height: (hasAlbumHeader ? elisaTheme.delegateWithHeaderHeight : elisaTheme.delegateHeight)
 
     Action {
         id: removeFromPlayList
@@ -84,23 +74,23 @@ Rectangle {
         spacing: 0
 
         anchors.fill: parent
-        anchors.leftMargin: Screen.pixelDensity * 1.5
-        anchors.rightMargin: Screen.pixelDensity * 5.5
+        anchors.leftMargin: elisaTheme.layoutHorizontalMargin
+        anchors.rightMargin: elisaTheme.layoutHorizontalMargin
         anchors.topMargin: 0
         anchors.bottomMargin: 1
 
         Item {
             Layout.fillWidth: true
-            Layout.preferredHeight: Screen.pixelDensity * 15.
-            Layout.minimumHeight: Screen.pixelDensity * 15.
-            Layout.maximumHeight: Screen.pixelDensity * 15.
+            Layout.preferredHeight: elisaTheme.delegateWithHeaderHeight - elisaTheme.delegateHeight
+            Layout.minimumHeight: elisaTheme.delegateWithHeaderHeight - elisaTheme.delegateHeight
+            Layout.maximumHeight: elisaTheme.delegateWithHeaderHeight - elisaTheme.delegateHeight
 
             visible: hasAlbumHeader
 
             RowLayout {
                 id: headerRow
 
-                spacing: Screen.pixelDensity * 1.5
+                spacing: elisaTheme.layoutHorizontalMargin
 
                 anchors.fill: parent
 
@@ -150,10 +140,6 @@ Rectangle {
 
                     spacing: 0
 
-                    Item {
-                        height: Screen.pixelDensity * 1.5
-                    }
-
                     LabelWithToolTip {
                         id: mainLabel
                         text: album
@@ -165,6 +151,7 @@ Rectangle {
 
                         Layout.fillWidth: true
                         Layout.alignment: Qt.AlignCenter
+                        Layout.topMargin: elisaTheme.layoutVerticalMargin
 
                         elide: "ElideRight"
                     }
@@ -185,12 +172,9 @@ Rectangle {
 
                         Layout.fillWidth: true
                         Layout.alignment: Qt.AlignCenter
+                        Layout.bottomMargin: elisaTheme.layoutVerticalMargin
 
                         elide: "ElideRight"
-                    }
-
-                    Item {
-                        height: Screen.pixelDensity * 1.5
                     }
                 }
             }
@@ -205,7 +189,7 @@ Rectangle {
 
                 anchors.fill: parent
 
-                spacing: Screen.pixelDensity * 1.
+                spacing: elisaTheme.layoutHorizontalMargin
 
                 LabelWithToolTip {
                     id: mainCompactLabel
@@ -244,8 +228,8 @@ Rectangle {
                 ToolButton {
                     id: playNowButton
 
-                    implicitHeight: Screen.pixelDensity * 6.
-                    implicitWidth: Screen.pixelDensity * 6.
+                    implicitHeight: elisaTheme.smallDelegateToolButtonSize
+                    implicitWidth: elisaTheme.smallDelegateToolButtonSize
 
                     visible: opacity > 0.1
                     action: playNow
@@ -255,8 +239,8 @@ Rectangle {
                 ToolButton {
                     id: removeButton
 
-                    implicitHeight: Screen.pixelDensity * 6.
-                    implicitWidth: Screen.pixelDensity * 6.
+                    implicitHeight: elisaTheme.smallDelegateToolButtonSize
+                    implicitWidth: elisaTheme.smallDelegateToolButtonSize
 
                     visible: opacity > 0.1
                     action: removeFromPlayList
@@ -269,8 +253,8 @@ Rectangle {
                     Layout.preferredWidth: parent.height * 1
                     Layout.preferredHeight: parent.height * 1
                     Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-                    Layout.maximumWidth: Screen.pixelDensity * 6
-                    Layout.maximumHeight: Screen.pixelDensity * 6
+                    Layout.maximumWidth: elisaTheme.smallDelegateToolButtonSize
+                    Layout.maximumHeight: elisaTheme.smallDelegateToolButtonSize
 
                     source: (isPlaying == MediaPlayList.IsPlaying ? Qt.resolvedUrl(elisaTheme.playIcon) : Qt.resolvedUrl(elisaTheme.pauseIcon))
                     width: parent.height * 1.
@@ -302,7 +286,7 @@ Rectangle {
                         running: isPlaying == MediaPlayList.IsPaused
 
                         NumberAnimation {
-                            from: 0
+                            from: playIcon.opacity
                             to: 1.
                             duration: 1000
                             easing.type: Easing.InOutCubic
@@ -313,7 +297,7 @@ Rectangle {
                 RatingStar {
                     id: ratingWidget
 
-                    starSize: Screen.pixelDensity * 2.5
+                    starSize: elisaTheme.ratingStarSize
                 }
 
                 LabelWithToolTip {
@@ -335,7 +319,7 @@ Rectangle {
             when: !isSelected && !containsMouse
             PropertyChanges {
                 target: viewAlbumDelegate
-                height: Screen.pixelDensity * (hasAlbumHeader ? 21 : 7)
+                height: (hasAlbumHeader ? elisaTheme.delegateWithHeaderHeight : elisaTheme.delegateHeight)
             }
             PropertyChanges {
                 target: removeButton
@@ -355,7 +339,7 @@ Rectangle {
             when: isSelected
             PropertyChanges {
                 target: viewAlbumDelegate
-                height: Screen.pixelDensity * (hasAlbumHeader ? 21 : 7)
+                height: (hasAlbumHeader ? elisaTheme.delegateWithHeaderHeight : elisaTheme.delegateHeight)
             }
             PropertyChanges {
                 target: removeButton
@@ -375,7 +359,7 @@ Rectangle {
             when: !isSelected && containsMouse
             PropertyChanges {
                 target: viewAlbumDelegate
-                height: Screen.pixelDensity * (hasAlbumHeader ? 21 : 7)
+                height: (hasAlbumHeader ? elisaTheme.delegateWithHeaderHeight : elisaTheme.delegateHeight)
             }
             PropertyChanges {
                 target: removeButton

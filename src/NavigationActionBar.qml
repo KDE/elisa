@@ -55,44 +55,29 @@ Item {
 
         spacing: 0
 
-        Item {
-            Layout.preferredWidth: Screen.pixelDensity * 3.
-            Layout.minimumWidth: Screen.pixelDensity * 3.
-            Layout.maximumWidth: Screen.pixelDensity * 3.
-            Layout.fillHeight: true
-        }
-
         ToolButton {
             action: goPreviousAction
-        }
-
-        Item {
-            Layout.preferredWidth: Screen.pixelDensity * 3.
-            Layout.minimumWidth: Screen.pixelDensity * 3.
-            Layout.maximumWidth: Screen.pixelDensity * 3.
-            Layout.fillHeight: true
+            Layout.leftMargin: elisaTheme.layoutHorizontalMargin
         }
 
         Image {
             id: mainIcon
             source: image
+
+            sourceSize.height: elisaTheme.coverImageSize / 2
+            sourceSize.width: elisaTheme.coverImageSize / 2
+
             fillMode: Image.PreserveAspectFit
 
             Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
 
-            Layout.preferredHeight: Screen.pixelDensity * 20.
-            Layout.minimumHeight: Screen.pixelDensity * 20.
-            Layout.maximumHeight: Screen.pixelDensity * 20.
-            Layout.preferredWidth: Screen.pixelDensity * 20.
-            Layout.minimumWidth: Screen.pixelDensity * 20.
-            Layout.maximumWidth: Screen.pixelDensity * 20.
-        }
-
-        Item {
-            Layout.preferredWidth: Screen.pixelDensity * 3.
-            Layout.minimumWidth: Screen.pixelDensity * 3.
-            Layout.maximumWidth: Screen.pixelDensity * 3.
-            Layout.fillHeight: true
+            Layout.preferredHeight: elisaTheme.coverImageSize / 2
+            Layout.minimumHeight: elisaTheme.coverImageSize / 2
+            Layout.maximumHeight: elisaTheme.coverImageSize / 2
+            Layout.preferredWidth: elisaTheme.coverImageSize / 2
+            Layout.minimumWidth: elisaTheme.coverImageSize / 2
+            Layout.maximumWidth: elisaTheme.coverImageSize / 2
+            Layout.leftMargin: elisaTheme.layoutHorizontalMargin
         }
 
         ColumnLayout {
@@ -101,9 +86,8 @@ Item {
             spacing: 0
 
             Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-            Layout.preferredWidth: Screen.pixelDensity * 40.
-            Layout.minimumWidth: Screen.pixelDensity * 40.
-            Layout.maximumWidth: Screen.pixelDensity * 40.
+            Layout.fillWidth: true
+            Layout.leftMargin: elisaTheme.layoutHorizontalMargin
 
             Item {
                 Layout.fillHeight: true
@@ -145,30 +129,15 @@ Item {
             }
         }
 
-        Item {
-            Layout.fillWidth: true
-        }
-
         ToolButton {
             action: enqueueAction
-        }
-
-        Item {
-            Layout.preferredWidth: Screen.pixelDensity * 3.
-            Layout.minimumWidth: Screen.pixelDensity * 3.
-            Layout.maximumWidth: Screen.pixelDensity * 3.
-            Layout.fillHeight: true
+            Layout.leftMargin: elisaTheme.layoutHorizontalMargin
         }
 
         ToolButton {
             action: clearAndEnqueueAction
-        }
-
-        Item {
-            Layout.preferredWidth: Screen.pixelDensity * 3.
-            Layout.minimumWidth: Screen.pixelDensity * 3.
-            Layout.maximumWidth: Screen.pixelDensity * 3.
-            Layout.fillHeight: true
+            Layout.leftMargin: elisaTheme.layoutHorizontalMargin
+            Layout.rightMargin: elisaTheme.layoutHorizontalMargin
         }
     }
 }

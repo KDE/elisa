@@ -27,7 +27,7 @@ import QtGraphicalEffects 1.0
 
 import org.mgallien.QmlExtension 1.0
 
-Rectangle {
+Item {
     property StackView stackView
     property MediaPlayList playListModel
     property var musicListener
@@ -85,53 +85,43 @@ Rectangle {
         }
     }
 
-    color: myPalette.base
-
     ColumnLayout {
         id: mainData
 
         anchors.fill: parent
 
         Item {
-            Layout.preferredHeight: Screen.pixelDensity * 0.5
-            Layout.minimumHeight: Screen.pixelDensity * 0.5
-            Layout.maximumHeight: Screen.pixelDensity * 0.5
-        }
-
-        Image {
-            id: artistDecoration
-
-            source: Qt.resolvedUrl(elisaTheme.artistImage)
-
+            Layout.topMargin: elisaTheme.layoutVerticalMargin
             Layout.preferredWidth: mediaServerEntry.width * 0.9
             Layout.preferredHeight: mediaServerEntry.width * 0.9
 
-            width: mediaServerEntry.width * 0.9
-            height: mediaServerEntry.width * 0.9
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
 
-            sourceSize.width: mediaServerEntry.width * 0.9
-            sourceSize.height: mediaServerEntry.width * 0.9
+            Image {
+                id: artistDecoration
 
-            fillMode: Image.PreserveAspectFit
+                source: Qt.resolvedUrl(elisaTheme.artistImage)
 
-            smooth: true
+                anchors.fill: parent
 
-            Layout.alignment: Qt.AlignHCenter
+                sourceSize.width: mediaServerEntry.width * 0.9
+                sourceSize.height: mediaServerEntry.width * 0.9
 
-            visible: false
-        }
+                fillMode: Image.PreserveAspectFit
 
-        DropShadow {
-            source: artistDecoration
-            anchors.fill: artistDecoration
+                smooth: true
 
-            horizontalOffset: mediaServerEntry.width * 0.02
-            verticalOffset: mediaServerEntry.width * 0.02
+                layer.enabled: true
+                layer.effect: DropShadow {
+                    horizontalOffset: mediaServerEntry.width * 0.02
+                    verticalOffset: mediaServerEntry.width * 0.02
 
-            radius: 5.0
-            samples: 11
+                    radius: 5.0
+                    samples: 11
 
-            color: myPalette.shadow
+                    color: myPalette.shadow
+                }
+            }
 
             MouseArea {
                 id: hoverHandle
@@ -166,8 +156,8 @@ Rectangle {
 
                                 action: enqueueAction
 
-                                width: Screen.pixelDensity * 10
-                                height: Screen.pixelDensity * 10
+                                width: elisaTheme.delegateToolButtonSize
+                                height: elisaTheme.delegateToolButtonSize
                             }
 
                             ToolButton {
@@ -175,8 +165,8 @@ Rectangle {
 
                                 action: openAction
 
-                                width: Screen.pixelDensity * 10
-                                height: Screen.pixelDensity * 10
+                                width: elisaTheme.delegateToolButtonSize
+                                height: elisaTheme.delegateToolButtonSize
                             }
 
                             ToolButton {
@@ -184,8 +174,8 @@ Rectangle {
 
                                 action: enqueueAndPlayAction
 
-                                width: Screen.pixelDensity * 10
-                                height: Screen.pixelDensity * 10
+                                width: elisaTheme.delegateToolButtonSize
+                                height: elisaTheme.delegateToolButtonSize
                             }
                         }
                     }
@@ -202,15 +192,10 @@ Rectangle {
             horizontalAlignment: Text.AlignLeft
 
             Layout.preferredWidth: mediaServerEntry.width * 0.9
+            Layout.bottomMargin: elisaTheme.layoutVerticalMargin
             Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
 
             elide: "ElideRight"
-        }
-
-        Item {
-            Layout.preferredHeight: Screen.pixelDensity * 0.5
-            Layout.minimumHeight: Screen.pixelDensity * 0.5
-            Layout.maximumHeight: Screen.pixelDensity * 0.5
         }
     }
 }

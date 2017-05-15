@@ -33,23 +33,9 @@ Item {
     property alias randomPlayChecked: shuffleOption.checked
     property alias repeatPlayChecked: repeatOption.checked
 
-    property int placeholderHeight: Screen.pixelDensity * 7.
+    property int placeholderHeight: elisaTheme.dragDropPlaceholderHeight
 
     id: topItem
-
-    SystemPalette {
-        id: myPalette
-        colorGroup: SystemPalette.Active
-    }
-
-    Component {
-        id: rowDelegate
-
-        Rectangle {
-            height: Screen.pixelDensity * 15.
-            anchors.fill: parent
-        }
-    }
 
     Action {
         id: clearPlayList
@@ -85,22 +71,19 @@ Item {
 
             color: myPalette.text
 
-            Layout.topMargin: Screen.pixelDensity * 1.5
-            Layout.leftMargin: Screen.pixelDensity * 1.5
-            Layout.rightMargin: Screen.pixelDensity * 1.5
-            Layout.bottomMargin: Screen.pixelDensity * 3.5
+            Layout.topMargin: elisaTheme.layoutVerticalMargin
+            Layout.leftMargin: elisaTheme.layoutHorizontalMargin
+            Layout.rightMargin: elisaTheme.layoutHorizontalMargin
+            Layout.bottomMargin: elisaTheme.layoutVerticalMargin
         }
 
         RowLayout {
-            Layout.preferredHeight: Screen.pixelDensity * 5.5
-            Layout.minimumHeight: Screen.pixelDensity * 5.5
-            Layout.maximumHeight: Screen.pixelDensity * 5.5
             Layout.alignment: Qt.AlignVCenter
 
             Layout.fillWidth: true
 
-            Layout.leftMargin: Screen.pixelDensity * 1.
-            Layout.rightMargin: Screen.pixelDensity * 1.
+            Layout.leftMargin: elisaTheme.layoutHorizontalMargin
+            Layout.rightMargin: elisaTheme.layoutHorizontalMargin
 
             CheckBox {
                 id: shuffleOption
@@ -110,18 +93,13 @@ Item {
                 Layout.alignment: Qt.AlignVCenter
             }
 
-            Item {
-                Layout.preferredWidth: Screen.pixelDensity * 1.5
-                Layout.minimumWidth: Screen.pixelDensity * 1.5
-                Layout.maximumWidth: Screen.pixelDensity * 1.5
-            }
-
             CheckBox {
                 id: repeatOption
 
                 text: i18n("Repeat")
 
                 Layout.alignment: Qt.AlignVCenter
+                Layout.leftMargin: elisaTheme.layoutHorizontalMargin
             }
 
             Item {
@@ -139,10 +117,6 @@ Item {
             }
         }
 
-        Item {
-            Layout.preferredHeight: Screen.pixelDensity * 0.4
-        }
-
         Rectangle {
             border.width: 1
             border.color: myPalette.mid
@@ -153,12 +127,10 @@ Item {
             Layout.minimumHeight: 1
             Layout.maximumHeight: 1
 
-            Layout.leftMargin: Screen.pixelDensity * 2.5
-            Layout.rightMargin: Screen.pixelDensity * 2.5
-        }
-
-        Item {
-            Layout.preferredHeight: Screen.pixelDensity * 0.4
+            Layout.topMargin: elisaTheme.layoutVerticalMargin
+            Layout.bottomMargin: elisaTheme.layoutVerticalMargin
+            Layout.leftMargin: elisaTheme.layoutHorizontalMargin
+            Layout.rightMargin: elisaTheme.layoutHorizontalMargin
         }
 
         TableView {
@@ -166,6 +138,9 @@ Item {
 
             Layout.fillWidth: true
             Layout.fillHeight: true
+
+            backgroundVisible: playListModelDelegate.count === 0
+            alternatingRowColors: playListModelDelegate.count > 0
 
             flickableItem.boundsBehavior: Flickable.StopAtBounds
 
@@ -182,7 +157,7 @@ Item {
 
                 text: i18nc("Text shown when play list is empty", "Your play list is empty.\nIn order to start, you can explore your music library with the left menu.\nUse the available buttons to add your selection.")
                 anchors.fill: parent
-                anchors.margins: Screen.pixelDensity * 2.
+                anchors.margins: elisaTheme.layoutHorizontalMargin
             }
 
             model: DelegateModel {
@@ -200,7 +175,7 @@ Item {
 
                     PlayListEntry {
                         id: entry
-                        width: playListView.width
+                        width: playListView.viewport.width
                         index: model.index
                         isAlternateColor: item.DelegateModel.itemsIndex % 2
                         hasAlbumHeader: if (model != undefined && model.hasAlbumHeader !== undefined)
@@ -277,11 +252,9 @@ Item {
                 }
             }
 
-            backgroundVisible: false
             headerVisible: false
             frameVisible: false
             focus: true
-            rowDelegate: rowDelegate
 
             TableViewColumn {
                 role: "title"
@@ -293,8 +266,8 @@ Item {
             id: actionBar
 
             Layout.fillWidth: true
-            Layout.bottomMargin: Screen.pixelDensity * 0.5
-            Layout.preferredHeight: Screen.pixelDensity * 10
+            Layout.topMargin: elisaTheme.layoutVerticalMargin
+            Layout.preferredHeight: elisaTheme.delegateToolButtonSize
 
             color: myPalette.mid
 
@@ -305,11 +278,11 @@ Item {
 
                 ToolButton {
                     action: clearPlayList
-                    Layout.bottomMargin: Screen.pixelDensity * 1
+                    Layout.bottomMargin: elisaTheme.layoutVerticalMargin
                 }
                 ToolButton {
                     action: showCurrentTrack
-                    Layout.bottomMargin: Screen.pixelDensity * 1
+                    Layout.bottomMargin: elisaTheme.layoutVerticalMargin
                 }
                 Item {
                     Layout.fillWidth: true

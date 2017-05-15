@@ -116,6 +116,7 @@ ApplicationWindow {
 
         onRaisePlayer:
         {
+            mainWindow.show()
             mainWindow.raise()
             mainWindow.requestActivate()
         }
@@ -340,9 +341,9 @@ ApplicationWindow {
             HeaderBar {
                 id: headerBar
 
-                Layout.preferredHeight: Screen.pixelDensity * 40.
-                Layout.minimumHeight: Screen.pixelDensity * 40.
-                Layout.maximumHeight: Screen.pixelDensity * 40.
+                Layout.preferredHeight: elisaTheme.coverImageSize * 1.1
+                Layout.minimumHeight: elisaTheme.coverImageSize * 1.1
+                Layout.maximumHeight: elisaTheme.coverImageSize * 1.1
                 Layout.fillWidth: true
 
                 tracksCount: myHeaderBarManager.remainingTracks
@@ -364,8 +365,8 @@ ApplicationWindow {
                     {
                         right: parent.right
                         top: parent.top
-                        rightMargin: Screen.pixelDensity * 4
-                        topMargin: Screen.pixelDensity * 4
+                        rightMargin: elisaTheme.layoutHorizontalMargin * 3
+                        topMargin: elisaTheme.layoutHorizontalMargin * 3
                     }
                 }
                 Rectangle {
@@ -393,9 +394,9 @@ ApplicationWindow {
                 playEnabled: myPlayControlManager.playControlEnabled
                 isPlaying: myPlayControlManager.musicPlaying
 
-                Layout.preferredHeight: Screen.pixelDensity * 12.
-                Layout.minimumHeight: Layout.preferredHeight
-                Layout.maximumHeight: Layout.preferredHeight
+                Layout.preferredHeight: elisaTheme.mediaPlayerControlHeight
+                Layout.minimumHeight: elisaTheme.mediaPlayerControlHeight
+                Layout.maximumHeight: elisaTheme.mediaPlayerControlHeight
                 Layout.fillWidth: true
 
                 onSeek: audioPlayer.seek(position)
@@ -416,9 +417,8 @@ ApplicationWindow {
                     color: myPalette.window
 
                     Layout.fillHeight: true
-                    Layout.preferredWidth: Screen.pixelDensity * 50.
-                    Layout.minimumWidth: Screen.pixelDensity * 50.
-                    Layout.maximumWidth: Screen.pixelDensity * 50.
+                    Layout.preferredWidth: mainWindow.width * 0.15
+                    Layout.maximumWidth: mainWindow.width * 0.15
 
                     TableView {
                         id: viewModeView
@@ -435,7 +435,7 @@ ApplicationWindow {
                         rowDelegate: Rectangle {
                             color: myPalette.window
 
-                            height: Screen.pixelDensity * 8.
+                            height: elisaTheme.viewSelectorDelegateHeight
                             width: viewModeView.width
                         }
 
@@ -451,7 +451,7 @@ ApplicationWindow {
                         }
 
                         itemDelegate: Rectangle {
-                            height: Screen.pixelDensity * 8.
+                            height: elisaTheme.viewSelectorDelegateHeight
                             width: viewModeView.width
                             color: (styleData.selected ? myPalette.highlight : myPalette.window)
                             LabelWithToolTip {
@@ -459,8 +459,8 @@ ApplicationWindow {
                                 anchors.verticalCenter: parent.verticalCenter
                                 anchors.left: parent.left
                                 anchors.right: parent.right
-                                anchors.leftMargin: Screen.pixelDensity * 2.
-                                anchors.rightMargin: Screen.pixelDensity * 2.
+                                anchors.leftMargin: elisaTheme.layoutHorizontalMargin
+                                anchors.rightMargin: elisaTheme.layoutHorizontalMargin
                                 verticalAlignment: "AlignVCenter"
 
                                 text: model.name
@@ -497,8 +497,8 @@ ApplicationWindow {
                         Item {
                             id: mainContentView
 
-                            Layout.leftMargin: Screen.pixelDensity * 0.5
-                            Layout.rightMargin: Screen.pixelDensity * 0.5
+                            Layout.leftMargin: elisaTheme.layoutHorizontalMargin
+                            Layout.rightMargin: elisaTheme.layoutHorizontalMargin
 
                             Layout.fillHeight: true
 
@@ -551,14 +551,14 @@ ApplicationWindow {
                             color: myPalette.mid
                             visible: true
 
-                            Layout.bottomMargin: Screen.pixelDensity * 0.5
-                            Layout.topMargin: Screen.pixelDensity * 0.5
+                            Layout.bottomMargin: elisaTheme.layoutVerticalMargin
+                            Layout.topMargin: elisaTheme.layoutVerticalMargin
 
                             Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
 
-                            Layout.preferredHeight: parent.height - Screen.pixelDensity * 5.
-                            Layout.minimumHeight: parent.height - Screen.pixelDensity * 5.
-                            Layout.maximumHeight: parent.height - Screen.pixelDensity * 5.
+                            Layout.preferredHeight: parent.height - elisaTheme.layoutVerticalMargin
+                            Layout.minimumHeight: parent.height - elisaTheme.layoutVerticalMargin
+                            Layout.maximumHeight: parent.height - elisaTheme.layoutVerticalMargin
 
                             Layout.preferredWidth: 1
                             Layout.minimumWidth: 1
@@ -598,7 +598,7 @@ ApplicationWindow {
 
                             Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
 
-                            Layout.preferredHeight: parent.height - Screen.pixelDensity * 5.
+                            Layout.preferredHeight: parent.height - elisaTheme.layoutVerticalMargin
 
                             Layout.preferredWidth: 1
                             Layout.minimumWidth: 1
@@ -762,4 +762,3 @@ ApplicationWindow {
         }
     }
 }
-

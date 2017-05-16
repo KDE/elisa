@@ -112,8 +112,13 @@ Item {
                 GridView {
                     id: contentDirectoryView
 
+                    TextMetrics {
+                        id: textLineHeight
+                        text: 'Album'
+                    }
+
                     cellWidth: elisaTheme.gridDelegateWidth
-                    cellHeight: elisaTheme.gridDelegateHeight
+                    cellHeight: elisaTheme.gridDelegateWidth + elisaTheme.layoutVerticalMargin * 4 + textLineHeight.height * 3
 
                     model: DelegateModel {
                         id: delegateContentModel

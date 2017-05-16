@@ -17,7 +17,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-import QtQuick 2.5
+import QtQuick 2.7
 import QtQuick.Controls 1.2
 import QtQuick.Controls.Styles 1.2
 import QtQuick.Window 2.2
@@ -112,8 +112,13 @@ Item {
                 GridView {
                     id: contentDirectoryView
 
+                    TextMetrics {
+                        id: textLineHeight
+                        text: 'Artist'
+                    }
+
                     cellWidth: elisaTheme.gridDelegateWidth
-                    cellHeight: elisaTheme.gridDelegateHeight
+                    cellHeight: elisaTheme.gridDelegateWidth + elisaTheme.layoutVerticalMargin * 2 + textLineHeight.height
 
                     model: DelegateModel {
                         id: delegateContentModel

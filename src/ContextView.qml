@@ -126,6 +126,7 @@ Item {
 
         RowLayout {
             Layout.fillWidth: true
+            Layout.bottomMargin: elisaTheme.layoutVerticalMargin * 2
 
             spacing: 0
 

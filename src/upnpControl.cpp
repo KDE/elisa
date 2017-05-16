@@ -189,6 +189,10 @@ int main(int argc, char *argv[])
 
     parser.process(app);
     aboutData.processCommandLine(&parser);
+#else
+    QGuiApplication::setApplicationName(QStringLiteral("elisa"));
+    QGuiApplication::setOrganizationDomain(QStringLiteral("kde.org"));
+    QGuiApplication::setOrganizationName(QStringLiteral("KDE"));
 #endif
 
 #if defined Qt5AndroidExtras_FOUND && Qt5AndroidExtras_FOUND

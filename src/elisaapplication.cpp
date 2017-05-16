@@ -80,6 +80,8 @@ void ElisaApplication::setupActions()
 
     auto mKeyBindignsAction = KStandardAction::keyBindings(this, &ElisaApplication::configureShortcuts, this);
     mCollection.addAction(mKeyBindignsAction->objectName(), mKeyBindignsAction);
+
+    mCollection.readSettings();
 #endif
 }
 

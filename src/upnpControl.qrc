@@ -40,6 +40,7 @@
     <qresource prefix="/+windows">
         <file alias="Theme.qml">windows/WindowsTheme.qml</file>
         <file alias="PlatformIntegration.qml">windows/PlatformIntegration.qml</file>
+        <file alias="LabelWithToolTip.qml">windows/LabelWithToolTip.qml</file>
     </qresource>
     <qresource prefix="/+android">
         <file alias="MediaServer.qml">android/MediaServer.qml</file>

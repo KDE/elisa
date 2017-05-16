@@ -32,4 +32,37 @@ Item {
     property string ratingIcon: 'rating.svg'
     property string ratingUnratedIcon: 'rating-unrated.svg'
     property string errorIcon: 'error.svg'
+
+    property int layoutHorizontalMargin: 8
+    property int layoutVerticalMargin: 6
+
+    property int delegateHeight: 28
+    property int delegateWithHeaderHeight: 84
+
+    property int coverImageSize: 180
+    property int smallImageSize: 32
+
+    property int tooltipRadius: 3
+    property int shadowOffset: 2
+
+    property int delegateToolButtonSize: 40
+    property int smallDelegateToolButtonSize: 20
+
+    property int ratingStarSize: 10
+
+    property int mediaPlayerControlHeight: 48
+    property int smallControlButtonHeight: 32
+    property int bigControlButtonHeight: 44
+    property int volumeSliderWidth: 140
+
+    property int dragDropPlaceholderHeight: 28
+
+    property int navigationBarHeight: 100
+
+    property int gridDelegateHeight: 168
+    property int gridDelegateWidth: 112
+
+    property int viewSelectorDelegateHeight: 32
+
+    property int filterClearButtonMargin: 1
 }

@@ -34,34 +34,34 @@ Item {
     property string ratingUnratedIcon: 'image://icon/rating-unrated'
     property string errorIcon: 'image://icon/error'
 
-    property int layoutHorizontalMargin: 8 * Screen.devicePixelRatio
-    property int layoutVerticalMargin: 6 * Screen.devicePixelRatio
+    property int layoutHorizontalMargin: 8
+    property int layoutVerticalMargin: 6
 
-    property int delegateHeight: 28 * Screen.devicePixelRatio
-    property int delegateWithHeaderHeight: 84 * Screen.devicePixelRatio
+    property int delegateHeight: 28
+    property int delegateWithHeaderHeight: 84
 
-    property int coverImageSize: 180 * Screen.devicePixelRatio
-    property int smallImageSize: 32 * Screen.devicePixelRatio
+    property int coverImageSize: 180
+    property int smallImageSize: 32
 
-    property int tooltipRadius: 3 * Screen.devicePixelRatio
-    property int shadowOffset: 2 * Screen.devicePixelRatio
+    property int tooltipRadius: 3
+    property int shadowOffset: 2
 
-    property int delegateToolButtonSize: 40 * Screen.devicePixelRatio
-    property int smallDelegateToolButtonSize: 20 * Screen.devicePixelRatio
+    property int delegateToolButtonSize: 40
+    property int smallDelegateToolButtonSize: 20
 
-    property int ratingStarSize: 10 * Screen.devicePixelRatio
+    property int ratingStarSize: 10
 
-    property int smallControlButtonHeight: 32 * Screen.devicePixelRatio
-    property int bigControlButtonHeight: 44 * Screen.devicePixelRatio
-    property int volumeSliderWidth: 140 * Screen.devicePixelRatio
+    property int mediaPlayerControlHeight: 48
+    property int smallControlButtonHeight: 32
+    property int bigControlButtonHeight: 44
+    property int volumeSliderWidth: 140
 
-    property int dragDropPlaceholderHeight: 28 * Screen.devicePixelRatio
+    property int dragDropPlaceholderHeight: 28
 
-    property int navigationBarHeight: 100 * Screen.devicePixelRatio
-    property int mediaPlayerControlHeight: 48 * Screen.devicePixelRatio
+    property int navigationBarHeight: 100
 
-    property int gridDelegateHeight: 168 * Screen.devicePixelRatio
-    property int gridDelegateWidth: 112 * Screen.devicePixelRatio
+    property int gridDelegateHeight: 168
+    property int gridDelegateWidth: 112
 
     property int viewSelectorDelegateHeight: 32
 

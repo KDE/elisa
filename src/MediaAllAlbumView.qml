@@ -74,7 +74,7 @@ Item {
                     anchors.top: parent.top
                     anchors.bottom: parent.bottom
                     anchors.right: parent.right
-                    anchors.margins: elisaTheme.layoutVerticalMargin
+                    anchors.margins: elisaTheme.filterClearButtonMargin
                     id: clearText
                     fillMode: Image.PreserveAspectFit
                     smooth: true

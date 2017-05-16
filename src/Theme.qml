@@ -64,4 +64,6 @@ Item {
     property int gridDelegateWidth: 112 * Screen.devicePixelRatio
 
     property int viewSelectorDelegateHeight: 32
+
+    property int filterClearButtonMargin: layoutVerticalMargin
 }

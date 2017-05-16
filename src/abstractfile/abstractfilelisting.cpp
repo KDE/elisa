@@ -35,6 +35,7 @@
 #include <QMimeDatabase>
 #include <QSet>
 #include <QPair>
+#include <QAtomicInt>
 
 #include <QtGlobal>
 
@@ -59,6 +60,8 @@ public:
     bool mHandleNewFiles = true;
 
     KFileMetaData::ExtractorCollection mExtractors;
+
+    QAtomicInt mStopRequest = 0;
 
 };
 
@@ -95,6 +98,7 @@ void AbstractFileListing::newTrackFile(const MusicAudioTrack &partialTrack)
 
 void AbstractFileListing::applicationAboutToQuit()
 {
+    d->mStopRequest = 1;
 }
 
 void AbstractFileListing::scanDirectory(QList<MusicAudioTrack> &newFiles, const QUrl &path)
@@ -177,6 +181,10 @@ void AbstractFileListing::scanDirectory(QList<MusicAudioTrack> &newFiles, const 
 
             addFileInDirectory(newTrack.resourceURI(), path);
             newFiles.push_back(newTrack);
+        }
+
+        if (d->mStopRequest == 0) {
+            break;
         }
     }
 }
@@ -336,7 +344,7 @@ void AbstractFileListing::scanDirectoryTree(const QString &path)
 
     scanDirectory(newFiles, QUrl::fromLocalFile(path));
 
-    if (!newFiles.isEmpty()) {
+    if (!newFiles.isEmpty() && d->mStopRequest == 0) {
         emitNewFiles(newFiles);
     }
 }

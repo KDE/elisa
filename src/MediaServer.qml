@@ -628,9 +628,9 @@ ApplicationWindow {
                             when: viewModeView.currentRow === 1
                             PropertyChanges {
                                 target: mainContentView
-                                Layout.minimumWidth: contentZone.width * 0.66
+                                Layout.fillWidth: true
+                                Layout.minimumWidth: contentZone.width * 0.64
                                 Layout.maximumWidth: contentZone.width * 0.66
-                                Layout.preferredWidth: contentZone.width * 0.66
                             }
                             PropertyChanges {
                                 target: firstViewSeparatorItem
@@ -670,9 +670,9 @@ ApplicationWindow {
                             when: viewModeView.currentRow === 2
                             PropertyChanges {
                                 target: mainContentView
-                                Layout.minimumWidth: contentZone.width * 0.66
+                                Layout.fillWidth: true
+                                Layout.minimumWidth: contentZone.width * 0.64
                                 Layout.maximumWidth: contentZone.width * 0.66
-                                Layout.preferredWidth: contentZone.width * 0.66
                             }
                             PropertyChanges {
                                 target: firstViewSeparatorItem
@@ -709,9 +709,10 @@ ApplicationWindow {
                         },
                         State {
                             name: 'full'
-                            when: viewModeView.currentRow == 0
+                            when: viewModeView.currentRow === 0
                             PropertyChanges {
                                 target: mainContentView
+                                Layout.fillWidth: false
                                 Layout.minimumWidth: 0
                                 Layout.maximumWidth: 0
                                 Layout.preferredWidth: 0

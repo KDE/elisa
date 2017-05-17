@@ -183,7 +183,7 @@ void AbstractFileListing::scanDirectory(QList<MusicAudioTrack> &newFiles, const 
             newFiles.push_back(newTrack);
         }
 
-        if (d->mStopRequest == 0) {
+        if (d->mStopRequest == 1) {
             break;
         }
     }

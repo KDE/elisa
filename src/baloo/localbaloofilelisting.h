@@ -32,6 +32,7 @@
 
 class LocalBalooFileListingPrivate;
 class MusicAudioTrack;
+class QDBusPendingCallWatcher;
 
 class LocalBalooFileListing : public AbstractFileListing
 {
@@ -50,11 +51,23 @@ Q_SIGNALS:
 
 public Q_SLOTS:
 
+    void renamedFiles(const QString &from, const QString &to, const QStringList &listFiles);
+
+    void serviceOwnerChanged(const QString &serviceName, const QString &oldOwner, const QString &newOwner);
+
+    void serviceRegistered(const QString &serviceName);
+
+    void serviceUnregistered(const QString &serviceName);
+
 private Q_SLOTS:
 
     void newBalooFile(const QString &fileName);
 
+    void registeredToBaloo(QDBusPendingCallWatcher *watcher);
+
 private:
+
+    void registerToBaloo();
 
     void executeInit() override;
 

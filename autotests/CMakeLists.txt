@@ -16,6 +16,10 @@ set(playListTest_SOURCES
 
 if (KF5Baloo_FOUND)
     if (Qt5DBus_FOUND)
+        qt5_add_dbus_adaptor(playListTest_SOURCES
+            ${CMAKE_INSTALL_PREFIX}/${KDE_INSTALL_DBUSINTERFACEDIR}/org.kde.BalooWatcherApplication.xml
+            baloo/localbaloofilelisting.h LocalBalooFileListing)
+
         set(playListTest_SOURCES
             ${playListTest_SOURCES}
             ../src/baloo/baloolistener.cpp
@@ -89,6 +93,10 @@ set(playListControlerTest_SOURCES
 
 if (KF5Baloo_FOUND)
     if (Qt5DBus_FOUND)
+        qt5_add_dbus_adaptor(playListControlerTest_SOURCES
+            ${CMAKE_INSTALL_PREFIX}/${KDE_INSTALL_DBUSINTERFACEDIR}/org.kde.BalooWatcherApplication.xml
+            baloo/localbaloofilelisting.h LocalBalooFileListing)
+
         set(playListControlerTest_SOURCES
             ${playListControlerTest_SOURCES}
             ../src/baloo/baloolistener.cpp
@@ -150,6 +158,10 @@ set(managemediaplayercontrolTest_SOURCES
 
 if (KF5Baloo_FOUND)
     if (Qt5DBus_FOUND)
+        qt5_add_dbus_adaptor(managemediaplayercontrolTest_SOURCES
+            ${CMAKE_INSTALL_PREFIX}/${KDE_INSTALL_DBUSINTERFACEDIR}/org.kde.BalooWatcherApplication.xml
+            baloo/localbaloofilelisting.h LocalBalooFileListing)
+
         set(managemediaplayercontrolTest_SOURCES
             ${managemediaplayercontrolTest_SOURCES}
             ../src/baloo/baloolistener.cpp
@@ -212,6 +224,10 @@ set(manageheaderbarTest_SOURCES
 
 if (KF5Baloo_FOUND)
     if (Qt5DBus_FOUND)
+        qt5_add_dbus_adaptor(manageheaderbarTest_SOURCES
+            ${CMAKE_INSTALL_PREFIX}/${KDE_INSTALL_DBUSINTERFACEDIR}/org.kde.BalooWatcherApplication.xml
+            baloo/localbaloofilelisting.h LocalBalooFileListing)
+
         set(manageheaderbarTest_SOURCES
             ${manageheaderbarTest_SOURCES}
             ../src/baloo/baloolistener.cpp
@@ -282,6 +298,10 @@ set(mediaplaylistTest_SOURCES
 
 if (KF5Baloo_FOUND)
     if (Qt5DBus_FOUND)
+        qt5_add_dbus_adaptor(mediaplaylistTest_SOURCES
+            ${CMAKE_INSTALL_PREFIX}/${KDE_INSTALL_DBUSINTERFACEDIR}/org.kde.BalooWatcherApplication.xml
+            baloo/localbaloofilelisting.h LocalBalooFileListing)
+
         set(mediaplaylistTest_SOURCES
             ${mediaplaylistTest_SOURCES}
             ../src/baloo/baloolistener.cpp

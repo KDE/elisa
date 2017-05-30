@@ -21,6 +21,8 @@
 
 #include "musicaudiotrack.h"
 
+#include "baloowatcherapplicationadaptor.h"
+
 #include <Baloo/Query>
 #include <Baloo/File>
 
@@ -29,6 +31,7 @@
 
 #include <QDBusConnection>
 #include <QDBusMessage>
+#include <QDBusServiceWatcher>
 
 #include <QThread>
 #include <QHash>
@@ -55,12 +58,40 @@ public:
 
     QAtomicInt mStopRequest = 0;
 
+    BalooWatcherApplicationAdaptor *mDbusAdaptor = nullptr;
+
+    QDBusServiceWatcher mServiceWatcher;
+
+    bool mIsRegistered = false;
+
+    bool mIsRegistering = false;
+
 };
 
-LocalBalooFileListing::LocalBalooFileListing(QObject *parent) : AbstractFileListing(QStringLiteral("baloo"), parent), d(new LocalBalooFileListingPrivate)
+LocalBalooFileListing::LocalBalooFileListing(QObject *parent)
+    : AbstractFileListing(QStringLiteral("baloo"), parent), d(new LocalBalooFileListingPrivate)
 {
     d->mQuery.addType(QStringLiteral("Audio"));
     setHandleNewFiles(false);
+
+    d->mDbusAdaptor = new BalooWatcherApplicationAdaptor(this);
+
+    auto sessionBus = QDBusConnection::sessionBus();
+    sessionBus.registerObject(QStringLiteral("/org/kde/BalooWatcherApplication"), d->mDbusAdaptor, QDBusConnection::ExportAllContents);
+
+    connect(&d->mServiceWatcher, &QDBusServiceWatcher::serviceRegistered,
+            this, &LocalBalooFileListing::serviceRegistered);
+    connect(&d->mServiceWatcher, &QDBusServiceWatcher::serviceOwnerChanged,
+            this, &LocalBalooFileListing::serviceOwnerChanged);
+    connect(&d->mServiceWatcher, &QDBusServiceWatcher::serviceUnregistered,
+            this, &LocalBalooFileListing::serviceUnregistered);
+
+    d->mServiceWatcher.setConnection(sessionBus);
+    d->mServiceWatcher.addWatchedService(QStringLiteral("org.kde.baloo"));
+
+    if (sessionBus.interface()->isServiceRegistered(QStringLiteral("org.kde.baloo"))) {
+        registerToBaloo();
+    }
 }
 
 LocalBalooFileListing::~LocalBalooFileListing()
@@ -87,21 +118,107 @@ void LocalBalooFileListing::newBalooFile(const QString &fileName)
     }
 }
 
-void LocalBalooFileListing::executeInit()
+void LocalBalooFileListing::registeredToBaloo(QDBusPendingCallWatcher *watcher)
 {
+    qDebug() << "LocalBalooFileListing::registeredToBaloo";
+
+    if (!watcher) {
+        return;
+    }
+
+    QDBusPendingReply<> reply = *watcher;
+    if (reply.isError()) {
+        d->mIsRegistered = false;
+    } else {
+        d->mIsRegistered = true;
+    }
+
+    d->mIsRegistering = false;
+
+    watcher->deleteLater();
+}
+
+void LocalBalooFileListing::registerToBaloo()
+{
+    if (d->mIsRegistering) {
+        qDebug() << "LocalBalooFileListing::registerToBaloo" << "already registering";
+        return;
+    }
+
+    qDebug() << "LocalBalooFileListing::registerToBaloo";
+
+    d->mIsRegistering = true;
+
     auto sessionBus = QDBusConnection::sessionBus();
+
+    sessionBus.connect(QStringLiteral("org.kde.baloo"), QStringLiteral("/fileindexer"),
+                       QStringLiteral("org.kde.baloo.fileindexer"), QStringLiteral("finishedIndexingFile"), this, SLOT(newBalooFile(QString)));
 
     auto methodCall = QDBusMessage::createMethodCall(QStringLiteral("org.kde.baloo"), QStringLiteral("/fileindexer"),
                                                      QStringLiteral("org.kde.baloo.fileindexer"), QStringLiteral("registerMonitor"));
 
+    qDebug() << "LocalBalooFileListing::registerToBaloo" << "call registerMonitor";
     auto answer = sessionBus.call(methodCall);
 
     if (answer.type() != QDBusMessage::ReplyMessage) {
         qDebug() << "LocalBalooFileListing::executeInit" << answer.errorName() << answer.errorMessage();
     }
 
-    sessionBus.connect(QStringLiteral("org.kde.baloo"), QStringLiteral("/fileindexer"),
-                       QStringLiteral("org.kde.baloo.fileindexer"), QStringLiteral("finishedIndexingFile"), this, SLOT(newBalooFile(QString)));
+
+    QDBusMessage registerBalooWatcher = QDBusMessage::createMethodCall(QStringLiteral("org.kde.baloo"),
+                                                                       QStringLiteral("/"),
+                                                                       QStringLiteral("org.kde.baloo.main"),
+                                                                       QStringLiteral("registerBalooWatcher"));
+    registerBalooWatcher.setArguments({QStringLiteral("org.mpris.MediaPlayer2.elisa/org/kde/BalooWatcherApplication")});
+
+    auto pendingCall = sessionBus.asyncCall(registerBalooWatcher);
+    qDebug() << "LocalBalooFileListing::registerToBaloo" << "call registerBalooWatcher";
+    auto pendingCallWatcher = new QDBusPendingCallWatcher(pendingCall);
+
+    connect(pendingCallWatcher, &QDBusPendingCallWatcher::finished, this, &LocalBalooFileListing::registeredToBaloo);
+    if (pendingCallWatcher->isFinished()) {
+        registeredToBaloo(pendingCallWatcher);
+    }
+}
+
+void LocalBalooFileListing::renamedFiles(const QString &from, const QString &to, const QStringList &listFiles)
+{
+    qDebug() << "LocalBalooFileListing::renamedFiles" << from << to << listFiles;
+}
+
+void LocalBalooFileListing::serviceOwnerChanged(const QString &serviceName, const QString &oldOwner, const QString &newOwner)
+{
+    Q_UNUSED(oldOwner);
+    Q_UNUSED(newOwner);
+
+    qDebug() << "LocalBalooFileListing::serviceOwnerChanged" << serviceName << oldOwner << newOwner;
+
+    if (serviceName == QStringLiteral("org.kde.baloo") && !newOwner.isEmpty()) {
+        d->mIsRegistered = false;
+        registerToBaloo();
+    }
+}
+
+void LocalBalooFileListing::serviceRegistered(const QString &serviceName)
+{
+    qDebug() << "LocalBalooFileListing::serviceRegistered" << serviceName;
+
+    if (serviceName == QStringLiteral("org.kde.baloo")) {
+        registerToBaloo();
+    }
+}
+
+void LocalBalooFileListing::serviceUnregistered(const QString &serviceName)
+{
+    qDebug() << "LocalBalooFileListing::serviceUnregistered" << serviceName;
+
+    if (serviceName == QStringLiteral("org.kde.baloo")) {
+        d->mIsRegistered = false;
+    }
+}
+
+void LocalBalooFileListing::executeInit()
+{
 }
 
 void LocalBalooFileListing::triggerRefreshOfContent()

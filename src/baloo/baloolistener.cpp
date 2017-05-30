@@ -30,7 +30,8 @@ public:
 
 };
 
-BalooListener::BalooListener(QObject *parent) : AbstractFileListener(new LocalBalooFileListing, parent), d(new BalooListenerPrivate)
+BalooListener::BalooListener(QObject *parent)
+    : AbstractFileListener(new LocalBalooFileListing, parent), d(new BalooListenerPrivate)
 {
 }
 

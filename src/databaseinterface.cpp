@@ -622,6 +622,10 @@ void DatabaseInterface::applicationAboutToQuit()
 
 void DatabaseInterface::insertTracksList(const QList<MusicAudioTrack> &tracks, const QHash<QString, QUrl> &covers, const QString &musicSource)
 {
+    if (d->mStopRequest == 1) {
+        return;
+    }
+
     auto transactionResult = startTransaction();
     if (!transactionResult) {
         return;

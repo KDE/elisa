@@ -56,6 +56,10 @@ if (KF5Baloo_FOUND)
         qt5_add_dbus_interface(elisaLib_SOURCES
             ${BALOO_DBUS_INTERFACES_DIR}/org.kde.baloo.scheduler.xml
             baloo/scheduler)
+
+        qt5_add_dbus_adaptor(elisaLib_SOURCES
+            ${BALOO_DBUS_INTERFACES_DIR}/org.kde.BalooWatcherApplication.xml
+            baloo/localbaloofilelisting.h LocalBalooFileListing)
     endif()
 endif()
 

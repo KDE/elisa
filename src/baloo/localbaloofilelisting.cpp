@@ -27,6 +27,8 @@
 #include "baloo/scheduler.h"
 #include "baloo/fileindexer.h"
 
+#include "baloowatcherapplicationadaptor.h"
+
 #include <Baloo/Query>
 #include <Baloo/File>
 #include <Baloo/IndexerConfig>
@@ -69,6 +71,8 @@ public:
 
     QAtomicInt mStopRequest = 0;
 
+    BalooWatcherApplicationAdaptor *mDbusAdaptor = nullptr;
+
     bool mIsRegistered = false;
 
     bool mIsRegistering = false;
@@ -82,6 +86,10 @@ LocalBalooFileListing::LocalBalooFileListing(QObject *parent)
     setHandleNewFiles(false);
 
     auto sessionBus = QDBusConnection::sessionBus();
+
+    d->mDbusAdaptor = new BalooWatcherApplicationAdaptor(this);
+
+    sessionBus.registerObject(QStringLiteral("/org/kde/BalooWatcherApplication"), d->mDbusAdaptor, QDBusConnection::ExportAllContents);
 
     connect(&d->mServiceWatcher, &QDBusServiceWatcher::serviceRegistered,
             this, &LocalBalooFileListing::serviceRegistered);
@@ -189,6 +197,22 @@ void LocalBalooFileListing::registerToBaloo()
     connect(pendingCallWatcher, &QDBusPendingCallWatcher::finished, this, &LocalBalooFileListing::registeredToBaloo);
     if (pendingCallWatcher->isFinished()) {
         registeredToBaloo(pendingCallWatcher);
+    }
+
+    QDBusMessage registerBalooWatcher = QDBusMessage::createMethodCall(QStringLiteral("org.kde.baloo"),
+                                                                       QStringLiteral("/"),
+                                                                       QStringLiteral("org.kde.baloo.main"),
+                                                                       QStringLiteral("registerBalooWatcher"));
+
+    registerBalooWatcher.setArguments({QStringLiteral("org.mpris.MediaPlayer2.elisa/org/kde/BalooWatcherApplication")});
+
+    auto pendingCall = sessionBus.asyncCall(registerBalooWatcher);
+    qDebug() << "LocalBalooFileListing::registerToBaloo" << "call registerBalooWatcher";
+    auto pendingCallWatcher2 = new QDBusPendingCallWatcher(pendingCall);
+
+    connect(pendingCallWatcher2, &QDBusPendingCallWatcher::finished, this, &LocalBalooFileListing::registeredToBaloo);
+    if (pendingCallWatcher2->isFinished()) {
+        registeredToBaloo(pendingCallWatcher2);
     }
 }
 

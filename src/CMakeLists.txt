@@ -194,6 +194,13 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
                 UPNP::upnpQt
         )
     endif()
+
+    if (KF5DBusAddons_FOUND)
+        target_link_libraries(elisa
+            LINK_PRIVATE
+                KF5::DBusAddons
+        )
+    endif()
 endif()
 
 install(TARGETS elisa ${INSTALL_TARGETS_DEFAULT_ARGS})

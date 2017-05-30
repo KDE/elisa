@@ -93,6 +93,10 @@
 #include <QtAndroid>
 #endif
 
+#if defined KF5DBusAddons_FOUND && KF5DBusAddons_FOUND
+#include <KDBusService>
+#endif
+
 #if defined Q_OS_ANDROID
 int __attribute__((visibility("default"))) main(int argc, char *argv[])
 #else
@@ -166,11 +170,6 @@ int main(int argc, char *argv[])
 
     qRegisterMetaTypeStreamOperators<ManageMediaPlayerControl::PlayerState>("PlayListControler::PlayerState");
 
-    KLocalizedString::setApplicationDomain("elisa");
-    ElisaApplication myApp;
-
-    //QQmlDebuggingEnabler enabler;
-
 #if defined KF5CoreAddons_FOUND && KF5CoreAddons_FOUND
     KAboutData aboutData( QStringLiteral("elisa"),
                           i18n("Elisa"),
@@ -181,7 +180,20 @@ int main(int argc, char *argv[])
 
     aboutData.addAuthor(i18n("Matthieu Gallien"),i18n("Author"), QStringLiteral("mgallien@mgallien.fr"));
     KAboutData::setApplicationData(aboutData);
+#else
+    QGuiApplication::setApplicationName(QStringLiteral("elisa"));
+    QGuiApplication::setOrganizationDomain(QStringLiteral("kde.org"));
+    QGuiApplication::setOrganizationName(QStringLiteral("KDE"));
+#endif
 
+#if defined KF5DBusAddons_FOUND && KF5DBusAddons_FOUND
+    KDBusService elisaService(KDBusService::Unique);
+#endif
+
+    KLocalizedString::setApplicationDomain("elisa");
+    ElisaApplication myApp;
+
+#if defined KF5CoreAddons_FOUND && KF5CoreAddons_FOUND
     QCommandLineParser parser;
     parser.addHelpOption();
     parser.addVersionOption();
@@ -189,10 +201,6 @@ int main(int argc, char *argv[])
 
     parser.process(app);
     aboutData.processCommandLine(&parser);
-#else
-    QGuiApplication::setApplicationName(QStringLiteral("elisa"));
-    QGuiApplication::setOrganizationDomain(QStringLiteral("kde.org"));
-    QGuiApplication::setOrganizationName(QStringLiteral("KDE"));
 #endif
 
 #if defined Qt5AndroidExtras_FOUND && Qt5AndroidExtras_FOUND

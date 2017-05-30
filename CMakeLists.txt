@@ -29,6 +29,7 @@ find_package(KF5XmlGui ${REQUIRED_KF5_VERSION} CONFIG QUIET)
 find_package(KF5ConfigWidgets ${REQUIRED_KF5_VERSION} CONFIG QUIET)
 find_package(KF5Config ${REQUIRED_KF5_VERSION} CONFIG QUIET)
 find_package(KF5Crash ${REQUIRED_KF5_VERSION} CONFIG QUIET)
+find_package(KF5DBusAddons ${REQUIRED_KF5_VERSION} CONFIG QUIET)
 
 find_package(KDSoap CONFIG QUIET)
 set_package_properties(KDSoap PROPERTIES

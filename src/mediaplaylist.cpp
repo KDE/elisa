@@ -209,7 +209,6 @@ bool MediaPlayList::setData(const QModelIndex &index, const QVariant &value, int
     {
         modelModified = true;
         PlayState newState = static_cast<PlayState>(value.toInt());
-        qDebug() << "MediaPlayList::setData" << newState;
         d->mData[index.row()].mIsPlaying = newState;
         Q_EMIT dataChanged(index, index, {role});
         break;
@@ -258,7 +257,6 @@ bool MediaPlayList::removeRows(int row, int count, const QModelIndex &parent)
     endRemoveRows();
 
     if (hadAlbumHeader != rowHasHeader(row)) {
-        qDebug() << "dataChanged(index(row, 0), index(row, 0), {ColumnsRoles::HasAlbumHeader});" << row;
         Q_EMIT dataChanged(index(row, 0), index(row, 0), {ColumnsRoles::HasAlbumHeader});
     }
 
@@ -600,8 +598,6 @@ bool MediaPlayList::rowHasHeader(int row) const
 
     auto currentAlbum = QString();
     if (d->mData[row].mIsValid) {
-        qDebug() << d->mData[row].mId;
-        qDebug() << d->mTrackData[row].albumName();
         currentAlbum = d->mTrackData[row].albumName();
     } else {
         currentAlbum = d->mData[row].mAlbum;

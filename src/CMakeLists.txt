@@ -66,6 +66,10 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
                 baloo/localbaloofilelisting.cpp
                 baloo/baloolistener.cpp
                 )
+
+            qt5_add_dbus_adaptor(elisa_SOURCES
+                ${CMAKE_INSTALL_PREFIX}/${KDE_INSTALL_DBUSINTERFACEDIR}/org.kde.BalooWatcherApplication.xml
+                baloo/localbaloofilelisting.h LocalBalooFileListing)
         endif()
     endif()
 

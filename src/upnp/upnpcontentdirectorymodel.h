@@ -59,8 +59,6 @@ class UPNPQT_EXPORT UpnpContentDirectoryModel : public QAbstractItemModel
                WRITE setUseLocalIcons
                NOTIFY useLocalIconsChanged)
 
-    Q_ENUMS(ItemClass)
-
 public:
 
     enum ItemClass {
@@ -68,6 +66,8 @@ public:
         Album = 1,
         AudioTrack = 2,
     };
+
+    Q_ENUM(ItemClass)
 
     enum ColumnsRoles {
         TitleRole = Qt::UserRole + 1,
@@ -84,6 +84,8 @@ public:
         ParentIdRole = IdRole + 1,
         IsPlayingRole = ParentIdRole + 1,
     };
+
+    Q_ENUM(ColumnsRoles)
 
     explicit UpnpContentDirectoryModel(QObject *parent = 0);
 

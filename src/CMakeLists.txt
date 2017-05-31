@@ -192,6 +192,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         target_link_libraries(elisa
             LINK_PRIVATE
                 UPNP::upnpQt
+                Qt5::Network
         )
     endif()
 

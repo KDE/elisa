@@ -31,12 +31,6 @@ find_package(KF5Config ${REQUIRED_KF5_VERSION} CONFIG QUIET)
 find_package(KF5Crash ${REQUIRED_KF5_VERSION} CONFIG QUIET)
 find_package(KF5DBusAddons ${REQUIRED_KF5_VERSION} CONFIG QUIET)
 
-find_package(KDSoap CONFIG QUIET)
-set_package_properties(KDSoap PROPERTIES
-    DESCRIPTION "Tool for creating client applications for web services."
-    URL "https://www.kdab.com/development-resources/qt-tools/kd-soap/"
-    TYPE OPTIONAL)
-
 find_package(UPNPQT CONFIG QUIET)
 set_package_properties(UPNPQT PROPERTIES
     DESCRIPTION "UPNP layer build with Qt 5."

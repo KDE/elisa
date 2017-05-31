@@ -139,8 +139,6 @@ private:
     QString m_currentTrackId;
     double m_rate = 1.0;
     double m_volume = 0.0;
-    bool m_paused = false;
-    bool m_stopped = false;
     int m_mediaPlayerPresent = 0;
     bool m_canPlay = false;
     bool m_canGoNext = false;

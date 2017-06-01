@@ -45,7 +45,7 @@ Item {
     property int tooltipRadius: 3
     property int shadowOffset: 2
 
-    property int delegateToolButtonSize: 40
+    property int delegateToolButtonSize: 34
     property int smallDelegateToolButtonSize: 20
 
     property int ratingStarSize: 10

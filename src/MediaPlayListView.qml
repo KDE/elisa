@@ -66,15 +66,27 @@ Item {
         anchors.fill: parent
         spacing: 0
 
+        TextMetrics {
+            id: titleHeight
+            text: viewTitleHeight.text
+            font
+            {
+                pixelSize: viewTitleHeight.font.pixelSize
+                bold: viewTitleHeight.font.bold
+            }
+        }
+
         LabelWithToolTip {
-            text: i18nc("text shown at the top of the play list", "Playlist")
+            id: viewTitleHeight
+            text: i18nc("Title of the view of the playlist", "Now Playing")
 
             color: myPalette.text
+            font.pixelSize: font.pixelSize * 2
 
             Layout.topMargin: elisaTheme.layoutVerticalMargin
             Layout.leftMargin: elisaTheme.layoutHorizontalMargin
             Layout.rightMargin: elisaTheme.layoutHorizontalMargin
-            Layout.bottomMargin: elisaTheme.layoutVerticalMargin
+            Layout.bottomMargin: titleHeight.height + elisaTheme.layoutVerticalMargin
         }
 
         RowLayout {
@@ -84,6 +96,7 @@ Item {
 
             Layout.leftMargin: elisaTheme.layoutHorizontalMargin
             Layout.rightMargin: elisaTheme.layoutHorizontalMargin
+            Layout.bottomMargin: titleHeight.height + elisaTheme.layoutVerticalMargin
 
             CheckBox {
                 id: shuffleOption

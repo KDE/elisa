@@ -50,15 +50,41 @@ Item {
         anchors.fill: parent
         spacing: 0
 
+        TextMetrics {
+            id: titleHeight
+            text: viewTitleHeight.text
+            font
+            {
+                pixelSize: viewTitleHeight.font.pixelSize
+                bold: viewTitleHeight.font.bold
+            }
+        }
+
+        LabelWithToolTip {
+            id: viewTitleHeight
+            text: i18nc("Title of the view of all albums", "Albums")
+
+            color: myPalette.text
+            font.pixelSize: font.pixelSize * 2
+
+            Layout.leftMargin: elisaTheme.layoutHorizontalMargin
+            Layout.rightMargin: elisaTheme.layoutHorizontalMargin
+            Layout.topMargin: elisaTheme.layoutVerticalMargin
+            Layout.bottomMargin: titleHeight.height + elisaTheme.layoutVerticalMargin
+        }
+
         RowLayout {
             id: filterRow
 
             Layout.fillWidth: true
             Layout.topMargin: elisaTheme.layoutVerticalMargin
-            Layout.bottomMargin: elisaTheme.layoutVerticalMargin
+            Layout.bottomMargin: titleHeight.height + elisaTheme.layoutVerticalMargin
+            Layout.leftMargin: elisaTheme.layoutHorizontalMargin
 
             LabelWithToolTip {
                 text: i18nc("before the TextField input of the filter", "Filter: ")
+
+                font.bold: true
 
                 color: myPalette.text
             }
@@ -68,7 +94,7 @@ Item {
 
                 placeholderText: i18nc("Placeholder text in the filter text box", "Filter")
 
-                Layout.fillWidth: true
+                Layout.preferredWidth: rootElement.width / 2
 
                 Image {
                     anchors.top: parent.top
@@ -101,9 +127,11 @@ Item {
             LabelWithToolTip {
                 text: i18nc("before the Rating widget input of the filter", "Rating: ")
 
+                font.bold: true
+
                 color: myPalette.text
 
-                Layout.leftMargin: elisaTheme.layoutHorizontalMargin
+                Layout.leftMargin: elisaTheme.layoutHorizontalMargin * 2
             }
 
             RatingStar {
@@ -133,7 +161,7 @@ Item {
                     }
 
                     cellWidth: elisaTheme.gridDelegateWidth
-                    cellHeight: elisaTheme.gridDelegateWidth + elisaTheme.layoutVerticalMargin * 4 + textLineHeight.height * 3
+                    cellHeight: elisaTheme.gridDelegateWidth + elisaTheme.layoutVerticalMargin * 5 + textLineHeight.height * 2
 
                     model: DelegateModel {
                         id: delegateContentModel

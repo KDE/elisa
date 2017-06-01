@@ -35,7 +35,7 @@ Rectangle {
     property var image
     property alias title: titleLabel.text
     property alias artist: artistLabel.text
-    property alias trackNumber: numberLabel.text
+    property int trackNumber
     property bool isSingleDiscAlbum
     property var albumData
 
@@ -192,6 +192,7 @@ Rectangle {
 
             horizontalAlignment: Text.AlignLeft
 
+            Layout.topMargin: elisaTheme.layoutVerticalMargin * 0.5
             Layout.preferredWidth: mediaServerEntry.width * 0.9
             Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
 
@@ -212,19 +213,8 @@ Rectangle {
             elide: "ElideRight"
         }
 
-        LabelWithToolTip {
-            id: numberLabel
-
-            font.weight: Font.Light
-            color: myPalette.text
-
-            horizontalAlignment: Text.AlignLeft
-
-            Layout.preferredWidth: mediaServerEntry.width * 0.9
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
-            Layout.bottomMargin: elisaTheme.layoutVerticalMargin
-
-            elide: "ElideRight"
+        Item {
+            Layout.fillHeight: true
         }
     }
 }

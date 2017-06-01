@@ -85,30 +85,15 @@ Item {
 
             spacing: 0
 
-            Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+            Layout.alignment: Qt.AlignTop | Qt.AlignHCenter
             Layout.fillWidth: true
             Layout.leftMargin: elisaTheme.layoutHorizontalMargin
 
-            Item {
-                Layout.fillHeight: true
-            }
-
-            LabelWithToolTip {
-                id: authorLabel
-
-                text: artist
-
-                font.weight: Font.Bold
-                color: myPalette.text
-
-                Layout.fillWidth: true
-                Layout.alignment: Qt.AlignLeft
-
-                elide: "ElideRight"
-            }
-
-            Item {
-                Layout.fillHeight: true
+            TextMetrics {
+                id: albumTextSize
+                text: albumLabel.text
+                font.pixelSize: albumLabel.font.pixelSize
+                font.bold: albumLabel.font.bold
             }
 
             LabelWithToolTip {
@@ -118,14 +103,43 @@ Item {
 
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignLeft
+                Layout.topMargin: albumTextSize.height
+                Layout.bottomMargin: albumTextSize.height - authorTextSize.height
 
                 elide: "ElideRight"
 
                 color: myPalette.text
+
+                font {
+                    pixelSize: albumLabel.font.pixelSize * 1.5
+                }
+
+                visible: album !== ""
             }
 
-            Item {
-                Layout.fillHeight: true
+            TextMetrics {
+                id: authorTextSize
+                text: authorLabel.text
+                font.pixelSize: authorLabel.font.pixelSize
+                font.bold: authorLabel.font.bold
+            }
+
+            LabelWithToolTip {
+                id: authorLabel
+
+                text: artist
+
+                color: myPalette.text
+
+                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignLeft
+                Layout.topMargin: authorTextSize.height
+
+                font {
+                    pixelSize: (album !== "" ? authorLabel.font.pixelSize : authorLabel.font.pixelSize * 1.5)
+                }
+
+                elide: "ElideRight"
             }
         }
 

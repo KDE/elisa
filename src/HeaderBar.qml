@@ -17,7 +17,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-import QtQuick 2.0
+import QtQuick 2.7
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
 import QtQuick.Window 2.2
@@ -137,13 +137,19 @@ Item {
             ColumnLayout {
                 spacing: 0
 
-                Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+                Layout.alignment: Qt.AlignTop | Qt.AlignHCenter
                 Layout.leftMargin: elisaTheme.layoutHorizontalMargin
                 Layout.fillWidth: true
                 Layout.fillHeight: true
 
-                Item {
-                    Layout.fillHeight: true
+                TextMetrics {
+                    id: titleFontInfo
+                    font
+                    {
+                        bold: albumLabel.font.bold
+                        pixelSize: albumLabel.font.pixelSize
+                    }
+                    text: albumLabel.text
                 }
 
                 LabelWithToolTip {
@@ -165,10 +171,7 @@ Item {
                         samples: 9
                     }
 
-                }
-
-                Item {
-                    Layout.fillHeight: true
+                    Layout.bottomMargin: titleFontInfo.height
                 }
 
                 LabelWithToolTip {
@@ -188,10 +191,8 @@ Item {
                         radius: 4.0
                         samples: 9
                     }
-                }
 
-                Item {
-                    Layout.fillHeight: true
+                    Layout.bottomMargin: titleFontInfo.height
                 }
 
                 LabelWithToolTip {
@@ -211,10 +212,8 @@ Item {
                         radius: 4.0
                         samples: 9
                     }
-                }
 
-                Item {
-                    Layout.fillHeight: true
+                    Layout.bottomMargin: titleFontInfo.height
                 }
 
                 RatingStar {
@@ -223,10 +222,6 @@ Item {
                     starSize: elisaTheme.ratingStarSize
                     starRating: trackRating
                     Layout.alignment: Qt.AlignLeft
-                }
-
-                Item {
-                    Layout.fillHeight: true
                 }
             }
 

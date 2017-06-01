@@ -65,6 +65,7 @@ Item {
             parentStackView: rootElement.stackView
             playList: rootElement.playListModel
             playerControl: rootElement.playerControl
+            image: Qt.resolvedUrl(elisaTheme.artistImage)
 
             enqueueAction: Action {
                 text: i18nc("Add all tracks from artist to play list", "Enqueue")

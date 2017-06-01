@@ -37,8 +37,17 @@ Item {
         id: elisaTheme
     }
 
+    TaskbarButton {
+        progress.minimum: 0
+        progress.maximum: player.duration
+        progress.value: player.position
+        progress.visible: manageMediaPlayerControl.musicPlaying
+
+        overlay.iconSource: (manageMediaPlayerControl.musicPlaying ? Qt.resolvedUrl(elisaTheme.playIcon) : Qt.resolvedUrl(elisaTheme.pauseIcon))
+    }
+
     ThumbnailToolBar {
-        iconicThumbnailSource: (headerBarManager.image ? headerBarManager.image : Qt.resolvedUrl(elisaTheme.albumCover))
+        iconicThumbnailSource: (headerBarManager.image.toString() !== '' ? headerBarManager.image : Qt.resolvedUrl(elisaTheme.albumCover))
 
         ThumbnailToolButton {
             iconSource: Qt.resolvedUrl(elisaTheme.skipBackwardIcon)
@@ -47,8 +56,8 @@ Item {
         }
 
         ThumbnailToolButton {
-            iconSource: (myPlayControlManager.musicPlaying ? Qt.resolvedUrl(elisaTheme.pauseIcon) : Qt.resolvedUrl(elisaTheme.playIcon))
-            onClicked: manageAudioPlayer.playPause()
+            iconSource: (manageMediaPlayerControl.musicPlaying ? Qt.resolvedUrl(elisaTheme.pauseIcon) : Qt.resolvedUrl(elisaTheme.playIcon))
+            onClicked: audioPlayerManager.playPause()
             enabled: manageMediaPlayerControl.playControlEnabled
         }
 

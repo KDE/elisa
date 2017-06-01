@@ -35,7 +35,7 @@ Rectangle {
     property var image
     property alias title: titleLabel.text
     property alias artist: artistLabel.text
-    property int trackNumber
+    property string trackNumber
     property bool isSingleDiscAlbum
     property var albumData
 

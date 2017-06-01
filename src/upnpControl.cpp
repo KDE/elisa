@@ -30,7 +30,6 @@
 #include "upnp/didlparser.h"
 #include "upnp/upnpdiscoverallmusic.h"
 
-#include "upnpssdpengine.h"
 #include "upnpabstractservice.h"
 #include "upnpcontrolabstractdevice.h"
 #include "upnpcontrolabstractservice.h"
@@ -52,6 +51,7 @@
 #include "albumfilterproxymodel.h"
 #include "elisaapplication.h"
 #include "audiowrapper.h"
+#include "viewpagesmodel.h"
 
 #if defined Qt5DBus_FOUND && Qt5DBus_FOUND
 #include "mpris2/mpris2.h"
@@ -116,7 +116,6 @@ int main(int argc, char *argv[])
     KLocalizedString::setApplicationDomain("elisa");
 
 #if defined UPNPQT_FOUND && UPNPQT_FOUND
-    qmlRegisterType<UpnpSsdpEngine>("org.mgallien.QmlExtension", 1, 0, "UpnpSsdpEngine");
     qmlRegisterType<UpnpDiscoverAllMusic>("org.mgallien.QmlExtension", 1, 0, "UpnpDiscoverAllMusic");
 
     qmlRegisterType<UpnpAbstractDevice>("org.mgallien.QmlExtension", 1, 0, "UpnpAbstractDevice");
@@ -151,6 +150,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<QSortFilterProxyModel>("org.mgallien.QmlExtension", 1, 0, "SortFilterProxyModel");
     qmlRegisterType<AlbumFilterProxyModel>("org.mgallien.QmlExtension", 1, 0, "AlbumFilterProxyModel");
     qmlRegisterType<AudioWrapper>("org.mgallien.QmlExtension", 1, 0, "AudioWrapper");
+    qmlRegisterType<ViewPagesModel>("org.mgallien.QmlExtension", 1, 0, "ViewPagesModel");
 
 #if defined Qt5DBus_FOUND && Qt5DBus_FOUND
     qmlRegisterType<Mpris2>("org.mgallien.QmlExtension", 1, 0, "Mpris2");

@@ -22,6 +22,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         trackslistener.cpp
         elisaapplication.cpp
         audiowrapper.cpp
+        viewpagesmodel.cpp
 
         MediaServer.qml
         Theme.qml
@@ -85,6 +86,9 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
             upnp/didlparser.cpp
             upnp/upnplistener.cpp
             upnp/upnpdiscoverallmusic.cpp
+            upnp/upnpalbummodel.cpp
+            upnp/remoteserverentry.cpp
+            upnp/abstractalbummodel.cpp
             )
     endif()
 

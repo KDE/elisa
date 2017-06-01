@@ -263,6 +263,12 @@ bool MusicAlbum::isEmpty() const
     return d->mTracks.isEmpty();
 }
 
+void MusicAlbum::clear()
+{
+    d->mTracks.clear();
+    d->mTracksCount = 0;
+}
+
 void MusicAlbum::removeTrackFromIndex(int index)
 {
     if (index < 0 || index >= tracksCount()) {

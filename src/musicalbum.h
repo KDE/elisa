@@ -102,6 +102,8 @@ public:
 
     bool isEmpty() const;
 
+    void clear();
+
     void removeTrackFromIndex(int index);
 
     void insertTrack(const MusicAudioTrack &newTrack, int index);

@@ -439,15 +439,14 @@ ApplicationWindow {
                             width: viewModeView.width
                         }
 
-                        model: ListModel {
+                        model: ViewPagesModel {
                             id: pageModel
 
-                            Component.onCompleted:
-                            {
-                                insert(0, {"name": i18nc("Title of the view of the playlist", "Now Playing")})
-                                insert(1, {"name": i18nc("Title of the view of all albums", "Albums")})
-                                insert(2, {"name": i18nc("Title of the view of all artists", "Artists")})
-                            }
+                            deviceId: 'urn:schemas-upnp-org:device:MediaServer:1'
+
+                            browseFlag: globalBrowseFlag
+                            filter: globalFilter
+                            sortCriteria: globalSortCriteria
                         }
 
                         itemDelegate: Rectangle {

@@ -252,7 +252,11 @@ void PlayListControler::skipPreviousTrack()
         mCurrentTrack = mPlayListModel->index(randomValue, 0);
     } else {
         if (mRepeatPlay) {
-            mCurrentTrack = mPlayListModel->index(mPlayListModel->rowCount() - 1, 0);
+            if (mCurrentTrack.row() == 0) {
+                mCurrentTrack = mPlayListModel->index(mPlayListModel->rowCount() - 1, 0);
+            } else {
+                mCurrentTrack = mPlayListModel->index(mCurrentTrack.row() - 1, 0);
+            }
         } else {
             mCurrentTrack = mPlayListModel->index(mCurrentTrack.row() - 1, mCurrentTrack.column(), mCurrentTrack.parent());
         }

@@ -55,6 +55,8 @@ private Q_SLOTS:
 
     void testBringUpAndSkipPreviousCase();
 
+    void testBringUpAndSkipPreviousAndContinueCase();
+
     void finishPlayList();
 
     void randomPlayList();

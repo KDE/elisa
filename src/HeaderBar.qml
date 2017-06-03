@@ -69,6 +69,7 @@ Item {
     }
 
     LabelWithToolTip {
+        id: backgroundCopyright
         anchors.bottom: parent.bottom
         anchors.right: parent.right
         anchors.bottomMargin: elisaTheme.layoutVerticalMargin
@@ -229,7 +230,7 @@ Item {
                 id: remainingTracksLabel
                 text: i18np("1 track remaining", "%1 tracks remaining", tracksCount)
                 Layout.alignment: Qt.AlignRight | Qt.AlignBottom
-                Layout.bottomMargin: elisaTheme.layoutVerticalMargin
+                Layout.bottomMargin: (backgroundCopyright.visible ? elisaTheme.layoutVerticalMargin + backgroundCopyright.height : elisaTheme.layoutVerticalMargin)
                 Layout.leftMargin: elisaTheme.layoutHorizontalMargin
                 Layout.rightMargin: elisaTheme.layoutHorizontalMargin
                 elide: Text.ElideRight

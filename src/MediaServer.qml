@@ -17,7 +17,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-import QtQuick 2.4
+import QtQuick 2.7
 import QtQuick.Controls 1.3
 import QtQuick.Controls.Styles 1.3
 import QtQuick.Layouts 1.1
@@ -99,8 +99,8 @@ ApplicationWindow {
             persistentSettings.playListControlerState = playListControlerItem.persistentState;
             persistentSettings.audioPlayerState = manageAudioPlayer.persistentState
 
-            persistentSettings.playControlItemVolume = playControlItem.volume
-            persistentSettings.playControlItemMuted = playControlItem.muted
+            persistentSettings.playControlItemVolume = headerBar.playerControl.volume
+            persistentSettings.playControlItemMuted = headerBar.playerControl.muted
         }
     }
 
@@ -129,12 +129,12 @@ ApplicationWindow {
     AudioWrapper {
         id: audioPlayer
 
-        muted: playControlItem.muted
+        muted: headerBar.playerControl.muted
 
-        volume: playControlItem.volume * 100
+        volume: headerBar.playerControl.volume * 100
 
-        onVolumeChanged: playControlItem.volume = volume / 100.0
-        onMutedChanged: playControlItem.muted = muted
+        onVolumeChanged: headerBar.playerControl.volume = volume / 100.0
+        onMutedChanged: headerBar.playerControl.muted = muted
 
         source: manageAudioPlayer.playerSource
 
@@ -338,74 +338,69 @@ ApplicationWindow {
             anchors.fill: parent
             spacing: 0
 
-            HeaderBar {
-                id: headerBar
-
-                Layout.preferredHeight: mainWindow.height * 0.2
-                Layout.minimumHeight: mainWindow.height * 0.2
-                Layout.maximumHeight: mainWindow.height * 0.2
+            Item {
+                Layout.preferredHeight: mainWindow.height * 0.2 + elisaTheme.mediaPlayerControlHeight
+                Layout.minimumHeight: mainWindow.height * 0.2 + elisaTheme.mediaPlayerControlHeight
+                Layout.maximumHeight: mainWindow.height * 0.2 + elisaTheme.mediaPlayerControlHeight
                 Layout.fillWidth: true
 
-                tracksCount: myHeaderBarManager.remainingTracks
-                album: myHeaderBarManager.album
-                title: myHeaderBarManager.title
-                artist: myHeaderBarManager.artist
-                image: myHeaderBarManager.image
+                HeaderBar {
+                    id: headerBar
 
-                ratingVisible: false
+                    anchors.fill: parent
 
-                ToolButton {
-                    id: menuButton
+                    tracksCount: myHeaderBarManager.remainingTracks
+                    album: myHeaderBarManager.album
+                    title: myHeaderBarManager.title
+                    artist: myHeaderBarManager.artist
+                    image: myHeaderBarManager.image
 
-                    action: applicationMenuAction
+                    ratingVisible: false
 
-                    z: 2
+                    playerControl.duration: audioPlayer.duration
+                    playerControl.seekable: audioPlayer.seekable
 
-                    anchors
-                    {
-                        right: parent.right
-                        top: parent.top
-                        rightMargin: elisaTheme.layoutHorizontalMargin * 3
-                        topMargin: elisaTheme.layoutHorizontalMargin * 3
+                    playerControl.volume: persistentSettings.playControlItemVolume
+                    playerControl.muted: persistentSettings.playControlItemMuted
+                    playerControl.position: audioPlayer.position
+                    playerControl.skipBackwardEnabled: myPlayControlManager.skipBackwardControlEnabled
+                    playerControl.skipForwardEnabled: myPlayControlManager.skipForwardControlEnabled
+                    playerControl.playEnabled: myPlayControlManager.playControlEnabled
+                    playerControl.isPlaying: myPlayControlManager.musicPlaying
+
+                    playerControl.onSeek: audioPlayer.seek(position)
+
+                    playerControl.onPlay: manageAudioPlayer.playPause()
+                    playerControl.onPause: manageAudioPlayer.playPause()
+
+                    playerControl.onPlayPrevious: playListControlerItem.skipPreviousTrack()
+                    playerControl.onPlayNext: playListControlerItem.skipNextTrack()
+
+                    ToolButton {
+                        id: menuButton
+
+                        action: applicationMenuAction
+
+                        z: 2
+
+                        anchors
+                        {
+                            right: parent.right
+                            top: parent.top
+                            rightMargin: elisaTheme.layoutHorizontalMargin * 3
+                            topMargin: elisaTheme.layoutHorizontalMargin * 3
+                        }
+                    }
+                    Rectangle {
+                        anchors.fill: menuButton
+
+                        z: 1
+
+                        radius: width / 2
+
+                        color: myPalette.window
                     }
                 }
-                Rectangle {
-                    anchors.fill: menuButton
-
-                    z: 1
-
-                    radius: width / 2
-
-                    color: myPalette.window
-                }
-            }
-
-            MediaPlayerControl {
-                id: playControlItem
-
-                duration: audioPlayer.duration
-                seekable: audioPlayer.seekable
-
-                volume: persistentSettings.playControlItemVolume
-                muted: persistentSettings.playControlItemMuted
-                position: audioPlayer.position
-                skipBackwardEnabled: myPlayControlManager.skipBackwardControlEnabled
-                skipForwardEnabled: myPlayControlManager.skipForwardControlEnabled
-                playEnabled: myPlayControlManager.playControlEnabled
-                isPlaying: myPlayControlManager.musicPlaying
-
-                Layout.preferredHeight: elisaTheme.mediaPlayerControlHeight
-                Layout.minimumHeight: elisaTheme.mediaPlayerControlHeight
-                Layout.maximumHeight: elisaTheme.mediaPlayerControlHeight
-                Layout.fillWidth: true
-
-                onSeek: audioPlayer.seek(position)
-
-                onPlay: manageAudioPlayer.playPause()
-                onPause: manageAudioPlayer.playPause()
-
-                onPlayPrevious: playListControlerItem.skipPreviousTrack()
-                onPlayNext: playListControlerItem.skipNextTrack()
             }
 
             RowLayout {

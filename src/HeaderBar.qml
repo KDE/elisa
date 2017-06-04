@@ -33,6 +33,7 @@ Item {
     property string tracksCount
     property int trackRating
     property bool ratingVisible
+    property alias playerControl: playControlItem
 
     Image {
         id: background
@@ -68,9 +69,19 @@ Item {
         }
     }
 
+    MediaPlayerControl {
+        id: playControlItem
+
+        anchors.left: background.left
+        anchors.right: background.right
+        anchors.bottom: background.bottom
+
+        height: elisaTheme.mediaPlayerControlHeight
+    }
+
     LabelWithToolTip {
         id: backgroundCopyright
-        anchors.bottom: parent.bottom
+        anchors.bottom: playControlItem.top
         anchors.right: parent.right
         anchors.bottomMargin: elisaTheme.layoutVerticalMargin
         anchors.rightMargin: elisaTheme.layoutVerticalMargin
@@ -83,7 +94,13 @@ Item {
     }
 
     ColumnLayout {
-        anchors.fill: parent
+        id: contentZone
+
+        anchors.top: parent.top
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: playControlItem.top
+
         spacing: 0
 
         Item {
@@ -100,13 +117,13 @@ Item {
 
             Item {
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-                Layout.preferredHeight: headerBar.height * 0.9
-                Layout.minimumHeight: headerBar.height * 0.9
-                Layout.maximumHeight: headerBar.height * 0.9
-                Layout.preferredWidth: headerBar.height * 0.9
-                Layout.minimumWidth: headerBar.height * 0.9
-                Layout.maximumWidth: headerBar.height * 0.9
-                Layout.leftMargin: headerBar.width * 0.15
+                Layout.preferredHeight: contentZone.height * 0.9
+                Layout.minimumHeight: contentZone.height * 0.9
+                Layout.maximumHeight: contentZone.height * 0.9
+                Layout.preferredWidth: contentZone.height * 0.9
+                Layout.minimumWidth: contentZone.height * 0.9
+                Layout.maximumWidth: contentZone.height * 0.9
+                Layout.leftMargin: contentZone.width * 0.15
 
                 Image {
                     id: mainIcon
@@ -116,8 +133,8 @@ Item {
                     source: (image ? image : Qt.resolvedUrl(elisaTheme.albumCover))
 
                     sourceSize {
-                        width: headerBar.height * 0.9
-                        height: headerBar.height * 0.9
+                        width: contentZone.height * 0.9
+                        height: contentZone.height * 0.9
                     }
 
                     fillMode: Image.PreserveAspectFit

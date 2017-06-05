@@ -85,136 +85,162 @@ Rectangle {
     color: myPalette.base
 
     ColumnLayout {
-        id: mainData
-
         anchors.fill: parent
 
-        Item {
-            Layout.topMargin: elisaTheme.layoutVerticalMargin
-            Layout.preferredHeight: mediaServerEntry.width * 0.9
-            Layout.preferredWidth: mediaServerEntry.width * 0.9
+        spacing: 0
 
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+        ColumnLayout {
+            id: mainData
 
-            Image {
-                id: coverImage
+            spacing: 0
 
-                anchors.fill: parent
+            Layout.fillHeight: true
+            Layout.fillWidth: true
 
-                sourceSize.width: mediaServerEntry.width * 0.9
-                sourceSize.height: mediaServerEntry.width * 0.9
-                fillMode: Image.PreserveAspectFit
-                smooth: true
+            Item {
+                Layout.topMargin: elisaTheme.layoutVerticalMargin
+                Layout.preferredHeight: mediaServerEntry.width * 0.9
+                Layout.preferredWidth: mediaServerEntry.width * 0.9
 
-                source: (mediaServerEntry.image ? mediaServerEntry.image : Qt.resolvedUrl(elisaTheme.albumCover))
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
 
-                asynchronous: true
-
-                layer.enabled: true
-                layer.effect: DropShadow {
-                    horizontalOffset: mediaServerEntry.width * 0.02
-                    verticalOffset: mediaServerEntry.width * 0.02
-
-                    source: coverImage
-
-                    radius: 5.0
-                    samples: 11
-
-                    color: myPalette.shadow
-                }
-            }
-
-            MouseArea {
-                id: hoverHandle
-
-                hoverEnabled: true
-
-                anchors.fill: parent
-                propagateComposedEvents: true
-
-                onEntered: hoverLoader.active = true
-                onExited: hoverLoader.active = false
-
-                Loader {
-                    id: hoverLoader
-                    active: false
+                Image {
+                    id: coverImage
 
                     anchors.fill: parent
 
-                    sourceComponent: Rectangle {
-                        id: hoverLayer
+                    sourceSize.width: mediaServerEntry.width * 0.9
+                    sourceSize.height: mediaServerEntry.width * 0.9
+                    fillMode: Image.PreserveAspectFit
+                    smooth: true
 
-                        anchors.fill: parent
+                    source: (mediaServerEntry.image ? mediaServerEntry.image : Qt.resolvedUrl(elisaTheme.albumCover))
 
-                        color: myPalette.light
-                        opacity: 0.85
+                    asynchronous: true
 
-                        Row {
-                            anchors.centerIn: parent
+                    layer.enabled: true
+                    layer.effect: DropShadow {
+                        horizontalOffset: mediaServerEntry.width * 0.02
+                        verticalOffset: mediaServerEntry.width * 0.02
 
-                            ToolButton {
-                                id: enqueueButton
+                        source: coverImage
 
-                                action: enqueueAction
+                        radius: 5.0
+                        samples: 11
 
-                                width: elisaTheme.delegateToolButtonSize
-                                height: elisaTheme.delegateToolButtonSize
-                            }
-
-                            ToolButton {
-                                id: openButton
-
-                                action: openAction
-
-                                width: elisaTheme.delegateToolButtonSize
-                                height: elisaTheme.delegateToolButtonSize
-                            }
-
-                            ToolButton {
-                                id: enqueueAndPlayButton
-
-                                action: enqueueAndPlayAction
-
-                                width: elisaTheme.delegateToolButtonSize
-                                height: elisaTheme.delegateToolButtonSize
-                            }
-                        }
+                        color: myPalette.shadow
                     }
                 }
             }
-        }
 
-        LabelWithToolTip {
-            id: titleLabel
+            LabelWithToolTip {
+                id: titleLabel
 
-            font.weight: Font.Bold
-            color: myPalette.text
+                font.weight: Font.Bold
+                color: myPalette.text
 
-            horizontalAlignment: Text.AlignLeft
+                horizontalAlignment: Text.AlignLeft
 
-            Layout.topMargin: elisaTheme.layoutVerticalMargin * 0.5
-            Layout.preferredWidth: mediaServerEntry.width * 0.9
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
+                Layout.topMargin: elisaTheme.layoutVerticalMargin * 0.5
+                Layout.preferredWidth: mediaServerEntry.width * 0.9
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
 
-            elide: "ElideRight"
-        }
+                elide: Text.ElideRight
+            }
 
-        LabelWithToolTip {
-            id: artistLabel
+            LabelWithToolTip {
+                id: artistLabel
 
-            font.weight: Font.Normal
-            color: myPalette.text
+                font.weight: Font.Normal
+                color: myPalette.text
 
-            horizontalAlignment: Text.AlignLeft
+                horizontalAlignment: Text.AlignLeft
 
-            Layout.preferredWidth: mediaServerEntry.width * 0.9
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
+                Layout.preferredWidth: mediaServerEntry.width * 0.9
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
 
-            elide: "ElideRight"
+                elide: Text.ElideRight
+            }
         }
 
         Item {
             Layout.fillHeight: true
+        }
+
+        MouseArea {
+            id: hoverHandle
+
+            hoverEnabled: true
+
+            anchors.fill: mainData
+            propagateComposedEvents: true
+
+            onEntered: hoverLoader.active = true
+            onExited: hoverLoader.active = false
+
+            Loader {
+                id: hoverLoader
+                active: false
+
+                anchors.top: parent.top
+                anchors.left: parent.left
+                anchors.right: parent.right
+                height: mediaServerEntry.width * 0.93 + elisaTheme.layoutVerticalMargin
+
+                sourceComponent: Item {
+                    GaussianBlur {
+                        id: hoverLayer
+
+                        radius: 4
+                        samples: 16
+                        deviation: 5
+
+                        anchors.fill: parent
+
+                        source: ShaderEffectSource {
+                            sourceItem: mainData
+                            sourceRect: Qt.rect(0, 0, hoverLayer.width, hoverLayer.height)
+                        }
+
+                        Rectangle {
+                            color: myPalette.light
+                            opacity: 0.5
+                            anchors.fill: parent
+                        }
+                    }
+
+                    Row {
+                        anchors.centerIn: parent
+
+                        ToolButton {
+                            id: enqueueButton
+
+                            action: enqueueAction
+
+                            width: elisaTheme.delegateToolButtonSize
+                            height: elisaTheme.delegateToolButtonSize
+                        }
+
+                        ToolButton {
+                            id: openButton
+
+                            action: openAction
+
+                            width: elisaTheme.delegateToolButtonSize
+                            height: elisaTheme.delegateToolButtonSize
+                        }
+
+                        ToolButton {
+                            id: enqueueAndPlayButton
+
+                            action: enqueueAndPlayAction
+
+                            width: elisaTheme.delegateToolButtonSize
+                            height: elisaTheme.delegateToolButtonSize
+                        }
+                    }
+                }
+            }
         }
     }
 }

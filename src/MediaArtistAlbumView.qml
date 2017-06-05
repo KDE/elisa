@@ -119,7 +119,7 @@ Item {
                     }
 
                     cellWidth: elisaTheme.gridDelegateWidth
-                    cellHeight: elisaTheme.gridDelegateWidth + elisaTheme.layoutVerticalMargin * 4 + textLineHeight.height * 3
+                    cellHeight: elisaTheme.gridDelegateWidth + elisaTheme.layoutVerticalMargin * 3 + textLineHeight.height * 2
 
                     model: DelegateModel {
                         id: delegateContentModel

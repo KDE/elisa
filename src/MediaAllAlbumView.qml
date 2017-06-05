@@ -76,15 +76,18 @@ Item {
         RowLayout {
             id: filterRow
 
+            spacing: 0
+
             Layout.fillWidth: true
-            Layout.topMargin: elisaTheme.layoutVerticalMargin
-            Layout.bottomMargin: titleHeight.height + elisaTheme.layoutVerticalMargin
+            Layout.bottomMargin: titleHeight.height + elisaTheme.layoutVerticalMargin * 2
             Layout.leftMargin: elisaTheme.layoutHorizontalMargin
 
             LabelWithToolTip {
                 text: i18nc("before the TextField input of the filter", "Filter: ")
 
                 font.bold: true
+
+                Layout.bottomMargin: 0
 
                 color: myPalette.text
             }
@@ -94,6 +97,7 @@ Item {
 
                 placeholderText: i18nc("Placeholder text in the filter text box", "Filter")
 
+                Layout.bottomMargin: 0
                 Layout.preferredWidth: rootElement.width / 2
 
                 Image {
@@ -131,6 +135,7 @@ Item {
 
                 color: myPalette.text
 
+                Layout.bottomMargin: 0
                 Layout.leftMargin: elisaTheme.layoutHorizontalMargin * 2
             }
 
@@ -140,6 +145,8 @@ Item {
                 readOnly: false
 
                 starSize: elisaTheme.ratingStarSize
+
+                Layout.bottomMargin: 0
             }
         }
 
@@ -161,7 +168,7 @@ Item {
                     }
 
                     cellWidth: elisaTheme.gridDelegateWidth
-                    cellHeight: elisaTheme.gridDelegateWidth + elisaTheme.layoutVerticalMargin * 5 + textLineHeight.height * 2
+                    cellHeight: elisaTheme.gridDelegateWidth + elisaTheme.layoutVerticalMargin * 3 + textLineHeight.height * 2
 
                     model: DelegateModel {
                         id: delegateContentModel

@@ -34,34 +34,40 @@ Label {
         active: theLabel.truncated
         visible: theLabel.truncated
 
-        MouseArea {
+        sourceComponent: MouseArea {
+            id: hoverArea
             anchors.fill: parent
             hoverEnabled: true
 
-            Controls2.ToolTip {
-                delay: Qt.styleHints.mousePressAndHoldInterval
-                visible: parent.containsMouse && theLabel.truncated
-                text: theLabel.text
+            Loader {
+                anchors.fill: parent
+                active: hoverArea && hoverArea.containsMouse
 
-                contentItem: Label {
+                sourceComponent: Controls2.ToolTip {
+                    delay: Qt.styleHints.mousePressAndHoldInterval
+                    visible: hoverArea && hoverArea.containsMouse && theLabel.truncated
                     text: theLabel.text
-                    color: myPalette.highlightedText
-                }
 
-                enter: Transition { NumberAnimation { properties: "opacity"; easing.type: Easing.InOutQuad; from: 0.0; to: 1.0; duration: 300; } }
-                exit: Transition { NumberAnimation { properties: "opacity"; easing.type: Easing.InOutQuad; from: 1.0; to: 0.0; duration: 300; } }
+                    contentItem: Label {
+                        text: theLabel.text
+                        color: myPalette.highlightedText
+                    }
 
-                background: Rectangle {
-                    color: myPalette.shadow
-                    radius: elisaTheme.tooltipRadius
+                    enter: Transition { NumberAnimation { properties: "opacity"; easing.type: Easing.InOutQuad; from: 0.0; to: 1.0; duration: 300; } }
+                    exit: Transition { NumberAnimation { properties: "opacity"; easing.type: Easing.InOutQuad; from: 1.0; to: 0.0; duration: 300; } }
 
-                    layer.enabled: true
-                    layer.effect: DropShadow {
-                        horizontalOffset: elisaTheme.shadowOffset
-                        verticalOffset: elisaTheme.shadowOffset
-                        radius: 8
-                        samples: 17
+                    background: Rectangle {
                         color: myPalette.shadow
+                        radius: elisaTheme.tooltipRadius
+
+                        layer.enabled: true
+                        layer.effect: DropShadow {
+                            horizontalOffset: elisaTheme.shadowOffset
+                            verticalOffset: elisaTheme.shadowOffset
+                            radius: 8
+                            samples: 17
+                            color: myPalette.shadow
+                        }
                     }
                 }
             }

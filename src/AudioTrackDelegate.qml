@@ -173,6 +173,7 @@ Item {
                         implicitHeight: elisaTheme.delegateHeight * 0.75
                         implicitWidth: elisaTheme.delegateHeight * 0.75
 
+                        opacity: 0
                         visible: opacity > 0.1
                         action: enqueue
                         Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
@@ -184,6 +185,7 @@ Item {
                         implicitHeight: elisaTheme.delegateHeight * 0.75
                         implicitWidth: elisaTheme.delegateHeight * 0.75
 
+                        opacity: 0
                         visible: opacity > 0.1
                         action: clearAndEnqueue
                         Layout.alignment: Qt.AlignVCenter | Qt.AlignRight

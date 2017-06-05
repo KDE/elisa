@@ -196,7 +196,7 @@ Rectangle {
 
                     text: (discNumber ? discNumber + ' - ' + trackNumber : trackNumber) + ' - ' + title
 
-                    font.weight: Font.Bold
+                    font.weight: (isPlaying ? Font.Bold : Font.Normal)
                     color: myPalette.text
 
                     Layout.fillWidth: true

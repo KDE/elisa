@@ -28,7 +28,7 @@ Item {
     id: viewAlbumDelegate
 
     property string title
-    property alias artist: artistLabel.text
+    property string artist
     property string albumArtist
     property alias duration: durationLabel.text
     property int trackNumber
@@ -85,7 +85,6 @@ Item {
             Layout.bottomMargin: elisaTheme.layoutVerticalMargin
             Layout.preferredWidth: elisaTheme.delegateHeight
             Layout.fillWidth: true
-            Layout.alignment: Qt.AlignLeft
 
             elide: "ElideRight"
 
@@ -124,70 +123,42 @@ Item {
                     LabelWithToolTip {
                         id: mainLabel
 
-                        text: trackNumber + ' - ' + title
+                        text: (artist !== albumArtist ?
+                                   "<b>" + trackNumber + ' - ' + title + "</b>" + ' - <i>' + artist + '</i>' :
+                                   "<b>" + trackNumber + ' - ' + title + "</b>")
 
-                        font.weight: Font.Bold
+                        horizontalAlignment: Text.AlignLeft
+
                         color: myPalette.text
 
-                        Layout.alignment: Qt.AlignLeft
                         Layout.leftMargin: (!isSingleDiscAlbum ? elisaTheme.layoutHorizontalMargin * 4 : elisaTheme.layoutHorizontalMargin)
-
-                        elide: "ElideRight"
-                    }
-
-                    LabelWithToolTip {
-                        id: artistSeparatorLabel
-
-                        visible: artist !== albumArtist
-
-                        text: ' - '
-
-                        font.weight: Font.Light
-                        color: myPalette.text
-
-                        elide: "ElideRight"
-                    }
-
-                    LabelWithToolTip {
-                        id: artistLabel
-
-                        visible: artist !== albumArtist
-
-                        text: artist
-
-                        font.weight: Font.Light
-                        font.italic: true
-                        color: myPalette.text
-
-                        elide: "ElideRight"
-                    }
-
-                    Item {
-                        Layout.fillHeight: true
+                        Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
                         Layout.fillWidth: true
+
+                        elide: Text.ElideRight
                     }
 
                     ToolButton {
                         id: enqueueButton
 
-                        implicitHeight: elisaTheme.delegateHeight * 0.75
-                        implicitWidth: elisaTheme.delegateHeight * 0.75
-
                         opacity: 0
                         visible: opacity > 0.1
                         action: enqueue
+
+                        Layout.preferredHeight: elisaTheme.delegateHeight * 0.75
+                        Layout.preferredWidth: elisaTheme.delegateHeight * 0.75
                         Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
                     }
 
                     ToolButton {
                         id: clearAndEnqueueButton
 
-                        implicitHeight: elisaTheme.delegateHeight * 0.75
-                        implicitWidth: elisaTheme.delegateHeight * 0.75
-
                         opacity: 0
                         visible: opacity > 0.1
                         action: clearAndEnqueue
+
+                        Layout.preferredHeight: elisaTheme.delegateHeight * 0.75
+                        Layout.preferredWidth: elisaTheme.delegateHeight * 0.75
                         Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
                         Layout.rightMargin: elisaTheme.layoutHorizontalMargin
                     }
@@ -199,6 +170,7 @@ Item {
 
                         Layout.leftMargin: elisaTheme.layoutHorizontalMargin
                         Layout.rightMargin: elisaTheme.layoutHorizontalMargin
+                        Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
                     }
 
                     LabelWithToolTip {
@@ -212,6 +184,7 @@ Item {
                         elide: "ElideRight"
 
                         Layout.rightMargin: elisaTheme.layoutHorizontalMargin
+                        Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
                     }
                 }
             }

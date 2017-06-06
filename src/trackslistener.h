@@ -49,7 +49,7 @@ public Q_SLOTS:
 
     void trackRemoved(qulonglong id);
 
-    void trackModified(qulonglong id);
+    void trackModified(const MusicAudioTrack &modifiedTrack);
 
     void trackByNameInList(const QString &title, const QString &artist, const QString &album);
 

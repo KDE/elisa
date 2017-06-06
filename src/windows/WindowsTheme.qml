@@ -38,6 +38,7 @@ Item {
 
     property int delegateHeight: 28
     property int delegateWithHeaderHeight: 84
+    property int trackDelegateHeight: 45
 
     property int coverImageSize: 180
     property int smallImageSize: 32

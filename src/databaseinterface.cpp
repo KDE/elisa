@@ -240,6 +240,8 @@ QList<MusicAudioTrack> DatabaseInterface::allTracks() const
         newTrack.setDiscNumber(currentRecord.value(7).toInt());
         newTrack.setDuration(QTime::fromMSecsSinceStartOfDay(currentRecord.value(8).toInt()));
         newTrack.setRating(currentRecord.value(9).toInt());
+        newTrack.setAlbumName(currentRecord.value(10).toString());
+        newTrack.setAlbumCover(currentRecord.value(11).toUrl());
         newTrack.setValid(true);
 
         result.push_back(newTrack);
@@ -831,7 +833,7 @@ void DatabaseInterface::modifyTracksList(const QList<MusicAudioTrack> &modifiedT
             updateTrackOrigin(originTrackId, oneModifiedTrack.resourceURI());
 
             if (originTrack.isValid() || otherTrackId != 0) {
-                Q_EMIT trackModified(originTrackId);
+                Q_EMIT trackModified(internalTrackFromDatabaseId(originTrackId));
                 Q_EMIT albumModified(internalAlbumFromId(albumId));
             } else {
                 Q_EMIT trackAdded(originTrackId);
@@ -1144,7 +1146,9 @@ void DatabaseInterface::initRequest()
                                                   "tracks.`TrackNumber`, "
                                                   "tracks.`DiscNumber`, "
                                                   "tracks.`Duration`, "
-                                                  "tracks.`Rating` "
+                                                  "tracks.`Rating`, "
+                                                  "album.`Title`, "
+                                                  "album.`CoverFileName` "
                                                   "FROM `Tracks` tracks, `Artists` artist, `Artists` artistAlbum, `Albums` album, `TracksMapping` tracksMapping "
                                                   "WHERE "
                                                   "artist.`ID` = tracks.`ArtistID` AND "
@@ -1172,7 +1176,8 @@ void DatabaseInterface::initRequest()
                                                                         "tracks.`DiscNumber`, "
                                                                         "tracks.`Duration`, "
                                                                         "album.`Title`, "
-                                                                        "tracks.`Rating` "
+                                                                        "tracks.`Rating`, "
+                                                                        "album.`CoverFileName` "
                                                                         "FROM `Tracks` tracks, `Artists` artist, `Artists` artistAlbum, "
                                                                         "`Albums` album , `TracksMapping` tracksMapping, `DiscoverSource` source "
                                                                         "WHERE "
@@ -1204,7 +1209,8 @@ void DatabaseInterface::initRequest()
                                                                  "tracks.`DiscNumber`, "
                                                                  "tracks.`Duration`, "
                                                                  "album.`Title`, "
-                                                                 "tracks.`Rating` "
+                                                                 "tracks.`Rating`, "
+                                                                 "album.`CoverFileName` "
                                                                  "FROM `Tracks` tracks, `Artists` artist, `Artists` artistAlbum, "
                                                                  "`Albums` album , `TracksMapping` tracksMapping, `DiscoverSource` source "
                                                                  "WHERE "
@@ -1877,7 +1883,7 @@ void DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrack, con
         updateTrackOrigin(originTrackId, oneTrack.resourceURI());
 
         if (isModifiedTrack) {
-            Q_EMIT trackModified(originTrackId);
+            Q_EMIT trackModified(internalTrackFromDatabaseId(originTrackId));
             modifiedAlbumIds.insert(albumId);
         } else {
             Q_EMIT trackAdded(originTrackId);
@@ -2006,6 +2012,7 @@ void DatabaseInterface::reloadExistingDatabase()
     ++d->mAlbumId;
 
     const auto restoredTracks = allTracks();
+    Q_EMIT tracksAdded(restoredTracks);
     for (const auto &oneTrack : restoredTracks) {
         d->mTrackId = std::max(d->mTrackId, oneTrack.databaseId());
         Q_EMIT trackAdded(oneTrack.databaseId());

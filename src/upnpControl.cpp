@@ -52,6 +52,7 @@
 #include "albumfilterproxymodel.h"
 #include "elisaapplication.h"
 #include "audiowrapper.h"
+#include "alltracksmodel.h"
 
 #if defined Qt5DBus_FOUND && Qt5DBus_FOUND
 #include "mpris2/mpris2.h"
@@ -147,6 +148,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<AllAlbumsModel>("org.mgallien.QmlExtension", 1, 0, "AllAlbumsModel");
     qmlRegisterType<AllArtistsModel>("org.mgallien.QmlExtension", 1, 0, "AllArtistsModel");
     qmlRegisterType<AlbumModel>("org.mgallien.QmlExtension", 1, 0, "AlbumModel");
+    qmlRegisterType<AllTracksModel>("org.mgallien.QmlExtension", 1, 0, "AllTracksModel");
     qmlRegisterType<MusicListenersManager>("org.mgallien.QmlExtension", 1, 0, "MusicListenersManager");
     qmlRegisterType<QSortFilterProxyModel>("org.mgallien.QmlExtension", 1, 0, "SortFilterProxyModel");
     qmlRegisterType<AlbumFilterProxyModel>("org.mgallien.QmlExtension", 1, 0, "AlbumFilterProxyModel");

@@ -36,6 +36,8 @@
         <file alias="player-volume.svg">windows/player-volume.svg</file>
         <file>PlatformIntegration.qml</file>
         <file>LabelWithToolTip.qml</file>
+        <file>MediaAllTracksView.qml</file>
+        <file>MediaTracksDelegate.qml</file>
     </qresource>
     <qresource prefix="/+windows">
         <file alias="Theme.qml">windows/WindowsTheme.qml</file>

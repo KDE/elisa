@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2017 Matthieu Gallien <matthieu_gallien@yahoo.fr>
+ * Copyright 2017 Matthieu Gallien <matthieu_gallien@yahoo.fr>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -17,37 +17,43 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef ALLARTISTSMODEL_H
-#define ALLARTISTSMODEL_H
+#ifndef ALLTRACKSMODEL_H
+#define ALLTRACKSMODEL_H
 
 #include <QAbstractItemModel>
-#include <QVector>
-#include <QHash>
-#include <QString>
 
-#include "musicartist.h"
+#include "musicaudiotrack.h"
 
-class DatabaseInterface;
-class AllArtistsModelPrivate;
+class AllTracksModelPrivate;
 
-class AllArtistsModel : public QAbstractItemModel
+class AllTracksModel : public QAbstractItemModel
 {
     Q_OBJECT
 
 public:
 
     enum ColumnsRoles {
-        NameRole = Qt::UserRole + 1,
-        ArtistsCountRole = NameRole + 1,
-        ImageRole = ArtistsCountRole + 1,
-        IdRole = ImageRole + 1,
+        TitleRole = Qt::UserRole + 1,
+        DurationRole = TitleRole + 1,
+        MilliSecondsDurationRole = DurationRole + 1,
+        CreatorRole = MilliSecondsDurationRole + 1,
+        ArtistRole = CreatorRole + 1,
+        AlbumRole = ArtistRole + 1,
+        TrackNumberRole = AlbumRole + 1,
+        DiscNumberRole = TrackNumberRole + 1,
+        RatingRole = DiscNumberRole + 1,
+        ImageRole = RatingRole + 1,
+        ResourceRole = ImageRole + 1,
+        IdRole = ResourceRole + 1,
+        DatabaseIdRole = IdRole + 1,
+        TrackDataRole = DatabaseIdRole + 1,
     };
 
     Q_ENUM(ColumnsRoles)
 
-    explicit AllArtistsModel(QObject *parent = 0);
+    explicit AllTracksModel(QObject *parent = nullptr);
 
-    virtual ~AllArtistsModel();
+    virtual ~AllTracksModel();
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
 
@@ -65,16 +71,18 @@ public:
 
 public Q_SLOTS:
 
-    void artistAdded(const MusicArtist &newArtist);
+    void trackAdded(qulonglong id);
 
-    void artistRemoved(const MusicArtist &removedArtist);
+    void tracksAdded(const QList<MusicAudioTrack> &allTracks);
 
-    void artistModified(const MusicArtist &modifiedArtist);
+    void trackRemoved(const MusicAudioTrack &removedTrack);
+
+    void trackModified(const MusicAudioTrack &modifiedTrack);
 
 private:
 
-    AllArtistsModelPrivate *d;
+    AllTracksModelPrivate *d;
 
 };
 
-#endif // ALLARTISTSMODEL_H
+#endif // ALLTRACKSMODEL_H

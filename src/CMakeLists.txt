@@ -22,6 +22,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         trackslistener.cpp
         elisaapplication.cpp
         audiowrapper.cpp
+        alltracksmodel.cpp
 
         MediaServer.qml
         Theme.qml
@@ -54,6 +55,8 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         MediaAlbumView.qml
         MediaAllAlbumView.qml
         MediaAllArtistView.qml
+        MediaAllTracksView.qml
+        MediaTracksDelegate.qml
         )
 
     if (KF5Baloo_FOUND)

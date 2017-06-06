@@ -90,12 +90,10 @@ void TracksListener::trackRemoved(qulonglong id)
     }
 }
 
-void TracksListener::trackModified(qulonglong id)
+void TracksListener::trackModified(const MusicAudioTrack &modifiedTrack)
 {
-    if (d->mTracksByIdSet.find(id) != d->mTracksByIdSet.end()) {
-        const auto &newTrack = d->mDatabase->trackFromDatabaseId(id);
-
-        Q_EMIT trackHasChanged(newTrack);
+    if (d->mTracksByIdSet.find(modifiedTrack.databaseId()) != d->mTracksByIdSet.end()) {
+        Q_EMIT trackHasChanged(modifiedTrack);
     }
 }
 

@@ -225,6 +225,10 @@ ApplicationWindow {
         id: allAlbumsModel
     }
 
+    AllTracksModel {
+        id: allTracksModel
+    }
+
     Connections {
         target: allListeners
 
@@ -241,6 +245,30 @@ ApplicationWindow {
         target: allListeners
 
         onAlbumModified: allAlbumsModel.albumModified(modifiedAlbum)
+    }
+
+    Connections {
+        target: allListeners
+
+        onTrackAdded: allTracksModel.trackAdded(id)
+    }
+
+    Connections {
+        target: allListeners
+
+        onTracksAdded: allTracksModel.tracksAdded(allTracks)
+    }
+
+    Connections {
+        target: allListeners
+
+        onTrackRemoved: allTracksModel.trackRemoved(id)
+    }
+
+    Connections {
+        target: allListeners
+
+        onTrackModified: allTracksModel.trackModified(modifiedTrack)
     }
 
     AllArtistsModel {
@@ -442,6 +470,7 @@ ApplicationWindow {
                                 insert(0, {"name": i18nc("Title of the view of the playlist", "Now Playing")})
                                 insert(1, {"name": i18nc("Title of the view of all albums", "Albums")})
                                 insert(2, {"name": i18nc("Title of the view of all artists", "Artists")})
+                                insert(3, {"name": i18nc("Title of the view of all tracks", "Tracks")})
                             }
                         }
 
@@ -536,6 +565,22 @@ ApplicationWindow {
 
                                 visible: opacity > 0
                             }
+
+                            MediaBrowser {
+                                id: localTracks
+
+                                anchors.fill: parent
+
+                                firstPage: MediaAllTracksView {
+                                    playListModel: playListModelItem
+                                    tracksModel: allTracksModel
+                                    playerControl: manageAudioPlayer
+                                    stackView: localTracks.stackView
+                                    musicListener: allListeners
+                                }
+
+                                visible: opacity > 0
+                            }
                         }
 
                         Rectangle {
@@ -619,6 +664,53 @@ ApplicationWindow {
 
                     states: [
                         State {
+                            name: 'full'
+                            when: viewModeView.currentRow === 0
+                            PropertyChanges {
+                                target: mainContentView
+                                Layout.fillWidth: false
+                                Layout.minimumWidth: 0
+                                Layout.maximumWidth: 0
+                                Layout.preferredWidth: 0
+                            }
+                            PropertyChanges {
+                                target: firstViewSeparatorItem
+                                Layout.minimumWidth: 0
+                                Layout.maximumWidth: 0
+                                Layout.preferredWidth: 0
+                            }
+                            PropertyChanges {
+                                target: playList
+                                Layout.minimumWidth: contentZone.width / 2
+                                Layout.maximumWidth: contentZone.width / 2
+                                Layout.preferredWidth: contentZone.width / 2
+                            }
+                            PropertyChanges {
+                                target: viewSeparatorItem
+                                Layout.minimumWidth: 1
+                                Layout.maximumWidth: 1
+                                Layout.preferredWidth: 1
+                            }
+                            PropertyChanges {
+                                target: albumContext
+                                Layout.minimumWidth: contentZone.width / 2
+                                Layout.maximumWidth: contentZone.width / 2
+                                Layout.preferredWidth: contentZone.width / 2
+                            }
+                            PropertyChanges {
+                                target: localAlbums
+                                opacity: 0
+                            }
+                            PropertyChanges {
+                                target: localArtists
+                                opacity: 0
+                            }
+                            PropertyChanges {
+                                target: localTracks
+                                opacity: 0
+                            }
+                        },
+                        State {
                             name: 'allAlbums'
                             when: viewModeView.currentRow === 1
                             PropertyChanges {
@@ -657,6 +749,10 @@ ApplicationWindow {
                             }
                             PropertyChanges {
                                 target: localArtists
+                                opacity: 0
+                            }
+                            PropertyChanges {
+                                target: localTracks
                                 opacity: 0
                             }
                         },
@@ -701,40 +797,43 @@ ApplicationWindow {
                                 target: localArtists
                                 opacity: 1
                             }
+                            PropertyChanges {
+                                target: localTracks
+                                opacity: 0
+                            }
                         },
                         State {
-                            name: 'full'
-                            when: viewModeView.currentRow === 0
+                            name: 'allTracks'
+                            when: viewModeView.currentRow === 3
                             PropertyChanges {
                                 target: mainContentView
-                                Layout.fillWidth: false
-                                Layout.minimumWidth: 0
-                                Layout.maximumWidth: 0
-                                Layout.preferredWidth: 0
+                                Layout.fillWidth: true
+                                Layout.minimumWidth: contentZone.width * 0.64
+                                Layout.maximumWidth: contentZone.width * 0.66
                             }
                             PropertyChanges {
                                 target: firstViewSeparatorItem
-                                Layout.minimumWidth: 0
-                                Layout.maximumWidth: 0
-                                Layout.preferredWidth: 0
-                            }
-                            PropertyChanges {
-                                target: playList
-                                Layout.minimumWidth: contentZone.width / 2
-                                Layout.maximumWidth: contentZone.width / 2
-                                Layout.preferredWidth: contentZone.width / 2
-                            }
-                            PropertyChanges {
-                                target: viewSeparatorItem
                                 Layout.minimumWidth: 1
                                 Layout.maximumWidth: 1
                                 Layout.preferredWidth: 1
                             }
                             PropertyChanges {
+                                target: playList
+                                Layout.minimumWidth: contentZone.width * 0.33
+                                Layout.maximumWidth: contentZone.width * 0.33
+                                Layout.preferredWidth: contentZone.width * 0.33
+                            }
+                            PropertyChanges {
+                                target: viewSeparatorItem
+                                Layout.minimumWidth: 0
+                                Layout.maximumWidth: 0
+                                Layout.preferredWidth: 0
+                            }
+                            PropertyChanges {
                                 target: albumContext
-                                Layout.minimumWidth: contentZone.width / 2
-                                Layout.maximumWidth: contentZone.width / 2
-                                Layout.preferredWidth: contentZone.width / 2
+                                Layout.minimumWidth: 0
+                                Layout.maximumWidth: 0
+                                Layout.preferredWidth: 0
                             }
                             PropertyChanges {
                                 target: localAlbums
@@ -743,6 +842,10 @@ ApplicationWindow {
                             PropertyChanges {
                                 target: localArtists
                                 opacity: 0
+                            }
+                            PropertyChanges {
+                                target: localTracks
+                                opacity: 1
                             }
                         }
                     ]

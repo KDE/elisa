@@ -148,8 +148,13 @@ Item {
                         Layout.alignment: Qt.AlignLeft | Qt.AlignTop
                         Layout.leftMargin: elisaTheme.layoutHorizontalMargin
                         Layout.fillWidth: true
+                        Layout.topMargin: elisaTheme.layoutVerticalMargin / 2
 
                         elide: "ElideRight"
+                    }
+
+                    Item {
+                        Layout.fillHeight: true
                     }
 
                     LabelWithToolTip {
@@ -165,6 +170,7 @@ Item {
                         Layout.alignment: Qt.AlignLeft | Qt.AlignBottom
                         Layout.leftMargin: elisaTheme.layoutHorizontalMargin
                         Layout.fillWidth: true
+                        Layout.bottomMargin: elisaTheme.layoutVerticalMargin / 2
 
                         elide: "ElideRight"
                     }

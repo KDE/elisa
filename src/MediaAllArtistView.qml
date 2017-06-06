@@ -76,9 +76,10 @@ Item {
         RowLayout {
             id: filterRow
 
+            spacing: 0
+
             Layout.fillWidth: true
-            Layout.topMargin: elisaTheme.layoutVerticalMargin
-            Layout.bottomMargin: titleHeight.height + elisaTheme.layoutVerticalMargin
+            Layout.bottomMargin: titleHeight.height + elisaTheme.layoutVerticalMargin * 2
             Layout.leftMargin: elisaTheme.layoutHorizontalMargin
 
             LabelWithToolTip {

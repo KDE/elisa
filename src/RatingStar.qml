@@ -61,7 +61,7 @@ RowLayout {
             opacity: if (starRating >= 2 || mouseAreaOne.containsMouse || mouseAreaTwo.containsMouse || mouseAreaThree.containsMouse || mouseAreaFour.containsMouse || mouseAreaFive.containsMouse)
                         1
                     else
-                        0.1
+                        0.7
         }
 
         MouseArea {
@@ -106,7 +106,7 @@ RowLayout {
             opacity: if (starRating >= 4 || mouseAreaTwo.containsMouse || mouseAreaThree.containsMouse || mouseAreaFour.containsMouse || mouseAreaFive.containsMouse)
                         1
                     else
-                        0.1
+                        0.7
         }
 
         MouseArea {
@@ -146,7 +146,7 @@ RowLayout {
             opacity: if (starRating >= 6 || mouseAreaThree.containsMouse || mouseAreaFour.containsMouse || mouseAreaFive.containsMouse)
                         1
                     else
-                        0.1
+                        0.7
         }
 
         MouseArea {
@@ -186,7 +186,7 @@ RowLayout {
             opacity: if (starRating >= 8 || mouseAreaFour.containsMouse || mouseAreaFive.containsMouse)
                         1
                     else
-                        0.1
+                        0.7
         }
 
         MouseArea {
@@ -228,7 +228,7 @@ RowLayout {
             opacity: if (starRating === 10 || mouseAreaFive.containsMouse)
                         1
                     else
-                        0.1
+                        0.7
         }
 
         MouseArea {

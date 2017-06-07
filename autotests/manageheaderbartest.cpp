@@ -1601,8 +1601,8 @@ void ManageHeaderBarTest::moveCurrentTrack()
             &myListener, &TracksListener::trackByIdInList);
     connect(&myPlayList, &MediaPlayList::newTrackByNameInList,
             &myListener, &TracksListener::trackByNameInList);
-    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myListener, &TracksListener::trackAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
+            &myListener, &TracksListener::tracksAdded);
 
     ManageHeaderBar myControl;
 
@@ -1857,8 +1857,8 @@ void ManageHeaderBarTest::moveAnotherTrack()
             &myListener, &TracksListener::trackByIdInList);
     connect(&myPlayList, &MediaPlayList::newTrackByNameInList,
             &myListener, &TracksListener::trackByNameInList);
-    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myListener, &TracksListener::trackAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
+            &myListener, &TracksListener::tracksAdded);
 
     ManageHeaderBar myControl;
 
@@ -2119,8 +2119,8 @@ void ManageHeaderBarTest::setCurrentTrackTest()
             &myListener, &TracksListener::trackByIdInList);
     connect(&myPlayList, &MediaPlayList::newTrackByNameInList,
             &myListener, &TracksListener::trackByNameInList);
-    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myListener, &TracksListener::trackAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
+            &myListener, &TracksListener::tracksAdded);
 
     ManageHeaderBar myControl;
 
@@ -2379,8 +2379,8 @@ void ManageHeaderBarTest::setPlayListModelTest()
             &myListener, &TracksListener::trackByIdInList);
     connect(&myPlayList, &MediaPlayList::newTrackByNameInList,
             &myListener, &TracksListener::trackByNameInList);
-    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myListener, &TracksListener::trackAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
+            &myListener, &TracksListener::tracksAdded);
 
     ManageHeaderBar myControl;
 

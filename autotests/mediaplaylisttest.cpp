@@ -154,8 +154,8 @@ void MediaPlayListTest::simpleInitialCase()
     connect(&myPlayList, &MediaPlayList::newArtistInList,
             &myListener, &TracksListener::newArtistInList,
             Qt::QueuedConnection);
-    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myListener, &TracksListener::trackAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
+            &myListener, &TracksListener::tracksAdded);
 
     myDatabaseContent.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
@@ -253,8 +253,8 @@ void MediaPlayListTest::enqueueAlbumCase()
     connect(&myPlayList, &MediaPlayList::newArtistInList,
             &myListener, &TracksListener::newArtistInList,
             Qt::QueuedConnection);
-    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myListener, &TracksListener::trackAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
+            &myListener, &TracksListener::tracksAdded);
 
     myDatabaseContent.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
@@ -375,8 +375,8 @@ void MediaPlayListTest::enqueueArtistCase()
     connect(&myPlayList, &MediaPlayList::newArtistInList,
             &myListener, &TracksListener::newArtistInList,
             Qt::QueuedConnection);
-    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myListener, &TracksListener::trackAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
+            &myListener, &TracksListener::tracksAdded);
 
     myDatabaseContent.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
@@ -514,8 +514,8 @@ void MediaPlayListTest::removeFirstTrackOfAlbum()
     connect(&myPlayList, &MediaPlayList::newArtistInList,
             &myListener, &TracksListener::newArtistInList,
             Qt::QueuedConnection);
-    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myListener, &TracksListener::trackAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
+            &myListener, &TracksListener::tracksAdded);
 
     myDatabaseContent.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
@@ -625,8 +625,8 @@ void MediaPlayListTest::testHasHeader()
     connect(&myPlayList, &MediaPlayList::newArtistInList,
             &myListener, &TracksListener::newArtistInList,
             Qt::QueuedConnection);
-    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myListener, &TracksListener::trackAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
+            &myListener, &TracksListener::tracksAdded);
 
     myDatabaseContent.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
@@ -850,8 +850,8 @@ void MediaPlayListTest::testHasHeaderWithRestore()
     connect(&myPlayList, &MediaPlayList::newArtistInList,
             &myListener, &TracksListener::newArtistInList,
             Qt::QueuedConnection);
-    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myListener, &TracksListener::trackAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
+            &myListener, &TracksListener::tracksAdded);
 
     myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album2"), QStringLiteral("artist1")});
 
@@ -1037,8 +1037,8 @@ void MediaPlayListTest::testHasHeaderWithRemove()
     connect(&myPlayList, &MediaPlayList::newArtistInList,
             &myListener, &TracksListener::newArtistInList,
             Qt::QueuedConnection);
-    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myListener, &TracksListener::trackAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
+            &myListener, &TracksListener::tracksAdded);
 
     myDatabaseContent.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
@@ -1280,8 +1280,8 @@ void MediaPlayListTest::testHasHeaderMoveFirst()
     connect(&myPlayList, &MediaPlayList::newArtistInList,
             &myListener, &TracksListener::newArtistInList,
             Qt::QueuedConnection);
-    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myListener, &TracksListener::trackAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
+            &myListener, &TracksListener::tracksAdded);
 
     myDatabaseContent.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
@@ -1518,8 +1518,8 @@ void MediaPlayListTest::testHasHeaderMoveAnother()
     connect(&myPlayList, &MediaPlayList::newArtistInList,
             &myListener, &TracksListener::newArtistInList,
             Qt::QueuedConnection);
-    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myListener, &TracksListener::trackAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
+            &myListener, &TracksListener::tracksAdded);
 
     myDatabaseContent.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
@@ -1756,8 +1756,8 @@ void MediaPlayListTest::testHasHeaderMoveFirstLikeQml()
     connect(&myPlayList, &MediaPlayList::newArtistInList,
             &myListener, &TracksListener::newArtistInList,
             Qt::QueuedConnection);
-    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myListener, &TracksListener::trackAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
+            &myListener, &TracksListener::tracksAdded);
 
     myDatabaseContent.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
@@ -1994,8 +1994,8 @@ void MediaPlayListTest::testHasHeaderMoveAnotherLikeQml()
     connect(&myPlayList, &MediaPlayList::newArtistInList,
             &myListener, &TracksListener::newArtistInList,
             Qt::QueuedConnection);
-    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myListener, &TracksListener::trackAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
+            &myListener, &TracksListener::tracksAdded);
 
     myDatabaseContent.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
@@ -2232,8 +2232,8 @@ void MediaPlayListTest::testHasHeaderYetAnotherMoveLikeQml()
     connect(&myPlayList, &MediaPlayList::newArtistInList,
             &myListener, &TracksListener::newArtistInList,
             Qt::QueuedConnection);
-    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myListener, &TracksListener::trackAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
+            &myListener, &TracksListener::tracksAdded);
 
     myDatabaseContent.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
@@ -2502,8 +2502,8 @@ void MediaPlayListTest::enqueueClearAndEnqueue()
     connect(&myPlayList, &MediaPlayList::newArtistInList,
             &myListener, &TracksListener::newArtistInList,
             Qt::QueuedConnection);
-    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myListener, &TracksListener::trackAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
+            &myListener, &TracksListener::tracksAdded);
 
     myDatabaseContent.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
@@ -2688,8 +2688,8 @@ void MediaPlayListTest::crashOnEnqueue()
     connect(&myPlayList, &MediaPlayList::newArtistInList,
             &myListener, &TracksListener::newArtistInList,
             Qt::QueuedConnection);
-    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myListener, &TracksListener::trackAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
+            &myListener, &TracksListener::tracksAdded);
 
     myDatabaseContent.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
@@ -2787,8 +2787,8 @@ void MediaPlayListTest::restoreMultipleIdenticalTracks()
     connect(&myPlayList, &MediaPlayList::newArtistInList,
             &myListener, &TracksListener::newArtistInList,
             Qt::QueuedConnection);
-    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myListener, &TracksListener::trackAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
+            &myListener, &TracksListener::tracksAdded);
 
     myPlayList.enqueue({QStringLiteral("track3"), QStringLiteral("album1"), QStringLiteral("artist3")});
 

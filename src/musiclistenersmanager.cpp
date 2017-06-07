@@ -125,7 +125,7 @@ void MusicListenersManager::subscribeForTracks(MediaPlayList *client)
     helper->moveToThread(&d->mDatabaseThread);
 
     connect(this, &MusicListenersManager::trackRemoved, helper, &TracksListener::trackRemoved);
-    connect(this, &MusicListenersManager::trackAdded, helper, &TracksListener::trackAdded);
+    connect(this, &MusicListenersManager::tracksAdded, helper, &TracksListener::tracksAdded);
     connect(this, &MusicListenersManager::trackModified, helper, &TracksListener::trackModified);
     connect(helper, &TracksListener::trackHasChanged, client, &MediaPlayList::trackChanged);
     connect(helper, &TracksListener::trackHasBeenRemoved, client, &MediaPlayList::trackRemoved);

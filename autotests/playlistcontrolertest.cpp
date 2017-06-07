@@ -77,8 +77,8 @@ void PlayListControlerTest::testBringUpCase()
     connect(&myPlayList, &MediaPlayList::newArtistInList,
             &myListener, &TracksListener::newArtistInList,
             Qt::QueuedConnection);
-    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myListener, &TracksListener::trackAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
+            &myListener, &TracksListener::tracksAdded);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 0);
@@ -223,8 +223,8 @@ void PlayListControlerTest::testBringUpCaseFromNewAlbum()
     connect(&myPlayList, &MediaPlayList::newArtistInList,
             &myListener, &TracksListener::newArtistInList,
             Qt::QueuedConnection);
-    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myListener, &TracksListener::trackAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
+            &myListener, &TracksListener::tracksAdded);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 0);
@@ -359,8 +359,8 @@ void PlayListControlerTest::testBringUpAndDownCase()
     connect(&myPlayList, &MediaPlayList::newArtistInList,
             &myListener, &TracksListener::newArtistInList,
             Qt::QueuedConnection);
-    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myListener, &TracksListener::trackAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
+            &myListener, &TracksListener::tracksAdded);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 0);
@@ -519,8 +519,8 @@ void PlayListControlerTest::testBringUpAndRemoveCase()
     connect(&myPlayList, &MediaPlayList::newArtistInList,
             &myListener, &TracksListener::newArtistInList,
             Qt::QueuedConnection);
-    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myListener, &TracksListener::trackAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
+            &myListener, &TracksListener::tracksAdded);
 
     myControler.setPlayListModel(&myPlayList);
 
@@ -670,8 +670,8 @@ void PlayListControlerTest::testBringUpAndRemoveMultipleCase()
     connect(&myPlayList, &MediaPlayList::newArtistInList,
             &myListener, &TracksListener::newArtistInList,
             Qt::QueuedConnection);
-    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myListener, &TracksListener::trackAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
+            &myListener, &TracksListener::tracksAdded);
 
     myControler.setPlayListModel(&myPlayList);
 
@@ -832,8 +832,8 @@ void PlayListControlerTest::testBringUpAndRemoveMultipleNotBeginCase()
     connect(&myPlayList, &MediaPlayList::newArtistInList,
             &myListener, &TracksListener::newArtistInList,
             Qt::QueuedConnection);
-    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myListener, &TracksListener::trackAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
+            &myListener, &TracksListener::tracksAdded);
 
     myControler.setPlayListModel(&myPlayList);
 
@@ -1018,8 +1018,8 @@ void PlayListControlerTest::testBringUpAndPlayCase()
     connect(&myPlayList, &MediaPlayList::newArtistInList,
             &myListener, &TracksListener::newArtistInList,
             Qt::QueuedConnection);
-    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myListener, &TracksListener::trackAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
+            &myListener, &TracksListener::tracksAdded);
 
     myControler.setPlayListModel(&myPlayList);
 
@@ -1170,8 +1170,8 @@ void PlayListControlerTest::testBringUpAndSkipNextCase()
     connect(&myPlayList, &MediaPlayList::newArtistInList,
             &myListener, &TracksListener::newArtistInList,
             Qt::QueuedConnection);
-    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myListener, &TracksListener::trackAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
+            &myListener, &TracksListener::tracksAdded);
 
     myControler.setPlayListModel(&myPlayList);
 
@@ -1322,8 +1322,8 @@ void PlayListControlerTest::testBringUpAndSkipPreviousCase()
     connect(&myPlayList, &MediaPlayList::newArtistInList,
             &myListener, &TracksListener::newArtistInList,
             Qt::QueuedConnection);
-    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myListener, &TracksListener::trackAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
+            &myListener, &TracksListener::tracksAdded);
 
     myControler.setPlayListModel(&myPlayList);
 
@@ -1487,8 +1487,8 @@ void PlayListControlerTest::testBringUpAndSkipPreviousAndContinueCase()
     connect(&myPlayList, &MediaPlayList::newArtistInList,
             &myListener, &TracksListener::newArtistInList,
             Qt::QueuedConnection);
-    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myListener, &TracksListener::trackAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
+            &myListener, &TracksListener::tracksAdded);
 
     myControler.setPlayListModel(&myPlayList);
 
@@ -1793,8 +1793,8 @@ void PlayListControlerTest::finishPlayList()
     connect(&myPlayList, &MediaPlayList::newArtistInList,
             &myListener, &TracksListener::newArtistInList,
             Qt::QueuedConnection);
-    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myListener, &TracksListener::trackAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
+            &myListener, &TracksListener::tracksAdded);
 
     myControler.setPlayListModel(&myPlayList);
 
@@ -1958,8 +1958,8 @@ void PlayListControlerTest::randomPlayList()
     connect(&myPlayList, &MediaPlayList::newArtistInList,
             &myListener, &TracksListener::newArtistInList,
             Qt::QueuedConnection);
-    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myListener, &TracksListener::trackAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
+            &myListener, &TracksListener::tracksAdded);
 
     myControler.setPlayListModel(&myPlayList);
 
@@ -2176,8 +2176,8 @@ void PlayListControlerTest::continuePlayList()
     connect(&myPlayList, &MediaPlayList::newArtistInList,
             &myListener, &TracksListener::newArtistInList,
             Qt::QueuedConnection);
-    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myListener, &TracksListener::trackAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
+            &myListener, &TracksListener::tracksAdded);
 
     myControler.setPlayListModel(&myPlayList);
 
@@ -2394,8 +2394,8 @@ void PlayListControlerTest::testRestoreSettings()
     connect(&myPlayList, &MediaPlayList::newArtistInList,
             &myListener, &TracksListener::newArtistInList,
             Qt::QueuedConnection);
-    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myListener, &TracksListener::trackAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
+            &myListener, &TracksListener::tracksAdded);
 
     myControler.setPlayListModel(&myPlayList);
 
@@ -2542,8 +2542,8 @@ void PlayListControlerTest::removeBeforeCurrentTrack()
     connect(&myPlayList, &MediaPlayList::newArtistInList,
             &myListener, &TracksListener::newArtistInList,
             Qt::QueuedConnection);
-    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myListener, &TracksListener::trackAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
+            &myListener, &TracksListener::tracksAdded);
 
     myControler.setPlayListModel(&myPlayList);
 
@@ -2730,8 +2730,8 @@ void PlayListControlerTest::switchToTrackTest()
     connect(&myPlayList, &MediaPlayList::newArtistInList,
             &myListener, &TracksListener::newArtistInList,
             Qt::QueuedConnection);
-    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myListener, &TracksListener::trackAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
+            &myListener, &TracksListener::tracksAdded);
 
     myControler.setPlayListModel(&myPlayList);
 
@@ -2885,8 +2885,8 @@ void PlayListControlerTest::singleTrack()
     connect(&myPlayList, &MediaPlayList::newArtistInList,
             &myListener, &TracksListener::newArtistInList,
             Qt::QueuedConnection);
-    connect(&myDatabaseContent, &DatabaseInterface::trackAdded,
-            &myListener, &TracksListener::trackAdded);
+    connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
+            &myListener, &TracksListener::tracksAdded);
 
     myControler.setPlayListModel(&myPlayList);
 

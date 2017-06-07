@@ -284,7 +284,7 @@ void MediaPlayList::clearAndEnqueue(qulonglong newTrackId)
 void MediaPlayList::clearAndEnqueue(const MusicAudioTrack &newTrack)
 {
     clearPlayList();
-    enqueue(MediaPlayListEntry(newTrack));
+    enqueue(newTrack);
 }
 
 void MediaPlayList::enqueue(const MediaPlayListEntry &newEntry, const MusicAudioTrack &audioTrack)

@@ -250,12 +250,6 @@ ApplicationWindow {
     Connections {
         target: allListeners
 
-        onTrackAdded: allTracksModel.trackAdded(id)
-    }
-
-    Connections {
-        target: allListeners
-
         onTracksAdded: allTracksModel.tracksAdded(allTracks)
     }
 

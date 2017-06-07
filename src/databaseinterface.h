@@ -164,7 +164,7 @@ private:
 
     int computeTrackPriority(qulonglong trackId, const QUrl &fileName);
 
-    void internalInsertTrack(const MusicAudioTrack &oneModifiedTrack, const QHash<QString, QUrl> &covers, int originTrackId, QSet<qulonglong> &modifiedAlbumIds);
+    qulonglong internalInsertTrack(const MusicAudioTrack &oneModifiedTrack, const QHash<QString, QUrl> &covers, int originTrackId, QSet<qulonglong> &modifiedAlbumIds);
 
     DatabaseInterfacePrivate *d;
 

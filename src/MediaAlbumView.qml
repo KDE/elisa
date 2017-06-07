@@ -127,11 +127,11 @@ Item {
         ScrollView {
             flickableItem.boundsBehavior: Flickable.StopAtBounds
 
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+
             ListView {
                 id: contentDirectoryView
-
-                Layout.fillHeight: true
-                Layout.fillWidth: true
 
                 model: DelegateModel {
                     model: contentModel

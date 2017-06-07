@@ -443,67 +443,81 @@ ApplicationWindow {
                     Layout.preferredWidth: mainWindow.width * 0.15
                     Layout.maximumWidth: mainWindow.width * 0.15
 
-                    TableView {
-                        id: viewModeView
-
+                    ScrollView {
                         flickableItem.boundsBehavior: Flickable.StopAtBounds
+
                         anchors.fill: parent
 
-                        headerVisible: false
-                        frameVisible: false
-                        focus: true
-                        backgroundVisible: false
-                        z: 2
+                        ListView {
+                            id: viewModeView
 
-                        rowDelegate: Rectangle {
-                            color: myPalette.window
+                            focus: true
+                            z: 2
 
-                            height: elisaTheme.viewSelectorDelegateHeight
-                            width: viewModeView.width
-                        }
+                            model: DelegateModel {
+                                id: pageDelegateModel
+                                groups: [
+                                    DelegateModelGroup { name: "selected" }
+                                ]
 
-                        model: ListModel {
-                            id: pageModel
+                                model: ListModel {
+                                    id: pageModel
+                                }
 
-                            Component.onCompleted:
-                            {
-                                insert(0, {"name": i18nc("Title of the view of the playlist", "Now Playing")})
-                                insert(1, {"name": i18nc("Title of the view of all albums", "Albums")})
-                                insert(2, {"name": i18nc("Title of the view of all artists", "Artists")})
-                                insert(3, {"name": i18nc("Title of the view of all tracks", "Tracks")})
+                                delegate: Rectangle {
+                                    id: item
+
+                                    height: elisaTheme.viewSelectorDelegateHeight
+                                    width: viewModeView.width
+                                    color: (DelegateModel.inSelected ? myPalette.highlight : myPalette.window)
+
+                                    MouseArea {
+                                        anchors.fill: parent
+
+                                        acceptedButtons: Qt.LeftButton
+
+                                        LabelWithToolTip {
+                                            id: nameLabel
+                                            anchors.verticalCenter: parent.verticalCenter
+                                            anchors.left: parent.left
+                                            anchors.right: parent.right
+                                            anchors.leftMargin: elisaTheme.layoutHorizontalMargin
+                                            anchors.rightMargin: elisaTheme.layoutHorizontalMargin
+                                            verticalAlignment: "AlignVCenter"
+
+                                            text: model.name
+
+                                            color: (item.DelegateModel.inSelected ? myPalette.highlightedText : myPalette.text)
+                                        }
+
+                                        onClicked:
+                                        {
+                                            var myGroup = pageDelegateModel.groups[2]
+                                            if (myGroup.count > 0 && !item.DelegateModel.inSelected) {
+                                                myGroup.remove(0, myGroup.count)
+                                            }
+
+                                            item.DelegateModel.inSelected = !item.DelegateModel.inSelected
+
+                                            if (item.DelegateModel.inSelected)
+                                            {
+                                                viewModeView.currentIndex = index
+                                            }
+                                        }
+                                    }
+                                }
+
+                                Component.onCompleted:
+                                {
+                                    pageModel.insert(0, {"name": i18nc("Title of the view of the playlist", "Now Playing")})
+                                    pageModel.insert(1, {"name": i18nc("Title of the view of all albums", "Albums")})
+                                    pageModel.insert(2, {"name": i18nc("Title of the view of all artists", "Artists")})
+                                    pageModel.insert(3, {"name": i18nc("Title of the view of all tracks", "Tracks")})
+
+                                    items.get(1).inSelected = 1
+                                    viewModeView.currentIndex = 1
+                                }
                             }
-                        }
-
-                        itemDelegate: Rectangle {
-                            height: elisaTheme.viewSelectorDelegateHeight
-                            width: viewModeView.width
-                            color: (styleData.selected ? myPalette.highlight : myPalette.window)
-                            LabelWithToolTip {
-                                id: nameLabel
-                                anchors.verticalCenter: parent.verticalCenter
-                                anchors.left: parent.left
-                                anchors.right: parent.right
-                                anchors.leftMargin: elisaTheme.layoutHorizontalMargin
-                                anchors.rightMargin: elisaTheme.layoutHorizontalMargin
-                                verticalAlignment: "AlignVCenter"
-
-                                text: model.name
-
-                                color: (styleData.selected ? myPalette.highlightedText : myPalette.text)
-
-                            }
-                        }
-
-                        TableViewColumn {
-                            role: 'name'
-                            width: viewModeView.width
-                        }
-
-                        onRowCountChanged:
-                        {
-                            viewModeView.selection.clear()
-                            viewModeView.currentRow = 1
-                            viewModeView.selection.select(1)
                         }
                     }
                 }
@@ -665,7 +679,7 @@ ApplicationWindow {
                     states: [
                         State {
                             name: 'full'
-                            when: viewModeView.currentRow === 0
+                            when: viewModeView.currentIndex === 0
                             PropertyChanges {
                                 target: mainContentView
                                 Layout.fillWidth: false
@@ -712,7 +726,7 @@ ApplicationWindow {
                         },
                         State {
                             name: 'allAlbums'
-                            when: viewModeView.currentRow === 1
+                            when: viewModeView.currentIndex === 1
                             PropertyChanges {
                                 target: mainContentView
                                 Layout.fillWidth: true
@@ -758,7 +772,7 @@ ApplicationWindow {
                         },
                         State {
                             name: 'allArtists'
-                            when: viewModeView.currentRow === 2
+                            when: viewModeView.currentIndex === 2
                             PropertyChanges {
                                 target: mainContentView
                                 Layout.fillWidth: true
@@ -804,7 +818,7 @@ ApplicationWindow {
                         },
                         State {
                             name: 'allTracks'
-                            when: viewModeView.currentRow === 3
+                            when: viewModeView.currentIndex === 3
                             PropertyChanges {
                                 target: mainContentView
                                 Layout.fillWidth: true

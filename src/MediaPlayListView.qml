@@ -146,132 +146,124 @@ Item {
             Layout.rightMargin: elisaTheme.layoutHorizontalMargin
         }
 
-        TableView {
-            id: playListView
+        ScrollView {
+            flickableItem.boundsBehavior: Flickable.StopAtBounds
 
             Layout.fillWidth: true
             Layout.fillHeight: true
 
-            backgroundVisible: playListModelDelegate.count === 0
-            alternatingRowColors: playListModelDelegate.count > 0
+            ListView {
+                id: playListView
 
-            flickableItem.boundsBehavior: Flickable.StopAtBounds
+                TextEdit {
+                    readOnly: true
+                    visible: playListModelDelegate.count === 0
+                    wrapMode: TextEdit.Wrap
+                    renderType: TextEdit.NativeRendering
 
-            TextEdit {
-                readOnly: true
-                visible: playListModelDelegate.count === 0
-                wrapMode: TextEdit.Wrap
-                renderType: TextEdit.NativeRendering
+                    color: myPalette.text
 
-                color: myPalette.text
+                    font.weight: Font.ExtraLight
+                    font.pointSize: 12
 
-                font.weight: Font.ExtraLight
-                font.pointSize: 12
+                    text: i18nc("Text shown when play list is empty", "Your play list is empty.\nIn order to start, you can explore your music library with the left menu.\nUse the available buttons to add your selection.")
+                    anchors.fill: parent
+                    anchors.margins: elisaTheme.layoutHorizontalMargin
+                }
 
-                text: i18nc("Text shown when play list is empty", "Your play list is empty.\nIn order to start, you can explore your music library with the left menu.\nUse the available buttons to add your selection.")
-                anchors.fill: parent
-                anchors.margins: elisaTheme.layoutHorizontalMargin
-            }
+                model: DelegateModel {
+                    id: playListModelDelegate
+                    model: playListModel
 
-            model: DelegateModel {
-                id: playListModelDelegate
-                model: playListModel
+                    groups: [
+                        DelegateModelGroup { name: "selected" }
+                    ]
 
-                groups: [
-                    DelegateModelGroup { name: "selected" }
-                ]
+                    delegate: DraggableItem {
+                        id: item
 
-                delegate: DraggableItem {
-                    id: item
+                        placeholderHeight: topItem.placeholderHeight
 
-                    placeholderHeight: topItem.placeholderHeight
-
-                    PlayListEntry {
-                        id: entry
-                        width: playListView.viewport.width
-                        index: model.index
-                        isAlternateColor: item.DelegateModel.itemsIndex % 2
-                        hasAlbumHeader: if (model != undefined && model.hasAlbumHeader !== undefined)
-                                            model.hasAlbumHeader
-                                        else
-                                            true
-                        title: if (model != undefined && model.title !== undefined)
-                                   model.title
-                               else
-                                   ''
-                        artist: if (model != undefined && model.artist !== undefined)
-                                    model.artist
-                                else
-                                    ''
-                        itemDecoration: if (model != undefined && model.image !== undefined)
-                                            model.image
+                        PlayListEntry {
+                            id: entry
+                            width: playListView.width
+                            index: model.index
+                            isAlternateColor: item.DelegateModel.itemsIndex % 2
+                            hasAlbumHeader: if (model != undefined && model.hasAlbumHeader !== undefined)
+                                                model.hasAlbumHeader
+                                            else
+                                                true
+                            title: if (model != undefined && model.title !== undefined)
+                                       model.title
+                                   else
+                                       ''
+                            artist: if (model != undefined && model.artist !== undefined)
+                                        model.artist
+                                    else
+                                        ''
+                            itemDecoration: if (model != undefined && model.image !== undefined)
+                                                model.image
+                                            else
+                                                ''
+                            duration: if (model != undefined && model.duration !== undefined)
+                                          model.duration
+                                      else
+                                          ''
+                            trackNumber: if (model != undefined && model.trackNumber !== undefined)
+                                             model.trackNumber
+                                         else
+                                             ''
+                            discNumber: if (model != undefined && model.discNumber !== undefined)
+                                            model.discNumber
                                         else
                                             ''
-                        duration: if (model != undefined && model.duration !== undefined)
-                                      model.duration
-                                  else
-                                      ''
-                        trackNumber: if (model != undefined && model.trackNumber !== undefined)
-                                         model.trackNumber
-                                     else
-                                         ''
-                        discNumber: if (model != undefined && model.discNumber !== undefined)
-                                         model.discNumber
-                                     else
-                                         ''
-                        album: if (model != undefined && model.album !== undefined)
-                                   model.album
-                               else
-                                   ''
-                        rating: if (model != undefined && model.rating !== undefined)
-                                         model.rating
-                                     else
-                                         0
-                        isValid: model.isValid
-                        isPlaying: model.isPlaying
-                        isSelected: item.DelegateModel.inSelected
-                        containsMouse: item.containsMouse
+                            album: if (model != undefined && model.album !== undefined)
+                                       model.album
+                                   else
+                                       ''
+                            rating: if (model != undefined && model.rating !== undefined)
+                                        model.rating
+                                    else
+                                        0
+                            isValid: model.isValid
+                            isPlaying: model.isPlaying
+                            isSelected: item.DelegateModel.inSelected
+                            containsMouse: item.containsMouse
 
-                        playListModel: topItem.playListModel
-                        playListControler: topItem.playListControler
+                            playListModel: topItem.playListModel
+                            playListControler: topItem.playListControler
 
-                        contextMenu: Menu {
-                            MenuItem {
-                                action: entry.clearPlayListAction
-                            }
-                            MenuItem {
-                                action: entry.playNowAction
+                            contextMenu: Menu {
+                                MenuItem {
+                                    action: entry.clearPlayListAction
+                                }
+                                MenuItem {
+                                    action: entry.playNowAction
+                                }
                             }
                         }
-                    }
 
-                    draggedItemParent: topItem
+                        draggedItemParent: topItem
 
-                    onClicked:
-                    {
-                        var myGroup = playListModelDelegate.groups[2]
-                        if (myGroup.count > 0 && !DelegateModel.inSelected) {
-                            myGroup.remove(0, myGroup.count)
+                        onClicked:
+                        {
+                            var myGroup = playListModelDelegate.groups[2]
+                            if (myGroup.count > 0 && !DelegateModel.inSelected) {
+                                myGroup.remove(0, myGroup.count)
+                            }
+
+                            DelegateModel.inSelected = !DelegateModel.inSelected
                         }
 
-                        DelegateModel.inSelected = !DelegateModel.inSelected
-                    }
+                        onRightClicked: contentItem.contextMenu.popup()
 
-                    onRightClicked: contentItem.contextMenu.popup()
-
-                    onMoveItemRequested: {
-                        playListModel.move(from, to, 1);
+                        onMoveItemRequested: {
+                            playListModel.move(from, to, 1);
+                        }
                     }
                 }
-            }
 
-            headerVisible: false
-            frameVisible: false
-            focus: true
-
-            TableViewColumn {
-                role: "title"
-                title: "Title"
+                focus: true
             }
         }
 

@@ -124,96 +124,90 @@ Item {
             Layout.maximumHeight: 1
         }
 
-        TableView {
-            id: contentDirectoryView
-
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-
+        ScrollView {
             flickableItem.boundsBehavior: Flickable.StopAtBounds
 
-            model: DelegateModel {
-                model: contentModel
+            ListView {
+                id: contentDirectoryView
 
-                groups: [
-                    DelegateModelGroup { name: "selected" }
-                ]
+                Layout.fillHeight: true
+                Layout.fillWidth: true
 
-                delegate: AudioTrackDelegate {
-                    id: entry
+                model: DelegateModel {
+                    model: contentModel
 
-                    isAlternateColor: DelegateModel.itemsIndex % 2
-                    height: ((model.isFirstTrackOfDisc && !isSingleDiscAlbum) ? elisaTheme.delegateWithHeaderHeight : elisaTheme.delegateHeight)
-                    width: contentDirectoryView.viewport.width
+                    groups: [
+                        DelegateModelGroup { name: "selected" }
+                    ]
 
-                    databaseId: model.databaseId
-                    playList: topListing.playListModel
-                    playerControl: topListing.playerControl
+                    delegate: AudioTrackDelegate {
+                        id: entry
 
-                    title: if (model != undefined && model.title !== undefined)
-                               model.title
-                           else
-                               ''
+                        isAlternateColor: DelegateModel.itemsIndex % 2
+                        height: ((model.isFirstTrackOfDisc && !isSingleDiscAlbum) ? elisaTheme.delegateWithHeaderHeight : elisaTheme.delegateHeight)
+                        width: contentDirectoryView.width
 
-                    artist: if (model != undefined && model.artist !== undefined)
-                                model.artist
-                            else
-                                ''
+                        databaseId: model.databaseId
+                        playList: topListing.playListModel
+                        playerControl: topListing.playerControl
 
-                    albumArtist: if (model != undefined && model.albumArtist !== undefined)
-                                     model.albumArtist
-                                 else
-                                     ''
-
-                    duration: if (model != undefined && model.duration !== undefined)
-                                  model.duration
-                              else
-                                  ''
-
-                    trackNumber: if (model != undefined && model.trackNumber !== undefined)
-                                     model.trackNumber
-                                 else
-                                     ''
-
-                    discNumber: if (model != undefined && model.discNumber !== undefined)
-                                     model.discNumber
-                                 else
-                                     ''
-
-                    rating: if (model != undefined && model.rating !== undefined)
-                                     model.rating
-                                 else
-                                     0
-
-                    trackData: if (model != undefined && model.trackData !== undefined)
-                                   model.trackData
+                        title: if (model != undefined && model.title !== undefined)
+                                   model.title
                                else
                                    ''
 
-                    isFirstTrackOfDisc: model.isFirstTrackOfDisc
-                    isSingleDiscAlbum: topListing.isSingleDiscAlbum
+                        artist: if (model != undefined && model.artist !== undefined)
+                                    model.artist
+                                else
+                                    ''
 
-                    contextMenu: Menu {
-                        MenuItem {
-                            action: entry.clearAndEnqueueAction
+                        albumArtist: if (model != undefined && model.albumArtist !== undefined)
+                                         model.albumArtist
+                                     else
+                                         ''
+
+                        duration: if (model != undefined && model.duration !== undefined)
+                                      model.duration
+                                  else
+                                      ''
+
+                        trackNumber: if (model != undefined && model.trackNumber !== undefined)
+                                         model.trackNumber
+                                     else
+                                         ''
+
+                        discNumber: if (model != undefined && model.discNumber !== undefined)
+                                        model.discNumber
+                                    else
+                                        ''
+
+                        rating: if (model != undefined && model.rating !== undefined)
+                                    model.rating
+                                else
+                                    0
+
+                        trackData: if (model != undefined && model.trackData !== undefined)
+                                       model.trackData
+                                   else
+                                       ''
+
+                        isFirstTrackOfDisc: model.isFirstTrackOfDisc
+                        isSingleDiscAlbum: topListing.isSingleDiscAlbum
+
+                        contextMenu: Menu {
+                            MenuItem {
+                                action: entry.clearAndEnqueueAction
+                            }
+                            MenuItem {
+                                action: entry.enqueueAction
+                            }
                         }
-                        MenuItem {
-                            action: entry.enqueueAction
-                        }
+
+                        onRightClicked: contextMenu.popup()
                     }
-
-                    onRightClicked: contextMenu.popup()
                 }
-            }
 
-            backgroundVisible: false
-            headerVisible: false
-            frameVisible: false
-            focus: true
-
-            TableViewColumn {
-                role: "title"
-                title: "Title"
+                focus: true
             }
         }
     }

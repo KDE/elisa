@@ -196,7 +196,7 @@ Item {
             Layout.bottomMargin: elisaTheme.layoutVerticalMargin
             Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
 
-            elide: "ElideRight"
+            elide: Text.ElideRight
         }
     }
 }

@@ -79,7 +79,7 @@ Item {
             Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
             Layout.bottomMargin: elisaTheme.layoutVerticalMargin
 
-            elide: "ElideRight"
+            elide: Text.ElideRight
         }
 
         LabelWithToolTip {
@@ -98,7 +98,7 @@ Item {
             Layout.fillWidth: true
             Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
 
-            elide: "ElideRight"
+            elide: Text.ElideRight
         }
 
         LabelWithToolTip {
@@ -117,7 +117,7 @@ Item {
             Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
             Layout.bottomMargin: elisaTheme.layoutVerticalMargin
 
-            elide: "ElideRight"
+            elide: Text.ElideRight
         }
 
         Item {

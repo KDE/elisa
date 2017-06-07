@@ -106,7 +106,7 @@ Item {
                 Layout.topMargin: albumTextSize.height
                 Layout.bottomMargin: albumTextSize.height - authorTextSize.height
 
-                elide: "ElideRight"
+                elide: Text.ElideRight
 
                 color: myPalette.text
 
@@ -139,7 +139,7 @@ Item {
                     pixelSize: (album !== "" ? authorLabel.font.pixelSize : authorLabel.font.pixelSize * 1.5)
                 }
 
-                elide: "ElideRight"
+                elide: Text.ElideRight
             }
         }
 

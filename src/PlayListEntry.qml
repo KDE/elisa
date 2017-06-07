@@ -153,7 +153,7 @@ Rectangle {
                         Layout.alignment: Qt.AlignCenter
                         Layout.topMargin: elisaTheme.layoutVerticalMargin
 
-                        elide: "ElideRight"
+                        elide: Text.ElideRight
                     }
 
                     Item {
@@ -174,7 +174,7 @@ Rectangle {
                         Layout.alignment: Qt.AlignCenter
                         Layout.bottomMargin: elisaTheme.layoutVerticalMargin
 
-                        elide: "ElideRight"
+                        elide: Text.ElideRight
                     }
                 }
             }
@@ -204,7 +204,7 @@ Rectangle {
 
                     visible: isValid
 
-                    elide: "ElideRight"
+                    elide: Text.ElideRight
                 }
 
                 LabelWithToolTip {
@@ -220,7 +220,7 @@ Rectangle {
 
                     visible: !isValid
 
-                    elide: "ElideRight"
+                    elide: Text.ElideRight
                 }
 
                 Item { Layout.fillWidth: true }
@@ -306,7 +306,7 @@ Rectangle {
 
                     color: myPalette.text
 
-                    elide: "ElideRight"
+                    elide: Text.ElideRight
                     Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
                 }
             }

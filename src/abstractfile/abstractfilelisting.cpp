@@ -260,6 +260,7 @@ MusicAudioTrack AbstractFileListing::scanOneFile(const QUrl &scanFile)
     auto albumProperty = allProperties.find(KFileMetaData::Property::Album);
     auto albumArtistProperty = allProperties.find(KFileMetaData::Property::AlbumArtist);
     auto trackNumberProperty = allProperties.find(KFileMetaData::Property::TrackNumber);
+    auto discNumberProperty = allProperties.find(KFileMetaData::Property::DiscNumber);
     auto fileData = KFileMetaData::UserMetaData(scanFile.toLocalFile());
 
     if (albumProperty != allProperties.end()) {
@@ -281,6 +282,10 @@ MusicAudioTrack AbstractFileListing::scanOneFile(const QUrl &scanFile)
 
         if (trackNumberProperty != allProperties.end()) {
             newTrack.setTrackNumber(trackNumberProperty->toInt());
+        }
+
+        if (discNumberProperty != allProperties.end()) {
+            newTrack.setDiscNumber(discNumberProperty->toInt());
         }
 
         if (albumArtistProperty != allProperties.end()) {

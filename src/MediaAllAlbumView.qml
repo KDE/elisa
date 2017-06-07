@@ -203,6 +203,7 @@ Item {
                             isSingleDiscAlbum: model.isSingleDiscAlbum
 
                             albumData: model.albumData
+                            albumId: model.albumId
 
                             stackView: rootElement.stackView
 

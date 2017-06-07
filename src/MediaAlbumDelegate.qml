@@ -38,6 +38,7 @@ Rectangle {
     property string trackNumber
     property bool isSingleDiscAlbum
     property var albumData
+    property var albumId
 
     id: mediaServerEntry
 
@@ -66,7 +67,8 @@ Rectangle {
                                'artistName': artist,
                                'tracksCount': count,
                                'isSingleDiscAlbum': mediaServerEntry.isSingleDiscAlbum,
-                               'albumData': mediaServerEntry.albumData
+                               'albumData': mediaServerEntry.albumData,
+                               'albumId': mediaServerEntry.albumId
                            })
         }
     }

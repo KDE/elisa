@@ -674,7 +674,7 @@ void DatabaseInterface::insertTracksList(const QList<MusicAudioTrack> &tracks, c
 
     const auto &constModifiedAlbumIds = modifiedAlbumIds;
     for (auto albumId : constModifiedAlbumIds) {
-        Q_EMIT albumModified(internalAlbumFromId(albumId));
+        Q_EMIT albumModified(internalAlbumFromId(albumId), albumId);
     }
 
     transactionResult = finishTransaction();
@@ -755,10 +755,10 @@ void DatabaseInterface::removeTracksList(const QList<QUrl> &removedTracks)
         auto modifiedAlbum = internalAlbumFromId(modifiedAlbumId);
 
         if (modifiedAlbum.isValid() && !modifiedAlbum.isEmpty()) {
-            Q_EMIT albumModified(modifiedAlbum);
+            Q_EMIT albumModified(modifiedAlbum, modifiedAlbumId);
         } else {
             removeAlbumInDatabase(modifiedAlbum.databaseId());
-            Q_EMIT albumRemoved(modifiedAlbum);
+            Q_EMIT albumRemoved(modifiedAlbum, modifiedAlbumId);
         }
     }
 
@@ -834,14 +834,14 @@ void DatabaseInterface::modifyTracksList(const QList<MusicAudioTrack> &modifiedT
 
             if (originTrack.isValid() || otherTrackId != 0) {
                 Q_EMIT trackModified(internalTrackFromDatabaseId(originTrackId));
-                Q_EMIT albumModified(internalAlbumFromId(albumId));
+                Q_EMIT albumModified(internalAlbumFromId(albumId), albumId);
             } else {
                 Q_EMIT trackAdded(originTrackId);
             }
 
             updateIsSingleDiscAlbumFromId(albumId);
             if (updateTracksCount(albumId)) {
-                Q_EMIT albumModified(internalAlbumFromId(albumId));
+                Q_EMIT albumModified(internalAlbumFromId(albumId), albumId);
             }
         } else {
             d->mInsertTrackQuery.finish();

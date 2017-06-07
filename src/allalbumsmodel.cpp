@@ -77,6 +77,7 @@ QHash<int, QByteArray> AllAlbumsModel::roleNames() const
     roles[static_cast<int>(ColumnsRoles::IsSingleDiscAlbumRole)] = "isSingleDiscAlbum";
     roles[static_cast<int>(ColumnsRoles::AlbumDataRole)] = "albumData";
     roles[static_cast<int>(ColumnsRoles::HighestTrackRating)] = "highestTrackRating";
+    roles[static_cast<int>(ColumnsRoles::AlbumDatabaseIdRole)] = "albumId";
 
     return roles;
 }
@@ -163,6 +164,9 @@ QVariant AllAlbumsModel::internalDataAlbum(int albumIndex, int role) const
         break;
     case ColumnsRoles::AlbumDataRole:
         result = QVariant::fromValue(d->mAllAlbums[albumIndex]);
+        break;
+    case ColumnsRoles::AlbumDatabaseIdRole:
+        result = QVariant::fromValue(d->mAllAlbums[albumIndex].databaseId());
         break;
     case ColumnsRoles::HighestTrackRating:
         result = d->mAllAlbums[albumIndex].highestTrackRating();

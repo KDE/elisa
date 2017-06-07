@@ -38,6 +38,7 @@ Item {
     property var albumArtUrl
     property bool isSingleDiscAlbum
     property var albumData
+    property var albumId
 
     width: stackView.width
     height: stackView.height
@@ -60,13 +61,24 @@ Item {
     Connections {
         target: musicListener
 
-        onAlbumRemoved: contentModel.albumRemoved(removedAlbum)
+        onAlbumRemoved:
+        {
+            if (albumId === removedAlbumId) {
+                contentModel.albumRemoved(removedAlbum)
+            }
+        }
     }
 
     Connections {
         target: musicListener
 
-        onAlbumModified: contentModel.albumModified(modifiedAlbum)
+        onAlbumModified:
+        {
+            if (albumId === modifiedAlbumId) {
+                albumData = modifiedAlbum
+                contentModel.albumModified(modifiedAlbum)
+            }
+        }
     }
 
     ColumnLayout {

@@ -72,23 +72,31 @@ Item {
         anchors.fill: parent
         spacing: 0
 
-        LabelWithToolTip {
-            id: discHeaderLabel
-
-            text: 'CD ' + discNumber
-
-            font.weight: Font.Bold
-            font.italic: true
-            color: myPalette.text
-
-            Layout.topMargin: elisaTheme.layoutVerticalMargin * 2
-            Layout.bottomMargin: elisaTheme.layoutVerticalMargin
-            Layout.preferredWidth: elisaTheme.delegateHeight
+        Rectangle {
+            Layout.preferredHeight: elisaTheme.delegateHeight + elisaTheme.layoutVerticalMargin * 2
+            Layout.minimumHeight: elisaTheme.delegateHeight + elisaTheme.layoutVerticalMargin * 2
+            Layout.maximumHeight: elisaTheme.delegateHeight + elisaTheme.layoutVerticalMargin * 2
             Layout.fillWidth: true
 
-            elide: "ElideRight"
+            color: (isAlternateColor ? myPalette.alternateBase : myPalette.base)
 
             visible: isFirstTrackOfDisc && !isSingleDiscAlbum
+
+            LabelWithToolTip {
+                id: discHeaderLabel
+
+                text: 'CD ' + discNumber
+
+                font.weight: Font.Bold
+                font.italic: true
+                color: myPalette.text
+
+                anchors.fill: parent
+                anchors.topMargin: elisaTheme.layoutVerticalMargin * 2
+                anchors.leftMargin: elisaTheme.layoutHorizontalMargin
+
+                elide: Text.ElideRight
+            }
         }
 
         Rectangle {

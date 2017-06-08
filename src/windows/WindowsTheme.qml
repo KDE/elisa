@@ -37,7 +37,7 @@ Item {
     property int layoutVerticalMargin: 6
 
     property int delegateHeight: 28
-    property int delegateWithHeaderHeight: 84
+    property int delegateWithHeaderHeight: 68
     property int trackDelegateHeight: 45
 
     property int coverImageSize: 180

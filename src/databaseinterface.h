@@ -114,13 +114,13 @@ private:
 
     bool rollBackTransaction() const;
 
-    QList<MusicAudioTrack> fetchTracks(qulonglong albumId);
+    QList<MusicAudioTrack> fetchTracks(qulonglong albumId) const;
 
-    bool updateTracksCount(qulonglong albumId);
+    bool updateTracksCount(qulonglong albumId) const;
 
     MusicArtist internalArtistFromId(qulonglong artistId) const;
 
-    MusicAlbum internalAlbumFromId(qulonglong albumId);
+    MusicAlbum internalAlbumFromId(qulonglong albumId) const;
 
     MusicAlbum internalAlbumFromTitle(const QString &title);
 
@@ -142,7 +142,7 @@ private:
 
     qulonglong insertAlbum(const QString &title, const QString &albumArtist, const QUrl &albumArtURI, int tracksCount, bool isSingleDiscAlbum);
 
-    void updateIsSingleDiscAlbumFromId(qulonglong albumId) const;
+    bool updateAlbumFromId(qulonglong albumId, const QUrl &albumArtUri) const;
 
     qulonglong insertArtist(const QString &name);
 

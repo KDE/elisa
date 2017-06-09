@@ -63,6 +63,8 @@ public:
 
     QAtomicInt mStopRequest = 0;
 
+    QMimeDatabase mMimeDb;
+
 };
 
 AbstractFileListing::AbstractFileListing(const QString &sourceName, QObject *parent) : QObject(parent), d(new AbstractFileListingPrivate(sourceName))
@@ -232,8 +234,12 @@ MusicAudioTrack AbstractFileListing::scanOneFile(const QUrl &scanFile)
 {
     MusicAudioTrack newTrack;
 
-    QMimeDatabase mimeDb;
-    QString mimetype = mimeDb.mimeTypeForFile(scanFile.toLocalFile()).name();
+    const auto &fileMimeType = d->mMimeDb.mimeTypeForFile(scanFile.toLocalFile());
+    if (!fileMimeType.name().startsWith(QStringLiteral("audio/"))) {
+        return newTrack;
+    }
+
+    QString mimetype = fileMimeType.name();
 
     QList<KFileMetaData::Extractor*> exList = d->mExtractors.fetchExtractors(mimetype);
 

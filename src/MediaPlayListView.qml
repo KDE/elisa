@@ -59,7 +59,7 @@ Item {
         text: i18nc("Show currently played track inside playlist", "Show Current Track")
         iconName: 'media-show-active-track-amarok'
         enabled: playListModelDelegate.items.count > 0
-        onTriggered: playListView.positionViewAtRow(playListControler.currentTrackRow, ListView.Contain)
+        onTriggered: playListView.positionViewAtIndex(playListControler.currentTrackRow, ListView.Contain)
     }
 
     ColumnLayout {

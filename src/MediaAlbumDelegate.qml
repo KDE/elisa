@@ -91,103 +91,39 @@ Rectangle {
 
         spacing: 0
 
-        ColumnLayout {
-            id: mainData
-
-            spacing: 0
-
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-
-            Item {
-                Layout.topMargin: elisaTheme.layoutVerticalMargin
-                Layout.preferredHeight: mediaServerEntry.width * 0.9
-                Layout.preferredWidth: mediaServerEntry.width * 0.9
-
-                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-
-                Image {
-                    id: coverImage
-
-                    anchors.fill: parent
-
-                    sourceSize.width: mediaServerEntry.width * 0.9
-                    sourceSize.height: mediaServerEntry.width * 0.9
-                    fillMode: Image.PreserveAspectFit
-                    smooth: true
-
-                    source: (mediaServerEntry.image ? mediaServerEntry.image : Qt.resolvedUrl(elisaTheme.albumCover))
-
-                    asynchronous: true
-
-                    layer.enabled: true
-                    layer.effect: DropShadow {
-                        horizontalOffset: mediaServerEntry.width * 0.02
-                        verticalOffset: mediaServerEntry.width * 0.02
-
-                        source: coverImage
-
-                        radius: 5.0
-                        samples: 11
-
-                        color: myPalette.shadow
-                    }
-                }
-            }
-
-            LabelWithToolTip {
-                id: titleLabel
-
-                font.weight: Font.Bold
-                color: myPalette.text
-
-                horizontalAlignment: Text.AlignLeft
-
-                Layout.topMargin: elisaTheme.layoutVerticalMargin * 0.5
-                Layout.preferredWidth: mediaServerEntry.width * 0.9
-                Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
-
-                elide: Text.ElideRight
-            }
-
-            LabelWithToolTip {
-                id: artistLabel
-
-                font.weight: Font.Normal
-                color: myPalette.text
-
-                horizontalAlignment: Text.AlignLeft
-
-                Layout.preferredWidth: mediaServerEntry.width * 0.9
-                Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
-
-                elide: Text.ElideRight
-            }
-        }
-
-        Item {
-            Layout.fillHeight: true
-        }
-
         MouseArea {
             id: hoverHandle
 
             hoverEnabled: true
 
-            anchors.fill: mainData
-            propagateComposedEvents: true
+            Layout.preferredHeight: mediaServerEntry.width * 0.9 + elisaTheme.layoutVerticalMargin * 0.5 + titleSize.height + artistSize.height
+            Layout.fillWidth: true
 
             onEntered: hoverLoader.active = true
             onExited: hoverLoader.active = false
+
+            TextMetrics {
+                id: titleSize
+                font: titleLabel.font
+                text: titleLabel.text
+            }
+
+            TextMetrics {
+                id: artistSize
+                font: artistLabel.font
+                text: artistLabel.text
+            }
 
             Loader {
                 id: hoverLoader
                 active: false
 
+                z: 2
+
                 anchors.top: parent.top
                 anchors.left: parent.left
                 anchors.right: parent.right
-                height: mediaServerEntry.width * 0.93 + elisaTheme.layoutVerticalMargin
+                height: mediaServerEntry.width * 0.9 + elisaTheme.layoutVerticalMargin
 
                 sourceComponent: Item {
                     GaussianBlur {
@@ -243,6 +179,83 @@ Rectangle {
                     }
                 }
             }
+
+            ColumnLayout {
+                id: mainData
+
+                spacing: 0
+                anchors.fill: parent
+
+                z: 1
+
+                Item {
+                    Layout.preferredHeight: mediaServerEntry.width * 0.9
+                    Layout.preferredWidth: mediaServerEntry.width * 0.9
+
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+
+                    Image {
+                        id: coverImage
+
+                        anchors.fill: parent
+
+                        sourceSize.width: mediaServerEntry.width * 0.9
+                        sourceSize.height: mediaServerEntry.width * 0.9
+                        fillMode: Image.PreserveAspectFit
+                        smooth: true
+
+                        source: (mediaServerEntry.image ? mediaServerEntry.image : Qt.resolvedUrl(elisaTheme.albumCover))
+
+                        asynchronous: true
+
+                        layer.enabled: true
+                        layer.effect: DropShadow {
+                            horizontalOffset: mediaServerEntry.width * 0.02
+                            verticalOffset: mediaServerEntry.width * 0.02
+
+                            source: coverImage
+
+                            radius: 5.0
+                            samples: 11
+
+                            color: myPalette.shadow
+                        }
+                    }
+                }
+
+                LabelWithToolTip {
+                    id: titleLabel
+
+                    font.weight: Font.Bold
+                    color: myPalette.text
+
+                    horizontalAlignment: Text.AlignLeft
+
+                    Layout.topMargin: elisaTheme.layoutVerticalMargin * 0.5
+                    Layout.preferredWidth: mediaServerEntry.width * 0.9
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
+
+                    elide: Text.ElideRight
+                }
+
+                LabelWithToolTip {
+                    id: artistLabel
+
+                    font.weight: Font.Normal
+                    color: myPalette.text
+
+                    horizontalAlignment: Text.AlignLeft
+
+                    Layout.preferredWidth: mediaServerEntry.width * 0.9
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
+
+                    elide: Text.ElideRight
+                }
+            }
+        }
+
+        Item {
+            Layout.fillHeight: true
         }
     }
 }

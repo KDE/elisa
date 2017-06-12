@@ -86,117 +86,141 @@ Item {
     }
 
     ColumnLayout {
-        id: mainData
-
         anchors.fill: parent
 
-        Item {
-            Layout.topMargin: elisaTheme.layoutVerticalMargin
-            Layout.preferredWidth: mediaServerEntry.width * 0.9
-            Layout.preferredHeight: mediaServerEntry.width * 0.9
+        spacing: 0
 
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+        MouseArea {
+            id: hoverHandle
 
-            Image {
-                id: artistDecoration
+            hoverEnabled: true
 
-                source: Qt.resolvedUrl(elisaTheme.artistImage)
+            Layout.preferredHeight: mediaServerEntry.width * 0.9 + elisaTheme.layoutVerticalMargin * 0.5 + nameSize.height
+            Layout.fillWidth: true
 
-                anchors.fill: parent
+            onEntered: hoverLoader.active = true
+            onExited: hoverLoader.active = false
 
-                sourceSize.width: mediaServerEntry.width * 0.9
-                sourceSize.height: mediaServerEntry.width * 0.9
-
-                fillMode: Image.PreserveAspectFit
-
-                smooth: true
-
-                layer.enabled: true
-                layer.effect: DropShadow {
-                    horizontalOffset: mediaServerEntry.width * 0.02
-                    verticalOffset: mediaServerEntry.width * 0.02
-
-                    radius: 5.0
-                    samples: 11
-
-                    color: myPalette.shadow
-                }
+            TextMetrics {
+                id: nameSize
+                font: nameLabel.font
+                text: nameLabel.text
             }
 
-            MouseArea {
-                id: hoverHandle
+            Loader {
+                id: hoverLoader
+                active: false
 
-                hoverEnabled: true
+                z: 2
 
-                anchors.fill: parent
-                propagateComposedEvents: true
+                anchors.top: parent.top
+                anchors.left: parent.left
+                anchors.right: parent.right
+                height: mediaServerEntry.width * 0.9 + elisaTheme.layoutVerticalMargin
 
-                onEntered: hoverLoader.active = true
-                onExited: hoverLoader.active = false
-
-                Loader {
-                    id: hoverLoader
-                    active: false
+                sourceComponent: Rectangle {
+                    id: hoverLayer
 
                     anchors.fill: parent
 
-                    sourceComponent: Rectangle {
-                        id: hoverLayer
+                    color: myPalette.light
+                    opacity: 0.85
 
-                        anchors.fill: parent
+                    Row {
+                        anchors.centerIn: parent
 
-                        color: myPalette.light
-                        opacity: 0.85
+                        ToolButton {
+                            id: enqueueButton
 
-                        Row {
-                            anchors.centerIn: parent
+                            action: enqueueAction
 
-                            ToolButton {
-                                id: enqueueButton
+                            width: elisaTheme.delegateToolButtonSize
+                            height: elisaTheme.delegateToolButtonSize
+                        }
 
-                                action: enqueueAction
+                        ToolButton {
+                            id: openButton
 
-                                width: elisaTheme.delegateToolButtonSize
-                                height: elisaTheme.delegateToolButtonSize
-                            }
+                            action: openAction
 
-                            ToolButton {
-                                id: openButton
+                            width: elisaTheme.delegateToolButtonSize
+                            height: elisaTheme.delegateToolButtonSize
+                        }
 
-                                action: openAction
+                        ToolButton {
+                            id: enqueueAndPlayButton
 
-                                width: elisaTheme.delegateToolButtonSize
-                                height: elisaTheme.delegateToolButtonSize
-                            }
+                            action: enqueueAndPlayAction
 
-                            ToolButton {
-                                id: enqueueAndPlayButton
-
-                                action: enqueueAndPlayAction
-
-                                width: elisaTheme.delegateToolButtonSize
-                                height: elisaTheme.delegateToolButtonSize
-                            }
+                            width: elisaTheme.delegateToolButtonSize
+                            height: elisaTheme.delegateToolButtonSize
                         }
                     }
                 }
             }
+
+            ColumnLayout {
+                id: mainData
+
+                spacing: 0
+                anchors.fill: parent
+
+                z: 1
+
+                Item {
+                    Layout.topMargin: elisaTheme.layoutVerticalMargin
+                    Layout.preferredWidth: mediaServerEntry.width * 0.9
+                    Layout.preferredHeight: mediaServerEntry.width * 0.9
+
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+
+                    Image {
+                        id: artistDecoration
+
+                        source: Qt.resolvedUrl(elisaTheme.artistImage)
+
+                        anchors.fill: parent
+
+                        sourceSize.width: mediaServerEntry.width * 0.9
+                        sourceSize.height: mediaServerEntry.width * 0.9
+
+                        fillMode: Image.PreserveAspectFit
+
+                        smooth: true
+
+                        layer.enabled: true
+                        layer.effect: DropShadow {
+                            horizontalOffset: mediaServerEntry.width * 0.02
+                            verticalOffset: mediaServerEntry.width * 0.02
+
+                            radius: 5.0
+                            samples: 11
+
+                            color: myPalette.shadow
+                        }
+                    }
+                }
+
+                LabelWithToolTip {
+                    id: nameLabel
+
+                    font.weight: Font.Bold
+                    color: myPalette.text
+
+                    horizontalAlignment: Text.AlignLeft
+
+                    Layout.preferredWidth: mediaServerEntry.width * 0.9
+                    Layout.topMargin: elisaTheme.layoutVerticalMargin
+                    Layout.bottomMargin: elisaTheme.layoutVerticalMargin
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
+
+                    elide: Text.ElideRight
+                }
+            }
         }
 
-        LabelWithToolTip {
-            id: nameLabel
-
-            font.weight: Font.Bold
-            color: myPalette.text
-
-            horizontalAlignment: Text.AlignLeft
-
-            Layout.preferredWidth: mediaServerEntry.width * 0.9
-            Layout.topMargin: elisaTheme.layoutVerticalMargin
-            Layout.bottomMargin: elisaTheme.layoutVerticalMargin
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
-
-            elide: Text.ElideRight
+        Item {
+            Layout.fillHeight: true
         }
     }
 }

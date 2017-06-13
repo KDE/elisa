@@ -90,6 +90,8 @@ public:
 
     QString albumArtist() const;
 
+    bool isValidAlbumArtist() const;
+
     void setAlbumCover(const QUrl &value) const;
 
     QUrl albumCover() const;

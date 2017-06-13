@@ -33,6 +33,7 @@
 
 class DatabaseInterfacePrivate;
 class QMutex;
+class QSqlRecord;
 
 class DatabaseInterface : public QObject
 {
@@ -142,7 +143,7 @@ private:
 
     qulonglong insertAlbum(const QString &title, const QString &albumArtist, const QUrl &albumArtURI, int tracksCount, bool isSingleDiscAlbum);
 
-    bool updateAlbumFromId(qulonglong albumId, const QUrl &albumArtUri) const;
+    bool updateAlbumFromId(qulonglong albumId, const QUrl &albumArtUri);
 
     qulonglong insertArtist(const QString &name);
 
@@ -165,6 +166,8 @@ private:
     int computeTrackPriority(qulonglong trackId, const QUrl &fileName);
 
     qulonglong internalInsertTrack(const MusicAudioTrack &oneModifiedTrack, const QHash<QString, QUrl> &covers, int originTrackId, QSet<qulonglong> &modifiedAlbumIds);
+
+    MusicAudioTrack buildTrackFromDatabaseRecord(const QSqlRecord &trackRecord) const;
 
     DatabaseInterfacePrivate *d;
 

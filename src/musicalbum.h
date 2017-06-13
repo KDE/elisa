@@ -74,7 +74,11 @@ public:
 
     void setArtist(const QString &value);
 
-    const QString &artist() const;
+    QString artist() const;
+
+    bool isValidArtist() const;
+
+    bool canUpdateArtist() const;
 
     void setAlbumArtURI(const QUrl &value);
 

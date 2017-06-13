@@ -183,10 +183,6 @@ MusicAudioTrack LocalBalooFileListing::scanOneFile(const QUrl &scanFile)
             newTrack.setAlbumArtist(albumArtistProperty->toString());
         }
 
-        if (newTrack.albumArtist().isEmpty()) {
-            newTrack.setAlbumArtist(newTrack.artist());
-        }
-
         if (newTrack.artist().isEmpty()) {
             newTrack.setArtist(newTrack.albumArtist());
         }

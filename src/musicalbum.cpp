@@ -159,9 +159,28 @@ void MusicAlbum::setArtist(const QString &value)
     d->mArtist = value;
 }
 
-const QString &MusicAlbum::artist() const
+QString MusicAlbum::artist() const
 {
-    return d->mArtist;
+    QString result;
+
+    if (!d->mArtist.isEmpty()) {
+        result = d->mArtist;
+    } else {
+        for (const auto &oneTrack : qAsConst(d->mTracks)) {
+            if (oneTrack.isValidAlbumArtist()) {
+                result = oneTrack.albumArtist();
+                break;
+            }
+        }
+
+        if (result.isEmpty() && d->mTracks.size() > 1) {
+            result = QStringLiteral("Various Artists");
+        }
+    }
+
+    return result;
+
+    return (!d->mArtist.isEmpty() ? d->mArtist : (!d->mTracks.isEmpty() ? d->mTracks.constFirst().albumArtist() : QString()));
 }
 
 void MusicAlbum::setAlbumArtURI(const QUrl &value)
@@ -303,6 +322,38 @@ int MusicAlbum::highestTrackRating() const
     const auto &allTracks = d->mTracks;
     for (const auto &oneTrack : allTracks) {
         result = std::max(result, oneTrack.rating());
+    }
+
+    return result;
+}
+
+bool MusicAlbum::isValidArtist() const
+{
+    return !d->mArtist.isEmpty();
+}
+
+bool MusicAlbum::canUpdateArtist() const
+{
+    bool result = false;
+
+    int cptTracksWithDifferentArtist = 0;
+
+    for (const auto &oneTrack : qAsConst(d->mTracks)) {
+        if (oneTrack.isValidAlbumArtist() && oneTrack.albumArtist() != artist()) {
+            result = true;
+            break;
+        }
+        if (oneTrack.isValidAlbumArtist() && oneTrack.albumArtist() == artist()) {
+            cptTracksWithDifferentArtist = 0;
+            break;
+        }
+        if (!oneTrack.isValidAlbumArtist() && oneTrack.artist() != artist()) {
+            ++cptTracksWithDifferentArtist;
+        }
+    }
+
+    if (!result && cptTracksWithDifferentArtist > 1) {
+        result = true;
     }
 
     return result;

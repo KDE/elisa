@@ -56,7 +56,7 @@ public:
           mUpdateIsSingleDiscAlbumFromIdQuery(mTracksDatabase), mSelectAllInvalidTracksFromSourceQuery(mTracksDatabase),
           mInitialUpdateTracksValidity(mTracksDatabase), mUpdateTrackMapping(mTracksDatabase),
           mSelectTracksMapping(mTracksDatabase), mSelectTracksMappingPriority(mTracksDatabase),
-          mUpdateAlbumArtUriFromAlbumIdQuery(mTracksDatabase)
+          mUpdateAlbumArtUriFromAlbumIdQuery(mTracksDatabase), mUpdateAlbumArtistFromAlbumIdQuery(mTracksDatabase)
     {
     }
 
@@ -129,6 +129,8 @@ public:
     QSqlQuery mSelectTracksMappingPriority;
 
     QSqlQuery mUpdateAlbumArtUriFromAlbumIdQuery;
+
+    QSqlQuery mUpdateAlbumArtistFromAlbumIdQuery;
 
     qulonglong mAlbumId = 1;
 
@@ -229,25 +231,9 @@ QList<MusicAudioTrack> DatabaseInterface::allTracks() const
     }
 
     while(d->mSelectAllTracksQuery.next()) {
-        auto newTrack = MusicAudioTrack();
-
         const auto &currentRecord = d->mSelectAllTracksQuery.record();
 
-        newTrack.setDatabaseId(currentRecord.value(0).toULongLong());
-        newTrack.setTitle(currentRecord.value(1).toString());
-        newTrack.setParentId(currentRecord.value(2).toString());
-        newTrack.setArtist(currentRecord.value(3).toString());
-        newTrack.setAlbumArtist(currentRecord.value(4).toString());
-        newTrack.setResourceURI(currentRecord.value(5).toUrl());
-        newTrack.setTrackNumber(currentRecord.value(6).toInt());
-        newTrack.setDiscNumber(currentRecord.value(7).toInt());
-        newTrack.setDuration(QTime::fromMSecsSinceStartOfDay(currentRecord.value(8).toInt()));
-        newTrack.setRating(currentRecord.value(9).toInt());
-        newTrack.setAlbumName(currentRecord.value(10).toString());
-        newTrack.setAlbumCover(currentRecord.value(11).toUrl());
-        newTrack.setValid(true);
-
-        result.push_back(newTrack);
+        result.push_back(buildTrackFromDatabaseRecord(currentRecord));
     }
 
     d->mSelectAllTracksQuery.finish();
@@ -286,24 +272,9 @@ QList<MusicAudioTrack> DatabaseInterface::allTracksFromSource(const QString &mus
     }
 
     while(d->mSelectAllTracksFromSourceQuery.next()) {
-        auto newTrack = MusicAudioTrack();
-
         const auto &currentRecord = d->mSelectAllTracksFromSourceQuery.record();
 
-        newTrack.setDatabaseId(currentRecord.value(0).toULongLong());
-        newTrack.setTitle(currentRecord.value(1).toString());
-        newTrack.setParentId(currentRecord.value(2).toString());
-        newTrack.setArtist(currentRecord.value(3).toString());
-        newTrack.setAlbumArtist(currentRecord.value(4).toString());
-        newTrack.setResourceURI(currentRecord.value(5).toUrl());
-        newTrack.setTrackNumber(currentRecord.value(6).toInt());
-        newTrack.setDiscNumber(currentRecord.value(7).toInt());
-        newTrack.setDuration(QTime::fromMSecsSinceStartOfDay(currentRecord.value(8).toInt()));
-        newTrack.setAlbumName(currentRecord.value(9).toString());
-        newTrack.setRating(currentRecord.value(10).toInt());
-        newTrack.setValid(true);
-
-        result.push_back(newTrack);
+        result.push_back(buildTrackFromDatabaseRecord(currentRecord));
     }
 
     d->mSelectAllTracksFromSourceQuery.finish();
@@ -342,24 +313,9 @@ QList<MusicAudioTrack> DatabaseInterface::allInvalidTracksFromSource(const QStri
     }
 
     while(d->mSelectAllInvalidTracksFromSourceQuery.next()) {
-        auto newTrack = MusicAudioTrack();
-
         const auto &currentRecord = d->mSelectAllInvalidTracksFromSourceQuery.record();
 
-        newTrack.setDatabaseId(currentRecord.value(0).toULongLong());
-        newTrack.setTitle(currentRecord.value(1).toString());
-        newTrack.setParentId(currentRecord.value(2).toString());
-        newTrack.setArtist(currentRecord.value(3).toString());
-        newTrack.setAlbumArtist(currentRecord.value(4).toString());
-        newTrack.setResourceURI(currentRecord.value(5).toUrl());
-        newTrack.setTrackNumber(currentRecord.value(6).toInt());
-        newTrack.setDiscNumber(currentRecord.value(7).toInt());
-        newTrack.setDuration(QTime::fromMSecsSinceStartOfDay(currentRecord.value(8).toInt()));
-        newTrack.setAlbumName(currentRecord.value(9).toString());
-        newTrack.setRating(currentRecord.value(10).toInt());
-        newTrack.setValid(true);
-
-        result.push_back(newTrack);
+        result.push_back(buildTrackFromDatabaseRecord(currentRecord));
     }
 
     d->mSelectAllInvalidTracksFromSourceQuery.finish();
@@ -723,24 +679,9 @@ void DatabaseInterface::removeTracksList(const QList<QUrl> &removedTracks)
         }
 
         while (d->mSelectTrackFromFilePathQuery.next()) {
-            MusicAudioTrack removedTrack;
-
             const auto &currentRecord = d->mSelectTrackFromFilePathQuery.record();
 
-            removedTrack.setDatabaseId(currentRecord.value(0).toULongLong());
-            removedTrack.setTitle(currentRecord.value(1).toString());
-            removedTrack.setParentId(currentRecord.value(2).toString());
-            removedTrack.setArtist(currentRecord.value(3).toString());
-            removedTrack.setAlbumArtist(currentRecord.value(4).toString());
-            removedTrack.setResourceURI(currentRecord.value(5).toUrl());
-            removedTrack.setTrackNumber(currentRecord.value(6).toInt());
-            removedTrack.setDiscNumber(currentRecord.value(7).toInt());
-            removedTrack.setDuration(QTime::fromMSecsSinceStartOfDay(currentRecord.value(8).toInt()));
-            removedTrack.setAlbumName(currentRecord.value(9).toString());
-            removedTrack.setRating(currentRecord.value(10).toInt());
-            removedTrack.setValid(true);
-
-            willRemoveTrack.push_back(removedTrack);
+            willRemoveTrack.push_back(buildTrackFromDatabaseRecord(currentRecord));
         }
 
         d->mSelectTrackFromFilePathQuery.finish();
@@ -809,7 +750,11 @@ void DatabaseInterface::modifyTracksList(const QList<MusicAudioTrack> &modifiedT
             continue;
         }
 
-        auto albumId = insertAlbum(oneModifiedTrack.albumName(), oneModifiedTrack.albumArtist(), covers[oneModifiedTrack.albumName()], 0, true);
+        auto albumId = insertAlbum(oneModifiedTrack.albumName(), (oneModifiedTrack.isValidAlbumArtist() ? oneModifiedTrack.albumArtist() : QString()), covers[oneModifiedTrack.albumName()], 0, true);
+
+        if (albumId == 0) {
+            continue;
+        }
 
         auto otherTrackId = internalTrackIdFromTitleAlbumArtist(oneModifiedTrack.title(), oneModifiedTrack.albumName(), oneModifiedTrack.artist());
 
@@ -1107,10 +1052,12 @@ void DatabaseInterface::initRequest()
                                                    "album.`CoverFileName`, "
                                                    "album.`TracksCount`, "
                                                    "album.`IsSingleDiscAlbum` "
-                                                   "FROM `Albums` album, `Artists` artist "
+                                                   "FROM `Albums` album "
+                                                   "LEFT JOIN `Artists` artist "
+                                                   "ON "
+                                                   "artist.`ID` = album.`ArtistID` "
                                                    "WHERE "
-                                                   "album.`ID` = :albumId AND "
-                                                   "artist.`ID` = album.`ArtistID`");
+                                                   "album.`ID` = :albumId");
 
         auto result = d->mSelectAlbumQuery.prepare(selectAlbumQueryText);
 
@@ -1120,15 +1067,17 @@ void DatabaseInterface::initRequest()
     }
 
     {
-        auto selectAllAlbumsText = QStringLiteral("SELECT album.`ID`, "
+        auto selectAllAlbumsText = QStringLiteral("SELECT "
+                                                  "album.`ID`, "
                                                   "album.`Title`, "
                                                   "album.`AlbumInternalID`, "
                                                   "artist.`Name`, "
                                                   "album.`CoverFileName`, "
                                                   "album.`TracksCount`, "
                                                   "album.`IsSingleDiscAlbum` "
-                                                  "FROM `Albums` album, `Artists` artist "
-                                                  "WHERE "
+                                                  "FROM `Albums` album "
+                                                  "LEFT JOIN `Artists` artist "
+                                                  "ON "
                                                   "artist.`ID` = album.`ArtistID` "
                                                   "ORDER BY album.`Title`");
 
@@ -1154,7 +1103,8 @@ void DatabaseInterface::initRequest()
     }
 
     {
-        auto selectAllTracksText = QStringLiteral("SELECT tracks.`ID`, "
+        auto selectAllTracksText = QStringLiteral("SELECT "
+                                                  "tracks.`ID`, "
                                                   "tracks.`Title`, "
                                                   "tracks.`AlbumID`, "
                                                   "artist.`Name`, "
@@ -1163,14 +1113,14 @@ void DatabaseInterface::initRequest()
                                                   "tracks.`TrackNumber`, "
                                                   "tracks.`DiscNumber`, "
                                                   "tracks.`Duration`, "
-                                                  "tracks.`Rating`, "
                                                   "album.`Title`, "
+                                                  "tracks.`Rating`, "
                                                   "album.`CoverFileName` "
-                                                  "FROM `Tracks` tracks, `Artists` artist, `Artists` artistAlbum, `Albums` album, `TracksMapping` tracksMapping "
+                                                  "FROM `Tracks` tracks, `Artists` artist, `Albums` album, `TracksMapping` tracksMapping "
+                                                  "LEFT JOIN `Artists` artistAlbum ON artistAlbum.`ID` = album.`ArtistID` "
                                                   "WHERE "
                                                   "artist.`ID` = tracks.`ArtistID` AND "
                                                   "tracks.`AlbumID` = album.`ID` AND "
-                                                  "artistAlbum.`ID` = album.`ArtistID` AND "
                                                   "tracksMapping.`TrackID` = tracks.`ID` AND "
                                                   "tracksMapping.`Priority` = 1");
 
@@ -1183,7 +1133,8 @@ void DatabaseInterface::initRequest()
     }
 
     {
-        auto selectAllInvalidTracksFromSourceQueryText = QStringLiteral("SELECT tracks.`ID`, "
+        auto selectAllInvalidTracksFromSourceQueryText = QStringLiteral("SELECT "
+                                                                        "tracks.`ID`, "
                                                                         "tracks.`Title`, "
                                                                         "tracks.`AlbumID`, "
                                                                         "artist.`Name`, "
@@ -1195,12 +1146,12 @@ void DatabaseInterface::initRequest()
                                                                         "album.`Title`, "
                                                                         "tracks.`Rating`, "
                                                                         "album.`CoverFileName` "
-                                                                        "FROM `Tracks` tracks, `Artists` artist, `Artists` artistAlbum, "
+                                                                        "FROM `Tracks` tracks, `Artists` artist, "
                                                                         "`Albums` album , `TracksMapping` tracksMapping, `DiscoverSource` source "
+                                                                        "LEFT JOIN `Artists` artistAlbum ON artistAlbum.`ID` = album.`ArtistID` "
                                                                         "WHERE "
                                                                         "artist.`ID` = tracks.`ArtistID` AND "
                                                                         "tracks.`AlbumID` = album.`ID` AND "
-                                                                        "artistAlbum.`ID` = album.`ArtistID` AND "
                                                                         "source.`Name` = :source AND "
                                                                         "source.`ID` = tracksMapping.`DiscoverID` AND "
                                                                         "tracksMapping.`TrackValid` = 0 AND "
@@ -1216,7 +1167,8 @@ void DatabaseInterface::initRequest()
     }
 
     {
-        auto selectAllTracksFromSourceQueryText = QStringLiteral("SELECT tracks.`ID`, "
+        auto selectAllTracksFromSourceQueryText = QStringLiteral("SELECT "
+                                                                 "tracks.`ID`, "
                                                                  "tracks.`Title`, "
                                                                  "tracks.`AlbumID`, "
                                                                  "artist.`Name`, "
@@ -1228,12 +1180,12 @@ void DatabaseInterface::initRequest()
                                                                  "album.`Title`, "
                                                                  "tracks.`Rating`, "
                                                                  "album.`CoverFileName` "
-                                                                 "FROM `Tracks` tracks, `Artists` artist, `Artists` artistAlbum, "
+                                                                 "FROM `Tracks` tracks, `Artists` artist, "
                                                                  "`Albums` album , `TracksMapping` tracksMapping, `DiscoverSource` source "
+                                                                 "LEFT JOIN `Artists` artistAlbum ON artistAlbum.`ID` = album.`ArtistID` "
                                                                  "WHERE "
                                                                  "artist.`ID` = tracks.`ArtistID` AND "
                                                                  "tracks.`AlbumID` = album.`ID` AND "
-                                                                 "artistAlbum.`ID` = album.`ArtistID` AND "
                                                                  "source.`Name` = :source AND "
                                                                  "source.`ID` = tracksMapping.`DiscoverID` AND "
                                                                  "tracksMapping.`TrackID` = tracks.`ID` AND "
@@ -1280,21 +1232,21 @@ void DatabaseInterface::initRequest()
                                                    "tracks.`Title`, "
                                                    "tracks.`AlbumID`, "
                                                    "artist.`Name`, "
-                                                   "album.`Title`, "
                                                    "artistAlbum.`Name`, "
                                                    "tracksMapping.`FileName`, "
                                                    "tracks.`TrackNumber`, "
                                                    "tracks.`DiscNumber`, "
                                                    "tracks.`Duration`, "
+                                                   "album.`Title`, "
                                                    "tracks.`Rating`, "
                                                    "album.`CoverFileName` "
-                                                   "FROM `Tracks` tracks, `Artists` artist, `Artists` artistAlbum, `Albums` album, `TracksMapping` tracksMapping "
+                                                   "FROM `Tracks` tracks, `Artists` artist, `Albums` album, `TracksMapping` tracksMapping "
+                                                   "LEFT JOIN `Artists` artistAlbum ON artistAlbum.`ID` = album.`ArtistID` "
                                                    "WHERE "
                                                    "tracksMapping.`TrackID` = tracks.`ID` AND "
                                                    "tracks.`AlbumID` = :albumId AND "
                                                    "artist.`ID` = tracks.`ArtistID` AND "
                                                    "album.`ID` = :albumId AND "
-                                                   "artistAlbum.`ID` = album.`ArtistID` AND "
                                                    "tracksMapping.`Priority` = 1 "
                                                    "ORDER BY tracks.`DiscNumber` ASC, "
                                                    "tracks.`TrackNumber` ASC");
@@ -1317,13 +1269,14 @@ void DatabaseInterface::initRequest()
                                                          "tracks.`TrackNumber`, "
                                                          "tracks.`DiscNumber`, "
                                                          "tracks.`Duration`, "
+                                                         "album.`Title`, "
                                                          "tracks.`Rating`, "
                                                          "album.`CoverFileName` "
-                                                         "FROM `Tracks` tracks, `Artists` artist, `Artists` artistAlbum, `Albums` album, `TracksMapping` tracksMapping "
+                                                         "FROM `Tracks` tracks, `Artists` artist, `Albums` album, `TracksMapping` tracksMapping "
+                                                         "LEFT JOIN `Artists` artistAlbum ON artistAlbum.`ID` = album.`ArtistID` "
                                                          "WHERE "
                                                          "tracks.`ID` = :trackId AND "
                                                          "artist.`ID` = tracks.`ArtistID` AND "
-                                                         "artistAlbum.`ID` = album.`ArtistID` AND "
                                                          "tracks.`AlbumID` = album.`ID` AND "
                                                          "tracksMapping.`TrackID` = tracks.`ID` AND "
                                                          "tracksMapping.`Priority` = 1");
@@ -1540,28 +1493,43 @@ void DatabaseInterface::initRequest()
     }
 
     {
+        auto updateAlbumArtistFromAlbumIdQueryText = QStringLiteral("UPDATE `Albums` "
+                                                                     "SET `ArtistID` = :artistId "
+                                                                     "WHERE "
+                                                                     "`ID` = :albumId");
+
+        auto result = d->mUpdateAlbumArtistFromAlbumIdQuery.prepare(updateAlbumArtistFromAlbumIdQueryText);
+
+        if (!result) {
+            qDebug() << "DatabaseInterface::initRequest" << d->mUpdateAlbumArtistFromAlbumIdQuery.lastError();
+            qDebug() << "DatabaseInterface::initRequest" << updateAlbumArtistFromAlbumIdQueryText;
+        }
+    }
+
+    {
         auto selectTracksFromArtistQueryText = QStringLiteral("SELECT "
-                                                              "tracks.`Title`, "
                                                               "tracks.`ID`, "
+                                                              "tracks.`Title`, "
+                                                              "tracks.`AlbumID`, "
                                                               "artist.`Name`, "
+                                                              "artistAlbum.`Name`, "
                                                               "tracksMapping.`FileName`, "
                                                               "tracks.`TrackNumber`, "
                                                               "tracks.`DiscNumber`, "
                                                               "tracks.`Duration`, "
-                                                              "albums.`CoverFileName`, "
-                                                              "albums.`Title`, "
-                                                              "albumArtist.`Name`, "
-                                                              "tracks.`Rating` "
-                                                              "FROM `Tracks` tracks, `Albums` albums, `Artists` artist, `Artists` albumArtist, `TracksMapping` tracksMapping "
+                                                              "album.`Title`, "
+                                                              "tracks.`Rating`, "
+                                                              "album.`CoverFileName` "
+                                                              "FROM `Tracks` tracks, `Albums` album, `Artists` artist, `TracksMapping` tracksMapping "
+                                                              "LEFT JOIN `Artists` artistAlbum ON artistAlbum.`ID` = album.`ArtistID` "
                                                               "WHERE "
                                                               "artist.`Name` = :artistName AND "
-                                                              "tracks.`AlbumID` = albums.`ID` AND "
+                                                              "tracks.`AlbumID` = album.`ID` AND "
                                                               "artist.`ID` = tracks.`ArtistID` AND "
-                                                              "albumArtist.`ID` = albums.`ArtistID` AND "
                                                               "tracksMapping.`TrackID` = tracks.`ID` AND "
                                                               "tracksMapping.`Priority` = 1 "
                                                               "ORDER BY tracks.`Title` ASC, "
-                                                              "albums.`Title` ASC");
+                                                              "album.`Title` ASC");
 
         auto result = d->mSelectTracksFromArtist.prepare(selectTracksFromArtistQueryText);
 
@@ -1597,12 +1565,13 @@ void DatabaseInterface::initRequest()
                                                                "tracks.`DiscNumber`, "
                                                                "tracks.`Duration`, "
                                                                "album.`Title`, "
-                                                               "tracks.`Rating` "
-                                                               "FROM `Tracks` tracks, `Artists` artist, `Artists` artistAlbum, `Albums` album, `TracksMapping` tracksMapping "
+                                                               "tracks.`Rating`, "
+                                                               "album.`CoverFileName` "
+                                                               "FROM `Tracks` tracks, `Artists` artist, `Albums` album, `TracksMapping` tracksMapping "
+                                                               "LEFT JOIN `Artists` artistAlbum ON artistAlbum.`ID` = album.`ArtistID` "
                                                                "WHERE "
                                                                "tracks.`AlbumID` = album.`ID` AND "
                                                                "artist.`ID` = tracks.`ArtistID` AND "
-                                                               "artistAlbum.`ID` = album.`ArtistID` AND "
                                                                "tracksMapping.`TrackID` = tracks.`ID` AND "
                                                                "tracksMapping.`FileName` = :filePath AND "
                                                                "tracksMapping.`Priority` = 1");
@@ -1664,7 +1633,7 @@ qulonglong DatabaseInterface::insertAlbum(const QString &title, const QString &a
 {
     auto result = qulonglong(0);
 
-    if (title.isEmpty()) {
+    if (title.isEmpty() || albumArtist.isEmpty()) {
         return result;
     }
 
@@ -1723,7 +1692,7 @@ qulonglong DatabaseInterface::insertAlbum(const QString &title, const QString &a
     return result;
 }
 
-bool DatabaseInterface::updateAlbumFromId(qulonglong albumId, const QUrl &albumArtUri) const
+bool DatabaseInterface::updateAlbumFromId(qulonglong albumId, const QUrl &albumArtUri)
 {
     auto modifiedAlbum = false;
 
@@ -1750,28 +1719,47 @@ bool DatabaseInterface::updateAlbumFromId(qulonglong albumId, const QUrl &albumA
 
     const auto &album = internalAlbumFromId(albumId);
 
-    if (album.albumArtURI().isValid() && album.albumArtURI() == albumArtUri) {
-        return modifiedAlbum;
-    }
+    if (!album.albumArtURI().isValid() || album.albumArtURI() == albumArtUri) {
+        d->mUpdateAlbumArtUriFromAlbumIdQuery.bindValue(QStringLiteral(":albumId"), albumId);
+        d->mUpdateAlbumArtUriFromAlbumIdQuery.bindValue(QStringLiteral(":coverFileName"), albumArtUri);
 
-    d->mUpdateAlbumArtUriFromAlbumIdQuery.bindValue(QStringLiteral(":albumId"), albumId);
-    d->mUpdateAlbumArtUriFromAlbumIdQuery.bindValue(QStringLiteral(":coverFileName"), albumArtUri);
+        result = d->mUpdateAlbumArtUriFromAlbumIdQuery.exec();
 
-    result = d->mUpdateAlbumArtUriFromAlbumIdQuery.exec();
+        if (!result || !d->mUpdateAlbumArtUriFromAlbumIdQuery.isActive()) {
+            qDebug() << "DatabaseInterface::updateIsSingleDiscAlbumFromId" << d->mUpdateAlbumArtUriFromAlbumIdQuery.lastQuery();
+            qDebug() << "DatabaseInterface::updateIsSingleDiscAlbumFromId" << d->mUpdateAlbumArtUriFromAlbumIdQuery.boundValues();
+            qDebug() << "DatabaseInterface::updateIsSingleDiscAlbumFromId" << d->mUpdateAlbumArtUriFromAlbumIdQuery.lastError();
 
-    if (!result || !d->mUpdateAlbumArtUriFromAlbumIdQuery.isActive()) {
-        qDebug() << "DatabaseInterface::updateIsSingleDiscAlbumFromId" << d->mUpdateAlbumArtUriFromAlbumIdQuery.lastQuery();
-        qDebug() << "DatabaseInterface::updateIsSingleDiscAlbumFromId" << d->mUpdateAlbumArtUriFromAlbumIdQuery.boundValues();
-        qDebug() << "DatabaseInterface::updateIsSingleDiscAlbumFromId" << d->mUpdateAlbumArtUriFromAlbumIdQuery.lastError();
+            d->mUpdateAlbumArtUriFromAlbumIdQuery.finish();
+
+            return modifiedAlbum;
+        }
 
         d->mUpdateAlbumArtUriFromAlbumIdQuery.finish();
 
-        return modifiedAlbum;
+        modifiedAlbum = true;
     }
 
-    d->mUpdateAlbumArtUriFromAlbumIdQuery.finish();
+    if (!album.isValidArtist() || album.canUpdateArtist()) {
+        d->mUpdateAlbumArtistFromAlbumIdQuery.bindValue(QStringLiteral(":albumId"), albumId);
+        d->mUpdateAlbumArtistFromAlbumIdQuery.bindValue(QStringLiteral(":artistId"), insertArtist(album.artist()));
 
-    modifiedAlbum = true;
+        result = d->mUpdateAlbumArtistFromAlbumIdQuery.exec();
+
+        if (!result || !d->mUpdateAlbumArtistFromAlbumIdQuery.isActive()) {
+            qDebug() << "DatabaseInterface::updateIsSingleDiscAlbumFromId" << d->mUpdateAlbumArtistFromAlbumIdQuery.lastQuery();
+            qDebug() << "DatabaseInterface::updateIsSingleDiscAlbumFromId" << d->mUpdateAlbumArtistFromAlbumIdQuery.boundValues();
+            qDebug() << "DatabaseInterface::updateIsSingleDiscAlbumFromId" << d->mUpdateAlbumArtistFromAlbumIdQuery.lastError();
+
+            d->mUpdateAlbumArtistFromAlbumIdQuery.finish();
+
+            return modifiedAlbum;
+        }
+
+        d->mUpdateAlbumArtistFromAlbumIdQuery.finish();
+
+        modifiedAlbum = true;
+    }
 
     return modifiedAlbum;
 }
@@ -1916,7 +1904,11 @@ qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrac
         return resultId;
     }
 
-    auto albumId = insertAlbum(oneTrack.albumName(), oneTrack.albumArtist(), covers[oneTrack.albumName()], 0, true);
+    auto albumId = insertAlbum(oneTrack.albumName(), (oneTrack.isValidAlbumArtist() ? oneTrack.albumArtist() : QString()), covers[oneTrack.albumName()], 0, true);
+
+    if (albumId == 0) {
+        return resultId;
+    }
 
     auto otherTrackId = internalTrackIdFromTitleAlbumArtist(oneTrack.title(), oneTrack.albumName(), oneTrack.artist());
     bool isModifiedTrack = otherTrackId != 0;
@@ -1973,6 +1965,27 @@ qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrac
     }
 
     return resultId;
+}
+
+MusicAudioTrack DatabaseInterface::buildTrackFromDatabaseRecord(const QSqlRecord &trackRecord) const
+{
+    auto result = MusicAudioTrack();
+
+    result.setDatabaseId(trackRecord.value(0).toULongLong());
+    result.setTitle(trackRecord.value(1).toString());
+    result.setParentId(trackRecord.value(2).toString());
+    result.setArtist(trackRecord.value(3).toString());
+    result.setAlbumArtist(trackRecord.value(4).toString());
+    result.setResourceURI(trackRecord.value(5).toUrl());
+    result.setTrackNumber(trackRecord.value(6).toInt());
+    result.setDiscNumber(trackRecord.value(7).toInt());
+    result.setDuration(QTime::fromMSecsSinceStartOfDay(trackRecord.value(8).toInt()));
+    result.setAlbumName(trackRecord.value(9).toString());
+    result.setRating(trackRecord.value(10).toInt());
+    result.setAlbumCover(trackRecord.value(11).toUrl());
+    result.setValid(true);
+
+    return result;
 }
 
 qulonglong DatabaseInterface::internalArtistIdFromName(const QString &name)
@@ -2158,25 +2171,9 @@ QList<MusicAudioTrack> DatabaseInterface::fetchTracks(qulonglong albumId) const
     }
 
     while (d->mSelectTrackQuery.next()) {
-        MusicAudioTrack newTrack;
-
         const auto &currentRecord = d->mSelectTrackQuery.record();
 
-        newTrack.setDatabaseId(currentRecord.value(0).toULongLong());
-        newTrack.setTitle(currentRecord.value(1).toString());
-        newTrack.setParentId(currentRecord.value(2).toString());
-        newTrack.setArtist(currentRecord.value(3).toString());
-        newTrack.setAlbumName(currentRecord.value(4).toString());
-        newTrack.setAlbumArtist(currentRecord.value(5).toString());
-        newTrack.setAlbumCover(currentRecord.value(11).toUrl());
-        newTrack.setResourceURI(currentRecord.value(6).toUrl());
-        newTrack.setTrackNumber(currentRecord.value(7).toInt());
-        newTrack.setDiscNumber(currentRecord.value(8).toInt());
-        newTrack.setDuration(QTime::fromMSecsSinceStartOfDay(currentRecord.value(9).toInt()));
-        newTrack.setRating(currentRecord.value(10).toInt());
-        newTrack.setValid(true);
-
-        allTracks.push_back(newTrack);
+        allTracks.push_back(buildTrackFromDatabaseRecord(currentRecord));
     }
 
     d->mSelectTrackQuery.finish();
@@ -2388,18 +2385,7 @@ MusicAudioTrack DatabaseInterface::internalTrackFromDatabaseId(qulonglong id)
 
     const auto &currentRecord = d->mSelectTrackFromIdQuery.record();
 
-    result.setDatabaseId(currentRecord.value(0).toULongLong());
-    result.setAlbumName(internalAlbumDataFromId(currentRecord.value(2).toULongLong(), DatabaseInterface::AlbumData::Title).toString());
-    result.setArtist(currentRecord.value(3).toString());
-    result.setAlbumArtist(currentRecord.value(4).toString());
-    result.setDuration(QTime::fromMSecsSinceStartOfDay(currentRecord.value(8).toLongLong()));
-    result.setResourceURI(currentRecord.value(5).toUrl());
-    result.setAlbumCover(currentRecord.value(10).toUrl());
-    result.setTitle(currentRecord.value(1).toString());
-    result.setTrackNumber(currentRecord.value(6).toInt());
-    result.setDiscNumber(currentRecord.value(7).toInt());
-    result.setRating(currentRecord.value(9).toInt());
-    result.setValid(true);
+    result = buildTrackFromDatabaseRecord(currentRecord);
 
     d->mSelectTrackFromIdQuery.finish();
 
@@ -2522,24 +2508,9 @@ QList<MusicAudioTrack> DatabaseInterface::internalTracksFromAuthor(const QString
     }
 
     while (d->mSelectTracksFromArtist.next()) {
-        MusicAudioTrack newTrack;
-
         const auto &currentRecord = d->mSelectTracksFromArtist.record();
 
-        newTrack.setDatabaseId(currentRecord.value(1).toULongLong());
-        newTrack.setTitle(currentRecord.value(0).toString());
-        newTrack.setAlbumName(currentRecord.value(8).toString());
-        newTrack.setAlbumArtist(currentRecord.value(9).toString());
-        newTrack.setArtist(currentRecord.value(2).toString());
-        newTrack.setResourceURI(currentRecord.value(3).toUrl());
-        newTrack.setAlbumCover(currentRecord.value(7).toUrl());
-        newTrack.setTrackNumber(currentRecord.value(4).toInt());
-        newTrack.setDiscNumber(currentRecord.value(5).toInt());
-        newTrack.setDuration(QTime::fromMSecsSinceStartOfDay(currentRecord.value(6).toInt()));
-        newTrack.setRating(currentRecord.value(10).toInt());
-        newTrack.setValid(true);
-
-        allTracks.push_back(newTrack);
+        allTracks.push_back(buildTrackFromDatabaseRecord(currentRecord));
     }
 
     d->mSelectTracksFromArtist.finish();

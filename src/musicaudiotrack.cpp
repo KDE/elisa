@@ -234,7 +234,12 @@ void MusicAudioTrack::setAlbumArtist(const QString &value) const
 
 QString MusicAudioTrack::albumArtist() const
 {
-    return d->mAlbumArtist;
+    return (d->mAlbumArtist.isEmpty() ? d->mArtist : d->mAlbumArtist);
+}
+
+bool MusicAudioTrack::isValidAlbumArtist() const
+{
+    return !d->mAlbumArtist.isEmpty();
 }
 
 void MusicAudioTrack::setAlbumCover(const QUrl &value) const

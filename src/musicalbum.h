@@ -78,7 +78,7 @@ public:
 
     bool isValidArtist() const;
 
-    bool canUpdateArtist() const;
+    bool canUpdateArtist(const MusicAudioTrack &currentTrack) const;
 
     void setAlbumArtURI(const QUrl &value);
 

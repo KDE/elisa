@@ -175,12 +175,12 @@ QString MusicAlbum::artist() const
 
         if (result.isEmpty() && d->mTracks.size() > 1) {
             result = QStringLiteral("Various Artists");
+        } else if (result.isEmpty() && d->mTracks.size() == 1) {
+            result = d->mTracks.constFirst().albumArtist();
         }
     }
 
     return result;
-
-    return (!d->mArtist.isEmpty() ? d->mArtist : (!d->mTracks.isEmpty() ? d->mTracks.constFirst().albumArtist() : QString()));
 }
 
 void MusicAlbum::setAlbumArtURI(const QUrl &value)
@@ -305,14 +305,16 @@ void MusicAlbum::updateTrack(const MusicAudioTrack &modifiedTrack, int index)
 
 QDebug& operator<<(QDebug &stream, const MusicAlbum &data)
 {
-    stream << data.title() << " " << data.artist();
+    stream << data.title() << " artist: " << data.artist() << " tracks: " << data.tracksCount();
 
     return stream;
 }
 
 bool operator==(const MusicAlbum &album1, const MusicAlbum &album2)
 {
-    return album1.artist() == album2.artist() && album1.title() == album2.title();
+    return album1.title() == album2.title() && (
+            (album1.isValidArtist() && album2.isValidArtist() && album1.artist() == album2.artist()) ||
+             !album1.isValidArtist() || !album2.isValidArtist());
 }
 
 int MusicAlbum::highestTrackRating() const
@@ -332,27 +334,11 @@ bool MusicAlbum::isValidArtist() const
     return !d->mArtist.isEmpty();
 }
 
-bool MusicAlbum::canUpdateArtist() const
+bool MusicAlbum::canUpdateArtist(const MusicAudioTrack &currentTrack) const
 {
     bool result = false;
 
-    int cptTracksWithDifferentArtist = 0;
-
-    for (const auto &oneTrack : qAsConst(d->mTracks)) {
-        if (oneTrack.isValidAlbumArtist() && oneTrack.albumArtist() != artist()) {
-            result = true;
-            break;
-        }
-        if (oneTrack.isValidAlbumArtist() && oneTrack.albumArtist() == artist()) {
-            cptTracksWithDifferentArtist = 0;
-            break;
-        }
-        if (!oneTrack.isValidAlbumArtist() && oneTrack.artist() != artist()) {
-            ++cptTracksWithDifferentArtist;
-        }
-    }
-
-    if (!result && cptTracksWithDifferentArtist > 1) {
+    if (currentTrack.isValidAlbumArtist() && currentTrack.albumArtist() != artist()) {
         result = true;
     }
 

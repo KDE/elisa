@@ -143,7 +143,7 @@ private:
 
     qulonglong insertAlbum(const QString &title, const QString &albumArtist, const QUrl &albumArtURI, int tracksCount, bool isSingleDiscAlbum);
 
-    bool updateAlbumFromId(qulonglong albumId, const QUrl &albumArtUri);
+    bool updateAlbumFromId(qulonglong albumId, const QUrl &albumArtUri, const MusicAudioTrack &currentTrack);
 
     qulonglong insertArtist(const QString &name);
 

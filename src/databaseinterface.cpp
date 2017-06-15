@@ -57,7 +57,7 @@ public:
           mInitialUpdateTracksValidity(mTracksDatabase), mUpdateTrackMapping(mTracksDatabase),
           mSelectTracksMapping(mTracksDatabase), mSelectTracksMappingPriority(mTracksDatabase),
           mUpdateAlbumArtUriFromAlbumIdQuery(mTracksDatabase), mUpdateAlbumArtistFromAlbumIdQuery(mTracksDatabase),
-          mInsertAlbumWithoutArtistQuery(mTracksDatabase)
+          mInsertAlbumWithoutArtistQuery(mTracksDatabase), mSelectTracksMappingPriorityByTrackId(mTracksDatabase)
     {
     }
 
@@ -134,6 +134,8 @@ public:
     QSqlQuery mUpdateAlbumArtistFromAlbumIdQuery;
 
     QSqlQuery mInsertAlbumWithoutArtistQuery;
+
+    QSqlQuery mSelectTracksMappingPriorityByTrackId;
 
     qulonglong mAlbumId = 1;
 
@@ -1378,12 +1380,22 @@ void DatabaseInterface::initRequest()
     }
 
     {
-        auto selectTracksMappingPriorityQueryText = QStringLiteral("SELECT count(*) FROM `TracksMapping` WHERE `TrackID` = :trackId AND `FileName` != :fileName");
+        auto selectTracksMappingPriorityQueryText = QStringLiteral("SELECT `Priority` FROM `TracksMapping` WHERE `TrackID` = :trackId AND `FileName` = :fileName");
 
         auto result = d->mSelectTracksMappingPriority.prepare(selectTracksMappingPriorityQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectTracksMappingPriority.lastError();
+        }
+    }
+
+    {
+        auto selectTracksMappingPriorityQueryByTrackIdText = QStringLiteral("SELECT MAX(`Priority`) FROM `TracksMapping` WHERE `TrackID` = :trackId");
+
+        auto result = d->mSelectTracksMappingPriorityByTrackId.prepare(selectTracksMappingPriorityQueryByTrackIdText);
+
+        if (!result) {
+            qDebug() << "DatabaseInterface::initRequest" << d->mSelectTracksMappingPriorityByTrackId.lastError();
         }
     }
 
@@ -1871,7 +1883,7 @@ void DatabaseInterface::updateTrackOrigin(qulonglong trackId, const QUrl &fileNa
 {
     d->mUpdateTrackMapping.bindValue(QStringLiteral(":trackId"), trackId);
     d->mUpdateTrackMapping.bindValue(QStringLiteral(":fileName"), fileName);
-    d->mUpdateTrackMapping.bindValue(QStringLiteral(":priority"), computeTrackPriority(trackId, fileName) + 1);
+    d->mUpdateTrackMapping.bindValue(QStringLiteral(":priority"), computeTrackPriority(trackId, fileName));
 
     auto queryResult = d->mUpdateTrackMapping.exec();
 
@@ -1890,7 +1902,7 @@ void DatabaseInterface::updateTrackOrigin(qulonglong trackId, const QUrl &fileNa
 
 int DatabaseInterface::computeTrackPriority(qulonglong trackId, const QUrl &fileName)
 {
-    auto result = int(0);
+    auto result = int(1);
 
     if (!d) {
         return result;
@@ -1913,9 +1925,33 @@ int DatabaseInterface::computeTrackPriority(qulonglong trackId, const QUrl &file
 
     if (d->mSelectTracksMappingPriority.next()) {
         result = d->mSelectTracksMappingPriority.record().value(0).toInt();
+
+        d->mSelectTracksMappingPriority.finish();
+
+        return result;
     }
 
     d->mSelectTracksMappingPriority.finish();
+
+    d->mSelectTracksMappingPriorityByTrackId.bindValue(QStringLiteral(":trackId"), trackId);
+
+    queryResult = d->mSelectTracksMappingPriorityByTrackId.exec();
+
+    if (!queryResult || !d->mSelectTracksMappingPriorityByTrackId.isSelect() || !d->mSelectTracksMappingPriorityByTrackId.isActive()) {
+        qDebug() << "DatabaseInterface::internalTrackIdFromFileName" << d->mSelectTracksMappingPriorityByTrackId.lastQuery();
+        qDebug() << "DatabaseInterface::internalTrackIdFromFileName" << d->mSelectTracksMappingPriorityByTrackId.boundValues();
+        qDebug() << "DatabaseInterface::internalTrackIdFromFileName" << d->mSelectTracksMappingPriorityByTrackId.lastError();
+
+        d->mSelectTracksMappingPriorityByTrackId.finish();
+
+        return result;
+    }
+
+    if (d->mSelectTracksMappingPriorityByTrackId.next()) {
+        result = d->mSelectTracksMappingPriorityByTrackId.record().value(0).toInt() + 1;
+    }
+
+    d->mSelectTracksMappingPriorityByTrackId.finish();
 
     return result;
 }

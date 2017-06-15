@@ -371,6 +371,20 @@ target_link_libraries(allartistsmodeltest Qt5::Test Qt5::Core Qt5::Sql KF5::I18n
 target_include_directories(allartistsmodeltest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 add_test(allartistsmodeltest allartistsmodeltest)
 
+set(alltracksmodeltest_SOURCES
+    ../src/databaseinterface.cpp
+    ../src/musicartist.cpp
+    ../src/musicalbum.cpp
+    ../src/musicaudiotrack.cpp
+    ../src/alltracksmodel.cpp
+    alltracksmodeltest.cpp
+)
+
+add_executable(alltracksmodeltest ${alltracksmodeltest_SOURCES})
+target_link_libraries(alltracksmodeltest Qt5::Test Qt5::Core Qt5::Sql KF5::I18n)
+target_include_directories(alltracksmodeltest PRIVATE ${CMAKE_SOURCE_DIR}/src)
+add_test(alltracksmodeltest alltracksmodeltest)
+
 if (KF5FileMetaData_FOUND)
     set(localfilelistingtest_SOURCES
         ../src/file/localfilelisting.cpp

@@ -19,13 +19,17 @@
 
 #include "alltracksmodel.h"
 
+#include <algorithm>
+
 #include <QDebug>
 
 class AllTracksModelPrivate
 {
 public:
 
-    QList<MusicAudioTrack> mAllTracks;
+    QHash<qulonglong, MusicAudioTrack> mAllTracks;
+
+    QList<qulonglong> mIds;
 
 };
 
@@ -213,25 +217,33 @@ int AllTracksModel::columnCount(const QModelIndex &parent) const
     return 1;
 }
 
-void AllTracksModel::trackAdded(qulonglong id)
-{
-}
-
 void AllTracksModel::tracksAdded(const QList<MusicAudioTrack> &allTracks)
 {
-    if (!d->mAllTracks.isEmpty()) {
-        beginRemoveRows({}, 0, d->mAllTracks.size() - 1);
-        d->mAllTracks.clear();
-        endRemoveRows();
+    beginInsertRows({}, 0, allTracks.size() - 1);
+
+    for (const auto &oneTrack : allTracks) {
+        d->mAllTracks[oneTrack.databaseId()] = oneTrack;
     }
 
-    beginInsertRows({}, 0, allTracks.size() - 1);
-    d->mAllTracks = allTracks;
+    d->mIds = d->mAllTracks.keys();
+    std::sort(d->mIds.begin(), d->mIds.end());
+
     endInsertRows();
 }
 
-void AllTracksModel::trackRemoved(const MusicAudioTrack &removedTrack)
+void AllTracksModel::trackRemoved(qulonglong removedTrackId)
 {
+    auto itTrack = std::find(d->mIds.begin(), d->mIds.end(), removedTrackId);
+    if (itTrack == d->mIds.end()) {
+        return;
+    }
+
+    auto position = itTrack - d->mIds.begin();
+
+    beginRemoveRows({}, position, position);
+    d->mIds.erase(itTrack);
+    d->mAllTracks.remove(removedTrackId);
+    endRemoveRows();
 }
 
 void AllTracksModel::trackModified(const MusicAudioTrack &modifiedTrack)

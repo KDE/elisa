@@ -166,7 +166,7 @@ Item {
                     font.weight: Font.ExtraLight
                     font.pointSize: 12
 
-                    text: i18nc("Text shown when play list is empty", "Your play list is empty.\nIn order to start, you can explore your music library with the left menu.\nUse the available buttons to add your selection.")
+                    text: i18nc("Text shown when play list is empty", "Your play list is empty.\nIn order to start, you can explore your music library with the views on the left.\nUse the available buttons to add your selection.")
                     anchors.fill: parent
                     anchors.margins: elisaTheme.layoutHorizontalMargin
                 }

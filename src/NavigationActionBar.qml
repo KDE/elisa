@@ -143,12 +143,12 @@ Item {
             }
         }
 
-        ToolButton {
+        Button {
             action: enqueueAction
             Layout.leftMargin: elisaTheme.layoutHorizontalMargin
         }
 
-        ToolButton {
+        Button {
             action: clearAndEnqueueAction
             Layout.leftMargin: elisaTheme.layoutHorizontalMargin
             Layout.rightMargin: elisaTheme.layoutHorizontalMargin

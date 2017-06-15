@@ -55,7 +55,7 @@ as Authors, publish date, the abstract, and Keywords -->
 
 <para>
 &elisa; is a music player designed to be simple to use.
-It gets your music from different sources like local directories, Baloo indexer, ...
+It gets your music from local sources either Baloo indexer or local music directory.
 </para>
 <para>
 &elisa; allows you to browse your music, build a playlist and plays it.
@@ -71,7 +71,7 @@ It gets your music from different sources like local directories, Baloo indexer,
 <screeninfo>Here's a screenshot of &elisa; start screen</screeninfo>
 	<mediaobject>
 	  <imageobject>
-	    <imagedata fileref="Screenshot_20170212_165351.png" format="PNG"/>
+	    <imagedata fileref="Screenshot_20170615_224755.png" format="PNG"/>
 	  </imageobject>
 	  <textobject>
 	    <phrase>Screenshot</phrase>
@@ -92,14 +92,15 @@ It gets your music from different sources like local directories, Baloo indexer,
 <title>Browsing Music</title>
 <para>
 From the different sources of music, it collects all your music and analyses their metadata such that their title, artist, ...
-It provides two way to browse your music: a list of all albums or a list of all artists.
+It provides three way to browse your music: a list of all albums, a list of all artists or a list of all tracks.
 </para>
 <para>
-Each method uses an updated view of all your music along with a filter to allow to quickly find what you are looking for.
+Each method uses an a view of all your music along with a filter to allow to quickly find what you are looking for. You can also filter by rating.
 </para>
 <para>
 The filter of the view of all albums is implemented on the title or the artist of albums or the list of artists of each track of an album.
 The filter of the view of all artists is implemented on the name of the artists.
+The filter of the view of all tracks is implemented on the track title, track artist and track album name (if any).
 </para>
 </sect2>
 
@@ -110,7 +111,7 @@ When browsing your music, artists, albums and tracks can be added with a button 
 It is also possible to clear the playlist and at the same time add some music.
 </para>
 <para>
-A toolbar below the playlist allow to operate on it. Currently it is only possible to clear it.
+A toolbar below the playlist allow to operate on it. Currently it is possible to clear it or to navigate to the currently playing track.
 </para>
 </sect2>
 
@@ -214,6 +215,7 @@ url="https://phabricator.kde.org/project/profile/193/">Elisa Project</ulink>.
 
 <para>
 Currently no configuration is required before use of &elisa;.
+You can explore the menu of application to see the customization possibilities.
 </para>
 
 </sect1>

@@ -267,7 +267,9 @@ MusicAudioTrack AbstractFileListing::scanOneFile(const QUrl &scanFile)
     auto albumArtistProperty = allProperties.find(KFileMetaData::Property::AlbumArtist);
     auto trackNumberProperty = allProperties.find(KFileMetaData::Property::TrackNumber);
     auto discNumberProperty = allProperties.find(KFileMetaData::Property::DiscNumber);
+#if defined Q_OS_LINUX && !defined Q_OS_ANDROID
     auto fileData = KFileMetaData::UserMetaData(scanFile.toLocalFile());
+#endif
 
     if (albumProperty != allProperties.end()) {
         auto albumValue = albumProperty->toString();

@@ -37,6 +37,10 @@ set_package_properties(UPNPQT PROPERTIES
     URL "https://gitlab.com/homeautomationqt/upnp-player-qt"
     TYPE OPTIONAL)
 
+if (UPNPQT_FOUND)
+    message(WARNING "UPnP support is experimental and may not work.")
+endif()
+
 include(FeatureSummary)
 include(GenerateExportHeader)
 include(ECMSetupVersion)

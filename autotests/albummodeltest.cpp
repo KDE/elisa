@@ -122,17 +122,6 @@ private Q_SLOTS:
 
     void removeOneTrack()
     {
-        auto configDirectory = QDir(QStandardPaths::writableLocation(QStandardPaths::QStandardPaths::AppDataLocation));
-        auto rootDirectory = QDir::root();
-        rootDirectory.mkpath(configDirectory.path());
-        auto fileName = configDirectory.filePath(QStringLiteral("elisaMusicDatabase.sqlite"));
-        QFile dbFile(fileName);
-        auto dbExists = dbFile.exists();
-
-        if (dbExists) {
-            QCOMPARE(dbFile.remove(), true);
-        }
-
         DatabaseInterface musicDb;
         AlbumModel albumsModel;
 
@@ -184,17 +173,6 @@ private Q_SLOTS:
 
     void removeOneAlbum()
     {
-        auto configDirectory = QDir(QStandardPaths::writableLocation(QStandardPaths::QStandardPaths::AppDataLocation));
-        auto rootDirectory = QDir::root();
-        rootDirectory.mkpath(configDirectory.path());
-        auto fileName = configDirectory.filePath(QStringLiteral("elisaMusicDatabase.sqlite"));
-        QFile dbFile(fileName);
-        auto dbExists = dbFile.exists();
-
-        if (dbExists) {
-            QCOMPARE(dbFile.remove(), true);
-        }
-
         DatabaseInterface musicDb;
         AlbumModel albumsModel;
 
@@ -253,17 +231,6 @@ private Q_SLOTS:
 
     void addOneTrack()
     {
-        auto configDirectory = QDir(QStandardPaths::writableLocation(QStandardPaths::QStandardPaths::AppDataLocation));
-        auto rootDirectory = QDir::root();
-        rootDirectory.mkpath(configDirectory.path());
-        auto fileName = configDirectory.filePath(QStringLiteral("elisaMusicDatabase.sqlite"));
-        QFile dbFile(fileName);
-        auto dbExists = dbFile.exists();
-
-        if (dbExists) {
-            QCOMPARE(dbFile.remove(), true);
-        }
-
         DatabaseInterface musicDb;
         AlbumModel albumsModel;
 
@@ -357,17 +324,6 @@ private Q_SLOTS:
 
     void modifyOneTrack()
     {
-        auto configDirectory = QDir(QStandardPaths::writableLocation(QStandardPaths::QStandardPaths::AppDataLocation));
-        auto rootDirectory = QDir::root();
-        rootDirectory.mkpath(configDirectory.path());
-        auto fileName = configDirectory.filePath(QStringLiteral("elisaMusicDatabase.sqlite"));
-        QFile dbFile(fileName);
-        auto dbExists = dbFile.exists();
-
-        if (dbExists) {
-            QCOMPARE(dbFile.remove(), true);
-        }
-
         DatabaseInterface musicDb;
         AlbumModel albumsModel;
 

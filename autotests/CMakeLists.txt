@@ -2,66 +2,6 @@ enable_testing()
 
 include_directories(${elisa_BINARY_DIR})
 
-set(playListTest_SOURCES
-    ../src/mediaplaylist.cpp
-    ../src/playlistcontroler.cpp
-    ../src/databaseinterface.cpp
-    ../src/musiclistenersmanager.cpp
-    ../src/trackslistener.cpp
-    ../src/musicartist.cpp
-    ../src/musicalbum.cpp
-    ../src/musicaudiotrack.cpp
-    playlisttests.cpp
-)
-
-if (KF5Baloo_FOUND)
-    if (Qt5DBus_FOUND)
-        set(playListTest_SOURCES
-            ${playListTest_SOURCES}
-            ../src/baloo/baloolistener.cpp
-            ../src/baloo/localbaloofilelisting.cpp
-            )
-    endif()
-endif()
-
-if (UPNPQT_FOUND)
-    set(playListTest_SOURCES
-        ${playListTest_SOURCES}
-        ../src/upnp/upnpcontrolcontentdirectory.cpp
-        ../src/upnp/upnpcontentdirectorymodel.cpp
-        ../src/upnp/upnpcontrolconnectionmanager.cpp
-        ../src/upnp/upnpcontrolmediaserver.cpp
-        ../src/upnp/didlparser.cpp
-        ../src/upnp/upnplistener.cpp
-        ../src/upnp/upnpdiscoverallmusic.cpp
-        )
-endif()
-
-if (KF5FileMetaData_FOUND)
-    set(playListTest_SOURCES
-        ${playListTest_SOURCES}
-        ../src/file/filelistener.cpp
-        ../src/file/localfilelisting.cpp
-        ../src/abstractfile/abstractfilelistener.cpp
-        ../src/abstractfile/abstractfilelisting.cpp
-    )
-endif()
-
-add_executable(playListTest ${playListTest_SOURCES})
-target_link_libraries(playListTest Qt5::Test Qt5::Core Qt5::Sql KF5::I18n)
-if (KF5Baloo_FOUND)
-    target_link_libraries(playListTest KF5::Baloo Qt5::DBus)
-endif()
-if (KF5FileMetaData_FOUND)
-    target_link_libraries(playListTest KF5::FileMetaData)
-endif()
-if (UPNPQT_FOUND)
-    target_link_libraries(playListTest Qt5::Xml UPNP::upnpQt Qt5::Network)
-endif()
-
-target_include_directories(playListTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
-add_test(playListTest playListTest)
-
 set(databaseInterfaceTest_SOURCES
     ../src/databaseinterface.cpp
     ../src/musicartist.cpp

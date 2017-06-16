@@ -122,17 +122,6 @@ private Q_SLOTS:
 
     void removeOneArtist()
     {
-        auto configDirectory = QDir(QStandardPaths::writableLocation(QStandardPaths::QStandardPaths::AppDataLocation));
-        auto rootDirectory = QDir::root();
-        rootDirectory.mkpath(configDirectory.path());
-        auto fileName = configDirectory.filePath(QStringLiteral("elisaMusicDatabase.sqlite"));
-        QFile dbFile(fileName);
-        auto dbExists = dbFile.exists();
-
-        if (dbExists) {
-            QCOMPARE(dbFile.remove(), true);
-        }
-
         DatabaseInterface musicDb;
         AllArtistsModel artistsModel;
 
@@ -186,17 +175,6 @@ private Q_SLOTS:
 
     void addOneArtist()
     {
-        auto configDirectory = QDir(QStandardPaths::writableLocation(QStandardPaths::QStandardPaths::AppDataLocation));
-        auto rootDirectory = QDir::root();
-        rootDirectory.mkpath(configDirectory.path());
-        auto fileName = configDirectory.filePath(QStringLiteral("elisaMusicDatabase.sqlite"));
-        QFile dbFile(fileName);
-        auto dbExists = dbFile.exists();
-
-        if (dbExists) {
-            QCOMPARE(dbFile.remove(), true);
-        }
-
         DatabaseInterface musicDb;
         AllArtistsModel artistsModel;
 

@@ -382,6 +382,68 @@ private Q_SLOTS:
 
         QCOMPARE(tracksModel.rowCount(), 1);
     }
+
+    void modifyOneTrack()
+    {
+        DatabaseInterface musicDb;
+        AllTracksModel tracksModel;
+
+        connect(&musicDb, &DatabaseInterface::tracksAdded,
+                &tracksModel, &AllTracksModel::tracksAdded);
+        connect(&musicDb, &DatabaseInterface::trackModified,
+                &tracksModel, &AllTracksModel::trackModified);
+        connect(&musicDb, &DatabaseInterface::trackRemoved,
+                &tracksModel, &AllTracksModel::trackRemoved);
+
+        musicDb.init(QStringLiteral("testDb"));
+
+        QSignalSpy beginInsertRowsSpy(&tracksModel, &AllTracksModel::rowsAboutToBeInserted);
+        QSignalSpy endInsertRowsSpy(&tracksModel, &AllTracksModel::rowsInserted);
+        QSignalSpy beginRemoveRowsSpy(&tracksModel, &AllTracksModel::rowsAboutToBeRemoved);
+        QSignalSpy endRemoveRowsSpy(&tracksModel, &AllTracksModel::rowsRemoved);
+        QSignalSpy dataChangedSpy(&tracksModel, &AllTracksModel::dataChanged);
+
+        QCOMPARE(beginInsertRowsSpy.count(), 0);
+        QCOMPARE(endInsertRowsSpy.count(), 0);
+        QCOMPARE(beginRemoveRowsSpy.count(), 0);
+        QCOMPARE(endRemoveRowsSpy.count(), 0);
+        QCOMPARE(dataChangedSpy.count(), 0);
+
+        musicDb.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
+
+        QCOMPARE(beginInsertRowsSpy.count(), 1);
+        QCOMPARE(endInsertRowsSpy.count(), 1);
+        QCOMPARE(beginRemoveRowsSpy.count(), 0);
+        QCOMPARE(endRemoveRowsSpy.count(), 0);
+        QCOMPARE(dataChangedSpy.count(), 0);
+
+        QCOMPARE(tracksModel.rowCount(), 18);
+
+        auto newTrack = MusicAudioTrack{true, QStringLiteral("$1"), QStringLiteral("0"), QStringLiteral("track1"),
+                QStringLiteral("artist1"), QStringLiteral("album1"), QStringLiteral("Various Artists"), 1, 1, QTime::fromMSecsSinceStartOfDay(1), {QUrl::fromLocalFile(QStringLiteral("/$1"))},
+        {QUrl::fromLocalFile(QStringLiteral("file://image$1"))}, 5};
+        auto newTracks = QList<MusicAudioTrack>();
+        newTracks.push_back(newTrack);
+
+        musicDb.insertTracksList(newTracks, mNewCovers, QStringLiteral("autoTest"));
+
+        QCOMPARE(beginInsertRowsSpy.count(), 1);
+        QCOMPARE(endInsertRowsSpy.count(), 1);
+        QCOMPARE(beginRemoveRowsSpy.count(), 0);
+        QCOMPARE(endRemoveRowsSpy.count(), 0);
+        QCOMPARE(dataChangedSpy.count(), 1);
+
+        QCOMPARE(tracksModel.rowCount(), 18);
+
+        auto dataChangedSignal =  dataChangedSpy.constFirst();
+
+        QCOMPARE(dataChangedSignal.size(), 3);
+
+        auto changedIndex = dataChangedSignal.constFirst().toModelIndex();
+
+        QCOMPARE(tracksModel.data(changedIndex, AllTracksModel::RatingRole).isValid(), true);
+        QCOMPARE(tracksModel.data(changedIndex, AllTracksModel::RatingRole).toInt(), 5);
+    }
 };
 
 QTEST_MAIN(AllTracksModelTests)

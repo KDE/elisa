@@ -260,6 +260,15 @@ void AllTracksModel::trackRemoved(qulonglong removedTrackId)
 
 void AllTracksModel::trackModified(const MusicAudioTrack &modifiedTrack)
 {
+    auto itTrack = std::find(d->mIds.begin(), d->mIds.end(), modifiedTrack.databaseId());
+    if (itTrack == d->mIds.end()) {
+        return;
+    }
+
+    auto position = itTrack - d->mIds.begin();
+
+    d->mAllTracks[modifiedTrack.databaseId()] = modifiedTrack;
+    Q_EMIT dataChanged(index(position, 0), index(position, 0));
 }
 
 

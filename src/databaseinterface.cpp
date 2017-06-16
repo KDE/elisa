@@ -628,7 +628,7 @@ void DatabaseInterface::insertTracksList(const QList<MusicAudioTrack> &tracks, c
 
         const auto insertedTrackId = internalInsertTrack(oneTrack, covers, 0, modifiedAlbumIds);
 
-        if (insertedTrackId != 0) {
+        if (isNewTrack && insertedTrackId != 0) {
             insertedTracks.push_back(insertedTrackId);
         }
 

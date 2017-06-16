@@ -310,6 +310,22 @@ MusicAudioTrack AbstractFileListing::scanOneFile(const QUrl &scanFile)
         newTrack.setRating(fileData.rating());
 #endif
 
+        if (newTrack.title().isEmpty()) {
+            return newTrack;
+        }
+
+        if (newTrack.artist().isEmpty()) {
+            return newTrack;
+        }
+
+        if (newTrack.albumName().isEmpty()) {
+            return newTrack;
+        }
+
+        if (!newTrack.duration().isValid()) {
+            return newTrack;
+        }
+
         newTrack.setValid(true);
     }
 

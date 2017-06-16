@@ -208,6 +208,22 @@ MusicAudioTrack LocalBalooFileListing::scanOneFile(const QUrl &scanFile)
             std::sort(newTracks.begin(), newTracks.end());
         }
 
+        if (newTrack.title().isEmpty()) {
+            return newTrack;
+        }
+
+        if (newTrack.artist().isEmpty()) {
+            return newTrack;
+        }
+
+        if (newTrack.albumName().isEmpty()) {
+            return newTrack;
+        }
+
+        if (!newTrack.duration().isValid()) {
+            return newTrack;
+        }
+
         newTrack.setValid(true);
     }
 

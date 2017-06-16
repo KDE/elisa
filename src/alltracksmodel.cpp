@@ -44,15 +44,15 @@ AllTracksModel::~AllTracksModel()
 
 int AllTracksModel::rowCount(const QModelIndex &parent) const
 {
-    auto albumCount = 0;
+    auto tracksCount = 0;
 
     if (parent.isValid()) {
-        return albumCount;
+        return tracksCount;
     }
 
-    albumCount = d->mAllTracks.size();
+    tracksCount = d->mAllTracks.size();
 
-    return albumCount;
+    return tracksCount;
 }
 
 QHash<int, QByteArray> AllTracksModel::roleNames() const
@@ -117,14 +117,17 @@ QVariant AllTracksModel::data(const QModelIndex &index, int role) const
     switch(convertedRole)
     {
     case ColumnsRoles::TitleRole:
-        result = d->mAllTracks[index.row()].title();
+        if (d->mAllTracks[d->mIds[index.row()]].title().isEmpty()) {
+            result = {};
+        }
+        result = d->mAllTracks[d->mIds[index.row()]].title();
         break;
     case ColumnsRoles::MilliSecondsDurationRole:
-        result = d->mAllTracks[index.row()].duration().msecsSinceStartOfDay();
+        result = d->mAllTracks[d->mIds[index.row()]].duration().msecsSinceStartOfDay();
         break;
     case ColumnsRoles::DurationRole:
     {
-        QTime trackDuration = d->mAllTracks[index.row()].duration();
+        QTime trackDuration = d->mAllTracks[d->mIds[index.row()]].duration();
         if (trackDuration.hour() == 0) {
             result = trackDuration.toString(QStringLiteral("mm:ss"));
         } else {
@@ -133,47 +136,47 @@ QVariant AllTracksModel::data(const QModelIndex &index, int role) const
         break;
     }
     case ColumnsRoles::CreatorRole:
-        result = d->mAllTracks[index.row()].artist();
+        result = d->mAllTracks[d->mIds[index.row()]].artist();
         break;
     case ColumnsRoles::ArtistRole:
-        result = d->mAllTracks[index.row()].artist();
+        result = d->mAllTracks[d->mIds[index.row()]].artist();
         break;
     case ColumnsRoles::AlbumRole:
-        result = d->mAllTracks[index.row()].albumName();
+        result = d->mAllTracks[d->mIds[index.row()]].albumName();
         break;
     case ColumnsRoles::TrackNumberRole:
-        result = d->mAllTracks[index.row()].trackNumber();
+        result = d->mAllTracks[d->mIds[index.row()]].trackNumber();
         break;
     case ColumnsRoles::DiscNumberRole:
     {
-        const auto discNumber = d->mAllTracks[index.row()].discNumber();
+        const auto discNumber = d->mAllTracks[d->mIds[index.row()]].discNumber();
         if (discNumber > 0) {
             result = discNumber;
         }
         break;
     }
     case ColumnsRoles::RatingRole:
-        result = d->mAllTracks[index.row()].rating();
+        result = d->mAllTracks[d->mIds[index.row()]].rating();
         break;
     case ColumnsRoles::ImageRole:
     {
-        const auto &imageUrl = d->mAllTracks[index.row()].albumCover();
+        const auto &imageUrl = d->mAllTracks[d->mIds[index.row()]].albumCover();
         if (imageUrl.isValid()) {
             result = imageUrl;
         }
         break;
     }
     case ColumnsRoles::ResourceRole:
-        result = d->mAllTracks[index.row()].resourceURI();
+        result = d->mAllTracks[d->mIds[index.row()]].resourceURI();
         break;
     case ColumnsRoles::IdRole:
-        result = d->mAllTracks[index.row()].title();
+        result = d->mAllTracks[d->mIds[index.row()]].title();
         break;
     case ColumnsRoles::DatabaseIdRole:
-        result = d->mAllTracks[index.row()].databaseId();
+        result = d->mAllTracks[d->mIds[index.row()]].databaseId();
         break;
     case ColumnsRoles::TrackDataRole:
-        result = QVariant::fromValue(d->mAllTracks[index.row()]);
+        result = QVariant::fromValue(d->mAllTracks[d->mIds[index.row()]]);
         break;
     }
 
@@ -219,14 +222,23 @@ int AllTracksModel::columnCount(const QModelIndex &parent) const
 
 void AllTracksModel::tracksAdded(const QList<MusicAudioTrack> &allTracks)
 {
-    beginInsertRows({}, 0, allTracks.size() - 1);
+    auto newAllTracks = d->mAllTracks;
+    auto newTracksIds = QList<qulonglong>();
+
+    int countNewTracks = 0;
 
     for (const auto &oneTrack : allTracks) {
-        d->mAllTracks[oneTrack.databaseId()] = oneTrack;
+        if (newAllTracks.find(oneTrack.databaseId()) == newAllTracks.end()) {
+            newAllTracks[oneTrack.databaseId()] = oneTrack;
+            newTracksIds.push_back(oneTrack.databaseId());
+            ++countNewTracks;
+        }
     }
 
-    d->mIds = d->mAllTracks.keys();
-    std::sort(d->mIds.begin(), d->mIds.end());
+    beginInsertRows({}, d->mAllTracks.size(), d->mAllTracks.size() + countNewTracks - 1);
+
+    d->mAllTracks = newAllTracks;
+    d->mIds.append(newTracksIds);
 
     endInsertRows();
 }

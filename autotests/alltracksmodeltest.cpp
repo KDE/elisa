@@ -391,6 +391,41 @@ private Q_SLOTS:
 
         QCOMPARE(tracksModel.rowCount(), 19);
     }
+
+    void addDuplicateTracks()
+    {
+        AllTracksModel tracksModel;
+
+        auto newTracks = QList<MusicAudioTrack>();
+        newTracks.push_back({true, QStringLiteral("$19"), QStringLiteral("0"), QStringLiteral("track6"),
+                             QStringLiteral("artist2"), QStringLiteral("album4"), QStringLiteral("artist2"), 6, 1, QTime::fromMSecsSinceStartOfDay(19), {QUrl::fromLocalFile(QStringLiteral("/$19"))},
+                             {QUrl::fromLocalFile(QStringLiteral("file://image$19"))}, 5});
+        newTracks.push_back({true, QStringLiteral("$19"), QStringLiteral("0"), QStringLiteral("track6"),
+                             QStringLiteral("artist2"), QStringLiteral("album4"), QStringLiteral("artist2"), 6, 1, QTime::fromMSecsSinceStartOfDay(19), {QUrl::fromLocalFile(QStringLiteral("/$19"))},
+                             {QUrl::fromLocalFile(QStringLiteral("file://image$19"))}, 5});
+
+        QSignalSpy beginInsertRowsSpy(&tracksModel, &AllTracksModel::rowsAboutToBeInserted);
+        QSignalSpy endInsertRowsSpy(&tracksModel, &AllTracksModel::rowsInserted);
+        QSignalSpy beginRemoveRowsSpy(&tracksModel, &AllTracksModel::rowsAboutToBeRemoved);
+        QSignalSpy endRemoveRowsSpy(&tracksModel, &AllTracksModel::rowsRemoved);
+        QSignalSpy dataChangedSpy(&tracksModel, &AllTracksModel::dataChanged);
+
+        QCOMPARE(beginInsertRowsSpy.count(), 0);
+        QCOMPARE(endInsertRowsSpy.count(), 0);
+        QCOMPARE(beginRemoveRowsSpy.count(), 0);
+        QCOMPARE(endRemoveRowsSpy.count(), 0);
+        QCOMPARE(dataChangedSpy.count(), 0);
+
+        tracksModel.tracksAdded(newTracks);
+
+        QCOMPARE(beginInsertRowsSpy.count(), 1);
+        QCOMPARE(endInsertRowsSpy.count(), 1);
+        QCOMPARE(beginRemoveRowsSpy.count(), 0);
+        QCOMPARE(endRemoveRowsSpy.count(), 0);
+        QCOMPARE(dataChangedSpy.count(), 0);
+
+        QCOMPARE(tracksModel.rowCount(), 1);
+    }
 };
 
 QTEST_MAIN(AllTracksModelTests)

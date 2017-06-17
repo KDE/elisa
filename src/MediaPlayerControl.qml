@@ -182,7 +182,10 @@ Item {
             color: myPalette.text
 
             Layout.alignment: Qt.AlignVCenter
+            Layout.fillHeight: true
             Layout.rightMargin: elisaTheme.layoutHorizontalMargin
+
+            verticalAlignment: Text.AlignVCenter
 
             ProgressIndicator {
                 id: timeIndicator
@@ -201,7 +204,8 @@ Item {
 
             Layout.alignment: Qt.AlignVCenter
             Layout.fillWidth: true
-            Layout.rightMargin: elisaTheme.layoutHorizontalMargin * 10
+            Layout.rightMargin: elisaTheme.layoutHorizontalMargin
+            Layout.topMargin: 3
 
             enabled: musicWidget.seekable && musicWidget.playEnabled
 
@@ -221,6 +225,25 @@ Item {
                     musicWidget.seek(seekValue)
                     seekStarted = false;
                 }
+            }
+        }
+
+        LabelWithToolTip {
+            id: durationLabel
+
+            text: durationIndicator.progressDuration
+
+            color: myPalette.text
+
+            Layout.alignment: Qt.AlignVCenter
+            Layout.fillHeight: true
+            Layout.rightMargin: elisaTheme.layoutHorizontalMargin * 10
+
+            verticalAlignment: Text.AlignVCenter
+
+            ProgressIndicator {
+                id: durationIndicator
+                position: musicWidget.duration
             }
         }
 

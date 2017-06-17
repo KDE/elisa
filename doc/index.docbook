@@ -92,10 +92,10 @@ It gets your music from local sources either Baloo indexer or local music direct
 <title>Browsing Music</title>
 <para>
 From the different sources of music, it collects all your music and analyses their metadata such that their title, artist, ...
-It provides three way to browse your music: a list of all albums, a list of all artists or a list of all tracks.
+It provides three ways to browse your music: a list of all albums, a list of all artists or a list of all tracks.
 </para>
 <para>
-Each method uses an a view of all your music along with a filter to allow to quickly find what you are looking for. You can also filter by rating.
+Each method uses a view of all your music along with a filter to allow to quickly find what you are looking for. You can also filter by rating.
 </para>
 <para>
 The filter of the view of all albums is implemented on the title or the artist of albums or the list of artists of each track of an album.
@@ -119,7 +119,7 @@ A toolbar below the playlist allow to operate on it. Currently it is possible to
 <title>Playing Music</title>
 <para>
 The playlist is read in the order of the tracks unless the <guilabel>Shuffle</guilabel> option is selected.
-At the end of the list playing is stopped unles the <guilabel>Repeat</guilabel> option is selected.
+At the end of the list playing is stopped unless the <guilabel>Repeat</guilabel> option is selected.
 </para>
 <para>
 It is possible to switch to the next or previous track in the list. If the mouse is over a track, it is possible to skip to it by pressing a button.

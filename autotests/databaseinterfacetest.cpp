@@ -296,6 +296,118 @@ private Q_SLOTS:
         QCOMPARE(album.isSingleDiscAlbum(), true);
     }
 
+    void addThreeTracksWithoutAlbumArtistButSameArtist()
+    {
+        DatabaseInterface musicDb;
+
+        musicDb.init(QStringLiteral("testDb"));
+
+        QSignalSpy musicDbArtistAddedSpy(&musicDb, &DatabaseInterface::artistAdded);
+        QSignalSpy musicDbAlbumAddedSpy(&musicDb, &DatabaseInterface::albumAdded);
+        QSignalSpy musicDbTrackAddedSpy(&musicDb, &DatabaseInterface::trackAdded);
+        QSignalSpy musicDbArtistRemovedSpy(&musicDb, &DatabaseInterface::artistRemoved);
+        QSignalSpy musicDbAlbumRemovedSpy(&musicDb, &DatabaseInterface::albumRemoved);
+        QSignalSpy musicDbTrackRemovedSpy(&musicDb, &DatabaseInterface::trackRemoved);
+        QSignalSpy musicDbArtistModifiedSpy(&musicDb, &DatabaseInterface::artistModified);
+        QSignalSpy musicDbAlbumModifiedSpy(&musicDb, &DatabaseInterface::albumModified);
+        QSignalSpy musicDbTrackModifiedSpy(&musicDb, &DatabaseInterface::trackModified);
+
+        QCOMPARE(musicDb.allAlbums().count(), 0);
+        QCOMPARE(musicDb.allArtists().count(), 0);
+        QCOMPARE(musicDbArtistAddedSpy.count(), 0);
+        QCOMPARE(musicDbAlbumAddedSpy.count(), 0);
+        QCOMPARE(musicDbTrackAddedSpy.count(), 0);
+        QCOMPARE(musicDbArtistRemovedSpy.count(), 0);
+        QCOMPARE(musicDbAlbumRemovedSpy.count(), 0);
+        QCOMPARE(musicDbTrackRemovedSpy.count(), 0);
+        QCOMPARE(musicDbArtistModifiedSpy.count(), 0);
+        QCOMPARE(musicDbAlbumModifiedSpy.count(), 0);
+        QCOMPARE(musicDbTrackModifiedSpy.count(), 0);
+
+        auto newTracks = QList<MusicAudioTrack>();
+
+        newTracks = {{true, QStringLiteral("$19"), QStringLiteral("0"), QStringLiteral("track6"),
+                      QStringLiteral("artist2"), QStringLiteral("album3"), {}, 6, 1, QTime::fromMSecsSinceStartOfDay(19), {QUrl::fromLocalFile(QStringLiteral("/$19"))},
+                      {QUrl::fromLocalFile(QStringLiteral("album3"))}, 5},
+                     {true, QStringLiteral("$20"), QStringLiteral("0"), QStringLiteral("track7"),
+                      QStringLiteral("artist2"), QStringLiteral("album3"), {}, 7, 1, QTime::fromMSecsSinceStartOfDay(20), {QUrl::fromLocalFile(QStringLiteral("/$20"))},
+                      {QUrl::fromLocalFile(QStringLiteral("album3"))}, 4},
+                     {true, QStringLiteral("$21"), QStringLiteral("0"), QStringLiteral("track8"),
+                      QStringLiteral("artist2"), QStringLiteral("album3"), {}, 8, 1, QTime::fromMSecsSinceStartOfDay(21), {QUrl::fromLocalFile(QStringLiteral("/$21"))},
+                      {QUrl::fromLocalFile(QStringLiteral("album3"))}, 3}};
+
+        musicDb.insertTracksList(newTracks, mNewCovers, QStringLiteral("autoTest"));
+
+        musicDbTrackAddedSpy.wait(300);
+
+        QCOMPARE(musicDb.allAlbums().count(), 1);
+        QCOMPARE(musicDb.allArtists().count(), 1);
+        QCOMPARE(musicDbArtistAddedSpy.count(), 1);
+        QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
+        QCOMPARE(musicDbTrackAddedSpy.count(), 3);
+        QCOMPARE(musicDbArtistRemovedSpy.count(), 0);
+        QCOMPARE(musicDbAlbumRemovedSpy.count(), 0);
+        QCOMPARE(musicDbTrackRemovedSpy.count(), 0);
+        QCOMPARE(musicDbArtistModifiedSpy.count(), 0);
+        QCOMPARE(musicDbAlbumModifiedSpy.count(), 1);
+        QCOMPARE(musicDbTrackModifiedSpy.count(), 0);
+
+        auto firstTrack = musicDb.trackFromDatabaseId(musicDb.trackIdFromTitleAlbumArtist(QStringLiteral("track6"), QStringLiteral("album3"), QStringLiteral("artist2")));
+
+        QCOMPARE(firstTrack.isValid(), true);
+        QCOMPARE(firstTrack.title(), QStringLiteral("track6"));
+        QCOMPARE(firstTrack.artist(), QStringLiteral("artist2"));
+        QCOMPARE(firstTrack.albumName(), QStringLiteral("album3"));
+        QCOMPARE(firstTrack.albumArtist(), QStringLiteral("artist2"));
+        QCOMPARE(firstTrack.isValidAlbumArtist(), false);
+        QCOMPARE(firstTrack.albumCover(), QUrl::fromLocalFile(QStringLiteral("album3")));
+        QCOMPARE(firstTrack.trackNumber(), 6);
+        QCOMPARE(firstTrack.discNumber(), 1);
+        QCOMPARE(firstTrack.duration(), QTime::fromMSecsSinceStartOfDay(19));
+        QCOMPARE(firstTrack.resourceURI(), QUrl::fromLocalFile(QStringLiteral("/$19")));
+        QCOMPARE(firstTrack.rating(), 5);
+
+        auto secondTrack = musicDb.trackFromDatabaseId(musicDb.trackIdFromTitleAlbumArtist(QStringLiteral("track7"), QStringLiteral("album3"), QStringLiteral("artist2")));
+
+        QCOMPARE(secondTrack.isValid(), true);
+        QCOMPARE(secondTrack.title(), QStringLiteral("track7"));
+        QCOMPARE(secondTrack.artist(), QStringLiteral("artist2"));
+        QCOMPARE(secondTrack.albumName(), QStringLiteral("album3"));
+        QCOMPARE(secondTrack.albumArtist(), QStringLiteral("artist2"));
+        QCOMPARE(secondTrack.isValidAlbumArtist(), false);
+        QCOMPARE(secondTrack.albumCover(), QUrl::fromLocalFile(QStringLiteral("album3")));
+        QCOMPARE(secondTrack.trackNumber(), 7);
+        QCOMPARE(secondTrack.discNumber(), 1);
+        QCOMPARE(secondTrack.duration(), QTime::fromMSecsSinceStartOfDay(20));
+        QCOMPARE(secondTrack.resourceURI(), QUrl::fromLocalFile(QStringLiteral("/$20")));
+        QCOMPARE(secondTrack.rating(), 4);
+
+        auto thirdTrack = musicDb.trackFromDatabaseId(musicDb.trackIdFromTitleAlbumArtist(QStringLiteral("track8"), QStringLiteral("album3"), QStringLiteral("artist2")));
+
+        QCOMPARE(thirdTrack.isValid(), true);
+        QCOMPARE(thirdTrack.title(), QStringLiteral("track8"));
+        QCOMPARE(thirdTrack.artist(), QStringLiteral("artist2"));
+        QCOMPARE(thirdTrack.albumName(), QStringLiteral("album3"));
+        QCOMPARE(thirdTrack.albumArtist(), QStringLiteral("artist2"));
+        QCOMPARE(thirdTrack.isValidAlbumArtist(), false);
+        QCOMPARE(thirdTrack.albumCover(), QUrl::fromLocalFile(QStringLiteral("album3")));
+        QCOMPARE(thirdTrack.trackNumber(), 8);
+        QCOMPARE(thirdTrack.discNumber(), 1);
+        QCOMPARE(thirdTrack.duration(), QTime::fromMSecsSinceStartOfDay(21));
+        QCOMPARE(thirdTrack.resourceURI(), QUrl::fromLocalFile(QStringLiteral("/$21")));
+        QCOMPARE(thirdTrack.rating(), 3);
+
+        auto album = musicDb.albumFromTitle(QStringLiteral("album3"));
+
+        QCOMPARE(album.isValid(), true);
+        QCOMPARE(album.tracksCount(), 3);
+        QCOMPARE(album.title(), QStringLiteral("album3"));
+        QCOMPARE(album.artist(), QStringLiteral("artist2"));
+        QCOMPARE(album.isValidArtist(), false);
+        QCOMPARE(album.albumArtURI(), QUrl::fromLocalFile(QStringLiteral("album3")));
+        QCOMPARE(album.isSingleDiscAlbum(), true);
+    }
+
     void addTwoTracksWithPartialAlbumArtist()
     {
         DatabaseInterface musicDb;

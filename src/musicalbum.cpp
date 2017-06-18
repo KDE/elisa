@@ -166,15 +166,28 @@ QString MusicAlbum::artist() const
     if (!d->mArtist.isEmpty()) {
         result = d->mArtist;
     } else {
+        QString possibleAlbumArtist;
         for (const auto &oneTrack : qAsConst(d->mTracks)) {
             if (oneTrack.isValidAlbumArtist()) {
                 result = oneTrack.albumArtist();
                 break;
             }
+            if (possibleAlbumArtist.isEmpty()) {
+                possibleAlbumArtist = oneTrack.artist();
+            } else {
+                if (possibleAlbumArtist != oneTrack.artist()) {
+                    possibleAlbumArtist.clear();
+                    break;
+                }
+            }
         }
 
         if (result.isEmpty() && d->mTracks.size() > 1) {
-            result = QStringLiteral("Various Artists");
+            if (possibleAlbumArtist.isEmpty()) {
+                result = QStringLiteral("Various Artists");
+            } else {
+                result = possibleAlbumArtist;
+            }
         } else if (result.isEmpty() && d->mTracks.size() == 1) {
             result = d->mTracks.constFirst().albumArtist();
         }

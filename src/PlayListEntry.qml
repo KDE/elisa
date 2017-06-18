@@ -231,6 +231,8 @@ Rectangle {
                     implicitHeight: elisaTheme.smallDelegateToolButtonSize
                     implicitWidth: elisaTheme.smallDelegateToolButtonSize
 
+                    opacity: 0
+
                     visible: opacity > 0.1
                     action: playNow
                     Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
@@ -241,6 +243,8 @@ Rectangle {
 
                     implicitHeight: elisaTheme.smallDelegateToolButtonSize
                     implicitWidth: elisaTheme.smallDelegateToolButtonSize
+
+                    opacity: 0
 
                     visible: opacity > 0.1
                     action: removeFromPlayList
@@ -255,6 +259,8 @@ Rectangle {
                     Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
                     Layout.maximumWidth: elisaTheme.smallDelegateToolButtonSize
                     Layout.maximumHeight: elisaTheme.smallDelegateToolButtonSize
+
+                    opacity: 0
 
                     source: (isPlaying == MediaPlayList.IsPlaying ? Qt.resolvedUrl(elisaTheme.playIcon) : Qt.resolvedUrl(elisaTheme.pauseIcon))
                     width: parent.height * 1.

@@ -64,6 +64,8 @@ Item {
             id: mainIcon
             source: image
 
+            asynchronous: true
+
             sourceSize.height: elisaTheme.coverImageSize / 2
             sourceSize.width: elisaTheme.coverImageSize / 2
 

@@ -39,6 +39,8 @@ Item {
         id: background
         source: (image ? image : Qt.resolvedUrl('background.jpg'))
 
+        asynchronous: true
+
         anchors.fill: parent
         fillMode: Image.PreserveAspectCrop
 
@@ -131,6 +133,8 @@ Item {
                     anchors.fill: parent
 
                     source: (image ? image : Qt.resolvedUrl(elisaTheme.albumCover))
+
+                    asynchronous: true
 
                     sourceSize {
                         width: contentZone.height * 0.9

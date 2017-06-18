@@ -59,6 +59,8 @@ Item {
             sourceSize.width: elisaTheme.coverImageSize
             sourceSize.height: elisaTheme.coverImageSize
 
+            asynchronous: true
+
             fillMode: Image.PreserveAspectFit
         }
 

@@ -188,6 +188,8 @@ Item {
 
                         smooth: true
 
+                        asynchronous: true
+
                         layer.enabled: true
                         layer.effect: DropShadow {
                             horizontalOffset: mediaServerEntry.width * 0.02

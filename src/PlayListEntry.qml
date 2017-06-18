@@ -212,7 +212,7 @@ Rectangle {
 
                     text: title
 
-                    font.weight: Font.Bold
+                    font.weight: Font.Normal
                     color: myPalette.text
 
                     Layout.fillWidth: true

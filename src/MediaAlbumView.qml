@@ -173,10 +173,7 @@ Item {
                                 else
                                     ''
 
-                        albumArtist: if (model != undefined && model.albumArtist !== undefined)
-                                         model.albumArtist
-                                     else
-                                         ''
+                        albumArtist: topListing.artistName
 
                         duration: if (model != undefined && model.duration !== undefined)
                                       model.duration

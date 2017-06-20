@@ -201,6 +201,10 @@ Item {
                                         model.artist
                                     else
                                         ''
+                            albumArtist: if (model != undefined && model.albumArtist !== undefined)
+                                        model.albumArtist
+                                    else
+                                        ''
                             itemDecoration: if (model != undefined && model.image !== undefined)
                                                 model.image
                                             else

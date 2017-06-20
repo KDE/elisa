@@ -102,6 +102,9 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
         case ColumnsRoles::ArtistRole:
             result = d->mTrackData[index.row()].artist();
             break;
+        case ColumnsRoles::AlbumArtistRole:
+            result = d->mTrackData[index.row()].albumArtist();
+            break;
         case ColumnsRoles::AlbumRole:
             result = d->mTrackData[index.row()].albumName();
             break;
@@ -151,6 +154,9 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
             result = d->mData[index.row()].mIsPlaying;
             break;
         case ColumnsRoles::ArtistRole:
+            result = d->mData[index.row()].mArtist;
+            break;
+        case ColumnsRoles::AlbumArtistRole:
             result = d->mData[index.row()].mArtist;
             break;
         case ColumnsRoles::AlbumRole:
@@ -228,6 +234,7 @@ QHash<int, QByteArray> MediaPlayList::roleNames() const
     roles[static_cast<int>(ColumnsRoles::TitleRole)] = "title";
     roles[static_cast<int>(ColumnsRoles::DurationRole)] = "duration";
     roles[static_cast<int>(ColumnsRoles::ArtistRole)] = "artist";
+    roles[static_cast<int>(ColumnsRoles::AlbumArtistRole)] = "albumArtist";
     roles[static_cast<int>(ColumnsRoles::AlbumRole)] = "album";
     roles[static_cast<int>(ColumnsRoles::TrackNumberRole)] = "trackNumber";
     roles[static_cast<int>(ColumnsRoles::DiscNumberRole)] = "discNumber";

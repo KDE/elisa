@@ -30,6 +30,7 @@ Rectangle {
     property string title
     property string artist
     property string album
+    property string albumArtist
     property var index
     property var itemDecoration
     property alias duration : durationLabel.text
@@ -163,7 +164,7 @@ Rectangle {
                     LabelWithToolTip {
                         id: authorLabel
 
-                        text: artist
+                        text: albumArtist
 
                         font.weight: Font.Light
                         color: myPalette.text

@@ -232,7 +232,10 @@ ApplicationWindow {
     Connections {
         target: allListeners
 
-        onAlbumAdded: allAlbumsModel.albumAdded(newAlbum)
+        onAlbumAdded: {
+            busyScanningMusic.running = false
+            allAlbumsModel.albumAdded(newAlbum)
+        }
     }
 
     Connections {
@@ -540,6 +543,23 @@ ApplicationWindow {
 
                             //z: 1
                             visible: Layout.minimumWidth != 0
+
+                            BusyIndicator {
+                                id: busyScanningMusic
+
+                                anchors.fill: parent
+
+                                anchors.leftMargin: parent.width / 3
+                                anchors.rightMargin: parent.width / 3
+                                anchors.topMargin: parent.height / 3
+                                anchors.bottomMargin: parent.height / 3
+
+                                opacity: 0.8
+
+                                z: 2
+
+                                running: true
+                            }
 
                             MediaBrowser {
                                 id: localAlbums

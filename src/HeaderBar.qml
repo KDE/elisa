@@ -181,7 +181,7 @@ Item {
                     Layout.alignment: Qt.AlignLeft
                     elide: Text.ElideRight
                     color: myPalette.highlightedText
-                    font.pixelSize: font.pixelSize * 2
+                    font.pixelSize: elisaTheme.defaultFontPixelSize * 2
                     font.bold: true
 
                     layer.effect: Glow {
@@ -203,7 +203,7 @@ Item {
                     Layout.alignment: Qt.AlignLeft
                     elide: Text.ElideRight
                     color: myPalette.highlightedText
-                    font.pixelSize: font.pixelSize * 1.5
+                    font.pixelSize: elisaTheme.defaultFontPixelSize * 1.5
 
                     layer.effect: Glow {
                         cached: true

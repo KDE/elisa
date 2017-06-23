@@ -64,7 +64,7 @@ Item {
             text: i18nc("Title of the view of all tracks", "Tracks")
 
             color: myPalette.text
-            font.pixelSize: font.pixelSize * 2
+            font.pixelSize: elisaTheme.defaultFontPixelSize * 2
 
             Layout.leftMargin: elisaTheme.layoutHorizontalMargin
             Layout.rightMargin: elisaTheme.layoutHorizontalMargin

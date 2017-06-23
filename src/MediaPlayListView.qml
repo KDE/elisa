@@ -81,7 +81,7 @@ Item {
             text: i18nc("Title of the view of the playlist", "Now Playing")
 
             color: myPalette.text
-            font.pixelSize: font.pixelSize * 2
+            font.pixelSize: elisaTheme.defaultFontPixelSize * 2
 
             Layout.topMargin: elisaTheme.layoutVerticalMargin
             Layout.leftMargin: elisaTheme.layoutHorizontalMargin

@@ -113,7 +113,7 @@ Item {
                 color: myPalette.text
 
                 font {
-                    pixelSize: albumLabel.font.pixelSize * 1.5
+                    pixelSize: albumLabel.elisaTheme.defaultFontPixelSize * 1.5
                 }
 
                 visible: album !== ""
@@ -138,7 +138,7 @@ Item {
                 Layout.topMargin: authorTextSize.height
 
                 font {
-                    pixelSize: (album !== "" ? authorLabel.font.pixelSize : authorLabel.font.pixelSize * 1.5)
+                    pixelSize: (album !== "" ? elisaTheme.defaultFontPixelSize : elisaTheme.defaultFontPixelSize * 1.5)
                 }
 
                 elide: Text.ElideRight

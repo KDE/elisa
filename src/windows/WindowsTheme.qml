@@ -17,7 +17,8 @@
  * Boston, MA 02110-1301, USA.
  */
 
-import QtQuick 2.0
+import QtQuick 2.7
+import QtQuick.Controls 1.4
 
 Item {
     property string albumCover: 'media-optical-audio.svg'
@@ -66,4 +67,10 @@ Item {
     property int viewSelectorDelegateHeight: 32
 
     property int filterClearButtonMargin: 1
+
+    property alias defaultFontPixelSize: fontSize.font.pixelSize
+
+    Label {
+        id: fontSize
+    }
 }

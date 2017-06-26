@@ -624,9 +624,7 @@ ApplicationWindow {
 
                             Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
 
-                            Layout.preferredHeight: parent.height - elisaTheme.layoutVerticalMargin
-                            Layout.minimumHeight: parent.height - elisaTheme.layoutVerticalMargin
-                            Layout.maximumHeight: parent.height - elisaTheme.layoutVerticalMargin
+                            Layout.fillHeight: true
 
                             Layout.preferredWidth: 1
                             Layout.minimumWidth: 1
@@ -664,9 +662,12 @@ ApplicationWindow {
                             color: myPalette.mid
                             visible: Layout.minimumWidth != 0
 
+                            Layout.bottomMargin: elisaTheme.layoutVerticalMargin
+                            Layout.topMargin: elisaTheme.layoutVerticalMargin
+
                             Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
 
-                            Layout.preferredHeight: parent.height - elisaTheme.layoutVerticalMargin
+                            Layout.fillHeight: true
 
                             Layout.preferredWidth: 1
                             Layout.minimumWidth: 1

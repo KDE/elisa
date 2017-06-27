@@ -21,7 +21,7 @@ import QtQuick 2.0
 import QtQuick.Controls 1.2
 import QtQuick.Controls.Styles 1.2
 import QtQuick.Layouts 1.1
-import QtQuick.Window 2.2
+import QtGraphicalEffects 1.0
 import org.mgallien.QmlExtension 1.0
 
 
@@ -68,13 +68,6 @@ Item {
         Image {
             id: previousButton
 
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    musicWidget.playPrevious()
-                }
-            }
-
             source: Qt.resolvedUrl(elisaTheme.skipBackwardIcon)
 
             Layout.preferredWidth: elisaTheme.smallControlButtonHeight
@@ -88,29 +81,39 @@ Item {
             sourceSize.width: elisaTheme.smallControlButtonHeight
             sourceSize.height: elisaTheme.smallControlButtonHeight
 
-            height: elisaTheme.smallControlButtonHeight
-            width: elisaTheme.smallControlButtonHeight
-
             fillMode: Image.PreserveAspectFit
+
+            visible: false
+        }
+
+        BrightnessContrast {
+            source: previousButton
+
+            Layout.preferredWidth: elisaTheme.smallControlButtonHeight
+            Layout.preferredHeight: elisaTheme.smallControlButtonHeight
+            Layout.alignment: Qt.AlignVCenter
+            Layout.maximumWidth: elisaTheme.smallControlButtonHeight
+            Layout.maximumHeight: elisaTheme.smallControlButtonHeight
+            Layout.minimumWidth: elisaTheme.smallControlButtonHeight
+            Layout.minimumHeight: elisaTheme.smallControlButtonHeight
 
             enabled: skipBackwardEnabled
 
-            opacity: enabled ? 1.0 : 0.6
-        }
-
-        Image {
-            id: playPauseButton
+            opacity: skipBackwardEnabled ? 1.0 : 0.6
 
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    if (musicWidget.isPlaying) {
-                        musicWidget.pause()
-                    } else {
-                        musicWidget.play()
-                    }
+                    musicWidget.playPrevious()
                 }
             }
+
+            brightness: 0.0
+            contrast: skipBackwardEnabled ? 0.7 : -0.7
+        }
+
+        Image {
+            id: playPauseButton
 
             source: {
                 if (musicWidget.isPlaying)
@@ -130,25 +133,43 @@ Item {
             sourceSize.width: elisaTheme.bigControlButtonHeight
             sourceSize.height: elisaTheme.bigControlButtonHeight
 
-            height: elisaTheme.bigControlButtonHeight
-            width: elisaTheme.bigControlButtonHeight
-
             fillMode: Image.PreserveAspectFit
+
+            visible: false
+        }
+
+        BrightnessContrast {
+            source: playPauseButton
+
+            Layout.preferredWidth: elisaTheme.bigControlButtonHeight
+            Layout.preferredHeight: elisaTheme.bigControlButtonHeight
+            Layout.alignment: Qt.AlignVCenter
+            Layout.maximumWidth: elisaTheme.bigControlButtonHeight
+            Layout.maximumHeight: elisaTheme.bigControlButtonHeight
+            Layout.minimumWidth: elisaTheme.bigControlButtonHeight
+            Layout.minimumHeight: elisaTheme.bigControlButtonHeight
 
             enabled: playEnabled
 
-            opacity: enabled ? 1.0 : 0.6
-        }
-
-        Image {
-            id: nextButton
+            opacity: playEnabled ? 1.0 : 0.6
 
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    musicWidget.playNext()
+                    if (musicWidget.isPlaying) {
+                        musicWidget.pause()
+                    } else {
+                        musicWidget.play()
+                    }
                 }
             }
+
+            brightness: 0.0
+            contrast: playEnabled ? 0.7 : -0.7
+        }
+
+        Image {
+            id: nextButton
 
             source: Qt.resolvedUrl(elisaTheme.skipForwardIcon)
 
@@ -164,14 +185,36 @@ Item {
             sourceSize.width: elisaTheme.smallControlButtonHeight
             sourceSize.height: elisaTheme.smallControlButtonHeight
 
-            height: elisaTheme.smallControlButtonHeight
-            width: elisaTheme.smallControlButtonHeight
-
             fillMode: Image.PreserveAspectFit
+
+            visible: false
+        }
+
+        BrightnessContrast {
+            source: nextButton
+
+            Layout.preferredWidth: elisaTheme.smallControlButtonHeight
+            Layout.preferredHeight: elisaTheme.smallControlButtonHeight
+            Layout.alignment: Qt.AlignVCenter
+            Layout.maximumWidth: elisaTheme.smallControlButtonHeight
+            Layout.maximumHeight: elisaTheme.smallControlButtonHeight
+            Layout.minimumWidth: elisaTheme.smallControlButtonHeight
+            Layout.minimumHeight: elisaTheme.smallControlButtonHeight
+            Layout.rightMargin: elisaTheme.smallControlButtonHeight
 
             enabled: skipForwardEnabled
 
-            opacity: enabled ? 1.0 : 0.6
+            opacity: skipForwardEnabled ? 1.0 : 0.6
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    musicWidget.playNext()
+                }
+            }
+
+            brightness: 0.0
+            contrast: skipForwardEnabled ? 0.7 : -0.7
         }
 
         LabelWithToolTip {
@@ -250,11 +293,6 @@ Item {
         Image {
             id: volumeIcon
 
-            MouseArea {
-                anchors.fill: parent
-                onClicked: musicWidget.muted = !musicWidget.muted
-            }
-
             source: if (musicWidget.muted)
                         Qt.resolvedUrl(elisaTheme.playerVolumeMutedIcon)
                     else
@@ -272,10 +310,30 @@ Item {
             sourceSize.width: elisaTheme.smallControlButtonHeight
             sourceSize.height: elisaTheme.smallControlButtonHeight
 
-            height: elisaTheme.smallControlButtonHeight
-            width: elisaTheme.smallControlButtonHeight
-
             fillMode: Image.PreserveAspectFit
+
+            visible: false
+        }
+
+        BrightnessContrast {
+            source: volumeIcon
+
+            Layout.preferredWidth: elisaTheme.smallControlButtonHeight
+            Layout.preferredHeight: elisaTheme.smallControlButtonHeight
+            Layout.alignment: Qt.AlignVCenter
+            Layout.maximumWidth: elisaTheme.smallControlButtonHeight
+            Layout.maximumHeight: elisaTheme.smallControlButtonHeight
+            Layout.minimumWidth: elisaTheme.smallControlButtonHeight
+            Layout.minimumHeight: elisaTheme.smallControlButtonHeight
+            Layout.rightMargin: elisaTheme.layoutHorizontalMargin
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: musicWidget.muted = !musicWidget.muted
+            }
+
+            brightness: 0.0
+            contrast: 0.7
         }
 
         Slider {

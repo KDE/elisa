@@ -30,42 +30,107 @@ Item {
     property string artist
     property string album
     property string image
+    property string newImage
+    property string oldImage
     property string tracksCount
     property int trackRating
     property bool ratingVisible
     property alias playerControl: playControlItem
 
-    Image {
+    onImageChanged:
+    {
+        console.debug('onImageChanged: oldImage: ' + oldImage + ' newImage: ' + newImage + ' image: ' + image)
+        if (changeBackgroundTransition.running) {
+            changeBackgroundTransition.complete()
+        }
+
+        newImage = image
+        changeBackgroundTransition.start()
+    }
+
+    Item {
         id: background
-        source: (image ? image : Qt.resolvedUrl('background.jpg'))
-
-        asynchronous: true
-
         anchors.fill: parent
-        fillMode: Image.PreserveAspectCrop
 
-        sourceSize.width: parent.width
+        Image {
+            id: oldBackground
 
-        layer.enabled: true
-        layer.effect: Desaturate {
-            cached: true
+            source: (oldImage ? oldImage : Qt.resolvedUrl('background.jpg'))
 
-            desaturation: -0.2
+            asynchronous: true
+
+            anchors.fill: parent
+            fillMode: Image.PreserveAspectCrop
+
+            sourceSize.width: parent.width
+
+            opacity: 1
 
             layer.enabled: true
-            layer.effect: BrightnessContrast {
+            layer.effect: Desaturate {
                 cached: true
 
-                brightness: -0.2
-                contrast: -0.1
+                desaturation: -0.2
 
                 layer.enabled: true
-                layer.effect: GaussianBlur {
+                layer.effect: BrightnessContrast {
                     cached: true
 
-                    radius: 32
-                    deviation: 12
-                    samples: 65
+                    brightness: -0.2
+                    contrast: -0.1
+
+                    layer.enabled: true
+                    layer.effect: GaussianBlur {
+                        cached: true
+
+                        radius: 32
+                        deviation: 12
+                        samples: 65
+
+                        transparentBorder: false
+                    }
+                }
+            }
+        }
+
+        Image {
+            id: newBackground
+
+            source: (newImage ? newImage : Qt.resolvedUrl('background.jpg'))
+
+            asynchronous: true
+
+            anchors.fill: parent
+            fillMode: Image.PreserveAspectCrop
+
+            sourceSize.width: parent.width
+
+            visible: false
+            opacity: 0
+
+            layer.enabled: true
+            layer.effect: Desaturate {
+                cached: true
+
+                desaturation: -0.2
+
+                layer.enabled: true
+                layer.effect: BrightnessContrast {
+                    cached: true
+
+                    brightness: -0.2
+                    contrast: -0.1
+
+                    layer.enabled: true
+                    layer.effect: GaussianBlur {
+                        cached: true
+
+                        radius: 32
+                        deviation: 12
+                        samples: 65
+
+                        transparentBorder: false
+                    }
                 }
             }
         }
@@ -128,13 +193,44 @@ Item {
                 Layout.leftMargin: contentZone.width * 0.15
 
                 Image {
-                    id: mainIcon
+                    id: oldMainIcon
 
                     anchors.fill: parent
 
-                    source: (image ? image : Qt.resolvedUrl(elisaTheme.albumCover))
+                    asynchronous: true
+
+                    source: (oldImage ? oldImage : Qt.resolvedUrl(elisaTheme.albumCover))
+
+                    sourceSize {
+                        width: contentZone.height * 0.9
+                        height: contentZone.height * 0.9
+                    }
+
+                    fillMode: Image.PreserveAspectFit
+
+                    layer.enabled: true
+                    layer.effect: DropShadow {
+                        horizontalOffset: elisaTheme.shadowOffset
+                        verticalOffset: elisaTheme.shadowOffset
+
+                        radius: 5.0
+                        samples: 11
+
+                        color: myPalette.shadow
+                    }
+                }
+
+                Image {
+                    id: newMainIcon
+
+                    anchors.fill: parent
 
                     asynchronous: true
+
+                    source: (newImage ? newImage : Qt.resolvedUrl(elisaTheme.albumCover))
+
+                    visible: false
+                    opacity: 0
 
                     sourceSize {
                         width: contentZone.height * 0.9
@@ -263,6 +359,89 @@ Item {
         Item {
             Layout.fillHeight: true
             Layout.fillWidth: true
+        }
+    }
+
+    SequentialAnimation {
+        id: changeBackgroundTransition
+
+        PropertyAction {
+            targets: [newBackground, newMainIcon]
+            property: 'opacity'
+            value: 0
+        }
+
+        PropertyAction {
+            targets: [newBackground, newMainIcon]
+            property: 'visible'
+            value: true
+        }
+
+        PropertyAction {
+            target: newBackground
+            property: "source"
+            value: (newImage ? newImage : Qt.resolvedUrl('background.jpg'))
+        }
+
+        PropertyAction {
+            target: newMainIcon
+            property: "source"
+            value: (newImage ? newImage : Qt.resolvedUrl(elisaTheme.albumCover))
+        }
+
+        ParallelAnimation {
+            NumberAnimation {
+                targets: [newBackground, newMainIcon]
+                property: 'opacity'
+                from: 0
+                to: 1
+                duration: 250
+                easing.type: Easing.Linear
+            }
+
+            NumberAnimation {
+                targets: [oldBackground, oldMainIcon]
+                property: 'opacity'
+                from: 1
+                to: 0
+                duration: 250
+                easing.type: Easing.Linear
+            }
+        }
+
+        PropertyAction {
+            target: headerBar
+            property: "oldImage"
+            value: image
+        }
+
+        PropertyAction {
+            target: oldBackground
+            property: 'source'
+            value: (headerBar.oldImage ? headerBar.oldImage : Qt.resolvedUrl('background.jpg'))
+        }
+
+        PropertyAction {
+            target: oldMainIcon
+            property: 'source'
+            value: (headerBar.oldImage ? headerBar.oldImage : Qt.resolvedUrl(elisaTheme.albumCover))
+        }
+
+        PropertyAction {
+            targets: [oldBackground, oldMainIcon]
+            property: 'opacity'
+            value: 1
+        }
+
+        PropertyAction {
+            targets: [newBackground, newMainIcon]
+            property: 'visible'
+            value: false
+        }
+
+        onStopped:
+        {
+            oldImage = newImage
         }
     }
 }

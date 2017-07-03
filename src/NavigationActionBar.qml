@@ -113,7 +113,7 @@ Item {
                 color: myPalette.text
 
                 font {
-                    pixelSize: albumLabel.elisaTheme.defaultFontPixelSize * 1.5
+                    pixelSize: elisaTheme.defaultFontPixelSize * 1.5
                 }
 
                 visible: album !== ""

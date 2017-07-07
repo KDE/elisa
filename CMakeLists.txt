@@ -16,6 +16,7 @@ set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
 include(KDEInstallDirs)
 include(KDEFrameworkCompilerSettings)
 include(KDECMakeSettings)
+include(ECMInstallIcons)
 include(FeatureSummary)
 
 find_package(KF5I18n ${REQUIRED_KF5_VERSION} CONFIG REQUIRED QUIET)
@@ -58,6 +59,7 @@ endif()
 configure_file(config-upnp-qt.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-upnp-qt.h )
 
 add_subdirectory(src)
+add_subdirectory(icons)
 add_subdirectory(autotests)
 add_subdirectory(doc)
 

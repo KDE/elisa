@@ -235,12 +235,14 @@ void AllTracksModel::tracksAdded(const QList<MusicAudioTrack> &allTracks)
         }
     }
 
-    beginInsertRows({}, d->mAllTracks.size(), d->mAllTracks.size() + countNewTracks - 1);
+    if (countNewTracks > 0) {
+        beginInsertRows({}, d->mAllTracks.size(), d->mAllTracks.size() + countNewTracks - 1);
 
-    d->mAllTracks = newAllTracks;
-    d->mIds.append(newTracksIds);
+        d->mAllTracks = newAllTracks;
+        d->mIds.append(newTracksIds);
 
-    endInsertRows();
+        endInsertRows();
+    }
 }
 
 void AllTracksModel::trackRemoved(qulonglong removedTrackId)

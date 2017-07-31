@@ -77,11 +77,19 @@ Q_SIGNALS:
 
     void databaseIsReady();
 
+    void indexingFinished();
+
 public Q_SLOTS:
 
     void databaseReady();
 
     void applicationAboutToQuit();
+
+    void showConfiguration();
+
+private Q_SLOTS:
+
+    void configChanged();
 
 private:
 

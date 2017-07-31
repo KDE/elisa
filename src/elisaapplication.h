@@ -26,6 +26,8 @@
 #include <KXmlGui/KActionCollection>
 #endif
 
+#include <KCMultiDialog>
+
 #include <QObject>
 #include <QString>
 
@@ -56,11 +58,15 @@ public Q_SLOTS:
 
     void configureShortcuts();
 
+    void configureElisa();
+
 private:
 
 #if defined KF5XmlGui_FOUND && KF5XmlGui_FOUND
     KActionCollection mCollection;
 #endif
+
+    KCMultiDialog mConfigurationDialog;
 
 };
 

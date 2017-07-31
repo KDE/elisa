@@ -53,6 +53,7 @@
 #include "elisaapplication.h"
 #include "audiowrapper.h"
 #include "alltracksmodel.h"
+#include "elisa_settings.h"
 
 #if defined Qt5DBus_FOUND && Qt5DBus_FOUND
 #include "mpris2/mpris2.h"
@@ -213,6 +214,12 @@ int main(int argc, char *argv[])
                                               "(Landroid/content/Context;)V",
                                               QtAndroid::androidContext().object());
 #endif
+
+    auto configurationFileName = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
+    configurationFileName += QStringLiteral("/elisarc");
+    Elisa::ElisaConfiguration::instance(configurationFileName);
+    Elisa::ElisaConfiguration::self()->load();
+    Elisa::ElisaConfiguration::self()->save();
 
     QQmlApplicationEngine engine;
     engine.addImportPath(QStringLiteral("qrc:/imports"));

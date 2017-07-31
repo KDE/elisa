@@ -75,6 +75,8 @@ public:
 
     void applicationAboutToQuit();
 
+    void removeAllTracksFromSource(const QString &sourceName);
+
 Q_SIGNALS:
 
     void artistAdded(const MusicArtist &newArtist);
@@ -168,6 +170,8 @@ private:
     qulonglong internalInsertTrack(const MusicAudioTrack &oneModifiedTrack, const QHash<QString, QUrl> &covers, int originTrackId, QSet<qulonglong> &modifiedAlbumIds);
 
     MusicAudioTrack buildTrackFromDatabaseRecord(const QSqlRecord &trackRecord) const;
+
+    void internalRemoveTracksList(const QList<QUrl> &removedTracks);
 
     DatabaseInterfacePrivate *d;
 

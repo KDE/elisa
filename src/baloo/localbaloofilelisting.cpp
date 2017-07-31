@@ -126,6 +126,8 @@ void LocalBalooFileListing::triggerRefreshOfContent()
     if (!newFiles.isEmpty() && d->mStopRequest == 0) {
         emitNewFiles(newFiles);
     }
+
+    Q_EMIT indexingFinished();
 }
 
 MusicAudioTrack LocalBalooFileListing::scanOneFile(const QUrl &scanFile)

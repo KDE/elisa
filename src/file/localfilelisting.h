@@ -56,6 +56,8 @@ public Q_SLOTS:
 
 private:
 
+    void executeInit() override;
+
     void triggerRefreshOfContent() override;
 
     std::unique_ptr<LocalFileListingPrivate> d;

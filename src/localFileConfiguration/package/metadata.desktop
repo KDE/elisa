@@ -1,0 +1,16 @@
+[Desktop Entry]
+Name=Elisa
+Comment=Configure Local Files Indexer of Elisa Music Player
+Icon=elisa
+Type=Service
+X-KDE-ParentApp=
+X-KDE-PluginInfo-Author=Matthieu Gallien
+X-KDE-PluginInfo-Email=matthieu_gallien@yahoo.fr
+X-KDE-PluginInfo-License=LGPLv3
+X-KDE-PluginInfo-Name=kcm_elisa_local_file
+X-KDE-PluginInfo-Version=
+X-KDE-PluginInfo-Website=
+X-KDE-ServiceTypes=Plasma/Generic
+
+X-Plasma-MainScript=ui/main.qml
+X-Plasma-RemoteLocation=

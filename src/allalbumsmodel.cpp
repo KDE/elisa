@@ -51,6 +51,11 @@ AllAlbumsModel::~AllAlbumsModel()
     delete d;
 }
 
+int AllAlbumsModel::albumCount() const
+{
+    return rowCount({});
+}
+
 int AllAlbumsModel::rowCount(const QModelIndex &parent) const
 {
     auto albumCount = 0;

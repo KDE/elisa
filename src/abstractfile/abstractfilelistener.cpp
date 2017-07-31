@@ -28,25 +28,23 @@ class AbstractFileListenerPrivate
 {
 public:
 
-    explicit AbstractFileListenerPrivate(AbstractFileListing *aFileListing) : mFileListing(aFileListing)
+    explicit AbstractFileListenerPrivate()
     {
     }
 
     QThread mFileQueryThread;
 
-    AbstractFileListing *mFileListing;
+    AbstractFileListing *mFileListing = nullptr;
 
 };
 
-AbstractFileListener::AbstractFileListener(AbstractFileListing *aFileListing, QObject *parent) : QObject(parent), d(new AbstractFileListenerPrivate(aFileListing))
+AbstractFileListener::AbstractFileListener(QObject *parent)
+    : QObject(parent), d(new AbstractFileListenerPrivate)
 {
-    d->mFileQueryThread.start();
-    d->mFileListing->moveToThread(&d->mFileQueryThread);
 }
 
 AbstractFileListener::~AbstractFileListener()
 {
-    delete d->mFileListing;
     delete d;
 }
 
@@ -78,9 +76,23 @@ void AbstractFileListener::applicationAboutToQuit()
     d->mFileQueryThread.wait();
 }
 
+void AbstractFileListener::setFileListing(AbstractFileListing *fileIndexer)
+{
+    d->mFileListing = fileIndexer;
+    d->mFileQueryThread.start();
+    d->mFileListing->moveToThread(&d->mFileQueryThread);
+    connect(fileIndexer, &AbstractFileListing::indexingFinished,
+            this, &AbstractFileListener::indexingFinished);
+}
+
 AbstractFileListing *AbstractFileListener::fileListing() const
 {
     return d->mFileListing;
+}
+
+void AbstractFileListener::performInitialScan()
+{
+    d->mFileListing->refreshContent();
 }
 
 

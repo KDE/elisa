@@ -46,6 +46,7 @@ ApplicationWindow {
     property var reportBugAction: elisa.action("help_report_bug")
     property var aboutAppAction: elisa.action("help_about_app")
     property var configureShortcutsAction: elisa.action("options_configure_keybinding")
+    property var configureAction: elisa.action("options_configure")
 
     SystemPalette {
         id: myPalette
@@ -328,6 +329,14 @@ ApplicationWindow {
         }
 
         MenuItem {
+            text: configureAction.text
+            shortcut: configureAction.shortcut
+            iconName: 'configure'
+            onTriggered: configureAction.trigger()
+            visible: configureAction.text !== ""
+        }
+
+        MenuItem {
             text: configureShortcutsAction.text
             shortcut: configureShortcutsAction.shortcut
             iconName: elisa.iconName(configureShortcutsAction.icon)
@@ -336,7 +345,7 @@ ApplicationWindow {
         }
 
         MenuSeparator {
-            visible: configureShortcutsAction.text !== ""
+            visible: configureAction.text !== "" || configureShortcutsAction.text !== ""
         }
 
         MenuItem {

@@ -58,6 +58,8 @@ public:
 
     virtual ~AllAlbumsModel();
 
+    Q_INVOKABLE int albumCount() const;
+
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
 
     QHash<int, QByteArray> roleNames() const override;

@@ -49,13 +49,6 @@ public:
 
 LocalFileListing::LocalFileListing(QObject *parent) : AbstractFileListing(QStringLiteral("local"), parent), d(new LocalFileListingPrivate)
 {
-    const auto &musicLocations(QStandardPaths::standardLocations(QStandardPaths::MusicLocation));
-
-    if (musicLocations.isEmpty()) {
-        return;
-    }
-
-    d->mRootPath = musicLocations.first();
 }
 
 LocalFileListing::~LocalFileListing()
@@ -75,11 +68,19 @@ void LocalFileListing::setRootPath(const QString &rootPath)
 
     d->mRootPath = rootPath;
     Q_EMIT rootPathChanged();
+
+    setSourceName(rootPath);
+}
+
+void LocalFileListing::executeInit()
+{
 }
 
 void LocalFileListing::triggerRefreshOfContent()
 {
     scanDirectoryTree(d->mRootPath);
+
+    Q_EMIT indexingFinished();
 }
 
 

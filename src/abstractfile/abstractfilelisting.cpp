@@ -428,5 +428,10 @@ void AbstractFileListing::removeFile(const QUrl &oneRemovedTrack, QList<QUrl> &a
     }
 }
 
+void AbstractFileListing::setSourceName(const QString &name)
+{
+    d->mSourceName = name;
+}
+
 
 #include "moc_abstractfilelisting.cpp"

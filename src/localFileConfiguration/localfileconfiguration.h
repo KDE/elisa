@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2017 Matthieu Gallien <matthieu_gallien@yahoo.fr>
+ * Copyright 2017 Matthieu Gallien <matthieu_gallien@yahoo.fr>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -17,39 +17,52 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef FILELISTENER_H
-#define FILELISTENER_H
+#if !defined LOCALFILECONFIGURATION_H_
+#define LOCALFILECONFIGURATION_H_
 
-#include "../abstractfile/abstractfilelistener.h"
+#include <KQuickAddons/ConfigModule>
+#include <QStringList>
 
-#include <QObject>
-#include <QVector>
-#include <QString>
-
-class FileListenerPrivate;
-class LocalFileListing;
-
-class FileListener : public AbstractFileListener
+class KCMElisaLocalFile : public KQuickAddons::ConfigModule
 {
+
     Q_OBJECT
 
+    Q_PROPERTY(QStringList rootPath
+               READ rootPath
+               WRITE setRootPath
+               NOTIFY rootPathChanged)
+
 public:
-    explicit FileListener(QObject *parent = 0);
 
-    virtual ~FileListener();
+    explicit KCMElisaLocalFile(QObject *parent, const QVariantList &args);
 
-    const LocalFileListing& localFileIndexer() const;
+    virtual ~KCMElisaLocalFile();
+
+    QStringList rootPath() const;
 
 Q_SIGNALS:
 
+    void rootPathChanged(QStringList rootPath);
+
 public Q_SLOTS:
 
-    void setRootPath(const QString &rootPath);
+    void defaults() override final;
+
+    void load() override final;
+
+    void save() override final;
+
+    void setRootPath(QStringList rootPath);
+
+private Q_SLOTS:
+
+    void configChanged();
 
 private:
 
-    FileListenerPrivate *d = nullptr;
+    QStringList mRootPath;
 
 };
 
-#endif // FILELISTENER_H
+#endif

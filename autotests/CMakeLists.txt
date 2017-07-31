@@ -1,6 +1,7 @@
 enable_testing()
 
 include_directories(${elisa_BINARY_DIR})
+include_directories(${elisa_BINARY_DIR}/src)
 
 set(databaseInterfaceTest_SOURCES
     ../src/databaseinterface.cpp
@@ -60,9 +61,15 @@ if (KF5FileMetaData_FOUND)
     )
 endif()
 
+kconfig_add_kcfg_files(playListControlerTest_SOURCES ../src/elisa_settings.kcfgc )
+set(playListControlerTest_SOURCES
+    ${playListControlerTest_SOURCES}
+    ../src/elisa_core.kcfg
+)
+
 add_executable(playListControlerTest ${playListControlerTest_SOURCES})
 
-target_link_libraries(playListControlerTest Qt5::Test Qt5::Core Qt5::Sql KF5::I18n)
+target_link_libraries(playListControlerTest Qt5::Test Qt5::Core Qt5::Sql KF5::I18n KF5::ConfigCore KF5::ConfigGui)
 if (KF5Baloo_FOUND)
     target_link_libraries(playListControlerTest KF5::Baloo Qt5::DBus)
 endif()
@@ -121,9 +128,15 @@ if (KF5FileMetaData_FOUND)
     )
 endif()
 
+kconfig_add_kcfg_files(managemediaplayercontrolTest_SOURCES ../src/elisa_settings.kcfgc )
+set(managemediaplayercontrolTest_SOURCES
+    ${managemediaplayercontrolTest_SOURCES}
+    ../src/elisa_core.kcfg
+)
+
 add_executable(managemediaplayercontrolTest ${managemediaplayercontrolTest_SOURCES})
 
-target_link_libraries(managemediaplayercontrolTest Qt5::Test Qt5::Core Qt5::Sql KF5::I18n)
+target_link_libraries(managemediaplayercontrolTest Qt5::Test Qt5::Core Qt5::Sql KF5::I18n KF5::ConfigCore KF5::ConfigGui)
 if (KF5Baloo_FOUND)
     target_link_libraries(managemediaplayercontrolTest KF5::Baloo Qt5::DBus)
 endif()
@@ -183,9 +196,15 @@ if (KF5FileMetaData_FOUND)
     )
 endif()
 
+kconfig_add_kcfg_files(manageheaderbarTest_SOURCES ../src/elisa_settings.kcfgc )
+set(manageheaderbarTest_SOURCES
+    ${manageheaderbarTest_SOURCES}
+    ../src/elisa_core.kcfg
+)
+
 add_executable(manageheaderbarTest ${manageheaderbarTest_SOURCES})
 
-target_link_libraries(manageheaderbarTest Qt5::Test Qt5::Core Qt5::Sql Qt5::Gui KF5::I18n)
+target_link_libraries(manageheaderbarTest Qt5::Test Qt5::Core Qt5::Sql Qt5::Gui KF5::I18n KF5::ConfigCore KF5::ConfigGui)
 if (KF5Baloo_FOUND)
     target_link_libraries(manageheaderbarTest KF5::Baloo Qt5::DBus)
 endif()
@@ -253,9 +272,15 @@ if (KF5FileMetaData_FOUND)
     )
 endif()
 
+kconfig_add_kcfg_files(mediaplaylistTest_SOURCES ../src/elisa_settings.kcfgc )
+set(mediaplaylistTest_SOURCES
+    ${mediaplaylistTest_SOURCES}
+    ../src/elisa_core.kcfg
+)
+
 add_executable(mediaplaylistTest ${mediaplaylistTest_SOURCES})
 
-target_link_libraries(mediaplaylistTest Qt5::Test Qt5::Core Qt5::Sql Qt5::Gui KF5::I18n)
+target_link_libraries(mediaplaylistTest Qt5::Test Qt5::Core Qt5::Sql Qt5::Gui KF5::I18n KF5::ConfigCore KF5::ConfigGui)
 if (KF5Baloo_FOUND)
     target_link_libraries(mediaplaylistTest KF5::Baloo Qt5::DBus)
 endif()
@@ -333,11 +358,16 @@ if (KF5FileMetaData_FOUND)
         localfilelistingtest.cpp
     )
 
+    kconfig_add_kcfg_files(localfilelistingtest_SOURCES ../src/elisa_settings.kcfgc )
+    set(localfilelistingtest_SOURCES
+        ${localfilelistingtest_SOURCES}
+        ../src/elisa_core.kcfg
+    )
+
     add_executable(localfilelistingtest ${localfilelistingtest_SOURCES})
-    target_link_libraries(localfilelistingtest Qt5::Test Qt5::Core Qt5::Sql KF5::I18n)
-    if (KF5FileMetaData_FOUND)
-        target_link_libraries(localfilelistingtest KF5::FileMetaData)
-    endif()
+    target_link_libraries(localfilelistingtest Qt5::Test Qt5::Core Qt5::Sql KF5::I18n KF5::ConfigCore KF5::ConfigGui KF5::FileMetaData)
+
     target_include_directories(localfilelistingtest PRIVATE ${CMAKE_SOURCE_DIR}/src)
     add_test(localfilelistingtest localfilelistingtest)
+
 endif()

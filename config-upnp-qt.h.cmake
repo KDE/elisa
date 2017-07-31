@@ -8,10 +8,6 @@
 
 #cmakedefine01 KF5XmlGui_FOUND
 
-#cmakedefine01 KF5ConfigWidgets_FOUND
-
-#cmakedefine01 KF5Config_FOUND
-
 #cmakedefine01 KF5Crash_FOUND
 
 #cmakedefine01 KF5FileMetaData_FOUND

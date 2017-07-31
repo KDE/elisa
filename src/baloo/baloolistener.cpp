@@ -28,10 +28,13 @@ class BalooListenerPrivate
 {
 public:
 
+    LocalBalooFileListing mBalooFileIndexer;
+
 };
 
-BalooListener::BalooListener(QObject *parent) : AbstractFileListener(new LocalBalooFileListing, parent), d(new BalooListenerPrivate)
+BalooListener::BalooListener(QObject *parent) : AbstractFileListener(parent), d(new BalooListenerPrivate)
 {
+    setFileListing(&d->mBalooFileIndexer);
 }
 
 BalooListener::~BalooListener()

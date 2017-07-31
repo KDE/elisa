@@ -20,6 +20,8 @@
 
 #include "elisaapplication.h"
 
+#include "elisa_settings.h"
+
 #if defined KF5XmlGui_FOUND && KF5XmlGui_FOUND
 #include <KXmlGui/KAboutApplicationDialog>
 #include <KXmlGui/KHelpMenu>
@@ -27,13 +29,8 @@
 #include <KXmlGui/KShortcutsDialog>
 #endif
 
-#if defined KF5ConfigWidgets_FOUND && KF5ConfigWidgets_FOUND
 #include <KConfigWidgets/KStandardAction>
-#endif
-
-#if defined KF5Config_FOUND && KF5Config_FOUND
 #include <KConfigCore/KAuthorized>
-#endif
 
 #if defined KF5CoreAddons_FOUND && KF5CoreAddons_FOUND
 #include <KCoreAddons/KAboutData>
@@ -55,6 +52,8 @@ ElisaApplication::ElisaApplication(QObject *parent) : QObject(parent)
 #endif
 {
     setupActions();
+
+    mConfigurationDialog.addModule(QStringLiteral("kcm_elisa_local_file"));
 }
 
 void ElisaApplication::setupActions()
@@ -78,8 +77,15 @@ void ElisaApplication::setupActions()
         mCollection.addAction(mAboutAppAction->objectName(), mAboutAppAction);
     }
 
-    auto mKeyBindignsAction = KStandardAction::keyBindings(this, &ElisaApplication::configureShortcuts, this);
-    mCollection.addAction(mKeyBindignsAction->objectName(), mKeyBindignsAction);
+    if (KAuthorized::authorizeAction(QStringLiteral("options_configure"))) {
+        auto mPreferencesAction = KStandardAction::preferences(this, &ElisaApplication::configureElisa, this);
+        mCollection.addAction(mPreferencesAction->objectName(), mPreferencesAction);
+    }
+
+    if (KAuthorized::authorizeAction(QStringLiteral("options_configure_keybinding"))) {
+        auto mKeyBindignsAction = KStandardAction::keyBindings(this, &ElisaApplication::configureShortcuts, this);
+        mCollection.addAction(mKeyBindignsAction->objectName(), mKeyBindignsAction);
+    }
 
     mCollection.readSettings();
 #endif
@@ -122,6 +128,12 @@ void ElisaApplication::configureShortcuts()
     dlg.addCollection(&mCollection);
     qDebug() << "saving shortcuts..." << dlg.configure(/*bSaveSettings*/);
 #endif
+}
+
+void ElisaApplication::configureElisa()
+{
+    mConfigurationDialog.setModal(true);
+    mConfigurationDialog.show();
 }
 
 QAction * ElisaApplication::action(const QString& name)

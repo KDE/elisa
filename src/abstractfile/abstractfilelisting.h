@@ -44,6 +44,8 @@ public:
 
     virtual void applicationAboutToQuit();
 
+    const QString &sourceName() const;
+
 Q_SIGNALS:
 
     void tracksList(const QList<MusicAudioTrack> &tracks, const QHash<QString, QUrl> &covers, const QString &musicSource);
@@ -51,6 +53,8 @@ Q_SIGNALS:
     void removedTracksList(const QList<QUrl> &removedTracks);
 
     void modifyTracksList(const QList<MusicAudioTrack> &modifiedTracks, const QHash<QString, QUrl> &covers);
+
+    void indexingFinished();
 
 public Q_SLOTS:
 
@@ -76,8 +80,6 @@ protected:
 
     void scanDirectory(QList<MusicAudioTrack> &newFiles, const QUrl &path);
 
-    const QString &sourceName() const;
-
     virtual MusicAudioTrack scanOneFile(const QUrl &scanFile);
 
     void watchPath(const QString &pathName);
@@ -95,6 +97,8 @@ protected:
     void removeDirectory(const QUrl &removedDirectory, QList<QUrl> &allRemovedFiles);
 
     void removeFile(const QUrl &oneRemovedTrack, QList<QUrl> &allRemovedFiles);
+
+    void setSourceName(const QString &name);
 
 private:
 

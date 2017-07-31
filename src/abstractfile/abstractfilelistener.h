@@ -39,11 +39,13 @@ class AbstractFileListener : public QObject
                NOTIFY databaseInterfaceChanged)
 
 public:
-    explicit AbstractFileListener(AbstractFileListing *aFileListing, QObject *parent = 0);
+    explicit AbstractFileListener(QObject *parent = 0);
 
     virtual ~AbstractFileListener();
 
     DatabaseInterface* databaseInterface() const;
+
+    AbstractFileListing* fileListing() const;
 
 Q_SIGNALS:
 
@@ -53,7 +55,13 @@ Q_SIGNALS:
 
     void newTrackFile(const MusicAudioTrack &newTrack);
 
+    void indexingFinished();
+
+    void configurationChanged();
+
 public Q_SLOTS:
+
+    void performInitialScan();
 
     void setDatabaseInterface(DatabaseInterface* databaseInterface);
 
@@ -61,7 +69,7 @@ public Q_SLOTS:
 
 protected:
 
-    AbstractFileListing* fileListing() const;
+    void setFileListing(AbstractFileListing *fileIndexer);
 
 private:
 

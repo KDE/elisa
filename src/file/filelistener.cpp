@@ -28,15 +28,28 @@ class FileListenerPrivate
 {
 public:
 
+    LocalFileListing mLocalFileIndexer;
+
 };
 
-FileListener::FileListener(QObject *parent) : AbstractFileListener(new LocalFileListing, parent), d(new FileListenerPrivate)
+FileListener::FileListener(QObject *parent) : AbstractFileListener(parent), d(new FileListenerPrivate)
 {
+    setFileListing(&d->mLocalFileIndexer);
 }
 
 FileListener::~FileListener()
 {
     delete d;
+}
+
+const LocalFileListing& FileListener::localFileIndexer() const
+{
+    return d->mLocalFileIndexer;
+}
+
+void FileListener::setRootPath(const QString &rootPath)
+{
+    d->mLocalFileIndexer.setRootPath(rootPath);
 }
 
 

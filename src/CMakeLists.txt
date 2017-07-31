@@ -101,6 +101,12 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         )
     endif()
 
+    kconfig_add_kcfg_files(elisa_SOURCES elisa_settings.kcfgc)
+    set(elisa_SOURCES
+        ${elisa_SOURCES}
+        elisa_core.kcfg
+    )
+
     qt5_add_resources(elisa_SOURCES upnpControl.qrc)
 
     add_executable(elisa ${elisa_SOURCES})
@@ -119,6 +125,8 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
             Qt5::Xml
             Qt5::Sql
             KF5::I18n
+            KF5::ConfigCore
+            KF5::KCMUtils
     )
 
     if (Qt5DBus_FOUND)
@@ -170,20 +178,6 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         )
     endif()
 
-    if (KF5ConfigWidgets_FOUND)
-        target_link_libraries(elisa
-            LINK_PRIVATE
-                KF5::ConfigWidgets
-        )
-    endif()
-
-    if (KF5Config_FOUND)
-        target_link_libraries(elisa
-            LINK_PRIVATE
-                KF5::ConfigCore
-        )
-    endif()
-
     if (KF5Crash_FOUND)
         target_link_libraries(elisa
             LINK_PRIVATE
@@ -208,3 +202,5 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
 endif()
 
 install(TARGETS elisa ${INSTALL_TARGETS_DEFAULT_ARGS})
+
+add_subdirectory(localFileConfiguration)

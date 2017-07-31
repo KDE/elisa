@@ -32,13 +32,19 @@
 #include "databaseinterface.h"
 #include "mediaplaylist.h"
 #include "file/filelistener.h"
+#include "file/localfilelisting.h"
 #include "trackslistener.h"
+#include "elisa_settings.h"
 
 #include <QThread>
 #include <QMutex>
 #include <QStandardPaths>
 #include <QDir>
 #include <QCoreApplication>
+#include <QList>
+#include <QScopedPointer>
+#include <QPointer>
+#include <QFileSystemWatcher>
 
 class MusicListenersManagerPrivate
 {
@@ -51,14 +57,16 @@ public:
 #endif
 
 #if defined KF5Baloo_FOUND && KF5Baloo_FOUND
-    BalooListener mBalooListener;
+    QScopedPointer<BalooListener> mBalooListener;
 #endif
 
-#if (!defined KF5Baloo_FOUND || !KF5Baloo_FOUND) && defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
-    FileListener mFileListener;
+#if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
+    QList<QPointer<FileListener>> mFileListener;
 #endif
 
     DatabaseInterface mDatabaseInterface;
+
+    QFileSystemWatcher mConfigFileWatcher;
 
 };
 
@@ -106,6 +114,24 @@ MusicListenersManager::MusicListenersManager(QObject *parent)
 
     connect(QCoreApplication::instance(), &QCoreApplication::aboutToQuit,
             this, &MusicListenersManager::applicationAboutToQuit);
+
+    connect(Elisa::ElisaConfiguration::self(), &Elisa::ElisaConfiguration::configChanged,
+            this, &MusicListenersManager::configChanged);
+
+    connect(&d->mConfigFileWatcher, &QFileSystemWatcher::fileChanged,
+            this, &MusicListenersManager::configChanged);
+
+    auto initialRootPath = Elisa::ElisaConfiguration::rootPath();
+    if (initialRootPath.isEmpty()) {
+        for (const auto &musicPath : QStandardPaths::standardLocations(QStandardPaths::MusicLocation)) {
+            initialRootPath.push_back(musicPath);
+        }
+
+        Elisa::ElisaConfiguration::setRootPath(initialRootPath);
+        Elisa::ElisaConfiguration::self()->save();
+    }
+
+    d->mConfigFileWatcher.addPath(Elisa::ElisaConfiguration::self()->config()->name());
 }
 
 MusicListenersManager::~MusicListenersManager()
@@ -137,31 +163,7 @@ void MusicListenersManager::subscribeForTracks(MediaPlayList *client)
 
 void MusicListenersManager::databaseReady()
 {
-#if defined KF5Baloo_FOUND && KF5Baloo_FOUND
-    d->mBalooListener.setDatabaseInterface(&d->mDatabaseInterface);
-    d->mBalooListener.moveToThread(&d->mDatabaseThread);
-    connect(this, &MusicListenersManager::applicationIsTerminating,
-            &d->mBalooListener, &BalooListener::applicationAboutToQuit, Qt::BlockingQueuedConnection);
-    connect(this, &MusicListenersManager::databaseIsReady,
-            &d->mBalooListener, &BalooListener::databaseReady);
-#endif
-#if defined UPNPQT_FOUND && UPNPQT_FOUND
-    d->mUpnpListener.setDatabaseInterface(&d->mDatabaseInterface);
-    d->mUpnpListener.moveToThread(&d->mDatabaseThread);
-    connect(this, &MusicListenersManager::applicationIsTerminating,
-            &d->mUpnpListener, &UpnpListener::applicationAboutToQuit, Qt::BlockingQueuedConnection);
-    connect(this, &MusicListenersManager::databaseIsReady,
-            &d->mUpnpListener, &UpnpListener::databaseReady);
-#endif
-
-#if (!defined KF5Baloo_FOUND || !KF5Baloo_FOUND) && defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
-    d->mFileListener.setDatabaseInterface(&d->mDatabaseInterface);
-    d->mFileListener.moveToThread(&d->mDatabaseThread);
-    connect(this, &MusicListenersManager::applicationIsTerminating,
-            &d->mFileListener, &FileListener::applicationAboutToQuit, Qt::BlockingQueuedConnection);
-    connect(this, &MusicListenersManager::databaseIsReady,
-            &d->mFileListener, &FileListener::databaseReady);
-#endif
+    configChanged();
 
     Q_EMIT databaseIsReady();
 }
@@ -174,6 +176,84 @@ void MusicListenersManager::applicationAboutToQuit()
 
     d->mDatabaseThread.exit();
     d->mDatabaseThread.wait();
+}
+
+void MusicListenersManager::showConfiguration()
+{
+}
+
+void MusicListenersManager::configChanged()
+{
+    auto currentConfiguration = Elisa::ElisaConfiguration::self();
+
+    d->mConfigFileWatcher.addPath(currentConfiguration->config()->name());
+
+    currentConfiguration->load();
+
+#if defined KF5Baloo_FOUND && KF5Baloo_FOUND
+    if (currentConfiguration->balooIndexer() && !d->mBalooListener) {
+        d->mBalooListener.reset(new BalooListener);
+        d->mBalooListener->setDatabaseInterface(&d->mDatabaseInterface);
+        d->mBalooListener->moveToThread(&d->mDatabaseThread);
+        connect(this, &MusicListenersManager::applicationIsTerminating,
+                d->mBalooListener.data(), &BalooListener::applicationAboutToQuit, Qt::BlockingQueuedConnection);
+        connect(this, &MusicListenersManager::databaseIsReady,
+                d->mBalooListener.data(), &BalooListener::databaseReady);
+        connect(d->mBalooListener.data(), &BalooListener::indexingFinished,
+                this, &MusicListenersManager::indexingFinished);
+    } else if (!currentConfiguration->balooIndexer() && d->mBalooListener) {
+        d->mBalooListener.reset();
+    }
+#endif
+#if defined UPNPQT_FOUND && UPNPQT_FOUND
+    d->mUpnpListener.setDatabaseInterface(&d->mDatabaseInterface);
+    d->mUpnpListener.moveToThread(&d->mDatabaseThread);
+    connect(this, &MusicListenersManager::applicationIsTerminating,
+            &d->mUpnpListener, &UpnpListener::applicationAboutToQuit, Qt::BlockingQueuedConnection);
+    connect(this, &MusicListenersManager::databaseIsReady,
+            &d->mUpnpListener, &UpnpListener::databaseReady);
+#endif
+
+#if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
+    if (currentConfiguration->elisaFilesIndexer())
+    {
+        const auto &allRootPaths = currentConfiguration->rootPath();
+        for (auto itFileListener = d->mFileListener.begin(); itFileListener != d->mFileListener.end(); ) {
+            const auto &currentRootPath = (*itFileListener)->localFileIndexer().rootPath();
+            auto itPath = std::find(allRootPaths.begin(), allRootPaths.end(), currentRootPath);
+
+            if (itPath == allRootPaths.end()) {
+                d->mDatabaseInterface.removeAllTracksFromSource((*itFileListener)->fileListing()->sourceName());
+                itFileListener = d->mFileListener.erase(itFileListener);
+            } else {
+                ++itFileListener;
+            }
+        }
+
+        for (const auto &oneRootPath : allRootPaths) {
+            auto itPath = std::find_if(d->mFileListener.begin(), d->mFileListener.end(),
+                                       [&oneRootPath](auto value)->bool {return value->localFileIndexer().rootPath() == oneRootPath;});
+            if (itPath == d->mFileListener.end()) {
+                auto newFileIndexer = new FileListener;
+
+                newFileIndexer->setDatabaseInterface(&d->mDatabaseInterface);
+                newFileIndexer->moveToThread(&d->mDatabaseThread);
+                connect(this, &MusicListenersManager::applicationIsTerminating,
+                        newFileIndexer, &FileListener::applicationAboutToQuit, Qt::BlockingQueuedConnection);
+                connect(this, &MusicListenersManager::databaseIsReady,
+                        newFileIndexer, &FileListener::databaseReady);
+                connect(newFileIndexer, &FileListener::indexingFinished,
+                        this, &MusicListenersManager::indexingFinished);
+
+                newFileIndexer->setRootPath(oneRootPath);
+
+                d->mFileListener.push_back({newFileIndexer});
+
+                newFileIndexer->performInitialScan();
+            }
+        }
+    }
+#endif
 }
 
 

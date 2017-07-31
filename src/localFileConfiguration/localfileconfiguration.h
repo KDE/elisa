@@ -22,6 +22,7 @@
 
 #include <KQuickAddons/ConfigModule>
 #include <QStringList>
+#include <QFileSystemWatcher>
 
 class KCMElisaLocalFile : public KQuickAddons::ConfigModule
 {
@@ -62,6 +63,8 @@ private Q_SLOTS:
 private:
 
     QStringList mRootPath;
+
+    QFileSystemWatcher mConfigFileWatcher;
 
 };
 

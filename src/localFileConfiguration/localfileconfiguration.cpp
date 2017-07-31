@@ -48,10 +48,15 @@ KCMElisaLocalFile::KCMElisaLocalFile(QObject* parent, const QVariantList &args)
 
     connect(Elisa::ElisaConfiguration::self(), &Elisa::ElisaConfiguration::configChanged,
             this, &KCMElisaLocalFile::configChanged);
+    connect(&mConfigFileWatcher, &QFileSystemWatcher::fileChanged,
+            this, &KCMElisaLocalFile::configChanged);
+
 
     setRootPath(Elisa::ElisaConfiguration::rootPath());
     Elisa::ElisaConfiguration::setRootPath(mRootPath);
     Elisa::ElisaConfiguration::self()->save();
+
+    mConfigFileWatcher.addPath(Elisa::ElisaConfiguration::self()->config()->name());
 }
 
 KCMElisaLocalFile::~KCMElisaLocalFile()
@@ -81,7 +86,7 @@ void KCMElisaLocalFile::save()
 
 void KCMElisaLocalFile::setRootPath(QStringList rootPath)
 {
-    if (mRootPath == rootPath) {
+    if (mRootPath == rootPath && !mRootPath.isEmpty()) {
         return;
     }
 

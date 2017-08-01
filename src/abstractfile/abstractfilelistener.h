@@ -55,6 +55,8 @@ Q_SIGNALS:
 
     void newTrackFile(const MusicAudioTrack &newTrack);
 
+    void indexingStarted();
+
     void indexingFinished();
 
     void configurationChanged();

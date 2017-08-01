@@ -106,6 +106,8 @@ void LocalBalooFileListing::executeInit()
 
 void LocalBalooFileListing::triggerRefreshOfContent()
 {
+    Q_EMIT indexingStarted();
+
     auto resultIterator = d->mQuery.exec();
     auto newFiles = QList<MusicAudioTrack>();
 

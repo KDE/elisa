@@ -54,6 +54,8 @@ Q_SIGNALS:
 
     void modifyTracksList(const QList<MusicAudioTrack> &modifiedTracks, const QHash<QString, QUrl> &covers);
 
+    void indexingStarted();
+
     void indexingFinished();
 
 public Q_SLOTS:

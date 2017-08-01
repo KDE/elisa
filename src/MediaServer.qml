@@ -125,6 +125,28 @@ ApplicationWindow {
 
     MusicListenersManager {
         id: allListeners
+
+        property int cptRunningIndexers: 0
+
+        onIndexingStarted:
+        {
+            ++cptRunningIndexers
+            console.log("indexing started " + cptRunningIndexers)
+        }
+
+        onIndexingFinished:
+        {
+            --cptRunningIndexers
+            console.log("indexing finished " + cptRunningIndexers)
+
+            if (cptRunningIndexers === 0) {
+                if (allAlbumsModel.albumCount() === 0) {
+                    noTrackNotification.visible = true
+                } else {
+                    noTrackNotification.visible = false
+                }
+            }
+        }
     }
 
     AudioWrapper {
@@ -528,175 +550,221 @@ ApplicationWindow {
                     }
                 }
 
-                Item {
+                ColumnLayout {
                     Layout.fillHeight: true
                     Layout.fillWidth: true
 
-                    RowLayout {
-                        anchors.fill: parent
-                        spacing: 0
+                    spacing: 0
 
-                        id: contentZone
+                    Rectangle {
+                        id: noTrackNotification
 
-                        Item {
-                            id: mainContentView
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: elisaTheme.delegateHeight * 2
 
-                            Layout.leftMargin: elisaTheme.layoutHorizontalMargin
-                            Layout.rightMargin: elisaTheme.layoutHorizontalMargin
+                        color: myPalette.mid
 
-                            Layout.fillHeight: true
+                        visible: false
 
-                            Layout.minimumWidth: 0
-                            Layout.maximumWidth: 0
-                            Layout.preferredWidth: 0
+                        RowLayout {
+                            anchors.fill: parent
 
-                            //z: 1
-                            visible: Layout.minimumWidth != 0
+                            LabelWithToolTip {
+                                font.pixelSize: elisaTheme.defaultFontPixelSize * 1.5
+                                text: i18nc("No track found message", "No track have been found")
 
-                            BusyIndicator {
-                                id: busyScanningMusic
-
-                                anchors.fill: parent
-
-                                anchors.leftMargin: parent.width / 3
-                                anchors.rightMargin: parent.width / 3
-                                anchors.topMargin: parent.height / 3
-                                anchors.bottomMargin: parent.height / 3
-
-                                opacity: 0.8
-
-                                z: 2
-
-                                running: true
+                                Layout.leftMargin: elisaTheme.layoutHorizontalMargin
+                                Layout.alignment: Qt.AlignHCenter
                             }
 
-                            MediaBrowser {
-                                id: localAlbums
+                            Button {
+                                id: configureListenerButton
 
-                                anchors.fill: parent
+                                text: i18nc("general configuration menu entry", "Configure Elisa...")
+                                iconName: 'configure'
 
-                                firstPage: MediaAllAlbumView {
-                                    playListModel: playListModelItem
-                                    playerControl: manageAudioPlayer
-                                    stackView: localAlbums.stackView
-                                    musicListener: allListeners
-                                    contentDirectoryModel: allAlbumsModel
+                                Layout.leftMargin: elisaTheme.layoutHorizontalMargin
+                                Layout.alignment: Qt.AlignHCenter
+
+                                onClicked: configureAction.trigger()
+                            }
+                            Item {
+                                Layout.fillWidth: true
+                            }
+                        }
+                    }
+
+                    Item {
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+
+                        RowLayout {
+                            anchors.fill: parent
+
+                            spacing: 0
+
+                            id: contentZone
+
+                            Item {
+                                id: mainContentView
+
+                                Layout.leftMargin: elisaTheme.layoutHorizontalMargin
+                                Layout.rightMargin: elisaTheme.layoutHorizontalMargin
+
+                                Layout.fillHeight: true
+
+                                Layout.minimumWidth: 0
+                                Layout.maximumWidth: 0
+                                Layout.preferredWidth: 0
+
+                                //z: 1
+                                visible: Layout.minimumWidth != 0
+
+                                BusyIndicator {
+                                    id: busyScanningMusic
+
+                                    anchors.fill: parent
+
+                                    anchors.leftMargin: parent.width / 3
+                                    anchors.rightMargin: parent.width / 3
+                                    anchors.topMargin: parent.height / 3
+                                    anchors.bottomMargin: parent.height / 3
+
+                                    opacity: 0.8
+
+                                    z: 2
+
+                                    running: true
                                 }
 
-                                visible: opacity > 0
-                            }
+                                MediaBrowser {
+                                    id: localAlbums
 
-                            MediaBrowser {
-                                id: localArtists
+                                    anchors.fill: parent
 
-                                anchors.fill: parent
+                                    firstPage: MediaAllAlbumView {
+                                        playListModel: playListModelItem
+                                        playerControl: manageAudioPlayer
+                                        stackView: localAlbums.stackView
+                                        musicListener: allListeners
+                                        contentDirectoryModel: allAlbumsModel
+                                    }
 
-                                firstPage: MediaAllArtistView {
-                                    playListModel: playListModelItem
-                                    artistsModel: allArtistsModel
-                                    playerControl: manageAudioPlayer
-                                    stackView: localArtists.stackView
-                                    musicListener: allListeners
-                                    contentDirectoryModel: allAlbumsModel
+                                    visible: opacity > 0
                                 }
 
-                                visible: opacity > 0
-                            }
+                                MediaBrowser {
+                                    id: localArtists
 
-                            MediaBrowser {
-                                id: localTracks
+                                    anchors.fill: parent
 
-                                anchors.fill: parent
+                                    firstPage: MediaAllArtistView {
+                                        playListModel: playListModelItem
+                                        artistsModel: allArtistsModel
+                                        playerControl: manageAudioPlayer
+                                        stackView: localArtists.stackView
+                                        musicListener: allListeners
+                                        contentDirectoryModel: allAlbumsModel
+                                    }
 
-                                firstPage: MediaAllTracksView {
-                                    playListModel: playListModelItem
-                                    tracksModel: allTracksModel
-                                    playerControl: manageAudioPlayer
-                                    stackView: localTracks.stackView
-                                    musicListener: allListeners
+                                    visible: opacity > 0
                                 }
 
-                                visible: opacity > 0
+                                MediaBrowser {
+                                    id: localTracks
+
+                                    anchors.fill: parent
+
+                                    firstPage: MediaAllTracksView {
+                                        playListModel: playListModelItem
+                                        tracksModel: allTracksModel
+                                        playerControl: manageAudioPlayer
+                                        stackView: localTracks.stackView
+                                        musicListener: allListeners
+                                    }
+
+                                    visible: opacity > 0
+                                }
                             }
-                        }
 
-                        Rectangle {
-                            id: firstViewSeparatorItem
+                            Rectangle {
+                                id: firstViewSeparatorItem
 
-                            border.width: 1
-                            border.color: myPalette.mid
-                            color: myPalette.mid
-                            visible: true
+                                border.width: 1
+                                border.color: myPalette.mid
+                                color: myPalette.mid
+                                visible: true
 
-                            Layout.bottomMargin: elisaTheme.layoutVerticalMargin
-                            Layout.topMargin: elisaTheme.layoutVerticalMargin
+                                Layout.bottomMargin: elisaTheme.layoutVerticalMargin
+                                Layout.topMargin: elisaTheme.layoutVerticalMargin
 
-                            Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+                                Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
 
-                            Layout.fillHeight: true
+                                Layout.fillHeight: true
 
-                            Layout.preferredWidth: 1
-                            Layout.minimumWidth: 1
-                            Layout.maximumWidth: 1
-                        }
-
-                        MediaPlayListView {
-                            id: playList
-
-                            playListModel: playListModelItem
-                            playListControler: playListControlerItem
-
-                            randomPlayChecked: playListControlerItem.randomPlayControl
-                            repeatPlayChecked: playListControlerItem.repeatPlayControl
-
-                            Layout.fillHeight: true
-
-                            Layout.minimumWidth: contentZone.width
-                            Layout.maximumWidth: contentZone.width
-                            Layout.preferredWidth: contentZone.width
-
-                            Component.onCompleted:
-                            {
-                                playListControlerItem.randomPlay = Qt.binding(function() { return playList.randomPlayChecked })
-                                playListControlerItem.repeatPlay = Qt.binding(function() { return playList.repeatPlayChecked })
-                                myPlayControlManager.randomOrContinuePlay = Qt.binding(function() { return playList.randomPlayChecked || playList.repeatPlayChecked })
+                                Layout.preferredWidth: 1
+                                Layout.minimumWidth: 1
+                                Layout.maximumWidth: 1
                             }
-                        }
 
-                        Rectangle {
-                            id: viewSeparatorItem
+                            MediaPlayListView {
+                                id: playList
 
-                            border.width: 1
-                            border.color: myPalette.mid
-                            color: myPalette.mid
-                            visible: Layout.minimumWidth != 0
+                                playListModel: playListModelItem
+                                playListControler: playListControlerItem
 
-                            Layout.bottomMargin: elisaTheme.layoutVerticalMargin
-                            Layout.topMargin: elisaTheme.layoutVerticalMargin
+                                randomPlayChecked: playListControlerItem.randomPlayControl
+                                repeatPlayChecked: playListControlerItem.repeatPlayControl
 
-                            Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+                                Layout.fillHeight: true
 
-                            Layout.fillHeight: true
+                                Layout.minimumWidth: contentZone.width
+                                Layout.maximumWidth: contentZone.width
+                                Layout.preferredWidth: contentZone.width
 
-                            Layout.preferredWidth: 1
-                            Layout.minimumWidth: 1
-                            Layout.maximumWidth: 1
-                        }
+                                Component.onCompleted:
+                                {
+                                    playListControlerItem.randomPlay = Qt.binding(function() { return playList.randomPlayChecked })
+                                    playListControlerItem.repeatPlay = Qt.binding(function() { return playList.repeatPlayChecked })
+                                    myPlayControlManager.randomOrContinuePlay = Qt.binding(function() { return playList.randomPlayChecked || playList.repeatPlayChecked })
+                                }
+                            }
 
-                        ContextView {
-                            id: albumContext
+                            Rectangle {
+                                id: viewSeparatorItem
 
-                            Layout.fillHeight: true
+                                border.width: 1
+                                border.color: myPalette.mid
+                                color: myPalette.mid
+                                visible: Layout.minimumWidth != 0
 
-                            Layout.minimumWidth: contentZone.width
-                            Layout.maximumWidth: contentZone.width
-                            Layout.preferredWidth: contentZone.width
+                                Layout.bottomMargin: elisaTheme.layoutVerticalMargin
+                                Layout.topMargin: elisaTheme.layoutVerticalMargin
 
-                            visible: Layout.minimumWidth != 0
+                                Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
 
-                            artistName: myHeaderBarManager.artist
-                            albumName: myHeaderBarManager.album
-                            albumArtUrl: myHeaderBarManager.image
+                                Layout.fillHeight: true
+
+                                Layout.preferredWidth: 1
+                                Layout.minimumWidth: 1
+                                Layout.maximumWidth: 1
+                            }
+
+                            ContextView {
+                                id: albumContext
+
+                                Layout.fillHeight: true
+
+                                Layout.minimumWidth: contentZone.width
+                                Layout.maximumWidth: contentZone.width
+                                Layout.preferredWidth: contentZone.width
+
+                                visible: Layout.minimumWidth != 0
+
+                                artistName: myHeaderBarManager.artist
+                                albumName: myHeaderBarManager.album
+                                albumArtUrl: myHeaderBarManager.image
+                            }
                         }
                     }
 

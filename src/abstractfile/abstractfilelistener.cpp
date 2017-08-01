@@ -81,6 +81,8 @@ void AbstractFileListener::setFileListing(AbstractFileListing *fileIndexer)
     d->mFileListing = fileIndexer;
     d->mFileQueryThread.start();
     d->mFileListing->moveToThread(&d->mFileQueryThread);
+    connect(fileIndexer, &AbstractFileListing::indexingStarted,
+            this, &AbstractFileListener::indexingStarted);
     connect(fileIndexer, &AbstractFileListing::indexingFinished,
             this, &AbstractFileListener::indexingFinished);
 }

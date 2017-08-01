@@ -242,6 +242,8 @@ void MusicListenersManager::configChanged()
                         newFileIndexer, &FileListener::applicationAboutToQuit, Qt::BlockingQueuedConnection);
                 connect(this, &MusicListenersManager::databaseIsReady,
                         newFileIndexer, &FileListener::databaseReady);
+                connect(newFileIndexer, &FileListener::indexingStarted,
+                        this, &MusicListenersManager::indexingStarted);
                 connect(newFileIndexer, &FileListener::indexingFinished,
                         this, &MusicListenersManager::indexingFinished);
 

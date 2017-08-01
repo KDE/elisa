@@ -78,6 +78,8 @@ void LocalFileListing::executeInit()
 
 void LocalFileListing::triggerRefreshOfContent()
 {
+    Q_EMIT indexingStarted();
+
     scanDirectoryTree(d->mRootPath);
 
     Q_EMIT indexingFinished();

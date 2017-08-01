@@ -77,6 +77,8 @@ Q_SIGNALS:
 
     void databaseIsReady();
 
+    void indexingStarted();
+
     void indexingFinished();
 
 public Q_SLOTS:

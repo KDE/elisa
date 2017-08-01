@@ -131,19 +131,16 @@ ApplicationWindow {
         onIndexingStarted:
         {
             ++cptRunningIndexers
-            console.log("indexing started " + cptRunningIndexers)
+            noTrackNotification.notificationActive = false
         }
 
         onIndexingFinished:
         {
             --cptRunningIndexers
-            console.log("indexing finished " + cptRunningIndexers)
 
             if (cptRunningIndexers === 0) {
                 if (allAlbumsModel.albumCount() === 0) {
-                    noTrackNotification.visible = true
-                } else {
-                    noTrackNotification.visible = false
+                    noTrackNotification.notificationActive = true
                 }
             }
         }
@@ -264,7 +261,13 @@ ApplicationWindow {
     Connections {
         target: allListeners
 
-        onAlbumRemoved: allAlbumsModel.albumRemoved(removedAlbum)
+        onAlbumRemoved: {
+            allAlbumsModel.albumRemoved(removedAlbum)
+
+            if (allAlbumsModel.albumCount() === 0) {
+                noTrackNotification.notificationActive = true
+            }
+        }
     }
 
     Connections {
@@ -556,42 +559,10 @@ ApplicationWindow {
 
                     spacing: 0
 
-                    Rectangle {
+                    TopNotification {
                         id: noTrackNotification
 
                         Layout.fillWidth: true
-                        Layout.preferredHeight: elisaTheme.delegateHeight * 2
-
-                        color: myPalette.mid
-
-                        visible: false
-
-                        RowLayout {
-                            anchors.fill: parent
-
-                            LabelWithToolTip {
-                                font.pixelSize: elisaTheme.defaultFontPixelSize * 1.5
-                                text: i18nc("No track found message", "No track have been found")
-
-                                Layout.leftMargin: elisaTheme.layoutHorizontalMargin
-                                Layout.alignment: Qt.AlignHCenter
-                            }
-
-                            Button {
-                                id: configureListenerButton
-
-                                text: i18nc("general configuration menu entry", "Configure Elisa...")
-                                iconName: 'configure'
-
-                                Layout.leftMargin: elisaTheme.layoutHorizontalMargin
-                                Layout.alignment: Qt.AlignHCenter
-
-                                onClicked: configureAction.trigger()
-                            }
-                            Item {
-                                Layout.fillWidth: true
-                            }
-                        }
                     }
 
                     Item {

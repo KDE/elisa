@@ -38,6 +38,7 @@
         <file>LabelWithToolTip.qml</file>
         <file>MediaAllTracksView.qml</file>
         <file>MediaTracksDelegate.qml</file>
+        <file>TopNotification.qml</file>
     </qresource>
     <qresource prefix="/+windows">
         <file alias="Theme.qml">windows/WindowsTheme.qml</file>

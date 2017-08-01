@@ -1,5 +1,23 @@
 [Desktop Entry]
 Name=Elisa
+Name[ast]=Elisa
+Name[ca]=Elisa
+Name[ca@valencia]=Elisa
+Name[cs]=Elisa
+Name[de]=Elisa
+Name[en_GB]=Elisa
+Name[es]=Elisa
+Name[fr]=Elisa
+Name[gl]=Elisa
+Name[nl]=Elisa
+Name[nn]=Elisa
+Name[pl]=Elisa
+Name[pt]=Elisa
+Name[pt_BR]=Elisa
+Name[sk]=Elisa
+Name[sv]=Elisa
+Name[uk]=Elisa
+Name[x-test]=xxElisaxx
 Comment=Configure Local Files Indexer of Elisa Music Player
 Icon=elisa
 Type=Service

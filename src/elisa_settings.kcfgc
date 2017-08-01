@@ -1,0 +1,6 @@
+ClassName=ElisaConfiguration
+NameSpace=Elisa
+File=elisa_core.kcfg
+Mutators=true
+Singleton=true
+MemberVariables=dpointer

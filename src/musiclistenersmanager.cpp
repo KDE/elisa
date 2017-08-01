@@ -251,7 +251,7 @@ void MusicListenersManager::configChanged()
 
                 d->mFileListener.push_back({newFileIndexer});
 
-                newFileIndexer->performInitialScan();
+                QMetaObject::invokeMethod(newFileIndexer, "performInitialScan", Qt::QueuedConnection);
             }
         }
     }

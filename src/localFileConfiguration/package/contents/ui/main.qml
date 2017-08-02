@@ -132,7 +132,7 @@ Item {
 
                 FileDialog {
                     id: fileDialog
-                    title: "Please choose a file"
+                    title: "Choose a Folder"
                     folder: shortcuts.home
                     selectFolder: true
 

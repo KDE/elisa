@@ -21,7 +21,8 @@
 
 #include "musicaudiotrack.h"
 
-#include "baloowatcherapplicationadaptor.h"
+#include "baloo/scheduler.h"
+#include "baloo/fileindexer.h"
 
 #include <Baloo/Query>
 #include <Baloo/File>
@@ -30,6 +31,7 @@
 #include <KFileMetaData/UserMetaData>
 
 #include <QDBusConnection>
+#include <QDBusConnectionInterface>
 #include <QDBusMessage>
 #include <QDBusServiceWatcher>
 
@@ -58,8 +60,6 @@ public:
 
     QAtomicInt mStopRequest = 0;
 
-    BalooWatcherApplicationAdaptor *mDbusAdaptor = nullptr;
-
     QDBusServiceWatcher mServiceWatcher;
 
     bool mIsRegistered = false;
@@ -74,10 +74,7 @@ LocalBalooFileListing::LocalBalooFileListing(QObject *parent)
     d->mQuery.addType(QStringLiteral("Audio"));
     setHandleNewFiles(false);
 
-    d->mDbusAdaptor = new BalooWatcherApplicationAdaptor(this);
-
     auto sessionBus = QDBusConnection::sessionBus();
-    sessionBus.registerObject(QStringLiteral("/org/kde/BalooWatcherApplication"), d->mDbusAdaptor, QDBusConnection::ExportAllContents);
 
     connect(&d->mServiceWatcher, &QDBusServiceWatcher::serviceRegistered,
             this, &LocalBalooFileListing::serviceRegistered);

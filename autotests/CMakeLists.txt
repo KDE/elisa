@@ -1,5 +1,6 @@
 enable_testing()
 
+include_directories(${elisa_CURRENT_BINARY_DIR})
 include_directories(${elisa_BINARY_DIR})
 include_directories(${elisa_BINARY_DIR}/src)
 
@@ -30,9 +31,13 @@ set(playListControlerTest_SOURCES
 
 if (KF5Baloo_FOUND)
     if (Qt5DBus_FOUND)
-        qt5_add_dbus_adaptor(playListControlerTest_SOURCES
-            ${CMAKE_INSTALL_PREFIX}/${KDE_INSTALL_DBUSINTERFACEDIR}/org.kde.BalooWatcherApplication.xml
-            baloo/localbaloofilelisting.h LocalBalooFileListing)
+        qt5_add_dbus_interface(playListControlerTest_SOURCES
+            ${CMAKE_INSTALL_PREFIX}/${KDE_INSTALL_DBUSINTERFACEDIR}/org.kde.baloo.fileindexer.xml
+            baloo/fileindexer)
+
+        qt5_add_dbus_interface(playListControlerTest_SOURCES
+            ${CMAKE_INSTALL_PREFIX}/${KDE_INSTALL_DBUSINTERFACEDIR}/org.kde.baloo.scheduler.xml
+            baloo/scheduler)
 
         set(playListControlerTest_SOURCES
             ${playListControlerTest_SOURCES}
@@ -101,9 +106,13 @@ set(managemediaplayercontrolTest_SOURCES
 
 if (KF5Baloo_FOUND)
     if (Qt5DBus_FOUND)
-        qt5_add_dbus_adaptor(managemediaplayercontrolTest_SOURCES
-            ${CMAKE_INSTALL_PREFIX}/${KDE_INSTALL_DBUSINTERFACEDIR}/org.kde.BalooWatcherApplication.xml
-            baloo/localbaloofilelisting.h LocalBalooFileListing)
+        qt5_add_dbus_interface(managemediaplayercontrolTest_SOURCES
+            ${CMAKE_INSTALL_PREFIX}/${KDE_INSTALL_DBUSINTERFACEDIR}/org.kde.baloo.fileindexer.xml
+            baloo/fileindexer)
+
+        qt5_add_dbus_interface(managemediaplayercontrolTest_SOURCES
+            ${CMAKE_INSTALL_PREFIX}/${KDE_INSTALL_DBUSINTERFACEDIR}/org.kde.baloo.scheduler.xml
+            baloo/scheduler)
 
         set(managemediaplayercontrolTest_SOURCES
             ${managemediaplayercontrolTest_SOURCES}
@@ -173,9 +182,13 @@ set(manageheaderbarTest_SOURCES
 
 if (KF5Baloo_FOUND)
     if (Qt5DBus_FOUND)
-        qt5_add_dbus_adaptor(manageheaderbarTest_SOURCES
-            ${CMAKE_INSTALL_PREFIX}/${KDE_INSTALL_DBUSINTERFACEDIR}/org.kde.BalooWatcherApplication.xml
-            baloo/localbaloofilelisting.h LocalBalooFileListing)
+        qt5_add_dbus_interface(manageheaderbarTest_SOURCES
+            ${CMAKE_INSTALL_PREFIX}/${KDE_INSTALL_DBUSINTERFACEDIR}/org.kde.baloo.fileindexer.xml
+            baloo/fileindexer)
+
+        qt5_add_dbus_interface(manageheaderbarTest_SOURCES
+            ${CMAKE_INSTALL_PREFIX}/${KDE_INSTALL_DBUSINTERFACEDIR}/org.kde.baloo.scheduler.xml
+            baloo/scheduler)
 
         set(manageheaderbarTest_SOURCES
             ${manageheaderbarTest_SOURCES}
@@ -253,9 +266,13 @@ set(mediaplaylistTest_SOURCES
 
 if (KF5Baloo_FOUND)
     if (Qt5DBus_FOUND)
-        qt5_add_dbus_adaptor(mediaplaylistTest_SOURCES
-            ${CMAKE_INSTALL_PREFIX}/${KDE_INSTALL_DBUSINTERFACEDIR}/org.kde.BalooWatcherApplication.xml
-            baloo/localbaloofilelisting.h LocalBalooFileListing)
+        qt5_add_dbus_interface(mediaplaylistTest_SOURCES
+            ${CMAKE_INSTALL_PREFIX}/${KDE_INSTALL_DBUSINTERFACEDIR}/org.kde.baloo.fileindexer.xml
+            baloo/fileindexer)
+
+        qt5_add_dbus_interface(mediaplaylistTest_SOURCES
+            ${CMAKE_INSTALL_PREFIX}/${KDE_INSTALL_DBUSINTERFACEDIR}/org.kde.baloo.scheduler.xml
+            baloo/scheduler)
 
         set(mediaplaylistTest_SOURCES
             ${mediaplaylistTest_SOURCES}

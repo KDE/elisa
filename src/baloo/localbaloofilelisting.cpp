@@ -67,9 +67,9 @@ public:
 
     bool mIsRegistering = false;
 
-    QScopedPointer<OrgKdeBalooFileindexerInterface> mBalooIndexer;
+    QScopedPointer<org::kde::baloo::fileindexer> mBalooIndexer;
 
-    QScopedPointer<OrgKdeBalooSchedulerInterface> mBalooScheduler;
+    QScopedPointer<org::kde::baloo::scheduler> mBalooScheduler;
 
 };
 
@@ -154,19 +154,19 @@ void LocalBalooFileListing::registerToBaloo()
 
     auto sessionBus = QDBusConnection::sessionBus();
 
-    d->mBalooIndexer.reset(new OrgKdeBalooFileindexerInterface(QStringLiteral("org.kde.baloo"), QStringLiteral("/fileindexer"),
-                                                               sessionBus, this));
+    d->mBalooIndexer.reset(new org::kde::baloo::fileindexer(QStringLiteral("org.kde.baloo"), QStringLiteral("/fileindexer"),
+                                                            sessionBus, this));
 
     if (!d->mBalooIndexer->isValid()) {
         qDebug() << "LocalBalooFileListing::registerToBaloo" << "invalid org.kde.baloo/fileindexer interface";
         return;
     }
 
-    connect(d->mBalooIndexer.data(), &OrgKdeBalooFileindexerInterface::finishedIndexingFile,
+    connect(d->mBalooIndexer.data(), &org::kde::baloo::fileindexer::finishedIndexingFile,
             this, &LocalBalooFileListing::newBalooFile);
 
-    d->mBalooScheduler.reset(new OrgKdeBalooSchedulerInterface(QStringLiteral("org.kde.baloo"), QStringLiteral("/scheduler"),
-                                                               sessionBus, this));
+    d->mBalooScheduler.reset(new org::kde::baloo::scheduler(QStringLiteral("org.kde.baloo"), QStringLiteral("/scheduler"),
+                                                            sessionBus, this));
 
     if (!d->mBalooScheduler->isValid()) {
         qDebug() << "LocalBalooFileListing::registerToBaloo" << "invalid org.kde.baloo/scheduler interface";

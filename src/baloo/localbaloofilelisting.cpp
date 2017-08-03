@@ -40,6 +40,7 @@
 #include <QFileInfo>
 #include <QDir>
 #include <QAtomicInt>
+#include <QScopedPointer>
 #include <QDebug>
 
 #include <algorithm>
@@ -65,6 +66,10 @@ public:
     bool mIsRegistered = false;
 
     bool mIsRegistering = false;
+
+    QScopedPointer<OrgKdeBalooFileindexerInterface> mBalooIndexer;
+
+    QScopedPointer<OrgKdeBalooSchedulerInterface> mBalooScheduler;
 
 };
 
@@ -125,6 +130,7 @@ void LocalBalooFileListing::registeredToBaloo(QDBusPendingCallWatcher *watcher)
 
     QDBusPendingReply<> reply = *watcher;
     if (reply.isError()) {
+        qDebug() << "LocalBalooFileListing::executeInit" << reply.error().name() << reply.error().message();
         d->mIsRegistered = false;
     } else {
         d->mIsRegistered = true;
@@ -148,29 +154,33 @@ void LocalBalooFileListing::registerToBaloo()
 
     auto sessionBus = QDBusConnection::sessionBus();
 
-    sessionBus.connect(QStringLiteral("org.kde.baloo"), QStringLiteral("/fileindexer"),
-                       QStringLiteral("org.kde.baloo.fileindexer"), QStringLiteral("finishedIndexingFile"), this, SLOT(newBalooFile(QString)));
+    d->mBalooIndexer.reset(new OrgKdeBalooFileindexerInterface(QStringLiteral("org.kde.baloo"), QStringLiteral("/fileindexer"),
+                                                               sessionBus, this));
 
-    auto methodCall = QDBusMessage::createMethodCall(QStringLiteral("org.kde.baloo"), QStringLiteral("/fileindexer"),
-                                                     QStringLiteral("org.kde.baloo.fileindexer"), QStringLiteral("registerMonitor"));
-
-    qDebug() << "LocalBalooFileListing::registerToBaloo" << "call registerMonitor";
-    auto answer = sessionBus.call(methodCall);
-
-    if (answer.type() != QDBusMessage::ReplyMessage) {
-        qDebug() << "LocalBalooFileListing::executeInit" << answer.errorName() << answer.errorMessage();
+    if (!d->mBalooIndexer->isValid()) {
+        qDebug() << "LocalBalooFileListing::registerToBaloo" << "invalid org.kde.baloo/fileindexer interface";
+        return;
     }
 
+    connect(d->mBalooIndexer.data(), &OrgKdeBalooFileindexerInterface::finishedIndexingFile,
+            this, &LocalBalooFileListing::newBalooFile);
 
-    QDBusMessage registerBalooWatcher = QDBusMessage::createMethodCall(QStringLiteral("org.kde.baloo"),
-                                                                       QStringLiteral("/"),
-                                                                       QStringLiteral("org.kde.baloo.main"),
-                                                                       QStringLiteral("registerBalooWatcher"));
-    registerBalooWatcher.setArguments({QStringLiteral("org.mpris.MediaPlayer2.elisa/org/kde/BalooWatcherApplication")});
+    d->mBalooScheduler.reset(new OrgKdeBalooSchedulerInterface(QStringLiteral("org.kde.baloo"), QStringLiteral("/scheduler"),
+                                                               sessionBus, this));
 
-    auto pendingCall = sessionBus.asyncCall(registerBalooWatcher);
-    qDebug() << "LocalBalooFileListing::registerToBaloo" << "call registerBalooWatcher";
-    auto pendingCallWatcher = new QDBusPendingCallWatcher(pendingCall);
+    if (!d->mBalooScheduler->isValid()) {
+        qDebug() << "LocalBalooFileListing::registerToBaloo" << "invalid org.kde.baloo/scheduler interface";
+        return;
+    }
+
+    qDebug() << "LocalBalooFileListing::registerToBaloo" << "call registerMonitor";
+    auto answer = d->mBalooIndexer->registerMonitor();
+
+    if (answer.isError()) {
+        qDebug() << "LocalBalooFileListing::executeInit" << answer.error().name() << answer.error().message();
+    }
+
+    auto pendingCallWatcher = new QDBusPendingCallWatcher(answer);
 
     connect(pendingCallWatcher, &QDBusPendingCallWatcher::finished, this, &LocalBalooFileListing::registeredToBaloo);
     if (pendingCallWatcher->isFinished()) {

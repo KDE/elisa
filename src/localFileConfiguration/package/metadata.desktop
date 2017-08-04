@@ -20,6 +20,7 @@ Name[uk]=Elisa
 Name[x-test]=xxElisaxx
 Comment=Configure Local Files Indexer of Elisa Music Player
 Comment[ca]=Configura l'indexador de fitxers locals del reproductor de música Elisa
+Comment[ca@valencia]=Configura l'indexador de fitxers locals del reproductor de música Elisa
 Comment[es]=Configurar el indexador de archivos locales del reproductor de música Elisa
 Comment[nl]=Indexeerder van lokale bestanden van de muziekspeler Elisa configureren
 Comment[pt]=Configurar a Indexação de Ficheiros Locais no Leitor de Música Elisa

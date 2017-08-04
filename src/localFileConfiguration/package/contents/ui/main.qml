@@ -125,14 +125,14 @@ Item {
             Layout.leftMargin: 0.3 * units.gridUnit
 
             Button {
-                text: 'Add new path'
+                text: i18n("Add new path")
                 onClicked: fileDialog.open()
 
                 Layout.alignment: Qt.AlignTop | Qt.AlignLeft
 
                 FileDialog {
                     id: fileDialog
-                    title: "Choose a Folder"
+                    title: i18n("Choose a Folder")
                     folder: shortcuts.home
                     selectFolder: true
 

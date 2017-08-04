@@ -23,13 +23,12 @@ import QtQuick.Layouts 1.3
 import QtQuick.Dialogs 1.2
 import QtQml.Models 2.3
 import org.kde.kcm 1.0
-import org.kde.plasma.core 2.0 as PlasmaCore
 
 Item {
     //implicitWidth and implicitHeight will be used as initial size
     //when loaded in kcmshell5
-    implicitWidth: units.gridUnit * 20
-    implicitHeight: units.gridUnit * 20
+    implicitWidth: 400
+    implicitHeight: 200
 
     ConfigModule.buttons: ConfigModule.Help|ConfigModule.Apply
 
@@ -53,13 +52,13 @@ Item {
         Item {
             id: delegateItem
 
-            height: 3 * units.gridUnit
+            height: 3 * 30
 
             width: pathList.width
 
             Rectangle {
                 anchors.fill: parent
-                anchors.margins: 0.1 * units.gridUnit
+                anchors.margins: 0.1 * 30
 
                 color: myPalette.base
 
@@ -122,7 +121,7 @@ Item {
 
         ColumnLayout {
             Layout.fillHeight: true
-            Layout.leftMargin: 0.3 * units.gridUnit
+            Layout.leftMargin: 0.3 * 30
 
             Button {
                 text: i18n("Add new path")

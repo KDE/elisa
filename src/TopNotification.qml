@@ -48,7 +48,7 @@ Rectangle {
         Button {
             id: configureListenerButton
 
-            text: i18nc("general configuration menu entry", "Configure Elisa...")
+            text: configureAction.text
             iconName: 'configure'
 
             Layout.leftMargin: elisaTheme.layoutHorizontalMargin

@@ -39,7 +39,6 @@ Item {
 
     onImageChanged:
     {
-        console.debug('onImageChanged: oldImage: ' + oldImage + ' newImage: ' + newImage + ' image: ' + image)
         if (changeBackgroundTransition.running) {
             changeBackgroundTransition.complete()
         }

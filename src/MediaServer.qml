@@ -529,6 +529,9 @@ ApplicationWindow {
                                             }
 
                                             item.DelegateModel.inSelected = !item.DelegateModel.inSelected
+                                            if (myGroup.count == 0) {
+                                                item.DelegateModel.inSelected = true
+                                            }
 
                                             if (item.DelegateModel.inSelected)
                                             {

@@ -323,7 +323,7 @@ Rectangle {
     states: [
         State {
             name: 'notSelected'
-            when: !isSelected && !containsMouse
+            when: !containsMouse
             PropertyChanges {
                 target: viewAlbumDelegate
                 height: (hasAlbumHeader ? elisaTheme.delegateWithHeaderHeight : elisaTheme.delegateHeight)
@@ -342,28 +342,8 @@ Rectangle {
             }
         },
         State {
-            name: 'selected'
-            when: isSelected
-            PropertyChanges {
-                target: viewAlbumDelegate
-                height: (hasAlbumHeader ? elisaTheme.delegateWithHeaderHeight : elisaTheme.delegateHeight)
-            }
-            PropertyChanges {
-                target: removeButton
-                opacity: 1
-            }
-            PropertyChanges {
-                target: playNowButton
-                opacity: 1
-            }
-            PropertyChanges {
-                target: viewAlbumDelegate
-                color: myPalette.highlight
-            }
-        },
-        State {
             name: 'hoveredAndNotSelected'
-            when: !isSelected && containsMouse
+            when: containsMouse
             PropertyChanges {
                 target: viewAlbumDelegate
                 height: (hasAlbumHeader ? elisaTheme.delegateWithHeaderHeight : elisaTheme.delegateHeight)

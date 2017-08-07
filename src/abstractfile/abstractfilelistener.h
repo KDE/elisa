@@ -28,6 +28,7 @@ class AbstractFileListenerPrivate;
 class DatabaseInterface;
 class MusicAudioTrack;
 class AbstractFileListing;
+class NotificationItem;
 
 class AbstractFileListener : public QObject
 {
@@ -61,7 +62,7 @@ Q_SIGNALS:
 
     void configurationChanged();
 
-    void notification(const QString &message);
+    void notification(NotificationItem *notification);
 
 public Q_SLOTS:
 

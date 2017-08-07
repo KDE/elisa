@@ -35,6 +35,7 @@
 #include "file/localfilelisting.h"
 #include "trackslistener.h"
 #include "elisa_settings.h"
+#include "notificationitem.h"
 
 #include <QThread>
 #include <QMutex>

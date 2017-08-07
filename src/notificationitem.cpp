@@ -28,6 +28,26 @@ QString NotificationItem::message() const
     return mMessage;
 }
 
+QString NotificationItem::mainButtonText() const
+{
+    return mMainButtonText;
+}
+
+QString NotificationItem::secondaryButtonText() const
+{
+    return mSecondaryButtonText;
+}
+
+QString NotificationItem::secondaryButtonIconName() const
+{
+    return mSecondaryButtonIconName;
+}
+
+QString NotificationItem::mainButtonIconName() const
+{
+    return mMainButtonIconName;
+}
+
 void NotificationItem::setMessage(QString message)
 {
     if (mMessage == message) {
@@ -36,6 +56,56 @@ void NotificationItem::setMessage(QString message)
 
     mMessage = message;
     Q_EMIT messageChanged(mMessage);
+}
+
+void NotificationItem::setMainButtonText(QString mainButtonText)
+{
+    if (mMainButtonText == mainButtonText) {
+        return;
+    }
+
+    mMainButtonText = mainButtonText;
+    Q_EMIT mainButtonTextChanged(mMainButtonText);
+}
+
+void NotificationItem::setSecondaryButtonText(QString secondaryButtonText)
+{
+    if (mSecondaryButtonText == secondaryButtonText) {
+        return;
+    }
+
+    mSecondaryButtonText = secondaryButtonText;
+    Q_EMIT secondaryButtonTextChanged(mSecondaryButtonText);
+}
+
+void NotificationItem::setSecondaryButtonIconName(QString secondaryButtonIconName)
+{
+    if (mSecondaryButtonIconName == secondaryButtonIconName) {
+        return;
+    }
+
+    mSecondaryButtonIconName = secondaryButtonIconName;
+    Q_EMIT secondaryButtonIconNameTextChanged(mSecondaryButtonIconName);
+}
+
+void NotificationItem::triggerMainButton()
+{
+    Q_EMIT mainButtonTriggered();
+}
+
+void NotificationItem::triggerSecondaryButton()
+{
+    Q_EMIT secondaryButtonTriggered();
+}
+
+void NotificationItem::setMainButtonIconName(QString mainButtonIconName)
+{
+    if (mMainButtonIconName == mainButtonIconName) {
+        return;
+    }
+
+    mMainButtonIconName = mainButtonIconName;
+    Q_EMIT mainButtonIconNameChanged(mMainButtonIconName);
 }
 
 

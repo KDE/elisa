@@ -32,24 +32,83 @@ class NotificationItem : public QObject
                WRITE setMessage
                NOTIFY messageChanged)
 
+    Q_PROPERTY(QString mainButtonText
+               READ mainButtonText
+               WRITE setMainButtonText
+               NOTIFY mainButtonTextChanged)
+
+    Q_PROPERTY(QString mainButtonIconName
+               READ mainButtonIconName
+               WRITE setMainButtonIconName
+               NOTIFY mainButtonIconNameChanged)
+
+    Q_PROPERTY(QString secondaryButtonText
+               READ secondaryButtonText
+               WRITE setSecondaryButtonText
+               NOTIFY secondaryButtonTextChanged)
+
+    Q_PROPERTY(QString secondaryButtonIconName
+               READ secondaryButtonIconName
+               WRITE setSecondaryButtonIconName
+               NOTIFY secondaryButtonIconNameTextChanged)
+
 public:
 
     explicit NotificationItem(QObject *parent = nullptr);
 
     QString message() const;
 
+    QString mainButtonText() const;
+
+    QString mainButtonIconName() const;
+
+    QString secondaryButtonText() const;
+
+    QString secondaryButtonIconName() const;
+
 Q_SIGNALS:
 
     void messageChanged(QString message);
+
+    void mainButtonTextChanged(QString mainButtonText);
+
+    void mainButtonIconNameChanged(QString mainButtonIconName);
+
+    void secondaryButtonTextChanged(QString secondaryButtonText);
+
+    void secondaryButtonIconNameTextChanged(QString secondaryButtonIconName);
+
+    void mainButtonTriggered();
+
+    void secondaryButtonTriggered();
 
 public Q_SLOTS:
 
     void setMessage(QString message);
 
+    void setMainButtonText(QString mainButtonText);
+
+    void setMainButtonIconName(QString mainButtonIconName);
+
+    void setSecondaryButtonText(QString secondaryButtonText);
+
+    void setSecondaryButtonIconName(QString secondaryButtonIconName);
+
+    void triggerMainButton();
+
+    void triggerSecondaryButton();
+
 private:
 
     QString mMessage;
 
+    QString mMainButtonText;
+
+    QString mMainButtonIconName;
+
+    QString mSecondaryButtonText;
+
+    QString mSecondaryButtonIconName;
 };
 
 #endif // NOTIFICATIONITEM_H

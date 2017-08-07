@@ -20,12 +20,13 @@
 import QtQuick 2.7
 import QtQuick.Layouts 1.3
 import QtQuick.Controls 1.4
+import org.mgallien.QmlExtension 1.0
 
 Rectangle {
     id: topItem
 
     property bool notificationActive : false
-    property alias text: notificationText.text
+    default property NotificationItem item
 
     Layout.preferredHeight: topItem.notificationActive ? elisaTheme.delegateHeight * 2 : 0
     visible: Layout.preferredHeight > 0
@@ -39,6 +40,8 @@ Rectangle {
             id: notificationText
             font.pixelSize: elisaTheme.defaultFontPixelSize * 1.5
 
+            text: item ? item.message : ""
+
             Layout.leftMargin: elisaTheme.layoutHorizontalMargin
             Layout.alignment: Qt.AlignHCenter
 
@@ -47,20 +50,37 @@ Rectangle {
         }
 
         Button {
-            id: configureListenerButton
+            id: mainButton
 
-            text: configureAction.text
-            iconName: 'configure'
+            text: item ? item.mainButtonText : ""
+            iconName: item ? item.mainButtonIconName : ""
 
             Layout.leftMargin: elisaTheme.layoutHorizontalMargin
             Layout.alignment: Qt.AlignHCenter
             Layout.maximumHeight: elisaTheme.delegateHeight
 
-            visible: topItem.height > height
+            visible: item && item.mainButtonText !== "" && topItem.height > height
             opacity: (topItem.height - height) / height
 
-            onClicked: configureAction.trigger()
+            onClicked: if (item) item.triggerMainButton()
         }
+
+        Button {
+            id: secondaryButton
+
+            text: item ? item.secondaryButtonText : ""
+            iconName: item ? item.secondaryButtonIconName: ""
+
+            Layout.leftMargin: elisaTheme.layoutHorizontalMargin
+            Layout.alignment: Qt.AlignHCenter
+            Layout.maximumHeight: elisaTheme.delegateHeight
+
+            visible: item && item.secondaryButtonText !== "" && topItem.height > height
+            opacity: (topItem.height - height) / height
+
+            onClicked: if (item) item.triggerSecondaryButton()
+        }
+
         Item {
             Layout.fillWidth: true
         }

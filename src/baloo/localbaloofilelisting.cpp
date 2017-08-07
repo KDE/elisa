@@ -20,6 +20,7 @@
 #include "localbaloofilelisting.h"
 
 #include "musicaudiotrack.h"
+#include "notificationitem.h"
 
 #include "baloo/scheduler.h"
 #include "baloo/fileindexer.h"
@@ -45,6 +46,7 @@
 #include <QAtomicInt>
 #include <QScopedPointer>
 #include <QDebug>
+#include <QGuiApplication>
 
 #include <algorithm>
 
@@ -73,6 +75,8 @@ public:
     QScopedPointer<org::kde::baloo::fileindexer> mBalooIndexer;
 
     QScopedPointer<org::kde::baloo::scheduler> mBalooScheduler;
+
+    NotificationItem mBalooConfigurationNotification;
 
 };
 
@@ -376,7 +380,20 @@ void LocalBalooFileListing::checkBalooConfiguration()
     Baloo::IndexerConfig balooConfiguration;
 
     if (!balooConfiguration.fileIndexingEnabled()) {
-        Q_EMIT notification(i18nc("Notification about unusable Baloo Configuration", "Baloo configuration does not allow to discover your music"));
+        d->mBalooConfigurationNotification.moveToThread(QGuiApplication::instance()->thread());
+        d->mBalooConfigurationNotification.setMessage(i18nc("Notification about unusable Baloo Configuration", "Baloo configuration does not allow to discover your music"));
+
+        d->mBalooConfigurationNotification.setMainButtonText(i18nc("Text of button to modify Baloo Configuration", "Modify it"));
+        d->mBalooConfigurationNotification.setMainButtonIconName(QStringLiteral("configure"));
+        connect(&d->mBalooConfigurationNotification, &NotificationItem::mainButtonTriggered,
+                [this]() {qDebug() << "fix baloo configuration";});
+
+        d->mBalooConfigurationNotification.setSecondaryButtonText(i18nc("Text of button to disable Baloo indexer", "Disable Baloo support"));
+        d->mBalooConfigurationNotification.setSecondaryButtonIconName(QStringLiteral("configure"));
+        connect(&d->mBalooConfigurationNotification, &NotificationItem::secondaryButtonTriggered,
+                [this]() {qDebug() << "disable baloo";});
+
+        Q_EMIT notification(&d->mBalooConfigurationNotification);
     }
 }
 

@@ -22,6 +22,7 @@ set(playListControlerTest_SOURCES
     ../src/mediaplaylist.cpp
     ../src/databaseinterface.cpp
     ../src/musiclistenersmanager.cpp
+    ../src/notificationitem.cpp
     ../src/trackslistener.cpp
     ../src/musicartist.cpp
     ../src/musicalbum.cpp
@@ -97,6 +98,7 @@ set(managemediaplayercontrolTest_SOURCES
     ../src/mediaplaylist.cpp
     ../src/databaseinterface.cpp
     ../src/musiclistenersmanager.cpp
+    ../src/notificationitem.cpp
     ../src/trackslistener.cpp
     ../src/musicartist.cpp
     ../src/musicalbum.cpp
@@ -172,6 +174,7 @@ set(manageheaderbarTest_SOURCES
     ../src/mediaplaylist.cpp
     ../src/databaseinterface.cpp
     ../src/musiclistenersmanager.cpp
+    ../src/notificationitem.cpp
     ../src/trackslistener.cpp
     ../src/trackslistener.cpp
     ../src/musicartist.cpp
@@ -258,6 +261,7 @@ set(mediaplaylistTest_SOURCES
     ../src/databaseinterface.cpp
     ../src/trackslistener.cpp
     ../src/musiclistenersmanager.cpp
+    ../src/notificationitem.cpp
     ../src/musicartist.cpp
     ../src/musicalbum.cpp
     ../src/musicaudiotrack.cpp

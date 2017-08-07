@@ -29,6 +29,7 @@
 class MusicListenersManagerPrivate;
 class DatabaseInterface;
 class MediaPlayList;
+class NotificationItem;
 
 class MusicListenersManager : public QObject
 {
@@ -81,7 +82,7 @@ Q_SIGNALS:
 
     void indexingFinished();
 
-    void listenerNotification(const QString &message);
+    void listenerNotification(NotificationItem *notification);
 
 public Q_SLOTS:
 

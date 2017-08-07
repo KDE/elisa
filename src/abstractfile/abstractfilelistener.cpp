@@ -21,6 +21,7 @@
 
 #include "abstractfilelisting.h"
 #include "databaseinterface.h"
+#include "notificationitem.h"
 
 #include <QThread>
 

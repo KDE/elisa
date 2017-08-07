@@ -30,6 +30,7 @@
 
 class AbstractFileListingPrivate;
 class MusicAudioTrack;
+class NotificationItem;
 
 class AbstractFileListing : public QObject
 {
@@ -58,7 +59,7 @@ Q_SIGNALS:
 
     void indexingFinished();
 
-    void notification(const QString &message);
+    void notification(NotificationItem *notification);
 
 public Q_SLOTS:
 

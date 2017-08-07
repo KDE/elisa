@@ -58,6 +58,8 @@ Q_SIGNALS:
 
     void indexingFinished();
 
+    void notification(const QString &message);
+
 public Q_SLOTS:
 
     void refreshContent();

@@ -75,6 +75,8 @@ private:
 
     MusicAudioTrack scanOneFile(const QUrl &scanFile) override;
 
+    void checkBalooConfiguration();
+
     std::unique_ptr<LocalBalooFileListingPrivate> d;
 
 };

@@ -85,6 +85,8 @@ void AbstractFileListener::setFileListing(AbstractFileListing *fileIndexer)
             this, &AbstractFileListener::indexingStarted);
     connect(fileIndexer, &AbstractFileListing::indexingFinished,
             this, &AbstractFileListener::indexingFinished);
+    connect(fileIndexer, &AbstractFileListing::notification,
+            this, &AbstractFileListener::notification);
 }
 
 AbstractFileListing *AbstractFileListener::fileListing() const

@@ -44,6 +44,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         MediaBrowser.qml
         DraggableItem.qml
         PassiveNotification.qml
+        TopNotification.qml
 
         HeaderBar.qml
         NavigationActionBar.qml

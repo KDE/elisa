@@ -144,6 +144,12 @@ ApplicationWindow {
                 }
             }
         }
+
+        onListenerNotification:
+        {
+            console.log("listener notification " + message)
+            invalidBalooConfiguration.notificationActive = true
+        }
     }
 
     AudioWrapper {
@@ -564,6 +570,16 @@ ApplicationWindow {
 
                     TopNotification {
                         id: noTrackNotification
+
+                        text: i18nc("No track found message", "No track have been found")
+
+                        Layout.fillWidth: true
+                    }
+
+                    TopNotification {
+                        id: invalidBalooConfiguration
+
+                        text: i18nc("Notification about unusable Baloo Configuration", "Baloo configuration does not allow to discover your music")
 
                         Layout.fillWidth: true
                     }

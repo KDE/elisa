@@ -26,9 +26,12 @@
 
 #include <Baloo/Query>
 #include <Baloo/File>
+#include <Baloo/IndexerConfig>
 
 #include <KFileMetaData/Properties>
 #include <KFileMetaData/UserMetaData>
+
+#include <KLocalizedString>
 
 #include <QDBusConnection>
 #include <QDBusConnectionInterface>
@@ -230,6 +233,8 @@ void LocalBalooFileListing::executeInit()
 
 void LocalBalooFileListing::triggerRefreshOfContent()
 {
+    checkBalooConfiguration();
+
     Q_EMIT indexingStarted();
 
     auto resultIterator = d->mQuery.exec();
@@ -364,6 +369,15 @@ MusicAudioTrack LocalBalooFileListing::scanOneFile(const QUrl &scanFile)
     }
 
     return newTrack;
+}
+
+void LocalBalooFileListing::checkBalooConfiguration()
+{
+    Baloo::IndexerConfig balooConfiguration;
+
+    if (!balooConfiguration.fileIndexingEnabled()) {
+        Q_EMIT notification(i18nc("Notification about unusable Baloo Configuration", "Baloo configuration does not allow to discover your music"));
+    }
 }
 
 

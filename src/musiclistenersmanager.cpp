@@ -201,6 +201,8 @@ void MusicListenersManager::configChanged()
                 d->mBalooListener.data(), &BalooListener::databaseReady);
         connect(d->mBalooListener.data(), &BalooListener::indexingFinished,
                 this, &MusicListenersManager::indexingFinished);
+        connect(d->mBalooListener.data(), &BalooListener::notification,
+                this, &MusicListenersManager::listenerNotification);
     } else if (!currentConfiguration->balooIndexer() && d->mBalooListener) {
         d->mBalooListener.reset();
     }
@@ -246,6 +248,8 @@ void MusicListenersManager::configChanged()
                         this, &MusicListenersManager::indexingStarted);
                 connect(newFileIndexer, &FileListener::indexingFinished,
                         this, &MusicListenersManager::indexingFinished);
+                connect(newFileIndexer, &FileListener::notification,
+                        this, &MusicListenersManager::listenerNotification);
 
                 newFileIndexer->setRootPath(oneRootPath);
 

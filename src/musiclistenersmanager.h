@@ -81,6 +81,8 @@ Q_SIGNALS:
 
     void indexingFinished();
 
+    void listenerNotification(const QString &message);
+
 public Q_SLOTS:
 
     void databaseReady();

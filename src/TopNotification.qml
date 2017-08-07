@@ -25,8 +25,9 @@ Rectangle {
     id: topItem
 
     property bool notificationActive : false
+    property alias text: notificationText.text
 
-    Layout.preferredHeight: noTrackNotification.notificationActive ? elisaTheme.delegateHeight * 2 : 0
+    Layout.preferredHeight: topItem.notificationActive ? elisaTheme.delegateHeight * 2 : 0
     visible: Layout.preferredHeight > 0
 
     color: myPalette.mid
@@ -35,8 +36,8 @@ Rectangle {
         anchors.fill: parent
 
         Label {
+            id: notificationText
             font.pixelSize: elisaTheme.defaultFontPixelSize * 1.5
-            text: i18nc("No track found message", "No track have been found")
 
             Layout.leftMargin: elisaTheme.layoutHorizontalMargin
             Layout.alignment: Qt.AlignHCenter

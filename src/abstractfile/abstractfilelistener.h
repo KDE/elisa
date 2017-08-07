@@ -61,6 +61,8 @@ Q_SIGNALS:
 
     void configurationChanged();
 
+    void notification(const QString &message);
+
 public Q_SLOTS:
 
     void performInitialScan();

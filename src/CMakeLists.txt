@@ -23,6 +23,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         elisaapplication.cpp
         audiowrapper.cpp
         alltracksmodel.cpp
+        notificationitem.cpp
 
         MediaServer.qml
         Theme.qml

@@ -90,6 +90,9 @@ Rectangle {
         anchors.top: parent.top
         anchors.right: parent.right
 
+        visible: topItem.height > height
+        opacity: (topItem.height - height) / height
+
         iconName: 'dialog-close'
 
         onClicked: notificationActive = false

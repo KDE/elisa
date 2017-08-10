@@ -52,6 +52,11 @@ class NotificationItem : public QObject
                WRITE setSecondaryButtonIconName
                NOTIFY secondaryButtonIconNameTextChanged)
 
+    Q_PROPERTY(bool active
+               READ isActive
+               WRITE setActive
+               NOTIFY activeChanged)
+
 public:
 
     explicit NotificationItem(QObject *parent = nullptr);
@@ -65,6 +70,8 @@ public:
     QString secondaryButtonText() const;
 
     QString secondaryButtonIconName() const;
+
+    bool isActive() const;
 
 Q_SIGNALS:
 
@@ -82,21 +89,25 @@ Q_SIGNALS:
 
     void secondaryButtonTriggered();
 
+    void activeChanged(bool active);
+
 public Q_SLOTS:
 
-    void setMessage(QString message);
+    void setMessage(const QString &message);
 
-    void setMainButtonText(QString mainButtonText);
+    void setMainButtonText(const QString &mainButtonText);
 
-    void setMainButtonIconName(QString mainButtonIconName);
+    void setMainButtonIconName(const QString &mainButtonIconName);
 
-    void setSecondaryButtonText(QString secondaryButtonText);
+    void setSecondaryButtonText(const QString &secondaryButtonText);
 
-    void setSecondaryButtonIconName(QString secondaryButtonIconName);
+    void setSecondaryButtonIconName(const QString &secondaryButtonIconName);
 
     void triggerMainButton();
 
     void triggerSecondaryButton();
+
+    void setActive(bool active);
 
 private:
 
@@ -109,6 +120,9 @@ private:
     QString mSecondaryButtonText;
 
     QString mSecondaryButtonIconName;
+
+    bool mActive = false;
+
 };
 
 #endif // NOTIFICATIONITEM_H

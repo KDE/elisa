@@ -131,7 +131,7 @@ ApplicationWindow {
         onIndexingStarted:
         {
             ++cptRunningIndexers
-            noTrackNotification.notificationActive = false
+            noTrackNotification.item.active = false
         }
 
         onIndexingFinished:
@@ -140,7 +140,7 @@ ApplicationWindow {
 
             if (cptRunningIndexers === 0) {
                 if (allAlbumsModel.albumCount() === 0) {
-                    noTrackNotification.notificationActive = true
+                    noTrackNotification.item.active = true
                 }
             }
         }
@@ -148,7 +148,6 @@ ApplicationWindow {
         onListenerNotification:
         {
             invalidBalooConfiguration.item = notification
-            invalidBalooConfiguration.notificationActive = true
         }
     }
 
@@ -271,7 +270,7 @@ ApplicationWindow {
             allAlbumsModel.albumRemoved(removedAlbum)
 
             if (allAlbumsModel.albumCount() === 0) {
-                noTrackNotification.notificationActive = true
+                noTrackNotification.item.active = true
             }
         }
     }

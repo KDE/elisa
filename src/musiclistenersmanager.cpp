@@ -204,8 +204,10 @@ void MusicListenersManager::configChanged()
                 this, &MusicListenersManager::indexingFinished);
         connect(d->mBalooListener.data(), &BalooListener::notification,
                 this, &MusicListenersManager::listenerNotification);
+        connect(d->mBalooListener.data(), &BalooListener::clearDatabase,
+                &d->mDatabaseInterface, &DatabaseInterface::removeAllTracksFromSource);
     } else if (!currentConfiguration->balooIndexer() && d->mBalooListener) {
-        d->mBalooListener.reset();
+        QMetaObject::invokeMethod(d->mBalooListener.data(), "quitListener", Qt::QueuedConnection);
     }
 #endif
 #if defined UPNPQT_FOUND && UPNPQT_FOUND

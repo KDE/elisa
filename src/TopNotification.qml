@@ -25,10 +25,18 @@ import org.mgallien.QmlExtension 1.0
 Rectangle {
     id: topItem
 
-    property bool notificationActive : false
     default property NotificationItem item
 
-    Layout.preferredHeight: topItem.notificationActive ? elisaTheme.delegateHeight * 2 : 0
+    Binding on Layout.preferredHeight {
+        when: item && item.active
+        value: elisaTheme.delegateHeight * 2
+    }
+
+    Binding on Layout.preferredHeight {
+        when: !item || !item.active
+        value: 0
+    }
+
     visible: Layout.preferredHeight > 0
 
     color: myPalette.mid
@@ -95,7 +103,7 @@ Rectangle {
 
         iconName: 'dialog-close'
 
-        onClicked: notificationActive = false
+        onClicked: if (item) item.active = false
     }
 
     Behavior on Layout.preferredHeight {

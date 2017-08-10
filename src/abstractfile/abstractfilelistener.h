@@ -64,6 +64,8 @@ Q_SIGNALS:
 
     void notification(NotificationItem *notification);
 
+    void clearDatabase(const QString &listenerName);
+
 public Q_SLOTS:
 
     void performInitialScan();
@@ -71,6 +73,8 @@ public Q_SLOTS:
     void setDatabaseInterface(DatabaseInterface* databaseInterface);
 
     void applicationAboutToQuit();
+
+    void quitListener();
 
 protected:
 

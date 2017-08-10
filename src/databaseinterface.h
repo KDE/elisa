@@ -75,8 +75,6 @@ public:
 
     void applicationAboutToQuit();
 
-    void removeAllTracksFromSource(const QString &sourceName);
-
 Q_SIGNALS:
 
     void artistAdded(const MusicArtist &newArtist);
@@ -108,6 +106,8 @@ public Q_SLOTS:
     void removeTracksList(const QList<QUrl> &removedTracks);
 
     void modifyTracksList(const QList<MusicAudioTrack> &modifiedTracks, const QHash<QString, QUrl> &covers);
+
+    void removeAllTracksFromSource(const QString &sourceName);
 
 private:
 

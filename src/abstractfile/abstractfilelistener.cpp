@@ -77,6 +77,13 @@ void AbstractFileListener::applicationAboutToQuit()
     d->mFileQueryThread.wait();
 }
 
+void AbstractFileListener::quitListener()
+{
+    applicationAboutToQuit();
+
+    Q_EMIT clearDatabase(d->mFileListing->sourceName());
+}
+
 void AbstractFileListener::setFileListing(AbstractFileListing *fileIndexer)
 {
     d->mFileListing = fileIndexer;

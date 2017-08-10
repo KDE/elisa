@@ -77,6 +77,10 @@ private:
 
     void checkBalooConfiguration();
 
+    void fixBalooConfiguration();
+
+    void disableBalooIndexer();
+
     std::unique_ptr<LocalBalooFileListingPrivate> d;
 
 };

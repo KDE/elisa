@@ -21,6 +21,7 @@
 
 #include "musicaudiotrack.h"
 #include "notificationitem.h"
+#include "elisa_settings.h"
 
 #include "baloo/scheduler.h"
 #include "baloo/fileindexer.h"
@@ -377,24 +378,59 @@ MusicAudioTrack LocalBalooFileListing::scanOneFile(const QUrl &scanFile)
 
 void LocalBalooFileListing::checkBalooConfiguration()
 {
+    bool problemDetected = false;
     Baloo::IndexerConfig balooConfiguration;
 
-    if (!balooConfiguration.fileIndexingEnabled()) {
+    problemDetected = problemDetected || !balooConfiguration.fileIndexingEnabled();
+    problemDetected = problemDetected || balooConfiguration.onlyBasicIndexing();
+
+    if (problemDetected) {
         d->mBalooConfigurationNotification.moveToThread(QGuiApplication::instance()->thread());
         d->mBalooConfigurationNotification.setMessage(i18nc("Notification about unusable Baloo Configuration", "Baloo configuration does not allow to discover your music"));
 
         d->mBalooConfigurationNotification.setMainButtonText(i18nc("Text of button to modify Baloo Configuration", "Modify it"));
         d->mBalooConfigurationNotification.setMainButtonIconName(QStringLiteral("configure"));
         connect(&d->mBalooConfigurationNotification, &NotificationItem::mainButtonTriggered,
-                [this]() {qDebug() << "fix baloo configuration";});
+                [this]() {fixBalooConfiguration();});
 
         d->mBalooConfigurationNotification.setSecondaryButtonText(i18nc("Text of button to disable Baloo indexer", "Disable Baloo support"));
         d->mBalooConfigurationNotification.setSecondaryButtonIconName(QStringLiteral("configure"));
         connect(&d->mBalooConfigurationNotification, &NotificationItem::secondaryButtonTriggered,
-                [this]() {qDebug() << "disable baloo";});
+                [this]() {disableBalooIndexer();});
+
+        d->mBalooConfigurationNotification.setActive(true);
+
+        Q_EMIT notification(&d->mBalooConfigurationNotification);
+    } else {
+        d->mBalooConfigurationNotification.setActive(false);
 
         Q_EMIT notification(&d->mBalooConfigurationNotification);
     }
+}
+
+void LocalBalooFileListing::fixBalooConfiguration()
+{
+    qDebug() << "LocalBalooFileListing::fixBalooConfiguration";
+
+    Baloo::IndexerConfig balooConfiguration;
+
+    if (!balooConfiguration.fileIndexingEnabled()) {
+        balooConfiguration.setFileIndexingEnabled(true);
+    }
+
+    if (balooConfiguration.onlyBasicIndexing()) {
+        balooConfiguration.setOnlyBasicIndexing(false);
+    }
+
+    balooConfiguration.refresh();
+
+    checkBalooConfiguration();
+}
+
+void LocalBalooFileListing::disableBalooIndexer()
+{
+    Elisa::ElisaConfiguration::self()->setBalooIndexer(false);
+    Elisa::ElisaConfiguration::self()->save();
 }
 
 

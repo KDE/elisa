@@ -43,12 +43,17 @@ QString NotificationItem::secondaryButtonIconName() const
     return mSecondaryButtonIconName;
 }
 
+bool NotificationItem::isActive() const
+{
+    return mActive;
+}
+
 QString NotificationItem::mainButtonIconName() const
 {
     return mMainButtonIconName;
 }
 
-void NotificationItem::setMessage(QString message)
+void NotificationItem::setMessage(const QString &message)
 {
     if (mMessage == message) {
         return;
@@ -58,7 +63,7 @@ void NotificationItem::setMessage(QString message)
     Q_EMIT messageChanged(mMessage);
 }
 
-void NotificationItem::setMainButtonText(QString mainButtonText)
+void NotificationItem::setMainButtonText(const QString &mainButtonText)
 {
     if (mMainButtonText == mainButtonText) {
         return;
@@ -68,7 +73,7 @@ void NotificationItem::setMainButtonText(QString mainButtonText)
     Q_EMIT mainButtonTextChanged(mMainButtonText);
 }
 
-void NotificationItem::setSecondaryButtonText(QString secondaryButtonText)
+void NotificationItem::setSecondaryButtonText(const QString &secondaryButtonText)
 {
     if (mSecondaryButtonText == secondaryButtonText) {
         return;
@@ -78,7 +83,7 @@ void NotificationItem::setSecondaryButtonText(QString secondaryButtonText)
     Q_EMIT secondaryButtonTextChanged(mSecondaryButtonText);
 }
 
-void NotificationItem::setSecondaryButtonIconName(QString secondaryButtonIconName)
+void NotificationItem::setSecondaryButtonIconName(const QString &secondaryButtonIconName)
 {
     if (mSecondaryButtonIconName == secondaryButtonIconName) {
         return;
@@ -98,7 +103,17 @@ void NotificationItem::triggerSecondaryButton()
     Q_EMIT secondaryButtonTriggered();
 }
 
-void NotificationItem::setMainButtonIconName(QString mainButtonIconName)
+void NotificationItem::setActive(bool active)
+{
+    if (mActive == active) {
+        return;
+    }
+
+    mActive = active;
+    Q_EMIT activeChanged(mActive);
+}
+
+void NotificationItem::setMainButtonIconName(const QString &mainButtonIconName)
 {
     if (mMainButtonIconName == mainButtonIconName) {
         return;

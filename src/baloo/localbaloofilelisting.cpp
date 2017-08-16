@@ -110,6 +110,7 @@ LocalBalooFileListing::~LocalBalooFileListing()
 
 void LocalBalooFileListing::applicationAboutToQuit()
 {
+    AbstractFileListing::applicationAboutToQuit();
     d->mStopRequest = 1;
 }
 

@@ -105,6 +105,10 @@ void AbstractFileListing::applicationAboutToQuit()
 
 void AbstractFileListing::scanDirectory(QList<MusicAudioTrack> &newFiles, const QUrl &path)
 {
+    if (d->mStopRequest == 1) {
+        return;
+    }
+
     QDir rootDirectory(path.toLocalFile());
     rootDirectory.refresh();
 
@@ -170,6 +174,11 @@ void AbstractFileListing::scanDirectory(QList<MusicAudioTrack> &newFiles, const 
         if (oneEntry.isDir()) {
             addFileInDirectory(newFilePath, path);
             scanDirectory(newFiles, newFilePath);
+
+            if (d->mStopRequest == 1) {
+                break;
+            }
+
             continue;
         }
         if (!oneEntry.isFile()) {
@@ -178,7 +187,7 @@ void AbstractFileListing::scanDirectory(QList<MusicAudioTrack> &newFiles, const 
 
         auto newTrack = scanOneFile(newFilePath);
 
-        if (newTrack.isValid()) {
+        if (newTrack.isValid() && d->mStopRequest == 0) {
             addCover(newTrack);
 
             addFileInDirectory(newTrack.resourceURI(), path);

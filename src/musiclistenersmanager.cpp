@@ -197,7 +197,7 @@ void MusicListenersManager::configChanged()
         d->mBalooListener->setDatabaseInterface(&d->mDatabaseInterface);
         d->mBalooListener->moveToThread(&d->mDatabaseThread);
         connect(this, &MusicListenersManager::applicationIsTerminating,
-                d->mBalooListener.data(), &BalooListener::applicationAboutToQuit, Qt::BlockingQueuedConnection);
+                d->mBalooListener.data(), &BalooListener::applicationAboutToQuit, Qt::DirectConnection);
         connect(this, &MusicListenersManager::databaseIsReady,
                 d->mBalooListener.data(), &BalooListener::databaseReady);
         connect(d->mBalooListener.data(), &BalooListener::indexingFinished,
@@ -214,7 +214,7 @@ void MusicListenersManager::configChanged()
     d->mUpnpListener.setDatabaseInterface(&d->mDatabaseInterface);
     d->mUpnpListener.moveToThread(&d->mDatabaseThread);
     connect(this, &MusicListenersManager::applicationIsTerminating,
-            &d->mUpnpListener, &UpnpListener::applicationAboutToQuit, Qt::BlockingQueuedConnection);
+            &d->mUpnpListener, &UpnpListener::applicationAboutToQuit, Qt::DirectConnection);
     connect(this, &MusicListenersManager::databaseIsReady,
             &d->mUpnpListener, &UpnpListener::databaseReady);
 #endif
@@ -244,7 +244,7 @@ void MusicListenersManager::configChanged()
                 newFileIndexer->setDatabaseInterface(&d->mDatabaseInterface);
                 newFileIndexer->moveToThread(&d->mDatabaseThread);
                 connect(this, &MusicListenersManager::applicationIsTerminating,
-                        newFileIndexer, &FileListener::applicationAboutToQuit, Qt::BlockingQueuedConnection);
+                        newFileIndexer, &FileListener::applicationAboutToQuit, Qt::DirectConnection);
                 connect(this, &MusicListenersManager::databaseIsReady,
                         newFileIndexer, &FileListener::databaseReady);
                 connect(newFileIndexer, &FileListener::indexingStarted,

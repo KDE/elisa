@@ -40,6 +40,10 @@ class MusicListenersManager : public QObject
                READ viewDatabase
                NOTIFY viewDatabaseChanged)
 
+    Q_PROPERTY(int importedTracksCount
+               READ importedTracksCount
+               NOTIFY importedTracksCountChanged)
+
 public:
 
     explicit MusicListenersManager(QObject *parent = 0);
@@ -49,6 +53,8 @@ public:
     DatabaseInterface* viewDatabase() const;
 
     void subscribeForTracks(MediaPlayList *client);
+
+    int importedTracksCount() const;
 
 Q_SIGNALS:
 
@@ -84,6 +90,8 @@ Q_SIGNALS:
 
     void listenerNotification(NotificationItem *notification);
 
+    void importedTracksCountChanged();
+
 public Q_SLOTS:
 
     void databaseReady();
@@ -95,6 +103,12 @@ public Q_SLOTS:
 private Q_SLOTS:
 
     void configChanged();
+
+    void computeImportedTracksCount();
+
+    void monitorStartingListeners();
+
+    void monitorEndingListeners();
 
 private:
 

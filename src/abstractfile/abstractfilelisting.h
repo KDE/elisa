@@ -37,6 +37,10 @@ class AbstractFileListing : public QObject
 
     Q_OBJECT
 
+    Q_PROPERTY(int importedTracksCount
+               READ importedTracksCount
+               NOTIFY importedTracksCountChanged)
+
 public:
 
     explicit AbstractFileListing(const QString &sourceName, QObject *parent = 0);
@@ -46,6 +50,8 @@ public:
     virtual void applicationAboutToQuit();
 
     const QString &sourceName() const;
+
+    int importedTracksCount() const;
 
 Q_SIGNALS:
 
@@ -60,6 +66,8 @@ Q_SIGNALS:
     void indexingFinished();
 
     void notification(NotificationItem *notification);
+
+    void importedTracksCountChanged();
 
 public Q_SLOTS:
 
@@ -104,6 +112,8 @@ protected:
     void removeFile(const QUrl &oneRemovedTrack, QList<QUrl> &allRemovedFiles);
 
     void setSourceName(const QString &name);
+
+    void increaseImportedTracksCount();
 
 private:
 

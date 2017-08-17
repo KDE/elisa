@@ -39,6 +39,10 @@ class AbstractFileListener : public QObject
                WRITE setDatabaseInterface
                NOTIFY databaseInterfaceChanged)
 
+    Q_PROPERTY(int importedTracksCount
+               READ importedTracksCount
+               NOTIFY importedTracksCountChanged)
+
 public:
     explicit AbstractFileListener(QObject *parent = 0);
 
@@ -47,6 +51,8 @@ public:
     DatabaseInterface* databaseInterface() const;
 
     AbstractFileListing* fileListing() const;
+
+    int importedTracksCount() const;
 
 Q_SIGNALS:
 
@@ -65,6 +71,8 @@ Q_SIGNALS:
     void notification(NotificationItem *notification);
 
     void clearDatabase(const QString &listenerName);
+
+    void importedTracksCountChanged();
 
 public Q_SLOTS:
 

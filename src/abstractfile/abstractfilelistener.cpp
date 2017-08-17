@@ -95,11 +95,22 @@ void AbstractFileListener::setFileListing(AbstractFileListing *fileIndexer)
             this, &AbstractFileListener::indexingFinished);
     connect(fileIndexer, &AbstractFileListing::notification,
             this, &AbstractFileListener::notification);
+    connect(fileIndexer, &AbstractFileListing::importedTracksCountChanged,
+            this, &AbstractFileListener::importedTracksCountChanged);
 }
 
 AbstractFileListing *AbstractFileListener::fileListing() const
 {
     return d->mFileListing;
+}
+
+int AbstractFileListener::importedTracksCount() const
+{
+    if (!d->mFileListing) {
+        return 0;
+    }
+
+    return d->mFileListing->importedTracksCount();
 }
 
 void AbstractFileListener::performInitialScan()

@@ -65,6 +65,8 @@ public:
 
     QMimeDatabase mMimeDb;
 
+    int mImportedTracksCount = 0;
+
 };
 
 AbstractFileListing::AbstractFileListing(const QString &sourceName, QObject *parent) : QObject(parent), d(new AbstractFileListingPrivate(sourceName))
@@ -192,9 +194,21 @@ void AbstractFileListing::scanDirectory(QList<MusicAudioTrack> &newFiles, const 
 
             addFileInDirectory(newTrack.resourceURI(), path);
             newFiles.push_back(newTrack);
+
+            ++d->mImportedTracksCount;
+            if (d->mImportedTracksCount % 50 == 0) {
+                Q_EMIT importedTracksCountChanged();
+            }
+
+            if (newFiles.size() > 500 && d->mStopRequest == 0) {
+                Q_EMIT importedTracksCountChanged();
+                emitNewFiles(newFiles);
+                newFiles.clear();
+            }
         }
 
         if (d->mStopRequest == 1) {
+            Q_EMIT importedTracksCountChanged();
             break;
         }
     }
@@ -203,6 +217,11 @@ void AbstractFileListing::scanDirectory(QList<MusicAudioTrack> &newFiles, const 
 const QString &AbstractFileListing::sourceName() const
 {
     return d->mSourceName;
+}
+
+int AbstractFileListing::importedTracksCount() const
+{
+    return d->mImportedTracksCount;
 }
 
 void AbstractFileListing::directoryChanged(const QString &path)
@@ -232,6 +251,7 @@ void AbstractFileListing::executeInit()
 
 void AbstractFileListing::triggerRefreshOfContent()
 {
+    d->mImportedTracksCount = 0;
 }
 
 void AbstractFileListing::refreshContent()
@@ -379,6 +399,7 @@ void AbstractFileListing::scanDirectoryTree(const QString &path)
     scanDirectory(newFiles, QUrl::fromLocalFile(path));
 
     if (!newFiles.isEmpty() && d->mStopRequest == 0) {
+        Q_EMIT importedTracksCountChanged();
         emitNewFiles(newFiles);
     }
 }
@@ -440,6 +461,11 @@ void AbstractFileListing::removeFile(const QUrl &oneRemovedTrack, QList<QUrl> &a
 void AbstractFileListing::setSourceName(const QString &name)
 {
     d->mSourceName = name;
+}
+
+void AbstractFileListing::increaseImportedTracksCount()
+{
+    ++d->mImportedTracksCount;
 }
 
 

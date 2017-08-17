@@ -126,23 +126,18 @@ ApplicationWindow {
     MusicListenersManager {
         id: allListeners
 
-        property int cptRunningIndexers: 0
-
         onIndexingStarted:
         {
-            ++cptRunningIndexers
             noTrackNotification.item.active = false
+            importedTracksCountNotification.opacity = 1
         }
 
         onIndexingFinished:
         {
-            --cptRunningIndexers
-
-            if (cptRunningIndexers === 0) {
-                if (allAlbumsModel.albumCount() === 0) {
-                    noTrackNotification.item.active = true
-                }
+            if (allAlbumsModel.albumCount() === 0) {
+                noTrackNotification.item.active = true
             }
+            importedTracksCountNotification.opacity = 0
         }
 
         onListenerNotification:
@@ -463,6 +458,38 @@ ApplicationWindow {
                         radius: width / 2
 
                         color: myPalette.window
+                    }
+
+                    Rectangle {
+                        id: importedTracksCountNotification
+
+                        color: myPalette.highlight
+
+                        width: elisaTheme.gridDelegateWidth * 1.5
+
+                        anchors
+                        {
+                            right: menuButton.left
+                            top: menuButton.top
+                            bottom: menuButton.bottom
+                            rightMargin: elisaTheme.layoutHorizontalMargin * 3
+                        }
+
+                        visible: opacity > 0
+                        opacity: 0
+
+                        Label {
+                            anchors.centerIn: parent
+                            text: i18ncp("number of imported tracks", "Import one track", "Import %1 tracks", allListeners.importedTracksCount)
+                            color: myPalette.highlightedText
+                        }
+
+                        Behavior on opacity {
+                            NumberAnimation {
+                                easing.type: Easing.InOutQuad
+                                duration: 300
+                            }
+                        }
                     }
                 }
             }

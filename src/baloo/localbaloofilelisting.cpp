@@ -243,6 +243,8 @@ void LocalBalooFileListing::triggerRefreshOfContent()
 
     Q_EMIT indexingStarted();
 
+    AbstractFileListing::triggerRefreshOfContent();
+
     auto resultIterator = d->mQuery.exec();
     auto newFiles = QList<MusicAudioTrack>();
 
@@ -257,10 +259,20 @@ void LocalBalooFileListing::triggerRefreshOfContent()
 
         if (newTrack.isValid()) {
             newFiles.push_back(newTrack);
+            increaseImportedTracksCount();
+            if (newFiles.size() % 50 == 0) {
+                Q_EMIT importedTracksCountChanged();
+            }
+            if (newFiles.size() > 500 && d->mStopRequest == 0) {
+                Q_EMIT importedTracksCountChanged();
+                emitNewFiles(newFiles);
+                newFiles.clear();
+            }
         }
     }
 
     if (!newFiles.isEmpty() && d->mStopRequest == 0) {
+        Q_EMIT importedTracksCountChanged();
         emitNewFiles(newFiles);
     }
 

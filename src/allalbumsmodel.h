@@ -36,6 +36,10 @@ class AllAlbumsModel : public QAbstractItemModel
 {
     Q_OBJECT
 
+    Q_PROPERTY(int albumCount
+               READ albumCount
+               NOTIFY albumCountChanged)
+
 public:
 
     enum ColumnsRoles {
@@ -81,6 +85,10 @@ public Q_SLOTS:
     void albumRemoved(const MusicAlbum &removedAlbum);
 
     void albumModified(const MusicAlbum &modifiedAlbum);
+
+Q_SIGNALS:
+
+    void albumCountChanged();
 
 private:
 

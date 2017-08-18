@@ -44,6 +44,10 @@ class MusicListenersManager : public QObject
                READ importedTracksCount
                NOTIFY importedTracksCountChanged)
 
+    Q_PROPERTY(bool indexingRunning
+               READ isIndexingRunning
+               NOTIFY indexingRunningChanged)
+
 public:
 
     explicit MusicListenersManager(QObject *parent = 0);
@@ -55,6 +59,8 @@ public:
     void subscribeForTracks(MediaPlayList *client);
 
     int importedTracksCount() const;
+
+    bool isIndexingRunning() const;
 
 Q_SIGNALS:
 
@@ -91,6 +97,8 @@ Q_SIGNALS:
     void listenerNotification(NotificationItem *notification);
 
     void importedTracksCountChanged();
+
+    void indexingRunningChanged();
 
 public Q_SLOTS:
 

@@ -53,7 +53,7 @@ AllAlbumsModel::~AllAlbumsModel()
 
 int AllAlbumsModel::albumCount() const
 {
-    return rowCount({});
+    return d->mAlbumCount;
 }
 
 int AllAlbumsModel::rowCount(const QModelIndex &parent) const
@@ -221,6 +221,8 @@ void AllAlbumsModel::albumAdded(const MusicAlbum &newAlbum)
         d->mAllAlbums.push_back(newAlbum);
         ++d->mAlbumCount;
         endInsertRows();
+
+        Q_EMIT albumCountChanged();
     }
 }
 
@@ -238,6 +240,8 @@ void AllAlbumsModel::albumRemoved(const MusicAlbum &removedAlbum)
     d->mAllAlbums.erase(removedAlbumIterator);
     --d->mAlbumCount;
     endRemoveRows();
+
+    Q_EMIT albumCountChanged();
 }
 
 void AllAlbumsModel::albumModified(const MusicAlbum &modifiedAlbum)

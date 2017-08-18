@@ -75,6 +75,8 @@ public:
 
     int mActiveMusicListenersCount = 0;
 
+    bool mIndexingRunning = false;
+
 };
 
 MusicListenersManager::MusicListenersManager(QObject *parent)
@@ -172,6 +174,11 @@ void MusicListenersManager::subscribeForTracks(MediaPlayList *client)
 int MusicListenersManager::importedTracksCount() const
 {
     return d->mImportedTracksCount;
+}
+
+bool MusicListenersManager::isIndexingRunning() const
+{
+    return d->mIndexingRunning;
 }
 
 void MusicListenersManager::databaseReady()
@@ -304,6 +311,9 @@ void MusicListenersManager::computeImportedTracksCount()
 void MusicListenersManager::monitorStartingListeners()
 {
     if (d->mActiveMusicListenersCount == 0) {
+        d->mIndexingRunning = true;
+        Q_EMIT indexingRunningChanged();
+
         Q_EMIT indexingStarted();
     }
 
@@ -315,6 +325,9 @@ void MusicListenersManager::monitorEndingListeners()
     --d->mActiveMusicListenersCount;
 
     if (d->mActiveMusicListenersCount == 0) {
+        d->mIndexingRunning = false;
+        Q_EMIT indexingRunningChanged();
+
         Q_EMIT indexingFinished();
     }
 }

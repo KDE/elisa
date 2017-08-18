@@ -126,20 +126,6 @@ ApplicationWindow {
     MusicListenersManager {
         id: allListeners
 
-        onIndexingStarted:
-        {
-            noTrackNotification.item.active = false
-            importedTracksCountNotification.opacity = 1
-        }
-
-        onIndexingFinished:
-        {
-            if (allAlbumsModel.albumCount() === 0) {
-                noTrackNotification.item.active = true
-            }
-            importedTracksCountNotification.opacity = 0
-        }
-
         onListenerNotification:
         {
             invalidBalooConfiguration.item = notification
@@ -263,10 +249,6 @@ ApplicationWindow {
 
         onAlbumRemoved: {
             allAlbumsModel.albumRemoved(removedAlbum)
-
-            if (allAlbumsModel.albumCount() === 0) {
-                noTrackNotification.item.active = true
-            }
         }
     }
 
@@ -476,7 +458,7 @@ ApplicationWindow {
                         }
 
                         visible: opacity > 0
-                        opacity: 0
+                        opacity: (allListeners.indexingRunning ? 1 : 0)
 
                         Label {
                             anchors.centerIn: parent
@@ -601,6 +583,8 @@ ApplicationWindow {
 
                         NotificationItem {
                             id: noTrackNotificationItem
+
+                            active: !allListeners.indexingRunning && (allAlbumsModel.albumCount === 0)
 
                             message: i18nc("No track found message", "No track have been found")
 

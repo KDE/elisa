@@ -40,6 +40,7 @@
   <summary xml:lang="pt-BR">Reprodutor de músicas simples</summary>
   <summary xml:lang="sk">Jednoduchý hudobný prehliadač</summary>
   <summary xml:lang="sv">Enkel musikspelare</summary>
+  <summary xml:lang="tr">Basit Müzik Çalar</summary>
   <summary xml:lang="uk">Простий музичний програвач</summary>
   <summary xml:lang="x-test">xxSimple Music Playerxx</summary>
   <description>
@@ -59,6 +60,7 @@
     <p xml:lang="pt-BR">Um reprodutor de músicas simples que deve ser fácil de usar. Não requer qualquer configuração antes de usá-lo.</p>
     <p xml:lang="sk">Jednoduchý hudobný prehliadač, ktorý by malo byť jednoduché používať. Nevyžaduje žiadne nastavenie pred použitím.</p>
     <p xml:lang="sv">En enkel musikspelare som ska vara lättanvänd. Den kräver inga inställningar innan man kan använda den.</p>
+    <p xml:lang="tr">Kullanımı kolay basit bir müzik çalar. Kullanmadan önce herhangi bir yapılandırma gerektirmez.</p>
     <p xml:lang="uk">Простий у користуванні музичний програвач. Не потребує налаштовування перед користуванням.</p>
     <p xml:lang="x-test">xxA simple music player that should be easy to use. It does not require any configuration before one can use it.xx</p>
   </description>

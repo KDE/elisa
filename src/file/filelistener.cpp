@@ -35,6 +35,8 @@ public:
 FileListener::FileListener(QObject *parent) : AbstractFileListener(parent), d(new FileListenerPrivate)
 {
     setFileListing(&d->mLocalFileIndexer);
+    connect(&d->mLocalFileIndexer, &LocalFileListing::rootPathChanged,
+            this, &FileListener::rootPathChanged);
 }
 
 FileListener::~FileListener()
@@ -45,6 +47,11 @@ FileListener::~FileListener()
 const LocalFileListing& FileListener::localFileIndexer() const
 {
     return d->mLocalFileIndexer;
+}
+
+QString FileListener::rootPath() const
+{
+    return d->mLocalFileIndexer.rootPath();
 }
 
 void FileListener::setRootPath(const QString &rootPath)

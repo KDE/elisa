@@ -33,6 +33,11 @@ class FileListener : public AbstractFileListener
 {
     Q_OBJECT
 
+    Q_PROPERTY(QString rootPath
+               READ rootPath
+               WRITE setRootPath
+               NOTIFY rootPathChanged)
+
 public:
     explicit FileListener(QObject *parent = 0);
 
@@ -40,7 +45,11 @@ public:
 
     const LocalFileListing& localFileIndexer() const;
 
+    QString rootPath() const;
+
 Q_SIGNALS:
+
+    void rootPathChanged();
 
 public Q_SLOTS:
 

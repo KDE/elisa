@@ -203,6 +203,21 @@ void MusicListenersManager::showConfiguration()
 {
 }
 
+void MusicListenersManager::resetImportedTracksCounter()
+{
+#if defined KF5Baloo_FOUND && KF5Baloo_FOUND
+    if (d->mBalooListener) {
+        d->mBalooListener->resetImportedTracksCounter();
+    }
+#endif
+
+#if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
+    for (auto itFileListener : d->mFileListener) {
+        itFileListener->resetImportedTracksCounter();
+    }
+#endif
+}
+
 void MusicListenersManager::configChanged()
 {
     auto currentConfiguration = Elisa::ElisaConfiguration::self();

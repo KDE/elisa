@@ -83,6 +83,11 @@ void AbstractFileListener::quitListener()
     Q_EMIT clearDatabase(d->mFileListing->sourceName());
 }
 
+void AbstractFileListener::resetImportedTracksCounter()
+{
+    d->mFileListing->resetImportedTracksCounter();
+}
+
 void AbstractFileListener::setFileListing(AbstractFileListing *fileIndexer)
 {
     d->mFileListing = fileIndexer;

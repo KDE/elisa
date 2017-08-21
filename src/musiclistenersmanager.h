@@ -102,6 +102,8 @@ public Q_SLOTS:
 
     void showConfiguration();
 
+    void resetImportedTracksCounter();
+
 private Q_SLOTS:
 
     void configChanged();

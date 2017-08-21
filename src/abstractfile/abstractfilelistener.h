@@ -82,6 +82,8 @@ public Q_SLOTS:
 
     void quitListener();
 
+    void resetImportedTracksCounter();
+
 protected:
 
     void setFileListing(AbstractFileListing *fileIndexer);

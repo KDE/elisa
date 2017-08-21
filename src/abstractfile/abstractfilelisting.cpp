@@ -95,6 +95,11 @@ void AbstractFileListing::newTrackFile(const MusicAudioTrack &partialTrack)
     }
 }
 
+void AbstractFileListing::resetImportedTracksCounter()
+{
+    d->mImportedTracksCount = 0;
+}
+
 void AbstractFileListing::applicationAboutToQuit()
 {
     d->mStopRequest = 1;

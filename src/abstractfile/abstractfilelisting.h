@@ -77,6 +77,8 @@ public Q_SLOTS:
 
     void newTrackFile(const MusicAudioTrack &partialTrack);
 
+    void resetImportedTracksCounter();
+
 protected Q_SLOTS:
 
     void directoryChanged(const QString &path);

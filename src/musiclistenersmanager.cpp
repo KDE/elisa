@@ -289,15 +289,19 @@ void MusicListenersManager::configChanged()
 
 void MusicListenersManager::computeImportedTracksCount()
 {
+#if defined KF5Baloo_FOUND && KF5Baloo_FOUND
     if (d->mBalooListener) {
         d->mImportedTracksCount = d->mBalooListener->importedTracksCount();
     } else {
         d->mImportedTracksCount = 0;
     }
+#endif
 
+#if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
     for (auto itFileListener : d->mFileListener) {
         d->mImportedTracksCount += itFileListener->importedTracksCount();
     }
+#endif
 
     Q_EMIT importedTracksCountChanged();
 }

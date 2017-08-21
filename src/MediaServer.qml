@@ -442,12 +442,8 @@ ApplicationWindow {
                         color: myPalette.window
                     }
 
-                    Rectangle {
+                    TrackImportNotification {
                         id: importedTracksCountNotification
-
-                        color: myPalette.highlight
-
-                        width: elisaTheme.gridDelegateWidth * 1.5
 
                         anchors
                         {
@@ -457,21 +453,8 @@ ApplicationWindow {
                             rightMargin: elisaTheme.layoutHorizontalMargin * 3
                         }
 
-                        visible: opacity > 0
-                        opacity: (allListeners.indexingRunning ? 1 : 0)
-
-                        Label {
-                            anchors.centerIn: parent
-                            text: i18ncp("number of imported tracks", "Import one track", "Import %1 tracks", allListeners.importedTracksCount)
-                            color: myPalette.highlightedText
-                        }
-
-                        Behavior on opacity {
-                            NumberAnimation {
-                                easing.type: Easing.InOutQuad
-                                duration: 300
-                            }
-                        }
+                        indexingRunning: allListeners.indexingRunning
+                        importedTracksCount: allListeners.importedTracksCount
                     }
                 }
             }

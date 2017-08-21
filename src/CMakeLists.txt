@@ -46,6 +46,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         DraggableItem.qml
         PassiveNotification.qml
         TopNotification.qml
+        TrackImportNotification.qml
 
         HeaderBar.qml
         NavigationActionBar.qml

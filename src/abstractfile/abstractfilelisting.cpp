@@ -231,7 +231,11 @@ void AbstractFileListing::directoryChanged(const QString &path)
         return;
     }
 
+    Q_EMIT indexingStarted();
+
     scanDirectoryTree(path);
+
+    Q_EMIT indexingFinished();
 }
 
 void AbstractFileListing::fileChanged(const QString &modifiedFileName)

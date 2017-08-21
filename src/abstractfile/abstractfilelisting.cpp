@@ -86,11 +86,6 @@ void AbstractFileListing::init()
     executeInit();
 }
 
-void AbstractFileListing::databaseIsReady()
-{
-    refreshContent();
-}
-
 void AbstractFileListing::newTrackFile(const MusicAudioTrack &partialTrack)
 {
     const auto &newTrack = scanOneFile(partialTrack.resourceURI());

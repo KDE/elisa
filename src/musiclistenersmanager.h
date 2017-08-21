@@ -88,12 +88,6 @@ Q_SIGNALS:
 
     void applicationIsTerminating();
 
-    void databaseIsReady();
-
-    void indexingStarted();
-
-    void indexingFinished();
-
     void listenerNotification(NotificationItem *notification);
 
     void importedTracksCountChanged();

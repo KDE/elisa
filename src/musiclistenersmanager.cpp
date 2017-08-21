@@ -184,8 +184,6 @@ bool MusicListenersManager::isIndexingRunning() const
 void MusicListenersManager::databaseReady()
 {
     configChanged();
-
-    Q_EMIT databaseIsReady();
 }
 
 void MusicListenersManager::applicationAboutToQuit()
@@ -220,8 +218,6 @@ void MusicListenersManager::configChanged()
         d->mBalooListener->setDatabaseInterface(&d->mDatabaseInterface);
         connect(this, &MusicListenersManager::applicationIsTerminating,
                 d->mBalooListener.data(), &BalooListener::applicationAboutToQuit, Qt::DirectConnection);
-        connect(this, &MusicListenersManager::databaseIsReady,
-                d->mBalooListener.data(), &BalooListener::databaseReady);
         connect(d->mBalooListener.data(), &BalooListener::indexingStarted,
                 this, &MusicListenersManager::monitorStartingListeners);
         connect(d->mBalooListener.data(), &BalooListener::indexingFinished,
@@ -271,8 +267,6 @@ void MusicListenersManager::configChanged()
                 newFileIndexer->moveToThread(&d->mListenerThread);
                 connect(this, &MusicListenersManager::applicationIsTerminating,
                         newFileIndexer, &FileListener::applicationAboutToQuit, Qt::DirectConnection);
-                connect(this, &MusicListenersManager::databaseIsReady,
-                        newFileIndexer, &FileListener::databaseReady);
                 connect(newFileIndexer, &FileListener::indexingStarted,
                         this, &MusicListenersManager::monitorStartingListeners);
                 connect(newFileIndexer, &FileListener::indexingFinished,
@@ -313,8 +307,6 @@ void MusicListenersManager::monitorStartingListeners()
     if (d->mActiveMusicListenersCount == 0) {
         d->mIndexingRunning = true;
         Q_EMIT indexingRunningChanged();
-
-        Q_EMIT indexingStarted();
     }
 
     ++d->mActiveMusicListenersCount;
@@ -327,8 +319,6 @@ void MusicListenersManager::monitorEndingListeners()
     if (d->mActiveMusicListenersCount == 0) {
         d->mIndexingRunning = false;
         Q_EMIT indexingRunningChanged();
-
-        Q_EMIT indexingFinished();
     }
 }
 

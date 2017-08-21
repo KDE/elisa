@@ -75,8 +75,6 @@ public Q_SLOTS:
 
     void init();
 
-    void databaseIsReady();
-
     void newTrackFile(const MusicAudioTrack &partialTrack);
 
 protected Q_SLOTS:

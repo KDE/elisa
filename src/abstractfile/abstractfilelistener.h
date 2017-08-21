@@ -58,8 +58,6 @@ Q_SIGNALS:
 
     void databaseInterfaceChanged();
 
-    void databaseReady();
-
     void newTrackFile(const MusicAudioTrack &newTrack);
 
     void indexingStarted();

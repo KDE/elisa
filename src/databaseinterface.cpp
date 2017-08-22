@@ -58,7 +58,7 @@ public:
           mSelectTracksMapping(mTracksDatabase), mSelectTracksMappingPriority(mTracksDatabase),
           mUpdateAlbumArtUriFromAlbumIdQuery(mTracksDatabase), mUpdateAlbumArtistFromAlbumIdQuery(mTracksDatabase),
           mInsertAlbumWithoutArtistQuery(mTracksDatabase), mSelectTracksMappingPriorityByTrackId(mTracksDatabase),
-          mSelectAllTrackFilesFromSourceQuery(mTracksDatabase)
+          mSelectAllTrackFilesFromSourceQuery(mTracksDatabase), mFindInvalidTrackFilesQuery(mTracksDatabase)
     {
     }
 
@@ -139,6 +139,8 @@ public:
     QSqlQuery mSelectTracksMappingPriorityByTrackId;
 
     QSqlQuery mSelectAllTrackFilesFromSourceQuery;
+
+    QSqlQuery mFindInvalidTrackFilesQuery;
 
     qulonglong mAlbumId = 1;
 
@@ -662,6 +664,51 @@ void DatabaseInterface::removeAllTracksFromSource(const QString &sourceName)
     }
 
     d->mSelectAllTrackFilesFromSourceQuery.finish();
+
+    internalRemoveTracksList(allFileNames);
+
+    transactionResult = finishTransaction();
+    if (!transactionResult) {
+        return;
+    }
+}
+
+void DatabaseInterface::cleanInvalidTracks()
+{
+    if (d->mStopRequest == 1) {
+        return;
+    }
+
+    auto transactionResult = startTransaction();
+    if (!transactionResult) {
+        return;
+    }
+
+    auto queryResult = d->mFindInvalidTrackFilesQuery.exec();
+
+    if (!queryResult || !d->mFindInvalidTrackFilesQuery.isSelect() || !d->mFindInvalidTrackFilesQuery.isActive()) {
+        qDebug() << "DatabaseInterface::insertMusicSource" << d->mFindInvalidTrackFilesQuery.lastQuery();
+        qDebug() << "DatabaseInterface::insertMusicSource" << d->mFindInvalidTrackFilesQuery.boundValues();
+        qDebug() << "DatabaseInterface::insertMusicSource" << d->mFindInvalidTrackFilesQuery.lastError();
+
+        d->mFindInvalidTrackFilesQuery.finish();
+
+        transactionResult = finishTransaction();
+        if (!transactionResult) {
+            return;
+        }
+
+        return;
+    }
+
+    QList<QUrl> allFileNames;
+
+    while(d->mFindInvalidTrackFilesQuery.next()) {
+        auto fileName = d->mFindInvalidTrackFilesQuery.record().value(0).toUrl();
+        allFileNames.push_back(fileName);
+    }
+
+    d->mFindInvalidTrackFilesQuery.finish();
 
     internalRemoveTracksList(allFileNames);
 
@@ -1441,6 +1488,21 @@ void DatabaseInterface::initRequest()
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllTrackFilesFromSourceQuery.lastError();
+        }
+    }
+
+    {
+        auto findInvalidTrackFilesText = QStringLiteral("SELECT "
+                                                        "tracksMapping.`FileName` "
+                                                        "FROM "
+                                                        "`TracksMapping` tracksMapping "
+                                                        "WHERE "
+                                                        "tracksMapping.`TrackValid` = 0");
+
+        auto result = d->mFindInvalidTrackFilesQuery.prepare(findInvalidTrackFilesText);
+
+        if (!result) {
+            qDebug() << "DatabaseInterface::initRequest" << d->mFindInvalidTrackFilesQuery.lastError();
         }
     }
 

@@ -338,6 +338,8 @@ void MusicListenersManager::monitorEndingListeners()
     if (d->mActiveMusicListenersCount == 0) {
         d->mIndexingRunning = false;
         Q_EMIT indexingRunningChanged();
+
+        QMetaObject::invokeMethod(&d->mDatabaseInterface, "cleanInvalidTracks", Qt::QueuedConnection);
     }
 }
 

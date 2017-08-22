@@ -109,6 +109,8 @@ public Q_SLOTS:
 
     void removeAllTracksFromSource(const QString &sourceName);
 
+    void cleanInvalidTracks();
+
 private:
 
     bool startTransaction() const;

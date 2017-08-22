@@ -20,12 +20,14 @@
 import QtQuick 2.7
 import QtQuick.Controls 1.3
 import QtQuick.Controls.Styles 1.3
+import org.mgallien.QmlExtension 1.0
 
 Rectangle {
     id: rootComponent
 
     property bool indexingRunning
     property int importedTracksCount
+    property MusicListenersManager musicManager
 
     color: myPalette.highlight
 
@@ -46,7 +48,11 @@ Rectangle {
         interval: 6000
         repeat: false
 
-        onTriggered: rootComponent.opacity = 0
+        onTriggered:
+        {
+            rootComponent.opacity = 0
+            musicManager.resetImportedTracksCounter()
+        }
     }
 
     Behavior on opacity {

@@ -455,6 +455,7 @@ ApplicationWindow {
 
                         indexingRunning: allListeners.indexingRunning
                         importedTracksCount: allListeners.importedTracksCount
+                        musicManager: allListeners
                     }
                 }
             }

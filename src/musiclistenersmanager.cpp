@@ -252,8 +252,6 @@ void MusicListenersManager::configChanged()
     d->mUpnpListener.moveToThread(&d->mDatabaseThread);
     connect(this, &MusicListenersManager::applicationIsTerminating,
             &d->mUpnpListener, &UpnpListener::applicationAboutToQuit, Qt::DirectConnection);
-    connect(this, &MusicListenersManager::databaseIsReady,
-            &d->mUpnpListener, &UpnpListener::databaseReady);
 #endif
 
 #if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND

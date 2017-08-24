@@ -69,8 +69,7 @@ void Mpris2::initDBusService()
 }
 
 Mpris2::~Mpris2()
-{
-}
+= default;
 
 QString Mpris2::playerName() const
 {

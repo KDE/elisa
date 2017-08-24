@@ -78,8 +78,7 @@ AbstractFileListing::AbstractFileListing(const QString &sourceName, QObject *par
 }
 
 AbstractFileListing::~AbstractFileListing()
-{
-}
+= default;
 
 void AbstractFileListing::init()
 {

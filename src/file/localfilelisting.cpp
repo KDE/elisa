@@ -52,8 +52,7 @@ LocalFileListing::LocalFileListing(QObject *parent) : AbstractFileListing(QStrin
 }
 
 LocalFileListing::~LocalFileListing()
-{
-}
+= default;
 
 QString LocalFileListing::rootPath() const
 {

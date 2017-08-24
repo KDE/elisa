@@ -35,8 +35,7 @@ MediaPlayer2::MediaPlayer2(QObject* parent)
 }
 
 MediaPlayer2::~MediaPlayer2()
-{
-}
+= default;
 
 bool MediaPlayer2::CanQuit() const
 {

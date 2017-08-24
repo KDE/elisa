@@ -60,8 +60,7 @@ KCMElisaLocalFile::KCMElisaLocalFile(QObject* parent, const QVariantList &args)
 }
 
 KCMElisaLocalFile::~KCMElisaLocalFile()
-{
-}
+= default;
 
 QStringList KCMElisaLocalFile::rootPath() const
 {

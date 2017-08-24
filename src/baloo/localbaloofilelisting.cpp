@@ -105,8 +105,7 @@ LocalBalooFileListing::LocalBalooFileListing(QObject *parent)
 }
 
 LocalBalooFileListing::~LocalBalooFileListing()
-{
-}
+= default;
 
 void LocalBalooFileListing::applicationAboutToQuit()
 {

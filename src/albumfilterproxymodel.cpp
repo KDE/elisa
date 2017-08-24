@@ -27,8 +27,7 @@ AlbumFilterProxyModel::AlbumFilterProxyModel(QObject *parent) : QSortFilterProxy
 }
 
 AlbumFilterProxyModel::~AlbumFilterProxyModel()
-{
-}
+= default;
 
 QString AlbumFilterProxyModel::filterText() const
 {

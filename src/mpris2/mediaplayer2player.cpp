@@ -71,8 +71,7 @@ MediaPlayer2Player::MediaPlayer2Player(PlayListControler *playListControler, Man
 }
 
 MediaPlayer2Player::~MediaPlayer2Player()
-{
-}
+= default;
 
 QString MediaPlayer2Player::PlaybackStatus() const
 {

@@ -26,8 +26,7 @@ ProgressIndicator::ProgressIndicator(QObject *parent) : QObject(parent)
 }
 
 ProgressIndicator::~ProgressIndicator()
-{
-}
+= default;
 
 int ProgressIndicator::position() const
 {

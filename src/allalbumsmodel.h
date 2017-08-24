@@ -60,7 +60,7 @@ public:
 
     explicit AllAlbumsModel(QObject *parent = 0);
 
-    virtual ~AllAlbumsModel();
+    ~AllAlbumsModel() override;
 
     Q_INVOKABLE int albumCount() const;
 

@@ -61,7 +61,7 @@ public:
                                 ManageHeaderBar * manageHeaderBar,
                                 AudioWrapper *audioPlayer,
                                 QObject* parent = 0);
-    ~MediaPlayer2Player();
+    ~MediaPlayer2Player() override;
 
     QString PlaybackStatus() const;
     double Rate() const;

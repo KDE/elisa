@@ -43,7 +43,7 @@ public:
 
     explicit LocalBalooFileListing(QObject *parent = 0);
 
-    virtual ~LocalBalooFileListing();
+    ~LocalBalooFileListing() override;
 
     void applicationAboutToQuit() override;
 

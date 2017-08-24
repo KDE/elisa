@@ -46,7 +46,7 @@ class AbstractFileListener : public QObject
 public:
     explicit AbstractFileListener(QObject *parent = 0);
 
-    virtual ~AbstractFileListener();
+    ~AbstractFileListener() override;
 
     DatabaseInterface* databaseInterface() const;
 

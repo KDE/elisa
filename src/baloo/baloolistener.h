@@ -37,7 +37,7 @@ class BalooListener : public AbstractFileListener
 public:
     explicit BalooListener(QObject *parent = 0);
 
-    virtual ~BalooListener();
+    ~BalooListener() override;
 
 Q_SIGNALS:
 

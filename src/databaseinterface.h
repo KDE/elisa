@@ -51,7 +51,7 @@ public:
 
     explicit DatabaseInterface(QObject *parent = 0);
 
-    virtual ~DatabaseInterface();
+    ~DatabaseInterface() override;
 
     Q_INVOKABLE void init(const QString &dbName, const QString &databaseFileName = {});
 

@@ -84,7 +84,7 @@ public:
 
     explicit AlbumModel(QObject *parent = 0);
 
-    virtual ~AlbumModel();
+    ~AlbumModel() override;
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
 

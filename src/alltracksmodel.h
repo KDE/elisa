@@ -53,7 +53,7 @@ public:
 
     explicit AllTracksModel(QObject *parent = nullptr);
 
-    virtual ~AllTracksModel();
+    ~AllTracksModel() override;
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
 

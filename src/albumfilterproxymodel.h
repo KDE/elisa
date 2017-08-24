@@ -42,7 +42,7 @@ public:
 
     explicit AlbumFilterProxyModel(QObject *parent = 0);
 
-    virtual ~AlbumFilterProxyModel();
+    ~AlbumFilterProxyModel() override;
 
     QString filterText() const;
 

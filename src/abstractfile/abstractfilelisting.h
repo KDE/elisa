@@ -45,7 +45,7 @@ public:
 
     explicit AbstractFileListing(const QString &sourceName, QObject *parent = 0);
 
-    virtual ~AbstractFileListing();
+    ~AbstractFileListing() override;
 
     virtual void applicationAboutToQuit();
 

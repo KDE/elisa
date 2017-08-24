@@ -40,7 +40,7 @@ public:
 
     explicit ProgressIndicator(QObject *parent = 0);
 
-    virtual ~ProgressIndicator();
+    ~ProgressIndicator() override;
 
     int position() const;
 

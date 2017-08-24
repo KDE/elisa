@@ -80,7 +80,7 @@ public:
 
     explicit AudioWrapper(QObject *parent = 0);
 
-    ~AudioWrapper();
+    ~AudioWrapper() override;
 
     bool muted() const;
 

@@ -42,7 +42,7 @@ public:
 
     explicit LocalFileListing(QObject *parent = 0);
 
-    virtual ~LocalFileListing();
+    ~LocalFileListing() override;
 
     QString rootPath() const;
 

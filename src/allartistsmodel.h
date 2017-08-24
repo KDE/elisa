@@ -47,7 +47,7 @@ public:
 
     explicit AllArtistsModel(QObject *parent = 0);
 
-    virtual ~AllArtistsModel();
+    ~AllArtistsModel() override;
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
 

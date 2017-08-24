@@ -76,7 +76,7 @@ class Mpris2 : public QObject
 
 public:
     explicit Mpris2(QObject* parent = 0);
-    ~Mpris2();
+    ~Mpris2() override;
 
     QString playerName() const;
 

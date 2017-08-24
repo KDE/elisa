@@ -41,7 +41,7 @@ class FileListener : public AbstractFileListener
 public:
     explicit FileListener(QObject *parent = 0);
 
-    virtual ~FileListener();
+    ~FileListener() override;
 
     const LocalFileListing& localFileIndexer() const;
 

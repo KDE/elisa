@@ -52,7 +52,7 @@ public:
 
     explicit MusicListenersManager(QObject *parent = 0);
 
-    virtual ~MusicListenersManager();
+    ~MusicListenersManager() override;
 
     DatabaseInterface* viewDatabase() const;
 

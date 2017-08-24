@@ -38,7 +38,7 @@ public:
 
     explicit KCMElisaLocalFile(QObject *parent, const QVariantList &args);
 
-    virtual ~KCMElisaLocalFile();
+    ~KCMElisaLocalFile() override;
 
     QStringList rootPath() const;
 

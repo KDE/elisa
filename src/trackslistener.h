@@ -33,7 +33,7 @@ class TracksListener : public QObject
 
 public:
 
-    explicit TracksListener(DatabaseInterface *database, QObject *parent = 0);
+    explicit TracksListener(DatabaseInterface *database, QObject *parent = nullptr);
 
 Q_SIGNALS:
 

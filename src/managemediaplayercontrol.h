@@ -76,7 +76,7 @@ public:
     Q_ENUMS(PlayerState)
 #endif
 
-    explicit ManageMediaPlayerControl(QObject *parent = 0);
+    explicit ManageMediaPlayerControl(QObject *parent = nullptr);
 
     bool playControlEnabled() const;
 

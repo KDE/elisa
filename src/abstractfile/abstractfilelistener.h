@@ -44,7 +44,7 @@ class AbstractFileListener : public QObject
                NOTIFY importedTracksCountChanged)
 
 public:
-    explicit AbstractFileListener(QObject *parent = 0);
+    explicit AbstractFileListener(QObject *parent = nullptr);
 
     ~AbstractFileListener() override;
 

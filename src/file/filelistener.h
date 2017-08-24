@@ -39,7 +39,7 @@ class FileListener : public AbstractFileListener
                NOTIFY rootPathChanged)
 
 public:
-    explicit FileListener(QObject *parent = 0);
+    explicit FileListener(QObject *parent = nullptr);
 
     ~FileListener() override;
 

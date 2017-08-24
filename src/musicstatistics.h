@@ -29,7 +29,7 @@ class MusicStatistics : public QObject
 {
     Q_OBJECT
 public:
-    explicit MusicStatistics(QObject *parent = 0);
+    explicit MusicStatistics(QObject *parent = nullptr);
 
 Q_SIGNALS:
 

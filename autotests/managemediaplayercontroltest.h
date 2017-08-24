@@ -29,7 +29,7 @@ class ManageMediaPlayerControlTest : public QObject
 
 public:
 
-    explicit ManageMediaPlayerControlTest(QObject *parent = 0);
+    explicit ManageMediaPlayerControlTest(QObject *parent = nullptr);
 
 Q_SIGNALS:
 

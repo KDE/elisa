@@ -92,7 +92,7 @@ class ManageHeaderBar : public QObject
 
 public:
 
-    explicit ManageHeaderBar(QObject *parent = 0);
+    explicit ManageHeaderBar(QObject *parent = nullptr);
 
     QPersistentModelIndex currentTrack() const;
 

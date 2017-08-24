@@ -51,7 +51,7 @@ public:
     Q_ENUMS(ColumnsRoles)
 #endif
 
-    explicit ManageHeaderBarTest(QObject *parent = 0);
+    explicit ManageHeaderBarTest(QObject *parent = nullptr);
 
 Q_SIGNALS:
 

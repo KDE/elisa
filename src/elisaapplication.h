@@ -38,7 +38,7 @@ class ElisaApplication : public QObject
 {
     Q_OBJECT
 public:
-    explicit ElisaApplication(QObject *parent = 0);
+    explicit ElisaApplication(QObject *parent = nullptr);
 
     void setupActions();
 

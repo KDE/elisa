@@ -78,7 +78,7 @@ class AudioWrapper : public QObject
 
 public:
 
-    explicit AudioWrapper(QObject *parent = 0);
+    explicit AudioWrapper(QObject *parent = nullptr);
 
     ~AudioWrapper() override;
 

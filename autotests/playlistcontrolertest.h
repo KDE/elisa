@@ -29,7 +29,7 @@ class PlayListControlerTest : public QObject
 
 public:
 
-    explicit PlayListControlerTest(QObject *parent = 0);
+    explicit PlayListControlerTest(QObject *parent = nullptr);
 
 Q_SIGNALS:
 

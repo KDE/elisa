@@ -38,7 +38,7 @@ class ProgressIndicator : public QObject
 
 public:
 
-    explicit ProgressIndicator(QObject *parent = 0);
+    explicit ProgressIndicator(QObject *parent = nullptr);
 
     ~ProgressIndicator() override;
 

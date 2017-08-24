@@ -50,7 +50,7 @@ class MusicListenersManager : public QObject
 
 public:
 
-    explicit MusicListenersManager(QObject *parent = 0);
+    explicit MusicListenersManager(QObject *parent = nullptr);
 
     ~MusicListenersManager() override;
 

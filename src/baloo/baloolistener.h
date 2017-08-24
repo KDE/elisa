@@ -35,7 +35,7 @@ class BalooListener : public AbstractFileListener
     Q_OBJECT
 
 public:
-    explicit BalooListener(QObject *parent = 0);
+    explicit BalooListener(QObject *parent = nullptr);
 
     ~BalooListener() override;
 

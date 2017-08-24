@@ -49,7 +49,7 @@ public:
         Id,
     };
 
-    explicit DatabaseInterface(QObject *parent = 0);
+    explicit DatabaseInterface(QObject *parent = nullptr);
 
     ~DatabaseInterface() override;
 

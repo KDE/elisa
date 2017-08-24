@@ -75,7 +75,7 @@ class Mpris2 : public QObject
                NOTIFY audioPlayerChanged)
 
 public:
-    explicit Mpris2(QObject* parent = 0);
+    explicit Mpris2(QObject* parent = nullptr);
     ~Mpris2() override;
 
     QString playerName() const;

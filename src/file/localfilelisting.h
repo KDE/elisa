@@ -40,7 +40,7 @@ class LocalFileListing : public AbstractFileListing
 
 public:
 
-    explicit LocalFileListing(QObject *parent = 0);
+    explicit LocalFileListing(QObject *parent = nullptr);
 
     ~LocalFileListing() override;
 

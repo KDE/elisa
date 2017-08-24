@@ -78,7 +78,7 @@ class PlayListControler : public QObject
 
 public:
 
-    explicit PlayListControler(QObject *parent = 0);
+    explicit PlayListControler(QObject *parent = nullptr);
 
     QPersistentModelIndex currentTrack() const;
 

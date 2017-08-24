@@ -43,7 +43,7 @@ class AbstractFileListing : public QObject
 
 public:
 
-    explicit AbstractFileListing(const QString &sourceName, QObject *parent = 0);
+    explicit AbstractFileListing(const QString &sourceName, QObject *parent = nullptr);
 
     ~AbstractFileListing() override;
 

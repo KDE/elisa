@@ -60,7 +60,7 @@ public:
                                 ManageMediaPlayerControl* manageMediaPlayerControl,
                                 ManageHeaderBar * manageHeaderBar,
                                 AudioWrapper *audioPlayer,
-                                QObject* parent = 0);
+                                QObject* parent = nullptr);
     ~MediaPlayer2Player() override;
 
     QString PlaybackStatus() const;

@@ -58,7 +58,7 @@ public:
 
     Q_ENUM(ColumnsRoles)
 
-    explicit AllAlbumsModel(QObject *parent = 0);
+    explicit AllAlbumsModel(QObject *parent = nullptr);
 
     ~AllAlbumsModel() override;
 

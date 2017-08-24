@@ -128,7 +128,7 @@ public:
 
     Q_ENUM(PlayerErrorState)
 
-    explicit ManageAudioPlayer(QObject *parent = 0);
+    explicit ManageAudioPlayer(QObject *parent = nullptr);
 
     QPersistentModelIndex currentTrack() const;
 

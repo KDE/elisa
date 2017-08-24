@@ -47,7 +47,7 @@ public:
 
     Q_ENUM(ColumnsRoles)
 
-    explicit ManageAudioPlayerTest(QObject *parent = 0);
+    explicit ManageAudioPlayerTest(QObject *parent = nullptr);
 
 Q_SIGNALS:
 

@@ -42,7 +42,7 @@ class MediaPlayer2 : public QDBusAbstractAdaptor
     Q_PROPERTY(QStringList SupportedMimeTypes READ SupportedMimeTypes)
 
 public:
-    explicit MediaPlayer2(QObject* parent = 0);
+    explicit MediaPlayer2(QObject* parent = nullptr);
     ~MediaPlayer2() override;
 
     bool CanQuit() const;

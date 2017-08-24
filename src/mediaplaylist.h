@@ -76,7 +76,7 @@ public:
 
     Q_ENUM(PlayState)
 
-    explicit MediaPlayList(QObject *parent = 0);
+    explicit MediaPlayList(QObject *parent = nullptr);
 
     ~MediaPlayList() override;
 

@@ -35,7 +35,7 @@ class MediaPlayListTest : public QObject
 
 public:
 
-    explicit MediaPlayListTest(QObject *parent = 0);
+    explicit MediaPlayListTest(QObject *parent = nullptr);
 
 Q_SIGNALS:
 
@@ -88,7 +88,7 @@ class CrashEnqueuePlayList : public QObject
 
 public:
 
-    explicit CrashEnqueuePlayList(MediaPlayList *list, QObject *parent = 0);
+    explicit CrashEnqueuePlayList(MediaPlayList *list, QObject *parent = nullptr);
 
 public Q_SLOTS:
 

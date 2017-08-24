@@ -41,7 +41,7 @@ class LocalBalooFileListing : public AbstractFileListing
 
 public:
 
-    explicit LocalBalooFileListing(QObject *parent = 0);
+    explicit LocalBalooFileListing(QObject *parent = nullptr);
 
     ~LocalBalooFileListing() override;
 

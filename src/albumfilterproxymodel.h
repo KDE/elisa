@@ -40,7 +40,7 @@ class AlbumFilterProxyModel : public QSortFilterProxyModel
 
 public:
 
-    explicit AlbumFilterProxyModel(QObject *parent = 0);
+    explicit AlbumFilterProxyModel(QObject *parent = nullptr);
 
     ~AlbumFilterProxyModel() override;
 

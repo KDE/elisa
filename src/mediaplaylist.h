@@ -25,6 +25,7 @@
 
 #include <QAbstractListModel>
 #include <QVector>
+#include <utility>
 
 class MediaPlayListPrivate;
 class DatabaseInterface;

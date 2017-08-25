@@ -166,14 +166,14 @@ public:
     explicit MediaPlayListEntry(qulonglong id) : mId(id), mIsValid(true) {
     }
 
-    MediaPlayListEntry(const QString &title, const QString &album, const QString &artist) : mTitle(title), mAlbum(album), mArtist(artist) {
+    MediaPlayListEntry(QString title, QString album, QString artist) : mTitle(std::move(title)), mAlbum(std::move(album)), mArtist(std::move(artist)) {
     }
 
     explicit MediaPlayListEntry(const MusicAudioTrack &track)
         : mTitle(track.title()), mAlbum(track.albumName()), mArtist(track.artist()), mId(track.databaseId()), mIsValid(true) {
     }
 
-    explicit MediaPlayListEntry(const QString &artist) : mArtist(artist), mIsArtist(true) {
+    explicit MediaPlayListEntry(QString artist) : mArtist(std::move(artist)), mIsArtist(true) {
     }
 
     QString mTitle;

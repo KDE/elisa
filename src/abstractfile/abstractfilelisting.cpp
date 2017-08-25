@@ -40,12 +40,13 @@
 #include <QtGlobal>
 
 #include <algorithm>
+#include <utility>
 
 class AbstractFileListingPrivate
 {
 public:
 
-    explicit AbstractFileListingPrivate(const QString &sourceName) : mSourceName(sourceName)
+    explicit AbstractFileListingPrivate(QString sourceName) : mSourceName(std::move(sourceName))
     {
     }
 

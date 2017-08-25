@@ -20,6 +20,7 @@
 #include "musicaudiotrack.h"
 
 #include <QDebug>
+#include <utility>
 
 class MusicAudioTrackPrivate
 {
@@ -29,25 +30,25 @@ public:
     {
     }
 
-    MusicAudioTrackPrivate(bool aValid, const QString &aId, const QString &aParentId,
-                           const QString &aTitle, const QString &aArtist, const QString &aAlbumName,
-                           const QString &aAlbumArtist, int aTrackNumber, QTime aDuration,
-                           const QUrl &aResourceURI, const QUrl &aAlbumCover, int rating)
-        : mId(aId), mParentId(aParentId), mTitle(aTitle), mArtist(aArtist),
-          mAlbumName(aAlbumName), mAlbumArtist(aAlbumArtist), mTrackNumber(aTrackNumber),
-          mDuration(aDuration), mResourceURI(aResourceURI), mAlbumCover(aAlbumCover),
+    MusicAudioTrackPrivate(bool aValid, QString aId, QString aParentId,
+                           QString aTitle, QString aArtist, QString aAlbumName,
+                           QString aAlbumArtist, int aTrackNumber, QTime aDuration,
+                           QUrl aResourceURI, QUrl aAlbumCover, int rating)
+        : mId(std::move(aId)), mParentId(std::move(aParentId)), mTitle(std::move(aTitle)), mArtist(std::move(aArtist)),
+          mAlbumName(std::move(aAlbumName)), mAlbumArtist(std::move(aAlbumArtist)), mTrackNumber(aTrackNumber),
+          mDuration(aDuration), mResourceURI(std::move(aResourceURI)), mAlbumCover(std::move(aAlbumCover)),
           mRating(rating), mIsValid(aValid)
     {
     }
 
-    MusicAudioTrackPrivate(bool aValid, const QString &aId, const QString &aParentId,
-                           const QString &aTitle, const QString &aArtist, const QString &aAlbumName, const QString &aAlbumArtist,
-                           int aTrackNumber, int aDiscNumber, QTime aDuration, const QUrl &aResourceURI,
-                           const QUrl &aAlbumCover, int rating)
-        : mId(aId), mParentId(aParentId), mTitle(aTitle), mArtist(aArtist),
-          mAlbumName(aAlbumName), mAlbumArtist(aAlbumArtist), mTrackNumber(aTrackNumber),
-          mDiscNumber(aDiscNumber), mDuration(aDuration), mResourceURI(aResourceURI),
-          mAlbumCover(aAlbumCover), mRating(rating), mIsValid(aValid)
+    MusicAudioTrackPrivate(bool aValid, QString aId, QString aParentId,
+                           QString aTitle, QString aArtist, QString aAlbumName, QString aAlbumArtist,
+                           int aTrackNumber, int aDiscNumber, QTime aDuration, QUrl aResourceURI,
+                           QUrl aAlbumCover, int rating)
+        : mId(std::move(aId)), mParentId(std::move(aParentId)), mTitle(std::move(aTitle)), mArtist(std::move(aArtist)),
+          mAlbumName(std::move(aAlbumName)), mAlbumArtist(std::move(aAlbumArtist)), mTrackNumber(aTrackNumber),
+          mDiscNumber(aDiscNumber), mDuration(aDuration), mResourceURI(std::move(aResourceURI)),
+          mAlbumCover(std::move(aAlbumCover)), mRating(rating), mIsValid(aValid)
     {
     }
 

@@ -54,7 +54,7 @@ class UpnpControlContentDirectory : public UpnpControlAbstractService
 
 public:
 
-    explicit UpnpControlContentDirectory(QObject *parent = 0);
+    explicit UpnpControlContentDirectory(QObject *parent = nullptr);
 
     ~UpnpControlContentDirectory() override;
 

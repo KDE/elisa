@@ -89,7 +89,7 @@ public:
 
     Q_ENUM(ColumnsRoles)
 
-    explicit UpnpContentDirectoryModel(QObject *parent = 0);
+    explicit UpnpContentDirectoryModel(QObject *parent = nullptr);
 
     ~UpnpContentDirectoryModel() override;
 

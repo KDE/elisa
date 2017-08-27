@@ -61,7 +61,7 @@ class UpnpDiscoverAllMusic : public QObject
 
 public:
 
-    explicit UpnpDiscoverAllMusic(QObject *parent = 0);
+    explicit UpnpDiscoverAllMusic(QObject *parent = nullptr);
 
     ~UpnpDiscoverAllMusic() override;
 

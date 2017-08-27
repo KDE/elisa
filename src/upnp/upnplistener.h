@@ -44,7 +44,7 @@ class UpnpListener : public QObject
 
 public:
 
-    explicit UpnpListener(QObject *parent = 0);
+    explicit UpnpListener(QObject *parent = nullptr);
 
     ~UpnpListener() override;
 

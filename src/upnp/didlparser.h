@@ -77,7 +77,7 @@ class DidlParser : public QObject
 
 public:
 
-    explicit DidlParser(QObject *parent = 0);
+    explicit DidlParser(QObject *parent = nullptr);
 
     ~DidlParser() override;
 

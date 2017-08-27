@@ -38,7 +38,7 @@ class UpnpControlMediaServer : public UpnpControlAbstractDevice
                NOTIFY hasAVTransportChanged)
 
 public:
-    explicit UpnpControlMediaServer(QObject *parent = 0);
+    explicit UpnpControlMediaServer(QObject *parent = nullptr);
 
     ~UpnpControlMediaServer() override;
 

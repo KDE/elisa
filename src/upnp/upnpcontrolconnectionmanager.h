@@ -55,7 +55,7 @@ class UPNPQT_EXPORT UpnpControlConnectionManager : public UpnpControlAbstractSer
 
 public:
 
-    explicit UpnpControlConnectionManager(QObject *parent = 0);
+    explicit UpnpControlConnectionManager(QObject *parent = nullptr);
 
     ~UpnpControlConnectionManager() override;
 

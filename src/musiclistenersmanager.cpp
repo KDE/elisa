@@ -241,6 +241,8 @@ void MusicListenersManager::configChanged()
                 &d->mDatabaseInterface, &DatabaseInterface::removeAllTracksFromSource);
         connect(d->mBalooListener.data(), &BalooListener::importedTracksCountChanged,
                 this, &MusicListenersManager::computeImportedTracksCount);
+
+        QMetaObject::invokeMethod(d->mBalooListener.data(), "performInitialScan", Qt::QueuedConnection);
     } else if (!currentConfiguration->balooIndexer() && d->mBalooListener) {
         QMetaObject::invokeMethod(d->mBalooListener.data(), "quitListener", Qt::QueuedConnection);
     }

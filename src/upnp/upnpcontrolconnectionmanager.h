@@ -57,7 +57,7 @@ public:
 
     explicit UpnpControlConnectionManager(QObject *parent = 0);
 
-    virtual ~UpnpControlConnectionManager();
+    ~UpnpControlConnectionManager() override;
 
     const QString& sourceProtocolInfo() const;
 

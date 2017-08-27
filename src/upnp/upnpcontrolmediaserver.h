@@ -40,7 +40,7 @@ class UpnpControlMediaServer : public UpnpControlAbstractDevice
 public:
     explicit UpnpControlMediaServer(QObject *parent = 0);
 
-    ~UpnpControlMediaServer();
+    ~UpnpControlMediaServer() override;
 
     bool hasAVTransport() const;
 

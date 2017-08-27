@@ -63,7 +63,7 @@ public:
 
     explicit UpnpDiscoverAllMusic(QObject *parent = 0);
 
-    ~UpnpDiscoverAllMusic();
+    ~UpnpDiscoverAllMusic() override;
 
     QString deviceId() const;
 

@@ -46,7 +46,7 @@ public:
 
     explicit UpnpListener(QObject *parent = 0);
 
-    virtual ~UpnpListener();
+    ~UpnpListener() override;
 
     DatabaseInterface* databaseInterface() const;
 

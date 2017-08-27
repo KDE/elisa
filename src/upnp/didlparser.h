@@ -79,7 +79,7 @@ public:
 
     explicit DidlParser(QObject *parent = 0);
 
-    virtual ~DidlParser();
+    ~DidlParser() override;
 
     const QString& browseFlag() const;
 

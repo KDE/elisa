@@ -37,7 +37,7 @@ public:
 
     explicit TracksListener(DatabaseInterface *database, QObject *parent = nullptr);
 
-    ~TracksListener();
+    ~TracksListener() override;
 
 Q_SIGNALS:
 

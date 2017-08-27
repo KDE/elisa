@@ -91,7 +91,7 @@ public:
 
     explicit UpnpContentDirectoryModel(QObject *parent = 0);
 
-    virtual ~UpnpContentDirectoryModel();
+    ~UpnpContentDirectoryModel() override;
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
 

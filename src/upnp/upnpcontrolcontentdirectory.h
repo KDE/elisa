@@ -56,7 +56,7 @@ public:
 
     explicit UpnpControlContentDirectory(QObject *parent = 0);
 
-    virtual ~UpnpControlContentDirectory();
+    ~UpnpControlContentDirectory() override;
 
     const QString& searchCapabilities() const;
 

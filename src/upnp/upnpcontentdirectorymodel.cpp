@@ -173,6 +173,7 @@ QVariant UpnpContentDirectoryModel::data(const QModelIndex &index, int role) con
         case UpnpContentDirectoryModel::AudioTrack:
             return data(index.parent(), role);
         }
+        break;
     case ColumnsRoles::ResourceRole:
         return d->mData[index.internalId()][convertedRole];
     case ColumnsRoles::ItemClassRole:

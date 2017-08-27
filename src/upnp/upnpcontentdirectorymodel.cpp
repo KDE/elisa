@@ -75,8 +75,7 @@ UpnpContentDirectoryModel::UpnpContentDirectoryModel(QObject *parent)
 }
 
 UpnpContentDirectoryModel::~UpnpContentDirectoryModel()
-{
-}
+= default;
 
 int UpnpContentDirectoryModel::rowCount(const QModelIndex &parent) const
 {

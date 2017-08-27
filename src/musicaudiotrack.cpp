@@ -111,8 +111,7 @@ MusicAudioTrack::MusicAudioTrack(const MusicAudioTrack &other) : d(new MusicAudi
 }
 
 MusicAudioTrack::~MusicAudioTrack()
-{
-}
+= default;
 
 MusicAudioTrack& MusicAudioTrack::operator=(MusicAudioTrack &&other)
 {

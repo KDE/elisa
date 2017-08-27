@@ -47,8 +47,7 @@ UpnpControlContentDirectory::UpnpControlContentDirectory(QObject *parent) : Upnp
 }
 
 UpnpControlContentDirectory::~UpnpControlContentDirectory()
-{
-}
+= default;
 
 const QString &UpnpControlContentDirectory::searchCapabilities() const
 {

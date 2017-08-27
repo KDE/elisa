@@ -89,8 +89,7 @@ MusicAlbum& MusicAlbum::operator=(const MusicAlbum &other)
 }
 
 MusicAlbum::~MusicAlbum()
-{
-}
+= default;
 
 void MusicAlbum::setValid(bool value)
 {

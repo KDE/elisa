@@ -70,8 +70,7 @@ MusicArtist &MusicArtist::operator=(const MusicArtist &other)
 }
 
 MusicArtist::~MusicArtist()
-{
-}
+= default;
 
 void MusicArtist::setValid(bool value)
 {

@@ -40,8 +40,7 @@ FileListener::FileListener(QObject *parent) : AbstractFileListener(parent), d(ne
 }
 
 FileListener::~FileListener()
-{
-}
+= default;
 
 const LocalFileListing& FileListener::localFileIndexer() const
 {

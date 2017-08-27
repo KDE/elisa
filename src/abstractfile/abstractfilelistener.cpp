@@ -45,8 +45,7 @@ AbstractFileListener::AbstractFileListener(QObject *parent)
 }
 
 AbstractFileListener::~AbstractFileListener()
-{
-}
+= default;
 
 DatabaseInterface *AbstractFileListener::databaseInterface() const
 {

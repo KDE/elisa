@@ -45,8 +45,7 @@ UpnpControlConnectionManager::UpnpControlConnectionManager(QObject *parent) : Up
 }
 
 UpnpControlConnectionManager::~UpnpControlConnectionManager()
-{
-}
+= default;
 
 const QString &UpnpControlConnectionManager::sourceProtocolInfo() const
 {

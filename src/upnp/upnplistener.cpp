@@ -47,8 +47,7 @@ UpnpListener::UpnpListener(QObject *parent) : QObject(parent), d(new UpnpListene
 }
 
 UpnpListener::~UpnpListener()
-{
-}
+= default;
 
 DatabaseInterface *UpnpListener::databaseInterface() const
 {

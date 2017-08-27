@@ -47,8 +47,7 @@ AllArtistsModel::AllArtistsModel(QObject *parent) : QAbstractItemModel(parent), 
 }
 
 AllArtistsModel::~AllArtistsModel()
-{
-}
+= default;
 
 int AllArtistsModel::rowCount(const QModelIndex &parent) const
 {

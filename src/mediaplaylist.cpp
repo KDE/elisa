@@ -46,8 +46,7 @@ MediaPlayList::MediaPlayList(QObject *parent) : QAbstractListModel(parent), d(ne
 }
 
 MediaPlayList::~MediaPlayList()
-{
-}
+= default;
 
 int MediaPlayList::rowCount(const QModelIndex &parent) const
 {

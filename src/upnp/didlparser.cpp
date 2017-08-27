@@ -69,8 +69,7 @@ DidlParser::DidlParser(QObject *parent) : QObject(parent), d(new DidlParserPriva
 }
 
 DidlParser::~DidlParser()
-{
-}
+= default;
 
 const QString &DidlParser::browseFlag() const
 {

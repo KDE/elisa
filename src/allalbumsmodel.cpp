@@ -47,8 +47,7 @@ AllAlbumsModel::AllAlbumsModel(QObject *parent) : QAbstractItemModel(parent), d(
 }
 
 AllAlbumsModel::~AllAlbumsModel()
-{
-}
+= default;
 
 int AllAlbumsModel::albumCount() const
 {

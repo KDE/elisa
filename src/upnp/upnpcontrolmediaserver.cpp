@@ -35,8 +35,7 @@ UpnpControlMediaServer::UpnpControlMediaServer(QObject *parent) : UpnpControlAbs
 }
 
 UpnpControlMediaServer::~UpnpControlMediaServer()
-{
-}
+= default;
 
 bool UpnpControlMediaServer::hasAVTransport() const
 {

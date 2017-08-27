@@ -145,8 +145,7 @@ MusicListenersManager::MusicListenersManager(QObject *parent)
 }
 
 MusicListenersManager::~MusicListenersManager()
-{
-}
+= default;
 
 DatabaseInterface *MusicListenersManager::viewDatabase() const
 {

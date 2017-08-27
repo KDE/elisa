@@ -47,8 +47,7 @@ AlbumModel::AlbumModel(QObject *parent) : QAbstractItemModel(parent), d(new Albu
 }
 
 AlbumModel::~AlbumModel()
-{
-}
+= default;
 
 int AlbumModel::rowCount(const QModelIndex &parent) const
 {

@@ -38,8 +38,7 @@ BalooListener::BalooListener(QObject *parent) : AbstractFileListener(parent), d(
 }
 
 BalooListener::~BalooListener()
-{
-}
+= default;
 
 
 #include "moc_baloolistener.cpp"

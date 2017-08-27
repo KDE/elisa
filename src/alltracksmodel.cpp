@@ -38,8 +38,7 @@ AllTracksModel::AllTracksModel(QObject *parent) : QAbstractItemModel(parent), d(
 }
 
 AllTracksModel::~AllTracksModel()
-{
-}
+= default;
 
 int AllTracksModel::rowCount(const QModelIndex &parent) const
 {

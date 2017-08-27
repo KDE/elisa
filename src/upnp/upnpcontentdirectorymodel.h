@@ -24,6 +24,8 @@
 
 #include <QAbstractItemModel>
 
+#include <memory>
+
 class UpnpContentDirectoryModelPrivate;
 class UpnpSsdpEngine;
 class UpnpControlAbstractDevice;
@@ -157,7 +159,7 @@ private:
 
     QModelIndex indexFromInternalId(quintptr internalId) const;
 
-    UpnpContentDirectoryModelPrivate *d;
+    std::unique_ptr<UpnpContentDirectoryModelPrivate> d;
 
 };
 

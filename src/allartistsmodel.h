@@ -27,6 +27,8 @@
 
 #include "musicartist.h"
 
+#include <memory>
+
 class DatabaseInterface;
 class AllArtistsModelPrivate;
 
@@ -73,7 +75,7 @@ public Q_SLOTS:
 
 private:
 
-    AllArtistsModelPrivate *d;
+    std::unique_ptr<AllArtistsModelPrivate> d;
 
 };
 

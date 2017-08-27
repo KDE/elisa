@@ -48,7 +48,6 @@ AllArtistsModel::AllArtistsModel(QObject *parent) : QAbstractItemModel(parent), 
 
 AllArtistsModel::~AllArtistsModel()
 {
-    delete d;
 }
 
 int AllArtistsModel::rowCount(const QModelIndex &parent) const

@@ -101,9 +101,9 @@ MusicAudioTrack::MusicAudioTrack(bool aValid, const QString &aId, const QString 
 {
 }
 
-MusicAudioTrack::MusicAudioTrack(MusicAudioTrack &&other) : d(other.d)
+MusicAudioTrack::MusicAudioTrack(MusicAudioTrack &&other)
 {
-    other.d = nullptr;
+    d.swap(other.d);
 }
 
 MusicAudioTrack::MusicAudioTrack(const MusicAudioTrack &other) : d(new MusicAudioTrackPrivate(*other.d))
@@ -112,15 +112,13 @@ MusicAudioTrack::MusicAudioTrack(const MusicAudioTrack &other) : d(new MusicAudi
 
 MusicAudioTrack::~MusicAudioTrack()
 {
-    delete d;
 }
 
 MusicAudioTrack& MusicAudioTrack::operator=(MusicAudioTrack &&other)
 {
     if (this != &other) {
-        delete d;
-        d = other.d;
-        other.d = nullptr;
+        d.reset();
+        d.swap(other.d);
     }
 
     return *this;

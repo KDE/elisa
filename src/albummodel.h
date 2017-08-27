@@ -28,6 +28,8 @@
 #include "musicalbum.h"
 #include "musicaudiotrack.h"
 
+#include <memory>
+
 class DatabaseInterface;
 class AlbumModelPrivate;
 class MusicStatistics;
@@ -136,7 +138,7 @@ private:
 
     QVariant internalDataTrack(const MusicAudioTrack &track, int role, int rowIndex) const;
 
-    AlbumModelPrivate *d;
+    std::unique_ptr<AlbumModelPrivate> d;
 
 };
 

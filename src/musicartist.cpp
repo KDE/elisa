@@ -41,9 +41,9 @@ MusicArtist::MusicArtist() : d(new MusicArtistPrivate)
 {
 }
 
-MusicArtist::MusicArtist(MusicArtist &&other) : d(other.d)
+MusicArtist::MusicArtist(MusicArtist &&other)
 {
-    other.d = nullptr;
+    d.swap(other.d);
 }
 
 MusicArtist::MusicArtist(const MusicArtist &other) : d(new MusicArtistPrivate(*other.d))
@@ -53,9 +53,8 @@ MusicArtist::MusicArtist(const MusicArtist &other) : d(new MusicArtistPrivate(*o
 MusicArtist& MusicArtist::operator=(MusicArtist &&other)
 {
     if (&other != this) {
-        delete d;
-        d = other.d;
-        other.d = nullptr;
+        d.reset();
+        d.swap(other.d);
     }
 
     return *this;
@@ -72,7 +71,6 @@ MusicArtist &MusicArtist::operator=(const MusicArtist &other)
 
 MusicArtist::~MusicArtist()
 {
-    delete d;
 }
 
 void MusicArtist::setValid(bool value)

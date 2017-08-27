@@ -25,6 +25,8 @@
 #include <QUrl>
 #include <QMetaType>
 
+#include <memory>
+
 class MusicAudioTrackPrivate;
 class QDebug;
 
@@ -118,7 +120,7 @@ public:
 
 private:
 
-    MusicAudioTrackPrivate *d = nullptr;
+    std::unique_ptr<MusicAudioTrackPrivate> d;
 
 };
 

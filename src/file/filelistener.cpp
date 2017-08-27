@@ -41,7 +41,6 @@ FileListener::FileListener(QObject *parent) : AbstractFileListener(parent), d(ne
 
 FileListener::~FileListener()
 {
-    delete d;
 }
 
 const LocalFileListing& FileListener::localFileIndexer() const

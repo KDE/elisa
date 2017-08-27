@@ -165,8 +165,6 @@ DatabaseInterface::~DatabaseInterface()
     if (d) {
         d->mTracksDatabase.close();
     }
-
-    delete d;
 }
 
 void DatabaseInterface::init(const QString &dbName, const QString &databaseFileName)
@@ -188,7 +186,7 @@ void DatabaseInterface::init(const QString &dbName, const QString &databaseFileN
     }
     qDebug() << "DatabaseInterface::init" << (tracksDatabase.driver()->hasFeature(QSqlDriver::Transactions) ? "yes" : "no");
 
-    d = new DatabaseInterfacePrivate(tracksDatabase);
+    d = std::make_unique<DatabaseInterfacePrivate>(tracksDatabase);
 
     initDatabase();
     initRequest();

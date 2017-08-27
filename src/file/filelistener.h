@@ -57,7 +57,7 @@ public Q_SLOTS:
 
 private:
 
-    FileListenerPrivate *d = nullptr;
+    std::unique_ptr<FileListenerPrivate> d;
 
 };
 

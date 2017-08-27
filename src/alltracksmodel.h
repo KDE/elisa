@@ -24,6 +24,8 @@
 
 #include "musicaudiotrack.h"
 
+#include <memory>
+
 class AllTracksModelPrivate;
 
 class AllTracksModel : public QAbstractItemModel
@@ -79,7 +81,7 @@ public Q_SLOTS:
 
 private:
 
-    AllTracksModelPrivate *d;
+    std::unique_ptr<AllTracksModelPrivate> d;
 
 };
 

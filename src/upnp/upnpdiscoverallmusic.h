@@ -23,6 +23,8 @@
 #include <QObject>
 #include <QSharedPointer>
 
+#include <memory>
+
 class DatabaseInterface;
 class UpnpDiscoveryResult;
 class UpnpDiscoverAllMusicPrivate;
@@ -111,7 +113,7 @@ private Q_SLOTS:
 
 private:
 
-    UpnpDiscoverAllMusicPrivate *d;
+    std::unique_ptr<UpnpDiscoverAllMusicPrivate> d;
 
 };
 

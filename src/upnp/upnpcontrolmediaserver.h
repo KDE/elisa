@@ -22,6 +22,8 @@
 
 #include "upnpcontrolabstractdevice.h"
 
+#include <memory>
+
 class UpnpControlConnectionManager;
 
 class UpnpControlMediaServerPrivate;
@@ -52,7 +54,7 @@ protected:
 
 private:
 
-    UpnpControlMediaServerPrivate *d;
+    std::unique_ptr<UpnpControlMediaServerPrivate> d;
 
 };
 

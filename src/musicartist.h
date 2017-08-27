@@ -22,6 +22,8 @@
 
 #include <QString>
 
+#include <memory>
+
 class MusicArtistPrivate;
 class QDebug;
 
@@ -59,7 +61,7 @@ public:
 
 private:
 
-    MusicArtistPrivate *d = nullptr;
+    std::unique_ptr<MusicArtistPrivate> d;
 
 };
 

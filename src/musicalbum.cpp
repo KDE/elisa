@@ -60,9 +60,9 @@ MusicAlbum::MusicAlbum() : d(new MusicAlbumPrivate)
 {
 }
 
-MusicAlbum::MusicAlbum(MusicAlbum &&other) : d(other.d)
+MusicAlbum::MusicAlbum(MusicAlbum &&other)
 {
-    other.d = nullptr;
+    d.swap(other.d);
 }
 
 MusicAlbum::MusicAlbum(const MusicAlbum &other) : d(new MusicAlbumPrivate(*other.d))
@@ -72,9 +72,8 @@ MusicAlbum::MusicAlbum(const MusicAlbum &other) : d(new MusicAlbumPrivate(*other
 MusicAlbum& MusicAlbum::operator=(MusicAlbum &&other)
 {
     if (&other != this) {
-        delete d;
-        d = other.d;
-        other.d = nullptr;
+        d.reset();
+        d.swap(other.d);
     }
 
     return *this;
@@ -91,7 +90,6 @@ MusicAlbum& MusicAlbum::operator=(const MusicAlbum &other)
 
 MusicAlbum::~MusicAlbum()
 {
-    delete d;
 }
 
 void MusicAlbum::setValid(bool value)

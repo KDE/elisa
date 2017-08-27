@@ -25,6 +25,8 @@
 #include <QMediaPlayer>
 #include <QString>
 
+#include <memory>
+
 class AudioWrapperPrivate;
 
 class AudioWrapper : public QObject
@@ -160,7 +162,7 @@ private Q_SLOTS:
 
 private:
 
-    AudioWrapperPrivate *d = nullptr;
+    std::unique_ptr<AudioWrapperPrivate> d;
 
 };
 

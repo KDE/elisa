@@ -28,6 +28,8 @@
 #include <QStringList>
 #include <QMetaType>
 
+#include <memory>
+
 class MusicAlbumPrivate;
 class QDebug;
 
@@ -116,7 +118,7 @@ public:
 
 private:
 
-    MusicAlbumPrivate *d;
+    std::unique_ptr<MusicAlbumPrivate> d;
 
 };
 

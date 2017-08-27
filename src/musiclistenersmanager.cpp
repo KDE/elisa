@@ -146,7 +146,6 @@ MusicListenersManager::MusicListenersManager(QObject *parent)
 
 MusicListenersManager::~MusicListenersManager()
 {
-    delete d;
 }
 
 DatabaseInterface *MusicListenersManager::viewDatabase() const

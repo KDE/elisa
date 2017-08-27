@@ -48,7 +48,6 @@ AlbumModel::AlbumModel(QObject *parent) : QAbstractItemModel(parent), d(new Albu
 
 AlbumModel::~AlbumModel()
 {
-    delete d;
 }
 
 int AlbumModel::rowCount(const QModelIndex &parent) const

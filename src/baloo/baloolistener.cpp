@@ -39,7 +39,6 @@ BalooListener::BalooListener(QObject *parent) : AbstractFileListener(parent), d(
 
 BalooListener::~BalooListener()
 {
-    delete d;
 }
 
 

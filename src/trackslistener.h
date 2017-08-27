@@ -24,6 +24,8 @@
 
 #include "musicaudiotrack.h"
 
+#include <memory>
+
 class TracksListenerPrivate;
 class DatabaseInterface;
 
@@ -34,6 +36,8 @@ class TracksListener : public QObject
 public:
 
     explicit TracksListener(DatabaseInterface *database, QObject *parent = nullptr);
+
+    ~TracksListener();
 
 Q_SIGNALS:
 
@@ -59,7 +63,7 @@ public Q_SLOTS:
 
 private:
 
-    TracksListenerPrivate *d = nullptr;
+    std::unique_ptr<TracksListenerPrivate> d;
 
 };
 

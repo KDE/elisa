@@ -24,6 +24,8 @@
 #include <QVector>
 #include <QString>
 
+#include <memory>
+
 class UpnpListenerPrivate;
 
 class DatabaseInterface;
@@ -66,7 +68,7 @@ public Q_SLOTS:
 
 private:
 
-    UpnpListenerPrivate *d = nullptr;
+    std::unique_ptr<UpnpListenerPrivate> d;
 
 };
 

@@ -25,6 +25,8 @@
 #include "upnpcontrolabstractservice.h"
 #include "upnpbasictypes.h"
 
+#include <memory>
+
 class UpnpControlConnectionManagerPrivate;
 
 class UPNPQT_EXPORT UpnpControlConnectionManager : public UpnpControlAbstractService
@@ -101,7 +103,7 @@ protected:
 
 private:
 
-    UpnpControlConnectionManagerPrivate *d;
+    std::unique_ptr<UpnpControlConnectionManagerPrivate> d;
 
 };
 

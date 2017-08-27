@@ -28,6 +28,8 @@
 #include "musicalbum.h"
 #include "musicaudiotrack.h"
 
+#include <memory>
+
 class AllAlbumsModelPrivate;
 class MusicStatistics;
 class QMutex;
@@ -94,7 +96,7 @@ private:
 
     QVariant internalDataAlbum(int albumIndex, int role) const;
 
-    AllAlbumsModelPrivate *d;
+    std::unique_ptr<AllAlbumsModelPrivate> d;
 
 };
 

@@ -44,6 +44,10 @@ TracksListener::TracksListener(DatabaseInterface *database, QObject *parent) : Q
     d->mDatabase = database;
 }
 
+TracksListener::~TracksListener()
+{
+}
+
 void TracksListener::tracksAdded(const QList<MusicAudioTrack> &allTracks)
 {
     for (const auto &oneTrack : allTracks) {

@@ -26,6 +26,8 @@
 #include "musicartist.h"
 #include "musicaudiotrack.h"
 
+#include <memory>
+
 class MusicListenersManagerPrivate;
 class DatabaseInterface;
 class MediaPlayList;
@@ -116,7 +118,7 @@ private Q_SLOTS:
 
 private:
 
-    MusicListenersManagerPrivate *d;
+    std::unique_ptr<MusicListenersManagerPrivate> d;
 
 };
 

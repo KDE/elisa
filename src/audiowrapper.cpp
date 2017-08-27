@@ -49,7 +49,6 @@ AudioWrapper::AudioWrapper(QObject *parent) : QObject(parent), d(new AudioWrappe
 
 AudioWrapper::~AudioWrapper()
 {
-    delete d;
 }
 
 bool AudioWrapper::muted() const

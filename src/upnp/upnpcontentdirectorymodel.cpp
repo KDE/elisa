@@ -76,7 +76,6 @@ UpnpContentDirectoryModel::UpnpContentDirectoryModel(QObject *parent)
 
 UpnpContentDirectoryModel::~UpnpContentDirectoryModel()
 {
-    delete d;
 }
 
 int UpnpContentDirectoryModel::rowCount(const QModelIndex &parent) const

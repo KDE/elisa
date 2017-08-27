@@ -31,6 +31,8 @@
 #include <QVariant>
 #include <QUrl>
 
+#include <memory>
+
 class DatabaseInterfacePrivate;
 class QMutex;
 class QSqlRecord;
@@ -175,7 +177,7 @@ private:
 
     void internalRemoveTracksList(const QList<QUrl> &removedTracks);
 
-    DatabaseInterfacePrivate *d;
+    std::unique_ptr<DatabaseInterfacePrivate> d;
 
 };
 

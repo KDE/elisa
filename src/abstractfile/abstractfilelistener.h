@@ -24,6 +24,8 @@
 #include <QVector>
 #include <QString>
 
+#include <memory>
+
 class AbstractFileListenerPrivate;
 class DatabaseInterface;
 class MusicAudioTrack;
@@ -90,7 +92,7 @@ protected:
 
 private:
 
-    AbstractFileListenerPrivate *d = nullptr;
+    std::unique_ptr<AbstractFileListenerPrivate> d;
 
 };
 

@@ -23,6 +23,8 @@
 #include "upnpcontrolabstractservice.h"
 #include "upnpbasictypes.h"
 
+#include <memory>
+
 class UpnpControlContentDirectoryPrivate;
 class UpnpControlAbstractServiceReply;
 
@@ -104,7 +106,7 @@ protected:
 
 private:
 
-    UpnpControlContentDirectoryPrivate *d;
+    std::unique_ptr<UpnpControlContentDirectoryPrivate> d;
 
 };
 

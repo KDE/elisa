@@ -48,7 +48,6 @@ UpnpControlContentDirectory::UpnpControlContentDirectory(QObject *parent) : Upnp
 
 UpnpControlContentDirectory::~UpnpControlContentDirectory()
 {
-    delete d;
 }
 
 const QString &UpnpControlContentDirectory::searchCapabilities() const

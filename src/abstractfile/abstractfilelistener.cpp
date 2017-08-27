@@ -46,7 +46,6 @@ AbstractFileListener::AbstractFileListener(QObject *parent)
 
 AbstractFileListener::~AbstractFileListener()
 {
-    delete d;
 }
 
 DatabaseInterface *AbstractFileListener::databaseInterface() const

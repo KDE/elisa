@@ -48,7 +48,6 @@ UpnpListener::UpnpListener(QObject *parent) : QObject(parent), d(new UpnpListene
 
 UpnpListener::~UpnpListener()
 {
-    delete d;
 }
 
 DatabaseInterface *UpnpListener::databaseInterface() const

@@ -48,7 +48,6 @@ AllAlbumsModel::AllAlbumsModel(QObject *parent) : QAbstractItemModel(parent), d(
 
 AllAlbumsModel::~AllAlbumsModel()
 {
-    delete d;
 }
 
 int AllAlbumsModel::albumCount() const

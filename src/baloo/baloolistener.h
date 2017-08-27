@@ -26,6 +26,8 @@
 #include <QVector>
 #include <QString>
 
+#include <memory>
+
 class BalooListenerPrivate;
 class DatabaseInterface;
 class MusicAudioTrack;
@@ -45,7 +47,7 @@ public Q_SLOTS:
 
 private:
 
-    BalooListenerPrivate *d = nullptr;
+    std::unique_ptr<BalooListenerPrivate> d;
 
 };
 

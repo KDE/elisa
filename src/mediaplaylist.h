@@ -153,7 +153,7 @@ private Q_SLOTS:
 
 private:
 
-    MediaPlayListPrivate *d;
+    std::unique_ptr<MediaPlayListPrivate> d;
 
 };
 

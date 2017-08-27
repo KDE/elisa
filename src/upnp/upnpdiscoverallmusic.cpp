@@ -73,7 +73,6 @@ UpnpDiscoverAllMusic::UpnpDiscoverAllMusic(QObject *parent) : QObject(parent), d
 
 UpnpDiscoverAllMusic::~UpnpDiscoverAllMusic()
 {
-    delete d;
 }
 
 QString UpnpDiscoverAllMusic::deviceId() const

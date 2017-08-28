@@ -71,11 +71,11 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
                 )
 
             qt5_add_dbus_interface(elisa_SOURCES
-                ${CMAKE_INSTALL_PREFIX}/${KDE_INSTALL_DBUSINTERFACEDIR}/org.kde.baloo.fileindexer.xml
+                ${BALOO_DBUS_INTERFACES_DIR}/org.kde.baloo.fileindexer.xml
                 baloo/fileindexer)
 
             qt5_add_dbus_interface(elisa_SOURCES
-                ${CMAKE_INSTALL_PREFIX}/${KDE_INSTALL_DBUSINTERFACEDIR}/org.kde.baloo.scheduler.xml
+                ${BALOO_DBUS_INTERFACES_DIR}/org.kde.baloo.scheduler.xml
                 baloo/scheduler)
         endif()
     endif()

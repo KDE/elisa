@@ -22,23 +22,24 @@
 
 #include "config-upnp-qt.h"
 
-#if defined KF5XmlGui_FOUND && KF5XmlGui_FOUND
-#include <KXmlGui/KActionCollection>
-#endif
-
-#include <KCMultiDialog>
-
 #include <QObject>
 #include <QString>
 
+#include <memory>
+
 class QIcon;
 class QAction;
+class ElisaApplicationPrivate;
 
 class ElisaApplication : public QObject
 {
+
     Q_OBJECT
+
 public:
     explicit ElisaApplication(QObject *parent = nullptr);
+
+    ~ElisaApplication() override;
 
     void setupActions();
 
@@ -62,11 +63,7 @@ public Q_SLOTS:
 
 private:
 
-#if defined KF5XmlGui_FOUND && KF5XmlGui_FOUND
-    KActionCollection mCollection;
-#endif
-
-    KCMultiDialog mConfigurationDialog;
+    std::unique_ptr<ElisaApplicationPrivate> d;
 
 };
 

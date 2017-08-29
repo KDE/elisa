@@ -60,7 +60,7 @@ Rectangle {
                            {
                                'stackView': stackView,
                                'playListModel': playListModel,
-                               'musicListener': musicListener,
+                               'musicListener': mediaServerEntry.musicListener,
                                'playerControl': playerControl,
                                'albumArtUrl': image,
                                'albumName': title,

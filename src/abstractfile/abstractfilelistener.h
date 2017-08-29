@@ -20,6 +20,8 @@
 #ifndef ABSTRACTFILELISTENER_H
 #define ABSTRACTFILELISTENER_H
 
+#include "notificationitem.h"
+
 #include <QObject>
 #include <QVector>
 #include <QString>
@@ -30,7 +32,6 @@ class AbstractFileListenerPrivate;
 class DatabaseInterface;
 class MusicAudioTrack;
 class AbstractFileListing;
-class NotificationItem;
 
 class AbstractFileListener : public QObject
 {
@@ -68,11 +69,13 @@ Q_SIGNALS:
 
     void configurationChanged();
 
-    void notification(NotificationItem *notification);
-
     void clearDatabase(const QString &listenerName);
 
     void importedTracksCountChanged();
+
+    void newNotification(NotificationItem notification);
+
+    void closeNotification(QString notificationId);
 
 public Q_SLOTS:
 
@@ -89,6 +92,8 @@ public Q_SLOTS:
 protected:
 
     void setFileListing(AbstractFileListing *fileIndexer);
+
+    NotificationItem& currentNotification();
 
 private:
 

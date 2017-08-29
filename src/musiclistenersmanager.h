@@ -20,7 +20,10 @@
 #ifndef MUSICLISTENERSMANAGER_H
 #define MUSICLISTENERSMANAGER_H
 
+#include "notificationitem.h"
+
 #include <QObject>
+#include <QQmlListProperty>
 
 #include "musicalbum.h"
 #include "musicartist.h"
@@ -32,6 +35,7 @@ class MusicListenersManagerPrivate;
 class DatabaseInterface;
 class MediaPlayList;
 class NotificationItem;
+class ElisaApplication;
 
 class MusicListenersManager : public QObject
 {
@@ -50,6 +54,11 @@ class MusicListenersManager : public QObject
                READ isIndexingRunning
                NOTIFY indexingRunningChanged)
 
+    Q_PROPERTY(ElisaApplication* elisaApplication
+               READ elisaApplication
+               WRITE setElisaApplication
+               NOTIFY elisaApplicationChanged)
+
 public:
 
     explicit MusicListenersManager(QObject *parent = nullptr);
@@ -63,6 +72,8 @@ public:
     int importedTracksCount() const;
 
     bool isIndexingRunning() const;
+
+    ElisaApplication* elisaApplication() const;
 
 Q_SIGNALS:
 
@@ -90,11 +101,15 @@ Q_SIGNALS:
 
     void applicationIsTerminating();
 
-    void listenerNotification(NotificationItem *notification);
-
     void importedTracksCountChanged();
 
     void indexingRunningChanged();
+
+    void newNotification(NotificationItem notification);
+
+    void closeNotification(QString notificationId);
+
+    void elisaApplicationChanged();
 
 public Q_SLOTS:
 
@@ -105,6 +120,8 @@ public Q_SLOTS:
     void showConfiguration();
 
     void resetImportedTracksCounter();
+
+    void setElisaApplication(ElisaApplication* elisaApplication);
 
 private Q_SLOTS:
 

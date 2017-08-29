@@ -129,10 +129,7 @@ ApplicationWindow {
     MusicListenersManager {
         id: allListeners
 
-        onListenerNotification:
-        {
-            invalidBalooConfiguration.item = notification
-        }
+        elisaApplication: elisa
     }
 
     AudioWrapper {
@@ -586,11 +583,13 @@ ApplicationWindow {
                     spacing: 0
 
                     TopNotification {
-                        id: noTrackNotification
+                        id: invalidBalooConfiguration
 
                         Layout.fillWidth: true
 
-                        NotificationItem {
+                        musicManager: allListeners
+
+                        /*NotificationItem {
                             id: noTrackNotificationItem
 
                             active: !allListeners.indexingRunning && (allAlbumsModel.albumCount === 0)
@@ -601,13 +600,23 @@ ApplicationWindow {
                             mainButtonIconName: 'configure'
 
                             onMainButtonTriggered: configureAction.trigger()
-                        }
-                    }
+                        }*/
 
-                    TopNotification {
-                        id: invalidBalooConfiguration
+                        /*NotificationItem {
+                            id: balooNotificationItem
 
-                        Layout.fillWidth: true
+                            active: true
+
+                            message: i18nc("Notification about unusable Baloo Configuration", "Baloo configuration does not allow to discover your music")
+
+                            mainButtonText: i18nc("Text of button to modify Baloo Configuration", "Modify it")
+                            mainButtonIconName: 'configure'
+
+                            secondaryButtonText: i18nc("Text of button to disable Baloo indexer", "Disable Baloo support")
+                            secondaryButtonIconName: 'configure'
+
+                            //onMainButtonTriggered: configureAction.trigger()
+                        }*/
                     }
 
                     Item {

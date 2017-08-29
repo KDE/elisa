@@ -20,6 +20,8 @@
 #ifndef ABSTRACTFILELISTING_H
 #define ABSTRACTFILELISTING_H
 
+#include "notificationitem.h"
+
 #include <QObject>
 #include <QString>
 #include <QUrl>
@@ -65,9 +67,11 @@ Q_SIGNALS:
 
     void indexingFinished();
 
-    void notification(NotificationItem *notification);
-
     void importedTracksCountChanged();
+
+    void newNotification(NotificationItem notification);
+
+    void closeNotification(QString notificationId);
 
 public Q_SLOTS:
 

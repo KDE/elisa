@@ -22,6 +22,7 @@ set(playListControlerTest_SOURCES
     ../src/mediaplaylist.cpp
     ../src/databaseinterface.cpp
     ../src/musiclistenersmanager.cpp
+    ../src/elisaapplication.cpp
     ../src/notificationitem.cpp
     ../src/trackslistener.cpp
     ../src/musicartist.cpp
@@ -79,7 +80,7 @@ set(playListControlerTest_SOURCES
 
 add_executable(playListControlerTest ${playListControlerTest_SOURCES})
 
-target_link_libraries(playListControlerTest Qt5::Test Qt5::Core Qt5::Sql KF5::I18n KF5::ConfigCore KF5::ConfigGui)
+target_link_libraries(playListControlerTest Qt5::Test Qt5::Core Qt5::Sql Qt5::Widgets KF5::I18n KF5::ConfigCore KF5::ConfigGui KF5::KCMUtils Qt5::Quick)
 if (KF5Baloo_FOUND)
     target_link_libraries(playListControlerTest KF5::Baloo Qt5::DBus)
 endif()
@@ -88,6 +89,9 @@ if (KF5FileMetaData_FOUND)
 endif()
 if (UPNPQT_FOUND)
     target_link_libraries(playListControlerTest Qt5::Xml UPNP::upnpQt Qt5::Network)
+endif()
+if (KF5XmlGui_FOUND)
+    target_link_libraries(playListControlerTest KF5::XmlGui)
 endif()
 
 target_include_directories(playListControlerTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
@@ -98,6 +102,7 @@ set(managemediaplayercontrolTest_SOURCES
     ../src/mediaplaylist.cpp
     ../src/databaseinterface.cpp
     ../src/musiclistenersmanager.cpp
+    ../src/elisaapplication.cpp
     ../src/notificationitem.cpp
     ../src/trackslistener.cpp
     ../src/musicartist.cpp
@@ -155,7 +160,7 @@ set(managemediaplayercontrolTest_SOURCES
 
 add_executable(managemediaplayercontrolTest ${managemediaplayercontrolTest_SOURCES})
 
-target_link_libraries(managemediaplayercontrolTest Qt5::Test Qt5::Core Qt5::Sql KF5::I18n KF5::ConfigCore KF5::ConfigGui)
+target_link_libraries(managemediaplayercontrolTest Qt5::Test Qt5::Core Qt5::Sql Qt5::Widgets KF5::I18n KF5::ConfigCore KF5::ConfigGui KF5::KCMUtils Qt5::Quick)
 if (KF5Baloo_FOUND)
     target_link_libraries(managemediaplayercontrolTest KF5::Baloo Qt5::DBus)
 endif()
@@ -164,6 +169,9 @@ if (KF5FileMetaData_FOUND)
 endif()
 if (UPNPQT_FOUND)
     target_link_libraries(managemediaplayercontrolTest Qt5::Xml UPNP::upnpQt Qt5::Network)
+endif()
+if (KF5XmlGui_FOUND)
+    target_link_libraries(managemediaplayercontrolTest KF5::XmlGui)
 endif()
 
 target_include_directories(managemediaplayercontrolTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
@@ -174,6 +182,7 @@ set(manageheaderbarTest_SOURCES
     ../src/mediaplaylist.cpp
     ../src/databaseinterface.cpp
     ../src/musiclistenersmanager.cpp
+    ../src/elisaapplication.cpp
     ../src/notificationitem.cpp
     ../src/trackslistener.cpp
     ../src/trackslistener.cpp
@@ -232,7 +241,7 @@ set(manageheaderbarTest_SOURCES
 
 add_executable(manageheaderbarTest ${manageheaderbarTest_SOURCES})
 
-target_link_libraries(manageheaderbarTest Qt5::Test Qt5::Core Qt5::Sql Qt5::Gui KF5::I18n KF5::ConfigCore KF5::ConfigGui)
+target_link_libraries(manageheaderbarTest Qt5::Test Qt5::Core Qt5::Sql Qt5::Gui Qt5::Widgets KF5::I18n KF5::ConfigCore KF5::ConfigGui KF5::KCMUtils Qt5::Quick)
 if (KF5Baloo_FOUND)
     target_link_libraries(manageheaderbarTest KF5::Baloo Qt5::DBus)
 endif()
@@ -241,6 +250,9 @@ if (KF5FileMetaData_FOUND)
 endif()
 if (UPNPQT_FOUND)
     target_link_libraries(manageheaderbarTest Qt5::Xml UPNP::upnpQt Qt5::Network)
+endif()
+if (KF5XmlGui_FOUND)
+    target_link_libraries(manageheaderbarTest KF5::XmlGui)
 endif()
 
 target_include_directories(manageheaderbarTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
@@ -261,6 +273,7 @@ set(mediaplaylistTest_SOURCES
     ../src/databaseinterface.cpp
     ../src/trackslistener.cpp
     ../src/musiclistenersmanager.cpp
+    ../src/elisaapplication.cpp
     ../src/notificationitem.cpp
     ../src/musicartist.cpp
     ../src/musicalbum.cpp
@@ -317,7 +330,7 @@ set(mediaplaylistTest_SOURCES
 
 add_executable(mediaplaylistTest ${mediaplaylistTest_SOURCES})
 
-target_link_libraries(mediaplaylistTest Qt5::Test Qt5::Core Qt5::Sql Qt5::Gui KF5::I18n KF5::ConfigCore KF5::ConfigGui)
+target_link_libraries(mediaplaylistTest Qt5::Test Qt5::Core Qt5::Sql Qt5::Gui Qt5::Widgets KF5::I18n KF5::ConfigCore KF5::ConfigGui KF5::KCMUtils Qt5::Quick)
 if (KF5Baloo_FOUND)
     target_link_libraries(mediaplaylistTest KF5::Baloo Qt5::DBus)
 endif()
@@ -326,6 +339,9 @@ if (KF5FileMetaData_FOUND)
 endif()
 if (UPNPQT_FOUND)
     target_link_libraries(mediaplaylistTest Qt5::Xml UPNP::upnpQt Qt5::Network)
+endif()
+if (KF5XmlGui_FOUND)
+    target_link_libraries(mediaplaylistTest KF5::XmlGui)
 endif()
 
 target_include_directories(mediaplaylistTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
@@ -392,6 +408,7 @@ if (KF5FileMetaData_FOUND)
         ../src/file/localfilelisting.cpp
         ../src/abstractfile/abstractfilelisting.cpp
         ../src/musicaudiotrack.cpp
+        ../src/notificationitem.cpp
         localfilelistingtest.cpp
     )
 

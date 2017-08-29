@@ -98,8 +98,10 @@ void AbstractFileListener::setFileListing(AbstractFileListing *fileIndexer)
             this, &AbstractFileListener::indexingStarted);
     connect(fileIndexer, &AbstractFileListing::indexingFinished,
             this, &AbstractFileListener::indexingFinished);
-    connect(fileIndexer, &AbstractFileListing::notification,
-            this, &AbstractFileListener::notification);
+    connect(fileIndexer, &AbstractFileListing::newNotification,
+            this, &AbstractFileListener::newNotification);
+    connect(fileIndexer, &AbstractFileListing::closeNotification,
+            this, &AbstractFileListener::closeNotification);
     connect(fileIndexer, &AbstractFileListing::importedTracksCountChanged,
             this, &AbstractFileListener::importedTracksCountChanged);
 }

@@ -23,11 +23,14 @@
 #include "elisa_settings.h"
 
 #if defined KF5XmlGui_FOUND && KF5XmlGui_FOUND
+#include <KXmlGui/KActionCollection>
 #include <KXmlGui/KAboutApplicationDialog>
 #include <KXmlGui/KHelpMenu>
 #include <KXmlGui/KBugReport>
 #include <KXmlGui/KShortcutsDialog>
 #endif
+
+#include <KCMUtils/KCMultiDialog>
 
 #include <KConfigWidgets/KStandardAction>
 #include <KConfigCore/KAuthorized>
@@ -46,48 +49,68 @@
 
 #include <QDebug>
 
-ElisaApplication::ElisaApplication(QObject *parent) : QObject(parent)
+class ElisaApplicationPrivate
+{
+public:
+
+    explicit ElisaApplicationPrivate(QObject *parent)
+        : mConfigurationDialog(),
+      #if defined KF5XmlGui_FOUND && KF5XmlGui_FOUND
+          mCollection(parent)
+      #endif
+    {
+    }
+
+    KCMultiDialog mConfigurationDialog;
+
 #if defined KF5XmlGui_FOUND && KF5XmlGui_FOUND
-  , mCollection(this)
+    KActionCollection mCollection;
 #endif
+
+};
+
+ElisaApplication::ElisaApplication(QObject *parent) : QObject(parent), d(std::make_unique<ElisaApplicationPrivate>(this))
 {
     setupActions();
 
-    mConfigurationDialog.addModule(QStringLiteral("kcm_elisa_local_file"));
+    d->mConfigurationDialog.addModule(QStringLiteral("kcm_elisa_local_file"));
 }
+
+ElisaApplication::~ElisaApplication()
+= default;
 
 void ElisaApplication::setupActions()
 {
 #if defined KF5XmlGui_FOUND && KF5XmlGui_FOUND
-    auto quitAction = KStandardAction::quit(QCoreApplication::instance(), &QCoreApplication::quit, &mCollection);
-    mCollection.addAction(QStringLiteral("file_quit"), quitAction);
+    auto quitAction = KStandardAction::quit(QCoreApplication::instance(), &QCoreApplication::quit, &d->mCollection);
+    d->mCollection.addAction(QStringLiteral("file_quit"), quitAction);
 
     if (KAuthorized::authorizeAction(QStringLiteral("help_contents"))) {
-        auto mHandBookAction = KStandardAction::helpContents(this, &ElisaApplication::appHelpActivated, &mCollection);
-        mCollection.addAction(mHandBookAction->objectName(), mHandBookAction);
+        auto handBookAction = KStandardAction::helpContents(this, &ElisaApplication::appHelpActivated, &d->mCollection);
+        d->mCollection.addAction(handBookAction->objectName(), handBookAction);
     }
 
     if (KAuthorized::authorizeAction(QStringLiteral("help_report_bug")) && !KAboutData::applicationData().bugAddress().isEmpty()) {
-        auto mReportBugAction = KStandardAction::reportBug(this, &ElisaApplication::reportBug, &mCollection);
-        mCollection.addAction(mReportBugAction->objectName(), mReportBugAction);
+        auto reportBugAction = KStandardAction::reportBug(this, &ElisaApplication::reportBug, &d->mCollection);
+        d->mCollection.addAction(reportBugAction->objectName(), reportBugAction);
     }
 
     if (KAuthorized::authorizeAction(QStringLiteral("help_about_app"))) {
-        auto mAboutAppAction = KStandardAction::aboutApp(this, &ElisaApplication::aboutApplication, this);
-        mCollection.addAction(mAboutAppAction->objectName(), mAboutAppAction);
+        auto aboutAppAction = KStandardAction::aboutApp(this, &ElisaApplication::aboutApplication, this);
+        d->mCollection.addAction(aboutAppAction->objectName(), aboutAppAction);
     }
 
     if (KAuthorized::authorizeAction(QStringLiteral("options_configure"))) {
-        auto mPreferencesAction = KStandardAction::preferences(this, &ElisaApplication::configureElisa, this);
-        mCollection.addAction(mPreferencesAction->objectName(), mPreferencesAction);
+        auto preferencesAction = KStandardAction::preferences(this, &ElisaApplication::configureElisa, this);
+        d->mCollection.addAction(preferencesAction->objectName(), preferencesAction);
     }
 
     if (KAuthorized::authorizeAction(QStringLiteral("options_configure_keybinding"))) {
-        auto mKeyBindignsAction = KStandardAction::keyBindings(this, &ElisaApplication::configureShortcuts, this);
-        mCollection.addAction(mKeyBindignsAction->objectName(), mKeyBindignsAction);
+        auto keyBindignsAction = KStandardAction::keyBindings(this, &ElisaApplication::configureShortcuts, this);
+        d->mCollection.addAction(keyBindignsAction->objectName(), keyBindignsAction);
     }
 
-    mCollection.readSettings();
+    d->mCollection.readSettings();
 #endif
 }
 
@@ -125,21 +148,21 @@ void ElisaApplication::configureShortcuts()
 #if defined KF5XmlGui_FOUND && KF5XmlGui_FOUND
     KShortcutsDialog dlg(KShortcutsEditor::AllActions, KShortcutsEditor::LetterShortcutsAllowed, nullptr);
     dlg.setModal(true);
-    dlg.addCollection(&mCollection);
+    dlg.addCollection(&d->mCollection);
     qDebug() << "saving shortcuts..." << dlg.configure(/*bSaveSettings*/);
 #endif
 }
 
 void ElisaApplication::configureElisa()
 {
-    mConfigurationDialog.setModal(true);
-    mConfigurationDialog.show();
+    d->mConfigurationDialog.setModal(true);
+    d->mConfigurationDialog.show();
 }
 
 QAction * ElisaApplication::action(const QString& name)
 {
 #if defined KF5XmlGui_FOUND && KF5XmlGui_FOUND
-    return mCollection.action(name);
+    return d->mCollection.action(name);
 #else
     Q_UNUSED(name);
 

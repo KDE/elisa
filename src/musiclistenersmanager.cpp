@@ -36,6 +36,9 @@
 #include "trackslistener.h"
 #include "elisa_settings.h"
 #include "notificationitem.h"
+#include "elisaapplication.h"
+
+#include <KI18n/KLocalizedString>
 
 #include <QThread>
 #include <QMutex>
@@ -46,6 +49,8 @@
 #include <QScopedPointer>
 #include <QPointer>
 #include <QFileSystemWatcher>
+
+#include <QAction>
 
 #include <list>
 
@@ -79,6 +84,8 @@ public:
 
     bool mIndexingRunning = false;
 
+    ElisaApplication *mElisaApplication = nullptr;
+
 };
 
 MusicListenersManager::MusicListenersManager(QObject *parent)
@@ -104,25 +111,25 @@ MusicListenersManager::MusicListenersManager(QObject *parent)
                               Q_ARG(QString, QStringLiteral("listeners")), Q_ARG(QString, databaseFileName));
 
     connect(&d->mDatabaseInterface, &DatabaseInterface::artistAdded,
-               this, &MusicListenersManager::artistAdded);
+            this, &MusicListenersManager::artistAdded);
     connect(&d->mDatabaseInterface, &DatabaseInterface::albumAdded,
-               this, &MusicListenersManager::albumAdded);
+            this, &MusicListenersManager::albumAdded);
     connect(&d->mDatabaseInterface, &DatabaseInterface::trackAdded,
-               this, &MusicListenersManager::trackAdded);
+            this, &MusicListenersManager::trackAdded);
     connect(&d->mDatabaseInterface, &DatabaseInterface::tracksAdded,
-               this, &MusicListenersManager::tracksAdded);
+            this, &MusicListenersManager::tracksAdded);
     connect(&d->mDatabaseInterface, &DatabaseInterface::artistRemoved,
-               this, &MusicListenersManager::artistRemoved);
+            this, &MusicListenersManager::artistRemoved);
     connect(&d->mDatabaseInterface, &DatabaseInterface::albumRemoved,
-               this, &MusicListenersManager::albumRemoved);
+            this, &MusicListenersManager::albumRemoved);
     connect(&d->mDatabaseInterface, &DatabaseInterface::trackRemoved,
-               this, &MusicListenersManager::trackRemoved);
+            this, &MusicListenersManager::trackRemoved);
     connect(&d->mDatabaseInterface, &DatabaseInterface::artistModified,
-               this, &MusicListenersManager::artistModified);
+            this, &MusicListenersManager::artistModified);
     connect(&d->mDatabaseInterface, &DatabaseInterface::albumModified,
-               this, &MusicListenersManager::albumModified);
+            this, &MusicListenersManager::albumModified);
     connect(&d->mDatabaseInterface, &DatabaseInterface::trackModified,
-               this, &MusicListenersManager::trackModified);
+            this, &MusicListenersManager::trackModified);
 
     connect(QCoreApplication::instance(), &QCoreApplication::aboutToQuit,
             this, &MusicListenersManager::applicationAboutToQuit);
@@ -181,6 +188,11 @@ bool MusicListenersManager::isIndexingRunning() const
     return d->mIndexingRunning;
 }
 
+ElisaApplication *MusicListenersManager::elisaApplication() const
+{
+    return d->mElisaApplication;
+}
+
 void MusicListenersManager::databaseReady()
 {
     configChanged();
@@ -201,6 +213,9 @@ void MusicListenersManager::applicationAboutToQuit()
 
 void MusicListenersManager::showConfiguration()
 {
+    auto configureAction = d->mElisaApplication->action(QStringLiteral("options_configure"));
+
+    configureAction->trigger();
 }
 
 void MusicListenersManager::resetImportedTracksCounter()
@@ -216,6 +231,16 @@ void MusicListenersManager::resetImportedTracksCounter()
         itFileListener->resetImportedTracksCounter();
     }
 #endif
+}
+
+void MusicListenersManager::setElisaApplication(ElisaApplication *elisaApplication)
+{
+    if (d->mElisaApplication == elisaApplication) {
+        return;
+    }
+
+    d->mElisaApplication = elisaApplication;
+    emit elisaApplicationChanged();
 }
 
 void MusicListenersManager::configChanged()
@@ -237,16 +262,19 @@ void MusicListenersManager::configChanged()
                 this, &MusicListenersManager::monitorStartingListeners);
         connect(d->mBalooListener.data(), &BalooListener::indexingFinished,
                 this, &MusicListenersManager::monitorEndingListeners);
-        connect(d->mBalooListener.data(), &BalooListener::notification,
-                this, &MusicListenersManager::listenerNotification);
         connect(d->mBalooListener.data(), &BalooListener::clearDatabase,
                 &d->mDatabaseInterface, &DatabaseInterface::removeAllTracksFromSource);
         connect(d->mBalooListener.data(), &BalooListener::importedTracksCountChanged,
                 this, &MusicListenersManager::computeImportedTracksCount);
+        connect(d->mBalooListener.data(), &BalooListener::newNotification,
+                this, &MusicListenersManager::newNotification);
+        connect(d->mBalooListener.data(), &BalooListener::closeNotification,
+                this, &MusicListenersManager::closeNotification);
 
         QMetaObject::invokeMethod(d->mBalooListener.data(), "performInitialScan", Qt::QueuedConnection);
     } else if (!currentConfiguration->balooIndexer() && d->mBalooListener) {
         QMetaObject::invokeMethod(d->mBalooListener.data(), "quitListener", Qt::QueuedConnection);
+        d->mBalooListener.reset();
     }
 #endif
 #if defined UPNPQT_FOUND && UPNPQT_FOUND
@@ -286,10 +314,12 @@ void MusicListenersManager::configChanged()
                         this, &MusicListenersManager::monitorStartingListeners);
                 connect(newFileIndexer.get(), &FileListener::indexingFinished,
                         this, &MusicListenersManager::monitorEndingListeners);
-                connect(newFileIndexer.get(), &FileListener::notification,
-                        this, &MusicListenersManager::listenerNotification);
                 connect(newFileIndexer.get(), &FileListener::importedTracksCountChanged,
                         this, &MusicListenersManager::computeImportedTracksCount);
+                connect(newFileIndexer.get(), &FileListener::newNotification,
+                        this, &MusicListenersManager::newNotification);
+                connect(newFileIndexer.get(), &FileListener::closeNotification,
+                        this, &MusicListenersManager::closeNotification);
 
                 newFileIndexer->setRootPath(oneRootPath);
 
@@ -336,6 +366,24 @@ void MusicListenersManager::monitorEndingListeners()
     --d->mActiveMusicListenersCount;
 
     if (d->mActiveMusicListenersCount == 0) {
+        if (d->mImportedTracksCount < 4 && d->mElisaApplication) {
+            NotificationItem notEnoughTracks;
+
+            notEnoughTracks.setNotificationId(QStringLiteral("notEnoughTracks"));
+
+            notEnoughTracks.setTargetObject(this);
+
+            notEnoughTracks.setMessage(i18nc("No track found message", "No track have been found"));
+
+            auto configureAction = d->mElisaApplication->action(QStringLiteral("options_configure"));
+
+            notEnoughTracks.setMainButtonText(configureAction->text());
+            notEnoughTracks.setMainButtonIconName(configureAction->icon().name());
+            notEnoughTracks.setMainButtonMethodName(QStringLiteral("showConfiguration"));
+
+            Q_EMIT newNotification(notEnoughTracks);
+        }
+
         d->mIndexingRunning = false;
         Q_EMIT indexingRunningChanged();
 

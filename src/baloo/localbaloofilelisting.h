@@ -59,6 +59,10 @@ public Q_SLOTS:
 
     void serviceUnregistered(const QString &serviceName);
 
+    void fixBalooConfiguration();
+
+    void disableBalooIndexer();
+
 private Q_SLOTS:
 
     void newBalooFile(const QString &fileName);
@@ -75,11 +79,7 @@ private:
 
     MusicAudioTrack scanOneFile(const QUrl &scanFile) override;
 
-    void checkBalooConfiguration();
-
-    void fixBalooConfiguration();
-
-    void disableBalooIndexer();
+    bool checkBalooConfiguration();
 
     std::unique_ptr<LocalBalooFileListingPrivate> d;
 

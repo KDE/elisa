@@ -55,6 +55,7 @@
 #include "alltracksmodel.h"
 #include "elisa_settings.h"
 #include "notificationitem.h"
+#include "topnotificationmanager.h"
 
 #if defined Qt5DBus_FOUND && Qt5DBus_FOUND
 #include "mpris2/mpris2.h"
@@ -155,7 +156,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<QSortFilterProxyModel>("org.mgallien.QmlExtension", 1, 0, "SortFilterProxyModel");
     qmlRegisterType<AlbumFilterProxyModel>("org.mgallien.QmlExtension", 1, 0, "AlbumFilterProxyModel");
     qmlRegisterType<AudioWrapper>("org.mgallien.QmlExtension", 1, 0, "AudioWrapper");
-    qmlRegisterType<NotificationItem>("org.mgallien.QmlExtension", 1, 0, "NotificationItem");
+    qmlRegisterType<TopNotificationManager>("org.mgallien.QmlExtension", 1, 0, "TopNotificationManager");
 
 #if defined Qt5DBus_FOUND && Qt5DBus_FOUND
     qmlRegisterType<Mpris2>("org.mgallien.QmlExtension", 1, 0, "Mpris2");
@@ -172,6 +173,8 @@ int main(int argc, char *argv[])
     qRegisterMetaType<MusicArtist>("MusicArtist");
     qRegisterMetaType<QMap<QString, int>>();
     qRegisterMetaType<QAction*>();
+    qRegisterMetaType<NotificationItem>("NotificationItem");
+    qRegisterMetaType<QMap<QString,int>>("QMap<QString,int>");
     qmlRegisterUncreatableType<ElisaApplication>("org.mgallien.QmlExtension", 1, 0, "ElisaApplication", QStringLiteral("only one and done in c++"));
 
     qRegisterMetaTypeStreamOperators<ManageMediaPlayerControl::PlayerState>("PlayListControler::PlayerState");

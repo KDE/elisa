@@ -20,108 +20,67 @@
 #ifndef NOTIFICATIONITEM_H
 #define NOTIFICATIONITEM_H
 
-#include <QObject>
+#include <QString>
 
-class NotificationItem : public QObject
+#include <memory>
+
+class NotificationItemPrivate;
+class QObject;
+
+class NotificationItem
 {
-
-    Q_OBJECT
-
-    Q_PROPERTY(QString message
-               READ message
-               WRITE setMessage
-               NOTIFY messageChanged)
-
-    Q_PROPERTY(QString mainButtonText
-               READ mainButtonText
-               WRITE setMainButtonText
-               NOTIFY mainButtonTextChanged)
-
-    Q_PROPERTY(QString mainButtonIconName
-               READ mainButtonIconName
-               WRITE setMainButtonIconName
-               NOTIFY mainButtonIconNameChanged)
-
-    Q_PROPERTY(QString secondaryButtonText
-               READ secondaryButtonText
-               WRITE setSecondaryButtonText
-               NOTIFY secondaryButtonTextChanged)
-
-    Q_PROPERTY(QString secondaryButtonIconName
-               READ secondaryButtonIconName
-               WRITE setSecondaryButtonIconName
-               NOTIFY secondaryButtonIconNameTextChanged)
-
-    Q_PROPERTY(bool active
-               READ isActive
-               WRITE setActive
-               NOTIFY activeChanged)
 
 public:
 
-    explicit NotificationItem(QObject *parent = nullptr);
+    NotificationItem();
 
-    QString message() const;
+    NotificationItem(const NotificationItem &other);
 
-    QString mainButtonText() const;
+    NotificationItem(NotificationItem &&other);
 
-    QString mainButtonIconName() const;
+    NotificationItem& operator=(const NotificationItem &other);
 
-    QString secondaryButtonText() const;
+    NotificationItem& operator=(NotificationItem &&other);
 
-    QString secondaryButtonIconName() const;
+    ~NotificationItem();
 
-    bool isActive() const;
+    const QString& notificationId() const;
 
-Q_SIGNALS:
+    const QString& message() const;
 
-    void messageChanged(QString message);
+    const QString& mainButtonText() const;
 
-    void mainButtonTextChanged(QString mainButtonText);
+    const QString& mainButtonIconName() const;
 
-    void mainButtonIconNameChanged(QString mainButtonIconName);
+    const QString& secondaryButtonText() const;
 
-    void secondaryButtonTextChanged(QString secondaryButtonText);
+    const QString& secondaryButtonIconName() const;
 
-    void secondaryButtonIconNameTextChanged(QString secondaryButtonIconName);
+    void setNotificationId(QString notificationId);
 
-    void mainButtonTriggered();
+    void setMessage(QString message);
 
-    void secondaryButtonTriggered();
+    void setMainButtonText(QString mainButtonText);
 
-    void activeChanged(bool active);
+    void setMainButtonIconName(QString mainButtonIconName);
 
-public Q_SLOTS:
+    void setSecondaryButtonText(QString secondaryButtonText);
 
-    void setMessage(const QString &message);
+    void setSecondaryButtonIconName(QString secondaryButtonIconName);
 
-    void setMainButtonText(const QString &mainButtonText);
+    void setTargetObject(QObject *target);
 
-    void setMainButtonIconName(const QString &mainButtonIconName);
+    void setMainButtonMethodName(QString methodName);
 
-    void setSecondaryButtonText(const QString &secondaryButtonText);
+    void setSecondaryButtonMethodName(QString methodName);
 
-    void setSecondaryButtonIconName(const QString &secondaryButtonIconName);
+    void triggerMainButton() const;
 
-    void triggerMainButton();
-
-    void triggerSecondaryButton();
-
-    void setActive(bool active);
+    void triggerSecondaryButton() const;
 
 private:
 
-    QString mMessage;
-
-    QString mMainButtonText;
-
-    QString mMainButtonIconName;
-
-    QString mSecondaryButtonText;
-
-    QString mSecondaryButtonIconName;
-
-    bool mActive = false;
+    std::unique_ptr<NotificationItemPrivate> d;
 
 };
 

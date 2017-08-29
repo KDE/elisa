@@ -19,109 +19,169 @@
 
 #include "notificationitem.h"
 
-NotificationItem::NotificationItem(QObject *parent) : QObject(parent)
+#include <QObject>
+
+class NotificationItemPrivate {
+public:
+
+    QString mNotificationId;
+
+    QString mMessage;
+
+    QString mMainButtonText;
+
+    QString mMainButtonIconName;
+
+    QString mSecondaryButtonText;
+
+    QString mSecondaryButtonIconName;
+
+    QObject *mTarget = nullptr;
+
+    QString mMainButtonMethodName;
+
+    QString mSecondaryButtonMethodName;
+
+};
+
+NotificationItem::NotificationItem() : d(std::make_unique<NotificationItemPrivate>())
 {
 }
 
-QString NotificationItem::message() const
+NotificationItem::NotificationItem(const NotificationItem &other) : d(std::make_unique<NotificationItemPrivate>(*other.d))
 {
-    return mMessage;
 }
 
-QString NotificationItem::mainButtonText() const
+NotificationItem::NotificationItem(NotificationItem &&other)
 {
-    return mMainButtonText;
+    other.d.swap(d);
 }
 
-QString NotificationItem::secondaryButtonText() const
+NotificationItem& NotificationItem::operator=(const NotificationItem &other)
 {
-    return mSecondaryButtonText;
+    if (&other != this) {
+        *d = *(other.d);
+    }
+
+    return *this;
 }
 
-QString NotificationItem::secondaryButtonIconName() const
+NotificationItem::~NotificationItem()
+= default;
+
+const QString& NotificationItem::notificationId() const
 {
-    return mSecondaryButtonIconName;
+    return d->mNotificationId;
 }
 
-bool NotificationItem::isActive() const
+const QString& NotificationItem::message() const
 {
-    return mActive;
+    return d->mMessage;
 }
 
-QString NotificationItem::mainButtonIconName() const
+const QString& NotificationItem::mainButtonText() const
 {
-    return mMainButtonIconName;
+    return d->mMainButtonText;
 }
 
-void NotificationItem::setMessage(const QString &message)
+const QString& NotificationItem::secondaryButtonText() const
 {
-    if (mMessage == message) {
+    return d->mSecondaryButtonText;
+}
+
+const QString& NotificationItem::secondaryButtonIconName() const
+{
+    return d->mSecondaryButtonIconName;
+}
+
+void NotificationItem::setNotificationId(QString notificationId)
+{
+    if (d->mNotificationId == notificationId) {
         return;
     }
 
-    mMessage = message;
-    Q_EMIT messageChanged(mMessage);
+    d->mNotificationId = std::move(notificationId);
 }
 
-void NotificationItem::setMainButtonText(const QString &mainButtonText)
+const QString& NotificationItem::mainButtonIconName() const
 {
-    if (mMainButtonText == mainButtonText) {
+    return d->mMainButtonIconName;
+}
+
+void NotificationItem::setMessage(QString message)
+{
+    if (d->mMessage == message) {
         return;
     }
 
-    mMainButtonText = mainButtonText;
-    Q_EMIT mainButtonTextChanged(mMainButtonText);
+    d->mMessage = std::move(message);
 }
 
-void NotificationItem::setSecondaryButtonText(const QString &secondaryButtonText)
+void NotificationItem::setMainButtonText(QString mainButtonText)
 {
-    if (mSecondaryButtonText == secondaryButtonText) {
+    if (d->mMainButtonText == mainButtonText) {
         return;
     }
 
-    mSecondaryButtonText = secondaryButtonText;
-    Q_EMIT secondaryButtonTextChanged(mSecondaryButtonText);
+    d->mMainButtonText = std::move(mainButtonText);
 }
 
-void NotificationItem::setSecondaryButtonIconName(const QString &secondaryButtonIconName)
+void NotificationItem::setSecondaryButtonText(QString secondaryButtonText)
 {
-    if (mSecondaryButtonIconName == secondaryButtonIconName) {
+    if (d->mSecondaryButtonText == secondaryButtonText) {
         return;
     }
 
-    mSecondaryButtonIconName = secondaryButtonIconName;
-    Q_EMIT secondaryButtonIconNameTextChanged(mSecondaryButtonIconName);
+    d->mSecondaryButtonText = std::move(secondaryButtonText);
 }
 
-void NotificationItem::triggerMainButton()
+void NotificationItem::setSecondaryButtonIconName(QString secondaryButtonIconName)
 {
-    Q_EMIT mainButtonTriggered();
-}
-
-void NotificationItem::triggerSecondaryButton()
-{
-    Q_EMIT secondaryButtonTriggered();
-}
-
-void NotificationItem::setActive(bool active)
-{
-    if (mActive == active) {
+    if (d->mSecondaryButtonIconName == secondaryButtonIconName) {
         return;
     }
 
-    mActive = active;
-    Q_EMIT activeChanged(mActive);
+    d->mSecondaryButtonIconName = std::move(secondaryButtonIconName);
 }
 
-void NotificationItem::setMainButtonIconName(const QString &mainButtonIconName)
+void NotificationItem::setTargetObject(QObject *target)
 {
-    if (mMainButtonIconName == mainButtonIconName) {
+    d->mTarget = target;
+}
+
+void NotificationItem::setMainButtonMethodName(QString methodName)
+{
+    d->mMainButtonMethodName = std::move(methodName);
+}
+
+void NotificationItem::setSecondaryButtonMethodName(QString methodName)
+{
+    d->mSecondaryButtonMethodName = std::move(methodName);
+}
+
+void NotificationItem::triggerMainButton() const
+{
+    if (!d->mTarget) {
         return;
     }
 
-    mMainButtonIconName = mainButtonIconName;
-    Q_EMIT mainButtonIconNameChanged(mMainButtonIconName);
+    QMetaObject::invokeMethod(d->mTarget, d->mMainButtonMethodName.toLatin1().data(), Qt::QueuedConnection);
 }
 
+void NotificationItem::triggerSecondaryButton() const
+{
+    if (!d->mTarget) {
+        return;
+    }
 
-#include "moc_notificationitem.cpp"
+    QMetaObject::invokeMethod(d->mTarget, d->mSecondaryButtonMethodName.toLatin1().data(), Qt::QueuedConnection);
+}
+
+void NotificationItem::setMainButtonIconName(QString mainButtonIconName)
+{
+    if (d->mMainButtonIconName == mainButtonIconName) {
+        return;
+    }
+
+    d->mMainButtonIconName = std::move(mainButtonIconName);
+}

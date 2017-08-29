@@ -20,6 +20,7 @@
 #include "abstractfilelisting.h"
 
 #include "musicaudiotrack.h"
+#include "notificationitem.h"
 
 #include <KFileMetaData/Properties>
 #include <KFileMetaData/ExtractorCollection>

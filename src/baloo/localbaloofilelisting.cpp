@@ -50,6 +50,7 @@
 #include <QGuiApplication>
 
 #include <algorithm>
+#include <memory>
 
 class LocalBalooFileListingPrivate
 {
@@ -77,8 +78,6 @@ public:
 
     QScopedPointer<org::kde::baloo::scheduler> mBalooScheduler;
 
-    NotificationItem mBalooConfigurationNotification;
-
 };
 
 LocalBalooFileListing::LocalBalooFileListing(QObject *parent)
@@ -105,7 +104,9 @@ LocalBalooFileListing::LocalBalooFileListing(QObject *parent)
 }
 
 LocalBalooFileListing::~LocalBalooFileListing()
-= default;
+{
+    Q_EMIT closeNotification(QStringLiteral("balooInvalidConfiguration"));
+}
 
 void LocalBalooFileListing::applicationAboutToQuit()
 {
@@ -238,7 +239,9 @@ void LocalBalooFileListing::executeInit()
 
 void LocalBalooFileListing::triggerRefreshOfContent()
 {
-    checkBalooConfiguration();
+    if (!checkBalooConfiguration()) {
+        return;
+    }
 
     Q_EMIT indexingStarted();
 
@@ -388,7 +391,7 @@ MusicAudioTrack LocalBalooFileListing::scanOneFile(const QUrl &scanFile)
     return newTrack;
 }
 
-void LocalBalooFileListing::checkBalooConfiguration()
+bool LocalBalooFileListing::checkBalooConfiguration()
 {
     bool problemDetected = false;
     Baloo::IndexerConfig balooConfiguration;
@@ -397,27 +400,28 @@ void LocalBalooFileListing::checkBalooConfiguration()
     problemDetected = problemDetected || balooConfiguration.onlyBasicIndexing();
 
     if (problemDetected) {
-        d->mBalooConfigurationNotification.moveToThread(QGuiApplication::instance()->thread());
-        d->mBalooConfigurationNotification.setMessage(i18nc("Notification about unusable Baloo Configuration", "Baloo configuration does not allow to discover your music"));
+        NotificationItem balooInvalidConfiguration;
 
-        d->mBalooConfigurationNotification.setMainButtonText(i18nc("Text of button to modify Baloo Configuration", "Modify it"));
-        d->mBalooConfigurationNotification.setMainButtonIconName(QStringLiteral("configure"));
-        connect(&d->mBalooConfigurationNotification, &NotificationItem::mainButtonTriggered,
-                [this]() {fixBalooConfiguration();});
+        balooInvalidConfiguration.setNotificationId(QStringLiteral("balooInvalidConfiguration"));
 
-        d->mBalooConfigurationNotification.setSecondaryButtonText(i18nc("Text of button to disable Baloo indexer", "Disable Baloo support"));
-        d->mBalooConfigurationNotification.setSecondaryButtonIconName(QStringLiteral("configure"));
-        connect(&d->mBalooConfigurationNotification, &NotificationItem::secondaryButtonTriggered,
-                [this]() {disableBalooIndexer();});
+        balooInvalidConfiguration.setTargetObject(this);
 
-        d->mBalooConfigurationNotification.setActive(true);
+        balooInvalidConfiguration.setMessage(i18nc("Notification about unusable Baloo Configuration", "Baloo configuration does not allow to discover your music"));
 
-        Q_EMIT notification(&d->mBalooConfigurationNotification);
+        balooInvalidConfiguration.setMainButtonText(i18nc("Text of button to modify Baloo Configuration", "Modify it"));
+        balooInvalidConfiguration.setMainButtonIconName(QStringLiteral("configure"));
+        balooInvalidConfiguration.setMainButtonMethodName(QStringLiteral("fixBalooConfiguration"));
+
+        balooInvalidConfiguration.setSecondaryButtonText(i18nc("Text of button to disable Baloo indexer", "Disable Baloo support"));
+        balooInvalidConfiguration.setSecondaryButtonIconName(QStringLiteral("configure"));
+        balooInvalidConfiguration.setSecondaryButtonMethodName(QStringLiteral("disableBalooIndexer"));
+
+        Q_EMIT newNotification(balooInvalidConfiguration);
     } else {
-        d->mBalooConfigurationNotification.setActive(false);
-
-        Q_EMIT notification(&d->mBalooConfigurationNotification);
+        Q_EMIT closeNotification(QStringLiteral("balooInvalidConfiguration"));
     }
+
+    return !problemDetected;
 }
 
 void LocalBalooFileListing::fixBalooConfiguration()
@@ -436,7 +440,9 @@ void LocalBalooFileListing::fixBalooConfiguration()
 
     balooConfiguration.refresh();
 
-    checkBalooConfiguration();
+    if (checkBalooConfiguration()) {
+        triggerRefreshOfContent();
+    }
 }
 
 void LocalBalooFileListing::disableBalooIndexer()

@@ -38,7 +38,7 @@ class AudioWrapper : public QObject
                WRITE setMuted
                NOTIFY mutedChanged)
 
-    Q_PROPERTY(int volume
+    Q_PROPERTY(qreal volume
                READ volume
                WRITE setVolume
                NOTIFY volumeChanged)
@@ -86,7 +86,7 @@ public:
 
     bool muted() const;
 
-    int volume() const;
+    qreal volume() const;
 
     QUrl source() const;
 
@@ -136,7 +136,7 @@ public Q_SLOTS:
 
     void setMuted(bool muted);
 
-    void setVolume(int volume);
+    void setVolume(qreal volume);
 
     void setSource(const QUrl &source);
 

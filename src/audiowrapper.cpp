@@ -20,6 +20,7 @@
 #include "audiowrapper.h"
 
 #include <QTimer>
+#include <QAudio>
 
 #include "config-upnp-qt.h"
 
@@ -55,9 +56,13 @@ bool AudioWrapper::muted() const
     return d->mPlayer.isMuted();
 }
 
-int AudioWrapper::volume() const
+qreal AudioWrapper::volume() const
 {
-    return d->mPlayer.volume();
+    auto realVolume = static_cast<qreal>(d->mPlayer.volume() / 100.0);
+    auto userVolume = static_cast<qreal>(QAudio::convertVolume(realVolume, QAudio::LinearVolumeScale, QAudio::LogarithmicVolumeScale));
+    auto decibelVolume = static_cast<qreal>(QAudio::convertVolume(realVolume, QAudio::LinearVolumeScale, QAudio::DecibelVolumeScale));
+
+    return userVolume * 100.0;
 }
 
 QUrl AudioWrapper::source() const
@@ -105,9 +110,11 @@ void AudioWrapper::setMuted(bool muted)
     d->mPlayer.setMuted(muted);
 }
 
-void AudioWrapper::setVolume(int volume)
+void AudioWrapper::setVolume(qreal volume)
 {
-    d->mPlayer.setVolume(volume);
+    auto realVolume = static_cast<qreal>(QAudio::convertVolume(volume / 100.0, QAudio::LogarithmicVolumeScale, QAudio::LinearVolumeScale));
+    auto decibelVolume = static_cast<qreal>(QAudio::convertVolume(realVolume, QAudio::LinearVolumeScale, QAudio::DecibelVolumeScale));
+    d->mPlayer.setVolume(qRound(realVolume * 100));
 }
 
 void AudioWrapper::setSource(const QUrl &source)

@@ -339,8 +339,8 @@ Item {
         Slider {
             id: volumeSlider
 
-            minimumValue: 0.0
-            maximumValue: 1.0
+            minimumValue: 0
+            maximumValue: 100
             value: musicWidget.volume
 
             onValueChanged: musicWidget.volume = value

@@ -137,9 +137,9 @@ ApplicationWindow {
 
         muted: headerBar.playerControl.muted
 
-        volume: headerBar.playerControl.volume * 100
+        volume: headerBar.playerControl.volume
 
-        onVolumeChanged: headerBar.playerControl.volume = volume / 100.0
+        onVolumeChanged: headerBar.playerControl.volume = volume
         onMutedChanged: headerBar.playerControl.muted = muted
 
         source: manageAudioPlayer.playerSource

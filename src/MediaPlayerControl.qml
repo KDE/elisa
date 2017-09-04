@@ -249,7 +249,6 @@ Item {
             Layout.alignment: Qt.AlignVCenter
             Layout.fillWidth: true
             Layout.rightMargin: elisaTheme.layoutHorizontalMargin
-            Layout.topMargin: 3
 
             enabled: musicWidget.seekable && musicWidget.playEnabled
 
@@ -282,7 +281,8 @@ Item {
                 color: myPalette.mid
 
                 Rectangle {
-                    width: musicProgress.visualPosition * parent.width
+                    x: (LayoutMirroring.enabled ? musicProgress.visualPosition * parent.width : 0)
+                    width: (LayoutMirroring.enabled ? parent.width - musicProgress.visualPosition * parent.width : musicProgress.visualPosition * parent.width)
                     height: parent.height
                     color: myPalette.highlight
                     radius: 3
@@ -395,7 +395,8 @@ Item {
                 color: myPalette.mid
 
                 Rectangle {
-                    width: volumeSlider.visualPosition * parent.width
+                    x: (LayoutMirroring.enabled ? volumeSlider.visualPosition * parent.width : 0)
+                    width: (LayoutMirroring.enabled ? parent.width - volumeSlider.visualPosition * parent.width : volumeSlider.visualPosition * parent.width)
                     height: parent.height
                     color: myPalette.highlight
                     radius: 3

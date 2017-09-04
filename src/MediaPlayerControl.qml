@@ -17,11 +17,12 @@
  * Boston, MA 02110-1301, USA.
  */
 
-import QtQuick 2.0
-import QtQuick.Controls 1.2
-import QtQuick.Controls.Styles 1.2
+import QtQuick 2.8
+import QtQuick.Controls 1.4
+import QtQuick.Controls.Styles 1.4
 import QtQuick.Layouts 1.1
 import QtGraphicalEffects 1.0
+import QtQuick.Controls 2.1 as Controls2
 import org.mgallien.QmlExtension 1.0
 
 
@@ -236,14 +237,14 @@ Item {
             }
         }
 
-        Slider {
+        Controls2.Slider {
             property bool seekStarted: false
             property int seekValue
 
             id: musicProgress
 
-            minimumValue: 0
-            maximumValue: musicWidget.duration
+            from: 0
+            to: musicWidget.duration
 
             Layout.alignment: Qt.AlignVCenter
             Layout.fillWidth: true
@@ -252,7 +253,7 @@ Item {
 
             enabled: musicWidget.seekable && musicWidget.playEnabled
 
-            updateValueWhileDragging: true
+            live: true
 
             onValueChanged: {
                 if (seekStarted) {
@@ -268,6 +269,34 @@ Item {
                     musicWidget.seek(seekValue)
                     seekStarted = false;
                 }
+            }
+
+            background: Rectangle {
+                x: musicProgress.leftPadding
+                y: musicProgress.topPadding + musicProgress.availableHeight / 2 - height / 2
+                implicitWidth: 200
+                implicitHeight: 6
+                width: musicProgress.availableWidth
+                height: implicitHeight
+                radius: 3
+                color: myPalette.mid
+
+                Rectangle {
+                    width: musicProgress.visualPosition * parent.width
+                    height: parent.height
+                    color: myPalette.highlight
+                    radius: 3
+                }
+            }
+
+            handle: Rectangle {
+                x: musicProgress.leftPadding + musicProgress.visualPosition * (musicProgress.availableWidth - width)
+                y: musicProgress.topPadding + musicProgress.availableHeight / 2 - height / 2
+                implicitWidth: 18
+                implicitHeight: 18
+                radius: 9
+                color: myPalette.button
+                border.color: musicProgress.pressed ? myPalette.highlight : myPalette.dark
             }
         }
 
@@ -336,11 +365,11 @@ Item {
             contrast: 0.7
         }
 
-        Slider {
+        Controls2.Slider {
             id: volumeSlider
 
-            minimumValue: 0
-            maximumValue: 100
+            from: 0
+            to: 100
             value: musicWidget.volume
 
             onValueChanged: musicWidget.volume = value
@@ -354,6 +383,34 @@ Item {
             Layout.rightMargin: elisaTheme.layoutHorizontalMargin
 
             width: elisaTheme.volumeSliderWidth
+
+            background: Rectangle {
+                x: volumeSlider.leftPadding
+                y: volumeSlider.topPadding + volumeSlider.availableHeight / 2 - height / 2
+                implicitWidth: 200
+                implicitHeight: 6
+                width: volumeSlider.availableWidth
+                height: implicitHeight
+                radius: 3
+                color: myPalette.mid
+
+                Rectangle {
+                    width: volumeSlider.visualPosition * parent.width
+                    height: parent.height
+                    color: myPalette.highlight
+                    radius: 3
+                }
+            }
+
+            handle: Rectangle {
+                x: volumeSlider.leftPadding + volumeSlider.visualPosition * (volumeSlider.availableWidth - width)
+                y: volumeSlider.topPadding + volumeSlider.availableHeight / 2 - height / 2
+                implicitWidth: 18
+                implicitHeight: 18
+                radius: 9
+                color: myPalette.button
+                border.color: volumeSlider.pressed ? myPalette.highlight : myPalette.dark
+            }
         }
     }
 

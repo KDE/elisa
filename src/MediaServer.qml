@@ -71,7 +71,7 @@ ApplicationWindow {
 
         property var audioPlayerState
 
-        property double playControlItemVolume : 1.0
+        property double playControlItemVolume : 100.0
         property bool playControlItemMuted : false
     }
 

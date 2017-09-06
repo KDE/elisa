@@ -135,6 +135,7 @@ Item {
             sourceSize.height: elisaTheme.bigControlButtonHeight
 
             fillMode: Image.PreserveAspectFit
+            mirror: true
 
             visible: false
         }

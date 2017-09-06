@@ -269,6 +269,7 @@ Rectangle {
                     sourceSize.width: parent.height * 1.
                     sourceSize.height: parent.height * 1.
                     fillMode: Image.PreserveAspectFit
+                    mirror: true
                     visible: isPlaying == MediaPlayList.IsPlaying || isPlaying == MediaPlayList.IsPaused
 
                     SequentialAnimation on opacity {

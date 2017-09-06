@@ -50,7 +50,8 @@ Rectangle {
 
             text: item ? item.message : ""
 
-            Layout.leftMargin: elisaTheme.layoutHorizontalMargin
+            Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+            Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
             Layout.alignment: Qt.AlignHCenter
 
             visible: topItem.height > height
@@ -63,7 +64,8 @@ Rectangle {
             text: item ? item.mainButtonText : ""
             iconName: item ? item.mainButtonIconName : ""
 
-            Layout.leftMargin: elisaTheme.layoutHorizontalMargin
+            Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+            Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
             Layout.alignment: Qt.AlignHCenter
             Layout.maximumHeight: elisaTheme.delegateHeight
 
@@ -79,7 +81,8 @@ Rectangle {
             text: item ? item.secondaryButtonText : ""
             iconName: item ? item.secondaryButtonIconName: ""
 
-            Layout.leftMargin: elisaTheme.layoutHorizontalMargin
+            Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+            Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
             Layout.alignment: Qt.AlignHCenter
             Layout.maximumHeight: elisaTheme.delegateHeight
 

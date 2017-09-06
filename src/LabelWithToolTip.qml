@@ -26,6 +26,7 @@ import QtQuick.Window 2.2
 Label {
     id: theLabel
 
+    horizontalAlignment: Text.AlignLeft
     renderType: Text.NativeRendering
 
     Loader {

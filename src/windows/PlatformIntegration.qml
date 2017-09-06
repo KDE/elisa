@@ -50,7 +50,7 @@ Item {
         iconicThumbnailSource: (headerBarManager.image.toString() !== '' ? headerBarManager.image : Qt.resolvedUrl(elisaTheme.albumCover))
 
         ThumbnailToolButton {
-            iconSource: Qt.resolvedUrl(elisaTheme.skipBackwardIcon)
+            iconSource: Qt.resolvedUrl(LayoutMirroring.enabled ? elisaTheme.skipForwardIcon : elisaTheme.skipBackwardIcon)
             onClicked: playListControler.skipPreviousTrack()
             enabled: manageMediaPlayerControl.skipBackwardControlEnabled
         }
@@ -62,7 +62,7 @@ Item {
         }
 
         ThumbnailToolButton {
-            iconSource: Qt.resolvedUrl(elisaTheme.skipForwardIcon)
+            iconSource: Qt.resolvedUrl(LayoutMirroring.enabled ? elisaTheme.skipBackwardIcon : elisaTheme.skipForwardIcon)
             onClicked: playListControler.skipNextTrack()
             enabled: manageMediaPlayerControl.skipForwardControlEnabled
         }

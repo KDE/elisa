@@ -142,7 +142,8 @@ Item {
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
                 Layout.maximumWidth: elisaTheme.smallImageSize
                 Layout.maximumHeight: elisaTheme.smallImageSize
-                Layout.leftMargin: elisaTheme.layoutHorizontalMargin
+                Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+                Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
 
                 visible: artistName !== undefined
                 width: elisaTheme.smallImageSize

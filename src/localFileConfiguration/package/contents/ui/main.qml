@@ -30,6 +30,9 @@ Item {
     implicitWidth: 400
     implicitHeight: 200
 
+    LayoutMirroring.enabled: Qt.application.layoutDirection == Qt.RightToLeft
+    LayoutMirroring.childrenInherit: true
+
     ConfigModule.buttons: ConfigModule.Help|ConfigModule.Apply
 
     SystemPalette {
@@ -121,7 +124,8 @@ Item {
 
         ColumnLayout {
             Layout.fillHeight: true
-            Layout.leftMargin: 0.3 * 30
+            Layout.leftMargin: !LayoutMirroring.enabled ? (0.3 * 30) : 0
+            Layout.rightMargin: LayoutMirroring.enabled ? (0.3 * 30) : 0
 
             Button {
                 text: i18n("Add new path")

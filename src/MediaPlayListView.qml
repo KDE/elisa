@@ -112,7 +112,8 @@ Item {
                 text: i18n("Repeat")
 
                 Layout.alignment: Qt.AlignVCenter
-                Layout.leftMargin: elisaTheme.layoutHorizontalMargin
+                Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+                Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
             }
 
             Item {

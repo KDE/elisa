@@ -69,7 +69,7 @@ Item {
         Image {
             id: previousButton
 
-            source: Qt.resolvedUrl(elisaTheme.skipBackwardIcon)
+            source: Qt.resolvedUrl(LayoutMirroring.enabled ? elisaTheme.skipForwardIcon : elisaTheme.skipBackwardIcon)
 
             Layout.preferredWidth: elisaTheme.smallControlButtonHeight
             Layout.preferredHeight: elisaTheme.smallControlButtonHeight
@@ -172,7 +172,7 @@ Item {
         Image {
             id: nextButton
 
-            source: Qt.resolvedUrl(elisaTheme.skipForwardIcon)
+            source: Qt.resolvedUrl(LayoutMirroring.enabled ? elisaTheme.skipBackwardIcon : elisaTheme.skipForwardIcon)
 
             Layout.preferredWidth: elisaTheme.smallControlButtonHeight
             Layout.preferredHeight: elisaTheme.smallControlButtonHeight
@@ -181,7 +181,8 @@ Item {
             Layout.maximumHeight: elisaTheme.smallControlButtonHeight
             Layout.minimumWidth: elisaTheme.smallControlButtonHeight
             Layout.minimumHeight: elisaTheme.smallControlButtonHeight
-            Layout.rightMargin: elisaTheme.smallControlButtonHeight
+            Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.smallControlButtonHeight : 0
+            Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.smallControlButtonHeight : 0
 
             sourceSize.width: elisaTheme.smallControlButtonHeight
             sourceSize.height: elisaTheme.smallControlButtonHeight
@@ -201,7 +202,8 @@ Item {
             Layout.maximumHeight: elisaTheme.smallControlButtonHeight
             Layout.minimumWidth: elisaTheme.smallControlButtonHeight
             Layout.minimumHeight: elisaTheme.smallControlButtonHeight
-            Layout.rightMargin: elisaTheme.smallControlButtonHeight
+            Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.smallControlButtonHeight : 0
+            Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.smallControlButtonHeight : 0
 
             enabled: skipForwardEnabled
 
@@ -227,7 +229,8 @@ Item {
 
             Layout.alignment: Qt.AlignVCenter
             Layout.fillHeight: true
-            Layout.rightMargin: elisaTheme.layoutHorizontalMargin
+            Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+            Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
 
             verticalAlignment: Text.AlignVCenter
 
@@ -248,7 +251,8 @@ Item {
 
             Layout.alignment: Qt.AlignVCenter
             Layout.fillWidth: true
-            Layout.rightMargin: elisaTheme.layoutHorizontalMargin
+            Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+            Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
 
             enabled: musicWidget.seekable && musicWidget.playEnabled
 
@@ -309,7 +313,8 @@ Item {
 
             Layout.alignment: Qt.AlignVCenter
             Layout.fillHeight: true
-            Layout.rightMargin: elisaTheme.layoutHorizontalMargin * 10
+            Layout.rightMargin: !LayoutMirroring.enabled ? (elisaTheme.layoutHorizontalMargin * 10) : 0
+            Layout.leftMargin: LayoutMirroring.enabled ? (elisaTheme.layoutHorizontalMargin * 10) : 0
 
             verticalAlignment: Text.AlignVCenter
 
@@ -334,7 +339,8 @@ Item {
             Layout.maximumHeight: elisaTheme.smallControlButtonHeight
             Layout.minimumWidth: elisaTheme.smallControlButtonHeight
             Layout.minimumHeight: elisaTheme.smallControlButtonHeight
-            Layout.rightMargin: elisaTheme.layoutHorizontalMargin
+            Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+            Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
 
             sourceSize.width: elisaTheme.smallControlButtonHeight
             sourceSize.height: elisaTheme.smallControlButtonHeight
@@ -354,7 +360,8 @@ Item {
             Layout.maximumHeight: elisaTheme.smallControlButtonHeight
             Layout.minimumWidth: elisaTheme.smallControlButtonHeight
             Layout.minimumHeight: elisaTheme.smallControlButtonHeight
-            Layout.rightMargin: elisaTheme.layoutHorizontalMargin
+            Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+            Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
 
             MouseArea {
                 anchors.fill: parent
@@ -380,7 +387,8 @@ Item {
             Layout.preferredWidth: elisaTheme.volumeSliderWidth
             Layout.maximumWidth: elisaTheme.volumeSliderWidth
             Layout.minimumWidth: elisaTheme.volumeSliderWidth
-            Layout.rightMargin: elisaTheme.layoutHorizontalMargin
+            Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+            Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
 
             width: elisaTheme.volumeSliderWidth
 

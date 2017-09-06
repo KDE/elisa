@@ -34,6 +34,9 @@ ApplicationWindow {
     minimumWidth: 1000
     minimumHeight: 600
 
+    LayoutMirroring.enabled: Qt.application.layoutDirection == Qt.RightToLeft
+    LayoutMirroring.childrenInherit: true
+
     x: persistentSettings.x
     y: persistentSettings.y
     width: persistentSettings.width

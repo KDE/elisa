@@ -189,7 +189,8 @@ Item {
                 Layout.preferredWidth: contentZone.height * 0.9
                 Layout.minimumWidth: contentZone.height * 0.9
                 Layout.maximumWidth: contentZone.height * 0.9
-                Layout.leftMargin: contentZone.width * 0.15
+                Layout.leftMargin: !LayoutMirroring.enabled ? contentZone.width * 0.15 : 0
+                Layout.rightMargin: LayoutMirroring.enabled ? contentZone.width * 0.15 : 0
 
                 Image {
                     id: oldMainIcon
@@ -255,7 +256,8 @@ Item {
                 spacing: 0
 
                 Layout.alignment: Qt.AlignTop | Qt.AlignHCenter
-                Layout.leftMargin: elisaTheme.layoutHorizontalMargin
+                Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+                Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
                 Layout.fillWidth: true
                 Layout.fillHeight: true
 

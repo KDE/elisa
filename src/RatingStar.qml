@@ -205,7 +205,8 @@ RowLayout {
         Layout.minimumHeight: starSize * 1.5
         Layout.minimumWidth: starSize * 1.5
 
-        Layout.rightMargin: starSize * 0.5
+        Layout.rightMargin: !LayoutMirroring.enabled ? (starSize * 0.5) : 0
+        Layout.leftMargin: LayoutMirroring.enabled ? (starSize * 0.5) : 0
 
         Image {
             width: starSize * 1.5

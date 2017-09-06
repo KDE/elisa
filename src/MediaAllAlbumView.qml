@@ -80,7 +80,8 @@ Item {
 
             Layout.fillWidth: true
             Layout.bottomMargin: titleHeight.height + elisaTheme.layoutVerticalMargin * 2
-            Layout.leftMargin: elisaTheme.layoutHorizontalMargin
+            Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+            Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
 
             LabelWithToolTip {
                 text: i18nc("before the TextField input of the filter", "Filter: ")
@@ -136,7 +137,8 @@ Item {
                 color: myPalette.text
 
                 Layout.bottomMargin: 0
-                Layout.leftMargin: elisaTheme.layoutHorizontalMargin * 2
+                Layout.leftMargin: !LayoutMirroring.enabled ? (elisaTheme.layoutHorizontalMargin * 2) : 0
+                Layout.rightMargin: LayoutMirroring.enabled ? (elisaTheme.layoutHorizontalMargin * 2) : 0
             }
 
             RatingStar {

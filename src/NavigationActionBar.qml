@@ -39,7 +39,7 @@ Item {
     Action {
         id: goPreviousAction
         text: i18nc("navigate back in the views stack", "Back")
-        iconName: "go-previous"
+        iconName: (Qt.application.layoutDirection == Qt.RightToLeft) ? "go-next" : "go-previous"
         onTriggered:
         {
             if (listingView.depth > 1) {
@@ -57,7 +57,8 @@ Item {
 
         ToolButton {
             action: goPreviousAction
-            Layout.leftMargin: elisaTheme.layoutHorizontalMargin
+            Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+            Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
         }
 
         Image {
@@ -79,7 +80,8 @@ Item {
             Layout.preferredWidth: elisaTheme.coverImageSize / 2
             Layout.minimumWidth: elisaTheme.coverImageSize / 2
             Layout.maximumWidth: elisaTheme.coverImageSize / 2
-            Layout.leftMargin: elisaTheme.layoutHorizontalMargin
+            Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+            Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
         }
 
         ColumnLayout {
@@ -89,7 +91,8 @@ Item {
 
             Layout.alignment: Qt.AlignTop | Qt.AlignHCenter
             Layout.fillWidth: true
-            Layout.leftMargin: elisaTheme.layoutHorizontalMargin
+            Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+            Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
 
             TextMetrics {
                 id: albumTextSize
@@ -147,7 +150,8 @@ Item {
 
         Button {
             action: enqueueAction
-            Layout.leftMargin: elisaTheme.layoutHorizontalMargin
+            Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+            Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
         }
 
         Button {

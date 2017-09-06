@@ -146,7 +146,8 @@ Item {
                         color: myPalette.text
 
                         Layout.alignment: Qt.AlignLeft | Qt.AlignTop
-                        Layout.leftMargin: elisaTheme.layoutHorizontalMargin
+                        Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+                        Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
                         Layout.fillWidth: true
                         Layout.topMargin: elisaTheme.layoutVerticalMargin / 2
 
@@ -168,7 +169,8 @@ Item {
                         color: myPalette.text
 
                         Layout.alignment: Qt.AlignLeft | Qt.AlignBottom
-                        Layout.leftMargin: elisaTheme.layoutHorizontalMargin
+                        Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+                        Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
                         Layout.fillWidth: true
                         Layout.bottomMargin: elisaTheme.layoutVerticalMargin / 2
 
@@ -199,7 +201,8 @@ Item {
                     action: clearAndEnqueue
 
                     Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
-                    Layout.rightMargin: elisaTheme.layoutHorizontalMargin
+                    Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+                    Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
                 }
 
                 RatingStar {
@@ -223,7 +226,8 @@ Item {
                     elide: "ElideRight"
 
                     Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
-                    Layout.rightMargin: elisaTheme.layoutHorizontalMargin
+                    Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+                    Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
                 }
             }
         }

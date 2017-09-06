@@ -139,7 +139,18 @@ Item {
 
                         color: myPalette.text
 
-                        Layout.leftMargin: (!isSingleDiscAlbum ? elisaTheme.layoutHorizontalMargin * 4 : elisaTheme.layoutHorizontalMargin)
+                        Layout.leftMargin: {
+                            if (!LayoutMirroring.enabled)
+                                return (!isSingleDiscAlbum ? elisaTheme.layoutHorizontalMargin * 4 : elisaTheme.layoutHorizontalMargin)
+                            else
+                                return 0
+                        }
+                        Layout.rightMargin: {
+                            if (LayoutMirroring.enabled)
+                                return (!isSingleDiscAlbum ? elisaTheme.layoutHorizontalMargin * 4 : elisaTheme.layoutHorizontalMargin)
+                            else
+                                return 0
+                        }
                         Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
                         Layout.fillWidth: true
 
@@ -168,7 +179,8 @@ Item {
                         Layout.preferredHeight: elisaTheme.delegateHeight * 0.75
                         Layout.preferredWidth: elisaTheme.delegateHeight * 0.75
                         Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
-                        Layout.rightMargin: elisaTheme.layoutHorizontalMargin
+                        Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+                        Layout.leftMargin:   LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
                     }
 
                     RatingStar {
@@ -191,7 +203,8 @@ Item {
 
                         elide: "ElideRight"
 
-                        Layout.rightMargin: elisaTheme.layoutHorizontalMargin
+                        Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+                        Layout.leftMargin:   LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
                         Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
                     }
                 }

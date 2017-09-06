@@ -499,7 +499,7 @@ ApplicationWindow {
                                 delegate: Rectangle {
                                     id: item
 
-                                    height: elisaTheme.viewSelectorDelegateHeight
+                                    height: elisaTheme.viewSelectorDelegateHeight * 1.4
                                     width: viewModeView.width
                                     color: (DelegateModel.inSelected ? myPalette.highlight : myPalette.window)
 
@@ -508,14 +508,36 @@ ApplicationWindow {
 
                                         acceptedButtons: Qt.LeftButton
 
+                                        Image {
+                                            id: viewIcon
+
+                                            anchors {
+                                                verticalCenter: parent.verticalCenter
+                                                leftMargin: elisaTheme.layoutHorizontalMargin
+                                                left: parent.left
+                                            }
+
+                                            height: elisaTheme.viewSelectorDelegateHeight
+                                            width: elisaTheme.viewSelectorDelegateHeight
+
+                                            sourceSize {
+                                                width: elisaTheme.viewSelectorDelegateHeight
+                                                height: elisaTheme.viewSelectorDelegateHeight
+                                            }
+
+                                            source: iconName
+                                        }
+
                                         LabelWithToolTip {
                                             id: nameLabel
                                             anchors.verticalCenter: parent.verticalCenter
-                                            anchors.left: parent.left
-                                            anchors.right: parent.right
                                             anchors.leftMargin: elisaTheme.layoutHorizontalMargin
+                                            anchors.left: viewIcon.right
+                                            anchors.right: parent.right
                                             anchors.rightMargin: elisaTheme.layoutHorizontalMargin
                                             verticalAlignment: "AlignVCenter"
+
+                                            font.pixelSize: elisaTheme.defaultFontPixelSize * 1.4
 
                                             text: model.name
 
@@ -544,10 +566,10 @@ ApplicationWindow {
 
                                 Component.onCompleted:
                                 {
-                                    pageModel.insert(0, {"name": i18nc("Title of the view of the playlist", "Now Playing")})
-                                    pageModel.insert(1, {"name": i18nc("Title of the view of all albums", "Albums")})
-                                    pageModel.insert(2, {"name": i18nc("Title of the view of all artists", "Artists")})
-                                    pageModel.insert(3, {"name": i18nc("Title of the view of all tracks", "Tracks")})
+                                    pageModel.insert(0, {"name": i18nc("Title of the view of the playlist", "Now Playing"), "iconName": "image://icon/amarok_playlist"})
+                                    pageModel.insert(1, {"name": i18nc("Title of the view of all albums", "Albums"), "iconName": "image://icon/media-album-cover"})
+                                    pageModel.insert(2, {"name": i18nc("Title of the view of all artists", "Artists"), "iconName": "image://icon/view-media-artist"})
+                                    pageModel.insert(3, {"name": i18nc("Title of the view of all tracks", "Tracks"), "iconName": "image://icon/media-album-track"})
 
                                     items.get(1).inSelected = 1
                                     viewModeView.currentIndex = 1

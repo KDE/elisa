@@ -117,7 +117,7 @@ Item {
                     width: parent.height
                     sourceSize.width: parent.height
                     sourceSize.height: parent.height
-                    mirror: true
+                    mirror: LayoutMirroring.enabled
 
                     MouseArea {
                         id: clear

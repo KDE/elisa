@@ -93,6 +93,8 @@ Item {
             TextField {
                 id: filterTextInput
 
+                horizontalAlignment: TextInput.AlignLeft
+
                 placeholderText: i18nc("Placeholder text in the filter text box", "Filter")
 
                 Layout.preferredWidth: rootElement.width / 2
@@ -111,6 +113,7 @@ Item {
                     width: parent.height
                     sourceSize.width: parent.height
                     sourceSize.height: parent.height
+                    mirror: LayoutMirroring.enabled
 
                     MouseArea {
                         id: clear

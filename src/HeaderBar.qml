@@ -139,6 +139,11 @@ Item {
         QOniometer {
             id: visualizer
             anchors.fill: parent
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: visualizer.selectNextEffect()
+            }
         }
     }
 
@@ -451,10 +456,5 @@ Item {
         {
             oldImage = newImage
         }
-    }
-
-    MouseArea {
-        anchors.fill: parent
-        onClicked: visualizer.selectNextEffect()
     }
 }

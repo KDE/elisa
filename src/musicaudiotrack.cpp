@@ -82,14 +82,14 @@ public:
 
 };
 
-MusicAudioTrack::MusicAudioTrack() : d(new MusicAudioTrackPrivate)
+MusicAudioTrack::MusicAudioTrack() : d(std::make_unique<MusicAudioTrackPrivate>())
 {
 }
 
 MusicAudioTrack::MusicAudioTrack(bool aValid, const QString &aId, const QString &aParentId,
                                  const QString &aTitle, const QString &aArtist, const QString &aAlbumName, const QString &aAlbumArtist,
                                  int aTrackNumber, QTime aDuration, const QUrl &aResourceURI, const QUrl &aAlbumCover, int rating)
-    : d(new MusicAudioTrackPrivate(aValid, aId, aParentId, aTitle, aArtist, aAlbumName, aAlbumArtist, aTrackNumber, aDuration, aResourceURI, aAlbumCover, rating))
+    : d(std::make_unique<MusicAudioTrackPrivate>(aValid, aId, aParentId, aTitle, aArtist, aAlbumName, aAlbumArtist, aTrackNumber, aDuration, aResourceURI, aAlbumCover, rating))
 {
 }
 
@@ -97,7 +97,7 @@ MusicAudioTrack::MusicAudioTrack(bool aValid, const QString &aId, const QString 
                                  const QString &aTitle, const QString &aArtist, const QString &aAlbumName,
                                  const QString &aAlbumArtist, int aTrackNumber, int aDiscNumber,
                                  QTime aDuration, const QUrl &aResourceURI, const QUrl &aAlbumCover, int rating)
-    : d(new MusicAudioTrackPrivate(aValid, aId, aParentId, aTitle, aArtist, aAlbumName, aAlbumArtist, aTrackNumber, aDiscNumber, aDuration, aResourceURI, aAlbumCover, rating))
+    : d(std::make_unique<MusicAudioTrackPrivate>(aValid, aId, aParentId, aTitle, aArtist, aAlbumName, aAlbumArtist, aTrackNumber, aDiscNumber, aDuration, aResourceURI, aAlbumCover, rating))
 {
 }
 
@@ -106,7 +106,7 @@ MusicAudioTrack::MusicAudioTrack(MusicAudioTrack &&other)
     d.swap(other.d);
 }
 
-MusicAudioTrack::MusicAudioTrack(const MusicAudioTrack &other) : d(new MusicAudioTrackPrivate(*other.d))
+MusicAudioTrack::MusicAudioTrack(const MusicAudioTrack &other) : d(std::make_unique<MusicAudioTrackPrivate>(*other.d))
 {
 }
 

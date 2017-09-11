@@ -47,6 +47,8 @@
 #include <QPointer>
 #include <QFileSystemWatcher>
 
+#include <list>
+
 class MusicListenersManagerPrivate
 {
 public:
@@ -64,7 +66,7 @@ public:
 #endif
 
 #if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
-    QList<QPointer<FileListener>> mFileListener;
+    std::list<std::unique_ptr<FileListener>> mFileListener;
 #endif
 
     DatabaseInterface mDatabaseInterface;
@@ -80,7 +82,7 @@ public:
 };
 
 MusicListenersManager::MusicListenersManager(QObject *parent)
-    : QObject(parent), d(new MusicListenersManagerPrivate)
+    : QObject(parent), d(std::make_unique<MusicListenersManagerPrivate>())
 {
     d->mListenerThread.start();
     d->mDatabaseThread.start();
@@ -210,7 +212,7 @@ void MusicListenersManager::resetImportedTracksCounter()
 #endif
 
 #if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
-    for (auto itFileListener : d->mFileListener) {
+    for (const auto &itFileListener : d->mFileListener) {
         itFileListener->resetImportedTracksCounter();
     }
 #endif
@@ -272,28 +274,28 @@ void MusicListenersManager::configChanged()
 
         for (const auto &oneRootPath : allRootPaths) {
             auto itPath = std::find_if(d->mFileListener.begin(), d->mFileListener.end(),
-                                       [&oneRootPath](auto value)->bool {return value->localFileIndexer().rootPath() == oneRootPath;});
+                                       [&oneRootPath](const auto &value)->bool {return value->localFileIndexer().rootPath() == oneRootPath;});
             if (itPath == d->mFileListener.end()) {
-                auto newFileIndexer = new FileListener;
+                auto newFileIndexer = std::make_unique<FileListener>();
 
                 newFileIndexer->setDatabaseInterface(&d->mDatabaseInterface);
                 newFileIndexer->moveToThread(&d->mListenerThread);
                 connect(this, &MusicListenersManager::applicationIsTerminating,
-                        newFileIndexer, &FileListener::applicationAboutToQuit, Qt::DirectConnection);
-                connect(newFileIndexer, &FileListener::indexingStarted,
+                        newFileIndexer.get(), &FileListener::applicationAboutToQuit, Qt::DirectConnection);
+                connect(newFileIndexer.get(), &FileListener::indexingStarted,
                         this, &MusicListenersManager::monitorStartingListeners);
-                connect(newFileIndexer, &FileListener::indexingFinished,
+                connect(newFileIndexer.get(), &FileListener::indexingFinished,
                         this, &MusicListenersManager::monitorEndingListeners);
-                connect(newFileIndexer, &FileListener::notification,
+                connect(newFileIndexer.get(), &FileListener::notification,
                         this, &MusicListenersManager::listenerNotification);
-                connect(newFileIndexer, &FileListener::importedTracksCountChanged,
+                connect(newFileIndexer.get(), &FileListener::importedTracksCountChanged,
                         this, &MusicListenersManager::computeImportedTracksCount);
 
                 newFileIndexer->setRootPath(oneRootPath);
 
-                d->mFileListener.push_back({newFileIndexer});
+                QMetaObject::invokeMethod(newFileIndexer.get(), "performInitialScan", Qt::QueuedConnection);
 
-                QMetaObject::invokeMethod(newFileIndexer, "performInitialScan", Qt::QueuedConnection);
+                d->mFileListener.emplace_back(std::move(newFileIndexer));
             }
         }
     }
@@ -311,7 +313,7 @@ void MusicListenersManager::computeImportedTracksCount()
 #endif
 
 #if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
-    for (auto itFileListener : d->mFileListener) {
+    for (const auto &itFileListener : d->mFileListener) {
         d->mImportedTracksCount += itFileListener->importedTracksCount();
     }
 #endif

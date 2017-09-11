@@ -82,7 +82,7 @@ public:
 };
 
 LocalBalooFileListing::LocalBalooFileListing(QObject *parent)
-    : AbstractFileListing(QStringLiteral("baloo"), parent), d(new LocalBalooFileListingPrivate)
+    : AbstractFileListing(QStringLiteral("baloo"), parent), d(std::make_unique<LocalBalooFileListingPrivate>())
 {
     d->mQuery.addType(QStringLiteral("Audio"));
     setHandleNewFiles(false);

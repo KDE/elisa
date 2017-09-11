@@ -42,7 +42,7 @@ public:
 
 };
 
-AllArtistsModel::AllArtistsModel(QObject *parent) : QAbstractItemModel(parent), d(new AllArtistsModelPrivate)
+AllArtistsModel::AllArtistsModel(QObject *parent) : QAbstractItemModel(parent), d(std::make_unique<AllArtistsModelPrivate>())
 {
 }
 

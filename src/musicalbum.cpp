@@ -56,7 +56,7 @@ public:
 
 };
 
-MusicAlbum::MusicAlbum() : d(new MusicAlbumPrivate)
+MusicAlbum::MusicAlbum() : d(std::make_unique<MusicAlbumPrivate>())
 {
 }
 
@@ -65,7 +65,7 @@ MusicAlbum::MusicAlbum(MusicAlbum &&other)
     d.swap(other.d);
 }
 
-MusicAlbum::MusicAlbum(const MusicAlbum &other) : d(new MusicAlbumPrivate(*other.d))
+MusicAlbum::MusicAlbum(const MusicAlbum &other) : d(std::make_unique<MusicAlbumPrivate>(*other.d))
 {
 }
 

@@ -47,7 +47,7 @@ public:
 
 };
 
-LocalFileListing::LocalFileListing(QObject *parent) : AbstractFileListing(QStringLiteral("local"), parent), d(new LocalFileListingPrivate)
+LocalFileListing::LocalFileListing(QObject *parent) : AbstractFileListing(QStringLiteral("local"), parent), d(std::make_unique<LocalFileListingPrivate>())
 {
 }
 

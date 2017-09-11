@@ -32,7 +32,7 @@ public:
 
 };
 
-FileListener::FileListener(QObject *parent) : AbstractFileListener(parent), d(new FileListenerPrivate)
+FileListener::FileListener(QObject *parent) : AbstractFileListener(parent), d(std::make_unique<FileListenerPrivate>())
 {
     setFileListing(&d->mLocalFileIndexer);
     connect(&d->mLocalFileIndexer, &LocalFileListing::rootPathChanged,

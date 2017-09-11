@@ -42,7 +42,7 @@ public:
 
 };
 
-AlbumModel::AlbumModel(QObject *parent) : QAbstractItemModel(parent), d(new AlbumModelPrivate)
+AlbumModel::AlbumModel(QObject *parent) : QAbstractItemModel(parent), d(std::make_unique<AlbumModelPrivate>())
 {
 }
 

@@ -34,7 +34,7 @@ public:
 };
 
 
-AudioWrapper::AudioWrapper(QObject *parent) : QObject(parent), d(new AudioWrapperPrivate)
+AudioWrapper::AudioWrapper(QObject *parent) : QObject(parent), d(std::make_unique<AudioWrapperPrivate>())
 {
     connect(&d->mPlayer, &QMediaPlayer::mutedChanged, this, &AudioWrapper::playerMutedChanged);
     connect(&d->mPlayer, &QMediaPlayer::volumeChanged, this, &AudioWrapper::playerVolumeChanged);

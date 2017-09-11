@@ -40,12 +40,15 @@ public:
 };
 
 AbstractFileListener::AbstractFileListener(QObject *parent)
-    : QObject(parent), d(new AbstractFileListenerPrivate)
+    : QObject(parent), d(std::make_unique<AbstractFileListenerPrivate>())
 {
 }
 
 AbstractFileListener::~AbstractFileListener()
-= default;
+{
+    d->mFileQueryThread.quit();
+    d->mFileQueryThread.wait();
+}
 
 DatabaseInterface *AbstractFileListener::databaseInterface() const
 {

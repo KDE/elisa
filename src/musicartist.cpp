@@ -37,7 +37,7 @@ public:
 
 };
 
-MusicArtist::MusicArtist() : d(new MusicArtistPrivate)
+MusicArtist::MusicArtist() : d(std::make_unique<MusicArtistPrivate>())
 {
 }
 
@@ -46,7 +46,7 @@ MusicArtist::MusicArtist(MusicArtist &&other)
     d.swap(other.d);
 }
 
-MusicArtist::MusicArtist(const MusicArtist &other) : d(new MusicArtistPrivate(*other.d))
+MusicArtist::MusicArtist(const MusicArtist &other) : d(std::make_unique<MusicArtistPrivate>(*other.d))
 {
 }
 

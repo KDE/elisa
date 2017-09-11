@@ -70,7 +70,7 @@ public:
 
 };
 
-AbstractFileListing::AbstractFileListing(const QString &sourceName, QObject *parent) : QObject(parent), d(new AbstractFileListingPrivate(sourceName))
+AbstractFileListing::AbstractFileListing(const QString &sourceName, QObject *parent) : QObject(parent), d(std::make_unique<AbstractFileListingPrivate>(sourceName))
 {
     connect(&d->mFileSystemWatcher, &QFileSystemWatcher::directoryChanged,
             this, &AbstractFileListing::directoryChanged);

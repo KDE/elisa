@@ -33,7 +33,7 @@ public:
 
 };
 
-AllTracksModel::AllTracksModel(QObject *parent) : QAbstractItemModel(parent), d(new AllTracksModelPrivate)
+AllTracksModel::AllTracksModel(QObject *parent) : QAbstractItemModel(parent), d(std::make_unique<AllTracksModelPrivate>())
 {
 }
 

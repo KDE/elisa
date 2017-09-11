@@ -39,7 +39,7 @@ public:
 
 };
 
-TracksListener::TracksListener(DatabaseInterface *database, QObject *parent) : QObject(parent), d(new TracksListenerPrivate)
+TracksListener::TracksListener(DatabaseInterface *database, QObject *parent) : QObject(parent), d(std::make_unique<TracksListenerPrivate>())
 {
     d->mDatabase = database;
 }

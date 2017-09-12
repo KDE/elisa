@@ -70,11 +70,7 @@ public:
         Stopped,
     };
 
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 5, 0))
     Q_ENUM(PlayerState)
-#else
-    Q_ENUMS(PlayerState)
-#endif
 
     explicit ManageMediaPlayerControl(QObject *parent = nullptr);
 

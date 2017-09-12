@@ -22,6 +22,13 @@
 
 #include <QObject>
 
+#include "musicaudiotrack.h"
+
+#include <QString>
+#include <QVariant>
+#include <QList>
+#include <QMap>
+
 class PlayListControlerTest : public QObject
 {
 
@@ -70,6 +77,56 @@ private Q_SLOTS:
     void switchToTrackTest();
 
     void singleTrack();
+
+private:
+
+    QList<MusicAudioTrack> mNewTracks = {
+        {true, QStringLiteral("$1"), QStringLiteral("0"), QStringLiteral("track1"),
+         QStringLiteral("artist1"), QStringLiteral("album1"), QStringLiteral("artist1"),
+         1, 1, {}, {QUrl::fromLocalFile(QStringLiteral("$1"))},
+         {QUrl::fromLocalFile(QStringLiteral("file://image$1"))}, 1, false},
+        {true, QStringLiteral("$2"), QStringLiteral("0"), QStringLiteral("track2"),
+         QStringLiteral("artist1"), QStringLiteral("album1"), QStringLiteral("artist1"),
+         2, 2, {}, {QUrl::fromLocalFile(QStringLiteral("$2"))},
+         {QUrl::fromLocalFile(QStringLiteral("file://image$2"))}, 2, false},
+        {true, QStringLiteral("$3"), QStringLiteral("0"), QStringLiteral("track3"),
+         QStringLiteral("artist1"), QStringLiteral("album1"), QStringLiteral("artist1"),
+         3, 3, {}, {QUrl::fromLocalFile(QStringLiteral("$3"))},
+         {QUrl::fromLocalFile(QStringLiteral("file://image$3"))}, 3, false},
+        {true, QStringLiteral("$4"), QStringLiteral("0"), QStringLiteral("track4"),
+         QStringLiteral("artist1"), QStringLiteral("album1"), QStringLiteral("artist1"),
+         4, 1, {}, {QUrl::fromLocalFile(QStringLiteral("$4"))},
+         {QUrl::fromLocalFile(QStringLiteral("file://image$4"))}, 4, false},
+        {true, QStringLiteral("$5"), QStringLiteral("0"), QStringLiteral("track1"),
+         QStringLiteral("artist1"), QStringLiteral("album2"), QStringLiteral("artist1"),
+         1, 1, {}, {QUrl::fromLocalFile(QStringLiteral("$5"))},
+         {QUrl::fromLocalFile(QStringLiteral("file://image$5"))}, 5, true},
+        {true, QStringLiteral("$6"), QStringLiteral("0"), QStringLiteral("track2"),
+         QStringLiteral("artist1"), QStringLiteral("album2"), QStringLiteral("artist1"),
+         2, 1, {}, {QUrl::fromLocalFile(QStringLiteral("$6"))},
+         {QUrl::fromLocalFile(QStringLiteral("file://image$6"))}, 1, true},
+        {true, QStringLiteral("$7"), QStringLiteral("0"), QStringLiteral("track3"),
+         QStringLiteral("artist1"), QStringLiteral("album2"), QStringLiteral("artist1"),
+         3, 1, {}, {QUrl::fromLocalFile(QStringLiteral("$7"))},
+         {QUrl::fromLocalFile(QStringLiteral("file://image$7"))}, 2, true},
+        {true, QStringLiteral("$8"), QStringLiteral("0"), QStringLiteral("track4"),
+         QStringLiteral("artist1"), QStringLiteral("album2"), QStringLiteral("artist1"),
+         4, 1, {}, {QUrl::fromLocalFile(QStringLiteral("$8"))},
+         {QUrl::fromLocalFile(QStringLiteral("file://image$8"))}, 3, true},
+        {true, QStringLiteral("$9"), QStringLiteral("0"), QStringLiteral("track5"),
+         QStringLiteral("artist1"), QStringLiteral("album2"), QStringLiteral("artist1"),
+         5, 1, {}, {QUrl::fromLocalFile(QStringLiteral("$9"))},
+         {QUrl::fromLocalFile(QStringLiteral("file://image$9"))}, 4, true},
+        {true, QStringLiteral("$10"), QStringLiteral("0"), QStringLiteral("track6"),
+         QStringLiteral("artist1"), QStringLiteral("album2"), QStringLiteral("artist1"),
+         6, 1, {}, {QUrl::fromLocalFile(QStringLiteral("$10"))},
+         {QUrl::fromLocalFile(QStringLiteral("file://image$10"))}, 5, true}
+    };
+
+    QHash<QString, QUrl> mNewCovers = {
+        {QStringLiteral("album1"), QUrl::fromLocalFile(QStringLiteral("album1"))},
+        {QStringLiteral("album2"), QUrl::fromLocalFile(QStringLiteral("album2"))}
+    };
 
 };
 

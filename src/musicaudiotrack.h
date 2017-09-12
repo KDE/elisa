@@ -38,11 +38,12 @@ public:
     MusicAudioTrack();
 
     MusicAudioTrack(bool aValid, const QString &aId, const QString &aParentId, const QString &aTitle, const QString &aArtist, const QString &aAlbumName,
-                    const QString &aAlbumArtist, int aTrackNumber, QTime aDuration, const QUrl &aResourceURI, const QUrl &aAlbumCover, int rating);
+                    const QString &aAlbumArtist, int aTrackNumber, QTime aDuration, const QUrl &aResourceURI, const QUrl &aAlbumCover, int rating,
+                    bool aIsSingleDiscAlbum);
 
     MusicAudioTrack(bool aValid, const QString &aId, const QString &aParentId, const QString &aTitle, const QString &aArtist, const QString &aAlbumName,
                     const QString &aAlbumArtist, int aTrackNumber, int aDiscNumber, QTime aDuration, const QUrl &aResourceURI,
-                    const QUrl &aAlbumCover, int rating);
+                    const QUrl &aAlbumCover, int rating, bool aIsSingleDiscAlbum);
 
     MusicAudioTrack(MusicAudioTrack &&other);
 
@@ -117,6 +118,10 @@ public:
     void setRating(int value) const;
 
     int rating() const;
+
+    void setIsSingleDiscAlbum(bool value);
+
+    bool isSingleDiscAlbum() const;
 
 private:
 

@@ -1195,7 +1195,8 @@ void DatabaseInterface::initRequest()
                                                   "tracks.`Duration`, "
                                                   "album.`Title`, "
                                                   "tracks.`Rating`, "
-                                                  "album.`CoverFileName` "
+                                                  "album.`CoverFileName`, "
+                                                  "album.`IsSingleDiscAlbum` "
                                                   "FROM `Tracks` tracks, `Artists` artist, `Albums` album, `TracksMapping` tracksMapping "
                                                   "LEFT JOIN `Artists` artistAlbum ON artistAlbum.`ID` = album.`ArtistID` "
                                                   "WHERE "
@@ -1225,7 +1226,8 @@ void DatabaseInterface::initRequest()
                                                                         "tracks.`Duration`, "
                                                                         "album.`Title`, "
                                                                         "tracks.`Rating`, "
-                                                                        "album.`CoverFileName` "
+                                                                        "album.`CoverFileName`, "
+                                                                        "album.`IsSingleDiscAlbum` "
                                                                         "FROM `Tracks` tracks, `Artists` artist, "
                                                                         "`Albums` album , `TracksMapping` tracksMapping, `DiscoverSource` source "
                                                                         "LEFT JOIN `Artists` artistAlbum ON artistAlbum.`ID` = album.`ArtistID` "
@@ -1259,7 +1261,8 @@ void DatabaseInterface::initRequest()
                                                                  "tracks.`Duration`, "
                                                                  "album.`Title`, "
                                                                  "tracks.`Rating`, "
-                                                                 "album.`CoverFileName` "
+                                                                 "album.`CoverFileName`, "
+                                                                 "album.`IsSingleDiscAlbum` "
                                                                  "FROM `Tracks` tracks, `Artists` artist, "
                                                                  "`Albums` album , `TracksMapping` tracksMapping, `DiscoverSource` source "
                                                                  "LEFT JOIN `Artists` artistAlbum ON artistAlbum.`ID` = album.`ArtistID` "
@@ -1319,7 +1322,8 @@ void DatabaseInterface::initRequest()
                                                    "tracks.`Duration`, "
                                                    "album.`Title`, "
                                                    "tracks.`Rating`, "
-                                                   "album.`CoverFileName` "
+                                                   "album.`CoverFileName`, "
+                                                   "album.`IsSingleDiscAlbum` "
                                                    "FROM `Tracks` tracks, `Artists` artist, `Albums` album, `TracksMapping` tracksMapping "
                                                    "LEFT JOIN `Artists` artistAlbum ON artistAlbum.`ID` = album.`ArtistID` "
                                                    "WHERE "
@@ -1351,7 +1355,8 @@ void DatabaseInterface::initRequest()
                                                          "tracks.`Duration`, "
                                                          "album.`Title`, "
                                                          "tracks.`Rating`, "
-                                                         "album.`CoverFileName` "
+                                                         "album.`CoverFileName`, "
+                                                         "album.`IsSingleDiscAlbum` "
                                                          "FROM `Tracks` tracks, `Artists` artist, `Albums` album, `TracksMapping` tracksMapping "
                                                          "LEFT JOIN `Artists` artistAlbum ON artistAlbum.`ID` = album.`ArtistID` "
                                                          "WHERE "
@@ -1650,7 +1655,8 @@ void DatabaseInterface::initRequest()
                                                               "tracks.`Duration`, "
                                                               "album.`Title`, "
                                                               "tracks.`Rating`, "
-                                                              "album.`CoverFileName` "
+                                                              "album.`CoverFileName`, "
+                                                              "album.`IsSingleDiscAlbum` "
                                                               "FROM `Tracks` tracks, `Albums` album, `Artists` artist, `TracksMapping` tracksMapping "
                                                               "LEFT JOIN `Artists` artistAlbum ON artistAlbum.`ID` = album.`ArtistID` "
                                                               "WHERE "
@@ -1697,7 +1703,8 @@ void DatabaseInterface::initRequest()
                                                                "tracks.`Duration`, "
                                                                "album.`Title`, "
                                                                "tracks.`Rating`, "
-                                                               "album.`CoverFileName` "
+                                                               "album.`CoverFileName`, "
+                                                               "album.`IsSingleDiscAlbum` "
                                                                "FROM `Tracks` tracks, `Artists` artist, `Albums` album, `TracksMapping` tracksMapping "
                                                                "LEFT JOIN `Artists` artistAlbum ON artistAlbum.`ID` = album.`ArtistID` "
                                                                "WHERE "
@@ -2152,6 +2159,7 @@ MusicAudioTrack DatabaseInterface::buildTrackFromDatabaseRecord(const QSqlRecord
     result.setAlbumName(trackRecord.value(9).toString());
     result.setRating(trackRecord.value(10).toInt());
     result.setAlbumCover(trackRecord.value(11).toUrl());
+    result.setIsSingleDiscAlbum(trackRecord.value(12).toBool());
     result.setValid(true);
 
     return result;

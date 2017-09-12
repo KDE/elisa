@@ -36,6 +36,7 @@ Rectangle {
     property alias duration : durationLabel.text
     property int trackNumber
     property int discNumber
+    property bool isSingleDiscAlbum
     property alias rating: ratingWidget.starRating
     property int isPlaying
     property bool isSelected
@@ -195,7 +196,7 @@ Rectangle {
                 LabelWithToolTip {
                     id: mainCompactLabel
 
-                    text: (discNumber ? discNumber + ' - ' + trackNumber : trackNumber) + ' - ' + title
+                    text: ((discNumber && !isSingleDiscAlbum) ? discNumber + ' - ' + trackNumber : trackNumber) + ' - ' + title
 
                     font.weight: (isPlaying ? Font.Bold : Font.Normal)
                     color: myPalette.text

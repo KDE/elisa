@@ -222,6 +222,10 @@ Item {
                                             model.discNumber
                                         else
                                             ''
+                            isSingleDiscAlbum: if (model != undefined && model.isSingleDiscAlbum !== undefined)
+                                                   model.isSingleDiscAlbum
+                                               else
+                                                   false
                             album: if (model != undefined && model.album !== undefined)
                                        model.album
                                    else

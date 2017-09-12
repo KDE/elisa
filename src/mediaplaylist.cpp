@@ -69,7 +69,7 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
         return result;
     }
 
-    if (role < ColumnsRoles::IsValidRole || role > ColumnsRoles::HasAlbumHeader) {
+    if (role < ColumnsRoles::IsValidRole || role > ColumnsRoles::IsSingleDiscAlbumHeader) {
         return result;
     }
 
@@ -113,6 +113,9 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
             if (d->mTrackData[index.row()].discNumber() > 0) {
                 result = d->mTrackData[index.row()].discNumber();
             }
+            break;
+        case ColumnsRoles::IsSingleDiscAlbumHeader:
+            result = d->mTrackData[index.row()].isSingleDiscAlbum();
             break;
         case ColumnsRoles::ResourceRole:
             result = d->mTrackData[index.row()].resourceURI();
@@ -169,6 +172,8 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
         case ColumnsRoles::DurationRole:
             break;
         case ColumnsRoles::DiscNumberRole:
+            break;
+        case ColumnsRoles::IsSingleDiscAlbumHeader:
             break;
         case ColumnsRoles::MilliSecondsDurationRole:
             break;
@@ -241,6 +246,7 @@ QHash<int, QByteArray> MediaPlayList::roleNames() const
     roles[static_cast<int>(ColumnsRoles::CountRole)] = "count";
     roles[static_cast<int>(ColumnsRoles::IsPlayingRole)] = "isPlaying";
     roles[static_cast<int>(ColumnsRoles::HasAlbumHeader)] = "hasAlbumHeader";
+    roles[static_cast<int>(ColumnsRoles::IsSingleDiscAlbumHeader)] = "isSingleDiscAlbum";
 
     return roles;
 }

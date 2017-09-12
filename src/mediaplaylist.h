@@ -65,6 +65,7 @@ public:
         CountRole,
         IsPlayingRole,
         HasAlbumHeader,
+        IsSingleDiscAlbumHeader,
     };
 
     Q_ENUM(ColumnsRoles)

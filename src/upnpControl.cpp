@@ -170,6 +170,7 @@ int main(int argc, char *argv[])
     qRegisterMetaType<QHash<qulonglong,int>>("QHash<qulonglong,int>");
     qRegisterMetaType<MusicAlbum>("MusicAlbum");
     qRegisterMetaType<MusicArtist>("MusicArtist");
+    qRegisterMetaType<QMap<QString, int>>();
     qRegisterMetaType<QAction*>();
     qmlRegisterUncreatableType<ElisaApplication>("org.mgallien.QmlExtension", 1, 0, "ElisaApplication", QStringLiteral("only one and done in c++"));
 

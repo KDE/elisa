@@ -348,6 +348,10 @@ void MusicListenersManager::computeImportedTracksCount()
     }
 #endif
 
+    if (d->mImportedTracksCount >= 4) {
+        Q_EMIT closeNotification(QStringLiteral("notEnoughTracks"));
+    }
+
     Q_EMIT importedTracksCountChanged();
 }
 

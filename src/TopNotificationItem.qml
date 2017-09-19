@@ -71,7 +71,17 @@ Item {
             visible: text !== "" && topItem.height > height
             opacity: (topItem.height - height) / height
 
-            onClicked: mainButtonClicked()
+            onClicked: {
+                mainButton.enabled = false
+                enableAgainMainButtonTimer.start()
+                mainButtonClicked()
+            }
+
+            Timer {
+                id: enableAgainMainButtonTimer
+                interval: 500
+                onTriggered: mainButton.enabled = true
+            }
         }
 
         Button {
@@ -84,7 +94,17 @@ Item {
             visible: text !== "" && topItem.height > height
             opacity: (topItem.height - height) / height
 
-            onClicked: secondaryButtonClicked()
+            onClicked: {
+                secondaryButton.enabled = false
+                enableAgainSecondaryButtonTimer.start()
+                secondaryButtonClicked()
+            }
+
+            Timer {
+                id: enableAgainSecondaryButtonTimer
+                interval: 500
+                onTriggered: secondaryButton.enabled = true
+            }
         }
 
         Item {

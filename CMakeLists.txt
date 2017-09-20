@@ -6,8 +6,12 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 14)
 
 set(REQUIRED_QT_VERSION "5.8.0")
-find_package(Qt5 ${REQUIRED_QT_VERSION} CONFIG REQUIRED Core Network Qml Sql Multimedia Svg Gui)
-find_package(Qt5 ${REQUIRED_QT_VERSION} CONFIG QUIET OPTIONAL_COMPONENTS Quick Widgets Test DBus AndroidExtras)
+find_package(Qt5 ${REQUIRED_QT_VERSION} CONFIG REQUIRED Core Network Qml Quick Test Sql Multimedia Svg Gui Widgets)
+find_package(Qt5 ${REQUIRED_QT_VERSION} CONFIG QUIET OPTIONAL_COMPONENTS DBus)
+
+if (ANDROID)
+    find_package(Qt5 ${REQUIRED_QT_VERSION} CONFIG QUIET OPTIONAL_COMPONENTS AndroidExtras)
+endif()
 
 set(REQUIRED_KF5_VERSION "5.32.0")
 find_package(ECM ${REQUIRED_KF5_VERSION} REQUIRED NO_MODULE)
@@ -19,18 +23,60 @@ include(KDECMakeSettings)
 include(ECMInstallIcons)
 include(FeatureSummary)
 
-find_package(KF5I18n ${REQUIRED_KF5_VERSION} CONFIG REQUIRED QUIET)
+find_package(KF5I18n ${REQUIRED_KF5_VERSION} CONFIG QUIET)
+set_package_properties(KF5I18n PROPERTIES
+    DESCRIPTION "KF5 text internationalization library."
+    TYPE REQUIRED)
 
 find_package(KF5Declarative ${REQUIRED_KF5_VERSION} CONFIG QUIET)
+set_package_properties(KF5Declarative PROPERTIES
+    DESCRIPTION "Integration of QML and KDE work spaces."
+    TYPE RECOMMENDED)
+
 find_package(KF5CoreAddons ${REQUIRED_KF5_VERSION} CONFIG QUIET)
+set_package_properties(KF5CoreAddons PROPERTIES
+    DESCRIPTION "Qt addon library with a collection of non-GUI utilities."
+    TYPE OPTIONAL)
+
 find_package(KF5Baloo ${REQUIRED_KF5_VERSION} CONFIG QUIET)
+set_package_properties(KF5Baloo PROPERTIES
+    DESCRIPTION "Baloo provides file searching and indexing."
+    TYPE RECOMMENDED)
+
 find_package(KF5FileMetaData ${REQUIRED_KF5_VERSION} CONFIG QUIET)
+set_package_properties(KF5FileMetaData PROPERTIES
+    DESCRIPTION "Provides a simple library for extracting metadata."
+    TYPE RECOMMENDED)
+
 find_package(KF5DocTools ${REQUIRED_KF5_VERSION} CONFIG QUIET)
+set_package_properties(KF5DocTools PROPERTIES
+    DESCRIPTION "Create documentation from DocBook library."
+    TYPE OPTIONAL)
+
 find_package(KF5XmlGui ${REQUIRED_KF5_VERSION} CONFIG QUIET)
-find_package(KF5Config ${REQUIRED_KF5_VERSION} CONFIG REQUIRED QUIET)
+set_package_properties(KF5XmlGui PROPERTIES
+    DESCRIPTION "Framework for managing menu and toolbar actions."
+    TYPE RECOMMENDED)
+
+find_package(KF5Config ${REQUIRED_KF5_VERSION} CONFIG QUIET)
+set_package_properties(KF5Config PROPERTIES
+    DESCRIPTION "Persistent platform-independent application settings."
+    TYPE RECOMMENDED)
+
 find_package(KF5Crash ${REQUIRED_KF5_VERSION} CONFIG QUIET)
+set_package_properties(KF5Crash PROPERTIES
+    DESCRIPTION "Graceful handling of application crashes."
+    TYPE OPTIONAL)
+
 find_package(KF5DBusAddons ${REQUIRED_KF5_VERSION} CONFIG QUIET)
-find_package(KF5KCMUtils ${REQUIRED_KF5_VERSION} CONFIG REQUIRED QUIET)
+set_package_properties(KF5DBusAddons PROPERTIES
+    DESCRIPTION "Convenience classes for D-Bus."
+    TYPE OPTIONAL)
+
+find_package(KF5KCMUtils ${REQUIRED_KF5_VERSION} CONFIG QUIET)
+set_package_properties(KF5KCMUtils PROPERTIES
+    DESCRIPTION "KF5 Utilities for KDE System Settings modules library."
+    TYPE RECOMMENDED)
 
 find_package(UPNPQT CONFIG QUIET)
 set_package_properties(UPNPQT PROPERTIES

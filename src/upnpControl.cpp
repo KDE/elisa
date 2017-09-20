@@ -53,9 +53,12 @@
 #include "elisaapplication.h"
 #include "audiowrapper.h"
 #include "alltracksmodel.h"
-#include "elisa_settings.h"
 #include "notificationitem.h"
 #include "topnotificationmanager.h"
+
+#if defined KF5Config_FOUND && KF5Config_FOUND
+#include "elisa_settings.h"
+#endif
 
 #if defined Qt5DBus_FOUND && Qt5DBus_FOUND
 #include "mpris2/mpris2.h"
@@ -85,6 +88,7 @@
 #include <QApplication>
 #include <QCommandLineParser>
 #include <QtGlobal>
+#include <QStandardPaths>
 
 #include <QQmlApplicationEngine>
 #include <QQmlEngine>
@@ -221,11 +225,13 @@ int main(int argc, char *argv[])
                                               QtAndroid::androidContext().object());
 #endif
 
+#if defined KF5Config_FOUND && KF5Config_FOUND
     auto configurationFileName = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
     configurationFileName += QStringLiteral("/elisarc");
     Elisa::ElisaConfiguration::instance(configurationFileName);
     Elisa::ElisaConfiguration::self()->load();
     Elisa::ElisaConfiguration::self()->save();
+#endif
 
     QQmlApplicationEngine engine;
     engine.addImportPath(QStringLiteral("qrc:/imports"));

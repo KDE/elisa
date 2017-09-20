@@ -20,7 +20,11 @@
 
 #include "elisaapplication.h"
 
+#if defined KF5Config_FOUND && KF5Config_FOUND
 #include "elisa_settings.h"
+#include <KConfigWidgets/KStandardAction>
+#include <KConfigCore/KAuthorized>
+#endif
 
 #if defined KF5XmlGui_FOUND && KF5XmlGui_FOUND
 #include <KXmlGui/KActionCollection>
@@ -30,10 +34,9 @@
 #include <KXmlGui/KShortcutsDialog>
 #endif
 
+#if defined KF5KCMUtils_FOUND && KF5KCMUtils_FOUND
 #include <KCMUtils/KCMultiDialog>
-
-#include <KConfigWidgets/KStandardAction>
-#include <KConfigCore/KAuthorized>
+#endif
 
 #if defined KF5CoreAddons_FOUND && KF5CoreAddons_FOUND
 #include <KCoreAddons/KAboutData>
@@ -54,14 +57,16 @@ class ElisaApplicationPrivate
 public:
 
     explicit ElisaApplicationPrivate(QObject *parent)
-        : mConfigurationDialog(),
-      #if defined KF5XmlGui_FOUND && KF5XmlGui_FOUND
-          mCollection(parent)
-      #endif
+#if defined KF5XmlGui_FOUND && KF5XmlGui_FOUND
+          : mCollection(parent)
+#endif
     {
+        Q_UNUSED(parent)
     }
 
+#if defined KF5KCMUtils_FOUND && KF5KCMUtils_FOUND
     KCMultiDialog mConfigurationDialog;
+#endif
 
 #if defined KF5XmlGui_FOUND && KF5XmlGui_FOUND
     KActionCollection mCollection;
@@ -73,7 +78,9 @@ ElisaApplication::ElisaApplication(QObject *parent) : QObject(parent), d(std::ma
 {
     setupActions();
 
+#if defined KF5KCMUtils_FOUND && KF5KCMUtils_FOUND
     d->mConfigurationDialog.addModule(QStringLiteral("kcm_elisa_local_file"));
+#endif
 }
 
 ElisaApplication::~ElisaApplication()
@@ -155,8 +162,10 @@ void ElisaApplication::configureShortcuts()
 
 void ElisaApplication::configureElisa()
 {
+#if defined KF5KCMUtils_FOUND && KF5KCMUtils_FOUND
     d->mConfigurationDialog.setModal(true);
     d->mConfigurationDialog.show();
+#endif
 }
 
 QAction * ElisaApplication::action(const QString& name)

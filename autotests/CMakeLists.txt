@@ -72,17 +72,25 @@ if (KF5FileMetaData_FOUND)
     )
 endif()
 
-kconfig_add_kcfg_files(playListControlerTest_SOURCES ../src/elisa_settings.kcfgc )
-set(playListControlerTest_SOURCES
-    ${playListControlerTest_SOURCES}
-    ../src/elisa_core.kcfg
-)
+if (KF5Config_FOUND)
+    kconfig_add_kcfg_files(playListControlerTest_SOURCES ../src/elisa_settings.kcfgc )
+    set(playListControlerTest_SOURCES
+        ${playListControlerTest_SOURCES}
+        ../src/elisa_core.kcfg
+    )
+endif()
 
 add_executable(playListControlerTest ${playListControlerTest_SOURCES})
 
-target_link_libraries(playListControlerTest Qt5::Test Qt5::Core Qt5::Sql Qt5::Widgets KF5::I18n KF5::ConfigCore KF5::ConfigGui KF5::KCMUtils Qt5::Quick)
+target_link_libraries(playListControlerTest Qt5::Test Qt5::Core Qt5::Sql Qt5::Widgets KF5::I18n Qt5::Quick)
 if (KF5Baloo_FOUND)
     target_link_libraries(playListControlerTest KF5::Baloo Qt5::DBus)
+endif()
+if (KF5Config_FOUND)
+    target_link_libraries(playListControlerTest KF5::ConfigCore KF5::ConfigGui)
+endif()
+if (KF5KCMUtils_FOUND)
+    target_link_libraries(playListControlerTest KF5::KCMUtils)
 endif()
 if (KF5FileMetaData_FOUND)
     target_link_libraries(playListControlerTest KF5::FileMetaData)
@@ -152,17 +160,25 @@ if (KF5FileMetaData_FOUND)
     )
 endif()
 
-kconfig_add_kcfg_files(managemediaplayercontrolTest_SOURCES ../src/elisa_settings.kcfgc )
-set(managemediaplayercontrolTest_SOURCES
-    ${managemediaplayercontrolTest_SOURCES}
-    ../src/elisa_core.kcfg
-)
+if (KF5Config_FOUND)
+    kconfig_add_kcfg_files(managemediaplayercontrolTest_SOURCES ../src/elisa_settings.kcfgc )
+    set(managemediaplayercontrolTest_SOURCES
+        ${managemediaplayercontrolTest_SOURCES}
+        ../src/elisa_core.kcfg
+    )
+endif()
 
 add_executable(managemediaplayercontrolTest ${managemediaplayercontrolTest_SOURCES})
 
-target_link_libraries(managemediaplayercontrolTest Qt5::Test Qt5::Core Qt5::Sql Qt5::Widgets KF5::I18n KF5::ConfigCore KF5::ConfigGui KF5::KCMUtils Qt5::Quick)
+target_link_libraries(managemediaplayercontrolTest Qt5::Test Qt5::Core Qt5::Sql Qt5::Widgets KF5::I18n Qt5::Quick)
 if (KF5Baloo_FOUND)
     target_link_libraries(managemediaplayercontrolTest KF5::Baloo Qt5::DBus)
+endif()
+if (KF5Config_FOUND)
+    target_link_libraries(managemediaplayercontrolTest KF5::ConfigCore KF5::ConfigGui)
+endif()
+if (KF5KCMUtils_FOUND)
+    target_link_libraries(managemediaplayercontrolTest KF5::KCMUtils)
 endif()
 if (KF5FileMetaData_FOUND)
     target_link_libraries(managemediaplayercontrolTest KF5::FileMetaData)
@@ -233,17 +249,25 @@ if (KF5FileMetaData_FOUND)
     )
 endif()
 
-kconfig_add_kcfg_files(manageheaderbarTest_SOURCES ../src/elisa_settings.kcfgc )
-set(manageheaderbarTest_SOURCES
-    ${manageheaderbarTest_SOURCES}
-    ../src/elisa_core.kcfg
-)
+if (KF5Config_FOUND)
+    kconfig_add_kcfg_files(manageheaderbarTest_SOURCES ../src/elisa_settings.kcfgc )
+    set(manageheaderbarTest_SOURCES
+        ${manageheaderbarTest_SOURCES}
+        ../src/elisa_core.kcfg
+    )
+endif()
 
 add_executable(manageheaderbarTest ${manageheaderbarTest_SOURCES})
 
-target_link_libraries(manageheaderbarTest Qt5::Test Qt5::Core Qt5::Sql Qt5::Gui Qt5::Widgets KF5::I18n KF5::ConfigCore KF5::ConfigGui KF5::KCMUtils Qt5::Quick)
+target_link_libraries(manageheaderbarTest Qt5::Test Qt5::Core Qt5::Sql Qt5::Gui Qt5::Widgets KF5::I18n Qt5::Quick)
 if (KF5Baloo_FOUND)
     target_link_libraries(manageheaderbarTest KF5::Baloo Qt5::DBus)
+endif()
+if (KF5Config_FOUND)
+    target_link_libraries(manageheaderbarTest KF5::ConfigCore KF5::ConfigGui)
+endif()
+if (KF5KCMUtils_FOUND)
+    target_link_libraries(manageheaderbarTest KF5::KCMUtils)
 endif()
 if (KF5FileMetaData_FOUND)
     target_link_libraries(manageheaderbarTest KF5::FileMetaData)
@@ -322,17 +346,22 @@ if (KF5FileMetaData_FOUND)
     )
 endif()
 
-kconfig_add_kcfg_files(mediaplaylistTest_SOURCES ../src/elisa_settings.kcfgc )
-set(mediaplaylistTest_SOURCES
-    ${mediaplaylistTest_SOURCES}
-    ../src/elisa_core.kcfg
-)
+if (KF5Config_FOUND)
+    kconfig_add_kcfg_files(mediaplaylistTest_SOURCES ../src/elisa_settings.kcfgc )
+    set(mediaplaylistTest_SOURCES
+        ${mediaplaylistTest_SOURCES}
+        ../src/elisa_core.kcfg
+    )
+endif()
 
 add_executable(mediaplaylistTest ${mediaplaylistTest_SOURCES})
 
-target_link_libraries(mediaplaylistTest Qt5::Test Qt5::Core Qt5::Sql Qt5::Gui Qt5::Widgets KF5::I18n KF5::ConfigCore KF5::ConfigGui KF5::KCMUtils Qt5::Quick)
+target_link_libraries(mediaplaylistTest Qt5::Test Qt5::Core Qt5::Sql Qt5::Gui Qt5::Widgets KF5::I18n Qt5::Quick)
 if (KF5Baloo_FOUND)
     target_link_libraries(mediaplaylistTest KF5::Baloo Qt5::DBus)
+endif()
+if (KF5KCMUtils_FOUND)
+    target_link_libraries(mediaplaylistTest KF5::KCMUtils)
 endif()
 if (KF5FileMetaData_FOUND)
     target_link_libraries(mediaplaylistTest KF5::FileMetaData)
@@ -342,6 +371,9 @@ if (UPNPQT_FOUND)
 endif()
 if (KF5XmlGui_FOUND)
     target_link_libraries(mediaplaylistTest KF5::XmlGui)
+endif()
+if (KF5Config_FOUND)
+    target_link_libraries(mediaplaylistTest KF5::ConfigCore KF5::ConfigGui)
 endif()
 
 target_include_directories(mediaplaylistTest PRIVATE ${CMAKE_SOURCE_DIR}/src)

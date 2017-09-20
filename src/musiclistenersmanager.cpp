@@ -34,9 +34,12 @@
 #include "file/filelistener.h"
 #include "file/localfilelisting.h"
 #include "trackslistener.h"
-#include "elisa_settings.h"
 #include "notificationitem.h"
 #include "elisaapplication.h"
+
+#if defined KF5Config_FOUND && KF5Config_FOUND
+#include "elisa_settings.h"
+#endif
 
 #include <KI18n/KLocalizedString>
 
@@ -134,6 +137,7 @@ MusicListenersManager::MusicListenersManager(QObject *parent)
     connect(QCoreApplication::instance(), &QCoreApplication::aboutToQuit,
             this, &MusicListenersManager::applicationAboutToQuit);
 
+#if defined KF5Config_FOUND && KF5Config_FOUND
     connect(Elisa::ElisaConfiguration::self(), &Elisa::ElisaConfiguration::configChanged,
             this, &MusicListenersManager::configChanged);
 
@@ -151,6 +155,7 @@ MusicListenersManager::MusicListenersManager(QObject *parent)
     }
 
     d->mConfigFileWatcher.addPath(Elisa::ElisaConfiguration::self()->config()->name());
+#endif
 }
 
 MusicListenersManager::~MusicListenersManager()
@@ -245,11 +250,13 @@ void MusicListenersManager::setElisaApplication(ElisaApplication *elisaApplicati
 
 void MusicListenersManager::configChanged()
 {
+#if defined KF5Config_FOUND && KF5Config_FOUND
     auto currentConfiguration = Elisa::ElisaConfiguration::self();
 
     d->mConfigFileWatcher.addPath(currentConfiguration->config()->name());
 
     currentConfiguration->load();
+#endif
 
 #if defined KF5Baloo_FOUND && KF5Baloo_FOUND
     if (currentConfiguration->balooIndexer() && !d->mBalooListener) {

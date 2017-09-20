@@ -20,6 +20,10 @@
 
 #cmakedefine01 KF5DBusAddons_FOUND
 
+#cmakedefine01 KF5Config_FOUND
+
+#cmakedefine01 KF5KCMUtils_FOUND
+
 #define LOCAL_FILE_TESTS_SAMPLE_FILES_PATH "@CMAKE_CURRENT_SOURCE_DIR@/autotests/data"
 
 #define LOCAL_FILE_TESTS_WORKING_PATH "@CMAKE_CURRENT_BINARY_DIR@/autotests/data"

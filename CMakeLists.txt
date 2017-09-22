@@ -7,11 +7,6 @@ set(CMAKE_CXX_STANDARD 14)
 
 set(REQUIRED_QT_VERSION "5.8.0")
 find_package(Qt5 ${REQUIRED_QT_VERSION} CONFIG REQUIRED Core Network Qml Quick Test Sql Multimedia Svg Gui Widgets)
-find_package(Qt5 ${REQUIRED_QT_VERSION} CONFIG QUIET OPTIONAL_COMPONENTS DBus)
-
-if (ANDROID)
-    find_package(Qt5 ${REQUIRED_QT_VERSION} CONFIG QUIET OPTIONAL_COMPONENTS AndroidExtras)
-endif()
 
 set(REQUIRED_KF5_VERSION "5.32.0")
 find_package(ECM ${REQUIRED_KF5_VERSION} REQUIRED NO_MODULE)
@@ -22,6 +17,25 @@ include(KDEFrameworkCompilerSettings)
 include(KDECMakeSettings)
 include(ECMInstallIcons)
 include(FeatureSummary)
+
+find_package(Qt5DBus ${REQUIRED_QT_VERSION} CONFIG QUIET)
+set_package_properties(Qt5DBus PROPERTIES
+    DESCRIPTION "Qt5 DBus is needed to provide MPris2 interface to allow remote control by the desktop workspace."
+    TYPE RUNTIME)
+
+find_package(Qt5QuickWidgets ${REQUIRED_QT_VERSION} CONFIG QUIET)
+set_package_properties(Qt5QuickWidgets PROPERTIES
+    DESCRIPTION "Qt5 Quick Widgets is needed at runtime to provide the interface."
+    TYPE RUNTIME)
+
+find_package(Qt5QuickControls2 ${REQUIRED_QT_VERSION} CONFIG QUIET)
+set_package_properties(Qt5QuickControls2 PROPERTIES
+    DESCRIPTION "Qt5 Quick Controls version 2 is needed at runtime to provide the interface."
+    TYPE RUNTIME)
+
+if (ANDROID)
+    find_package(Qt5 ${REQUIRED_QT_VERSION} CONFIG QUIET OPTIONAL_COMPONENTS AndroidExtras)
+endif()
 
 find_package(KF5I18n ${REQUIRED_KF5_VERSION} CONFIG QUIET)
 set_package_properties(KF5I18n PROPERTIES

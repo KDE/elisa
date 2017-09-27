@@ -62,6 +62,8 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         MediaAllArtistView.qml
         MediaAllTracksView.qml
         MediaTracksDelegate.qml
+
+        ViewSelector.qml
         )
 
     if (KF5Baloo_FOUND)

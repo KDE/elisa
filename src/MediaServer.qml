@@ -22,7 +22,6 @@ import QtQuick.Controls 1.3
 import QtQuick.Controls.Styles 1.3
 import QtQuick.Layouts 1.1
 import QtQuick.Window 2.2
-import QtQml.Models 2.1
 import org.mgallien.QmlExtension 1.0
 import Qt.labs.settings 1.0
 
@@ -465,115 +464,12 @@ ApplicationWindow {
                 Layout.fillWidth: true
                 spacing: 0
 
-                Rectangle {
-                    color: myPalette.window
+                ViewSelector {
+                    id: listViews
 
                     Layout.fillHeight: true
                     Layout.preferredWidth: mainWindow.width * 0.15
                     Layout.maximumWidth: mainWindow.width * 0.15
-
-                    ScrollView {
-                        flickableItem.boundsBehavior: Flickable.StopAtBounds
-
-                        anchors.fill: parent
-
-                        ListView {
-                            id: viewModeView
-
-                            focus: true
-                            z: 2
-
-                            model: DelegateModel {
-                                id: pageDelegateModel
-                                groups: [
-                                    DelegateModelGroup { name: "selected" }
-                                ]
-
-                                model: ListModel {
-                                    id: pageModel
-                                }
-
-                                delegate: Rectangle {
-                                    id: item
-
-                                    height: elisaTheme.viewSelectorDelegateHeight * 1.4
-                                    width: viewModeView.width
-                                    color: (DelegateModel.inSelected ? myPalette.highlight : myPalette.window)
-
-                                    MouseArea {
-                                        anchors.fill: parent
-
-                                        acceptedButtons: Qt.LeftButton
-
-                                        Image {
-                                            id: viewIcon
-
-                                            anchors {
-                                                verticalCenter: parent.verticalCenter
-                                                leftMargin: elisaTheme.layoutHorizontalMargin
-                                                left: parent.left
-                                            }
-
-                                            height: elisaTheme.viewSelectorDelegateHeight
-                                            width: elisaTheme.viewSelectorDelegateHeight
-
-                                            sourceSize {
-                                                width: elisaTheme.viewSelectorDelegateHeight
-                                                height: elisaTheme.viewSelectorDelegateHeight
-                                            }
-
-                                            source: iconName
-                                        }
-
-                                        LabelWithToolTip {
-                                            id: nameLabel
-                                            anchors.verticalCenter: parent.verticalCenter
-                                            anchors.leftMargin: elisaTheme.layoutHorizontalMargin
-                                            anchors.left: viewIcon.right
-                                            anchors.right: parent.right
-                                            anchors.rightMargin: elisaTheme.layoutHorizontalMargin
-                                            verticalAlignment: "AlignVCenter"
-
-                                            font.pixelSize: elisaTheme.defaultFontPixelSize * 1.4
-
-                                            text: model.name
-
-                                            color: (item.DelegateModel.inSelected ? myPalette.highlightedText : myPalette.text)
-                                        }
-
-                                        onClicked:
-                                        {
-                                            var myGroup = pageDelegateModel.groups[2]
-                                            if (myGroup.count > 0 && !item.DelegateModel.inSelected) {
-                                                myGroup.remove(0, myGroup.count)
-                                            }
-
-                                            item.DelegateModel.inSelected = !item.DelegateModel.inSelected
-                                            if (myGroup.count == 0) {
-                                                item.DelegateModel.inSelected = true
-                                            }
-
-                                            if (item.DelegateModel.inSelected)
-                                            {
-                                                viewModeView.currentIndex = index
-                                            }
-                                        }
-                                    }
-                                }
-
-                                Component.onCompleted:
-                                {
-                                    pageModel.insert(0, {"name": i18nc("Title of the view of the playlist", "Now Playing"), "iconName": "image://icon/amarok_playlist"})
-                                    pageModel.insert(1, {"name": i18nc("Title of the view of all albums", "Albums"), "iconName": "image://icon/media-album-cover"})
-                                    pageModel.insert(2, {"name": i18nc("Title of the view of all artists", "Artists"), "iconName": "image://icon/view-media-artist"})
-                                    pageModel.insert(3, {"name": i18nc("Title of the view of all tracks", "Tracks"), "iconName": "image://icon/media-album-track"})
-
-                                    items.get(1).inSelected = 1
-                                    viewModeView.currentIndex = 1
-                                }
-                            }
-                        }
-                    }
                 }
 
                 ColumnLayout {
@@ -796,7 +692,7 @@ ApplicationWindow {
                     states: [
                         State {
                             name: 'full'
-                            when: viewModeView.currentIndex === 0
+                            when: listViews.currentIndex === 0
                             PropertyChanges {
                                 target: mainContentView
                                 Layout.fillWidth: false
@@ -843,7 +739,7 @@ ApplicationWindow {
                         },
                         State {
                             name: 'allAlbums'
-                            when: viewModeView.currentIndex === 1
+                            when: listViews.currentIndex === 1
                             PropertyChanges {
                                 target: mainContentView
                                 Layout.fillWidth: true
@@ -889,7 +785,7 @@ ApplicationWindow {
                         },
                         State {
                             name: 'allArtists'
-                            when: viewModeView.currentIndex === 2
+                            when: listViews.currentIndex === 2
                             PropertyChanges {
                                 target: mainContentView
                                 Layout.fillWidth: true
@@ -935,7 +831,7 @@ ApplicationWindow {
                         },
                         State {
                             name: 'allTracks'
-                            when: viewModeView.currentIndex === 3
+                            when: listViews.currentIndex === 3
                             PropertyChanges {
                                 target: mainContentView
                                 Layout.fillWidth: true

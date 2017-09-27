@@ -17,12 +17,12 @@
  * Boston, MA 02110-1301, USA.
  */
 
-import QtQuick 2.8
+import QtQuick 2.9
 import QtQuick.Controls 1.4
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Layouts 1.1
 import QtGraphicalEffects 1.0
-import QtQuick.Controls 2.1 as Controls2
+import QtQuick.Controls 2.2 as Controls2
 import org.mgallien.QmlExtension 1.0
 
 

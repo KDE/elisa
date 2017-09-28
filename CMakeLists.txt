@@ -13,8 +13,8 @@ find_package(ECM ${REQUIRED_KF5_VERSION} REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
 
 include(KDEInstallDirs)
-include(KDEFrameworkCompilerSettings)
 include(KDECMakeSettings)
+include(KDEFrameworkCompilerSettings NO_POLICY_SCOPE)
 include(ECMInstallIcons)
 include(FeatureSummary)
 
@@ -110,17 +110,15 @@ include(CMakePackageConfigHelpers)
 
 if (CMAKE_SYSTEM_NAME STREQUAL Android)
     set(QT_QMAKE_EXECUTABLE "$ENV{Qt5_android}/bin/qmake")
-    # workaround until this fix is in released ECM
-    if(ECM_VERSION VERSION_LESS "5.24.0")
-        add_definitions(-DANDROID)
-    endif()
 endif()
 
 configure_file(config-upnp-qt.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-upnp-qt.h )
 
 add_subdirectory(src)
 add_subdirectory(icons)
-add_subdirectory(autotests)
+if (BUILD_TESTING)
+    add_subdirectory(autotests)
+endif()
 add_subdirectory(doc)
 
 install(
@@ -132,6 +130,10 @@ install(
     FILES org.kde.elisa.appdata.xml
     DESTINATION ${KDE_INSTALL_METAINFODIR}
 )
+
+if (IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/po")
+    ki18n_install(po)
+endif()
 
 feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)
 

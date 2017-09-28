@@ -186,7 +186,7 @@ int main(int argc, char *argv[])
 #if defined KF5CoreAddons_FOUND && KF5CoreAddons_FOUND
     KAboutData aboutData( QStringLiteral("elisa"),
                           i18n("Elisa"),
-                          QStringLiteral("0.1"),
+                          QStringLiteral("0.0.80"),
                           i18n("A Simple Music Player written with KDE Frameworks"),
                           KAboutLicense::LGPL_V3,
                           i18n("(c) 2015-2017, Matthieu Gallien <mgallien@mgallien.fr>"));

@@ -24,7 +24,7 @@ import QtQuick.Layouts 1.1
 import QtQuick.Window 2.2
 import org.mgallien.QmlExtension 1.0
 
-Item {
+FocusScope {
     property MediaPlayList playListModel
     property var firstPage
     property alias stackView: listingView
@@ -40,6 +40,8 @@ Item {
 
             Layout.fillHeight: true
             Layout.fillWidth: true
+
+            focus: true
 
             delegate: StackViewDelegate {
                 function transitionFinished(properties)
@@ -66,7 +68,6 @@ Item {
             initialItem: firstPage
 
             // Implements back key navigation
-            focus: true
             Keys.onReleased: if (event.key === Qt.Key_Back && listingView.depth > 1) {
                                  listingView.pop();
                                  event.accepted = true;

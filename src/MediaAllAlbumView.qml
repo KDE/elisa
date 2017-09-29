@@ -27,7 +27,7 @@ import QtGraphicalEffects 1.0
 
 import org.mgallien.QmlExtension 1.0
 
-Item {
+FocusScope {
     property var rootIndex
     property StackView stackView
     property MediaPlayList playListModel
@@ -162,10 +162,15 @@ Item {
             Layout.fillWidth: true
 
             ScrollView {
+                focus: true
+
                 anchors.fill: parent
                 flickableItem.boundsBehavior: Flickable.StopAtBounds
+
                 GridView {
                     id: contentDirectoryView
+
+                    focus: true
 
                     TextMetrics {
                         id: textLineHeight
@@ -189,6 +194,8 @@ Item {
                         delegate: MediaAlbumDelegate {
                             width: contentDirectoryView.cellWidth
                             height: contentDirectoryView.cellHeight
+
+                            focus: true
 
                             musicListener: rootElement.musicListener
                             image: model.image
@@ -214,10 +221,10 @@ Item {
 
                             playListModel: rootElement.playListModel
                             playerControl: rootElement.playerControl
+
+                            onAlbumClicked: contentDirectoryView.currentIndex = index
                         }
                     }
-
-                    focus: true
                 }
             }
         }

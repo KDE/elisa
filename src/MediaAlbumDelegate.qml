@@ -27,7 +27,7 @@ import QtGraphicalEffects 1.0
 
 import org.mgallien.QmlExtension 1.0
 
-Rectangle {
+FocusScope {
     property StackView stackView
     property MediaPlayList playListModel
     property var musicListener
@@ -39,6 +39,8 @@ Rectangle {
     property bool isSingleDiscAlbum
     property var albumData
     property var albumId
+
+    signal albumClicked()
 
     id: mediaServerEntry
 
@@ -84,8 +86,6 @@ Rectangle {
         }
     }
 
-    color: myPalette.base
-
     ColumnLayout {
         anchors.fill: parent
 
@@ -95,12 +95,17 @@ Rectangle {
             id: hoverHandle
 
             hoverEnabled: true
+            acceptedButtons: Qt.LeftButton
+            focus: true
 
             Layout.preferredHeight: mediaServerEntry.width * 0.9 + elisaTheme.layoutVerticalMargin * 0.5 + titleSize.height + artistSize.height
             Layout.fillWidth: true
 
-            onEntered: hoverLoader.active = true
-            onExited: hoverLoader.active = false
+            onClicked:
+            {
+                hoverHandle.forceActiveFocus()
+                albumClicked()
+            }
 
             TextMetrics {
                 id: titleSize
@@ -154,6 +159,7 @@ Rectangle {
                             id: enqueueButton
 
                             action: enqueueAction
+                            focus: true
 
                             width: elisaTheme.delegateToolButtonSize
                             height: elisaTheme.delegateToolButtonSize
@@ -163,6 +169,7 @@ Rectangle {
                             id: openButton
 
                             action: openAction
+                            focus: true
 
                             width: elisaTheme.delegateToolButtonSize
                             height: elisaTheme.delegateToolButtonSize
@@ -172,6 +179,7 @@ Rectangle {
                             id: enqueueAndPlayButton
 
                             action: enqueueAndPlayAction
+                            focus: true
 
                             width: elisaTheme.delegateToolButtonSize
                             height: elisaTheme.delegateToolButtonSize
@@ -193,6 +201,8 @@ Rectangle {
                     Layout.preferredWidth: mediaServerEntry.width * 0.9
 
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+
+                    focus: true
 
                     Image {
                         id: coverImage
@@ -258,4 +268,26 @@ Rectangle {
             Layout.fillHeight: true
         }
     }
+
+    states: [
+        State {
+            name: 'default'
+
+            PropertyChanges {
+                target: hoverLoader
+                active: false
+            }
+        },
+        State {
+            name: 'active'
+
+            when: mediaServerEntry.activeFocus || hoverHandle.containsMouse
+
+            PropertyChanges {
+                target: hoverLoader
+                active: true
+            }
+        }
+
+    ]
 }

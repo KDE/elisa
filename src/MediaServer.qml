@@ -526,11 +526,10 @@ ApplicationWindow {
 
                             id: contentZone
 
-                            Item {
+                            FocusScope {
                                 id: mainContentView
 
-                                Layout.leftMargin: elisaTheme.layoutHorizontalMargin
-                                Layout.rightMargin: elisaTheme.layoutHorizontalMargin
+                                focus: true
 
                                 Layout.fillHeight: true
 
@@ -541,70 +540,116 @@ ApplicationWindow {
                                 //z: 1
                                 visible: Layout.minimumWidth != 0
 
-                                BusyIndicator {
-                                    id: busyScanningMusic
-
-                                    anchors.fill: parent
-
-                                    anchors.leftMargin: parent.width / 3
-                                    anchors.rightMargin: parent.width / 3
-                                    anchors.topMargin: parent.height / 3
-                                    anchors.bottomMargin: parent.height / 3
-
-                                    opacity: 0.8
-
-                                    z: 2
-
-                                    running: true
-                                }
-
-                                MediaBrowser {
-                                    id: localAlbums
-
-                                    anchors.fill: parent
-
-                                    firstPage: MediaAllAlbumView {
-                                        playListModel: playListModelItem
-                                        playerControl: manageAudioPlayer
-                                        stackView: localAlbums.stackView
-                                        musicListener: allListeners
-                                        contentDirectoryModel: allAlbumsModel
+                                Rectangle {
+                                    border {
+                                        color: (mainContentView.activeFocus ? myPalette.highlight : myPalette.base)
+                                        width: 1
                                     }
 
-                                    visible: opacity > 0
-                                }
-
-                                MediaBrowser {
-                                    id: localArtists
+                                    radius: 3
+                                    color: myPalette.base
 
                                     anchors.fill: parent
 
-                                    firstPage: MediaAllArtistView {
-                                        playListModel: playListModelItem
-                                        artistsModel: allArtistsModel
-                                        playerControl: manageAudioPlayer
-                                        stackView: localArtists.stackView
-                                        musicListener: allListeners
-                                        contentDirectoryModel: allAlbumsModel
+                                    BusyIndicator {
+                                        id: busyScanningMusic
+
+                                        anchors.fill: parent
+
+                                        anchors.leftMargin: parent.width / 3
+                                        anchors.rightMargin: parent.width / 3
+                                        anchors.topMargin: parent.height / 3
+                                        anchors.bottomMargin: parent.height / 3
+
+                                        opacity: 0.8
+
+                                        z: 2
+
+                                        running: true
                                     }
 
-                                    visible: opacity > 0
-                                }
+                                    MediaBrowser {
+                                        id: localAlbums
 
-                                MediaBrowser {
-                                    id: localTracks
+                                        focus: true
 
-                                    anchors.fill: parent
+                                        anchors {
+                                            fill: parent
 
-                                    firstPage: MediaAllTracksView {
-                                        playListModel: playListModelItem
-                                        tracksModel: allTracksModel
-                                        playerControl: manageAudioPlayer
-                                        stackView: localTracks.stackView
-                                        musicListener: allListeners
+                                            leftMargin: elisaTheme.layoutHorizontalMargin
+                                            rightMargin: elisaTheme.layoutHorizontalMargin
+                                            topMargin: 2
+                                            bottomMargin: 2
+                                        }
+
+                                        firstPage: MediaAllAlbumView {
+                                            focus: true
+                                            playListModel: playListModelItem
+                                            playerControl: manageAudioPlayer
+                                            stackView: localAlbums.stackView
+                                            musicListener: allListeners
+                                            contentDirectoryModel: allAlbumsModel
+                                        }
+
+                                        visible: opacity > 0
                                     }
 
-                                    visible: opacity > 0
+                                    MediaBrowser {
+                                        id: localArtists
+
+                                        focus: true
+
+                                        anchors {
+                                            fill: parent
+
+                                            leftMargin: elisaTheme.layoutHorizontalMargin
+                                            rightMargin: elisaTheme.layoutHorizontalMargin
+                                            topMargin: 2
+                                            bottomMargin: 2
+                                        }
+
+                                        firstPage: MediaAllArtistView {
+                                            playListModel: playListModelItem
+                                            artistsModel: allArtistsModel
+                                            playerControl: manageAudioPlayer
+                                            stackView: localArtists.stackView
+                                            musicListener: allListeners
+                                            contentDirectoryModel: allAlbumsModel
+                                        }
+
+                                        visible: opacity > 0
+                                    }
+
+                                    MediaBrowser {
+                                        id: localTracks
+
+                                        focus: true
+
+                                        anchors {
+                                            fill: parent
+
+                                            leftMargin: elisaTheme.layoutHorizontalMargin
+                                            rightMargin: elisaTheme.layoutHorizontalMargin
+                                            topMargin: 2
+                                            bottomMargin: 2
+                                        }
+
+                                        firstPage: MediaAllTracksView {
+                                            playListModel: playListModelItem
+                                            tracksModel: allTracksModel
+                                            playerControl: manageAudioPlayer
+                                            stackView: localTracks.stackView
+                                            musicListener: allListeners
+                                        }
+
+                                        visible: opacity > 0
+                                    }
+
+                                    Behavior on border.color {
+                                        ColorAnimation {
+                                            duration: 300
+                                        }
+                                    }
                                 }
                             }
 
@@ -743,8 +788,9 @@ ApplicationWindow {
                             PropertyChanges {
                                 target: mainContentView
                                 Layout.fillWidth: true
-                                Layout.minimumWidth: contentZone.width * 0.64
-                                Layout.maximumWidth: contentZone.width * 0.66
+                                Layout.minimumWidth: contentZone.width * 0.66
+                                Layout.maximumWidth: contentZone.width * 0.68
+                                Layout.preferredWidth: contentZone.width * 0.68
                             }
                             PropertyChanges {
                                 target: firstViewSeparatorItem
@@ -789,8 +835,9 @@ ApplicationWindow {
                             PropertyChanges {
                                 target: mainContentView
                                 Layout.fillWidth: true
-                                Layout.minimumWidth: contentZone.width * 0.64
-                                Layout.maximumWidth: contentZone.width * 0.66
+                                Layout.minimumWidth: contentZone.width * 0.66
+                                Layout.maximumWidth: contentZone.width * 0.68
+                                Layout.preferredWidth: contentZone.width * 0.68
                             }
                             PropertyChanges {
                                 target: firstViewSeparatorItem
@@ -835,8 +882,9 @@ ApplicationWindow {
                             PropertyChanges {
                                 target: mainContentView
                                 Layout.fillWidth: true
-                                Layout.minimumWidth: contentZone.width * 0.64
-                                Layout.maximumWidth: contentZone.width * 0.66
+                                Layout.minimumWidth: contentZone.width * 0.66
+                                Layout.maximumWidth: contentZone.width * 0.68
+                                Layout.preferredWidth: contentZone.width * 0.68
                             }
                             PropertyChanges {
                                 target: firstViewSeparatorItem

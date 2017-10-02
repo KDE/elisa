@@ -26,7 +26,7 @@ import QtQuick.Controls 2.2 as Controls2
 import org.mgallien.QmlExtension 1.0
 
 
-Item {
+FocusScope {
     property double volume
     property int position
     property int duration
@@ -87,8 +87,8 @@ Item {
             visible: false
         }
 
-        BrightnessContrast {
-            source: previousButton
+        Controls2.RoundButton {
+            focus: skipBackwardEnabled
 
             Layout.preferredWidth: elisaTheme.smallControlButtonHeight
             Layout.preferredHeight: elisaTheme.smallControlButtonHeight
@@ -99,18 +99,38 @@ Item {
             Layout.minimumHeight: elisaTheme.smallControlButtonHeight
 
             enabled: skipBackwardEnabled
+            hoverEnabled: true
 
-            opacity: skipBackwardEnabled ? 1.0 : 0.6
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    musicWidget.playPrevious()
-                }
+            onClicked: {
+                musicWidget.playPrevious()
             }
 
-            brightness: 0.0
-            contrast: skipBackwardEnabled ? 0.7 : -0.7
+            contentItem: BrightnessContrast {
+                source: previousButton
+
+                anchors.fill: parent
+                anchors.margins: 3
+
+                opacity: skipBackwardEnabled ? 1.0 : 0.6
+
+                brightness: 0.0
+                contrast: skipBackwardEnabled ? 0.7 : -0.7
+            }
+
+            background: Rectangle {
+                color: "transparent"
+
+                border.color: (parent.hovered || parent.activeFocus) ? myPalette.highlight : "transparent"
+                border.width: 1
+
+                radius: elisaTheme.smallControlButtonHeight
+
+                Behavior on border.color {
+                    ColorAnimation {
+                        duration: 300
+                    }
+                }
+            }
         }
 
         Image {
@@ -140,8 +160,8 @@ Item {
             visible: false
         }
 
-        BrightnessContrast {
-            source: playPauseButton
+        Controls2.RoundButton {
+            focus: playEnabled
 
             Layout.preferredWidth: elisaTheme.bigControlButtonHeight
             Layout.preferredHeight: elisaTheme.bigControlButtonHeight
@@ -152,22 +172,43 @@ Item {
             Layout.minimumHeight: elisaTheme.bigControlButtonHeight
 
             enabled: playEnabled
+            hoverEnabled: true
 
-            opacity: playEnabled ? 1.0 : 0.6
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    if (musicWidget.isPlaying) {
-                        musicWidget.pause()
-                    } else {
-                        musicWidget.play()
-                    }
+            onClicked: {
+                if (musicWidget.isPlaying) {
+                    musicWidget.pause()
+                } else {
+                    musicWidget.play()
                 }
             }
 
-            brightness: 0.0
-            contrast: playEnabled ? 0.7 : -0.7
+            contentItem: BrightnessContrast {
+                source: playPauseButton
+
+                anchors.fill: parent
+
+                enabled: playEnabled
+
+                opacity: playEnabled ? 1.0 : 0.6
+
+                brightness: 0.0
+                contrast: playEnabled ? 0.7 : -0.7
+            }
+
+            background: Rectangle {
+                color: "transparent"
+
+                border.color: (parent.hovered || parent.activeFocus) ? myPalette.highlight : "transparent"
+                border.width: 1
+
+                radius: elisaTheme.bigControlButtonHeight
+
+                Behavior on border.color {
+                    ColorAnimation {
+                        duration: 300
+                    }
+                }
+            }
         }
 
         Image {
@@ -193,8 +234,8 @@ Item {
             visible: false
         }
 
-        BrightnessContrast {
-            source: nextButton
+        Controls2.RoundButton {
+            focus: skipForwardEnabled
 
             Layout.preferredWidth: elisaTheme.smallControlButtonHeight
             Layout.preferredHeight: elisaTheme.smallControlButtonHeight
@@ -205,20 +246,42 @@ Item {
             Layout.minimumHeight: elisaTheme.smallControlButtonHeight
             Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.smallControlButtonHeight : 0
             Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.smallControlButtonHeight : 0
+            Layout.margins: -3
 
             enabled: skipForwardEnabled
+            hoverEnabled: true
 
-            opacity: skipForwardEnabled ? 1.0 : 0.6
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    musicWidget.playNext()
-                }
+            onClicked: {
+                musicWidget.playNext()
             }
 
-            brightness: 0.0
-            contrast: skipForwardEnabled ? 0.7 : -0.7
+            contentItem: BrightnessContrast {
+                source: nextButton
+
+                anchors.fill: parent
+
+                enabled: skipForwardEnabled
+
+                opacity: skipForwardEnabled ? 1.0 : 0.6
+
+                brightness: 0.0
+                contrast: skipForwardEnabled ? 0.7 : -0.7
+            }
+
+            background: Rectangle {
+                color: "transparent"
+
+                border.color: (parent.hovered || parent.activeFocus) ? myPalette.highlight : "transparent"
+                border.width: 1
+
+                radius: elisaTheme.smallControlButtonHeight
+
+                Behavior on border.color {
+                    ColorAnimation {
+                        duration: 300
+                    }
+                }
+            }
         }
 
         LabelWithToolTip {

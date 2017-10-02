@@ -387,6 +387,8 @@ ApplicationWindow {
                 HeaderBar {
                     id: headerBar
 
+                    focus: true
+
                     anchors.fill: parent
 
                     tracksCount: myHeaderBarManager.remainingTracks

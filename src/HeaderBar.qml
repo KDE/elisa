@@ -23,7 +23,7 @@ import QtQuick.Controls 1.2
 import QtQuick.Window 2.2
 import QtGraphicalEffects 1.0
 
-Item {
+FocusScope {
     id: headerBar
 
     property string title
@@ -137,6 +137,8 @@ Item {
 
     MediaPlayerControl {
         id: playControlItem
+
+        focus: true
 
         anchors.left: background.left
         anchors.right: background.right

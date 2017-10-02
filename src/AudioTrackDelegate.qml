@@ -24,7 +24,7 @@ import QtQuick.Window 2.2
 import QtGraphicalEffects 1.0
 import org.mgallien.QmlExtension 1.0
 
-Item {
+FocusScope {
     id: viewAlbumDelegate
 
     property string title
@@ -81,6 +81,8 @@ Item {
             color: (isAlternateColor ? myPalette.alternateBase : myPalette.base)
 
             visible: isFirstTrackOfDisc && !isSingleDiscAlbum
+
+            focus: true
 
             LabelWithToolTip {
                 id: discHeaderLabel
@@ -215,7 +217,7 @@ Item {
     states: [
         State {
             name: 'notSelected'
-            when: !isSelected && !hoverArea.containsMouse
+            when: !isSelected && !hoverArea.containsMouse && !viewAlbumDelegate.activeFocus
             PropertyChanges {
                 target: clearAndEnqueueButton
                 opacity: 0
@@ -230,24 +232,8 @@ Item {
             }
         },
         State {
-            name: 'selected'
-            when: isSelected
-            PropertyChanges {
-                target: clearAndEnqueueButton
-                opacity: 1
-            }
-            PropertyChanges {
-                target: enqueueButton
-                opacity: 1
-            }
-            PropertyChanges {
-                target: highlightMarker
-                color: myPalette.highlight
-            }
-        },
-        State {
             name: 'hoveredAndNotSelected'
-            when: !isSelected && hoverArea.containsMouse
+            when: !isSelected && (hoverArea.containsMouse || viewAlbumDelegate.activeFocus)
             PropertyChanges {
                 target: clearAndEnqueueButton
                 opacity: 1

@@ -25,7 +25,7 @@ import QtQml.Models 2.1
 import org.mgallien.QmlExtension 1.0
 import QtQuick.Layouts 1.2
 
-Item {
+FocusScope {
     id: topListing
 
     property StackView stackView
@@ -142,8 +142,12 @@ Item {
             Layout.fillHeight: true
             Layout.fillWidth: true
 
+            focus: true
+
             ListView {
                 id: contentDirectoryView
+
+                focus: true
 
                 model: DelegateModel {
                     model: contentModel
@@ -154,6 +158,8 @@ Item {
 
                     delegate: AudioTrackDelegate {
                         id: entry
+
+                        focus: true
 
                         isAlternateColor: DelegateModel.itemsIndex % 2
                         height: ((model.isFirstTrackOfDisc && !isSingleDiscAlbum) ? elisaTheme.delegateWithHeaderHeight : elisaTheme.delegateHeight)
@@ -212,11 +218,11 @@ Item {
                             }
                         }
 
+                        onClicked: contentDirectoryView.currentIndex = index
+
                         onRightClicked: contextMenu.popup()
                     }
                 }
-
-                focus: true
             }
         }
     }

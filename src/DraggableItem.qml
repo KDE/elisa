@@ -27,7 +27,7 @@
  */
 import QtQuick 2.5
 
-Item {
+FocusScope {
     id: root
 
     default property alias contentItem: dragArea.contentItem

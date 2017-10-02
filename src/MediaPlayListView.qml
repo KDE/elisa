@@ -25,7 +25,7 @@ import QtQuick.Window 2.2
 import QtQml.Models 2.1
 import org.mgallien.QmlExtension 1.0
 
-Item {
+FocusScope {
     property StackView parentStackView
     property MediaPlayList playListModel
     property var playListControler
@@ -153,8 +153,12 @@ Item {
             Layout.fillWidth: true
             Layout.fillHeight: true
 
+            focus: true
+
             ListView {
                 id: playListView
+
+                focus: true
 
                 TextEdit {
                     readOnly: true
@@ -185,8 +189,13 @@ Item {
 
                         placeholderHeight: topItem.placeholderHeight
 
+                        focus: true
+
                         PlayListEntry {
                             id: entry
+
+                            focus: true
+
                             width: playListView.width
                             index: model.index
                             isAlternateColor: item.DelegateModel.itemsIndex % 2
@@ -256,12 +265,7 @@ Item {
 
                         onClicked:
                         {
-                            var myGroup = playListModelDelegate.groups[2]
-                            if (myGroup.count > 0 && !DelegateModel.inSelected) {
-                                myGroup.remove(0, myGroup.count)
-                            }
-
-                            DelegateModel.inSelected = !DelegateModel.inSelected
+                            playListView.currentIndex = index
                         }
 
                         onRightClicked: contentItem.contextMenu.popup()
@@ -271,8 +275,6 @@ Item {
                         }
                     }
                 }
-
-                focus: true
             }
         }
 

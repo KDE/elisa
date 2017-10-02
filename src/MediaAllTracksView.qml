@@ -27,7 +27,7 @@ import QtGraphicalEffects 1.0
 
 import org.mgallien.QmlExtension 1.0
 
-Item {
+FocusScope {
     property var playerControl
     property var playListModel
     property var tracksModel
@@ -161,13 +161,12 @@ Item {
                 anchors.fill: parent
                 flickableItem.boundsBehavior: Flickable.StopAtBounds
 
+                focus: true
+
                 ListView {
                     id: contentDirectoryView
 
-                    TextMetrics {
-                        id: textLineHeight
-                        text: 'Artist'
-                    }
+                    focus: true
 
                     model: DelegateModel {
                         id: delegateContentModel
@@ -183,6 +182,8 @@ Item {
                         delegate: MediaTracksDelegate {
                             width: contentDirectoryView.width
                             height: elisaTheme.trackDelegateHeight
+
+                            focus: true
 
                             isAlternateColor: (index % 2) === 1
 
@@ -233,10 +234,10 @@ Item {
 
                             playList: rootElement.playListModel
                             playerControl: rootElement.playerControl
+
+                            onClicked: contentDirectoryView.currentIndex = index
                         }
                     }
-
-                    focus: true
                 }
             }
         }

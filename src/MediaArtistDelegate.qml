@@ -27,7 +27,7 @@ import QtGraphicalEffects 1.0
 
 import org.mgallien.QmlExtension 1.0
 
-Item {
+FocusScope {
     property StackView stackView
     property MediaPlayList playListModel
     property var musicListener
@@ -97,9 +97,6 @@ Item {
 
             Layout.preferredHeight: mediaServerEntry.width * 0.9 + elisaTheme.layoutVerticalMargin * 0.5 + nameSize.height
             Layout.fillWidth: true
-
-            onEntered: hoverLoader.active = true
-            onExited: hoverLoader.active = false
 
             TextMetrics {
                 id: nameSize
@@ -225,4 +222,26 @@ Item {
             Layout.fillHeight: true
         }
     }
+
+    states: [
+        State {
+            name: 'default'
+
+            PropertyChanges {
+                target: hoverLoader
+                active: false
+            }
+        },
+        State {
+            name: 'active'
+
+            when: mediaServerEntry.activeFocus || hoverHandle.containsMouse
+
+            PropertyChanges {
+                target: hoverLoader
+                active: true
+            }
+        }
+
+    ]
 }

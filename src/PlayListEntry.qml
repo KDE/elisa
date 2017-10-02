@@ -24,7 +24,7 @@ import QtQuick.Window 2.2
 import QtGraphicalEffects 1.0
 import org.mgallien.QmlExtension 1.0
 
-Rectangle {
+FocusScope {
     id: viewAlbumDelegate
 
     property string title
@@ -49,9 +49,6 @@ Rectangle {
     property var contextMenu
     property alias clearPlayListAction: removeFromPlayList
     property alias playNowAction: playNow
-    color: (isAlternateColor ? myPalette.alternateBase : myPalette.base)
-
-    height: (hasAlbumHeader ? elisaTheme.delegateWithHeaderHeight : elisaTheme.delegateHeight)
 
     Action {
         id: removeFromPlayList
@@ -72,251 +69,263 @@ Rectangle {
         }
     }
 
-    ColumnLayout {
-        spacing: 0
+    Rectangle {
+        id: entryBackground
 
         anchors.fill: parent
-        anchors.leftMargin: elisaTheme.layoutHorizontalMargin
-        anchors.rightMargin: elisaTheme.layoutHorizontalMargin
-        anchors.topMargin: 0
-        anchors.bottomMargin: 1
 
-        Item {
-            Layout.fillWidth: true
-            Layout.preferredHeight: elisaTheme.delegateWithHeaderHeight - elisaTheme.delegateHeight
-            Layout.minimumHeight: elisaTheme.delegateWithHeaderHeight - elisaTheme.delegateHeight
-            Layout.maximumHeight: elisaTheme.delegateWithHeaderHeight - elisaTheme.delegateHeight
+        color: (isAlternateColor ? myPalette.alternateBase : myPalette.base)
 
-            visible: hasAlbumHeader
+        height: (hasAlbumHeader ? elisaTheme.delegateWithHeaderHeight : elisaTheme.delegateHeight)
 
-            RowLayout {
-                id: headerRow
+        focus: true
 
-                spacing: elisaTheme.layoutHorizontalMargin
+        ColumnLayout {
+            spacing: 0
 
-                anchors.fill: parent
+            anchors.fill: parent
+            anchors.leftMargin: elisaTheme.layoutHorizontalMargin
+            anchors.rightMargin: elisaTheme.layoutHorizontalMargin
+            anchors.topMargin: 0
+            anchors.bottomMargin: 1
 
-                Image {
-                    id: mainIcon
+            Item {
+                Layout.fillWidth: true
+                Layout.preferredHeight: elisaTheme.delegateWithHeaderHeight - elisaTheme.delegateHeight
+                Layout.minimumHeight: elisaTheme.delegateWithHeaderHeight - elisaTheme.delegateHeight
+                Layout.maximumHeight: elisaTheme.delegateWithHeaderHeight - elisaTheme.delegateHeight
 
-                    source: (isValid ? (viewAlbumDelegate.itemDecoration ? viewAlbumDelegate.itemDecoration : Qt.resolvedUrl(elisaTheme.albumCover)) : Qt.resolvedUrl(elisaTheme.errorIcon))
+                visible: hasAlbumHeader
 
-                    Layout.minimumWidth: headerRow.height - 4
-                    Layout.maximumWidth: headerRow.height - 4
-                    Layout.preferredWidth: headerRow.height - 4
-                    Layout.minimumHeight: headerRow.height - 4
-                    Layout.maximumHeight: headerRow.height - 4
-                    Layout.preferredHeight: headerRow.height - 4
-                    Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+                RowLayout {
+                    id: headerRow
 
-                    sourceSize.width: headerRow.height - 4
-                    sourceSize.height: parent.height - 4
+                    spacing: elisaTheme.layoutHorizontalMargin
 
-                    fillMode: Image.PreserveAspectFit
-                    asynchronous: true
+                    anchors.fill: parent
 
-                    visible: isValid
-                }
+                    Image {
+                        id: mainIcon
 
-                BrightnessContrast {
-                    source: mainIcon
+                        source: (isValid ? (viewAlbumDelegate.itemDecoration ? viewAlbumDelegate.itemDecoration : Qt.resolvedUrl(elisaTheme.albumCover)) : Qt.resolvedUrl(elisaTheme.errorIcon))
 
-                    cached: true
+                        Layout.minimumWidth: headerRow.height - 4
+                        Layout.maximumWidth: headerRow.height - 4
+                        Layout.preferredWidth: headerRow.height - 4
+                        Layout.minimumHeight: headerRow.height - 4
+                        Layout.maximumHeight: headerRow.height - 4
+                        Layout.preferredHeight: headerRow.height - 4
+                        Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
 
-                    visible: !isValid
+                        sourceSize.width: headerRow.height - 4
+                        sourceSize.height: parent.height - 4
 
-                    contrast: -0.9
+                        fillMode: Image.PreserveAspectFit
+                        asynchronous: true
 
-                    Layout.minimumWidth: headerRow.height - 4
-                    Layout.maximumWidth: headerRow.height - 4
-                    Layout.preferredWidth: headerRow.height - 4
-                    Layout.minimumHeight: headerRow.height - 4
-                    Layout.maximumHeight: headerRow.height - 4
-                    Layout.preferredHeight: headerRow.height - 4
-                    Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-                }
-
-                ColumnLayout {
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-
-                    spacing: 0
-
-                    LabelWithToolTip {
-                        id: mainLabel
-                        text: album
-
-                        font.weight: Font.Bold
-                        color: myPalette.text
-
-                        horizontalAlignment: "AlignHCenter"
-
-                        Layout.fillWidth: true
-                        Layout.alignment: Qt.AlignCenter
-                        Layout.topMargin: elisaTheme.layoutVerticalMargin
-
-                        elide: Text.ElideRight
+                        visible: isValid
                     }
 
-                    Item {
+                    BrightnessContrast {
+                        source: mainIcon
+
+                        cached: true
+
+                        visible: !isValid
+
+                        contrast: -0.9
+
+                        Layout.minimumWidth: headerRow.height - 4
+                        Layout.maximumWidth: headerRow.height - 4
+                        Layout.preferredWidth: headerRow.height - 4
+                        Layout.minimumHeight: headerRow.height - 4
+                        Layout.maximumHeight: headerRow.height - 4
+                        Layout.preferredHeight: headerRow.height - 4
+                        Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+                    }
+
+                    ColumnLayout {
+                        Layout.fillWidth: true
                         Layout.fillHeight: true
-                    }
 
-                    LabelWithToolTip {
-                        id: authorLabel
+                        spacing: 0
 
-                        text: albumArtist
+                        LabelWithToolTip {
+                            id: mainLabel
+                            text: album
 
-                        font.weight: Font.Light
-                        color: myPalette.text
+                            font.weight: Font.Bold
+                            color: myPalette.text
 
-                        horizontalAlignment: "AlignHCenter"
+                            horizontalAlignment: "AlignHCenter"
 
-                        Layout.fillWidth: true
-                        Layout.alignment: Qt.AlignCenter
-                        Layout.bottomMargin: elisaTheme.layoutVerticalMargin
+                            Layout.fillWidth: true
+                            Layout.alignment: Qt.AlignCenter
+                            Layout.topMargin: elisaTheme.layoutVerticalMargin
 
-                        elide: Text.ElideRight
+                            elide: Text.ElideRight
+                        }
+
+                        Item {
+                            Layout.fillHeight: true
+                        }
+
+                        LabelWithToolTip {
+                            id: authorLabel
+
+                            text: albumArtist
+
+                            font.weight: Font.Light
+                            color: myPalette.text
+
+                            horizontalAlignment: "AlignHCenter"
+
+                            Layout.fillWidth: true
+                            Layout.alignment: Qt.AlignCenter
+                            Layout.bottomMargin: elisaTheme.layoutVerticalMargin
+
+                            elide: Text.ElideRight
+                        }
                     }
                 }
             }
-        }
 
-        Item {
-            Layout.fillWidth: true
-            Layout.fillHeight: true
+            Item {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
 
-            RowLayout {
-                id: trackRow
+                RowLayout {
+                    id: trackRow
 
-                anchors.fill: parent
+                    anchors.fill: parent
 
-                spacing: elisaTheme.layoutHorizontalMargin
+                    spacing: elisaTheme.layoutHorizontalMargin
 
-                LabelWithToolTip {
-                    id: mainCompactLabel
+                    LabelWithToolTip {
+                        id: mainCompactLabel
 
-                    text: ((discNumber && !isSingleDiscAlbum) ? discNumber + ' - ' + trackNumber : trackNumber) + ' - ' + title
+                        text: ((discNumber && !isSingleDiscAlbum) ? discNumber + ' - ' + trackNumber : trackNumber) + ' - ' + title
 
-                    font.weight: (isPlaying ? Font.Bold : Font.Normal)
-                    color: myPalette.text
+                        font.weight: (isPlaying ? Font.Bold : Font.Normal)
+                        color: myPalette.text
 
-                    Layout.fillWidth: true
-                    Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
+                        Layout.fillWidth: true
+                        Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
 
-                    visible: isValid
+                        visible: isValid
 
-                    elide: Text.ElideRight
-                }
+                        elide: Text.ElideRight
+                    }
 
-                LabelWithToolTip {
-                    id: mainInvalidCompactLabel
+                    LabelWithToolTip {
+                        id: mainInvalidCompactLabel
 
-                    text: title
+                        text: title
 
-                    font.weight: Font.Normal
-                    color: myPalette.text
+                        font.weight: Font.Normal
+                        color: myPalette.text
 
-                    Layout.fillWidth: true
-                    Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
+                        Layout.fillWidth: true
+                        Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
 
-                    visible: !isValid
+                        visible: !isValid
 
-                    elide: Text.ElideRight
-                }
+                        elide: Text.ElideRight
+                    }
 
-                Item { Layout.fillWidth: true }
+                    Item { Layout.fillWidth: true }
 
-                ToolButton {
-                    id: playNowButton
+                    ToolButton {
+                        id: playNowButton
 
-                    implicitHeight: elisaTheme.smallDelegateToolButtonSize
-                    implicitWidth: elisaTheme.smallDelegateToolButtonSize
+                        implicitHeight: elisaTheme.smallDelegateToolButtonSize
+                        implicitWidth: elisaTheme.smallDelegateToolButtonSize
 
-                    opacity: 0
+                        opacity: 0
 
-                    visible: opacity > 0.1
-                    action: playNow
-                    Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
-                }
+                        visible: opacity > 0.1
+                        action: playNow
+                        Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+                    }
 
-                ToolButton {
-                    id: removeButton
+                    ToolButton {
+                        id: removeButton
 
-                    implicitHeight: elisaTheme.smallDelegateToolButtonSize
-                    implicitWidth: elisaTheme.smallDelegateToolButtonSize
+                        implicitHeight: elisaTheme.smallDelegateToolButtonSize
+                        implicitWidth: elisaTheme.smallDelegateToolButtonSize
 
-                    opacity: 0
+                        opacity: 0
 
-                    visible: opacity > 0.1
-                    action: removeFromPlayList
-                    Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
-                }
+                        visible: opacity > 0.1
+                        action: removeFromPlayList
+                        Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+                    }
 
-                Image {
-                    id: playIcon
+                    Image {
+                        id: playIcon
 
-                    Layout.preferredWidth: parent.height * 1
-                    Layout.preferredHeight: parent.height * 1
-                    Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-                    Layout.maximumWidth: elisaTheme.smallDelegateToolButtonSize
-                    Layout.maximumHeight: elisaTheme.smallDelegateToolButtonSize
+                        Layout.preferredWidth: parent.height * 1
+                        Layout.preferredHeight: parent.height * 1
+                        Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+                        Layout.maximumWidth: elisaTheme.smallDelegateToolButtonSize
+                        Layout.maximumHeight: elisaTheme.smallDelegateToolButtonSize
 
-                    opacity: 0
+                        opacity: 0
 
-                    source: (isPlaying == MediaPlayList.IsPlaying ? Qt.resolvedUrl(elisaTheme.playIcon) : Qt.resolvedUrl(elisaTheme.pauseIcon))
-                    width: parent.height * 1.
-                    height: parent.height * 1.
-                    sourceSize.width: parent.height * 1.
-                    sourceSize.height: parent.height * 1.
-                    fillMode: Image.PreserveAspectFit
-                    mirror: LayoutMirroring.enabled
-                    visible: isPlaying == MediaPlayList.IsPlaying || isPlaying == MediaPlayList.IsPaused
+                        source: (isPlaying == MediaPlayList.IsPlaying ? Qt.resolvedUrl(elisaTheme.playIcon) : Qt.resolvedUrl(elisaTheme.pauseIcon))
+                        width: parent.height * 1.
+                        height: parent.height * 1.
+                        sourceSize.width: parent.height * 1.
+                        sourceSize.height: parent.height * 1.
+                        fillMode: Image.PreserveAspectFit
+                        mirror: LayoutMirroring.enabled
+                        visible: isPlaying == MediaPlayList.IsPlaying || isPlaying == MediaPlayList.IsPaused
 
-                    SequentialAnimation on opacity {
-                        running: isPlaying == MediaPlayList.IsPlaying
-                        loops: Animation.Infinite
+                        SequentialAnimation on opacity {
+                            running: isPlaying == MediaPlayList.IsPlaying
+                            loops: Animation.Infinite
 
-                        NumberAnimation {
-                            from: 0
-                            to: 1.
-                            duration: 1000
-                            easing.type: Easing.InOutCubic
+                            NumberAnimation {
+                                from: 0
+                                to: 1.
+                                duration: 1000
+                                easing.type: Easing.InOutCubic
+                            }
+                            NumberAnimation {
+                                from: 1
+                                to: 0
+                                duration: 1000
+                                easing.type: Easing.InOutCubic
+                            }
                         }
-                        NumberAnimation {
-                            from: 1
-                            to: 0
-                            duration: 1000
-                            easing.type: Easing.InOutCubic
+
+                        SequentialAnimation on opacity {
+                            running: isPlaying == MediaPlayList.IsPaused
+
+                            NumberAnimation {
+                                from: playIcon.opacity
+                                to: 1.
+                                duration: 1000
+                                easing.type: Easing.InOutCubic
+                            }
                         }
                     }
 
-                    SequentialAnimation on opacity {
-                        running: isPlaying == MediaPlayList.IsPaused
+                    RatingStar {
+                        id: ratingWidget
 
-                        NumberAnimation {
-                            from: playIcon.opacity
-                            to: 1.
-                            duration: 1000
-                            easing.type: Easing.InOutCubic
-                        }
+                        starSize: elisaTheme.ratingStarSize
                     }
-                }
 
-                RatingStar {
-                    id: ratingWidget
+                    LabelWithToolTip {
+                        id: durationLabel
+                        text: duration
 
-                    starSize: elisaTheme.ratingStarSize
-                }
+                        color: myPalette.text
 
-                LabelWithToolTip {
-                    id: durationLabel
-                    text: duration
-
-                    color: myPalette.text
-
-                    elide: Text.ElideRight
-                    Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+                        elide: Text.ElideRight
+                        Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+                    }
                 }
             }
         }
@@ -325,7 +334,7 @@ Rectangle {
     states: [
         State {
             name: 'notSelected'
-            when: !containsMouse
+            when: !containsMouse && !viewAlbumDelegate.activeFocus
             PropertyChanges {
                 target: viewAlbumDelegate
                 height: (hasAlbumHeader ? elisaTheme.delegateWithHeaderHeight : elisaTheme.delegateHeight)
@@ -339,13 +348,13 @@ Rectangle {
                 opacity: 0
             }
             PropertyChanges {
-                target: viewAlbumDelegate
+                target: entryBackground
                 color: (isAlternateColor ? myPalette.alternateBase : myPalette.base)
             }
         },
         State {
             name: 'hoveredAndNotSelected'
-            when: containsMouse
+            when: containsMouse || viewAlbumDelegate.activeFocus
             PropertyChanges {
                 target: viewAlbumDelegate
                 height: (hasAlbumHeader ? elisaTheme.delegateWithHeaderHeight : elisaTheme.delegateHeight)
@@ -359,7 +368,7 @@ Rectangle {
                 opacity: 1
             }
             PropertyChanges {
-                target: viewAlbumDelegate
+                target: entryBackground
                 color: myPalette.mid
             }
         }

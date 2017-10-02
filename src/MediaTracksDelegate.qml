@@ -24,7 +24,7 @@ import QtQuick.Window 2.2
 import QtGraphicalEffects 1.0
 import org.mgallien.QmlExtension 1.0
 
-Item {
+FocusScope {
     id: viewTrackDelegate
 
     property string title
@@ -236,7 +236,7 @@ Item {
     states: [
         State {
             name: 'notSelected'
-            when: !hoverArea.containsMouse
+            when: !hoverArea.containsMouse && !viewTrackDelegate.activeFocus
             PropertyChanges {
                 target: clearAndEnqueueButton
                 opacity: 0
@@ -252,7 +252,7 @@ Item {
         },
         State {
             name: 'hoveredAndNotSelected'
-            when: hoverArea.containsMouse
+            when: hoverArea.containsMouse || viewTrackDelegate.activeFocus
             PropertyChanges {
                 target: clearAndEnqueueButton
                 opacity: 1

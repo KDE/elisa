@@ -78,6 +78,8 @@ private Q_SLOTS:
 
     void singleTrack();
 
+    void testBringUpAndRemoveLastCase();
+
 private:
 
     QList<MusicAudioTrack> mNewTracks = {

@@ -2338,6 +2338,146 @@ void PlayListControlerTest::singleTrack()
     QCOMPARE(myControler.currentTrack(), QPersistentModelIndex(myPlayList.index(0, 0)));
 }
 
+void PlayListControlerTest::testBringUpAndRemoveLastCase()
+{
+    PlayListControler myControler;
+
+    QSignalSpy currentTrackChangedSpy(&myControler, &PlayListControler::currentTrackChanged);
+    QSignalSpy playListModelChangedSpy(&myControler, &PlayListControler::playListModelChanged);
+    QSignalSpy isValidRoleChangedSpy(&myControler, &PlayListControler::isValidRoleChanged);
+    QSignalSpy randomPlayChangedSpy(&myControler, &PlayListControler::randomPlayChanged);
+    QSignalSpy randomPlayControlChangedSpy(&myControler, &PlayListControler::randomPlayControlChanged);
+    QSignalSpy repeatPlayChangedSpy(&myControler, &PlayListControler::repeatPlayChanged);
+    QSignalSpy repeatPlayControlChangedSpy(&myControler, &PlayListControler::repeatPlayControlChanged);
+    QSignalSpy playListFinishedSpy(&myControler, &PlayListControler::playListFinished);
+
+    MediaPlayList myPlayList;
+    DatabaseInterface myDatabaseContent;
+    TracksListener myListener(&myDatabaseContent);
+
+    myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
+
+    connect(&myListener, &TracksListener::trackHasChanged,
+            &myPlayList, &MediaPlayList::trackChanged,
+            Qt::QueuedConnection);
+    connect(&myListener, &TracksListener::albumAdded,
+            &myPlayList, &MediaPlayList::albumAdded,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newTrackByIdInList,
+            &myListener, &TracksListener::trackByIdInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newTrackByNameInList,
+            &myListener, &TracksListener::trackByNameInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newArtistInList,
+            &myListener, &TracksListener::newArtistInList,
+            Qt::QueuedConnection);
+    connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
+            &myListener, &TracksListener::tracksAdded);
+
+    myControler.setPlayListModel(&myPlayList);
+
+    QCOMPARE(currentTrackChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(isValidRoleChangedSpy.count(), 0);
+    QCOMPARE(randomPlayChangedSpy.count(), 0);
+    QCOMPARE(randomPlayControlChangedSpy.count(), 0);
+    QCOMPARE(repeatPlayChangedSpy.count(), 0);
+    QCOMPARE(repeatPlayControlChangedSpy.count(), 0);
+    QCOMPARE(playListFinishedSpy.count(), 0);
+
+    QCOMPARE(myControler.playListModel(), &myPlayList);
+
+    myControler.setIsValidRole(MediaPlayList::ColumnsRoles::IsValidRole);
+
+    QCOMPARE(currentTrackChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(isValidRoleChangedSpy.count(), 1);
+    QCOMPARE(randomPlayChangedSpy.count(), 0);
+    QCOMPARE(randomPlayControlChangedSpy.count(), 0);
+    QCOMPARE(repeatPlayChangedSpy.count(), 0);
+    QCOMPARE(repeatPlayControlChangedSpy.count(), 0);
+    QCOMPARE(playListFinishedSpy.count(), 0);
+
+    QCOMPARE(myControler.isValidRole(), static_cast<int>(MediaPlayList::ColumnsRoles::IsValidRole));
+
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
+
+    QCOMPARE(currentTrackChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(isValidRoleChangedSpy.count(), 1);
+    QCOMPARE(randomPlayChangedSpy.count(), 0);
+    QCOMPARE(randomPlayControlChangedSpy.count(), 0);
+    QCOMPARE(repeatPlayChangedSpy.count(), 0);
+    QCOMPARE(repeatPlayControlChangedSpy.count(), 0);
+    QCOMPARE(playListFinishedSpy.count(), 0);
+
+    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album2"), QStringLiteral("artist1")});
+    myPlayList.enqueue({QStringLiteral("track2"), QStringLiteral("album2"), QStringLiteral("artist1")});
+    myPlayList.enqueue({QStringLiteral("track3"), QStringLiteral("album2"), QStringLiteral("artist1")});
+
+    QCOMPARE(currentTrackChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(isValidRoleChangedSpy.count(), 1);
+    QCOMPARE(randomPlayChangedSpy.count(), 0);
+    QCOMPARE(randomPlayControlChangedSpy.count(), 0);
+    QCOMPARE(repeatPlayChangedSpy.count(), 0);
+    QCOMPARE(repeatPlayControlChangedSpy.count(), 0);
+    QCOMPARE(playListFinishedSpy.count(), 0);
+
+    QCOMPARE(currentTrackChangedSpy.wait(), true);
+
+    QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(isValidRoleChangedSpy.count(), 1);
+    QCOMPARE(randomPlayChangedSpy.count(), 0);
+    QCOMPARE(randomPlayControlChangedSpy.count(), 0);
+    QCOMPARE(repeatPlayChangedSpy.count(), 0);
+    QCOMPARE(repeatPlayControlChangedSpy.count(), 0);
+    QCOMPARE(playListFinishedSpy.count(), 0);
+
+    QCOMPARE(myControler.currentTrack(), QPersistentModelIndex(myPlayList.index(0, 0)));
+
+    myControler.skipNextTrack();
+
+    QCOMPARE(currentTrackChangedSpy.count(), 2);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(isValidRoleChangedSpy.count(), 1);
+    QCOMPARE(randomPlayChangedSpy.count(), 0);
+    QCOMPARE(randomPlayControlChangedSpy.count(), 0);
+    QCOMPARE(repeatPlayChangedSpy.count(), 0);
+    QCOMPARE(repeatPlayControlChangedSpy.count(), 0);
+    QCOMPARE(playListFinishedSpy.count(), 0);
+
+    QCOMPARE(myControler.currentTrack(), QPersistentModelIndex(myPlayList.index(1, 0)));
+
+    myControler.skipNextTrack();
+
+    QCOMPARE(currentTrackChangedSpy.count(), 3);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(isValidRoleChangedSpy.count(), 1);
+    QCOMPARE(randomPlayChangedSpy.count(), 0);
+    QCOMPARE(randomPlayControlChangedSpy.count(), 0);
+    QCOMPARE(repeatPlayChangedSpy.count(), 0);
+    QCOMPARE(repeatPlayControlChangedSpy.count(), 0);
+    QCOMPARE(playListFinishedSpy.count(), 0);
+
+    QCOMPARE(myControler.currentTrack(), QPersistentModelIndex(myPlayList.index(2, 0)));
+
+    myPlayList.removeRow(2);
+
+    QCOMPARE(currentTrackChangedSpy.count(), 4);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(isValidRoleChangedSpy.count(), 1);
+    QCOMPARE(randomPlayChangedSpy.count(), 0);
+    QCOMPARE(randomPlayControlChangedSpy.count(), 0);
+    QCOMPARE(repeatPlayChangedSpy.count(), 0);
+    QCOMPARE(repeatPlayControlChangedSpy.count(), 0);
+    QCOMPARE(playListFinishedSpy.count(), 1);
+
+    QCOMPARE(myControler.currentTrack(), QPersistentModelIndex(myPlayList.index(0, 0)));
+}
+
 
 QTEST_GUILESS_MAIN(PlayListControlerTest)
 

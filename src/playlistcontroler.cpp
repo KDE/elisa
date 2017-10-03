@@ -174,10 +174,16 @@ void PlayListControler::tracksRemoved(const QModelIndex &parent, int first, int 
     if (!mCurrentTrack.isValid()) {
         if (mCurrentTrackIsValid) {
             mCurrentTrack = mPlayListModel->index(mCurrentPlayListPosition, 0);
-            notifyCurrentTrackChanged();
+            if (mCurrentTrack.isValid()) {
+                notifyCurrentTrackChanged();
+            }
         }
         if (!mCurrentTrack.isValid()) {
             Q_EMIT playListFinished();
+            resetCurrentTrack();
+            if (!mCurrentTrack.isValid()) {
+                notifyCurrentTrackChanged();
+            }
         }
 
         return;

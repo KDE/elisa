@@ -488,35 +488,6 @@ ApplicationWindow {
                         musicManager: allListeners
 
                         focus: true
-
-                        /*NotificationItem {
-                            id: noTrackNotificationItem
-
-                            active: !allListeners.indexingRunning && (allAlbumsModel.albumCount === 0)
-
-                            message: i18nc("No track found message", "No track have been found")
-
-                            mainButtonText: configureAction.text
-                            mainButtonIconName: 'configure'
-
-                            onMainButtonTriggered: configureAction.trigger()
-                        }*/
-
-                        /*NotificationItem {
-                            id: balooNotificationItem
-
-                            active: true
-
-                            message: i18nc("Notification about unusable Baloo Configuration", "Baloo configuration does not allow to discover your music")
-
-                            mainButtonText: i18nc("Text of button to modify Baloo Configuration", "Modify it")
-                            mainButtonIconName: 'configure'
-
-                            secondaryButtonText: i18nc("Text of button to disable Baloo indexer", "Disable Baloo support")
-                            secondaryButtonIconName: 'configure'
-
-                            //onMainButtonTriggered: configureAction.trigger()
-                        }*/
                     }
 
                     Item {
@@ -541,7 +512,7 @@ ApplicationWindow {
                                 Layout.maximumWidth: 0
                                 Layout.preferredWidth: 0
 
-                                //z: 1
+
                                 visible: Layout.minimumWidth != 0
 
                                 Rectangle {

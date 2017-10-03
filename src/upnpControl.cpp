@@ -191,7 +191,11 @@ int main(int argc, char *argv[])
                           KAboutLicense::LGPL_V3,
                           i18n("(c) 2015-2017, Matthieu Gallien <mgallien@mgallien.fr>"));
 
-    aboutData.addAuthor(i18n("Matthieu Gallien"),i18n("Author"), QStringLiteral("mgallien@mgallien.fr"));
+    aboutData.addAuthor(QStringLiteral("Matthieu Gallien"),i18n("Author"), QStringLiteral("mgallien@mgallien.fr"));
+
+    aboutData.addCredit(QStringLiteral("Luigi Toscano"), i18n("Localization support"), QStringLiteral("luigi.toscano@tiscali.it"));
+    aboutData.addCredit(QStringLiteral("Safa Alfulaij"), i18n("Right to left support"), QStringLiteral("safa1996alfulaij@gmail.com"));
+
     KAboutData::setApplicationData(aboutData);
 #else
     QGuiApplication::setApplicationName(QStringLiteral("elisa"));

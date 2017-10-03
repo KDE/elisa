@@ -22,7 +22,7 @@ import QtQuick.Layouts 1.3
 import QtQuick.Controls 1.4
 import org.mgallien.QmlExtension 1.0
 
-Item {
+FocusScope {
     id: topItem
 
     signal close()

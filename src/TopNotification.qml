@@ -23,7 +23,7 @@ import QtQuick.Controls 1.4
 import QtQml.Models 2.2
 import org.mgallien.QmlExtension 1.0
 
-Rectangle {
+FocusScope {
     id: topItem
 
     property var musicManager
@@ -33,7 +33,11 @@ Rectangle {
 
     visible: Layout.preferredHeight > 0
 
-    color: myPalette.mid
+    Rectangle {
+        anchors.fill: parent
+
+        color: myPalette.mid
+    }
 
     Component {
         id: highlightBar
@@ -96,10 +100,14 @@ Rectangle {
         opacity: 0
         visible: opacity > 0
 
+        focus: true
+
         z: 2
 
         ListView {
             id: notificationColumn
+
+            focus: true
 
             populate: Transition {
                 NumberAnimation { properties: "opacity"; from: 0; to: 1.0; duration: 300 }
@@ -120,6 +128,8 @@ Rectangle {
 
                 delegate: TopNotificationItem {
                     id: currentDelegate
+
+                    focus: true
 
                     width: ListView.view.width
                     height: rowHeight

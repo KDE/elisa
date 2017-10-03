@@ -487,6 +487,8 @@ ApplicationWindow {
 
                         musicManager: allListeners
 
+                        focus: true
+
                         /*NotificationItem {
                             id: noTrackNotificationItem
 

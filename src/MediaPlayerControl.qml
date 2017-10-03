@@ -414,8 +414,9 @@ FocusScope {
             visible: false
         }
 
-        BrightnessContrast {
-            source: volumeIcon
+
+        Controls2.RoundButton {
+            focus: true
 
             Layout.preferredWidth: elisaTheme.smallControlButtonHeight
             Layout.preferredHeight: elisaTheme.smallControlButtonHeight
@@ -427,13 +428,31 @@ FocusScope {
             Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
             Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
 
-            MouseArea {
-                anchors.fill: parent
-                onClicked: musicWidget.muted = !musicWidget.muted
+            hoverEnabled: true
+
+            onClicked: musicWidget.muted = !musicWidget.muted
+
+            contentItem: BrightnessContrast {
+                source: volumeIcon
+
+                brightness: 0.0
+                contrast: 0.7
             }
 
-            brightness: 0.0
-            contrast: 0.7
+            background: Rectangle {
+                color: "transparent"
+
+                border.color: (parent.hovered || parent.activeFocus) ? myPalette.highlight : "transparent"
+                border.width: 1
+
+                radius: elisaTheme.smallControlButtonHeight
+
+                Behavior on border.color {
+                    ColorAnimation {
+                        duration: 300
+                    }
+                }
+            }
         }
 
         Controls2.Slider {

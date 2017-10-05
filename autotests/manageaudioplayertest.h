@@ -85,6 +85,10 @@ private Q_SLOTS:
 
     void playTrackPauseAndSkipNextTrack();
 
+    void testRestoreSettingsNoPlayWrongTrack();
+
+    void testRestorePlayListAndSettingsAutomaticPlay();
+
 };
 
 #endif // MANAGEAUDIOPLAYERTEST_H

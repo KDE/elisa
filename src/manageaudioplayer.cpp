@@ -97,7 +97,17 @@ QVariantMap ManageAudioPlayer::persistentState() const
     auto persistentStateValue = QVariantMap();
 
     persistentStateValue[QStringLiteral("isPlaying")] = mPlayingState;
+
     persistentStateValue[QStringLiteral("playerPosition")] = mPlayerPosition;
+    if (mCurrentTrack.isValid()) {
+        persistentStateValue[QStringLiteral("audioPlayerCurrentTitle")] = mCurrentTrack.data(mTitleRole);
+        persistentStateValue[QStringLiteral("audioPlayerCurrentArtistName")] = mCurrentTrack.data(mArtistNameRole);
+        persistentStateValue[QStringLiteral("audioPlayerCurrentAlbumName")] = mCurrentTrack.data(mAlbumNameRole);
+    } else {
+        persistentStateValue[QStringLiteral("audioPlayerCurrentTitle")] = {};
+        persistentStateValue[QStringLiteral("audioPlayerCurrentArtistName")] = {};
+        persistentStateValue[QStringLiteral("audioPlayerCurrentAlbumName")] = {};
+    }
 
     return persistentStateValue;
 }
@@ -111,6 +121,21 @@ int ManageAudioPlayer::playListPosition() const
     return 0;
 }
 
+int ManageAudioPlayer::titleRole() const
+{
+    return mTitleRole;
+}
+
+int ManageAudioPlayer::artistNameRole() const
+{
+    return mArtistNameRole;
+}
+
+int ManageAudioPlayer::albumNameRole() const
+{
+    return mAlbumNameRole;
+}
+
 void ManageAudioPlayer::setCurrentTrack(const QPersistentModelIndex &currentTrack)
 {
     if (mCurrentTrack == currentTrack) {
@@ -118,7 +143,13 @@ void ManageAudioPlayer::setCurrentTrack(const QPersistentModelIndex &currentTrac
     }
 
     mOldCurrentTrack = mCurrentTrack;
+
     mCurrentTrack = currentTrack;
+
+    if (mCurrentTrack.isValid()) {
+        restorePreviousState();
+    }
+
     Q_EMIT currentTrackChanged();
 
     switch (mPlayerPlaybackState) {
@@ -157,6 +188,7 @@ void ManageAudioPlayer::setUrlRole(int value)
     mUrlRole = value;
     Q_EMIT urlRoleChanged();
     notifyPlayerSourceProperty();
+    restorePreviousState();
 }
 
 void ManageAudioPlayer::setIsPlayingRole(int value)
@@ -190,13 +222,6 @@ void ManageAudioPlayer::setPlayerStatus(int playerStatus)
     case Loaded:
         break;
     case Buffering:
-        if (isFirstPlayTriggerPlay) {
-            isFirstPlayTriggerPlay = false;
-            auto isPlaying = mPersistentState.find(QStringLiteral("isPlaying"));
-            if (isPlaying != mPersistentState.end()) {
-                mPlayingState = isPlaying->toBool();
-            }
-        }
         if (mPlayingState) {
             triggerPlay();
         }
@@ -238,14 +263,6 @@ void ManageAudioPlayer::setPlayerPlaybackState(int playerPlaybackState)
             }
             break;
         case PlayingState:
-            if (isFirstPlayTriggerSeek) {
-                isFirstPlayTriggerSeek = false;
-                auto playerPosition = mPersistentState.find(QStringLiteral("playerPosition"));
-                if (playerPosition != mPersistentState.end()) {
-                    mPlayerPosition = playerPosition->toInt();
-                    Q_EMIT seek(mPlayerPosition);
-                }
-            }
             if (mPlayListModel && mCurrentTrack.isValid()) {
                 mPlayListModel->setData(mCurrentTrack, MediaPlayList::IsPlaying, mIsPlayingRole);
             }
@@ -266,14 +283,6 @@ void ManageAudioPlayer::setPlayerPlaybackState(int playerPlaybackState)
             }
             break;
         case PlayingState:
-            if (isFirstPlayTriggerSeek) {
-                isFirstPlayTriggerSeek = false;
-                auto playerPosition = mPersistentState.find(QStringLiteral("playerPosition"));
-                if (playerPosition != mPersistentState.end()) {
-                    mPlayerPosition = playerPosition->toInt();
-                    Q_EMIT seek(mPlayerPosition);
-                }
-            }
             if (mPlayListModel && mCurrentTrack.isValid()) {
                 mPlayListModel->setData(mCurrentTrack, MediaPlayList::IsPlaying, mIsPlayingRole);
             }
@@ -315,13 +324,6 @@ void ManageAudioPlayer::playPause()
     switch (mPlayerStatus) {
     case Loaded:
     case Buffering:
-        if (isFirstPlayTriggerPlay) {
-            isFirstPlayTriggerPlay = false;
-            auto isPlaying = mPersistentState.find(QStringLiteral("isPlaying"));
-            if (isPlaying != mPersistentState.end()) {
-                mPlayingState = isPlaying->toBool();
-            }
-        }
         if (mPlayingState) {
             triggerPlay();
         } else {
@@ -390,6 +392,10 @@ void ManageAudioPlayer::setPersistentState(const QVariantMap &persistentStateVal
     mPersistentState = persistentStateValue;
 
     Q_EMIT persistentStateChanged();
+
+    if (mCurrentTrack.isValid()) {
+        restorePreviousState();
+    }
 }
 
 void ManageAudioPlayer::playerSeek(int position)
@@ -418,12 +424,56 @@ void ManageAudioPlayer::tracksDataChanged(const QModelIndex &topLeft, const QMod
 
     if (roles.isEmpty()) {
         notifyPlayerSourceProperty();
+        restorePreviousState();
     } else {
         for(auto oneRole : roles) {
             if (oneRole == mUrlRole) {
                 notifyPlayerSourceProperty();
+                restorePreviousState();
             }
         }
+    }
+}
+
+void ManageAudioPlayer::setTitleRole(int titleRole)
+{
+    if (mTitleRole == titleRole) {
+        return;
+    }
+
+    mTitleRole = titleRole;
+    Q_EMIT titleRoleChanged();
+
+    if (mCurrentTrack.isValid()) {
+        restorePreviousState();
+    }
+}
+
+void ManageAudioPlayer::setArtistNameRole(int artistNameRole)
+{
+    if (mArtistNameRole == artistNameRole) {
+        return;
+    }
+
+    mArtistNameRole = artistNameRole;
+    Q_EMIT artistNameRoleChanged();
+
+    if (mCurrentTrack.isValid()) {
+        restorePreviousState();
+    }
+}
+
+void ManageAudioPlayer::setAlbumNameRole(int albumNameRole)
+{
+    if (mAlbumNameRole == albumNameRole) {
+        return;
+    }
+
+    mAlbumNameRole = albumNameRole;
+    Q_EMIT albumNameRoleChanged();
+
+    if (mCurrentTrack.isValid()) {
+        restorePreviousState();
     }
 }
 
@@ -455,6 +505,49 @@ void ManageAudioPlayer::triggerStop()
 void ManageAudioPlayer::triggerSkipNextTrack()
 {
     QTimer::singleShot(0, [this]() {Q_EMIT skipNextTrack();});
+}
+
+void ManageAudioPlayer::restorePreviousState()
+{
+    if (mPersistentState.isEmpty()) {
+        return;
+    }
+
+    auto itTitle = mPersistentState.find(QStringLiteral("audioPlayerCurrentTitle"));
+    auto itArtistName = mPersistentState.find(QStringLiteral("audioPlayerCurrentArtistName"));
+    auto itAlbumName = mPersistentState.find(QStringLiteral("audioPlayerCurrentAlbumName"));
+
+    if (itTitle == mPersistentState.end() || itArtistName == mPersistentState.end() ||
+            itAlbumName == mPersistentState.end()) {
+        return;
+    }
+
+    if (*itTitle != mCurrentTrack.data(mTitleRole) || *itArtistName != mCurrentTrack.data(mArtistNameRole) ||
+            *itAlbumName != mCurrentTrack.data(mAlbumNameRole)) {
+        if (mCurrentTrack.isValid() && mCurrentTrack.data(mTitleRole).isValid() && mCurrentTrack.data(mArtistNameRole).isValid() &&
+                mCurrentTrack.data(mAlbumNameRole).isValid()) {
+            mPersistentState.clear();
+        }
+
+        return;
+    }
+
+    if (!mCurrentTrack.data(mUrlRole).toUrl().isValid()) {
+        return;
+    }
+
+    auto isPlaying = mPersistentState.find(QStringLiteral("isPlaying"));
+    if (isPlaying != mPersistentState.end() && mPlayingState != isPlaying->toBool()) {
+        mPlayingState = isPlaying->toBool();
+    }
+
+    auto playerPosition = mPersistentState.find(QStringLiteral("playerPosition"));
+    if (playerPosition != mPersistentState.end()) {
+        mPlayerPosition = playerPosition->toInt();
+        Q_EMIT seek(mPlayerPosition);
+    }
+
+    mPersistentState.clear();
 }
 
 

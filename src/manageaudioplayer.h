@@ -43,6 +43,21 @@ class ManageAudioPlayer : public QObject
                READ playerSource
                NOTIFY playerSourceChanged)
 
+    Q_PROPERTY(int titleRole
+               READ titleRole
+               WRITE setTitleRole
+               NOTIFY titleRoleChanged)
+
+    Q_PROPERTY(int artistNameRole
+               READ artistNameRole
+               WRITE setArtistNameRole
+               NOTIFY artistNameRoleChanged)
+
+    Q_PROPERTY(int albumNameRole
+               READ albumNameRole
+               WRITE setAlbumNameRole
+               NOTIFY albumNameRoleChanged)
+
     Q_PROPERTY(int urlRole
                READ urlRole
                WRITE setUrlRole
@@ -158,6 +173,12 @@ public:
 
     int playListPosition() const;
 
+    int titleRole() const;
+
+    int artistNameRole() const;
+
+    int albumNameRole() const;
+
 Q_SIGNALS:
 
     void currentTrackChanged();
@@ -196,6 +217,12 @@ Q_SIGNALS:
 
     void seek(int position);
 
+    void titleRoleChanged();
+
+    void artistNameRoleChanged();
+
+    void albumNameRoleChanged();
+
 public Q_SLOTS:
 
     void setCurrentTrack(const QPersistentModelIndex &currentTrack);
@@ -232,6 +259,12 @@ public Q_SLOTS:
 
     void tracksDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles);
 
+    void setTitleRole(int titleRole);
+
+    void setArtistNameRole(int artistNameRole);
+
+    void setAlbumNameRole(int albumNameRole);
+
 private:
 
     void notifyPlayerSourceProperty();
@@ -244,11 +277,19 @@ private:
 
     void triggerSkipNextTrack();
 
+    void restorePreviousState();
+
     QPersistentModelIndex mCurrentTrack;
 
     QPersistentModelIndex mOldCurrentTrack;
 
     QAbstractItemModel *mPlayListModel = nullptr;
+
+    int mTitleRole = Qt::DisplayRole;
+
+    int mArtistNameRole = Qt::DisplayRole;
+
+    int mAlbumNameRole = Qt::DisplayRole;
 
     int mUrlRole = Qt::DisplayRole;
 
@@ -271,10 +312,6 @@ private:
     bool mPlayerIsSeekable = false;
 
     int mPlayerPosition = 0;
-
-    bool isFirstPlayTriggerPlay = true;
-
-    bool isFirstPlayTriggerSeek = true;
 
     QVariantMap mPersistentState;
 

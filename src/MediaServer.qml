@@ -202,6 +202,9 @@ ApplicationWindow {
         playListModel: playListModelItem
         urlRole: MediaPlayList.ResourceRole
         isPlayingRole: MediaPlayList.IsPlayingRole
+        titleRole: MediaPlayList.TitleRole
+        artistNameRole: MediaPlayList.ArtistRole
+        albumNameRole: MediaPlayList.AlbumRole
 
         playerStatus: audioPlayer.status
         playerPlaybackState: audioPlayer.playbackState

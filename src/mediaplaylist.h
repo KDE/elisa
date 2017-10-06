@@ -46,6 +46,10 @@ class MediaPlayList : public QAbstractListModel
                WRITE setMusicListenersManager
                NOTIFY musicListenersManagerChanged)
 
+    Q_PROPERTY(int tracksCount
+               READ tracksCount
+               NOTIFY tracksCountChanged)
+
 public:
 
     enum ColumnsRoles {
@@ -120,6 +124,8 @@ public:
 
     MusicListenersManager* musicListenersManager() const;
 
+    int tracksCount() const;
+
 Q_SIGNALS:
 
     void newTrackByNameInList(const QString &title, const QString &artist, const QString &album);
@@ -133,6 +139,8 @@ Q_SIGNALS:
     void persistentStateChanged();
 
     void musicListenersManagerChanged();
+
+    void tracksCountChanged();
 
 public Q_SLOTS:
 

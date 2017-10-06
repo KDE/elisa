@@ -267,6 +267,8 @@ bool MediaPlayList::removeRows(int row, int count, const QModelIndex &parent)
     }
     endRemoveRows();
 
+    Q_EMIT tracksCountChanged();
+
     if (hadAlbumHeader != rowHasHeader(row)) {
         Q_EMIT dataChanged(index(row, 0), index(row, 0), {ColumnsRoles::HasAlbumHeader});
     }
@@ -309,6 +311,7 @@ void MediaPlayList::enqueue(const MediaPlayListEntry &newEntry, const MusicAudio
     }
     endInsertRows();
 
+    Q_EMIT tracksCountChanged();
     Q_EMIT persistentStateChanged();
 
     if (!newEntry.mIsValid) {
@@ -411,7 +414,9 @@ void MediaPlayList::enqueue(const QString &artistName)
     d->mTrackData.push_back({});
     endInsertRows();
 
+    Q_EMIT tracksCountChanged();
     Q_EMIT newArtistInList(artistName);
+    Q_EMIT persistentStateChanged();
 }
 
 void MediaPlayList::clearAndEnqueue(const MusicAlbum &album)
@@ -432,6 +437,8 @@ void MediaPlayList::clearPlayList()
     d->mData.clear();
     d->mTrackData.clear();
     endRemoveRows();
+
+    Q_EMIT tracksCountChanged();
 }
 
 QList<QVariant> MediaPlayList::persistentState() const
@@ -458,6 +465,11 @@ QList<QVariant> MediaPlayList::persistentState() const
 MusicListenersManager *MediaPlayList::musicListenersManager() const
 {
     return d->mMusicListenersManager;
+}
+
+int MediaPlayList::tracksCount() const
+{
+    return rowCount();
 }
 
 void MediaPlayList::setPersistentState(const QList<QVariant> &persistentState)
@@ -516,6 +528,7 @@ void MediaPlayList::albumAdded(const QList<MusicAudioTrack> &tracks)
         }
         endInsertRows();
 
+        Q_EMIT tracksCountChanged();
         Q_EMIT persistentStateChanged();
     }
 }

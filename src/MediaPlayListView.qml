@@ -123,7 +123,7 @@ FocusScope {
             LabelWithToolTip {
                 id: playListInfo
 
-                text: i18np("1 track", "%1 tracks", playListView.rowCount)
+                text: i18np("1 track", "%1 tracks", playListModel.tracksCount)
 
                 color: myPalette.text
 

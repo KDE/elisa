@@ -32,7 +32,7 @@ as Authors, publish date, the abstract, and Keywords -->
 
 <date>2017-02-11</date>
 
-<releaseinfo>Elisa 0.1</releaseinfo>
+<releaseinfo>Elisa 0.0.80</releaseinfo>
 
 <abstract>
 <para>
@@ -55,7 +55,7 @@ as Authors, publish date, the abstract, and Keywords -->
 
 <para>
 &elisa; is a music player designed to be simple to use.
-It gets your music from local sources either Baloo indexer or local music directory.
+It gets your music from local sources either Baloo indexer or an internal music indexer.
 </para>
 <para>
 &elisa; allows you to browse your music, build a playlist and plays it.
@@ -151,7 +151,9 @@ Program copyright 2015-2017 Matthieu Gallien <email>matthieu_gallien@yahoo.fr</e
 <para>
 Contributors:
 <itemizedlist>
-<listitem><para>Luigi Toscano (help for translations)<email>luigi.toscano@tiscali.it</email></para>
+<listitem><para>Luigi Toscano (localizations)<email>luigi.toscano@tiscali.it</email></para>
+</listitem>
+<listitem><para>Safa Alfulaij (right-to-left support in interface)<email>safa1996alfulaij@gmail.com</email></para>
 </listitem>
 </itemizedlist>
 </para>
@@ -216,6 +218,10 @@ url="https://phabricator.kde.org/project/profile/193/">Elisa Project</ulink>.
 <para>
 Currently no configuration is required before use of &elisa;.
 You can explore the menu of application to see the customization possibilities.
+</para>
+
+<para>
+If you use the internal music indexer, you can configure the paths that will be searched.
 </para>
 
 </sect1>

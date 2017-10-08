@@ -126,6 +126,18 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
 
     qt5_add_resources(elisa_SOURCES upnpControl.qrc)
 
+    set(elisa_ICONS_PNG
+        ../icons/128-apps-elisa.png
+        ../icons/64-apps-elisa.png
+        ../icons/48-apps-elisa.png
+        ../icons/32-apps-elisa.png
+        ../icons/22-apps-elisa.png
+        ../icons/16-apps-elisa.png
+    )
+
+    # add icons to application sources, to have them bundled
+    ecm_add_app_icon(elisa_SOURCES ICONS ${elisa_ICONS_PNG})
+
     add_executable(elisa ${elisa_SOURCES})
 
     set_target_properties(elisa PROPERTIES LINK_FLAGS "-Wl,--no-undefined")

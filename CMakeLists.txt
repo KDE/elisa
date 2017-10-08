@@ -17,6 +17,7 @@ include(KDECMakeSettings)
 include(KDEFrameworkCompilerSettings NO_POLICY_SCOPE)
 include(ECMInstallIcons)
 include(FeatureSummary)
+include(ECMAddAppIcon)
 
 find_package(Qt5DBus ${REQUIRED_QT_VERSION} CONFIG QUIET)
 set_package_properties(Qt5DBus PROPERTIES

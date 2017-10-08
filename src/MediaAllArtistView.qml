@@ -27,7 +27,7 @@ import QtGraphicalEffects 1.0
 
 import org.mgallien.QmlExtension 1.0
 
-Item {
+FocusScope {
     property var playerControl
     property var playListModel
     property var artistsModel
@@ -137,11 +137,15 @@ Item {
             Layout.fillWidth: true
 
             ScrollView {
+                focus: true
+
                 anchors.fill: parent
                 flickableItem.boundsBehavior: Flickable.StopAtBounds
 
                 GridView {
                     id: contentDirectoryView
+
+                    focus: true
 
                     TextMetrics {
                         id: textLineHeight
@@ -166,6 +170,8 @@ Item {
                             width: contentDirectoryView.cellWidth
                             height: contentDirectoryView.cellHeight
 
+                            focus: true
+
                             musicListener: rootElement.musicListener
 
                             image: if (model.image)
@@ -183,10 +189,10 @@ Item {
                             playListModel: rootElement.playListModel
                             playerControl: rootElement.playerControl
                             contentDirectoryModel: rootElement.contentDirectoryModel
+
+                            onArtistClicked: contentDirectoryView.currentIndex = index
                         }
                     }
-
-                    focus: true
                 }
             }
         }

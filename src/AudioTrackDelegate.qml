@@ -18,15 +18,16 @@
  */
 
 import QtQuick 2.4
-import QtQuick.Layouts 1.2
 import QtQuick.Controls 1.2
+import QtQuick.Controls.Styles 1.2
 import QtQuick.Window 2.2
+import QtQml.Models 2.1
+import QtQuick.Layouts 1.2
 import QtGraphicalEffects 1.0
+
 import org.mgallien.QmlExtension 1.0
 
 FocusScope {
-    id: viewAlbumDelegate
-
     property string title
     property string artist
     property string albumArtist
@@ -39,7 +40,6 @@ FocusScope {
     property var databaseId
     property var playList
     property var playerControl
-    property bool isSelected
     property bool isAlternateColor
     property var contextMenu
     property var trackData
@@ -48,6 +48,8 @@ FocusScope {
 
     signal clicked()
     signal rightClicked()
+
+    id: mediaServerEntry
 
     Action {
         id: clearAndEnqueue
@@ -78,7 +80,7 @@ FocusScope {
             Layout.maximumHeight: elisaTheme.delegateHeight + elisaTheme.layoutVerticalMargin * 2
             Layout.fillWidth: true
 
-            color: (isAlternateColor ? myPalette.alternateBase : myPalette.base)
+            color: (mediaServerEntry.isAlternateColor ? myPalette.alternateBase : myPalette.base)
 
             visible: isFirstTrackOfDisc && !isSingleDiscAlbum
 
@@ -102,7 +104,7 @@ FocusScope {
         }
 
         Rectangle {
-            id: highlightMarker
+            id: rowRoot
 
             Layout.fillHeight: true
             Layout.fillWidth: true
@@ -110,25 +112,28 @@ FocusScope {
             color: (isAlternateColor ? myPalette.alternateBase : myPalette.base)
 
             MouseArea {
-                id: hoverArea
+                id: hoverHandle
+
+                hoverEnabled: true
+                acceptedButtons: Qt.LeftButton
+                focus: true
 
                 anchors.fill: parent
 
-                hoverEnabled: true
-
-                acceptedButtons: Qt.RightButton | Qt.LeftButton
-
                 onClicked:
                 {
-                    if (mouse.button == Qt.LeftButton)
-                        viewAlbumDelegate.clicked()
-                    if (mouse.button == Qt.RightButton)
-                        viewAlbumDelegate.rightClicked()
+                    if (mouse.button == Qt.LeftButton) {
+                        hoverHandle.forceActiveFocus()
+                        mediaServerEntry.clicked()
+                    } else if (mouse.button == Qt.RightButton) {
+                        mediaServerEntry.rightClicked()
+                    }
                 }
 
                 RowLayout {
-                    anchors.fill: parent
                     spacing: 0
+
+                    anchors.fill: parent
 
                     LabelWithToolTip {
                         id: mainLabel
@@ -159,30 +164,47 @@ FocusScope {
                         elide: Text.ElideRight
                     }
 
-                    ToolButton {
-                        id: enqueueButton
+                    Loader {
+                        id: hoverLoader
+                        active: false
 
-                        opacity: 0
-                        visible: opacity > 0.1
-                        action: enqueue
-
-                        Layout.preferredHeight: elisaTheme.delegateHeight * 0.75
-                        Layout.preferredWidth: elisaTheme.delegateHeight * 0.75
+                        Layout.fillHeight: true
+                        Layout.preferredWidth: elisaTheme.delegateHeight * 2
                         Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
-                    }
 
-                    ToolButton {
-                        id: clearAndEnqueueButton
+                        sourceComponent: RowLayout {
+                            id: highlightMarker
 
-                        opacity: 0
-                        visible: opacity > 0.1
-                        action: clearAndEnqueue
+                            spacing: 0
 
-                        Layout.preferredHeight: elisaTheme.delegateHeight * 0.75
-                        Layout.preferredWidth: elisaTheme.delegateHeight * 0.75
-                        Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
-                        Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-                        Layout.leftMargin:   LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+                            anchors.fill: parent
+
+                            ToolButton {
+                                id: enqueueButton
+
+                                opacity: 1
+                                visible: opacity > 0.1
+                                action: enqueue
+
+                                Layout.preferredHeight: elisaTheme.delegateHeight * 0.75
+                                Layout.preferredWidth: elisaTheme.delegateHeight * 0.75
+                                Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+                            }
+
+                            ToolButton {
+                                id: clearAndEnqueueButton
+
+                                opacity: 1
+                                visible: opacity > 0.1
+                                action: clearAndEnqueue
+
+                                Layout.preferredHeight: elisaTheme.delegateHeight * 0.75
+                                Layout.preferredWidth: elisaTheme.delegateHeight * 0.75
+                                Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+                                Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+                                Layout.leftMargin:   LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+                            }
+                        }
                     }
 
                     RatingStar {
@@ -216,34 +238,28 @@ FocusScope {
 
     states: [
         State {
-            name: 'notSelected'
-            when: !isSelected && !hoverArea.containsMouse && !viewAlbumDelegate.activeFocus
+            name: 'default'
+
             PropertyChanges {
-                target: clearAndEnqueueButton
-                opacity: 0
+                target: hoverLoader
+                active: false
             }
             PropertyChanges {
-                target: enqueueButton
-                opacity: 0
-            }
-            PropertyChanges {
-                target: highlightMarker
-                color: (isAlternateColor ? myPalette.alternateBase : myPalette.base)
+                target: rowRoot
+                color: isAlternateColor ? myPalette.alternateBase : myPalette.base
             }
         },
         State {
-            name: 'hoveredAndNotSelected'
-            when: !isSelected && (hoverArea.containsMouse || viewAlbumDelegate.activeFocus)
+            name: 'active'
+
+            when: hoverHandle.containsMouse || mediaServerEntry.activeFocus
+
             PropertyChanges {
-                target: clearAndEnqueueButton
-                opacity: 1
+                target: hoverLoader
+                active: true
             }
             PropertyChanges {
-                target: enqueueButton
-                opacity: 1
-            }
-            PropertyChanges {
-                target: highlightMarker
+                target: rowRoot
                 color: myPalette.mid
             }
         }

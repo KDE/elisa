@@ -587,6 +587,7 @@ ApplicationWindow {
                                         }
 
                                         firstPage: MediaAllArtistView {
+                                            focus: true
                                             playListModel: playListModelItem
                                             artistsModel: allArtistsModel
                                             playerControl: manageAudioPlayer
@@ -613,6 +614,7 @@ ApplicationWindow {
                                         }
 
                                         firstPage: MediaAllTracksView {
+                                            focus: true
                                             playListModel: playListModelItem
                                             tracksModel: allTracksModel
                                             playerControl: manageAudioPlayer

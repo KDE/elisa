@@ -85,6 +85,7 @@ FocusScope {
             onClicked:
             {
                 if (mouse.button == Qt.LeftButton)
+                    hoverArea.forceActiveFocus()
                     viewTrackDelegate.clicked()
                 if (mouse.button == Qt.RightButton)
                     viewTrackDelegate.rightClicked()

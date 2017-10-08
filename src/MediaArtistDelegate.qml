@@ -36,6 +36,8 @@ FocusScope {
     property var image
     property alias name: nameLabel.text
 
+    signal artistClicked()
+
     id: mediaServerEntry
 
     SystemPalette {
@@ -94,9 +96,17 @@ FocusScope {
             id: hoverHandle
 
             hoverEnabled: true
+            acceptedButtons: Qt.LeftButton
+            focus: true
 
             Layout.preferredHeight: mediaServerEntry.width * 0.9 + elisaTheme.layoutVerticalMargin * 0.5 + nameSize.height
             Layout.fillWidth: true
+
+            onClicked:
+            {
+                hoverHandle.forceActiveFocus()
+                artistClicked()
+            }
 
             TextMetrics {
                 id: nameSize

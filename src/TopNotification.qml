@@ -337,6 +337,4 @@ FocusScope {
             }
         }
     ]
-
-    onStateChanged: console.log(state + ' state')
 }

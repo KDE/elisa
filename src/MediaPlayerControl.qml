@@ -506,8 +506,16 @@ FocusScope {
         }
     }
 
-    onPositionChanged: if (!musicProgress.seekStarted) {
-                           musicProgress.value = position
-                       }
+    onPositionChanged:
+    {
+        if (!musicProgress.seekStarted) {
+            musicProgress.value = position
+        }
+    }
+
+    onVolumeChanged:
+    {
+        console.log('volume of player controls changed: ' + volume)
+    }
 }
 

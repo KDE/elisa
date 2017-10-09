@@ -69,11 +69,27 @@ FocusScope {
                         height: elisaTheme.viewSelectorDelegateHeight * 1.4
                         width: viewModeView.width
 
-
+                        hoverEnabled: true
                         acceptedButtons: Qt.LeftButton
+
+                        Rectangle {
+                            anchors.fill: parent
+
+                            z: 1
+
+                            color: ((item.containsMouse && index !== viewModeView.currentIndex) ? myPalette.mid : "transparent")
+
+                            Behavior on color {
+                                ColorAnimation {
+                                    duration: 200
+                                }
+                            }
+                        }
 
                         Image {
                             id: viewIcon
+
+                            z: 2
 
                             anchors {
                                 verticalCenter: parent.verticalCenter
@@ -94,6 +110,9 @@ FocusScope {
 
                         LabelWithToolTip {
                             id: nameLabel
+
+                            z: 2
+
                             anchors.verticalCenter: parent.verticalCenter
                             anchors.leftMargin: elisaTheme.layoutHorizontalMargin
                             anchors.left: viewIcon.right

@@ -193,8 +193,9 @@ int main(int argc, char *argv[])
 
     aboutData.addAuthor(QStringLiteral("Matthieu Gallien"),i18n("Author"), QStringLiteral("mgallien@mgallien.fr"));
 
+    aboutData.addCredit(QStringLiteral("Andrew Lake"), i18n("Concept and design work"), QStringLiteral("jamboarder@gmail.com"));
     aboutData.addCredit(QStringLiteral("Luigi Toscano"), i18n("Localization support"), QStringLiteral("luigi.toscano@tiscali.it"));
-    aboutData.addCredit(QStringLiteral("Safa Alfulaij"), i18n("Right to left support"), QStringLiteral("safa1996alfulaij@gmail.com"));
+    aboutData.addCredit(QStringLiteral("Safa Alfulaij"), i18n("Right to left support in interface"), QStringLiteral("safa1996alfulaij@gmail.com"));
 
     KAboutData::setApplicationData(aboutData);
 #else

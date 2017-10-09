@@ -151,6 +151,8 @@ Program copyright 2015-2017 Matthieu Gallien <email>matthieu_gallien@yahoo.fr</e
 <para>
 Contributors:
 <itemizedlist>
+<listitem><para>Andrew Lake (concept and design work)<email>jamboarder@gmail.com</email></para>
+</listitem>
 <listitem><para>Luigi Toscano (localizations)<email>luigi.toscano@tiscali.it</email></para>
 </listitem>
 <listitem><para>Safa Alfulaij (right-to-left support in interface)<email>safa1996alfulaij@gmail.com</email></para>

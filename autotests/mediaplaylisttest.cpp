@@ -402,7 +402,7 @@ void MediaPlayListTest::enqueueArtistCase()
     QCOMPARE(rowsMovedSpy.count(), 0);
     QCOMPARE(rowsInsertedSpy.count(), 1);
     QCOMPARE(trackHasBeenAddedSpy.count(), 0);
-    QCOMPARE(persistentStateChangedSpy.count(), 0);
+    QCOMPARE(persistentStateChangedSpy.count(), 1);
     QCOMPARE(dataChangedSpy.count(), 0);
     QCOMPARE(newTrackByIdInListSpy.count(), 0);
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
@@ -419,7 +419,7 @@ void MediaPlayListTest::enqueueArtistCase()
     QCOMPARE(rowsMovedSpy.count(), 0);
     QCOMPARE(rowsInsertedSpy.count(), 2);
     QCOMPARE(trackHasBeenAddedSpy.count(), 0);
-    QCOMPARE(persistentStateChangedSpy.count(), 1);
+    QCOMPARE(persistentStateChangedSpy.count(), 2);
     QCOMPARE(dataChangedSpy.count(), 1);
     QCOMPARE(newTrackByIdInListSpy.count(), 0);
     QCOMPARE(newTrackByNameInListSpy.count(), 0);

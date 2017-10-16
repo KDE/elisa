@@ -70,9 +70,13 @@ QUrl AudioWrapper::source() const
     return d->mPlayer.media().canonicalUrl();
 }
 
-QString AudioWrapper::error() const
+QMediaPlayer::Error AudioWrapper::error() const
 {
-    return d->mPlayer.errorString();
+    if (d->mPlayer.error() != QMediaPlayer::NoError) {
+        qDebug() << "AudioWrapper::error" << d->mPlayer.errorString();
+    }
+
+    return d->mPlayer.error();
 }
 
 qint64 AudioWrapper::duration() const

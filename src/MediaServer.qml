@@ -220,6 +220,7 @@ ApplicationWindow {
         onPlayerStop: audioPlayer.stop()
         onSkipNextTrack: playListControlerItem.skipNextTrack()
         onSeek: audioPlayer.seek(position)
+        onSourceInError: allListeners.playBackError(source, playerError)
     }
 
     ManageMediaPlayerControl {

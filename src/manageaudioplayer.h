@@ -24,6 +24,7 @@
 #include <QPersistentModelIndex>
 #include <QAbstractItemModel>
 #include <QUrl>
+#include <QMediaPlayer>
 
 class ManageAudioPlayer : public QObject
 {
@@ -68,7 +69,7 @@ class ManageAudioPlayer : public QObject
                WRITE setIsPlayingRole
                NOTIFY isPlayingRoleChanged)
 
-    Q_PROPERTY(int playerStatus
+    Q_PROPERTY(QMediaPlayer::MediaStatus playerStatus
                READ playerStatus
                WRITE setPlayerStatus
                NOTIFY playerStatusChanged)
@@ -78,7 +79,7 @@ class ManageAudioPlayer : public QObject
                WRITE setPlayerPlaybackState
                NOTIFY playerPlaybackStateChanged)
 
-    Q_PROPERTY(int playerError
+    Q_PROPERTY(QMediaPlayer::Error playerError
                READ playerError
                WRITE setPlayerError
                NOTIFY playerErrorChanged)
@@ -110,20 +111,6 @@ class ManageAudioPlayer : public QObject
 
 public:
 
-    enum PlayerStatus {
-        NoMedia = 0,
-        Loading = NoMedia + 1,
-        Loaded = Loading + 1,
-        Buffering = Loaded + 1,
-        Stalled = Buffering + 1,
-        Buffered = Stalled + 1,
-        EndOfMedia = Buffered + 1,
-        InvalidMedia = EndOfMedia + 1,
-        UnknownStatus = InvalidMedia + 1,
-    };
-
-    Q_ENUM(PlayerStatus)
-
     enum PlayerPlaybackState {
         PlayingState = 1,
         PausedState = 2,
@@ -131,17 +118,6 @@ public:
     };
 
     Q_ENUM(PlayerPlaybackState)
-
-    enum PlayerErrorState {
-        NoError = 0,
-        ResourceError = NoError + 1,
-        FormatError = ResourceError + 1,
-        NetworkError = FormatError + 1,
-        AccessDenied = NetworkError + 1,
-        ServiceMissing = AccessDenied + 1,
-    };
-
-    Q_ENUM(PlayerErrorState)
 
     explicit ManageAudioPlayer(QObject *parent = nullptr);
 
@@ -155,11 +131,11 @@ public:
 
     QUrl playerSource() const;
 
-    int playerStatus() const;
+    QMediaPlayer::MediaStatus playerStatus() const;
 
     int playerPlaybackState() const;
 
-    int playerError() const;
+    QMediaPlayer::Error playerError() const;
 
     int audioDuration() const;
 
@@ -223,6 +199,8 @@ Q_SIGNALS:
 
     void albumNameRoleChanged();
 
+    void sourceInError(QUrl source, QMediaPlayer::Error playerError);
+
 public Q_SLOTS:
 
     void setCurrentTrack(const QPersistentModelIndex &currentTrack);
@@ -233,11 +211,11 @@ public Q_SLOTS:
 
     void setIsPlayingRole(int value);
 
-    void setPlayerStatus(int playerStatus);
+    void setPlayerStatus(QMediaPlayer::MediaStatus playerStatus);
 
     void setPlayerPlaybackState(int playerPlaybackState);
 
-    void setPlayerError(int playerError);
+    void setPlayerError(QMediaPlayer::Error playerError);
 
     void ensurePlay();
 
@@ -297,11 +275,11 @@ private:
 
     QVariant mOldPlayerSource;
 
-    PlayerStatus mPlayerStatus = NoMedia;
+    QMediaPlayer::MediaStatus mPlayerStatus = QMediaPlayer::NoMedia;
 
     PlayerPlaybackState mPlayerPlaybackState = StoppedState;
 
-    PlayerErrorState mPlayerError = NoError;
+    QMediaPlayer::Error mPlayerError = QMediaPlayer::NoError;
 
     bool mPlayingState = false;
 

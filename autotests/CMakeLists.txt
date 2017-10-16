@@ -82,7 +82,7 @@ endif()
 
 add_executable(playListControlerTest ${playListControlerTest_SOURCES})
 
-target_link_libraries(playListControlerTest Qt5::Test Qt5::Core Qt5::Sql Qt5::Widgets KF5::I18n Qt5::Quick)
+target_link_libraries(playListControlerTest Qt5::Test Qt5::Core Qt5::Sql Qt5::Widgets KF5::I18n Qt5::Quick Qt5::Multimedia)
 if (KF5Baloo_FOUND)
     target_link_libraries(playListControlerTest KF5::Baloo Qt5::DBus)
 endif()
@@ -170,7 +170,7 @@ endif()
 
 add_executable(managemediaplayercontrolTest ${managemediaplayercontrolTest_SOURCES})
 
-target_link_libraries(managemediaplayercontrolTest Qt5::Test Qt5::Core Qt5::Sql Qt5::Widgets KF5::I18n Qt5::Quick)
+target_link_libraries(managemediaplayercontrolTest Qt5::Test Qt5::Core Qt5::Sql Qt5::Widgets KF5::I18n Qt5::Quick Qt5::Multimedia)
 if (KF5Baloo_FOUND)
     target_link_libraries(managemediaplayercontrolTest KF5::Baloo Qt5::DBus)
 endif()
@@ -259,7 +259,7 @@ endif()
 
 add_executable(manageheaderbarTest ${manageheaderbarTest_SOURCES})
 
-target_link_libraries(manageheaderbarTest Qt5::Test Qt5::Core Qt5::Sql Qt5::Gui Qt5::Widgets KF5::I18n Qt5::Quick)
+target_link_libraries(manageheaderbarTest Qt5::Test Qt5::Core Qt5::Sql Qt5::Gui Qt5::Widgets KF5::I18n Qt5::Quick Qt5::Multimedia)
 if (KF5Baloo_FOUND)
     target_link_libraries(manageheaderbarTest KF5::Baloo Qt5::DBus)
 endif()
@@ -288,7 +288,7 @@ set(manageaudioplayerTest_SOURCES
 )
 
 add_executable(manageaudioplayerTest ${manageaudioplayerTest_SOURCES})
-target_link_libraries(manageaudioplayerTest Qt5::Test Qt5::Core Qt5::Gui)
+target_link_libraries(manageaudioplayerTest Qt5::Test Qt5::Core Qt5::Gui Qt5::Multimedia)
 target_include_directories(manageaudioplayerTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 add_test(manageaudioplayerTest manageaudioplayerTest)
 
@@ -356,7 +356,7 @@ endif()
 
 add_executable(mediaplaylistTest ${mediaplaylistTest_SOURCES})
 
-target_link_libraries(mediaplaylistTest Qt5::Test Qt5::Core Qt5::Sql Qt5::Gui Qt5::Widgets KF5::I18n Qt5::Quick)
+target_link_libraries(mediaplaylistTest Qt5::Test Qt5::Core Qt5::Sql Qt5::Gui Qt5::Widgets KF5::I18n Qt5::Quick Qt5::Multimedia)
 if (KF5Baloo_FOUND)
     target_link_libraries(mediaplaylistTest KF5::Baloo Qt5::DBus)
 endif()

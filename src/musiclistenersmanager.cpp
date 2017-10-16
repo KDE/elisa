@@ -175,6 +175,7 @@ void MusicListenersManager::subscribeForTracks(MediaPlayList *client)
     connect(this, &MusicListenersManager::trackRemoved, helper, &TracksListener::trackRemoved);
     connect(this, &MusicListenersManager::tracksAdded, helper, &TracksListener::tracksAdded);
     connect(this, &MusicListenersManager::trackModified, helper, &TracksListener::trackModified);
+    connect(this, &MusicListenersManager::removeTracksInError, &d->mDatabaseInterface, &DatabaseInterface::removeTracksList);
     connect(helper, &TracksListener::trackHasChanged, client, &MediaPlayList::trackChanged);
     connect(helper, &TracksListener::trackHasBeenRemoved, client, &MediaPlayList::trackRemoved);
     connect(helper, &TracksListener::albumAdded, client, &MediaPlayList::albumAdded);
@@ -246,6 +247,15 @@ void MusicListenersManager::setElisaApplication(ElisaApplication *elisaApplicati
 
     d->mElisaApplication = elisaApplication;
     emit elisaApplicationChanged();
+}
+
+void MusicListenersManager::playBackError(QUrl sourceInError, QMediaPlayer::Error playerError)
+{
+    qDebug() << "MusicListenersManager::playBackError" << sourceInError;
+
+    if (playerError == QMediaPlayer::ResourceError) {
+        Q_EMIT removeTracksInError({sourceInError});
+    }
 }
 
 void MusicListenersManager::configChanged()

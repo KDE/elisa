@@ -167,7 +167,7 @@ void ManageAudioPlayerTest::simpleInitialCase()
 
     QCOMPARE(myPlayer.isPlayingRole(), static_cast<int>(ManageAudioPlayerTest::IsPlayingRole));
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Loading);
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadingMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -187,7 +187,7 @@ void ManageAudioPlayerTest::simpleInitialCase()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loading));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::LoadingMedia);
 
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::StoppedState);
 
@@ -209,7 +209,7 @@ void ManageAudioPlayerTest::simpleInitialCase()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    myPlayer.setPlayerError(ManageAudioPlayer::NoError);
+    myPlayer.setPlayerError(QMediaPlayer::NoError);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -229,7 +229,7 @@ void ManageAudioPlayerTest::simpleInitialCase()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Loaded);
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadedMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -249,9 +249,9 @@ void ManageAudioPlayerTest::simpleInitialCase()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loaded));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::LoadedMedia);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Buffering);
+    myPlayer.setPlayerStatus(QMediaPlayer::BufferingMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -271,7 +271,7 @@ void ManageAudioPlayerTest::simpleInitialCase()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Buffering));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::BufferingMedia);
 
     myPlayer.playPause();
 
@@ -335,7 +335,7 @@ void ManageAudioPlayerTest::simpleInitialCase()
 
     QCOMPARE(myPlayer.playerPlaybackState(), static_cast<int>(ManageAudioPlayer::PlayingState));
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::EndOfMedia);
+    myPlayer.setPlayerStatus(QMediaPlayer::EndOfMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -355,7 +355,7 @@ void ManageAudioPlayerTest::simpleInitialCase()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::EndOfMedia));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::EndOfMedia);
 
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::StoppedState);
 
@@ -379,7 +379,7 @@ void ManageAudioPlayerTest::simpleInitialCase()
 
     QCOMPARE(myPlayer.playerPlaybackState(), static_cast<int>(ManageAudioPlayer::StoppedState));
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::InvalidMedia);
+    myPlayer.setPlayerStatus(QMediaPlayer::NoMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -399,7 +399,7 @@ void ManageAudioPlayerTest::simpleInitialCase()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::InvalidMedia));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::NoMedia);
 
     QCOMPARE(skipNextTrackSpy.wait(), true);
 
@@ -540,7 +540,7 @@ void ManageAudioPlayerTest::noPlayCase()
 
     QCOMPARE(myPlayer.isPlayingRole(), static_cast<int>(ManageAudioPlayerTest::IsPlayingRole));
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Loading);
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadingMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -557,7 +557,7 @@ void ManageAudioPlayerTest::noPlayCase()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loading));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::LoadingMedia);
 
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::StoppedState);
 
@@ -576,7 +576,7 @@ void ManageAudioPlayerTest::noPlayCase()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    myPlayer.setPlayerError(ManageAudioPlayer::NoError);
+    myPlayer.setPlayerError(QMediaPlayer::NoError);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -593,7 +593,7 @@ void ManageAudioPlayerTest::noPlayCase()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Loaded);
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadedMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -610,7 +610,7 @@ void ManageAudioPlayerTest::noPlayCase()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loaded));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::LoadedMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -627,7 +627,7 @@ void ManageAudioPlayerTest::noPlayCase()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Buffering);
+    myPlayer.setPlayerStatus(QMediaPlayer::BufferingMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -644,7 +644,7 @@ void ManageAudioPlayerTest::noPlayCase()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Buffering));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::BufferingMedia);
 
     QCOMPARE(playerPlaySpy.wait(100), false);
 
@@ -797,7 +797,7 @@ void ManageAudioPlayerTest::skipNextTrack()
 
     QCOMPARE(myPlayer.isPlayingRole(), static_cast<int>(ManageAudioPlayerTest::IsPlayingRole));
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Loading);
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadingMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -817,7 +817,7 @@ void ManageAudioPlayerTest::skipNextTrack()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loading));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::LoadingMedia);
 
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::StoppedState);
 
@@ -839,7 +839,7 @@ void ManageAudioPlayerTest::skipNextTrack()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    myPlayer.setPlayerError(ManageAudioPlayer::NoError);
+    myPlayer.setPlayerError(QMediaPlayer::NoError);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -859,7 +859,7 @@ void ManageAudioPlayerTest::skipNextTrack()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Loaded);
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadedMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -879,9 +879,9 @@ void ManageAudioPlayerTest::skipNextTrack()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loaded));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::LoadedMedia);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Buffering);
+    myPlayer.setPlayerStatus(QMediaPlayer::BufferingMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -901,7 +901,7 @@ void ManageAudioPlayerTest::skipNextTrack()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Buffering));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::BufferingMedia);
 
     myPlayer.playPause();
 
@@ -965,7 +965,7 @@ void ManageAudioPlayerTest::skipNextTrack()
 
     QCOMPARE(myPlayer.playerPlaybackState(), static_cast<int>(ManageAudioPlayer::PlayingState));
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::EndOfMedia);
+    myPlayer.setPlayerStatus(QMediaPlayer::EndOfMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -985,7 +985,7 @@ void ManageAudioPlayerTest::skipNextTrack()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::EndOfMedia));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::EndOfMedia);
 
     myPlayer.setCurrentTrack(myPlayList.index(1, 0));
 
@@ -1053,7 +1053,7 @@ void ManageAudioPlayerTest::skipNextTrack()
 
     QCOMPARE(skipNextTrackSpy.wait(100), false);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Loaded);
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadedMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -1073,9 +1073,9 @@ void ManageAudioPlayerTest::skipNextTrack()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loaded));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::LoadedMedia);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Buffering);
+    myPlayer.setPlayerStatus(QMediaPlayer::BufferingMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -1095,7 +1095,7 @@ void ManageAudioPlayerTest::skipNextTrack()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Buffering));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::BufferingMedia);
 
     QCOMPARE(playerPlaySpy.wait(100), true);
 
@@ -1237,7 +1237,7 @@ void ManageAudioPlayerTest::skipPreviousTrack()
 
     QCOMPARE(myPlayer.isPlayingRole(), static_cast<int>(ManageAudioPlayerTest::IsPlayingRole));
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Loading);
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadingMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -1254,7 +1254,7 @@ void ManageAudioPlayerTest::skipPreviousTrack()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loading));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::LoadingMedia);
 
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::StoppedState);
 
@@ -1273,7 +1273,7 @@ void ManageAudioPlayerTest::skipPreviousTrack()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    myPlayer.setPlayerError(ManageAudioPlayer::NoError);
+    myPlayer.setPlayerError(QMediaPlayer::NoError);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -1290,7 +1290,7 @@ void ManageAudioPlayerTest::skipPreviousTrack()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Loaded);
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadedMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -1307,9 +1307,9 @@ void ManageAudioPlayerTest::skipPreviousTrack()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loaded));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::LoadedMedia);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Buffering);
+    myPlayer.setPlayerStatus(QMediaPlayer::BufferingMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -1326,7 +1326,7 @@ void ManageAudioPlayerTest::skipPreviousTrack()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Buffering));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::BufferingMedia);
 
     myPlayer.playPause();
 
@@ -1381,7 +1381,7 @@ void ManageAudioPlayerTest::skipPreviousTrack()
 
     QCOMPARE(myPlayer.playerPlaybackState(), static_cast<int>(ManageAudioPlayer::PlayingState));
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::EndOfMedia);
+    myPlayer.setPlayerStatus(QMediaPlayer::EndOfMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -1398,7 +1398,7 @@ void ManageAudioPlayerTest::skipPreviousTrack()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::EndOfMedia));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::EndOfMedia);
 
     myPlayer.setCurrentTrack(myPlayList.index(0, 0));
 
@@ -1457,7 +1457,7 @@ void ManageAudioPlayerTest::skipPreviousTrack()
 
     QCOMPARE(skipNextTrackSpy.wait(100), false);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Loaded);
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadedMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -1474,9 +1474,9 @@ void ManageAudioPlayerTest::skipPreviousTrack()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loaded));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::LoadedMedia);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Buffering);
+    myPlayer.setPlayerStatus(QMediaPlayer::BufferingMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -1493,7 +1493,7 @@ void ManageAudioPlayerTest::skipPreviousTrack()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Buffering));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::BufferingMedia);
 
     QCOMPARE(playerPlaySpy.wait(100), true);
 
@@ -1631,7 +1631,7 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
 
     QCOMPARE(myPlayer.isPlayingRole(), static_cast<int>(ManageAudioPlayerTest::IsPlayingRole));
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Loading);
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadingMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -1648,7 +1648,7 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loading));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::LoadingMedia);
 
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::StoppedState);
 
@@ -1667,7 +1667,7 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    myPlayer.setPlayerError(ManageAudioPlayer::NoError);
+    myPlayer.setPlayerError(QMediaPlayer::NoError);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -1684,7 +1684,7 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Loaded);
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadedMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -1701,9 +1701,9 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loaded));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::LoadedMedia);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Buffering);
+    myPlayer.setPlayerStatus(QMediaPlayer::BufferingMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -1720,7 +1720,7 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Buffering));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::BufferingMedia);
 
     myPlayer.playPause();
 
@@ -1775,7 +1775,7 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
 
     QCOMPARE(myPlayer.playerPlaybackState(), static_cast<int>(ManageAudioPlayer::PlayingState));
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::EndOfMedia);
+    myPlayer.setPlayerStatus(QMediaPlayer::EndOfMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -1792,7 +1792,7 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::EndOfMedia));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::EndOfMedia);
 
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::StoppedState);
 
@@ -1813,7 +1813,7 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
 
     QCOMPARE(myPlayer.playerPlaybackState(), static_cast<int>(ManageAudioPlayer::StoppedState));
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::InvalidMedia);
+    myPlayer.setPlayerStatus(QMediaPlayer::NoMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -1830,7 +1830,7 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::InvalidMedia));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::NoMedia);
 
     QCOMPARE(skipNextTrackSpy.wait(100), true);
 
@@ -1869,7 +1869,7 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
     QCOMPARE(myPlayer.currentTrack(), QPersistentModelIndex(myPlayList.index(1, 0)));
     QCOMPARE(myPlayer.playerSource(), QUrl::fromUserInput(QStringLiteral("file:///2.mp3")));
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Loaded);
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadedMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -1886,9 +1886,9 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
     QCOMPARE(skipNextTrackSpy.count(), 1);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loaded));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::LoadedMedia);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Buffering);
+    myPlayer.setPlayerStatus(QMediaPlayer::BufferingMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -1905,7 +1905,7 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
     QCOMPARE(skipNextTrackSpy.count(), 1);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Buffering));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::BufferingMedia);
 
     QCOMPARE(playerPlaySpy.wait(100), true);
 
@@ -1943,7 +1943,7 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
 
     QCOMPARE(myPlayer.playerPlaybackState(), static_cast<int>(ManageAudioPlayer::PlayingState));
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::EndOfMedia);
+    myPlayer.setPlayerStatus(QMediaPlayer::EndOfMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -1960,7 +1960,7 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
     QCOMPARE(skipNextTrackSpy.count(), 1);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::EndOfMedia));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::EndOfMedia);
 
     myPlayer.setCurrentTrack(myPlayList.index(2, 0));
 
@@ -2020,7 +2020,7 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
 
     QCOMPARE(skipNextTrackSpy.wait(100), false);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Loaded);
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadedMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -2037,9 +2037,9 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
     QCOMPARE(skipNextTrackSpy.count(), 1);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loaded));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::LoadedMedia);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Buffering);
+    myPlayer.setPlayerStatus(QMediaPlayer::BufferingMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -2056,7 +2056,7 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
     QCOMPARE(skipNextTrackSpy.count(), 1);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Buffering));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::BufferingMedia);
 
     QCOMPARE(playerPlaySpy.wait(100), true);
 
@@ -2213,7 +2213,7 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
 
     QCOMPARE(myPlayer.isPlayingRole(), static_cast<int>(ManageAudioPlayerTest::IsPlayingRole));
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Loading);
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadingMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -2230,7 +2230,7 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loading));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::LoadingMedia);
 
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::StoppedState);
 
@@ -2249,7 +2249,7 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    myPlayer.setPlayerError(ManageAudioPlayer::NoError);
+    myPlayer.setPlayerError(QMediaPlayer::NoError);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -2266,7 +2266,7 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Loaded);
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadedMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -2283,9 +2283,9 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loaded));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::LoadedMedia);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Buffering);
+    myPlayer.setPlayerStatus(QMediaPlayer::BufferingMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -2302,7 +2302,7 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Buffering));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::BufferingMedia);
 
     myPlayer.playPause();
 
@@ -2357,7 +2357,7 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
 
     QCOMPARE(myPlayer.playerPlaybackState(), static_cast<int>(ManageAudioPlayer::PlayingState));
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::EndOfMedia);
+    myPlayer.setPlayerStatus(QMediaPlayer::EndOfMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -2374,7 +2374,7 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::EndOfMedia));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::EndOfMedia);
 
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::StoppedState);
 
@@ -2395,7 +2395,7 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
 
     QCOMPARE(myPlayer.playerPlaybackState(), static_cast<int>(ManageAudioPlayer::StoppedState));
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::InvalidMedia);
+    myPlayer.setPlayerStatus(QMediaPlayer::NoMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -2412,7 +2412,7 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::InvalidMedia));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::NoMedia);
 
     QCOMPARE(skipNextTrackSpy.wait(100), true);
 
@@ -2451,7 +2451,7 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
     QCOMPARE(myPlayer.currentTrack(), QPersistentModelIndex(myPlayList.index(2, 0)));
     QCOMPARE(myPlayer.playerSource(), QUrl::fromUserInput(QStringLiteral("file:///3.mp3")));
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Loaded);
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadedMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -2468,9 +2468,9 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
     QCOMPARE(skipNextTrackSpy.count(), 1);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loaded));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::LoadedMedia);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Buffering);
+    myPlayer.setPlayerStatus(QMediaPlayer::BufferingMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -2487,7 +2487,7 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
     QCOMPARE(skipNextTrackSpy.count(), 1);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Buffering));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::BufferingMedia);
 
     QCOMPARE(playerPlaySpy.wait(100), true);
 
@@ -2525,7 +2525,7 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
 
     QCOMPARE(myPlayer.playerPlaybackState(), static_cast<int>(ManageAudioPlayer::PlayingState));
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::EndOfMedia);
+    myPlayer.setPlayerStatus(QMediaPlayer::EndOfMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -2542,7 +2542,7 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
     QCOMPARE(skipNextTrackSpy.count(), 1);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::EndOfMedia));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::EndOfMedia);
 
     myPlayer.setCurrentTrack(myPlayList.index(1, 0));
 
@@ -2602,7 +2602,7 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
 
     QCOMPARE(skipNextTrackSpy.wait(100), false);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Loaded);
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadedMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -2619,9 +2619,9 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
     QCOMPARE(skipNextTrackSpy.count(), 1);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loaded));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::LoadedMedia);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Buffering);
+    myPlayer.setPlayerStatus(QMediaPlayer::BufferingMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -2638,7 +2638,7 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
     QCOMPARE(skipNextTrackSpy.count(), 1);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Buffering));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::BufferingMedia);
 
     QCOMPARE(playerPlaySpy.wait(100), true);
 
@@ -2795,7 +2795,7 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
 
     QCOMPARE(myPlayer.isPlayingRole(), static_cast<int>(ManageAudioPlayerTest::IsPlayingRole));
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Loading);
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadingMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -2812,7 +2812,7 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loading));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::LoadingMedia);
 
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::StoppedState);
 
@@ -2831,7 +2831,7 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    myPlayer.setPlayerError(ManageAudioPlayer::NoError);
+    myPlayer.setPlayerError(QMediaPlayer::NoError);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -2848,7 +2848,7 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Loaded);
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadedMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -2865,9 +2865,9 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loaded));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::LoadedMedia);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Buffering);
+    myPlayer.setPlayerStatus(QMediaPlayer::BufferingMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -2884,7 +2884,7 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Buffering));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::BufferingMedia);
 
     myPlayer.playPause();
 
@@ -2939,7 +2939,7 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
 
     QCOMPARE(myPlayer.playerPlaybackState(), static_cast<int>(ManageAudioPlayer::PlayingState));
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::EndOfMedia);
+    myPlayer.setPlayerStatus(QMediaPlayer::EndOfMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -2956,7 +2956,7 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::EndOfMedia));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::EndOfMedia);
 
     myPlayer.setCurrentTrack(myPlayList.index(1, 0));
 
@@ -3016,7 +3016,7 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
 
     QCOMPARE(skipNextTrackSpy.wait(100), false);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Loaded);
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadedMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -3033,9 +3033,9 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loaded));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::LoadedMedia);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Buffering);
+    myPlayer.setPlayerStatus(QMediaPlayer::BufferingMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -3052,7 +3052,7 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Buffering));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::BufferingMedia);
 
     QCOMPARE(playerPlaySpy.wait(100), true);
 
@@ -3090,7 +3090,7 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
 
     QCOMPARE(myPlayer.playerPlaybackState(), static_cast<int>(ManageAudioPlayer::PlayingState));
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::EndOfMedia);
+    myPlayer.setPlayerStatus(QMediaPlayer::EndOfMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -3107,7 +3107,7 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::EndOfMedia));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::EndOfMedia);
 
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::StoppedState);
 
@@ -3128,7 +3128,7 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
 
     QCOMPARE(myPlayer.playerPlaybackState(), static_cast<int>(ManageAudioPlayer::StoppedState));
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::InvalidMedia);
+    myPlayer.setPlayerStatus(QMediaPlayer::NoMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -3145,7 +3145,7 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::InvalidMedia));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::NoMedia);
 
     QCOMPARE(skipNextTrackSpy.wait(100), true);
 
@@ -3184,7 +3184,7 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
     QCOMPARE(myPlayer.currentTrack(), QPersistentModelIndex(myPlayList.index(2, 0)));
     QCOMPARE(myPlayer.playerSource(), QUrl::fromUserInput(QStringLiteral("file:///3.mp3")));
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Loaded);
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadedMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -3201,9 +3201,9 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
     QCOMPARE(skipNextTrackSpy.count(), 1);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loaded));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::LoadedMedia);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Buffering);
+    myPlayer.setPlayerStatus(QMediaPlayer::BufferingMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -3220,7 +3220,7 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
     QCOMPARE(skipNextTrackSpy.count(), 1);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Buffering));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::BufferingMedia);
 
     QCOMPARE(playerPlaySpy.wait(100), true);
 
@@ -3358,7 +3358,7 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
 
     QCOMPARE(myPlayer.isPlayingRole(), static_cast<int>(ManageAudioPlayerTest::IsPlayingRole));
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Loading);
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadingMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -3375,7 +3375,7 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loading));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::LoadingMedia);
 
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::StoppedState);
 
@@ -3394,7 +3394,7 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    myPlayer.setPlayerError(ManageAudioPlayer::NoError);
+    myPlayer.setPlayerError(QMediaPlayer::NoError);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -3411,7 +3411,7 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Loaded);
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadedMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -3428,9 +3428,9 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loaded));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::LoadedMedia);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Buffering);
+    myPlayer.setPlayerStatus(QMediaPlayer::BufferingMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -3447,7 +3447,7 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Buffering));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::BufferingMedia);
 
     myPlayer.playPause();
 
@@ -3502,7 +3502,7 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
 
     QCOMPARE(myPlayer.playerPlaybackState(), static_cast<int>(ManageAudioPlayer::PlayingState));
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::EndOfMedia);
+    myPlayer.setPlayerStatus(QMediaPlayer::EndOfMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -3519,7 +3519,7 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::EndOfMedia));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::EndOfMedia);
 
     myPlayer.setCurrentTrack(myPlayList.index(0, 0));
 
@@ -3579,7 +3579,7 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
 
     QCOMPARE(skipNextTrackSpy.wait(100), false);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Loaded);
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadedMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -3596,9 +3596,9 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loaded));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::LoadedMedia);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Buffering);
+    myPlayer.setPlayerStatus(QMediaPlayer::BufferingMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -3615,7 +3615,7 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Buffering));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::BufferingMedia);
 
     QCOMPARE(playerPlaySpy.wait(100), true);
 
@@ -3653,7 +3653,7 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
 
     QCOMPARE(myPlayer.playerPlaybackState(), static_cast<int>(ManageAudioPlayer::PlayingState));
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::EndOfMedia);
+    myPlayer.setPlayerStatus(QMediaPlayer::EndOfMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -3670,7 +3670,7 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::EndOfMedia));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::EndOfMedia);
 
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::StoppedState);
 
@@ -3691,7 +3691,7 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
 
     QCOMPARE(myPlayer.playerPlaybackState(), static_cast<int>(ManageAudioPlayer::StoppedState));
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::InvalidMedia);
+    myPlayer.setPlayerStatus(QMediaPlayer::NoMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -3708,7 +3708,7 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::InvalidMedia));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::NoMedia);
 
     QCOMPARE(skipNextTrackSpy.wait(100), true);
 
@@ -3747,7 +3747,7 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
     QCOMPARE(myPlayer.currentTrack(), QPersistentModelIndex(myPlayList.index(1, 0)));
     QCOMPARE(myPlayer.playerSource(), QUrl::fromUserInput(QStringLiteral("file:///2.mp3")));
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Loaded);
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadedMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -3764,9 +3764,9 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
     QCOMPARE(skipNextTrackSpy.count(), 1);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loaded));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::LoadedMedia);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Buffering);
+    myPlayer.setPlayerStatus(QMediaPlayer::BufferingMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -3783,7 +3783,7 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
     QCOMPARE(skipNextTrackSpy.count(), 1);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Buffering));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::BufferingMedia);
 
     QCOMPARE(playerPlaySpy.wait(100), true);
 
@@ -3933,7 +3933,7 @@ void ManageAudioPlayerTest::playLastCase()
 
     QCOMPARE(myPlayer.isPlayingRole(), static_cast<int>(ManageAudioPlayerTest::IsPlayingRole));
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Loading);
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadingMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -3953,7 +3953,7 @@ void ManageAudioPlayerTest::playLastCase()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loading));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::LoadingMedia);
 
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::StoppedState);
 
@@ -3975,7 +3975,7 @@ void ManageAudioPlayerTest::playLastCase()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    myPlayer.setPlayerError(ManageAudioPlayer::NoError);
+    myPlayer.setPlayerError(QMediaPlayer::NoError);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -3995,7 +3995,7 @@ void ManageAudioPlayerTest::playLastCase()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Loaded);
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadedMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -4015,9 +4015,9 @@ void ManageAudioPlayerTest::playLastCase()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loaded));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::LoadedMedia);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Buffering);
+    myPlayer.setPlayerStatus(QMediaPlayer::BufferingMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -4037,7 +4037,7 @@ void ManageAudioPlayerTest::playLastCase()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Buffering));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::BufferingMedia);
 
     myPlayer.playPause();
 
@@ -4101,7 +4101,7 @@ void ManageAudioPlayerTest::playLastCase()
 
     QCOMPARE(myPlayer.playerPlaybackState(), static_cast<int>(ManageAudioPlayer::PlayingState));
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::EndOfMedia);
+    myPlayer.setPlayerStatus(QMediaPlayer::EndOfMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -4121,7 +4121,7 @@ void ManageAudioPlayerTest::playLastCase()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), true);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::EndOfMedia));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::EndOfMedia);
 
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::StoppedState);
 
@@ -4145,7 +4145,7 @@ void ManageAudioPlayerTest::playLastCase()
 
     QCOMPARE(myPlayer.playerPlaybackState(), static_cast<int>(ManageAudioPlayer::StoppedState));
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::InvalidMedia);
+    myPlayer.setPlayerStatus(QMediaPlayer::NoMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -4165,7 +4165,7 @@ void ManageAudioPlayerTest::playLastCase()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::InvalidMedia));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::NoMedia);
 
     QCOMPARE(skipNextTrackSpy.wait(100), true);
 
@@ -4229,7 +4229,7 @@ void ManageAudioPlayerTest::playLastCase()
 
     QCOMPARE(myPlayer.currentTrack(), QPersistentModelIndex(myPlayList.index(0, 0)));
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Loaded);
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadedMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -4249,7 +4249,7 @@ void ManageAudioPlayerTest::playLastCase()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loaded));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::LoadedMedia);
 
     QCOMPARE(playerPlaySpy.wait(100), false);
 
@@ -4390,7 +4390,7 @@ void ManageAudioPlayerTest::playSingleTrack()
 
     QCOMPARE(myPlayer.isPlayingRole(), static_cast<int>(ManageAudioPlayerTest::IsPlayingRole));
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Loading);
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadingMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -4408,7 +4408,7 @@ void ManageAudioPlayerTest::playSingleTrack()
     QCOMPARE(seekSpy.count(), 0);
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loading));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::LoadingMedia);
 
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::StoppedState);
 
@@ -4428,7 +4428,7 @@ void ManageAudioPlayerTest::playSingleTrack()
     QCOMPARE(seekSpy.count(), 0);
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    myPlayer.setPlayerError(ManageAudioPlayer::NoError);
+    myPlayer.setPlayerError(QMediaPlayer::NoError);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -4446,7 +4446,7 @@ void ManageAudioPlayerTest::playSingleTrack()
     QCOMPARE(seekSpy.count(), 0);
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Loaded);
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadedMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -4464,9 +4464,9 @@ void ManageAudioPlayerTest::playSingleTrack()
     QCOMPARE(seekSpy.count(), 0);
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loaded));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::LoadedMedia);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Buffering);
+    myPlayer.setPlayerStatus(QMediaPlayer::BufferingMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -4484,7 +4484,7 @@ void ManageAudioPlayerTest::playSingleTrack()
     QCOMPARE(seekSpy.count(), 0);
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Buffering));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::BufferingMedia);
 
     myPlayer.playPause();
 
@@ -4542,7 +4542,7 @@ void ManageAudioPlayerTest::playSingleTrack()
 
     QCOMPARE(myPlayer.playerPlaybackState(), static_cast<int>(ManageAudioPlayer::PlayingState));
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::EndOfMedia);
+    myPlayer.setPlayerStatus(QMediaPlayer::EndOfMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -4560,7 +4560,7 @@ void ManageAudioPlayerTest::playSingleTrack()
     QCOMPARE(seekSpy.count(), 0);
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), true);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::EndOfMedia));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::EndOfMedia);
 
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::StoppedState);
 
@@ -4582,7 +4582,7 @@ void ManageAudioPlayerTest::playSingleTrack()
 
     QCOMPARE(myPlayer.playerPlaybackState(), static_cast<int>(ManageAudioPlayer::StoppedState));
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::InvalidMedia);
+    myPlayer.setPlayerStatus(QMediaPlayer::NoMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -4600,7 +4600,7 @@ void ManageAudioPlayerTest::playSingleTrack()
     QCOMPARE(seekSpy.count(), 0);
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::InvalidMedia));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::NoMedia);
 
     QCOMPARE(skipNextTrackSpy.wait(100), true);
 
@@ -4658,7 +4658,7 @@ void ManageAudioPlayerTest::playSingleTrack()
 
     QCOMPARE(myPlayer.currentTrack(), QPersistentModelIndex(myPlayList.index(0, 0)));
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Loaded);
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadedMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -4676,7 +4676,7 @@ void ManageAudioPlayerTest::playSingleTrack()
     QCOMPARE(seekSpy.count(), 0);
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loaded));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::LoadedMedia);
 
     QCOMPARE(playerPlaySpy.wait(100), false);
 
@@ -4849,7 +4849,7 @@ void ManageAudioPlayerTest::playRestoredTrack()
 
     QCOMPARE(myPlayer.playerSource(), QUrl::fromUserInput(QStringLiteral("file:///1.mp3")));
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Loading);
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadingMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -4869,7 +4869,7 @@ void ManageAudioPlayerTest::playRestoredTrack()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loading));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::LoadingMedia);
 
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::StoppedState);
 
@@ -4891,7 +4891,7 @@ void ManageAudioPlayerTest::playRestoredTrack()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    myPlayer.setPlayerError(ManageAudioPlayer::NoError);
+    myPlayer.setPlayerError(QMediaPlayer::NoError);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -4911,7 +4911,7 @@ void ManageAudioPlayerTest::playRestoredTrack()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Loaded);
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadedMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -4931,9 +4931,9 @@ void ManageAudioPlayerTest::playRestoredTrack()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loaded));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::LoadedMedia);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Buffering);
+    myPlayer.setPlayerStatus(QMediaPlayer::BufferingMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -4953,7 +4953,7 @@ void ManageAudioPlayerTest::playRestoredTrack()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Buffering));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::BufferingMedia);
 
     myPlayer.playPause();
 
@@ -5298,7 +5298,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlay()
 
     QCOMPARE(myPlayer.isPlayingRole(), static_cast<int>(ManageAudioPlayerTest::IsPlayingRole));
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Loading);
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadingMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -5321,7 +5321,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlay()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loading));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::LoadingMedia);
 
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::StoppedState);
 
@@ -5346,7 +5346,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlay()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    myPlayer.setPlayerError(ManageAudioPlayer::NoError);
+    myPlayer.setPlayerError(QMediaPlayer::NoError);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -5369,7 +5369,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlay()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Loaded);
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadedMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -5392,9 +5392,9 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlay()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loaded));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::LoadedMedia);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Buffering);
+    myPlayer.setPlayerStatus(QMediaPlayer::BufferingMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -5417,7 +5417,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlay()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Buffering));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::BufferingMedia);
 
     QCOMPARE(playerPlaySpy.wait(), true);
 
@@ -5467,7 +5467,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlay()
 
     QCOMPARE(myPlayer.playerPlaybackState(), static_cast<int>(ManageAudioPlayer::PlayingState));
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::EndOfMedia);
+    myPlayer.setPlayerStatus(QMediaPlayer::EndOfMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -5490,7 +5490,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlay()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::EndOfMedia));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::EndOfMedia);
 
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::StoppedState);
 
@@ -5540,7 +5540,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlay()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::InvalidMedia);
+    myPlayer.setPlayerStatus(QMediaPlayer::InvalidMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -5563,7 +5563,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlay()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::InvalidMedia));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::InvalidMedia);
 }
 
 void ManageAudioPlayerTest::testRestoreSettingsNoAutomaticPlay()
@@ -5824,7 +5824,7 @@ void ManageAudioPlayerTest::testRestoreSettingsNoAutomaticPlay()
 
     QCOMPARE(myPlayer.albumNameRole(), static_cast<int>(ManageAudioPlayerTest::ManageAudioPlayerTest::AlbumRole));
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Loading);
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadingMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -5847,7 +5847,7 @@ void ManageAudioPlayerTest::testRestoreSettingsNoAutomaticPlay()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loading));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::LoadingMedia);
 
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::StoppedState);
 
@@ -5872,7 +5872,7 @@ void ManageAudioPlayerTest::testRestoreSettingsNoAutomaticPlay()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    myPlayer.setPlayerError(ManageAudioPlayer::NoError);
+    myPlayer.setPlayerError(QMediaPlayer::NoError);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -5895,7 +5895,7 @@ void ManageAudioPlayerTest::testRestoreSettingsNoAutomaticPlay()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Loaded);
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadedMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -5918,9 +5918,9 @@ void ManageAudioPlayerTest::testRestoreSettingsNoAutomaticPlay()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loaded));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::LoadedMedia);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Buffering);
+    myPlayer.setPlayerStatus(QMediaPlayer::BufferingMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -5943,7 +5943,7 @@ void ManageAudioPlayerTest::testRestoreSettingsNoAutomaticPlay()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Buffering));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::BufferingMedia);
 
     QCOMPARE(playerPlaySpy.wait(1000), false);
 
@@ -6229,7 +6229,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlayAndPosition()
     QCOMPARE(seekSpy.at(0).at(0).toInt(), 10000);
     QCOMPARE(myPlayer.albumNameRole(), static_cast<int>(ManageAudioPlayerTest::ManageAudioPlayerTest::AlbumRole));
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Loading);
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadingMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -6252,7 +6252,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlayAndPosition()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loading));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::LoadingMedia);
 
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::StoppedState);
 
@@ -6277,7 +6277,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlayAndPosition()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    myPlayer.setPlayerError(ManageAudioPlayer::NoError);
+    myPlayer.setPlayerError(QMediaPlayer::NoError);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -6300,7 +6300,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlayAndPosition()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Loaded);
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadedMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -6323,9 +6323,9 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlayAndPosition()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loaded));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::LoadedMedia);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Buffering);
+    myPlayer.setPlayerStatus(QMediaPlayer::BufferingMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -6348,7 +6348,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlayAndPosition()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Buffering));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::BufferingMedia);
 
     QCOMPARE(playerPlaySpy.wait(), true);
 
@@ -6398,7 +6398,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlayAndPosition()
 
     QCOMPARE(myPlayer.playerPlaybackState(), static_cast<int>(ManageAudioPlayer::PlayingState));
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::EndOfMedia);
+    myPlayer.setPlayerStatus(QMediaPlayer::EndOfMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -6421,7 +6421,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlayAndPosition()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::EndOfMedia));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::EndOfMedia);
 
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::StoppedState);
 
@@ -6448,7 +6448,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlayAndPosition()
 
     QCOMPARE(myPlayer.playerPlaybackState(), static_cast<int>(ManageAudioPlayer::StoppedState));
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::InvalidMedia);
+    myPlayer.setPlayerStatus(QMediaPlayer::NoMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -6471,7 +6471,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlayAndPosition()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::InvalidMedia));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::NoMedia);
 
     QCOMPARE(skipNextTrackSpy.wait(), true);
 
@@ -6615,7 +6615,7 @@ void ManageAudioPlayerTest::playTrackPauseAndSkipNextTrack()
 
     QCOMPARE(myPlayer.isPlayingRole(), static_cast<int>(ManageAudioPlayerTest::IsPlayingRole));
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Loading);
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadingMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -6632,7 +6632,7 @@ void ManageAudioPlayerTest::playTrackPauseAndSkipNextTrack()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loading));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::LoadingMedia);
 
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::StoppedState);
 
@@ -6651,7 +6651,7 @@ void ManageAudioPlayerTest::playTrackPauseAndSkipNextTrack()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    myPlayer.setPlayerError(ManageAudioPlayer::NoError);
+    myPlayer.setPlayerError(QMediaPlayer::NoError);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -6668,7 +6668,7 @@ void ManageAudioPlayerTest::playTrackPauseAndSkipNextTrack()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Loaded);
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadedMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -6685,9 +6685,9 @@ void ManageAudioPlayerTest::playTrackPauseAndSkipNextTrack()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loaded));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::LoadedMedia);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Buffering);
+    myPlayer.setPlayerStatus(QMediaPlayer::BufferingMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -6704,7 +6704,7 @@ void ManageAudioPlayerTest::playTrackPauseAndSkipNextTrack()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Buffering));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::BufferingMedia);
 
     myPlayer.playPause();
 
@@ -6759,7 +6759,7 @@ void ManageAudioPlayerTest::playTrackPauseAndSkipNextTrack()
 
     QCOMPARE(myPlayer.playerPlaybackState(), static_cast<int>(ManageAudioPlayer::PlayingState));
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::EndOfMedia);
+    myPlayer.setPlayerStatus(QMediaPlayer::EndOfMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -6776,7 +6776,7 @@ void ManageAudioPlayerTest::playTrackPauseAndSkipNextTrack()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::EndOfMedia));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::EndOfMedia);
 
     myPlayer.playPause();
 
@@ -6889,7 +6889,7 @@ void ManageAudioPlayerTest::playTrackPauseAndSkipNextTrack()
 
     QCOMPARE(skipNextTrackSpy.wait(100), false);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Loaded);
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadedMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -6906,9 +6906,9 @@ void ManageAudioPlayerTest::playTrackPauseAndSkipNextTrack()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loaded));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::LoadedMedia);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Buffering);
+    myPlayer.setPlayerStatus(QMediaPlayer::BufferingMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -6925,7 +6925,7 @@ void ManageAudioPlayerTest::playTrackPauseAndSkipNextTrack()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Buffering));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::BufferingMedia);
 
     myPlayer.playPause();
 
@@ -6980,7 +6980,7 @@ void ManageAudioPlayerTest::playTrackPauseAndSkipNextTrack()
 
     QCOMPARE(myPlayer.playerPlaybackState(), static_cast<int>(ManageAudioPlayer::PlayingState));
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::EndOfMedia);
+    myPlayer.setPlayerStatus(QMediaPlayer::EndOfMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -6997,7 +6997,7 @@ void ManageAudioPlayerTest::playTrackPauseAndSkipNextTrack()
     QCOMPARE(skipNextTrackSpy.count(), 0);
     QCOMPARE(seekSpy.count(), 0);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::EndOfMedia));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::EndOfMedia);
 }
 
 void ManageAudioPlayerTest::testRestoreSettingsNoPlayWrongTrack()
@@ -7305,7 +7305,7 @@ void ManageAudioPlayerTest::testRestoreSettingsNoPlayWrongTrack()
 
     QCOMPARE(myPlayer.isPlayingRole(), static_cast<int>(ManageAudioPlayerTest::IsPlayingRole));
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Loading);
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadingMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -7328,7 +7328,7 @@ void ManageAudioPlayerTest::testRestoreSettingsNoPlayWrongTrack()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loading));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::LoadingMedia);
 
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::StoppedState);
 
@@ -7353,7 +7353,7 @@ void ManageAudioPlayerTest::testRestoreSettingsNoPlayWrongTrack()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    myPlayer.setPlayerError(ManageAudioPlayer::NoError);
+    myPlayer.setPlayerError(QMediaPlayer::NoError);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -7376,7 +7376,7 @@ void ManageAudioPlayerTest::testRestoreSettingsNoPlayWrongTrack()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Loaded);
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadedMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -7399,9 +7399,9 @@ void ManageAudioPlayerTest::testRestoreSettingsNoPlayWrongTrack()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loaded));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::LoadedMedia);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Buffering);
+    myPlayer.setPlayerStatus(QMediaPlayer::BufferingMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -7424,7 +7424,7 @@ void ManageAudioPlayerTest::testRestoreSettingsNoPlayWrongTrack()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Buffering));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::BufferingMedia);
 
     QCOMPARE(playerPlaySpy.wait(500), false);
 
@@ -7781,7 +7781,7 @@ void ManageAudioPlayerTest::testRestorePlayListAndSettingsAutomaticPlay()
 
     QCOMPARE(myPlayer.playerSource(), QUrl::fromUserInput(QStringLiteral("file:///1.mp3")));
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Loading);
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadingMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -7804,7 +7804,7 @@ void ManageAudioPlayerTest::testRestorePlayListAndSettingsAutomaticPlay()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loading));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::LoadingMedia);
 
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::StoppedState);
 
@@ -7829,7 +7829,7 @@ void ManageAudioPlayerTest::testRestorePlayListAndSettingsAutomaticPlay()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    myPlayer.setPlayerError(ManageAudioPlayer::NoError);
+    myPlayer.setPlayerError(QMediaPlayer::NoError);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -7852,7 +7852,7 @@ void ManageAudioPlayerTest::testRestorePlayListAndSettingsAutomaticPlay()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Loaded);
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadedMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -7875,9 +7875,9 @@ void ManageAudioPlayerTest::testRestorePlayListAndSettingsAutomaticPlay()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Loaded));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::LoadedMedia);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::Buffering);
+    myPlayer.setPlayerStatus(QMediaPlayer::BufferingMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -7900,7 +7900,7 @@ void ManageAudioPlayerTest::testRestorePlayListAndSettingsAutomaticPlay()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::Buffering));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::BufferingMedia);
 
     QCOMPARE(playerPlaySpy.wait(), true);
 
@@ -7950,7 +7950,7 @@ void ManageAudioPlayerTest::testRestorePlayListAndSettingsAutomaticPlay()
 
     QCOMPARE(myPlayer.playerPlaybackState(), static_cast<int>(ManageAudioPlayer::PlayingState));
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::EndOfMedia);
+    myPlayer.setPlayerStatus(QMediaPlayer::EndOfMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -7973,7 +7973,7 @@ void ManageAudioPlayerTest::testRestorePlayListAndSettingsAutomaticPlay()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::EndOfMedia));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::EndOfMedia);
 
     myPlayer.setPlayerPlaybackState(ManageAudioPlayer::StoppedState);
 
@@ -8023,7 +8023,7 @@ void ManageAudioPlayerTest::testRestorePlayListAndSettingsAutomaticPlay()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    myPlayer.setPlayerStatus(ManageAudioPlayer::InvalidMedia);
+    myPlayer.setPlayerStatus(QMediaPlayer::InvalidMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -8046,7 +8046,7 @@ void ManageAudioPlayerTest::testRestorePlayListAndSettingsAutomaticPlay()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
-    QCOMPARE(myPlayer.playerStatus(), static_cast<int>(ManageAudioPlayer::InvalidMedia));
+    QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::InvalidMedia);
 }
 
 QTEST_GUILESS_MAIN(ManageAudioPlayerTest)

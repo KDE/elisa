@@ -25,6 +25,8 @@
 #include <QObject>
 #include <QQmlListProperty>
 
+#include <QMediaPlayer>
+
 #include "musicalbum.h"
 #include "musicartist.h"
 #include "musicaudiotrack.h"
@@ -111,6 +113,8 @@ Q_SIGNALS:
 
     void elisaApplicationChanged();
 
+    void removeTracksInError(QList<QUrl> tracks);
+
 public Q_SLOTS:
 
     void databaseReady();
@@ -122,6 +126,8 @@ public Q_SLOTS:
     void resetImportedTracksCounter();
 
     void setElisaApplication(ElisaApplication* elisaApplication);
+
+    void playBackError(QUrl sourceInError, QMediaPlayer::Error playerError);
 
 private Q_SLOTS:
 

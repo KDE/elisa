@@ -56,7 +56,7 @@ class AudioWrapper : public QObject
                READ playbackState
                NOTIFY playbackStateChanged)
 
-    Q_PROPERTY(QString error
+    Q_PROPERTY(QMediaPlayer::Error error
                READ error
                NOTIFY errorChanged)
 
@@ -94,7 +94,7 @@ public:
 
     QMediaPlayer::State playbackState() const;
 
-    QString error() const;
+    QMediaPlayer::Error error() const;
 
     qint64 duration() const;
 

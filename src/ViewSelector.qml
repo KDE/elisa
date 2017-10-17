@@ -21,6 +21,7 @@ import QtQuick 2.7
 import QtQuick.Controls 1.3
 import QtQuick.Controls.Styles 1.3
 import QtQml.Models 2.1
+import QtGraphicalEffects 1.0
 
 FocusScope {
     id: rootFocusScope
@@ -106,6 +107,31 @@ FocusScope {
                             }
 
                             source: iconName
+
+                            visible: false
+                        }
+
+                        ColorOverlay {
+                            source: viewIcon
+
+                            z: 2
+
+                            anchors {
+                                verticalCenter: parent.verticalCenter
+                                leftMargin: elisaTheme.layoutHorizontalMargin
+                                left: parent.left
+                            }
+
+                            height: elisaTheme.viewSelectorDelegateHeight
+                            width: elisaTheme.viewSelectorDelegateHeight
+
+                            color: (index === viewModeView.currentIndex ? myPalette.highlightedText : "transparent")
+
+                            Behavior on color {
+                                ColorAnimation {
+                                    duration: 300
+                                }
+                            }
                         }
 
                         LabelWithToolTip {

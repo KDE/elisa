@@ -50,6 +50,8 @@ FocusScope {
     property alias clearPlayListAction: removeFromPlayList
     property alias playNowAction: playNow
 
+    signal startPlayback()
+
     Action {
         id: removeFromPlayList
         text: i18nc("Remove current track from play list", "Remove")
@@ -66,6 +68,7 @@ FocusScope {
         enabled: !isPlaying && isValid
         onTriggered: {
             playListControler.switchTo(viewAlbumDelegate.index)
+            viewAlbumDelegate.startPlayback()
         }
     }
 

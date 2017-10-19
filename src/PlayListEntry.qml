@@ -337,7 +337,7 @@ FocusScope {
     states: [
         State {
             name: 'notSelected'
-            when: !containsMouse && !viewAlbumDelegate.activeFocus
+            when: !containsMouse && (!viewAlbumDelegate.activeFocus || !isSelected)
             PropertyChanges {
                 target: viewAlbumDelegate
                 height: (hasAlbumHeader ? elisaTheme.delegateWithHeaderHeight : elisaTheme.delegateHeight)
@@ -356,8 +356,8 @@ FocusScope {
             }
         },
         State {
-            name: 'hoveredAndNotSelected'
-            when: containsMouse || viewAlbumDelegate.activeFocus
+            name: 'hoveredOrSelected'
+            when: containsMouse || (viewAlbumDelegate.activeFocus && isSelected)
             PropertyChanges {
                 target: viewAlbumDelegate
                 height: (hasAlbumHeader ? elisaTheme.delegateWithHeaderHeight : elisaTheme.delegateHeight)

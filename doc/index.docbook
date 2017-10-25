@@ -28,9 +28,9 @@ as Authors, publish date, the abstract, and Keywords -->
 <year>2017</year>
 <holder>Matthieu Gallien</holder>
 </copyright>
-<legalnotice>&FDLNotice;</legalnotice>
+<legalnotice>&CCBYSA4Notice;</legalnotice>
 
-<date>2017-02-11</date>
+<date>2017-10-24</date>
 
 <releaseinfo>Elisa 0.0.80</releaseinfo>
 
@@ -78,6 +78,25 @@ It gets your music from local sources either Baloo indexer or an internal music 
 	  </textobject>
 	</mediaobject>
 </screenshot>
+</para>
+
+<para>
+There are no special requirements for use of &elisa;. Currently the only supported
+indexer is Baloo but support for Tracker and the indexer generally available on
+Windows are planned. It is also possible to have &elisa; index your music by itself.
+</para>
+
+<para>
+You can find a list of changes at <ulink
+url="https://phabricator.kde.org/project/profile/193/">Elisa Project</ulink>.
+</para>
+
+<para>Currently no configuration is required before use of &elisa;.
+You can explore the menu of application to see the customization possibilities.
+</para>
+
+<para>
+If you use the internal music indexer, you can configure the paths that will be searched.
 </para>
 
 
@@ -166,7 +185,7 @@ Documentation Copyright &copy; 2017 Matthieu Gallien <email>matthieu_gallien@yah
 
 <!-- TRANS:CREDIT_FOR_TRANSLATORS -->
 
-&underFDL;               <!-- FDL: do not remove -->
+&underCCBYSA4;               <!-- CC BY-SA 4.0: do not remove -->
 
 <!-- Determine which license your application is licensed under,
      and delete all the remaining licenses below:
@@ -174,61 +193,9 @@ Documentation Copyright &copy; 2017 Matthieu Gallien <email>matthieu_gallien@yah
      (NOTE:  All documentation are licensed under the FDL,
      regardless of what license the application uses) -->
 
-&underLGPL;        	 <!-- GPL License -->
+&underLGPL;        	 <!-- LGPL License -->
 
 </chapter>
-
-<appendix id="installation">
-<title>Installation</title>
-
-<sect1 id="getting-kapp">
-<title>How to obtain &elisa;</title>
-
-&install.intro.documentation;
-
-</sect1>
-
-<sect1 id="requirements">
-<title>Requirements</title>
-
-<para>
-There are no special requirements for use of &elisa;. Currently the only supported
-indexer is Baloo but support for Tracker and the indexer generally available on
-Windows are planned. It is also possible to have &elisa; index your music by itself.
-</para>
-
-<para>
-You can find a list of changes at <ulink
-url="https://phabricator.kde.org/project/profile/193/">Elisa Project</ulink>.
-</para>
-</sect1>
-
-<sect1 id="compilation">
-<title>Compilation and Installation</title>
-
-<!-- This entity contains the boilerplate text for standard -->
-<!-- compilation instructions.  If your application requires any -->
-<!-- special handling, remove it, and replace with your own text. -->
-
-&install.compile.documentation;
-
-</sect1>
-
-<sect1 id="configuration">
-<title>Configuration</title>
-
-<para>
-Currently no configuration is required before use of &elisa;.
-You can explore the menu of application to see the customization possibilities.
-</para>
-
-<para>
-If you use the internal music indexer, you can configure the paths that will be searched.
-</para>
-
-</sect1>
-
-</appendix>
 
 &documentation.index;
 </book>

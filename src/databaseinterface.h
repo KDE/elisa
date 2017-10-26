@@ -143,6 +143,8 @@ private:
 
     QList<MusicAudioTrack> internalTracksFromAuthor(const QString &artistName) const;
 
+    QList<qulonglong> internalAlbumIdsFromAuthor(const QString &artistName) const;
+
     void initDatabase() const;
 
     void initRequest();

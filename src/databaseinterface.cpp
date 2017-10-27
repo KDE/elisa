@@ -2746,38 +2746,6 @@ qulonglong DatabaseInterface::internalTrackIdFromFileName(const QUrl &fileName) 
     return result;
 }
 
-QVariant DatabaseInterface::internalAlbumDataFromId(qulonglong albumId, DatabaseInterface::AlbumData dataType)
-{
-    auto result = QVariant();
-
-    auto currentAlbum = internalAlbumFromId(albumId);
-
-    if (!currentAlbum.isValid()) {
-        return result;
-    }
-
-    switch(dataType)
-    {
-    case DatabaseInterface::AlbumData::Id:
-        result = currentAlbum.id();
-        break;
-    case DatabaseInterface::AlbumData::Image:
-        result = currentAlbum.albumArtURI();
-        break;
-    case DatabaseInterface::AlbumData::Title:
-        result = currentAlbum.title();
-        break;
-    case DatabaseInterface::AlbumData::Artist:
-        result = currentAlbum.artist();
-        break;
-    case DatabaseInterface::AlbumData::TracksCount:
-        result = currentAlbum.tracksCount();
-        break;
-    }
-
-    return result;
-}
-
 QList<MusicAudioTrack> DatabaseInterface::internalTracksFromAuthor(const QString &artistName) const
 {
     auto allTracks = QList<MusicAudioTrack>();

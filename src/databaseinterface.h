@@ -139,8 +139,6 @@ private:
 
     qulonglong internalTrackIdFromFileName(const QUrl &fileName) const;
 
-    QVariant internalAlbumDataFromId(qulonglong albumId, AlbumData dataType);
-
     QList<MusicAudioTrack> internalTracksFromAuthor(const QString &artistName) const;
 
     QList<qulonglong> internalAlbumIdsFromAuthor(const QString &artistName) const;

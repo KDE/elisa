@@ -177,6 +177,10 @@ private:
 
     void internalRemoveTracksList(const QList<QUrl> &removedTracks);
 
+    void internalRemoveTracksList(const QList<QUrl> &removedTracks, qulonglong sourceId);
+
+    void internalRemoveTracksWithoutMapping();
+
     std::unique_ptr<DatabaseInterfacePrivate> d;
 
 };

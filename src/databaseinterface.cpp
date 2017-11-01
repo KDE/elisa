@@ -60,7 +60,8 @@ public:
           mInsertAlbumWithoutArtistQuery(mTracksDatabase), mSelectTracksMappingPriorityByTrackId(mTracksDatabase),
           mSelectAllTrackFilesFromSourceQuery(mTracksDatabase), mFindInvalidTrackFilesQuery(mTracksDatabase),
           mSelectAlbumIdsFromArtist(mTracksDatabase), mRemoveTracksMappingFromSource(mTracksDatabase),
-          mRemoveTracksMapping(mTracksDatabase), mSelectTracksWithoutMappingQuery(mTracksDatabase)
+          mRemoveTracksMapping(mTracksDatabase), mSelectTracksWithoutMappingQuery(mTracksDatabase),
+          mSelectAlbumIdFromTitleAndArtistQuery(mTracksDatabase), mSelectAlbumIdFromTitleWithoutArtistQuery(mTracksDatabase)
     {
     }
 
@@ -151,6 +152,10 @@ public:
     QSqlQuery mRemoveTracksMapping;
 
     QSqlQuery mSelectTracksWithoutMappingQuery;
+
+    QSqlQuery mSelectAlbumIdFromTitleAndArtistQuery;
+
+    QSqlQuery mSelectAlbumIdFromTitleWithoutArtistQuery;
 
     qulonglong mAlbumId = 1;
 
@@ -1407,6 +1412,33 @@ void DatabaseInterface::initRequest()
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAlbumIdFromTitleQuery.lastError();
         }
     }
+
+    {
+        auto selectAlbumIdFromTitleAndArtistQueryText = QStringLiteral("SELECT `ID` FROM `Albums` "
+                                                                       "WHERE "
+                                                                       "`Title` = :title AND "
+                                                                       "`ArtistID` = :artistId");
+
+        auto result = d->mSelectAlbumIdFromTitleAndArtistQuery.prepare(selectAlbumIdFromTitleAndArtistQueryText);
+
+        if (!result) {
+            qDebug() << "DatabaseInterface::initRequest" << d->mSelectAlbumIdFromTitleAndArtistQuery.lastError();
+        }
+    }
+
+    {
+        auto selectAlbumIdFromTitleWithoutArtistQueryText = QStringLiteral("SELECT `ID` FROM `Albums` "
+                                                                           "WHERE "
+                                                                           "`Title` = :title AND "
+                                                                           "`ArtistID` IS NULL");
+
+        auto result = d->mSelectAlbumIdFromTitleWithoutArtistQuery.prepare(selectAlbumIdFromTitleWithoutArtistQueryText);
+
+        if (!result) {
+            qDebug() << "DatabaseInterface::initRequest" << d->mSelectAlbumIdFromTitleWithoutArtistQuery.lastError();
+        }
+    }
+
     {
         auto insertAlbumQueryText = QStringLiteral("INSERT INTO Albums (`ID`, `Title`, `ArtistID`, `CoverFileName`, `TracksCount`, `IsSingleDiscAlbum`) "
                                                    "VALUES (:albumId, :title, :artistId, :coverFileName, :tracksCount, :isSingleDiscAlbum)");
@@ -1856,30 +1888,56 @@ qulonglong DatabaseInterface::insertAlbum(const QString &title, const QString &a
         return result;
     }
 
-    d->mSelectAlbumIdFromTitleQuery.bindValue(QStringLiteral(":title"), title);
-    d->mSelectAlbumIdFromTitleQuery.bindValue(QStringLiteral(":artistId"), insertArtist(albumArtist));
+    d->mSelectAlbumIdFromTitleAndArtistQuery.bindValue(QStringLiteral(":title"), title);
+    d->mSelectAlbumIdFromTitleAndArtistQuery.bindValue(QStringLiteral(":artistId"), insertArtist(albumArtist));
 
-    auto queryResult = d->mSelectAlbumIdFromTitleQuery.exec();
+    auto queryResult = d->mSelectAlbumIdFromTitleAndArtistQuery.exec();
 
-    if (!queryResult || !d->mSelectAlbumIdFromTitleQuery.isSelect() || !d->mSelectAlbumIdFromTitleQuery.isActive()) {
-        qDebug() << "DatabaseInterface::insertAlbum" << d->mSelectAlbumIdFromTitleQuery.lastQuery();
-        qDebug() << "DatabaseInterface::insertAlbum" << d->mSelectAlbumIdFromTitleQuery.boundValues();
-        qDebug() << "DatabaseInterface::insertAlbum" << d->mSelectAlbumIdFromTitleQuery.lastError();
+    if (!queryResult || !d->mSelectAlbumIdFromTitleAndArtistQuery.isSelect() || !d->mSelectAlbumIdFromTitleAndArtistQuery.isActive()) {
+        qDebug() << "DatabaseInterface::insertAlbum" << d->mSelectAlbumIdFromTitleAndArtistQuery.lastQuery();
+        qDebug() << "DatabaseInterface::insertAlbum" << d->mSelectAlbumIdFromTitleAndArtistQuery.boundValues();
+        qDebug() << "DatabaseInterface::insertAlbum" << d->mSelectAlbumIdFromTitleAndArtistQuery.lastError();
 
-        d->mSelectAlbumIdFromTitleQuery.finish();
-
-        return result;
-    }
-
-    if (d->mSelectAlbumIdFromTitleQuery.next()) {
-        result = d->mSelectAlbumIdFromTitleQuery.record().value(0).toULongLong();
-
-        d->mSelectAlbumIdFromTitleQuery.finish();
+        d->mSelectAlbumIdFromTitleAndArtistQuery.finish();
 
         return result;
     }
 
-    d->mSelectAlbumIdFromTitleQuery.finish();
+    if (d->mSelectAlbumIdFromTitleAndArtistQuery.next()) {
+        result = d->mSelectAlbumIdFromTitleAndArtistQuery.record().value(0).toULongLong();
+
+        d->mSelectAlbumIdFromTitleAndArtistQuery.finish();
+
+        return result;
+    }
+
+    d->mSelectAlbumIdFromTitleAndArtistQuery.finish();
+
+    if (result == 0) {
+        d->mSelectAlbumIdFromTitleWithoutArtistQuery.bindValue(QStringLiteral(":title"), title);
+
+        auto queryResult = d->mSelectAlbumIdFromTitleWithoutArtistQuery.exec();
+
+        if (!queryResult || !d->mSelectAlbumIdFromTitleWithoutArtistQuery.isSelect() || !d->mSelectAlbumIdFromTitleWithoutArtistQuery.isActive()) {
+            qDebug() << "DatabaseInterface::insertAlbum" << d->mSelectAlbumIdFromTitleWithoutArtistQuery.lastQuery();
+            qDebug() << "DatabaseInterface::insertAlbum" << d->mSelectAlbumIdFromTitleWithoutArtistQuery.boundValues();
+            qDebug() << "DatabaseInterface::insertAlbum" << d->mSelectAlbumIdFromTitleWithoutArtistQuery.lastError();
+
+            d->mSelectAlbumIdFromTitleWithoutArtistQuery.finish();
+
+            return result;
+        }
+
+        if (d->mSelectAlbumIdFromTitleWithoutArtistQuery.next()) {
+            result = d->mSelectAlbumIdFromTitleWithoutArtistQuery.record().value(0).toULongLong();
+
+            d->mSelectAlbumIdFromTitleWithoutArtistQuery.finish();
+
+            return result;
+        }
+
+        d->mSelectAlbumIdFromTitleWithoutArtistQuery.finish();
+    }
 
     QSqlQuery insertAlbumQuery;
 

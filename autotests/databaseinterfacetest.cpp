@@ -217,9 +217,14 @@ private Q_SLOTS:
 
     void addTwoTracksWithoutAlbumArtist()
     {
+        QTemporaryFile databaseFile;
+        databaseFile.open();
+
+        qDebug() << "addTwoTracksWithoutAlbumArtist" << databaseFile.fileName();
+
         DatabaseInterface musicDb;
 
-        musicDb.init(QStringLiteral("testDb"));
+        musicDb.init(QStringLiteral("testDb"), databaseFile.fileName());
 
         QSignalSpy musicDbArtistAddedSpy(&musicDb, &DatabaseInterface::artistAdded);
         QSignalSpy musicDbAlbumAddedSpy(&musicDb, &DatabaseInterface::albumAdded);

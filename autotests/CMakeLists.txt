@@ -12,10 +12,11 @@ set(databaseInterfaceTest_SOURCES
     databaseinterfacetest.cpp
 )
 
-add_executable(databaseInterfaceTest ${databaseInterfaceTest_SOURCES})
-target_link_libraries(databaseInterfaceTest Qt5::Test Qt5::Core Qt5::Sql KF5::I18n)
+ecm_add_test(${databaseInterfaceTest_SOURCES}
+    TEST_NAME "databaseInterfaceTest"
+    LINK_LIBRARIES Qt5::Test Qt5::Core Qt5::Sql KF5::I18n)
+
 target_include_directories(databaseInterfaceTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
-add_test(databaseInterfaceTest databaseInterfaceTest)
 
 set(playListControlerTest_SOURCES
     ../src/playlistcontroler.cpp
@@ -80,9 +81,10 @@ if (KF5Config_FOUND)
     )
 endif()
 
-add_executable(playListControlerTest ${playListControlerTest_SOURCES})
+ecm_add_test(${playListControlerTest_SOURCES}
+    TEST_NAME "playListControlerTest"
+    LINK_LIBRARIES Qt5::Test Qt5::Core Qt5::Sql Qt5::Widgets KF5::I18n Qt5::Quick Qt5::Multimedia)
 
-target_link_libraries(playListControlerTest Qt5::Test Qt5::Core Qt5::Sql Qt5::Widgets KF5::I18n Qt5::Quick Qt5::Multimedia)
 if (KF5Baloo_FOUND)
     target_link_libraries(playListControlerTest KF5::Baloo Qt5::DBus)
 endif()
@@ -103,7 +105,6 @@ if (KF5XmlGui_FOUND)
 endif()
 
 target_include_directories(playListControlerTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
-add_test(playListControlerTest playListControlerTest)
 
 set(managemediaplayercontrolTest_SOURCES
     ../src/managemediaplayercontrol.cpp
@@ -168,9 +169,10 @@ if (KF5Config_FOUND)
     )
 endif()
 
-add_executable(managemediaplayercontrolTest ${managemediaplayercontrolTest_SOURCES})
+ecm_add_test(${managemediaplayercontrolTest_SOURCES}
+    TEST_NAME "managemediaplayercontrolTest"
+    LINK_LIBRARIES Qt5::Test Qt5::Core Qt5::Sql Qt5::Widgets KF5::I18n Qt5::Quick Qt5::Multimedia)
 
-target_link_libraries(managemediaplayercontrolTest Qt5::Test Qt5::Core Qt5::Sql Qt5::Widgets KF5::I18n Qt5::Quick Qt5::Multimedia)
 if (KF5Baloo_FOUND)
     target_link_libraries(managemediaplayercontrolTest KF5::Baloo Qt5::DBus)
 endif()
@@ -191,7 +193,6 @@ if (KF5XmlGui_FOUND)
 endif()
 
 target_include_directories(managemediaplayercontrolTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
-add_test(managemediaplayercontrolTest managemediaplayercontrolTest)
 
 set(manageheaderbarTest_SOURCES
     ../src/manageheaderbar.cpp
@@ -257,9 +258,10 @@ if (KF5Config_FOUND)
     )
 endif()
 
-add_executable(manageheaderbarTest ${manageheaderbarTest_SOURCES})
+ecm_add_test(${manageheaderbarTest_SOURCES}
+    TEST_NAME "manageheaderbarTest"
+    LINK_LIBRARIES Qt5::Test Qt5::Core Qt5::Sql Qt5::Gui Qt5::Widgets KF5::I18n Qt5::Quick Qt5::Multimedia)
 
-target_link_libraries(manageheaderbarTest Qt5::Test Qt5::Core Qt5::Sql Qt5::Gui Qt5::Widgets KF5::I18n Qt5::Quick Qt5::Multimedia)
 if (KF5Baloo_FOUND)
     target_link_libraries(manageheaderbarTest KF5::Baloo Qt5::DBus)
 endif()
@@ -280,17 +282,17 @@ if (KF5XmlGui_FOUND)
 endif()
 
 target_include_directories(manageheaderbarTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
-add_test(manageheaderbarTest manageheaderbarTest)
 
 set(manageaudioplayerTest_SOURCES
     ../src/manageaudioplayer.cpp
     manageaudioplayertest.cpp
 )
 
-add_executable(manageaudioplayerTest ${manageaudioplayerTest_SOURCES})
-target_link_libraries(manageaudioplayerTest Qt5::Test Qt5::Core Qt5::Gui Qt5::Multimedia)
+ecm_add_test(${manageaudioplayerTest_SOURCES}
+    TEST_NAME "manageaudioplayerTest"
+    LINK_LIBRARIES Qt5::Test Qt5::Core Qt5::Gui Qt5::Multimedia)
+
 target_include_directories(manageaudioplayerTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
-add_test(manageaudioplayerTest manageaudioplayerTest)
 
 set(mediaplaylistTest_SOURCES
     ../src/mediaplaylist.cpp
@@ -354,9 +356,10 @@ if (KF5Config_FOUND)
     )
 endif()
 
-add_executable(mediaplaylistTest ${mediaplaylistTest_SOURCES})
+ecm_add_test(${mediaplaylistTest_SOURCES}
+    TEST_NAME "mediaplaylistTest"
+    LINK_LIBRARIES Qt5::Test Qt5::Core Qt5::Sql Qt5::Gui Qt5::Widgets KF5::I18n Qt5::Quick Qt5::Multimedia)
 
-target_link_libraries(mediaplaylistTest Qt5::Test Qt5::Core Qt5::Sql Qt5::Gui Qt5::Widgets KF5::I18n Qt5::Quick Qt5::Multimedia)
 if (KF5Baloo_FOUND)
     target_link_libraries(mediaplaylistTest KF5::Baloo Qt5::DBus)
 endif()
@@ -377,7 +380,6 @@ if (KF5Config_FOUND)
 endif()
 
 target_include_directories(mediaplaylistTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
-add_test(mediaplaylistTest mediaplaylistTest)
 
 set(allalbumsmodeltest_SOURCES
     ../src/databaseinterface.cpp
@@ -388,10 +390,11 @@ set(allalbumsmodeltest_SOURCES
     allalbumsmodeltest.cpp
 )
 
-add_executable(allalbumsmodeltest ${allalbumsmodeltest_SOURCES})
-target_link_libraries(allalbumsmodeltest Qt5::Test Qt5::Core Qt5::Sql KF5::I18n)
+ecm_add_test(${allalbumsmodeltest_SOURCES}
+    TEST_NAME "allalbumsmodeltest"
+    LINK_LIBRARIES Qt5::Test Qt5::Core Qt5::Sql KF5::I18n)
+
 target_include_directories(allalbumsmodeltest PRIVATE ${CMAKE_SOURCE_DIR}/src)
-add_test(allalbumsmodeltest allalbumsmodeltest)
 
 set(albummodeltest_SOURCES
     ../src/databaseinterface.cpp
@@ -402,10 +405,11 @@ set(albummodeltest_SOURCES
     albummodeltest.cpp
 )
 
-add_executable(albummodeltest ${albummodeltest_SOURCES})
-target_link_libraries(albummodeltest Qt5::Test Qt5::Core Qt5::Sql KF5::I18n)
+ecm_add_test(${albummodeltest_SOURCES}
+    TEST_NAME "albummodeltest"
+    LINK_LIBRARIES Qt5::Test Qt5::Core Qt5::Sql KF5::I18n)
+
 target_include_directories(albummodeltest PRIVATE ${CMAKE_SOURCE_DIR}/src)
-add_test(albummodeltest albummodeltest)
 
 set(allartistsmodeltest_SOURCES
     ../src/databaseinterface.cpp
@@ -416,10 +420,11 @@ set(allartistsmodeltest_SOURCES
     allartistsmodeltest.cpp
 )
 
-add_executable(allartistsmodeltest ${allartistsmodeltest_SOURCES})
-target_link_libraries(allartistsmodeltest Qt5::Test Qt5::Core Qt5::Sql KF5::I18n)
+ecm_add_test(${allartistsmodeltest_SOURCES}
+    TEST_NAME "allartistsmodeltest"
+    LINK_LIBRARIES Qt5::Test Qt5::Core Qt5::Sql KF5::I18n)
+
 target_include_directories(allartistsmodeltest PRIVATE ${CMAKE_SOURCE_DIR}/src)
-add_test(allartistsmodeltest allartistsmodeltest)
 
 set(alltracksmodeltest_SOURCES
     ../src/databaseinterface.cpp
@@ -430,10 +435,11 @@ set(alltracksmodeltest_SOURCES
     alltracksmodeltest.cpp
 )
 
-add_executable(alltracksmodeltest ${alltracksmodeltest_SOURCES})
-target_link_libraries(alltracksmodeltest Qt5::Test Qt5::Core Qt5::Sql KF5::I18n)
+ecm_add_test(${alltracksmodeltest_SOURCES}
+    TEST_NAME "alltracksmodeltest"
+    LINK_LIBRARIES Qt5::Test Qt5::Core Qt5::Sql KF5::I18n)
+
 target_include_directories(alltracksmodeltest PRIVATE ${CMAKE_SOURCE_DIR}/src)
-add_test(alltracksmodeltest alltracksmodeltest)
 
 if (KF5FileMetaData_FOUND)
     set(localfilelistingtest_SOURCES
@@ -450,10 +456,9 @@ if (KF5FileMetaData_FOUND)
         ../src/elisa_core.kcfg
     )
 
-    add_executable(localfilelistingtest ${localfilelistingtest_SOURCES})
-    target_link_libraries(localfilelistingtest Qt5::Test Qt5::Core Qt5::Sql KF5::I18n KF5::ConfigCore KF5::ConfigGui KF5::FileMetaData)
+    ecm_add_test(${localfilelistingtest_SOURCES}
+        TEST_NAME "localfilelistingtest"
+        LINK_LIBRARIES Qt5::Test Qt5::Core Qt5::Sql KF5::I18n KF5::ConfigCore KF5::ConfigGui KF5::FileMetaData)
 
     target_include_directories(localfilelistingtest PRIVATE ${CMAKE_SOURCE_DIR}/src)
-    add_test(localfilelistingtest localfilelistingtest)
-
 endif()

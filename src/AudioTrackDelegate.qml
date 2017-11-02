@@ -130,6 +130,8 @@ FocusScope {
                     }
                 }
 
+                onDoubleClicked: playList.enqueue(trackData)
+
                 RowLayout {
                     spacing: 0
 

@@ -91,6 +91,8 @@ FocusScope {
                     viewTrackDelegate.rightClicked()
             }
 
+            onDoubleClicked: playList.enqueue(trackData)
+
             RowLayout {
                 anchors.fill: parent
                 spacing: 0

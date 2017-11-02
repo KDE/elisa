@@ -57,22 +57,7 @@ FocusScope {
 
         text: i18nc("Open album view", "Open Album")
         iconName: 'document-open-folder'
-        onTriggered: {
-            stackView.push(Qt.resolvedUrl("MediaAlbumView.qml"),
-                           {
-                               'stackView': stackView,
-                               'playListModel': playListModel,
-                               'musicListener': mediaServerEntry.musicListener,
-                               'playerControl': playerControl,
-                               'albumArtUrl': image,
-                               'albumName': title,
-                               'artistName': artist,
-                               'tracksCount': count,
-                               'isSingleDiscAlbum': mediaServerEntry.isSingleDiscAlbum,
-                               'albumData': mediaServerEntry.albumData,
-                               'albumId': mediaServerEntry.albumId
-                           })
-        }
+        onTriggered: showAlbumTracks()
     }
 
     Action {
@@ -84,6 +69,23 @@ FocusScope {
             mediaServerEntry.playListModel.clearAndEnqueue(mediaServerEntry.albumData)
             mediaServerEntry.playerControl.ensurePlay()
         }
+    }
+
+    function showAlbumTracks() {
+        stackView.push(Qt.resolvedUrl("MediaAlbumView.qml"),
+                       {
+                           'stackView': stackView,
+                           'playListModel': playListModel,
+                           'musicListener': mediaServerEntry.musicListener,
+                           'playerControl': playerControl,
+                           'albumArtUrl': image,
+                           'albumName': title,
+                           'artistName': artist,
+                           'tracksCount': count,
+                           'isSingleDiscAlbum': mediaServerEntry.isSingleDiscAlbum,
+                           'albumData': mediaServerEntry.albumData,
+                           'albumId': mediaServerEntry.albumId
+                       })
     }
 
     ColumnLayout {
@@ -106,6 +108,8 @@ FocusScope {
                 hoverHandle.forceActiveFocus()
                 albumClicked()
             }
+
+            onDoubleClicked: showAlbumTracks()
 
             TextMetrics {
                 id: titleSize

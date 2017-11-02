@@ -62,18 +62,7 @@ FocusScope {
 
         text: i18nc("Open artist view", "Open Artist")
         iconName: 'document-open-folder'
-        onTriggered: {
-            stackView.push({
-                               item: Qt.resolvedUrl("MediaArtistAlbumView.qml"),
-                               properties :
-                               {
-                                   playListModel: mediaServerEntry.playListModel,
-                                   contentDirectoryModel: mediaServerEntry.contentDirectoryModel,
-                                   playerControl: mediaServerEntry.playerControl,
-                                   stackView: mediaServerEntry.stackView,
-                                   artistName: name,
-                               }})
-        }
+        onTriggered: showArtistsAlbums()
     }
 
     Action {
@@ -85,6 +74,19 @@ FocusScope {
             mediaServerEntry.playListModel.clearAndEnqueue(mediaServerEntry.name)
             mediaServerEntry.playerControl.ensurePlay()
         }
+    }
+
+    function showArtistsAlbums(){
+        stackView.push({
+                           item: Qt.resolvedUrl("MediaArtistAlbumView.qml"),
+                           properties :
+                           {
+                               playListModel: mediaServerEntry.playListModel,
+                               contentDirectoryModel: mediaServerEntry.contentDirectoryModel,
+                               playerControl: mediaServerEntry.playerControl,
+                               stackView: mediaServerEntry.stackView,
+                               artistName: name,
+                           }})
     }
 
     ColumnLayout {
@@ -107,6 +109,8 @@ FocusScope {
                 hoverHandle.forceActiveFocus()
                 artistClicked()
             }
+
+            onDoubleClicked: showArtistsAlbums()
 
             TextMetrics {
                 id: nameSize

@@ -620,21 +620,27 @@ bool MediaPlayList::rowHasHeader(int row) const
         return true;
     }
 
-    auto currentAlbum = QString();
+    auto currentAlbumTitle = QString();
+    auto currentAlbumArtist = QString();
     if (d->mData[row].mIsValid) {
-        currentAlbum = d->mTrackData[row].albumName();
+        currentAlbumTitle = d->mTrackData[row].albumName();
+        currentAlbumArtist = d->mTrackData[row].albumArtist();
     } else {
-        currentAlbum = d->mData[row].mAlbum;
+        currentAlbumTitle = d->mData[row].mAlbum;
+        currentAlbumArtist = d->mData[row].mArtist;
     }
 
-    auto previousAlbum = QString();
+    auto previousAlbumTitle = QString();
+    auto previousAlbumArtist = QString();
     if (d->mData[row - 1].mIsValid) {
-        previousAlbum = d->mTrackData[row - 1].albumName();
+        previousAlbumTitle = d->mTrackData[row - 1].albumName();
+        previousAlbumArtist = d->mTrackData[row - 1].albumArtist();
     } else {
-        previousAlbum = d->mData[row - 1].mAlbum;
+        previousAlbumTitle = d->mData[row - 1].mAlbum;
+        previousAlbumArtist = d->mData[row - 1].mArtist;
     }
 
-    if (currentAlbum == previousAlbum) {
+    if (currentAlbumTitle == previousAlbumTitle && currentAlbumArtist == previousAlbumArtist) {
         return false;
     }
 

@@ -73,6 +73,8 @@ private Q_SLOTS:
 
     void restoreMultipleIdenticalTracks();
 
+    void testHasHeaderAlbumWithSameTitle();
+
 private:
 
     QList<MusicAudioTrack> mNewTracks;

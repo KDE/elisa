@@ -80,7 +80,7 @@ FocusScope {
 
             hoverEnabled: true
 
-            acceptedButtons: Qt.RightButton | Qt.LeftButton
+            acceptedButtons: Qt.LeftButton | Qt.RightButton
 
             onClicked:
             {

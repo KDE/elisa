@@ -220,7 +220,7 @@ FocusScope {
 
                         onClicked: contentDirectoryView.currentIndex = index
 
-                        onRightClicked: contextMenu.popup()
+                        onRightClicked: entry.contextMenu.popup()
                     }
                 }
             }

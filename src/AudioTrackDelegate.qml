@@ -115,7 +115,7 @@ FocusScope {
                 id: hoverHandle
 
                 hoverEnabled: true
-                acceptedButtons: Qt.LeftButton
+                acceptedButtons: Qt.LeftButton | Qt.RightButton
                 focus: true
 
                 anchors.fill: parent

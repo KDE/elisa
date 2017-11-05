@@ -167,7 +167,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        albumsModel.setAlbumData(musicDb.albumFromTitle(QStringLiteral("album1")));
+        albumsModel.setAlbumData(musicDb.albumFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists")));
 
         QCOMPARE(beginInsertRowsSpy.count(), 1);
         QCOMPARE(endInsertRowsSpy.count(), 1);
@@ -220,7 +220,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        albumsModel.setAlbumData(musicDb.albumFromTitle(QStringLiteral("album1")));
+        albumsModel.setAlbumData(musicDb.albumFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists")));
 
         QCOMPARE(beginInsertRowsSpy.count(), 1);
         QCOMPARE(endInsertRowsSpy.count(), 1);
@@ -282,7 +282,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        albumsModel.setAlbumData(musicDb.albumFromTitle(QStringLiteral("album1")));
+        albumsModel.setAlbumData(musicDb.albumFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists")));
 
         QCOMPARE(beginInsertRowsSpy.count(), 1);
         QCOMPARE(endInsertRowsSpy.count(), 1);
@@ -375,7 +375,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        albumsModel.setAlbumData(musicDb.albumFromTitle(QStringLiteral("album1")));
+        albumsModel.setAlbumData(musicDb.albumFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists")));
 
         QCOMPARE(beginInsertRowsSpy.count(), 1);
         QCOMPARE(endInsertRowsSpy.count(), 1);

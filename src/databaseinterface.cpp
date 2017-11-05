@@ -211,7 +211,7 @@ void DatabaseInterface::init(const QString &dbName, const QString &databaseFileN
     }
 }
 
-MusicAlbum DatabaseInterface::albumFromTitle(const QString &title)
+MusicAlbum DatabaseInterface::albumFromTitleAndArtist(const QString &title, const QString &artist)
 {
     auto result = MusicAlbum();
 
@@ -220,7 +220,7 @@ MusicAlbum DatabaseInterface::albumFromTitle(const QString &title)
         return result;
     }
 
-    result = internalAlbumFromTitle(title);
+    result = internalAlbumFromTitleAndArtist(title, artist);
 
     transactionResult = finishTransaction();
     if (!transactionResult) {
@@ -1402,9 +1402,14 @@ void DatabaseInterface::initRequest()
         }
     }
     {
-        auto selectAlbumIdFromTitleQueryText = QStringLiteral("SELECT `ID` FROM `Albums` "
+        auto selectAlbumIdFromTitleQueryText = QStringLiteral("SELECT "
+                                                              "album.`ID` "
+                                                              "FROM "
+                                                              "`Albums` album, `Artists` artist "
                                                               "WHERE "
-                                                              "`Title` = :title");
+                                                              "artist.`Name` = :artistName AND "
+                                                              "artist.`ID` = album.`ArtistID` AND "
+                                                              "album.`Title` = :title");
 
         auto result = d->mSelectAlbumIdFromTitleQuery.prepare(selectAlbumIdFromTitleQueryText);
 
@@ -2394,7 +2399,7 @@ void DatabaseInterface::internalRemoveTracksWithoutMapping()
         removeTrackInDatabase(oneRemovedTrack.databaseId());
         Q_EMIT trackRemoved(oneRemovedTrack.databaseId());
 
-        const auto &modifiedAlbumId = internalAlbumIdFromTitle(oneRemovedTrack.albumName());
+        const auto &modifiedAlbumId = internalAlbumIdFromTitleAndArtist(oneRemovedTrack.albumName(), oneRemovedTrack.albumArtist());
         const auto &allTracksFromArtist = internalTracksFromAuthor(oneRemovedTrack.artist());
         const auto &allAlbumsFromArtist = internalAlbumIdsFromAuthor(oneRemovedTrack.artist());
         const auto &removedArtistId = internalArtistIdFromName(oneRemovedTrack.artist());
@@ -2738,43 +2743,27 @@ MusicAlbum DatabaseInterface::internalAlbumFromId(qulonglong albumId) const
     return retrievedAlbum;
 }
 
-MusicAlbum DatabaseInterface::internalAlbumFromTitle(const QString &title)
+MusicAlbum DatabaseInterface::internalAlbumFromTitleAndArtist(const QString &title, const QString &artist)
 {
     auto result = MusicAlbum();
 
-    d->mSelectAlbumIdFromTitleQuery.bindValue(QStringLiteral(":title"), title);
+    auto albumId = internalAlbumIdFromTitleAndArtist(title, artist);
 
-    auto queryResult = d->mSelectAlbumIdFromTitleQuery.exec();
-
-    if (!queryResult || !d->mSelectAlbumIdFromTitleQuery.isSelect() || !d->mSelectAlbumIdFromTitleQuery.isActive()) {
-        qDebug() << "DatabaseInterface::albumFromTitleAndAuthor" << d->mSelectAlbumIdFromTitleQuery.lastQuery();
-        qDebug() << "DatabaseInterface::albumFromTitleAndAuthor" << d->mSelectAlbumIdFromTitleQuery.boundValues();
-        qDebug() << "DatabaseInterface::albumFromTitleAndAuthor" << d->mSelectAlbumIdFromTitleQuery.lastError();
-
-        d->mSelectAlbumIdFromTitleQuery.finish();
-
+    if (albumId == 0) {
         return result;
     }
-
-    if (!d->mSelectAlbumIdFromTitleQuery.next()) {
-        d->mSelectAlbumIdFromTitleQuery.finish();
-
-        return result;
-    }
-
-    auto albumId = d->mSelectAlbumIdFromTitleQuery.record().value(0).toULongLong();
-    d->mSelectAlbumIdFromTitleQuery.finish();
 
     result = internalAlbumFromId(albumId);
 
     return result;
 }
 
-qulonglong DatabaseInterface::internalAlbumIdFromTitle(const QString &title)
+qulonglong DatabaseInterface::internalAlbumIdFromTitleAndArtist(const QString &title, const QString &artist)
 {
     auto result = qulonglong(0);
 
     d->mSelectAlbumIdFromTitleQuery.bindValue(QStringLiteral(":title"), title);
+    d->mSelectAlbumIdFromTitleQuery.bindValue(QStringLiteral(":artistName"), artist);
 
     auto queryResult = d->mSelectAlbumIdFromTitleQuery.exec();
 
@@ -2788,14 +2777,33 @@ qulonglong DatabaseInterface::internalAlbumIdFromTitle(const QString &title)
         return result;
     }
 
-    if (!d->mSelectAlbumIdFromTitleQuery.next()) {
-        d->mSelectAlbumIdFromTitleQuery.finish();
-
-        return result;
+    if (d->mSelectAlbumIdFromTitleQuery.next()) {
+        result = d->mSelectAlbumIdFromTitleQuery.record().value(0).toULongLong();
     }
 
-    result = d->mSelectAlbumIdFromTitleQuery.record().value(0).toULongLong();
     d->mSelectAlbumIdFromTitleQuery.finish();
+
+    if (result == 0) {
+        d->mSelectAlbumIdFromTitleWithoutArtistQuery.bindValue(QStringLiteral(":title"), title);
+
+        auto queryResult = d->mSelectAlbumIdFromTitleWithoutArtistQuery.exec();
+
+        if (!queryResult || !d->mSelectAlbumIdFromTitleWithoutArtistQuery.isSelect() || !d->mSelectAlbumIdFromTitleWithoutArtistQuery.isActive()) {
+            qDebug() << "DatabaseInterface::insertAlbum" << d->mSelectAlbumIdFromTitleWithoutArtistQuery.lastQuery();
+            qDebug() << "DatabaseInterface::insertAlbum" << d->mSelectAlbumIdFromTitleWithoutArtistQuery.boundValues();
+            qDebug() << "DatabaseInterface::insertAlbum" << d->mSelectAlbumIdFromTitleWithoutArtistQuery.lastError();
+
+            d->mSelectAlbumIdFromTitleWithoutArtistQuery.finish();
+
+            return result;
+        }
+
+        if (d->mSelectAlbumIdFromTitleWithoutArtistQuery.next()) {
+            result = d->mSelectAlbumIdFromTitleWithoutArtistQuery.record().value(0).toULongLong();
+        }
+
+        d->mSelectAlbumIdFromTitleWithoutArtistQuery.finish();
+    }
 
     return result;
 }

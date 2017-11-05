@@ -57,7 +57,7 @@ public:
 
     Q_INVOKABLE void init(const QString &dbName, const QString &databaseFileName = {});
 
-    MusicAlbum albumFromTitle(const QString &title);
+    MusicAlbum albumFromTitleAndArtist(const QString &title, const QString &artist);
 
     QList<MusicAudioTrack> allTracks() const;
 
@@ -129,9 +129,9 @@ private:
 
     MusicAlbum internalAlbumFromId(qulonglong albumId) const;
 
-    MusicAlbum internalAlbumFromTitle(const QString &title);
+    MusicAlbum internalAlbumFromTitleAndArtist(const QString &title, const QString &artist);
 
-    qulonglong internalAlbumIdFromTitle(const QString &title);
+    qulonglong internalAlbumIdFromTitleAndArtist(const QString &title, const QString &artist);
 
     MusicAudioTrack internalTrackFromDatabaseId(qulonglong id);
 

@@ -269,13 +269,19 @@ FocusScope {
 
                         draggedItemParent: topItem
 
-                        onClicked:
-                        {
+                        onClicked: {
                             playListView.currentIndex = index
                             entry.forceActiveFocus()
                         }
 
                         onRightClicked: contentItem.contextMenu.popup()
+
+                        onDoubleClicked: {
+                            if (model.isValid) {
+                                topItem.playListControler.switchTo(model.index)
+                                topItem.startPlayback()
+                            }
+                        }
 
                         onMoveItemRequested: {
                             playListModel.move(from, to, 1);

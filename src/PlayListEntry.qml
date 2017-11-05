@@ -25,7 +25,7 @@ import QtGraphicalEffects 1.0
 import org.mgallien.QmlExtension 1.0
 
 FocusScope {
-    id: viewAlbumDelegate
+    id: playListEntry
 
     property string title
     property string artist
@@ -57,7 +57,7 @@ FocusScope {
         text: i18nc("Remove current track from play list", "Remove")
         iconName: "list-remove"
         onTriggered: {
-            playListModel.removeRows(viewAlbumDelegate.index, 1)
+            playListModel.removeRows(playListEntry.index, 1)
         }
     }
 
@@ -65,10 +65,10 @@ FocusScope {
         id: playNow
         text: i18nc("Play now current track from play list", "Play Now")
         iconName: "media-playback-start"
-        enabled: !isPlaying && isValid
+        enabled: !(isPlaying == MediaPlayList.IsPlaying) && isValid
         onTriggered: {
-            playListControler.switchTo(viewAlbumDelegate.index)
-            viewAlbumDelegate.startPlayback()
+            playListControler.switchTo(playListEntry.index)
+            playListEntry.startPlayback()
         }
     }
 
@@ -110,7 +110,7 @@ FocusScope {
                     Image {
                         id: mainIcon
 
-                        source: (isValid ? (viewAlbumDelegate.itemDecoration ? viewAlbumDelegate.itemDecoration : Qt.resolvedUrl(elisaTheme.albumCover)) : Qt.resolvedUrl(elisaTheme.errorIcon))
+                        source: (isValid ? (playListEntry.itemDecoration ? playListEntry.itemDecoration : Qt.resolvedUrl(elisaTheme.albumCover)) : Qt.resolvedUrl(elisaTheme.errorIcon))
 
                         Layout.minimumWidth: headerRow.height - 4
                         Layout.maximumWidth: headerRow.height - 4
@@ -212,6 +212,7 @@ FocusScope {
                         font.weight: (isPlaying ? Font.Bold : Font.Normal)
                         color: myPalette.text
 
+                        Layout.maximumWidth: mainCompactLabel.implicitWidth + 1
                         Layout.fillWidth: true
                         Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
 
@@ -236,7 +237,10 @@ FocusScope {
                         elide: Text.ElideRight
                     }
 
-                    Item { Layout.fillWidth: true }
+                    Item {
+                        Layout.fillWidth: true
+                        Layout.preferredWidth: 0
+                    }
 
                     ToolButton {
                         id: playNowButton
@@ -337,9 +341,9 @@ FocusScope {
     states: [
         State {
             name: 'notSelected'
-            when: !containsMouse && (!viewAlbumDelegate.activeFocus || !isSelected)
+            when: !containsMouse && (!playListEntry.activeFocus || !isSelected)
             PropertyChanges {
-                target: viewAlbumDelegate
+                target: playListEntry
                 height: (hasAlbumHeader ? elisaTheme.delegateWithHeaderHeight : elisaTheme.delegateHeight)
             }
             PropertyChanges {
@@ -357,9 +361,9 @@ FocusScope {
         },
         State {
             name: 'hoveredOrSelected'
-            when: containsMouse || (viewAlbumDelegate.activeFocus && isSelected)
+            when: containsMouse || (playListEntry.activeFocus && isSelected)
             PropertyChanges {
-                target: viewAlbumDelegate
+                target: playListEntry
                 height: (hasAlbumHeader ? elisaTheme.delegateWithHeaderHeight : elisaTheme.delegateHeight)
             }
             PropertyChanges {

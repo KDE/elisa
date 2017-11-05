@@ -50,6 +50,7 @@ FocusScope {
 
     signal clicked()
     signal rightClicked()
+    signal doubleClicked()
 
     width: contentItem.width
     height: topPlaceholder.height + wrapperParent.height + bottomPlaceholder.height
@@ -116,6 +117,10 @@ FocusScope {
                         root.clicked()
                     if (mouse.button == Qt.RightButton)
                         root.rightClicked()
+                }
+
+                onDoubleClicked: {
+                    root.doubleClicked()
                 }
             }
         }

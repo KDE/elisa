@@ -428,9 +428,14 @@ private Q_SLOTS:
 
     void addTwoTracksWithPartialAlbumArtist()
     {
+        QTemporaryFile databaseFile;
+        databaseFile.open();
+
+        qDebug() << "addTwoTracksWithPartialAlbumArtist" << databaseFile.fileName();
+
         DatabaseInterface musicDb;
 
-        musicDb.init(QStringLiteral("testDb"));
+        musicDb.init(QStringLiteral("testDb"), databaseFile.fileName());
 
         QSignalSpy musicDbArtistAddedSpy(&musicDb, &DatabaseInterface::artistAdded);
         QSignalSpy musicDbAlbumAddedSpy(&musicDb, &DatabaseInterface::albumAdded);
@@ -522,11 +527,16 @@ private Q_SLOTS:
 
     void addMultipleTimeSameTracks()
     {
+        QTemporaryFile databaseFile;
+        databaseFile.open();
+
+        qDebug() << "addMultipleTimeSameTracks" << databaseFile.fileName();
+
         DatabaseInterface musicDb;
 
         QSignalSpy musicDbTrackAddedSpy(&musicDb, &DatabaseInterface::trackAdded);
 
-        musicDb.init(QStringLiteral("testDb"));
+        musicDb.init(QStringLiteral("testDb"), databaseFile.fileName());
 
         musicDb.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
         musicDb.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));

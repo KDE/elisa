@@ -39,6 +39,7 @@ Label {
             id: hoverArea
             anchors.fill: parent
             hoverEnabled: true
+            acceptedButtons: Qt.NoButton
 
             Loader {
                 anchors.fill: parent

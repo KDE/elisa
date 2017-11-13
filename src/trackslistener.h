@@ -55,7 +55,7 @@ public Q_SLOTS:
 
     void trackModified(const MusicAudioTrack &modifiedTrack);
 
-    void trackByNameInList(const QString &title, const QString &artist, const QString &album);
+    void trackByNameInList(const QString &title, const QString &artist, const QString &album, int trackNumber, int discNumber);
 
     void trackByIdInList(qulonglong newTrackId);
 

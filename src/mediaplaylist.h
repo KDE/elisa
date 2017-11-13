@@ -128,7 +128,7 @@ public:
 
 Q_SIGNALS:
 
-    void newTrackByNameInList(const QString &title, const QString &artist, const QString &album);
+    void newTrackByNameInList(const QString &title, const QString &artist, const QString &album, int trackNumber, int discNumber);
 
     void newTrackByIdInList(qulonglong newTrackId);
 
@@ -176,11 +176,14 @@ public:
     explicit MediaPlayListEntry(qulonglong id) : mId(id), mIsValid(true) {
     }
 
-    MediaPlayListEntry(QString title, QString album, QString artist) : mTitle(std::move(title)), mAlbum(std::move(album)), mArtist(std::move(artist)) {
+    MediaPlayListEntry(QString title, QString artist, QString album, int trackNumber, int discNumber)
+        : mTitle(std::move(title)), mAlbum(std::move(album)), mArtist(std::move(artist)),
+          mTrackNumber(trackNumber), mDiscNumber(discNumber) {
     }
 
     explicit MediaPlayListEntry(const MusicAudioTrack &track)
-        : mTitle(track.title()), mAlbum(track.albumName()), mArtist(track.artist()), mId(track.databaseId()), mIsValid(true) {
+        : mTitle(track.title()), mAlbum(track.albumName()), mTrackNumber(track.trackNumber()),
+          mDiscNumber(track.discNumber()), mId(track.databaseId()), mIsValid(true) {
     }
 
     explicit MediaPlayListEntry(QString artist) : mArtist(std::move(artist)), mIsArtist(true) {
@@ -191,6 +194,10 @@ public:
     QString mAlbum;
 
     QString mArtist;
+
+    int mTrackNumber = -1;
+
+    int mDiscNumber = -1;
 
     qulonglong mId = 0;
 

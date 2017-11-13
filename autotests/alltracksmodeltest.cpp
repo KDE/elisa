@@ -173,7 +173,8 @@ private Q_SLOTS:
 
         QCOMPARE(tracksModel.rowCount(), 18);
 
-        auto trackId = musicDb.trackIdFromTitleAlbumArtist(QStringLiteral("track1"), QStringLiteral("album1"), QStringLiteral("artist1"));
+        auto trackId = musicDb.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"),
+                                                                    QStringLiteral("album1"), 1, 1);
 
         auto firstTrack = musicDb.trackFromDatabaseId(trackId);
 
@@ -224,13 +225,17 @@ private Q_SLOTS:
 
         QCOMPARE(tracksModel.rowCount(), 18);
 
-        auto firstTrackId = musicDb.trackIdFromTitleAlbumArtist(QStringLiteral("track1"), QStringLiteral("album1"), QStringLiteral("artist1"));
+        auto firstTrackId = musicDb.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"),
+                                                                         QStringLiteral("album1"), 1, 1);
         auto firstTrack = musicDb.trackFromDatabaseId(firstTrackId);
-        auto secondTrackId = musicDb.trackIdFromTitleAlbumArtist(QStringLiteral("track2"), QStringLiteral("album1"), QStringLiteral("artist2"));
+        auto secondTrackId = musicDb.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist2"),
+                                                                          QStringLiteral("album1"), 2, 2);
         auto secondTrack = musicDb.trackFromDatabaseId(secondTrackId);
-        auto thirdTrackId = musicDb.trackIdFromTitleAlbumArtist(QStringLiteral("track3"), QStringLiteral("album1"), QStringLiteral("artist3"));
+        auto thirdTrackId = musicDb.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist3"),
+                                                                         QStringLiteral("album1"), 3, 3);
         auto thirdTrack = musicDb.trackFromDatabaseId(thirdTrackId);
-        auto fourthTrackId = musicDb.trackIdFromTitleAlbumArtist(QStringLiteral("track4"), QStringLiteral("album1"), QStringLiteral("artist4"));
+        auto fourthTrackId = musicDb.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track4"), QStringLiteral("artist4"),
+                                                                          QStringLiteral("album1"), 4, 4);
         auto fourthTrack = musicDb.trackFromDatabaseId(fourthTrackId);
 
         musicDb.removeTracksList({firstTrack.resourceURI(), secondTrack.resourceURI(), thirdTrack.resourceURI(), fourthTrack.resourceURI()});
@@ -437,7 +442,8 @@ private Q_SLOTS:
         QCOMPARE(tracksModel.rowCount(), 18);
 
         auto newTrack = MusicAudioTrack{true, QStringLiteral("$1"), QStringLiteral("0"), QStringLiteral("track1"),
-                QStringLiteral("artist1"), QStringLiteral("album1"), QStringLiteral("Various Artists"), 1, 1, QTime::fromMSecsSinceStartOfDay(1), {QUrl::fromLocalFile(QStringLiteral("/$1"))},
+                QStringLiteral("artist1"), QStringLiteral("album1"), QStringLiteral("Various Artists"),
+                1, 1, QTime::fromMSecsSinceStartOfDay(1), {QUrl::fromLocalFile(QStringLiteral("/$1"))},
         {QUrl::fromLocalFile(QStringLiteral("file://image$1"))}, 5, true};
         auto newTracks = QList<MusicAudioTrack>();
         newTracks.push_back(newTrack);

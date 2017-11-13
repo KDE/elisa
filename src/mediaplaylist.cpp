@@ -315,7 +315,7 @@ void MediaPlayList::enqueue(const MediaPlayListEntry &newEntry, const MusicAudio
     Q_EMIT persistentStateChanged();
 
     if (!newEntry.mIsValid) {
-        Q_EMIT newTrackByNameInList(newEntry.mTitle, newEntry.mArtist, newEntry.mAlbum);
+        Q_EMIT newTrackByNameInList(newEntry.mTitle, newEntry.mArtist, newEntry.mAlbum, newEntry.mTrackNumber, newEntry.mDiscNumber);
     } else {
         Q_EMIT newTrackByIdInList(newEntry.mId);
     }
@@ -478,15 +478,17 @@ void MediaPlayList::setPersistentState(const QList<QVariant> &persistentState)
 
     for (auto &oneData : persistentState) {
         auto trackData = oneData.toStringList();
-        if (trackData.size() != 3) {
+        if (trackData.size() != 5) {
             continue;
         }
 
         auto restoredTitle = trackData[0];
-        auto restoredAlbum = trackData[1];
-        auto restoredArtist = trackData[2];
+        auto restoredArtist = trackData[1];
+        auto restoredAlbum = trackData[2];
+        auto restoredTrackNumber = trackData[2].toInt();
+        auto restoredDiscNumber = trackData[3].toInt();
 
-        enqueue({restoredTitle, restoredAlbum, restoredArtist});
+        enqueue({restoredTitle, restoredArtist, restoredAlbum, restoredTrackNumber, restoredDiscNumber});
     }
 
     emit persistentStateChanged();
@@ -558,7 +560,11 @@ void MediaPlayList::trackChanged(const MusicAudioTrack &track)
                 continue;
             }
 
-            if (track.artist() != oneEntry.mArtist) {
+            if (track.trackNumber() != oneEntry.mTrackNumber) {
+                continue;
+            }
+
+            if (track.discNumber() != oneEntry.mDiscNumber) {
                 continue;
             }
 

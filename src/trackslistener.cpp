@@ -33,7 +33,7 @@ public:
 
     QSet<qulonglong> mTracksByIdSet;
 
-    QList<std::array<QString, 3>> mTracksByNameSet;
+    QList<std::tuple<QString, QString, QString, int, int>> mTracksByNameSet;
 
     DatabaseInterface *mDatabase = nullptr;
 
@@ -58,27 +58,35 @@ void TracksListener::tracksAdded(const QList<MusicAudioTrack> &allTracks)
             return;
         }
 
-        const auto &newTrack = oneTrack;
-
         for (auto itTrack = d->mTracksByNameSet.begin(); itTrack != d->mTracksByNameSet.end(); ) {
-            if ((*itTrack)[0] != newTrack.title()) {
+            if (std::get<0>(*itTrack) != oneTrack.title()) {
                 ++itTrack;
                 continue;
             }
 
-            if ((*itTrack)[1] != newTrack.artist()) {
+            if (std::get<1>(*itTrack) != oneTrack.artist()) {
                 ++itTrack;
                 continue;
             }
 
-            if ((*itTrack)[2] != newTrack.albumName()) {
+            if (std::get<2>(*itTrack) != oneTrack.albumName()) {
                 ++itTrack;
                 continue;
             }
 
-            Q_EMIT trackHasChanged(newTrack);
+            if (std::get<3>(*itTrack) != oneTrack.trackNumber()) {
+                ++itTrack;
+                continue;
+            }
 
-            d->mTracksByIdSet.insert(newTrack.databaseId());
+            if (std::get<4>(*itTrack) != oneTrack.discNumber()) {
+                ++itTrack;
+                continue;
+            }
+
+            Q_EMIT trackHasChanged(oneTrack);
+
+            d->mTracksByIdSet.insert(oneTrack.databaseId());
             itTrack = d->mTracksByNameSet.erase(itTrack);
         }
     }
@@ -100,11 +108,11 @@ void TracksListener::trackModified(const MusicAudioTrack &modifiedTrack)
     }
 }
 
-void TracksListener::trackByNameInList(const QString &title, const QString &artist, const QString &album)
+void TracksListener::trackByNameInList(const QString &title, const QString &artist, const QString &album, int trackNumber, int discNumber)
 {
-    auto newTrackId = d->mDatabase->trackIdFromTitleAlbumArtist(title, album, artist);
+    auto newTrackId = d->mDatabase->trackIdFromTitleAlbumTrackDiscNumber(title, artist, album, trackNumber, discNumber);
     if (newTrackId == 0) {
-        d->mTracksByNameSet.push_back({{title, artist, album}});
+        d->mTracksByNameSet.push_back({title, artist, album, trackNumber, discNumber});
 
         return;
     }

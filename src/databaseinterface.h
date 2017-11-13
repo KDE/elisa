@@ -73,7 +73,8 @@ public:
 
     MusicAudioTrack trackFromDatabaseId(qulonglong id);
 
-    qulonglong trackIdFromTitleAlbumArtist(const QString &title, const QString &album, const QString &artist) const;
+    qulonglong trackIdFromTitleAlbumTrackDiscNumber(const QString &title, const QString &artist, const QString &album,
+                                                    int trackNumber, int discNumber);
 
     void applicationAboutToQuit();
 
@@ -137,7 +138,11 @@ private:
 
     MusicAudioTrack internalTrackFromDatabaseId(qulonglong id);
 
-    qulonglong internalTrackIdFromTitleAlbumArtist(const QString &title, const QString &album, const QString &artist) const;
+    qulonglong internalTrackIdFromTitleAlbumTracDiscNumber(const QString &title, const QString &artist, const QString &album,
+                                                           int trackNumber, int discNumber);
+
+    qulonglong getDuplicateTrackIdFromTitleAlbumTracDiscNumber(const QString &title, const QString &album, const QString &albumArtist,
+                                                               int trackNumber, int discNumber);
 
     qulonglong internalTrackIdFromFileName(const QUrl &fileName);
 

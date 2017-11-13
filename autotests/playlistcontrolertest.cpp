@@ -122,7 +122,7 @@ void PlayListControlerTest::testBringUpCase()
     QCOMPARE(repeatPlayControlChangedSpy.count(), 0);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
-    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album2"), QStringLiteral("artist1")});
+    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1});
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -229,7 +229,8 @@ void PlayListControlerTest::testBringUpCaseFromNewAlbum()
     QCOMPARE(repeatPlayControlChangedSpy.count(), 0);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
-    auto newTrackID = myDatabaseContent.trackIdFromTitleAlbumArtist(QStringLiteral("track1"), QStringLiteral("album2"), QStringLiteral("artist1"));
+    auto newTrackID = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"),
+                                                                             QStringLiteral("album2"), 1, 2);
     myPlayList.enqueue(newTrackID);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
@@ -326,7 +327,7 @@ void PlayListControlerTest::testBringUpAndDownCase()
     QCOMPARE(repeatPlayControlChangedSpy.count(), 0);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
-    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album2"), QStringLiteral("artist1")});
+    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1});
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -438,7 +439,7 @@ void PlayListControlerTest::testBringUpAndRemoveCase()
     QCOMPARE(repeatPlayControlChangedSpy.count(), 0);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
-    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album2"), QStringLiteral("artist1")});
+    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1});
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -550,7 +551,7 @@ void PlayListControlerTest::testBringUpAndRemoveMultipleCase()
     QCOMPARE(repeatPlayControlChangedSpy.count(), 0);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
-    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album2"), QStringLiteral("artist1")});
+    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1});
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -574,7 +575,7 @@ void PlayListControlerTest::testBringUpAndRemoveMultipleCase()
 
     QCOMPARE(myControler.currentTrack(), QPersistentModelIndex(myPlayList.index(0, 0)));
 
-    myPlayList.enqueue({QStringLiteral("track2"), QStringLiteral("album1"), QStringLiteral("artist1")});
+    myPlayList.enqueue({QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album1"), 2, 2});
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -673,7 +674,7 @@ void PlayListControlerTest::testBringUpAndRemoveMultipleNotBeginCase()
     QCOMPARE(repeatPlayControlChangedSpy.count(), 0);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
-    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album2"), QStringLiteral("artist1")});
+    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1});
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -697,7 +698,7 @@ void PlayListControlerTest::testBringUpAndRemoveMultipleNotBeginCase()
 
     QCOMPARE(myControler.currentTrack(), QPersistentModelIndex(myPlayList.index(0, 0)));
 
-    myPlayList.enqueue({QStringLiteral("track2"), QStringLiteral("album1"), QStringLiteral("artist1")});
+    myPlayList.enqueue({QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album1"), 2, 2});
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -708,7 +709,7 @@ void PlayListControlerTest::testBringUpAndRemoveMultipleNotBeginCase()
     QCOMPARE(repeatPlayControlChangedSpy.count(), 0);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
-    myPlayList.enqueue({QStringLiteral("track4"), QStringLiteral("album2"), QStringLiteral("artist1")});
+    myPlayList.enqueue({QStringLiteral("track4"), QStringLiteral("artist1"), QStringLiteral("album2"), 4, 1});
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -820,8 +821,8 @@ void PlayListControlerTest::testBringUpAndPlayCase()
     QCOMPARE(repeatPlayControlChangedSpy.count(), 0);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
-    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album2"), QStringLiteral("artist1")});
-    myPlayList.enqueue({QStringLiteral("track3"), QStringLiteral("album1"), QStringLiteral("artist1")});
+    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1});
+    myPlayList.enqueue({QStringLiteral("track3"), QStringLiteral("artist2"), QStringLiteral("album1"), 3, 3});
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -933,8 +934,8 @@ void PlayListControlerTest::testBringUpAndSkipNextCase()
     QCOMPARE(repeatPlayControlChangedSpy.count(), 0);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
-    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album2"), QStringLiteral("artist1")});
-    myPlayList.enqueue({QStringLiteral("track3"), QStringLiteral("album1"), QStringLiteral("artist1")});
+    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1});
+    myPlayList.enqueue({QStringLiteral("track3"), QStringLiteral("artist2"), QStringLiteral("album1"), 3, 3});
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -1046,8 +1047,8 @@ void PlayListControlerTest::testBringUpAndSkipPreviousCase()
     QCOMPARE(repeatPlayControlChangedSpy.count(), 0);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
-    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album2"), QStringLiteral("artist1")});
-    myPlayList.enqueue({QStringLiteral("track3"), QStringLiteral("album1"), QStringLiteral("artist1")});
+    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1});
+    myPlayList.enqueue({QStringLiteral("track3"), QStringLiteral("artist2"), QStringLiteral("album1"), 3, 3});
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -1192,12 +1193,12 @@ void PlayListControlerTest::testBringUpAndSkipPreviousAndContinueCase()
     QCOMPARE(repeatPlayControlChangedSpy.count(), 1);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
-    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album2"), QStringLiteral("artist1")});
-    myPlayList.enqueue({QStringLiteral("track3"), QStringLiteral("album1"), QStringLiteral("artist1")});
-    myPlayList.enqueue({QStringLiteral("track2"), QStringLiteral("album2"), QStringLiteral("artist1")});
-    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album1"), QStringLiteral("artist1")});
-    myPlayList.enqueue({QStringLiteral("track3"), QStringLiteral("album2"), QStringLiteral("artist1")});
-    myPlayList.enqueue({QStringLiteral("track2"), QStringLiteral("album1"), QStringLiteral("artist1")});
+    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1});
+    myPlayList.enqueue({QStringLiteral("track3"), QStringLiteral("artist1"), QStringLiteral("album1"), 3, 3});
+    myPlayList.enqueue({QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album2"), 2, 1});
+    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album1"), 1, 1});
+    myPlayList.enqueue({QStringLiteral("track3"), QStringLiteral("artist1"), QStringLiteral("album2"), 3, 1});
+    myPlayList.enqueue({QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album1"), 2, 2});
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -1439,8 +1440,8 @@ void PlayListControlerTest::finishPlayList()
     QCOMPARE(repeatPlayControlChangedSpy.count(), 0);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
-    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album2"), QStringLiteral("artist1")});
-    myPlayList.enqueue({QStringLiteral("track3"), QStringLiteral("album1"), QStringLiteral("artist1")});
+    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1});
+    myPlayList.enqueue({QStringLiteral("track3"), QStringLiteral("artist2"), QStringLiteral("album1"), 3, 3});
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -1576,10 +1577,10 @@ void PlayListControlerTest::randomPlayList()
     QCOMPARE(repeatPlayControlChangedSpy.count(), 0);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
-    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album2"), QStringLiteral("artist1")});
-    myPlayList.enqueue({QStringLiteral("track3"), QStringLiteral("album1"), QStringLiteral("artist1")});
-    myPlayList.enqueue({QStringLiteral("track5"), QStringLiteral("album2"), QStringLiteral("artist1")});
-    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album1"), QStringLiteral("artist1")});
+    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1});
+    myPlayList.enqueue({QStringLiteral("track3"), QStringLiteral("artist1"), QStringLiteral("album1"), 3, 3});
+    myPlayList.enqueue({QStringLiteral("track5"), QStringLiteral("artist1"), QStringLiteral("album2"), 5, 1});
+    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album1"), 1, 1});
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -1755,10 +1756,10 @@ void PlayListControlerTest::continuePlayList()
     QCOMPARE(repeatPlayControlChangedSpy.count(), 0);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
-    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album2"), QStringLiteral("artist1")});
-    myPlayList.enqueue({QStringLiteral("track3"), QStringLiteral("album1"), QStringLiteral("artist1")});
-    myPlayList.enqueue({QStringLiteral("track5"), QStringLiteral("album2"), QStringLiteral("artist1")});
-    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album1"), QStringLiteral("artist1")});
+    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1});
+    myPlayList.enqueue({QStringLiteral("track3"), QStringLiteral("artist1"), QStringLiteral("album1"), 3, 3});
+    myPlayList.enqueue({QStringLiteral("track5"), QStringLiteral("artist1"), QStringLiteral("album2"), 5, 1});
+    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album1"), 1, 1});
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -1941,10 +1942,10 @@ void PlayListControlerTest::testRestoreSettings()
 
     myDatabaseContent.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
-    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album2"), QStringLiteral("artist1")});
-    myPlayList.enqueue({QStringLiteral("track3"), QStringLiteral("album1"), QStringLiteral("artist1")});
-    myPlayList.enqueue({QStringLiteral("track5"), QStringLiteral("album2"), QStringLiteral("artist1")});
-    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album1"), QStringLiteral("artist1")});
+    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1});
+    myPlayList.enqueue({QStringLiteral("track3"), QStringLiteral("artist1"), QStringLiteral("album1"), 3, 3});
+    myPlayList.enqueue({QStringLiteral("track5"), QStringLiteral("artist1"), QStringLiteral("album2"), 5, 1});
+    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album1"), 1, 1});
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -2032,10 +2033,10 @@ void PlayListControlerTest::removeBeforeCurrentTrack()
     QCOMPARE(repeatPlayControlChangedSpy.count(), 0);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
-    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album2"), QStringLiteral("artist1")});
-    myPlayList.enqueue({QStringLiteral("track3"), QStringLiteral("album1"), QStringLiteral("artist1")});
-    myPlayList.enqueue({QStringLiteral("track5"), QStringLiteral("album2"), QStringLiteral("artist1")});
-    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album1"), QStringLiteral("artist1")});
+    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1});
+    myPlayList.enqueue({QStringLiteral("track3"), QStringLiteral("artist1"), QStringLiteral("album1"), 3, 3});
+    myPlayList.enqueue({QStringLiteral("track5"), QStringLiteral("artist1"), QStringLiteral("album2"), 5, 1});
+    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album1"), 1, 1});
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -2184,11 +2185,11 @@ void PlayListControlerTest::switchToTrackTest()
     QCOMPARE(repeatPlayControlChangedSpy.count(), 0);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
-    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album2"), QStringLiteral("artist1")});
-    myPlayList.enqueue({QStringLiteral("track3"), QStringLiteral("album1"), QStringLiteral("artist1")});
-    myPlayList.enqueue({QStringLiteral("track4"), QStringLiteral("album1"), QStringLiteral("artist1")});
-    myPlayList.enqueue({QStringLiteral("track2"), QStringLiteral("album1"), QStringLiteral("artist1")});
-    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album1"), QStringLiteral("artist1")});
+    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1});
+    myPlayList.enqueue({QStringLiteral("track3"), QStringLiteral("artist1"), QStringLiteral("album1"), 3, 3});
+    myPlayList.enqueue({QStringLiteral("track4"), QStringLiteral("artist1"), QStringLiteral("album1"), 4, 4});
+    myPlayList.enqueue({QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album1"), 2, 2});
+    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album1"), 1, 1});
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -2300,7 +2301,7 @@ void PlayListControlerTest::singleTrack()
     QCOMPARE(repeatPlayControlChangedSpy.count(), 0);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
-    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album2"), QStringLiteral("artist1")});
+    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1});
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -2412,9 +2413,9 @@ void PlayListControlerTest::testBringUpAndRemoveLastCase()
     QCOMPARE(repeatPlayControlChangedSpy.count(), 0);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
-    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("album2"), QStringLiteral("artist1")});
-    myPlayList.enqueue({QStringLiteral("track2"), QStringLiteral("album2"), QStringLiteral("artist1")});
-    myPlayList.enqueue({QStringLiteral("track3"), QStringLiteral("album2"), QStringLiteral("artist1")});
+    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1});
+    myPlayList.enqueue({QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album2"), 2, 1});
+    myPlayList.enqueue({QStringLiteral("track3"), QStringLiteral("artist1"), QStringLiteral("album2"), 3, 1});
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 1);

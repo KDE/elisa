@@ -59,17 +59,17 @@ public:
 
     MusicAlbum albumFromTitleAndArtist(const QString &title, const QString &artist);
 
-    QList<MusicAudioTrack> allTracks() const;
+    QList<MusicAudioTrack> allTracks();
 
-    QList<MusicAudioTrack> allTracksFromSource(const QString &musicSource) const;
+    QList<MusicAudioTrack> allTracksFromSource(const QString &musicSource);
 
-    QList<MusicAudioTrack> allInvalidTracksFromSource(const QString &musicSource) const;
+    QList<MusicAudioTrack> allInvalidTracksFromSource(const QString &musicSource);
 
     QList<MusicAlbum> allAlbums();
 
-    QList<MusicArtist> allArtists() const;
+    QList<MusicArtist> allArtists();
 
-    QList<MusicAudioTrack> tracksFromAuthor(const QString &artistName) const;
+    QList<MusicAudioTrack> tracksFromAuthor(const QString &artistName);
 
     MusicAudioTrack trackFromDatabaseId(qulonglong id);
 
@@ -101,6 +101,8 @@ Q_SIGNALS:
 
     void requestsInitDone();
 
+    void databaseError();
+
 public Q_SLOTS:
 
     void insertTracksList(const QList<MusicAudioTrack> &tracks, const QHash<QString, QUrl> &covers, const QString &musicSource);
@@ -121,13 +123,13 @@ private:
 
     bool rollBackTransaction() const;
 
-    QList<MusicAudioTrack> fetchTracks(qulonglong albumId) const;
+    QList<MusicAudioTrack> fetchTracks(qulonglong albumId);
 
-    bool updateTracksCount(qulonglong albumId) const;
+    bool updateTracksCount(qulonglong albumId);
 
-    MusicArtist internalArtistFromId(qulonglong artistId) const;
+    MusicArtist internalArtistFromId(qulonglong artistId);
 
-    MusicAlbum internalAlbumFromId(qulonglong albumId) const;
+    MusicAlbum internalAlbumFromId(qulonglong albumId);
 
     MusicAlbum internalAlbumFromTitleAndArtist(const QString &title, const QString &artist);
 
@@ -137,11 +139,11 @@ private:
 
     qulonglong internalTrackIdFromTitleAlbumArtist(const QString &title, const QString &album, const QString &artist) const;
 
-    qulonglong internalTrackIdFromFileName(const QUrl &fileName) const;
+    qulonglong internalTrackIdFromFileName(const QUrl &fileName);
 
-    QList<MusicAudioTrack> internalTracksFromAuthor(const QString &artistName) const;
+    QList<MusicAudioTrack> internalTracksFromAuthor(const QString &artistName);
 
-    QList<qulonglong> internalAlbumIdsFromAuthor(const QString &artistName) const;
+    QList<qulonglong> internalAlbumIdsFromAuthor(const QString &artistName);
 
     void initDatabase() const;
 

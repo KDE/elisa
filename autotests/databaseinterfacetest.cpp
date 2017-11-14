@@ -686,11 +686,6 @@ private Q_SLOTS:
 
             musicDb.init(QStringLiteral("testDb2"), myTempDatabase.fileName());
 
-            auto newFiles = QList<QUrl>();
-            for (const auto &oneTrack : allNewTracks) {
-                newFiles.push_back(oneTrack.resourceURI());
-            }
-
             musicDb.insertTracksList(allNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
             musicDbTrackAddedSpy.wait(300);
@@ -729,12 +724,6 @@ private Q_SLOTS:
         QSignalSpy musicDbTrackAddedSpy(&musicDb, &DatabaseInterface::trackAdded);
 
         musicDb.init(QStringLiteral("testDb"));
-
-        auto newFiles = QList<QUrl>();
-        const auto &constNewTracks = mNewTracks;
-        for (const auto &oneTrack : constNewTracks) {
-            newFiles.push_back(oneTrack.resourceURI());
-        }
 
         musicDb.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
         musicDb.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
@@ -819,12 +808,6 @@ private Q_SLOTS:
         QSignalSpy musicDbArtistAddedSpy(&musicDb, &DatabaseInterface::artistAdded);
         QSignalSpy musicDbAlbumAddedSpy(&musicDb, &DatabaseInterface::albumAdded);
         QSignalSpy musicDbTrackAddedSpy(&musicDb, &DatabaseInterface::trackAdded);
-
-        auto newFiles = QList<QUrl>();
-        const auto &constNewTracks = mNewTracks;
-        for (const auto &oneTrack : constNewTracks) {
-            newFiles.push_back(oneTrack.resourceURI());
-        }
 
         musicDb.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
         musicDb.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
@@ -1011,12 +994,6 @@ private Q_SLOTS:
         QSignalSpy musicDbAlbumAddedSpy(&musicDb, &DatabaseInterface::albumAdded);
         QSignalSpy musicDbTrackAddedSpy(&musicDb, &DatabaseInterface::trackAdded);
 
-        auto newFiles = QList<QUrl>();
-        const auto &constNewTracks = mNewTracks;
-        for (const auto &oneTrack : constNewTracks) {
-            newFiles.push_back(oneTrack.resourceURI());
-        }
-
         musicDb.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
         musicDbTrackAddedSpy.wait(300);
@@ -1077,12 +1054,6 @@ private Q_SLOTS:
             QCOMPARE(musicDbArtistAddedSpy.count(), 0);
             QCOMPARE(musicDbAlbumAddedSpy.count(), 0);
             QCOMPARE(musicDbTrackAddedSpy.count(), 0);
-
-            auto newFiles = QList<QUrl>();
-            const auto &constNewTracks = mNewTracks;
-            for (const auto &oneTrack : constNewTracks) {
-                newFiles.push_back(oneTrack.resourceURI());
-            }
 
             musicDb.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
@@ -1274,12 +1245,6 @@ private Q_SLOTS:
             QCOMPARE(musicDbArtistAddedSpy.count(), 6);
             QCOMPARE(musicDbAlbumAddedSpy.count(), 3);
             QCOMPARE(musicDbTrackAddedSpy.count(), 13);
-
-            auto newFiles = QList<QUrl>();
-            const auto &constNewTracks = mNewTracks;
-            for (const auto &oneTrack : constNewTracks) {
-                newFiles.push_back(oneTrack.resourceURI());
-            }
 
             musicDb.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
@@ -1485,12 +1450,6 @@ private Q_SLOTS:
         QSignalSpy musicDbAlbumAddedSpy(&musicDb, &DatabaseInterface::albumAdded);
         QSignalSpy musicDbTrackAddedSpy(&musicDb, &DatabaseInterface::trackAdded);
 
-        auto newFiles = QList<QUrl>();
-        const auto &constNewTracks = mNewTracks;
-        for (const auto &oneTrack : constNewTracks) {
-            newFiles.push_back(oneTrack.resourceURI());
-        }
-
         musicDb.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
         musicDbTrackAddedSpy.wait(300);
@@ -1545,12 +1504,6 @@ private Q_SLOTS:
         QCOMPARE(musicDbAlbumModifiedSpy.count(), 0);
         QCOMPARE(musicDbTrackModifiedSpy.count(), 0);
         QCOMPARE(musicDbDatabaseErrorSpy.count(), 0);
-
-        auto newFiles = QList<QUrl>();
-        const auto &constNewTracks = mNewTracks;
-        for (const auto &oneTrack : constNewTracks) {
-            newFiles.push_back(oneTrack.resourceURI());
-        }
 
         musicDb.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
@@ -1663,12 +1616,6 @@ private Q_SLOTS:
         QCOMPARE(musicDbTrackModifiedSpy.count(), 0);
         QCOMPARE(musicDbDatabaseErrorSpy.count(), 0);
 
-        auto newFiles = QList<QUrl>();
-        const auto &constNewTracks = mNewTracks;
-        for (const auto &oneTrack : constNewTracks) {
-            newFiles.push_back(oneTrack.resourceURI());
-        }
-
         musicDb.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
         musicDbTrackAddedSpy.wait(300);
@@ -1771,12 +1718,6 @@ private Q_SLOTS:
         QCOMPARE(musicDbTrackModifiedSpy.count(), 0);
         QCOMPARE(musicDbDatabaseErrorSpy.count(), 0);
 
-        auto newFiles = QList<QUrl>();
-        const auto &constNewTracks = mNewTracks;
-        for (const auto &oneTrack : constNewTracks) {
-            newFiles.push_back(oneTrack.resourceURI());
-        }
-
         musicDb.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
         musicDbTrackAddedSpy.wait(300);
@@ -1859,12 +1800,6 @@ private Q_SLOTS:
         QCOMPARE(musicDbTrackModifiedSpy.count(), 0);
         QCOMPARE(musicDbDatabaseErrorSpy.count(), 0);
 
-        auto newFiles = QList<QUrl>();
-        const auto &constNewTracks = mNewTracks;
-        for (const auto &oneTrack : constNewTracks) {
-            newFiles.push_back(oneTrack.resourceURI());
-        }
-
         musicDb.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
         musicDbTrackAddedSpy.wait(300);
@@ -1935,12 +1870,6 @@ private Q_SLOTS:
         QCOMPARE(musicDbAlbumModifiedSpy.count(), 0);
         QCOMPARE(musicDbTrackModifiedSpy.count(), 0);
         QCOMPARE(musicDbDatabaseErrorSpy.count(), 0);
-
-        auto newFiles = QList<QUrl>();
-        const auto &constNewTracks = mNewTracks;
-        for (const auto &oneTrack : constNewTracks) {
-            newFiles.push_back(oneTrack.resourceURI());
-        }
 
         musicDb.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
@@ -2035,12 +1964,6 @@ private Q_SLOTS:
         QCOMPARE(musicDbAlbumModifiedSpy.count(), 0);
         QCOMPARE(musicDbTrackModifiedSpy.count(), 0);
         QCOMPARE(musicDbDatabaseErrorSpy.count(), 0);
-
-        auto newFiles = QList<QUrl>();
-        const auto &constNewTracks = mNewTracks;
-        for (const auto &oneTrack : constNewTracks) {
-            newFiles.push_back(oneTrack.resourceURI());
-        }
 
         musicDb.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
@@ -2153,12 +2076,6 @@ private Q_SLOTS:
         QCOMPARE(musicDbTrackModifiedSpy.count(), 0);
         QCOMPARE(musicDbDatabaseErrorSpy.count(), 0);
 
-        auto newFiles = QList<QUrl>();
-        const auto &constNewTracks = mNewTracks;
-        for (const auto &oneTrack : constNewTracks) {
-            newFiles.push_back(oneTrack.resourceURI());
-        }
-
         musicDb.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
         musicDbTrackAddedSpy.wait(300);
@@ -2233,12 +2150,6 @@ private Q_SLOTS:
         QCOMPARE(musicDbAlbumModifiedSpy.count(), 0);
         QCOMPARE(musicDbTrackModifiedSpy.count(), 0);
         QCOMPARE(musicDbDatabaseErrorSpy.count(), 0);
-
-        auto newFiles = QList<QUrl>();
-        const auto &constNewTracks = mNewTracks;
-        for (const auto &oneTrack : constNewTracks) {
-            newFiles.push_back(oneTrack.resourceURI());
-        }
 
         musicDb.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
@@ -2317,12 +2228,6 @@ private Q_SLOTS:
         QCOMPARE(musicDbAlbumModifiedSpy.count(), 0);
         QCOMPARE(musicDbTrackModifiedSpy.count(), 0);
         QCOMPARE(musicDbDatabaseErrorSpy.count(), 0);
-
-        auto newFiles = QList<QUrl>();
-        const auto &constNewTracks = mNewTracks;
-        for (const auto &oneTrack : constNewTracks) {
-            newFiles.push_back(oneTrack.resourceURI());
-        }
 
         musicDb.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
@@ -2707,12 +2612,6 @@ private Q_SLOTS:
         QCOMPARE(musicDbTrackModifiedSpy.count(), 0);
         QCOMPARE(musicDbDatabaseErrorSpy.count(), 0);
 
-        auto newFiles = QList<QUrl>();
-        const auto &constNewTracks = mNewTracks;
-        for (const auto &oneTrack : constNewTracks) {
-            newFiles.push_back(oneTrack.resourceURI());
-        }
-
         musicDb.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
         musicDbTrackAddedSpy.wait(300);
@@ -2780,12 +2679,6 @@ private Q_SLOTS:
         QCOMPARE(musicDbAlbumModifiedSpy.count(), 0);
         QCOMPARE(musicDbTrackModifiedSpy.count(), 0);
         QCOMPARE(musicDbDatabaseErrorSpy.count(), 0);
-
-        auto newFiles = QList<QUrl>();
-        const auto &constNewTracks = mNewTracks;
-        for (const auto &oneTrack : constNewTracks) {
-            newFiles.push_back(oneTrack.resourceURI());
-        }
 
         musicDb.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 

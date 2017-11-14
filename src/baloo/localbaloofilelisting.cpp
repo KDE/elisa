@@ -333,7 +333,11 @@ MusicAudioTrack LocalBalooFileListing::scanOneFile(const QUrl &scanFile)
         }
 
         if (albumArtistProperty != allProperties.end()) {
-            newTrack.setAlbumArtist(albumArtistProperty->toString());
+            if (albumArtistProperty->canConvert<QString>()) {
+                newTrack.setAlbumArtist(albumArtistProperty->toString());
+            } else if (albumArtistProperty->canConvert<QStringList>()) {
+                newTrack.setAlbumArtist(albumArtistProperty->toStringList().join(QStringLiteral(", ")));
+            }
         }
 
         if (newTrack.artist().isEmpty()) {

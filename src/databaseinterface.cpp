@@ -807,7 +807,8 @@ void DatabaseInterface::insertTracksList(const QList<MusicAudioTrack> &tracks, c
 
         d->mSelectTracksMapping.finish();
 
-        const auto insertedTrackId = internalInsertTrack(oneTrack, covers, 0, modifiedAlbumIds);
+        const auto insertedTrackId = internalInsertTrack(oneTrack, covers, 0, modifiedAlbumIds,
+                                                         (isNewTrack ? TrackFileInsertType::NewTrackFileInsert : TrackFileInsertType::ModifiedTrackFileInsert));
 
         if (isNewTrack && insertedTrackId != 0) {
             insertedTracks.push_back(insertedTrackId);
@@ -2573,7 +2574,8 @@ int DatabaseInterface::computeTrackPriority(qulonglong trackId, const QUrl &file
     return result;
 }
 
-qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrack, const QHash<QString, QUrl> &covers, int originTrackId, QSet<qulonglong> &modifiedAlbumIds)
+qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrack, const QHash<QString, QUrl> &covers,
+                                                  int originTrackId, QSet<qulonglong> &modifiedAlbumIds, TrackFileInsertType insertType)
 {
     qulonglong resultId = 0;
 
@@ -2589,10 +2591,16 @@ qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrac
 
     auto otherTrackId = getDuplicateTrackIdFromTitleAlbumTracDiscNumber(oneTrack.title(), oneTrack.albumName(), oneTrack.albumArtist(),
                                                                         oneTrack.trackNumber(), oneTrack.discNumber());
-    bool isModifiedTrack = otherTrackId != 0;
+    bool isModifiedTrack = (otherTrackId != 0) || (insertType == TrackFileInsertType::ModifiedTrackFileInsert);
     bool isSameTrack = false;
 
+    qulonglong oldAlbumId = 0;
+
     if (isModifiedTrack) {
+        if (otherTrackId == 0) {
+            otherTrackId = internalTrackIdFromFileName(oneTrack.resourceURI());
+        }
+
         originTrackId = otherTrackId;
 
         const auto &oldTrack = internalTrackFromDatabaseId(originTrackId);
@@ -2605,6 +2613,8 @@ qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrac
         isSameTrack = isSameTrack && (oldTrack.duration() == oneTrack.duration());
         isSameTrack = isSameTrack && (oldTrack.rating() == oneTrack.rating());
         isSameTrack = isSameTrack && (oldTrack.resourceURI() == oneTrack.resourceURI());
+
+        oldAlbumId = internalAlbumIdFromTitleAndArtist(oldTrack.albumName(), oldTrack.albumArtist());
 
         if (!isSameTrack) {
             removeTrackInDatabase(originTrackId);
@@ -2658,6 +2668,9 @@ qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrac
             if (isModifiedTrack) {
                 Q_EMIT trackModified(internalTrackFromDatabaseId(originTrackId));
                 modifiedAlbumIds.insert(albumId);
+                if (oldAlbumId != 0) {
+                    modifiedAlbumIds.insert(oldAlbumId);
+                }
             } else {
                 Q_EMIT trackAdded(originTrackId);
             }

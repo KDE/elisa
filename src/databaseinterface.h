@@ -118,6 +118,11 @@ public Q_SLOTS:
 
 private:
 
+    enum class TrackFileInsertType {
+        NewTrackFileInsert,
+        ModifiedTrackFileInsert,
+    };
+
     bool startTransaction() const;
 
     bool finishTransaction() const;
@@ -178,7 +183,8 @@ private:
 
     int computeTrackPriority(qulonglong trackId, const QUrl &fileName);
 
-    qulonglong internalInsertTrack(const MusicAudioTrack &oneModifiedTrack, const QHash<QString, QUrl> &covers, int originTrackId, QSet<qulonglong> &modifiedAlbumIds);
+    qulonglong internalInsertTrack(const MusicAudioTrack &oneModifiedTrack, const QHash<QString, QUrl> &covers,
+                                   int originTrackId, QSet<qulonglong> &modifiedAlbumIds, TrackFileInsertType insertType);
 
     MusicAudioTrack buildTrackFromDatabaseRecord(const QSqlRecord &trackRecord) const;
 

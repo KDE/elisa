@@ -37,6 +37,8 @@
 
 #include <QtTest>
 
+#include <algorithm>
+
 class DatabaseInterfaceTests: public QObject
 {
     Q_OBJECT
@@ -103,10 +105,20 @@ private:
     };
 
     QHash<QString, QUrl> mNewCovers = {
-        {QStringLiteral("album1"), QUrl::fromLocalFile(QStringLiteral("album1"))},
-        {QStringLiteral("album2"), QUrl::fromLocalFile(QStringLiteral("album2"))},
-        {QStringLiteral("album3"), QUrl::fromLocalFile(QStringLiteral("album3"))},
-        {QStringLiteral("album4"), QUrl::fromLocalFile(QStringLiteral("album4"))}
+        {QStringLiteral("file:///$1"), QUrl::fromLocalFile(QStringLiteral("album1"))},
+        {QStringLiteral("file:///$2"), QUrl::fromLocalFile(QStringLiteral("album1"))},
+        {QStringLiteral("file:///$3"), QUrl::fromLocalFile(QStringLiteral("album1"))},
+        {QStringLiteral("file:///$4"), QUrl::fromLocalFile(QStringLiteral("album1"))},
+        {QStringLiteral("file:///$4Bis"), QUrl::fromLocalFile(QStringLiteral("album1"))},
+        {QStringLiteral("file:///$5"), QUrl::fromLocalFile(QStringLiteral("album2"))},
+        {QStringLiteral("file:///$6"), QUrl::fromLocalFile(QStringLiteral("album2"))},
+        {QStringLiteral("file:///$7"), QUrl::fromLocalFile(QStringLiteral("album2"))},
+        {QStringLiteral("file:///$8"), QUrl::fromLocalFile(QStringLiteral("album2"))},
+        {QStringLiteral("file:///$9"), QUrl::fromLocalFile(QStringLiteral("album2"))},
+        {QStringLiteral("file:///$0"), QUrl::fromLocalFile(QStringLiteral("album2"))},
+        {QStringLiteral("file:///$11"), QUrl::fromLocalFile(QStringLiteral("album3"))},
+        {QStringLiteral("file:///$12"), QUrl::fromLocalFile(QStringLiteral("album3"))},
+        {QStringLiteral("file:///$13"), QUrl::fromLocalFile(QStringLiteral("album3"))},
     };
 
 private Q_SLOTS:
@@ -175,7 +187,10 @@ private Q_SLOTS:
         auto newTracks = QList<MusicAudioTrack>();
         newTracks.push_back(newTrack);
 
-        musicDb.insertTracksList(newTracks, mNewCovers, QStringLiteral("autoTest"));
+        auto newCovers = mNewCovers;
+        newCovers[QStringLiteral("file:///$19")] = QUrl::fromLocalFile(QStringLiteral("album3"));
+
+        musicDb.insertTracksList(newTracks, newCovers, QStringLiteral("autoTest"));
 
         musicDbTrackAddedSpy.wait(300);
 
@@ -257,13 +272,19 @@ private Q_SLOTS:
         auto newTracks = QList<MusicAudioTrack>();
 
         newTracks = {{true, QStringLiteral("$19"), QStringLiteral("0"), QStringLiteral("track6"),
-                      QStringLiteral("artist2"), QStringLiteral("album3"), {}, 6, 1, QTime::fromMSecsSinceStartOfDay(19), {QUrl::fromLocalFile(QStringLiteral("/$19"))},
+                      QStringLiteral("artist2"), QStringLiteral("album3"), {}, 6, 1, QTime::fromMSecsSinceStartOfDay(19),
+                      {QUrl::fromLocalFile(QStringLiteral("/$19"))},
                       {QUrl::fromLocalFile(QStringLiteral("album3"))}, 5, true},
                      {true, QStringLiteral("$20"), QStringLiteral("0"), QStringLiteral("track7"),
-                      QStringLiteral("artist3"), QStringLiteral("album3"), {}, 7, 1, QTime::fromMSecsSinceStartOfDay(20), {QUrl::fromLocalFile(QStringLiteral("/$20"))},
+                      QStringLiteral("artist3"), QStringLiteral("album3"), {}, 7, 1, QTime::fromMSecsSinceStartOfDay(20),
+                      {QUrl::fromLocalFile(QStringLiteral("/$20"))},
                       {QUrl::fromLocalFile(QStringLiteral("album3"))}, 5, true}};
 
-        musicDb.insertTracksList(newTracks, mNewCovers, QStringLiteral("autoTest"));
+        auto newCovers = mNewCovers;
+        newCovers[QStringLiteral("file:///$19")] = QUrl::fromLocalFile(QStringLiteral("album3"));
+        newCovers[QStringLiteral("file:///$20")] = QUrl::fromLocalFile(QStringLiteral("album3"));
+
+        musicDb.insertTracksList(newTracks, newCovers, QStringLiteral("autoTest"));
 
         musicDbTrackAddedSpy.wait(300);
 
@@ -365,7 +386,12 @@ private Q_SLOTS:
                       QStringLiteral("artist2"), QStringLiteral("album3"), {}, 8, 1, QTime::fromMSecsSinceStartOfDay(21), {QUrl::fromLocalFile(QStringLiteral("/$21"))},
                       {QUrl::fromLocalFile(QStringLiteral("album3"))}, 3, true}};
 
-        musicDb.insertTracksList(newTracks, mNewCovers, QStringLiteral("autoTest"));
+        auto newCovers = mNewCovers;
+        newCovers[QStringLiteral("file:///$19")] = QUrl::fromLocalFile(QStringLiteral("album3"));
+        newCovers[QStringLiteral("file:///$20")] = QUrl::fromLocalFile(QStringLiteral("album3"));
+        newCovers[QStringLiteral("file:///$21")] = QUrl::fromLocalFile(QStringLiteral("album3"));
+
+        musicDb.insertTracksList(newTracks, newCovers, QStringLiteral("autoTest"));
 
         musicDbTrackAddedSpy.wait(300);
 
@@ -485,7 +511,11 @@ private Q_SLOTS:
                       QStringLiteral("artist3"), QStringLiteral("album3"), {QStringLiteral("artist4")}, 7, 1, QTime::fromMSecsSinceStartOfDay(20), {QUrl::fromLocalFile(QStringLiteral("/$20"))},
                       {QUrl::fromLocalFile(QStringLiteral("album3"))}, 5, true}};
 
-        musicDb.insertTracksList(newTracks, mNewCovers, QStringLiteral("autoTest"));
+        auto newCovers = mNewCovers;
+        newCovers[QStringLiteral("file:///$19")] = QUrl::fromLocalFile(QStringLiteral("album3"));
+        newCovers[QStringLiteral("file:///$20")] = QUrl::fromLocalFile(QStringLiteral("album3"));
+
+        musicDb.insertTracksList(newTracks, newCovers, QStringLiteral("autoTest"));
 
         musicDbTrackAddedSpy.wait(300);
 
@@ -646,7 +676,10 @@ private Q_SLOTS:
 
             musicDb.init(QStringLiteral("testDb1"), myTempDatabase.fileName());
 
-            musicDb.insertTracksList(allNewTracks, mNewCovers, QStringLiteral("autoTest"));
+            auto newCovers = mNewCovers;
+            newCovers[QStringLiteral("file:///$19")] = QUrl::fromLocalFile(QStringLiteral("album3"));
+
+            musicDb.insertTracksList(allNewTracks, newCovers, QStringLiteral("autoTest"));
 
             musicDbTrackAddedSpy.wait(300);
 
@@ -686,7 +719,10 @@ private Q_SLOTS:
 
             musicDb.init(QStringLiteral("testDb2"), myTempDatabase.fileName());
 
-            musicDb.insertTracksList(allNewTracks, mNewCovers, QStringLiteral("autoTest"));
+            auto newCovers = mNewCovers;
+            newCovers[QStringLiteral("file:///$19")] = QUrl::fromLocalFile(QStringLiteral("album3"));
+
+            musicDb.insertTracksList(allNewTracks, newCovers, QStringLiteral("autoTest"));
 
             musicDbTrackAddedSpy.wait(300);
 
@@ -1014,7 +1050,10 @@ private Q_SLOTS:
             newFiles2.push_back(oneTrack.resourceURI());
         }
 
-        musicDb.insertTracksList(newTracks, mNewCovers, QStringLiteral("autoTest2"));
+        auto newCovers = mNewCovers;
+        newCovers[QStringLiteral("file:///$19")] = QUrl::fromLocalFile(QStringLiteral("image$19"));
+
+        musicDb.insertTracksList(newTracks, newCovers, QStringLiteral("autoTest2"));
 
         musicDbTrackAddedSpy.wait(300);
 
@@ -1430,7 +1469,10 @@ private Q_SLOTS:
                 newFiles2.push_back(oneTrack.resourceURI());
             }
 
-            musicDb.insertTracksList(newTracks, mNewCovers, QStringLiteral("autoTest"));
+            auto newCovers = mNewCovers;
+            newCovers[QStringLiteral("file:///$19")] = QUrl::fromLocalFile(QStringLiteral("image$19"));
+
+            musicDb.insertTracksList(newTracks, newCovers, QStringLiteral("autoTest"));
 
             musicDbTrackAddedSpy.wait(300);
 
@@ -1823,7 +1865,10 @@ private Q_SLOTS:
         auto newTracks = QList<MusicAudioTrack>();
         newTracks.push_back(newTrack);
 
-        musicDb.insertTracksList(newTracks, mNewCovers, QStringLiteral("autoTest"));
+        auto newCovers = mNewCovers;
+        newCovers[QStringLiteral("file:///$19")] = QUrl::fromLocalFile(QStringLiteral("image$19"));
+
+        musicDb.insertTracksList(newTracks, newCovers, QStringLiteral("autoTest"));
 
         musicDbTrackAddedSpy.wait(300);
 
@@ -1877,7 +1922,10 @@ private Q_SLOTS:
         auto newTracks = QList<MusicAudioTrack>();
         newTracks.push_back(newTrack);
 
-        musicDb.insertTracksList(newTracks, mNewCovers, QStringLiteral("autoTest"));
+        auto newCovers = mNewCovers;
+        newCovers[QStringLiteral("file:///$19")] = QUrl::fromLocalFile(QStringLiteral("album3"));
+
+        musicDb.insertTracksList(newTracks, newCovers, QStringLiteral("autoTest"));
 
         musicDbTrackAddedSpy.wait(300);
 
@@ -1948,7 +1996,10 @@ private Q_SLOTS:
         auto newTracks2 = QList<MusicAudioTrack>();
         newTracks2.push_back(newTrack2);
 
-        musicDb.insertTracksList(newTracks2, mNewCovers, QStringLiteral("autoTest"));
+        auto newCovers2 = mNewCovers;
+        newCovers2[QStringLiteral("file:///$19")] = QUrl::fromLocalFile(QStringLiteral("image$19"));
+
+        musicDb.insertTracksList(newTracks2, newCovers2, QStringLiteral("autoTest"));
 
         musicDbTrackAddedSpy.wait(50);
 
@@ -2055,7 +2106,10 @@ private Q_SLOTS:
         auto newTracks = QList<MusicAudioTrack>();
         newTracks.push_back(newTrack);
 
-        musicDb.insertTracksList(newTracks, mNewCovers, QStringLiteral("autoTest"));
+        auto newCovers = mNewCovers;
+        newCovers[QStringLiteral("file:///$19")] = QUrl::fromLocalFile(QStringLiteral("album3"));
+
+        musicDb.insertTracksList(newTracks, newCovers, QStringLiteral("autoTest"));
 
         musicDbTrackAddedSpy.wait(300);
 
@@ -2128,7 +2182,10 @@ private Q_SLOTS:
         auto newTracks2 = QList<MusicAudioTrack>();
         newTracks2.push_back(newTrack2);
 
-        musicDb.insertTracksList(newTracks2, mNewCovers, QStringLiteral("autoTest"));
+        auto newCovers2 = mNewCovers;
+        newCovers2[QStringLiteral("file:///$19")] = QUrl::fromLocalFile(QStringLiteral("album3"));
+
+        musicDb.insertTracksList(newTracks2, newCovers2, QStringLiteral("autoTest"));
 
         musicDbTrackAddedSpy.wait(50);
 
@@ -2206,9 +2263,14 @@ private Q_SLOTS:
         QCOMPARE(secondAlbumTracksCount, 1);
         QCOMPARE(secondAlbumIsSingleDiscAlbum, true);
 
-        QCOMPARE(musicDbAlbumModifiedSpy.at(0).at(1).toULongLong(), qulonglong(2));
-        QCOMPARE(musicDbAlbumModifiedSpy.at(1).at(1).toULongLong(), qulonglong(2));
-        QCOMPARE(musicDbAlbumModifiedSpy.at(2).at(1).toULongLong(), qulonglong(3));
+        auto modifiedAlbumIds = QList<qulonglong>{musicDbAlbumModifiedSpy.at(0).at(1).toULongLong(),
+                                 musicDbAlbumModifiedSpy.at(1).at(1).toULongLong(),
+                                 musicDbAlbumModifiedSpy.at(2).at(1).toULongLong(),};
+
+        std::sort(modifiedAlbumIds.begin(), modifiedAlbumIds.end());
+        QCOMPARE(modifiedAlbumIds.at(0), qulonglong(2));
+        QCOMPARE(modifiedAlbumIds.at(1), qulonglong(2));
+        QCOMPARE(modifiedAlbumIds.at(2), qulonglong(3));
     }
 
     void addTwoTracksWithAlbumSameName()
@@ -2252,7 +2314,10 @@ private Q_SLOTS:
         auto newTracks = QList<MusicAudioTrack>();
         newTracks.push_back(newTrack);
 
-        musicDb.insertTracksList(newTracks, mNewCovers, QStringLiteral("autoTest"));
+        auto newCovers = mNewCovers;
+        newCovers[QStringLiteral("file:///$19")] = QUrl::fromLocalFile(QStringLiteral("album3"));
+
+        musicDb.insertTracksList(newTracks, newCovers, QStringLiteral("autoTest"));
 
         musicDbTrackAddedSpy.wait(300);
 
@@ -2326,7 +2391,10 @@ private Q_SLOTS:
         auto newTracks2 = QList<MusicAudioTrack>();
         newTracks2.push_back(newTrack2);
 
-        musicDb.insertTracksList(newTracks2, mNewCovers, QStringLiteral("autoTest"));
+        auto newCovers2 = mNewCovers;
+        newCovers2[QStringLiteral("file:///$20")] = QUrl::fromLocalFile(QStringLiteral("album3"));
+
+        musicDb.insertTracksList(newTracks2, newCovers2, QStringLiteral("autoTest"));
 
         musicDbTrackAddedSpy.wait(50);
 
@@ -2461,7 +2529,10 @@ private Q_SLOTS:
         auto newTracks = QList<MusicAudioTrack>();
         newTracks.push_back(newTrack);
 
-        musicDb.insertTracksList(newTracks, mNewCovers, QStringLiteral("autoTest"));
+        auto newCovers = mNewCovers;
+        newCovers[QStringLiteral("file:///$19")] = QUrl();
+
+        musicDb.insertTracksList(newTracks, newCovers, QStringLiteral("autoTest"));
 
         musicDbTrackAddedSpy.wait(300);
 
@@ -2492,7 +2563,7 @@ private Q_SLOTS:
         newTracks2.push_back(newTrack2);
 
         auto newCovers2 = mNewCovers;
-        newCovers2[QStringLiteral("album6")] = QUrl::fromLocalFile(QStringLiteral("album6"));
+        newCovers2[QStringLiteral("file:///$19")] = QUrl::fromLocalFile(QStringLiteral("album6"));
 
         musicDb.insertTracksList(newTracks2, newCovers2, QStringLiteral("autoTest"));
 
@@ -2649,7 +2720,7 @@ private Q_SLOTS:
 
         auto newCover = QUrl::fromLocalFile(QStringLiteral("file://image$19"));
         auto newCovers = mNewCovers;
-        newCovers[QStringLiteral("album5")] = newCover;
+        newCovers[QStringLiteral("file:///$19")] = newCover;
 
         musicDb.insertTracksList(newTracks, newCovers, QStringLiteral("autoTest"));
 
@@ -2730,7 +2801,10 @@ private Q_SLOTS:
             newFiles2.push_back(oneTrack.resourceURI());
         }
 
-        musicDb.insertTracksList(newTracks, mNewCovers, QStringLiteral("autoTest"));
+        auto newCovers = mNewCovers;
+        newCovers[QStringLiteral("file:///$19")] = QUrl::fromLocalFile(QStringLiteral("file://image$19"));
+
+        musicDb.insertTracksList(newTracks, newCovers, QStringLiteral("autoTest"));
 
         musicDbTrackAddedSpy.wait(300);
 
@@ -2820,7 +2894,10 @@ private Q_SLOTS:
             newFiles2.push_back(oneTrack.resourceURI());
         }
 
-        musicDb2.insertTracksList(newTracks, mNewCovers, QStringLiteral("autoTest"));
+        auto newCovers = mNewCovers;
+        newCovers[QStringLiteral("file:///$19")] = QUrl::fromLocalFile(QStringLiteral("file://image$19"));
+
+        musicDb2.insertTracksList(newTracks, newCovers, QStringLiteral("autoTest"));
 
         QCOMPARE(musicDb2.allAlbums().count(), 3);
         QCOMPARE(musicDb2.allArtists().count(), 7);
@@ -3361,7 +3438,10 @@ private Q_SLOTS:
                       QStringLiteral("artist2"), QStringLiteral("album3"), {}, 6, 1, QTime::fromMSecsSinceStartOfDay(19), {QUrl::fromLocalFile(QStringLiteral("/$19"))},
                       {QUrl::fromLocalFile(QStringLiteral("album3"))}, 5, true},};
 
-        musicDb.insertTracksList(newTracks, mNewCovers, QStringLiteral("autoTest"));
+        auto newCovers = mNewCovers;
+        newCovers[QStringLiteral("file:///$19")] = QUrl::fromLocalFile(QStringLiteral("album3"));
+
+        musicDb.insertTracksList(newTracks, newCovers, QStringLiteral("autoTest"));
 
         musicDbTrackAddedSpy.wait(300);
 
@@ -3400,7 +3480,10 @@ private Q_SLOTS:
                       QStringLiteral("artist2"), QStringLiteral("album3"), QStringLiteral("artist2"), 6, 1, QTime::fromMSecsSinceStartOfDay(19), {QUrl::fromLocalFile(QStringLiteral("/$19"))},
                       {QUrl::fromLocalFile(QStringLiteral("album3"))}, 5, true},};
 
-        musicDb.insertTracksList(newTracks2, mNewCovers, QStringLiteral("autoTest"));
+        auto newCovers2 = mNewCovers;
+        newCovers2[QStringLiteral("file:///$19")] = QUrl::fromLocalFile(QStringLiteral("album3"));
+
+        musicDb.insertTracksList(newTracks2, newCovers2, QStringLiteral("autoTest"));
 
         musicDbTrackAddedSpy.wait(300);
 

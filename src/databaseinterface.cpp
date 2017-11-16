@@ -882,7 +882,9 @@ void DatabaseInterface::modifyTracksList(const QList<MusicAudioTrack> &modifiedT
             continue;
         }
 
-        auto albumId = insertAlbum(oneModifiedTrack.albumName(), (oneModifiedTrack.isValidAlbumArtist() ? oneModifiedTrack.albumArtist() : QString()), covers[oneModifiedTrack.albumName()], 0, true);
+        auto albumId = insertAlbum(oneModifiedTrack.albumName(),
+                                   (oneModifiedTrack.isValidAlbumArtist() ? oneModifiedTrack.albumArtist() : QString()),
+                                   covers[oneModifiedTrack.resourceURI().toString()], 0, true);
 
         if (albumId == 0) {
             continue;
@@ -2195,7 +2197,8 @@ void DatabaseInterface::initRequest()
     Q_EMIT requestsInitDone();
 }
 
-qulonglong DatabaseInterface::insertAlbum(const QString &title, const QString &albumArtist, const QUrl &albumArtURI, int tracksCount, bool isSingleDiscAlbum)
+qulonglong DatabaseInterface::insertAlbum(const QString &title, const QString &albumArtist,
+                                          const QUrl &albumArtURI, int tracksCount, bool isSingleDiscAlbum)
 {
     auto result = qulonglong(0);
 
@@ -2583,7 +2586,8 @@ qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrac
         return resultId;
     }
 
-    auto albumId = insertAlbum(oneTrack.albumName(), (oneTrack.isValidAlbumArtist() ? oneTrack.albumArtist() : QString()), covers[oneTrack.albumName()], 0, true);
+    auto albumId = insertAlbum(oneTrack.albumName(), (oneTrack.isValidAlbumArtist() ? oneTrack.albumArtist() : QString()),
+                               covers[oneTrack.resourceURI().toString()], 0, true);
 
     if (albumId == 0) {
         return resultId;
@@ -2675,7 +2679,7 @@ qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrac
                 Q_EMIT trackAdded(originTrackId);
             }
 
-            if (updateAlbumFromId(albumId, covers[oneTrack.albumName()], oneTrack)) {
+            if (updateAlbumFromId(albumId, covers[oneTrack.resourceURI().toString()], oneTrack)) {
                 modifiedAlbumIds.insert(albumId);
             }
 

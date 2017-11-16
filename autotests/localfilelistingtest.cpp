@@ -136,7 +136,7 @@ private Q_SLOTS:
         auto newCovers = newTracksSignal.at(1).value<QHash<QString, QUrl>>();
 
         QCOMPARE(newTracks.count(), 3);
-        QCOMPARE(newCovers.count(), 1);
+        QCOMPARE(newCovers.count(), 3);
     }
 
     void addAndRemoveTracks()

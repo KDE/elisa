@@ -434,7 +434,7 @@ void AbstractFileListing::addCover(const MusicAudioTrack &newTrack)
     QFileInfo coverFilePath(trackFilePath.dir().filePath(QStringLiteral("cover.jpg")));
 
     if (coverFilePath.exists()) {
-        d->mAllAlbumCover[newTrack.albumName()] = QUrl::fromLocalFile(coverFilePath.absoluteFilePath());
+        d->mAllAlbumCover[newTrack.resourceURI().toString()] = QUrl::fromLocalFile(coverFilePath.absoluteFilePath());
     }
 }
 

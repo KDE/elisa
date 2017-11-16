@@ -159,7 +159,8 @@ private:
 
     void initRequest();
 
-    qulonglong insertAlbum(const QString &title, const QString &albumArtist, const QUrl &albumArtURI, int tracksCount, bool isSingleDiscAlbum);
+    qulonglong insertAlbum(const QString &title, const QString &albumArtist, const QString &trackArtist,
+                           const QUrl &albumArtURI, int tracksCount, bool isSingleDiscAlbum);
 
     bool updateAlbumFromId(qulonglong albumId, const QUrl &albumArtUri, const MusicAudioTrack &currentTrack);
 

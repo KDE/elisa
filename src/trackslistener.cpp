@@ -112,7 +112,8 @@ void TracksListener::trackByNameInList(const QString &title, const QString &arti
 {
     auto newTrackId = d->mDatabase->trackIdFromTitleAlbumTrackDiscNumber(title, artist, album, trackNumber, discNumber);
     if (newTrackId == 0) {
-        d->mTracksByNameSet.push_back({title, artist, album, trackNumber, discNumber});
+        auto newTrack = std::tuple<QString, QString, QString, int, int>(title, artist, album, trackNumber, discNumber);
+        d->mTracksByNameSet.push_back(newTrack);
 
         return;
     }

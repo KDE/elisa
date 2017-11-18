@@ -770,6 +770,11 @@ ApplicationWindow {
                         State {
                             name: 'allAlbums'
                             when: listViews.currentIndex === 1
+                            StateChangeScript {
+                                script: {
+                                    localAlbums.stackView.pop({item: null, immediate: true})
+                                }
+                            }
                             PropertyChanges {
                                 target: mainContentView
                                 Layout.fillWidth: true
@@ -817,6 +822,11 @@ ApplicationWindow {
                         State {
                             name: 'allArtists'
                             when: listViews.currentIndex === 2
+                            StateChangeScript {
+                                script: {
+                                    localArtists.stackView.pop({item: null, immediate: true})
+                                }
+                            }
                             PropertyChanges {
                                 target: mainContentView
                                 Layout.fillWidth: true

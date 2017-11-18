@@ -89,10 +89,16 @@ Item {
 
             spacing: 0
 
-            Layout.alignment: Qt.AlignTop | Qt.AlignHCenter
             Layout.fillWidth: true
             Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
             Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+
+            Item {
+                id: emptyTopFiller
+
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+            }
 
             TextMetrics {
                 id: albumTextSize
@@ -107,9 +113,7 @@ Item {
                 text: album
 
                 Layout.fillWidth: true
-                Layout.alignment: Qt.AlignLeft
-                Layout.topMargin: albumTextSize.height
-                Layout.bottomMargin: albumTextSize.height - authorTextSize.height
+                Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
 
                 elide: Text.ElideRight
 
@@ -137,14 +141,20 @@ Item {
                 color: myPalette.text
 
                 Layout.fillWidth: true
-                Layout.alignment: Qt.AlignLeft
-                Layout.topMargin: authorTextSize.height
+                Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
 
                 font {
                     pixelSize: (album !== "" ? elisaTheme.defaultFontPixelSize : elisaTheme.defaultFontPixelSize * 1.5)
                 }
 
                 elide: Text.ElideRight
+            }
+
+            Item {
+                id: emptyBottomFiller
+
+                Layout.fillWidth: true
+                Layout.fillHeight: true
             }
         }
 

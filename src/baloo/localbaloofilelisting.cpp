@@ -330,6 +330,8 @@ MusicAudioTrack LocalBalooFileListing::scanOneFile(const QUrl &scanFile)
 
         if (discNumberProperty != allProperties.end()) {
             newTrack.setDiscNumber(discNumberProperty->toInt());
+        } else {
+            newTrack.setDiscNumber(1);
         }
 
         if (albumArtistProperty != allProperties.end()) {

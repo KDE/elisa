@@ -36,6 +36,7 @@ FocusScope {
     property int placeholderHeight: elisaTheme.dragDropPlaceholderHeight
 
     signal startPlayback()
+    signal pausePlayback()
 
     id: topItem
 
@@ -258,13 +259,13 @@ FocusScope {
                                     action: entry.clearPlayListAction
                                 }
                                 MenuItem {
-                                    action: entry.playNowAction
+                                    action: entry.playPauseAction
                                 }
                             }
 
-                            onStartPlayback: {
-                                topItem.startPlayback()
-                            }
+                            onStartPlayback: topItem.startPlayback()
+
+                            onPausePlayback: topItem.pausePlayback()
                         }
 
                         draggedItemParent: topItem

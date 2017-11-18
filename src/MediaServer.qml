@@ -675,9 +675,10 @@ ApplicationWindow {
                                     playListControlerItem.repeatPlay = Qt.binding(function() { return playList.repeatPlayChecked })
                                     myPlayControlManager.randomOrContinuePlay = Qt.binding(function() { return playList.randomPlayChecked || playList.repeatPlayChecked })
                                 }
-                                onStartPlayback: {
-                                   manageAudioPlayer.ensurePlay()
-                                }
+
+                                onStartPlayback: manageAudioPlayer.ensurePlay()
+
+                                onPausePlayback: manageAudioPlayer.playPause()
                             }
 
                             Rectangle {

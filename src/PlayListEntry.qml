@@ -48,9 +48,10 @@ FocusScope {
     property var playListControler
     property var contextMenu
     property alias clearPlayListAction: removeFromPlayList
-    property alias playNowAction: playNow
+    property alias playPauseAction: playPauseButton.action
 
     signal startPlayback()
+    signal pausePlayback()
 
     Action {
         id: removeFromPlayList
@@ -70,6 +71,14 @@ FocusScope {
             playListControler.switchTo(playListEntry.index)
             playListEntry.startPlayback()
         }
+    }
+
+    Action {
+        id: pauseNow
+        text: i18nc("Pause current track from play list", "Pause")
+        iconName: "media-playback-pause"
+        enabled: isPlaying == MediaPlayList.IsPlaying && isValid
+        onTriggered: playListEntry.pausePlayback()
     }
 
     Rectangle {
@@ -243,7 +252,7 @@ FocusScope {
                     }
 
                     ToolButton {
-                        id: playNowButton
+                        id: playPauseButton
 
                         implicitHeight: elisaTheme.smallDelegateToolButtonSize
                         implicitWidth: elisaTheme.smallDelegateToolButtonSize
@@ -251,69 +260,83 @@ FocusScope {
                         opacity: 0
 
                         visible: opacity > 0.1
-                        action: playNow
+                        action: !(isPlaying == MediaPlayList.IsPlaying) ? playNow : pauseNow
                         Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
                     }
 
-                    ToolButton {
-                        id: removeButton
-
+                    Item {
                         implicitHeight: elisaTheme.smallDelegateToolButtonSize
                         implicitWidth: elisaTheme.smallDelegateToolButtonSize
-
-                        opacity: 0
-
-                        visible: opacity > 0.1
-                        action: removeFromPlayList
-                        Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
-                    }
-
-                    Image {
-                        id: playIcon
-
-                        Layout.preferredWidth: parent.height * 1
-                        Layout.preferredHeight: parent.height * 1
-                        Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
                         Layout.maximumWidth: elisaTheme.smallDelegateToolButtonSize
                         Layout.maximumHeight: elisaTheme.smallDelegateToolButtonSize
+                        Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
 
-                        opacity: 0
+                        ToolButton {
+                            id: removeButton
 
-                        source: (isPlaying == MediaPlayList.IsPlaying ? Qt.resolvedUrl(elisaTheme.playIcon) : Qt.resolvedUrl(elisaTheme.pauseIcon))
-                        width: parent.height * 1.
-                        height: parent.height * 1.
-                        sourceSize.width: parent.height * 1.
-                        sourceSize.height: parent.height * 1.
-                        fillMode: Image.PreserveAspectFit
-                        mirror: LayoutMirroring.enabled
-                        visible: isPlaying == MediaPlayList.IsPlaying || isPlaying == MediaPlayList.IsPaused
+                            anchors.fill: parent
 
-                        SequentialAnimation on opacity {
-                            running: isPlaying == MediaPlayList.IsPlaying
-                            loops: Animation.Infinite
+                            opacity: 0
 
-                            NumberAnimation {
-                                from: 0
-                                to: 1.
-                                duration: 1000
-                                easing.type: Easing.InOutCubic
-                            }
-                            NumberAnimation {
-                                from: 1
-                                to: 0
-                                duration: 1000
-                                easing.type: Easing.InOutCubic
-                            }
+                            visible: opacity > 0.1
+                            action: removeFromPlayList
                         }
 
-                        SequentialAnimation on opacity {
-                            running: isPlaying == MediaPlayList.IsPaused
+                        Image {
+                            id: playIcon
 
-                            NumberAnimation {
-                                from: playIcon.opacity
-                                to: 1.
-                                duration: 1000
-                                easing.type: Easing.InOutCubic
+                            anchors.fill: parent
+
+                            opacity: 0
+
+                            source: (isPlaying == MediaPlayList.IsPlaying ? Qt.resolvedUrl(elisaTheme.playIcon) : Qt.resolvedUrl(elisaTheme.pauseIcon))
+
+                            width: parent.height * 1.
+                            height: parent.height * 1.
+                            sourceSize.width: parent.height * 1.
+                            sourceSize.height: parent.height * 1.
+                            fillMode: Image.PreserveAspectFit
+                            mirror: LayoutMirroring.enabled
+                            visible: isPlaying == MediaPlayList.IsPlaying || isPlaying == MediaPlayList.IsPaused
+
+                            SequentialAnimation on opacity {
+                                running: isPlaying == MediaPlayList.IsPlaying && playListEntry.state != 'hoveredOrSelected'
+                                loops: Animation.Infinite
+
+                                NumberAnimation {
+                                    from: 0
+                                    to: 1.
+                                    duration: 1000
+                                    easing.type: Easing.InOutCubic
+                                }
+                                NumberAnimation {
+                                    from: 1
+                                    to: 0
+                                    duration: 1000
+                                    easing.type: Easing.InOutCubic
+                                }
+                            }
+
+                            SequentialAnimation on opacity {
+                                running: isPlaying == MediaPlayList.IsPaused && playListEntry.state != 'hoveredOrSelected'
+
+                                NumberAnimation {
+                                    from: playIcon.opacity
+                                    to: 1.
+                                    duration: 1000
+                                    easing.type: Easing.InOutCubic
+                                }
+                            }
+
+                            SequentialAnimation on opacity {
+                                running: playListEntry.state == 'hoveredOrSelected'
+
+                                NumberAnimation {
+                                    from: playIcon.opacity
+                                    to: 0
+                                    duration: 50
+                                    easing.type: Easing.InOutCubic
+                                }
                             }
                         }
                     }
@@ -351,7 +374,7 @@ FocusScope {
                 opacity: 0
             }
             PropertyChanges {
-                target: playNowButton
+                target: playPauseButton
                 opacity: 0
             }
             PropertyChanges {
@@ -371,7 +394,7 @@ FocusScope {
                 opacity: 1
             }
             PropertyChanges {
-                target: playNowButton
+                target: playPauseButton
                 opacity: 1
             }
             PropertyChanges {

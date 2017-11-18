@@ -452,8 +452,10 @@ QList<QVariant> MediaPlayList::persistentState() const
             const auto &oneTrack = d->mTrackData[trackIndex];
 
             oneData.push_back(oneTrack.title());
-            oneData.push_back(oneTrack.albumName());
             oneData.push_back(oneTrack.artist());
+            oneData.push_back(oneTrack.albumName());
+            oneData.push_back(QString::number(oneTrack.trackNumber()));
+            oneData.push_back(QString::number(oneTrack.discNumber()));
 
             result.push_back(QVariant(oneData));
         }
@@ -485,8 +487,8 @@ void MediaPlayList::setPersistentState(const QList<QVariant> &persistentState)
         auto restoredTitle = trackData[0];
         auto restoredArtist = trackData[1];
         auto restoredAlbum = trackData[2];
-        auto restoredTrackNumber = trackData[2].toInt();
-        auto restoredDiscNumber = trackData[3].toInt();
+        auto restoredTrackNumber = trackData[3].toInt();
+        auto restoredDiscNumber = trackData[4].toInt();
 
         enqueue({restoredTitle, restoredArtist, restoredAlbum, restoredTrackNumber, restoredDiscNumber});
     }

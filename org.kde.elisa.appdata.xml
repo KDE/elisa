@@ -75,9 +75,9 @@
   <url type="donation">https://www.kde.org/community/donations</url>
   <screenshots>
     <screenshot type="default">
-      <image>
-        https://www.freedesktop.org/software/appstream/docs/chap-Metadata.html#tag-screenshots
-        Central hosting is still being sorted out, poke sitter@kde.org for more info.
+      <caption>The Elisa music player</caption>
+      <image type="source" width="1366" height="744">
+        https://cdn.kde.org/screenshots/elisa/elisa.png
       </image>
     </screenshot>
   </screenshots>

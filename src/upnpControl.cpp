@@ -196,6 +196,7 @@ int main(int argc, char *argv[])
     aboutData.addCredit(QStringLiteral("Andrew Lake"), i18n("Concept and design work"), QStringLiteral("jamboarder@gmail.com"));
     aboutData.addCredit(QStringLiteral("Luigi Toscano"), i18n("Localization support"), QStringLiteral("luigi.toscano@tiscali.it"));
     aboutData.addCredit(QStringLiteral("Safa Alfulaij"), i18n("Right to left support in interface"), QStringLiteral("safa1996alfulaij@gmail.com"));
+    aboutData.addCredit(QStringLiteral("Alexander Stippich"), i18n("Various improvements to the interface"), QStringLiteral("a.stippich@gmx.net"));
 
     KAboutData::setApplicationData(aboutData);
 #else

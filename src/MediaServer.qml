@@ -22,7 +22,7 @@ import QtQuick.Controls 1.3
 import QtQuick.Controls.Styles 1.3
 import QtQuick.Layouts 1.1
 import QtQuick.Window 2.2
-import org.mgallien.QmlExtension 1.0
+import org.kde.elisa 1.0
 import Qt.labs.settings 1.0
 
 ApplicationWindow {

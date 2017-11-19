@@ -25,7 +25,7 @@ import QtQml.Models 2.1
 import QtQuick.Layouts 1.2
 import QtGraphicalEffects 1.0
 
-import org.mgallien.QmlExtension 1.0
+import org.kde.elisa 1.0
 
 FocusScope {
     property StackView stackView

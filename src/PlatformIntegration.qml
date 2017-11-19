@@ -18,7 +18,7 @@
  */
 
 import QtQuick 2.0
-import org.mgallien.QmlExtension 1.0
+import org.kde.elisa 1.0
 
 Item {
     id: rootItem

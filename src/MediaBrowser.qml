@@ -22,7 +22,7 @@ import QtQuick.Controls 1.2
 import QtQuick.Controls.Styles 1.2
 import QtQuick.Layouts 1.1
 import QtQuick.Window 2.2
-import org.mgallien.QmlExtension 1.0
+import org.kde.elisa 1.0
 
 FocusScope {
     property MediaPlayList playListModel

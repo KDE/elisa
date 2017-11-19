@@ -22,7 +22,7 @@ import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.3
 import QtQuick.Window 2.2
 import QtQml.Models 2.1
-import org.mgallien.QmlExtension 1.0
+import org.kde.elisa 1.0
 
 ApplicationWindow {
     id: mainWindow

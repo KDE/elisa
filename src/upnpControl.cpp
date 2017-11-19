@@ -124,19 +124,19 @@ int main(int argc, char *argv[])
     KLocalizedString::setApplicationDomain("elisa");
 
 #if defined UPNPQT_FOUND && UPNPQT_FOUND
-    qmlRegisterType<UpnpSsdpEngine>("org.mgallien.QmlExtension", 1, 0, "UpnpSsdpEngine");
-    qmlRegisterType<UpnpDiscoverAllMusic>("org.mgallien.QmlExtension", 1, 0, "UpnpDiscoverAllMusic");
+    qmlRegisterType<UpnpSsdpEngine>("org.kde.elisa", 1, 0, "UpnpSsdpEngine");
+    qmlRegisterType<UpnpDiscoverAllMusic>("org.kde.elisa", 1, 0, "UpnpDiscoverAllMusic");
 
-    qmlRegisterType<UpnpAbstractDevice>("org.mgallien.QmlExtension", 1, 0, "UpnpAbstractDevice");
-    qmlRegisterType<UpnpAbstractService>("org.mgallien.QmlExtension", 1, 0, "UpnpAbstractService");
-    qmlRegisterType<UpnpControlAbstractDevice>("org.mgallien.QmlExtension", 1, 0, "UpnpControlAbstractDevice");
-    qmlRegisterType<UpnpControlAbstractService>("org.mgallien.QmlExtension", 1, 0, "UpnpControlAbstractService");
-    qmlRegisterType<UpnpControlConnectionManager>("org.mgallien.QmlExtension", 1, 0, "UpnpControlConnectionManager");
-    qmlRegisterType<UpnpControlMediaServer>("org.mgallien.QmlExtension", 1, 0, "UpnpControlMediaServer");
-    qmlRegisterType<UpnpContentDirectoryModel>("org.mgallien.QmlExtension", 1, 0, "UpnpContentDirectoryModel");
-    qmlRegisterType<DidlParser>("org.mgallien.QmlExtension", 1, 0, "DidlParser");
-    qmlRegisterType<UpnpControlContentDirectory>("org.mgallien.QmlExtension", 1, 0, "UpnpControlContentDirectory");
-    qmlRegisterType<UpnpDeviceDescription>("org.mgallien.QmlExtension", 1, 0, "UpnpDeviceDescription");
+    qmlRegisterType<UpnpAbstractDevice>("org.kde.elisa", 1, 0, "UpnpAbstractDevice");
+    qmlRegisterType<UpnpAbstractService>("org.kde.elisa", 1, 0, "UpnpAbstractService");
+    qmlRegisterType<UpnpControlAbstractDevice>("org.kde.elisa", 1, 0, "UpnpControlAbstractDevice");
+    qmlRegisterType<UpnpControlAbstractService>("org.kde.elisa", 1, 0, "UpnpControlAbstractService");
+    qmlRegisterType<UpnpControlConnectionManager>("org.kde.elisa", 1, 0, "UpnpControlConnectionManager");
+    qmlRegisterType<UpnpControlMediaServer>("org.kde.elisa", 1, 0, "UpnpControlMediaServer");
+    qmlRegisterType<UpnpContentDirectoryModel>("org.kde.elisa", 1, 0, "UpnpContentDirectoryModel");
+    qmlRegisterType<DidlParser>("org.kde.elisa", 1, 0, "DidlParser");
+    qmlRegisterType<UpnpControlContentDirectory>("org.kde.elisa", 1, 0, "UpnpControlContentDirectory");
+    qmlRegisterType<UpnpDeviceDescription>("org.kde.elisa", 1, 0, "UpnpDeviceDescription");
 
     qRegisterMetaType<A_ARG_TYPE_InstanceID>();
     qRegisterMetaType<QPointer<UpnpAbstractDevice> >();
@@ -145,25 +145,25 @@ int main(int argc, char *argv[])
     qRegisterMetaType<UpnpDeviceDescription*>();
 #endif
 
-    qmlRegisterType<MediaPlayList>("org.mgallien.QmlExtension", 1, 0, "MediaPlayList");
-    qmlRegisterType<PlayListControler>("org.mgallien.QmlExtension", 1, 0, "PlayListControler");
-    qmlRegisterType<ManageMediaPlayerControl>("org.mgallien.QmlExtension", 1, 0, "ManageMediaPlayerControl");
-    qmlRegisterType<ManageHeaderBar>("org.mgallien.QmlExtension", 1, 0, "ManageHeaderBar");
-    qmlRegisterType<ManageAudioPlayer>("org.mgallien.QmlExtension", 1, 0, "ManageAudioPlayer");
-    qmlRegisterType<MusicStatistics>("org.mgallien.QmlExtension", 1, 0, "MusicStatistics");
-    qmlRegisterType<ProgressIndicator>("org.mgallien.QmlExtension", 1, 0, "ProgressIndicator");
-    qmlRegisterType<AllAlbumsModel>("org.mgallien.QmlExtension", 1, 0, "AllAlbumsModel");
-    qmlRegisterType<AllArtistsModel>("org.mgallien.QmlExtension", 1, 0, "AllArtistsModel");
-    qmlRegisterType<AlbumModel>("org.mgallien.QmlExtension", 1, 0, "AlbumModel");
-    qmlRegisterType<AllTracksModel>("org.mgallien.QmlExtension", 1, 0, "AllTracksModel");
-    qmlRegisterType<MusicListenersManager>("org.mgallien.QmlExtension", 1, 0, "MusicListenersManager");
-    qmlRegisterType<QSortFilterProxyModel>("org.mgallien.QmlExtension", 1, 0, "SortFilterProxyModel");
-    qmlRegisterType<AlbumFilterProxyModel>("org.mgallien.QmlExtension", 1, 0, "AlbumFilterProxyModel");
-    qmlRegisterType<AudioWrapper>("org.mgallien.QmlExtension", 1, 0, "AudioWrapper");
-    qmlRegisterType<TopNotificationManager>("org.mgallien.QmlExtension", 1, 0, "TopNotificationManager");
+    qmlRegisterType<MediaPlayList>("org.kde.elisa", 1, 0, "MediaPlayList");
+    qmlRegisterType<PlayListControler>("org.kde.elisa", 1, 0, "PlayListControler");
+    qmlRegisterType<ManageMediaPlayerControl>("org.kde.elisa", 1, 0, "ManageMediaPlayerControl");
+    qmlRegisterType<ManageHeaderBar>("org.kde.elisa", 1, 0, "ManageHeaderBar");
+    qmlRegisterType<ManageAudioPlayer>("org.kde.elisa", 1, 0, "ManageAudioPlayer");
+    qmlRegisterType<MusicStatistics>("org.kde.elisa", 1, 0, "MusicStatistics");
+    qmlRegisterType<ProgressIndicator>("org.kde.elisa", 1, 0, "ProgressIndicator");
+    qmlRegisterType<AllAlbumsModel>("org.kde.elisa", 1, 0, "AllAlbumsModel");
+    qmlRegisterType<AllArtistsModel>("org.kde.elisa", 1, 0, "AllArtistsModel");
+    qmlRegisterType<AlbumModel>("org.kde.elisa", 1, 0, "AlbumModel");
+    qmlRegisterType<AllTracksModel>("org.kde.elisa", 1, 0, "AllTracksModel");
+    qmlRegisterType<MusicListenersManager>("org.kde.elisa", 1, 0, "MusicListenersManager");
+    qmlRegisterType<QSortFilterProxyModel>("org.kde.elisa", 1, 0, "SortFilterProxyModel");
+    qmlRegisterType<AlbumFilterProxyModel>("org.kde.elisa", 1, 0, "AlbumFilterProxyModel");
+    qmlRegisterType<AudioWrapper>("org.kde.elisa", 1, 0, "AudioWrapper");
+    qmlRegisterType<TopNotificationManager>("org.kde.elisa", 1, 0, "TopNotificationManager");
 
 #if defined Qt5DBus_FOUND && Qt5DBus_FOUND
-    qmlRegisterType<Mpris2>("org.mgallien.QmlExtension", 1, 0, "Mpris2");
+    qmlRegisterType<Mpris2>("org.kde.elisa", 1, 0, "Mpris2");
     qRegisterMetaType<MediaPlayer2Player*>();
 #endif
 
@@ -179,7 +179,7 @@ int main(int argc, char *argv[])
     qRegisterMetaType<QAction*>();
     qRegisterMetaType<NotificationItem>("NotificationItem");
     qRegisterMetaType<QMap<QString,int>>("QMap<QString,int>");
-    qmlRegisterUncreatableType<ElisaApplication>("org.mgallien.QmlExtension", 1, 0, "ElisaApplication", QStringLiteral("only one and done in c++"));
+    qmlRegisterUncreatableType<ElisaApplication>("org.kde.elisa", 1, 0, "ElisaApplication", QStringLiteral("only one and done in c++"));
 
     qRegisterMetaTypeStreamOperators<ManageMediaPlayerControl::PlayerState>("PlayListControler::PlayerState");
 

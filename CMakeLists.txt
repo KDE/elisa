@@ -8,7 +8,7 @@ set(CMAKE_CXX_STANDARD 14)
 set(REQUIRED_QT_VERSION "5.9.0")
 find_package(Qt5 ${REQUIRED_QT_VERSION} CONFIG REQUIRED Core Network Qml Quick Test Sql Multimedia Svg Gui Widgets)
 
-set(REQUIRED_KF5_VERSION "5.39.0")
+set(REQUIRED_KF5_VERSION "5.32.0")
 find_package(ECM ${REQUIRED_KF5_VERSION} REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
 
@@ -64,7 +64,7 @@ set_package_properties(KF5FileMetaData PROPERTIES
     DESCRIPTION "Provides a simple library for extracting metadata."
     TYPE RECOMMENDED)
 
-find_package(KF5DocTools ${REQUIRED_KF5_VERSION} CONFIG QUIET)
+find_package(KF5DocTools 5.39.0 CONFIG QUIET)
 set_package_properties(KF5DocTools PROPERTIES
     DESCRIPTION "Create documentation from DocBook library."
     TYPE OPTIONAL)

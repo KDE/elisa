@@ -64,6 +64,10 @@ set_package_properties(KF5FileMetaData PROPERTIES
     DESCRIPTION "Provides a simple library for extracting metadata."
     TYPE RECOMMENDED)
 
+if ("${KF5FileMetaData_VERSION_MINOR}" LESS "39")
+    message(WARNING "KF5 FileMetaData versions prior to 5.39 are working but some crashes can happen when used by Elisa music player")
+endif()
+
 find_package(KF5DocTools 5.39.0 CONFIG QUIET)
 set_package_properties(KF5DocTools PROPERTIES
     DESCRIPTION "Create documentation from DocBook library."

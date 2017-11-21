@@ -21,6 +21,7 @@
   <name xml:lang="pl">Elisa</name>
   <name xml:lang="pt">Elisa</name>
   <name xml:lang="pt-BR">Elisa</name>
+  <name xml:lang="ru">Elisa</name>
   <name xml:lang="sk">Elisa</name>
   <name xml:lang="sv">Elisa</name>
   <name xml:lang="tr">Elisa</name>
@@ -44,6 +45,7 @@
   <summary xml:lang="pl">Prosty odtwarzacz multimediów</summary>
   <summary xml:lang="pt">Leitor de Música Simples</summary>
   <summary xml:lang="pt-BR">Reprodutor de músicas simples</summary>
+  <summary xml:lang="ru">Простой музыкальный проигрыватель</summary>
   <summary xml:lang="sk">Jednoduchý hudobný prehliadač</summary>
   <summary xml:lang="sv">Enkel musikspelare</summary>
   <summary xml:lang="tr">Basit Müzik Çalar</summary>
@@ -67,6 +69,7 @@
     <p xml:lang="pl">Prosty odtwarzacz multimedióm, który powinien być łatwy w obsłudze. Nie wymaga żadnych ustawień do jego używania.</p>
     <p xml:lang="pt">Um leitor de música simples que deveria ser simples de usar. Não necessita de nenhuma configuração antes de poder ser usado.</p>
     <p xml:lang="pt-BR">Um reprodutor de músicas simples que deve ser fácil de usar. Não requer qualquer configuração antes de usá-lo.</p>
+    <p xml:lang="ru">Простой в использовании проигрыватель музыки. Для использования не требуется предварительной настройки.</p>
     <p xml:lang="sk">Jednoduchý hudobný prehliadač, ktorý by malo byť jednoduché používať. Nevyžaduje žiadne nastavenie pred použitím.</p>
     <p xml:lang="sv">En enkel musikspelare som ska vara lättanvänd. Den kräver inga inställningar innan man kan använda den.</p>
     <p xml:lang="tr">Kullanımı kolay basit bir müzik çalar. Kullanmadan önce herhangi bir yapılandırma gerektirmez.</p>
@@ -79,6 +82,13 @@
   <screenshots>
     <screenshot type="default">
       <caption>The Elisa music player</caption>
+      <caption xml:lang="ca">El reproductor de música Elisa</caption>
+      <caption xml:lang="ca-valencia">El reproductor de música Elisa</caption>
+      <caption xml:lang="de">Elisa-Musikwiedergabe</caption>
+      <caption xml:lang="nl">De muziekspeler Elisa</caption>
+      <caption xml:lang="pt">O leitor de música Elisa</caption>
+      <caption xml:lang="uk">Музичний програвач Elisa</caption>
+      <caption xml:lang="x-test">xxThe Elisa music playerxx</caption>
       <image type="source" width="1366" height="744">
         https://cdn.kde.org/screenshots/elisa/elisa.png
       </image>

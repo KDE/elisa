@@ -75,6 +75,8 @@ private Q_SLOTS:
 
     void testHasHeaderAlbumWithSameTitle();
 
+    void testSavePersistentState();
+
 private:
 
     QList<MusicAudioTrack> mNewTracks;

@@ -79,6 +79,8 @@ private Q_SLOTS:
 
     void testClearAndEnqueueArtist();
 
+    void testClearAndEnqueueTrackId();
+
 private:
 
     QList<MusicAudioTrack> mNewTracks;

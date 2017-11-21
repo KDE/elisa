@@ -529,14 +529,17 @@ void MediaPlayList::albumAdded(const QList<MusicAudioTrack> &tracks)
 
         Q_EMIT dataChanged(index(playListIndex, 0), index(playListIndex, 0), {});
 
-        beginInsertRows(QModelIndex(), playListIndex + 1, playListIndex - 1 + tracks.size());
-        for (int trackIndex = 1; trackIndex < tracks.size(); ++trackIndex) {
-            d->mData.push_back(MediaPlayListEntry{tracks[trackIndex].databaseId()});
-            d->mTrackData.push_back(tracks[trackIndex]);
-        }
-        endInsertRows();
+        if (tracks.size() > 1) {
+            beginInsertRows(QModelIndex(), playListIndex + 1, playListIndex - 1 + tracks.size());
+            for (int trackIndex = 1; trackIndex < tracks.size(); ++trackIndex) {
+                d->mData.push_back(MediaPlayListEntry{tracks[trackIndex].databaseId()});
+                d->mTrackData.push_back(tracks[trackIndex]);
+            }
+            endInsertRows();
 
-        Q_EMIT tracksCountChanged();
+            Q_EMIT tracksCountChanged();
+        }
+
         Q_EMIT persistentStateChanged();
     }
 }

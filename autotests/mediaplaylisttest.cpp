@@ -3726,10 +3726,10 @@ void MediaPlayListTest::testClearAndEnqueueArtist()
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
-    QCOMPARE(rowsAboutToBeInsertedSpy.count(), 2);
+    QCOMPARE(rowsAboutToBeInsertedSpy.count(), 1);
     QCOMPARE(rowsRemovedSpy.count(), 0);
     QCOMPARE(rowsMovedSpy.count(), 0);
-    QCOMPARE(rowsInsertedSpy.count(), 2);
+    QCOMPARE(rowsInsertedSpy.count(), 1);
     QCOMPARE(trackHasBeenAddedSpy.count(), 0);
     QCOMPARE(persistentStateChangedSpy.count(), 2);
     QCOMPARE(dataChangedSpy.count(), 1);
@@ -3757,10 +3757,10 @@ void MediaPlayListTest::testClearAndEnqueueArtist()
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 1);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
-    QCOMPARE(rowsAboutToBeInsertedSpy.count(), 3);
+    QCOMPARE(rowsAboutToBeInsertedSpy.count(), 2);
     QCOMPARE(rowsRemovedSpy.count(), 1);
     QCOMPARE(rowsMovedSpy.count(), 0);
-    QCOMPARE(rowsInsertedSpy.count(), 3);
+    QCOMPARE(rowsInsertedSpy.count(), 2);
     QCOMPARE(trackHasBeenAddedSpy.count(), 0);
     QCOMPARE(persistentStateChangedSpy.count(), 3);
     QCOMPARE(dataChangedSpy.count(), 1);
@@ -3772,10 +3772,10 @@ void MediaPlayListTest::testClearAndEnqueueArtist()
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 1);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
-    QCOMPARE(rowsAboutToBeInsertedSpy.count(), 4);
+    QCOMPARE(rowsAboutToBeInsertedSpy.count(), 2);
     QCOMPARE(rowsRemovedSpy.count(), 1);
     QCOMPARE(rowsMovedSpy.count(), 0);
-    QCOMPARE(rowsInsertedSpy.count(), 4);
+    QCOMPARE(rowsInsertedSpy.count(), 2);
     QCOMPARE(trackHasBeenAddedSpy.count(), 0);
     QCOMPARE(persistentStateChangedSpy.count(), 4);
     QCOMPARE(dataChangedSpy.count(), 2);

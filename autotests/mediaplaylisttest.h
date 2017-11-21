@@ -77,6 +77,8 @@ private Q_SLOTS:
 
     void testSavePersistentState();
 
+    void testClearAndEnqueueArtist();
+
 private:
 
     QList<MusicAudioTrack> mNewTracks;

@@ -433,6 +433,10 @@ void MediaPlayList::clearAndEnqueue(const QString &artistName)
 
 void MediaPlayList::clearPlayList()
 {
+    if (d->mData.isEmpty()) {
+        return;
+    }
+
     beginRemoveRows({}, 0, d->mData.count());
     d->mData.clear();
     d->mTrackData.clear();

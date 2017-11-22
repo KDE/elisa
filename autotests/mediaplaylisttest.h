@@ -81,6 +81,8 @@ private Q_SLOTS:
 
     void testClearAndEnqueueTrackId();
 
+    void testSetData();
+
 private:
 
     QList<MusicAudioTrack> mNewTracks;

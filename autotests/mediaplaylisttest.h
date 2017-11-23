@@ -85,6 +85,10 @@ private Q_SLOTS:
 
     void testSetData();
 
+    void testRemoveSelection();
+
+    void testTrackBeenRemoved();
+
 private:
 
     QList<MusicAudioTrack> mNewTracks;

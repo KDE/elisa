@@ -40,6 +40,8 @@ FocusScope {
     property var albumData
     property var albumId
 
+    signal showArtist(var name)
+
     width: stackView.width
     height: stackView.height
 
@@ -115,6 +117,14 @@ FocusScope {
                 onTriggered: {
                     topListing.playListModel.clearAndEnqueue(topListing.albumData)
                     topListing.playerControl.ensurePlay()
+                }
+            }
+
+            navigateToArtistAction: Action {
+                text: i18nc("Button to navigate to the artist of the album", "Display Artist")
+                iconName: "view-media-artist"
+                onTriggered: {
+                    showArtist(topListing.artistName)
                 }
             }
         }

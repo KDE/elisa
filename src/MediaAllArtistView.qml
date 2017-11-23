@@ -191,10 +191,32 @@ FocusScope {
                             contentDirectoryModel: rootElement.contentDirectoryModel
 
                             onArtistClicked: contentDirectoryView.currentIndex = index
+                            onOpenArtist: showArtistsAlbums(name)
                         }
                     }
                 }
             }
+        }
+    }
+
+    Component {
+        id: oneArtistView
+
+        MediaArtistAlbumView {
+            playListModel: rootElement.playListModel
+            contentDirectoryModel: rootElement.contentDirectoryModel
+            playerControl: rootElement.playerControl
+            stackView: rootElement.stackView
+
+            onShowArtist: showArtistsAlbums(name)
+        }
+    }
+
+    function showArtistsAlbums(name){
+        if (stackView.depth === 3) {
+            stackView.pop()
+        } else {
+            stackView.push(oneArtistView, {artistName: name})
         }
     }
 }

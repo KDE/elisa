@@ -35,6 +35,8 @@ FocusScope {
     property var playerControl
     property var contentDirectoryModel
 
+    signal showArtist(var name)
+
     id: rootElement
 
     SystemPalette {
@@ -223,6 +225,8 @@ FocusScope {
                             playerControl: rootElement.playerControl
 
                             onAlbumClicked: contentDirectoryView.currentIndex = index
+
+                            onShowArtist: rootElement.showArtist(name)
                         }
                     }
                 }

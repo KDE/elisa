@@ -35,6 +35,7 @@ Item {
     property string tracksCount
     property var enqueueAction
     property var clearAndEnqueueAction
+    property var navigateToArtistAction: Action { }
 
     Action {
         id: goPreviousAction
@@ -42,16 +43,17 @@ Item {
         iconName: (Qt.application.layoutDirection == Qt.RightToLeft) ? "go-next" : "go-previous"
         onTriggered:
         {
-            if (listingView.depth > 1) {
-                listingView.pop()
-            } else {
-                parentStackView.pop()
-            }
+            parentStackView.pop()
         }
     }
 
     RowLayout {
         anchors.fill: parent
+
+        anchors.margins: {
+            top: elisaTheme.layoutVerticalMargin
+            bottom: elisaTheme.layoutVerticalMargin
+        }
 
         spacing: 0
 
@@ -92,13 +94,6 @@ Item {
             Layout.fillWidth: true
             Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
             Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-
-            Item {
-                id: emptyTopFiller
-
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-            }
 
             TextMetrics {
                 id: albumTextSize
@@ -156,18 +151,34 @@ Item {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
             }
-        }
 
-        Button {
-            action: enqueueAction
-            Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-            Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-        }
+            RowLayout {
+                Layout.fillWidth: true
+                spacing: 0
 
-        Button {
-            action: clearAndEnqueueAction
-            Layout.leftMargin: elisaTheme.layoutHorizontalMargin
-            Layout.rightMargin: elisaTheme.layoutHorizontalMargin
+                Button {
+                    action: enqueueAction
+
+                    Layout.leftMargin: 0
+                    Layout.rightMargin: 0
+                }
+
+                Button {
+                    action: clearAndEnqueueAction
+
+                    Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+                    Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+                }
+
+                Button {
+                    action: navigateToArtistAction
+
+                    Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+                    Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+
+                    visible: album !== ""
+                }
+            }
         }
     }
 }

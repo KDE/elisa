@@ -40,6 +40,7 @@ FocusScope {
     property var albumData
     property var albumId
 
+    signal showArtist(var name)
     signal albumClicked()
 
     id: mediaServerEntry
@@ -71,21 +72,28 @@ FocusScope {
         }
     }
 
+    Component {
+        id: albumViewComponent
+
+        MediaAlbumView {
+            stackView: mediaServerEntry.stackView
+            playListModel: mediaServerEntry.playListModel
+            musicListener: mediaServerEntry.musicListener
+            playerControl: mediaServerEntry.playerControl
+            albumArtUrl: image
+            albumName: title
+            artistName: artist
+            tracksCount: count
+            isSingleDiscAlbum: mediaServerEntry.isSingleDiscAlbum
+            albumData: mediaServerEntry.albumData
+            albumId: mediaServerEntry.albumId
+
+            onShowArtist: mediaServerEntry.showArtist(name)
+        }
+    }
+
     function showAlbumTracks() {
-        stackView.push(Qt.resolvedUrl("MediaAlbumView.qml"),
-                       {
-                           'stackView': stackView,
-                           'playListModel': playListModel,
-                           'musicListener': mediaServerEntry.musicListener,
-                           'playerControl': playerControl,
-                           'albumArtUrl': image,
-                           'albumName': title,
-                           'artistName': artist,
-                           'tracksCount': count,
-                           'isSingleDiscAlbum': mediaServerEntry.isSingleDiscAlbum,
-                           'albumData': mediaServerEntry.albumData,
-                           'albumId': mediaServerEntry.albumId
-                       })
+        stackView.push(albumViewComponent)
     }
 
     ColumnLayout {

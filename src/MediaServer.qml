@@ -568,6 +568,11 @@ ApplicationWindow {
                                             stackView: localAlbums.stackView
                                             musicListener: allListeners
                                             contentDirectoryModel: allAlbumsModel
+
+                                            onShowArtist: {
+                                                listViews.currentIndex = 2
+                                                allArtistsView.showArtistsAlbums(name)
+                                            }
                                         }
 
                                         visible: opacity > 0
@@ -588,6 +593,8 @@ ApplicationWindow {
                                         }
 
                                         firstPage: MediaAllArtistView {
+                                            id: allArtistsView
+
                                             focus: true
                                             playListModel: playListModelItem
                                             artistsModel: allArtistsModel

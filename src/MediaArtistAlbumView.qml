@@ -37,6 +37,8 @@ Item {
 
     property alias artistName: navBar.artist
 
+    signal showArtist(var name)
+
     id: rootElement
 
     SystemPalette {
@@ -159,6 +161,10 @@ Item {
 
                             playListModel: rootElement.playListModel
                             playerControl: rootElement.playerControl
+
+                            onAlbumClicked: contentDirectoryView.currentIndex = index
+
+                            onShowArtist: rootElement.showArtist(name)
                         }
                     }
 

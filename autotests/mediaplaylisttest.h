@@ -81,6 +81,8 @@ private Q_SLOTS:
 
     void testClearAndEnqueueTrackId();
 
+    void testClearAndEnqueueTrackData();
+
     void testSetData();
 
 private:

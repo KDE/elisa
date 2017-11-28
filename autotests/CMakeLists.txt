@@ -381,6 +381,93 @@ endif()
 
 target_include_directories(mediaplaylistTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 
+set(trackslistenertest_SOURCES
+    ../src/mediaplaylist.cpp
+    ../src/databaseinterface.cpp
+    ../src/trackslistener.cpp
+    ../src/musiclistenersmanager.cpp
+    ../src/elisaapplication.cpp
+    ../src/notificationitem.cpp
+    ../src/musicartist.cpp
+    ../src/musicalbum.cpp
+    ../src/musicaudiotrack.cpp
+    trackslistenertest.cpp
+)
+
+if (KF5Baloo_FOUND)
+    if (Qt5DBus_FOUND)
+        qt5_add_dbus_interface(trackslistenertest_SOURCES
+            ${BALOO_DBUS_INTERFACES_DIR}/org.kde.baloo.fileindexer.xml
+            baloo/fileindexer)
+
+        qt5_add_dbus_interface(trackslistenertest_SOURCES
+            ${BALOO_DBUS_INTERFACES_DIR}/org.kde.baloo.scheduler.xml
+            baloo/scheduler)
+
+        set(trackslistenertest_SOURCES
+            ${trackslistenertest_SOURCES}
+            ../src/baloo/baloolistener.cpp
+            ../src/baloo/localbaloofilelisting.cpp
+            )
+    endif()
+endif()
+
+if (UPNPQT_FOUND)
+    set(trackslistenertest_SOURCES
+        ${trackslistenertest_SOURCES}
+        ../src/upnp/upnpcontrolcontentdirectory.cpp
+        ../src/upnp/upnpcontentdirectorymodel.cpp
+        ../src/upnp/upnpcontrolconnectionmanager.cpp
+        ../src/upnp/upnpcontrolmediaserver.cpp
+        ../src/upnp/didlparser.cpp
+        ../src/upnp/upnplistener.cpp
+        ../src/upnp/upnpdiscoverallmusic.cpp
+        )
+endif()
+
+if (KF5FileMetaData_FOUND)
+    set(trackslistenertest_SOURCES
+        ${trackslistenertest_SOURCES}
+        ../src/file/filelistener.cpp
+        ../src/file/localfilelisting.cpp
+        ../src/abstractfile/abstractfilelistener.cpp
+        ../src/abstractfile/abstractfilelisting.cpp
+    )
+endif()
+
+if (KF5Config_FOUND)
+    kconfig_add_kcfg_files(trackslistenertest_SOURCES ../src/elisa_settings.kcfgc )
+    set(trackslistenertest_SOURCES
+        ${trackslistenertest_SOURCES}
+        ../src/elisa_core.kcfg
+    )
+endif()
+
+ecm_add_test(${trackslistenertest_SOURCES}
+    TEST_NAME "trackslistenertest"
+    LINK_LIBRARIES Qt5::Test Qt5::Core Qt5::Sql Qt5::Gui Qt5::Widgets KF5::I18n Qt5::Quick Qt5::Multimedia)
+
+if (KF5Baloo_FOUND)
+    target_link_libraries(trackslistenertest KF5::Baloo Qt5::DBus)
+endif()
+if (KF5KCMUtils_FOUND)
+    target_link_libraries(trackslistenertest KF5::KCMUtils)
+endif()
+if (KF5FileMetaData_FOUND)
+    target_link_libraries(trackslistenertest KF5::FileMetaData)
+endif()
+if (UPNPQT_FOUND)
+    target_link_libraries(trackslistenertest Qt5::Xml UPNP::upnpQt Qt5::Network)
+endif()
+if (KF5XmlGui_FOUND)
+    target_link_libraries(trackslistenertest KF5::XmlGui)
+endif()
+if (KF5Config_FOUND)
+    target_link_libraries(trackslistenertest KF5::ConfigCore KF5::ConfigGui)
+endif()
+
+target_include_directories(trackslistenertest PRIVATE ${CMAKE_SOURCE_DIR}/src)
+
 set(allalbumsmodeltest_SOURCES
     ../src/databaseinterface.cpp
     ../src/musicartist.cpp

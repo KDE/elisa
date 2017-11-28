@@ -4697,7 +4697,7 @@ void MediaPlayListTest::testTrackBeenRemoved()
 
     QCOMPARE(removedTrack.isValid(), true);
 
-    myPlayList.trackRemoved(removedTrack);
+    myPlayList.trackRemoved(removedTrack.databaseId());
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);

@@ -43,7 +43,7 @@ Q_SIGNALS:
 
     void trackHasChanged(const MusicAudioTrack &audioTrack);
 
-    void trackHasBeenRemoved(const MusicAudioTrack &audioTrack);
+    void trackHasBeenRemoved(qulonglong id);
 
     void albumAdded(const QList<MusicAudioTrack> &tracks);
 

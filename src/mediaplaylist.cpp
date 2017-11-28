@@ -587,18 +587,19 @@ void MediaPlayList::trackChanged(const MusicAudioTrack &track)
     }
 }
 
-void MediaPlayList::trackRemoved(const MusicAudioTrack &track)
+void MediaPlayList::trackRemoved(qulonglong trackId)
 {
     for (int i = 0; i < d->mData.size(); ++i) {
         auto &oneEntry = d->mData[i];
 
         if (oneEntry.mIsValid) {
-            if (oneEntry.mId == track.databaseId()) {
-                oneEntry.mTitle = track.title();
-                oneEntry.mArtist = track.artist();
-                oneEntry.mAlbum = track.albumName();
-
+            if (oneEntry.mId == trackId) {
                 oneEntry.mIsValid = false;
+                oneEntry.mTitle = d->mTrackData[i].title();
+                oneEntry.mArtist = d->mTrackData[i].artist();
+                oneEntry.mAlbum = d->mTrackData[i].albumName();
+                oneEntry.mTrackNumber = d->mTrackData[i].trackNumber();
+                oneEntry.mDiscNumber = d->mTrackData[i].discNumber();
 
                 Q_EMIT dataChanged(index(i, 0), index(i, 0), {});
             }

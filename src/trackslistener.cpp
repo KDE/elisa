@@ -95,9 +95,7 @@ void TracksListener::tracksAdded(const QList<MusicAudioTrack> &allTracks)
 void TracksListener::trackRemoved(qulonglong id)
 {
     if (d->mTracksByIdSet.find(id) != d->mTracksByIdSet.end()) {
-        const auto &newTrack = d->mDatabase->trackFromDatabaseId(id);
-
-        Q_EMIT trackHasBeenRemoved(newTrack);
+        Q_EMIT trackHasBeenRemoved(id);
     }
 }
 
@@ -142,6 +140,10 @@ void TracksListener::newArtistInList(const QString &artist)
     auto newTracks = d->mDatabase->tracksFromAuthor(artist);
     if (newTracks.isEmpty()) {
         return;
+    }
+
+    for (const auto &oneTrack : newTracks) {
+        d->mTracksByIdSet.insert(oneTrack.databaseId());
     }
 
     Q_EMIT albumAdded(newTracks);

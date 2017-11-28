@@ -152,7 +152,7 @@ public Q_SLOTS:
 
     void trackChanged(const MusicAudioTrack &track);
 
-    void trackRemoved(const MusicAudioTrack &track);
+    void trackRemoved(qulonglong trackId);
 
     void setMusicListenersManager(MusicListenersManager* musicListenersManager);
 

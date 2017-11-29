@@ -189,7 +189,7 @@ int main(int argc, char *argv[])
                           QStringLiteral("0.0.80"),
                           i18n("A Simple Music Player written with KDE Frameworks"),
                           KAboutLicense::LGPL_V3,
-                          i18n("(c) 2015-2017, Matthieu Gallien <mgallien@mgallien.fr>"));
+                          i18n("(c) 2015-2017, Matthieu Gallien &lt;mgallien@mgallien.fr&gt;"));
 
     aboutData.addAuthor(QStringLiteral("Matthieu Gallien"),i18n("Author"), QStringLiteral("mgallien@mgallien.fr"));
 

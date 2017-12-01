@@ -138,10 +138,6 @@ int ManageAudioPlayer::albumNameRole() const
 
 void ManageAudioPlayer::setCurrentTrack(const QPersistentModelIndex &currentTrack)
 {
-    if (mCurrentTrack == currentTrack) {
-        return;
-    }
-
     mOldCurrentTrack = mCurrentTrack;
 
     mCurrentTrack = currentTrack;
@@ -152,7 +148,9 @@ void ManageAudioPlayer::setCurrentTrack(const QPersistentModelIndex &currentTrac
 
     mPlayerError = QMediaPlayer::NoError;
 
-    Q_EMIT currentTrackChanged();
+    if (mOldCurrentTrack != mCurrentTrack || mPlayingState) {
+        Q_EMIT currentTrackChanged();
+    }
 
     switch (mPlayerPlaybackState) {
     case StoppedState:
@@ -279,7 +277,9 @@ void ManageAudioPlayer::setPlayerPlaybackState(int playerPlaybackState)
     } else {
         switch(mPlayerPlaybackState) {
         case StoppedState:
-            notifyPlayerSourceProperty();
+            if (mCurrentTrack != mOldCurrentTrack) {
+                notifyPlayerSourceProperty();
+            }
             mSkippingCurrentTrack = false;
             if (mPlayListModel && mOldCurrentTrack.isValid()) {
                 mPlayListModel->setData(mOldCurrentTrack, MediaPlayList::NotPlaying, mIsPlayingRole);
@@ -483,7 +483,7 @@ void ManageAudioPlayer::setAlbumNameRole(int albumNameRole)
 void ManageAudioPlayer::notifyPlayerSourceProperty()
 {
     auto newUrlValue = mCurrentTrack.data(mUrlRole);
-    if (mOldPlayerSource != newUrlValue) {
+    if ((mCurrentTrack == mOldCurrentTrack && mOldPlayerSource == newUrlValue && mPlayingState) || mOldPlayerSource != newUrlValue) {
         Q_EMIT playerSourceChanged();
 
         mOldPlayerSource = newUrlValue;

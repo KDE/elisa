@@ -61,6 +61,8 @@ private Q_SLOTS:
 
     void skipNextTrack();
 
+    void skipNextTrackWithRandomPlay();
+
     void skipPreviousTrack();
 
     void playTrackAndskipNextTrack();

@@ -129,23 +129,6 @@ FocusScope {
             }
         }
 
-        Rectangle {
-            border.width: 1
-            border.color: myPalette.mid
-            color: myPalette.mid
-
-            Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-
-            Layout.fillWidth: parent
-
-            Layout.leftMargin: elisaTheme.layoutHorizontalMargin
-            Layout.rightMargin: elisaTheme.layoutHorizontalMargin
-
-            Layout.preferredHeight: 1
-            Layout.minimumHeight: 1
-            Layout.maximumHeight: 1
-        }
-
         ScrollView {
             flickableItem.boundsBehavior: Flickable.StopAtBounds
 

@@ -49,106 +49,15 @@ FocusScope {
         anchors.fill: parent
         spacing: 0
 
-        TextMetrics {
-            id: titleHeight
-            text: viewTitleHeight.text
-            font
-            {
-                pixelSize: viewTitleHeight.font.pixelSize
-                bold: viewTitleHeight.font.bold
-            }
-        }
+        FilterBar {
+            id: filterBar
+            labelText: i18nc("Title of the view of all tracks", "Tracks")
 
-        LabelWithToolTip {
-            id: viewTitleHeight
-            text: i18nc("Title of the view of all tracks", "Tracks")
-
-            color: myPalette.text
-            font.pixelSize: elisaTheme.defaultFontPixelSize * 2
-
-            Layout.leftMargin: elisaTheme.layoutHorizontalMargin
-            Layout.rightMargin: elisaTheme.layoutHorizontalMargin
-            Layout.topMargin: elisaTheme.layoutVerticalMargin
-            Layout.bottomMargin: titleHeight.height + elisaTheme.layoutVerticalMargin
-        }
-
-        RowLayout {
-            id: filterRow
-
-            spacing: 0
-
+            height: elisaTheme.navigationBarHeight
+            Layout.preferredHeight: height
+            Layout.minimumHeight: height
+            Layout.maximumHeight: height
             Layout.fillWidth: true
-            Layout.bottomMargin: titleHeight.height + elisaTheme.layoutVerticalMargin * 2
-            Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-            Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-
-            LabelWithToolTip {
-                text: i18nc("before the TextField input of the filter", "Filter: ")
-
-                font.bold: true
-
-                color: myPalette.text
-            }
-
-            TextField {
-                id: filterTextInput
-
-                horizontalAlignment: TextInput.AlignLeft
-
-                placeholderText: i18nc("Placeholder text in the filter text box", "Filter")
-
-                Layout.preferredWidth: rootElement.width / 2
-
-                Image {
-                    anchors.top: parent.top
-                    anchors.bottom: parent.bottom
-                    anchors.right: parent.right
-                    anchors.margins: elisaTheme.filterClearButtonMargin
-                    id: clearText
-                    fillMode: Image.PreserveAspectFit
-                    smooth: true
-                    visible: parent.text
-                    source: Qt.resolvedUrl(elisaTheme.clearIcon)
-                    height: parent.height
-                    width: parent.height
-                    sourceSize.width: parent.height
-                    sourceSize.height: parent.height
-                    mirror: LayoutMirroring.enabled
-
-                    MouseArea {
-                        id: clear
-                        anchors { horizontalCenter: parent.horizontalCenter; verticalCenter: parent.verticalCenter }
-                        height: parent.parent.height
-                        width: parent.parent.height
-                        onClicked: {
-                            parent.parent.text = ""
-                            parent.parent.forceActiveFocus()
-                        }
-                    }
-                }
-            }
-
-            LabelWithToolTip {
-                text: i18nc("before the Rating widget input of the filter", "Rating: ")
-
-                font.bold: true
-
-                color: myPalette.text
-
-                Layout.bottomMargin: 0
-                Layout.leftMargin: !LayoutMirroring.enabled ? (elisaTheme.layoutHorizontalMargin * 2) : 0
-                Layout.rightMargin: LayoutMirroring.enabled ? (elisaTheme.layoutHorizontalMargin * 2) : 0
-            }
-
-            RatingStar {
-                id: ratingFilter
-
-                readOnly: false
-
-                starSize: elisaTheme.ratingStarSize
-
-                Layout.bottomMargin: 0
-            }
         }
 
         Rectangle {
@@ -174,9 +83,9 @@ FocusScope {
                         model: AlbumFilterProxyModel {
                             sourceModel: rootElement.tracksModel
 
-                            filterText: filterTextInput.text
+                            filterText: filterBar.filterText
 
-                            filterRating: ratingFilter.starRating
+                            filterRating: filterBar.filterRating
                         }
 
                         delegate: MediaTracksDelegate {

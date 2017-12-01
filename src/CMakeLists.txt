@@ -52,6 +52,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
 
         HeaderBar.qml
         NavigationActionBar.qml
+        FilterBar.qml
         MediaPlayerControl.qml
         ContextView.qml
 

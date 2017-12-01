@@ -42,6 +42,7 @@
         <file>TrackImportNotification.qml</file>
         <file>TopNotificationItem.qml</file>
         <file>ViewSelector.qml</file>
+        <file>FilterBar.qml</file>
     </qresource>
     <qresource prefix="/+windows">
         <file alias="Theme.qml">windows/WindowsTheme.qml</file>

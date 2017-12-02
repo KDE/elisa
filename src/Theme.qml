@@ -50,7 +50,7 @@ Item {
     property int delegateToolButtonSize: 34
     property int smallDelegateToolButtonSize: 20
 
-    property int ratingStarSize: 10
+    property int ratingStarSize: 15
 
     property int mediaPlayerControlHeight: 48
     property int smallControlButtonHeight: 32

@@ -17,8 +17,8 @@
  * Boston, MA 02110-1301, USA.
  */
 
-import QtQuick 2.5
-import QtQuick.Layouts 1.1
+import QtQuick 2.7
+import QtQuick.Layouts 1.2
 import QtGraphicalEffects 1.0
 
 RowLayout {
@@ -29,216 +29,64 @@ RowLayout {
     property double hoverBrightness: 0.5
     property double hoverContrast: 0.5
 
+    property int hoveredRating: 0
+
     spacing: 0
 
-    Item {
-        Layout.preferredHeight: starSize * 1.5
-        Layout.preferredWidth: starSize * 1.5
-        Layout.maximumHeight: starSize * 1.5
-        Layout.maximumWidth: starSize * 1.5
-        Layout.minimumHeight: starSize * 1.5
-        Layout.minimumWidth: starSize * 1.5
+    Repeater {
+        model: 5
 
-        Image {
-            width: starSize * 1.5
-            height: starSize * 1.5
-            anchors.centerIn: parent
-            sourceSize.width: starSize * 1.5
-            sourceSize.height: starSize * 1.5
-            fillMode: Image.PreserveAspectFit
+        Item {
+            property int ratingThreshold: 2 + index * 2
+            Layout.preferredHeight: starSize
+            Layout.preferredWidth: starSize
+            Layout.maximumHeight: starSize
+            Layout.maximumWidth: starSize
+            Layout.minimumHeight: starSize
+            Layout.minimumWidth: starSize
 
-            layer.enabled: (mouseAreaOne.containsMouse && starRating !== 2) || (mouseAreaTwo.containsMouse && starRating !== 4) || (mouseAreaThree.containsMouse && starRating !== 6) ||
-                           (mouseAreaFour.containsMouse && starRating !== 8) || (mouseAreaFive.containsMouse && starRating !== 10)
-            layer.effect: BrightnessContrast {
-                brightness: hoverBrightness
-                contrast: hoverContrast
+            Image {
+                width: starSize
+                height: starSize
+                anchors.centerIn: parent
+                sourceSize.width: starSize
+                sourceSize.height: starSize
+                fillMode: Image.PreserveAspectFit
+
+                layer.enabled: hoveredRating >= ratingThreshold
+
+                layer.effect: BrightnessContrast {
+                    brightness: hoverBrightness
+                    contrast: hoverContrast
+                }
+
+                source: if (starRating >= ratingThreshold || hoveredRating >= ratingThreshold)
+                            Qt.resolvedUrl(elisaTheme.ratingIcon)
+                        else
+                            Qt.resolvedUrl(elisaTheme.ratingUnratedIcon)
+                opacity: if (starRating >= ratingThreshold || hoveredRating >= ratingThreshold)
+                            1
+                        else
+                            0.7
             }
 
-            source: if (starRating >= 2 || mouseAreaOne.containsMouse || mouseAreaTwo.containsMouse || mouseAreaThree.containsMouse || mouseAreaFour.containsMouse || mouseAreaFive.containsMouse)
-                        Qt.resolvedUrl(elisaTheme.ratingIcon)
-                    else
-                        Qt.resolvedUrl(elisaTheme.ratingUnratedIcon)
-            opacity: if (starRating >= 2 || mouseAreaOne.containsMouse || mouseAreaTwo.containsMouse || mouseAreaThree.containsMouse || mouseAreaFour.containsMouse || mouseAreaFive.containsMouse)
-                        1
-                    else
-                        0.7
-        }
+            MouseArea {
+                anchors.fill: parent
 
-        MouseArea {
-            id: mouseAreaOne
-            enabled: !readOnly
-            hoverEnabled: true
-            anchors.fill: parent
-            onClicked: if (starRating !== 2) {
-                           starRating = 2
-                       } else {
-                           starRating = 0
-                       }
-        }
-    }
-    Item {
-        Layout.preferredHeight: starSize * 1.5
-        Layout.preferredWidth: starSize * 1.5
-        Layout.maximumHeight: starSize * 1.5
-        Layout.maximumWidth: starSize * 1.5
-        Layout.minimumHeight: starSize * 1.5
-        Layout.minimumWidth: starSize * 1.5
+                enabled: !readOnly
 
-        Image {
-            width: starSize * 1.5
-            height: starSize * 1.5
-            anchors.centerIn: parent
-            sourceSize.width: starSize * 1.5
-            sourceSize.height: starSize * 1.5
-            fillMode: Image.PreserveAspectFit
+                acceptedButtons: Qt.LeftButton
+                hoverEnabled: true
 
-            layer.enabled: (mouseAreaTwo.containsMouse && starRating !== 4) || (mouseAreaThree.containsMouse && starRating !== 6) ||
-                           (mouseAreaFour.containsMouse && starRating !== 8) || (mouseAreaFive.containsMouse && starRating !== 10)
-            layer.effect: BrightnessContrast {
-                brightness: hoverBrightness
-                contrast: hoverContrast
+                onClicked: if (starRating !== ratingThreshold) {
+                               starRating = ratingThreshold
+                           } else {
+                               starRating = 0
+                           }
+
+                onEntered: hoveredRating = ratingThreshold
+                onExited: hoveredRating = 0
             }
-
-            source: if (starRating >= 4 || mouseAreaTwo.containsMouse || mouseAreaThree.containsMouse || mouseAreaFour.containsMouse || mouseAreaFive.containsMouse)
-                        Qt.resolvedUrl(elisaTheme.ratingIcon)
-                    else
-                        Qt.resolvedUrl(elisaTheme.ratingUnratedIcon)
-            opacity: if (starRating >= 4 || mouseAreaTwo.containsMouse || mouseAreaThree.containsMouse || mouseAreaFour.containsMouse || mouseAreaFive.containsMouse)
-                        1
-                    else
-                        0.7
-        }
-
-        MouseArea {
-            id: mouseAreaTwo
-            enabled: !readOnly
-            hoverEnabled: true
-            anchors.fill: parent
-            onClicked: starRating = 4
-        }
-    }
-    Item {
-        Layout.preferredHeight: starSize * 1.5
-        Layout.preferredWidth: starSize * 1.5
-        Layout.maximumHeight: starSize * 1.5
-        Layout.maximumWidth: starSize * 1.5
-        Layout.minimumHeight: starSize * 1.5
-        Layout.minimumWidth: starSize * 1.5
-
-        Image {
-            width: starSize * 1.5
-            height: starSize * 1.5
-            anchors.centerIn: parent
-            sourceSize.width: starSize * 1.5
-            sourceSize.height: starSize * 1.5
-            fillMode: Image.PreserveAspectFit
-
-            layer.enabled: (mouseAreaThree.containsMouse && starRating !== 6) || (mouseAreaFour.containsMouse && starRating !== 8) || (mouseAreaFive.containsMouse && starRating !== 10)
-            layer.effect: BrightnessContrast {
-                brightness: hoverBrightness
-                contrast: hoverContrast
-            }
-
-            source: if (starRating >= 6 || mouseAreaThree.containsMouse || mouseAreaFour.containsMouse || mouseAreaFive.containsMouse)
-                        Qt.resolvedUrl(elisaTheme.ratingIcon)
-                    else
-                        Qt.resolvedUrl(elisaTheme.ratingUnratedIcon)
-            opacity: if (starRating >= 6 || mouseAreaThree.containsMouse || mouseAreaFour.containsMouse || mouseAreaFive.containsMouse)
-                        1
-                    else
-                        0.7
-        }
-
-        MouseArea {
-            id: mouseAreaThree
-            enabled: !readOnly
-            hoverEnabled: true
-            anchors.fill: parent
-            onClicked: starRating = 6
-        }
-    }
-    Item {
-        Layout.preferredHeight: starSize * 1.5
-        Layout.preferredWidth: starSize * 1.5
-        Layout.maximumHeight: starSize * 1.5
-        Layout.maximumWidth: starSize * 1.5
-        Layout.minimumHeight: starSize * 1.5
-        Layout.minimumWidth: starSize * 1.5
-
-        Image {
-            width: starSize * 1.5
-            height: starSize * 1.5
-            anchors.centerIn: parent
-            sourceSize.width: starSize * 1.5
-            sourceSize.height: starSize * 1.5
-            fillMode: Image.PreserveAspectFit
-
-            layer.enabled: (mouseAreaFour.containsMouse && starRating !== 8) || (mouseAreaFive.containsMouse && starRating !== 10)
-            layer.effect: BrightnessContrast {
-                brightness: hoverBrightness
-                contrast: hoverContrast
-            }
-
-            source: if (starRating >= 8 || mouseAreaFour.containsMouse || mouseAreaFive.containsMouse)
-                        Qt.resolvedUrl(elisaTheme.ratingIcon)
-                    else
-                        Qt.resolvedUrl(elisaTheme.ratingUnratedIcon)
-            opacity: if (starRating >= 8 || mouseAreaFour.containsMouse || mouseAreaFive.containsMouse)
-                        1
-                    else
-                        0.7
-        }
-
-        MouseArea {
-            id: mouseAreaFour
-            enabled: !readOnly
-            hoverEnabled: true
-            anchors.fill: parent
-            onClicked: starRating = 8
-        }
-    }
-    Item {
-        Layout.preferredHeight: starSize * 1.5
-        Layout.preferredWidth: starSize * 1.5
-        Layout.maximumHeight: starSize * 1.5
-        Layout.maximumWidth: starSize * 1.5
-        Layout.minimumHeight: starSize * 1.5
-        Layout.minimumWidth: starSize * 1.5
-
-        Layout.rightMargin: !LayoutMirroring.enabled ? (starSize * 0.5) : 0
-        Layout.leftMargin: LayoutMirroring.enabled ? (starSize * 0.5) : 0
-
-        Image {
-            width: starSize * 1.5
-            height: starSize * 1.5
-            anchors.centerIn: parent
-            sourceSize.width: starSize * 1.5
-            sourceSize.height: starSize * 1.5
-            fillMode: Image.PreserveAspectFit
-
-            layer.enabled: mouseAreaFive.containsMouse && starRating !== 10
-            layer.effect: BrightnessContrast {
-                brightness: hoverBrightness
-                contrast: hoverContrast
-            }
-
-            source: if (starRating === 10 || mouseAreaFive.containsMouse)
-                        Qt.resolvedUrl(elisaTheme.ratingIcon)
-                    else
-                        Qt.resolvedUrl(elisaTheme.ratingUnratedIcon)
-            opacity: if (starRating === 10 || mouseAreaFive.containsMouse)
-                        1
-                    else
-                        0.7
-        }
-
-        MouseArea {
-            id: mouseAreaFive
-            enabled: !readOnly
-            hoverEnabled: true
-            anchors.fill: parent
-            onClicked: starRating = 10
         }
     }
 }
-

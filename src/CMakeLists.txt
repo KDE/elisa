@@ -4,7 +4,6 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
     set(elisa_SOURCES
         upnpControl.cpp
         mediaplaylist.cpp
-        playlistcontroler.cpp
         musicstatistics.cpp
         musicalbum.cpp
         musicaudiotrack.cpp

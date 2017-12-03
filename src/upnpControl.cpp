@@ -39,7 +39,6 @@
 
 #include "progressindicator.h"
 #include "mediaplaylist.h"
-#include "playlistcontroler.h"
 #include "managemediaplayercontrol.h"
 #include "manageheaderbar.h"
 #include "manageaudioplayer.h"
@@ -146,7 +145,6 @@ int main(int argc, char *argv[])
 #endif
 
     qmlRegisterType<MediaPlayList>("org.kde.elisa", 1, 0, "MediaPlayList");
-    qmlRegisterType<PlayListControler>("org.kde.elisa", 1, 0, "PlayListControler");
     qmlRegisterType<ManageMediaPlayerControl>("org.kde.elisa", 1, 0, "ManageMediaPlayerControl");
     qmlRegisterType<ManageHeaderBar>("org.kde.elisa", 1, 0, "ManageHeaderBar");
     qmlRegisterType<ManageAudioPlayer>("org.kde.elisa", 1, 0, "ManageAudioPlayer");

@@ -19,7 +19,6 @@ ecm_add_test(${databaseInterfaceTest_SOURCES}
 target_include_directories(databaseInterfaceTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 
 set(playListControlerTest_SOURCES
-    ../src/playlistcontroler.cpp
     ../src/mediaplaylist.cpp
     ../src/databaseinterface.cpp
     ../src/musiclistenersmanager.cpp

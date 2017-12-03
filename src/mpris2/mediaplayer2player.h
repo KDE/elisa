@@ -27,7 +27,7 @@
 #include <QPointer>
 #include <QUrl>
 
-class PlayListControler;
+class MediaPlayList;
 class ManageAudioPlayer;
 class ManageMediaPlayerControl;
 class ManageHeaderBar;
@@ -55,7 +55,7 @@ class MediaPlayer2Player : public QDBusAbstractAdaptor
     Q_PROPERTY(int mediaPlayerPresent READ mediaPlayerPresent WRITE setMediaPlayerPresent)
 
 public:
-    explicit MediaPlayer2Player(PlayListControler *playListControler,
+    explicit MediaPlayer2Player(MediaPlayList *playListControler,
                                 ManageAudioPlayer *manageAudioPlayer,
                                 ManageMediaPlayerControl* manageMediaPlayerControl,
                                 ManageHeaderBar * manageHeaderBar,
@@ -144,7 +144,7 @@ private:
     bool m_canGoNext = false;
     bool m_canGoPrevious = false;
     qlonglong m_position = 0;
-    PlayListControler *m_playListControler = nullptr;
+    MediaPlayList *m_playListControler = nullptr;
     bool m_playerIsSeekableChanged = false;
     ManageAudioPlayer* m_manageAudioPlayer = nullptr;
     ManageMediaPlayerControl* m_manageMediaPlayerControl = nullptr;

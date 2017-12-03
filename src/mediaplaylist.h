@@ -36,7 +36,7 @@ class MediaPlayList : public QAbstractListModel
 {
     Q_OBJECT
 
-    Q_PROPERTY(QList<QVariant> persistentState
+    Q_PROPERTY(QVariantMap persistentState
                READ persistentState
                WRITE setPersistentState
                NOTIFY persistentStateChanged)
@@ -49,6 +49,24 @@ class MediaPlayList : public QAbstractListModel
     Q_PROPERTY(int tracksCount
                READ tracksCount
                NOTIFY tracksCountChanged)
+
+    Q_PROPERTY(QPersistentModelIndex currentTrack
+               READ currentTrack
+               NOTIFY currentTrackChanged)
+
+    Q_PROPERTY(int currentTrackRow
+               READ currentTrackRow
+               NOTIFY currentTrackRowChanged)
+
+    Q_PROPERTY(bool randomPlay
+               READ randomPlay
+               WRITE setRandomPlay
+               NOTIFY randomPlayChanged)
+
+    Q_PROPERTY(bool repeatPlay
+               READ repeatPlay
+               WRITE setRepeatPlay
+               NOTIFY repeatPlayChanged)
 
 public:
 
@@ -120,11 +138,19 @@ public:
 
     Q_INVOKABLE void clearPlayList();
 
-    QList<QVariant> persistentState() const;
+    QVariantMap persistentState() const;
 
     MusicListenersManager* musicListenersManager() const;
 
     int tracksCount() const;
+
+    QPersistentModelIndex currentTrack() const;
+
+    int currentTrackRow() const;
+
+    bool randomPlay() const;
+
+    bool repeatPlay() const;
 
 Q_SIGNALS:
 
@@ -142,9 +168,19 @@ Q_SIGNALS:
 
     void tracksCountChanged();
 
+    void currentTrackChanged();
+
+    void currentTrackRowChanged();
+
+    void randomPlayChanged();
+
+    void repeatPlayChanged();
+
+    void playListFinished();
+
 public Q_SLOTS:
 
-    void setPersistentState(const QList<QVariant> &persistentState);
+    void setPersistentState(const QVariantMap &persistentState);
 
     void removeSelection(QList<int> selection);
 
@@ -156,11 +192,33 @@ public Q_SLOTS:
 
     void setMusicListenersManager(MusicListenersManager* musicListenersManager);
 
+    void setRandomPlay(bool value);
+
+    void setRepeatPlay(bool value);
+
+    void skipNextTrack();
+
+    void skipPreviousTrack();
+
+    void seedRandomGenerator(uint seed);
+
+    void switchTo(int row);
+
 private Q_SLOTS:
 
     bool rowHasHeader(int row) const;
 
 private:
+
+    void resetCurrentTrack();
+
+    void notifyCurrentTrackChanged();
+
+    void restorePlayListPosition();
+
+    void restoreRandomPlay();
+
+    void restoreRepeatPlay();
 
     std::unique_ptr<MediaPlayListPrivate> d;
 
@@ -194,6 +252,8 @@ public:
     QString mAlbum;
 
     QString mArtist;
+
+    QUrl mTrackUrl;
 
     int mTrackNumber = -1;
 

@@ -68,6 +68,8 @@ private Q_SLOTS:
 
     void randomPlayList();
 
+    void randomAndContinuePlayList();
+
     void continuePlayList();
 
     void testRestoreSettings();
@@ -79,6 +81,8 @@ private Q_SLOTS:
     void singleTrack();
 
     void testBringUpAndRemoveLastCase();
+
+    void testSaveAndRestoreSettings();
 
 private:
 

@@ -39,6 +39,16 @@ public:
 
     MusicListenersManager* mMusicListenersManager = nullptr;
 
+    QPersistentModelIndex mCurrentTrack;
+
+    int mCurrentPlayListPosition = 0;
+
+    bool mRandomPlay = false;
+
+    bool mRepeatPlay = false;
+
+    QVariantMap mPersistentState;
+
 };
 
 MediaPlayList::MediaPlayList(QObject *parent) : QAbstractListModel(parent), d(new MediaPlayListPrivate)
@@ -220,6 +230,11 @@ bool MediaPlayList::setData(const QModelIndex &index, const QVariant &value, int
         PlayState newState = static_cast<PlayState>(value.toInt());
         d->mData[index.row()].mIsPlaying = newState;
         Q_EMIT dataChanged(index, index, {role});
+
+        if (!d->mCurrentTrack.isValid()) {
+            resetCurrentTrack();
+        }
+
         break;
     }
     default:
@@ -267,10 +282,34 @@ bool MediaPlayList::removeRows(int row, int count, const QModelIndex &parent)
     }
     endRemoveRows();
 
+    if (!d->mCurrentTrack.isValid()) {
+        d->mCurrentTrack = index(d->mCurrentPlayListPosition, 0);
+
+        if (d->mCurrentTrack.isValid()) {
+            notifyCurrentTrackChanged();
+        }
+
+        if (!d->mCurrentTrack.isValid()) {
+            Q_EMIT playListFinished();
+            resetCurrentTrack();
+            if (!d->mCurrentTrack.isValid()) {
+                notifyCurrentTrackChanged();
+            }
+        }
+    }
+
+    if (!d->mCurrentTrack.isValid() && rowCount(parent) <= row) {
+        resetCurrentTrack();
+    }
+
     Q_EMIT tracksCountChanged();
 
     if (hadAlbumHeader != rowHasHeader(row)) {
         Q_EMIT dataChanged(index(row, 0), index(row, 0), {ColumnsRoles::HasAlbumHeader});
+
+        if (!d->mCurrentTrack.isValid()) {
+            resetCurrentTrack();
+        }
     }
 
     Q_EMIT persistentStateChanged();
@@ -311,6 +350,11 @@ void MediaPlayList::enqueue(const MediaPlayListEntry &newEntry, const MusicAudio
     }
     endInsertRows();
 
+    restorePlayListPosition();
+    if (!d->mCurrentTrack.isValid()) {
+        resetCurrentTrack();
+    }
+
     Q_EMIT tracksCountChanged();
     Q_EMIT persistentStateChanged();
 
@@ -324,6 +368,10 @@ void MediaPlayList::enqueue(const MediaPlayListEntry &newEntry, const MusicAudio
 
     if (!newEntry.mIsValid) {
         Q_EMIT dataChanged(index(rowCount() - 1, 0), index(rowCount() - 1, 0), {MediaPlayList::HasAlbumHeader});
+
+        if (!d->mCurrentTrack.isValid()) {
+            resetCurrentTrack();
+        }
     }
 }
 
@@ -359,30 +407,54 @@ bool MediaPlayList::moveRows(const QModelIndex &sourceParent, int sourceRow, int
     if (sourceRow < destinationChild) {
         if (firstMovedTrackHasHeader != rowHasHeader(destinationChild - count)) {
             Q_EMIT dataChanged(index(destinationChild - count, 0), index(destinationChild - count, 0), {ColumnsRoles::HasAlbumHeader});
+
+            if (!d->mCurrentTrack.isValid()) {
+                resetCurrentTrack();
+            }
         }
     } else {
         if (firstMovedTrackHasHeader != rowHasHeader(destinationChild)) {
             Q_EMIT dataChanged(index(destinationChild, 0), index(destinationChild, 0), {ColumnsRoles::HasAlbumHeader});
+
+            if (!d->mCurrentTrack.isValid()) {
+                resetCurrentTrack();
+            }
         }
     }
 
     if (sourceRow < destinationChild) {
         if (nextTrackHasHeader != rowHasHeader(sourceRow)) {
             Q_EMIT dataChanged(index(sourceRow, 0), index(sourceRow, 0), {ColumnsRoles::HasAlbumHeader});
+
+            if (!d->mCurrentTrack.isValid()) {
+                resetCurrentTrack();
+            }
         }
     } else {
         if (nextTrackHasHeader != rowHasHeader(sourceRow + count)) {
             Q_EMIT dataChanged(index(sourceRow + count, 0), index(sourceRow + count, 0), {ColumnsRoles::HasAlbumHeader});
+
+            if (!d->mCurrentTrack.isValid()) {
+                resetCurrentTrack();
+            }
         }
     }
 
     if (sourceRow < destinationChild) {
         if (futureNextTrackHasHeader != rowHasHeader(destinationChild + count - 1)) {
             Q_EMIT dataChanged(index(destinationChild + count - 1, 0), index(destinationChild + count - 1, 0), {ColumnsRoles::HasAlbumHeader});
+
+            if (!d->mCurrentTrack.isValid()) {
+                resetCurrentTrack();
+            }
         }
     } else {
         if (futureNextTrackHasHeader != rowHasHeader(destinationChild + count)) {
             Q_EMIT dataChanged(index(destinationChild + count, 0), index(destinationChild + count, 0), {ColumnsRoles::HasAlbumHeader});
+
+            if (!d->mCurrentTrack.isValid()) {
+                resetCurrentTrack();
+            }
         }
     }
 
@@ -413,6 +485,11 @@ void MediaPlayList::enqueue(const QString &artistName)
     d->mData.push_back(MediaPlayListEntry{artistName});
     d->mTrackData.push_back({});
     endInsertRows();
+
+    restorePlayListPosition();
+    if (!d->mCurrentTrack.isValid()) {
+        resetCurrentTrack();
+    }
 
     Q_EMIT tracksCountChanged();
     Q_EMIT newArtistInList(artistName);
@@ -445,8 +522,9 @@ void MediaPlayList::clearPlayList()
     Q_EMIT tracksCountChanged();
 }
 
-QList<QVariant> MediaPlayList::persistentState() const
+QVariantMap MediaPlayList::persistentState() const
 {
+    auto currentState = QVariantMap();
     auto result = QList<QVariant>();
 
     for (int trackIndex = 0; trackIndex < d->mData.size(); ++trackIndex) {
@@ -465,7 +543,12 @@ QList<QVariant> MediaPlayList::persistentState() const
         }
     }
 
-    return result;
+    currentState[QStringLiteral("playList")] = result;
+    currentState[QStringLiteral("currentTrack")] = d->mCurrentPlayListPosition;
+    currentState[QStringLiteral("randomPlay")] = d->mRandomPlay;
+    currentState[QStringLiteral("repeatPlay")] = d->mRepeatPlay;
+
+    return currentState;
 }
 
 MusicListenersManager *MediaPlayList::musicListenersManager() const
@@ -478,9 +561,37 @@ int MediaPlayList::tracksCount() const
     return rowCount();
 }
 
-void MediaPlayList::setPersistentState(const QList<QVariant> &persistentState)
+QPersistentModelIndex MediaPlayList::currentTrack() const
 {
-    qDebug() << "MediaPlayList::setPersistentState" << persistentState;
+    return d->mCurrentTrack;
+}
+
+int MediaPlayList::currentTrackRow() const
+{
+    return d->mCurrentTrack.row();
+}
+
+bool MediaPlayList::randomPlay() const
+{
+    return d->mRandomPlay;
+}
+
+bool MediaPlayList::repeatPlay() const
+{
+    return d->mRepeatPlay;
+}
+
+void MediaPlayList::setPersistentState(const QVariantMap &persistentStateValue)
+{
+    if (d->mPersistentState == persistentStateValue) {
+        return;
+    }
+
+    qDebug() << "MediaPlayList::setPersistentState" << persistentStateValue;
+
+    d->mPersistentState = persistentStateValue;
+
+    auto persistentState = d->mPersistentState[QStringLiteral("playList")].toList();
 
     for (auto &oneData : persistentState) {
         auto trackData = oneData.toStringList();
@@ -497,7 +608,11 @@ void MediaPlayList::setPersistentState(const QList<QVariant> &persistentState)
         enqueue({restoredTitle, restoredArtist, restoredAlbum, restoredTrackNumber, restoredDiscNumber});
     }
 
-    emit persistentStateChanged();
+    restorePlayListPosition();
+    restoreRandomPlay();
+    restoreRepeatPlay();
+
+    Q_EMIT persistentStateChanged();
 }
 
 void MediaPlayList::removeSelection(QList<int> selection)
@@ -529,6 +644,10 @@ void MediaPlayList::albumAdded(const QList<MusicAudioTrack> &tracks)
 
         Q_EMIT dataChanged(index(playListIndex, 0), index(playListIndex, 0), {});
 
+        if (!d->mCurrentTrack.isValid()) {
+            resetCurrentTrack();
+        }
+
         if (tracks.size() > 1) {
             beginInsertRows(QModelIndex(), playListIndex + 1, playListIndex - 1 + tracks.size());
             for (int trackIndex = 1; trackIndex < tracks.size(); ++trackIndex) {
@@ -536,6 +655,11 @@ void MediaPlayList::albumAdded(const QList<MusicAudioTrack> &tracks)
                 d->mTrackData.push_back(tracks[trackIndex]);
             }
             endInsertRows();
+
+            restorePlayListPosition();
+            if (!d->mCurrentTrack.isValid()) {
+                resetCurrentTrack();
+            }
 
             Q_EMIT tracksCountChanged();
         }
@@ -558,6 +682,10 @@ void MediaPlayList::trackChanged(const MusicAudioTrack &track)
                 d->mTrackData[i] = track;
 
                 Q_EMIT dataChanged(index(i, 0), index(i, 0), {});
+
+                if (!d->mCurrentTrack.isValid()) {
+                    resetCurrentTrack();
+                }
             }
             continue;
         } else if (!oneEntry.mIsArtist && !oneEntry.mIsValid) {
@@ -582,6 +710,11 @@ void MediaPlayList::trackChanged(const MusicAudioTrack &track)
             oneEntry.mIsValid = true;
 
             Q_EMIT dataChanged(index(i, 0), index(i, 0), {});
+
+            if (!d->mCurrentTrack.isValid()) {
+                resetCurrentTrack();
+            }
+
             break;
         }
     }
@@ -602,6 +735,10 @@ void MediaPlayList::trackRemoved(qulonglong trackId)
                 oneEntry.mDiscNumber = d->mTrackData[i].discNumber();
 
                 Q_EMIT dataChanged(index(i, 0), index(i, 0), {});
+
+                if (!d->mCurrentTrack.isValid()) {
+                    resetCurrentTrack();
+                }
             }
         }
     }
@@ -620,6 +757,94 @@ void MediaPlayList::setMusicListenersManager(MusicListenersManager *musicListene
     }
 
     Q_EMIT musicListenersManagerChanged();
+}
+
+void MediaPlayList::setRandomPlay(bool value)
+{
+    d->mRandomPlay = value;
+    Q_EMIT randomPlayChanged();
+}
+
+void MediaPlayList::setRepeatPlay(bool value)
+{
+    d->mRepeatPlay = value;
+    Q_EMIT repeatPlayChanged();
+}
+
+void MediaPlayList::skipNextTrack()
+{
+    if (!d->mCurrentTrack.isValid()) {
+        return;
+    }
+
+    if (!d->mRandomPlay && (d->mCurrentTrack.row() >= (rowCount() - 1))) {
+        if (!d->mRepeatPlay) {
+            Q_EMIT playListFinished();
+        }
+
+        if (rowCount() == 1) {
+            d->mCurrentTrack = QPersistentModelIndex{};
+            notifyCurrentTrackChanged();
+        }
+
+        resetCurrentTrack();
+
+        return;
+    }
+
+    if (d->mRandomPlay) {
+        int randomValue = qrand();
+        randomValue = randomValue % (rowCount());
+        d->mCurrentTrack = index(randomValue, 0);
+    } else {
+        d->mCurrentTrack = index(d->mCurrentTrack.row() + 1, 0);
+    }
+
+    notifyCurrentTrackChanged();
+}
+
+void MediaPlayList::skipPreviousTrack()
+{
+    if (!d->mCurrentTrack.isValid()) {
+        return;
+    }
+
+    if (!d->mRandomPlay && !d->mRepeatPlay && d->mCurrentTrack.row() <= 0) {
+        return;
+    }
+
+    if (d->mRandomPlay) {
+        int randomValue = qrand();
+        randomValue = randomValue % (rowCount());
+        d->mCurrentTrack = index(randomValue, 0);
+    } else {
+        if (d->mRepeatPlay) {
+            if (d->mCurrentTrack.row() == 0) {
+                d->mCurrentTrack = index(rowCount() - 1, 0);
+            } else {
+                d->mCurrentTrack = index(d->mCurrentTrack.row() - 1, 0);
+            }
+        } else {
+            d->mCurrentTrack = index(d->mCurrentTrack.row() - 1, d->mCurrentTrack.column(), d->mCurrentTrack.parent());
+        }
+    }
+    notifyCurrentTrackChanged();
+}
+
+void MediaPlayList::seedRandomGenerator(uint seed)
+{
+    qsrand(seed);
+}
+
+void MediaPlayList::switchTo(int row)
+{
+    if (!d->mCurrentTrack.isValid()) {
+        return;
+    }
+
+    d->mCurrentTrack = index(row, 0);
+
+    notifyCurrentTrackChanged();
 }
 
 bool MediaPlayList::rowHasHeader(int row) const
@@ -661,6 +886,63 @@ bool MediaPlayList::rowHasHeader(int row) const
     }
 
     return true;
+}
+
+void MediaPlayList::resetCurrentTrack()
+{
+    for(int row = 0; row < rowCount(); ++row) {
+        auto candidateTrack = index(row, 0);
+
+        if (candidateTrack.isValid() && candidateTrack.data(ColumnsRoles::IsValidRole).toBool()) {
+            d->mCurrentTrack = candidateTrack;
+            notifyCurrentTrackChanged();
+            break;
+        }
+    }
+}
+
+void MediaPlayList::notifyCurrentTrackChanged()
+{
+    Q_EMIT currentTrackChanged();
+    Q_EMIT currentTrackRowChanged();
+    bool currentTrackIsValid = d->mCurrentTrack.isValid();
+    if (currentTrackIsValid) {
+        d->mCurrentPlayListPosition = d->mCurrentTrack.row();
+    }
+}
+
+void MediaPlayList::restorePlayListPosition()
+{
+    auto playerCurrentTrack = d->mPersistentState.find(QStringLiteral("currentTrack"));
+    if (playerCurrentTrack != d->mPersistentState.end()) {
+        auto newIndex = index(playerCurrentTrack->toInt(), 0);
+        if (newIndex.isValid() && (newIndex != d->mCurrentTrack)) {
+            d->mCurrentTrack = newIndex;
+            notifyCurrentTrackChanged();
+
+            if (d->mCurrentTrack.isValid()) {
+                d->mPersistentState.erase(playerCurrentTrack);
+            }
+        }
+    }
+}
+
+void MediaPlayList::restoreRandomPlay()
+{
+    auto randomPlayStoredValue = d->mPersistentState.find(QStringLiteral("randomPlay"));
+    if (randomPlayStoredValue != d->mPersistentState.end()) {
+        setRandomPlay(randomPlayStoredValue->toBool());
+        d->mPersistentState.erase(randomPlayStoredValue);
+    }
+}
+
+void MediaPlayList::restoreRepeatPlay()
+{
+    auto repeatPlayStoredValue = d->mPersistentState.find(QStringLiteral("repeatPlay"));
+    if (repeatPlayStoredValue != d->mPersistentState.end()) {
+        setRepeatPlay(repeatPlayStoredValue->toBool());
+        d->mPersistentState.erase(repeatPlayStoredValue);
+    }
 }
 
 

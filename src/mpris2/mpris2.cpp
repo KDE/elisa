@@ -22,7 +22,7 @@
 #include "mpris2.h"
 #include "mediaplayer2.h"
 #include "mediaplayer2player.h"
-#include "playlistcontroler.h"
+#include "mediaplaylist.h"
 
 #include <QDBusConnection>
 #include <QDir>
@@ -81,7 +81,7 @@ QAbstractItemModel *Mpris2::playListModel() const
     return m_playListModel;
 }
 
-PlayListControler *Mpris2::playListControler() const
+MediaPlayList *Mpris2::playListControler() const
 {
     return m_playListControler;
 }
@@ -140,7 +140,7 @@ void Mpris2::setPlayListModel(QAbstractItemModel *playListModel)
     emit playListModelChanged();
 }
 
-void Mpris2::setPlayListControler(PlayListControler *playListControler)
+void Mpris2::setPlayListControler(MediaPlayList *playListControler)
 {
     if (m_playListControler == playListControler) {
         return;

@@ -29,7 +29,7 @@
 class MediaPlayer2Player;
 class MediaPlayer2;
 class QAbstractItemModel;
-class PlayListControler;
+class MediaPlayList;
 class ManageAudioPlayer;
 class ManageMediaPlayerControl;
 class ManageHeaderBar;
@@ -49,7 +49,7 @@ class Mpris2 : public QObject
                WRITE setPlayListModel
                NOTIFY playListModelChanged)
 
-    Q_PROPERTY(PlayListControler* playListControler
+    Q_PROPERTY(MediaPlayList* playListControler
                READ playListControler
                WRITE setPlayListControler
                NOTIFY playListControlerChanged)
@@ -82,7 +82,7 @@ public:
 
     QAbstractItemModel* playListModel() const;
 
-    PlayListControler* playListControler() const;
+    MediaPlayList* playListControler() const;
 
     ManageAudioPlayer* audioPlayerManager() const;
 
@@ -98,7 +98,7 @@ public Q_SLOTS:
 
     void setPlayListModel(QAbstractItemModel* playListModel);
 
-    void setPlayListControler(PlayListControler* playListControler);
+    void setPlayListControler(MediaPlayList* playListControler);
 
     void setAudioPlayerManager(ManageAudioPlayer* audioPlayerManager);
 
@@ -133,7 +133,7 @@ private:
     MediaPlayer2Player *m_mp2p = nullptr;
     QString m_playerName;
     QAbstractItemModel* m_playListModel = nullptr;
-    PlayListControler* m_playListControler = nullptr;
+    MediaPlayList* m_playListControler = nullptr;
     ManageAudioPlayer* m_manageAudioPlayer = nullptr;
     ManageMediaPlayerControl* m_manageMediaPlayerControl = nullptr;
     ManageHeaderBar* m_manageHeaderBar = nullptr;

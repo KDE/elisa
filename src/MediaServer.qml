@@ -111,7 +111,7 @@ ApplicationWindow {
             persistentSettings.height = mainWindow.height;
 
             persistentSettings.playListState = playListModelItem.persistentState;
-            persistentSettings.playListControlerState = playListControlerItem.persistentState;
+            persistentSettings.playListControlerState = playListModelItem.persistentState;
             persistentSettings.audioPlayerState = manageAudioPlayer.persistentState
 
             persistentSettings.playControlItemVolume = headerBar.playerControl.volume
@@ -123,7 +123,7 @@ ApplicationWindow {
         id: platformInterface
 
         playListModel: playListModelItem
-        playListControler: playListControlerItem
+        playListControler: playListModelItem
         audioPlayerManager: manageAudioPlayer
         headerBarManager: myHeaderBarManager
         manageMediaPlayerControl: myPlayControlManager
@@ -173,18 +173,8 @@ ApplicationWindow {
 
         persistentState: persistentSettings.playListState
         musicListenersManager: allListeners
-    }
-
-    PlayListControler {
-        id: playListControlerItem
-
-        playListModel: playListModelItem
-
-        isValidRole: MediaPlayList.IsValidRole
 
         onPlayListFinished: manageAudioPlayer.playListFinished()
-
-        persistentState: persistentSettings.playListControlerState
 
         Component.onCompleted:
         {
@@ -198,7 +188,7 @@ ApplicationWindow {
         id: myHeaderBarManager
 
         playListModel: playListModelItem
-        currentTrack: playListControlerItem.currentTrack
+        currentTrack: playListModelItem.currentTrack
 
         artistRole: MediaPlayList.ArtistRole
         titleRole: MediaPlayList.TitleRole
@@ -210,7 +200,7 @@ ApplicationWindow {
     ManageAudioPlayer {
         id: manageAudioPlayer
 
-        currentTrack: playListControlerItem.currentTrack
+        currentTrack: playListModelItem.currentTrack
         playListModel: playListModelItem
         urlRole: MediaPlayList.ResourceRole
         isPlayingRole: MediaPlayList.IsPlayingRole
@@ -230,7 +220,7 @@ ApplicationWindow {
         onPlayerPlay: audioPlayer.play()
         onPlayerPause: audioPlayer.pause()
         onPlayerStop: audioPlayer.stop()
-        onSkipNextTrack: playListControlerItem.skipNextTrack()
+        onSkipNextTrack: playListModelItem.skipNextTrack()
         onSeek: audioPlayer.seek(position)
         onSourceInError: allListeners.playBackError(source, playerError)
     }
@@ -239,7 +229,7 @@ ApplicationWindow {
         id: myPlayControlManager
 
         playListModel: playListModelItem
-        currentTrack: playListControlerItem.currentTrack
+        currentTrack: playListModelItem.currentTrack
     }
 
     AllAlbumsModel {
@@ -431,8 +421,8 @@ ApplicationWindow {
                     playerControl.onPlay: manageAudioPlayer.playPause()
                     playerControl.onPause: manageAudioPlayer.playPause()
 
-                    playerControl.onPlayPrevious: playListControlerItem.skipPreviousTrack()
-                    playerControl.onPlayNext: playListControlerItem.skipNextTrack()
+                    playerControl.onPlayPrevious: playListModelItem.skipPreviousTrack()
+                    playerControl.onPlayNext: playListModelItem.skipNextTrack()
 
                     ToolButton {
                         id: menuButton
@@ -677,10 +667,10 @@ ApplicationWindow {
                                 id: playList
 
                                 playListModel: playListModelItem
-                                playListControler: playListControlerItem
+                                playListControler: playListModelItem
 
-                                randomPlayChecked: playListControlerItem.randomPlayControl
-                                repeatPlayChecked: playListControlerItem.repeatPlayControl
+                                randomPlayChecked: playListModelItem.randomPlay
+                                repeatPlayChecked: playListModelItem.repeatPlay
 
                                 Layout.fillHeight: true
 
@@ -690,8 +680,8 @@ ApplicationWindow {
 
                                 Component.onCompleted:
                                 {
-                                    playListControlerItem.randomPlay = Qt.binding(function() { return playList.randomPlayChecked })
-                                    playListControlerItem.repeatPlay = Qt.binding(function() { return playList.repeatPlayChecked })
+                                    playListModelItem.randomPlay = Qt.binding(function() { return playList.randomPlayChecked })
+                                    playListModelItem.repeatPlay = Qt.binding(function() { return playList.repeatPlayChecked })
                                     myPlayControlManager.randomOrContinuePlay = Qt.binding(function() { return playList.randomPlayChecked || playList.repeatPlayChecked })
                                 }
 

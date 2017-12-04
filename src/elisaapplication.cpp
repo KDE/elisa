@@ -113,8 +113,13 @@ void ElisaApplication::setupActions()
     }
 
     if (KAuthorized::authorizeAction(QStringLiteral("options_configure_keybinding"))) {
-        auto keyBindignsAction = KStandardAction::keyBindings(this, &ElisaApplication::configureShortcuts, this);
-        d->mCollection.addAction(keyBindignsAction->objectName(), keyBindignsAction);
+        auto keyBindingsAction = KStandardAction::keyBindings(this, &ElisaApplication::configureShortcuts, this);
+        d->mCollection.addAction(keyBindingsAction->objectName(), keyBindingsAction);
+    }
+
+    if (KAuthorized::authorizeAction(QStringLiteral("go_back"))) {
+        auto goBackAction = KStandardAction::back(this, &ElisaApplication::goBack, this);
+        d->mCollection.addAction(goBackAction->objectName(), goBackAction);
     }
 
     d->mCollection.readSettings();
@@ -167,6 +172,8 @@ void ElisaApplication::configureElisa()
     d->mConfigurationDialog.show();
 #endif
 }
+
+void ElisaApplication::goBack() {}
 
 QAction * ElisaApplication::action(const QString& name)
 {

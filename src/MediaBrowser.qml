@@ -25,11 +25,17 @@ import QtQuick.Window 2.2
 import org.kde.elisa 1.0
 
 FocusScope {
+    id: contentDirectoryRoot
+
     property MediaPlayList playListModel
     property var firstPage
     property alias stackView: listingView
 
-    id: contentDirectoryRoot
+    function goBack() {
+        if (listingView.depth > 1) {
+            listingView.pop()
+        }
+    }
 
     ColumnLayout {
         anchors.fill: parent
@@ -66,12 +72,12 @@ FocusScope {
             }
 
             initialItem: firstPage
-
-            // Implements back key navigation
-            Keys.onReleased: if (event.key === Qt.Key_Back && listingView.depth > 1) {
-                                 listingView.pop();
-                                 event.accepted = true;
-                             }
         }
+    }
+
+    MouseArea {
+        anchors.fill: parent
+        acceptedButtons: Qt.BackButton
+        onClicked: goBack()
     }
 }

@@ -49,6 +49,7 @@ ApplicationWindow {
     property var aboutAppAction: elisa.action("help_about_app")
     property var configureShortcutsAction: elisa.action("options_configure_keybinding")
     property var configureAction: elisa.action("options_configure")
+    property var goBackAction: elisa.action("go_back")
 
     SystemPalette {
         id: myPalette
@@ -76,6 +77,17 @@ ApplicationWindow {
         property double playControlItemVolume : 100.0
         property bool playControlItemMuted : false
     }
+
+
+     Action {
+          text: goBackAction.text
+          shortcut: goBackAction.shortcut
+          iconName: elisa.iconName(goBackAction.icon)
+          onTriggered: {
+              localAlbums.goBack()
+              localArtists.goBack()
+          }
+      }
 
     Action {
         id: qmlQuitAction

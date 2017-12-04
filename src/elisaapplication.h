@@ -61,6 +61,10 @@ public Q_SLOTS:
 
     void configureElisa();
 
+private Q_SLOTS:
+
+    void goBack();
+
 private:
 
     std::unique_ptr<ElisaApplicationPrivate> d;

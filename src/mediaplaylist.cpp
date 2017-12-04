@@ -25,7 +25,6 @@
 #include <QUrl>
 #include <QPersistentModelIndex>
 #include <QList>
-#include <QDebug>
 
 #include <algorithm>
 

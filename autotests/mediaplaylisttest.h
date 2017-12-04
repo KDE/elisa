@@ -89,6 +89,46 @@ private Q_SLOTS:
 
     void testTrackBeenRemoved();
 
+    void testBringUpCase();
+
+    void testBringUpCaseFromNewAlbum();
+
+    void testBringUpAndDownCase();
+
+    void testBringUpAndRemoveCase();
+
+    void testBringUpAndRemoveMultipleCase();
+
+    void testBringUpAndRemoveMultipleNotBeginCase();
+
+    void testBringUpAndPlayCase();
+
+    void testBringUpAndSkipNextCase();
+
+    void testBringUpAndSkipPreviousCase();
+
+    void testBringUpAndSkipPreviousAndContinueCase();
+
+    void finishPlayList();
+
+    void randomPlayList();
+
+    void randomAndContinuePlayList();
+
+    void continuePlayList();
+
+    void testRestoreSettings();
+
+    void removeBeforeCurrentTrack();
+
+    void switchToTrackTest();
+
+    void singleTrack();
+
+    void testBringUpAndRemoveLastCase();
+
+    void testSaveAndRestoreSettings();
+
 private:
 
     QList<MusicAudioTrack> mNewTracks;

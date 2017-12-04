@@ -6187,8 +6187,6 @@ void MediaPlayListTest::testSaveAndRestoreSettings()
 
     QCOMPARE(myPlayListSave.currentTrack(), QPersistentModelIndex(myPlayListSave.index(3, 0)));
 
-    qDebug() << myPlayListSave.persistentState();
-
     myPlayListRestore.setPersistentState(myPlayListSave.persistentState());
 
     QCOMPARE(currentTrackChangedSaveSpy.count(), 3);

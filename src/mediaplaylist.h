@@ -114,24 +114,6 @@ public:
 
     Q_INVOKABLE bool removeRows(int row, int count, const QModelIndex &parent = QModelIndex()) override;
 
-    Q_INVOKABLE void enqueue(qulonglong newTrackId);
-
-    Q_INVOKABLE void enqueue(const MusicAudioTrack &newTrack);
-
-    Q_INVOKABLE void enqueue(const MediaPlayListEntry &newEntry, const MusicAudioTrack &audioTrack = {});
-
-    Q_INVOKABLE void enqueue(const MusicAlbum &album);
-
-    Q_INVOKABLE void enqueue(const QString &artistName);
-
-    Q_INVOKABLE void clearAndEnqueue(qulonglong newTrackId);
-
-    Q_INVOKABLE void clearAndEnqueue(const MusicAudioTrack &newTrack);
-
-    Q_INVOKABLE void clearAndEnqueue(const MusicAlbum &album);
-
-    Q_INVOKABLE void clearAndEnqueue(const QString &artistName);
-
     Q_INVOKABLE bool moveRows(const QModelIndex &sourceParent, int sourceRow, int count, const QModelIndex &destinationParent, int destinationChild) override;
 
     Q_INVOKABLE void move(int from, int to, int n);
@@ -203,6 +185,24 @@ public Q_SLOTS:
     void seedRandomGenerator(uint seed);
 
     void switchTo(int row);
+
+    void enqueue(qulonglong newTrackId);
+
+    void enqueue(const MusicAudioTrack &newTrack);
+
+    void enqueue(const MediaPlayListEntry &newEntry, const MusicAudioTrack &audioTrack = {});
+
+    void enqueue(const MusicAlbum &album);
+
+    void enqueue(const QString &artistName);
+
+    void clearAndEnqueue(qulonglong newTrackId);
+
+    void clearAndEnqueue(const MusicAudioTrack &newTrack);
+
+    void clearAndEnqueue(const MusicAlbum &album);
+
+    void clearAndEnqueue(const QString &artistName);
 
 private Q_SLOTS:
 

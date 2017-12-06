@@ -115,6 +115,8 @@ Q_SIGNALS:
 
     void removeTracksInError(QList<QUrl> tracks);
 
+    void displayTrackError(const QString &fileName);
+
 public Q_SLOTS:
 
     void databaseReady();

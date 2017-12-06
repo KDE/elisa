@@ -309,7 +309,15 @@ void ManageAudioPlayer::setPlayerError(QMediaPlayer::Error playerError)
     Q_EMIT playerErrorChanged();
 
     if (mPlayerError != QMediaPlayer::NoError) {
-        Q_EMIT sourceInError(playerSource(), mPlayerError);
+        auto currentSource = playerSource();
+
+        Q_EMIT sourceInError(currentSource, mPlayerError);
+
+        if (currentSource.isLocalFile()) {
+            Q_EMIT displayTrackError(currentSource.toLocalFile());
+        } else {
+            Q_EMIT displayTrackError(currentSource.toString());
+        }
     }
 }
 

@@ -18,13 +18,13 @@
  */
 
 import QtQuick 2.5
-import QtQuick.Controls 1.3
+import QtQuick.Controls 2.0 as QQC2
 import QtQuick.Layouts 1.2
 import QtGraphicalEffects 1.0
-import QtQuick.Window 2.2
 
 MouseArea {
     id: root
+    z: 9999999
     width: background.width
     height: background.height
     opacity: 0
@@ -33,7 +33,7 @@ MouseArea {
     anchors {
         horizontalCenter: parent.horizontalCenter
         bottom: parent.bottom
-        bottomMargin: Screen.pixelDensity * 2
+        bottomMargin: 3 * 4
     }
     function showNotification(message, timeout, actionText, callBack) {
         if (!message) {
@@ -42,9 +42,9 @@ MouseArea {
         appearAnimation.running = false;
         appearAnimation.appear = true;
         appearAnimation.running = true;
-        if (timeout === "short") {
+        if (timeout == "short") {
             timer.interval = 1000;
-        } else if (timeout === "long") {
+        } else if (timeout == "long") {
             timer.interval = 4500;
         } else if (timeout > 0) {
             timer.interval = timeout;
@@ -90,39 +90,43 @@ MouseArea {
             target: root
             properties: "opacity"
             to: appearAnimation.appear ? 1 : 0
-            duration: 250
+            duration: 1000
             easing.type: Easing.InOutQuad
         }
         NumberAnimation {
             target: transform
             properties: "y"
             to: appearAnimation.appear ? 0 : background.height
-            duration: 250
+            duration: 1000
             easing.type: appearAnimation.appear ? Easing.OutQuad : Easing.InQuad
         }
     }
 
     Item {
         id: background
-        width: backgroundRect.width + Screen.pixelDensity
-        height: backgroundRect.height + Screen.pixelDensity
+        width: backgroundRect.width + 3
+        height: backgroundRect.height + 3
         Rectangle {
             id: backgroundRect
             anchors.centerIn: parent
-            radius: Screen.pixelDensity * 2
+            radius: 5
+            color: myPalette.button
             opacity: 0.6
-            width: mainLayout.width + Screen.pixelDensity * 4
-            height: mainLayout.height + Screen.pixelDensity * 4
+            width: mainLayout.width + Math.round((height - mainLayout.height))
+            height: Math.max(mainLayout.height + 5*2, 3*2)
         }
         RowLayout {
             id: mainLayout
             anchors.centerIn: parent
-            LabelWithToolTip {
+            QQC2.Label {
                 id: messageLabel
-                width: Math.min(root.parent.width - Screen.pixelDensity * 6, implicitWidth)
+                Layout.maximumWidth: Math.min(root.parent.width - 20*2, implicitWidth)
                 elide: Text.ElideRight
+                wrapMode: Text.WordWrap
+                maximumLineCount: 4
+                color: myPalette.buttonText
             }
-            Button {
+            QQC2.Button {
                 id: actionButton
                 property var callBack
                 visible: text != ""
@@ -135,16 +139,14 @@ MouseArea {
                 }
             }
         }
-    }
-
-    DropShadow {
-        anchors.fill: background
-        horizontalOffset: 0
-        verticalOffset: Screen.pixelDensity / 3
-        radius: Screen.pixelDensity / 3.5
-        samples: 16
-        color: Qt.rgba(0, 0, 0, 0.5)
-        source: background
+        layer.enabled: true
+        layer.effect: DropShadow {
+            horizontalOffset: 0
+            verticalOffset: 0
+            radius: 3
+            samples: 32
+            color: Qt.rgba(0, 0, 0, 0.5)
+        }
     }
 }
 

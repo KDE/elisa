@@ -201,6 +201,8 @@ Q_SIGNALS:
 
     void sourceInError(QUrl source, QMediaPlayer::Error playerError);
 
+    void displayTrackError(const QString &fileName);
+
 public Q_SLOTS:
 
     void setCurrentTrack(const QPersistentModelIndex &currentTrack);

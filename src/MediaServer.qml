@@ -141,7 +141,7 @@ ApplicationWindow {
         id: allListeners
 
         elisaApplication: elisa
-    }
+     }
 
     AudioWrapper {
         id: audioPlayer
@@ -222,7 +222,13 @@ ApplicationWindow {
         onPlayerStop: audioPlayer.stop()
         onSkipNextTrack: playListModelItem.skipNextTrack()
         onSeek: audioPlayer.seek(position)
-        onSourceInError: allListeners.playBackError(source, playerError)
+        onSourceInError:
+        {
+            playListModelItem.trackInError(source, playerError)
+            allListeners.playBackError(source, playerError)
+        }
+
+        onDisplayTrackError: messageNotification.showNotification(i18n("Error when playing %1", "" + fileName), 3000)
     }
 
     ManageMediaPlayerControl {
@@ -374,6 +380,10 @@ ApplicationWindow {
         text: i18nc("open application menu", "Application Menu")
         iconName: "application-menu"
         onTriggered: applicationMenu.popup()
+    }
+
+    PassiveNotification {
+        id: messageNotification
     }
 
     Rectangle {

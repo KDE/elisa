@@ -26,6 +26,7 @@
 #include <QAbstractListModel>
 #include <QVector>
 #include <utility>
+#include <QMediaPlayer>
 
 class MediaPlayListPrivate;
 class DatabaseInterface;
@@ -203,6 +204,8 @@ public Q_SLOTS:
     void clearAndEnqueue(const MusicAlbum &album);
 
     void clearAndEnqueue(const QString &artistName);
+
+    void trackInError(QUrl sourceInError, QMediaPlayer::Error playerError);
 
 private Q_SLOTS:
 

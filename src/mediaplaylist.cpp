@@ -846,6 +846,23 @@ void MediaPlayList::switchTo(int row)
     notifyCurrentTrackChanged();
 }
 
+void MediaPlayList::trackInError(QUrl sourceInError, QMediaPlayer::Error playerError)
+{
+    Q_UNUSED(playerError)
+
+    for (int i = 0; i < d->mData.size(); ++i) {
+        auto &oneTrack = d->mData[i];
+        if (oneTrack.mIsValid) {
+            const auto &oneTrackData = d->mTrackData.at(i);
+
+            if (oneTrackData.resourceURI() == sourceInError) {
+                oneTrack.mIsValid = false;
+                Q_EMIT dataChanged(index(i, 0), index(i, 0), {ColumnsRoles::IsValidRole});
+            }
+        }
+    }
+}
+
 bool MediaPlayList::rowHasHeader(int row) const
 {
     if (row >= rowCount()) {

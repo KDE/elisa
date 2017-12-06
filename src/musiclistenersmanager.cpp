@@ -255,6 +255,12 @@ void MusicListenersManager::playBackError(QUrl sourceInError, QMediaPlayer::Erro
 
     if (playerError == QMediaPlayer::ResourceError) {
         Q_EMIT removeTracksInError({sourceInError});
+
+        if (sourceInError.isLocalFile()) {
+            Q_EMIT displayTrackError(sourceInError.toLocalFile());
+        } else {
+            Q_EMIT displayTrackError(sourceInError.toString());
+        }
     }
 }
 

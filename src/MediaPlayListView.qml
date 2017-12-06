@@ -69,85 +69,75 @@ FocusScope {
         anchors.fill: parent
         spacing: 0
 
-        TextMetrics {
-            id: titleHeight
-            text: viewTitleHeight.text
-            font
-            {
-                pixelSize: viewTitleHeight.font.pixelSize
-                bold: viewTitleHeight.font.bold
-            }
-        }
+        ColumnLayout {
+            height: elisaTheme.navigationBarHeight
+            Layout.preferredHeight: elisaTheme.navigationBarHeight
+            Layout.minimumHeight: elisaTheme.navigationBarHeight
+            Layout.maximumHeight: elisaTheme.navigationBarHeight
 
-        LabelWithToolTip {
-            id: viewTitleHeight
-            text: i18nc("Title of the view of the playlist", "Now Playing")
+            spacing: 0
 
-            color: myPalette.text
-            font.pixelSize: elisaTheme.defaultFontPixelSize * 2
-
-            Layout.topMargin: elisaTheme.layoutVerticalMargin
-            Layout.leftMargin: elisaTheme.layoutHorizontalMargin
-            Layout.rightMargin: elisaTheme.layoutHorizontalMargin
-            Layout.bottomMargin: titleHeight.height + elisaTheme.layoutVerticalMargin
-        }
-
-        RowLayout {
-            Layout.alignment: Qt.AlignVCenter
-
-            Layout.fillWidth: true
-
-            Layout.leftMargin: elisaTheme.layoutHorizontalMargin
-            Layout.rightMargin: elisaTheme.layoutHorizontalMargin
-            Layout.bottomMargin: titleHeight.height + elisaTheme.layoutVerticalMargin
-
-            CheckBox {
-                id: shuffleOption
-
-                text: i18n("Shuffle")
-
-                Layout.alignment: Qt.AlignVCenter
-            }
-
-            CheckBox {
-                id: repeatOption
-
-                text: i18n("Repeat")
-
-                Layout.alignment: Qt.AlignVCenter
-                Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-                Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-            }
-
-            Item {
-                Layout.fillWidth: true
+            TextMetrics {
+                id: titleHeight
+                text: viewTitleHeight.text
+                font
+                {
+                    pixelSize: viewTitleHeight.font.pixelSize
+                    bold: viewTitleHeight.font.bold
+                }
             }
 
             LabelWithToolTip {
-                id: playListInfo
-
-                text: i18np("1 track", "%1 tracks", playListModel.tracksCount)
+                id: viewTitleHeight
+                text: i18nc("Title of the view of the playlist", "Now Playing")
 
                 color: myPalette.text
+                font.pixelSize: elisaTheme.defaultFontPixelSize * 2
+                Layout.topMargin: elisaTheme.layoutVerticalMargin
 
-                Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
+                Layout.leftMargin: elisaTheme.layoutHorizontalMargin
+                Layout.rightMargin: elisaTheme.layoutHorizontalMargin
             }
-        }
 
-        Rectangle {
-            border.width: 1
-            border.color: myPalette.mid
-            color: myPalette.mid
+            Item {
+                Layout.fillHeight: true
+            }
 
-            Layout.fillWidth: true
-            Layout.preferredHeight: 1
-            Layout.minimumHeight: 1
-            Layout.maximumHeight: 1
+            RowLayout {
+                Layout.fillWidth: true
+                Layout.bottomMargin: elisaTheme.layoutVerticalMargin
+                Layout.leftMargin: elisaTheme.layoutHorizontalMargin
+                Layout.rightMargin: elisaTheme.layoutHorizontalMargin
 
-            Layout.topMargin: elisaTheme.layoutVerticalMargin
-            Layout.bottomMargin: elisaTheme.layoutVerticalMargin
-            Layout.leftMargin: elisaTheme.layoutHorizontalMargin
-            Layout.rightMargin: elisaTheme.layoutHorizontalMargin
+                CheckBox {
+                    id: shuffleOption
+
+                    text: i18n("Shuffle")
+                }
+
+                CheckBox {
+                    id: repeatOption
+
+                    text: i18n("Repeat")
+
+                    Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+                    Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+                }
+
+                Item {
+                    Layout.fillWidth: true
+                }
+
+                LabelWithToolTip {
+                    id: playListInfo
+
+                    text: i18np("1 track", "%1 tracks", playListModel.tracksCount)
+
+                    color: myPalette.text
+
+                    Layout.alignment: Qt.AlignRight
+                }
+            }
         }
 
         ScrollView {

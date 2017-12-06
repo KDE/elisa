@@ -69,7 +69,7 @@ FocusScope {
             spacing: 0
 
             Layout.fillWidth: true
-            Layout.bottomMargin: elisaTheme.layoutHorizontalMargin
+            Layout.bottomMargin: elisaTheme.layoutVerticalMargin
             Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
             Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
 

@@ -559,8 +559,6 @@ ApplicationWindow {
 
                                             leftMargin: elisaTheme.layoutHorizontalMargin
                                             rightMargin: elisaTheme.layoutHorizontalMargin
-                                            topMargin: 2
-                                            bottomMargin: 2
                                         }
 
                                         firstPage: MediaAllAlbumView {
@@ -590,8 +588,6 @@ ApplicationWindow {
 
                                             leftMargin: elisaTheme.layoutHorizontalMargin
                                             rightMargin: elisaTheme.layoutHorizontalMargin
-                                            topMargin: 2
-                                            bottomMargin: 2
                                         }
 
                                         firstPage: MediaAllArtistView {
@@ -619,8 +615,6 @@ ApplicationWindow {
 
                                             leftMargin: elisaTheme.layoutHorizontalMargin
                                             rightMargin: elisaTheme.layoutHorizontalMargin
-                                            topMargin: 2
-                                            bottomMargin: 2
                                         }
 
                                         firstPage: MediaAllTracksView {
@@ -673,6 +667,8 @@ ApplicationWindow {
                                 repeatPlayChecked: playListModelItem.repeatPlay
 
                                 Layout.fillHeight: true
+                                Layout.leftMargin: elisaTheme.layoutHorizontalMargin
+                                Layout.rightMargin: elisaTheme.layoutHorizontalMargin
 
                                 Layout.minimumWidth: contentZone.width
                                 Layout.maximumWidth: contentZone.width

@@ -41,13 +41,9 @@ FocusScope {
     property var playList
     property var playerControl
     property bool isAlternateColor
-    property var contextMenu
     property var trackData
-    property alias clearAndEnqueueAction: clearAndEnqueue
-    property alias enqueueAction: enqueue
 
     signal clicked()
-    signal rightClicked()
 
     id: mediaServerEntry
 
@@ -115,19 +111,14 @@ FocusScope {
                 id: hoverHandle
 
                 hoverEnabled: true
-                acceptedButtons: Qt.LeftButton | Qt.RightButton
+                acceptedButtons: Qt.LeftButton
                 focus: true
 
                 anchors.fill: parent
 
-                onClicked:
-                {
-                    if (mouse.button == Qt.LeftButton) {
-                        hoverHandle.forceActiveFocus()
-                        mediaServerEntry.clicked()
-                    } else if (mouse.button == Qt.RightButton) {
-                        mediaServerEntry.rightClicked()
-                    }
+                onClicked: {
+                    hoverHandle.forceActiveFocus()
+                    mediaServerEntry.clicked()
                 }
 
                 onDoubleClicked: playList.enqueue(trackData)

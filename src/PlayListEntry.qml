@@ -46,9 +46,6 @@ FocusScope {
     property bool hasAlbumHeader
     property var playListModel
     property var playListControler
-    property var contextMenu
-    property alias clearPlayListAction: removeFromPlayList
-    property alias playPauseAction: playPauseButton.action
 
     signal startPlayback()
     signal pausePlayback()

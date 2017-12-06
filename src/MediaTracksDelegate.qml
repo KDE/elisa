@@ -39,13 +39,9 @@ FocusScope {
     property var playList
     property var playerControl
     property bool isAlternateColor
-    property var contextMenu
     property var trackData
-    property alias clearAndEnqueueAction: clearAndEnqueue
-    property alias enqueueAction: enqueue
 
     signal clicked()
-    signal rightClicked()
 
     Action {
         id: clearAndEnqueue
@@ -80,15 +76,11 @@ FocusScope {
 
             hoverEnabled: true
 
-            acceptedButtons: Qt.LeftButton | Qt.RightButton
+            acceptedButtons: Qt.LeftButton
 
-            onClicked:
-            {
-                if (mouse.button == Qt.LeftButton)
-                    hoverArea.forceActiveFocus()
-                    viewTrackDelegate.clicked()
-                if (mouse.button == Qt.RightButton)
-                    viewTrackDelegate.rightClicked()
+            onClicked: {
+                hoverArea.forceActiveFocus()
+                viewTrackDelegate.clicked()
             }
 
             onDoubleClicked: playList.enqueue(trackData)

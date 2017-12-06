@@ -146,18 +146,7 @@ FocusScope {
                             playList: rootElement.playListModel
                             playerControl: rootElement.playerControl
 
-                            contextMenu: Menu {
-                                MenuItem {
-                                    action: entry.clearAndEnqueueAction
-                                }
-                                MenuItem {
-                                    action: entry.enqueueAction
-                                }
-                            }
-
                             onClicked: contentDirectoryView.currentIndex = index
-
-                            onRightClicked: entry.contextMenu.popup()
                         }
                     }
                 }

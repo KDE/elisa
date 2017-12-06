@@ -49,7 +49,6 @@ FocusScope {
     property alias containsMouse: dragArea.containsMouse
 
     signal clicked()
-    signal rightClicked()
     signal doubleClicked()
 
     width: contentItem.width
@@ -103,7 +102,7 @@ FocusScope {
                 hoverEnabled: true
                 preventStealing: true
 
-                acceptedButtons: Qt.RightButton | Qt.LeftButton
+                acceptedButtons: Qt.LeftButton
 
                 onReleased: {
                     if (drag.active) {
@@ -111,17 +110,9 @@ FocusScope {
                     }
                 }
 
-                onClicked:
-                {
-                    if (mouse.button == Qt.LeftButton)
-                        root.clicked()
-                    if (mouse.button == Qt.RightButton)
-                        root.rightClicked()
-                }
+                onClicked: root.clicked()
 
-                onDoubleClicked: {
-                    root.doubleClicked()
-                }
+                onDoubleClicked: root.doubleClicked()
             }
         }
     }

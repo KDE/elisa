@@ -244,15 +244,6 @@ FocusScope {
                             playListModel: topItem.playListModel
                             playListControler: topItem.playListControler
 
-                            contextMenu: Menu {
-                                MenuItem {
-                                    action: entry.clearPlayListAction
-                                }
-                                MenuItem {
-                                    action: entry.playPauseAction
-                                }
-                            }
-
                             onStartPlayback: topItem.startPlayback()
 
                             onPausePlayback: topItem.pausePlayback()
@@ -264,8 +255,6 @@ FocusScope {
                             playListView.currentIndex = index
                             entry.forceActiveFocus()
                         }
-
-                        onRightClicked: contentItem.contextMenu.popup()
 
                         onDoubleClicked: {
                             if (model.isValid) {

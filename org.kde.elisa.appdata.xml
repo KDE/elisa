@@ -77,7 +77,7 @@
     <p xml:lang="x-test">xxA simple music player that should be easy to use. It does not require any configuration before one can use it.xx</p>
   </description>
   <url type="homepage">https://www.kde.org</url>
-  <url type="bugtracker">https://bugs.kde.org</url>
+  <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?product=elisa</url>
   <url type="donation">https://www.kde.org/community/donations</url>
   <screenshots>
     <screenshot type="default">

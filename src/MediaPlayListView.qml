@@ -23,6 +23,7 @@ import QtQuick.Controls.Styles 1.3
 import QtQuick.Layouts 1.1
 import QtQuick.Window 2.2
 import QtQml.Models 2.1
+import Qt.labs.platform 1.0 as PlatformDialog
 import org.kde.elisa 1.0
 
 FocusScope {
@@ -37,6 +38,7 @@ FocusScope {
 
     signal startPlayback()
     signal pausePlayback()
+    signal displayError(var errorText)
 
     id: topItem
 
@@ -63,6 +65,50 @@ FocusScope {
         iconName: 'media-show-active-track-amarok'
         enabled: playListModelDelegate.items.count > 0
         onTriggered: playListView.positionViewAtIndex(playListControler.currentTrackRow, ListView.Contain)
+    }
+
+    Action {
+        id: loadPlaylist
+        text: i18nc("Load a playlist file", "Load a Playlist")
+        iconName: 'document-open'
+        onTriggered:
+        {
+            fileDialog.fileMode = PlatformDialog.FileDialog.OpenFile
+            fileDialog.file = ''
+            fileDialog.open()
+        }
+    }
+
+    Action {
+        id: savePlaylist
+        text: i18nc("Save a playlist file", "Save a Playlist")
+        iconName: 'document-save'
+        enabled: playListModelDelegate.items.count > 0
+        onTriggered:
+        {
+            fileDialog.fileMode = PlatformDialog.FileDialog.SaveFile
+            fileDialog.file = ''
+            fileDialog.open()
+        }
+    }
+
+    PlatformDialog.FileDialog {
+        id: fileDialog
+
+        defaultSuffix: 'm3u'
+        folder: PlatformDialog.StandardPaths.writableLocation(PlatformDialog.StandardPaths.MusicLocation)
+        nameFilters: [i18nc("file type (mime type) for m3u playlist", "Playlist (*.m3u)")]
+
+        onAccepted:
+        {
+            if (fileMode === PlatformDialog.FileDialog.SaveFile) {
+                if (!playListModel.savePlaylist(fileDialog.file)) {
+                    displayError(i18nc("message of passive notification when playlist load failed", "Save of playlist failed"))
+                }
+            } else {
+                playListModel.loadPlaylist(fileDialog.file)
+            }
+        }
     }
 
     ColumnLayout {
@@ -291,6 +337,14 @@ FocusScope {
                 }
                 ToolButton {
                     action: showCurrentTrack
+                    Layout.bottomMargin: elisaTheme.layoutVerticalMargin
+                }
+                ToolButton {
+                    action: loadPlaylist
+                    Layout.bottomMargin: elisaTheme.layoutVerticalMargin
+                }
+                ToolButton {
+                    action: savePlaylist
                     Layout.bottomMargin: elisaTheme.layoutVerticalMargin
                 }
                 Item {

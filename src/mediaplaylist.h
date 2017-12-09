@@ -121,6 +121,8 @@ public:
 
     Q_INVOKABLE void clearPlayList();
 
+    Q_INVOKABLE bool savePlaylist(const QUrl &fileName);
+
     QVariantMap persistentState() const;
 
     MusicListenersManager* musicListenersManager() const;
@@ -138,6 +140,8 @@ public:
 Q_SIGNALS:
 
     void newTrackByNameInList(const QString &title, const QString &artist, const QString &album, int trackNumber, int discNumber);
+
+    void newTrackByFileNameInList(const QUrl &fileName);
 
     void newTrackByIdInList(qulonglong newTrackId);
 
@@ -160,6 +164,10 @@ Q_SIGNALS:
     void repeatPlayChanged();
 
     void playListFinished();
+
+    void playListLoaded();
+
+    void playListLoadFailed();
 
 public Q_SLOTS:
 
@@ -187,6 +195,8 @@ public Q_SLOTS:
 
     void switchTo(int row);
 
+    void loadPlaylist(const QUrl &fileName);
+
     void enqueue(qulonglong newTrackId);
 
     void enqueue(const MusicAudioTrack &newTrack);
@@ -197,6 +207,8 @@ public Q_SLOTS:
 
     void enqueue(const QString &artistName);
 
+    void enqueue(const QUrl &fileName);
+
     void clearAndEnqueue(qulonglong newTrackId);
 
     void clearAndEnqueue(const MusicAudioTrack &newTrack);
@@ -205,11 +217,17 @@ public Q_SLOTS:
 
     void clearAndEnqueue(const QString &artistName);
 
+    void clearAndEnqueue(const QUrl &fileName);
+
     void trackInError(QUrl sourceInError, QMediaPlayer::Error playerError);
 
 private Q_SLOTS:
 
     bool rowHasHeader(int row) const;
+
+    void loadPlayListLoaded();
+
+    void loadPlayListLoadFailed();
 
 private:
 
@@ -248,6 +266,9 @@ public:
     }
 
     explicit MediaPlayListEntry(QString artist) : mArtist(std::move(artist)), mIsArtist(true) {
+    }
+
+    explicit MediaPlayListEntry(QUrl fileName) : mTrackUrl(std::move(fileName)) {
     }
 
     QString mTitle;

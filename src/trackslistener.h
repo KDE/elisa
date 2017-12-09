@@ -57,6 +57,8 @@ public Q_SLOTS:
 
     void trackByNameInList(const QString &title, const QString &artist, const QString &album, int trackNumber, int discNumber);
 
+    void trackByFileNameInList(const QUrl &fileName);
+
     void trackByIdInList(qulonglong newTrackId);
 
     void newArtistInList(const QString &artist);

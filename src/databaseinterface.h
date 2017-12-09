@@ -76,6 +76,8 @@ public:
     qulonglong trackIdFromTitleAlbumTrackDiscNumber(const QString &title, const QString &artist, const QString &album,
                                                     int trackNumber, int discNumber);
 
+    qulonglong trackIdFromFileName(const QUrl &fileName);
+
     void applicationAboutToQuit();
 
 Q_SIGNALS:

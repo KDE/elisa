@@ -631,6 +631,29 @@ qulonglong DatabaseInterface::trackIdFromTitleAlbumTrackDiscNumber(const QString
     return result;
 }
 
+qulonglong DatabaseInterface::trackIdFromFileName(const QUrl &fileName)
+{
+    auto result = qulonglong(0);
+
+    if (!d) {
+        return result;
+    }
+
+    auto transactionResult = startTransaction();
+    if (!transactionResult) {
+        return result;
+    }
+
+    result = internalTrackIdFromFileName(fileName);
+
+    transactionResult = finishTransaction();
+    if (!transactionResult) {
+        return result;
+    }
+
+    return result;
+}
+
 void DatabaseInterface::applicationAboutToQuit()
 {
     d->mStopRequest = 1;

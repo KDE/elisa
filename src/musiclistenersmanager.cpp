@@ -181,6 +181,7 @@ void MusicListenersManager::subscribeForTracks(MediaPlayList *client)
     connect(helper, &TracksListener::albumAdded, client, &MediaPlayList::albumAdded);
     connect(client, &MediaPlayList::newTrackByIdInList, helper, &TracksListener::trackByIdInList);
     connect(client, &MediaPlayList::newTrackByNameInList, helper, &TracksListener::trackByNameInList);
+    connect(client, &MediaPlayList::newTrackByFileNameInList, helper, &TracksListener::trackByFileNameInList);
     connect(client, &MediaPlayList::newArtistInList, helper, &TracksListener::newArtistInList);
 }
 

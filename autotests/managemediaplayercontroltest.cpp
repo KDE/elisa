@@ -432,6 +432,9 @@ void ManageMediaPlayerControlTest::moveCurrentTrack()
     connect(&myPlayList, &MediaPlayList::newTrackByNameInList,
             &myListener, &TracksListener::trackByNameInList,
             Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newTrackByFileNameInList,
+            &myListener, &TracksListener::trackByFileNameInList,
+            Qt::QueuedConnection);
     connect(&myPlayList, &MediaPlayList::newArtistInList,
             &myListener, &TracksListener::newArtistInList,
             Qt::QueuedConnection);
@@ -534,6 +537,9 @@ void ManageMediaPlayerControlTest::moveAnotherTrack()
     connect(&myPlayList, &MediaPlayList::newTrackByNameInList,
             &myListener, &TracksListener::trackByNameInList,
             Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newTrackByFileNameInList,
+            &myListener, &TracksListener::trackByFileNameInList,
+            Qt::QueuedConnection);
     connect(&myPlayList, &MediaPlayList::newArtistInList,
             &myListener, &TracksListener::newArtistInList,
             Qt::QueuedConnection);
@@ -635,6 +641,9 @@ void ManageMediaPlayerControlTest::setCurrentTrackTest()
             Qt::QueuedConnection);
     connect(&myPlayList, &MediaPlayList::newTrackByNameInList,
             &myListener, &TracksListener::trackByNameInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newTrackByFileNameInList,
+            &myListener, &TracksListener::trackByFileNameInList,
             Qt::QueuedConnection);
     connect(&myPlayList, &MediaPlayList::newArtistInList,
             &myListener, &TracksListener::newArtistInList,

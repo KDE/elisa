@@ -1600,6 +1600,8 @@ void ManageHeaderBarTest::moveCurrentTrack()
             &myListener, &TracksListener::trackByIdInList);
     connect(&myPlayList, &MediaPlayList::newTrackByNameInList,
             &myListener, &TracksListener::trackByNameInList);
+    connect(&myPlayList, &MediaPlayList::newTrackByFileNameInList,
+            &myListener, &TracksListener::trackByFileNameInList);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
@@ -1817,6 +1819,8 @@ void ManageHeaderBarTest::moveAnotherTrack()
             &myListener, &TracksListener::trackByIdInList);
     connect(&myPlayList, &MediaPlayList::newTrackByNameInList,
             &myListener, &TracksListener::trackByNameInList);
+    connect(&myPlayList, &MediaPlayList::newTrackByFileNameInList,
+            &myListener, &TracksListener::trackByFileNameInList);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
@@ -2040,6 +2044,8 @@ void ManageHeaderBarTest::setCurrentTrackTest()
             &myListener, &TracksListener::trackByIdInList);
     connect(&myPlayList, &MediaPlayList::newTrackByNameInList,
             &myListener, &TracksListener::trackByNameInList);
+    connect(&myPlayList, &MediaPlayList::newTrackByFileNameInList,
+            &myListener, &TracksListener::trackByFileNameInList);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
@@ -2261,6 +2267,8 @@ void ManageHeaderBarTest::setPlayListModelTest()
             &myListener, &TracksListener::trackByIdInList);
     connect(&myPlayList, &MediaPlayList::newTrackByNameInList,
             &myListener, &TracksListener::trackByNameInList);
+    connect(&myPlayList, &MediaPlayList::newTrackByFileNameInList,
+            &myListener, &TracksListener::trackByFileNameInList);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 

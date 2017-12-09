@@ -318,7 +318,7 @@ bool MusicAudioTrack::isSingleDiscAlbum() const
     return d->mIsSingleDiscAlbum;
 }
 
-QDebug& operator<<(QDebug &stream, const MusicAudioTrack &data)
+QDebug operator<<(QDebug stream, const MusicAudioTrack &data)
 {
     stream << data.title() << data.artist() << data.albumName() << data.albumArtist() << data.duration();
     return stream;

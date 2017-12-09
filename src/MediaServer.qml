@@ -22,6 +22,7 @@ import QtQuick.Controls 1.3
 import QtQuick.Controls.Styles 1.3
 import QtQuick.Layouts 1.1
 import QtQuick.Window 2.2
+import Qt.labs.platform 1.0 as PlatformDialog
 import org.kde.elisa 1.0
 import Qt.labs.settings 1.0
 
@@ -181,6 +182,11 @@ ApplicationWindow {
             var d = new Date();
             var n = d.getMilliseconds();
             seedRandomGenerator(n);
+        }
+
+        onPlayListLoadFailed:
+        {
+            messageNotification.showNotification(i18nc("message of passive notification when playlist load failed", "Load of playlist failed"), 3000)
         }
     }
 
@@ -694,6 +700,8 @@ ApplicationWindow {
                                 onStartPlayback: manageAudioPlayer.ensurePlay()
 
                                 onPausePlayback: manageAudioPlayer.playPause()
+
+                                onDisplayError: messageNotification.showNotification(errorText)
                             }
 
                             Rectangle {

@@ -129,6 +129,8 @@ private Q_SLOTS:
 
     void testSaveAndRestoreSettings();
 
+    void testSaveLoadPlayList();
+
 private:
 
     QList<MusicAudioTrack> mNewTracks;

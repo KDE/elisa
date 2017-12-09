@@ -25,6 +25,7 @@
 #include <QUrl>
 #include <QPersistentModelIndex>
 #include <QList>
+#include <QMediaPlaylist>
 
 #include <algorithm>
 
@@ -48,10 +49,14 @@ public:
 
     QVariantMap mPersistentState;
 
+    QMediaPlaylist mLoadPlaylist;
+
 };
 
 MediaPlayList::MediaPlayList(QObject *parent) : QAbstractListModel(parent), d(new MediaPlayListPrivate)
 {
+    connect(&d->mLoadPlaylist, &QMediaPlaylist::loaded, this, &MediaPlayList::loadPlayListLoaded);
+    connect(&d->mLoadPlaylist, &QMediaPlaylist::loadFailed, this, &MediaPlayList::loadPlayListLoadFailed);
 }
 
 MediaPlayList::~MediaPlayList()
@@ -358,7 +363,11 @@ void MediaPlayList::enqueue(const MediaPlayListEntry &newEntry, const MusicAudio
     Q_EMIT persistentStateChanged();
 
     if (!newEntry.mIsValid) {
-        Q_EMIT newTrackByNameInList(newEntry.mTitle, newEntry.mArtist, newEntry.mAlbum, newEntry.mTrackNumber, newEntry.mDiscNumber);
+        if (newEntry.mTrackUrl.isValid()) {
+            Q_EMIT newTrackByFileNameInList(newEntry.mTrackUrl);
+        } else {
+            Q_EMIT newTrackByNameInList(newEntry.mTitle, newEntry.mArtist, newEntry.mAlbum, newEntry.mTrackNumber, newEntry.mDiscNumber);
+        }
     } else {
         Q_EMIT newTrackByIdInList(newEntry.mId);
     }
@@ -495,6 +504,11 @@ void MediaPlayList::enqueue(const QString &artistName)
     Q_EMIT persistentStateChanged();
 }
 
+void MediaPlayList::enqueue(const QUrl &fileName)
+{
+    enqueue(MediaPlayListEntry(fileName));
+}
+
 void MediaPlayList::clearAndEnqueue(const MusicAlbum &album)
 {
     clearPlayList();
@@ -505,6 +519,12 @@ void MediaPlayList::clearAndEnqueue(const QString &artistName)
 {
     clearPlayList();
     enqueue(artistName);
+}
+
+void MediaPlayList::clearAndEnqueue(const QUrl &fileName)
+{
+    clearPlayList();
+    enqueue(fileName);
 }
 
 void MediaPlayList::clearPlayList()
@@ -519,6 +539,27 @@ void MediaPlayList::clearPlayList()
     endRemoveRows();
 
     Q_EMIT tracksCountChanged();
+}
+
+void MediaPlayList::loadPlaylist(const QUrl &fileName)
+{
+    d->mLoadPlaylist.clear();
+    d->mLoadPlaylist.load(fileName, "m3u");
+}
+
+bool MediaPlayList::savePlaylist(const QUrl &fileName)
+{
+    QMediaPlaylist savePlaylist;
+
+    for (int i = 0; i < d->mData.size(); ++i) {
+        const auto &oneTrack = d->mData.at(i);
+        const auto &oneTrackData = d->mTrackData.at(i);
+        if (oneTrack.mIsValid) {
+            savePlaylist.addMedia(oneTrackData.resourceURI());
+        }
+    }
+
+    return savePlaylist.save(fileName, "m3u");
 }
 
 QVariantMap MediaPlayList::persistentState() const
@@ -687,7 +728,7 @@ void MediaPlayList::trackChanged(const MusicAudioTrack &track)
                 }
             }
             continue;
-        } else if (!oneEntry.mIsArtist && !oneEntry.mIsValid) {
+        } else if (!oneEntry.mIsArtist && !oneEntry.mIsValid && !oneEntry.mTrackUrl.isValid()) {
             if (track.title() != oneEntry.mTitle) {
                 continue;
             }
@@ -709,6 +750,24 @@ void MediaPlayList::trackChanged(const MusicAudioTrack &track)
             oneEntry.mIsValid = true;
 
             Q_EMIT dataChanged(index(i, 0), index(i, 0), {});
+
+            if (!d->mCurrentTrack.isValid()) {
+                resetCurrentTrack();
+            }
+
+            break;
+        } else if (!oneEntry.mIsArtist && !oneEntry.mIsValid && oneEntry.mTrackUrl.isValid()) {
+            if (track.resourceURI() != oneEntry.mTrackUrl) {
+                continue;
+            }
+
+            d->mTrackData[i] = track;
+            oneEntry.mId = track.databaseId();
+            oneEntry.mIsValid = true;
+
+            Q_EMIT dataChanged(index(i, 0), index(i, 0), {});
+
+            restorePlayListPosition();
 
             if (!d->mCurrentTrack.isValid()) {
                 resetCurrentTrack();
@@ -902,6 +961,30 @@ bool MediaPlayList::rowHasHeader(int row) const
     }
 
     return true;
+}
+
+void MediaPlayList::loadPlayListLoaded()
+{
+    clearPlayList();
+
+    for (int i = 0; i < d->mLoadPlaylist.mediaCount(); ++i) {
+        enqueue(d->mLoadPlaylist.media(i).canonicalUrl());
+    }
+
+    restorePlayListPosition();
+    restoreRandomPlay();
+    restoreRepeatPlay();
+
+    Q_EMIT persistentStateChanged();
+
+    d->mLoadPlaylist.clear();
+    Q_EMIT playListLoaded();
+}
+
+void MediaPlayList::loadPlayListLoadFailed()
+{
+    d->mLoadPlaylist.clear();
+    Q_EMIT playListLoadFailed();
 }
 
 void MediaPlayList::resetCurrentTrack()

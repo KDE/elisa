@@ -129,7 +129,7 @@ private:
 
 };
 
-QDebug& operator<<(QDebug &stream, const MusicAudioTrack &data);
+QDebug operator<<(QDebug stream, const MusicAudioTrack &data);
 
 Q_DECLARE_METATYPE(MusicAudioTrack)
 

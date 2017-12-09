@@ -35,6 +35,8 @@ public:
 
     QList<std::tuple<QString, QString, QString, int, int>> mTracksByNameSet;
 
+    QList<QUrl> mTracksByFileNameSet;
+
     DatabaseInterface *mDatabase = nullptr;
 
 };
@@ -112,6 +114,24 @@ void TracksListener::trackByNameInList(const QString &title, const QString &arti
     if (newTrackId == 0) {
         auto newTrack = std::tuple<QString, QString, QString, int, int>(title, artist, album, trackNumber, discNumber);
         d->mTracksByNameSet.push_back(newTrack);
+
+        return;
+    }
+
+    d->mTracksByIdSet.insert(newTrackId);
+
+    auto newTrack = d->mDatabase->trackFromDatabaseId(newTrackId);
+
+    if (newTrack.isValid()) {
+        Q_EMIT trackHasChanged(newTrack);
+    }
+}
+
+void TracksListener::trackByFileNameInList(const QUrl &fileName)
+{
+    auto newTrackId = d->mDatabase->trackIdFromFileName(fileName);
+    if (newTrackId == 0) {
+        d->mTracksByFileNameSet.push_back(fileName);
 
         return;
     }

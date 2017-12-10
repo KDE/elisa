@@ -64,7 +64,11 @@ FocusScope {
         text: i18nc("Show currently played track inside playlist", "Show Current Track")
         iconName: 'media-show-active-track-amarok'
         enabled: playListModelDelegate.items.count > 0
-        onTriggered: playListView.positionViewAtIndex(playListControler.currentTrackRow, ListView.Contain)
+        onTriggered: {
+            playListView.positionViewAtIndex(playListControler.currentTrackRow, ListView.Contain)
+            playListView.currentIndex = playListControler.currentTrackRow
+            playListView.currentItem.forceActiveFocus()
+        }
     }
 
     Action {
@@ -215,6 +219,37 @@ FocusScope {
                     anchors.margins: elisaTheme.layoutHorizontalMargin
                 }
 
+                add: Transition {
+                    NumberAnimation {
+                        property: "opacity";
+                        from: 0;
+                        to: 1;
+                        duration: 100 }
+                }
+
+                populate: Transition {
+                    NumberAnimation {
+                        property: "opacity";
+                        from: 0;
+                        to: 1;
+                        duration: 100 }
+                }
+
+                remove: Transition {
+                    NumberAnimation {
+                        property: "opacity";
+                        from: 1.0;
+                        to: 0;
+                        duration: 100 }
+                }
+
+                displaced: Transition {
+                    NumberAnimation {
+                        properties: "x,y";
+                        duration: 100;
+                        easing.type: Easing.InOutQuad}
+                }
+
                 model: DelegateModel {
                     id: playListModelDelegate
                     model: playListModel
@@ -225,7 +260,6 @@ FocusScope {
 
                     delegate: DraggableItem {
                         id: item
-
                         placeholderHeight: topItem.placeholderHeight
 
                         focus: true
@@ -251,9 +285,9 @@ FocusScope {
                                     else
                                         ''
                             albumArtist: if (model != undefined && model.albumArtist !== undefined)
-                                        model.albumArtist
-                                    else
-                                        ''
+                                             model.albumArtist
+                                         else
+                                             ''
                             itemDecoration: if (model != undefined && model.image !== undefined)
                                                 model.image
                                             else
@@ -287,12 +321,13 @@ FocusScope {
                             isSelected: playListView.currentIndex === index
                             containsMouse: item.containsMouse
 
-                            playListModel: topItem.playListModel
-                            playListControler: topItem.playListControler
-
                             onStartPlayback: topItem.startPlayback()
 
                             onPausePlayback: topItem.pausePlayback()
+
+                            onRemoveFromPlaylist: topItem.playListModel.removeRows(trackIndex, 1)
+
+                            onSwitchToTrack: topItem.playListControler.switchTo(trackIndex)
                         }
 
                         draggedItemParent: topItem

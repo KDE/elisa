@@ -44,18 +44,20 @@ FocusScope {
     property bool isAlternateColor
     property bool containsMouse
     property bool hasAlbumHeader
-    property var playListModel
-    property var playListControler
 
     signal startPlayback()
     signal pausePlayback()
+    signal removeFromPlaylist(var trackIndex)
+    signal switchToTrack(var trackIndex)
+
+    height: (hasAlbumHeader ? elisaTheme.delegateWithHeaderHeight : elisaTheme.delegateHeight)
 
     Action {
         id: removeFromPlayList
         text: i18nc("Remove current track from play list", "Remove")
         iconName: "list-remove"
         onTriggered: {
-            playListModel.removeRows(playListEntry.index, 1)
+            playListEntry.removeFromPlaylist(playListEntry.index)
         }
     }
 
@@ -65,7 +67,7 @@ FocusScope {
         iconName: "media-playback-start"
         enabled: !(isPlaying == MediaPlayList.IsPlaying) && isValid
         onTriggered: {
-            playListControler.switchTo(playListEntry.index)
+            playListEntry.switchToTrack(playListEntry.index)
             playListEntry.startPlayback()
         }
     }
@@ -95,8 +97,6 @@ FocusScope {
             anchors.fill: parent
             anchors.leftMargin: elisaTheme.layoutHorizontalMargin
             anchors.rightMargin: elisaTheme.layoutHorizontalMargin
-            anchors.topMargin: 0
-            anchors.bottomMargin: 1
 
             Item {
                 Layout.fillWidth: true
@@ -166,7 +166,7 @@ FocusScope {
                             font.weight: Font.Bold
                             color: myPalette.text
 
-                            horizontalAlignment: "AlignHCenter"
+                            horizontalAlignment: Text.AlignHCenter
 
                             Layout.fillWidth: true
                             Layout.alignment: Qt.AlignCenter
@@ -187,7 +187,7 @@ FocusScope {
                             font.weight: Font.Light
                             color: myPalette.text
 
-                            horizontalAlignment: "AlignHCenter"
+                            horizontalAlignment: Text.AlignHCenter
 
                             Layout.fillWidth: true
                             Layout.alignment: Qt.AlignCenter
@@ -331,7 +331,7 @@ FocusScope {
                                 NumberAnimation {
                                     from: playIcon.opacity
                                     to: 0
-                                    duration: 50
+                                    duration: 250
                                     easing.type: Easing.InOutCubic
                                 }
                             }
@@ -363,10 +363,6 @@ FocusScope {
             name: 'notSelected'
             when: !containsMouse && (!playListEntry.activeFocus || !isSelected)
             PropertyChanges {
-                target: playListEntry
-                height: (hasAlbumHeader ? elisaTheme.delegateWithHeaderHeight : elisaTheme.delegateHeight)
-            }
-            PropertyChanges {
                 target: removeButton
                 opacity: 0
             }
@@ -382,10 +378,6 @@ FocusScope {
         State {
             name: 'hoveredOrSelected'
             when: containsMouse || (playListEntry.activeFocus && isSelected)
-            PropertyChanges {
-                target: playListEntry
-                height: (hasAlbumHeader ? elisaTheme.delegateWithHeaderHeight : elisaTheme.delegateHeight)
-            }
             PropertyChanges {
                 target: removeButton
                 opacity: 1
@@ -403,13 +395,13 @@ FocusScope {
     transitions: Transition {
         ParallelAnimation {
             NumberAnimation {
-                properties: "height, opacity"
+                properties: "opacity"
                 easing.type: Easing.InOutQuad
-                duration: 50
+                duration: 250
             }
             ColorAnimation {
                 properties: "color"
-                duration: 200
+                duration: 250
             }
         }
     }

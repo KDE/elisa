@@ -29,6 +29,10 @@ set(managemediaplayercontrolTest_SOURCES
     ../src/musicartist.cpp
     ../src/musicalbum.cpp
     ../src/musicaudiotrack.cpp
+    ../src/file/filelistener.cpp
+    ../src/file/localfilelisting.cpp
+    ../src/abstractfile/abstractfilelistener.cpp
+    ../src/abstractfile/abstractfilelisting.cpp
     managemediaplayercontroltest.cpp
 )
 
@@ -63,39 +67,23 @@ if (UPNPQT_FOUND)
         )
 endif()
 
-if (KF5FileMetaData_FOUND)
-    set(managemediaplayercontrolTest_SOURCES
-        ${managemediaplayercontrolTest_SOURCES}
-        ../src/file/filelistener.cpp
-        ../src/file/localfilelisting.cpp
-        ../src/abstractfile/abstractfilelistener.cpp
-        ../src/abstractfile/abstractfilelisting.cpp
-    )
-endif()
-
-if (KF5Config_FOUND)
-    kconfig_add_kcfg_files(managemediaplayercontrolTest_SOURCES ../src/elisa_settings.kcfgc )
-    set(managemediaplayercontrolTest_SOURCES
-        ${managemediaplayercontrolTest_SOURCES}
-        ../src/elisa_core.kcfg
-    )
-endif()
+kconfig_add_kcfg_files(managemediaplayercontrolTest_SOURCES ../src/elisa_settings.kcfgc )
+set(managemediaplayercontrolTest_SOURCES
+    ${managemediaplayercontrolTest_SOURCES}
+    ../src/elisa_core.kcfg
+)
 
 ecm_add_test(${managemediaplayercontrolTest_SOURCES}
     TEST_NAME "managemediaplayercontrolTest"
-    LINK_LIBRARIES Qt5::Test Qt5::Core Qt5::Sql Qt5::Widgets KF5::I18n Qt5::Quick Qt5::Multimedia)
+    LINK_LIBRARIES
+        Qt5::Test Qt5::Core Qt5::Sql Qt5::Widgets KF5::I18n Qt5::Quick Qt5::Multimedia KF5::ConfigCore KF5::ConfigGui KF5::FileMetaData
+)
 
 if (KF5Baloo_FOUND)
     target_link_libraries(managemediaplayercontrolTest KF5::Baloo Qt5::DBus)
 endif()
-if (KF5Config_FOUND)
-    target_link_libraries(managemediaplayercontrolTest KF5::ConfigCore KF5::ConfigGui)
-endif()
 if (KF5KCMUtils_FOUND)
     target_link_libraries(managemediaplayercontrolTest KF5::KCMUtils)
-endif()
-if (KF5FileMetaData_FOUND)
-    target_link_libraries(managemediaplayercontrolTest KF5::FileMetaData)
 endif()
 if (UPNPQT_FOUND)
     target_link_libraries(managemediaplayercontrolTest Qt5::Xml UPNP::upnpQt Qt5::Network)
@@ -118,6 +106,10 @@ set(manageheaderbarTest_SOURCES
     ../src/musicartist.cpp
     ../src/musicalbum.cpp
     ../src/musicaudiotrack.cpp
+    ../src/file/filelistener.cpp
+    ../src/file/localfilelisting.cpp
+    ../src/abstractfile/abstractfilelistener.cpp
+    ../src/abstractfile/abstractfilelisting.cpp
     manageheaderbartest.cpp
 )
 
@@ -152,39 +144,23 @@ if (UPNPQT_FOUND)
         )
 endif()
 
-if (KF5FileMetaData_FOUND)
-    set(manageheaderbarTest_SOURCES
-        ${manageheaderbarTest_SOURCES}
-        ../src/file/filelistener.cpp
-        ../src/file/localfilelisting.cpp
-        ../src/abstractfile/abstractfilelistener.cpp
-        ../src/abstractfile/abstractfilelisting.cpp
-    )
-endif()
-
-if (KF5Config_FOUND)
-    kconfig_add_kcfg_files(manageheaderbarTest_SOURCES ../src/elisa_settings.kcfgc )
-    set(manageheaderbarTest_SOURCES
-        ${manageheaderbarTest_SOURCES}
-        ../src/elisa_core.kcfg
-    )
-endif()
+kconfig_add_kcfg_files(manageheaderbarTest_SOURCES ../src/elisa_settings.kcfgc )
+set(manageheaderbarTest_SOURCES
+    ${manageheaderbarTest_SOURCES}
+    ../src/elisa_core.kcfg
+)
 
 ecm_add_test(${manageheaderbarTest_SOURCES}
     TEST_NAME "manageheaderbarTest"
-    LINK_LIBRARIES Qt5::Test Qt5::Core Qt5::Sql Qt5::Gui Qt5::Widgets KF5::I18n Qt5::Quick Qt5::Multimedia)
+    LINK_LIBRARIES
+        Qt5::Test Qt5::Core Qt5::Sql Qt5::Gui Qt5::Widgets KF5::I18n Qt5::Quick Qt5::Multimedia KF5::ConfigCore KF5::ConfigGui KF5::FileMetaData
+)
 
 if (KF5Baloo_FOUND)
     target_link_libraries(manageheaderbarTest KF5::Baloo Qt5::DBus)
 endif()
-if (KF5Config_FOUND)
-    target_link_libraries(manageheaderbarTest KF5::ConfigCore KF5::ConfigGui)
-endif()
 if (KF5KCMUtils_FOUND)
     target_link_libraries(manageheaderbarTest KF5::KCMUtils)
-endif()
-if (KF5FileMetaData_FOUND)
-    target_link_libraries(manageheaderbarTest KF5::FileMetaData)
 endif()
 if (UPNPQT_FOUND)
     target_link_libraries(manageheaderbarTest Qt5::Xml UPNP::upnpQt Qt5::Network)
@@ -216,6 +192,10 @@ set(mediaplaylistTest_SOURCES
     ../src/musicartist.cpp
     ../src/musicalbum.cpp
     ../src/musicaudiotrack.cpp
+    ../src/file/filelistener.cpp
+    ../src/file/localfilelisting.cpp
+    ../src/abstractfile/abstractfilelistener.cpp
+    ../src/abstractfile/abstractfilelisting.cpp
     mediaplaylisttest.cpp
 )
 
@@ -250,27 +230,17 @@ if (UPNPQT_FOUND)
         )
 endif()
 
-if (KF5FileMetaData_FOUND)
-    set(mediaplaylistTest_SOURCES
-        ${mediaplaylistTest_SOURCES}
-        ../src/file/filelistener.cpp
-        ../src/file/localfilelisting.cpp
-        ../src/abstractfile/abstractfilelistener.cpp
-        ../src/abstractfile/abstractfilelisting.cpp
-    )
-endif()
-
-if (KF5Config_FOUND)
-    kconfig_add_kcfg_files(mediaplaylistTest_SOURCES ../src/elisa_settings.kcfgc )
-    set(mediaplaylistTest_SOURCES
-        ${mediaplaylistTest_SOURCES}
-        ../src/elisa_core.kcfg
-    )
-endif()
+kconfig_add_kcfg_files(mediaplaylistTest_SOURCES ../src/elisa_settings.kcfgc )
+set(mediaplaylistTest_SOURCES
+    ${mediaplaylistTest_SOURCES}
+    ../src/elisa_core.kcfg
+)
 
 ecm_add_test(${mediaplaylistTest_SOURCES}
     TEST_NAME "mediaplaylistTest"
-    LINK_LIBRARIES Qt5::Test Qt5::Core Qt5::Sql Qt5::Gui Qt5::Widgets KF5::I18n Qt5::Quick Qt5::Multimedia)
+    LINK_LIBRARIES
+        Qt5::Test Qt5::Core Qt5::Sql Qt5::Gui Qt5::Widgets KF5::I18n Qt5::Quick Qt5::Multimedia KF5::ConfigCore KF5::ConfigGui KF5::FileMetaData
+)
 
 if (KF5Baloo_FOUND)
     target_link_libraries(mediaplaylistTest KF5::Baloo Qt5::DBus)
@@ -278,17 +248,11 @@ endif()
 if (KF5KCMUtils_FOUND)
     target_link_libraries(mediaplaylistTest KF5::KCMUtils)
 endif()
-if (KF5FileMetaData_FOUND)
-    target_link_libraries(mediaplaylistTest KF5::FileMetaData)
-endif()
 if (UPNPQT_FOUND)
     target_link_libraries(mediaplaylistTest Qt5::Xml UPNP::upnpQt Qt5::Network)
 endif()
 if (KF5XmlGui_FOUND)
     target_link_libraries(mediaplaylistTest KF5::XmlGui)
-endif()
-if (KF5Config_FOUND)
-    target_link_libraries(mediaplaylistTest KF5::ConfigCore KF5::ConfigGui)
 endif()
 
 target_include_directories(mediaplaylistTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
@@ -303,6 +267,10 @@ set(trackslistenertest_SOURCES
     ../src/musicartist.cpp
     ../src/musicalbum.cpp
     ../src/musicaudiotrack.cpp
+    ../src/file/filelistener.cpp
+    ../src/file/localfilelisting.cpp
+    ../src/abstractfile/abstractfilelistener.cpp
+    ../src/abstractfile/abstractfilelisting.cpp
     trackslistenertest.cpp
 )
 
@@ -337,27 +305,17 @@ if (UPNPQT_FOUND)
         )
 endif()
 
-if (KF5FileMetaData_FOUND)
-    set(trackslistenertest_SOURCES
-        ${trackslistenertest_SOURCES}
-        ../src/file/filelistener.cpp
-        ../src/file/localfilelisting.cpp
-        ../src/abstractfile/abstractfilelistener.cpp
-        ../src/abstractfile/abstractfilelisting.cpp
-    )
-endif()
-
-if (KF5Config_FOUND)
-    kconfig_add_kcfg_files(trackslistenertest_SOURCES ../src/elisa_settings.kcfgc )
-    set(trackslistenertest_SOURCES
-        ${trackslistenertest_SOURCES}
-        ../src/elisa_core.kcfg
-    )
-endif()
+kconfig_add_kcfg_files(trackslistenertest_SOURCES ../src/elisa_settings.kcfgc )
+set(trackslistenertest_SOURCES
+    ${trackslistenertest_SOURCES}
+    ../src/elisa_core.kcfg
+)
 
 ecm_add_test(${trackslistenertest_SOURCES}
     TEST_NAME "trackslistenertest"
-    LINK_LIBRARIES Qt5::Test Qt5::Core Qt5::Sql Qt5::Gui Qt5::Widgets KF5::I18n Qt5::Quick Qt5::Multimedia)
+    LINK_LIBRARIES
+        Qt5::Test Qt5::Core Qt5::Sql Qt5::Gui Qt5::Widgets KF5::I18n Qt5::Quick Qt5::Multimedia KF5::ConfigCore KF5::ConfigGui KF5::FileMetaData
+)
 
 if (KF5Baloo_FOUND)
     target_link_libraries(trackslistenertest KF5::Baloo Qt5::DBus)
@@ -365,17 +323,11 @@ endif()
 if (KF5KCMUtils_FOUND)
     target_link_libraries(trackslistenertest KF5::KCMUtils)
 endif()
-if (KF5FileMetaData_FOUND)
-    target_link_libraries(trackslistenertest KF5::FileMetaData)
-endif()
 if (UPNPQT_FOUND)
     target_link_libraries(trackslistenertest Qt5::Xml UPNP::upnpQt Qt5::Network)
 endif()
 if (KF5XmlGui_FOUND)
     target_link_libraries(trackslistenertest KF5::XmlGui)
-endif()
-if (KF5Config_FOUND)
-    target_link_libraries(trackslistenertest KF5::ConfigCore KF5::ConfigGui)
 endif()
 
 target_include_directories(trackslistenertest PRIVATE ${CMAKE_SOURCE_DIR}/src)
@@ -440,24 +392,22 @@ ecm_add_test(${alltracksmodeltest_SOURCES}
 
 target_include_directories(alltracksmodeltest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 
-if (KF5FileMetaData_FOUND)
-    set(localfilelistingtest_SOURCES
-        ../src/file/localfilelisting.cpp
-        ../src/abstractfile/abstractfilelisting.cpp
-        ../src/musicaudiotrack.cpp
-        ../src/notificationitem.cpp
-        localfilelistingtest.cpp
-    )
+set(localfilelistingtest_SOURCES
+    ../src/file/localfilelisting.cpp
+    ../src/abstractfile/abstractfilelisting.cpp
+    ../src/musicaudiotrack.cpp
+    ../src/notificationitem.cpp
+    localfilelistingtest.cpp
+)
 
-    kconfig_add_kcfg_files(localfilelistingtest_SOURCES ../src/elisa_settings.kcfgc )
-    set(localfilelistingtest_SOURCES
-        ${localfilelistingtest_SOURCES}
-        ../src/elisa_core.kcfg
-    )
+kconfig_add_kcfg_files(localfilelistingtest_SOURCES ../src/elisa_settings.kcfgc )
+set(localfilelistingtest_SOURCES
+    ${localfilelistingtest_SOURCES}
+    ../src/elisa_core.kcfg
+)
 
-    ecm_add_test(${localfilelistingtest_SOURCES}
-        TEST_NAME "localfilelistingtest"
-        LINK_LIBRARIES Qt5::Test Qt5::Core Qt5::Sql KF5::I18n KF5::ConfigCore KF5::ConfigGui KF5::FileMetaData)
+ecm_add_test(${localfilelistingtest_SOURCES}
+    TEST_NAME "localfilelistingtest"
+    LINK_LIBRARIES Qt5::Test Qt5::Core Qt5::Sql KF5::I18n KF5::FileMetaData KF5::ConfigCore KF5::ConfigGui)
 
-    target_include_directories(localfilelistingtest PRIVATE ${CMAKE_SOURCE_DIR}/src)
-endif()
+target_include_directories(localfilelistingtest PRIVATE ${CMAKE_SOURCE_DIR}/src)

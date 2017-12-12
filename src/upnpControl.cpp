@@ -54,10 +54,7 @@
 #include "alltracksmodel.h"
 #include "notificationitem.h"
 #include "topnotificationmanager.h"
-
-#if defined KF5Config_FOUND && KF5Config_FOUND
 #include "elisa_settings.h"
-#endif
 
 #if defined Qt5DBus_FOUND && Qt5DBus_FOUND
 #include "mpris2/mpris2.h"
@@ -71,9 +68,7 @@
 #include <KI18n/KLocalizedString>
 #include <KI18n/KLocalizedContext>
 
-#if defined KF5CoreAddons_FOUND && KF5CoreAddons_FOUND
 #include <KCoreAddons/KAboutData>
-#endif
 
 #if defined KF5Crash_FOUND && KF5Crash_FOUND
 #include <KCrash>
@@ -181,7 +176,6 @@ int main(int argc, char *argv[])
 
     qRegisterMetaTypeStreamOperators<ManageMediaPlayerControl::PlayerState>("PlayListControler::PlayerState");
 
-#if defined KF5CoreAddons_FOUND && KF5CoreAddons_FOUND
     KAboutData aboutData( QStringLiteral("elisa"),
                           i18n("Elisa"),
                           QStringLiteral("0.0.80"),
@@ -197,11 +191,6 @@ int main(int argc, char *argv[])
     aboutData.addCredit(QStringLiteral("Alexander Stippich"), i18n("Various improvements to the interface"), QStringLiteral("a.stippich@gmx.net"));
 
     KAboutData::setApplicationData(aboutData);
-#else
-    QGuiApplication::setApplicationName(QStringLiteral("elisa"));
-    QGuiApplication::setOrganizationDomain(QStringLiteral("kde.org"));
-    QGuiApplication::setOrganizationName(QStringLiteral("KDE"));
-#endif
 
 #if defined KF5DBusAddons_FOUND && KF5DBusAddons_FOUND
     KDBusService elisaService(KDBusService::Unique);
@@ -210,15 +199,12 @@ int main(int argc, char *argv[])
     KLocalizedString::setApplicationDomain("elisa");
     ElisaApplication myApp;
 
-#if defined KF5CoreAddons_FOUND && KF5CoreAddons_FOUND
     QCommandLineParser parser;
     parser.addHelpOption();
     parser.addVersionOption();
     aboutData.setupCommandLine(&parser);
-
     parser.process(app);
     aboutData.processCommandLine(&parser);
-#endif
 
 #if defined Qt5AndroidExtras_FOUND && Qt5AndroidExtras_FOUND
     qDebug() << QCoreApplication::arguments();
@@ -229,13 +215,11 @@ int main(int argc, char *argv[])
                                               QtAndroid::androidContext().object());
 #endif
 
-#if defined KF5Config_FOUND && KF5Config_FOUND
     auto configurationFileName = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
     configurationFileName += QStringLiteral("/elisarc");
     Elisa::ElisaConfiguration::instance(configurationFileName);
     Elisa::ElisaConfiguration::self()->load();
     Elisa::ElisaConfiguration::self()->save();
-#endif
 
     QQmlApplicationEngine engine;
     engine.addImportPath(QStringLiteral("qrc:/imports"));

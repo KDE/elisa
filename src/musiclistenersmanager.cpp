@@ -36,10 +36,7 @@
 #include "trackslistener.h"
 #include "notificationitem.h"
 #include "elisaapplication.h"
-
-#if defined KF5Config_FOUND && KF5Config_FOUND
 #include "elisa_settings.h"
-#endif
 
 #include <KI18n/KLocalizedString>
 
@@ -73,9 +70,7 @@ public:
     QScopedPointer<BalooListener> mBalooListener;
 #endif
 
-#if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
     std::list<std::unique_ptr<FileListener>> mFileListener;
-#endif
 
     DatabaseInterface mDatabaseInterface;
 
@@ -137,7 +132,6 @@ MusicListenersManager::MusicListenersManager(QObject *parent)
     connect(QCoreApplication::instance(), &QCoreApplication::aboutToQuit,
             this, &MusicListenersManager::applicationAboutToQuit);
 
-#if defined KF5Config_FOUND && KF5Config_FOUND
     connect(Elisa::ElisaConfiguration::self(), &Elisa::ElisaConfiguration::configChanged,
             this, &MusicListenersManager::configChanged);
 
@@ -155,7 +149,6 @@ MusicListenersManager::MusicListenersManager(QObject *parent)
     }
 
     d->mConfigFileWatcher.addPath(Elisa::ElisaConfiguration::self()->config()->name());
-#endif
 }
 
 MusicListenersManager::~MusicListenersManager()
@@ -233,11 +226,9 @@ void MusicListenersManager::resetImportedTracksCounter()
     }
 #endif
 
-#if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
     for (const auto &itFileListener : d->mFileListener) {
         itFileListener->resetImportedTracksCounter();
     }
-#endif
 }
 
 void MusicListenersManager::setElisaApplication(ElisaApplication *elisaApplication)
@@ -267,13 +258,11 @@ void MusicListenersManager::playBackError(QUrl sourceInError, QMediaPlayer::Erro
 
 void MusicListenersManager::configChanged()
 {
-#if defined KF5Config_FOUND && KF5Config_FOUND
     auto currentConfiguration = Elisa::ElisaConfiguration::self();
 
     d->mConfigFileWatcher.addPath(currentConfiguration->config()->name());
 
     currentConfiguration->load();
-#endif
 
 #if defined KF5Baloo_FOUND && KF5Baloo_FOUND
     if (currentConfiguration->balooIndexer() && !d->mBalooListener) {
@@ -308,7 +297,6 @@ void MusicListenersManager::configChanged()
             &d->mUpnpListener, &UpnpListener::applicationAboutToQuit, Qt::DirectConnection);
 #endif
 
-#if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
     if (currentConfiguration->elisaFilesIndexer())
     {
         const auto &allRootPaths = currentConfiguration->rootPath();
@@ -353,7 +341,6 @@ void MusicListenersManager::configChanged()
             }
         }
     }
-#endif
 }
 
 void MusicListenersManager::computeImportedTracksCount()
@@ -366,11 +353,9 @@ void MusicListenersManager::computeImportedTracksCount()
     }
 #endif
 
-#if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
     for (const auto &itFileListener : d->mFileListener) {
         d->mImportedTracksCount += itFileListener->importedTracksCount();
     }
-#endif
 
     if (d->mImportedTracksCount >= 4) {
         Q_EMIT closeNotification(QStringLiteral("notEnoughTracks"));

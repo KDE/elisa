@@ -23,7 +23,7 @@ include(ECMAddTests)
 find_package(Qt5DBus ${REQUIRED_QT_VERSION} CONFIG QUIET)
 set_package_properties(Qt5DBus PROPERTIES
     DESCRIPTION "Qt5 DBus is needed to provide MPris2 interface to allow remote control by the desktop workspace."
-    TYPE RUNTIME)
+    TYPE OPTIONAL)
 
 find_package(Qt5QuickWidgets ${REQUIRED_QT_VERSION} CONFIG QUIET)
 set_package_properties(Qt5QuickWidgets PROPERTIES
@@ -52,7 +52,7 @@ set_package_properties(KF5Declarative PROPERTIES
 find_package(KF5CoreAddons ${REQUIRED_KF5_VERSION} CONFIG QUIET)
 set_package_properties(KF5CoreAddons PROPERTIES
     DESCRIPTION "Qt addon library with a collection of non-GUI utilities."
-    TYPE OPTIONAL)
+    TYPE REQUIRED)
 
 find_package(KF5Baloo ${REQUIRED_KF5_VERSION} CONFIG QUIET)
 set_package_properties(KF5Baloo PROPERTIES
@@ -62,7 +62,7 @@ set_package_properties(KF5Baloo PROPERTIES
 find_package(KF5FileMetaData ${REQUIRED_KF5_VERSION} CONFIG QUIET)
 set_package_properties(KF5FileMetaData PROPERTIES
     DESCRIPTION "Provides a simple library for extracting metadata."
-    TYPE RECOMMENDED)
+    TYPE REQUIRED)
 
 if ("${KF5FileMetaData_VERSION_MINOR}" LESS "39")
     message(WARNING "KF5 FileMetaData versions prior to 5.39 are working but some crashes can happen when used by Elisa music player")
@@ -81,6 +81,11 @@ set_package_properties(KF5XmlGui PROPERTIES
 find_package(KF5Config ${REQUIRED_KF5_VERSION} CONFIG QUIET)
 set_package_properties(KF5Config PROPERTIES
     DESCRIPTION "Persistent platform-independent application settings."
+    TYPE REQUIRED)
+
+find_package(KF5ConfigWidgets ${REQUIRED_KF5_VERSION} CONFIG QUIET)
+set_package_properties(KF5ConfigWidgets PROPERTIES
+    DESCRIPTION "Widgets for configuration dialogs."
     TYPE RECOMMENDED)
 
 find_package(KF5Crash ${REQUIRED_KF5_VERSION} CONFIG QUIET)
@@ -96,6 +101,11 @@ set_package_properties(KF5DBusAddons PROPERTIES
 find_package(KF5KCMUtils ${REQUIRED_KF5_VERSION} CONFIG QUIET)
 set_package_properties(KF5KCMUtils PROPERTIES
     DESCRIPTION "KF5 Utilities for KDE System Settings modules library."
+    TYPE RECOMMENDED)
+
+find_package(KF5Package ${REQUIRED_KF5_VERSION} CONFIG QUIET)
+set_package_properties(KF5Package PROPERTIES
+    DESCRIPTION "KF5 package management library needed to get the configuration dialogs."
     TYPE RECOMMENDED)
 
 find_package(UPNPQT CONFIG QUIET)

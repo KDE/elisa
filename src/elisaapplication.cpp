@@ -19,11 +19,11 @@
  */
 
 #include "elisaapplication.h"
-
-#if defined KF5Config_FOUND && KF5Config_FOUND
 #include "elisa_settings.h"
-#include <KConfigWidgets/KStandardAction>
 #include <KConfigCore/KAuthorized>
+
+#if defined KF5ConfigWidgets_FOUND && KF5ConfigWidgets_FOUND
+#include <KConfigWidgets/KStandardAction>
 #endif
 
 #if defined KF5XmlGui_FOUND && KF5XmlGui_FOUND
@@ -38,9 +38,7 @@
 #include <KCMUtils/KCMultiDialog>
 #endif
 
-#if defined KF5CoreAddons_FOUND && KF5CoreAddons_FOUND
 #include <KCoreAddons/KAboutData>
-#endif
 
 #include <QCoreApplication>
 #include <QDesktopServices>

@@ -14,17 +14,30 @@ set(KCM_ELISA_LOCAL_FILE_SRCS
 add_library(kcm_elisa_local_file MODULE ${KCM_ELISA_LOCAL_FILE_SRCS})
 
 target_link_libraries(kcm_elisa_local_file
+    Qt5::Core
     KF5::ConfigCore
-    KF5::CoreAddons
-    KF5::Declarative
     KF5::I18n
-    KF5::QuickAddons
-    KF5::ConfigWidgets
+    KF5::CoreAddons
 )
+
+if (KF5Declarative_FOUND)
+    target_link_libraries(kcm_elisa_local_file
+        KF5::Declarative
+        KF5::QuickAddons
+    )
+endif()
+
+if (KF5ConfigWidgets_FOUND)
+    target_link_libraries(kcm_elisa_local_file
+        KF5::ConfigWidgets
+    )
+endif()
 
 kcoreaddons_desktop_to_json(kcm_elisa_local_file "kcm_elisa_local_file.desktop")
 
 install(FILES kcm_elisa_local_file.desktop DESTINATION ${SERVICES_INSTALL_DIR})
 install(TARGETS kcm_elisa_local_file DESTINATION ${PLUGIN_INSTALL_DIR}/kcms)
 
-kpackage_install_package(package kcm_elisa_local_file kcms)
+if (KF5KPackage_FOUND)
+    kpackage_install_package(package kcm_elisa_local_file kcms)
+endif()

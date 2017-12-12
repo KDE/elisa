@@ -24,6 +24,10 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         alltracksmodel.cpp
         notificationitem.cpp
         topnotificationmanager.cpp
+        abstractfile/abstractfilelistener.cpp
+        abstractfile/abstractfilelisting.cpp
+        file/filelistener.cpp
+        file/localfilelisting.cpp
 
         MediaServer.qml
         Theme.qml
@@ -106,23 +110,11 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
             )
     endif()
 
-    if (KF5FileMetaData_FOUND)
-        set(elisa_SOURCES
-            ${elisa_SOURCES}
-            abstractfile/abstractfilelistener.cpp
-            abstractfile/abstractfilelisting.cpp
-            file/filelistener.cpp
-            file/localfilelisting.cpp
-        )
-    endif()
-
-    if (KF5Config_FOUND)
-        kconfig_add_kcfg_files(elisa_SOURCES elisa_settings.kcfgc)
-        set(elisa_SOURCES
-            ${elisa_SOURCES}
-            elisa_core.kcfg
-        )
-    endif()
+    kconfig_add_kcfg_files(elisa_SOURCES elisa_settings.kcfgc)
+    set(elisa_SOURCES
+        ${elisa_SOURCES}
+        elisa_core.kcfg
+    )
 
     qt5_add_resources(elisa_SOURCES upnpControl.qrc)
 
@@ -146,6 +138,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
 
     target_link_libraries(elisa
         LINK_PRIVATE
+            Qt5::Core
             Qt5::Quick
             Qt5::Gui
             Qt5::Widgets
@@ -153,19 +146,16 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
             Qt5::Svg
             Qt5::Sql
             KF5::I18n
+            KF5::ConfigCore
+            KF5::ConfigGui
+            KF5::FileMetaData
+            KF5::CoreAddons
     )
 
     if (Qt5DBus_FOUND)
         target_link_libraries(elisa
             LINK_PRIVATE
                 Qt5::DBus
-        )
-    endif()
-
-    if (KF5Config_FOUND)
-        target_link_libraries(elisa
-            LINK_PRIVATE
-                KF5::ConfigCore
         )
     endif()
 
@@ -180,20 +170,6 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         target_link_libraries(elisa
             LINK_PRIVATE
                 Qt5::AndroidExtras
-        )
-    endif()
-
-    if (KF5FileMetaData_FOUND)
-        target_link_libraries(elisa
-            LINK_PRIVATE
-                KF5::FileMetaData
-        )
-    endif()
-
-    if (KF5CoreAddons_FOUND)
-        target_link_libraries(elisa
-            LINK_PRIVATE
-                KF5::CoreAddons
         )
     endif()
 
@@ -243,6 +219,6 @@ endif()
 
 install(TARGETS elisa ${INSTALL_TARGETS_DEFAULT_ARGS})
 
-if (KF5Config_FOUND)
+if (KF5ConfigWidgets_FOUND)
     add_subdirectory(localFileConfiguration)
 endif()

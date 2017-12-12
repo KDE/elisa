@@ -112,7 +112,8 @@ FocusScope {
             }
 
             clearAndEnqueueAction: Action {
-                text: i18nc("Clear play list and add whole album to play list", "Play Now and Replace Play List")
+                text: i18nc("Clear play list and play", "Replace and Play")
+                tooltip: i18nc("Clear play list and add whole album to play list", "Replace Play List and Play Now")
                 iconName: "media-playback-start"
                 onTriggered: {
                     topListing.playListModel.clearAndEnqueue(topListing.albumData)

@@ -48,8 +48,6 @@
 #include <QAction>
 #include <QUrl>
 
-#include <QDebug>
-
 class ElisaApplicationPrivate
 {
 public:
@@ -159,7 +157,6 @@ void ElisaApplication::configureShortcuts()
     KShortcutsDialog dlg(KShortcutsEditor::AllActions, KShortcutsEditor::LetterShortcutsAllowed, nullptr);
     dlg.setModal(true);
     dlg.addCollection(&d->mCollection);
-    qDebug() << "saving shortcuts..." << dlg.configure(/*bSaveSettings*/);
 #endif
 }
 

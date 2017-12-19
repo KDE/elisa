@@ -189,7 +189,7 @@ FocusScope {
 
                         asynchronous: true
 
-                        layer.enabled: true
+                        layer.enabled: image == '' ? false : true
                         layer.effect: DropShadow {
                             horizontalOffset: mediaServerEntry.width * 0.02
                             verticalOffset: mediaServerEntry.width * 0.02

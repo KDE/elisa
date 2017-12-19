@@ -109,7 +109,7 @@ FocusScope {
 
                         asynchronous: true
 
-                        layer.enabled: true
+                        layer.enabled: image == undefined ? false : true
                         layer.effect: DropShadow {
                             horizontalOffset: viewTrackDelegate.height * 0.02
                             verticalOffset: viewTrackDelegate.height * 0.02

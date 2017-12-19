@@ -139,6 +139,7 @@ FocusScope {
             contentDirectoryModel: rootElement.contentDirectoryModel
             playerControl: rootElement.playerControl
             stackView: rootElement.stackView
+            musicListener: rootElement.musicListener
 
             onShowArtist: showArtistsAlbums(name)
         }

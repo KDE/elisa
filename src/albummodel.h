@@ -79,7 +79,8 @@ public:
         IdRole = ResourceRole + 1,
         DatabaseIdRole = IdRole + 1,
         DiscFirstTrackRole = DatabaseIdRole + 1,
-        TrackDataRole = DiscFirstTrackRole + 1,
+        IsSingleDiscAlbumRole = DiscFirstTrackRole + 1,
+        TrackDataRole = IsSingleDiscAlbumRole + 1,
     };
 
     Q_ENUM(ColumnsRoles)

@@ -28,13 +28,13 @@ import QtGraphicalEffects 1.0
 import org.kde.elisa 1.0
 
 FocusScope {
+    id: rootElement
+
     property var playerControl
     property var playListModel
     property var tracksModel
     property var stackView
     property var musicListener
-
-    id: rootElement
 
     SystemPalette {
         id: myPalette
@@ -88,7 +88,7 @@ FocusScope {
                             filterRating: filterBar.filterRating
                         }
 
-                        delegate: MediaTracksDelegate {
+                        delegate: MediaTrackDelegate {
                             id: entry
 
                             width: contentDirectoryView.width
@@ -102,49 +102,60 @@ FocusScope {
                                        model.title
                                    else
                                        ''
-
                             artist: if (model != undefined && model.artist !== undefined)
                                         model.artist
                                     else
                                         ''
-
                             albumName: if (model != undefined && model.album !== undefined)
                                              model.album
                                          else
                                              ''
-
+                            albumArtist: if (model != undefined && model.albumArtist !== undefined)
+                                        model.albumArtist
+                                    else
+                                        ''
                             duration: if (model != undefined && model.duration !== undefined)
                                           model.duration
                                       else
                                           ''
-
                             trackNumber: if (model != undefined && model.trackNumber !== undefined)
                                              model.trackNumber
                                          else
                                              ''
-
                             discNumber: if (model != undefined && model.discNumber !== undefined)
                                              model.discNumber
                                          else
                                              ''
-
                             rating: if (model != undefined && model.rating !== undefined)
                                              model.rating
                                          else
                                              0
-
                             trackData: if (model != undefined && model.trackData !== undefined)
                                            model.trackData
                                        else
                                            ''
-
                             coverImage: if (model != undefined && model.image !== undefined)
                                             model.image
                                         else
                                             ''
+                            trackResource: if (model != undefined && model.trackResource !== undefined)
+                                               model.trackResource
+                                           else
+                                               ''
+                            isFirstTrackOfDisc: if (model != undefined && model.isFirstTrackOfDisc !== undefined)
+                                                    model.isFirstTrackOfDisc
+                                                else
+                                                    false
+                            isSingleDiscAlbum: if (model != undefined && model.isSingleDiscAlbum !== undefined)
+                                                   model.isSingleDiscAlbum
+                                               else
+                                                   true
 
-                            playList: rootElement.playListModel
-                            playerControl: rootElement.playerControl
+                            onClearPlaylist: rootElement.playListModel.clearPlayList()
+
+                            onEnqueueToPlaylist: rootElement.playListModel.enqueue(track)
+
+                            onEnsurePlay: rootElement.playerControl.ensurePlay()
 
                             onClicked: contentDirectoryView.currentIndex = index
                         }

@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>AudioTrackDelegate.qml</file>
         <file>MediaPlayerControl.qml</file>
         <file>RatingStar.qml</file>
         <file>MediaPlayListView.qml</file>
@@ -37,12 +36,13 @@
         <file>PlatformIntegration.qml</file>
         <file>LabelWithToolTip.qml</file>
         <file>MediaAllTracksView.qml</file>
-        <file>MediaTracksDelegate.qml</file>
         <file>TopNotification.qml</file>
         <file>TrackImportNotification.qml</file>
         <file>TopNotificationItem.qml</file>
         <file>ViewSelector.qml</file>
         <file>FilterBar.qml</file>
+        <file>MediaTrackDelegate.qml</file>
+        <file>MediaAlbumTrackDelegate.qml</file>
     </qresource>
     <qresource prefix="/+windows">
         <file alias="Theme.qml">windows/WindowsTheme.qml</file>

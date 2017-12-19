@@ -73,7 +73,9 @@ QHash<int, QByteArray> AlbumModel::roleNames() const
     roles[static_cast<int>(ColumnsRoles::ImageRole)] = "image";
     roles[static_cast<int>(ColumnsRoles::DatabaseIdRole)] = "databaseId";
     roles[static_cast<int>(ColumnsRoles::DiscFirstTrackRole)] = "isFirstTrackOfDisc";
+    roles[static_cast<int>(ColumnsRoles::IsSingleDiscAlbumRole)] = "isSingleDiscAlbum";
     roles[static_cast<int>(ColumnsRoles::TrackDataRole)] = "trackData";
+    roles[static_cast<int>(ColumnsRoles::ResourceRole)] = "trackResource";
 
     return roles;
 }
@@ -173,6 +175,9 @@ QVariant AlbumModel::internalDataTrack(const MusicAudioTrack &track, int role, i
             auto previousTrack = d->mCurrentAlbum.trackFromIndex(rowIndex - 1);
             result = (previousTrack.discNumber() != track.discNumber());
         }
+        break;
+    case ColumnsRoles::IsSingleDiscAlbumRole:
+        result = track.isSingleDiscAlbum();
         break;
     case ColumnsRoles::RatingRole:
         result = track.rating();

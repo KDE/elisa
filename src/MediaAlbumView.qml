@@ -143,68 +143,67 @@ FocusScope {
 
                 focus: true
 
-                model: DelegateModel {
-                    model: contentModel
+                model:  contentModel
 
-                    groups: [
-                        DelegateModelGroup { name: "selected" }
-                    ]
+                delegate: MediaAlbumTrackDelegate {
+                    id: entry
 
-                    delegate: AudioTrackDelegate {
-                        id: entry
+                    height: ((model.isFirstTrackOfDisc && !isSingleDiscAlbum) ? elisaTheme.delegateHeight*2 : elisaTheme.delegateHeight)
+                    width: contentDirectoryView.width
 
-                        focus: true
+                    focus: true
 
-                        isAlternateColor: DelegateModel.itemsIndex % 2
-                        height: ((model.isFirstTrackOfDisc && !isSingleDiscAlbum) ? elisaTheme.delegateWithHeaderHeight : elisaTheme.delegateHeight)
-                        width: contentDirectoryView.width
+                    mediaTrack.isAlternateColor: (index % 2) === 1
 
-                        databaseId: model.databaseId
-                        playList: topListing.playListModel
-                        playerControl: topListing.playerControl
-
-                        title: if (model != undefined && model.title !== undefined)
-                                   model.title
-                               else
-                                   ''
-
-                        artist: if (model != undefined && model.artist !== undefined)
-                                    model.artist
+                    mediaTrack.title: if (model != undefined && model.title !== undefined)
+                               model.title
+                           else
+                               ''
+                    mediaTrack.artist: if (model != undefined && model.artist !== undefined)
+                                model.artist
+                            else
+                                ''
+                    mediaTrack.albumArtist: if (model != undefined && model.albumArtist !== undefined)
+                                     model.albumArtist
+                                 else
+                                     ''
+                    mediaTrack.duration: if (model != undefined && model.duration !== undefined)
+                                  model.duration
+                              else
+                                  ''
+                    mediaTrack.trackNumber: if (model != undefined && model.trackNumber !== undefined)
+                                     model.trackNumber
+                                 else
+                                     ''
+                    mediaTrack.discNumber: if (model != undefined && model.discNumber !== undefined)
+                                    model.discNumber
                                 else
                                     ''
+                    mediaTrack.rating: if (model != undefined && model.rating !== undefined)
+                                model.rating
+                            else
+                                0
+                    mediaTrack.trackData: if (model != undefined && model.trackData !== undefined)
+                                   model.trackData
+                               else
+                                   ''
+                    mediaTrack.isFirstTrackOfDisc: if (model != undefined && model.isFirstTrackOfDisc !== undefined)
+                                            model.isFirstTrackOfDisc
+                                        else
+                                            false
+                    mediaTrack.isSingleDiscAlbum: if (model != undefined && model.isSingleDiscAlbum !== undefined)
+                                           model.isSingleDiscAlbum
+                                       else
+                                           true
 
-                        albumArtist: topListing.artistName
 
-                        duration: if (model != undefined && model.duration !== undefined)
-                                      model.duration
-                                  else
-                                      ''
+                    mediaTrack.onClearPlaylist: topListing.playListModel.clearPlayList()
 
-                        trackNumber: if (model != undefined && model.trackNumber !== undefined)
-                                         model.trackNumber
-                                     else
-                                         ''
+                    mediaTrack.onEnqueueToPlaylist: topListing.playListModel.enqueue(track)
 
-                        discNumber: if (model != undefined && model.discNumber !== undefined)
-                                        model.discNumber
-                                    else
-                                        ''
+                    mediaTrack.onEnsurePlay: topListing.playerControl.ensurePlay()
 
-                        rating: if (model != undefined && model.rating !== undefined)
-                                    model.rating
-                                else
-                                    0
-
-                        trackData: if (model != undefined && model.trackData !== undefined)
-                                       model.trackData
-                                   else
-                                       ''
-
-                        isFirstTrackOfDisc: model.isFirstTrackOfDisc
-                        isSingleDiscAlbum: topListing.isSingleDiscAlbum
-
-                        onClicked: contentDirectoryView.currentIndex = index
-                    }
+                    mediaTrack.onClicked: contentDirectoryView.currentIndex = index
                 }
             }
         }

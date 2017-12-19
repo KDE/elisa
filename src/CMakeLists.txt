@@ -42,7 +42,6 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         android/PlatformIntegration.qml
 
         RatingStar.qml
-        AudioTrackDelegate.qml
         PlayListEntry.qml
         MediaAlbumDelegate.qml
         MediaArtistDelegate.qml
@@ -65,7 +64,8 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         MediaAllAlbumView.qml
         MediaAllArtistView.qml
         MediaAllTracksView.qml
-        MediaTracksDelegate.qml
+        MediaTrackDelegate.qml
+        MediaAlbumTrackDelegate.qml
 
         ViewSelector.qml
         )

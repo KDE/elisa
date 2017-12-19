@@ -41,14 +41,16 @@ public:
         CreatorRole = MilliSecondsDurationRole + 1,
         ArtistRole = CreatorRole + 1,
         AlbumRole = ArtistRole + 1,
-        TrackNumberRole = AlbumRole + 1,
+        AlbumArtistRole = AlbumRole + 1,
+        TrackNumberRole = AlbumArtistRole + 1,
         DiscNumberRole = TrackNumberRole + 1,
         RatingRole = DiscNumberRole + 1,
         ImageRole = RatingRole + 1,
         ResourceRole = ImageRole + 1,
         IdRole = ResourceRole + 1,
         DatabaseIdRole = IdRole + 1,
-        TrackDataRole = DatabaseIdRole + 1,
+        IsSingleDiscAlbumRole = DatabaseIdRole + 1,
+        TrackDataRole = IsSingleDiscAlbumRole + 1,
     };
 
     Q_ENUM(ColumnsRoles)

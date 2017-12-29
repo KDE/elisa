@@ -92,7 +92,7 @@ void AbstractFileListing::newTrackFile(const MusicAudioTrack &partialTrack)
     const auto &newTrack = scanOneFile(partialTrack.resourceURI());
 
     if (newTrack.isValid() && newTrack != partialTrack) {
-        Q_EMIT modifyTracksList({newTrack}, d->mAllAlbumCover);
+        Q_EMIT modifyTracksList({newTrack}, d->mAllAlbumCover, d->mSourceName);
     }
 }
 
@@ -246,7 +246,7 @@ void AbstractFileListing::fileChanged(const QString &modifiedFileName)
     auto modifiedTrack = scanOneFile(modifiedFile);
 
     if (modifiedTrack.isValid()) {
-        Q_EMIT modifyTracksList({modifiedTrack}, d->mAllAlbumCover);
+        Q_EMIT modifyTracksList({modifiedTrack}, d->mAllAlbumCover, d->mSourceName);
     }
 }
 

@@ -61,7 +61,7 @@ Q_SIGNALS:
 
     void removedTracksList(const QList<QUrl> &removedTracks);
 
-    void modifyTracksList(const QList<MusicAudioTrack> &modifiedTracks, const QHash<QString, QUrl> &covers);
+    void modifyTracksList(const QList<MusicAudioTrack> &modifiedTracks, const QHash<QString, QUrl> &covers, const QString &musicSource);
 
     void indexingStarted();
 

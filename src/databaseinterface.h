@@ -112,7 +112,7 @@ public Q_SLOTS:
 
     void removeTracksList(const QList<QUrl> &removedTracks);
 
-    void modifyTracksList(const QList<MusicAudioTrack> &modifiedTracks, const QHash<QString, QUrl> &covers);
+    void modifyTracksList(const QList<MusicAudioTrack> &modifiedTracks, const QHash<QString, QUrl> &covers, const QString &musicSource);
 
     void removeAllTracksFromSource(const QString &sourceName);
 

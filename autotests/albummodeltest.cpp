@@ -393,7 +393,7 @@ private Q_SLOTS:
             QTime::fromMSecsSinceStartOfDay(3), {QUrl::fromLocalFile(QStringLiteral("/$3"))},
             {QUrl::fromLocalFile(QStringLiteral("file://image$3"))}, 5, true};
 
-        musicDb.modifyTracksList({modifiedTrack}, mNewCovers);
+        musicDb.modifyTracksList({modifiedTrack}, mNewCovers, QStringLiteral("autoTest"));
 
         QCOMPARE(beginInsertRowsSpy.count(), 1);
         QCOMPARE(endInsertRowsSpy.count(), 1);

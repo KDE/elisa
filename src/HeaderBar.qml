@@ -66,28 +66,21 @@ FocusScope {
             opacity: 1
 
             layer.enabled: true
-            layer.effect: Desaturate {
+            layer.effect: HueSaturation {
                 cached: true
 
-                desaturation: -0.2
+                lightness: -0.5
+                saturation: 0.9
 
                 layer.enabled: true
-                layer.effect: BrightnessContrast {
+                layer.effect: GaussianBlur {
                     cached: true
 
-                    brightness: -0.2
-                    contrast: -0.1
+                    radius: 256
+                    deviation: 12
+                    samples: 129
 
-                    layer.enabled: true
-                    layer.effect: GaussianBlur {
-                        cached: true
-
-                        radius: 32
-                        deviation: 12
-                        samples: 65
-
-                        transparentBorder: false
-                    }
+                    transparentBorder: false
                 }
             }
         }
@@ -108,28 +101,21 @@ FocusScope {
             opacity: 0
 
             layer.enabled: true
-            layer.effect: Desaturate {
+            layer.effect: HueSaturation {
                 cached: true
 
-                desaturation: -0.2
+                lightness: -0.5
+                saturation: 0.9
 
                 layer.enabled: true
-                layer.effect: BrightnessContrast {
+                layer.effect: GaussianBlur {
                     cached: true
 
-                    brightness: -0.2
-                    contrast: -0.1
+                    radius: 256
+                    deviation: 12
+                    samples: 129
 
-                    layer.enabled: true
-                    layer.effect: GaussianBlur {
-                        cached: true
-
-                        radius: 32
-                        deviation: 12
-                        samples: 65
-
-                        transparentBorder: false
-                    }
+                    transparentBorder: false
                 }
             }
         }
@@ -209,17 +195,6 @@ FocusScope {
                     }
 
                     fillMode: Image.PreserveAspectFit
-
-                    layer.enabled: true
-                    layer.effect: DropShadow {
-                        horizontalOffset: elisaTheme.shadowOffset
-                        verticalOffset: elisaTheme.shadowOffset
-
-                        radius: 5.0
-                        samples: 11
-
-                        color: myPalette.shadow
-                    }
                 }
 
                 Image {
@@ -240,17 +215,6 @@ FocusScope {
                     }
 
                     fillMode: Image.PreserveAspectFit
-
-                    layer.enabled: true
-                    layer.effect: DropShadow {
-                        horizontalOffset: elisaTheme.shadowOffset
-                        verticalOffset: elisaTheme.shadowOffset
-
-                        radius: 5.0
-                        samples: 11
-
-                        color: myPalette.shadow
-                    }
                 }
             }
 
@@ -280,19 +244,10 @@ FocusScope {
                     Layout.alignment: Qt.AlignLeft
                     elide: Text.ElideRight
                     color: myPalette.highlightedText
-                    font.pixelSize: elisaTheme.defaultFontPixelSize * 2
+                    font.pixelSize: elisaTheme.defaultFontPixelSize * 2.5
                     font.bold: true
 
-                    layer.effect: Glow {
-                        cached: true
-
-                        color: myPalette.shadow
-
-                        radius: 4.0
-                        samples: 9
-                    }
-
-                    Layout.bottomMargin: titleFontInfo.height
+                    Layout.bottomMargin: titleFontInfo.height * 0.5
                 }
 
                 LabelWithToolTip {
@@ -312,8 +267,6 @@ FocusScope {
                         radius: 4.0
                         samples: 9
                     }
-
-                    Layout.bottomMargin: titleFontInfo.height
                 }
 
                 LabelWithToolTip {
@@ -324,6 +277,7 @@ FocusScope {
                     elide: Text.ElideRight
                     color: myPalette.highlightedText
                     font.weight: Font.Light
+                    font.pixelSize: elisaTheme.defaultFontPixelSize * 1
 
                     layer.effect: Glow {
                         cached: true
@@ -334,7 +288,6 @@ FocusScope {
                         samples: 9
                     }
 
-                    Layout.bottomMargin: titleFontInfo.height
                 }
 
                 RatingStar {

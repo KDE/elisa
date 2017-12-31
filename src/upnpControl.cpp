@@ -183,12 +183,13 @@ int main(int argc, char *argv[])
                           KAboutLicense::LGPL_V3,
                           i18n("(c) 2015-2017, Matthieu Gallien &lt;mgallien@mgallien.fr&gt;"));
 
-    aboutData.addAuthor(QStringLiteral("Matthieu Gallien"),i18n("Author"), QStringLiteral("mgallien@mgallien.fr"));
+    aboutData.addAuthor(QStringLiteral("Matthieu Gallien"),i18n("Creator"), QStringLiteral("mgallien@mgallien.fr"));
+    aboutData.addAuthor(QStringLiteral("Alexander Stippich"), i18n("Author"), QStringLiteral("a.stippich@gmx.net"));
 
     aboutData.addCredit(QStringLiteral("Andrew Lake"), i18n("Concept and design work"), QStringLiteral("jamboarder@gmail.com"));
     aboutData.addCredit(QStringLiteral("Luigi Toscano"), i18n("Localization support"), QStringLiteral("luigi.toscano@tiscali.it"));
     aboutData.addCredit(QStringLiteral("Safa Alfulaij"), i18n("Right to left support in interface"), QStringLiteral("safa1996alfulaij@gmail.com"));
-    aboutData.addCredit(QStringLiteral("Alexander Stippich"), i18n("Various improvements to the interface"), QStringLiteral("a.stippich@gmx.net"));
+    aboutData.addCredit(QStringLiteral("Diego Gangl"), i18n("Various improvements to the interface"), QStringLiteral("diego@sinestesia.co"));
 
     KAboutData::setApplicationData(aboutData);
 

@@ -62,7 +62,7 @@ Item {
     property int navigationBarHeight: 100
 
     property int gridDelegateHeight: 168
-    property int gridDelegateWidth: 112
+    property int gridDelegateWidth: 100
 
     property int viewSelectorDelegateHeight: 32
 

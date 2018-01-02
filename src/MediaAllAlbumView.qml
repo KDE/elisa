@@ -86,7 +86,7 @@ FocusScope {
                     }
 
                     cellWidth: elisaTheme.gridDelegateWidth
-                    cellHeight: elisaTheme.gridDelegateWidth + elisaTheme.layoutVerticalMargin * 3 + textLineHeight.height * 2
+                    cellHeight: elisaTheme.gridDelegateWidth + elisaTheme.layoutVerticalMargin + textLineHeight.height * 2
 
                     model: DelegateModel {
                         id: delegateContentModel

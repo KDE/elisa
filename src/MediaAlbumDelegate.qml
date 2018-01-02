@@ -108,7 +108,7 @@ FocusScope {
             acceptedButtons: Qt.LeftButton
             focus: true
 
-            Layout.preferredHeight: mediaServerEntry.width * 0.9 + elisaTheme.layoutVerticalMargin * 0.5 + titleSize.height + artistSize.height
+            Layout.preferredHeight: mediaServerEntry.width * 0.85 + elisaTheme.layoutVerticalMargin * 0.5 + titleSize.height + artistSize.height
             Layout.fillWidth: true
 
             onClicked:
@@ -140,7 +140,7 @@ FocusScope {
                 anchors.top: parent.top
                 anchors.left: parent.left
                 anchors.right: parent.right
-                height: mediaServerEntry.width * 0.9 + elisaTheme.layoutVerticalMargin
+                height: mediaServerEntry.width * 0.85 + elisaTheme.layoutVerticalMargin
 
                 sourceComponent: Item {
                     GaussianBlur {
@@ -209,8 +209,8 @@ FocusScope {
                 z: 1
 
                 Item {
-                    Layout.preferredHeight: mediaServerEntry.width * 0.9
-                    Layout.preferredWidth: mediaServerEntry.width * 0.9
+                    Layout.preferredHeight: mediaServerEntry.width * 0.85
+                    Layout.preferredWidth: mediaServerEntry.width * 0.85
 
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
 
@@ -221,8 +221,8 @@ FocusScope {
 
                         anchors.fill: parent
 
-                        sourceSize.width: mediaServerEntry.width * 0.9
-                        sourceSize.height: mediaServerEntry.width * 0.9
+                        sourceSize.width: parent.width
+                        sourceSize.height: parent.height
                         fillMode: Image.PreserveAspectFit
                         smooth: true
 
@@ -254,7 +254,7 @@ FocusScope {
                     horizontalAlignment: Text.AlignLeft
 
                     Layout.topMargin: elisaTheme.layoutVerticalMargin * 0.5
-                    Layout.preferredWidth: mediaServerEntry.width * 0.9
+                    Layout.preferredWidth: mediaServerEntry.width * 0.85
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
 
                     elide: Text.ElideRight
@@ -263,12 +263,12 @@ FocusScope {
                 LabelWithToolTip {
                     id: artistLabel
 
-                    font.weight: Font.Normal
+                    font.weight: Font.Light
                     color: myPalette.text
 
                     horizontalAlignment: Text.AlignLeft
 
-                    Layout.preferredWidth: mediaServerEntry.width * 0.9
+                    Layout.preferredWidth: mediaServerEntry.width * 0.85
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
 
                     elide: Text.ElideRight

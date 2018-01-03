@@ -250,7 +250,7 @@ bool MediaPlayList::setData(const QModelIndex &index, const QVariant &value, int
 
 QHash<int, QByteArray> MediaPlayList::roleNames() const
 {
-    QHash<int, QByteArray> roles;
+    auto roles = QAbstractItemModel::roleNames();
 
     roles[static_cast<int>(ColumnsRoles::IsValidRole)] = "isValid";
     roles[static_cast<int>(ColumnsRoles::TitleRole)] = "title";

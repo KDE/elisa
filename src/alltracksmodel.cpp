@@ -55,7 +55,7 @@ int AllTracksModel::rowCount(const QModelIndex &parent) const
 
 QHash<int, QByteArray> AllTracksModel::roleNames() const
 {
-    QHash<int, QByteArray> roles;
+    auto roles = QAbstractItemModel::roleNames();
 
     roles[static_cast<int>(ColumnsRoles::TitleRole)] = "title";
     roles[static_cast<int>(ColumnsRoles::DurationRole)] = "duration";

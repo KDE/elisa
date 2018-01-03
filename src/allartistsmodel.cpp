@@ -64,7 +64,7 @@ int AllArtistsModel::rowCount(const QModelIndex &parent) const
 
 QHash<int, QByteArray> AllArtistsModel::roleNames() const
 {
-    QHash<int, QByteArray> roles;
+    auto roles = QAbstractItemModel::roleNames();
 
     roles[static_cast<int>(ColumnsRoles::NameRole)] = "name";
     roles[static_cast<int>(ColumnsRoles::ArtistsCountRole)] = "albumsCount";

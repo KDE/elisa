@@ -46,16 +46,16 @@ public:
 
     enum ColumnsRoles {
         TitleRole = Qt::UserRole + 1,
-        AllTracksTitleRole = TitleRole + 1,
-        ArtistRole = AllTracksTitleRole + 1,
-        AllArtistsRole = ArtistRole + 1,
-        ImageRole = AllArtistsRole + 1,
-        CountRole = ImageRole + 1,
-        IdRole = CountRole + 1,
-        IsSingleDiscAlbumRole = IdRole + 1,
-        AlbumDataRole = IsSingleDiscAlbumRole + 1,
-        HighestTrackRating = AlbumDataRole + 1,
-        AlbumDatabaseIdRole = HighestTrackRating + 1,
+        AllTracksTitleRole,
+        ArtistRole,
+        AllArtistsRole,
+        ImageRole,
+        CountRole,
+        IdRole,
+        IsSingleDiscAlbumRole,
+        AlbumDataRole,
+        HighestTrackRating,
+        AlbumDatabaseIdRole,
     };
 
     Q_ENUM(ColumnsRoles)

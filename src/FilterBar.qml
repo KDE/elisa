@@ -91,7 +91,7 @@ FocusScope {
                 placeholderText: i18nc("Placeholder text in the filter text box", "Filter")
 
                 Layout.bottomMargin: 0
-                Layout.preferredWidth: rootElement.width / 2
+                Layout.preferredWidth: filterBar.width / 2
 
                 Image {
                     anchors.top: parent.top

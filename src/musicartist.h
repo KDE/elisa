@@ -21,6 +21,7 @@
 #define MUSICARTIST_H
 
 #include <QString>
+#include <QMetaType>
 
 #include <memory>
 
@@ -68,5 +69,7 @@ private:
 QDebug& operator<<(QDebug &stream, const MusicArtist &data);
 
 bool operator==(const MusicArtist &artist1, const MusicArtist &artist2);
+
+Q_DECLARE_METATYPE(MusicArtist)
 
 #endif // MUSICARTIST_H

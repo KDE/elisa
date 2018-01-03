@@ -487,6 +487,11 @@ void MediaPlayList::enqueue(const MusicAlbum &album)
     }
 }
 
+void MediaPlayList::enqueue(const MusicArtist &artist)
+{
+    enqueue(artist.name());
+}
+
 void MediaPlayList::enqueue(const QString &artistName)
 {
     beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size());
@@ -513,6 +518,11 @@ void MediaPlayList::clearAndEnqueue(const MusicAlbum &album)
 {
     clearPlayList();
     enqueue(album);
+}
+
+void MediaPlayList::clearAndEnqueue(const MusicArtist &artist)
+{
+    clearAndEnqueue(artist.name());
 }
 
 void MediaPlayList::clearAndEnqueue(const QString &artistName)

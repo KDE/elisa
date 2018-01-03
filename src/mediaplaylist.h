@@ -22,6 +22,7 @@
 
 #include "musicaudiotrack.h"
 #include "musicalbum.h"
+#include "musicartist.h"
 
 #include <QAbstractListModel>
 #include <QVector>
@@ -205,6 +206,8 @@ public Q_SLOTS:
 
     void enqueue(const MusicAlbum &album);
 
+    void enqueue(const MusicArtist &artist);
+
     void enqueue(const QString &artistName);
 
     void enqueue(const QUrl &fileName);
@@ -214,6 +217,8 @@ public Q_SLOTS:
     void clearAndEnqueue(const MusicAudioTrack &newTrack);
 
     void clearAndEnqueue(const MusicAlbum &album);
+
+    void clearAndEnqueue(const MusicArtist &artist);
 
     void clearAndEnqueue(const QString &artistName);
 

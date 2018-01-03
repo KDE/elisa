@@ -61,7 +61,7 @@ Item {
 
     property int navigationBarHeight: 100
 
-    property int gridDelegateHeight: 168
+    property int gridDelegateHeight: 100 + layoutVerticalMargin + fontSize.height * 2
     property int gridDelegateWidth: 100
 
     property int viewSelectorDelegateHeight: 32

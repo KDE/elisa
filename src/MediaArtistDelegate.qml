@@ -190,11 +190,9 @@ FocusScope {
 
                         layer.enabled: image == '' ? false : true
                         layer.effect: DropShadow {
-                            horizontalOffset: mediaServerEntry.width * 0.02
-                            verticalOffset: mediaServerEntry.width * 0.02
-
-                            radius: 5.0
-                            samples: 11
+                            radius: 10
+                            spread: 0.1
+                            samples: 21
 
                             color: myPalette.shadow
                         }

@@ -72,6 +72,9 @@ FocusScope {
         }
     }
 
+    Keys.onReturnPressed: showAlbumTracks()
+    Keys.onEnterPressed: showAlbumTracks()
+
     Component {
         id: albumViewComponent
 

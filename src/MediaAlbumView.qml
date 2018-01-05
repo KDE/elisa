@@ -132,11 +132,10 @@ FocusScope {
 
         ScrollView {
             flickableItem.boundsBehavior: Flickable.StopAtBounds
+            flickableItem.interactive: true
 
             Layout.fillHeight: true
             Layout.fillWidth: true
-
-            focus: true
 
             ListView {
                 id: contentDirectoryView

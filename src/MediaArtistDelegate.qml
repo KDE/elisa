@@ -77,6 +77,9 @@ FocusScope {
         }
     }
 
+    Keys.onReturnPressed: openArtist(name)
+    Keys.onEnterPressed: openArtist(name)
+
     ColumnLayout {
         anchors.fill: parent
 

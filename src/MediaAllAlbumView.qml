@@ -70,10 +70,9 @@ FocusScope {
             Layout.fillWidth: true
 
             ScrollView {
-                focus: true
-
                 anchors.fill: parent
                 flickableItem.boundsBehavior: Flickable.StopAtBounds
+                flickableItem.interactive: true
 
                 GridView {
                     id: contentDirectoryView

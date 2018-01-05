@@ -67,6 +67,9 @@ FocusScope {
         onTriggered: enqueueToPlaylist(trackData)
     }
 
+    Keys.onReturnPressed: enqueueToPlaylist(trackData)
+    Keys.onEnterPressed: enqueueToPlaylist(trackData)
+
     Rectangle {
         id: rowRoot
 

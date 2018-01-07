@@ -122,7 +122,10 @@ Item {
                             height: contentDirectoryView.cellHeight
 
                             musicListener: rootElement.musicListener
-                            image: model.image
+                            image: if (model.image)
+                                       model.image
+                                   else
+                                       ""
                             title: if (model.title)
                                        model.title
                                    else

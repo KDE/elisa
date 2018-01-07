@@ -28,6 +28,8 @@ import QtGraphicalEffects 1.0
 import org.kde.elisa 1.0
 
 FocusScope {
+    id: mediaServerEntry
+
     property StackView stackView
     property MediaPlayList playListModel
     property var musicListener
@@ -38,8 +40,6 @@ FocusScope {
 
     signal artistClicked()
     signal openArtist(var name)
-
-    id: mediaServerEntry
 
     SystemPalette {
         id: myPalette
@@ -95,8 +95,7 @@ FocusScope {
             Layout.preferredHeight: mediaServerEntry.width * 0.85 + elisaTheme.layoutVerticalMargin * 0.5 + nameSize.height
             Layout.fillWidth: true
 
-            onClicked:
-            {
+            onClicked: {
                 hoverHandle.forceActiveFocus()
                 artistClicked()
             }
@@ -109,71 +108,57 @@ FocusScope {
                 text: nameLabel.text
             }
 
-            Loader {
-                id: hoverLoader
-                active: false
-
-                z: 2
-
-                anchors.top: parent.top
-                anchors.left: parent.left
-                anchors.right: parent.right
-                height: mediaServerEntry.width * 0.85 + elisaTheme.layoutVerticalMargin
-
-                sourceComponent: Rectangle {
-                    id: hoverLayer
-
-                    anchors.fill: parent
-
-                    color: myPalette.light
-                    opacity: 0.85
-
-                    Row {
-                        anchors.centerIn: parent
-
-                        ToolButton {
-                            id: enqueueButton
-
-                            action: enqueueAction
-
-                            width: elisaTheme.delegateToolButtonSize
-                            height: elisaTheme.delegateToolButtonSize
-                        }
-
-                        ToolButton {
-                            id: openButton
-
-                            action: openAction
-
-                            width: elisaTheme.delegateToolButtonSize
-                            height: elisaTheme.delegateToolButtonSize
-                        }
-
-                        ToolButton {
-                            id: enqueueAndPlayButton
-
-                            action: enqueueAndPlayAction
-
-                            width: elisaTheme.delegateToolButtonSize
-                            height: elisaTheme.delegateToolButtonSize
-                        }
-                    }
-                }
-            }
-
             ColumnLayout {
                 id: mainData
 
                 spacing: 0
                 anchors.fill: parent
 
-                z: 1
-
                 Item {
                     Layout.preferredWidth: mediaServerEntry.width * 0.85
                     Layout.preferredHeight: mediaServerEntry.width * 0.85
 
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+
+                    Loader {
+                        id: hoverLoader
+                        active: false
+
+                        anchors.centerIn: parent
+                        z: 1
+
+                        opacity: 0
+
+                        sourceComponent: Row {
+
+                            ToolButton {
+                                id: enqueueButton
+
+                                action: enqueueAction
+
+                                width: elisaTheme.delegateToolButtonSize
+                                height: elisaTheme.delegateToolButtonSize
+                            }
+
+                            ToolButton {
+                                id: openButton
+
+                                action: openAction
+
+                                width: elisaTheme.delegateToolButtonSize
+                                height: elisaTheme.delegateToolButtonSize
+                            }
+
+                            ToolButton {
+                                id: enqueueAndPlayButton
+
+                                action: enqueueAndPlayAction
+
+                                width: elisaTheme.delegateToolButtonSize
+                                height: elisaTheme.delegateToolButtonSize
+                            }
+                        }
+                    }
 
                     Image {
                         id: artistDecoration
@@ -226,23 +211,67 @@ FocusScope {
 
     states: [
         State {
-            name: 'default'
-
+            name: 'notSelected'
+            when: !mediaServerEntry.activeFocus && !hoverHandle.containsMouse
             PropertyChanges {
                 target: hoverLoader
                 active: false
             }
+            PropertyChanges {
+                target: hoverLoader
+                opacity: 0.0
+            }
+            PropertyChanges {
+                target: artistDecoration
+                opacity: 1
+            }
         },
         State {
-            name: 'active'
-
+            name: 'hoveredOrSelected'
             when: mediaServerEntry.activeFocus || hoverHandle.containsMouse
-
             PropertyChanges {
                 target: hoverLoader
                 active: true
             }
+            PropertyChanges {
+                target: hoverLoader
+                opacity: 1.0
+            }
+            PropertyChanges {
+                target: artistDecoration
+                opacity: 0.2
+            }
         }
+    ]
 
+    transitions: [
+        Transition {
+            to: 'hoveredOrSelected'
+            SequentialAnimation {
+                NumberAnimation {
+                    properties: "active"
+                    duration: 0
+                }
+                NumberAnimation {
+                    properties: "opacity"
+                    easing.type: Easing.InOutQuad
+                    duration: 100
+                }
+            }
+        },
+        Transition {
+            to: 'notSelected'
+            SequentialAnimation {
+                NumberAnimation {
+                    properties: "opacity"
+                    easing.type: Easing.InOutQuad
+                    duration: 100
+                }
+                NumberAnimation {
+                    properties: "active"
+                    duration: 0
+                }
+            }
+        }
     ]
 }

@@ -131,6 +131,10 @@ private Q_SLOTS:
 
     void testSaveLoadPlayList();
 
+    void testEnqueueFiles();
+
+    void testEnqueueSampleFiles();
+
 private:
 
     QList<MusicAudioTrack> mNewTracks;

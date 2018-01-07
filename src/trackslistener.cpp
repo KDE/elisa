@@ -20,9 +20,14 @@
 #include "trackslistener.h"
 
 #include "databaseinterface.h"
+#include "elisautils.h"
 
+#include <KFileMetaData/ExtractorCollection>
+
+#include <QMimeDatabase>
 #include <QSet>
 #include <QList>
+#include <QDebug>
 
 #include <array>
 #include <algorithm>
@@ -38,6 +43,10 @@ public:
     QList<QUrl> mTracksByFileNameSet;
 
     DatabaseInterface *mDatabase = nullptr;
+
+    KFileMetaData::ExtractorCollection mExtractors;
+
+    QMimeDatabase mMimeDb;
 
 };
 
@@ -129,8 +138,21 @@ void TracksListener::trackByNameInList(const QString &title, const QString &arti
 
 void TracksListener::trackByFileNameInList(const QUrl &fileName)
 {
+    qDebug() << "TracksListener::trackByFileNameInList" << fileName;
     auto newTrackId = d->mDatabase->trackIdFromFileName(fileName);
+    qDebug() << "TracksListener::trackByFileNameInList" << fileName << newTrackId;
     if (newTrackId == 0) {
+        auto newTrack = scanOneFile(fileName);
+
+        qDebug() << "TracksListener::trackByFileNameInList" << fileName << newTrack;
+
+        if (newTrack.isValid()) {
+            qDebug() << "TracksListener::trackByFileNameInList" << "trackHasChanged" << newTrack;
+            Q_EMIT trackHasChanged(newTrack);
+
+            return;
+        }
+
         d->mTracksByFileNameSet.push_back(fileName);
 
         return;
@@ -140,7 +162,10 @@ void TracksListener::trackByFileNameInList(const QUrl &fileName)
 
     auto newTrack = d->mDatabase->trackFromDatabaseId(newTrackId);
 
+    qDebug() << "TracksListener::trackByFileNameInList" << newTrackId << newTrack;
+
     if (newTrack.isValid()) {
+        qDebug() << "TracksListener::trackByFileNameInList" << "trackHasChanged" << newTrack;
         Q_EMIT trackHasChanged(newTrack);
     }
 }
@@ -167,6 +192,11 @@ void TracksListener::newArtistInList(const QString &artist)
     }
 
     Q_EMIT albumAdded(newTracks);
+}
+
+MusicAudioTrack TracksListener::scanOneFile(const QUrl &scanFile)
+{
+    return ElisaUtils::scanOneFile(scanFile, d->mMimeDb, d->mExtractors);
 }
 
 

@@ -36,6 +36,11 @@ class ElisaApplication : public QObject
 
     Q_OBJECT
 
+    Q_PROPERTY(QStringList arguments
+               READ arguments
+               WRITE setArguments
+               NOTIFY argumentsChanged)
+
 public:
     explicit ElisaApplication(QObject *parent = nullptr);
 
@@ -47,7 +52,13 @@ public:
 
     Q_INVOKABLE QString iconName(const QIcon& icon);
 
+    const QStringList &arguments() const;
+
 Q_SIGNALS:
+
+    void argumentsChanged();
+
+    void enqueue(const QStringList &files);
 
 public Q_SLOTS:
 
@@ -61,11 +72,22 @@ public Q_SLOTS:
 
     void configureElisa();
 
+    void setArguments(const QStringList &newArguments);
+
+    void activateActionRequested(const QString &actionName, const QVariant &parameter);
+
+    void activateRequested(const QStringList &arguments, const QString &workingDirectory);
+
+    void openRequested(const QList< QUrl > &uris);
+
+
 private Q_SLOTS:
 
     void goBack();
 
 private:
+
+    QStringList checkFileListAndMakeAbsolute(const QStringList &filesList, const QString &workingDirectory) const;
 
     std::unique_ptr<ElisaApplicationPrivate> d;
 

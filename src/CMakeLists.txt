@@ -24,6 +24,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         alltracksmodel.cpp
         notificationitem.cpp
         topnotificationmanager.cpp
+        elisautils.cpp
         abstractfile/abstractfilelistener.cpp
         abstractfile/abstractfilelisting.cpp
         file/filelistener.cpp

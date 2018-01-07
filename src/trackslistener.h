@@ -65,6 +65,8 @@ public Q_SLOTS:
 
 private:
 
+    MusicAudioTrack scanOneFile(const QUrl &scanFile);
+
     std::unique_ptr<TracksListenerPrivate> d;
 
 };

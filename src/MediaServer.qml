@@ -182,11 +182,30 @@ ApplicationWindow {
             var d = new Date();
             var n = d.getMilliseconds();
             seedRandomGenerator(n);
+
+            playFiles(elisa.arguments)
         }
 
         onPlayListLoadFailed:
         {
             messageNotification.showNotification(i18nc("message of passive notification when playlist load failed", "Load of playlist failed"), 3000)
+        }
+
+        function playFiles(listFiles)
+        {
+            var previousTrackNumber = tracksCount
+            enqueue(listFiles)
+            switchTo(previousTrackNumber)
+            manageAudioPlayer.ensurePlay()
+        }
+    }
+
+    Connections {
+        target: elisa
+
+        onEnqueue:
+        {
+            playListModelItem.playFiles(files)
         }
     }
 

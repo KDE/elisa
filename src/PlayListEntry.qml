@@ -213,7 +213,7 @@ FocusScope {
                     LabelWithToolTip {
                         id: mainCompactLabel
 
-                        text: ((discNumber && !isSingleDiscAlbum) ? discNumber + ' - ' + trackNumber : trackNumber) + ' - ' + title
+                        text: (trackNumber !== -1 ? (((discNumber && !isSingleDiscAlbum) ? discNumber + ' - ' + trackNumber : trackNumber) + ' - ' + title) : title)
 
                         font.weight: (isPlaying ? Font.Bold : Font.Normal)
                         color: myPalette.text

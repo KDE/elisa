@@ -47,6 +47,9 @@
 #include <QIcon>
 #include <QAction>
 #include <QUrl>
+#include <QFileInfo>
+#include <QDir>
+#include <QDebug>
 
 class ElisaApplicationPrivate
 {
@@ -67,6 +70,8 @@ public:
 #if defined KF5XmlGui_FOUND && KF5XmlGui_FOUND
     KActionCollection mCollection;
 #endif
+
+    QStringList mArguments;
 
 };
 
@@ -122,6 +127,34 @@ void ElisaApplication::setupActions()
 #endif
 }
 
+void ElisaApplication::setArguments(const QStringList &newArguments)
+{
+    if (d->mArguments == newArguments) {
+        return;
+    }
+
+    d->mArguments = checkFileListAndMakeAbsolute(newArguments, QDir::currentPath());
+    Q_EMIT argumentsChanged();
+}
+
+void ElisaApplication::activateActionRequested(const QString &actionName, const QVariant &parameter)
+{
+    Q_UNUSED(actionName)
+    Q_UNUSED(parameter)
+}
+
+void ElisaApplication::activateRequested(const QStringList &arguments, const QString &workingDirectory)
+{
+    auto realArguments = arguments;
+    realArguments.removeFirst();
+    Q_EMIT enqueue(checkFileListAndMakeAbsolute(realArguments, workingDirectory));
+}
+
+void ElisaApplication::openRequested(const QList<QUrl> &uris)
+{
+    Q_UNUSED(uris)
+}
+
 void ElisaApplication::appHelpActivated()
 {
     QDesktopServices::openUrl(QUrl(QStringLiteral("help:/")));
@@ -170,6 +203,25 @@ void ElisaApplication::configureElisa()
 
 void ElisaApplication::goBack() {}
 
+QStringList ElisaApplication::checkFileListAndMakeAbsolute(const QStringList &filesList, const QString &workingDirectory) const
+{
+    QStringList filesToOpen;
+
+    for (const auto &oneFile : filesList) {
+        auto newFile = QFileInfo(oneFile);
+
+        if (newFile.isRelative()) {
+            newFile = QFileInfo(workingDirectory + QStringLiteral("/") + oneFile);
+        }
+
+        if (newFile.exists()) {
+            filesToOpen.push_back(newFile.canonicalFilePath());
+        }
+    }
+
+    return filesToOpen;
+}
+
 QAction * ElisaApplication::action(const QString& name)
 {
 #if defined KF5XmlGui_FOUND && KF5XmlGui_FOUND
@@ -184,6 +236,11 @@ QAction * ElisaApplication::action(const QString& name)
 QString ElisaApplication::iconName(const QIcon& icon)
 {
     return icon.name();
+}
+
+const QStringList &ElisaApplication::arguments() const
+{
+    return d->mArguments;
 }
 
 

@@ -1,5 +1,8 @@
 enable_testing()
 
+configure_file(mediaplaylisttestconfig.h.in
+               ${CMAKE_CURRENT_BINARY_DIR}/mediaplaylisttestconfig.h @ONLY)
+
 include_directories(${elisa_CURRENT_BINARY_DIR})
 include_directories(${elisa_BINARY_DIR})
 include_directories(${elisa_BINARY_DIR}/src)
@@ -29,6 +32,7 @@ set(managemediaplayercontrolTest_SOURCES
     ../src/musicartist.cpp
     ../src/musicalbum.cpp
     ../src/musicaudiotrack.cpp
+    ../src/elisautils.cpp
     ../src/file/filelistener.cpp
     ../src/file/localfilelisting.cpp
     ../src/abstractfile/abstractfilelistener.cpp
@@ -106,6 +110,7 @@ set(manageheaderbarTest_SOURCES
     ../src/musicartist.cpp
     ../src/musicalbum.cpp
     ../src/musicaudiotrack.cpp
+    ../src/elisautils.cpp
     ../src/file/filelistener.cpp
     ../src/file/localfilelisting.cpp
     ../src/abstractfile/abstractfilelistener.cpp
@@ -192,6 +197,7 @@ set(mediaplaylistTest_SOURCES
     ../src/musicartist.cpp
     ../src/musicalbum.cpp
     ../src/musicaudiotrack.cpp
+    ../src/elisautils.cpp
     ../src/file/filelistener.cpp
     ../src/file/localfilelisting.cpp
     ../src/abstractfile/abstractfilelistener.cpp
@@ -267,6 +273,7 @@ set(trackslistenertest_SOURCES
     ../src/musicartist.cpp
     ../src/musicalbum.cpp
     ../src/musicaudiotrack.cpp
+    ../src/elisautils.cpp
     ../src/file/filelistener.cpp
     ../src/file/localfilelisting.cpp
     ../src/abstractfile/abstractfilelistener.cpp
@@ -397,6 +404,7 @@ set(localfilelistingtest_SOURCES
     ../src/abstractfile/abstractfilelisting.cpp
     ../src/musicaudiotrack.cpp
     ../src/notificationitem.cpp
+    ../src/elisautils.cpp
     localfilelistingtest.cpp
 )
 
@@ -411,3 +419,17 @@ ecm_add_test(${localfilelistingtest_SOURCES}
     LINK_LIBRARIES Qt5::Test Qt5::Core Qt5::Sql KF5::I18n KF5::FileMetaData KF5::ConfigCore KF5::ConfigGui)
 
 target_include_directories(localfilelistingtest PRIVATE ${CMAKE_SOURCE_DIR}/src)
+
+
+if (KF5XmlGui_FOUND AND KF5KCMUtils_FOUND)
+    set(elisaapplicationtest_SOURCES
+        ../src/elisaapplication.cpp
+        elisaapplicationtest.cpp
+    )
+
+    ecm_add_test(${elisaapplicationtest_SOURCES}
+        TEST_NAME "elisaapplicationtest"
+        LINK_LIBRARIES Qt5::Test Qt5::Core Qt5::Widgets KF5::ConfigCore KF5::ConfigGui KF5::ConfigWidgets KF5::XmlGui KF5::KCMUtils)
+
+    target_include_directories(elisaapplicationtest PRIVATE ${CMAKE_SOURCE_DIR}/src)
+endif()

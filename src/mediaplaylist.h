@@ -33,6 +33,7 @@ class MediaPlayListPrivate;
 class DatabaseInterface;
 class MusicListenersManager;
 class MediaPlayListEntry;
+class QDebug;
 
 class MediaPlayList : public QAbstractListModel
 {
@@ -212,6 +213,8 @@ public Q_SLOTS:
 
     void enqueue(const QUrl &fileName);
 
+    void enqueue(const QStringList &files);
+
     void clearAndEnqueue(qulonglong newTrackId);
 
     void clearAndEnqueue(const MusicAudioTrack &newTrack);
@@ -297,6 +300,8 @@ public:
     MediaPlayList::PlayState mIsPlaying = MediaPlayList::NotPlaying;
 
 };
+
+QDebug operator<<(QDebug stream, const MediaPlayListEntry &data);
 
 
 

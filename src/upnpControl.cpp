@@ -200,12 +200,20 @@ int main(int argc, char *argv[])
     KLocalizedString::setApplicationDomain("elisa");
     ElisaApplication myApp;
 
+#if defined KF5DBusAddons_FOUND && KF5DBusAddons_FOUND
+    QObject::connect(&elisaService, &KDBusService::activateActionRequested, &myApp, &ElisaApplication::activateActionRequested);
+    QObject::connect(&elisaService, &KDBusService::activateRequested, &myApp, &ElisaApplication::activateRequested);
+    QObject::connect(&elisaService, &KDBusService::openRequested, &myApp, &ElisaApplication::openRequested);
+#endif
+
     QCommandLineParser parser;
     parser.addHelpOption();
     parser.addVersionOption();
     aboutData.setupCommandLine(&parser);
     parser.process(app);
     aboutData.processCommandLine(&parser);
+
+    myApp.setArguments(parser.positionalArguments());
 
 #if defined Qt5AndroidExtras_FOUND && Qt5AndroidExtras_FOUND
     qDebug() << QCoreApplication::arguments();

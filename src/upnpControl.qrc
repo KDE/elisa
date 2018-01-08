@@ -6,8 +6,6 @@
         <file>MediaAlbumView.qml</file>
         <file>MediaServer.qml</file>
         <file>HeaderBar.qml</file>
-        <file>audio-x-generic.svg</file>
-        <file>folder.svg</file>
         <file>background.jpg</file>
         <file>ContextView.qml</file>
         <file>DraggableItem.qml</file>
@@ -21,18 +19,6 @@
         <file>MediaArtistAlbumView.qml</file>
         <file>MediaAllArtistView.qml</file>
         <file>Theme.qml</file>
-        <file alias="edit-clear.svg">windows/edit-clear.svg</file>
-        <file alias="error.svg">windows/error.svg</file>
-        <file alias="media-optical-audio.svg">windows/media-optical-audio.svg</file>
-        <file alias="rating.svg">windows/rating.svg</file>
-        <file alias="rating-unrated.svg">windows/rating-unrated.svg</file>
-        <file alias="view-media-artist.svg">windows/view-media-artist.svg</file>
-        <file alias="media-playback-pause.svg">windows/media-playback-pause.svg</file>
-        <file alias="media-playback-start.svg">windows/media-playback-start.svg</file>
-        <file alias="media-skip-backward.svg">windows/media-skip-backward.svg</file>
-        <file alias="media-skip-forward.svg">windows/media-skip-forward.svg</file>
-        <file alias="player-volume-muted.svg">windows/player-volume-muted.svg</file>
-        <file alias="player-volume.svg">windows/player-volume.svg</file>
         <file>PlatformIntegration.qml</file>
         <file>LabelWithToolTip.qml</file>
         <file>MediaAllTracksView.qml</file>

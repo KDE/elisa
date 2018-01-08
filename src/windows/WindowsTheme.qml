@@ -21,18 +21,18 @@ import QtQuick 2.7
 import QtQuick.Controls 1.4
 
 Item {
-    property string albumCover: 'media-optical-audio.svg'
-    property string artistImage: 'view-media-artist.svg'
-    property string clearIcon: 'edit-clear.svg'
-    property string skipBackwardIcon: 'media-skip-backward.svg'
-    property string pauseIcon: 'media-playback-pause.svg'
-    property string playIcon: 'media-playback-start.svg'
-    property string skipForwardIcon: 'media-skip-forward.svg'
-    property string playerVolumeMutedIcon: 'player-volume-muted.svg'
-    property string playerVolumeIcon: 'player-volume.svg'
-    property string ratingIcon: 'rating.svg'
-    property string ratingUnratedIcon: 'rating-unrated.svg'
-    property string errorIcon: 'error.svg'
+    property string albumCover: 'image://icon/media-optical-audio'
+    property string artistImage: 'image://icon/view-media-artist'
+    property string clearIcon: 'image://icon/edit-clear'
+    property string skipBackwardIcon: 'image://icon/media-skip-backward'
+    property string pauseIcon: 'image://icon/media-playback-pause'
+    property string playIcon: 'image://icon/media-playback-start'
+    property string skipForwardIcon: 'image://icon/media-skip-forward'
+    property string playerVolumeMutedIcon: 'image://icon/player-volume-muted'
+    property string playerVolumeIcon: 'image://icon/player-volume'
+    property string ratingIcon: 'image://icon/rating'
+    property string ratingUnratedIcon: 'image://icon/rating-unrated'
+    property string errorIcon: 'image://icon/error'
 
     property int layoutHorizontalMargin: 8
     property int layoutVerticalMargin: 6
@@ -50,7 +50,7 @@ Item {
     property int delegateToolButtonSize: 34
     property int smallDelegateToolButtonSize: 20
 
-    property int ratingStarSize: 10
+    property int ratingStarSize: 15
 
     property int mediaPlayerControlHeight: 48
     property int smallControlButtonHeight: 32
@@ -61,8 +61,8 @@ Item {
 
     property int navigationBarHeight: 100
 
-    property int gridDelegateHeight: 168
-    property int gridDelegateWidth: 112
+    property int gridDelegateHeight: 100 + layoutVerticalMargin + fontSize.height * 2
+    property int gridDelegateWidth: 100
 
     property int viewSelectorDelegateHeight: 32
 

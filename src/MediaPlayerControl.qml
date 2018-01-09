@@ -55,37 +55,15 @@ FocusScope {
     }
 
     Rectangle {
-        color: myPalette.mid
-
-        opacity: 0.5
-
         anchors.fill: parent
+
+        color: myPalette.midlight
+        opacity: elisaTheme.mediaPlayerControlOpacity
     }
 
     RowLayout {
         anchors.fill: parent
         spacing: 0
-
-        Image {
-            id: previousButton
-
-            source: Qt.resolvedUrl(LayoutMirroring.enabled ? elisaTheme.skipForwardIcon : elisaTheme.skipBackwardIcon)
-
-            Layout.preferredWidth: elisaTheme.smallControlButtonHeight
-            Layout.preferredHeight: elisaTheme.smallControlButtonHeight
-            Layout.alignment: Qt.AlignVCenter
-            Layout.maximumWidth: elisaTheme.smallControlButtonHeight
-            Layout.maximumHeight: elisaTheme.smallControlButtonHeight
-            Layout.minimumWidth: elisaTheme.smallControlButtonHeight
-            Layout.minimumHeight: elisaTheme.smallControlButtonHeight
-
-            sourceSize.width: elisaTheme.smallControlButtonHeight
-            sourceSize.height: elisaTheme.smallControlButtonHeight
-
-            fillMode: Image.PreserveAspectFit
-
-            visible: false
-        }
 
         Controls2.RoundButton {
             focus: skipBackwardEnabled
@@ -97,6 +75,8 @@ FocusScope {
             Layout.maximumHeight: elisaTheme.smallControlButtonHeight
             Layout.minimumWidth: elisaTheme.smallControlButtonHeight
             Layout.minimumHeight: elisaTheme.smallControlButtonHeight
+            Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+            Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
 
             enabled: skipBackwardEnabled
             hoverEnabled: true
@@ -105,16 +85,20 @@ FocusScope {
                 musicWidget.playPrevious()
             }
 
-            contentItem: BrightnessContrast {
-                source: previousButton
-
+            contentItem: Image {
                 anchors.fill: parent
-                anchors.margins: 3
+
+                source: Qt.resolvedUrl(LayoutMirroring.enabled ? elisaTheme.skipForwardIcon : elisaTheme.skipBackwardIcon)
+
+                width: elisaTheme.smallControlButtonHeight
+                height: elisaTheme.smallControlButtonHeight
+
+                sourceSize.width: elisaTheme.smallControlButtonHeight
+                sourceSize.height: elisaTheme.smallControlButtonHeight
+
+                fillMode: Image.PreserveAspectFit
 
                 opacity: skipBackwardEnabled ? 1.0 : 0.6
-
-                brightness: 0.0
-                contrast: skipBackwardEnabled ? 0.7 : -0.7
             }
 
             background: Rectangle {
@@ -131,33 +115,6 @@ FocusScope {
                     }
                 }
             }
-        }
-
-        Image {
-            id: playPauseButton
-
-            source: {
-                if (musicWidget.isPlaying)
-                    Qt.resolvedUrl(elisaTheme.pauseIcon)
-                else
-                    Qt.resolvedUrl(elisaTheme.playIcon)
-            }
-
-            Layout.preferredWidth: elisaTheme.bigControlButtonHeight
-            Layout.preferredHeight: elisaTheme.bigControlButtonHeight
-            Layout.alignment: Qt.AlignVCenter
-            Layout.maximumWidth: elisaTheme.bigControlButtonHeight
-            Layout.maximumHeight: elisaTheme.bigControlButtonHeight
-            Layout.minimumWidth: elisaTheme.bigControlButtonHeight
-            Layout.minimumHeight: elisaTheme.bigControlButtonHeight
-
-            sourceSize.width: elisaTheme.bigControlButtonHeight
-            sourceSize.height: elisaTheme.bigControlButtonHeight
-
-            fillMode: Image.PreserveAspectFit
-            mirror: LayoutMirroring.enabled
-
-            visible: false
         }
 
         Controls2.RoundButton {
@@ -182,17 +139,25 @@ FocusScope {
                 }
             }
 
-            contentItem: BrightnessContrast {
-                source: playPauseButton
-
+            contentItem: Image {
                 anchors.fill: parent
 
-                enabled: playEnabled
+                source: {
+                    if (musicWidget.isPlaying)
+                        Qt.resolvedUrl(elisaTheme.pauseIcon)
+                    else
+                        Qt.resolvedUrl(elisaTheme.playIcon)
+                }
 
+                width: elisaTheme.bigControlButtonHeight
+                height: elisaTheme.bigControlButtonHeight
+
+                sourceSize.width: elisaTheme.bigControlButtonHeight
+                sourceSize.height: elisaTheme.bigControlButtonHeight
+
+                fillMode: Image.PreserveAspectFit
+                mirror: LayoutMirroring.enabled
                 opacity: playEnabled ? 1.0 : 0.6
-
-                brightness: 0.0
-                contrast: playEnabled ? 0.7 : -0.7
             }
 
             background: Rectangle {
@@ -211,29 +176,6 @@ FocusScope {
             }
         }
 
-        Image {
-            id: nextButton
-
-            source: Qt.resolvedUrl(LayoutMirroring.enabled ? elisaTheme.skipBackwardIcon : elisaTheme.skipForwardIcon)
-
-            Layout.preferredWidth: elisaTheme.smallControlButtonHeight
-            Layout.preferredHeight: elisaTheme.smallControlButtonHeight
-            Layout.alignment: Qt.AlignVCenter
-            Layout.maximumWidth: elisaTheme.smallControlButtonHeight
-            Layout.maximumHeight: elisaTheme.smallControlButtonHeight
-            Layout.minimumWidth: elisaTheme.smallControlButtonHeight
-            Layout.minimumHeight: elisaTheme.smallControlButtonHeight
-            Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.smallControlButtonHeight : 0
-            Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.smallControlButtonHeight : 0
-
-            sourceSize.width: elisaTheme.smallControlButtonHeight
-            sourceSize.height: elisaTheme.smallControlButtonHeight
-
-            fillMode: Image.PreserveAspectFit
-
-            visible: false
-        }
-
         Controls2.RoundButton {
             focus: skipForwardEnabled
 
@@ -246,7 +188,6 @@ FocusScope {
             Layout.minimumHeight: elisaTheme.smallControlButtonHeight
             Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.smallControlButtonHeight : 0
             Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.smallControlButtonHeight : 0
-            Layout.margins: -3
 
             enabled: skipForwardEnabled
             hoverEnabled: true
@@ -255,17 +196,20 @@ FocusScope {
                 musicWidget.playNext()
             }
 
-            contentItem: BrightnessContrast {
-                source: nextButton
+            contentItem: Image {
+                 anchors.fill: parent
 
-                anchors.fill: parent
+                source: Qt.resolvedUrl(LayoutMirroring.enabled ? elisaTheme.skipBackwardIcon : elisaTheme.skipForwardIcon)
 
-                enabled: skipForwardEnabled
+                width: elisaTheme.smallControlButtonHeight
+                height: elisaTheme.smallControlButtonHeight
+
+                sourceSize.width: elisaTheme.smallControlButtonHeight
+                sourceSize.height: elisaTheme.smallControlButtonHeight
+
+                fillMode: Image.PreserveAspectFit
 
                 opacity: skipForwardEnabled ? 1.0 : 0.6
-
-                brightness: 0.0
-                contrast: skipForwardEnabled ? 0.7 : -0.7
             }
 
             background: Rectangle {
@@ -432,11 +376,21 @@ FocusScope {
 
             onClicked: musicWidget.muted = !musicWidget.muted
 
-            contentItem: BrightnessContrast {
-                source: volumeIcon
+            contentItem: Image {
+                anchors.fill: parent
 
-                brightness: 0.0
-                contrast: 0.7
+                source: if (musicWidget.muted)
+                            Qt.resolvedUrl(elisaTheme.playerVolumeMutedIcon)
+                        else
+                            Qt.resolvedUrl(elisaTheme.playerVolumeIcon)
+
+                width: elisaTheme.smallControlButtonHeight
+                height: elisaTheme.smallControlButtonHeight
+
+                sourceSize.width: elisaTheme.smallControlButtonHeight
+                sourceSize.height: elisaTheme.smallControlButtonHeight
+
+                fillMode: Image.PreserveAspectFit
             }
 
             background: Rectangle {

@@ -102,7 +102,7 @@ FocusScope {
             playerControl: topListing.playerControl
             artist: topListing.artistName
             album: topListing.albumName
-            image: (topListing.albumArtUrl ? topListing.albumArtUrl : elisaTheme.albumCover)
+            image: (topListing.albumArtUrl ? topListing.albumArtUrl : elisaTheme.defaultAlbumImage)
             tracksCount: topListing.tracksCount
 
             enqueueAction: Action {

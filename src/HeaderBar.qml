@@ -54,7 +54,7 @@ FocusScope {
         Image {
             id: oldBackground
 
-            source: (oldImage ? oldImage : Qt.resolvedUrl('background.jpg'))
+            source: (oldImage ? oldImage : Qt.resolvedUrl(elisaTheme.defaultBackgroundImage))
 
             asynchronous: true
 
@@ -88,7 +88,7 @@ FocusScope {
         Image {
             id: newBackground
 
-            source: (newImage ? newImage : Qt.resolvedUrl('background.jpg'))
+            source: (newImage ? newImage : Qt.resolvedUrl(elisaTheme.defaultBackgroundImage))
 
             asynchronous: true
 
@@ -187,7 +187,7 @@ FocusScope {
 
                     asynchronous: true
 
-                    source: (oldImage ? oldImage : Qt.resolvedUrl(elisaTheme.albumCover))
+                    source: (oldImage ? oldImage : Qt.resolvedUrl(elisaTheme.defaultAlbumImage))
 
                     sourceSize {
                         width: contentZone.height * 0.9
@@ -204,7 +204,7 @@ FocusScope {
 
                     asynchronous: true
 
-                    source: (newImage ? newImage : Qt.resolvedUrl(elisaTheme.albumCover))
+                    source: (newImage ? newImage : Qt.resolvedUrl(elisaTheme.defaultAlbumImage))
 
                     visible: false
                     opacity: 0
@@ -336,13 +336,13 @@ FocusScope {
         PropertyAction {
             target: newBackground
             property: "source"
-            value: (newImage ? newImage : Qt.resolvedUrl('background.jpg'))
+            value: (newImage ? newImage : Qt.resolvedUrl(elisaTheme.defaultBackgroundImage))
         }
 
         PropertyAction {
             target: newMainIcon
             property: "source"
-            value: (newImage ? newImage : Qt.resolvedUrl(elisaTheme.albumCover))
+            value: (newImage ? newImage : Qt.resolvedUrl(elisaTheme.defaultAlbumImage))
         }
 
         ParallelAnimation {
@@ -374,13 +374,13 @@ FocusScope {
         PropertyAction {
             target: oldBackground
             property: 'source'
-            value: (headerBar.oldImage ? headerBar.oldImage : Qt.resolvedUrl('background.jpg'))
+            value: (headerBar.oldImage ? headerBar.oldImage : Qt.resolvedUrl(elisaTheme.defaultBackgroundImage))
         }
 
         PropertyAction {
             target: oldMainIcon
             property: 'source'
-            value: (headerBar.oldImage ? headerBar.oldImage : Qt.resolvedUrl(elisaTheme.albumCover))
+            value: (headerBar.oldImage ? headerBar.oldImage : Qt.resolvedUrl(elisaTheme.defaultAlbumImage))
         }
 
         PropertyAction {

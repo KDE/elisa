@@ -44,8 +44,8 @@ Item {
 
         Image {
             id: albumIcon
-            source: albumArtUrl
 
+            source: albumArtUrl.toString() === '' ? Qt.resolvedUrl(elisaTheme.defaultAlbumImage) : albumArtUrl
             Layout.preferredWidth: elisaTheme.coverImageSize
             Layout.preferredHeight: elisaTheme.coverImageSize
             Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
@@ -135,7 +135,7 @@ Item {
             Image {
                 id: artistJumpIcon
 
-                source: Qt.resolvedUrl(elisaTheme.artistImage)
+                source: Qt.resolvedUrl(elisaTheme.defaultArtistImage)
 
                 Layout.preferredWidth: elisaTheme.smallImageSize
                 Layout.preferredHeight: elisaTheme.smallImageSize

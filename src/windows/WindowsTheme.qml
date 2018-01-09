@@ -21,8 +21,13 @@ import QtQuick 2.7
 import QtQuick.Controls 1.4
 
 Item {
-    property string albumCover: 'image://icon/media-optical-audio'
-    property string artistImage: 'image://icon/view-media-artist'
+    property string defaultAlbumImage: 'image://icon/media-optical-audio'
+    property string defaultArtistImage: 'image://icon/view-media-artist'
+    property string defaultBackgroundImage: 'background.jpg'
+    property string artistIcon: 'image://icon/view-media-artist'
+    property string albumIcon: 'image://icon/media-album-cover'
+    property string playlistIcon: 'image://icon/amarok_playlist'
+    property string tracksIcon: 'image://icon/media-album-track'
     property string clearIcon: 'image://icon/edit-clear'
     property string skipBackwardIcon: 'image://icon/media-skip-backward'
     property string pauseIcon: 'image://icon/media-playback-pause'

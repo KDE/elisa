@@ -116,7 +116,7 @@ FocusScope {
                     Image {
                         id: mainIcon
 
-                        source: (isValid ? (playListEntry.itemDecoration ? playListEntry.itemDecoration : Qt.resolvedUrl(elisaTheme.albumCover)) : Qt.resolvedUrl(elisaTheme.errorIcon))
+                        source: (isValid ? (playListEntry.itemDecoration ? playListEntry.itemDecoration : Qt.resolvedUrl(elisaTheme.defaultAlbumImage)) : Qt.resolvedUrl(elisaTheme.errorIcon))
 
                         Layout.minimumWidth: headerRow.height - 4
                         Layout.maximumWidth: headerRow.height - 4

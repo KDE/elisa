@@ -168,10 +168,10 @@ FocusScope {
 
                     Component.onCompleted:
                     {
-                        pageModel.insert(0, {"name": i18nc("Title of the view of the playlist", "Now Playing"), "iconName": "image://icon/amarok_playlist"})
-                        pageModel.insert(1, {"name": i18nc("Title of the view of all albums", "Albums"), "iconName": "image://icon/media-album-cover"})
-                        pageModel.insert(2, {"name": i18nc("Title of the view of all artists", "Artists"), "iconName": "image://icon/view-media-artist"})
-                        pageModel.insert(3, {"name": i18nc("Title of the view of all tracks", "Tracks"), "iconName": "image://icon/media-album-track"})
+                        pageModel.insert(0, {"name": i18nc("Title of the view of the playlist", "Now Playing"), "iconName": elisaTheme.playlistIcon})
+                        pageModel.insert(1, {"name": i18nc("Title of the view of all albums", "Albums"), "iconName": elisaTheme.albumIcon})
+                        pageModel.insert(2, {"name": i18nc("Title of the view of all artists", "Artists"), "iconName": elisaTheme.artistIcon})
+                        pageModel.insert(3, {"name": i18nc("Title of the view of all tracks", "Tracks"), "iconName": elisaTheme.tracksIcon})
 
                         viewModeView.currentIndex = 1
                     }

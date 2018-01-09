@@ -146,7 +146,7 @@ FocusScope {
                         fillMode: Image.PreserveAspectFit
                         smooth: true
 
-                        source: (coverImage ? coverImage : Qt.resolvedUrl(elisaTheme.albumCover))
+                        source: (coverImage ? coverImage : Qt.resolvedUrl(elisaTheme.defaultAlbumImage))
 
                         asynchronous: true
 

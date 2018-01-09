@@ -163,7 +163,7 @@ FocusScope {
                     Image {
                         id: artistDecoration
 
-                        source: Qt.resolvedUrl(elisaTheme.artistImage)
+                        source: Qt.resolvedUrl(elisaTheme.defaultArtistImage)
 
                         anchors.fill: parent
 
@@ -176,7 +176,7 @@ FocusScope {
 
                         asynchronous: true
 
-                        layer.enabled: image == '' ? false : true
+                        layer.enabled: image === '' ? false : true
                         layer.effect: DropShadow {
                             radius: 10
                             spread: 0.1

@@ -215,31 +215,36 @@ FocusScope {
                     }
                 }
 
-                ToolButton {
-                    id: enqueueButton
-
-                    Layout.preferredHeight: elisaTheme.delegateHeight
-                    Layout.preferredWidth: elisaTheme.delegateHeight
-
-                    opacity: 0
-                    visible: opacity > 0.1
-                    action: enqueue
-                    Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
-                }
-
-                ToolButton {
-                    id: clearAndEnqueueButton
-
-                    Layout.preferredHeight: elisaTheme.delegateHeight
-                    Layout.preferredWidth: elisaTheme.delegateHeight
-
-                    opacity: 0
-                    visible: opacity > 0.1
-                    action: clearAndEnqueue
+                Loader {
+                    id: hoverLoader
+                    active: false
 
                     Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
-                    Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-                    Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+
+                    z: 1
+                    opacity: 0
+
+                    sourceComponent: Row {
+                        anchors.centerIn: parent
+
+                        ToolButton {
+                            id: enqueueButton
+
+                            height: elisaTheme.delegateHeight
+                            width:elisaTheme.delegateHeight
+
+                            action: enqueue
+                        }
+
+                        ToolButton {
+                            id: clearAndEnqueueButton
+
+                            height: elisaTheme.delegateHeight
+                            width: elisaTheme.delegateHeight
+
+                            action: clearAndEnqueue
+                        }
+                    }
                 }
 
                 RatingStar {
@@ -275,12 +280,12 @@ FocusScope {
             name: 'notSelected'
             when: !hoverArea.containsMouse && !mediaTrack.activeFocus
             PropertyChanges {
-                target: clearAndEnqueueButton
-                opacity: 0
+                target: hoverLoader
+                active: false
             }
             PropertyChanges {
-                target: enqueueButton
-                opacity: 0
+                target: hoverLoader
+                opacity: 0.0
             }
             PropertyChanges {
                 target: rowRoot
@@ -291,31 +296,60 @@ FocusScope {
             name: 'hoveredOrSelected'
             when: hoverArea.containsMouse || mediaTrack.activeFocus
             PropertyChanges {
-                target: clearAndEnqueueButton
-                opacity: 1
+                target: hoverLoader
+                active: true
             }
             PropertyChanges {
-                target: enqueueButton
-                opacity: 1
+                target: hoverLoader
+                opacity: 1.0
             }
             PropertyChanges {
                 target: rowRoot
                 color: myPalette.mid
             }
         }
-
     ]
-    transitions: Transition {
-        ParallelAnimation {
-            NumberAnimation {
-                properties: "opacity"
-                easing.type: Easing.InOutQuad
-                duration: 250
+
+    transitions: [
+        Transition {
+            to: 'hoveredOrSelected'
+            SequentialAnimation {
+                NumberAnimation {
+                    properties: "active"
+                    duration: 0
+                }
+                ParallelAnimation {
+                    NumberAnimation {
+                        properties: "opacity"
+                        easing.type: Easing.InOutQuad
+                        duration: 250
+                    }
+                    ColorAnimation {
+                        properties: "color"
+                        duration: 250
+                    }
+                }
             }
-            ColorAnimation {
-                properties: "color"
-                duration: 250
+        },
+        Transition {
+            to: 'notSelected'
+            SequentialAnimation {
+                ParallelAnimation {
+                    NumberAnimation {
+                        properties: "opacity"
+                        easing.type: Easing.InOutQuad
+                        duration: 250
+                    }
+                    ColorAnimation {
+                        properties: "color"
+                        duration: 250
+                    }
+                }
+                NumberAnimation {
+                    properties: "active"
+                    duration: 0
+                }
             }
         }
-    }
+    ]
 }

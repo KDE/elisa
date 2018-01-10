@@ -353,6 +353,11 @@ MusicAudioTrack LocalBalooFileListing::scanOneFile(const QUrl &scanFile)
         QFileInfo coverFilePath(scanFileInfo.dir().filePath(QStringLiteral("cover.jpg")));
         if (coverFilePath.exists()) {
             d->mAllAlbumCover[albumValue] = QUrl::fromLocalFile(coverFilePath.absoluteFilePath());
+        } else {
+            coverFilePath.setFile(scanFileInfo.dir().filePath(QStringLiteral("cover.png")));
+            if (coverFilePath.exists()) {
+                d->mAllAlbumCover[albumValue] = QUrl::fromLocalFile(coverFilePath.absoluteFilePath());
+            }
         }
 
         auto itTrack = std::find(allTracks.begin(), allTracks.end(), newTrack);

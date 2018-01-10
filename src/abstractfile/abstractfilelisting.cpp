@@ -346,6 +346,11 @@ void AbstractFileListing::addCover(const MusicAudioTrack &newTrack)
 
     if (coverFilePath.exists()) {
         d->mAllAlbumCover[newTrack.resourceURI().toString()] = QUrl::fromLocalFile(coverFilePath.absoluteFilePath());
+        return;
+    }
+    coverFilePath.setFile(trackFilePath.dir().filePath(QStringLiteral("cover.png")));
+    if (coverFilePath.exists()) {
+        d->mAllAlbumCover[newTrack.resourceURI().toString()] = QUrl::fromLocalFile(coverFilePath.absoluteFilePath());
     }
 }
 

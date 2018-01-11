@@ -44,8 +44,6 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
 
         RatingStar.qml
         PlayListEntry.qml
-        MediaAlbumDelegate.qml
-        MediaArtistDelegate.qml
         MediaBrowser.qml
         DraggableItem.qml
         PassiveNotification.qml
@@ -59,14 +57,13 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         MediaPlayerControl.qml
         ContextView.qml
 
-        MediaArtistAlbumView.qml
         MediaPlayListView.qml
         MediaAlbumView.qml
-        MediaAllAlbumView.qml
-        MediaAllArtistView.qml
         MediaAllTracksView.qml
         MediaTrackDelegate.qml
         MediaAlbumTrackDelegate.qml
+        GridBrowserView.qml
+        GridBrowserDelegate.qml
 
         ViewSelector.qml
         )

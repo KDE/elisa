@@ -13,11 +13,6 @@
         <file>NavigationActionBar.qml</file>
         <file>PlayListEntry.qml</file>
         <file>MediaBrowser.qml</file>
-        <file>MediaAlbumDelegate.qml</file>
-        <file>MediaArtistDelegate.qml</file>
-        <file>MediaAllAlbumView.qml</file>
-        <file>MediaArtistAlbumView.qml</file>
-        <file>MediaAllArtistView.qml</file>
         <file>Theme.qml</file>
         <file>PlatformIntegration.qml</file>
         <file>LabelWithToolTip.qml</file>
@@ -29,6 +24,8 @@
         <file>FilterBar.qml</file>
         <file>MediaTrackDelegate.qml</file>
         <file>MediaAlbumTrackDelegate.qml</file>
+        <file>GridBrowserView.qml</file>
+        <file>GridBrowserDelegate.qml</file>
     </qresource>
     <qresource prefix="/+windows">
         <file alias="Theme.qml">windows/WindowsTheme.qml</file>

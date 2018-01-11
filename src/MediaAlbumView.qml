@@ -28,22 +28,20 @@ import QtQuick.Layouts 1.2
 FocusScope {
     id: topListing
 
-    property StackView stackView
-    property MediaPlayList playListModel
     property var musicListener
-    property var playerControl
     property var albumName
     property var artistName
-    property var tracksCount
     property var albumArtUrl
     property bool isSingleDiscAlbum
-    property var albumData
     property var albumId
+    property alias albumModel: contentDirectoryView.model
 
     signal showArtist(var name)
-
-    width: stackView.width
-    height: stackView.height
+    signal enqueueAlbum(var album)
+    signal clearPlayList()
+    signal enqueueTrack(var track)
+    signal ensurePlay()
+    signal goBack();
 
     SystemPalette {
         id: myPalette
@@ -52,12 +50,6 @@ FocusScope {
 
     Theme {
         id: elisaTheme
-    }
-
-    AlbumModel {
-        id: contentModel
-
-        albumData: topListing.albumData
     }
 
     Connections {
@@ -77,7 +69,7 @@ FocusScope {
         onAlbumModified:
         {
             if (albumId === modifiedAlbumId) {
-                albumData = modifiedAlbum
+                albumModel.albumData = modifiedAlbum
                 contentModel.albumModified(modifiedAlbum)
             }
         }
@@ -97,37 +89,22 @@ FocusScope {
             Layout.maximumHeight: height
             Layout.fillWidth: true
 
-            parentStackView: topListing.stackView
-            playList: topListing.playListModel
-            playerControl: topListing.playerControl
-            artist: topListing.artistName
-            album: topListing.albumName
+            mainTitle: (topListing.albumModel ? topListing.albumModel.author : '')
+            secondaryTitle: topListing.albumName
             image: (topListing.albumArtUrl ? topListing.albumArtUrl : elisaTheme.defaultAlbumImage)
-            tracksCount: topListing.tracksCount
+            allowArtistNavigation: true
 
-            enqueueAction: Action {
-                text: i18nc("Add whole album to play list", "Enqueue")
-                iconName: "media-track-add-amarok"
-                onTriggered: topListing.playListModel.enqueue(topListing.albumData)
+            onEnqueue: topListing.enqueueAlbum(albumModel.albumData)
+
+            onEnqueueAndPlay: {
+                topListing.clearPlayList()
+                topListing.enqueueAlbum(albumModel.albumData)
+                topListing.ensurePlay()
             }
 
-            clearAndEnqueueAction: Action {
-                text: i18nc("Clear play list and play", "Replace and Play")
-                tooltip: i18nc("Clear play list and add whole album to play list", "Replace Play List and Play Now")
-                iconName: "media-playback-start"
-                onTriggered: {
-                    topListing.playListModel.clearAndEnqueue(topListing.albumData)
-                    topListing.playerControl.ensurePlay()
-                }
-            }
+            onGoBack: topListing.goBack()
 
-            navigateToArtistAction: Action {
-                text: i18nc("Button to navigate to the artist of the album", "Display Artist")
-                iconName: "view-media-artist"
-                onTriggered: {
-                    showArtist(topListing.artistName)
-                }
-            }
+            onShowArtist: topListing.showArtist((topListing.albumModel ? topListing.albumModel.author : ''))
         }
 
         ScrollView {
@@ -141,8 +118,6 @@ FocusScope {
                 id: contentDirectoryView
 
                 focus: true
-
-                model:  contentModel
 
                 delegate: MediaAlbumTrackDelegate {
                     id: entry
@@ -196,11 +171,11 @@ FocusScope {
                                            true
 
 
-                    mediaTrack.onClearPlaylist: topListing.playListModel.clearPlayList()
+                    mediaTrack.onClearPlaylist: topListing.clearPlayList()
 
-                    mediaTrack.onEnqueueToPlaylist: topListing.playListModel.enqueue(track)
+                    mediaTrack.onEnqueueToPlaylist: topListing.enqueueTrack(track)
 
-                    mediaTrack.onEnsurePlay: topListing.playerControl.ensurePlay()
+                    mediaTrack.onEnsurePlay: topListing.ensurePlay()
 
                     mediaTrack.onClicked: contentDirectoryView.currentIndex = index
                 }

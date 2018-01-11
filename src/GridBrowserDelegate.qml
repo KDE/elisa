@@ -17,9 +17,9 @@
  * Boston, MA 02110-1301, USA.
  */
 
-import QtQuick 2.4
-import QtQuick.Controls 1.2
-import QtQuick.Controls.Styles 1.2
+import QtQuick 2.7
+import QtQuick.Controls 1.4
+import QtQuick.Controls.Styles 1.4
 import QtQuick.Window 2.2
 import QtQml.Models 2.1
 import QtQuick.Layouts 1.2
@@ -27,58 +27,47 @@ import QtGraphicalEffects 1.0
 
 import org.kde.elisa 1.0
 
-FocusScope {
-    id: mediaServerEntry
+Item {
+    id: gridEntry
 
-    property StackView stackView
-    property MediaPlayList playListModel
-    property var musicListener
-    property var playerControl
-    property var contentDirectoryModel
-    property var image
-    property alias name: nameLabel.text
+    property var imageUrl
+    property bool shadowForImage
+    property alias mainText: mainLabel.text
+    property alias secondaryText: secondaryLabel.text
+    property var containerData
+    property bool delegateDisplaySecondaryText: true
 
-    signal artistClicked()
-    signal openArtist(var name)
-
-    SystemPalette {
-        id: myPalette
-        colorGroup: SystemPalette.Active
-    }
-
-    Theme {
-        id: elisaTheme
-    }
+    signal enqueue(var data);
+    signal enqueueAndPlay(var data);
+    signal open();
+    signal selected();
 
     Action {
         id: enqueueAction
 
-        text: i18nc("Add all tracks from artist to play list", "Enqueue")
-        iconName: "media-track-add-amarok"
-        onTriggered: mediaServerEntry.playListModel.enqueue(mediaServerEntry.name)
+        text: i18nc("Add whole container to play list", "Enqueue")
+        iconName: 'media-track-add-amarok'
+        onTriggered: enqueue(containerData)
     }
 
     Action {
         id: openAction
 
-        text: i18nc("Open artist view", "Open Artist")
+        text: i18nc("Open view of the container", "Open")
         iconName: 'document-open-folder'
-        onTriggered: openArtist(name)
+        onTriggered: open()
     }
 
     Action {
         id: enqueueAndPlayAction
 
-        text: i18nc("Clear play list and add all tracks from artist to play list", "Play Now and Replace Play List")
-        iconName: "media-playback-start"
-        onTriggered: {
-            mediaServerEntry.playListModel.clearAndEnqueue(mediaServerEntry.name)
-            mediaServerEntry.playerControl.ensurePlay()
-        }
+        text: i18nc("Clear play list and add whole container to play list", "Play Now and Replace Play List")
+        iconName: 'media-playback-start'
+        onTriggered: enqueueAndPlay(containerData)
     }
 
-    Keys.onReturnPressed: openArtist(name)
-    Keys.onEnterPressed: openArtist(name)
+    Keys.onReturnPressed: open()
+    Keys.onEnterPressed: open()
 
     ColumnLayout {
         anchors.fill: parent
@@ -92,20 +81,26 @@ FocusScope {
             acceptedButtons: Qt.LeftButton
             focus: true
 
-            Layout.preferredHeight: mediaServerEntry.width * 0.85 + elisaTheme.layoutVerticalMargin * 0.5 + nameSize.height
+            Layout.preferredHeight: gridEntry.width * 0.85 + elisaTheme.layoutVerticalMargin * 0.5 + mainLabelSize.height + secondaryLabelSize.height
             Layout.fillWidth: true
 
             onClicked: {
                 hoverHandle.forceActiveFocus()
-                artistClicked()
+                gridEntry.selected()
             }
 
-            onDoubleClicked: openArtist(name)
+            onDoubleClicked: open()
 
             TextMetrics {
-                id: nameSize
-                font: nameLabel.font
-                text: nameLabel.text
+                id: mainLabelSize
+                font: mainLabel.font
+                text: mainLabel.text
+            }
+
+            TextMetrics {
+                id: secondaryLabelSize
+                font: secondaryLabel.font
+                text: secondaryLabel.text
             }
 
             ColumnLayout {
@@ -115,10 +110,12 @@ FocusScope {
                 anchors.fill: parent
 
                 Item {
-                    Layout.preferredWidth: mediaServerEntry.width * 0.85
-                    Layout.preferredHeight: mediaServerEntry.width * 0.85
+                    Layout.preferredHeight: gridEntry.width * 0.85
+                    Layout.preferredWidth: gridEntry.width * 0.85
 
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+
+                    focus: true
 
                     Loader {
                         id: hoverLoader
@@ -161,23 +158,23 @@ FocusScope {
                     }
 
                     Image {
-                        id: artistDecoration
-
-                        source: Qt.resolvedUrl(elisaTheme.defaultArtistImage)
+                        id: coverImage
 
                         anchors.fill: parent
 
                         sourceSize.width: parent.width
                         sourceSize.height: parent.height
-
                         fillMode: Image.PreserveAspectFit
-
                         smooth: true
+
+                        source: gridEntry.imageUrl
 
                         asynchronous: true
 
-                        layer.enabled: image === '' ? false : true
+                        layer.enabled: shadowForImage
                         layer.effect: DropShadow {
+                            source: coverImage
+
                             radius: 10
                             spread: 0.1
                             samples: 21
@@ -188,16 +185,32 @@ FocusScope {
                 }
 
                 LabelWithToolTip {
-                    id: nameLabel
+                    id: mainLabel
 
                     font.weight: Font.Bold
                     color: myPalette.text
 
                     horizontalAlignment: Text.AlignLeft
 
-                    Layout.preferredWidth: mediaServerEntry.width * 0.85
                     Layout.topMargin: elisaTheme.layoutVerticalMargin * 0.5
+                    Layout.preferredWidth: gridEntry.width * 0.85
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
+
+                    elide: Text.ElideRight
+                }
+
+                LabelWithToolTip {
+                    id: secondaryLabel
+
+                    font.weight: Font.Light
+                    color: myPalette.text
+
+                    horizontalAlignment: Text.AlignLeft
+
+                    Layout.preferredWidth: gridEntry.width * 0.85
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
+
+                    visible: delegateDisplaySecondaryText
 
                     elide: Text.ElideRight
                 }
@@ -212,7 +225,7 @@ FocusScope {
     states: [
         State {
             name: 'notSelected'
-            when: !mediaServerEntry.activeFocus && !hoverHandle.containsMouse
+            when: !gridEntry.activeFocus && !hoverHandle.containsMouse
             PropertyChanges {
                 target: hoverLoader
                 active: false
@@ -222,13 +235,13 @@ FocusScope {
                 opacity: 0.0
             }
             PropertyChanges {
-                target: artistDecoration
+                target: coverImage
                 opacity: 1
             }
         },
         State {
             name: 'hoveredOrSelected'
-            when: mediaServerEntry.activeFocus || hoverHandle.containsMouse
+            when: gridEntry.activeFocus || hoverHandle.containsMouse
             PropertyChanges {
                 target: hoverLoader
                 active: true
@@ -238,7 +251,7 @@ FocusScope {
                 opacity: 1.0
             }
             PropertyChanges {
-                target: artistDecoration
+                target: coverImage
                 opacity: 0.2
             }
         }

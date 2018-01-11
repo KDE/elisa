@@ -91,6 +91,9 @@ public:
         IsPlayingRole,
         HasAlbumHeader,
         IsSingleDiscAlbumHeader,
+        SecondaryTextRole,
+        ImageUrlRole,
+        ShadowForImageRole,
     };
 
     Q_ENUM(ColumnsRoles)

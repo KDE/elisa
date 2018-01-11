@@ -20,6 +20,8 @@
 #include "allalbumsmodel.h"
 #include "musicstatistics.h"
 #include "databaseinterface.h"
+#include "allartistsmodel.h"
+#include "albummodel.h"
 
 #include <QUrl>
 #include <QTimer>
@@ -39,6 +41,8 @@ public:
     QVector<MusicAlbum> mAllAlbums;
 
     int mAlbumCount = 0;
+
+    AllArtistsModel *mAllArtistsModel = nullptr;
 
 };
 
@@ -81,6 +85,12 @@ QHash<int, QByteArray> AllAlbumsModel::roleNames() const
     roles[static_cast<int>(ColumnsRoles::AlbumDataRole)] = "albumData";
     roles[static_cast<int>(ColumnsRoles::HighestTrackRating)] = "highestTrackRating";
     roles[static_cast<int>(ColumnsRoles::AlbumDatabaseIdRole)] = "albumId";
+    roles[static_cast<int>(ColumnsRoles::SecondaryTextRole)] = "secondaryText";
+    roles[static_cast<int>(ColumnsRoles::ImageUrlRole)] = "imageUrl";
+    roles[static_cast<int>(ColumnsRoles::ShadowForImageRole)] = "shadowForImage";
+    roles[static_cast<int>(ColumnsRoles::ContainerDataRole)] = "containerData";
+    roles[static_cast<int>(ColumnsRoles::ChildModelRole)] = "childModel";
+    roles[static_cast<int>(ColumnsRoles::IsTracksContainerRole)] = "isTracksContainer";
 
     return roles;
 }
@@ -132,9 +142,7 @@ QVariant AllAlbumsModel::internalDataAlbum(int albumIndex, int role) const
 {
     auto result = QVariant();
 
-    ColumnsRoles convertedRole = static_cast<ColumnsRoles>(role);
-
-    switch(convertedRole)
+    switch(role)
     {
     case ColumnsRoles::TitleRole:
         result = d->mAllAlbums[albumIndex].title();
@@ -174,6 +182,38 @@ QVariant AllAlbumsModel::internalDataAlbum(int albumIndex, int role) const
     case ColumnsRoles::HighestTrackRating:
         result = d->mAllAlbums[albumIndex].highestTrackRating();
         break;
+    case Qt::DisplayRole:
+        result = d->mAllAlbums[albumIndex].title();
+        break;
+    case ColumnsRoles::SecondaryTextRole:
+        result = d->mAllAlbums[albumIndex].artist();
+        break;
+    case ColumnsRoles::ImageUrlRole:
+    {
+        auto albumArt = d->mAllAlbums[albumIndex].albumArtURI();
+        if (albumArt.isValid()) {
+            result = albumArt;
+        } else {
+            result = QUrl(QStringLiteral("image://icon/media-optical-audio"));
+        }
+        break;
+    }
+    case ColumnsRoles::ShadowForImageRole:
+        result = d->mAllAlbums[albumIndex].albumArtURI().isValid();
+        break;
+    case ColumnsRoles::ContainerDataRole:
+        result = QVariant::fromValue(d->mAllAlbums[albumIndex]);
+        break;
+    case ColumnsRoles::ChildModelRole:
+    {
+        auto newModel = new AlbumModel();
+        newModel->setAlbumData(d->mAllAlbums[albumIndex]);
+        result = QVariant::fromValue(newModel);
+        break;
+    }
+    case ColumnsRoles::IsTracksContainerRole:
+        result = true;
+        break;
     }
 
     return result;
@@ -210,6 +250,11 @@ int AllAlbumsModel::columnCount(const QModelIndex &parent) const
     Q_UNUSED(parent);
 
     return 1;
+}
+
+AllArtistsModel *AllAlbumsModel::allArtists() const
+{
+    return d->mAllArtistsModel;
 }
 
 void AllAlbumsModel::albumAdded(const MusicAlbum &newAlbum)
@@ -254,6 +299,16 @@ void AllAlbumsModel::albumModified(const MusicAlbum &modifiedAlbum)
     d->mAllAlbums[albumIndex] = modifiedAlbum;
 
     Q_EMIT dataChanged(index(albumIndex, 0), index(albumIndex, 0));
+}
+
+void AllAlbumsModel::setAllArtists(AllArtistsModel *model)
+{
+    if (d->mAllArtistsModel == model) {
+        return;
+    }
+
+    d->mAllArtistsModel = model;
+    Q_EMIT allArtistsChanged();
 }
 
 #include "moc_allalbumsmodel.cpp"

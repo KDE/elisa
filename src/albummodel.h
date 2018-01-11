@@ -46,13 +46,15 @@ class AlbumModel : public QAbstractItemModel
 
     Q_PROPERTY(QString title
                READ title
-               WRITE setTitle
                NOTIFY titleChanged)
 
     Q_PROPERTY(QString author
                READ author
-               WRITE setAuthor
                NOTIFY authorChanged)
+
+    Q_PROPERTY(int tracksCount
+               READ tracksCount
+               NOTIFY tracksCountChanged)
 
 public:
 
@@ -81,6 +83,9 @@ public:
         DiscFirstTrackRole,
         IsSingleDiscAlbumRole,
         TrackDataRole,
+        SecondaryTextRole,
+        ImageUrlRole,
+        ShadowForImageRole,
     };
 
     Q_ENUM(ColumnsRoles)
@@ -109,6 +114,8 @@ public:
 
     QString author() const;
 
+    int tracksCount() const;
+
 Q_SIGNALS:
 
     void albumDataChanged();
@@ -117,13 +124,11 @@ Q_SIGNALS:
 
     void authorChanged();
 
+    void tracksCountChanged();
+
 public Q_SLOTS:
 
     void setAlbumData(const MusicAlbum &album);
-
-    void setTitle(const QString &title);
-
-    void setAuthor(const QString &author);
 
     void albumModified(const MusicAlbum &modifiedAlbum);
 

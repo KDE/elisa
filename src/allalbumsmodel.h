@@ -32,7 +32,7 @@
 
 class AllAlbumsModelPrivate;
 class MusicStatistics;
-class QMutex;
+class AllArtistsModel;
 
 class AllAlbumsModel : public QAbstractItemModel
 {
@@ -41,6 +41,11 @@ class AllAlbumsModel : public QAbstractItemModel
     Q_PROPERTY(int albumCount
                READ albumCount
                NOTIFY albumCountChanged)
+
+    Q_PROPERTY(AllArtistsModel* allArtists
+               READ allArtists
+               WRITE setAllArtists
+               NOTIFY allArtistsChanged)
 
 public:
 
@@ -56,6 +61,12 @@ public:
         AlbumDataRole,
         HighestTrackRating,
         AlbumDatabaseIdRole,
+        SecondaryTextRole,
+        ImageUrlRole,
+        ShadowForImageRole,
+        ContainerDataRole,
+        ChildModelRole,
+        IsTracksContainerRole,
     };
 
     Q_ENUM(ColumnsRoles)
@@ -80,6 +91,8 @@ public:
 
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
 
+    AllArtistsModel *allArtists() const;
+
 public Q_SLOTS:
 
     void albumAdded(const MusicAlbum &newAlbum);
@@ -88,9 +101,13 @@ public Q_SLOTS:
 
     void albumModified(const MusicAlbum &modifiedAlbum);
 
+    void setAllArtists(AllArtistsModel *model);
+
 Q_SIGNALS:
 
     void albumCountChanged();
+
+    void allArtistsChanged();
 
 private:
 

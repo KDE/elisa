@@ -70,6 +70,9 @@ QHash<int, QByteArray> AllTracksModel::roleNames() const
     roles[static_cast<int>(ColumnsRoles::IsSingleDiscAlbumRole)] = "isSingleDiscAlbum";
     roles[static_cast<int>(ColumnsRoles::TrackDataRole)] = "trackData";
     roles[static_cast<int>(ColumnsRoles::ResourceRole)] = "trackResource";
+    roles[static_cast<int>(ColumnsRoles::SecondaryTextRole)] = "secondaryText";
+    roles[static_cast<int>(ColumnsRoles::ImageUrlRole)] = "imageUrl";
+    roles[static_cast<int>(ColumnsRoles::ShadowForImageRole)] = "shadowForImage";
 
     return roles;
 }
@@ -113,9 +116,9 @@ QVariant AllTracksModel::data(const QModelIndex &index, int role) const
         return result;
     }
 
-    ColumnsRoles convertedRole = static_cast<ColumnsRoles>(role);
+    const auto &track = d->mAllTracks[d->mIds[index.row()]];
 
-    switch(convertedRole)
+    switch(role)
     {
     case ColumnsRoles::TitleRole:
         if (d->mAllTracks[d->mIds[index.row()]].title().isEmpty()) {
@@ -184,6 +187,42 @@ QVariant AllTracksModel::data(const QModelIndex &index, int role) const
         break;
     case ColumnsRoles::TrackDataRole:
         result = QVariant::fromValue(d->mAllTracks[d->mIds[index.row()]]);
+        break;
+    case Qt::DisplayRole:
+        result = track.title();
+        break;
+    case ColumnsRoles::SecondaryTextRole:
+    {
+        auto secondaryText = QString();
+        secondaryText = QStringLiteral("<b>%1 - %2</b>%3");
+
+        secondaryText = secondaryText.arg(track.trackNumber());
+        secondaryText = secondaryText.arg(track.title());
+
+        if (track.artist() == track.albumArtist()) {
+            secondaryText = secondaryText.arg(QString());
+        } else {
+            auto artistText = QString();
+            artistText = QStringLiteral(" - <i>%1</i>");
+            artistText = artistText.arg(track.artist());
+            secondaryText = secondaryText.arg(artistText);
+        }
+
+        result = secondaryText;
+        break;
+    }
+    case ColumnsRoles::ImageUrlRole:
+    {
+        const auto &imageUrl = d->mAllTracks[d->mIds[index.row()]].albumCover();
+        if (imageUrl.isValid()) {
+            result = imageUrl;
+        } else {
+            result = QUrl(QStringLiteral("image://icon/media-optical-audio"));
+        }
+        break;
+    }
+    case ColumnsRoles::ShadowForImageRole:
+        result = d->mAllTracks[d->mIds[index.row()]].albumCover().isValid();
         break;
     }
 

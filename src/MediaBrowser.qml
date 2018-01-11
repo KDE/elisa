@@ -28,7 +28,7 @@ FocusScope {
     id: contentDirectoryRoot
 
     property MediaPlayList playListModel
-    property var firstPage
+    property alias firstPage: listingView.initialItem
     property alias stackView: listingView
 
     function goBack() {
@@ -70,8 +70,6 @@ FocusScope {
                     }
                 }
             }
-
-            initialItem: firstPage
         }
     }
 

@@ -34,10 +34,6 @@ public:
     {
     }
 
-    QString mTitle;
-
-    QString mAuthor;
-
     MusicAlbum mCurrentAlbum;
 
 };
@@ -76,6 +72,9 @@ QHash<int, QByteArray> AlbumModel::roleNames() const
     roles[static_cast<int>(ColumnsRoles::IsSingleDiscAlbumRole)] = "isSingleDiscAlbum";
     roles[static_cast<int>(ColumnsRoles::TrackDataRole)] = "trackData";
     roles[static_cast<int>(ColumnsRoles::ResourceRole)] = "trackResource";
+    roles[static_cast<int>(ColumnsRoles::SecondaryTextRole)] = "secondaryText";
+    roles[static_cast<int>(ColumnsRoles::ImageUrlRole)] = "imageUrl";
+    roles[static_cast<int>(ColumnsRoles::ShadowForImageRole)] = "shadowForImage";
 
     return roles;
 }
@@ -128,9 +127,7 @@ QVariant AlbumModel::internalDataTrack(const MusicAudioTrack &track, int role, i
 {
     auto result = QVariant();
 
-    ColumnsRoles convertedRole = static_cast<ColumnsRoles>(role);
-
-    switch(convertedRole)
+    switch(role)
     {
     case ColumnsRoles::TitleRole:
         result = track.title();
@@ -201,6 +198,42 @@ QVariant AlbumModel::internalDataTrack(const MusicAudioTrack &track, int role, i
     case ColumnsRoles::TrackDataRole:
         result = QVariant::fromValue(track);
         break;
+    case Qt::DisplayRole:
+        result = track.title();
+        break;
+    case ColumnsRoles::SecondaryTextRole:
+    {
+        auto secondaryText = QString();
+        secondaryText = QStringLiteral("<b>%1 - %2</b>%3");
+
+        secondaryText = secondaryText.arg(track.trackNumber());
+        secondaryText = secondaryText.arg(track.title());
+
+        if (track.artist() == track.albumArtist()) {
+            secondaryText = secondaryText.arg(QString());
+        } else {
+            auto artistText = QString();
+            artistText = QStringLiteral(" - <i>%1</i>");
+            artistText = artistText.arg(track.artist());
+            secondaryText = secondaryText.arg(artistText);
+        }
+
+        result = secondaryText;
+        break;
+    }
+    case ColumnsRoles::ImageUrlRole:
+    {
+        const auto &albumArtUri = d->mCurrentAlbum.albumArtURI();
+        if (albumArtUri.isValid()) {
+            result = albumArtUri;
+        } else {
+            result = QUrl(QStringLiteral("image://icon/media-optical-audio"));
+        }
+        break;
+    }
+    case ColumnsRoles::ShadowForImageRole:
+        result = d->mCurrentAlbum.albumArtURI().isValid();
+        break;
     }
 
     return result;
@@ -245,12 +278,17 @@ MusicAlbum AlbumModel::albumData() const
 
 QString AlbumModel::title() const
 {
-    return d->mTitle;
+    return d->mCurrentAlbum.title();
 }
 
 QString AlbumModel::author() const
 {
-    return d->mAuthor;
+    return d->mCurrentAlbum.artist();
+}
+
+int AlbumModel::tracksCount() const
+{
+    return d->mCurrentAlbum.tracksCount();
 }
 
 void AlbumModel::setAlbumData(const MusicAlbum &album)
@@ -270,24 +308,9 @@ void AlbumModel::setAlbumData(const MusicAlbum &album)
     endInsertRows();
 
     Q_EMIT albumDataChanged();
-}
-
-void AlbumModel::setTitle(const QString &title)
-{
-    if (d->mTitle == title)
-        return;
-
-    d->mTitle = title;
-    emit titleChanged();
-}
-
-void AlbumModel::setAuthor(const QString &author)
-{
-    if (d->mAuthor == author)
-        return;
-
-    d->mAuthor = author;
-    emit authorChanged();
+    Q_EMIT tracksCountChanged();
+    Q_EMIT authorChanged();
+    Q_EMIT titleChanged();
 }
 
 void AlbumModel::albumModified(const MusicAlbum &modifiedAlbum)

@@ -20,6 +20,7 @@
 #include "albumfilterproxymodel.h"
 
 #include "allalbumsmodel.h"
+#include "allartistsmodel.h"
 
 AlbumFilterProxyModel::AlbumFilterProxyModel(QObject *parent) : QSortFilterProxyModel(parent), mFilterText()
 {

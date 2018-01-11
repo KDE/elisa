@@ -80,15 +80,15 @@ ApplicationWindow {
     }
 
 
-     Action {
-          text: goBackAction.text
-          shortcut: goBackAction.shortcut
-          iconName: elisa.iconName(goBackAction.icon)
-          onTriggered: {
-              localAlbums.goBack()
-              localArtists.goBack()
-          }
-      }
+    Action {
+        text: goBackAction.text
+        shortcut: goBackAction.shortcut
+        iconName: elisa.iconName(goBackAction.icon)
+        onTriggered: {
+            localAlbums.goBack()
+            localArtists.goBack()
+        }
+    }
 
     Action {
         id: qmlQuitAction
@@ -142,7 +142,7 @@ ApplicationWindow {
         id: allListeners
 
         elisaApplication: elisa
-     }
+    }
 
     AudioWrapper {
         id: audioPlayer
@@ -265,6 +265,14 @@ ApplicationWindow {
 
     AllAlbumsModel {
         id: allAlbumsModel
+
+        allArtists: allArtistsModel
+    }
+
+    AllArtistsModel {
+        id: allArtistsModel
+
+        allAlbums: allAlbumsModel
     }
 
     AllTracksModel {
@@ -310,10 +318,6 @@ ApplicationWindow {
         target: allListeners
 
         onTrackModified: allTracksModel.trackModified(modifiedTrack)
-    }
-
-    AllArtistsModel {
-        id: allArtistsModel
     }
 
     Connections {
@@ -594,18 +598,34 @@ ApplicationWindow {
                                             rightMargin: elisaTheme.layoutHorizontalMargin
                                         }
 
-                                        firstPage: MediaAllAlbumView {
-                                            focus: true
-                                            playListModel: playListModelItem
-                                            playerControl: manageAudioPlayer
-                                            stackView: localAlbums.stackView
-                                            musicListener: allListeners
-                                            contentDirectoryModel: allAlbumsModel
+                                        firstPage: GridBrowserView {
+                                            id: allAlbumsView
 
-                                            onShowArtist: {
-                                                listViews.currentIndex = 2
-                                                allArtistsView.showArtistsAlbums(name)
+                                            focus: true
+
+                                            isFirstPage: true
+
+                                            model: AlbumFilterProxyModel {
+                                                sourceModel: allAlbumsModel
                                             }
+
+                                            mainTitle: i18nc("Title of the view of all albums", "Albums")
+
+                                            onEnqueue: playListModelItem.enqueue(data)
+                                            onEnqueueAndPlay: {
+                                                playListModelItem.clearAndEnqueue(data)
+                                                manageAudioPlayer.ensurePlay()
+                                            }
+                                            onOpen: {
+                                                localAlbums.stackView.push(albumView, {
+                                                                               stackView: localAlbums.stackView,
+                                                                               albumName: innerMainTitle,
+                                                                               albumModel: innerModel,
+                                                                               albumArtUrl: innerImage,
+                                                                               musicListener: allListeners
+                                                                           })
+                                            }
+                                            onGoBack: localAlbums.stackView.pop()
                                         }
 
                                         visible: opacity > 0
@@ -623,16 +643,35 @@ ApplicationWindow {
                                             rightMargin: elisaTheme.layoutHorizontalMargin
                                         }
 
-                                        firstPage: MediaAllArtistView {
+                                        firstPage: GridBrowserView {
                                             id: allArtistsView
-
                                             focus: true
-                                            playListModel: playListModelItem
-                                            artistsModel: allArtistsModel
-                                            playerControl: manageAudioPlayer
-                                            stackView: localArtists.stackView
-                                            musicListener: allListeners
-                                            contentDirectoryModel: allAlbumsModel
+
+                                            isFirstPage: true
+                                            showRating: false
+                                            delegateDisplaySecondaryText: false
+
+                                            model: AlbumFilterProxyModel {
+                                                sourceModel: allArtistsModel
+                                            }
+
+                                            mainTitle: i18nc("Title of the view of all artists", "Artists")
+
+                                            onEnqueue: playListModelItem.enqueue(data)
+                                            onEnqueueAndPlay: {
+                                                playListModelItem.clearAndEnqueue(data)
+                                                manageAudioPlayer.ensurePlay()
+                                            }
+                                            onOpen: {
+                                                localArtists.stackView.push(innerAlbumView, {
+                                                                                model: innerModel,
+                                                                                mainTitle: innerMainTitle,
+                                                                                secondaryTitle: innerSecondaryTitle,
+                                                                                image: innerImage,
+                                                                                stackView: localArtists.stackView
+                                                                            })
+                                            }
+                                            onGoBack: localArtists.stackView.pop()
                                         }
 
                                         visible: opacity > 0
@@ -968,6 +1007,59 @@ ApplicationWindow {
                     }
                 }
             }
+        }
+    }
+
+    Component {
+        id: innerAlbumView
+
+        GridBrowserView {
+            property var stackView
+
+            onEnqueue: playListModelItem.enqueue(data)
+            onEnqueueAndPlay: {
+                playListModelItem.clearAndEnqueue(data)
+                manageAudioPlayer.ensurePlay()
+            }
+            onOpen: {
+                localArtists.stackView.push(albumView, {
+                                                stackView: localArtists.stackView,
+                                                albumName: innerMainTitle,
+                                                albumModel: innerModel,
+                                                musicListener: allListeners
+                                            })
+            }
+            onGoBack: stackView.pop()
+        }
+    }
+
+    Component {
+        id: albumView
+
+        MediaAlbumView {
+            property var stackView
+
+            onEnsurePlay: manageAudioPlayer.ensurePlay()
+            onClearPlayList: playListModelItem.clearPlayList()
+            onEnqueueAlbum: playListModelItem.enqueue(album)
+            onEnqueueTrack: playListModelItem.enqueue(track)
+            onShowArtist: {
+                listViews.currentIndex = 2
+                if (localArtists.stackView.depth === 3) {
+                    localArtists.stackView.pop()
+                }
+                if (localArtists.stackView.depth === 2) {
+                    var artistPage = localArtists.stackView.get(1)
+                    if (artistPage.mainTitle === name) {
+                        return
+                    } else {
+                        localArtists.stackView.pop()
+                    }
+                }
+
+                allArtistsView.open(allArtistsModel.itemModelForName(name), name, '', elisaTheme.defaultArtistImage)
+            }
+            onGoBack: stackView.pop()
         }
     }
 }

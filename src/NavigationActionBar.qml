@@ -26,25 +26,21 @@ import QtQuick.Window 2.0
 Item {
     id: navigationBar
 
-    property var parentStackView
-    property var playList
-    property var playerControl
-    property string artist
-    property string album
-    property string image
-    property string tracksCount
-    property var enqueueAction
-    property var clearAndEnqueueAction
-    property var navigateToArtistAction: Action { }
+    property string mainTitle
+    property string secondaryTitle
+    property url image
+    property bool allowArtistNavigation: false
+
+    signal enqueue();
+    signal enqueueAndPlay();
+    signal goBack();
+    signal showArtist();
 
     Action {
         id: goPreviousAction
         text: i18nc("navigate back in the views stack", "Back")
         iconName: (Qt.application.layoutDirection == Qt.RightToLeft) ? "go-next" : "go-previous"
-        onTriggered:
-        {
-            parentStackView.pop()
-        }
+        onTriggered: goBack()
     }
 
     RowLayout {
@@ -105,7 +101,7 @@ Item {
             LabelWithToolTip {
                 id: albumLabel
 
-                text: album
+                text: secondaryTitle
 
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
@@ -118,7 +114,7 @@ Item {
                     pixelSize: elisaTheme.defaultFontPixelSize * 1.5
                 }
 
-                visible: album !== ""
+                visible: secondaryTitle !== ""
             }
 
             TextMetrics {
@@ -131,7 +127,7 @@ Item {
             LabelWithToolTip {
                 id: authorLabel
 
-                text: artist
+                text: mainTitle
 
                 color: myPalette.text
 
@@ -139,7 +135,7 @@ Item {
                 Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
 
                 font {
-                    pixelSize: (album !== "" ? elisaTheme.defaultFontPixelSize : elisaTheme.defaultFontPixelSize * 1.5)
+                    pixelSize: (secondaryTitle !== "" ? elisaTheme.defaultFontPixelSize : elisaTheme.defaultFontPixelSize * 1.5)
                 }
 
                 elide: Text.ElideRight
@@ -157,26 +153,37 @@ Item {
                 spacing: 0
 
                 Button {
-                    action: enqueueAction
+                    text: i18nc("Add current list to playlist", "Enqueue")
+                    iconName: "media-track-add-amarok"
+
+                    onClicked: enqueue()
 
                     Layout.leftMargin: 0
                     Layout.rightMargin: 0
                 }
 
                 Button {
-                    action: clearAndEnqueueAction
+                    text: i18nc("Clear playlist and play", "Replace and Play")
+                    tooltip: i18nc("Clear playlist and add current list to it", "Replace PlayList and Play Now")
+                    iconName: "media-playback-start"
+
+                    onClicked: enqueueAndPlay()
 
                     Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
                     Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
                 }
 
                 Button {
-                    action: navigateToArtistAction
+                    id: showArtistButton
+
+                    visible: allowArtistNavigation
+                    text: i18nc("Button to navigate to the artist of the album", "Display Artist")
+                    iconName: "view-media-artist"
+
+                    onClicked: showArtist()
 
                     Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
                     Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-
-                    visible: album !== ""
                 }
             }
         }

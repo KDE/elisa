@@ -85,14 +85,8 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
         return result;
     }
 
-    if (role < ColumnsRoles::IsValidRole || role > ColumnsRoles::IsSingleDiscAlbumHeader) {
-        return result;
-    }
-
-    ColumnsRoles convertedRole = static_cast<ColumnsRoles>(role);
-
     if (d->mData[index.row()].mIsValid) {
-        switch(convertedRole)
+        switch(role)
         {
         case ColumnsRoles::IsValidRole:
             result = d->mData[index.row()].mIsValid;
@@ -170,9 +164,43 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
         case ColumnsRoles::IsPlayingRole:
             result = d->mData[index.row()].mIsPlaying;
             break;
+        case Qt::DisplayRole:
+        {
+            const auto &track = d->mTrackData[index.row()];
+            auto displayText = QString();
+            displayText = QStringLiteral("%1 - %2");
+
+            if (track.isSingleDiscAlbum()) {
+                displayText = displayText.arg(track.trackNumber());
+            } else {
+                auto numbersText = QString();
+                numbersText = QStringLiteral("%1 - %2");
+                numbersText = numbersText.arg(track.discNumber());
+                numbersText = numbersText.arg(track.trackNumber());
+                displayText = displayText.arg(numbersText);
+            }
+
+            result = displayText.arg(track.title());
+            break;
+        }
+        case ColumnsRoles::SecondaryTextRole:
+            break;
+        case ColumnsRoles::ImageUrlRole:
+        {
+            const auto &albumArt = d->mTrackData[index.row()].albumCover();
+            if (albumArt.isValid()) {
+                result = albumArt;
+            } else {
+                result = QUrl(QStringLiteral("image://icon/media-optical-audio"));
+            }
+            break;
+        }
+        case ColumnsRoles::ShadowForImageRole:
+            result = d->mTrackData[index.row()].albumCover().isValid();
+            break;
         }
     } else {
-        switch(convertedRole)
+        switch(role)
         {
         case ColumnsRoles::IsValidRole:
             result = d->mData[index.row()].mIsValid;
@@ -225,6 +253,18 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
             break;
         case ColumnsRoles::ImageRole:
             result = QStringLiteral("");
+            break;
+        case Qt::DisplayRole:
+            result = d->mTrackData[index.row()].title();
+            break;
+        case ColumnsRoles::SecondaryTextRole:
+            result = QString();
+            break;
+        case ColumnsRoles::ImageUrlRole:
+            result = QUrl(QStringLiteral("image://icon/error"));
+            break;
+        case ColumnsRoles::ShadowForImageRole:
+            result = false;
             break;
         }
     }
@@ -290,6 +330,9 @@ QHash<int, QByteArray> MediaPlayList::roleNames() const
     roles[static_cast<int>(ColumnsRoles::IsPlayingRole)] = "isPlaying";
     roles[static_cast<int>(ColumnsRoles::HasAlbumHeader)] = "hasAlbumHeader";
     roles[static_cast<int>(ColumnsRoles::IsSingleDiscAlbumHeader)] = "isSingleDiscAlbum";
+    roles[static_cast<int>(ColumnsRoles::SecondaryTextRole)] = "secondaryText";
+    roles[static_cast<int>(ColumnsRoles::ImageUrlRole)] = "imageUrl";
+    roles[static_cast<int>(ColumnsRoles::ShadowForImageRole)] = "shadowForImage";
 
     return roles;
 }

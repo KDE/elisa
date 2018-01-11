@@ -51,6 +51,9 @@ public:
         DatabaseIdRole,
         IsSingleDiscAlbumRole,
         TrackDataRole,
+        SecondaryTextRole,
+        ImageUrlRole,
+        ShadowForImageRole,
     };
 
     Q_ENUM(ColumnsRoles)

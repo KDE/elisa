@@ -31,10 +31,16 @@
 
 class DatabaseInterface;
 class AllArtistsModelPrivate;
+class AllAlbumsModel;
 
 class AllArtistsModel : public QAbstractItemModel
 {
     Q_OBJECT
+
+    Q_PROPERTY(AllAlbumsModel* allAlbums
+               READ allAlbums
+               WRITE setAllAlbums
+               NOTIFY allAlbumsChanged)
 
 public:
 
@@ -43,6 +49,12 @@ public:
         ArtistsCountRole,
         ImageRole,
         IdRole,
+        SecondaryTextRole,
+        ImageUrlRole,
+        ShadowForImageRole,
+        ContainerDataRole,
+        ChildModelRole,
+        IsTracksContainerRole,
     };
 
     Q_ENUM(ColumnsRoles)
@@ -65,6 +77,14 @@ public:
 
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
 
+    AllAlbumsModel* allAlbums() const;
+
+    Q_INVOKABLE QAbstractItemModel* itemModelForName(const QString &name) const;
+
+Q_SIGNALS:
+
+    void allAlbumsChanged();
+
 public Q_SLOTS:
 
     void artistAdded(const MusicArtist &newArtist);
@@ -72,6 +92,8 @@ public Q_SLOTS:
     void artistRemoved(const MusicArtist &removedArtist);
 
     void artistModified(const MusicArtist &modifiedArtist);
+
+    void setAllAlbums(AllAlbumsModel *model);
 
 private:
 

@@ -345,6 +345,7 @@ set(allalbumsmodeltest_SOURCES
     ../src/musicalbum.cpp
     ../src/musicaudiotrack.cpp
     ../src/allalbumsmodel.cpp
+    ../src/albummodel.cpp
     allalbumsmodeltest.cpp
 )
 

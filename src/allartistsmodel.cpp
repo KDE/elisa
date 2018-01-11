@@ -20,11 +20,13 @@
 #include "allartistsmodel.h"
 #include "databaseinterface.h"
 #include "musicartist.h"
+#include "allalbumsmodel.h"
 
 #include <QUrl>
 #include <QTimer>
 #include <QPointer>
 #include <QVector>
+#include <QSortFilterProxyModel>
 
 class AllArtistsModelPrivate
 {
@@ -39,6 +41,8 @@ public:
     int mArtistsCount = 0;
 
     bool mUseLocalIcons = false;
+
+    AllAlbumsModel *mAllAlbumsModel = nullptr;
 
 };
 
@@ -70,6 +74,12 @@ QHash<int, QByteArray> AllArtistsModel::roleNames() const
     roles[static_cast<int>(ColumnsRoles::ArtistsCountRole)] = "albumsCount";
     roles[static_cast<int>(ColumnsRoles::ImageRole)] = "image";
     roles[static_cast<int>(ColumnsRoles::IdRole)] = "id";
+    roles[static_cast<int>(ColumnsRoles::SecondaryTextRole)] = "secondaryText";
+    roles[static_cast<int>(ColumnsRoles::ImageUrlRole)] = "imageUrl";
+    roles[static_cast<int>(ColumnsRoles::ShadowForImageRole)] = "shadowForImage";
+    roles[static_cast<int>(ColumnsRoles::ContainerDataRole)] = "containerData";
+    roles[static_cast<int>(ColumnsRoles::ChildModelRole)] = "childModel";
+    roles[static_cast<int>(ColumnsRoles::IsTracksContainerRole)] = "isTracksContainer";
 
     return roles;
 }
@@ -113,9 +123,7 @@ QVariant AllArtistsModel::data(const QModelIndex &index, int role) const
         return result;
     }
 
-    ColumnsRoles convertedRole = static_cast<ColumnsRoles>(role);
-
-    switch(convertedRole)
+    switch(role)
     {
     case ColumnsRoles::NameRole:
         result = d->mAllArtists[index.row()].name();
@@ -126,6 +134,34 @@ QVariant AllArtistsModel::data(const QModelIndex &index, int role) const
     case ColumnsRoles::ImageRole:
         break;
     case ColumnsRoles::IdRole:
+        break;
+    case ColumnsRoles::SecondaryTextRole:
+        result = QString();
+        break;
+    case Qt::DisplayRole:
+        result = d->mAllArtists[index.row()].name();
+        break;
+    case ColumnsRoles::ImageUrlRole:
+        result = QUrl(QStringLiteral("image://icon/view-media-artist"));
+        break;
+    case ColumnsRoles::ShadowForImageRole:
+        result = false;
+        break;
+    case ColumnsRoles::ContainerDataRole:
+        result = QVariant::fromValue(d->mAllArtists[index.row()]);
+        break;
+    case ColumnsRoles::ChildModelRole:
+    {
+        auto newModel = new QSortFilterProxyModel;
+        newModel->setSourceModel(d->mAllAlbumsModel);
+        newModel->setFilterRole(AllAlbumsModel::AllArtistsRole);
+        newModel->setFilterRegExp(QRegExp(QStringLiteral(".*") + d->mAllArtists[index.row()].name() + QStringLiteral(".*"),
+                                  Qt::CaseInsensitive));
+        result = QVariant::fromValue(newModel);
+        break;
+    }
+    case ColumnsRoles::IsTracksContainerRole:
+        result = false;
         break;
     }
 
@@ -165,6 +201,22 @@ int AllArtistsModel::columnCount(const QModelIndex &parent) const
     return 1;
 }
 
+AllAlbumsModel *AllArtistsModel::allAlbums() const
+{
+    return d->mAllAlbumsModel;
+}
+
+QAbstractItemModel *AllArtistsModel::itemModelForName(const QString &name) const
+{
+    auto newModel = new QSortFilterProxyModel;
+    newModel->setSourceModel(d->mAllAlbumsModel);
+    newModel->setFilterRole(AllAlbumsModel::AllArtistsRole);
+    newModel->setFilterRegExp(QRegExp(QStringLiteral(".*") + name + QStringLiteral(".*"),
+                              Qt::CaseInsensitive));
+
+    return newModel;
+}
+
 void AllArtistsModel::artistAdded(const MusicArtist &newArtist)
 {
     if (newArtist.isValid()) {
@@ -194,6 +246,17 @@ void AllArtistsModel::artistRemoved(const MusicArtist &removedArtist)
 void AllArtistsModel::artistModified(const MusicArtist &modifiedArtist)
 {
     Q_UNUSED(modifiedArtist);
+}
+
+void AllArtistsModel::setAllAlbums(AllAlbumsModel *model)
+{
+    if (d->mAllAlbumsModel == model) {
+        return;
+    }
+
+    d->mAllAlbumsModel = model;
+
+    Q_EMIT allAlbumsChanged();
 }
 
 #include "moc_allartistsmodel.cpp"

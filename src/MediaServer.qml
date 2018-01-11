@@ -338,38 +338,6 @@ ApplicationWindow {
         id: applicationMenu
         title: i18nc("open application menu", "Application Menu")
 
-        MenuItem {
-            action: qmlQuitAction
-            visible: qmlQuitAction.text !== ""
-        }
-
-        MenuSeparator {
-            visible: qmlQuitAction.text !== ""
-        }
-
-        MenuItem {
-            text: helpAction.text
-            shortcut: helpAction.shortcut
-            iconName: elisa.iconName(helpAction.icon)
-            onTriggered: helpAction.trigger()
-            visible: helpAction.text !== ""
-        }
-
-        MenuSeparator {
-            visible: helpAction.text !== ""
-        }
-
-        MenuItem {
-            text: reportBugAction.text
-            shortcut: reportBugAction.shortcut
-            iconName: elisa.iconName(reportBugAction.icon)
-            onTriggered: reportBugAction.trigger()
-            visible: reportBugAction.text !== ""
-        }
-
-        MenuSeparator {
-            visible: reportBugAction.text !== ""
-        }
 
         MenuItem {
             text: configureAction.text
@@ -388,7 +356,27 @@ ApplicationWindow {
         }
 
         MenuSeparator {
-            visible: configureAction.text !== "" || configureShortcutsAction.text !== ""
+            visible: reportBugAction.text !== ""
+        }
+
+        MenuItem {
+            text: reportBugAction.text
+            shortcut: reportBugAction.shortcut
+            iconName: elisa.iconName(reportBugAction.icon)
+            onTriggered: reportBugAction.trigger()
+            visible: reportBugAction.text !== ""
+        }
+
+        MenuSeparator {
+            visible: helpAction.text !== ""
+        }
+
+        MenuItem {
+            text: helpAction.text
+            shortcut: helpAction.shortcut
+            iconName: elisa.iconName(helpAction.icon)
+            onTriggered: helpAction.trigger()
+            visible: helpAction.text !== ""
         }
 
         MenuItem {
@@ -398,6 +386,16 @@ ApplicationWindow {
             onTriggered: aboutAppAction.trigger()
             visible: aboutAppAction.text !== ""
         }
+
+        MenuSeparator {
+            visible: qmlQuitAction.text !== ""
+        }
+
+        MenuItem {
+            action: qmlQuitAction
+            visible: qmlQuitAction.text !== ""
+        }
+
     }
 
     Action {

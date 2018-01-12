@@ -427,6 +427,12 @@ if (KF5XmlGui_FOUND AND KF5KCMUtils_FOUND)
         elisaapplicationtest.cpp
     )
 
+    kconfig_add_kcfg_files(elisaapplicationtest_SOURCES ../src/elisa_settings.kcfgc )
+    set(elisaapplicationtest_SOURCES
+        ${elisaapplicationtest_SOURCES}
+        ../src/elisa_core.kcfg
+    )
+
     ecm_add_test(${elisaapplicationtest_SOURCES}
         TEST_NAME "elisaapplicationtest"
         LINK_LIBRARIES Qt5::Test Qt5::Core Qt5::Widgets KF5::ConfigCore KF5::ConfigGui KF5::ConfigWidgets KF5::XmlGui KF5::KCMUtils)

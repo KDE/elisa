@@ -133,20 +133,6 @@ FocusScope {
         height: elisaTheme.mediaPlayerControlHeight
     }
 
-    LabelWithToolTip {
-        id: backgroundCopyright
-        anchors.bottom: playControlItem.top
-        anchors.right: parent.right
-        anchors.bottomMargin: elisaTheme.layoutVerticalMargin
-        anchors.rightMargin: elisaTheme.layoutVerticalMargin
-
-        text: i18nc("Copyright text shown for an image", "by Edward Betts (Own work) [CC BY-SA 3.0]")
-        color: myPalette.highlightedText
-        opacity: 0.4
-
-        visible: !image
-    }
-
     ColumnLayout {
         id: contentZone
 
@@ -303,7 +289,7 @@ FocusScope {
                 id: remainingTracksLabel
                 text: i18np("1 track remaining", "%1 tracks remaining", tracksCount)
                 Layout.alignment: Qt.AlignRight | Qt.AlignBottom
-                Layout.bottomMargin: (backgroundCopyright.visible ? elisaTheme.layoutVerticalMargin + backgroundCopyright.height : elisaTheme.layoutVerticalMargin)
+                Layout.bottomMargin: elisaTheme.layoutVerticalMargin
                 Layout.leftMargin: elisaTheme.layoutHorizontalMargin
                 Layout.rightMargin: elisaTheme.layoutHorizontalMargin
                 elide: Text.ElideRight

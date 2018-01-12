@@ -23,7 +23,7 @@ import QtQuick.Controls 1.4
 Item {
     property string defaultAlbumImage: 'image://icon/media-optical-audio'
     property string defaultArtistImage: 'image://icon/view-media-artist'
-    property string defaultBackgroundImage: 'background.jpg'
+    property string defaultBackgroundImage: 'background.png'
     property string artistIcon: 'image://icon/view-media-artist'
     property string albumIcon: 'image://icon/media-album-cover'
     property string playlistIcon: 'image://icon/amarok_playlist'

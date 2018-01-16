@@ -130,46 +130,49 @@ FocusScope {
                     mediaTrack.isAlternateColor: (index % 2) === 1
 
                     mediaTrack.title: if (model != undefined && model.title !== undefined)
-                               model.title
-                           else
-                               ''
+                                          model.title
+                                      else
+                                          ''
                     mediaTrack.artist: if (model != undefined && model.artist !== undefined)
-                                model.artist
-                            else
-                                ''
-                    mediaTrack.albumArtist: if (model != undefined && model.albumArtist !== undefined)
-                                     model.albumArtist
-                                 else
-                                     ''
-                    mediaTrack.duration: if (model != undefined && model.duration !== undefined)
-                                  model.duration
-                              else
-                                  ''
-                    mediaTrack.trackNumber: if (model != undefined && model.trackNumber !== undefined)
-                                     model.trackNumber
-                                 else
-                                     ''
-                    mediaTrack.discNumber: if (model != undefined && model.discNumber !== undefined)
-                                    model.discNumber
-                                else
-                                    ''
-                    mediaTrack.rating: if (model != undefined && model.rating !== undefined)
-                                model.rating
-                            else
-                                0
-                    mediaTrack.trackData: if (model != undefined && model.trackData !== undefined)
-                                   model.trackData
-                               else
-                                   ''
-                    mediaTrack.isFirstTrackOfDisc: if (model != undefined && model.isFirstTrackOfDisc !== undefined)
-                                            model.isFirstTrackOfDisc
-                                        else
-                                            false
-                    mediaTrack.isSingleDiscAlbum: if (model != undefined && model.isSingleDiscAlbum !== undefined)
-                                           model.isSingleDiscAlbum
+                                           model.artist
                                        else
-                                           true
-
+                                           ''
+                    mediaTrack.albumArtist: if (model != undefined && model.albumArtist !== undefined)
+                                                model.albumArtist
+                                            else
+                                                ''
+                    mediaTrack.duration: if (model != undefined && model.duration !== undefined)
+                                             model.duration
+                                         else
+                                             ''
+                    mediaTrack.trackNumber: if (model != undefined && model.trackNumber !== undefined)
+                                                model.trackNumber
+                                            else
+                                                ''
+                    mediaTrack.discNumber: if (model != undefined && model.discNumber !== undefined)
+                                               model.discNumber
+                                           else
+                                               ''
+                    mediaTrack.rating: if (model != undefined && model.rating !== undefined)
+                                           model.rating
+                                       else
+                                           0
+                    mediaTrack.trackData: if (model != undefined && model.trackData !== undefined)
+                                              model.trackData
+                                          else
+                                              ''
+                    mediaTrack.isFirstTrackOfDisc: if (model != undefined && model.isFirstTrackOfDisc !== undefined)
+                                                       model.isFirstTrackOfDisc
+                                                   else
+                                                       false
+                    mediaTrack.isSingleDiscAlbum: if (model != undefined && model.isSingleDiscAlbum !== undefined)
+                                                      model.isSingleDiscAlbum
+                                                  else
+                                                      true
+                    mediaTrack.trackResource: if (model != undefined && model.trackResource !== undefined)
+                                                  model.trackResource
+                                              else
+                                                  ''
 
                     mediaTrack.onClearPlaylist: topListing.clearPlayList()
 

@@ -67,8 +67,43 @@ FocusScope {
         onTriggered: enqueueToPlaylist(trackData)
     }
 
+    Action {
+        id: showInfo
+        text: i18nc("Show track metadata", "View Details")
+        iconName: "help-about"
+        onTriggered: {
+            if (metadataLoader.active === false) {
+                metadataLoader.active = true
+            }
+            else {
+                metadataLoader.item.close();
+                metadataLoader.active = false
+            }
+        }
+    }
+
     Keys.onReturnPressed: enqueueToPlaylist(trackData)
     Keys.onEnterPressed: enqueueToPlaylist(trackData)
+
+    Loader {
+        id: metadataLoader
+        active: false
+        onLoaded: item.open()
+
+        sourceComponent:  MediaTrackMetadataView {
+            trackTitle: mediaTrack.title
+            artist: mediaTrack.artist
+            albumArtist: mediaTrack.albumArtist
+            albumName: mediaTrack.albumName
+            duration: mediaTrack.duration
+            resource: mediaTrack.trackResource
+            rating: mediaTrack.rating
+            trackNumber: mediaTrack.trackNumber
+            discNumber: mediaTrack.discNumber
+
+            onRejected: metadataLoader.active = false;
+        }
+    }
 
     Rectangle {
         id: rowRoot
@@ -226,6 +261,15 @@ FocusScope {
 
                     sourceComponent: Row {
                         anchors.centerIn: parent
+
+                        ToolButton {
+                            id: infoButton
+
+                            height: elisaTheme.delegateHeight
+                            width:elisaTheme.delegateHeight
+
+                            action: showInfo
+                        }
 
                         ToolButton {
                             id: enqueueButton

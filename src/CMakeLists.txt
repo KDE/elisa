@@ -62,9 +62,10 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         MediaAllTracksView.qml
         MediaTrackDelegate.qml
         MediaAlbumTrackDelegate.qml
+        MediaTrackMetadataView.qml
         GridBrowserView.qml
         GridBrowserDelegate.qml
-
+        
         ViewSelector.qml
         )
 

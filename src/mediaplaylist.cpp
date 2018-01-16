@@ -333,6 +333,7 @@ QHash<int, QByteArray> MediaPlayList::roleNames() const
     roles[static_cast<int>(ColumnsRoles::SecondaryTextRole)] = "secondaryText";
     roles[static_cast<int>(ColumnsRoles::ImageUrlRole)] = "imageUrl";
     roles[static_cast<int>(ColumnsRoles::ShadowForImageRole)] = "shadowForImage";
+    roles[static_cast<int>(ColumnsRoles::ResourceRole)] = "trackResource";
 
     return roles;
 }

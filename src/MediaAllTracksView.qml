@@ -106,13 +106,13 @@ FocusScope {
                                     else
                                         ''
                             albumName: if (model != undefined && model.album !== undefined)
-                                             model.album
+                                           model.album
+                                       else
+                                           ''
+                            albumArtist: if (model != undefined && model.albumArtist !== undefined)
+                                             model.albumArtist
                                          else
                                              ''
-                            albumArtist: if (model != undefined && model.albumArtist !== undefined)
-                                        model.albumArtist
-                                    else
-                                        ''
                             duration: if (model != undefined && model.duration !== undefined)
                                           model.duration
                                       else
@@ -122,13 +122,13 @@ FocusScope {
                                          else
                                              ''
                             discNumber: if (model != undefined && model.discNumber !== undefined)
-                                             model.discNumber
-                                         else
-                                             ''
+                                            model.discNumber
+                                        else
+                                            ''
                             rating: if (model != undefined && model.rating !== undefined)
-                                             model.rating
-                                         else
-                                             0
+                                        model.rating
+                                    else
+                                        0
                             trackData: if (model != undefined && model.trackData !== undefined)
                                            model.trackData
                                        else

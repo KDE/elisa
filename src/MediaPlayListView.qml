@@ -316,6 +316,10 @@ FocusScope {
                                         model.rating
                                     else
                                         0
+                            trackResource: if (model != undefined && model.trackResource !== undefined)
+                                               model.trackResource
+                                           else
+                                               ''
                             isValid: model.isValid
                             isPlaying: model.isPlaying
                             isSelected: playListView.currentIndex === index

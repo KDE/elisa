@@ -44,6 +44,7 @@ FocusScope {
     property bool isAlternateColor
     property bool containsMouse
     property bool hasAlbumHeader
+    property string trackResource
 
     signal startPlayback()
     signal pausePlayback()
@@ -78,6 +79,41 @@ FocusScope {
         iconName: "media-playback-pause"
         enabled: isPlaying == MediaPlayList.IsPlaying && isValid
         onTriggered: playListEntry.pausePlayback()
+    }
+
+    Action {
+        id: showInfo
+        text: i18nc("Show track metadata", "View Details")
+        iconName: "help-about"
+        onTriggered: {
+            if (metadataLoader.active === false) {
+                metadataLoader.active = true
+            }
+            else {
+                metadataLoader.item.close();
+                metadataLoader.active = false
+            }
+        }
+    }
+
+    Loader {
+        id: metadataLoader
+        active: false
+        onLoaded: item.open()
+
+        sourceComponent:  MediaTrackMetadataView {
+            trackTitle: playListEntry.title
+            artist: playListEntry.artist
+            albumArtist: playListEntry.albumArtist
+            albumName: playListEntry.album
+            duration: playListEntry.duration
+            resource: playListEntry.trackResource
+            rating: playListEntry.rating
+            trackNumber: playListEntry.trackNumber
+            discNumber: playListEntry.discNumber
+
+            onRejected: metadataLoader.active = false;
+        }
     }
 
     Rectangle {
@@ -248,6 +284,21 @@ FocusScope {
                         Layout.preferredWidth: 0
                     }
 
+
+                    ToolButton {
+                        id: infoButton
+
+                        implicitHeight: elisaTheme.smallDelegateToolButtonSize
+                        implicitWidth: elisaTheme.smallDelegateToolButtonSize
+
+                        opacity: 0
+
+                        visible: opacity > 0.1
+
+                        action: showInfo
+                        Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+                    }
+
                     ToolButton {
                         id: playPauseButton
 
@@ -367,6 +418,10 @@ FocusScope {
                 opacity: 0
             }
             PropertyChanges {
+                target: infoButton
+                opacity: 0
+            }
+            PropertyChanges {
                 target: playPauseButton
                 opacity: 0
             }
@@ -384,6 +439,10 @@ FocusScope {
             }
             PropertyChanges {
                 target: playPauseButton
+                opacity: 1
+            }
+            PropertyChanges {
+                target: infoButton
                 opacity: 1
             }
             PropertyChanges {

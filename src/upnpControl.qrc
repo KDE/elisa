@@ -23,6 +23,7 @@
         <file>FilterBar.qml</file>
         <file>MediaTrackDelegate.qml</file>
         <file>MediaAlbumTrackDelegate.qml</file>
+        <file>MediaTrackMetadataView.qml</file>
         <file>GridBrowserView.qml</file>
         <file>GridBrowserDelegate.qml</file>
         <file>background.png</file>

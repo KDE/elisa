@@ -60,7 +60,7 @@ Item {
     property int ratingStarSize: 15
 
     property int mediaPlayerControlHeight: 48
-    property var mediaPlayerControlOpacity: 0.6
+    property real mediaPlayerControlOpacity: 0.6
     property int smallControlButtonHeight: 32
     property int bigControlButtonHeight: 44
     property int volumeSliderWidth: 140

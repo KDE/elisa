@@ -25,18 +25,30 @@ as Authors, publish date, the abstract, and Keywords -->
 </authorgroup>
 
 <copyright>
-<year>2017</year>
+<year>2017-2018</year>
 <holder>Matthieu Gallien</holder>
 </copyright>
 <legalnotice>&CCBYSA4Notice;</legalnotice>
 
-<date>2017-10-24</date>
+<date>2018-01-17</date>
 
-<releaseinfo>Elisa 0.0.80</releaseinfo>
+<releaseinfo>Elisa 0.0.81</releaseinfo>
 
 <abstract>
 <para>
-&elisa; is a music player designed to be simple to use.
+Elisa is a music player developed by the KDE community that strives to be 
+simple and nice to use. We also recognize that we need a flexible product to 
+account for the different workflows and use-cases of our users.
+</para>
+<para>
+We focus on a very good integration with the Plasma desktop of the KDE 
+community without compromising the support for other platforms (other Linux 
+desktop environments, Windows and Android).
+</para>
+<para>
+We are creating a reliable product that is a joy to use and respects our users 
+privacy. As such, we will prefer to support online services where users are in 
+control of their data.
 </para>
 </abstract>
 
@@ -55,23 +67,12 @@ as Authors, publish date, the abstract, and Keywords -->
 
 <para>
 &elisa; is a music player designed to be simple to use.
-It gets your music from local sources either Baloo indexer or an internal music indexer.
-</para>
-<para>
-&elisa; allows you to browse your music, build a playlist and plays it.
-</para>
-</chapter>
-
-<chapter id="using-kapp">
-<title>Using &elisa;</title>
-
-<para>
 
 <screenshot>
 <screeninfo>Here's a screenshot of &elisa; start screen</screeninfo>
 	<mediaobject>
 	  <imageobject>
-	    <imagedata fileref="Screenshot_20170615_224755.png" format="PNG"/>
+	    <imagedata fileref="Screenshot_20180112_174013.png" format="PNG"/>
 	  </imageobject>
 	  <textobject>
 	    <phrase>Screenshot</phrase>
@@ -79,11 +80,19 @@ It gets your music from local sources either Baloo indexer or an internal music 
 	</mediaobject>
 </screenshot>
 </para>
+</chapter>
+
+<chapter id="using-kapp">
+<title>Using &elisa;</title>
 
 <para>
-There are no special requirements for use of &elisa;. Currently the only supported
-indexer is Baloo but support for Tracker and the indexer generally available on
-Windows are planned. It is also possible to have &elisa; index your music by itself.
+&elisa; indexes your music either by using Baloo if possible or by searching in a list of paths configured by the user through a dedicated interface.
+</para>
+<para>
+In case the Baloo support is activated and your setup is not working, a notification is shown with hints allowing to deactivate the indexer or to activate the Baloo indexer and to feed &elisa; with music tracks.
+</para>
+<para>
+In case the file indexer is not finding anything, a notification is shown with a button to open the configuration interface.
 </para>
 
 <para>
@@ -92,7 +101,7 @@ url="https://phabricator.kde.org/project/profile/193/">Elisa Project</ulink>.
 </para>
 
 <para>Currently no configuration is required before use of &elisa;.
-You can explore the menu of application to see the customization possibilities.
+You can explore the menu of the application to see the customization possibilities. It is possible to choose the paths that will be indexed for music. It is also possible to modify the shortcuts for common actions inside the application.
 </para>
 
 <para>
@@ -130,7 +139,29 @@ When browsing your music, artists, albums and tracks can be added with a button 
 It is also possible to clear the playlist and at the same time add some music.
 </para>
 <para>
-A toolbar below the playlist allow to operate on it. Currently it is possible to clear it or to navigate to the currently playing track.
+A toolbar below the playlist allow to operate on it. The following actions are possible:
+<itemizedlist>
+  <listitem>
+    <para>
+      You can clear the whole playlist.
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      You can navigate to the currently playing track.
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      You can save the playlist to the m3u format.
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      You can load a playlist that will replace your current one.
+    </para>
+  </listitem>
+</itemizedlist>
 </para>
 </sect2>
 
@@ -165,22 +196,28 @@ distribution. -->
 &elisa;
 </para>
 <para>
-Program copyright 2015-2017 Matthieu Gallien <email>matthieu_gallien@yahoo.fr</email>
+Program copyright 2015-2018 The Elisa Team
 </para>
 <para>
 Contributors:
 <itemizedlist>
-<listitem><para>Andrew Lake (concept and design work)<email>jamboarder@gmail.com</email></para>
+<listitem><para>Matthieu Gallien Maintainer <email>matthieu_gallien@yahoo.fr</email></para>
 </listitem>
-<listitem><para>Luigi Toscano (localizations)<email>luigi.toscano@tiscali.it</email></para>
+<listitem><para>Andrew Lake (concept and design work) <email>jamboarder@gmail.com</email></para>
 </listitem>
-<listitem><para>Safa Alfulaij (right-to-left support in interface)<email>safa1996alfulaij@gmail.com</email></para>
+<listitem><para>Luigi Toscano (localizations) <email>luigi.toscano@tiscali.it</email></para>
+</listitem>
+<listitem><para>Safa Alfulaij (right-to-left support in interface) <email>safa1996alfulaij@gmail.com</email></para>
+</listitem>
+<listitem><para>Alexander Stippich Core developer <email>a.stippich@gmx.net</email></para>
+</listitem>
+<listitem><para>Diego Gangl (various improvements to the interface) <email>diego@sinestesia.co</email></para>
 </listitem>
 </itemizedlist>
 </para>
 
 <para>
-Documentation Copyright &copy; 2017 Matthieu Gallien <email>matthieu_gallien@yahoo.fr</email>
+Documentation Copyright &copy; 2017-2018 Matthieu Gallien <email>matthieu_gallien@yahoo.fr</email>
 </para>
 
 <!-- TRANS:CREDIT_FOR_TRANSLATORS -->

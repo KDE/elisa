@@ -38,9 +38,9 @@ FocusScope {
     property bool showRating: true
     property bool delegateDisplaySecondaryText: true
 
-    signal enqueue(var data);
-    signal enqueueAndPlay(var data);
-    signal open(var innerModel, var innerMainTitle, var innerSecondaryTitle, var innerImage);
+    signal enqueue(var data)
+    signal replaceAndPlay(var data)
+    signal open(var innerModel, var innerMainTitle, var innerSecondaryTitle, var innerImage, var databaseId)
     signal goBack()
 
     SystemPalette {
@@ -101,7 +101,7 @@ FocusScope {
                 anchors.fill: parent
 
                 onEnqueue: gridView.enqueue(mainTitle)
-                onEnqueueAndPlay: gridView.enqueueAndPlay(mainTitle)
+                onReplaceAndPlay: gridView.replaceAndPlay(mainTitle)
                 onGoBack: gridView.goBack()
             }
 
@@ -156,8 +156,8 @@ FocusScope {
                             delegateDisplaySecondaryText: gridView.delegateDisplaySecondaryText
 
                             onEnqueue: gridView.enqueue(data)
-                            onEnqueueAndPlay: gridView.enqueueAndPlay(data)
-                            onOpen: gridView.open(model.childModel, model.display, model.secondaryText, model.imageUrl)
+                            onReplaceAndPlay: gridView.replaceAndPlay(data)
+                            onOpen: gridView.open(model.childModel, model.display, model.secondaryText, model.imageUrl, model.databaseId)
                             onSelected: {
                                 forceActiveFocus()
                                 contentDirectoryView.currentIndex = model.index

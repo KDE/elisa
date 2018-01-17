@@ -84,7 +84,7 @@ QHash<int, QByteArray> AllAlbumsModel::roleNames() const
     roles[static_cast<int>(ColumnsRoles::IsSingleDiscAlbumRole)] = "isSingleDiscAlbum";
     roles[static_cast<int>(ColumnsRoles::AlbumDataRole)] = "albumData";
     roles[static_cast<int>(ColumnsRoles::HighestTrackRating)] = "highestTrackRating";
-    roles[static_cast<int>(ColumnsRoles::AlbumDatabaseIdRole)] = "albumId";
+    roles[static_cast<int>(ColumnsRoles::AlbumDatabaseIdRole)] = "databaseId";
     roles[static_cast<int>(ColumnsRoles::SecondaryTextRole)] = "secondaryText";
     roles[static_cast<int>(ColumnsRoles::ImageUrlRole)] = "imageUrl";
     roles[static_cast<int>(ColumnsRoles::ShadowForImageRole)] = "shadowForImage";

@@ -30,11 +30,11 @@ import org.kde.elisa 1.0
 FocusScope {
     id: rootElement
 
-    property var playerControl
-    property var playListModel
-    property var tracksModel
     property var stackView
-    property var musicListener
+    property alias model: proxyModel.model
+
+    signal enqueue(var data)
+    signal replaceAndPlay(var data)
 
     SystemPalette {
         id: myPalette
@@ -58,6 +58,18 @@ FocusScope {
             Layout.minimumHeight: height
             Layout.maximumHeight: height
             Layout.fillWidth: true
+
+            Binding {
+                target: model
+                property: 'filterText'
+                value: filterBar.filterText
+            }
+
+            Binding {
+                target: model
+                property: 'filterRating'
+                value: filterBar.filterRating
+            }
         }
 
         Rectangle {
@@ -77,15 +89,7 @@ FocusScope {
                     focus: true
 
                     model: DelegateModel {
-                        id: delegateContentModel
-
-                        model: AlbumFilterProxyModel {
-                            sourceModel: rootElement.tracksModel
-
-                            filterText: filterBar.filterText
-
-                            filterRating: filterBar.filterRating
-                        }
+                        id: proxyModel
 
                         delegate: MediaTrackDelegate {
                             id: entry
@@ -150,11 +154,8 @@ FocusScope {
                                                else
                                                    true
 
-                            onClearPlaylist: rootElement.playListModel.clearPlayList()
-
-                            onEnqueueToPlaylist: rootElement.playListModel.enqueue(track)
-
-                            onEnsurePlay: rootElement.playerControl.ensurePlay()
+                            onEnqueue: rootElement.enqueue(data)
+                            onReplaceAndPlay: rootElement.replaceAndPlay(data)
 
                             onClicked: contentDirectoryView.currentIndex = index
                         }

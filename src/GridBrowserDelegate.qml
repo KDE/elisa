@@ -37,10 +37,10 @@ Item {
     property var containerData
     property bool delegateDisplaySecondaryText: true
 
-    signal enqueue(var data);
-    signal enqueueAndPlay(var data);
-    signal open();
-    signal selected();
+    signal enqueue(var data)
+    signal replaceAndPlay(var data)
+    signal open()
+    signal selected()
 
     Action {
         id: enqueueAction
@@ -59,11 +59,11 @@ Item {
     }
 
     Action {
-        id: enqueueAndPlayAction
+        id: replaceAndPlayAction
 
         text: i18nc("Clear play list and add whole container to play list", "Play Now and Replace Play List")
         iconName: 'media-playback-start'
-        onTriggered: enqueueAndPlay(containerData)
+        onTriggered: replaceAndPlay(containerData)
     }
 
     Keys.onReturnPressed: open()
@@ -147,9 +147,9 @@ Item {
                             }
 
                             ToolButton {
-                                id: enqueueAndPlayButton
+                                id: replaceAndPlayButton
 
-                                action: enqueueAndPlayAction
+                                action: replaceAndPlayAction
 
                                 width: elisaTheme.delegateToolButtonSize
                                 height: elisaTheme.delegateToolButtonSize

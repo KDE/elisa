@@ -73,7 +73,7 @@ QHash<int, QByteArray> AllArtistsModel::roleNames() const
     roles[static_cast<int>(ColumnsRoles::NameRole)] = "name";
     roles[static_cast<int>(ColumnsRoles::ArtistsCountRole)] = "albumsCount";
     roles[static_cast<int>(ColumnsRoles::ImageRole)] = "image";
-    roles[static_cast<int>(ColumnsRoles::IdRole)] = "id";
+    roles[static_cast<int>(ColumnsRoles::IdRole)] = "databaseId";
     roles[static_cast<int>(ColumnsRoles::SecondaryTextRole)] = "secondaryText";
     roles[static_cast<int>(ColumnsRoles::ImageUrlRole)] = "imageUrl";
     roles[static_cast<int>(ColumnsRoles::ShadowForImageRole)] = "shadowForImage";

@@ -45,30 +45,25 @@ FocusScope {
     property bool detailedView: true
 
     signal clicked()
-    signal clearPlaylist()
-    signal enqueueToPlaylist(var track)
-    signal ensurePlay()
+    signal enqueue(var data)
+    signal replaceAndPlay(var data)
 
     Action {
-        id: clearAndEnqueue
+        id: replaceAndPlayAction
         text: i18nc("Clear play list and enqueue current track", "Play Now and Replace Play List")
         iconName: "media-playback-start"
-        onTriggered: {
-            clearPlaylist()
-            enqueueToPlaylist(trackData)
-            ensurePlay()
-        }
+        onTriggered: replaceAndPlay(trackData)
     }
 
     Action {
-        id: enqueue
+        id: enqueueAction
         text: i18nc("Enqueue current track", "Enqueue")
         iconName: "media-track-add-amarok"
-        onTriggered: enqueueToPlaylist(trackData)
+        onTriggered: enqueue(trackData)
     }
 
     Action {
-        id: showInfo
+        id: viewDetailsAction
         text: i18nc("Show track metadata", "View Details")
         iconName: "help-about"
         onTriggered: {
@@ -126,7 +121,7 @@ FocusScope {
                 mediaTrack.clicked()
             }
 
-            onDoubleClicked: enqueueToPlaylist(trackData)
+            onDoubleClicked: enqueue(trackData)
 
             RowLayout {
                 anchors.fill: parent
@@ -263,21 +258,21 @@ FocusScope {
                         anchors.centerIn: parent
 
                         ToolButton {
-                            id: infoButton
+                            id: detailsButton
 
                             height: elisaTheme.delegateHeight
-                            width:elisaTheme.delegateHeight
+                            width: elisaTheme.delegateHeight
 
-                            action: showInfo
+                            action: viewDetailsAction
                         }
 
                         ToolButton {
                             id: enqueueButton
 
                             height: elisaTheme.delegateHeight
-                            width:elisaTheme.delegateHeight
+                            width: elisaTheme.delegateHeight
 
-                            action: enqueue
+                            action: enqueueAction
                         }
 
                         ToolButton {
@@ -286,7 +281,7 @@ FocusScope {
                             height: elisaTheme.delegateHeight
                             width: elisaTheme.delegateHeight
 
-                            action: clearAndEnqueue
+                            action: replaceAndPlayAction
                         }
                     }
                 }

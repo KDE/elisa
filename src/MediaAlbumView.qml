@@ -28,19 +28,15 @@ import QtQuick.Layouts 1.2
 FocusScope {
     id: topListing
 
-    property var musicListener
     property var albumName
-    property var artistName
     property var albumArtUrl
     property bool isSingleDiscAlbum
     property var albumId
     property alias albumModel: contentDirectoryView.model
 
     signal showArtist(var name)
-    signal enqueueAlbum(var album)
-    signal clearPlayList()
-    signal enqueueTrack(var track)
-    signal ensurePlay()
+    signal enqueue(var data)
+    signal replaceAndPlay(var data)
     signal goBack();
 
     SystemPalette {
@@ -52,27 +48,13 @@ FocusScope {
         id: elisaTheme
     }
 
-    Connections {
-        target: musicListener
-
-        onAlbumRemoved:
-        {
-            if (albumId === removedAlbumId) {
-                contentModel.albumRemoved(removedAlbum)
-            }
-        }
+    function removeAlbum(removedAlbum) {
+        albumModel.albumRemoved(removedAlbum)
     }
 
-    Connections {
-        target: musicListener
-
-        onAlbumModified:
-        {
-            if (albumId === modifiedAlbumId) {
-                albumModel.albumData = modifiedAlbum
-                contentModel.albumModified(modifiedAlbum)
-            }
-        }
+    function modifyAlbum(modifiedAlbum) {
+        albumModel.albumData = modifiedAlbum
+        albumModel.albumModified(modifiedAlbum)
     }
 
     ColumnLayout {
@@ -94,12 +76,10 @@ FocusScope {
             image: (topListing.albumArtUrl ? topListing.albumArtUrl : elisaTheme.defaultAlbumImage)
             allowArtistNavigation: true
 
-            onEnqueue: topListing.enqueueAlbum(albumModel.albumData)
+            onEnqueue: topListing.enqueue(albumModel.albumData)
 
-            onEnqueueAndPlay: {
-                topListing.clearPlayList()
-                topListing.enqueueAlbum(albumModel.albumData)
-                topListing.ensurePlay()
+            onReplaceAndPlay: {
+                topListing.replaceAndPlay(albumModel.albumData)
             }
 
             onGoBack: topListing.goBack()
@@ -174,11 +154,9 @@ FocusScope {
                                               else
                                                   ''
 
-                    mediaTrack.onClearPlaylist: topListing.clearPlayList()
+                    mediaTrack.onEnqueue: topListing.enqueue(data)
 
-                    mediaTrack.onEnqueueToPlaylist: topListing.enqueueTrack(track)
-
-                    mediaTrack.onEnsurePlay: topListing.ensurePlay()
+                    mediaTrack.onReplaceAndPlay: topListing.replaceAndPlay(data)
 
                     mediaTrack.onClicked: contentDirectoryView.currentIndex = index
                 }

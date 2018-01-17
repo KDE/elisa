@@ -32,7 +32,7 @@ Item {
     property bool allowArtistNavigation: false
 
     signal enqueue();
-    signal enqueueAndPlay();
+    signal replaceAndPlay();
     signal goBack();
     signal showArtist();
 
@@ -167,7 +167,7 @@ Item {
                     tooltip: i18nc("Clear playlist and add current list to it", "Replace PlayList and Play Now")
                     iconName: "media-playback-start"
 
-                    onClicked: enqueueAndPlay()
+                    onClicked: replaceAndPlay()
 
                     Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
                     Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0

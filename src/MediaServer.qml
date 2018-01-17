@@ -612,7 +612,7 @@ ApplicationWindow {
                                             mainTitle: i18nc("Title of the view of all albums", "Albums")
 
                                             onEnqueue: playListModelItem.enqueue(data)
-                                            onEnqueueAndPlay: {
+                                            onReplaceAndPlay: {
                                                 playListModelItem.clearAndEnqueue(data)
                                                 manageAudioPlayer.ensurePlay()
                                             }
@@ -622,7 +622,7 @@ ApplicationWindow {
                                                                                albumName: innerMainTitle,
                                                                                albumModel: innerModel,
                                                                                albumArtUrl: innerImage,
-                                                                               musicListener: allListeners
+                                                                               albumId: databaseId
                                                                            })
                                             }
                                             onGoBack: localAlbums.stackView.pop()
@@ -658,7 +658,7 @@ ApplicationWindow {
                                             mainTitle: i18nc("Title of the view of all artists", "Artists")
 
                                             onEnqueue: playListModelItem.enqueue(data)
-                                            onEnqueueAndPlay: {
+                                            onReplaceAndPlay: {
                                                 playListModelItem.clearAndEnqueue(data)
                                                 manageAudioPlayer.ensurePlay()
                                             }
@@ -691,11 +691,17 @@ ApplicationWindow {
 
                                         firstPage: MediaAllTracksView {
                                             focus: true
-                                            playListModel: playListModelItem
-                                            tracksModel: allTracksModel
-                                            playerControl: manageAudioPlayer
+
                                             stackView: localTracks.stackView
-                                            musicListener: allListeners
+                                            model: AlbumFilterProxyModel {
+                                                sourceModel: allTracksModel
+                                            }
+
+                                            onEnqueue: playListModelItem.enqueue(data)
+                                            onReplaceAndPlay: {
+                                                playListModelItem.clearAndEnqueue(data)
+                                                manageAudioPlayer.ensurePlay()
+                                            }
                                         }
 
                                         visible: opacity > 0
@@ -1017,7 +1023,7 @@ ApplicationWindow {
             property var stackView
 
             onEnqueue: playListModelItem.enqueue(data)
-            onEnqueueAndPlay: {
+            onReplaceAndPlay: {
                 playListModelItem.clearAndEnqueue(data)
                 manageAudioPlayer.ensurePlay()
             }
@@ -1026,7 +1032,8 @@ ApplicationWindow {
                                                 stackView: localArtists.stackView,
                                                 albumName: innerMainTitle,
                                                 albumModel: innerModel,
-                                                musicListener: allListeners
+                                                albumArtUrl: innerImage,
+                                                albumId: databaseId
                                             })
             }
             onGoBack: stackView.pop()
@@ -1039,10 +1046,13 @@ ApplicationWindow {
         MediaAlbumView {
             property var stackView
 
-            onEnsurePlay: manageAudioPlayer.ensurePlay()
-            onClearPlayList: playListModelItem.clearPlayList()
-            onEnqueueAlbum: playListModelItem.enqueue(album)
-            onEnqueueTrack: playListModelItem.enqueue(track)
+            onEnqueue: playListModelItem.enqueue(data)
+
+            onReplaceAndPlay: {
+                playListModelItem.clearAndEnqueue(data)
+                manageAudioPlayer.ensurePlay()
+            }
+
             onShowArtist: {
                 listViews.currentIndex = 2
                 if (localArtists.stackView.depth === 3) {
@@ -1060,6 +1070,18 @@ ApplicationWindow {
                 allArtistsView.open(allArtistsModel.itemModelForName(name), name, '', elisaTheme.defaultArtistImage)
             }
             onGoBack: stackView.pop()
+
+            Connections {
+                target: allListeners
+
+                onAlbumRemoved:  if (albumId === removedAlbumId) { removeAlbum(removedAlbum) }
+            }
+
+            Connections {
+                target: allListeners
+
+                onAlbumModified: if (albumId === modifiedAlbumId) { modifyAlbum(modifiedAlbum) }
+            }
         }
     }
 }

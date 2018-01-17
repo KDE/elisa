@@ -4,7 +4,7 @@
         <file>RatingStar.qml</file>
         <file>MediaPlayListView.qml</file>
         <file>MediaAlbumView.qml</file>
-        <file>MediaServer.qml</file>
+        <file>ElisaMainWindow.qml</file>
         <file>HeaderBar.qml</file>
         <file>ContextView.qml</file>
         <file>DraggableItem.qml</file>

@@ -2,7 +2,7 @@ include_directories(${elisa_BINARY_DIR})
 
 if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
     set(elisa_SOURCES
-        upnpControl.cpp
+        main.cpp
         mediaplaylist.cpp
         musicstatistics.cpp
         musicalbum.cpp
@@ -30,7 +30,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         file/filelistener.cpp
         file/localfilelisting.cpp
 
-        MediaServer.qml
+        ElisaMainWindow.qml
         Theme.qml
         PlatformIntegration.qml
         LabelWithToolTip.qml
@@ -115,7 +115,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         elisa_core.kcfg
     )
 
-    qt5_add_resources(elisa_SOURCES upnpControl.qrc)
+    qt5_add_resources(elisa_SOURCES resources.qrc)
 
     set(elisa_ICONS_PNG
         ../icons/128-apps-elisa.png

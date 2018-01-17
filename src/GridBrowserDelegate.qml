@@ -261,9 +261,8 @@ Item {
         Transition {
             to: 'hoveredOrSelected'
             SequentialAnimation {
-                NumberAnimation {
+                PropertyAction {
                     properties: "active"
-                    duration: 0
                 }
                 NumberAnimation {
                     properties: "opacity"
@@ -280,9 +279,8 @@ Item {
                     easing.type: Easing.InOutQuad
                     duration: 100
                 }
-                NumberAnimation {
+                PropertyAction {
                     properties: "active"
-                    duration: 0
                 }
             }
         }

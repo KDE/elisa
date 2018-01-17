@@ -358,9 +358,8 @@ FocusScope {
         Transition {
             to: 'hoveredOrSelected'
             SequentialAnimation {
-                NumberAnimation {
+                PropertyAction {
                     properties: "active"
-                    duration: 0
                 }
                 ParallelAnimation {
                     NumberAnimation {
@@ -389,9 +388,8 @@ FocusScope {
                         duration: 250
                     }
                 }
-                NumberAnimation {
+                PropertyAction {
                     properties: "active"
-                    duration: 0
                 }
             }
         }

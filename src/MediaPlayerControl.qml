@@ -296,7 +296,7 @@ FocusScope {
                     x: (LayoutMirroring.enabled ? musicProgress.visualPosition * parent.width : 0)
                     width: (LayoutMirroring.enabled ? parent.width - musicProgress.visualPosition * parent.width : musicProgress.visualPosition * parent.width)
                     height: parent.height
-                    color: myPalette.highlight
+                    color: myPalette.text
                     radius: 3
                 }
             }
@@ -443,7 +443,7 @@ FocusScope {
                     x: (LayoutMirroring.enabled ? volumeSlider.visualPosition * parent.width : 0)
                     width: (LayoutMirroring.enabled ? parent.width - volumeSlider.visualPosition * parent.width : volumeSlider.visualPosition * parent.width)
                     height: parent.height
-                    color: myPalette.highlight
+                    color: myPalette.text
                     radius: 3
                 }
             }

@@ -30,43 +30,43 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         file/filelistener.cpp
         file/localfilelisting.cpp
 
-        ElisaMainWindow.qml
-        Theme.qml
-        PlatformIntegration.qml
-        LabelWithToolTip.qml
+        qml/ElisaMainWindow.qml
+        qml/Theme.qml
+        qml/PlatformIntegration.qml
+        qml/LabelWithToolTip.qml
 
         windows/WindowsTheme.qml
         windows/PlatformIntegration.qml
 
-        android/MediaServer.qml
+        android/ElisaMainWindow.qml
         android/AndroidTheme.qml
         android/PlatformIntegration.qml
 
-        RatingStar.qml
-        PlayListEntry.qml
-        MediaBrowser.qml
-        DraggableItem.qml
-        PassiveNotification.qml
-        TopNotification.qml
-        TopNotificationItem.qml
-        TrackImportNotification.qml
+        qml/RatingStar.qml
+        qml/PlayListEntry.qml
+        qml/MediaBrowser.qml
+        qml/DraggableItem.qml
+        qml/PassiveNotification.qml
+        qml/TopNotification.qml
+        qml/TopNotificationItem.qml
+        qml/TrackImportNotification.qml
 
-        HeaderBar.qml
-        NavigationActionBar.qml
-        FilterBar.qml
-        MediaPlayerControl.qml
-        ContextView.qml
+        qml/HeaderBar.qml
+        qml/NavigationActionBar.qml
+        qml/FilterBar.qml
+        qml/MediaPlayerControl.qml
+        qml/ContextView.qml
 
-        MediaPlayListView.qml
-        MediaAlbumView.qml
-        MediaAllTracksView.qml
-        MediaTrackDelegate.qml
-        MediaAlbumTrackDelegate.qml
-        MediaTrackMetadataView.qml
-        GridBrowserView.qml
-        GridBrowserDelegate.qml
+        qml/MediaPlayListView.qml
+        qml/MediaAlbumView.qml
+        qml/MediaAllTracksView.qml
+        qml/MediaTrackDelegate.qml
+        qml/MediaAlbumTrackDelegate.qml
+        qml/MediaTrackMetadataView.qml
+        qml/GridBrowserView.qml
+        qml/GridBrowserDelegate.qml
         
-        ViewSelector.qml
+        qml/ViewSelector.qml
         )
 
     if (KF5Baloo_FOUND)

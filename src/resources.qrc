@@ -1,41 +1,41 @@
 <RCC>
     <qresource prefix="/">
-        <file>MediaPlayerControl.qml</file>
-        <file>RatingStar.qml</file>
-        <file>MediaPlayListView.qml</file>
-        <file>MediaAlbumView.qml</file>
-        <file>ElisaMainWindow.qml</file>
-        <file>HeaderBar.qml</file>
-        <file>ContextView.qml</file>
-        <file>DraggableItem.qml</file>
-        <file>PassiveNotification.qml</file>
-        <file>NavigationActionBar.qml</file>
-        <file>PlayListEntry.qml</file>
-        <file>MediaBrowser.qml</file>
-        <file>Theme.qml</file>
-        <file>PlatformIntegration.qml</file>
-        <file>LabelWithToolTip.qml</file>
-        <file>MediaAllTracksView.qml</file>
-        <file>TopNotification.qml</file>
-        <file>TrackImportNotification.qml</file>
-        <file>TopNotificationItem.qml</file>
-        <file>ViewSelector.qml</file>
-        <file>FilterBar.qml</file>
-        <file>MediaTrackDelegate.qml</file>
-        <file>MediaAlbumTrackDelegate.qml</file>
-        <file>MediaTrackMetadataView.qml</file>
-        <file>GridBrowserView.qml</file>
-        <file>GridBrowserDelegate.qml</file>
+        <file>qml/MediaPlayerControl.qml</file>
+        <file>qml/RatingStar.qml</file>
+        <file>qml/MediaPlayListView.qml</file>
+        <file>qml/MediaAlbumView.qml</file>
+        <file>qml/ElisaMainWindow.qml</file>
+        <file>qml/HeaderBar.qml</file>
+        <file>qml/ContextView.qml</file>
+        <file>qml/DraggableItem.qml</file>
+        <file>qml/PassiveNotification.qml</file>
+        <file>qml/NavigationActionBar.qml</file>
+        <file>qml/PlayListEntry.qml</file>
+        <file>qml/MediaBrowser.qml</file>
+        <file>qml/Theme.qml</file>
+        <file>qml/PlatformIntegration.qml</file>
+        <file>qml/LabelWithToolTip.qml</file>
+        <file>qml/MediaAllTracksView.qml</file>
+        <file>qml/TopNotification.qml</file>
+        <file>qml/TrackImportNotification.qml</file>
+        <file>qml/TopNotificationItem.qml</file>
+        <file>qml/ViewSelector.qml</file>
+        <file>qml/FilterBar.qml</file>
+        <file>qml/MediaTrackDelegate.qml</file>
+        <file>qml/MediaAlbumTrackDelegate.qml</file>
+        <file>qml/MediaTrackMetadataView.qml</file>
+        <file>qml/GridBrowserView.qml</file>
+        <file>qml/GridBrowserDelegate.qml</file>
         <file>background.png</file>
     </qresource>
     <qresource prefix="/+windows">
-        <file alias="Theme.qml">windows/WindowsTheme.qml</file>
-        <file alias="PlatformIntegration.qml">windows/PlatformIntegration.qml</file>
-        <file alias="LabelWithToolTip.qml">windows/LabelWithToolTip.qml</file>
+        <file alias="qml/Theme.qml">windows/WindowsTheme.qml</file>
+        <file alias="qml/PlatformIntegration.qml">windows/PlatformIntegration.qml</file>
+        <file alias="qml/LabelWithToolTip.qml">windows/LabelWithToolTip.qml</file>
     </qresource>
     <qresource prefix="/+android">
-        <file alias="MediaServer.qml">android/MediaServer.qml</file>
-        <file alias="Theme.qml">android/AndroidTheme.qml</file>
-        <file alias="PlatformIntegration.qml">android/PlatformIntegration.qml</file>
+        <file alias="qml/ElisaMainWindow.qml">android/ElisaMainWindow.qml</file>
+        <file alias="qml/Theme.qml">android/AndroidTheme.qml</file>
+        <file alias="qml/PlatformIntegration.qml">android/PlatformIntegration.qml</file>
     </qresource>
 </RCC>

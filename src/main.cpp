@@ -243,7 +243,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextObject(new KLocalizedContext(&engine));
     engine.rootContext()->setContextProperty(QStringLiteral("elisa"), &myApp);
 
-    engine.load(QUrl(QStringLiteral("qrc:/ElisaMainWindow.qml")));
+    engine.load(QUrl(QStringLiteral("qrc:/qml/ElisaMainWindow.qml")));
 
     return app.exec();
 }

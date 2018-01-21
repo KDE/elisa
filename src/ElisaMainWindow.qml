@@ -1067,7 +1067,7 @@ ApplicationWindow {
                     }
                 }
 
-                allArtistsView.open(allArtistsModel.itemModelForName(name), name, '', elisaTheme.defaultArtistImage)
+                allArtistsView.open(allArtistsModel.itemModelForName(name), name, '', elisaTheme.defaultArtistImage, '')
             }
             onGoBack: stackView.pop()
 

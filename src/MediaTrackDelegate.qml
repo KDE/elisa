@@ -132,9 +132,16 @@ FocusScope {
 
                     visible: !detailedView
 
-                    text: (artist !== albumArtist ?
-                               "<b>" + trackNumber + ' - ' + title + "</b>" + ' - <i>' + artist + '</i>' :
-                               "<b>" + trackNumber + ' - ' + title + "</b>")
+                    text: {
+                        var text = "<b>";
+
+                        text += (trackNumber > 0) ? trackNumber + "-" : "";
+                        text += title + "</b>";
+
+                        text += (artist !== albumArtist) ? " - <i>" + artist + "</i>" : "";
+
+                        return text;
+                    }
 
                     horizontalAlignment: Text.AlignLeft
 
@@ -206,7 +213,7 @@ FocusScope {
                     LabelWithToolTip {
                         id: mainLabelDetailed
 
-                        text: trackNumber + ' - ' + title
+                        text: (trackNumber > -1) ? trackNumber + ' - ' + title : title
                         horizontalAlignment: Text.AlignLeft
 
                         font.weight: Font.Bold

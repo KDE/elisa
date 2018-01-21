@@ -55,7 +55,7 @@ Dialog {
             trackList.append({"name": i18nc("Album name for track metadata view", "Album:"), "content": albumName})
         if (composer.length !== 0)
             trackList.append({"name": i18nc("Composer name for track metadata view", "Composer:"), "content": composer})
-        if (trackNumber !== 0)
+        if (trackNumber > -1)
             trackList.append({"name": i18nc("Track number for track metadata view", "Track Number:"), "content": trackNumber + ""})
         if (discNumber !== 0)
             trackList.append({"name": i18nc("Disc number for track metadata view", "Disc Number:"), "content": discNumber + ""})

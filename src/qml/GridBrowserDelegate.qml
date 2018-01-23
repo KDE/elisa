@@ -25,9 +25,7 @@ import QtQml.Models 2.1
 import QtQuick.Layouts 1.2
 import QtGraphicalEffects 1.0
 
-import org.kde.elisa 1.0
-
-Item {
+FocusScope {
     id: gridEntry
 
     property var imageUrl
@@ -66,8 +64,8 @@ Item {
         onTriggered: replaceAndPlay(containerData)
     }
 
-    Keys.onReturnPressed: open()
-    Keys.onEnterPressed: open()
+    Keys.onReturnPressed: openAction.trigger(this)
+    Keys.onEnterPressed: openAction.trigger(this)
 
     ColumnLayout {
         anchors.fill: parent
@@ -79,17 +77,15 @@ Item {
 
             hoverEnabled: true
             acceptedButtons: Qt.LeftButton
-            focus: true
 
             Layout.preferredHeight: gridEntry.width * 0.85 + elisaTheme.layoutVerticalMargin * 0.5 + mainLabelSize.height + secondaryLabelSize.height
             Layout.fillWidth: true
 
             onClicked: {
-                hoverHandle.forceActiveFocus()
                 gridEntry.selected()
             }
 
-            onDoubleClicked: open()
+            onDoubleClicked: openAction.trigger(this)
 
             TextMetrics {
                 id: mainLabelSize
@@ -115,8 +111,6 @@ Item {
 
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
 
-                    focus: true
-
                     Loader {
                         id: hoverLoader
                         active: false
@@ -130,6 +124,7 @@ Item {
 
                             ToolButton {
                                 id: enqueueButton
+                                objectName: 'enqueueButton'
 
                                 action: enqueueAction
 
@@ -139,6 +134,7 @@ Item {
 
                             ToolButton {
                                 id: openButton
+                                objectName: 'openButton'
 
                                 action: openAction
 
@@ -148,6 +144,7 @@ Item {
 
                             ToolButton {
                                 id: replaceAndPlayButton
+                                objectName: 'replaceAndPlayButton'
 
                                 action: replaceAndPlayAction
 
@@ -167,7 +164,7 @@ Item {
                         fillMode: Image.PreserveAspectFit
                         smooth: true
 
-                        source: gridEntry.imageUrl
+                        source: (gridEntry.imageUrl !== undefined ? gridEntry.imageUrl : "")
 
                         asynchronous: true
 

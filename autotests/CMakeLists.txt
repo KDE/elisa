@@ -440,3 +440,19 @@ if (KF5XmlGui_FOUND AND KF5KCMUtils_FOUND)
 
     target_include_directories(elisaapplicationtest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 endif()
+
+if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
+    set(elisaqmltests_SOURCES
+        elisaqmltests.cpp
+        qmltests/tst_GridBrowserDelegate.qml
+    )
+
+    ecm_add_test(${elisaqmltests_SOURCES}
+        TEST_NAME "elisaqmltests"
+        LINK_LIBRARIES Qt5::Core Qt5::Widgets Qt5::Test Qt5::QuickTest
+        GUI)
+
+    target_compile_definitions(elisaqmltests PRIVATE QUICK_TEST_SOURCE_DIR="${CMAKE_SOURCE_DIR}/autotests/qmltests")
+
+    target_include_directories(elisaqmltests PRIVATE ${CMAKE_SOURCE_DIR}/src)
+endif()

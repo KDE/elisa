@@ -38,7 +38,7 @@
 #include <QSet>
 #include <QPair>
 #include <QAtomicInt>
-
+#include <QDebug>
 #include <QtGlobal>
 
 #include <algorithm>
@@ -331,6 +331,7 @@ void AbstractFileListing::setHandleNewFiles(bool handleThem)
 
 void AbstractFileListing::emitNewFiles(const QList<MusicAudioTrack> &tracks)
 {
+    qDebug() << "AbstractFileListing::emitNewFiles" << tracks.size();
     Q_EMIT tracksList(tracks, d->mAllAlbumCover, d->mSourceName);
 }
 

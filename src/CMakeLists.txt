@@ -221,3 +221,91 @@ install(TARGETS elisa ${INSTALL_TARGETS_DEFAULT_ARGS})
 if (KF5ConfigWidgets_FOUND)
     add_subdirectory(localFileConfiguration)
 endif()
+
+set(elisaImport_SOURCES
+    elisaimport.cpp
+    elisaimportapplication.cpp
+    elisaapplication.cpp
+    mediaplaylist.cpp
+    musicstatistics.cpp
+    musicalbum.cpp
+    musicaudiotrack.cpp
+    musicartist.cpp
+    progressindicator.cpp
+    albummodel.cpp
+    allalbumsmodel.cpp
+    allartistsmodel.cpp
+    databaseinterface.cpp
+    musiclistenersmanager.cpp
+    albumfilterproxymodel.cpp
+    trackslistener.cpp
+    alltracksmodel.cpp
+    notificationitem.cpp
+    topnotificationmanager.cpp
+    elisautils.cpp
+    abstractfile/abstractfilelistener.cpp
+    abstractfile/abstractfilelisting.cpp
+    file/filelistener.cpp
+    file/localfilelisting.cpp
+)
+
+if (KF5Baloo_FOUND)
+    if (Qt5DBus_FOUND)
+        set(elisaImport_SOURCES
+            ${elisaImport_SOURCES}
+            baloo/localbaloofilelisting.cpp
+            baloo/baloolistener.cpp
+            )
+
+        qt5_add_dbus_interface(elisaImport_SOURCES
+            ${BALOO_DBUS_INTERFACES_DIR}/org.kde.baloo.fileindexer.xml
+            baloo/fileindexer)
+
+        qt5_add_dbus_interface(elisaImport_SOURCES
+            ${BALOO_DBUS_INTERFACES_DIR}/org.kde.baloo.scheduler.xml
+            baloo/scheduler)
+    endif()
+endif()
+
+kconfig_add_kcfg_files(elisaImport_SOURCES elisa_settings.kcfgc)
+set(elisaImport_SOURCES
+    ${elisaImport_SOURCES}
+    elisa_core.kcfg
+)
+
+add_executable(elisaImport ${elisaImport_SOURCES})
+
+set_target_properties(elisaImport PROPERTIES LINK_FLAGS "-Wl,--no-undefined")
+
+target_link_libraries(elisaImport
+    LINK_PRIVATE
+        Qt5::Core
+        Qt5::Sql
+        Qt5::Multimedia
+        Qt5::Widgets
+        KF5::I18n
+        KF5::ConfigCore
+        KF5::ConfigGui
+        KF5::FileMetaData
+)
+
+if (KF5XmlGui_FOUND)
+    target_link_libraries(elisaImport
+        LINK_PRIVATE
+            KF5::XmlGui
+    )
+endif()
+
+if (KF5KCMUtils_FOUND)
+    target_link_libraries(elisaImport
+        LINK_PRIVATE
+            KF5::KCMUtils
+    )
+endif()
+
+if (KF5Baloo_FOUND)
+    target_link_libraries(elisaImport
+        LINK_PRIVATE
+            KF5::Baloo
+    )
+endif()

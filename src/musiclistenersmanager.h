@@ -23,7 +23,6 @@
 #include "notificationitem.h"
 
 #include <QObject>
-#include <QQmlListProperty>
 
 #include <QMediaPlayer>
 

@@ -73,6 +73,41 @@ int MediaPlayList::rowCount(const QModelIndex &parent) const
     return d->mData.size();
 }
 
+QHash<int, QByteArray> MediaPlayList::roleNames() const
+{
+    auto roles = QAbstractItemModel::roleNames();
+
+    roles[static_cast<int>(ColumnsRoles::IsValidRole)] = "isValid";
+    roles[static_cast<int>(ColumnsRoles::TitleRole)] = "title";
+    roles[static_cast<int>(ColumnsRoles::DurationRole)] = "duration";
+    roles[static_cast<int>(ColumnsRoles::ArtistRole)] = "artist";
+    roles[static_cast<int>(ColumnsRoles::AlbumArtistRole)] = "albumArtist";
+    roles[static_cast<int>(ColumnsRoles::AlbumRole)] = "album";
+    roles[static_cast<int>(ColumnsRoles::TrackNumberRole)] = "trackNumber";
+    roles[static_cast<int>(ColumnsRoles::DiscNumberRole)] = "discNumber";
+    roles[static_cast<int>(ColumnsRoles::RatingRole)] = "rating";
+    roles[static_cast<int>(ColumnsRoles::GenreRole)] = "genre";
+    roles[static_cast<int>(ColumnsRoles::LyricistRole)] = "lyricist";
+    roles[static_cast<int>(ColumnsRoles::ComposerRole)] = "composer";
+    roles[static_cast<int>(ColumnsRoles::CommentRole)] = "comment";
+    roles[static_cast<int>(ColumnsRoles::YearRole)] = "year";
+    roles[static_cast<int>(ColumnsRoles::ChannelsRole)] = "channels";
+    roles[static_cast<int>(ColumnsRoles::BitRateRole)] = "bitRate";
+    roles[static_cast<int>(ColumnsRoles::SampleRateRole)] = "sampleRate";
+    roles[static_cast<int>(ColumnsRoles::ImageRole)] = "image";
+    roles[static_cast<int>(ColumnsRoles::CountRole)] = "count";
+    roles[static_cast<int>(ColumnsRoles::IsPlayingRole)] = "isPlaying";
+    roles[static_cast<int>(ColumnsRoles::HasAlbumHeader)] = "hasAlbumHeader";
+    roles[static_cast<int>(ColumnsRoles::IsSingleDiscAlbumHeader)] = "isSingleDiscAlbum";
+    roles[static_cast<int>(ColumnsRoles::SecondaryTextRole)] = "secondaryText";
+    roles[static_cast<int>(ColumnsRoles::ImageUrlRole)] = "imageUrl";
+    roles[static_cast<int>(ColumnsRoles::ShadowForImageRole)] = "shadowForImage";
+    roles[static_cast<int>(ColumnsRoles::ResourceRole)] = "trackResource";
+    roles[static_cast<int>(ColumnsRoles::TrackDataRole)] = "trackData";
+
+    return roles;
+}
+
 QVariant MediaPlayList::data(const QModelIndex &index, int role) const
 {
     auto result = QVariant();
@@ -129,9 +164,7 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
             result = d->mTrackData[index.row()].trackNumber();
             break;
         case ColumnsRoles::DiscNumberRole:
-            if (d->mTrackData[index.row()].discNumber() > 0) {
-                result = d->mTrackData[index.row()].discNumber();
-            }
+            result = d->mTrackData[index.row()].discNumber();
             break;
         case ColumnsRoles::IsSingleDiscAlbumHeader:
             result = d->mTrackData[index.row()].isSingleDiscAlbum();
@@ -157,9 +190,31 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
         case ColumnsRoles::RatingRole:
             result = d->mTrackData[index.row()].rating();
             break;
-        case ColumnsRoles::CountRole:
+        case ColumnsRoles::GenreRole:
+            result = d->mTrackData[index.row()].genre();
             break;
-        case ColumnsRoles::CreatorRole:
+        case ColumnsRoles::LyricistRole:
+            result = d->mTrackData[index.row()].lyricist();
+            break;
+        case ColumnsRoles::ComposerRole:
+            result = d->mTrackData[index.row()].composer();
+            break;
+        case ColumnsRoles::CommentRole:
+            result = d->mTrackData[index.row()].comment();
+            break;
+        case ColumnsRoles::YearRole:
+            result = d->mTrackData[index.row()].year();
+            break;
+        case ColumnsRoles::ChannelsRole:
+            result = d->mTrackData[index.row()].channels();
+            break;
+        case ColumnsRoles::BitRateRole:
+            result = d->mTrackData[index.row()].bitRate();
+            break;
+        case ColumnsRoles::SampleRateRole:
+            result = d->mTrackData[index.row()].sampleRate();
+            break;
+        case ColumnsRoles::CountRole:
             break;
         case ColumnsRoles::IsPlayingRole:
             result = d->mData[index.row()].mIsPlaying;
@@ -198,7 +253,11 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
         case ColumnsRoles::ShadowForImageRole:
             result = d->mTrackData[index.row()].albumCover().isValid();
             break;
+        case ColumnsRoles::TrackDataRole:
+            result = QVariant::fromValue(d->mTrackData[index.row()]);
+            break;
         }
+
     } else {
         switch(role)
         {
@@ -248,8 +307,6 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
         case ColumnsRoles::RatingRole:
             break;
         case ColumnsRoles::CountRole:
-            break;
-        case ColumnsRoles::CreatorRole:
             break;
         case ColumnsRoles::ImageRole:
             result = QStringLiteral("");
@@ -310,32 +367,6 @@ bool MediaPlayList::setData(const QModelIndex &index, const QVariant &value, int
     }
 
     return modelModified;
-}
-
-QHash<int, QByteArray> MediaPlayList::roleNames() const
-{
-    auto roles = QAbstractItemModel::roleNames();
-
-    roles[static_cast<int>(ColumnsRoles::IsValidRole)] = "isValid";
-    roles[static_cast<int>(ColumnsRoles::TitleRole)] = "title";
-    roles[static_cast<int>(ColumnsRoles::DurationRole)] = "duration";
-    roles[static_cast<int>(ColumnsRoles::ArtistRole)] = "artist";
-    roles[static_cast<int>(ColumnsRoles::AlbumArtistRole)] = "albumArtist";
-    roles[static_cast<int>(ColumnsRoles::AlbumRole)] = "album";
-    roles[static_cast<int>(ColumnsRoles::TrackNumberRole)] = "trackNumber";
-    roles[static_cast<int>(ColumnsRoles::DiscNumberRole)] = "discNumber";
-    roles[static_cast<int>(ColumnsRoles::RatingRole)] = "rating";
-    roles[static_cast<int>(ColumnsRoles::ImageRole)] = "image";
-    roles[static_cast<int>(ColumnsRoles::CountRole)] = "count";
-    roles[static_cast<int>(ColumnsRoles::IsPlayingRole)] = "isPlaying";
-    roles[static_cast<int>(ColumnsRoles::HasAlbumHeader)] = "hasAlbumHeader";
-    roles[static_cast<int>(ColumnsRoles::IsSingleDiscAlbumHeader)] = "isSingleDiscAlbum";
-    roles[static_cast<int>(ColumnsRoles::SecondaryTextRole)] = "secondaryText";
-    roles[static_cast<int>(ColumnsRoles::ImageUrlRole)] = "imageUrl";
-    roles[static_cast<int>(ColumnsRoles::ShadowForImageRole)] = "shadowForImage";
-    roles[static_cast<int>(ColumnsRoles::ResourceRole)] = "trackResource";
-
-    return roles;
 }
 
 bool MediaPlayList::removeRows(int row, int count, const QModelIndex &parent)

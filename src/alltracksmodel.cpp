@@ -65,10 +65,18 @@ QHash<int, QByteArray> AllTracksModel::roleNames() const
     roles[static_cast<int>(ColumnsRoles::TrackNumberRole)] = "trackNumber";
     roles[static_cast<int>(ColumnsRoles::DiscNumberRole)] = "discNumber";
     roles[static_cast<int>(ColumnsRoles::RatingRole)] = "rating";
+    roles[static_cast<int>(ColumnsRoles::GenreRole)] = "genre";
+    roles[static_cast<int>(ColumnsRoles::LyricistRole)] = "lyricist";
+    roles[static_cast<int>(ColumnsRoles::ComposerRole)] = "composer";
+    roles[static_cast<int>(ColumnsRoles::CommentRole)] = "comment";
+    roles[static_cast<int>(ColumnsRoles::YearRole)] = "year";
+    roles[static_cast<int>(ColumnsRoles::ChannelsRole)] = "channels";
+    roles[static_cast<int>(ColumnsRoles::BitRateRole)] = "bitRate";
+    roles[static_cast<int>(ColumnsRoles::SampleRateRole)] = "sampleRate";
     roles[static_cast<int>(ColumnsRoles::ImageRole)] = "image";
     roles[static_cast<int>(ColumnsRoles::DatabaseIdRole)] = "databaseId";
     roles[static_cast<int>(ColumnsRoles::IsSingleDiscAlbumRole)] = "isSingleDiscAlbum";
-    roles[static_cast<int>(ColumnsRoles::TrackDataRole)] = "trackData";
+    roles[static_cast<int>(ColumnsRoles::ContainerDataRole)] = "containerData";
     roles[static_cast<int>(ColumnsRoles::ResourceRole)] = "trackResource";
     roles[static_cast<int>(ColumnsRoles::SecondaryTextRole)] = "secondaryText";
     roles[static_cast<int>(ColumnsRoles::ImageUrlRole)] = "imageUrl";
@@ -139,9 +147,6 @@ QVariant AllTracksModel::data(const QModelIndex &index, int role) const
         }
         break;
     }
-    case ColumnsRoles::CreatorRole:
-        result = d->mAllTracks[d->mIds[index.row()]].artist();
-        break;
     case ColumnsRoles::ArtistRole:
         result = d->mAllTracks[d->mIds[index.row()]].artist();
         break;
@@ -155,18 +160,37 @@ QVariant AllTracksModel::data(const QModelIndex &index, int role) const
         result = d->mAllTracks[d->mIds[index.row()]].trackNumber();
         break;
     case ColumnsRoles::DiscNumberRole:
-    {
-        const auto discNumber = d->mAllTracks[d->mIds[index.row()]].discNumber();
-        if (discNumber > 0) {
-            result = discNumber;
-        }
+        result = d->mAllTracks[d->mIds[index.row()]].discNumber();
         break;
-    }
     case ColumnsRoles::IsSingleDiscAlbumRole:
         result = d->mAllTracks[d->mIds[index.row()]].isSingleDiscAlbum();
         break;
     case ColumnsRoles::RatingRole:
         result = d->mAllTracks[d->mIds[index.row()]].rating();
+        break;
+    case ColumnsRoles::GenreRole:
+        result = d->mAllTracks[d->mIds[index.row()]].genre();
+        break;
+    case ColumnsRoles::LyricistRole:
+        result = d->mAllTracks[d->mIds[index.row()]].lyricist();
+        break;
+    case ColumnsRoles::ComposerRole:
+        result = d->mAllTracks[d->mIds[index.row()]].composer();
+        break;
+    case ColumnsRoles::CommentRole:
+        result = d->mAllTracks[d->mIds[index.row()]].comment();
+        break;
+    case ColumnsRoles::YearRole:
+        result = d->mAllTracks[d->mIds[index.row()]].year();
+        break;
+    case ColumnsRoles::ChannelsRole:
+        result = d->mAllTracks[d->mIds[index.row()]].channels();
+        break;
+    case ColumnsRoles::BitRateRole:
+        result = d->mAllTracks[d->mIds[index.row()]].bitRate();
+        break;
+    case ColumnsRoles::SampleRateRole:
+        result = d->mAllTracks[d->mIds[index.row()]].sampleRate();
         break;
     case ColumnsRoles::ImageRole:
     {
@@ -185,7 +209,7 @@ QVariant AllTracksModel::data(const QModelIndex &index, int role) const
     case ColumnsRoles::DatabaseIdRole:
         result = d->mAllTracks[d->mIds[index.row()]].databaseId();
         break;
-    case ColumnsRoles::TrackDataRole:
+    case ColumnsRoles::ContainerDataRole:
         result = QVariant::fromValue(d->mAllTracks[d->mIds[index.row()]]);
         break;
     case Qt::DisplayRole:

@@ -58,6 +58,14 @@ MusicAudioTrack ElisaUtils::scanOneFile(const QUrl &scanFile, const QMimeDatabas
     auto albumArtistProperty = allProperties.find(KFileMetaData::Property::AlbumArtist);
     auto trackNumberProperty = allProperties.find(KFileMetaData::Property::TrackNumber);
     auto discNumberProperty = allProperties.find(KFileMetaData::Property::DiscNumber);
+    auto genreProperty = allProperties.find(KFileMetaData::Property::Genre);
+    auto yearProperty = allProperties.find(KFileMetaData::Property::ReleaseYear);
+    auto composerProperty = allProperties.find(KFileMetaData::Property::Composer);
+    auto lyricistProperty = allProperties.find(KFileMetaData::Property::Lyricist);
+    auto channelsProperty = allProperties.find(KFileMetaData::Property::Channels);
+    auto bitRateProperty = allProperties.find(KFileMetaData::Property::BitRate);
+    auto sampleRateProperty = allProperties.find(KFileMetaData::Property::SampleRate);
+    auto commentProperty = allProperties.find(KFileMetaData::Property::Comment);
 #if defined Q_OS_LINUX && !defined Q_OS_ANDROID
     auto fileData = KFileMetaData::UserMetaData(scanFile.toLocalFile());
 #endif
@@ -95,6 +103,38 @@ MusicAudioTrack ElisaUtils::scanOneFile(const QUrl &scanFile, const QMimeDatabas
             } else if (albumArtistProperty->canConvert<QStringList>()) {
                 newTrack.setAlbumArtist(albumArtistProperty->toStringList().join(QStringLiteral(", ")));
             }
+        }
+
+        if (yearProperty != allProperties.end()) {
+            newTrack.setYear(yearProperty->toInt());
+        }
+
+        if (channelsProperty != allProperties.end()) {
+            newTrack.setChannels(channelsProperty->toInt());
+        }
+
+        if (bitRateProperty != allProperties.end()) {
+            newTrack.setBitRate(bitRateProperty->toInt());
+        }
+
+        if (sampleRateProperty != allProperties.end()) {
+            newTrack.setSampleRate(sampleRateProperty->toInt());
+        }
+
+        if (genreProperty != allProperties.end()) {
+            newTrack.setGenre(genreProperty->toString());
+        }
+
+        if (composerProperty != allProperties.end()) {
+            newTrack.setComposer(composerProperty->toString());
+        }
+
+        if (lyricistProperty != allProperties.end()) {
+            newTrack.setLyricist(lyricistProperty->toString());
+        }
+
+        if (commentProperty != allProperties.end()) {
+            newTrack.setComment(commentProperty->toString());
         }
 
         if (newTrack.artist().isEmpty()) {

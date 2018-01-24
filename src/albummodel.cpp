@@ -66,11 +66,19 @@ QHash<int, QByteArray> AlbumModel::roleNames() const
     roles[static_cast<int>(ColumnsRoles::TrackNumberRole)] = "trackNumber";
     roles[static_cast<int>(ColumnsRoles::DiscNumberRole)] = "discNumber";
     roles[static_cast<int>(ColumnsRoles::RatingRole)] = "rating";
+    roles[static_cast<int>(ColumnsRoles::GenreRole)] = "genre";
+    roles[static_cast<int>(ColumnsRoles::LyricistRole)] = "lyricist";
+    roles[static_cast<int>(ColumnsRoles::ComposerRole)] = "composer";
+    roles[static_cast<int>(ColumnsRoles::CommentRole)] = "comment";
+    roles[static_cast<int>(ColumnsRoles::YearRole)] = "year";
+    roles[static_cast<int>(ColumnsRoles::ChannelsRole)] = "channels";
+    roles[static_cast<int>(ColumnsRoles::BitRateRole)] = "bitRate";
+    roles[static_cast<int>(ColumnsRoles::SampleRateRole)] = "sampleRate";
     roles[static_cast<int>(ColumnsRoles::ImageRole)] = "image";
     roles[static_cast<int>(ColumnsRoles::DatabaseIdRole)] = "databaseId";
     roles[static_cast<int>(ColumnsRoles::DiscFirstTrackRole)] = "isFirstTrackOfDisc";
     roles[static_cast<int>(ColumnsRoles::IsSingleDiscAlbumRole)] = "isSingleDiscAlbum";
-    roles[static_cast<int>(ColumnsRoles::TrackDataRole)] = "trackData";
+    roles[static_cast<int>(ColumnsRoles::ContainerDataRole)] = "containerData";
     roles[static_cast<int>(ColumnsRoles::ResourceRole)] = "trackResource";
     roles[static_cast<int>(ColumnsRoles::SecondaryTextRole)] = "secondaryText";
     roles[static_cast<int>(ColumnsRoles::ImageUrlRole)] = "imageUrl";
@@ -145,9 +153,6 @@ QVariant AlbumModel::internalDataTrack(const MusicAudioTrack &track, int role, i
         }
         break;
     }
-    case ColumnsRoles::CreatorRole:
-        result = track.artist();
-        break;
     case ColumnsRoles::ArtistRole:
         result = track.artist();
         break;
@@ -161,9 +166,7 @@ QVariant AlbumModel::internalDataTrack(const MusicAudioTrack &track, int role, i
         result = track.trackNumber();
         break;
     case ColumnsRoles::DiscNumberRole:
-        if (track.discNumber() > 0) {
-            result = track.discNumber();
-        }
+        result = track.discNumber();
         break;
     case ColumnsRoles::DiscFirstTrackRole:
         if (rowIndex == 0) {
@@ -178,6 +181,24 @@ QVariant AlbumModel::internalDataTrack(const MusicAudioTrack &track, int role, i
         break;
     case ColumnsRoles::RatingRole:
         result = track.rating();
+        break;
+    case ColumnsRoles::GenreRole:
+        result = track.genre();
+        break;
+    case ColumnsRoles::LyricistRole:
+        result = track.lyricist();
+        break;
+    case ColumnsRoles::ComposerRole:
+        result = track.composer();
+        break;
+    case ColumnsRoles::YearRole:
+        result = track.year();
+        break;
+    case ColumnsRoles::ChannelsRole:
+        result = track.channels();
+        break;
+    case ColumnsRoles::BitRateRole:
+        result = track.bitRate();
         break;
     case ColumnsRoles::ImageRole:
     {
@@ -195,7 +216,7 @@ QVariant AlbumModel::internalDataTrack(const MusicAudioTrack &track, int role, i
     case ColumnsRoles::DatabaseIdRole:
         result = track.databaseId();
         break;
-    case ColumnsRoles::TrackDataRole:
+    case ColumnsRoles::ContainerDataRole:
         result = QVariant::fromValue(track);
         break;
     case Qt::DisplayRole:

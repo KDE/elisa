@@ -82,13 +82,12 @@ QHash<int, QByteArray> AllAlbumsModel::roleNames() const
     roles[static_cast<int>(ColumnsRoles::ImageRole)] = "image";
     roles[static_cast<int>(ColumnsRoles::CountRole)] = "count";
     roles[static_cast<int>(ColumnsRoles::IsSingleDiscAlbumRole)] = "isSingleDiscAlbum";
-    roles[static_cast<int>(ColumnsRoles::AlbumDataRole)] = "albumData";
+    roles[static_cast<int>(ColumnsRoles::ContainerDataRole)] = "containerData";
     roles[static_cast<int>(ColumnsRoles::HighestTrackRating)] = "highestTrackRating";
     roles[static_cast<int>(ColumnsRoles::AlbumDatabaseIdRole)] = "databaseId";
     roles[static_cast<int>(ColumnsRoles::SecondaryTextRole)] = "secondaryText";
     roles[static_cast<int>(ColumnsRoles::ImageUrlRole)] = "imageUrl";
     roles[static_cast<int>(ColumnsRoles::ShadowForImageRole)] = "shadowForImage";
-    roles[static_cast<int>(ColumnsRoles::ContainerDataRole)] = "containerData";
     roles[static_cast<int>(ColumnsRoles::ChildModelRole)] = "childModel";
     roles[static_cast<int>(ColumnsRoles::IsTracksContainerRole)] = "isTracksContainer";
 
@@ -173,7 +172,7 @@ QVariant AllAlbumsModel::internalDataAlbum(int albumIndex, int role) const
     case ColumnsRoles::IsSingleDiscAlbumRole:
         result = d->mAllAlbums[albumIndex].isSingleDiscAlbum();
         break;
-    case ColumnsRoles::AlbumDataRole:
+    case ColumnsRoles::ContainerDataRole:
         result = QVariant::fromValue(d->mAllAlbums[albumIndex]);
         break;
     case ColumnsRoles::AlbumDatabaseIdRole:
@@ -200,9 +199,6 @@ QVariant AllAlbumsModel::internalDataAlbum(int albumIndex, int role) const
     }
     case ColumnsRoles::ShadowForImageRole:
         result = d->mAllAlbums[albumIndex].albumArtURI().isValid();
-        break;
-    case ColumnsRoles::ContainerDataRole:
-        result = QVariant::fromValue(d->mAllAlbums[albumIndex]);
         break;
     case ColumnsRoles::ChildModelRole:
     {

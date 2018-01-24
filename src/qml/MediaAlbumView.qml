@@ -137,8 +137,8 @@ FocusScope {
                                            model.rating
                                        else
                                            0
-                    mediaTrack.trackData: if (model != undefined && model.trackData !== undefined)
-                                              model.trackData
+                    mediaTrack.trackData: if (model != undefined && model.containerData !== undefined)
+                                              model.containerData
                                           else
                                               ''
                     mediaTrack.isFirstTrackOfDisc: if (model != undefined && model.isFirstTrackOfDisc !== undefined)

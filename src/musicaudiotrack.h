@@ -38,10 +38,6 @@ public:
     MusicAudioTrack();
 
     MusicAudioTrack(bool aValid, const QString &aId, const QString &aParentId, const QString &aTitle, const QString &aArtist, const QString &aAlbumName,
-                    const QString &aAlbumArtist, int aTrackNumber, QTime aDuration, const QUrl &aResourceURI, const QUrl &aAlbumCover, int rating,
-                    bool aIsSingleDiscAlbum);
-
-    MusicAudioTrack(bool aValid, const QString &aId, const QString &aParentId, const QString &aTitle, const QString &aArtist, const QString &aAlbumName,
                     const QString &aAlbumArtist, int aTrackNumber, int aDiscNumber, QTime aDuration, const QUrl &aResourceURI,
                     const QUrl &aAlbumCover, int rating, bool aIsSingleDiscAlbum);
 
@@ -93,6 +89,22 @@ public:
 
     QString albumArtist() const;
 
+    void setGenre(const QString &value) const;
+
+    QString genre() const;
+
+    void setComposer(const QString &value) const;
+
+    QString composer() const;
+
+    void setLyricist(const QString &value) const;
+
+    QString lyricist() const;
+
+    void setComment(const QString &value) const;
+
+    QString comment() const;
+
     bool isValidAlbumArtist() const;
 
     void setAlbumCover(const QUrl &value) const;
@@ -106,6 +118,22 @@ public:
     void setDiscNumber(int value);
 
     int discNumber() const;
+
+    void setYear(int value);
+
+    int year() const;
+
+    void setChannels(int value);
+
+    int channels() const;
+
+    void setBitRate(int value);
+
+    int bitRate() const;
+
+    void setSampleRate(int value);
+
+    int sampleRate() const;
 
     void setDuration(QTime value);
 

@@ -133,8 +133,8 @@ FocusScope {
                                         model.rating
                                     else
                                         0
-                            trackData: if (model != undefined && model.trackData !== undefined)
-                                           model.trackData
+                            trackData: if (model != undefined && model.containerData !== undefined)
+                                           model.containerData
                                        else
                                            ''
                             coverImage: if (model != undefined && model.image !== undefined)

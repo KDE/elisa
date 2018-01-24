@@ -31,17 +31,6 @@ public:
     }
 
     MusicAudioTrackPrivate(bool aValid, QString aId, QString aParentId,
-                           QString aTitle, QString aArtist, QString aAlbumName,
-                           QString aAlbumArtist, int aTrackNumber, QTime aDuration,
-                           QUrl aResourceURI, QUrl aAlbumCover, int rating, bool aIsSingleDiscAlbum)
-        : mId(std::move(aId)), mParentId(std::move(aParentId)), mTitle(std::move(aTitle)), mArtist(std::move(aArtist)),
-          mAlbumName(std::move(aAlbumName)), mAlbumArtist(std::move(aAlbumArtist)), mTrackNumber(aTrackNumber),
-          mDuration(aDuration), mResourceURI(std::move(aResourceURI)), mAlbumCover(std::move(aAlbumCover)),
-          mRating(rating), mIsValid(aValid), mIsSingleDiscAlbum(aIsSingleDiscAlbum)
-    {
-    }
-
-    MusicAudioTrackPrivate(bool aValid, QString aId, QString aParentId,
                            QString aTitle, QString aArtist, QString aAlbumName, QString aAlbumArtist,
                            int aTrackNumber, int aDiscNumber, QTime aDuration, QUrl aResourceURI,
                            QUrl aAlbumCover, int rating, bool aIsSingleDiscAlbum)
@@ -66,9 +55,25 @@ public:
 
     QString mAlbumArtist;
 
+    QString mGenre;
+
+    QString mComposer;
+
+    QString mLyricist;
+
+    QString mComment;
+
     int mTrackNumber = -1;
 
     int mDiscNumber = -1;
+
+    int mChannels = -1;
+
+    int mBitRate = -1;
+
+    int mSampleRate = -1;
+
+    int mYear = 0;
 
     QTime mDuration;
 
@@ -85,16 +90,6 @@ public:
 };
 
 MusicAudioTrack::MusicAudioTrack() : d(std::make_unique<MusicAudioTrackPrivate>())
-{
-}
-
-MusicAudioTrack::MusicAudioTrack(bool aValid, const QString &aId, const QString &aParentId,
-                                 const QString &aTitle, const QString &aArtist, const QString &aAlbumName, const QString &aAlbumArtist,
-                                 int aTrackNumber, QTime aDuration, const QUrl &aResourceURI, const QUrl &aAlbumCover, int rating,
-                                 bool aIsSingleDiscAlbum)
-    : d(std::make_unique<MusicAudioTrackPrivate>(aValid, aId, aParentId, aTitle, aArtist, aAlbumName,
-                                                 aAlbumArtist, aTrackNumber, aDuration, aResourceURI, aAlbumCover,
-                                                 rating, aIsSingleDiscAlbum))
 {
 }
 
@@ -152,7 +147,12 @@ bool MusicAudioTrack::operator ==(const MusicAudioTrack &other) const
             d->mAlbumName == other.d->mAlbumName && d->mAlbumArtist == other.d->mAlbumArtist &&
             d->mTrackNumber == other.d->mTrackNumber && d->mDiscNumber == other.d->mDiscNumber &&
             d->mDuration == other.d->mDuration && d->mResourceURI == other.d->mResourceURI &&
-            d->mAlbumCover == other.d->mAlbumCover && d->mRating == other.d->mRating;
+            d->mAlbumCover == other.d->mAlbumCover && d->mRating == other.d->mRating &&
+            d->mGenre == other.d->mGenre && d->mComposer == other.d->mComposer &&
+            d->mLyricist == other.d->mLyricist && d->mComment == other.d->mComment &&
+            d->mYear == other.d->mYear && d->mChannels == other.d->mChannels &&
+            d->mBitRate == other.d->mBitRate && d->mSampleRate == other.d->mSampleRate;
+
 }
 
 bool MusicAudioTrack::operator !=(const MusicAudioTrack &other) const
@@ -161,7 +161,12 @@ bool MusicAudioTrack::operator !=(const MusicAudioTrack &other) const
             d->mAlbumName != other.d->mAlbumName || d->mAlbumArtist != other.d->mAlbumArtist ||
             d->mTrackNumber != other.d->mTrackNumber || d->mDiscNumber != other.d->mDiscNumber ||
             d->mDuration != other.d->mDuration || d->mResourceURI != other.d->mResourceURI ||
-            d->mAlbumCover != other.d->mAlbumCover || d->mRating != other.d->mRating;}
+            d->mAlbumCover != other.d->mAlbumCover || d->mRating != other.d->mRating ||
+            d->mGenre != other.d->mGenre || d->mComposer != other.d->mComposer ||
+            d->mLyricist != other.d->mLyricist || d->mComment != other.d->mComment ||
+            d->mYear != other.d->mYear || d->mChannels != other.d->mChannels ||
+            d->mBitRate != other.d->mBitRate || d->mSampleRate != other.d->mSampleRate;
+}
 
 void MusicAudioTrack::setValid(bool value)
 {
@@ -258,6 +263,46 @@ QUrl MusicAudioTrack::albumCover() const
     return d->mAlbumCover;
 }
 
+void MusicAudioTrack::setGenre(const QString &value) const
+{
+    d->mGenre = value;
+}
+
+QString MusicAudioTrack::genre() const
+{
+    return d->mGenre;
+}
+
+void MusicAudioTrack::setComposer(const QString &value) const
+{
+    d->mComposer = value;
+}
+
+QString MusicAudioTrack::composer() const
+{
+    return d->mComposer;
+}
+
+void MusicAudioTrack::setLyricist(const QString &value) const
+{
+    d->mLyricist = value;
+}
+
+QString MusicAudioTrack::lyricist() const
+{
+    return d->mLyricist;
+}
+
+void MusicAudioTrack::setComment(const QString &value) const
+{
+    d->mComment = value;
+}
+
+QString MusicAudioTrack::comment() const
+{
+    return d->mComment;
+}
+
 void MusicAudioTrack::setTrackNumber(int value)
 {
     d->mTrackNumber = value;
@@ -276,6 +321,46 @@ void MusicAudioTrack::setDiscNumber(int value)
 int MusicAudioTrack::discNumber() const
 {
     return d->mDiscNumber;
+}
+
+void MusicAudioTrack::setYear(int value)
+{
+    d->mYear = value;
+}
+
+int MusicAudioTrack::year() const
+{
+    return d->mYear;
+}
+
+void MusicAudioTrack::setChannels(int value)
+{
+    d->mChannels = value;
+}
+
+int MusicAudioTrack::channels() const
+{
+    return d->mChannels;
+}
+
+void MusicAudioTrack::setBitRate(int value)
+{
+    d->mBitRate = value;
+}
+
+int MusicAudioTrack::bitRate() const
+{
+    return d->mBitRate;
+}
+
+void MusicAudioTrack::setSampleRate(int value)
+{
+    d->mSampleRate = value;
+}
+
+int MusicAudioTrack::sampleRate() const
+{
+    return d->mSampleRate;
 }
 
 void MusicAudioTrack::setDuration(QTime value)

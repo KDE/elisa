@@ -985,7 +985,7 @@ void DatabaseInterface::initDatabase() const
 
     auto listTables = d->mTracksDatabase.tables();
 
-    if (!listTables.contains(QStringLiteral("DatabaseVersionV1"))) {
+    if (!listTables.contains(QStringLiteral("DatabaseVersionV2"))) {
         for (const auto &oneTable : listTables) {
             QSqlQuery createSchemaQuery(d->mTracksDatabase);
 
@@ -1000,10 +1000,10 @@ void DatabaseInterface::initDatabase() const
         listTables = d->mTracksDatabase.tables();
     }
 
-    if (!listTables.contains(QStringLiteral("DatabaseVersionV1"))) {
+    if (!listTables.contains(QStringLiteral("DatabaseVersionV2"))) {
         QSqlQuery createSchemaQuery(d->mTracksDatabase);
 
-        const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `DatabaseVersionV1` (`Version` INTEGER PRIMARY KEY NOT NULL)"));
+        const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `DatabaseVersionV2` (`Version` INTEGER PRIMARY KEY NOT NULL)"));
 
         if (!result) {
             qDebug() << "DatabaseInterface::initDatabase" << createSchemaQuery.lastQuery();
@@ -1083,6 +1083,14 @@ void DatabaseInterface::initDatabase() const
                                                                    "`DiscNumber` INTEGER DEFAULT -1, "
                                                                    "`Duration` INTEGER NOT NULL, "
                                                                    "`Rating` INTEGER NOT NULL DEFAULT 0, "
+                                                                   "`Genre` VARCHAR(85) DEFAULT '', "
+                                                                   "`Composer` VARCHAR(85) DEFAULT '', "
+                                                                   "`Lyricist` VARCHAR(85) DEFAULT '', "
+                                                                   "`Comment` VARCHAR(85) DEFAULT '', "
+                                                                   "`Year` INTEGER DEFAULT 0, "
+                                                                   "`Channels` INTEGER DEFAULT -1, "
+                                                                   "`BitRate` INTEGER DEFAULT -1, "
+                                                                   "`SampleRate` INTEGER DEFAULT -1, "
                                                                    "UNIQUE (`Title`, `AlbumID`, `TrackNumber`, `DiscNumber`), "
                                                                    "CONSTRAINT fk_tracks_album FOREIGN KEY (`AlbumID`) REFERENCES `Albums`(`ID`))"));
 
@@ -1306,7 +1314,15 @@ void DatabaseInterface::initRequest()
                                                   "album.`Title`, "
                                                   "tracks.`Rating`, "
                                                   "album.`CoverFileName`, "
-                                                  "album.`IsSingleDiscAlbum` "
+                                                  "album.`IsSingleDiscAlbum`, "
+                                                  "tracks.`Genre`, "
+                                                  "tracks.`Composer`, "
+                                                  "tracks.`Lyricist`, "
+                                                  "tracks.`Comment`, "
+                                                  "tracks.`Year`, "
+                                                  "tracks.`Channels`, "
+                                                  "tracks.`BitRate`, "
+                                                  "tracks.`SampleRate` "
                                                   "FROM "
                                                   "`Tracks` tracks, `Artists` artist, `TracksArtists` trackArtist, "
                                                   "`Albums` album, `TracksMapping` tracksMapping "
@@ -1341,7 +1357,15 @@ void DatabaseInterface::initRequest()
                                                                         "album.`Title`, "
                                                                         "tracks.`Rating`, "
                                                                         "album.`CoverFileName`, "
-                                                                        "album.`IsSingleDiscAlbum` "
+                                                                        "album.`IsSingleDiscAlbum`, "
+                                                                        "tracks.`Genre`, "
+                                                                        "tracks.`Composer`, "
+                                                                        "tracks.`Lyricist`, "
+                                                                        "tracks.`Comment`, "
+                                                                        "tracks.`Year`, "
+                                                                        "tracks.`Channels`, "
+                                                                        "tracks.`BitRate`, "
+                                                                        "tracks.`SampleRate` "
                                                                         "FROM "
                                                                         "`Tracks` tracks, `Artists` artist, `TracksArtists` trackArtist, "
                                                                         "`Albums` album, `TracksMapping` tracksMapping, `DiscoverSource` source "
@@ -1378,7 +1402,15 @@ void DatabaseInterface::initRequest()
                                                                  "album.`Title`, "
                                                                  "tracks.`Rating`, "
                                                                  "album.`CoverFileName`, "
-                                                                 "album.`IsSingleDiscAlbum` "
+                                                                 "album.`IsSingleDiscAlbum`, "
+                                                                 "tracks.`Genre`, "
+                                                                 "tracks.`Composer`, "
+                                                                 "tracks.`Lyricist`, "
+                                                                 "tracks.`Comment`, "
+                                                                 "tracks.`Year`, "
+                                                                 "tracks.`Channels`, "
+                                                                 "tracks.`BitRate`, "
+                                                                 "tracks.`SampleRate` "
                                                                  "FROM "
                                                                  "`Tracks` tracks, `Artists` artist, `TracksArtists` trackArtist, "
                                                                  "`Albums` album, `TracksMapping` tracksMapping, `DiscoverSource` source "
@@ -1442,7 +1474,15 @@ void DatabaseInterface::initRequest()
                                                    "album.`Title`, "
                                                    "tracks.`Rating`, "
                                                    "album.`CoverFileName`, "
-                                                   "album.`IsSingleDiscAlbum` "
+                                                   "album.`IsSingleDiscAlbum`, "
+                                                   "tracks.`Genre`, "
+                                                   "tracks.`Composer`, "
+                                                   "tracks.`Lyricist`, "
+                                                   "tracks.`Comment`, "
+                                                   "tracks.`Year`, "
+                                                   "tracks.`Channels`, "
+                                                   "tracks.`BitRate`, "
+                                                   "tracks.`SampleRate` "
                                                    "FROM "
                                                    "`Tracks` tracks, `Artists` artist, `TracksArtists` trackArtist, "
                                                    "`Albums` album, `TracksMapping` tracksMapping "
@@ -1479,7 +1519,15 @@ void DatabaseInterface::initRequest()
                                                          "album.`Title`, "
                                                          "tracks.`Rating`, "
                                                          "album.`CoverFileName`, "
-                                                         "album.`IsSingleDiscAlbum` "
+                                                         "album.`IsSingleDiscAlbum`, "
+                                                         "tracks.`Genre`, "
+                                                         "tracks.`Composer`, "
+                                                         "tracks.`Lyricist`, "
+                                                         "tracks.`Comment`, "
+                                                         "tracks.`Year`, "
+                                                         "tracks.`Channels`, "
+                                                         "tracks.`BitRate`, "
+                                                         "tracks.`SampleRate` "
                                                          "FROM "
                                                          "`Tracks` tracks, `Artists` artist, `TracksArtists` trackArtist, "
                                                          "`Albums` album, `TracksMapping` tracksMapping "
@@ -1685,7 +1733,15 @@ void DatabaseInterface::initRequest()
                                                                   "album.`Title`, "
                                                                   "tracks.`Rating`, "
                                                                   "album.`CoverFileName`, "
-                                                                  "album.`IsSingleDiscAlbum` "
+                                                                  "album.`IsSingleDiscAlbum`, "
+                                                                  "tracks.`Genre`, "
+                                                                  "tracks.`Composer`, "
+                                                                  "tracks.`Lyricist`, "
+                                                                  "tracks.`Comment`, "
+                                                                  "tracks.`Year`, "
+                                                                  "tracks.`Channels`, "
+                                                                  "tracks.`BitRate`, "
+                                                                  "tracks.`SampleRate` "
                                                                   "FROM "
                                                                   "`Tracks` tracks, "
                                                                   "`Artists` artist, "
@@ -1837,8 +1893,8 @@ void DatabaseInterface::initRequest()
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectTrackIdFromTitleAlbumIdArtistQuery.lastError();
         }
 
-        auto insertTrackQueryText = QStringLiteral("INSERT INTO `Tracks` (`ID`, `Title`, `AlbumID`, `TrackNumber`, `DiscNumber`, `Duration`, `Rating`) "
-                                                   "VALUES (:trackId, :title, :album, :trackNumber, :discNumber, :trackDuration, :trackRating)");
+        auto insertTrackQueryText = QStringLiteral("INSERT INTO `Tracks` (`ID`, `Title`, `AlbumID`, `Genre`, `Composer`, `Lyricist`, `Comment`, `TrackNumber`, `DiscNumber`, `Channels`, `BitRate`, `SampleRate`, `Year`,  `Duration`, `Rating` ) "
+                                                   "VALUES (:trackId, :title, :album, :genre, :composer, :lyricist, :comment, :trackNumber, :discNumber, :channels, :bitRate, :sampleRate, :year, :trackDuration, :trackRating)");
 
         result = d->mInsertTrackQuery.prepare(insertTrackQueryText);
 
@@ -1980,7 +2036,15 @@ void DatabaseInterface::initRequest()
                                                               "album.`Title`, "
                                                               "tracks.`Rating`, "
                                                               "album.`CoverFileName`, "
-                                                              "album.`IsSingleDiscAlbum` "
+                                                              "album.`IsSingleDiscAlbum`, "
+                                                              "tracks.`Genre`, "
+                                                              "tracks.`Composer`, "
+                                                              "tracks.`Lyricist`, "
+                                                              "tracks.`Comment`, "
+                                                              "tracks.`Year`, "
+                                                              "tracks.`Channels`, "
+                                                              "tracks.`BitRate`, "
+                                                              "tracks.`SampleRate` "
                                                               "FROM `Tracks` tracks, `Albums` album, `Artists` artist, `TracksArtists` trackArtist, "
                                                               "`TracksMapping` tracksMapping "
                                                               "LEFT JOIN `AlbumsArtists` artistAlbumMapping ON artistAlbumMapping.`AlbumID` = album.`ID` "
@@ -2052,7 +2116,15 @@ void DatabaseInterface::initRequest()
                                                                "album.`Title`, "
                                                                "tracks.`Rating`, "
                                                                "album.`CoverFileName`, "
-                                                               "album.`IsSingleDiscAlbum` "
+                                                               "album.`IsSingleDiscAlbum`, "
+                                                               "tracks.`Genre`, "
+                                                               "tracks.`Composer`, "
+                                                               "tracks.`Lyricist`, "
+                                                               "tracks.`Comment`, "
+                                                               "tracks.`Year`, "
+                                                               "tracks.`Channels`, "
+                                                               "tracks.`BitRate`, "
+                                                               "tracks.`SampleRate` "
                                                                "FROM `Tracks` tracks, `Artists` artist, `Albums` album, `TracksArtists` trackArtist, "
                                                                "`TracksMapping` tracksMapping "
                                                                "LEFT JOIN `AlbumsArtists` artistAlbumMapping ON artistAlbumMapping.`AlbumID` = album.`ID` "
@@ -2570,6 +2642,15 @@ qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrac
         isSameTrack = isSameTrack && (oldTrack.duration() == oneTrack.duration());
         isSameTrack = isSameTrack && (oldTrack.rating() == oneTrack.rating());
         isSameTrack = isSameTrack && (oldTrack.resourceURI() == oneTrack.resourceURI());
+        isSameTrack = isSameTrack && (oldTrack.genre() == oneTrack.genre());
+        isSameTrack = isSameTrack && (oldTrack.composer() == oneTrack.composer());
+        isSameTrack = isSameTrack && (oldTrack.lyricist() == oneTrack.lyricist());
+        isSameTrack = isSameTrack && (oldTrack.comment() == oneTrack.comment());
+        isSameTrack = isSameTrack && (oldTrack.year() == oneTrack.year());
+        isSameTrack = isSameTrack && (oldTrack.channels() == oneTrack.channels());
+        isSameTrack = isSameTrack && (oldTrack.bitRate() == oneTrack.bitRate());
+        isSameTrack = isSameTrack && (oldTrack.sampleRate() == oneTrack.sampleRate());
+
 
         oldAlbumId = internalAlbumIdFromTitleAndArtist(oldTrack.albumName(), oldTrack.albumArtist());
 
@@ -2590,6 +2671,14 @@ qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrac
         d->mInsertTrackQuery.bindValue(QStringLiteral(":discNumber"), oneTrack.discNumber());
         d->mInsertTrackQuery.bindValue(QStringLiteral(":trackDuration"), QVariant::fromValue<qlonglong>(oneTrack.duration().msecsSinceStartOfDay()));
         d->mInsertTrackQuery.bindValue(QStringLiteral(":trackRating"), oneTrack.rating());
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":genre"), oneTrack.genre());
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":composer"), oneTrack.composer());
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":lyricist"), oneTrack.lyricist());
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":comment"), oneTrack.comment());
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":year"), oneTrack.year());
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":channels"), oneTrack.channels());
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":bitRate"), oneTrack.bitRate());
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":sampleRate"), oneTrack.sampleRate());
 
         auto result = d->mInsertTrackQuery.exec();
 
@@ -2675,6 +2764,15 @@ MusicAudioTrack DatabaseInterface::buildTrackFromDatabaseRecord(const QSqlRecord
     result.setRating(trackRecord.value(10).toInt());
     result.setAlbumCover(trackRecord.value(11).toUrl());
     result.setIsSingleDiscAlbum(trackRecord.value(12).toBool());
+    result.setGenre(trackRecord.value(13).toString());
+    result.setComposer(trackRecord.value(14).toString());
+    result.setLyricist(trackRecord.value(15).toString());
+    result.setComment(trackRecord.value(16).toString());
+    result.setYear(trackRecord.value(17).toInt());
+    result.setChannels(trackRecord.value(18).toInt());
+    result.setBitRate(trackRecord.value(19).toInt());
+    result.setSampleRate(trackRecord.value(20).toInt());
+
     result.setValid(true);
 
     return result;

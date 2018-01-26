@@ -14,6 +14,6 @@ your own playlist.
 ## Contributions
 
 Contributions are very much welcome. Elisa is following a design by KDE VDG team
-(https://community.kde.org/KDE\_Visual\_Design\_Group/Musici\_Player).
+(https://community.kde.org/KDE_Visual_Design_Group/Music_Player).
 Please use Phabricator instance from KDE to contribute.
 

@@ -351,6 +351,8 @@ void MusicListenersManager::computeImportedTracksCount()
     } else {
         d->mImportedTracksCount = 0;
     }
+#else
+    d->mImportedTracksCount = 0;
 #endif
 
     for (const auto &itFileListener : d->mFileListener) {

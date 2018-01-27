@@ -127,15 +127,17 @@ private Q_SLOTS:
 
         myListing.refreshContent();
 
-        QCOMPARE(tracksListSpy.count(), 1);
+        QCOMPARE(tracksListSpy.count(), 2);
         QCOMPARE(removedTracksListSpy.count(), 0);
         QCOMPARE(rootPathChangedSpy.count(), 1);
 
-        auto newTracksSignal = tracksListSpy.at(0);
-        auto newTracks = newTracksSignal.at(0).value<QList<MusicAudioTrack>>();
-        auto newCovers = newTracksSignal.at(1).value<QHash<QString, QUrl>>();
+        auto firstNewTracksSignal = tracksListSpy.at(0);
+        auto firstNewTracks = firstNewTracksSignal.at(0).value<QList<MusicAudioTrack>>();
+        auto secondNewTracksSignal = tracksListSpy.at(1);
+        auto secondNewTracks = secondNewTracksSignal.at(0).value<QList<MusicAudioTrack>>();
+        auto newCovers = secondNewTracksSignal.at(1).value<QHash<QString, QUrl>>();
 
-        QCOMPARE(newTracks.count(), 3);
+        QCOMPARE(firstNewTracks.count() + secondNewTracks.count(), 3);
         QCOMPARE(newCovers.count(), 3);
     }
 

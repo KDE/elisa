@@ -138,12 +138,6 @@ ApplicationWindow {
         }
     }
 
-    MusicListenersManager {
-        id: allListeners
-
-        elisaApplication: elisa
-    }
-
     AudioWrapper {
         id: audioPlayer
 
@@ -261,81 +255,6 @@ ApplicationWindow {
 
         playListModel: playListModelItem
         currentTrack: playListModelItem.currentTrack
-    }
-
-    AllAlbumsModel {
-        id: allAlbumsModel
-
-        allArtists: allArtistsModel
-    }
-
-    AllArtistsModel {
-        id: allArtistsModel
-
-        allAlbums: allAlbumsModel
-    }
-
-    AllTracksModel {
-        id: allTracksModel
-    }
-
-    Connections {
-        target: allListeners
-
-        onAlbumAdded: {
-            busyScanningMusic.running = false
-            allAlbumsModel.albumAdded(newAlbum)
-        }
-    }
-
-    Connections {
-        target: allListeners
-
-        onAlbumRemoved: {
-            allAlbumsModel.albumRemoved(removedAlbum)
-        }
-    }
-
-    Connections {
-        target: allListeners
-
-        onAlbumModified: allAlbumsModel.albumModified(modifiedAlbum)
-    }
-
-    Connections {
-        target: allListeners
-
-        onTracksAdded: allTracksModel.tracksAdded(allTracks)
-    }
-
-    Connections {
-        target: allListeners
-
-        onTrackRemoved: allTracksModel.trackRemoved(id)
-    }
-
-    Connections {
-        target: allListeners
-
-        onTrackModified: allTracksModel.trackModified(modifiedTrack)
-    }
-
-    Connections {
-        target: allListeners
-
-        onArtistAdded: allArtistsModel.artistAdded(newArtist)
-    }
-
-    Connections {
-        target: allListeners
-
-        onArtistRemoved: allArtistsModel.artistRemoved(removedArtist)
-    }
-
-    Connections {
-        target: allListeners
-
-        onArtistModified: allArtistsModel.artistModified(modifiedArtist)
     }
 
     Menu {
@@ -583,7 +502,7 @@ ApplicationWindow {
 
                                         z: 2
 
-                                        running: true
+                                        running: allListeners.indexerBusy
                                     }
 
                                     MediaBrowser {
@@ -606,7 +525,7 @@ ApplicationWindow {
                                             isFirstPage: true
 
                                             model: AlbumFilterProxyModel {
-                                                sourceModel: allAlbumsModel
+                                                sourceModel: allListeners.allAlbumsModel
                                             }
 
                                             mainTitle: i18nc("Title of the view of all albums", "Albums")
@@ -652,7 +571,7 @@ ApplicationWindow {
                                             delegateDisplaySecondaryText: false
 
                                             model: AlbumFilterProxyModel {
-                                                sourceModel: allArtistsModel
+                                                sourceModel: allListeners.allArtistsModel
                                             }
 
                                             mainTitle: i18nc("Title of the view of all artists", "Artists")
@@ -694,7 +613,7 @@ ApplicationWindow {
 
                                             stackView: localTracks.stackView
                                             model: AlbumFilterProxyModel {
-                                                sourceModel: allTracksModel
+                                                sourceModel: allListeners.allTracksModel
                                             }
 
                                             onEnqueue: playListModelItem.enqueue(data)
@@ -1067,7 +986,7 @@ ApplicationWindow {
                     }
                 }
 
-                allArtistsView.open(allArtistsModel.itemModelForName(name), name, '', elisaTheme.defaultArtistImage, '')
+                allArtistsView.open(allListeners.allArtistsModel.itemModelForName(name), name, '', elisaTheme.defaultArtistImage, '')
             }
             onGoBack: stackView.pop()
 

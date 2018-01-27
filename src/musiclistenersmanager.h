@@ -37,6 +37,7 @@ class DatabaseInterface;
 class MediaPlayList;
 class NotificationItem;
 class ElisaApplication;
+class QAbstractItemModel;
 
 class MusicListenersManager : public QObject
 {
@@ -60,6 +61,22 @@ class MusicListenersManager : public QObject
                WRITE setElisaApplication
                NOTIFY elisaApplicationChanged)
 
+    Q_PROPERTY(QAbstractItemModel* allAlbumsModel
+               READ allAlbumsModel
+               NOTIFY allAlbumsModelChanged)
+
+    Q_PROPERTY(QAbstractItemModel* allArtistsModel
+               READ allArtistsModel
+               NOTIFY allArtistsModelChanged)
+
+    Q_PROPERTY(QAbstractItemModel* allTracksModel
+               READ allTracksModel
+               NOTIFY allTracksModelChanged)
+
+    Q_PROPERTY(bool indexerBusy
+               READ indexerBusy
+               NOTIFY indexerBusyChanged)
+
 public:
 
     explicit MusicListenersManager(QObject *parent = nullptr);
@@ -75,6 +92,14 @@ public:
     bool isIndexingRunning() const;
 
     ElisaApplication* elisaApplication() const;
+
+    QAbstractItemModel *allAlbumsModel() const;
+
+    QAbstractItemModel *allArtistsModel() const;
+
+    QAbstractItemModel *allTracksModel() const;
+
+    bool indexerBusy() const;
 
 Q_SIGNALS:
 
@@ -116,6 +141,14 @@ Q_SIGNALS:
 
     void displayTrackError(const QString &fileName);
 
+    void allAlbumsModelChanged();
+
+    void allArtistsModelChanged();
+
+    void allTracksModelChanged();
+
+    void indexerBusyChanged();
+
 public Q_SLOTS:
 
     void databaseReady();
@@ -138,7 +171,7 @@ private Q_SLOTS:
 
     void monitorStartingListeners();
 
-    void monitorEndingListeners();
+    void monitorEndingListeners(int tracksCount);
 
 private:
 

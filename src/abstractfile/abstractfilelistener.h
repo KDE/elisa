@@ -65,7 +65,7 @@ Q_SIGNALS:
 
     void indexingStarted();
 
-    void indexingFinished();
+    void indexingFinished(int tracksCount);
 
     void configurationChanged();
 

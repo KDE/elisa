@@ -332,6 +332,11 @@ void AllTracksModel::trackRemoved(qulonglong removedTrackId)
 
 void AllTracksModel::trackModified(const MusicAudioTrack &modifiedTrack)
 {
+    auto trackExists = (d->mAllTracks.find(modifiedTrack.databaseId()) != d->mAllTracks.end());
+    if (!trackExists) {
+        return;
+    }
+
     auto itTrack = std::find(d->mIds.begin(), d->mIds.end(), modifiedTrack.databaseId());
     if (itTrack == d->mIds.end()) {
         return;

@@ -37,6 +37,9 @@
 #include "notificationitem.h"
 #include "elisaapplication.h"
 #include "elisa_settings.h"
+#include "allalbumsmodel.h"
+#include "allartistsmodel.h"
+#include "alltracksmodel.h"
 
 #include <KI18n/KLocalizedString>
 
@@ -78,11 +81,21 @@ public:
 
     int mImportedTracksCount = 0;
 
+    int mTotalImportedTracksCount = 0;
+
     int mActiveMusicListenersCount = 0;
 
     bool mIndexingRunning = false;
 
     ElisaApplication *mElisaApplication = nullptr;
+
+    AllAlbumsModel mAllAlbumsModel;
+
+    AllArtistsModel mAllArtistsModel;
+
+    AllTracksModel mAllTracksModel;
+
+    bool mIndexerBusy = false;
 
 };
 
@@ -149,6 +162,30 @@ MusicListenersManager::MusicListenersManager(QObject *parent)
     }
 
     d->mConfigFileWatcher.addPath(Elisa::ElisaConfiguration::self()->config()->name());
+
+    d->mAllAlbumsModel.setAllArtists(&d->mAllArtistsModel);
+    d->mAllArtistsModel.setAllAlbums(&d->mAllAlbumsModel);
+
+    connect(&d->mDatabaseInterface, &DatabaseInterface::albumAdded,
+            &d->mAllAlbumsModel, &AllAlbumsModel::albumAdded);
+    connect(&d->mDatabaseInterface, &DatabaseInterface::albumModified,
+            &d->mAllAlbumsModel, &AllAlbumsModel::albumModified);
+    connect(&d->mDatabaseInterface, &DatabaseInterface::albumRemoved,
+            &d->mAllAlbumsModel, &AllAlbumsModel::albumRemoved);
+
+    connect(&d->mDatabaseInterface, &DatabaseInterface::artistAdded,
+            &d->mAllArtistsModel, &AllArtistsModel::artistAdded);
+    connect(&d->mDatabaseInterface, &DatabaseInterface::artistModified,
+            &d->mAllArtistsModel, &AllArtistsModel::artistModified);
+    connect(&d->mDatabaseInterface, &DatabaseInterface::artistRemoved,
+            &d->mAllArtistsModel, &AllArtistsModel::artistRemoved);
+
+    connect(&d->mDatabaseInterface, &DatabaseInterface::tracksAdded,
+            &d->mAllTracksModel, &AllTracksModel::tracksAdded);
+    connect(&d->mDatabaseInterface, &DatabaseInterface::trackModified,
+            &d->mAllTracksModel, &AllTracksModel::trackModified);
+    connect(&d->mDatabaseInterface, &DatabaseInterface::trackRemoved,
+            &d->mAllTracksModel, &AllTracksModel::trackRemoved);
 }
 
 MusicListenersManager::~MusicListenersManager()
@@ -193,8 +230,31 @@ ElisaApplication *MusicListenersManager::elisaApplication() const
     return d->mElisaApplication;
 }
 
+QAbstractItemModel *MusicListenersManager::allAlbumsModel() const
+{
+    return &d->mAllAlbumsModel;
+}
+
+QAbstractItemModel *MusicListenersManager::allArtistsModel() const
+{
+    return &d->mAllArtistsModel;
+}
+
+QAbstractItemModel *MusicListenersManager::allTracksModel() const
+{
+    return &d->mAllTracksModel;
+}
+
+bool MusicListenersManager::indexerBusy() const
+{
+    return d->mIndexerBusy;
+}
+
 void MusicListenersManager::databaseReady()
 {
+    d->mIndexerBusy = true;
+    Q_EMIT indexerBusyChanged();
+
     configChanged();
 }
 
@@ -359,6 +419,11 @@ void MusicListenersManager::computeImportedTracksCount()
         d->mImportedTracksCount += itFileListener->importedTracksCount();
     }
 
+    if (d->mImportedTracksCount && d->mIndexerBusy) {
+        d->mIndexerBusy = false;
+        Q_EMIT indexerBusyChanged();
+    }
+
     if (d->mImportedTracksCount >= 4) {
         Q_EMIT closeNotification(QStringLiteral("notEnoughTracks"));
     }
@@ -376,12 +441,14 @@ void MusicListenersManager::monitorStartingListeners()
     ++d->mActiveMusicListenersCount;
 }
 
-void MusicListenersManager::monitorEndingListeners()
+void MusicListenersManager::monitorEndingListeners(int tracksCount)
 {
     --d->mActiveMusicListenersCount;
 
+    d->mTotalImportedTracksCount += tracksCount;
+
     if (d->mActiveMusicListenersCount == 0) {
-        if (d->mImportedTracksCount < 4 && d->mElisaApplication) {
+        if (d->mTotalImportedTracksCount < 4 && d->mElisaApplication) {
             NotificationItem notEnoughTracks;
 
             notEnoughTracks.setNotificationId(QStringLiteral("notEnoughTracks"));

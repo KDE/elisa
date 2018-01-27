@@ -230,6 +230,9 @@ int main(int argc, char *argv[])
     Elisa::ElisaConfiguration::self()->load();
     Elisa::ElisaConfiguration::self()->save();
 
+    MusicListenersManager myMusicManager;
+    myMusicManager.setElisaApplication(&myApp);
+
     QQmlApplicationEngine engine;
     engine.addImportPath(QStringLiteral("qrc:/imports"));
     QQmlFileSelector selector(&engine);
@@ -242,6 +245,7 @@ int main(int argc, char *argv[])
 
     engine.rootContext()->setContextObject(new KLocalizedContext(&engine));
     engine.rootContext()->setContextProperty(QStringLiteral("elisa"), &myApp);
+    engine.rootContext()->setContextProperty(QStringLiteral("allListeners"), &myMusicManager);
 
     engine.load(QUrl(QStringLiteral("qrc:/qml/ElisaMainWindow.qml")));
 

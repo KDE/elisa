@@ -197,6 +197,10 @@ private:
 
     void internalRemoveTracksWithoutMapping();
 
+    QUrl internalAlbumArtUriFromAlbumId(qulonglong albumId);
+
+    bool isValidArtist(qulonglong albumId);
+
     std::unique_ptr<DatabaseInterfacePrivate> d;
 
 };

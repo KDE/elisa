@@ -38,9 +38,9 @@ public:
     {
     }
 
-    QVector<MusicAlbum> mAllAlbums;
+    QVector<qulonglong> mAllAlbums;
 
-    int mAlbumCount = 0;
+    QHash<qulonglong, MusicAlbum> mAlbumsData;
 
     AllArtistsModel *mAllArtistsModel = nullptr;
 
@@ -55,7 +55,7 @@ AllAlbumsModel::~AllAlbumsModel()
 
 int AllAlbumsModel::albumCount() const
 {
-    return d->mAlbumCount;
+    return d->mAllAlbums.size();
 }
 
 int AllAlbumsModel::rowCount(const QModelIndex &parent) const
@@ -66,7 +66,7 @@ int AllAlbumsModel::rowCount(const QModelIndex &parent) const
         return albumCount;
     }
 
-    albumCount = d->mAlbumCount;
+    albumCount = d->mAllAlbums.size();
 
     return albumCount;
 }
@@ -107,7 +107,7 @@ QVariant AllAlbumsModel::data(const QModelIndex &index, int role) const
 {
     auto result = QVariant();
 
-    const auto albumCount = d->mAlbumCount;
+    const auto albumCount = d->mAllAlbums.size();
 
     if (!index.isValid()) {
         return result;
@@ -144,52 +144,52 @@ QVariant AllAlbumsModel::internalDataAlbum(int albumIndex, int role) const
     switch(role)
     {
     case ColumnsRoles::TitleRole:
-        result = d->mAllAlbums[albumIndex].title();
+        result = d->mAlbumsData[d->mAllAlbums[albumIndex]].title();
         break;
     case ColumnsRoles::AllTracksTitleRole:
-        result = d->mAllAlbums[albumIndex].allTracksTitle();
+        result = d->mAlbumsData[d->mAllAlbums[albumIndex]].allTracksTitle();
         break;
     case ColumnsRoles::ArtistRole:
-        result = d->mAllAlbums[albumIndex].artist();
+        result = d->mAlbumsData[d->mAllAlbums[albumIndex]].artist();
         break;
     case ColumnsRoles::AllArtistsRole:
-        result = d->mAllAlbums[albumIndex].allArtists().join(QStringLiteral(", "));
+        result = d->mAlbumsData[d->mAllAlbums[albumIndex]].allArtists().join(QStringLiteral(", "));
         break;
     case ColumnsRoles::ImageRole:
     {
-        auto albumArt = d->mAllAlbums[albumIndex].albumArtURI();
+        auto albumArt = d->mAlbumsData[d->mAllAlbums[albumIndex]].albumArtURI();
         if (albumArt.isValid()) {
             result = albumArt;
         }
         break;
     }
     case ColumnsRoles::CountRole:
-        result = d->mAllAlbums[albumIndex].tracksCount();
+        result = d->mAlbumsData[d->mAllAlbums[albumIndex]].tracksCount();
         break;
     case ColumnsRoles::IdRole:
-        result = d->mAllAlbums[albumIndex].id();
+        result = d->mAlbumsData[d->mAllAlbums[albumIndex]].id();
         break;
     case ColumnsRoles::IsSingleDiscAlbumRole:
-        result = d->mAllAlbums[albumIndex].isSingleDiscAlbum();
+        result = d->mAlbumsData[d->mAllAlbums[albumIndex]].isSingleDiscAlbum();
         break;
     case ColumnsRoles::ContainerDataRole:
-        result = QVariant::fromValue(d->mAllAlbums[albumIndex]);
+        result = QVariant::fromValue(d->mAlbumsData[d->mAllAlbums[albumIndex]]);
         break;
     case ColumnsRoles::AlbumDatabaseIdRole:
-        result = QVariant::fromValue(d->mAllAlbums[albumIndex].databaseId());
+        result = QVariant::fromValue(d->mAlbumsData[d->mAllAlbums[albumIndex]].databaseId());
         break;
     case ColumnsRoles::HighestTrackRating:
-        result = d->mAllAlbums[albumIndex].highestTrackRating();
+        result = d->mAlbumsData[d->mAllAlbums[albumIndex]].highestTrackRating();
         break;
     case Qt::DisplayRole:
-        result = d->mAllAlbums[albumIndex].title();
+        result = d->mAlbumsData[d->mAllAlbums[albumIndex]].title();
         break;
     case ColumnsRoles::SecondaryTextRole:
-        result = d->mAllAlbums[albumIndex].artist();
+        result = d->mAlbumsData[d->mAllAlbums[albumIndex]].artist();
         break;
     case ColumnsRoles::ImageUrlRole:
     {
-        auto albumArt = d->mAllAlbums[albumIndex].albumArtURI();
+        auto albumArt = d->mAlbumsData[d->mAllAlbums[albumIndex]].albumArtURI();
         if (albumArt.isValid()) {
             result = albumArt;
         } else {
@@ -198,12 +198,12 @@ QVariant AllAlbumsModel::internalDataAlbum(int albumIndex, int role) const
         break;
     }
     case ColumnsRoles::ShadowForImageRole:
-        result = d->mAllAlbums[albumIndex].albumArtURI().isValid();
+        result = d->mAlbumsData[d->mAllAlbums[albumIndex]].albumArtURI().isValid();
         break;
     case ColumnsRoles::ChildModelRole:
     {
         auto newModel = new AlbumModel();
-        newModel->setAlbumData(d->mAllAlbums[albumIndex]);
+        newModel->setAlbumData(d->mAlbumsData[d->mAllAlbums[albumIndex]]);
         result = QVariant::fromValue(newModel);
         break;
     }
@@ -257,8 +257,8 @@ void AllAlbumsModel::albumAdded(const MusicAlbum &newAlbum)
 {
     if (newAlbum.isValid()) {
         beginInsertRows({}, d->mAllAlbums.size(), d->mAllAlbums.size());
-        d->mAllAlbums.push_back(newAlbum);
-        ++d->mAlbumCount;
+        d->mAllAlbums.push_back(newAlbum.databaseId());
+        d->mAlbumsData[newAlbum.databaseId()] = newAlbum;
         endInsertRows();
 
         Q_EMIT albumCountChanged();
@@ -267,7 +267,7 @@ void AllAlbumsModel::albumAdded(const MusicAlbum &newAlbum)
 
 void AllAlbumsModel::albumRemoved(const MusicAlbum &removedAlbum)
 {
-    auto removedAlbumIterator = std::find(d->mAllAlbums.begin(), d->mAllAlbums.end(), removedAlbum);
+    auto removedAlbumIterator = std::find(d->mAllAlbums.begin(), d->mAllAlbums.end(), removedAlbum.databaseId());
 
     if (removedAlbumIterator == d->mAllAlbums.end()) {
         return;
@@ -276,8 +276,8 @@ void AllAlbumsModel::albumRemoved(const MusicAlbum &removedAlbum)
     int albumIndex = removedAlbumIterator - d->mAllAlbums.begin();
 
     beginRemoveRows({}, albumIndex, albumIndex);
+    d->mAlbumsData.remove(removedAlbum.databaseId());
     d->mAllAlbums.erase(removedAlbumIterator);
-    --d->mAlbumCount;
     endRemoveRows();
 
     Q_EMIT albumCountChanged();
@@ -285,14 +285,14 @@ void AllAlbumsModel::albumRemoved(const MusicAlbum &removedAlbum)
 
 void AllAlbumsModel::albumModified(const MusicAlbum &modifiedAlbum)
 {
-    auto modifiedAlbumIterator = std::find(d->mAllAlbums.begin(), d->mAllAlbums.end(), modifiedAlbum);
+    auto modifiedAlbumIterator = std::find(d->mAllAlbums.begin(), d->mAllAlbums.end(), modifiedAlbum.databaseId());
 
     if (modifiedAlbumIterator == d->mAllAlbums.end()) {
         return;
     }
 
     int albumIndex = modifiedAlbumIterator - d->mAllAlbums.begin();
-    d->mAllAlbums[albumIndex] = modifiedAlbum;
+    d->mAlbumsData[modifiedAlbum.databaseId()] = modifiedAlbum;
 
     Q_EMIT dataChanged(index(albumIndex, 0), index(albumIndex, 0));
 }

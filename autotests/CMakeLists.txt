@@ -27,6 +27,10 @@ set(managemediaplayercontrolTest_SOURCES
     ../src/databaseinterface.cpp
     ../src/musiclistenersmanager.cpp
     ../src/elisaapplication.cpp
+    ../src/allalbumsmodel.cpp
+    ../src/allartistsmodel.cpp
+    ../src/alltracksmodel.cpp
+    ../src/albummodel.cpp
     ../src/notificationitem.cpp
     ../src/trackslistener.cpp
     ../src/musicartist.cpp
@@ -104,6 +108,10 @@ set(manageheaderbarTest_SOURCES
     ../src/databaseinterface.cpp
     ../src/musiclistenersmanager.cpp
     ../src/elisaapplication.cpp
+    ../src/allalbumsmodel.cpp
+    ../src/allartistsmodel.cpp
+    ../src/alltracksmodel.cpp
+    ../src/albummodel.cpp
     ../src/notificationitem.cpp
     ../src/trackslistener.cpp
     ../src/trackslistener.cpp
@@ -192,6 +200,10 @@ set(mediaplaylistTest_SOURCES
     ../src/databaseinterface.cpp
     ../src/trackslistener.cpp
     ../src/musiclistenersmanager.cpp
+    ../src/allalbumsmodel.cpp
+    ../src/allartistsmodel.cpp
+    ../src/alltracksmodel.cpp
+    ../src/albummodel.cpp
     ../src/elisaapplication.cpp
     ../src/notificationitem.cpp
     ../src/musicartist.cpp
@@ -270,6 +282,10 @@ set(trackslistenertest_SOURCES
     ../src/trackslistener.cpp
     ../src/musiclistenersmanager.cpp
     ../src/elisaapplication.cpp
+    ../src/allalbumsmodel.cpp
+    ../src/allartistsmodel.cpp
+    ../src/alltracksmodel.cpp
+    ../src/albummodel.cpp
     ../src/notificationitem.cpp
     ../src/musicartist.cpp
     ../src/musicalbum.cpp

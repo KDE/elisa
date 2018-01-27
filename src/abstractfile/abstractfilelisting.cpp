@@ -38,7 +38,7 @@
 #include <QSet>
 #include <QPair>
 #include <QAtomicInt>
-#include <QDebug>
+
 #include <QtGlobal>
 
 #include <algorithm>
@@ -69,6 +69,10 @@ public:
     QMimeDatabase mMimeDb;
 
     int mImportedTracksCount = 0;
+
+    int mNotificationUpdateInterval = 1;
+
+    int mNewFilesEmitInterval = 1;
 
 };
 
@@ -198,11 +202,13 @@ void AbstractFileListing::scanDirectory(QList<MusicAudioTrack> &newFiles, const 
             newFiles.push_back(newTrack);
 
             ++d->mImportedTracksCount;
-            if (d->mImportedTracksCount % 50 == 0) {
+            if (d->mImportedTracksCount % d->mNotificationUpdateInterval == 0) {
+                d->mNotificationUpdateInterval = std::min(50, 1 + d->mNotificationUpdateInterval * 2);
                 Q_EMIT importedTracksCountChanged();
             }
 
-            if (newFiles.size() > 500 && d->mStopRequest == 0) {
+            if (newFiles.size() > d->mNewFilesEmitInterval && d->mStopRequest == 0) {
+                d->mNewFilesEmitInterval = std::min(50, 1 + d->mNewFilesEmitInterval * d->mNewFilesEmitInterval);
                 Q_EMIT importedTracksCountChanged();
                 emitNewFiles(newFiles);
                 newFiles.clear();
@@ -237,7 +243,7 @@ void AbstractFileListing::directoryChanged(const QString &path)
 
     scanDirectoryTree(path);
 
-    Q_EMIT indexingFinished();
+    Q_EMIT indexingFinished(d->mImportedTracksCount);
 }
 
 void AbstractFileListing::fileChanged(const QString &modifiedFileName)
@@ -331,7 +337,6 @@ void AbstractFileListing::setHandleNewFiles(bool handleThem)
 
 void AbstractFileListing::emitNewFiles(const QList<MusicAudioTrack> &tracks)
 {
-    qDebug() << "AbstractFileListing::emitNewFiles" << tracks.size();
     Q_EMIT tracksList(tracks, d->mAllAlbumCover, d->mSourceName);
 }
 

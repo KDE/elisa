@@ -38,10 +38,6 @@ public:
 
     QVector<MusicArtist> mAllArtists;
 
-    int mArtistsCount = 0;
-
-    bool mUseLocalIcons = false;
-
     AllAlbumsModel *mAllAlbumsModel = nullptr;
 
 };
@@ -61,7 +57,7 @@ int AllArtistsModel::rowCount(const QModelIndex &parent) const
         return artistCount;
     }
 
-    artistCount = d->mArtistsCount;
+    artistCount = d->mAllArtists.size();
 
     return artistCount;
 }
@@ -97,7 +93,7 @@ QVariant AllArtistsModel::data(const QModelIndex &index, int role) const
 {
     auto result = QVariant();
 
-    const auto artistsCount = d->mArtistsCount;
+    const auto artistsCount = d->mAllArtists.size();
 
     if (!index.isValid()) {
         return result;
@@ -222,7 +218,6 @@ void AllArtistsModel::artistAdded(const MusicArtist &newArtist)
     if (newArtist.isValid()) {
         beginInsertRows({}, d->mAllArtists.size(), d->mAllArtists.size());
         d->mAllArtists.push_back(newArtist);
-        ++d->mArtistsCount;
         endInsertRows();
     }
 }
@@ -239,7 +234,6 @@ void AllArtistsModel::artistRemoved(const MusicArtist &removedArtist)
 
     beginRemoveRows({}, artistIndex, artistIndex);
     d->mAllArtists.erase(removedArtistIterator);
-    --d->mArtistsCount;
     endRemoveRows();
 }
 

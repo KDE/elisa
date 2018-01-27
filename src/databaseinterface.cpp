@@ -63,7 +63,7 @@ public:
           mSelectAlbumIdFromTitleAndArtistQuery(mTracksDatabase), mSelectAlbumIdFromTitleWithoutArtistQuery(mTracksDatabase),
           mInsertAlbumArtistQuery(mTracksDatabase), mInsertTrackArtistQuery(mTracksDatabase),
           mRemoveTrackArtistQuery(mTracksDatabase), mRemoveAlbumArtistQuery(mTracksDatabase),
-          mSelectTrackIdFromTitleAlbumTrackDiscNumberQuery(mTracksDatabase)
+          mSelectTrackIdFromTitleAlbumTrackDiscNumberQuery(mTracksDatabase), mSelectAlbumArtUriFromAlbumIdQuery(mTracksDatabase)
     {
     }
 
@@ -164,6 +164,8 @@ public:
     QSqlQuery mRemoveAlbumArtistQuery;
 
     QSqlQuery mSelectTrackIdFromTitleAlbumTrackDiscNumberQuery;
+
+    QSqlQuery mSelectAlbumArtUriFromAlbumIdQuery;
 
     qulonglong mAlbumId = 1;
 
@@ -1968,6 +1970,21 @@ void DatabaseInterface::initRequest()
     }
 
     {
+        auto selectAlbumArtUriFromAlbumIdQueryText = QStringLiteral("SELECT `CoverFileName`"
+                                                                    "FROM "
+                                                                    "`Albums` "
+                                                                    "WHERE "
+                                                                    "`ID` = :albumId");
+
+        auto result = d->mSelectAlbumArtUriFromAlbumIdQuery.prepare(selectAlbumArtUriFromAlbumIdQueryText);
+
+        if (!result) {
+            qDebug() << "DatabaseInterface::initRequest" << d->mSelectAlbumArtUriFromAlbumIdQuery.lastQuery();
+            qDebug() << "DatabaseInterface::initRequest" << d->mSelectAlbumArtUriFromAlbumIdQuery.lastError();
+        }
+    }
+
+    {
         auto selectAlbumTrackCountQueryText = QStringLiteral("SELECT `TracksCount` "
                                                              "FROM `Albums`"
                                                              "WHERE "
@@ -2365,9 +2382,9 @@ bool DatabaseInterface::updateAlbumFromId(qulonglong albumId, const QUrl &albumA
         return modifiedAlbum;
     }
 
-    const auto &album = internalAlbumFromId(albumId);
+    auto storedAlbumArtUri = internalAlbumArtUriFromAlbumId(albumId);
 
-    if (!album.albumArtURI().isValid() || album.albumArtURI() == albumArtUri) {
+    if (!storedAlbumArtUri.isValid() || storedAlbumArtUri == albumArtUri) {
         d->mUpdateAlbumArtUriFromAlbumIdQuery.bindValue(QStringLiteral(":albumId"), albumId);
         d->mUpdateAlbumArtUriFromAlbumIdQuery.bindValue(QStringLiteral(":coverFileName"), albumArtUri);
 
@@ -2390,7 +2407,7 @@ bool DatabaseInterface::updateAlbumFromId(qulonglong albumId, const QUrl &albumA
         modifiedAlbum = true;
     }
 
-    if (!album.isValidArtist() && album.canUpdateArtist(currentTrack)) {
+    if (!isValidArtist(albumId) && currentTrack.isValidAlbumArtist()) {
         d->mRemoveAlbumArtistQuery.bindValue(QStringLiteral(":albumId"), albumId);
 
         result = d->mRemoveAlbumArtistQuery.exec();
@@ -2895,6 +2912,72 @@ void DatabaseInterface::internalRemoveTracksWithoutMapping()
             }
         }
     }
+}
+
+QUrl DatabaseInterface::internalAlbumArtUriFromAlbumId(qulonglong albumId)
+{
+    auto result = QUrl();
+
+    d->mSelectAlbumArtUriFromAlbumIdQuery.bindValue(QStringLiteral(":albumId"), albumId);
+
+    auto queryResult = d->mSelectAlbumArtUriFromAlbumIdQuery.exec();
+
+    if (!queryResult || !d->mSelectAlbumArtUriFromAlbumIdQuery.isSelect() || !d->mSelectAlbumArtUriFromAlbumIdQuery.isActive()) {
+        Q_EMIT databaseError();
+
+        qDebug() << "DatabaseInterface::insertArtist" << d->mSelectAlbumArtUriFromAlbumIdQuery.lastQuery();
+        qDebug() << "DatabaseInterface::insertArtist" << d->mSelectAlbumArtUriFromAlbumIdQuery.boundValues();
+        qDebug() << "DatabaseInterface::insertArtist" << d->mSelectAlbumArtUriFromAlbumIdQuery.lastError();
+
+        d->mSelectAlbumArtUriFromAlbumIdQuery.finish();
+
+        return result;
+    }
+
+    if (!d->mSelectAlbumArtUriFromAlbumIdQuery.next()) {
+        d->mSelectAlbumArtUriFromAlbumIdQuery.finish();
+
+        return result;
+    }
+
+    result = d->mSelectAlbumArtUriFromAlbumIdQuery.record().value(0).toUrl();
+
+    d->mSelectAlbumArtUriFromAlbumIdQuery.finish();
+
+    return result;
+}
+
+bool DatabaseInterface::isValidArtist(qulonglong albumId)
+{
+    auto result = false;
+
+    d->mSelectAlbumQuery.bindValue(QStringLiteral(":albumId"), albumId);
+
+    auto queryResult = d->mSelectAlbumQuery.exec();
+
+    if (!queryResult || !d->mSelectAlbumQuery.isSelect() || !d->mSelectAlbumQuery.isActive()) {
+        Q_EMIT databaseError();
+
+        qDebug() << "DatabaseInterface::internalAlbumFromId" << d->mSelectAlbumQuery.lastQuery();
+        qDebug() << "DatabaseInterface::internalAlbumFromId" << d->mSelectAlbumQuery.boundValues();
+        qDebug() << "DatabaseInterface::internalAlbumFromId" << d->mSelectAlbumQuery.lastError();
+
+        d->mSelectAlbumQuery.finish();
+
+        return result;
+    }
+
+    if (!d->mSelectAlbumQuery.next()) {
+        d->mSelectAlbumQuery.finish();
+
+        return result;
+    }
+
+    const auto &currentRecord = d->mSelectAlbumQuery.record();
+
+    result = !currentRecord.value(3).toString().isEmpty();
+
+    return result;
 }
 
 qulonglong DatabaseInterface::internalArtistIdFromName(const QString &name)

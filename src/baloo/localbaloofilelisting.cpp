@@ -278,7 +278,7 @@ void LocalBalooFileListing::triggerRefreshOfContent()
         emitNewFiles(newFiles);
     }
 
-    Q_EMIT indexingFinished();
+    Q_EMIT indexingFinished(importedTracksCount());
 }
 
 MusicAudioTrack LocalBalooFileListing::scanOneFile(const QUrl &scanFile)

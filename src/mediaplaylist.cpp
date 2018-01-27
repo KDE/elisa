@@ -658,7 +658,7 @@ void MediaPlayList::clearPlayList()
         return;
     }
 
-    beginRemoveRows({}, 0, d->mData.count());
+    beginRemoveRows({}, 0, d->mData.count() - 1);
     d->mData.clear();
     d->mTrackData.clear();
     endRemoveRows();

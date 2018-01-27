@@ -21,6 +21,7 @@
 #include "musicaudiotrack.h"
 #include "databaseinterface.h"
 #include "albummodel.h"
+#include "modeltest.h"
 
 #include <QObject>
 #include <QUrl>
@@ -141,6 +142,7 @@ private Q_SLOTS:
     {
         DatabaseInterface musicDb;
         AlbumModel albumsModel;
+        ModelTest testModel(&albumsModel);
 
         connect(&musicDb, &DatabaseInterface::albumModified,
                 &albumsModel, &AlbumModel::albumModified);
@@ -192,6 +194,7 @@ private Q_SLOTS:
     {
         DatabaseInterface musicDb;
         AlbumModel albumsModel;
+        ModelTest testModel(&albumsModel);
 
         connect(&musicDb, &DatabaseInterface::albumModified,
                 &albumsModel, &AlbumModel::albumModified);
@@ -254,6 +257,7 @@ private Q_SLOTS:
     {
         DatabaseInterface musicDb;
         AlbumModel albumsModel;
+        ModelTest testModel(&albumsModel);
 
         connect(&musicDb, &DatabaseInterface::albumModified,
                 &albumsModel, &AlbumModel::albumModified);
@@ -347,6 +351,7 @@ private Q_SLOTS:
     {
         DatabaseInterface musicDb;
         AlbumModel albumsModel;
+        ModelTest testModel(&albumsModel);
 
         connect(&musicDb, &DatabaseInterface::albumModified,
                 &albumsModel, &AlbumModel::albumModified);

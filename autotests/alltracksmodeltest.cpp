@@ -21,6 +21,7 @@
 #include "musicaudiotrack.h"
 #include "databaseinterface.h"
 #include "alltracksmodel.h"
+#include "modeltest.h"
 
 #include <QObject>
 #include <QUrl>
@@ -141,6 +142,7 @@ private Q_SLOTS:
     {
         DatabaseInterface musicDb;
         AllTracksModel tracksModel;
+        ModelTest testModel(&tracksModel);
 
         connect(&musicDb, &DatabaseInterface::tracksAdded,
                 &tracksModel, &AllTracksModel::tracksAdded);
@@ -193,6 +195,7 @@ private Q_SLOTS:
     {
         DatabaseInterface musicDb;
         AllTracksModel tracksModel;
+        ModelTest testModel(&tracksModel);
 
         connect(&musicDb, &DatabaseInterface::tracksAdded,
                 &tracksModel, &AllTracksModel::tracksAdded);
@@ -253,6 +256,7 @@ private Q_SLOTS:
     {
         DatabaseInterface musicDb;
         AllTracksModel tracksModel;
+        ModelTest testModel(&tracksModel);
 
         connect(&musicDb, &DatabaseInterface::tracksAdded,
                 &tracksModel, &AllTracksModel::tracksAdded);
@@ -306,6 +310,7 @@ private Q_SLOTS:
     {
         DatabaseInterface musicDb;
         AllTracksModel tracksModel;
+        ModelTest testModel(&tracksModel);
 
         connect(&musicDb, &DatabaseInterface::tracksAdded,
                 &tracksModel, &AllTracksModel::tracksAdded);
@@ -373,6 +378,7 @@ private Q_SLOTS:
     void addDuplicateTracks()
     {
         AllTracksModel tracksModel;
+        ModelTest testModel(&tracksModel);
 
         auto newTracks = QList<MusicAudioTrack>();
         newTracks.push_back({true, QStringLiteral("$19"), QStringLiteral("0"), QStringLiteral("track6"),
@@ -409,6 +415,7 @@ private Q_SLOTS:
     {
         DatabaseInterface musicDb;
         AllTracksModel tracksModel;
+        ModelTest testModel(&tracksModel);
 
         connect(&musicDb, &DatabaseInterface::tracksAdded,
                 &tracksModel, &AllTracksModel::tracksAdded);
@@ -471,6 +478,7 @@ private Q_SLOTS:
     void addEmptyTracksList()
     {
         AllTracksModel tracksModel;
+        ModelTest testModel(&tracksModel);
 
         auto newTracks = QList<MusicAudioTrack>();
 

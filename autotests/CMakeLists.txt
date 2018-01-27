@@ -202,6 +202,7 @@ set(mediaplaylistTest_SOURCES
     ../src/file/localfilelisting.cpp
     ../src/abstractfile/abstractfilelistener.cpp
     ../src/abstractfile/abstractfilelisting.cpp
+    modeltest.cpp
     mediaplaylisttest.cpp
 )
 
@@ -346,6 +347,7 @@ set(allalbumsmodeltest_SOURCES
     ../src/musicaudiotrack.cpp
     ../src/allalbumsmodel.cpp
     ../src/albummodel.cpp
+    modeltest.cpp
     allalbumsmodeltest.cpp
 )
 
@@ -361,6 +363,7 @@ set(albummodeltest_SOURCES
     ../src/musicalbum.cpp
     ../src/musicaudiotrack.cpp
     ../src/albummodel.cpp
+    modeltest.cpp
     albummodeltest.cpp
 )
 
@@ -376,6 +379,7 @@ set(allartistsmodeltest_SOURCES
     ../src/musicalbum.cpp
     ../src/musicaudiotrack.cpp
     ../src/allartistsmodel.cpp
+    modeltest.cpp
     allartistsmodeltest.cpp
 )
 
@@ -391,6 +395,7 @@ set(alltracksmodeltest_SOURCES
     ../src/musicalbum.cpp
     ../src/musicaudiotrack.cpp
     ../src/alltracksmodel.cpp
+    modeltest.cpp
     alltracksmodeltest.cpp
 )
 

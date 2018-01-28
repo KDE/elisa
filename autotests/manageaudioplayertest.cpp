@@ -5996,6 +5996,8 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlay()
 
     myPlayer.setPlayerStatus(QMediaPlayer::InvalidMedia);
 
+    QCOMPARE(skipNextTrackSpy.wait(150), true);
+
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
@@ -6011,7 +6013,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlay()
     QCOMPARE(playerPlaySpy.count(), 1);
     QCOMPARE(playerPauseSpy.count(), 0);
     QCOMPARE(playerStopSpy.count(), 0);
-    QCOMPARE(skipNextTrackSpy.count(), 1);
+    QCOMPARE(skipNextTrackSpy.count(), 2);
     QCOMPARE(seekSpy.count(), 0);
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);

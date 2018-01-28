@@ -49,12 +49,12 @@ bool MediaPlayer2::HasTrackList() const
     return false;
 }
 
-void MediaPlayer2::Quit() const
+void MediaPlayer2::Quit()
 {
     QCoreApplication::quit();
 }
 
-void MediaPlayer2::Raise() const
+void MediaPlayer2::Raise()
 {
     emit raisePlayer();
 }

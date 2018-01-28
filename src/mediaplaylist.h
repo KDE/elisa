@@ -242,13 +242,13 @@ public Q_SLOTS:
 
 private Q_SLOTS:
 
-    bool rowHasHeader(int row) const;
-
     void loadPlayListLoaded();
 
     void loadPlayListLoadFailed();
 
 private:
+
+    bool rowHasHeader(int row) const;
 
     void resetCurrentTrack();
 

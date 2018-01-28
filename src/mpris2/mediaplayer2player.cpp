@@ -98,7 +98,7 @@ bool MediaPlayer2Player::CanGoNext() const
     return m_canGoNext;
 }
 
-void MediaPlayer2Player::Next() const
+void MediaPlayer2Player::Next()
 {
     emit next();
 
@@ -112,7 +112,7 @@ bool MediaPlayer2Player::CanGoPrevious() const
     return m_canGoPrevious;
 }
 
-void MediaPlayer2Player::Previous() const
+void MediaPlayer2Player::Previous()
 {
     emit previous();
 
@@ -126,7 +126,7 @@ bool MediaPlayer2Player::CanPause() const
     return !m_canPlay;
 }
 
-void MediaPlayer2Player::Pause() const
+void MediaPlayer2Player::Pause()
 {
     if (m_playListControler) {
         m_manageAudioPlayer->playPause();
@@ -142,7 +142,7 @@ void MediaPlayer2Player::PlayPause()
     }
 }
 
-void MediaPlayer2Player::Stop() const
+void MediaPlayer2Player::Stop()
 {
     emit stop();
 }
@@ -152,7 +152,7 @@ bool MediaPlayer2Player::CanPlay() const
     return m_canPlay;
 }
 
-void MediaPlayer2Player::Play() const
+void MediaPlayer2Player::Play()
 {
     if (m_playListControler) {
         m_manageAudioPlayer->playPause();
@@ -229,7 +229,7 @@ bool MediaPlayer2Player::CanControl() const
     return true;
 }
 
-void MediaPlayer2Player::Seek(qlonglong Offset) const
+void MediaPlayer2Player::Seek(qlonglong Offset)
 {
     if (mediaPlayerPresent()) {
         int offset = (m_position + Offset) / 1000;
@@ -242,14 +242,14 @@ void MediaPlayer2Player::emitSeeked(int pos)
     emit Seeked(qlonglong(pos) * 1000);
 }
 
-void MediaPlayer2Player::SetPosition(const QDBusObjectPath &trackId, qlonglong pos) const
+void MediaPlayer2Player::SetPosition(const QDBusObjectPath &trackId, qlonglong pos)
 {
     if (trackId.path() == m_currentTrackId) {
         m_manageAudioPlayer->playerSeek(pos / 1000);
     }
 }
 
-void MediaPlayer2Player::OpenUri(const QString &uri) const
+void MediaPlayer2Player::OpenUri(const QString &uri)
 {
     Q_UNUSED(uri);
 }
@@ -273,6 +273,9 @@ void MediaPlayer2Player::playControlEnabledChanged()
 
     signalPropertiesChange(QStringLiteral("CanPause"), CanPause());
     signalPropertiesChange(QStringLiteral("CanPlay"), CanPlay());
+
+    emit canPauseChanged();
+    emit canPlayChanged();
 }
 
 void MediaPlayer2Player::skipBackwardControlEnabledChanged()
@@ -284,6 +287,7 @@ void MediaPlayer2Player::skipBackwardControlEnabledChanged()
     m_canGoPrevious = m_manageMediaPlayerControl->skipBackwardControlEnabled();
 
     signalPropertiesChange(QStringLiteral("CanGoPrevious"), CanGoPrevious());
+    emit canGoPreviousChanged();
 }
 
 void MediaPlayer2Player::skipForwardControlEnabledChanged()
@@ -295,11 +299,13 @@ void MediaPlayer2Player::skipForwardControlEnabledChanged()
     m_canGoNext = m_manageMediaPlayerControl->skipForwardControlEnabled();
 
     signalPropertiesChange(QStringLiteral("CanGoNext"), CanGoNext());
+    emit canGoNextChanged();
 }
 
 void MediaPlayer2Player::playerPlaybackStateChanged()
 {
     signalPropertiesChange(QStringLiteral("PlaybackStatus"), PlaybackStatus());
+    emit playbackStatusChanged();
 
     playerIsSeekableChanged();
 }
@@ -309,6 +315,7 @@ void MediaPlayer2Player::playerIsSeekableChanged()
     m_playerIsSeekableChanged = m_manageAudioPlayer->playerIsSeekable();
 
     signalPropertiesChange(QStringLiteral("CanSeek"), CanSeek());
+    emit canSeekChanged();
 }
 
 void MediaPlayer2Player::audioPositionChanged()
@@ -342,6 +349,8 @@ void MediaPlayer2Player::setCurrentTrack(int newTrackPosition)
 {
     m_currentTrack = m_manageAudioPlayer->playerSource().toString();
     m_currentTrackId = QDBusObjectPath(QStringLiteral("/org/kde/elisa/playlist/") + QString::number(newTrackPosition)).path();
+
+    emit currentTrackChanged();
 }
 
 QVariantMap MediaPlayer2Player::getMetadataOfCurrentTrack()
@@ -369,11 +378,16 @@ void MediaPlayer2Player::setMediaPlayerPresent(int status)
 {
     if (m_mediaPlayerPresent != status) {
         m_mediaPlayerPresent = status;
+        emit mediaPlayerPresentChanged();
 
         signalPropertiesChange(QStringLiteral("CanGoNext"), CanGoNext());
         signalPropertiesChange(QStringLiteral("CanGoPrevious"), CanGoPrevious());
         signalPropertiesChange(QStringLiteral("CanPause"), CanPause());
         signalPropertiesChange(QStringLiteral("CanPlay"), CanPlay());
+        emit canGoNextChanged();
+        emit canGoPreviousChanged();
+        emit canPauseChanged();
+        emit canPlayChanged();
     }
 }
 

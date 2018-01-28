@@ -109,7 +109,7 @@ public Q_SLOTS:
     void setAudioPlayer(AudioWrapper* audioPlayer);
 
 Q_SIGNALS:
-    void raisePlayer() const;
+    void raisePlayer();
 
     void playerNameChanged();
 

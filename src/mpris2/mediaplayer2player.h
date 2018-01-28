@@ -38,21 +38,21 @@ class MediaPlayer2Player : public QDBusAbstractAdaptor
     Q_OBJECT
     Q_CLASSINFO("D-Bus Interface", "org.mpris.MediaPlayer2.Player") // Docs: http://specifications.freedesktop.org/mpris-spec/latest/Player_Interface.html
 
-    Q_PROPERTY(QString PlaybackStatus READ PlaybackStatus)
+    Q_PROPERTY(QString PlaybackStatus READ PlaybackStatus NOTIFY playbackStatusChanged)
     Q_PROPERTY(double Rate READ Rate WRITE setRate NOTIFY rateChanged)
-    Q_PROPERTY(QVariantMap Metadata READ Metadata)
+    Q_PROPERTY(QVariantMap Metadata READ Metadata NOTIFY playbackStatusChanged)
     Q_PROPERTY(double Volume READ Volume WRITE setVolume NOTIFY volumeChanged)
-    Q_PROPERTY(qlonglong Position READ Position WRITE setPropertyPosition)
-    Q_PROPERTY(double MinimumRate READ MinimumRate)
-    Q_PROPERTY(double MaximumRate READ MaximumRate)
-    Q_PROPERTY(bool CanGoNext READ CanGoNext)
-    Q_PROPERTY(bool CanGoPrevious READ CanGoPrevious)
-    Q_PROPERTY(bool CanPlay READ CanPlay)
-    Q_PROPERTY(bool CanPause READ CanPause)
-    Q_PROPERTY(bool CanControl READ CanControl)
-    Q_PROPERTY(bool CanSeek READ CanSeek)
-    Q_PROPERTY(int currentTrack READ currentTrack WRITE setCurrentTrack)
-    Q_PROPERTY(int mediaPlayerPresent READ mediaPlayerPresent WRITE setMediaPlayerPresent)
+    Q_PROPERTY(qlonglong Position READ Position WRITE setPropertyPosition NOTIFY playbackStatusChanged)
+    Q_PROPERTY(double MinimumRate READ MinimumRate CONSTANT)
+    Q_PROPERTY(double MaximumRate READ MaximumRate CONSTANT)
+    Q_PROPERTY(bool CanGoNext READ CanGoNext NOTIFY canGoNextChanged)
+    Q_PROPERTY(bool CanGoPrevious READ CanGoPrevious NOTIFY canGoPreviousChanged)
+    Q_PROPERTY(bool CanPlay READ CanPlay NOTIFY canPlayChanged)
+    Q_PROPERTY(bool CanPause READ CanPause NOTIFY canPauseChanged)
+    Q_PROPERTY(bool CanControl READ CanControl NOTIFY canControlChanged)
+    Q_PROPERTY(bool CanSeek READ CanSeek NOTIFY canSeekChanged)
+    Q_PROPERTY(int currentTrack READ currentTrack WRITE setCurrentTrack NOTIFY currentTrackChanged)
+    Q_PROPERTY(int mediaPlayerPresent READ mediaPlayerPresent WRITE setMediaPlayerPresent NOTIFY mediaPlayerPresentChanged)
 
 public:
     explicit MediaPlayer2Player(MediaPlayList *playListControler,
@@ -80,28 +80,37 @@ public:
     int mediaPlayerPresent() const;
 
 Q_SIGNALS:
-    void Seeked(qlonglong Position) const;
+    void Seeked(qlonglong Position);
 
-    void rateChanged(double newRate) const;
-    void volumeChanged(double newVol) const;
-    void next() const;
-    void previous() const;
-    void playPause() const;
-    void stop() const;
+    void rateChanged(double newRate);
+    void volumeChanged(double newVol);
+    void playbackStatusChanged();
+    void canGoNextChanged();
+    void canGoPreviousChanged();
+    void canPlayChanged();
+    void canPauseChanged();
+    void canControlChanged();
+    void canSeekChanged();
+    void currentTrackChanged();
+    void mediaPlayerPresentChanged();
+    void next();
+    void previous();
+    void playPause();
+    void stop();
 
 public Q_SLOTS:
 
     void emitSeeked(int pos);
 
-    void Next() const;
-    void Previous() const;
-    void Pause() const;
+    void Next();
+    void Previous();
+    void Pause();
     void PlayPause();
-    void Stop() const;
-    void Play() const;
-    void Seek(qlonglong Offset) const;
-    void SetPosition(const QDBusObjectPath &trackId, qlonglong pos) const;
-    void OpenUri(const QString &uri) const;
+    void Stop();
+    void Play();
+    void Seek(qlonglong Offset);
+    void SetPosition(const QDBusObjectPath &trackId, qlonglong pos);
+    void OpenUri(const QString &uri);
 
 private Q_SLOTS:
 

@@ -101,7 +101,8 @@ void KCMElisaLocalFile::setRootPath(QStringList rootPath)
     }
 
     if (mRootPath.isEmpty()) {
-        for (const auto &musicPath : QStandardPaths::standardLocations(QStandardPaths::MusicLocation)) {
+        auto systemMusicPaths = QStandardPaths::standardLocations(QStandardPaths::MusicLocation);
+        for (const auto &musicPath : qAsConst(systemMusicPaths)) {
             mRootPath.push_back(musicPath);
         }
     }

@@ -60,7 +60,6 @@ qreal AudioWrapper::volume() const
 {
     auto realVolume = static_cast<qreal>(d->mPlayer.volume() / 100.0);
     auto userVolume = static_cast<qreal>(QAudio::convertVolume(realVolume, QAudio::LinearVolumeScale, QAudio::LogarithmicVolumeScale));
-    auto decibelVolume = static_cast<qreal>(QAudio::convertVolume(realVolume, QAudio::LinearVolumeScale, QAudio::DecibelVolumeScale));
 
     return userVolume * 100.0;
 }
@@ -117,7 +116,6 @@ void AudioWrapper::setMuted(bool muted)
 void AudioWrapper::setVolume(qreal volume)
 {
     auto realVolume = static_cast<qreal>(QAudio::convertVolume(volume / 100.0, QAudio::LogarithmicVolumeScale, QAudio::LinearVolumeScale));
-    auto decibelVolume = static_cast<qreal>(QAudio::convertVolume(realVolume, QAudio::LinearVolumeScale, QAudio::DecibelVolumeScale));
     d->mPlayer.setVolume(qRound(realVolume * 100));
 }
 

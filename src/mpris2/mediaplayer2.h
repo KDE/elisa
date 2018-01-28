@@ -31,15 +31,15 @@ class MediaPlayer2 : public QDBusAbstractAdaptor
     Q_OBJECT
     Q_CLASSINFO("D-Bus Interface", "org.mpris.MediaPlayer2") // Docs: http://specifications.freedesktop.org/mpris-spec/latest/Media_Player.html
 
-    Q_PROPERTY(bool CanQuit READ CanQuit)
-    Q_PROPERTY(bool CanRaise READ CanRaise)
-    Q_PROPERTY(bool HasTrackList READ HasTrackList)
+    Q_PROPERTY(bool CanQuit READ CanQuit CONSTANT)
+    Q_PROPERTY(bool CanRaise READ CanRaise CONSTANT)
+    Q_PROPERTY(bool HasTrackList READ HasTrackList CONSTANT)
 
-    Q_PROPERTY(QString Identity READ Identity)
-    Q_PROPERTY(QString DesktopEntry READ DesktopEntry)
+    Q_PROPERTY(QString Identity READ Identity CONSTANT)
+    Q_PROPERTY(QString DesktopEntry READ DesktopEntry CONSTANT)
 
-    Q_PROPERTY(QStringList SupportedUriSchemes READ SupportedUriSchemes)
-    Q_PROPERTY(QStringList SupportedMimeTypes READ SupportedMimeTypes)
+    Q_PROPERTY(QStringList SupportedUriSchemes READ SupportedUriSchemes CONSTANT)
+    Q_PROPERTY(QStringList SupportedMimeTypes READ SupportedMimeTypes CONSTANT)
 
 public:
     explicit MediaPlayer2(QObject* parent = nullptr);
@@ -56,11 +56,11 @@ public:
     QStringList SupportedMimeTypes() const;
 
 public Q_SLOTS:
-    void Quit() const;
-    void Raise() const;
+    void Quit();
+    void Raise();
 
 Q_SIGNALS:
-    void raisePlayer() const;
+    void raisePlayer();
 
 };
 

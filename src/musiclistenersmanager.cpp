@@ -153,7 +153,8 @@ MusicListenersManager::MusicListenersManager(QObject *parent)
 
     auto initialRootPath = Elisa::ElisaConfiguration::rootPath();
     if (initialRootPath.isEmpty()) {
-        for (const auto &musicPath : QStandardPaths::standardLocations(QStandardPaths::MusicLocation)) {
+        auto systemMusicPaths = QStandardPaths::standardLocations(QStandardPaths::MusicLocation);
+        for (const auto &musicPath : qAsConst(systemMusicPaths)) {
             initialRootPath.push_back(musicPath);
         }
 

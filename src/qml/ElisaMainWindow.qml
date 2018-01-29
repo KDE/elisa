@@ -187,10 +187,12 @@ ApplicationWindow {
 
         function playFiles(listFiles)
         {
-            var previousTrackNumber = tracksCount
-            enqueue(listFiles)
-            switchTo(previousTrackNumber)
-            manageAudioPlayer.ensurePlay()
+            if (listFiles.length > 0) {
+                var previousTrackNumber = tracksCount
+                enqueue(listFiles)
+                switchTo(previousTrackNumber)
+                manageAudioPlayer.ensurePlay()
+            }
         }
     }
 

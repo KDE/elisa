@@ -190,6 +190,7 @@ void ElisaApplication::configureShortcuts()
     KShortcutsDialog dlg(KShortcutsEditor::AllActions, KShortcutsEditor::LetterShortcutsAllowed, nullptr);
     dlg.setModal(true);
     dlg.addCollection(&d->mCollection);
+    dlg.configure();
 #endif
 }
 

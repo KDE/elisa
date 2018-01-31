@@ -146,8 +146,10 @@ void ElisaApplication::activateActionRequested(const QString &actionName, const 
 void ElisaApplication::activateRequested(const QStringList &arguments, const QString &workingDirectory)
 {
     auto realArguments = arguments;
-    realArguments.removeFirst();
-    Q_EMIT enqueue(checkFileListAndMakeAbsolute(realArguments, workingDirectory));
+    if (realArguments.size() > 1) {
+        realArguments.removeFirst();
+        Q_EMIT enqueue(checkFileListAndMakeAbsolute(realArguments, workingDirectory));
+    }
 }
 
 void ElisaApplication::openRequested(const QList<QUrl> &uris)

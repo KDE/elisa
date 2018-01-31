@@ -48,6 +48,8 @@ Comment[uk]=Налаштувати індексування локальних �
 Comment[x-test]=xxConfigure Local Files Indexer of Elisa Music Playerxx
 Comment[zh_CN]=配置 Elisa 音乐播放器的本地文件索引器
 Icon=elisa
+Encoding=UTF-8
+Keywords=
 Type=Service
 X-KDE-ParentApp=
 X-KDE-PluginInfo-Author=Matthieu Gallien
@@ -56,7 +58,7 @@ X-KDE-PluginInfo-License=LGPLv3
 X-KDE-PluginInfo-Name=kcm_elisa_local_file
 X-KDE-PluginInfo-Version=
 X-KDE-PluginInfo-Website=
-X-KDE-ServiceTypes=Plasma/Generic
+X-KDE-ServiceTypes=KPackage/GenericQML
 
 X-Plasma-MainScript=ui/main.qml
 X-Plasma-RemoteLocation=

@@ -26,7 +26,6 @@
 #include <QTimer>
 #include <QPointer>
 #include <QVector>
-#include <QSortFilterProxyModel>
 
 class AllArtistsModelPrivate
 {
@@ -147,15 +146,8 @@ QVariant AllArtistsModel::data(const QModelIndex &index, int role) const
         result = QVariant::fromValue(d->mAllArtists[index.row()]);
         break;
     case ColumnsRoles::ChildModelRole:
-    {
-        auto newModel = new QSortFilterProxyModel;
-        newModel->setSourceModel(d->mAllAlbumsModel);
-        newModel->setFilterRole(AllAlbumsModel::AllArtistsRole);
-        newModel->setFilterRegExp(QRegExp(QStringLiteral(".*") + d->mAllArtists[index.row()].name() + QStringLiteral(".*"),
-                                  Qt::CaseInsensitive));
-        result = QVariant::fromValue(newModel);
+        result = d->mAllArtists[index.row()].name();
         break;
-    }
     case ColumnsRoles::IsTracksContainerRole:
         result = false;
         break;
@@ -200,17 +192,6 @@ int AllArtistsModel::columnCount(const QModelIndex &parent) const
 AllAlbumsModel *AllArtistsModel::allAlbums() const
 {
     return d->mAllAlbumsModel;
-}
-
-QAbstractItemModel *AllArtistsModel::itemModelForName(const QString &name) const
-{
-    auto newModel = new QSortFilterProxyModel;
-    newModel->setSourceModel(d->mAllAlbumsModel);
-    newModel->setFilterRole(AllAlbumsModel::AllArtistsRole);
-    newModel->setFilterRegExp(QRegExp(QStringLiteral(".*") + name + QStringLiteral(".*"),
-                              Qt::CaseInsensitive));
-
-    return newModel;
 }
 
 void AllArtistsModel::artistAdded(const MusicArtist &newArtist)

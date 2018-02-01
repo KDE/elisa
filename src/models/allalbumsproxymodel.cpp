@@ -1,5 +1,6 @@
 /*
- * Copyright 2016 Matthieu Gallien <matthieu_gallien@yahoo.fr>
+ * Copyright 2016-2017 Matthieu Gallien <matthieu_gallien@yahoo.fr>
+ * Copyright 2017 Alexander Stippich <a.stippich@gmx.net>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -17,59 +18,11 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#include "albumfilterproxymodel.h"
+#include "allalbumsproxymodel.h"
 
 #include "allalbumsmodel.h"
-#include "allartistsmodel.h"
 
-AlbumFilterProxyModel::AlbumFilterProxyModel(QObject *parent) : QSortFilterProxyModel(parent), mFilterText()
-{
-    setFilterCaseSensitivity(Qt::CaseInsensitive);
-}
-
-AlbumFilterProxyModel::~AlbumFilterProxyModel()
-= default;
-
-QString AlbumFilterProxyModel::filterText() const
-{
-    return mFilterText;
-}
-
-int AlbumFilterProxyModel::filterRating() const
-{
-    return mFilterRating;
-}
-
-void AlbumFilterProxyModel::setFilterText(const QString &filterText)
-{
-    if (mFilterText == filterText)
-        return;
-
-    mFilterText = filterText;
-
-    mFilterExpression.setPattern(mFilterText);
-    mFilterExpression.setPatternOptions(QRegularExpression::CaseInsensitiveOption);
-    mFilterExpression.optimize();
-
-    invalidate();
-
-    Q_EMIT filterTextChanged(mFilterText);
-}
-
-void AlbumFilterProxyModel::setFilterRating(int filterRating)
-{
-    if (mFilterRating == filterRating) {
-        return;
-    }
-
-    mFilterRating = filterRating;
-
-    invalidate();
-
-    Q_EMIT filterRatingChanged(filterRating);
-}
-
-bool AlbumFilterProxyModel::filterAcceptsRow(int source_row, const QModelIndex &source_parent) const
+bool AllAlbumsProxyModel::filterAcceptsRow(int source_row, const QModelIndex &source_parent) const
 {
     bool result = false;
 
@@ -115,5 +68,16 @@ bool AlbumFilterProxyModel::filterAcceptsRow(int source_row, const QModelIndex &
     return result;
 }
 
+void AllAlbumsProxyModel::enqueueToPlayList()
+{
+    MediaPlayList *playList = AbstractMediaProxyModel::mediaPlayList();
+    for (int columnIndex = 0, columnCount = this->columnCount(); columnIndex < columnCount; ++columnIndex) {
+        for (int rowIndex = 0, rowCount = this->rowCount(); rowIndex < rowCount; ++rowIndex) {
+            auto currentIndex = this->index(rowIndex, columnIndex);
+            playList->enqueue(this->data(currentIndex,AllAlbumsModel::ContainerDataRole).value<MusicAlbum>());
+        }
+    }
 
-#include "moc_albumfilterproxymodel.cpp"
+}
+
+#include "moc_allalbumsproxymodel.cpp"

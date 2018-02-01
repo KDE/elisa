@@ -102,6 +102,8 @@ Q_SIGNALS:
 
     void trackModified(const MusicAudioTrack &modifiedTrack);
 
+    void sentAlbumData(const MusicAlbum albumData);
+
     void requestsInitDone();
 
     void databaseError();
@@ -115,6 +117,8 @@ public Q_SLOTS:
     void modifyTracksList(const QList<MusicAudioTrack> &modifiedTracks, const QHash<QString, QUrl> &covers, const QString &musicSource);
 
     void removeAllTracksFromSource(const QString &sourceName);
+
+    void getAlbumFromAlbumId(qulonglong id);
 
     void cleanInvalidTracks();
 

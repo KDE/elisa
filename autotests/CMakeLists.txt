@@ -27,10 +27,10 @@ set(managemediaplayercontrolTest_SOURCES
     ../src/databaseinterface.cpp
     ../src/musiclistenersmanager.cpp
     ../src/elisaapplication.cpp
-    ../src/allalbumsmodel.cpp
-    ../src/allartistsmodel.cpp
-    ../src/alltracksmodel.cpp
-    ../src/albummodel.cpp
+    ../src/models/allalbumsmodel.cpp
+    ../src/models/allartistsmodel.cpp
+    ../src/models/alltracksmodel.cpp
+    ../src/models/albummodel.cpp
     ../src/notificationitem.cpp
     ../src/trackslistener.cpp
     ../src/musicartist.cpp
@@ -108,10 +108,10 @@ set(manageheaderbarTest_SOURCES
     ../src/databaseinterface.cpp
     ../src/musiclistenersmanager.cpp
     ../src/elisaapplication.cpp
-    ../src/allalbumsmodel.cpp
-    ../src/allartistsmodel.cpp
-    ../src/alltracksmodel.cpp
-    ../src/albummodel.cpp
+    ../src/models/allalbumsmodel.cpp
+    ../src/models/allartistsmodel.cpp
+    ../src/models/alltracksmodel.cpp
+    ../src/models/albummodel.cpp
     ../src/notificationitem.cpp
     ../src/trackslistener.cpp
     ../src/trackslistener.cpp
@@ -200,10 +200,10 @@ set(mediaplaylistTest_SOURCES
     ../src/databaseinterface.cpp
     ../src/trackslistener.cpp
     ../src/musiclistenersmanager.cpp
-    ../src/allalbumsmodel.cpp
-    ../src/allartistsmodel.cpp
-    ../src/alltracksmodel.cpp
-    ../src/albummodel.cpp
+    ../src/models/allalbumsmodel.cpp
+    ../src/models/allartistsmodel.cpp
+    ../src/models/alltracksmodel.cpp
+    ../src/models/albummodel.cpp
     ../src/elisaapplication.cpp
     ../src/notificationitem.cpp
     ../src/musicartist.cpp
@@ -282,10 +282,10 @@ set(trackslistenertest_SOURCES
     ../src/trackslistener.cpp
     ../src/musiclistenersmanager.cpp
     ../src/elisaapplication.cpp
-    ../src/allalbumsmodel.cpp
-    ../src/allartistsmodel.cpp
-    ../src/alltracksmodel.cpp
-    ../src/albummodel.cpp
+    ../src/models/allalbumsmodel.cpp
+    ../src/models/allartistsmodel.cpp
+    ../src/models/alltracksmodel.cpp
+    ../src/models/albummodel.cpp
     ../src/notificationitem.cpp
     ../src/musicartist.cpp
     ../src/musicalbum.cpp
@@ -361,8 +361,7 @@ set(allalbumsmodeltest_SOURCES
     ../src/musicartist.cpp
     ../src/musicalbum.cpp
     ../src/musicaudiotrack.cpp
-    ../src/allalbumsmodel.cpp
-    ../src/albummodel.cpp
+    ../src/models/allalbumsmodel.cpp
     modeltest.cpp
     allalbumsmodeltest.cpp
 )
@@ -378,7 +377,7 @@ set(albummodeltest_SOURCES
     ../src/musicartist.cpp
     ../src/musicalbum.cpp
     ../src/musicaudiotrack.cpp
-    ../src/albummodel.cpp
+    ../src/models/albummodel.cpp
     modeltest.cpp
     albummodeltest.cpp
 )
@@ -394,7 +393,7 @@ set(allartistsmodeltest_SOURCES
     ../src/musicartist.cpp
     ../src/musicalbum.cpp
     ../src/musicaudiotrack.cpp
-    ../src/allartistsmodel.cpp
+    ../src/models/allartistsmodel.cpp
     modeltest.cpp
     allartistsmodeltest.cpp
 )
@@ -410,7 +409,7 @@ set(alltracksmodeltest_SOURCES
     ../src/musicartist.cpp
     ../src/musicalbum.cpp
     ../src/musicaudiotrack.cpp
-    ../src/alltracksmodel.cpp
+    ../src/models/alltracksmodel.cpp
     modeltest.cpp
     alltracksmodeltest.cpp
 )

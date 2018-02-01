@@ -240,6 +240,7 @@ MusicAlbum DatabaseInterface::albumFromTitleAndArtist(const QString &title, cons
     return result;
 }
 
+
 QList<MusicAudioTrack> DatabaseInterface::allTracks()
 {
     auto result = QList<MusicAudioTrack>();
@@ -739,6 +740,25 @@ void DatabaseInterface::removeAllTracksFromSource(const QString &sourceName)
     if (!transactionResult) {
         return;
     }
+}
+
+void DatabaseInterface::getAlbumFromAlbumId(qulonglong id)
+{
+    auto result = MusicAlbum();
+
+    auto transactionResult = startTransaction();
+    if (!transactionResult) {
+        Q_EMIT sentAlbumData(result);
+    }
+
+    result = internalAlbumFromId(id);
+
+    transactionResult = finishTransaction();
+    if (!transactionResult) {
+        Q_EMIT sentAlbumData(result);
+    }
+
+    Q_EMIT sentAlbumData(result);
 }
 
 void DatabaseInterface::cleanInvalidTracks()

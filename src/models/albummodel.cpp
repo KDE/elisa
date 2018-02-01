@@ -18,7 +18,6 @@
  */
 
 #include "albummodel.h"
-#include "musicstatistics.h"
 #include "databaseinterface.h"
 
 #include <QUrl>
@@ -35,7 +34,6 @@ public:
     }
 
     MusicAlbum mCurrentAlbum;
-
 };
 
 AlbumModel::AlbumModel(QObject *parent) : QAbstractItemModel(parent), d(std::make_unique<AlbumModelPrivate>())
@@ -332,6 +330,7 @@ void AlbumModel::setAlbumData(const MusicAlbum &album)
     Q_EMIT tracksCountChanged();
     Q_EMIT authorChanged();
     Q_EMIT titleChanged();
+
 }
 
 void AlbumModel::albumModified(const MusicAlbum &modifiedAlbum)
@@ -457,5 +456,9 @@ void AlbumModel::trackRemoved(const MusicAudioTrack &removedTrack)
     endRemoveRows();
 }
 
+void AlbumModel::loadAlbumData(qulonglong id)
+{
+    Q_EMIT requestAlbumData(id);
+}
 
 #include "moc_albummodel.cpp"

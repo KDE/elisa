@@ -32,7 +32,6 @@
 
 class DatabaseInterface;
 class AlbumModelPrivate;
-class MusicStatistics;
 class QMutex;
 
 class AlbumModel : public QAbstractItemModel
@@ -123,6 +122,8 @@ public:
 
     int tracksCount() const;
 
+    Q_INVOKABLE void loadAlbumData(qulonglong id);
+
 Q_SIGNALS:
 
     void albumDataChanged();
@@ -132,6 +133,8 @@ Q_SIGNALS:
     void authorChanged();
 
     void tracksCountChanged();
+
+    void requestAlbumData(qulonglong id);
 
 public Q_SLOTS:
 

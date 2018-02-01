@@ -25,7 +25,7 @@ Item {
     property string defaultArtistImage: 'image://icon/view-media-artist'
     property string defaultBackgroundImage: 'qrc:///background.png'
     property string artistIcon: 'image://icon/view-media-artist'
-    property string albumIcon: 'image://icon/media-album-cover'
+    property string albumIcon: 'image://icon/media-album-cover-manager-amarok'
     property string playlistIcon: 'image://icon/amarok_playlist'
     property string tracksIcon: 'image://icon/media-album-track'
     property string clearIcon: 'image://icon/edit-clear'
@@ -68,6 +68,7 @@ Item {
     property int dragDropPlaceholderHeight: 28
 
     property int navigationBarHeight: 100
+    property int navigationBarFilterHeight: 44
 
     property int gridDelegateHeight: 100 + layoutVerticalMargin + fontSize.height * 2
     property int gridDelegateWidth: 100

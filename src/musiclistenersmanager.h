@@ -38,6 +38,7 @@ class MediaPlayList;
 class NotificationItem;
 class ElisaApplication;
 class QAbstractItemModel;
+class AbstractMediaProxyModel;
 
 class MusicListenersManager : public QObject
 {
@@ -63,15 +64,19 @@ class MusicListenersManager : public QObject
 
     Q_PROPERTY(QAbstractItemModel* allAlbumsModel
                READ allAlbumsModel
-               NOTIFY allAlbumsModelChanged)
+               CONSTANT)
 
     Q_PROPERTY(QAbstractItemModel* allArtistsModel
                READ allArtistsModel
-               NOTIFY allArtistsModelChanged)
+               CONSTANT)
 
     Q_PROPERTY(QAbstractItemModel* allTracksModel
                READ allTracksModel
-               NOTIFY allTracksModelChanged)
+               CONSTANT)
+
+    Q_PROPERTY(QAbstractItemModel* albumModel
+               READ albumModel
+               CONSTANT)
 
     Q_PROPERTY(bool indexerBusy
                READ indexerBusy
@@ -98,6 +103,8 @@ public:
     QAbstractItemModel *allArtistsModel() const;
 
     QAbstractItemModel *allTracksModel() const;
+
+    QAbstractItemModel *albumModel() const;
 
     bool indexerBusy() const;
 
@@ -140,12 +147,6 @@ Q_SIGNALS:
     void removeTracksInError(QList<QUrl> tracks);
 
     void displayTrackError(const QString &fileName);
-
-    void allAlbumsModelChanged();
-
-    void allArtistsModelChanged();
-
-    void allTracksModelChanged();
 
     void indexerBusyChanged();
 

@@ -9,19 +9,14 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         musicaudiotrack.cpp
         musicartist.cpp
         progressindicator.cpp
-        albummodel.cpp
-        allalbumsmodel.cpp
-        allartistsmodel.cpp
         databaseinterface.cpp
         musiclistenersmanager.cpp
         managemediaplayercontrol.cpp
         manageheaderbar.cpp
         manageaudioplayer.cpp
-        albumfilterproxymodel.cpp
         trackslistener.cpp
         elisaapplication.cpp
         audiowrapper.cpp
-        alltracksmodel.cpp
         notificationitem.cpp
         topnotificationmanager.cpp
         elisautils.cpp
@@ -29,6 +24,17 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         abstractfile/abstractfilelisting.cpp
         file/filelistener.cpp
         file/localfilelisting.cpp
+        models/albummodel.cpp
+        models/allalbumsmodel.cpp
+        models/allartistsmodel.cpp
+        models/alltracksmodel.cpp
+        models/abstractmediaproxymodel.cpp
+        models/allalbumsproxymodel.cpp
+        models/allartistsproxymodel.cpp
+        models/alltracksproxymodel.cpp
+        models/singleartistproxymodel.cpp
+        models/singlealbumproxymodel.cpp
+
 
         qml/ElisaMainWindow.qml
         qml/Theme.qml
@@ -53,9 +59,9 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
 
         qml/HeaderBar.qml
         qml/NavigationActionBar.qml
-        qml/FilterBar.qml
         qml/MediaPlayerControl.qml
         qml/ContextView.qml
+        qml/ViewSelector.qml
 
         qml/MediaPlayListView.qml
         qml/MediaAlbumView.qml
@@ -65,8 +71,6 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         qml/MediaTrackMetadataView.qml
         qml/GridBrowserView.qml
         qml/GridBrowserDelegate.qml
-        
-        qml/ViewSelector.qml
         )
 
     if (KF5Baloo_FOUND)
@@ -231,15 +235,15 @@ set(elisaImport_SOURCES
     musicalbum.cpp
     musicaudiotrack.cpp
     musicartist.cpp
+    manageaudioplayer.cpp
     progressindicator.cpp
-    albummodel.cpp
-    allalbumsmodel.cpp
-    allartistsmodel.cpp
+    models/albummodel.cpp
+    models/allalbumsmodel.cpp
+    models/allartistsmodel.cpp
+    models/alltracksmodel.cpp
     databaseinterface.cpp
     musiclistenersmanager.cpp
-    albumfilterproxymodel.cpp
     trackslistener.cpp
-    alltracksmodel.cpp
     notificationitem.cpp
     topnotificationmanager.cpp
     elisautils.cpp

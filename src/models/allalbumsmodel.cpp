@@ -202,9 +202,8 @@ QVariant AllAlbumsModel::internalDataAlbum(int albumIndex, int role) const
         break;
     case ColumnsRoles::ChildModelRole:
     {
-        auto newModel = new AlbumModel();
-        newModel->setAlbumData(d->mAlbumsData[d->mAllAlbums[albumIndex]]);
-        result = QVariant::fromValue(newModel);
+        auto albumData = d->mAlbumsData[d->mAllAlbums[albumIndex]];
+        result = QVariant::fromValue(albumData);
         break;
     }
     case ColumnsRoles::IsTracksContainerRole:

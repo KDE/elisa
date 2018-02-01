@@ -79,7 +79,6 @@ ApplicationWindow {
         property bool playControlItemMuted : false
     }
 
-
     Action {
         text: goBackAction.text
         shortcut: goBackAction.shortcut
@@ -178,6 +177,11 @@ ApplicationWindow {
             seedRandomGenerator(n);
 
             playFiles(elisa.arguments)
+            allAlbumsProxyModel.setMediaPlayList(playListModelItem)
+            allArtistsProxyModel.setMediaPlayList(playListModelItem)
+            allTracksProxyModel.setMediaPlayList(playListModelItem)
+            singleAlbumProxyModel.setMediaPlayList(playListModelItem)
+            singleArtistProxyModel.setMediaPlayList(playListModelItem)
         }
 
         onPlayListLoadFailed:
@@ -250,6 +254,14 @@ ApplicationWindow {
         }
 
         onDisplayTrackError: messageNotification.showNotification(i18n("Error when playing %1", "" + fileName), 3000)
+
+        Component.onCompleted: {
+            allAlbumsProxyModel.setAudioControl(manageAudioPlayer)
+            allArtistsProxyModel.setAudioControl(manageAudioPlayer)
+            allTracksProxyModel.setAudioControl(manageAudioPlayer)
+            singleAlbumProxyModel.setAudioControl(manageAudioPlayer)
+            singleArtistProxyModel.setAudioControl(manageAudioPlayer)
+        }
     }
 
     ManageMediaPlayerControl {
@@ -522,14 +534,14 @@ ApplicationWindow {
                                         firstPage: GridBrowserView {
                                             id: allAlbumsView
 
+                                            tempMediaPlayList: playListModelItem
+                                            tempMediaControl: manageAudioPlayer
+
                                             focus: true
 
-                                            isFirstPage: true
+                                            model: allAlbumsProxyModel
 
-                                            model: AlbumFilterProxyModel {
-                                                sourceModel: allListeners.allAlbumsModel
-                                            }
-
+                                            image: elisaTheme.albumIcon
                                             mainTitle: i18nc("Title of the view of all albums", "Albums")
 
                                             onEnqueue: playListModelItem.enqueue(data)
@@ -538,10 +550,10 @@ ApplicationWindow {
                                                 manageAudioPlayer.ensurePlay()
                                             }
                                             onOpen: {
+                                                singleAlbumProxyModel.sourceModel.loadAlbumData(databaseId)
                                                 localAlbums.stackView.push(albumView, {
                                                                                stackView: localAlbums.stackView,
                                                                                albumName: innerMainTitle,
-                                                                               albumModel: innerModel,
                                                                                albumArtUrl: innerImage,
                                                                                albumId: databaseId
                                                                            })
@@ -567,15 +579,15 @@ ApplicationWindow {
                                         firstPage: GridBrowserView {
                                             id: allArtistsView
                                             focus: true
+                                            tempMediaPlayList: playListModelItem
+                                            tempMediaControl: manageAudioPlayer
 
-                                            isFirstPage: true
                                             showRating: false
                                             delegateDisplaySecondaryText: false
 
-                                            model: AlbumFilterProxyModel {
-                                                sourceModel: allListeners.allArtistsModel
-                                            }
+                                            model: allArtistsProxyModel
 
+                                            image: elisaTheme.artistIcon
                                             mainTitle: i18nc("Title of the view of all artists", "Artists")
 
                                             onEnqueue: playListModelItem.enqueue(data)
@@ -584,13 +596,14 @@ ApplicationWindow {
                                                 manageAudioPlayer.ensurePlay()
                                             }
                                             onOpen: {
+                                                singleArtistProxyModel.setArtistFilterText(innerMainTitle)
                                                 localArtists.stackView.push(innerAlbumView, {
-                                                                                model: innerModel,
                                                                                 mainTitle: innerMainTitle,
                                                                                 secondaryTitle: innerSecondaryTitle,
                                                                                 image: innerImage,
                                                                                 stackView: localArtists.stackView
                                                                             })
+
                                             }
                                             onGoBack: localArtists.stackView.pop()
                                         }
@@ -612,11 +625,11 @@ ApplicationWindow {
 
                                         firstPage: MediaAllTracksView {
                                             focus: true
-
+                                            tempMediaPlayList: playListModelItem
+                                            tempMediaControl: manageAudioPlayer
                                             stackView: localTracks.stackView
-                                            model: AlbumFilterProxyModel {
-                                                sourceModel: allListeners.allTracksModel
-                                            }
+
+                                            model: allTracksProxyModel
 
                                             onEnqueue: playListModelItem.enqueue(data)
                                             onReplaceAndPlay: {
@@ -942,17 +955,23 @@ ApplicationWindow {
 
         GridBrowserView {
             property var stackView
+            tempMediaPlayList: playListModelItem
+            tempMediaControl: manageAudioPlayer
 
+            model: singleArtistProxyModel
+
+            isSubPage: true
             onEnqueue: playListModelItem.enqueue(data)
             onReplaceAndPlay: {
                 playListModelItem.clearAndEnqueue(data)
                 manageAudioPlayer.ensurePlay()
             }
+
             onOpen: {
+                singleAlbumProxyModel.sourceModel.loadAlbumData(databaseId)
                 localArtists.stackView.push(albumView, {
                                                 stackView: localArtists.stackView,
                                                 albumName: innerMainTitle,
-                                                albumModel: innerModel,
                                                 albumArtUrl: innerImage,
                                                 albumId: databaseId
                                             })
@@ -966,6 +985,10 @@ ApplicationWindow {
 
         MediaAlbumView {
             property var stackView
+            tempMediaPlayList: playListModelItem
+            tempMediaControl: manageAudioPlayer
+
+            model: singleAlbumProxyModel
 
             onEnqueue: playListModelItem.enqueue(data)
 
@@ -987,22 +1010,9 @@ ApplicationWindow {
                         localArtists.stackView.pop()
                     }
                 }
-
-                allArtistsView.open(allListeners.allArtistsModel.itemModelForName(name), name, '', elisaTheme.defaultArtistImage, '')
+                allArtistsView.open(name, name, elisaTheme.defaultArtistImage, '')
             }
             onGoBack: stackView.pop()
-
-            Connections {
-                target: allListeners
-
-                onAlbumRemoved:  if (albumId === removedAlbumId) { removeAlbum(removedAlbum) }
-            }
-
-            Connections {
-                target: allListeners
-
-                onAlbumModified: if (albumId === modifiedAlbumId) { modifyAlbum(modifiedAlbum) }
-            }
         }
     }
 }

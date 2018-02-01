@@ -20,7 +20,7 @@
 #include "musicalbum.h"
 #include "musicaudiotrack.h"
 #include "databaseinterface.h"
-#include "allalbumsmodel.h"
+#include "models/allalbumsmodel.h"
 #include "modeltest.h"
 
 #include <QObject>

@@ -119,64 +119,59 @@ FocusScope {
         anchors.fill: parent
         spacing: 0
 
-        ColumnLayout {
+        RowLayout {
             height: elisaTheme.navigationBarHeight
             Layout.preferredHeight: elisaTheme.navigationBarHeight
             Layout.minimumHeight: elisaTheme.navigationBarHeight
             Layout.maximumHeight: elisaTheme.navigationBarHeight
 
-            spacing: 0
+            Image {
+                id: mainIcon
+                source: elisaTheme.playlistIcon
 
-            TextMetrics {
-                id: titleHeight
-                text: viewTitleHeight.text
-                font
-                {
-                    pixelSize: viewTitleHeight.font.pixelSize
-                    bold: viewTitleHeight.font.bold
-                }
+                asynchronous: true
+
+                sourceSize.height: elisaTheme.coverImageSize / 2
+                sourceSize.width: elisaTheme.coverImageSize / 2
+
+                fillMode: Image.PreserveAspectFit
+
+                Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
+
+                Layout.preferredHeight: elisaTheme.coverImageSize / 2
+                Layout.minimumHeight: elisaTheme.coverImageSize / 2
+                Layout.maximumHeight: elisaTheme.coverImageSize / 2
+                Layout.preferredWidth: elisaTheme.coverImageSize / 2
+                Layout.minimumWidth: elisaTheme.coverImageSize / 2
+                Layout.maximumWidth: elisaTheme.coverImageSize / 2
+                Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+                Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
             }
 
-            LabelWithToolTip {
-                id: viewTitleHeight
-                text: i18nc("Title of the view of the playlist", "Now Playing")
+            ColumnLayout {
+                spacing: 0
 
-                color: myPalette.text
-                font.pixelSize: elisaTheme.defaultFontPixelSize * 2
-                Layout.topMargin: elisaTheme.layoutVerticalMargin
+                Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+                Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
 
-                Layout.leftMargin: elisaTheme.layoutHorizontalMargin
-                Layout.rightMargin: elisaTheme.layoutHorizontalMargin
-            }
-
-            Item {
-                Layout.fillHeight: true
-            }
-
-            RowLayout {
-                Layout.fillWidth: true
-                Layout.bottomMargin: elisaTheme.layoutVerticalMargin
-                Layout.leftMargin: elisaTheme.layoutHorizontalMargin
-                Layout.rightMargin: elisaTheme.layoutHorizontalMargin
-
-                CheckBox {
-                    id: shuffleOption
-
-                    text: i18n("Shuffle")
+                TextMetrics {
+                    id: titleHeight
+                    text: viewTitleHeight.text
+                    font
+                    {
+                        pixelSize: viewTitleHeight.font.pixelSize
+                        bold: viewTitleHeight.font.bold
+                    }
                 }
 
-                CheckBox {
-                    id: repeatOption
+                LabelWithToolTip {
+                    id: viewTitleHeight
+                    text: i18nc("Title of the view of the playlist", "Now Playing")
 
-                    text: i18n("Repeat")
-
-                    Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-                    Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-                }
-
-                Item {
-                    Layout.fillWidth: true
-                }
+                    color: myPalette.text
+                    font.pixelSize: elisaTheme.defaultFontPixelSize * 2
+                    Layout.topMargin: elisaTheme.layoutVerticalMargin
+                  }
 
                 LabelWithToolTip {
                     id: playListInfo
@@ -185,7 +180,27 @@ FocusScope {
 
                     color: myPalette.text
 
-                    Layout.alignment: Qt.AlignRight
+                    Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
+                }
+
+                Item {
+                    Layout.fillHeight: true
+                }
+
+                RowLayout {
+                    Layout.bottomMargin: elisaTheme.layoutVerticalMargin
+
+                    CheckBox {
+                        id: shuffleOption
+
+                        text: i18n("Shuffle")
+                    }
+
+                    CheckBox {
+                        id: repeatOption
+
+                        text: i18n("Repeat")
+                    }
                 }
             }
         }

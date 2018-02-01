@@ -43,15 +43,19 @@
 #include "manageheaderbar.h"
 #include "manageaudioplayer.h"
 #include "musicstatistics.h"
-#include "allalbumsmodel.h"
-#include "albummodel.h"
-#include "allartistsmodel.h"
 #include "musicaudiotrack.h"
 #include "musiclistenersmanager.h"
-#include "albumfilterproxymodel.h"
+#include "models/allalbumsmodel.h"
+#include "models/albummodel.h"
+#include "models/allartistsmodel.h"
+#include "models/alltracksmodel.h"
+#include "models/allalbumsproxymodel.h"
+#include "models/alltracksproxymodel.h"
+#include "models/allartistsproxymodel.h"
+#include "models/singleartistproxymodel.h"
+#include "models/singlealbumproxymodel.h"
 #include "elisaapplication.h"
 #include "audiowrapper.h"
-#include "alltracksmodel.h"
 #include "notificationitem.h"
 #include "topnotificationmanager.h"
 #include "elisa_settings.h"
@@ -145,13 +149,13 @@ int main(int argc, char *argv[])
     qmlRegisterType<ManageAudioPlayer>("org.kde.elisa", 1, 0, "ManageAudioPlayer");
     qmlRegisterType<MusicStatistics>("org.kde.elisa", 1, 0, "MusicStatistics");
     qmlRegisterType<ProgressIndicator>("org.kde.elisa", 1, 0, "ProgressIndicator");
-    qmlRegisterType<AllAlbumsModel>("org.kde.elisa", 1, 0, "AllAlbumsModel");
-    qmlRegisterType<AllArtistsModel>("org.kde.elisa", 1, 0, "AllArtistsModel");
-    qmlRegisterType<AlbumModel>("org.kde.elisa", 1, 0, "AlbumModel");
-    qmlRegisterType<AllTracksModel>("org.kde.elisa", 1, 0, "AllTracksModel");
     qmlRegisterType<MusicListenersManager>("org.kde.elisa", 1, 0, "MusicListenersManager");
-    qmlRegisterType<QSortFilterProxyModel>("org.kde.elisa", 1, 0, "SortFilterProxyModel");
-    qmlRegisterType<AlbumFilterProxyModel>("org.kde.elisa", 1, 0, "AlbumFilterProxyModel");
+    qmlRegisterType<AlbumModel>("org.kde.elisa", 1, 0, "AlbumModel");
+    qmlRegisterType<AllAlbumsProxyModel>("org.kde.elisa", 1, 0, "AllAlbumsProxyModel");
+    qmlRegisterType<AllArtistsProxyModel>("org.kde.elisa", 1, 0, "AllArtistsProxyModel");
+    qmlRegisterType<AllTracksProxyModel>("org.kde.elisa", 1, 0, "AllTracksProxyModel");
+    qmlRegisterType<SingleAlbumProxyModel>("org.kde.elisa", 1, 0, "SingleAlbumProxyModel");
+    qmlRegisterType<SingleArtistProxyModel>("org.kde.elisa", 1, 0, "SingleArtistProxyModel");
     qmlRegisterType<AudioWrapper>("org.kde.elisa", 1, 0, "AudioWrapper");
     qmlRegisterType<TopNotificationManager>("org.kde.elisa", 1, 0, "TopNotificationManager");
 
@@ -160,7 +164,7 @@ int main(int argc, char *argv[])
     qRegisterMetaType<MediaPlayer2Player*>();
 #endif
 
-    qRegisterMetaType<QAbstractItemModel*>();
+    qRegisterMetaType<AbstractMediaProxyModel*>();
     qRegisterMetaType<QHash<QString,QUrl>>("QHash<QString,QUrl>");
     qRegisterMetaType<QList<MusicAudioTrack>>("QList<MusicAudioTrack>");
     qRegisterMetaType<QList<MusicAudioTrack>>("QVector<MusicAudioTrack>");
@@ -232,6 +236,16 @@ int main(int argc, char *argv[])
 
     MusicListenersManager myMusicManager;
     myMusicManager.setElisaApplication(&myApp);
+    AllAlbumsProxyModel allAlbumsProxyModel;
+    allAlbumsProxyModel.setSourceModel(myMusicManager.allAlbumsModel());
+    AllArtistsProxyModel allArtistsProxyModel;
+    allArtistsProxyModel.setSourceModel(myMusicManager.allArtistsModel());
+    AllTracksProxyModel allTracksProxyModel;
+    allTracksProxyModel.setSourceModel(myMusicManager.allTracksModel());
+    SingleArtistProxyModel singleArtistProxyModel;
+    singleArtistProxyModel.setSourceModel(myMusicManager.allAlbumsModel());
+    SingleAlbumProxyModel singleAlbumProxyModel;
+    singleAlbumProxyModel.setSourceModel(myMusicManager.albumModel());
 
     QQmlApplicationEngine engine;
     engine.addImportPath(QStringLiteral("qrc:/imports"));
@@ -246,6 +260,11 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextObject(new KLocalizedContext(&engine));
     engine.rootContext()->setContextProperty(QStringLiteral("elisa"), &myApp);
     engine.rootContext()->setContextProperty(QStringLiteral("allListeners"), &myMusicManager);
+    engine.rootContext()->setContextProperty(QStringLiteral("allAlbumsProxyModel"), &allAlbumsProxyModel);
+    engine.rootContext()->setContextProperty(QStringLiteral("allArtistsProxyModel"), &allArtistsProxyModel);
+    engine.rootContext()->setContextProperty(QStringLiteral("allTracksProxyModel"), &allTracksProxyModel);
+    engine.rootContext()->setContextProperty(QStringLiteral("singleArtistProxyModel"), &singleArtistProxyModel);
+    engine.rootContext()->setContextProperty(QStringLiteral("singleAlbumProxyModel"), &singleAlbumProxyModel);
 
     engine.load(QUrl(QStringLiteral("qrc:/qml/ElisaMainWindow.qml")));
 

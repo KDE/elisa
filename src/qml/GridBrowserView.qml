@@ -30,17 +30,20 @@ import org.kde.elisa 1.0
 FocusScope {
     id: gridView
 
-    property bool isFirstPage: false
+    property bool isSubPage: false
     property string mainTitle
     property string secondaryTitle
     property url image
-    property alias model: proxyModel.model
+    property alias model: contentDirectoryView.model
     property bool showRating: true
     property bool delegateDisplaySecondaryText: true
 
+    property var tempMediaPlayList
+    property var tempMediaControl
+
     signal enqueue(var data)
     signal replaceAndPlay(var data)
-    signal open(var innerModel, var innerMainTitle, var innerSecondaryTitle, var innerImage, var databaseId)
+    signal open(var innerMainTitle, var innerSecondaryTitle, var innerImage, var databaseId)
     signal goBack()
 
     SystemPalette {
@@ -56,29 +59,13 @@ FocusScope {
         anchors.fill: parent
         spacing: 0
 
-        Loader {
-            sourceComponent: FilterBar {
-                id: filterBar
+        NavigationActionBar {
+            id: navigationBar
 
-                labelText: mainTitle
-                showRating: gridView.showRating
-
-                anchors.fill: parent
-
-                Binding {
-                    target: model
-                    property: 'filterText'
-                    value: filterBar.filterText
-                    when: isFirstPage
-                }
-
-                Binding {
-                    target: model
-                    property: 'filterRating'
-                    value: filterBar.filterRating
-                    when: isFirstPage
-                }
-            }
+            mainTitle: gridView.mainTitle
+            secondaryTitle: gridView.secondaryTitle
+            image: gridView.image
+            enableGoBack: isSubPage
 
             height: elisaTheme.navigationBarHeight
             Layout.preferredHeight: height
@@ -86,33 +73,27 @@ FocusScope {
             Layout.maximumHeight: height
             Layout.fillWidth: true
 
-            active: isFirstPage
-            visible: isFirstPage
-        }
-
-        Loader {
-            sourceComponent: NavigationActionBar {
-                id: navigationBar
-
-                mainTitle: gridView.mainTitle
-                secondaryTitle: gridView.secondaryTitle
-                image: gridView.image
-
-                anchors.fill: parent
-
-                onEnqueue: gridView.enqueue(mainTitle)
-                onReplaceAndPlay: gridView.replaceAndPlay(mainTitle)
-                onGoBack: gridView.goBack()
+            Binding {
+                target: model
+                property: 'filterText'
+                value: navigationBar.filterText
             }
 
-            height: elisaTheme.navigationBarHeight
-            Layout.preferredHeight: height
-            Layout.minimumHeight: height
-            Layout.maximumHeight: height
-            Layout.fillWidth: true
+            Binding {
+                target: model
+                property: 'filterRating'
+                value: navigationBar.filterRating
+            }
 
-            active: !isFirstPage
-            visible: !isFirstPage
+            onEnqueue: model.enqueueToPlayList(tempMediaPlayList)
+
+            onReplaceAndPlay: {
+                tempMediaPlayList.clearPlayList()
+                model.enqueueToPlayList(tempMediaPlayList)
+                tempMediaControl.ensurePlay()
+            }
+
+            onGoBack: gridView.goBack()
         }
 
         Rectangle {
@@ -139,29 +120,25 @@ FocusScope {
                     cellWidth: elisaTheme.gridDelegateWidth
                     cellHeight: (delegateDisplaySecondaryText ? elisaTheme.gridDelegateHeight : elisaTheme.gridDelegateHeight - secondaryLabelSize.height)
 
-                    model: DelegateModel {
-                        id: proxyModel
+                    delegate: GridBrowserDelegate {
+                        width: contentDirectoryView.cellWidth
+                        height: contentDirectoryView.cellHeight
 
-                        delegate: GridBrowserDelegate {
-                            width: contentDirectoryView.cellWidth
-                            height: contentDirectoryView.cellHeight
+                        focus: true
 
-                            focus: true
+                        mainText: model.display
+                        secondaryText: model.secondaryText
+                        imageUrl: model.imageUrl
+                        shadowForImage: model.shadowForImage
+                        containerData: model.containerData
+                        delegateDisplaySecondaryText: gridView.delegateDisplaySecondaryText
 
-                            mainText: model.display
-                            secondaryText: model.secondaryText
-                            imageUrl: model.imageUrl
-                            shadowForImage: model.shadowForImage
-                            containerData: model.containerData
-                            delegateDisplaySecondaryText: gridView.delegateDisplaySecondaryText
-
-                            onEnqueue: gridView.enqueue(data)
-                            onReplaceAndPlay: gridView.replaceAndPlay(data)
-                            onOpen: gridView.open(model.childModel, model.display, model.secondaryText, model.imageUrl, model.databaseId)
-                            onSelected: {
-                                forceActiveFocus()
-                                contentDirectoryView.currentIndex = model.index
-                            }
+                        onEnqueue: gridView.enqueue(data)
+                        onReplaceAndPlay: gridView.replaceAndPlay(data)
+                        onOpen: gridView.open(model.display, model.secondaryText, model.imageUrl, model.databaseId)
+                        onSelected: {
+                            forceActiveFocus()
+                            contentDirectoryView.currentIndex = model.index
                         }
                     }
                 }

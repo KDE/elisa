@@ -1,5 +1,6 @@
 /*
- * Copyright 2016 Matthieu Gallien <matthieu_gallien@yahoo.fr>
+ * Copyright 2016-2017 Matthieu Gallien <matthieu_gallien@yahoo.fr>
+ * Copyright 2017 Alexander Stippich <a.stippich@gmx.net>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -17,13 +18,18 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef ALBUMFILTERPROXYMODEL_H
-#define ALBUMFILTERPROXYMODEL_H
+#ifndef ABSTRACTMEDIAPROXYMODEL_H
+#define ABSTRACTMEDIAPROXYMODEL_H
 
 #include <QSortFilterProxyModel>
 #include <QRegularExpression>
 
-class AlbumFilterProxyModel : public QSortFilterProxyModel
+#include "mediaplaylist.h"
+#include "manageaudioplayer.h"
+
+class MediaPlayList;
+
+class AbstractMediaProxyModel : public QSortFilterProxyModel
 {
 
     Q_OBJECT
@@ -38,21 +44,47 @@ class AlbumFilterProxyModel : public QSortFilterProxyModel
                WRITE setFilterRating
                NOTIFY filterRatingChanged)
 
+    Q_PROPERTY(MediaPlayList* mediaPlayList
+               READ mediaPlayList
+               WRITE setMediaPlayList
+               NOTIFY mediaPlayListChanged)
+
+    Q_PROPERTY(MediaPlayList* mediaPlayList
+               READ mediaPlayList
+               WRITE setMediaPlayList
+               NOTIFY mediaPlayListChanged)
+
+    Q_PROPERTY(ManageAudioPlayer* audioControl
+               READ audioControl
+               WRITE setAudioControl
+               NOTIFY audioControlChanged)
+
+
 public:
 
-    explicit AlbumFilterProxyModel(QObject *parent = nullptr);
+    explicit AbstractMediaProxyModel(QObject *parent = nullptr);
 
-    ~AlbumFilterProxyModel() override;
+    ~AbstractMediaProxyModel() override;
 
     QString filterText() const;
 
     int filterRating() const;
 
+    MediaPlayList *mediaPlayList() const;
+
+    ManageAudioPlayer *audioControl() const;
+
 public Q_SLOTS:
+
+    void setMediaPlayList(MediaPlayList *playList);
+
+    void setAudioControl(ManageAudioPlayer *audioControl);
 
     void setFilterText(const QString &filterText);
 
     void setFilterRating(int filterRating);
+
+    virtual void enqueueToPlayList() = 0;
 
 Q_SIGNALS:
 
@@ -60,11 +92,13 @@ Q_SIGNALS:
 
     void filterRatingChanged(int filterRating);
 
+    void audioControlChanged(ManageAudioPlayer *audioControl);
+
+    void mediaPlayListChanged(MediaPlayList *mediaPlayList);
+
 protected:
 
-    bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override;
-
-private:
+    virtual bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override = 0;
 
     QString mFilterText;
 
@@ -72,6 +106,10 @@ private:
 
     QRegularExpression mFilterExpression;
 
+    MediaPlayList* mMediaPlayList;
+
+    ManageAudioPlayer* mAudioControl;
+
 };
 
-#endif // ALBUMFILTERPROXYMODEL_H
+#endif // ABSTRACTMEDIAPROXYMODEL_H

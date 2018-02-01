@@ -20,7 +20,6 @@
         <file>qml/TrackImportNotification.qml</file>
         <file>qml/TopNotificationItem.qml</file>
         <file>qml/ViewSelector.qml</file>
-        <file>qml/FilterBar.qml</file>
         <file>qml/MediaTrackDelegate.qml</file>
         <file>qml/MediaAlbumTrackDelegate.qml</file>
         <file>qml/MediaTrackMetadataView.qml</file>

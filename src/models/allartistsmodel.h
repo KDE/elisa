@@ -79,8 +79,6 @@ public:
 
     AllAlbumsModel* allAlbums() const;
 
-    Q_INVOKABLE QAbstractItemModel* itemModelForName(const QString &name) const;
-
 Q_SIGNALS:
 
     void allAlbumsChanged();

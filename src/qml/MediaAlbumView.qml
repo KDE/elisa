@@ -32,12 +32,20 @@ FocusScope {
     property var albumArtUrl
     property bool isSingleDiscAlbum
     property var albumId
-    property alias albumModel: contentDirectoryView.model
+    property alias model: contentDirectoryView.model
+
+    property var tempMediaPlayList
+    property var tempMediaControl
 
     signal showArtist(var name)
     signal enqueue(var data)
     signal replaceAndPlay(var data)
     signal goBack();
+
+    function loadAlbumData(id)
+    {
+        contentDirectoryView.model.sourceModel.loadAlbumData(id)
+    }
 
     SystemPalette {
         id: myPalette
@@ -48,21 +56,12 @@ FocusScope {
         id: elisaTheme
     }
 
-    function removeAlbum(removedAlbum) {
-        albumModel.albumRemoved(removedAlbum)
-    }
-
-    function modifyAlbum(modifiedAlbum) {
-        albumModel.albumData = modifiedAlbum
-        albumModel.albumModified(modifiedAlbum)
-    }
-
     ColumnLayout {
         anchors.fill: parent
         spacing: 0
 
         NavigationActionBar {
-            id: navBar
+            id: navigationBar
 
             height: elisaTheme.navigationBarHeight
 
@@ -76,15 +75,29 @@ FocusScope {
             image: (topListing.albumArtUrl ? topListing.albumArtUrl : elisaTheme.defaultAlbumImage)
             allowArtistNavigation: true
 
-            onEnqueue: topListing.enqueue(albumModel.albumData)
+            onEnqueue: model.enqueueToPlayList(tempMediaPlayList)
 
             onReplaceAndPlay: {
-                topListing.replaceAndPlay(albumModel.albumData)
+                tempMediaPlayList.clearPlayList()
+                model.enqueueToPlayList(tempMediaPlayList)
+                tempMediaControl.ensurePlay()
+            }
+
+            Binding {
+                target: contentDirectoryView.model
+                property: 'filterText'
+                value: navigationBar.filterText
+            }
+
+            Binding {
+                target: contentDirectoryView.model
+                property: 'filterRating'
+                value: navigationBar.filterRating
             }
 
             onGoBack: topListing.goBack()
 
-            onShowArtist: topListing.showArtist((topListing.albumModel ? topListing.albumModel.author : ''))
+            onShowArtist: topListing.showArtist(topListing.model.sourceModel.author)
         }
 
         ScrollView {

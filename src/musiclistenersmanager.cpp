@@ -37,9 +37,16 @@
 #include "notificationitem.h"
 #include "elisaapplication.h"
 #include "elisa_settings.h"
-#include "allalbumsmodel.h"
-#include "allartistsmodel.h"
-#include "alltracksmodel.h"
+#include "models/allalbumsmodel.h"
+#include "models/allartistsmodel.h"
+#include "models/alltracksmodel.h"
+#include "models/albummodel.h"
+#include "models/abstractmediaproxymodel.h"
+#include "models/allalbumsproxymodel.h"
+#include "models/allartistsproxymodel.h"
+#include "models/alltracksproxymodel.h"
+#include "models/singleartistproxymodel.h"
+#include "models/singlealbumproxymodel.h"
 
 #include <KI18n/KLocalizedString>
 
@@ -94,6 +101,8 @@ public:
     AllArtistsModel mAllArtistsModel;
 
     AllTracksModel mAllTracksModel;
+
+    AlbumModel mAlbumModel;
 
     bool mIndexerBusy = false;
 
@@ -187,6 +196,15 @@ MusicListenersManager::MusicListenersManager(QObject *parent)
             &d->mAllTracksModel, &AllTracksModel::trackModified);
     connect(&d->mDatabaseInterface, &DatabaseInterface::trackRemoved,
             &d->mAllTracksModel, &AllTracksModel::trackRemoved);
+
+    connect(&d->mDatabaseInterface, &DatabaseInterface::albumModified,
+            &d->mAlbumModel, &AlbumModel::albumModified);
+    connect(&d->mDatabaseInterface, &DatabaseInterface::albumRemoved,
+            &d->mAlbumModel, &AlbumModel::albumRemoved);
+    connect(&d->mAlbumModel, &AlbumModel::requestAlbumData,
+            &d->mDatabaseInterface, &DatabaseInterface::getAlbumFromAlbumId);
+    connect(&d->mDatabaseInterface, &DatabaseInterface::sentAlbumData,
+            &d->mAlbumModel, &AlbumModel::setAlbumData);
 }
 
 MusicListenersManager::~MusicListenersManager()
@@ -244,6 +262,11 @@ QAbstractItemModel *MusicListenersManager::allArtistsModel() const
 QAbstractItemModel *MusicListenersManager::allTracksModel() const
 {
     return &d->mAllTracksModel;
+}
+
+QAbstractItemModel *MusicListenersManager::albumModel() const
+{
+    return &d->mAlbumModel;
 }
 
 bool MusicListenersManager::indexerBusy() const

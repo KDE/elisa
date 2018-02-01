@@ -31,7 +31,10 @@ FocusScope {
     id: rootElement
 
     property var stackView
-    property alias model: proxyModel.model
+    property alias model: contentDirectoryView.model
+
+    property var tempMediaPlayList
+    property var tempMediaControl
 
     signal enqueue(var data)
     signal replaceAndPlay(var data)
@@ -49,9 +52,13 @@ FocusScope {
         anchors.fill: parent
         spacing: 0
 
-        FilterBar {
-            id: filterBar
-            labelText: i18nc("Title of the view of all tracks", "Tracks")
+        NavigationActionBar {
+            id: navigationBar
+
+            mainTitle: i18nc("Title of the view of all tracks", "Tracks")
+            secondaryTitle: ""
+            image: elisaTheme.tracksIcon
+            enableGoBack: false
 
             height: elisaTheme.navigationBarHeight
             Layout.preferredHeight: height
@@ -62,13 +69,21 @@ FocusScope {
             Binding {
                 target: model
                 property: 'filterText'
-                value: filterBar.filterText
+                value: navigationBar.filterText
             }
 
             Binding {
                 target: model
                 property: 'filterRating'
-                value: filterBar.filterRating
+                value: navigationBar.filterRating
+            }
+
+            onEnqueue: model.enqueueToPlayList(tempMediaPlayList)
+
+            onReplaceAndPlay: {
+                tempMediaPlayList.clearPlayList()
+                model.enqueueToPlayList(tempMediaPlayList)
+                tempMediaControl.ensurePlay()
             }
         }
 
@@ -88,77 +103,73 @@ FocusScope {
 
                     focus: true
 
-                    model: DelegateModel {
-                        id: proxyModel
+                    delegate: MediaTrackDelegate {
+                        id: entry
 
-                        delegate: MediaTrackDelegate {
-                            id: entry
+                        width: contentDirectoryView.width
+                        height: elisaTheme.trackDelegateHeight
 
-                            width: contentDirectoryView.width
-                            height: elisaTheme.trackDelegateHeight
+                        focus: true
 
-                            focus: true
+                        isAlternateColor: (index % 2) === 1
 
-                            isAlternateColor: (index % 2) === 1
-
-                            title: if (model != undefined && model.title !== undefined)
-                                       model.title
+                        title: if (model != undefined && model.title !== undefined)
+                                   model.title
+                               else
+                                   ''
+                        artist: if (model != undefined && model.artist !== undefined)
+                                    model.artist
+                                else
+                                    ''
+                        albumName: if (model != undefined && model.album !== undefined)
+                                       model.album
                                    else
                                        ''
-                            artist: if (model != undefined && model.artist !== undefined)
-                                        model.artist
+                        albumArtist: if (model != undefined && model.albumArtist !== undefined)
+                                         model.albumArtist
+                                     else
+                                         ''
+                        duration: if (model != undefined && model.duration !== undefined)
+                                      model.duration
+                                  else
+                                      ''
+                        trackNumber: if (model != undefined && model.trackNumber !== undefined)
+                                         model.trackNumber
+                                     else
+                                         ''
+                        discNumber: if (model != undefined && model.discNumber !== undefined)
+                                        model.discNumber
                                     else
                                         ''
-                            albumName: if (model != undefined && model.album !== undefined)
-                                           model.album
-                                       else
-                                           ''
-                            albumArtist: if (model != undefined && model.albumArtist !== undefined)
-                                             model.albumArtist
-                                         else
-                                             ''
-                            duration: if (model != undefined && model.duration !== undefined)
-                                          model.duration
-                                      else
-                                          ''
-                            trackNumber: if (model != undefined && model.trackNumber !== undefined)
-                                             model.trackNumber
-                                         else
-                                             ''
-                            discNumber: if (model != undefined && model.discNumber !== undefined)
-                                            model.discNumber
-                                        else
-                                            ''
-                            rating: if (model != undefined && model.rating !== undefined)
-                                        model.rating
+                        rating: if (model != undefined && model.rating !== undefined)
+                                    model.rating
+                                else
+                                    0
+                        trackData: if (model != undefined && model.containerData !== undefined)
+                                       model.containerData
+                                   else
+                                       ''
+                        coverImage: if (model != undefined && model.image !== undefined)
+                                        model.image
                                     else
-                                        0
-                            trackData: if (model != undefined && model.containerData !== undefined)
-                                           model.containerData
+                                        ''
+                        trackResource: if (model != undefined && model.trackResource !== undefined)
+                                           model.trackResource
                                        else
                                            ''
-                            coverImage: if (model != undefined && model.image !== undefined)
-                                            model.image
-                                        else
-                                            ''
-                            trackResource: if (model != undefined && model.trackResource !== undefined)
-                                               model.trackResource
+                        isFirstTrackOfDisc: if (model != undefined && model.isFirstTrackOfDisc !== undefined)
+                                                model.isFirstTrackOfDisc
+                                            else
+                                                false
+                        isSingleDiscAlbum: if (model != undefined && model.isSingleDiscAlbum !== undefined)
+                                               model.isSingleDiscAlbum
                                            else
-                                               ''
-                            isFirstTrackOfDisc: if (model != undefined && model.isFirstTrackOfDisc !== undefined)
-                                                    model.isFirstTrackOfDisc
-                                                else
-                                                    false
-                            isSingleDiscAlbum: if (model != undefined && model.isSingleDiscAlbum !== undefined)
-                                                   model.isSingleDiscAlbum
-                                               else
-                                                   true
+                                               true
 
-                            onEnqueue: rootElement.enqueue(data)
-                            onReplaceAndPlay: rootElement.replaceAndPlay(data)
+                        onEnqueue: rootElement.enqueue(data)
+                        onReplaceAndPlay: rootElement.replaceAndPlay(data)
 
-                            onClicked: contentDirectoryView.currentIndex = index
-                        }
+                        onClicked: contentDirectoryView.currentIndex = index
                     }
                 }
             }

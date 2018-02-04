@@ -29,9 +29,9 @@ FocusScope {
     id: topListing
 
     property var albumName
+    property var artistName
     property var albumArtUrl
     property bool isSingleDiscAlbum
-    property var albumId
     property alias model: contentDirectoryView.model
 
     property var tempMediaPlayList
@@ -70,7 +70,7 @@ FocusScope {
             Layout.maximumHeight: height
             Layout.fillWidth: true
 
-            mainTitle: (topListing.albumModel ? topListing.albumModel.author : '')
+            mainTitle: (topListing.artistName ? topListing.artistName : '')
             secondaryTitle: topListing.albumName
             image: (topListing.albumArtUrl ? topListing.albumArtUrl : elisaTheme.defaultAlbumImage)
             allowArtistNavigation: true

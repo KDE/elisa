@@ -554,8 +554,8 @@ ApplicationWindow {
                                                 localAlbums.stackView.push(albumView, {
                                                                                stackView: localAlbums.stackView,
                                                                                albumName: innerMainTitle,
+                                                                               artistName:  innerSecondaryTitle,
                                                                                albumArtUrl: innerImage,
-                                                                               albumId: databaseId
                                                                            })
                                             }
                                             onGoBack: localAlbums.stackView.pop()
@@ -972,8 +972,8 @@ ApplicationWindow {
                 localArtists.stackView.push(albumView, {
                                                 stackView: localArtists.stackView,
                                                 albumName: innerMainTitle,
+                                                artistName: innerSecondaryTitle,
                                                 albumArtUrl: innerImage,
-                                                albumId: databaseId
                                             })
             }
             onGoBack: stackView.pop()

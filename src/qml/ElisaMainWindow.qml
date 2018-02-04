@@ -22,7 +22,6 @@ import QtQuick.Controls 1.3
 import QtQuick.Controls.Styles 1.3
 import QtQuick.Layouts 1.1
 import QtQuick.Window 2.2
-import Qt.labs.platform 1.0 as PlatformDialog
 import org.kde.elisa 1.0
 import Qt.labs.settings 1.0
 
@@ -44,13 +43,28 @@ ApplicationWindow {
 
     title: 'Elisa'
 
-    property var helpAction: elisa.action("help_contents")
-    property var quitApplication: elisa.action("file_quit")
-    property var reportBugAction: elisa.action("help_report_bug")
-    property var aboutAppAction: elisa.action("help_about_app")
-    property var configureShortcutsAction: elisa.action("options_configure_keybinding")
-    property var configureAction: elisa.action("options_configure")
     property var goBackAction: elisa.action("go_back")
+
+    Action {
+        text: goBackAction.text
+        shortcut: goBackAction.shortcut
+        iconName: elisa.iconName(goBackAction.icon)
+        onTriggered: {
+            localAlbums.goBack()
+            localArtists.goBack()
+        }
+    }
+
+    Action {
+        id: applicationMenuAction
+        text: i18nc("open application menu", "Application Menu")
+        iconName: "application-menu"
+        onTriggered: applicationMenu.popup()
+    }
+
+    ApplicationMenu {
+        id: applicationMenu
+    }
 
     SystemPalette {
         id: myPalette
@@ -77,24 +91,6 @@ ApplicationWindow {
 
         property double playControlItemVolume : 100.0
         property bool playControlItemMuted : false
-    }
-
-    Action {
-        text: goBackAction.text
-        shortcut: goBackAction.shortcut
-        iconName: elisa.iconName(goBackAction.icon)
-        onTriggered: {
-            localAlbums.goBack()
-            localArtists.goBack()
-        }
-    }
-
-    Action {
-        id: qmlQuitAction
-        text: quitApplication.text
-        shortcut: quitApplication.shortcut
-        iconName: elisa.iconName(quitApplication.icon)
-        onTriggered: quitApplication.trigger()
     }
 
     property string globalBrowseFlag: 'BrowseDirectChildren'
@@ -269,77 +265,6 @@ ApplicationWindow {
 
         playListModel: playListModelItem
         currentTrack: playListModelItem.currentTrack
-    }
-
-    Menu {
-        id: applicationMenu
-        title: i18nc("open application menu", "Application Menu")
-
-
-        MenuItem {
-            text: configureAction.text
-            shortcut: configureAction.shortcut
-            iconName: 'configure'
-            onTriggered: configureAction.trigger()
-            visible: configureAction.text !== ""
-        }
-
-        MenuItem {
-            text: configureShortcutsAction.text
-            shortcut: configureShortcutsAction.shortcut
-            iconName: elisa.iconName(configureShortcutsAction.icon)
-            onTriggered: configureShortcutsAction.trigger()
-            visible: configureShortcutsAction.text !== ""
-        }
-
-        MenuSeparator {
-            visible: reportBugAction.text !== ""
-        }
-
-        MenuItem {
-            text: reportBugAction.text
-            shortcut: reportBugAction.shortcut
-            iconName: elisa.iconName(reportBugAction.icon)
-            onTriggered: reportBugAction.trigger()
-            visible: reportBugAction.text !== ""
-        }
-
-        MenuSeparator {
-            visible: helpAction.text !== ""
-        }
-
-        MenuItem {
-            text: helpAction.text
-            shortcut: helpAction.shortcut
-            iconName: elisa.iconName(helpAction.icon)
-            onTriggered: helpAction.trigger()
-            visible: helpAction.text !== ""
-        }
-
-        MenuItem {
-            text: aboutAppAction.text
-            shortcut: aboutAppAction.shortcut
-            iconName: elisa.iconName(aboutAppAction.icon)
-            onTriggered: aboutAppAction.trigger()
-            visible: aboutAppAction.text !== ""
-        }
-
-        MenuSeparator {
-            visible: qmlQuitAction.text !== ""
-        }
-
-        MenuItem {
-            action: qmlQuitAction
-            visible: qmlQuitAction.text !== ""
-        }
-
-    }
-
-    Action {
-        id: applicationMenuAction
-        text: i18nc("open application menu", "Application Menu")
-        iconName: "application-menu"
-        onTriggered: applicationMenu.popup()
     }
 
     PassiveNotification {

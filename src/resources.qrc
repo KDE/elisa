@@ -5,6 +5,7 @@
         <file>qml/MediaPlayListView.qml</file>
         <file>qml/MediaAlbumView.qml</file>
         <file>qml/ElisaMainWindow.qml</file>
+        <file>qml/ApplicationMenu.qml</file>
         <file>qml/HeaderBar.qml</file>
         <file>qml/ContextView.qml</file>
         <file>qml/DraggableItem.qml</file>

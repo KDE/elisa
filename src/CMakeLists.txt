@@ -36,17 +36,18 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         models/singlealbumproxymodel.cpp
 
 
-        qml/ElisaMainWindow.qml
-        qml/Theme.qml
-        qml/PlatformIntegration.qml
-        qml/LabelWithToolTip.qml
-
         windows/WindowsTheme.qml
         windows/PlatformIntegration.qml
 
         android/ElisaMainWindow.qml
         android/AndroidTheme.qml
         android/PlatformIntegration.qml
+
+        qml/ElisaMainWindow.qml
+        qml/ApplicationMenu.qml
+        qml/Theme.qml
+        qml/PlatformIntegration.qml
+        qml/LabelWithToolTip.qml
 
         qml/RatingStar.qml
         qml/PlayListEntry.qml

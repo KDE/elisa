@@ -47,16 +47,7 @@ FocusScope {
         text: i18nc("Remove all tracks from play list", "Clear Play List")
         iconName: "list-remove"
         enabled: playListModelDelegate.items.count > 0
-        onTriggered: {
-            var selectedItems = []
-            var myGroup = playListModelDelegate.items
-            for (var i = 0; i < myGroup.count; ++i) {
-                var myItem = myGroup.get(i)
-                selectedItems.push(myItem.itemsIndex)
-            }
-
-            playListModel.removeSelection(selectedItems)
-        }
+        onTriggered: playListModel.clearPlayList()
     }
 
     Action {

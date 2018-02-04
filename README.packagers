@@ -11,6 +11,7 @@ Elisa has the following dependencies:
  * Qt5Svg
  * Qt5Gui
  * Qt5Widgets
+ * Qt5QuickTest
  * Qt5 (required version >= 5.9.0)
  * ECM (required version >= 5.32.0)
  * Qt5Core

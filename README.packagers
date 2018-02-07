@@ -44,6 +44,12 @@ Elisa has the following dependencies:
  * Qt5QuickWidgets (required version >= 5.9.0), Qt5 Quick Widgets is needed at runtime to provide the interface.
  * Qt5QuickControls2 (required version >= 5.9.0), Qt5 Quick Controls version 2 is needed at runtime to provide the interface.
  * Qt.labs.platform, Qt.labs module with some qml components wrapping platform APIs
+ * qml-module-qtqml-models2 (required version >= 5.9.0), qml Qt module
+ * qml-module-org-kde-kcm (required version >= 5.32.0), qml module from KF5 KDeclarative framework
+ * qml-module-qtquick-controls (required version >= 5.9.0), qml Qt module
+ * qml-module-qtquick-dialogs (required version >= 5.9.0), qml Qt module
+ * qml-module-qtquick-layouts (required version >= 5.9.0), qml Qt module
+ * qml-module-qtquick2 (required version >= 5.9.0), qml Qt module
 
 Please consider packaging Elisa with all its recommended dependencies. Even if they are not required, a nice fallback is not always implemented and user experience may suffer a lot.
 UPnP/DLNA via unreleased UPNPQT library is currently broken. Please consider not building it.

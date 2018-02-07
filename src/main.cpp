@@ -168,6 +168,7 @@ int main(int argc, char *argv[])
     qRegisterMetaType<QHash<QString,QUrl>>("QHash<QString,QUrl>");
     qRegisterMetaType<QList<MusicAudioTrack>>("QList<MusicAudioTrack>");
     qRegisterMetaType<QList<MusicAudioTrack>>("QVector<MusicAudioTrack>");
+    qRegisterMetaType<QList<MusicAlbum>>("QList<MusicAlbum>");
     qRegisterMetaType<QVector<qulonglong>>("QVector<qulonglong>");
     qRegisterMetaType<QHash<qulonglong,int>>("QHash<qulonglong,int>");
     qRegisterMetaType<MusicAlbum>("MusicAlbum");

@@ -132,8 +132,6 @@ MusicListenersManager::MusicListenersManager(QObject *parent)
 
     connect(&d->mDatabaseInterface, &DatabaseInterface::artistAdded,
             this, &MusicListenersManager::artistAdded);
-    connect(&d->mDatabaseInterface, &DatabaseInterface::albumAdded,
-            this, &MusicListenersManager::albumAdded);
     connect(&d->mDatabaseInterface, &DatabaseInterface::trackAdded,
             this, &MusicListenersManager::trackAdded);
     connect(&d->mDatabaseInterface, &DatabaseInterface::tracksAdded,
@@ -176,8 +174,8 @@ MusicListenersManager::MusicListenersManager(QObject *parent)
     d->mAllAlbumsModel.setAllArtists(&d->mAllArtistsModel);
     d->mAllArtistsModel.setAllAlbums(&d->mAllAlbumsModel);
 
-    connect(&d->mDatabaseInterface, &DatabaseInterface::albumAdded,
-            &d->mAllAlbumsModel, &AllAlbumsModel::albumAdded);
+    connect(&d->mDatabaseInterface, &DatabaseInterface::albumsAdded,
+            &d->mAllAlbumsModel, &AllAlbumsModel::albumsAdded);
     connect(&d->mDatabaseInterface, &DatabaseInterface::albumModified,
             &d->mAllAlbumsModel, &AllAlbumsModel::albumModified);
     connect(&d->mDatabaseInterface, &DatabaseInterface::albumRemoved,

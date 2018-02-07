@@ -94,7 +94,7 @@ public:
 
 public Q_SLOTS:
 
-    void albumAdded(const MusicAlbum &newAlbum);
+    void albumsAdded(const QList<MusicAlbum> &newAlbums);
 
     void albumRemoved(const MusicAlbum &removedAlbum);
 

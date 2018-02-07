@@ -84,7 +84,8 @@ set(managemediaplayercontrolTest_SOURCES
 ecm_add_test(${managemediaplayercontrolTest_SOURCES}
     TEST_NAME "managemediaplayercontrolTest"
     LINK_LIBRARIES
-        Qt5::Test Qt5::Core Qt5::Sql Qt5::Widgets KF5::I18n Qt5::Quick Qt5::Multimedia KF5::ConfigCore KF5::ConfigGui KF5::FileMetaData
+        Qt5::Test Qt5::Core Qt5::Sql Qt5::Widgets KF5::I18n Qt5::Quick Qt5::Multimedia
+        Qt5::Concurrent KF5::ConfigCore KF5::ConfigGui KF5::FileMetaData
 )
 
 if (KF5Baloo_FOUND)
@@ -166,7 +167,8 @@ set(manageheaderbarTest_SOURCES
 ecm_add_test(${manageheaderbarTest_SOURCES}
     TEST_NAME "manageheaderbarTest"
     LINK_LIBRARIES
-        Qt5::Test Qt5::Core Qt5::Sql Qt5::Gui Qt5::Widgets KF5::I18n Qt5::Quick Qt5::Multimedia KF5::ConfigCore KF5::ConfigGui KF5::FileMetaData
+        Qt5::Test Qt5::Core Qt5::Sql Qt5::Gui Qt5::Widgets KF5::I18n Qt5::Quick Qt5::Multimedia
+        Qt5::Concurrent KF5::ConfigCore KF5::ConfigGui KF5::FileMetaData
 )
 
 if (KF5Baloo_FOUND)
@@ -258,7 +260,8 @@ set(mediaplaylistTest_SOURCES
 ecm_add_test(${mediaplaylistTest_SOURCES}
     TEST_NAME "mediaplaylistTest"
     LINK_LIBRARIES
-        Qt5::Test Qt5::Core Qt5::Sql Qt5::Gui Qt5::Widgets KF5::I18n Qt5::Quick Qt5::Multimedia KF5::ConfigCore KF5::ConfigGui KF5::FileMetaData
+        Qt5::Test Qt5::Core Qt5::Sql Qt5::Gui Qt5::Widgets KF5::I18n Qt5::Quick Qt5::Multimedia
+        Qt5::Concurrent KF5::ConfigCore KF5::ConfigGui KF5::FileMetaData
 )
 
 if (KF5Baloo_FOUND)
@@ -338,7 +341,8 @@ set(trackslistenertest_SOURCES
 ecm_add_test(${trackslistenertest_SOURCES}
     TEST_NAME "trackslistenertest"
     LINK_LIBRARIES
-        Qt5::Test Qt5::Core Qt5::Sql Qt5::Gui Qt5::Widgets KF5::I18n Qt5::Quick Qt5::Multimedia KF5::ConfigCore KF5::ConfigGui KF5::FileMetaData
+        Qt5::Test Qt5::Core Qt5::Sql Qt5::Gui Qt5::Widgets KF5::I18n Qt5::Quick Qt5::Multimedia
+        Qt5::Concurrent KF5::ConfigCore KF5::ConfigGui KF5::FileMetaData
 )
 
 if (KF5Baloo_FOUND)
@@ -368,7 +372,7 @@ set(allalbumsmodeltest_SOURCES
 
 ecm_add_test(${allalbumsmodeltest_SOURCES}
     TEST_NAME "allalbumsmodeltest"
-    LINK_LIBRARIES Qt5::Test Qt5::Core Qt5::Sql KF5::I18n)
+    LINK_LIBRARIES Qt5::Test Qt5::Core Qt5::Sql Qt5::Concurrent KF5::I18n)
 
 target_include_directories(allalbumsmodeltest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 
@@ -384,7 +388,7 @@ set(albummodeltest_SOURCES
 
 ecm_add_test(${albummodeltest_SOURCES}
     TEST_NAME "albummodeltest"
-    LINK_LIBRARIES Qt5::Test Qt5::Core Qt5::Sql KF5::I18n)
+    LINK_LIBRARIES Qt5::Test Qt5::Core Qt5::Sql Qt5::Concurrent KF5::I18n)
 
 target_include_directories(albummodeltest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 

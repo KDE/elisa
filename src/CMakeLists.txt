@@ -149,6 +149,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
             Qt5::Multimedia
             Qt5::Svg
             Qt5::Sql
+            Qt5::Concurrent
             KF5::I18n
             KF5::ConfigCore
             KF5::ConfigGui
@@ -288,6 +289,7 @@ target_link_libraries(elisaImport
         Qt5::Sql
         Qt5::Multimedia
         Qt5::Widgets
+        Qt5::Concurrent
         KF5::I18n
         KF5::ConfigCore
         KF5::ConfigGui

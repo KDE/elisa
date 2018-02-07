@@ -42,47 +42,47 @@ ModelTest::ModelTest(QAbstractItemModel *_model, QObject *parent) : QObject(pare
         qFatal("%s: model must not be null", Q_FUNC_INFO);
 
     connect(model, SIGNAL(columnsAboutToBeInserted(QModelIndex,int,int)),
-            this, SLOT(runAllTests()));
+            this, SLOT(runAllTests()), Qt::DirectConnection);
     connect(model, SIGNAL(columnsAboutToBeRemoved(QModelIndex,int,int)),
-            this, SLOT(runAllTests()));
+            this, SLOT(runAllTests()), Qt::DirectConnection);
     connect(model, SIGNAL(columnsInserted(QModelIndex,int,int)),
-            this, SLOT(runAllTests()));
+            this, SLOT(runAllTests()), Qt::DirectConnection);
     connect(model, SIGNAL(columnsRemoved(QModelIndex,int,int)),
-            this, SLOT(runAllTests()));
+            this, SLOT(runAllTests()), Qt::DirectConnection);
     connect(model, SIGNAL(dataChanged(QModelIndex,QModelIndex)),
-            this, SLOT(runAllTests()));
+            this, SLOT(runAllTests()), Qt::DirectConnection);
     connect(model, SIGNAL(headerDataChanged(Qt::Orientation,int,int)),
-            this, SLOT(runAllTests()));
-    connect(model, SIGNAL(layoutAboutToBeChanged()), this, SLOT(runAllTests()));
-    connect(model, SIGNAL(layoutChanged()), this, SLOT(runAllTests()));
-    connect(model, SIGNAL(modelReset()), this, SLOT(runAllTests()));
+            this, SLOT(runAllTests()), Qt::DirectConnection);
+    connect(model, SIGNAL(layoutAboutToBeChanged()), this, SLOT(runAllTests()), Qt::DirectConnection);
+    connect(model, SIGNAL(layoutChanged()), this, SLOT(runAllTests()), Qt::DirectConnection);
+    connect(model, SIGNAL(modelReset()), this, SLOT(runAllTests()), Qt::DirectConnection);
     connect(model, SIGNAL(rowsAboutToBeInserted(QModelIndex,int,int)),
-            this, SLOT(runAllTests()));
+            this, SLOT(runAllTests()), Qt::DirectConnection);
     connect(model, SIGNAL(rowsAboutToBeRemoved(QModelIndex,int,int)),
-            this, SLOT(runAllTests()));
+            this, SLOT(runAllTests()), Qt::DirectConnection);
     connect(model, SIGNAL(rowsInserted(QModelIndex,int,int)),
-            this, SLOT(runAllTests()));
+            this, SLOT(runAllTests()), Qt::DirectConnection);
     connect(model, SIGNAL(rowsRemoved(QModelIndex,int,int)),
-            this, SLOT(runAllTests()));
+            this, SLOT(runAllTests()), Qt::DirectConnection);
 
     // Special checks for changes
     connect(model, SIGNAL(layoutAboutToBeChanged()),
-            this, SLOT(layoutAboutToBeChanged()));
+            this, SLOT(layoutAboutToBeChanged()), Qt::DirectConnection);
     connect(model, SIGNAL(layoutChanged()),
-            this, SLOT(layoutChanged()));
+            this, SLOT(layoutChanged()), Qt::DirectConnection);
 
     connect(model, SIGNAL(rowsAboutToBeInserted(QModelIndex,int,int)),
-            this, SLOT(rowsAboutToBeInserted(QModelIndex,int,int)));
+            this, SLOT(rowsAboutToBeInserted(QModelIndex,int,int)), Qt::DirectConnection);
     connect(model, SIGNAL(rowsAboutToBeRemoved(QModelIndex,int,int)),
-            this, SLOT(rowsAboutToBeRemoved(QModelIndex,int,int)));
+            this, SLOT(rowsAboutToBeRemoved(QModelIndex,int,int)), Qt::DirectConnection);
     connect(model, SIGNAL(rowsInserted(QModelIndex,int,int)),
-            this, SLOT(rowsInserted(QModelIndex,int,int)));
+            this, SLOT(rowsInserted(QModelIndex,int,int)), Qt::DirectConnection);
     connect(model, SIGNAL(rowsRemoved(QModelIndex,int,int)),
-            this, SLOT(rowsRemoved(QModelIndex,int,int)));
+            this, SLOT(rowsRemoved(QModelIndex,int,int)), Qt::DirectConnection);
     connect(model, SIGNAL(dataChanged(QModelIndex,QModelIndex)),
-            this, SLOT(dataChanged(QModelIndex,QModelIndex)));
+            this, SLOT(dataChanged(QModelIndex,QModelIndex)), Qt::DirectConnection);
     connect(model, SIGNAL(headerDataChanged(Qt::Orientation,int,int)),
-            this, SLOT(headerDataChanged(Qt::Orientation,int,int)));
+            this, SLOT(headerDataChanged(Qt::Orientation,int,int)), Qt::DirectConnection);
 
     runAllTests();
 }

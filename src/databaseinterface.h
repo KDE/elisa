@@ -84,7 +84,7 @@ Q_SIGNALS:
 
     void artistAdded(const MusicArtist &newArtist);
 
-    void albumAdded(const MusicAlbum &newAlbum);
+    void albumsAdded(const QList<MusicAlbum> &newAlbum);
 
     void trackAdded(qulonglong id);
 
@@ -166,7 +166,8 @@ private:
     void initRequest();
 
     qulonglong insertAlbum(const QString &title, const QString &albumArtist, const QString &trackArtist,
-                           const QUrl &albumArtURI, int tracksCount, bool isSingleDiscAlbum);
+                           const QUrl &albumArtURI, int tracksCount, bool isSingleDiscAlbum,
+                           QList<qulonglong> &newAlbumIds);
 
     bool updateAlbumFromId(qulonglong albumId, const QUrl &albumArtUri, const MusicAudioTrack &currentTrack);
 
@@ -191,7 +192,8 @@ private:
     int computeTrackPriority(qulonglong trackId, const QUrl &fileName);
 
     qulonglong internalInsertTrack(const MusicAudioTrack &oneModifiedTrack, const QHash<QString, QUrl> &covers,
-                                   int originTrackId, QSet<qulonglong> &modifiedAlbumIds, TrackFileInsertType insertType);
+                                   int originTrackId, QSet<qulonglong> &modifiedAlbumIds, TrackFileInsertType insertType,
+                                   QList<qulonglong> &newAlbumIds);
 
     MusicAudioTrack buildTrackFromDatabaseRecord(const QSqlRecord &trackRecord) const;
 

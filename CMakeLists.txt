@@ -110,7 +110,7 @@ set_package_properties(KF5Package PROPERTIES
 
 find_package(UPNPQT CONFIG QUIET)
 set_package_properties(UPNPQT PROPERTIES
-    DESCRIPTION "UPNP layer build with Qt 5."
+    DESCRIPTION "UPNP layer build with Qt 5. UPnP support is currently broken. You should probably avoid this dependency."
     URL "https://gitlab.com/homeautomationqt/upnp-player-qt"
     TYPE OPTIONAL)
 

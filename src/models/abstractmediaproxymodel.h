@@ -49,11 +49,6 @@ class AbstractMediaProxyModel : public QSortFilterProxyModel
                WRITE setMediaPlayList
                NOTIFY mediaPlayListChanged)
 
-    Q_PROPERTY(MediaPlayList* mediaPlayList
-               READ mediaPlayList
-               WRITE setMediaPlayList
-               NOTIFY mediaPlayListChanged)
-
     Q_PROPERTY(ManageAudioPlayer* audioControl
                READ audioControl
                WRITE setAudioControl

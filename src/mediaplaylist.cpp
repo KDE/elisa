@@ -420,75 +420,6 @@ bool MediaPlayList::removeRows(int row, int count, const QModelIndex &parent)
     return false;
 }
 
-void MediaPlayList::enqueue(qulonglong newTrackId)
-{
-    enqueue(MediaPlayListEntry(newTrackId));
-}
-
-void MediaPlayList::enqueue(const MusicAudioTrack &newTrack)
-{
-    enqueue(MediaPlayListEntry(newTrack), newTrack);
-}
-
-void MediaPlayList::clearAndEnqueue(qulonglong newTrackId)
-{
-    clearPlayList();
-    enqueue(MediaPlayListEntry(newTrackId));
-}
-
-void MediaPlayList::clearAndEnqueue(const MusicAudioTrack &newTrack)
-{
-    clearPlayList();
-    enqueue(newTrack);
-}
-
-void MediaPlayList::enqueue(const MediaPlayListEntry &newEntry, const MusicAudioTrack &audioTrack)
-{
-    beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size());
-    d->mData.push_back(newEntry);
-    if (audioTrack.isValid()) {
-        d->mTrackData.push_back(audioTrack);
-    } else {
-        d->mTrackData.push_back({});
-    }
-    endInsertRows();
-
-    restorePlayListPosition();
-    if (!d->mCurrentTrack.isValid()) {
-        resetCurrentTrack();
-    }
-
-    Q_EMIT tracksCountChanged();
-    Q_EMIT persistentStateChanged();
-
-    if (!newEntry.mIsValid) {
-        if (newEntry.mTrackUrl.isValid()) {
-            qDebug() << "MediaPlayList::enqueue" << "newTrackByFileNameInList" << newEntry.mTrackUrl;
-            if (newEntry.mTrackUrl.isLocalFile()) {
-                QFileInfo newTrackFile(newEntry.mTrackUrl.toLocalFile());
-                if (newTrackFile.exists()) {
-                    d->mData.last().mIsValid = true;
-                }
-                Q_EMIT newTrackByFileNameInList(newEntry.mTrackUrl);
-            }
-        } else {
-            Q_EMIT newTrackByNameInList(newEntry.mTitle, newEntry.mArtist, newEntry.mAlbum, newEntry.mTrackNumber, newEntry.mDiscNumber);
-        }
-    } else {
-        Q_EMIT newTrackByIdInList(newEntry.mId);
-    }
-
-    Q_EMIT trackHasBeenAdded(data(index(d->mData.size() - 1, 0), ColumnsRoles::TitleRole).toString(), data(index(d->mData.size() - 1, 0), ColumnsRoles::ImageRole).toUrl());
-
-    if (!newEntry.mIsValid) {
-        Q_EMIT dataChanged(index(rowCount() - 1, 0), index(rowCount() - 1, 0), {MediaPlayList::HasAlbumHeader});
-
-        if (!d->mCurrentTrack.isValid()) {
-            resetCurrentTrack();
-        }
-    }
-}
-
 bool MediaPlayList::moveRows(const QModelIndex &sourceParent, int sourceRow, int count, const QModelIndex &destinationParent, int destinationChild)
 {
     if (sourceParent != destinationParent) {
@@ -586,6 +517,63 @@ void MediaPlayList::move(int from, int to, int n)
     }
 }
 
+void MediaPlayList::enqueue(qulonglong newTrackId)
+{
+    enqueue(MediaPlayListEntry(newTrackId));
+}
+
+void MediaPlayList::enqueue(const MusicAudioTrack &newTrack)
+{
+    enqueue(MediaPlayListEntry(newTrack), newTrack);
+}
+
+void MediaPlayList::enqueue(const MediaPlayListEntry &newEntry, const MusicAudioTrack &audioTrack)
+{
+    beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size());
+    d->mData.push_back(newEntry);
+    if (audioTrack.isValid()) {
+        d->mTrackData.push_back(audioTrack);
+    } else {
+        d->mTrackData.push_back({});
+    }
+    endInsertRows();
+
+    restorePlayListPosition();
+    if (!d->mCurrentTrack.isValid()) {
+        resetCurrentTrack();
+    }
+
+    Q_EMIT tracksCountChanged();
+    Q_EMIT persistentStateChanged();
+
+    if (!newEntry.mIsValid) {
+        if (newEntry.mTrackUrl.isValid()) {
+            qDebug() << "MediaPlayList::enqueue" << "newTrackByFileNameInList" << newEntry.mTrackUrl;
+            if (newEntry.mTrackUrl.isLocalFile()) {
+                QFileInfo newTrackFile(newEntry.mTrackUrl.toLocalFile());
+                if (newTrackFile.exists()) {
+                    d->mData.last().mIsValid = true;
+                }
+                Q_EMIT newTrackByFileNameInList(newEntry.mTrackUrl);
+            }
+        } else {
+            Q_EMIT newTrackByNameInList(newEntry.mTitle, newEntry.mArtist, newEntry.mAlbum, newEntry.mTrackNumber, newEntry.mDiscNumber);
+        }
+    } else {
+        Q_EMIT newTrackByIdInList(newEntry.mId);
+    }
+
+    Q_EMIT trackHasBeenAdded(data(index(d->mData.size() - 1, 0), ColumnsRoles::TitleRole).toString(), data(index(d->mData.size() - 1, 0), ColumnsRoles::ImageRole).toUrl());
+
+    if (!newEntry.mIsValid) {
+        Q_EMIT dataChanged(index(rowCount() - 1, 0), index(rowCount() - 1, 0), {MediaPlayList::HasAlbumHeader});
+
+        if (!d->mCurrentTrack.isValid()) {
+            resetCurrentTrack();
+        }
+    }
+}
+
 void MediaPlayList::enqueue(const MusicAlbum &album)
 {
     for (auto oneTrackIndex = 0; oneTrackIndex < album.tracksCount(); ++oneTrackIndex) {
@@ -627,6 +615,18 @@ void MediaPlayList::enqueue(const QStringList &files)
     for (const auto &oneFileName : files) {
         enqueue(QUrl::fromLocalFile(oneFileName));
     }
+}
+
+void MediaPlayList::clearAndEnqueue(qulonglong newTrackId)
+{
+    clearPlayList();
+    enqueue(MediaPlayListEntry(newTrackId));
+}
+
+void MediaPlayList::clearAndEnqueue(const MusicAudioTrack &newTrack)
+{
+    clearPlayList();
+    enqueue(newTrack);
 }
 
 void MediaPlayList::clearAndEnqueue(const MusicAlbum &album)

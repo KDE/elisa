@@ -109,6 +109,7 @@ FocusScope {
 
                 GridView {
                     id: contentDirectoryView
+                    anchors.topMargin: 20
 
                     focus: true
 

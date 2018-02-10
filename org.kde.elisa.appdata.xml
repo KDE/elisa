@@ -13,6 +13,7 @@
   <name xml:lang="de">Elisa</name>
   <name xml:lang="en-GB">Elisa</name>
   <name xml:lang="es">Elisa</name>
+  <name xml:lang="fi">Elisa</name>
   <name xml:lang="fr">Elisa</name>
   <name xml:lang="gl">Elisa</name>
   <name xml:lang="it">Elisa</name>
@@ -38,6 +39,7 @@
   <summary xml:lang="de">Einfache Medienwiedergabe</summary>
   <summary xml:lang="en-GB">Simple Music Player</summary>
   <summary xml:lang="es">Reproductor de música sencillo</summary>
+  <summary xml:lang="fi">Yksinkertainen musiikkisoitin</summary>
   <summary xml:lang="fr">Lecteur de musique simple</summary>
   <summary xml:lang="gl">Reprodutor de música simple</summary>
   <summary xml:lang="it">Semplice lettore musicale</summary>
@@ -63,6 +65,7 @@
     <p xml:lang="de">Ein einfacher Medienspieler, der leicht zu benutzen sein sollte. Er kann ganz ohne vorherige Konfiguration verwendet werden.</p>
     <p xml:lang="en-GB">A simple music player that should be easy to use. It does not require any configuration before one can use it.</p>
     <p xml:lang="es">Un sencillo reproductor de música que debería ser fácil de usar. No necesita ninguna configuración antes de poder usarlo.</p>
+    <p xml:lang="fi">Yksinkertainen musiikkisoitin, jota tulisi olla helppo käyttää. Ei vaadi asettamista ennen käyttöä.</p>
     <p xml:lang="fr">Un lecteur de musique simple qui se veut facile à utiliser. Il ne requiert aucune configuration pour pouvoir être utilisé.</p>
     <p xml:lang="gl">Un reprodutor de música simple e fácil de usar. Non require ningún tipo de configuración inicial.</p>
     <p xml:lang="it">Un semplice lettore musicale che dovrebbe essere semplice da usare. Non richiede alcuna configurazione per iniziare a usarlo.</p>
@@ -91,6 +94,7 @@
       <caption xml:lang="de">Elisa-Musikwiedergabe</caption>
       <caption xml:lang="en-GB">The Elisa music player</caption>
       <caption xml:lang="es">El reproductor de música Elisa</caption>
+      <caption xml:lang="fi">Elisa-musiikkisoitin</caption>
       <caption xml:lang="gl">O reprodutor de música Elisa.</caption>
       <caption xml:lang="it">Il lettore musicale Elisa</caption>
       <caption xml:lang="nl">De muziekspeler Elisa</caption>

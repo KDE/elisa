@@ -30,7 +30,7 @@
 #include <QReadWriteLock>
 #include <QReadLocker>
 #include <QWriteLocker>
-#include <QtConcurrent>
+#include <QtConcurrentRun>
 #include <QThreadPool>
 
 #include <algorithm>

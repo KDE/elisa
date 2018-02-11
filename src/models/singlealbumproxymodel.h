@@ -17,8 +17,8 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef SINGELALBUMPROXYMODEL_H
-#define SINGELALBUMPROXYMODEL_H
+#ifndef SINGLEALBUMPROXYMODEL_H
+#define SINGLEALBUMPROXYMODEL_H
 
 #include "abstractmediaproxymodel.h"
 
@@ -36,4 +36,4 @@ protected:
 
 };
 
-#endif // SINGELALBUMPROXYMODEL_H
+#endif // SINGLEALBUMPROXYMODEL_H

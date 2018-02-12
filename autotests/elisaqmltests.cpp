@@ -17,6 +17,6 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#include <QtQuickTest/quicktest.h>
+#include <QtQuickTest/QtQuickTest>
 
 QUICK_TEST_MAIN(ElisaQmlTests)

@@ -112,6 +112,8 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
 int main(int argc, char *argv[])
 #endif
 {
+    QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
+
     qputenv("QT_GSTREAMER_USE_PLAYBIN_VOLUME", "true");
 
     QApplication app(argc, argv);

@@ -77,7 +77,7 @@ Item {
 
     property int filterClearButtonMargin: 1
 
-    property alias defaultFontPixelSize: fontSize.font.pixelSize
+    property alias defaultFontPointSize: fontSize.font.pointSize
 
     Label {
         id: fontSize

@@ -146,7 +146,7 @@ FocusScope {
                             anchors.rightMargin: elisaTheme.layoutHorizontalMargin
                             verticalAlignment: "AlignVCenter"
 
-                            font.pixelSize: elisaTheme.defaultFontPixelSize * 1.4
+                            font.pointSize: elisaTheme.defaultFontPointSize * 1.4
 
                             text: model.name
 

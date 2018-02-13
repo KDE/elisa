@@ -218,7 +218,7 @@ FocusScope {
                     font
                     {
                         bold: albumLabel.font.bold
-                        pixelSize: albumLabel.font.pixelSize
+                        pointSize: albumLabel.font.pointSize
                     }
                     text: albumLabel.text
                 }
@@ -230,7 +230,7 @@ FocusScope {
                     Layout.alignment: Qt.AlignLeft
                     elide: Text.ElideRight
                     color: myPalette.highlightedText
-                    font.pixelSize: elisaTheme.defaultFontPixelSize * 2.5
+                    font.pointSize: elisaTheme.defaultFontPointSize * 2.5
                     font.bold: true
 
                     Layout.bottomMargin: titleFontInfo.height * 0.5
@@ -243,7 +243,7 @@ FocusScope {
                     Layout.alignment: Qt.AlignLeft
                     elide: Text.ElideRight
                     color: myPalette.highlightedText
-                    font.pixelSize: elisaTheme.defaultFontPixelSize * 1.5
+                    font.pointSize: elisaTheme.defaultFontPointSize * 1.5
 
                     layer.effect: Glow {
                         cached: true
@@ -263,7 +263,7 @@ FocusScope {
                     elide: Text.ElideRight
                     color: myPalette.highlightedText
                     font.weight: Font.Light
-                    font.pixelSize: elisaTheme.defaultFontPixelSize * 1
+                    font.pointSize: elisaTheme.defaultFontPointSize * 1
 
                     layer.effect: Glow {
                         cached: true

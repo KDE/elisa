@@ -52,7 +52,7 @@ FocusScope {
 
         Label {
             id: notificationText
-            font.pixelSize: elisaTheme.defaultFontPixelSize * 1.5
+            font.pointSize: elisaTheme.defaultFontPoinPoint * 1.5
 
             Layout.leftMargin: elisaTheme.layoutHorizontalMargin
             Layout.alignment: Qt.AlignHCenter

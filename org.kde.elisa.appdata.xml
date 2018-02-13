@@ -82,9 +82,10 @@
     <p xml:lang="x-test">xxA simple music player that should be easy to use. It does not require any configuration before one can use it.xx</p>
     <p xml:lang="zh-CN">一个简单易用的音乐播放器，不需要任何配置就能够使用。</p>
   </description>
-  <url type="homepage">https://www.kde.org</url>
+  <url type="homepage">https://community.kde.org/Elisa</url>
   <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?product=elisa</url>
   <url type="donation">https://www.kde.org/community/donations</url>
+  <url type="help">https://docs.kde.org/trunk5/en/kdereview/elisa/index.html</url>
   <screenshots>
     <screenshot type="default">
       <caption>The Elisa music player</caption>

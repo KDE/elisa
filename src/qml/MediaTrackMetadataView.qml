@@ -22,7 +22,6 @@ import QtQuick.Controls 2.2
 import QtQuick.Window 2.2
 import QtQml.Models 2.2
 import QtQuick.Layouts 1.3
-import QtQuick.Dialogs 1.2
 import QtGraphicalEffects 1.0
 
 Dialog {
@@ -30,10 +29,13 @@ Dialog {
 
     property var trackDataHelper
 
-    title: i18nc("Window title for track metadata", "View Details")
-    modality: Qt.NonModal
 
-    standardButtons: StandardButton.Close
+    parent: ApplicationWindow.overlay
+    x: (parent.width - width) / 2
+    y: (parent.height - height) / 2
+    modal: false
+
+    standardButtons: Dialog.Close
 
     Component.onCompleted: {
         if (trackDataHelper.hasValidTitle())

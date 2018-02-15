@@ -25,7 +25,7 @@
  * Author: Aurélien Gâteau
  * License: BSD
  */
-import QtQuick 2.5
+import QtQuick 2.7
 
 FocusScope {
     id: root

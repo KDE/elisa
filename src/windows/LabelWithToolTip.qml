@@ -18,15 +18,12 @@
  */
 
 import QtQuick 2.7
-import QtQuick.Controls 1.4
-import QtQuick.Controls 2.0 as Controls2
+import QtQuick.Controls 2.2
 import QtGraphicalEffects 1.0
 import QtQuick.Window 2.2
 
 Label {
     id: theLabel
-
-    renderType: Text.NativeRendering
 
     Loader {
         anchors.fill: parent
@@ -38,7 +35,7 @@ Label {
             anchors.fill: parent
             hoverEnabled: true
 
-            Controls2.ToolTip {
+            ToolTip {
                 delay: Qt.styleHints.mousePressAndHoldInterval
                 visible: parent.containsMouse && theLabel.truncated
                 text: theLabel.text

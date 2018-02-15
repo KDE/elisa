@@ -17,12 +17,10 @@
  * Boston, MA 02110-1301, USA.
  */
 
-import QtQuick 2.9
-import QtQuick.Controls 1.4
-import QtQuick.Controls.Styles 1.4
-import QtQuick.Layouts 1.1
+import QtQuick 2.7
+import QtQuick.Layouts 1.2
 import QtGraphicalEffects 1.0
-import QtQuick.Controls 2.2 as Controls2
+import QtQuick.Controls 2.2
 import org.kde.elisa 1.0
 
 
@@ -65,7 +63,7 @@ FocusScope {
         anchors.fill: parent
         spacing: 0
 
-        Controls2.RoundButton {
+        RoundButton {
             focus: skipBackwardEnabled
 
             Layout.preferredWidth: elisaTheme.smallControlButtonHeight
@@ -117,7 +115,7 @@ FocusScope {
             }
         }
 
-        Controls2.RoundButton {
+        RoundButton {
             focus: playEnabled
 
             Layout.preferredWidth: elisaTheme.bigControlButtonHeight
@@ -176,7 +174,7 @@ FocusScope {
             }
         }
 
-        Controls2.RoundButton {
+        RoundButton {
             focus: skipForwardEnabled
 
             Layout.preferredWidth: elisaTheme.smallControlButtonHeight
@@ -255,7 +253,7 @@ FocusScope {
             }
         }
 
-        Controls2.Slider {
+        Slider {
             property bool seekStarted: false
             property int seekValue
 
@@ -368,7 +366,7 @@ FocusScope {
         }
 
 
-        Controls2.RoundButton {
+        RoundButton {
             focus: true
 
             Layout.preferredWidth: elisaTheme.smallControlButtonHeight
@@ -418,7 +416,7 @@ FocusScope {
             }
         }
 
-        Controls2.Slider {
+        Slider {
             id: volumeSlider
 
             from: 0

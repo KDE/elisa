@@ -18,8 +18,8 @@
  */
 
 import QtQuick 2.7
-import QtQuick.Layouts 1.3
-import QtQuick.Controls 1.4
+import QtQuick.Layouts 1.2
+import QtQuick.Controls 2.2
 import QtQml.Models 2.2
 import org.kde.elisa 1.0
 
@@ -86,9 +86,6 @@ FocusScope {
 
     ScrollView {
         id: expandedView
-
-        flickableItem.boundsBehavior: Flickable.StopAtBounds
-        verticalScrollBarPolicy: Qt.ScrollBarAlwaysOff
 
         anchors {
             top: parent.top
@@ -207,7 +204,6 @@ FocusScope {
             PropertyChanges {
                 target: expandedView
                 opacity: 0.0
-                verticalScrollBarPolicy: Qt.ScrollBarAlwaysOff
             }
             StateChangeScript {
                 script: notificationColumn.gotoBeginning()
@@ -236,7 +232,6 @@ FocusScope {
             PropertyChanges {
                 target: expandedView
                 opacity: 1.0
-                verticalScrollBarPolicy: Qt.ScrollBarAlwaysOff
             }
             StateChangeScript {
                 script: notificationColumn.gotoBeginning()
@@ -294,7 +289,6 @@ FocusScope {
             PropertyChanges {
                 target: expandedView
                 opacity: 1.0
-                verticalScrollBarPolicy: Qt.ScrollBarAsNeeded
             }
         }
     ]
@@ -302,7 +296,6 @@ FocusScope {
     transitions: [
         Transition {
             SequentialAnimation {
-                PropertyAction { target: expandedView; property: "verticalScrollBarPolicy"; value: Qt.ScrollBarAlwaysOff }
 
                 ParallelAnimation {
                     NumberAnimation {

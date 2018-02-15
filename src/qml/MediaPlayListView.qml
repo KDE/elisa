@@ -18,8 +18,8 @@
  */
 
 import QtQuick 2.5
-import QtQuick.Controls 1.3
-import QtQuick.Controls.Styles 1.3
+import QtQuick.Controls 2.2
+import QtQuick.Controls 1.3 as Controls1
 import QtQuick.Layouts 1.1
 import QtQuick.Window 2.2
 import QtQml.Models 2.1
@@ -41,7 +41,7 @@ FocusScope {
 
     id: topItem
 
-    Action {
+    Controls1.Action {
         id: clearPlayList
         text: i18nc("Remove all tracks from play list", "Clear Play List")
         iconName: "list-remove"
@@ -49,7 +49,7 @@ FocusScope {
         onTriggered: playListModel.clearPlayList()
     }
 
-    Action {
+    Controls1.Action {
         id: showCurrentTrack
         text: i18nc("Show currently played track inside playlist", "Show Current Track")
         iconName: 'media-show-active-track-amarok'
@@ -61,7 +61,7 @@ FocusScope {
         }
     }
 
-    Action {
+    Controls1.Action {
         id: loadPlaylist
         text: i18nc("Load a playlist file", "Load a Playlist")
         iconName: 'document-open'
@@ -73,7 +73,7 @@ FocusScope {
         }
     }
 
-    Action {
+    Controls1.Action {
         id: savePlaylist
         text: i18nc("Save a playlist file", "Save a Playlist")
         iconName: 'document-save'
@@ -196,8 +196,6 @@ FocusScope {
         }
 
         ScrollView {
-            flickableItem.boundsBehavior: Flickable.StopAtBounds
-
             Layout.fillWidth: true
             Layout.fillHeight: true
 
@@ -212,12 +210,11 @@ FocusScope {
                     readOnly: true
                     visible: playListModelDelegate.count === 0
                     wrapMode: TextEdit.Wrap
-                    renderType: TextEdit.NativeRendering
 
                     color: myPalette.text
 
                     font.weight: Font.ExtraLight
-                    font.pointSize: 12
+                    font.pixelSize: elisaTheme.defaultFontPixelSize * 1.5
 
                     text: i18nc("Text shown when play list is empty", "Your play list is empty.\nIn order to start, you can explore your music library with the views on the left.\nUse the available buttons to add your selection.")
                     anchors.fill: parent
@@ -341,19 +338,19 @@ FocusScope {
 
                 anchors.fill: parent
 
-                ToolButton {
+                Controls1.ToolButton {
                     action: clearPlayList
                     Layout.bottomMargin: elisaTheme.layoutVerticalMargin
                 }
-                ToolButton {
+                Controls1.ToolButton {
                     action: showCurrentTrack
                     Layout.bottomMargin: elisaTheme.layoutVerticalMargin
                 }
-                ToolButton {
+                Controls1.ToolButton {
                     action: loadPlaylist
                     Layout.bottomMargin: elisaTheme.layoutVerticalMargin
                 }
-                ToolButton {
+                Controls1.ToolButton {
                     action: savePlaylist
                     Layout.bottomMargin: elisaTheme.layoutVerticalMargin
                 }

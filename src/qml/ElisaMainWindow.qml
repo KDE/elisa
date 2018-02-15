@@ -18,8 +18,8 @@
  */
 
 import QtQuick 2.7
-import QtQuick.Controls 1.3
-import QtQuick.Controls.Styles 1.3
+import QtQuick.Controls 2.2
+import QtQuick.Controls 1.4 as Controls1
 import QtQuick.Layouts 1.1
 import QtQuick.Window 2.2
 import org.kde.elisa 1.0
@@ -45,17 +45,15 @@ ApplicationWindow {
 
     property var goBackAction: elisa.action("go_back")
 
-    Action {
-        text: goBackAction.text
-        shortcut: goBackAction.shortcut
-        iconName: elisa.iconName(goBackAction.icon)
-        onTriggered: {
+    Shortcut {
+        sequence: goBackAction.shortcut
+        onActivated: {
             localAlbums.goBack()
             localArtists.goBack()
         }
     }
 
-    Action {
+    Controls1.Action {
         id: applicationMenuAction
         text: i18nc("open application menu", "Application Menu")
         iconName: "application-menu"
@@ -275,7 +273,7 @@ ApplicationWindow {
                     playerControl.onPlayPrevious: elisa.mediaPlayList.skipPreviousTrack()
                     playerControl.onPlayNext: elisa.mediaPlayList.skipNextTrack()
 
-                    ToolButton {
+                    Controls1.ToolButton {
                         id: menuButton
 
                         action: applicationMenuAction

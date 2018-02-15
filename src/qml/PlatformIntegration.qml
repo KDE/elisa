@@ -17,7 +17,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-import QtQuick 2.0
+import QtQuick 2.7
 import org.kde.elisa 1.0
 
 Item {

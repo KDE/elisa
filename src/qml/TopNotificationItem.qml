@@ -18,8 +18,9 @@
  */
 
 import QtQuick 2.7
-import QtQuick.Layouts 1.3
-import QtQuick.Controls 1.4
+import QtQuick.Layouts 1.2
+import QtQuick.Controls 2.2
+import QtQuick.Controls 1.4 as Controls1
 import org.kde.elisa 1.0
 
 FocusScope {
@@ -61,7 +62,7 @@ FocusScope {
             opacity: (topItem.height - height) / height
         }
 
-        Button {
+        Controls1.Button {
             id: mainButton
 
             Layout.leftMargin: elisaTheme.layoutHorizontalMargin
@@ -84,7 +85,7 @@ FocusScope {
             }
         }
 
-        Button {
+        Controls1.Button {
             id: secondaryButton
 
             Layout.leftMargin: elisaTheme.layoutHorizontalMargin
@@ -112,7 +113,7 @@ FocusScope {
         }
     }
 
-    ToolButton {
+    Controls1.ToolButton {
         anchors.top: parent.top
         anchors.right: parent.right
 

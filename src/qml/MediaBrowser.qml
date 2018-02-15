@@ -17,10 +17,9 @@
  * Boston, MA 02110-1301, USA.
  */
 
-import QtQuick 2.4
-import QtQuick.Controls 1.2
-import QtQuick.Controls.Styles 1.2
-import QtQuick.Layouts 1.1
+import QtQuick 2.7
+import QtQuick.Controls 2.2
+import QtQuick.Layouts 1.2
 import QtQuick.Window 2.2
 import org.kde.elisa 1.0
 
@@ -49,25 +48,35 @@ FocusScope {
 
             focus: true
 
-            delegate: StackViewDelegate {
-                function transitionFinished(properties)
-                {
-                    properties.exitItem.opacity = 1
+            pushEnter:  Transition {
+                PropertyAnimation {
+                    property: "opacity"
+                    from: 0
+                    to: 1
                 }
+            }
 
-                pushTransition: StackViewTransition {
-                    PropertyAnimation {
-                        target: enterItem
-                        property: "opacity"
-                        from: 0
-                        to: 1
-                    }
-                    PropertyAnimation {
-                        target: exitItem
-                        property: "opacity"
-                        from: 1
-                        to: 0
-                    }
+            pushExit:  Transition {
+                PropertyAnimation {
+                    property: "opacity"
+                    from: 1
+                    to: 0
+                }
+            }
+
+            popEnter:  Transition {
+                PropertyAnimation {
+                    property: "opacity"
+                    from: 0
+                    to: 1
+                }
+            }
+
+            popExit:  Transition {
+                PropertyAnimation {
+                    property: "opacity"
+                    from: 1
+                    to: 0
                 }
             }
         }

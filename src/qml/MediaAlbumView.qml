@@ -17,11 +17,10 @@
  * Boston, MA 02110-1301, USA.
  */
 
-import QtQuick 2.5
+import QtQuick 2.7
 import QtQuick.Window 2.2
-import QtQuick.Controls 1.4
-import QtQuick.Controls.Styles 1.2
-import QtQml.Models 2.1
+import QtQuick.Controls 2.2
+import QtQml.Models 2.2
 import org.kde.elisa 1.0
 import QtQuick.Layouts 1.2
 
@@ -97,9 +96,6 @@ FocusScope {
         }
 
         ScrollView {
-            flickableItem.boundsBehavior: Flickable.StopAtBounds
-            flickableItem.interactive: true
-
             Layout.fillHeight: true
             Layout.fillWidth: true
 

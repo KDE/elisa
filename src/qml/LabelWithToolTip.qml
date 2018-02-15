@@ -18,8 +18,7 @@
  */
 
 import QtQuick 2.7
-import QtQuick.Controls 1.4
-import QtQuick.Controls 2.0 as Controls2
+import QtQuick.Controls 2.2
 import QtGraphicalEffects 1.0
 import QtQuick.Window 2.2
 
@@ -27,7 +26,6 @@ Label {
     id: theLabel
 
     horizontalAlignment: Text.AlignLeft
-    renderType: Text.NativeRendering
 
     Loader {
         anchors.fill: parent
@@ -45,7 +43,7 @@ Label {
                 anchors.fill: parent
                 active: hoverArea && hoverArea.containsMouse
 
-                sourceComponent: Controls2.ToolTip {
+                sourceComponent: ToolTip {
                     delay: Qt.styleHints.mousePressAndHoldInterval
                     visible: hoverArea && hoverArea.containsMouse && theLabel.truncated
                     text: theLabel.text

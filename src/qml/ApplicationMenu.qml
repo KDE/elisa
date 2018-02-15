@@ -19,6 +19,7 @@
  */
 
 import QtQuick 2.7
+//explore menu from Qt 5.10 once we can require it, but it is item-based
 import QtQuick.Controls 1.4
 
 Menu {

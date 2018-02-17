@@ -87,36 +87,37 @@ FocusScope {
             Layout.fillHeight: true
             Layout.fillWidth: true
 
-            ScrollView {
+            ListView {
+                id: contentDirectoryView
                 anchors.fill: parent
 
-                ListView {
-                    id: contentDirectoryView
+                focus: true
+
+                ScrollBar.vertical: ScrollBar {
+                    id: scrollBar
+                }
+                boundsBehavior: Flickable.StopAtBounds
+                clip: true
+
+                delegate: MediaTrackDelegate {
+                    id: entry
+
+                    width: scrollBar.visible ? contentDirectoryView.width - scrollBar.width : contentDirectoryView.width
+                    height: elisaTheme.trackDelegateHeight
 
                     focus: true
 
-                    delegate: MediaTrackDelegate {
-                        id: entry
+                    trackData: model.containerData
 
-                        width: contentDirectoryView.width
-                        height: elisaTheme.trackDelegateHeight
+                    isFirstTrackOfDisc: false
 
-                        focus: true
+                    isSingleDiscAlbum: model.isSingleDiscAlbum
 
-                        isAlternateColor: (index % 2) === 1
+                    onEnqueue: elisa.mediaPlayList.enqueue(data)
 
-                        trackData: model.containerData
+                    onReplaceAndPlay: elisa.mediaPlayList.replaceAndPlay(data)
 
-                        isFirstTrackOfDisc: false
-
-                        isSingleDiscAlbum: model.isSingleDiscAlbum
-
-                        onEnqueue: elisa.mediaPlayList.enqueue(data)
-
-                        onReplaceAndPlay: elisa.mediaPlayList.replaceAndPlay(data)
-
-                        onClicked: contentDirectoryView.currentIndex = index
-                    }
+                    onClicked: contentDirectoryView.currentIndex = index
                 }
             }
         }

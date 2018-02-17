@@ -161,7 +161,7 @@ FocusScope {
                     color: myPalette.text
                     font.pointSize: elisaTheme.defaultFontPointSize * 2
                     Layout.topMargin: elisaTheme.layoutVerticalMargin
-                  }
+                }
 
                 LabelWithToolTip {
                     id: playListInfo
@@ -195,130 +195,131 @@ FocusScope {
             }
         }
 
-        ScrollView {
+        ListView {
+            id: playListView
             Layout.fillWidth: true
             Layout.fillHeight: true
 
             focus: true
 
-            ListView {
-                id: playListView
+            ScrollBar.vertical: ScrollBar {
+                id: scrollBar
+            }
+            boundsBehavior: Flickable.StopAtBounds
+            clip: true
 
-                focus: true
+            TextEdit {
+                readOnly: true
+                visible: playListModelDelegate.count === 0
+                wrapMode: TextEdit.Wrap
 
-                TextEdit {
-                    readOnly: true
-                    visible: playListModelDelegate.count === 0
-                    wrapMode: TextEdit.Wrap
+                color: myPalette.text
 
-                    color: myPalette.text
+                font.weight: Font.ExtraLight
+                font.pixelSize: elisaTheme.defaultFontPixelSize * 1.5
 
-                    font.weight: Font.ExtraLight
-                    font.pixelSize: elisaTheme.defaultFontPixelSize * 1.5
+                text: i18nc("Text shown when play list is empty", "Your play list is empty.\nIn order to start, you can explore your music library with the views on the left.\nUse the available buttons to add your selection.")
+                anchors.fill: parent
+                anchors.margins: elisaTheme.layoutHorizontalMargin
+            }
 
-                    text: i18nc("Text shown when play list is empty", "Your play list is empty.\nIn order to start, you can explore your music library with the views on the left.\nUse the available buttons to add your selection.")
-                    anchors.fill: parent
-                    anchors.margins: elisaTheme.layoutHorizontalMargin
-                }
+            add: Transition {
+                NumberAnimation {
+                    property: "opacity";
+                    from: 0;
+                    to: 1;
+                    duration: 100 }
+            }
 
-                add: Transition {
-                    NumberAnimation {
-                        property: "opacity";
-                        from: 0;
-                        to: 1;
-                        duration: 100 }
-                }
+            populate: Transition {
+                NumberAnimation {
+                    property: "opacity";
+                    from: 0;
+                    to: 1;
+                    duration: 100 }
+            }
 
-                populate: Transition {
-                    NumberAnimation {
-                        property: "opacity";
-                        from: 0;
-                        to: 1;
-                        duration: 100 }
-                }
+            remove: Transition {
+                NumberAnimation {
+                    property: "opacity";
+                    from: 1.0;
+                    to: 0;
+                    duration: 100 }
+            }
 
-                remove: Transition {
-                    NumberAnimation {
-                        property: "opacity";
-                        from: 1.0;
-                        to: 0;
-                        duration: 100 }
-                }
+            displaced: Transition {
+                NumberAnimation {
+                    properties: "x,y";
+                    duration: 100;
+                    easing.type: Easing.InOutQuad}
+            }
 
-                displaced: Transition {
-                    NumberAnimation {
-                        properties: "x,y";
-                        duration: 100;
-                        easing.type: Easing.InOutQuad}
-                }
+            model: DelegateModel {
+                id: playListModelDelegate
+                model: playListModel
 
-                model: DelegateModel {
-                    id: playListModelDelegate
-                    model: playListModel
+                groups: [
+                    DelegateModelGroup { name: "selected" }
+                ]
 
-                    groups: [
-                        DelegateModelGroup { name: "selected" }
-                    ]
+                delegate: DraggableItem {
+                    id: item
+                    placeholderHeight: topItem.placeholderHeight
 
-                    delegate: DraggableItem {
-                        id: item
-                        placeholderHeight: topItem.placeholderHeight
+                    focus: true
+
+                    PlayListEntry {
+                        id: entry
 
                         focus: true
 
-                        PlayListEntry {
-                            id: entry
+                        width: playListView.width
 
-                            focus: true
+                        index: model.index
 
-                            width: playListView.width
+                        isAlternateColor: item.DelegateModel.itemsIndex % 2
 
-                            index: model.index
+                        hasAlbumHeader: model.hasAlbumHeader
 
-                            isAlternateColor: item.DelegateModel.itemsIndex % 2
+                        isSingleDiscAlbum: model.isSingleDiscAlbum
 
-                            hasAlbumHeader: model.hasAlbumHeader
+                        trackData: model.trackData
 
-                            isSingleDiscAlbum: model.isSingleDiscAlbum
+                        titleDisplay: model.title
 
-                            trackData: model.trackData
+                        isValid: model.isValid
 
-                            titleDisplay: model.title
+                        isPlaying: model.isPlaying
 
-                            isValid: model.isValid
+                        isSelected: playListView.currentIndex === index
 
-                            isPlaying: model.isPlaying
+                        containsMouse: item.containsMouse
 
-                            isSelected: playListView.currentIndex === index
+                        onStartPlayback: topItem.startPlayback()
 
-                            containsMouse: item.containsMouse
+                        onPausePlayback: topItem.pausePlayback()
 
-                            onStartPlayback: topItem.startPlayback()
+                        onRemoveFromPlaylist: topItem.playListModel.removeRows(trackIndex, 1)
 
-                            onPausePlayback: topItem.pausePlayback()
+                        onSwitchToTrack: topItem.playListModel.switchTo(trackIndex)
+                    }
 
-                            onRemoveFromPlaylist: topItem.playListModel.removeRows(trackIndex, 1)
+                    draggedItemParent: topItem
 
-                            onSwitchToTrack: topItem.playListModel.switchTo(trackIndex)
+                    onClicked: {
+                        playListView.currentIndex = index
+                        entry.forceActiveFocus()
+                    }
+
+                    onDoubleClicked: {
+                        if (model.isValid) {
+                            topItem.playListControler.switchTo(model.index)
+                            topItem.startPlayback()
                         }
+                    }
 
-                        draggedItemParent: topItem
-
-                        onClicked: {
-                            playListView.currentIndex = index
-                            entry.forceActiveFocus()
-                        }
-
-                        onDoubleClicked: {
-                            if (model.isValid) {
-                                topItem.playListModel.switchTo(model.index)
-                                topItem.startPlayback()
-                            }
-                        }
-
-                        onMoveItemRequested: {
-                            playListModel.move(from, to, 1);
-                        }
+                    onMoveItemRequested: {
+                        playListModel.move(from, to, 1);
                     }
                 }
             }
@@ -361,4 +362,5 @@ FocusScope {
         }
     }
 }
+
 

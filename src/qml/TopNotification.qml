@@ -87,6 +87,8 @@ FocusScope {
     ScrollView {
         id: expandedView
 
+        ScrollBar.vertical.policy: ScrollBar.AlwaysOff
+
         anchors {
             top: parent.top
             right: parent.right
@@ -204,6 +206,7 @@ FocusScope {
             PropertyChanges {
                 target: expandedView
                 opacity: 0.0
+                ScrollBar.vertical.policy: ScrollBar.AlwaysOff
             }
             StateChangeScript {
                 script: notificationColumn.gotoBeginning()
@@ -232,6 +235,7 @@ FocusScope {
             PropertyChanges {
                 target: expandedView
                 opacity: 1.0
+                ScrollBar.vertical.policy: ScrollBar.AlwaysOff
             }
             StateChangeScript {
                 script: notificationColumn.gotoBeginning()
@@ -260,7 +264,7 @@ FocusScope {
             PropertyChanges {
                 target: expandedView
                 opacity: 1.0
-                verticalScrollBarPolicy: Qt.ScrollBarAlwaysOff
+                ScrollBar.vertical.policy: ScrollBar.AsNeeded
             }
             StateChangeScript {
                 script: notificationColumn.gotoBeginning()
@@ -289,6 +293,7 @@ FocusScope {
             PropertyChanges {
                 target: expandedView
                 opacity: 1.0
+                ScrollBar.vertical.policy: ScrollBar.AsNeeded
             }
         }
     ]
@@ -296,7 +301,11 @@ FocusScope {
     transitions: [
         Transition {
             SequentialAnimation {
-
+                PropertyAction {
+                    target: expandedView
+                    property: "ScrollBar.vertical.policy"
+                    value: ScrollBar.AlwaysOff
+                }
                 ParallelAnimation {
                     NumberAnimation {
                         target: topItem

@@ -18,7 +18,7 @@
  */
 
 import QtQuick 2.5
-import QtQuick.Controls 2.0 as QQC2
+import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.2
 import QtGraphicalEffects 1.0
 
@@ -118,7 +118,7 @@ MouseArea {
         RowLayout {
             id: mainLayout
             anchors.centerIn: parent
-            QQC2.Label {
+            Label {
                 id: messageLabel
                 Layout.maximumWidth: Math.min(root.parent.width - 20*2, implicitWidth)
                 elide: Text.ElideRight
@@ -126,7 +126,7 @@ MouseArea {
                 maximumLineCount: 4
                 color: myPalette.buttonText
             }
-            QQC2.Button {
+            Button {
                 id: actionButton
                 property var callBack
                 visible: text != ""

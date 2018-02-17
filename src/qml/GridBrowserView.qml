@@ -96,43 +96,46 @@ FocusScope {
             Layout.fillHeight: true
             Layout.fillWidth: true
 
-            ScrollView {
+            GridView {
+                id: contentDirectoryView
+                anchors.topMargin: 20
+
+                focus: true
                 anchors.fill: parent
 
-                GridView {
-                    id: contentDirectoryView
-                    anchors.topMargin: 20
+                ScrollBar.vertical: ScrollBar {
+                    id: scrollBar
+                }
+                boundsBehavior: Flickable.StopAtBounds
+                clip: true
+
+                TextMetrics {
+                    id: secondaryLabelSize
+                    text: 'example'
+                }
+
+                cellWidth: elisaTheme.gridDelegateWidth
+                cellHeight: (delegateDisplaySecondaryText ? elisaTheme.gridDelegateHeight : elisaTheme.gridDelegateHeight - secondaryLabelSize.height)
+
+                delegate: GridBrowserDelegate {
+                    width: contentDirectoryView.cellWidth
+                    height: contentDirectoryView.cellHeight
 
                     focus: true
 
-                    TextMetrics {
-                        id: secondaryLabelSize
-                        text: 'example'
-                    }
+                    mainText: model.display
+                    secondaryText: model.secondaryText
+                    imageUrl: model.imageUrl
+                    shadowForImage: model.shadowForImage
+                    containerData: model.containerData
+                    delegateDisplaySecondaryText: gridView.delegateDisplaySecondaryText
 
-                    cellWidth: elisaTheme.gridDelegateWidth
-                    cellHeight: (delegateDisplaySecondaryText ? elisaTheme.gridDelegateHeight : elisaTheme.gridDelegateHeight - secondaryLabelSize.height)
-
-                    delegate: GridBrowserDelegate {
-                        width: contentDirectoryView.cellWidth
-                        height: contentDirectoryView.cellHeight
-
-                        focus: true
-
-                        mainText: model.display
-                        secondaryText: model.secondaryText
-                        imageUrl: model.imageUrl
-                        shadowForImage: model.shadowForImage
-                        containerData: model.containerData
-                        delegateDisplaySecondaryText: gridView.delegateDisplaySecondaryText
-
-                        onEnqueue: elisa.mediaPlayList.enqueue(data)
-                        onReplaceAndPlay: elisa.mediaPlayList.replaceAndPlay(data)
-                        onOpen: gridView.open(model.display, model.secondaryText, model.imageUrl, model.databaseId)
-                        onSelected: {
-                            forceActiveFocus()
-                            contentDirectoryView.currentIndex = model.index
-                        }
+                    onEnqueue: elisa.mediaPlayList.enqueue(data)
+                    onReplaceAndPlay: elisa.mediaPlayList.replaceAndPlay(data)
+                    onOpen: gridView.open(model.display, model.secondaryText, model.imageUrl, model.databaseId)
+                    onSelected: {
+                        forceActiveFocus()
+                        contentDirectoryView.currentIndex = model.index
                     }
                 }
             }

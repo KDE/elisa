@@ -45,9 +45,9 @@ ApplicationWindow {
 
     property var goBackAction: elisa.action("go_back")
 
-    Shortcut {
-        sequence: goBackAction.shortcut
-        onActivated: {
+    Controls1.Action  {
+        shortcut: goBackAction.shortcut
+        onTriggered: {
             localAlbums.goBack()
             localArtists.goBack()
         }
@@ -406,7 +406,7 @@ ApplicationWindow {
 
                                     BusyIndicator {
                                         id: busyScanningMusic
-
+                                        hoverEnabled: false
                                         anchors.fill: parent
 
                                         anchors.leftMargin: parent.width / 3

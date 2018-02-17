@@ -26,7 +26,6 @@ import org.kde.elisa 1.0
 FocusScope {
     id: contentDirectoryRoot
 
-    property MediaPlayList playListModel
     property alias firstPage: listingView.initialItem
     property alias stackView: listingView
 

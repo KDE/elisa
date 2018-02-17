@@ -29,13 +29,16 @@ Dialog {
 
     property var trackDataHelper
 
+    modal: false
+    closePolicy: Popup.CloseOnPressOutside | Popup.CloseOnEscape
+    padding: elisaTheme.layoutVerticalMargin
+    standardButtons: Dialog.Close
 
     parent: ApplicationWindow.overlay
+    width: elisaTheme.trackMetadataWidth
+
     x: (parent.width - width) / 2
     y: (parent.height - height) / 2
-    modal: false
-
-    standardButtons: Dialog.Close
 
     Component.onCompleted: {
         if (trackDataHelper.hasValidTitle())
@@ -68,6 +71,7 @@ Dialog {
         if (trackDataHelper.hasValidComment())
             trackList.append({"name": i18nc("Comment label for track metadata view", "Comment:"), "content": trackDataHelper.comment})
         trackData.Layout.preferredHeight = textSize.height * trackData.count
+        trackMetadata.height = textSize.height * (trackData.count + 1 + (rating > -1 ? 1 : 0)) + 3 * elisaTheme.layoutVerticalMargin + footer.height
     }
 
     ColumnLayout {

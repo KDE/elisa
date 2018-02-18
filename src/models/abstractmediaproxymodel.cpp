@@ -67,15 +67,9 @@ void AbstractMediaProxyModel::setFilterRating(int filterRating)
     Q_EMIT filterRatingChanged(filterRating);
 }
 
-
 MediaPlayList *AbstractMediaProxyModel::mediaPlayList() const
 {
     return mMediaPlayList;
-}
-
-ManageAudioPlayer *AbstractMediaProxyModel::audioControl() const
-{
-    return mAudioControl;
 }
 
 void AbstractMediaProxyModel::setMediaPlayList(MediaPlayList *playList)
@@ -84,10 +78,11 @@ void AbstractMediaProxyModel::setMediaPlayList(MediaPlayList *playList)
     Q_EMIT mediaPlayListChanged(mMediaPlayList);
 }
 
-void AbstractMediaProxyModel::setAudioControl(ManageAudioPlayer *audioControl)
+void AbstractMediaProxyModel::replaceAndPlayOfPlayList()
 {
-    mAudioControl = audioControl;
-    Q_EMIT audioControlChanged(mAudioControl);
+    this->mediaPlayList()->clearPlayList();
+    this->enqueueToPlayList();
+    Q_EMIT this->mediaPlayList()->ensurePlay();
 }
 
 #include "moc_abstractmediaproxymodel.cpp"

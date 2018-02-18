@@ -93,10 +93,6 @@ ApplicationWindow {
         property bool playControlItemMuted : false
     }
 
-    property string globalBrowseFlag: 'BrowseDirectChildren'
-    property string globalFilter: '*'
-    property string globalSortCriteria: ''
-
     Connections {
         target: Qt.application
         onAboutToQuit:
@@ -106,8 +102,8 @@ ApplicationWindow {
             persistentSettings.width = mainWindow.width;
             persistentSettings.height = mainWindow.height;
 
-            persistentSettings.playListState = playListModelItem.persistentState;
-            persistentSettings.playListControlerState = playListModelItem.persistentState;
+            persistentSettings.playListState = mediaPlayList.persistentState;
+            persistentSettings.playListControlerState = mediaPlayList.persistentState;
             persistentSettings.audioPlayerState = manageAudioPlayer.persistentState
 
             persistentSettings.playControlItemVolume = headerBar.playerControl.volume
@@ -118,8 +114,8 @@ ApplicationWindow {
     PlatformIntegration {
         id: platformInterface
 
-        playListModel: playListModelItem
-        playListControler: playListModelItem
+        playListModel: mediaPlayList
+        playListControler: mediaPlayList
         audioPlayerManager: manageAudioPlayer
         headerBarManager: myHeaderBarManager
         manageMediaPlayerControl: myPlayControlManager
@@ -158,58 +154,25 @@ ApplicationWindow {
         }
     }
 
-    MediaPlayList {
-        id: playListModelItem
-
-        persistentState: persistentSettings.playListState
-        musicListenersManager: allListeners
-
-        onPlayListFinished: manageAudioPlayer.playListFinished()
-
-        Component.onCompleted:
-        {
-            var d = new Date();
-            var n = d.getMilliseconds();
-            seedRandomGenerator(n);
-
-            playFiles(elisa.arguments)
-            allAlbumsProxyModel.setMediaPlayList(playListModelItem)
-            allArtistsProxyModel.setMediaPlayList(playListModelItem)
-            allTracksProxyModel.setMediaPlayList(playListModelItem)
-            singleAlbumProxyModel.setMediaPlayList(playListModelItem)
-            singleArtistProxyModel.setMediaPlayList(playListModelItem)
-        }
-
-        onPlayListLoadFailed:
-        {
+    Connections {
+        target: mediaPlayList
+        onPlayListLoadFailed: {
             messageNotification.showNotification(i18nc("message of passive notification when playlist load failed", "Load of playlist failed"), 3000)
         }
-
-        function playFiles(listFiles)
-        {
-            if (listFiles.length > 0) {
-                var previousTrackNumber = tracksCount
-                enqueue(listFiles)
-                switchTo(previousTrackNumber)
-                manageAudioPlayer.ensurePlay()
-            }
-        }
+        onEnsurePlay: manageAudioPlayer.ensurePlay()
+        onPlayListFinished: manageAudioPlayer.playListFinished()
     }
 
-    Connections {
-        target: elisa
-
-        onEnqueue:
-        {
-            playListModelItem.playFiles(files)
-        }
+    Component.onCompleted: {
+        mediaPlayList.persistentState = persistentSettings.playListState
+        mediaPlayList.enqueueAndPlay(elisa.arguments)
     }
 
     ManageHeaderBar {
         id: myHeaderBarManager
 
-        playListModel: playListModelItem
-        currentTrack: playListModelItem.currentTrack
+        playListModel: mediaPlayList
+        currentTrack: mediaPlayList.currentTrack
 
         artistRole: MediaPlayList.ArtistRole
         titleRole: MediaPlayList.TitleRole
@@ -221,8 +184,8 @@ ApplicationWindow {
     ManageAudioPlayer {
         id: manageAudioPlayer
 
-        currentTrack: playListModelItem.currentTrack
-        playListModel: playListModelItem
+        currentTrack: mediaPlayList.currentTrack
+        playListModel: mediaPlayList
         urlRole: MediaPlayList.ResourceRole
         isPlayingRole: MediaPlayList.IsPlayingRole
         titleRole: MediaPlayList.TitleRole
@@ -241,30 +204,22 @@ ApplicationWindow {
         onPlayerPlay: audioPlayer.play()
         onPlayerPause: audioPlayer.pause()
         onPlayerStop: audioPlayer.stop()
-        onSkipNextTrack: playListModelItem.skipNextTrack()
+        onSkipNextTrack: mediaPlayList.skipNextTrack()
         onSeek: audioPlayer.seek(position)
         onSourceInError:
         {
-            playListModelItem.trackInError(source, playerError)
+            mediaPlayList.trackInError(source, playerError)
             allListeners.playBackError(source, playerError)
         }
 
         onDisplayTrackError: messageNotification.showNotification(i18n("Error when playing %1", "" + fileName), 3000)
-
-        Component.onCompleted: {
-            allAlbumsProxyModel.setAudioControl(manageAudioPlayer)
-            allArtistsProxyModel.setAudioControl(manageAudioPlayer)
-            allTracksProxyModel.setAudioControl(manageAudioPlayer)
-            singleAlbumProxyModel.setAudioControl(manageAudioPlayer)
-            singleArtistProxyModel.setAudioControl(manageAudioPlayer)
-        }
     }
 
     ManageMediaPlayerControl {
         id: myPlayControlManager
 
-        playListModel: playListModelItem
-        currentTrack: playListModelItem.currentTrack
+        playListModel: mediaPlayList
+        currentTrack: mediaPlayList.currentTrack
     }
 
     PassiveNotification {
@@ -316,8 +271,8 @@ ApplicationWindow {
                     playerControl.onPlay: manageAudioPlayer.playPause()
                     playerControl.onPause: manageAudioPlayer.playPause()
 
-                    playerControl.onPlayPrevious: playListModelItem.skipPreviousTrack()
-                    playerControl.onPlayNext: playListModelItem.skipNextTrack()
+                    playerControl.onPlayPrevious: mediaPlayList.skipPreviousTrack()
+                    playerControl.onPlayNext: mediaPlayList.skipNextTrack()
 
                     ToolButton {
                         id: menuButton
@@ -459,21 +414,13 @@ ApplicationWindow {
                                         firstPage: GridBrowserView {
                                             id: allAlbumsView
 
-                                            tempMediaPlayList: playListModelItem
-                                            tempMediaControl: manageAudioPlayer
-
                                             focus: true
 
-                                            model: allAlbumsProxyModel
+                                            contentModel: allAlbumsProxyModel
 
                                             image: elisaTheme.albumIcon
                                             mainTitle: i18nc("Title of the view of all albums", "Albums")
 
-                                            onEnqueue: playListModelItem.enqueue(data)
-                                            onReplaceAndPlay: {
-                                                playListModelItem.clearAndEnqueue(data)
-                                                manageAudioPlayer.ensurePlay()
-                                            }
                                             onOpen: {
                                                 singleAlbumProxyModel.sourceModel.loadAlbumData(databaseId)
                                                 localAlbums.stackView.push(albumView, {
@@ -504,22 +451,15 @@ ApplicationWindow {
                                         firstPage: GridBrowserView {
                                             id: allArtistsView
                                             focus: true
-                                            tempMediaPlayList: playListModelItem
-                                            tempMediaControl: manageAudioPlayer
 
                                             showRating: false
                                             delegateDisplaySecondaryText: false
 
-                                            model: allArtistsProxyModel
+                                            contentModel: allArtistsProxyModel
 
                                             image: elisaTheme.artistIcon
                                             mainTitle: i18nc("Title of the view of all artists", "Artists")
 
-                                            onEnqueue: playListModelItem.enqueue(data)
-                                            onReplaceAndPlay: {
-                                                playListModelItem.clearAndEnqueue(data)
-                                                manageAudioPlayer.ensurePlay()
-                                            }
                                             onOpen: {
                                                 singleArtistProxyModel.setArtistFilterText(innerMainTitle)
                                                 localArtists.stackView.push(innerAlbumView, {
@@ -550,17 +490,9 @@ ApplicationWindow {
 
                                         firstPage: MediaAllTracksView {
                                             focus: true
-                                            tempMediaPlayList: playListModelItem
-                                            tempMediaControl: manageAudioPlayer
                                             stackView: localTracks.stackView
 
-                                            model: allTracksProxyModel
-
-                                            onEnqueue: playListModelItem.enqueue(data)
-                                            onReplaceAndPlay: {
-                                                playListModelItem.clearAndEnqueue(data)
-                                                manageAudioPlayer.ensurePlay()
-                                            }
+                                            contentModel: allTracksProxyModel
                                         }
 
                                         visible: opacity > 0
@@ -597,11 +529,10 @@ ApplicationWindow {
                             MediaPlayListView {
                                 id: playList
 
-                                playListModel: playListModelItem
-                                playListControler: playListModelItem
+                                playListModel: mediaPlayList
 
-                                randomPlayChecked: playListModelItem.randomPlay
-                                repeatPlayChecked: playListModelItem.repeatPlay
+                                randomPlayChecked: mediaPlayList.randomPlay
+                                repeatPlayChecked: mediaPlayList.repeatPlay
 
                                 Layout.fillHeight: true
                                 Layout.leftMargin: elisaTheme.layoutHorizontalMargin
@@ -613,8 +544,8 @@ ApplicationWindow {
 
                                 Component.onCompleted:
                                 {
-                                    playListModelItem.randomPlay = Qt.binding(function() { return playList.randomPlayChecked })
-                                    playListModelItem.repeatPlay = Qt.binding(function() { return playList.repeatPlayChecked })
+                                    mediaPlayList.randomPlay = Qt.binding(function() { return playList.randomPlayChecked })
+                                    mediaPlayList.repeatPlay = Qt.binding(function() { return playList.repeatPlayChecked })
                                     myPlayControlManager.randomOrContinuePlay = Qt.binding(function() { return playList.randomPlayChecked || playList.repeatPlayChecked })
                                 }
 
@@ -880,17 +811,10 @@ ApplicationWindow {
 
         GridBrowserView {
             property var stackView
-            tempMediaPlayList: playListModelItem
-            tempMediaControl: manageAudioPlayer
 
-            model: singleArtistProxyModel
+            contentModel: singleArtistProxyModel
 
             isSubPage: true
-            onEnqueue: playListModelItem.enqueue(data)
-            onReplaceAndPlay: {
-                playListModelItem.clearAndEnqueue(data)
-                manageAudioPlayer.ensurePlay()
-            }
 
             onOpen: {
                 singleAlbumProxyModel.sourceModel.loadAlbumData(databaseId)
@@ -910,17 +834,8 @@ ApplicationWindow {
 
         MediaAlbumView {
             property var stackView
-            tempMediaPlayList: playListModelItem
-            tempMediaControl: manageAudioPlayer
 
-            model: singleAlbumProxyModel
-
-            onEnqueue: playListModelItem.enqueue(data)
-
-            onReplaceAndPlay: {
-                playListModelItem.clearAndEnqueue(data)
-                manageAudioPlayer.ensurePlay()
-            }
+            contentModel: singleAlbumProxyModel
 
             onShowArtist: {
                 listViews.currentIndex = 2

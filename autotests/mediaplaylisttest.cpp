@@ -2658,7 +2658,7 @@ void MediaPlayListTest::testHasHeaderYetAnotherMoveLikeQml()
     QCOMPARE(myPlayList.data(myPlayList.index(3, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
 }
 
-void MediaPlayListTest::enqueueClearAndEnqueue()
+void MediaPlayListTest::enqueueReplaceAndPlay()
 {
     MediaPlayList myPlayList;
     ModelTest testModel(&myPlayList);
@@ -2812,7 +2812,7 @@ void MediaPlayListTest::enqueueClearAndEnqueue()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), MediaPlayList::TrackNumberRole).toInt(), 1);
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), MediaPlayList::DiscNumberRole).toInt(), 1);
 
-    myPlayList.clearAndEnqueue(myDatabaseContent.albumFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists")));
+    myPlayList.replaceAndPlay(myDatabaseContent.albumFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists")));
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 1);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -3888,7 +3888,7 @@ void MediaPlayListTest::testSavePersistentState()
     QCOMPARE(myPlayListRead.data(myPlayListRead.index(2, 0), MediaPlayList::ColumnsRoles::IsSingleDiscAlbumHeader).toBool(), true);
 }
 
-void MediaPlayListTest::testClearAndEnqueueArtist()
+void MediaPlayListTest::testReplaceAndPlayArtist()
 {
     MediaPlayList myPlayList;
     ModelTest testModel(&myPlayList);
@@ -3962,7 +3962,7 @@ void MediaPlayListTest::testClearAndEnqueueArtist()
     QCOMPARE(newTrackByFileNameInListSpy.count(), 0);
     QCOMPARE(newArtistInListSpy.count(), 0);
 
-    myPlayList.clearAndEnqueue(QStringLiteral("artist3"));
+    myPlayList.replaceAndPlay(QStringLiteral("artist3"));
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -4010,7 +4010,7 @@ void MediaPlayListTest::testClearAndEnqueueArtist()
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::IsSingleDiscAlbumHeader).toBool(), false);
 
-    myPlayList.clearAndEnqueue(QStringLiteral("artist4"));
+    myPlayList.replaceAndPlay(QStringLiteral("artist4"));
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 1);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -4059,7 +4059,7 @@ void MediaPlayListTest::testClearAndEnqueueArtist()
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::IsSingleDiscAlbumHeader).toBool(), false);
 }
 
-void MediaPlayListTest::testClearAndEnqueueTrackId()
+void MediaPlayListTest::testReplaceAndPlayTrackId()
 {
     MediaPlayList myPlayList;
     ModelTest testModel(&myPlayList);
@@ -4138,7 +4138,7 @@ void MediaPlayListTest::testClearAndEnqueueTrackId()
 
     QCOMPARE(firstTrackId != 0, true);
 
-    myPlayList.clearAndEnqueue(firstTrackId);
+    myPlayList.replaceAndPlay(firstTrackId);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -4191,7 +4191,7 @@ void MediaPlayListTest::testClearAndEnqueueTrackId()
 
     QCOMPARE(secondTrackId != 0, true);
 
-    myPlayList.clearAndEnqueue(secondTrackId);
+    myPlayList.replaceAndPlay(secondTrackId);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 1);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -4240,7 +4240,7 @@ void MediaPlayListTest::testClearAndEnqueueTrackId()
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::IsSingleDiscAlbumHeader).toBool(), false);
 }
 
-void MediaPlayListTest::testClearAndEnqueueTrackData()
+void MediaPlayListTest::testReplaceAndPlayTrackData()
 {
     MediaPlayList myPlayList;
     ModelTest testModel(&myPlayList);
@@ -4323,7 +4323,7 @@ void MediaPlayListTest::testClearAndEnqueueTrackData()
 
     QCOMPARE(firstTrack.isValid(), true);
 
-    myPlayList.clearAndEnqueue(firstTrack);
+    myPlayList.replaceAndPlay(firstTrack);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -4364,7 +4364,7 @@ void MediaPlayListTest::testClearAndEnqueueTrackData()
 
     QCOMPARE(secondTrack.isValid(), true);
 
-    myPlayList.clearAndEnqueue(secondTrack);
+    myPlayList.replaceAndPlay(secondTrack);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 1);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -4734,7 +4734,7 @@ void MediaPlayListTest::testRemoveSelection()
     QCOMPARE(newTrackByFileNameInListSpy.count(), 0);
     QCOMPARE(newArtistInListSpy.count(), 0);
 
-    myPlayList.clearAndEnqueue(QStringLiteral("artist1"));
+    myPlayList.replaceAndPlay(QStringLiteral("artist1"));
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -4926,7 +4926,7 @@ void MediaPlayListTest::testTrackBeenRemoved()
     QCOMPARE(newTrackByFileNameInListSpy.count(), 0);
     QCOMPARE(newArtistInListSpy.count(), 0);
 
-    myPlayList.clearAndEnqueue(QStringLiteral("artist1"));
+    myPlayList.replaceAndPlay(QStringLiteral("artist1"));
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);

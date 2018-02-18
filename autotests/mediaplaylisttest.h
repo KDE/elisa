@@ -67,7 +67,7 @@ private Q_SLOTS:
 
     void testHasHeaderYetAnotherMoveLikeQml();
 
-    void enqueueClearAndEnqueue();
+    void enqueueReplaceAndPlay();
 
     void crashOnEnqueue();
 
@@ -77,11 +77,11 @@ private Q_SLOTS:
 
     void testSavePersistentState();
 
-    void testClearAndEnqueueArtist();
+    void testReplaceAndPlayArtist();
 
-    void testClearAndEnqueueTrackId();
+    void testReplaceAndPlayTrackId();
 
-    void testClearAndEnqueueTrackData();
+    void testReplaceAndPlayTrackData();
 
     void testSetData();
 

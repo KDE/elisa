@@ -34,15 +34,10 @@ FocusScope {
     property string mainTitle
     property string secondaryTitle
     property url image
-    property alias model: contentDirectoryView.model
+    property alias contentModel: contentDirectoryView.model
     property bool showRating: true
     property bool delegateDisplaySecondaryText: true
 
-    property var tempMediaPlayList
-    property var tempMediaControl
-
-    signal enqueue(var data)
-    signal replaceAndPlay(var data)
     signal open(var innerMainTitle, var innerSecondaryTitle, var innerImage, var databaseId)
     signal goBack()
 
@@ -74,24 +69,20 @@ FocusScope {
             Layout.fillWidth: true
 
             Binding {
-                target: model
+                target: contentModel
                 property: 'filterText'
                 value: navigationBar.filterText
             }
 
             Binding {
-                target: model
+                target: contentModel
                 property: 'filterRating'
                 value: navigationBar.filterRating
             }
 
-            onEnqueue: model.enqueueToPlayList(tempMediaPlayList)
+            onEnqueue: contentModel.enqueueToPlayList()
 
-            onReplaceAndPlay: {
-                tempMediaPlayList.clearPlayList()
-                model.enqueueToPlayList(tempMediaPlayList)
-                tempMediaControl.ensurePlay()
-            }
+            onReplaceAndPlay:contentModel.replaceAndPlayOfPlayList()
 
             onGoBack: gridView.goBack()
         }
@@ -134,8 +125,8 @@ FocusScope {
                         containerData: model.containerData
                         delegateDisplaySecondaryText: gridView.delegateDisplaySecondaryText
 
-                        onEnqueue: gridView.enqueue(data)
-                        onReplaceAndPlay: gridView.replaceAndPlay(data)
+                        onEnqueue: contentModel.mediaPlayList.enqueue(data)
+                        onReplaceAndPlay: contentModel.mediaPlayList.replaceAndPlay(data)
                         onOpen: gridView.open(model.display, model.secondaryText, model.imageUrl, model.databaseId)
                         onSelected: {
                             forceActiveFocus()

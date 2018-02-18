@@ -170,7 +170,7 @@ private Q_SLOTS:
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
         QCOMPARE(albumAddedSpy.count(), 0);
 
-        myPlayList.clearAndEnqueue(QStringLiteral("artist1"));
+        myPlayList.replaceAndPlay(QStringLiteral("artist1"));
 
         QCOMPARE(trackHasChangedSpy.count(), 0);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
@@ -298,7 +298,7 @@ private Q_SLOTS:
 
         QCOMPARE(trackId != 0, true);
 
-        myPlayList.clearAndEnqueue(trackId);
+        myPlayList.replaceAndPlay(trackId);
 
         QCOMPARE(trackHasChangedSpy.count(), 1);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);

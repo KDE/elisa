@@ -25,7 +25,6 @@
 #include <QRegularExpression>
 
 #include "mediaplaylist.h"
-#include "manageaudioplayer.h"
 
 class MediaPlayList;
 
@@ -44,10 +43,11 @@ class AbstractMediaProxyModel : public QSortFilterProxyModel
                WRITE setFilterRating
                NOTIFY filterRatingChanged)
 
-    Q_PROPERTY(ManageAudioPlayer* audioControl
-               READ audioControl
-               WRITE setAudioControl
-               NOTIFY audioControlChanged)
+    Q_PROPERTY(MediaPlayList* mediaPlayList
+               READ mediaPlayList
+               WRITE setMediaPlayList
+               NOTIFY mediaPlayListChanged)
+
 
 public:
 
@@ -61,13 +61,9 @@ public:
 
     MediaPlayList *mediaPlayList() const;
 
-    ManageAudioPlayer *audioControl() const;
-
 public Q_SLOTS:
 
     void setMediaPlayList(MediaPlayList *playList);
-
-    void setAudioControl(ManageAudioPlayer *audioControl);
 
     void setFilterText(const QString &filterText);
 
@@ -75,13 +71,13 @@ public Q_SLOTS:
 
     virtual void enqueueToPlayList() = 0;
 
+    void replaceAndPlayOfPlayList();
+
 Q_SIGNALS:
 
     void filterTextChanged(const QString &filterText);
 
     void filterRatingChanged(int filterRating);
-
-    void audioControlChanged(ManageAudioPlayer *audioControl);
 
     void mediaPlayListChanged(MediaPlayList *mediaPlayList);
 
@@ -96,8 +92,6 @@ protected:
     QRegularExpression mFilterExpression;
 
     MediaPlayList* mMediaPlayList;
-
-    ManageAudioPlayer* mAudioControl;
 
 };
 

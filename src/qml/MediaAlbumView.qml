@@ -32,19 +32,15 @@ FocusScope {
     property var artistName
     property var albumArtUrl
     property bool isSingleDiscAlbum
-    property alias model: contentDirectoryView.model
-
-    property var tempMediaPlayList
-    property var tempMediaControl
+    property var albumId
+    property alias contentModel: contentDirectoryView.model
 
     signal showArtist(var name)
-    signal enqueue(var data)
-    signal replaceAndPlay(var data)
     signal goBack();
 
     function loadAlbumData(id)
     {
-        contentDirectoryView.model.sourceModel.loadAlbumData(id)
+        contentModel.sourceModel.loadAlbumData(id)
     }
 
     SystemPalette {
@@ -75,22 +71,14 @@ FocusScope {
             image: (topListing.albumArtUrl ? topListing.albumArtUrl : elisaTheme.defaultAlbumImage)
             allowArtistNavigation: true
 
-            onEnqueue: model.enqueueToPlayList(tempMediaPlayList)
-
-            onReplaceAndPlay: {
-                tempMediaPlayList.clearPlayList()
-                model.enqueueToPlayList(tempMediaPlayList)
-                tempMediaControl.ensurePlay()
-            }
-
             Binding {
-                target: contentDirectoryView.model
+                target: contentModel
                 property: 'filterText'
                 value: navigationBar.filterText
             }
 
             Binding {
-                target: contentDirectoryView.model
+                target: contentModel
                 property: 'filterRating'
                 value: navigationBar.filterRating
             }
@@ -98,6 +86,10 @@ FocusScope {
             onGoBack: topListing.goBack()
 
             onShowArtist: topListing.showArtist(topListing.model.sourceModel.author)
+
+            onEnqueue: contentModel.enqueueToPlayList()
+
+            onReplaceAndPlay: contentModel.replaceAndPlayOfPlayList()
         }
 
         ScrollView {
@@ -167,9 +159,9 @@ FocusScope {
                                               else
                                                   ''
 
-                    mediaTrack.onEnqueue: topListing.enqueue(data)
+                    mediaTrack.onEnqueue: contentModel.mediaPlayList.enqueue(data)
 
-                    mediaTrack.onReplaceAndPlay: topListing.replaceAndPlay(data)
+                    mediaTrack.onReplaceAndPlay: contentModel.mediaPlayList.replaceAndPlay(data)
 
                     mediaTrack.onClicked: contentDirectoryView.currentIndex = index
                 }

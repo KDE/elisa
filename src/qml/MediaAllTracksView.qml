@@ -31,13 +31,7 @@ FocusScope {
     id: rootElement
 
     property var stackView
-    property alias model: contentDirectoryView.model
-
-    property var tempMediaPlayList
-    property var tempMediaControl
-
-    signal enqueue(var data)
-    signal replaceAndPlay(var data)
+    property alias contentModel: contentDirectoryView.model
 
     SystemPalette {
         id: myPalette
@@ -67,24 +61,20 @@ FocusScope {
             Layout.fillWidth: true
 
             Binding {
-                target: model
+                target: contentModel
                 property: 'filterText'
                 value: navigationBar.filterText
             }
 
             Binding {
-                target: model
+                target: contentModel
                 property: 'filterRating'
                 value: navigationBar.filterRating
             }
 
-            onEnqueue: model.enqueueToPlayList(tempMediaPlayList)
+            onEnqueue: contentModel.enqueueToPlayList()
 
-            onReplaceAndPlay: {
-                tempMediaPlayList.clearPlayList()
-                model.enqueueToPlayList(tempMediaPlayList)
-                tempMediaControl.ensurePlay()
-            }
+            onReplaceAndPlay: contentModel.replaceAndPlayOfPlayList()
         }
 
         Rectangle {
@@ -166,8 +156,8 @@ FocusScope {
                                            else
                                                true
 
-                        onEnqueue: rootElement.enqueue(data)
-                        onReplaceAndPlay: rootElement.replaceAndPlay(data)
+                        onEnqueue: contentModel.mediaPlayList.enqueue(data)
+                        onReplaceAndPlay: contentModel.mediaPlayList.replaceAndPlay(data)
 
                         onClicked: contentDirectoryView.currentIndex = index
                     }

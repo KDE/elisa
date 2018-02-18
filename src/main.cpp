@@ -237,16 +237,24 @@ int main(int argc, char *argv[])
 
     MusicListenersManager myMusicManager;
     myMusicManager.setElisaApplication(&myApp);
+    MediaPlayList mediaPlayList;
+    mediaPlayList.setMusicListenersManager(&myMusicManager);
+    QObject::connect(&myApp, &ElisaApplication::enqueue, &mediaPlayList, &MediaPlayList::enqueueAndPlay);
     AllAlbumsProxyModel allAlbumsProxyModel;
     allAlbumsProxyModel.setSourceModel(myMusicManager.allAlbumsModel());
+    allAlbumsProxyModel.setMediaPlayList(&mediaPlayList);
     AllArtistsProxyModel allArtistsProxyModel;
     allArtistsProxyModel.setSourceModel(myMusicManager.allArtistsModel());
+    allArtistsProxyModel.setMediaPlayList(&mediaPlayList);
     AllTracksProxyModel allTracksProxyModel;
     allTracksProxyModel.setSourceModel(myMusicManager.allTracksModel());
+    allTracksProxyModel.setMediaPlayList(&mediaPlayList);
     SingleArtistProxyModel singleArtistProxyModel;
     singleArtistProxyModel.setSourceModel(myMusicManager.allAlbumsModel());
+    singleArtistProxyModel.setMediaPlayList(&mediaPlayList);
     SingleAlbumProxyModel singleAlbumProxyModel;
     singleAlbumProxyModel.setSourceModel(myMusicManager.albumModel());
+    singleAlbumProxyModel.setMediaPlayList(&mediaPlayList);
 
     QQmlApplicationEngine engine;
     engine.addImportPath(QStringLiteral("qrc:/imports"));
@@ -261,6 +269,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextObject(new KLocalizedContext(&engine));
     engine.rootContext()->setContextProperty(QStringLiteral("elisa"), &myApp);
     engine.rootContext()->setContextProperty(QStringLiteral("allListeners"), &myMusicManager);
+    engine.rootContext()->setContextProperty(QStringLiteral("mediaPlayList"), &mediaPlayList);
     engine.rootContext()->setContextProperty(QStringLiteral("allAlbumsProxyModel"), &allAlbumsProxyModel);
     engine.rootContext()->setContextProperty(QStringLiteral("allArtistsProxyModel"), &allArtistsProxyModel);
     engine.rootContext()->setContextProperty(QStringLiteral("allTracksProxyModel"), &allTracksProxyModel);

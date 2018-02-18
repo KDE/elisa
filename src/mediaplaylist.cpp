@@ -59,6 +59,7 @@ MediaPlayList::MediaPlayList(QObject *parent) : QAbstractListModel(parent), d(ne
 {
     connect(&d->mLoadPlaylist, &QMediaPlaylist::loaded, this, &MediaPlayList::loadPlayListLoaded);
     connect(&d->mLoadPlaylist, &QMediaPlaylist::loadFailed, this, &MediaPlayList::loadPlayListLoadFailed);
+    seedRandomGenerator(QTime::currentTime().msec());
 }
 
 MediaPlayList::~MediaPlayList()
@@ -617,39 +618,56 @@ void MediaPlayList::enqueue(const QStringList &files)
     }
 }
 
-void MediaPlayList::clearAndEnqueue(qulonglong newTrackId)
+void MediaPlayList::enqueueAndPlay(const QStringList &files)
+{
+    if (files.size() > 0) {
+        int previousTrackNumber = tracksCount();
+        enqueue(files);
+        switchTo(previousTrackNumber);
+        Q_EMIT ensurePlay();
+    }
+}
+
+void MediaPlayList::replaceAndPlay(qulonglong newTrackId)
 {
     clearPlayList();
     enqueue(MediaPlayListEntry(newTrackId));
+    Q_EMIT ensurePlay();
 }
 
-void MediaPlayList::clearAndEnqueue(const MusicAudioTrack &newTrack)
+void MediaPlayList::replaceAndPlay(const MusicAudioTrack &newTrack)
 {
     clearPlayList();
     enqueue(newTrack);
+    Q_EMIT ensurePlay();
 }
 
-void MediaPlayList::clearAndEnqueue(const MusicAlbum &album)
+void MediaPlayList::replaceAndPlay(const MusicAlbum &album)
 {
     clearPlayList();
     enqueue(album);
+    Q_EMIT ensurePlay();
 }
 
-void MediaPlayList::clearAndEnqueue(const MusicArtist &artist)
+void MediaPlayList::replaceAndPlay(const MusicArtist &artist)
 {
-    clearAndEnqueue(artist.name());
+    clearPlayList();
+    enqueue(artist.name());
+    Q_EMIT ensurePlay();
 }
 
-void MediaPlayList::clearAndEnqueue(const QString &artistName)
+void MediaPlayList::replaceAndPlay(const QString &artistName)
 {
     clearPlayList();
     enqueue(artistName);
+    Q_EMIT ensurePlay();
 }
 
-void MediaPlayList::clearAndEnqueue(const QUrl &fileName)
+void MediaPlayList::replaceAndPlay(const QUrl &fileName)
 {
     clearPlayList();
     enqueue(fileName);
+    Q_EMIT ensurePlay();
 }
 
 void MediaPlayList::clearPlayList()

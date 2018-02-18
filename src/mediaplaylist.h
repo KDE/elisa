@@ -182,6 +182,8 @@ Q_SIGNALS:
 
     void playListLoadFailed();
 
+    void ensurePlay();
+
 public Q_SLOTS:
 
     void setPersistentState(const QVariantMap &persistentState);
@@ -226,17 +228,19 @@ public Q_SLOTS:
 
     void enqueue(const QStringList &files);
 
-    void clearAndEnqueue(qulonglong newTrackId);
+    void enqueueAndPlay(const QStringList &files);
 
-    void clearAndEnqueue(const MusicAudioTrack &newTrack);
+    void replaceAndPlay(qulonglong newTrackId);
 
-    void clearAndEnqueue(const MusicAlbum &album);
+    void replaceAndPlay(const MusicAudioTrack &newTrack);
 
-    void clearAndEnqueue(const MusicArtist &artist);
+    void replaceAndPlay(const MusicAlbum &album);
 
-    void clearAndEnqueue(const QString &artistName);
+    void replaceAndPlay(const MusicArtist &artist);
 
-    void clearAndEnqueue(const QUrl &fileName);
+    void replaceAndPlay(const QString &artistName);
+
+    void replaceAndPlay(const QUrl &fileName);
 
     void trackInError(QUrl sourceInError, QMediaPlayer::Error playerError);
 

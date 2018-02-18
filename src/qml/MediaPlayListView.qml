@@ -29,7 +29,6 @@ import org.kde.elisa 1.0
 FocusScope {
     property StackView parentStackView
     property MediaPlayList playListModel
-    property var playListControler
 
     property alias randomPlayChecked: shuffleOption.checked
     property alias repeatPlayChecked: repeatOption.checked
@@ -56,8 +55,8 @@ FocusScope {
         iconName: 'media-show-active-track-amarok'
         enabled: playListModelDelegate.items.count > 0
         onTriggered: {
-            playListView.positionViewAtIndex(playListControler.currentTrackRow, ListView.Contain)
-            playListView.currentIndex = playListControler.currentTrackRow
+            playListView.positionViewAtIndex(playListModel.currentTrackRow, ListView.Contain)
+            playListView.currentIndex = playListModel.currentTrackRow
             playListView.currentItem.forceActiveFocus()
         }
     }
@@ -337,7 +336,7 @@ FocusScope {
 
                             onRemoveFromPlaylist: topItem.playListModel.removeRows(trackIndex, 1)
 
-                            onSwitchToTrack: topItem.playListControler.switchTo(trackIndex)
+                            onSwitchToTrack: topItem.playListModel.switchTo(trackIndex)
                         }
 
                         draggedItemParent: topItem
@@ -349,7 +348,7 @@ FocusScope {
 
                         onDoubleClicked: {
                             if (model.isValid) {
-                                topItem.playListControler.switchTo(model.index)
+                                topItem.playListModel.switchTo(model.index)
                                 topItem.startPlayback()
                             }
                         }

@@ -27,10 +27,17 @@ set(managemediaplayercontrolTest_SOURCES
     ../src/databaseinterface.cpp
     ../src/musiclistenersmanager.cpp
     ../src/elisaapplication.cpp
+    ../src/manageaudioplayer.cpp
     ../src/models/allalbumsmodel.cpp
     ../src/models/allartistsmodel.cpp
     ../src/models/alltracksmodel.cpp
     ../src/models/albummodel.cpp
+    ../src/models/abstractmediaproxymodel.cpp
+    ../src/models/allalbumsproxymodel.cpp
+    ../src/models/allartistsproxymodel.cpp
+    ../src/models/alltracksproxymodel.cpp
+    ../src/models/singleartistproxymodel.cpp
+    ../src/models/singlealbumproxymodel.cpp
     ../src/notificationitem.cpp
     ../src/trackslistener.cpp
     ../src/musicartist.cpp
@@ -109,10 +116,17 @@ set(manageheaderbarTest_SOURCES
     ../src/databaseinterface.cpp
     ../src/musiclistenersmanager.cpp
     ../src/elisaapplication.cpp
+    ../src/manageaudioplayer.cpp
     ../src/models/allalbumsmodel.cpp
     ../src/models/allartistsmodel.cpp
     ../src/models/alltracksmodel.cpp
     ../src/models/albummodel.cpp
+    ../src/models/abstractmediaproxymodel.cpp
+    ../src/models/allalbumsproxymodel.cpp
+    ../src/models/allartistsproxymodel.cpp
+    ../src/models/alltracksproxymodel.cpp
+    ../src/models/singleartistproxymodel.cpp
+    ../src/models/singlealbumproxymodel.cpp
     ../src/notificationitem.cpp
     ../src/trackslistener.cpp
     ../src/trackslistener.cpp
@@ -206,6 +220,13 @@ set(mediaplaylistTest_SOURCES
     ../src/models/allartistsmodel.cpp
     ../src/models/alltracksmodel.cpp
     ../src/models/albummodel.cpp
+    ../src/models/abstractmediaproxymodel.cpp
+    ../src/models/allalbumsproxymodel.cpp
+    ../src/models/allartistsproxymodel.cpp
+    ../src/models/alltracksproxymodel.cpp
+    ../src/models/singleartistproxymodel.cpp
+    ../src/models/singlealbumproxymodel.cpp
+    ../src/manageaudioplayer.cpp
     ../src/elisaapplication.cpp
     ../src/notificationitem.cpp
     ../src/musicartist.cpp
@@ -285,10 +306,17 @@ set(trackslistenertest_SOURCES
     ../src/trackslistener.cpp
     ../src/musiclistenersmanager.cpp
     ../src/elisaapplication.cpp
+    ../src/manageaudioplayer.cpp
     ../src/models/allalbumsmodel.cpp
     ../src/models/allartistsmodel.cpp
     ../src/models/alltracksmodel.cpp
     ../src/models/albummodel.cpp
+    ../src/models/abstractmediaproxymodel.cpp
+    ../src/models/allalbumsproxymodel.cpp
+    ../src/models/allartistsproxymodel.cpp
+    ../src/models/alltracksproxymodel.cpp
+    ../src/models/singleartistproxymodel.cpp
+    ../src/models/singlealbumproxymodel.cpp
     ../src/notificationitem.cpp
     ../src/musicartist.cpp
     ../src/musicalbum.cpp
@@ -449,8 +477,50 @@ target_include_directories(localfilelistingtest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 if (KF5XmlGui_FOUND AND KF5KCMUtils_FOUND)
     set(elisaapplicationtest_SOURCES
         ../src/elisaapplication.cpp
+        ../src/musiclistenersmanager.cpp
+        ../src/databaseinterface.cpp
+        ../src/notificationitem.cpp
+        ../src/trackslistener.cpp
+        ../src/mediaplaylist.cpp
+        ../src/musicartist.cpp
+        ../src/musicalbum.cpp
+        ../src/musicaudiotrack.cpp
+        ../src/elisautils.cpp
+        ../src/manageaudioplayer.cpp
+        ../src/models/allalbumsmodel.cpp
+        ../src/models/allartistsmodel.cpp
+        ../src/models/alltracksmodel.cpp
+        ../src/models/albummodel.cpp
+        ../src/models/abstractmediaproxymodel.cpp
+        ../src/models/allalbumsproxymodel.cpp
+        ../src/models/allartistsproxymodel.cpp
+        ../src/models/alltracksproxymodel.cpp
+        ../src/models/singleartistproxymodel.cpp
+        ../src/models/singlealbumproxymodel.cpp
+        ../src/file/filelistener.cpp
+        ../src/file/localfilelisting.cpp
+        ../src/abstractfile/abstractfilelistener.cpp
+        ../src/abstractfile/abstractfilelisting.cpp
         elisaapplicationtest.cpp
     )
+
+    if (KF5Baloo_FOUND)
+        if (Qt5DBus_FOUND)
+            qt5_add_dbus_interface(elisaapplicationtest_SOURCES
+                ${BALOO_DBUS_INTERFACES_DIR}/org.kde.baloo.fileindexer.xml
+                baloo/fileindexer)
+
+            qt5_add_dbus_interface(elisaapplicationtest_SOURCES
+                ${BALOO_DBUS_INTERFACES_DIR}/org.kde.baloo.scheduler.xml
+                baloo/scheduler)
+
+            set(elisaapplicationtest_SOURCES
+                ${elisaapplicationtest_SOURCES}
+                ../src/baloo/baloolistener.cpp
+                ../src/baloo/localbaloofilelisting.cpp
+                )
+        endif()
+    endif()
 
     kconfig_add_kcfg_files(elisaapplicationtest_SOURCES ../src/elisa_settings.kcfgc )
     set(elisaapplicationtest_SOURCES
@@ -460,7 +530,8 @@ if (KF5XmlGui_FOUND AND KF5KCMUtils_FOUND)
 
     ecm_add_test(${elisaapplicationtest_SOURCES}
         TEST_NAME "elisaapplicationtest"
-        LINK_LIBRARIES Qt5::Test Qt5::Core Qt5::Widgets KF5::ConfigCore KF5::ConfigGui KF5::ConfigWidgets KF5::XmlGui KF5::KCMUtils)
+        LINK_LIBRARIES Qt5::Test Qt5::Core Qt5::Widgets Qt5::Multimedia Qt5::Sql Qt5::Concurrent
+            KF5::FileMetaData KF5::I18n KF5::ConfigCore KF5::ConfigGui KF5::ConfigWidgets KF5::XmlGui KF5::KCMUtils KF5::Baloo)
 
     target_include_directories(elisaapplicationtest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 endif()

@@ -38,7 +38,7 @@ Rectangle {
 
     Label {
         anchors.centerIn: parent
-        text: i18ncp("number of imported tracks", "Imported one track", "Imported %1 tracks", allListeners.importedTracksCount)
+        text: i18ncp("number of imported tracks", "Imported one track", "Imported %1 tracks", importedTracksCount)
         color: myPalette.highlightedText
     }
 

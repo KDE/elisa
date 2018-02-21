@@ -174,7 +174,7 @@ FocusScope {
     }
 
     Connections {
-        target: allListeners
+        target: elisa.musicManager
 
         onNewNotification:
             manager.addNotification(notification)

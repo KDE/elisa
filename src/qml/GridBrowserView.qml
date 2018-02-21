@@ -125,8 +125,8 @@ FocusScope {
                         containerData: model.containerData
                         delegateDisplaySecondaryText: gridView.delegateDisplaySecondaryText
 
-                        onEnqueue: contentModel.mediaPlayList.enqueue(data)
-                        onReplaceAndPlay: contentModel.mediaPlayList.replaceAndPlay(data)
+                        onEnqueue: elisa.mediaPlayList.enqueue(data)
+                        onReplaceAndPlay: elisa.mediaPlayList.replaceAndPlay(data)
                         onOpen: gridView.open(model.display, model.secondaryText, model.imageUrl, model.databaseId)
                         onSelected: {
                             forceActiveFocus()

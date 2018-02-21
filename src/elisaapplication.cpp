@@ -19,6 +19,15 @@
  */
 
 #include "elisaapplication.h"
+
+#include "musiclistenersmanager.h"
+#include "models/allalbumsproxymodel.h"
+#include "models/alltracksproxymodel.h"
+#include "models/allartistsproxymodel.h"
+#include "models/singleartistproxymodel.h"
+#include "models/singlealbumproxymodel.h"
+#include "mediaplaylist.h"
+
 #include "elisa_settings.h"
 #include <KConfigCore/KAuthorized>
 
@@ -51,6 +60,8 @@
 #include <QDir>
 #include <QDebug>
 
+#include <memory>
+
 class ElisaApplicationPrivate
 {
 public:
@@ -63,62 +74,69 @@ public:
         Q_UNUSED(parent)
     }
 
-#if defined KF5KCMUtils_FOUND && KF5KCMUtils_FOUND
-    KCMultiDialog mConfigurationDialog;
-#endif
-
 #if defined KF5XmlGui_FOUND && KF5XmlGui_FOUND
     KActionCollection mCollection;
 #endif
 
     QStringList mArguments;
 
+    std::unique_ptr<MusicListenersManager> mMusicManager;
+
+    std::unique_ptr<AllAlbumsProxyModel> mAllAlbumsProxyModel;
+
+    std::unique_ptr<AllArtistsProxyModel> mAllArtistsProxyModel;
+
+    std::unique_ptr<AllTracksProxyModel> mAllTracksProxyModel;
+
+    std::unique_ptr<SingleArtistProxyModel> mSingleArtistProxyModel;
+
+    std::unique_ptr<SingleAlbumProxyModel> mSingleAlbumProxyModel;
+
+    std::unique_ptr<MediaPlayList> mMediaPlayList;
+
 };
 
 ElisaApplication::ElisaApplication(QObject *parent) : QObject(parent), d(std::make_unique<ElisaApplicationPrivate>(this))
 {
-    setupActions();
-
-#if defined KF5KCMUtils_FOUND && KF5KCMUtils_FOUND
-    d->mConfigurationDialog.addModule(QStringLiteral("kcm_elisa_local_file"));
-#endif
 }
 
 ElisaApplication::~ElisaApplication()
 = default;
 
-void ElisaApplication::setupActions()
+void ElisaApplication::setupActions(const QString &actionName)
 {
 #if defined KF5XmlGui_FOUND && KF5XmlGui_FOUND
-    auto quitAction = KStandardAction::quit(QCoreApplication::instance(), &QCoreApplication::quit, &d->mCollection);
-    d->mCollection.addAction(QStringLiteral("file_quit"), quitAction);
+    if (actionName == QStringLiteral("file_quit")) {
+        auto quitAction = KStandardAction::quit(QCoreApplication::instance(), &QCoreApplication::quit, &d->mCollection);
+        d->mCollection.addAction(actionName, quitAction);
+    }
 
-    if (KAuthorized::authorizeAction(QStringLiteral("help_contents"))) {
+    if (actionName == QStringLiteral("help_contents") && KAuthorized::authorizeAction(actionName)) {
         auto handBookAction = KStandardAction::helpContents(this, &ElisaApplication::appHelpActivated, &d->mCollection);
         d->mCollection.addAction(handBookAction->objectName(), handBookAction);
     }
 
-    if (KAuthorized::authorizeAction(QStringLiteral("help_report_bug")) && !KAboutData::applicationData().bugAddress().isEmpty()) {
+    if (actionName == QStringLiteral("help_report_bug") && KAuthorized::authorizeAction(actionName) && !KAboutData::applicationData().bugAddress().isEmpty()) {
         auto reportBugAction = KStandardAction::reportBug(this, &ElisaApplication::reportBug, &d->mCollection);
         d->mCollection.addAction(reportBugAction->objectName(), reportBugAction);
     }
 
-    if (KAuthorized::authorizeAction(QStringLiteral("help_about_app"))) {
+    if (actionName == QStringLiteral("help_about_app") && KAuthorized::authorizeAction(actionName)) {
         auto aboutAppAction = KStandardAction::aboutApp(this, &ElisaApplication::aboutApplication, this);
         d->mCollection.addAction(aboutAppAction->objectName(), aboutAppAction);
     }
 
-    if (KAuthorized::authorizeAction(QStringLiteral("options_configure"))) {
+    if (actionName == QStringLiteral("options_configure") && KAuthorized::authorizeAction(actionName)) {
         auto preferencesAction = KStandardAction::preferences(this, &ElisaApplication::configureElisa, this);
         d->mCollection.addAction(preferencesAction->objectName(), preferencesAction);
     }
 
-    if (KAuthorized::authorizeAction(QStringLiteral("options_configure_keybinding"))) {
+    if (actionName == QStringLiteral("options_configure_keybinding") && KAuthorized::authorizeAction(actionName)) {
         auto keyBindingsAction = KStandardAction::keyBindings(this, &ElisaApplication::configureShortcuts, this);
         d->mCollection.addAction(keyBindingsAction->objectName(), keyBindingsAction);
     }
 
-    if (KAuthorized::authorizeAction(QStringLiteral("go_back"))) {
+    if (actionName == QStringLiteral("go_back") && KAuthorized::authorizeAction(actionName)) {
         auto goBackAction = KStandardAction::back(this, &ElisaApplication::goBack, this);
         d->mCollection.addAction(goBackAction->objectName(), goBackAction);
     }
@@ -199,8 +217,11 @@ void ElisaApplication::configureShortcuts()
 void ElisaApplication::configureElisa()
 {
 #if defined KF5KCMUtils_FOUND && KF5KCMUtils_FOUND
-    d->mConfigurationDialog.setModal(true);
-    d->mConfigurationDialog.show();
+    KCMultiDialog configurationDialog;
+
+    configurationDialog.addModule(QStringLiteral("kcm_elisa_local_file"));
+    configurationDialog.setModal(true);
+    configurationDialog.show();
 #endif
 }
 
@@ -225,10 +246,52 @@ QStringList ElisaApplication::checkFileListAndMakeAbsolute(const QStringList &fi
     return filesToOpen;
 }
 
+void ElisaApplication::initialize()
+{
+    d->mMusicManager = std::make_unique<MusicListenersManager>();
+    Q_EMIT musicManagerChanged();
+    d->mAllAlbumsProxyModel = std::make_unique<AllAlbumsProxyModel>();
+    Q_EMIT allAlbumsProxyModelChanged();
+    d->mAllArtistsProxyModel = std::make_unique<AllArtistsProxyModel>();
+    Q_EMIT allArtistsProxyModelChanged();
+    d->mAllTracksProxyModel = std::make_unique<AllTracksProxyModel>();
+    Q_EMIT allTracksProxyModelChanged();
+    d->mSingleArtistProxyModel = std::make_unique<SingleArtistProxyModel>();
+    Q_EMIT singleArtistProxyModelChanged();
+    d->mSingleAlbumProxyModel = std::make_unique<SingleAlbumProxyModel>();
+    Q_EMIT singleAlbumProxyModelChanged();
+    d->mMediaPlayList = std::make_unique<MediaPlayList>();
+    Q_EMIT mediaPlayListChanged();
+
+    d->mMusicManager->setElisaApplication(this);
+
+    d->mMediaPlayList->setMusicListenersManager(d->mMusicManager.get());
+    QObject::connect(this, &ElisaApplication::enqueue, d->mMediaPlayList.get(), &MediaPlayList::enqueueAndPlay);
+
+    d->mAllAlbumsProxyModel->setSourceModel(d->mMusicManager->allAlbumsModel());
+    d->mAllArtistsProxyModel->setSourceModel(d->mMusicManager->allArtistsModel());
+    d->mAllTracksProxyModel->setSourceModel(d->mMusicManager->allTracksModel());
+    d->mSingleArtistProxyModel->setSourceModel(d->mMusicManager->allAlbumsModel());
+    d->mSingleAlbumProxyModel->setSourceModel(d->mMusicManager->albumModel());
+
+    d->mAllAlbumsProxyModel->setMediaPlayList(d->mMediaPlayList.get());
+    d->mAllArtistsProxyModel->setMediaPlayList(d->mMediaPlayList.get());
+    d->mAllTracksProxyModel->setMediaPlayList(d->mMediaPlayList.get());
+    d->mSingleArtistProxyModel->setMediaPlayList(d->mMediaPlayList.get());
+    d->mSingleAlbumProxyModel->setMediaPlayList(d->mMediaPlayList.get());
+}
+
 QAction * ElisaApplication::action(const QString& name)
 {
 #if defined KF5XmlGui_FOUND && KF5XmlGui_FOUND
-    return d->mCollection.action(name);
+    auto resultAction = d->mCollection.action(name);
+
+    if (!resultAction) {
+        setupActions(name);
+        resultAction = d->mCollection.action(name);
+    }
+
+    return resultAction;
 #else
     Q_UNUSED(name);
 
@@ -244,6 +307,41 @@ QString ElisaApplication::iconName(const QIcon& icon)
 const QStringList &ElisaApplication::arguments() const
 {
     return d->mArguments;
+}
+
+MusicListenersManager *ElisaApplication::musicManager() const
+{
+    return d->mMusicManager.get();
+}
+
+AllAlbumsProxyModel *ElisaApplication::allAlbumsProxyModel() const
+{
+    return d->mAllAlbumsProxyModel.get();
+}
+
+AllArtistsProxyModel *ElisaApplication::allArtistsProxyModel() const
+{
+    return d->mAllArtistsProxyModel.get();
+}
+
+AllTracksProxyModel *ElisaApplication::allTracksProxyModel() const
+{
+    return d->mAllTracksProxyModel.get();
+}
+
+SingleArtistProxyModel *ElisaApplication::singleArtistProxyModel() const
+{
+    return d->mSingleArtistProxyModel.get();
+}
+
+SingleAlbumProxyModel *ElisaApplication::singleAlbumProxyModel() const
+{
+    return d->mSingleAlbumProxyModel.get();
+}
+
+MediaPlayList *ElisaApplication::mediaPlayList() const
+{
+    return d->mMediaPlayList.get();
 }
 
 

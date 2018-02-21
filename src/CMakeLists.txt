@@ -243,6 +243,12 @@ set(elisaImport_SOURCES
     models/allalbumsmodel.cpp
     models/allartistsmodel.cpp
     models/alltracksmodel.cpp
+    models/abstractmediaproxymodel.cpp
+    models/allalbumsproxymodel.cpp
+    models/allartistsproxymodel.cpp
+    models/alltracksproxymodel.cpp
+    models/singleartistproxymodel.cpp
+    models/singlealbumproxymodel.cpp
     databaseinterface.cpp
     musiclistenersmanager.cpp
     trackslistener.cpp

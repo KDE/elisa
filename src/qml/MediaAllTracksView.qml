@@ -156,8 +156,8 @@ FocusScope {
                                            else
                                                true
 
-                        onEnqueue: contentModel.mediaPlayList.enqueue(data)
-                        onReplaceAndPlay: contentModel.mediaPlayList.replaceAndPlay(data)
+                        onEnqueue: elisa.mediaPlayList.enqueue(data)
+                        onReplaceAndPlay: elisa.mediaPlayList.replaceAndPlay(data)
 
                         onClicked: contentDirectoryView.currentIndex = index
                     }

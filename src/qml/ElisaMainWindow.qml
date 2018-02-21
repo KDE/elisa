@@ -102,8 +102,8 @@ ApplicationWindow {
             persistentSettings.width = mainWindow.width;
             persistentSettings.height = mainWindow.height;
 
-            persistentSettings.playListState = mediaPlayList.persistentState;
-            persistentSettings.playListControlerState = mediaPlayList.persistentState;
+            persistentSettings.playListState = elisa.mediaPlayList.persistentState;
+            persistentSettings.playListControlerState = elisa.mediaPlayList.persistentState;
             persistentSettings.audioPlayerState = manageAudioPlayer.persistentState
 
             persistentSettings.playControlItemVolume = headerBar.playerControl.volume
@@ -114,8 +114,8 @@ ApplicationWindow {
     PlatformIntegration {
         id: platformInterface
 
-        playListModel: mediaPlayList
-        playListControler: mediaPlayList
+        playListModel: elisa.mediaPlayList
+        playListControler: elisa.mediaPlayList
         audioPlayerManager: manageAudioPlayer
         headerBarManager: myHeaderBarManager
         manageMediaPlayerControl: myPlayControlManager
@@ -155,7 +155,7 @@ ApplicationWindow {
     }
 
     Connections {
-        target: mediaPlayList
+        target: elisa.mediaPlayList
         onPlayListLoadFailed: {
             messageNotification.showNotification(i18nc("message of passive notification when playlist load failed", "Load of playlist failed"), 3000)
         }
@@ -163,16 +163,11 @@ ApplicationWindow {
         onPlayListFinished: manageAudioPlayer.playListFinished()
     }
 
-    Component.onCompleted: {
-        mediaPlayList.persistentState = persistentSettings.playListState
-        mediaPlayList.enqueueAndPlay(elisa.arguments)
-    }
-
     ManageHeaderBar {
         id: myHeaderBarManager
 
-        playListModel: mediaPlayList
-        currentTrack: mediaPlayList.currentTrack
+        playListModel: elisa.mediaPlayList
+        currentTrack: elisa.mediaPlayList.currentTrack
 
         artistRole: MediaPlayList.ArtistRole
         titleRole: MediaPlayList.TitleRole
@@ -184,8 +179,8 @@ ApplicationWindow {
     ManageAudioPlayer {
         id: manageAudioPlayer
 
-        currentTrack: mediaPlayList.currentTrack
-        playListModel: mediaPlayList
+        currentTrack: elisa.mediaPlayList.currentTrack
+        playListModel: elisa.mediaPlayList
         urlRole: MediaPlayList.ResourceRole
         isPlayingRole: MediaPlayList.IsPlayingRole
         titleRole: MediaPlayList.TitleRole
@@ -204,11 +199,11 @@ ApplicationWindow {
         onPlayerPlay: audioPlayer.play()
         onPlayerPause: audioPlayer.pause()
         onPlayerStop: audioPlayer.stop()
-        onSkipNextTrack: mediaPlayList.skipNextTrack()
+        onSkipNextTrack: elisa.mediaPlayList.skipNextTrack()
         onSeek: audioPlayer.seek(position)
         onSourceInError:
         {
-            mediaPlayList.trackInError(source, playerError)
+            elisa.mediaPlayList.trackInError(source, playerError)
             allListeners.playBackError(source, playerError)
         }
 
@@ -218,8 +213,8 @@ ApplicationWindow {
     ManageMediaPlayerControl {
         id: myPlayControlManager
 
-        playListModel: mediaPlayList
-        currentTrack: mediaPlayList.currentTrack
+        playListModel: elisa.mediaPlayList
+        currentTrack: elisa.mediaPlayList.currentTrack
     }
 
     PassiveNotification {
@@ -271,8 +266,8 @@ ApplicationWindow {
                     playerControl.onPlay: manageAudioPlayer.playPause()
                     playerControl.onPause: manageAudioPlayer.playPause()
 
-                    playerControl.onPlayPrevious: mediaPlayList.skipPreviousTrack()
-                    playerControl.onPlayNext: mediaPlayList.skipNextTrack()
+                    playerControl.onPlayPrevious: elisa.mediaPlayList.skipPreviousTrack()
+                    playerControl.onPlayNext: elisa.mediaPlayList.skipNextTrack()
 
                     ToolButton {
                         id: menuButton
@@ -309,10 +304,33 @@ ApplicationWindow {
                             bottom: menuButton.bottom
                             rightMargin: elisaTheme.layoutHorizontalMargin * 3
                         }
+                    }
 
-                        indexingRunning: allListeners.indexingRunning
-                        importedTracksCount: allListeners.importedTracksCount
-                        musicManager: allListeners
+                    Binding {
+                        target: importedTracksCountNotification
+                        property: 'musicManager'
+                        value: elisa.musicManager
+                        when: elisa.musicManager !== undefined
+                    }
+
+                    Loader {
+                        sourceComponent: Binding {
+                            target: importedTracksCountNotification
+                            property: 'indexingRunning'
+                            value: elisa.musicManager.indexingRunning
+                        }
+
+                        active: elisa.musicManager !== undefined
+                    }
+
+                    Loader {
+                        sourceComponent: Binding {
+                            target: importedTracksCountNotification
+                            property: 'importedTracksCount'
+                            value: elisa.musicManager.importedTracksCount
+                        }
+
+                        active: elisa.musicManager !== undefined
                     }
                 }
             }
@@ -341,7 +359,7 @@ ApplicationWindow {
 
                         Layout.fillWidth: true
 
-                        musicManager: allListeners
+                        musicManager: elisa.musicManager
 
                         focus: true
                     }
@@ -395,8 +413,16 @@ ApplicationWindow {
                                         opacity: 0.8
 
                                         z: 2
+                                    }
 
-                                        running: allListeners.indexerBusy
+                                    Loader {
+                                        sourceComponent: Binding {
+                                            target: busyScanningMusic
+                                            property: 'running'
+                                            value: elisa.musicManager.indexerBusy
+                                        }
+
+                                        active: elisa.musicManager !== undefined
                                     }
 
                                     MediaBrowser {
@@ -416,13 +442,13 @@ ApplicationWindow {
 
                                             focus: true
 
-                                            contentModel: allAlbumsProxyModel
+                                            contentModel: elisa.allAlbumsProxyModel
 
                                             image: elisaTheme.albumIcon
                                             mainTitle: i18nc("Title of the view of all albums", "Albums")
 
                                             onOpen: {
-                                                singleAlbumProxyModel.sourceModel.loadAlbumData(databaseId)
+                                                elisa.singleAlbumProxyModel.sourceModel.loadAlbumData(databaseId)
                                                 localAlbums.stackView.push(albumView, {
                                                                                stackView: localAlbums.stackView,
                                                                                albumName: innerMainTitle,
@@ -455,13 +481,13 @@ ApplicationWindow {
                                             showRating: false
                                             delegateDisplaySecondaryText: false
 
-                                            contentModel: allArtistsProxyModel
+                                            contentModel: elisa.allArtistsProxyModel
 
                                             image: elisaTheme.artistIcon
                                             mainTitle: i18nc("Title of the view of all artists", "Artists")
 
                                             onOpen: {
-                                                singleArtistProxyModel.setArtistFilterText(innerMainTitle)
+                                                elisa.singleArtistProxyModel.setArtistFilterText(innerMainTitle)
                                                 localArtists.stackView.push(innerAlbumView, {
                                                                                 mainTitle: innerMainTitle,
                                                                                 secondaryTitle: innerSecondaryTitle,
@@ -492,7 +518,7 @@ ApplicationWindow {
                                             focus: true
                                             stackView: localTracks.stackView
 
-                                            contentModel: allTracksProxyModel
+                                            contentModel: elisa.allTracksProxyModel
                                         }
 
                                         visible: opacity > 0
@@ -529,10 +555,10 @@ ApplicationWindow {
                             MediaPlayListView {
                                 id: playList
 
-                                playListModel: mediaPlayList
+                                playListModel: elisa.mediaPlayList
 
-                                randomPlayChecked: mediaPlayList.randomPlay
-                                repeatPlayChecked: mediaPlayList.repeatPlay
+                                randomPlayChecked: elisa.mediaPlayList.randomPlay
+                                repeatPlayChecked: elisa.mediaPlayList.repeatPlay
 
                                 Layout.fillHeight: true
                                 Layout.leftMargin: elisaTheme.layoutHorizontalMargin
@@ -541,13 +567,6 @@ ApplicationWindow {
                                 Layout.minimumWidth: contentZone.width
                                 Layout.maximumWidth: contentZone.width
                                 Layout.preferredWidth: contentZone.width
-
-                                Component.onCompleted:
-                                {
-                                    mediaPlayList.randomPlay = Qt.binding(function() { return playList.randomPlayChecked })
-                                    mediaPlayList.repeatPlay = Qt.binding(function() { return playList.repeatPlayChecked })
-                                    myPlayControlManager.randomOrContinuePlay = Qt.binding(function() { return playList.randomPlayChecked || playList.repeatPlayChecked })
-                                }
 
                                 onStartPlayback: manageAudioPlayer.ensurePlay()
 
@@ -812,12 +831,12 @@ ApplicationWindow {
         GridBrowserView {
             property var stackView
 
-            contentModel: singleArtistProxyModel
+            contentModel: elisa.singleArtistProxyModel
 
             isSubPage: true
 
             onOpen: {
-                singleAlbumProxyModel.sourceModel.loadAlbumData(databaseId)
+                elisa.singleAlbumProxyModel.sourceModel.loadAlbumData(databaseId)
                 localArtists.stackView.push(albumView, {
                                                 stackView: localArtists.stackView,
                                                 albumName: innerMainTitle,
@@ -835,7 +854,7 @@ ApplicationWindow {
         MediaAlbumView {
             property var stackView
 
-            contentModel: singleAlbumProxyModel
+            contentModel: elisa.singleAlbumProxyModel
 
             onShowArtist: {
                 listViews.currentIndex = 2
@@ -854,5 +873,22 @@ ApplicationWindow {
             }
             onGoBack: stackView.pop()
         }
+    }
+
+    Component.onCompleted:
+    {
+        elisa.initialize()
+
+        var d = new Date();
+        var n = d.getMilliseconds();
+        elisa.mediaPlayList.seedRandomGenerator(n);
+
+        elisa.mediaPlayList.enqueue(elisa.arguments)
+
+        elisa.mediaPlayList.randomPlay = Qt.binding(function() { return playList.randomPlayChecked })
+        elisa.mediaPlayList.repeatPlay = Qt.binding(function() { return playList.repeatPlayChecked })
+        myPlayControlManager.randomOrContinuePlay = Qt.binding(function() { return playList.randomPlayChecked || playList.repeatPlayChecked })
+
+        elisa.mediaPlayList.persistentState = persistentSettings.playListState
     }
 }

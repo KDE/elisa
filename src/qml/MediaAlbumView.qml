@@ -85,7 +85,7 @@ FocusScope {
 
             onGoBack: topListing.goBack()
 
-            onShowArtist: topListing.showArtist(topListing.model.sourceModel.author)
+            onShowArtist: topListing.showArtist(topListing.contentModel.sourceModel.author)
 
             onEnqueue: contentModel.enqueueToPlayList()
 
@@ -159,9 +159,9 @@ FocusScope {
                                               else
                                                   ''
 
-                    mediaTrack.onEnqueue: contentModel.mediaPlayList.enqueue(data)
+                    mediaTrack.onEnqueue: elisa.mediaPlayList.enqueue(data)
 
-                    mediaTrack.onReplaceAndPlay: contentModel.mediaPlayList.replaceAndPlay(data)
+                    mediaTrack.onReplaceAndPlay: elisa.mediaPlayList.replaceAndPlay(data)
 
                     mediaTrack.onClicked: contentDirectoryView.currentIndex = index
                 }

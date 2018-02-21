@@ -29,6 +29,13 @@
 
 class QIcon;
 class QAction;
+class MusicListenersManager;
+class AllAlbumsProxyModel;
+class AllArtistsProxyModel;
+class AllTracksProxyModel;
+class SingleArtistProxyModel;
+class SingleAlbumProxyModel;
+class MediaPlayList;
 class ElisaApplicationPrivate;
 
 class ElisaApplication : public QObject
@@ -41,12 +48,38 @@ class ElisaApplication : public QObject
                WRITE setArguments
                NOTIFY argumentsChanged)
 
+    Q_PROPERTY(MusicListenersManager *musicManager
+               READ musicManager
+               NOTIFY musicManagerChanged)
+
+    Q_PROPERTY(AllAlbumsProxyModel *allAlbumsProxyModel
+               READ allAlbumsProxyModel
+               NOTIFY allAlbumsProxyModelChanged)
+
+    Q_PROPERTY(AllArtistsProxyModel *allArtistsProxyModel
+               READ allArtistsProxyModel
+               NOTIFY allArtistsProxyModelChanged)
+
+    Q_PROPERTY(AllTracksProxyModel *allTracksProxyModel
+               READ allTracksProxyModel
+               NOTIFY allTracksProxyModelChanged)
+
+    Q_PROPERTY(SingleArtistProxyModel *singleArtistProxyModel
+               READ singleArtistProxyModel
+               NOTIFY singleArtistProxyModelChanged)
+
+    Q_PROPERTY(SingleAlbumProxyModel *singleAlbumProxyModel
+               READ singleAlbumProxyModel
+               NOTIFY singleAlbumProxyModelChanged)
+
+    Q_PROPERTY(MediaPlayList *mediaPlayList
+               READ mediaPlayList
+               NOTIFY mediaPlayListChanged)
+
 public:
     explicit ElisaApplication(QObject *parent = nullptr);
 
     ~ElisaApplication() override;
-
-    void setupActions();
 
     Q_INVOKABLE QAction* action(const QString& name);
 
@@ -54,9 +87,37 @@ public:
 
     const QStringList &arguments() const;
 
+    MusicListenersManager *musicManager() const;
+
+    AllAlbumsProxyModel *allAlbumsProxyModel() const;
+
+    AllArtistsProxyModel *allArtistsProxyModel() const;
+
+    AllTracksProxyModel *allTracksProxyModel() const;
+
+    SingleArtistProxyModel *singleArtistProxyModel() const;
+
+    SingleAlbumProxyModel *singleAlbumProxyModel() const;
+
+    MediaPlayList *mediaPlayList() const;
+
 Q_SIGNALS:
 
     void argumentsChanged();
+
+    void musicManagerChanged();
+
+    void allAlbumsProxyModelChanged();
+
+    void allArtistsProxyModelChanged();
+
+    void allTracksProxyModelChanged();
+
+    void singleArtistProxyModelChanged();
+
+    void singleAlbumProxyModelChanged();
+
+    void mediaPlayListChanged();
 
     void enqueue(const QStringList &files);
 
@@ -80,12 +141,15 @@ public Q_SLOTS:
 
     void openRequested(const QList< QUrl > &uris);
 
+    void initialize();
 
 private Q_SLOTS:
 
     void goBack();
 
 private:
+
+    void setupActions(const QString &actionName);
 
     QStringList checkFileListAndMakeAbsolute(const QStringList &filesList, const QString &workingDirectory) const;
 

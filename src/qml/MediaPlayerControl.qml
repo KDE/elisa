@@ -228,6 +228,11 @@ FocusScope {
             }
         }
 
+        TextMetrics {
+            id: durationTextMetrics
+            text: i18nc("This is used to preserve a fixed width for the duration text.", "00:00:00")
+        }
+
         LabelWithToolTip {
             id: positionLabel
 
@@ -239,8 +244,10 @@ FocusScope {
             Layout.fillHeight: true
             Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
             Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+            Layout.preferredWidth: durationTextMetrics.width+5 // be in the safe side
 
             verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignRight
 
             ProgressIndicator {
                 id: timeIndicator
@@ -323,8 +330,10 @@ FocusScope {
             Layout.fillHeight: true
             Layout.rightMargin: !LayoutMirroring.enabled ? (elisaTheme.layoutHorizontalMargin * 10) : 0
             Layout.leftMargin: LayoutMirroring.enabled ? (elisaTheme.layoutHorizontalMargin * 10) : 0
+            Layout.preferredWidth: durationTextMetrics.width
 
             verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignLeft
 
             ProgressIndicator {
                 id: durationIndicator

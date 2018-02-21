@@ -133,20 +133,36 @@ FocusScope {
                     visible: !detailedView
 
                     text: {
-                        var text = "<b>";
-
-                        text += (trackNumber > 0) ? trackNumber + "-" : "";
-                        text += title + "</b>";
-
-                        text += (artist !== albumArtist) ? " - <i>" + artist + "</i>" : "";
-
-                        return text;
+                        if (trackNumber > 0) {
+                            if (artist !== albumArtist)
+                                return i18nc("%1: track number. %2: track title. %3: artist name",
+                                             "<b>%1-%2</b> - <i>%3</i>",
+                                             Number(trackNumber).toLocaleString(Qt.locale(), 'f', 0),
+                                             title, artist);
+                            else
+                                return i18nc("%1: track number. %2: track title.",
+                                             "<b>%1-%2</b>",
+                                             Number(trackNumber).toLocaleString(Qt.locale(), 'f', 0),
+                                             title);
+                        } else {
+                            if (artist !== albumArtist)
+                                return i18nc("%1: track title. %2: artist name",
+                                             "<b>%1</b> - <i>%2</i>",
+                                             title, artist);
+                            else
+                                return i18nc("%1: track title",
+                                             "<b>%1</b>",
+                                             title);
+                        }
                     }
 
+                    elide: Text.ElideRight
                     horizontalAlignment: Text.AlignLeft
 
                     color: myPalette.text
 
+                    Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
+                    Layout.fillWidth: true
                     Layout.leftMargin: {
                         if (!LayoutMirroring.enabled)
                             return (!isSingleDiscAlbum ? elisaTheme.layoutHorizontalMargin * 4 : elisaTheme.layoutHorizontalMargin)
@@ -159,10 +175,6 @@ FocusScope {
                         else
                             return 0
                     }
-                    Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
-                    Layout.fillWidth: true
-
-                    elide: Text.ElideRight
                 }
 
                 Item {
@@ -213,7 +225,15 @@ FocusScope {
                     LabelWithToolTip {
                         id: mainLabelDetailed
 
-                        text: (trackNumber > -1) ? trackNumber + ' - ' + title : title
+                        text: {
+                            if (trackNumber > -1) {
+                                return i18nc("%1: track number. %2: track title", "%1 - %2",
+                                             Number(trackNumber).toLocaleString(Qt.locale(), 'f', 0), title);
+                            } else {
+                                return title;
+                            }
+                        }
+
                         horizontalAlignment: Text.AlignLeft
 
                         font.weight: Font.Bold
@@ -285,6 +305,8 @@ FocusScope {
                         ToolButton {
                             id: clearAndEnqueueButton
 
+                            scale: LayoutMirroring.enabled ? -1 : 1
+
                             height: elisaTheme.delegateHeight
                             width: elisaTheme.delegateHeight
 
@@ -303,6 +325,11 @@ FocusScope {
                     Layout.rightMargin: elisaTheme.layoutHorizontalMargin
                 }
 
+                TextMetrics {
+                    id: durationTextMetrics
+                    text: i18nc("This is used to preserve a fixed width for the duration text.", "00:00")
+                }
+
                 LabelWithToolTip {
                     id: durationLabel
 
@@ -312,10 +339,12 @@ FocusScope {
                     color: myPalette.text
 
                     elide: Text.ElideRight
+                    horizontalAlignment: Text.AlignRight
 
                     Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
                     Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
                     Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+                    Layout.preferredWidth: durationTextMetrics.width+1 // be in the safe side
                 }
             }
         }

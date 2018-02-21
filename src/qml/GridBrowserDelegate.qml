@@ -146,6 +146,8 @@ FocusScope {
                                 id: replaceAndPlayButton
                                 objectName: 'replaceAndPlayButton'
 
+                                scale: LayoutMirroring.enabled ? -1 : 1
+
                                 action: replaceAndPlayAction
 
                                 width: elisaTheme.delegateToolButtonSize

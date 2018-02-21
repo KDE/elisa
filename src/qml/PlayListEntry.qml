@@ -249,7 +249,19 @@ FocusScope {
                     LabelWithToolTip {
                         id: mainCompactLabel
 
-                        text: (trackNumber > -1 ? (((discNumber && !isSingleDiscAlbum) ? discNumber + ' - ' + trackNumber : trackNumber) + ' - ' + title) : title)
+                        text: {
+                            if (trackNumber > -1) {
+                                if (discNumber && !isSingleDiscAlbum)
+                                    return i18nc("%1: disk number. %2: track number. %3: track title", "%1 - %2 - %3",
+                                                 Number(discNumber).toLocaleString(Qt.locale(), 'f', 0),
+                                                 Number(trackNumber).toLocaleString(Qt.locale(), 'f', 0), title);
+                                else
+                                    return i18nc("%1: track number. %2: track title", "%1 - %2",
+                                                 Number(trackNumber).toLocaleString(Qt.locale(), 'f', 0), title);
+                            } else {
+                                return title;
+                            }
+                        }
 
                         font.weight: (isPlaying ? Font.Bold : Font.Normal)
                         color: myPalette.text
@@ -261,6 +273,7 @@ FocusScope {
                         visible: isValid
 
                         elide: Text.ElideRight
+                        horizontalAlignment: Text.AlignLeft
                     }
 
                     LabelWithToolTip {
@@ -306,6 +319,7 @@ FocusScope {
                         implicitWidth: elisaTheme.smallDelegateToolButtonSize
 
                         opacity: 0
+                        scale: LayoutMirroring.enabled ? -1 : 1 // We can mirror the symmetrical pause icon
 
                         visible: opacity > 0.1
                         action: !(isPlaying == MediaPlayList.IsPlaying) ? playNow : pauseNow
@@ -395,14 +409,23 @@ FocusScope {
                         starSize: elisaTheme.ratingStarSize
                     }
 
+                    TextMetrics {
+                        id: durationTextMetrics
+                        text: i18nc("This is used to preserve a fixed width for the duration text.", "00:00")
+                    }
+
                     LabelWithToolTip {
                         id: durationLabel
+
                         text: duration
 
                         color: myPalette.text
 
                         elide: Text.ElideRight
                         Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+                        Layout.preferredWidth: durationTextMetrics.width+1 // be in the safe side
+
+                        horizontalAlignment: Text.AlignRight
                     }
                 }
             }

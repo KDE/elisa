@@ -74,6 +74,10 @@ Dialog {
         anchors.fill: parent
         spacing: 0
 
+        // This is needed since Dialog doesn't inherit from Item
+        LayoutMirroring.enabled: Qt.application.layoutDirection == Qt.RightToLeft
+        LayoutMirroring.childrenInherit: true
+
         ListView {
             id: trackData
 
@@ -95,7 +99,8 @@ Dialog {
 
                     Layout.preferredWidth: trackData.width * 0.3
                     Layout.minimumHeight: textSize.height
-                    Layout.rightMargin: elisaTheme.layoutHorizontalMargin
+                    Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+                    Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
                 }
 
                 Text {

@@ -41,7 +41,7 @@ ApplicationWindow {
     width: persistentSettings.width
     height: persistentSettings.height
 
-    title: 'Elisa'
+    title: i18n("Elisa")
 
     property var goBackAction: elisa.action("go_back")
 

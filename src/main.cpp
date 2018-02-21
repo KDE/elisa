@@ -93,6 +93,7 @@
 #include <QQmlFileSelector>
 #include <QQmlDebuggingEnabler>
 #include <QQmlContext>
+#include <QScreen>
 
 #if defined Qt5AndroidExtras_FOUND && Qt5AndroidExtras_FOUND
 #include <QAndroidJniObject>
@@ -247,6 +248,7 @@ int main(int argc, char *argv[])
 
     engine.rootContext()->setContextObject(new KLocalizedContext(&engine));
     engine.rootContext()->setContextProperty(QStringLiteral("elisa"), &myApp);
+    engine.rootContext()->setContextProperty(QStringLiteral("logicalDpi"), QGuiApplication::primaryScreen()->logicalDotsPerInch());
 
     engine.load(QUrl(QStringLiteral("qrc:/qml/ElisaMainWindow.qml")));
 

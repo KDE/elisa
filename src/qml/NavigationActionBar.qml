@@ -226,6 +226,8 @@ FocusScope {
 
             spacing: 0
 
+            visible: opacity > 0.0
+
             Layout.fillWidth: true
             Layout.topMargin: elisaTheme.layoutVerticalMargin * 2
             Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
@@ -317,6 +319,10 @@ FocusScope {
                 target: navigationBar
                 height: elisaTheme.navigationBarHeight
             }
+            PropertyChanges {
+                target: filterRow
+                opacity: 0.0
+            }
         },
         State {
             name: 'expanded'
@@ -325,11 +331,20 @@ FocusScope {
                 target: navigationBar
                 height: elisaTheme.navigationBarHeight + elisaTheme.navigationBarFilterHeight
             }
+            PropertyChanges {
+                target: filterRow
+                opacity: 1.0
+            }
         }
     ]
     transitions: Transition {
         PropertyAnimation {
             properties: "height"
+            easing.type: Easing.Linear
+            duration: 250
+        }
+        PropertyAnimation {
+            properties: "opacity"
             easing.type: Easing.Linear
             duration: 250
         }

@@ -1,5 +1,6 @@
 /*
  * Copyright 2017 Alexander Stippich <a.stippich@gmx.net>
+ * Copyright 2018 Matthieu Gallien <matthieu_gallien@yahoo.fr>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -21,18 +22,35 @@
 #define ALLARTISTSPROXYMODEL_H
 
 #include "abstractmediaproxymodel.h"
+#include "elisautils.h"
 
 class AllArtistsProxyModel : public AbstractMediaProxyModel
 {
     Q_OBJECT
 
+public:
+
+    AllArtistsProxyModel(QObject *parent = nullptr);
+
+    ~AllArtistsProxyModel() override;
+
+Q_SIGNALS:
+
+    void artistToEnqueue(QList<QString> artistNames,
+                         ElisaUtils::PlayListEnqueueMode enqueueMode,
+                         ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
+
 public Q_SLOTS:
 
-    void enqueueToPlayList() override;
+    void enqueueToPlayList();
+
+    void replaceAndPlayOfPlayList();
 
 protected:
 
     bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override;
 
 };
+
+
 #endif // ALLARTISTSPROXYMODEL_H

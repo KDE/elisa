@@ -23,6 +23,7 @@
 #include "musicaudiotrack.h"
 #include "musicalbum.h"
 #include "musicartist.h"
+#include "elisautils.h"
 
 #include <QAbstractListModel>
 #include <QVector>
@@ -227,6 +228,20 @@ public Q_SLOTS:
     void enqueue(const QUrl &fileName);
 
     void enqueue(const QStringList &files);
+
+    void enqueue(const QList<qulonglong> &newTrackId);
+
+    void enqueue(const QList<MusicAlbum> &albums,
+                 ElisaUtils::PlayListEnqueueMode enqueueMode,
+                 ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
+
+    void enqueue(const QList<MusicAudioTrack> &tracks,
+                 ElisaUtils::PlayListEnqueueMode enqueueMode,
+                 ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
+
+    void enqueueArtists(const QList<QString> &artistName,
+                        ElisaUtils::PlayListEnqueueMode enqueueMode,
+                        ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 
     void enqueueAndPlay(const QStringList &files);
 

@@ -628,7 +628,127 @@ void MediaPlayList::enqueueAndPlay(const QStringList &files)
     }
 }
 
-void MediaPlayList::replaceAndPlay(qulonglong newTrackId)
+void MediaPlayList::enqueue(const QList<qulonglong> &newTrackIds)
+{
+    beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size() + newTrackIds.size() - 1);
+    for (auto newTrackId : newTrackIds) {
+        d->mData.push_back(MediaPlayListEntry{newTrackId});
+        d->mTrackData.push_back({});
+        Q_EMIT newTrackByIdInList(newTrackId);
+    }
+    endInsertRows();
+
+    restorePlayListPosition();
+    if (!d->mCurrentTrack.isValid()) {
+        resetCurrentTrack();
+    }
+
+    Q_EMIT tracksCountChanged();
+    Q_EMIT persistentStateChanged();
+
+    Q_EMIT dataChanged(index(rowCount() - 1, 0), index(rowCount() - 1, 0), {MediaPlayList::HasAlbumHeader});
+}
+
+void MediaPlayList::enqueue(const QList<MusicAlbum> &albums,
+                            ElisaUtils::PlayListEnqueueMode enqueueMode,
+                            ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
+{
+    auto tracksCount = 0;
+    for (const auto &oneAlbum : albums) {
+        for (auto oneTrackIndex = 0; oneTrackIndex < oneAlbum.tracksCount(); ++oneTrackIndex) {
+            ++tracksCount;
+        }
+    }
+
+    if (enqueueMode == ElisaUtils::ReplacePlayList) {
+        clearPlayList();
+    }
+
+    beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size() + tracksCount - 1);
+    for (const auto &oneAlbum : albums) {
+        for (auto oneTrackIndex = 0; oneTrackIndex < oneAlbum.tracksCount(); ++oneTrackIndex) {
+            const auto &oneTrack = oneAlbum.trackFromIndex(oneTrackIndex);
+            d->mData.push_back(MediaPlayListEntry{oneTrack.databaseId()});
+            d->mTrackData.push_back(oneTrack);
+        }
+    }
+    endInsertRows();
+
+    restorePlayListPosition();
+    if (!d->mCurrentTrack.isValid()) {
+        resetCurrentTrack();
+    }
+
+    Q_EMIT tracksCountChanged();
+    Q_EMIT persistentStateChanged();
+
+    Q_EMIT dataChanged(index(rowCount() - 1, 0), index(rowCount() - 1, 0), {MediaPlayList::HasAlbumHeader});
+
+    if (triggerPlay == ElisaUtils::TriggerPlay) {
+        Q_EMIT ensurePlay();
+    }
+}
+
+void MediaPlayList::enqueue(const QList<MusicAudioTrack> &tracks,
+                            ElisaUtils::PlayListEnqueueMode enqueueMode,
+                            ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
+{
+    if (enqueueMode == ElisaUtils::ReplacePlayList) {
+        clearPlayList();
+    }
+
+    beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size() + tracks.size() - 1);
+    for (const auto &oneTrack : tracks) {
+        d->mData.push_back(MediaPlayListEntry{oneTrack.databaseId()});
+        d->mTrackData.push_back(oneTrack);
+    }
+    endInsertRows();
+
+    restorePlayListPosition();
+    if (!d->mCurrentTrack.isValid()) {
+        resetCurrentTrack();
+    }
+
+    Q_EMIT tracksCountChanged();
+    Q_EMIT persistentStateChanged();
+
+    Q_EMIT dataChanged(index(rowCount() - 1, 0), index(rowCount() - 1, 0), {MediaPlayList::HasAlbumHeader});
+
+    if (triggerPlay == ElisaUtils::TriggerPlay) {
+        Q_EMIT ensurePlay();
+    }
+}
+
+void MediaPlayList::enqueueArtists(const QList<QString> &artistNames,
+                                   ElisaUtils::PlayListEnqueueMode enqueueMode,
+                                   ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
+{
+    if (enqueueMode == ElisaUtils::ReplacePlayList) {
+        clearPlayList();
+    }
+
+    beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size() + artistNames.size() - 1);
+    for (const auto &artistName : artistNames) {
+        d->mData.push_back(MediaPlayListEntry{artistName});
+        d->mTrackData.push_back({});
+        Q_EMIT newArtistInList(artistName);
+    }
+    endInsertRows();
+
+    restorePlayListPosition();
+    if (!d->mCurrentTrack.isValid()) {
+        resetCurrentTrack();
+    }
+
+    Q_EMIT tracksCountChanged();
+    Q_EMIT persistentStateChanged();
+
+    if (triggerPlay == ElisaUtils::TriggerPlay) {
+        Q_EMIT ensurePlay();
+    }
+}
+
+  void MediaPlayList::replaceAndPlay(qulonglong newTrackId)
 {
     clearPlayList();
     enqueue(MediaPlayListEntry(newTrackId));

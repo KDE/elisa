@@ -59,6 +59,7 @@
 #include "notificationitem.h"
 #include "topnotificationmanager.h"
 #include "elisa_settings.h"
+#include "elisautils.h"
 
 #if defined Qt5DBus_FOUND && Qt5DBus_FOUND
 #include "mpris2/mpris2.h"
@@ -178,6 +179,8 @@ int main(int argc, char *argv[])
     qRegisterMetaType<QAction*>();
     qRegisterMetaType<NotificationItem>("NotificationItem");
     qRegisterMetaType<QMap<QString,int>>("QMap<QString,int>");
+    qRegisterMetaType<ElisaUtils::PlayListEnqueueMode>("ElisaUtils::PlayListEnqueueMode");
+    qRegisterMetaType<ElisaUtils::PlayListEnqueueTriggerPlay>("ElisaUtils::PlayListEnqueueTriggerPlay");
     qmlRegisterUncreatableType<ElisaApplication>("org.kde.elisa", 1, 0, "ElisaApplication", QStringLiteral("only one and done in c++"));
 
     qRegisterMetaTypeStreamOperators<ManageMediaPlayerControl::PlayerState>("PlayListControler::PlayerState");

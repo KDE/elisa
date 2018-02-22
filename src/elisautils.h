@@ -26,11 +26,28 @@
 
 #include <QUrl>
 #include <QMimeDatabase>
+#include <QMetaObject>
 
 namespace ElisaUtils {
 
+Q_NAMESPACE
+
 MusicAudioTrack scanOneFile(const QUrl &scanFile, const QMimeDatabase &mimeDatabase,
                             const KFileMetaData::ExtractorCollection &allExtractors);
+
+enum PlayListEnqueueMode {
+    AppendPlayList,
+    ReplacePlayList,
+};
+
+Q_ENUM_NS(PlayListEnqueueMode)
+
+enum PlayListEnqueueTriggerPlay {
+    DoNotTriggerPlay,
+    TriggerPlay,
+};
+
+Q_ENUM_NS(PlayListEnqueueTriggerPlay)
 
 }
 

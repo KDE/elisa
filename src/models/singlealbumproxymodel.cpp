@@ -21,6 +21,17 @@
 
 #include "albummodel.h"
 
+#include <QReadLocker>
+#include <QtConcurrentRun>
+
+SingleAlbumProxyModel::SingleAlbumProxyModel(QObject *parent) : AbstractMediaProxyModel(parent)
+{
+}
+
+SingleAlbumProxyModel::~SingleAlbumProxyModel()
+{
+}
+
 bool SingleAlbumProxyModel::filterAcceptsRow(int source_row, const QModelIndex &source_parent) const
 {
     bool result = false;
@@ -55,13 +66,34 @@ bool SingleAlbumProxyModel::filterAcceptsRow(int source_row, const QModelIndex &
 
 void SingleAlbumProxyModel::enqueueToPlayList()
 {
-    MediaPlayList *playList = AbstractMediaProxyModel::mediaPlayList();
-    for (int columnIndex = 0, columnCount = this->columnCount(); columnIndex < columnCount; ++columnIndex) {
-        for (int rowIndex = 0, rowCount = this->rowCount(); rowIndex < rowCount; ++rowIndex) {
-            auto currentIndex = this->index(rowIndex, columnIndex);
-            playList->enqueue(this->data(currentIndex,AlbumModel::DatabaseIdRole).toULongLong());
+    QtConcurrent::run(&mThreadPool, [=] () {
+        QReadLocker locker(&mDataLock);
+        auto allTracks = QList<MusicAudioTrack>();
+        allTracks.reserve(rowCount());
+        for (int rowIndex = 0, maxRowCount = rowCount(); rowIndex < maxRowCount; ++rowIndex) {
+            auto currentIndex = index(rowIndex, 0);
+            allTracks.push_back(data(currentIndex, AlbumModel::ContainerDataRole).value<MusicAudioTrack>());
         }
-    }
+        Q_EMIT trackToEnqueue(allTracks,
+                              ElisaUtils::AppendPlayList,
+                              ElisaUtils::DoNotTriggerPlay);
+    });
+}
+
+void SingleAlbumProxyModel::replaceAndPlayOfPlayList()
+{
+    QtConcurrent::run(&mThreadPool, [=] () {
+        QReadLocker locker(&mDataLock);
+        auto allTracks = QList<MusicAudioTrack>();
+        allTracks.reserve(rowCount());
+        for (int rowIndex = 0, maxRowCount = rowCount(); rowIndex < maxRowCount; ++rowIndex) {
+            auto currentIndex = index(rowIndex, 0);
+            allTracks.push_back(data(currentIndex, AlbumModel::ContainerDataRole).value<MusicAudioTrack>());
+        }
+        Q_EMIT trackToEnqueue(allTracks,
+                              ElisaUtils::ReplacePlayList,
+                              ElisaUtils::TriggerPlay);
+    });
 }
 
 #include "moc_singlealbumproxymodel.cpp"

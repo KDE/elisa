@@ -21,10 +21,12 @@
 #ifndef ABSTRACTMEDIAPROXYMODEL_H
 #define ABSTRACTMEDIAPROXYMODEL_H
 
+#include "mediaplaylist.h"
+
 #include <QSortFilterProxyModel>
 #include <QRegularExpression>
-
-#include "mediaplaylist.h"
+#include <QReadWriteLock>
+#include <QThreadPool>
 
 class MediaPlayList;
 
@@ -43,12 +45,6 @@ class AbstractMediaProxyModel : public QSortFilterProxyModel
                WRITE setFilterRating
                NOTIFY filterRatingChanged)
 
-    Q_PROPERTY(MediaPlayList* mediaPlayList
-               READ mediaPlayList
-               WRITE setMediaPlayList
-               NOTIFY mediaPlayListChanged)
-
-
 public:
 
     explicit AbstractMediaProxyModel(QObject *parent = nullptr);
@@ -59,27 +55,17 @@ public:
 
     int filterRating() const;
 
-    MediaPlayList *mediaPlayList() const;
-
 public Q_SLOTS:
-
-    void setMediaPlayList(MediaPlayList *playList);
 
     void setFilterText(const QString &filterText);
 
     void setFilterRating(int filterRating);
-
-    virtual void enqueueToPlayList() = 0;
-
-    void replaceAndPlayOfPlayList();
 
 Q_SIGNALS:
 
     void filterTextChanged(const QString &filterText);
 
     void filterRatingChanged(int filterRating);
-
-    void mediaPlayListChanged(MediaPlayList *mediaPlayList);
 
 protected:
 
@@ -91,7 +77,9 @@ protected:
 
     QRegularExpression mFilterExpression;
 
-    MediaPlayList* mMediaPlayList;
+    QReadWriteLock mDataLock;
+
+    QThreadPool mThreadPool;
 
 };
 

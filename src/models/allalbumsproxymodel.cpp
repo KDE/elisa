@@ -22,6 +22,17 @@
 
 #include "allalbumsmodel.h"
 
+#include <QReadLocker>
+#include <QtConcurrentRun>
+
+AllAlbumsProxyModel::AllAlbumsProxyModel(QObject *parent) : AbstractMediaProxyModel(parent)
+{
+}
+
+AllAlbumsProxyModel::~AllAlbumsProxyModel()
+{
+}
+
 bool AllAlbumsProxyModel::filterAcceptsRow(int source_row, const QModelIndex &source_parent) const
 {
     bool result = false;
@@ -70,14 +81,35 @@ bool AllAlbumsProxyModel::filterAcceptsRow(int source_row, const QModelIndex &so
 
 void AllAlbumsProxyModel::enqueueToPlayList()
 {
-    MediaPlayList *playList = AbstractMediaProxyModel::mediaPlayList();
-    for (int columnIndex = 0, columnCount = this->columnCount(); columnIndex < columnCount; ++columnIndex) {
-        for (int rowIndex = 0, rowCount = this->rowCount(); rowIndex < rowCount; ++rowIndex) {
-            auto currentIndex = this->index(rowIndex, columnIndex);
-            playList->enqueue(this->data(currentIndex,AllAlbumsModel::ContainerDataRole).value<MusicAlbum>());
+    QtConcurrent::run(&mThreadPool, [=] () {
+        QReadLocker locker(&mDataLock);
+        auto allAlbums = QList<MusicAlbum>();
+        allAlbums.reserve(rowCount());
+        for (int rowIndex = 0, maxRowCount = rowCount(); rowIndex < maxRowCount; ++rowIndex) {
+            auto currentIndex = index(rowIndex, 0);
+            allAlbums.push_back(data(currentIndex, AllAlbumsModel::ContainerDataRole). value<MusicAlbum>());
         }
-    }
-
+        Q_EMIT albumToEnqueue(allAlbums,
+                              ElisaUtils::AppendPlayList,
+                              ElisaUtils::DoNotTriggerPlay);
+    });
 }
+
+void AllAlbumsProxyModel::replaceAndPlayOfPlayList()
+{
+    QtConcurrent::run(&mThreadPool, [=] () {
+        QReadLocker locker(&mDataLock);
+        auto allAlbums = QList<MusicAlbum>();
+        allAlbums.reserve(rowCount());
+        for (int rowIndex = 0, maxRowCount = rowCount(); rowIndex < maxRowCount; ++rowIndex) {
+            auto currentIndex = index(rowIndex, 0);
+            allAlbums.push_back(data(currentIndex, AllAlbumsModel::ContainerDataRole). value<MusicAlbum>());
+        }
+        Q_EMIT albumToEnqueue(allAlbums,
+                              ElisaUtils::ReplacePlayList,
+                              ElisaUtils::TriggerPlay);
+    });
+}
+
 
 #include "moc_allalbumsproxymodel.cpp"

@@ -1,5 +1,6 @@
 /*
  * Copyright 2017 Alexander Stippich <a.stippich@gmx.net>
+ * Copyright 2018 Matthieu Gallien <matthieu_gallien@yahoo.fr>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -21,14 +22,30 @@
 #define ALLTRACKSPROXYMODEL_H
 
 #include "abstractmediaproxymodel.h"
+#include "musicaudiotrack.h"
+#include "elisautils.h"
 
 class AllTracksProxyModel : public AbstractMediaProxyModel
 {
     Q_OBJECT
 
+public:
+
+    AllTracksProxyModel(QObject *parent = nullptr);
+
+    ~AllTracksProxyModel() override;
+
+Q_SIGNALS:
+
+    void trackToEnqueue(QList<MusicAudioTrack> newTracks,
+                        ElisaUtils::PlayListEnqueueMode enqueueMode,
+                        ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
+
 public Q_SLOTS:
 
-    void enqueueToPlayList() override;
+    void enqueueToPlayList();
+
+    void replaceAndPlayOfPlayList();
 
 protected:
 

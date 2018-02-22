@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2017 Matthieu Gallien <matthieu_gallien@yahoo.fr>
+ * Copyright 2016-2018 Matthieu Gallien <matthieu_gallien@yahoo.fr>
  * Copyright 2017 Alexander Stippich <a.stippich@gmx.net>
  *
  * This library is free software; you can redistribute it and/or
@@ -22,14 +22,30 @@
 #define ALLALBUMSPROXYMODEL_H
 
 #include "abstractmediaproxymodel.h"
+#include "elisautils.h"
 
 class AllAlbumsProxyModel : public AbstractMediaProxyModel
 {
+
     Q_OBJECT
+
+public:
+
+    AllAlbumsProxyModel(QObject *parent = nullptr);
+
+    ~AllAlbumsProxyModel() override;
+
+Q_SIGNALS:
+
+    void albumToEnqueue(QList<MusicAlbum> newAlbums,
+                        ElisaUtils::PlayListEnqueueMode enqueueMode,
+                        ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 
 public Q_SLOTS:
 
-    void enqueueToPlayList() override;
+    void enqueueToPlayList();
+
+    void replaceAndPlayOfPlayList();
 
 protected:
 

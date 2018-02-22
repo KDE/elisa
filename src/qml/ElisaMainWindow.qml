@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2017 Matthieu Gallien <matthieu_gallien@yahoo.fr>
+ * Copyright 2016-2018 Matthieu Gallien <matthieu_gallien@yahoo.fr>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -156,10 +156,13 @@ ApplicationWindow {
 
     Connections {
         target: elisa.mediaPlayList
+
         onPlayListLoadFailed: {
             messageNotification.showNotification(i18nc("message of passive notification when playlist load failed", "Load of playlist failed"), 3000)
         }
+
         onEnsurePlay: manageAudioPlayer.ensurePlay()
+
         onPlayListFinished: manageAudioPlayer.playListFinished()
     }
 
@@ -883,12 +886,14 @@ ApplicationWindow {
         var n = d.getMilliseconds();
         elisa.mediaPlayList.seedRandomGenerator(n);
 
-        elisa.mediaPlayList.enqueue(elisa.arguments)
-
         elisa.mediaPlayList.randomPlay = Qt.binding(function() { return playList.randomPlayChecked })
         elisa.mediaPlayList.repeatPlay = Qt.binding(function() { return playList.repeatPlayChecked })
         myPlayControlManager.randomOrContinuePlay = Qt.binding(function() { return playList.randomPlayChecked || playList.repeatPlayChecked })
 
-        elisa.mediaPlayList.persistentState = persistentSettings.playListState
+        if (persistentSettings.playListState) {
+            elisa.mediaPlayList.persistentState = persistentSettings.playListState
+        }
+
+        elisa.mediaPlayList.enqueue(elisa.arguments)
     }
 }

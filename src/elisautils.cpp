@@ -168,3 +168,6 @@ MusicAudioTrack ElisaUtils::scanOneFile(const QUrl &scanFile, const QMimeDatabas
 
     return newTrack;
 }
+
+
+#include "moc_elisautils.cpp"

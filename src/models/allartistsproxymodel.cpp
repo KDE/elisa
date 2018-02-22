@@ -21,6 +21,17 @@
 
 #include "allartistsmodel.h"
 
+#include <QReadLocker>
+#include <QtConcurrentRun>
+
+AllArtistsProxyModel::AllArtistsProxyModel(QObject *parent) : AbstractMediaProxyModel(parent)
+{
+}
+
+AllArtistsProxyModel::~AllArtistsProxyModel()
+{
+}
+
 bool AllArtistsProxyModel::filterAcceptsRow(int source_row, const QModelIndex &source_parent) const
 {
     bool result = false;
@@ -49,13 +60,34 @@ bool AllArtistsProxyModel::filterAcceptsRow(int source_row, const QModelIndex &s
 
 void AllArtistsProxyModel::enqueueToPlayList()
 {
-    MediaPlayList *playList = AbstractMediaProxyModel::mediaPlayList();
-    for (int columnIndex = 0, columnCount = this->columnCount(); columnIndex < columnCount; ++columnIndex) {
-        for (int rowIndex = 0, rowCount = this->rowCount(); rowIndex < rowCount; ++rowIndex) {
-            auto currentIndex = this->index(rowIndex, columnIndex);
-            playList->enqueue(this->data(currentIndex,AllArtistsModel::NameRole).toString());
+    QtConcurrent::run(&mThreadPool, [=] () {
+        QReadLocker locker(&mDataLock);
+        auto allArtists = QStringList();
+        allArtists.reserve(rowCount());
+        for (int rowIndex = 0, maxRowCount = rowCount(); rowIndex < maxRowCount; ++rowIndex) {
+            auto currentIndex = index(rowIndex, 0);
+            allArtists.push_back(data(currentIndex, AllArtistsModel::NameRole).toString());
         }
-    }
+        Q_EMIT artistToEnqueue(allArtists,
+                               ElisaUtils::AppendPlayList,
+                               ElisaUtils::DoNotTriggerPlay);
+    });
+}
+
+void AllArtistsProxyModel::replaceAndPlayOfPlayList()
+{
+    QtConcurrent::run(&mThreadPool, [=] () {
+        QReadLocker locker(&mDataLock);
+        auto allArtists = QStringList();
+        allArtists.reserve(rowCount());
+        for (int rowIndex = 0, maxRowCount = rowCount(); rowIndex < maxRowCount; ++rowIndex) {
+            auto currentIndex = index(rowIndex, 0);
+            allArtists.push_back(data(currentIndex, AllArtistsModel::NameRole).toString());
+        }
+        Q_EMIT artistToEnqueue(allArtists,
+                               ElisaUtils::ReplacePlayList,
+                               ElisaUtils::TriggerPlay);
+    });
 }
 
 

@@ -20,9 +20,12 @@
 
 #include "abstractmediaproxymodel.h"
 
+#include <QWriteLocker>
+
 AbstractMediaProxyModel::AbstractMediaProxyModel(QObject *parent) : QSortFilterProxyModel(parent)
 {
     setFilterCaseSensitivity(Qt::CaseInsensitive);
+    mThreadPool.setMaxThreadCount(1);
 }
 
 AbstractMediaProxyModel::~AbstractMediaProxyModel()
@@ -40,6 +43,8 @@ int AbstractMediaProxyModel::filterRating() const
 
 void AbstractMediaProxyModel::setFilterText(const QString &filterText)
 {
+    QWriteLocker writeLocker(&mDataLock);
+
     if (mFilterText == filterText)
         return;
 
@@ -56,6 +61,8 @@ void AbstractMediaProxyModel::setFilterText(const QString &filterText)
 
 void AbstractMediaProxyModel::setFilterRating(int filterRating)
 {
+    QWriteLocker writeLocker(&mDataLock);
+
     if (mFilterRating == filterRating) {
         return;
     }
@@ -65,24 +72,6 @@ void AbstractMediaProxyModel::setFilterRating(int filterRating)
     invalidate();
 
     Q_EMIT filterRatingChanged(filterRating);
-}
-
-MediaPlayList *AbstractMediaProxyModel::mediaPlayList() const
-{
-    return mMediaPlayList;
-}
-
-void AbstractMediaProxyModel::setMediaPlayList(MediaPlayList *playList)
-{
-    mMediaPlayList = playList;
-    Q_EMIT mediaPlayListChanged(mMediaPlayList);
-}
-
-void AbstractMediaProxyModel::replaceAndPlayOfPlayList()
-{
-    this->mediaPlayList()->clearPlayList();
-    this->enqueueToPlayList();
-    Q_EMIT this->mediaPlayList()->ensurePlay();
 }
 
 #include "moc_abstractmediaproxymodel.cpp"

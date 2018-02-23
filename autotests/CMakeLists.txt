@@ -207,7 +207,7 @@ set(manageaudioplayerTest_SOURCES
 
 ecm_add_test(${manageaudioplayerTest_SOURCES}
     TEST_NAME "manageaudioplayerTest"
-    LINK_LIBRARIES Qt5::Test Qt5::Core Qt5::Gui Qt5::Multimedia)
+    LINK_LIBRARIES Qt5::Test Qt5::Core Qt5::Gui Qt5::Multimedia KF5::FileMetaData)
 
 target_include_directories(manageaudioplayerTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 
@@ -532,6 +532,10 @@ if (KF5XmlGui_FOUND AND KF5KCMUtils_FOUND)
         TEST_NAME "elisaapplicationtest"
         LINK_LIBRARIES Qt5::Test Qt5::Core Qt5::Widgets Qt5::Multimedia Qt5::Sql Qt5::Concurrent
             KF5::FileMetaData KF5::I18n KF5::ConfigCore KF5::ConfigGui KF5::ConfigWidgets KF5::XmlGui KF5::KCMUtils KF5::Baloo)
+
+    if (KF5Baloo_FOUND)
+        target_link_libraries(elisaapplicationtest KF5::Baloo Qt5::DBus)
+    endif()
 
     target_include_directories(elisaapplicationtest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 endif()

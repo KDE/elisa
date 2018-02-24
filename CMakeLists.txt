@@ -33,7 +33,7 @@ set_package_properties(Qt5QuickWidgets PROPERTIES
 find_package(Qt5QuickControls2 ${REQUIRED_QT_VERSION} CONFIG QUIET)
 set_package_properties(Qt5QuickControls2 PROPERTIES
     DESCRIPTION "Qt5 Quick Controls version 2 is needed at runtime to provide the interface."
-    TYPE REQUIRED)
+    TYPE RUNTIME)
 
 if (ANDROID)
     find_package(Qt5 ${REQUIRED_QT_VERSION} CONFIG QUIET OPTIONAL_COMPONENTS AndroidExtras)

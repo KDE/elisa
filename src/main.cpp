@@ -96,7 +96,6 @@
 #include <QQmlDebuggingEnabler>
 #include <QQmlContext>
 #include <QScreen>
-#include <QQuickStyle>
 
 #if defined Qt5AndroidExtras_FOUND && Qt5AndroidExtras_FOUND
 #include <QAndroidJniObject>
@@ -122,9 +121,6 @@ int main(int argc, char *argv[])
 #if defined KF5Crash_FOUND && KF5Crash_FOUND
     KCrash::initialize();
 #endif
-
-    QQuickStyle::setStyle(QStringLiteral("org.kde.desktop"));
-    QQuickStyle::setFallbackStyle(QStringLiteral("Universal"));
 
     QApplication::setWindowIcon(QIcon::fromTheme(QStringLiteral("new-audio-alarm")));
 

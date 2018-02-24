@@ -151,7 +151,6 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
             Qt5::Svg
             Qt5::Sql
             Qt5::Concurrent
-            Qt5::QuickControls2
             KF5::I18n
             KF5::ConfigCore
             KF5::ConfigGui

@@ -21,11 +21,6 @@ import QtQuick 2.7
 import QtQuick.Controls 1.4
 
 Item {
-    function dp(pixel) {
-        // 96 - common, "base" DPI value
-        return Math.round(pixel * logicalDpi / 96);
-    }
-
     property string defaultAlbumImage: 'image://icon/media-optical-audio'
     property string defaultArtistImage: 'image://icon/view-media-artist'
     property string defaultBackgroundImage: 'qrc:///background.png'
@@ -44,41 +39,41 @@ Item {
     property string ratingUnratedIcon: 'image://icon/rating-unrated'
     property string errorIcon: 'image://icon/error'
 
-    property int layoutHorizontalMargin: dp(8)
-    property int layoutVerticalMargin: dp(6)
+    property int layoutHorizontalMargin: 8
+    property int layoutVerticalMargin: 6
 
-    property int delegateHeight: dp(28)
-    property int delegateWithHeaderHeight: dp(68)
-    property int trackDelegateHeight: dp(45)
+    property int delegateHeight: 28
+    property int delegateWithHeaderHeight: 68
+    property int trackDelegateHeight: 45
 
-    property int coverImageSize: dp(180)
-    property int smallImageSize: dp(32)
+    property int coverImageSize: 180
+    property int smallImageSize: 32
 
-    property int trackMetadataWidth: dp(360)
+    property int trackMetadataWidth: 360
 
-    property int tooltipRadius: dp(3)
-    property int shadowOffset: dp(2)
+    property int tooltipRadius: 3
+    property int shadowOffset: 2
 
-    property int delegateToolButtonSize: dp(34)
-    property int smallDelegateToolButtonSize: dp(20)
+    property int delegateToolButtonSize: 34
+    property int smallDelegateToolButtonSize: 20
 
-    property int ratingStarSize: dp(15)
+    property int ratingStarSize: 15
 
-    property int mediaPlayerControlHeight: dp(48)
+    property int mediaPlayerControlHeight: 48
     property real mediaPlayerControlOpacity: 0.6
-    property int smallControlButtonHeight: dp(32)
-    property int bigControlButtonHeight: dp(44)
-    property int volumeSliderWidth: dp(140)
+    property int smallControlButtonHeight: 32
+    property int bigControlButtonHeight: 44
+    property int volumeSliderWidth: 140
 
-    property int dragDropPlaceholderHeight: dp(28)
+    property int dragDropPlaceholderHeight: 28
 
-    property int navigationBarHeight: dp(100)
-    property int navigationBarFilterHeight: dp(44)
+    property int navigationBarHeight: 100
+    property int navigationBarFilterHeight: 44
 
-    property int gridDelegateHeight: dp(100) + layoutVerticalMargin + fontSize.height * 2
-    property int gridDelegateWidth: dp(100)
+    property int gridDelegateHeight: 100 + layoutVerticalMargin + fontSize.height * 2
+    property int gridDelegateWidth: 100
 
-    property int viewSelectorDelegateHeight: dp(32)
+    property int viewSelectorDelegateHeight: 32
 
     property int filterClearButtonMargin: layoutVerticalMargin
 

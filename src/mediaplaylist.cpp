@@ -258,7 +258,6 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
             result = QVariant::fromValue(d->mTrackData[index.row()]);
             break;
         }
-
     } else {
         switch(role)
         {
@@ -300,6 +299,7 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
         case ColumnsRoles::DiscNumberRole:
             break;
         case ColumnsRoles::IsSingleDiscAlbumHeader:
+            result = false;
             break;
         case ColumnsRoles::MilliSecondsDurationRole:
             break;
@@ -323,6 +323,10 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
             break;
         case ColumnsRoles::ShadowForImageRole:
             result = false;
+            break;
+        case ColumnsRoles::TrackDataRole:
+            MusicAudioTrack emptyTrack;
+            result = QVariant::fromValue(emptyTrack);
             break;
         }
     }

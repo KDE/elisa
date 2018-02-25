@@ -54,7 +54,7 @@ Item {
     property int coverImageSize: dp(180)
     property int smallImageSize: dp(32)
 
-    property int trackMetadataWidth: dp(360)
+    property int trackMetadataWidth: dp(300)
 
     property int tooltipRadius: dp(3)
     property int shadowOffset: dp(2)

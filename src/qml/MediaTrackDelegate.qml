@@ -28,19 +28,10 @@ import org.kde.elisa 1.0
 FocusScope {
     id: mediaTrack
 
-    property string title
-    property var coverImage
-    property string artist
-    property string albumName
-    property string albumArtist
-    property string trackResource
-    property string duration
-    property int trackNumber
-    property int discNumber
-    property int rating
+    property alias trackData: dataHelper.trackData
+    property alias discNumber: dataHelper.discNumber
     property bool isFirstTrackOfDisc
     property bool isSingleDiscAlbum
-    property var trackData
     property bool isAlternateColor
     property bool detailedView: true
 
@@ -52,14 +43,14 @@ FocusScope {
         id: replaceAndPlayAction
         text: i18nc("Clear play list and enqueue current track", "Play Now and Replace Play List")
         iconName: "media-playback-start"
-        onTriggered: replaceAndPlay(trackData)
+        onTriggered: replaceAndPlay(dataHelper.databaseId)
     }
 
     Action {
         id: enqueueAction
         text: i18nc("Enqueue current track", "Enqueue")
         iconName: "media-track-add-amarok"
-        onTriggered: enqueue(trackData)
+        onTriggered: enqueue(dataHelper.databaseId)
     }
 
     Action {
@@ -77,6 +68,10 @@ FocusScope {
         }
     }
 
+    TrackDataHelper {
+        id: dataHelper
+    }
+
     Keys.onReturnPressed: enqueueToPlaylist(trackData)
     Keys.onEnterPressed: enqueueToPlaylist(trackData)
 
@@ -86,15 +81,7 @@ FocusScope {
         onLoaded: item.open()
 
         sourceComponent:  MediaTrackMetadataView {
-            trackTitle: mediaTrack.title
-            artist: mediaTrack.artist
-            albumArtist: mediaTrack.albumArtist
-            albumName: mediaTrack.albumName
-            duration: mediaTrack.duration
-            resource: mediaTrack.trackResource
-            rating: mediaTrack.rating
-            trackNumber: mediaTrack.trackNumber
-            discNumber: mediaTrack.discNumber
+            trackDataHelper: dataHelper
 
             onRejected: metadataLoader.active = false;
         }
@@ -133,26 +120,26 @@ FocusScope {
                     visible: !detailedView
 
                     text: {
-                        if (trackNumber > 0) {
+                        if (dataHelper.hasValidTrackNumber()) {
                             if (artist !== albumArtist)
                                 return i18nc("%1: track number. %2: track title. %3: artist name",
                                              "<b>%1-%2</b> - <i>%3</i>",
-                                             Number(trackNumber).toLocaleString(Qt.locale(), 'f', 0),
-                                             title, artist);
+                                             Number(dataHelper.trackNumber).toLocaleString(Qt.locale(), 'f', 0),
+                                             dataHelper.title, dataHelper.artist);
                             else
                                 return i18nc("%1: track number. %2: track title.",
                                              "<b>%1-%2</b>",
-                                             Number(trackNumber).toLocaleString(Qt.locale(), 'f', 0),
-                                             title);
+                                             Number(dataHelper.trackNumber).toLocaleString(Qt.locale(), 'f', 0),
+                                             dataHelper.title);
                         } else {
-                            if (artist !== albumArtist)
+                            if (dataHelper.artist !== dataHelper.albumArtist)
                                 return i18nc("%1: track title. %2: artist name",
                                              "<b>%1</b> - <i>%2</i>",
-                                             title, artist);
+                                             dataHelper.title, dataHelper.artist);
                             else
                                 return i18nc("%1: track title",
                                              "<b>%1</b>",
-                                             title);
+                                             dataHelper.title);
                         }
                     }
 
@@ -195,11 +182,11 @@ FocusScope {
                         fillMode: Image.PreserveAspectFit
                         smooth: true
 
-                        source: (coverImage ? coverImage : Qt.resolvedUrl(elisaTheme.defaultAlbumImage))
+                        source: (dataHelper.hasValidAlbumCover() ? dataHelper.albumCover : Qt.resolvedUrl(elisaTheme.defaultAlbumImage))
 
                         asynchronous: true
 
-                        layer.enabled: coverImage === '' ? false : true
+                        layer.enabled: dataHelper.hasValidAlbumCover() ? true : false
 
                         layer.effect: DropShadow {
                             source: coverImageElement
@@ -226,11 +213,11 @@ FocusScope {
                         id: mainLabelDetailed
 
                         text: {
-                            if (trackNumber > -1) {
+                            if (dataHelper.hasValidTrackNumber()) {
                                 return i18nc("%1: track number. %2: track title", "%1 - %2",
-                                             Number(trackNumber).toLocaleString(Qt.locale(), 'f', 0), title);
+                                             Number(dataHelper.trackNumber).toLocaleString(Qt.locale(), 'f', 0), dataHelper.title);
                             } else {
-                                return title;
+                                return dataHelper.title;
                             }
                         }
 
@@ -255,7 +242,7 @@ FocusScope {
                     LabelWithToolTip {
                         id: artistLabel
 
-                        text: (isSingleDiscAlbum ? artist + ' - ' + albumName : artist + ' - ' + albumName + ' - CD ' + discNumber)
+                        text: (isSingleDiscAlbum ? dataHelper.artist + ' - ' + dataHelper.albumName : dataHelper.artist + ' - ' + dataHelper.albumName + ' - CD ' + dataHelper.discNumber)
                         horizontalAlignment: Text.AlignLeft
 
                         font.weight: Font.Light
@@ -320,6 +307,8 @@ FocusScope {
 
                     starSize: elisaTheme.ratingStarSize
 
+                    starRating: dataHelper.rating
+
                     Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
                     Layout.leftMargin: elisaTheme.layoutHorizontalMargin
                     Layout.rightMargin: elisaTheme.layoutHorizontalMargin
@@ -333,7 +322,7 @@ FocusScope {
                 LabelWithToolTip {
                     id: durationLabel
 
-                    text: duration
+                    text: dataHelper.duration
 
                     font.weight: Font.Light
                     color: myPalette.text

@@ -59,6 +59,7 @@
 #include "notificationitem.h"
 #include "topnotificationmanager.h"
 #include "elisa_settings.h"
+#include "trackdatahelper.h"
 #include "elisautils.h"
 
 #if defined Qt5DBus_FOUND && Qt5DBus_FOUND
@@ -160,6 +161,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<SingleArtistProxyModel>("org.kde.elisa", 1, 0, "SingleArtistProxyModel");
     qmlRegisterType<AudioWrapper>("org.kde.elisa", 1, 0, "AudioWrapper");
     qmlRegisterType<TopNotificationManager>("org.kde.elisa", 1, 0, "TopNotificationManager");
+    qmlRegisterType<TrackDataHelper>("org.kde.elisa", 1, 0, "TrackDataHelper");
 
 #if defined Qt5DBus_FOUND && Qt5DBus_FOUND
     qmlRegisterType<Mpris2>("org.kde.elisa", 1, 0, "Mpris2");

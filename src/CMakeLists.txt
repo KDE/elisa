@@ -20,6 +20,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         notificationitem.cpp
         topnotificationmanager.cpp
         elisautils.cpp
+        trackdatahelper.cpp
         abstractfile/abstractfilelistener.cpp
         abstractfile/abstractfilelisting.cpp
         file/filelistener.cpp
@@ -34,7 +35,6 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         models/alltracksproxymodel.cpp
         models/singleartistproxymodel.cpp
         models/singlealbumproxymodel.cpp
-
 
         windows/WindowsTheme.qml
         windows/PlatformIntegration.qml

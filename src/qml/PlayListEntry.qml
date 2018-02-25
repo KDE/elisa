@@ -27,24 +27,16 @@ import org.kde.elisa 1.0
 FocusScope {
     id: playListEntry
 
-    property string title
-    property string artist
-    property string album
-    property string albumArtist
     property var index
-    property var itemDecoration
-    property alias duration : durationLabel.text
-    property int trackNumber
-    property int discNumber
     property bool isSingleDiscAlbum
-    property alias rating: ratingWidget.starRating
     property int isPlaying
     property bool isSelected
     property bool isValid
     property bool isAlternateColor
     property bool containsMouse
     property bool hasAlbumHeader
-    property string trackResource
+    property string titleDisplay
+    property alias trackData: dataHelper.trackData
 
     signal startPlayback()
     signal pausePlayback()
@@ -85,6 +77,7 @@ FocusScope {
         id: showInfo
         text: i18nc("Show track metadata", "View Details")
         iconName: "help-about"
+        enabled: isValid
         onTriggered: {
             if (metadataLoader.active === false) {
                 metadataLoader.active = true
@@ -96,21 +89,17 @@ FocusScope {
         }
     }
 
+    TrackDataHelper {
+        id: dataHelper
+    }
+
     Loader {
         id: metadataLoader
         active: false
         onLoaded: item.open()
 
         sourceComponent:  MediaTrackMetadataView {
-            trackTitle: playListEntry.title
-            artist: playListEntry.artist
-            albumArtist: playListEntry.albumArtist
-            albumName: playListEntry.album
-            duration: playListEntry.duration
-            resource: playListEntry.trackResource
-            rating: playListEntry.rating
-            trackNumber: playListEntry.trackNumber
-            discNumber: playListEntry.discNumber
+            trackDataHelper: dataHelper
 
             onRejected: metadataLoader.active = false;
         }
@@ -152,7 +141,7 @@ FocusScope {
                     Image {
                         id: mainIcon
 
-                        source: (isValid ? (playListEntry.itemDecoration ? playListEntry.itemDecoration : Qt.resolvedUrl(elisaTheme.defaultAlbumImage)) : Qt.resolvedUrl(elisaTheme.errorIcon))
+                        source: (isValid ? (dataHelper.hasValidAlbumCover() ? dataHelper.albumCover : Qt.resolvedUrl(elisaTheme.defaultAlbumImage)) : Qt.resolvedUrl(elisaTheme.errorIcon))
 
                         Layout.minimumWidth: headerRow.height - 4
                         Layout.maximumWidth: headerRow.height - 4
@@ -197,7 +186,7 @@ FocusScope {
 
                         LabelWithToolTip {
                             id: mainLabel
-                            text: album
+                            text: dataHelper.albumName
 
                             font.weight: Font.Bold
                             color: myPalette.text
@@ -218,7 +207,7 @@ FocusScope {
                         LabelWithToolTip {
                             id: authorLabel
 
-                            text: albumArtist
+                            text: dataHelper.albumArtist
 
                             font.weight: Font.Light
                             color: myPalette.text
@@ -250,16 +239,16 @@ FocusScope {
                         id: mainCompactLabel
 
                         text: {
-                            if (trackNumber > -1) {
-                                if (discNumber && !isSingleDiscAlbum)
+                            if (dataHelper.hasValidTrackNumber()) {
+                                if (dataHelper.hasValidDiscNumber() && !isSingleDiscAlbum)
                                     return i18nc("%1: disk number. %2: track number. %3: track title", "%1 - %2 - %3",
-                                                 Number(discNumber).toLocaleString(Qt.locale(), 'f', 0),
-                                                 Number(trackNumber).toLocaleString(Qt.locale(), 'f', 0), title);
+                                                 Number(dataHelper.discNumber).toLocaleString(Qt.locale(), 'f', 0),
+                                                 Number(dataHelper.trackNumber).toLocaleString(Qt.locale(), 'f', 0), dataHelper.title);
                                 else
                                     return i18nc("%1: track number. %2: track title", "%1 - %2",
-                                                 Number(trackNumber).toLocaleString(Qt.locale(), 'f', 0), title);
+                                                 Number(dataHelper.trackNumber).toLocaleString(Qt.locale(), 'f', 0), dataHelper.title);
                             } else {
-                                return title;
+                                return dataHelper.title;
                             }
                         }
 
@@ -279,7 +268,7 @@ FocusScope {
                     LabelWithToolTip {
                         id: mainInvalidCompactLabel
 
-                        text: title
+                        text: titleDisplay
 
                         font.weight: Font.Normal
                         color: myPalette.text
@@ -296,7 +285,6 @@ FocusScope {
                         Layout.fillWidth: true
                         Layout.preferredWidth: 0
                     }
-
 
                     ToolButton {
                         id: infoButton
@@ -406,6 +394,8 @@ FocusScope {
                     RatingStar {
                         id: ratingWidget
 
+                        starRating: dataHelper.rating
+
                         starSize: elisaTheme.ratingStarSize
                     }
 
@@ -417,7 +407,7 @@ FocusScope {
                     LabelWithToolTip {
                         id: durationLabel
 
-                        text: duration
+                        text: dataHelper.duration
 
                         color: myPalette.text
 

@@ -275,59 +275,25 @@ FocusScope {
                             focus: true
 
                             width: playListView.width
+
                             index: model.index
+
                             isAlternateColor: item.DelegateModel.itemsIndex % 2
-                            hasAlbumHeader: if (model != undefined && model.hasAlbumHeader !== undefined)
-                                                model.hasAlbumHeader
-                                            else
-                                                true
-                            title: if (model != undefined && model.title !== undefined)
-                                       model.title
-                                   else
-                                       ''
-                            artist: if (model != undefined && model.artist !== undefined)
-                                        model.artist
-                                    else
-                                        ''
-                            albumArtist: if (model != undefined && model.albumArtist !== undefined)
-                                             model.albumArtist
-                                         else
-                                             ''
-                            itemDecoration: if (model != undefined && model.image !== undefined)
-                                                model.image
-                                            else
-                                                ''
-                            duration: if (model != undefined && model.duration !== undefined)
-                                          model.duration
-                                      else
-                                          ''
-                            trackNumber: if (model != undefined && model.trackNumber !== undefined)
-                                             model.trackNumber
-                                         else
-                                             ''
-                            discNumber: if (model != undefined && model.discNumber !== undefined)
-                                            model.discNumber
-                                        else
-                                            ''
-                            isSingleDiscAlbum: if (model != undefined && model.isSingleDiscAlbum !== undefined)
-                                                   model.isSingleDiscAlbum
-                                               else
-                                                   false
-                            album: if (model != undefined && model.album !== undefined)
-                                       model.album
-                                   else
-                                       ''
-                            rating: if (model != undefined && model.rating !== undefined)
-                                        model.rating
-                                    else
-                                        0
-                            trackResource: if (model != undefined && model.trackResource !== undefined)
-                                               model.trackResource
-                                           else
-                                               ''
+
+                            hasAlbumHeader: model.hasAlbumHeader
+
+                            isSingleDiscAlbum: model.isSingleDiscAlbum
+
+                            trackData: model.trackData
+
+                            titleDisplay: model.title
+
                             isValid: model.isValid
+
                             isPlaying: model.isPlaying
+
                             isSelected: playListView.currentIndex === index
+
                             containsMouse: item.containsMouse
 
                             onStartPlayback: topItem.startPlayback()

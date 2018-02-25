@@ -531,7 +531,7 @@ if (KF5XmlGui_FOUND AND KF5KCMUtils_FOUND)
     ecm_add_test(${elisaapplicationtest_SOURCES}
         TEST_NAME "elisaapplicationtest"
         LINK_LIBRARIES Qt5::Test Qt5::Core Qt5::Widgets Qt5::Multimedia Qt5::Sql Qt5::Concurrent
-            KF5::FileMetaData KF5::I18n KF5::ConfigCore KF5::ConfigGui KF5::ConfigWidgets KF5::XmlGui KF5::KCMUtils KF5::Baloo)
+            KF5::FileMetaData KF5::I18n KF5::ConfigCore KF5::ConfigGui KF5::ConfigWidgets KF5::XmlGui KF5::KCMUtils)
 
     if (KF5Baloo_FOUND)
         target_link_libraries(elisaapplicationtest KF5::Baloo Qt5::DBus)

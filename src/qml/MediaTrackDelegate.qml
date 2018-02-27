@@ -124,12 +124,12 @@ FocusScope {
                         if (dataHelper.hasValidTrackNumber()) {
                             if (artist !== albumArtist)
                                 return i18nc("%1: track number. %2: track title. %3: artist name",
-                                             "<b>%1-%2</b> - <i>%3</i>",
+                                             "<b>%1 - %2</b> - <i>%3</i>",
                                              Number(dataHelper.trackNumber).toLocaleString(Qt.locale(), 'f', 0),
                                              dataHelper.title, dataHelper.artist);
                             else
                                 return i18nc("%1: track number. %2: track title.",
-                                             "<b>%1-%2</b>",
+                                             "<b>%1 - %2</b>",
                                              Number(dataHelper.trackNumber).toLocaleString(Qt.locale(), 'f', 0),
                                              dataHelper.title);
                         } else {
@@ -328,13 +328,12 @@ FocusScope {
                     font.weight: Font.Light
                     color: myPalette.text
 
-                    elide: Text.ElideRight
                     horizontalAlignment: Text.AlignRight
 
                     Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
                     Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
                     Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-                    Layout.preferredWidth: durationTextMetrics.width+1 // be in the safe side
+                    Layout.preferredWidth: durationTextMetrics.width + 1
                 }
             }
         }

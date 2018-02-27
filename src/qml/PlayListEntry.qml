@@ -412,9 +412,8 @@ FocusScope {
 
                         color: myPalette.text
 
-                        elide: Text.ElideRight
                         Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
-                        Layout.preferredWidth: durationTextMetrics.width+1 // be in the safe side
+                        Layout.preferredWidth: durationTextMetrics.width + 1
 
                         horizontalAlignment: Text.AlignRight
                     }

@@ -273,7 +273,7 @@ FocusScope {
 
                         focus: true
 
-                        width: playListView.width
+                        width: scrollBar.visible ? playListView.width - scrollBar.width : playListView.width
 
                         index: model.index
 

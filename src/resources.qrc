@@ -28,14 +28,14 @@
         <file>qml/GridBrowserDelegate.qml</file>
         <file>background.png</file>
     </qresource>
-    <qresource prefix="/+windows">
-        <file alias="qml/Theme.qml">windows/WindowsTheme.qml</file>
-        <file alias="qml/PlatformIntegration.qml">windows/PlatformIntegration.qml</file>
-        <file alias="qml/LabelWithToolTip.qml">windows/LabelWithToolTip.qml</file>
+    <qresource prefix="/qml/+windows">
+        <file alias="Theme.qml">windows/WindowsTheme.qml</file>
+        <file alias="PlatformIntegration.qml">windows/PlatformIntegration.qml</file>
+        <file alias="LabelWithToolTip.qml">windows/LabelWithToolTip.qml</file>
     </qresource>
-    <qresource prefix="/+android">
-        <file alias="qml/ElisaMainWindow.qml">android/ElisaMainWindow.qml</file>
-        <file alias="qml/Theme.qml">android/AndroidTheme.qml</file>
-        <file alias="qml/PlatformIntegration.qml">android/PlatformIntegration.qml</file>
+    <qresource prefix="/qml/+android">
+        <file alias="ElisaMainWindow.qml">android/ElisaMainWindow.qml</file>
+        <file alias="Theme.qml">android/AndroidTheme.qml</file>
+        <file alias="PlatformIntegration.qml">android/PlatformIntegration.qml</file>
     </qresource>
 </RCC>

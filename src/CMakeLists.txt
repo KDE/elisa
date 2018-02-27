@@ -121,6 +121,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
     )
 
     qt5_add_resources(elisa_SOURCES resources.qrc)
+     set_property(SOURCE qrc_resources.cpp PROPERTY SKIP_AUTOMOC ON)
 
     set(elisa_ICONS_PNG
         ../icons/128-apps-elisa.png

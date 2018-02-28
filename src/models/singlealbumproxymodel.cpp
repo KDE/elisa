@@ -96,4 +96,12 @@ void SingleAlbumProxyModel::replaceAndPlayOfPlayList()
     });
 }
 
+void SingleAlbumProxyModel::loadAlbumData(qulonglong databaseId)
+{
+    AlbumModel *albumSourceModel = qobject_cast<AlbumModel *>(this->sourceModel());
+    if(albumSourceModel) {
+        albumSourceModel->loadAlbumData(databaseId);
+    }
+}
+
 #include "moc_singlealbumproxymodel.cpp"

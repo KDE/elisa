@@ -39,11 +39,6 @@ FocusScope {
     signal goBack();
     signal filterViewChanged(string filterState)
 
-    function loadAlbumData(id)
-    {
-        contentModel.sourceModel.loadAlbumData(id)
-    }
-
     SystemPalette {
         id: myPalette
         colorGroup: SystemPalette.Active

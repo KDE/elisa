@@ -452,7 +452,7 @@ ApplicationWindow {
                                             mainTitle: i18nc("Title of the view of all albums", "Albums")
 
                                             onOpen: {
-                                                elisa.singleAlbumProxyModel.sourceModel.loadAlbumData(databaseId)
+                                                elisa.singleAlbumProxyModel.loadAlbumData(databaseId)
                                                 localAlbums.stackView.push(albumView, {
                                                                                stackView: localAlbums.stackView,
                                                                                albumName: innerMainTitle,
@@ -866,7 +866,7 @@ ApplicationWindow {
             isSubPage: true
 
             onOpen: {
-                elisa.singleAlbumProxyModel.sourceModel.loadAlbumData(databaseId)
+                elisa.singleAlbumProxyModel.loadAlbumData(databaseId)
                 localArtists.stackView.push(albumView, {
                                                 stackView: localArtists.stackView,
                                                 albumName: innerMainTitle,

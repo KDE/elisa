@@ -24,6 +24,7 @@
 #include "abstractmediaproxymodel.h"
 #include "musicaudiotrack.h"
 #include "elisautils.h"
+#include "albummodel.h"
 
 class SingleAlbumProxyModel : public AbstractMediaProxyModel
 {
@@ -46,6 +47,8 @@ public Q_SLOTS:
     void enqueueToPlayList();
 
     void replaceAndPlayOfPlayList();
+
+    void loadAlbumData(qulonglong databaseId);
 
 protected:
 

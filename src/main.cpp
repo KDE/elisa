@@ -155,7 +155,6 @@ int main(int argc, char *argv[])
     qmlRegisterType<MusicStatistics>("org.kde.elisa", 1, 0, "MusicStatistics");
     qmlRegisterType<ProgressIndicator>("org.kde.elisa", 1, 0, "ProgressIndicator");
     qmlRegisterType<MusicListenersManager>("org.kde.elisa", 1, 0, "MusicListenersManager");
-    qmlRegisterType<AlbumModel>("org.kde.elisa", 1, 0, "AlbumModel");
     qmlRegisterType<AllAlbumsProxyModel>("org.kde.elisa", 1, 0, "AllAlbumsProxyModel");
     qmlRegisterType<AllArtistsProxyModel>("org.kde.elisa", 1, 0, "AllArtistsProxyModel");
     qmlRegisterType<AllTracksProxyModel>("org.kde.elisa", 1, 0, "AllTracksProxyModel");

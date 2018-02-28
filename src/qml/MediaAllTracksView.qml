@@ -114,9 +114,9 @@ FocusScope {
 
                         isSingleDiscAlbum: model.isSingleDiscAlbum
 
-                        onEnqueue: rootElement.enqueue(data)
+                        onEnqueue: elisa.mediaPlayList.enqueue(data)
 
-                        onReplaceAndPlay: rootElement.replaceAndPlay(data)
+                        onReplaceAndPlay: elisa.mediaPlayList.replaceAndPlay(data)
 
                         onClicked: contentDirectoryView.currentIndex = index
                     }

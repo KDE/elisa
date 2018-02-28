@@ -210,7 +210,7 @@ ApplicationWindow {
         onSourceInError:
         {
             elisa.mediaPlayList.trackInError(source, playerError)
-            allListeners.playBackError(source, playerError)
+            elisa.musicManager.playBackError(source, playerError)
         }
 
         onDisplayTrackError: messageNotification.showNotification(i18n("Error when playing %1", "" + fileName), 3000)

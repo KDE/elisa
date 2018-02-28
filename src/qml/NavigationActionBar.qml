@@ -36,12 +36,12 @@ FocusScope {
     property alias filterText: filterTextInput.text
     property alias filterRating: ratingFilter.starRating
     property bool enableGoBack: true
-    property bool collapsed: true
 
     signal enqueue();
     signal replaceAndPlay();
     signal goBack();
     signal showArtist();
+    signal filterViewChanged(string filterState);
 
     Action {
         id: goPreviousAction
@@ -52,9 +52,12 @@ FocusScope {
 
     Action {
         id: showFilterAction
-        text: collapsed ? i18nc("Show filters in the navigation bar", "Show Search Options") : i18nc("Hide filters in the navigation bar", "Hide Search Options")
-        iconName: collapsed ? "go-down-search" : "go-up-search"
-        onTriggered: collapsed ? collapsed = false : collapsed = true
+        text: navigationBar.state === "" ? i18nc("Show filters in the navigation bar", "Show Search Options") : i18nc("Hide filters in the navigation bar", "Hide Search Options")
+        iconName: navigationBar.state === "" ? "go-down-search" : "go-up-search"
+        onTriggered: {
+            navigationBar.state === "" ? navigationBar.state = 'expanded' : navigationBar.state = ""
+            filterViewChanged(navigationBar.state)
+        }
     }
 
     ColumnLayout {
@@ -313,8 +316,7 @@ FocusScope {
 
     states: [
         State {
-            name: 'collapsed'
-            when: collapsed
+            name: ""
             PropertyChanges {
                 target: navigationBar
                 height: elisaTheme.navigationBarHeight
@@ -326,7 +328,6 @@ FocusScope {
         },
         State {
             name: 'expanded'
-            when: !collapsed
             PropertyChanges {
                 target: navigationBar
                 height: elisaTheme.navigationBarHeight + elisaTheme.navigationBarFilterHeight

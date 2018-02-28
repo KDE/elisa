@@ -32,11 +32,13 @@ FocusScope {
     property var artistName
     property var albumArtUrl
     property bool isSingleDiscAlbum
+    property alias filterState: navigationBar.state
     property var albumId
     property alias contentModel: contentDirectoryView.model
 
     signal showArtist(var name)
     signal goBack();
+    signal filterViewChanged(string filterState)
 
     function loadAlbumData(id)
     {
@@ -84,6 +86,8 @@ FocusScope {
             }
 
             onGoBack: topListing.goBack()
+
+            onFilterViewChanged: topListing.filterViewChanged(filterState)
 
             onShowArtist: topListing.showArtist(topListing.contentModel.sourceModel.author)
 

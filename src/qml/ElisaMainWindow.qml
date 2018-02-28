@@ -91,7 +91,10 @@ ApplicationWindow {
 
         property double playControlItemVolume : 100.0
         property bool playControlItemMuted : false
-    }
+
+        property string filterState
+
+   }
 
     Connections {
         target: Qt.application
@@ -460,6 +463,14 @@ ApplicationWindow {
                                                                            })
                                             }
                                             onGoBack: localAlbums.stackView.pop()
+
+                                            Binding {
+                                                target: allAlbumsView
+                                                property: 'filterState'
+                                                value: persistentSettings.filterState
+                                            }
+
+                                            onFilterViewChanged: persistentSettings.filterState = filterState
                                         }
 
                                         visible: opacity > 0
@@ -500,6 +511,14 @@ ApplicationWindow {
 
                                             }
                                             onGoBack: localArtists.stackView.pop()
+
+                                            Binding {
+                                                target: allArtistsView
+                                                property: 'filterState'
+                                                value: persistentSettings.filterState
+                                            }
+
+                                            onFilterViewChanged: persistentSettings.filterState = filterState
                                         }
 
                                         visible: opacity > 0
@@ -518,10 +537,19 @@ ApplicationWindow {
                                         }
 
                                         firstPage: MediaAllTracksView {
+                                            id: allTracksView
                                             focus: true
                                             stackView: localTracks.stackView
 
                                             contentModel: elisa.allTracksProxyModel
+
+                                            Binding {
+                                                target: allTracksView
+                                                property: 'filterState'
+                                                value: persistentSettings.filterState
+                                            }
+
+                                            onFilterViewChanged: persistentSettings.filterState = filterState
                                         }
 
                                         visible: opacity > 0
@@ -832,6 +860,7 @@ ApplicationWindow {
         id: innerAlbumView
 
         GridBrowserView {
+            id: innerAlbumGridView
             property var stackView
 
             contentModel: elisa.singleArtistProxyModel
@@ -848,6 +877,14 @@ ApplicationWindow {
                                             })
             }
             onGoBack: stackView.pop()
+
+            Binding {
+                target: innerAlbumGridView
+                property: 'filterState'
+                value: persistentSettings.filterState
+            }
+
+            onFilterViewChanged: persistentSettings.filterState = filterState
         }
     }
 
@@ -855,6 +892,7 @@ ApplicationWindow {
         id: albumView
 
         MediaAlbumView {
+            id: albumGridView
             property var stackView
 
             contentModel: elisa.singleAlbumProxyModel
@@ -875,6 +913,14 @@ ApplicationWindow {
                 allArtistsView.open(name, name, elisaTheme.defaultArtistImage, '')
             }
             onGoBack: stackView.pop()
+
+            Binding {
+                target: albumGridView
+                property: 'filterState'
+                value: persistentSettings.filterState
+            }
+
+            onFilterViewChanged: persistentSettings.filterState = filterState
         }
     }
 

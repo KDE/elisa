@@ -37,9 +37,11 @@ FocusScope {
     property alias contentModel: contentDirectoryView.model
     property bool showRating: true
     property bool delegateDisplaySecondaryText: true
+    property alias filterState: navigationBar.state
 
     signal open(var innerMainTitle, var innerSecondaryTitle, var innerImage, var databaseId)
     signal goBack()
+    signal filterViewChanged(string filterState)
 
     SystemPalette {
         id: myPalette
@@ -85,6 +87,8 @@ FocusScope {
             onReplaceAndPlay:contentModel.replaceAndPlayOfPlayList()
 
             onGoBack: gridView.goBack()
+
+            onFilterViewChanged: gridView.filterViewChanged(filterState)
         }
 
         Rectangle {

@@ -298,7 +298,7 @@ void AllTracksModel::tracksAdded(const QList<MusicAudioTrack> &allTracks)
     int countNewTracks = 0;
 
     for (const auto &oneTrack : allTracks) {
-        if (newAllTracks.find(oneTrack.databaseId()) == newAllTracks.end()) {
+        if (!newAllTracks.contains(oneTrack.databaseId())) {
             newAllTracks[oneTrack.databaseId()] = oneTrack;
             newTracksIds.push_back(oneTrack.databaseId());
             ++countNewTracks;
@@ -332,7 +332,7 @@ void AllTracksModel::trackRemoved(qulonglong removedTrackId)
 
 void AllTracksModel::trackModified(const MusicAudioTrack &modifiedTrack)
 {
-    auto trackExists = (d->mAllTracks.find(modifiedTrack.databaseId()) != d->mAllTracks.end());
+    auto trackExists = (d->mAllTracks.contains(modifiedTrack.databaseId()));
     if (!trackExists) {
         return;
     }

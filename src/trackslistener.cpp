@@ -61,7 +61,7 @@ TracksListener::~TracksListener()
 void TracksListener::tracksAdded(const QList<MusicAudioTrack> &allTracks)
 {
     for (const auto &oneTrack : allTracks) {
-        if (d->mTracksByIdSet.find(oneTrack.databaseId()) != d->mTracksByIdSet.end()) {
+        if (d->mTracksByIdSet.contains(oneTrack.databaseId())) {
             Q_EMIT trackHasChanged(oneTrack);
         }
 
@@ -105,14 +105,14 @@ void TracksListener::tracksAdded(const QList<MusicAudioTrack> &allTracks)
 
 void TracksListener::trackRemoved(qulonglong id)
 {
-    if (d->mTracksByIdSet.find(id) != d->mTracksByIdSet.end()) {
+    if (d->mTracksByIdSet.contains(id)) {
         Q_EMIT trackHasBeenRemoved(id);
     }
 }
 
 void TracksListener::trackModified(const MusicAudioTrack &modifiedTrack)
 {
-    if (d->mTracksByIdSet.find(modifiedTrack.databaseId()) != d->mTracksByIdSet.end()) {
+    if (d->mTracksByIdSet.contains(modifiedTrack.databaseId())) {
         Q_EMIT trackHasChanged(modifiedTrack);
     }
 }

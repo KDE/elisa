@@ -926,10 +926,6 @@ ApplicationWindow {
     {
         elisa.initialize()
 
-        var d = new Date();
-        var n = d.getMilliseconds();
-        elisa.mediaPlayList.seedRandomGenerator(n);
-
         elisa.mediaPlayList.randomPlay = Qt.binding(function() { return playList.randomPlayChecked })
         elisa.mediaPlayList.repeatPlay = Qt.binding(function() { return playList.repeatPlayChecked })
         myPlayControlManager.randomOrContinuePlay = Qt.binding(function() { return playList.randomPlayChecked || playList.repeatPlayChecked })

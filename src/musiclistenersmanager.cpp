@@ -218,6 +218,7 @@ void MusicListenersManager::subscribeForTracks(MediaPlayList *client)
     auto helper = new TracksListener(&d->mDatabaseInterface);
 
     helper->moveToThread(&d->mDatabaseThread);
+    connect(&d->mDatabaseThread, &QThread::finished, helper, &QObject::deleteLater);
 
     connect(this, &MusicListenersManager::trackRemoved, helper, &TracksListener::trackRemoved);
     connect(this, &MusicListenersManager::tracksAdded, helper, &TracksListener::tracksAdded);

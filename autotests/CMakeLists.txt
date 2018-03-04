@@ -48,6 +48,7 @@ set(managemediaplayercontrolTest_SOURCES
     ../src/file/localfilelisting.cpp
     ../src/abstractfile/abstractfilelistener.cpp
     ../src/abstractfile/abstractfilelisting.cpp
+    ../src/audiowrapper.cpp
     managemediaplayercontroltest.cpp
 )
 
@@ -138,6 +139,7 @@ set(manageheaderbarTest_SOURCES
     ../src/file/localfilelisting.cpp
     ../src/abstractfile/abstractfilelistener.cpp
     ../src/abstractfile/abstractfilelisting.cpp
+    ../src/audiowrapper.cpp
     manageheaderbartest.cpp
 )
 
@@ -237,6 +239,7 @@ set(mediaplaylistTest_SOURCES
     ../src/file/localfilelisting.cpp
     ../src/abstractfile/abstractfilelistener.cpp
     ../src/abstractfile/abstractfilelisting.cpp
+    ../src/audiowrapper.cpp
     modeltest.cpp
     mediaplaylisttest.cpp
 )
@@ -326,6 +329,7 @@ set(trackslistenertest_SOURCES
     ../src/file/localfilelisting.cpp
     ../src/abstractfile/abstractfilelistener.cpp
     ../src/abstractfile/abstractfilelisting.cpp
+    ../src/audiowrapper.cpp
     trackslistenertest.cpp
 )
 
@@ -482,6 +486,7 @@ if (KF5XmlGui_FOUND AND KF5KCMUtils_FOUND)
         ../src/notificationitem.cpp
         ../src/trackslistener.cpp
         ../src/mediaplaylist.cpp
+        ../src/audiowrapper.cpp
         ../src/musicartist.cpp
         ../src/musicalbum.cpp
         ../src/musicaudiotrack.cpp

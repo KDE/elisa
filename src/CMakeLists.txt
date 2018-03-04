@@ -260,6 +260,7 @@ set(elisaImport_SOURCES
     abstractfile/abstractfilelisting.cpp
     file/filelistener.cpp
     file/localfilelisting.cpp
+    audiowrapper.cpp
 )
 
 if (KF5Baloo_FOUND)

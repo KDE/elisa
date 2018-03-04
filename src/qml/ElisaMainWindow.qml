@@ -120,7 +120,7 @@ ApplicationWindow {
         audioPlayerManager: manageAudioPlayer
         headerBarManager: myHeaderBarManager
         manageMediaPlayerControl: myPlayControlManager
-        player: audioPlayer
+        player: elisa.audioPlayer
 
         onRaisePlayer:
         {
@@ -130,17 +130,11 @@ ApplicationWindow {
         }
     }
 
-    AudioWrapper {
-        id: audioPlayer
-
-        muted: headerBar.playerControl.muted
-
-        volume: headerBar.playerControl.volume
+    Connections {
+        target: elisa.audioPlayer
 
         onVolumeChanged: headerBar.playerControl.volume = volume
         onMutedChanged: headerBar.playerControl.muted = muted
-
-        source: manageAudioPlayer.playerSource
 
         onPlaying: {
             myPlayControlManager.playerPlaying()
@@ -191,20 +185,20 @@ ApplicationWindow {
         artistNameRole: MediaPlayList.ArtistRole
         albumNameRole: MediaPlayList.AlbumRole
 
-        playerStatus: audioPlayer.status
-        playerPlaybackState: audioPlayer.playbackState
-        playerError: audioPlayer.error
-        audioDuration: audioPlayer.duration
-        playerIsSeekable: audioPlayer.seekable
-        playerPosition: audioPlayer.position
+        playerStatus: elisa.audioPlayer.status
+        playerPlaybackState: elisa.audioPlayer.playbackState
+        playerError: elisa.audioPlayer.error
+        audioDuration: elisa.audioPlayer.duration
+        playerIsSeekable: elisa.audioPlayer.seekable
+        playerPosition: elisa.audioPlayer.position
 
         persistentState: persistentSettings.audioPlayerState
 
-        onPlayerPlay: audioPlayer.play()
-        onPlayerPause: audioPlayer.pause()
-        onPlayerStop: audioPlayer.stop()
+        onPlayerPlay: elisa.audioPlayer.play()
+        onPlayerPause: elisa.audioPlayer.pause()
+        onPlayerStop: elisa.audioPlayer.stop()
         onSkipNextTrack: elisa.mediaPlayList.skipNextTrack()
-        onSeek: audioPlayer.seek(position)
+        onSeek: elisa.audioPlayer.seek(position)
         onSourceInError:
         {
             elisa.mediaPlayList.trackInError(source, playerError)
@@ -254,18 +248,18 @@ ApplicationWindow {
 
                     ratingVisible: false
 
-                    playerControl.duration: audioPlayer.duration
-                    playerControl.seekable: audioPlayer.seekable
+                    playerControl.duration: elisa.audioPlayer.duration
+                    playerControl.seekable: elisa.audioPlayer.seekable
 
                     playerControl.volume: persistentSettings.playControlItemVolume
                     playerControl.muted: persistentSettings.playControlItemMuted
-                    playerControl.position: audioPlayer.position
+                    playerControl.position: elisa.audioPlayer.position
                     playerControl.skipBackwardEnabled: myPlayControlManager.skipBackwardControlEnabled
                     playerControl.skipForwardEnabled: myPlayControlManager.skipForwardControlEnabled
                     playerControl.playEnabled: myPlayControlManager.playControlEnabled
                     playerControl.isPlaying: myPlayControlManager.musicPlaying
 
-                    playerControl.onSeek: audioPlayer.seek(position)
+                    playerControl.onSeek: elisa.audioPlayer.seek(position)
 
                     playerControl.onPlay: manageAudioPlayer.playPause()
                     playerControl.onPause: manageAudioPlayer.playPause()
@@ -936,6 +930,12 @@ ApplicationWindow {
             elisa.mediaPlayList.persistentState = persistentSettings.playListState
         }
 
+
+        elisa.audioPlayer.muted = Qt.binding(function() { return headerBar.playerControl.muted })
+        elisa.audioPlayer.volume = Qt.binding(function() { return headerBar.playerControl.volume })
+        elisa.audioPlayer.source = Qt.binding(function() { return manageAudioPlayer.playerSource })
+
         elisa.mediaPlayList.enqueue(elisa.arguments)
+        volume: headerBar.playerControl.volume
     }
 }

@@ -27,6 +27,7 @@
 #include "models/singleartistproxymodel.h"
 #include "models/singlealbumproxymodel.h"
 #include "mediaplaylist.h"
+#include "audiowrapper.h"
 
 #include "elisa_settings.h"
 #include <KConfigCore/KAuthorized>
@@ -93,6 +94,8 @@ public:
     std::unique_ptr<SingleAlbumProxyModel> mSingleAlbumProxyModel;
 
     std::unique_ptr<MediaPlayList> mMediaPlayList;
+
+    std::unique_ptr<AudioWrapper> mAudioWrapper;
 
 };
 
@@ -262,6 +265,8 @@ void ElisaApplication::initialize()
     Q_EMIT singleAlbumProxyModelChanged();
     d->mMediaPlayList = std::make_unique<MediaPlayList>();
     Q_EMIT mediaPlayListChanged();
+    d->mAudioWrapper = std::make_unique<AudioWrapper>();
+    Q_EMIT audioPlayerChanged();
 
     d->mMusicManager->setElisaApplication(this);
 
@@ -361,5 +366,9 @@ MediaPlayList *ElisaApplication::mediaPlayList() const
     return d->mMediaPlayList.get();
 }
 
+AudioWrapper *ElisaApplication::audioPlayer() const
+{
+    return d->mAudioWrapper.get();
+}
 
 #include "moc_elisaapplication.cpp"

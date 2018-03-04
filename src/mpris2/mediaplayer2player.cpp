@@ -123,7 +123,7 @@ void MediaPlayer2Player::Previous()
 
 bool MediaPlayer2Player::CanPause() const
 {
-    return !m_canPlay;
+    return m_canPlay;
 }
 
 void MediaPlayer2Player::Pause()

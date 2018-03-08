@@ -137,6 +137,8 @@ private Q_SLOTS:
 
     void testEmptyEnqueue();
 
+    void clearPlayListCase();
+
 private:
 
     QList<MusicAudioTrack> mNewTracks;

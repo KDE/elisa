@@ -821,6 +821,10 @@ void MediaPlayList::clearPlayList()
     d->mTrackData.clear();
     endRemoveRows();
 
+    d->mCurrentPlayListPosition = 0;
+    d->mCurrentTrack = QPersistentModelIndex{};
+    notifyCurrentTrackChanged();
+
     Q_EMIT tracksCountChanged();
 }
 

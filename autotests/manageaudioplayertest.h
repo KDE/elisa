@@ -91,6 +91,8 @@ private Q_SLOTS:
 
     void testRestorePlayListAndSettingsAutomaticPlay();
 
+    void playSingleAndClearPlayListTrack();
+
 };
 
 #endif // MANAGEAUDIOPLAYERTEST_H

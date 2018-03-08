@@ -159,6 +159,9 @@ void ManageAudioPlayer::setCurrentTrack(const QPersistentModelIndex &currentTrac
     case PlayingState:
     case PausedState:
         triggerStop();
+        if (mPlayingState && !mCurrentTrack.isValid()) {
+            mPlayingState = false;
+        }
         mSkippingCurrentTrack = true;
         break;
     }

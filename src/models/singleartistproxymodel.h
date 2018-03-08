@@ -35,7 +35,7 @@ class SingleArtistProxyModel : public AbstractMediaProxyModel
 
 public:
 
-    SingleArtistProxyModel(QObject *parent = nullptr);
+    explicit SingleArtistProxyModel(QObject *parent = nullptr);
 
     ~SingleArtistProxyModel() override;
 

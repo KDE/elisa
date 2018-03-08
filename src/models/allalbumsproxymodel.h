@@ -31,7 +31,7 @@ class AllAlbumsProxyModel : public AbstractMediaProxyModel
 
 public:
 
-    AllAlbumsProxyModel(QObject *parent = nullptr);
+    explicit AllAlbumsProxyModel(QObject *parent = nullptr);
 
     ~AllAlbumsProxyModel() override;
 

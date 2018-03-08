@@ -30,7 +30,7 @@ class AllArtistsProxyModel : public AbstractMediaProxyModel
 
 public:
 
-    AllArtistsProxyModel(QObject *parent = nullptr);
+    explicit AllArtistsProxyModel(QObject *parent = nullptr);
 
     ~AllArtistsProxyModel() override;
 

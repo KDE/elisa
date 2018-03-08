@@ -634,6 +634,10 @@ void MediaPlayList::enqueueAndPlay(const QStringList &files)
 
 void MediaPlayList::enqueue(const QList<qulonglong> &newTrackIds)
 {
+    if (newTrackIds.isEmpty()) {
+        return;
+    }
+
     beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size() + newTrackIds.size() - 1);
     for (auto newTrackId : newTrackIds) {
         d->mData.push_back(MediaPlayListEntry{newTrackId});

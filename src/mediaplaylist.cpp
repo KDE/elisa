@@ -661,6 +661,10 @@ void MediaPlayList::enqueue(const QList<MusicAlbum> &albums,
                             ElisaUtils::PlayListEnqueueMode enqueueMode,
                             ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
 {
+    if (albums.isEmpty()) {
+        return;
+    }
+
     auto tracksCount = 0;
     for (const auto &oneAlbum : albums) {
         for (auto oneTrackIndex = 0; oneTrackIndex < oneAlbum.tracksCount(); ++oneTrackIndex) {
@@ -701,6 +705,10 @@ void MediaPlayList::enqueue(const QList<MusicAudioTrack> &tracks,
                             ElisaUtils::PlayListEnqueueMode enqueueMode,
                             ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
 {
+    if (tracks.isEmpty()) {
+        return;
+    }
+
     if (enqueueMode == ElisaUtils::ReplacePlayList) {
         clearPlayList();
     }
@@ -731,6 +739,10 @@ void MediaPlayList::enqueueArtists(const QList<QString> &artistNames,
                                    ElisaUtils::PlayListEnqueueMode enqueueMode,
                                    ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
 {
+    if (artistNames.isEmpty()) {
+        return;
+    }
+
     if (enqueueMode == ElisaUtils::ReplacePlayList) {
         clearPlayList();
     }

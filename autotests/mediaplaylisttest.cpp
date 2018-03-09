@@ -7453,6 +7453,70 @@ void MediaPlayListTest::testEmptyEnqueue()
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newTrackByFileNameInListSpy.count(), 0);
     QCOMPARE(newArtistInListSpy.count(), 0);
+
+    myPlayList.enqueue(QStringList{});
+
+    QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
+    QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
+    QCOMPARE(rowsAboutToBeInsertedSpy.count(), 0);
+    QCOMPARE(rowsRemovedSpy.count(), 0);
+    QCOMPARE(rowsMovedSpy.count(), 0);
+    QCOMPARE(rowsInsertedSpy.count(), 0);
+    QCOMPARE(trackHasBeenAddedSpy.count(), 0);
+    QCOMPARE(persistentStateChangedSpy.count(), 0);
+    QCOMPARE(dataChangedSpy.count(), 0);
+    QCOMPARE(newTrackByIdInListSpy.count(), 0);
+    QCOMPARE(newTrackByNameInListSpy.count(), 0);
+    QCOMPARE(newTrackByFileNameInListSpy.count(), 0);
+    QCOMPARE(newArtistInListSpy.count(), 0);
+
+    myPlayList.enqueue(QList<MusicAudioTrack>{}, ElisaUtils::AppendPlayList, ElisaUtils::DoNotTriggerPlay);
+
+    QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
+    QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
+    QCOMPARE(rowsAboutToBeInsertedSpy.count(), 0);
+    QCOMPARE(rowsRemovedSpy.count(), 0);
+    QCOMPARE(rowsMovedSpy.count(), 0);
+    QCOMPARE(rowsInsertedSpy.count(), 0);
+    QCOMPARE(trackHasBeenAddedSpy.count(), 0);
+    QCOMPARE(persistentStateChangedSpy.count(), 0);
+    QCOMPARE(dataChangedSpy.count(), 0);
+    QCOMPARE(newTrackByIdInListSpy.count(), 0);
+    QCOMPARE(newTrackByNameInListSpy.count(), 0);
+    QCOMPARE(newTrackByFileNameInListSpy.count(), 0);
+    QCOMPARE(newArtistInListSpy.count(), 0);
+
+    myPlayList.enqueue(QList<MusicAlbum>{}, ElisaUtils::AppendPlayList, ElisaUtils::DoNotTriggerPlay);
+
+    QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
+    QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
+    QCOMPARE(rowsAboutToBeInsertedSpy.count(), 0);
+    QCOMPARE(rowsRemovedSpy.count(), 0);
+    QCOMPARE(rowsMovedSpy.count(), 0);
+    QCOMPARE(rowsInsertedSpy.count(), 0);
+    QCOMPARE(trackHasBeenAddedSpy.count(), 0);
+    QCOMPARE(persistentStateChangedSpy.count(), 0);
+    QCOMPARE(dataChangedSpy.count(), 0);
+    QCOMPARE(newTrackByIdInListSpy.count(), 0);
+    QCOMPARE(newTrackByNameInListSpy.count(), 0);
+    QCOMPARE(newTrackByFileNameInListSpy.count(), 0);
+    QCOMPARE(newArtistInListSpy.count(), 0);
+
+    myPlayList.enqueueArtists({}, ElisaUtils::AppendPlayList, ElisaUtils::DoNotTriggerPlay);
+
+    QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
+    QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
+    QCOMPARE(rowsAboutToBeInsertedSpy.count(), 0);
+    QCOMPARE(rowsRemovedSpy.count(), 0);
+    QCOMPARE(rowsMovedSpy.count(), 0);
+    QCOMPARE(rowsInsertedSpy.count(), 0);
+    QCOMPARE(trackHasBeenAddedSpy.count(), 0);
+    QCOMPARE(persistentStateChangedSpy.count(), 0);
+    QCOMPARE(dataChangedSpy.count(), 0);
+    QCOMPARE(newTrackByIdInListSpy.count(), 0);
+    QCOMPARE(newTrackByNameInListSpy.count(), 0);
+    QCOMPARE(newTrackByFileNameInListSpy.count(), 0);
+    QCOMPARE(newArtistInListSpy.count(), 0);
 }
 
 QTEST_GUILESS_MAIN(MediaPlayListTest)

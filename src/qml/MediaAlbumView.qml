@@ -17,11 +17,10 @@
  * Boston, MA 02110-1301, USA.
  */
 
-import QtQuick 2.5
+import QtQuick 2.7
 import QtQuick.Window 2.2
-import QtQuick.Controls 1.4
-import QtQuick.Controls.Styles 1.2
-import QtQml.Models 2.1
+import QtQuick.Controls 2.2
+import QtQml.Models 2.2
 import org.kde.elisa 1.0
 import QtQuick.Layouts 1.2
 
@@ -96,40 +95,40 @@ FocusScope {
             onReplaceAndPlay: contentModel.replaceAndPlayOfPlayList()
         }
 
-        ScrollView {
-            flickableItem.boundsBehavior: Flickable.StopAtBounds
-            flickableItem.interactive: true
-
+        ListView {
+            id: contentDirectoryView
             Layout.fillHeight: true
             Layout.fillWidth: true
+            contentWidth: parent.width
+            focus: true
 
-            ListView {
-                id: contentDirectoryView
+            ScrollBar.vertical: ScrollBar {
+                id: scrollBar
+            }
+            boundsBehavior: Flickable.StopAtBounds
+            clip: true
+
+            delegate: MediaAlbumTrackDelegate {
+                id: entry
+
+                height: ((model.isFirstTrackOfDisc && !isSingleDiscAlbum) ? elisaTheme.delegateHeight*2 : elisaTheme.delegateHeight)
+                width: scrollBar.visible ? contentDirectoryView.width - scrollBar.width : contentDirectoryView.width
 
                 focus: true
 
-                delegate: MediaAlbumTrackDelegate {
-                    id: entry
+                mediaTrack.trackData: model.containerData
 
-                    height: ((model.isFirstTrackOfDisc && !isSingleDiscAlbum) ? elisaTheme.delegateHeight*2 : elisaTheme.delegateHeight)
-                    width: contentDirectoryView.width
+                mediaTrack.isFirstTrackOfDisc: model.isFirstTrackOfDisc
 
-                    focus: true
+                mediaTrack.isSingleDiscAlbum: model.isSingleDiscAlbum
 
-                    mediaTrack.isAlternateColor: (index % 2) === 1
+                mediaTrack.onEnqueue: elisa.mediaPlayList.enqueue(data)
 
-                    mediaTrack.trackData: model.containerData
+                mediaTrack.onReplaceAndPlay: elisa.mediaPlayList.replaceAndPlay(data)
 
-                    mediaTrack.isFirstTrackOfDisc: model.isFirstTrackOfDisc
+                mediaTrack.isAlternateColor: (index % 2) === 1
 
-                    mediaTrack.isSingleDiscAlbum: model.isSingleDiscAlbum
-
-                    mediaTrack.onEnqueue: elisa.mediaPlayList.enqueue(data)
-
-                    mediaTrack.onReplaceAndPlay: elisa.mediaPlayList.replaceAndPlay(data)
-
-                    mediaTrack.onClicked: contentDirectoryView.currentIndex = index
-                }
+                mediaTrack.onClicked: contentDirectoryView.currentIndex = index
             }
         }
     }

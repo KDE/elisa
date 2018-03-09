@@ -18,9 +18,10 @@
  */
 
 import QtQml 2.2
-import QtQuick 2.5
+import QtQuick 2.7
 import QtQuick.Layouts 1.3
-import QtQuick.Controls 1.4
+import QtQuick.Controls 2.2
+import QtQuick.Controls 1.4 as Controls1
 import QtQuick.Window 2.0
 
 FocusScope {
@@ -43,14 +44,14 @@ FocusScope {
     signal showArtist();
     signal filterViewChanged(string filterState);
 
-    Action {
+    Controls1.Action {
         id: goPreviousAction
         text: i18nc("navigate back in the views stack", "Back")
         iconName: (Qt.application.layoutDirection == Qt.RightToLeft) ? "go-next" : "go-previous"
         onTriggered: goBack()
     }
 
-    Action {
+    Controls1.Action {
         id: showFilterAction
         text: navigationBar.state === "" ? i18nc("Show filters in the navigation bar", "Show Search Options") : i18nc("Hide filters in the navigation bar", "Hide Search Options")
         iconName: navigationBar.state === "" ? "go-down-search" : "go-up-search"
@@ -73,7 +74,7 @@ FocusScope {
             spacing: 0
             Layout.alignment: Qt.AlignTop
 
-            ToolButton {
+            Controls1.ToolButton {
                 action: goPreviousAction
                 Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
                 Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
@@ -175,7 +176,7 @@ FocusScope {
                     Layout.fillWidth: true
                     spacing: 0
 
-                    Button {
+                    Controls1.Button {
                         text: i18nc("Add current list to playlist", "Enqueue")
                         iconName: "media-track-add-amarok"
 
@@ -185,7 +186,7 @@ FocusScope {
                         Layout.rightMargin: 0
                     }
 
-                    Button {
+                    Controls1.Button {
                         text: i18nc("Clear playlist and play", "Replace and Play")
                         tooltip: i18nc("Clear playlist and add current list to it", "Replace PlayList and Play Now")
                         iconName: "media-playback-start"
@@ -196,7 +197,7 @@ FocusScope {
                         Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
                     }
 
-                    Button {
+                    Controls1.Button {
                         id: showArtistButton
 
                         visible: allowArtistNavigation
@@ -213,7 +214,7 @@ FocusScope {
                         Layout.fillWidth: true
                     }
 
-                    ToolButton {
+                    Controls1.ToolButton {
                         action: showFilterAction
 
                         Layout.alignment: Qt.AlignRight

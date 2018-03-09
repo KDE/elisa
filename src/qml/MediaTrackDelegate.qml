@@ -20,7 +20,8 @@
 
 import QtQuick 2.7
 import QtQuick.Layouts 1.2
-import QtQuick.Controls 1.2
+import QtQuick.Controls 2.2
+import QtQuick.Controls 1.4 as Controls1
 import QtQuick.Window 2.2
 import QtGraphicalEffects 1.0
 import org.kde.elisa 1.0
@@ -39,21 +40,21 @@ FocusScope {
     signal enqueue(var data)
     signal replaceAndPlay(var data)
 
-    Action {
+    Controls1.Action {
         id: replaceAndPlayAction
         text: i18nc("Clear play list and enqueue current track", "Play Now and Replace Play List")
         iconName: "media-playback-start"
         onTriggered: replaceAndPlay(dataHelper.databaseId)
     }
 
-    Action {
+    Controls1.Action {
         id: enqueueAction
         text: i18nc("Enqueue current track", "Enqueue")
         iconName: "media-track-add-amarok"
         onTriggered: enqueue(dataHelper.databaseId)
     }
 
-    Action {
+    Controls1.Action {
         id: viewDetailsAction
         text: i18nc("Show track metadata", "View Details")
         iconName: "help-about"
@@ -78,7 +79,7 @@ FocusScope {
     Loader {
         id: metadataLoader
         active: false
-        onLoaded: item.open()
+        onLoaded: item.show()
 
         sourceComponent:  MediaTrackMetadataView {
             trackDataHelper: dataHelper
@@ -123,12 +124,12 @@ FocusScope {
                         if (dataHelper.hasValidTrackNumber()) {
                             if (artist !== albumArtist)
                                 return i18nc("%1: track number. %2: track title. %3: artist name",
-                                             "<b>%1-%2</b> - <i>%3</i>",
+                                             "<b>%1 - %2</b> - <i>%3</i>",
                                              Number(dataHelper.trackNumber).toLocaleString(Qt.locale(), 'f', 0),
                                              dataHelper.title, dataHelper.artist);
                             else
                                 return i18nc("%1: track number. %2: track title.",
-                                             "<b>%1-%2</b>",
+                                             "<b>%1 - %2</b>",
                                              Number(dataHelper.trackNumber).toLocaleString(Qt.locale(), 'f', 0),
                                              dataHelper.title);
                         } else {
@@ -271,7 +272,7 @@ FocusScope {
                     sourceComponent: Row {
                         anchors.centerIn: parent
 
-                        ToolButton {
+                        Controls1.ToolButton {
                             id: detailsButton
 
                             height: elisaTheme.delegateHeight
@@ -280,7 +281,7 @@ FocusScope {
                             action: viewDetailsAction
                         }
 
-                        ToolButton {
+                        Controls1.ToolButton {
                             id: enqueueButton
 
                             height: elisaTheme.delegateHeight
@@ -289,7 +290,7 @@ FocusScope {
                             action: enqueueAction
                         }
 
-                        ToolButton {
+                        Controls1.ToolButton {
                             id: clearAndEnqueueButton
 
                             scale: LayoutMirroring.enabled ? -1 : 1
@@ -327,13 +328,12 @@ FocusScope {
                     font.weight: Font.Light
                     color: myPalette.text
 
-                    elide: Text.ElideRight
                     horizontalAlignment: Text.AlignRight
 
                     Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
                     Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
                     Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-                    Layout.preferredWidth: durationTextMetrics.width+1 // be in the safe side
+                    Layout.preferredWidth: durationTextMetrics.width + 1
                 }
             }
         }

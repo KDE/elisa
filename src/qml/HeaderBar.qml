@@ -18,8 +18,8 @@
  */
 
 import QtQuick 2.7
-import QtQuick.Layouts 1.1
-import QtQuick.Controls 1.2
+import QtQuick.Layouts 1.2
+import QtQuick.Controls 2.2
 import QtQuick.Window 2.2
 import QtGraphicalEffects 1.0
 

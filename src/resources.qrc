@@ -26,6 +26,7 @@
         <file>qml/MediaTrackMetadataView.qml</file>
         <file>qml/GridBrowserView.qml</file>
         <file>qml/GridBrowserDelegate.qml</file>
+        <file>qtquickcontrols2.conf</file>
         <file>background.png</file>
     </qresource>
     <qresource prefix="/qml/+windows">

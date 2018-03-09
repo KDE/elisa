@@ -18,8 +18,8 @@
  */
 
 import QtQuick 2.7
-import QtQuick.Controls 1.4
-import QtQuick.Controls.Styles 1.4
+import QtQuick.Controls 2.2
+import QtQuick.Controls 1.4 as Controls1
 import QtQuick.Window 2.2
 import QtQml.Models 2.1
 import QtQuick.Layouts 1.2
@@ -40,7 +40,7 @@ FocusScope {
     signal open()
     signal selected()
 
-    Action {
+    Controls1.Action {
         id: enqueueAction
 
         text: i18nc("Add whole container to play list", "Enqueue")
@@ -48,7 +48,7 @@ FocusScope {
         onTriggered: enqueue(containerData)
     }
 
-    Action {
+    Controls1.Action {
         id: openAction
 
         text: i18nc("Open view of the container", "Open")
@@ -56,7 +56,7 @@ FocusScope {
         onTriggered: open()
     }
 
-    Action {
+    Controls1.Action {
         id: replaceAndPlayAction
 
         text: i18nc("Clear play list and add whole container to play list", "Play Now and Replace Play List")
@@ -122,7 +122,7 @@ FocusScope {
 
                         sourceComponent: Row {
 
-                            ToolButton {
+                            Controls1.ToolButton {
                                 id: enqueueButton
                                 objectName: 'enqueueButton'
 
@@ -132,7 +132,7 @@ FocusScope {
                                 height: elisaTheme.delegateToolButtonSize
                             }
 
-                            ToolButton {
+                            Controls1.ToolButton {
                                 id: openButton
                                 objectName: 'openButton'
 
@@ -142,7 +142,7 @@ FocusScope {
                                 height: elisaTheme.delegateToolButtonSize
                             }
 
-                            ToolButton {
+                            Controls1.ToolButton {
                                 id: replaceAndPlayButton
                                 objectName: 'replaceAndPlayButton'
 

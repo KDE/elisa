@@ -313,7 +313,7 @@ FocusScope {
 
                     onDoubleClicked: {
                         if (model.isValid) {
-                            topItem.playListControler.switchTo(model.index)
+                            topItem.playListModel.switchTo(model.index)
                             topItem.startPlayback()
                         }
                     }

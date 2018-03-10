@@ -35,9 +35,7 @@ Window {
     LayoutMirroring.childrenInherit: true
 
     title: i18nc("Window title for track metadata", "View Details")
-    width: elisaTheme.trackMetadataWidth
-    maximumWidth: width
-    minimumWidth: width
+
     modality: Qt.NonModal
     flags: Qt.Dialog | Qt.WindowCloseButtonHint
 
@@ -75,6 +73,9 @@ Window {
         trackMetadata.height = textSize.height * (trackData.count + 1 + ( rating > -1 ? 1 : 0 )) + buttons.height + elisaTheme.layoutHorizontalMargin
         trackMetadata.maximumHeight = trackMetadata.height
         trackMetadata.minimumHeight = trackMetadata.height
+        trackMetadata.width = elisaTheme.trackMetadataWidth + (trackDataHelper.hasValidAlbumCover() ? elisaTheme.coverImageSize : 0)
+        trackMetadata.maximumWidth = trackMetadata.width
+        trackMetadata.minimumWidth = trackMetadata.width
     }
 
     Rectangle {
@@ -86,101 +87,129 @@ Window {
             anchors.fill: parent
             spacing: 0
 
-            ListView {
-                id: trackData
-
-                interactive: false
-                Layout.fillWidth: true
-
-                model: ListModel {
-                    id: trackList
-                }
-
-                delegate: RowLayout {
-                    id: delegateRow
-                    spacing: 0
-
-                    Text {
-                        text: name
-                        color: myPalette.text
-                        horizontalAlignment: Text.AlignRight
-
-                        Layout.preferredWidth: trackData.width * 0.3
-                        Layout.minimumHeight: textSize.height
-                        Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-                        Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-                    }
-
-                    Text {
-                        text: content
-                        color: myPalette.text
-
-                        horizontalAlignment: Text.AlignLeft
-                        elide: Text.ElideRight
-
-                        Layout.preferredWidth: trackData.width * 0.66
-                        Layout.fillWidth: true
-                        Layout.minimumHeight: textSize.height
-                    }
-                }
-            }
-
             RowLayout {
-                anchors.margins: 0
+                Layout.fillHeight: true
+                Layout.fillWidth: true
                 spacing: 0
 
-                visible: rating > -1
-
-                Layout.minimumHeight: textSize.height
-
-                Text {
-                    id: ratingText
-                    text: i18nc("Rating label for information panel", "Rating:")
-                    color: myPalette.text
-
-                    horizontalAlignment: Text.AlignRight
-                    Layout.preferredWidth: trackData.width * 0.3
-                    Layout.rightMargin: elisaTheme.layoutHorizontalMargin
+                Image {
+                    source: trackDataHelper.albumCover
+                    visible: trackDataHelper.hasValidAlbumCover()
+                    width: elisaTheme.coverImageSize
+                    height: elisaTheme.coverImageSize
+                    fillMode: Image.PreserveAspectFit
+                    Layout.preferredHeight: height
+                    Layout.preferredWidth: width
+                    Layout.minimumHeight: height
+                    Layout.minimumWidth: width
+                    Layout.maximumHeight: height
+                    Layout.maximumWidth: width
                 }
 
-                TextMetrics {
-                    id: textSize
-                    font: ratingText.font
-                    text: ratingText.text
-                }
+                ColumnLayout {
+                    Layout.leftMargin: elisaTheme.layoutHorizontalMargin
+                    Layout.fillHeight: true
+                    Layout.preferredWidth: elisaTheme.trackMetadataWidth
+                    spacing: 0
 
-                RatingStar {
-                    id: ratingWidget
-                    starRating: rating
-                    readOnly: true
+                    ListView {
+                        id: trackData
 
-                    starSize: elisaTheme.ratingStarSize
+                        interactive: false
+                        Layout.fillWidth: true
 
-                    Layout.fillWidth: true
-                }
+                        model: ListModel {
+                            id: trackList
+                        }
 
-                ColorOverlay {
-                    source: ratingWidget
+                        delegate: RowLayout {
+                            id: delegateRow
+                            spacing: 0
 
-                    z: 2
-                    anchors.fill: ratingWidget
+                            LabelWithToolTip {
+                                text: name
+                                color: myPalette.text
+                                horizontalAlignment: Text.AlignRight
 
-                    color: myPalette.text
+                                Layout.preferredWidth: trackData.width * 0.3
+                                Layout.minimumHeight: textSize.height
+                                Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+                                Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+                            }
+
+                            LabelWithToolTip {
+                                text: content
+                                color: myPalette.text
+
+                                horizontalAlignment: Text.AlignLeft
+                                elide: Text.ElideRight
+
+                                Layout.preferredWidth: trackData.width * 0.66
+                                Layout.fillWidth: true
+                                Layout.minimumHeight: textSize.height
+                            }
+                        }
+                    }
+
+                    RowLayout {
+                        anchors.margins: 0
+                        spacing: 0
+
+                        visible: trackDataHelper.hasValidRating()
+
+                        Layout.minimumHeight: textSize.height
+
+                        LabelWithToolTip {
+                            id: ratingText
+                            text: i18nc("Rating label for information panel", "Rating:")
+                            color: myPalette.text
+
+                            horizontalAlignment: Text.AlignRight
+                            Layout.preferredWidth: trackData.width * 0.3
+                            Layout.rightMargin: elisaTheme.layoutHorizontalMargin
+                        }
+
+                        TextMetrics {
+                            id: textSize
+                            font: ratingText.font
+                            text: ratingText.text
+                        }
+
+                        RatingStar {
+                            id: ratingWidget
+                            starRating: rating
+                            readOnly: true
+
+                            starSize: elisaTheme.ratingStarSize
+
+                            Layout.fillWidth: true
+                        }
+
+                        ColorOverlay {
+                            source: ratingWidget
+
+                            z: 2
+                            anchors.fill: ratingWidget
+
+                            color: myPalette.text
+                        }
+                    }
                 }
             }
 
-            Text {
+            LabelWithToolTip {
                 id: trackResource
-                text: trackMetadata.resource
+                text: trackDataHelper.resourceURI
                 color: myPalette.text
                 font.italic: true
 
                 elide: Text.ElideLeft
+                horizontalAlignment: Text.AlignRight
 
-                Layout.minimumHeight:  textSize.height
-                Layout.preferredWidth: elisaTheme.trackMetadataWidth
+                Layout.minimumHeight: textSize.height
+                Layout.preferredWidth: trackDataHelper.hasValidAlbumCover() ? elisaTheme.coverImageSize + elisaTheme.trackMetadataWidth : elisaTheme.trackMetadataWidth + 2 * elisaTheme.layoutHorizontalMargin
                 Layout.fillWidth: true
-                Layout.topMargin: elisaTheme.layoutHorizontalMargin
+                Layout.topMargin: elisaTheme.layoutVerticalMargin
             }
 
             DialogButtonBox {

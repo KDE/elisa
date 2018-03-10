@@ -8,6 +8,7 @@
         <file>qml/ApplicationMenu.qml</file>
         <file>qml/HeaderBar.qml</file>
         <file>qml/ContextView.qml</file>
+        <file>qml/ContentView.qml</file>
         <file>qml/DraggableItem.qml</file>
         <file>qml/PassiveNotification.qml</file>
         <file>qml/NavigationActionBar.qml</file>

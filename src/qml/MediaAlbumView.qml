@@ -92,6 +92,7 @@ FocusScope {
 
         ListView {
             id: contentDirectoryView
+            Layout.topMargin: 20
             Layout.fillHeight: true
             Layout.fillWidth: true
             contentWidth: parent.width

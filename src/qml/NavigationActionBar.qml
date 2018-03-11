@@ -232,6 +232,8 @@ FocusScope {
 
             visible: opacity > 0.0
 
+            opacity: 0
+
             Layout.fillWidth: true
             Layout.topMargin: elisaTheme.layoutVerticalMargin * 2
             Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0

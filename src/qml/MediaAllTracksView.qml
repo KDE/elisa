@@ -89,6 +89,7 @@ FocusScope {
 
             ListView {
                 id: contentDirectoryView
+                anchors.topMargin: 20
                 anchors.fill: parent
 
                 focus: true

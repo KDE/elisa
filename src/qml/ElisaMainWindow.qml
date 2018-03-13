@@ -416,6 +416,8 @@ ApplicationWindow {
 
                                         opacity: 0.8
 
+                                        visible: running
+
                                         z: 2
                                     }
 

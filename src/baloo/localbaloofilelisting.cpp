@@ -321,7 +321,7 @@ MusicAudioTrack LocalBalooFileListing::scanOneFile(const QUrl &scanFile)
         newTrack.setAlbumName(albumValue);
 
         if (artistProperty != allProperties.end()) {
-            newTrack.setArtist(artistProperty->toString());
+            newTrack.setArtist(artistProperty->toStringList().join(QStringLiteral(", ")));
         }
 
         if (durationProperty != allProperties.end()) {
@@ -343,11 +343,7 @@ MusicAudioTrack LocalBalooFileListing::scanOneFile(const QUrl &scanFile)
         }
 
         if (albumArtistProperty != allProperties.end()) {
-            if (albumArtistProperty->canConvert<QString>()) {
-                newTrack.setAlbumArtist(albumArtistProperty->toString());
-            } else if (albumArtistProperty->canConvert<QStringList>()) {
-                newTrack.setAlbumArtist(albumArtistProperty->toStringList().join(QStringLiteral(", ")));
-            }
+            newTrack.setAlbumArtist(albumArtistProperty->toStringList().join(QStringLiteral(", ")));
         }
 
         if (newTrack.artist().isEmpty()) {
@@ -371,15 +367,15 @@ MusicAudioTrack LocalBalooFileListing::scanOneFile(const QUrl &scanFile)
         }
 
         if (genreProperty != allProperties.end()) {
-            newTrack.setGenre(genreProperty->toString());
+            newTrack.setGenre(genreProperty->toStringList().join(QStringLiteral(", ")));
         }
 
         if (composerProperty != allProperties.end()) {
-            newTrack.setComposer(composerProperty->toString());
+            newTrack.setComposer(composerProperty->toStringList().join(QStringLiteral(", ")));
         }
 
         if (lyricistProperty != allProperties.end()) {
-            newTrack.setLyricist(lyricistProperty->toString());
+            newTrack.setLyricist(lyricistProperty->toStringList().join(QStringLiteral(", ")));
         }
 
         if (commentProperty != allProperties.end()) {

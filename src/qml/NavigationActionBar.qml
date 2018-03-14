@@ -22,7 +22,6 @@ import QtQuick 2.7
 import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.2
 import QtQuick.Controls 1.4 as Controls1
-import QtQuick.Window 2.0
 
 FocusScope {
     id: navigationBar
@@ -76,6 +75,7 @@ FocusScope {
 
             Controls1.ToolButton {
                 action: goPreviousAction
+                objectName: 'goPreviousButton'
                 Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
                 Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
                 visible: enableGoBack
@@ -177,6 +177,7 @@ FocusScope {
                     spacing: 0
 
                     Controls1.Button {
+                        objectName: 'enqueueButton'
                         text: i18nc("Add current list to playlist", "Enqueue")
                         iconName: "media-track-add-amarok"
 
@@ -187,6 +188,7 @@ FocusScope {
                     }
 
                     Controls1.Button {
+                        objectName: 'replaceAndPlayButton'
                         text: i18nc("Clear playlist and play", "Replace and Play")
                         tooltip: i18nc("Clear playlist and add current list to it", "Replace PlayList and Play Now")
                         iconName: "media-playback-start"
@@ -198,6 +200,7 @@ FocusScope {
                     }
 
                     Controls1.Button {
+                        objectName: 'showArtistButton'
                         id: showArtistButton
 
                         visible: allowArtistNavigation
@@ -216,6 +219,7 @@ FocusScope {
 
                     Controls1.ToolButton {
                         action: showFilterAction
+                        objectName: 'showFilterButton'
 
                         Layout.alignment: Qt.AlignRight
                         Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
@@ -252,6 +256,7 @@ FocusScope {
 
             TextField {
                 id: filterTextInput
+                objectName: 'filterTextInput'
 
                 horizontalAlignment: TextInput.AlignLeft
 
@@ -305,6 +310,7 @@ FocusScope {
 
             RatingStar {
                 id: ratingFilter
+                objectName: 'ratingFilter'
 
                 visible: showRating
 

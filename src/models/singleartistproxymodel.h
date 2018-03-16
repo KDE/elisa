@@ -24,6 +24,8 @@
 #include "abstractmediaproxymodel.h"
 #include "elisautils.h"
 
+class MusicAlbum;
+
 class SingleArtistProxyModel : public AbstractMediaProxyModel
 {
     Q_OBJECT

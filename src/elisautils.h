@@ -22,11 +22,15 @@
 
 #include "musicaudiotrack.h"
 
-#include <KFileMetaData/ExtractorCollection>
-
 #include <QUrl>
 #include <QMimeDatabase>
 #include <QMetaObject>
+
+namespace KFileMetaData {
+
+class ExtractorCollection;
+
+}
 
 namespace ElisaUtils {
 

@@ -549,6 +549,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
     set(elisaqmltests_SOURCES
         elisaqmltests.cpp
         qmltests/tst_GridBrowserDelegate.qml
+        qmltests/tst_NavigationActionBar.qml
     )
 
     ecm_add_test(${elisaqmltests_SOURCES}

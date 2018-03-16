@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2017 Matthieu Gallien <matthieu_gallien@yahoo.fr>
+ * Copyright 2015-2018 Matthieu Gallien <matthieu_gallien@yahoo.fr>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -21,6 +21,7 @@
 #include "musicaudiotrack.h"
 #include "databaseinterface.h"
 #include "models/alltracksmodel.h"
+#include "models/alltracksproxymodel.h"
 #include "modeltest.h"
 
 #include <QObject>
@@ -38,7 +39,7 @@
 
 #include <QtTest>
 
-class AllTracksModelTests: public QObject
+class AllTracksProxyModelTests: public QObject
 {
     Q_OBJECT
 
@@ -143,6 +144,9 @@ private Q_SLOTS:
         DatabaseInterface musicDb;
         AllTracksModel tracksModel;
         ModelTest testModel(&tracksModel);
+        AllTracksProxyModel proxyTracksModel;
+        ModelTest proxyTestModel(&proxyTracksModel);
+        proxyTracksModel.setSourceModel(&tracksModel);
 
         connect(&musicDb, &DatabaseInterface::tracksAdded,
                 &tracksModel, &AllTracksModel::tracksAdded);
@@ -153,11 +157,11 @@ private Q_SLOTS:
 
         musicDb.init(QStringLiteral("testDb"));
 
-        QSignalSpy beginInsertRowsSpy(&tracksModel, &AllTracksModel::rowsAboutToBeInserted);
-        QSignalSpy endInsertRowsSpy(&tracksModel, &AllTracksModel::rowsInserted);
-        QSignalSpy beginRemoveRowsSpy(&tracksModel, &AllTracksModel::rowsAboutToBeRemoved);
-        QSignalSpy endRemoveRowsSpy(&tracksModel, &AllTracksModel::rowsRemoved);
-        QSignalSpy dataChangedSpy(&tracksModel, &AllTracksModel::dataChanged);
+        QSignalSpy beginInsertRowsSpy(&proxyTracksModel, &AllTracksModel::rowsAboutToBeInserted);
+        QSignalSpy endInsertRowsSpy(&proxyTracksModel, &AllTracksModel::rowsInserted);
+        QSignalSpy beginRemoveRowsSpy(&proxyTracksModel, &AllTracksModel::rowsAboutToBeRemoved);
+        QSignalSpy endRemoveRowsSpy(&proxyTracksModel, &AllTracksModel::rowsRemoved);
+        QSignalSpy dataChangedSpy(&proxyTracksModel, &AllTracksModel::dataChanged);
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -173,7 +177,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        QCOMPARE(tracksModel.rowCount(), 18);
+        QCOMPARE(proxyTracksModel.rowCount(), 18);
 
         auto trackId = musicDb.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"),
                                                                     QStringLiteral("album1"), 1, 1);
@@ -188,7 +192,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 1);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        QCOMPARE(tracksModel.rowCount(), 17);
+        QCOMPARE(proxyTracksModel.rowCount(), 17);
     }
 
     void removeOneAlbum()
@@ -196,6 +200,9 @@ private Q_SLOTS:
         DatabaseInterface musicDb;
         AllTracksModel tracksModel;
         ModelTest testModel(&tracksModel);
+        AllTracksProxyModel proxyTracksModel;
+        ModelTest proxyTestModel(&proxyTracksModel);
+        proxyTracksModel.setSourceModel(&tracksModel);
 
         connect(&musicDb, &DatabaseInterface::tracksAdded,
                 &tracksModel, &AllTracksModel::tracksAdded);
@@ -206,11 +213,11 @@ private Q_SLOTS:
 
         musicDb.init(QStringLiteral("testDb"));
 
-        QSignalSpy beginInsertRowsSpy(&tracksModel, &AllTracksModel::rowsAboutToBeInserted);
-        QSignalSpy endInsertRowsSpy(&tracksModel, &AllTracksModel::rowsInserted);
-        QSignalSpy beginRemoveRowsSpy(&tracksModel, &AllTracksModel::rowsAboutToBeRemoved);
-        QSignalSpy endRemoveRowsSpy(&tracksModel, &AllTracksModel::rowsRemoved);
-        QSignalSpy dataChangedSpy(&tracksModel, &AllTracksModel::dataChanged);
+        QSignalSpy beginInsertRowsSpy(&proxyTracksModel, &AllTracksModel::rowsAboutToBeInserted);
+        QSignalSpy endInsertRowsSpy(&proxyTracksModel, &AllTracksModel::rowsInserted);
+        QSignalSpy beginRemoveRowsSpy(&proxyTracksModel, &AllTracksModel::rowsAboutToBeRemoved);
+        QSignalSpy endRemoveRowsSpy(&proxyTracksModel, &AllTracksModel::rowsRemoved);
+        QSignalSpy dataChangedSpy(&proxyTracksModel, &AllTracksModel::dataChanged);
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -226,7 +233,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        QCOMPARE(tracksModel.rowCount(), 18);
+        QCOMPARE(proxyTracksModel.rowCount(), 18);
 
         auto firstTrackId = musicDb.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"),
                                                                          QStringLiteral("album1"), 1, 1);
@@ -249,7 +256,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 4);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        QCOMPARE(tracksModel.rowCount(), 14);
+        QCOMPARE(proxyTracksModel.rowCount(), 14);
     }
 
     void addOneTrack()
@@ -257,6 +264,9 @@ private Q_SLOTS:
         DatabaseInterface musicDb;
         AllTracksModel tracksModel;
         ModelTest testModel(&tracksModel);
+        AllTracksProxyModel proxyTracksModel;
+        ModelTest proxyTestModel(&proxyTracksModel);
+        proxyTracksModel.setSourceModel(&tracksModel);
 
         connect(&musicDb, &DatabaseInterface::tracksAdded,
                 &tracksModel, &AllTracksModel::tracksAdded);
@@ -267,11 +277,11 @@ private Q_SLOTS:
 
         musicDb.init(QStringLiteral("testDb"));
 
-        QSignalSpy beginInsertRowsSpy(&tracksModel, &AllTracksModel::rowsAboutToBeInserted);
-        QSignalSpy endInsertRowsSpy(&tracksModel, &AllTracksModel::rowsInserted);
-        QSignalSpy beginRemoveRowsSpy(&tracksModel, &AllTracksModel::rowsAboutToBeRemoved);
-        QSignalSpy endRemoveRowsSpy(&tracksModel, &AllTracksModel::rowsRemoved);
-        QSignalSpy dataChangedSpy(&tracksModel, &AllTracksModel::dataChanged);
+        QSignalSpy beginInsertRowsSpy(&proxyTracksModel, &AllTracksModel::rowsAboutToBeInserted);
+        QSignalSpy endInsertRowsSpy(&proxyTracksModel, &AllTracksModel::rowsInserted);
+        QSignalSpy beginRemoveRowsSpy(&proxyTracksModel, &AllTracksModel::rowsAboutToBeRemoved);
+        QSignalSpy endRemoveRowsSpy(&proxyTracksModel, &AllTracksModel::rowsRemoved);
+        QSignalSpy dataChangedSpy(&proxyTracksModel, &AllTracksModel::dataChanged);
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -287,7 +297,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        QCOMPARE(tracksModel.rowCount(), 18);
+        QCOMPARE(proxyTracksModel.rowCount(), 18);
 
         auto newTrack = MusicAudioTrack{true, QStringLiteral("$19"), QStringLiteral("0"), QStringLiteral("track6"),
                 QStringLiteral("artist2"), QStringLiteral("album4"), QStringLiteral("artist2"), 6, 1, QTime::fromMSecsSinceStartOfDay(19), {QUrl::fromLocalFile(QStringLiteral("/$19"))},
@@ -303,7 +313,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        QCOMPARE(tracksModel.rowCount(), 19);
+        QCOMPARE(proxyTracksModel.rowCount(), 19);
     }
 
     void addOneAlbum()
@@ -311,6 +321,9 @@ private Q_SLOTS:
         DatabaseInterface musicDb;
         AllTracksModel tracksModel;
         ModelTest testModel(&tracksModel);
+        AllTracksProxyModel proxyTracksModel;
+        ModelTest proxyTestModel(&proxyTracksModel);
+        proxyTracksModel.setSourceModel(&tracksModel);
 
         connect(&musicDb, &DatabaseInterface::tracksAdded,
                 &tracksModel, &AllTracksModel::tracksAdded);
@@ -321,11 +334,11 @@ private Q_SLOTS:
 
         musicDb.init(QStringLiteral("testDb"));
 
-        QSignalSpy beginInsertRowsSpy(&tracksModel, &AllTracksModel::rowsAboutToBeInserted);
-        QSignalSpy endInsertRowsSpy(&tracksModel, &AllTracksModel::rowsInserted);
-        QSignalSpy beginRemoveRowsSpy(&tracksModel, &AllTracksModel::rowsAboutToBeRemoved);
-        QSignalSpy endRemoveRowsSpy(&tracksModel, &AllTracksModel::rowsRemoved);
-        QSignalSpy dataChangedSpy(&tracksModel, &AllTracksModel::dataChanged);
+        QSignalSpy beginInsertRowsSpy(&proxyTracksModel, &AllTracksModel::rowsAboutToBeInserted);
+        QSignalSpy endInsertRowsSpy(&proxyTracksModel, &AllTracksModel::rowsInserted);
+        QSignalSpy beginRemoveRowsSpy(&proxyTracksModel, &AllTracksModel::rowsAboutToBeRemoved);
+        QSignalSpy endRemoveRowsSpy(&proxyTracksModel, &AllTracksModel::rowsRemoved);
+        QSignalSpy dataChangedSpy(&proxyTracksModel, &AllTracksModel::dataChanged);
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -347,7 +360,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        QCOMPARE(tracksModel.rowCount(), 18);
+        QCOMPARE(proxyTracksModel.rowCount(), 18);
 
         auto newTrack = MusicAudioTrack{true, QStringLiteral("$19"), QStringLiteral("0"), QStringLiteral("track1"),
                 QStringLiteral("artist2"), QStringLiteral("album5"), QStringLiteral("artist2"), 1, 1, QTime::fromMSecsSinceStartOfDay(19), {QUrl::fromLocalFile(QStringLiteral("/$19"))},
@@ -372,13 +385,16 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        QCOMPARE(tracksModel.rowCount(), 19);
+        QCOMPARE(proxyTracksModel.rowCount(), 19);
     }
 
     void addDuplicateTracks()
     {
         AllTracksModel tracksModel;
         ModelTest testModel(&tracksModel);
+        AllTracksProxyModel proxyTracksModel;
+        ModelTest proxyTestModel(&proxyTracksModel);
+        proxyTracksModel.setSourceModel(&tracksModel);
 
         auto newTracks = QList<MusicAudioTrack>();
         newTracks.push_back({true, QStringLiteral("$19"), QStringLiteral("0"), QStringLiteral("track6"),
@@ -388,11 +404,11 @@ private Q_SLOTS:
                              QStringLiteral("artist2"), QStringLiteral("album4"), QStringLiteral("artist2"), 6, 1, QTime::fromMSecsSinceStartOfDay(19), {QUrl::fromLocalFile(QStringLiteral("/$19"))},
                              {QUrl::fromLocalFile(QStringLiteral("file://image$19"))}, 5, true});
 
-        QSignalSpy beginInsertRowsSpy(&tracksModel, &AllTracksModel::rowsAboutToBeInserted);
-        QSignalSpy endInsertRowsSpy(&tracksModel, &AllTracksModel::rowsInserted);
-        QSignalSpy beginRemoveRowsSpy(&tracksModel, &AllTracksModel::rowsAboutToBeRemoved);
-        QSignalSpy endRemoveRowsSpy(&tracksModel, &AllTracksModel::rowsRemoved);
-        QSignalSpy dataChangedSpy(&tracksModel, &AllTracksModel::dataChanged);
+        QSignalSpy beginInsertRowsSpy(&proxyTracksModel, &AllTracksModel::rowsAboutToBeInserted);
+        QSignalSpy endInsertRowsSpy(&proxyTracksModel, &AllTracksModel::rowsInserted);
+        QSignalSpy beginRemoveRowsSpy(&proxyTracksModel, &AllTracksModel::rowsAboutToBeRemoved);
+        QSignalSpy endRemoveRowsSpy(&proxyTracksModel, &AllTracksModel::rowsRemoved);
+        QSignalSpy dataChangedSpy(&proxyTracksModel, &AllTracksModel::dataChanged);
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -408,7 +424,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        QCOMPARE(tracksModel.rowCount(), 1);
+        QCOMPARE(proxyTracksModel.rowCount(), 1);
     }
 
     void modifyOneTrack()
@@ -416,6 +432,9 @@ private Q_SLOTS:
         DatabaseInterface musicDb;
         AllTracksModel tracksModel;
         ModelTest testModel(&tracksModel);
+        AllTracksProxyModel proxyTracksModel;
+        ModelTest proxyTestModel(&proxyTracksModel);
+        proxyTracksModel.setSourceModel(&tracksModel);
 
         connect(&musicDb, &DatabaseInterface::tracksAdded,
                 &tracksModel, &AllTracksModel::tracksAdded);
@@ -426,11 +445,11 @@ private Q_SLOTS:
 
         musicDb.init(QStringLiteral("testDb"));
 
-        QSignalSpy beginInsertRowsSpy(&tracksModel, &AllTracksModel::rowsAboutToBeInserted);
-        QSignalSpy endInsertRowsSpy(&tracksModel, &AllTracksModel::rowsInserted);
-        QSignalSpy beginRemoveRowsSpy(&tracksModel, &AllTracksModel::rowsAboutToBeRemoved);
-        QSignalSpy endRemoveRowsSpy(&tracksModel, &AllTracksModel::rowsRemoved);
-        QSignalSpy dataChangedSpy(&tracksModel, &AllTracksModel::dataChanged);
+        QSignalSpy beginInsertRowsSpy(&proxyTracksModel, &AllTracksModel::rowsAboutToBeInserted);
+        QSignalSpy endInsertRowsSpy(&proxyTracksModel, &AllTracksModel::rowsInserted);
+        QSignalSpy beginRemoveRowsSpy(&proxyTracksModel, &AllTracksModel::rowsAboutToBeRemoved);
+        QSignalSpy endRemoveRowsSpy(&proxyTracksModel, &AllTracksModel::rowsRemoved);
+        QSignalSpy dataChangedSpy(&proxyTracksModel, &AllTracksModel::dataChanged);
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -446,7 +465,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        QCOMPARE(tracksModel.rowCount(), 18);
+        QCOMPARE(proxyTracksModel.rowCount(), 18);
 
         auto newTrack = MusicAudioTrack{true, QStringLiteral("$1"), QStringLiteral("0"), QStringLiteral("track1"),
                 QStringLiteral("artist1"), QStringLiteral("album1"), QStringLiteral("Various Artists"),
@@ -463,7 +482,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 1);
 
-        QCOMPARE(tracksModel.rowCount(), 18);
+        QCOMPARE(proxyTracksModel.rowCount(), 18);
 
         auto dataChangedSignal =  dataChangedSpy.constFirst();
 
@@ -471,22 +490,25 @@ private Q_SLOTS:
 
         auto changedIndex = dataChangedSignal.constFirst().toModelIndex();
 
-        QCOMPARE(tracksModel.data(changedIndex, AllTracksModel::RatingRole).isValid(), true);
-        QCOMPARE(tracksModel.data(changedIndex, AllTracksModel::RatingRole).toInt(), 5);
+        QCOMPARE(proxyTracksModel.data(changedIndex, AllTracksModel::RatingRole).isValid(), true);
+        QCOMPARE(proxyTracksModel.data(changedIndex, AllTracksModel::RatingRole).toInt(), 5);
     }
 
     void addEmptyTracksList()
     {
         AllTracksModel tracksModel;
         ModelTest testModel(&tracksModel);
+        AllTracksProxyModel proxyTracksModel;
+        ModelTest proxyTestModel(&proxyTracksModel);
+        proxyTracksModel.setSourceModel(&tracksModel);
 
         auto newTracks = QList<MusicAudioTrack>();
 
-        QSignalSpy beginInsertRowsSpy(&tracksModel, &AllTracksModel::rowsAboutToBeInserted);
-        QSignalSpy endInsertRowsSpy(&tracksModel, &AllTracksModel::rowsInserted);
-        QSignalSpy beginRemoveRowsSpy(&tracksModel, &AllTracksModel::rowsAboutToBeRemoved);
-        QSignalSpy endRemoveRowsSpy(&tracksModel, &AllTracksModel::rowsRemoved);
-        QSignalSpy dataChangedSpy(&tracksModel, &AllTracksModel::dataChanged);
+        QSignalSpy beginInsertRowsSpy(&proxyTracksModel, &AllTracksModel::rowsAboutToBeInserted);
+        QSignalSpy endInsertRowsSpy(&proxyTracksModel, &AllTracksModel::rowsInserted);
+        QSignalSpy beginRemoveRowsSpy(&proxyTracksModel, &AllTracksModel::rowsAboutToBeRemoved);
+        QSignalSpy endRemoveRowsSpy(&proxyTracksModel, &AllTracksModel::rowsRemoved);
+        QSignalSpy dataChangedSpy(&proxyTracksModel, &AllTracksModel::dataChanged);
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -502,7 +524,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        QCOMPARE(tracksModel.rowCount(), 0);
+        QCOMPARE(proxyTracksModel.rowCount(), 0);
     }
 
     void addTracksListTwice()
@@ -510,6 +532,9 @@ private Q_SLOTS:
         DatabaseInterface musicDb;
         AllTracksModel tracksModel;
         ModelTest testModel(&tracksModel);
+        AllTracksProxyModel proxyTracksModel;
+        ModelTest proxyTestModel(&proxyTracksModel);
+        proxyTracksModel.setSourceModel(&tracksModel);
 
         connect(&musicDb, &DatabaseInterface::tracksAdded,
                 &tracksModel, &AllTracksModel::tracksAdded);
@@ -520,11 +545,11 @@ private Q_SLOTS:
 
         musicDb.init(QStringLiteral("testDb"));
 
-        QSignalSpy beginInsertRowsSpy(&tracksModel, &AllTracksModel::rowsAboutToBeInserted);
-        QSignalSpy endInsertRowsSpy(&tracksModel, &AllTracksModel::rowsInserted);
-        QSignalSpy beginRemoveRowsSpy(&tracksModel, &AllTracksModel::rowsAboutToBeRemoved);
-        QSignalSpy endRemoveRowsSpy(&tracksModel, &AllTracksModel::rowsRemoved);
-        QSignalSpy dataChangedSpy(&tracksModel, &AllTracksModel::dataChanged);
+        QSignalSpy beginInsertRowsSpy(&proxyTracksModel, &AllTracksModel::rowsAboutToBeInserted);
+        QSignalSpy endInsertRowsSpy(&proxyTracksModel, &AllTracksModel::rowsInserted);
+        QSignalSpy beginRemoveRowsSpy(&proxyTracksModel, &AllTracksModel::rowsAboutToBeRemoved);
+        QSignalSpy endRemoveRowsSpy(&proxyTracksModel, &AllTracksModel::rowsRemoved);
+        QSignalSpy dataChangedSpy(&proxyTracksModel, &AllTracksModel::dataChanged);
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -540,7 +565,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        QCOMPARE(tracksModel.rowCount(), 18);
+        QCOMPARE(proxyTracksModel.rowCount(), 18);
 
         auto newTrack = MusicAudioTrack{true, QStringLiteral("$19"), QStringLiteral("0"), QStringLiteral("track19"),
                 QStringLiteral("artist1"), QStringLiteral("album1"), QStringLiteral("Various Artists"),
@@ -558,11 +583,11 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        QCOMPARE(tracksModel.rowCount(), 19);
+        QCOMPARE(proxyTracksModel.rowCount(), 19);
     }
 };
 
-QTEST_GUILESS_MAIN(AllTracksModelTests)
+QTEST_GUILESS_MAIN(AllTracksProxyModelTests)
 
 
-#include "alltracksmodeltest.moc"
+#include "alltracksproxymodeltest.moc"

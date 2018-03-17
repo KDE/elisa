@@ -67,6 +67,9 @@ MediaPlayer2Player::MediaPlayer2Player(MediaPlayList *playListControler, ManageA
     connect(m_audioPlayer, &AudioWrapper::volumeChanged,
             this, &MediaPlayer2Player::playerVolumeChanged);
 
+    m_volume = m_audioPlayer->volume();
+    signalPropertiesChange(QStringLiteral("Volume"), Volume());
+
     m_mediaPlayerPresent = 1;
 }
 

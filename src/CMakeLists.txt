@@ -4,7 +4,6 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
     set(elisa_SOURCES
         main.cpp
         mediaplaylist.cpp
-        musicstatistics.cpp
         musicalbum.cpp
         musicaudiotrack.cpp
         musicartist.cpp
@@ -234,7 +233,6 @@ set(elisaImport_SOURCES
     elisaimportapplication.cpp
     elisaapplication.cpp
     mediaplaylist.cpp
-    musicstatistics.cpp
     musicalbum.cpp
     musicaudiotrack.cpp
     musicartist.cpp

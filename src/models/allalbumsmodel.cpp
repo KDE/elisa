@@ -18,7 +18,6 @@
  */
 
 #include "allalbumsmodel.h"
-#include "musicstatistics.h"
 #include "databaseinterface.h"
 #include "allartistsmodel.h"
 #include "albummodel.h"

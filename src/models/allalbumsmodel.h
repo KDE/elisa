@@ -31,7 +31,6 @@
 #include <memory>
 
 class AllAlbumsModelPrivate;
-class MusicStatistics;
 class AllArtistsModel;
 
 class AllAlbumsModel : public QAbstractItemModel

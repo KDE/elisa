@@ -42,7 +42,6 @@
 #include "managemediaplayercontrol.h"
 #include "manageheaderbar.h"
 #include "manageaudioplayer.h"
-#include "musicstatistics.h"
 #include "musicaudiotrack.h"
 #include "musiclistenersmanager.h"
 #include "models/allalbumsmodel.h"
@@ -152,7 +151,6 @@ int main(int argc, char *argv[])
     qmlRegisterType<ManageMediaPlayerControl>("org.kde.elisa", 1, 0, "ManageMediaPlayerControl");
     qmlRegisterType<ManageHeaderBar>("org.kde.elisa", 1, 0, "ManageHeaderBar");
     qmlRegisterType<ManageAudioPlayer>("org.kde.elisa", 1, 0, "ManageAudioPlayer");
-    qmlRegisterType<MusicStatistics>("org.kde.elisa", 1, 0, "MusicStatistics");
     qmlRegisterType<ProgressIndicator>("org.kde.elisa", 1, 0, "ProgressIndicator");
     qmlRegisterType<MusicListenersManager>("org.kde.elisa", 1, 0, "MusicListenersManager");
     qmlRegisterType<AllAlbumsProxyModel>("org.kde.elisa", 1, 0, "AllAlbumsProxyModel");

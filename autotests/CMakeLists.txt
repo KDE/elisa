@@ -456,6 +456,24 @@ ecm_add_test(${alltracksmodeltest_SOURCES}
 
 target_include_directories(alltracksmodeltest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 
+set(alltracksproxymodeltest_SOURCES
+    ../src/databaseinterface.cpp
+    ../src/musicartist.cpp
+    ../src/musicalbum.cpp
+    ../src/musicaudiotrack.cpp
+    ../src/models/alltracksmodel.cpp
+    ../src/models/alltracksproxymodel.cpp
+    ../src/models/abstractmediaproxymodel.cpp
+    modeltest.cpp
+    alltracksproxymodeltest.cpp
+)
+
+ecm_add_test(${alltracksproxymodeltest_SOURCES}
+    TEST_NAME "alltracksproxymodeltest"
+    LINK_LIBRARIES Qt5::Test Qt5::Core Qt5::Sql Qt5::Concurrent KF5::I18n)
+
+target_include_directories(alltracksproxymodeltest PRIVATE ${CMAKE_SOURCE_DIR}/src)
+
 set(localfilelistingtest_SOURCES
     ../src/file/localfilelisting.cpp
     ../src/abstractfile/abstractfilelisting.cpp

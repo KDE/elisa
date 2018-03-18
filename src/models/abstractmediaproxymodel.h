@@ -21,14 +21,10 @@
 #ifndef ABSTRACTMEDIAPROXYMODEL_H
 #define ABSTRACTMEDIAPROXYMODEL_H
 
-#include "mediaplaylist.h"
-
 #include <QSortFilterProxyModel>
 #include <QRegularExpression>
 #include <QReadWriteLock>
 #include <QThreadPool>
-
-class MediaPlayList;
 
 class AbstractMediaProxyModel : public QSortFilterProxyModel
 {

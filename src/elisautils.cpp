@@ -141,6 +141,8 @@ MusicAudioTrack ElisaUtils::scanOneFile(const QUrl &scanFile, const QMimeDatabas
 
 #if defined Q_OS_LINUX && !defined Q_OS_ANDROID
         newTrack.setRating(fileData.rating());
+#else
+        newTrack.setRating(0);
 #endif
 
         if (newTrack.title().isEmpty()) {

@@ -221,7 +221,7 @@ void ElisaApplication::configureElisa()
 
     configurationDialog.addModule(QStringLiteral("kcm_elisa_local_file"));
     configurationDialog.setModal(true);
-    configurationDialog.show();
+    configurationDialog.exec();
 #endif
 }
 

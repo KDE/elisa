@@ -324,10 +324,19 @@ void ManageAudioPlayer::setPlayerError(QMediaPlayer::Error playerError)
     }
 }
 
+void ManageAudioPlayer::ensurePause()
+{
+    if (mPlayingState) {
+        mPlayingState = false;
+        triggerPause();
+    }
+}
+
 void ManageAudioPlayer::ensurePlay()
 {
     if (!mPlayingState) {
-        playPause();
+        mPlayingState = true;
+        triggerPlay();
     }
 }
 

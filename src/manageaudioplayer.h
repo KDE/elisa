@@ -219,6 +219,8 @@ public Q_SLOTS:
 
     void setPlayerError(QMediaPlayer::Error playerError);
 
+    void ensurePause();
+
     void ensurePlay();
 
     void playPause();

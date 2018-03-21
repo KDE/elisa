@@ -158,7 +158,7 @@ bool MediaPlayer2Player::CanPlay() const
 void MediaPlayer2Player::Play()
 {
     if (m_playListControler) {
-        m_manageAudioPlayer->playPause();
+        m_manageAudioPlayer->ensurePlay();
     }
 }
 

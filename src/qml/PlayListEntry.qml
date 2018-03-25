@@ -340,7 +340,7 @@ FocusScope {
 
                             opacity: 0
 
-                            source: (isPlaying == MediaPlayList.IsPlaying ? Qt.resolvedUrl(elisaTheme.playIcon) : Qt.resolvedUrl(elisaTheme.pauseIcon))
+                            source: Qt.resolvedUrl(elisaTheme.playIndicatorIcon)
 
                             width: parent.height * 1.
                             height: parent.height * 1.
@@ -348,47 +348,7 @@ FocusScope {
                             sourceSize.height: parent.height * 1.
                             fillMode: Image.PreserveAspectFit
                             mirror: LayoutMirroring.enabled
-                            visible: isPlaying == MediaPlayList.IsPlaying || isPlaying == MediaPlayList.IsPaused
-
-                            SequentialAnimation on opacity {
-                                running: isPlaying == MediaPlayList.IsPlaying && playListEntry.state != 'hoveredOrSelected'
-                                loops: Animation.Infinite
-
-                                NumberAnimation {
-                                    from: 0
-                                    to: 1.
-                                    duration: 1000
-                                    easing.type: Easing.InOutCubic
-                                }
-                                NumberAnimation {
-                                    from: 1
-                                    to: 0
-                                    duration: 1000
-                                    easing.type: Easing.InOutCubic
-                                }
-                            }
-
-                            SequentialAnimation on opacity {
-                                running: isPlaying == MediaPlayList.IsPaused && playListEntry.state != 'hoveredOrSelected'
-
-                                NumberAnimation {
-                                    from: playIcon.opacity
-                                    to: 1.
-                                    duration: 1000
-                                    easing.type: Easing.InOutCubic
-                                }
-                            }
-
-                            SequentialAnimation on opacity {
-                                running: playListEntry.state == 'hoveredOrSelected'
-
-                                NumberAnimation {
-                                    from: playIcon.opacity
-                                    to: 0
-                                    duration: 250
-                                    easing.type: Easing.InOutCubic
-                                }
-                            }
+                            visible: opacity > 0.0
                         }
                     }
 
@@ -439,6 +399,10 @@ FocusScope {
                 opacity: 0
             }
             PropertyChanges {
+                target: playIcon
+                opacity: (isPlaying === MediaPlayList.IsPlaying ? 1.0 : 0.0)
+            }
+            PropertyChanges {
                 target: entryBackground
                 color: (isAlternateColor ? myPalette.alternateBase : myPalette.base)
             }
@@ -457,6 +421,10 @@ FocusScope {
             PropertyChanges {
                 target: infoButton
                 opacity: 1
+            }
+            PropertyChanges {
+                target: playIcon
+                opacity: 0
             }
             PropertyChanges {
                 target: entryBackground

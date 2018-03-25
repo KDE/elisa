@@ -28,6 +28,7 @@
 #include "models/singlealbumproxymodel.h"
 #include "mediaplaylist.h"
 #include "audiowrapper.h"
+#include "manageaudioplayer.h"
 
 #include "elisa_settings.h"
 #include <KConfigCore/KAuthorized>
@@ -102,6 +103,8 @@ public:
     std::unique_ptr<MediaPlayList> mMediaPlayList;
 
     std::unique_ptr<AudioWrapper> mAudioWrapper;
+
+    std::unique_ptr<ManageAudioPlayer> mAudioControl;
 
 };
 
@@ -284,6 +287,8 @@ void ElisaApplication::initialize()
     Q_EMIT mediaPlayListChanged();
     d->mAudioWrapper = std::make_unique<AudioWrapper>();
     Q_EMIT audioPlayerChanged();
+    d->mAudioControl = std::make_unique<ManageAudioPlayer>();
+    Q_EMIT audioControlChanged();
 
     d->mMusicManager->setElisaApplication(this);
 
@@ -318,6 +323,37 @@ void ElisaApplication::initialize()
                      d->mMediaPlayList.get(), static_cast<void (MediaPlayList::*)(const QList<MusicAudioTrack> &,
                                                                          ElisaUtils::PlayListEnqueueMode,
                                                                          ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayList::enqueue));
+
+    d->mAudioControl->setAlbumNameRole(MediaPlayList::AlbumRole);
+    d->mAudioControl->setArtistNameRole(MediaPlayList::ArtistRole);
+    d->mAudioControl->setTitleRole(MediaPlayList::TitleRole);
+    d->mAudioControl->setUrlRole(MediaPlayList::ResourceRole);
+    d->mAudioControl->setIsPlayingRole(MediaPlayList::IsPlayingRole);
+    d->mAudioControl->setPlayListModel(d->mMediaPlayList.get());
+    d->mAudioControl->setCurrentTrack(d->mMediaPlayList->currentTrack());
+
+
+    d->mAudioWrapper->setSource(d->mAudioControl->playerSource());
+
+    QObject::connect(d->mAudioControl.get(), &ManageAudioPlayer::playerPlay, d->mAudioWrapper.get(), &AudioWrapper::play);
+    QObject::connect(d->mAudioControl.get(), &ManageAudioPlayer::playerPause, d->mAudioWrapper.get(), &AudioWrapper::pause);
+    QObject::connect(d->mAudioControl.get(), &ManageAudioPlayer::playerStop, d->mAudioWrapper.get(), &AudioWrapper::stop);
+    QObject::connect(d->mAudioControl.get(), &ManageAudioPlayer::seek, d->mAudioWrapper.get(), &AudioWrapper::seek);
+    QObject::connect(d->mAudioControl.get(), &ManageAudioPlayer::skipNextTrack, d->mMediaPlayList.get(), &MediaPlayList::skipNextTrack);
+    QObject::connect(d->mAudioControl.get(), &ManageAudioPlayer::sourceInError, d->mMediaPlayList.get(), &MediaPlayList::trackInError);
+    QObject::connect(d->mAudioControl.get(), &ManageAudioPlayer::sourceInError, d->mMusicManager.get(), &MusicListenersManager::playBackError);
+    QObject::connect(d->mAudioControl.get(), &ManageAudioPlayer::playerSourceChanged, d->mAudioWrapper.get(), &AudioWrapper::setSource);
+
+    QObject::connect(d->mMediaPlayList.get(), &MediaPlayList::ensurePlay, d->mAudioControl.get(), &ManageAudioPlayer::ensurePlay);
+    QObject::connect(d->mMediaPlayList.get(), &MediaPlayList::playListFinished, d->mAudioControl.get(), &ManageAudioPlayer::playListFinished);
+    QObject::connect(d->mMediaPlayList.get(), &MediaPlayList::currentTrackChanged, d->mAudioControl.get(), &ManageAudioPlayer::setCurrentTrack);
+
+    QObject::connect(d->mAudioWrapper.get(), &AudioWrapper::playbackStateChanged, d->mAudioControl.get(), &ManageAudioPlayer::setPlayerPlaybackState);
+    QObject::connect(d->mAudioWrapper.get(), &AudioWrapper::statusChanged, d->mAudioControl.get(), &ManageAudioPlayer::setPlayerStatus);
+    QObject::connect(d->mAudioWrapper.get(), &AudioWrapper::errorChanged, d->mAudioControl.get(), &ManageAudioPlayer::setPlayerError);
+    QObject::connect(d->mAudioWrapper.get(), &AudioWrapper::durationChanged, d->mAudioControl.get(), &ManageAudioPlayer::setAudioDuration);
+    QObject::connect(d->mAudioWrapper.get(), &AudioWrapper::seekableChanged, d->mAudioControl.get(), &ManageAudioPlayer::setPlayerIsSeekable);
+    QObject::connect(d->mAudioWrapper.get(), &AudioWrapper::positionChanged, d->mAudioControl.get(), &ManageAudioPlayer::setPlayerPosition);
 
     if (!d->mArguments.isEmpty()) {
         Q_EMIT enqueue(d->mArguments);
@@ -390,6 +426,11 @@ MediaPlayList *ElisaApplication::mediaPlayList() const
 AudioWrapper *ElisaApplication::audioPlayer() const
 {
     return d->mAudioWrapper.get();
+}
+
+ManageAudioPlayer *ElisaApplication::audioControl() const
+{
+    return d->mAudioControl.get();
 }
 
 #include "moc_elisaapplication.cpp"

@@ -163,7 +163,7 @@ Q_SIGNALS:
 
     void playListModelChanged();
 
-    void playerSourceChanged();
+    void playerSourceChanged(QUrl url);
 
     void urlRoleChanged();
 

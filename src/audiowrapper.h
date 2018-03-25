@@ -114,17 +114,17 @@ Q_SIGNALS:
 
     void sourceChanged();
 
-    void statusChanged();
+    void statusChanged(QMediaPlayer::MediaStatus status);
 
-    void playbackStateChanged();
+    void playbackStateChanged(QMediaPlayer::State state);
 
-    void errorChanged();
+    void errorChanged(QMediaPlayer::Error error);
 
-    void durationChanged();
+    void durationChanged(qint64 duration);
 
-    void positionChanged();
+    void positionChanged(qint64 position);
 
-    void seekableChanged();
+    void seekableChanged(bool seekable);
 
     void playing();
 

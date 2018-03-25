@@ -20,6 +20,7 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.2
+import QtQuick.Window 2.2
 import org.kde.elisa 1.0
 
 RowLayout {
@@ -314,9 +315,9 @@ RowLayout {
                     Layout.maximumWidth: contentZone.width
                     Layout.preferredWidth: contentZone.width
 
-                    onStartPlayback: manageAudioPlayer.ensurePlay()
+                    onStartPlayback: elisa.audioControl.ensurePlay()
 
-                    onPausePlayback: manageAudioPlayer.playPause()
+                    onPausePlayback: elisa.audioControl.playPause()
 
                     onDisplayError: messageNotification.showNotification(errorText)
                 }

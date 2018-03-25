@@ -1295,7 +1295,7 @@ void MediaPlayList::resetCurrentTrack()
 
 void MediaPlayList::notifyCurrentTrackChanged()
 {
-    Q_EMIT currentTrackChanged();
+    Q_EMIT currentTrackChanged(d->mCurrentTrack);
     Q_EMIT currentTrackRowChanged();
     bool currentTrackIsValid = d->mCurrentTrack.isValid();
     if (currentTrackIsValid) {

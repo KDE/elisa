@@ -114,28 +114,32 @@ ApplicationWindow {
 
             persistentSettings.playListState = elisa.mediaPlayList.persistentState;
             persistentSettings.playListControlerState = elisa.mediaPlayList.persistentState;
-            persistentSettings.audioPlayerState = manageAudioPlayer.persistentState
+            persistentSettings.audioPlayerState = elisa.audioControl.persistentState
 
             persistentSettings.playControlItemVolume = headerBar.playerControl.volume
             persistentSettings.playControlItemMuted = headerBar.playerControl.muted
         }
     }
 
-    PlatformIntegration {
-        id: platformInterface
+    Loader {
+        id: mprisloader
+        active: false
 
-        playListModel: elisa.mediaPlayList
-        playListControler: elisa.mediaPlayList
-        audioPlayerManager: manageAudioPlayer
-        headerBarManager: myHeaderBarManager
-        manageMediaPlayerControl: myPlayControlManager
-        player: elisa.audioPlayer
+        sourceComponent:  PlatformIntegration {
+            id: platformInterface
 
-        onRaisePlayer:
-        {
-            mainWindow.show()
-            mainWindow.raise()
-            mainWindow.requestActivate()
+            playListModel: elisa.mediaPlayList
+            playListControler: elisa.mediaPlayList
+            audioPlayerManager: elisa.audioControl
+            player: elisa.audioPlayer
+            headerBarManager: myHeaderBarManager
+            manageMediaPlayerControl: myPlayControlManager
+            onRaisePlayer:
+            {
+                mainWindow.show()
+                mainWindow.raise()
+                mainWindow.requestActivate()
+            }
         }
     }
 
@@ -164,10 +168,6 @@ ApplicationWindow {
         onPlayListLoadFailed: {
             messageNotification.showNotification(i18nc("message of passive notification when playlist load failed", "Load of playlist failed"), 3000)
         }
-
-        onEnsurePlay: manageAudioPlayer.ensurePlay()
-
-        onPlayListFinished: manageAudioPlayer.playListFinished()
     }
 
     ManageHeaderBar {
@@ -181,40 +181,6 @@ ApplicationWindow {
         albumRole: MediaPlayList.AlbumRole
         imageRole: MediaPlayList.ImageRole
         isValidRole: MediaPlayList.IsValidRole
-    }
-
-    ManageAudioPlayer {
-        id: manageAudioPlayer
-
-        currentTrack: elisa.mediaPlayList.currentTrack
-        playListModel: elisa.mediaPlayList
-        urlRole: MediaPlayList.ResourceRole
-        isPlayingRole: MediaPlayList.IsPlayingRole
-        titleRole: MediaPlayList.TitleRole
-        artistNameRole: MediaPlayList.ArtistRole
-        albumNameRole: MediaPlayList.AlbumRole
-
-        playerStatus: elisa.audioPlayer.status
-        playerPlaybackState: elisa.audioPlayer.playbackState
-        playerError: elisa.audioPlayer.error
-        audioDuration: elisa.audioPlayer.duration
-        playerIsSeekable: elisa.audioPlayer.seekable
-        playerPosition: elisa.audioPlayer.position
-
-        persistentState: persistentSettings.audioPlayerState
-
-        onPlayerPlay: elisa.audioPlayer.play()
-        onPlayerPause: elisa.audioPlayer.pause()
-        onPlayerStop: elisa.audioPlayer.stop()
-        onSkipNextTrack: elisa.mediaPlayList.skipNextTrack()
-        onSeek: elisa.audioPlayer.seek(position)
-        onSourceInError:
-        {
-            elisa.mediaPlayList.trackInError(source, playerError)
-            elisa.musicManager.playBackError(source, playerError)
-        }
-
-        onDisplayTrackError: messageNotification.showNotification(i18n("Error when playing %1", "" + fileName), 3000)
     }
 
     ManageMediaPlayerControl {
@@ -270,9 +236,8 @@ ApplicationWindow {
 
                     playerControl.onSeek: elisa.audioPlayer.seek(position)
 
-                    playerControl.onPlay: manageAudioPlayer.playPause()
-                    playerControl.onPause: manageAudioPlayer.playPause()
-
+                    playerControl.onPlay: elisa.audioControl.playPause()
+                    playerControl.onPause: elisa.audioControl.playPause()
                     playerControl.onPlayPrevious: elisa.mediaPlayList.skipPreviousTrack()
                     playerControl.onPlayNext: elisa.mediaPlayList.skipNextTrack()
 
@@ -291,6 +256,7 @@ ApplicationWindow {
                             topMargin: elisaTheme.layoutHorizontalMargin * 3
                         }
                     }
+
                     Rectangle {
                         anchors.fill: menuButton
 
@@ -357,16 +323,21 @@ ApplicationWindow {
         elisa.mediaPlayList.randomPlay = Qt.binding(function() { return contentView.playList.randomPlayChecked })
         elisa.mediaPlayList.repeatPlay = Qt.binding(function() { return contentView.playList.repeatPlayChecked })
         myPlayControlManager.randomOrContinuePlay = Qt.binding(function() { return contentView.playList.randomPlayChecked || contentView.playList.repeatPlayChecked })
+        myPlayControlManager.playListModel = Qt.binding(function() { return elisa.mediaPlayList })
+        myPlayControlManager.currentTrack = Qt.binding(function() { return elisa.mediaPlayList.currentTrack })
 
         if (persistentSettings.playListState) {
             elisa.mediaPlayList.persistentState = persistentSettings.playListState
         }
-
+        if (persistentSettings.audioPlayerState) {
+            elisa.audioControl.persistentState = persistentSettings.audioPlayerState
+        }
 
         elisa.audioPlayer.muted = Qt.binding(function() { return headerBar.playerControl.muted })
         elisa.audioPlayer.volume = Qt.binding(function() { return headerBar.playerControl.volume })
-        elisa.audioPlayer.source = Qt.binding(function() { return manageAudioPlayer.playerSource })
 
         volume: headerBar.playerControl.volume
+
+        mprisloader.active = true
     }
 }

@@ -39,6 +39,7 @@ class SingleArtistProxyModel;
 class SingleAlbumProxyModel;
 class MediaPlayList;
 class AudioWrapper;
+class ManageAudioPlayer;
 class ElisaApplicationPrivate;
 
 class ELISALIB_EXPORT ElisaApplication : public QObject
@@ -83,6 +84,10 @@ class ELISALIB_EXPORT ElisaApplication : public QObject
                READ audioPlayer
                NOTIFY audioPlayerChanged)
 
+    Q_PROPERTY(ManageAudioPlayer *audioControl
+               READ audioControl
+               NOTIFY audioControlChanged)
+
 public:
     explicit ElisaApplication(QObject *parent = nullptr);
 
@@ -110,6 +115,8 @@ public:
 
     AudioWrapper *audioPlayer() const;
 
+    ManageAudioPlayer *audioControl() const;
+
 Q_SIGNALS:
 
     void argumentsChanged();
@@ -129,6 +136,8 @@ Q_SIGNALS:
     void mediaPlayListChanged();
 
     void audioPlayerChanged();
+
+    void audioControlChanged();
 
     void enqueue(const QStringList &files);
 

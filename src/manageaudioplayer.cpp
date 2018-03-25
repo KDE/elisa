@@ -510,7 +510,7 @@ void ManageAudioPlayer::notifyPlayerSourceProperty()
 {
     auto newUrlValue = mCurrentTrack.data(mUrlRole);
     if ((mCurrentTrack == mOldCurrentTrack && mOldPlayerSource == newUrlValue && mPlayingState) || mOldPlayerSource != newUrlValue) {
-        Q_EMIT playerSourceChanged();
+        Q_EMIT playerSourceChanged(mCurrentTrack.data(mUrlRole).toUrl());
 
         mOldPlayerSource = newUrlValue;
     }

@@ -171,7 +171,7 @@ Q_SIGNALS:
 
     void tracksCountChanged();
 
-    void currentTrackChanged();
+    void currentTrackChanged(QPersistentModelIndex currentTrack);
 
     void currentTrackRowChanged();
 

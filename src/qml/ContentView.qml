@@ -20,7 +20,6 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.2
-import QtQuick.Window 2.2
 import org.kde.elisa 1.0
 
 RowLayout {
@@ -104,6 +103,8 @@ RowLayout {
                             anchors.bottomMargin: parent.height / 3
 
                             opacity: 0.8
+
+                            visible: running
 
                             z: 2
                         }

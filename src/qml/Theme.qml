@@ -43,6 +43,7 @@ Item {
     property string ratingIcon: 'image://icon/rating'
     property string ratingUnratedIcon: 'image://icon/rating-unrated'
     property string errorIcon: 'image://icon/error'
+    property string playIndicatorIcon: 'image://icon/audio-volume-high'
 
     property int layoutHorizontalMargin: dp(8)
     property int layoutVerticalMargin: dp(6)

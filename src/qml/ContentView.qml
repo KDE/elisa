@@ -92,9 +92,7 @@ RowLayout {
 
                         anchors.fill: parent
 
-                        BusyIndicator {
-                            id: busyScanningMusic
-                            hoverEnabled: false
+                        Loader {
                             anchors.fill: parent
 
                             anchors.leftMargin: parent.width / 3
@@ -102,21 +100,23 @@ RowLayout {
                             anchors.topMargin: parent.height / 3
                             anchors.bottomMargin: parent.height / 3
 
-                            opacity: 0.8
-
-                            visible: running
-
                             z: 2
-                        }
 
-                        Loader {
-                            sourceComponent: Binding {
-                                target: busyScanningMusic
-                                property: 'running'
-                                value: elisa.musicManager.indexerBusy
+                            sourceComponent: BusyIndicator {
+                                id: busyScanningMusic
+                                hoverEnabled: false
+
+                                anchors.fill: parent
+
+                                opacity: 0.8
+
+                                visible: true
+                                running: true
+
+                                z: 2
                             }
 
-                            active: elisa.musicManager !== undefined
+                            active: elisa.musicManager.indexerBusy
                         }
 
                         MediaBrowser {

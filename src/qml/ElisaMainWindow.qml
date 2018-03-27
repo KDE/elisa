@@ -130,8 +130,8 @@ ApplicationWindow {
     Connections {
         target: elisa.audioPlayer
 
-        onVolumeChanged: headerBar.playerControl.volume = volume
-        onMutedChanged: headerBar.playerControl.muted = muted
+        onVolumeChanged: headerBar.playerControl.volume = elisa.audioPlayer.volume
+        onMutedChanged: headerBar.playerControl.muted = elisa.audioPlayer.muted
 
         onPlaying: {
             myPlayControlManager.playerPlaying()

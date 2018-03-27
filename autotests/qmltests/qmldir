@@ -1,0 +1,3 @@
+module org.kde.elisa
+plugin elisaqmltestplugin
+

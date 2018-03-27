@@ -59,9 +59,11 @@ FocusScope {
         id: playNow
         text: i18nc("Play now current track from play list", "Play Now")
         iconName: "media-playback-start"
-        enabled: !(isPlaying == MediaPlayList.IsPlaying) && isValid
+        enabled: !(isPlaying === MediaPlayList.IsPlaying) && isValid
         onTriggered: {
-            playListEntry.switchToTrack(playListEntry.index)
+            if (isPlaying === MediaPlayList.NotPlaying) {
+                playListEntry.switchToTrack(playListEntry.index)
+            }
             playListEntry.startPlayback()
         }
     }
@@ -289,6 +291,7 @@ FocusScope {
 
                     Controls1.ToolButton {
                         id: infoButton
+                        objectName: 'infoButton'
 
                         implicitHeight: elisaTheme.smallDelegateToolButtonSize
                         implicitWidth: elisaTheme.smallDelegateToolButtonSize
@@ -303,6 +306,7 @@ FocusScope {
 
                     Controls1.ToolButton {
                         id: playPauseButton
+                        objectName: 'playPauseButton'
 
                         implicitHeight: elisaTheme.smallDelegateToolButtonSize
                         implicitWidth: elisaTheme.smallDelegateToolButtonSize
@@ -311,7 +315,7 @@ FocusScope {
                         scale: LayoutMirroring.enabled ? -1 : 1 // We can mirror the symmetrical pause icon
 
                         visible: opacity > 0.1
-                        action: !(isPlaying == MediaPlayList.IsPlaying) ? playNow : pauseNow
+                        action: !(isPlaying === MediaPlayList.IsPlaying) ? playNow : pauseNow
                         Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
                     }
 
@@ -324,6 +328,7 @@ FocusScope {
 
                         Controls1.ToolButton {
                             id: removeButton
+                            objectName: 'removeButton'
 
                             anchors.fill: parent
 

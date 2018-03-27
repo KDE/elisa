@@ -96,6 +96,8 @@ FocusScope {
             Layout.fillHeight: true
             Layout.fillWidth: true
 
+            clip: true
+
             GridView {
                 id: contentDirectoryView
                 anchors.topMargin: 20
@@ -107,7 +109,6 @@ FocusScope {
                     id: scrollBar
                 }
                 boundsBehavior: Flickable.StopAtBounds
-                clip: true
 
                 TextMetrics {
                     id: secondaryLabelSize

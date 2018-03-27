@@ -27,7 +27,7 @@ Item {
     property string artistIcon: 'image://icon/view-media-artist'
     property string albumIcon: 'image://icon/media-album-cover-manager-amarok'
     property string playlistIcon: 'image://icon/amarok_playlist'
-    property string tracksIcon: 'image://icon/media-album-track'
+    property string tracksIcon: 'image://icon/view-media-title'
     property string clearIcon: 'image://icon/edit-clear'
     property string skipBackwardIcon: 'image://icon/media-skip-backward'
     property string pauseIcon: 'image://icon/media-playback-pause'

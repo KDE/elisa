@@ -39,6 +39,7 @@ FocusScope {
             id: myPalette
 
             property color text
+            property color shadow
         }
 
         Item {

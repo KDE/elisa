@@ -30,7 +30,7 @@ ApplicationWindow {
 
     visible: true
 
-    minimumWidth: 1000
+    minimumWidth: 1100
     minimumHeight: 600
 
     LayoutMirroring.enabled: Qt.application.layoutDirection == Qt.RightToLeft
@@ -75,7 +75,7 @@ ApplicationWindow {
 
         property int x
         property int y
-        property int width : 1000
+        property int width : 1100
         property int height : 600
 
         property var playListState

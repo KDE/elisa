@@ -34,7 +34,7 @@ FocusScope {
     property string secondaryTitle
     property url image
     property alias contentModel: contentDirectoryView.model
-    property bool showRating: true
+    property alias showRating: navigationBar.showRating
     property bool delegateDisplaySecondaryText: true
     property alias filterState: navigationBar.state
 

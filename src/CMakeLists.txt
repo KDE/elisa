@@ -137,8 +137,6 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
 
     add_executable(elisa ${elisa_SOURCES})
 
-    set_target_properties(elisa PROPERTIES LINK_FLAGS "-Wl,--no-undefined")
-
     target_include_directories(elisa PRIVATE ${KDSoap_INCLUDE_DIRS})
 
     target_link_libraries(elisa
@@ -287,8 +285,6 @@ set(elisaImport_SOURCES
 )
 
 add_executable(elisaImport ${elisaImport_SOURCES})
-
-set_target_properties(elisaImport PROPERTIES LINK_FLAGS "-Wl,--no-undefined")
 
 target_link_libraries(elisaImport
     LINK_PRIVATE

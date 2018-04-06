@@ -190,7 +190,7 @@ int main(int argc, char *argv[])
 
     KAboutData aboutData( QStringLiteral("elisa"),
                           i18n("Elisa"),
-                          QStringLiteral("0.0.81"),
+                          QStringLiteral("0.1"),
                           i18n("A Simple Music Player written with KDE Frameworks"),
                           KAboutLicense::LGPL_V3,
                           i18n("(c) 2015-2017, Matthieu Gallien &lt;mgallien@mgallien.fr&gt;"));

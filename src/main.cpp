@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2017 Matthieu Gallien <matthieu_gallien@yahoo.fr>
+ * Copyright 2015-2018 Matthieu Gallien <matthieu_gallien@yahoo.fr>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -188,7 +188,7 @@ int main(int argc, char *argv[])
 
     KAboutData aboutData( QStringLiteral("elisa"),
                           i18n("Elisa"),
-                          QStringLiteral("0.1"),
+                          QStringLiteral("0.1.80"),
                           i18n("A Simple Music Player written with KDE Frameworks"),
                           KAboutLicense::LGPL_V3,
                           i18n("(c) 2015-2017, Matthieu Gallien &lt;mgallien@mgallien.fr&gt;"));

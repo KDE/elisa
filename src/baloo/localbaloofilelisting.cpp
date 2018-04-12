@@ -64,8 +64,6 @@ public:
 
     QList<MusicAudioTrack> mNewTracks;
 
-    QHash<QString, QUrl> mAllAlbumCover;
-
     QAtomicInt mStopRequest = 0;
 
     QDBusServiceWatcher mServiceWatcher;
@@ -386,16 +384,6 @@ MusicAudioTrack LocalBalooFileListing::scanOneFile(const QUrl &scanFile)
 
         newTrack.setResourceURI(scanFile);
 
-        QFileInfo coverFilePath(scanFileInfo.dir().filePath(QStringLiteral("cover.jpg")));
-        if (coverFilePath.exists()) {
-            d->mAllAlbumCover[albumValue] = QUrl::fromLocalFile(coverFilePath.absoluteFilePath());
-        } else {
-            coverFilePath.setFile(scanFileInfo.dir().filePath(QStringLiteral("cover.png")));
-            if (coverFilePath.exists()) {
-                d->mAllAlbumCover[albumValue] = QUrl::fromLocalFile(coverFilePath.absoluteFilePath());
-            }
-        }
-
         auto itTrack = std::find(allTracks.begin(), allTracks.end(), newTrack);
         if (itTrack == allTracks.end()) {
             allTracks.push_back(newTrack);
@@ -432,7 +420,7 @@ MusicAudioTrack LocalBalooFileListing::scanOneFile(const QUrl &scanFile)
     }
 
     if (newTrack.isValid()) {
-        addCover(newTrack);
+        AbstractFileListing::addCover(newTrack);
     }
 
     return newTrack;

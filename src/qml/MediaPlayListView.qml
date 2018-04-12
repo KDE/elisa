@@ -109,88 +109,62 @@ FocusScope {
         anchors.fill: parent
         spacing: 0
 
-        RowLayout {
+        ColumnLayout {
             height: elisaTheme.navigationBarHeight
             Layout.preferredHeight: elisaTheme.navigationBarHeight
             Layout.minimumHeight: elisaTheme.navigationBarHeight
             Layout.maximumHeight: elisaTheme.navigationBarHeight
+            spacing: 0
 
-            Image {
-                id: mainIcon
-                source: elisaTheme.playlistIcon
+            Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+            Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
 
-                asynchronous: true
-
-                sourceSize.height: elisaTheme.coverImageSize / 2
-                sourceSize.width: elisaTheme.coverImageSize / 2
-
-                fillMode: Image.PreserveAspectFit
-
-                Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
-
-                Layout.preferredHeight: elisaTheme.coverImageSize / 2
-                Layout.minimumHeight: elisaTheme.coverImageSize / 2
-                Layout.maximumHeight: elisaTheme.coverImageSize / 2
-                Layout.preferredWidth: elisaTheme.coverImageSize / 2
-                Layout.minimumWidth: elisaTheme.coverImageSize / 2
-                Layout.maximumWidth: elisaTheme.coverImageSize / 2
-                Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-                Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+            TextMetrics {
+                id: titleHeight
+                text: viewTitleHeight.text
+                font
+                {
+                    pointSize: viewTitleHeight.font.pointSize
+                    bold: viewTitleHeight.font.bold
+                }
             }
 
-            ColumnLayout {
-                spacing: 0
+            LabelWithToolTip {
+                id: viewTitleHeight
+                text: i18nc("Title of the view of the playlist", "Now Playing")
 
-                Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-                Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+                color: myPalette.text
+                font.pointSize: elisaTheme.defaultFontPointSize * 2
+                Layout.topMargin: elisaTheme.layoutVerticalMargin
+            }
 
-                TextMetrics {
-                    id: titleHeight
-                    text: viewTitleHeight.text
-                    font
-                    {
-                        pointSize: viewTitleHeight.font.pointSize
-                        bold: viewTitleHeight.font.bold
-                    }
+            LabelWithToolTip {
+                id: playListInfo
+
+                text: i18np("1 track", "%1 tracks", playListModel.tracksCount)
+
+                color: myPalette.text
+
+                Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
+            }
+
+            Item {
+                Layout.fillHeight: true
+            }
+
+            RowLayout {
+                Layout.bottomMargin: elisaTheme.layoutVerticalMargin
+
+                CheckBox {
+                    id: shuffleOption
+
+                    text: i18n("Shuffle")
                 }
 
-                LabelWithToolTip {
-                    id: viewTitleHeight
-                    text: i18nc("Title of the view of the playlist", "Now Playing")
+                CheckBox {
+                    id: repeatOption
 
-                    color: myPalette.text
-                    font.pointSize: elisaTheme.defaultFontPointSize * 2
-                    Layout.topMargin: elisaTheme.layoutVerticalMargin
-                }
-
-                LabelWithToolTip {
-                    id: playListInfo
-
-                    text: i18np("1 track", "%1 tracks", playListModel.tracksCount)
-
-                    color: myPalette.text
-
-                    Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
-                }
-
-                Item {
-                    Layout.fillHeight: true
-                }
-
-                RowLayout {
-                    Layout.bottomMargin: elisaTheme.layoutVerticalMargin
-
-                    CheckBox {
-                        id: shuffleOption
-
-                        text: i18n("Shuffle")
-                    }
-
-                    CheckBox {
-                        id: repeatOption
-
-                        text: i18n("Repeat")
-                    }
+                    text: i18n("Repeat")
                 }
             }
         }

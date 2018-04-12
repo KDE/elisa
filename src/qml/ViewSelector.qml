@@ -146,6 +146,7 @@ FocusScope {
                             font.pointSize: elisaTheme.defaultFontPointSize * 1.4
 
                             text: model.name
+                            elide: Text.ElideRight
 
                             color: (viewModeView.currentIndex === index ? myPalette.highlightedText : myPalette.text)
 

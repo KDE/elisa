@@ -348,15 +348,16 @@ void AbstractFileListing::addCover(const MusicAudioTrack &newTrack)
     }
 
     QFileInfo trackFilePath(newTrack.resourceURI().toLocalFile());
-    QFileInfo coverFilePath(trackFilePath.dir().filePath(QStringLiteral("cover.jpg")));
-
-    if (coverFilePath.exists()) {
-        d->mAllAlbumCover[newTrack.resourceURI().toString()] = QUrl::fromLocalFile(coverFilePath.absoluteFilePath());
+    QDir trackFileDir = trackFilePath.absoluteDir();
+    QStringList filters;
+    filters << QStringLiteral("cover.jpg") << QStringLiteral("cover.png")
+            << QStringLiteral("folder.jpg") << QStringLiteral("folder.png");
+    trackFileDir.setNameFilters(filters);
+    QFileInfoList coverFiles = trackFileDir.entryInfoList();
+    if (coverFiles.isEmpty()) {
         return;
-    }
-    coverFilePath.setFile(trackFilePath.dir().filePath(QStringLiteral("cover.png")));
-    if (coverFilePath.exists()) {
-        d->mAllAlbumCover[newTrack.resourceURI().toString()] = QUrl::fromLocalFile(coverFilePath.absoluteFilePath());
+    } else {
+        d->mAllAlbumCover[newTrack.resourceURI().toString()] = QUrl::fromLocalFile(coverFiles.at(0).absoluteFilePath());
     }
 }
 

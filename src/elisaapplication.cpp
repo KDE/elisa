@@ -144,6 +144,11 @@ void ElisaApplication::setupActions(const QString &actionName)
         d->mCollection.addAction(goBackAction->objectName(), goBackAction);
     }
 
+    if (actionName == QStringLiteral("edit_find") && KAuthorized::authorizeAction(actionName)) {
+        auto findAction = KStandardAction::find(this, &ElisaApplication::find, this);
+        d->mCollection.addAction(findAction->objectName(), findAction);
+    }
+
     d->mCollection.readSettings();
 #endif
 }
@@ -229,6 +234,8 @@ void ElisaApplication::configureElisa()
 }
 
 void ElisaApplication::goBack() {}
+
+void ElisaApplication::find() {}
 
 QStringList ElisaApplication::checkFileListAndMakeAbsolute(const QStringList &filesList, const QString &workingDirectory) const
 {

@@ -36,12 +36,13 @@ FocusScope {
     property alias filterText: filterTextInput.text
     property alias filterRating: ratingFilter.starRating
     property bool enableGoBack: true
+    property bool expandedFilterView: false
 
     signal enqueue();
     signal replaceAndPlay();
     signal goBack();
     signal showArtist();
-    signal filterViewChanged(string filterState);
+    signal filterViewChanged(bool expandedFilterView);
 
     Controls1.Action {
         id: goPreviousAction
@@ -52,12 +53,9 @@ FocusScope {
 
     Controls1.Action {
         id: showFilterAction
-        text: navigationBar.state === "" ? i18nc("Show filters in the navigation bar", "Show Search Options") : i18nc("Hide filters in the navigation bar", "Hide Search Options")
-        iconName: navigationBar.state === "" ? "go-down-search" : "go-up-search"
-        onTriggered: {
-            navigationBar.state === "" ? navigationBar.state = 'expanded' : navigationBar.state = ""
-            filterViewChanged(navigationBar.state)
-        }
+        text: !navigationBar.expandedFilterView ? i18nc("Show filters in the navigation bar", "Show Search Options") : i18nc("Hide filters in the navigation bar", "Hide Search Options")
+        iconName: !navigationBar.expandedFilterView ? "go-down-search" : "go-up-search"
+        onTriggered: filterViewChanged(!navigationBar.expandedFilterView)
     }
 
     ColumnLayout {
@@ -325,7 +323,8 @@ FocusScope {
 
     states: [
         State {
-            name: ""
+            name: 'collapsed'
+            when: !expandedFilterView
             PropertyChanges {
                 target: navigationBar
                 height: elisaTheme.navigationBarHeight
@@ -337,6 +336,7 @@ FocusScope {
         },
         State {
             name: 'expanded'
+            when: expandedFilterView
             PropertyChanges {
                 target: navigationBar
                 height: elisaTheme.navigationBarHeight + elisaTheme.navigationBarFilterHeight
@@ -348,6 +348,7 @@ FocusScope {
         }
     ]
     transitions: Transition {
+        from: "expanded,collapsed"
         PropertyAnimation {
             properties: "height"
             easing.type: Easing.Linear

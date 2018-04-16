@@ -31,9 +31,9 @@ FocusScope {
 
     property var stackView
     property alias contentModel: contentDirectoryView.model
-    property alias filterState: navigationBar.state
+    property alias expandedFilterView: navigationBar.expandedFilterView
 
-    signal filterViewChanged(string filterState)
+    signal filterViewChanged(bool expandedFilterView)
 
     SystemPalette {
         id: myPalette
@@ -76,7 +76,7 @@ FocusScope {
 
             onEnqueue: contentModel.enqueueToPlayList()
 
-            onFilterViewChanged: rootElement.filterViewChanged(filterState)
+            onFilterViewChanged: rootElement.filterViewChanged(expandedFilterView)
 
             onReplaceAndPlay: contentModel.replaceAndPlayOfPlayList()
         }

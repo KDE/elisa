@@ -23,9 +23,12 @@ import QtQuick.Layouts 1.2
 import org.kde.elisa 1.0
 
 RowLayout {
+    id: contentViewContainer
     spacing: 0
 
     property alias playList: playList
+
+    signal toggleSearch()
 
     function goBack() {
         localAlbums.goBack()
@@ -154,11 +157,11 @@ RowLayout {
 
                                 Binding {
                                     target: allAlbumsView
-                                    property: 'filterState'
-                                    value: persistentSettings.filterState
+                                    property: 'expandedFilterView'
+                                    value: persistentSettings.expandedFilterView
                                 }
 
-                                onFilterViewChanged: persistentSettings.filterState = filterState
+                                onFilterViewChanged: persistentSettings.expandedFilterView = expandedFilterView
                             }
 
                             visible: opacity > 0
@@ -202,11 +205,11 @@ RowLayout {
 
                                 Binding {
                                     target: allArtistsView
-                                    property: 'filterState'
-                                    value: persistentSettings.filterState
+                                    property: 'expandedFilterView'
+                                    value: persistentSettings.expandedFilterView
                                 }
 
-                                onFilterViewChanged: persistentSettings.filterState = filterState
+                                onFilterViewChanged: persistentSettings.expandedFilterView = expandedFilterView
                             }
 
                             visible: opacity > 0
@@ -233,11 +236,11 @@ RowLayout {
 
                                 Binding {
                                     target: allTracksView
-                                    property: 'filterState'
-                                    value: persistentSettings.filterState
+                                    property: 'expandedFilterView'
+                                    value: persistentSettings.expandedFilterView
                                 }
 
-                                onFilterViewChanged: persistentSettings.filterState = filterState
+                                onFilterViewChanged: persistentSettings.expandedFilterView = expandedFilterView
                             }
 
                             visible: opacity > 0
@@ -566,11 +569,11 @@ RowLayout {
 
             Binding {
                 target: innerAlbumGridView
-                property: 'filterState'
-                value: persistentSettings.filterState
+                property: 'expandedFilterView'
+                value: persistentSettings.expandedFilterView
             }
 
-            onFilterViewChanged: persistentSettings.filterState = filterState
+            onFilterViewChanged: persistentSettings.expandedFilterView = expandedFilterView
         }
     }
 
@@ -600,13 +603,15 @@ RowLayout {
             }
             onGoBack: stackView.pop()
 
+            expandedFilterView: true
+
             Binding {
                 target: albumGridView
-                property: 'filterState'
-                value: persistentSettings.filterState
+                property: 'expandedFilterView'
+                value: persistentSettings.expandedFilterView
             }
 
-            onFilterViewChanged: persistentSettings.filterState = filterState
+            onFilterViewChanged: persistentSettings.expandedFilterView = expandedFilterView
         }
     }
 }

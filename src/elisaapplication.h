@@ -156,6 +156,8 @@ private Q_SLOTS:
 
     void goBack();
 
+    void find();
+
 private:
 
     void setupActions(const QString &actionName);

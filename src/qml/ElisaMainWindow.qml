@@ -44,7 +44,19 @@ ApplicationWindow {
     title: i18n("Elisa")
 
     property var goBackAction: elisa.action("go_back")
+    property var findAction: elisa.action("edit_find")
 
+    Controls1.Action  {
+        shortcut: findAction.shortcut
+        onTriggered: {
+            if ( persistentSettings.expandedFilterView == true)
+            {
+                persistentSettings.expandedFilterView = false
+            } else {
+                persistentSettings.expandedFilterView = true
+            }
+        }
+    }
     Controls1.Action  {
         shortcut: goBackAction.shortcut
         onTriggered: contentView.goBack()
@@ -87,7 +99,7 @@ ApplicationWindow {
         property double playControlItemVolume : 100.0
         property bool playControlItemMuted : false
 
-        property string filterState
+        property bool expandedFilterView: false
 
    }
 

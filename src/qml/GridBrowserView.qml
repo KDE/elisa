@@ -36,11 +36,11 @@ FocusScope {
     property alias contentModel: contentDirectoryView.model
     property alias showRating: navigationBar.showRating
     property bool delegateDisplaySecondaryText: true
-    property alias filterState: navigationBar.state
+    property alias expandedFilterView: navigationBar.expandedFilterView
 
     signal open(var innerMainTitle, var innerSecondaryTitle, var innerImage, var databaseId)
     signal goBack()
-    signal filterViewChanged(string filterState)
+    signal filterViewChanged(bool expandedFilterView)
 
     SystemPalette {
         id: myPalette
@@ -87,7 +87,7 @@ FocusScope {
 
             onGoBack: gridView.goBack()
 
-            onFilterViewChanged: gridView.filterViewChanged(filterState)
+            onFilterViewChanged: gridView.filterViewChanged(expandedFilterView)
         }
 
         Rectangle {

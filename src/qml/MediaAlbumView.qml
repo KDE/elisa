@@ -31,13 +31,13 @@ FocusScope {
     property var artistName
     property var albumArtUrl
     property bool isSingleDiscAlbum
-    property alias filterState: navigationBar.state
+    property alias expandedFilterView: navigationBar.expandedFilterView
     property var albumId
     property alias contentModel: contentDirectoryView.model
 
     signal showArtist(var name)
     signal goBack();
-    signal filterViewChanged(string filterState)
+    signal filterViewChanged(bool expandedFilterView)
 
     SystemPalette {
         id: myPalette
@@ -81,7 +81,7 @@ FocusScope {
 
             onGoBack: topListing.goBack()
 
-            onFilterViewChanged: topListing.filterViewChanged(filterState)
+            onFilterViewChanged: topListing.filterViewChanged(expandedFilterView)
 
             onShowArtist: topListing.showArtist(topListing.contentModel.sourceModel.author)
 

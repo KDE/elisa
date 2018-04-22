@@ -120,4 +120,8 @@
     <binary>elisa</binary>
   </provides>
   <project_group>KDE</project_group>
+  <releases>
+  ​  <release version="0.1.1" date="2018-04-16" />
+    <release version="0.1.0" date="2018-04-06" />
+  </releases>
 </component>

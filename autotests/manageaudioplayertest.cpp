@@ -8930,6 +8930,8 @@ void ManageAudioPlayerTest::testRestorePlayListAndSettingsAutomaticPlay()
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
     QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::InvalidMedia);
+
+    QCOMPARE(skipNextTrackSpy.wait(300), true);
 }
 
 QTEST_GUILESS_MAIN(ManageAudioPlayerTest)

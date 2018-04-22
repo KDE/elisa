@@ -27,10 +27,9 @@ TrackDataHelper::~TrackDataHelper()
 = default;
 
 
-MusicAudioTrack TrackDataHelper::trackData() const
+const MusicAudioTrack &TrackDataHelper::trackData() const
 {
-    MusicAudioTrack temp = *this;
-    return temp;
+    return *this;
 }
 
 void TrackDataHelper::setTrackData(const MusicAudioTrack &track)

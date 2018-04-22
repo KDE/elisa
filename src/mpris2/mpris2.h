@@ -25,6 +25,7 @@
 #include <QObject>
 #include <QSharedPointer>
 #include <QVariantMap>
+#include <memory>
 
 class MediaPlayer2Player;
 class MediaPlayer2;
@@ -129,8 +130,8 @@ private:
 
     void initDBusService();
 
-    MediaPlayer2 *m_mp2 = nullptr;
-    MediaPlayer2Player *m_mp2p = nullptr;
+    std::unique_ptr<MediaPlayer2> m_mp2;
+    std::unique_ptr<MediaPlayer2Player> m_mp2p;
     QString m_playerName;
     QAbstractItemModel* m_playListModel = nullptr;
     MediaPlayList* m_playListControler = nullptr;

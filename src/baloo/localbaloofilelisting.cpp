@@ -64,17 +64,17 @@ public:
 
     QList<MusicAudioTrack> mNewTracks;
 
-    QAtomicInt mStopRequest = 0;
-
     QDBusServiceWatcher mServiceWatcher;
-
-    bool mIsRegistered = false;
-
-    bool mIsRegistering = false;
 
     QScopedPointer<org::kde::baloo::fileindexer> mBalooIndexer;
 
     QScopedPointer<org::kde::baloo::scheduler> mBalooScheduler;
+
+    QAtomicInt mStopRequest = 0;
+
+    bool mIsRegistered = false;
+
+    bool mIsRegistering = false;
 
 };
 

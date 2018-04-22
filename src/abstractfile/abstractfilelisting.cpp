@@ -60,19 +60,19 @@ public:
 
     QString mSourceName;
 
-    bool mHandleNewFiles = true;
-
     KFileMetaData::ExtractorCollection mExtractors;
 
-    QAtomicInt mStopRequest = 0;
-
     QMimeDatabase mMimeDb;
+
+    QAtomicInt mStopRequest = 0;
 
     int mImportedTracksCount = 0;
 
     int mNotificationUpdateInterval = 1;
 
     int mNewFilesEmitInterval = 1;
+
+    bool mHandleNewFiles = true;
 
 };
 

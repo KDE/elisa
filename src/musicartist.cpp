@@ -29,7 +29,7 @@ public:
 
     QString mName;
 
-    qulonglong mDatabaseId;
+    qulonglong mDatabaseId = 0;
 
     int mAlbumsCount = 0;
 

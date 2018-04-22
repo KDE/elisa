@@ -28,9 +28,7 @@ SingleAlbumProxyModel::SingleAlbumProxyModel(QObject *parent) : AbstractMediaPro
 {
 }
 
-SingleAlbumProxyModel::~SingleAlbumProxyModel()
-{
-}
+SingleAlbumProxyModel::~SingleAlbumProxyModel() = default;
 
 bool SingleAlbumProxyModel::filterAcceptsRow(int source_row, const QModelIndex &source_parent) const
 {
@@ -98,7 +96,7 @@ void SingleAlbumProxyModel::replaceAndPlayOfPlayList()
 
 void SingleAlbumProxyModel::loadAlbumData(qulonglong databaseId)
 {
-    AlbumModel *albumSourceModel = qobject_cast<AlbumModel *>(this->sourceModel());
+    auto albumSourceModel = qobject_cast<AlbumModel *>(this->sourceModel());
     if(albumSourceModel) {
         albumSourceModel->loadAlbumData(databaseId);
     }

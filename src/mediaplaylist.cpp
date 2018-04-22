@@ -43,15 +43,15 @@ public:
 
     QPersistentModelIndex mCurrentTrack;
 
+    QVariantMap mPersistentState;
+
+    QMediaPlaylist mLoadPlaylist;
+
     int mCurrentPlayListPosition = 0;
 
     bool mRandomPlay = false;
 
     bool mRepeatPlay = false;
-
-    QVariantMap mPersistentState;
-
-    QMediaPlaylist mLoadPlaylist;
 
 };
 
@@ -350,14 +350,14 @@ bool MediaPlayList::setData(const QModelIndex &index, const QVariant &value, int
         return modelModified;
     }
 
-    ColumnsRoles convertedRole = static_cast<ColumnsRoles>(role);
+    auto convertedRole = static_cast<ColumnsRoles>(role);
 
     switch(convertedRole)
     {
     case ColumnsRoles::IsPlayingRole:
     {
         modelModified = true;
-        PlayState newState = static_cast<PlayState>(value.toInt());
+        auto newState = static_cast<PlayState>(value.toInt());
         d->mData[index.row()].mIsPlaying = newState;
         Q_EMIT dataChanged(index, index, {role});
 

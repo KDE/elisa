@@ -192,7 +192,7 @@ private:
     int computeTrackPriority(qulonglong trackId, const QUrl &fileName);
 
     qulonglong internalInsertTrack(const MusicAudioTrack &oneModifiedTrack, const QHash<QString, QUrl> &covers,
-                                   int originTrackId, QSet<qulonglong> &modifiedAlbumIds, TrackFileInsertType insertType,
+                                   qulonglong originTrackId, QSet<qulonglong> &modifiedAlbumIds, TrackFileInsertType insertType,
                                    QList<qulonglong> &newAlbumIds);
 
     MusicAudioTrack buildTrackFromDatabaseRecord(const QSqlRecord &trackRecord) const;

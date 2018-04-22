@@ -80,7 +80,7 @@ MusicAudioTrack ElisaUtils::scanOneFile(const QUrl &scanFile, const QMimeDatabas
         }
 
         if (durationProperty != allProperties.end()) {
-            newTrack.setDuration(QTime::fromMSecsSinceStartOfDay(1000 * durationProperty->toDouble()));
+            newTrack.setDuration(QTime::fromMSecsSinceStartOfDay(int(1000 * durationProperty->toDouble())));
         }
 
         if (titleProperty != allProperties.end()) {

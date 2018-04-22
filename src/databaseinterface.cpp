@@ -175,9 +175,9 @@ public:
 
     qulonglong mDiscoverId = 1;
 
-    bool mInitFinished = false;
-
     QAtomicInt mStopRequest = 0;
+
+    bool mInitFinished = false;
 
 };
 
@@ -2664,7 +2664,7 @@ int DatabaseInterface::computeTrackPriority(qulonglong trackId, const QUrl &file
 }
 
 qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrack, const QHash<QString, QUrl> &covers,
-                                                  int originTrackId, QSet<qulonglong> &modifiedAlbumIds, TrackFileInsertType insertType,
+                                                  qulonglong originTrackId, QSet<qulonglong> &modifiedAlbumIds, TrackFileInsertType insertType,
                                                   QList<qulonglong> &newAlbumIds)
 {
     qulonglong resultId = 0;
@@ -3522,7 +3522,7 @@ qulonglong DatabaseInterface::internalTrackIdFromTitleAlbumTracDiscNumber(const 
     }
 
     if (d->mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery.next()) {
-        result = d->mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery.record().value(0).toInt();
+        result = d->mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery.record().value(0).toULongLong();
     }
 
     d->mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery.finish();
@@ -3560,7 +3560,7 @@ qulonglong DatabaseInterface::getDuplicateTrackIdFromTitleAlbumTracDiscNumber(co
     }
 
     if (d->mSelectTrackIdFromTitleAlbumTrackDiscNumberQuery.next()) {
-        result = d->mSelectTrackIdFromTitleAlbumTrackDiscNumberQuery.record().value(0).toInt();
+        result = d->mSelectTrackIdFromTitleAlbumTrackDiscNumberQuery.record().value(0).toULongLong();
     }
 
     d->mSelectTrackIdFromTitleAlbumTrackDiscNumberQuery.finish();
@@ -3595,7 +3595,7 @@ qulonglong DatabaseInterface::internalTrackIdFromFileName(const QUrl &fileName)
     if (d->mSelectTracksMapping.next()) {
         const auto &currentRecordValue = d->mSelectTracksMapping.record().value(0);
         if (currentRecordValue.isValid()) {
-            result = currentRecordValue.toInt();
+            result = currentRecordValue.toULongLong();
         }
     }
 

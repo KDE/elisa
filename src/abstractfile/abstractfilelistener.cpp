@@ -29,10 +29,6 @@ class AbstractFileListenerPrivate
 {
 public:
 
-    explicit AbstractFileListenerPrivate()
-    {
-    }
-
     QThread mFileQueryThread;
 
     AbstractFileListing *mFileListing = nullptr;

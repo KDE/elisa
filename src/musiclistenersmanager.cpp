@@ -77,7 +77,7 @@ public:
 #endif
 
 #if defined KF5Baloo_FOUND && KF5Baloo_FOUND
-    QScopedPointer<BalooListener> mBalooListener;
+    std::unique_ptr<BalooListener> mBalooListener;
 #endif
 
     std::list<std::unique_ptr<FileListener>> mFileListener;
@@ -85,14 +85,6 @@ public:
     DatabaseInterface mDatabaseInterface;
 
     QFileSystemWatcher mConfigFileWatcher;
-
-    int mImportedTracksCount = 0;
-
-    int mTotalImportedTracksCount = 0;
-
-    int mActiveMusicListenersCount = 0;
-
-    bool mIndexingRunning = false;
 
     ElisaApplication *mElisaApplication = nullptr;
 
@@ -103,6 +95,14 @@ public:
     AllTracksModel mAllTracksModel;
 
     AlbumModel mAlbumModel;
+
+    int mImportedTracksCount = 0;
+
+    int mTotalImportedTracksCount = 0;
+
+    int mActiveMusicListenersCount = 0;
+
+    bool mIndexingRunning = false;
 
     bool mIndexerBusy = false;
 
@@ -215,22 +215,23 @@ DatabaseInterface *MusicListenersManager::viewDatabase() const
 
 void MusicListenersManager::subscribeForTracks(MediaPlayList *client)
 {
-    auto helper = new TracksListener(&d->mDatabaseInterface);
+    auto helper = std::make_unique<TracksListener>(&d->mDatabaseInterface);
 
     helper->moveToThread(&d->mDatabaseThread);
-    connect(&d->mDatabaseThread, &QThread::finished, helper, &QObject::deleteLater);
+    connect(&d->mDatabaseThread, &QThread::finished, helper.get(), &QObject::deleteLater);
 
-    connect(this, &MusicListenersManager::trackRemoved, helper, &TracksListener::trackRemoved);
-    connect(this, &MusicListenersManager::tracksAdded, helper, &TracksListener::tracksAdded);
-    connect(this, &MusicListenersManager::trackModified, helper, &TracksListener::trackModified);
+    connect(this, &MusicListenersManager::trackRemoved, helper.get(), &TracksListener::trackRemoved);
+    connect(this, &MusicListenersManager::tracksAdded, helper.get(), &TracksListener::tracksAdded);
+    connect(this, &MusicListenersManager::trackModified, helper.get(), &TracksListener::trackModified);
     connect(this, &MusicListenersManager::removeTracksInError, &d->mDatabaseInterface, &DatabaseInterface::removeTracksList);
-    connect(helper, &TracksListener::trackHasChanged, client, &MediaPlayList::trackChanged);
-    connect(helper, &TracksListener::trackHasBeenRemoved, client, &MediaPlayList::trackRemoved);
-    connect(helper, &TracksListener::albumAdded, client, &MediaPlayList::albumAdded);
-    connect(client, &MediaPlayList::newTrackByIdInList, helper, &TracksListener::trackByIdInList);
-    connect(client, &MediaPlayList::newTrackByNameInList, helper, &TracksListener::trackByNameInList);
-    connect(client, &MediaPlayList::newTrackByFileNameInList, helper, &TracksListener::trackByFileNameInList);
-    connect(client, &MediaPlayList::newArtistInList, helper, &TracksListener::newArtistInList);
+    connect(helper.get(), &TracksListener::trackHasChanged, client, &MediaPlayList::trackChanged);
+    connect(helper.get(), &TracksListener::trackHasBeenRemoved, client, &MediaPlayList::trackRemoved);
+    connect(helper.get(), &TracksListener::albumAdded, client, &MediaPlayList::albumAdded);
+    connect(client, &MediaPlayList::newTrackByIdInList, helper.get(), &TracksListener::trackByIdInList);
+    connect(client, &MediaPlayList::newTrackByNameInList, helper.get(), &TracksListener::trackByNameInList);
+    connect(client, &MediaPlayList::newTrackByFileNameInList, helper.get(), &TracksListener::trackByFileNameInList);
+    connect(client, &MediaPlayList::newArtistInList, helper.get(), &TracksListener::newArtistInList);
+    helper.release();
 }
 
 int MusicListenersManager::importedTracksCount() const
@@ -349,27 +350,27 @@ void MusicListenersManager::configChanged()
 
 #if defined KF5Baloo_FOUND && KF5Baloo_FOUND
     if (currentConfiguration->balooIndexer() && !d->mBalooListener) {
-        d->mBalooListener.reset(new BalooListener);
+        d->mBalooListener = std::make_unique<BalooListener>();
         d->mBalooListener->moveToThread(&d->mListenerThread);
         d->mBalooListener->setDatabaseInterface(&d->mDatabaseInterface);
         connect(this, &MusicListenersManager::applicationIsTerminating,
-                d->mBalooListener.data(), &BalooListener::applicationAboutToQuit, Qt::DirectConnection);
-        connect(d->mBalooListener.data(), &BalooListener::indexingStarted,
+                d->mBalooListener.get(), &BalooListener::applicationAboutToQuit, Qt::DirectConnection);
+        connect(d->mBalooListener.get(), &BalooListener::indexingStarted,
                 this, &MusicListenersManager::monitorStartingListeners);
-        connect(d->mBalooListener.data(), &BalooListener::indexingFinished,
+        connect(d->mBalooListener.get(), &BalooListener::indexingFinished,
                 this, &MusicListenersManager::monitorEndingListeners);
-        connect(d->mBalooListener.data(), &BalooListener::clearDatabase,
+        connect(d->mBalooListener.get(), &BalooListener::clearDatabase,
                 &d->mDatabaseInterface, &DatabaseInterface::removeAllTracksFromSource);
-        connect(d->mBalooListener.data(), &BalooListener::importedTracksCountChanged,
+        connect(d->mBalooListener.get(), &BalooListener::importedTracksCountChanged,
                 this, &MusicListenersManager::computeImportedTracksCount);
-        connect(d->mBalooListener.data(), &BalooListener::newNotification,
+        connect(d->mBalooListener.get(), &BalooListener::newNotification,
                 this, &MusicListenersManager::newNotification);
-        connect(d->mBalooListener.data(), &BalooListener::closeNotification,
+        connect(d->mBalooListener.get(), &BalooListener::closeNotification,
                 this, &MusicListenersManager::closeNotification);
 
-        QMetaObject::invokeMethod(d->mBalooListener.data(), "performInitialScan", Qt::QueuedConnection);
+        QMetaObject::invokeMethod(d->mBalooListener.get(), "performInitialScan", Qt::QueuedConnection);
     } else if (!currentConfiguration->balooIndexer() && d->mBalooListener) {
-        QMetaObject::invokeMethod(d->mBalooListener.data(), "quitListener", Qt::QueuedConnection);
+        QMetaObject::invokeMethod(d->mBalooListener.get(), "quitListener", Qt::QueuedConnection);
         d->mBalooListener.reset();
     }
 #endif

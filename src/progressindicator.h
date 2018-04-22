@@ -58,7 +58,7 @@ public Q_SLOTS:
 
 private:
 
-    int mPosition;
+    int mPosition = 0;
 
     QString mProgressDuration;
 

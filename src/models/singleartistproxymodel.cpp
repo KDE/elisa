@@ -29,9 +29,7 @@ SingleArtistProxyModel::SingleArtistProxyModel(QObject *parent) : AbstractMediaP
 {
 }
 
-SingleArtistProxyModel::~SingleArtistProxyModel()
-{
-}
+SingleArtistProxyModel::~SingleArtistProxyModel() = default;
 
 QString SingleArtistProxyModel::artistFilter() const
 {

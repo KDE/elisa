@@ -131,7 +131,7 @@ public:
 
     QString resourceURI() const;
 
-    MusicAudioTrack trackData() const;
+    const MusicAudioTrack& trackData() const;
 
     void setTrackData(const MusicAudioTrack &track);
 

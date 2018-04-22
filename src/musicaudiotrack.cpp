@@ -26,18 +26,17 @@ class MusicAudioTrackPrivate
 {
 public:
 
-    MusicAudioTrackPrivate()
-    {
-    }
+    MusicAudioTrackPrivate() = default;
 
     MusicAudioTrackPrivate(bool aValid, QString aId, QString aParentId,
                            QString aTitle, QString aArtist, QString aAlbumName, QString aAlbumArtist,
                            int aTrackNumber, int aDiscNumber, QTime aDuration, QUrl aResourceURI,
                            QUrl aAlbumCover, int rating, bool aIsSingleDiscAlbum)
         : mId(std::move(aId)), mParentId(std::move(aParentId)), mTitle(std::move(aTitle)), mArtist(std::move(aArtist)),
-          mAlbumName(std::move(aAlbumName)), mAlbumArtist(std::move(aAlbumArtist)), mTrackNumber(aTrackNumber),
-          mDiscNumber(aDiscNumber), mDuration(aDuration), mResourceURI(std::move(aResourceURI)),
-          mAlbumCover(std::move(aAlbumCover)), mRating(rating), mIsValid(aValid), mIsSingleDiscAlbum(aIsSingleDiscAlbum)
+          mAlbumName(std::move(aAlbumName)), mAlbumArtist(std::move(aAlbumArtist)),
+          mResourceURI(std::move(aResourceURI)), mAlbumCover(std::move(aAlbumCover)),
+          mTrackNumber(aTrackNumber), mDiscNumber(aDiscNumber), mDuration(aDuration),
+          mRating(rating), mIsValid(aValid), mIsSingleDiscAlbum(aIsSingleDiscAlbum)
     {
     }
 
@@ -63,6 +62,10 @@ public:
 
     QString mComment;
 
+    QUrl mResourceURI;
+
+    QUrl mAlbumCover;
+
     int mTrackNumber = -1;
 
     int mDiscNumber = -1;
@@ -76,10 +79,6 @@ public:
     int mYear = 0;
 
     QTime mDuration;
-
-    QUrl mResourceURI;
-
-    QUrl mAlbumCover;
 
     int mRating = -1;
 

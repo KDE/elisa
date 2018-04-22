@@ -59,12 +59,12 @@ void Mpris2::initDBusService()
     }
 
     if (success) {
-        m_mp2 = new MediaPlayer2(this);
-        m_mp2p = new MediaPlayer2Player(m_playListControler, m_manageAudioPlayer, m_manageMediaPlayerControl, m_manageHeaderBar, m_audioPlayer, this);
+        m_mp2 = std::make_unique<MediaPlayer2>(this);
+        m_mp2p = std::make_unique<MediaPlayer2Player>(m_playListControler, m_manageAudioPlayer, m_manageMediaPlayerControl, m_manageHeaderBar, m_audioPlayer, this);
 
         QDBusConnection::sessionBus().registerObject(QStringLiteral("/org/mpris/MediaPlayer2"), this, QDBusConnection::ExportAdaptors);
 
-        connect(m_mp2, SIGNAL(raisePlayer()), this, SIGNAL(raisePlayer()));
+        connect(m_mp2.get(), SIGNAL(raisePlayer()), this, SIGNAL(raisePlayer()));
     }
 }
 

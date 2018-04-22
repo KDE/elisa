@@ -235,8 +235,8 @@ bool MediaPlayer2Player::CanControl() const
 void MediaPlayer2Player::Seek(qlonglong Offset)
 {
     if (mediaPlayerPresent()) {
-        int offset = (m_position + Offset) / 1000;
-        m_manageAudioPlayer->playerSeek(offset);
+        auto offset = (m_position + Offset) / 1000;
+        m_manageAudioPlayer->playerSeek(int(offset));
     }
 }
 
@@ -248,7 +248,7 @@ void MediaPlayer2Player::emitSeeked(int pos)
 void MediaPlayer2Player::SetPosition(const QDBusObjectPath &trackId, qlonglong pos)
 {
     if (trackId.path() == m_currentTrackId) {
-        m_manageAudioPlayer->playerSeek(pos / 1000);
+        m_manageAudioPlayer->playerSeek(int(pos / 1000));
     }
 }
 

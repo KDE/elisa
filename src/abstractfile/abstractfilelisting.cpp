@@ -349,9 +349,16 @@ void AbstractFileListing::addCover(const MusicAudioTrack &newTrack)
 
     QFileInfo trackFilePath(newTrack.resourceURI().toLocalFile());
     QDir trackFileDir = trackFilePath.absoluteDir();
+    QString dirNamePattern = QStringLiteral("*") + trackFileDir.dirName() + QStringLiteral("*");
     QStringList filters;
-    filters << QStringLiteral("cover.jpg") << QStringLiteral("cover.png")
-            << QStringLiteral("folder.jpg") << QStringLiteral("folder.png");
+    filters << QStringLiteral("*[Cc]over*.jpg") << QStringLiteral("*[Cc]over*.png")
+            << QStringLiteral("*[Ff]older*.jpg") << QStringLiteral("*[Ff]older*.png")
+            << QStringLiteral("*[Ff]ront*.jpg") << QStringLiteral("*[Ff]ront*.png")
+            << dirNamePattern + QStringLiteral(".jpg") << dirNamePattern + QStringLiteral(".png")
+            << dirNamePattern.toLower() + QStringLiteral(".jpg") << dirNamePattern.toLower() + QStringLiteral(".png");
+    dirNamePattern.remove(QLatin1Char(' '));
+    filters << dirNamePattern + QStringLiteral(".jpg") << dirNamePattern + QStringLiteral(".png")
+            << dirNamePattern.toLower() + QStringLiteral(".jpg") << dirNamePattern.toLower() + QStringLiteral(".png");
     trackFileDir.setNameFilters(filters);
     QFileInfoList coverFiles = trackFileDir.entryInfoList();
     if (coverFiles.isEmpty()) {

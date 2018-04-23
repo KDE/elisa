@@ -1322,7 +1322,7 @@ void DatabaseInterface::initRequest()
                                                   "LEFT JOIN `Artists` artist "
                                                   "ON "
                                                   "albumArtist.`ArtistID` = artist.`ID` "
-                                                  "ORDER BY album.`Title`");
+                                                  "ORDER BY album.`Title` COLLATE NOCASE");
 
         auto result = d->mSelectAllAlbumsQuery.prepare(selectAllAlbumsText);
 

@@ -66,7 +66,9 @@ public:
           mSelectTrackIdFromTitleAlbumTrackDiscNumberQuery(mTracksDatabase), mSelectAlbumArtUriFromAlbumIdQuery(mTracksDatabase),
           mInsertComposerQuery(mTracksDatabase), mSelectComposerByNameQuery(mTracksDatabase),
           mSelectComposerQuery(mTracksDatabase), mInsertLyricistQuery(mTracksDatabase),
-          mSelectLyricistByNameQuery(mTracksDatabase), mSelectLyricistQuery(mTracksDatabase)
+          mSelectLyricistByNameQuery(mTracksDatabase), mSelectLyricistQuery(mTracksDatabase),
+          mInsertGenreQuery(mTracksDatabase), mSelectGenreByNameQuery(mTracksDatabase),
+          mSelectGenreQuery(mTracksDatabase)
     {
     }
 
@@ -182,6 +184,12 @@ public:
 
     QSqlQuery mSelectLyricistQuery;
 
+    QSqlQuery mInsertGenreQuery;
+
+    QSqlQuery mSelectGenreByNameQuery;
+
+    QSqlQuery mSelectGenreQuery;
+
     qulonglong mAlbumId = 1;
 
     qulonglong mArtistId = 1;
@@ -189,6 +197,8 @@ public:
     qulonglong mComposerId = 1;
 
     qulonglong mLyricistId = 1;
+
+    qulonglong mGenreId = 1;
 
     qulonglong mTrackId = 1;
 
@@ -1094,7 +1104,7 @@ bool DatabaseInterface::rollBackTransaction() const
     return result;
 }
 
-void DatabaseInterface::initDatabase() const
+void DatabaseInterface::initDatabase()
 {
     auto transactionResult = startTransaction();
     if (!transactionResult) {
@@ -1112,6 +1122,8 @@ void DatabaseInterface::initDatabase() const
             if (!result) {
                 qDebug() << "DatabaseInterface::initDatabase" << createSchemaQuery.lastQuery();
                 qDebug() << "DatabaseInterface::initDatabase" << createSchemaQuery.lastError();
+
+                Q_EMIT databaseError();
             }
         }
 
@@ -1126,6 +1138,8 @@ void DatabaseInterface::initDatabase() const
         if (!result) {
             qDebug() << "DatabaseInterface::initDatabase" << createSchemaQuery.lastQuery();
             qDebug() << "DatabaseInterface::initDatabase" << createSchemaQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -1139,6 +1153,8 @@ void DatabaseInterface::initDatabase() const
         if (!result) {
             qDebug() << "DatabaseInterface::initDatabase" << createSchemaQuery.lastQuery();
             qDebug() << "DatabaseInterface::initDatabase" << createSchemaQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -1152,6 +1168,8 @@ void DatabaseInterface::initDatabase() const
         if (!result) {
             qDebug() << "DatabaseInterface::initDatabase" << createSchemaQuery.lastQuery();
             qDebug() << "DatabaseInterface::initDatabase" << createSchemaQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -1165,6 +1183,23 @@ void DatabaseInterface::initDatabase() const
         if (!result) {
             qDebug() << "DatabaseInterface::initDatabase" << createSchemaQuery.lastQuery();
             qDebug() << "DatabaseInterface::initDatabase" << createSchemaQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    if (!listTables.contains(QStringLiteral("Genre"))) {
+        QSqlQuery createSchemaQuery(d->mTracksDatabase);
+
+        const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `Genre` (`ID` INTEGER PRIMARY KEY NOT NULL, "
+                                                                   "`Name` VARCHAR(85) NOT NULL, "
+                                                                   "UNIQUE (`Name`))"));
+
+        if (!result) {
+            qDebug() << "DatabaseInterface::initDatabase" << createSchemaQuery.lastQuery();
+            qDebug() << "DatabaseInterface::initDatabase" << createSchemaQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -1178,6 +1213,8 @@ void DatabaseInterface::initDatabase() const
         if (!result) {
             qDebug() << "DatabaseInterface::initDatabase" << createSchemaQuery.lastQuery();
             qDebug() << "DatabaseInterface::initDatabase" << createSchemaQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -1213,6 +1250,8 @@ void DatabaseInterface::initDatabase() const
         if (!result) {
             qDebug() << "DatabaseInterface::initDatabase" << createSchemaQuery.lastQuery();
             qDebug() << "DatabaseInterface::initDatabase" << createSchemaQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -1227,7 +1266,7 @@ void DatabaseInterface::initDatabase() const
                                                                    "`DiscNumber` INTEGER DEFAULT -1, "
                                                                    "`Duration` INTEGER NOT NULL, "
                                                                    "`Rating` INTEGER NOT NULL DEFAULT 0, "
-                                                                   "`Genre` VARCHAR(85) DEFAULT '', "
+                                                                   "`GenreID` INTEGER DEFAULT -1, "
                                                                    "`ComposerID` INTEGER, "
                                                                    "`LyricistID` INTEGER, "
                                                                    "`Comment` VARCHAR(85) DEFAULT '', "
@@ -1238,11 +1277,14 @@ void DatabaseInterface::initDatabase() const
                                                                    "UNIQUE (`Title`, `AlbumID`, `TrackNumber`, `DiscNumber`), "
                                                                    "CONSTRAINT fk_tracks_composer FOREIGN KEY (`ComposerID`) REFERENCES `Composer`(`ID`), "
                                                                    "CONSTRAINT fk_tracks_lyricist FOREIGN KEY (`LyricistID`) REFERENCES `Lyricist`(`ID`), "
+                                                                   "CONSTRAINT fk_tracks_genre FOREIGN KEY (`GenreID`) REFERENCES `Genre`(`ID`), "
                                                                    "CONSTRAINT fk_tracks_album FOREIGN KEY (`AlbumID`) REFERENCES `Albums`(`ID`))"));
 
         if (!result) {
             qDebug() << "DatabaseInterface::initDatabase" << createSchemaQuery.lastQuery();
             qDebug() << "DatabaseInterface::initDatabase" << createSchemaQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -1261,6 +1303,8 @@ void DatabaseInterface::initDatabase() const
         if (!result) {
             qDebug() << "DatabaseInterface::initDatabase" << createSchemaQuery.lastQuery();
             qDebug() << "DatabaseInterface::initDatabase" << createSchemaQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -1296,6 +1340,8 @@ void DatabaseInterface::initDatabase() const
         if (!result) {
             qDebug() << "DatabaseInterface::initDatabase" << createTrackIndex.lastQuery();
             qDebug() << "DatabaseInterface::initDatabase" << createTrackIndex.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -1310,6 +1356,8 @@ void DatabaseInterface::initDatabase() const
         if (!result) {
             qDebug() << "DatabaseInterface::initDatabase" << createTrackIndex.lastQuery();
             qDebug() << "DatabaseInterface::initDatabase" << createTrackIndex.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -1322,7 +1370,10 @@ void DatabaseInterface::initDatabase() const
                                                                   "(`AlbumID`)"));
 
         if (!result) {
+            qDebug() << "DatabaseInterface::initDatabase" << createTrackIndex.lastQuery();
             qDebug() << "DatabaseInterface::initDatabase" << createTrackIndex.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -1337,6 +1388,8 @@ void DatabaseInterface::initDatabase() const
         if (!result) {
             qDebug() << "DatabaseInterface::initDatabase" << createTrackIndex.lastQuery();
             qDebug() << "DatabaseInterface::initDatabase" << createTrackIndex.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -1351,6 +1404,8 @@ void DatabaseInterface::initDatabase() const
         if (!result) {
             qDebug() << "DatabaseInterface::initDatabase" << createTrackIndex.lastQuery();
             qDebug() << "DatabaseInterface::initDatabase" << createTrackIndex.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -1365,6 +1420,8 @@ void DatabaseInterface::initDatabase() const
         if (!result) {
             qDebug() << "DatabaseInterface::initDatabase" << createTrackIndex.lastQuery();
             qDebug() << "DatabaseInterface::initDatabase" << createTrackIndex.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -1405,6 +1462,8 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAlbumQuery.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAlbumQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -1431,6 +1490,8 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllAlbumsQuery.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllAlbumsQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -1445,6 +1506,8 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllArtistsQuery.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllArtistsQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -1464,7 +1527,7 @@ void DatabaseInterface::initRequest()
                                                   "tracks.`Rating`, "
                                                   "album.`CoverFileName`, "
                                                   "album.`IsSingleDiscAlbum`, "
-                                                  "tracks.`Genre`, "
+                                                  "trackGenre.`Name`, "
                                                   "trackComposer.`Name`, "
                                                   "trackLyricist.`Name`, "
                                                   "tracks.`Comment`, "
@@ -1477,6 +1540,7 @@ void DatabaseInterface::initRequest()
                                                   "`Albums` album, `TracksMapping` tracksMapping "
                                                   "LEFT JOIN `AlbumsArtists` artistAlbumMapping ON artistAlbumMapping.`AlbumID` = album.`ID` "
                                                   "LEFT JOIN `Artists` artistAlbum ON artistAlbum.`ID` = artistAlbumMapping.`ArtistID` "
+                                                  "LEFT JOIN `Genre` trackGenre ON trackGenre.`ID` = tracks.`GenreID` "
                                                   "LEFT JOIN `Composer` trackComposer ON trackComposer.`ID` = tracks.`ComposerID` "
                                                   "LEFT JOIN `Lyricist` trackLyricist ON trackLyricist.`ID` = tracks.`LyricistID` "
                                                   "WHERE "
@@ -1491,6 +1555,8 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllTracksQuery.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllTracksQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -1510,7 +1576,7 @@ void DatabaseInterface::initRequest()
                                                                         "tracks.`Rating`, "
                                                                         "album.`CoverFileName`, "
                                                                         "album.`IsSingleDiscAlbum`, "
-                                                                        "tracks.`Genre`, "
+                                                                        "trackGenre.`Name`, "
                                                                         "trackComposer.`Name`, "
                                                                         "trackLyricist.`Name`, "
                                                                         "tracks.`Comment`, "
@@ -1525,6 +1591,7 @@ void DatabaseInterface::initRequest()
                                                                         "LEFT JOIN `Artists` artistAlbum ON artistAlbum.`ID` = artistAlbumMapping.`ArtistID` "
                                                                         "LEFT JOIN `Composer` trackComposer ON trackComposer.`ID` = tracks.`ComposerID` "
                                                                         "LEFT JOIN `Lyricist` trackLyricist ON trackLyricist.`ID` = tracks.`LyricistID` "
+                                                                        "LEFT JOIN `Genre` trackGenre ON trackGenre.`ID` = tracks.`GenreID` "
                                                                         "WHERE "
                                                                         "tracks.`ID` = trackArtist.`TrackID` AND "
                                                                         "artist.`ID` = trackArtist.`ArtistID` AND "
@@ -1539,6 +1606,8 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllInvalidTracksFromSourceQuery.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllInvalidTracksFromSourceQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -1558,7 +1627,7 @@ void DatabaseInterface::initRequest()
                                                                  "tracks.`Rating`, "
                                                                  "album.`CoverFileName`, "
                                                                  "album.`IsSingleDiscAlbum`, "
-                                                                 "tracks.`Genre`, "
+                                                                 "trackGenre.`Name`, "
                                                                  "trackComposer.`Name`, "
                                                                  "trackLyricist.`Name`, "
                                                                  "tracks.`Comment`, "
@@ -1573,6 +1642,7 @@ void DatabaseInterface::initRequest()
                                                                  "LEFT JOIN `Artists` artistAlbum ON artistAlbum.`ID` = artistAlbumMapping.`ArtistID` "
                                                                  "LEFT JOIN `Composer` trackComposer ON trackComposer.`ID` = tracks.`ComposerID` "
                                                                  "LEFT JOIN `Lyricist` trackLyricist ON trackLyricist.`ID` = tracks.`LyricistID` "
+                                                                 "LEFT JOIN `Genre` trackGenre ON trackGenre.`ID` = tracks.`GenreID` "
                                                                  "WHERE "
                                                                  "tracks.`ID` = trackArtist.`TrackID` AND "
                                                                  "artist.`ID` = trackArtist.`ArtistID` AND "
@@ -1587,6 +1657,8 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllTracksFromSourceQuery.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllTracksFromSourceQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -1602,15 +1674,17 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectArtistByNameQuery.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectArtistByNameQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
     {
         auto selectComposerByNameText = QStringLiteral("SELECT `ID`, "
-                                                     "`Name` "
-                                                     "FROM `Composer` "
-                                                     "WHERE "
-                                                     "`Name` = :name");
+                                                       "`Name` "
+                                                       "FROM `Composer` "
+                                                       "WHERE "
+                                                       "`Name` = :name");
 
         auto result = d->mSelectComposerByNameQuery.prepare(selectComposerByNameText);
 
@@ -1622,16 +1696,33 @@ void DatabaseInterface::initRequest()
 
     {
         auto selectLyricistByNameText = QStringLiteral("SELECT `ID`, "
-                                                     "`Name` "
-                                                     "FROM `Lyricist` "
-                                                     "WHERE "
-                                                     "`Name` = :name");
+                                                       "`Name` "
+                                                       "FROM `Lyricist` "
+                                                       "WHERE "
+                                                       "`Name` = :name");
 
         auto result = d->mSelectLyricistByNameQuery.prepare(selectLyricistByNameText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectLyricistByNameQuery.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectLyricistByNameQuery.lastError();
+        }
+    }
+
+    {
+        auto selectGenreByNameText = QStringLiteral("SELECT `ID`, "
+                                                    "`Name` "
+                                                    "FROM `Genre` "
+                                                    "WHERE "
+                                                    "`Name` = :name");
+
+        auto result = d->mSelectGenreByNameQuery.prepare(selectGenreByNameText);
+
+        if (!result) {
+            qDebug() << "DatabaseInterface::initRequest" << d->mSelectGenreByNameQuery.lastQuery();
+            qDebug() << "DatabaseInterface::initRequest" << d->mSelectGenreByNameQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -1644,12 +1735,28 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mInsertArtistsQuery.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mInsertArtistsQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        auto insertGenreText = QStringLiteral("INSERT INTO `Genre` (`ID`, `Name`) "
+                                              "VALUES (:genreId, :name)");
+
+        auto result = d->mInsertGenreQuery.prepare(insertGenreText);
+
+        if (!result) {
+            qDebug() << "DatabaseInterface::initRequest" << d->mInsertGenreQuery.lastQuery();
+            qDebug() << "DatabaseInterface::initRequest" << d->mInsertGenreQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
     {
         auto insertComposerText = QStringLiteral("INSERT INTO `Composer` (`ID`, `Name`) "
-                                                "VALUES (:composerId, :name)");
+                                                 "VALUES (:composerId, :name)");
 
         auto result = d->mInsertComposerQuery.prepare(insertComposerText);
 
@@ -1661,7 +1768,7 @@ void DatabaseInterface::initRequest()
 
     {
         auto insertLyricistText = QStringLiteral("INSERT INTO `Lyricist` (`ID`, `Name`) "
-                                                "VALUES (:lyricistId, :name)");
+                                                 "VALUES (:lyricistId, :name)");
 
         auto result = d->mInsertLyricistQuery.prepare(insertLyricistText);
 
@@ -1687,7 +1794,7 @@ void DatabaseInterface::initRequest()
                                                    "tracks.`Rating`, "
                                                    "album.`CoverFileName`, "
                                                    "album.`IsSingleDiscAlbum`, "
-                                                   "tracks.`Genre`, "
+                                                   "trackGenre.`Name`, "
                                                    "trackComposer.`Name`, "
                                                    "trackLyricist.`Name`, "
                                                    "tracks.`Comment`, "
@@ -1702,6 +1809,7 @@ void DatabaseInterface::initRequest()
                                                    "LEFT JOIN `Artists` artistAlbum ON artistAlbum.`ID` = artistAlbumMapping.`ArtistID` "
                                                    "LEFT JOIN `Composer` trackComposer ON trackComposer.`ID` = tracks.`ComposerID` "
                                                    "LEFT JOIN `Lyricist` trackLyricist ON trackLyricist.`ID` = tracks.`LyricistID` "
+                                                   "LEFT JOIN `Genre` trackGenre ON trackGenre.`ID` = tracks.`GenreID` "
                                                    "WHERE "
                                                    "tracks.`ID` = trackArtist.`TrackID` AND "
                                                    "artist.`ID` = trackArtist.`ArtistID` AND "
@@ -1717,6 +1825,8 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectTrackQuery.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectTrackQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
     {
@@ -1735,7 +1845,7 @@ void DatabaseInterface::initRequest()
                                                          "tracks.`Rating`, "
                                                          "album.`CoverFileName`, "
                                                          "album.`IsSingleDiscAlbum`, "
-                                                         "tracks.`Genre`, "
+                                                         "trackGenre.`Name`, "
                                                          "trackComposer.`Name`, "
                                                          "trackLyricist.`Name`, "
                                                          "tracks.`Comment`, "
@@ -1750,6 +1860,7 @@ void DatabaseInterface::initRequest()
                                                          "LEFT JOIN `Artists` artistAlbum ON artistAlbum.`ID` = artistAlbumMapping.`ArtistID` "
                                                          "LEFT JOIN `Composer` trackComposer ON trackComposer.`ID` = tracks.`ComposerID` "
                                                          "LEFT JOIN `Lyricist` trackLyricist ON trackLyricist.`ID` = tracks.`LyricistID` "
+                                                         "LEFT JOIN `Genre` trackGenre ON trackGenre.`ID` = tracks.`GenreID` "
                                                          "WHERE "
                                                          "tracks.`ID` = trackArtist.`TrackID` AND "
                                                          "artist.`ID` = trackArtist.`ArtistID` AND "
@@ -1763,6 +1874,8 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectTrackFromIdQuery.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectTrackFromIdQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
     {
@@ -1777,6 +1890,8 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectCountAlbumsForArtistQuery.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectCountAlbumsForArtistQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
     {
@@ -1795,6 +1910,8 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAlbumIdFromTitleQuery.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAlbumIdFromTitleQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -1814,6 +1931,8 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAlbumIdFromTitleAndArtistQuery.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAlbumIdFromTitleAndArtistQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -1838,6 +1957,8 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAlbumIdFromTitleWithoutArtistQuery.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAlbumIdFromTitleWithoutArtistQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -1850,6 +1971,8 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mInsertAlbumQuery.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mInsertAlbumQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -1862,6 +1985,8 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mInsertAlbumArtistQuery.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mInsertAlbumArtistQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -1874,6 +1999,8 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mInsertTrackArtistQuery.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mInsertTrackArtistQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -1892,6 +2019,8 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mInsertTrackMapping.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mInsertTrackMapping.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -1903,6 +2032,8 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mInitialUpdateTracksValidity.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mInitialUpdateTracksValidity.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -1920,6 +2051,8 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mUpdateTrackMapping.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mUpdateTrackMapping.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -1932,6 +2065,8 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mRemoveTracksMappingFromSource.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mRemoveTracksMappingFromSource.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -1944,6 +2079,8 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mRemoveTracksMapping.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mRemoveTracksMapping.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -1963,7 +2100,7 @@ void DatabaseInterface::initRequest()
                                                                   "tracks.`Rating`, "
                                                                   "album.`CoverFileName`, "
                                                                   "album.`IsSingleDiscAlbum`, "
-                                                                  "tracks.`Genre`, "
+                                                                  "trackGenre.`Name`, "
                                                                   "trackComposer.`Name`, "
                                                                   "trackLyricist.`Name`, "
                                                                   "tracks.`Comment`, "
@@ -1980,6 +2117,7 @@ void DatabaseInterface::initRequest()
                                                                   "LEFT JOIN `Artists` artistAlbum ON artistAlbum.`ID` = artistAlbumMapping.`ArtistID` "
                                                                   "LEFT JOIN `Composer` trackComposer ON trackComposer.`ID` = tracks.`ComposerID` "
                                                                   "LEFT JOIN `Lyricist` trackLyricist ON trackLyricist.`ID` = tracks.`LyricistID` "
+                                                                  "LEFT JOIN `Genre` trackGenre ON trackGenre.`ID` = tracks.`GenreID` "
                                                                   "WHERE "
                                                                   "tracks.`ID` = trackArtist.`TrackID` AND "
                                                                   "artist.`ID` = trackArtist.`ArtistID` AND "
@@ -1991,6 +2129,8 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectTracksWithoutMappingQuery.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectTracksWithoutMappingQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -2011,6 +2151,8 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectTracksMapping.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectTracksMapping.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -2028,6 +2170,8 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectTracksMappingPriority.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectTracksMappingPriority.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -2044,6 +2188,8 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectTracksMappingPriorityByTrackId.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectTracksMappingPriorityByTrackId.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -2060,6 +2206,8 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllTrackFilesFromSourceQuery.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllTrackFilesFromSourceQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -2077,6 +2225,8 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mFindInvalidTrackFilesQuery.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mFindInvalidTrackFilesQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -2089,6 +2239,8 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mInsertMusicSource.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mInsertMusicSource.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -2100,6 +2252,8 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectMusicSource.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectMusicSource.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -2123,16 +2277,22 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectTrackIdFromTitleAlbumIdArtistQuery.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectTrackIdFromTitleAlbumIdArtistQuery.lastError();
+
+            Q_EMIT databaseError();
         }
+    }
 
-        auto insertTrackQueryText = QStringLiteral("INSERT INTO `Tracks` (`ID`, `Title`, `AlbumID`, `Genre`, `ComposerID`, `LyricistID`, `Comment`, `TrackNumber`, `DiscNumber`, `Channels`, `BitRate`, `SampleRate`, `Year`,  `Duration`, `Rating` ) "
-                                                   "VALUES (:trackId, :title, :album, :genre, :composerId, :lyricistId, :comment, :trackNumber, :discNumber, :channels, :bitRate, :sampleRate, :year, :trackDuration, :trackRating)");
+    {
+        auto insertTrackQueryText = QStringLiteral("INSERT INTO `Tracks` (`ID`, `Title`, `AlbumID`, `GenreID`, `ComposerID`, `LyricistID`, `Comment`, `TrackNumber`, `DiscNumber`, `Channels`, `BitRate`, `SampleRate`, `Year`,  `Duration`, `Rating` ) "
+                                                   "VALUES (:trackId, :title, :album, :genreId, :composerId, :lyricistId, :comment, :trackNumber, :discNumber, :channels, :bitRate, :sampleRate, :year, :trackDuration, :trackRating)");
 
-        result = d->mInsertTrackQuery.prepare(insertTrackQueryText);
+        auto result = d->mInsertTrackQuery.prepare(insertTrackQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mInsertTrackQuery.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mInsertTrackQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
     {
@@ -2158,6 +2318,8 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -2196,6 +2358,8 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectTrackIdFromTitleAlbumTrackDiscNumberQuery.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectTrackIdFromTitleAlbumTrackDiscNumberQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -2211,6 +2375,8 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAlbumArtUriFromAlbumIdQuery.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAlbumArtUriFromAlbumIdQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -2225,6 +2391,8 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAlbumTrackCountQuery.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAlbumTrackCountQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
     {
@@ -2238,6 +2406,8 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mUpdateAlbumQuery.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mUpdateAlbumQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -2252,6 +2422,8 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mUpdateIsSingleDiscAlbumFromIdQuery.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mUpdateIsSingleDiscAlbumFromIdQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -2266,6 +2438,8 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mUpdateAlbumArtUriFromAlbumIdQuery.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mUpdateAlbumArtUriFromAlbumIdQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -2285,7 +2459,7 @@ void DatabaseInterface::initRequest()
                                                               "tracks.`Rating`, "
                                                               "album.`CoverFileName`, "
                                                               "album.`IsSingleDiscAlbum`, "
-                                                              "tracks.`Genre`, "
+                                                              "trackGenre.`Name`, "
                                                               "trackComposer.`Name`, "
                                                               "trackLyricist.`Name`, "
                                                               "tracks.`Comment`, "
@@ -2299,6 +2473,7 @@ void DatabaseInterface::initRequest()
                                                               "LEFT JOIN `Artists` artistAlbum ON artistAlbum.`ID` = artistAlbumMapping.`ArtistID` "
                                                               "LEFT JOIN `Composer` trackComposer ON trackComposer.`ID` = tracks.`ComposerID` "
                                                               "LEFT JOIN `Lyricist` trackLyricist ON trackLyricist.`ID` = tracks.`LyricistID` "
+                                                              "LEFT JOIN `Genre` trackGenre ON trackGenre.`ID` = tracks.`GenreID` "
                                                               "WHERE "
                                                               "artist.`Name` = :artistName AND "
                                                               "tracks.`AlbumID` = album.`ID` AND "
@@ -2314,6 +2489,8 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectTracksFromArtist.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectTracksFromArtist.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -2334,6 +2511,8 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAlbumIdsFromArtist.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAlbumIdsFromArtist.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -2349,15 +2528,34 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectArtistQuery.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectArtistQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        auto selectGenreQueryText = QStringLiteral("SELECT `ID`, "
+                                                   "`Name` "
+                                                   "FROM `Genre` "
+                                                   "WHERE "
+                                                   "`ID` = :genreId");
+
+        auto result = d->mSelectGenreQuery.prepare(selectGenreQueryText);
+
+        if (!result) {
+            qDebug() << "DatabaseInterface::initRequest" << d->mSelectGenreQuery.lastQuery();
+            qDebug() << "DatabaseInterface::initRequest" << d->mSelectGenreQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
     {
         auto selectComposerQueryText = QStringLiteral("SELECT `ID`, "
-                                                    "`Name` "
-                                                    "FROM `Composer` "
-                                                    "WHERE "
-                                                    "`ID` = :composerId");
+                                                      "`Name` "
+                                                      "FROM `Composer` "
+                                                      "WHERE "
+                                                      "`ID` = :composerId");
 
         auto result = d->mSelectComposerQuery.prepare(selectComposerQueryText);
 
@@ -2369,10 +2567,10 @@ void DatabaseInterface::initRequest()
 
     {
         auto selectLyricistQueryText = QStringLiteral("SELECT `ID`, "
-                                                    "`Name` "
-                                                    "FROM `Lyricist` "
-                                                    "WHERE "
-                                                    "`ID` = :lyricistId");
+                                                      "`Name` "
+                                                      "FROM `Lyricist` "
+                                                      "WHERE "
+                                                      "`ID` = :lyricistId");
 
         auto result = d->mSelectLyricistQuery.prepare(selectLyricistQueryText);
 
@@ -2398,7 +2596,7 @@ void DatabaseInterface::initRequest()
                                                                "tracks.`Rating`, "
                                                                "album.`CoverFileName`, "
                                                                "album.`IsSingleDiscAlbum`, "
-                                                               "tracks.`Genre`, "
+                                                               "trackGenre.`Name`, "
                                                                "trackComposer.`Name`, "
                                                                "trackLyricist.`Name`, "
                                                                "tracks.`Comment`, "
@@ -2412,6 +2610,7 @@ void DatabaseInterface::initRequest()
                                                                "LEFT JOIN `Artists` artistAlbum ON artistAlbum.`ID` = artistAlbumMapping.`ArtistID` "
                                                                "LEFT JOIN `Composer` trackComposer ON trackComposer.`ID` = tracks.`ComposerID` "
                                                                "LEFT JOIN `Lyricist` trackLyricist ON trackLyricist.`ID` = tracks.`LyricistID` "
+                                                               "LEFT JOIN `Genre` trackGenre ON trackGenre.`ID` = tracks.`GenreID` "
                                                                "WHERE "
                                                                "tracks.`AlbumID` = album.`ID` AND "
                                                                "artist.`ID` = trackArtist.`ArtistID` AND "
@@ -2425,6 +2624,8 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectTrackFromFilePathQuery.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectTrackFromFilePathQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -2438,6 +2639,8 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mRemoveTrackQuery.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mRemoveTrackQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -2451,6 +2654,8 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mRemoveTrackArtistQuery.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mRemoveTrackArtistQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -2464,6 +2669,8 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mRemoveAlbumQuery.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mRemoveAlbumQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -2477,6 +2684,8 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mRemoveAlbumArtistQuery.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mRemoveAlbumArtistQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -2490,6 +2699,8 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mRemoveArtistQuery.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mRemoveArtistQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -2805,6 +3016,7 @@ qulonglong DatabaseInterface::insertComposer(const QString &name)
         return result;
     }
 
+
     if (d->mSelectComposerByNameQuery.next()) {
         result = d->mSelectComposerByNameQuery.record().value(0).toULongLong();
 
@@ -2839,6 +3051,107 @@ qulonglong DatabaseInterface::insertComposer(const QString &name)
     d->mInsertComposerQuery.finish();
 
     Q_EMIT composerAdded(internalComposerFromId(d->mComposerId - 1));
+
+    return result;
+}
+
+qulonglong DatabaseInterface::insertGenre(const QString &name)
+{
+    auto result = qulonglong(0);
+
+    if (name.isEmpty()) {
+        return result;
+    }
+
+    d->mSelectGenreByNameQuery.bindValue(QStringLiteral(":name"), name);
+
+    auto queryResult = d->mSelectGenreByNameQuery.exec();
+
+    if (!queryResult || !d->mSelectGenreByNameQuery.isSelect() || !d->mSelectGenreByNameQuery.isActive()) {
+        Q_EMIT databaseError();
+
+        qDebug() << "DatabaseInterface::insertGenre" << d->mSelectGenreByNameQuery.lastQuery();
+        qDebug() << "DatabaseInterface::insertGenre" << d->mSelectGenreByNameQuery.boundValues();
+        qDebug() << "DatabaseInterface::insertGenre" << d->mSelectGenreByNameQuery.lastError();
+
+        d->mSelectGenreByNameQuery.finish();
+
+        return result;
+    }
+
+    if (d->mSelectGenreByNameQuery.next()) {
+        result = d->mSelectGenreByNameQuery.record().value(0).toULongLong();
+
+        d->mSelectGenreByNameQuery.finish();
+
+        return result;
+    }
+
+    d->mSelectGenreByNameQuery.finish();
+
+    d->mInsertGenreQuery.bindValue(QStringLiteral(":genreId"), d->mGenreId);
+    d->mInsertGenreQuery.bindValue(QStringLiteral(":name"), name);
+
+    queryResult = d->mInsertGenreQuery.exec();
+
+    if (!queryResult || !d->mInsertGenreQuery.isActive()) {
+        Q_EMIT databaseError();
+
+        qDebug() << "DatabaseInterface::insertGenre" << d->mInsertGenreQuery.lastQuery();
+        qDebug() << "DatabaseInterface::insertGenre" << d->mInsertGenreQuery.boundValues();
+        qDebug() << "DatabaseInterface::insertGenre" << d->mInsertGenreQuery.lastError();
+
+        d->mInsertGenreQuery.finish();
+
+        return result;
+    }
+
+    result = d->mGenreId;
+
+    ++d->mGenreId;
+
+    d->mInsertGenreQuery.finish();
+
+    Q_EMIT genreAdded(internalGenreFromId(d->mGenreId - 1));
+
+    return result;
+}
+
+QString DatabaseInterface::internalGenreFromId(qulonglong genreId)
+{
+    auto result = QString{};
+
+    if (!d || !d->mTracksDatabase.isValid() || !d->mInitFinished) {
+        return result;
+    }
+
+    d->mSelectGenreQuery.bindValue(QStringLiteral(":genreId"), genreId);
+
+    auto queryResult = d->mSelectGenreQuery.exec();
+
+    if (!queryResult || !d->mSelectGenreQuery.isSelect() || !d->mSelectGenreQuery.isActive()) {
+        Q_EMIT databaseError();
+
+        qDebug() << "DatabaseInterface::internalGenreFromId" << d->mSelectGenreQuery.lastQuery();
+        qDebug() << "DatabaseInterface::internalGenreFromId" << d->mSelectGenreQuery.boundValues();
+        qDebug() << "DatabaseInterface::internalGenreFromId" << d->mSelectGenreQuery.lastError();
+
+        d->mSelectGenreQuery.finish();
+
+        return result;
+    }
+
+    if (!d->mSelectGenreQuery.next()) {
+        d->mSelectGenreQuery.finish();
+
+        return result;
+    }
+
+    const auto &currentRecord = d->mSelectGenreQuery.record();
+
+    result = currentRecord.value(0).toString();
+
+    d->mSelectGenreQuery.finish();
 
     return result;
 }
@@ -3022,7 +3335,7 @@ qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrac
         d->mInsertTrackQuery.bindValue(QStringLiteral(":discNumber"), oneTrack.discNumber());
         d->mInsertTrackQuery.bindValue(QStringLiteral(":trackDuration"), QVariant::fromValue<qlonglong>(oneTrack.duration().msecsSinceStartOfDay()));
         d->mInsertTrackQuery.bindValue(QStringLiteral(":trackRating"), oneTrack.rating());
-        d->mInsertTrackQuery.bindValue(QStringLiteral(":genre"), oneTrack.genre());
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":genreId"), insertGenre(oneTrack.genre()));
         d->mInsertTrackQuery.bindValue(QStringLiteral(":composerId"), insertComposer(oneTrack.composer()));
         d->mInsertTrackQuery.bindValue(QStringLiteral(":lyricistId"), insertLyricist(oneTrack.lyricist()));
         d->mInsertTrackQuery.bindValue(QStringLiteral(":comment"), oneTrack.comment());

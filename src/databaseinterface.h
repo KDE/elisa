@@ -110,6 +110,8 @@ Q_SIGNALS:
 
     void requestsInitDone();
 
+    void genreAdded(QString genreName);
+
     void databaseError();
 
 public Q_SLOTS:
@@ -165,7 +167,7 @@ private:
 
     QList<qulonglong> internalAlbumIdsFromAuthor(const QString &artistName);
 
-    void initDatabase() const;
+    void initDatabase();
 
     void initRequest();
 
@@ -179,6 +181,10 @@ private:
     qulonglong insertArtist(const QString &name, QList<qulonglong> &newArtistsIds);
 
     qulonglong internalArtistIdFromName(const QString &name);
+
+    qulonglong insertGenre(const QString &name);
+
+    QString internalGenreFromId(qulonglong genreId);
 
     void removeTrackInDatabase(qulonglong trackId);
 

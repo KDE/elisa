@@ -1335,7 +1335,8 @@ void DatabaseInterface::initRequest()
     {
         auto selectAllArtistsWithFilterText = QStringLiteral("SELECT `ID`, "
                                                              "`Name` "
-                                                             "FROM `Artists`");
+                                                             "FROM `Artists` "
+                                                             "ORDER BY `Name` COLLATE NOCASE");
 
         auto result = d->mSelectAllArtistsQuery.prepare(selectAllArtistsWithFilterText);
 

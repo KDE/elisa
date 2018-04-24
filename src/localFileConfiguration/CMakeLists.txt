@@ -35,9 +35,9 @@ endif()
 
 kcoreaddons_desktop_to_json(kcm_elisa_local_file "kcm_elisa_local_file.desktop")
 
-install(FILES kcm_elisa_local_file.desktop DESTINATION ${SERVICES_INSTALL_DIR})
-install(TARGETS kcm_elisa_local_file DESTINATION ${PLUGIN_INSTALL_DIR}/kcms)
+install(FILES kcm_elisa_local_file.desktop DESTINATION ${KDE_INSTALL_KSERVICES5DIR})
+install(TARGETS kcm_elisa_local_file DESTINATION ${KDE_INSTALL_PLUGINDIR}/kcms)
 
 if (KF5Package_FOUND)
-    kpackage_install_package(package kcm_elisa_local_file kcms)
+    kpackage_install_bundled_package(package kcm_elisa_local_file kcms)
 endif()

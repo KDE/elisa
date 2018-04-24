@@ -31,16 +31,15 @@ public:
     MusicAudioTrackPrivate(bool aValid, QString aId, QString aParentId,
                            QString aTitle, QString aArtist, QString aAlbumName, QString aAlbumArtist,
                            int aTrackNumber, int aDiscNumber, QTime aDuration, QUrl aResourceURI,
-                           QUrl aAlbumCover, int rating, bool aIsSingleDiscAlbum)
+                           QUrl aAlbumCover, int rating, bool aIsSingleDiscAlbum, QString aGenre)
         : mId(std::move(aId)), mParentId(std::move(aParentId)), mTitle(std::move(aTitle)), mArtist(std::move(aArtist)),
           mAlbumName(std::move(aAlbumName)), mAlbumArtist(std::move(aAlbumArtist)),
-          mResourceURI(std::move(aResourceURI)), mAlbumCover(std::move(aAlbumCover)),
-          mTrackNumber(aTrackNumber), mDiscNumber(aDiscNumber), mDuration(aDuration),
-          mRating(rating), mIsValid(aValid), mIsSingleDiscAlbum(aIsSingleDiscAlbum)
+          mGenre(std::move(aGenre)), mResourceURI(std::move(aResourceURI)),
+          mAlbumCover(std::move(aAlbumCover)), mDuration(aDuration),
+          mTrackNumber(aTrackNumber), mDiscNumber(aDiscNumber), mRating(rating),
+          mIsValid(aValid), mIsSingleDiscAlbum(aIsSingleDiscAlbum)
     {
     }
-
-    qulonglong mDatabaseId = 0;
 
     QString mId;
 
@@ -66,6 +65,10 @@ public:
 
     QUrl mAlbumCover;
 
+    qulonglong mDatabaseId = 0;
+
+    QTime mDuration;
+
     int mTrackNumber = -1;
 
     int mDiscNumber = -1;
@@ -77,8 +80,6 @@ public:
     int mSampleRate = -1;
 
     int mYear = 0;
-
-    QTime mDuration;
 
     int mRating = -1;
 
@@ -92,14 +93,15 @@ MusicAudioTrack::MusicAudioTrack() : d(std::make_unique<MusicAudioTrackPrivate>(
 {
 }
 
-MusicAudioTrack::MusicAudioTrack(bool aValid, const QString &aId, const QString &aParentId,
-                                 const QString &aTitle, const QString &aArtist, const QString &aAlbumName,
-                                 const QString &aAlbumArtist, int aTrackNumber, int aDiscNumber,
-                                 QTime aDuration, const QUrl &aResourceURI, const QUrl &aAlbumCover, int rating,
-                                 bool aIsSingleDiscAlbum)
-    : d(std::make_unique<MusicAudioTrackPrivate>(aValid, aId, aParentId, aTitle, aArtist, aAlbumName, aAlbumArtist,
-                                                 aTrackNumber, aDiscNumber, aDuration, aResourceURI, aAlbumCover, rating,
-                                                 aIsSingleDiscAlbum))
+MusicAudioTrack::MusicAudioTrack(bool aValid, QString aId, QString aParentId, QString aTitle, QString aArtist, QString aAlbumName,
+                                 QString aAlbumArtist, int aTrackNumber, int aDiscNumber, QTime aDuration, QUrl aResourceURI,
+                                 QUrl aAlbumCover, int rating, bool aIsSingleDiscAlbum, QString aGenre)
+    : d(std::make_unique<MusicAudioTrackPrivate>(aValid, std::move(aId), std::move(aParentId),
+                                                 std::move(aTitle), std::move(aArtist),
+                                                 std::move(aAlbumName), std::move(aAlbumArtist),
+                                                 aTrackNumber, aDiscNumber, std::move(aDuration),
+                                                 std::move(aResourceURI), std::move(aAlbumCover), rating,
+                                                 aIsSingleDiscAlbum, std::move(aGenre)))
 {
 }
 

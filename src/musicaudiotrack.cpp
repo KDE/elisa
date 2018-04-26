@@ -32,11 +32,10 @@ public:
                            QString aTitle, QString aArtist, QString aAlbumName, QString aAlbumArtist,
                            int aTrackNumber, int aDiscNumber, QTime aDuration, QUrl aResourceURI,
                            QUrl aAlbumCover, int rating, bool aIsSingleDiscAlbum, QString aGenre,
-                           QString aComposer, QString aLyricist)
+                           QString aComposer)
         : mId(std::move(aId)), mParentId(std::move(aParentId)), mTitle(std::move(aTitle)), mArtist(std::move(aArtist)),
           mAlbumName(std::move(aAlbumName)), mAlbumArtist(std::move(aAlbumArtist)),
-          mGenre(std::move(aGenre)), mComposer(std::move(aComposer)), mLyricist(std::move(aLyricist)),
-          mResourceURI(std::move(aResourceURI)),
+          mGenre(std::move(aGenre)), mComposer(std::move(aComposer)), mResourceURI(std::move(aResourceURI)),
           mAlbumCover(std::move(aAlbumCover)), mDuration(aDuration),
           mTrackNumber(aTrackNumber), mDiscNumber(aDiscNumber), mRating(rating),
           mIsValid(aValid), mIsSingleDiscAlbum(aIsSingleDiscAlbum)
@@ -97,15 +96,14 @@ MusicAudioTrack::MusicAudioTrack() : d(std::make_unique<MusicAudioTrackPrivate>(
 
 MusicAudioTrack::MusicAudioTrack(bool aValid, QString aId, QString aParentId, QString aTitle, QString aArtist, QString aAlbumName,
                                  QString aAlbumArtist, int aTrackNumber, int aDiscNumber, QTime aDuration, QUrl aResourceURI,
-                                 QUrl aAlbumCover, int rating, bool aIsSingleDiscAlbum, QString aGenre, QString aComposer,
-                                 QString aLyricist)
+                                 QUrl aAlbumCover, int rating, bool aIsSingleDiscAlbum, QString aGenre, QString aComposer)
     : d(std::make_unique<MusicAudioTrackPrivate>(aValid, std::move(aId), std::move(aParentId),
                                                  std::move(aTitle), std::move(aArtist),
                                                  std::move(aAlbumName), std::move(aAlbumArtist),
                                                  aTrackNumber, aDiscNumber, std::move(aDuration),
                                                  std::move(aResourceURI), std::move(aAlbumCover), rating,
                                                  aIsSingleDiscAlbum, std::move(aGenre),
-                                                 std::move(aComposer), std::move(aLyricist)))
+                                                 std::move(aComposer)))
 {
 }
 

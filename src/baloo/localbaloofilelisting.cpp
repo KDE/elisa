@@ -60,10 +60,6 @@ public:
 
     QHash<QString, QVector<MusicAudioTrack>> mAllAlbums;
 
-    QHash<QString, QVector<MusicAudioTrack>> mNewAlbums;
-
-    QList<MusicAudioTrack> mNewTracks;
-
     QDBusServiceWatcher mServiceWatcher;
 
     QScopedPointer<org::kde::baloo::fileindexer> mBalooIndexer;
@@ -314,7 +310,6 @@ MusicAudioTrack LocalBalooFileListing::scanOneFile(const QUrl &scanFile)
 
     if (albumProperty != allProperties.end()) {
         auto albumValue = albumProperty->toString();
-        auto &allTracks = d->mAllAlbums[albumValue];
 
         newTrack.setAlbumName(albumValue);
 
@@ -383,18 +378,6 @@ MusicAudioTrack LocalBalooFileListing::scanOneFile(const QUrl &scanFile)
         newTrack.setRating(fileData.rating());
 
         newTrack.setResourceURI(scanFile);
-
-        auto itTrack = std::find(allTracks.begin(), allTracks.end(), newTrack);
-        if (itTrack == allTracks.end()) {
-            allTracks.push_back(newTrack);
-            d->mNewTracks.push_back(newTrack);
-            d->mNewAlbums[newTrack.albumName()].push_back(newTrack);
-
-            auto &newTracks = d->mAllAlbums[newTrack.albumName()];
-
-            std::sort(allTracks.begin(), allTracks.end());
-            std::sort(newTracks.begin(), newTracks.end());
-        }
 
         if (newTrack.title().isEmpty()) {
             return newTrack;

@@ -86,6 +86,8 @@ Q_SIGNALS:
 
     void artistsAdded(const QList<MusicArtist> &newArtist);
 
+    void composerAdded(const MusicArtist &newComposer);
+
     void albumsAdded(const QList<MusicAlbum> &newAlbum);
 
     void tracksAdded(const QList<MusicAudioTrack> &allTracks);
@@ -207,6 +209,10 @@ private:
     QUrl internalAlbumArtUriFromAlbumId(qulonglong albumId);
 
     bool isValidArtist(qulonglong albumId);
+
+    qulonglong insertComposer(const QString &name);
+
+    MusicArtist internalComposerFromId(qulonglong composerId);
 
     std::unique_ptr<DatabaseInterfacePrivate> d;
 

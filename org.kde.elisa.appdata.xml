@@ -63,6 +63,7 @@
     <p xml:lang="ast">Un reproductor cenciellu de música que debería ser fácil d'usar. Nun rique configuración dala enantes que puea usase.</p>
     <p xml:lang="ca">Un reproductor de música senzill que hauria de ser fàcil d'utilitzar. No requereix cap configuració abans de poder utilitzar-lo.</p>
     <p xml:lang="ca-valencia">Un reproductor de música senzill que hauria de ser fàcil d'utilitzar. No requereix cap configuració abans de poder utilitzar-lo.</p>
+    <p xml:lang="cs">Jednoduchý snadno použitelný přehrávač hudby, Před použitím nevyžaduje jakékoliv nastavovaní.</p>
     <p xml:lang="da">En simpel musikafspiller der burde være let af bruge. Den kræver ikke nogen konfiguration inden den kan bruges.</p>
     <p xml:lang="de">Ein einfacher Medienspieler, der leicht zu benutzen sein sollte. Er kann ganz ohne vorherige Konfiguration verwendet werden.</p>
     <p xml:lang="en-GB">A simple music player that should be easy to use. It does not require any configuration before one can use it.</p>
@@ -95,6 +96,7 @@
       <caption xml:lang="ar">مشغّل الموسيقى إليسّا</caption>
       <caption xml:lang="ca">El reproductor de música Elisa</caption>
       <caption xml:lang="ca-valencia">El reproductor de música Elisa</caption>
+      <caption xml:lang="cs">Přehrávač hudby Elisa</caption>
       <caption xml:lang="de">Elisa-Musikwiedergabe</caption>
       <caption xml:lang="en-GB">The Elisa music player</caption>
       <caption xml:lang="es">El reproductor de música Elisa</caption>

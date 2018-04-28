@@ -3335,9 +3335,18 @@ qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrac
         d->mInsertTrackQuery.bindValue(QStringLiteral(":discNumber"), oneTrack.discNumber());
         d->mInsertTrackQuery.bindValue(QStringLiteral(":trackDuration"), QVariant::fromValue<qlonglong>(oneTrack.duration().msecsSinceStartOfDay()));
         d->mInsertTrackQuery.bindValue(QStringLiteral(":trackRating"), oneTrack.rating());
-        d->mInsertTrackQuery.bindValue(QStringLiteral(":genreId"), insertGenre(oneTrack.genre()));
-        d->mInsertTrackQuery.bindValue(QStringLiteral(":composerId"), insertComposer(oneTrack.composer()));
-        d->mInsertTrackQuery.bindValue(QStringLiteral(":lyricistId"), insertLyricist(oneTrack.lyricist()));
+        auto genreId = insertGenre(oneTrack.genre());
+        if (genreId != 0) {
+            d->mInsertTrackQuery.bindValue(QStringLiteral(":genreId"), genreId);
+        }
+        auto composerId = insertComposer(oneTrack.composer());
+        if (composerId != 0) {
+            d->mInsertTrackQuery.bindValue(QStringLiteral(":composerId"), composerId);
+        }
+        auto lyricistId = insertLyricist(oneTrack.lyricist());
+        if (lyricistId != 0) {
+            d->mInsertTrackQuery.bindValue(QStringLiteral(":lyricistId"), lyricistId);
+        }
         d->mInsertTrackQuery.bindValue(QStringLiteral(":comment"), oneTrack.comment());
         d->mInsertTrackQuery.bindValue(QStringLiteral(":year"), oneTrack.year());
         d->mInsertTrackQuery.bindValue(QStringLiteral(":channels"), oneTrack.channels());

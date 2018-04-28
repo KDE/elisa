@@ -88,6 +88,8 @@ Q_SIGNALS:
 
     void composerAdded(const MusicArtist &newComposer);
 
+    void lyricistAdded(const MusicArtist &newLyricist);
+
     void albumsAdded(const QList<MusicAlbum> &newAlbum);
 
     void tracksAdded(const QList<MusicAudioTrack> &allTracks);
@@ -213,6 +215,10 @@ private:
     qulonglong insertComposer(const QString &name);
 
     MusicArtist internalComposerFromId(qulonglong composerId);
+
+    qulonglong insertLyricist(const QString &name);
+
+    MusicArtist internalLyricistFromId(qulonglong lyricistId);
 
     std::unique_ptr<DatabaseInterfacePrivate> d;
 

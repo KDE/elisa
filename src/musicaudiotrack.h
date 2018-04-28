@@ -39,7 +39,8 @@ public:
 
     MusicAudioTrack(bool aValid, QString aId, QString aParentId, QString aTitle, QString aArtist, QString aAlbumName,
                     QString aAlbumArtist, int aTrackNumber, int aDiscNumber, QTime aDuration, QUrl aResourceURI,
-                    QUrl aAlbumCover, int rating, bool aIsSingleDiscAlbum, QString aGenre);
+                    QUrl aAlbumCover, int rating, bool aIsSingleDiscAlbum, QString aGenre, QString aComposer,
+                    QString aLyricist);
 
     MusicAudioTrack(MusicAudioTrack &&other);
 

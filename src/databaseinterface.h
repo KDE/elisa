@@ -84,6 +84,10 @@ Q_SIGNALS:
 
     void artistsAdded(const QList<MusicArtist> &newArtist);
 
+    void composerAdded(const MusicArtist &newComposer);
+
+    void lyricistAdded(const MusicArtist &newLyricist);
+
     void albumsAdded(const QList<MusicAlbum> &newAlbum);
 
     void tracksAdded(const QList<MusicAudioTrack> &allTracks);
@@ -103,6 +107,8 @@ Q_SIGNALS:
     void sentAlbumData(const MusicAlbum albumData);
 
     void requestsInitDone();
+
+    void genreAdded(QString genreName);
 
     void databaseError();
 
@@ -159,7 +165,7 @@ private:
 
     QList<qulonglong> internalAlbumIdsFromAuthor(const QString &artistName);
 
-    void initDatabase() const;
+    void initDatabase();
 
     void initRequest();
 
@@ -173,6 +179,10 @@ private:
     qulonglong insertArtist(const QString &name, QList<qulonglong> &newArtistsIds);
 
     qulonglong internalArtistIdFromName(const QString &name);
+
+    qulonglong insertGenre(const QString &name);
+
+    QString internalGenreFromId(qulonglong genreId);
 
     void removeTrackInDatabase(qulonglong trackId);
 
@@ -205,6 +215,14 @@ private:
     QUrl internalAlbumArtUriFromAlbumId(qulonglong albumId);
 
     bool isValidArtist(qulonglong albumId);
+
+    qulonglong insertComposer(const QString &name);
+
+    MusicArtist internalComposerFromId(qulonglong composerId);
+
+    qulonglong insertLyricist(const QString &name);
+
+    MusicArtist internalLyricistFromId(qulonglong lyricistId);
 
     std::unique_ptr<DatabaseInterfacePrivate> d;
 

@@ -164,8 +164,8 @@ private Q_SLOTS:
         AllArtistsModel artistsModel;
         ModelTest testModel(&artistsModel);
 
-        connect(&musicDb, &DatabaseInterface::artistAdded,
-                &artistsModel, &AllArtistsModel::artistAdded);
+        connect(&musicDb, &DatabaseInterface::artistsAdded,
+                &artistsModel, &AllArtistsModel::artistsAdded);
         connect(&musicDb, &DatabaseInterface::artistModified,
                 &artistsModel, &AllArtistsModel::artistModified);
         connect(&musicDb, &DatabaseInterface::artistRemoved,
@@ -179,6 +179,7 @@ private Q_SLOTS:
         QSignalSpy endRemoveRowsSpy(&artistsModel, &AllArtistsModel::rowsRemoved);
         QSignalSpy dataChangedSpy(&artistsModel, &AllArtistsModel::dataChanged);
 
+        QCOMPARE(artistsModel.rowCount(), 0);
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
         QCOMPARE(beginRemoveRowsSpy.count(), 0);
@@ -193,8 +194,9 @@ private Q_SLOTS:
 
         musicDb.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
-        QCOMPARE(beginInsertRowsSpy.count(), 7);
-        QCOMPARE(endInsertRowsSpy.count(), 7);
+        QCOMPARE(artistsModel.rowCount(), 7);
+        QCOMPARE(beginInsertRowsSpy.count(), 1);
+        QCOMPARE(endInsertRowsSpy.count(), 1);
         QCOMPARE(beginRemoveRowsSpy.count(), 0);
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
@@ -205,8 +207,9 @@ private Q_SLOTS:
 
         musicDb.removeTracksList({firstTrack.resourceURI()});
 
-        QCOMPARE(beginInsertRowsSpy.count(), 7);
-        QCOMPARE(endInsertRowsSpy.count(), 7);
+        QCOMPARE(artistsModel.rowCount(), 6);
+        QCOMPARE(beginInsertRowsSpy.count(), 1);
+        QCOMPARE(endInsertRowsSpy.count(), 1);
         QCOMPARE(beginRemoveRowsSpy.count(), 1);
         QCOMPARE(endRemoveRowsSpy.count(), 1);
         QCOMPARE(dataChangedSpy.count(), 0);
@@ -218,8 +221,8 @@ private Q_SLOTS:
         AllArtistsModel artistsModel;
         ModelTest testModel(&artistsModel);
 
-        connect(&musicDb, &DatabaseInterface::artistAdded,
-                &artistsModel, &AllArtistsModel::artistAdded);
+        connect(&musicDb, &DatabaseInterface::artistsAdded,
+                &artistsModel, &AllArtistsModel::artistsAdded);
         connect(&musicDb, &DatabaseInterface::artistModified,
                 &artistsModel, &AllArtistsModel::artistModified);
         connect(&musicDb, &DatabaseInterface::artistRemoved,
@@ -233,6 +236,7 @@ private Q_SLOTS:
         QSignalSpy endRemoveRowsSpy(&artistsModel, &AllArtistsModel::rowsRemoved);
         QSignalSpy dataChangedSpy(&artistsModel, &AllArtistsModel::dataChanged);
 
+        QCOMPARE(artistsModel.rowCount(), 0);
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
         QCOMPARE(beginRemoveRowsSpy.count(), 0);
@@ -247,8 +251,9 @@ private Q_SLOTS:
 
         musicDb.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
-        QCOMPARE(beginInsertRowsSpy.count(), 7);
-        QCOMPARE(endInsertRowsSpy.count(), 7);
+        QCOMPARE(artistsModel.rowCount(), 7);
+        QCOMPARE(beginInsertRowsSpy.count(), 1);
+        QCOMPARE(endInsertRowsSpy.count(), 1);
         QCOMPARE(beginRemoveRowsSpy.count(), 0);
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
@@ -267,8 +272,9 @@ private Q_SLOTS:
 
         musicDb.insertTracksList(newTracks, mNewCovers, QStringLiteral("autoTest"));
 
-        QCOMPARE(beginInsertRowsSpy.count(), 8);
-        QCOMPARE(endInsertRowsSpy.count(), 8);
+        QCOMPARE(artistsModel.rowCount(), 8);
+        QCOMPARE(beginInsertRowsSpy.count(), 2);
+        QCOMPARE(endInsertRowsSpy.count(), 2);
         QCOMPARE(beginRemoveRowsSpy.count(), 0);
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);

@@ -85,7 +85,7 @@ Q_SIGNALS:
 
 public Q_SLOTS:
 
-    void artistAdded(const MusicArtist &newArtist);
+    void artistsAdded(const QList<MusicArtist> &newArtists);
 
     void artistRemoved(const MusicArtist &removedArtist);
 

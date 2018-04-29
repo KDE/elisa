@@ -82,7 +82,7 @@ public:
 
 Q_SIGNALS:
 
-    void artistAdded(const MusicArtist &newArtist);
+    void artistsAdded(const QList<MusicArtist> &newArtist);
 
     void albumsAdded(const QList<MusicAlbum> &newAlbum);
 
@@ -167,11 +167,12 @@ private:
 
     qulonglong insertAlbum(const QString &title, const QString &albumArtist, const QString &trackArtist,
                            const QUrl &albumArtURI, int tracksCount, bool isSingleDiscAlbum,
-                           QList<qulonglong> &newAlbumIds);
+                           QList<qulonglong> &newAlbumIds, QList<qulonglong> &newArtistsIds);
 
-    bool updateAlbumFromId(qulonglong albumId, const QUrl &albumArtUri, const MusicAudioTrack &currentTrack);
+    bool updateAlbumFromId(qulonglong albumId, const QUrl &albumArtUri, const MusicAudioTrack &currentTrack,
+                           QList<qulonglong> &newArtistsIds);
 
-    qulonglong insertArtist(const QString &name);
+    qulonglong insertArtist(const QString &name, QList<qulonglong> &newArtistsIds);
 
     qulonglong internalArtistIdFromName(const QString &name);
 
@@ -193,15 +194,15 @@ private:
 
     qulonglong internalInsertTrack(const MusicAudioTrack &oneModifiedTrack, const QHash<QString, QUrl> &covers,
                                    qulonglong originTrackId, QSet<qulonglong> &modifiedAlbumIds, TrackFileInsertType insertType,
-                                   QList<qulonglong> &newAlbumIds);
+                                   QList<qulonglong> &newAlbumIds, QList<qulonglong> &newArtistsIds);
 
     MusicAudioTrack buildTrackFromDatabaseRecord(const QSqlRecord &trackRecord) const;
 
-    void internalRemoveTracksList(const QList<QUrl> &removedTracks);
+    void internalRemoveTracksList(const QList<QUrl> &removedTracks, QList<qulonglong> &newArtistsIds);
 
-    void internalRemoveTracksList(const QList<QUrl> &removedTracks, qulonglong sourceId);
+    void internalRemoveTracksList(const QList<QUrl> &removedTracks, qulonglong sourceId, QList<qulonglong> &newArtistsIds);
 
-    void internalRemoveTracksWithoutMapping();
+    void internalRemoveTracksWithoutMapping(QList<qulonglong> &newArtistsIds);
 
     QUrl internalAlbumArtUriFromAlbumId(qulonglong albumId);
 

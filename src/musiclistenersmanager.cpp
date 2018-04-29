@@ -130,8 +130,8 @@ MusicListenersManager::MusicListenersManager(QObject *parent)
     QMetaObject::invokeMethod(&d->mDatabaseInterface, "init", Qt::QueuedConnection,
                               Q_ARG(QString, QStringLiteral("listeners")), Q_ARG(QString, databaseFileName));
 
-    connect(&d->mDatabaseInterface, &DatabaseInterface::artistAdded,
-            this, &MusicListenersManager::artistAdded);
+    connect(&d->mDatabaseInterface, &DatabaseInterface::artistsAdded,
+            this, &MusicListenersManager::artistsAdded);
     connect(&d->mDatabaseInterface, &DatabaseInterface::trackAdded,
             this, &MusicListenersManager::trackAdded);
     connect(&d->mDatabaseInterface, &DatabaseInterface::tracksAdded,
@@ -181,8 +181,8 @@ MusicListenersManager::MusicListenersManager(QObject *parent)
     connect(&d->mDatabaseInterface, &DatabaseInterface::albumRemoved,
             &d->mAllAlbumsModel, &AllAlbumsModel::albumRemoved);
 
-    connect(&d->mDatabaseInterface, &DatabaseInterface::artistAdded,
-            &d->mAllArtistsModel, &AllArtistsModel::artistAdded);
+    connect(&d->mDatabaseInterface, &DatabaseInterface::artistsAdded,
+            &d->mAllArtistsModel, &AllArtistsModel::artistsAdded);
     connect(&d->mDatabaseInterface, &DatabaseInterface::artistModified,
             &d->mAllArtistsModel, &AllArtistsModel::artistModified);
     connect(&d->mDatabaseInterface, &DatabaseInterface::artistRemoved,

@@ -112,7 +112,7 @@ Q_SIGNALS:
 
     void viewDatabaseChanged();
 
-    void artistAdded(const MusicArtist &newArtist);
+    void artistsAdded(const QList<MusicArtist> &newArtist);
 
     void trackAdded(qulonglong id);
 

@@ -194,11 +194,11 @@ AllAlbumsModel *AllArtistsModel::allAlbums() const
     return d->mAllAlbumsModel;
 }
 
-void AllArtistsModel::artistAdded(const MusicArtist &newArtist)
+void AllArtistsModel::artistsAdded(const QList<MusicArtist> &newArtists)
 {
-    if (newArtist.isValid()) {
-        beginInsertRows({}, d->mAllArtists.size(), d->mAllArtists.size());
-        d->mAllArtists.push_back(newArtist);
+    if (!newArtists.isEmpty()) {
+        beginInsertRows({}, d->mAllArtists.size(), d->mAllArtists.size() + newArtists.size() - 1);
+        d->mAllArtists += newArtists.toVector();
         endInsertRows();
     }
 }

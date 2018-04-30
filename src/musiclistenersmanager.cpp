@@ -132,8 +132,6 @@ MusicListenersManager::MusicListenersManager(QObject *parent)
 
     connect(&d->mDatabaseInterface, &DatabaseInterface::artistsAdded,
             this, &MusicListenersManager::artistsAdded);
-    connect(&d->mDatabaseInterface, &DatabaseInterface::trackAdded,
-            this, &MusicListenersManager::trackAdded);
     connect(&d->mDatabaseInterface, &DatabaseInterface::tracksAdded,
             this, &MusicListenersManager::tracksAdded);
     connect(&d->mDatabaseInterface, &DatabaseInterface::artistRemoved,

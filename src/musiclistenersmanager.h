@@ -114,8 +114,6 @@ Q_SIGNALS:
 
     void artistsAdded(const QList<MusicArtist> &newArtist);
 
-    void trackAdded(qulonglong id);
-
     void tracksAdded(const QList<MusicAudioTrack> &allTracks);
 
     void artistRemoved(const MusicArtist &removedArtist);

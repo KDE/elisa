@@ -86,8 +86,6 @@ Q_SIGNALS:
 
     void albumsAdded(const QList<MusicAlbum> &newAlbum);
 
-    void trackAdded(qulonglong id);
-
     void tracksAdded(const QList<MusicAudioTrack> &allTracks);
 
     void artistRemoved(const MusicArtist &removedArtist);

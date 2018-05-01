@@ -610,6 +610,8 @@ RowLayout {
 
             contentModel: elisa.singleAlbumProxyModel
 
+            isSubPage: true
+
             delegate: MediaAlbumTrackDelegate {
                 id: entry
 

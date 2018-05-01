@@ -60,11 +60,7 @@ FocusScope {
         NavigationActionBar {
             id: navigationBar
 
-            mainTitle: listView.mainTitle
-            secondaryTitle: listView.secondaryTitle
-            image: listView.image
-            enableGoBack: isSubPage
-
+            enableGoBack: listView.isSubPage
             height: elisaTheme.navigationBarHeight
             Layout.preferredHeight: height
             Layout.minimumHeight: height

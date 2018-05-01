@@ -20,6 +20,8 @@
 #ifndef TRACKSLISTENER_H
 #define TRACKSLISTENER_H
 
+#include "elisaLib_export.h"
+
 #include <QObject>
 
 #include "musicaudiotrack.h"
@@ -29,7 +31,7 @@
 class TracksListenerPrivate;
 class DatabaseInterface;
 
-class TracksListener : public QObject
+class ELISALIB_EXPORT TracksListener : public QObject
 {
     Q_OBJECT
 

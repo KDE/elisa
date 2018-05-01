@@ -20,12 +20,14 @@
 #ifndef MANAGEMEDIAPLAYERCONTROL_H
 #define MANAGEMEDIAPLAYERCONTROL_H
 
+#include "elisaLib_export.h"
+
 #include <QObject>
 #include <QModelIndex>
 
 class QAbstractItemModel;
 
-class ManageMediaPlayerControl : public QObject
+class ELISALIB_EXPORT ManageMediaPlayerControl : public QObject
 {
 
     Q_OBJECT
@@ -154,7 +156,7 @@ private:
 
 };
 
-QDataStream &operator<<(QDataStream &out, const ManageMediaPlayerControl::PlayerState &state);
-QDataStream &operator>>(QDataStream &in, ManageMediaPlayerControl::PlayerState &state);
+ELISALIB_EXPORT QDataStream &operator<<(QDataStream &out, const ManageMediaPlayerControl::PlayerState &state);
+ELISALIB_EXPORT QDataStream &operator>>(QDataStream &in, ManageMediaPlayerControl::PlayerState &state);
 
 #endif // MANAGEMEDIAPLAYERCONTROL_H

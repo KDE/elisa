@@ -22,6 +22,8 @@
 #ifndef MEDIAPLAYER2PLAYER_H
 #define MEDIAPLAYER2PLAYER_H
 
+#include "elisaLib_export.h"
+
 #include <QDBusAbstractAdaptor>
 #include <QDBusObjectPath>
 #include <QPointer>
@@ -33,7 +35,7 @@ class ManageMediaPlayerControl;
 class ManageHeaderBar;
 class AudioWrapper;
 
-class MediaPlayer2Player : public QDBusAbstractAdaptor
+class ELISALIB_EXPORT MediaPlayer2Player : public QDBusAbstractAdaptor
 {
     Q_OBJECT
     Q_CLASSINFO("D-Bus Interface", "org.mpris.MediaPlayer2.Player") // Docs: http://specifications.freedesktop.org/mpris-spec/latest/Player_Interface.html

@@ -22,11 +22,13 @@
 #ifndef MEDIACENTER_MEDIAPLAYER2_H
 #define MEDIACENTER_MEDIAPLAYER2_H
 
+#include "elisaLib_export.h"
+
 #include <QDBusAbstractAdaptor>
 #include <QStringList>
 
 
-class MediaPlayer2 : public QDBusAbstractAdaptor
+class ELISALIB_EXPORT MediaPlayer2 : public QDBusAbstractAdaptor
 {
     Q_OBJECT
     Q_CLASSINFO("D-Bus Interface", "org.mpris.MediaPlayer2") // Docs: http://specifications.freedesktop.org/mpris-spec/latest/Media_Player.html

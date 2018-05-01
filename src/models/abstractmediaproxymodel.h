@@ -21,12 +21,14 @@
 #ifndef ABSTRACTMEDIAPROXYMODEL_H
 #define ABSTRACTMEDIAPROXYMODEL_H
 
+#include "elisaLib_export.h"
+
 #include <QSortFilterProxyModel>
 #include <QRegularExpression>
 #include <QReadWriteLock>
 #include <QThreadPool>
 
-class AbstractMediaProxyModel : public QSortFilterProxyModel
+class ELISALIB_EXPORT AbstractMediaProxyModel : public QSortFilterProxyModel
 {
 
     Q_OBJECT

@@ -20,6 +20,8 @@
 #ifndef ELISAAPPLICATION_H
 #define ELISAAPPLICATION_H
 
+#include "elisaLib_export.h"
+
 #include "config-upnp-qt.h"
 
 #include <QObject>
@@ -39,7 +41,7 @@ class MediaPlayList;
 class AudioWrapper;
 class ElisaApplicationPrivate;
 
-class ElisaApplication : public QObject
+class ELISALIB_EXPORT ElisaApplication : public QObject
 {
 
     Q_OBJECT

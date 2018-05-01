@@ -21,12 +21,14 @@
 #ifndef SINGLEALBUMPROXYMODEL_H
 #define SINGLEALBUMPROXYMODEL_H
 
+#include "elisaLib_export.h"
+
 #include "abstractmediaproxymodel.h"
 #include "musicaudiotrack.h"
 #include "elisautils.h"
 #include "albummodel.h"
 
-class SingleAlbumProxyModel : public AbstractMediaProxyModel
+class ELISALIB_EXPORT SingleAlbumProxyModel : public AbstractMediaProxyModel
 {
     Q_OBJECT
 

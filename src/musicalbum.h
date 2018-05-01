@@ -20,6 +20,8 @@
 #ifndef MUSICALBUM_H
 #define MUSICALBUM_H
 
+#include "elisaLib_export.h"
+
 #include "musicaudiotrack.h"
 
 #include <QString>
@@ -33,7 +35,7 @@
 class MusicAlbumPrivate;
 class QDebug;
 
-class MusicAlbum
+class ELISALIB_EXPORT MusicAlbum
 {
 
 public:

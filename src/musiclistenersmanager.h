@@ -20,6 +20,8 @@
 #ifndef MUSICLISTENERSMANAGER_H
 #define MUSICLISTENERSMANAGER_H
 
+#include "elisaLib_export.h"
+
 #include "notificationitem.h"
 
 #include <QObject>
@@ -40,7 +42,7 @@ class ElisaApplication;
 class QAbstractItemModel;
 class AbstractMediaProxyModel;
 
-class MusicListenersManager : public QObject
+class ELISALIB_EXPORT MusicListenersManager : public QObject
 {
 
     Q_OBJECT

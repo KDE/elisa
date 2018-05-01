@@ -20,6 +20,8 @@
 #ifndef ALLALBUMSMODEL_H
 #define ALLALBUMSMODEL_H
 
+#include "elisaLib_export.h"
+
 #include <QAbstractItemModel>
 #include <QVector>
 #include <QHash>
@@ -33,7 +35,7 @@
 class AllAlbumsModelPrivate;
 class AllArtistsModel;
 
-class AllAlbumsModel : public QAbstractItemModel
+class ELISALIB_EXPORT AllAlbumsModel : public QAbstractItemModel
 {
     Q_OBJECT
 

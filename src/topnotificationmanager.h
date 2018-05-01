@@ -20,6 +20,8 @@
 #ifndef TOPNOTIFICATIONMANAGER_H
 #define TOPNOTIFICATIONMANAGER_H
 
+#include "elisaLib_export.h"
+
 #include "notificationitem.h"
 
 #include <QObject>
@@ -29,7 +31,7 @@
 
 class TopNotificationManagerPrivate;
 
-class TopNotificationManager : public QAbstractListModel
+class ELISALIB_EXPORT TopNotificationManager : public QAbstractListModel
 {
 
     Q_OBJECT

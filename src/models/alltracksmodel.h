@@ -20,6 +20,8 @@
 #ifndef ALLTRACKSMODEL_H
 #define ALLTRACKSMODEL_H
 
+#include "elisaLib_export.h"
+
 #include <QAbstractItemModel>
 
 #include "musicaudiotrack.h"
@@ -28,7 +30,7 @@
 
 class AllTracksModelPrivate;
 
-class AllTracksModel : public QAbstractItemModel
+class ELISALIB_EXPORT AllTracksModel : public QAbstractItemModel
 {
     Q_OBJECT
 

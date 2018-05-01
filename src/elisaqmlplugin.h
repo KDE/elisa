@@ -1,5 +1,4 @@
 /*
- * Copyright 2017 Alexander Stippich <a.stippich@gmx.net>
  * Copyright 2018 Matthieu Gallien <matthieu_gallien@yahoo.fr>
  *
  * This library is free software; you can redistribute it and/or
@@ -18,41 +17,21 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef ALLTRACKSPROXYMODEL_H
-#define ALLTRACKSPROXYMODEL_H
+#ifndef ELISAQMLTESTPLUGIN_H
+#define ELISAQMLTESTPLUGIN_H
 
-#include "elisaLib_export.h"
+#include <QQmlExtensionPlugin>
 
-#include "abstractmediaproxymodel.h"
-#include "musicaudiotrack.h"
-#include "elisautils.h"
+class QQmlEngine;
 
-class ELISALIB_EXPORT AllTracksProxyModel : public AbstractMediaProxyModel
+class ElisaQmlTestPlugin : public QQmlExtensionPlugin
 {
     Q_OBJECT
+    Q_PLUGIN_METADATA(IID "org.qt-project.Qt.QQmlExtensionInterface")
 
 public:
-
-    explicit AllTracksProxyModel(QObject *parent = nullptr);
-
-    ~AllTracksProxyModel() override;
-
-Q_SIGNALS:
-
-    void trackToEnqueue(QList<MusicAudioTrack> newTracks,
-                        ElisaUtils::PlayListEnqueueMode enqueueMode,
-                        ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
-
-public Q_SLOTS:
-
-    void enqueueToPlayList();
-
-    void replaceAndPlayOfPlayList();
-
-protected:
-
-    bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override;
-
+    void initializeEngine(QQmlEngine *engine, const char *uri) override;
+    void registerTypes(const char *uri) override;
 };
 
-#endif // ALLTRACKSPROXYMODEL_H
+#endif // ELISAQMLTESTPLUGIN_H

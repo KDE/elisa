@@ -20,6 +20,8 @@
 #ifndef MUSICAUDIOTRACK_H
 #define MUSICAUDIOTRACK_H
 
+#include "elisaLib_export.h"
+
 #include <QString>
 #include <QTime>
 #include <QUrl>
@@ -30,7 +32,7 @@
 class MusicAudioTrackPrivate;
 class QDebug;
 
-class MusicAudioTrack
+class ELISALIB_EXPORT MusicAudioTrack
 {
 
 public:

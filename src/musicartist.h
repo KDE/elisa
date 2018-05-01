@@ -20,6 +20,8 @@
 #ifndef MUSICARTIST_H
 #define MUSICARTIST_H
 
+#include "elisaLib_export.h"
+
 #include <QString>
 #include <QMetaType>
 
@@ -28,7 +30,7 @@
 class MusicArtistPrivate;
 class QDebug;
 
-class MusicArtist
+class ELISALIB_EXPORT MusicArtist
 {
 public:
 

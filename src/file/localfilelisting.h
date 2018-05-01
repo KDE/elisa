@@ -20,6 +20,8 @@
 #ifndef LOCALFILELISTING_H
 #define LOCALFILELISTING_H
 
+#include "elisaLib_export.h"
+
 #include "../abstractfile/abstractfilelisting.h"
 
 #include <QString>
@@ -28,7 +30,7 @@
 
 class LocalFileListingPrivate;
 
-class LocalFileListing : public AbstractFileListing
+class ELISALIB_EXPORT LocalFileListing : public AbstractFileListing
 {
 
     Q_OBJECT

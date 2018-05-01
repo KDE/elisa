@@ -21,10 +21,12 @@
 #ifndef ALLARTISTSPROXYMODEL_H
 #define ALLARTISTSPROXYMODEL_H
 
+#include "elisaLib_export.h"
+
 #include "abstractmediaproxymodel.h"
 #include "elisautils.h"
 
-class AllArtistsProxyModel : public AbstractMediaProxyModel
+class ELISALIB_EXPORT AllArtistsProxyModel : public AbstractMediaProxyModel
 {
     Q_OBJECT
 

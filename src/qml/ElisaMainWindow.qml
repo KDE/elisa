@@ -367,7 +367,6 @@ ApplicationWindow {
         elisa.audioPlayer.volume = Qt.binding(function() { return headerBar.playerControl.volume })
         elisa.audioPlayer.source = Qt.binding(function() { return manageAudioPlayer.playerSource })
 
-        elisa.mediaPlayList.enqueue(elisa.arguments)
         volume: headerBar.playerControl.volume
     }
 }

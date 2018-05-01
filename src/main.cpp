@@ -19,52 +19,10 @@
 
 #include "config-upnp-qt.h"
 
-//#define QT_QML_DEBUG
-
-#if defined UPNPQT_FOUND && UPNPQT_FOUND
-#include "upnp/upnpcontrolconnectionmanager.h"
-#include "upnp/upnpcontrolmediaserver.h"
-#include "upnp/upnpcontrolcontentdirectory.h"
-#include "upnp/upnpcontentdirectorymodel.h"
-#include "upnpdevicedescription.h"
-#include "upnp/didlparser.h"
-#include "upnp/upnpdiscoverallmusic.h"
-
-#include "upnpssdpengine.h"
-#include "upnpabstractservice.h"
-#include "upnpcontrolabstractdevice.h"
-#include "upnpcontrolabstractservice.h"
-#include "upnpbasictypes.h"
-#endif
-
-#include "progressindicator.h"
-#include "mediaplaylist.h"
-#include "managemediaplayercontrol.h"
-#include "manageheaderbar.h"
-#include "manageaudioplayer.h"
-#include "musicaudiotrack.h"
-#include "musiclistenersmanager.h"
-#include "models/allalbumsmodel.h"
-#include "models/albummodel.h"
-#include "models/allartistsmodel.h"
-#include "models/alltracksmodel.h"
-#include "models/allalbumsproxymodel.h"
-#include "models/alltracksproxymodel.h"
-#include "models/allartistsproxymodel.h"
-#include "models/singleartistproxymodel.h"
-#include "models/singlealbumproxymodel.h"
 #include "elisaapplication.h"
-#include "audiowrapper.h"
-#include "notificationitem.h"
-#include "topnotificationmanager.h"
 #include "elisa_settings.h"
-#include "trackdatahelper.h"
-#include "elisautils.h"
 
-#if defined Qt5DBus_FOUND && Qt5DBus_FOUND
-#include "mpris2/mpris2.h"
-#include "mpris2/mediaplayer2player.h"
-#endif
+//#define QT_QML_DEBUG
 
 #if defined KF5Declarative_FOUND && KF5Declarative_FOUND
 #include <KDeclarative/KDeclarative>
@@ -79,10 +37,13 @@
 #include <KCrash>
 #endif
 
+#if defined KF5DBusAddons_FOUND && KF5DBusAddons_FOUND
+#include <KDBusService>
+#endif
+
 #include <QSortFilterProxyModel>
 
 #include <QIcon>
-#include <QAction>
 
 #include <QApplication>
 #include <QCommandLineParser>
@@ -96,13 +57,11 @@
 #include <QQmlContext>
 #include <QScreen>
 
+#include <memory>
+
 #if defined Qt5AndroidExtras_FOUND && Qt5AndroidExtras_FOUND
 #include <QAndroidJniObject>
 #include <QtAndroid>
-#endif
-
-#if defined KF5DBusAddons_FOUND && KF5DBusAddons_FOUND
-#include <KDBusService>
 #endif
 
 #if defined Q_OS_ANDROID
@@ -125,68 +84,6 @@ int main(int argc, char *argv[])
 
     KLocalizedString::setApplicationDomain("elisa");
 
-#if defined UPNPQT_FOUND && UPNPQT_FOUND
-    qmlRegisterType<UpnpSsdpEngine>("org.kde.elisa", 1, 0, "UpnpSsdpEngine");
-    qmlRegisterType<UpnpDiscoverAllMusic>("org.kde.elisa", 1, 0, "UpnpDiscoverAllMusic");
-
-    qmlRegisterType<UpnpAbstractDevice>("org.kde.elisa", 1, 0, "UpnpAbstractDevice");
-    qmlRegisterType<UpnpAbstractService>("org.kde.elisa", 1, 0, "UpnpAbstractService");
-    qmlRegisterType<UpnpControlAbstractDevice>("org.kde.elisa", 1, 0, "UpnpControlAbstractDevice");
-    qmlRegisterType<UpnpControlAbstractService>("org.kde.elisa", 1, 0, "UpnpControlAbstractService");
-    qmlRegisterType<UpnpControlConnectionManager>("org.kde.elisa", 1, 0, "UpnpControlConnectionManager");
-    qmlRegisterType<UpnpControlMediaServer>("org.kde.elisa", 1, 0, "UpnpControlMediaServer");
-    qmlRegisterType<UpnpContentDirectoryModel>("org.kde.elisa", 1, 0, "UpnpContentDirectoryModel");
-    qmlRegisterType<DidlParser>("org.kde.elisa", 1, 0, "DidlParser");
-    qmlRegisterType<UpnpControlContentDirectory>("org.kde.elisa", 1, 0, "UpnpControlContentDirectory");
-    qmlRegisterType<UpnpDeviceDescription>("org.kde.elisa", 1, 0, "UpnpDeviceDescription");
-
-    qRegisterMetaType<A_ARG_TYPE_InstanceID>();
-    qRegisterMetaType<QPointer<UpnpAbstractDevice> >();
-    qRegisterMetaType<UpnpControlConnectionManager*>();
-    qRegisterMetaType<UpnpContentDirectoryModel*>();
-    qRegisterMetaType<UpnpDeviceDescription*>();
-#endif
-
-    qmlRegisterType<MediaPlayList>("org.kde.elisa", 1, 0, "MediaPlayList");
-    qmlRegisterType<ManageMediaPlayerControl>("org.kde.elisa", 1, 0, "ManageMediaPlayerControl");
-    qmlRegisterType<ManageHeaderBar>("org.kde.elisa", 1, 0, "ManageHeaderBar");
-    qmlRegisterType<ManageAudioPlayer>("org.kde.elisa", 1, 0, "ManageAudioPlayer");
-    qmlRegisterType<ProgressIndicator>("org.kde.elisa", 1, 0, "ProgressIndicator");
-    qmlRegisterType<MusicListenersManager>("org.kde.elisa", 1, 0, "MusicListenersManager");
-    qmlRegisterType<AllAlbumsProxyModel>("org.kde.elisa", 1, 0, "AllAlbumsProxyModel");
-    qmlRegisterType<AllArtistsProxyModel>("org.kde.elisa", 1, 0, "AllArtistsProxyModel");
-    qmlRegisterType<AllTracksProxyModel>("org.kde.elisa", 1, 0, "AllTracksProxyModel");
-    qmlRegisterType<SingleAlbumProxyModel>("org.kde.elisa", 1, 0, "SingleAlbumProxyModel");
-    qmlRegisterType<SingleArtistProxyModel>("org.kde.elisa", 1, 0, "SingleArtistProxyModel");
-    qmlRegisterType<AudioWrapper>("org.kde.elisa", 1, 0, "AudioWrapper");
-    qmlRegisterType<TopNotificationManager>("org.kde.elisa", 1, 0, "TopNotificationManager");
-    qmlRegisterType<TrackDataHelper>("org.kde.elisa", 1, 0, "TrackDataHelper");
-
-#if defined Qt5DBus_FOUND && Qt5DBus_FOUND
-    qmlRegisterType<Mpris2>("org.kde.elisa", 1, 0, "Mpris2");
-    qRegisterMetaType<MediaPlayer2Player*>();
-#endif
-
-    qRegisterMetaType<AbstractMediaProxyModel*>();
-    qRegisterMetaType<QHash<QString,QUrl>>("QHash<QString,QUrl>");
-    qRegisterMetaType<QList<MusicAudioTrack>>("QList<MusicAudioTrack>");
-    qRegisterMetaType<QList<MusicAudioTrack>>("QVector<MusicAudioTrack>");
-    qRegisterMetaType<QList<MusicAlbum>>("QList<MusicAlbum>");
-    qRegisterMetaType<QList<MusicArtist>>("QList<MusicArtist>");
-    qRegisterMetaType<QVector<qulonglong>>("QVector<qulonglong>");
-    qRegisterMetaType<QHash<qulonglong,int>>("QHash<qulonglong,int>");
-    qRegisterMetaType<MusicAlbum>("MusicAlbum");
-    qRegisterMetaType<MusicArtist>("MusicArtist");
-    qRegisterMetaType<QMap<QString, int>>();
-    qRegisterMetaType<QAction*>();
-    qRegisterMetaType<NotificationItem>("NotificationItem");
-    qRegisterMetaType<QMap<QString,int>>("QMap<QString,int>");
-    qRegisterMetaType<ElisaUtils::PlayListEnqueueMode>("ElisaUtils::PlayListEnqueueMode");
-    qRegisterMetaType<ElisaUtils::PlayListEnqueueTriggerPlay>("ElisaUtils::PlayListEnqueueTriggerPlay");
-    qmlRegisterUncreatableType<ElisaApplication>("org.kde.elisa", 1, 0, "ElisaApplication", QStringLiteral("only one and done in c++"));
-
-    qRegisterMetaTypeStreamOperators<ManageMediaPlayerControl::PlayerState>("PlayListControler::PlayerState");
-
     KAboutData aboutData( QStringLiteral("elisa"),
                           i18n("Elisa"),
                           QStringLiteral("0.1.80"),
@@ -204,18 +101,7 @@ int main(int argc, char *argv[])
 
     KAboutData::setApplicationData(aboutData);
 
-#if defined KF5DBusAddons_FOUND && KF5DBusAddons_FOUND
-    KDBusService elisaService(KDBusService::Unique);
-#endif
-
     KLocalizedString::setApplicationDomain("elisa");
-    ElisaApplication myApp;
-
-#if defined KF5DBusAddons_FOUND && KF5DBusAddons_FOUND
-    QObject::connect(&elisaService, &KDBusService::activateActionRequested, &myApp, &ElisaApplication::activateActionRequested);
-    QObject::connect(&elisaService, &KDBusService::activateRequested, &myApp, &ElisaApplication::activateRequested);
-    QObject::connect(&elisaService, &KDBusService::openRequested, &myApp, &ElisaApplication::openRequested);
-#endif
 
     QCommandLineParser parser;
     parser.addHelpOption();
@@ -223,8 +109,6 @@ int main(int argc, char *argv[])
     aboutData.setupCommandLine(&parser);
     parser.process(app);
     aboutData.processCommandLine(&parser);
-
-    myApp.setArguments(parser.positionalArguments());
 
 #if defined Qt5AndroidExtras_FOUND && Qt5AndroidExtras_FOUND
     qDebug() << QCoreApplication::arguments();
@@ -234,12 +118,6 @@ int main(int argc, char *argv[])
                                               "(Landroid/content/Context;)V",
                                               QtAndroid::androidContext().object());
 #endif
-
-    auto configurationFileName = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
-    configurationFileName += QStringLiteral("/elisarc");
-    Elisa::ElisaConfiguration::instance(configurationFileName);
-    Elisa::ElisaConfiguration::self()->load();
-    Elisa::ElisaConfiguration::self()->save();
 
     QQmlApplicationEngine engine;
     engine.addImportPath(QStringLiteral("qrc:/imports"));
@@ -252,8 +130,23 @@ int main(int argc, char *argv[])
 #endif
 
     engine.rootContext()->setContextObject(new KLocalizedContext(&engine));
-    engine.rootContext()->setContextProperty(QStringLiteral("elisa"), &myApp);
     engine.rootContext()->setContextProperty(QStringLiteral("logicalDpi"), QGuiApplication::primaryScreen()->logicalDotsPerInch());
+
+#if defined KF5DBusAddons_FOUND && KF5DBusAddons_FOUND
+    KDBusService elisaService(KDBusService::Unique);
+#endif
+
+    std::unique_ptr<ElisaApplication> myApp = std::make_unique<ElisaApplication>();
+
+#if defined KF5DBusAddons_FOUND && KF5DBusAddons_FOUND
+    QObject::connect(&elisaService, &KDBusService::activateActionRequested, myApp.get(), &ElisaApplication::activateActionRequested);
+    QObject::connect(&elisaService, &KDBusService::activateRequested, myApp.get(), &ElisaApplication::activateRequested);
+    QObject::connect(&elisaService, &KDBusService::openRequested, myApp.get(), &ElisaApplication::openRequested);
+#endif
+
+    myApp->setArguments(parser.positionalArguments());
+
+    engine.rootContext()->setContextProperty(QStringLiteral("elisa"), myApp.release());
 
     engine.load(QUrl(QStringLiteral("qrc:/qml/ElisaMainWindow.qml")));
 

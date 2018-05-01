@@ -20,6 +20,8 @@
 #ifndef MEDIAPLAYLIST_H
 #define MEDIAPLAYLIST_H
 
+#include "elisaLib_export.h"
+
 #include "musicaudiotrack.h"
 #include "musicalbum.h"
 #include "musicartist.h"
@@ -36,7 +38,7 @@ class MusicListenersManager;
 class MediaPlayListEntry;
 class QDebug;
 
-class MediaPlayList : public QAbstractListModel
+class ELISALIB_EXPORT MediaPlayList : public QAbstractListModel
 {
     Q_OBJECT
 

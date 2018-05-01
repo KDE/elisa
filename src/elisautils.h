@@ -20,6 +20,8 @@
 #ifndef ELISAUTILS_H
 #define ELISAUTILS_H
 
+#include "elisaLib_export.h"
+
 #include "musicaudiotrack.h"
 
 #include <QUrl>
@@ -36,8 +38,8 @@ namespace ElisaUtils {
 
 Q_NAMESPACE
 
-MusicAudioTrack scanOneFile(const QUrl &scanFile, const QMimeDatabase &mimeDatabase,
-                            const KFileMetaData::ExtractorCollection &allExtractors);
+ELISALIB_EXPORT MusicAudioTrack scanOneFile(const QUrl &scanFile, const QMimeDatabase &mimeDatabase,
+                                            const KFileMetaData::ExtractorCollection &allExtractors);
 
 enum PlayListEnqueueMode {
     AppendPlayList,

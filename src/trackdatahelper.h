@@ -21,10 +21,12 @@
 #ifndef TRACKDATAHELPER_H
 #define TRACKDATAHELPER_H
 
+#include "elisaLib_export.h"
+
 #include <QObject>
 #include "musicaudiotrack.h"
 
-class TrackDataHelper : public QObject, public MusicAudioTrack
+class ELISALIB_EXPORT TrackDataHelper : public QObject, public MusicAudioTrack
 {
     Q_OBJECT
 

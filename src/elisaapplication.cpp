@@ -73,6 +73,12 @@ public:
 #endif
     {
         Q_UNUSED(parent)
+
+        auto configurationFileName = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
+        configurationFileName += QStringLiteral("/elisarc");
+        Elisa::ElisaConfiguration::instance(configurationFileName);
+        Elisa::ElisaConfiguration::self()->load();
+        Elisa::ElisaConfiguration::self()->save();
     }
 
 #if defined KF5XmlGui_FOUND && KF5XmlGui_FOUND
@@ -161,6 +167,10 @@ void ElisaApplication::setArguments(const QStringList &newArguments)
 
     d->mArguments = checkFileListAndMakeAbsolute(newArguments, QDir::currentPath());
     Q_EMIT argumentsChanged();
+
+    if (!d->mArguments.isEmpty()) {
+        Q_EMIT enqueue(d->mArguments);
+    }
 }
 
 void ElisaApplication::activateActionRequested(const QString &actionName, const QVariant &parameter)
@@ -308,6 +318,10 @@ void ElisaApplication::initialize()
                      d->mMediaPlayList.get(), static_cast<void (MediaPlayList::*)(const QList<MusicAudioTrack> &,
                                                                          ElisaUtils::PlayListEnqueueMode,
                                                                          ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayList::enqueue));
+
+    if (!d->mArguments.isEmpty()) {
+        Q_EMIT enqueue(d->mArguments);
+    }
 }
 
 QAction * ElisaApplication::action(const QString& name)

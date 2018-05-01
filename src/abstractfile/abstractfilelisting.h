@@ -20,6 +20,8 @@
 #ifndef ABSTRACTFILELISTING_H
 #define ABSTRACTFILELISTING_H
 
+#include "elisaLib_export.h"
+
 #include "notificationitem.h"
 
 #include <QObject>
@@ -34,7 +36,7 @@ class AbstractFileListingPrivate;
 class MusicAudioTrack;
 class NotificationItem;
 
-class AbstractFileListing : public QObject
+class ELISALIB_EXPORT AbstractFileListing : public QObject
 {
 
     Q_OBJECT

@@ -20,13 +20,15 @@
 #ifndef MANAGEAUDIOPLAYER_H
 #define MANAGEAUDIOPLAYER_H
 
+#include "elisaLib_export.h"
+
 #include <QObject>
 #include <QPersistentModelIndex>
 #include <QAbstractItemModel>
 #include <QUrl>
 #include <QMediaPlayer>
 
-class ManageAudioPlayer : public QObject
+class ELISALIB_EXPORT ManageAudioPlayer : public QObject
 {
     Q_OBJECT
 

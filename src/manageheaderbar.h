@@ -20,6 +20,8 @@
 #ifndef MANAGEHEADERBAR_H
 #define MANAGEHEADERBAR_H
 
+#include "elisaLib_export.h"
+
 #include <QObject>
 #include <QList>
 #include <QPersistentModelIndex>
@@ -27,7 +29,7 @@
 #include <QModelIndex>
 #include <QUrl>
 
-class ManageHeaderBar : public QObject
+class ELISALIB_EXPORT ManageHeaderBar : public QObject
 {
     Q_OBJECT
 

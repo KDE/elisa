@@ -1,0 +1,4 @@
+module org.kde.elisa
+plugin elisaqmlplugin
+typeinfo plugins.qmltypes
+

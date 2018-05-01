@@ -20,6 +20,8 @@
 #ifndef NOTIFICATIONITEM_H
 #define NOTIFICATIONITEM_H
 
+#include "elisaLib_export.h"
+
 #include <QString>
 
 #include <memory>
@@ -27,7 +29,7 @@
 class NotificationItemPrivate;
 class QObject;
 
-class NotificationItem
+class ELISALIB_EXPORT NotificationItem
 {
 
 public:

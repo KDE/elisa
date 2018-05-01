@@ -68,7 +68,7 @@ private Q_SLOTS:
         myApp.setArguments({relativePath});
 
         QCOMPARE(argumentsChangedSpy.count(), 1);
-        QCOMPARE(enqueueSpy.count(), 0);
+        QCOMPARE(enqueueSpy.count(), 1);
 
         QCOMPARE(myApp.arguments().count(), 1);
         QCOMPARE(myApp.arguments().at(0), myTestFile.canonicalFilePath());

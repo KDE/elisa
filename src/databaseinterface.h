@@ -20,6 +20,8 @@
 #ifndef DATABASEINTERFACE_H
 #define DATABASEINTERFACE_H
 
+#include "elisaLib_export.h"
+
 #include "musicalbum.h"
 #include "musicaudiotrack.h"
 #include "musicartist.h"
@@ -37,7 +39,7 @@ class DatabaseInterfacePrivate;
 class QMutex;
 class QSqlRecord;
 
-class DatabaseInterface : public QObject
+class ELISALIB_EXPORT DatabaseInterface : public QObject
 {
     Q_OBJECT
 

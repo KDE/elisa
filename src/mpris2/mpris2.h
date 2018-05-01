@@ -22,6 +22,8 @@
 #ifndef MEDIACENTER_MPRIS2_H
 #define MEDIACENTER_MPRIS2_H
 
+#include "elisaLib_export.h"
+
 #include <QObject>
 #include <QSharedPointer>
 #include <QVariantMap>
@@ -36,7 +38,7 @@ class ManageMediaPlayerControl;
 class ManageHeaderBar;
 class AudioWrapper;
 
-class Mpris2 : public QObject
+class ELISALIB_EXPORT Mpris2 : public QObject
 {
     Q_OBJECT
 

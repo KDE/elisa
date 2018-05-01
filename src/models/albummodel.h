@@ -20,6 +20,8 @@
 #ifndef ALBUMMODEL_H
 #define ALBUMMODEL_H
 
+#include "elisaLib_export.h"
+
 #include <QAbstractItemModel>
 #include <QVector>
 #include <QHash>
@@ -34,7 +36,7 @@ class DatabaseInterface;
 class AlbumModelPrivate;
 class QMutex;
 
-class AlbumModel : public QAbstractItemModel
+class ELISALIB_EXPORT AlbumModel : public QAbstractItemModel
 {
     Q_OBJECT
 

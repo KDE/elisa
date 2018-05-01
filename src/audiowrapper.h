@@ -20,6 +20,8 @@
 #ifndef AUDIOWRAPPER_H
 #define AUDIOWRAPPER_H
 
+#include "elisaLib_export.h"
+
 #include <QObject>
 #include <QUrl>
 #include <QMediaPlayer>
@@ -29,7 +31,7 @@
 
 class AudioWrapperPrivate;
 
-class AudioWrapper : public QObject
+class ELISALIB_EXPORT AudioWrapper : public QObject
 {
     Q_OBJECT
 

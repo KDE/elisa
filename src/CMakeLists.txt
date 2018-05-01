@@ -1,39 +1,166 @@
 include_directories(${elisa_BINARY_DIR})
 
+set(elisaLib_SOURCES
+    mediaplaylist.cpp
+    musicalbum.cpp
+    musicaudiotrack.cpp
+    musicartist.cpp
+    progressindicator.cpp
+    databaseinterface.cpp
+    musiclistenersmanager.cpp
+    managemediaplayercontrol.cpp
+    manageheaderbar.cpp
+    manageaudioplayer.cpp
+    trackslistener.cpp
+    elisaapplication.cpp
+    audiowrapper.cpp
+    notificationitem.cpp
+    topnotificationmanager.cpp
+    elisautils.cpp
+    trackdatahelper.cpp
+    abstractfile/abstractfilelistener.cpp
+    abstractfile/abstractfilelisting.cpp
+    file/filelistener.cpp
+    file/localfilelisting.cpp
+    models/albummodel.cpp
+    models/allalbumsmodel.cpp
+    models/allartistsmodel.cpp
+    models/alltracksmodel.cpp
+    models/abstractmediaproxymodel.cpp
+    models/allalbumsproxymodel.cpp
+    models/allartistsproxymodel.cpp
+    models/alltracksproxymodel.cpp
+    models/singleartistproxymodel.cpp
+    models/singlealbumproxymodel.cpp
+)
+
+if (KF5Baloo_FOUND)
+    if (Qt5DBus_FOUND)
+        set(elisaLib_SOURCES
+            ${elisaLib_SOURCES}
+            baloo/localbaloofilelisting.cpp
+            baloo/baloolistener.cpp
+            )
+
+        qt5_add_dbus_interface(elisaLib_SOURCES
+            ${BALOO_DBUS_INTERFACES_DIR}/org.kde.baloo.fileindexer.xml
+            baloo/fileindexer)
+
+        qt5_add_dbus_interface(elisaLib_SOURCES
+            ${BALOO_DBUS_INTERFACES_DIR}/org.kde.baloo.scheduler.xml
+            baloo/scheduler)
+    endif()
+endif()
+
+if (Qt5DBus_FOUND)
+    set(elisaLib_SOURCES
+        ${elisaLib_SOURCES}
+        mpris2/mpris2.cpp
+        mpris2/mediaplayer2.cpp
+        mpris2/mediaplayer2player.cpp
+    )
+endif()
+
+if (UPNPQT_FOUND)
+    set(elisaLib_SOURCES
+        ${elisaLib_SOURCES}
+        upnp/upnpcontrolcontentdirectory.cpp
+        upnp/upnpcontentdirectorymodel.cpp
+        upnp/upnpcontrolconnectionmanager.cpp
+        upnp/upnpcontrolmediaserver.cpp
+        upnp/didlparser.cpp
+        upnp/upnplistener.cpp
+        upnp/upnpdiscoverallmusic.cpp
+        )
+endif()
+
+if (KF5Baloo_FOUND)
+    if (Qt5DBus_FOUND)
+        qt5_add_dbus_interface(elisaLib_SOURCES
+            ${BALOO_DBUS_INTERFACES_DIR}/org.kde.baloo.fileindexer.xml
+            baloo/fileindexer)
+
+        qt5_add_dbus_interface(elisaLib_SOURCES
+            ${BALOO_DBUS_INTERFACES_DIR}/org.kde.baloo.scheduler.xml
+            baloo/scheduler)
+
+        set(elisaLib_SOURCES
+            ${elisaLib_SOURCES}
+            ../src/baloo/baloolistener.cpp
+            ../src/baloo/localbaloofilelisting.cpp
+            )
+    endif()
+endif()
+
+kconfig_add_kcfg_files(elisaLib_SOURCES ../src/elisa_settings.kcfgc )
+set(elisaLib_SOURCES
+    ${elisaLib_SOURCES}
+    ../src/elisa_core.kcfg
+)
+
+add_library(elisaLib ${elisaLib_SOURCES})
+target_link_libraries(elisaLib
+    LINK_PUBLIC
+        Qt5::Multimedia KF5::DBusAddons
+    LINK_PRIVATE
+        Qt5::Core Qt5::Sql Qt5::Widgets KF5::I18n
+        Qt5::Concurrent Qt5::Qml KF5::ConfigCore KF5::ConfigGui KF5::FileMetaData
+        KF5::ConfigWidgets KF5::XmlGui KF5::KCMUtils KF5::Baloo)
+
+if (Qt5DBus_FOUND)
+    if (KF5DBusAddons_FOUND)
+        target_link_libraries(elisaLib
+            LINK_PUBLIC
+                KF5::DBusAddons
+        )
+    endif()
+endif()
+
+generate_export_header(elisaLib BASE_NAME ElisaLib EXPORT_FILE_NAME elisaLib_export.h)
+
+set_target_properties(elisaLib PROPERTIES
+    VERSION 0.1
+    SOVERSION 0
+    EXPORT_NAME ElisaLib
+)
+
+install(TARGETS elisaLib ${INSTALL_TARGETS_DEFAULT_ARGS})
+
+set(elisaqmlplugin_SOURCES
+    elisaqmlplugin.cpp
+    elisautils.cpp
+)
+
+add_library(elisaqmlplugin SHARED ${elisaqmlplugin_SOURCES})
+target_link_libraries(elisaqmlplugin
+    LINK_PRIVATE
+        Qt5::Quick Qt5::Widgets
+        KF5::FileMetaData KF5::ConfigCore KF5::ConfigGui
+        elisaLib
+)
+
+set_target_properties(elisaqmlplugin PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/org/kde/elisa)
+
+install(TARGETS elisaqmlplugin ${INSTALL_TARGETS_DEFAULT_ARGS})
+
+add_custom_target(copy)
+add_custom_target(copy2)
+
+file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/bin/org/kde/elisa)
+
+add_custom_command(TARGET copy PRE_BUILD
+    COMMAND ${CMAKE_COMMAND} -E
+    copy ${CMAKE_CURRENT_SOURCE_DIR}/qmldir ${CMAKE_BINARY_DIR}/bin/org/kde/elisa/)
+
+add_custom_command(TARGET copy2 PRE_BUILD
+    COMMAND ${CMAKE_COMMAND} -E
+    copy ${CMAKE_CURRENT_SOURCE_DIR}/plugins.qmltypes ${CMAKE_BINARY_DIR}/bin/org/kde/elisa/)
+
+add_dependencies(elisaqmlplugin copy copy2)
+
 if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
     set(elisa_SOURCES
         main.cpp
-        mediaplaylist.cpp
-        musicalbum.cpp
-        musicaudiotrack.cpp
-        musicartist.cpp
-        progressindicator.cpp
-        databaseinterface.cpp
-        musiclistenersmanager.cpp
-        managemediaplayercontrol.cpp
-        manageheaderbar.cpp
-        manageaudioplayer.cpp
-        trackslistener.cpp
-        elisaapplication.cpp
-        audiowrapper.cpp
-        notificationitem.cpp
-        topnotificationmanager.cpp
-        elisautils.cpp
-        trackdatahelper.cpp
-        abstractfile/abstractfilelistener.cpp
-        abstractfile/abstractfilelisting.cpp
-        file/filelistener.cpp
-        file/localfilelisting.cpp
-        models/albummodel.cpp
-        models/allalbumsmodel.cpp
-        models/allartistsmodel.cpp
-        models/alltracksmodel.cpp
-        models/abstractmediaproxymodel.cpp
-        models/allalbumsproxymodel.cpp
-        models/allartistsproxymodel.cpp
-        models/alltracksproxymodel.cpp
-        models/singleartistproxymodel.cpp
-        models/singlealbumproxymodel.cpp
 
         windows/WindowsTheme.qml
         windows/PlatformIntegration.qml
@@ -71,52 +198,6 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         qml/GridBrowserView.qml
         qml/GridBrowserDelegate.qml
         qml/ListBrowserView.qml
-        )
-
-    if (KF5Baloo_FOUND)
-        if (Qt5DBus_FOUND)
-            set(elisa_SOURCES
-                ${elisa_SOURCES}
-                baloo/localbaloofilelisting.cpp
-                baloo/baloolistener.cpp
-                )
-
-            qt5_add_dbus_interface(elisa_SOURCES
-                ${BALOO_DBUS_INTERFACES_DIR}/org.kde.baloo.fileindexer.xml
-                baloo/fileindexer)
-
-            qt5_add_dbus_interface(elisa_SOURCES
-                ${BALOO_DBUS_INTERFACES_DIR}/org.kde.baloo.scheduler.xml
-                baloo/scheduler)
-        endif()
-    endif()
-
-    if (Qt5DBus_FOUND)
-        set(elisa_SOURCES
-            ${elisa_SOURCES}
-            mpris2/mpris2.cpp
-            mpris2/mediaplayer2.cpp
-            mpris2/mediaplayer2player.cpp
-        )
-    endif()
-
-    if (UPNPQT_FOUND)
-        set(elisa_SOURCES
-            ${elisa_SOURCES}
-            upnp/upnpcontrolcontentdirectory.cpp
-            upnp/upnpcontentdirectorymodel.cpp
-            upnp/upnpcontrolconnectionmanager.cpp
-            upnp/upnpcontrolmediaserver.cpp
-            upnp/didlparser.cpp
-            upnp/upnplistener.cpp
-            upnp/upnpdiscoverallmusic.cpp
-            )
-    endif()
-
-    kconfig_add_kcfg_files(elisa_SOURCES elisa_settings.kcfgc)
-    set(elisa_SOURCES
-        ${elisa_SOURCES}
-        elisa_core.kcfg
     )
 
     qt5_add_resources(elisa_SOURCES resources.qrc)
@@ -140,84 +221,10 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
 
     target_link_libraries(elisa
         LINK_PRIVATE
-            Qt5::Core
-            Qt5::Quick
-            Qt5::Gui
+            elisaLib
             Qt5::Widgets
-            Qt5::Multimedia
-            Qt5::Svg
-            Qt5::Sql
-            Qt5::Concurrent
-            KF5::I18n
-            KF5::ConfigCore
-            KF5::ConfigGui
-            KF5::FileMetaData
-            KF5::CoreAddons
+            KF5::Declarative KF5::I18n KF5::Crash KF5::ConfigCore KF5::ConfigGui
     )
-
-    if (Qt5DBus_FOUND)
-        target_link_libraries(elisa
-            LINK_PRIVATE
-                Qt5::DBus
-        )
-    endif()
-
-    if (KF5KCMUtils_FOUND)
-        target_link_libraries(elisa
-            LINK_PRIVATE
-                KF5::KCMUtils
-        )
-    endif()
-
-    if (Qt5AndroidExtras_FOUND)
-        target_link_libraries(elisa
-            LINK_PRIVATE
-                Qt5::AndroidExtras
-        )
-    endif()
-
-    if (KF5Baloo_FOUND)
-        target_link_libraries(elisa
-            LINK_PRIVATE
-                KF5::Baloo
-        )
-    endif()
-
-    if (KF5Declarative_FOUND)
-        target_link_libraries(elisa
-            LINK_PRIVATE
-                KF5::Declarative
-        )
-    endif()
-
-    if (KF5XmlGui_FOUND)
-        target_link_libraries(elisa
-            LINK_PRIVATE
-                KF5::XmlGui
-        )
-    endif()
-
-    if (KF5Crash_FOUND)
-        target_link_libraries(elisa
-            LINK_PRIVATE
-                KF5::Crash
-        )
-    endif()
-
-    if (UPNPQT_FOUND)
-        target_link_libraries(elisa
-            LINK_PRIVATE
-                UPNP::upnpQt
-                Qt5::Network
-        )
-    endif()
-
-    if (KF5DBusAddons_FOUND)
-        target_link_libraries(elisa
-            LINK_PRIVATE
-                KF5::DBusAddons
-        )
-    endif()
 endif()
 
 install(TARGETS elisa ${INSTALL_TARGETS_DEFAULT_ARGS})
@@ -229,92 +236,20 @@ endif()
 set(elisaImport_SOURCES
     elisaimport.cpp
     elisaimportapplication.cpp
-    elisaapplication.cpp
-    mediaplaylist.cpp
-    musicalbum.cpp
-    musicaudiotrack.cpp
-    musicartist.cpp
-    manageaudioplayer.cpp
-    progressindicator.cpp
-    models/albummodel.cpp
-    models/allalbumsmodel.cpp
-    models/allartistsmodel.cpp
-    models/alltracksmodel.cpp
-    models/abstractmediaproxymodel.cpp
-    models/allalbumsproxymodel.cpp
-    models/allartistsproxymodel.cpp
-    models/alltracksproxymodel.cpp
-    models/singleartistproxymodel.cpp
-    models/singlealbumproxymodel.cpp
-    databaseinterface.cpp
-    musiclistenersmanager.cpp
-    trackslistener.cpp
-    notificationitem.cpp
-    topnotificationmanager.cpp
-    elisautils.cpp
-    abstractfile/abstractfilelistener.cpp
-    abstractfile/abstractfilelisting.cpp
-    file/filelistener.cpp
-    file/localfilelisting.cpp
-    audiowrapper.cpp
 )
 
-if (KF5Baloo_FOUND)
-    if (Qt5DBus_FOUND)
-        set(elisaImport_SOURCES
-            ${elisaImport_SOURCES}
-            baloo/localbaloofilelisting.cpp
-            baloo/baloolistener.cpp
-            )
-
-        qt5_add_dbus_interface(elisaImport_SOURCES
-            ${BALOO_DBUS_INTERFACES_DIR}/org.kde.baloo.fileindexer.xml
-            baloo/fileindexer)
-
-        qt5_add_dbus_interface(elisaImport_SOURCES
-            ${BALOO_DBUS_INTERFACES_DIR}/org.kde.baloo.scheduler.xml
-            baloo/scheduler)
-    endif()
-endif()
-
-kconfig_add_kcfg_files(elisaImport_SOURCES elisa_settings.kcfgc)
+kconfig_add_kcfg_files(elisaImport_SOURCES ../src/elisa_settings.kcfgc )
 set(elisaImport_SOURCES
     ${elisaImport_SOURCES}
-    elisa_core.kcfg
+    ../src/elisa_core.kcfg
 )
 
 add_executable(elisaImport ${elisaImport_SOURCES})
 
 target_link_libraries(elisaImport
     LINK_PRIVATE
-        Qt5::Core
-        Qt5::Sql
-        Qt5::Multimedia
-        Qt5::Widgets
-        Qt5::Concurrent
-        KF5::I18n
-        KF5::ConfigCore
-        KF5::ConfigGui
-        KF5::FileMetaData
+        KF5::ConfigCore KF5::ConfigGui KF5::FileMetaData
+        elisaLib
 )
 
-if (KF5XmlGui_FOUND)
-    target_link_libraries(elisaImport
-        LINK_PRIVATE
-            KF5::XmlGui
-    )
-endif()
-
-if (KF5KCMUtils_FOUND)
-    target_link_libraries(elisaImport
-        LINK_PRIVATE
-            KF5::KCMUtils
-    )
-endif()
-
-if (KF5Baloo_FOUND)
-    target_link_libraries(elisaImport
-        LINK_PRIVATE
-            KF5::Baloo
-    )
-endif()
+set(QML_IMPORT_PATH ${CMAKE_BINARY_DIR}/bin CACHE INTERNAL "qml import path" FORCE)

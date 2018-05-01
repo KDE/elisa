@@ -20,9 +20,11 @@
 #ifndef PROGRESSINDICATOR_H
 #define PROGRESSINDICATOR_H
 
+#include "elisaLib_export.h"
+
 #include <QObject>
 
-class ProgressIndicator : public QObject
+class ELISALIB_EXPORT ProgressIndicator : public QObject
 {
 
     Q_OBJECT

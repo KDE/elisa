@@ -108,6 +108,11 @@ target_link_libraries(elisaLib
         KF5::ConfigWidgets KF5::XmlGui KF5::KCMUtils KF5::Baloo)
 
 if (Qt5DBus_FOUND)
+    target_link_libraries(elisaLib
+        LINK_PUBLIC
+            Qt5::DBus
+    )
+
     if (KF5DBusAddons_FOUND)
         target_link_libraries(elisaLib
             LINK_PUBLIC

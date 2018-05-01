@@ -27,12 +27,21 @@ import QtGraphicalEffects 1.0
 import org.kde.elisa 1.0
 
 FocusScope {
-    id: rootElement
+    id: listView
 
-    property var stackView
+    property bool isSubPage: false
+    property alias mainTitle: navigationBar.mainTitle
+    property alias secondaryTitle: navigationBar.secondaryTitle
+    property alias image: navigationBar.image
+    property alias delegate: contentDirectoryView.delegate
     property alias contentModel: contentDirectoryView.model
     property alias expandedFilterView: navigationBar.expandedFilterView
+    property alias showRating: navigationBar.showRating
+    property alias allowArtistNavigation: navigationBar.allowArtistNavigation
+    property var delegateWidth: scrollBar.visible ? contentDirectoryView.width - scrollBar.width : contentDirectoryView.width
 
+    signal goBack()
+    signal showArtist(var name)
     signal filterViewChanged(bool expandedFilterView)
 
     SystemPalette {
@@ -51,10 +60,10 @@ FocusScope {
         NavigationActionBar {
             id: navigationBar
 
-            mainTitle: i18nc("Title of the view of all tracks", "Tracks")
-            secondaryTitle: ""
-            image: elisaTheme.tracksIcon
-            enableGoBack: false
+            mainTitle: listView.mainTitle
+            secondaryTitle: listView.secondaryTitle
+            image: listView.image
+            enableGoBack: isSubPage
 
             height: elisaTheme.navigationBarHeight
             Layout.preferredHeight: height
@@ -76,9 +85,13 @@ FocusScope {
 
             onEnqueue: contentModel.enqueueToPlayList()
 
-            onFilterViewChanged: rootElement.filterViewChanged(expandedFilterView)
+            onFilterViewChanged: listView.filterViewChanged(expandedFilterView)
 
             onReplaceAndPlay: contentModel.replaceAndPlayOfPlayList()
+
+            onGoBack: listView.goBack()
+
+            onShowArtist: listView.showArtist(listView.contentModel.sourceModel.author)
         }
 
         Rectangle {
@@ -99,27 +112,6 @@ FocusScope {
                 }
                 boundsBehavior: Flickable.StopAtBounds
                 clip: true
-
-                delegate: MediaTrackDelegate {
-                    id: entry
-
-                    width: scrollBar.visible ? contentDirectoryView.width - scrollBar.width : contentDirectoryView.width
-                    height: elisaTheme.trackDelegateHeight
-
-                    focus: true
-
-                    trackData: model.containerData
-
-                    isFirstTrackOfDisc: false
-
-                    isSingleDiscAlbum: model.isSingleDiscAlbum
-
-                    onEnqueue: elisa.mediaPlayList.enqueue(data)
-
-                    onReplaceAndPlay: elisa.mediaPlayList.replaceAndPlay(data)
-
-                    onClicked: contentDirectoryView.currentIndex = index
-                }
             }
         }
     }

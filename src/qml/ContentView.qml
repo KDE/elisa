@@ -147,12 +147,13 @@ RowLayout {
                                 onOpen: {
                                     elisa.singleAlbumProxyModel.loadAlbumData(databaseId)
                                     localAlbums.stackView.push(albumView, {
+                                                                   mainTitle: innerMainTitle,
+                                                                   secondaryTitle: innerSecondaryTitle,
+                                                                   image: innerImage,
                                                                    stackView: localAlbums.stackView,
-                                                                   albumName: innerMainTitle,
-                                                                   artistName:  innerSecondaryTitle,
-                                                                   albumArtUrl: innerImage,
                                                                })
                                 }
+
                                 onGoBack: localAlbums.stackView.pop()
 
                                 Binding {
@@ -197,10 +198,10 @@ RowLayout {
                                                                     mainTitle: innerMainTitle,
                                                                     secondaryTitle: innerSecondaryTitle,
                                                                     image: innerImage,
-                                                                    stackView: localArtists.stackView
                                                                 })
 
                                 }
+
                                 onGoBack: localArtists.stackView.pop()
 
                                 Binding {
@@ -227,12 +228,35 @@ RowLayout {
                                 rightMargin: elisaTheme.layoutHorizontalMargin
                             }
 
-                            firstPage: MediaAllTracksView {
+                            firstPage: ListBrowserView {
                                 id: allTracksView
                                 focus: true
-                                stackView: localTracks.stackView
 
                                 contentModel: elisa.allTracksProxyModel
+
+                                delegate: MediaTrackDelegate {
+                                    id: entry
+
+                                    width: allTracksView.delegateWidth
+                                    height: elisaTheme.trackDelegateHeight
+
+                                    focus: true
+
+                                    trackData: model.containerData
+
+                                    isFirstTrackOfDisc: false
+
+                                    isSingleDiscAlbum: model.isSingleDiscAlbum
+
+                                    onEnqueue: elisa.mediaPlayList.enqueue(data)
+
+                                    onReplaceAndPlay: elisa.mediaPlayList.replaceAndPlay(data)
+
+                                    onClicked: contentDirectoryView.currentIndex = index
+                                }
+
+                                image: elisaTheme.tracksIcon
+                                mainTitle: i18nc("Title of the view of all tracks", "Tracks")
 
                                 Binding {
                                     target: allTracksView
@@ -550,7 +574,6 @@ RowLayout {
 
         GridBrowserView {
             id: innerAlbumGridView
-            property var stackView
 
             contentModel: elisa.singleArtistProxyModel
 
@@ -559,13 +582,14 @@ RowLayout {
             onOpen: {
                 elisa.singleAlbumProxyModel.loadAlbumData(databaseId)
                 localArtists.stackView.push(albumView, {
+                                                mainTitle: innerMainTitle,
+                                                secondaryTitle: innerSecondaryTitle,
+                                                image: innerImage,
                                                 stackView: localArtists.stackView,
-                                                albumName: innerMainTitle,
-                                                artistName: innerSecondaryTitle,
-                                                albumArtUrl: innerImage,
                                             })
             }
-            onGoBack: stackView.pop()
+
+            onGoBack: localArtists.stackView.pop()
 
             Binding {
                 target: innerAlbumGridView
@@ -580,11 +604,36 @@ RowLayout {
     Component {
         id: albumView
 
-        MediaAlbumView {
+        ListBrowserView {
             id: albumGridView
             property var stackView
 
             contentModel: elisa.singleAlbumProxyModel
+
+            delegate: MediaAlbumTrackDelegate {
+                id: entry
+
+                width: albumGridView.delegateWidth
+                height: ((model.isFirstTrackOfDisc && !isSingleDiscAlbum) ? elisaTheme.delegateHeight*2 : elisaTheme.delegateHeight)
+
+                focus: true
+
+                mediaTrack.trackData: model.containerData
+
+                mediaTrack.isFirstTrackOfDisc: model.isFirstTrackOfDisc
+
+                mediaTrack.isSingleDiscAlbum: model.isSingleDiscAlbum
+
+                mediaTrack.onEnqueue: elisa.mediaPlayList.enqueue(data)
+
+                mediaTrack.onReplaceAndPlay: elisa.mediaPlayList.replaceAndPlay(data)
+
+                mediaTrack.isAlternateColor: (index % 2) === 1
+
+                mediaTrack.onClicked: contentDirectoryView.currentIndex = index
+            }
+
+            allowArtistNavigation: true
 
             onShowArtist: {
                 listViews.currentIndex = 2
@@ -601,6 +650,7 @@ RowLayout {
                 }
                 allArtistsView.open(name, name, elisaTheme.defaultArtistImage, '')
             }
+
             onGoBack: stackView.pop()
 
             expandedFilterView: true

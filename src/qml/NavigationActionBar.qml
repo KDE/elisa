@@ -123,7 +123,7 @@ FocusScope {
                 LabelWithToolTip {
                     id: albumLabel
 
-                    text: secondaryTitle
+                    text: mainTitle
 
                     Layout.fillWidth: true
                     Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
@@ -135,8 +135,6 @@ FocusScope {
                     font {
                         pointSize: elisaTheme.defaultFontPointSize * 2
                     }
-
-                    visible: secondaryTitle !== ""
                 }
 
                 TextMetrics {
@@ -149,7 +147,7 @@ FocusScope {
                 LabelWithToolTip {
                     id: authorLabel
 
-                    text: mainTitle
+                    text: secondaryTitle
 
                     color: myPalette.text
 
@@ -157,10 +155,12 @@ FocusScope {
                     Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
 
                     font {
-                        pointSize: (secondaryTitle !== "" ? elisaTheme.defaultFontPointSize : elisaTheme.defaultFontPointSize * 2)
+                        pointSize: elisaTheme.defaultFontPointSize
                     }
 
                     elide: Text.ElideRight
+
+                    visible: secondaryTitle !== ""
                 }
 
                 Item {

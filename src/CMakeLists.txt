@@ -65,13 +65,12 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         qml/ViewSelector.qml
 
         qml/MediaPlayListView.qml
-        qml/MediaAlbumView.qml
-        qml/MediaAllTracksView.qml
         qml/MediaTrackDelegate.qml
         qml/MediaAlbumTrackDelegate.qml
         qml/MediaTrackMetadataView.qml
         qml/GridBrowserView.qml
         qml/GridBrowserDelegate.qml
+        qml/ListBrowserView.qml
         )
 
     if (KF5Baloo_FOUND)

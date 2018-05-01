@@ -74,4 +74,15 @@ void AbstractMediaProxyModel::setFilterRating(int filterRating)
     Q_EMIT filterRatingChanged(filterRating);
 }
 
+bool AbstractMediaProxyModel::sortedAscending() const
+{
+    return sortOrder() ? false : true;
+}
+
+void AbstractMediaProxyModel::sortModel(Qt::SortOrder order)
+{
+    this->sort(0,order);
+    Q_EMIT sortedAscendingChanged();
+}
+
 #include "moc_abstractmediaproxymodel.cpp"

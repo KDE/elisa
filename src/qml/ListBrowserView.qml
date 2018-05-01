@@ -61,6 +61,8 @@ FocusScope {
             id: navigationBar
 
             enableGoBack: listView.isSubPage
+            sortOrder: contentModel.sortedAscending
+
             height: elisaTheme.navigationBarHeight
             Layout.preferredHeight: height
             Layout.minimumHeight: height
@@ -88,6 +90,8 @@ FocusScope {
             onGoBack: listView.goBack()
 
             onShowArtist: listView.showArtist(listView.contentModel.sourceModel.author)
+
+            onSort: contentModel.sortModel(order)
         }
 
         Rectangle {

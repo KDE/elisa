@@ -41,6 +41,10 @@ class AbstractMediaProxyModel : public QSortFilterProxyModel
                WRITE setFilterRating
                NOTIFY filterRatingChanged)
 
+    Q_PROPERTY(bool sortedAscending
+               READ sortedAscending
+               NOTIFY sortedAscendingChanged)
+
 public:
 
     explicit AbstractMediaProxyModel(QObject *parent = nullptr);
@@ -51,17 +55,23 @@ public:
 
     int filterRating() const;
 
+    bool sortedAscending() const;
+
 public Q_SLOTS:
 
     void setFilterText(const QString &filterText);
 
     void setFilterRating(int filterRating);
 
+    void sortModel(Qt::SortOrder order);
+
 Q_SIGNALS:
 
     void filterTextChanged(const QString &filterText);
 
     void filterRatingChanged(int filterRating);
+
+    void sortedAscendingChanged();
 
 protected:
 

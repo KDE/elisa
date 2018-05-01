@@ -27,6 +27,9 @@
 
 SingleArtistProxyModel::SingleArtistProxyModel(QObject *parent) : AbstractMediaProxyModel(parent)
 {
+    this->setSortRole(AllAlbumsModel::TitleRole);
+    this->setSortCaseSensitivity(Qt::CaseInsensitive);
+    this->sortModel(Qt::AscendingOrder);
 }
 
 SingleArtistProxyModel::~SingleArtistProxyModel() = default;

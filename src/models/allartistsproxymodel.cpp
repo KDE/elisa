@@ -26,6 +26,9 @@
 
 AllArtistsProxyModel::AllArtistsProxyModel(QObject *parent) : AbstractMediaProxyModel(parent)
 {
+    this->setSortRole(AllArtistsModel::NameRole);
+    this->setSortCaseSensitivity(Qt::CaseInsensitive);
+    this->sortModel(Qt::AscendingOrder);
 }
 
 AllArtistsProxyModel::~AllArtistsProxyModel()

@@ -62,6 +62,7 @@ FocusScope {
             secondaryTitle: gridView.secondaryTitle
             image: gridView.image
             enableGoBack: isSubPage
+            sortOrder: contentModel.sortedAscending
 
             height: elisaTheme.navigationBarHeight
             Layout.preferredHeight: height
@@ -88,6 +89,8 @@ FocusScope {
             onGoBack: gridView.goBack()
 
             onFilterViewChanged: gridView.filterViewChanged(expandedFilterView)
+
+            onSort: contentModel.sortModel(order)
         }
 
         Rectangle {

@@ -37,12 +37,15 @@ FocusScope {
     property alias filterRating: ratingFilter.starRating
     property bool enableGoBack: true
     property bool expandedFilterView: false
+    property bool enableSorting: true
+    property bool sortOrder
 
     signal enqueue();
     signal replaceAndPlay();
     signal goBack();
     signal showArtist();
     signal filterViewChanged(bool expandedFilterView);
+    signal sort(var order);
 
     Controls1.Action {
         id: goPreviousAction
@@ -56,6 +59,13 @@ FocusScope {
         text: !navigationBar.expandedFilterView ? i18nc("Show filters in the navigation bar", "Show Search Options") : i18nc("Hide filters in the navigation bar", "Hide Search Options")
         iconName: !navigationBar.expandedFilterView ? "go-down-search" : "go-up-search"
         onTriggered: filterViewChanged(!navigationBar.expandedFilterView)
+    }
+
+    Controls1.Action {
+        id: sortAction
+        text: i18nc("Toggle between ascending and descending order", "Toggle sort order")
+        iconName: sortOrder ? "view-sort-ascending" : "view-sort-descending"
+        onTriggered: sortOrder ? sort(Qt.DescendingOrder) : sort(Qt.AscendingOrder)
     }
 
     ColumnLayout {
@@ -317,6 +327,20 @@ FocusScope {
                 starSize: elisaTheme.ratingStarSize
 
                 Layout.bottomMargin: 0
+            }
+
+            Item {
+                Layout.fillWidth: true
+            }
+
+            Controls1.ToolButton {
+                action: sortAction
+                objectName: 'sortAscendingButton'
+
+                Layout.alignment: Qt.AlignRight
+                Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+                Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+                visible: enableSorting
             }
         }
     }

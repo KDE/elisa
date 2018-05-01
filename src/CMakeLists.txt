@@ -141,7 +141,9 @@ target_link_libraries(elisaqmlplugin
 
 set_target_properties(elisaqmlplugin PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/org/kde/elisa)
 
-install(TARGETS elisaqmlplugin ${INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS elisaqmlplugin DESTINATION ${QML_INSTALL_DIR}/org/kde/elisa/)
+
+install(FILES qmldir DESTINATION ${QML_INSTALL_DIR}/org/kde/elisa)
 
 add_custom_target(copy)
 add_custom_target(copy2)

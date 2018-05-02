@@ -104,8 +104,28 @@ target_link_libraries(elisaLib
         Qt5::Multimedia
     LINK_PRIVATE
         Qt5::Core Qt5::Sql Qt5::Widgets KF5::I18n
-        Qt5::Concurrent Qt5::Qml KF5::ConfigCore KF5::ConfigGui KF5::FileMetaData
-        KF5::ConfigWidgets KF5::XmlGui KF5::KCMUtils)
+        Qt5::Concurrent Qt5::Qml KF5::ConfigCore KF5::ConfigGui KF5::FileMetaData)
+
+if (KF5XmlGui_FOUND)
+    target_link_libraries(elisaLib
+        LINK_PUBLIC
+            KF5::XmlGui
+    )
+endif()
+
+if (KF5ConfigWidgets_FOUND)
+    target_link_libraries(elisaLib
+        LINK_PUBLIC
+            KF5::ConfigWidgets
+    )
+endif()
+
+if (KF5KCMUtils_FOUND)
+    target_link_libraries(elisaLib
+        LINK_PUBLIC
+            KF5::KCMUtils
+    )
+endif()
 
 if (KF5Baloo_FOUND)
     if (Qt5DBus_FOUND)
@@ -174,7 +194,7 @@ add_custom_command(TARGET copy2 PRE_BUILD
 
 add_dependencies(elisaqmlplugin copy copy2)
 
-if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
+if (Qt5Quick_FOUND AND Qt5Widgets_FOUND AND KF5Declarative_FOUND)
     set(elisa_SOURCES
         main.cpp
 

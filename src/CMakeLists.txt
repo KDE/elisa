@@ -105,7 +105,16 @@ target_link_libraries(elisaLib
     LINK_PRIVATE
         Qt5::Core Qt5::Sql Qt5::Widgets KF5::I18n
         Qt5::Concurrent Qt5::Qml KF5::ConfigCore KF5::ConfigGui KF5::FileMetaData
-        KF5::ConfigWidgets KF5::XmlGui KF5::KCMUtils KF5::Baloo)
+        KF5::ConfigWidgets KF5::XmlGui KF5::KCMUtils)
+
+if (KF5Baloo_FOUND)
+    if (Qt5DBus_FOUND)
+        target_link_libraries(elisaLib
+            LINK_PUBLIC
+                KF5::Baloo
+        )
+    endif()
+endif()
 
 if (Qt5DBus_FOUND)
     target_link_libraries(elisaLib

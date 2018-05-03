@@ -38,6 +38,7 @@
 #include <QSet>
 #include <QPair>
 #include <QAtomicInt>
+#include <QDebug>
 
 #include <QtGlobal>
 

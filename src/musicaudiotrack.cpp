@@ -19,6 +19,7 @@
 
 #include "musicaudiotrack.h"
 
+#include <QDateTime>
 #include <QDebug>
 #include <utility>
 
@@ -31,13 +32,15 @@ public:
     MusicAudioTrackPrivate(bool aValid, QString aId, QString aParentId,
                            QString aTitle, QString aArtist, QString aAlbumName, QString aAlbumArtist,
                            int aTrackNumber, int aDiscNumber, QTime aDuration, QUrl aResourceURI,
-                           QUrl aAlbumCover, int rating, bool aIsSingleDiscAlbum, QString aGenre,
-                           QString aComposer, QString aLyricist)
+                           const QDateTime &fileModificationTime, QUrl aAlbumCover, int rating,
+                           bool aIsSingleDiscAlbum, QString aGenre, QString aComposer,
+                           QString aLyricist)
         : mId(std::move(aId)), mParentId(std::move(aParentId)), mTitle(std::move(aTitle)), mArtist(std::move(aArtist)),
           mAlbumName(std::move(aAlbumName)), mAlbumArtist(std::move(aAlbumArtist)),
           mGenre(std::move(aGenre)), mComposer(std::move(aComposer)), mLyricist(std::move(aLyricist)),
           mResourceURI(std::move(aResourceURI)),
           mAlbumCover(std::move(aAlbumCover)), mDuration(aDuration),
+          mFileModificationTime(fileModificationTime),
           mTrackNumber(aTrackNumber), mDiscNumber(aDiscNumber), mRating(rating),
           mIsValid(aValid), mIsSingleDiscAlbum(aIsSingleDiscAlbum)
     {
@@ -71,6 +74,8 @@ public:
 
     QTime mDuration;
 
+    QDateTime mFileModificationTime;
+
     int mTrackNumber = -1;
 
     int mDiscNumber = -1;
@@ -97,13 +102,14 @@ MusicAudioTrack::MusicAudioTrack() : d(std::make_unique<MusicAudioTrackPrivate>(
 
 MusicAudioTrack::MusicAudioTrack(bool aValid, QString aId, QString aParentId, QString aTitle, QString aArtist, QString aAlbumName,
                                  QString aAlbumArtist, int aTrackNumber, int aDiscNumber, QTime aDuration, QUrl aResourceURI,
-                                 QUrl aAlbumCover, int rating, bool aIsSingleDiscAlbum, QString aGenre, QString aComposer,
-                                 QString aLyricist)
+                                 const QDateTime &fileModificationTime, QUrl aAlbumCover, int rating, bool aIsSingleDiscAlbum,
+                                 QString aGenre, QString aComposer, QString aLyricist)
     : d(std::make_unique<MusicAudioTrackPrivate>(aValid, std::move(aId), std::move(aParentId),
                                                  std::move(aTitle), std::move(aArtist),
                                                  std::move(aAlbumName), std::move(aAlbumArtist),
                                                  aTrackNumber, aDiscNumber, std::move(aDuration),
-                                                 std::move(aResourceURI), std::move(aAlbumCover), rating,
+                                                 std::move(aResourceURI), fileModificationTime,
+                                                 std::move(aAlbumCover), rating,
                                                  aIsSingleDiscAlbum, std::move(aGenre),
                                                  std::move(aComposer), std::move(aLyricist)))
 {
@@ -152,6 +158,7 @@ bool MusicAudioTrack::operator ==(const MusicAudioTrack &other) const
             d->mAlbumName == other.d->mAlbumName && d->mAlbumArtist == other.d->mAlbumArtist &&
             d->mTrackNumber == other.d->mTrackNumber && d->mDiscNumber == other.d->mDiscNumber &&
             d->mDuration == other.d->mDuration && d->mResourceURI == other.d->mResourceURI &&
+            d->mFileModificationTime == other.d->mFileModificationTime &&
             d->mAlbumCover == other.d->mAlbumCover && d->mRating == other.d->mRating &&
             d->mGenre == other.d->mGenre && d->mComposer == other.d->mComposer &&
             d->mLyricist == other.d->mLyricist && d->mComment == other.d->mComment &&
@@ -166,6 +173,7 @@ bool MusicAudioTrack::operator !=(const MusicAudioTrack &other) const
             d->mAlbumName != other.d->mAlbumName || d->mAlbumArtist != other.d->mAlbumArtist ||
             d->mTrackNumber != other.d->mTrackNumber || d->mDiscNumber != other.d->mDiscNumber ||
             d->mDuration != other.d->mDuration || d->mResourceURI != other.d->mResourceURI ||
+            d->mFileModificationTime != other.d->mFileModificationTime ||
             d->mAlbumCover != other.d->mAlbumCover || d->mRating != other.d->mRating ||
             d->mGenre != other.d->mGenre || d->mComposer != other.d->mComposer ||
             d->mLyricist != other.d->mLyricist || d->mComment != other.d->mComment ||
@@ -376,6 +384,16 @@ void MusicAudioTrack::setDuration(QTime value)
 QTime MusicAudioTrack::duration() const
 {
     return d->mDuration;
+}
+
+void MusicAudioTrack::setFileModificationTime(const QDateTime &value)
+{
+    d->mFileModificationTime = value;
+}
+
+const QDateTime &MusicAudioTrack::fileModificationTime() const
+{
+    return d->mFileModificationTime;
 }
 
 void MusicAudioTrack::setResourceURI(const QUrl &value)

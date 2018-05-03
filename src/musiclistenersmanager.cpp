@@ -130,23 +130,6 @@ MusicListenersManager::MusicListenersManager(QObject *parent)
     QMetaObject::invokeMethod(&d->mDatabaseInterface, "init", Qt::QueuedConnection,
                               Q_ARG(QString, QStringLiteral("listeners")), Q_ARG(QString, databaseFileName));
 
-    connect(&d->mDatabaseInterface, &DatabaseInterface::artistsAdded,
-            this, &MusicListenersManager::artistsAdded);
-    connect(&d->mDatabaseInterface, &DatabaseInterface::tracksAdded,
-            this, &MusicListenersManager::tracksAdded);
-    connect(&d->mDatabaseInterface, &DatabaseInterface::artistRemoved,
-            this, &MusicListenersManager::artistRemoved);
-    connect(&d->mDatabaseInterface, &DatabaseInterface::albumRemoved,
-            this, &MusicListenersManager::albumRemoved);
-    connect(&d->mDatabaseInterface, &DatabaseInterface::trackRemoved,
-            this, &MusicListenersManager::trackRemoved);
-    connect(&d->mDatabaseInterface, &DatabaseInterface::artistModified,
-            this, &MusicListenersManager::artistModified);
-    connect(&d->mDatabaseInterface, &DatabaseInterface::albumModified,
-            this, &MusicListenersManager::albumModified);
-    connect(&d->mDatabaseInterface, &DatabaseInterface::trackModified,
-            this, &MusicListenersManager::trackModified);
-
     connect(QCoreApplication::instance(), &QCoreApplication::aboutToQuit,
             this, &MusicListenersManager::applicationAboutToQuit);
 
@@ -218,9 +201,9 @@ void MusicListenersManager::subscribeForTracks(MediaPlayList *client)
     helper->moveToThread(&d->mDatabaseThread);
     connect(&d->mDatabaseThread, &QThread::finished, helper.get(), &QObject::deleteLater);
 
-    connect(this, &MusicListenersManager::trackRemoved, helper.get(), &TracksListener::trackRemoved);
-    connect(this, &MusicListenersManager::tracksAdded, helper.get(), &TracksListener::tracksAdded);
-    connect(this, &MusicListenersManager::trackModified, helper.get(), &TracksListener::trackModified);
+    connect(&d->mDatabaseInterface, &DatabaseInterface::trackRemoved, helper.get(), &TracksListener::trackRemoved);
+    connect(&d->mDatabaseInterface, &DatabaseInterface::tracksAdded, helper.get(), &TracksListener::tracksAdded);
+    connect(&d->mDatabaseInterface, &DatabaseInterface::trackModified, helper.get(), &TracksListener::trackModified);
     connect(this, &MusicListenersManager::removeTracksInError, &d->mDatabaseInterface, &DatabaseInterface::removeTracksList);
     connect(helper.get(), &TracksListener::trackHasChanged, client, &MediaPlayList::trackChanged);
     connect(helper.get(), &TracksListener::trackHasBeenRemoved, client, &MediaPlayList::trackRemoved);

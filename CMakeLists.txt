@@ -5,7 +5,7 @@ project(elisa)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 14)
 
-set(REQUIRED_QT_VERSION "5.9.0")
+set(REQUIRED_QT_VERSION "5.10.0")
 find_package(Qt5 ${REQUIRED_QT_VERSION} CONFIG REQUIRED Core Network Qml Quick Test Sql Multimedia Svg Gui Widgets QuickTest Concurrent)
 
 set(REQUIRED_KF5_VERSION "5.42.0")

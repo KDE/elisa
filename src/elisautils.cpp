@@ -25,12 +25,17 @@
 #include <KFileMetaData/SimpleExtractionResult>
 #include <KFileMetaData/UserMetaData>
 
+#include <QFileInfo>
+#include <QFile>
+
 MusicAudioTrack ElisaUtils::scanOneFile(const QUrl &scanFile, const QMimeDatabase &mimeDatabase,
                                         const KFileMetaData::ExtractorCollection &allExtractors)
 {
     MusicAudioTrack newTrack;
 
-    const auto &fileMimeType = mimeDatabase.mimeTypeForFile(scanFile.toLocalFile());
+    auto localFileName = scanFile.toLocalFile();
+
+    const auto &fileMimeType = mimeDatabase.mimeTypeForFile(localFileName);
     if (!fileMimeType.name().startsWith(QStringLiteral("audio/"))) {
         return newTrack;
     }
@@ -43,8 +48,11 @@ MusicAudioTrack ElisaUtils::scanOneFile(const QUrl &scanFile, const QMimeDatabas
         return newTrack;
     }
 
+    QFileInfo fileInfo(localFileName);
+    newTrack.setFileModificationTime(fileInfo.fileTime(QFile::FileModificationTime));
+
     KFileMetaData::Extractor* ex = exList.first();
-    KFileMetaData::SimpleExtractionResult result(scanFile.toLocalFile(), mimetype,
+    KFileMetaData::SimpleExtractionResult result(localFileName, mimetype,
                                                  KFileMetaData::ExtractionResult::ExtractMetaData);
 
     ex->extract(&result);
@@ -67,7 +75,7 @@ MusicAudioTrack ElisaUtils::scanOneFile(const QUrl &scanFile, const QMimeDatabas
     auto sampleRateProperty = allProperties.find(KFileMetaData::Property::SampleRate);
     auto commentProperty = allProperties.find(KFileMetaData::Property::Comment);
 #if defined Q_OS_LINUX && !defined Q_OS_ANDROID
-    auto fileData = KFileMetaData::UserMetaData(scanFile.toLocalFile());
+    auto fileData = KFileMetaData::UserMetaData(localFileName);
 #endif
 
     if (albumProperty != allProperties.end()) {

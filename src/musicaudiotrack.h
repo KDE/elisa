@@ -41,8 +41,8 @@ public:
 
     MusicAudioTrack(bool aValid, QString aId, QString aParentId, QString aTitle, QString aArtist, QString aAlbumName,
                     QString aAlbumArtist, int aTrackNumber, int aDiscNumber, QTime aDuration, QUrl aResourceURI,
-                    QUrl aAlbumCover, int rating, bool aIsSingleDiscAlbum, QString aGenre, QString aComposer,
-                    QString aLyricist);
+                    const QDateTime &fileModificationTime, QUrl aAlbumCover, int rating, bool aIsSingleDiscAlbum,
+                    QString aGenre, QString aComposer, QString aLyricist);
 
     MusicAudioTrack(MusicAudioTrack &&other);
 
@@ -141,6 +141,10 @@ public:
     void setDuration(QTime value);
 
     QTime duration() const;
+
+    void setFileModificationTime(const QDateTime &value);
+
+    const QDateTime &fileModificationTime() const;
 
     void setResourceURI(const QUrl &value);
 

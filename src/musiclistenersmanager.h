@@ -114,22 +114,6 @@ Q_SIGNALS:
 
     void viewDatabaseChanged();
 
-    void artistsAdded(const QList<MusicArtist> &newArtist);
-
-    void tracksAdded(const QList<MusicAudioTrack> &allTracks);
-
-    void artistRemoved(const MusicArtist &removedArtist);
-
-    void albumRemoved(const MusicAlbum &removedAlbum, qulonglong removedAlbumId);
-
-    void trackRemoved(qulonglong id);
-
-    void artistModified(const MusicArtist &modifiedArtist);
-
-    void albumModified(const MusicAlbum &modifiedAlbum, qulonglong modifiedAlbumId);
-
-    void trackModified(const MusicAudioTrack &modifiedTrack);
-
     void applicationIsTerminating();
 
     void importedTracksCountChanged();

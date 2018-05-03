@@ -186,9 +186,9 @@ private:
 
     qulonglong insertMusicSource(const QString &name);
 
-    void insertTrackOrigin(const QUrl &fileNameURI, qulonglong discoverId);
+    void insertTrackOrigin(const QUrl &fileNameURI, const QDateTime &fileModifiedTime, qulonglong discoverId);
 
-    void updateTrackOrigin(qulonglong trackId, const QUrl &fileName);
+    void updateTrackOrigin(qulonglong trackId, const QUrl &fileName, const QDateTime &fileModifiedTime);
 
     int computeTrackPriority(qulonglong trackId, const QUrl &fileName);
 

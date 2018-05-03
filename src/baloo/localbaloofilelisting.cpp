@@ -289,6 +289,8 @@ MusicAudioTrack LocalBalooFileListing::scanOneFile(const QUrl &scanFile)
     Baloo::File match(fileName);
     match.load();
 
+    newTrack.setFileModificationTime(scanFileInfo.fileTime(QFile::FileModificationTime));
+
     const auto &allProperties = match.properties();
 
     auto titleProperty = allProperties.find(KFileMetaData::Property::Title);

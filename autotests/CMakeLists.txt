@@ -172,6 +172,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         elisaqmltests.cpp
         qmltests/tst_GridBrowserDelegate.qml
         qmltests/tst_NavigationActionBar.qml
+        qmltests/tst_PlayListEntry.qml
     )
 
     ecm_add_test(${elisaqmltests_SOURCES}

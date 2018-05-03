@@ -289,7 +289,9 @@ MusicAudioTrack AbstractFileListing::scanOneFile(const QUrl &scanFile)
 
 void AbstractFileListing::watchPath(const QString &pathName)
 {
-    d->mFileSystemWatcher.addPath(pathName);
+    if (!d->mFileSystemWatcher.addPath(pathName)) {
+        qDebug() << "AbstractFileListing::watchPath" << "fail for" << pathName;
+    }
 }
 
 void AbstractFileListing::addFileInDirectory(const QUrl &newFile, const QUrl &directoryName)

@@ -32,6 +32,9 @@
 #include <QList>
 #include <QVariant>
 #include <QUrl>
+#include <QDateTime>
+#include <QPair>
+#include <QHash>
 
 #include <memory>
 
@@ -114,6 +117,8 @@ Q_SIGNALS:
 
     void databaseError();
 
+    void restoredTracks(const QString &musicSource, QHash<QUrl, QDateTime> allFiles);
+
 public Q_SLOTS:
 
     void insertTracksList(const QList<MusicAudioTrack> &tracks, const QHash<QString, QUrl> &covers, const QString &musicSource);
@@ -127,6 +132,8 @@ public Q_SLOTS:
     void getAlbumFromAlbumId(qulonglong id);
 
     void cleanInvalidTracks();
+
+    void askRestoredTracks(const QString &musicSource);
 
 private:
 
@@ -210,7 +217,7 @@ private:
 
     void internalRemoveTracksList(const QList<QUrl> &removedTracks, QList<qulonglong> &newArtistsIds);
 
-    void internalRemoveTracksList(const QList<QUrl> &removedTracks, qulonglong sourceId, QList<qulonglong> &newArtistsIds);
+    void internalRemoveTracksList(const QHash<QUrl, QDateTime> &removedTracks, qulonglong sourceId, QList<qulonglong> &newArtistsIds);
 
     void internalRemoveTracksWithoutMapping(QList<qulonglong> &newArtistsIds);
 
@@ -225,6 +232,10 @@ private:
     qulonglong insertLyricist(const QString &name);
 
     MusicArtist internalLyricistFromId(qulonglong lyricistId);
+
+    qulonglong internalSourceIdFromName(const QString &sourceName);
+
+    QHash<QUrl, QDateTime> internalAllFileNameFromSource(qulonglong sourceId);
 
     std::unique_ptr<DatabaseInterfacePrivate> d;
 

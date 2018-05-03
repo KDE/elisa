@@ -276,10 +276,12 @@ private Q_SLOTS:
         QSignalSpy tracksListSpy(&myListing, &LocalFileListing::tracksList);
         QSignalSpy removedTracksListSpy(&myListing, &LocalFileListing::removedTracksList);
         QSignalSpy rootPathChangedSpy(&myListing, &LocalFileListing::rootPathChanged);
+        QSignalSpy errorWatchingFilesSpy(&myListing, &LocalFileListing::errorWatchingFiles);
 
         QCOMPARE(tracksListSpy.count(), 0);
         QCOMPARE(removedTracksListSpy.count(), 0);
         QCOMPARE(rootPathChangedSpy.count(), 0);
+        QCOMPARE(errorWatchingFilesSpy.count(), 0);
 
         myListing.init();
 

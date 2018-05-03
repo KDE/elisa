@@ -71,8 +71,9 @@ void LocalFileListing::setRootPath(const QString &rootPath)
     setSourceName(rootPath);
 }
 
-void LocalFileListing::executeInit()
+void LocalFileListing::executeInit(QHash<QUrl, QDateTime> allFiles)
 {
+    AbstractFileListing::executeInit(std::move(allFiles));
 }
 
 void LocalFileListing::triggerRefreshOfContent()

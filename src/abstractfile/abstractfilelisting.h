@@ -29,6 +29,7 @@
 #include <QUrl>
 #include <QHash>
 #include <QVector>
+#include <QDateTime>
 
 #include <memory>
 
@@ -75,6 +76,10 @@ Q_SIGNALS:
 
     void closeNotification(QString notificationId);
 
+    void askRestoredTracks(const QString &musicSource);
+
+    void errorWatchingFiles();
+
 public Q_SLOTS:
 
     void refreshContent();
@@ -85,6 +90,8 @@ public Q_SLOTS:
 
     void resetImportedTracksCounter();
 
+    void restoredTracks(const QString &musicSource, QHash<QUrl, QDateTime> allFiles);
+
 protected Q_SLOTS:
 
     void directoryChanged(const QString &path);
@@ -93,7 +100,7 @@ protected Q_SLOTS:
 
 protected:
 
-    virtual void executeInit();
+    virtual void executeInit(QHash<QUrl, QDateTime> allFiles);
 
     virtual void triggerRefreshOfContent();
 
@@ -120,6 +127,8 @@ protected:
     void setSourceName(const QString &name);
 
     void increaseImportedTracksCount();
+
+    QHash<QUrl, QDateTime>& allFiles();
 
 private:
 

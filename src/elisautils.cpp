@@ -25,9 +25,6 @@
 #include <KFileMetaData/SimpleExtractionResult>
 #include <KFileMetaData/UserMetaData>
 
-#include <QFileInfo>
-#include <QFile>
-
 MusicAudioTrack ElisaUtils::scanOneFile(const QUrl &scanFile, const QMimeDatabase &mimeDatabase,
                                         const KFileMetaData::ExtractorCollection &allExtractors)
 {
@@ -47,9 +44,6 @@ MusicAudioTrack ElisaUtils::scanOneFile(const QUrl &scanFile, const QMimeDatabas
     if (exList.isEmpty()) {
         return newTrack;
     }
-
-    QFileInfo fileInfo(localFileName);
-    newTrack.setFileModificationTime(fileInfo.fileTime(QFile::FileModificationTime));
 
     KFileMetaData::Extractor* ex = exList.first();
     KFileMetaData::SimpleExtractionResult result(localFileName, mimetype,

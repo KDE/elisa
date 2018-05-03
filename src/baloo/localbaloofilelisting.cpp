@@ -227,8 +227,9 @@ void LocalBalooFileListing::serviceUnregistered(const QString &serviceName)
     }
 }
 
-void LocalBalooFileListing::executeInit()
+void LocalBalooFileListing::executeInit(QHash<QUrl, QDateTime> allFiles)
 {
+    AbstractFileListing::executeInit(std::move(allFiles));
 }
 
 void LocalBalooFileListing::triggerRefreshOfContent()
@@ -285,6 +286,17 @@ MusicAudioTrack LocalBalooFileListing::scanOneFile(const QUrl &scanFile)
     if (scanFileInfo.exists()) {
         watchPath(fileName);
     }
+
+    if (scanFileInfo.exists()) {
+        auto itExistingFile = allFiles().find(scanFile);
+        if (itExistingFile != allFiles().end()) {
+            if (*itExistingFile >= scanFileInfo.fileTime(QFile::FileModificationTime)) {
+                allFiles().erase(itExistingFile);
+                return newTrack;
+            }
+        }
+    }
+
 
     Baloo::File match(fileName);
     match.load();

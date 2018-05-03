@@ -474,7 +474,7 @@ void MusicListenersManager::monitorEndingListeners(int tracksCount)
         d->mIndexingRunning = false;
         Q_EMIT indexingRunningChanged();
 
-        QMetaObject::invokeMethod(&d->mDatabaseInterface, "cleanInvalidTracks", Qt::QueuedConnection);
+        //QMetaObject::invokeMethod(&d->mDatabaseInterface, "cleanInvalidTracks", Qt::QueuedConnection);
     }
 }
 

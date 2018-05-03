@@ -340,6 +340,12 @@ void ManageAudioPlayer::ensurePlay()
     }
 }
 
+void ManageAudioPlayer::stop()
+{
+    mPlayingState = false;
+    triggerStop();
+}
+
 void ManageAudioPlayer::playPause()
 {
     mPlayingState = !mPlayingState;

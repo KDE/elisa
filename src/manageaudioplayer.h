@@ -227,6 +227,8 @@ public Q_SLOTS:
 
     void playPause();
 
+    void stop();
+
     void setAudioDuration(int audioDuration);
 
     void setPlayerIsSeekable(bool playerIsSeekable);

@@ -53,16 +53,14 @@ public:
           mRemoveArtistQuery(mTracksDatabase), mSelectAllTracksQuery(mTracksDatabase),
           mInsertTrackMapping(mTracksDatabase), mSelectAllTracksFromSourceQuery(mTracksDatabase),
           mInsertMusicSource(mTracksDatabase), mSelectMusicSource(mTracksDatabase),
-          mUpdateIsSingleDiscAlbumFromIdQuery(mTracksDatabase), mSelectAllInvalidTracksFromSourceQuery(mTracksDatabase),
-          mInitialUpdateTracksValidity(mTracksDatabase), mUpdateTrackMapping(mTracksDatabase),
+          mUpdateIsSingleDiscAlbumFromIdQuery(mTracksDatabase),  mUpdateTrackMapping(mTracksDatabase),
           mSelectTracksMapping(mTracksDatabase), mSelectTracksMappingPriority(mTracksDatabase),
           mUpdateAlbumArtUriFromAlbumIdQuery(mTracksDatabase), mSelectTracksMappingPriorityByTrackId(mTracksDatabase),
-          mSelectAllTrackFilesFromSourceQuery(mTracksDatabase), mFindInvalidTrackFilesQuery(mTracksDatabase),
-          mSelectAlbumIdsFromArtist(mTracksDatabase), mRemoveTracksMappingFromSource(mTracksDatabase),
-          mRemoveTracksMapping(mTracksDatabase), mSelectTracksWithoutMappingQuery(mTracksDatabase),
-          mSelectAlbumIdFromTitleAndArtistQuery(mTracksDatabase), mSelectAlbumIdFromTitleWithoutArtistQuery(mTracksDatabase),
-          mInsertAlbumArtistQuery(mTracksDatabase), mInsertTrackArtistQuery(mTracksDatabase),
-          mRemoveTrackArtistQuery(mTracksDatabase), mRemoveAlbumArtistQuery(mTracksDatabase),
+          mSelectAllTrackFilesFromSourceQuery(mTracksDatabase),  mSelectAlbumIdsFromArtist(mTracksDatabase),
+          mRemoveTracksMappingFromSource(mTracksDatabase), mRemoveTracksMapping(mTracksDatabase),
+          mSelectTracksWithoutMappingQuery(mTracksDatabase), mSelectAlbumIdFromTitleAndArtistQuery(mTracksDatabase),
+          mSelectAlbumIdFromTitleWithoutArtistQuery(mTracksDatabase), mInsertAlbumArtistQuery(mTracksDatabase),
+          mInsertTrackArtistQuery(mTracksDatabase), mRemoveTrackArtistQuery(mTracksDatabase), mRemoveAlbumArtistQuery(mTracksDatabase),
           mSelectTrackIdFromTitleAlbumTrackDiscNumberQuery(mTracksDatabase), mSelectAlbumArtUriFromAlbumIdQuery(mTracksDatabase),
           mInsertComposerQuery(mTracksDatabase), mSelectComposerByNameQuery(mTracksDatabase),
           mSelectComposerQuery(mTracksDatabase), mInsertLyricistQuery(mTracksDatabase),
@@ -130,10 +128,6 @@ public:
 
     QSqlQuery mUpdateIsSingleDiscAlbumFromIdQuery;
 
-    QSqlQuery mSelectAllInvalidTracksFromSourceQuery;
-
-    QSqlQuery mInitialUpdateTracksValidity;
-
     QSqlQuery mUpdateTrackMapping;
 
     QSqlQuery mSelectTracksMapping;
@@ -145,8 +139,6 @@ public:
     QSqlQuery mSelectTracksMappingPriorityByTrackId;
 
     QSqlQuery mSelectAllTrackFilesFromSourceQuery;
-
-    QSqlQuery mFindInvalidTrackFilesQuery;
 
     QSqlQuery mSelectAlbumIdsFromArtist;
 
@@ -352,49 +344,6 @@ QList<MusicAudioTrack> DatabaseInterface::allTracksFromSource(const QString &mus
     }
 
     d->mSelectAllTracksFromSourceQuery.finish();
-
-    transactionResult = finishTransaction();
-    if (!transactionResult) {
-        return result;
-    }
-
-    return result;
-}
-
-QList<MusicAudioTrack> DatabaseInterface::allInvalidTracksFromSource(const QString &musicSource)
-{
-    auto result = QList<MusicAudioTrack>();
-
-    if (!d) {
-        return result;
-    }
-
-    auto transactionResult = startTransaction();
-    if (!transactionResult) {
-        return result;
-    }
-
-    d->mSelectAllInvalidTracksFromSourceQuery.bindValue(QStringLiteral(":source"), musicSource);
-
-    auto queryResult = d->mSelectAllInvalidTracksFromSourceQuery.exec();
-
-    if (!queryResult || !d->mSelectAllInvalidTracksFromSourceQuery.isSelect() || !d->mSelectAllInvalidTracksFromSourceQuery.isActive()) {
-        Q_EMIT databaseError();
-
-        qDebug() << "DatabaseInterface::allAlbums" << d->mSelectAllInvalidTracksFromSourceQuery.lastQuery();
-        qDebug() << "DatabaseInterface::allAlbums" << d->mSelectAllInvalidTracksFromSourceQuery.boundValues();
-        qDebug() << "DatabaseInterface::allAlbums" << d->mSelectAllInvalidTracksFromSourceQuery.lastError();
-
-        return result;
-    }
-
-    while(d->mSelectAllInvalidTracksFromSourceQuery.next()) {
-        const auto &currentRecord = d->mSelectAllInvalidTracksFromSourceQuery.record();
-
-        result.push_back(buildTrackFromDatabaseRecord(currentRecord));
-    }
-
-    d->mSelectAllInvalidTracksFromSourceQuery.finish();
 
     transactionResult = finishTransaction();
     if (!transactionResult) {
@@ -739,66 +688,6 @@ void DatabaseInterface::getAlbumFromAlbumId(qulonglong id)
     Q_EMIT sentAlbumData(result);
 }
 
-void DatabaseInterface::cleanInvalidTracks()
-{
-    if (d->mStopRequest == 1) {
-        return;
-    }
-
-    auto transactionResult = startTransaction();
-    if (!transactionResult) {
-        return;
-    }
-
-    QList<qulonglong> newArtistsIds;
-
-    auto queryResult = d->mFindInvalidTrackFilesQuery.exec();
-
-    if (!queryResult || !d->mFindInvalidTrackFilesQuery.isSelect() || !d->mFindInvalidTrackFilesQuery.isActive()) {
-        Q_EMIT databaseError();
-
-        qDebug() << "DatabaseInterface::insertMusicSource" << d->mFindInvalidTrackFilesQuery.lastQuery();
-        qDebug() << "DatabaseInterface::insertMusicSource" << d->mFindInvalidTrackFilesQuery.boundValues();
-        qDebug() << "DatabaseInterface::insertMusicSource" << d->mFindInvalidTrackFilesQuery.lastError();
-
-        d->mFindInvalidTrackFilesQuery.finish();
-
-        transactionResult = finishTransaction();
-        if (!transactionResult) {
-            return;
-        }
-
-        return;
-    }
-
-    QHash<QUrl, QDateTime> allFileNames;
-    auto sourceId = qulonglong();
-
-    while(d->mFindInvalidTrackFilesQuery.next()) {
-        auto fileName = d->mFindInvalidTrackFilesQuery.record().value(0).toUrl();
-        auto fileModificationTime = d->mFindInvalidTrackFilesQuery.record().value(2).toDateTime();
-        sourceId = d->mFindInvalidTrackFilesQuery.record().value(1).toULongLong();
-        allFileNames[fileName] = fileModificationTime;
-    }
-
-    d->mFindInvalidTrackFilesQuery.finish();
-
-    internalRemoveTracksList(allFileNames, sourceId, newArtistsIds);
-
-    if (!newArtistsIds.isEmpty()) {
-        QList<MusicArtist> newArtists;
-        for (auto artistId : newArtistsIds) {
-            newArtists.push_back(internalArtistFromId(artistId));
-        }
-        Q_EMIT artistsAdded(newArtists);
-    }
-
-    transactionResult = finishTransaction();
-    if (!transactionResult) {
-        return;
-    }
-}
-
 void DatabaseInterface::askRestoredTracks(const QString &musicSource)
 {
     auto transactionResult = startTransaction();
@@ -1070,7 +959,7 @@ void DatabaseInterface::initDatabase()
 
     auto listTables = d->mTracksDatabase.tables();
 
-    if (!listTables.contains(QStringLiteral("DatabaseVersionV3"))) {
+    if (!listTables.contains(QStringLiteral("DatabaseVersionV4"))) {
         for (const auto &oneTable : listTables) {
             QSqlQuery createSchemaQuery(d->mTracksDatabase);
 
@@ -1087,10 +976,10 @@ void DatabaseInterface::initDatabase()
         listTables = d->mTracksDatabase.tables();
     }
 
-    if (!listTables.contains(QStringLiteral("DatabaseVersionV3"))) {
+    if (!listTables.contains(QStringLiteral("DatabaseVersionV4"))) {
         QSqlQuery createSchemaQuery(d->mTracksDatabase);
 
-        const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `DatabaseVersionV3` (`Version` INTEGER PRIMARY KEY NOT NULL)"));
+        const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `DatabaseVersionV4` (`Version` INTEGER PRIMARY KEY NOT NULL)"));
 
         if (!result) {
             qDebug() << "DatabaseInterface::initDatabase" << createSchemaQuery.lastQuery();
@@ -1273,7 +1162,6 @@ void DatabaseInterface::initDatabase()
                                                                    "`DiscoverID` INTEGER NOT NULL, "
                                                                    "`FileName` VARCHAR(255) NOT NULL, "
                                                                    "`Priority` INTEGER NOT NULL, "
-                                                                   "`TrackValid` BOOLEAN NOT NULL, "
                                                                    "`FileModifiedTime` DATETIME NOT NULL, "
                                                                    "PRIMARY KEY (`FileName`), "
                                                                    "CONSTRAINT TracksUnique UNIQUE (`TrackID`, `Priority`), "
@@ -1512,57 +1400,6 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllTracksQuery.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllTracksQuery.lastError();
-
-            Q_EMIT databaseError();
-        }
-    }
-
-    {
-        auto selectAllInvalidTracksFromSourceQueryText = QStringLiteral("SELECT "
-                                                                        "tracks.`ID`, "
-                                                                        "tracks.`Title`, "
-                                                                        "tracks.`AlbumID`, "
-                                                                        "artist.`Name`, "
-                                                                        "artistAlbum.`Name`, "
-                                                                        "tracksMapping.`FileName`, "
-                                                                        "tracksMapping.`FileModifiedTime`, "
-                                                                        "tracks.`TrackNumber`, "
-                                                                        "tracks.`DiscNumber`, "
-                                                                        "tracks.`Duration`, "
-                                                                        "album.`Title`, "
-                                                                        "tracks.`Rating`, "
-                                                                        "album.`CoverFileName`, "
-                                                                        "album.`IsSingleDiscAlbum`, "
-                                                                        "trackGenre.`Name`, "
-                                                                        "trackComposer.`Name`, "
-                                                                        "trackLyricist.`Name`, "
-                                                                        "tracks.`Comment`, "
-                                                                        "tracks.`Year`, "
-                                                                        "tracks.`Channels`, "
-                                                                        "tracks.`BitRate`, "
-                                                                        "tracks.`SampleRate` "
-                                                                        "FROM "
-                                                                        "`Tracks` tracks, `Artists` artist, `TracksArtists` trackArtist, "
-                                                                        "`Albums` album, `TracksMapping` tracksMapping, `DiscoverSource` source "
-                                                                        "LEFT JOIN `AlbumsArtists` artistAlbumMapping ON artistAlbumMapping.`AlbumID` = album.`ID` "
-                                                                        "LEFT JOIN `Artists` artistAlbum ON artistAlbum.`ID` = artistAlbumMapping.`ArtistID` "
-                                                                        "LEFT JOIN `Composer` trackComposer ON trackComposer.`ID` = tracks.`ComposerID` "
-                                                                        "LEFT JOIN `Lyricist` trackLyricist ON trackLyricist.`ID` = tracks.`LyricistID` "
-                                                                        "LEFT JOIN `Genre` trackGenre ON trackGenre.`ID` = tracks.`GenreID` "
-                                                                        "WHERE "
-                                                                        "tracks.`ID` = trackArtist.`TrackID` AND "
-                                                                        "artist.`ID` = trackArtist.`ArtistID` AND "
-                                                                        "tracks.`AlbumID` = album.`ID` AND "
-                                                                        "source.`Name` = :source AND "
-                                                                        "source.`ID` = tracksMapping.`DiscoverID` AND "
-                                                                        "tracksMapping.`TrackValid` = 0 AND "
-                                                                        "tracksMapping.`TrackID` = tracks.`ID`");
-
-        auto result = d->mSelectAllInvalidTracksFromSourceQuery.prepare(selectAllInvalidTracksFromSourceQueryText);
-
-        if (!result) {
-            qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllInvalidTracksFromSourceQuery.lastQuery();
-            qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllInvalidTracksFromSourceQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -1967,9 +1804,8 @@ void DatabaseInterface::initRequest()
                                                           "(`FileName`, "
                                                           "`DiscoverID`, "
                                                           "`Priority`, "
-                                                          "`TrackValid`, "
                                                           "`FileModifiedTime`) "
-                                                          "VALUES (:fileName, :discoverId, :priority, 1, :mtime)");
+                                                          "VALUES (:fileName, :discoverId, :priority, :mtime)");
 
         auto result = d->mInsertTrackMapping.prepare(insertTrackMappingQueryText);
 
@@ -1982,22 +1818,8 @@ void DatabaseInterface::initRequest()
     }
 
     {
-        auto initialUpdateTracksValidityQueryText = QStringLiteral("UPDATE `TracksMapping` SET `TrackValid` = 0");
-
-        auto result = d->mInitialUpdateTracksValidity.prepare(initialUpdateTracksValidityQueryText);
-
-        if (!result) {
-            qDebug() << "DatabaseInterface::initRequest" << d->mInitialUpdateTracksValidity.lastQuery();
-            qDebug() << "DatabaseInterface::initRequest" << d->mInitialUpdateTracksValidity.lastError();
-
-            Q_EMIT databaseError();
-        }
-    }
-
-    {
         auto initialUpdateTracksValidityQueryText = QStringLiteral("UPDATE `TracksMapping` "
                                                                    "SET "
-                                                                   "`TrackValid` = 1, "
                                                                    "`TrackID` = :trackId, "
                                                                    "`Priority` = :priority, "
                                                                    "`FileModifiedTime` = :mtime "
@@ -2164,26 +1986,6 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllTrackFilesFromSourceQuery.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllTrackFilesFromSourceQuery.lastError();
-
-            Q_EMIT databaseError();
-        }
-    }
-
-    {
-        auto findInvalidTrackFilesText = QStringLiteral("SELECT "
-                                                        "tracksMapping.`FileName`, "
-                                                        "tracksMapping.`DiscoverID`, "
-                                                        "tracksMapping.`FileModifiedTime` "
-                                                        "FROM "
-                                                        "`TracksMapping` tracksMapping "
-                                                        "WHERE "
-                                                        "tracksMapping.`TrackValid` = 0");
-
-        auto result = d->mFindInvalidTrackFilesQuery.prepare(findInvalidTrackFilesText);
-
-        if (!result) {
-            qDebug() << "DatabaseInterface::initRequest" << d->mFindInvalidTrackFilesQuery.lastQuery();
-            qDebug() << "DatabaseInterface::initRequest" << d->mFindInvalidTrackFilesQuery.lastError();
 
             Q_EMIT databaseError();
         }

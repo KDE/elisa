@@ -279,15 +279,15 @@ MusicAudioTrack LocalBalooFileListing::scanOneFile(const QUrl &scanFile)
 
     if (scanFileInfo.exists()) {
         watchPath(fileName);
+    } else {
+        return newTrack;
     }
 
-    if (scanFileInfo.exists()) {
-        auto itExistingFile = allFiles().find(scanFile);
-        if (itExistingFile != allFiles().end()) {
-            if (*itExistingFile >= scanFileInfo.fileTime(QFile::FileModificationTime)) {
-                allFiles().erase(itExistingFile);
-                return newTrack;
-            }
+    auto itExistingFile = allFiles().find(scanFile);
+    if (itExistingFile != allFiles().end()) {
+        if (*itExistingFile >= scanFileInfo.fileTime(QFile::FileModificationTime)) {
+            allFiles().erase(itExistingFile);
+            return newTrack;
         }
     }
 

@@ -68,8 +68,6 @@ public:
 
     QList<MusicAudioTrack> allTracksFromSource(const QString &musicSource);
 
-    QList<MusicAudioTrack> allInvalidTracksFromSource(const QString &musicSource);
-
     QList<MusicAlbum> allAlbums();
 
     QList<MusicArtist> allArtists();
@@ -130,8 +128,6 @@ public Q_SLOTS:
     void removeAllTracksFromSource(const QString &sourceName);
 
     void getAlbumFromAlbumId(qulonglong id);
-
-    void cleanInvalidTracks();
 
     void askRestoredTracks(const QString &musicSource);
 

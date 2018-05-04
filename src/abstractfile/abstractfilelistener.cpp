@@ -84,11 +84,6 @@ void AbstractFileListener::quitListener()
     Q_EMIT clearDatabase(d->mFileListing->sourceName());
 }
 
-void AbstractFileListener::resetImportedTracksCounter()
-{
-    d->mFileListing->resetImportedTracksCounter();
-}
-
 void AbstractFileListener::setFileListing(AbstractFileListing *fileIndexer)
 {
     d->mFileListing = fileIndexer;
@@ -102,27 +97,11 @@ void AbstractFileListener::setFileListing(AbstractFileListing *fileIndexer)
             this, &AbstractFileListener::newNotification);
     connect(fileIndexer, &AbstractFileListing::closeNotification,
             this, &AbstractFileListener::closeNotification);
-    connect(fileIndexer, &AbstractFileListing::importedTracksCountChanged,
-            this, &AbstractFileListener::importedTracksCountChanged);
 }
 
 AbstractFileListing *AbstractFileListener::fileListing() const
 {
     return d->mFileListing;
-}
-
-int AbstractFileListener::importedTracksCount() const
-{
-    if (!d->mFileListing) {
-        return 0;
-    }
-
-    return d->mFileListing->importedTracksCount();
-}
-
-void AbstractFileListener::performInitialScan()
-{
-    d->mFileListing->refreshContent();
 }
 
 

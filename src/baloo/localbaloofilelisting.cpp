@@ -256,12 +256,7 @@ void LocalBalooFileListing::triggerRefreshOfContent()
 
         if (newTrack.isValid()) {
             newFiles.push_back(newTrack);
-            increaseImportedTracksCount();
-            if (newFiles.size() % 50 == 0) {
-                Q_EMIT importedTracksCountChanged();
-            }
             if (newFiles.size() > 500 && d->mStopRequest == 0) {
-                Q_EMIT importedTracksCountChanged();
                 emitNewFiles(newFiles);
                 newFiles.clear();
             }
@@ -269,11 +264,10 @@ void LocalBalooFileListing::triggerRefreshOfContent()
     }
 
     if (!newFiles.isEmpty() && d->mStopRequest == 0) {
-        Q_EMIT importedTracksCountChanged();
         emitNewFiles(newFiles);
     }
 
-    Q_EMIT indexingFinished(importedTracksCount());
+    Q_EMIT indexingFinished();
 }
 
 MusicAudioTrack LocalBalooFileListing::scanOneFile(const QUrl &scanFile)

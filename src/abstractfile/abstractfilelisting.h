@@ -42,10 +42,6 @@ class ELISALIB_EXPORT AbstractFileListing : public QObject
 
     Q_OBJECT
 
-    Q_PROPERTY(int importedTracksCount
-               READ importedTracksCount
-               NOTIFY importedTracksCountChanged)
-
 public:
 
     explicit AbstractFileListing(const QString &sourceName, QObject *parent = nullptr);
@@ -55,8 +51,6 @@ public:
     virtual void applicationAboutToQuit();
 
     const QString &sourceName() const;
-
-    int importedTracksCount() const;
 
 Q_SIGNALS:
 
@@ -68,9 +62,7 @@ Q_SIGNALS:
 
     void indexingStarted();
 
-    void indexingFinished(int tracksCount);
-
-    void importedTracksCountChanged();
+    void indexingFinished();
 
     void newNotification(NotificationItem notification);
 
@@ -87,8 +79,6 @@ public Q_SLOTS:
     void init();
 
     void newTrackFile(const MusicAudioTrack &partialTrack);
-
-    void resetImportedTracksCounter();
 
     void restoredTracks(const QString &musicSource, QHash<QUrl, QDateTime> allFiles);
 
@@ -125,8 +115,6 @@ protected:
     void removeFile(const QUrl &oneRemovedTrack, QList<QUrl> &allRemovedFiles);
 
     void setSourceName(const QString &name);
-
-    void increaseImportedTracksCount();
 
     QHash<QUrl, QDateTime>& allFiles();
 

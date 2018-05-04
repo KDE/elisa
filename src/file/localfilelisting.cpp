@@ -84,7 +84,7 @@ void LocalFileListing::triggerRefreshOfContent()
 
     scanDirectoryTree(d->mRootPath);
 
-    Q_EMIT indexingFinished(importedTracksCount());
+    Q_EMIT indexingFinished();
 }
 
 

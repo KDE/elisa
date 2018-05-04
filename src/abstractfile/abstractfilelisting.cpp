@@ -105,15 +105,12 @@ void AbstractFileListing::newTrackFile(const MusicAudioTrack &partialTrack)
     }
 }
 
-void AbstractFileListing::resetImportedTracksCounter()
-{
-    d->mImportedTracksCount = 0;
-}
-
 void AbstractFileListing::restoredTracks(const QString &musicSource, QHash<QUrl, QDateTime> allFiles)
 {
     if (musicSource == sourceName()) {
         executeInit(std::move(allFiles));
+
+        refreshContent();
     }
 }
 
@@ -215,19 +212,16 @@ void AbstractFileListing::scanDirectory(QList<MusicAudioTrack> &newFiles, const 
             ++d->mImportedTracksCount;
             if (d->mImportedTracksCount % d->mNotificationUpdateInterval == 0) {
                 d->mNotificationUpdateInterval = std::min(50, 1 + d->mNotificationUpdateInterval * 2);
-                Q_EMIT importedTracksCountChanged();
             }
 
             if (newFiles.size() > d->mNewFilesEmitInterval && d->mStopRequest == 0) {
                 d->mNewFilesEmitInterval = std::min(50, 1 + d->mNewFilesEmitInterval * d->mNewFilesEmitInterval);
-                Q_EMIT importedTracksCountChanged();
                 emitNewFiles(newFiles);
                 newFiles.clear();
             }
         }
 
         if (d->mStopRequest == 1) {
-            Q_EMIT importedTracksCountChanged();
             break;
         }
     }
@@ -236,11 +230,6 @@ void AbstractFileListing::scanDirectory(QList<MusicAudioTrack> &newFiles, const 
 const QString &AbstractFileListing::sourceName() const
 {
     return d->mSourceName;
-}
-
-int AbstractFileListing::importedTracksCount() const
-{
-    return d->mImportedTracksCount;
 }
 
 void AbstractFileListing::directoryChanged(const QString &path)
@@ -254,7 +243,7 @@ void AbstractFileListing::directoryChanged(const QString &path)
 
     scanDirectoryTree(path);
 
-    Q_EMIT indexingFinished(d->mImportedTracksCount);
+    Q_EMIT indexingFinished();
 }
 
 void AbstractFileListing::fileChanged(const QString &modifiedFileName)
@@ -287,7 +276,14 @@ MusicAudioTrack AbstractFileListing::scanOneFile(const QUrl &scanFile)
 {
     MusicAudioTrack newTrack;
 
-    QFileInfo scanFileInfo(scanFile.toLocalFile());
+    auto localFileName = scanFile.toLocalFile();
+
+    const auto &fileMimeType = d->mMimeDb.mimeTypeForFile(localFileName);
+    if (!fileMimeType.name().startsWith(QStringLiteral("audio/"))) {
+        return newTrack;
+    }
+
+    QFileInfo scanFileInfo(localFileName);
 
     if (scanFileInfo.exists()) {
         auto itExistingFile = d->mAllFiles.find(scanFile);
@@ -354,7 +350,6 @@ void AbstractFileListing::scanDirectoryTree(const QString &path)
     scanDirectory(newFiles, QUrl::fromLocalFile(path));
 
     if (!newFiles.isEmpty() && d->mStopRequest == 0) {
-        Q_EMIT importedTracksCountChanged();
         emitNewFiles(newFiles);
     }
 }
@@ -429,11 +424,6 @@ void AbstractFileListing::removeFile(const QUrl &oneRemovedTrack, QList<QUrl> &a
 void AbstractFileListing::setSourceName(const QString &name)
 {
     d->mSourceName = name;
-}
-
-void AbstractFileListing::increaseImportedTracksCount()
-{
-    ++d->mImportedTracksCount;
 }
 
 QHash<QUrl, QDateTime> &AbstractFileListing::allFiles()

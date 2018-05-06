@@ -40,8 +40,28 @@ RowLayout {
         id: listViews
 
         Layout.fillHeight: true
-        Layout.preferredWidth: mainWindow.width * 0.15
-        Layout.maximumWidth: mainWindow.width * 0.15
+        Layout.preferredWidth: mainWindow.width * 0.11
+        Layout.maximumWidth: mainWindow.width * 0.11
+    }
+
+    Rectangle {
+        id: viewSelectorSeparatorItem
+
+        border.width: 1
+        border.color: myPalette.mid
+        color: myPalette.mid
+        visible: true
+
+        Layout.bottomMargin: elisaTheme.layoutVerticalMargin
+        Layout.topMargin: elisaTheme.layoutVerticalMargin
+
+        Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+
+        Layout.fillHeight: true
+
+        Layout.preferredWidth: 1
+        Layout.minimumWidth: 1
+        Layout.maximumWidth: 1
     }
 
     ColumnLayout {

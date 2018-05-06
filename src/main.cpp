@@ -80,7 +80,7 @@ int main(int argc, char *argv[])
     KCrash::initialize();
 #endif
 
-    QApplication::setWindowIcon(QIcon::fromTheme(QStringLiteral("new-audio-alarm")));
+    QApplication::setWindowIcon(QIcon::fromTheme(QStringLiteral("elisa")));
 
     KLocalizedString::setApplicationDomain("elisa");
 

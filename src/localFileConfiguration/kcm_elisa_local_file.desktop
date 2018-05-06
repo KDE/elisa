@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Service
-Icon=alarm
+Icon=elisa
 Exec=kcmshell5 kcm_elisa_local_file
 
 X-KDE-Library=kcm_elisa_local_file

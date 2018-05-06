@@ -49,7 +49,7 @@ FocusScope {
     Controls1.Action {
         id: removeFromPlayList
         text: i18nc("Remove current track from play list", "Remove")
-        iconName: "error"
+        iconName: "list-remove"
         onTriggered: {
             playListEntry.removeFromPlaylist(playListEntry.index)
         }

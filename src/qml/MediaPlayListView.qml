@@ -44,7 +44,7 @@ FocusScope {
     Controls1.Action {
         id: clearPlayList
         text: i18nc("Remove all tracks from play list", "Clear Play List")
-        iconName: "error"
+        iconName: "list-remove"
         enabled: playListModelDelegate.items.count > 0
         onTriggered: playListModel.clearPlayList()
     }

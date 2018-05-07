@@ -267,6 +267,8 @@ void LocalBalooFileListing::triggerRefreshOfContent()
         emitNewFiles(newFiles);
     }
 
+    checkFilesToRemove();
+
     Q_EMIT indexingFinished();
 }
 

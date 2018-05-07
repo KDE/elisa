@@ -37,6 +37,8 @@
 
 #include <QtTest>
 
+#include <algorithm>
+
 class LocalFileListingTests: public QObject
 {
     Q_OBJECT
@@ -179,6 +181,7 @@ private Q_SLOTS:
         qRegisterMetaType<QVector<qlonglong>>("QVector<qlonglong>");
         qRegisterMetaType<QHash<qlonglong,int>>("QHash<qlonglong,int>");
         qRegisterMetaType<QList<QUrl>>("QList<QUrl>");
+        qRegisterMetaType<NotificationItem>("NotificationItem");
     }
 
     void initialTestWithNoTrack()
@@ -557,6 +560,87 @@ private Q_SLOTS:
 
         QCOMPARE(newTracksLast.count(), 1);
         QCOMPARE(newCoversLast.count(), 1);
+    }
+
+    void restoreRemovedTracks()
+    {
+        LocalFileListing myListing;
+
+        QSignalSpy tracksListSpy(&myListing, &LocalFileListing::tracksList);
+        QSignalSpy removedTracksListSpy(&myListing, &LocalFileListing::removedTracksList);
+        QSignalSpy modifiedTracksListSpy(&myListing, &LocalFileListing::modifyTracksList);
+        QSignalSpy rootPathChangedSpy(&myListing, &LocalFileListing::rootPathChanged);
+        QSignalSpy indexingStartedSpy(&myListing, &LocalFileListing::indexingStarted);
+        QSignalSpy indexingFinishedSpy(&myListing, &LocalFileListing::indexingFinished);
+        QSignalSpy newNotificationSpy(&myListing, &LocalFileListing::newNotification);
+        QSignalSpy closeNotificationSpy(&myListing, &LocalFileListing::closeNotification);
+        QSignalSpy askRestoredTracksSpy(&myListing, &LocalFileListing::askRestoredTracks);
+        QSignalSpy errorWatchingFilesSpy(&myListing, &LocalFileListing::errorWatchingFiles);
+
+        QCOMPARE(tracksListSpy.count(), 0);
+        QCOMPARE(removedTracksListSpy.count(), 0);
+        QCOMPARE(modifiedTracksListSpy.count(), 0);
+        QCOMPARE(rootPathChangedSpy.count(), 0);
+        QCOMPARE(indexingStartedSpy.count(), 0);
+        QCOMPARE(indexingFinishedSpy.count(), 0);
+        QCOMPARE(newNotificationSpy.count(), 0);
+        QCOMPARE(closeNotificationSpy.count(), 0);
+        QCOMPARE(askRestoredTracksSpy.count(), 0);
+        QCOMPARE(errorWatchingFilesSpy.count(), 0);
+
+        myListing.setRootPath(QStringLiteral("/does/not/exists"));
+
+        QCOMPARE(tracksListSpy.count(), 0);
+        QCOMPARE(removedTracksListSpy.count(), 0);
+        QCOMPARE(modifiedTracksListSpy.count(), 0);
+        QCOMPARE(rootPathChangedSpy.count(), 1);
+        QCOMPARE(indexingStartedSpy.count(), 0);
+        QCOMPARE(indexingFinishedSpy.count(), 0);
+        QCOMPARE(newNotificationSpy.count(), 0);
+        QCOMPARE(closeNotificationSpy.count(), 0);
+        QCOMPARE(askRestoredTracksSpy.count(), 0);
+        QCOMPARE(errorWatchingFilesSpy.count(), 0);
+
+        myListing.init();
+
+        QCOMPARE(tracksListSpy.count(), 0);
+        QCOMPARE(removedTracksListSpy.count(), 0);
+        QCOMPARE(modifiedTracksListSpy.count(), 0);
+        QCOMPARE(rootPathChangedSpy.count(), 1);
+        QCOMPARE(indexingStartedSpy.count(), 0);
+        QCOMPARE(indexingFinishedSpy.count(), 0);
+        QCOMPARE(newNotificationSpy.count(), 0);
+        QCOMPARE(closeNotificationSpy.count(), 0);
+        QCOMPARE(askRestoredTracksSpy.count(), 1);
+        QCOMPARE(errorWatchingFilesSpy.count(), 0);
+
+        myListing.restoredTracks(QStringLiteral("/does/not/exists"),
+            {{QUrl::fromLocalFile(QStringLiteral("/removed/files1")), QDateTime::fromMSecsSinceEpoch(1)},
+             {QUrl::fromLocalFile(QStringLiteral("/removed/files2")), QDateTime::fromMSecsSinceEpoch(2)}});
+
+        QCOMPARE(tracksListSpy.count(), 0);
+        QCOMPARE(removedTracksListSpy.count(), 1);
+        QCOMPARE(modifiedTracksListSpy.count(), 0);
+        QCOMPARE(rootPathChangedSpy.count(), 1);
+        QCOMPARE(indexingStartedSpy.count(), 1);
+        QCOMPARE(indexingFinishedSpy.count(), 1);
+        QCOMPARE(newNotificationSpy.count(), 0);
+        QCOMPARE(closeNotificationSpy.count(), 0);
+        QCOMPARE(askRestoredTracksSpy.count(), 1);
+        QCOMPARE(errorWatchingFilesSpy.count(), 0);
+
+        auto removedTracksSignal = removedTracksListSpy.at(0);
+
+        QCOMPARE(removedTracksSignal.count(), 1);
+
+        auto removedTracks = removedTracksSignal.at(0).value<QList<QUrl>>();
+
+        QCOMPARE(removedTracks.count(), 2);
+
+        std::sort(removedTracks.begin(), removedTracks.end());
+
+        QCOMPARE(removedTracks[0], QUrl::fromLocalFile(QStringLiteral("/removed/files1")));
+        QCOMPARE(removedTracks[1], QUrl::fromLocalFile(QStringLiteral("/removed/files2")));
     }
 };
 

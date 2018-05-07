@@ -431,5 +431,18 @@ QHash<QUrl, QDateTime> &AbstractFileListing::allFiles()
     return d->mAllFiles;
 }
 
+void AbstractFileListing::checkFilesToRemove()
+{
+    QList<QUrl> allRemovedFiles;
+
+    for (auto itFile = d->mAllFiles.begin(); itFile != d->mAllFiles.end(); ++itFile) {
+        allRemovedFiles.push_back(itFile.key());
+    }
+
+    if (!allRemovedFiles.isEmpty()) {
+        Q_EMIT removedTracksList(allRemovedFiles);
+    }
+}
+
 
 #include "moc_abstractfilelisting.cpp"

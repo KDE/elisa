@@ -84,6 +84,8 @@ void LocalFileListing::triggerRefreshOfContent()
 
     scanDirectoryTree(d->mRootPath);
 
+    checkFilesToRemove();
+
     Q_EMIT indexingFinished();
 }
 

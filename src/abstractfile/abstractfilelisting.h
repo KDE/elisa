@@ -118,6 +118,8 @@ protected:
 
     QHash<QUrl, QDateTime>& allFiles();
 
+    void checkFilesToRemove();
+
 private:
 
     std::unique_ptr<AbstractFileListingPrivate> d;

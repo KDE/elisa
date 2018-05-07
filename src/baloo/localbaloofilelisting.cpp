@@ -228,8 +228,9 @@ void LocalBalooFileListing::serviceUnregistered(const QString &serviceName)
     }
 }
 
-void LocalBalooFileListing::executeInit()
+void LocalBalooFileListing::executeInit(QHash<QUrl, QDateTime> allFiles)
 {
+    AbstractFileListing::executeInit(std::move(allFiles));
 }
 
 void LocalBalooFileListing::triggerRefreshOfContent()
@@ -256,12 +257,7 @@ void LocalBalooFileListing::triggerRefreshOfContent()
 
         if (newTrack.isValid()) {
             newFiles.push_back(newTrack);
-            increaseImportedTracksCount();
-            if (newFiles.size() % 50 == 0) {
-                Q_EMIT importedTracksCountChanged();
-            }
             if (newFiles.size() > 500 && d->mStopRequest == 0) {
-                Q_EMIT importedTracksCountChanged();
                 emitNewFiles(newFiles);
                 newFiles.clear();
             }
@@ -269,11 +265,12 @@ void LocalBalooFileListing::triggerRefreshOfContent()
     }
 
     if (!newFiles.isEmpty() && d->mStopRequest == 0) {
-        Q_EMIT importedTracksCountChanged();
         emitNewFiles(newFiles);
     }
 
-    Q_EMIT indexingFinished(importedTracksCount());
+    checkFilesToRemove();
+
+    Q_EMIT indexingFinished();
 }
 
 MusicAudioTrack LocalBalooFileListing::scanOneFile(const QUrl &scanFile)
@@ -285,9 +282,20 @@ MusicAudioTrack LocalBalooFileListing::scanOneFile(const QUrl &scanFile)
 
     if (scanFileInfo.exists()) {
         watchPath(localFileName);
+    } else {
+        return newTrack;
+    }
+
+    auto itExistingFile = allFiles().find(scanFile);
+    if (itExistingFile != allFiles().end()) {
+        if (*itExistingFile >= scanFileInfo.fileTime(QFile::FileModificationTime)) {
+            allFiles().erase(itExistingFile);
+            return newTrack;
+        }
     }
 
     Baloo::File match(localFileName);
+
     match.load();
 
     newTrack.setFileModificationTime(scanFileInfo.fileTime(QFile::FileModificationTime));

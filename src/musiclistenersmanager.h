@@ -140,8 +140,6 @@ public Q_SLOTS:
 
     void showConfiguration();
 
-    void resetImportedTracksCounter();
-
     void setElisaApplication(ElisaApplication* elisaApplication);
 
     void playBackError(QUrl sourceInError, QMediaPlayer::Error playerError);
@@ -150,11 +148,13 @@ private Q_SLOTS:
 
     void configChanged();
 
-    void computeImportedTracksCount();
+    void increaseImportedTracksCount(const QList<MusicAudioTrack> &allTracks);
+
+    void decreaseImportedTracksCount();
 
     void monitorStartingListeners();
 
-    void monitorEndingListeners(int tracksCount);
+    void monitorEndingListeners();
 
 private:
 

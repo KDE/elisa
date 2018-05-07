@@ -73,7 +73,7 @@ private:
 
     void registerToBaloo();
 
-    void executeInit() override;
+    void executeInit(QHash<QUrl, QDateTime> allFiles) override;
 
     void triggerRefreshOfContent() override;
 

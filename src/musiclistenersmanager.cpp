@@ -98,8 +98,6 @@ public:
 
     int mImportedTracksCount = 0;
 
-    int mTotalImportedTracksCount = 0;
-
     int mActiveMusicListenersCount = 0;
 
     bool mIndexingRunning = false;
@@ -184,6 +182,9 @@ MusicListenersManager::MusicListenersManager(QObject *parent)
             &d->mDatabaseInterface, &DatabaseInterface::getAlbumFromAlbumId);
     connect(&d->mDatabaseInterface, &DatabaseInterface::sentAlbumData,
             &d->mAlbumModel, &AlbumModel::setAlbumData);
+
+    connect(&d->mDatabaseInterface, &DatabaseInterface::tracksAdded,
+            this, &MusicListenersManager::increaseImportedTracksCount);
 }
 
 MusicListenersManager::~MusicListenersManager()
@@ -283,19 +284,6 @@ void MusicListenersManager::showConfiguration()
     configureAction->trigger();
 }
 
-void MusicListenersManager::resetImportedTracksCounter()
-{
-#if defined KF5Baloo_FOUND && KF5Baloo_FOUND
-    if (d->mBalooListener) {
-        d->mBalooListener->resetImportedTracksCounter();
-    }
-#endif
-
-    for (const auto &itFileListener : d->mFileListener) {
-        itFileListener->resetImportedTracksCounter();
-    }
-}
-
 void MusicListenersManager::setElisaApplication(ElisaApplication *elisaApplication)
 {
     if (d->mElisaApplication == elisaApplication) {
@@ -342,14 +330,10 @@ void MusicListenersManager::configChanged()
                 this, &MusicListenersManager::monitorEndingListeners);
         connect(d->mBalooListener.get(), &BalooListener::clearDatabase,
                 &d->mDatabaseInterface, &DatabaseInterface::removeAllTracksFromSource);
-        connect(d->mBalooListener.get(), &BalooListener::importedTracksCountChanged,
-                this, &MusicListenersManager::computeImportedTracksCount);
         connect(d->mBalooListener.get(), &BalooListener::newNotification,
                 this, &MusicListenersManager::newNotification);
         connect(d->mBalooListener.get(), &BalooListener::closeNotification,
                 this, &MusicListenersManager::closeNotification);
-
-        QMetaObject::invokeMethod(d->mBalooListener.get(), "performInitialScan", Qt::QueuedConnection);
     } else if (!currentConfiguration->balooIndexer() && d->mBalooListener) {
         QMetaObject::invokeMethod(d->mBalooListener.get(), "quitListener", Qt::QueuedConnection);
         d->mBalooListener.reset();
@@ -391,8 +375,6 @@ void MusicListenersManager::configChanged()
                         this, &MusicListenersManager::monitorStartingListeners);
                 connect(newFileIndexer.get(), &FileListener::indexingFinished,
                         this, &MusicListenersManager::monitorEndingListeners);
-                connect(newFileIndexer.get(), &FileListener::importedTracksCountChanged,
-                        this, &MusicListenersManager::computeImportedTracksCount);
                 connect(newFileIndexer.get(), &FileListener::newNotification,
                         this, &MusicListenersManager::newNotification);
                 connect(newFileIndexer.get(), &FileListener::closeNotification,
@@ -400,29 +382,15 @@ void MusicListenersManager::configChanged()
 
                 newFileIndexer->setRootPath(oneRootPath);
 
-                QMetaObject::invokeMethod(newFileIndexer.get(), "performInitialScan", Qt::QueuedConnection);
-
                 d->mFileListener.emplace_back(std::move(newFileIndexer));
             }
         }
     }
 }
 
-void MusicListenersManager::computeImportedTracksCount()
+void MusicListenersManager::increaseImportedTracksCount(const QList<MusicAudioTrack> &allTracks)
 {
-#if defined KF5Baloo_FOUND && KF5Baloo_FOUND
-    if (d->mBalooListener) {
-        d->mImportedTracksCount = d->mBalooListener->importedTracksCount();
-    } else {
-        d->mImportedTracksCount = 0;
-    }
-#else
-    d->mImportedTracksCount = 0;
-#endif
-
-    for (const auto &itFileListener : d->mFileListener) {
-        d->mImportedTracksCount += itFileListener->importedTracksCount();
-    }
+    d->mImportedTracksCount += allTracks.size();
 
     if (d->mImportedTracksCount && d->mIndexerBusy) {
         d->mIndexerBusy = false;
@@ -432,6 +400,13 @@ void MusicListenersManager::computeImportedTracksCount()
     if (d->mImportedTracksCount >= 4) {
         Q_EMIT closeNotification(QStringLiteral("notEnoughTracks"));
     }
+
+    Q_EMIT importedTracksCountChanged();
+}
+
+void MusicListenersManager::decreaseImportedTracksCount()
+{
+    --d->mImportedTracksCount;
 
     Q_EMIT importedTracksCountChanged();
 }
@@ -446,14 +421,12 @@ void MusicListenersManager::monitorStartingListeners()
     ++d->mActiveMusicListenersCount;
 }
 
-void MusicListenersManager::monitorEndingListeners(int tracksCount)
+void MusicListenersManager::monitorEndingListeners()
 {
     --d->mActiveMusicListenersCount;
 
-    d->mTotalImportedTracksCount += tracksCount;
-
     if (d->mActiveMusicListenersCount == 0) {
-        if (d->mTotalImportedTracksCount < 4 && d->mElisaApplication) {
+        if (d->mImportedTracksCount < 4 && d->mElisaApplication) {
             NotificationItem notEnoughTracks;
 
             notEnoughTracks.setNotificationId(QStringLiteral("notEnoughTracks"));
@@ -474,7 +447,7 @@ void MusicListenersManager::monitorEndingListeners(int tracksCount)
         d->mIndexingRunning = false;
         Q_EMIT indexingRunningChanged();
 
-        QMetaObject::invokeMethod(&d->mDatabaseInterface, "cleanInvalidTracks", Qt::QueuedConnection);
+        //QMetaObject::invokeMethod(&d->mDatabaseInterface, "cleanInvalidTracks", Qt::QueuedConnection);
     }
 }
 

@@ -58,7 +58,7 @@ public Q_SLOTS:
 
 private:
 
-    void executeInit() override;
+    void executeInit(QHash<QUrl, QDateTime> allFiles) override;
 
     void triggerRefreshOfContent() override;
 

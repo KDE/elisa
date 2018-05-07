@@ -32,6 +32,7 @@
 #include <QThread>
 #include <QHash>
 #include <QFileInfo>
+#include <QFile>
 #include <QDir>
 #include <QFileSystemWatcher>
 #include <QMimeDatabase>
@@ -65,6 +66,8 @@ public:
 
     QMimeDatabase mMimeDb;
 
+    QHash<QUrl, QDateTime> mAllFiles;
+
     QAtomicInt mStopRequest = 0;
 
     int mImportedTracksCount = 0;
@@ -90,7 +93,7 @@ AbstractFileListing::~AbstractFileListing()
 
 void AbstractFileListing::init()
 {
-    executeInit();
+    Q_EMIT askRestoredTracks(sourceName());
 }
 
 void AbstractFileListing::newTrackFile(const MusicAudioTrack &partialTrack)
@@ -102,9 +105,13 @@ void AbstractFileListing::newTrackFile(const MusicAudioTrack &partialTrack)
     }
 }
 
-void AbstractFileListing::resetImportedTracksCounter()
+void AbstractFileListing::restoredTracks(const QString &musicSource, QHash<QUrl, QDateTime> allFiles)
 {
-    d->mImportedTracksCount = 0;
+    if (musicSource == sourceName()) {
+        executeInit(std::move(allFiles));
+
+        refreshContent();
+    }
 }
 
 void AbstractFileListing::applicationAboutToQuit()
@@ -205,19 +212,16 @@ void AbstractFileListing::scanDirectory(QList<MusicAudioTrack> &newFiles, const 
             ++d->mImportedTracksCount;
             if (d->mImportedTracksCount % d->mNotificationUpdateInterval == 0) {
                 d->mNotificationUpdateInterval = std::min(50, 1 + d->mNotificationUpdateInterval * 2);
-                Q_EMIT importedTracksCountChanged();
             }
 
             if (newFiles.size() > d->mNewFilesEmitInterval && d->mStopRequest == 0) {
                 d->mNewFilesEmitInterval = std::min(50, 1 + d->mNewFilesEmitInterval * d->mNewFilesEmitInterval);
-                Q_EMIT importedTracksCountChanged();
                 emitNewFiles(newFiles);
                 newFiles.clear();
             }
         }
 
         if (d->mStopRequest == 1) {
-            Q_EMIT importedTracksCountChanged();
             break;
         }
     }
@@ -226,11 +230,6 @@ void AbstractFileListing::scanDirectory(QList<MusicAudioTrack> &newFiles, const 
 const QString &AbstractFileListing::sourceName() const
 {
     return d->mSourceName;
-}
-
-int AbstractFileListing::importedTracksCount() const
-{
-    return d->mImportedTracksCount;
 }
 
 void AbstractFileListing::directoryChanged(const QString &path)
@@ -244,7 +243,7 @@ void AbstractFileListing::directoryChanged(const QString &path)
 
     scanDirectoryTree(path);
 
-    Q_EMIT indexingFinished(d->mImportedTracksCount);
+    Q_EMIT indexingFinished();
 }
 
 void AbstractFileListing::fileChanged(const QString &modifiedFileName)
@@ -258,8 +257,9 @@ void AbstractFileListing::fileChanged(const QString &modifiedFileName)
     }
 }
 
-void AbstractFileListing::executeInit()
+void AbstractFileListing::executeInit(QHash<QUrl, QDateTime> allFiles)
 {
+    d->mAllFiles = std::move(allFiles);
 }
 
 void AbstractFileListing::triggerRefreshOfContent()
@@ -276,10 +276,30 @@ MusicAudioTrack AbstractFileListing::scanOneFile(const QUrl &scanFile)
 {
     MusicAudioTrack newTrack;
 
+    auto localFileName = scanFile.toLocalFile();
+
+    const auto &fileMimeType = d->mMimeDb.mimeTypeForFile(localFileName);
+    if (!fileMimeType.name().startsWith(QStringLiteral("audio/"))) {
+        return newTrack;
+    }
+
+    QFileInfo scanFileInfo(localFileName);
+
+    if (scanFileInfo.exists()) {
+        auto itExistingFile = d->mAllFiles.find(scanFile);
+        if (itExistingFile != d->mAllFiles.end()) {
+            if (*itExistingFile >= scanFileInfo.fileTime(QFile::FileModificationTime)) {
+                d->mAllFiles.erase(itExistingFile);
+                return newTrack;
+            }
+        }
+    }
+
     newTrack = ElisaUtils::scanOneFile(scanFile, d->mMimeDb, d->mExtractors);
 
     if (newTrack.isValid()) {
-        QFileInfo scanFileInfo(scanFile.toLocalFile());
+        newTrack.setFileModificationTime(scanFileInfo.fileTime(QFile::FileModificationTime));
+
         if (scanFileInfo.exists()) {
             watchPath(scanFile.toLocalFile());
         }
@@ -291,6 +311,8 @@ MusicAudioTrack AbstractFileListing::scanOneFile(const QUrl &scanFile)
 void AbstractFileListing::watchPath(const QString &pathName)
 {
     if (!d->mFileSystemWatcher.addPath(pathName)) {
+        Q_EMIT errorWatchingFiles();
+
         qDebug() << "AbstractFileListing::watchPath" << "fail for" << pathName;
     }
 }
@@ -328,7 +350,6 @@ void AbstractFileListing::scanDirectoryTree(const QString &path)
     scanDirectory(newFiles, QUrl::fromLocalFile(path));
 
     if (!newFiles.isEmpty() && d->mStopRequest == 0) {
-        Q_EMIT importedTracksCountChanged();
         emitNewFiles(newFiles);
     }
 }
@@ -405,9 +426,22 @@ void AbstractFileListing::setSourceName(const QString &name)
     d->mSourceName = name;
 }
 
-void AbstractFileListing::increaseImportedTracksCount()
+QHash<QUrl, QDateTime> &AbstractFileListing::allFiles()
 {
-    ++d->mImportedTracksCount;
+    return d->mAllFiles;
+}
+
+void AbstractFileListing::checkFilesToRemove()
+{
+    QList<QUrl> allRemovedFiles;
+
+    for (auto itFile = d->mAllFiles.begin(); itFile != d->mAllFiles.end(); ++itFile) {
+        allRemovedFiles.push_back(itFile.key());
+    }
+
+    if (!allRemovedFiles.isEmpty()) {
+        Q_EMIT removedTracksList(allRemovedFiles);
+    }
 }
 
 

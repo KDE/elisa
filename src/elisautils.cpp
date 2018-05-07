@@ -19,14 +19,12 @@
 
 #include "elisautils.h"
 
-
 #include <KFileMetaData/ExtractorCollection>
 #include <KFileMetaData/Extractor>
 #include <KFileMetaData/SimpleExtractionResult>
 #include <KFileMetaData/UserMetaData>
 
 #include <QFileInfo>
-#include <QFile>
 
 MusicAudioTrack ElisaUtils::scanOneFile(const QUrl &scanFile, const QMimeDatabase &mimeDatabase,
                                         const KFileMetaData::ExtractorCollection &allExtractors)

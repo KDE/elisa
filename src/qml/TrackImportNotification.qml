@@ -50,7 +50,6 @@ Rectangle {
         onTriggered:
         {
             rootComponent.opacity = 0
-            musicManager.resetImportedTracksCounter()
         }
     }
 

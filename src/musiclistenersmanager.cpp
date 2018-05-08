@@ -48,6 +48,9 @@
 #include "models/singleartistproxymodel.h"
 #include "models/singlealbumproxymodel.h"
 
+#include "modeldatacache.h"
+#include "models/genericdatamodel.h"
+
 #include <KI18n/KLocalizedString>
 
 #include <QThread>
@@ -88,7 +91,7 @@ public:
 
     ElisaApplication *mElisaApplication = nullptr;
 
-    AllAlbumsModel mAllAlbumsModel;
+    GenericDataModel mAllAlbumsModel;
 
     AllArtistsModel mAllArtistsModel;
 
@@ -150,15 +153,11 @@ MusicListenersManager::MusicListenersManager(QObject *parent)
 
     d->mConfigFileWatcher.addPath(Elisa::ElisaConfiguration::self()->config()->name());
 
-    d->mAllAlbumsModel.setAllArtists(&d->mAllArtistsModel);
-    d->mAllArtistsModel.setAllAlbums(&d->mAllAlbumsModel);
-
-    connect(&d->mDatabaseInterface, &DatabaseInterface::albumsAdded,
-            &d->mAllAlbumsModel, &AllAlbumsModel::albumsAdded);
-    connect(&d->mDatabaseInterface, &DatabaseInterface::albumModified,
-            &d->mAllAlbumsModel, &AllAlbumsModel::albumModified);
-    connect(&d->mDatabaseInterface, &DatabaseInterface::albumRemoved,
-            &d->mAllAlbumsModel, &AllAlbumsModel::albumRemoved);
+    auto modelData = new ModelDataCache;
+    modelData->setDatabase(&d->mDatabaseInterface);
+    modelData->moveToThread(&d->mDatabaseThread);
+    d->mAllAlbumsModel.setModelCache(modelData);
+    d->mAllAlbumsModel.setDataType(ElisaUtils::AllAlbums);
 
     connect(&d->mDatabaseInterface, &DatabaseInterface::artistsAdded,
             &d->mAllArtistsModel, &AllArtistsModel::artistsAdded);

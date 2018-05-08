@@ -136,6 +136,7 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qRegisterMetaType<QMap<QString,int>>("QMap<QString,int>");
     qRegisterMetaType<ElisaUtils::PlayListEnqueueMode>("ElisaUtils::PlayListEnqueueMode");
     qRegisterMetaType<ElisaUtils::PlayListEnqueueTriggerPlay>("ElisaUtils::PlayListEnqueueTriggerPlay");
+    qRegisterMetaType<ElisaUtils::DataType>("ElisaUtils::DataType");
 
     qRegisterMetaTypeStreamOperators<ManageMediaPlayerControl::PlayerState>("PlayListControler::PlayerState");
 

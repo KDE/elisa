@@ -27,11 +27,18 @@
 #include <memory>
 
 class GenericDataModelPrivate;
+class ModelDataCache;
 
 class GenericDataModel : public QAbstractListModel
 {
 
     Q_OBJECT
+
+    Q_PROPERTY(ElisaUtils::DataType dataType READ dataType WRITE setDataType NOTIFY dataTypeChanged)
+
+    Q_PROPERTY(ModelDataCache* modelCache READ modelCache WRITE setModelCache NOTIFY modelCacheChanged)
+
+    Q_PROPERTY(bool isBusy READ isBusy NOTIFY isBusyChanged)
 
 public:
 
@@ -49,15 +56,35 @@ public:
 
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
 
+    ElisaUtils::DataType dataType() const;
+
+    ModelDataCache *modelCache() const;
+
+    bool isBusy() const;
+
 Q_SIGNALS:
 
     void neededData(qulonglong databaseId) const;
+
+    void dataTypeChanged(ElisaUtils::DataType dataType);
+
+    void modelCacheChanged(ModelDataCache* modelCache);
+
+    void isBusyChanged(bool isBusy);
 
 public Q_SLOTS:
 
     void receiveData(qulonglong databaseId, QMap<ElisaUtils::ColumnsRoles, QVariant> cacheData);
 
+    void setDataType(ElisaUtils::DataType dataType);
+
+    void setModelCache(ModelDataCache* modelCache);
+
+    void modelDataChanged();
+
 private:
+
+    void resetModelType();
 
     std::unique_ptr<GenericDataModelPrivate> d;
 

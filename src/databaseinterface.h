@@ -22,6 +22,7 @@
 
 #include "elisaLib_export.h"
 
+#include "elisautils.h"
 #include "musicalbum.h"
 #include "musicaudiotrack.h"
 #include "musicartist.h"
@@ -57,17 +58,6 @@ public:
         Id,
     };
 
-    enum DataType {
-        AllArtists,
-        AllAlbums,
-        AllTracks,
-        AllGenres,
-        AllComposers,
-        AllLyricists,
-    };
-
-    Q_ENUMS(DataType)
-
     enum PropertyType {
         DatabaseId,
         DisplayRole,
@@ -84,7 +74,7 @@ public:
 
     MusicAlbum albumFromTitleAndArtist(const QString &title, const QString &artist);
 
-    QList<QMap<PropertyType, QVariant>> allData(DataType aType);
+    QList<QMap<PropertyType, QVariant>> allData(ElisaUtils::DataType aType);
 
     QList<MusicAudioTrack> allTracks();
 

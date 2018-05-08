@@ -266,7 +266,7 @@ MusicAlbum DatabaseInterface::albumFromTitleAndArtist(const QString &title, cons
     return result;
 }
 
-QList<QMap<DatabaseInterface::PropertyType, QVariant>> DatabaseInterface::allData(DataType aType)
+QList<QMap<DatabaseInterface::PropertyType, QVariant>> DatabaseInterface::allData(ElisaUtils::DataType aType)
 {
     auto result = QList<QMap<PropertyType, QVariant>>{};
 
@@ -277,22 +277,22 @@ QList<QMap<DatabaseInterface::PropertyType, QVariant>> DatabaseInterface::allDat
 
     switch (aType)
     {
-    case AllArtists:
+    case ElisaUtils::AllArtists:
         result = internalAllArtistsPartialData();
         break;
-    case AllAlbums:
+    case ElisaUtils::AllAlbums:
         result = internalAllAlbumsPartialData();
         break;
-    case AllTracks:
+    case ElisaUtils::AllTracks:
         result = internalAllTracksPartialData();
         break;
-    case AllGenres:
+    case ElisaUtils::AllGenres:
         result = internalAllGenresPartialData();
         break;
-    case AllComposers:
+    case ElisaUtils::AllComposers:
         result = internalAllComposersPartialData();
         break;
-    case AllLyricists:
+    case ElisaUtils::AllLyricists:
         result = internalAllLyricistsPartialData();
         break;
     };

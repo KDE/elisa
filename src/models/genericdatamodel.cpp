@@ -20,6 +20,7 @@
 #include "genericdatamodel.h"
 
 #include "databaseinterface.h"
+#include "modeldatacache.h"
 
 #include <QList>
 #include <QMap>
@@ -29,11 +30,15 @@ class GenericDataModelPrivate
 {
 public:
 
-    QList<QMap<DatabaseInterface::PropertyType, QVariant>> mPartialData;
-
     QHash<qulonglong, int> mDataPositionCache;
 
     QHash<qulonglong, QMap<ElisaUtils::ColumnsRoles, QVariant>> mDataCache;
+
+    ModelDataCache *mModelCache = nullptr;
+
+    ElisaUtils::DataType mDataType;
+
+    bool mIsBusy = true;
 
 };
 
@@ -52,7 +57,7 @@ int GenericDataModel::rowCount(const QModelIndex &parent) const
         return rowCount;
     }
 
-    rowCount = d->mPartialData.count();
+    rowCount = d->mModelCache->dataCount();
 
     return rowCount;
 }
@@ -73,7 +78,7 @@ QVariant GenericDataModel::data(const QModelIndex &index, int role) const
 {
     auto result = QVariant();
 
-    const auto albumCount = d->mPartialData.size();
+    const auto albumCount = d->mModelCache->dataCount();
 
     if (!index.isValid()) {
         return result;
@@ -102,22 +107,22 @@ QVariant GenericDataModel::data(const QModelIndex &index, int role) const
     switch(role)
     {
     case Qt::DisplayRole:
-        result = d->mPartialData[index.row()][DatabaseInterface::DisplayRole];
+        //result = d->mPartialData[index.row()][DatabaseInterface::DisplayRole];
         break;
     case ElisaUtils::SecondaryTextRole:
-        result = d->mPartialData[index.row()][DatabaseInterface::SecondaryRole];
+        //result = d->mPartialData[index.row()][DatabaseInterface::SecondaryRole];
         break;
     default:
     {
-        auto realRole = static_cast<ElisaUtils::ColumnsRoles>(role);
-        auto databaseId = d->mPartialData[index.row()][DatabaseInterface::DatabaseId].toULongLong();
-        auto itCacheData = d->mDataCache.find(databaseId);
-        if (itCacheData == d->mDataCache.end()) {
-            d->mDataPositionCache[databaseId] = index.row();
-            Q_EMIT neededData(databaseId);
-        } else {
-            result = itCacheData.value()[realRole];
-        }
+//        auto realRole = static_cast<ElisaUtils::ColumnsRoles>(role);
+//        auto databaseId = d->mPartialData[index.row()][DatabaseInterface::DatabaseId].toULongLong();
+//        auto itCacheData = d->mDataCache.find(databaseId);
+//        if (itCacheData == d->mDataCache.end()) {
+//            d->mDataPositionCache[databaseId] = index.row();
+//            Q_EMIT neededData(databaseId);
+//        } else {
+//            result = itCacheData.value()[realRole];
+//        }
     }
     };
 
@@ -138,6 +143,21 @@ int GenericDataModel::columnCount(const QModelIndex &parent) const
     return 1;
 }
 
+ElisaUtils::DataType GenericDataModel::dataType() const
+{
+    return d->mDataType;
+}
+
+ModelDataCache *GenericDataModel::modelCache() const
+{
+    return d->mModelCache;
+}
+
+bool GenericDataModel::isBusy() const
+{
+    return d->mIsBusy;
+}
+
 void GenericDataModel::receiveData(qulonglong databaseId, QMap<ElisaUtils::ColumnsRoles, QVariant> cacheData)
 {
     d->mDataCache[databaseId] = cacheData;
@@ -145,6 +165,55 @@ void GenericDataModel::receiveData(qulonglong databaseId, QMap<ElisaUtils::Colum
     auto modifiedIndex = index(d->mDataPositionCache[databaseId]);
 
     Q_EMIT dataChanged(modifiedIndex, modifiedIndex, {});
+}
+
+void GenericDataModel::setDataType(ElisaUtils::DataType dataType)
+{
+    if (d->mDataType == dataType) {
+        return;
+    }
+
+    resetModelType();
+
+    d->mDataType = dataType;
+    Q_EMIT dataTypeChanged(d->mDataType);
+}
+
+void GenericDataModel::setModelCache(ModelDataCache *modelCache)
+{
+    if (d->mModelCache == modelCache) {
+        return;
+    }
+
+    d->mModelCache = modelCache;
+    Q_EMIT modelCacheChanged(d->mModelCache);
+
+    connect(this, &GenericDataModel::neededData,
+            d->mModelCache, &ModelDataCache::neededData);
+    connect(d->mModelCache, &ModelDataCache::receiveData,
+            this, &GenericDataModel::receiveData);
+    connect(this, &GenericDataModel::dataTypeChanged,
+            d->mModelCache, &ModelDataCache::setDataType);
+    connect(d->mModelCache, &ModelDataCache::dataChanged,
+            this, &GenericDataModel::modelDataChanged);
+}
+
+void GenericDataModel::modelDataChanged()
+{
+    beginResetModel();
+    endResetModel();
+}
+
+void GenericDataModel::resetModelType()
+{
+    beginResetModel();
+    d->mDataCache.clear();
+    d->mDataPositionCache.clear();
+
+    d->mIsBusy = true;
+    Q_EMIT isBusyChanged(d->mIsBusy);
+
+    endResetModel();
 }
 
 

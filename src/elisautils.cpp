@@ -19,7 +19,7 @@
 
 #include "elisautils.h"
 
-#include <KFileMetaData/Properties>
+
 #include <KFileMetaData/ExtractorCollection>
 #include <KFileMetaData/Extractor>
 #include <KFileMetaData/SimpleExtractionResult>
@@ -48,8 +48,9 @@ MusicAudioTrack ElisaUtils::scanOneFile(const QUrl &scanFile, const QMimeDatabas
         return newTrack;
     }
 
-    QFileInfo fileInfo(localFileName);
-    newTrack.setFileModificationTime(fileInfo.fileTime(QFile::FileModificationTime));
+    QFileInfo scanFileInfo(localFileName);
+    newTrack.setFileModificationTime(scanFileInfo.fileTime(QFile::FileModificationTime));
+    newTrack.setResourceURI(scanFile);
 
     KFileMetaData::Extractor* ex = exList.first();
     KFileMetaData::SimpleExtractionResult result(localFileName, mimetype,
@@ -59,6 +60,13 @@ MusicAudioTrack ElisaUtils::scanOneFile(const QUrl &scanFile, const QMimeDatabas
 
     const auto &allProperties = result.properties();
 
+    ElisaUtils::scanProperties(localFileName, allProperties, newTrack);
+
+    return newTrack;
+}
+
+void ElisaUtils::scanProperties(const QString localFileName, const KFileMetaData::PropertyMap &allProperties, MusicAudioTrack &trackData)
+{
     auto titleProperty = allProperties.find(KFileMetaData::Property::Title);
     auto durationProperty = allProperties.find(KFileMetaData::Property::Duration);
     auto artistProperty = allProperties.find(KFileMetaData::Property::Artist);
@@ -81,98 +89,94 @@ MusicAudioTrack ElisaUtils::scanOneFile(const QUrl &scanFile, const QMimeDatabas
     if (albumProperty != allProperties.end()) {
         auto albumValue = albumProperty->toString();
 
-        newTrack.setAlbumName(albumValue);
+        trackData.setAlbumName(albumValue);
 
         if (artistProperty != allProperties.end()) {
-            newTrack.setArtist(artistProperty->toStringList().join(QStringLiteral(", ")));
+            trackData.setArtist(artistProperty->toStringList().join(QStringLiteral(", ")));
         }
 
         if (durationProperty != allProperties.end()) {
-            newTrack.setDuration(QTime::fromMSecsSinceStartOfDay(int(1000 * durationProperty->toDouble())));
+            trackData.setDuration(QTime::fromMSecsSinceStartOfDay(int(1000 * durationProperty->toDouble())));
         }
 
         if (titleProperty != allProperties.end()) {
-            newTrack.setTitle(titleProperty->toString());
+            trackData.setTitle(titleProperty->toString());
         }
 
         if (trackNumberProperty != allProperties.end()) {
-            newTrack.setTrackNumber(trackNumberProperty->toInt());
+            trackData.setTrackNumber(trackNumberProperty->toInt());
         }
 
         if (discNumberProperty != allProperties.end()) {
-            newTrack.setDiscNumber(discNumberProperty->toInt());
+            trackData.setDiscNumber(discNumberProperty->toInt());
         } else {
-            newTrack.setDiscNumber(1);
+            trackData.setDiscNumber(1);
         }
 
         if (albumArtistProperty != allProperties.end()) {
-            newTrack.setAlbumArtist(albumArtistProperty->toStringList().join(QStringLiteral(", ")));
+            trackData.setAlbumArtist(albumArtistProperty->toStringList().join(QStringLiteral(", ")));
         }
 
         if (yearProperty != allProperties.end()) {
-            newTrack.setYear(yearProperty->toInt());
+            trackData.setYear(yearProperty->toInt());
         }
 
         if (channelsProperty != allProperties.end()) {
-            newTrack.setChannels(channelsProperty->toInt());
+            trackData.setChannels(channelsProperty->toInt());
         }
 
         if (bitRateProperty != allProperties.end()) {
-            newTrack.setBitRate(bitRateProperty->toInt());
+            trackData.setBitRate(bitRateProperty->toInt());
         }
 
         if (sampleRateProperty != allProperties.end()) {
-            newTrack.setSampleRate(sampleRateProperty->toInt());
+            trackData.setSampleRate(sampleRateProperty->toInt());
         }
 
         if (genreProperty != allProperties.end()) {
-            newTrack.setGenre(genreProperty->toStringList().join(QStringLiteral(", ")));
+            trackData.setGenre(genreProperty->toStringList().join(QStringLiteral(", ")));
         }
 
         if (composerProperty != allProperties.end()) {
-            newTrack.setComposer(composerProperty->toStringList().join(QStringLiteral(", ")));
+            trackData.setComposer(composerProperty->toStringList().join(QStringLiteral(", ")));
         }
 
         if (lyricistProperty != allProperties.end()) {
-            newTrack.setLyricist(lyricistProperty->toStringList().join(QStringLiteral(", ")));
+            trackData.setLyricist(lyricistProperty->toStringList().join(QStringLiteral(", ")));
         }
 
         if (commentProperty != allProperties.end()) {
-            newTrack.setComment(commentProperty->toString());
+            trackData.setComment(commentProperty->toString());
         }
 
-        if (newTrack.artist().isEmpty()) {
-            newTrack.setArtist(newTrack.albumArtist());
+        if (trackData.artist().isEmpty()) {
+            trackData.setArtist(trackData.albumArtist());
         }
-
-        newTrack.setResourceURI(scanFile);
 
 #if defined Q_OS_LINUX && !defined Q_OS_ANDROID
-        newTrack.setRating(fileData.rating());
+        trackData.setRating(fileData.rating());
 #else
-        newTrack.setRating(0);
+        trackData.setRating(0);
 #endif
 
-        if (newTrack.title().isEmpty()) {
-            return newTrack;
+        if (trackData.title().isEmpty()) {
+            return;
         }
 
-        if (newTrack.artist().isEmpty()) {
-            return newTrack;
+        if (trackData.artist().isEmpty()) {
+            return;
         }
 
-        if (newTrack.albumName().isEmpty()) {
-            return newTrack;
+        if (trackData.albumName().isEmpty()) {
+            return;
         }
 
-        if (!newTrack.duration().isValid()) {
-            return newTrack;
+        if (!trackData.duration().isValid()) {
+            return;
         }
 
-        newTrack.setValid(true);
+        trackData.setValid(true);
     }
-
-    return newTrack;
 }
 
 

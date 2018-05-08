@@ -22,6 +22,7 @@
 #include "musicaudiotrack.h"
 #include "notificationitem.h"
 #include "elisa_settings.h"
+#include "elisautils.h"
 
 #include "baloo/scheduler.h"
 #include "baloo/fileindexer.h"
@@ -279,126 +280,22 @@ MusicAudioTrack LocalBalooFileListing::scanOneFile(const QUrl &scanFile)
 {
     auto newTrack = MusicAudioTrack();
 
-    auto fileName = scanFile.toLocalFile();
-    auto scanFileInfo = QFileInfo(fileName);
+    auto localFileName = scanFile.toLocalFile();
+    auto scanFileInfo = QFileInfo(localFileName);
 
     if (scanFileInfo.exists()) {
-        watchPath(fileName);
+        watchPath(localFileName);
     }
 
-    Baloo::File match(fileName);
+    Baloo::File match(localFileName);
     match.load();
 
     newTrack.setFileModificationTime(scanFileInfo.fileTime(QFile::FileModificationTime));
+    newTrack.setResourceURI(scanFile);
 
     const auto &allProperties = match.properties();
 
-    auto titleProperty = allProperties.find(KFileMetaData::Property::Title);
-    auto durationProperty = allProperties.find(KFileMetaData::Property::Duration);
-    auto artistProperty = allProperties.find(KFileMetaData::Property::Artist);
-    auto albumProperty = allProperties.find(KFileMetaData::Property::Album);
-    auto albumArtistProperty = allProperties.find(KFileMetaData::Property::AlbumArtist);
-    auto trackNumberProperty = allProperties.find(KFileMetaData::Property::TrackNumber);
-    auto discNumberProperty = allProperties.find(KFileMetaData::Property::DiscNumber);
-    auto genreProperty = allProperties.find(KFileMetaData::Property::Genre);
-    auto yearProperty = allProperties.find(KFileMetaData::Property::ReleaseYear);
-    auto composerProperty = allProperties.find(KFileMetaData::Property::Composer);
-    auto lyricistProperty = allProperties.find(KFileMetaData::Property::Lyricist);
-    auto channelsProperty = allProperties.find(KFileMetaData::Property::Channels);
-    auto bitRateProperty = allProperties.find(KFileMetaData::Property::BitRate);
-    auto sampleRateProperty = allProperties.find(KFileMetaData::Property::SampleRate);
-    auto commentProperty = allProperties.find(KFileMetaData::Property::Comment);
-    auto fileData = KFileMetaData::UserMetaData(fileName);
-
-    if (albumProperty != allProperties.end()) {
-        auto albumValue = albumProperty->toString();
-
-        newTrack.setAlbumName(albumValue);
-
-        if (artistProperty != allProperties.end()) {
-            newTrack.setArtist(artistProperty->toStringList().join(QStringLiteral(", ")));
-        }
-
-        if (durationProperty != allProperties.end()) {
-            newTrack.setDuration(QTime::fromMSecsSinceStartOfDay(1000 * durationProperty->toDouble()));
-        }
-
-        if (titleProperty != allProperties.end()) {
-            newTrack.setTitle(titleProperty->toString());
-        }
-
-        if (trackNumberProperty != allProperties.end()) {
-            newTrack.setTrackNumber(trackNumberProperty->toInt());
-        }
-
-        if (discNumberProperty != allProperties.end()) {
-            newTrack.setDiscNumber(discNumberProperty->toInt());
-        } else {
-            newTrack.setDiscNumber(1);
-        }
-
-        if (albumArtistProperty != allProperties.end()) {
-            newTrack.setAlbumArtist(albumArtistProperty->toStringList().join(QStringLiteral(", ")));
-        }
-
-        if (newTrack.artist().isEmpty()) {
-            newTrack.setArtist(newTrack.albumArtist());
-        }
-
-        if (yearProperty != allProperties.end()) {
-            newTrack.setYear(yearProperty->toInt());
-        }
-
-        if (channelsProperty != allProperties.end()) {
-            newTrack.setChannels(channelsProperty->toInt());
-        }
-
-        if (bitRateProperty != allProperties.end()) {
-            newTrack.setBitRate(bitRateProperty->toInt());
-        }
-
-        if (sampleRateProperty != allProperties.end()) {
-            newTrack.setSampleRate(sampleRateProperty->toInt());
-        }
-
-        if (genreProperty != allProperties.end()) {
-            newTrack.setGenre(genreProperty->toStringList().join(QStringLiteral(", ")));
-        }
-
-        if (composerProperty != allProperties.end()) {
-            newTrack.setComposer(composerProperty->toStringList().join(QStringLiteral(", ")));
-        }
-
-        if (lyricistProperty != allProperties.end()) {
-            newTrack.setLyricist(lyricistProperty->toStringList().join(QStringLiteral(", ")));
-        }
-
-        if (commentProperty != allProperties.end()) {
-            newTrack.setComment(commentProperty->toString());
-        }
-
-        newTrack.setRating(fileData.rating());
-
-        newTrack.setResourceURI(scanFile);
-
-        if (newTrack.title().isEmpty()) {
-            return newTrack;
-        }
-
-        if (newTrack.artist().isEmpty()) {
-            return newTrack;
-        }
-
-        if (newTrack.albumName().isEmpty()) {
-            return newTrack;
-        }
-
-        if (!newTrack.duration().isValid()) {
-            return newTrack;
-        }
-
-        newTrack.setValid(true);
-    }
+    ElisaUtils::scanProperties(localFileName, allProperties, newTrack);
 
     if (!newTrack.isValid()) {
         newTrack = AbstractFileListing::scanOneFile(scanFile);

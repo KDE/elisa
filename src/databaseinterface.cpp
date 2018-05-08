@@ -66,7 +66,8 @@ public:
           mSelectComposerQuery(mTracksDatabase), mInsertLyricistQuery(mTracksDatabase),
           mSelectLyricistByNameQuery(mTracksDatabase), mSelectLyricistQuery(mTracksDatabase),
           mInsertGenreQuery(mTracksDatabase), mSelectGenreByNameQuery(mTracksDatabase),
-          mSelectGenreQuery(mTracksDatabase)
+          mSelectGenreQuery(mTracksDatabase), mSelectAllTracksShortQuery(mTracksDatabase),
+          mSelectAllAlbumsShortQuery(mTracksDatabase)
     {
     }
 
@@ -182,6 +183,10 @@ public:
 
     QSqlQuery mSelectGenreQuery;
 
+    QSqlQuery mSelectAllTracksShortQuery;
+
+    QSqlQuery mSelectAllAlbumsShortQuery;
+
     qulonglong mAlbumId = 1;
 
     qulonglong mArtistId = 1;
@@ -252,6 +257,45 @@ MusicAlbum DatabaseInterface::albumFromTitleAndArtist(const QString &title, cons
     }
 
     result = internalAlbumFromTitleAndArtist(title, artist);
+
+    transactionResult = finishTransaction();
+    if (!transactionResult) {
+        return result;
+    }
+
+    return result;
+}
+
+QList<QMap<DatabaseInterface::PropertyType, QVariant>> DatabaseInterface::allData(DataType aType)
+{
+    auto result = QList<QMap<PropertyType, QVariant>>{};
+
+    auto transactionResult = startTransaction();
+    if (!transactionResult) {
+        return result;
+    }
+
+    switch (aType)
+    {
+    case AllArtists:
+        result = internalAllArtistsPartialData();
+        break;
+    case AllAlbums:
+        result = internalAllAlbumsPartialData();
+        break;
+    case AllTracks:
+        result = internalAllTracksPartialData();
+        break;
+    case AllGenres:
+        result = internalAllGenresPartialData();
+        break;
+    case AllComposers:
+        result = internalAllComposersPartialData();
+        break;
+    case AllLyricists:
+        result = internalAllLyricistsPartialData();
+        break;
+    };
 
     transactionResult = finishTransaction();
     if (!transactionResult) {
@@ -1341,6 +1385,30 @@ void DatabaseInterface::initRequest()
     }
 
     {
+        auto selectAllAlbumsText = QStringLiteral("SELECT "
+                                                  "album.`ID`, "
+                                                  "album.`Title`, "
+                                                  "artist.`Name` "
+                                                  "FROM `Albums` album "
+                                                  "LEFT JOIN `AlbumsArtists` albumArtist "
+                                                  "ON "
+                                                  "albumArtist.`AlbumID` = album.`ID` "
+                                                  "LEFT JOIN `Artists` artist "
+                                                  "ON "
+                                                  "albumArtist.`ArtistID` = artist.`ID` "
+                                                  "ORDER BY album.`Title` COLLATE NOCASE");
+
+        auto result = d->mSelectAllAlbumsShortQuery.prepare(selectAllAlbumsText);
+
+        if (!result) {
+            qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllAlbumsShortQuery.lastQuery();
+            qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllAlbumsShortQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
         auto selectAllArtistsWithFilterText = QStringLiteral("SELECT `ID`, "
                                                              "`Name` "
                                                              "FROM `Artists` "
@@ -1400,6 +1468,30 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllTracksQuery.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllTracksQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        auto selectAllTracksShortText = QStringLiteral("SELECT "
+                                                  "tracks.`ID`, "
+                                                  "tracks.`Title`, "
+                                                  "artistAlbum.`Name` "
+                                                  "FROM "
+                                                  "`Tracks` tracks, "
+                                                  "`Albums` album, "
+                                                  "`TracksMapping` tracksMapping "
+                                                  "LEFT JOIN `AlbumsArtists` artistAlbumMapping ON artistAlbumMapping.`AlbumID` = album.`ID` "
+                                                  "LEFT JOIN `Artists` artistAlbum ON artistAlbum.`ID` = artistAlbumMapping.`ArtistID` "
+                                                  "WHERE "
+                                                  "tracks.`AlbumID` = album.`ID`");
+
+        auto result = d->mSelectAllTracksShortQuery.prepare(selectAllTracksShortText);
+
+        if (!result) {
+            qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllTracksShortQuery.lastQuery();
+            qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllTracksShortQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -3460,6 +3552,47 @@ QHash<QUrl, QDateTime> DatabaseInterface::internalAllFileNameFromSource(qulonglo
     return allFileNames;
 }
 
+QList<QMap<DatabaseInterface::PropertyType, QVariant> > DatabaseInterface::internalAllGenericPartialData(QSqlQuery &query,
+                                                                                                         int nbFields)
+{
+    auto result = QList<QMap<PropertyType, QVariant>>{};
+
+    auto queryResult = query.exec();
+
+    if (!queryResult || !query.isSelect() || !query.isActive()) {
+        Q_EMIT databaseError();
+
+        qDebug() << "DatabaseInterface::allArtists" << query.lastQuery();
+        qDebug() << "DatabaseInterface::allArtists" << query.boundValues();
+        qDebug() << "DatabaseInterface::allArtists" << query.lastError();
+
+        query.finish();
+
+        auto transactionResult = finishTransaction();
+        if (!transactionResult) {
+            return result;
+        }
+
+        return result;
+    }
+
+    while(query.next()) {
+        auto newData = QMap<PropertyType, QVariant>{};
+
+        const auto &currentRecord = query.record();
+
+        newData[DatabaseId] = currentRecord.value(0);
+        newData[DisplayRole] = currentRecord.value(1);
+        if (nbFields == 2) {
+            newData[SecondaryRole] = currentRecord.value(2);
+        }
+    }
+
+    query.finish();
+
+    return result;
+}
+
 MusicArtist DatabaseInterface::internalComposerFromId(qulonglong composerId)
 {
     auto result = MusicArtist();
@@ -4240,6 +4373,36 @@ QList<qulonglong> DatabaseInterface::internalAlbumIdsFromAuthor(const QString &a
     d->mSelectAlbumIdsFromArtist.finish();
 
     return allAlbumIds;
+}
+
+QList<QMap<DatabaseInterface::PropertyType, QVariant>> DatabaseInterface::internalAllArtistsPartialData()
+{
+    return internalAllGenericPartialData(d->mSelectAllArtistsQuery, 1);
+}
+
+QList<QMap<DatabaseInterface::PropertyType, QVariant> > DatabaseInterface::internalAllAlbumsPartialData()
+{
+    return internalAllGenericPartialData(d->mSelectAllAlbumsShortQuery, 1);
+}
+
+QList<QMap<DatabaseInterface::PropertyType, QVariant> > DatabaseInterface::internalAllTracksPartialData()
+{
+    return internalAllGenericPartialData(d->mSelectAllTracksShortQuery, 2);
+}
+
+QList<QMap<DatabaseInterface::PropertyType, QVariant> > DatabaseInterface::internalAllGenresPartialData()
+{
+    return internalAllGenericPartialData(d->mSelectGenreQuery, 1);
+}
+
+QList<QMap<DatabaseInterface::PropertyType, QVariant> > DatabaseInterface::internalAllComposersPartialData()
+{
+    return internalAllGenericPartialData(d->mSelectComposerQuery, 1);
+}
+
+QList<QMap<DatabaseInterface::PropertyType, QVariant> > DatabaseInterface::internalAllLyricistsPartialData()
+{
+    return internalAllGenericPartialData(d->mSelectLyricistQuery, 1);
 }
 
 

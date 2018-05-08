@@ -18,6 +18,7 @@ set(elisaLib_SOURCES
     topnotificationmanager.cpp
     elisautils.cpp
     trackdatahelper.cpp
+    modeldatacache.cpp
     abstractfile/abstractfilelistener.cpp
     abstractfile/abstractfilelisting.cpp
     file/filelistener.cpp
@@ -32,6 +33,7 @@ set(elisaLib_SOURCES
     models/alltracksproxymodel.cpp
     models/singleartistproxymodel.cpp
     models/singlealbumproxymodel.cpp
+    models/genericdatamodel.cpp
 )
 
 if (KF5Baloo_FOUND)

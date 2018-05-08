@@ -41,6 +41,7 @@
 class DatabaseInterfacePrivate;
 class QMutex;
 class QSqlRecord;
+class QSqlQuery;
 
 class ELISALIB_EXPORT DatabaseInterface : public QObject
 {
@@ -56,6 +57,25 @@ public:
         Id,
     };
 
+    enum DataType {
+        AllArtists,
+        AllAlbums,
+        AllTracks,
+        AllGenres,
+        AllComposers,
+        AllLyricists,
+    };
+
+    Q_ENUMS(DataType)
+
+    enum PropertyType {
+        DatabaseId,
+        DisplayRole,
+        SecondaryRole,
+    };
+
+    Q_ENUMS(PropertyType)
+
     explicit DatabaseInterface(QObject *parent = nullptr);
 
     ~DatabaseInterface() override;
@@ -63,6 +83,8 @@ public:
     Q_INVOKABLE void init(const QString &dbName, const QString &databaseFileName = {});
 
     MusicAlbum albumFromTitleAndArtist(const QString &title, const QString &artist);
+
+    QList<QMap<PropertyType, QVariant>> allData(DataType aType);
 
     QList<MusicAudioTrack> allTracks();
 
@@ -95,6 +117,8 @@ Q_SIGNALS:
 
     void tracksAdded(const QList<MusicAudioTrack> &allTracks);
 
+    void genreAdded(QString genreName);
+
     void artistRemoved(const MusicArtist &removedArtist);
 
     void albumRemoved(const MusicAlbum &removedAlbum, qulonglong removedAlbumId);
@@ -110,8 +134,6 @@ Q_SIGNALS:
     void sentAlbumData(const MusicAlbum albumData);
 
     void requestsInitDone();
-
-    void genreAdded(QString genreName);
 
     void databaseError();
 
@@ -233,8 +255,24 @@ private:
 
     QHash<QUrl, QDateTime> internalAllFileNameFromSource(qulonglong sourceId);
 
+    QList<QMap<PropertyType, QVariant>> internalAllGenericPartialData(QSqlQuery &query, int nbFields);
+
+    QList<QMap<PropertyType, QVariant>> internalAllArtistsPartialData();
+
+    QList<QMap<PropertyType, QVariant>> internalAllAlbumsPartialData();
+
+    QList<QMap<PropertyType, QVariant>> internalAllTracksPartialData();
+
+    QList<QMap<PropertyType, QVariant>> internalAllGenresPartialData();
+
+    QList<QMap<PropertyType, QVariant>> internalAllComposersPartialData();
+
+    QList<QMap<PropertyType, QVariant>> internalAllLyricistsPartialData();
+
     std::unique_ptr<DatabaseInterfacePrivate> d;
 
 };
+
+
 
 #endif // DATABASEINTERFACE_H

@@ -36,6 +36,7 @@
 #include <QDebug>
 
 #include <QtTest>
+#include <QTest>
 
 #include <algorithm>
 
@@ -191,30 +192,39 @@ private Q_SLOTS:
         QSignalSpy tracksListSpy(&myListing, &LocalFileListing::tracksList);
         QSignalSpy removedTracksListSpy(&myListing, &LocalFileListing::removedTracksList);
         QSignalSpy rootPathChangedSpy(&myListing, &LocalFileListing::rootPathChanged);
+        QSignalSpy errorWatchingFilesSpy(&myListing, &LocalFileListing::errorWatchingFiles);
 
         QCOMPARE(tracksListSpy.count(), 0);
         QCOMPARE(removedTracksListSpy.count(), 0);
         QCOMPARE(rootPathChangedSpy.count(), 0);
+        QCOMPARE(errorWatchingFilesSpy.count(), 0);
 
         myListing.init();
 
         QCOMPARE(tracksListSpy.count(), 0);
         QCOMPARE(removedTracksListSpy.count(), 0);
         QCOMPARE(rootPathChangedSpy.count(), 0);
+        QCOMPARE(errorWatchingFilesSpy.count(), 0);
 
         myListing.setRootPath(QStringLiteral("/directoryNotExist"));
 
         QCOMPARE(tracksListSpy.count(), 0);
         QCOMPARE(removedTracksListSpy.count(), 0);
         QCOMPARE(rootPathChangedSpy.count(), 1);
+        QCOMPARE(errorWatchingFilesSpy.count(), 0);
 
         QCOMPARE(myListing.rootPath(), QStringLiteral("/directoryNotExist"));
 
         myListing.refreshContent();
 
+        if (errorWatchingFilesSpy.count()) {
+            QEXPECT_FAIL("", "watching files for change is not working", Abort);
+        }
+
         QCOMPARE(tracksListSpy.count(), 0);
         QCOMPARE(removedTracksListSpy.count(), 0);
         QCOMPARE(rootPathChangedSpy.count(), 1);
+        QCOMPARE(errorWatchingFilesSpy.count(), 0);
     }
 
     void initialTestWithTracks()
@@ -226,22 +236,26 @@ private Q_SLOTS:
         QSignalSpy tracksListSpy(&myListing, &LocalFileListing::tracksList);
         QSignalSpy removedTracksListSpy(&myListing, &LocalFileListing::removedTracksList);
         QSignalSpy rootPathChangedSpy(&myListing, &LocalFileListing::rootPathChanged);
+        QSignalSpy errorWatchingFilesSpy(&myListing, &LocalFileListing::errorWatchingFiles);
 
         QCOMPARE(tracksListSpy.count(), 0);
         QCOMPARE(removedTracksListSpy.count(), 0);
         QCOMPARE(rootPathChangedSpy.count(), 0);
+        QCOMPARE(errorWatchingFilesSpy.count(), 0);
 
         myListing.init();
 
         QCOMPARE(tracksListSpy.count(), 0);
         QCOMPARE(removedTracksListSpy.count(), 0);
         QCOMPARE(rootPathChangedSpy.count(), 0);
+        QCOMPARE(errorWatchingFilesSpy.count(), 0);
 
         myListing.setRootPath(musicPath);
 
         QCOMPARE(tracksListSpy.count(), 0);
         QCOMPARE(removedTracksListSpy.count(), 0);
         QCOMPARE(rootPathChangedSpy.count(), 1);
+        QCOMPARE(errorWatchingFilesSpy.count(), 0);
 
         QCOMPARE(myListing.rootPath(), musicPath);
 
@@ -250,6 +264,11 @@ private Q_SLOTS:
         QCOMPARE(tracksListSpy.count(), 2);
         QCOMPARE(removedTracksListSpy.count(), 0);
         QCOMPARE(rootPathChangedSpy.count(), 1);
+
+        if (errorWatchingFilesSpy.count()) {
+            QEXPECT_FAIL("", "watching files for change is not working", Abort);
+        }
+        QCOMPARE(errorWatchingFilesSpy.count(), 0);
 
         auto firstNewTracksSignal = tracksListSpy.at(0);
         auto firstNewTracks = firstNewTracksSignal.at(0).value<QList<MusicAudioTrack>>();
@@ -291,12 +310,14 @@ private Q_SLOTS:
         QCOMPARE(tracksListSpy.count(), 0);
         QCOMPARE(removedTracksListSpy.count(), 0);
         QCOMPARE(rootPathChangedSpy.count(), 0);
+        QCOMPARE(errorWatchingFilesSpy.count(), 0);
 
         myListing.setRootPath(musicParentPath);
 
         QCOMPARE(tracksListSpy.count(), 0);
         QCOMPARE(removedTracksListSpy.count(), 0);
         QCOMPARE(rootPathChangedSpy.count(), 1);
+        QCOMPARE(errorWatchingFilesSpy.count(), 0);
 
         QCOMPARE(myListing.rootPath(), musicParentPath);
 
@@ -305,6 +326,11 @@ private Q_SLOTS:
         QCOMPARE(tracksListSpy.count(), 0);
         QCOMPARE(removedTracksListSpy.count(), 0);
         QCOMPARE(rootPathChangedSpy.count(), 1);
+
+        if (errorWatchingFilesSpy.count()) {
+            QEXPECT_FAIL("", "watching files for change is not working", Abort);
+        }
+        QCOMPARE(errorWatchingFilesSpy.count(), 0);
 
         QFile myTrack(musicOriginPath + QStringLiteral("/test.ogg"));
         myTrack.copy(musicPath + QStringLiteral("/test.ogg"));
@@ -316,6 +342,11 @@ private Q_SLOTS:
         QCOMPARE(tracksListSpy.count(), 1);
         QCOMPARE(removedTracksListSpy.count(), 0);
         QCOMPARE(rootPathChangedSpy.count(), 1);
+
+        if (errorWatchingFilesSpy.count()) {
+            QEXPECT_FAIL("", "watching files for change is not working", Abort);
+        }
+        QCOMPARE(errorWatchingFilesSpy.count(), 0);
 
         auto newTracksSignal = tracksListSpy.at(0);
         auto newTracks = newTracksSignal.at(0).value<QList<MusicAudioTrack>>();
@@ -332,6 +363,7 @@ private Q_SLOTS:
         QCOMPARE(tracksListSpy.count(), 1);
         QCOMPARE(removedTracksListSpy.count(), 1);
         QCOMPARE(rootPathChangedSpy.count(), 1);
+        QCOMPARE(errorWatchingFilesSpy.count(), 0);
 
         auto removeSignal = removedTracksListSpy.at(0);
         auto removedTracks = removeSignal.at(0).value<QList<QUrl>>();
@@ -348,6 +380,7 @@ private Q_SLOTS:
         QCOMPARE(tracksListSpy.count(), 2);
         QCOMPARE(removedTracksListSpy.count(), 1);
         QCOMPARE(rootPathChangedSpy.count(), 1);
+        QCOMPARE(errorWatchingFilesSpy.count(), 0);
 
         auto newTracksSignalLast = tracksListSpy.at(1);
         auto newTracksLast = newTracksSignalLast.at(0).value<QList<MusicAudioTrack>>();
@@ -377,22 +410,26 @@ private Q_SLOTS:
         QSignalSpy tracksListSpy(&myListing, &LocalFileListing::tracksList);
         QSignalSpy removedTracksListSpy(&myListing, &LocalFileListing::removedTracksList);
         QSignalSpy rootPathChangedSpy(&myListing, &LocalFileListing::rootPathChanged);
+        QSignalSpy errorWatchingFilesSpy(&myListing, &LocalFileListing::errorWatchingFiles);
 
         QCOMPARE(tracksListSpy.count(), 0);
         QCOMPARE(removedTracksListSpy.count(), 0);
         QCOMPARE(rootPathChangedSpy.count(), 0);
+        QCOMPARE(errorWatchingFilesSpy.count(), 0);
 
         myListing.init();
 
         QCOMPARE(tracksListSpy.count(), 0);
         QCOMPARE(removedTracksListSpy.count(), 0);
         QCOMPARE(rootPathChangedSpy.count(), 0);
+        QCOMPARE(errorWatchingFilesSpy.count(), 0);
 
         myListing.setRootPath(musicParentPath);
 
         QCOMPARE(tracksListSpy.count(), 0);
         QCOMPARE(removedTracksListSpy.count(), 0);
         QCOMPARE(rootPathChangedSpy.count(), 1);
+        QCOMPARE(errorWatchingFilesSpy.count(), 0);
 
         QCOMPARE(myListing.rootPath(), musicParentPath);
 
@@ -401,6 +438,11 @@ private Q_SLOTS:
         QCOMPARE(tracksListSpy.count(), 0);
         QCOMPARE(removedTracksListSpy.count(), 0);
         QCOMPARE(rootPathChangedSpy.count(), 1);
+
+        if (errorWatchingFilesSpy.count()) {
+            QEXPECT_FAIL("", "watching files for change is not working", Abort);
+        }
+        QCOMPARE(errorWatchingFilesSpy.count(), 0);
 
         QFile myTrack(musicOriginPath + QStringLiteral("/test.ogg"));
         myTrack.copy(musicPath + QStringLiteral("/test.ogg"));
@@ -412,6 +454,11 @@ private Q_SLOTS:
         QCOMPARE(tracksListSpy.count(), 1);
         QCOMPARE(removedTracksListSpy.count(), 0);
         QCOMPARE(rootPathChangedSpy.count(), 1);
+
+        if (errorWatchingFilesSpy.count()) {
+            QEXPECT_FAIL("", "watching files for change is not working", Abort);
+        }
+        QCOMPARE(errorWatchingFilesSpy.count(), 0);
 
         auto newTracksSignal = tracksListSpy.at(0);
         auto newTracks = newTracksSignal.at(0).value<QList<MusicAudioTrack>>();
@@ -428,6 +475,7 @@ private Q_SLOTS:
         QCOMPARE(tracksListSpy.count(), 1);
         QCOMPARE(removedTracksListSpy.count(), 1);
         QCOMPARE(rootPathChangedSpy.count(), 1);
+        QCOMPARE(errorWatchingFilesSpy.count(), 0);
 
         auto removeSignal = removedTracksListSpy.at(0);
         auto removedTracks = removeSignal.at(0).value<QList<QUrl>>();
@@ -444,6 +492,7 @@ private Q_SLOTS:
         QCOMPARE(tracksListSpy.count(), 2);
         QCOMPARE(removedTracksListSpy.count(), 1);
         QCOMPARE(rootPathChangedSpy.count(), 1);
+        QCOMPARE(errorWatchingFilesSpy.count(), 0);
 
         auto newTracksSignalLast = tracksListSpy.at(1);
         auto newTracksLast = newTracksSignalLast.at(0).value<QList<MusicAudioTrack>>();
@@ -478,11 +527,13 @@ private Q_SLOTS:
         QSignalSpy removedTracksListSpy(&myListing, &LocalFileListing::removedTracksList);
         QSignalSpy modifiedTracksListSpy(&myListing, &LocalFileListing::modifyTracksList);
         QSignalSpy rootPathChangedSpy(&myListing, &LocalFileListing::rootPathChanged);
+        QSignalSpy errorWatchingFilesSpy(&myListing, &LocalFileListing::errorWatchingFiles);
 
         QCOMPARE(tracksListSpy.count(), 0);
         QCOMPARE(removedTracksListSpy.count(), 0);
         QCOMPARE(modifiedTracksListSpy.count(), 0);
         QCOMPARE(rootPathChangedSpy.count(), 0);
+        QCOMPARE(errorWatchingFilesSpy.count(), 0);
 
         myListing.init();
 
@@ -490,6 +541,7 @@ private Q_SLOTS:
         QCOMPARE(removedTracksListSpy.count(), 0);
         QCOMPARE(modifiedTracksListSpy.count(), 0);
         QCOMPARE(rootPathChangedSpy.count(), 0);
+        QCOMPARE(errorWatchingFilesSpy.count(), 0);
 
         myListing.setRootPath(musicParentPath);
 
@@ -497,6 +549,7 @@ private Q_SLOTS:
         QCOMPARE(removedTracksListSpy.count(), 0);
         QCOMPARE(modifiedTracksListSpy.count(), 0);
         QCOMPARE(rootPathChangedSpy.count(), 1);
+        QCOMPARE(errorWatchingFilesSpy.count(), 0);
 
         QCOMPARE(myListing.rootPath(), musicParentPath);
 
@@ -506,6 +559,11 @@ private Q_SLOTS:
         QCOMPARE(removedTracksListSpy.count(), 0);
         QCOMPARE(modifiedTracksListSpy.count(), 0);
         QCOMPARE(rootPathChangedSpy.count(), 1);
+
+        if (errorWatchingFilesSpy.count()) {
+            QEXPECT_FAIL("", "watching files for change is not working", Abort);
+        }
+        QCOMPARE(errorWatchingFilesSpy.count(), 0);
 
         QFile myTrack(musicOriginPath + QStringLiteral("/test.ogg"));
         myTrack.copy(musicPath + QStringLiteral("/test.ogg"));
@@ -518,6 +576,11 @@ private Q_SLOTS:
         QCOMPARE(removedTracksListSpy.count(), 0);
         QCOMPARE(modifiedTracksListSpy.count(), 0);
         QCOMPARE(rootPathChangedSpy.count(), 1);
+
+        if (errorWatchingFilesSpy.count()) {
+            QEXPECT_FAIL("", "watching files for change is not working", Abort);
+        }
+        QCOMPARE(errorWatchingFilesSpy.count(), 0);
 
         auto newTracksSignal = tracksListSpy.at(0);
         auto newTracks = newTracksSignal.at(0).value<QList<MusicAudioTrack>>();
@@ -535,6 +598,7 @@ private Q_SLOTS:
         QCOMPARE(removedTracksListSpy.count(), 1);
         QCOMPARE(modifiedTracksListSpy.count(), 0);
         QCOMPARE(rootPathChangedSpy.count(), 1);
+        QCOMPARE(errorWatchingFilesSpy.count(), 0);
 
         auto removeSignal = removedTracksListSpy.at(0);
         auto removedTracks = removeSignal.at(0).value<QList<QUrl>>();
@@ -553,6 +617,7 @@ private Q_SLOTS:
         QCOMPARE(removedTracksListSpy.count(), 1);
         QCOMPARE(modifiedTracksListSpy.count(), 0);
         QCOMPARE(rootPathChangedSpy.count(), 1);
+        QCOMPARE(errorWatchingFilesSpy.count(), 0);
 
         auto newTracksSignalLast = tracksListSpy.at(1);
         auto newTracksLast = newTracksSignalLast.at(0).value<QList<MusicAudioTrack>>();

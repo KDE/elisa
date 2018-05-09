@@ -29,6 +29,8 @@
 #include <QWriteLocker>
 #include <QAtomicInt>
 
+#include <QDebug>
+
 class ModelDataCachePrivate
 {
 public:
@@ -41,7 +43,7 @@ public:
 
     QAtomicInt mDataCount;
 
-    ElisaUtils::DataType mDataType;
+    ElisaUtils::DataType mDataType = ElisaUtils::UnknownType;
 
 };
 
@@ -55,9 +57,31 @@ ElisaUtils::DataType ModelDataCache::dataType() const
     return d->mDataType;
 }
 
-int ModelDataCache::dataCount()
+int ModelDataCache::dataCount() const
 {
     int result = d->mDataCount;
+
+    return result;
+}
+
+QVariant ModelDataCache::data(int row, ElisaUtils::ColumnsRoles role) const
+{
+    QReadLocker vLocker(&d->mLock);
+
+    auto result = QVariant{};
+
+    switch (role)
+    {
+    case ElisaUtils::TitleRole:
+        result = d->mPartialData[row][DatabaseInterface::DisplayRole];
+        break;
+    case ElisaUtils::SecondaryTextRole:
+        result = d->mPartialData[row][DatabaseInterface::SecondaryRole];
+        break;
+    case ElisaUtils::DatabaseIdRole:
+        result = d->mPartialData[row][DatabaseInterface::DatabaseId];
+        break;
+    };
 
     return result;
 }
@@ -91,6 +115,12 @@ void ModelDataCache::setDatabase(DatabaseInterface *database)
 
     d->mDatabase = database;
     Q_EMIT databaseChanged(d->mDatabase);
+
+}
+
+void ModelDataCache::databaseChanged()
+{
+    fetchPartialData();
 }
 
 void ModelDataCache::fetchPartialData()

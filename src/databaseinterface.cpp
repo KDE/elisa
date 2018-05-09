@@ -1480,8 +1480,7 @@ void DatabaseInterface::initRequest()
                                                   "artistAlbum.`Name` "
                                                   "FROM "
                                                   "`Tracks` tracks, "
-                                                  "`Albums` album, "
-                                                  "`TracksMapping` tracksMapping "
+                                                  "`Albums` album "
                                                   "LEFT JOIN `AlbumsArtists` artistAlbumMapping ON artistAlbumMapping.`AlbumID` = album.`ID` "
                                                   "LEFT JOIN `Artists` artistAlbum ON artistAlbum.`ID` = artistAlbumMapping.`ArtistID` "
                                                   "WHERE "
@@ -3586,6 +3585,8 @@ QList<QMap<DatabaseInterface::PropertyType, QVariant> > DatabaseInterface::inter
         if (nbFields == 2) {
             newData[SecondaryRole] = currentRecord.value(2);
         }
+
+        result.push_back(newData);
     }
 
     query.finish();
@@ -4382,7 +4383,7 @@ QList<QMap<DatabaseInterface::PropertyType, QVariant>> DatabaseInterface::intern
 
 QList<QMap<DatabaseInterface::PropertyType, QVariant> > DatabaseInterface::internalAllAlbumsPartialData()
 {
-    return internalAllGenericPartialData(d->mSelectAllAlbumsShortQuery, 1);
+    return internalAllGenericPartialData(d->mSelectAllAlbumsShortQuery, 2);
 }
 
 QList<QMap<DatabaseInterface::PropertyType, QVariant> > DatabaseInterface::internalAllTracksPartialData()

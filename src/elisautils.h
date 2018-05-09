@@ -56,7 +56,8 @@ enum PlayListEnqueueTriggerPlay {
 Q_ENUM_NS(PlayListEnqueueTriggerPlay)
 
 enum ColumnsRoles {
-    SecondaryTextRole = Qt::UserRole + 1,
+    TitleRole = Qt::UserRole + 1,
+    SecondaryTextRole,
     ImageUrlRole,
     ShadowForImageRole,
     ChildModelRole,
@@ -93,6 +94,7 @@ enum DataType {
     AllGenres,
     AllComposers,
     AllLyricists,
+    UnknownType,
 };
 
 Q_ENUM_NS(DataType)

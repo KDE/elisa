@@ -37,9 +37,6 @@
 #include "notificationitem.h"
 #include "elisaapplication.h"
 #include "elisa_settings.h"
-#include "models/allalbumsmodel.h"
-#include "models/allartistsmodel.h"
-#include "models/alltracksmodel.h"
 #include "models/albummodel.h"
 #include "models/abstractmediaproxymodel.h"
 #include "models/allalbumsproxymodel.h"
@@ -93,9 +90,9 @@ public:
 
     GenericDataModel mAllAlbumsModel;
 
-    AllArtistsModel mAllArtistsModel;
+    GenericDataModel mAllArtistsModel;
 
-    AllTracksModel mAllTracksModel;
+    GenericDataModel mAllTracksModel;
 
     AlbumModel mAlbumModel;
 
@@ -159,19 +156,17 @@ MusicListenersManager::MusicListenersManager(QObject *parent)
     d->mAllAlbumsModel.setModelCache(modelData);
     d->mAllAlbumsModel.setDataType(ElisaUtils::AllAlbums);
 
-    connect(&d->mDatabaseInterface, &DatabaseInterface::artistsAdded,
-            &d->mAllArtistsModel, &AllArtistsModel::artistsAdded);
-    connect(&d->mDatabaseInterface, &DatabaseInterface::artistModified,
-            &d->mAllArtistsModel, &AllArtistsModel::artistModified);
-    connect(&d->mDatabaseInterface, &DatabaseInterface::artistRemoved,
-            &d->mAllArtistsModel, &AllArtistsModel::artistRemoved);
+    modelData = new ModelDataCache;
+    modelData->setDatabase(&d->mDatabaseInterface);
+    modelData->moveToThread(&d->mDatabaseThread);
+    d->mAllArtistsModel.setModelCache(modelData);
+    d->mAllArtistsModel.setDataType(ElisaUtils::AllArtists);
 
-    connect(&d->mDatabaseInterface, &DatabaseInterface::tracksAdded,
-            &d->mAllTracksModel, &AllTracksModel::tracksAdded);
-    connect(&d->mDatabaseInterface, &DatabaseInterface::trackModified,
-            &d->mAllTracksModel, &AllTracksModel::trackModified);
-    connect(&d->mDatabaseInterface, &DatabaseInterface::trackRemoved,
-            &d->mAllTracksModel, &AllTracksModel::trackRemoved);
+    modelData = new ModelDataCache;
+    modelData->setDatabase(&d->mDatabaseInterface);
+    modelData->moveToThread(&d->mDatabaseThread);
+    d->mAllTracksModel.setModelCache(modelData);
+    d->mAllTracksModel.setDataType(ElisaUtils::AllTracks);
 
     connect(&d->mDatabaseInterface, &DatabaseInterface::albumModified,
             &d->mAlbumModel, &AlbumModel::albumModified);

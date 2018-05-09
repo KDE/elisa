@@ -36,7 +36,7 @@ public:
 
     ModelDataCache *mModelCache = nullptr;
 
-    ElisaUtils::DataType mDataType;
+    ElisaUtils::DataType mDataType = ElisaUtils::UnknownType;
 
     bool mIsBusy = true;
 
@@ -107,10 +107,10 @@ QVariant GenericDataModel::data(const QModelIndex &index, int role) const
     switch(role)
     {
     case Qt::DisplayRole:
-        //result = d->mPartialData[index.row()][DatabaseInterface::DisplayRole];
+        result = d->mModelCache->data(index.row(), ElisaUtils::TitleRole);
         break;
     case ElisaUtils::SecondaryTextRole:
-        //result = d->mPartialData[index.row()][DatabaseInterface::SecondaryRole];
+        result = d->mModelCache->data(index.row(), ElisaUtils::SecondaryTextRole);
         break;
     default:
     {
@@ -202,6 +202,9 @@ void GenericDataModel::modelDataChanged()
 {
     beginResetModel();
     endResetModel();
+
+    d->mIsBusy = false;
+    Q_EMIT isBusyChanged(d->mIsBusy);
 }
 
 void GenericDataModel::resetModelType()

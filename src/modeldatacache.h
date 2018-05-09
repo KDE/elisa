@@ -49,7 +49,9 @@ public:
 
     ElisaUtils::DataType dataType() const;
 
-    int dataCount();
+    int dataCount() const;
+
+    QVariant data(int row, ElisaUtils::ColumnsRoles role) const;
 
     DatabaseInterface* database() const;
 
@@ -70,6 +72,10 @@ public Q_SLOTS:
     void setDataType(ElisaUtils::DataType dataType);
 
     void setDatabase(DatabaseInterface* database);
+
+private Q_SLOTS:
+
+    void databaseChanged();
 
 private:
 

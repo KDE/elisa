@@ -79,7 +79,7 @@ Item {
     property int gridDelegateHeight: dp(100) + layoutVerticalMargin + fontSize.height * 2
     property int gridDelegateWidth: dp(100)
 
-    property int viewSelectorDelegateHeight: dp(32)
+    property int viewSelectorDelegateHeight: dp(24)
 
     property int filterClearButtonMargin: layoutVerticalMargin
 

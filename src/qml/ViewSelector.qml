@@ -29,9 +29,9 @@ FocusScope {
     Rectangle {
         anchors.fill: parent
 
-        color: myPalette.window
+        color: myPalette.base
         border {
-            color: (rootFocusScope.activeFocus ? myPalette.highlight : myPalette.window)
+            color: (rootFocusScope.activeFocus ? myPalette.highlight : "transparent")
             width: 1
         }
 
@@ -40,19 +40,17 @@ FocusScope {
 
             anchors.fill: parent
 
+            clip: true
+            ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+
+
             ListView {
                 id: viewModeView
 
                 focus: true
                 z: 2
 
-                highlight: Rectangle {
-                    id: item
-
-                    height: elisaTheme.viewSelectorDelegateHeight * 1.4
-                    width: viewModeView.width
-                    color: myPalette.highlight
-                }
+                anchors.topMargin: elisaTheme.layoutHorizontalMargin * 2
 
                 model: DelegateModel {
                     id: pageDelegateModel
@@ -69,20 +67,6 @@ FocusScope {
 
                         hoverEnabled: true
                         acceptedButtons: Qt.LeftButton
-
-                        Rectangle {
-                            anchors.fill: parent
-
-                            z: 1
-
-                            color: ((item.containsMouse && index !== viewModeView.currentIndex) ? myPalette.mid : "transparent")
-
-                            Behavior on color {
-                                ColorAnimation {
-                                    duration: 200
-                                }
-                            }
-                        }
 
                         Image {
                             id: viewIcon
@@ -122,7 +106,7 @@ FocusScope {
                             height: elisaTheme.viewSelectorDelegateHeight
                             width: elisaTheme.viewSelectorDelegateHeight
 
-                            color: (index === viewModeView.currentIndex ? myPalette.highlightedText : "transparent")
+                            color: (index === viewModeView.currentIndex || item.containsMouse ? myPalette.highlight : "transparent")
 
                             Behavior on color {
                                 ColorAnimation {
@@ -148,7 +132,7 @@ FocusScope {
                             text: model.name
                             elide: Text.ElideRight
 
-                            color: (viewModeView.currentIndex === index ? myPalette.highlightedText : myPalette.text)
+                            color: (viewModeView.currentIndex === index || item.containsMouse ? myPalette.highlight : myPalette.text)
 
                             Behavior on color {
                                 ColorAnimation {

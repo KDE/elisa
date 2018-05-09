@@ -768,6 +768,50 @@ void MediaPlayList::enqueueArtists(const QList<QString> &artistNames,
     }
 }
 
+void MediaPlayList::enqueue(const QList<QUrl> &trackUrls,
+                            ElisaUtils::PlayListEnqueueMode enqueueMode,
+                            ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
+{
+    if (trackUrls.isEmpty()) {
+        return;
+    }
+
+    if (enqueueMode == ElisaUtils::ReplacePlayList) {
+        clearPlayList();
+    }
+
+    beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size() + trackUrls.size() - 1);
+    for (const auto &oneTrackUrl : trackUrls) {
+        d->mData.push_back(MediaPlayListEntry{oneTrackUrl});
+        d->mTrackData.push_back({});
+        if (oneTrackUrl.isValid()) {
+            qDebug() << "MediaPlayList::enqueue" << "newTrackByFileNameInList" << oneTrackUrl;
+            if (oneTrackUrl.isLocalFile()) {
+                QFileInfo newTrackFile(oneTrackUrl.toLocalFile());
+                if (newTrackFile.exists()) {
+                    d->mData.last().mIsValid = true;
+                }
+                Q_EMIT newTrackByFileNameInList(oneTrackUrl);
+            }
+        }
+    }
+    endInsertRows();
+
+    restorePlayListPosition();
+    if (!d->mCurrentTrack.isValid()) {
+        resetCurrentTrack();
+    }
+
+    Q_EMIT tracksCountChanged();
+    Q_EMIT persistentStateChanged();
+
+    Q_EMIT dataChanged(index(rowCount() - 1, 0), index(rowCount() - 1, 0), {MediaPlayList::HasAlbumHeader});
+
+    if (triggerPlay == ElisaUtils::TriggerPlay) {
+        Q_EMIT ensurePlay();
+    }
+}
+
   void MediaPlayList::replaceAndPlay(qulonglong newTrackId)
 {
     clearPlayList();

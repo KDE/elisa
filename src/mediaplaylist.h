@@ -245,6 +245,10 @@ public Q_SLOTS:
                         ElisaUtils::PlayListEnqueueMode enqueueMode,
                         ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 
+    void enqueue(const QList<QUrl> &tracks,
+                 ElisaUtils::PlayListEnqueueMode enqueueMode,
+                 ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
+
     void enqueueAndPlay(const QStringList &files);
 
     void replaceAndPlay(qulonglong newTrackId);

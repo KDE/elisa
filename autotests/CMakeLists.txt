@@ -14,7 +14,7 @@ set(databaseInterfaceTest_SOURCES
 ecm_add_test(${databaseInterfaceTest_SOURCES}
     TEST_NAME "databaseInterfaceTest"
     LINK_LIBRARIES
-        Qt5::Test elisaLib)
+        Qt5::Test elisaLib KF5::FileMetaData)
 
 target_include_directories(databaseInterfaceTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 
@@ -25,7 +25,7 @@ set(managemediaplayercontrolTest_SOURCES
 ecm_add_test(${managemediaplayercontrolTest_SOURCES}
     TEST_NAME "managemediaplayercontrolTest"
     LINK_LIBRARIES
-        Qt5::Test elisaLib
+        Qt5::Test elisaLib KF5::FileMetaData
 )
 
 set(manageheaderbarTest_SOURCES
@@ -35,7 +35,7 @@ set(manageheaderbarTest_SOURCES
 ecm_add_test(${manageheaderbarTest_SOURCES}
     TEST_NAME "manageheaderbarTest"
     LINK_LIBRARIES
-        Qt5::Test elisaLib
+        Qt5::Test elisaLib KF5::FileMetaData
 )
 
 target_include_directories(manageheaderbarTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
@@ -46,7 +46,7 @@ set(manageaudioplayerTest_SOURCES
 
 ecm_add_test(${manageaudioplayerTest_SOURCES}
     TEST_NAME "manageaudioplayerTest"
-    LINK_LIBRARIES Qt5::Test elisaLib
+    LINK_LIBRARIES Qt5::Test elisaLib KF5::FileMetaData
 )
 
 target_include_directories(manageaudioplayerTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
@@ -59,7 +59,7 @@ set(mediaplaylistTest_SOURCES
 ecm_add_test(${mediaplaylistTest_SOURCES}
     TEST_NAME "mediaplaylistTest"
     LINK_LIBRARIES
-        Qt5::Test elisaLib
+        Qt5::Test elisaLib KF5::FileMetaData
 )
 
 target_include_directories(mediaplaylistTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
@@ -83,7 +83,7 @@ set(allalbumsmodeltest_SOURCES
 
 ecm_add_test(${allalbumsmodeltest_SOURCES}
     TEST_NAME "allalbumsmodeltest"
-    LINK_LIBRARIES Qt5::Test elisaLib
+    LINK_LIBRARIES Qt5::Test elisaLib KF5::FileMetaData
 )
 
 target_include_directories(allalbumsmodeltest PRIVATE ${CMAKE_SOURCE_DIR}/src)
@@ -96,7 +96,7 @@ set(albummodeltest_SOURCES
 ecm_add_test(${albummodeltest_SOURCES}
     TEST_NAME "albummodeltest"
     LINK_LIBRARIES
-        Qt5::Test elisaLib
+        Qt5::Test elisaLib KF5::FileMetaData
 )
 
 target_include_directories(albummodeltest PRIVATE ${CMAKE_SOURCE_DIR}/src)
@@ -109,7 +109,7 @@ set(allartistsmodeltest_SOURCES
 ecm_add_test(${allartistsmodeltest_SOURCES}
     TEST_NAME "allartistsmodeltest"
     LINK_LIBRARIES
-        Qt5::Test elisaLib
+        Qt5::Test elisaLib KF5::FileMetaData
 )
 
 target_include_directories(allartistsmodeltest PRIVATE ${CMAKE_SOURCE_DIR}/src)
@@ -122,7 +122,7 @@ set(alltracksmodeltest_SOURCES
 ecm_add_test(${alltracksmodeltest_SOURCES}
     TEST_NAME "alltracksmodeltest"
     LINK_LIBRARIES
-        Qt5::Test elisaLib
+        Qt5::Test elisaLib KF5::FileMetaData
 )
 
 target_include_directories(alltracksmodeltest PRIVATE ${CMAKE_SOURCE_DIR}/src)
@@ -135,7 +135,7 @@ set(alltracksproxymodeltest_SOURCES
 ecm_add_test(${alltracksproxymodeltest_SOURCES}
     TEST_NAME "alltracksproxymodeltest"
     LINK_LIBRARIES
-        Qt5::Test elisaLib
+        Qt5::Test elisaLib KF5::FileMetaData
 )
 
 target_include_directories(alltracksproxymodeltest PRIVATE ${CMAKE_SOURCE_DIR}/src)
@@ -147,7 +147,7 @@ set(localfilelistingtest_SOURCES
 ecm_add_test(${localfilelistingtest_SOURCES}
     TEST_NAME "localfilelistingtest"
     LINK_LIBRARIES
-        Qt5::Test elisaLib
+        Qt5::Test elisaLib KF5::FileMetaData
 )
 
 target_include_directories(localfilelistingtest PRIVATE ${CMAKE_SOURCE_DIR}/src)
@@ -161,7 +161,7 @@ if (KF5XmlGui_FOUND AND KF5KCMUtils_FOUND)
     ecm_add_test(${elisaapplicationtest_SOURCES}
         TEST_NAME "elisaapplicationtest"
         LINK_LIBRARIES
-            Qt5::Test elisaLib
+            Qt5::Test elisaLib KF5::FileMetaData
     )
 
     target_include_directories(elisaapplicationtest PRIVATE ${CMAKE_SOURCE_DIR}/src)

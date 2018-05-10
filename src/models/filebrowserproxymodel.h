@@ -21,6 +21,8 @@
 #ifndef FILEBROWSERPROXYMODEL_H
 #define FILEBROWSERPROXYMODEL_H
 
+#include "elisaLib_export.h"
+
 #include <KIOFileWidgets/KDirSortFilterProxyModel>
 #include <QRegularExpression>
 #include <QReadWriteLock>
@@ -31,7 +33,7 @@
 #include "musicaudiotrack.h"
 #include "elisautils.h"
 
-class FileBrowserProxyModel : public KDirSortFilterProxyModel
+class ELISALIB_EXPORT FileBrowserProxyModel : public KDirSortFilterProxyModel
 {
     Q_OBJECT
 
@@ -107,7 +109,5 @@ private:
     std::unique_ptr<FileBrowserModel> mFileModel;
 
 };
-
-Q_DECLARE_METATYPE(FileBrowserProxyModel)
 
 #endif // FILEBROWSERPROXYMODEL_H

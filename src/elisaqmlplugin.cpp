@@ -122,7 +122,6 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
 #endif
 
     qRegisterMetaType<AbstractMediaProxyModel*>();
-    qRegisterMetaType<FileBrowserProxyModel*>();
     qRegisterMetaType<QHash<QString,QUrl>>("QHash<QString,QUrl>");
     qRegisterMetaType<QHash<QUrl,QDateTime>>("QHash<QUrl,QDateTime>");
     qRegisterMetaType<QList<MusicAudioTrack>>("QList<MusicAudioTrack>");

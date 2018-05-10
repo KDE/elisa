@@ -71,7 +71,7 @@ set(trackslistenertest_SOURCES
 ecm_add_test(${trackslistenertest_SOURCES}
     TEST_NAME "trackslistenertest"
     LINK_LIBRARIES
-        Qt5::Test elisaLib
+        Qt5::Test elisaLib KF5::FileMetaData
 )
 
 target_include_directories(trackslistenertest PRIVATE ${CMAKE_SOURCE_DIR}/src)

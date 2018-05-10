@@ -130,9 +130,10 @@ QVariant AllTracksModel::data(const QModelIndex &index, int role) const
     {
     case ColumnsRoles::TitleRole:
         if (d->mAllTracks[d->mIds[index.row()]].title().isEmpty()) {
-            result = {};
+            result = d->mAllTracks[d->mIds[index.row()]].resourceURI().fileName();
+        } else {
+            result = d->mAllTracks[d->mIds[index.row()]].title();
         }
-        result = d->mAllTracks[d->mIds[index.row()]].title();
         break;
     case ColumnsRoles::MilliSecondsDurationRole:
         result = d->mAllTracks[d->mIds[index.row()]].duration().msecsSinceStartOfDay();

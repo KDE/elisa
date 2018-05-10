@@ -85,96 +85,95 @@ void ElisaUtils::scanProperties(const QString localFileName, const KFileMetaData
 #endif
 
     if (albumProperty != allProperties.end()) {
-        auto albumValue = albumProperty->toString();
+        trackData.setAlbumName(albumProperty->toString());
+    }
 
-        trackData.setAlbumName(albumValue);
+    if (artistProperty != allProperties.end()) {
+        trackData.setArtist(artistProperty->toStringList().join(QStringLiteral(", ")));
+    }
 
-        if (artistProperty != allProperties.end()) {
-            trackData.setArtist(artistProperty->toStringList().join(QStringLiteral(", ")));
-        }
+    if (durationProperty != allProperties.end()) {
+        trackData.setDuration(QTime::fromMSecsSinceStartOfDay(int(1000 * durationProperty->toDouble())));
+    }
 
-        if (durationProperty != allProperties.end()) {
-            trackData.setDuration(QTime::fromMSecsSinceStartOfDay(int(1000 * durationProperty->toDouble())));
-        }
+    if (titleProperty != allProperties.end()) {
+        trackData.setTitle(titleProperty->toString());
+    }
 
-        if (titleProperty != allProperties.end()) {
-            trackData.setTitle(titleProperty->toString());
-        }
+    if (trackNumberProperty != allProperties.end()) {
+        trackData.setTrackNumber(trackNumberProperty->toInt());
+    }
 
-        if (trackNumberProperty != allProperties.end()) {
-            trackData.setTrackNumber(trackNumberProperty->toInt());
-        }
+    if (discNumberProperty != allProperties.end()) {
+        trackData.setDiscNumber(discNumberProperty->toInt());
+    } else {
+        trackData.setDiscNumber(1);
+    }
 
-        if (discNumberProperty != allProperties.end()) {
-            trackData.setDiscNumber(discNumberProperty->toInt());
-        } else {
-            trackData.setDiscNumber(1);
-        }
+    if (albumArtistProperty != allProperties.end()) {
+        trackData.setAlbumArtist(albumArtistProperty->toStringList().join(QStringLiteral(", ")));
+    }
 
-        if (albumArtistProperty != allProperties.end()) {
-            trackData.setAlbumArtist(albumArtistProperty->toStringList().join(QStringLiteral(", ")));
-        }
+    if (yearProperty != allProperties.end()) {
+        trackData.setYear(yearProperty->toInt());
+    }
 
-        if (yearProperty != allProperties.end()) {
-            trackData.setYear(yearProperty->toInt());
-        }
+    if (channelsProperty != allProperties.end()) {
+        trackData.setChannels(channelsProperty->toInt());
+    }
 
-        if (channelsProperty != allProperties.end()) {
-            trackData.setChannels(channelsProperty->toInt());
-        }
+    if (bitRateProperty != allProperties.end()) {
+        trackData.setBitRate(bitRateProperty->toInt());
+    }
 
-        if (bitRateProperty != allProperties.end()) {
-            trackData.setBitRate(bitRateProperty->toInt());
-        }
+    if (sampleRateProperty != allProperties.end()) {
+        trackData.setSampleRate(sampleRateProperty->toInt());
+    }
 
-        if (sampleRateProperty != allProperties.end()) {
-            trackData.setSampleRate(sampleRateProperty->toInt());
-        }
+    if (genreProperty != allProperties.end()) {
+        trackData.setGenre(genreProperty->toStringList().join(QStringLiteral(", ")));
+    }
 
-        if (genreProperty != allProperties.end()) {
-            trackData.setGenre(genreProperty->toStringList().join(QStringLiteral(", ")));
-        }
+    if (composerProperty != allProperties.end()) {
+        trackData.setComposer(composerProperty->toStringList().join(QStringLiteral(", ")));
+    }
 
-        if (composerProperty != allProperties.end()) {
-            trackData.setComposer(composerProperty->toStringList().join(QStringLiteral(", ")));
-        }
+    if (lyricistProperty != allProperties.end()) {
+        trackData.setLyricist(lyricistProperty->toStringList().join(QStringLiteral(", ")));
+    }
 
-        if (lyricistProperty != allProperties.end()) {
-            trackData.setLyricist(lyricistProperty->toStringList().join(QStringLiteral(", ")));
-        }
+    if (commentProperty != allProperties.end()) {
+        trackData.setComment(commentProperty->toString());
+    }
 
-        if (commentProperty != allProperties.end()) {
-            trackData.setComment(commentProperty->toString());
-        }
-
-        if (trackData.artist().isEmpty()) {
-            trackData.setArtist(trackData.albumArtist());
-        }
+    if (trackData.artist().isEmpty()) {
+        trackData.setArtist(trackData.albumArtist());
+    }
 
 #if defined Q_OS_LINUX && !defined Q_OS_ANDROID
-        trackData.setRating(fileData.rating());
+    trackData.setRating(fileData.rating());
 #else
-        trackData.setRating(0);
+    trackData.setRating(0);
 #endif
 
-        if (trackData.title().isEmpty()) {
-            return;
-        }
-
-        if (trackData.artist().isEmpty()) {
-            return;
-        }
-
-        if (trackData.albumName().isEmpty()) {
-            return;
-        }
-
-        if (!trackData.duration().isValid()) {
-            return;
-        }
-
-        trackData.setValid(true);
+    if (trackData.title().isEmpty()) {
+        return;
     }
+
+    if (trackData.artist().isEmpty()) {
+        return;
+    }
+
+    if (trackData.albumName().isEmpty()) {
+        return;
+    }
+
+    if (!trackData.duration().isValid()) {
+        return;
+    }
+
+    trackData.setValid(true);
+
 }
 
 

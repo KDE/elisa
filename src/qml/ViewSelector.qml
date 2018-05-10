@@ -154,6 +154,7 @@ FocusScope {
                         pageModel.insert(1, {"name": i18nc("Title of the view of all albums", "Albums"), "iconName": elisaTheme.albumIcon})
                         pageModel.insert(2, {"name": i18nc("Title of the view of all artists", "Artists"), "iconName": elisaTheme.artistIcon})
                         pageModel.insert(3, {"name": i18nc("Title of the view of all tracks", "Tracks"), "iconName": elisaTheme.tracksIcon})
+                        pageModel.insert(4, {"name": i18nc("Title of the file browser view", "Files"), "iconName": elisaTheme.folderIcon})
 
                         viewModeView.currentIndex = 1
                     }

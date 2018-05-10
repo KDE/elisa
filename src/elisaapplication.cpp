@@ -26,6 +26,7 @@
 #include "models/allartistsproxymodel.h"
 #include "models/singleartistproxymodel.h"
 #include "models/singlealbumproxymodel.h"
+#include "models/filebrowserproxymodel.h"
 #include "mediaplaylist.h"
 #include "audiowrapper.h"
 #include "manageaudioplayer.h"
@@ -101,6 +102,8 @@ public:
     std::unique_ptr<SingleArtistProxyModel> mSingleArtistProxyModel;
 
     std::unique_ptr<SingleAlbumProxyModel> mSingleAlbumProxyModel;
+
+    std::unique_ptr<FileBrowserProxyModel> mFileBrowserProxyModel;
 
     std::unique_ptr<MediaPlayList> mMediaPlayList;
 
@@ -295,6 +298,8 @@ void ElisaApplication::initializeModels()
     Q_EMIT singleArtistProxyModelChanged();
     d->mSingleAlbumProxyModel = std::make_unique<SingleAlbumProxyModel>();
     Q_EMIT singleAlbumProxyModelChanged();
+    d->mFileBrowserProxyModel = std::make_unique<FileBrowserProxyModel>();
+    Q_EMIT fileBrowserProxyModelChanged();
     d->mMediaPlayList = std::make_unique<MediaPlayList>();
     Q_EMIT mediaPlayListChanged();
 
@@ -447,6 +452,11 @@ SingleArtistProxyModel *ElisaApplication::singleArtistProxyModel() const
 SingleAlbumProxyModel *ElisaApplication::singleAlbumProxyModel() const
 {
     return d->mSingleAlbumProxyModel.get();
+}
+
+FileBrowserProxyModel *ElisaApplication::fileBrowserProxyModel() const
+{
+    return d->mFileBrowserProxyModel.get();
 }
 
 MediaPlayList *ElisaApplication::mediaPlayList() const

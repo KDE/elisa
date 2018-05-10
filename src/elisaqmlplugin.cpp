@@ -52,6 +52,7 @@
 #include "models/allartistsproxymodel.h"
 #include "models/singleartistproxymodel.h"
 #include "models/singlealbumproxymodel.h"
+#include "models/filebrowserproxymodel.h"
 #include "audiowrapper.h"
 #include "notificationitem.h"
 #include "topnotificationmanager.h"
@@ -110,6 +111,7 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qmlRegisterType<AllTracksProxyModel>(uri, 1, 0, "AllTracksProxyModel");
     qmlRegisterType<SingleAlbumProxyModel>(uri, 1, 0, "SingleAlbumProxyModel");
     qmlRegisterType<SingleArtistProxyModel>(uri, 1, 0, "SingleArtistProxyModel");
+    qmlRegisterType<FileBrowserProxyModel>(uri, 1, 0, "FileBrowserProxyModel");
     qmlRegisterType<AudioWrapper>(uri, 1, 0, "AudioWrapper");
     qmlRegisterType<TopNotificationManager>(uri, 1, 0, "TopNotificationManager");
     qmlRegisterType<TrackDataHelper>(uri, 1, 0, "TrackDataHelper");
@@ -120,6 +122,7 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
 #endif
 
     qRegisterMetaType<AbstractMediaProxyModel*>();
+    qRegisterMetaType<FileBrowserProxyModel*>();
     qRegisterMetaType<QHash<QString,QUrl>>("QHash<QString,QUrl>");
     qRegisterMetaType<QHash<QUrl,QDateTime>>("QHash<QUrl,QDateTime>");
     qRegisterMetaType<QList<MusicAudioTrack>>("QList<MusicAudioTrack>");

@@ -28,6 +28,7 @@
 
 class ModelDataCachePrivate;
 class DatabaseInterface;
+class MusicAlbum;
 
 class ModelDataCache : public QObject
 {
@@ -75,11 +76,13 @@ public Q_SLOTS:
 
 private Q_SLOTS:
 
-    void databaseChanged();
+    void databaseContentChanged();
 
 private:
 
     void fetchPartialData();
+
+    void connectDatabase();
 
     std::unique_ptr<ModelDataCachePrivate> d;
 

@@ -45,6 +45,8 @@ public:
 
     ElisaUtils::DataType mDataType = ElisaUtils::UnknownType;
 
+    bool mIsConnected = false;
+
 };
 
 ModelDataCache::ModelDataCache(QObject *parent)
@@ -104,6 +106,11 @@ void ModelDataCache::setDataType(ElisaUtils::DataType dataType)
     d->mDataType = dataType;
     Q_EMIT dataTypeChanged(d->mDataType);
 
+    if (!d->mDatabase) {
+        return;
+    }
+
+    connectDatabase();
     fetchPartialData();
 }
 
@@ -116,9 +123,15 @@ void ModelDataCache::setDatabase(DatabaseInterface *database)
     d->mDatabase = database;
     Q_EMIT databaseChanged(d->mDatabase);
 
+    if (d->mDataType == ElisaUtils::UnknownType) {
+        return;
+    }
+
+    connectDatabase();
+    fetchPartialData();
 }
 
-void ModelDataCache::databaseChanged()
+void ModelDataCache::databaseContentChanged()
 {
     fetchPartialData();
 }
@@ -138,6 +151,60 @@ void ModelDataCache::fetchPartialData()
     }
 
     Q_EMIT dataChanged();
+}
+
+void ModelDataCache::connectDatabase()
+{
+    if (d->mDataType == ElisaUtils::UnknownType) {
+        return;
+    }
+
+    if (!d->mDatabase) {
+        return;
+    }
+
+    if (d->mIsConnected) {
+        disconnect(d->mDatabase, nullptr, this, nullptr);
+        d->mIsConnected = false;
+    }
+
+    switch(d->mDataType)
+    {
+    case ElisaUtils::AllAlbums:
+        connect(d->mDatabase, &DatabaseInterface::albumsAdded,
+                this, &ModelDataCache::databaseContentChanged,
+                Qt::QueuedConnection);
+        break;
+    case ElisaUtils::AllArtists:
+        connect(d->mDatabase, &DatabaseInterface::artistsAdded,
+                this, &ModelDataCache::databaseContentChanged,
+                Qt::QueuedConnection);
+        break;
+    case ElisaUtils::AllTracks:
+        connect(d->mDatabase, &DatabaseInterface::tracksAdded,
+                this, &ModelDataCache::databaseContentChanged,
+                Qt::QueuedConnection);
+        break;
+    case ElisaUtils::AllGenres:
+        connect(d->mDatabase, &DatabaseInterface::genreAdded,
+                this, &ModelDataCache::databaseContentChanged,
+                Qt::QueuedConnection);
+        break;
+    case ElisaUtils::AllComposers:
+        connect(d->mDatabase, &DatabaseInterface::composerAdded,
+                this, &ModelDataCache::databaseContentChanged,
+                Qt::QueuedConnection);
+        break;
+    case ElisaUtils::AllLyricists:
+        connect(d->mDatabase, &DatabaseInterface::lyricistAdded,
+                this, &ModelDataCache::databaseContentChanged,
+                Qt::QueuedConnection);
+        break;
+    case ElisaUtils::UnknownType:
+        break;
+    }
+
+    d->mIsConnected = true;
 }
 
 

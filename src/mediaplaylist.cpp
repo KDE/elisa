@@ -132,8 +132,7 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
                 result = d->mTrackData[index.row()].title();
             } else {
                 if (d->mData[index.row()].mTrackUrl.isLocalFile()) {
-                    auto localFile = QFileInfo(d->mData[index.row()].mTrackUrl.toLocalFile());
-                    result = localFile.fileName();
+                    result = d->mData[index.row()].mTrackUrl.fileName();
                 } else {
                     result = d->mData[index.row()].mTrackUrl.toString();
                 }

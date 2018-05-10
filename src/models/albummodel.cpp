@@ -136,7 +136,11 @@ QVariant AlbumModel::internalDataTrack(const MusicAudioTrack &track, int role, i
     switch(role)
     {
     case ColumnsRoles::TitleRole:
-        result = track.title();
+        if (track.title().isEmpty()) {
+            track.resourceURI().fileName();
+        } else {
+            result = track.title();
+        }
         break;
     case ColumnsRoles::MilliSecondsDurationRole:
         result = track.duration().msecsSinceStartOfDay();

@@ -128,9 +128,9 @@ FocusScope {
                     focus: true
 
                     mainText: model.display
-                    secondaryText: model.secondaryText
+                    secondaryText: if (gridView.delegateDisplaySecondaryText) {model.secondaryText} else {""}
                     imageUrl: model.imageUrl
-                    shadowForImage: model.shadowForImage
+                    shadowForImage: if (model.shadowForImage) {shadowForImage} else {false}
                     containerData: model.containerData
                     delegateDisplaySecondaryText: gridView.delegateDisplaySecondaryText
 

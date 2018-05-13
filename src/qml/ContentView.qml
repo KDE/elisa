@@ -141,152 +141,176 @@ RowLayout {
                             active: elisa.musicManager.indexerBusy
                         }
 
-                        MediaBrowser {
-                            id: localAlbums
+                        Loader {
+                            id: localAlbumsLoader
 
-                            focus: true
-
-                            anchors {
-                                fill: parent
-
-                                leftMargin: elisaTheme.layoutHorizontalMargin
-                                rightMargin: elisaTheme.layoutHorizontalMargin
-                            }
-
-                            firstPage: GridBrowserView {
-                                id: allAlbumsView
-
-                                focus: true
-
-                                contentModel: elisa.allAlbumsProxyModel
-
-                                image: elisaTheme.albumIcon
-                                mainTitle: i18nc("Title of the view of all albums", "Albums")
-
-                                onOpen: {
-                                    elisa.singleAlbumProxyModel.loadAlbumData(databaseId)
-                                    localAlbums.stackView.push(albumView, {
-                                                                   mainTitle: innerMainTitle,
-                                                                   secondaryTitle: innerSecondaryTitle,
-                                                                   image: innerImage,
-                                                                   stackView: localAlbums.stackView,
-                                                               })
-                                }
-
-                                onGoBack: localAlbums.stackView.pop()
-
-                                Binding {
-                                    target: allAlbumsView
-                                    property: 'expandedFilterView'
-                                    value: persistentSettings.expandedFilterView
-                                }
-
-                                onFilterViewChanged: persistentSettings.expandedFilterView = expandedFilterView
-                            }
+                            active: opacity > 0
 
                             visible: opacity > 0
-                        }
 
-                        MediaBrowser {
-                            id: localArtists
+                            anchors.fill: parent
 
-                            focus: true
+                            sourceComponent: MediaBrowser {
+                                id: localAlbums
 
-                            anchors {
-                                fill: parent
-
-                                leftMargin: elisaTheme.layoutHorizontalMargin
-                                rightMargin: elisaTheme.layoutHorizontalMargin
-                            }
-
-                            firstPage: GridBrowserView {
-                                id: allArtistsView
                                 focus: true
 
-                                showRating: false
-                                delegateDisplaySecondaryText: false
+                                anchors {
+                                    fill: parent
 
-                                contentModel: elisa.allArtistsProxyModel
-
-                                image: elisaTheme.artistIcon
-                                mainTitle: i18nc("Title of the view of all artists", "Artists")
-
-                                onOpen: {
-                                    elisa.singleArtistProxyModel.setArtistFilterText(innerMainTitle)
-                                    localArtists.stackView.push(innerAlbumView, {
-                                                                    mainTitle: innerMainTitle,
-                                                                    secondaryTitle: innerSecondaryTitle,
-                                                                    image: innerImage,
-                                                                })
-
+                                    leftMargin: elisaTheme.layoutHorizontalMargin
+                                    rightMargin: elisaTheme.layoutHorizontalMargin
                                 }
 
-                                onGoBack: localArtists.stackView.pop()
-
-                                Binding {
-                                    target: allArtistsView
-                                    property: 'expandedFilterView'
-                                    value: persistentSettings.expandedFilterView
-                                }
-
-                                onFilterViewChanged: persistentSettings.expandedFilterView = expandedFilterView
-                            }
-
-                            visible: opacity > 0
-                        }
-
-                        MediaBrowser {
-                            id: localTracks
-
-                            focus: true
-
-                            anchors {
-                                fill: parent
-
-                                leftMargin: elisaTheme.layoutHorizontalMargin
-                                rightMargin: elisaTheme.layoutHorizontalMargin
-                            }
-
-                            firstPage: ListBrowserView {
-                                id: allTracksView
-                                focus: true
-
-                                contentModel: elisa.allTracksProxyModel
-
-                                delegate: MediaTrackDelegate {
-                                    id: entry
-
-                                    width: allTracksView.delegateWidth
-                                    height: elisaTheme.trackDelegateHeight
+                                firstPage: GridBrowserView {
+                                    id: allAlbumsView
 
                                     focus: true
 
-                                    trackData: model.containerData
+                                    contentModel: elisa.allAlbumsProxyModel
 
-                                    isFirstTrackOfDisc: false
+                                    image: elisaTheme.albumIcon
+                                    mainTitle: i18nc("Title of the view of all albums", "Albums")
 
-                                    isSingleDiscAlbum: model.isSingleDiscAlbum
+                                    onOpen: {
+                                        elisa.singleAlbumProxyModel.loadAlbumData(databaseId)
+                                        localAlbums.stackView.push(albumView, {
+                                                                       mainTitle: innerMainTitle,
+                                                                       secondaryTitle: innerSecondaryTitle,
+                                                                       image: innerImage,
+                                                                       stackView: localAlbums.stackView,
+                                                                   })
+                                    }
 
-                                    onEnqueue: elisa.mediaPlayList.enqueue(data)
+                                    onGoBack: localAlbums.stackView.pop()
 
-                                    onReplaceAndPlay: elisa.mediaPlayList.replaceAndPlay(data)
+                                    Binding {
+                                        target: allAlbumsView
+                                        property: 'expandedFilterView'
+                                        value: persistentSettings.expandedFilterView
+                                    }
 
-                                    onClicked: contentDirectoryView.currentIndex = index
+                                    onFilterViewChanged: persistentSettings.expandedFilterView = expandedFilterView
                                 }
-
-                                image: elisaTheme.tracksIcon
-                                mainTitle: i18nc("Title of the view of all tracks", "Tracks")
-
-                                Binding {
-                                    target: allTracksView
-                                    property: 'expandedFilterView'
-                                    value: persistentSettings.expandedFilterView
-                                }
-
-                                onFilterViewChanged: persistentSettings.expandedFilterView = expandedFilterView
                             }
+                        }
+
+                        Loader {
+                            id: localArtistsLoader
+
+                            active: opacity > 0
 
                             visible: opacity > 0
+
+                            anchors.fill: parent
+
+                            sourceComponent: MediaBrowser {
+                                id: localArtists
+
+                                focus: true
+
+                                anchors {
+                                    fill: parent
+
+                                    leftMargin: elisaTheme.layoutHorizontalMargin
+                                    rightMargin: elisaTheme.layoutHorizontalMargin
+                                }
+
+                                firstPage: GridBrowserView {
+                                    id: allArtistsView
+                                    focus: true
+
+                                    showRating: false
+                                    delegateDisplaySecondaryText: false
+
+                                    contentModel: elisa.allArtistsProxyModel
+
+                                    image: elisaTheme.artistIcon
+                                    mainTitle: i18nc("Title of the view of all artists", "Artists")
+
+                                    onOpen: {
+                                        elisa.singleArtistProxyModel.setArtistFilterText(innerMainTitle)
+                                        localArtists.stackView.push(innerAlbumView, {
+                                                                        mainTitle: innerMainTitle,
+                                                                        secondaryTitle: innerSecondaryTitle,
+                                                                        image: innerImage,
+                                                                    })
+
+                                    }
+
+                                    onGoBack: localArtists.stackView.pop()
+
+                                    Binding {
+                                        target: allArtistsView
+                                        property: 'expandedFilterView'
+                                        value: persistentSettings.expandedFilterView
+                                    }
+
+                                    onFilterViewChanged: persistentSettings.expandedFilterView = expandedFilterView
+                                }
+                            }
+                        }
+
+                        Loader {
+                            id: localTracksLoader
+
+                            active: opacity > 0
+
+                            visible: opacity > 0
+
+                            anchors.fill: parent
+
+                            sourceComponent: MediaBrowser {
+                                id: localTracks
+
+                                focus: true
+
+                                anchors {
+                                    fill: parent
+
+                                    leftMargin: elisaTheme.layoutHorizontalMargin
+                                    rightMargin: elisaTheme.layoutHorizontalMargin
+                                }
+
+                                firstPage: ListBrowserView {
+                                    id: allTracksView
+                                    focus: true
+
+                                    contentModel: elisa.allTracksProxyModel
+
+                                    delegate: MediaTrackDelegate {
+                                        id: entry
+
+                                        width: allTracksView.delegateWidth
+                                        height: elisaTheme.trackDelegateHeight
+
+                                        focus: true
+
+                                        trackData: model.containerData
+
+                                        isFirstTrackOfDisc: false
+
+                                        isSingleDiscAlbum: model.isSingleDiscAlbum
+
+                                        onEnqueue: elisa.mediaPlayList.enqueue(data)
+
+                                        onReplaceAndPlay: elisa.mediaPlayList.replaceAndPlay(data)
+
+                                        onClicked: contentDirectoryView.currentIndex = index
+                                    }
+
+                                    image: elisaTheme.tracksIcon
+                                    mainTitle: i18nc("Title of the view of all tracks", "Tracks")
+
+                                    Binding {
+                                        target: allTracksView
+                                        property: 'expandedFilterView'
+                                        value: persistentSettings.expandedFilterView
+                                    }
+
+                                    onFilterViewChanged: persistentSettings.expandedFilterView = expandedFilterView
+                                }
+                            }
                         }
 
                         Behavior on border.color {
@@ -411,15 +435,15 @@ RowLayout {
                     Layout.preferredWidth: contentZone.width / 2
                 }
                 PropertyChanges {
-                    target: localAlbums
+                    target: localAlbumsLoader
                     opacity: 0
                 }
                 PropertyChanges {
-                    target: localArtists
+                    target: localArtistsLoader
                     opacity: 0
                 }
                 PropertyChanges {
-                    target: localTracks
+                    target: localTracksLoader
                     opacity: 0
                 }
             },
@@ -428,7 +452,8 @@ RowLayout {
                 when: listViews.currentIndex === 1
                 StateChangeScript {
                     script: {
-                        localAlbums.stackView.pop({item: null, immediate: true})
+                        if (localAlbumsLoader.localAlbums)
+                            localAlbumsLoader.localAlbums.stackView.pop({item: null, immediate: true})
                     }
                 }
                 PropertyChanges {
@@ -463,15 +488,15 @@ RowLayout {
                     Layout.preferredWidth: 0
                 }
                 PropertyChanges {
-                    target: localAlbums
+                    target: localAlbumsLoader
                     opacity: 1
                 }
                 PropertyChanges {
-                    target: localArtists
+                    target: localArtistsLoader
                     opacity: 0
                 }
                 PropertyChanges {
-                    target: localTracks
+                    target: localTracksLoader
                     opacity: 0
                 }
             },
@@ -480,7 +505,8 @@ RowLayout {
                 when: listViews.currentIndex === 2
                 StateChangeScript {
                     script: {
-                        localArtists.stackView.pop({item: null, immediate: true})
+                        if (localArtistsLoader.localArtists)
+                            localArtistsLoader.localArtists.stackView.pop({item: null, immediate: true})
                     }
                 }
                 PropertyChanges {
@@ -515,15 +541,15 @@ RowLayout {
                     Layout.preferredWidth: 0
                 }
                 PropertyChanges {
-                    target: localAlbums
+                    target: localAlbumsLoader
                     opacity: 0
                 }
                 PropertyChanges {
-                    target: localArtists
+                    target: localArtistsLoader
                     opacity: 1
                 }
                 PropertyChanges {
-                    target: localTracks
+                    target: localTracksLoader
                     opacity: 0
                 }
             },
@@ -562,15 +588,15 @@ RowLayout {
                     Layout.preferredWidth: 0
                 }
                 PropertyChanges {
-                    target: localAlbums
+                    target: localAlbumsLoader
                     opacity: 0
                 }
                 PropertyChanges {
-                    target: localArtists
+                    target: localArtistsLoader
                     opacity: 0
                 }
                 PropertyChanges {
-                    target: localTracks
+                    target: localTracksLoader
                     opacity: 1
                 }
             }

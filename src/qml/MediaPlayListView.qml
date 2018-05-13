@@ -30,9 +30,6 @@ FocusScope {
     property StackView parentStackView
     property MediaPlayList playListModel
 
-    property alias randomPlayChecked: shuffleOption.checked
-    property alias repeatPlayChecked: repeatOption.checked
-
     property int placeholderHeight: elisaTheme.dragDropPlaceholderHeight
 
     signal startPlayback()
@@ -150,22 +147,6 @@ FocusScope {
 
             Item {
                 Layout.fillHeight: true
-            }
-
-            RowLayout {
-                Layout.bottomMargin: elisaTheme.layoutVerticalMargin
-
-                CheckBox {
-                    id: shuffleOption
-
-                    text: i18n("Shuffle")
-                }
-
-                CheckBox {
-                    id: repeatOption
-
-                    text: i18n("Repeat")
-                }
             }
         }
 

@@ -291,7 +291,7 @@ FocusScope {
                 Layout.alignment: Qt.AlignRight | Qt.AlignBottom
                 Layout.bottomMargin: elisaTheme.layoutVerticalMargin
                 Layout.leftMargin: elisaTheme.layoutHorizontalMargin
-                Layout.rightMargin: elisaTheme.layoutHorizontalMargin
+                Layout.rightMargin: elisaTheme.layoutHorizontalMargin * 1.75
                 elide: Text.ElideRight
                 visible: tracksCount > 0
                 color: myPalette.highlightedText

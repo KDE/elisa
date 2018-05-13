@@ -31,6 +31,7 @@ Rectangle {
     color: myPalette.highlight
 
     width: elisaTheme.gridDelegateWidth * 1.5
+    height: elisaTheme.smallControlButtonSize * 1.5
 
     visible: opacity > 0
     opacity: (indexingRunning ? 1 : 0)

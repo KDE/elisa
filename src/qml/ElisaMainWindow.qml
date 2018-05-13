@@ -99,6 +99,9 @@ ApplicationWindow {
         property double playControlItemVolume : 100.0
         property bool playControlItemMuted : false
 
+        property bool playControlItemRepeat : false
+        property bool playControlItemShuffle : false
+
         property bool expandedFilterView: false
 
    }
@@ -118,6 +121,9 @@ ApplicationWindow {
 
             persistentSettings.playControlItemVolume = headerBar.playerControl.volume
             persistentSettings.playControlItemMuted = headerBar.playerControl.muted
+
+            persistentSettings.playControlItemRepeat = headerBar.playerControl.repeat
+            persistentSettings.playControlItemShuffle = headerBar.playerControl.shuffle
         }
     }
 
@@ -234,6 +240,9 @@ ApplicationWindow {
                     playerControl.playEnabled: myPlayControlManager.playControlEnabled
                     playerControl.isPlaying: myPlayControlManager.musicPlaying
 
+                    playerControl.repeat: persistentSettings.playControlItemRepeat
+                    playerControl.shuffle: persistentSettings.playControlItemShuffle
+
                     playerControl.onSeek: elisa.audioPlayer.seek(position)
 
                     playerControl.onPlay: elisa.audioControl.playPause()
@@ -241,41 +250,15 @@ ApplicationWindow {
                     playerControl.onPlayPrevious: elisa.mediaPlayList.skipPreviousTrack()
                     playerControl.onPlayNext: elisa.mediaPlayList.skipNextTrack()
 
-                    Controls1.ToolButton {
-                        id: menuButton
-
-                        action: applicationMenuAction
-
-                        z: 2
-
-                        anchors
-                        {
-                            right: parent.right
-                            top: parent.top
-                            rightMargin: elisaTheme.layoutHorizontalMargin * 3
-                            topMargin: elisaTheme.layoutHorizontalMargin * 3
-                        }
-                    }
-
-                    Rectangle {
-                        anchors.fill: menuButton
-
-                        z: 1
-
-                        radius: width / 2
-
-                        color: myPalette.window
-                    }
-
                     TrackImportNotification {
                         id: importedTracksCountNotification
 
                         anchors
                         {
-                            right: menuButton.left
-                            top: menuButton.top
-                            bottom: menuButton.bottom
-                            rightMargin: elisaTheme.layoutHorizontalMargin * 3
+                            right: headerBar.right
+                            top: headerBar.top
+                            rightMargin: elisaTheme.layoutHorizontalMargin * 1.75
+                            topMargin: elisaTheme.layoutHorizontalMargin * 3
                         }
                     }
 
@@ -320,15 +303,16 @@ ApplicationWindow {
     {
         elisa.initialize()
 
-        elisa.mediaPlayList.randomPlay = Qt.binding(function() { return contentView.playList.randomPlayChecked })
-        elisa.mediaPlayList.repeatPlay = Qt.binding(function() { return contentView.playList.repeatPlayChecked })
-        myPlayControlManager.randomOrContinuePlay = Qt.binding(function() { return contentView.playList.randomPlayChecked || contentView.playList.repeatPlayChecked })
+        elisa.mediaPlayList.randomPlay = Qt.binding(function() { return headerBar.playerControl.shuffle })
+        elisa.mediaPlayList.repeatPlay = Qt.binding(function() { return headerBar.playerControl.repeat })
+        myPlayControlManager.randomOrContinuePlay = Qt.binding(function() { return headerBar.playerControl.shuffle || headerBar.playerControl.repeat })
         myPlayControlManager.playListModel = Qt.binding(function() { return elisa.mediaPlayList })
         myPlayControlManager.currentTrack = Qt.binding(function() { return elisa.mediaPlayList.currentTrack })
 
         if (persistentSettings.playListState) {
             elisa.mediaPlayList.persistentState = persistentSettings.playListState
         }
+
         if (persistentSettings.audioPlayerState) {
             elisa.audioControl.persistentState = persistentSettings.audioPlayerState
         }

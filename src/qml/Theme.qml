@@ -44,6 +44,10 @@ Item {
     property string ratingUnratedIcon: 'image://icon/rating-unrated'
     property string errorIcon: 'image://icon/error'
     property string playIndicatorIcon: 'image://icon/audio-volume-high'
+    property string repeatIcon: 'image://icon/media-repeat-all'
+    property string shuffleIcon: 'image://icon/media-playlist-shuffle'
+    property string noRepeatIcon: 'image://icon/media-repeat-none'
+    property string noShuffleIcon: 'image://icon/media-playlist-normal'
 
     property int layoutHorizontalMargin: dp(8)
     property int layoutVerticalMargin: dp(6)
@@ -65,11 +69,11 @@ Item {
 
     property int ratingStarSize: dp(15)
 
-    property int mediaPlayerControlHeight: dp(48)
+    property int mediaPlayerControlHeight: dp(42)
+    property int mediaPlayerHorizontalMargin: dp(10)
     property real mediaPlayerControlOpacity: 0.6
-    property int smallControlButtonHeight: dp(32)
-    property int bigControlButtonHeight: dp(44)
-    property int volumeSliderWidth: dp(140)
+    property int smallControlButtonSize: dp(22)
+    property int volumeSliderWidth: dp(100)
 
     property int dragDropPlaceholderHeight: dp(28)
 

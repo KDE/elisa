@@ -27,8 +27,6 @@ RowLayout {
     id: contentViewContainer
     spacing: 0
 
-    property alias playList: playList
-
     signal toggleSearch()
 
     function goBack() {
@@ -323,9 +321,6 @@ RowLayout {
                     id: playList
 
                     playListModel: elisa.mediaPlayList
-
-                    randomPlayChecked: elisa.mediaPlayList.randomPlay
-                    repeatPlayChecked: elisa.mediaPlayList.repeatPlay
 
                     Layout.fillHeight: true
                     Layout.leftMargin: elisaTheme.layoutHorizontalMargin

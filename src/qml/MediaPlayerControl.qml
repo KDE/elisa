@@ -23,6 +23,7 @@ import QtGraphicalEffects 1.0
 import QtQuick.Controls 2.2
 import org.kde.elisa 1.0
 
+import QtQuick.Controls 1.4 as Controls1
 
 FocusScope {
     property double volume
@@ -34,6 +35,9 @@ FocusScope {
     property bool playEnabled
     property bool skipForwardEnabled
     property bool skipBackwardEnabled
+
+    property bool shuffle
+    property bool repeat
 
     signal play()
     signal pause()
@@ -61,20 +65,20 @@ FocusScope {
 
     RowLayout {
         anchors.fill: parent
-        spacing: 0
+        spacing: 5
 
         RoundButton {
             focus: skipBackwardEnabled
 
-            Layout.preferredWidth: elisaTheme.smallControlButtonHeight
-            Layout.preferredHeight: elisaTheme.smallControlButtonHeight
+            Layout.preferredWidth: elisaTheme.smallControlButtonSize
+            Layout.preferredHeight: elisaTheme.smallControlButtonSize
             Layout.alignment: Qt.AlignVCenter
-            Layout.maximumWidth: elisaTheme.smallControlButtonHeight
-            Layout.maximumHeight: elisaTheme.smallControlButtonHeight
-            Layout.minimumWidth: elisaTheme.smallControlButtonHeight
-            Layout.minimumHeight: elisaTheme.smallControlButtonHeight
-            Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-            Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+            Layout.maximumWidth: elisaTheme.smallControlButtonSize
+            Layout.maximumHeight: elisaTheme.smallControlButtonSize
+            Layout.minimumWidth: elisaTheme.smallControlButtonSize
+            Layout.minimumHeight: elisaTheme.smallControlButtonSize
+            Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.mediaPlayerHorizontalMargin : 0
+            Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.mediaPlayerHorizontalMargin : 0
 
             enabled: skipBackwardEnabled
             hoverEnabled: true
@@ -88,11 +92,11 @@ FocusScope {
 
                 source: Qt.resolvedUrl(LayoutMirroring.enabled ? elisaTheme.skipForwardIcon : elisaTheme.skipBackwardIcon)
 
-                width: elisaTheme.smallControlButtonHeight
-                height: elisaTheme.smallControlButtonHeight
+                width: elisaTheme.smallControlButtonSize
+                height: elisaTheme.smallControlButtonSize
 
-                sourceSize.width: elisaTheme.smallControlButtonHeight
-                sourceSize.height: elisaTheme.smallControlButtonHeight
+                sourceSize.width: elisaTheme.smallControlButtonSize
+                sourceSize.height: elisaTheme.smallControlButtonSize
 
                 fillMode: Image.PreserveAspectFit
 
@@ -105,7 +109,7 @@ FocusScope {
                 border.color: (parent.hovered || parent.activeFocus) ? myPalette.highlight : "transparent"
                 border.width: 1
 
-                radius: elisaTheme.smallControlButtonHeight
+                radius: elisaTheme.smallControlButtonSize
 
                 Behavior on border.color {
                     ColorAnimation {
@@ -118,13 +122,13 @@ FocusScope {
         RoundButton {
             focus: playEnabled
 
-            Layout.preferredWidth: elisaTheme.bigControlButtonHeight
-            Layout.preferredHeight: elisaTheme.bigControlButtonHeight
+            Layout.preferredWidth: elisaTheme.smallControlButtonSize
+            Layout.preferredHeight: elisaTheme.smallControlButtonSize
             Layout.alignment: Qt.AlignVCenter
-            Layout.maximumWidth: elisaTheme.bigControlButtonHeight
-            Layout.maximumHeight: elisaTheme.bigControlButtonHeight
-            Layout.minimumWidth: elisaTheme.bigControlButtonHeight
-            Layout.minimumHeight: elisaTheme.bigControlButtonHeight
+            Layout.maximumWidth: elisaTheme.smallControlButtonSize
+            Layout.maximumHeight: elisaTheme.smallControlButtonSize
+            Layout.minimumWidth: elisaTheme.smallControlButtonSize
+            Layout.minimumHeight: elisaTheme.smallControlButtonSize
 
             enabled: playEnabled
             hoverEnabled: true
@@ -147,11 +151,11 @@ FocusScope {
                         Qt.resolvedUrl(elisaTheme.playIcon)
                 }
 
-                width: elisaTheme.bigControlButtonHeight
-                height: elisaTheme.bigControlButtonHeight
+                width: elisaTheme.smallControlButtonSize
+                height: elisaTheme.smallControlButtonSize
 
-                sourceSize.width: elisaTheme.bigControlButtonHeight
-                sourceSize.height: elisaTheme.bigControlButtonHeight
+                sourceSize.width: elisaTheme.smallControlButtonSize
+                sourceSize.height: elisaTheme.smallControlButtonSize
 
                 fillMode: Image.PreserveAspectFit
                 mirror: LayoutMirroring.enabled
@@ -164,7 +168,7 @@ FocusScope {
                 border.color: (parent.hovered || parent.activeFocus) ? myPalette.highlight : "transparent"
                 border.width: 1
 
-                radius: elisaTheme.bigControlButtonHeight
+                radius: elisaTheme.smallControlButtonSize
 
                 Behavior on border.color {
                     ColorAnimation {
@@ -177,15 +181,13 @@ FocusScope {
         RoundButton {
             focus: skipForwardEnabled
 
-            Layout.preferredWidth: elisaTheme.smallControlButtonHeight
-            Layout.preferredHeight: elisaTheme.smallControlButtonHeight
+            Layout.preferredWidth: elisaTheme.smallControlButtonSize
+            Layout.preferredHeight: elisaTheme.smallControlButtonSize
             Layout.alignment: Qt.AlignVCenter
-            Layout.maximumWidth: elisaTheme.smallControlButtonHeight
-            Layout.maximumHeight: elisaTheme.smallControlButtonHeight
-            Layout.minimumWidth: elisaTheme.smallControlButtonHeight
-            Layout.minimumHeight: elisaTheme.smallControlButtonHeight
-            Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.smallControlButtonHeight : 0
-            Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.smallControlButtonHeight : 0
+            Layout.maximumWidth: elisaTheme.smallControlButtonSize
+            Layout.maximumHeight: elisaTheme.smallControlButtonSize
+            Layout.minimumWidth: elisaTheme.smallControlButtonSize
+            Layout.minimumHeight: elisaTheme.smallControlButtonSize
 
             enabled: skipForwardEnabled
             hoverEnabled: true
@@ -199,11 +201,11 @@ FocusScope {
 
                 source: Qt.resolvedUrl(LayoutMirroring.enabled ? elisaTheme.skipBackwardIcon : elisaTheme.skipForwardIcon)
 
-                width: elisaTheme.smallControlButtonHeight
-                height: elisaTheme.smallControlButtonHeight
+                width: elisaTheme.smallControlButtonSize
+                height: elisaTheme.smallControlButtonSize
 
-                sourceSize.width: elisaTheme.smallControlButtonHeight
-                sourceSize.height: elisaTheme.smallControlButtonHeight
+                sourceSize.width: elisaTheme.smallControlButtonSize
+                sourceSize.height: elisaTheme.smallControlButtonSize
 
                 fillMode: Image.PreserveAspectFit
 
@@ -216,7 +218,7 @@ FocusScope {
                 border.color: (parent.hovered || parent.activeFocus) ? myPalette.highlight : "transparent"
                 border.width: 1
 
-                radius: elisaTheme.smallControlButtonHeight
+                radius: elisaTheme.smallControlButtonSize
 
                 Behavior on border.color {
                     ColorAnimation {
@@ -240,8 +242,8 @@ FocusScope {
 
             Layout.alignment: Qt.AlignVCenter
             Layout.fillHeight: true
-            Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-            Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+            Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin  : elisaTheme.layoutHorizontalMargin * 2
+            Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : elisaTheme.layoutHorizontalMargin * 2
             Layout.preferredWidth: durationTextMetrics.width+5 // be in the safe side
 
             verticalAlignment: Text.AlignVCenter
@@ -295,11 +297,11 @@ FocusScope {
                 width: musicProgress.availableWidth
                 height: implicitHeight
                 radius: 3
-                color: myPalette.mid
+                color: myPalette.dark
 
                 Rectangle {
                     x: (LayoutMirroring.enabled ? musicProgress.visualPosition * parent.width : 0)
-                    width: (LayoutMirroring.enabled ? parent.width - musicProgress.visualPosition * parent.width : musicProgress.visualPosition * parent.width)
+                    width: LayoutMirroring.enabled ? parent.width - musicProgress.visualPosition * parent.width: musicProgress.handle.x + radius
                     height: parent.height
                     color: myPalette.text
                     radius: 3
@@ -326,8 +328,8 @@ FocusScope {
 
             Layout.alignment: Qt.AlignVCenter
             Layout.fillHeight: true
-            Layout.rightMargin: !LayoutMirroring.enabled ? (elisaTheme.layoutHorizontalMargin * 10) : 0
-            Layout.leftMargin: LayoutMirroring.enabled ? (elisaTheme.layoutHorizontalMargin * 10) : 0
+            Layout.rightMargin: !LayoutMirroring.enabled ? (elisaTheme.layoutHorizontalMargin * 2) : 0
+            Layout.leftMargin: LayoutMirroring.enabled ? (elisaTheme.layoutHorizontalMargin * 2) : 0
             Layout.preferredWidth: durationTextMetrics.width
 
             verticalAlignment: Text.AlignVCenter
@@ -347,18 +349,18 @@ FocusScope {
                     else
                         Qt.resolvedUrl(elisaTheme.playerVolumeIcon)
 
-            Layout.preferredWidth: elisaTheme.smallControlButtonHeight
-            Layout.preferredHeight: elisaTheme.smallControlButtonHeight
+            Layout.preferredWidth: elisaTheme.smallControlButtonSize
+            Layout.preferredHeight: elisaTheme.smallControlButtonSize
             Layout.alignment: Qt.AlignVCenter
-            Layout.maximumWidth: elisaTheme.smallControlButtonHeight
-            Layout.maximumHeight: elisaTheme.smallControlButtonHeight
-            Layout.minimumWidth: elisaTheme.smallControlButtonHeight
-            Layout.minimumHeight: elisaTheme.smallControlButtonHeight
+            Layout.maximumWidth: elisaTheme.smallControlButtonSize
+            Layout.maximumHeight: elisaTheme.smallControlButtonSize
+            Layout.minimumWidth: elisaTheme.smallControlButtonSize
+            Layout.minimumHeight: elisaTheme.smallControlButtonSize
             Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
             Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
 
-            sourceSize.width: elisaTheme.smallControlButtonHeight
-            sourceSize.height: elisaTheme.smallControlButtonHeight
+            sourceSize.width: elisaTheme.smallControlButtonSize
+            sourceSize.height: elisaTheme.smallControlButtonSize
 
             fillMode: Image.PreserveAspectFit
 
@@ -369,15 +371,13 @@ FocusScope {
         RoundButton {
             focus: true
 
-            Layout.preferredWidth: elisaTheme.smallControlButtonHeight
-            Layout.preferredHeight: elisaTheme.smallControlButtonHeight
+            Layout.preferredWidth: elisaTheme.smallControlButtonSize
+            Layout.preferredHeight: elisaTheme.smallControlButtonSize
             Layout.alignment: Qt.AlignVCenter
-            Layout.maximumWidth: elisaTheme.smallControlButtonHeight
-            Layout.maximumHeight: elisaTheme.smallControlButtonHeight
-            Layout.minimumWidth: elisaTheme.smallControlButtonHeight
-            Layout.minimumHeight: elisaTheme.smallControlButtonHeight
-            Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-            Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+            Layout.maximumWidth: elisaTheme.smallControlButtonSize
+            Layout.maximumHeight: elisaTheme.smallControlButtonSize
+            Layout.minimumWidth: elisaTheme.smallControlButtonSize
+            Layout.minimumHeight: elisaTheme.smallControlButtonSize
 
             hoverEnabled: true
 
@@ -391,11 +391,11 @@ FocusScope {
                         else
                             Qt.resolvedUrl(elisaTheme.playerVolumeIcon)
 
-                width: elisaTheme.smallControlButtonHeight
-                height: elisaTheme.smallControlButtonHeight
+                width: elisaTheme.smallControlButtonSize
+                height: elisaTheme.smallControlButtonSize
 
-                sourceSize.width: elisaTheme.smallControlButtonHeight
-                sourceSize.height: elisaTheme.smallControlButtonHeight
+                sourceSize.width: elisaTheme.smallControlButtonSize
+                sourceSize.height: elisaTheme.smallControlButtonSize
 
                 fillMode: Image.PreserveAspectFit
             }
@@ -406,7 +406,7 @@ FocusScope {
                 border.color: (parent.hovered || parent.activeFocus) ? myPalette.highlight : "transparent"
                 border.width: 1
 
-                radius: elisaTheme.smallControlButtonHeight
+                radius: elisaTheme.smallControlButtonSize
 
                 Behavior on border.color {
                     ColorAnimation {
@@ -431,8 +431,8 @@ FocusScope {
             Layout.preferredWidth: elisaTheme.volumeSliderWidth
             Layout.maximumWidth: elisaTheme.volumeSliderWidth
             Layout.minimumWidth: elisaTheme.volumeSliderWidth
-            Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-            Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+            Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin * 3 : 0
+            Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin * 3 : 0
 
             width: elisaTheme.volumeSliderWidth
 
@@ -444,7 +444,7 @@ FocusScope {
                 width: volumeSlider.availableWidth
                 height: implicitHeight
                 radius: 3
-                color: myPalette.mid
+                color: myPalette.dark
 
                 Rectangle {
                     x: (LayoutMirroring.enabled ? volumeSlider.visualPosition * parent.width : 0)
@@ -464,6 +464,91 @@ FocusScope {
                 color: myPalette.button
                 border.color: volumeSlider.pressed ? myPalette.highlight : myPalette.dark
             }
+        }
+
+        RoundButton {
+            focus: true
+            id: shuffleButton
+
+            Layout.preferredWidth: elisaTheme.smallControlButtonSize
+            Layout.preferredHeight: elisaTheme.smallControlButtonSize
+            Layout.alignment: Qt.AlignCenter
+            Layout.maximumWidth: elisaTheme.smallControlButtonSize
+            Layout.maximumHeight: elisaTheme.smallControlButtonSize
+            Layout.minimumWidth: elisaTheme.smallControlButtonSize
+            Layout.minimumHeight: elisaTheme.smallControlButtonSize
+
+            hoverEnabled: true
+            onClicked: musicWidget.shuffle = !musicWidget.shuffle
+
+            contentItem: Image {
+                anchors.fill: parent
+
+                source: musicWidget.shuffle ? Qt.resolvedUrl(elisaTheme.shuffleIcon) : Qt.resolvedUrl(elisaTheme.noShuffleIcon)
+
+                width: elisaTheme.smallControlButtonSize
+                height: elisaTheme.smallControlButtonSize
+
+                sourceSize.width: elisaTheme.smallControlButtonSize
+                sourceSize.height: elisaTheme.smallControlButtonSize
+
+                fillMode: Image.PreserveAspectFit
+            }
+
+            background: Rectangle {
+                color: "transparent"
+                }
+            }
+
+
+        RoundButton {
+            focus: true
+            id: repeatButton
+
+            Layout.preferredWidth: elisaTheme.smallControlButtonSize
+            Layout.preferredHeight: elisaTheme.smallControlButtonSize
+            Layout.alignment: Qt.AlignCenter
+            Layout.maximumWidth: elisaTheme.smallControlButtonSize
+            Layout.maximumHeight: elisaTheme.smallControlButtonSize
+            Layout.minimumWidth: elisaTheme.smallControlButtonSize
+            Layout.minimumHeight: elisaTheme.smallControlButtonSize
+
+            hoverEnabled: true
+            onClicked: musicWidget.repeat = !musicWidget.repeat
+
+            contentItem: Image {
+                anchors.fill: parent
+
+                source: musicWidget.repeat ? Qt.resolvedUrl(elisaTheme.repeatIcon) : Qt.resolvedUrl(elisaTheme.noRepeatIcon)
+
+                width: elisaTheme.smallControlButtonSize
+                height: elisaTheme.smallControlButtonSize
+
+                sourceSize.width: elisaTheme.smallControlButtonSize
+                sourceSize.height: elisaTheme.smallControlButtonSize
+
+                fillMode: Image.PreserveAspectFit
+            }
+
+            background: Rectangle {
+                color: "transparent"
+            }
+
+        }
+
+        Controls1.ToolButton {
+            id: menuButton
+            action: applicationMenuAction
+
+            Layout.preferredWidth: elisaTheme.smallControlButtonSize
+            Layout.preferredHeight: elisaTheme.smallControlButtonSize
+            Layout.alignment: Qt.AlignVCenter
+            Layout.maximumWidth: elisaTheme.smallControlButtonSize
+            Layout.maximumHeight: elisaTheme.smallControlButtonSize
+            Layout.minimumWidth: elisaTheme.smallControlButtonSize
+            Layout.minimumHeight: elisaTheme.smallControlButtonSize
+            Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.mediaPlayerHorizontalMargin : elisaTheme.mediaPlayerHorizontalMargin * 1.5
+            Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.mediaPlayerHorizontalMargin : elisaTheme.mediaPlayerHorizontalMargin * 1.5
         }
     }
 

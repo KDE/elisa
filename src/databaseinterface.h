@@ -26,6 +26,7 @@
 #include "musicalbum.h"
 #include "musicaudiotrack.h"
 #include "musicartist.h"
+#include "musicaudiogenre.h"
 
 #include <QObject>
 #include <QString>
@@ -84,6 +85,12 @@ public:
 
     QList<MusicArtist> allArtists();
 
+    QList<MusicAudioGenre> allGenres();
+
+    QList<MusicArtist> allComposers();
+
+    QList<MusicArtist> allLyricists();
+
     QList<MusicAudioTrack> tracksFromAuthor(const QString &artistName);
 
     MusicAudioTrack trackFromDatabaseId(qulonglong id);
@@ -99,15 +106,15 @@ Q_SIGNALS:
 
     void artistsAdded(const QList<MusicArtist> &newArtist);
 
-    void composerAdded(const MusicArtist &newComposer);
+    void composersAdded(const QList<MusicArtist> &newComposer);
 
-    void lyricistAdded(const MusicArtist &newLyricist);
+    void lyricistsAdded(const QList<MusicArtist> &newLyricist);
 
     void albumsAdded(const QList<MusicAlbum> &newAlbum);
 
     void tracksAdded(const QList<MusicAudioTrack> &allTracks);
 
-    void genreAdded(QString genreName);
+    void genresAdded(const QList<MusicAudioGenre> &allGenres);
 
     void artistRemoved(const MusicArtist &removedArtist);
 
@@ -199,7 +206,7 @@ private:
 
     qulonglong insertGenre(const QString &name);
 
-    QString internalGenreFromId(qulonglong genreId);
+    MusicAudioGenre internalGenreFromId(qulonglong genreId);
 
     void removeTrackInDatabase(qulonglong trackId);
 
@@ -258,6 +265,9 @@ private:
     QList<QMap<PropertyType, QVariant>> internalAllComposersPartialData();
 
     QList<QMap<PropertyType, QVariant>> internalAllLyricistsPartialData();
+
+    QList<MusicArtist> internalAllPeople(QSqlQuery allPeopleQuery,
+                                         QSqlQuery selectCountAlbumsForPeopleQuery);
 
     std::unique_ptr<DatabaseInterfacePrivate> d;
 

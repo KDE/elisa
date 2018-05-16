@@ -94,6 +94,12 @@ public:
 
     GenericDataModel mAllTracksModel;
 
+    GenericDataModel mAllGenresModel;
+
+    GenericDataModel mAllComposersModel;
+
+    GenericDataModel mAllLyricistsModel;
+
     AlbumModel mAlbumModel;
 
     int mImportedTracksCount = 0;
@@ -168,6 +174,24 @@ MusicListenersManager::MusicListenersManager(QObject *parent)
     d->mAllTracksModel.setModelCache(modelData);
     d->mAllTracksModel.setDataType(ElisaUtils::AllTracks);
 
+    modelData = new ModelDataCache;
+    modelData->setDatabase(&d->mDatabaseInterface);
+    modelData->moveToThread(&d->mDatabaseThread);
+    d->mAllGenresModel.setModelCache(modelData);
+    d->mAllGenresModel.setDataType(ElisaUtils::AllGenres);
+
+    modelData = new ModelDataCache;
+    modelData->setDatabase(&d->mDatabaseInterface);
+    modelData->moveToThread(&d->mDatabaseThread);
+    d->mAllLyricistsModel.setModelCache(modelData);
+    d->mAllLyricistsModel.setDataType(ElisaUtils::AllLyricists);
+
+    modelData = new ModelDataCache;
+    modelData->setDatabase(&d->mDatabaseInterface);
+    modelData->moveToThread(&d->mDatabaseThread);
+    d->mAllComposersModel.setModelCache(modelData);
+    d->mAllComposersModel.setDataType(ElisaUtils::AllComposers);
+
     connect(&d->mDatabaseInterface, &DatabaseInterface::albumModified,
             &d->mAlbumModel, &AlbumModel::albumModified);
     connect(&d->mDatabaseInterface, &DatabaseInterface::albumRemoved,
@@ -238,6 +262,21 @@ QAbstractItemModel *MusicListenersManager::allArtistsModel() const
 QAbstractItemModel *MusicListenersManager::allTracksModel() const
 {
     return &d->mAllTracksModel;
+}
+
+QAbstractItemModel *MusicListenersManager::allGenresModel() const
+{
+    return &d->mAllGenresModel;
+}
+
+QAbstractItemModel *MusicListenersManager::allLyricistsModel() const
+{
+    return &d->mAllLyricistsModel;
+}
+
+QAbstractItemModel *MusicListenersManager::allComposersModel() const
+{
+    return &d->mAllComposersModel;
 }
 
 QAbstractItemModel *MusicListenersManager::albumModel() const

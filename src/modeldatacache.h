@@ -41,6 +41,8 @@ class ModelDataCache : public QObject
 
 public:
 
+    static const int CACHE_SIZE = 3000;
+
     enum CallMode {
         CannotBlock,
         CanBlock,
@@ -60,15 +62,15 @@ Q_SIGNALS:
 
     void dataTypeChanged(ElisaUtils::DataType dataType);
 
-    void receiveData(qulonglong databaseId, QMap<ElisaUtils::ColumnsRoles, QVariant> cacheData);
+    void receiveData(int row);
 
     void databaseChanged(DatabaseInterface* database);
 
-    void dataChanged();
+    void dataChanged(int lowerBound, int upperBound);
 
 public Q_SLOTS:
 
-    void neededData(qulonglong databaseId) const;
+    void neededData();
 
     void setDataType(ElisaUtils::DataType dataType);
 

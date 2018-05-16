@@ -313,6 +313,62 @@ RowLayout {
                             }
                         }
 
+                        Loader {
+                            id: localGenresLoader
+
+                            active: opacity > 0
+
+                            visible: opacity > 0
+
+                            anchors.fill: parent
+
+                            sourceComponent: MediaBrowser {
+                                id: localGenres
+
+                                focus: true
+
+                                anchors {
+                                    fill: parent
+
+                                    leftMargin: elisaTheme.layoutHorizontalMargin
+                                    rightMargin: elisaTheme.layoutHorizontalMargin
+                                }
+
+                                firstPage: GridBrowserView {
+                                    id: allGenresView
+                                    focus: true
+
+                                    showRating: false
+                                    delegateDisplaySecondaryText: false
+
+                                    contentModel: elisa.allGenresProxyModel
+
+                                    image: elisaTheme.genresIcon
+                                    mainTitle: i18nc("Title of the view of all genres", "Genres")
+
+                                    onOpen: {
+                                        elisa.singleGenreProxyModel.setGenreFilterText(innerMainTitle)
+                                        localGenres.stackView.push(innerAlbumView, {
+                                                                        mainTitle: innerMainTitle,
+                                                                        secondaryTitle: innerSecondaryTitle,
+                                                                        image: innerImage,
+                                                                    })
+
+                                    }
+
+                                    onGoBack: localGenres.stackView.pop()
+
+                                    Binding {
+                                        target: allGenresView
+                                        property: 'expandedFilterView'
+                                        value: persistentSettings.expandedFilterView
+                                    }
+
+                                    onFilterViewChanged: persistentSettings.expandedFilterView = expandedFilterView
+                                }
+                            }
+                        }
+
                         Behavior on border.color {
                             ColorAnimation {
                                 duration: 300
@@ -446,6 +502,10 @@ RowLayout {
                     target: localTracksLoader
                     opacity: 0
                 }
+                PropertyChanges {
+                    target: localGenresLoader
+                    opacity: 0
+                }
             },
             State {
                 name: 'allAlbums'
@@ -497,6 +557,10 @@ RowLayout {
                 }
                 PropertyChanges {
                     target: localTracksLoader
+                    opacity: 0
+                }
+                PropertyChanges {
+                    target: localGenresLoader
                     opacity: 0
                 }
             },
@@ -552,6 +616,10 @@ RowLayout {
                     target: localTracksLoader
                     opacity: 0
                 }
+                PropertyChanges {
+                    target: localGenresLoader
+                    opacity: 0
+                }
             },
             State {
                 name: 'allTracks'
@@ -597,6 +665,61 @@ RowLayout {
                 }
                 PropertyChanges {
                     target: localTracksLoader
+                    opacity: 1
+                }
+                PropertyChanges {
+                    target: localGenresLoader
+                    opacity: 0
+                }
+            },
+            State {
+                name: 'allGenres'
+                when: listViews.currentIndex === 4
+                PropertyChanges {
+                    target: mainContentView
+                    Layout.fillWidth: true
+                    Layout.minimumWidth: contentZone.width * 0.66
+                    Layout.maximumWidth: contentZone.width * 0.68
+                    Layout.preferredWidth: contentZone.width * 0.68
+                }
+                PropertyChanges {
+                    target: firstViewSeparatorItem
+                    Layout.minimumWidth: 1
+                    Layout.maximumWidth: 1
+                    Layout.preferredWidth: 1
+                }
+                PropertyChanges {
+                    target: playList
+                    Layout.minimumWidth: contentZone.width * 0.33
+                    Layout.maximumWidth: contentZone.width * 0.33
+                    Layout.preferredWidth: contentZone.width * 0.33
+                }
+                PropertyChanges {
+                    target: viewSeparatorItem
+                    Layout.minimumWidth: 0
+                    Layout.maximumWidth: 0
+                    Layout.preferredWidth: 0
+                }
+                PropertyChanges {
+                    target: albumContext
+                    Layout.minimumWidth: 0
+                    Layout.maximumWidth: 0
+                    Layout.preferredWidth: 0
+                }
+                PropertyChanges {
+                    target: localAlbumsLoader
+                    opacity: 0
+                }
+                PropertyChanges {
+                    target: localArtistsLoader
+                    opacity: 0
+                }
+                PropertyChanges {
+                    target: localTracksLoader
+                    opacity: 0
+                }
+                PropertyChanges {
+                    target: localGenresLoader
                     opacity: 1
                 }
             }

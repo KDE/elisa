@@ -96,6 +96,12 @@ public:
 
     std::unique_ptr<AllTracksProxyModel> mAllTracksProxyModel;
 
+    std::unique_ptr<AllArtistsProxyModel> mAllGenresProxyModel;
+
+    std::unique_ptr<AllArtistsProxyModel> mAllComposersProxyModel;
+
+    std::unique_ptr<AllArtistsProxyModel> mAllLyricistsProxyModel;
+
     std::unique_ptr<SingleArtistProxyModel> mSingleArtistProxyModel;
 
     std::unique_ptr<SingleAlbumProxyModel> mSingleAlbumProxyModel;
@@ -277,6 +283,12 @@ void ElisaApplication::initialize()
     Q_EMIT allAlbumsProxyModelChanged();
     d->mAllArtistsProxyModel = std::make_unique<AllArtistsProxyModel>();
     Q_EMIT allArtistsProxyModelChanged();
+    d->mAllGenresProxyModel = std::make_unique<AllArtistsProxyModel>();
+    Q_EMIT allGenresProxyModelChanged();
+    d->mAllComposersProxyModel = std::make_unique<AllArtistsProxyModel>();
+    Q_EMIT allComposersProxyModelChanged();
+    d->mAllLyricistsProxyModel = std::make_unique<AllArtistsProxyModel>();
+    Q_EMIT allLyricistsProxyModelChanged();
     d->mAllTracksProxyModel = std::make_unique<AllTracksProxyModel>();
     Q_EMIT allTracksProxyModelChanged();
     d->mSingleArtistProxyModel = std::make_unique<SingleArtistProxyModel>();
@@ -297,6 +309,9 @@ void ElisaApplication::initialize()
 
     d->mAllAlbumsProxyModel->setSourceModel(d->mMusicManager->allAlbumsModel());
     d->mAllArtistsProxyModel->setSourceModel(d->mMusicManager->allArtistsModel());
+    d->mAllGenresProxyModel->setSourceModel(d->mMusicManager->allGenresModel());
+    d->mAllComposersProxyModel->setSourceModel(d->mMusicManager->allComposersModel());
+    d->mAllLyricistsProxyModel->setSourceModel(d->mMusicManager->allLyricistsModel());
     d->mAllTracksProxyModel->setSourceModel(d->mMusicManager->allTracksModel());
     d->mSingleArtistProxyModel->setSourceModel(d->mMusicManager->allAlbumsModel());
     d->mSingleAlbumProxyModel->setSourceModel(d->mMusicManager->albumModel());
@@ -401,6 +416,21 @@ AllAlbumsProxyModel *ElisaApplication::allAlbumsProxyModel() const
 AllArtistsProxyModel *ElisaApplication::allArtistsProxyModel() const
 {
     return d->mAllArtistsProxyModel.get();
+}
+
+AllArtistsProxyModel *ElisaApplication::allGenresProxyModel() const
+{
+    return d->mAllGenresProxyModel.get();
+}
+
+AllArtistsProxyModel *ElisaApplication::allComposersProxyModel() const
+{
+    return d->mAllComposersProxyModel.get();
+}
+
+AllArtistsProxyModel *ElisaApplication::allLyricistsProxyModel() const
+{
+    return d->mAllLyricistsProxyModel.get();
 }
 
 AllTracksProxyModel *ElisaApplication::allTracksProxyModel() const

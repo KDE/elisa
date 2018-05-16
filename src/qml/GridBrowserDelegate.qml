@@ -34,6 +34,7 @@ FocusScope {
     property alias secondaryText: secondaryLabel.text
     property var containerData
     property bool delegateDisplaySecondaryText: true
+    property bool isPartial
 
     signal enqueue(var data)
     signal replaceAndPlay(var data)
@@ -156,29 +157,48 @@ FocusScope {
                         }
                     }
 
-                    Image {
-                        id: coverImage
+                    Loader {
+                        id: coverImageLoader
+
+                        active: !isPartial
 
                         anchors.fill: parent
 
-                        sourceSize.width: parent.width
-                        sourceSize.height: parent.height
-                        fillMode: Image.PreserveAspectFit
-                        smooth: true
+                        sourceComponent: Image {
+                            id: coverImage
 
-                        source: (gridEntry.imageUrl !== undefined ? gridEntry.imageUrl : "")
+                            anchors.fill: parent
 
-                        asynchronous: true
+                            sourceSize.width: parent.width
+                            sourceSize.height: parent.height
+                            fillMode: Image.PreserveAspectFit
+                            smooth: true
 
-                        layer.enabled: shadowForImage
-                        layer.effect: DropShadow {
-                            source: coverImage
+                            source: (gridEntry.imageUrl !== undefined ? gridEntry.imageUrl : "")
 
-                            radius: 10
-                            spread: 0.1
-                            samples: 21
+                            asynchronous: true
 
-                            color: myPalette.shadow
+                            layer.enabled: shadowForImage
+                            layer.effect: DropShadow {
+                                source: coverImage
+
+                                radius: 10
+                                spread: 0.1
+                                samples: 21
+
+                                color: myPalette.shadow
+                            }
+                        }
+                    }
+                    Loader {
+                        active: isPartial
+
+                        anchors.fill: parent
+
+                        sourceComponent: BusyIndicator {
+                            anchors.fill: parent
+
+                            running: true
                         }
                     }
                 }
@@ -234,7 +254,7 @@ FocusScope {
                 opacity: 0.0
             }
             PropertyChanges {
-                target: coverImage
+                target: coverImageLoader
                 opacity: 1
             }
         },
@@ -250,7 +270,7 @@ FocusScope {
                 opacity: 1.0
             }
             PropertyChanges {
-                target: coverImage
+                target: coverImageLoader
                 opacity: 0.2
             }
         }

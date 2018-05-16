@@ -77,7 +77,7 @@ Q_SIGNALS:
 
 protected:
 
-    virtual bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override = 0;
+    bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override = 0;
 
     QString mFilterText;
 

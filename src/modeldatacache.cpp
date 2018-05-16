@@ -24,10 +24,8 @@
 #include <QList>
 #include <QMap>
 #include <QVariant>
-#include <QReadWriteLock>
-#include <QReadLocker>
-#include <QWriteLocker>
 #include <QAtomicInt>
+#include <QMetaObject>
 
 #include <QDebug>
 
@@ -35,15 +33,23 @@ class ModelDataCachePrivate
 {
 public:
 
-    QReadWriteLock mLock;
-
     QList<QMap<DatabaseInterface::PropertyType, QVariant>> mPartialData;
+
+    QHash<qulonglong, QMap<ElisaUtils::ColumnsRoles, QVariant>> mFullData;
+
+    QHash<qulonglong, int> mRows;
 
     DatabaseInterface *mDatabase = nullptr;
 
     QAtomicInt mDataCount;
 
+    QAtomicInt mDataChangedLowerBound;
+
+    QAtomicInt mDataChangedUpperBound;
+
     ElisaUtils::DataType mDataType = ElisaUtils::UnknownType;
+
+    QAtomicInt mHasFullData = false;
 
     bool mIsConnected = false;
 
@@ -52,6 +58,7 @@ public:
 ModelDataCache::ModelDataCache(QObject *parent)
     : QObject(parent), d(std::make_unique<ModelDataCachePrivate>())
 {
+    d->mFullData.reserve(CACHE_SIZE);
 }
 
 ElisaUtils::DataType ModelDataCache::dataType() const
@@ -68,9 +75,15 @@ int ModelDataCache::dataCount() const
 
 QVariant ModelDataCache::data(int row, ElisaUtils::ColumnsRoles role) const
 {
-    QReadLocker vLocker(&d->mLock);
-
     auto result = QVariant{};
+
+    bool databaseIdIsOk = false;
+    auto databaseId = d->mPartialData[row][DatabaseInterface::DatabaseId].toULongLong(&databaseIdIsOk);
+    if (!databaseIdIsOk || databaseId == 0) {
+        return result;
+    }
+
+    d->mRows[databaseId] = row;
 
     switch (role)
     {
@@ -83,6 +96,22 @@ QVariant ModelDataCache::data(int row, ElisaUtils::ColumnsRoles role) const
     case ElisaUtils::DatabaseIdRole:
         result = d->mPartialData[row][DatabaseInterface::DatabaseId];
         break;
+    case ElisaUtils::IsPartialDataRole:
+        result = !d->mHasFullData;
+        break;
+    default:
+        if (d->mHasFullData) {
+            result = d->mFullData[databaseId][role];
+        } else {
+            const auto currentRow = d->mRows[databaseId];
+            if (d->mDataChangedLowerBound > currentRow) {
+                d->mDataChangedLowerBound = currentRow;
+            }
+            if (d->mDataChangedUpperBound < currentRow) {
+                d->mDataChangedUpperBound = currentRow;
+            }
+        }
+        break;
     };
 
     return result;
@@ -93,8 +122,134 @@ DatabaseInterface *ModelDataCache::database() const
     return d->mDatabase;
 }
 
-void ModelDataCache::neededData(qulonglong databaseId) const
+void ModelDataCache::neededData()
 {
+    qDebug() << "ModelDataCache::neededData";
+
+    if (d->mHasFullData) {
+        return;
+    }
+
+    switch (d->mDataType)
+    {
+    case ElisaUtils::AllAlbums:
+    {
+        auto allData = d->mDatabase->allAlbums();
+        for (const auto &data : allData) {
+            auto &fullData = d->mFullData[data.databaseId()];
+            const auto &albumArt = data.albumArtURI();
+
+            if (albumArt.isValid()) {
+                fullData[ElisaUtils::ImageUrlRole] = albumArt;
+                fullData[ElisaUtils::ShadowForImageRole] = true;
+            } else {
+                fullData[ElisaUtils::ImageUrlRole] = QUrl(QStringLiteral("image://icon/media-optical-audio"));
+                fullData[ElisaUtils::ShadowForImageRole] = false;
+            }
+
+            fullData[ElisaUtils::ContainerDataRole] = QVariant::fromValue(data);
+            fullData[ElisaUtils::ArtistRole] = data.artist();
+            fullData[ElisaUtils::AllArtistsRole] = data.allArtists();
+            fullData[ElisaUtils::HighestTrackRating] = data.highestTrackRating();
+        }
+
+        d->mHasFullData = true;
+        Q_EMIT dataChanged(d->mDataChangedLowerBound, d->mDataChangedUpperBound);
+
+        break;
+    }
+    case ElisaUtils::AllArtists:
+    {
+        auto allData = d->mDatabase->allArtists();
+        for (const auto &data : allData) {
+            auto &fullData = d->mFullData[data.databaseId()];
+
+            fullData[ElisaUtils::ContainerDataRole] = QVariant::fromValue(data);
+            fullData[ElisaUtils::ImageUrlRole] = QUrl(QStringLiteral("image://icon/view-media-artist"));
+            fullData[ElisaUtils::ShadowForImageRole] = false;
+        }
+
+        d->mHasFullData = true;
+        Q_EMIT dataChanged(d->mDataChangedLowerBound, d->mDataChangedUpperBound);
+
+        break;
+    }
+    case ElisaUtils::AllComposers:
+    {
+        auto allData = d->mDatabase->allComposers();
+        for (const auto &data : allData) {
+            auto &fullData = d->mFullData[data.databaseId()];
+
+            fullData[ElisaUtils::ContainerDataRole] = QVariant::fromValue(data);
+            fullData[ElisaUtils::ImageUrlRole] = QUrl(QStringLiteral("image://icon/view-media-artist"));
+            fullData[ElisaUtils::ShadowForImageRole] = false;
+        }
+
+        d->mHasFullData = true;
+        Q_EMIT dataChanged(d->mDataChangedLowerBound, d->mDataChangedUpperBound);
+
+        break;
+    }
+    case ElisaUtils::AllLyricists:
+    {
+        auto allData = d->mDatabase->allLyricists();
+        for (const auto &data : allData) {
+            auto &fullData = d->mFullData[data.databaseId()];
+
+            fullData[ElisaUtils::ContainerDataRole] = QVariant::fromValue(data);
+            fullData[ElisaUtils::ImageUrlRole] = QUrl(QStringLiteral("image://icon/view-media-artist"));
+            fullData[ElisaUtils::ShadowForImageRole] = false;
+        }
+
+        d->mHasFullData = true;
+        Q_EMIT dataChanged(d->mDataChangedLowerBound, d->mDataChangedUpperBound);
+
+        break;
+    }
+    case ElisaUtils::AllGenres:
+    {
+        auto allData = d->mDatabase->allGenres();
+        for (const auto &data : allData) {
+            auto &fullData = d->mFullData[data.databaseId()];
+
+            fullData[ElisaUtils::ContainerDataRole] = QVariant::fromValue(data);
+            fullData[ElisaUtils::ImageUrlRole] = QUrl(QStringLiteral("image://icon/view-media-genre"));
+            fullData[ElisaUtils::ShadowForImageRole] = false;
+        }
+
+        d->mHasFullData = true;
+        Q_EMIT dataChanged(d->mDataChangedLowerBound, d->mDataChangedUpperBound);
+
+        break;
+    }
+    case ElisaUtils::AllTracks:
+    {
+        auto allData = d->mDatabase->allTracks();
+        for (const auto &data : allData) {
+            auto &fullData = d->mFullData[data.databaseId()];
+            const auto &albumArt = data.albumCover();
+
+            if (albumArt.isValid()) {
+                fullData[ElisaUtils::ImageUrlRole] = albumArt;
+                fullData[ElisaUtils::ShadowForImageRole] = true;
+            } else {
+                fullData[ElisaUtils::ImageUrlRole] = QUrl(QStringLiteral("image://icon/media-optical-audio"));
+                fullData[ElisaUtils::ShadowForImageRole] = false;
+            }
+
+            fullData[ElisaUtils::ContainerDataRole] = QVariant::fromValue(data);
+            fullData[ElisaUtils::ArtistRole] = data.artist();
+            fullData[ElisaUtils::RatingRole] = data.rating();
+        }
+
+        d->mHasFullData = true;
+        Q_EMIT dataChanged(d->mDataChangedLowerBound, d->mDataChangedUpperBound);
+
+        break;
+    }
+    case ElisaUtils::UnknownType:
+        break;
+    }
 }
 
 void ModelDataCache::setDataType(ElisaUtils::DataType dataType)
@@ -142,15 +297,19 @@ void ModelDataCache::fetchPartialData()
         return;
     }
 
-    {
-        QWriteLocker vLocker(&d->mLock);
+    d->mPartialData = d->mDatabase->allData(d->mDataType);
 
-        d->mPartialData = d->mDatabase->allData(d->mDataType);
+    d->mDataCount = d->mPartialData.count();
 
-        d->mDataCount = d->mPartialData.count();
-    }
+    d->mDataChangedLowerBound = d->mDataCount;
+    d->mDataChangedUpperBound = 0;
 
-    Q_EMIT dataChanged();
+    d->mHasFullData = false;
+
+    QMetaObject::invokeMethod(const_cast<ModelDataCache*>(this), "neededData",
+                              Qt::QueuedConnection);
+
+    Q_EMIT dataChanged(-1, -1);
 }
 
 void ModelDataCache::connectDatabase()
@@ -186,17 +345,17 @@ void ModelDataCache::connectDatabase()
                 Qt::QueuedConnection);
         break;
     case ElisaUtils::AllGenres:
-        connect(d->mDatabase, &DatabaseInterface::genreAdded,
+        connect(d->mDatabase, &DatabaseInterface::genresAdded,
                 this, &ModelDataCache::databaseContentChanged,
                 Qt::QueuedConnection);
         break;
     case ElisaUtils::AllComposers:
-        connect(d->mDatabase, &DatabaseInterface::composerAdded,
+        connect(d->mDatabase, &DatabaseInterface::composersAdded,
                 this, &ModelDataCache::databaseContentChanged,
                 Qt::QueuedConnection);
         break;
     case ElisaUtils::AllLyricists:
-        connect(d->mDatabase, &DatabaseInterface::lyricistAdded,
+        connect(d->mDatabase, &DatabaseInterface::lyricistsAdded,
                 this, &ModelDataCache::databaseContentChanged,
                 Qt::QueuedConnection);
         break;

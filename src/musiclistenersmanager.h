@@ -76,6 +76,18 @@ class ELISALIB_EXPORT MusicListenersManager : public QObject
                READ allTracksModel
                CONSTANT)
 
+    Q_PROPERTY(QAbstractItemModel* allGenresModel
+               READ allGenresModel
+               CONSTANT)
+
+    Q_PROPERTY(QAbstractItemModel* allLyricistsModel
+               READ allLyricistsModel
+               CONSTANT)
+
+    Q_PROPERTY(QAbstractItemModel* allComposersModel
+               READ allComposersModel
+               CONSTANT)
+
     Q_PROPERTY(QAbstractItemModel* albumModel
                READ albumModel
                CONSTANT)
@@ -105,6 +117,12 @@ public:
     QAbstractItemModel *allArtistsModel() const;
 
     QAbstractItemModel *allTracksModel() const;
+
+    QAbstractItemModel *allGenresModel() const;
+
+    QAbstractItemModel *allLyricistsModel() const;
+
+    QAbstractItemModel *allComposersModel() const;
 
     QAbstractItemModel *albumModel() const;
 

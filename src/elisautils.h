@@ -67,6 +67,8 @@ enum ColumnsRoles {
     DurationRole,
     MilliSecondsDurationRole,
     ArtistRole,
+    AllArtistsRole,
+    HighestTrackRating,
     AlbumRole,
     AlbumArtistRole,
     TrackNumberRole,
@@ -86,6 +88,7 @@ enum ColumnsRoles {
     DatabaseIdRole,
     IsSingleDiscAlbumRole,
     ContainerDataRole,
+    IsPartialDataRole,
 };
 
 Q_ENUM_NS(ColumnsRoles)

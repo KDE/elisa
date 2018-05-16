@@ -62,7 +62,7 @@ FocusScope {
             secondaryTitle: gridView.secondaryTitle
             image: gridView.image
             enableGoBack: isSubPage
-            sortOrder: contentModel.sortedAscending
+            sortOrder: if (contentModel) {contentModel.sortedAscending} else true
 
             height: elisaTheme.navigationBarHeight
             Layout.preferredHeight: height
@@ -70,16 +70,24 @@ FocusScope {
             Layout.maximumHeight: height
             Layout.fillWidth: true
 
-            Binding {
-                target: contentModel
-                property: 'filterText'
-                value: navigationBar.filterText
+            Loader {
+                active: contentModel !== undefined
+
+                sourceComponent: Binding {
+                    target: contentModel
+                    property: 'filterText'
+                    value: navigationBar.filterText
+                }
             }
 
-            Binding {
-                target: contentModel
-                property: 'filterRating'
-                value: navigationBar.filterRating
+            Loader {
+                active: contentModel
+
+                sourceComponent: Binding {
+                    target: contentModel
+                    property: 'filterRating'
+                    value: navigationBar.filterRating
+                }
             }
 
             onEnqueue: contentModel.enqueueToPlayList()
@@ -126,6 +134,8 @@ FocusScope {
                     height: contentDirectoryView.cellHeight
 
                     focus: true
+
+                    isPartial: model.isPartial
 
                     mainText: model.display
                     secondaryText: if (gridView.delegateDisplaySecondaryText) {model.secondaryText} else {""}

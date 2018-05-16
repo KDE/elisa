@@ -68,6 +68,18 @@ class ELISALIB_EXPORT ElisaApplication : public QObject
                READ allTracksProxyModel
                NOTIFY allTracksProxyModelChanged)
 
+    Q_PROPERTY(AllArtistsProxyModel *allGenresProxyModel
+               READ allGenresProxyModel
+               NOTIFY allGenresProxyModelChanged)
+
+    Q_PROPERTY(AllArtistsProxyModel *allComposersProxyModel
+               READ allComposersProxyModel
+               NOTIFY allComposersProxyModelChanged)
+
+    Q_PROPERTY(AllArtistsProxyModel *allLyricistsProxyModel
+               READ allLyricistsProxyModel
+               NOTIFY allLyricistsProxyModelChanged)
+
     Q_PROPERTY(SingleArtistProxyModel *singleArtistProxyModel
                READ singleArtistProxyModel
                NOTIFY singleArtistProxyModelChanged)
@@ -105,6 +117,12 @@ public:
 
     AllArtistsProxyModel *allArtistsProxyModel() const;
 
+    AllArtistsProxyModel *allGenresProxyModel() const;
+
+    AllArtistsProxyModel *allComposersProxyModel() const;
+
+    AllArtistsProxyModel *allLyricistsProxyModel() const;
+
     AllTracksProxyModel *allTracksProxyModel() const;
 
     SingleArtistProxyModel *singleArtistProxyModel() const;
@@ -126,6 +144,12 @@ Q_SIGNALS:
     void allAlbumsProxyModelChanged();
 
     void allArtistsProxyModelChanged();
+
+    void allGenresProxyModelChanged();
+
+    void allComposersProxyModelChanged();
+
+    void allLyricistsProxyModelChanged();
 
     void allTracksProxyModelChanged();
 

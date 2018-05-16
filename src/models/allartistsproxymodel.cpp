@@ -19,14 +19,15 @@
 
 #include "allartistsproxymodel.h"
 
-#include "allartistsmodel.h"
+#include "genericdatamodel.h"
 
 #include <QReadLocker>
 #include <QtConcurrentRun>
+#include <Qt>
 
 AllArtistsProxyModel::AllArtistsProxyModel(QObject *parent) : AbstractMediaProxyModel(parent)
 {
-    this->setSortRole(AllArtistsModel::NameRole);
+    this->setSortRole(Qt::DisplayRole);
     this->setSortCaseSensitivity(Qt::CaseInsensitive);
     this->sortModel(Qt::AscendingOrder);
 }
@@ -42,7 +43,7 @@ bool AllArtistsProxyModel::filterAcceptsRow(int source_row, const QModelIndex &s
     for (int column = 0, columnCount = sourceModel()->columnCount(source_parent); column < columnCount; ++column) {
         auto currentIndex = sourceModel()->index(source_row, column, source_parent);
 
-        const auto &artistValue = sourceModel()->data(currentIndex, AllArtistsModel::NameRole).toString();
+        const auto &artistValue = sourceModel()->data(currentIndex, Qt::DisplayRole).toString();
 
         if (mFilterExpression.match(artistValue).hasMatch()) {
             result = true;
@@ -69,7 +70,7 @@ void AllArtistsProxyModel::enqueueToPlayList()
         allArtists.reserve(rowCount());
         for (int rowIndex = 0, maxRowCount = rowCount(); rowIndex < maxRowCount; ++rowIndex) {
             auto currentIndex = index(rowIndex, 0);
-            allArtists.push_back(data(currentIndex, AllArtistsModel::NameRole).toString());
+            allArtists.push_back(data(currentIndex, Qt::DisplayRole).toString());
         }
         Q_EMIT artistToEnqueue(allArtists,
                                ElisaUtils::AppendPlayList,
@@ -85,7 +86,7 @@ void AllArtistsProxyModel::replaceAndPlayOfPlayList()
         allArtists.reserve(rowCount());
         for (int rowIndex = 0, maxRowCount = rowCount(); rowIndex < maxRowCount; ++rowIndex) {
             auto currentIndex = index(rowIndex, 0);
-            allArtists.push_back(data(currentIndex, AllArtistsModel::NameRole).toString());
+            allArtists.push_back(data(currentIndex, Qt::DisplayRole).toString());
         }
         Q_EMIT artistToEnqueue(allArtists,
                                ElisaUtils::ReplacePlayList,

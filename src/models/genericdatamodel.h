@@ -64,7 +64,7 @@ public:
 
 Q_SIGNALS:
 
-    void neededData(qulonglong databaseId) const;
+    void neededData(int row) const;
 
     void dataTypeChanged(ElisaUtils::DataType dataType);
 
@@ -74,13 +74,13 @@ Q_SIGNALS:
 
 public Q_SLOTS:
 
-    void receiveData(qulonglong databaseId, QMap<ElisaUtils::ColumnsRoles, QVariant> cacheData);
+    void receiveData(int row);
 
     void setDataType(ElisaUtils::DataType dataType);
 
     void setModelCache(ModelDataCache* modelCache);
 
-    void modelDataChanged();
+    void modelDataChanged(int lowerBound, int upperBound);
 
 private:
 
@@ -89,5 +89,7 @@ private:
     std::unique_ptr<GenericDataModelPrivate> d;
 
 };
+
+
 
 #endif // GENERICDATAMODEL_H

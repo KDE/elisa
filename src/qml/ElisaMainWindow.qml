@@ -266,9 +266,9 @@ ApplicationWindow {
     {
         elisa.initialize()
 
-        elisa.mediaPlayList.randomPlay = Qt.binding(function() { return contentView.playList.randomPlayChecked })
-        elisa.mediaPlayList.repeatPlay = Qt.binding(function() { return contentView.playList.repeatPlayChecked })
-        elisa.playerControl.randomOrContinuePlay = Qt.binding(function() { return contentView.playList.randomPlayChecked || contentView.playList.repeatPlayChecked })
+        elisa.mediaPlayList.randomPlay = Qt.binding(function() { return headerBar.playerControl.shuffle })
+        elisa.mediaPlayList.repeatPlay = Qt.binding(function() { return headerBar.playerControl.repeat })
+        elisa.playerControl.randomOrContinuePlay = Qt.binding(function() { return headerBar.playerControl.shuffle || headerBar.playerControl.repeat })
 
         if (persistentSettings.playListState) {
             elisa.mediaPlayList.persistentState = persistentSettings.playListState

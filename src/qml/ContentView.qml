@@ -392,9 +392,9 @@ RowLayout {
 
                     visible: Layout.minimumWidth != 0
 
-                    artistName: myHeaderBarManager.artist
-                    albumName: myHeaderBarManager.album
-                    albumArtUrl: myHeaderBarManager.image
+                    artistName: elisa.manageHeaderBar.artist
+                    albumName: elisa.manageHeaderBar.album
+                    albumArtUrl: elisa.manageHeaderBar.image
                 }
             }
         }

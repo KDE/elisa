@@ -40,6 +40,8 @@ class SingleAlbumProxyModel;
 class MediaPlayList;
 class AudioWrapper;
 class ManageAudioPlayer;
+class ManageMediaPlayerControl;
+class ManageHeaderBar;
 class ElisaApplicationPrivate;
 
 class ELISALIB_EXPORT ElisaApplication : public QObject
@@ -88,6 +90,14 @@ class ELISALIB_EXPORT ElisaApplication : public QObject
                READ audioControl
                NOTIFY audioControlChanged)
 
+    Q_PROPERTY(ManageMediaPlayerControl *playerControl
+               READ playerControl
+               NOTIFY playerControlChanged)
+
+    Q_PROPERTY(ManageHeaderBar *manageHeaderBar
+               READ manageHeaderBar
+               NOTIFY manageHeaderBarChanged)
+
 public:
     explicit ElisaApplication(QObject *parent = nullptr);
 
@@ -117,6 +127,10 @@ public:
 
     ManageAudioPlayer *audioControl() const;
 
+    ManageMediaPlayerControl *playerControl() const;
+
+    ManageHeaderBar *manageHeaderBar() const;
+
 Q_SIGNALS:
 
     void argumentsChanged();
@@ -138,6 +152,10 @@ Q_SIGNALS:
     void audioPlayerChanged();
 
     void audioControlChanged();
+
+    void playerControlChanged();
+
+    void manageHeaderBarChanged();
 
     void enqueue(const QStringList &files);
 
@@ -170,6 +188,10 @@ private Q_SLOTS:
     void find();
 
 private:
+
+    void initializeModels();
+
+    void initializePlayer();
 
     void setupActions(const QString &actionName);
 

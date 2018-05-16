@@ -3199,12 +3199,15 @@ private Q_SLOTS:
             DatabaseInterface musicDb;
 
             QSignalSpy musicDbTrackAddedSpy(&musicDb, &DatabaseInterface::tracksAdded);
+            QSignalSpy musicDbDatabaseErrorSpy(&musicDb, &DatabaseInterface::databaseError);
 
             musicDb.init(QStringLiteral("testDb"), databaseFile.fileName());
 
             musicDb.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
             musicDbTrackAddedSpy.wait(300);
+
+            QCOMPARE(musicDbDatabaseErrorSpy.count(), 0);
         }
 
         DatabaseInterface musicDb2;
@@ -3218,6 +3221,7 @@ private Q_SLOTS:
         QSignalSpy musicDbArtistModifiedSpy2(&musicDb2, &DatabaseInterface::artistModified);
         QSignalSpy musicDbAlbumModifiedSpy2(&musicDb2, &DatabaseInterface::albumModified);
         QSignalSpy musicDbTrackModifiedSpy2(&musicDb2, &DatabaseInterface::trackModified);
+        QSignalSpy musicDbDatabaseErrorSpy2(&musicDb2, &DatabaseInterface::databaseError);
 
         QCOMPARE(musicDb2.allAlbums().count(), 0);
         QCOMPARE(musicDb2.allArtists().count(), 0);
@@ -3231,6 +3235,7 @@ private Q_SLOTS:
         QCOMPARE(musicDbArtistModifiedSpy2.count(), 0);
         QCOMPARE(musicDbAlbumModifiedSpy2.count(), 0);
         QCOMPARE(musicDbTrackModifiedSpy2.count(), 0);
+        QCOMPARE(musicDbDatabaseErrorSpy2.count(), 0);
 
         musicDb2.init(QStringLiteral("testDb2"), databaseFile.fileName());
 
@@ -3248,6 +3253,7 @@ private Q_SLOTS:
         QCOMPARE(musicDbArtistModifiedSpy2.count(), 0);
         QCOMPARE(musicDbAlbumModifiedSpy2.count(), 0);
         QCOMPARE(musicDbTrackModifiedSpy2.count(), 0);
+        QCOMPARE(musicDbDatabaseErrorSpy2.count(), 0);
 
         musicDb2.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
@@ -3263,6 +3269,7 @@ private Q_SLOTS:
         QCOMPARE(musicDbArtistModifiedSpy2.count(), 0);
         QCOMPARE(musicDbAlbumModifiedSpy2.count(), 1);
         QCOMPARE(musicDbTrackModifiedSpy2.count(), 1);
+        QCOMPARE(musicDbDatabaseErrorSpy2.count(), 0);
     }
 
     void testRemovalOfTracksFromInvalidSource()

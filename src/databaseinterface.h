@@ -22,9 +22,12 @@
 
 #include "elisaLib_export.h"
 
+#include "datatype.h"
+#include "elisautils.h"
 #include "musicalbum.h"
 #include "musicaudiotrack.h"
 #include "musicartist.h"
+#include "musicaudiogenre.h"
 
 #include <QObject>
 #include <QString>
@@ -41,6 +44,7 @@
 class DatabaseInterfacePrivate;
 class QMutex;
 class QSqlRecord;
+class QSqlQuery;
 
 class ELISALIB_EXPORT DatabaseInterface : public QObject
 {
@@ -56,6 +60,14 @@ public:
         Id,
     };
 
+    enum PropertyType {
+        DatabaseId,
+        DisplayRole,
+        SecondaryRole,
+    };
+
+    Q_ENUMS(PropertyType)
+
     explicit DatabaseInterface(QObject *parent = nullptr);
 
     ~DatabaseInterface() override;
@@ -64,6 +76,8 @@ public:
 
     MusicAlbum albumFromTitleAndArtist(const QString &title, const QString &artist);
 
+    QList<QMap<PropertyType, QVariant>> allData(DataUtils::DataType aType);
+
     QList<MusicAudioTrack> allTracks();
 
     QList<MusicAudioTrack> allTracksFromSource(const QString &musicSource);
@@ -71,6 +85,12 @@ public:
     QList<MusicAlbum> allAlbums();
 
     QList<MusicArtist> allArtists();
+
+    QList<MusicAudioGenre> allGenres();
+
+    QList<MusicArtist> allComposers();
+
+    QList<MusicArtist> allLyricists();
 
     QList<MusicAudioTrack> tracksFromAuthor(const QString &artistName);
 
@@ -87,13 +107,15 @@ Q_SIGNALS:
 
     void artistsAdded(const QList<MusicArtist> &newArtist);
 
-    void composerAdded(const MusicArtist &newComposer);
+    void composersAdded(const QList<MusicArtist> &newComposer);
 
-    void lyricistAdded(const MusicArtist &newLyricist);
+    void lyricistsAdded(const QList<MusicArtist> &newLyricist);
 
     void albumsAdded(const QList<MusicAlbum> &newAlbum);
 
     void tracksAdded(const QList<MusicAudioTrack> &allTracks);
+
+    void genresAdded(const QList<MusicAudioGenre> &allGenres);
 
     void artistRemoved(const MusicArtist &removedArtist);
 
@@ -110,8 +132,6 @@ Q_SIGNALS:
     void sentAlbumData(const MusicAlbum albumData);
 
     void requestsInitDone();
-
-    void genreAdded(QString genreName);
 
     void databaseError();
 
@@ -187,7 +207,7 @@ private:
 
     qulonglong insertGenre(const QString &name);
 
-    QString internalGenreFromId(qulonglong genreId);
+    MusicAudioGenre internalGenreFromId(qulonglong genreId);
 
     void removeTrackInDatabase(qulonglong trackId);
 
@@ -233,8 +253,27 @@ private:
 
     QHash<QUrl, QDateTime> internalAllFileNameFromSource(qulonglong sourceId);
 
+    QList<QMap<PropertyType, QVariant>> internalAllGenericPartialData(QSqlQuery &query, int nbFields);
+
+    QList<QMap<PropertyType, QVariant>> internalAllArtistsPartialData();
+
+    QList<QMap<PropertyType, QVariant>> internalAllAlbumsPartialData();
+
+    QList<QMap<PropertyType, QVariant>> internalAllTracksPartialData();
+
+    QList<QMap<PropertyType, QVariant>> internalAllGenresPartialData();
+
+    QList<QMap<PropertyType, QVariant>> internalAllComposersPartialData();
+
+    QList<QMap<PropertyType, QVariant>> internalAllLyricistsPartialData();
+
+    QList<MusicArtist> internalAllPeople(QSqlQuery allPeopleQuery,
+                                         QSqlQuery selectCountAlbumsForPeopleQuery);
+
     std::unique_ptr<DatabaseInterfacePrivate> d;
 
 };
+
+
 
 #endif // DATABASEINTERFACE_H

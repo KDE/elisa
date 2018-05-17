@@ -22,6 +22,10 @@
 
 #include "elisaLib_export.h"
 
+<<<<<<< HEAD
+=======
+#include "datatype.h"
+>>>>>>> databaseForGenreModel
 #include "elisautils.h"
 #include "musicalbum.h"
 #include "musicaudiotrack.h"
@@ -75,7 +79,7 @@ public:
 
     MusicAlbum albumFromTitleAndArtist(const QString &title, const QString &artist);
 
-    QList<QMap<PropertyType, QVariant>> allData(ElisaUtils::DataType aType);
+    QList<QMap<PropertyType, QVariant>> allData(DataUtils::DataType aType);
 
     QList<MusicAudioTrack> allTracks();
 

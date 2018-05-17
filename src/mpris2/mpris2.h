@@ -47,15 +47,10 @@ class ELISALIB_EXPORT Mpris2 : public QObject
                WRITE setPlayerName
                NOTIFY playerNameChanged)
 
-    Q_PROPERTY(QAbstractItemModel* playListModel
+    Q_PROPERTY(MediaPlayList* playListModel
                READ playListModel
                WRITE setPlayListModel
                NOTIFY playListModelChanged)
-
-    Q_PROPERTY(MediaPlayList* playListControler
-               READ playListControler
-               WRITE setPlayListControler
-               NOTIFY playListControlerChanged)
 
     Q_PROPERTY(ManageAudioPlayer* audioPlayerManager
                READ audioPlayerManager
@@ -83,9 +78,7 @@ public:
 
     QString playerName() const;
 
-    QAbstractItemModel* playListModel() const;
-
-    MediaPlayList* playListControler() const;
+    MediaPlayList* playListModel() const;
 
     ManageAudioPlayer* audioPlayerManager() const;
 
@@ -99,9 +92,7 @@ public Q_SLOTS:
 
     void setPlayerName(const QString &playerName);
 
-    void setPlayListModel(QAbstractItemModel* playListModel);
-
-    void setPlayListControler(MediaPlayList* playListControler);
+    void setPlayListModel(MediaPlayList* playListModel);
 
     void setAudioPlayerManager(ManageAudioPlayer* audioPlayerManager);
 
@@ -118,8 +109,6 @@ Q_SIGNALS:
 
     void playListModelChanged();
 
-    void playListControlerChanged();
-
     void audioPlayerManagerChanged();
 
     void manageMediaPlayerControlChanged();
@@ -135,8 +124,7 @@ private:
     std::unique_ptr<MediaPlayer2> m_mp2;
     std::unique_ptr<MediaPlayer2Player> m_mp2p;
     QString m_playerName;
-    QAbstractItemModel* m_playListModel = nullptr;
-    MediaPlayList* m_playListControler = nullptr;
+    MediaPlayList* m_playListModel = nullptr;
     ManageAudioPlayer* m_manageAudioPlayer = nullptr;
     ManageMediaPlayerControl* m_manageMediaPlayerControl = nullptr;
     ManageHeaderBar* m_manageHeaderBar = nullptr;

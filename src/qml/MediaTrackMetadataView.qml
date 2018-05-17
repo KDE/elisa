@@ -36,10 +36,9 @@ Window {
 
     title: i18nc("Window title for track metadata", "View Details")
 
-    modality: Qt.NonModal
-    flags: Qt.Dialog | Qt.WindowCloseButtonHint
-
-    Component.onCompleted: {
+    function displayDataAndResize()
+    {
+        trackList.clear()
         if (trackDataHelper.hasValidTitle())
             trackList.append({"name": i18nc("Track title for track metadata view", "Title:"), "content": trackDataHelper.title})
         if (trackDataHelper.hasValidArtist())
@@ -70,13 +69,24 @@ Window {
         if (trackDataHelper.hasValidComment())
             trackList.append({"name": i18nc("Comment label for track metadata view", "Comment:"), "content": trackDataHelper.comment})
         trackData.Layout.preferredHeight = textSize.height * trackData.count
-        trackMetadata.height = textSize.height * (trackData.count + 1 + ( rating > -1 ? 1 : 0 )) + buttons.height + elisaTheme.layoutHorizontalMargin
+        trackMetadata.height = textSize.height * (trackData.count + 1 + ( trackDataHelper.hasValidRating() ? 1 : 0 )) + buttons.height + elisaTheme.layoutHorizontalMargin
         trackMetadata.maximumHeight = trackMetadata.height
         trackMetadata.minimumHeight = trackMetadata.height
         trackMetadata.width = elisaTheme.trackMetadataWidth + (trackDataHelper.hasValidAlbumCover() ? elisaTheme.coverImageSize : 0)
         trackMetadata.maximumWidth = trackMetadata.width
         trackMetadata.minimumWidth = trackMetadata.width
     }
+
+    Connections {
+        target: trackDataHelper
+
+        onTrackDataChanged: displayDataAndResize()
+    }
+
+    modality: Qt.NonModal
+    flags: Qt.Dialog | Qt.WindowCloseButtonHint
+
+    Component.onCompleted: displayDataAndResize()
 
     Rectangle {
         anchors.fill: parent
@@ -177,7 +187,7 @@ Window {
 
                         RatingStar {
                             id: ratingWidget
-                            starRating: rating
+                            starRating: trackDataHelper.rating
                             readOnly: true
 
                             starSize: elisaTheme.ratingStarSize

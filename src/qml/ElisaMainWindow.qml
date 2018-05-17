@@ -92,8 +92,6 @@ ApplicationWindow {
 
         property var playListState
 
-        property var playListControlerState
-
         property var audioPlayerState
 
         property double playControlItemVolume : 100.0
@@ -116,7 +114,6 @@ ApplicationWindow {
             persistentSettings.height = mainWindow.height;
 
             persistentSettings.playListState = elisa.mediaPlayList.persistentState;
-            persistentSettings.playListControlerState = elisa.mediaPlayList.persistentState;
             persistentSettings.audioPlayerState = elisa.audioControl.persistentState
 
             persistentSettings.playControlItemVolume = headerBar.playerControl.volume
@@ -135,7 +132,6 @@ ApplicationWindow {
             id: platformInterface
 
             playListModel: elisa.mediaPlayList
-            playListControler: elisa.mediaPlayList
             audioPlayerManager: elisa.audioControl
             player: elisa.audioPlayer
             headerBarManager: myHeaderBarManager

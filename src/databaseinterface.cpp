@@ -278,7 +278,7 @@ MusicAlbum DatabaseInterface::albumFromTitleAndArtist(const QString &title, cons
     return result;
 }
 
-QList<QMap<DatabaseInterface::PropertyType, QVariant>> DatabaseInterface::allData(ElisaUtils::DataType aType)
+QList<QMap<DatabaseInterface::PropertyType, QVariant>> DatabaseInterface::allData(DataUtils::DataType aType)
 {
     auto result = QList<QMap<PropertyType, QVariant>>{};
 
@@ -289,25 +289,25 @@ QList<QMap<DatabaseInterface::PropertyType, QVariant>> DatabaseInterface::allDat
 
     switch (aType)
     {
-    case ElisaUtils::AllArtists:
+    case DataUtils::AllArtists:
         result = internalAllArtistsPartialData();
         break;
-    case ElisaUtils::AllAlbums:
+    case DataUtils::AllAlbums:
         result = internalAllAlbumsPartialData();
         break;
-    case ElisaUtils::AllTracks:
+    case DataUtils::AllTracks:
         result = internalAllTracksPartialData();
         break;
-    case ElisaUtils::AllGenres:
+    case DataUtils::AllGenres:
         result = internalAllGenresPartialData();
         break;
-    case ElisaUtils::AllComposers:
+    case DataUtils::AllComposers:
         result = internalAllComposersPartialData();
         break;
-    case ElisaUtils::AllLyricists:
+    case DataUtils::AllLyricists:
         result = internalAllLyricistsPartialData();
         break;
-    case ElisaUtils::UnknownType:
+    case DataUtils::UnknownType:
         break;
     };
 
@@ -466,7 +466,15 @@ QList<MusicAlbum> DatabaseInterface::allAlbums()
 
 QList<MusicArtist> DatabaseInterface::allArtists()
 {
-    return internalAllPeople(d->mSelectAllArtistsQuery, d->mSelectCountAlbumsForArtistQuery);
+    auto result = QList<MusicArtist>{};
+
+    if (!d) {
+        return result;
+    }
+
+    result = internalAllPeople(d->mSelectAllArtistsQuery, d->mSelectCountAlbumsForArtistQuery);
+
+    return result;
 }
 
 QList<MusicAudioGenre> DatabaseInterface::allGenres()
@@ -1456,7 +1464,7 @@ void DatabaseInterface::initRequest()
     {
         auto selectAllLyricistsWithFilterText = QStringLiteral("SELECT `ID`, "
                                                                "`Name` "
-                                                               "FROM `Lyricists` "
+                                                               "FROM `Lyricist` "
                                                                "ORDER BY `Name` COLLATE NOCASE");
 
         auto result = d->mSelectAllLyricistsQuery.prepare(selectAllLyricistsWithFilterText);
@@ -1826,11 +1834,13 @@ void DatabaseInterface::initRequest()
     }
 
     {
-        auto selectCountAlbumsQueryText = QStringLiteral("SELECT count(*) "
-                                                         "FROM `Albums` album, `Artists` artist, `AlbumsComposers` albumArtist "
-                                                         "WHERE artist.`Name` = :artistName AND "
-                                                         "album.`ID` = albumArtist.`AlbumID` AND "
-                                                         "artist.`ID` = albumArtist.`ArtistID`");
+        auto selectCountAlbumsQueryText = QStringLiteral("SELECT distinct count(album.`ID`) "
+                                                         "FROM `Albums` album, "
+                                                         "`Tracks` track, "
+                                                         "`Composer` albumComposer "
+                                                         "WHERE albumComposer.`Name` = :artistName AND "
+                                                         "track.`ComposerID` = albumComposer.`ID` AND "
+                                                         "track.`AlbumID` = album.`ID`");
 
         const auto result = d->mSelectCountAlbumsForComposerQuery.prepare(selectCountAlbumsQueryText);
 
@@ -1843,11 +1853,13 @@ void DatabaseInterface::initRequest()
     }
 
     {
-        auto selectCountAlbumsQueryText = QStringLiteral("SELECT count(*) "
-                                                         "FROM `Albums` album, `Artists` artist, `AlbumsComposers` albumArtist "
-                                                         "WHERE artist.`Name` = :artistName AND "
-                                                         "album.`ID` = albumArtist.`AlbumID` AND "
-                                                         "artist.`ID` = albumArtist.`ArtistID`");
+        auto selectCountAlbumsQueryText = QStringLiteral("SELECT distinct count(album.`ID`) "
+                                                         "FROM `Albums` album, "
+                                                         "`Tracks` track, "
+                                                         "`Lyricist` albumLyricist "
+                                                         "WHERE albumLyricist.`Name` = :artistName AND "
+                                                         "track.`LyricistID` = albumLyricist.`ID` AND "
+                                                         "track.`AlbumID` = album.`ID`");
 
         const auto result = d->mSelectCountAlbumsForLyricistQuery.prepare(selectCountAlbumsQueryText);
 

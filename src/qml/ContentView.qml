@@ -234,6 +234,7 @@ RowLayout {
                                                                         mainTitle: innerMainTitle,
                                                                         secondaryTitle: innerSecondaryTitle,
                                                                         image: innerImage,
+                                                                        stackView: localArtists.stackView
                                                                     })
 
                                     }
@@ -450,12 +451,6 @@ RowLayout {
             State {
                 name: 'allAlbums'
                 when: listViews.currentIndex === 1
-                StateChangeScript {
-                    script: {
-                        if (localAlbumsLoader.localAlbums)
-                            localAlbumsLoader.localAlbums.stackView.pop({item: null, immediate: true})
-                    }
-                }
                 PropertyChanges {
                     target: mainContentView
                     Layout.fillWidth: true
@@ -503,12 +498,6 @@ RowLayout {
             State {
                 name: 'allArtists'
                 when: listViews.currentIndex === 2
-                StateChangeScript {
-                    script: {
-                        if (localArtistsLoader.localArtists)
-                            localArtistsLoader.localArtists.stackView.pop({item: null, immediate: true})
-                    }
-                }
                 PropertyChanges {
                     target: mainContentView
                     Layout.fillWidth: true
@@ -623,15 +612,15 @@ RowLayout {
 
             onOpen: {
                 elisa.singleAlbumProxyModel.loadAlbumData(databaseId)
-                localArtists.stackView.push(albumView, {
-                                                mainTitle: innerMainTitle,
-                                                secondaryTitle: innerSecondaryTitle,
-                                                image: innerImage,
-                                                stackView: localArtists.stackView,
-                                            })
+                innerAlbumGridView.stackView.push(albumView, {
+                                                      mainTitle: innerMainTitle,
+                                                      secondaryTitle: innerSecondaryTitle,
+                                                      image: innerImage,
+                                                      stackView: innerAlbumGridView.stackView,
+                                                  })
             }
 
-            onGoBack: localArtists.stackView.pop()
+            onGoBack: innerAlbumGridView.stackView.pop()
 
             Binding {
                 target: innerAlbumGridView

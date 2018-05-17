@@ -29,6 +29,8 @@
 #include "mediaplaylist.h"
 #include "audiowrapper.h"
 #include "manageaudioplayer.h"
+#include "managemediaplayercontrol.h"
+#include "manageheaderbar.h"
 
 #include "elisa_settings.h"
 #include <KConfigCore/KAuthorized>
@@ -111,6 +113,10 @@ public:
     std::unique_ptr<AudioWrapper> mAudioWrapper;
 
     std::unique_ptr<ManageAudioPlayer> mAudioControl;
+
+    std::unique_ptr<ManageMediaPlayerControl> mPlayerControl;
+
+    std::unique_ptr<ManageHeaderBar> mManageHeaderBar;
 
 };
 
@@ -277,6 +283,12 @@ QStringList ElisaApplication::checkFileListAndMakeAbsolute(const QStringList &fi
 
 void ElisaApplication::initialize()
 {
+    initializeModels();
+    initializePlayer();
+}
+
+void ElisaApplication::initializeModels()
+{
     d->mMusicManager = std::make_unique<MusicListenersManager>();
     Q_EMIT musicManagerChanged();
     d->mAllAlbumsProxyModel = std::make_unique<AllAlbumsProxyModel>();
@@ -297,10 +309,6 @@ void ElisaApplication::initialize()
     Q_EMIT singleAlbumProxyModelChanged();
     d->mMediaPlayList = std::make_unique<MediaPlayList>();
     Q_EMIT mediaPlayListChanged();
-    d->mAudioWrapper = std::make_unique<AudioWrapper>();
-    Q_EMIT audioPlayerChanged();
-    d->mAudioControl = std::make_unique<ManageAudioPlayer>();
-    Q_EMIT audioControlChanged();
 
     d->mMusicManager->setElisaApplication(this);
 
@@ -339,16 +347,25 @@ void ElisaApplication::initialize()
                                                                          ElisaUtils::PlayListEnqueueMode,
                                                                          ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayList::enqueue));
 
+}
+
+void ElisaApplication::initializePlayer()
+{
+    d->mAudioWrapper = std::make_unique<AudioWrapper>();
+    Q_EMIT audioPlayerChanged();
+    d->mAudioControl = std::make_unique<ManageAudioPlayer>();
+    Q_EMIT audioControlChanged();
+    d->mPlayerControl = std::make_unique<ManageMediaPlayerControl>();
+    Q_EMIT playerControlChanged();
+    d->mManageHeaderBar = std::make_unique<ManageHeaderBar>();
+    Q_EMIT manageHeaderBarChanged();
+
     d->mAudioControl->setAlbumNameRole(MediaPlayList::AlbumRole);
     d->mAudioControl->setArtistNameRole(MediaPlayList::ArtistRole);
     d->mAudioControl->setTitleRole(MediaPlayList::TitleRole);
     d->mAudioControl->setUrlRole(MediaPlayList::ResourceRole);
     d->mAudioControl->setIsPlayingRole(MediaPlayList::IsPlayingRole);
     d->mAudioControl->setPlayListModel(d->mMediaPlayList.get());
-    d->mAudioControl->setCurrentTrack(d->mMediaPlayList->currentTrack());
-
-
-    d->mAudioWrapper->setSource(d->mAudioControl->playerSource());
 
     QObject::connect(d->mAudioControl.get(), &ManageAudioPlayer::playerPlay, d->mAudioWrapper.get(), &AudioWrapper::play);
     QObject::connect(d->mAudioControl.get(), &ManageAudioPlayer::playerPause, d->mAudioWrapper.get(), &AudioWrapper::pause);
@@ -369,6 +386,20 @@ void ElisaApplication::initialize()
     QObject::connect(d->mAudioWrapper.get(), &AudioWrapper::durationChanged, d->mAudioControl.get(), &ManageAudioPlayer::setAudioDuration);
     QObject::connect(d->mAudioWrapper.get(), &AudioWrapper::seekableChanged, d->mAudioControl.get(), &ManageAudioPlayer::setPlayerIsSeekable);
     QObject::connect(d->mAudioWrapper.get(), &AudioWrapper::positionChanged, d->mAudioControl.get(), &ManageAudioPlayer::setPlayerPosition);
+
+    d->mPlayerControl->setPlayListModel(d->mMediaPlayList.get());
+    QObject::connect(d->mMediaPlayList.get(), &MediaPlayList::currentTrackChanged, d->mPlayerControl.get(), &ManageMediaPlayerControl::setCurrentTrack);
+    QObject::connect(d->mAudioWrapper.get(), &AudioWrapper::playing, d->mPlayerControl.get(), &ManageMediaPlayerControl::playerPlaying);
+    QObject::connect(d->mAudioWrapper.get(), &AudioWrapper::paused, d->mPlayerControl.get(), &ManageMediaPlayerControl::playerPaused);
+    QObject::connect(d->mAudioWrapper.get(), &AudioWrapper::stopped, d->mPlayerControl.get(), &ManageMediaPlayerControl::playerStopped);
+
+    d->mManageHeaderBar->setTitleRole(MediaPlayList::TitleRole);
+    d->mManageHeaderBar->setAlbumRole(MediaPlayList::AlbumRole);
+    d->mManageHeaderBar->setArtistRole(MediaPlayList::ArtistRole);
+    d->mManageHeaderBar->setImageRole(MediaPlayList::ImageRole);
+    d->mManageHeaderBar->setIsValidRole(MediaPlayList::IsValidRole);
+    d->mManageHeaderBar->setPlayListModel(d->mMediaPlayList.get());
+    QObject::connect(d->mMediaPlayList.get(), &MediaPlayList::currentTrackChanged, d->mManageHeaderBar.get(), &ManageHeaderBar::setCurrentTrack);
 
     if (!d->mArguments.isEmpty()) {
         Q_EMIT enqueue(d->mArguments);
@@ -461,6 +492,16 @@ AudioWrapper *ElisaApplication::audioPlayer() const
 ManageAudioPlayer *ElisaApplication::audioControl() const
 {
     return d->mAudioControl.get();
+}
+
+ManageMediaPlayerControl *ElisaApplication::playerControl() const
+{
+    return d->mPlayerControl.get();
+}
+
+ManageHeaderBar *ElisaApplication::manageHeaderBar() const
+{
+    return d->mManageHeaderBar.get();
 }
 
 #include "moc_elisaapplication.cpp"

@@ -134,34 +134,21 @@ ApplicationWindow {
             playListModel: elisa.mediaPlayList
             audioPlayerManager: elisa.audioControl
             player: elisa.audioPlayer
-            headerBarManager: myHeaderBarManager
-            manageMediaPlayerControl: myPlayControlManager
-            onRaisePlayer:
-            {
+            headerBarManager: elisa.manageHeaderBar
+            manageMediaPlayerControl: elisa.playerControl
+            onRaisePlayer: {
                 mainWindow.show()
                 mainWindow.raise()
                 mainWindow.requestActivate()
             }
+
         }
     }
 
     Connections {
         target: elisa.audioPlayer
-
         onVolumeChanged: headerBar.playerControl.volume = elisa.audioPlayer.volume
         onMutedChanged: headerBar.playerControl.muted = elisa.audioPlayer.muted
-
-        onPlaying: {
-            myPlayControlManager.playerPlaying()
-        }
-
-        onPaused: {
-            myPlayControlManager.playerPaused()
-        }
-
-        onStopped: {
-            myPlayControlManager.playerStopped()
-        }
     }
 
     Connections {
@@ -170,26 +157,6 @@ ApplicationWindow {
         onPlayListLoadFailed: {
             messageNotification.showNotification(i18nc("message of passive notification when playlist load failed", "Load of playlist failed"), 3000)
         }
-    }
-
-    ManageHeaderBar {
-        id: myHeaderBarManager
-
-        playListModel: elisa.mediaPlayList
-        currentTrack: elisa.mediaPlayList.currentTrack
-
-        artistRole: MediaPlayList.ArtistRole
-        titleRole: MediaPlayList.TitleRole
-        albumRole: MediaPlayList.AlbumRole
-        imageRole: MediaPlayList.ImageRole
-        isValidRole: MediaPlayList.IsValidRole
-    }
-
-    ManageMediaPlayerControl {
-        id: myPlayControlManager
-
-        playListModel: elisa.mediaPlayList
-        currentTrack: elisa.mediaPlayList.currentTrack
     }
 
     PassiveNotification {
@@ -217,11 +184,11 @@ ApplicationWindow {
 
                     anchors.fill: parent
 
-                    tracksCount: myHeaderBarManager.remainingTracks
-                    album: myHeaderBarManager.album
-                    title: myHeaderBarManager.title
-                    artist: myHeaderBarManager.artist
-                    image: myHeaderBarManager.image
+                    tracksCount: elisa.manageHeaderBar.remainingTracks
+                    album: elisa.manageHeaderBar.album
+                    title: elisa.manageHeaderBar.title
+                    artist: elisa.manageHeaderBar.artist
+                    image: elisa.manageHeaderBar.image
 
                     ratingVisible: false
 
@@ -231,10 +198,10 @@ ApplicationWindow {
                     playerControl.volume: persistentSettings.playControlItemVolume
                     playerControl.muted: persistentSettings.playControlItemMuted
                     playerControl.position: elisa.audioPlayer.position
-                    playerControl.skipBackwardEnabled: myPlayControlManager.skipBackwardControlEnabled
-                    playerControl.skipForwardEnabled: myPlayControlManager.skipForwardControlEnabled
-                    playerControl.playEnabled: myPlayControlManager.playControlEnabled
-                    playerControl.isPlaying: myPlayControlManager.musicPlaying
+                    playerControl.skipBackwardEnabled: elisa.playerControl.skipBackwardControlEnabled
+                    playerControl.skipForwardEnabled: elisa.playerControl.skipForwardControlEnabled
+                    playerControl.playEnabled: elisa.playerControl.playControlEnabled
+                    playerControl.isPlaying: elisa.playerControl.musicPlaying
 
                     playerControl.repeat: persistentSettings.playControlItemRepeat
                     playerControl.shuffle: persistentSettings.playControlItemShuffle
@@ -301,9 +268,7 @@ ApplicationWindow {
 
         elisa.mediaPlayList.randomPlay = Qt.binding(function() { return headerBar.playerControl.shuffle })
         elisa.mediaPlayList.repeatPlay = Qt.binding(function() { return headerBar.playerControl.repeat })
-        myPlayControlManager.randomOrContinuePlay = Qt.binding(function() { return headerBar.playerControl.shuffle || headerBar.playerControl.repeat })
-        myPlayControlManager.playListModel = Qt.binding(function() { return elisa.mediaPlayList })
-        myPlayControlManager.currentTrack = Qt.binding(function() { return elisa.mediaPlayList.currentTrack })
+        elisa.playerControl.randomOrContinuePlay = Qt.binding(function() { return headerBar.playerControl.shuffle || headerBar.playerControl.repeat })
 
         if (persistentSettings.playListState) {
             elisa.mediaPlayList.persistentState = persistentSettings.playListState
@@ -315,8 +280,6 @@ ApplicationWindow {
 
         elisa.audioPlayer.muted = Qt.binding(function() { return headerBar.playerControl.muted })
         elisa.audioPlayer.volume = Qt.binding(function() { return headerBar.playerControl.volume })
-
-        volume: headerBar.playerControl.volume
 
         mprisloader.active = true
     }

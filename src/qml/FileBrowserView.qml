@@ -70,6 +70,7 @@ FocusScope {
             image: elisaTheme.folderIcon
             secondaryTitle: contentModel.url
             enableGoBack: contentModel.canGoBack
+            sortOrder: contentModel.sortedAscending
             showRating: false
 
             height: elisaTheme.navigationBarHeight
@@ -88,6 +89,7 @@ FocusScope {
             onReplaceAndPlay: contentModel.replaceAndPlayOfPlayList()
             onGoBack: contentModel.openParentFolder()
             onFilterViewChanged: fileView.filterViewChanged(expandedFilterView)
+            onSort: contentModel.sortModel(order)
         }
 
         Rectangle {

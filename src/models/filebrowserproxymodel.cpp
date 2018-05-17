@@ -180,4 +180,15 @@ QString FileBrowserProxyModel::url() const
     return mFileModel->dirLister()->url().toLocalFile();
 }
 
+bool FileBrowserProxyModel::sortedAscending() const
+{
+    return sortOrder() ? false : true;
+}
+
+void FileBrowserProxyModel::sortModel(Qt::SortOrder order)
+{
+    this->sort(0,order);
+    Q_EMIT sortedAscendingChanged();
+}
+
 #include "moc_filebrowserproxymodel.cpp"

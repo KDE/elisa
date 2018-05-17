@@ -313,10 +313,12 @@ RowLayout {
                             }
                         }
 
-                        FileBrowserView {
-                            id: localFiles
+                        Loader {
+                            id: localFilesLoader
 
-                            focus: true
+                            active: opacity > 0
+
+                            visible: opacity > 0
 
                             anchors {
                                 fill: parent
@@ -325,17 +327,23 @@ RowLayout {
                                 rightMargin: elisaTheme.layoutHorizontalMargin
                             }
 
-                            contentModel: elisa.fileBrowserProxyModel
+                            sourceComponent: FileBrowserView {
+                                id: localFiles
 
-                            Binding {
-                                target: localFiles
-                                property: 'expandedFilterView'
-                                value: persistentSettings.expandedFilterView
+                                focus: true
+
+                                contentModel: elisa.fileBrowserProxyModel
+
+                                Binding {
+                                    target: localFiles
+                                    property: 'expandedFilterView'
+                                    value: persistentSettings.expandedFilterView
+                                }
+
+                                onFilterViewChanged: persistentSettings.expandedFilterView = expandedFilterView
                             }
+                        }
 
-                            visible: opacity > 0
-                            onFilterViewChanged: persistentSettings.expandedFilterView = expandedFilterView
-                         }
 
                         Behavior on border.color {
                             ColorAnimation {
@@ -424,280 +432,282 @@ RowLayout {
         }
 
         states: [
-             State {
-                 name: 'full'
-                 when: listViews.currentIndex === 0
-                 PropertyChanges {
-                     target: mainContentView
-                     Layout.fillWidth: false
-                     Layout.minimumWidth: 0
-                     Layout.maximumWidth: 0
-                     Layout.preferredWidth: 0
-                 }
-                 PropertyChanges {
-                     target: firstViewSeparatorItem
-                     Layout.minimumWidth: 0
-                     Layout.maximumWidth: 0
-                     Layout.preferredWidth: 0
-                 }
-                 PropertyChanges {
-                     target: playList
-                     Layout.minimumWidth: contentZone.width / 2
-                     Layout.maximumWidth: contentZone.width / 2
-                     Layout.preferredWidth: contentZone.width / 2
-                 }
-                 PropertyChanges {
-                     target: viewSeparatorItem
-                     Layout.minimumWidth: 1
-                     Layout.maximumWidth: 1
-                     Layout.preferredWidth: 1
-                 }
-                 PropertyChanges {
-                     target: albumContext
-                     Layout.minimumWidth: contentZone.width / 2
-                     Layout.maximumWidth: contentZone.width / 2
-                     Layout.preferredWidth: contentZone.width / 2
-                 }
-                 PropertyChanges {
-                     target: localAlbums
-                     opacity: 0
-                 }
-                 PropertyChanges {
-                     target: localArtists
-                     opacity: 0
-                 }
-                 PropertyChanges {
-                     target: localTracks
-                     opacity: 0
-                 }
-                 PropertyChanges {
-                     target: localFiles
-                     opacity: 0
-                 }
-             },
-             State {
-                 name: 'allAlbums'
-                 when: listViews.currentIndex === 1
-                 StateChangeScript {
-                     script: {
-                         localAlbums.stackView.pop({item: null, immediate: true})
-                     }
-                 }
-                 PropertyChanges {
-                     target: mainContentView
-                     Layout.fillWidth: true
-                     Layout.minimumWidth: contentZone.width * 0.66
-                     Layout.maximumWidth: contentZone.width * 0.68
-                     Layout.preferredWidth: contentZone.width * 0.68
-                 }
-                 PropertyChanges {
-                     target: firstViewSeparatorItem
-                     Layout.minimumWidth: 1
-                     Layout.maximumWidth: 1
-                     Layout.preferredWidth: 1
-                 }
-                 PropertyChanges {
-                     target: playList
-                     Layout.minimumWidth: contentZone.width * 0.33
-                     Layout.maximumWidth: contentZone.width * 0.33
-                     Layout.preferredWidth: contentZone.width * 0.33
-                 }
-                 PropertyChanges {
-                     target: viewSeparatorItem
-                     Layout.minimumWidth: 0
-                     Layout.maximumWidth: 0
-                     Layout.preferredWidth: 0
-                 }
-                 PropertyChanges {
-                     target: albumContext
-                     Layout.minimumWidth: 0
-                     Layout.maximumWidth: 0
-                     Layout.preferredWidth: 0
-                 }
-                 PropertyChanges {
-                     target: localAlbums
-                     opacity: 1
-                 }
-                 PropertyChanges {
-                     target: localArtists
-                     opacity: 0
-                 }
-                 PropertyChanges {
-                     target: localTracks
-                     opacity: 0
-                 }
-                 PropertyChanges {
-                     target: localFiles
-                     opacity: 0
-                 }
-             },
-             State {
-                 name: 'allArtists'
-                 when: listViews.currentIndex === 2
-                 StateChangeScript {
-                     script: {
-                         localArtists.stackView.pop({item: null, immediate: true})
-                     }
-                 }
-                 PropertyChanges {
-                     target: mainContentView
-                     Layout.fillWidth: true
-                     Layout.minimumWidth: contentZone.width * 0.66
-                     Layout.maximumWidth: contentZone.width * 0.68
-                     Layout.preferredWidth: contentZone.width * 0.68
-                 }
-                 PropertyChanges {
-                     target: firstViewSeparatorItem
-                     Layout.minimumWidth: 1
-                     Layout.maximumWidth: 1
-                     Layout.preferredWidth: 1
-                 }
-                 PropertyChanges {
-                     target: playList
-                     Layout.minimumWidth: contentZone.width * 0.33
-                     Layout.maximumWidth: contentZone.width * 0.33
-                     Layout.preferredWidth: contentZone.width * 0.33
-                 }
-                 PropertyChanges {
-                     target: viewSeparatorItem
-                     Layout.minimumWidth: 0
-                     Layout.maximumWidth: 0
-                     Layout.preferredWidth: 0
-                 }
-                 PropertyChanges {
-                     target: albumContext
-                     Layout.minimumWidth: 0
-                     Layout.maximumWidth: 0
-                     Layout.preferredWidth: 0
-                 }
-                 PropertyChanges {
-                     target: localAlbums
-                     opacity: 0
-                 }
-                 PropertyChanges {
-                     target: localArtists
-                     opacity: 1
-                 }
-                 PropertyChanges {
-                     target: localTracks
-                     opacity: 0
-                 }
-                 PropertyChanges {
-                     target: localFiles
-                     opacity: 0
-                 }
-             },
-             State {
-                 name: 'allTracks'
-                 when: listViews.currentIndex === 3
-                 PropertyChanges {
-                     target: mainContentView
-                     Layout.fillWidth: true
-                     Layout.minimumWidth: contentZone.width * 0.66
-                     Layout.maximumWidth: contentZone.width * 0.68
-                     Layout.preferredWidth: contentZone.width * 0.68
-                 }
-                 PropertyChanges {
-                     target: firstViewSeparatorItem
-                     Layout.minimumWidth: 1
-                     Layout.maximumWidth: 1
-                     Layout.preferredWidth: 1
-                 }
-                 PropertyChanges {
-                     target: playList
-                     Layout.minimumWidth: contentZone.width * 0.33
-                     Layout.maximumWidth: contentZone.width * 0.33
-                     Layout.preferredWidth: contentZone.width * 0.33
-                 }
-                 PropertyChanges {
-                     target: viewSeparatorItem
-                     Layout.minimumWidth: 0
-                     Layout.maximumWidth: 0
-                     Layout.preferredWidth: 0
-                 }
-                 PropertyChanges {
-                     target: albumContext
-                     Layout.minimumWidth: 0
-                     Layout.maximumWidth: 0
-                     Layout.preferredWidth: 0
-                 }
-                 PropertyChanges {
-                     target: localAlbums
-                     opacity: 0
-                 }
-                 PropertyChanges {
-                     target: localArtists
-                     opacity: 0
-                 }
-                 PropertyChanges {
-                     target: localTracks
-                     opacity: 1
-                 }
-                 PropertyChanges {
-                     target: localFiles
-                     opacity: 0
-                 }
-             },
-             State {
-                 name: 'files'
-                 when: listViews.currentIndex === 4
-                 PropertyChanges {
-                     target: mainContentView
-                     Layout.fillWidth: true
-                     Layout.minimumWidth: contentZone.width * 0.66
-                     Layout.maximumWidth: contentZone.width * 0.68
-                     Layout.preferredWidth: contentZone.width * 0.68
-                 }
-                 PropertyChanges {
-                     target: firstViewSeparatorItem
-                     Layout.minimumWidth: 1
-                     Layout.maximumWidth: 1
-                     Layout.preferredWidth: 1
-                 }
-                 PropertyChanges {
-                     target: playList
-                     Layout.minimumWidth: contentZone.width * 0.33
-                     Layout.maximumWidth: contentZone.width * 0.33
-                     Layout.preferredWidth: contentZone.width * 0.33
-                 }
-                 PropertyChanges {
-                     target: viewSeparatorItem
-                     Layout.minimumWidth: 0
-                     Layout.maximumWidth: 0
-                     Layout.preferredWidth: 0
-                 }
-                 PropertyChanges {
-                     target: albumContext
-                     Layout.minimumWidth: 0
-                     Layout.maximumWidth: 0
-                     Layout.preferredWidth: 0
-                 }
-                 PropertyChanges {
-                     target: localAlbums
-                     opacity: 0
-                 }
-                 PropertyChanges {
-                     target: localArtists
-                     opacity: 0
-                 }
-                 PropertyChanges {
-                     target: localTracks
-                     opacity: 0
-                 }
-                 PropertyChanges {
-                     target: localFiles
-                     opacity: 1
-                 }
-             }
-         ]
-         transitions: Transition {
-             NumberAnimation {
-                 properties: "Layout.minimumWidth, Layout.maximumWidth, Layout.preferredWidth, opacity"
-                 easing.type: Easing.InOutQuad
-                 duration: 300
-             }
-         }
-     }
+            State {
+                name: 'full'
+                when: listViews.currentIndex === 0
+                PropertyChanges {
+                    target: mainContentView
+                    Layout.fillWidth: false
+                    Layout.minimumWidth: 0
+                    Layout.maximumWidth: 0
+                    Layout.preferredWidth: 0
+                }
+                PropertyChanges {
+                    target: firstViewSeparatorItem
+                    Layout.minimumWidth: 0
+                    Layout.maximumWidth: 0
+                    Layout.preferredWidth: 0
+                }
+                PropertyChanges {
+                    target: playList
+                    Layout.minimumWidth: contentZone.width / 2
+                    Layout.maximumWidth: contentZone.width / 2
+                    Layout.preferredWidth: contentZone.width / 2
+                }
+                PropertyChanges {
+                    target: viewSeparatorItem
+                    Layout.minimumWidth: 1
+                    Layout.maximumWidth: 1
+                    Layout.preferredWidth: 1
+                }
+                PropertyChanges {
+                    target: albumContext
+                    Layout.minimumWidth: contentZone.width / 2
+                    Layout.maximumWidth: contentZone.width / 2
+                    Layout.preferredWidth: contentZone.width / 2
+                }
+                PropertyChanges {
+                    target: localAlbumsLoader
+                    opacity: 0
+                }
+                PropertyChanges {
+                    target: localArtistsLoader
+                    opacity: 0
+                }
+                PropertyChanges {
+                    target: localTracksLoader
+                    opacity: 0
+                }
+                PropertyChanges {
+                    target: localFilesLoader
+                    opacity: 0
+                }
+            },
+            State {
+                name: 'allAlbums'
+                when: listViews.currentIndex === 1
+                StateChangeScript {
+                    script: {
+                        if (localAlbumsLoader.localAlbums)
+                            localAlbumsLoader.localAlbums.stackView.pop({item: null, immediate: true})
+                    }
+                }
+                PropertyChanges {
+                    target: mainContentView
+                    Layout.fillWidth: true
+                    Layout.minimumWidth: contentZone.width * 0.66
+                    Layout.maximumWidth: contentZone.width * 0.68
+                    Layout.preferredWidth: contentZone.width * 0.68
+                }
+                PropertyChanges {
+                    target: firstViewSeparatorItem
+                    Layout.minimumWidth: 1
+                    Layout.maximumWidth: 1
+                    Layout.preferredWidth: 1
+                }
+                PropertyChanges {
+                    target: playList
+                    Layout.minimumWidth: contentZone.width * 0.33
+                    Layout.maximumWidth: contentZone.width * 0.33
+                    Layout.preferredWidth: contentZone.width * 0.33
+                }
+                PropertyChanges {
+                    target: viewSeparatorItem
+                    Layout.minimumWidth: 0
+                    Layout.maximumWidth: 0
+                    Layout.preferredWidth: 0
+                }
+                PropertyChanges {
+                    target: albumContext
+                    Layout.minimumWidth: 0
+                    Layout.maximumWidth: 0
+                    Layout.preferredWidth: 0
+                }
+                PropertyChanges {
+                    target: localAlbumsLoader
+                    opacity: 1
+                }
+                PropertyChanges {
+                    target: localArtistsLoader
+                    opacity: 0
+                }
+                PropertyChanges {
+                    target: localTracksLoader
+                    opacity: 0
+                }
+                PropertyChanges {
+                    target: localFilesLoader
+                    opacity: 0
+                }
+            },
+            State {
+                name: 'allArtists'
+                when: listViews.currentIndex === 2
+                StateChangeScript {
+                    script: {
+                        if (localArtistsLoader.localArtists)
+                            localArtistsLoader.localArtists.stackView.pop({item: null, immediate: true})
+                    }
+                }
+                PropertyChanges {
+                    target: mainContentView
+                    Layout.fillWidth: true
+                    Layout.minimumWidth: contentZone.width * 0.66
+                    Layout.maximumWidth: contentZone.width * 0.68
+                    Layout.preferredWidth: contentZone.width * 0.68
+                }
+                PropertyChanges {
+                    target: firstViewSeparatorItem
+                    Layout.minimumWidth: 1
+                    Layout.maximumWidth: 1
+                    Layout.preferredWidth: 1
+                }
+                PropertyChanges {
+                    target: playList
+                    Layout.minimumWidth: contentZone.width * 0.33
+                    Layout.maximumWidth: contentZone.width * 0.33
+                    Layout.preferredWidth: contentZone.width * 0.33
+                }
+                PropertyChanges {
+                    target: viewSeparatorItem
+                    Layout.minimumWidth: 0
+                    Layout.maximumWidth: 0
+                    Layout.preferredWidth: 0
+                }
+                PropertyChanges {
+                    target: albumContext
+                    Layout.minimumWidth: 0
+                    Layout.maximumWidth: 0
+                    Layout.preferredWidth: 0
+                }
+                PropertyChanges {
+                    target: localAlbumsLoader
+                    opacity: 0
+                }
+                PropertyChanges {
+                    target: localArtistsLoader
+                    opacity: 1
+                }
+                PropertyChanges {
+                    target: localTracksLoader
+                    opacity: 0
+                }
+                PropertyChanges {
+                    target: localFilesLoader
+                    opacity: 0
+                }
+            },
+            State {
+                name: 'allTracks'
+                when: listViews.currentIndex === 3
+                PropertyChanges {
+                    target: mainContentView
+                    Layout.fillWidth: true
+                    Layout.minimumWidth: contentZone.width * 0.66
+                    Layout.maximumWidth: contentZone.width * 0.68
+                    Layout.preferredWidth: contentZone.width * 0.68
+                }
+                PropertyChanges {
+                    target: firstViewSeparatorItem
+                    Layout.minimumWidth: 1
+                    Layout.maximumWidth: 1
+                    Layout.preferredWidth: 1
+                }
+                PropertyChanges {
+                    target: playList
+                    Layout.minimumWidth: contentZone.width * 0.33
+                    Layout.maximumWidth: contentZone.width * 0.33
+                    Layout.preferredWidth: contentZone.width * 0.33
+                }
+                PropertyChanges {
+                    target: viewSeparatorItem
+                    Layout.minimumWidth: 0
+                    Layout.maximumWidth: 0
+                    Layout.preferredWidth: 0
+                }
+                PropertyChanges {
+                    target: albumContext
+                    Layout.minimumWidth: 0
+                    Layout.maximumWidth: 0
+                    Layout.preferredWidth: 0
+                }
+                PropertyChanges {
+                    target: localAlbumsLoader
+                    opacity: 0
+                }
+                PropertyChanges {
+                    target: localArtistsLoader
+                    opacity: 0
+                }
+                PropertyChanges {
+                    target: localTracksLoader
+                    opacity: 1
+                }
+                PropertyChanges {
+                    target: localFilesLoader
+                    opacity: 0
+                }
+            },
+            State {
+                name: 'files'
+                when: listViews.currentIndex === 4
+                PropertyChanges {
+                    target: mainContentView
+                    Layout.fillWidth: true
+                    Layout.minimumWidth: contentZone.width * 0.66
+                    Layout.maximumWidth: contentZone.width * 0.68
+                    Layout.preferredWidth: contentZone.width * 0.68
+                }
+                PropertyChanges {
+                    target: firstViewSeparatorItem
+                    Layout.minimumWidth: 1
+                    Layout.maximumWidth: 1
+                    Layout.preferredWidth: 1
+                }
+                PropertyChanges {
+                    target: playList
+                    Layout.minimumWidth: contentZone.width * 0.33
+                    Layout.maximumWidth: contentZone.width * 0.33
+                    Layout.preferredWidth: contentZone.width * 0.33
+                }
+                PropertyChanges {
+                    target: viewSeparatorItem
+                    Layout.minimumWidth: 0
+                    Layout.maximumWidth: 0
+                    Layout.preferredWidth: 0
+                }
+                PropertyChanges {
+                    target: albumContext
+                    Layout.minimumWidth: 0
+                    Layout.maximumWidth: 0
+                    Layout.preferredWidth: 0
+                }
+                PropertyChanges {
+                    target: localAlbumsLoader
+                    opacity: 0
+                }
+                PropertyChanges {
+                    target: localArtistsLoader
+                    opacity: 0
+                }
+                PropertyChanges {
+                    target: localTracksLoader
+                    opacity: 0
+                }
+                PropertyChanges {
+                    target: localFilesLoader
+                    opacity: 1
+                }
+            }
+        ]
+        transitions: Transition {
+            NumberAnimation {
+                properties: "Layout.minimumWidth, Layout.maximumWidth, Layout.preferredWidth, opacity"
+                easing.type: Easing.InOutQuad
+                duration: 300
+            }
+        }
+    }
 
     Component {
         id: innerAlbumView

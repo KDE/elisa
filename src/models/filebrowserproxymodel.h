@@ -42,9 +42,17 @@ class ELISALIB_EXPORT FileBrowserProxyModel : public KDirSortFilterProxyModel
                WRITE setFilterText
                NOTIFY filterTextChanged)
 
-    Q_PROPERTY(bool canGoBack READ canGoBack NOTIFY canGoBackChanged)
+    Q_PROPERTY(bool canGoBack
+               READ canGoBack
+               NOTIFY canGoBackChanged)
 
-    Q_PROPERTY(QString url READ url NOTIFY urlChanged)
+    Q_PROPERTY(QString url
+               READ url
+               NOTIFY urlChanged)
+
+    Q_PROPERTY(bool sortedAscending
+               READ sortedAscending
+               NOTIFY sortedAscendingChanged)
 
 public:
 
@@ -67,9 +75,14 @@ public Q_SLOTS:
     void replaceAndPlayOfPlayList();
 
     void setFilterText(const QString &filterText);
+
     void openParentFolder();
 
     void openFolder(const QString &folder, bool isDisplayRoot = false);
+
+    bool sortedAscending() const;
+
+    void sortModel(Qt::SortOrder order);
 
 Q_SIGNALS:
 
@@ -82,6 +95,8 @@ Q_SIGNALS:
     void canGoBackChanged();
 
     void filterTextChanged(const QString &filterText);
+
+    void sortedAscendingChanged();
 
 protected:
 

@@ -22,10 +22,7 @@
 
 #include "elisaLib_export.h"
 
-<<<<<<< HEAD
-=======
 #include "datatype.h"
->>>>>>> databaseForGenreModel
 #include "elisautils.h"
 #include "musicalbum.h"
 #include "musicaudiotrack.h"

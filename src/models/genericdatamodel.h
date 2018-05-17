@@ -20,7 +20,7 @@
 #ifndef GENERICDATAMODEL_H
 #define GENERICDATAMODEL_H
 
-#include "elisautils.h"
+#include "datatype.h"
 
 #include <QAbstractListModel>
 
@@ -34,7 +34,7 @@ class GenericDataModel : public QAbstractListModel
 
     Q_OBJECT
 
-    Q_PROPERTY(ElisaUtils::DataType dataType READ dataType WRITE setDataType NOTIFY dataTypeChanged)
+    Q_PROPERTY(DataUtils::DataType dataType READ dataType WRITE setDataType NOTIFY dataTypeChanged)
 
     Q_PROPERTY(ModelDataCache* modelCache READ modelCache WRITE setModelCache NOTIFY modelCacheChanged)
 
@@ -56,7 +56,7 @@ public:
 
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
 
-    ElisaUtils::DataType dataType() const;
+    DataUtils::DataType dataType() const;
 
     ModelDataCache *modelCache() const;
 
@@ -66,7 +66,7 @@ Q_SIGNALS:
 
     void neededData(int row) const;
 
-    void dataTypeChanged(ElisaUtils::DataType dataType);
+    void dataTypeChanged(DataUtils::DataType dataType);
 
     void modelCacheChanged(ModelDataCache* modelCache);
 
@@ -76,7 +76,7 @@ public Q_SLOTS:
 
     void receiveData(int row);
 
-    void setDataType(ElisaUtils::DataType dataType);
+    void setDataType(DataUtils::DataType dataType);
 
     void setModelCache(ModelDataCache* modelCache);
 

@@ -57,6 +57,7 @@
 #include "topnotificationmanager.h"
 #include "trackdatahelper.h"
 #include "elisautils.h"
+#include "datatype.h"
 
 #if defined Qt5DBus_FOUND && Qt5DBus_FOUND
 #include "mpris2/mpris2.h"
@@ -136,7 +137,7 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qRegisterMetaType<QMap<QString,int>>("QMap<QString,int>");
     qRegisterMetaType<ElisaUtils::PlayListEnqueueMode>("ElisaUtils::PlayListEnqueueMode");
     qRegisterMetaType<ElisaUtils::PlayListEnqueueTriggerPlay>("ElisaUtils::PlayListEnqueueTriggerPlay");
-    qRegisterMetaType<ElisaUtils::DataType>("ElisaUtils::DataType");
+    qRegisterMetaType<DataUtils::DataType>("DataUtils::DataType");
 
     qRegisterMetaTypeStreamOperators<ManageMediaPlayerControl::PlayerState>("PlayListControler::PlayerState");
 

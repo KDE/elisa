@@ -20,6 +20,7 @@
 #ifndef MODELDATACACHE_H
 #define MODELDATACACHE_H
 
+#include "datatype.h"
 #include "elisautils.h"
 
 #include <QObject>
@@ -35,7 +36,7 @@ class ModelDataCache : public QObject
 
     Q_OBJECT
 
-    Q_PROPERTY(ElisaUtils::DataType dataType READ dataType WRITE setDataType NOTIFY dataTypeChanged)
+    Q_PROPERTY(DataUtils::DataType dataType READ dataType WRITE setDataType NOTIFY dataTypeChanged)
 
     Q_PROPERTY(DatabaseInterface* database READ database WRITE setDatabase NOTIFY databaseChanged)
 
@@ -50,7 +51,7 @@ public:
 
     explicit ModelDataCache(QObject *parent = nullptr);
 
-    ElisaUtils::DataType dataType() const;
+    DataUtils::DataType dataType() const;
 
     int dataCount() const;
 
@@ -60,7 +61,7 @@ public:
 
 Q_SIGNALS:
 
-    void dataTypeChanged(ElisaUtils::DataType dataType);
+    void dataTypeChanged(DataUtils::DataType dataType);
 
     void receiveData(int row);
 
@@ -72,7 +73,7 @@ public Q_SLOTS:
 
     void neededData();
 
-    void setDataType(ElisaUtils::DataType dataType);
+    void setDataType(DataUtils::DataType dataType);
 
     void setDatabase(DatabaseInterface* database);
 

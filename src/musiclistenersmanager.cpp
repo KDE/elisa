@@ -160,37 +160,37 @@ MusicListenersManager::MusicListenersManager(QObject *parent)
     modelData->setDatabase(&d->mDatabaseInterface);
     modelData->moveToThread(&d->mDatabaseThread);
     d->mAllAlbumsModel.setModelCache(modelData);
-    d->mAllAlbumsModel.setDataType(ElisaUtils::AllAlbums);
+    d->mAllAlbumsModel.setDataType(DataUtils::AllAlbums);
 
     modelData = new ModelDataCache;
     modelData->setDatabase(&d->mDatabaseInterface);
     modelData->moveToThread(&d->mDatabaseThread);
     d->mAllArtistsModel.setModelCache(modelData);
-    d->mAllArtistsModel.setDataType(ElisaUtils::AllArtists);
+    d->mAllArtistsModel.setDataType(DataUtils::AllArtists);
 
     modelData = new ModelDataCache;
     modelData->setDatabase(&d->mDatabaseInterface);
     modelData->moveToThread(&d->mDatabaseThread);
     d->mAllTracksModel.setModelCache(modelData);
-    d->mAllTracksModel.setDataType(ElisaUtils::AllTracks);
+    d->mAllTracksModel.setDataType(DataUtils::AllTracks);
 
     modelData = new ModelDataCache;
     modelData->setDatabase(&d->mDatabaseInterface);
     modelData->moveToThread(&d->mDatabaseThread);
     d->mAllGenresModel.setModelCache(modelData);
-    d->mAllGenresModel.setDataType(ElisaUtils::AllGenres);
+    d->mAllGenresModel.setDataType(DataUtils::AllGenres);
 
     modelData = new ModelDataCache;
     modelData->setDatabase(&d->mDatabaseInterface);
     modelData->moveToThread(&d->mDatabaseThread);
     d->mAllLyricistsModel.setModelCache(modelData);
-    d->mAllLyricistsModel.setDataType(ElisaUtils::AllLyricists);
+    d->mAllLyricistsModel.setDataType(DataUtils::AllLyricists);
 
     modelData = new ModelDataCache;
     modelData->setDatabase(&d->mDatabaseInterface);
     modelData->moveToThread(&d->mDatabaseThread);
     d->mAllComposersModel.setModelCache(modelData);
-    d->mAllComposersModel.setDataType(ElisaUtils::AllComposers);
+    d->mAllComposersModel.setDataType(DataUtils::AllComposers);
 
     connect(&d->mDatabaseInterface, &DatabaseInterface::albumModified,
             &d->mAlbumModel, &AlbumModel::albumModified);

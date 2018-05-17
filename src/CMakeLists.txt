@@ -18,6 +18,7 @@ set(elisaLib_SOURCES
     notificationitem.cpp
     topnotificationmanager.cpp
     elisautils.cpp
+    datatype.cpp
     trackdatahelper.cpp
     modeldatacache.cpp
     abstractfile/abstractfilelistener.cpp
@@ -165,6 +166,7 @@ install(TARGETS elisaLib ${INSTALL_TARGETS_DEFAULT_ARGS})
 
 set(elisaqmlplugin_SOURCES
     elisaqmlplugin.cpp
+    datatype.cpp
     elisautils.cpp
 )
 

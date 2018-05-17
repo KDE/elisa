@@ -34,7 +34,7 @@ public:
 
     ModelDataCache *mModelCache = nullptr;
 
-    ElisaUtils::DataType mDataType = ElisaUtils::UnknownType;
+    DataUtils::DataType mDataType = DataUtils::UnknownType;
 
     bool mIsBusy = true;
 
@@ -132,7 +132,7 @@ int GenericDataModel::columnCount(const QModelIndex &parent) const
     return 1;
 }
 
-ElisaUtils::DataType GenericDataModel::dataType() const
+DataUtils::DataType GenericDataModel::dataType() const
 {
     return d->mDataType;
 }
@@ -147,7 +147,7 @@ bool GenericDataModel::isBusy() const
     return d->mIsBusy;
 }
 
-void GenericDataModel::setDataType(ElisaUtils::DataType dataType)
+void GenericDataModel::setDataType(DataUtils::DataType dataType)
 {
     if (d->mDataType == dataType) {
         return;

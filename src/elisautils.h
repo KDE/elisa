@@ -93,18 +93,6 @@ enum ColumnsRoles {
 
 Q_ENUM_NS(ColumnsRoles)
 
-enum DataType {
-    AllArtists,
-    AllAlbums,
-    AllTracks,
-    AllGenres,
-    AllComposers,
-    AllLyricists,
-    UnknownType,
-};
-
-Q_ENUM_NS(DataType)
-
 }
 
 #endif // ELISAUTILS_H

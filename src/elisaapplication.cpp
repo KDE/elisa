@@ -337,6 +337,11 @@ void ElisaApplication::initializeModels()
                                                                          ElisaUtils::PlayListEnqueueMode,
                                                                          ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayList::enqueue));
 
+    QObject::connect(d->mFileBrowserProxyModel.get(), &FileBrowserProxyModel::filesToEnqueue,
+                     d->mMediaPlayList.get(), static_cast<void (MediaPlayList::*)(const QList<QUrl> &,
+                                                                         ElisaUtils::PlayListEnqueueMode,
+                                                                         ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayList::enqueue));
+
 }
 
 void ElisaApplication::initializePlayer()

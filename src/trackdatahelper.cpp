@@ -38,6 +38,15 @@ void TrackDataHelper::setTrackData(const MusicAudioTrack &track)
     Q_EMIT trackDataChanged();
 }
 
+QString TrackDataHelper::title() const
+{
+    if (MusicAudioTrack::title().isEmpty()) {
+        return fileName();
+    } else {
+        return MusicAudioTrack::title();
+    }
+}
+
 QString TrackDataHelper::trackNumber() const
 {
     return QString::number(MusicAudioTrack::trackNumber());
@@ -83,6 +92,11 @@ QString TrackDataHelper::duration() const
 QString TrackDataHelper::resourceURI() const
 {
     return MusicAudioTrack::resourceURI().toString();
+}
+
+QString TrackDataHelper::fileName() const
+{
+    return MusicAudioTrack::resourceURI().fileName();
 }
 
 bool TrackDataHelper::hasValidTrackNumber() const

@@ -24,7 +24,10 @@ import QtGraphicalEffects 1.0
 
 FocusScope {
     id: rootFocusScope
+
     property alias currentIndex: viewModeView.currentIndex
+
+    signal switchView(int index)
 
     Rectangle {
         anchors.fill: parent
@@ -145,6 +148,7 @@ FocusScope {
                         {
                             viewModeView.currentIndex = index
                             rootFocusScope.focus = true
+                            switchView(index)
                         }
                     }
 

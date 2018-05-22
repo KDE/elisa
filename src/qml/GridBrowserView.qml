@@ -37,6 +37,7 @@ FocusScope {
     property alias showRating: navigationBar.showRating
     property bool delegateDisplaySecondaryText: true
     property alias expandedFilterView: navigationBar.expandedFilterView
+    property var stackView
 
     signal open(var innerMainTitle, var innerSecondaryTitle, var innerImage, var databaseId)
     signal goBack()

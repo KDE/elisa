@@ -30,8 +30,72 @@ RowLayout {
     signal toggleSearch()
 
     function goBack() {
-        localAlbums.goBack()
-        localArtists.goBack()
+        viewManager.goBack()
+    }
+
+    ViewManager {
+        id: viewManager
+
+        onSwitchAllAlbumsView: {
+            listViews.currentIndex = 1
+            localArtistsLoader.opacity = 0
+            localTracksLoader.opacity = 0
+            localAlbumsLoader.opacity = 1
+            localGenresLoader.opacity = 0
+        }
+
+        onSwitchOneAlbumView: {
+            elisa.singleAlbumProxyModel.loadAlbumData(databaseId)
+            currentStackView.push(albumView, {
+                                      mainTitle: mainTitle,
+                                      secondaryTitle: secondaryTitle,
+                                      image: imageUrl,
+                                      stackView: currentStackView,
+                                  })
+            oneAlbumViewIsLoaded()
+        }
+
+        onSwitchAllArtistsView: {
+            listViews.currentIndex = 2
+            localArtistsLoader.opacity = 1
+            localTracksLoader.opacity = 0
+            localAlbumsLoader.opacity = 0
+            localGenresLoader.opacity = 0
+        }
+
+        onSwitchOneArtistView: {
+            elisa.singleArtistProxyModel.setArtistFilterText(mainTitle)
+            currentStackView.push(innerAlbumView, {
+                                      mainTitle: mainTitle,
+                                      secondaryTitle: secondaryTitle,
+                                      image: imageUrl,
+                                      stackView: currentStackView,
+                                  })
+            oneArtistViewIsLoaded()
+        }
+
+        onSwitchAllTracksView: {
+            listViews.currentIndex = 3
+            localArtistsLoader.opacity = 0
+            localTracksLoader.opacity = 1
+            localAlbumsLoader.opacity = 0
+            localGenresLoader.opacity = 0
+        }
+
+        onSwitchAllGenresView: {
+            listViews.currentIndex = 4
+            localArtistsLoader.opacity = 0
+            localTracksLoader.opacity = 0
+            localAlbumsLoader.opacity = 0
+            localGenresLoader.opacity = 1
+        }
+
+        onSwitchOffAllViews: {
+            localArtistsLoader.opacity = 0
+            localTracksLoader.opacity = 0
+            localAlbumsLoader.opacity = 0
+            localGenresLoader.opacity = 0
+        }
     }
 
     ViewSelector {
@@ -40,6 +104,18 @@ RowLayout {
         Layout.fillHeight: true
         Layout.preferredWidth: mainWindow.width * 0.11
         Layout.maximumWidth: mainWindow.width * 0.11
+
+        onSwitchView: if (index === 1) {
+                          viewManager.openAllAlbums()
+                      } else if (index === 2) {
+                          viewManager.openAllArtists()
+                      } else if (index === 3) {
+                          viewManager.openAllTracks()
+                      } else if (index === 4) {
+                          viewManager.openAllGenres()
+                      } else {
+                          viewManager.closeAllViews()
+                      }
     }
 
     Rectangle {
@@ -150,6 +226,8 @@ RowLayout {
 
                             anchors.fill: parent
 
+                            onLoaded: viewManager.allAlbumsViewIsLoaded(item.stackView)
+
                             sourceComponent: MediaBrowser {
                                 id: localAlbums
 
@@ -173,16 +251,10 @@ RowLayout {
                                     mainTitle: i18nc("Title of the view of all albums", "Albums")
 
                                     onOpen: {
-                                        elisa.singleAlbumProxyModel.loadAlbumData(databaseId)
-                                        localAlbums.stackView.push(albumView, {
-                                                                       mainTitle: innerMainTitle,
-                                                                       secondaryTitle: innerSecondaryTitle,
-                                                                       image: innerImage,
-                                                                       stackView: localAlbums.stackView,
-                                                                   })
+                                        viewManager.openOneAlbum(localAlbums.stackView, innerMainTitle, innerSecondaryTitle, innerImage, databaseId)
                                     }
 
-                                    onGoBack: localAlbums.stackView.pop()
+                                    onGoBack: viewManager.goBack()
 
                                     Binding {
                                         target: allAlbumsView
@@ -191,6 +263,13 @@ RowLayout {
                                     }
 
                                     onFilterViewChanged: persistentSettings.expandedFilterView = expandedFilterView
+                                }
+                            }
+
+                            Behavior on opacity {
+                                NumberAnimation {
+                                    easing.type: Easing.InOutQuad
+                                    duration: 300
                                 }
                             }
                         }
@@ -202,7 +281,11 @@ RowLayout {
 
                             visible: opacity > 0
 
+                            opacity: 0
+
                             anchors.fill: parent
+
+                            onLoaded: viewManager.allArtistsViewIsLoaded(item.stackView)
 
                             sourceComponent: MediaBrowser {
                                 id: localArtists
@@ -229,16 +312,10 @@ RowLayout {
                                     mainTitle: i18nc("Title of the view of all artists", "Artists")
 
                                     onOpen: {
-                                        elisa.singleArtistProxyModel.setArtistFilterText(innerMainTitle)
-                                        localArtists.stackView.push(innerAlbumView, {
-                                                                        mainTitle: innerMainTitle,
-                                                                        secondaryTitle: innerSecondaryTitle,
-                                                                        image: innerImage,
-                                                                    })
-
+                                        viewManager.openOneArtist(localArtists.stackView, innerMainTitle, innerImage, 0)
                                     }
 
-                                    onGoBack: localArtists.stackView.pop()
+                                    onGoBack: viewManager.goBack()
 
                                     Binding {
                                         target: allArtistsView
@@ -247,6 +324,13 @@ RowLayout {
                                     }
 
                                     onFilterViewChanged: persistentSettings.expandedFilterView = expandedFilterView
+                                }
+                            }
+
+                            Behavior on opacity {
+                                NumberAnimation {
+                                    easing.type: Easing.InOutQuad
+                                    duration: 300
                                 }
                             }
                         }
@@ -258,7 +342,11 @@ RowLayout {
 
                             visible: opacity > 0
 
+                            opacity: 0
+
                             anchors.fill: parent
+
+                            onLoaded: viewManager.allTracksViewIsLoaded(item)
 
                             sourceComponent: MediaBrowser {
                                 id: localTracks
@@ -311,6 +399,13 @@ RowLayout {
                                     onFilterViewChanged: persistentSettings.expandedFilterView = expandedFilterView
                                 }
                             }
+
+                            Behavior on opacity {
+                                NumberAnimation {
+                                    easing.type: Easing.InOutQuad
+                                    duration: 300
+                                }
+                            }
                         }
 
                         Loader {
@@ -320,7 +415,11 @@ RowLayout {
 
                             visible: opacity > 0
 
+                            opacity: 0
+
                             anchors.fill: parent
+
+                            onLoaded: viewManager.allGenresViewIsLoaded(item.stackView)
 
                             sourceComponent: MediaBrowser {
                                 id: localGenres
@@ -365,6 +464,13 @@ RowLayout {
                                     }
 
                                     onFilterViewChanged: persistentSettings.expandedFilterView = expandedFilterView
+                                }
+                            }
+
+                            Behavior on opacity {
+                                NumberAnimation {
+                                    easing.type: Easing.InOutQuad
+                                    duration: 300
                                 }
                             }
                         }
@@ -457,7 +563,7 @@ RowLayout {
 
         states: [
             State {
-                name: 'full'
+                name: 'playList'
                 when: listViews.currentIndex === 0
                 PropertyChanges {
                     target: mainContentView
@@ -490,32 +596,10 @@ RowLayout {
                     Layout.maximumWidth: contentZone.width / 2
                     Layout.preferredWidth: contentZone.width / 2
                 }
-                PropertyChanges {
-                    target: localAlbumsLoader
-                    opacity: 0
-                }
-                PropertyChanges {
-                    target: localArtistsLoader
-                    opacity: 0
-                }
-                PropertyChanges {
-                    target: localTracksLoader
-                    opacity: 0
-                }
-                PropertyChanges {
-                    target: localGenresLoader
-                    opacity: 0
-                }
             },
             State {
-                name: 'allAlbums'
-                when: listViews.currentIndex === 1
-                StateChangeScript {
-                    script: {
-                        if (localAlbumsLoader.localAlbums)
-                            localAlbumsLoader.localAlbums.stackView.pop({item: null, immediate: true})
-                    }
-                }
+                name: 'browsingViews'
+                when: listViews.currentIndex !== 0
                 PropertyChanges {
                     target: mainContentView
                     Layout.fillWidth: true
@@ -546,181 +630,6 @@ RowLayout {
                     Layout.minimumWidth: 0
                     Layout.maximumWidth: 0
                     Layout.preferredWidth: 0
-                }
-                PropertyChanges {
-                    target: localAlbumsLoader
-                    opacity: 1
-                }
-                PropertyChanges {
-                    target: localArtistsLoader
-                    opacity: 0
-                }
-                PropertyChanges {
-                    target: localTracksLoader
-                    opacity: 0
-                }
-                PropertyChanges {
-                    target: localGenresLoader
-                    opacity: 0
-                }
-            },
-            State {
-                name: 'allArtists'
-                when: listViews.currentIndex === 2
-                StateChangeScript {
-                    script: {
-                        if (localArtistsLoader.localArtists)
-                            localArtistsLoader.localArtists.stackView.pop({item: null, immediate: true})
-                    }
-                }
-                PropertyChanges {
-                    target: mainContentView
-                    Layout.fillWidth: true
-                    Layout.minimumWidth: contentZone.width * 0.66
-                    Layout.maximumWidth: contentZone.width * 0.68
-                    Layout.preferredWidth: contentZone.width * 0.68
-                }
-                PropertyChanges {
-                    target: firstViewSeparatorItem
-                    Layout.minimumWidth: 1
-                    Layout.maximumWidth: 1
-                    Layout.preferredWidth: 1
-                }
-                PropertyChanges {
-                    target: playList
-                    Layout.minimumWidth: contentZone.width * 0.33
-                    Layout.maximumWidth: contentZone.width * 0.33
-                    Layout.preferredWidth: contentZone.width * 0.33
-                }
-                PropertyChanges {
-                    target: viewSeparatorItem
-                    Layout.minimumWidth: 0
-                    Layout.maximumWidth: 0
-                    Layout.preferredWidth: 0
-                }
-                PropertyChanges {
-                    target: albumContext
-                    Layout.minimumWidth: 0
-                    Layout.maximumWidth: 0
-                    Layout.preferredWidth: 0
-                }
-                PropertyChanges {
-                    target: localAlbumsLoader
-                    opacity: 0
-                }
-                PropertyChanges {
-                    target: localArtistsLoader
-                    opacity: 1
-                }
-                PropertyChanges {
-                    target: localTracksLoader
-                    opacity: 0
-                }
-                PropertyChanges {
-                    target: localGenresLoader
-                    opacity: 0
-                }
-            },
-            State {
-                name: 'allTracks'
-                when: listViews.currentIndex === 3
-                PropertyChanges {
-                    target: mainContentView
-                    Layout.fillWidth: true
-                    Layout.minimumWidth: contentZone.width * 0.66
-                    Layout.maximumWidth: contentZone.width * 0.68
-                    Layout.preferredWidth: contentZone.width * 0.68
-                }
-                PropertyChanges {
-                    target: firstViewSeparatorItem
-                    Layout.minimumWidth: 1
-                    Layout.maximumWidth: 1
-                    Layout.preferredWidth: 1
-                }
-                PropertyChanges {
-                    target: playList
-                    Layout.minimumWidth: contentZone.width * 0.33
-                    Layout.maximumWidth: contentZone.width * 0.33
-                    Layout.preferredWidth: contentZone.width * 0.33
-                }
-                PropertyChanges {
-                    target: viewSeparatorItem
-                    Layout.minimumWidth: 0
-                    Layout.maximumWidth: 0
-                    Layout.preferredWidth: 0
-                }
-                PropertyChanges {
-                    target: albumContext
-                    Layout.minimumWidth: 0
-                    Layout.maximumWidth: 0
-                    Layout.preferredWidth: 0
-                }
-                PropertyChanges {
-                    target: localAlbumsLoader
-                    opacity: 0
-                }
-                PropertyChanges {
-                    target: localArtistsLoader
-                    opacity: 0
-                }
-                PropertyChanges {
-                    target: localTracksLoader
-                    opacity: 1
-                }
-                PropertyChanges {
-                    target: localGenresLoader
-                    opacity: 0
-                }
-            },
-            State {
-                name: 'allGenres'
-                when: listViews.currentIndex === 4
-                PropertyChanges {
-                    target: mainContentView
-                    Layout.fillWidth: true
-                    Layout.minimumWidth: contentZone.width * 0.66
-                    Layout.maximumWidth: contentZone.width * 0.68
-                    Layout.preferredWidth: contentZone.width * 0.68
-                }
-                PropertyChanges {
-                    target: firstViewSeparatorItem
-                    Layout.minimumWidth: 1
-                    Layout.maximumWidth: 1
-                    Layout.preferredWidth: 1
-                }
-                PropertyChanges {
-                    target: playList
-                    Layout.minimumWidth: contentZone.width * 0.33
-                    Layout.maximumWidth: contentZone.width * 0.33
-                    Layout.preferredWidth: contentZone.width * 0.33
-                }
-                PropertyChanges {
-                    target: viewSeparatorItem
-                    Layout.minimumWidth: 0
-                    Layout.maximumWidth: 0
-                    Layout.preferredWidth: 0
-                }
-                PropertyChanges {
-                    target: albumContext
-                    Layout.minimumWidth: 0
-                    Layout.maximumWidth: 0
-                    Layout.preferredWidth: 0
-                }
-                PropertyChanges {
-                    target: localAlbumsLoader
-                    opacity: 0
-                }
-                PropertyChanges {
-                    target: localArtistsLoader
-                    opacity: 0
-                }
-                PropertyChanges {
-                    target: localTracksLoader
-                    opacity: 0
-                }
-                PropertyChanges {
-                    target: localGenresLoader
-                    opacity: 1
                 }
             }
         ]
@@ -745,16 +654,10 @@ RowLayout {
             isSubPage: true
 
             onOpen: {
-                elisa.singleAlbumProxyModel.loadAlbumData(databaseId)
-                localArtists.stackView.push(albumView, {
-                                                mainTitle: innerMainTitle,
-                                                secondaryTitle: innerSecondaryTitle,
-                                                image: innerImage,
-                                                stackView: localArtists.stackView,
-                                            })
+                viewManager.openOneAlbumFromArtist(stackView, innerMainTitle, innerSecondaryTitle, innerImage, databaseId)
             }
 
-            onGoBack: localArtists.stackView.pop()
+            onGoBack: viewManager.goBack()
 
             Binding {
                 target: innerAlbumGridView
@@ -771,7 +674,6 @@ RowLayout {
 
         ListBrowserView {
             id: albumGridView
-            property var stackView
 
             contentModel: elisa.singleAlbumProxyModel
 
@@ -803,22 +705,10 @@ RowLayout {
             allowArtistNavigation: true
 
             onShowArtist: {
-                listViews.currentIndex = 2
-                if (localArtists.stackView.depth === 3) {
-                    localArtists.stackView.pop()
-                }
-                if (localArtists.stackView.depth === 2) {
-                    var artistPage = localArtists.stackView.get(1)
-                    if (artistPage.mainTitle === name) {
-                        return
-                    } else {
-                        localArtists.stackView.pop()
-                    }
-                }
-                allArtistsView.open(name, name, elisaTheme.defaultArtistImage, '')
+                viewManager.openOneArtist(stackView, name, elisaTheme.artistIcon, 0)
             }
 
-            onGoBack: stackView.pop()
+            onGoBack: viewManager.goBack()
 
             expandedFilterView: true
 

@@ -231,6 +231,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND AND KF5Declarative_FOUND)
         qml/ContextView.qml
         qml/ContentView.qml
         qml/ViewSelector.qml
+        qml/ViewManager.qml
 
         qml/MediaPlayListView.qml
         qml/MediaTrackDelegate.qml

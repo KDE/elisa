@@ -30,8 +30,7 @@ RowLayout {
     signal toggleSearch()
 
     function goBack() {
-        localAlbums.goBack()
-        localArtists.goBack()
+        viewManager.goBack()
     }
 
     ViewManager {
@@ -52,6 +51,7 @@ RowLayout {
                                       image: imageUrl,
                                       stackView: currentStackView,
                                   })
+            oneAlbumViewIsLoaded()
         }
 
         onSwitchAllArtistsView: {
@@ -69,6 +69,7 @@ RowLayout {
                                       image: imageUrl,
                                       stackView: currentStackView,
                                   })
+            oneArtistViewIsLoaded()
         }
 
         onSwitchAllTracksView: {
@@ -231,7 +232,7 @@ RowLayout {
                                         viewManager.openOneAlbum(localAlbums.stackView, innerMainTitle, innerSecondaryTitle, innerImage, databaseId)
                                     }
 
-                                    onGoBack: localAlbums.stackView.pop()
+                                    onGoBack: viewManager.goBack()
 
                                     Binding {
                                         target: allAlbumsView
@@ -292,7 +293,7 @@ RowLayout {
                                         viewManager.openOneArtist(localArtists.stackView, innerMainTitle, innerImage, 0)
                                     }
 
-                                    onGoBack: localArtists.stackView.pop()
+                                    onGoBack: viewManager.goBack()
 
                                     Binding {
                                         target: allArtistsView
@@ -567,7 +568,7 @@ RowLayout {
                 viewManager.openOneAlbumFromArtist(stackView, innerMainTitle, innerSecondaryTitle, innerImage, databaseId)
             }
 
-            onGoBack: stackView.pop()
+            onGoBack: viewManager.goBack()
 
             Binding {
                 target: innerAlbumGridView
@@ -618,7 +619,7 @@ RowLayout {
                 viewManager.openOneArtist(stackView, name, elisaTheme.artistIcon, 0)
             }
 
-            onGoBack: stackView.pop()
+            onGoBack: viewManager.goBack()
 
             expandedFilterView: true
 

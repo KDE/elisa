@@ -31,13 +31,17 @@ QtObject {
     }
 
     property int currentView
-    property int targetView
+    property string currentAlbumTitle
+    property string currentAlbumAuthor
+    property string currentArtistName
+    property var currentStackView
 
+    property int targetView
     property string targetAlbumTitle
+    property string targetAlbumAuthor
     property string targetArtistName
     property url targetImageUrl
     property int targetDatabaseId
-    property var targetStackView
 
     signal switchAllAlbumsView()
     signal switchOneAlbumView(var currentStackView, string mainTitle, string imageUrl, string secondaryTitle, int databaseId)
@@ -47,33 +51,25 @@ QtObject {
 
     function openAllAlbums()
     {
-        console.log('open all albums')
-
         targetView = ViewManager.ViewsType.AllAlbums
-
-        console.log('target view is ' + targetView)
 
         if (currentView != targetView) {
             switchAllAlbumsView()
         }
     }
 
-    function openOneAlbum(currentStackView, albumTitle, albumAuthor, albumCover, albumDatabaseId)
+    function openOneAlbum(stackView, albumTitle, albumAuthor, albumCover, albumDatabaseId)
     {
-        console.log('open album ' + albumTitle + ' from ' + albumAuthor)
-
         targetAlbumTitle = albumTitle
-        targetArtistName = albumAuthor
+        targetAlbumAuthor = albumAuthor
         targetDatabaseId = albumDatabaseId
         targetImageUrl = albumCover
-        targetStackView = currentStackView
+        currentStackView = stackView
 
         targetView = ViewManager.ViewsType.OneAlbum
 
-        console.log('target view is ' + targetView)
-
         if (currentView == ViewManager.ViewsType.AllAlbums) {
-            switchOneAlbumView(targetStackView, targetAlbumTitle, targetImageUrl, targetArtistName, targetDatabaseId)
+            switchOneAlbumView(currentStackView, targetAlbumTitle, targetImageUrl, targetAlbumAuthor, targetDatabaseId)
         } else {
             switchAllAlbumsView()
         }
@@ -81,48 +77,48 @@ QtObject {
 
     function openAllArtists()
     {
-        console.log('open all artists')
-
         targetView = ViewManager.ViewsType.AllArtists
-
-        console.log('target view is ' + targetView)
 
         if (currentView != targetView) {
             switchAllArtistsView()
         }
     }
 
-    function openOneArtist(currentStackView, artistName, artistImageUrl, artistDatabaseId)
+    function openOneArtist(stackView, artistName, artistImageUrl, artistDatabaseId)
     {
-        console.log('open artist ' + artistName)
         targetArtistName = artistName
         targetDatabaseId = artistDatabaseId
         targetImageUrl = artistImageUrl
-        targetStackView = currentStackView
+        currentStackView = stackView
 
         targetView = ViewManager.ViewsType.OneArtist
 
-        console.log('target view is ' + targetView)
-
         if (currentView == ViewManager.ViewsType.AllArtists) {
-            switchOneArtistView(targetStackView, targetArtistName, targetImageUrl, '', targetDatabaseId)
+            switchOneArtistView(currentStackView, targetArtistName, targetImageUrl, '', targetDatabaseId)
+        } else if (currentView == ViewManager.ViewsType.OneArtist && currentArtistName != targetArtistName) {
+            currentStackView.pop()
+            switchOneArtistView(currentStackView, targetArtistName, targetImageUrl, '', targetDatabaseId)
+        } else if (currentView == ViewManager.ViewsType.OneAlbumFromArtist && currentArtistName != targetArtistName) {
+            currentStackView.pop()
+            currentStackView.pop()
+            switchOneArtistView(currentStackView, targetArtistName, targetImageUrl, '', targetDatabaseId)
         } else {
             switchAllArtistsView()
         }
     }
 
-    function openOneAlbumFromArtist(currentStackView, albumTitle, albumAuthor, albumCover, albumDatabaseId)
+    function openOneAlbumFromArtist(stackView, albumTitle, albumAuthor, albumCover, albumDatabaseId)
     {
         targetAlbumTitle = albumTitle
-        targetArtistName = albumAuthor
+        targetAlbumAuthor = albumAuthor
         targetDatabaseId = albumDatabaseId
         targetImageUrl = albumCover
-        targetStackView = currentStackView
+        currentStackView = stackView
 
         targetView = ViewManager.ViewsType.OneAlbumFromArtist
 
-        if (currentView == ViewManager.ViewsType.AllArtists) {
-            switchOneAlbumView(targetStackView, targetAlbumTitle, targetImageUrl, targetArtistName, targetDatabaseId)
+        if (currentView == ViewManager.ViewsType.OneArtist) {
+            switchOneAlbumView(currentStackView, targetAlbumTitle, targetImageUrl, targetAlbumAuthor, targetDatabaseId)
         } else {
             switchAllAlbumsView()
         }
@@ -136,39 +132,57 @@ QtObject {
         }
     }
 
-    function allAlbumsViewIsLoaded(currentStackView)
+    function allAlbumsViewIsLoaded(stackView)
     {
-        console.log('all albums view is loaded and target view is ' + targetView)
-        targetStackView = currentStackView
+        currentStackView = stackView
         currentView = ViewManager.ViewsType.AllAlbums
         if (targetView == ViewManager.ViewsType.OneAlbum) {
-            switchOneAlbumView(targetStackView, targetAlbumTitle, targetImageUrl, targetArtistName, targetDatabaseId)
+            switchOneAlbumView(currentStackView, targetAlbumTitle, targetImageUrl, targetArtistName, targetDatabaseId)
         }
     }
 
-    function oneAlbumViewIsLoaded(oneAlbumView)
+    function oneAlbumViewIsLoaded()
     {
-        currentView = ViewManager.ViewsType.OneAlbum
+        currentAlbumTitle = targetAlbumTitle
+        currentAlbumAuthor = targetAlbumAuthor
+
+        if (targetView == ViewManager.ViewsType.OneAlbum) {
+            currentView = ViewManager.ViewsType.OneAlbum
+        } else {
+            currentView = ViewManager.ViewsType.OneAlbumFromArtist
+        }
     }
 
-    function allArtistsViewIsLoaded(currentStackView)
+    function allArtistsViewIsLoaded(stackView)
     {
-        console.log('all artists view is loaded and target view is ' + targetView)
-        targetStackView = currentStackView
+        currentStackView = stackView
         currentView = ViewManager.ViewsType.AllArtists
         if (targetView == ViewManager.ViewsType.OneArtist) {
-            console.log('switch to artist: ' + targetArtistName)
-            switchOneArtistView(targetStackView, targetArtistName, targetImageUrl, '', targetDatabaseId)
+            switchOneArtistView(currentStackView, targetArtistName, targetImageUrl, '', targetDatabaseId)
         }
     }
 
-    function oneArtistViewIsLoaded(oneArtistView)
+    function oneArtistViewIsLoaded()
     {
+        currentArtistName = targetArtistName
         currentView = ViewManager.ViewsType.OneArtist
     }
 
     function allTracksViewIsLoaded(allTracksView)
     {
         currentView = ViewManager.ViewsType.AllTracks
+    }
+
+    function goBack()
+    {
+        currentStackView.pop()
+
+        if (currentView == ViewManager.ViewsType.OneAlbum) {
+            currentView = ViewManager.ViewsType.AllAlbums
+        } else if (currentView == ViewManager.ViewsType.OneArtist) {
+            currentView = ViewManager.ViewsType.AllArtists
+        } else if (currentView == ViewManager.ViewsType.OneAlbumFromArtist) {
+            currentView = ViewManager.ViewsType.OneArtist
+        }
     }
 }

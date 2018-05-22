@@ -78,6 +78,12 @@ RowLayout {
             localTracksLoader.opacity = 1
             localAlbumsLoader.opacity = 0
         }
+
+        onSwitchOffAllViews: {
+            localArtistsLoader.opacity = 0
+            localTracksLoader.opacity = 0
+            localAlbumsLoader.opacity = 0
+        }
     }
 
     ViewSelector {
@@ -93,6 +99,8 @@ RowLayout {
                           viewManager.openAllArtists()
                       } else if (index === 3) {
                           viewManager.openAllTracks()
+                      } else {
+                          viewManager.closeAllViews()
                       }
     }
 

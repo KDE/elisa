@@ -22,6 +22,7 @@ import QtQuick 2.7
 QtObject {
 
     enum ViewsType {
+        NoViews,
         AllAlbums,
         OneAlbum,
         AllArtists,
@@ -48,6 +49,14 @@ QtObject {
     signal switchAllArtistsView()
     signal switchOneArtistView(var currentStackView, string mainTitle, string imageUrl, string secondaryTitle, int databaseId)
     signal switchAllTracksView()
+    signal switchOffAllViews()
+
+    function closeAllViews()
+    {
+        currentView = ViewManager.ViewsType.NoViews
+        targetView = ViewManager.ViewsType.NoViews
+        switchOffAllViews()
+    }
 
     function openAllAlbums()
     {

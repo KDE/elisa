@@ -69,7 +69,8 @@ public:
           mSelectGenreQuery(mTracksDatabase), mSelectAllTracksShortQuery(mTracksDatabase),
           mSelectAllAlbumsShortQuery(mTracksDatabase), mSelectAllComposersQuery(mTracksDatabase),
           mSelectAllLyricistsQuery(mTracksDatabase), mSelectCountAlbumsForComposerQuery(mTracksDatabase),
-          mSelectCountAlbumsForLyricistQuery(mTracksDatabase), mSelectAllGenresQuery(mTracksDatabase)
+          mSelectCountAlbumsForLyricistQuery(mTracksDatabase), mSelectAllGenresQuery(mTracksDatabase),
+          mSelectGenreForArtistQuery(mTracksDatabase)
     {
     }
 
@@ -198,6 +199,8 @@ public:
     QSqlQuery mSelectCountAlbumsForLyricistQuery;
 
     QSqlQuery mSelectAllGenresQuery;
+
+    QSqlQuery mSelectGenreForArtistQuery;
 
     qulonglong mAlbumId = 1;
 
@@ -1828,6 +1831,29 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectCountAlbumsForArtistQuery.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectCountAlbumsForArtistQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        auto selectGenreForArtistQueryText = QStringLiteral("SELECT DISTINCT trackGenre.`Name` "
+                                                         "FROM "
+                                                         "`Albums` album, "
+                                                         "`Artists` artist, "
+                                                         "`AlbumsArtists` albumArtist, "
+                                                         "`Tracks` track "
+                                                         "LEFT JOIN `Genre` trackGenre ON trackGenre.`ID` = track.`GenreID` "
+                                                         "WHERE artist.`Name` = :artistName AND "
+                                                         "album.`ID` = albumArtist.`AlbumID` AND "
+                                                         "artist.`ID` = albumArtist.`ArtistID` AND "
+                                                         "album.`ID` = track.`AlbumID`");
+
+        const auto result = d->mSelectGenreForArtistQuery.prepare(selectGenreForArtistQueryText);
+
+        if (!result) {
+            qDebug() << "DatabaseInterface::initRequest" << d->mSelectGenreForArtistQuery.lastQuery();
+            qDebug() << "DatabaseInterface::initRequest" << d->mSelectGenreForArtistQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -4592,6 +4618,36 @@ QList<MusicArtist> DatabaseInterface::internalAllPeople(QSqlQuery allPeopleQuery
         newArtist.setAlbumsCount(selectCountAlbumsForPeopleQuery.record().value(0).toInt());
 
         selectCountAlbumsForPeopleQuery.finish();
+
+        d->mSelectGenreForArtistQuery.bindValue(QStringLiteral(":artistName"), newArtist.name());
+
+        queryResult = d->mSelectGenreForArtistQuery.exec();
+
+        if (!queryResult || !d->mSelectGenreForArtistQuery.isSelect() || !d->mSelectGenreForArtistQuery.isActive()) {
+            Q_EMIT databaseError();
+
+            qDebug() << "DatabaseInterface::allArtists" << d->mSelectGenreForArtistQuery.lastQuery();
+            qDebug() << "DatabaseInterface::allArtists" << d->mSelectGenreForArtistQuery.boundValues();
+            qDebug() << "DatabaseInterface::allArtists" << d->mSelectGenreForArtistQuery.lastError();
+
+            d->mSelectGenreForArtistQuery.finish();
+
+            transactionResult = finishTransaction();
+            if (!transactionResult) {
+                return result;
+            }
+
+            return result;
+        }
+
+        QStringList allGenres;
+        while(d->mSelectGenreForArtistQuery.next()) {
+            allGenres.push_back(d->mSelectGenreForArtistQuery.record().value(0).toString());
+        }
+
+        newArtist.setGenres(allGenres);
+
+        d->mSelectGenreForArtistQuery.finish();
 
         result.push_back(newArtist);
     }

@@ -169,6 +169,7 @@ void ModelDataCache::neededData()
             fullData[ElisaUtils::ContainerDataRole] = QVariant::fromValue(data);
             fullData[ElisaUtils::ImageUrlRole] = QUrl(QStringLiteral("image://icon/view-media-artist"));
             fullData[ElisaUtils::ShadowForImageRole] = false;
+            fullData[ElisaUtils::GenreRole] = data.genres();
         }
 
         d->mHasFullData = true;

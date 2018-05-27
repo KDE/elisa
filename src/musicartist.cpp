@@ -21,6 +21,7 @@
 
 #include <QtGlobal>
 #include <QString>
+#include <QStringList>
 #include <QDebug>
 
 class MusicArtistPrivate
@@ -28,6 +29,8 @@ class MusicArtistPrivate
 public:
 
     QString mName;
+
+    QStringList mGenre;
 
     qulonglong mDatabaseId = 0;
 
@@ -92,6 +95,16 @@ QString MusicArtist::name() const
     return d->mName;
 }
 
+void MusicArtist::setGenres(const QStringList &aGenres)
+{
+    d->mGenre = aGenres;
+}
+
+QStringList MusicArtist::genres() const
+{
+    return d->mGenre;
+}
+
 void MusicArtist::setDatabaseId(qulonglong value)
 {
     d->mDatabaseId = value;
@@ -114,12 +127,12 @@ int MusicArtist::albumsCount() const
 
 QDebug& operator<<(QDebug &stream, const MusicArtist &data)
 {
-    stream << data.name() << data.databaseId() << data.albumsCount() << (data.isValid() ? "is valid" : "is invalid");
+    stream << data.name() << data.genres() << data.databaseId() << data.albumsCount() << (data.isValid() ? "is valid" : "is invalid");
 
     return stream;
 }
 
 bool operator==(const MusicArtist &artist1, const MusicArtist &artist2)
 {
-    return artist1.name() == artist2.name() && artist1.albumsCount() == artist2.albumsCount();
+    return artist1.name() == artist2.name() && artist1.genres() == artist2.genres() && artist1.albumsCount() == artist2.albumsCount();
 }

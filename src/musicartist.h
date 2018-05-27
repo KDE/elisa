@@ -54,6 +54,10 @@ public:
 
     QString name() const;
 
+    void setGenres(const QStringList &aGenres);
+
+    QStringList genres() const;
+
     void setDatabaseId(qulonglong value);
 
     qulonglong databaseId() const;

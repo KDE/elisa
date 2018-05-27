@@ -19,7 +19,7 @@
 
 #include "allartistsproxymodel.h"
 
-#include "genericdatamodel.h"
+#include "elisautils.h"
 
 #include <QReadLocker>
 #include <QtConcurrentRun>
@@ -42,6 +42,20 @@ bool AllArtistsProxyModel::filterAcceptsRow(int source_row, const QModelIndex &s
 
     for (int column = 0, columnCount = sourceModel()->columnCount(source_parent); column < columnCount; ++column) {
         auto currentIndex = sourceModel()->index(source_row, column, source_parent);
+
+        const auto &genreValue = sourceModel()->data(currentIndex, ElisaUtils::ColumnsRoles::GenreRole);
+
+        if (!mGenreFilterText.isNull() && !genreValue.isValid()) {
+            continue;
+        }
+
+        if (!mGenreFilterText.isNull() && !genreValue.canConvert<QStringList>()) {
+            continue;
+        }
+
+        if (!mGenreFilterText.isNull() && !genreValue.toStringList().contains(mGenreFilterText)) {
+            continue;
+        }
 
         const auto &artistValue = sourceModel()->data(currentIndex, Qt::DisplayRole).toString();
 
@@ -92,6 +106,19 @@ void AllArtistsProxyModel::replaceAndPlayOfPlayList()
                                ElisaUtils::ReplacePlayList,
                                ElisaUtils::TriggerPlay);
     });
+}
+
+void AllArtistsProxyModel::setGenreFilterText(const QString &filterText)
+{
+    if (mGenreFilterText == filterText)
+    {
+        return;
+    }
+
+    mGenreFilterText = filterText;
+    invalidateFilter();
+
+    Q_EMIT genreFilterTextChanged(mGenreFilterText);
 }
 
 

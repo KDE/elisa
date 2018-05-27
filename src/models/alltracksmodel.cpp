@@ -19,6 +19,8 @@
 
 #include "alltracksmodel.h"
 
+#include "elisautils.h"
+
 #include <algorithm>
 
 #include <QDebug>
@@ -57,30 +59,30 @@ QHash<int, QByteArray> AllTracksModel::roleNames() const
 {
     auto roles = QAbstractItemModel::roleNames();
 
-    roles[static_cast<int>(ColumnsRoles::TitleRole)] = "title";
-    roles[static_cast<int>(ColumnsRoles::DurationRole)] = "duration";
-    roles[static_cast<int>(ColumnsRoles::ArtistRole)] = "artist";
-    roles[static_cast<int>(ColumnsRoles::AlbumRole)] = "album";
-    roles[static_cast<int>(ColumnsRoles::AlbumArtistRole)] = "albumArtist";
-    roles[static_cast<int>(ColumnsRoles::TrackNumberRole)] = "trackNumber";
-    roles[static_cast<int>(ColumnsRoles::DiscNumberRole)] = "discNumber";
-    roles[static_cast<int>(ColumnsRoles::RatingRole)] = "rating";
-    roles[static_cast<int>(ColumnsRoles::GenreRole)] = "genre";
-    roles[static_cast<int>(ColumnsRoles::LyricistRole)] = "lyricist";
-    roles[static_cast<int>(ColumnsRoles::ComposerRole)] = "composer";
-    roles[static_cast<int>(ColumnsRoles::CommentRole)] = "comment";
-    roles[static_cast<int>(ColumnsRoles::YearRole)] = "year";
-    roles[static_cast<int>(ColumnsRoles::ChannelsRole)] = "channels";
-    roles[static_cast<int>(ColumnsRoles::BitRateRole)] = "bitRate";
-    roles[static_cast<int>(ColumnsRoles::SampleRateRole)] = "sampleRate";
-    roles[static_cast<int>(ColumnsRoles::ImageRole)] = "image";
-    roles[static_cast<int>(ColumnsRoles::DatabaseIdRole)] = "databaseId";
-    roles[static_cast<int>(ColumnsRoles::IsSingleDiscAlbumRole)] = "isSingleDiscAlbum";
-    roles[static_cast<int>(ColumnsRoles::ContainerDataRole)] = "containerData";
-    roles[static_cast<int>(ColumnsRoles::ResourceRole)] = "trackResource";
-    roles[static_cast<int>(ColumnsRoles::SecondaryTextRole)] = "secondaryText";
-    roles[static_cast<int>(ColumnsRoles::ImageUrlRole)] = "imageUrl";
-    roles[static_cast<int>(ColumnsRoles::ShadowForImageRole)] = "shadowForImage";
+    roles[static_cast<int>(ElisaUtils::ColumnsRoles::TitleRole)] = "title";
+    roles[static_cast<int>(ElisaUtils::ColumnsRoles::DurationRole)] = "duration";
+    roles[static_cast<int>(ElisaUtils::ColumnsRoles::ArtistRole)] = "artist";
+    roles[static_cast<int>(ElisaUtils::ColumnsRoles::AlbumRole)] = "album";
+    roles[static_cast<int>(ElisaUtils::ColumnsRoles::AlbumArtistRole)] = "albumArtist";
+    roles[static_cast<int>(ElisaUtils::ColumnsRoles::TrackNumberRole)] = "trackNumber";
+    roles[static_cast<int>(ElisaUtils::ColumnsRoles::DiscNumberRole)] = "discNumber";
+    roles[static_cast<int>(ElisaUtils::ColumnsRoles::RatingRole)] = "rating";
+    roles[static_cast<int>(ElisaUtils::ColumnsRoles::GenreRole)] = "genre";
+    roles[static_cast<int>(ElisaUtils::ColumnsRoles::LyricistRole)] = "lyricist";
+    roles[static_cast<int>(ElisaUtils::ColumnsRoles::ComposerRole)] = "composer";
+    roles[static_cast<int>(ElisaUtils::ColumnsRoles::CommentRole)] = "comment";
+    roles[static_cast<int>(ElisaUtils::ColumnsRoles::YearRole)] = "year";
+    roles[static_cast<int>(ElisaUtils::ColumnsRoles::ChannelsRole)] = "channels";
+    roles[static_cast<int>(ElisaUtils::ColumnsRoles::BitRateRole)] = "bitRate";
+    roles[static_cast<int>(ElisaUtils::ColumnsRoles::SampleRateRole)] = "sampleRate";
+    roles[static_cast<int>(ElisaUtils::ColumnsRoles::ImageRole)] = "image";
+    roles[static_cast<int>(ElisaUtils::ColumnsRoles::DatabaseIdRole)] = "databaseId";
+    roles[static_cast<int>(ElisaUtils::ColumnsRoles::IsSingleDiscAlbumRole)] = "isSingleDiscAlbum";
+    roles[static_cast<int>(ElisaUtils::ColumnsRoles::ContainerDataRole)] = "containerData";
+    roles[static_cast<int>(ElisaUtils::ColumnsRoles::ResourceRole)] = "trackResource";
+    roles[static_cast<int>(ElisaUtils::ColumnsRoles::SecondaryTextRole)] = "secondaryText";
+    roles[static_cast<int>(ElisaUtils::ColumnsRoles::ImageUrlRole)] = "imageUrl";
+    roles[static_cast<int>(ElisaUtils::ColumnsRoles::ShadowForImageRole)] = "shadowForImage";
 
     return roles;
 }
@@ -128,17 +130,17 @@ QVariant AllTracksModel::data(const QModelIndex &index, int role) const
 
     switch(role)
     {
-    case ColumnsRoles::TitleRole:
+    case ElisaUtils::ColumnsRoles::TitleRole:
         if (d->mAllTracks[d->mIds[index.row()]].title().isEmpty()) {
             result = d->mAllTracks[d->mIds[index.row()]].resourceURI().fileName();
         } else {
             result = d->mAllTracks[d->mIds[index.row()]].title();
         }
         break;
-    case ColumnsRoles::MilliSecondsDurationRole:
+    case ElisaUtils::ColumnsRoles::MilliSecondsDurationRole:
         result = d->mAllTracks[d->mIds[index.row()]].duration().msecsSinceStartOfDay();
         break;
-    case ColumnsRoles::DurationRole:
+    case ElisaUtils::ColumnsRoles::DurationRole:
     {
         QTime trackDuration = d->mAllTracks[d->mIds[index.row()]].duration();
         if (trackDuration.hour() == 0) {
@@ -148,52 +150,52 @@ QVariant AllTracksModel::data(const QModelIndex &index, int role) const
         }
         break;
     }
-    case ColumnsRoles::ArtistRole:
+    case ElisaUtils::ColumnsRoles::ArtistRole:
         result = d->mAllTracks[d->mIds[index.row()]].artist();
         break;
-    case ColumnsRoles::AlbumRole:
+    case ElisaUtils::ColumnsRoles::AlbumRole:
         result = d->mAllTracks[d->mIds[index.row()]].albumName();
         break;
-    case ColumnsRoles::AlbumArtistRole:
+    case ElisaUtils::ColumnsRoles::AlbumArtistRole:
         result = d->mAllTracks[d->mIds[index.row()]].albumArtist();
         break;
-    case ColumnsRoles::TrackNumberRole:
+    case ElisaUtils::ColumnsRoles::TrackNumberRole:
         result = d->mAllTracks[d->mIds[index.row()]].trackNumber();
         break;
-    case ColumnsRoles::DiscNumberRole:
+    case ElisaUtils::ColumnsRoles::DiscNumberRole:
         result = d->mAllTracks[d->mIds[index.row()]].discNumber();
         break;
-    case ColumnsRoles::IsSingleDiscAlbumRole:
+    case ElisaUtils::ColumnsRoles::IsSingleDiscAlbumRole:
         result = d->mAllTracks[d->mIds[index.row()]].isSingleDiscAlbum();
         break;
-    case ColumnsRoles::RatingRole:
+    case ElisaUtils::ColumnsRoles::RatingRole:
         result = d->mAllTracks[d->mIds[index.row()]].rating();
         break;
-    case ColumnsRoles::GenreRole:
+    case ElisaUtils::ColumnsRoles::GenreRole:
         result = d->mAllTracks[d->mIds[index.row()]].genre();
         break;
-    case ColumnsRoles::LyricistRole:
+    case ElisaUtils::ColumnsRoles::LyricistRole:
         result = d->mAllTracks[d->mIds[index.row()]].lyricist();
         break;
-    case ColumnsRoles::ComposerRole:
+    case ElisaUtils::ColumnsRoles::ComposerRole:
         result = d->mAllTracks[d->mIds[index.row()]].composer();
         break;
-    case ColumnsRoles::CommentRole:
+    case ElisaUtils::ColumnsRoles::CommentRole:
         result = d->mAllTracks[d->mIds[index.row()]].comment();
         break;
-    case ColumnsRoles::YearRole:
+    case ElisaUtils::ColumnsRoles::YearRole:
         result = d->mAllTracks[d->mIds[index.row()]].year();
         break;
-    case ColumnsRoles::ChannelsRole:
+    case ElisaUtils::ColumnsRoles::ChannelsRole:
         result = d->mAllTracks[d->mIds[index.row()]].channels();
         break;
-    case ColumnsRoles::BitRateRole:
+    case ElisaUtils::ColumnsRoles::BitRateRole:
         result = d->mAllTracks[d->mIds[index.row()]].bitRate();
         break;
-    case ColumnsRoles::SampleRateRole:
+    case ElisaUtils::ColumnsRoles::SampleRateRole:
         result = d->mAllTracks[d->mIds[index.row()]].sampleRate();
         break;
-    case ColumnsRoles::ImageRole:
+    case ElisaUtils::ColumnsRoles::ImageRole:
     {
         const auto &imageUrl = d->mAllTracks[d->mIds[index.row()]].albumCover();
         if (imageUrl.isValid()) {
@@ -201,22 +203,22 @@ QVariant AllTracksModel::data(const QModelIndex &index, int role) const
         }
         break;
     }
-    case ColumnsRoles::ResourceRole:
+    case ElisaUtils::ColumnsRoles::ResourceRole:
         result = d->mAllTracks[d->mIds[index.row()]].resourceURI();
         break;
-    case ColumnsRoles::IdRole:
+    case ElisaUtils::ColumnsRoles::IdRole:
         result = d->mAllTracks[d->mIds[index.row()]].title();
         break;
-    case ColumnsRoles::DatabaseIdRole:
+    case ElisaUtils::ColumnsRoles::DatabaseIdRole:
         result = d->mAllTracks[d->mIds[index.row()]].databaseId();
         break;
-    case ColumnsRoles::ContainerDataRole:
+    case ElisaUtils::ColumnsRoles::ContainerDataRole:
         result = QVariant::fromValue(d->mAllTracks[d->mIds[index.row()]]);
         break;
     case Qt::DisplayRole:
         result = track.title();
         break;
-    case ColumnsRoles::SecondaryTextRole:
+    case ElisaUtils::ColumnsRoles::SecondaryTextRole:
     {
         auto secondaryText = QString();
         secondaryText = QStringLiteral("<b>%1 - %2</b>%3");
@@ -236,7 +238,7 @@ QVariant AllTracksModel::data(const QModelIndex &index, int role) const
         result = secondaryText;
         break;
     }
-    case ColumnsRoles::ImageUrlRole:
+    case ElisaUtils::ColumnsRoles::ImageUrlRole:
     {
         const auto &imageUrl = d->mAllTracks[d->mIds[index.row()]].albumCover();
         if (imageUrl.isValid()) {
@@ -246,7 +248,7 @@ QVariant AllTracksModel::data(const QModelIndex &index, int role) const
         }
         break;
     }
-    case ColumnsRoles::ShadowForImageRole:
+    case ElisaUtils::ColumnsRoles::ShadowForImageRole:
         result = d->mAllTracks[d->mIds[index.row()]].albumCover().isValid();
         break;
     }

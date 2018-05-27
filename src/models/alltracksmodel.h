@@ -36,37 +36,6 @@ class ELISALIB_EXPORT AllTracksModel : public QAbstractItemModel
 
 public:
 
-    enum ColumnsRoles {
-        TitleRole = Qt::UserRole + 1,
-        DurationRole,
-        MilliSecondsDurationRole,
-        ArtistRole,
-        AlbumRole,
-        AlbumArtistRole,
-        TrackNumberRole,
-        DiscNumberRole,
-        RatingRole,
-        GenreRole,
-        LyricistRole,
-        ComposerRole,
-        CommentRole,
-        YearRole,
-        ChannelsRole,
-        BitRateRole,
-        SampleRateRole,
-        ImageRole,
-        ResourceRole,
-        IdRole,
-        DatabaseIdRole,
-        IsSingleDiscAlbumRole,
-        ContainerDataRole,
-        SecondaryTextRole,
-        ImageUrlRole,
-        ShadowForImageRole,
-    };
-
-    Q_ENUM(ColumnsRoles)
-
     explicit AllTracksModel(QObject *parent = nullptr);
 
     ~AllTracksModel() override;

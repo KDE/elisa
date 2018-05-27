@@ -20,6 +20,8 @@
 #ifndef GENERICDATAMODEL_H
 #define GENERICDATAMODEL_H
 
+#include "elisaLib_export.h"
+
 #include "datatype.h"
 
 #include <QAbstractListModel>
@@ -29,7 +31,7 @@
 class GenericDataModelPrivate;
 class ModelDataCache;
 
-class GenericDataModel : public QAbstractListModel
+class ELISALIB_EXPORT GenericDataModel : public QAbstractListModel
 {
 
     Q_OBJECT

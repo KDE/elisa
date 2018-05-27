@@ -61,6 +61,8 @@ ModelDataCache::ModelDataCache(QObject *parent)
     d->mFullData.reserve(CACHE_SIZE);
 }
 
+ModelDataCache::ModelDataCache::~ModelDataCache() = default;
+
 DataUtils::DataType ModelDataCache::dataType() const
 {
     return d->mDataType;

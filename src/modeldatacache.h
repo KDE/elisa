@@ -20,6 +20,8 @@
 #ifndef MODELDATACACHE_H
 #define MODELDATACACHE_H
 
+#include "elisaLib_export.h"
+
 #include "datatype.h"
 #include "elisautils.h"
 
@@ -31,7 +33,7 @@ class ModelDataCachePrivate;
 class DatabaseInterface;
 class MusicAlbum;
 
-class ModelDataCache : public QObject
+class ELISALIB_EXPORT ModelDataCache : public QObject
 {
 
     Q_OBJECT
@@ -50,6 +52,8 @@ public:
     };
 
     explicit ModelDataCache(QObject *parent = nullptr);
+
+    ~ModelDataCache();
 
     DataUtils::DataType dataType() const;
 

@@ -1755,7 +1755,7 @@ void DatabaseInterface::initRequest()
                                                    "tracks.`ID` = trackArtist.`TrackID` AND "
                                                    "artist.`ID` = trackArtist.`ArtistID` AND "
                                                    "tracksMapping.`TrackID` = tracks.`ID` AND "
-                                                   "tracks.`AlbumID` = :albumId AND "
+                                                   "tracks.`AlbumID` = album.`ID` AND "
                                                    "album.`ID` = :albumId AND "
                                                    "tracksMapping.`Priority` = (SELECT MIN(`Priority`) FROM `TracksMapping` WHERE `TrackID` = tracks.`ID`) "
                                                    "ORDER BY tracks.`DiscNumber` ASC, "
@@ -2367,7 +2367,7 @@ void DatabaseInterface::initRequest()
     }
     {
         auto updateAlbumQueryText = QStringLiteral("UPDATE `Albums` "
-                                                   "SET `TracksCount` = (SELECT COUNT(*) FROM `Tracks` WHERE `AlbumID` = :albumId) "
+                                                   "SET `TracksCount` = (SELECT COUNT(*) FROM `Tracks` WHERE `AlbumID` = `Albums`.`ID`) "
                                                    "WHERE "
                                                    "`ID` = :albumId");
 

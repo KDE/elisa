@@ -90,6 +90,18 @@ RowLayout {
             localGenresLoader.opacity = 1
         }
 
+        onSwitchAllArtistsFromGenreView: {
+            elisa.allArtistsProxyModel.genreFilterText = genreName
+            currentStackView.push(innerArtistView, {
+                                      contentModel: elisa.allArtistsProxyModel,
+                                      mainTitle: genreName,
+                                      secondaryTitle: '',
+                                      image: elisaTheme.artistIcon,
+                                      stackView: currentStackView,
+                                  })
+            allArtistsFromGenreViewIsLoaded()
+        }
+
         onSwitchOffAllViews: {
             localArtistsLoader.opacity = 0
             localTracksLoader.opacity = 0
@@ -446,16 +458,10 @@ RowLayout {
                                     mainTitle: i18nc("Title of the view of all genres", "Genres")
 
                                     onOpen: {
-                                        elisa.singleGenreProxyModel.setGenreFilterText(innerMainTitle)
-                                        localGenres.stackView.push(innerAlbumView, {
-                                                                        mainTitle: innerMainTitle,
-                                                                        secondaryTitle: innerSecondaryTitle,
-                                                                        image: innerImage,
-                                                                    })
-
+                                        viewManager.openAllArtistsFromGenre(localGenres.stackView, innerMainTitle)
                                     }
 
-                                    onGoBack: localGenres.stackView.pop()
+                                    onGoBack: viewManager.goBack()
 
                                     Binding {
                                         target: allGenresView
@@ -642,7 +648,6 @@ RowLayout {
         }
     }
 
-
     Component {
         id: innerAlbumView
 
@@ -654,7 +659,33 @@ RowLayout {
             isSubPage: true
 
             onOpen: {
-                viewManager.openOneAlbumFromArtist(stackView, innerMainTitle, innerSecondaryTitle, innerImage, databaseId)
+                viewManager.openOneAlbum(stackView, innerMainTitle, innerSecondaryTitle, innerImage, databaseId)
+            }
+
+            onGoBack: viewManager.goBack()
+
+            Binding {
+                target: innerAlbumGridView
+                property: 'expandedFilterView'
+                value: persistentSettings.expandedFilterView
+            }
+
+            onFilterViewChanged: persistentSettings.expandedFilterView = expandedFilterView
+        }
+    }
+
+    Component {
+        id: innerArtistView
+
+        GridBrowserView {
+            id: innerAlbumGridView
+
+            delegateDisplaySecondaryText: false
+
+            isSubPage: true
+
+            onOpen: {
+                viewManager.openOneArtist(stackView, innerMainTitle, innerImage, databaseId)
             }
 
             onGoBack: viewManager.goBack()

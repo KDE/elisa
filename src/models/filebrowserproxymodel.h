@@ -68,6 +68,8 @@ public:
 
     Q_INVOKABLE MusicAudioTrack loadMetaDataFromUrl(const QUrl &url);
 
+    bool sortedAscending() const;
+
 public Q_SLOTS:
 
     void enqueueToPlayList();
@@ -79,8 +81,6 @@ public Q_SLOTS:
     void openParentFolder();
 
     void openFolder(const QString &folder, bool isDisplayRoot = false);
-
-    bool sortedAscending() const;
 
     void sortModel(Qt::SortOrder order);
 

@@ -41,9 +41,7 @@ FileBrowserProxyModel::FileBrowserProxyModel(QObject *parent) : KDirSortFilterPr
     openFolder(mTopFolder, true);
 }
 
-FileBrowserProxyModel::~FileBrowserProxyModel()
-{
-}
+FileBrowserProxyModel::~FileBrowserProxyModel() = default;
 
 QString FileBrowserProxyModel::filterText() const
 {

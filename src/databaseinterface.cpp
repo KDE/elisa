@@ -657,7 +657,7 @@ void DatabaseInterface::removeAllTracksFromSource(const QString &sourceName)
 
     if (!newArtistsIds.isEmpty()) {
         QList<MusicArtist> newArtists;
-        for (auto artistId : newArtistsIds) {
+        for (auto artistId : qAsConst(newArtistsIds)) {
             newArtists.push_back(internalArtistFromId(artistId));
         }
         Q_EMIT artistsAdded(newArtists);
@@ -768,7 +768,7 @@ void DatabaseInterface::insertTracksList(const QList<MusicAudioTrack> &tracks, c
 
     if (!insertedArtists.isEmpty()) {
         QList<MusicArtist> newArtists;
-        for (auto artistId : insertedArtists) {
+        for (auto artistId : qAsConst(insertedArtists)) {
             newArtists.push_back(internalArtistFromId(artistId));
         }
         Q_EMIT artistsAdded(newArtists);
@@ -817,7 +817,7 @@ void DatabaseInterface::removeTracksList(const QList<QUrl> &removedTracks)
 
     if (!newArtistsIds.isEmpty()) {
         QList<MusicArtist> newArtists;
-        for (auto artistId : newArtistsIds) {
+        for (auto artistId : qAsConst(newArtistsIds)) {
             newArtists.push_back(internalArtistFromId(artistId));
         }
         Q_EMIT artistsAdded(newArtists);

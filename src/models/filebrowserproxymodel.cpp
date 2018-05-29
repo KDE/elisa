@@ -36,7 +36,7 @@ FileBrowserProxyModel::FileBrowserProxyModel(QObject *parent) : KDirSortFilterPr
     setSourceModel(mFileModel.get());
     setSortFoldersFirst(true);
     sort(Qt::AscendingOrder);
-    QObject::connect(mFileModel.get(), &FileBrowserModel::urlChanged,this, &FileBrowserProxyModel::urlChanged);
+    connect(mFileModel.get(), &FileBrowserModel::urlChanged,this, &FileBrowserProxyModel::urlChanged);
     mTopFolder = QDir::homePath();
     openFolder(mTopFolder, true);
 }

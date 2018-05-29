@@ -657,7 +657,7 @@ void DatabaseInterface::removeAllTracksFromSource(const QString &sourceName)
 
     if (!newArtistsIds.isEmpty()) {
         QList<MusicArtist> newArtists;
-        for (auto artistId : newArtistsIds) {
+        for (auto artistId : qAsConst(newArtistsIds)) {
             newArtists.push_back(internalArtistFromId(artistId));
         }
         Q_EMIT artistsAdded(newArtists);
@@ -768,7 +768,7 @@ void DatabaseInterface::insertTracksList(const QList<MusicAudioTrack> &tracks, c
 
     if (!insertedArtists.isEmpty()) {
         QList<MusicArtist> newArtists;
-        for (auto artistId : insertedArtists) {
+        for (auto artistId : qAsConst(insertedArtists)) {
             newArtists.push_back(internalArtistFromId(artistId));
         }
         Q_EMIT artistsAdded(newArtists);
@@ -817,7 +817,7 @@ void DatabaseInterface::removeTracksList(const QList<QUrl> &removedTracks)
 
     if (!newArtistsIds.isEmpty()) {
         QList<MusicArtist> newArtists;
-        for (auto artistId : newArtistsIds) {
+        for (auto artistId : qAsConst(newArtistsIds)) {
             newArtists.push_back(internalArtistFromId(artistId));
         }
         Q_EMIT artistsAdded(newArtists);
@@ -1608,7 +1608,7 @@ void DatabaseInterface::initRequest()
                                                    "tracks.`ID` = trackArtist.`TrackID` AND "
                                                    "artist.`ID` = trackArtist.`ArtistID` AND "
                                                    "tracksMapping.`TrackID` = tracks.`ID` AND "
-                                                   "tracks.`AlbumID` = :albumId AND "
+                                                   "tracks.`AlbumID` = album.`ID` AND "
                                                    "album.`ID` = :albumId AND "
                                                    "tracksMapping.`Priority` = (SELECT MIN(`Priority`) FROM `TracksMapping` WHERE `TrackID` = tracks.`ID`) "
                                                    "ORDER BY tracks.`DiscNumber` ASC, "
@@ -2158,7 +2158,7 @@ void DatabaseInterface::initRequest()
     }
     {
         auto updateAlbumQueryText = QStringLiteral("UPDATE `Albums` "
-                                                   "SET `TracksCount` = (SELECT COUNT(*) FROM `Tracks` WHERE `AlbumID` = :albumId) "
+                                                   "SET `TracksCount` = (SELECT COUNT(*) FROM `Tracks` WHERE `AlbumID` = `Albums`.`ID`) "
                                                    "WHERE "
                                                    "`ID` = :albumId");
 

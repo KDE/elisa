@@ -55,6 +55,7 @@
 #include <QQmlFileSelector>
 #include <QQmlDebuggingEnabler>
 #include <QQmlContext>
+#include <QQuickStyle>
 #include <QScreen>
 
 #include <memory>
@@ -118,6 +119,9 @@ int main(int argc, char *argv[])
                                               "(Landroid/content/Context;)V",
                                               QtAndroid::androidContext().object());
 #endif
+
+    QQuickStyle::setStyle(QStringLiteral("org.kde.desktop"));
+    QQuickStyle::setFallbackStyle(QStringLiteral("Fusion"));
 
     QQmlApplicationEngine engine;
     engine.addImportPath(QStringLiteral("qrc:/imports"));

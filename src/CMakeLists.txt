@@ -258,7 +258,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND AND KF5Declarative_FOUND)
     target_link_libraries(elisa
         LINK_PRIVATE
             elisaLib
-            Qt5::Widgets
+            Qt5::Widgets Qt5::QuickControls2
             KF5::Declarative KF5::I18n KF5::Crash KF5::ConfigCore KF5::ConfigGui
     )
 endif()

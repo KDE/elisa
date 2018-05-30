@@ -72,14 +72,15 @@ FocusScope {
         anchors.fill: parent
         spacing: 0
 
-        anchors.margins: {
-            top: elisaTheme.layoutVerticalMargin
-            bottom: elisaTheme.layoutVerticalMargin
-        }
+        anchors.topMargin: elisaTheme.layoutVerticalMargin
+        anchors.bottomMargin: elisaTheme.layoutVerticalMargin
 
         RowLayout {
             spacing: 0
             Layout.alignment: Qt.AlignTop
+            Layout.preferredHeight: elisaTheme.navigationBarHeight
+            Layout.minimumHeight: elisaTheme.navigationBarHeight
+            Layout.maximumHeight: elisaTheme.navigationBarHeight
 
             Controls1.ToolButton {
                 action: goPreviousAction
@@ -246,6 +247,9 @@ FocusScope {
 
             opacity: 0
 
+            Layout.preferredHeight: elisaTheme.navigationBarFilterHeight
+            Layout.minimumHeight: elisaTheme.navigationBarFilterHeight
+            Layout.maximumHeight: elisaTheme.navigationBarFilterHeight
             Layout.fillWidth: true
             Layout.topMargin: elisaTheme.layoutVerticalMargin * 2
             Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
@@ -351,7 +355,7 @@ FocusScope {
             when: !expandedFilterView
             PropertyChanges {
                 target: navigationBar
-                height: elisaTheme.navigationBarHeight
+                height: elisaTheme.navigationBarHeight + elisaTheme.layoutVerticalMargin * 2
             }
             PropertyChanges {
                 target: filterRow
@@ -363,7 +367,7 @@ FocusScope {
             when: expandedFilterView
             PropertyChanges {
                 target: navigationBar
-                height: elisaTheme.navigationBarHeight + elisaTheme.navigationBarFilterHeight
+                height: elisaTheme.navigationBarHeight + elisaTheme.navigationBarFilterHeight + elisaTheme.layoutVerticalMargin * 4
             }
             PropertyChanges {
                 target: filterRow

@@ -314,8 +314,10 @@ FocusScope {
                 implicitWidth: 18
                 implicitHeight: 18
                 radius: 9
-                color: myPalette.button
-                border.color: musicProgress.pressed ? myPalette.highlight : myPalette.dark
+                color: myPalette.base
+                border.width: 1
+                border.color: musicProgress.pressed ? myPalette.text : myPalette.dark
+
             }
         }
 
@@ -445,6 +447,7 @@ FocusScope {
                 height: implicitHeight
                 radius: 3
                 color: myPalette.dark
+                opacity: muted ? 0.5 : 1
 
                 Rectangle {
                     x: (LayoutMirroring.enabled ? volumeSlider.visualPosition * parent.width : 0)
@@ -452,6 +455,7 @@ FocusScope {
                     height: parent.height
                     color: myPalette.text
                     radius: 3
+                    opacity: muted ? 0.5 : 1
                 }
             }
 
@@ -461,8 +465,9 @@ FocusScope {
                 implicitWidth: 18
                 implicitHeight: 18
                 radius: 9
-                color: myPalette.button
-                border.color: volumeSlider.pressed ? myPalette.highlight : myPalette.dark
+                color: myPalette.base
+                border.width: 1
+                border.color: volumeSlider.pressed ? myPalette.text : (muted ? myPalette.mid : myPalette.dark)
             }
         }
 

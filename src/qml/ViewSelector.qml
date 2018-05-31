@@ -161,6 +161,7 @@ FocusScope {
                         pageModel.insert(4, {"name": i18nc("Title of the file browser view", "Files"), "iconName": elisaTheme.folderIcon})
 
                         viewModeView.currentIndex = 1
+                        switchView(1)
                     }
                 }
 

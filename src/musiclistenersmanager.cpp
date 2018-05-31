@@ -44,9 +44,9 @@
 #include "models/alltracksproxymodel.h"
 #include "models/singleartistproxymodel.h"
 #include "models/singlealbumproxymodel.h"
-
-#include "modeldatacache.h"
-#include "models/genericdatamodel.h"
+#include "models/allalbumsmodel.h"
+#include "models/allartistsmodel.h"
+#include "models/alltracksmodel.h"
 
 #include <KI18n/KLocalizedString>
 
@@ -88,17 +88,17 @@ public:
 
     ElisaApplication *mElisaApplication = nullptr;
 
-    GenericDataModel mAllAlbumsModel;
+    AllAlbumsModel mAllAlbumsModel;
 
-    GenericDataModel mAllArtistsModel;
+    AllArtistsModel mAllArtistsModel;
 
-    GenericDataModel mAllTracksModel;
+    AllTracksModel mAllTracksModel;
 
-    GenericDataModel mAllGenresModel;
+    //GenericDataModel mAllGenresModel;
 
-    GenericDataModel mAllComposersModel;
+    //GenericDataModel mAllComposersModel;
 
-    GenericDataModel mAllLyricistsModel;
+    //GenericDataModel mAllLyricistsModel;
 
     AlbumModel mAlbumModel;
 
@@ -156,41 +156,29 @@ MusicListenersManager::MusicListenersManager(QObject *parent)
 
     d->mConfigFileWatcher.addPath(Elisa::ElisaConfiguration::self()->config()->name());
 
-    auto modelData = new ModelDataCache;
-    modelData->setDatabase(&d->mDatabaseInterface);
-    modelData->moveToThread(&d->mDatabaseThread);
-    d->mAllAlbumsModel.setModelCache(modelData);
-    d->mAllAlbumsModel.setDataType(DataUtils::AllAlbums);
+    d->mAllAlbumsModel.setAllArtists(&d->mAllArtistsModel);
+    d->mAllArtistsModel.setAllAlbums(&d->mAllAlbumsModel);
 
-    modelData = new ModelDataCache;
-    modelData->setDatabase(&d->mDatabaseInterface);
-    modelData->moveToThread(&d->mDatabaseThread);
-    d->mAllArtistsModel.setModelCache(modelData);
-    d->mAllArtistsModel.setDataType(DataUtils::AllArtists);
+    connect(&d->mDatabaseInterface, &DatabaseInterface::albumsAdded,
+            &d->mAllAlbumsModel, &AllAlbumsModel::albumsAdded);
+    connect(&d->mDatabaseInterface, &DatabaseInterface::albumModified,
+            &d->mAllAlbumsModel, &AllAlbumsModel::albumModified);
+    connect(&d->mDatabaseInterface, &DatabaseInterface::albumRemoved,
+            &d->mAllAlbumsModel, &AllAlbumsModel::albumRemoved);
 
-    modelData = new ModelDataCache;
-    modelData->setDatabase(&d->mDatabaseInterface);
-    modelData->moveToThread(&d->mDatabaseThread);
-    d->mAllTracksModel.setModelCache(modelData);
-    d->mAllTracksModel.setDataType(DataUtils::AllTracks);
+    connect(&d->mDatabaseInterface, &DatabaseInterface::artistsAdded,
+            &d->mAllArtistsModel, &AllArtistsModel::artistsAdded);
+    connect(&d->mDatabaseInterface, &DatabaseInterface::artistModified,
+            &d->mAllArtistsModel, &AllArtistsModel::artistModified);
+    connect(&d->mDatabaseInterface, &DatabaseInterface::artistRemoved,
+            &d->mAllArtistsModel, &AllArtistsModel::artistRemoved);
 
-    modelData = new ModelDataCache;
-    modelData->setDatabase(&d->mDatabaseInterface);
-    modelData->moveToThread(&d->mDatabaseThread);
-    d->mAllGenresModel.setModelCache(modelData);
-    d->mAllGenresModel.setDataType(DataUtils::AllGenres);
-
-    modelData = new ModelDataCache;
-    modelData->setDatabase(&d->mDatabaseInterface);
-    modelData->moveToThread(&d->mDatabaseThread);
-    d->mAllLyricistsModel.setModelCache(modelData);
-    d->mAllLyricistsModel.setDataType(DataUtils::AllLyricists);
-
-    modelData = new ModelDataCache;
-    modelData->setDatabase(&d->mDatabaseInterface);
-    modelData->moveToThread(&d->mDatabaseThread);
-    d->mAllComposersModel.setModelCache(modelData);
-    d->mAllComposersModel.setDataType(DataUtils::AllComposers);
+    connect(&d->mDatabaseInterface, &DatabaseInterface::tracksAdded,
+            &d->mAllTracksModel, &AllTracksModel::tracksAdded);
+    connect(&d->mDatabaseInterface, &DatabaseInterface::trackModified,
+            &d->mAllTracksModel, &AllTracksModel::trackModified);
+    connect(&d->mDatabaseInterface, &DatabaseInterface::trackRemoved,
+            &d->mAllTracksModel, &AllTracksModel::trackRemoved);
 
     connect(&d->mDatabaseInterface, &DatabaseInterface::albumModified,
             &d->mAlbumModel, &AlbumModel::albumModified);
@@ -266,17 +254,17 @@ QAbstractItemModel *MusicListenersManager::allTracksModel() const
 
 QAbstractItemModel *MusicListenersManager::allGenresModel() const
 {
-    return &d->mAllGenresModel;
+    return nullptr;/*&d->mAllGenresModel;*/
 }
 
 QAbstractItemModel *MusicListenersManager::allLyricistsModel() const
 {
-    return &d->mAllLyricistsModel;
+    return nullptr;/*&d->mAllLyricistsModel;*/
 }
 
 QAbstractItemModel *MusicListenersManager::allComposersModel() const
 {
-    return &d->mAllComposersModel;
+    return nullptr;/*&d->mAllComposersModel;*/
 }
 
 QAbstractItemModel *MusicListenersManager::albumModel() const

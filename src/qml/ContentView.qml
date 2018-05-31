@@ -56,6 +56,7 @@ RowLayout {
         }
 
         onSwitchAllArtistsView: {
+            elisa.allArtistsProxyModel.genreFilterText = ''
             listViews.currentIndex = 2
             localArtistsLoader.opacity = 1
             localTracksLoader.opacity = 0

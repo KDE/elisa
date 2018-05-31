@@ -160,6 +160,7 @@ FocusScope {
                         pageModel.insert(3, {"name": i18nc("Title of the view of all tracks", "Tracks"), "iconName": elisaTheme.tracksIcon})
 
                         viewModeView.currentIndex = 1
+                        switchView(1)
                     }
                 }
 

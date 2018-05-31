@@ -56,8 +56,8 @@ QtObject {
     signal switchOneArtistView(var currentStackView, string mainTitle, url imageUrl, string secondaryTitle, int databaseId)
     signal switchAllTracksView()
     signal switchAllGenresView()
-    signal switchOffAllViews()
     signal switchAllArtistsFromGenreView(var currentStackView, string genreName)
+    signal switchOffAllViews()
 
     function closeAllViews()
     {

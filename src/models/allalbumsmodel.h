@@ -50,27 +50,6 @@ class ELISALIB_EXPORT AllAlbumsModel : public QAbstractItemModel
 
 public:
 
-    enum ColumnsRoles {
-        TitleRole = Qt::UserRole + 1,
-        AllTracksTitleRole,
-        ArtistRole,
-        AllArtistsRole,
-        ImageRole,
-        CountRole,
-        IdRole,
-        IsSingleDiscAlbumRole,
-        ContainerDataRole,
-        HighestTrackRating,
-        AlbumDatabaseIdRole,
-        SecondaryTextRole,
-        ImageUrlRole,
-        ShadowForImageRole,
-        ChildModelRole,
-        IsTracksContainerRole,
-    };
-
-    Q_ENUM(ColumnsRoles)
-
     explicit AllAlbumsModel(QObject *parent = nullptr);
 
     ~AllAlbumsModel() override;

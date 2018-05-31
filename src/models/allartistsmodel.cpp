@@ -65,16 +65,17 @@ QHash<int, QByteArray> AllArtistsModel::roleNames() const
 {
     auto roles = QAbstractItemModel::roleNames();
 
-    roles[static_cast<int>(ColumnsRoles::NameRole)] = "name";
-    roles[static_cast<int>(ColumnsRoles::ArtistsCountRole)] = "albumsCount";
-    roles[static_cast<int>(ColumnsRoles::ImageRole)] = "image";
-    roles[static_cast<int>(ColumnsRoles::IdRole)] = "databaseId";
-    roles[static_cast<int>(ColumnsRoles::SecondaryTextRole)] = "secondaryText";
-    roles[static_cast<int>(ColumnsRoles::ImageUrlRole)] = "imageUrl";
-    roles[static_cast<int>(ColumnsRoles::ShadowForImageRole)] = "shadowForImage";
-    roles[static_cast<int>(ColumnsRoles::ContainerDataRole)] = "containerData";
-    roles[static_cast<int>(ColumnsRoles::ChildModelRole)] = "childModel";
-    roles[static_cast<int>(ColumnsRoles::IsTracksContainerRole)] = "isTracksContainer";
+    //roles[static_cast<int>(ElisaUtils::ColumnsRoles::NameRole)] = "name";
+    //roles[static_cast<int>(ElisaUtils::ColumnsRoles::ArtistsCountRole)] = "albumsCount";
+    roles[static_cast<int>(ElisaUtils::ColumnsRoles::ImageRole)] = "image";
+    roles[static_cast<int>(ElisaUtils::ColumnsRoles::IdRole)] = "databaseId";
+    roles[static_cast<int>(ElisaUtils::ColumnsRoles::SecondaryTextRole)] = "secondaryText";
+    roles[static_cast<int>(ElisaUtils::ColumnsRoles::ImageUrlRole)] = "imageUrl";
+    roles[static_cast<int>(ElisaUtils::ColumnsRoles::ShadowForImageRole)] = "shadowForImage";
+    roles[static_cast<int>(ElisaUtils::ColumnsRoles::ContainerDataRole)] = "containerData";
+    roles[static_cast<int>(ElisaUtils::ColumnsRoles::ChildModelRole)] = "childModel";
+    roles[static_cast<int>(ElisaUtils::ColumnsRoles::DatabaseIdRole)] = "databaseId";
+    //roles[static_cast<int>(ElisaUtils::ColumnsRoles::IsTracksContainerRole)] = "isTracksContainer";
 
     return roles;
 }
@@ -120,37 +121,40 @@ QVariant AllArtistsModel::data(const QModelIndex &index, int role) const
 
     switch(role)
     {
-    case ColumnsRoles::NameRole:
-        result = d->mAllArtists[index.row()].name();
-        break;
-    case ColumnsRoles::ArtistsCountRole:
-        result = d->mAllArtists[index.row()].albumsCount();
-        break;
-    case ColumnsRoles::ImageRole:
-        break;
-    case ColumnsRoles::IdRole:
-        break;
-    case ColumnsRoles::SecondaryTextRole:
-        result = QString();
-        break;
     case Qt::DisplayRole:
         result = d->mAllArtists[index.row()].name();
         break;
-    case ColumnsRoles::ImageUrlRole:
+    /*case ElisaUtils::ColumnsRoles::ArtistsCountRole:
+        result = d->mAllArtists[index.row()].albumsCount();
+        break;*/
+    case ElisaUtils::ColumnsRoles::ImageRole:
+        break;
+    case ElisaUtils::ColumnsRoles::IdRole:
+        break;
+    case ElisaUtils::ColumnsRoles::SecondaryTextRole:
+        result = QString();
+        break;
+    case ElisaUtils::ColumnsRoles::ImageUrlRole:
         result = QUrl(QStringLiteral("image://icon/view-media-artist"));
         break;
-    case ColumnsRoles::ShadowForImageRole:
+    case ElisaUtils::ColumnsRoles::ShadowForImageRole:
         result = false;
         break;
-    case ColumnsRoles::ContainerDataRole:
+    case ElisaUtils::ColumnsRoles::ContainerDataRole:
         result = QVariant::fromValue(d->mAllArtists[index.row()]);
         break;
-    case ColumnsRoles::ChildModelRole:
+    case ElisaUtils::ColumnsRoles::ChildModelRole:
         result = d->mAllArtists[index.row()].name();
         break;
-    case ColumnsRoles::IsTracksContainerRole:
-        result = false;
+    case ElisaUtils::ColumnsRoles::GenreRole:
+        result = d->mAllArtists[index.row()].genres();
         break;
+    case ElisaUtils::ColumnsRoles::DatabaseIdRole:
+        result = QVariant::fromValue(d->mAllArtists[index.row()].databaseId());
+        break;
+    /*case ElisaUtils::ColumnsRoles::IsTracksContainerRole:
+        result = false;
+        break;*/
     }
 
     return result;

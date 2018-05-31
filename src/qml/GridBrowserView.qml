@@ -136,7 +136,7 @@ FocusScope {
 
                     focus: true
 
-                    isPartial: model.isPartial
+                    isPartial: false
 
                     mainText: model.display
                     secondaryText: if (gridView.delegateDisplaySecondaryText) {model.secondaryText} else {""}

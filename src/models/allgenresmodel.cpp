@@ -126,7 +126,7 @@ QVariant AllGenresModel::data(const QModelIndex &index, int role) const
         result = QString();
         break;
     case ElisaUtils::ColumnsRoles::ImageUrlRole:
-        result = QUrl(QStringLiteral("image://icon/view-media-artist"));
+        result = QUrl(QStringLiteral("image://icon/view-media-genre"));
         break;
     case ElisaUtils::ColumnsRoles::ShadowForImageRole:
         result = false;

@@ -29,6 +29,7 @@ set(elisaLib_SOURCES
     models/allalbumsmodel.cpp
     models/allartistsmodel.cpp
     models/alltracksmodel.cpp
+    models/allgenresmodel.cpp
     models/abstractmediaproxymodel.cpp
     models/allalbumsproxymodel.cpp
     models/allartistsproxymodel.cpp

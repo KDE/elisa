@@ -21,6 +21,7 @@
 #include "databaseinterface.h"
 #include "allartistsmodel.h"
 #include "albummodel.h"
+#include "elisautils.h"
 
 #include <QUrl>
 #include <QTimer>

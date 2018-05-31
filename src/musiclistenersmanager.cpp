@@ -47,6 +47,7 @@
 #include "models/allalbumsmodel.h"
 #include "models/allartistsmodel.h"
 #include "models/alltracksmodel.h"
+#include "models/allgenresmodel.h"
 
 #include <KI18n/KLocalizedString>
 
@@ -94,7 +95,7 @@ public:
 
     AllTracksModel mAllTracksModel;
 
-    //GenericDataModel mAllGenresModel;
+    AllGenresModel mAllGenresModel;
 
     //GenericDataModel mAllComposersModel;
 
@@ -180,6 +181,13 @@ MusicListenersManager::MusicListenersManager(QObject *parent)
     connect(&d->mDatabaseInterface, &DatabaseInterface::trackRemoved,
             &d->mAllTracksModel, &AllTracksModel::trackRemoved);
 
+    connect(&d->mDatabaseInterface, &DatabaseInterface::genresAdded,
+            &d->mAllGenresModel, &AllGenresModel::genresAdded);
+    /*connect(&d->mDatabaseInterface, &DatabaseInterface::trackModified,
+            &d->mAllGenresModel, &AllTracksModel::trackModified);
+    connect(&d->mDatabaseInterface, &DatabaseInterface::trackRemoved,
+            &d->mAllGenresModel, &AllTracksModel::trackRemoved);*/
+
     connect(&d->mDatabaseInterface, &DatabaseInterface::albumModified,
             &d->mAlbumModel, &AlbumModel::albumModified);
     connect(&d->mDatabaseInterface, &DatabaseInterface::albumRemoved,
@@ -254,7 +262,7 @@ QAbstractItemModel *MusicListenersManager::allTracksModel() const
 
 QAbstractItemModel *MusicListenersManager::allGenresModel() const
 {
-    return nullptr;/*&d->mAllGenresModel;*/
+    return &d->mAllGenresModel;
 }
 
 QAbstractItemModel *MusicListenersManager::allLyricistsModel() const

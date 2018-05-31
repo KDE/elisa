@@ -161,6 +161,7 @@ FocusScope {
                         pageModel.insert(4, {"name": i18nc("Title of the view of all genres", "Genres"), "iconName": elisaTheme.genresIcon})
 
                         viewModeView.currentIndex = 1
+                        switchView(1)
                     }
                 }
 

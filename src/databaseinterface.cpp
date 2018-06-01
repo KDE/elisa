@@ -1865,16 +1865,16 @@ void DatabaseInterface::initRequest()
 
     {
         auto selectGenreForArtistQueryText = QStringLiteral("SELECT DISTINCT trackGenre.`Name` "
-                                                         "FROM "
-                                                         "`Albums` album, "
-                                                         "`Artists` artist, "
-                                                         "`AlbumsArtists` albumArtist, "
-                                                         "`Tracks` track "
-                                                         "LEFT JOIN `Genre` trackGenre ON trackGenre.`ID` = track.`GenreID` "
-                                                         "WHERE artist.`Name` = :artistName AND "
-                                                         "album.`ID` = albumArtist.`AlbumID` AND "
-                                                         "artist.`ID` = albumArtist.`ArtistID` AND "
-                                                         "album.`ID` = track.`AlbumID`");
+                                                            "FROM "
+                                                            "`Albums` album, "
+                                                            "`Artists` artist, "
+                                                            "`AlbumsArtists` albumArtist, "
+                                                            "`Tracks` track "
+                                                            "LEFT JOIN `Genre` trackGenre ON trackGenre.`ID` = track.`GenreID` "
+                                                            "WHERE artist.`Name` = :artistName AND "
+                                                            "album.`ID` = albumArtist.`AlbumID` AND "
+                                                            "artist.`ID` = albumArtist.`ArtistID` AND "
+                                                            "album.`ID` = track.`AlbumID`");
 
         const auto result = d->mSelectGenreForArtistQuery.prepare(selectGenreForArtistQueryText);
 

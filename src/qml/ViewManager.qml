@@ -57,6 +57,7 @@ QtObject {
     signal switchAllTracksView()
     signal switchAllGenresView()
     signal switchAllArtistsFromGenreView(var currentStackView, string genreName)
+    signal switchOneArtistFromGenreView(var currentStackView, string mainTitle, url imageUrl, string secondaryTitle, int databaseId, string genreName)
     signal switchOffAllViews()
 
     function closeAllViews()
@@ -131,7 +132,7 @@ QtObject {
             currentStackView.pop()
             switchOneArtistView(currentStackView, targetArtistName, targetImageUrl, '', targetDatabaseId)
         } else if (currentView == ViewManager.ViewsType.AllArtistsFromGenre && targetView == ViewManager.ViewsType.OneArtistFromGenre) {
-            switchOneArtistView(currentStackView, targetArtistName, targetImageUrl, '', targetDatabaseId)
+            switchOneArtistFromGenreView(currentStackView, targetArtistName, targetImageUrl, '', targetDatabaseId, targetGenreName)
         } else {
             switchAllArtistsView()
         }
@@ -205,6 +206,7 @@ QtObject {
         if (targetView == ViewManager.ViewsType.OneArtist) {
             currentView = ViewManager.ViewsType.OneArtist
         } else {
+            currentGenreName = targetGenreName
             currentView = ViewManager.ViewsType.OneArtistFromGenre
         }
     }

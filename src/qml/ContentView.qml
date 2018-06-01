@@ -37,6 +37,7 @@ RowLayout {
         id: viewManager
 
         onSwitchAllAlbumsView: {
+            elisa.allAlbumsProxyModel.genreFilterText = ''
             listViews.currentIndex = 1
             localArtistsLoader.opacity = 0
             localTracksLoader.opacity = 0
@@ -66,6 +67,19 @@ RowLayout {
 
         onSwitchOneArtistView: {
             elisa.singleArtistProxyModel.setArtistFilterText(mainTitle)
+            elisa.singleArtistProxyModel.genreFilterText = ''
+            currentStackView.push(innerAlbumView, {
+                                      mainTitle: mainTitle,
+                                      secondaryTitle: secondaryTitle,
+                                      image: imageUrl,
+                                      stackView: currentStackView,
+                                  })
+            oneArtistViewIsLoaded()
+        }
+
+        onSwitchOneArtistFromGenreView: {
+            elisa.singleArtistProxyModel.setArtistFilterText(mainTitle)
+            elisa.singleArtistProxyModel.genreFilterText = genreName
             currentStackView.push(innerAlbumView, {
                                       mainTitle: mainTitle,
                                       secondaryTitle: secondaryTitle,
@@ -76,6 +90,7 @@ RowLayout {
         }
 
         onSwitchAllTracksView: {
+            elisa.allTracksProxyModel.genreFilterText = ''
             listViews.currentIndex = 3
             localArtistsLoader.opacity = 0
             localTracksLoader.opacity = 1
@@ -686,7 +701,7 @@ RowLayout {
             isSubPage: true
 
             onOpen: {
-                viewManager.openOneArtist(stackView, innerMainTitle, innerImage, databaseId)
+                viewManager.openOneArtist(stackView, innerMainTitle, innerImage, 0)
             }
 
             onGoBack: viewManager.goBack()

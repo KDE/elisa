@@ -292,25 +292,25 @@ QList<QMap<DatabaseInterface::PropertyType, QVariant>> DatabaseInterface::allDat
 
     switch (aType)
     {
-    case DataUtils::AllArtists:
+    case DataUtils::DataType::AllArtists:
         result = internalAllArtistsPartialData();
         break;
-    case DataUtils::AllAlbums:
+    case DataUtils::DataType::AllAlbums:
         result = internalAllAlbumsPartialData();
         break;
-    case DataUtils::AllTracks:
+    case DataUtils::DataType::AllTracks:
         result = internalAllTracksPartialData();
         break;
-    case DataUtils::AllGenres:
+    case DataUtils::DataType::AllGenres:
         result = internalAllGenresPartialData();
         break;
-    case DataUtils::AllComposers:
+    case DataUtils::DataType::AllComposers:
         result = internalAllComposersPartialData();
         break;
-    case DataUtils::AllLyricists:
+    case DataUtils::DataType::AllLyricists:
         result = internalAllLyricistsPartialData();
         break;
-    case DataUtils::UnknownType:
+    case DataUtils::DataType::UnknownType:
         break;
     };
 

@@ -47,7 +47,7 @@ public:
 
     QAtomicInt mDataChangedUpperBound;
 
-    DataUtils::DataType mDataType = DataUtils::UnknownType;
+    DataUtils::DataType mDataType = DataUtils::DataType::UnknownType;
 
     QAtomicInt mHasFullData = false;
 
@@ -134,7 +134,7 @@ void ModelDataCache::neededData()
 
     switch (d->mDataType)
     {
-    case DataUtils::AllAlbums:
+    case DataUtils::DataType::AllAlbums:
     {
         auto allData = d->mDatabase->allAlbums();
         for (const auto &data : allData) {
@@ -160,7 +160,7 @@ void ModelDataCache::neededData()
 
         break;
     }
-    case DataUtils::AllArtists:
+    case DataUtils::DataType::AllArtists:
     {
         auto allData = d->mDatabase->allArtists();
         for (const auto &data : allData) {
@@ -177,7 +177,7 @@ void ModelDataCache::neededData()
 
         break;
     }
-    case DataUtils::AllComposers:
+    case DataUtils::DataType::AllComposers:
     {
         auto allData = d->mDatabase->allComposers();
         for (const auto &data : allData) {
@@ -193,7 +193,7 @@ void ModelDataCache::neededData()
 
         break;
     }
-    case DataUtils::AllLyricists:
+    case DataUtils::DataType::AllLyricists:
     {
         auto allData = d->mDatabase->allLyricists();
         for (const auto &data : allData) {
@@ -209,7 +209,7 @@ void ModelDataCache::neededData()
 
         break;
     }
-    case DataUtils::AllGenres:
+    case DataUtils::DataType::AllGenres:
     {
         auto allData = d->mDatabase->allGenres();
         for (const auto &data : allData) {
@@ -225,7 +225,7 @@ void ModelDataCache::neededData()
 
         break;
     }
-    case DataUtils::AllTracks:
+    case DataUtils::DataType::AllTracks:
     {
         auto allData = d->mDatabase->allTracks();
         for (const auto &data : allData) {
@@ -250,7 +250,7 @@ void ModelDataCache::neededData()
 
         break;
     }
-    case DataUtils::UnknownType:
+    case DataUtils::DataType::UnknownType:
         break;
     }
 }
@@ -281,7 +281,7 @@ void ModelDataCache::setDatabase(DatabaseInterface *database)
     d->mDatabase = database;
     Q_EMIT databaseChanged(d->mDatabase);
 
-    if (d->mDataType == DataUtils::UnknownType) {
+    if (d->mDataType == DataUtils::DataType::UnknownType) {
         return;
     }
 
@@ -317,7 +317,7 @@ void ModelDataCache::fetchPartialData()
 
 void ModelDataCache::connectDatabase()
 {
-    if (d->mDataType == DataUtils::UnknownType) {
+    if (d->mDataType == DataUtils::DataType::UnknownType) {
         return;
     }
 
@@ -332,37 +332,37 @@ void ModelDataCache::connectDatabase()
 
     switch(d->mDataType)
     {
-    case DataUtils::AllAlbums:
+    case DataUtils::DataType::AllAlbums:
         connect(d->mDatabase, &DatabaseInterface::albumsAdded,
                 this, &ModelDataCache::databaseContentChanged,
                 Qt::QueuedConnection);
         break;
-    case DataUtils::AllArtists:
+    case DataUtils::DataType::AllArtists:
         connect(d->mDatabase, &DatabaseInterface::artistsAdded,
                 this, &ModelDataCache::databaseContentChanged,
                 Qt::QueuedConnection);
         break;
-    case DataUtils::AllTracks:
+    case DataUtils::DataType::AllTracks:
         connect(d->mDatabase, &DatabaseInterface::tracksAdded,
                 this, &ModelDataCache::databaseContentChanged,
                 Qt::QueuedConnection);
         break;
-    case DataUtils::AllGenres:
+    case DataUtils::DataType::AllGenres:
         connect(d->mDatabase, &DatabaseInterface::genresAdded,
                 this, &ModelDataCache::databaseContentChanged,
                 Qt::QueuedConnection);
         break;
-    case DataUtils::AllComposers:
+    case DataUtils::DataType::AllComposers:
         connect(d->mDatabase, &DatabaseInterface::composersAdded,
                 this, &ModelDataCache::databaseContentChanged,
                 Qt::QueuedConnection);
         break;
-    case DataUtils::AllLyricists:
+    case DataUtils::DataType::AllLyricists:
         connect(d->mDatabase, &DatabaseInterface::lyricistsAdded,
                 this, &ModelDataCache::databaseContentChanged,
                 Qt::QueuedConnection);
         break;
-    case DataUtils::UnknownType:
+    case DataUtils::DataType::UnknownType:
         break;
     }
 

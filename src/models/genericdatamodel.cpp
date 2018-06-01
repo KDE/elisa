@@ -34,7 +34,7 @@ public:
 
     ModelDataCache *mModelCache = nullptr;
 
-    DataUtils::DataType mDataType = DataUtils::UnknownType;
+    DataUtils::DataType mDataType = DataUtils::DataType::UnknownType;
 
     bool mIsBusy = true;
 

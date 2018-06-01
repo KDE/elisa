@@ -28,7 +28,7 @@ namespace DataUtils {
 
 Q_NAMESPACE
 
-enum DataType {
+enum class DataType {
     AllArtists,
     AllAlbums,
     AllTracks,

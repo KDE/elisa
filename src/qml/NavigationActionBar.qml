@@ -114,9 +114,9 @@ FocusScope {
             }
 
             ColumnLayout {
-                Layout.preferredHeight: elisaTheme.coverImageSize / 2
-                Layout.minimumHeight: elisaTheme.coverImageSize / 2
-                Layout.maximumHeight: elisaTheme.coverImageSize / 2
+                Layout.preferredHeight: elisaTheme.coverImageSize / 1.9
+                Layout.minimumHeight: elisaTheme.coverImageSize / 1.9
+                Layout.maximumHeight: elisaTheme.coverImageSize / 1.9
 
                 spacing: 0
 
@@ -137,9 +137,15 @@ FocusScope {
                     text: mainTitle
 
                     Layout.fillWidth: true
-                    Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
+                    Layout.alignment: Qt.AlignTop | Qt.AlignLeft
+                    Layout.topMargin: secondaryTitle !== "" ? 0 : 9
 
                     elide: Text.ElideRight
+                    fontSizeMode: Text.Fit
+
+                    Layout.preferredHeight: elisaTheme.coverImageSize / 5
+                    Layout.minimumHeight: elisaTheme.coverImageSize / 5
+                    Layout.maximumHeight: elisaTheme.coverImageSize / 5
 
                     color: myPalette.text
 
@@ -174,16 +180,10 @@ FocusScope {
                     visible: secondaryTitle !== ""
                 }
 
-                Item {
-                    id: emptyBottomFiller
-
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                }
-
                 RowLayout {
                     Layout.fillWidth: true
                     spacing: 0
+                    Layout.bottomMargin: secondaryTitle !== "" ? 0 : 14
 
                     Controls1.Button {
                         objectName: 'enqueueButton'

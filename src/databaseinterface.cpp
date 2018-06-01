@@ -3354,14 +3354,20 @@ qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrac
         auto genreId = insertGenre(oneTrack.genre());
         if (genreId != 0) {
             d->mInsertTrackQuery.bindValue(QStringLiteral(":genreId"), genreId);
+        } else {
+            d->mInsertTrackQuery.bindValue(QStringLiteral(":genreId"), {});
         }
         auto composerId = insertComposer(oneTrack.composer());
         if (composerId != 0) {
             d->mInsertTrackQuery.bindValue(QStringLiteral(":composerId"), composerId);
+        } else {
+            d->mInsertTrackQuery.bindValue(QStringLiteral(":composerId"), {});
         }
         auto lyricistId = insertLyricist(oneTrack.lyricist());
         if (lyricistId != 0) {
             d->mInsertTrackQuery.bindValue(QStringLiteral(":lyricistId"), lyricistId);
+        } else {
+            d->mInsertTrackQuery.bindValue(QStringLiteral(":lyricistId"), {});
         }
         d->mInsertTrackQuery.bindValue(QStringLiteral(":comment"), oneTrack.comment());
         d->mInsertTrackQuery.bindValue(QStringLiteral(":year"), oneTrack.year());

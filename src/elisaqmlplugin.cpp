@@ -53,6 +53,7 @@
 #include "models/allartistsproxymodel.h"
 #include "models/singleartistproxymodel.h"
 #include "models/singlealbumproxymodel.h"
+#include "models/genericdatamodel.h"
 #include "audiowrapper.h"
 #include "notificationitem.h"
 #include "topnotificationmanager.h"
@@ -100,6 +101,7 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qRegisterMetaType<UpnpContentDirectoryModel*>();
     qRegisterMetaType<UpnpDeviceDescription*>();
 #endif
+    qRegisterMetaType<DataUtils::DataType>("DataUtils::DataType");
 
     qmlRegisterType<MediaPlayList>(uri, 1, 0, "MediaPlayList");
     qmlRegisterType<ManageMediaPlayerControl>(uri, 1, 0, "ManageMediaPlayerControl");
@@ -112,9 +114,11 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qmlRegisterType<AllTracksProxyModel>(uri, 1, 0, "AllTracksProxyModel");
     qmlRegisterType<SingleAlbumProxyModel>(uri, 1, 0, "SingleAlbumProxyModel");
     qmlRegisterType<SingleArtistProxyModel>(uri, 1, 0, "SingleArtistProxyModel");
+    qmlRegisterType<GenericDataModel>(uri, 1, 0, "GenericDataModel");
     qmlRegisterType<AudioWrapper>(uri, 1, 0, "AudioWrapper");
     qmlRegisterType<TopNotificationManager>(uri, 1, 0, "TopNotificationManager");
     qmlRegisterType<TrackDataHelper>(uri, 1, 0, "TrackDataHelper");
+    qmlRegisterUncreatableMetaObject(DataUtils::staticMetaObject, uri, 1, 0, "DataUtils", QStringLiteral("Only enums"));
 
 #if defined Qt5DBus_FOUND && Qt5DBus_FOUND
     qmlRegisterType<Mpris2>(uri, 1, 0, "Mpris2");
@@ -139,7 +143,6 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qRegisterMetaType<QMap<QString,int>>("QMap<QString,int>");
     qRegisterMetaType<ElisaUtils::PlayListEnqueueMode>("ElisaUtils::PlayListEnqueueMode");
     qRegisterMetaType<ElisaUtils::PlayListEnqueueTriggerPlay>("ElisaUtils::PlayListEnqueueTriggerPlay");
-    qRegisterMetaType<DataUtils::DataType>("DataUtils::DataType");
 
     qRegisterMetaTypeStreamOperators<ManageMediaPlayerControl::PlayerState>("PlayListControler::PlayerState");
 

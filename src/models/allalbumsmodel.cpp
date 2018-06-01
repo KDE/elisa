@@ -219,6 +219,9 @@ QVariant AllAlbumsModel::internalDataAlbum(int albumIndex, int role) const
         result = QVariant::fromValue(albumData);
         break;
     }
+    case ElisaUtils::ColumnsRoles::GenreRole:
+        result = d->mAlbumsData[d->mAllAlbums[albumIndex]].genres();
+        break;
     /*case ElisaUtils::ColumnsRoles::IsTracksContainerRole:
         result = true;
         break;*/

@@ -45,15 +45,15 @@ bool AllArtistsProxyModel::filterAcceptsRow(int source_row, const QModelIndex &s
 
         const auto &genreValue = sourceModel()->data(currentIndex, ElisaUtils::ColumnsRoles::GenreRole);
 
-        if (!mGenreFilterText.isNull() && !genreValue.isValid()) {
+        if (!genreFilterText().isNull() && !genreValue.isValid()) {
             continue;
         }
 
-        if (!mGenreFilterText.isNull() && !genreValue.canConvert<QStringList>()) {
+        if (!genreFilterText().isNull() && !genreValue.canConvert<QStringList>()) {
             continue;
         }
 
-        if (!mGenreFilterText.isNull() && !genreValue.toStringList().contains(mGenreFilterText)) {
+        if (!genreFilterText().isNull() && !genreValue.toStringList().contains(genreFilterText())) {
             continue;
         }
 
@@ -106,19 +106,6 @@ void AllArtistsProxyModel::replaceAndPlayOfPlayList()
                                ElisaUtils::ReplacePlayList,
                                ElisaUtils::TriggerPlay);
     });
-}
-
-void AllArtistsProxyModel::setGenreFilterText(const QString &filterText)
-{
-    if (mGenreFilterText == filterText)
-    {
-        return;
-    }
-
-    mGenreFilterText = filterText;
-    invalidateFilter();
-
-    Q_EMIT genreFilterTextChanged(mGenreFilterText);
 }
 
 

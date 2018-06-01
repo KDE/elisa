@@ -30,21 +30,11 @@ class ELISALIB_EXPORT AllArtistsProxyModel : public AbstractMediaProxyModel
 {
     Q_OBJECT
 
-    Q_PROPERTY(QString genreFilterText
-               READ genreFilterText
-               WRITE setGenreFilterText
-               NOTIFY genreFilterTextChanged)
-
 public:
 
     explicit AllArtistsProxyModel(QObject *parent = nullptr);
 
     ~AllArtistsProxyModel() override;
-
-    QString genreFilterText() const
-    {
-        return mGenreFilterText;
-    }
 
 Q_SIGNALS:
 
@@ -52,23 +42,15 @@ Q_SIGNALS:
                          ElisaUtils::PlayListEnqueueMode enqueueMode,
                          ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 
-    void genreFilterTextChanged(QString genreFilterText);
-
 public Q_SLOTS:
 
     void enqueueToPlayList();
 
     void replaceAndPlayOfPlayList();
 
-    void setGenreFilterText(const QString &filterText);
-
 protected:
 
     bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override;
-
-private:
-
-    QString mGenreFilterText;
 
 };
 

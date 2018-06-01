@@ -47,6 +47,11 @@ class ELISALIB_EXPORT AbstractMediaProxyModel : public QSortFilterProxyModel
                READ sortedAscending
                NOTIFY sortedAscendingChanged)
 
+    Q_PROPERTY(QString genreFilterText
+               READ genreFilterText
+               WRITE setGenreFilterText
+               NOTIFY genreFilterTextChanged)
+
 public:
 
     explicit AbstractMediaProxyModel(QObject *parent = nullptr);
@@ -59,6 +64,11 @@ public:
 
     bool sortedAscending() const;
 
+    QString genreFilterText() const
+    {
+        return mGenreFilterText;
+    }
+
 public Q_SLOTS:
 
     void setFilterText(const QString &filterText);
@@ -67,6 +77,8 @@ public Q_SLOTS:
 
     void sortModel(Qt::SortOrder order);
 
+    void setGenreFilterText(const QString &filterText);
+
 Q_SIGNALS:
 
     void filterTextChanged(const QString &filterText);
@@ -74,6 +86,8 @@ Q_SIGNALS:
     void filterRatingChanged(int filterRating);
 
     void sortedAscendingChanged();
+
+    void genreFilterTextChanged(QString genreFilterText);
 
 protected:
 
@@ -88,6 +102,10 @@ protected:
     QReadWriteLock mDataLock;
 
     QThreadPool mThreadPool;
+
+private:
+
+    QString mGenreFilterText;
 
 };
 

@@ -70,7 +70,7 @@ public:
           mSelectAllAlbumsShortQuery(mTracksDatabase), mSelectAllComposersQuery(mTracksDatabase),
           mSelectAllLyricistsQuery(mTracksDatabase), mSelectCountAlbumsForComposerQuery(mTracksDatabase),
           mSelectCountAlbumsForLyricistQuery(mTracksDatabase), mSelectAllGenresQuery(mTracksDatabase),
-          mSelectGenreForArtistQuery(mTracksDatabase)
+          mSelectGenreForArtistQuery(mTracksDatabase), mSelectGenreForAlbumQuery(mTracksDatabase)
     {
     }
 
@@ -201,6 +201,8 @@ public:
     QSqlQuery mSelectAllGenresQuery;
 
     QSqlQuery mSelectGenreForArtistQuery;
+
+    QSqlQuery mSelectGenreForAlbumQuery;
 
     qulonglong mAlbumId = 1;
 
@@ -453,6 +455,31 @@ QList<MusicAlbum> DatabaseInterface::allAlbums()
         newAlbum.setIsSingleDiscAlbum(currentRecord.value(6).toBool());
         newAlbum.setTracks(fetchTracks(newAlbum.databaseId()));
         newAlbum.setValid(true);
+
+        d->mSelectGenreForAlbumQuery.bindValue(QStringLiteral(":albumId"), newAlbum.databaseId());
+
+        queryResult = d->mSelectGenreForAlbumQuery.exec();
+
+        if (!queryResult || !d->mSelectGenreForAlbumQuery.isSelect() || !d->mSelectGenreForAlbumQuery.isActive()) {
+            Q_EMIT databaseError();
+
+            qDebug() << "DatabaseInterface::internalAlbumFromId" << d->mSelectGenreForAlbumQuery.lastQuery();
+            qDebug() << "DatabaseInterface::internalAlbumFromId" << d->mSelectGenreForAlbumQuery.boundValues();
+            qDebug() << "DatabaseInterface::internalAlbumFromId" << d->mSelectGenreForAlbumQuery.lastError();
+
+            d->mSelectGenreForAlbumQuery.finish();
+
+            return result;
+        }
+
+        QStringList allGenres;
+        while(d->mSelectGenreForAlbumQuery.next()) {
+            allGenres.push_back(d->mSelectGenreForAlbumQuery.record().value(0).toString());
+        }
+
+        newAlbum.setGenres(allGenres);
+
+        d->mSelectGenreForAlbumQuery.finish();
 
         result.push_back(newAlbum);
     }
@@ -1854,6 +1881,24 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectGenreForArtistQuery.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectGenreForArtistQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        auto selectGenreForAlbumQueryText = QStringLiteral("SELECT DISTINCT trackGenre.`Name` "
+                                                           "FROM "
+                                                           "`Tracks` track "
+                                                           "LEFT JOIN `Genre` trackGenre ON trackGenre.`ID` = track.`GenreID` "
+                                                           "WHERE "
+                                                           "track.`AlbumID` = :albumId");
+
+        const auto result = d->mSelectGenreForAlbumQuery.prepare(selectGenreForAlbumQueryText);
+
+        if (!result) {
+            qDebug() << "DatabaseInterface::initRequest" << d->mSelectGenreForAlbumQuery.lastQuery();
+            qDebug() << "DatabaseInterface::initRequest" << d->mSelectGenreForAlbumQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -4240,6 +4285,31 @@ MusicAlbum DatabaseInterface::internalAlbumFromId(qulonglong albumId)
     retrievedAlbum.setValid(true);
 
     d->mSelectAlbumQuery.finish();
+
+    d->mSelectGenreForAlbumQuery.bindValue(QStringLiteral(":albumId"), albumId);
+
+    result = d->mSelectGenreForAlbumQuery.exec();
+
+    if (!result || !d->mSelectGenreForAlbumQuery.isSelect() || !d->mSelectGenreForAlbumQuery.isActive()) {
+        Q_EMIT databaseError();
+
+        qDebug() << "DatabaseInterface::internalAlbumFromId" << d->mSelectGenreForAlbumQuery.lastQuery();
+        qDebug() << "DatabaseInterface::internalAlbumFromId" << d->mSelectGenreForAlbumQuery.boundValues();
+        qDebug() << "DatabaseInterface::internalAlbumFromId" << d->mSelectGenreForAlbumQuery.lastError();
+
+        d->mSelectGenreForAlbumQuery.finish();
+
+        return retrievedAlbum;
+    }
+
+    QStringList allGenres;
+    while(d->mSelectGenreForAlbumQuery.next()) {
+        allGenres.push_back(d->mSelectGenreForAlbumQuery.record().value(0).toString());
+    }
+
+    retrievedAlbum.setGenres(allGenres);
+
+    d->mSelectGenreForAlbumQuery.finish();
 
     return retrievedAlbum;
 }

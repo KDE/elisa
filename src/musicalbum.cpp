@@ -54,6 +54,8 @@ public:
 
     bool mIsSingleDiscAlbum = true;
 
+    QStringList mGenres;
+
 };
 
 MusicAlbum::MusicAlbum() : d(std::make_unique<MusicAlbumPrivate>())
@@ -221,6 +223,16 @@ void MusicAlbum::setIsSingleDiscAlbum(bool value)
 bool MusicAlbum::isSingleDiscAlbum() const
 {
     return d->mIsSingleDiscAlbum;
+}
+
+void MusicAlbum::setGenres(const QStringList &aGenres)
+{
+    d->mGenres = aGenres;
+}
+
+QStringList MusicAlbum::genres() const
+{
+    return d->mGenres;
 }
 
 void MusicAlbum::setTracks(const QList<MusicAudioTrack> &allTracks)

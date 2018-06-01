@@ -96,6 +96,10 @@ public:
 
     bool isSingleDiscAlbum() const;
 
+    void setGenres(const QStringList &aGenres);
+
+    QStringList genres() const;
+
     void setTracks(const QList<MusicAudioTrack> &allTracks);
 
     const MusicAudioTrack &trackFromIndex(int index) const;

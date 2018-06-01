@@ -30,7 +30,7 @@ public:
 
     QString mName;
 
-    QStringList mGenre;
+    QStringList mGenres;
 
     qulonglong mDatabaseId = 0;
 
@@ -97,12 +97,12 @@ QString MusicArtist::name() const
 
 void MusicArtist::setGenres(const QStringList &aGenres)
 {
-    d->mGenre = aGenres;
+    d->mGenres = aGenres;
 }
 
 QStringList MusicArtist::genres() const
 {
-    return d->mGenre;
+    return d->mGenres;
 }
 
 void MusicArtist::setDatabaseId(qulonglong value)

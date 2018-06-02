@@ -156,18 +156,6 @@ void ElisaUtils::scanProperties(const QString localFileName, const KFileMetaData
     trackData.setRating(0);
 #endif
 
-    if (trackData.title().isEmpty()) {
-        return;
-    }
-
-    if (trackData.artist().isEmpty()) {
-        return;
-    }
-
-    if (trackData.albumName().isEmpty()) {
-        return;
-    }
-
     if (!trackData.duration().isValid()) {
         return;
     }

@@ -54,6 +54,7 @@
 #include "models/singleartistproxymodel.h"
 #include "models/singlealbumproxymodel.h"
 #include "models/genericdatamodel.h"
+#include "models/filebrowserproxymodel.h"
 #include "audiowrapper.h"
 #include "notificationitem.h"
 #include "topnotificationmanager.h"
@@ -115,6 +116,7 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qmlRegisterType<SingleAlbumProxyModel>(uri, 1, 0, "SingleAlbumProxyModel");
     qmlRegisterType<SingleArtistProxyModel>(uri, 1, 0, "SingleArtistProxyModel");
     qmlRegisterType<GenericDataModel>(uri, 1, 0, "GenericDataModel");
+    qmlRegisterType<FileBrowserProxyModel>(uri, 1, 0, "FileBrowserProxyModel");
     qmlRegisterType<AudioWrapper>(uri, 1, 0, "AudioWrapper");
     qmlRegisterType<TopNotificationManager>(uri, 1, 0, "TopNotificationManager");
     qmlRegisterType<TrackDataHelper>(uri, 1, 0, "TrackDataHelper");

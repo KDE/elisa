@@ -43,6 +43,7 @@ RowLayout {
             localTracksLoader.opacity = 0
             localAlbumsLoader.opacity = 1
             localGenresLoader.opacity = 0
+            localFilesLoader.opacity = 0
         }
 
         onSwitchOneAlbumView: {
@@ -63,6 +64,7 @@ RowLayout {
             localTracksLoader.opacity = 0
             localAlbumsLoader.opacity = 0
             localGenresLoader.opacity = 0
+            localFilesLoader.opacity = 0
         }
 
         onSwitchOneArtistView: {
@@ -96,6 +98,7 @@ RowLayout {
             localTracksLoader.opacity = 1
             localAlbumsLoader.opacity = 0
             localGenresLoader.opacity = 0
+            localFilesLoader.opacity = 0
         }
 
         onSwitchAllGenresView: {
@@ -104,6 +107,16 @@ RowLayout {
             localTracksLoader.opacity = 0
             localAlbumsLoader.opacity = 0
             localGenresLoader.opacity = 1
+            localFilesLoader.opacity = 0
+        }
+
+        onSwitchFilesBrowserView: {
+            listViews.currentIndex = 5
+            localArtistsLoader.opacity = 0
+            localTracksLoader.opacity = 0
+            localAlbumsLoader.opacity = 0
+            localGenresLoader.opacity = 0
+            localFilesLoader.opacity = 1
         }
 
         onSwitchAllArtistsFromGenreView: {
@@ -123,6 +136,7 @@ RowLayout {
             localTracksLoader.opacity = 0
             localAlbumsLoader.opacity = 0
             localGenresLoader.opacity = 0
+            localFilesLoader.opacity = 0
         }
     }
 
@@ -141,6 +155,8 @@ RowLayout {
                           viewManager.openAllTracks()
                       } else if (index === 4) {
                           viewManager.openAllGenres()
+                      } else if (index === 5) {
+                          viewManager.openFilesBrowser()
                       } else {
                           viewManager.closeAllViews()
                       }
@@ -445,7 +461,6 @@ RowLayout {
 
                             opacity: 0
 
-                            anchors.fill: parent
 
                             onLoaded: viewManager.allGenresViewIsLoaded(item.stackView)
 
@@ -487,6 +502,49 @@ RowLayout {
 
                                     onFilterViewChanged: persistentSettings.expandedFilterView = expandedFilterView
                                 }
+                            }
+
+                            Behavior on opacity {
+                                NumberAnimation {
+                                    easing.type: Easing.InOutQuad
+                                    duration: 300
+                                }
+                            }
+                        }
+
+                        Loader {
+                            id: localFilesLoader
+                            anchors.fill: parent
+
+                            active: opacity > 0
+
+                            visible: opacity > 0
+
+                            opacity: 0
+
+                            anchors {
+                                fill: parent
+
+                                leftMargin: elisaTheme.layoutHorizontalMargin
+                                rightMargin: elisaTheme.layoutHorizontalMargin
+                            }
+
+                            onLoaded: viewManager.filesBrowserViewIsLoaded(item)
+
+                            sourceComponent: FileBrowserView {
+                                id: localFiles
+
+                                focus: true
+
+                                contentModel: elisa.fileBrowserProxyModel
+
+                                Binding {
+                                    target: localFiles
+                                    property: 'expandedFilterView'
+                                    value: persistentSettings.expandedFilterView
+                                }
+
+                                onFilterViewChanged: persistentSettings.expandedFilterView = expandedFilterView
                             }
 
                             Behavior on opacity {

@@ -37,6 +37,8 @@ set(elisaLib_SOURCES
     models/singleartistproxymodel.cpp
     models/singlealbumproxymodel.cpp
     models/genericdatamodel.cpp
+    models/filebrowsermodel.cpp
+    models/filebrowserproxymodel.cpp
 )
 
 if (KF5Baloo_FOUND)
@@ -106,7 +108,7 @@ set(elisaLib_SOURCES
 add_library(elisaLib ${elisaLib_SOURCES})
 target_link_libraries(elisaLib
     LINK_PUBLIC
-        Qt5::Multimedia
+        Qt5::Multimedia KF5::KIOCore KF5::KIOFileWidgets KF5::KIOWidgets
     LINK_PRIVATE
         Qt5::Core Qt5::Sql Qt5::Widgets KF5::I18n
         Qt5::Concurrent Qt5::Qml KF5::ConfigCore KF5::ConfigGui KF5::FileMetaData)
@@ -241,6 +243,8 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND AND KF5Declarative_FOUND)
         qml/GridBrowserView.qml
         qml/GridBrowserDelegate.qml
         qml/ListBrowserView.qml
+        qml/FileBrowserDelegate.qml
+        qml/FileBrowserView.qml
     )
 
     qt5_add_resources(elisa_SOURCES resources.qrc)

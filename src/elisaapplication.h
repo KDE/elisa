@@ -37,6 +37,7 @@ class AllArtistsProxyModel;
 class AllTracksProxyModel;
 class SingleArtistProxyModel;
 class SingleAlbumProxyModel;
+class FileBrowserProxyModel;
 class MediaPlayList;
 class AudioWrapper;
 class ManageAudioPlayer;
@@ -90,6 +91,10 @@ class ELISALIB_EXPORT ElisaApplication : public QObject
                READ singleAlbumProxyModel
                NOTIFY singleAlbumProxyModelChanged)
 
+    Q_PROPERTY(FileBrowserProxyModel *fileBrowserProxyModel
+               READ fileBrowserProxyModel
+               NOTIFY fileBrowserProxyModelChanged)
+
     Q_PROPERTY(MediaPlayList *mediaPlayList
                READ mediaPlayList
                NOTIFY mediaPlayListChanged)
@@ -139,6 +144,8 @@ public:
 
     SingleAlbumProxyModel *singleAlbumProxyModel() const;
 
+    FileBrowserProxyModel *fileBrowserProxyModel() const;
+
     MediaPlayList *mediaPlayList() const;
 
     AudioWrapper *audioPlayer() const;
@@ -170,6 +177,8 @@ Q_SIGNALS:
     void singleArtistProxyModelChanged();
 
     void singleAlbumProxyModelChanged();
+
+    void fileBrowserProxyModelChanged();
 
     void mediaPlayListChanged();
 

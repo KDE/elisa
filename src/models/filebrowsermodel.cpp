@@ -1,0 +1,121 @@
+/*
+ * Copyright 2018 Alexander Stippich <a.stippich@gmx.net>
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public License
+ * along with this library; see the file COPYING.LIB.  If not, write to
+ * the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301, USA.
+ */
+
+#include <QUrl>
+#include <QString>
+#include <QDebug>
+#include <QMimeDatabase>
+#include <KIOWidgets/KDirLister>
+
+#include "filebrowsermodel.h"
+
+FileBrowserModel::FileBrowserModel(QObject *parent) : KDirModel(parent)
+{
+    QMimeDatabase db;
+    QList<QMimeType> mimeList = db.allMimeTypes();
+    QStringList mimeTypes;
+    mimeTypes << QStringLiteral("inode/directory");
+    foreach (const QMimeType &mime, mimeList) {
+        if (mime.name().startsWith(QStringLiteral("audio/"))) {
+            mimeTypes << mime.name();
+        }
+    }
+
+    dirLister()->setMimeFilter(mimeTypes);
+}
+
+FileBrowserModel::~FileBrowserModel()
+= default;
+
+QString FileBrowserModel::url() const
+{
+    return dirLister()->url().toString();
+}
+
+void FileBrowserModel::setUrl(const QString &url)
+{
+    QString path = QUrl(url).path();
+    path = QUrl::fromLocalFile(path).toString();
+
+    if (dirLister()->url().path() == QUrl(path).path()) {
+        dirLister()->updateDirectory(QUrl(path));
+        return;
+    }
+
+    beginResetModel();
+    dirLister()->openUrl(QUrl(path));
+
+    endResetModel();
+    emit urlChanged();
+}
+
+QHash<int, QByteArray> FileBrowserModel::roleNames() const
+{
+    auto roles = KDirModel::roleNames();
+
+    roles[static_cast<int>(ColumnsRoles::NameRole)] = "name";
+    roles[static_cast<int>(ColumnsRoles::ContainerDataRole)] = "containerData";
+    roles[static_cast<int>(ColumnsRoles::ImageUrlRole)] = "imageUrl";
+    roles[static_cast<int>(ColumnsRoles::DirectoryRole)] = "directory";
+
+    return roles;
+}
+
+QVariant FileBrowserModel::data(const QModelIndex &index, int role) const
+{
+    auto result = QVariant();
+
+    if (role < ColumnsRoles::NameRole) {
+        result = KDirModel::data(index,role);
+    }
+
+    switch(role)
+    {
+    case ColumnsRoles::NameRole:
+    {
+        KFileItem item = itemForIndex(index);
+        result = item.name();
+        break;
+    }
+    case ColumnsRoles::ContainerDataRole:
+    {
+        KFileItem item = itemForIndex(index);
+        result = item.url();
+        break;
+    }
+    case ColumnsRoles::ImageUrlRole:
+    {
+        KFileItem item = itemForIndex(index);
+        if (item.isDir()) {
+            result = QUrl(QStringLiteral("image://icon/folder"));
+        } else {
+            result = QUrl(QStringLiteral("image://icon/audio-x-generic"));
+        }
+        break;
+    }
+    case ColumnsRoles::DirectoryRole:
+        KFileItem item = itemForIndex(index);
+        result = item.isDir();
+        break;
+    }
+
+    return result;
+}
+
+#include "moc_filebrowsermodel.cpp"

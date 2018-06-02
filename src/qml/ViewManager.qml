@@ -32,7 +32,8 @@ QtObject {
         AllGenres,
         AllArtistsFromGenre,
         OneArtistFromGenre,
-        OneAlbumFromArtistAndGenre
+        OneAlbumFromArtistAndGenre,
+        FilesBrowser
     }
 
     property int currentView: ViewManager.ViewsType.NoViews
@@ -58,6 +59,7 @@ QtObject {
     signal switchAllGenresView()
     signal switchAllArtistsFromGenreView(var currentStackView, string genreName)
     signal switchOneArtistFromGenreView(var currentStackView, string mainTitle, url imageUrl, string secondaryTitle, int databaseId, string genreName)
+    signal switchFilesBrowserView()
     signal switchOffAllViews()
 
     function closeAllViews()
@@ -168,6 +170,14 @@ QtObject {
         }
     }
 
+    function openFilesBrowser()
+    {
+        targetView = ViewManager.ViewsType.FilesBrowser
+        if (currentView != targetView) {
+            switchFilesBrowserView()
+        }
+    }
+
     function allAlbumsViewIsLoaded(stackView)
     {
         currentStackView = stackView
@@ -226,6 +236,11 @@ QtObject {
     {
         currentGenreName = targetGenreName
         currentView = ViewManager.ViewsType.AllArtistsFromGenre
+    }
+
+    function filesBrowserViewIsLoaded()
+    {
+        currentView = ViewManager.ViewsType.FilesBrowser
     }
 
     function goBack()

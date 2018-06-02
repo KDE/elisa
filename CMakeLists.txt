@@ -108,6 +108,11 @@ set_package_properties(KF5Package PROPERTIES
     DESCRIPTION "KF5 package management library needed to get the configuration dialogs."
     TYPE RECOMMENDED)
 
+find_package(KF5KIO ${REQUIRED_KF5_VERSION} CONFIG QUIET)
+set_package_properties(KF5KIO PROPERTIES
+    DESCRIPTION "File management libraries used for file browsing."
+    TYPE REQUIRED)
+
 find_package(UPNPQT CONFIG QUIET)
 set_package_properties(UPNPQT PROPERTIES
     DESCRIPTION "UPNP layer build with Qt 5. UPnP support is currently broken. You should probably avoid this dependency."

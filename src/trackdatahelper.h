@@ -95,6 +95,10 @@ class ELISALIB_EXPORT TrackDataHelper : public QObject, public MusicAudioTrack
                READ resourceURI
                NOTIFY trackDataChanged)
 
+    Q_PROPERTY(QString fileName
+               READ fileName
+               NOTIFY trackDataChanged)
+
     Q_PROPERTY(QString duration
                READ duration
                NOTIFY trackDataChanged)
@@ -117,6 +121,8 @@ public:
 
     ~TrackDataHelper() override;
 
+    QString title() const;
+
     QString trackNumber() const;
 
     QString discNumber() const;
@@ -132,6 +138,8 @@ public:
     QString duration() const;
 
     QString resourceURI() const;
+
+    QString fileName() const;
 
     const MusicAudioTrack& trackData() const;
 

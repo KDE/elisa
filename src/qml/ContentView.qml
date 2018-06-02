@@ -461,6 +461,7 @@ RowLayout {
 
                             opacity: 0
 
+                            anchors.fill: parent
 
                             onLoaded: viewManager.allGenresViewIsLoaded(item.stackView)
 

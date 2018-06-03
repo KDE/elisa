@@ -20,13 +20,15 @@
 #ifndef FILEBROWSERMODEL_H
 #define FILEBROWSERMODEL_H
 
+#include "elisaLib_export.h"
+
 #include <KIOWidgets/KDirModel>
 #include <KFileMetaData/ExtractorCollection>
 #include <QMimeDatabase>
 
 class MusicAudioTrack;
 
-class FileBrowserModel : public KDirModel
+class ELISALIB_EXPORT FileBrowserModel : public KDirModel
 {
     Q_OBJECT
 

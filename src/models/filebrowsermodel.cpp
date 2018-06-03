@@ -17,13 +17,13 @@
  * Boston, MA 02110-1301, USA.
  */
 
+#include "filebrowsermodel.h"
+
 #include <QUrl>
 #include <QString>
 #include <QDebug>
 #include <QMimeDatabase>
 #include <KIOWidgets/KDirLister>
-
-#include "filebrowsermodel.h"
 
 FileBrowserModel::FileBrowserModel(QObject *parent) : KDirModel(parent)
 {

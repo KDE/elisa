@@ -37,7 +37,6 @@
 #include <QUrl>
 #include <QDateTime>
 #include <QPair>
-#include <QHash>
 
 #include <memory>
 

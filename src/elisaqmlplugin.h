@@ -17,8 +17,8 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef ELISAQMLTESTPLUGIN_H
-#define ELISAQMLTESTPLUGIN_H
+#ifndef ELISAQMLPLUGIN_H
+#define ELISAQMLPLUGIN_H
 
 #include <QQmlExtensionPlugin>
 
@@ -34,4 +34,4 @@ public:
     void registerTypes(const char *uri) override;
 };
 
-#endif // ELISAQMLTESTPLUGIN_H
+#endif // ELISAQMLPLUGIN_H

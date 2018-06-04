@@ -63,7 +63,7 @@ QString TrackDataHelper::duration() const
 
 QString TrackDataHelper::resourceURI() const
 {
-    return MusicAudioTrack::resourceURI().toString();
+    return MusicAudioTrack::resourceURI().toDisplayString(QUrl::PreferLocalFile);
 }
 
 QString TrackDataHelper::fileName() const

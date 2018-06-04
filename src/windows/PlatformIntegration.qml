@@ -43,7 +43,8 @@ Item {
         progress.value: player.position
         progress.visible: manageMediaPlayerControl.musicPlaying
 
-        overlay.iconSource: (manageMediaPlayerControl.musicPlaying ? Qt.resolvedUrl(elisaTheme.playIcon) : Qt.resolvedUrl(elisaTheme.pauseIcon))
+        overlay.iconSource: (manageMediaPlayerControl.musicPlaying ?
+                                 Qt.resolvedUrl(elisaTheme.playingIndicatorIcon) : Qt.resolvedUrl(elisaTheme.pausedIndicatorIcon))
     }
 
     ThumbnailToolBar {

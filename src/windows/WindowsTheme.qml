@@ -39,6 +39,8 @@ Item {
     property string pauseIcon: 'image://icon/media-playback-pause'
     property string playIcon: 'image://icon/media-playback-start'
     property string skipForwardIcon: 'image://icon/media-skip-forward'
+    property string pausedIndicatorIcon: 'image://icon/media-playback-paused'
+    property string playingIndicatorIcon: 'image://icon/media-playback-playing'
     property string playerVolumeMutedIcon: 'image://icon/player-volume-muted'
     property string playerVolumeIcon: 'image://icon/player-volume'
     property string ratingIcon: 'image://icon/rating'

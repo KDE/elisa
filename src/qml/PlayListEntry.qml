@@ -345,7 +345,8 @@ FocusScope {
 
                             opacity: 0
 
-                            source: Qt.resolvedUrl(elisaTheme.playIndicatorIcon)
+                            source: (isPlaying === MediaPlayList.IsPlaying ?
+                                         Qt.resolvedUrl(elisaTheme.playingIndicatorIcon) : Qt.resolvedUrl(elisaTheme.pausedIndicatorIcon))
 
                             width: parent.height * 1.
                             height: parent.height * 1.
@@ -405,7 +406,7 @@ FocusScope {
             }
             PropertyChanges {
                 target: playIcon
-                opacity: (isPlaying === MediaPlayList.IsPlaying ? 1.0 : 0.0)
+                opacity: (isPlaying === MediaPlayList.IsPlaying || isPlaying === MediaPlayList.IsPaused ? 1.0 : 0.0)
             }
             PropertyChanges {
                 target: entryBackground

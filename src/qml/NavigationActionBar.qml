@@ -325,6 +325,8 @@ FocusScope {
                 objectName: 'ratingFilter'
 
                 visible: showRating
+                hoverWidgetOpacity: 1
+
 
                 readOnly: false
 

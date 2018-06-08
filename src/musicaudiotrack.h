@@ -164,7 +164,7 @@ private:
 
 };
 
-QDebug operator<<(QDebug stream, const MusicAudioTrack &data);
+ELISALIB_EXPORT QDebug operator<<(QDebug stream, const MusicAudioTrack &data);
 
 Q_DECLARE_METATYPE(MusicAudioTrack)
 

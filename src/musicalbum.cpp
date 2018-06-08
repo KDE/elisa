@@ -325,14 +325,14 @@ void MusicAlbum::updateTrack(const MusicAudioTrack &modifiedTrack, int index)
     d->mTracks[index] = modifiedTrack;
 }
 
-QDebug& operator<<(QDebug &stream, const MusicAlbum &data)
+ELISALIB_EXPORT QDebug operator<<(QDebug stream, const MusicAlbum &data)
 {
     stream << data.title() << " artist: " << data.artist() << " tracks: " << data.tracksCount();
 
     return stream;
 }
 
-bool operator==(const MusicAlbum &album1, const MusicAlbum &album2)
+ELISALIB_EXPORT bool operator==(const MusicAlbum &album1, const MusicAlbum &album2)
 {
     return album1.title() == album2.title() && (
             (album1.isValidArtist() && album2.isValidArtist() && album1.artist() == album2.artist()) ||

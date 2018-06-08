@@ -128,9 +128,9 @@ private:
 
 };
 
-QDebug& operator<<(QDebug &stream, const MusicAlbum &data);
+ELISALIB_EXPORT QDebug operator<<(QDebug stream, const MusicAlbum &data);
 
-bool operator==(const MusicAlbum &album1, const MusicAlbum &album2);
+ELISALIB_EXPORT bool operator==(const MusicAlbum &album1, const MusicAlbum &album2);
 
 Q_DECLARE_METATYPE(MusicAlbum)
 

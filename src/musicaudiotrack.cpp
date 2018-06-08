@@ -426,7 +426,7 @@ bool MusicAudioTrack::isSingleDiscAlbum() const
     return d->mIsSingleDiscAlbum;
 }
 
-QDebug operator<<(QDebug stream, const MusicAudioTrack &data)
+ELISALIB_EXPORT QDebug operator<<(QDebug stream, const MusicAudioTrack &data)
 {
     stream << data.title() << data.artist() << data.albumName() << data.albumArtist() << data.duration() << data.resourceURI();
     return stream;

@@ -28,10 +28,12 @@ RowLayout {
 
     property double hoverBrightness: 0.5
     property double hoverContrast: 0.5
+    property double hoverWidgetOpacity: 0
 
     property int hoveredRating: 0
 
     spacing: 0
+    opacity: starRating > 0 ? 1 : (readOnly ? 0 : hoverWidgetOpacity)
 
     Repeater {
         model: 5

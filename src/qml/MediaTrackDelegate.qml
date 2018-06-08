@@ -265,6 +265,7 @@ FocusScope {
                     active: false
 
                     Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+                    Layout.rightMargin: 10
 
                     z: 1
                     opacity: 0
@@ -352,6 +353,10 @@ FocusScope {
                 opacity: 0.0
             }
             PropertyChanges {
+                target: ratingWidget
+                hoverWidgetOpacity: 0.0
+            }
+            PropertyChanges {
                 target: rowRoot
                 color: (isAlternateColor ? myPalette.alternateBase : myPalette.base)
             }
@@ -366,6 +371,10 @@ FocusScope {
             PropertyChanges {
                 target: hoverLoader
                 opacity: 1.0
+            }
+            PropertyChanges {
+                target: ratingWidget
+                hoverWidgetOpacity: 1.0
             }
             PropertyChanges {
                 target: rowRoot
@@ -383,7 +392,7 @@ FocusScope {
                 }
                 ParallelAnimation {
                     NumberAnimation {
-                        properties: "opacity"
+                        properties: "opacity, hoverWidgetOpacity"
                         easing.type: Easing.InOutQuad
                         duration: 250
                     }
@@ -399,7 +408,7 @@ FocusScope {
             SequentialAnimation {
                 ParallelAnimation {
                     NumberAnimation {
-                        properties: "opacity"
+                        properties: "opacity, hoverWidgetOpacity"
                         easing.type: Easing.InOutQuad
                         duration: 250
                     }

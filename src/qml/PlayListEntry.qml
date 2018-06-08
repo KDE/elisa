@@ -412,6 +412,10 @@ FocusScope {
                 target: entryBackground
                 color: (isAlternateColor ? myPalette.alternateBase : myPalette.base)
             }
+            PropertyChanges {
+                target: ratingWidget
+                hoverWidgetOpacity: 0.0
+            }
         },
         State {
             name: 'hoveredOrSelected'
@@ -436,12 +440,16 @@ FocusScope {
                 target: entryBackground
                 color: myPalette.mid
             }
+            PropertyChanges {
+                target: ratingWidget
+                hoverWidgetOpacity: 1.0
+            }
         }
     ]
     transitions: Transition {
         ParallelAnimation {
             NumberAnimation {
-                properties: "opacity"
+                properties: "opacity, hoverWidgetOpacity"
                 easing.type: Easing.InOutQuad
                 duration: 250
             }

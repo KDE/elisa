@@ -71,8 +71,10 @@ Window {
         trackData.Layout.preferredHeight = textSize.height * trackData.count
         trackMetadata.height = textSize.height * (trackData.count + 1 + ( trackDataHelper.hasValidRating ? 1 : 0 )) + buttons.height + elisaTheme.layoutHorizontalMargin
         trackMetadata.minimumHeight = trackMetadata.height
+        trackMetadata.maximumHeight = trackMetadata.height
         trackMetadata.width = elisaTheme.trackMetadataWidth + (trackDataHelper.hasValidAlbumCover ? elisaTheme.coverImageSize : 0)
         trackMetadata.minimumWidth = trackMetadata.width
+        trackMetadata.maximumWidth = trackMetadata.width
     }
 
     Connections {
@@ -82,7 +84,7 @@ Window {
     }
 
     modality: Qt.NonModal
-    flags: Qt.Window | Qt.WindowCloseButtonHint
+    flags: Qt.Dialog | Qt.WindowCloseButtonHint
 
     Component.onCompleted: displayDataAndResize()
 

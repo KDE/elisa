@@ -39,56 +39,112 @@ class ELISALIB_EXPORT TrackDataHelper : public QObject, public MusicAudioTrack
                READ title
                NOTIFY trackDataChanged)
 
+    Q_PROPERTY(bool hasValidTitle
+               READ hasValidTitle
+               NOTIFY trackDataChanged)
+
     Q_PROPERTY(QString artist
                READ artist
+               NOTIFY trackDataChanged)
+
+    Q_PROPERTY(bool hasValidArtist
+               READ hasValidArtist
                NOTIFY trackDataChanged)
 
     Q_PROPERTY(QString albumName
                READ albumName
                NOTIFY trackDataChanged)
 
+    Q_PROPERTY(bool hasValidAlbumName
+               READ hasValidAlbumName
+               NOTIFY trackDataChanged)
+
     Q_PROPERTY(QString albumArtist
                READ albumArtist
+               NOTIFY trackDataChanged)
+
+    Q_PROPERTY(bool hasValidAlbumArtist
+               READ hasValidAlbumArtist
                NOTIFY trackDataChanged)
 
     Q_PROPERTY(QString genre
                READ genre
                NOTIFY trackDataChanged)
 
+    Q_PROPERTY(bool hasValidGenre
+               READ hasValidGenre
+               NOTIFY trackDataChanged)
+
     Q_PROPERTY(QString composer
                READ composer
+               NOTIFY trackDataChanged)
+
+    Q_PROPERTY(bool hasValidComposer
+               READ hasValidComposer
                NOTIFY trackDataChanged)
 
     Q_PROPERTY(QString lyricist
                READ lyricist
                NOTIFY trackDataChanged)
 
+    Q_PROPERTY(bool hasValidLyricist
+               READ hasValidLyricist
+               NOTIFY trackDataChanged)
+
     Q_PROPERTY(QString comment
                READ comment
                NOTIFY trackDataChanged)
 
-    Q_PROPERTY(QString year
+    Q_PROPERTY(bool hasValidComment
+               READ hasValidComment
+               NOTIFY trackDataChanged)
+
+    Q_PROPERTY(int year
                READ year
                NOTIFY trackDataChanged)
 
-    Q_PROPERTY(QString trackNumber
+    Q_PROPERTY(bool hasValidYear
+               READ hasValidYear
+               NOTIFY trackDataChanged)
+
+    Q_PROPERTY(int trackNumber
                READ trackNumber
                NOTIFY trackDataChanged)
 
-    Q_PROPERTY(QString discNumber
+    Q_PROPERTY(bool hasValidTrackNumber
+               READ hasValidTrackNumber
+               NOTIFY trackDataChanged)
+
+    Q_PROPERTY(int discNumber
                READ discNumber
                NOTIFY trackDataChanged)
 
-    Q_PROPERTY(QString channels
+    Q_PROPERTY(bool hasValidDiscNumber
+               READ hasValidDiscNumber
+               NOTIFY trackDataChanged)
+
+    Q_PROPERTY(int channels
                READ channels
                NOTIFY trackDataChanged)
 
-    Q_PROPERTY(QString bitRate
+    Q_PROPERTY(bool hasValidChannels
+               READ hasValidChannels
+               NOTIFY trackDataChanged)
+
+    Q_PROPERTY(int bitRate
                READ bitRate
                NOTIFY trackDataChanged)
 
-    Q_PROPERTY(QString sampleRate
+    Q_PROPERTY(bool hasValidBitRate
+               READ hasValidBitRate
+               NOTIFY trackDataChanged)
+
+    Q_PROPERTY(int sampleRate
                READ sampleRate
+               NOTIFY trackDataChanged)
+
+    Q_PROPERTY(bool hasValidSampleRate
+               READ hasValidSampleRate
                NOTIFY trackDataChanged)
 
     Q_PROPERTY(QString resourceURI
@@ -107,8 +163,16 @@ class ELISALIB_EXPORT TrackDataHelper : public QObject, public MusicAudioTrack
                READ rating
                NOTIFY trackDataChanged)
 
+    Q_PROPERTY(bool hasValidRating
+               READ hasValidRating
+               NOTIFY trackDataChanged)
+
     Q_PROPERTY(QUrl albumCover
                READ albumCover
+               NOTIFY trackDataChanged)
+
+    Q_PROPERTY(bool hasValidAlbumCover
+               READ hasValidAlbumCover
                NOTIFY trackDataChanged)
 
     Q_PROPERTY(qulonglong databaseId
@@ -123,18 +187,6 @@ public:
 
     QString title() const;
 
-    QString trackNumber() const;
-
-    QString discNumber() const;
-
-    QString channels() const;
-
-    QString bitRate() const;
-
-    QString sampleRate() const;
-
-    QString year() const;
-
     QString duration() const;
 
     QString resourceURI() const;
@@ -145,43 +197,44 @@ public:
 
     void setTrackData(const MusicAudioTrack &track);
 
+    bool hasValidTitle() const;
+
+    bool hasValidArtist() const;
+
+    bool hasValidAlbumName() const;
+
+    bool hasValidAlbumArtist() const;
+
+    bool hasValidGenre() const;
+
+    bool hasValidComposer() const;
+
+    bool hasValidLyricist() const;
+
+    bool hasValidComment() const;
+
+    bool hasValidTrackNumber() const;
+
+    bool hasValidDiscNumber() const;
+
+    bool hasValidChannels() const;
+
+    bool hasValidRating() const;
+
+    bool hasValidBitRate() const;
+
+    bool hasValidSampleRate() const;
+
+    bool hasValidYear() const;
+
+    bool hasValidAlbumCover() const;
+
 Q_SIGNALS:
 
     void trackDataChanged();
 
 public:
 
-    Q_INVOKABLE bool hasValidTitle() const;
-
-    Q_INVOKABLE bool hasValidArtist() const;
-
-    Q_INVOKABLE bool hasValidAlbumName() const;
-
-    Q_INVOKABLE bool hasValidAlbumArtist() const;
-
-    Q_INVOKABLE bool hasValidGenre() const;
-
-    Q_INVOKABLE bool hasValidComposer() const;
-
-    Q_INVOKABLE bool hasValidLyricist() const;
-
-    Q_INVOKABLE bool hasValidComment() const;
-
-    Q_INVOKABLE bool hasValidTrackNumber() const;
-
-    Q_INVOKABLE bool hasValidDiscNumber() const;
-
-    Q_INVOKABLE bool hasValidChannels() const;
-
-    Q_INVOKABLE bool hasValidRating() const;
-
-    Q_INVOKABLE bool hasValidBitRate() const;
-
-    Q_INVOKABLE bool hasValidSampleRate() const;
-
-    Q_INVOKABLE bool hasValidYear() const;
-
-    Q_INVOKABLE bool hasValidAlbumCover() const;
 };
 
 

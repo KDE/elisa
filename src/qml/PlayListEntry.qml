@@ -144,7 +144,7 @@ FocusScope {
                     Image {
                         id: mainIcon
 
-                        source: (isValid ? (dataHelper.hasValidAlbumCover() ? dataHelper.albumCover : Qt.resolvedUrl(elisaTheme.defaultAlbumImage)) : Qt.resolvedUrl(elisaTheme.errorIcon))
+                        source: (isValid ? (dataHelper.hasValidAlbumCover ? dataHelper.albumCover : Qt.resolvedUrl(elisaTheme.defaultAlbumImage)) : Qt.resolvedUrl(elisaTheme.errorIcon))
 
                         Layout.minimumWidth: headerRow.height - 4
                         Layout.maximumWidth: headerRow.height - 4
@@ -242,8 +242,8 @@ FocusScope {
                         id: mainCompactLabel
 
                         text: {
-                            if (dataHelper.hasValidTrackNumber()) {
-                                if (dataHelper.hasValidDiscNumber() && !isSingleDiscAlbum)
+                            if (dataHelper.hasValidTrackNumber) {
+                                if (dataHelper.hasValidDiscNumber && !isSingleDiscAlbum)
                                     return i18nc("%1: disk number. %2: track number. %3: track title", "%1 - %2 - %3",
                                                  Number(dataHelper.discNumber).toLocaleString(Qt.locale(), 'f', 0),
                                                  Number(dataHelper.trackNumber).toLocaleString(Qt.locale(), 'f', 0), dataHelper.title);

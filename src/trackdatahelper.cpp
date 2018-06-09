@@ -19,6 +19,8 @@
 
 #include "trackdatahelper.h"
 
+#include <QDebug>
+
 TrackDataHelper::TrackDataHelper(QObject *parent) : QObject(parent)
 {
 }
@@ -47,36 +49,6 @@ QString TrackDataHelper::title() const
     }
 }
 
-QString TrackDataHelper::trackNumber() const
-{
-    return QString::number(MusicAudioTrack::trackNumber());
-}
-
-QString TrackDataHelper::discNumber() const
-{
-    return QString::number(MusicAudioTrack::discNumber());
-}
-
-QString TrackDataHelper::channels() const
-{
-    return QString::number(MusicAudioTrack::channels());
-}
-
-QString TrackDataHelper::bitRate() const
-{
-    return QString::number(MusicAudioTrack::bitRate()/1000);
-}
-
-QString TrackDataHelper::sampleRate() const
-{
-    return QString::number(MusicAudioTrack::sampleRate());
-}
-
-QString TrackDataHelper::year() const
-{
-    return QString::number(MusicAudioTrack::year());
-}
-
 QString TrackDataHelper::duration() const
 {
     QString result;
@@ -101,27 +73,27 @@ QString TrackDataHelper::fileName() const
 
 bool TrackDataHelper::hasValidTrackNumber() const
 {
-    return MusicAudioTrack::trackNumber() > -1;
+    return trackNumber() > -1;
 }
 
 bool TrackDataHelper::hasValidDiscNumber() const
 {
-    return MusicAudioTrack::discNumber() > -1;
+    return discNumber() > -1;
 }
 
 bool TrackDataHelper::hasValidChannels() const
 {
-    return MusicAudioTrack::channels() > -1;
+    return channels() > -1;
 }
 
 bool TrackDataHelper::hasValidBitRate() const
 {
-    return MusicAudioTrack::bitRate() > -1;
+    return bitRate() > -1;
 }
 
 bool TrackDataHelper::hasValidSampleRate() const
 {
-    return MusicAudioTrack::sampleRate() > -1;
+    return sampleRate() > -1;
 }
 
 bool TrackDataHelper::hasValidYear() const
@@ -131,52 +103,52 @@ bool TrackDataHelper::hasValidYear() const
 
 bool TrackDataHelper::hasValidRating() const
 {
-    return MusicAudioTrack::rating() > -1;
+    return rating() > -1;
 }
 
 bool TrackDataHelper::hasValidTitle() const
 {
-    return !MusicAudioTrack::title().isEmpty();
+    return !title().isEmpty();
 }
 
 bool TrackDataHelper::hasValidArtist() const
 {
-    return !MusicAudioTrack::artist().isEmpty();
+    return !artist().isEmpty();
 }
 
 bool TrackDataHelper::hasValidAlbumArtist() const
 {
-    return !MusicAudioTrack::albumArtist().isEmpty();
+    return !albumArtist().isEmpty();
 }
 
 bool TrackDataHelper::hasValidAlbumName() const
 {
-    return !MusicAudioTrack::albumName().isEmpty();
+    return !albumName().isEmpty();
 }
 
 bool TrackDataHelper::hasValidGenre() const
 {
-    return !MusicAudioTrack::genre().isEmpty();
+    return !genre().isEmpty();
 }
 
 bool TrackDataHelper::hasValidComposer() const
 {
-    return !MusicAudioTrack::composer().isEmpty();
+    return !composer().isEmpty();
 }
 
 bool TrackDataHelper::hasValidLyricist() const
 {
-    return !MusicAudioTrack::lyricist().isEmpty();
+    return !lyricist().isEmpty();
 }
 
 bool TrackDataHelper::hasValidComment() const
 {
-    return !MusicAudioTrack::comment().isEmpty();
+    return !comment().isEmpty();
 }
 
 bool TrackDataHelper::hasValidAlbumCover() const
 {
-    return !MusicAudioTrack::albumCover().isEmpty();
+    return !albumCover().isEmpty();
 }
 
 #include "moc_trackdatahelper.cpp"

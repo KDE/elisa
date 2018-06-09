@@ -39,41 +39,39 @@ Window {
     function displayDataAndResize()
     {
         trackList.clear()
-        if (trackDataHelper.hasValidTitle())
+        if (trackDataHelper.hasValidTitle)
             trackList.append({"name": i18nc("Track title for track metadata view", "Title:"), "content": trackDataHelper.title})
-        if (trackDataHelper.hasValidArtist())
+        if (trackDataHelper.hasValidArtist)
             trackList.append({"name": i18nc("Track artist for track metadata view", "Artist:"), "content": trackDataHelper.artist})
-        if (trackDataHelper.hasValidAlbumName())
+        if (trackDataHelper.hasValidAlbumName)
             trackList.append({"name": i18nc("Album name for track metadata view", "Album:"), "content": trackDataHelper.albumName})
-        if (trackDataHelper.hasValidTrackNumber())
-            trackList.append({"name": i18nc("Track number for track metadata view", "Track Number:"), "content": trackDataHelper.trackNumber})
-        if (trackDataHelper.hasValidDiscNumber())
-            trackList.append({"name": i18nc("Disc number for track metadata view", "Disc Number:"), "content": trackDataHelper.discNumber})
-        if (trackDataHelper.hasValidAlbumArtist())
+        if (trackDataHelper.hasValidTrackNumber)
+            trackList.append({"name": i18nc("Track number for track metadata view", "Track Number:"), "content": trackDataHelper.trackNumber.toString()})
+        if (trackDataHelper.hasValidDiscNumber)
+            trackList.append({"name": i18nc("Disc number for track metadata view", "Disc Number:"), "content": trackDataHelper.discNumber.toString()})
+        if (trackDataHelper.hasValidAlbumArtist)
             trackList.append({"name": i18nc("Album artist for track metadata view", "Album Artist:"), "content": trackDataHelper.albumArtist})
         trackList.append({"name": i18nc("Duration label for track metadata view", "Duration:"), "content": trackDataHelper.duration})
-        if (trackDataHelper.hasValidYear())
-            trackList.append({"name": i18nc("Year label for track metadata view", "Year:"), "content": trackDataHelper.year})
-        if (trackDataHelper.hasValidGenre())
+        if (trackDataHelper.hasValidYear)
+            trackList.append({"name": i18nc("Year label for track metadata view", "Year:"), "content": trackDataHelper.year.toString()})
+        if (trackDataHelper.hasValidGenre)
             trackList.append({"name": i18nc("Genre label for track metadata view", "Genre:"), "content": trackDataHelper.genre})
-        if (trackDataHelper.hasValidComposer())
+        if (trackDataHelper.hasValidComposer)
             trackList.append({"name": i18nc("Composer name for track metadata view", "Composer:"), "content": trackDataHelper.composer})
-        if (trackDataHelper.hasValidLyricist())
+        if (trackDataHelper.hasValidLyricist)
             trackList.append({"name": i18nc("Lyricist label for track metadata view", "Lyricist:"), "content": trackDataHelper.lyricist})
-        if (trackDataHelper.hasValidBitRate())
-            trackList.append({"name": i18nc("Bit rate label for track metadata view", "Bit Rate:"), "content": trackDataHelper.bitRate + " " + i18nc("Unit of the bit rate in thousand", "kbit/s")})
-        if (trackDataHelper.hasValidSampleRate())
+        if (trackDataHelper.hasValidBitRate)
+            trackList.append({"name": i18nc("Bit rate label for track metadata view", "Bit Rate:"), "content": (trackDataHelper.bitRate / 1000) + " " + i18nc("Unit of the bit rate in thousand", "kbit/s")})
+        if (trackDataHelper.hasValidSampleRate)
             trackList.append({"name": i18nc("Sample Rate label for track metadata view", "Sample Rate:"), "content": trackDataHelper.sampleRate + " " + i18nc("Unit of the sample rate", "Hz")})
-        if (trackDataHelper.hasValidChannels())
-            trackList.append({"name": i18nc("Channels label for track metadata view", "Channels:"), "content": trackDataHelper.channels})
-        if (trackDataHelper.hasValidComment())
+        if (trackDataHelper.hasValidChannels)
+            trackList.append({"name": i18nc("Channels label for track metadata view", "Channels:"), "content": trackDataHelper.channels.toString()})
+        if (trackDataHelper.hasValidComment)
             trackList.append({"name": i18nc("Comment label for track metadata view", "Comment:"), "content": trackDataHelper.comment})
         trackData.Layout.preferredHeight = textSize.height * trackData.count
-        trackMetadata.height = textSize.height * (trackData.count + 1 + ( trackDataHelper.hasValidRating() ? 1 : 0 )) + buttons.height + elisaTheme.layoutHorizontalMargin
-        trackMetadata.maximumHeight = trackMetadata.height
+        trackMetadata.height = textSize.height * (trackData.count + 1 + ( trackDataHelper.hasValidRating ? 1 : 0 )) + buttons.height + elisaTheme.layoutHorizontalMargin
         trackMetadata.minimumHeight = trackMetadata.height
-        trackMetadata.width = elisaTheme.trackMetadataWidth + (trackDataHelper.hasValidAlbumCover() ? elisaTheme.coverImageSize : 0)
-        trackMetadata.maximumWidth = trackMetadata.width
+        trackMetadata.width = elisaTheme.trackMetadataWidth + (trackDataHelper.hasValidAlbumCover ? elisaTheme.coverImageSize : 0)
         trackMetadata.minimumWidth = trackMetadata.width
     }
 
@@ -84,7 +82,7 @@ Window {
     }
 
     modality: Qt.NonModal
-    flags: Qt.Dialog | Qt.WindowCloseButtonHint
+    flags: Qt.Window | Qt.WindowCloseButtonHint
 
     Component.onCompleted: displayDataAndResize()
 
@@ -104,7 +102,7 @@ Window {
 
                 Image {
                     source: trackDataHelper.albumCover
-                    visible: trackDataHelper.hasValidAlbumCover()
+                    visible: trackDataHelper.hasValidAlbumCover
                     width: elisaTheme.coverImageSize
                     height: elisaTheme.coverImageSize
                     fillMode: Image.PreserveAspectFit
@@ -165,7 +163,7 @@ Window {
                         anchors.margins: 0
                         spacing: 0
 
-                        visible: trackDataHelper.hasValidRating()
+                        visible: trackDataHelper.hasValidRating
 
                         Layout.minimumHeight: textSize.height
 
@@ -217,7 +215,7 @@ Window {
                 horizontalAlignment: Text.AlignRight
 
                 Layout.minimumHeight: textSize.height
-                Layout.preferredWidth: trackDataHelper.hasValidAlbumCover() ? elisaTheme.coverImageSize + elisaTheme.trackMetadataWidth : elisaTheme.trackMetadataWidth + 2 * elisaTheme.layoutHorizontalMargin
+                Layout.preferredWidth: trackDataHelper.hasValidAlbumCover ? elisaTheme.coverImageSize + elisaTheme.trackMetadataWidth : elisaTheme.trackMetadataWidth + 2 * elisaTheme.layoutHorizontalMargin
                 Layout.fillWidth: true
                 Layout.topMargin: elisaTheme.layoutVerticalMargin
             }

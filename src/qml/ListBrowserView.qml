@@ -39,6 +39,7 @@ FocusScope {
     property alias showRating: navigationBar.showRating
     property alias allowArtistNavigation: navigationBar.allowArtistNavigation
     property var delegateWidth: scrollBar.visible ? contentDirectoryView.width - scrollBar.width : contentDirectoryView.width
+    property alias currentIndex: contentDirectoryView.currentIndex
     property var stackView
 
     signal goBack()

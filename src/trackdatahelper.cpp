@@ -19,8 +19,6 @@
 
 #include "trackdatahelper.h"
 
-#include <QDebug>
-
 TrackDataHelper::TrackDataHelper(QObject *parent) : QObject(parent)
 {
 }

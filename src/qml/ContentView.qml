@@ -805,7 +805,7 @@ RowLayout {
 
                 mediaTrack.isAlternateColor: (index % 2) === 1
 
-                mediaTrack.onClicked: contentDirectoryView.currentIndex = index
+                mediaTrack.onClicked: albumGridView.currentIndex = index
             }
 
             allowArtistNavigation: true

@@ -121,16 +121,16 @@ FocusScope {
                     visible: !detailedView
 
                     text: {
-                        if (dataHelper.hasValidTrackNumber()) {
+                        if (dataHelper.hasValidTrackNumber) {
                             if (artist !== albumArtist)
                                 return i18nc("%1: track number. %2: track title. %3: artist name",
                                              "<b>%1 - %2</b> - <i>%3</i>",
-                                             Number(dataHelper.trackNumber).toLocaleString(Qt.locale(), 'f', 0),
+                                             dataHelper.trackNumber.toLocaleString(Qt.locale(), 'f', 0),
                                              dataHelper.title, dataHelper.artist);
                             else
                                 return i18nc("%1: track number. %2: track title.",
                                              "<b>%1 - %2</b>",
-                                             Number(dataHelper.trackNumber).toLocaleString(Qt.locale(), 'f', 0),
+                                             dataHelper.trackNumber.toLocaleString(Qt.locale(), 'f', 0),
                                              dataHelper.title);
                         } else {
                             if (dataHelper.artist !== dataHelper.albumArtist)
@@ -183,11 +183,11 @@ FocusScope {
                         fillMode: Image.PreserveAspectFit
                         smooth: true
 
-                        source: (dataHelper.hasValidAlbumCover() ? dataHelper.albumCover : Qt.resolvedUrl(elisaTheme.defaultAlbumImage))
+                        source: (dataHelper.hasValidAlbumCover ? dataHelper.albumCover : Qt.resolvedUrl(elisaTheme.defaultAlbumImage))
 
                         asynchronous: true
 
-                        layer.enabled: dataHelper.hasValidAlbumCover() ? true : false
+                        layer.enabled: dataHelper.hasValidAlbumCover ? true : false
 
                         layer.effect: DropShadow {
                             source: coverImageElement
@@ -214,9 +214,9 @@ FocusScope {
                         id: mainLabelDetailed
 
                         text: {
-                            if (dataHelper.hasValidTrackNumber()) {
+                            if (dataHelper.hasValidTrackNumber) {
                                 return i18nc("%1: track number. %2: track title", "%1 - %2",
-                                             Number(dataHelper.trackNumber).toLocaleString(Qt.locale(), 'f', 0), dataHelper.title);
+                                             dataHelper.trackNumber.toLocaleString(Qt.locale(), 'f', 0), dataHelper.title);
                             } else {
                                 return dataHelper.title;
                             }

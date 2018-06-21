@@ -25,7 +25,6 @@ Item {
     id: rootItem
 
     property var playListModel
-    property var playListControler
     property var audioPlayerManager
     property var player
     property var headerBarManager
@@ -52,7 +51,7 @@ Item {
 
         ThumbnailToolButton {
             iconSource: Qt.resolvedUrl(LayoutMirroring.enabled ? elisaTheme.skipForwardIcon : elisaTheme.skipBackwardIcon)
-            onClicked: playListControler.skipPreviousTrack()
+            onClicked: playListModel.skipPreviousTrack()
             enabled: manageMediaPlayerControl.skipBackwardControlEnabled
         }
 
@@ -64,7 +63,7 @@ Item {
 
         ThumbnailToolButton {
             iconSource: Qt.resolvedUrl(LayoutMirroring.enabled ? elisaTheme.skipBackwardIcon : elisaTheme.skipForwardIcon)
-            onClicked: playListControler.skipNextTrack()
+            onClicked: playListModel.skipNextTrack()
             enabled: manageMediaPlayerControl.skipForwardControlEnabled
         }
     }

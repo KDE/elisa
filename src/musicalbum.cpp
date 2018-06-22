@@ -42,6 +42,8 @@ public:
 
     QString mArtist;
 
+    QUrl mAlbumPath;
+
     QUrl mAlbumArtURI;
 
     QUrl mResourceURI;
@@ -367,4 +369,14 @@ bool MusicAlbum::canUpdateArtist(const MusicAudioTrack &currentTrack) const
     }
 
     return result;
+}
+
+void MusicAlbum::setAlbumPath(const QUrl &value)
+{
+    d->mAlbumPath = value;
+}
+
+QUrl MusicAlbum::albumPath() const
+{
+    return d->mAlbumPath;
 }

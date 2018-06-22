@@ -84,6 +84,10 @@ public:
 
     bool canUpdateArtist(const MusicAudioTrack &currentTrack) const;
 
+    void setAlbumPath(const QUrl &value);
+
+    QUrl albumPath() const;
+
     void setAlbumArtURI(const QUrl &value);
 
     QUrl albumArtURI() const;

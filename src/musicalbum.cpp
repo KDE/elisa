@@ -269,7 +269,9 @@ QStringList MusicAlbum::allArtists() const
 {
     auto result = QList<QString>();
 
-    result.reserve(d->mTracks.size());
+    result.reserve(d->mTracks.size() + 1);
+
+    result.push_back(d->mArtist);
 
     const auto &allTracks = d->mTracks;
     for (const auto &oneTrack : allTracks) {

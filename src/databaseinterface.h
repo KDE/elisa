@@ -67,6 +67,13 @@ public:
 
     Q_ENUMS(PropertyType)
 
+    enum AlbumDiscsCount {
+        SingleDiscAlbum,
+        MultipleDiscsAlbum,
+    };
+
+    Q_ENUMS(AlbumDiscsCounts)
+
     explicit DatabaseInterface(QObject *parent = nullptr);
 
     ~DatabaseInterface() override;
@@ -180,8 +187,9 @@ private:
     qulonglong internalTrackIdFromTitleAlbumTracDiscNumber(const QString &title, const QString &artist, const QString &album,
                                                            int trackNumber, int discNumber);
 
-    qulonglong getDuplicateTrackIdFromTitleAlbumTracDiscNumber(const QString &title, const QString &album, const QString &albumArtist,
-                                                               int trackNumber, int discNumber);
+    qulonglong getDuplicateTrackIdFromTitleAlbumTrackDiscNumber(const QString &title, const QString &album,
+                                                                const QString &albumArtist, const QString &trackPath,
+                                                                int trackNumber, int discNumber);
 
     qulonglong internalTrackIdFromFileName(const QUrl &fileName);
 
@@ -194,8 +202,9 @@ private:
     void initRequest();
 
     qulonglong insertAlbum(const QString &title, const QString &albumArtist, const QString &trackArtist,
-                           const QUrl &albumArtURI, int tracksCount, bool isSingleDiscAlbum,
-                           QList<qulonglong> &newAlbumIds, QList<qulonglong> &newArtistsIds);
+                           const QString &trackPath, const QUrl &albumArtURI, int tracksCount,
+                           AlbumDiscsCount isSingleDiscAlbum, QList<qulonglong> &newAlbumIds,
+                           QList<qulonglong> &newArtistsIds);
 
     bool updateAlbumFromId(qulonglong albumId, const QUrl &albumArtUri, const MusicAudioTrack &currentTrack,
                            QList<qulonglong> &newArtistsIds);
@@ -209,6 +218,9 @@ private:
     MusicAudioGenre internalGenreFromId(qulonglong genreId);
 
     void removeTrackInDatabase(qulonglong trackId);
+
+    void updateTrackInDatabase(const MusicAudioTrack &oneTrack, qulonglong albumId,
+                               QList<qulonglong> &newArtistsIds);
 
     void removeAlbumInDatabase(qulonglong albumId);
 

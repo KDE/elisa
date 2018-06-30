@@ -801,6 +801,7 @@ void DatabaseInterface::insertTracksList(const QList<MusicAudioTrack> &tracks, c
     }
 
     QSet<qulonglong> modifiedAlbumIds;
+    QSet<qulonglong> modifiedTrackIds;
     QList<qulonglong> insertedTracks;
     QList<qulonglong> insertedAlbums;
     QList<qulonglong> insertedArtists;
@@ -835,7 +836,7 @@ void DatabaseInterface::insertTracksList(const QList<MusicAudioTrack> &tracks, c
 
         const auto insertedTrackId = internalInsertTrack(oneTrack, covers, 0, modifiedAlbumIds,
                                                          (isNewTrack ? TrackFileInsertType::NewTrackFileInsert : TrackFileInsertType::ModifiedTrackFileInsert),
-                                                         insertedAlbums, insertedArtists);
+                                                         insertedAlbums, insertedArtists, modifiedTrackIds);
 
         if (isNewTrack && insertedTrackId != 0) {
             insertedTracks.push_back(insertedTrackId);
@@ -871,6 +872,10 @@ void DatabaseInterface::insertTracksList(const QList<MusicAudioTrack> &tracks, c
     const auto &constModifiedAlbumIds = modifiedAlbumIds;
     for (auto albumId : constModifiedAlbumIds) {
         Q_EMIT albumModified(internalAlbumFromId(albumId), albumId);
+    }
+
+    for (auto trackId : qAsConst(modifiedTrackIds)) {
+        Q_EMIT trackModified(internalTrackFromDatabaseId(trackId));
     }
 
     QList<MusicAudioTrack> newTracks;
@@ -922,6 +927,7 @@ void DatabaseInterface::modifyTracksList(const QList<MusicAudioTrack> &modifiedT
     }
 
     QSet<qulonglong> modifiedAlbumIds;
+    QSet<qulonglong> modifiedTrackIds;
     QList<qulonglong> newAlbumIds;
     QList<qulonglong> newArtistsIds;
     QList<qulonglong> insertedTracks;
@@ -948,7 +954,7 @@ void DatabaseInterface::modifyTracksList(const QList<MusicAudioTrack> &modifiedT
         const auto insertedTrackId = internalInsertTrack(oneModifiedTrack, covers, (modifyExistingTrack ? originTrackId : 0),
                                                          modifiedAlbumIds,
                                                          (modifyExistingTrack ? TrackFileInsertType::ModifiedTrackFileInsert : TrackFileInsertType::NewTrackFileInsert),
-                                                         newAlbumIds, newArtistsIds);
+                                                         newAlbumIds, newArtistsIds, modifiedTrackIds);
 
         if (!modifyExistingTrack && insertedTrackId != 0) {
             insertedTracks.push_back(insertedTrackId);
@@ -967,6 +973,10 @@ void DatabaseInterface::modifyTracksList(const QList<MusicAudioTrack> &modifiedT
 
     for (auto albumId : qAsConst(modifiedAlbumIds)) {
         Q_EMIT albumModified(internalAlbumFromId(albumId), albumId);
+    }
+
+    for (auto trackId : qAsConst(modifiedTrackIds)) {
+        Q_EMIT trackModified(internalTrackFromDatabaseId(trackId));
     }
 
     QList<MusicAudioTrack> newTracks;
@@ -2502,7 +2512,8 @@ void DatabaseInterface::initRequest()
         auto updateIsSingleDiscAlbumFromIdQueryText = QStringLiteral("UPDATE `Albums` "
                                                                      "SET `IsSingleDiscAlbum` = (SELECT COUNT(DISTINCT DiscNumber) = 1 FROM `Tracks` WHERE `AlbumID` = :albumId) "
                                                                      "WHERE "
-                                                                     "`ID` = :albumId");
+                                                                     "`ID` = :albumId AND "
+                                                                     "`IsSingleDiscAlbum` != (SELECT COUNT(DISTINCT DiscNumber) = 1 FROM `Tracks` WHERE `AlbumID` = :albumId)");
 
         auto result = d->mUpdateIsSingleDiscAlbumFromIdQuery.prepare(updateIsSingleDiscAlbumFromIdQueryText);
 
@@ -2876,7 +2887,7 @@ qulonglong DatabaseInterface::insertAlbum(const QString &title, const QString &a
     d->mInsertAlbumQuery.bindValue(QStringLiteral(":albumPath"), trackPath);
     d->mInsertAlbumQuery.bindValue(QStringLiteral(":coverFileName"), albumArtURI);
     d->mInsertAlbumQuery.bindValue(QStringLiteral(":tracksCount"), tracksCount);
-    d->mInsertAlbumQuery.bindValue(QStringLiteral(":isSingleDiscAlbum"), isSingleDiscAlbum);
+    d->mInsertAlbumQuery.bindValue(QStringLiteral(":isSingleDiscAlbum"), isSingleDiscAlbum == SingleDiscAlbum);
 
     auto queryResult = d->mInsertAlbumQuery.exec();
 
@@ -2929,6 +2940,8 @@ bool DatabaseInterface::updateAlbumFromId(qulonglong albumId, const QUrl &albumA
 {
     auto modifiedAlbum = false;
 
+    auto previousAlbum = internalAlbumFromId(albumId);
+
     d->mUpdateIsSingleDiscAlbumFromIdQuery.bindValue(QStringLiteral(":albumId"), albumId);
 
     auto result = d->mUpdateIsSingleDiscAlbumFromIdQuery.exec();
@@ -2954,7 +2967,7 @@ bool DatabaseInterface::updateAlbumFromId(qulonglong albumId, const QUrl &albumA
 
     auto storedAlbumArtUri = internalAlbumArtUriFromAlbumId(albumId);
 
-    if (!storedAlbumArtUri.isValid() || storedAlbumArtUri == albumArtUri) {
+    if (!storedAlbumArtUri.isValid() || storedAlbumArtUri != albumArtUri) {
         d->mUpdateAlbumArtUriFromAlbumIdQuery.bindValue(QStringLiteral(":albumId"), albumId);
         d->mUpdateAlbumArtUriFromAlbumIdQuery.bindValue(QStringLiteral(":coverFileName"), albumArtUri);
 
@@ -3359,7 +3372,8 @@ int DatabaseInterface::computeTrackPriority(qulonglong trackId, const QUrl &file
 
 qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrack, const QHash<QString, QUrl> &covers,
                                                   qulonglong originTrackId, QSet<qulonglong> &modifiedAlbumIds, TrackFileInsertType insertType,
-                                                  QList<qulonglong> &newAlbumIds, QList<qulonglong> &newArtistsIds)
+                                                  QList<qulonglong> &newAlbumIds, QList<qulonglong> &newArtistsIds,
+                                                  QSet<qulonglong> &modifiedTrackIds)
 {
     qulonglong resultId = 0;
 
@@ -3425,9 +3439,7 @@ qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrac
             newTrack.setDatabaseId(oldTrack.databaseId());
             updateTrackInDatabase(newTrack, albumId, newArtistsIds);
             updateTrackOrigin(newTrack.databaseId(), oneTrack.resourceURI(), oneTrack.fileModificationTime());
-            if (oldTrack.albumCover() != oneTrack.albumCover()) {
-                updateAlbumFromId(albumId, oneTrack.albumCover(), oneTrack, newArtistsIds);
-            }
+            updateAlbumFromId(albumId, oneTrack.albumCover(), oneTrack, newArtistsIds);
 
             Q_EMIT trackModified(internalTrackFromDatabaseId(originTrackId));
             modifiedAlbumIds.insert(albumId);
@@ -3517,6 +3529,12 @@ qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrac
             }
 
             if (updateAlbumFromId(albumId, covers[oneTrack.resourceURI().toString()], oneTrack, newArtistsIds)) {
+                auto modifiedTracks = fetchTrackIds(albumId);
+                for (auto oneModifiedTrack : modifiedTracks) {
+                    if (oneModifiedTrack != resultId) {
+                        modifiedTrackIds.insert(oneModifiedTrack);
+                    }
+                }
                 modifiedAlbumIds.insert(albumId);
             }
 
@@ -4354,6 +4372,33 @@ QList<MusicAudioTrack> DatabaseInterface::fetchTracks(qulonglong albumId)
         const auto &currentRecord = d->mSelectTrackQuery.record();
 
         allTracks.push_back(buildTrackFromDatabaseRecord(currentRecord));
+    }
+
+    d->mSelectTrackQuery.finish();
+
+    return allTracks;
+}
+
+QList<qulonglong> DatabaseInterface::fetchTrackIds(qulonglong albumId)
+{
+    auto allTracks = QList<qulonglong>();
+
+    d->mSelectTrackQuery.bindValue(QStringLiteral(":albumId"), albumId);
+
+    auto result = d->mSelectTrackQuery.exec();
+
+    if (!result || !d->mSelectTrackQuery.isSelect() || !d->mSelectTrackQuery.isActive()) {
+        Q_EMIT databaseError();
+
+        qDebug() << "DatabaseInterface::fetchTracks" << d->mSelectTrackQuery.lastQuery();
+        qDebug() << "DatabaseInterface::fetchTracks" << d->mSelectTrackQuery.boundValues();
+        qDebug() << "DatabaseInterface::fetchTracks" << d->mSelectTrackQuery.lastError();
+    }
+
+    while (d->mSelectTrackQuery.next()) {
+        const auto &currentRecord = d->mSelectTrackQuery.record();
+
+        allTracks.push_back(currentRecord.value(0).toULongLong());
     }
 
     d->mSelectTrackQuery.finish();

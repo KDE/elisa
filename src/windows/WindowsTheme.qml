@@ -18,7 +18,7 @@
  */
 
 import QtQuick 2.7
-import QtQuick.Controls 1.4
+import QtQuick.Controls 2.2
 
 Item {
     function dp(pixel) {
@@ -56,7 +56,7 @@ Item {
     property int layoutVerticalMargin: dp(6)
 
     property int delegateHeight: dp(28)
-    property int delegateWithHeaderHeight: dp(68)
+    property int delegateWithHeaderHeight: dp(86)
     property int trackDelegateHeight: dp(45)
 
     property int coverImageSize: dp(180)
@@ -88,7 +88,7 @@ Item {
 
     property int viewSelectorDelegateHeight: dp(24)
 
-    property int filterClearButtonMargin: 1
+    property int filterClearButtonMargin: layoutVerticalMargin
 
     property alias defaultFontPointSize: fontSize.font.pointSize
 

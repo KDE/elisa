@@ -40,11 +40,6 @@ MediaPlayListTest::MediaPlayListTest(QObject *parent) : QObject(parent)
 
 void MediaPlayListTest::initTestCase()
 {
-    mNewCovers[QStringLiteral("album1")] = QUrl::fromLocalFile(QStringLiteral("album1"));
-    mNewCovers[QStringLiteral("album2")] = QUrl::fromLocalFile(QStringLiteral("album2"));
-    mNewCovers[QStringLiteral("album3")] = QUrl::fromLocalFile(QStringLiteral("album3"));
-    mNewCovers[QStringLiteral("album4")] = QUrl::fromLocalFile(QStringLiteral("album4"));
-
     qRegisterMetaType<QHash<QString,QUrl>>("QHash<QString,QUrl>");
     qRegisterMetaType<QHash<QString,QVector<MusicAudioTrack>>>("QHash<QString,QVector<MusicAudioTrack>>");
     qRegisterMetaType<QVector<qlonglong>>("QVector<qlonglong>");
@@ -3850,7 +3845,7 @@ void MediaPlayListTest::testSavePersistentState()
     QCOMPARE(myPlayListSave.data(myPlayListSave.index(0, 0), MediaPlayList::ColumnsRoles::AlbumRole).toString(), QStringLiteral("album3"));
     QCOMPARE(myPlayListSave.data(myPlayListSave.index(0, 0), MediaPlayList::ColumnsRoles::TrackNumberRole).toInt(), 1);
     QCOMPARE(myPlayListSave.data(myPlayListSave.index(0, 0), MediaPlayList::ColumnsRoles::DiscNumberRole).toInt(), 1);
-    QCOMPARE(myPlayListSave.data(myPlayListSave.index(0, 0), MediaPlayList::ColumnsRoles::ImageRole).toUrl(), QUrl());
+    QCOMPARE(myPlayListSave.data(myPlayListSave.index(0, 0), MediaPlayList::ColumnsRoles::ImageRole).toUrl(), QUrl::fromLocalFile(QStringLiteral("album3")));
     QCOMPARE(myPlayListSave.data(myPlayListSave.index(0, 0), MediaPlayList::ColumnsRoles::ResourceRole).toUrl(), QUrl::fromUserInput(QStringLiteral("/$11")));
     QCOMPARE(myPlayListSave.data(myPlayListSave.index(0, 0), MediaPlayList::ColumnsRoles::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayListSave.data(myPlayListSave.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
@@ -3863,7 +3858,7 @@ void MediaPlayListTest::testSavePersistentState()
     QCOMPARE(myPlayListSave.data(myPlayListSave.index(1, 0), MediaPlayList::ColumnsRoles::AlbumRole).toString(), QStringLiteral("album1"));
     QCOMPARE(myPlayListSave.data(myPlayListSave.index(1, 0), MediaPlayList::ColumnsRoles::TrackNumberRole).toInt(), 1);
     QCOMPARE(myPlayListSave.data(myPlayListSave.index(1, 0), MediaPlayList::ColumnsRoles::DiscNumberRole).toInt(), 1);
-    QCOMPARE(myPlayListSave.data(myPlayListSave.index(1, 0), MediaPlayList::ColumnsRoles::ImageRole).toUrl(), QUrl(QStringLiteral("file:file://image$4")));
+    QCOMPARE(myPlayListSave.data(myPlayListSave.index(1, 0), MediaPlayList::ColumnsRoles::ImageRole).toUrl(), QUrl::fromLocalFile(QStringLiteral("album1")));
     QCOMPARE(myPlayListSave.data(myPlayListSave.index(1, 0), MediaPlayList::ColumnsRoles::ResourceRole).toUrl(), QUrl::fromUserInput(QStringLiteral("/$1")));
     QCOMPARE(myPlayListSave.data(myPlayListSave.index(1, 0), MediaPlayList::ColumnsRoles::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayListSave.data(myPlayListSave.index(1, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
@@ -3876,7 +3871,7 @@ void MediaPlayListTest::testSavePersistentState()
     QCOMPARE(myPlayListSave.data(myPlayListSave.index(2, 0), MediaPlayList::ColumnsRoles::AlbumRole).toString(), QStringLiteral("album3"));
     QCOMPARE(myPlayListSave.data(myPlayListSave.index(2, 0), MediaPlayList::ColumnsRoles::TrackNumberRole).toInt(), 2);
     QCOMPARE(myPlayListSave.data(myPlayListSave.index(2, 0), MediaPlayList::ColumnsRoles::DiscNumberRole).toInt(), 1);
-    QCOMPARE(myPlayListSave.data(myPlayListSave.index(2, 0), MediaPlayList::ColumnsRoles::ImageRole).toUrl(), QUrl());
+    QCOMPARE(myPlayListSave.data(myPlayListSave.index(2, 0), MediaPlayList::ColumnsRoles::ImageRole).toUrl(), QUrl::fromLocalFile(QStringLiteral("album3")));
     QCOMPARE(myPlayListSave.data(myPlayListSave.index(2, 0), MediaPlayList::ColumnsRoles::ResourceRole).toUrl(), QUrl::fromUserInput(QStringLiteral("/$12")));
     QCOMPARE(myPlayListSave.data(myPlayListSave.index(2, 0), MediaPlayList::ColumnsRoles::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayListSave.data(myPlayListSave.index(2, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
@@ -3921,7 +3916,7 @@ void MediaPlayListTest::testSavePersistentState()
     QCOMPARE(myPlayListRead.data(myPlayListRead.index(0, 0), MediaPlayList::ColumnsRoles::AlbumRole).toString(), QStringLiteral("album3"));
     QCOMPARE(myPlayListRead.data(myPlayListRead.index(0, 0), MediaPlayList::ColumnsRoles::TrackNumberRole).toInt(), 1);
     QCOMPARE(myPlayListRead.data(myPlayListRead.index(0, 0), MediaPlayList::ColumnsRoles::DiscNumberRole).toInt(), 1);
-    QCOMPARE(myPlayListRead.data(myPlayListRead.index(0, 0), MediaPlayList::ColumnsRoles::ImageRole).toUrl(), QUrl());
+    QCOMPARE(myPlayListRead.data(myPlayListRead.index(0, 0), MediaPlayList::ColumnsRoles::ImageRole).toUrl(), QUrl::fromLocalFile(QStringLiteral("album3")));
     QCOMPARE(myPlayListRead.data(myPlayListRead.index(0, 0), MediaPlayList::ColumnsRoles::ResourceRole).toUrl(), QUrl::fromUserInput(QStringLiteral("/$11")));
     QCOMPARE(myPlayListRead.data(myPlayListRead.index(0, 0), MediaPlayList::ColumnsRoles::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayListRead.data(myPlayListRead.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
@@ -3934,7 +3929,7 @@ void MediaPlayListTest::testSavePersistentState()
     QCOMPARE(myPlayListRead.data(myPlayListRead.index(1, 0), MediaPlayList::ColumnsRoles::AlbumRole).toString(), QStringLiteral("album1"));
     QCOMPARE(myPlayListRead.data(myPlayListRead.index(1, 0), MediaPlayList::ColumnsRoles::TrackNumberRole).toInt(), 1);
     QCOMPARE(myPlayListRead.data(myPlayListRead.index(1, 0), MediaPlayList::ColumnsRoles::DiscNumberRole).toInt(), 1);
-    QCOMPARE(myPlayListRead.data(myPlayListRead.index(1, 0), MediaPlayList::ColumnsRoles::ImageRole).toUrl(), QUrl(QStringLiteral("file:file://image$4")));
+    QCOMPARE(myPlayListRead.data(myPlayListRead.index(1, 0), MediaPlayList::ColumnsRoles::ImageRole).toUrl(), QUrl::fromLocalFile(QStringLiteral("album1")));
     QCOMPARE(myPlayListRead.data(myPlayListRead.index(1, 0), MediaPlayList::ColumnsRoles::ResourceRole).toUrl(), QUrl::fromUserInput(QStringLiteral("/$1")));
     QCOMPARE(myPlayListRead.data(myPlayListRead.index(1, 0), MediaPlayList::ColumnsRoles::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayListRead.data(myPlayListRead.index(1, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
@@ -3947,7 +3942,7 @@ void MediaPlayListTest::testSavePersistentState()
     QCOMPARE(myPlayListRead.data(myPlayListRead.index(2, 0), MediaPlayList::ColumnsRoles::AlbumRole).toString(), QStringLiteral("album3"));
     QCOMPARE(myPlayListRead.data(myPlayListRead.index(2, 0), MediaPlayList::ColumnsRoles::TrackNumberRole).toInt(), 2);
     QCOMPARE(myPlayListRead.data(myPlayListRead.index(2, 0), MediaPlayList::ColumnsRoles::DiscNumberRole).toInt(), 1);
-    QCOMPARE(myPlayListRead.data(myPlayListRead.index(2, 0), MediaPlayList::ColumnsRoles::ImageRole).toUrl(), QUrl());
+    QCOMPARE(myPlayListRead.data(myPlayListRead.index(2, 0), MediaPlayList::ColumnsRoles::ImageRole).toUrl(), QUrl::fromLocalFile(QStringLiteral("album3")));
     QCOMPARE(myPlayListRead.data(myPlayListRead.index(2, 0), MediaPlayList::ColumnsRoles::ResourceRole).toUrl(), QUrl::fromUserInput(QStringLiteral("/$12")));
     QCOMPARE(myPlayListRead.data(myPlayListRead.index(2, 0), MediaPlayList::ColumnsRoles::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayListRead.data(myPlayListRead.index(2, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
@@ -4070,7 +4065,7 @@ void MediaPlayListTest::testReplaceAndPlayArtist()
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::AlbumRole).toString(), QStringLiteral("album1"));
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::TrackNumberRole).toInt(), 3);
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::DiscNumberRole).toInt(), 3);
-    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::ImageRole).toUrl(), QUrl(QStringLiteral("file:file://image$4")));
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::ImageRole).toUrl(), QUrl::fromLocalFile(QStringLiteral("album1")));
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::ResourceRole).toUrl(), QUrl::fromUserInput(QStringLiteral("/$3")));
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
@@ -4118,7 +4113,7 @@ void MediaPlayListTest::testReplaceAndPlayArtist()
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::AlbumRole).toString(), QStringLiteral("album1"));
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::TrackNumberRole).toInt(), 4);
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::DiscNumberRole).toInt(), 4);
-    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::ImageRole).toUrl(), QUrl(QStringLiteral("file:file://image$4")));
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::ImageRole).toUrl(), QUrl::fromLocalFile(QStringLiteral("album1")));
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::ResourceRole).toUrl(), QUrl::fromUserInput(QStringLiteral("/$4")));
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
@@ -4246,7 +4241,7 @@ void MediaPlayListTest::testReplaceAndPlayTrackId()
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::AlbumRole).toString(), QStringLiteral("album1"));
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::TrackNumberRole).toInt(), 3);
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::DiscNumberRole).toInt(), 3);
-    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::ImageRole).toUrl(), QUrl(QStringLiteral("file:file://image$4")));
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::ImageRole).toUrl(), QUrl::fromLocalFile(QStringLiteral("album1")));
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::ResourceRole).toUrl(), QUrl::fromUserInput(QStringLiteral("/$3")));
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
@@ -4299,7 +4294,7 @@ void MediaPlayListTest::testReplaceAndPlayTrackId()
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::AlbumRole).toString(), QStringLiteral("album1"));
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::TrackNumberRole).toInt(), 4);
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::DiscNumberRole).toInt(), 4);
-    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::ImageRole).toUrl(), QUrl(QStringLiteral("file:file://image$4")));
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::ImageRole).toUrl(), QUrl::fromLocalFile(QStringLiteral("album1")));
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::ResourceRole).toUrl(), QUrl::fromUserInput(QStringLiteral("/$4")));
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
@@ -4415,7 +4410,7 @@ void MediaPlayListTest::testReplaceAndPlayTrackData()
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::AlbumRole).toString(), QStringLiteral("album1"));
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::TrackNumberRole).toInt(), 3);
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::DiscNumberRole).toInt(), 3);
-    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::ImageRole).toUrl(), QUrl(QStringLiteral("file:file://image$4")));
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::ImageRole).toUrl(), QUrl::fromLocalFile(QStringLiteral("album1")));
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::ResourceRole).toUrl(), QUrl::fromUserInput(QStringLiteral("file:///$3")));
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);
@@ -4456,7 +4451,7 @@ void MediaPlayListTest::testReplaceAndPlayTrackData()
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::AlbumRole).toString(), QStringLiteral("album1"));
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::TrackNumberRole).toInt(), 4);
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::DiscNumberRole).toInt(), 4);
-    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::ImageRole).toUrl(), QUrl(QStringLiteral("file:file://image$4")));
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::ImageRole).toUrl(), QUrl::fromLocalFile(QStringLiteral("album1")));
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::ResourceRole).toUrl(), QUrl::fromUserInput(QStringLiteral("/$4")));
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::HasAlbumHeader).toBool(), true);

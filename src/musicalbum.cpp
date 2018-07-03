@@ -331,7 +331,16 @@ void MusicAlbum::updateTrack(const MusicAudioTrack &modifiedTrack, int index)
 
 ELISALIB_EXPORT QDebug operator<<(QDebug stream, const MusicAlbum &data)
 {
-    stream << data.title() << " artist: " << data.artist() << " tracks: " << data.tracksCount();
+    stream << "title:" << data.title()
+           << "databaseId:" << data.databaseId()
+           << "id:" << data.id()
+           << "parentId:" << data.parentId()
+           << "artist:" << data.artist()
+           << "albumPath:" << data.albumPath()
+           << "albumArtURI:" << data.albumArtURI()
+           << "tracks:" << data.tracksCount()
+           << "isSingleDiscAlbum:" << (data.isSingleDiscAlbum() ? "true": "false")
+           << "isValidArtist:" << (data.isValidArtist() ? "true": "false");
 
     return stream;
 }

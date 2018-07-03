@@ -172,6 +172,8 @@ private:
 
     QList<MusicAudioTrack> fetchTracks(qulonglong albumId);
 
+    QList<qulonglong> fetchTrackIds(qulonglong albumId);
+
     bool updateTracksCount(qulonglong albumId);
 
     MusicArtist internalArtistFromId(qulonglong artistId);
@@ -238,7 +240,7 @@ private:
 
     qulonglong internalInsertTrack(const MusicAudioTrack &oneModifiedTrack, const QHash<QString, QUrl> &covers,
                                    qulonglong originTrackId, QSet<qulonglong> &modifiedAlbumIds, TrackFileInsertType insertType,
-                                   QList<qulonglong> &newAlbumIds, QList<qulonglong> &newArtistsIds);
+                                   QList<qulonglong> &newAlbumIds, QList<qulonglong> &newArtistsIds, QSet<qulonglong> &modifiedTrackIds);
 
     MusicAudioTrack buildTrackFromDatabaseRecord(const QSqlRecord &trackRecord) const;
 

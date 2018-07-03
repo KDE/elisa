@@ -130,7 +130,8 @@ int main(int argc, char *argv[])
 #if defined KF5Declarative_FOUND && KF5Declarative_FOUND
     KDeclarative::KDeclarative decl;
     decl.setDeclarativeEngine(&engine);
-    decl.setupBindings();
+    decl.setupEngine(&engine);
+    decl.setupContext();
 #endif
 
     engine.rootContext()->setContextObject(new KLocalizedContext(&engine));

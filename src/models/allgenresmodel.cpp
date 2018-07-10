@@ -89,29 +89,12 @@ QVariant AllGenresModel::data(const QModelIndex &index, int role) const
 
     const auto artistsCount = d->mAllGenres.size();
 
-    if (!index.isValid()) {
-        return result;
-    }
-
-    if (index.column() != 0) {
-        return result;
-    }
-
-    if (index.row() < 0) {
-        return result;
-    }
-
-    if (index.parent().isValid()) {
-        return result;
-    }
-
-    if (index.internalId() != 0) {
-        return result;
-    }
-
-    if (index.row() < 0 || index.row() >= artistsCount) {
-        return result;
-    }
+    Q_ASSERT(index.isValid());
+    Q_ASSERT(index.column() == 0);
+    Q_ASSERT(index.row() >= 0 && index.row() < artistsCount);
+    Q_ASSERT(!index.parent().isValid());
+    Q_ASSERT(index.model() == this);
+    Q_ASSERT(index.internalId() == 0);
 
     switch(role)
     {

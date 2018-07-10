@@ -21,7 +21,7 @@
 #include "musicaudiotrack.h"
 #include "databaseinterface.h"
 #include "models/allartistsmodel.h"
-#include "modeltest.h"
+#include "qabstractitemmodeltester.h"
 
 #include <QObject>
 #include <QUrl>
@@ -204,7 +204,7 @@ private Q_SLOTS:
     {
         DatabaseInterface musicDb;
         AllArtistsModel artistsModel;
-        ModelTest testModel(&artistsModel);
+        QAbstractItemModelTester testModel(&artistsModel);
 
         connect(&musicDb, &DatabaseInterface::artistsAdded,
                 &artistsModel, &AllArtistsModel::artistsAdded);
@@ -261,7 +261,7 @@ private Q_SLOTS:
     {
         DatabaseInterface musicDb;
         AllArtistsModel artistsModel;
-        ModelTest testModel(&artistsModel);
+        QAbstractItemModelTester testModel(&artistsModel);
 
         connect(&musicDb, &DatabaseInterface::artistsAdded,
                 &artistsModel, &AllArtistsModel::artistsAdded);

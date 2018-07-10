@@ -25,7 +25,7 @@
 #include "musicalbum.h"
 #include "musicaudiotrack.h"
 #include "trackslistener.h"
-#include "modeltest.h"
+#include "qabstractitemmodeltester.h"
 
 #include <QtTest>
 #include <QStandardItemModel>
@@ -49,7 +49,7 @@ void MediaPlayListTest::initTestCase()
 void MediaPlayListTest::simpleInitialCase()
 {
     MediaPlayList myPlayList;
-    ModelTest testModel(&myPlayList);
+    QAbstractItemModelTester testModel(&myPlayList);
     DatabaseInterface myDatabaseContent;
     TracksListener myListener(&myDatabaseContent);
 
@@ -157,7 +157,7 @@ void MediaPlayListTest::simpleInitialCase()
 void MediaPlayListTest::enqueueAlbumCase()
 {
     MediaPlayList myPlayList;
-    ModelTest testModel(&myPlayList);
+    QAbstractItemModelTester testModel(&myPlayList);
     DatabaseInterface myDatabaseContent;
     TracksListener myListener(&myDatabaseContent);
 
@@ -293,7 +293,7 @@ void MediaPlayListTest::enqueueAlbumCase()
 void MediaPlayListTest::clearPlayListCase()
 {
     MediaPlayList myPlayList;
-    ModelTest testModel(&myPlayList);
+    QAbstractItemModelTester testModel(&myPlayList);
     DatabaseInterface myDatabaseContent;
     TracksListener myListener(&myDatabaseContent);
 
@@ -450,7 +450,7 @@ void MediaPlayListTest::clearPlayListCase()
 void MediaPlayListTest::enqueueArtistCase()
 {
     MediaPlayList myPlayList;
-    ModelTest testModel(&myPlayList);
+    QAbstractItemModelTester testModel(&myPlayList);
     DatabaseInterface myDatabaseContent;
     TracksListener myListener(&myDatabaseContent);
 
@@ -604,7 +604,7 @@ void MediaPlayListTest::enqueueArtistCase()
 void MediaPlayListTest::removeFirstTrackOfAlbum()
 {
     MediaPlayList myPlayList;
-    ModelTest testModel(&myPlayList);
+    QAbstractItemModelTester testModel(&myPlayList);
     DatabaseInterface myDatabaseContent;
     TracksListener myListener(&myDatabaseContent);
 
@@ -724,7 +724,7 @@ void MediaPlayListTest::removeFirstTrackOfAlbum()
 void MediaPlayListTest::testHasHeader()
 {
     MediaPlayList myPlayList;
-    ModelTest testModel(&myPlayList);
+    QAbstractItemModelTester testModel(&myPlayList);
     DatabaseInterface myDatabaseContent;
     TracksListener myListener(&myDatabaseContent);
 
@@ -965,7 +965,7 @@ void MediaPlayListTest::testHasHeader()
 void MediaPlayListTest::testHasHeaderWithRestore()
 {
     MediaPlayList myPlayList;
-    ModelTest testModel(&myPlayList);
+    QAbstractItemModelTester testModel(&myPlayList);
     DatabaseInterface myDatabaseContent;
     TracksListener myListener(&myDatabaseContent);
 
@@ -1171,7 +1171,7 @@ void MediaPlayListTest::testHasHeaderWithRestore()
 void MediaPlayListTest::testHasHeaderWithRemove()
 {
     MediaPlayList myPlayList;
-    ModelTest testModel(&myPlayList);
+    QAbstractItemModelTester testModel(&myPlayList);
     DatabaseInterface myDatabaseContent;
     TracksListener myListener(&myDatabaseContent);
 
@@ -1431,7 +1431,7 @@ void MediaPlayListTest::testHasHeaderWithRemove()
 void MediaPlayListTest::testHasHeaderMoveFirst()
 {
     MediaPlayList myPlayList;
-    ModelTest testModel(&myPlayList);
+    QAbstractItemModelTester testModel(&myPlayList);
     DatabaseInterface myDatabaseContent;
     TracksListener myListener(&myDatabaseContent);
 
@@ -1685,7 +1685,7 @@ void MediaPlayListTest::testHasHeaderMoveFirst()
 void MediaPlayListTest::testHasHeaderMoveAnother()
 {
     MediaPlayList myPlayList;
-    ModelTest testModel(&myPlayList);
+    QAbstractItemModelTester testModel(&myPlayList);
     DatabaseInterface myDatabaseContent;
     TracksListener myListener(&myDatabaseContent);
 
@@ -1939,7 +1939,7 @@ void MediaPlayListTest::testHasHeaderMoveAnother()
 void MediaPlayListTest::testHasHeaderMoveFirstLikeQml()
 {
     MediaPlayList myPlayList;
-    ModelTest testModel(&myPlayList);
+    QAbstractItemModelTester testModel(&myPlayList);
     DatabaseInterface myDatabaseContent;
     TracksListener myListener(&myDatabaseContent);
 
@@ -2193,7 +2193,7 @@ void MediaPlayListTest::testHasHeaderMoveFirstLikeQml()
 void MediaPlayListTest::testHasHeaderMoveAnotherLikeQml()
 {
     MediaPlayList myPlayList;
-    ModelTest testModel(&myPlayList);
+    QAbstractItemModelTester testModel(&myPlayList);
     DatabaseInterface myDatabaseContent;
     TracksListener myListener(&myDatabaseContent);
 
@@ -2447,7 +2447,7 @@ void MediaPlayListTest::testHasHeaderMoveAnotherLikeQml()
 void MediaPlayListTest::testHasHeaderYetAnotherMoveLikeQml()
 {
     MediaPlayList myPlayList;
-    ModelTest testModel(&myPlayList);
+    QAbstractItemModelTester testModel(&myPlayList);
     DatabaseInterface myDatabaseContent;
     TracksListener myListener(&myDatabaseContent);
 
@@ -2734,7 +2734,7 @@ void MediaPlayListTest::testHasHeaderYetAnotherMoveLikeQml()
 void MediaPlayListTest::enqueueReplaceAndPlay()
 {
     MediaPlayList myPlayList;
-    ModelTest testModel(&myPlayList);
+    QAbstractItemModelTester testModel(&myPlayList);
     DatabaseInterface myDatabaseContent;
     TracksListener myListener(&myDatabaseContent);
 
@@ -2930,7 +2930,7 @@ void MediaPlayListTest::enqueueReplaceAndPlay()
 void MediaPlayListTest::crashOnEnqueue()
 {
     MediaPlayList myPlayList;
-    ModelTest testModel(&myPlayList);
+    QAbstractItemModelTester testModel(&myPlayList);
     DatabaseInterface myDatabaseContent;
     TracksListener myListener(&myDatabaseContent);
     CrashEnqueuePlayList myCrash(&myPlayList);
@@ -3042,7 +3042,7 @@ void MediaPlayListTest::crashOnEnqueue()
 void MediaPlayListTest::restoreMultipleIdenticalTracks()
 {
     MediaPlayList myPlayList;
-    ModelTest testModel(&myPlayList);
+    QAbstractItemModelTester testModel(&myPlayList);
     DatabaseInterface myDatabaseContent;
     TracksListener myListener(&myDatabaseContent);
 
@@ -3241,7 +3241,7 @@ void MediaPlayListTest::restoreMultipleIdenticalTracks()
 void MediaPlayListTest::testHasHeaderAlbumWithSameTitle()
 {
     MediaPlayList myPlayList;
-    ModelTest testModel(&myPlayList);
+    QAbstractItemModelTester testModel(&myPlayList);
     DatabaseInterface myDatabaseContent;
     TracksListener myListener(&myDatabaseContent);
 
@@ -3547,11 +3547,11 @@ void MediaPlayListTest::testHasHeaderAlbumWithSameTitle()
 void MediaPlayListTest::testSavePersistentState()
 {
     MediaPlayList myPlayListSave;
-    ModelTest testModelSave(&myPlayListSave);
+    QAbstractItemModelTester testModelSave(&myPlayListSave);
     DatabaseInterface myDatabaseContent;
     TracksListener myListenerSave(&myDatabaseContent);
     MediaPlayList myPlayListRead;
-    ModelTest testModelRead(&myPlayListRead);
+    QAbstractItemModelTester testModelRead(&myPlayListRead);
     TracksListener myListenerRead(&myDatabaseContent);
 
     QSignalSpy rowsAboutToBeMovedSpySave(&myPlayListSave, &MediaPlayList::rowsAboutToBeMoved);
@@ -3964,7 +3964,7 @@ void MediaPlayListTest::testSavePersistentState()
 void MediaPlayListTest::testReplaceAndPlayArtist()
 {
     MediaPlayList myPlayList;
-    ModelTest testModel(&myPlayList);
+    QAbstractItemModelTester testModel(&myPlayList);
     DatabaseInterface myDatabaseContent;
     TracksListener myListener(&myDatabaseContent);
 
@@ -4135,7 +4135,7 @@ void MediaPlayListTest::testReplaceAndPlayArtist()
 void MediaPlayListTest::testReplaceAndPlayTrackId()
 {
     MediaPlayList myPlayList;
-    ModelTest testModel(&myPlayList);
+    QAbstractItemModelTester testModel(&myPlayList);
     DatabaseInterface myDatabaseContent;
     TracksListener myListener(&myDatabaseContent);
 
@@ -4316,7 +4316,7 @@ void MediaPlayListTest::testReplaceAndPlayTrackId()
 void MediaPlayListTest::testReplaceAndPlayTrackData()
 {
     MediaPlayList myPlayList;
-    ModelTest testModel(&myPlayList);
+    QAbstractItemModelTester testModel(&myPlayList);
     DatabaseInterface myDatabaseContent;
     TracksListener myListener(&myDatabaseContent);
 
@@ -4473,7 +4473,7 @@ void MediaPlayListTest::testReplaceAndPlayTrackData()
 void MediaPlayListTest::testSetData()
 {
     MediaPlayList myPlayList;
-    ModelTest testModel(&myPlayList);
+    QAbstractItemModelTester testModel(&myPlayList);
     DatabaseInterface myDatabaseContent;
     TracksListener myListener(&myDatabaseContent);
 
@@ -4736,7 +4736,7 @@ void MediaPlayListTest::testSetData()
 void MediaPlayListTest::testRemoveSelection()
 {
     MediaPlayList myPlayList;
-    ModelTest testModel(&myPlayList);
+    QAbstractItemModelTester testModel(&myPlayList);
     DatabaseInterface myDatabaseContent;
     TracksListener myListener(&myDatabaseContent);
 
@@ -4928,7 +4928,7 @@ void MediaPlayListTest::testRemoveSelection()
 void MediaPlayListTest::testTrackBeenRemoved()
 {
     MediaPlayList myPlayList;
-    ModelTest testModel(&myPlayList);
+    QAbstractItemModelTester testModel(&myPlayList);
     DatabaseInterface myDatabaseContent;
     TracksListener myListener(&myDatabaseContent);
 
@@ -5159,7 +5159,7 @@ void CrashEnqueuePlayList::crashMediaPlayList()
 void MediaPlayListTest::testBringUpCase()
 {
     MediaPlayList myPlayList;
-    ModelTest testModel(&myPlayList);
+    QAbstractItemModelTester testModel(&myPlayList);
     DatabaseInterface myDatabaseContent;
     TracksListener myListener(&myDatabaseContent);
 
@@ -5223,7 +5223,7 @@ void MediaPlayListTest::testBringUpCase()
 void MediaPlayListTest::testBringUpCaseFromNewAlbum()
 {
     MediaPlayList myPlayList;
-    ModelTest testModel(&myPlayList);
+    QAbstractItemModelTester testModel(&myPlayList);
     DatabaseInterface myDatabaseContent;
     TracksListener myListener(&myDatabaseContent);
 
@@ -5282,7 +5282,7 @@ void MediaPlayListTest::testBringUpCaseFromNewAlbum()
 void MediaPlayListTest::testBringUpAndDownCase()
 {
     MediaPlayList myPlayList;
-    ModelTest testModel(&myPlayList);
+    QAbstractItemModelTester testModel(&myPlayList);
     DatabaseInterface myDatabaseContent;
     TracksListener myListener(&myDatabaseContent);
 
@@ -5355,7 +5355,7 @@ void MediaPlayListTest::testBringUpAndDownCase()
 void MediaPlayListTest::testBringUpAndRemoveCase()
 {
     MediaPlayList myPlayList;
-    ModelTest testModel(&myPlayList);
+    QAbstractItemModelTester testModel(&myPlayList);
     DatabaseInterface myDatabaseContent;
     TracksListener myListener(&myDatabaseContent);
 
@@ -5423,7 +5423,7 @@ void MediaPlayListTest::testBringUpAndRemoveCase()
 void MediaPlayListTest::testBringUpAndRemoveMultipleCase()
 {
     MediaPlayList myPlayList;
-    ModelTest testModel(&myPlayList);
+    QAbstractItemModelTester testModel(&myPlayList);
     DatabaseInterface myDatabaseContent;
     TracksListener myListener(&myDatabaseContent);
 
@@ -5498,7 +5498,7 @@ void MediaPlayListTest::testBringUpAndRemoveMultipleCase()
 void MediaPlayListTest::testBringUpAndRemoveMultipleNotBeginCase()
 {
     MediaPlayList myPlayList;
-    ModelTest testModel(&myPlayList);
+    QAbstractItemModelTester testModel(&myPlayList);
     DatabaseInterface myDatabaseContent;
     TracksListener myListener(&myDatabaseContent);
 
@@ -5589,7 +5589,7 @@ void MediaPlayListTest::testBringUpAndRemoveMultipleNotBeginCase()
 void MediaPlayListTest::testBringUpAndPlayCase()
 {
     MediaPlayList myPlayList;
-    ModelTest testModel(&myPlayList);
+    QAbstractItemModelTester testModel(&myPlayList);
     DatabaseInterface myDatabaseContent;
     TracksListener myListener(&myDatabaseContent);
 
@@ -5658,7 +5658,7 @@ void MediaPlayListTest::testBringUpAndPlayCase()
 void MediaPlayListTest::testBringUpAndSkipNextCase()
 {
     MediaPlayList myPlayList;
-    ModelTest testModel(&myPlayList);
+    QAbstractItemModelTester testModel(&myPlayList);
     DatabaseInterface myDatabaseContent;
     TracksListener myListener(&myDatabaseContent);
 
@@ -5727,7 +5727,7 @@ void MediaPlayListTest::testBringUpAndSkipNextCase()
 void MediaPlayListTest::testBringUpAndSkipPreviousCase()
 {
     MediaPlayList myPlayList;
-    ModelTest testModel(&myPlayList);
+    QAbstractItemModelTester testModel(&myPlayList);
     DatabaseInterface myDatabaseContent;
     TracksListener myListener(&myDatabaseContent);
 
@@ -5805,7 +5805,7 @@ void MediaPlayListTest::testBringUpAndSkipPreviousCase()
 void MediaPlayListTest::testBringUpAndSkipPreviousAndContinueCase()
 {
     MediaPlayList myPlayList;
-    ModelTest testModel(&myPlayList);
+    QAbstractItemModelTester testModel(&myPlayList);
     DatabaseInterface myDatabaseContent;
     TracksListener myListener(&myDatabaseContent);
 
@@ -5980,7 +5980,7 @@ void MediaPlayListTest::testBringUpAndSkipPreviousAndContinueCase()
 void MediaPlayListTest::finishPlayList()
 {
     MediaPlayList myPlayList;
-    ModelTest testModel(&myPlayList);
+    QAbstractItemModelTester testModel(&myPlayList);
     DatabaseInterface myDatabaseContent;
     TracksListener myListener(&myDatabaseContent);
 
@@ -6058,7 +6058,7 @@ void MediaPlayListTest::finishPlayList()
 void MediaPlayListTest::randomPlayList()
 {
     MediaPlayList myPlayList;
-    ModelTest testModel(&myPlayList);
+    QAbstractItemModelTester testModel(&myPlayList);
     DatabaseInterface myDatabaseContent;
     TracksListener myListener(&myDatabaseContent);
 
@@ -6172,7 +6172,7 @@ void MediaPlayListTest::randomPlayList()
 void MediaPlayListTest::randomAndContinuePlayList()
 {
     MediaPlayList myPlayList;
-    ModelTest testModel(&myPlayList);
+    QAbstractItemModelTester testModel(&myPlayList);
     DatabaseInterface myDatabaseContent;
     TracksListener myListener(&myDatabaseContent);
 
@@ -6295,7 +6295,7 @@ void MediaPlayListTest::randomAndContinuePlayList()
 void MediaPlayListTest::continuePlayList()
 {
     MediaPlayList myPlayList;
-    ModelTest testModel(&myPlayList);
+    QAbstractItemModelTester testModel(&myPlayList);
     DatabaseInterface myDatabaseContent;
     TracksListener myListener(&myDatabaseContent);
 
@@ -6409,7 +6409,7 @@ void MediaPlayListTest::continuePlayList()
 void MediaPlayListTest::testRestoreSettings()
 {
     MediaPlayList myPlayList;
-    ModelTest testModel(&myPlayList);
+    QAbstractItemModelTester testModel(&myPlayList);
     DatabaseInterface myDatabaseContent;
     TracksListener myListener(&myDatabaseContent);
 
@@ -6478,11 +6478,11 @@ void MediaPlayListTest::testRestoreSettings()
 void MediaPlayListTest::testSaveAndRestoreSettings()
 {
     MediaPlayList myPlayListSave;
-    ModelTest testModelSave(&myPlayListSave);
+    QAbstractItemModelTester testModelSave(&myPlayListSave);
     DatabaseInterface myDatabaseContent;
     TracksListener myListenerSave(&myDatabaseContent);
     MediaPlayList myPlayListRestore;
-    ModelTest testModelRestore(&myPlayListRestore);
+    QAbstractItemModelTester testModelRestore(&myPlayListRestore);
     TracksListener myListenerRestore(&myDatabaseContent);
 
     QSignalSpy currentTrackChangedSaveSpy(&myPlayListSave, &MediaPlayList::currentTrackChanged);
@@ -6665,7 +6665,7 @@ void MediaPlayListTest::testSaveAndRestoreSettings()
 void MediaPlayListTest::removeBeforeCurrentTrack()
 {
     MediaPlayList myPlayList;
-    ModelTest testModel(&myPlayList);
+    QAbstractItemModelTester testModel(&myPlayList);
     DatabaseInterface myDatabaseContent;
     TracksListener myListener(&myDatabaseContent);
 
@@ -6761,7 +6761,7 @@ void MediaPlayListTest::removeBeforeCurrentTrack()
 void MediaPlayListTest::switchToTrackTest()
 {
     MediaPlayList myPlayList;
-    ModelTest testModel(&myPlayList);
+    QAbstractItemModelTester testModel(&myPlayList);
     DatabaseInterface myDatabaseContent;
     TracksListener myListener(&myDatabaseContent);
 
@@ -6833,7 +6833,7 @@ void MediaPlayListTest::switchToTrackTest()
 void MediaPlayListTest::singleTrack()
 {
     MediaPlayList myPlayList;
-    ModelTest testModel(&myPlayList);
+    QAbstractItemModelTester testModel(&myPlayList);
     DatabaseInterface myDatabaseContent;
     TracksListener myListener(&myDatabaseContent);
 
@@ -6906,7 +6906,7 @@ void MediaPlayListTest::singleTrack()
 void MediaPlayListTest::testBringUpAndRemoveLastCase()
 {
     MediaPlayList myPlayList;
-    ModelTest testModel(&myPlayList);
+    QAbstractItemModelTester testModel(&myPlayList);
     DatabaseInterface myDatabaseContent;
     TracksListener myListener(&myDatabaseContent);
 
@@ -6999,11 +6999,11 @@ void MediaPlayListTest::testBringUpAndRemoveLastCase()
 void MediaPlayListTest::testSaveLoadPlayList()
 {
     MediaPlayList myPlayListSave;
-    ModelTest testModelSave(&myPlayListSave);
+    QAbstractItemModelTester testModelSave(&myPlayListSave);
     DatabaseInterface myDatabaseContent;
     TracksListener myListenerSave(&myDatabaseContent);
     MediaPlayList myPlayListRestore;
-    ModelTest testModelRestore(&myPlayListRestore);
+    QAbstractItemModelTester testModelRestore(&myPlayListRestore);
     TracksListener myListenerRestore(&myDatabaseContent);
 
     QSignalSpy currentTrackChangedSaveSpy(&myPlayListSave, &MediaPlayList::currentTrackChanged);
@@ -7195,7 +7195,7 @@ void MediaPlayListTest::testSaveLoadPlayList()
 void MediaPlayListTest::testEnqueueFiles()
 {
     MediaPlayList myPlayList;
-    ModelTest testModel(&myPlayList);
+    QAbstractItemModelTester testModel(&myPlayList);
     DatabaseInterface myDatabaseContent;
     TracksListener myListener(&myDatabaseContent);
 
@@ -7317,7 +7317,7 @@ void MediaPlayListTest::testEnqueueFiles()
 void MediaPlayListTest::testEnqueueSampleFiles()
 {
     MediaPlayList myPlayList;
-    ModelTest testModel(&myPlayList);
+    QAbstractItemModelTester testModel(&myPlayList);
     DatabaseInterface myDatabaseContent;
     TracksListener myListener(&myDatabaseContent);
 
@@ -7440,7 +7440,7 @@ void MediaPlayListTest::testEnqueueSampleFiles()
 void MediaPlayListTest::testEmptyEnqueue()
 {
     MediaPlayList myPlayList;
-    ModelTest testModel(&myPlayList);
+    QAbstractItemModelTester testModel(&myPlayList);
     DatabaseInterface myDatabaseContent;
     TracksListener myListener(&myDatabaseContent);
 

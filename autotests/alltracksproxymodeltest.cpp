@@ -22,7 +22,7 @@
 #include "databaseinterface.h"
 #include "models/alltracksmodel.h"
 #include "models/alltracksproxymodel.h"
-#include "modeltest.h"
+#include "qabstractitemmodeltester.h"
 
 #include <QObject>
 #include <QUrl>
@@ -205,9 +205,9 @@ private Q_SLOTS:
     {
         DatabaseInterface musicDb;
         AllTracksModel tracksModel;
-        ModelTest testModel(&tracksModel);
+        QAbstractItemModelTester testModel(&tracksModel);
         AllTracksProxyModel proxyTracksModel;
-        ModelTest proxyTestModel(&proxyTracksModel);
+        QAbstractItemModelTester proxyTestModel(&proxyTracksModel);
         proxyTracksModel.setSourceModel(&tracksModel);
 
         connect(&musicDb, &DatabaseInterface::tracksAdded,
@@ -261,9 +261,9 @@ private Q_SLOTS:
     {
         DatabaseInterface musicDb;
         AllTracksModel tracksModel;
-        ModelTest testModel(&tracksModel);
+        QAbstractItemModelTester testModel(&tracksModel);
         AllTracksProxyModel proxyTracksModel;
-        ModelTest proxyTestModel(&proxyTracksModel);
+        QAbstractItemModelTester proxyTestModel(&proxyTracksModel);
         proxyTracksModel.setSourceModel(&tracksModel);
 
         connect(&musicDb, &DatabaseInterface::tracksAdded,
@@ -322,9 +322,9 @@ private Q_SLOTS:
     {
         DatabaseInterface musicDb;
         AllTracksModel tracksModel;
-        ModelTest testModel(&tracksModel);
+        QAbstractItemModelTester testModel(&tracksModel);
         AllTracksProxyModel proxyTracksModel;
-        ModelTest proxyTestModel(&proxyTracksModel);
+        QAbstractItemModelTester proxyTestModel(&proxyTracksModel);
         proxyTracksModel.setSourceModel(&tracksModel);
 
         connect(&musicDb, &DatabaseInterface::tracksAdded,
@@ -382,9 +382,9 @@ private Q_SLOTS:
     {
         DatabaseInterface musicDb;
         AllTracksModel tracksModel;
-        ModelTest testModel(&tracksModel);
+        QAbstractItemModelTester testModel(&tracksModel);
         AllTracksProxyModel proxyTracksModel;
-        ModelTest proxyTestModel(&proxyTracksModel);
+        QAbstractItemModelTester proxyTestModel(&proxyTracksModel);
         proxyTracksModel.setSourceModel(&tracksModel);
 
         connect(&musicDb, &DatabaseInterface::tracksAdded,
@@ -456,9 +456,9 @@ private Q_SLOTS:
     void addDuplicateTracks()
     {
         AllTracksModel tracksModel;
-        ModelTest testModel(&tracksModel);
+        QAbstractItemModelTester testModel(&tracksModel);
         AllTracksProxyModel proxyTracksModel;
-        ModelTest proxyTestModel(&proxyTracksModel);
+        QAbstractItemModelTester proxyTestModel(&proxyTracksModel);
         proxyTracksModel.setSourceModel(&tracksModel);
 
         auto newTracks = QList<MusicAudioTrack>();
@@ -502,9 +502,9 @@ private Q_SLOTS:
     {
         DatabaseInterface musicDb;
         AllTracksModel tracksModel;
-        ModelTest testModel(&tracksModel);
+        QAbstractItemModelTester testModel(&tracksModel);
         AllTracksProxyModel proxyTracksModel;
-        ModelTest proxyTestModel(&proxyTracksModel);
+        QAbstractItemModelTester proxyTestModel(&proxyTracksModel);
         proxyTracksModel.setSourceModel(&tracksModel);
 
         connect(&musicDb, &DatabaseInterface::tracksAdded,
@@ -569,9 +569,9 @@ private Q_SLOTS:
     void addEmptyTracksList()
     {
         AllTracksModel tracksModel;
-        ModelTest testModel(&tracksModel);
+        QAbstractItemModelTester testModel(&tracksModel);
         AllTracksProxyModel proxyTracksModel;
-        ModelTest proxyTestModel(&proxyTracksModel);
+        QAbstractItemModelTester proxyTestModel(&proxyTracksModel);
         proxyTracksModel.setSourceModel(&tracksModel);
 
         auto newTracks = QList<MusicAudioTrack>();
@@ -603,9 +603,9 @@ private Q_SLOTS:
     {
         DatabaseInterface musicDb;
         AllTracksModel tracksModel;
-        ModelTest testModel(&tracksModel);
+        QAbstractItemModelTester testModel(&tracksModel);
         AllTracksProxyModel proxyTracksModel;
-        ModelTest proxyTestModel(&proxyTracksModel);
+        QAbstractItemModelTester proxyTestModel(&proxyTracksModel);
         proxyTracksModel.setSourceModel(&tracksModel);
 
         connect(&musicDb, &DatabaseInterface::tracksAdded,

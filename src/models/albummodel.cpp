@@ -98,25 +98,11 @@ QVariant AlbumModel::data(const QModelIndex &index, int role) const
 {
     auto result = QVariant();
 
-    if (!index.isValid()) {
-        return result;
-    }
-
-    if (index.column() != 0) {
-        return result;
-    }
-
-    if (index.row() < 0) {
-        return result;
-    }
-
-    if (index.parent().isValid()) {
-        return result;
-    }
-
-    if (index.row() >= d->mCurrentAlbum.tracksCount()) {
-        return result;
-    }
+    Q_ASSERT(index.isValid());
+    Q_ASSERT(index.column() == 0);
+    Q_ASSERT(index.row() >= 0 && index.row() < d->mCurrentAlbum.tracksCount());
+    Q_ASSERT(!index.parent().isValid());
+    Q_ASSERT(index.model() == this);
 
     const auto &currentTrack = d->mCurrentAlbum.trackFromIndex(index.row());
 

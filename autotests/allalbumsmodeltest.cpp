@@ -21,7 +21,7 @@
 #include "musicaudiotrack.h"
 #include "databaseinterface.h"
 #include "models/allalbumsmodel.h"
-#include "modeltest.h"
+#include "qabstractitemmodeltester.h"
 
 #include <QObject>
 #include <QUrl>
@@ -204,7 +204,7 @@ private Q_SLOTS:
     {
         DatabaseInterface musicDb;
         AllAlbumsModel albumsModel;
-        ModelTest testModel(&albumsModel);
+        QAbstractItemModelTester testModel(&albumsModel, Qt::BlockingQueuedConnection);
 
         connect(&musicDb, &DatabaseInterface::albumsAdded,
                 &albumsModel, &AllAlbumsModel::albumsAdded);
@@ -229,7 +229,12 @@ private Q_SLOTS:
 
         musicDb.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
-        QCOMPARE(dataChangedSpy.wait(500), false);
+        while(beginInsertRowsSpy.count() < 5) {
+            QCOMPARE(beginInsertRowsSpy.wait(500), true);
+        }
+        while(endInsertRowsSpy.count() < 5) {
+            QCOMPARE(endInsertRowsSpy.wait(500), true);
+        }
 
         QCOMPARE(albumsModel.rowCount(), 5);
         QCOMPARE(beginInsertRowsSpy.count(), 5);
@@ -260,7 +265,7 @@ private Q_SLOTS:
     {
         DatabaseInterface musicDb;
         AllAlbumsModel albumsModel;
-        ModelTest testModel(&albumsModel);
+        QAbstractItemModelTester testModel(&albumsModel, Qt::BlockingQueuedConnection);
 
         connect(&musicDb, &DatabaseInterface::albumsAdded,
                 &albumsModel, &AllAlbumsModel::albumsAdded);
@@ -292,8 +297,8 @@ private Q_SLOTS:
             QCOMPARE(endInsertRowsSpy.wait(500), true);
         }
 
-        QCOMPARE(beginInsertRowsSpy.count(), 5);
-        QCOMPARE(endInsertRowsSpy.count(), 5);
+        QCOMPARE(beginInsertRowsSpy.count(), 4);
+        QCOMPARE(endInsertRowsSpy.count(), 4);
         QCOMPARE(beginRemoveRowsSpy.count(), 0);
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
@@ -328,7 +333,7 @@ private Q_SLOTS:
     {
         DatabaseInterface musicDb;
         AllAlbumsModel albumsModel;
-        ModelTest testModel(&albumsModel);
+        QAbstractItemModelTester testModel(&albumsModel, Qt::BlockingQueuedConnection);
 
         connect(&musicDb, &DatabaseInterface::albumsAdded,
                 &albumsModel, &AllAlbumsModel::albumsAdded);
@@ -392,7 +397,7 @@ private Q_SLOTS:
     {
         DatabaseInterface musicDb;
         AllAlbumsModel albumsModel;
-        ModelTest testModel(&albumsModel);
+        QAbstractItemModelTester testModel(&albumsModel, Qt::BlockingQueuedConnection);
 
         connect(&musicDb, &DatabaseInterface::albumsAdded,
                 &albumsModel, &AllAlbumsModel::albumsAdded);

@@ -8,6 +8,8 @@ set(CMAKE_CXX_STANDARD 14)
 set(REQUIRED_QT_VERSION "5.10.0")
 find_package(Qt5 ${REQUIRED_QT_VERSION} CONFIG REQUIRED Core Network Qml Quick Test Sql Multimedia Svg Gui Widgets QuickTest Concurrent QuickControls2)
 
+find_package(Qt5Core ${REQUIRED_QT_VERSION} CONFIG REQUIRED Private)
+
 set(REQUIRED_KF5_VERSION "5.45.0")
 find_package(ECM ${REQUIRED_KF5_VERSION} REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
@@ -19,6 +21,7 @@ include(ECMInstallIcons)
 include(FeatureSummary)
 include(ECMAddAppIcon)
 include(ECMAddTests)
+include(ECMQtDeclareLoggingCategory)
 
 if (NOT WIN32)
     find_package(Qt5DBus ${REQUIRED_QT_VERSION} CONFIG QUIET)

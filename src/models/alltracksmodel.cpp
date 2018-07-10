@@ -102,29 +102,12 @@ QVariant AllTracksModel::data(const QModelIndex &index, int role) const
 
     const auto tracksCount = d->mAllTracks.size();
 
-    if (!index.isValid()) {
-        return result;
-    }
-
-    if (index.column() != 0) {
-        return result;
-    }
-
-    if (index.row() < 0) {
-        return result;
-    }
-
-    if (index.parent().isValid()) {
-        return result;
-    }
-
-    if (index.internalId() != 0) {
-        return result;
-    }
-
-    if (index.row() < 0 || index.row() >= tracksCount) {
-        return result;
-    }
+    Q_ASSERT(index.isValid());
+    Q_ASSERT(index.column() == 0);
+    Q_ASSERT(index.row() >= 0 && index.row() < tracksCount);
+    Q_ASSERT(!index.parent().isValid());
+    Q_ASSERT(index.model() == this);
+    Q_ASSERT(index.internalId() == 0);
 
     const auto &track = d->mAllTracks[d->mIds[index.row()]];
 

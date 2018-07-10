@@ -21,7 +21,7 @@
 #include "musicaudiotrack.h"
 #include "databaseinterface.h"
 #include "models/alltracksmodel.h"
-#include "modeltest.h"
+#include "qabstractitemmodeltester.h"
 
 #include <QObject>
 #include <QUrl>
@@ -204,7 +204,7 @@ private Q_SLOTS:
     {
         DatabaseInterface musicDb;
         AllTracksModel tracksModel;
-        ModelTest testModel(&tracksModel);
+        QAbstractItemModelTester testModel(&tracksModel);
 
         connect(&musicDb, &DatabaseInterface::tracksAdded,
                 &tracksModel, &AllTracksModel::tracksAdded);
@@ -257,7 +257,7 @@ private Q_SLOTS:
     {
         DatabaseInterface musicDb;
         AllTracksModel tracksModel;
-        ModelTest testModel(&tracksModel);
+        QAbstractItemModelTester testModel(&tracksModel);
 
         connect(&musicDb, &DatabaseInterface::tracksAdded,
                 &tracksModel, &AllTracksModel::tracksAdded);
@@ -315,7 +315,7 @@ private Q_SLOTS:
     {
         DatabaseInterface musicDb;
         AllTracksModel tracksModel;
-        ModelTest testModel(&tracksModel);
+        QAbstractItemModelTester testModel(&tracksModel);
 
         connect(&musicDb, &DatabaseInterface::tracksAdded,
                 &tracksModel, &AllTracksModel::tracksAdded);
@@ -372,7 +372,7 @@ private Q_SLOTS:
     {
         DatabaseInterface musicDb;
         AllTracksModel tracksModel;
-        ModelTest testModel(&tracksModel);
+        QAbstractItemModelTester testModel(&tracksModel);
 
         connect(&musicDb, &DatabaseInterface::tracksAdded,
                 &tracksModel, &AllTracksModel::tracksAdded);
@@ -443,7 +443,7 @@ private Q_SLOTS:
     void addDuplicateTracks()
     {
         AllTracksModel tracksModel;
-        ModelTest testModel(&tracksModel);
+        QAbstractItemModelTester testModel(&tracksModel);
 
         auto newTracks = QList<MusicAudioTrack>();
         newTracks.push_back({true, QStringLiteral("$23"), QStringLiteral("0"), QStringLiteral("track23"),
@@ -486,7 +486,7 @@ private Q_SLOTS:
     {
         DatabaseInterface musicDb;
         AllTracksModel tracksModel;
-        ModelTest testModel(&tracksModel);
+        QAbstractItemModelTester testModel(&tracksModel);
 
         connect(&musicDb, &DatabaseInterface::tracksAdded,
                 &tracksModel, &AllTracksModel::tracksAdded);
@@ -551,7 +551,7 @@ private Q_SLOTS:
     void addEmptyTracksList()
     {
         AllTracksModel tracksModel;
-        ModelTest testModel(&tracksModel);
+        QAbstractItemModelTester testModel(&tracksModel);
 
         auto newTracks = QList<MusicAudioTrack>();
 
@@ -582,7 +582,7 @@ private Q_SLOTS:
     {
         DatabaseInterface musicDb;
         AllTracksModel tracksModel;
-        ModelTest testModel(&tracksModel);
+        QAbstractItemModelTester testModel(&tracksModel);
 
         connect(&musicDb, &DatabaseInterface::tracksAdded,
                 &tracksModel, &AllTracksModel::tracksAdded);

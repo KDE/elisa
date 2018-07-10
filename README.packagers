@@ -15,6 +15,7 @@ Elisa has the following dependencies:
  * Qt5 (required version >= 5.9.0)
  * ECM (required version >= 5.32.0)
  * Qt5Core
+ * Qt5CorePrivate
  * Gettext
  * PythonInterp
  * KF5I18n (required version >= 5.32.0), KF5 text internationalization library.

@@ -2802,7 +2802,7 @@ void DatabaseInterface::initRequest()
         }
     }
 
-    transactionResult = finishTransaction();
+    finishTransaction();
 
     d->mInitFinished = true;
     Q_EMIT requestsInitDone();

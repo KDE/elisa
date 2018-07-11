@@ -1,7 +1,7 @@
 /*
  * Copyright 2016-2018 Matthieu Gallien <matthieu_gallien@yahoo.fr>
  * Copyright 2018 Alexander Stippich <a.stippich@gmx.net>
- * 
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
  * License as published by the Free Software Foundation; either
@@ -21,6 +21,7 @@
 import QtQuick 2.7
 //explore menu from Qt 5.10 once we can require it, but it is item-based
 import QtQuick.Controls 1.4
+import org.kde.elisa 1.0
 
 Menu {
     id: applicationMenu
@@ -32,6 +33,7 @@ Menu {
     property var aboutAppAction: elisa.action("help_about_app")
     property var configureShortcutsAction: elisa.action("options_configure_keybinding")
     property var configureAction: elisa.action("options_configure")
+    property var togglePlaylistAction: elisa.action("toggle_playlist")
 
     MenuItem {
         text: configureAction.text
@@ -47,6 +49,14 @@ Menu {
         iconName: elisa.iconName(configureShortcutsAction.icon)
         onTriggered: configureShortcutsAction.trigger()
         visible: configureShortcutsAction.text !== ""
+    }
+
+    MenuItem {
+        shortcut: togglePlaylistAction.shortcut
+        text: contentView.showPlaylist ? i18nc("Hide playlist", "Hide Playlist") : i18nc("Show playlist", "Show Playlist")
+        iconName: "view-media-playlist"
+        onTriggered: contentView.showPlaylist = !contentView.showPlaylist
+        enabled: contentView.currentViewIndex != 0
     }
 
     MenuSeparator {

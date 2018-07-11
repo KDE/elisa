@@ -30,7 +30,7 @@ ApplicationWindow {
 
     visible: true
 
-    minimumWidth: 1100
+    minimumWidth: contentView.showPlaylist ? 1100 : 700
     minimumHeight: 600
 
     LayoutMirroring.enabled: Qt.application.layoutDirection == Qt.RightToLeft
@@ -57,7 +57,8 @@ ApplicationWindow {
             }
         }
     }
-    Controls1.Action  {
+
+   Controls1.Action  {
         shortcut: goBackAction.shortcut
         onTriggered: contentView.goBack()
     }
@@ -102,6 +103,7 @@ ApplicationWindow {
 
         property bool expandedFilterView: false
 
+        property bool showPlaylist: true
    }
 
     Connections {
@@ -121,6 +123,7 @@ ApplicationWindow {
 
             persistentSettings.playControlItemRepeat = headerBar.playerControl.repeat
             persistentSettings.playControlItemShuffle = headerBar.playerControl.shuffle
+            persistentSettings.showPlaylist = contentView.showPlaylist
         }
     }
 
@@ -258,6 +261,7 @@ ApplicationWindow {
                 id: contentView
                 Layout.fillHeight: true
                 Layout.fillWidth: true
+                showPlaylist: persistentSettings.showPlaylist
             }
         }
     }

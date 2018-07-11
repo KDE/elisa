@@ -220,6 +220,8 @@ private Q_SLOTS:
 
     void find();
 
+    void togglePlaylist();
+
 private:
 
     void initializeModels();

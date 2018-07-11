@@ -168,6 +168,12 @@ void ElisaApplication::setupActions(const QString &actionName)
         d->mCollection.addAction(goBackAction->objectName(), goBackAction);
     }
 
+    if (actionName == QStringLiteral("toggle_playlist") && KAuthorized::authorizeAction(actionName)) {
+        auto togglePlaylistAction = d->mCollection.addAction(actionName, this, &ElisaApplication::togglePlaylist);
+        togglePlaylistAction->setShortcut(QKeySequence(Qt::Key_F9));
+        togglePlaylistAction->setText(QStringLiteral("Toggle Playlist"));
+    }
+
     if (actionName == QStringLiteral("edit_find") && KAuthorized::authorizeAction(actionName)) {
         auto findAction = KStandardAction::find(this, &ElisaApplication::find, this);
         d->mCollection.addAction(findAction->objectName(), findAction);
@@ -264,6 +270,8 @@ void ElisaApplication::configureElisa()
 void ElisaApplication::goBack() {}
 
 void ElisaApplication::find() {}
+
+void ElisaApplication::togglePlaylist() {}
 
 QStringList ElisaApplication::checkFileListAndMakeAbsolute(const QStringList &filesList, const QString &workingDirectory) const
 {

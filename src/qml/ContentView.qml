@@ -27,6 +27,9 @@ RowLayout {
     id: contentViewContainer
     spacing: 0
 
+    property bool showPlaylist
+    property alias currentViewIndex: listViews.currentIndex
+
     signal toggleSearch()
 
     function goBack() {
@@ -676,6 +679,24 @@ RowLayout {
                     Layout.minimumWidth: contentZone.width / 2
                     Layout.maximumWidth: contentZone.width / 2
                     Layout.preferredWidth: contentZone.width / 2
+                }
+            },
+            State {
+                name: "browsingViewsNoPlaylist"
+                when: listViews.currentIndex !== 0 && contentViewContainer.showPlaylist !== true
+                extend: "browsingViews"
+                PropertyChanges {
+                    target: mainContentView
+                    Layout.fillWidth: true
+                    Layout.minimumWidth: contentZone.width
+                    Layout.maximumWidth: contentZone.width
+                    Layout.preferredWidth: contentZone.width
+                }
+                PropertyChanges {
+                    target: playList
+                    Layout.minimumWidth: 0
+                    Layout.maximumWidth: 0
+                    Layout.preferredWidth: 0
                 }
             },
             State {

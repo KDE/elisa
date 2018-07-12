@@ -44,13 +44,13 @@ public:
                     const QDateTime &fileModificationTime, QUrl aAlbumCover, int rating, bool aIsSingleDiscAlbum,
                     QString aGenre, QString aComposer, QString aLyricist);
 
-    MusicAudioTrack(MusicAudioTrack &&other);
+    MusicAudioTrack(MusicAudioTrack &&other) noexcept;
 
     MusicAudioTrack(const MusicAudioTrack &other);
 
     ~MusicAudioTrack();
 
-    MusicAudioTrack& operator=(MusicAudioTrack &&other);
+    MusicAudioTrack& operator=(MusicAudioTrack &&other) noexcept;
 
     MusicAudioTrack& operator=(const MusicAudioTrack &other);
 

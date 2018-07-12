@@ -115,7 +115,7 @@ MusicAudioTrack::MusicAudioTrack(bool aValid, QString aId, QString aParentId, QS
 {
 }
 
-MusicAudioTrack::MusicAudioTrack(MusicAudioTrack &&other)
+MusicAudioTrack::MusicAudioTrack(MusicAudioTrack &&other) noexcept
 {
     d.swap(other.d);
 }
@@ -127,7 +127,7 @@ MusicAudioTrack::MusicAudioTrack(const MusicAudioTrack &other) : d(std::make_uni
 MusicAudioTrack::~MusicAudioTrack()
 = default;
 
-MusicAudioTrack& MusicAudioTrack::operator=(MusicAudioTrack &&other)
+MusicAudioTrack& MusicAudioTrack::operator=(MusicAudioTrack &&other) noexcept
 {
     if (this != &other) {
         d.reset();

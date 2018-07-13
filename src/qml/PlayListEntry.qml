@@ -37,6 +37,9 @@ FocusScope {
     property bool containsMouse
     property bool hasAlbumHeader
     property string titleDisplay
+    property string albumDisplay
+    property string albumArtistDisplay
+    property string artistDisplay
     property alias trackData: dataHelper.trackData
     property int scrollBarWidth
 
@@ -215,7 +218,7 @@ FocusScope {
 
                             LabelWithToolTip {
                                 id: mainLabel
-                                text: dataHelper.albumName
+                                text: albumDisplay
 
                                 font.weight: Font.Bold
                                 font.pointSize: elisaTheme.defaultFontPointSize * 1.4
@@ -237,7 +240,7 @@ FocusScope {
                             LabelWithToolTip {
                                 id: authorLabel
 
-                                text: dataHelper.albumArtist
+                                text: albumArtistDisplay
 
                                 font.weight: Font.Light
                                 color: myPalette.text
@@ -406,7 +409,7 @@ FocusScope {
                     LabelWithToolTip {
                         id: mainCompactLabel
 
-                        text: dataHelper.title
+                        text: titleDisplay
 
                         font.weight: (isPlaying ? Font.Bold : Font.Normal)
                         color: myPalette.text

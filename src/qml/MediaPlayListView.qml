@@ -244,6 +244,12 @@ FocusScope {
 
                         titleDisplay: model.title
 
+                        albumDisplay: model.album
+
+                        artistDisplay: model.artist
+
+                        albumArtistDisplay: model.albumArtist
+
                         isValid: model.isValid
 
                         isPlaying: model.isPlaying

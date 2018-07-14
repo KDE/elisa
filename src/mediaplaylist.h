@@ -97,6 +97,7 @@ public:
         BitRateRole,
         SampleRateRole,
         ImageRole,
+        AlbumIdRole,
         ResourceRole,
         CountRole,
         IsPlayingRole,

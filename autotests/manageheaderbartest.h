@@ -47,7 +47,8 @@ public:
         TrackNumberRole = AlbumRole + 1,
         RatingRole = TrackNumberRole + 1,
         ImageRole = RatingRole + 1,
-        ResourceRole = ImageRole + 1,
+        AlbumIdRole = ImageRole + 1,
+        ResourceRole = AlbumIdRole + 1,
         CountRole = ResourceRole + 1,
         IsPlayingRole = CountRole + 1,
     };

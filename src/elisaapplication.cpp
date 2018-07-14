@@ -415,6 +415,7 @@ void ElisaApplication::initializePlayer()
     d->mManageHeaderBar->setAlbumRole(MediaPlayList::AlbumRole);
     d->mManageHeaderBar->setArtistRole(MediaPlayList::ArtistRole);
     d->mManageHeaderBar->setImageRole(MediaPlayList::ImageRole);
+    d->mManageHeaderBar->setAlbumIdRole(MediaPlayList::AlbumIdRole);
     d->mManageHeaderBar->setIsValidRole(MediaPlayList::IsValidRole);
     d->mManageHeaderBar->setPlayListModel(d->mMediaPlayList.get());
     QObject::connect(d->mMediaPlayList.get(), &MediaPlayList::currentTrackChanged, d->mManageHeaderBar.get(), &ManageHeaderBar::setCurrentTrack);

@@ -59,6 +59,7 @@ void ManageHeaderBarTest::simpleInitialCase()
     QCOMPARE(myControl.titleRole(), static_cast<int>(Qt::DisplayRole));
     QCOMPARE(myControl.albumRole(), static_cast<int>(Qt::DisplayRole));
     QCOMPARE(myControl.imageRole(), static_cast<int>(Qt::DisplayRole));
+    QCOMPARE(myControl.albumIdRole(), static_cast<int>(Qt::DisplayRole));
     QCOMPARE(myControl.isValidRole(), static_cast<int>(Qt::DisplayRole));
     QCOMPARE(myControl.artist().toString().isEmpty(), true);
     QCOMPARE(myControl.title().toString().isEmpty(), true);
@@ -80,11 +81,13 @@ void ManageHeaderBarTest::setCurrentTrackCase()
     QSignalSpy titleRoleChangedSpy(&myControl, &ManageHeaderBar::titleRoleChanged);
     QSignalSpy albumRoleChangedSpy(&myControl, &ManageHeaderBar::albumRoleChanged);
     QSignalSpy imageRoleChangedSpy(&myControl, &ManageHeaderBar::imageRoleChanged);
+    QSignalSpy albumIdRoleChangedSpy(&myControl, &ManageHeaderBar::albumIdRoleChanged);
     QSignalSpy isValidRoleChangedSpy(&myControl, &ManageHeaderBar::isValidRoleChanged);
     QSignalSpy artistChangedSpy(&myControl, &ManageHeaderBar::artistChanged);
     QSignalSpy titleChangedSpy(&myControl, &ManageHeaderBar::titleChanged);
     QSignalSpy albumChangedSpy(&myControl, &ManageHeaderBar::albumChanged);
     QSignalSpy imageChangedSpy(&myControl, &ManageHeaderBar::imageChanged);
+    QSignalSpy albumIdChangedSpy(&myControl, &ManageHeaderBar::albumIdChanged);
     QSignalSpy isValidChangedSpy(&myControl, &ManageHeaderBar::isValidChanged);
     QSignalSpy remainingTracksChangedSpy(&myControl, &ManageHeaderBar::remainingTracksChanged);
 
@@ -94,6 +97,7 @@ void ManageHeaderBarTest::setCurrentTrackCase()
     QCOMPARE(myControl.titleRole(), static_cast<int>(Qt::DisplayRole));
     QCOMPARE(myControl.albumRole(), static_cast<int>(Qt::DisplayRole));
     QCOMPARE(myControl.imageRole(), static_cast<int>(Qt::DisplayRole));
+    QCOMPARE(myControl.albumIdRole(), static_cast<int>(Qt::DisplayRole));
     QCOMPARE(myControl.isValidRole(), static_cast<int>(Qt::DisplayRole));
     QCOMPARE(myControl.artist().toString().isEmpty(), true);
     QCOMPARE(myControl.title().toString().isEmpty(), true);
@@ -110,11 +114,13 @@ void ManageHeaderBarTest::setCurrentTrackCase()
     QCOMPARE(titleRoleChangedSpy.count(), 0);
     QCOMPARE(albumRoleChangedSpy.count(), 0);
     QCOMPARE(imageRoleChangedSpy.count(), 0);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 0);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -128,11 +134,13 @@ void ManageHeaderBarTest::setCurrentTrackCase()
     QCOMPARE(titleRoleChangedSpy.count(), 0);
     QCOMPARE(albumRoleChangedSpy.count(), 0);
     QCOMPARE(imageRoleChangedSpy.count(), 0);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 0);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -144,11 +152,13 @@ void ManageHeaderBarTest::setCurrentTrackCase()
     QCOMPARE(titleRoleChangedSpy.count(), 0);
     QCOMPARE(albumRoleChangedSpy.count(), 0);
     QCOMPARE(imageRoleChangedSpy.count(), 0);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 0);
     QCOMPARE(artistChangedSpy.count(), 1);
     QCOMPARE(titleChangedSpy.count(), 1);
     QCOMPARE(albumChangedSpy.count(), 1);
     QCOMPARE(imageChangedSpy.count(), 1);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 1);
 
@@ -167,11 +177,13 @@ void ManageHeaderBarTest::setCurrentTrackCaseFromNewAlbum()
     QSignalSpy titleRoleChangedSpy(&myControl, &ManageHeaderBar::titleRoleChanged);
     QSignalSpy albumRoleChangedSpy(&myControl, &ManageHeaderBar::albumRoleChanged);
     QSignalSpy imageRoleChangedSpy(&myControl, &ManageHeaderBar::imageRoleChanged);
+    QSignalSpy albumIdRoleChangedSpy(&myControl, &ManageHeaderBar::albumIdRoleChanged);
     QSignalSpy isValidRoleChangedSpy(&myControl, &ManageHeaderBar::isValidRoleChanged);
     QSignalSpy artistChangedSpy(&myControl, &ManageHeaderBar::artistChanged);
     QSignalSpy titleChangedSpy(&myControl, &ManageHeaderBar::titleChanged);
     QSignalSpy albumChangedSpy(&myControl, &ManageHeaderBar::albumChanged);
     QSignalSpy imageChangedSpy(&myControl, &ManageHeaderBar::imageChanged);
+    QSignalSpy albumIdChangedSpy(&myControl, &ManageHeaderBar::albumIdChanged);
     QSignalSpy isValidChangedSpy(&myControl, &ManageHeaderBar::isValidChanged);
     QSignalSpy remainingTracksChangedSpy(&myControl, &ManageHeaderBar::remainingTracksChanged);
 
@@ -181,6 +193,7 @@ void ManageHeaderBarTest::setCurrentTrackCaseFromNewAlbum()
     QCOMPARE(myControl.titleRole(), static_cast<int>(Qt::DisplayRole));
     QCOMPARE(myControl.albumRole(), static_cast<int>(Qt::DisplayRole));
     QCOMPARE(myControl.imageRole(), static_cast<int>(Qt::DisplayRole));
+    QCOMPARE(myControl.albumIdRole(), static_cast<int>(Qt::DisplayRole));
     QCOMPARE(myControl.isValidRole(), static_cast<int>(Qt::DisplayRole));
     QCOMPARE(myControl.artist().toString().isEmpty(), true);
     QCOMPARE(myControl.title().toString().isEmpty(), true);
@@ -197,11 +210,13 @@ void ManageHeaderBarTest::setCurrentTrackCaseFromNewAlbum()
     QCOMPARE(titleRoleChangedSpy.count(), 0);
     QCOMPARE(albumRoleChangedSpy.count(), 0);
     QCOMPARE(imageRoleChangedSpy.count(), 0);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 0);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -215,11 +230,13 @@ void ManageHeaderBarTest::setCurrentTrackCaseFromNewAlbum()
     QCOMPARE(titleRoleChangedSpy.count(), 0);
     QCOMPARE(albumRoleChangedSpy.count(), 0);
     QCOMPARE(imageRoleChangedSpy.count(), 0);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 0);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -231,11 +248,13 @@ void ManageHeaderBarTest::setCurrentTrackCaseFromNewAlbum()
     QCOMPARE(titleRoleChangedSpy.count(), 0);
     QCOMPARE(albumRoleChangedSpy.count(), 0);
     QCOMPARE(imageRoleChangedSpy.count(), 0);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 0);
     QCOMPARE(artistChangedSpy.count(), 1);
     QCOMPARE(titleChangedSpy.count(), 1);
     QCOMPARE(albumChangedSpy.count(), 1);
     QCOMPARE(imageChangedSpy.count(), 1);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -254,11 +273,13 @@ void ManageHeaderBarTest::completeCase()
     QSignalSpy titleRoleChangedSpy(&myControl, &ManageHeaderBar::titleRoleChanged);
     QSignalSpy albumRoleChangedSpy(&myControl, &ManageHeaderBar::albumRoleChanged);
     QSignalSpy imageRoleChangedSpy(&myControl, &ManageHeaderBar::imageRoleChanged);
+    QSignalSpy albumIdRoleChangedSpy(&myControl, &ManageHeaderBar::albumIdRoleChanged);
     QSignalSpy isValidRoleChangedSpy(&myControl, &ManageHeaderBar::isValidRoleChanged);
     QSignalSpy artistChangedSpy(&myControl, &ManageHeaderBar::artistChanged);
     QSignalSpy titleChangedSpy(&myControl, &ManageHeaderBar::titleChanged);
     QSignalSpy albumChangedSpy(&myControl, &ManageHeaderBar::albumChanged);
     QSignalSpy imageChangedSpy(&myControl, &ManageHeaderBar::imageChanged);
+    QSignalSpy albumIdChangedSpy(&myControl, &ManageHeaderBar::albumIdChanged);
     QSignalSpy isValidChangedSpy(&myControl, &ManageHeaderBar::isValidChanged);
     QSignalSpy remainingTracksChangedSpy(&myControl, &ManageHeaderBar::remainingTracksChanged);
 
@@ -268,6 +289,7 @@ void ManageHeaderBarTest::completeCase()
     QCOMPARE(myControl.titleRole(), static_cast<int>(Qt::DisplayRole));
     QCOMPARE(myControl.albumRole(), static_cast<int>(Qt::DisplayRole));
     QCOMPARE(myControl.imageRole(), static_cast<int>(Qt::DisplayRole));
+    QCOMPARE(myControl.albumIdRole(), static_cast<int>(Qt::DisplayRole));
     QCOMPARE(myControl.isValidRole(), static_cast<int>(Qt::DisplayRole));
     QCOMPARE(myControl.artist().toString().isEmpty(), true);
     QCOMPARE(myControl.title().toString().isEmpty(), true);
@@ -284,11 +306,13 @@ void ManageHeaderBarTest::completeCase()
     QCOMPARE(titleRoleChangedSpy.count(), 0);
     QCOMPARE(albumRoleChangedSpy.count(), 0);
     QCOMPARE(imageRoleChangedSpy.count(), 0);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 0);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -302,11 +326,13 @@ void ManageHeaderBarTest::completeCase()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 0);
     QCOMPARE(imageRoleChangedSpy.count(), 0);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 0);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -320,11 +346,13 @@ void ManageHeaderBarTest::completeCase()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 0);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 0);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -338,15 +366,37 @@ void ManageHeaderBarTest::completeCase()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 0);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
     QCOMPARE(myControl.imageRole(), static_cast<int>(ManageHeaderBarTest::ImageRole));
+
+    myControl.setAlbumIdRole(ManageHeaderBarTest::AlbumIdRole);
+
+    QCOMPARE(currentTrackChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 0);
+    QCOMPARE(artistRoleChangedSpy.count(), 1);
+    QCOMPARE(titleRoleChangedSpy.count(), 1);
+    QCOMPARE(albumRoleChangedSpy.count(), 1);
+    QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
+    QCOMPARE(isValidRoleChangedSpy.count(), 0);
+    QCOMPARE(artistChangedSpy.count(), 0);
+    QCOMPARE(titleChangedSpy.count(), 0);
+    QCOMPARE(albumChangedSpy.count(), 0);
+    QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
+    QCOMPARE(isValidChangedSpy.count(), 0);
+    QCOMPARE(remainingTracksChangedSpy.count(), 0);
+
+    QCOMPARE(myControl.albumIdRole(), static_cast<int>(ManageHeaderBarTest::AlbumIdRole));
 
     myControl.setIsValidRole(ManageHeaderBarTest::IsValidRole);
 
@@ -356,11 +406,13 @@ void ManageHeaderBarTest::completeCase()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -374,11 +426,13 @@ void ManageHeaderBarTest::completeCase()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -394,11 +448,13 @@ void ManageHeaderBarTest::completeCase()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -410,11 +466,13 @@ void ManageHeaderBarTest::completeCase()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 1);
 
@@ -430,11 +488,13 @@ void ManageHeaderBarTest::completeCase()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 1);
 
@@ -447,11 +507,13 @@ void ManageHeaderBarTest::completeCase()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 1);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 1);
 
@@ -465,11 +527,13 @@ void ManageHeaderBarTest::completeCase()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 1);
     QCOMPARE(titleChangedSpy.count(), 1);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 1);
 
@@ -483,11 +547,13 @@ void ManageHeaderBarTest::completeCase()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 1);
     QCOMPARE(titleChangedSpy.count(), 1);
     QCOMPARE(albumChangedSpy.count(), 1);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 1);
 
@@ -501,15 +567,37 @@ void ManageHeaderBarTest::completeCase()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 1);
     QCOMPARE(titleChangedSpy.count(), 1);
     QCOMPARE(albumChangedSpy.count(), 1);
     QCOMPARE(imageChangedSpy.count(), 1);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 1);
 
     QCOMPARE(myControl.image(), QUrl::fromUserInput(QStringLiteral("file://image.png")));
+
+    currentItem->setData(qulonglong(12), ManageHeaderBarTest::AlbumIdRole);
+
+    QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(artistRoleChangedSpy.count(), 1);
+    QCOMPARE(titleRoleChangedSpy.count(), 1);
+    QCOMPARE(albumRoleChangedSpy.count(), 1);
+    QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
+    QCOMPARE(isValidRoleChangedSpy.count(), 1);
+    QCOMPARE(artistChangedSpy.count(), 1);
+    QCOMPARE(titleChangedSpy.count(), 1);
+    QCOMPARE(albumChangedSpy.count(), 1);
+    QCOMPARE(imageChangedSpy.count(), 1);
+    QCOMPARE(albumIdChangedSpy.count(), 1);
+    QCOMPARE(isValidChangedSpy.count(), 0);
+    QCOMPARE(remainingTracksChangedSpy.count(), 1);
+
+    QCOMPARE(myControl.albumId(), 12);
 
     currentItem->setData(true, ManageHeaderBarTest::IsValidRole);
 
@@ -519,11 +607,13 @@ void ManageHeaderBarTest::completeCase()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 1);
     QCOMPARE(titleChangedSpy.count(), 1);
     QCOMPARE(albumChangedSpy.count(), 1);
     QCOMPARE(imageChangedSpy.count(), 1);
+    QCOMPARE(albumIdChangedSpy.count(), 1);
     QCOMPARE(isValidChangedSpy.count(), 1);
     QCOMPARE(remainingTracksChangedSpy.count(), 1);
 
@@ -537,11 +627,13 @@ void ManageHeaderBarTest::completeCase()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 1);
     QCOMPARE(titleChangedSpy.count(), 1);
     QCOMPARE(albumChangedSpy.count(), 1);
     QCOMPARE(imageChangedSpy.count(), 1);
+    QCOMPARE(albumIdChangedSpy.count(), 1);
     QCOMPARE(isValidChangedSpy.count(), 1);
     QCOMPARE(remainingTracksChangedSpy.count(), 2);
 
@@ -555,11 +647,13 @@ void ManageHeaderBarTest::completeCase()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 2);
     QCOMPARE(titleChangedSpy.count(), 2);
     QCOMPARE(albumChangedSpy.count(), 2);
     QCOMPARE(imageChangedSpy.count(), 2);
+    QCOMPARE(albumIdChangedSpy.count(), 2);
     QCOMPARE(isValidChangedSpy.count(), 2);
     QCOMPARE(remainingTracksChangedSpy.count(), 2);
 
@@ -568,6 +662,7 @@ void ManageHeaderBarTest::completeCase()
     QCOMPARE(myControl.title().toString().isEmpty(), true);
     QCOMPARE(myControl.album().toString().isEmpty(), true);
     QCOMPARE(myControl.image().toString().isEmpty(), true);
+    QCOMPARE(myControl.albumId(), 0);
     QCOMPARE(myControl.isValid(), false);
     QCOMPARE(myControl.remainingTracks(), 0);
 
@@ -579,11 +674,13 @@ void ManageHeaderBarTest::completeCase()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 3);
     QCOMPARE(titleChangedSpy.count(), 3);
     QCOMPARE(albumChangedSpy.count(), 3);
     QCOMPARE(imageChangedSpy.count(), 3);
+    QCOMPARE(albumIdChangedSpy.count(), 3);
     QCOMPARE(isValidChangedSpy.count(), 3);
     QCOMPARE(remainingTracksChangedSpy.count(), 2);
 
@@ -603,11 +700,13 @@ void ManageHeaderBarTest::completeCase()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 3);
     QCOMPARE(titleChangedSpy.count(), 3);
     QCOMPARE(albumChangedSpy.count(), 3);
     QCOMPARE(imageChangedSpy.count(), 3);
+    QCOMPARE(albumIdChangedSpy.count(), 3);
     QCOMPARE(isValidChangedSpy.count(), 3);
     QCOMPARE(remainingTracksChangedSpy.count(), 3);
 
@@ -619,6 +718,7 @@ void ManageHeaderBarTest::completeCase()
     lastItem->setData(QStringLiteral("song2"), ManageHeaderBarTest::TitleRole);
     lastItem->setData(QStringLiteral("album1"), ManageHeaderBarTest::AlbumRole);
     lastItem->setData(QUrl::fromUserInput(QStringLiteral("file://image.png")), ManageHeaderBarTest::ImageRole);
+    lastItem->setData(qulonglong(12), ManageHeaderBarTest::AlbumIdRole);
     lastItem->setData(true, ManageHeaderBarTest::IsValidRole);
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
@@ -627,11 +727,13 @@ void ManageHeaderBarTest::completeCase()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 3);
     QCOMPARE(titleChangedSpy.count(), 3);
     QCOMPARE(albumChangedSpy.count(), 3);
     QCOMPARE(imageChangedSpy.count(), 3);
+    QCOMPARE(albumIdChangedSpy.count(), 3);
     QCOMPARE(isValidChangedSpy.count(), 3);
     QCOMPARE(remainingTracksChangedSpy.count(), 3);
 
@@ -643,16 +745,19 @@ void ManageHeaderBarTest::completeCase()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 3);
     QCOMPARE(titleChangedSpy.count(), 4);
     QCOMPARE(albumChangedSpy.count(), 3);
     QCOMPARE(imageChangedSpy.count(), 3);
+    QCOMPARE(albumIdChangedSpy.count(), 3);
     QCOMPARE(isValidChangedSpy.count(), 3);
     QCOMPARE(remainingTracksChangedSpy.count(), 4);
 
     QCOMPARE(myControl.currentTrack(), QPersistentModelIndex(myPlayList.index(2, 0)));
     QCOMPARE(myControl.title().toString(), QStringLiteral("song2"));
+    QCOMPARE(myControl.albumId(), 12);
     QCOMPARE(myControl.remainingTracks(), 0);
 }
 
@@ -668,11 +773,13 @@ void ManageHeaderBarTest::setCurrentTrackAndInvalidCase()
     QSignalSpy titleRoleChangedSpy(&myControl, &ManageHeaderBar::titleRoleChanged);
     QSignalSpy albumRoleChangedSpy(&myControl, &ManageHeaderBar::albumRoleChanged);
     QSignalSpy imageRoleChangedSpy(&myControl, &ManageHeaderBar::imageRoleChanged);
+    QSignalSpy albumIdRoleChangedSpy(&myControl, &ManageHeaderBar::albumIdRoleChanged);
     QSignalSpy isValidRoleChangedSpy(&myControl, &ManageHeaderBar::isValidRoleChanged);
     QSignalSpy artistChangedSpy(&myControl, &ManageHeaderBar::artistChanged);
     QSignalSpy titleChangedSpy(&myControl, &ManageHeaderBar::titleChanged);
     QSignalSpy albumChangedSpy(&myControl, &ManageHeaderBar::albumChanged);
     QSignalSpy imageChangedSpy(&myControl, &ManageHeaderBar::imageChanged);
+    QSignalSpy albumIdChangedSpy(&myControl, &ManageHeaderBar::albumIdChanged);
     QSignalSpy isValidChangedSpy(&myControl, &ManageHeaderBar::isValidChanged);
     QSignalSpy remainingTracksChangedSpy(&myControl, &ManageHeaderBar::remainingTracksChanged);
 
@@ -682,6 +789,7 @@ void ManageHeaderBarTest::setCurrentTrackAndInvalidCase()
     QCOMPARE(myControl.titleRole(), static_cast<int>(Qt::DisplayRole));
     QCOMPARE(myControl.albumRole(), static_cast<int>(Qt::DisplayRole));
     QCOMPARE(myControl.imageRole(), static_cast<int>(Qt::DisplayRole));
+    QCOMPARE(myControl.albumIdRole(), static_cast<int>(Qt::DisplayRole));
     QCOMPARE(myControl.isValidRole(), static_cast<int>(Qt::DisplayRole));
     QCOMPARE(myControl.artist().toString().isEmpty(), true);
     QCOMPARE(myControl.title().toString().isEmpty(), true);
@@ -698,11 +806,13 @@ void ManageHeaderBarTest::setCurrentTrackAndInvalidCase()
     QCOMPARE(titleRoleChangedSpy.count(), 0);
     QCOMPARE(albumRoleChangedSpy.count(), 0);
     QCOMPARE(imageRoleChangedSpy.count(), 0);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 0);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -716,11 +826,13 @@ void ManageHeaderBarTest::setCurrentTrackAndInvalidCase()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 0);
     QCOMPARE(imageRoleChangedSpy.count(), 0);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 0);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -734,11 +846,13 @@ void ManageHeaderBarTest::setCurrentTrackAndInvalidCase()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 0);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 0);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -752,15 +866,37 @@ void ManageHeaderBarTest::setCurrentTrackAndInvalidCase()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 0);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
     QCOMPARE(myControl.imageRole(), static_cast<int>(ManageHeaderBarTest::ImageRole));
+
+    myControl.setAlbumIdRole(ManageHeaderBarTest::AlbumIdRole);
+
+    QCOMPARE(currentTrackChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 0);
+    QCOMPARE(artistRoleChangedSpy.count(), 1);
+    QCOMPARE(titleRoleChangedSpy.count(), 1);
+    QCOMPARE(albumRoleChangedSpy.count(), 1);
+    QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
+    QCOMPARE(isValidRoleChangedSpy.count(), 0);
+    QCOMPARE(artistChangedSpy.count(), 0);
+    QCOMPARE(titleChangedSpy.count(), 0);
+    QCOMPARE(albumChangedSpy.count(), 0);
+    QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
+    QCOMPARE(isValidChangedSpy.count(), 0);
+    QCOMPARE(remainingTracksChangedSpy.count(), 0);
+
+    QCOMPARE(myControl.albumIdRole(), static_cast<int>(ManageHeaderBarTest::AlbumIdRole));
 
     myControl.setIsValidRole(ManageHeaderBarTest::IsValidRole);
 
@@ -770,11 +906,13 @@ void ManageHeaderBarTest::setCurrentTrackAndInvalidCase()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -788,11 +926,13 @@ void ManageHeaderBarTest::setCurrentTrackAndInvalidCase()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -808,11 +948,13 @@ void ManageHeaderBarTest::setCurrentTrackAndInvalidCase()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -824,11 +966,13 @@ void ManageHeaderBarTest::setCurrentTrackAndInvalidCase()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 1);
 
@@ -844,11 +988,13 @@ void ManageHeaderBarTest::setCurrentTrackAndInvalidCase()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 1);
 
@@ -861,11 +1007,13 @@ void ManageHeaderBarTest::setCurrentTrackAndInvalidCase()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 1);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 1);
 
@@ -879,11 +1027,13 @@ void ManageHeaderBarTest::setCurrentTrackAndInvalidCase()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 1);
     QCOMPARE(titleChangedSpy.count(), 1);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 1);
 
@@ -897,11 +1047,13 @@ void ManageHeaderBarTest::setCurrentTrackAndInvalidCase()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 1);
     QCOMPARE(titleChangedSpy.count(), 1);
     QCOMPARE(albumChangedSpy.count(), 1);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 1);
 
@@ -915,15 +1067,37 @@ void ManageHeaderBarTest::setCurrentTrackAndInvalidCase()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 1);
     QCOMPARE(titleChangedSpy.count(), 1);
     QCOMPARE(albumChangedSpy.count(), 1);
     QCOMPARE(imageChangedSpy.count(), 1);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 1);
 
     QCOMPARE(myControl.image(), QUrl::fromUserInput(QStringLiteral("file://image.png")));
+
+    currentItem->setData(qulonglong(12), ManageHeaderBarTest::AlbumIdRole);
+
+    QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(artistRoleChangedSpy.count(), 1);
+    QCOMPARE(titleRoleChangedSpy.count(), 1);
+    QCOMPARE(albumRoleChangedSpy.count(), 1);
+    QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
+    QCOMPARE(isValidRoleChangedSpy.count(), 1);
+    QCOMPARE(artistChangedSpy.count(), 1);
+    QCOMPARE(titleChangedSpy.count(), 1);
+    QCOMPARE(albumChangedSpy.count(), 1);
+    QCOMPARE(imageChangedSpy.count(), 1);
+    QCOMPARE(albumIdChangedSpy.count(), 1);
+    QCOMPARE(isValidChangedSpy.count(), 0);
+    QCOMPARE(remainingTracksChangedSpy.count(), 1);
+
+    QCOMPARE(myControl.albumId(), qulonglong(12));
 
     currentItem->setData(true, ManageHeaderBarTest::IsValidRole);
 
@@ -933,11 +1107,13 @@ void ManageHeaderBarTest::setCurrentTrackAndInvalidCase()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 1);
     QCOMPARE(titleChangedSpy.count(), 1);
     QCOMPARE(albumChangedSpy.count(), 1);
     QCOMPARE(imageChangedSpy.count(), 1);
+    QCOMPARE(albumIdChangedSpy.count(), 1);
     QCOMPARE(isValidChangedSpy.count(), 1);
     QCOMPARE(remainingTracksChangedSpy.count(), 1);
 
@@ -951,11 +1127,13 @@ void ManageHeaderBarTest::setCurrentTrackAndInvalidCase()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 1);
     QCOMPARE(titleChangedSpy.count(), 1);
     QCOMPARE(albumChangedSpy.count(), 1);
     QCOMPARE(imageChangedSpy.count(), 1);
+    QCOMPARE(albumIdChangedSpy.count(), 1);
     QCOMPARE(isValidChangedSpy.count(), 1);
     QCOMPARE(remainingTracksChangedSpy.count(), 2);
 
@@ -969,11 +1147,13 @@ void ManageHeaderBarTest::setCurrentTrackAndInvalidCase()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 2);
     QCOMPARE(titleChangedSpy.count(), 2);
     QCOMPARE(albumChangedSpy.count(), 2);
     QCOMPARE(imageChangedSpy.count(), 2);
+    QCOMPARE(albumIdChangedSpy.count(), 2);
     QCOMPARE(isValidChangedSpy.count(), 2);
     QCOMPARE(remainingTracksChangedSpy.count(), 2);
 
@@ -997,11 +1177,13 @@ void ManageHeaderBarTest::setCurrentTrackAndRemoveItCase()
     QSignalSpy titleRoleChangedSpy(&myControl, &ManageHeaderBar::titleRoleChanged);
     QSignalSpy albumRoleChangedSpy(&myControl, &ManageHeaderBar::albumRoleChanged);
     QSignalSpy imageRoleChangedSpy(&myControl, &ManageHeaderBar::imageRoleChanged);
+    QSignalSpy albumIdRoleChangedSpy(&myControl, &ManageHeaderBar::albumIdRoleChanged);
     QSignalSpy isValidRoleChangedSpy(&myControl, &ManageHeaderBar::isValidRoleChanged);
     QSignalSpy artistChangedSpy(&myControl, &ManageHeaderBar::artistChanged);
     QSignalSpy titleChangedSpy(&myControl, &ManageHeaderBar::titleChanged);
     QSignalSpy albumChangedSpy(&myControl, &ManageHeaderBar::albumChanged);
     QSignalSpy imageChangedSpy(&myControl, &ManageHeaderBar::imageChanged);
+    QSignalSpy albumIdChangedSpy(&myControl, &ManageHeaderBar::albumIdChanged);
     QSignalSpy isValidChangedSpy(&myControl, &ManageHeaderBar::isValidChanged);
     QSignalSpy remainingTracksChangedSpy(&myControl, &ManageHeaderBar::remainingTracksChanged);
 
@@ -1011,6 +1193,7 @@ void ManageHeaderBarTest::setCurrentTrackAndRemoveItCase()
     QCOMPARE(myControl.titleRole(), static_cast<int>(Qt::DisplayRole));
     QCOMPARE(myControl.albumRole(), static_cast<int>(Qt::DisplayRole));
     QCOMPARE(myControl.imageRole(), static_cast<int>(Qt::DisplayRole));
+    QCOMPARE(myControl.albumIdRole(), static_cast<int>(Qt::DisplayRole));
     QCOMPARE(myControl.isValidRole(), static_cast<int>(Qt::DisplayRole));
     QCOMPARE(myControl.artist().toString().isEmpty(), true);
     QCOMPARE(myControl.title().toString().isEmpty(), true);
@@ -1027,11 +1210,13 @@ void ManageHeaderBarTest::setCurrentTrackAndRemoveItCase()
     QCOMPARE(titleRoleChangedSpy.count(), 0);
     QCOMPARE(albumRoleChangedSpy.count(), 0);
     QCOMPARE(imageRoleChangedSpy.count(), 0);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 0);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -1045,11 +1230,13 @@ void ManageHeaderBarTest::setCurrentTrackAndRemoveItCase()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 0);
     QCOMPARE(imageRoleChangedSpy.count(), 0);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 0);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -1063,11 +1250,13 @@ void ManageHeaderBarTest::setCurrentTrackAndRemoveItCase()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 0);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 0);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -1081,15 +1270,37 @@ void ManageHeaderBarTest::setCurrentTrackAndRemoveItCase()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 0);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
     QCOMPARE(myControl.imageRole(), static_cast<int>(ManageHeaderBarTest::ImageRole));
+
+    myControl.setAlbumIdRole(ManageHeaderBarTest::AlbumIdRole);
+
+    QCOMPARE(currentTrackChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 0);
+    QCOMPARE(artistRoleChangedSpy.count(), 1);
+    QCOMPARE(titleRoleChangedSpy.count(), 1);
+    QCOMPARE(albumRoleChangedSpy.count(), 1);
+    QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
+    QCOMPARE(isValidRoleChangedSpy.count(), 0);
+    QCOMPARE(artistChangedSpy.count(), 0);
+    QCOMPARE(titleChangedSpy.count(), 0);
+    QCOMPARE(albumChangedSpy.count(), 0);
+    QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
+    QCOMPARE(isValidChangedSpy.count(), 0);
+    QCOMPARE(remainingTracksChangedSpy.count(), 0);
+
+    QCOMPARE(myControl.albumIdRole(), static_cast<int>(ManageHeaderBarTest::AlbumIdRole));
 
     myControl.setIsValidRole(ManageHeaderBarTest::IsValidRole);
 
@@ -1099,11 +1310,13 @@ void ManageHeaderBarTest::setCurrentTrackAndRemoveItCase()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -1117,11 +1330,13 @@ void ManageHeaderBarTest::setCurrentTrackAndRemoveItCase()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -1136,11 +1351,13 @@ void ManageHeaderBarTest::setCurrentTrackAndRemoveItCase()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -1153,11 +1370,13 @@ void ManageHeaderBarTest::setCurrentTrackAndRemoveItCase()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -1169,11 +1388,13 @@ void ManageHeaderBarTest::setCurrentTrackAndRemoveItCase()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -1185,11 +1406,13 @@ void ManageHeaderBarTest::setCurrentTrackAndRemoveItCase()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -1201,11 +1424,13 @@ void ManageHeaderBarTest::setCurrentTrackAndRemoveItCase()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -1217,11 +1442,13 @@ void ManageHeaderBarTest::setCurrentTrackAndRemoveItCase()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -1233,11 +1460,13 @@ void ManageHeaderBarTest::setCurrentTrackAndRemoveItCase()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -1249,11 +1478,13 @@ void ManageHeaderBarTest::setCurrentTrackAndRemoveItCase()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 1);
     QCOMPARE(titleChangedSpy.count(), 1);
     QCOMPARE(albumChangedSpy.count(), 1);
     QCOMPARE(imageChangedSpy.count(), 1);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 1);
     QCOMPARE(remainingTracksChangedSpy.count(), 1);
 
@@ -1273,11 +1504,13 @@ void ManageHeaderBarTest::setCurrentTrackAndRemoveItCase()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 2);
     QCOMPARE(titleChangedSpy.count(), 2);
     QCOMPARE(albumChangedSpy.count(), 2);
     QCOMPARE(imageChangedSpy.count(), 2);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 2);
     QCOMPARE(remainingTracksChangedSpy.count(), 2);
 
@@ -1301,11 +1534,13 @@ void ManageHeaderBarTest::insertBeforeCurrentTrack()
     QSignalSpy titleRoleChangedSpy(&myControl, &ManageHeaderBar::titleRoleChanged);
     QSignalSpy albumRoleChangedSpy(&myControl, &ManageHeaderBar::albumRoleChanged);
     QSignalSpy imageRoleChangedSpy(&myControl, &ManageHeaderBar::imageRoleChanged);
+    QSignalSpy albumIdRoleChangedSpy(&myControl, &ManageHeaderBar::albumIdRoleChanged);
     QSignalSpy isValidRoleChangedSpy(&myControl, &ManageHeaderBar::isValidRoleChanged);
     QSignalSpy artistChangedSpy(&myControl, &ManageHeaderBar::artistChanged);
     QSignalSpy titleChangedSpy(&myControl, &ManageHeaderBar::titleChanged);
     QSignalSpy albumChangedSpy(&myControl, &ManageHeaderBar::albumChanged);
     QSignalSpy imageChangedSpy(&myControl, &ManageHeaderBar::imageChanged);
+    QSignalSpy albumIdChangedSpy(&myControl, &ManageHeaderBar::albumIdChanged);
     QSignalSpy isValidChangedSpy(&myControl, &ManageHeaderBar::isValidChanged);
     QSignalSpy remainingTracksChangedSpy(&myControl, &ManageHeaderBar::remainingTracksChanged);
 
@@ -1315,6 +1550,7 @@ void ManageHeaderBarTest::insertBeforeCurrentTrack()
     QCOMPARE(myControl.titleRole(), static_cast<int>(Qt::DisplayRole));
     QCOMPARE(myControl.albumRole(), static_cast<int>(Qt::DisplayRole));
     QCOMPARE(myControl.imageRole(), static_cast<int>(Qt::DisplayRole));
+    QCOMPARE(myControl.albumIdRole(), static_cast<int>(Qt::DisplayRole));
     QCOMPARE(myControl.isValidRole(), static_cast<int>(Qt::DisplayRole));
     QCOMPARE(myControl.artist().toString().isEmpty(), true);
     QCOMPARE(myControl.title().toString().isEmpty(), true);
@@ -1331,11 +1567,13 @@ void ManageHeaderBarTest::insertBeforeCurrentTrack()
     QCOMPARE(titleRoleChangedSpy.count(), 0);
     QCOMPARE(albumRoleChangedSpy.count(), 0);
     QCOMPARE(imageRoleChangedSpy.count(), 0);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 0);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -1349,11 +1587,13 @@ void ManageHeaderBarTest::insertBeforeCurrentTrack()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 0);
     QCOMPARE(imageRoleChangedSpy.count(), 0);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 0);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -1367,11 +1607,13 @@ void ManageHeaderBarTest::insertBeforeCurrentTrack()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 0);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 0);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -1385,15 +1627,37 @@ void ManageHeaderBarTest::insertBeforeCurrentTrack()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 0);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
     QCOMPARE(myControl.imageRole(), static_cast<int>(ManageHeaderBarTest::ImageRole));
+
+    myControl.setAlbumIdRole(ManageHeaderBarTest::AlbumIdRole);
+
+    QCOMPARE(currentTrackChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 0);
+    QCOMPARE(artistRoleChangedSpy.count(), 1);
+    QCOMPARE(titleRoleChangedSpy.count(), 1);
+    QCOMPARE(albumRoleChangedSpy.count(), 1);
+    QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
+    QCOMPARE(isValidRoleChangedSpy.count(), 0);
+    QCOMPARE(artistChangedSpy.count(), 0);
+    QCOMPARE(titleChangedSpy.count(), 0);
+    QCOMPARE(albumChangedSpy.count(), 0);
+    QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
+    QCOMPARE(isValidChangedSpy.count(), 0);
+    QCOMPARE(remainingTracksChangedSpy.count(), 0);
+
+    QCOMPARE(myControl.albumIdRole(), static_cast<int>(ManageHeaderBarTest::AlbumIdRole));
 
     myControl.setIsValidRole(ManageHeaderBarTest::IsValidRole);
 
@@ -1403,11 +1667,13 @@ void ManageHeaderBarTest::insertBeforeCurrentTrack()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -1421,11 +1687,13 @@ void ManageHeaderBarTest::insertBeforeCurrentTrack()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -1440,11 +1708,13 @@ void ManageHeaderBarTest::insertBeforeCurrentTrack()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -1457,11 +1727,13 @@ void ManageHeaderBarTest::insertBeforeCurrentTrack()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -1473,11 +1745,13 @@ void ManageHeaderBarTest::insertBeforeCurrentTrack()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -1489,11 +1763,13 @@ void ManageHeaderBarTest::insertBeforeCurrentTrack()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -1505,11 +1781,13 @@ void ManageHeaderBarTest::insertBeforeCurrentTrack()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -1521,11 +1799,13 @@ void ManageHeaderBarTest::insertBeforeCurrentTrack()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -1537,11 +1817,13 @@ void ManageHeaderBarTest::insertBeforeCurrentTrack()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -1553,11 +1835,13 @@ void ManageHeaderBarTest::insertBeforeCurrentTrack()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 1);
     QCOMPARE(titleChangedSpy.count(), 1);
     QCOMPARE(albumChangedSpy.count(), 1);
     QCOMPARE(imageChangedSpy.count(), 1);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 1);
     QCOMPARE(remainingTracksChangedSpy.count(), 1);
 
@@ -1577,11 +1861,13 @@ void ManageHeaderBarTest::insertBeforeCurrentTrack()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 1);
     QCOMPARE(titleChangedSpy.count(), 1);
     QCOMPARE(albumChangedSpy.count(), 1);
     QCOMPARE(imageChangedSpy.count(), 1);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 1);
     QCOMPARE(remainingTracksChangedSpy.count(), 1);
 }
@@ -1613,11 +1899,13 @@ void ManageHeaderBarTest::moveCurrentTrack()
     QSignalSpy titleRoleChangedSpy(&myControl, &ManageHeaderBar::titleRoleChanged);
     QSignalSpy albumRoleChangedSpy(&myControl, &ManageHeaderBar::albumRoleChanged);
     QSignalSpy imageRoleChangedSpy(&myControl, &ManageHeaderBar::imageRoleChanged);
+    QSignalSpy albumIdRoleChangedSpy(&myControl, &ManageHeaderBar::albumIdRoleChanged);
     QSignalSpy isValidRoleChangedSpy(&myControl, &ManageHeaderBar::isValidRoleChanged);
     QSignalSpy artistChangedSpy(&myControl, &ManageHeaderBar::artistChanged);
     QSignalSpy titleChangedSpy(&myControl, &ManageHeaderBar::titleChanged);
     QSignalSpy albumChangedSpy(&myControl, &ManageHeaderBar::albumChanged);
     QSignalSpy imageChangedSpy(&myControl, &ManageHeaderBar::imageChanged);
+    QSignalSpy albumIdChangedSpy(&myControl, &ManageHeaderBar::albumIdChanged);
     QSignalSpy isValidChangedSpy(&myControl, &ManageHeaderBar::isValidChanged);
     QSignalSpy remainingTracksChangedSpy(&myControl, &ManageHeaderBar::remainingTracksChanged);
 
@@ -1627,6 +1915,7 @@ void ManageHeaderBarTest::moveCurrentTrack()
     QCOMPARE(myControl.titleRole(), static_cast<int>(Qt::DisplayRole));
     QCOMPARE(myControl.albumRole(), static_cast<int>(Qt::DisplayRole));
     QCOMPARE(myControl.imageRole(), static_cast<int>(Qt::DisplayRole));
+    QCOMPARE(myControl.albumIdRole(), static_cast<int>(Qt::DisplayRole));
     QCOMPARE(myControl.isValidRole(), static_cast<int>(Qt::DisplayRole));
     QCOMPARE(myControl.artist().toString().isEmpty(), true);
     QCOMPARE(myControl.title().toString().isEmpty(), true);
@@ -1643,11 +1932,13 @@ void ManageHeaderBarTest::moveCurrentTrack()
     QCOMPARE(titleRoleChangedSpy.count(), 0);
     QCOMPARE(albumRoleChangedSpy.count(), 0);
     QCOMPARE(imageRoleChangedSpy.count(), 0);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 0);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -1661,11 +1952,13 @@ void ManageHeaderBarTest::moveCurrentTrack()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 0);
     QCOMPARE(imageRoleChangedSpy.count(), 0);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 0);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -1679,11 +1972,13 @@ void ManageHeaderBarTest::moveCurrentTrack()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 0);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 0);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -1697,15 +1992,37 @@ void ManageHeaderBarTest::moveCurrentTrack()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 0);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
     QCOMPARE(myControl.imageRole(), static_cast<int>(MediaPlayList::ImageRole));
+
+    myControl.setAlbumIdRole(MediaPlayList::AlbumIdRole);
+
+    QCOMPARE(currentTrackChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 0);
+    QCOMPARE(artistRoleChangedSpy.count(), 1);
+    QCOMPARE(titleRoleChangedSpy.count(), 1);
+    QCOMPARE(albumRoleChangedSpy.count(), 1);
+    QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
+    QCOMPARE(isValidRoleChangedSpy.count(), 0);
+    QCOMPARE(artistChangedSpy.count(), 0);
+    QCOMPARE(titleChangedSpy.count(), 0);
+    QCOMPARE(albumChangedSpy.count(), 0);
+    QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
+    QCOMPARE(isValidChangedSpy.count(), 0);
+    QCOMPARE(remainingTracksChangedSpy.count(), 0);
+
+    QCOMPARE(myControl.albumIdRole(), static_cast<int>(MediaPlayList::AlbumIdRole));
 
     myControl.setIsValidRole(MediaPlayList::IsValidRole);
 
@@ -1715,11 +2032,13 @@ void ManageHeaderBarTest::moveCurrentTrack()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -1733,11 +2052,13 @@ void ManageHeaderBarTest::moveCurrentTrack()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -1754,11 +2075,13 @@ void ManageHeaderBarTest::moveCurrentTrack()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -1770,11 +2093,13 @@ void ManageHeaderBarTest::moveCurrentTrack()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 1);
     QCOMPARE(titleChangedSpy.count(), 1);
     QCOMPARE(albumChangedSpy.count(), 1);
     QCOMPARE(imageChangedSpy.count(), 1);
+    QCOMPARE(albumIdChangedSpy.count(), 1);
     QCOMPARE(isValidChangedSpy.count(), 1);
     QCOMPARE(remainingTracksChangedSpy.count(), 1);
 
@@ -1785,6 +2110,7 @@ void ManageHeaderBarTest::moveCurrentTrack()
     QCOMPARE(myControl.album(), QVariant(QStringLiteral("album2")));
     QCOMPARE(myControl.artist(), QVariant(QStringLiteral("artist1")));
     QCOMPARE(myControl.title(), QVariant(QStringLiteral("track1")));
+    QCOMPARE(myControl.albumId(), qulonglong(2));
 
     QCOMPARE(myPlayList.moveRow(myControl.currentTrack().parent(), 0, myControl.currentTrack().parent(), 2), true);
 
@@ -1794,11 +2120,13 @@ void ManageHeaderBarTest::moveCurrentTrack()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 1);
     QCOMPARE(titleChangedSpy.count(), 1);
     QCOMPARE(albumChangedSpy.count(), 1);
     QCOMPARE(imageChangedSpy.count(), 1);
+    QCOMPARE(albumIdChangedSpy.count(), 1);
     QCOMPARE(isValidChangedSpy.count(), 1);
     QCOMPARE(remainingTracksChangedSpy.count(), 2);
 
@@ -1832,11 +2160,13 @@ void ManageHeaderBarTest::moveAnotherTrack()
     QSignalSpy titleRoleChangedSpy(&myControl, &ManageHeaderBar::titleRoleChanged);
     QSignalSpy albumRoleChangedSpy(&myControl, &ManageHeaderBar::albumRoleChanged);
     QSignalSpy imageRoleChangedSpy(&myControl, &ManageHeaderBar::imageRoleChanged);
+    QSignalSpy albumIdRoleChangedSpy(&myControl, &ManageHeaderBar::albumIdRoleChanged);
     QSignalSpy isValidRoleChangedSpy(&myControl, &ManageHeaderBar::isValidRoleChanged);
     QSignalSpy artistChangedSpy(&myControl, &ManageHeaderBar::artistChanged);
     QSignalSpy titleChangedSpy(&myControl, &ManageHeaderBar::titleChanged);
     QSignalSpy albumChangedSpy(&myControl, &ManageHeaderBar::albumChanged);
     QSignalSpy imageChangedSpy(&myControl, &ManageHeaderBar::imageChanged);
+    QSignalSpy albumIdChangedSpy(&myControl, &ManageHeaderBar::albumIdChanged);
     QSignalSpy isValidChangedSpy(&myControl, &ManageHeaderBar::isValidChanged);
     QSignalSpy remainingTracksChangedSpy(&myControl, &ManageHeaderBar::remainingTracksChanged);
 
@@ -1846,6 +2176,7 @@ void ManageHeaderBarTest::moveAnotherTrack()
     QCOMPARE(myControl.titleRole(), static_cast<int>(Qt::DisplayRole));
     QCOMPARE(myControl.albumRole(), static_cast<int>(Qt::DisplayRole));
     QCOMPARE(myControl.imageRole(), static_cast<int>(Qt::DisplayRole));
+    QCOMPARE(myControl.albumIdRole(), static_cast<int>(Qt::DisplayRole));
     QCOMPARE(myControl.isValidRole(), static_cast<int>(Qt::DisplayRole));
     QCOMPARE(myControl.artist().toString().isEmpty(), true);
     QCOMPARE(myControl.title().toString().isEmpty(), true);
@@ -1862,11 +2193,13 @@ void ManageHeaderBarTest::moveAnotherTrack()
     QCOMPARE(titleRoleChangedSpy.count(), 0);
     QCOMPARE(albumRoleChangedSpy.count(), 0);
     QCOMPARE(imageRoleChangedSpy.count(), 0);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 0);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -1880,11 +2213,13 @@ void ManageHeaderBarTest::moveAnotherTrack()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 0);
     QCOMPARE(imageRoleChangedSpy.count(), 0);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 0);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -1898,11 +2233,13 @@ void ManageHeaderBarTest::moveAnotherTrack()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 0);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 0);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -1916,15 +2253,37 @@ void ManageHeaderBarTest::moveAnotherTrack()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 0);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
     QCOMPARE(myControl.imageRole(), static_cast<int>(MediaPlayList::ImageRole));
+
+    myControl.setAlbumIdRole(MediaPlayList::AlbumIdRole);
+
+    QCOMPARE(currentTrackChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 0);
+    QCOMPARE(artistRoleChangedSpy.count(), 1);
+    QCOMPARE(titleRoleChangedSpy.count(), 1);
+    QCOMPARE(albumRoleChangedSpy.count(), 1);
+    QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
+    QCOMPARE(isValidRoleChangedSpy.count(), 0);
+    QCOMPARE(artistChangedSpy.count(), 0);
+    QCOMPARE(titleChangedSpy.count(), 0);
+    QCOMPARE(albumChangedSpy.count(), 0);
+    QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
+    QCOMPARE(isValidChangedSpy.count(), 0);
+    QCOMPARE(remainingTracksChangedSpy.count(), 0);
+
+    QCOMPARE(myControl.albumIdRole(), static_cast<int>(MediaPlayList::AlbumIdRole));
 
     myControl.setIsValidRole(MediaPlayList::IsValidRole);
 
@@ -1934,11 +2293,13 @@ void ManageHeaderBarTest::moveAnotherTrack()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -1952,11 +2313,13 @@ void ManageHeaderBarTest::moveAnotherTrack()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -1979,11 +2342,13 @@ void ManageHeaderBarTest::moveAnotherTrack()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -1995,11 +2360,13 @@ void ManageHeaderBarTest::moveAnotherTrack()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 1);
     QCOMPARE(titleChangedSpy.count(), 1);
     QCOMPARE(albumChangedSpy.count(), 1);
     QCOMPARE(imageChangedSpy.count(), 1);
+    QCOMPARE(albumIdChangedSpy.count(), 1);
     QCOMPARE(isValidChangedSpy.count(), 1);
     QCOMPARE(remainingTracksChangedSpy.count(), 1);
 
@@ -2010,6 +2377,7 @@ void ManageHeaderBarTest::moveAnotherTrack()
     QCOMPARE(myControl.album(), QVariant(QStringLiteral("album2")));
     QCOMPARE(myControl.artist(), QVariant(QStringLiteral("artist1")));
     QCOMPARE(myControl.title(), QVariant(QStringLiteral("track1")));
+    QCOMPARE(myControl.albumId(), qulonglong(2));
 
     QCOMPARE(myPlayList.moveRow(myControl.currentTrack().parent(), 1, myControl.currentTrack().parent(), 0), true);
 
@@ -2019,11 +2387,13 @@ void ManageHeaderBarTest::moveAnotherTrack()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 1);
     QCOMPARE(titleChangedSpy.count(), 1);
     QCOMPARE(albumChangedSpy.count(), 1);
     QCOMPARE(imageChangedSpy.count(), 1);
+    QCOMPARE(albumIdChangedSpy.count(), 1);
     QCOMPARE(isValidChangedSpy.count(), 1);
     QCOMPARE(remainingTracksChangedSpy.count(), 2);
 
@@ -2057,11 +2427,13 @@ void ManageHeaderBarTest::setCurrentTrackTest()
     QSignalSpy titleRoleChangedSpy(&myControl, &ManageHeaderBar::titleRoleChanged);
     QSignalSpy albumRoleChangedSpy(&myControl, &ManageHeaderBar::albumRoleChanged);
     QSignalSpy imageRoleChangedSpy(&myControl, &ManageHeaderBar::imageRoleChanged);
+    QSignalSpy albumIdRoleChangedSpy(&myControl, &ManageHeaderBar::albumIdRoleChanged);
     QSignalSpy isValidRoleChangedSpy(&myControl, &ManageHeaderBar::isValidRoleChanged);
     QSignalSpy artistChangedSpy(&myControl, &ManageHeaderBar::artistChanged);
     QSignalSpy titleChangedSpy(&myControl, &ManageHeaderBar::titleChanged);
     QSignalSpy albumChangedSpy(&myControl, &ManageHeaderBar::albumChanged);
     QSignalSpy imageChangedSpy(&myControl, &ManageHeaderBar::imageChanged);
+    QSignalSpy albumIdChangedSpy(&myControl, &ManageHeaderBar::albumIdChanged);
     QSignalSpy isValidChangedSpy(&myControl, &ManageHeaderBar::isValidChanged);
     QSignalSpy remainingTracksChangedSpy(&myControl, &ManageHeaderBar::remainingTracksChanged);
 
@@ -2071,6 +2443,7 @@ void ManageHeaderBarTest::setCurrentTrackTest()
     QCOMPARE(myControl.titleRole(), static_cast<int>(Qt::DisplayRole));
     QCOMPARE(myControl.albumRole(), static_cast<int>(Qt::DisplayRole));
     QCOMPARE(myControl.imageRole(), static_cast<int>(Qt::DisplayRole));
+    QCOMPARE(myControl.albumIdRole(), static_cast<int>(Qt::DisplayRole));
     QCOMPARE(myControl.isValidRole(), static_cast<int>(Qt::DisplayRole));
     QCOMPARE(myControl.artist().toString().isEmpty(), true);
     QCOMPARE(myControl.title().toString().isEmpty(), true);
@@ -2087,11 +2460,13 @@ void ManageHeaderBarTest::setCurrentTrackTest()
     QCOMPARE(titleRoleChangedSpy.count(), 0);
     QCOMPARE(albumRoleChangedSpy.count(), 0);
     QCOMPARE(imageRoleChangedSpy.count(), 0);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 0);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -2105,11 +2480,13 @@ void ManageHeaderBarTest::setCurrentTrackTest()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 0);
     QCOMPARE(imageRoleChangedSpy.count(), 0);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 0);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -2123,11 +2500,13 @@ void ManageHeaderBarTest::setCurrentTrackTest()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 0);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 0);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -2141,15 +2520,37 @@ void ManageHeaderBarTest::setCurrentTrackTest()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 0);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
     QCOMPARE(myControl.imageRole(), static_cast<int>(MediaPlayList::ImageRole));
+
+    myControl.setAlbumIdRole(MediaPlayList::AlbumIdRole);
+
+    QCOMPARE(currentTrackChangedSpy.count(), 0);
+    QCOMPARE(playListModelChangedSpy.count(), 0);
+    QCOMPARE(artistRoleChangedSpy.count(), 1);
+    QCOMPARE(titleRoleChangedSpy.count(), 1);
+    QCOMPARE(albumRoleChangedSpy.count(), 1);
+    QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
+    QCOMPARE(isValidRoleChangedSpy.count(), 0);
+    QCOMPARE(artistChangedSpy.count(), 0);
+    QCOMPARE(titleChangedSpy.count(), 0);
+    QCOMPARE(albumChangedSpy.count(), 0);
+    QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
+    QCOMPARE(isValidChangedSpy.count(), 0);
+    QCOMPARE(remainingTracksChangedSpy.count(), 0);
+
+    QCOMPARE(myControl.albumIdRole(), static_cast<int>(MediaPlayList::AlbumIdRole));
 
     myControl.setIsValidRole(MediaPlayList::IsValidRole);
 
@@ -2159,11 +2560,13 @@ void ManageHeaderBarTest::setCurrentTrackTest()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -2177,11 +2580,13 @@ void ManageHeaderBarTest::setCurrentTrackTest()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -2204,11 +2609,13 @@ void ManageHeaderBarTest::setCurrentTrackTest()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -2220,11 +2627,13 @@ void ManageHeaderBarTest::setCurrentTrackTest()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 1);
     QCOMPARE(titleChangedSpy.count(), 1);
     QCOMPARE(albumChangedSpy.count(), 1);
     QCOMPARE(imageChangedSpy.count(), 1);
+    QCOMPARE(albumIdChangedSpy.count(), 1);
     QCOMPARE(isValidChangedSpy.count(), 1);
     QCOMPARE(remainingTracksChangedSpy.count(), 1);
 
@@ -2235,6 +2644,7 @@ void ManageHeaderBarTest::setCurrentTrackTest()
     QCOMPARE(myControl.album(), QVariant(QStringLiteral("album2")));
     QCOMPARE(myControl.artist(), QVariant(QStringLiteral("artist1")));
     QCOMPARE(myControl.title(), QVariant(QStringLiteral("track1")));
+    QCOMPARE(myControl.albumId(), qulonglong(2));
 
     myControl.setCurrentTrack(myPlayList.index(0, 0));
 
@@ -2244,11 +2654,13 @@ void ManageHeaderBarTest::setCurrentTrackTest()
     QCOMPARE(titleRoleChangedSpy.count(), 1);
     QCOMPARE(albumRoleChangedSpy.count(), 1);
     QCOMPARE(imageRoleChangedSpy.count(), 1);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 1);
     QCOMPARE(isValidRoleChangedSpy.count(), 1);
     QCOMPARE(artistChangedSpy.count(), 1);
     QCOMPARE(titleChangedSpy.count(), 1);
     QCOMPARE(albumChangedSpy.count(), 1);
     QCOMPARE(imageChangedSpy.count(), 1);
+    QCOMPARE(albumIdChangedSpy.count(), 1);
     QCOMPARE(isValidChangedSpy.count(), 1);
     QCOMPARE(remainingTracksChangedSpy.count(), 1);
 }
@@ -2280,11 +2692,13 @@ void ManageHeaderBarTest::setPlayListModelTest()
     QSignalSpy titleRoleChangedSpy(&myControl, &ManageHeaderBar::titleRoleChanged);
     QSignalSpy albumRoleChangedSpy(&myControl, &ManageHeaderBar::albumRoleChanged);
     QSignalSpy imageRoleChangedSpy(&myControl, &ManageHeaderBar::imageRoleChanged);
+    QSignalSpy albumIdRoleChangedSpy(&myControl, &ManageHeaderBar::albumIdRoleChanged);
     QSignalSpy isValidRoleChangedSpy(&myControl, &ManageHeaderBar::isValidRoleChanged);
     QSignalSpy artistChangedSpy(&myControl, &ManageHeaderBar::artistChanged);
     QSignalSpy titleChangedSpy(&myControl, &ManageHeaderBar::titleChanged);
     QSignalSpy albumChangedSpy(&myControl, &ManageHeaderBar::albumChanged);
     QSignalSpy imageChangedSpy(&myControl, &ManageHeaderBar::imageChanged);
+    QSignalSpy albumIdChangedSpy(&myControl, &ManageHeaderBar::albumIdChanged);
     QSignalSpy isValidChangedSpy(&myControl, &ManageHeaderBar::isValidChanged);
     QSignalSpy remainingTracksChangedSpy(&myControl, &ManageHeaderBar::remainingTracksChanged);
 
@@ -2294,6 +2708,7 @@ void ManageHeaderBarTest::setPlayListModelTest()
     QCOMPARE(myControl.titleRole(), static_cast<int>(Qt::DisplayRole));
     QCOMPARE(myControl.albumRole(), static_cast<int>(Qt::DisplayRole));
     QCOMPARE(myControl.imageRole(), static_cast<int>(Qt::DisplayRole));
+    QCOMPARE(myControl.albumIdRole(), static_cast<int>(Qt::DisplayRole));
     QCOMPARE(myControl.isValidRole(), static_cast<int>(Qt::DisplayRole));
     QCOMPARE(myControl.artist().toString().isEmpty(), true);
     QCOMPARE(myControl.title().toString().isEmpty(), true);
@@ -2310,11 +2725,13 @@ void ManageHeaderBarTest::setPlayListModelTest()
     QCOMPARE(titleRoleChangedSpy.count(), 0);
     QCOMPARE(albumRoleChangedSpy.count(), 0);
     QCOMPARE(imageRoleChangedSpy.count(), 0);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 0);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
@@ -2328,11 +2745,13 @@ void ManageHeaderBarTest::setPlayListModelTest()
     QCOMPARE(titleRoleChangedSpy.count(), 0);
     QCOMPARE(albumRoleChangedSpy.count(), 0);
     QCOMPARE(imageRoleChangedSpy.count(), 0);
+    QCOMPARE(albumIdRoleChangedSpy.count(), 0);
     QCOMPARE(isValidRoleChangedSpy.count(), 0);
     QCOMPARE(artistChangedSpy.count(), 0);
     QCOMPARE(titleChangedSpy.count(), 0);
     QCOMPARE(albumChangedSpy.count(), 0);
     QCOMPARE(imageChangedSpy.count(), 0);
+    QCOMPARE(albumIdChangedSpy.count(), 0);
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 

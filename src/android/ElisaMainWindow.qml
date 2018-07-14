@@ -127,6 +127,7 @@ ApplicationWindow {
         titleRole: MediaPlayList.TitleRole
         albumRole: MediaPlayList.AlbumRole
         imageRole: MediaPlayList.ImageRole
+        albumIdRole: MediaPlayList.AlbumIdRole
         isValidRole: MediaPlayList.IsValidRole
     }
 

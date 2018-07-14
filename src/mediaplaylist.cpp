@@ -105,6 +105,7 @@ QHash<int, QByteArray> MediaPlayList::roleNames() const
     roles[static_cast<int>(ColumnsRoles::ShadowForImageRole)] = "shadowForImage";
     roles[static_cast<int>(ColumnsRoles::ResourceRole)] = "trackResource";
     roles[static_cast<int>(ColumnsRoles::TrackDataRole)] = "trackData";
+    roles[static_cast<int>(ColumnsRoles::AlbumIdRole)] = "albumId";
 
     return roles;
 }
@@ -256,6 +257,9 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
         case ColumnsRoles::TrackDataRole:
             result = QVariant::fromValue(d->mTrackData[index.row()]);
             break;
+        case ColumnsRoles::AlbumIdRole:
+            result = d->mTrackData[index.row()].albumId();
+            break;
         }
     } else {
         switch(role)
@@ -324,8 +328,13 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
             result = false;
             break;
         case ColumnsRoles::TrackDataRole:
+        {
             MusicAudioTrack emptyTrack;
             result = QVariant::fromValue(emptyTrack);
+            break;
+        }
+        case ColumnsRoles::AlbumIdRole:
+            result = 0;
             break;
         }
     }

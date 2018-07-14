@@ -68,6 +68,10 @@ public:
 
     qulonglong databaseId() const;
 
+    void setAlbumId(qulonglong value);
+
+    qulonglong albumId() const;
+
     void setId(const QString &value) const;
 
     QString id() const;

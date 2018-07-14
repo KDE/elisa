@@ -63,6 +63,11 @@ class ELISALIB_EXPORT ManageHeaderBar : public QObject
                WRITE setImageRole
                NOTIFY imageRoleChanged)
 
+    Q_PROPERTY(int albumIdRole
+               READ albumIdRole
+               WRITE setAlbumIdRole
+               NOTIFY albumIdRoleChanged)
+
     Q_PROPERTY(int isValidRole
                READ isValidRole
                WRITE setIsValidRole
@@ -83,6 +88,10 @@ class ELISALIB_EXPORT ManageHeaderBar : public QObject
     Q_PROPERTY(QUrl image
                READ image
                NOTIFY imageChanged)
+
+    Q_PROPERTY(qulonglong albumId
+               READ albumId
+               NOTIFY albumIdChanged)
 
     Q_PROPERTY(bool isValid
                READ isValid
@@ -108,6 +117,8 @@ public:
 
     int imageRole() const;
 
+    int albumIdRole() const;
+
     int isValidRole() const;
 
     QVariant artist() const;
@@ -117,6 +128,8 @@ public:
     QVariant album() const;
 
     QUrl image() const;
+
+    qulonglong albumId() const;
 
     bool isValid() const;
 
@@ -136,6 +149,8 @@ Q_SIGNALS:
 
     void imageRoleChanged();
 
+    void albumIdRoleChanged();
+
     void isValidRoleChanged();
 
     void artistChanged();
@@ -147,6 +162,8 @@ Q_SIGNALS:
     void imageChanged();
 
     void remainingTracksChanged();
+
+    void albumIdChanged();
 
     void isValidChanged();
 
@@ -163,6 +180,8 @@ public Q_SLOTS:
     void setAlbumRole(int value);
 
     void setImageRole(int value);
+
+    void setAlbumIdRole(int albumIdRole);
 
     void setIsValidRole(int isValidRole);
 
@@ -188,6 +207,8 @@ private:
 
     void notifyImageProperty();
 
+    void notifyAlbumIdProperty();
+
     void notifyIsValidProperty();
 
     void notifyRemainingTracksProperty();
@@ -204,6 +225,8 @@ private:
 
     int mImageRole = Qt::DisplayRole;
 
+    int mAlbumIdRole = Qt::DisplayRole;
+
     int mIsValidRole = Qt::DisplayRole;
 
     QVariant mOldArtist;
@@ -213,6 +236,8 @@ private:
     QVariant mOldAlbum;
 
     QVariant mOldImage;
+
+    qulonglong mOldAlbumId = 0;
 
     bool mOldIsValid = false;
 

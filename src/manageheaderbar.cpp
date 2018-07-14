@@ -74,6 +74,17 @@ int ManageHeaderBar::imageRole() const
     return mImageRole;
 }
 
+void ManageHeaderBar::setAlbumIdRole(int albumIdRole)
+{
+    mAlbumIdRole = albumIdRole;
+    Q_EMIT albumIdRoleChanged();
+}
+
+int ManageHeaderBar::albumIdRole() const
+{
+    return mAlbumIdRole;
+}
+
 QVariant ManageHeaderBar::album() const
 {
     if (!mCurrentTrack.isValid()) {
@@ -108,6 +119,15 @@ QUrl ManageHeaderBar::image() const
     }
 
     return mCurrentTrack.data(mImageRole).toUrl();
+}
+
+qulonglong ManageHeaderBar::albumId() const
+{
+    if (!mCurrentTrack.isValid()) {
+        return 0;
+    }
+
+    return mCurrentTrack.data(mAlbumIdRole).toULongLong();
 }
 
 bool ManageHeaderBar::isValid() const
@@ -183,6 +203,7 @@ void ManageHeaderBar::tracksDataChanged(const QModelIndex &topLeft, const QModel
         notifyTitleProperty();
         notifyAlbumProperty();
         notifyImageProperty();
+        notifyAlbumIdProperty();
         notifyIsValidProperty();
     } else {
         for(auto oneRole : roles) {
@@ -197,6 +218,9 @@ void ManageHeaderBar::tracksDataChanged(const QModelIndex &topLeft, const QModel
             }
             if (oneRole == mImageRole) {
                 notifyImageProperty();
+            }
+            if (oneRole == mAlbumIdRole) {
+                notifyAlbumIdProperty();
             }
             if (oneRole == mIsValidRole) {
                 notifyIsValidProperty();
@@ -241,6 +265,7 @@ void ManageHeaderBar::tracksRemoved(const QModelIndex &parent, int first, int la
         notifyTitleProperty();
         notifyAlbumProperty();
         notifyImageProperty();
+        notifyAlbumIdProperty();
         notifyIsValidProperty();
         notifyRemainingTracksProperty();
 
@@ -290,6 +315,21 @@ void ManageHeaderBar::notifyImageProperty()
     }
 }
 
+void ManageHeaderBar::notifyAlbumIdProperty()
+{
+    bool conversionOk;
+    auto newAlbumIdValue = mCurrentTrack.data(mAlbumIdRole).toULongLong(&conversionOk);
+    if (conversionOk && mOldAlbumId != newAlbumIdValue) {
+        Q_EMIT albumIdChanged();
+
+        mOldAlbumId = newAlbumIdValue;
+    } else if (!conversionOk && mOldAlbumId != 0) {
+        Q_EMIT albumIdChanged();
+
+        mOldAlbumId = 0;
+    }
+}
+
 void ManageHeaderBar::notifyIsValidProperty()
 {
     auto newIsValidValue = mCurrentTrack.data(mIsValidRole).toBool();
@@ -336,6 +376,7 @@ void ManageHeaderBar::setCurrentTrack(const QPersistentModelIndex &currentTrack)
     notifyTitleProperty();
     notifyAlbumProperty();
     notifyImageProperty();
+    notifyAlbumIdProperty();
     notifyIsValidProperty();
 }
 

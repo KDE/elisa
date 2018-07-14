@@ -32,15 +32,15 @@ public:
     MusicAudioTrackPrivate(bool aValid, QString aId, QString aParentId,
                            QString aTitle, QString aArtist, QString aAlbumName, QString aAlbumArtist,
                            int aTrackNumber, int aDiscNumber, QTime aDuration, QUrl aResourceURI,
-                           const QDateTime &fileModificationTime, QUrl aAlbumCover, int rating,
+                           QDateTime fileModificationTime, QUrl aAlbumCover, int rating,
                            bool aIsSingleDiscAlbum, QString aGenre, QString aComposer,
                            QString aLyricist)
         : mId(std::move(aId)), mParentId(std::move(aParentId)), mTitle(std::move(aTitle)), mArtist(std::move(aArtist)),
           mAlbumName(std::move(aAlbumName)), mAlbumArtist(std::move(aAlbumArtist)),
           mGenre(std::move(aGenre)), mComposer(std::move(aComposer)), mLyricist(std::move(aLyricist)),
           mResourceURI(std::move(aResourceURI)),
-          mAlbumCover(std::move(aAlbumCover)), mDuration(aDuration),
-          mFileModificationTime(fileModificationTime),
+          mAlbumCover(std::move(aAlbumCover)),
+          mFileModificationTime(std::move(fileModificationTime)), mDuration(aDuration),
           mTrackNumber(aTrackNumber), mDiscNumber(aDiscNumber), mRating(rating),
           mIsValid(aValid), mIsSingleDiscAlbum(aIsSingleDiscAlbum)
     {
@@ -72,9 +72,11 @@ public:
 
     qulonglong mDatabaseId = 0;
 
-    QTime mDuration;
+    qulonglong mAlbumId = 0;
 
     QDateTime mFileModificationTime;
+
+    QTime mDuration;
 
     int mTrackNumber = -1;
 
@@ -107,7 +109,7 @@ MusicAudioTrack::MusicAudioTrack(bool aValid, QString aId, QString aParentId, QS
     : d(std::make_unique<MusicAudioTrackPrivate>(aValid, std::move(aId), std::move(aParentId),
                                                  std::move(aTitle), std::move(aArtist),
                                                  std::move(aAlbumName), std::move(aAlbumArtist),
-                                                 aTrackNumber, aDiscNumber, std::move(aDuration),
+                                                 aTrackNumber, aDiscNumber, aDuration,
                                                  std::move(aResourceURI), fileModificationTime,
                                                  std::move(aAlbumCover), rating,
                                                  aIsSingleDiscAlbum, std::move(aGenre),
@@ -199,6 +201,16 @@ void MusicAudioTrack::setDatabaseId(qulonglong value)
 qulonglong MusicAudioTrack::databaseId() const
 {
     return d->mDatabaseId;
+}
+
+void MusicAudioTrack::setAlbumId(qulonglong value)
+{
+    d->mAlbumId = value;
+}
+
+qulonglong MusicAudioTrack::albumId() const
+{
+    return d->mAlbumId;
 }
 
 void MusicAudioTrack::setId(const QString &value) const

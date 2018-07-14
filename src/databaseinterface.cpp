@@ -3586,6 +3586,7 @@ MusicAudioTrack DatabaseInterface::buildTrackFromDatabaseRecord(const QSqlRecord
     result.setChannels(trackRecord.value(19).toInt());
     result.setBitRate(trackRecord.value(20).toInt());
     result.setSampleRate(trackRecord.value(21).toInt());
+    result.setAlbumId(trackRecord.value(2).toULongLong());
 
     result.setValid(true);
 

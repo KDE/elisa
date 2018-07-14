@@ -298,6 +298,7 @@ private Q_SLOTS:
         QCOMPARE(track.genre(), QStringLiteral("genre1"));
         QCOMPARE(track.composer(), QStringLiteral("composer1"));
         QCOMPARE(track.lyricist(), QStringLiteral("lyricist1"));
+        QCOMPARE(track.albumId(), qulonglong(1));
 
         auto album = musicDb.albumFromTitleAndArtist(QStringLiteral("album3"), QStringLiteral("artist2"));
 
@@ -401,6 +402,7 @@ private Q_SLOTS:
         QCOMPARE(firstTrack.genre(), QStringLiteral("genre1"));
         QCOMPARE(firstTrack.composer(), QStringLiteral("composer1"));
         QCOMPARE(firstTrack.lyricist(), QStringLiteral("lyricist1"));
+        QCOMPARE(firstTrack.albumId(), qulonglong(2));
 
         auto secondTrack = musicDb.trackFromDatabaseId(musicDb.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track7"), QStringLiteral("artist3"),
                                                                                                     QStringLiteral("album3"), 7, 1));
@@ -420,6 +422,7 @@ private Q_SLOTS:
         QCOMPARE(secondTrack.genre(), QStringLiteral("genre1"));
         QCOMPARE(secondTrack.composer(), QStringLiteral("composer1"));
         QCOMPARE(secondTrack.lyricist(), QStringLiteral("lyricist1"));
+        QCOMPARE(secondTrack.albumId(), qulonglong(2));
 
         auto album = musicDb.albumFromTitleAndArtist(QStringLiteral("album3"), QStringLiteral("artist2"));
 
@@ -526,6 +529,7 @@ private Q_SLOTS:
         QCOMPARE(firstTrack.composer(), QStringLiteral("composer1"));
         QCOMPARE(firstTrack.lyricist(), QStringLiteral("lyricist1"));
         QCOMPARE(firstTrack.isSingleDiscAlbum(), true);
+        QCOMPARE(firstTrack.albumId(), qulonglong(1));
 
         auto secondTrack = musicDb.trackFromDatabaseId(musicDb.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track7"), QStringLiteral("artist2"),
                                                                                                     QStringLiteral("album3"), 7, 1));
@@ -546,6 +550,7 @@ private Q_SLOTS:
         QCOMPARE(secondTrack.composer(), QStringLiteral("composer1"));
         QCOMPARE(secondTrack.lyricist(), QStringLiteral("lyricist1"));
         QCOMPARE(secondTrack.isSingleDiscAlbum(), true);
+        QCOMPARE(secondTrack.albumId(), qulonglong(1));
 
         auto thirdTrack = musicDb.trackFromDatabaseId(musicDb.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track8"), QStringLiteral("artist2"),
                                                                                                    QStringLiteral("album3"), 8, 1));
@@ -566,6 +571,7 @@ private Q_SLOTS:
         QCOMPARE(thirdTrack.composer(), QStringLiteral("composer1"));
         QCOMPARE(thirdTrack.lyricist(), QStringLiteral("lyricist1"));
         QCOMPARE(thirdTrack.isSingleDiscAlbum(), true);
+        QCOMPARE(thirdTrack.albumId(), qulonglong(1));
 
         auto album = musicDb.albumFromTitleAndArtist(QStringLiteral("album3"), QStringLiteral("artist2"));
 
@@ -670,6 +676,7 @@ private Q_SLOTS:
         QCOMPARE(firstTrack.composer(), QStringLiteral("composer1"));
         QCOMPARE(firstTrack.lyricist(), QStringLiteral("lyricist1"));
         QCOMPARE(firstTrack.isSingleDiscAlbum(), true);
+        QCOMPARE(firstTrack.albumId(), qulonglong(2));
 
         auto secondTrack = musicDb.trackFromDatabaseId(musicDb.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track7"), QStringLiteral("artist3"),
                                                                                                     QStringLiteral("album3"), 7, 1));
@@ -690,6 +697,7 @@ private Q_SLOTS:
         QCOMPARE(secondTrack.composer(), QStringLiteral("composer1"));
         QCOMPARE(secondTrack.lyricist(), QStringLiteral("lyricist1"));
         QCOMPARE(secondTrack.isSingleDiscAlbum(), true);
+        QCOMPARE(secondTrack.albumId(), qulonglong(2));
 
         auto album = musicDb.albumFromTitleAndArtist(QStringLiteral("album3"), QStringLiteral("artist4"));
 
@@ -3785,6 +3793,7 @@ private Q_SLOTS:
         QCOMPARE(firstTrack.genre(), QStringLiteral("genre1"));
         QCOMPARE(firstTrack.composer(), QStringLiteral("composer1"));
         QCOMPARE(firstTrack.lyricist(), QStringLiteral("lyricist1"));
+        QCOMPARE(firstTrack.albumId(), qulonglong(2));
 
         auto newTracks2 = QList<MusicAudioTrack>();
 
@@ -3929,6 +3938,7 @@ private Q_SLOTS:
         QCOMPARE(firstTrack.genre(), QStringLiteral("genre1"));
         QCOMPARE(firstTrack.composer(), QStringLiteral("composer1"));
         QCOMPARE(firstTrack.lyricist(), QStringLiteral("lyricist1"));
+        QCOMPARE(firstTrack.albumId(), qulonglong(2));
 
         auto secondTrack = musicDb.trackFromDatabaseId(musicDb.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track7"), QStringLiteral("artist3"),
                                                                                                     QStringLiteral("album3"), 7, 1));
@@ -3948,6 +3958,7 @@ private Q_SLOTS:
         QCOMPARE(secondTrack.genre(), QStringLiteral("genre1"));
         QCOMPARE(secondTrack.composer(), QStringLiteral("composer1"));
         QCOMPARE(secondTrack.lyricist(), QStringLiteral("lyricist1"));
+        QCOMPARE(secondTrack.albumId(), qulonglong(2));
 
         auto album = musicDb.albumFromTitleAndArtist(QStringLiteral("album3"), QStringLiteral("artist4"));
 

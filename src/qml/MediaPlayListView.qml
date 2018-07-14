@@ -40,7 +40,7 @@ FocusScope {
 
     Controls1.Action {
         id: clearPlayList
-        text: i18nc("Remove all tracks from play list", "Clear Play List")
+        text: i18nc("Remove all tracks from play list", "Clear Playlist")
         iconName: "list-remove"
         enabled: playListModelDelegate.items.count > 0
         onTriggered: playListModel.clearPlayList()
@@ -60,7 +60,7 @@ FocusScope {
 
     Controls1.Action {
         id: loadPlaylist
-        text: i18nc("Load a playlist file", "Load a Playlist")
+        text: i18nc("Load a playlist file", "Load Playlist...")
         iconName: 'document-open'
         onTriggered:
         {
@@ -72,7 +72,7 @@ FocusScope {
 
     Controls1.Action {
         id: savePlaylist
-        text: i18nc("Save a playlist file", "Save a Playlist")
+        text: i18nc("Save a playlist file", "Save Playlist...")
         iconName: 'document-save'
         enabled: playListModelDelegate.items.count > 0
         onTriggered:
@@ -113,8 +113,8 @@ FocusScope {
             Layout.maximumHeight: elisaTheme.navigationBarHeight
             spacing: 0
 
-            Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-            Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+            Layout.leftMargin:  elisaTheme.layoutHorizontalMargin
+            Layout.rightMargin:  elisaTheme.layoutHorizontalMargin
 
             TextMetrics {
                 id: titleHeight
@@ -128,32 +128,44 @@ FocusScope {
 
             LabelWithToolTip {
                 id: viewTitleHeight
-                text: i18nc("Title of the view of the playlist", "Now Playing")
+                text: i18nc("Title of the view of the playlist", "Playlist")
 
                 color: myPalette.text
                 font.pointSize: elisaTheme.defaultFontPointSize * 2
-                Layout.topMargin: elisaTheme.layoutVerticalMargin
+                Layout.alignment: Qt.AlignLeft | Qt.AlignTop
+                Layout.topMargin: elisaTheme.layoutVerticalMargin * 3
             }
 
-            LabelWithToolTip {
-                id: playListInfo
 
-                text: i18np("1 track", "%1 tracks", playListModel.tracksCount)
+            RowLayout {
+                Layout.fillWidth: true
 
-                color: myPalette.text
+                LabelWithToolTip {
+                    id: playListInfo
 
-                Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
+                    text: i18np("1 track", "%1 tracks", playListModel.tracksCount)
+                    color: myPalette.text
+                    Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
+                }
+
+                Item { Layout.fillWidth: true }
+
+                Controls1.ToolButton { action: showCurrentTrack }
+                Controls1.ToolButton { action: savePlaylist }
+                Controls1.ToolButton { action: loadPlaylist }
+                Controls1.ToolButton { action: clearPlayList }
             }
 
-            Item {
-                Layout.fillHeight: true
-            }
+            Item { Layout.fillHeight: true }
+
         }
+
 
         ListView {
             id: playListView
             Layout.fillWidth: true
             Layout.fillHeight: true
+            Layout.topMargin: elisaTheme.layoutVerticalMargin
 
             focus: true
 
@@ -288,41 +300,7 @@ FocusScope {
             }
         }
 
-        Rectangle {
-            id: actionBar
 
-            Layout.fillWidth: true
-            Layout.topMargin: elisaTheme.layoutVerticalMargin
-            Layout.preferredHeight: elisaTheme.delegateToolButtonSize
-
-            color: myPalette.mid
-
-            RowLayout {
-                id: actionBarLayout
-
-                anchors.fill: parent
-
-                Controls1.ToolButton {
-                    action: clearPlayList
-                    Layout.bottomMargin: elisaTheme.layoutVerticalMargin
-                }
-                Controls1.ToolButton {
-                    action: showCurrentTrack
-                    Layout.bottomMargin: elisaTheme.layoutVerticalMargin
-                }
-                Controls1.ToolButton {
-                    action: loadPlaylist
-                    Layout.bottomMargin: elisaTheme.layoutVerticalMargin
-                }
-                Controls1.ToolButton {
-                    action: savePlaylist
-                    Layout.bottomMargin: elisaTheme.layoutVerticalMargin
-                }
-                Item {
-                    Layout.fillWidth: true
-                }
-            }
-        }
     }
 }
 

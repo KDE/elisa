@@ -28,6 +28,8 @@ Window {
     id: trackMetadata
 
     property var trackDataHelper
+    property real labelWidth: trackData.width * 0.33
+    property real metadataWidth: trackData.width * 0.66
 
     signal rejected()
 
@@ -36,7 +38,7 @@ Window {
 
     title: i18nc("Window title for track metadata", "View Details")
 
-    function displayDataAndResize()
+    function updateData()
     {
         trackList.clear()
         if (trackDataHelper.hasValidTitle)
@@ -68,25 +70,33 @@ Window {
             trackList.append({"name": i18nc("Channels label for track metadata view", "Channels:"), "content": trackDataHelper.channels.toString()})
         if (trackDataHelper.hasValidComment)
             trackList.append({"name": i18nc("Comment label for track metadata view", "Comment:"), "content": trackDataHelper.comment})
+    }
+
+    function resize() {
         trackData.Layout.preferredHeight = textSize.height * trackData.count
-        trackMetadata.height = textSize.height * (trackData.count + 1 + ( trackDataHelper.hasValidRating ? 1 : 0 )) + buttons.height + elisaTheme.layoutHorizontalMargin
+        trackMetadata.height = textSize.height * (trackData.count + 1 + ( trackDataHelper.hasValidRating ? 1 : 0 )) + buttons.height + elisaTheme.layoutHorizontalMargin * 3
         trackMetadata.minimumHeight = trackMetadata.height
         trackMetadata.maximumHeight = trackMetadata.height
-        trackMetadata.width = elisaTheme.trackMetadataWidth + (trackDataHelper.hasValidAlbumCover ? elisaTheme.coverImageSize : 0)
+        trackMetadata.width = (trackDataHelper.hasValidAlbumCover ? elisaTheme.coverImageSize : 0) + labelWidth + metadataWidth + 2 * elisaTheme.layoutHorizontalMargin
         trackMetadata.minimumWidth = trackMetadata.width
-        trackMetadata.maximumWidth = trackMetadata.width
     }
 
     Connections {
         target: trackDataHelper
 
-        onTrackDataChanged: displayDataAndResize()
+        onTrackDataChanged: {
+            updateData()
+            resize()
+        }
     }
 
     modality: Qt.NonModal
     flags: Qt.Dialog | Qt.WindowCloseButtonHint
 
-    Component.onCompleted: displayDataAndResize()
+    Component.onCompleted: {
+        updateData()
+        resize()
+    }
 
     Rectangle {
         anchors.fill: parent
@@ -95,6 +105,7 @@ Window {
 
         ColumnLayout {
             anchors.fill: parent
+            anchors.margins: elisaTheme.layoutHorizontalMargin
             spacing: 0
 
             RowLayout {
@@ -119,12 +130,11 @@ Window {
                 ColumnLayout {
                     Layout.leftMargin: elisaTheme.layoutHorizontalMargin
                     Layout.fillHeight: true
-                    Layout.preferredWidth: elisaTheme.trackMetadataWidth
+                    Layout.fillWidth: true
                     spacing: 0
 
                     ListView {
                         id: trackData
-
                         interactive: false
                         Layout.fillWidth: true
 
@@ -132,31 +142,49 @@ Window {
                             id: trackList
                         }
 
+                        onCountChanged: resize()
+
                         delegate: RowLayout {
                             id: delegateRow
                             spacing: 0
 
-                            LabelWithToolTip {
+                            Label {
+                                id: metaDataLabels
                                 text: name
                                 color: myPalette.text
                                 horizontalAlignment: Text.AlignRight
 
-                                Layout.preferredWidth: trackData.width * 0.3
+                                Layout.preferredWidth: labelWidth
                                 Layout.minimumHeight: textSize.height
                                 Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
                                 Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+                                Component.onCompleted: {
+                                    if(labelWidth < metaDataLabels.implicitWidth) {
+                                          labelWidth = metaDataLabels.implicitWidth
+                                    }
+                                }
                             }
 
-                            LabelWithToolTip {
+                            Label {
+                                id: metaData
                                 text: content
                                 color: myPalette.text
 
                                 horizontalAlignment: Text.AlignLeft
                                 elide: Text.ElideRight
 
-                                Layout.preferredWidth: trackData.width * 0.66
+                                Layout.preferredWidth: trackMetadata.width - labelWidth - 2 * elisaTheme.layoutHorizontalMargin - (trackDataHelper.hasValidAlbumCover ? elisaTheme.coverImageSize : 0)
                                 Layout.fillWidth: true
                                 Layout.minimumHeight: textSize.height
+                                Component.onCompleted: {
+                                    if(metadataWidth < metaData.implicitWidth) {
+                                        if (metaData.implicitWidth > elisaTheme.maximumMetadataWidth) {
+                                            metadataWidth = elisaTheme.maximumMetadataWidth
+                                        } else {
+                                            metadataWidth = metaData.implicitWidth + 1
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -169,13 +197,13 @@ Window {
 
                         Layout.minimumHeight: textSize.height
 
-                        LabelWithToolTip {
+                        Label {
                             id: ratingText
                             text: i18nc("Rating label for information panel", "Rating:")
                             color: myPalette.text
 
                             horizontalAlignment: Text.AlignRight
-                            Layout.preferredWidth: trackData.width * 0.3
+                            Layout.preferredWidth: labelWidth
                             Layout.rightMargin: elisaTheme.layoutHorizontalMargin
                         }
 
@@ -193,15 +221,10 @@ Window {
                             starSize: elisaTheme.ratingStarSize
 
                             Layout.fillWidth: true
-                        }
-
-                        ColorOverlay {
-                            source: ratingWidget
-
-                            z: 2
-                            anchors.fill: ratingWidget
-
-                            color: myPalette.text
+                            layer.effect: ColorOverlay {
+                                source: ratingWidget
+                                color: myPalette.text
+                            }
                         }
                     }
                 }
@@ -214,11 +237,10 @@ Window {
                 font.italic: true
 
                 elide: Text.ElideLeft
-                horizontalAlignment: Text.AlignRight
+                horizontalAlignment: implicitWidth > trackMetadata.width ? Text.AlignRight : Text.AlignLeft
 
                 Layout.minimumHeight: textSize.height
-                Layout.preferredWidth: trackDataHelper.hasValidAlbumCover ? elisaTheme.coverImageSize + elisaTheme.trackMetadataWidth : elisaTheme.trackMetadataWidth + 2 * elisaTheme.layoutHorizontalMargin
-                Layout.fillWidth: true
+                Layout.preferredWidth: trackMetadata.width * 0.98 - 2 * elisaTheme.layoutHorizontalMargin
                 Layout.topMargin: elisaTheme.layoutVerticalMargin
             }
 

@@ -277,6 +277,8 @@ FocusScope {
                         Layout.maximumWidth: elisaTheme.smallDelegateToolButtonSize
                         Layout.maximumHeight: elisaTheme.smallDelegateToolButtonSize
                         Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+                        Layout.leftMargin: elisaTheme.layoutHorizontalMargin / 2
+                        Layout.rightMargin: elisaTheme.layoutHorizontalMargin / 2
 
                         Image {
                             id: playIcon

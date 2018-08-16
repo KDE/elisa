@@ -112,10 +112,10 @@ set(elisaLib_SOURCES
 add_library(elisaLib ${elisaLib_SOURCES})
 target_link_libraries(elisaLib
     LINK_PUBLIC
-        Qt5::Multimedia KF5::KIOCore KF5::KIOFileWidgets KF5::KIOWidgets
+        Qt5::Multimedia KF5::KIOCore KF5::KIOFileWidgets KF5::KIOWidgets KF5::FileMetaData
     LINK_PRIVATE
         Qt5::Core Qt5::Sql Qt5::Widgets KF5::I18n
-        Qt5::Concurrent Qt5::Qml KF5::ConfigCore KF5::ConfigGui KF5::FileMetaData)
+        Qt5::Concurrent Qt5::Qml KF5::ConfigCore KF5::ConfigGui)
 
 if (KF5XmlGui_FOUND)
     target_link_libraries(elisaLib

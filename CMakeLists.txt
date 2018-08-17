@@ -56,10 +56,12 @@ set_package_properties(KF5CoreAddons PROPERTIES
     DESCRIPTION "Qt addon library with a collection of non-GUI utilities."
     TYPE REQUIRED)
 
+if (NOT WIN32)
 find_package(KF5Baloo ${REQUIRED_KF5_VERSION} CONFIG QUIET)
 set_package_properties(KF5Baloo PROPERTIES
     DESCRIPTION "Baloo provides file searching and indexing."
     TYPE RECOMMENDED)
+endif()
 
 find_package(KF5FileMetaData ${REQUIRED_KF5_VERSION} CONFIG QUIET)
 set_package_properties(KF5FileMetaData PROPERTIES

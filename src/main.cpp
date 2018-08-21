@@ -56,6 +56,10 @@
 #include <QQuickStyle>
 #include <QScreen>
 
+#if defined Qt5AndroidExtras_FOUND && Qt5AndroidExtras_FOUND
+#include <QAndroidService>
+#endif
+
 #include <memory>
 
 #if defined Qt5AndroidExtras_FOUND && Qt5AndroidExtras_FOUND
@@ -69,11 +73,33 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
 int main(int argc, char *argv[])
 #endif
 {
+#if defined Q_OS_ANDROID
+    if(argc > 1 && strcmp(argv[1], "-service") == 0){
+        QAndroidService app(argc, argv);
+        qInfo() << "Service starting...";
+
+        // My service stuff
+
+        return app.exec();
+    }
+
+    qInfo() << "Application starting...";
+#endif
+
     QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
 
     qputenv("QT_GSTREAMER_USE_PLAYBIN_VOLUME", "true");
 
     QApplication app(argc, argv);
+
+#if defined Qt5AndroidExtras_FOUND && Qt5AndroidExtras_FOUND
+    qInfo() << QCoreApplication::arguments();
+
+    QAndroidJniObject::callStaticMethod<void>("org/kde/elisa/ElisaService",
+                                              "startMyService",
+                                              "(Landroid/content/Context;)V",
+                                              QtAndroid::androidContext().object());
+#endif
 
 #if defined KF5Crash_FOUND && KF5Crash_FOUND
     KCrash::initialize();
@@ -108,15 +134,6 @@ int main(int argc, char *argv[])
     aboutData.setupCommandLine(&parser);
     parser.process(app);
     aboutData.processCommandLine(&parser);
-
-#if defined Qt5AndroidExtras_FOUND && Qt5AndroidExtras_FOUND
-    qDebug() << QCoreApplication::arguments();
-
-    QAndroidJniObject::callStaticMethod<void>("com/kde/elisa/ElisaService",
-                                              "startMyService",
-                                              "(Landroid/content/Context;)V",
-                                              QtAndroid::androidContext().object());
-#endif
 
     QQuickStyle::setStyle(QStringLiteral("org.kde.desktop"));
     QQuickStyle::setFallbackStyle(QStringLiteral("Fusion"));

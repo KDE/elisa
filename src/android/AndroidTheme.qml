@@ -15,9 +15,11 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.0
+import QtQuick 2.7
+import QtQuick.Controls 2.2
+import org.kde.elisa 1.0
 
-Item {
+BaseTheme {
     property string albumCover: 'media-optical-audio.svg'
     property string artistImage: 'view-media-artist.svg'
     property string clearIcon: 'edit-clear.svg'

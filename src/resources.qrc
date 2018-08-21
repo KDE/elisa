@@ -51,5 +51,9 @@
         <file alias="ElisaMainWindow.qml">android/ElisaMainWindow.qml</file>
         <file alias="Theme.qml">android/AndroidTheme.qml</file>
         <file alias="PlatformIntegration.qml">android/PlatformIntegration.qml</file>
+        <file alias="AlbumsView.qml">android/AlbumsView.qml</file>
+        <file alias="ArtistsView.qml">android/ArtistsView.qml</file>
+        <file alias="TracksView.qml">android/TracksView.qml</file>
+        <file alias="GenresView.qml">android/GenresView.qml</file>
     </qresource>
 </RCC>

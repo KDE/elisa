@@ -42,7 +42,22 @@ set_package_properties(Qt5QuickControls2 PROPERTIES
 
 if (ANDROID)
     find_package(Qt5 ${REQUIRED_QT_VERSION} CONFIG QUIET OPTIONAL_COMPONENTS AndroidExtras)
+    set_package_properties(Qt5AndroidExtras PROPERTIES
+        DESCRIPTION "Qt5 AndroidExtras is needed to provide the Android integration."
+        TYPE REQUIRED)
 endif()
+
+find_package(KF5Kirigami2 ${REQUIRED_KF5_VERSION} CONFIG QUIET)
+
+if (ANDROID)
+    set(KIRIGAMI_DEPENDENCY_TYPE REQUIRED)
+else()
+    set(KIRIGAMI_DEPENDENCY_TYPE RECOMMENDED)
+endif()
+
+set_package_properties(KF5Kirigami2 PROPERTIES
+    DESCRIPTION "KF5 Kirigami 2 is needed to provide the mobile UI components."
+    TYPE ${KIRIGAMI_DEPENDENCY_TYPE})
 
 find_package(KF5I18n ${REQUIRED_KF5_VERSION} CONFIG QUIET)
 set_package_properties(KF5I18n PROPERTIES

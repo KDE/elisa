@@ -27,6 +27,10 @@
 #include "baloo/baloolistener.h"
 #endif
 
+#if defined Qt5AndroidExtras_FOUND && Qt5AndroidExtras_FOUND
+#include "android/androidmusiclistener.h"
+#endif
+
 #include "databaseinterface.h"
 #include "mediaplaylist.h"
 #include "file/filelistener.h"
@@ -70,6 +74,10 @@ public:
 #endif
 
     std::list<std::unique_ptr<FileListener>> mFileListener;
+
+#if defined Qt5AndroidExtras_FOUND && Qt5AndroidExtras_FOUND
+    std::unique_ptr<AndroidMusicListener> mAndroidMusicListener;
+#endif
 
     DatabaseInterface mDatabaseInterface;
 
@@ -269,6 +277,26 @@ void MusicListenersManager::configChanged()
     d->mUpnpListener.moveToThread(&d->mDatabaseThread);
     connect(this, &MusicListenersManager::applicationIsTerminating,
             &d->mUpnpListener, &UpnpListener::applicationAboutToQuit, Qt::DirectConnection);
+#endif
+
+#if defined Qt5AndroidExtras_FOUND && Qt5AndroidExtras_FOUND
+    if (!d->mAndroidMusicListener) {
+        d->mAndroidMusicListener = std::make_unique<AndroidMusicListener>();
+        d->mAndroidMusicListener->moveToThread(&d->mListenerThread);
+        d->mAndroidMusicListener->setDatabaseInterface(&d->mDatabaseInterface);
+        connect(this, &MusicListenersManager::applicationIsTerminating,
+                d->mAndroidMusicListener.get(), &AndroidMusicListener::applicationAboutToQuit, Qt::DirectConnection);
+        connect(d->mAndroidMusicListener.get(), &AndroidMusicListener::indexingStarted,
+                this, &MusicListenersManager::monitorStartingListeners);
+        connect(d->mAndroidMusicListener.get(), &AndroidMusicListener::indexingFinished,
+                this, &MusicListenersManager::monitorEndingListeners);
+        connect(d->mAndroidMusicListener.get(), &AndroidMusicListener::clearDatabase,
+                &d->mDatabaseInterface, &DatabaseInterface::removeAllTracksFromSource);
+        connect(d->mAndroidMusicListener.get(), &AndroidMusicListener::newNotification,
+                this, &MusicListenersManager::newNotification);
+        connect(d->mAndroidMusicListener.get(), &AndroidMusicListener::closeNotification,
+                this, &MusicListenersManager::closeNotification);
+    }
 #endif
 
     if (currentConfiguration->elisaFilesIndexer())

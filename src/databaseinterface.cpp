@@ -21,6 +21,8 @@
 
 #include <KI18n/KLocalizedString>
 
+#include <QCoreApplication>
+
 #include <QSqlDatabase>
 #include <QSqlDriver>
 #include <QSqlQuery>
@@ -263,6 +265,7 @@ DatabaseInterface::~DatabaseInterface()
 
 void DatabaseInterface::init(const QString &dbName, const QString &databaseFileName)
 {
+    qInfo() << QCoreApplication::libraryPaths();
     QSqlDatabase tracksDatabase = QSqlDatabase::addDatabase(QStringLiteral("QSQLITE"), dbName);
 
     if (!databaseFileName.isEmpty()) {
@@ -818,7 +821,7 @@ void DatabaseInterface::insertTracksList(const QList<MusicAudioTrack> &tracks, c
         for (auto artistId : qAsConst(d->mInsertedArtists)) {
             newArtists.push_back({{DatabaseIdRole, artistId}});
         }
-
+        qInfo() << "artistsAdded" << newArtists.size();
         Q_EMIT artistsAdded(newArtists);
     }
 
@@ -830,6 +833,7 @@ void DatabaseInterface::insertTracksList(const QList<MusicAudioTrack> &tracks, c
             newAlbums.push_back(internalOneAlbumPartialData(albumId));
         }
 
+        qInfo() << "albumsAdded" << newAlbums.size();
         Q_EMIT albumsAdded(newAlbums);
     }
 
@@ -845,6 +849,7 @@ void DatabaseInterface::insertTracksList(const QList<MusicAudioTrack> &tracks, c
             d->mModifiedTrackIds.remove(trackId);
         }
 
+        qInfo() << "tracksAdded" << newTracks.size();
         Q_EMIT tracksAdded(newTracks);
     }
 

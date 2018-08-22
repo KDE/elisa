@@ -35,6 +35,7 @@ FocusScope {
     property bool playEnabled
     property bool skipForwardEnabled
     property bool skipBackwardEnabled
+    property bool isMaximized
 
     property bool shuffle
     property bool repeat
@@ -44,6 +45,9 @@ FocusScope {
     signal playPrevious()
     signal playNext()
     signal seek(int position)
+
+    signal maximize()
+    signal minimize()
 
     id: musicWidget
 
@@ -66,6 +70,41 @@ FocusScope {
     RowLayout {
         anchors.fill: parent
         spacing: 5
+
+        Button {
+            Layout.preferredWidth: elisaTheme.smallControlButtonSize
+            Layout.preferredHeight: elisaTheme.smallControlButtonSize
+            Layout.alignment: Qt.AlignVCenter
+            Layout.maximumWidth: elisaTheme.smallControlButtonSize
+            Layout.maximumHeight: elisaTheme.smallControlButtonSize
+            Layout.minimumWidth: elisaTheme.smallControlButtonSize
+            Layout.minimumHeight: elisaTheme.smallControlButtonSize
+            Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.mediaPlayerHorizontalMargin : 0
+            Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.mediaPlayerHorizontalMargin : 0
+
+            contentItem: Image {
+                anchors.fill: parent
+                source: Qt.resolvedUrl(musicWidget.isMaximized ? elisaTheme.minimizeIcon : elisaTheme.maximizeIcon)
+
+                width: elisaTheme.smallControlButtonSize
+                height: elisaTheme.smallControlButtonSize
+
+                sourceSize.width: elisaTheme.smallControlButtonSize
+                sourceSize.height: elisaTheme.smallControlButtonSize
+
+                fillMode: Image.PreserveAspectFit
+                opacity: 1.0
+            }
+
+            background: Rectangle {
+                border.width: 0
+                opacity: 0.0
+            }
+            
+            onClicked: {
+                musicWidget.isMaximized = !musicWidget.isMaximized
+            }
+        }
 
         RoundButton {
             focus: skipBackwardEnabled
@@ -567,6 +606,15 @@ FocusScope {
     onVolumeChanged:
     {
         console.log('volume of player controls changed: ' + volume)
+    }
+
+    onIsMaximizedChanged:
+    {
+        if (musicWidget.isMaximized) {
+            musicWidget.maximize()
+        } else {
+            musicWidget.minimize()
+        }
     }
 }
 

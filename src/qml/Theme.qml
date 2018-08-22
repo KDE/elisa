@@ -51,6 +51,8 @@ Item {
     property string noRepeatIcon: 'image://icon/media-repeat-none'
     property string noShuffleIcon: 'image://icon/media-playlist-normal'
     property string folderIcon: 'image://icon/document-open-folder'
+    property string maximizeIcon: 'image://icon/draw-arrow-down'
+    property string minimizeIcon: 'image://icon/draw-arrow-up'
 
     property int layoutHorizontalMargin: dp(8)
     property int layoutVerticalMargin: dp(6)

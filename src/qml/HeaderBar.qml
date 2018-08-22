@@ -36,6 +36,7 @@ FocusScope {
     property int trackRating
     property bool ratingVisible
     property alias playerControl: playControlItem
+    property alias isMaximized: playControlItem.isMaximized
 
     onImageChanged:
     {

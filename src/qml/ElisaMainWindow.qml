@@ -104,6 +104,8 @@ ApplicationWindow {
         property bool expandedFilterView: false
 
         property bool showPlaylist: true
+
+        property bool headerBarIsMaximized: false
    }
 
     Connections {
@@ -124,6 +126,8 @@ ApplicationWindow {
             persistentSettings.playControlItemRepeat = headerBar.playerControl.repeat
             persistentSettings.playControlItemShuffle = headerBar.playerControl.shuffle
             persistentSettings.showPlaylist = contentView.showPlaylist
+
+            persistentSettings.headerBarIsMaximized = headerBar.isMaximized
         }
     }
 
@@ -175,10 +179,11 @@ ApplicationWindow {
             spacing: 0
 
             Item {
-                Layout.preferredHeight: mainWindow.height * 0.2 + elisaTheme.mediaPlayerControlHeight
+                id: headerBarParent
                 Layout.minimumHeight: mainWindow.height * 0.2 + elisaTheme.mediaPlayerControlHeight
                 Layout.maximumHeight: mainWindow.height * 0.2 + elisaTheme.mediaPlayerControlHeight
                 Layout.fillWidth: true
+                
 
                 HeaderBar {
                     id: headerBar
@@ -215,6 +220,8 @@ ApplicationWindow {
                     playerControl.onPause: elisa.audioControl.playPause()
                     playerControl.onPlayPrevious: elisa.mediaPlayList.skipPreviousTrack()
                     playerControl.onPlayNext: elisa.mediaPlayList.skipNextTrack()
+
+                    playerControl.isMaximized: persistentSettings.headerBarIsMaximized
 
                     TrackImportNotification {
                         id: importedTracksCountNotification
@@ -264,6 +271,33 @@ ApplicationWindow {
                 showPlaylist: persistentSettings.showPlaylist
             }
         }
+    }
+
+    StateGroup {
+        id: mainWindowState
+        states: [
+            State {
+                name: "headerBarIsMaximized"
+                when: headerBar.isMaximized 
+                changes: [
+                    PropertyChanges {
+                        target: mainWindow
+                        minimumHeight: 120 + elisaTheme.mediaPlayerControlHeight
+                        explicit: true
+                    },
+                    PropertyChanges {
+                        target: headerBarParent
+                        Layout.minimumHeight: mainWindow.height
+                        Layout.maximumHeight: mainWindow.height
+                    },
+                    PropertyChanges {
+                        target: contentView
+                        height: 0
+                        visible: false
+                    }
+                ]
+            }
+        ]
     }
 
     Component.onCompleted:

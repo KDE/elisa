@@ -152,18 +152,19 @@ ecm_add_test(${alltracksproxymodeltest_SOURCES}
 
 target_include_directories(alltracksproxymodeltest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 
-set(localfilelistingtest_SOURCES
-    localfilelistingtest.cpp
-)
+if (KF5FileMetaData_FOUND)
+    set(localfilelistingtest_SOURCES
+        localfilelistingtest.cpp
+    )
 
-ecm_add_test(${localfilelistingtest_SOURCES}
-    TEST_NAME "localfilelistingtest"
-    LINK_LIBRARIES
-        Qt5::Test elisaLib
-)
+    ecm_add_test(${localfilelistingtest_SOURCES}
+        TEST_NAME "localfilelistingtest"
+        LINK_LIBRARIES
+            Qt5::Test elisaLib
+    )
 
-target_include_directories(localfilelistingtest PRIVATE ${CMAKE_SOURCE_DIR}/src)
-
+    target_include_directories(localfilelistingtest PRIVATE ${CMAKE_SOURCE_DIR}/src)
+endif()
 
 if (KF5XmlGui_FOUND AND KF5KCMUtils_FOUND)
     set(elisaapplicationtest_SOURCES

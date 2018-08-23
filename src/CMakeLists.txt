@@ -23,6 +23,7 @@ set(elisaLib_SOURCES
     modeldatacache.cpp
     abstractfile/abstractfilelistener.cpp
     abstractfile/abstractfilelisting.cpp
+    filescanner.cpp
     file/filelistener.cpp
     file/localfilelisting.cpp
     models/albummodel.cpp
@@ -37,9 +38,15 @@ set(elisaLib_SOURCES
     models/singleartistproxymodel.cpp
     models/singlealbumproxymodel.cpp
     models/genericdatamodel.cpp
-    models/filebrowsermodel.cpp
-    models/filebrowserproxymodel.cpp
 )
+
+if (KF5KIO_FOUND)
+    set(elisaLib_SOURCES
+        ${elisaLib_SOURCES}
+        models/filebrowsermodel.cpp
+        models/filebrowserproxymodel.cpp
+    )
+endif()
 
 if (KF5Baloo_FOUND)
     if (Qt5DBus_FOUND)
@@ -112,10 +119,25 @@ set(elisaLib_SOURCES
 add_library(elisaLib ${elisaLib_SOURCES})
 target_link_libraries(elisaLib
     LINK_PUBLIC
-        Qt5::Multimedia KF5::KIOCore KF5::KIOFileWidgets KF5::KIOWidgets KF5::FileMetaData
+        Qt5::Multimedia
     LINK_PRIVATE
-        Qt5::Core Qt5::Sql Qt5::Widgets KF5::I18n
-        Qt5::Concurrent Qt5::Qml KF5::ConfigCore KF5::ConfigGui)
+        Qt5::Core Qt5::Sql Qt5::Widgets Qt5::Concurrent Qt5::Qml
+        KF5::I18n KF5::CoreAddons
+        KF5::ConfigCore KF5::ConfigGui)
+
+if (KF5FileMetaData_FOUND)
+    target_link_libraries(elisaLib
+        LINK_PRIVATE
+            KF5::FileMetaData
+    )
+endif()
+
+if (KF5KIO_FOUND)
+    target_link_libraries(elisaLib
+        LINK_PUBLIC
+            KF5::KIOCore KF5::KIOFileWidgets KF5::KIOWidgets
+    )
+endif()
 
 if (KF5XmlGui_FOUND)
     target_link_libraries(elisaLib
@@ -181,9 +203,16 @@ add_library(elisaqmlplugin SHARED ${elisaqmlplugin_SOURCES})
 target_link_libraries(elisaqmlplugin
     LINK_PRIVATE
         Qt5::Quick Qt5::Widgets
-        KF5::FileMetaData KF5::ConfigCore KF5::ConfigGui
+        KF5::ConfigCore KF5::ConfigGui
         elisaLib
 )
+
+if (KF5FileMetaData_FOUND)
+    target_link_libraries(elisaqmlplugin
+        LINK_PRIVATE
+            KF5::FileMetaData
+    )
+endif()
 
 set_target_properties(elisaqmlplugin PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/org/kde/elisa)
 
@@ -206,7 +235,7 @@ add_custom_command(TARGET copy2 PRE_BUILD
 
 add_dependencies(elisaqmlplugin copy copy2)
 
-if (Qt5Quick_FOUND AND Qt5Widgets_FOUND AND KF5Declarative_FOUND)
+if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
     set(elisa_SOURCES
         main.cpp
 
@@ -273,14 +302,35 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND AND KF5Declarative_FOUND)
     target_link_libraries(elisa
         LINK_PRIVATE
             elisaLib
-            Qt5::Widgets Qt5::QuickControls2
-            KF5::Declarative KF5::I18n KF5::Crash KF5::ConfigCore KF5::ConfigGui
+            Qt5::Widgets Qt5::QuickControls2 Qt5::Svg
+            KF5::I18n KF5::CoreAddons KF5::ConfigCore KF5::ConfigGui
     )
+
+    if (ANDROID)
+        target_link_libraries(elisa
+            LINK_PRIVATE
+            Qt5::AndroidExtras
+        )
+    endif()
+
+    if (KF5Crash_FOUND)
+        target_link_libraries(elisa
+            LINK_PRIVATE
+            KF5::Crash
+        )
+    endif()
+
+    if (KF5Declarative_FOUND)
+        target_link_libraries(elisa
+            LINK_PRIVATE
+                KF5::Declarative
+        )
+    endif()
+
+    install(TARGETS elisa ${INSTALL_TARGETS_DEFAULT_ARGS})
 endif()
 
-install(TARGETS elisa ${INSTALL_TARGETS_DEFAULT_ARGS})
-
-if (KF5ConfigWidgets_FOUND)
+if (KF5ConfigWidgets_FOUND AND KF5Declarative_FOUND)
     add_subdirectory(localFileConfiguration)
 endif()
 
@@ -299,8 +349,15 @@ add_executable(elisaImport ${elisaImport_SOURCES})
 
 target_link_libraries(elisaImport
     LINK_PRIVATE
-        KF5::ConfigCore KF5::ConfigGui KF5::FileMetaData
+        KF5::ConfigCore KF5::ConfigGui
         elisaLib
 )
+
+if (KF5FileMetaData_FOUND)
+    target_link_libraries(elisaImport
+        LINK_PRIVATE
+            KF5::FileMetaData
+    )
+endif()
 
 set(QML_IMPORT_PATH ${CMAKE_BINARY_DIR}/bin CACHE INTERNAL "qml import path" FORCE)

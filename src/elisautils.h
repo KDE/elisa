@@ -22,27 +22,11 @@
 
 #include "elisaLib_export.h"
 
-#include "musicaudiotrack.h"
-#include <KFileMetaData/Properties>
-
-#include <QUrl>
-#include <QMimeDatabase>
 #include <QMetaObject>
-
-namespace KFileMetaData {
-
-class ExtractorCollection;
-
-}
 
 namespace ElisaUtils {
 
 Q_NAMESPACE
-
-ELISALIB_EXPORT MusicAudioTrack scanOneFile(const QUrl &scanFile, const QMimeDatabase &mimeDatabase,
-                                            const KFileMetaData::ExtractorCollection &allExtractors);
-
-ELISALIB_EXPORT void scanProperties(const QString localFileName, const KFileMetaData::PropertyMap &allProperties, MusicAudioTrack &trackData);
 
 enum PlayListEnqueueMode {
     AppendPlayList,

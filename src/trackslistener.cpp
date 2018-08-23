@@ -20,9 +20,7 @@
 #include "trackslistener.h"
 
 #include "databaseinterface.h"
-#include "elisautils.h"
-
-#include <KFileMetaData/ExtractorCollection>
+#include "filescanner.h"
 
 #include <QMimeDatabase>
 #include <QSet>
@@ -44,7 +42,7 @@ public:
 
     DatabaseInterface *mDatabase = nullptr;
 
-    KFileMetaData::ExtractorCollection mExtractors;
+    FileScanner mFileScanner;
 
     QMimeDatabase mMimeDb;
 
@@ -196,7 +194,7 @@ void TracksListener::newArtistInList(const QString &artist)
 
 MusicAudioTrack TracksListener::scanOneFile(const QUrl &scanFile)
 {
-    return ElisaUtils::scanOneFile(scanFile, d->mMimeDb, d->mExtractors);
+    return d->mFileScanner.scanOneFile(scanFile, d->mMimeDb);
 }
 
 

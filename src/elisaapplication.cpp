@@ -26,7 +26,11 @@
 #include "models/allartistsproxymodel.h"
 #include "models/singleartistproxymodel.h"
 #include "models/singlealbumproxymodel.h"
+
+#if defined KF5KIO_FOUND && KF5KIO_FOUND
 #include "models/filebrowserproxymodel.h"
+#endif
+
 #include "mediaplaylist.h"
 #include "audiowrapper.h"
 #include "manageaudioplayer.h"
@@ -109,7 +113,9 @@ public:
 
     std::unique_ptr<SingleAlbumProxyModel> mSingleAlbumProxyModel;
 
+#if defined KF5KIO_FOUND && KF5KIO_FOUND
     std::unique_ptr<FileBrowserProxyModel> mFileBrowserProxyModel;
+#endif
 
     std::unique_ptr<MediaPlayList> mMediaPlayList;
 
@@ -296,6 +302,8 @@ void ElisaApplication::initialize()
 {
     initializeModels();
     initializePlayer();
+
+    Q_EMIT initializationDone();
 }
 
 void ElisaApplication::initializeModels()
@@ -318,8 +326,12 @@ void ElisaApplication::initializeModels()
     Q_EMIT singleArtistProxyModelChanged();
     d->mSingleAlbumProxyModel = std::make_unique<SingleAlbumProxyModel>();
     Q_EMIT singleAlbumProxyModelChanged();
+
+#if defined KF5KIO_FOUND && KF5KIO_FOUND
     d->mFileBrowserProxyModel = std::make_unique<FileBrowserProxyModel>();
     Q_EMIT fileBrowserProxyModelChanged();
+#endif
+
     d->mMediaPlayList = std::make_unique<MediaPlayList>();
     Q_EMIT mediaPlayListChanged();
 
@@ -360,11 +372,12 @@ void ElisaApplication::initializeModels()
                                                                          ElisaUtils::PlayListEnqueueMode,
                                                                          ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayList::enqueue));
 
+#if defined KF5KIO_FOUND && KF5KIO_FOUND
     QObject::connect(d->mFileBrowserProxyModel.get(), &FileBrowserProxyModel::filesToEnqueue,
                      d->mMediaPlayList.get(), static_cast<void (MediaPlayList::*)(const QList<QUrl> &,
                                                                          ElisaUtils::PlayListEnqueueMode,
                                                                          ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayList::enqueue));
-
+#endif
 }
 
 void ElisaApplication::initializePlayer()
@@ -458,49 +471,53 @@ MusicListenersManager *ElisaApplication::musicManager() const
     return d->mMusicManager.get();
 }
 
-AllAlbumsProxyModel *ElisaApplication::allAlbumsProxyModel() const
+QSortFilterProxyModel *ElisaApplication::allAlbumsProxyModel() const
 {
     return d->mAllAlbumsProxyModel.get();
 }
 
-AllArtistsProxyModel *ElisaApplication::allArtistsProxyModel() const
+QSortFilterProxyModel *ElisaApplication::allArtistsProxyModel() const
 {
     return d->mAllArtistsProxyModel.get();
 }
 
-AllArtistsProxyModel *ElisaApplication::allGenresProxyModel() const
+QSortFilterProxyModel *ElisaApplication::allGenresProxyModel() const
 {
     return d->mAllGenresProxyModel.get();
 }
 
-AllArtistsProxyModel *ElisaApplication::allComposersProxyModel() const
+QSortFilterProxyModel *ElisaApplication::allComposersProxyModel() const
 {
     return d->mAllComposersProxyModel.get();
 }
 
-AllArtistsProxyModel *ElisaApplication::allLyricistsProxyModel() const
+QSortFilterProxyModel *ElisaApplication::allLyricistsProxyModel() const
 {
     return d->mAllLyricistsProxyModel.get();
 }
 
-AllTracksProxyModel *ElisaApplication::allTracksProxyModel() const
+QSortFilterProxyModel *ElisaApplication::allTracksProxyModel() const
 {
     return d->mAllTracksProxyModel.get();
 }
 
-SingleArtistProxyModel *ElisaApplication::singleArtistProxyModel() const
+QSortFilterProxyModel *ElisaApplication::singleArtistProxyModel() const
 {
     return d->mSingleArtistProxyModel.get();
 }
 
-SingleAlbumProxyModel *ElisaApplication::singleAlbumProxyModel() const
+QSortFilterProxyModel *ElisaApplication::singleAlbumProxyModel() const
 {
     return d->mSingleAlbumProxyModel.get();
 }
 
-FileBrowserProxyModel *ElisaApplication::fileBrowserProxyModel() const
+QSortFilterProxyModel *ElisaApplication::fileBrowserProxyModel() const
 {
+#if defined KF5KIO_FOUND && KF5KIO_FOUND
     return d->mFileBrowserProxyModel.get();
+#else
+    return nullptr;
+#endif
 }
 
 MediaPlayList *ElisaApplication::mediaPlayList() const

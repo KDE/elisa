@@ -23,15 +23,17 @@
 
 #include "elisaLib_export.h"
 
+#include "filebrowsermodel.h"
+#include "musicaudiotrack.h"
+#include "filescanner.h"
+#include "elisautils.h"
+
 #include <KIOFileWidgets/KDirSortFilterProxyModel>
 #include <QRegularExpression>
 #include <QReadWriteLock>
 #include <QThreadPool>
-#include <memory>
 
-#include "filebrowsermodel.h"
-#include "musicaudiotrack.h"
-#include "elisautils.h"
+#include <memory>
 
 class ELISALIB_EXPORT FileBrowserProxyModel : public KDirSortFilterProxyModel
 {
@@ -109,7 +111,7 @@ private:
 
     QString mTopFolder;
 
-    KFileMetaData::ExtractorCollection mExtractors;
+    FileScanner mFileScanner;
 
     QMimeDatabase mMimeDb;
 

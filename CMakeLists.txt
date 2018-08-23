@@ -69,7 +69,7 @@ endif()
 find_package(KF5FileMetaData ${REQUIRED_KF5_VERSION} CONFIG QUIET)
 set_package_properties(KF5FileMetaData PROPERTIES
     DESCRIPTION "Provides a simple library for extracting metadata."
-    TYPE REQUIRED)
+    TYPE RECOMMENDED)
 
 find_package(KF5DocTools ${REQUIRED_KF5_VERSION} CONFIG QUIET)
 set_package_properties(KF5DocTools PROPERTIES
@@ -116,7 +116,7 @@ set_package_properties(KF5Package PROPERTIES
 find_package(KF5KIO ${REQUIRED_KF5_VERSION} CONFIG QUIET)
 set_package_properties(KF5KIO PROPERTIES
     DESCRIPTION "File management libraries used for file browsing."
-    TYPE REQUIRED)
+    TYPE RECOMMENDED)
 
 find_package(UPNPQT CONFIG QUIET)
 set_package_properties(UPNPQT PROPERTIES

@@ -32,12 +32,7 @@
 class QIcon;
 class QAction;
 class MusicListenersManager;
-class AllAlbumsProxyModel;
-class AllArtistsProxyModel;
-class AllTracksProxyModel;
-class SingleArtistProxyModel;
-class SingleAlbumProxyModel;
-class FileBrowserProxyModel;
+class QSortFilterProxyModel;
 class MediaPlayList;
 class AudioWrapper;
 class ManageAudioPlayer;
@@ -59,39 +54,39 @@ class ELISALIB_EXPORT ElisaApplication : public QObject
                READ musicManager
                NOTIFY musicManagerChanged)
 
-    Q_PROPERTY(AllAlbumsProxyModel *allAlbumsProxyModel
+    Q_PROPERTY(QSortFilterProxyModel* allAlbumsProxyModel
                READ allAlbumsProxyModel
                NOTIFY allAlbumsProxyModelChanged)
 
-    Q_PROPERTY(AllArtistsProxyModel *allArtistsProxyModel
+    Q_PROPERTY(QSortFilterProxyModel* allArtistsProxyModel
                READ allArtistsProxyModel
                NOTIFY allArtistsProxyModelChanged)
 
-    Q_PROPERTY(AllTracksProxyModel *allTracksProxyModel
+    Q_PROPERTY(QSortFilterProxyModel* allTracksProxyModel
                READ allTracksProxyModel
                NOTIFY allTracksProxyModelChanged)
 
-    Q_PROPERTY(AllArtistsProxyModel *allGenresProxyModel
+    Q_PROPERTY(QSortFilterProxyModel* allGenresProxyModel
                READ allGenresProxyModel
                NOTIFY allGenresProxyModelChanged)
 
-    Q_PROPERTY(AllArtistsProxyModel *allComposersProxyModel
+    Q_PROPERTY(QSortFilterProxyModel* allComposersProxyModel
                READ allComposersProxyModel
                NOTIFY allComposersProxyModelChanged)
 
-    Q_PROPERTY(AllArtistsProxyModel *allLyricistsProxyModel
+    Q_PROPERTY(QSortFilterProxyModel* allLyricistsProxyModel
                READ allLyricistsProxyModel
                NOTIFY allLyricistsProxyModelChanged)
 
-    Q_PROPERTY(SingleArtistProxyModel *singleArtistProxyModel
+    Q_PROPERTY(QSortFilterProxyModel* singleArtistProxyModel
                READ singleArtistProxyModel
                NOTIFY singleArtistProxyModelChanged)
 
-    Q_PROPERTY(SingleAlbumProxyModel *singleAlbumProxyModel
+    Q_PROPERTY(QSortFilterProxyModel* singleAlbumProxyModel
                READ singleAlbumProxyModel
                NOTIFY singleAlbumProxyModelChanged)
 
-    Q_PROPERTY(FileBrowserProxyModel *fileBrowserProxyModel
+    Q_PROPERTY(QSortFilterProxyModel* fileBrowserProxyModel
                READ fileBrowserProxyModel
                NOTIFY fileBrowserProxyModelChanged)
 
@@ -128,23 +123,23 @@ public:
 
     MusicListenersManager *musicManager() const;
 
-    AllAlbumsProxyModel *allAlbumsProxyModel() const;
+    QSortFilterProxyModel *allAlbumsProxyModel() const;
 
-    AllArtistsProxyModel *allArtistsProxyModel() const;
+    QSortFilterProxyModel *allArtistsProxyModel() const;
 
-    AllArtistsProxyModel *allGenresProxyModel() const;
+    QSortFilterProxyModel *allGenresProxyModel() const;
 
-    AllArtistsProxyModel *allComposersProxyModel() const;
+    QSortFilterProxyModel *allComposersProxyModel() const;
 
-    AllArtistsProxyModel *allLyricistsProxyModel() const;
+    QSortFilterProxyModel *allLyricistsProxyModel() const;
 
-    AllTracksProxyModel *allTracksProxyModel() const;
+    QSortFilterProxyModel *allTracksProxyModel() const;
 
-    SingleArtistProxyModel *singleArtistProxyModel() const;
+    QSortFilterProxyModel *singleArtistProxyModel() const;
 
-    SingleAlbumProxyModel *singleAlbumProxyModel() const;
+    QSortFilterProxyModel *singleAlbumProxyModel() const;
 
-    FileBrowserProxyModel *fileBrowserProxyModel() const;
+    QSortFilterProxyModel *fileBrowserProxyModel() const;
 
     MediaPlayList *mediaPlayList() const;
 
@@ -191,6 +186,8 @@ Q_SIGNALS:
     void manageHeaderBarChanged();
 
     void enqueue(const QStringList &files);
+
+    void initializationDone();
 
 public Q_SLOTS:
 

@@ -21,12 +21,6 @@
 
 #include "musicaudiotrack.h"
 
-#include <KFileMetaData/Properties>
-#include <KFileMetaData/ExtractorCollection>
-#include <KFileMetaData/Extractor>
-#include <KFileMetaData/SimpleExtractionResult>
-#include <KFileMetaData/UserMetaData>
-
 #include <QThread>
 #include <QHash>
 #include <QFileInfo>

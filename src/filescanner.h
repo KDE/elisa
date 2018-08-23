@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Matthieu Gallien <matthieu_gallien@yahoo.fr>
+ * Copyright 2018 Matthieu Gallien <matthieu_gallien@yahoo.fr>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -17,6 +17,49 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#include "elisautils.h"
+#ifndef FILESCANNER_H
+#define FILESCANNER_H
 
-#include "moc_elisautils.cpp"
+#include "musicaudiotrack.h"
+
+#include <QUrl>
+#include <QMimeDatabase>
+#include <QObject>
+
+#include <memory>
+
+namespace KFileMetaData {
+
+class ExtractorCollection;
+
+}
+
+namespace Baloo {
+
+class File;
+
+}
+
+class FileScannerPrivate;
+
+class FileScanner
+{
+public:
+
+    FileScanner();
+
+    virtual ~FileScanner();
+
+    MusicAudioTrack scanOneFile(const QUrl &scanFile, const QMimeDatabase &mimeDatabase);
+
+    void scanProperties(const Baloo::File &match, MusicAudioTrack &trackData);
+
+    void scanProperties(const QString &localFileName, MusicAudioTrack &trackData);
+
+private:
+
+    std::unique_ptr<FileScannerPrivate> d;
+
+};
+
+#endif // FILESCANNER_H

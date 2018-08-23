@@ -168,7 +168,7 @@ void FileBrowserProxyModel::openFolder(const QString &folder, bool isDisplayRoot
 
 MusicAudioTrack FileBrowserProxyModel::loadMetaDataFromUrl(const QUrl &url)
 {
-    auto newTrack = ElisaUtils::scanOneFile(url,mMimeDb,mExtractors);
+    auto newTrack = mFileScanner.scanOneFile(url, mMimeDb);
     qDebug() << "loaded metadata " << url << newTrack;
     return newTrack;
 }

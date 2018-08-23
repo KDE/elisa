@@ -29,6 +29,8 @@
 
 #include "baloowatcherapplicationadaptor.h"
 
+#include "filescanner.h"
+
 #include <Baloo/Query>
 #include <Baloo/File>
 #include <Baloo/IndexerConfig>
@@ -325,9 +327,7 @@ MusicAudioTrack LocalBalooFileListing::scanOneFile(const QUrl &scanFile)
     newTrack.setFileModificationTime(scanFileInfo.fileTime(QFile::FileModificationTime));
     newTrack.setResourceURI(scanFile);
 
-    const auto &allProperties = match.properties();
-
-    ElisaUtils::scanProperties(localFileName, allProperties, newTrack);
+    fileScanner().scanProperties(match, newTrack);
 
     if (!newTrack.isValid()) {
         newTrack = AbstractFileListing::scanOneFile(scanFile);

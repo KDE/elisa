@@ -54,7 +54,11 @@
 #include "models/singleartistproxymodel.h"
 #include "models/singlealbumproxymodel.h"
 #include "models/genericdatamodel.h"
+
+#if defined KF5KIO_FOUND && KF5KIO_FOUND
 #include "models/filebrowserproxymodel.h"
+#endif
+
 #include "audiowrapper.h"
 #include "notificationitem.h"
 #include "topnotificationmanager.h"
@@ -66,6 +70,8 @@
 #include "mpris2/mpris2.h"
 #include "mpris2/mediaplayer2player.h"
 #endif
+
+#include <QSortFilterProxyModel>
 
 #include <QAction>
 #include <QStandardPaths>
@@ -116,7 +122,11 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qmlRegisterType<SingleAlbumProxyModel>(uri, 1, 0, "SingleAlbumProxyModel");
     qmlRegisterType<SingleArtistProxyModel>(uri, 1, 0, "SingleArtistProxyModel");
     qmlRegisterType<GenericDataModel>(uri, 1, 0, "GenericDataModel");
+
+#if defined KF5KIO_FOUND && KF5KIO_FOUND
     qmlRegisterType<FileBrowserProxyModel>(uri, 1, 0, "FileBrowserProxyModel");
+#endif
+
     qmlRegisterType<AudioWrapper>(uri, 1, 0, "AudioWrapper");
     qmlRegisterType<TopNotificationManager>(uri, 1, 0, "TopNotificationManager");
     qmlRegisterType<TrackDataHelper>(uri, 1, 0, "TrackDataHelper");
@@ -141,6 +151,7 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qRegisterMetaType<MusicArtist>("MusicArtist");
     qRegisterMetaType<QMap<QString, int>>();
     qRegisterMetaType<QAction*>();
+    qRegisterMetaType<QSortFilterProxyModel*>();
     qRegisterMetaType<NotificationItem>("NotificationItem");
     qRegisterMetaType<QMap<QString,int>>("QMap<QString,int>");
     qRegisterMetaType<ElisaUtils::PlayListEnqueueMode>("ElisaUtils::PlayListEnqueueMode");

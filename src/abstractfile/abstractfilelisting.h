@@ -36,6 +36,7 @@
 class AbstractFileListingPrivate;
 class MusicAudioTrack;
 class NotificationItem;
+class FileScanner;
 
 class ELISALIB_EXPORT AbstractFileListing : public QObject
 {
@@ -119,6 +120,8 @@ protected:
     QHash<QUrl, QDateTime>& allFiles();
 
     void checkFilesToRemove();
+
+    FileScanner& fileScanner();
 
 private:
 

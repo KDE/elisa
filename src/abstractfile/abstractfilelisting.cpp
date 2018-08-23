@@ -21,13 +21,7 @@
 
 #include "musicaudiotrack.h"
 #include "notificationitem.h"
-#include "elisautils.h"
-
-#include <KFileMetaData/Properties>
-#include <KFileMetaData/ExtractorCollection>
-#include <KFileMetaData/Extractor>
-#include <KFileMetaData/SimpleExtractionResult>
-#include <KFileMetaData/UserMetaData>
+#include "filescanner.h"
 
 #include <QThread>
 #include <QHash>
@@ -62,7 +56,7 @@ public:
 
     QString mSourceName;
 
-    KFileMetaData::ExtractorCollection mExtractors;
+    FileScanner mFileScanner;
 
     QMimeDatabase mMimeDb;
 
@@ -295,7 +289,7 @@ MusicAudioTrack AbstractFileListing::scanOneFile(const QUrl &scanFile)
         }
     }
 
-    newTrack = ElisaUtils::scanOneFile(scanFile, d->mMimeDb, d->mExtractors);
+    newTrack = d->mFileScanner.scanOneFile(scanFile, d->mMimeDb);
 
     if (newTrack.isValid()) {
         newTrack.setFileModificationTime(scanFileInfo.fileTime(QFile::FileModificationTime));
@@ -442,6 +436,11 @@ void AbstractFileListing::checkFilesToRemove()
     if (!allRemovedFiles.isEmpty()) {
         Q_EMIT removedTracksList(allRemovedFiles);
     }
+}
+
+FileScanner &AbstractFileListing::fileScanner()
+{
+    return d->mFileScanner;
 }
 
 

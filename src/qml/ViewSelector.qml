@@ -151,19 +151,6 @@ FocusScope {
                             switchView(index)
                         }
                     }
-
-                    Component.onCompleted:
-                    {
-                        pageModel.insert(0, {"name": i18nc("Title of the view of the playlist", "Now Playing"), "iconName": elisaTheme.playlistIcon})
-                        pageModel.insert(1, {"name": i18nc("Title of the view of all albums", "Albums"), "iconName": elisaTheme.albumIcon})
-                        pageModel.insert(2, {"name": i18nc("Title of the view of all artists", "Artists"), "iconName": elisaTheme.artistIcon})
-                        pageModel.insert(3, {"name": i18nc("Title of the view of all tracks", "Tracks"), "iconName": elisaTheme.tracksIcon})
-                        pageModel.insert(4, {"name": i18nc("Title of the view of all genres", "Genres"), "iconName": elisaTheme.genresIcon})
-                        pageModel.insert(5, {"name": i18nc("Title of the file browser view", "Files"), "iconName": elisaTheme.folderIcon})
-
-                        viewModeView.currentIndex = 1
-                        switchView(1)
-                    }
                 }
 
                 footer: MouseArea {
@@ -184,6 +171,27 @@ FocusScope {
             ColorAnimation {
                 duration: 300
             }
+        }
+    }
+
+    Connections {
+        target: elisa
+
+        onInitializationDone: {
+            pageModel.insert(0, {"name": i18nc("Title of the view of the playlist", "Now Playing"), "iconName": elisaTheme.playlistIcon})
+            pageModel.insert(1, {"name": i18nc("Title of the view of all albums", "Albums"), "iconName": elisaTheme.albumIcon})
+            pageModel.insert(2, {"name": i18nc("Title of the view of all artists", "Artists"), "iconName": elisaTheme.artistIcon})
+            pageModel.insert(3, {"name": i18nc("Title of the view of all tracks", "Tracks"), "iconName": elisaTheme.tracksIcon})
+            pageModel.insert(4, {"name": i18nc("Title of the view of all genres", "Genres"), "iconName": elisaTheme.genresIcon})
+
+            console.log(elisa.fileBrowserProxyModel)
+
+            if (elisa.fileBrowserProxyModel) {
+                pageModel.insert(5, {"name": i18nc("Title of the file browser view", "Files"), "iconName": elisaTheme.folderIcon})
+            }
+
+            viewModeView.currentIndex = 1
+            switchView(1)
         }
     }
 }

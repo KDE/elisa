@@ -23,7 +23,6 @@
 #include "elisaLib_export.h"
 
 #include <KIOWidgets/KDirModel>
-#include <KFileMetaData/ExtractorCollection>
 #include <QMimeDatabase>
 
 class MusicAudioTrack;

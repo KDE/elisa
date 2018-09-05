@@ -57,6 +57,10 @@ if (KF5Baloo_FOUND)
             )
 
         qt5_add_dbus_interface(elisaLib_SOURCES
+            ${BALOO_DBUS_INTERFACES_DIR}/org.kde.baloo.main.xml
+            baloo/main)
+
+        qt5_add_dbus_interface(elisaLib_SOURCES
             ${BALOO_DBUS_INTERFACES_DIR}/org.kde.baloo.fileindexer.xml
             baloo/fileindexer)
 

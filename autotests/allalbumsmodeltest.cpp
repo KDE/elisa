@@ -282,6 +282,7 @@ private Q_SLOTS:
         QSignalSpy endRemoveRowsSpy(&albumsModel, &AllAlbumsModel::rowsRemoved);
         QSignalSpy dataChangedSpy(&albumsModel, &AllAlbumsModel::dataChanged);
 
+        QCOMPARE(albumsModel.rowCount(), 0);
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
         QCOMPARE(beginRemoveRowsSpy.count(), 0);
@@ -290,15 +291,16 @@ private Q_SLOTS:
 
         musicDb.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
-        while(beginInsertRowsSpy.count() < 4) {
+        while(beginInsertRowsSpy.count() < 5) {
             QCOMPARE(beginInsertRowsSpy.wait(500), true);
         }
-        while(endInsertRowsSpy.count() < 4) {
+        while(endInsertRowsSpy.count() < 5) {
             QCOMPARE(endInsertRowsSpy.wait(500), true);
         }
 
-        QCOMPARE(beginInsertRowsSpy.count(), 4);
-        QCOMPARE(endInsertRowsSpy.count(), 4);
+        QCOMPARE(albumsModel.rowCount(), 5);
+        QCOMPARE(beginInsertRowsSpy.count(), 5);
+        QCOMPARE(endInsertRowsSpy.count(), 5);
         QCOMPARE(beginRemoveRowsSpy.count(), 0);
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
@@ -322,6 +324,7 @@ private Q_SLOTS:
             QCOMPARE(endRemoveRowsSpy.wait(500), true);
         }
 
+        QCOMPARE(albumsModel.rowCount(), 4);
         QCOMPARE(beginInsertRowsSpy.count(), 5);
         QCOMPARE(endInsertRowsSpy.count(), 5);
         QCOMPARE(beginRemoveRowsSpy.count(), 1);

@@ -280,9 +280,7 @@ void ManageAudioPlayer::setPlayerPlaybackState(int playerPlaybackState)
     } else {
         switch(mPlayerPlaybackState) {
         case StoppedState:
-            if (mCurrentTrack != mOldCurrentTrack) {
-                notifyPlayerSourceProperty();
-            }
+            notifyPlayerSourceProperty();
             mSkippingCurrentTrack = false;
             if (mPlayListModel && mOldCurrentTrack.isValid()) {
                 mPlayListModel->setData(mOldCurrentTrack, MediaPlayList::NotPlaying, mIsPlayingRole);

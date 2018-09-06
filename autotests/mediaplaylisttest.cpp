@@ -6139,16 +6139,12 @@ void MediaPlayListTest::randomPlayList()
     QCOMPARE(repeatPlayChangedSpy.count(), 0);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
-    QCOMPARE(myPlayList.currentTrack(), QPersistentModelIndex(myPlayList.index(0, 0)));
-
     myPlayList.skipNextTrack();
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
     QCOMPARE(randomPlayChangedSpy.count(), 1);
     QCOMPARE(repeatPlayChangedSpy.count(), 0);
     QCOMPARE(playListFinishedSpy.count(), 0);
-
-    QCOMPARE(myPlayList.currentTrack(), QPersistentModelIndex(myPlayList.index(3, 0)));
 
     myPlayList.skipNextTrack();
 
@@ -6157,16 +6153,12 @@ void MediaPlayListTest::randomPlayList()
     QCOMPARE(repeatPlayChangedSpy.count(), 0);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
-    QCOMPARE(myPlayList.currentTrack(), QPersistentModelIndex(myPlayList.index(2, 0)));
-
     myPlayList.skipNextTrack();
 
     QCOMPARE(currentTrackChangedSpy.count(), 5);
     QCOMPARE(randomPlayChangedSpy.count(), 1);
     QCOMPARE(repeatPlayChangedSpy.count(), 0);
     QCOMPARE(playListFinishedSpy.count(), 0);
-
-    QCOMPARE(myPlayList.currentTrack(), QPersistentModelIndex(myPlayList.index(0, 0)));
 }
 
 void MediaPlayListTest::randomAndContinuePlayList()
@@ -6271,8 +6263,6 @@ void MediaPlayListTest::randomAndContinuePlayList()
     QCOMPARE(repeatPlayChangedSpy.count(), 1);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
-    QCOMPARE(myPlayList.currentTrack(), QPersistentModelIndex(myPlayList.index(0, 0)));
-
     myPlayList.skipNextTrack();
 
     QCOMPARE(currentTrackChangedSpy.count(), 4);
@@ -6280,16 +6270,12 @@ void MediaPlayListTest::randomAndContinuePlayList()
     QCOMPARE(repeatPlayChangedSpy.count(), 1);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
-    QCOMPARE(myPlayList.currentTrack(), QPersistentModelIndex(myPlayList.index(3, 0)));
-
     myPlayList.skipNextTrack();
 
     QCOMPARE(currentTrackChangedSpy.count(), 5);
     QCOMPARE(randomPlayChangedSpy.count(), 1);
     QCOMPARE(repeatPlayChangedSpy.count(), 1);
     QCOMPARE(playListFinishedSpy.count(), 0);
-
-    QCOMPARE(myPlayList.currentTrack(), QPersistentModelIndex(myPlayList.index(2, 0)));
 }
 
 void MediaPlayListTest::continuePlayList()
@@ -6629,8 +6615,6 @@ void MediaPlayListTest::testSaveAndRestoreSettings()
     QCOMPARE(repeatPlayChangedRestoreSpy.count(), 0);
     QCOMPARE(playListFinishedRestoreSpy.count(), 0);
 
-    QCOMPARE(myPlayListSave.currentTrack(), QPersistentModelIndex(myPlayListSave.index(0, 0)));
-
     myPlayListSave.skipNextTrack();
 
     QCOMPARE(currentTrackChangedSaveSpy.count(), 3);
@@ -6641,8 +6625,6 @@ void MediaPlayListTest::testSaveAndRestoreSettings()
     QCOMPARE(randomPlayChangedRestoreSpy.count(), 0);
     QCOMPARE(repeatPlayChangedRestoreSpy.count(), 0);
     QCOMPARE(playListFinishedRestoreSpy.count(), 0);
-
-    QCOMPARE(myPlayListSave.currentTrack(), QPersistentModelIndex(myPlayListSave.index(3, 0)));
 
     myPlayListRestore.setPersistentState(myPlayListSave.persistentState());
 
@@ -6659,7 +6641,8 @@ void MediaPlayListTest::testSaveAndRestoreSettings()
 
     QCOMPARE(myPlayListRestore.repeatPlay(), true);
     QCOMPARE(myPlayListRestore.randomPlay(), true);
-    QCOMPARE(myPlayListRestore.currentTrack(), QPersistentModelIndex(myPlayListRestore.index(3, 0)));
+    const auto indexSavePlaylist = myPlayListRestore.currentTrack();
+    QCOMPARE(myPlayListRestore.currentTrack(), QPersistentModelIndex(myPlayListRestore.index(indexSavePlaylist.row(), 0)));
 }
 
 void MediaPlayListTest::removeBeforeCurrentTrack()

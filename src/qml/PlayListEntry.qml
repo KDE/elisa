@@ -48,7 +48,7 @@ FocusScope {
     signal removeFromPlaylist(var trackIndex)
     signal switchToTrack(var trackIndex)
 
-    height: (hasAlbumHeader ? elisaTheme.delegateWithHeaderHeight : elisaTheme.delegateHeight)
+    height: (hasAlbumHeader ? elisaTheme.playListDelegateWithHeaderHeight : elisaTheme.playListDelegateHeight)
 
     Controls1.Action {
         id: removeFromPlayList
@@ -120,7 +120,7 @@ FocusScope {
 
         color: (isAlternateColor ? myPalette.alternateBase : myPalette.base)
 
-        height: (hasAlbumHeader ? elisaTheme.delegateWithHeaderHeight : elisaTheme.delegateHeight)
+        height: (hasAlbumHeader ? elisaTheme.playListDelegateWithHeaderHeight : elisaTheme.playListDelegateHeight)
 
         focus: true
 
@@ -131,9 +131,9 @@ FocusScope {
 
             Loader {
                 Layout.fillWidth: true
-                Layout.preferredHeight: elisaTheme.delegateWithHeaderHeight - elisaTheme.delegateHeight
-                Layout.minimumHeight: elisaTheme.delegateWithHeaderHeight - elisaTheme.delegateHeight
-                Layout.maximumHeight: elisaTheme.delegateWithHeaderHeight - elisaTheme.delegateHeight
+                Layout.preferredHeight: elisaTheme.playListDelegateWithHeaderHeight - elisaTheme.playListDelegateHeight
+                Layout.minimumHeight: elisaTheme.playListDelegateWithHeaderHeight - elisaTheme.playListDelegateHeight
+                Layout.maximumHeight: elisaTheme.playListDelegateWithHeaderHeight - elisaTheme.playListDelegateHeight
 
                 visible: hasAlbumHeader
                 active: hasAlbumHeader
@@ -171,12 +171,12 @@ FocusScope {
                                                     headerRow.height) :
                                                    0
                             Layout.rightMargin: LayoutMirroring.enabled ?
-                                                   (elisaTheme.smallDelegateToolButtonSize +
-                                                    trackNumberSize.width +
-                                                    fakeDiscNumberSize.width +
-                                                    (elisaTheme.layoutHorizontalMargin * 3 / 4) -
-                                                    headerRow.height) :
-                                                   0
+                                                    (elisaTheme.smallDelegateToolButtonSize +
+                                                     trackNumberSize.width +
+                                                     fakeDiscNumberSize.width +
+                                                     (elisaTheme.layoutHorizontalMargin * 3 / 4) -
+                                                     headerRow.height) :
+                                                    0
                             Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
 
                             sourceSize.width: headerRow.height

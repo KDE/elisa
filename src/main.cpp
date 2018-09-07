@@ -87,7 +87,7 @@ int main(int argc, char *argv[])
 
     KAboutData aboutData( QStringLiteral("elisa"),
                           i18n("Elisa"),
-                          QStringLiteral("0.3.0"),
+                          QStringLiteral("0.3.80"),
                           i18n("A Simple Music Player written with KDE Frameworks"),
                           KAboutLicense::LGPL_V3,
                           i18n("(c) 2015-2018, Elisa contributors"));

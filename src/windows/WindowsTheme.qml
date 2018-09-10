@@ -58,7 +58,24 @@ Item {
     property int layoutVerticalMargin: dp(6)
 
     property int delegateHeight: dp(28)
-    property int delegateWithHeaderHeight: dp(86)
+
+    FontMetrics {
+        id: playListAuthorTextHeight
+        font.weight: Font.Light
+    }
+
+    FontMetrics {
+        id: playListTitleTextHeight
+        font.weight: Font.Bold
+        font.pointSize: elisaTheme.defaultFontPointSize * 1.4
+    }
+
+    property int playListDelegateHeight: dp(28)
+    property int playListDelegateWithHeaderHeight: playListDelegateHeight +
+                                                   elisaTheme.layoutVerticalMargin * 5 +
+                                                   playListAuthorTextHeight.height +
+                                                   playListTitleTextHeight.height
+
     property int trackDelegateHeight: dp(45)
 
     property int coverImageSize: dp(180)

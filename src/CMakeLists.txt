@@ -248,6 +248,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
 
         qml/ElisaMainWindow.qml
         qml/ApplicationMenu.qml
+        qml/BaseTheme.qml
         qml/Theme.qml
         qml/PlatformIntegration.qml
         qml/LabelWithToolTip.qml

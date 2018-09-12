@@ -292,9 +292,9 @@ private Q_SLOTS:
         }
         QCOMPARE(errorWatchingFilesSpy.count(), 0);
 
-        auto firstNewTracksSignal = tracksListSpy.at(0);
+        const auto &firstNewTracksSignal = tracksListSpy.at(0);
         auto firstNewTracks = firstNewTracksSignal.at(0).value<QList<MusicAudioTrack>>();
-        auto secondNewTracksSignal = tracksListSpy.at(1);
+        const auto &secondNewTracksSignal = tracksListSpy.at(1);
         auto secondNewTracks = secondNewTracksSignal.at(0).value<QList<MusicAudioTrack>>();
         auto newCovers = secondNewTracksSignal.at(1).value<QHash<QString, QUrl>>();
 

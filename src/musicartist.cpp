@@ -20,9 +20,11 @@
 #include <QtGlobal>
 #include <QString>
 #include <QStringList>
+#include <QSharedData>
+
 #include <QDebug>
 
-class MusicArtistPrivate
+class MusicArtistPrivate : public QSharedData
 {
 public:
 
@@ -38,37 +40,17 @@ public:
 
 };
 
-MusicArtist::MusicArtist() : d(std::make_unique<MusicArtistPrivate>())
+MusicArtist::MusicArtist() : d(new MusicArtistPrivate())
 {
 }
 
-MusicArtist::MusicArtist(MusicArtist &&other)
-{
-    d.swap(other.d);
-}
+MusicArtist::MusicArtist(MusicArtist &&other) noexcept = default;
 
-MusicArtist::MusicArtist(const MusicArtist &other) : d(std::make_unique<MusicArtistPrivate>(*other.d))
-{
-}
+MusicArtist::MusicArtist(const MusicArtist &other) = default;
 
-MusicArtist& MusicArtist::operator=(MusicArtist &&other)
-{
-    if (&other != this) {
-        d.reset();
-        d.swap(other.d);
-    }
+MusicArtist& MusicArtist::operator=(MusicArtist &&other) noexcept = default;
 
-    return *this;
-}
-
-MusicArtist &MusicArtist::operator=(const MusicArtist &other)
-{
-    if (&other != this) {
-        (*d) = (*other.d);
-    }
-
-    return *this;
-}
+MusicArtist &MusicArtist::operator=(const MusicArtist &other) = default;
 
 MusicArtist::~MusicArtist()
 = default;

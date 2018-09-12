@@ -23,10 +23,11 @@
 #include <QString>
 #include <QUrl>
 #include <QMap>
+#include <QSharedData>
 
 #include <QDebug>
 
-class MusicAlbumPrivate
+class MusicAlbumPrivate : public QSharedData
 {
 public:
 
@@ -48,47 +49,27 @@ public:
 
     QList<MusicAudioTrack> mTracks;
 
+    QStringList mGenres;
+
     int mTracksCount = 0;
 
     bool mIsValid = false;
 
     bool mIsSingleDiscAlbum = true;
 
-    QStringList mGenres;
-
 };
 
-MusicAlbum::MusicAlbum() : d(std::make_unique<MusicAlbumPrivate>())
+MusicAlbum::MusicAlbum() : d(new MusicAlbumPrivate())
 {
 }
 
-MusicAlbum::MusicAlbum(MusicAlbum &&other)
-{
-    d.swap(other.d);
-}
+MusicAlbum::MusicAlbum(MusicAlbum &&other) noexcept = default;
 
-MusicAlbum::MusicAlbum(const MusicAlbum &other) : d(std::make_unique<MusicAlbumPrivate>(*other.d))
-{
-}
+MusicAlbum::MusicAlbum(const MusicAlbum &other) = default;
 
-MusicAlbum& MusicAlbum::operator=(MusicAlbum &&other)
-{
-    if (&other != this) {
-        d.reset();
-        d.swap(other.d);
-    }
+MusicAlbum& MusicAlbum::operator=(MusicAlbum &&other) noexcept = default;
 
-    return *this;
-}
-
-MusicAlbum& MusicAlbum::operator=(const MusicAlbum &other)
-{
-    if (&other != this) {
-        (*d) = (*other.d);
-    }
-
-    return *this;
-}
+MusicAlbum& MusicAlbum::operator=(const MusicAlbum &other) = default;
 
 MusicAlbum::~MusicAlbum()
 = default;

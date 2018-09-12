@@ -27,6 +27,7 @@
 #include <QMap>
 #include <QStringList>
 #include <QMetaType>
+#include <QSharedDataPointer>
 
 #include <memory>
 
@@ -40,11 +41,11 @@ public:
 
     MusicAlbum();
 
-    MusicAlbum(MusicAlbum &&other);
+    MusicAlbum(MusicAlbum &&other) noexcept;
 
     MusicAlbum(const MusicAlbum &other);
 
-    MusicAlbum& operator=(MusicAlbum &&other);
+    MusicAlbum& operator=(MusicAlbum &&other) noexcept;
 
     MusicAlbum& operator=(const MusicAlbum &other);
 
@@ -126,13 +127,15 @@ public:
 
 private:
 
-    std::unique_ptr<MusicAlbumPrivate> d;
+    QSharedDataPointer<MusicAlbumPrivate> d;
 
 };
 
 ELISALIB_EXPORT QDebug operator<<(QDebug stream, const MusicAlbum &data);
 
 ELISALIB_EXPORT bool operator==(const MusicAlbum &album1, const MusicAlbum &album2);
+
+Q_DECLARE_TYPEINFO(MusicAlbum, Q_MOVABLE_TYPE);
 
 Q_DECLARE_METATYPE(MusicAlbum)
 

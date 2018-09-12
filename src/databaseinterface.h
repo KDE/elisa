@@ -164,6 +164,10 @@ private:
         ModifiedTrackFileInsert,
     };
 
+    void initChangesTrackers();
+
+    void recordModifiedTrack(qulonglong trackId);
+
     bool startTransaction() const;
 
     bool finishTransaction() const;
@@ -205,13 +209,11 @@ private:
 
     qulonglong insertAlbum(const QString &title, const QString &albumArtist, const QString &trackArtist,
                            const QString &trackPath, const QUrl &albumArtURI, int tracksCount,
-                           AlbumDiscsCount isSingleDiscAlbum, QList<qulonglong> &newAlbumIds,
-                           QList<qulonglong> &newArtistsIds);
+                           AlbumDiscsCount isSingleDiscAlbum);
 
-    bool updateAlbumFromId(qulonglong albumId, const QUrl &albumArtUri, const MusicAudioTrack &currentTrack,
-                           QList<qulonglong> &newArtistsIds);
+    bool updateAlbumFromId(qulonglong albumId, const QUrl &albumArtUri, const MusicAudioTrack &currentTrack);
 
-    qulonglong insertArtist(const QString &name, QList<qulonglong> &newArtistsIds);
+    qulonglong insertArtist(const QString &name);
 
     qulonglong internalArtistIdFromName(const QString &name);
 
@@ -221,8 +223,7 @@ private:
 
     void removeTrackInDatabase(qulonglong trackId);
 
-    void updateTrackInDatabase(const MusicAudioTrack &oneTrack, qulonglong albumId,
-                               QList<qulonglong> &newArtistsIds);
+    void updateTrackInDatabase(const MusicAudioTrack &oneTrack, qulonglong albumId);
 
     void removeAlbumInDatabase(qulonglong albumId);
 
@@ -239,16 +240,15 @@ private:
     int computeTrackPriority(qulonglong trackId, const QUrl &fileName);
 
     qulonglong internalInsertTrack(const MusicAudioTrack &oneModifiedTrack, const QHash<QString, QUrl> &covers,
-                                   qulonglong originTrackId, QSet<qulonglong> &modifiedAlbumIds, TrackFileInsertType insertType,
-                                   QList<qulonglong> &newAlbumIds, QList<qulonglong> &newArtistsIds, QSet<qulonglong> &modifiedTrackIds);
+                                   qulonglong originTrackId, TrackFileInsertType insertType);
 
     MusicAudioTrack buildTrackFromDatabaseRecord(const QSqlRecord &trackRecord) const;
 
-    void internalRemoveTracksList(const QList<QUrl> &removedTracks, QList<qulonglong> &newArtistsIds);
+    void internalRemoveTracksList(const QList<QUrl> &removedTracks);
 
-    void internalRemoveTracksList(const QHash<QUrl, QDateTime> &removedTracks, qulonglong sourceId, QList<qulonglong> &newArtistsIds);
+    void internalRemoveTracksList(const QHash<QUrl, QDateTime> &removedTracks, qulonglong sourceId);
 
-    void internalRemoveTracksWithoutMapping(QList<qulonglong> &newArtistsIds);
+    void internalRemoveTracksWithoutMapping();
 
     QUrl internalAlbumArtUriFromAlbumId(qulonglong albumId);
 

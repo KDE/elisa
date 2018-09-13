@@ -24,6 +24,7 @@
 
 #include "baloo/scheduler.h"
 #include "baloo/fileindexer.h"
+#include "baloo/main.h"
 
 #include "baloowatcherapplicationadaptor.h"
 
@@ -65,17 +66,23 @@ public:
 
     QDBusServiceWatcher mServiceWatcher;
 
+    QScopedPointer<org::kde::baloo::main> mBalooMainInterface;
+
     QScopedPointer<org::kde::baloo::fileindexer> mBalooIndexer;
 
     QScopedPointer<org::kde::baloo::scheduler> mBalooScheduler;
 
-    QAtomicInt mStopRequest = 0;
-
     BalooWatcherApplicationAdaptor *mDbusAdaptor = nullptr;
 
-    bool mIsRegistered = false;
+    QAtomicInt mStopRequest = 0;
 
-    bool mIsRegistering = false;
+    bool mIsRegisteredToBaloo = false;
+
+    bool mIsRegisteringToBaloo = false;
+
+    bool mIsRegisteredToBalooWatcher = false;
+
+    bool mIsRegisteringToBalooWatcher = false;
 
 };
 
@@ -142,29 +149,67 @@ void LocalBalooFileListing::registeredToBaloo(QDBusPendingCallWatcher *watcher)
 
     QDBusPendingReply<> reply = *watcher;
     if (reply.isError()) {
-        qDebug() << "LocalBalooFileListing::executeInit" << reply.error().name() << reply.error().message();
-        d->mIsRegistered = false;
+        qDebug() << "LocalBalooFileListing::registeredToBaloo" << reply.error().name() << reply.error().message();
+        d->mIsRegisteredToBaloo = false;
     } else {
-        d->mIsRegistered = true;
+        d->mIsRegisteredToBaloo = true;
+
+        if (d->mIsRegisteredToBaloo && d->mIsRegisteredToBalooWatcher) {
+            triggerRefreshOfContent();
+        }
     }
 
-    d->mIsRegistering = false;
+    d->mIsRegisteringToBaloo = false;
+
+    watcher->deleteLater();
+}
+
+void LocalBalooFileListing::registeredToBalooWatcher(QDBusPendingCallWatcher *watcher)
+{
+    qDebug() << "LocalBalooFileListing::registeredToBalooWatcher";
+
+    if (!watcher) {
+        return;
+    }
+
+    QDBusPendingReply<> reply = *watcher;
+    if (reply.isError()) {
+        qDebug() << "LocalBalooFileListing::registeredToBalooWatcher" << reply.error().name() << reply.error().message();
+        d->mIsRegisteredToBalooWatcher = false;
+    } else {
+        d->mIsRegisteredToBalooWatcher = true;
+
+        if (d->mIsRegisteredToBaloo && d->mIsRegisteredToBalooWatcher) {
+            triggerRefreshOfContent();
+        }
+    }
+
+    d->mIsRegisteringToBalooWatcher = false;
 
     watcher->deleteLater();
 }
 
 void LocalBalooFileListing::registerToBaloo()
 {
-    if (d->mIsRegistering) {
+    if (d->mIsRegisteringToBaloo || d->mIsRegisteringToBalooWatcher) {
         qDebug() << "LocalBalooFileListing::registerToBaloo" << "already registering";
         return;
     }
 
     qDebug() << "LocalBalooFileListing::registerToBaloo";
 
-    d->mIsRegistering = true;
+    d->mIsRegisteringToBaloo = true;
+    d->mIsRegisteringToBalooWatcher = true;
 
     auto sessionBus = QDBusConnection::sessionBus();
+
+    d->mBalooMainInterface.reset(new org::kde::baloo::main(QStringLiteral("org.kde.baloo"), QStringLiteral("/"),
+                                                           sessionBus, this));
+
+    if (!d->mBalooMainInterface->isValid()) {
+        qDebug() << "LocalBalooFileListing::registerToBaloo" << "invalid org.kde.baloo/main interface";
+        return;
+    }
 
     d->mBalooIndexer.reset(new org::kde::baloo::fileindexer(QStringLiteral("org.kde.baloo"), QStringLiteral("/fileindexer"),
                                                             sessionBus, this));
@@ -199,20 +244,13 @@ void LocalBalooFileListing::registerToBaloo()
         registeredToBaloo(pendingCallWatcher);
     }
 
-    QDBusMessage registerBalooWatcher = QDBusMessage::createMethodCall(QStringLiteral("org.kde.baloo"),
-                                                                       QStringLiteral("/"),
-                                                                       QStringLiteral("org.kde.baloo.main"),
-                                                                       QStringLiteral("registerBalooWatcher"));
-
-    registerBalooWatcher.setArguments({QStringLiteral("org.mpris.MediaPlayer2.elisa/org/kde/BalooWatcherApplication")});
-
-    auto pendingCall = sessionBus.asyncCall(registerBalooWatcher);
+    auto pendingCall = d->mBalooMainInterface->registerBalooWatcher(QStringLiteral("org.mpris.MediaPlayer2.elisa/org/kde/BalooWatcherApplication"));
     qDebug() << "LocalBalooFileListing::registerToBaloo" << "call registerBalooWatcher";
     auto pendingCallWatcher2 = new QDBusPendingCallWatcher(pendingCall);
 
-    connect(pendingCallWatcher2, &QDBusPendingCallWatcher::finished, this, &LocalBalooFileListing::registeredToBaloo);
+    connect(pendingCallWatcher2, &QDBusPendingCallWatcher::finished, this, &LocalBalooFileListing::registeredToBalooWatcher);
     if (pendingCallWatcher2->isFinished()) {
-        registeredToBaloo(pendingCallWatcher2);
+        registeredToBalooWatcher(pendingCallWatcher2);
     }
 }
 
@@ -229,7 +267,8 @@ void LocalBalooFileListing::serviceOwnerChanged(const QString &serviceName, cons
     qDebug() << "LocalBalooFileListing::serviceOwnerChanged" << serviceName << oldOwner << newOwner;
 
     if (serviceName == QStringLiteral("org.kde.baloo") && !newOwner.isEmpty()) {
-        d->mIsRegistered = false;
+        d->mIsRegisteredToBaloo = false;
+        d->mIsRegisteredToBalooWatcher = false;
         registerToBaloo();
     }
 }
@@ -248,7 +287,8 @@ void LocalBalooFileListing::serviceUnregistered(const QString &serviceName)
     qDebug() << "LocalBalooFileListing::serviceUnregistered" << serviceName;
 
     if (serviceName == QStringLiteral("org.kde.baloo")) {
-        d->mIsRegistered = false;
+        d->mIsRegisteredToBaloo = false;
+        d->mIsRegisteredToBalooWatcher = false;
     }
 }
 

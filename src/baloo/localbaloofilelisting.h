@@ -67,6 +67,8 @@ private Q_SLOTS:
 
     void registeredToBaloo(QDBusPendingCallWatcher *watcher);
 
+    void registeredToBalooWatcher(QDBusPendingCallWatcher *watcher);
+
 private:
 
     void registerToBaloo();

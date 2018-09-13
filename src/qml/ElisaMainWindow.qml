@@ -181,7 +181,7 @@ ApplicationWindow {
                 Layout.minimumHeight: mainWindow.height * 0.2 + elisaTheme.mediaPlayerControlHeight
                 Layout.maximumHeight: mainWindow.height * 0.2 + elisaTheme.mediaPlayerControlHeight
                 Layout.fillWidth: true
-                
+
 
                 HeaderBar {
                     id: headerBar
@@ -276,7 +276,7 @@ ApplicationWindow {
         states: [
             State {
                 name: "headerBarIsMaximized"
-                when: headerBar.isMaximized 
+                when: headerBar.isMaximized
                 changes: [
                     PropertyChanges {
                         target: mainWindow

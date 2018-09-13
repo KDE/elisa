@@ -98,7 +98,7 @@ FocusScope {
                 border.width: 0
                 opacity: 0.0
             }
-            
+
             onClicked: {
                 musicWidget.isMaximized = !musicWidget.isMaximized
             }

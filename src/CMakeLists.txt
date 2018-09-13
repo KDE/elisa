@@ -195,7 +195,7 @@ set_target_properties(elisaLib PROPERTIES
     EXPORT_NAME ElisaLib
 )
 
-install(TARGETS elisaLib ${INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS elisaLib LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/${LIB_INSTALL_DIR}/elisa)
 
 set(elisaqmlplugin_SOURCES
     elisaqmlplugin.cpp
@@ -218,7 +218,10 @@ if (KF5FileMetaData_FOUND)
     )
 endif()
 
-set_target_properties(elisaqmlplugin PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/org/kde/elisa)
+set_target_properties(elisaqmlplugin PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/org/kde/elisa
+    INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/${LIB_INSTALL_DIR}/elisa;${CMAKE_INSTALL_RPATH}"
+)
 
 install(TARGETS elisaqmlplugin DESTINATION ${QML_INSTALL_DIR}/org/kde/elisa/)
 
@@ -331,6 +334,10 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
                 KF5::Declarative
         )
     endif()
+
+    set_target_properties(elisa PROPERTIES
+        INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/${LIB_INSTALL_DIR}/elisa;${CMAKE_INSTALL_RPATH}"
+    )
 
     install(TARGETS elisa ${INSTALL_TARGETS_DEFAULT_ARGS})
 endif()

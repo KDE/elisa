@@ -185,25 +185,7 @@ FocusScope {
                             fillMode: Image.PreserveAspectFit
                             asynchronous: true
 
-                            visible: isValid
-                        }
-
-                        BrightnessContrast {
-                            source: mainIcon
-
-                            cached: true
-
-                            visible: !isValid
-
-                            contrast: -0.9
-
-                            Layout.minimumWidth: headerRow.height - 4
-                            Layout.maximumWidth: headerRow.height - 4
-                            Layout.preferredWidth: headerRow.height - 4
-                            Layout.minimumHeight: headerRow.height - 4
-                            Layout.maximumHeight: headerRow.height - 4
-                            Layout.preferredHeight: headerRow.height - 4
-                            Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+                            opacity: isValid ? 1 : 0.5
                         }
 
                         ColumnLayout {

@@ -120,7 +120,7 @@ If you use the internal music indexer, you can configure the paths that will be 
 <title>Browsing Music</title>
 <para>
 From the different sources of music, it collects all your music and analyses their metadata such that their title, artist, ...
-It provides three ways to browse your music: a list of all albums, a list of all artists or a list of all tracks.
+It provides fourth ways to browse your music: a list of all albums, a list of all artists, a list of all tracks or a list of all genres.
 </para>
 <para>
 Each method uses a view of all your music along with a filter to allow to quickly find what you are looking for. You can also filter by rating.
@@ -129,6 +129,9 @@ Each method uses a view of all your music along with a filter to allow to quickl
 The filter of the view of all albums is implemented on the title or the artist of albums or the list of artists of each track of an album.
 The filter of the view of all artists is implemented on the name of the artists.
 The filter of the view of all tracks is implemented on the track title, track artist and track album name (if any).
+</para>
+<para>
+It is also possible to directly browse the file system and play music files.
 </para>
 </sect2>
 

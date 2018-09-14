@@ -30,9 +30,9 @@ as Authors, publish date, the abstract, and Keywords -->
 </copyright>
 <legalnotice>&CCBYSA4Notice;</legalnotice>
 
-<date>2018-01-17</date>
+<date>2018-09-14</date>
 
-<releaseinfo>Elisa 0.0.81</releaseinfo>
+<releaseinfo>Elisa 0.3.0</releaseinfo>
 
 <abstract>
 <para>
@@ -72,7 +72,7 @@ control of their data.
 <screeninfo>Here's a screenshot of &elisa; start screen</screeninfo>
 	<mediaobject>
 	  <imageobject>
-	    <imagedata fileref="Screenshot_20180112_174013.png" format="PNG"/>
+	    <imagedata fileref="Screenshot_20180912_232200.png" format="PNG"/>
 	  </imageobject>
 	  <textobject>
 	    <phrase>Screenshot</phrase>

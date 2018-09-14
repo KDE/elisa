@@ -195,7 +195,10 @@ set_target_properties(elisaLib PROPERTIES
     EXPORT_NAME ElisaLib
 )
 
-install(TARGETS elisaLib LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/${LIB_INSTALL_DIR}/elisa)
+install(TARGETS elisaLib
+    LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/${LIB_INSTALL_DIR}/elisa
+    RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/${LIB_INSTALL_DIR}/elisa
+)
 
 set(elisaqmlplugin_SOURCES
     elisaqmlplugin.cpp

@@ -180,7 +180,7 @@ if (KF5XmlGui_FOUND AND KF5KCMUtils_FOUND)
     target_include_directories(elisaapplicationtest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 endif()
 
-if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
+if (Qt5Quick_FOUND AND Qt5Widgets_FOUND AND NOT WIN32)
     set(elisaqmltests_SOURCES
         elisaqmltests.cpp
         qmltests/tst_GridBrowserDelegate.qml

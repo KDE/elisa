@@ -311,7 +311,7 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
         case ColumnsRoles::CountRole:
             break;
         case ColumnsRoles::ImageRole:
-            result = QStringLiteral("");
+            result = QString();
             break;
         case Qt::DisplayRole:
             result = d->mTrackData[index.row()].title();

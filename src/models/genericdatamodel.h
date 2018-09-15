@@ -64,7 +64,7 @@ public:
 
 Q_SIGNALS:
 
-    void neededData(int row) const;
+    void neededData(int row);
 
     void dataTypeChanged(DataUtils::DataType dataType);
 

@@ -127,7 +127,7 @@ void FileScanner::scanProperties(const QString &localFileName, MusicAudioTrack &
     auto bitRateProperty = d->mAllProperties.find(KFileMetaData::Property::BitRate);
     auto sampleRateProperty = d->mAllProperties.find(KFileMetaData::Property::SampleRate);
     auto commentProperty = d->mAllProperties.find(KFileMetaData::Property::Comment);
-#if defined Q_OS_LINUX && !defined Q_OS_ANDROID
+#if !defined Q_OS_ANDROID
     auto fileData = KFileMetaData::UserMetaData(localFileName);
 #endif
 
@@ -197,7 +197,7 @@ void FileScanner::scanProperties(const QString &localFileName, MusicAudioTrack &
         trackData.setArtist(trackData.albumArtist());
     }
 
-#if defined Q_OS_LINUX && !defined Q_OS_ANDROID
+#if !defined Q_OS_ANDROID
     trackData.setRating(fileData.rating());
 #else
     trackData.setRating(0);

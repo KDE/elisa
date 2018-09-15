@@ -86,7 +86,7 @@ int ManageHeaderBar::albumIdRole() const
 QVariant ManageHeaderBar::album() const
 {
     if (!mCurrentTrack.isValid()) {
-        return QStringLiteral("");
+        return QString();
     }
 
     return mCurrentTrack.data(mAlbumRole);
@@ -95,7 +95,7 @@ QVariant ManageHeaderBar::album() const
 QVariant ManageHeaderBar::title() const
 {
     if (!mCurrentTrack.isValid()) {
-        return QStringLiteral("");
+        return QString();
     }
 
     return mCurrentTrack.data(mTitleRole);
@@ -104,7 +104,7 @@ QVariant ManageHeaderBar::title() const
 QVariant ManageHeaderBar::artist() const
 {
     if (!mCurrentTrack.isValid()) {
-        return QStringLiteral("");
+        return QString();
     }
 
     return mCurrentTrack.data(mArtistRole);

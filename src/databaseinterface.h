@@ -57,20 +57,22 @@ public:
         Id,
     };
 
+    Q_ENUM(AlbumData)
+
     enum PropertyType {
         DatabaseId,
         DisplayRole,
         SecondaryRole,
     };
 
-    Q_ENUMS(PropertyType)
+    Q_ENUM(PropertyType)
 
     enum AlbumDiscsCount {
         SingleDiscAlbum,
         MultipleDiscsAlbum,
     };
 
-    Q_ENUMS(AlbumDiscsCounts)
+    Q_ENUM(AlbumDiscsCount)
 
     explicit DatabaseInterface(QObject *parent = nullptr);
 

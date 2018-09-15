@@ -7389,7 +7389,7 @@ void MediaPlayListTest::testEnqueueSampleFiles()
     QCOMPARE(myPlayList.rowCount(), 2);
 
     while (dataChangedSpy.count() < 4) {
-        QCOMPARE(dataChangedSpy.wait(300), true);
+        QCOMPARE(dataChangedSpy.wait(), true);
     }
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);

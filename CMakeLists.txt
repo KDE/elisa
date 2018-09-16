@@ -128,6 +128,23 @@ if (UPNPQT_FOUND)
     message(WARNING "UPnP support is experimental and may not work.")
 endif()
 
+find_package(PkgConfig)
+pkg_check_modules(PC_LIBVLC libvlc>=3.0)
+
+find_path(LIBVLC_INCLUDE_DIRS libvlc.h
+    HINTS
+        ${PC_LIBVLC_INCLUDEDIR}
+        ${PC_LIBVLC_INCLUDE_DIRS}
+    PATH_SUFFIXES
+        vlc
+)
+
+find_library(LIBVLC_LIBRARIES NAMES vlc
+    HINTS
+        ${PC_LIBVLC_LIBDIR}
+        ${PC_LIBVLC_LIBRARY_DIRS}
+)
+
 include(FeatureSummary)
 include(GenerateExportHeader)
 include(ECMSetupVersion)

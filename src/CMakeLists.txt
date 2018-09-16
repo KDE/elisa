@@ -14,7 +14,7 @@ set(elisaLib_SOURCES
     manageaudioplayer.cpp
     trackslistener.cpp
     elisaapplication.cpp
-    audiowrapper.cpp
+    audiowrapper_libvlc.cpp
     notificationitem.cpp
     topnotificationmanager.cpp
     elisautils.cpp
@@ -188,6 +188,16 @@ if (Qt5DBus_FOUND)
 endif()
 
 generate_export_header(elisaLib BASE_NAME ElisaLib EXPORT_FILE_NAME elisaLib_export.h)
+
+target_include_directories(elisaLib
+    PRIVATE
+        ${LIBVLC_INCLUDE_DIRS}
+)
+
+target_link_libraries(elisaLib
+    LINK_PRIVATE
+        ${LIBVLC_LIBRARIES}
+)
 
 set_target_properties(elisaLib PROPERTIES
     VERSION 0.1

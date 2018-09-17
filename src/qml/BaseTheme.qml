@@ -114,6 +114,14 @@ Item {
 
     property alias defaultFontPointSize: fontSize.font.pointSize
 
+    TextMetrics {
+        id: bigTextSize
+        font.pointSize: defaultFontPointSize * 1.4
+        text: "Albums"
+    }
+
+    property int viewSelectorSmallSizeThreshold: 3 * layoutHorizontalMargin + viewSelectorDelegateHeight + bigTextSize.width
+
     Label {
         id: fontSize
     }

@@ -24,8 +24,12 @@ FocusScope {
     id: rootFocusScope
 
     property alias currentIndex: viewModeView.currentIndex
+    property double textOpacity
+    property double maximumSize
 
     signal switchView(int index)
+
+    implicitWidth: elisaTheme.dp(500)
 
     Rectangle {
         anchors.fill: parent
@@ -61,13 +65,46 @@ FocusScope {
                     }
 
                     delegate: MouseArea {
-                        id: item
+                        id: itemMouseArea
 
                         height: elisaTheme.viewSelectorDelegateHeight * 1.4
                         width: viewModeView.width
 
                         hoverEnabled: true
                         acceptedButtons: Qt.LeftButton
+
+                        Loader {
+                            anchors.fill: parent
+                            active: itemMouseArea && itemMouseArea.containsMouse && !nameLabel.visible
+
+                            sourceComponent: ToolTip {
+                                delay: Qt.styleHints.mousePressAndHoldInterval
+                                text: nameLabel.text
+                                visible: itemMouseArea && itemMouseArea.containsMouse && !nameLabel.visible
+
+                                contentItem: Label {
+                                    text: nameLabel.text
+                                    color: myPalette.highlightedText
+                                }
+
+                                enter: Transition { NumberAnimation { properties: "opacity"; easing.type: Easing.InOutQuad; from: 0.0; to: 1.0; duration: 300; } }
+                                exit: Transition { NumberAnimation { properties: "opacity"; easing.type: Easing.InOutQuad; from: 1.0; to: 0.0; duration: 300; } }
+
+                                background: Rectangle {
+                                    color: myPalette.shadow
+                                    radius: elisaTheme.tooltipRadius
+
+                                    layer.enabled: true
+                                    layer.effect: DropShadow {
+                                        horizontalOffset: elisaTheme.shadowOffset
+                                        verticalOffset: elisaTheme.shadowOffset
+                                        radius: 8
+                                        samples: 17
+                                        color: myPalette.shadow
+                                    }
+                                }
+                            }
+                        }
 
                         Image {
                             id: viewIcon
@@ -102,12 +139,13 @@ FocusScope {
                                 verticalCenter: parent.verticalCenter
                                 leftMargin: elisaTheme.layoutHorizontalMargin
                                 left: parent.left
+                                rightMargin: nameLabel.visible ? 0 : elisaTheme.layoutHorizontalMargin
                             }
 
                             height: elisaTheme.viewSelectorDelegateHeight
                             width: elisaTheme.viewSelectorDelegateHeight
 
-                            color: (index === viewModeView.currentIndex || item.containsMouse ? myPalette.highlight : "transparent")
+                            color: (index === viewModeView.currentIndex || itemMouseArea.containsMouse ? myPalette.highlight : "transparent")
 
                             Behavior on color {
                                 ColorAnimation {
@@ -133,7 +171,16 @@ FocusScope {
                             text: model.name
                             elide: Text.ElideRight
 
-                            color: (viewModeView.currentIndex === index || item.containsMouse ? myPalette.highlight : myPalette.text)
+                            opacity: textOpacity
+                            visible: opacity > 0
+
+                            Behavior on opacity {
+                                NumberAnimation {
+                                    duration: 150
+                                }
+                            }
+
+                            color: (viewModeView.currentIndex === index || itemMouseArea.containsMouse ? myPalette.highlight : myPalette.text)
 
                             Behavior on color {
                                 ColorAnimation {
@@ -192,4 +239,37 @@ FocusScope {
             switchView(1)
         }
     }
+
+    Behavior on implicitWidth {
+        NumberAnimation {
+            duration: 150
+        }
+    }
+
+    Behavior on width {
+        NumberAnimation {
+            duration: 150
+        }
+    }
+
+    states: [
+        State {
+            name: 'iconsAndText'
+            when: maximumSize >= elisaTheme.viewSelectorSmallSizeThreshold
+            PropertyChanges {
+                target: rootFocusScope
+                textOpacity: 1
+                implicitWidth: elisaTheme.dp(500)
+            }
+        },
+        State {
+            name: 'iconsOnly'
+            when: maximumSize < elisaTheme.viewSelectorSmallSizeThreshold
+            PropertyChanges {
+                target: rootFocusScope
+                textOpacity: 0
+                implicitWidth: elisaTheme.viewSelectorDelegateHeight + 2 * elisaTheme.layoutHorizontalMargin
+            }
+        }
+    ]
 }

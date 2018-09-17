@@ -165,14 +165,14 @@ FocusScope {
                                                    (elisaTheme.smallDelegateToolButtonSize +
                                                     trackNumberSize.width +
                                                     fakeDiscNumberSize.width +
-                                                    (elisaTheme.layoutHorizontalMargin * 3 / 4) -
+                                                    (elisaTheme.layoutHorizontalMargin * 5 / 4) -
                                                     headerRow.height) :
                                                    0
                             Layout.rightMargin: LayoutMirroring.enabled ?
                                                     (elisaTheme.smallDelegateToolButtonSize +
                                                      trackNumberSize.width +
                                                      fakeDiscNumberSize.width +
-                                                     (elisaTheme.layoutHorizontalMargin * 3 / 4) -
+                                                     (elisaTheme.layoutHorizontalMargin * 5 / 4) -
                                                      headerRow.height) :
                                                     0
                             Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
@@ -257,6 +257,8 @@ FocusScope {
                         Layout.maximumWidth: elisaTheme.smallDelegateToolButtonSize
                         Layout.maximumHeight: elisaTheme.smallDelegateToolButtonSize
                         Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+                        Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin / 2 : 0
+                        Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin / 2 : 0
 
                         Image {
                             id: playIcon

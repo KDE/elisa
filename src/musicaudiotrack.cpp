@@ -20,8 +20,9 @@
 #include <QDateTime>
 #include <QDebug>
 #include <utility>
+#include <QSharedData>
 
-class MusicAudioTrackPrivate
+class MusicAudioTrackPrivate : public QSharedData
 {
 public:
 
@@ -33,7 +34,8 @@ public:
                            QDateTime fileModificationTime, QUrl aAlbumCover, int rating,
                            bool aIsSingleDiscAlbum, QString aGenre, QString aComposer,
                            QString aLyricist)
-        : mId(std::move(aId)), mParentId(std::move(aParentId)), mTitle(std::move(aTitle)), mArtist(std::move(aArtist)),
+        : QSharedData(), mId(std::move(aId)), mParentId(std::move(aParentId)),
+          mTitle(std::move(aTitle)), mArtist(std::move(aArtist)),
           mAlbumName(std::move(aAlbumName)), mAlbumArtist(std::move(aAlbumArtist)),
           mGenre(std::move(aGenre)), mComposer(std::move(aComposer)), mLyricist(std::move(aLyricist)),
           mResourceURI(std::move(aResourceURI)),
@@ -96,7 +98,7 @@ public:
 
 };
 
-MusicAudioTrack::MusicAudioTrack() : d(std::make_unique<MusicAudioTrackPrivate>())
+MusicAudioTrack::MusicAudioTrack() : d(new MusicAudioTrackPrivate())
 {
 }
 
@@ -104,47 +106,27 @@ MusicAudioTrack::MusicAudioTrack(bool aValid, QString aId, QString aParentId, QS
                                  QString aAlbumArtist, int aTrackNumber, int aDiscNumber, QTime aDuration, QUrl aResourceURI,
                                  const QDateTime &fileModificationTime, QUrl aAlbumCover, int rating, bool aIsSingleDiscAlbum,
                                  QString aGenre, QString aComposer, QString aLyricist)
-    : d(std::make_unique<MusicAudioTrackPrivate>(aValid, std::move(aId), std::move(aParentId),
-                                                 std::move(aTitle), std::move(aArtist),
-                                                 std::move(aAlbumName), std::move(aAlbumArtist),
-                                                 aTrackNumber, aDiscNumber, aDuration,
-                                                 std::move(aResourceURI), fileModificationTime,
-                                                 std::move(aAlbumCover), rating,
-                                                 aIsSingleDiscAlbum, std::move(aGenre),
-                                                 std::move(aComposer), std::move(aLyricist)))
+    : d(new MusicAudioTrackPrivate(aValid, std::move(aId), std::move(aParentId),
+                                   std::move(aTitle), std::move(aArtist),
+                                   std::move(aAlbumName), std::move(aAlbumArtist),
+                                   aTrackNumber, aDiscNumber, aDuration,
+                                   std::move(aResourceURI), fileModificationTime,
+                                   std::move(aAlbumCover), rating,
+                                   aIsSingleDiscAlbum, std::move(aGenre),
+                                   std::move(aComposer), std::move(aLyricist)))
 {
 }
 
-MusicAudioTrack::MusicAudioTrack(MusicAudioTrack &&other) noexcept
-{
-    d.swap(other.d);
-}
+MusicAudioTrack::MusicAudioTrack(MusicAudioTrack &&other) noexcept = default;
 
-MusicAudioTrack::MusicAudioTrack(const MusicAudioTrack &other) : d(std::make_unique<MusicAudioTrackPrivate>(*other.d))
-{
-}
+MusicAudioTrack::MusicAudioTrack(const MusicAudioTrack &other) = default;
 
 MusicAudioTrack::~MusicAudioTrack()
 = default;
 
-MusicAudioTrack& MusicAudioTrack::operator=(MusicAudioTrack &&other) noexcept
-{
-    if (this != &other) {
-        d.reset();
-        d.swap(other.d);
-    }
+MusicAudioTrack& MusicAudioTrack::operator=(MusicAudioTrack &&other) noexcept = default;
 
-    return *this;
-}
-
-MusicAudioTrack& MusicAudioTrack::operator=(const MusicAudioTrack &other)
-{
-    if (this != &other) {
-        (*d) = (*other.d);
-    }
-
-    return *this;
-}
+MusicAudioTrack& MusicAudioTrack::operator=(const MusicAudioTrack &other) = default;
 
 bool MusicAudioTrack::operator <(const MusicAudioTrack &other) const
 {
@@ -211,7 +193,7 @@ qulonglong MusicAudioTrack::albumId() const
     return d->mAlbumId;
 }
 
-void MusicAudioTrack::setId(const QString &value) const
+void MusicAudioTrack::setId(const QString &value)
 {
     d->mId = value;
 }
@@ -221,7 +203,7 @@ QString MusicAudioTrack::id() const
     return d->mId;
 }
 
-void MusicAudioTrack::setParentId(const QString &value) const
+void MusicAudioTrack::setParentId(const QString &value)
 {
     d->mParentId = value;
 }
@@ -231,7 +213,7 @@ QString MusicAudioTrack::parentId() const
     return d->mParentId;
 }
 
-void MusicAudioTrack::setTitle(const QString &value) const
+void MusicAudioTrack::setTitle(const QString &value)
 {
     d->mTitle = value;
 }
@@ -241,7 +223,7 @@ QString MusicAudioTrack::title() const
     return d->mTitle;
 }
 
-void MusicAudioTrack::setArtist(const QString &value) const
+void MusicAudioTrack::setArtist(const QString &value)
 {
     d->mArtist = value;
 }
@@ -251,7 +233,7 @@ QString MusicAudioTrack::artist() const
     return d->mArtist;
 }
 
-void MusicAudioTrack::setAlbumName(const QString &value) const
+void MusicAudioTrack::setAlbumName(const QString &value)
 {
     d->mAlbumName = value;
 }
@@ -261,7 +243,7 @@ QString MusicAudioTrack::albumName() const
     return d->mAlbumName;
 }
 
-void MusicAudioTrack::setAlbumArtist(const QString &value) const
+void MusicAudioTrack::setAlbumArtist(const QString &value)
 {
     d->mAlbumArtist = value;
 }
@@ -276,7 +258,7 @@ bool MusicAudioTrack::isValidAlbumArtist() const
     return !d->mAlbumArtist.isEmpty();
 }
 
-void MusicAudioTrack::setAlbumCover(const QUrl &value) const
+void MusicAudioTrack::setAlbumCover(const QUrl &value)
 {
     d->mAlbumCover = value;
 }
@@ -286,7 +268,7 @@ QUrl MusicAudioTrack::albumCover() const
     return d->mAlbumCover;
 }
 
-void MusicAudioTrack::setGenre(const QString &value) const
+void MusicAudioTrack::setGenre(const QString &value)
 {
     d->mGenre = value;
 }
@@ -296,7 +278,7 @@ QString MusicAudioTrack::genre() const
     return d->mGenre;
 }
 
-void MusicAudioTrack::setComposer(const QString &value) const
+void MusicAudioTrack::setComposer(const QString &value)
 {
     d->mComposer = value;
 }
@@ -306,7 +288,7 @@ QString MusicAudioTrack::composer() const
     return d->mComposer;
 }
 
-void MusicAudioTrack::setLyricist(const QString &value) const
+void MusicAudioTrack::setLyricist(const QString &value)
 {
     d->mLyricist = value;
 }
@@ -316,7 +298,7 @@ QString MusicAudioTrack::lyricist() const
     return d->mLyricist;
 }
 
-void MusicAudioTrack::setComment(const QString &value) const
+void MusicAudioTrack::setComment(const QString &value)
 {
     d->mComment = value;
 }
@@ -416,7 +398,7 @@ const QUrl &MusicAudioTrack::resourceURI() const
     return d->mResourceURI;
 }
 
-void MusicAudioTrack::setRating(int value) const
+void MusicAudioTrack::setRating(int value)
 {
     d->mRating = value;
 }

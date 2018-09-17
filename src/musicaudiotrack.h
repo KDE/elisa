@@ -24,6 +24,7 @@
 #include <QTime>
 #include <QUrl>
 #include <QMetaType>
+#include <QSharedDataPointer>
 
 #include <memory>
 
@@ -70,49 +71,49 @@ public:
 
     qulonglong albumId() const;
 
-    void setId(const QString &value) const;
+    void setId(const QString &value);
 
     QString id() const;
 
-    void setParentId(const QString &value) const;
+    void setParentId(const QString &value);
 
     QString parentId() const;
 
-    void setTitle(const QString &value) const;
+    void setTitle(const QString &value);
 
     QString title() const;
 
-    void setArtist(const QString &value) const;
+    void setArtist(const QString &value);
 
     QString artist() const;
 
-    void setAlbumName(const QString &value) const;
+    void setAlbumName(const QString &value);
 
     QString albumName() const;
 
-    void setAlbumArtist(const QString &value) const;
+    void setAlbumArtist(const QString &value);
 
     QString albumArtist() const;
 
-    void setGenre(const QString &value) const;
+    void setGenre(const QString &value);
 
     QString genre() const;
 
-    void setComposer(const QString &value) const;
+    void setComposer(const QString &value);
 
     QString composer() const;
 
-    void setLyricist(const QString &value) const;
+    void setLyricist(const QString &value);
 
     QString lyricist() const;
 
-    void setComment(const QString &value) const;
+    void setComment(const QString &value);
 
     QString comment() const;
 
     bool isValidAlbumArtist() const;
 
-    void setAlbumCover(const QUrl &value) const;
+    void setAlbumCover(const QUrl &value);
 
     QUrl albumCover() const;
 
@@ -152,7 +153,7 @@ public:
 
     const QUrl& resourceURI() const;
 
-    void setRating(int value) const;
+    void setRating(int value);
 
     int rating() const;
 
@@ -162,11 +163,13 @@ public:
 
 private:
 
-    std::unique_ptr<MusicAudioTrackPrivate> d;
+    QSharedDataPointer<MusicAudioTrackPrivate> d;
 
 };
 
 ELISALIB_EXPORT QDebug operator<<(QDebug stream, const MusicAudioTrack &data);
+
+Q_DECLARE_TYPEINFO(MusicAudioTrack, Q_MOVABLE_TYPE);
 
 Q_DECLARE_METATYPE(MusicAudioTrack)
 

@@ -17,9 +17,11 @@
 
 #include "musicaudiogenre.h"
 
+#include <QSharedData>
+
 #include <QDebug>
 
-class MusicAudioGenrePrivate
+class MusicAudioGenrePrivate : public QSharedData
 {
 public:
 
@@ -29,37 +31,17 @@ public:
 
 };
 
-MusicAudioGenre::MusicAudioGenre() : d(std::make_unique<MusicAudioGenrePrivate>())
+MusicAudioGenre::MusicAudioGenre() : d(new MusicAudioGenrePrivate())
 {
 }
 
-MusicAudioGenre::MusicAudioGenre(MusicAudioGenre &&other)
-{
-    d.swap(other.d);
-}
+MusicAudioGenre::MusicAudioGenre(MusicAudioGenre &&other) noexcept = default;
 
-MusicAudioGenre::MusicAudioGenre(const MusicAudioGenre &other) : d(std::make_unique<MusicAudioGenrePrivate>(*other.d))
-{
-}
+MusicAudioGenre::MusicAudioGenre(const MusicAudioGenre &other) = default;
 
-MusicAudioGenre& MusicAudioGenre::operator=(MusicAudioGenre &&other)
-{
-    if (&other != this) {
-        d.reset();
-        d.swap(other.d);
-    }
+MusicAudioGenre& MusicAudioGenre::operator=(MusicAudioGenre &&other) noexcept = default;
 
-    return *this;
-}
-
-MusicAudioGenre &MusicAudioGenre::operator=(const MusicAudioGenre &other)
-{
-    if (&other != this) {
-        (*d) = (*other.d);
-    }
-
-    return *this;
-}
+MusicAudioGenre &MusicAudioGenre::operator=(const MusicAudioGenre &other) = default;
 
 MusicAudioGenre::~MusicAudioGenre()
 = default;

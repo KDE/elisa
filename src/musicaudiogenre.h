@@ -22,6 +22,7 @@
 
 #include <QString>
 #include <QMetaType>
+#include <QSharedDataPointer>
 
 #include <memory>
 
@@ -35,11 +36,11 @@ public:
 
     MusicAudioGenre();
 
-    MusicAudioGenre(MusicAudioGenre &&other);
+    MusicAudioGenre(MusicAudioGenre &&other) noexcept;
 
     MusicAudioGenre(const MusicAudioGenre &other);
 
-    MusicAudioGenre& operator=(MusicAudioGenre &&other);
+    MusicAudioGenre& operator=(MusicAudioGenre &&other) noexcept;
 
     MusicAudioGenre& operator=(const MusicAudioGenre &other);
 
@@ -55,13 +56,15 @@ public:
 
 private:
 
-    std::unique_ptr<MusicAudioGenrePrivate> d;
+    QSharedDataPointer<MusicAudioGenrePrivate> d;
 
 };
 
 QDebug& operator<<(QDebug &stream, const MusicAudioGenre &data);
 
 bool operator==(const MusicAudioGenre &genre1, const MusicAudioGenre &genre2);
+
+Q_DECLARE_TYPEINFO(MusicAudioGenre, Q_MOVABLE_TYPE);
 
 Q_DECLARE_METATYPE(MusicAudioGenre)
 

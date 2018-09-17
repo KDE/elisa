@@ -145,8 +145,15 @@ RowLayout {
         id: listViews
 
         Layout.fillHeight: true
-        Layout.preferredWidth: mainWindow.width * 0.11
+
         Layout.maximumWidth: mainWindow.width * 0.11
+        maximumSize: mainWindow.width * 0.11
+
+        Behavior on Layout.maximumWidth {
+            NumberAnimation {
+                duration: 150
+            }
+        }
 
         onSwitchView: if (index === 1) {
                           viewManager.openAllAlbums()

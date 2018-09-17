@@ -273,7 +273,14 @@ FocusScope {
                 placeholderText: i18nc("Placeholder text in the filter text box", "Album name, artist, etc.")
 
                 Layout.bottomMargin: 0
-                Layout.preferredWidth: navigationBar.width / 2
+                Layout.fillWidth: true
+                Layout.minimumWidth: placeHolderTextWidth.width * 1.2
+                implicitWidth: placeHolderTextWidth.width * 1.2
+
+                TextMetrics {
+                    id: placeHolderTextWidth
+                    text: filterTextInput.placeholderText
+                }
 
                 Image {
                     anchors.top: parent.top
@@ -335,6 +342,7 @@ FocusScope {
 
             Item {
                 Layout.fillWidth: true
+                implicitWidth: elisaTheme.layoutHorizontalMargin * 4
             }
 
             Controls1.ToolButton {

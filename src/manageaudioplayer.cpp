@@ -70,7 +70,7 @@ QMediaPlayer::Error ManageAudioPlayer::playerError() const
     return mPlayerError;
 }
 
-int ManageAudioPlayer::audioDuration() const
+qint64 ManageAudioPlayer::audioDuration() const
 {
     return mAudioDuration;
 }
@@ -80,12 +80,12 @@ bool ManageAudioPlayer::playerIsSeekable() const
     return mPlayerIsSeekable;
 }
 
-int ManageAudioPlayer::playerPosition() const
+qint64 ManageAudioPlayer::playerPosition() const
 {
     return mPlayerPosition;
 }
 
-int ManageAudioPlayer::playControlPosition() const
+qint64 ManageAudioPlayer::playControlPosition() const
 {
     return mPlayerPosition;
 }
@@ -372,7 +372,7 @@ void ManageAudioPlayer::playPause()
     }
 }
 
-void ManageAudioPlayer::setAudioDuration(int audioDuration)
+void ManageAudioPlayer::setAudioDuration(qint64 audioDuration)
 {
     if (mAudioDuration == audioDuration) {
         return;
@@ -392,7 +392,7 @@ void ManageAudioPlayer::setPlayerIsSeekable(bool playerIsSeekable)
     Q_EMIT playerIsSeekableChanged();
 }
 
-void ManageAudioPlayer::setPlayerPosition(int playerPosition)
+void ManageAudioPlayer::setPlayerPosition(qint64 playerPosition)
 {
     if (mPlayerPosition == playerPosition) {
         return;
@@ -568,7 +568,7 @@ void ManageAudioPlayer::restorePreviousState()
 
     auto playerPosition = mPersistentState.find(QStringLiteral("playerPosition"));
     if (playerPosition != mPersistentState.end()) {
-        mPlayerPosition = playerPosition->toInt();
+        mPlayerPosition = playerPosition->toLongLong();
         Q_EMIT seek(mPlayerPosition);
     }
 

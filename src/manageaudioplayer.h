@@ -84,7 +84,7 @@ class ELISALIB_EXPORT ManageAudioPlayer : public QObject
                WRITE setPlayerError
                NOTIFY playerErrorChanged)
 
-    Q_PROPERTY(int audioDuration
+    Q_PROPERTY(qint64 audioDuration
                READ audioDuration
                WRITE setAudioDuration
                NOTIFY audioDurationChanged)
@@ -94,12 +94,12 @@ class ELISALIB_EXPORT ManageAudioPlayer : public QObject
                WRITE setPlayerIsSeekable
                NOTIFY playerIsSeekableChanged)
 
-    Q_PROPERTY(int playerPosition
+    Q_PROPERTY(qint64 playerPosition
                READ playerPosition
                WRITE setPlayerPosition
                NOTIFY playerPositionChanged)
 
-    Q_PROPERTY(int playControlPosition
+    Q_PROPERTY(qint64 playControlPosition
                READ playControlPosition
                WRITE setPlayControlPosition
                NOTIFY playControlPositionChanged)
@@ -137,13 +137,13 @@ public:
 
     QMediaPlayer::Error playerError() const;
 
-    int audioDuration() const;
+    qint64 audioDuration() const;
 
     bool playerIsSeekable() const;
 
-    int playerPosition() const;
+    qint64 playerPosition() const;
 
-    int playControlPosition() const;
+    qint64 playControlPosition() const;
 
     QVariantMap persistentState() const;
 
@@ -191,7 +191,7 @@ Q_SIGNALS:
 
     void persistentStateChanged();
 
-    void seek(int position);
+    void seek(qint64 position);
 
     void titleRoleChanged();
 
@@ -227,11 +227,11 @@ public Q_SLOTS:
 
     void stop();
 
-    void setAudioDuration(int audioDuration);
+    void setAudioDuration(qint64 audioDuration);
 
     void setPlayerIsSeekable(bool playerIsSeekable);
 
-    void setPlayerPosition(int playerPosition);
+    void setPlayerPosition(qint64 playerPosition);
 
     void setPlayControlPosition(int playerPosition);
 
@@ -295,7 +295,7 @@ private:
 
     bool mPlayerIsSeekable = false;
 
-    int mPlayerPosition = 0;
+    qint64 mPlayerPosition = 0;
 
     QVariantMap mPersistentState;
 

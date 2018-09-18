@@ -142,7 +142,7 @@ void AudioWrapper::stop()
     d->mPlayer.stop();
 }
 
-void AudioWrapper::seek(int position)
+void AudioWrapper::seek(qint64 position)
 {
     d->mPlayer.setPosition(position);
 }

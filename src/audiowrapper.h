@@ -148,7 +148,7 @@ public Q_SLOTS:
 
     void stop();
 
-    void seek(int position);
+    void seek(qint64 position);
 
     void setAudioRole(QAudio::Role audioRole);
 

@@ -307,14 +307,6 @@ RowLayout {
                                     }
 
                                     onGoBack: viewManager.goBack()
-
-                                    Binding {
-                                        target: allAlbumsView
-                                        property: 'expandedFilterView'
-                                        value: persistentSettings.expandedFilterView
-                                    }
-
-                                    onFilterViewChanged: persistentSettings.expandedFilterView = expandedFilterView
                                 }
                             }
 
@@ -368,14 +360,6 @@ RowLayout {
                                     }
 
                                     onGoBack: viewManager.goBack()
-
-                                    Binding {
-                                        target: allArtistsView
-                                        property: 'expandedFilterView'
-                                        value: persistentSettings.expandedFilterView
-                                    }
-
-                                    onFilterViewChanged: persistentSettings.expandedFilterView = expandedFilterView
                                 }
                             }
 
@@ -441,14 +425,6 @@ RowLayout {
 
                                     image: elisaTheme.tracksIcon
                                     mainTitle: i18nc("Title of the view of all tracks", "Tracks")
-
-                                    Binding {
-                                        target: allTracksView
-                                        property: 'expandedFilterView'
-                                        value: persistentSettings.expandedFilterView
-                                    }
-
-                                    onFilterViewChanged: persistentSettings.expandedFilterView = expandedFilterView
                                 }
                             }
 
@@ -502,14 +478,6 @@ RowLayout {
                                     }
 
                                     onGoBack: viewManager.goBack()
-
-                                    Binding {
-                                        target: allGenresView
-                                        property: 'expandedFilterView'
-                                        value: persistentSettings.expandedFilterView
-                                    }
-
-                                    onFilterViewChanged: persistentSettings.expandedFilterView = expandedFilterView
                                 }
                             }
 
@@ -546,14 +514,6 @@ RowLayout {
                                 focus: true
 
                                 contentModel: elisa.fileBrowserProxyModel
-
-                                Binding {
-                                    target: localFiles
-                                    property: 'expandedFilterView'
-                                    value: persistentSettings.expandedFilterView
-                                }
-
-                                onFilterViewChanged: persistentSettings.expandedFilterView = expandedFilterView
                             }
 
                             Behavior on opacity {
@@ -764,14 +724,6 @@ RowLayout {
             }
 
             onGoBack: viewManager.goBack()
-
-            Binding {
-                target: innerAlbumGridView
-                property: 'expandedFilterView'
-                value: persistentSettings.expandedFilterView
-            }
-
-            onFilterViewChanged: persistentSettings.expandedFilterView = expandedFilterView
         }
     }
 
@@ -790,14 +742,6 @@ RowLayout {
             }
 
             onGoBack: viewManager.goBack()
-
-            Binding {
-                target: innerAlbumGridView
-                property: 'expandedFilterView'
-                value: persistentSettings.expandedFilterView
-            }
-
-            onFilterViewChanged: persistentSettings.expandedFilterView = expandedFilterView
         }
     }
 
@@ -843,16 +787,6 @@ RowLayout {
             }
 
             onGoBack: viewManager.goBack()
-
-            expandedFilterView: true
-
-            Binding {
-                target: albumGridView
-                property: 'expandedFilterView'
-                value: persistentSettings.expandedFilterView
-            }
-
-            onFilterViewChanged: persistentSettings.expandedFilterView = expandedFilterView
         }
     }
 }

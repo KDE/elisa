@@ -30,8 +30,6 @@ FocusScope {
     property alias contentModel: contentDirectoryView.model
     property alias expandedFilterView: navigationBar.expandedFilterView
 
-    signal filterViewChanged(bool expandedFilterView)
-
     function goBack() {
         contentModel.openParentFolder()
     }
@@ -86,7 +84,6 @@ FocusScope {
             onEnqueue: contentModel.enqueueToPlayList()
             onReplaceAndPlay: contentModel.replaceAndPlayOfPlayList()
             onGoBack: contentModel.openParentFolder()
-            onFilterViewChanged: fileView.filterViewChanged(expandedFilterView)
             onSort: contentModel.sortModel(order)
         }
 

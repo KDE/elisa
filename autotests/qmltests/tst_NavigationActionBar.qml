@@ -21,7 +21,11 @@ import "../../src/qml"
 
 FocusScope {
 
-    property bool expandedFilterView: false
+    Item {
+        id: persistentSettings
+
+        property bool expandedFilterView: false
+    }
 
     function i18nc(string1,string2) {
         return string2
@@ -34,17 +38,13 @@ FocusScope {
         property int defaultFontPointSize: 12
         property int filterClearButtonMargin: layoutVerticalMargin
         property int ratingStarSize: 15
+        property int navigationBarHeight: 100
+        property int navigationBarFilterHeight: 44
     }
 
     SystemPalette {
         id: myPalette
         colorGroup: SystemPalette.Active
-    }
-
-    Binding {
-        target: navigationActionBar1
-        property: "expandedFilterView"
-        value: expandedFilterView
     }
 
     NavigationActionBar {
@@ -115,13 +115,13 @@ FocusScope {
         SignalSpy {
             id: filterViewChangedSpy1
             target: navigationActionBar1
-            signalName: "filterViewChanged"
+            signalName: "expandedFilterViewChanged"
         }
 
         SignalSpy {
             id: filterViewChangedSpy2
             target: navigationActionBar2
-            signalName: "filterViewChanged"
+            signalName: "expandedFilterViewChanged"
         }
 
         SignalSpy {
@@ -149,7 +149,7 @@ FocusScope {
             filterViewChangedSpy2.clear();
             showArtistSpy1.clear();
             showArtistSpy2.clear();
-            expandedFilterView = false;
+            persistentSettings.expandedFilterView = false;
         }
 
         function test_goBack() {
@@ -199,7 +199,7 @@ FocusScope {
             compare(replaceAndPlaySpy2.count, 0);
             compare(goBackSpy1.count, 0);
             compare(goBackSpy2.count, 0);
-            compare(filterViewChangedSpy1.count, 0);
+            compare(filterViewChangedSpy1.count, 1);
             compare(filterViewChangedSpy2.count, 0);
             compare(showArtistSpy1.count, 0);
             compare(showArtistSpy2.count, 0);
@@ -207,21 +207,17 @@ FocusScope {
             var showFilterButtonItem1 = findChild(navigationActionBar1, "showFilterButton");
             verify(showFilterButtonItem1 !== null, "valid showFilterButton")
             mouseClick(showFilterButtonItem1);
-            compare(filterViewChangedSpy1.count, 1);
+            compare(filterViewChangedSpy1.count, 2);
             var signalArgument1 = filterViewChangedSpy1.signalArguments[0];
-            expandedFilterView = signalArgument1[0];
-            compare(expandedFilterView,true);
+            compare(navigationActionBar1.expandedFilterView, true);
             compare(navigationActionBar1.state,'expanded')
             var showFilterButtonItem2 = findChild(navigationActionBar2, "showFilterButton");
             verify(showFilterButtonItem2 !== null, "valid showFilterButton")
             mouseClick(showFilterButtonItem2);
             compare(filterViewChangedSpy2.count, 1);
             var signalArgument2 = filterViewChangedSpy2.signalArguments[0];
-            compare(signalArgument2[0],false)
-            expandedFilterView = signalArgument2[0];
-            compare(expandedFilterView,false)
-            compare(navigationActionBar1.expandedFilterView, false)
-            compare(navigationActionBar1.state,'collapsed')
+            compare(navigationActionBar2.expandedFilterView, false)
+            compare(navigationActionBar2.state, 'collapsed')
         }
 
         function test_replaceAndPlay() {
@@ -265,7 +261,7 @@ FocusScope {
         }
 
         function test_filterRating() {
-            expandedFilterView = true;
+            persistentSettings.expandedFilterView = true;
             wait(200);
             var ratingFilterItem1 = findChild(navigationActionBar1, "ratingFilter");
             verify(ratingFilterItem1 !== null, "valid ratingFilter")

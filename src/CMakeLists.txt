@@ -195,11 +195,15 @@ set_target_properties(elisaLib PROPERTIES
     EXPORT_NAME ElisaLib
 )
 
-install(TARGETS elisaLib
-    LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/${LIB_INSTALL_DIR}/elisa
-    RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/${LIB_INSTALL_DIR}/elisa
-    BUNDLE DESTINATION ${CMAKE_INSTALL_PREFIX}/${LIB_INSTALL_DIR}/elisa
-)
+if (NOT APPLE)
+    install(TARGETS elisaLib
+        LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/${LIB_INSTALL_DIR}/elisa
+        RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/${LIB_INSTALL_DIR}/elisa
+        BUNDLE DESTINATION ${CMAKE_INSTALL_PREFIX}/${LIB_INSTALL_DIR}/elisa
+    )
+else()
+    install(TARGETS elisaLib ${INSTALL_TARGETS_DEFAULT_ARGS})
+endif()
 
 set(elisaqmlplugin_SOURCES
     elisaqmlplugin.cpp
@@ -224,8 +228,13 @@ endif()
 
 set_target_properties(elisaqmlplugin PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/org/kde/elisa
-    INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/${LIB_INSTALL_DIR}/elisa;${CMAKE_INSTALL_RPATH}"
 )
+
+if (NOT APPLE)
+    set_target_properties(elisaqmlplugin PROPERTIES
+        INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/${LIB_INSTALL_DIR}/elisa;${CMAKE_INSTALL_RPATH}"
+    )
+endif()
 
 install(TARGETS elisaqmlplugin DESTINATION ${QML_INSTALL_DIR}/org/kde/elisa/)
 
@@ -339,9 +348,11 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         )
     endif()
 
-    set_target_properties(elisa PROPERTIES
-        INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/${LIB_INSTALL_DIR}/elisa;${CMAKE_INSTALL_RPATH}"
-    )
+    if (NOT APPLE)
+        set_target_properties(elisa PROPERTIES
+            INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/${LIB_INSTALL_DIR}/elisa;${CMAKE_INSTALL_RPATH}"
+        )
+    endif()
 
     install(TARGETS elisa ${INSTALL_TARGETS_DEFAULT_ARGS})
 endif()

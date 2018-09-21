@@ -811,6 +811,8 @@ RowLayout {
 
             isSubPage: true
 
+            enableSorting: false
+
             delegate: MediaAlbumTrackDelegate {
                 id: entry
 

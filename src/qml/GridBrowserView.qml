@@ -39,7 +39,6 @@ FocusScope {
 
     signal open(var innerMainTitle, var innerSecondaryTitle, var innerImage, var databaseId)
     signal goBack()
-    signal filterViewChanged(bool expandedFilterView)
 
     SystemPalette {
         id: myPalette
@@ -94,8 +93,6 @@ FocusScope {
             onReplaceAndPlay:contentModel.replaceAndPlayOfPlayList()
 
             onGoBack: gridView.goBack()
-
-            onFilterViewChanged: gridView.filterViewChanged(expandedFilterView)
 
             onSort: contentModel.sortModel(order)
         }

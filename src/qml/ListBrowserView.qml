@@ -43,7 +43,6 @@ FocusScope {
 
     signal goBack()
     signal showArtist(var name)
-    signal filterViewChanged(bool expandedFilterView)
 
     SystemPalette {
         id: myPalette
@@ -83,8 +82,6 @@ FocusScope {
             }
 
             onEnqueue: contentModel.enqueueToPlayList()
-
-            onFilterViewChanged: listView.filterViewChanged(expandedFilterView)
 
             onReplaceAndPlay: contentModel.replaceAndPlayOfPlayList()
 

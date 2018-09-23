@@ -344,9 +344,7 @@ MusicAudioTrack LocalBalooFileListing::scanOneFile(const QUrl &scanFile)
     auto localFileName = scanFile.toLocalFile();
     auto scanFileInfo = QFileInfo(localFileName);
 
-    if (scanFileInfo.exists()) {
-        watchPath(localFileName);
-    } else {
+    if (!scanFileInfo.exists()) {
         return newTrack;
     }
 
@@ -373,6 +371,7 @@ MusicAudioTrack LocalBalooFileListing::scanOneFile(const QUrl &scanFile)
 
     if (newTrack.isValid()) {
         AbstractFileListing::addCover(newTrack);
+        watchPath(localFileName);
     }
 
     return newTrack;

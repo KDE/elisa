@@ -34,7 +34,7 @@ FocusScope {
     property alias filterText: filterTextInput.text
     property alias filterRating: ratingFilter.starRating
     property bool enableGoBack: true
-    property bool expandedFilterView: false
+    property bool expandedFilterView: persistentSettings.expandedFilterView
     property bool enableSorting: true
     property bool sortOrder
 
@@ -42,7 +42,6 @@ FocusScope {
     signal replaceAndPlay();
     signal goBack();
     signal showArtist();
-    signal filterViewChanged(bool expandedFilterView);
     signal sort(var order);
 
     Controls1.Action {
@@ -52,11 +51,20 @@ FocusScope {
         onTriggered: goBack()
     }
 
+    property var findAction: elisa.action("edit_find")
+
     Controls1.Action {
         id: showFilterAction
+        shortcut: findAction.shortcut
         text: !navigationBar.expandedFilterView ? i18nc("Show filters in the navigation bar", "Show Search Options") : i18nc("Hide filters in the navigation bar", "Hide Search Options")
         iconName: !navigationBar.expandedFilterView ? "go-down-search" : "go-up-search"
-        onTriggered: filterViewChanged(!navigationBar.expandedFilterView)
+        onTriggered: {
+            persistentSettings.expandedFilterView = !persistentSettings.expandedFilterView
+            expandedFilterView = persistentSettings.expandedFilterView
+            if (expandedFilterView) {
+                filterTextInput.forceActiveFocus()
+            }
+        }
     }
 
     Controls1.Action {

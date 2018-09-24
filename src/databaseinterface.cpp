@@ -849,8 +849,10 @@ void DatabaseInterface::insertTracksList(const QList<MusicAudioTrack> &tracks, c
 
         if (isNewTrack) {
             insertTrackOrigin(oneTrack.resourceURI(), oneTrack.fileModificationTime(), insertMusicSource(musicSource));
-        } else {
+        } else if (!d->mSelectTracksMapping.record().value(0).isNull() && d->mSelectTracksMapping.record().value(0).toULongLong() != 0) {
             updateTrackOrigin(d->mSelectTracksMapping.record().value(0).toULongLong(), oneTrack.resourceURI(), oneTrack.fileModificationTime());
+        } else {
+            continue;
         }
 
         d->mSelectTracksMapping.finish();
@@ -860,6 +862,19 @@ void DatabaseInterface::insertTracksList(const QList<MusicAudioTrack> &tracks, c
 
         if (isNewTrack && insertedTrackId != 0) {
             d->mInsertedTracks.push_back(insertedTrackId);
+        } else if (insertedTrackId == 0) {
+            d->mRemoveTracksMappingFromSource.bindValue(QStringLiteral(":fileName"), oneTrack.resourceURI());
+            d->mRemoveTracksMappingFromSource.bindValue(QStringLiteral(":sourceId"), internalSourceIdFromName(musicSource));
+
+            auto result = d->mRemoveTracksMappingFromSource.exec();
+
+            if (!result || !d->mRemoveTracksMappingFromSource.isActive()) {
+                Q_EMIT databaseError();
+
+                qDebug() << "DatabaseInterface::insertTracksList" << d->mRemoveTracksMappingFromSource.lastQuery();
+                qDebug() << "DatabaseInterface::insertTracksList" << d->mRemoveTracksMappingFromSource.boundValues();
+                qDebug() << "DatabaseInterface::insertTracksList" << d->mRemoveTracksMappingFromSource.lastError();
+            }
         }
 
         if (d->mStopRequest == 1) {

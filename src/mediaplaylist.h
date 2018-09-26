@@ -292,8 +292,7 @@ class MediaPlayListEntry
 {
 public:
 
-    MediaPlayListEntry() {
-    }
+    MediaPlayListEntry() = default;
 
     explicit MediaPlayListEntry(qulonglong id) : mId(id), mIsValid(true) {
     }

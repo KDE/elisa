@@ -301,8 +301,12 @@ FocusScope {
         }
 
         function test_filterText() {
+            navigationActionBar1.expandedFilterView = true
+            navigationActionBar2.expandedFilterView = false
+            wait(300)
             var textsFilterItem1 = findChild(navigationActionBar1, "filterTextInput");
             verify(textsFilterItem1 !== null, "valid filterTextInput")
+            textsFilterItem1.focus = false
             compare(textsFilterItem1.focus, false);
             mouseClick(textsFilterItem1);
             compare(textsFilterItem1.focus, true);

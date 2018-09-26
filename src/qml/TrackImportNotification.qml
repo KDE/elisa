@@ -28,16 +28,23 @@ Rectangle {
 
     color: myPalette.highlight
 
-    width: elisaTheme.gridDelegateWidth * 1.5
+    width: Math.max(elisaTheme.gridDelegateWidth * 1.5, labelWidth.width + 2 * elisaTheme.layoutHorizontalMargin)
     height: elisaTheme.smallControlButtonSize * 1.5
 
     visible: opacity > 0
     opacity: (indexingRunning ? 1 : 0)
 
     Label {
+        id: importedTracksCountLabel
         anchors.centerIn: parent
         text: i18ncp("number of imported tracks", "Imported one track", "Imported %1 tracks", importedTracksCount)
         color: myPalette.highlightedText
+    }
+
+    TextMetrics {
+        id: labelWidth
+
+        text: i18ncp("number of imported tracks", "Imported one track", "Imported %1 tracks", 999999)
     }
 
     Timer {

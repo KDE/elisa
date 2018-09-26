@@ -42,6 +42,12 @@ FocusScope {
         property int navigationBarFilterHeight: 44
     }
 
+    Item {
+        id: fakeFindAction
+
+        property var shortcut
+    }
+
     SystemPalette {
         id: myPalette
         colorGroup: SystemPalette.Active
@@ -52,6 +58,7 @@ FocusScope {
 
         mainTitle: 'testTitle1'
         secondaryTitle: 'secondaryTitle1'
+        findAction: fakeFindAction
 
         enableGoBack: true
         allowArtistNavigation: true
@@ -63,6 +70,7 @@ FocusScope {
         id: navigationActionBar2
         mainTitle: 'testTitle2'
         secondaryTitle: 'secondaryTitle2'
+        findAction: fakeFindAction
 
         enableGoBack: false
         allowArtistNavigation: false

@@ -122,6 +122,12 @@ FocusScope {
                     text: 'example'
                 }
 
+                ScrollHelper {
+                    id: scrollHelper
+                    flickable: contentDirectoryView
+                    anchors.fill: contentDirectoryView
+                }
+
                 cellWidth: elisaTheme.gridDelegateWidth
                 cellHeight: (delegateDisplaySecondaryText ? elisaTheme.gridDelegateHeight : elisaTheme.gridDelegateHeight - secondaryLabelSize.height)
 

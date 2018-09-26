@@ -28,6 +28,7 @@
 #include <QDBusObjectPath>
 #include <QPointer>
 #include <QUrl>
+#include <QDBusMessage>
 
 class MediaPlayList;
 class ManageAudioPlayer;
@@ -161,6 +162,7 @@ private:
     ManageMediaPlayerControl* m_manageMediaPlayerControl = nullptr;
     ManageHeaderBar * m_manageHeaderBar = nullptr;
     AudioWrapper *m_audioPlayer = nullptr;
+    mutable QDBusMessage mProgressIndicatorSignal;
 };
 
 #endif // MEDIAPLAYER2PLAYER_H

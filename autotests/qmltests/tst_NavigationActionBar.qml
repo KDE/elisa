@@ -42,6 +42,12 @@ FocusScope {
         property int navigationBarFilterHeight: 44
     }
 
+    Item {
+        id: fakeFindAction
+
+        property var shortcut
+    }
+
     SystemPalette {
         id: myPalette
         colorGroup: SystemPalette.Active
@@ -52,6 +58,7 @@ FocusScope {
 
         mainTitle: 'testTitle1'
         secondaryTitle: 'secondaryTitle1'
+        findAction: fakeFindAction
 
         enableGoBack: true
         allowArtistNavigation: true
@@ -63,6 +70,7 @@ FocusScope {
         id: navigationActionBar2
         mainTitle: 'testTitle2'
         secondaryTitle: 'secondaryTitle2'
+        findAction: fakeFindAction
 
         enableGoBack: false
         allowArtistNavigation: false
@@ -301,8 +309,12 @@ FocusScope {
         }
 
         function test_filterText() {
+            navigationActionBar1.expandedFilterView = true
+            navigationActionBar2.expandedFilterView = false
+            wait(300)
             var textsFilterItem1 = findChild(navigationActionBar1, "filterTextInput");
             verify(textsFilterItem1 !== null, "valid filterTextInput")
+            textsFilterItem1.focus = false
             compare(textsFilterItem1.focus, false);
             mouseClick(textsFilterItem1);
             compare(textsFilterItem1.focus, true);

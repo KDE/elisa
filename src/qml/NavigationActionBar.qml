@@ -37,6 +37,7 @@ FocusScope {
     property bool expandedFilterView: persistentSettings.expandedFilterView
     property bool enableSorting: true
     property bool sortOrder
+    property var findAction: elisa.action("edit_find")
 
     signal enqueue();
     signal replaceAndPlay();
@@ -50,8 +51,6 @@ FocusScope {
         iconName: (Qt.application.layoutDirection == Qt.RightToLeft) ? "go-next" : "go-previous"
         onTriggered: goBack()
     }
-
-    property var findAction: elisa.action("edit_find")
 
     Controls1.Action {
         id: showFilterAction

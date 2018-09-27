@@ -45,6 +45,8 @@ FocusScope {
         text: i18nc("Add whole container to play list", "Enqueue")
         iconName: 'media-track-add-amarok'
         onTriggered: enqueue(containerData)
+
+        enabled: containerData !== undefined
     }
 
     Controls1.Action {
@@ -61,6 +63,8 @@ FocusScope {
         text: i18nc("Clear play list and add whole container to play list", "Play Now and Replace Play List")
         iconName: 'media-playback-start'
         onTriggered: replaceAndPlay(containerData)
+
+        enabled: containerData !== undefined
     }
 
     Keys.onReturnPressed: openAction.trigger(this)
@@ -127,6 +131,8 @@ FocusScope {
 
                                 action: enqueueAction
 
+                                visible: enqueueAction.enabled
+
                                 width: elisaTheme.delegateToolButtonSize
                                 height: elisaTheme.delegateToolButtonSize
                             }
@@ -148,6 +154,8 @@ FocusScope {
                                 scale: LayoutMirroring.enabled ? -1 : 1
 
                                 action: replaceAndPlayAction
+
+                                visible: replaceAndPlayAction.enabled
 
                                 width: elisaTheme.delegateToolButtonSize
                                 height: elisaTheme.delegateToolButtonSize

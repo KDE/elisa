@@ -113,7 +113,6 @@ QVariant AllGenresModel::data(const QModelIndex &index, int role) const
         result = false;
         break;
     case ElisaUtils::ColumnsRoles::ContainerDataRole:
-        result = QVariant::fromValue(d->mAllGenres[index.row()]);
         break;
     case ElisaUtils::ColumnsRoles::ChildModelRole:
         result = d->mAllGenres[index.row()].name();

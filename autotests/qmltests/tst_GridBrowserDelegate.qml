@@ -29,6 +29,7 @@ FocusScope {
         shadowForImage: true
         mainText: "hello"
         secondaryText: "hello secondary"
+        containerData: "hello world"
 
         function i18nc() {
         }

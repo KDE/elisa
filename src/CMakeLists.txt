@@ -195,7 +195,7 @@ set_target_properties(elisaLib PROPERTIES
     EXPORT_NAME ElisaLib
 )
 
-if (NOT APPLE)
+if (NOT APPLE AND NOT WIN32)
     install(TARGETS elisaLib
         LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/${LIB_INSTALL_DIR}/elisa
         RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/${LIB_INSTALL_DIR}/elisa
@@ -230,7 +230,7 @@ set_target_properties(elisaqmlplugin PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/org/kde/elisa
 )
 
-if (NOT APPLE)
+if (NOT APPLE AND NOT WIN32)
     set_target_properties(elisaqmlplugin PROPERTIES
         INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/${LIB_INSTALL_DIR}/elisa;${CMAKE_INSTALL_RPATH}"
     )
@@ -348,7 +348,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         )
     endif()
 
-    if (NOT APPLE)
+    if (NOT APPLE AND NOT WIN32)
         set_target_properties(elisa PROPERTIES
             INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/${LIB_INSTALL_DIR}/elisa;${CMAKE_INSTALL_RPATH}"
         )

@@ -110,6 +110,12 @@ FocusScope {
                 }
                 boundsBehavior: Flickable.StopAtBounds
                 clip: true
+
+                ScrollHelper {
+                    id: scrollHelper
+                    flickable: contentDirectoryView
+                    anchors.fill: contentDirectoryView
+                }
             }
         }
     }

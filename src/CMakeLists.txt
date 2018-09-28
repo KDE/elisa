@@ -299,6 +299,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         qml/ListBrowserView.qml
         qml/FileBrowserDelegate.qml
         qml/FileBrowserView.qml
+        qml/ScrollHelper.qml
     )
 
     qt5_add_resources(elisa_SOURCES resources.qrc)

@@ -106,6 +106,12 @@ FocusScope {
                 }
                 boundsBehavior: Flickable.StopAtBounds
 
+                ScrollHelper {
+                    id: scrollHelper
+                    flickable: contentDirectoryView
+                    anchors.fill: contentDirectoryView
+                }
+
                 add:  Transition {
                     PropertyAnimation {
                         property: "opacity"

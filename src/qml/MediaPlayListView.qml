@@ -173,6 +173,12 @@ FocusScope {
             boundsBehavior: Flickable.StopAtBounds
             clip: true
 
+            ScrollHelper {
+                id: scrollHelper
+                flickable: playListView
+                anchors.fill: playListView
+            }
+
             TextEdit {
                 readOnly: true
                 visible: playListModelDelegate.count === 0

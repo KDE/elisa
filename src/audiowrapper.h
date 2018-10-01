@@ -162,6 +162,8 @@ private Q_SLOTS:
 
 private:
 
+    void mediaIsEnded();
+
     std::unique_ptr<AudioWrapperPrivate> d;
 
 };

@@ -29,22 +29,33 @@ class AudioWrapperPrivate
 
 public:
 
-    libvlc_instance_t *mVlcInstance = nullptr;
+    libvlc_instance_t *mInstance = nullptr;
 
-    libvlc_media_player_t *mp = nullptr;
+    libvlc_media_player_t *mPlayer = nullptr;
 
-    libvlc_media_t *m = nullptr;
+    libvlc_media_t *mMedia = nullptr;
+
+    QTimer mStateRefreshTimer;
+
+
 
 };
 
 
 AudioWrapper::AudioWrapper(QObject *parent) : QObject(parent), d(std::make_unique<AudioWrapperPrivate>())
 {
-    d->mVlcInstance = libvlc_new(0, nullptr);
+    d->mInstance = libvlc_new(0, nullptr);
+    d->mStateRefreshTimer.setInterval(100);
+    connect(&d->mStateRefreshTimer, &QTimer::timeout,
+            this, &AudioWrapper::playerStateChanged);
 }
 
 AudioWrapper::~AudioWrapper()
-= default;
+{
+    if (d->mInstance) {
+        libvlc_release(d->mInstance);
+    }
+}
 
 bool AudioWrapper::muted() const
 {
@@ -107,64 +118,147 @@ QMediaPlayer::MediaStatus AudioWrapper::status() const
 
 void AudioWrapper::setMuted(bool muted)
 {
-//    d->mPlayer.setMuted(muted);
+    if (!d->mPlayer) {
+        return;
+    }
+
+    libvlc_audio_set_mute(d->mPlayer, muted);
 }
 
 void AudioWrapper::setVolume(qreal volume)
 {
+    if (!d->mPlayer) {
+        return;
+    }
+
     auto realVolume = static_cast<qreal>(QAudio::convertVolume(volume / 100.0, QAudio::LogarithmicVolumeScale, QAudio::LinearVolumeScale));
-//    d->mPlayer.setVolume(qRound(realVolume * 100));
+    libvlc_audio_set_volume(d->mPlayer, qRound(realVolume * 100));
 }
 
 void AudioWrapper::setSource(const QUrl &source)
 {
-//    d->mPlayer.setMedia({source});
+    d->mMedia = libvlc_media_new_path(d->mInstance, source.toLocalFile().toUtf8().constData());
+    if (!d->mMedia) {
+        return;
+    }
+
+    d->mPlayer = libvlc_media_player_new_from_media(d->mMedia);
+
+    Q_EMIT statusChanged(QMediaPlayer::LoadingMedia);
+    Q_EMIT playbackStateChanged(QMediaPlayer::StoppedState);
+
+    d->mStateRefreshTimer.start();
+
+    libvlc_media_release(d->mMedia);
+    d->mMedia = nullptr;
 }
 
 void AudioWrapper::setPosition(qint64 position)
 {
-//    d->mPlayer.setPosition(position);
+    if (!d->mPlayer) {
+        return;
+    }
+
+    qDebug() << "AudioWrapper::setPosition";
+
+    libvlc_media_player_set_position(d->mPlayer, position);
 }
 
 void AudioWrapper::play()
 {
-//    d->mPlayer.play();
+    if (!d->mPlayer) {
+        return;
+    }
+
+    qDebug() << "AudioWrapper::play";
+
+    libvlc_media_player_play(d->mPlayer);
 }
 
 void AudioWrapper::pause()
 {
-//    d->mPlayer.pause();
+    if (!d->mPlayer) {
+        return;
+    }
+
+    qDebug() << "AudioWrapper::pause";
+
+    libvlc_media_player_pause(d->mPlayer);
 }
 
 void AudioWrapper::stop()
 {
-//    d->mPlayer.stop();
+    if (!d->mPlayer) {
+        return;
+    }
+
+    qDebug() << "AudioWrapper::stop";
+
+    libvlc_media_player_stop(d->mPlayer);
 }
 
-void AudioWrapper::seek(int position)
+void AudioWrapper::seek(qint64 position)
 {
-//    d->mPlayer.setPosition(position);
+    if (!d->mPlayer) {
+        return;
+    }
+
+    libvlc_media_player_set_position(d->mPlayer, position);
 }
 
 void AudioWrapper::setAudioRole(QAudio::Role audioRole)
 {
-//    d->mPlayer.setAudioRole(audioRole);
+    //    d->mPlayer.setAudioRole(audioRole);
 }
 
 void AudioWrapper::playerStateChanged()
 {
-    switch(d->mPlayer.state())
+    if (!d->mPlayer) {
+        return;
+    }
+
+    qDebug() << "AudioWrapper::playerStateChanged";
+
+    switch(libvlc_media_player_get_state(d->mPlayer))
     {
-    case QMediaPlayer::State::StoppedState:
+    case libvlc_Stopped:
+        qDebug() << "AudioWrapper::playerStateChanged" << "Stopped";
+        Q_EMIT playbackStateChanged(QMediaPlayer::StoppedState);
         Q_EMIT stopped();
         break;
-    case QMediaPlayer::State::PlayingState:
+    case libvlc_Playing:
+        qDebug() << "AudioWrapper::playerStateChanged" << "Playing";
+        Q_EMIT playbackStateChanged(QMediaPlayer::PlayingState);
         Q_EMIT playing();
         break;
-    case QMediaPlayer::State::PausedState:
+    case libvlc_Paused:
+        qDebug() << "AudioWrapper::playerStateChanged" << "Paused";
+        Q_EMIT playbackStateChanged(QMediaPlayer::PausedState);
         Q_EMIT paused();
         break;
+    case libvlc_Opening:
+        qDebug() << "AudioWrapper::playerStateChanged" << "Opening";
+        Q_EMIT statusChanged(QMediaPlayer::LoadingMedia);
+        break;
+    case libvlc_Buffering:
+        qDebug() << "AudioWrapper::playerStateChanged" << "Buffering";
+        Q_EMIT statusChanged(QMediaPlayer::BufferingMedia);
+        break;
+    case libvlc_NothingSpecial:
+        qDebug() << "AudioWrapper::playerStateChanged" << "NothingSpecial";
+        break;
+    case libvlc_Ended:
+        qDebug() << "AudioWrapper::playerStateChanged" << "Ended";
+        Q_EMIT statusChanged(QMediaPlayer::BufferedMedia);
+        Q_EMIT statusChanged(QMediaPlayer::NoMedia);
+        Q_EMIT statusChanged(QMediaPlayer::EndOfMedia);
+        mediaIsEnded();
+        break;
+    case libvlc_Error:
+        break;
     }
+
+
 }
 
 void AudioWrapper::playerVolumeChanged()
@@ -175,6 +269,17 @@ void AudioWrapper::playerVolumeChanged()
 void AudioWrapper::playerMutedChanged()
 {
     QTimer::singleShot(0, [this]() {Q_EMIT mutedChanged();});
+}
+
+void AudioWrapper::mediaIsEnded()
+{
+    qDebug() << "AudioWrapper::mediaIsEnded";
+
+    d->mStateRefreshTimer.stop();
+
+    libvlc_media_player_release(d->mPlayer);
+
+    d->mPlayer = nullptr;
 }
 
 

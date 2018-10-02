@@ -154,15 +154,27 @@ public Q_SLOTS:
 
 private Q_SLOTS:
 
-    void playerStateChanged();
+    void mediaStatusChanged();
 
-    void playerVolumeChanged();
+    void playerStateChanged();
 
     void playerMutedChanged();
 
+    void playerVolumeChanged();
+
 private:
 
-    void mediaIsEnded();
+    void playerStateSignalChanges();
+
+    void mediaStatusSignalChanges();
+
+    void playerPositionSignalChanges(qint64 newPosition);
+
+    void playerVolumeSignalChanges();
+
+    void playerMutedSignalChanges();
+
+    friend class AudioWrapperPrivate;
 
     std::unique_ptr<AudioWrapperPrivate> d;
 

@@ -31,13 +31,13 @@ public:
 
 };
 
-
 AudioWrapper::AudioWrapper(QObject *parent) : QObject(parent), d(std::make_unique<AudioWrapperPrivate>())
 {
     connect(&d->mPlayer, &QMediaPlayer::mutedChanged, this, &AudioWrapper::playerMutedChanged);
     connect(&d->mPlayer, &QMediaPlayer::volumeChanged, this, &AudioWrapper::playerVolumeChanged);
     connect(&d->mPlayer, &QMediaPlayer::mediaChanged, this, &AudioWrapper::sourceChanged);
     connect(&d->mPlayer, &QMediaPlayer::mediaStatusChanged, this, &AudioWrapper::statusChanged);
+    connect(&d->mPlayer, &QMediaPlayer::mediaStatusChanged, this, &AudioWrapper::mediaStatusChanged);
     connect(&d->mPlayer, &QMediaPlayer::stateChanged, this, &AudioWrapper::playbackStateChanged);
     connect(&d->mPlayer, &QMediaPlayer::stateChanged, this, &AudioWrapper::playerStateChanged);
     connect(&d->mPlayer, QOverload<QMediaPlayer::Error>::of(&QMediaPlayer::error), this, &AudioWrapper::errorChanged);
@@ -152,8 +152,14 @@ void AudioWrapper::setAudioRole(QAudio::Role audioRole)
     d->mPlayer.setAudioRole(audioRole);
 }
 
+void AudioWrapper::mediaStatusChanged()
+{
+    qDebug() << "statusChanged" << d->mPlayer.mediaStatus();
+}
+
 void AudioWrapper::playerStateChanged()
 {
+    qDebug() << "playbackStateChanged" << d->mPlayer.state();
     switch(d->mPlayer.state())
     {
     case QMediaPlayer::State::StoppedState:

@@ -14,7 +14,6 @@ set(elisaLib_SOURCES
     manageaudioplayer.cpp
     trackslistener.cpp
     elisaapplication.cpp
-    audiowrapper_libvlc.cpp
     notificationitem.cpp
     topnotificationmanager.cpp
     elisautils.cpp
@@ -39,6 +38,18 @@ set(elisaLib_SOURCES
     models/singlealbumproxymodel.cpp
     models/genericdatamodel.cpp
 )
+
+if (LIBVLC_FOUND)
+    set(elisaLib_SOURCES
+        ${elisaLib_SOURCES}
+        audiowrapper_libvlc.cpp
+    )
+else()
+    set(elisaLib_SOURCES
+        ${elisaLib_SOURCES}
+        audiowrapper_qtmultimedia.cpp
+    )
+endif()
 
 if (KF5KIO_FOUND)
     set(elisaLib_SOURCES
@@ -187,17 +198,19 @@ if (Qt5DBus_FOUND)
     endif()
 endif()
 
+if (LIBVLC_FOUND)
+    target_include_directories(elisaLib
+        PRIVATE
+            ${LIBVLC_INCLUDE_DIRS}
+    )
+
+    target_link_libraries(elisaLib
+        LINK_PRIVATE
+            ${LIBVLC_LIBRARIES}
+    )
+endif()
+
 generate_export_header(elisaLib BASE_NAME ElisaLib EXPORT_FILE_NAME elisaLib_export.h)
-
-target_include_directories(elisaLib
-    PRIVATE
-        ${LIBVLC_INCLUDE_DIRS}
-)
-
-target_link_libraries(elisaLib
-    LINK_PRIVATE
-        ${LIBVLC_LIBRARIES}
-)
 
 set_target_properties(elisaLib PROPERTIES
     VERSION 0.1

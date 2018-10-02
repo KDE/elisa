@@ -12,7 +12,7 @@ find_package(Qt5Core ${REQUIRED_QT_VERSION} CONFIG REQUIRED Private)
 
 set(REQUIRED_KF5_VERSION "5.45.0")
 find_package(ECM ${REQUIRED_KF5_VERSION} REQUIRED NO_MODULE)
-set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake" ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
 
 include(KDEInstallDirs)
 include(KDECMakeSettings)
@@ -128,22 +128,11 @@ if (UPNPQT_FOUND)
     message(WARNING "UPnP support is experimental and may not work.")
 endif()
 
-find_package(PkgConfig)
-pkg_check_modules(PC_LIBVLC libvlc>=3.0)
-
-find_path(LIBVLC_INCLUDE_DIRS libvlc.h
-    HINTS
-        ${PC_LIBVLC_INCLUDEDIR}
-        ${PC_LIBVLC_INCLUDE_DIRS}
-    PATH_SUFFIXES
-        vlc
-)
-
-find_library(LIBVLC_LIBRARIES NAMES vlc
-    HINTS
-        ${PC_LIBVLC_LIBDIR}
-        ${PC_LIBVLC_LIBRARY_DIRS}
-)
+find_package(LIBVLC QUIET)
+set_package_properties(LIBVLC PROPERTIES
+    DESCRIPTION "libvlc allows to play music in Elisa"
+    URL "https://www.videolan.org/vlc/libvlc.html"
+    TYPE OPTIONAL)
 
 include(FeatureSummary)
 include(GenerateExportHeader)

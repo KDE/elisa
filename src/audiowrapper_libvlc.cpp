@@ -194,12 +194,13 @@ void AudioWrapper::setSource(const QUrl &source)
 
     d->mPlayer = libvlc_media_player_new_from_media(d->mMedia);
 
-    d->signalMediaStatusChange(QMediaPlayer::LoadingMedia);
     if (d->signalPlaybackChange(QMediaPlayer::StoppedState)) {
         Q_EMIT stopped();
     }
+
+    d->signalMediaStatusChange(QMediaPlayer::LoadingMedia);
     d->signalMediaStatusChange(QMediaPlayer::LoadedMedia);
-    d->signalMediaStatusChange(QMediaPlayer::BufferingMedia);
+    d->signalMediaStatusChange(QMediaPlayer::BufferedMedia);
 
     d->mStateRefreshTimer.start();
 }
@@ -214,8 +215,6 @@ void AudioWrapper::setPosition(qint64 position)
         return;
     }
 
-    qDebug() << "AudioWrapper::setPosition" << position << (static_cast<float>(position) / d->mMediaDuration);
-
     libvlc_media_player_set_position(d->mPlayer, static_cast<float>(position) / d->mMediaDuration);
 }
 
@@ -224,8 +223,6 @@ void AudioWrapper::play()
     if (!d->mPlayer) {
         return;
     }
-
-    qDebug() << "AudioWrapper::play";
 
     libvlc_media_player_play(d->mPlayer);
 }
@@ -236,8 +233,6 @@ void AudioWrapper::pause()
         return;
     }
 
-    qDebug() << "AudioWrapper::pause";
-
     libvlc_media_player_pause(d->mPlayer);
 }
 
@@ -246,8 +241,6 @@ void AudioWrapper::stop()
     if (!d->mPlayer) {
         return;
     }
-
-    qDebug() << "AudioWrapper::stop";
 
     libvlc_media_player_stop(d->mPlayer);
 }
@@ -289,7 +282,7 @@ void AudioWrapper::playerStateChanged()
         d->signalMediaStatusChange(QMediaPlayer::LoadedMedia);
         break;
     case libvlc_Buffering:
-        d->signalMediaStatusChange(QMediaPlayer::BufferingMedia);
+        d->signalMediaStatusChange(QMediaPlayer::BufferedMedia);
         break;
     case libvlc_NothingSpecial:
         break;
@@ -342,14 +335,14 @@ void AudioWrapper::playerVolumeChanged()
 {
 }
 
-void AudioWrapper::playerStateSignalChanges()
+void AudioWrapper::playerStateSignalChanges(QMediaPlayer::State newState)
 {
-    QTimer::singleShot(0, [this]() {Q_EMIT playbackStateChanged(d->mPreviousPlayerState);});
+    QTimer::singleShot(0, [this, newState]() {Q_EMIT playbackStateChanged(newState);});
 }
 
-void AudioWrapper::mediaStatusSignalChanges()
+void AudioWrapper::mediaStatusSignalChanges(QMediaPlayer::MediaStatus newStatus)
 {
-    QTimer::singleShot(0, [this]() {Q_EMIT statusChanged(d->mPreviousMediaStatus);});
+    QTimer::singleShot(0, [this, newStatus]() {Q_EMIT statusChanged(newStatus);});
 }
 
 void AudioWrapper::playerPositionSignalChanges(qint64 newPosition)
@@ -369,8 +362,6 @@ void AudioWrapper::playerMutedSignalChanges()
 
 void AudioWrapperPrivate::mediaIsEnded()
 {
-    qDebug() << "AudioWrapper::mediaIsEnded";
-
     libvlc_media_release(mMedia);
     mMedia = nullptr;
 
@@ -386,8 +377,7 @@ bool AudioWrapperPrivate::signalPlaybackChange(QMediaPlayer::State newPlayerStat
     if (mPreviousPlayerState != newPlayerState) {
         mPreviousPlayerState = newPlayerState;
 
-        qDebug() << "playbackStateChanged" << mPreviousPlayerState;
-        mParent->playerStateChanged();
+        mParent->playerStateSignalChanges(mPreviousPlayerState);
 
         return true;
     }
@@ -400,8 +390,7 @@ void AudioWrapperPrivate::signalMediaStatusChange(QMediaPlayer::MediaStatus newM
     if (mPreviousMediaStatus != newMediaStatus) {
         mPreviousMediaStatus = newMediaStatus;
 
-        qDebug() << "statusChanged" << mPreviousMediaStatus;
-        mParent->mediaStatusSignalChanges();
+        mParent->mediaStatusSignalChanges(mPreviousMediaStatus);
     }
 }
 
@@ -418,7 +407,6 @@ void AudioWrapperPrivate::signalVolumeChange(int newVolume)
     if (abs(mPreviousVolume - newVolume) > 0.01) {
         mPreviousVolume = newVolume;
 
-        qDebug() << "volumeChanged" << mPreviousVolume;
         mParent->playerVolumeSignalChanges();
     }
 }
@@ -428,7 +416,6 @@ void AudioWrapperPrivate::signalPositionChange(qint64 newPosition)
     if (mPreviousPosition != newPosition) {
         mPreviousPosition = newPosition;
 
-        qDebug() << "positionChanged" << mPreviousPosition;
         mParent->playerPositionSignalChanges(mPreviousPosition);
     }
 }

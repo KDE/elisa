@@ -409,10 +409,8 @@ void ElisaApplication::initializePlayer()
     QObject::connect(d->mMediaPlayList.get(), &MediaPlayList::playListFinished, d->mAudioControl.get(), &ManageAudioPlayer::playListFinished);
     QObject::connect(d->mMediaPlayList.get(), &MediaPlayList::currentTrackChanged, d->mAudioControl.get(), &ManageAudioPlayer::setCurrentTrack);
 
-    QObject::connect(d->mAudioWrapper.get(), &AudioWrapper::playbackStateChanged, d->mAudioControl.get(),
-                     [this](QMediaPlayer::State state) {
-        d->mAudioControl->setPlayerPlaybackState(static_cast<int>(state));
-    });
+    QObject::connect(d->mAudioWrapper.get(), &AudioWrapper::playbackStateChanged,
+                     d->mAudioControl.get(), &ManageAudioPlayer::setPlayerPlaybackState);
     QObject::connect(d->mAudioWrapper.get(), &AudioWrapper::statusChanged, d->mAudioControl.get(), &ManageAudioPlayer::setPlayerStatus);
     QObject::connect(d->mAudioWrapper.get(), &AudioWrapper::errorChanged, d->mAudioControl.get(), &ManageAudioPlayer::setPlayerError);
     QObject::connect(d->mAudioWrapper.get(), &AudioWrapper::durationChanged, d->mAudioControl.get(), &ManageAudioPlayer::setAudioDuration);

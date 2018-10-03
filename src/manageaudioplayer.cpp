@@ -60,7 +60,7 @@ QMediaPlayer::MediaStatus ManageAudioPlayer::playerStatus() const
     return mPlayerStatus;
 }
 
-int ManageAudioPlayer::playerPlaybackState() const
+QMediaPlayer::State ManageAudioPlayer::playerPlaybackState() const
 {
     return mPlayerPlaybackState;
 }
@@ -151,11 +151,11 @@ void ManageAudioPlayer::setCurrentTrack(const QPersistentModelIndex &currentTrac
     }
 
     switch (mPlayerPlaybackState) {
-    case StoppedState:
+    case QMediaPlayer::StoppedState:
         notifyPlayerSourceProperty();
         break;
-    case PlayingState:
-    case PausedState:
+    case QMediaPlayer::PlayingState:
+    case QMediaPlayer::PausedState:
         triggerStop();
         if (mPlayingState && !mCurrentTrack.isValid()) {
             mPlayingState = false;
@@ -208,11 +208,7 @@ void ManageAudioPlayer::setPlayerStatus(QMediaPlayer::MediaStatus playerStatus)
         return;
     }
 
-    if (playerStatus < static_cast<int>(QMediaPlayer::UnknownMediaStatus) || playerStatus > static_cast<int>(QMediaPlayer::InvalidMedia)) {
-        return;
-    }
-
-    mPlayerStatus = static_cast<QMediaPlayer::MediaStatus>(playerStatus);
+    mPlayerStatus = playerStatus;
     Q_EMIT playerStatusChanged();
 
     switch (mPlayerStatus) {
@@ -241,22 +237,18 @@ void ManageAudioPlayer::setPlayerStatus(QMediaPlayer::MediaStatus playerStatus)
     }
 }
 
-void ManageAudioPlayer::setPlayerPlaybackState(int playerPlaybackState)
+void ManageAudioPlayer::setPlayerPlaybackState(QMediaPlayer::State playerPlaybackState)
 {
     if (mPlayerPlaybackState == playerPlaybackState) {
         return;
     }
 
-    if (playerPlaybackState < static_cast<int>(StoppedState) || playerPlaybackState > static_cast<int>(PausedState)) {
-        return;
-    }
-
-    mPlayerPlaybackState = static_cast<PlayerPlaybackState>(playerPlaybackState);
+    mPlayerPlaybackState = playerPlaybackState;
     Q_EMIT playerPlaybackStateChanged();
 
     if (!mSkippingCurrentTrack) {
         switch(mPlayerPlaybackState) {
-        case StoppedState:
+        case QMediaPlayer::StoppedState:
             if (mPlayerStatus == QMediaPlayer::EndOfMedia || mPlayerStatus == QMediaPlayer::InvalidMedia) {
                 triggerSkipNextTrack();
             }
@@ -264,12 +256,12 @@ void ManageAudioPlayer::setPlayerPlaybackState(int playerPlaybackState)
                 mPlayListModel->setData(mCurrentTrack, MediaPlayList::NotPlaying, mIsPlayingRole);
             }
             break;
-        case PlayingState:
+        case QMediaPlayer::PlayingState:
             if (mPlayListModel && mCurrentTrack.isValid()) {
                 mPlayListModel->setData(mCurrentTrack, MediaPlayList::IsPlaying, mIsPlayingRole);
             }
             break;
-        case PausedState:
+        case QMediaPlayer::PausedState:
             if (mPlayListModel && mCurrentTrack.isValid()) {
                 mPlayListModel->setData(mCurrentTrack, MediaPlayList::IsPaused, mIsPlayingRole);
             }
@@ -277,19 +269,19 @@ void ManageAudioPlayer::setPlayerPlaybackState(int playerPlaybackState)
         }
     } else {
         switch(mPlayerPlaybackState) {
-        case StoppedState:
+        case QMediaPlayer::StoppedState:
             notifyPlayerSourceProperty();
             mSkippingCurrentTrack = false;
             if (mPlayListModel && mOldCurrentTrack.isValid()) {
                 mPlayListModel->setData(mOldCurrentTrack, MediaPlayList::NotPlaying, mIsPlayingRole);
             }
             break;
-        case PlayingState:
+        case QMediaPlayer::PlayingState:
             if (mPlayListModel && mCurrentTrack.isValid()) {
                 mPlayListModel->setData(mCurrentTrack, MediaPlayList::IsPlaying, mIsPlayingRole);
             }
             break;
-        case PausedState:
+        case QMediaPlayer::PausedState:
             if (mPlayListModel && mCurrentTrack.isValid()) {
                 mPlayListModel->setData(mCurrentTrack, MediaPlayList::IsPaused, mIsPlayingRole);
             }
@@ -358,9 +350,9 @@ void ManageAudioPlayer::playPause()
         }
         break;
     case QMediaPlayer::EndOfMedia:
-        if (mPlayerPlaybackState == PlayingState && !mPlayingState) {
+        if (mPlayerPlaybackState == QMediaPlayer::PlayingState && !mPlayingState) {
             triggerPause();
-        } else if (mPlayerPlaybackState == PausedState && mPlayingState) {
+        } else if (mPlayerPlaybackState == QMediaPlayer::PausedState && mPlayingState) {
             triggerPlay();
         }
         break;

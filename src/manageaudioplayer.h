@@ -74,7 +74,7 @@ class ELISALIB_EXPORT ManageAudioPlayer : public QObject
                WRITE setPlayerStatus
                NOTIFY playerStatusChanged)
 
-    Q_PROPERTY(int playerPlaybackState
+    Q_PROPERTY(QMediaPlayer::State playerPlaybackState
                READ playerPlaybackState
                WRITE setPlayerPlaybackState
                NOTIFY playerPlaybackStateChanged)
@@ -111,14 +111,6 @@ class ELISALIB_EXPORT ManageAudioPlayer : public QObject
 
 public:
 
-    enum PlayerPlaybackState {
-        PlayingState = 1,
-        PausedState = 2,
-        StoppedState = 0,
-    };
-
-    Q_ENUM(PlayerPlaybackState)
-
     explicit ManageAudioPlayer(QObject *parent = nullptr);
 
     QPersistentModelIndex currentTrack() const;
@@ -133,7 +125,7 @@ public:
 
     QMediaPlayer::MediaStatus playerStatus() const;
 
-    int playerPlaybackState() const;
+    QMediaPlayer::State playerPlaybackState() const;
 
     QMediaPlayer::Error playerError() const;
 
@@ -215,7 +207,7 @@ public Q_SLOTS:
 
     void setPlayerStatus(QMediaPlayer::MediaStatus playerStatus);
 
-    void setPlayerPlaybackState(int playerPlaybackState);
+    void setPlayerPlaybackState(QMediaPlayer::State playerPlaybackState);
 
     void setPlayerError(QMediaPlayer::Error playerError);
 
@@ -283,7 +275,7 @@ private:
 
     QMediaPlayer::MediaStatus mPlayerStatus = QMediaPlayer::NoMedia;
 
-    PlayerPlaybackState mPlayerPlaybackState = StoppedState;
+    QMediaPlayer::State mPlayerPlaybackState = QMediaPlayer::StoppedState;
 
     QMediaPlayer::Error mPlayerError = QMediaPlayer::NoError;
 

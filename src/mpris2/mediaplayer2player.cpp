@@ -86,9 +86,9 @@ QString MediaPlayer2Player::PlaybackStatus() const
         return result;
     }
 
-    if (m_manageAudioPlayer->playerPlaybackState() == ManageAudioPlayer::StoppedState) {
+    if (m_manageAudioPlayer->playerPlaybackState() == QMediaPlayer::StoppedState) {
         result = QStringLiteral("Stopped");
-    } else if (m_manageAudioPlayer->playerPlaybackState() == ManageAudioPlayer::PlayingState) {
+    } else if (m_manageAudioPlayer->playerPlaybackState() == QMediaPlayer::PlayingState) {
         result = QStringLiteral("Playing");
     } else {
         result = QStringLiteral("Paused");

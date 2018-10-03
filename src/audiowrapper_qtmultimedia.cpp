@@ -154,12 +154,10 @@ void AudioWrapper::setAudioRole(QAudio::Role audioRole)
 
 void AudioWrapper::mediaStatusChanged()
 {
-    qDebug() << "statusChanged" << d->mPlayer.mediaStatus();
 }
 
 void AudioWrapper::playerStateChanged()
 {
-    qDebug() << "playbackStateChanged" << d->mPlayer.state();
     switch(d->mPlayer.state())
     {
     case QMediaPlayer::State::StoppedState:

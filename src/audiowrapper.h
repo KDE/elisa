@@ -164,9 +164,9 @@ private Q_SLOTS:
 
 private:
 
-    void playerStateSignalChanges();
+    void playerStateSignalChanges(QMediaPlayer::State newState);
 
-    void mediaStatusSignalChanges();
+    void mediaStatusSignalChanges(QMediaPlayer::MediaStatus newStatus);
 
     void playerPositionSignalChanges(qint64 newPosition);
 

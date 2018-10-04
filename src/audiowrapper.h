@@ -106,7 +106,7 @@ public:
 
 Q_SIGNALS:
 
-    void mutedChanged();
+    void mutedChanged(bool muted);
 
     void volumeChanged();
 
@@ -174,7 +174,7 @@ private:
 
     void playerVolumeSignalChanges();
 
-    void playerMutedSignalChanges();
+    void playerMutedSignalChanges(bool isMuted);
 
     void playerSeekableSignalChanges(bool isSeekable);
 

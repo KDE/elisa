@@ -182,5 +182,40 @@ void AudioWrapper::playerMutedChanged()
     QTimer::singleShot(0, [this]() {Q_EMIT mutedChanged();});
 }
 
+void AudioWrapper::playerStateSignalChanges(QMediaPlayer::State newState)
+{
+    QMetaObject::invokeMethod(this, [this, newState]() {Q_EMIT playbackStateChanged(newState);}, Qt::QueuedConnection);
+}
+
+void AudioWrapper::mediaStatusSignalChanges(QMediaPlayer::MediaStatus newStatus)
+{
+    QMetaObject::invokeMethod(this, [this, newStatus]() {Q_EMIT statusChanged(newStatus);}, Qt::QueuedConnection);
+}
+
+void AudioWrapper::playerDurationSignalChanges(qint64 newDuration)
+{
+    QMetaObject::invokeMethod(this, [this, newDuration]() {Q_EMIT durationChanged(newDuration);}, Qt::QueuedConnection);
+}
+
+void AudioWrapper::playerPositionSignalChanges(qint64 newPosition)
+{
+    QMetaObject::invokeMethod(this, [this, newPosition]() {Q_EMIT positionChanged(newPosition);}, Qt::QueuedConnection);
+}
+
+void AudioWrapper::playerVolumeSignalChanges()
+{
+    QMetaObject::invokeMethod(this, [this]() {Q_EMIT volumeChanged();}, Qt::QueuedConnection);
+}
+
+void AudioWrapper::playerMutedSignalChanges()
+{
+    QMetaObject::invokeMethod(this, [this]() {Q_EMIT mutedChanged();}, Qt::QueuedConnection);
+}
+
+void AudioWrapper::playerSeekableSignalChanges(bool isSeekable)
+{
+    QMetaObject::invokeMethod(this, [this, isSeekable]() {Q_EMIT seekableChanged(isSeekable);}, Qt::QueuedConnection);
+}
+
 
 #include "moc_audiowrapper.cpp"

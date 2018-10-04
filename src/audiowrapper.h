@@ -168,11 +168,15 @@ private:
 
     void mediaStatusSignalChanges(QMediaPlayer::MediaStatus newStatus);
 
+    void playerDurationSignalChanges(qint64 newDuration);
+
     void playerPositionSignalChanges(qint64 newPosition);
 
     void playerVolumeSignalChanges();
 
     void playerMutedSignalChanges();
+
+    void playerSeekableSignalChanges(bool isSeekable);
 
     friend class AudioWrapperPrivate;
 

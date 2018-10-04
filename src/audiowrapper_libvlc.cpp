@@ -49,6 +49,8 @@ public:
 
     qint64 mPreviousPosition = 0;
 
+    QMediaPlayer::Error mError = QMediaPlayer::NoError;
+
     bool mIsMuted = false;
 
     bool mIsSeekable = false;
@@ -70,6 +72,8 @@ public:
     void signalPositionChange(float newPosition);
 
     void signalSeekableChange(bool isSeekable);
+
+    void signalErrorChange(QMediaPlayer::Error errorCode);
 
 };
 
@@ -141,17 +145,7 @@ QUrl AudioWrapper::source() const
 
 QMediaPlayer::Error AudioWrapper::error() const
 {
-    if (!d->mPlayer) {
-        return {};
-    }
-
-#if 0
-    if (d->mPlayer.error() != QMediaPlayer::NoError) {
-        qDebug() << "AudioWrapper::error" << d->mPlayer.errorString();
-    }
-#endif
-
-    return {}/*d->mPlayer.error()*/;
+    return d->mError;
 }
 
 qint64 AudioWrapper::duration() const
@@ -323,6 +317,11 @@ void AudioWrapper::mediaStatusSignalChanges(QMediaPlayer::MediaStatus newStatus)
     QMetaObject::invokeMethod(this, [this, newStatus]() {Q_EMIT statusChanged(newStatus);}, Qt::QueuedConnection);
 }
 
+void AudioWrapper::playerErrorSignalChanges(QMediaPlayer::Error error)
+{
+    QMetaObject::invokeMethod(this, [this, error]() {Q_EMIT errorChanged(error);}, Qt::QueuedConnection);
+}
+
 void AudioWrapper::playerDurationSignalChanges(qint64 newDuration)
 {
     QMetaObject::invokeMethod(this, [this, newDuration]() {Q_EMIT durationChanged(newDuration);}, Qt::QueuedConnection);
@@ -383,6 +382,9 @@ void AudioWrapperPrivate::vlcEventCallback(const struct libvlc_event_t *p_event)
         break;
     case libvlc_MediaPlayerEncounteredError:
         qDebug() << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerEncounteredError";
+        signalErrorChange(QMediaPlayer::ResourceError);
+        mediaIsEnded();
+        signalMediaStatusChange(QMediaPlayer::InvalidMedia);
         break;
     case libvlc_MediaPlayerPositionChanged:
         //qDebug() << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerPositionChanged";
@@ -501,6 +503,15 @@ void AudioWrapperPrivate::signalSeekableChange(bool isSeekable)
         mIsSeekable = isSeekable;
 
         mParent->playerSeekableSignalChanges(isSeekable);
+    }
+}
+
+void AudioWrapperPrivate::signalErrorChange(QMediaPlayer::Error errorCode)
+{
+    if (mError != errorCode) {
+        mError = errorCode;
+
+        mParent->playerErrorSignalChanges(errorCode);
     }
 }
 

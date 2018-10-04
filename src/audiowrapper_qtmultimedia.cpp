@@ -179,7 +179,7 @@ void AudioWrapper::playerVolumeChanged()
 
 void AudioWrapper::playerMutedChanged()
 {
-    QTimer::singleShot(0, [this]() {Q_EMIT mutedChanged();});
+    QTimer::singleShot(0, [this]() {Q_EMIT mutedChanged(muted());});
 }
 
 void AudioWrapper::playerStateSignalChanges(QMediaPlayer::State newState)
@@ -207,9 +207,9 @@ void AudioWrapper::playerVolumeSignalChanges()
     QMetaObject::invokeMethod(this, [this]() {Q_EMIT volumeChanged();}, Qt::QueuedConnection);
 }
 
-void AudioWrapper::playerMutedSignalChanges()
+void AudioWrapper::playerMutedSignalChanges(bool isMuted)
 {
-    QMetaObject::invokeMethod(this, [this]() {Q_EMIT mutedChanged();}, Qt::QueuedConnection);
+    QMetaObject::invokeMethod(this, [this, isMuted]() {Q_EMIT mutedChanged(isMuted);}, Qt::QueuedConnection);
 }
 
 void AudioWrapper::playerSeekableSignalChanges(bool isSeekable)

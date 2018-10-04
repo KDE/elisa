@@ -168,6 +168,8 @@ private:
 
     void mediaStatusSignalChanges(QMediaPlayer::MediaStatus newStatus);
 
+    void playerErrorSignalChanges(QMediaPlayer::Error error);
+
     void playerDurationSignalChanges(qint64 newDuration);
 
     void playerPositionSignalChanges(qint64 newPosition);

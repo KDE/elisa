@@ -132,7 +132,7 @@ find_package(LIBVLC QUIET)
 set_package_properties(LIBVLC PROPERTIES
     DESCRIPTION "libvlc allows to play music in Elisa"
     URL "https://www.videolan.org/vlc/libvlc.html"
-    TYPE OPTIONAL)
+    TYPE RECOMMENDED)
 
 include(FeatureSummary)
 include(GenerateExportHeader)

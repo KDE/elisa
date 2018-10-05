@@ -201,12 +201,12 @@ endif()
 if (LIBVLC_FOUND)
     target_include_directories(elisaLib
         PRIVATE
-            ${LIBVLC_INCLUDE_DIRS}
+            ${LIBVLC_INCLUDE_DIR}
     )
 
     target_link_libraries(elisaLib
         LINK_PRIVATE
-            ${LIBVLC_LIBRARIES}
+            ${LIBVLC_LIBRARY}
     )
 endif()
 

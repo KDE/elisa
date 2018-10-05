@@ -1,57 +1,112 @@
-# - Try to find the libvlc library
-# Once done this will define
+# CMake module to search for LIBVLC (VLC library)
 #
-#  LIBVLC_FOUND - system has the libvlc library
-#  LIBVLC_INCLUDE_DIRS - the libvlc includes
-#  LIBVLC_LIBRARIES - The libraries needed to use libvlc
-
-# Copyright (c) 2006, Laurent Montel, <montel@kde.org>
+# Copyright (C) 2011-2012, Harald Sitter <sitter@kde.org>
+# Copyright (C) 2010, Rohit Yadav <rohityadav89@gmail.com>
 #
-# Redistribution and use in source and binary forms, with or without
-# modification, are permitted provided that the following conditions
-# are met:
-# 1. Redistributions of source code must retain the above copyright
-#    notice, this list of conditions and the following disclaimer.
-# 2. Redistributions in binary form must reproduce the above copyright
-#    notice, this list of conditions and the following disclaimer in the
-#    documentation and/or other materials provided with the distribution.
-# 3. Neither the name of the University nor the names of its contributors
-#    may be used to endorse or promote products derived from this software
-#    without specific prior written permission.
+# Redistribution and use is allowed according to the terms of the BSD license.
+# For details see the accompanying COPYING-CMAKE-SCRIPTS file.
 #
-# THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
-# ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-# ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
-# FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-# DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
-# OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
-# HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
-# LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
-# OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
-# SUCH DAMAGE.
+# If it's found it sets LIBVLC_FOUND to TRUE
+# and following variables are set:
+#    LIBVLC_INCLUDE_DIR
+#    LIBVLC_LIBRARY
+#    LIBVLC_VERSION
 
-#reset vars
-set(LIBVLC_LIBRARIES LIBVLC_LIBRARIES-NOTFOUND)
-set(LIBVLC_INCLUDE_DIRS LIBVLC_INCLUDE_DIRS-NOTFOUND)
+set(LIBVLC_INCLUDE_DIR LIBVLC_INCLUDE_DIR-NOTFOUND)
+set(LIBVLC_LIBRARY LIBVLC_LIBRARY-NOTFOUND)
+set(LIBVLCCORE_LIBRARY LIBVLCCORE_LIBRARY-NOTFOUND)
 
-find_package(PkgConfig)
-pkg_check_modules(PC_LIBVLC libvlc>=3.0)
+if(NOT LIBVLC_MIN_VERSION)
+    set(LIBVLC_MIN_VERSION "0.0")
+endif(NOT LIBVLC_MIN_VERSION)
 
-find_path(LIBVLC_INCLUDE_DIRS libvlc.h
-    HINTS
-    ${PC_LIBVLC_INCLUDEDIR}
-    ${PC_LIBVLC_INCLUDE_DIRS}
-    PATH_SUFFIXES
-    vlc
+# find_path and find_library normally search standard locations
+# before the specified paths. To search non-standard paths first,
+# FIND_* is invoked first with specified paths and NO_DEFAULT_PATH
+# and then again with no specified paths to search the default
+# locations. When an earlier FIND_* succeeds, subsequent FIND_*s
+# searching for the same item do nothing.
+
+if (NOT WIN32)
+    find_package(PkgConfig)
+    pkg_check_modules(PC_LIBVLC libvlc)
+    set(LIBVLC_DEFINITIONS ${PC_LIBVLC_CFLAGS_OTHER})
+endif (NOT WIN32)
+
+#Put here path to custom location
+#example: /home/user/vlc/include etc..
+find_path(LIBVLC_INCLUDE_DIR vlc/vlc.h
+HINTS "$ENV{LIBVLC_INCLUDE_PATH}" ${PC_LIBVLC_INCLUDEDIR} ${PC_LIBVLC_INCLUDE_DIRS}
+PATHS
+    "$ENV{LIB_DIR}/include"
+    "$ENV{LIB_DIR}/include/vlc"
+    "/usr/include"
+    "/usr/include/vlc"
+    "/usr/local/include"
+    "/usr/local/include/vlc"
+    #mingw
+    c:/msys/local/include
 )
+find_path(LIBVLC_INCLUDE_DIR PATHS "${CMAKE_INCLUDE_PATH}/vlc" NAMES vlc.h
+        HINTS ${PC_LIBVLC_INCLUDEDIR} ${PC_LIBVLC_INCLUDE_DIRS})
 
-find_library(LIBVLC_LIBRARIES NAMES vlc
-    HINTS
-    ${PC_LIBVLC_LIBDIR}
-    ${PC_LIBVLC_LIBRARY_DIRS}
+#Put here path to custom location
+#example: /home/user/vlc/lib etc..
+find_library(LIBVLC_LIBRARY NAMES vlc libvlc
+HINTS "$ENV{LIBVLC_LIBRARY_PATH}" ${PC_LIBVLC_LIBDIR} ${PC_LIBVLC_LIBRARY_DIRS}
+PATHS
+    "$ENV{LIB_DIR}/lib"
+    #mingw
+    c:/msys/local/lib
 )
+find_library(LIBVLC_LIBRARY NAMES vlc libvlc)
+find_library(LIBVLCCORE_LIBRARY NAMES vlccore libvlccore
+HINTS "$ENV{LIBVLC_LIBRARY_PATH}" ${PC_LIBVLC_LIBDIR} ${PC_LIBVLC_LIBRARY_DIRS}
+PATHS
+    "$ENV{LIB_DIR}/lib"
+    #mingw
+    c:/msys/local/lib
+)
+find_library(LIBVLCCORE_LIBRARY NAMES vlccore libvlccore)
 
-include(FindPackageHandleStandardArgs)
-find_package_handle_standard_args(LIBVLC DEFAULT_MSG
-    LIBVLC_INCLUDE_DIRS LIBVLC_LIBRARIES)
+set(LIBVLC_VERSION ${PC_LIBVLC_VERSION})
+if (NOT LIBVLC_VERSION)
+    file(READ "${LIBVLC_INCLUDE_DIR}/vlc/libvlc_version.h" _libvlc_version_h)
+
+    string(REGEX MATCH "# define LIBVLC_VERSION_MAJOR +\\(([0-9])\\)" _dummy "${_libvlc_version_h}")
+    set(_version_major "${CMAKE_MATCH_1}")
+
+    string(REGEX MATCH "# define LIBVLC_VERSION_MINOR +\\(([0-9])\\)" _dummy "${_libvlc_version_h}")
+    set(_version_minor "${CMAKE_MATCH_1}")
+
+    string(REGEX MATCH "# define LIBVLC_VERSION_REVISION +\\(([0-9])\\)" _dummy "${_libvlc_version_h}")
+    set(_version_revision "${CMAKE_MATCH_1}")
+
+    # Optionally, one could also parse LIBVLC_VERSION_EXTRA, but it does not
+    # seem to be used by libvlc.pc.
+
+    set(LIBVLC_VERSION "${_version_major}.${_version_minor}.${_version_revision}")
+endif (NOT LIBVLC_VERSION)
+
+if (LIBVLC_INCLUDE_DIR AND LIBVLC_LIBRARY AND LIBVLCCORE_LIBRARY)
+set(LIBVLC_FOUND TRUE)
+endif (LIBVLC_INCLUDE_DIR AND LIBVLC_LIBRARY AND LIBVLCCORE_LIBRARY)
+
+if (LIBVLC_VERSION STRLESS "${LIBVLC_MIN_VERSION}")
+    message(WARNING "LibVLC version not found: version searched: ${LIBVLC_MIN_VERSION}, found ${LIBVLC_VERSION}\nUnless you are on Windows this is bound to fail.")
+# TODO: only activate once version detection can be garunteed (which is currently not the case on windows)
+#     set(LIBVLC_FOUND FALSE)
+endif (LIBVLC_VERSION STRLESS "${LIBVLC_MIN_VERSION}")
+
+if (LIBVLC_FOUND)
+    if (NOT LIBVLC_FIND_QUIETLY)
+        message(STATUS "Found LibVLC include-dir path: ${LIBVLC_INCLUDE_DIR}")
+        message(STATUS "Found LibVLC library path:${LIBVLC_LIBRARY}")
+        message(STATUS "Found LibVLCcore library path:${LIBVLCCORE_LIBRARY}")
+        message(STATUS "Found LibVLC version: ${LIBVLC_VERSION} (searched for: ${LIBVLC_MIN_VERSION})")
+    endif (NOT LIBVLC_FIND_QUIETLY)
+else (LIBVLC_FOUND)
+    if (LIBVLC_FIND_REQUIRED)
+        message(FATAL_ERROR "Could not find LibVLC")
+    endif (LIBVLC_FIND_REQUIRED)
+endif (LIBVLC_FOUND)

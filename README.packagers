@@ -31,6 +31,7 @@ Elisa has the following dependencies:
  * KF5ConfigWidgets (required version >= 5.32.0), Widgets for configuration dialogs.
  * KF5KCMUtils (required version >= 5.32.0), KF5 Utilities for KDE System Settings modules library.
  * KF5Package (required version >= 5.32.0), KF5 package management library needed to get the configuration dialogs.
+ * LIBVLC, libvlc allows to play music in Elisa, <https://www.videolan.org/vlc/libvlc.html>
 
 -- OPTIONAL:
 

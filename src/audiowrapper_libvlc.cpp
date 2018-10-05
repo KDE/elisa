@@ -20,7 +20,7 @@
 #include <QTimer>
 #include <QAudio>
 
-#include <vlc.h>
+#include <vlc/vlc.h>
 
 #include "config-upnp-qt.h"
 

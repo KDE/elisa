@@ -24,7 +24,7 @@ import org.kde.elisa 1.0
 import QtQuick.Controls 1.4 as Controls1
 
 FocusScope {
-    property double volume
+    property alias volume: volumeSlider.value
     property int position
     property int duration
     property bool muted
@@ -460,9 +460,6 @@ FocusScope {
 
             from: 0
             to: 100
-            value: musicWidget.volume
-
-            onValueChanged: musicWidget.volume = value
 
             enabled: !muted
 
@@ -599,11 +596,6 @@ FocusScope {
         if (!musicProgress.seekStarted) {
             musicProgress.value = position
         }
-    }
-
-    onVolumeChanged:
-    {
-        console.log('volume of player controls changed: ' + volume)
     }
 
     onIsMaximizedChanged:

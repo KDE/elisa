@@ -47,6 +47,8 @@ public:
 
     qreal mPreviousVolume = 100.0;
 
+    qint64 mSavedPosition = 0.0;
+
     qint64 mPreviousPosition = 0;
 
     QMediaPlayer::Error mError = QMediaPlayer::NoError;
@@ -54,6 +56,8 @@ public:
     bool mIsMuted = false;
 
     bool mIsSeekable = false;
+
+    bool mHasSavedPosition = false;
 
     void vlcEventCallback(const struct libvlc_event_t *p_event);
 
@@ -234,6 +238,11 @@ void AudioWrapper::setPosition(qint64 position)
     }
 
     if (d->mMediaDuration == -1 || d->mMediaDuration == 0) {
+        if (!d->mHasSavedPosition) {
+            d->mHasSavedPosition = true;
+            d->mSavedPosition = position;
+            qDebug() << "AudioWrapper::setPosition" << "restore old position" << d->mSavedPosition;
+        }
         return;
     }
 
@@ -397,6 +406,10 @@ void AudioWrapperPrivate::vlcEventCallback(const struct libvlc_event_t *p_event)
     case libvlc_MediaPlayerLengthChanged:
         //qDebug() << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerLengthChanged";
         signalDurationChange(p_event->u.media_player_length_changed.new_length);
+        if (mHasSavedPosition) {
+            mParent->setPosition(mSavedPosition);
+            mHasSavedPosition = false;
+        }
         break;
     case libvlc_MediaPlayerMuted:
         //qDebug() << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerMuted";

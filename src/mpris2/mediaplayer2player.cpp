@@ -99,12 +99,12 @@ QString MediaPlayer2Player::PlaybackStatus() const
 
     QVariantMap parameters;
 
-    if (m_manageAudioPlayer->playerPlaybackState() != QMediaPlayer::StoppedState) {
+    if (m_manageAudioPlayer->playerPlaybackState() == QMediaPlayer::StoppedState) {
         parameters.insert(QStringLiteral("progress-visible"), false);
         parameters.insert(QStringLiteral("progress"), 0);
     } else {
         parameters.insert(QStringLiteral("progress-visible"), true);
-        parameters.insert(QStringLiteral("progress"), m_position / m_audioPlayer->duration() / 1000.0);
+        parameters.insert(QStringLiteral("progress"), qRound(static_cast<double>(m_position / m_audioPlayer->duration())) / 1000.0);
     }
 
     mProgressIndicatorSignal.setArguments({QStringLiteral("application://org.kde.elisa.desktop"), parameters});

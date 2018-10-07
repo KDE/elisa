@@ -392,7 +392,7 @@ bool LocalBalooFileListing::checkBalooConfiguration()
 
         balooInvalidConfiguration.setTargetObject(this);
 
-        balooInvalidConfiguration.setMessage(i18nc("Notification about unusable Baloo Configuration", "Baloo configuration does not allow to discover your music"));
+        balooInvalidConfiguration.setMessage(i18nc("Notification about unusable Baloo Configuration", "Cannot discover music with the current file search settings"));
 
         balooInvalidConfiguration.setMainButtonText(i18nc("Text of button to modify Baloo Configuration", "Modify it"));
         balooInvalidConfiguration.setMainButtonIconName(QStringLiteral("configure"));

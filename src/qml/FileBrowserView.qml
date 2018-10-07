@@ -139,13 +139,14 @@ FocusScope {
                     focus: true
 
                     isDirectory: model.directory
+                    isPlayList: model.isPlaylist
                     fileName: model.name
                     fileUrl: model.containerData
                     imageUrl: model.imageUrl
                     contentModel: fileView.contentModel
 
                     onEnqueue: elisa.mediaPlayList.enqueue(data)
-                    onReplaceAndPlay: elisa.mediaPlayList.replaceAndPlay(data)
+                    onReplaceAndPlay: contentModel.replaceAndPlayOfUrl(data)
                     onSelected: {
                         forceActiveFocus()
                         contentDirectoryView.currentIndex = model.index

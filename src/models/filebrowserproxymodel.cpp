@@ -92,7 +92,6 @@ bool FileBrowserProxyModel::filterAcceptsRow(int source_row, const QModelIndex &
 
 void FileBrowserProxyModel::enqueueToPlayList()
 {
-    qDebug() << "enqueue";
     QtConcurrent::run(&mThreadPool, [=] () {
         QReadLocker locker(&mDataLock);
         auto allTrackUrls = QList<QUrl>();
@@ -110,7 +109,6 @@ void FileBrowserProxyModel::enqueueToPlayList()
 
 void FileBrowserProxyModel::replaceAndPlayOfPlayList()
 {
-        qDebug() << "replace";
     QtConcurrent::run(&mThreadPool, [=] () {
         QReadLocker locker(&mDataLock);
         auto allTrackUrls = QList<QUrl>();
@@ -124,6 +122,16 @@ void FileBrowserProxyModel::replaceAndPlayOfPlayList()
                               ElisaUtils::ReplacePlayList,
                               ElisaUtils::TriggerPlay);
     });
+}
+
+void FileBrowserProxyModel::replaceAndPlayOfUrl(const QUrl &fileUrl)
+{
+    if (mMimeDb.mimeTypeForUrl(fileUrl).inherits(QStringLiteral("audio/x-mpegurl")))
+    {
+        Q_EMIT loadPlayListFromUrl(fileUrl);
+    } else {
+        Q_EMIT replaceAndPlayFileByUrl(fileUrl);
+    }
 }
 
 QString FileBrowserProxyModel::parentFolder() const

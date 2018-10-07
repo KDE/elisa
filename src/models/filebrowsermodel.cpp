@@ -71,6 +71,7 @@ QHash<int, QByteArray> FileBrowserModel::roleNames() const
     roles[static_cast<int>(ColumnsRoles::ContainerDataRole)] = "containerData";
     roles[static_cast<int>(ColumnsRoles::ImageUrlRole)] = "imageUrl";
     roles[static_cast<int>(ColumnsRoles::DirectoryRole)] = "directory";
+    roles[static_cast<int>(ColumnsRoles::IsPlayListRole)] = "isPlaylist";
 
     return roles;
 }
@@ -108,9 +109,17 @@ QVariant FileBrowserModel::data(const QModelIndex &index, int role) const
         break;
     }
     case ColumnsRoles::DirectoryRole:
+    {
         KFileItem item = itemForIndex(index);
         result = item.isDir();
         break;
+    }
+    case ColumnsRoles::IsPlayListRole:
+    {
+        KFileItem item = itemForIndex(index);
+        result = (item.currentMimeType().inherits(QStringLiteral("audio/x-mpegurl")));
+        break;
+    }
     }
 
     return result;

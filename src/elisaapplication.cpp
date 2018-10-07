@@ -371,6 +371,10 @@ void ElisaApplication::initializeModels()
                                                                          ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayList::enqueue));
 
 #if defined KF5KIO_FOUND && KF5KIO_FOUND
+    QObject::connect(d->mFileBrowserProxyModel.get(), &FileBrowserProxyModel::replaceAndPlayFileByUrl,
+                     d->mMediaPlayList.get(), static_cast<void (MediaPlayList::*)(const QUrl &)>(&MediaPlayList::replaceAndPlay));
+    QObject::connect(d->mFileBrowserProxyModel.get(), &FileBrowserProxyModel::loadPlayListFromUrl,
+                     d->mMediaPlayList.get(), &MediaPlayList::loadPlaylist);
     QObject::connect(d->mFileBrowserProxyModel.get(), &FileBrowserProxyModel::filesToEnqueue,
                      d->mMediaPlayList.get(), static_cast<void (MediaPlayList::*)(const QList<QUrl> &,
                                                                          ElisaUtils::PlayListEnqueueMode,

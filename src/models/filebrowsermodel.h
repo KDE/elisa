@@ -35,7 +35,8 @@ public:
         NameRole = Qt::UserRole + 1,
         ContainerDataRole = Qt::UserRole + 2,
         ImageUrlRole = Qt::UserRole + 3,
-        DirectoryRole = Qt::UserRole + 4
+        DirectoryRole = Qt::UserRole + 4,
+        IsPlayListRole = Qt::UserRole + 5
     };
 
     Q_ENUM(ColumnsRoles)

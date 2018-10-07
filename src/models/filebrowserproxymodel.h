@@ -84,6 +84,8 @@ public Q_SLOTS:
 
     void sortModel(Qt::SortOrder order);
 
+    void replaceAndPlayOfUrl(const QUrl &fileUrl);
+
 Q_SIGNALS:
 
     void filesToEnqueue(QList<QUrl> newFiles,
@@ -98,8 +100,11 @@ Q_SIGNALS:
 
     void sortedAscendingChanged();
 
-protected:
+    void replaceAndPlayFileByUrl(const QUrl &fileUrl);
 
+    void loadPlayListFromUrl(const QUrl &playListUrl);
+
+protected:
 
     bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override;
 

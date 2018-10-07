@@ -31,9 +31,11 @@ FocusScope {
     property var imageUrl
     property var contentModel
     property bool isDirectory
+    property bool isPlayList
 
     signal enqueue(var data)
     signal replaceAndPlay(var data)
+    signal loadPlayList(var data)
     signal open(var data)
     signal selected()
 
@@ -88,8 +90,8 @@ FocusScope {
         }
     }
 
-    Keys.onReturnPressed: isDirectory ? fileDelegate.open(fileUrl) : fileDelegate.enqueue(fileUrl)
-    Keys.onEnterPressed: isDirectory ? fileDelegate.open(fileUrl) : fileDelegate.enqueue(fileUrl)
+    Keys.onReturnPressed: fileDelegate.enqueue(fileUrl)
+    Keys.onEnterPressed: fileDelegate.enqueue(fileUrl)
 
     ColumnLayout {
         anchors.fill: parent
@@ -107,7 +109,7 @@ FocusScope {
 
             onClicked: fileDelegate.selected()
 
-            onDoubleClicked: isDirectory ? fileDelegate.open(fileUrl) : fileDelegate.enqueue(fileUrl)
+            onDoubleClicked: fileDelegate.enqueue(fileUrl)
 
             TextMetrics {
                 id: mainLabelSize
@@ -145,7 +147,7 @@ FocusScope {
                                 Layout.preferredWidth: elisaTheme.delegateHeight
 
                                 action: viewDetailsAction
-                                visible: !isDirectory
+                                visible: !isDirectory && !isPlayList
                             }
 
                             Controls1.ToolButton {
@@ -155,6 +157,7 @@ FocusScope {
                                 Layout.preferredWidth: elisaTheme.delegateHeight
 
                                 action: isDirectory ? openAction : enqueueAction
+                                visible: !isPlayList
                             }
 
                             Controls1.ToolButton {

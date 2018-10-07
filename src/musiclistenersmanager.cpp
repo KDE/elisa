@@ -83,6 +83,8 @@ public:
 
     DatabaseInterface mDatabaseInterface;
 
+    std::unique_ptr<TracksListener> mTracksListener;
+
     QFileSystemWatcher mConfigFileWatcher;
 
     ElisaApplication *mElisaApplication = nullptr;
@@ -209,23 +211,14 @@ DatabaseInterface *MusicListenersManager::viewDatabase() const
 
 void MusicListenersManager::subscribeForTracks(MediaPlayList *client)
 {
-    auto helper = std::make_unique<TracksListener>(&d->mDatabaseInterface);
-
-    helper->moveToThread(&d->mDatabaseThread);
-    connect(&d->mDatabaseThread, &QThread::finished, helper.get(), &QObject::deleteLater);
-
-    connect(&d->mDatabaseInterface, &DatabaseInterface::trackRemoved, helper.get(), &TracksListener::trackRemoved);
-    connect(&d->mDatabaseInterface, &DatabaseInterface::tracksAdded, helper.get(), &TracksListener::tracksAdded);
-    connect(&d->mDatabaseInterface, &DatabaseInterface::trackModified, helper.get(), &TracksListener::trackModified);
-    connect(this, &MusicListenersManager::removeTracksInError, &d->mDatabaseInterface, &DatabaseInterface::removeTracksList);
-    connect(helper.get(), &TracksListener::trackHasChanged, client, &MediaPlayList::trackChanged);
-    connect(helper.get(), &TracksListener::trackHasBeenRemoved, client, &MediaPlayList::trackRemoved);
-    connect(helper.get(), &TracksListener::albumAdded, client, &MediaPlayList::albumAdded);
-    connect(client, &MediaPlayList::newTrackByIdInList, helper.get(), &TracksListener::trackByIdInList);
-    connect(client, &MediaPlayList::newTrackByNameInList, helper.get(), &TracksListener::trackByNameInList);
-    connect(client, &MediaPlayList::newTrackByFileNameInList, helper.get(), &TracksListener::trackByFileNameInList);
-    connect(client, &MediaPlayList::newArtistInList, helper.get(), &TracksListener::newArtistInList);
-    helper.release();
+    createTracksListener();
+    connect(d->mTracksListener.get(), &TracksListener::trackHasChanged, client, &MediaPlayList::trackChanged);
+    connect(d->mTracksListener.get(), &TracksListener::trackHasBeenRemoved, client, &MediaPlayList::trackRemoved);
+    connect(d->mTracksListener.get(), &TracksListener::albumAdded, client, &MediaPlayList::albumAdded);
+    connect(client, &MediaPlayList::newTrackByIdInList, d->mTracksListener.get(), &TracksListener::trackByIdInList);
+    connect(client, &MediaPlayList::newTrackByNameInList, d->mTracksListener.get(), &TracksListener::trackByNameInList);
+    connect(client, &MediaPlayList::newTrackByFileNameInList, d->mTracksListener.get(), &TracksListener::trackByFileNameInList);
+    connect(client, &MediaPlayList::newArtistInList, d->mTracksListener.get(), &TracksListener::newArtistInList);
 }
 
 int MusicListenersManager::importedTracksCount() const
@@ -475,6 +468,21 @@ void MusicListenersManager::monitorEndingListeners()
         Q_EMIT indexingRunningChanged();
 
         //QMetaObject::invokeMethod(&d->mDatabaseInterface, "cleanInvalidTracks", Qt::QueuedConnection);
+    }
+}
+
+void MusicListenersManager::createTracksListener()
+{
+    if (!d->mTracksListener) {
+        d->mTracksListener = std::make_unique<TracksListener>(&d->mDatabaseInterface);
+        d->mTracksListener->moveToThread(&d->mDatabaseThread);
+
+        connect(this, &MusicListenersManager::removeTracksInError,
+                &d->mDatabaseInterface, &DatabaseInterface::removeTracksList);
+
+        connect(&d->mDatabaseInterface, &DatabaseInterface::trackRemoved, d->mTracksListener.get(), &TracksListener::trackRemoved);
+        connect(&d->mDatabaseInterface, &DatabaseInterface::tracksAdded, d->mTracksListener.get(), &TracksListener::tracksAdded);
+        connect(&d->mDatabaseInterface, &DatabaseInterface::trackModified, d->mTracksListener.get(), &TracksListener::trackModified);
     }
 }
 

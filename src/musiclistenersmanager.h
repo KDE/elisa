@@ -176,6 +176,8 @@ private:
 
     std::unique_ptr<MusicListenersManagerPrivate> d;
 
+    void createTracksListener();
+
 };
 
 #endif // MUSICLISTENERSMANAGER_H

@@ -20,6 +20,13 @@
 #include <QTimer>
 #include <QAudio>
 
+#if defined Q_OS_WIN
+
+#include <basetsd.h>
+typedef SSIZE_T ssize_t;
+
+#endif
+
 #include <vlc/vlc.h>
 
 #include "config-upnp-qt.h"

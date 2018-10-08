@@ -1444,7 +1444,7 @@ void DatabaseInterface::initRequest()
                                                    "WHERE "
                                                    "album.`ID` = :albumId");
 
-        auto result = d->mSelectAlbumQuery.prepare(selectAlbumQueryText);
+        auto result = prepareQuery(d->mSelectAlbumQuery, selectAlbumQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAlbumQuery.lastQuery();
@@ -1473,7 +1473,7 @@ void DatabaseInterface::initRequest()
                                                   "albumArtist.`ArtistID` = artist.`ID` "
                                                   "ORDER BY album.`Title` COLLATE NOCASE");
 
-        auto result = d->mSelectAllAlbumsQuery.prepare(selectAllAlbumsText);
+        auto result = prepareQuery(d->mSelectAllAlbumsQuery, selectAllAlbumsText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllAlbumsQuery.lastQuery();
@@ -1490,7 +1490,7 @@ void DatabaseInterface::initRequest()
                                                   "FROM `Genre` genre "
                                                   "ORDER BY genre.`Name` COLLATE NOCASE");
 
-        auto result = d->mSelectAllGenresQuery.prepare(selectAllGenresText);
+        auto result = prepareQuery(d->mSelectAllGenresQuery, selectAllGenresText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllAlbumsQuery.lastQuery();
@@ -1514,7 +1514,7 @@ void DatabaseInterface::initRequest()
                                                   "albumArtist.`ArtistID` = artist.`ID` "
                                                   "ORDER BY album.`Title` COLLATE NOCASE");
 
-        auto result = d->mSelectAllAlbumsShortQuery.prepare(selectAllAlbumsText);
+        auto result = prepareQuery(d->mSelectAllAlbumsShortQuery, selectAllAlbumsText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllAlbumsShortQuery.lastQuery();
@@ -1530,7 +1530,7 @@ void DatabaseInterface::initRequest()
                                                              "FROM `Artists` "
                                                              "ORDER BY `Name` COLLATE NOCASE");
 
-        auto result = d->mSelectAllArtistsQuery.prepare(selectAllArtistsWithFilterText);
+        auto result = prepareQuery(d->mSelectAllArtistsQuery, selectAllArtistsWithFilterText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllArtistsQuery.lastQuery();
@@ -1546,7 +1546,7 @@ void DatabaseInterface::initRequest()
                                                                "FROM `Artists` "
                                                                "ORDER BY `Name` COLLATE NOCASE");
 
-        auto result = d->mSelectAllComposersQuery.prepare(selectAllComposersWithFilterText);
+        auto result = prepareQuery(d->mSelectAllComposersQuery, selectAllComposersWithFilterText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllComposersQuery.lastQuery();
@@ -1562,7 +1562,7 @@ void DatabaseInterface::initRequest()
                                                                "FROM `Lyricist` "
                                                                "ORDER BY `Name` COLLATE NOCASE");
 
-        auto result = d->mSelectAllLyricistsQuery.prepare(selectAllLyricistsWithFilterText);
+        auto result = prepareQuery(d->mSelectAllLyricistsQuery, selectAllLyricistsWithFilterText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllLyricistsQuery.lastQuery();
@@ -1611,7 +1611,7 @@ void DatabaseInterface::initRequest()
                                                   "tracksMapping.`TrackID` = tracks.`ID` AND "
                                                   "tracksMapping.`Priority` = (SELECT MIN(`Priority`) FROM `TracksMapping` WHERE `TrackID` = tracks.`ID`)");
 
-        auto result = d->mSelectAllTracksQuery.prepare(selectAllTracksText);
+        auto result = prepareQuery(d->mSelectAllTracksQuery, selectAllTracksText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllTracksQuery.lastQuery();
@@ -1634,7 +1634,7 @@ void DatabaseInterface::initRequest()
                                                        "WHERE "
                                                        "tracks.`AlbumID` = album.`ID`");
 
-        auto result = d->mSelectAllTracksShortQuery.prepare(selectAllTracksShortText);
+        auto result = prepareQuery(d->mSelectAllTracksShortQuery, selectAllTracksShortText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllTracksShortQuery.lastQuery();
@@ -1685,7 +1685,7 @@ void DatabaseInterface::initRequest()
                                                                  "tracksMapping.`TrackID` = tracks.`ID` AND "
                                                                  "tracksMapping.`Priority` = (SELECT MIN(`Priority`) FROM `TracksMapping` WHERE `TrackID` = tracks.`ID`)");
 
-        auto result = d->mSelectAllTracksFromSourceQuery.prepare(selectAllTracksFromSourceQueryText);
+        auto result = prepareQuery(d->mSelectAllTracksFromSourceQuery, selectAllTracksFromSourceQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllTracksFromSourceQuery.lastQuery();
@@ -1702,7 +1702,7 @@ void DatabaseInterface::initRequest()
                                                      "WHERE "
                                                      "`Name` = :name");
 
-        auto result = d->mSelectArtistByNameQuery.prepare(selectArtistByNameText);
+        auto result = prepareQuery(d->mSelectArtistByNameQuery, selectArtistByNameText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectArtistByNameQuery.lastQuery();
@@ -1719,7 +1719,7 @@ void DatabaseInterface::initRequest()
                                                        "WHERE "
                                                        "`Name` = :name");
 
-        auto result = d->mSelectComposerByNameQuery.prepare(selectComposerByNameText);
+        auto result = prepareQuery(d->mSelectComposerByNameQuery, selectComposerByNameText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectComposerByNameQuery.lastQuery();
@@ -1734,7 +1734,7 @@ void DatabaseInterface::initRequest()
                                                        "WHERE "
                                                        "`Name` = :name");
 
-        auto result = d->mSelectLyricistByNameQuery.prepare(selectLyricistByNameText);
+        auto result = prepareQuery(d->mSelectLyricistByNameQuery, selectLyricistByNameText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectLyricistByNameQuery.lastQuery();
@@ -1749,7 +1749,7 @@ void DatabaseInterface::initRequest()
                                                     "WHERE "
                                                     "`Name` = :name");
 
-        auto result = d->mSelectGenreByNameQuery.prepare(selectGenreByNameText);
+        auto result = prepareQuery(d->mSelectGenreByNameQuery, selectGenreByNameText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectGenreByNameQuery.lastQuery();
@@ -1763,7 +1763,7 @@ void DatabaseInterface::initRequest()
         auto insertArtistsText = QStringLiteral("INSERT INTO `Artists` (`ID`, `Name`) "
                                                 "VALUES (:artistId, :name)");
 
-        auto result = d->mInsertArtistsQuery.prepare(insertArtistsText);
+        auto result = prepareQuery(d->mInsertArtistsQuery, insertArtistsText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mInsertArtistsQuery.lastQuery();
@@ -1777,7 +1777,7 @@ void DatabaseInterface::initRequest()
         auto insertGenreText = QStringLiteral("INSERT INTO `Genre` (`ID`, `Name`) "
                                               "VALUES (:genreId, :name)");
 
-        auto result = d->mInsertGenreQuery.prepare(insertGenreText);
+        auto result = prepareQuery(d->mInsertGenreQuery, insertGenreText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mInsertGenreQuery.lastQuery();
@@ -1791,7 +1791,7 @@ void DatabaseInterface::initRequest()
         auto insertComposerText = QStringLiteral("INSERT INTO `Composer` (`ID`, `Name`) "
                                                  "VALUES (:composerId, :name)");
 
-        auto result = d->mInsertComposerQuery.prepare(insertComposerText);
+        auto result = prepareQuery(d->mInsertComposerQuery, insertComposerText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mInsertComposerQuery.lastQuery();
@@ -1803,7 +1803,7 @@ void DatabaseInterface::initRequest()
         auto insertLyricistText = QStringLiteral("INSERT INTO `Lyricist` (`ID`, `Name`) "
                                                  "VALUES (:lyricistId, :name)");
 
-        auto result = d->mInsertLyricistQuery.prepare(insertLyricistText);
+        auto result = prepareQuery(d->mInsertLyricistQuery, insertLyricistText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mInsertLyricistQuery.lastQuery();
@@ -1853,7 +1853,7 @@ void DatabaseInterface::initRequest()
                                                    "ORDER BY tracks.`DiscNumber` ASC, "
                                                    "tracks.`TrackNumber` ASC");
 
-        auto result = d->mSelectTrackQuery.prepare(selectTrackQueryText);
+        auto result = prepareQuery(d->mSelectTrackQuery, selectTrackQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectTrackQuery.lastQuery();
@@ -1902,7 +1902,7 @@ void DatabaseInterface::initRequest()
                                                          "tracksMapping.`TrackID` = tracks.`ID` AND "
                                                          "tracksMapping.`Priority` = (SELECT MIN(`Priority`) FROM `TracksMapping` WHERE `TrackID` = tracks.`ID`)");
 
-        auto result = d->mSelectTrackFromIdQuery.prepare(selectTrackFromIdQueryText);
+        auto result = prepareQuery(d->mSelectTrackFromIdQuery, selectTrackFromIdQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectTrackFromIdQuery.lastQuery();
@@ -1918,7 +1918,7 @@ void DatabaseInterface::initRequest()
                                                          "album.`ID` = albumArtist.`AlbumID` AND "
                                                          "artist.`ID` = albumArtist.`ArtistID`");
 
-        const auto result = d->mSelectCountAlbumsForArtistQuery.prepare(selectCountAlbumsQueryText);
+        const auto result = prepareQuery(d->mSelectCountAlbumsForArtistQuery, selectCountAlbumsQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectCountAlbumsForArtistQuery.lastQuery();
@@ -1941,7 +1941,7 @@ void DatabaseInterface::initRequest()
                                                             "artist.`ID` = albumArtist.`ArtistID` AND "
                                                             "album.`ID` = track.`AlbumID`");
 
-        const auto result = d->mSelectGenreForArtistQuery.prepare(selectGenreForArtistQueryText);
+        const auto result = prepareQuery(d->mSelectGenreForArtistQuery, selectGenreForArtistQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectGenreForArtistQuery.lastQuery();
@@ -1959,7 +1959,7 @@ void DatabaseInterface::initRequest()
                                                            "WHERE "
                                                            "track.`AlbumID` = :albumId");
 
-        const auto result = d->mSelectGenreForAlbumQuery.prepare(selectGenreForAlbumQueryText);
+        const auto result = prepareQuery(d->mSelectGenreForAlbumQuery, selectGenreForAlbumQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectGenreForAlbumQuery.lastQuery();
@@ -1978,7 +1978,7 @@ void DatabaseInterface::initRequest()
                                                          "track.`ComposerID` = albumComposer.`ID` AND "
                                                          "track.`AlbumID` = album.`ID`");
 
-        const auto result = d->mSelectCountAlbumsForComposerQuery.prepare(selectCountAlbumsQueryText);
+        const auto result = prepareQuery(d->mSelectCountAlbumsForComposerQuery, selectCountAlbumsQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectCountAlbumsForComposerQuery.lastQuery();
@@ -1997,7 +1997,7 @@ void DatabaseInterface::initRequest()
                                                          "track.`LyricistID` = albumLyricist.`ID` AND "
                                                          "track.`AlbumID` = album.`ID`");
 
-        const auto result = d->mSelectCountAlbumsForLyricistQuery.prepare(selectCountAlbumsQueryText);
+        const auto result = prepareQuery(d->mSelectCountAlbumsForLyricistQuery, selectCountAlbumsQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectCountAlbumsForLyricistQuery.lastQuery();
@@ -2018,7 +2018,7 @@ void DatabaseInterface::initRequest()
                                                               "artist.`ID` = albumArtist.`ArtistID` AND "
                                                               "album.`Title` = :title");
 
-        auto result = d->mSelectAlbumIdFromTitleQuery.prepare(selectAlbumIdFromTitleQueryText);
+        auto result = prepareQuery(d->mSelectAlbumIdFromTitleQuery, selectAlbumIdFromTitleQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAlbumIdFromTitleQuery.lastQuery();
@@ -2040,7 +2040,7 @@ void DatabaseInterface::initRequest()
                                                                        "album.`AlbumPath` = :albumPath AND "
                                                                        "albumArtist.`ArtistID` = :artistId");
 
-        auto result = d->mSelectAlbumIdFromTitleAndArtistQuery.prepare(selectAlbumIdFromTitleAndArtistQueryText);
+        auto result = prepareQuery(d->mSelectAlbumIdFromTitleAndArtistQuery, selectAlbumIdFromTitleAndArtistQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAlbumIdFromTitleAndArtistQuery.lastQuery();
@@ -2067,7 +2067,7 @@ void DatabaseInterface::initRequest()
                                                                            "albumArtist.`AlbumID` = album.`ID`"
                                                                            ")");
 
-        auto result = d->mSelectAlbumIdFromTitleWithoutArtistQuery.prepare(selectAlbumIdFromTitleWithoutArtistQueryText);
+        auto result = prepareQuery(d->mSelectAlbumIdFromTitleWithoutArtistQuery, selectAlbumIdFromTitleWithoutArtistQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAlbumIdFromTitleWithoutArtistQuery.lastQuery();
@@ -2093,7 +2093,7 @@ void DatabaseInterface::initRequest()
                                                    ":tracksCount, "
                                                    ":isSingleDiscAlbum)");
 
-        auto result = d->mInsertAlbumQuery.prepare(insertAlbumQueryText);
+        auto result = prepareQuery(d->mInsertAlbumQuery, insertAlbumQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mInsertAlbumQuery.lastQuery();
@@ -2107,7 +2107,7 @@ void DatabaseInterface::initRequest()
         auto insertAlbumArtistQueryText = QStringLiteral("INSERT INTO `AlbumsArtists` (`AlbumID`, `ArtistID`) "
                                                          "VALUES (:albumId, :artistId)");
 
-        auto result = d->mInsertAlbumArtistQuery.prepare(insertAlbumArtistQueryText);
+        auto result = prepareQuery(d->mInsertAlbumArtistQuery, insertAlbumArtistQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mInsertAlbumArtistQuery.lastQuery();
@@ -2121,7 +2121,7 @@ void DatabaseInterface::initRequest()
         auto insertTrackArtistQueryText = QStringLiteral("INSERT INTO `TracksArtists` (`TrackID`, `ArtistID`) "
                                                          "VALUES (:trackId, :artistId)");
 
-        auto result = d->mInsertTrackArtistQuery.prepare(insertTrackArtistQueryText);
+        auto result = prepareQuery(d->mInsertTrackArtistQuery, insertTrackArtistQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mInsertTrackArtistQuery.lastQuery();
@@ -2140,7 +2140,7 @@ void DatabaseInterface::initRequest()
                                                           "`FileModifiedTime`) "
                                                           "VALUES (:fileName, :discoverId, :priority, :mtime)");
 
-        auto result = d->mInsertTrackMapping.prepare(insertTrackMappingQueryText);
+        auto result = prepareQuery(d->mInsertTrackMapping, insertTrackMappingQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mInsertTrackMapping.lastQuery();
@@ -2158,7 +2158,7 @@ void DatabaseInterface::initRequest()
                                                                    "`FileModifiedTime` = :mtime "
                                                                    "WHERE `FileName` = :fileName");
 
-        auto result = d->mUpdateTrackMapping.prepare(initialUpdateTracksValidityQueryText);
+        auto result = prepareQuery(d->mUpdateTrackMapping, initialUpdateTracksValidityQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mUpdateTrackMapping.lastQuery();
@@ -2172,7 +2172,7 @@ void DatabaseInterface::initRequest()
         auto removeTracksMappingFromSourceQueryText = QStringLiteral("DELETE FROM `TracksMapping` "
                                                                      "WHERE `FileName` = :fileName AND `DiscoverID` = :sourceId");
 
-        auto result = d->mRemoveTracksMappingFromSource.prepare(removeTracksMappingFromSourceQueryText);
+        auto result = prepareQuery(d->mRemoveTracksMappingFromSource, removeTracksMappingFromSourceQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mRemoveTracksMappingFromSource.lastQuery();
@@ -2186,7 +2186,7 @@ void DatabaseInterface::initRequest()
         auto removeTracksMappingQueryText = QStringLiteral("DELETE FROM `TracksMapping` "
                                                            "WHERE `FileName` = :fileName");
 
-        auto result = d->mRemoveTracksMapping.prepare(removeTracksMappingQueryText);
+        auto result = prepareQuery(d->mRemoveTracksMapping, removeTracksMappingQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mRemoveTracksMapping.lastQuery();
@@ -2236,7 +2236,7 @@ void DatabaseInterface::initRequest()
                                                                   "tracks.`AlbumID` = album.`ID` AND "
                                                                   "tracks.`ID` NOT IN (SELECT tracksMapping2.`TrackID` FROM `TracksMapping` tracksMapping2)");
 
-        auto result = d->mSelectTracksWithoutMappingQuery.prepare(selectTracksWithoutMappingQueryText);
+        auto result = prepareQuery(d->mSelectTracksWithoutMappingQuery, selectTracksWithoutMappingQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectTracksWithoutMappingQuery.lastQuery();
@@ -2258,7 +2258,7 @@ void DatabaseInterface::initRequest()
                                                            "WHERE "
                                                            "`FileName` = :fileName");
 
-        auto result = d->mSelectTracksMapping.prepare(selectTracksMappingQueryText);
+        auto result = prepareQuery(d->mSelectTracksMapping, selectTracksMappingQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectTracksMapping.lastQuery();
@@ -2277,7 +2277,7 @@ void DatabaseInterface::initRequest()
                                                                    "`TrackID` = :trackId AND "
                                                                    "`FileName` = :fileName");
 
-        auto result = d->mSelectTracksMappingPriority.prepare(selectTracksMappingPriorityQueryText);
+        auto result = prepareQuery(d->mSelectTracksMappingPriority, selectTracksMappingPriorityQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectTracksMappingPriority.lastQuery();
@@ -2295,7 +2295,7 @@ void DatabaseInterface::initRequest()
                                                                             "WHERE "
                                                                             "`TrackID` = :trackId");
 
-        auto result = d->mSelectTracksMappingPriorityByTrackId.prepare(selectTracksMappingPriorityQueryByTrackIdText);
+        auto result = prepareQuery(d->mSelectTracksMappingPriorityByTrackId, selectTracksMappingPriorityQueryByTrackIdText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectTracksMappingPriorityByTrackId.lastQuery();
@@ -2314,7 +2314,7 @@ void DatabaseInterface::initRequest()
                                                                      "WHERE "
                                                                      "tracksMapping.`DiscoverID` = :discoverId");
 
-        auto result = d->mSelectAllTrackFilesFromSourceQuery.prepare(selectAllTrackFilesFromSourceQueryText);
+        auto result = prepareQuery(d->mSelectAllTrackFilesFromSourceQuery, selectAllTrackFilesFromSourceQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllTrackFilesFromSourceQuery.lastQuery();
@@ -2328,7 +2328,7 @@ void DatabaseInterface::initRequest()
         auto insertMusicSourceQueryText = QStringLiteral("INSERT OR IGNORE INTO `DiscoverSource` (`ID`, `Name`) "
                                                          "VALUES (:discoverId, :name)");
 
-        auto result = d->mInsertMusicSource.prepare(insertMusicSourceQueryText);
+        auto result = prepareQuery(d->mInsertMusicSource, insertMusicSourceQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mInsertMusicSource.lastQuery();
@@ -2341,7 +2341,7 @@ void DatabaseInterface::initRequest()
     {
         auto selectMusicSourceQueryText = QStringLiteral("SELECT `ID` FROM `DiscoverSource` WHERE `Name` = :name");
 
-        auto result = d->mSelectMusicSource.prepare(selectMusicSourceQueryText);
+        auto result = prepareQuery(d->mSelectMusicSource, selectMusicSourceQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectMusicSource.lastQuery();
@@ -2366,7 +2366,7 @@ void DatabaseInterface::initRequest()
                                                    "tracksMapping.`TrackID` = tracks.`ID` AND "
                                                    "tracksMapping.`Priority` = (SELECT MIN(`Priority`) FROM `TracksMapping` WHERE `TrackID` = tracks.`ID`)");
 
-        auto result = d->mSelectTrackIdFromTitleAlbumIdArtistQuery.prepare(selectTrackQueryText);
+        auto result = prepareQuery(d->mSelectTrackIdFromTitleAlbumIdArtistQuery, selectTrackQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectTrackIdFromTitleAlbumIdArtistQuery.lastQuery();
@@ -2380,7 +2380,7 @@ void DatabaseInterface::initRequest()
         auto insertTrackQueryText = QStringLiteral("INSERT INTO `Tracks` (`ID`, `Title`, `AlbumID`, `GenreID`, `ComposerID`, `LyricistID`, `Comment`, `TrackNumber`, `DiscNumber`, `Channels`, `BitRate`, `SampleRate`, `Year`,  `Duration`, `Rating` ) "
                                                    "VALUES (:trackId, :title, :album, :genreId, :composerId, :lyricistId, :comment, :trackNumber, :discNumber, :channels, :bitRate, :sampleRate, :year, :trackDuration, :trackRating)");
 
-        auto result = d->mInsertTrackQuery.prepare(insertTrackQueryText);
+        auto result = prepareQuery(d->mInsertTrackQuery, insertTrackQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mInsertTrackQuery.lastQuery();
@@ -2410,7 +2410,7 @@ void DatabaseInterface::initRequest()
                                                    "WHERE "
                                                    "`ID` = :trackId");
 
-        auto result = d->mUpdateTrackQuery.prepare(updateTrackQueryText);
+        auto result = prepareQuery(d->mUpdateTrackQuery, updateTrackQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mUpdateTrackQuery.lastQuery();
@@ -2438,7 +2438,7 @@ void DatabaseInterface::initRequest()
                                                    "trackArtist.`ArtistID` = artist.`ID` AND "
                                                    "artist.`Name` = :artist");
 
-        auto result = d->mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery.prepare(selectTrackQueryText);
+        auto result = prepareQuery(d->mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery, selectTrackQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery.lastQuery();
@@ -2479,7 +2479,7 @@ void DatabaseInterface::initRequest()
                                                    ") "
                                                    ")");
 
-        auto result = d->mSelectTrackIdFromTitleAlbumTrackDiscNumberQuery.prepare(selectTrackQueryText);
+        auto result = prepareQuery(d->mSelectTrackIdFromTitleAlbumTrackDiscNumberQuery, selectTrackQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectTrackIdFromTitleAlbumTrackDiscNumberQuery.lastQuery();
@@ -2496,7 +2496,7 @@ void DatabaseInterface::initRequest()
                                                                     "WHERE "
                                                                     "`ID` = :albumId");
 
-        auto result = d->mSelectAlbumArtUriFromAlbumIdQuery.prepare(selectAlbumArtUriFromAlbumIdQueryText);
+        auto result = prepareQuery(d->mSelectAlbumArtUriFromAlbumIdQuery, selectAlbumArtUriFromAlbumIdQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAlbumArtUriFromAlbumIdQuery.lastQuery();
@@ -2512,7 +2512,7 @@ void DatabaseInterface::initRequest()
                                                              "WHERE "
                                                              "`ID` = :albumId");
 
-        auto result = d->mSelectAlbumTrackCountQuery.prepare(selectAlbumTrackCountQueryText);
+        auto result = prepareQuery(d->mSelectAlbumTrackCountQuery, selectAlbumTrackCountQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAlbumTrackCountQuery.lastQuery();
@@ -2527,7 +2527,7 @@ void DatabaseInterface::initRequest()
                                                    "WHERE "
                                                    "`ID` = :albumId");
 
-        auto result = d->mUpdateAlbumQuery.prepare(updateAlbumQueryText);
+        auto result = prepareQuery(d->mUpdateAlbumQuery, updateAlbumQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mUpdateAlbumQuery.lastQuery();
@@ -2544,7 +2544,7 @@ void DatabaseInterface::initRequest()
                                                                      "`ID` = :albumId AND "
                                                                      "`IsSingleDiscAlbum` != (SELECT COUNT(DISTINCT DiscNumber) = 1 FROM `Tracks` WHERE `AlbumID` = :albumId)");
 
-        auto result = d->mUpdateIsSingleDiscAlbumFromIdQuery.prepare(updateIsSingleDiscAlbumFromIdQueryText);
+        auto result = prepareQuery(d->mUpdateIsSingleDiscAlbumFromIdQuery, updateIsSingleDiscAlbumFromIdQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mUpdateIsSingleDiscAlbumFromIdQuery.lastQuery();
@@ -2560,7 +2560,7 @@ void DatabaseInterface::initRequest()
                                                                     "WHERE "
                                                                     "`ID` = :albumId");
 
-        auto result = d->mUpdateAlbumArtUriFromAlbumIdQuery.prepare(updateAlbumArtUriFromAlbumIdQueryText);
+        auto result = prepareQuery(d->mUpdateAlbumArtUriFromAlbumIdQuery, updateAlbumArtUriFromAlbumIdQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mUpdateAlbumArtUriFromAlbumIdQuery.lastQuery();
@@ -2611,7 +2611,7 @@ void DatabaseInterface::initRequest()
                                                               "ORDER BY tracks.`Title` ASC, "
                                                               "album.`Title` ASC");
 
-        auto result = d->mSelectTracksFromArtist.prepare(selectTracksFromArtistQueryText);
+        auto result = prepareQuery(d->mSelectTracksFromArtist, selectTracksFromArtistQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectTracksFromArtist.lastQuery();
@@ -2633,7 +2633,7 @@ void DatabaseInterface::initRequest()
                                                                 "artist.`ID` = albumArtist.`ArtistID` AND "
                                                                 "artist.`Name` = :artistName");
 
-        auto result = d->mSelectAlbumIdsFromArtist.prepare(selectAlbumIdsFromArtistQueryText);
+        auto result = prepareQuery(d->mSelectAlbumIdsFromArtist, selectAlbumIdsFromArtistQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAlbumIdsFromArtist.lastQuery();
@@ -2650,7 +2650,7 @@ void DatabaseInterface::initRequest()
                                                     "WHERE "
                                                     "`ID` = :artistId");
 
-        auto result = d->mSelectArtistQuery.prepare(selectArtistQueryText);
+        auto result = prepareQuery(d->mSelectArtistQuery, selectArtistQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectArtistQuery.lastQuery();
@@ -2667,7 +2667,7 @@ void DatabaseInterface::initRequest()
                                                    "WHERE "
                                                    "`ID` = :genreId");
 
-        auto result = d->mSelectGenreQuery.prepare(selectGenreQueryText);
+        auto result = prepareQuery(d->mSelectGenreQuery, selectGenreQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectGenreQuery.lastQuery();
@@ -2684,7 +2684,7 @@ void DatabaseInterface::initRequest()
                                                       "WHERE "
                                                       "`ID` = :composerId");
 
-        auto result = d->mSelectComposerQuery.prepare(selectComposerQueryText);
+        auto result = prepareQuery(d->mSelectComposerQuery, selectComposerQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectComposerQuery.lastQuery();
@@ -2699,7 +2699,7 @@ void DatabaseInterface::initRequest()
                                                       "WHERE "
                                                       "`ID` = :lyricistId");
 
-        auto result = d->mSelectLyricistQuery.prepare(selectLyricistQueryText);
+        auto result = prepareQuery(d->mSelectLyricistQuery, selectLyricistQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectLyricistQuery.lastQuery();
@@ -2746,7 +2746,7 @@ void DatabaseInterface::initRequest()
                                                                "tracksMapping.`FileName` = :filePath AND "
                                                                "tracksMapping.`Priority` = (SELECT MIN(`Priority`) FROM `TracksMapping` WHERE `TrackID` = tracks.`ID`)");
 
-        auto result = d->mSelectTrackFromFilePathQuery.prepare(selectTrackFromFilePathQueryText);
+        auto result = prepareQuery(d->mSelectTrackFromFilePathQuery, selectTrackFromFilePathQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectTrackFromFilePathQuery.lastQuery();
@@ -2761,7 +2761,7 @@ void DatabaseInterface::initRequest()
                                                    "WHERE "
                                                    "`ID` = :trackId");
 
-        auto result = d->mRemoveTrackQuery.prepare(removeTrackQueryText);
+        auto result = prepareQuery(d->mRemoveTrackQuery, removeTrackQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mRemoveTrackQuery.lastQuery();
@@ -2776,7 +2776,7 @@ void DatabaseInterface::initRequest()
                                                          "WHERE "
                                                          "`TrackID` = :trackId");
 
-        auto result = d->mRemoveTrackArtistQuery.prepare(removeTrackArtistQueryText);
+        auto result = prepareQuery(d->mRemoveTrackArtistQuery, removeTrackArtistQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mRemoveTrackArtistQuery.lastQuery();
@@ -2791,7 +2791,7 @@ void DatabaseInterface::initRequest()
                                                    "WHERE "
                                                    "`ID` = :albumId");
 
-        auto result = d->mRemoveAlbumQuery.prepare(removeAlbumQueryText);
+        auto result = prepareQuery(d->mRemoveAlbumQuery, removeAlbumQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mRemoveAlbumQuery.lastQuery();
@@ -2806,7 +2806,7 @@ void DatabaseInterface::initRequest()
                                                          "WHERE "
                                                          "`AlbumID` = :albumId");
 
-        auto result = d->mRemoveAlbumArtistQuery.prepare(removeAlbumArtistQueryText);
+        auto result = prepareQuery(d->mRemoveAlbumArtistQuery, removeAlbumArtistQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mRemoveAlbumArtistQuery.lastQuery();
@@ -2821,7 +2821,7 @@ void DatabaseInterface::initRequest()
                                                    "WHERE "
                                                    "`ID` = :artistId");
 
-        auto result = d->mRemoveArtistQuery.prepare(removeAlbumQueryText);
+        auto result = prepareQuery(d->mRemoveArtistQuery, removeAlbumQueryText);
 
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mRemoveArtistQuery.lastQuery();
@@ -5003,6 +5003,12 @@ QList<MusicArtist> DatabaseInterface::internalAllPeople(QSqlQuery allPeopleQuery
     }
 
     return result;
+}
+
+bool DatabaseInterface::prepareQuery(QSqlQuery &query, const QString &queryText) const
+{
+    query.setForwardOnly(true);
+    return query.prepare(queryText);
 }
 
 

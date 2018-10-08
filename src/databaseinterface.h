@@ -283,6 +283,8 @@ private:
     QList<MusicArtist> internalAllPeople(QSqlQuery allPeopleQuery,
                                          QSqlQuery selectCountAlbumsForPeopleQuery);
 
+    bool prepareQuery(QSqlQuery &query, const QString &queryText) const;
+
     std::unique_ptr<DatabaseInterfacePrivate> d;
 
 };

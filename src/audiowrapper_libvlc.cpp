@@ -225,8 +225,13 @@ void AudioWrapper::setSource(const QUrl &source)
 {
     d->mMedia = libvlc_media_new_path(d->mInstance, source.toLocalFile().toUtf8().constData());
     if (!d->mMedia) {
-        qDebug() << "AudioWrapper::setSource" << "failed creating media" << libvlc_errmsg();
-        return;
+        qDebug() << "AudioWrapper::setSource" << "failed creating media" << libvlc_errmsg() << d->mInstance, source.toLocalFile().toUtf8().constData();
+
+        d->mMedia = libvlc_media_new_path(d->mInstance, source.toLocalFile().toLatin1().constData());
+        if (!d->mMedia) {
+            qDebug() << "AudioWrapper::setSource" << "failed creating media" << libvlc_errmsg() << d->mInstance, source.toLocalFile().toLatin1().constData();
+            return;
+        }
     }
 
     libvlc_media_player_set_media(d->mPlayer, d->mMedia);

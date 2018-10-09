@@ -57,8 +57,8 @@ public:
           mSelectAllTrackFilesFromSourceQuery(mTracksDatabase),  mSelectAlbumIdsFromArtist(mTracksDatabase),
           mRemoveTracksMappingFromSource(mTracksDatabase), mRemoveTracksMapping(mTracksDatabase),
           mSelectTracksWithoutMappingQuery(mTracksDatabase), mSelectAlbumIdFromTitleAndArtistQuery(mTracksDatabase),
-          mSelectAlbumIdFromTitleWithoutArtistQuery(mTracksDatabase), mInsertAlbumArtistQuery(mTracksDatabase),
-          mInsertTrackArtistQuery(mTracksDatabase), mRemoveTrackArtistQuery(mTracksDatabase), mRemoveAlbumArtistQuery(mTracksDatabase),
+          mSelectAlbumIdFromTitleWithoutArtistQuery(mTracksDatabase),
+          mInsertTrackArtistQuery(mTracksDatabase), mRemoveTrackArtistQuery(mTracksDatabase),
           mSelectTrackIdFromTitleAlbumTrackDiscNumberQuery(mTracksDatabase), mSelectAlbumArtUriFromAlbumIdQuery(mTracksDatabase),
           mInsertComposerQuery(mTracksDatabase), mSelectComposerByNameQuery(mTracksDatabase),
           mSelectComposerQuery(mTracksDatabase), mInsertLyricistQuery(mTracksDatabase),
@@ -69,7 +69,7 @@ public:
           mSelectAllLyricistsQuery(mTracksDatabase), mSelectCountAlbumsForComposerQuery(mTracksDatabase),
           mSelectCountAlbumsForLyricistQuery(mTracksDatabase), mSelectAllGenresQuery(mTracksDatabase),
           mSelectGenreForArtistQuery(mTracksDatabase), mSelectGenreForAlbumQuery(mTracksDatabase),
-          mUpdateTrackQuery(mTracksDatabase)
+          mUpdateTrackQuery(mTracksDatabase), mUpdateAlbumArtistQuery(mTracksDatabase)
     {
     }
 
@@ -155,13 +155,9 @@ public:
 
     QSqlQuery mSelectAlbumIdFromTitleWithoutArtistQuery;
 
-    QSqlQuery mInsertAlbumArtistQuery;
-
     QSqlQuery mInsertTrackArtistQuery;
 
     QSqlQuery mRemoveTrackArtistQuery;
-
-    QSqlQuery mRemoveAlbumArtistQuery;
 
     QSqlQuery mSelectTrackIdFromTitleAlbumTrackDiscNumberQuery;
 
@@ -204,6 +200,8 @@ public:
     QSqlQuery mSelectGenreForAlbumQuery;
 
     QSqlQuery mUpdateTrackQuery;
+
+    QSqlQuery mUpdateAlbumArtistQuery;
 
     QHash<qulonglong, MusicAudioTrack> mTracksCache;
 
@@ -1086,10 +1084,11 @@ void DatabaseInterface::initDatabase()
 
     auto listTables = d->mTracksDatabase.tables();
 
-    if (!listTables.contains(QStringLiteral("DatabaseVersionV5"))) {
+    if (!listTables.contains(QStringLiteral("DatabaseVersionV6"))) {
         auto oldTables = QStringList{QStringLiteral("DatabaseVersionV2"),
                 QStringLiteral("DatabaseVersionV3"),
                 QStringLiteral("DatabaseVersionV4"),
+                QStringLiteral("DatabaseVersionV5"),
                 QStringLiteral("AlbumsArtists"),
                 QStringLiteral("TracksArtists"),
                 QStringLiteral("TracksMapping"),
@@ -1120,10 +1119,10 @@ void DatabaseInterface::initDatabase()
         listTables = d->mTracksDatabase.tables();
     }
 
-    if (!listTables.contains(QStringLiteral("DatabaseVersionV5"))) {
+    if (!listTables.contains(QStringLiteral("DatabaseVersionV6"))) {
         QSqlQuery createSchemaQuery(d->mTracksDatabase);
 
-        const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `DatabaseVersionV5` (`Version` INTEGER PRIMARY KEY NOT NULL)"));
+        const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `DatabaseVersionV6` (`Version` INTEGER PRIMARY KEY NOT NULL)"));
 
         if (!result) {
             qDebug() << "DatabaseInterface::initDatabase" << createSchemaQuery.lastQuery();
@@ -1214,35 +1213,18 @@ void DatabaseInterface::initDatabase()
         const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `Albums` ("
                                                                    "`ID` INTEGER PRIMARY KEY NOT NULL, "
                                                                    "`Title` VARCHAR(55) NOT NULL, "
+                                                                   "`ArtistName` VARCHAR(55), "
                                                                    "`AlbumPath` VARCHAR(255) NOT NULL, "
                                                                    "`CoverFileName` VARCHAR(255) NOT NULL, "
                                                                    "`TracksCount` INTEGER NOT NULL, "
                                                                    "`IsSingleDiscAlbum` BOOLEAN NOT NULL, "
-                                                                   "`AlbumInternalID` VARCHAR(55))"));
-
-        if (!result) {
-            qDebug() << "DatabaseInterface::initDatabase" << createSchemaQuery.lastQuery();
-            qDebug() << "DatabaseInterface::initDatabase" << createSchemaQuery.lastError();
-        }
-    }
-
-    if (!listTables.contains(QStringLiteral("AlbumsArtists"))) {
-        QSqlQuery createSchemaQuery(d->mTracksDatabase);
-
-        const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `AlbumsArtists` ("
-                                                                   "`AlbumID` INTEGER NOT NULL, "
-                                                                   "`ArtistID` INTEGER NOT NULL, "
-                                                                   "CONSTRAINT pk_albumsartists PRIMARY KEY (`AlbumID`, `ArtistID`), "
-                                                                   "CONSTRAINT fk_albums FOREIGN KEY (`AlbumID`) REFERENCES `Albums`(`ID`) "
-                                                                   "ON DELETE CASCADE, "
-                                                                   "CONSTRAINT fk_artists FOREIGN KEY (`ArtistID`) REFERENCES `Artists`(`ID`) "
+                                                                   "`AlbumInternalID` VARCHAR(55), "
+                                                                   "CONSTRAINT fk_artists FOREIGN KEY (`ArtistName`) REFERENCES `Artists`(`Name`) "
                                                                    "ON DELETE CASCADE)"));
 
         if (!result) {
             qDebug() << "DatabaseInterface::initDatabase" << createSchemaQuery.lastQuery();
             qDebug() << "DatabaseInterface::initDatabase" << createSchemaQuery.lastError();
-
-            Q_EMIT databaseError();
         }
     }
 
@@ -1324,39 +1306,39 @@ void DatabaseInterface::initDatabase()
 
         const auto &result = createTrackIndex.exec(QStringLiteral("CREATE INDEX "
                                                                   "IF NOT EXISTS "
+                                                                  "`TitleAlbumsIndex` ON `Albums` "
+                                                                  "(`Title`)"));
+
+        if (!result) {
+            qDebug() << "DatabaseInterface::initDatabase" << createTrackIndex.lastQuery();
+            qDebug() << "DatabaseInterface::initDatabase" << createTrackIndex.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        QSqlQuery createTrackIndex(d->mTracksDatabase);
+
+        const auto &result = createTrackIndex.exec(QStringLiteral("CREATE INDEX "
+                                                                  "IF NOT EXISTS "
+                                                                  "`ArtistNameAlbumsIndex` ON `Albums` "
+                                                                  "(`ArtistName`)"));
+
+        if (!result) {
+            qDebug() << "DatabaseInterface::initDatabase" << createTrackIndex.lastQuery();
+            qDebug() << "DatabaseInterface::initDatabase" << createTrackIndex.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        QSqlQuery createTrackIndex(d->mTracksDatabase);
+
+        const auto &result = createTrackIndex.exec(QStringLiteral("CREATE INDEX "
+                                                                  "IF NOT EXISTS "
                                                                   "`TracksAlbumIndex` ON `Tracks` "
-                                                                  "(`AlbumID`)"));
-
-        if (!result) {
-            qDebug() << "DatabaseInterface::initDatabase" << createTrackIndex.lastQuery();
-            qDebug() << "DatabaseInterface::initDatabase" << createTrackIndex.lastError();
-
-            Q_EMIT databaseError();
-        }
-    }
-
-    {
-        QSqlQuery createTrackIndex(d->mTracksDatabase);
-
-        const auto &result = createTrackIndex.exec(QStringLiteral("CREATE INDEX "
-                                                                  "IF NOT EXISTS "
-                                                                  "`AlbumsArtistsArtistIndex` ON `AlbumsArtists` "
-                                                                  "(`ArtistID`)"));
-
-        if (!result) {
-            qDebug() << "DatabaseInterface::initDatabase" << createTrackIndex.lastQuery();
-            qDebug() << "DatabaseInterface::initDatabase" << createTrackIndex.lastError();
-
-            Q_EMIT databaseError();
-        }
-    }
-
-    {
-        QSqlQuery createTrackIndex(d->mTracksDatabase);
-
-        const auto &result = createTrackIndex.exec(QStringLiteral("CREATE INDEX "
-                                                                  "IF NOT EXISTS "
-                                                                  "`AlbumsArtistsAlbumIndex` ON `AlbumsArtists` "
                                                                   "(`AlbumID`)"));
 
         if (!result) {
@@ -1433,18 +1415,12 @@ void DatabaseInterface::initRequest()
                                                    "album.`ID`, "
                                                    "album.`Title`, "
                                                    "album.`AlbumInternalID`, "
-                                                   "artist.`Name`, "
+                                                   "album.`ArtistName`, "
                                                    "album.`AlbumPath`, "
                                                    "album.`CoverFileName`, "
                                                    "album.`TracksCount`, "
                                                    "album.`IsSingleDiscAlbum` "
                                                    "FROM `Albums` album "
-                                                   "LEFT JOIN `AlbumsArtists` albumArtist "
-                                                   "ON "
-                                                   "albumArtist.`AlbumID` = album.`ID` "
-                                                   "LEFT JOIN `Artists` artist "
-                                                   "ON "
-                                                   "albumArtist.`ArtistID` = artist.`ID` "
                                                    "WHERE "
                                                    "album.`ID` = :albumId");
 
@@ -1463,18 +1439,12 @@ void DatabaseInterface::initRequest()
                                                   "album.`ID`, "
                                                   "album.`Title`, "
                                                   "album.`AlbumInternalID`, "
-                                                  "artist.`Name`, "
+                                                  "album.`ArtistName`, "
                                                   "album.`AlbumPath`, "
                                                   "album.`CoverFileName`, "
                                                   "album.`TracksCount`, "
                                                   "album.`IsSingleDiscAlbum` "
                                                   "FROM `Albums` album "
-                                                  "LEFT JOIN `AlbumsArtists` albumArtist "
-                                                  "ON "
-                                                  "albumArtist.`AlbumID` = album.`ID` "
-                                                  "LEFT JOIN `Artists` artist "
-                                                  "ON "
-                                                  "albumArtist.`ArtistID` = artist.`ID` "
                                                   "ORDER BY album.`Title` COLLATE NOCASE");
 
         auto result = prepareQuery(d->mSelectAllAlbumsQuery, selectAllAlbumsText);
@@ -1508,14 +1478,8 @@ void DatabaseInterface::initRequest()
         auto selectAllAlbumsText = QStringLiteral("SELECT "
                                                   "album.`ID`, "
                                                   "album.`Title`, "
-                                                  "artist.`Name` "
+                                                  "album.`ArtistName` "
                                                   "FROM `Albums` album "
-                                                  "LEFT JOIN `AlbumsArtists` albumArtist "
-                                                  "ON "
-                                                  "albumArtist.`AlbumID` = album.`ID` "
-                                                  "LEFT JOIN `Artists` artist "
-                                                  "ON "
-                                                  "albumArtist.`ArtistID` = artist.`ID` "
                                                   "ORDER BY album.`Title` COLLATE NOCASE");
 
         auto result = prepareQuery(d->mSelectAllAlbumsShortQuery, selectAllAlbumsText);
@@ -1582,7 +1546,7 @@ void DatabaseInterface::initRequest()
                                                   "tracks.`Title`, "
                                                   "tracks.`AlbumID`, "
                                                   "artist.`Name`, "
-                                                  "artistAlbum.`Name`, "
+                                                  "album.`ArtistName`, "
                                                   "tracksMapping.`FileName`, "
                                                   "tracksMapping.`FileModifiedTime`, "
                                                   "tracks.`TrackNumber`, "
@@ -1604,8 +1568,6 @@ void DatabaseInterface::initRequest()
                                                   "`Tracks` tracks,  `Artists` artist, `TracksArtists` trackArtist, "
                                                   "`TracksMapping` tracksMapping "
                                                   "LEFT JOIN `Albums` album ON album.`ID` = tracks.`AlbumID` "
-                                                  "LEFT JOIN `AlbumsArtists` artistAlbumMapping ON artistAlbumMapping.`AlbumID` = album.`ID` "
-                                                  "LEFT JOIN `Artists` artistAlbum ON artistAlbum.`ID` = artistAlbumMapping.`ArtistID` "
                                                   "LEFT JOIN `Genre` trackGenre ON trackGenre.`ID` = tracks.`GenreID` "
                                                   "LEFT JOIN `Composer` trackComposer ON trackComposer.`ID` = tracks.`ComposerID` "
                                                   "LEFT JOIN `Lyricist` trackLyricist ON trackLyricist.`ID` = tracks.`LyricistID` "
@@ -1629,12 +1591,10 @@ void DatabaseInterface::initRequest()
         auto selectAllTracksShortText = QStringLiteral("SELECT "
                                                        "tracks.`ID`, "
                                                        "tracks.`Title`, "
-                                                       "artistAlbum.`Name` "
+                                                       "album.`ArtistName` "
                                                        "FROM "
                                                        "`Tracks` tracks "
-                                                       "LEFT JOIN `Albums` album ON album.`ID` = tracks.`AlbumID` "
-                                                       "LEFT JOIN `AlbumsArtists` artistAlbumMapping ON artistAlbumMapping.`AlbumID` = album.`ID` "
-                                                       "LEFT JOIN `Artists` artistAlbum ON artistAlbum.`ID` = artistAlbumMapping.`ArtistID` ");
+                                                       "LEFT JOIN `Albums` album ON album.`ID` = tracks.`AlbumID` ");
 
         auto result = prepareQuery(d->mSelectAllTracksShortQuery, selectAllTracksShortText);
 
@@ -1652,7 +1612,7 @@ void DatabaseInterface::initRequest()
                                                                  "tracks.`Title`, "
                                                                  "tracks.`AlbumID`, "
                                                                  "artist.`Name`, "
-                                                                 "artistAlbum.`Name`, "
+                                                                 "album.`ArtistName`, "
                                                                  "tracksMapping.`FileName`, "
                                                                  "tracksMapping.`FileModifiedTime`, "
                                                                  "tracks.`TrackNumber`, "
@@ -1674,8 +1634,6 @@ void DatabaseInterface::initRequest()
                                                                  "`Tracks` tracks, `Artists` artist, `TracksArtists` trackArtist, "
                                                                  "`TracksMapping` tracksMapping, `DiscoverSource` source "
                                                                  "LEFT JOIN `Albums` album ON album.`ID` = tracks.`AlbumID` "
-                                                                 "LEFT JOIN `AlbumsArtists` artistAlbumMapping ON artistAlbumMapping.`AlbumID` = album.`ID` "
-                                                                 "LEFT JOIN `Artists` artistAlbum ON artistAlbum.`ID` = artistAlbumMapping.`ArtistID` "
                                                                  "LEFT JOIN `Composer` trackComposer ON trackComposer.`ID` = tracks.`ComposerID` "
                                                                  "LEFT JOIN `Lyricist` trackLyricist ON trackLyricist.`ID` = tracks.`LyricistID` "
                                                                  "LEFT JOIN `Genre` trackGenre ON trackGenre.`ID` = tracks.`GenreID` "
@@ -1819,7 +1777,7 @@ void DatabaseInterface::initRequest()
                                                    "tracks.`Title`, "
                                                    "tracks.`AlbumID`, "
                                                    "artist.`Name`, "
-                                                   "artistAlbum.`Name`, "
+                                                   "album.`ArtistName`, "
                                                    "tracksMapping.`FileName`, "
                                                    "tracksMapping.`FileModifiedTime`, "
                                                    "tracks.`TrackNumber`, "
@@ -1841,8 +1799,6 @@ void DatabaseInterface::initRequest()
                                                    "`Tracks` tracks, `Artists` artist, `TracksArtists` trackArtist, "
                                                    "`TracksMapping` tracksMapping "
                                                    "LEFT JOIN `Albums` album ON album.`ID` = tracks.`AlbumID` "
-                                                   "LEFT JOIN `AlbumsArtists` artistAlbumMapping ON artistAlbumMapping.`AlbumID` = album.`ID` "
-                                                   "LEFT JOIN `Artists` artistAlbum ON artistAlbum.`ID` = artistAlbumMapping.`ArtistID` "
                                                    "LEFT JOIN `Composer` trackComposer ON trackComposer.`ID` = tracks.`ComposerID` "
                                                    "LEFT JOIN `Lyricist` trackLyricist ON trackLyricist.`ID` = tracks.`LyricistID` "
                                                    "LEFT JOIN `Genre` trackGenre ON trackGenre.`ID` = tracks.`GenreID` "
@@ -1870,7 +1826,7 @@ void DatabaseInterface::initRequest()
                                                          "tracks.`Title`, "
                                                          "tracks.`AlbumID`, "
                                                          "artist.`Name`, "
-                                                         "artistAlbum.`Name`, "
+                                                         "album.`ArtistName`, "
                                                          "tracksMapping.`FileName`, "
                                                          "tracksMapping.`FileModifiedTime`, "
                                                          "tracks.`TrackNumber`, "
@@ -1891,8 +1847,7 @@ void DatabaseInterface::initRequest()
                                                          "FROM "
                                                          "`Tracks` tracks, `Artists` artist, `TracksArtists` trackArtist, "
                                                          "`TracksMapping` tracksMapping "
-                                                         "LEFT JOIN `Albums` album ON album.`ID` = tracks.`AlbumID` "                                                         "LEFT JOIN `AlbumsArtists` artistAlbumMapping ON artistAlbumMapping.`AlbumID` = album.`ID` "
-                                                         "LEFT JOIN `Artists` artistAlbum ON artistAlbum.`ID` = artistAlbumMapping.`ArtistID` "
+                                                         "LEFT JOIN `Albums` album ON album.`ID` = tracks.`AlbumID` "
                                                          "LEFT JOIN `Composer` trackComposer ON trackComposer.`ID` = tracks.`ComposerID` "
                                                          "LEFT JOIN `Lyricist` trackLyricist ON trackLyricist.`ID` = tracks.`LyricistID` "
                                                          "LEFT JOIN `Genre` trackGenre ON trackGenre.`ID` = tracks.`GenreID` "
@@ -1914,10 +1869,8 @@ void DatabaseInterface::initRequest()
     }
     {
         auto selectCountAlbumsQueryText = QStringLiteral("SELECT count(*) "
-                                                         "FROM `Albums` album, `Artists` artist, `AlbumsArtists` albumArtist "
-                                                         "WHERE artist.`Name` = :artistName AND "
-                                                         "album.`ID` = albumArtist.`AlbumID` AND "
-                                                         "artist.`ID` = albumArtist.`ArtistID`");
+                                                         "FROM `Albums` album "
+                                                         "WHERE album.`ArtistName` = :artistName ");
 
         const auto result = prepareQuery(d->mSelectCountAlbumsForArtistQuery, selectCountAlbumsQueryText);
 
@@ -1933,13 +1886,9 @@ void DatabaseInterface::initRequest()
         auto selectGenreForArtistQueryText = QStringLiteral("SELECT DISTINCT trackGenre.`Name` "
                                                             "FROM "
                                                             "`Albums` album, "
-                                                            "`Artists` artist, "
-                                                            "`AlbumsArtists` albumArtist, "
                                                             "`Tracks` track "
                                                             "LEFT JOIN `Genre` trackGenre ON trackGenre.`ID` = track.`GenreID` "
-                                                            "WHERE artist.`Name` = :artistName AND "
-                                                            "album.`ID` = albumArtist.`AlbumID` AND "
-                                                            "artist.`ID` = albumArtist.`ArtistID` AND "
+                                                            "WHERE album.`ArtistName` = :artistName AND "
                                                             "album.`ID` = track.`AlbumID`");
 
         const auto result = prepareQuery(d->mSelectGenreForArtistQuery, selectGenreForArtistQueryText);
@@ -2012,11 +1961,9 @@ void DatabaseInterface::initRequest()
         auto selectAlbumIdFromTitleQueryText = QStringLiteral("SELECT "
                                                               "album.`ID` "
                                                               "FROM "
-                                                              "`Albums` album, `Artists` artist, `AlbumsArtists` albumArtist "
+                                                              "`Albums` album "
                                                               "WHERE "
-                                                              "artist.`Name` = :artistName AND "
-                                                              "album.`ID` = albumArtist.`AlbumID` AND "
-                                                              "artist.`ID` = albumArtist.`ArtistID` AND "
+                                                              "album.`ArtistName` = :artistName AND "
                                                               "album.`Title` = :title");
 
         auto result = prepareQuery(d->mSelectAlbumIdFromTitleQuery, selectAlbumIdFromTitleQueryText);
@@ -2034,12 +1981,12 @@ void DatabaseInterface::initRequest()
                                                                        "album.`ID` "
                                                                        "FROM "
                                                                        "`Albums` album, "
-                                                                       "`AlbumsArtists` albumArtist "
+                                                                       "`Artists` albumArtist "
                                                                        "WHERE "
-                                                                       "album.`ID` = albumArtist.`AlbumID` AND "
+                                                                       "album.`ArtistName` = albumArtist.`Name` AND "
                                                                        "album.`Title` = :title AND "
                                                                        "album.`AlbumPath` = :albumPath AND "
-                                                                       "albumArtist.`ArtistID` = :artistId");
+                                                                       "albumArtist.`ID` = :artistId");
 
         auto result = prepareQuery(d->mSelectAlbumIdFromTitleAndArtistQuery, selectAlbumIdFromTitleAndArtistQueryText);
 
@@ -2059,14 +2006,7 @@ void DatabaseInterface::initRequest()
                                                                            "WHERE "
                                                                            "album.`AlbumPath` = :albumPath AND "
                                                                            "album.`Title` = :title AND "
-                                                                           "NOT EXISTS ("
-                                                                           "SELECT "
-                                                                           "albumArtist.`AlbumID` "
-                                                                           "FROM "
-                                                                           "`AlbumsArtists` albumArtist "
-                                                                           "WHERE "
-                                                                           "albumArtist.`AlbumID` = album.`ID`"
-                                                                           ")");
+                                                                           "album.`ArtistName` IS NULL");
 
         auto result = prepareQuery(d->mSelectAlbumIdFromTitleWithoutArtistQuery, selectAlbumIdFromTitleWithoutArtistQueryText);
 
@@ -2099,20 +2039,6 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mInsertAlbumQuery.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mInsertAlbumQuery.lastError();
-
-            Q_EMIT databaseError();
-        }
-    }
-
-    {
-        auto insertAlbumArtistQueryText = QStringLiteral("INSERT INTO `AlbumsArtists` (`AlbumID`, `ArtistID`) "
-                                                         "VALUES (:albumId, :artistId)");
-
-        auto result = prepareQuery(d->mInsertAlbumArtistQuery, insertAlbumArtistQueryText);
-
-        if (!result) {
-            qDebug() << "DatabaseInterface::initRequest" << d->mInsertAlbumArtistQuery.lastQuery();
-            qDebug() << "DatabaseInterface::initRequest" << d->mInsertAlbumArtistQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -2203,7 +2129,7 @@ void DatabaseInterface::initRequest()
                                                                   "tracks.`Title`, "
                                                                   "tracks.`AlbumID`, "
                                                                   "artist.`Name`, "
-                                                                  "artistAlbum.`Name`, "
+                                                                  "album.`ArtistName`, "
                                                                   "\"\" as FileName, "
                                                                   "NULL as FileModifiedTime, "
                                                                   "tracks.`TrackNumber`, "
@@ -2226,8 +2152,6 @@ void DatabaseInterface::initRequest()
                                                                   "`Artists` artist, "
                                                                   "`TracksArtists` trackArtist "
                                                                   "LEFT JOIN `Albums` album ON album.`ID` = tracks.`AlbumID` "
-                                                                  "LEFT JOIN `AlbumsArtists` artistAlbumMapping ON artistAlbumMapping.`AlbumID` = album.`ID` "
-                                                                  "LEFT JOIN `Artists` artistAlbum ON artistAlbum.`ID` = artistAlbumMapping.`ArtistID` "
                                                                   "LEFT JOIN `Composer` trackComposer ON trackComposer.`ID` = tracks.`ComposerID` "
                                                                   "LEFT JOIN `Lyricist` trackLyricist ON trackLyricist.`ID` = tracks.`LyricistID` "
                                                                   "LEFT JOIN `Genre` trackGenre ON trackGenre.`ID` = tracks.`GenreID` "
@@ -2421,6 +2345,23 @@ void DatabaseInterface::initRequest()
     }
 
     {
+        auto updateAlbumArtistQueryText = QStringLiteral("UPDATE `Albums` "
+                                                         "SET "
+                                                         "`ArtistName` = :artistName "
+                                                         "WHERE "
+                                                         "`ID` = :albumId");
+
+        auto result = prepareQuery(d->mUpdateAlbumArtistQuery, updateAlbumArtistQueryText);
+
+        if (!result) {
+            qDebug() << "DatabaseInterface::initRequest" << d->mUpdateAlbumArtistQuery.lastQuery();
+            qDebug() << "DatabaseInterface::initRequest" << d->mUpdateAlbumArtistQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
         auto selectTrackQueryText = QStringLiteral("SELECT "
                                                    "tracks.ID "
                                                    "FROM "
@@ -2462,21 +2403,8 @@ void DatabaseInterface::initRequest()
                                                    "tracks.`TrackNumber` = :trackNumber AND "
                                                    "tracks.`DiscNumber` = :discNumber AND "
                                                    "( "
-                                                   "( NOT EXISTS (SELECT albumArtistMapping.`AlbumID` "
-                                                   "FROM "
-                                                   "`AlbumsArtists` albumArtistMapping "
-                                                   "WHERE "
-                                                   "albumArtistMapping.`AlbumID` = albums.`ID`) "
-                                                   ") OR "
-                                                   "( EXISTS (SELECT albumArtistMapping.`AlbumID` "
-                                                   "FROM "
-                                                   "`AlbumsArtists` albumArtistMapping, "
-                                                   "`Artists` albumArtist "
-                                                   "WHERE "
-                                                   "albumArtist.`Name` = :albumArtist AND "
-                                                   "albumArtist.`ID` = albumArtistMapping.`ArtistID` AND "
-                                                   "albumArtistMapping.`AlbumID` = albums.`ID`) "
-                                                   ") "
+                                                   "( albums.`ArtistName` IS NULL) OR "
+                                                   "( albums.`ArtistName` = :albumArtist) "
                                                    ")");
 
         auto result = prepareQuery(d->mSelectTrackIdFromTitleAlbumTrackDiscNumberQuery, selectTrackQueryText);
@@ -2576,7 +2504,7 @@ void DatabaseInterface::initRequest()
                                                               "tracks.`Title`, "
                                                               "tracks.`AlbumID`, "
                                                               "artist.`Name`, "
-                                                              "artistAlbum.`Name`, "
+                                                              "album.`ArtistName`, "
                                                               "tracksMapping.`FileName`, "
                                                               "tracksMapping.`FileModifiedTime`, "
                                                               "tracks.`TrackNumber`, "
@@ -2596,8 +2524,6 @@ void DatabaseInterface::initRequest()
                                                               "tracks.`SampleRate` "
                                                               "FROM `Tracks` tracks, `Albums` album, `Artists` artist, `TracksArtists` trackArtist, "
                                                               "`TracksMapping` tracksMapping "
-                                                              "LEFT JOIN `AlbumsArtists` artistAlbumMapping ON artistAlbumMapping.`AlbumID` = album.`ID` "
-                                                              "LEFT JOIN `Artists` artistAlbum ON artistAlbum.`ID` = artistAlbumMapping.`ArtistID` "
                                                               "LEFT JOIN `Composer` trackComposer ON trackComposer.`ID` = tracks.`ComposerID` "
                                                               "LEFT JOIN `Lyricist` trackLyricist ON trackLyricist.`ID` = tracks.`LyricistID` "
                                                               "LEFT JOIN `Genre` trackGenre ON trackGenre.`ID` = tracks.`GenreID` "
@@ -2625,13 +2551,9 @@ void DatabaseInterface::initRequest()
         auto selectAlbumIdsFromArtistQueryText = QStringLiteral("SELECT "
                                                                 "album.`ID` "
                                                                 "FROM "
-                                                                "`Albums` album, "
-                                                                "`Artists` artist,"
-                                                                "`AlbumsArtists` albumArtist "
+                                                                "`Albums` album "
                                                                 "WHERE "
-                                                                "album.`ID` = albumArtist.`AlbumID` AND "
-                                                                "artist.`ID` = albumArtist.`ArtistID` AND "
-                                                                "artist.`Name` = :artistName");
+                                                                "album.`ArtistName` = :artistName");
 
         auto result = prepareQuery(d->mSelectAlbumIdsFromArtist, selectAlbumIdsFromArtistQueryText);
 
@@ -2713,7 +2635,7 @@ void DatabaseInterface::initRequest()
                                                                "tracks.`Title`, "
                                                                "tracks.`AlbumID`, "
                                                                "artist.`Name`, "
-                                                               "artistAlbum.`Name`, "
+                                                               "album.`ArtistName`, "
                                                                "tracksMapping.`FileName`, "
                                                                "tracksMapping.`FileModifiedTime`, "
                                                                "tracks.`TrackNumber`, "
@@ -2733,8 +2655,6 @@ void DatabaseInterface::initRequest()
                                                                "tracks.`SampleRate` "
                                                                "FROM `Tracks` tracks, `Artists` artist, `Albums` album, `TracksArtists` trackArtist, "
                                                                "`TracksMapping` tracksMapping "
-                                                               "LEFT JOIN `AlbumsArtists` artistAlbumMapping ON artistAlbumMapping.`AlbumID` = album.`ID` "
-                                                               "LEFT JOIN `Artists` artistAlbum ON artistAlbum.`ID` = artistAlbumMapping.`ArtistID` "
                                                                "LEFT JOIN `Composer` trackComposer ON trackComposer.`ID` = tracks.`ComposerID` "
                                                                "LEFT JOIN `Lyricist` trackLyricist ON trackLyricist.`ID` = tracks.`LyricistID` "
                                                                "LEFT JOIN `Genre` trackGenre ON trackGenre.`ID` = tracks.`GenreID` "
@@ -2796,21 +2716,6 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mRemoveAlbumQuery.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mRemoveAlbumQuery.lastError();
-
-            Q_EMIT databaseError();
-        }
-    }
-
-    {
-        auto removeAlbumArtistQueryText = QStringLiteral("DELETE FROM `AlbumsArtists` "
-                                                         "WHERE "
-                                                         "`AlbumID` = :albumId");
-
-        auto result = prepareQuery(d->mRemoveAlbumArtistQuery, removeAlbumArtistQueryText);
-
-        if (!result) {
-            qDebug() << "DatabaseInterface::initRequest" << d->mRemoveAlbumArtistQuery.lastQuery();
-            qDebug() << "DatabaseInterface::initRequest" << d->mRemoveAlbumArtistQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -2936,24 +2841,25 @@ qulonglong DatabaseInterface::insertAlbum(const QString &title, const QString &a
     d->mInsertAlbumQuery.finish();
 
     if (!albumArtist.isEmpty()) {
-        d->mInsertAlbumArtistQuery.bindValue(QStringLiteral(":albumId"), d->mAlbumId);
-        d->mInsertAlbumArtistQuery.bindValue(QStringLiteral(":artistId"), insertArtist(albumArtist));
+        d->mUpdateAlbumArtistQuery.bindValue(QStringLiteral(":albumId"), d->mAlbumId);
+        insertArtist(albumArtist);
+        d->mUpdateAlbumArtistQuery.bindValue(QStringLiteral(":artistName"), albumArtist);
 
-        queryResult = d->mInsertAlbumArtistQuery.exec();
+        queryResult = d->mUpdateAlbumArtistQuery.exec();
 
-        if (!queryResult || !d->mInsertAlbumArtistQuery.isActive()) {
+        if (!queryResult || !d->mUpdateAlbumArtistQuery.isActive()) {
             Q_EMIT databaseError();
 
-            qDebug() << "DatabaseInterface::insertAlbum" << d->mInsertAlbumArtistQuery.lastQuery();
-            qDebug() << "DatabaseInterface::insertAlbum" << d->mInsertAlbumArtistQuery.boundValues();
-            qDebug() << "DatabaseInterface::insertAlbum" << d->mInsertAlbumArtistQuery.lastError();
+            qDebug() << "DatabaseInterface::insertAlbum" << d->mUpdateAlbumArtistQuery.lastQuery();
+            qDebug() << "DatabaseInterface::insertAlbum" << d->mUpdateAlbumArtistQuery.boundValues();
+            qDebug() << "DatabaseInterface::insertAlbum" << d->mUpdateAlbumArtistQuery.lastError();
 
-            d->mInsertAlbumArtistQuery.finish();
+            d->mUpdateAlbumArtistQuery.finish();
 
             return result;
         }
 
-        d->mInsertAlbumArtistQuery.finish();
+        d->mUpdateAlbumArtistQuery.finish();
     }
 
     ++d->mAlbumId;
@@ -3016,42 +2922,25 @@ bool DatabaseInterface::updateAlbumFromId(qulonglong albumId, const QUrl &albumA
     }
 
     if (!isValidArtist(albumId) && currentTrack.isValidAlbumArtist()) {
-        d->mRemoveAlbumArtistQuery.bindValue(QStringLiteral(":albumId"), albumId);
+        d->mUpdateAlbumArtistQuery.bindValue(QStringLiteral(":albumId"), albumId);
+        insertArtist(currentTrack.albumArtist());
+        d->mUpdateAlbumArtistQuery.bindValue(QStringLiteral(":artistName"), currentTrack.albumArtist());
 
-        result = d->mRemoveAlbumArtistQuery.exec();
+        result = d->mUpdateAlbumArtistQuery.exec();
 
-        if (!result || !d->mRemoveAlbumArtistQuery.isActive()) {
+        if (!result || !d->mUpdateAlbumArtistQuery.isActive()) {
             Q_EMIT databaseError();
 
-            qDebug() << "DatabaseInterface::updateIsSingleDiscAlbumFromId" << d->mRemoveAlbumArtistQuery.lastQuery();
-            qDebug() << "DatabaseInterface::updateIsSingleDiscAlbumFromId" << d->mRemoveAlbumArtistQuery.boundValues();
-            qDebug() << "DatabaseInterface::updateIsSingleDiscAlbumFromId" << d->mRemoveAlbumArtistQuery.lastError();
+            qDebug() << "DatabaseInterface::updateIsSingleDiscAlbumFromId" << d->mUpdateAlbumArtistQuery.lastQuery();
+            qDebug() << "DatabaseInterface::updateIsSingleDiscAlbumFromId" << d->mUpdateAlbumArtistQuery.boundValues();
+            qDebug() << "DatabaseInterface::updateIsSingleDiscAlbumFromId" << d->mUpdateAlbumArtistQuery.lastError();
 
-            d->mRemoveAlbumArtistQuery.finish();
+            d->mUpdateAlbumArtistQuery.finish();
 
             return modifiedAlbum;
         }
 
-        d->mRemoveAlbumArtistQuery.finish();
-
-        d->mInsertAlbumArtistQuery.bindValue(QStringLiteral(":albumId"), albumId);
-        d->mInsertAlbumArtistQuery.bindValue(QStringLiteral(":artistId"), insertArtist(currentTrack.albumArtist()));
-
-        result = d->mInsertAlbumArtistQuery.exec();
-
-        if (!result || !d->mInsertAlbumArtistQuery.isActive()) {
-            Q_EMIT databaseError();
-
-            qDebug() << "DatabaseInterface::updateIsSingleDiscAlbumFromId" << d->mInsertAlbumArtistQuery.lastQuery();
-            qDebug() << "DatabaseInterface::updateIsSingleDiscAlbumFromId" << d->mInsertAlbumArtistQuery.boundValues();
-            qDebug() << "DatabaseInterface::updateIsSingleDiscAlbumFromId" << d->mInsertAlbumArtistQuery.lastError();
-
-            d->mInsertAlbumArtistQuery.finish();
-
-            return modifiedAlbum;
-        }
-
-        d->mInsertAlbumArtistQuery.finish();
+        d->mUpdateAlbumArtistQuery.finish();
 
         modifiedAlbum = true;
     }
@@ -4219,23 +4108,9 @@ void DatabaseInterface::updateTrackInDatabase(const MusicAudioTrack &oneTrack, q
 
 void DatabaseInterface::removeAlbumInDatabase(qulonglong albumId)
 {
-    d->mRemoveAlbumArtistQuery.bindValue(QStringLiteral(":albumId"), albumId);
-
-    auto result = d->mRemoveAlbumArtistQuery.exec();
-
-    if (!result || !d->mRemoveAlbumArtistQuery.isActive()) {
-        Q_EMIT databaseError();
-
-        qDebug() << "DatabaseInterface::removeAlbumInDatabase" << d->mRemoveAlbumArtistQuery.lastQuery();
-        qDebug() << "DatabaseInterface::removeAlbumInDatabase" << d->mRemoveAlbumArtistQuery.boundValues();
-        qDebug() << "DatabaseInterface::removeAlbumInDatabase" << d->mRemoveAlbumArtistQuery.lastError();
-    }
-
-    d->mRemoveAlbumArtistQuery.finish();
-
     d->mRemoveAlbumQuery.bindValue(QStringLiteral(":albumId"), albumId);
 
-    result = d->mRemoveAlbumQuery.exec();
+    auto result = d->mRemoveAlbumQuery.exec();
 
     if (!result || !d->mRemoveAlbumQuery.isActive()) {
         Q_EMIT databaseError();

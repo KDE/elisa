@@ -103,6 +103,7 @@ AudioWrapper::AudioWrapper(QObject *parent) : QObject(parent), d(std::make_uniqu
     d->mPlayer = libvlc_media_player_new(d->mInstance);
 
     if (!d->mPlayer) {
+        qDebug() << "AudioWrapper::AudioWrapper" << "failed creating player" << libvlc_errmsg();
         return;
     }
 
@@ -224,6 +225,7 @@ void AudioWrapper::setSource(const QUrl &source)
 {
     d->mMedia = libvlc_media_new_path(d->mInstance, source.toLocalFile().toUtf8().constData());
     if (!d->mMedia) {
+        qDebug() << "AudioWrapper::setSource" << "failed creating media" << libvlc_errmsg();
         return;
     }
 
@@ -370,27 +372,27 @@ void AudioWrapperPrivate::vlcEventCallback(const struct libvlc_event_t *p_event)
     switch(eventType)
     {
     case libvlc_MediaPlayerOpening:
-        //qDebug() << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerOpening";
+        qDebug() << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerOpening";
         signalMediaStatusChange(QMediaPlayer::LoadedMedia);
         break;
     case libvlc_MediaPlayerBuffering:
-        //qDebug() << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerBuffering";
+        qDebug() << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerBuffering";
         signalMediaStatusChange(QMediaPlayer::BufferedMedia);
         break;
     case libvlc_MediaPlayerPlaying:
-        //qDebug() << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerPlaying";
+        qDebug() << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerPlaying";
         signalPlaybackChange(QMediaPlayer::PlayingState);
         break;
     case libvlc_MediaPlayerPaused:
-        //qDebug() << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerPaused";
+        qDebug() << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerPaused";
         signalPlaybackChange(QMediaPlayer::PausedState);
         break;
     case libvlc_MediaPlayerStopped:
-        //qDebug() << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerStopped";
+        qDebug() << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerStopped";
         signalPlaybackChange(QMediaPlayer::StoppedState);
         break;
     case libvlc_MediaPlayerEndReached:
-        //qDebug() << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerEndReached";
+        qDebug() << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerEndReached";
         signalMediaStatusChange(QMediaPlayer::BufferedMedia);
         signalMediaStatusChange(QMediaPlayer::NoMedia);
         signalMediaStatusChange(QMediaPlayer::EndOfMedia);
@@ -403,15 +405,15 @@ void AudioWrapperPrivate::vlcEventCallback(const struct libvlc_event_t *p_event)
         signalMediaStatusChange(QMediaPlayer::InvalidMedia);
         break;
     case libvlc_MediaPlayerPositionChanged:
-        //qDebug() << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerPositionChanged";
+        qDebug() << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerPositionChanged";
         signalPositionChange(p_event->u.media_player_position_changed.new_position);
         break;
     case libvlc_MediaPlayerSeekableChanged:
-        //qDebug() << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerSeekableChanged";
+        qDebug() << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerSeekableChanged";
         signalSeekableChange(p_event->u.media_player_seekable_changed.new_seekable);
         break;
     case libvlc_MediaPlayerLengthChanged:
-        //qDebug() << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerLengthChanged";
+        qDebug() << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerLengthChanged";
         signalDurationChange(p_event->u.media_player_length_changed.new_length);
         if (mHasSavedPosition) {
             mParent->setPosition(mSavedPosition);
@@ -419,15 +421,15 @@ void AudioWrapperPrivate::vlcEventCallback(const struct libvlc_event_t *p_event)
         }
         break;
     case libvlc_MediaPlayerMuted:
-        //qDebug() << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerMuted";
+        qDebug() << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerMuted";
         signalMutedChange(true);
         break;
     case libvlc_MediaPlayerUnmuted:
-        //qDebug() << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerUnmuted";
+        qDebug() << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerUnmuted";
         signalMutedChange(false);
         break;
     case libvlc_MediaPlayerAudioVolume:
-        //qDebug() << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerAudioVolume";
+        qDebug() << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerAudioVolume";
         signalVolumeChange(qRound(p_event->u.media_player_audio_volume.volume * 100));
         break;
     case libvlc_MediaPlayerAudioDevice:

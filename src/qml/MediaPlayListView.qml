@@ -142,6 +142,7 @@ FocusScope {
                     id: playListInfo
 
                     text: i18np("1 track", "%1 tracks", playListModel.tracksCount)
+                    visible: playListModelDelegate.count > 0
                     color: myPalette.text
                     Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
                 }
@@ -158,12 +159,61 @@ FocusScope {
 
         }
 
+        ColumnLayout {
+            id: emptyPlaylistText
+            spacing: 0
+            visible: playListModelDelegate.count === 0
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+
+            Item { Layout.fillHeight: true }
+
+            Image {
+                Layout.alignment: Qt.AlignHCenter
+
+                width: elisaTheme.gridDelegateWidth * 5
+                height: elisaTheme.gridDelegateWidth * 5
+
+                source: elisaTheme.playlistIcon
+                opacity: 0.25
+
+                sourceSize {
+                    width: elisaTheme.viewSelectorDelegateHeight * 5
+                    height: elisaTheme.viewSelectorDelegateHeight * 5
+                }
+            }
+
+            Text {
+                font.pointSize: elisaTheme.defaultFontPointSize * 2
+                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignHCenter
+
+                color: myPalette.text
+                horizontalAlignment: Text.AlignHCenter
+                text: i18nc("Your playlist is empty", "Your playlist is empty")
+            }
+
+            Text {
+                Layout.topMargin: 5
+                font.pointSize: elisaTheme.defaultFontPointSize
+                Layout.maximumWidth: 300
+                Layout.preferredWidth: 300
+                Layout.alignment: Qt.AlignHCenter
+                wrapMode: Text.WordWrap
+                color: myPalette.text
+                horizontalAlignment: Text.AlignHCenter
+                text: i18nc("Text shown when play list is empty", "Add some songs to get started. You can browse your music using the views on the left.")
+            }
+
+            Item { Layout.fillHeight: true }
+
+        }
 
         ListView {
             id: playListView
             Layout.fillWidth: true
             Layout.fillHeight: true
-            Layout.topMargin: elisaTheme.layoutVerticalMargin
 
             focus: true
 
@@ -177,21 +227,6 @@ FocusScope {
                 id: scrollHelper
                 flickable: playListView
                 anchors.fill: playListView
-            }
-
-            TextEdit {
-                readOnly: true
-                visible: playListModelDelegate.count === 0
-                wrapMode: TextEdit.Wrap
-
-                color: myPalette.text
-
-                font.weight: Font.ExtraLight
-                font.pixelSize: elisaTheme.defaultFontPixelSize * 1.5
-
-                text: i18nc("Text shown when play list is empty", "Your play list is empty.\nIn order to start, you can explore your music library with the views on the left.\nUse the available buttons to add your selection.")
-                anchors.fill: parent
-                anchors.margins: elisaTheme.layoutHorizontalMargin
             }
 
             add: Transition {

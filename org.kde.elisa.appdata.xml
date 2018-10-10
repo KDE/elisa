@@ -5,7 +5,6 @@
   <project_license>LGPL-3.0</project_license>
   <name>Elisa</name>
   <name xml:lang="ar">إليسّا</name>
-  <name xml:lang="ast">Elisa</name>
   <name xml:lang="ca">Elisa</name>
   <name xml:lang="ca-valencia">Elisa</name>
   <name xml:lang="cs">Elisa</name>
@@ -34,7 +33,6 @@
   <name xml:lang="zh-CN">Elisa</name>
   <summary>Simple Music Player</summary>
   <summary xml:lang="ar">مشغّل موسيقى بسيط</summary>
-  <summary xml:lang="ast">Reproductor cenciellu de música</summary>
   <summary xml:lang="ca">Reproductor de música senzill</summary>
   <summary xml:lang="ca-valencia">Reproductor de música senzill</summary>
   <summary xml:lang="cs">Jednoduchý přehrávač hudby</summary>
@@ -64,7 +62,6 @@
   <description>
     <p> A simple music player that should be easy to use. It does not require any configuration before one can use it. </p>
     <p xml:lang="ar">مشغّل موسيقى بسيط سهل الاستخدام. لا يحتاج منك ضبطه قبل أن تستخدمه.</p>
-    <p xml:lang="ast">Un reproductor cenciellu de música que debería ser fácil d'usar. Nun rique configuración dala enantes que puea usase.</p>
     <p xml:lang="ca">Un reproductor de música senzill que hauria de ser fàcil d'utilitzar. No requereix cap configuració abans de poder utilitzar-lo.</p>
     <p xml:lang="ca-valencia">Un reproductor de música senzill que hauria de ser fàcil d'utilitzar. No requereix cap configuració abans de poder utilitzar-lo.</p>
     <p xml:lang="cs">Jednoduchý snadno použitelný přehrávač hudby, Před použitím nevyžaduje jakékoliv nastavovaní.</p>

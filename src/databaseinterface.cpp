@@ -1248,8 +1248,8 @@ void DatabaseInterface::initDatabase()
         const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `Tracks` ("
                                                                    "`ID` INTEGER PRIMARY KEY NOT NULL, "
                                                                    "`Title` VARCHAR(85) NOT NULL, "
-                                                                   "`AlbumID` INTEGER NOT NULL, "
-                                                                   "`TrackNumber` INTEGER NOT NULL, "
+                                                                   "`AlbumID` INTEGER, "
+                                                                   "`TrackNumber` INTEGER DEFAULT -1, "
                                                                    "`DiscNumber` INTEGER DEFAULT -1, "
                                                                    "`Duration` INTEGER NOT NULL, "
                                                                    "`Rating` INTEGER NOT NULL DEFAULT 0, "
@@ -1597,8 +1597,9 @@ void DatabaseInterface::initRequest()
                                                   "tracks.`BitRate`, "
                                                   "tracks.`SampleRate` "
                                                   "FROM "
-                                                  "`Tracks` tracks, `Artists` artist, `TracksArtists` trackArtist, "
-                                                  "`Albums` album, `TracksMapping` tracksMapping "
+                                                  "`Tracks` tracks,  `Artists` artist, `TracksArtists` trackArtist, "
+                                                  "`TracksMapping` tracksMapping "
+                                                  "LEFT JOIN `Albums` album ON album.`ID` = tracks.`AlbumID` "
                                                   "LEFT JOIN `AlbumsArtists` artistAlbumMapping ON artistAlbumMapping.`AlbumID` = album.`ID` "
                                                   "LEFT JOIN `Artists` artistAlbum ON artistAlbum.`ID` = artistAlbumMapping.`ArtistID` "
                                                   "LEFT JOIN `Genre` trackGenre ON trackGenre.`ID` = tracks.`GenreID` "
@@ -1607,7 +1608,6 @@ void DatabaseInterface::initRequest()
                                                   "WHERE "
                                                   "tracks.`ID` = trackArtist.`TrackID` AND "
                                                   "artist.`ID` = trackArtist.`ArtistID` AND "
-                                                  "tracks.`AlbumID` = album.`ID` AND "
                                                   "tracksMapping.`TrackID` = tracks.`ID` AND "
                                                   "tracksMapping.`Priority` = (SELECT MIN(`Priority`) FROM `TracksMapping` WHERE `TrackID` = tracks.`ID`)");
 
@@ -1627,12 +1627,10 @@ void DatabaseInterface::initRequest()
                                                        "tracks.`Title`, "
                                                        "artistAlbum.`Name` "
                                                        "FROM "
-                                                       "`Tracks` tracks, "
-                                                       "`Albums` album "
+                                                       "`Tracks` tracks "
+                                                       "LEFT JOIN `Albums` album ON album.`ID` = tracks.`AlbumID` "
                                                        "LEFT JOIN `AlbumsArtists` artistAlbumMapping ON artistAlbumMapping.`AlbumID` = album.`ID` "
-                                                       "LEFT JOIN `Artists` artistAlbum ON artistAlbum.`ID` = artistAlbumMapping.`ArtistID` "
-                                                       "WHERE "
-                                                       "tracks.`AlbumID` = album.`ID`");
+                                                       "LEFT JOIN `Artists` artistAlbum ON artistAlbum.`ID` = artistAlbumMapping.`ArtistID` ");
 
         auto result = prepareQuery(d->mSelectAllTracksShortQuery, selectAllTracksShortText);
 
@@ -1670,7 +1668,8 @@ void DatabaseInterface::initRequest()
                                                                  "tracks.`SampleRate` "
                                                                  "FROM "
                                                                  "`Tracks` tracks, `Artists` artist, `TracksArtists` trackArtist, "
-                                                                 "`Albums` album, `TracksMapping` tracksMapping, `DiscoverSource` source "
+                                                                 "`TracksMapping` tracksMapping, `DiscoverSource` source "
+                                                                 "LEFT JOIN `Albums` album ON album.`ID` = tracks.`AlbumID` "
                                                                  "LEFT JOIN `AlbumsArtists` artistAlbumMapping ON artistAlbumMapping.`AlbumID` = album.`ID` "
                                                                  "LEFT JOIN `Artists` artistAlbum ON artistAlbum.`ID` = artistAlbumMapping.`ArtistID` "
                                                                  "LEFT JOIN `Composer` trackComposer ON trackComposer.`ID` = tracks.`ComposerID` "
@@ -1679,7 +1678,6 @@ void DatabaseInterface::initRequest()
                                                                  "WHERE "
                                                                  "tracks.`ID` = trackArtist.`TrackID` AND "
                                                                  "artist.`ID` = trackArtist.`ArtistID` AND "
-                                                                 "tracks.`AlbumID` = album.`ID` AND "
                                                                  "source.`Name` = :source AND "
                                                                  "source.`ID` = tracksMapping.`DiscoverID` AND "
                                                                  "tracksMapping.`TrackID` = tracks.`ID` AND "
@@ -1837,7 +1835,8 @@ void DatabaseInterface::initRequest()
                                                    "tracks.`SampleRate` "
                                                    "FROM "
                                                    "`Tracks` tracks, `Artists` artist, `TracksArtists` trackArtist, "
-                                                   "`Albums` album, `TracksMapping` tracksMapping "
+                                                   "`TracksMapping` tracksMapping "
+                                                   "LEFT JOIN `Albums` album ON album.`ID` = tracks.`AlbumID` "
                                                    "LEFT JOIN `AlbumsArtists` artistAlbumMapping ON artistAlbumMapping.`AlbumID` = album.`ID` "
                                                    "LEFT JOIN `Artists` artistAlbum ON artistAlbum.`ID` = artistAlbumMapping.`ArtistID` "
                                                    "LEFT JOIN `Composer` trackComposer ON trackComposer.`ID` = tracks.`ComposerID` "
@@ -1847,7 +1846,6 @@ void DatabaseInterface::initRequest()
                                                    "tracks.`ID` = trackArtist.`TrackID` AND "
                                                    "artist.`ID` = trackArtist.`ArtistID` AND "
                                                    "tracksMapping.`TrackID` = tracks.`ID` AND "
-                                                   "tracks.`AlbumID` = album.`ID` AND "
                                                    "album.`ID` = :albumId AND "
                                                    "tracksMapping.`Priority` = (SELECT MIN(`Priority`) FROM `TracksMapping` WHERE `TrackID` = tracks.`ID`) "
                                                    "ORDER BY tracks.`DiscNumber` ASC, "
@@ -1888,8 +1886,8 @@ void DatabaseInterface::initRequest()
                                                          "tracks.`SampleRate` "
                                                          "FROM "
                                                          "`Tracks` tracks, `Artists` artist, `TracksArtists` trackArtist, "
-                                                         "`Albums` album, `TracksMapping` tracksMapping "
-                                                         "LEFT JOIN `AlbumsArtists` artistAlbumMapping ON artistAlbumMapping.`AlbumID` = album.`ID` "
+                                                         "`TracksMapping` tracksMapping "
+                                                         "LEFT JOIN `Albums` album ON album.`ID` = tracks.`AlbumID` "                                                         "LEFT JOIN `AlbumsArtists` artistAlbumMapping ON artistAlbumMapping.`AlbumID` = album.`ID` "
                                                          "LEFT JOIN `Artists` artistAlbum ON artistAlbum.`ID` = artistAlbumMapping.`ArtistID` "
                                                          "LEFT JOIN `Composer` trackComposer ON trackComposer.`ID` = tracks.`ComposerID` "
                                                          "LEFT JOIN `Lyricist` trackLyricist ON trackLyricist.`ID` = tracks.`LyricistID` "
@@ -1898,7 +1896,6 @@ void DatabaseInterface::initRequest()
                                                          "tracks.`ID` = trackArtist.`TrackID` AND "
                                                          "artist.`ID` = trackArtist.`ArtistID` AND "
                                                          "tracks.`ID` = :trackId AND "
-                                                         "tracks.`AlbumID` = album.`ID` AND "
                                                          "tracksMapping.`TrackID` = tracks.`ID` AND "
                                                          "tracksMapping.`Priority` = (SELECT MIN(`Priority`) FROM `TracksMapping` WHERE `TrackID` = tracks.`ID`)");
 
@@ -2223,8 +2220,8 @@ void DatabaseInterface::initRequest()
                                                                   "FROM "
                                                                   "`Tracks` tracks, "
                                                                   "`Artists` artist, "
-                                                                  "`TracksArtists` trackArtist, "
-                                                                  "`Albums` album "
+                                                                  "`TracksArtists` trackArtist "
+                                                                  "LEFT JOIN `Albums` album ON album.`ID` = tracks.`AlbumID` "
                                                                   "LEFT JOIN `AlbumsArtists` artistAlbumMapping ON artistAlbumMapping.`AlbumID` = album.`ID` "
                                                                   "LEFT JOIN `Artists` artistAlbum ON artistAlbum.`ID` = artistAlbumMapping.`ArtistID` "
                                                                   "LEFT JOIN `Composer` trackComposer ON trackComposer.`ID` = tracks.`ComposerID` "
@@ -2233,7 +2230,6 @@ void DatabaseInterface::initRequest()
                                                                   "WHERE "
                                                                   "tracks.`ID` = trackArtist.`TrackID` AND "
                                                                   "artist.`ID` = trackArtist.`ArtistID` AND "
-                                                                  "tracks.`AlbumID` = album.`ID` AND "
                                                                   "tracks.`ID` NOT IN (SELECT tracksMapping2.`TrackID` FROM `TracksMapping` tracksMapping2)");
 
         auto result = prepareQuery(d->mSelectTracksWithoutMappingQuery, selectTracksWithoutMappingQueryText);
@@ -3400,11 +3396,11 @@ qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrac
 {
     qulonglong resultId = 0;
 
-    auto oldTrack = oneTrack;
-
-    if (oneTrack.albumArtist().isEmpty()) {
+    if (oneTrack.title().isEmpty() || oneTrack.artist().isEmpty()) {
         return resultId;
     }
+
+    auto oldTrack = oneTrack;
 
     QUrl::FormattingOptions currentOptions = QUrl::PreferLocalFile |
             QUrl::RemoveAuthority | QUrl::RemoveFilename | QUrl::RemoveFragment |
@@ -3413,11 +3409,12 @@ qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrac
 
     const auto &trackPath = oneTrack.resourceURI().toString(currentOptions);
 
-    auto albumId = insertAlbum(oneTrack.albumName(), (oneTrack.isValidAlbumArtist() ? oneTrack.albumArtist() : QString()),
-                               oneTrack.artist(), trackPath, covers[oneTrack.resourceURI().toString()], 0, SingleDiscAlbum);
+    qulonglong albumId = 0;
 
-    if (albumId == 0) {
-        return resultId;
+    /* album is only added if an album name and an album artist are given */
+    if(!oneTrack.albumName().isEmpty() && !oneTrack.albumArtist().isEmpty()) {
+        albumId = insertAlbum(oneTrack.albumName(), (oneTrack.isValidAlbumArtist() ? oneTrack.albumArtist() : QString()),
+                                   oneTrack.artist(), trackPath, covers[oneTrack.resourceURI().toString()], 0, SingleDiscAlbum);
     }
 
     auto otherTrackId = getDuplicateTrackIdFromTitleAlbumTrackDiscNumber(oneTrack.title(), oneTrack.albumName(), oneTrack.albumArtist(),
@@ -3480,7 +3477,11 @@ qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrac
     if (!isSameTrack) {
         d->mInsertTrackQuery.bindValue(QStringLiteral(":trackId"), originTrackId);
         d->mInsertTrackQuery.bindValue(QStringLiteral(":title"), oneTrack.title());
-        d->mInsertTrackQuery.bindValue(QStringLiteral(":album"), albumId);
+        if (albumId != 0) {
+            d->mInsertTrackQuery.bindValue(QStringLiteral(":album"), albumId);
+        } else {
+            d->mInsertTrackQuery.bindValue(QStringLiteral(":album"), {});
+        }
         d->mInsertTrackQuery.bindValue(QStringLiteral(":trackNumber"), oneTrack.trackNumber());
         d->mInsertTrackQuery.bindValue(QStringLiteral(":discNumber"), oneTrack.discNumber());
         d->mInsertTrackQuery.bindValue(QStringLiteral(":trackDuration"), QVariant::fromValue<qlonglong>(oneTrack.duration().msecsSinceStartOfDay()));
@@ -3544,24 +3545,27 @@ qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrac
 
             if (isModifiedTrack) {
                 recordModifiedTrack(originTrackId);
-                d->mModifiedAlbumIds.insert(albumId);
+                if (albumId != 0) {
+                    d->mModifiedAlbumIds.insert(albumId);
+                }
                 if (oldAlbumId != 0) {
                     d->mModifiedAlbumIds.insert(oldAlbumId);
                 }
             }
 
-            if (updateAlbumFromId(albumId, covers[oneTrack.resourceURI().toString()], oneTrack)) {
-                auto modifiedTracks = fetchTrackIds(albumId);
-                for (auto oneModifiedTrack : modifiedTracks) {
-                    if (oneModifiedTrack != resultId) {
-                        recordModifiedTrack(oneModifiedTrack);
+            if (albumId != 0) {
+                if (updateAlbumFromId(albumId, covers[oneTrack.resourceURI().toString()], oneTrack)) {
+                    auto modifiedTracks = fetchTrackIds(albumId);
+                    for (auto oneModifiedTrack : modifiedTracks) {
+                        if (oneModifiedTrack != resultId) {
+                            recordModifiedTrack(oneModifiedTrack);
+                        }
                     }
+                    d->mModifiedAlbumIds.insert(albumId);
                 }
-                d->mModifiedAlbumIds.insert(albumId);
-            }
-
-            if (updateTracksCount(albumId)) {
-                d->mModifiedAlbumIds.insert(albumId);
+                if (updateTracksCount(albumId)) {
+                     d->mModifiedAlbumIds.insert(albumId);
+                }
             }
         } else {
             d->mInsertTrackQuery.finish();

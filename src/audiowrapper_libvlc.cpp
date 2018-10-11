@@ -19,6 +19,7 @@
 
 #include <QTimer>
 #include <QAudio>
+#include <QDir>
 
 #if defined Q_OS_WIN
 
@@ -223,13 +224,19 @@ void AudioWrapper::setVolume(qreal volume)
 
 void AudioWrapper::setSource(const QUrl &source)
 {
-    d->mMedia = libvlc_media_new_path(d->mInstance, source.toLocalFile().toUtf8().constData());
+    d->mMedia = libvlc_media_new_path(d->mInstance, QDir::toNativeSeparators(source.toLocalFile()).toUtf8().constData());
     if (!d->mMedia) {
-        qDebug() << "AudioWrapper::setSource" << "failed creating media" << libvlc_errmsg() << source.toLocalFile().toUtf8().constData();
+        qDebug() << "AudioWrapper::setSource"
+                 << "failed creating media"
+                 << libvlc_errmsg()
+                 << QDir::toNativeSeparators(source.toLocalFile()).toUtf8().constData();
 
-        d->mMedia = libvlc_media_new_path(d->mInstance, source.toLocalFile().toLatin1().constData());
+        d->mMedia = libvlc_media_new_path(d->mInstance, QDir::toNativeSeparators(source.toLocalFile()).toLatin1().constData());
         if (!d->mMedia) {
-            qDebug() << "AudioWrapper::setSource" << "failed creating media" << libvlc_errmsg() << source.toLocalFile().toLatin1().constData();
+            qDebug() << "AudioWrapper::setSource"
+                     << "failed creating media"
+                     << libvlc_errmsg()
+                     << QDir::toNativeSeparators(source.toLocalFile()).toLatin1().constData();
             return;
         }
     }

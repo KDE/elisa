@@ -178,8 +178,6 @@ private:
 
     QList<qulonglong> fetchTrackIds(qulonglong albumId);
 
-    bool updateTracksCount(qulonglong albumId);
-
     MusicArtist internalArtistFromId(qulonglong artistId);
 
     MusicAlbum internalAlbumFromId(qulonglong albumId);
@@ -208,8 +206,7 @@ private:
     void initRequest();
 
     qulonglong insertAlbum(const QString &title, const QString &albumArtist, const QString &trackArtist,
-                           const QString &trackPath, const QUrl &albumArtURI, int tracksCount,
-                           AlbumDiscsCount isSingleDiscAlbum);
+                           const QString &trackPath, const QUrl &albumArtURI);
 
     bool updateAlbumFromId(qulonglong albumId, const QUrl &albumArtUri, const MusicAudioTrack &currentTrack);
 

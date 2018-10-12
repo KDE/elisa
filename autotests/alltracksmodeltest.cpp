@@ -217,7 +217,7 @@ private Q_SLOTS:
         QCOMPARE(endInsertRowsSpy.count(), 2);
         QCOMPARE(beginRemoveRowsSpy.count(), 0);
         QCOMPARE(endRemoveRowsSpy.count(), 0);
-        QCOMPARE(dataChangedSpy.count(), 0);
+        QCOMPARE(dataChangedSpy.count(), 5);
 
         QCOMPARE(tracksModel.rowCount(), 23);
     }
@@ -289,7 +289,7 @@ private Q_SLOTS:
         QCOMPARE(endInsertRowsSpy.count(), 2);
         QCOMPARE(beginRemoveRowsSpy.count(), 0);
         QCOMPARE(endRemoveRowsSpy.count(), 0);
-        QCOMPARE(dataChangedSpy.count(), 0);
+        QCOMPARE(dataChangedSpy.count(), 5);
 
         QCOMPARE(tracksModel.rowCount(), 23);
     }
@@ -485,7 +485,7 @@ private Q_SLOTS:
         QCOMPARE(endInsertRowsSpy.count(), 2);
         QCOMPARE(beginRemoveRowsSpy.count(), 0);
         QCOMPARE(endRemoveRowsSpy.count(), 0);
-        QCOMPARE(dataChangedSpy.count(), 0);
+        QCOMPARE(dataChangedSpy.count(), 5);
 
         QCOMPARE(tracksModel.rowCount(), 23);
     }

@@ -105,6 +105,8 @@ public:
 
     void setTracks(const QList<MusicAudioTrack> &allTracks);
 
+    const QList<MusicAudioTrack> &tracksList() const;
+
     const MusicAudioTrack &trackFromIndex(int index) const;
 
     qulonglong trackIdFromIndex(int index) const;

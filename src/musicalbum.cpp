@@ -221,6 +221,11 @@ void MusicAlbum::setTracks(const QList<MusicAudioTrack> &allTracks)
     d->mTracks = allTracks;
 }
 
+const QList<MusicAudioTrack>& MusicAlbum::tracksList() const
+{
+    return d->mTracks;
+}
+
 const MusicAudioTrack& MusicAlbum::trackFromIndex(int index) const
 {
     return d->mTracks[index];

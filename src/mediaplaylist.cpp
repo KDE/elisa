@@ -587,9 +587,7 @@ void MediaPlayList::enqueue(const MediaPlayListEntry &newEntry, const MusicAudio
 
 void MediaPlayList::enqueue(const MusicAlbum &album)
 {
-    for (auto oneTrackIndex = 0; oneTrackIndex < album.tracksCount(); ++oneTrackIndex) {
-        enqueue(album.trackFromIndex(oneTrackIndex));
-    }
+    enqueue(album.tracksList(), ElisaUtils::AppendPlayList, ElisaUtils::DoNotTriggerPlay);
 }
 
 void MediaPlayList::enqueue(const MusicArtist &artist)
@@ -623,9 +621,11 @@ void MediaPlayList::enqueue(const QUrl &fileName)
 void MediaPlayList::enqueue(const QStringList &files)
 {
     qDebug() << "MediaPlayList::enqueue" << files;
-    for (const auto &oneFileName : files) {
-        enqueue(QUrl::fromLocalFile(oneFileName));
+    QList<QUrl> fileUrls;
+    for (auto file : files) {
+        fileUrls.append(QUrl::fromLocalFile(file));
     }
+    enqueue(fileUrls, ElisaUtils::AppendPlayList, ElisaUtils::DoNotTriggerPlay);
 }
 
 void MediaPlayList::enqueueAndPlay(const QStringList &files)
@@ -788,16 +788,17 @@ void MediaPlayList::enqueue(const QList<QUrl> &trackUrls,
 
     beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size() + trackUrls.size() - 1);
     for (const auto &oneTrackUrl : trackUrls) {
-        d->mData.push_back(MediaPlayListEntry{oneTrackUrl});
+        auto newEntry = MediaPlayListEntry(oneTrackUrl);
+        d->mData.push_back(newEntry);
         d->mTrackData.push_back({});
-        if (oneTrackUrl.isValid()) {
+        if (newEntry.mTrackUrl.isValid()) {
             qDebug() << "MediaPlayList::enqueue" << "newTrackByFileNameInList" << oneTrackUrl;
-            if (oneTrackUrl.isLocalFile()) {
-                QFileInfo newTrackFile(oneTrackUrl.toLocalFile());
+            if (newEntry.mTrackUrl.isLocalFile()) {
+                QFileInfo newTrackFile(newEntry.mTrackUrl.toLocalFile());
                 if (newTrackFile.exists()) {
                     d->mData.last().mIsValid = true;
                 }
-                Q_EMIT newTrackByFileNameInList(oneTrackUrl);
+                Q_EMIT newTrackByFileNameInList(newEntry.mTrackUrl);
             }
         }
     }

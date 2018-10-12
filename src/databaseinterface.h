@@ -223,7 +223,7 @@ private:
 
     void removeTrackInDatabase(qulonglong trackId);
 
-    void updateTrackInDatabase(const MusicAudioTrack &oneTrack, qulonglong albumId);
+    void updateTrackInDatabase(const MusicAudioTrack &oneTrack, const QString &albumPath);
 
     void removeAlbumInDatabase(qulonglong albumId);
 
@@ -284,6 +284,9 @@ private:
                                          QSqlQuery selectCountAlbumsForPeopleQuery);
 
     bool prepareQuery(QSqlQuery &query, const QString &queryText) const;
+
+    void updateAlbumArtist(qulonglong albumId, const QString &title,
+                           const QString &artistName);
 
     std::unique_ptr<DatabaseInterfacePrivate> d;
 

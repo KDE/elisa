@@ -241,7 +241,19 @@ FocusScope {
                     LabelWithToolTip {
                         id: artistLabel
 
-                        text: (isSingleDiscAlbum ? dataHelper.artist + ' - ' + dataHelper.albumName : dataHelper.artist + ' - ' + dataHelper.albumName + ' - CD ' + dataHelper.discNumber)
+                        text: {
+                            var labelText = ""
+                            if (dataHelper.hasValidArtist) {
+                                labelText += dataHelper.artist
+                            }
+                            if (dataHelper.hasValidAlbumName) {
+                                labelText += ' - ' + dataHelper.albumName
+                                if (!isSingleDiscAlbum) {
+                                    labelText += ' - CD ' + dataHelper.discNumber
+                                }
+                            }
+                            return labelText;
+                        }
                         horizontalAlignment: Text.AlignLeft
 
                         font.weight: Font.Light

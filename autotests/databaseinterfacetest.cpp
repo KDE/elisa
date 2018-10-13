@@ -341,9 +341,9 @@ private Q_SLOTS:
         QCOMPARE(musicDbDatabaseErrorSpy.count(), 0);
 
         auto newTrack = MusicAudioTrack {true, QStringLiteral("$24"), QStringLiteral("0"), QStringLiteral("track10"),
-                QStringLiteral("artist8"), QStringLiteral(), QStringLiteral("artist8"),
+                QStringLiteral("artist8"), {}, QStringLiteral("artist8"),
                 9, 1, QTime::fromMSecsSinceStartOfDay(24), {QUrl::fromLocalFile(QStringLiteral("/$24"))}, QDateTime::fromMSecsSinceEpoch(24),
-                QUrl(), 9, true, QStringLiteral("genre1"), QStringLiteral("composer1"), QStringLiteral("lyricist1")};
+                {}, 9, true, QStringLiteral("genre1"), QStringLiteral("composer1"), QStringLiteral("lyricist1")};
 
         auto newTracks = QList<MusicAudioTrack>();
         newTracks.push_back(newTrack);
@@ -374,7 +374,7 @@ private Q_SLOTS:
         QCOMPARE(track.isValid(), true);
         QCOMPARE(track.title(), QStringLiteral("track10"));
         QCOMPARE(track.artist(), QStringLiteral("artist8"));
-        QCOMPARE(track.albumName(), QStringLiteral());
+        QCOMPARE(track.albumName(), QString());
         QEXPECT_FAIL("","Album artist is currently associated with the album in the database. if the album is missing, we lose this information", Continue);
         QCOMPARE(track.isValidAlbumArtist(), true);
         QCOMPARE(track.albumCover(), QUrl());
@@ -4643,7 +4643,7 @@ private Q_SLOTS:
         QCOMPARE(musicDbDatabaseErrorSpy.count(), 0);
 
         auto newTrack = MusicAudioTrack{true, QStringLiteral("$23"), QStringLiteral("0"), {},
-                {}, {}, {}, {}, {}, {}, {QUrl::fromLocalFile(QStringLiteral("file:///$23"))},
+        {}, {}, {}, {}, {}, {}, {QUrl::fromLocalFile(QStringLiteral("file:///$23"))},
                 QDateTime::fromMSecsSinceEpoch(23), {}, {}, {}, {}, {}, {}};
         auto newTracks = QList<MusicAudioTrack>();
         newTracks.push_back(newTrack);

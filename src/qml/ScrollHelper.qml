@@ -18,7 +18,7 @@
  */
 
 import QtQuick 2.7
-import QtQuick.Controls 2
+import QtQuick.Controls 2.2
 
 /*
 * The MouseArea + interactive: false + maximumFlickVelocity are required

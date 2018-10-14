@@ -909,6 +909,10 @@ void DatabaseInterface::insertTracksList(const QList<MusicAudioTrack> &tracks, c
         Q_EMIT albumModified(internalAlbumFromId(albumId), albumId);
     }
 
+    for (auto trackId : qAsConst(d->mInsertedTracks)) {
+        d->mModifiedTrackIds.remove(trackId);
+    }
+
     for (auto trackId : qAsConst(d->mModifiedTrackIds)) {
         Q_EMIT trackModified(internalTrackFromDatabaseId(trackId));
     }

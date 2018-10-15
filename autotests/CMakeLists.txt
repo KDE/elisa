@@ -9,6 +9,7 @@ include_directories(${elisa_BINARY_DIR}/src)
 
 set(databaseInterfaceTest_SOURCES
     databaseinterfacetest.cpp
+    databasetestdata.h
 )
 
 ecm_add_test(${databaseInterfaceTest_SOURCES}

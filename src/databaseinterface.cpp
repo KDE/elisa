@@ -4280,8 +4280,8 @@ void DatabaseInterface::reloadExistingDatabase()
     for (const auto &oneArtist : restoredArtists) {
         d->mArtistId = std::max(d->mArtistId, oneArtist.databaseId());
     }
-    ++d->mArtistId;
     if (!restoredArtists.isEmpty()) {
+        ++d->mArtistId;
         Q_EMIT artistsAdded(restoredArtists);
     }
 
@@ -4289,8 +4289,8 @@ void DatabaseInterface::reloadExistingDatabase()
     for (const auto &oneComposer : restoredComposers) {
         d->mComposerId = std::max(d->mComposerId, oneComposer.databaseId());
     }
-    ++d->mComposerId;
     if (!restoredComposers.isEmpty()) {
+        ++d->mComposerId;
         Q_EMIT composersAdded(restoredComposers);
     }
 
@@ -4298,8 +4298,8 @@ void DatabaseInterface::reloadExistingDatabase()
     for (const auto &oneLyricist : restoredLyricists) {
         d->mLyricistId = std::max(d->mLyricistId, oneLyricist.databaseId());
     }
-    ++d->mLyricistId;
     if (!restoredLyricists.isEmpty()) {
+        ++d->mLyricistId;
         Q_EMIT lyricistsAdded(restoredLyricists);
     }
 
@@ -4307,8 +4307,8 @@ void DatabaseInterface::reloadExistingDatabase()
     for (const auto &oneAlbum : restoredAlbums) {
         d->mAlbumId = std::max(d->mAlbumId, oneAlbum.databaseId());
     }
-    ++d->mAlbumId;
     if (!restoredAlbums.isEmpty()) {
+        ++d->mAlbumId;
         Q_EMIT albumsAdded(restoredAlbums);
     }
 
@@ -4316,8 +4316,8 @@ void DatabaseInterface::reloadExistingDatabase()
     for (const auto &oneTrack : restoredTracks) {
         d->mTrackId = std::max(d->mTrackId, oneTrack.databaseId());
     }
-    ++d->mTrackId;
     if (!restoredTracks.isEmpty()) {
+        ++d->mTrackId;
         Q_EMIT tracksAdded(restoredTracks);
     }
 

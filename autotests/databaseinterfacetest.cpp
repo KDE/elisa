@@ -1036,7 +1036,7 @@ private Q_SLOTS:
 
             QCOMPARE(fourthAlbum.tracksCount(), 4);
 
-            auto oneTrack = fourthAlbum.trackFromIndex(3);
+            const auto &oneTrack = fourthAlbum.trackFromIndex(3);
 
             QCOMPARE(oneTrack.isValid(), true);
             QCOMPARE(oneTrack.rating(), 5);
@@ -1135,7 +1135,7 @@ private Q_SLOTS:
 
             QCOMPARE(fourthAlbum.tracksCount(), 4);
 
-            auto oneTrack = fourthAlbum.trackFromIndex(3);
+            const auto &oneTrack = fourthAlbum.trackFromIndex(3);
 
             QCOMPARE(oneTrack.isValid(), true);
             QCOMPARE(oneTrack.title(), QStringLiteral("track6"));
@@ -1192,7 +1192,7 @@ private Q_SLOTS:
         auto firstTrackMilliSecondsDuration = firstTrack.duration().msecsSinceStartOfDay();
         auto firstTrackTrackNumber = firstTrack.trackNumber();
         auto firstTrackDiscNumber = firstTrack.discNumber();
-        auto firstTrackResource = firstTrack.resourceURI();
+        const auto &firstTrackResource = firstTrack.resourceURI();
         auto firstTrackRating = firstTrack.rating();
         auto firstIsSingleDiscAlbum = firstTrack.isSingleDiscAlbum();
 
@@ -1280,7 +1280,7 @@ private Q_SLOTS:
         auto firstTrackMilliSecondsDuration = firstTrack.duration().msecsSinceStartOfDay();
         auto firstTrackTrackNumber = firstTrack.trackNumber();
         auto firstTrackDiscNumber = firstTrack.discNumber();
-        auto firstTrackResource = firstTrack.resourceURI();
+        const auto &firstTrackResource = firstTrack.resourceURI();
         auto firstTrackRating = firstTrack.rating();
         auto firstIsSingleDiscAlbum = firstTrack.isSingleDiscAlbum();
 
@@ -1313,7 +1313,7 @@ private Q_SLOTS:
         auto secondTrackMilliSecondsDuration = secondTrack.duration().msecsSinceStartOfDay();
         auto secondTrackTrackNumber = secondTrack.trackNumber();
         auto secondTrackDiscNumber = secondTrack.discNumber();
-        auto secondTrackResource = secondTrack.resourceURI();
+        const auto &secondTrackResource = secondTrack.resourceURI();
         auto secondTrackRating = secondTrack.rating();
         auto secondIsSingleDiscAlbum = secondTrack.isSingleDiscAlbum();
 
@@ -1346,7 +1346,7 @@ private Q_SLOTS:
         auto thirdTrackMilliSecondsDuration = thirdTrack.duration().msecsSinceStartOfDay();
         auto thirdTrackTrackNumber = thirdTrack.trackNumber();
         auto thirdTrackDiscNumber = thirdTrack.discNumber();
-        auto thirdTrackResource = thirdTrack.resourceURI();
+        const auto &thirdTrackResource = thirdTrack.resourceURI();
         auto thirdTrackRating = thirdTrack.rating();
         auto thirdIsSingleDiscAlbum = thirdTrack.isSingleDiscAlbum();
 
@@ -1379,7 +1379,7 @@ private Q_SLOTS:
         auto fourthTrackMilliSecondsDuration = fourthTrack.duration().msecsSinceStartOfDay();
         auto fourthTrackTrackNumber = fourthTrack.trackNumber();
         auto fourthTrackDiscNumber = fourthTrack.discNumber();
-        auto fourthTrackResource = fourthTrack.resourceURI();
+        const auto &fourthTrackResource = fourthTrack.resourceURI();
         auto fourthTrackRating = thirdTrack.rating();
         auto fourthIsSingleDiscAlbum = fourthTrack.isSingleDiscAlbum();
 
@@ -1535,7 +1535,7 @@ private Q_SLOTS:
             auto firstTrackMilliSecondsDuration = firstTrack.duration().msecsSinceStartOfDay();
             auto firstTrackTrackNumber = firstTrack.trackNumber();
             auto firstTrackDiscNumber = firstTrack.discNumber();
-            auto firstTrackResource = firstTrack.resourceURI();
+            const auto &firstTrackResource = firstTrack.resourceURI();
             auto firstTrackRating = firstTrack.rating();
             auto firstIsSingleDiscAlbum = firstTrack.isSingleDiscAlbum();
 
@@ -1568,7 +1568,7 @@ private Q_SLOTS:
             auto secondTrackMilliSecondsDuration = secondTrack.duration().msecsSinceStartOfDay();
             auto secondTrackTrackNumber = secondTrack.trackNumber();
             auto secondTrackDiscNumber = secondTrack.discNumber();
-            auto secondTrackResource = secondTrack.resourceURI();
+            const auto &secondTrackResource = secondTrack.resourceURI();
             auto secondTrackRating = secondTrack.rating();
             auto secondIsSingleDiscAlbum = secondTrack.isSingleDiscAlbum();
 
@@ -1601,7 +1601,7 @@ private Q_SLOTS:
             auto thirdTrackMilliSecondsDuration = thirdTrack.duration().msecsSinceStartOfDay();
             auto thirdTrackTrackNumber = thirdTrack.trackNumber();
             auto thirdTrackDiscNumber = thirdTrack.discNumber();
-            auto thirdTrackResource = thirdTrack.resourceURI();
+            const auto &thirdTrackResource = thirdTrack.resourceURI();
             auto thirdTrackRating = thirdTrack.rating();
             auto thirdIsSingleDiscAlbum = thirdTrack.isSingleDiscAlbum();
 
@@ -1634,7 +1634,7 @@ private Q_SLOTS:
             auto fourthTrackMilliSecondsDuration = fourthTrack.duration().msecsSinceStartOfDay();
             auto fourthTrackTrackNumber = fourthTrack.trackNumber();
             auto fourthTrackDiscNumber = fourthTrack.discNumber();
-            auto fourthTrackResource = fourthTrack.resourceURI();
+            const auto &fourthTrackResource = fourthTrack.resourceURI();
             auto fourthTrackRating = thirdTrack.rating();
             auto fourthIsSingleDiscAlbum = fourthTrack.isSingleDiscAlbum();
 
@@ -1732,7 +1732,7 @@ private Q_SLOTS:
             auto firstTrackMilliSecondsDuration = firstTrack.duration().msecsSinceStartOfDay();
             auto firstTrackTrackNumber = firstTrack.trackNumber();
             auto firstTrackDiscNumber = firstTrack.discNumber();
-            auto firstTrackResource = firstTrack.resourceURI();
+            const auto &firstTrackResource = firstTrack.resourceURI();
             auto firstTrackRating = firstTrack.rating();
             auto firstIsSingleDiscAlbum = firstTrack.isSingleDiscAlbum();
 
@@ -1765,7 +1765,7 @@ private Q_SLOTS:
             auto secondTrackMilliSecondsDuration = secondTrack.duration().msecsSinceStartOfDay();
             auto secondTrackTrackNumber = secondTrack.trackNumber();
             auto secondTrackDiscNumber = secondTrack.discNumber();
-            auto secondTrackResource = secondTrack.resourceURI();
+            const auto &secondTrackResource = secondTrack.resourceURI();
             auto secondTrackRating = secondTrack.rating();
             auto secondIsSingleDiscAlbum = secondTrack.isSingleDiscAlbum();
 
@@ -1798,7 +1798,7 @@ private Q_SLOTS:
             auto thirdTrackMilliSecondsDuration = thirdTrack.duration().msecsSinceStartOfDay();
             auto thirdTrackTrackNumber = thirdTrack.trackNumber();
             auto thirdTrackDiscNumber = thirdTrack.discNumber();
-            auto thirdTrackResource = thirdTrack.resourceURI();
+            const auto &thirdTrackResource = thirdTrack.resourceURI();
             auto thirdTrackRating = thirdTrack.rating();
             auto thirdIsSingleDiscAlbum = thirdTrack.isSingleDiscAlbum();
 
@@ -1831,7 +1831,7 @@ private Q_SLOTS:
             auto fourthTrackMilliSecondsDuration = fourthTrack.duration().msecsSinceStartOfDay();
             auto fourthTrackTrackNumber = fourthTrack.trackNumber();
             auto fourthTrackDiscNumber = fourthTrack.discNumber();
-            auto fourthTrackResource = fourthTrack.resourceURI();
+            const auto &fourthTrackResource = fourthTrack.resourceURI();
             auto fourthTrackRating = thirdTrack.rating();
             auto fourthIsSingleDiscAlbum = fourthTrack.isSingleDiscAlbum();
 
@@ -2555,7 +2555,7 @@ private Q_SLOTS:
         auto firstTrackMilliSecondsDuration = firstTrack.duration().msecsSinceStartOfDay();
         auto firstTrackTrackNumber = firstTrack.trackNumber();
         auto firstTrackDiscNumber = firstTrack.discNumber();
-        auto firstTrackResource = firstTrack.resourceURI();
+        const auto &firstTrackResource = firstTrack.resourceURI();
         auto firstTrackRating = firstTrack.rating();
         auto firstIsSingleDiscAlbum = firstTrack.isSingleDiscAlbum();
 
@@ -2633,7 +2633,7 @@ private Q_SLOTS:
         auto secondTrackMilliSecondsDuration = secondTrack.duration().msecsSinceStartOfDay();
         auto secondTrackTrackNumber = secondTrack.trackNumber();
         auto secondTrackDiscNumber = secondTrack.discNumber();
-        auto secondTrackResource = secondTrack.resourceURI();
+        const auto &secondTrackResource = secondTrack.resourceURI();
         auto secondTrackRating = secondTrack.rating();
         auto secondIsSingleDiscAlbum = secondTrack.isSingleDiscAlbum();
 
@@ -2748,7 +2748,7 @@ private Q_SLOTS:
         auto firstTrackMilliSecondsDuration = firstTrack.duration().msecsSinceStartOfDay();
         auto firstTrackTrackNumber = firstTrack.trackNumber();
         auto firstTrackDiscNumber = firstTrack.discNumber();
-        auto firstTrackResource = firstTrack.resourceURI();
+        const auto &firstTrackResource = firstTrack.resourceURI();
         auto firstTrackRating = firstTrack.rating();
         auto firstIsSingleDiscAlbum = firstTrack.isSingleDiscAlbum();
 
@@ -2828,7 +2828,7 @@ private Q_SLOTS:
         auto secondTrackMilliSecondsDuration = secondTrack.duration().msecsSinceStartOfDay();
         auto secondTrackTrackNumber = secondTrack.trackNumber();
         auto secondTrackDiscNumber = secondTrack.discNumber();
-        auto secondTrackResource = secondTrack.resourceURI();
+        const auto &secondTrackResource = secondTrack.resourceURI();
         auto secondTrackRating = secondTrack.rating();
         auto secondIsSingleDiscAlbum = secondTrack.isSingleDiscAlbum();
 
@@ -2961,7 +2961,7 @@ private Q_SLOTS:
         auto firstTrackMilliSecondsDuration = firstTrack.duration().msecsSinceStartOfDay();
         auto firstTrackTrackNumber = firstTrack.trackNumber();
         auto firstTrackDiscNumber = firstTrack.discNumber();
-        auto firstTrackResource = firstTrack.resourceURI();
+        const auto &firstTrackResource = firstTrack.resourceURI();
         auto firstTrackRating = firstTrack.rating();
         auto firstIsSingleDiscAlbum = firstTrack.isSingleDiscAlbum();
 
@@ -3041,7 +3041,7 @@ private Q_SLOTS:
         auto secondTrackMilliSecondsDuration = secondTrack.duration().msecsSinceStartOfDay();
         auto secondTrackTrackNumber = secondTrack.trackNumber();
         auto secondTrackDiscNumber = secondTrack.discNumber();
-        auto secondTrackResource = secondTrack.resourceURI();
+        const auto &secondTrackResource = secondTrack.resourceURI();
         auto secondTrackRating = secondTrack.rating();
         auto secondIsSingleDiscAlbum = secondTrack.isSingleDiscAlbum();
 
@@ -4402,7 +4402,7 @@ private Q_SLOTS:
         auto firstTrackMilliSecondsDuration = firstTrack.duration().msecsSinceStartOfDay();
         auto firstTrackTrackNumber = firstTrack.trackNumber();
         auto firstTrackDiscNumber = firstTrack.discNumber();
-        auto firstTrackResource = firstTrack.resourceURI();
+        const auto &firstTrackResource = firstTrack.resourceURI();
         auto firstTrackRating = firstTrack.rating();
         auto firstIsSingleDiscAlbum = firstTrack.isSingleDiscAlbum();
 
@@ -4482,7 +4482,7 @@ private Q_SLOTS:
         auto secondTrackMilliSecondsDuration = secondTrack.duration().msecsSinceStartOfDay();
         auto secondTrackTrackNumber = secondTrack.trackNumber();
         auto secondTrackDiscNumber = secondTrack.discNumber();
-        auto secondTrackResource = secondTrack.resourceURI();
+        const auto &secondTrackResource = secondTrack.resourceURI();
         auto secondTrackRating = secondTrack.rating();
         auto secondIsSingleDiscAlbum = secondTrack.isSingleDiscAlbum();
 
@@ -4515,7 +4515,7 @@ private Q_SLOTS:
         auto modifiedTrackMilliSecondsDuration = modifiedTrack.duration().msecsSinceStartOfDay();
         auto modifiedTrackTrackNumber = modifiedTrack.trackNumber();
         auto modifiedTrackDiscNumber = modifiedTrack.discNumber();
-        auto modifiedTrackResource = modifiedTrack.resourceURI();
+        const auto &modifiedTrackResource = modifiedTrack.resourceURI();
         auto modifiedTrackRating = modifiedTrack.rating();
         auto modifiedTrackIsSingleDiscAlbum = modifiedTrack.isSingleDiscAlbum();
 

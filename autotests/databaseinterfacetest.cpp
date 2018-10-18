@@ -77,9 +77,14 @@ private Q_SLOTS:
 
     void addOneTrackWithoutAlbumArtist()
     {
+        QTemporaryFile databaseFile;
+        databaseFile.open();
+
+        qDebug() << "addOneTrackWithoutAlbumArtist" << databaseFile.fileName();
+
         DatabaseInterface musicDb;
 
-        musicDb.init(QStringLiteral("testDb"));
+        musicDb.init(QStringLiteral("testDb"), databaseFile.fileName());
 
         QSignalSpy musicDbArtistAddedSpy(&musicDb, &DatabaseInterface::artistsAdded);
         QSignalSpy musicDbAlbumAddedSpy(&musicDb, &DatabaseInterface::albumsAdded);
@@ -154,7 +159,7 @@ private Q_SLOTS:
         QCOMPARE(track.genre(), QStringLiteral("genre1"));
         QCOMPARE(track.composer(), QStringLiteral("composer1"));
         QCOMPARE(track.lyricist(), QStringLiteral("lyricist1"));
-        QCOMPARE(track.albumId(), qulonglong(1));
+        QCOMPARE(track.albumId(), qulonglong(2));
 
         auto album = musicDb.albumFromTitleAndArtist(QStringLiteral("album3"), QStringLiteral("artist2"));
 

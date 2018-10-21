@@ -127,6 +127,7 @@ void FileScanner::scanProperties(const QString &localFileName, MusicAudioTrack &
     auto bitRateProperty = d->mAllProperties.find(KFileMetaData::Property::BitRate);
     auto sampleRateProperty = d->mAllProperties.find(KFileMetaData::Property::SampleRate);
     auto commentProperty = d->mAllProperties.find(KFileMetaData::Property::Comment);
+    auto ratingProperty = d->mAllProperties.find(KFileMetaData::Property::Rating);
 #if !defined Q_OS_ANDROID
     auto fileData = KFileMetaData::UserMetaData(localFileName);
 #endif
@@ -189,18 +190,36 @@ void FileScanner::scanProperties(const QString &localFileName, MusicAudioTrack &
         trackData.setLyricist(lyricistProperty->toStringList().join(QStringLiteral(", ")));
     }
 
-    if (commentProperty != d->mAllProperties.end()) {
-        trackData.setComment(commentProperty->toString());
-    }
-
     if (trackData.artist().isEmpty()) {
         trackData.setArtist(trackData.albumArtist());
     }
 
 #if !defined Q_OS_ANDROID
-    trackData.setRating(fileData.rating());
+    QString comment = fileData.userComment();
+    if (!comment.isEmpty()) {
+        trackData.setComment(comment);
+    } else if (commentProperty != d->mAllProperties.end()) {
+        trackData.setComment(commentProperty->toString());
+    }
+
+    int rating = fileData.rating();
+    if (rating > 0) {
+        trackData.setRating(rating);
+    } else if (ratingProperty != d->mAllProperties.end()) {
+        trackData.setRating(ratingProperty->toInt());
+    } else {
+        trackData.setRating(0);
+    }
 #else
-    trackData.setRating(0);
+    if (ratingProperty != d->mAllProperties.end()) {
+        trackData.setRating(ratingProperty->toInt());
+    } else {
+        trackData.setRating(0);
+    }
+
+    if (commentProperty != d->mAllProperties.end()) {
+        trackData.setComment(commentProperty->toString());
+    }
 #endif
 
     if (!trackData.duration().isValid()) {

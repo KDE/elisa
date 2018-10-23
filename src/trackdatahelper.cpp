@@ -92,6 +92,11 @@ bool TrackDataHelper::hasValidSampleRate() const
     return sampleRate() > -1;
 }
 
+bool TrackDataHelper::hasValidDuration() const
+{
+    return MusicAudioTrack::duration().isValid();
+}
+
 bool TrackDataHelper::hasValidYear() const
 {
     return MusicAudioTrack::year() != 0;
@@ -99,7 +104,7 @@ bool TrackDataHelper::hasValidYear() const
 
 bool TrackDataHelper::hasValidRating() const
 {
-    return rating() > -1;
+    return rating() > 0;
 }
 
 bool TrackDataHelper::hasValidTitle() const

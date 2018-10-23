@@ -177,6 +177,14 @@ class ELISALIB_EXPORT TrackDataHelper : public QObject, public MusicAudioTrack
                READ databaseId
                NOTIFY trackDataChanged)
 
+    Q_PROPERTY(bool hasValidDuration
+               READ hasValidDuration
+               NOTIFY trackDataChanged)
+
+    Q_PROPERTY(bool isValid
+               READ isValid
+               NOTIFY trackDataChanged)
+
 public:
 
     explicit TrackDataHelper(QObject *parent = nullptr);
@@ -222,6 +230,8 @@ public:
     bool hasValidBitRate() const;
 
     bool hasValidSampleRate() const;
+
+    bool hasValidDuration() const;
 
     bool hasValidYear() const;
 

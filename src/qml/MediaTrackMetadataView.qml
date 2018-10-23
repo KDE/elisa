@@ -39,44 +39,48 @@ Window {
     function updateData()
     {
         trackList.clear()
-        if (trackDataHelper.hasValidTitle)
-            trackList.append({"name": i18nc("Track title for track metadata view", "Title:"), "content": trackDataHelper.title})
-        if (trackDataHelper.hasValidArtist)
-            trackList.append({"name": i18nc("Track artist for track metadata view", "Artist:"), "content": trackDataHelper.artist})
-        if (trackDataHelper.hasValidAlbumName)
-            trackList.append({"name": i18nc("Album name for track metadata view", "Album:"), "content": trackDataHelper.albumName})
-        if (trackDataHelper.hasValidTrackNumber)
-            trackList.append({"name": i18nc("Track number for track metadata view", "Track Number:"), "content": trackDataHelper.trackNumber.toString()})
-        if (trackDataHelper.hasValidDiscNumber)
-            trackList.append({"name": i18nc("Disc number for track metadata view", "Disc Number:"), "content": trackDataHelper.discNumber.toString()})
-        if (trackDataHelper.hasValidAlbumArtist)
-            trackList.append({"name": i18nc("Album artist for track metadata view", "Album Artist:"), "content": trackDataHelper.albumArtist})
-        trackList.append({"name": i18nc("Duration label for track metadata view", "Duration:"), "content": trackDataHelper.duration})
-        if (trackDataHelper.hasValidYear)
-            trackList.append({"name": i18nc("Year label for track metadata view", "Year:"), "content": trackDataHelper.year.toString()})
-        if (trackDataHelper.hasValidGenre)
-            trackList.append({"name": i18nc("Genre label for track metadata view", "Genre:"), "content": trackDataHelper.genre})
-        if (trackDataHelper.hasValidComposer)
-            trackList.append({"name": i18nc("Composer name for track metadata view", "Composer:"), "content": trackDataHelper.composer})
-        if (trackDataHelper.hasValidLyricist)
-            trackList.append({"name": i18nc("Lyricist label for track metadata view", "Lyricist:"), "content": trackDataHelper.lyricist})
-        if (trackDataHelper.hasValidBitRate)
-            trackList.append({"name": i18nc("Bit rate label for track metadata view", "Bit Rate:"), "content": (trackDataHelper.bitRate / 1000) + " " + i18nc("Unit of the bit rate in thousand", "kbit/s")})
-        if (trackDataHelper.hasValidSampleRate)
-            trackList.append({"name": i18nc("Sample Rate label for track metadata view", "Sample Rate:"), "content": trackDataHelper.sampleRate + " " + i18nc("Unit of the sample rate", "Hz")})
-        if (trackDataHelper.hasValidChannels)
-            trackList.append({"name": i18nc("Channels label for track metadata view", "Channels:"), "content": trackDataHelper.channels.toString()})
-        if (trackDataHelper.hasValidComment)
-            trackList.append({"name": i18nc("Comment label for track metadata view", "Comment:"), "content": trackDataHelper.comment})
+        if (trackDataHelper.isValid) {
+            if (trackDataHelper.hasValidTitle)
+                trackList.append({"name": i18nc("Track title for track metadata view", "Title:"), "content": trackDataHelper.title})
+            if (trackDataHelper.hasValidArtist)
+                trackList.append({"name": i18nc("Track artist for track metadata view", "Artist:"), "content": trackDataHelper.artist})
+            if (trackDataHelper.hasValidAlbumName)
+                trackList.append({"name": i18nc("Album name for track metadata view", "Album:"), "content": trackDataHelper.albumName})
+            if (trackDataHelper.hasValidTrackNumber)
+                trackList.append({"name": i18nc("Track number for track metadata view", "Track Number:"), "content": trackDataHelper.trackNumber.toString()})
+            if (trackDataHelper.hasValidDiscNumber)
+                trackList.append({"name": i18nc("Disc number for track metadata view", "Disc Number:"), "content": trackDataHelper.discNumber.toString()})
+            if (trackDataHelper.hasValidAlbumArtist)
+                trackList.append({"name": i18nc("Album artist for track metadata view", "Album Artist:"), "content": trackDataHelper.albumArtist})
+            if (trackDataHelper.hasValidDuration)
+                trackList.append({"name": i18nc("Duration label for track metadata view", "Duration:"), "content": trackDataHelper.duration})
+            if (trackDataHelper.hasValidYear)
+                trackList.append({"name": i18nc("Year label for track metadata view", "Year:"), "content": trackDataHelper.year.toString()})
+            if (trackDataHelper.hasValidGenre)
+                trackList.append({"name": i18nc("Genre label for track metadata view", "Genre:"), "content": trackDataHelper.genre})
+            if (trackDataHelper.hasValidComposer)
+                trackList.append({"name": i18nc("Composer name for track metadata view", "Composer:"), "content": trackDataHelper.composer})
+            if (trackDataHelper.hasValidLyricist)
+                trackList.append({"name": i18nc("Lyricist label for track metadata view", "Lyricist:"), "content": trackDataHelper.lyricist})
+            if (trackDataHelper.hasValidBitRate)
+                trackList.append({"name": i18nc("Bit rate label for track metadata view", "Bit Rate:"), "content": (trackDataHelper.bitRate / 1000) + " " + i18nc("Unit of the bit rate in thousand", "kbit/s")})
+            if (trackDataHelper.hasValidSampleRate)
+                trackList.append({"name": i18nc("Sample Rate label for track metadata view", "Sample Rate:"), "content": trackDataHelper.sampleRate + " " + i18nc("Unit of the sample rate", "Hz")})
+            if (trackDataHelper.hasValidChannels)
+                trackList.append({"name": i18nc("Channels label for track metadata view", "Channels:"), "content": trackDataHelper.channels.toString()})
+            if (trackDataHelper.hasValidComment)
+                trackList.append({"name": i18nc("Comment label for track metadata view", "Comment:"), "content": trackDataHelper.comment})
+        }
     }
 
     function resize() {
         trackData.Layout.preferredHeight = textSize.height * trackData.count
-        trackMetadata.height = textSize.height * (trackData.count + 1 + ( trackDataHelper.hasValidRating ? 1 : 0 )) + buttons.height + elisaTheme.layoutHorizontalMargin * 3
+        trackMetadata.height = textSize.height * (trackData.count + 1 + ( trackDataHelper.hasValidRating ? 1 : 0 ) + ( !trackDataHelper.isValid ? 1 : 0 ) )
+                + buttons.height + elisaTheme.layoutHorizontalMargin * 3
         trackMetadata.minimumHeight = trackMetadata.height
         trackMetadata.maximumHeight = trackMetadata.height
         trackMetadata.width = (trackDataHelper.hasValidAlbumCover ? elisaTheme.coverImageSize : 0) + labelWidth + metadataWidth + 2 * elisaTheme.layoutHorizontalMargin
-        trackMetadata.minimumWidth = trackMetadata.width
+        trackMetadata.minimumWidth = trackDataHelper.isValid ? trackMetadata.width : emptyMetaData.width + elisaTheme.layoutHorizontalMargin * 2
     }
 
     Connections {
@@ -228,7 +232,19 @@ Window {
                 }
             }
 
-            LabelWithToolTip {
+            Label {
+                id: emptyMetaData
+                text: i18nc("Label when metadata of the track could not be scanned", "Metadata is not available.")
+
+                horizontalAlignment: implicitWidth > trackMetadata.width ? Text.AlignRight : Text.AlignLeft
+
+                Layout.minimumHeight: textSize.height
+                Layout.preferredWidth: trackMetadata.width * 0.98 - 2 * elisaTheme.layoutHorizontalMargin
+                Layout.topMargin: elisaTheme.layoutVerticalMargin
+                visible: !trackDataHelper.isValid
+            }
+
+            Label {
                 id: trackResource
                 text: trackDataHelper.resourceURI
                 color: myPalette.text

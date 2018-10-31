@@ -262,7 +262,7 @@ public Q_SLOTS:
 
     void replaceAndPlay(const QUrl &fileName);
 
-    void trackInError(QUrl sourceInError, QMediaPlayer::Error playerError);
+    void trackInError(const QUrl &sourceInError, QMediaPlayer::Error playerError);
 
 private Q_SLOTS:
 

@@ -57,7 +57,12 @@ MediaPlayList::MediaPlayList(QObject *parent) : QAbstractListModel(parent), d(ne
 {
     connect(&d->mLoadPlaylist, &QMediaPlaylist::loaded, this, &MediaPlayList::loadPlayListLoaded);
     connect(&d->mLoadPlaylist, &QMediaPlaylist::loadFailed, this, &MediaPlayList::loadPlayListLoadFailed);
-    seedRandomGenerator(QTime::currentTime().msec());
+
+    auto currentMsecTime = QTime::currentTime().msec();
+
+    if (currentMsecTime != -1) {
+        seedRandomGenerator(static_cast<unsigned int>(currentMsecTime));
+    }
 }
 
 MediaPlayList::~MediaPlayList()
@@ -622,7 +627,7 @@ void MediaPlayList::enqueue(const QStringList &files)
 {
     qDebug() << "MediaPlayList::enqueue" << files;
     QList<QUrl> fileUrls;
-    for (auto file : files) {
+    for (const auto &file : files) {
         fileUrls.append(QUrl::fromLocalFile(file));
     }
     enqueue(fileUrls, ElisaUtils::AppendPlayList, ElisaUtils::DoNotTriggerPlay);
@@ -1249,7 +1254,7 @@ void MediaPlayList::switchTo(int row)
     notifyCurrentTrackChanged();
 }
 
-void MediaPlayList::trackInError(QUrl sourceInError, QMediaPlayer::Error playerError)
+void MediaPlayList::trackInError(const QUrl &sourceInError, QMediaPlayer::Error playerError)
 {
     Q_UNUSED(playerError)
 

@@ -25,11 +25,7 @@
 #include <QTimer>
 #include <QPointer>
 #include <QVector>
-#include <QReadWriteLock>
-#include <QReadLocker>
-#include <QWriteLocker>
-#include <QtConcurrentRun>
-#include <QThreadPool>
+#include <QDebug>
 
 #include <algorithm>
 
@@ -37,20 +33,9 @@ class AllAlbumsModelPrivate
 {
 public:
 
-    AllAlbumsModelPrivate()
-    {
-        mThreadPool.setMaxThreadCount(1);
-    }
-
-    QVector<qulonglong> mAllAlbums;
-
-    QHash<qulonglong, MusicAlbum> mAlbumsData;
+    QList<MusicAlbum> mAllAlbums;
 
     AllArtistsModel *mAllArtistsModel = nullptr;
-
-    QReadWriteLock mDataLock;
-
-    QThreadPool mThreadPool;
 
 };
 
@@ -63,7 +48,6 @@ AllAlbumsModel::~AllAlbumsModel()
 
 int AllAlbumsModel::albumCount() const
 {
-    QReadLocker locker(&d->mDataLock);
     return d->mAllAlbums.size();
 }
 
@@ -74,8 +58,6 @@ int AllAlbumsModel::rowCount(const QModelIndex &parent) const
     if (parent.isValid()) {
         return albumCount;
     }
-
-    QReadLocker locker(&d->mDataLock);
 
     albumCount = d->mAllAlbums.size();
 
@@ -118,8 +100,6 @@ QVariant AllAlbumsModel::data(const QModelIndex &index, int role) const
 {
     auto result = QVariant();
 
-    QReadLocker locker(&d->mDataLock);
-
     const auto albumCount = d->mAllAlbums.size();
 
     Q_ASSERT(index.isValid());
@@ -141,49 +121,49 @@ QVariant AllAlbumsModel::internalDataAlbum(int albumIndex, int role) const
     {
     case Qt::DisplayRole:
     case ElisaUtils::ColumnsRoles::TitleRole:
-        result = d->mAlbumsData[d->mAllAlbums[albumIndex]].title();
+        result = d->mAllAlbums[albumIndex].title();
         break;
-    /*case ElisaUtils::ColumnsRoles::AllTracksTitleRole:
+        /*case ElisaUtils::ColumnsRoles::AllTracksTitleRole:
         result = d->mAlbumsData[d->mAllAlbums[albumIndex]].allTracksTitle();
         break;*/
     case ElisaUtils::ColumnsRoles::ArtistRole:
-        result = d->mAlbumsData[d->mAllAlbums[albumIndex]].artist();
+        result = d->mAllAlbums[albumIndex].artist();
         break;
     case ElisaUtils::ColumnsRoles::AllArtistsRole:
-        result = d->mAlbumsData[d->mAllAlbums[albumIndex]].allArtists().join(QStringLiteral(", "));
+        result = d->mAllAlbums[albumIndex].allArtists().join(QStringLiteral(", "));
         break;
     case ElisaUtils::ColumnsRoles::ImageRole:
     {
-        auto albumArt = d->mAlbumsData[d->mAllAlbums[albumIndex]].albumArtURI();
+        auto albumArt = d->mAllAlbums[albumIndex].albumArtURI();
         if (albumArt.isValid()) {
             result = albumArt;
         }
         break;
     }
-    /*case ElisaUtils::ColumnsRoles::CountRole:
+        /*case ElisaUtils::ColumnsRoles::CountRole:
         result = d->mAlbumsData[d->mAllAlbums[albumIndex]].tracksCount();
         break;*/
     case ElisaUtils::ColumnsRoles::IdRole:
-        result = d->mAlbumsData[d->mAllAlbums[albumIndex]].id();
+        result = d->mAllAlbums[albumIndex].id();
         break;
     case ElisaUtils::ColumnsRoles::IsSingleDiscAlbumRole:
-        result = d->mAlbumsData[d->mAllAlbums[albumIndex]].isSingleDiscAlbum();
+        result = d->mAllAlbums[albumIndex].isSingleDiscAlbum();
         break;
     case ElisaUtils::ColumnsRoles::ContainerDataRole:
-        result = QVariant::fromValue(d->mAlbumsData[d->mAllAlbums[albumIndex]]);
+        result = QVariant::fromValue(d->mAllAlbums[albumIndex]);
         break;
     case ElisaUtils::ColumnsRoles::DatabaseIdRole:
-        result = QVariant::fromValue(d->mAlbumsData[d->mAllAlbums[albumIndex]].databaseId());
+        result = QVariant::fromValue(d->mAllAlbums[albumIndex].databaseId());
         break;
     case ElisaUtils::ColumnsRoles::HighestTrackRating:
-        result = d->mAlbumsData[d->mAllAlbums[albumIndex]].highestTrackRating();
+        result = d->mAllAlbums[albumIndex].highestTrackRating();
         break;
     case ElisaUtils::ColumnsRoles::SecondaryTextRole:
-        result = d->mAlbumsData[d->mAllAlbums[albumIndex]].artist();
+        result = d->mAllAlbums[albumIndex].artist();
         break;
     case ElisaUtils::ColumnsRoles::ImageUrlRole:
     {
-        auto albumArt = d->mAlbumsData[d->mAllAlbums[albumIndex]].albumArtURI();
+        auto albumArt = d->mAllAlbums[albumIndex].albumArtURI();
         if (albumArt.isValid()) {
             result = albumArt;
         } else {
@@ -192,18 +172,18 @@ QVariant AllAlbumsModel::internalDataAlbum(int albumIndex, int role) const
         break;
     }
     case ElisaUtils::ColumnsRoles::ShadowForImageRole:
-        result = d->mAlbumsData[d->mAllAlbums[albumIndex]].albumArtURI().isValid();
+        result = d->mAllAlbums[albumIndex].albumArtURI().isValid();
         break;
     case ElisaUtils::ColumnsRoles::ChildModelRole:
     {
-        auto albumData = d->mAlbumsData[d->mAllAlbums[albumIndex]];
+        auto albumData = d->mAllAlbums[albumIndex];
         result = QVariant::fromValue(albumData);
         break;
     }
     case ElisaUtils::ColumnsRoles::GenreRole:
-        result = d->mAlbumsData[d->mAllAlbums[albumIndex]].genres();
+        result = d->mAllAlbums[albumIndex].genres();
         break;
-    /*case ElisaUtils::ColumnsRoles::IsTracksContainerRole:
+        /*case ElisaUtils::ColumnsRoles::IsTracksContainerRole:
         result = true;
         break;*/
     }
@@ -249,87 +229,57 @@ AllArtistsModel *AllAlbumsModel::allArtists() const
     return d->mAllArtistsModel;
 }
 
-void AllAlbumsModel::albumsAdded(const QList<MusicAlbum> &newAlbums)
+void AllAlbumsModel::albumsAdded(QList<MusicAlbum> newAlbums)
 {
-    QtConcurrent::run(&d->mThreadPool, [=] () {
-        for (const auto &newAlbum : newAlbums) {
-            if (newAlbum.isValid()) {
-                beginInsertRows({}, d->mAllAlbums.size(), d->mAllAlbums.size());
+    if (d->mAllAlbums.isEmpty()) {
+        beginInsertRows({}, d->mAllAlbums.size(), d->mAllAlbums.size() + newAlbums.size() - 1);
+        d->mAllAlbums.swap(newAlbums);
+        endInsertRows();
+    } else {
+        beginInsertRows({}, d->mAllAlbums.size(), d->mAllAlbums.size() + newAlbums.size() - 1);
+        d->mAllAlbums.append(newAlbums);
+        endInsertRows();
+    }
 
-                {
-                    QWriteLocker locker(&d->mDataLock);
-
-                    d->mAllAlbums.push_back(newAlbum.databaseId());
-                    d->mAlbumsData[newAlbum.databaseId()] = newAlbum;
-                }
-
-                endInsertRows();
-
-                Q_EMIT albumCountChanged();
-            }
-        }
-    });
+    Q_EMIT albumCountChanged();
 }
 
 void AllAlbumsModel::albumRemoved(const MusicAlbum &removedAlbum)
 {
-    QtConcurrent::run(&d->mThreadPool, [=] () {
-        auto removedAlbumIterator = d->mAllAlbums.end();
+    auto removedAlbumIterator = d->mAllAlbums.end();
 
-        {
-            QReadLocker locker(&d->mDataLock);
+    removedAlbumIterator = std::find_if(d->mAllAlbums.begin(), d->mAllAlbums.end(),
+                                        [removedAlbum](auto album) {return album.databaseId() == removedAlbum.databaseId();});
 
-            removedAlbumIterator = std::find(d->mAllAlbums.begin(), d->mAllAlbums.end(), removedAlbum.databaseId());
+    if (removedAlbumIterator == d->mAllAlbums.end()) {
+        return;
+    }
 
-            if (removedAlbumIterator == d->mAllAlbums.end()) {
-                return;
-            }
+    int albumIndex = removedAlbumIterator - d->mAllAlbums.begin();
 
-            int albumIndex = removedAlbumIterator - d->mAllAlbums.begin();
+    beginRemoveRows({}, albumIndex, albumIndex);
 
-            beginRemoveRows({}, albumIndex, albumIndex);
+    d->mAllAlbums.erase(removedAlbumIterator);
 
-        }
+    endRemoveRows();
 
-        {
-            QWriteLocker writeLocker(&d->mDataLock);
-            d->mAlbumsData.remove(removedAlbum.databaseId());
-            d->mAllAlbums.erase(removedAlbumIterator);
-        }
-
-        endRemoveRows();
-
-        Q_EMIT albumCountChanged();
-    });
+    Q_EMIT albumCountChanged();
 }
 
 void AllAlbumsModel::albumModified(const MusicAlbum &modifiedAlbum)
 {
-    QtConcurrent::run(&d->mThreadPool, [=] () {
-        auto modifiedAlbumIterator = d->mAllAlbums.end();
+    auto modifiedAlbumIterator = std::find_if(d->mAllAlbums.begin(), d->mAllAlbums.end(),
+                                         [modifiedAlbum](auto album) {return album.databaseId() == modifiedAlbum.databaseId();});
 
-        {
-            QReadLocker locker(&d->mDataLock);
+    if (modifiedAlbumIterator == d->mAllAlbums.end()) {
+        return;
+    }
 
-            modifiedAlbumIterator = std::find(d->mAllAlbums.begin(), d->mAllAlbums.end(), modifiedAlbum.databaseId());
-        }
+    auto albumIndex = modifiedAlbumIterator - d->mAllAlbums.begin();
 
-        int albumIndex = 0;
+    d->mAllAlbums[albumIndex] = modifiedAlbum;
 
-        {
-            QWriteLocker writeLocker(&d->mDataLock);
-
-            if (modifiedAlbumIterator == d->mAllAlbums.end()) {
-                return;
-            }
-
-            albumIndex = modifiedAlbumIterator - d->mAllAlbums.begin();
-
-            d->mAlbumsData[modifiedAlbum.databaseId()] = modifiedAlbum;
-        }
-
-        Q_EMIT dataChanged(index(albumIndex, 0), index(albumIndex, 0));
-    });
+    Q_EMIT dataChanged(index(albumIndex, 0), index(albumIndex, 0));
 }
 
 void AllAlbumsModel::setAllArtists(AllArtistsModel *model)

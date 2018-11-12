@@ -851,19 +851,6 @@ void DatabaseInterface::insertTracksList(const QList<MusicAudioTrack> &tracks, c
 
         if (isNewTrack && insertedTrackId != 0) {
             d->mInsertedTracks.insert(insertedTrackId);
-        } else if (insertedTrackId == 0) {
-            d->mRemoveTracksMappingFromSource.bindValue(QStringLiteral(":fileName"), oneTrack.resourceURI());
-            d->mRemoveTracksMappingFromSource.bindValue(QStringLiteral(":sourceId"), internalSourceIdFromName(musicSource));
-
-            auto result = d->mRemoveTracksMappingFromSource.exec();
-
-            if (!result || !d->mRemoveTracksMappingFromSource.isActive()) {
-                Q_EMIT databaseError();
-
-                qDebug() << "DatabaseInterface::insertTracksList" << d->mRemoveTracksMappingFromSource.lastQuery();
-                qDebug() << "DatabaseInterface::insertTracksList" << d->mRemoveTracksMappingFromSource.boundValues();
-                qDebug() << "DatabaseInterface::insertTracksList" << d->mRemoveTracksMappingFromSource.lastError();
-            }
         }
 
         if (d->mStopRequest == 1) {
@@ -3754,14 +3741,14 @@ qulonglong DatabaseInterface::internalSourceIdFromName(const QString &sourceName
 
     sourceId = d->mSelectMusicSource.record().value(0).toULongLong();
 
+    d->mSelectMusicSource.finish();
+
     return sourceId;
 }
 
 QHash<QUrl, QDateTime> DatabaseInterface::internalAllFileNameFromSource(qulonglong sourceId)
 {
     QHash<QUrl, QDateTime> allFileNames;
-
-    d->mSelectMusicSource.finish();
 
     d->mSelectAllTrackFilesFromSourceQuery.bindValue(QStringLiteral(":discoverId"), sourceId);
 

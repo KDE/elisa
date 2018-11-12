@@ -153,10 +153,6 @@ void LocalBalooFileListing::registeredToBaloo(QDBusPendingCallWatcher *watcher)
         d->mIsRegisteredToBaloo = false;
     } else {
         d->mIsRegisteredToBaloo = true;
-
-        if (d->mIsRegisteredToBaloo && d->mIsRegisteredToBalooWatcher) {
-            triggerRefreshOfContent();
-        }
     }
 
     d->mIsRegisteringToBaloo = false;
@@ -178,10 +174,6 @@ void LocalBalooFileListing::registeredToBalooWatcher(QDBusPendingCallWatcher *wa
         d->mIsRegisteredToBalooWatcher = false;
     } else {
         d->mIsRegisteredToBalooWatcher = true;
-
-        if (d->mIsRegisteredToBaloo && d->mIsRegisteredToBalooWatcher) {
-            triggerRefreshOfContent();
-        }
     }
 
     d->mIsRegisteringToBalooWatcher = false;

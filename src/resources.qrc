@@ -33,6 +33,7 @@
         <file>qml/ViewManager.qml</file>
         <file>qml/BaseTheme.qml</file>
         <file>qml/ScrollHelper.qml</file>
+        <file>qml/FlatButtonWithToolTip.qml</file>
     </qresource>
     <qresource prefix="/qml/+windows">
         <file alias="Theme.qml">windows/WindowsTheme.qml</file>

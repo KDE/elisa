@@ -18,10 +18,8 @@
 import QtQuick 2.7
 import QtQuick.Layouts 1.2
 import QtGraphicalEffects 1.0
-import QtQuick.Controls 2.2
+import QtQuick.Controls 2.3
 import org.kde.elisa 1.0
-
-import QtQuick.Controls 1.4 as Controls1
 
 FocusScope {
     property alias volume: volumeSlider.value
@@ -43,6 +41,7 @@ FocusScope {
     signal playPrevious()
     signal playNext()
     signal seek(int position)
+    signal openMenu()
 
     signal maximize()
     signal minimize()
@@ -58,6 +57,65 @@ FocusScope {
         id: elisaTheme
     }
 
+    Action {
+        id: applicationMenuAction
+        text: i18nc("open application menu", "Application Menu")
+        icon.name: "application-menu"
+        onTriggered: openMenu()
+    }
+
+    Action {
+        id: repeatAction
+        text: i18nc("toggle repeat mode for playlist", "Toggle Repeat")
+        icon.name: musicWidget.repeat ? "media-repeat-all" : "media-repeat-none"
+        onTriggered: musicWidget.repeat = !musicWidget.repeat
+    }
+
+    Action {
+        id: shuffleAction
+        text: i18nc("toggle shuffle mode for playlist", "Toggle Shuffle")
+        icon.name: musicWidget.shuffle ? "media-playlist-shuffle" : "media-playlist-normal"
+        onTriggered: musicWidget.shuffle = !musicWidget.shuffle
+    }
+
+    Action {
+        id: muteAction
+        text: i18nc("toggle mute mode for player", "Toggle Mute")
+        icon.name: musicWidget.muted ? "player-volume-muted" : "player-volume"
+        onTriggered: musicWidget.muted = !musicWidget.muted
+    }
+
+    Action {
+        id: playPauseAction
+        text: i18nc("toggle play and pause for the audio player", "Toggle Play and Pause")
+        icon.name: musicWidget.isPlaying? "media-playback-pause" : "media-playback-start"
+        onTriggered: musicWidget.isPlaying ? musicWidget.pause() : musicWidget.play()
+        enabled: playEnabled
+    }
+
+    Action {
+        id: skipBackwardAction
+        text: i18nc("skip backward in playlists", "Skip Backward")
+        icon.name: musicWidget.LayoutMirroring.enabled ? "media-skip-forward" : "media-skip-backward"
+        onTriggered: musicWidget.playPrevious()
+        enabled: skipBackwardEnabled
+    }
+
+    Action {
+        id: skipForwardAction
+        text: i18nc("skip forward in playlists", "Skip Forward")
+        icon.name: musicWidget.LayoutMirroring.enabled ? "media-skip-backward" : "media-skip-forward"
+        onTriggered: musicWidget.playNext()
+        enabled: skipForwardEnabled
+    }
+
+    Action {
+        id: minimizeMaximizeAction
+        text: i18nc("toggle between maximized and minimized ivre", "Toggle Maximize")
+        icon.name: musicWidget.isMaximized ? "draw-arrow-up" : "draw-arrow-down"
+        onTriggered: musicWidget.isMaximized = !musicWidget.isMaximized
+    }
+
     Rectangle {
         anchors.fill: parent
 
@@ -69,7 +127,10 @@ FocusScope {
         anchors.fill: parent
         spacing: 5
 
-        Button {
+        FlatButtonWithToolTip {
+            id: minimzeMaximizeAction
+            action: minimizeMaximizeAction
+
             Layout.preferredWidth: elisaTheme.smallControlButtonSize
             Layout.preferredHeight: elisaTheme.smallControlButtonSize
             Layout.alignment: Qt.AlignVCenter
@@ -79,32 +140,11 @@ FocusScope {
             Layout.minimumHeight: elisaTheme.smallControlButtonSize
             Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.mediaPlayerHorizontalMargin : 0
             Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.mediaPlayerHorizontalMargin : 0
-
-            contentItem: Image {
-                anchors.fill: parent
-                source: Qt.resolvedUrl(musicWidget.isMaximized ? elisaTheme.minimizeIcon : elisaTheme.maximizeIcon)
-
-                width: elisaTheme.smallControlButtonSize
-                height: elisaTheme.smallControlButtonSize
-
-                sourceSize.width: elisaTheme.smallControlButtonSize
-                sourceSize.height: elisaTheme.smallControlButtonSize
-
-                fillMode: Image.PreserveAspectFit
-                opacity: 1.0
-            }
-
-            background: Rectangle {
-                border.width: 0
-                opacity: 0.0
-            }
-
-            onClicked: {
-                musicWidget.isMaximized = !musicWidget.isMaximized
-            }
         }
 
-        RoundButton {
+        FlatButtonWithToolTip {
+            id: skipBackwardButton
+            action: skipBackwardAction
             focus: skipBackwardEnabled
 
             Layout.preferredWidth: elisaTheme.smallControlButtonSize
@@ -114,49 +154,11 @@ FocusScope {
             Layout.maximumHeight: elisaTheme.smallControlButtonSize
             Layout.minimumWidth: elisaTheme.smallControlButtonSize
             Layout.minimumHeight: elisaTheme.smallControlButtonSize
-            Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.mediaPlayerHorizontalMargin : 0
-            Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.mediaPlayerHorizontalMargin : 0
-
-            enabled: skipBackwardEnabled
-            hoverEnabled: true
-
-            onClicked: {
-                musicWidget.playPrevious()
-            }
-
-            contentItem: Image {
-                anchors.fill: parent
-
-                source: Qt.resolvedUrl(LayoutMirroring.enabled ? elisaTheme.skipForwardIcon : elisaTheme.skipBackwardIcon)
-
-                width: elisaTheme.smallControlButtonSize
-                height: elisaTheme.smallControlButtonSize
-
-                sourceSize.width: elisaTheme.smallControlButtonSize
-                sourceSize.height: elisaTheme.smallControlButtonSize
-
-                fillMode: Image.PreserveAspectFit
-
-                opacity: skipBackwardEnabled ? 1.0 : 0.6
-            }
-
-            background: Rectangle {
-                color: "transparent"
-
-                border.color: (parent.hovered || parent.activeFocus) ? myPalette.highlight : "transparent"
-                border.width: 1
-
-                radius: elisaTheme.smallControlButtonSize
-
-                Behavior on border.color {
-                    ColorAnimation {
-                        duration: 300
-                    }
-                }
-            }
         }
 
-        RoundButton {
+        FlatButtonWithToolTip {
+            id: playPauseButton
+            action: playPauseAction
             focus: playEnabled
 
             Layout.preferredWidth: elisaTheme.smallControlButtonSize
@@ -166,56 +168,11 @@ FocusScope {
             Layout.maximumHeight: elisaTheme.smallControlButtonSize
             Layout.minimumWidth: elisaTheme.smallControlButtonSize
             Layout.minimumHeight: elisaTheme.smallControlButtonSize
-
-            enabled: playEnabled
-            hoverEnabled: true
-
-            onClicked: {
-                if (musicWidget.isPlaying) {
-                    musicWidget.pause()
-                } else {
-                    musicWidget.play()
-                }
-            }
-
-            contentItem: Image {
-                anchors.fill: parent
-
-                source: {
-                    if (musicWidget.isPlaying)
-                        Qt.resolvedUrl(elisaTheme.pauseIcon)
-                    else
-                        Qt.resolvedUrl(elisaTheme.playIcon)
-                }
-
-                width: elisaTheme.smallControlButtonSize
-                height: elisaTheme.smallControlButtonSize
-
-                sourceSize.width: elisaTheme.smallControlButtonSize
-                sourceSize.height: elisaTheme.smallControlButtonSize
-
-                fillMode: Image.PreserveAspectFit
-                mirror: LayoutMirroring.enabled
-                opacity: playEnabled ? 1.0 : 0.6
-            }
-
-            background: Rectangle {
-                color: "transparent"
-
-                border.color: (parent.hovered || parent.activeFocus) ? myPalette.highlight : "transparent"
-                border.width: 1
-
-                radius: elisaTheme.smallControlButtonSize
-
-                Behavior on border.color {
-                    ColorAnimation {
-                        duration: 300
-                    }
-                }
-            }
         }
 
-        RoundButton {
+        FlatButtonWithToolTip {
+            id: skipForwardButton
+            action: skipForwardAction
             focus: skipForwardEnabled
 
             Layout.preferredWidth: elisaTheme.smallControlButtonSize
@@ -225,44 +182,6 @@ FocusScope {
             Layout.maximumHeight: elisaTheme.smallControlButtonSize
             Layout.minimumWidth: elisaTheme.smallControlButtonSize
             Layout.minimumHeight: elisaTheme.smallControlButtonSize
-
-            enabled: skipForwardEnabled
-            hoverEnabled: true
-
-            onClicked: {
-                musicWidget.playNext()
-            }
-
-            contentItem: Image {
-                 anchors.fill: parent
-
-                source: Qt.resolvedUrl(LayoutMirroring.enabled ? elisaTheme.skipBackwardIcon : elisaTheme.skipForwardIcon)
-
-                width: elisaTheme.smallControlButtonSize
-                height: elisaTheme.smallControlButtonSize
-
-                sourceSize.width: elisaTheme.smallControlButtonSize
-                sourceSize.height: elisaTheme.smallControlButtonSize
-
-                fillMode: Image.PreserveAspectFit
-
-                opacity: skipForwardEnabled ? 1.0 : 0.6
-            }
-
-            background: Rectangle {
-                color: "transparent"
-
-                border.color: (parent.hovered || parent.activeFocus) ? myPalette.highlight : "transparent"
-                border.width: 1
-
-                radius: elisaTheme.smallControlButtonSize
-
-                Behavior on border.color {
-                    ColorAnimation {
-                        duration: 300
-                    }
-                }
-            }
         }
 
         TextMetrics {
@@ -380,34 +299,9 @@ FocusScope {
             }
         }
 
-        Image {
-            id: volumeIcon
-
-            source: if (musicWidget.muted)
-                        Qt.resolvedUrl(elisaTheme.playerVolumeMutedIcon)
-                    else
-                        Qt.resolvedUrl(elisaTheme.playerVolumeIcon)
-
-            Layout.preferredWidth: elisaTheme.smallControlButtonSize
-            Layout.preferredHeight: elisaTheme.smallControlButtonSize
-            Layout.alignment: Qt.AlignVCenter
-            Layout.maximumWidth: elisaTheme.smallControlButtonSize
-            Layout.maximumHeight: elisaTheme.smallControlButtonSize
-            Layout.minimumWidth: elisaTheme.smallControlButtonSize
-            Layout.minimumHeight: elisaTheme.smallControlButtonSize
-            Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-            Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-
-            sourceSize.width: elisaTheme.smallControlButtonSize
-            sourceSize.height: elisaTheme.smallControlButtonSize
-
-            fillMode: Image.PreserveAspectFit
-
-            visible: false
-        }
-
-
-        RoundButton {
+        FlatButtonWithToolTip {
+            id: muteButton
+            action: muteAction
             focus: true
 
             Layout.preferredWidth: elisaTheme.smallControlButtonSize
@@ -417,42 +311,6 @@ FocusScope {
             Layout.maximumHeight: elisaTheme.smallControlButtonSize
             Layout.minimumWidth: elisaTheme.smallControlButtonSize
             Layout.minimumHeight: elisaTheme.smallControlButtonSize
-
-            hoverEnabled: true
-
-            onClicked: musicWidget.muted = !musicWidget.muted
-
-            contentItem: Image {
-                anchors.fill: parent
-
-                source: if (musicWidget.muted)
-                            Qt.resolvedUrl(elisaTheme.playerVolumeMutedIcon)
-                        else
-                            Qt.resolvedUrl(elisaTheme.playerVolumeIcon)
-
-                width: elisaTheme.smallControlButtonSize
-                height: elisaTheme.smallControlButtonSize
-
-                sourceSize.width: elisaTheme.smallControlButtonSize
-                sourceSize.height: elisaTheme.smallControlButtonSize
-
-                fillMode: Image.PreserveAspectFit
-            }
-
-            background: Rectangle {
-                color: "transparent"
-
-                border.color: (parent.hovered || parent.activeFocus) ? myPalette.highlight : "transparent"
-                border.width: 1
-
-                radius: elisaTheme.smallControlButtonSize
-
-                Behavior on border.color {
-                    ColorAnimation {
-                        duration: 300
-                    }
-                }
-            }
         }
 
         Slider {
@@ -505,8 +363,9 @@ FocusScope {
             }
         }
 
-        RoundButton {
+        FlatButtonWithToolTip {
             focus: true
+            action: shuffleAction
             id: shuffleButton
 
             Layout.preferredWidth: elisaTheme.smallControlButtonSize
@@ -516,32 +375,11 @@ FocusScope {
             Layout.maximumHeight: elisaTheme.smallControlButtonSize
             Layout.minimumWidth: elisaTheme.smallControlButtonSize
             Layout.minimumHeight: elisaTheme.smallControlButtonSize
+        }
 
-            hoverEnabled: true
-            onClicked: musicWidget.shuffle = !musicWidget.shuffle
-
-            contentItem: Image {
-                anchors.fill: parent
-
-                source: musicWidget.shuffle ? Qt.resolvedUrl(elisaTheme.shuffleIcon) : Qt.resolvedUrl(elisaTheme.noShuffleIcon)
-
-                width: elisaTheme.smallControlButtonSize
-                height: elisaTheme.smallControlButtonSize
-
-                sourceSize.width: elisaTheme.smallControlButtonSize
-                sourceSize.height: elisaTheme.smallControlButtonSize
-
-                fillMode: Image.PreserveAspectFit
-            }
-
-            background: Rectangle {
-                color: "transparent"
-                }
-            }
-
-
-        RoundButton {
+        FlatButtonWithToolTip {
             focus: true
+            action: repeatAction
             id: repeatButton
 
             Layout.preferredWidth: elisaTheme.smallControlButtonSize
@@ -551,33 +389,12 @@ FocusScope {
             Layout.maximumHeight: elisaTheme.smallControlButtonSize
             Layout.minimumWidth: elisaTheme.smallControlButtonSize
             Layout.minimumHeight: elisaTheme.smallControlButtonSize
-
-            hoverEnabled: true
-            onClicked: musicWidget.repeat = !musicWidget.repeat
-
-            contentItem: Image {
-                anchors.fill: parent
-
-                source: musicWidget.repeat ? Qt.resolvedUrl(elisaTheme.repeatIcon) : Qt.resolvedUrl(elisaTheme.noRepeatIcon)
-
-                width: elisaTheme.smallControlButtonSize
-                height: elisaTheme.smallControlButtonSize
-
-                sourceSize.width: elisaTheme.smallControlButtonSize
-                sourceSize.height: elisaTheme.smallControlButtonSize
-
-                fillMode: Image.PreserveAspectFit
-            }
-
-            background: Rectangle {
-                color: "transparent"
-            }
-
         }
 
-        Controls1.ToolButton {
+        FlatButtonWithToolTip {
             id: menuButton
             action: applicationMenuAction
+            focus: true
 
             Layout.preferredWidth: elisaTheme.smallControlButtonSize
             Layout.preferredHeight: elisaTheme.smallControlButtonSize

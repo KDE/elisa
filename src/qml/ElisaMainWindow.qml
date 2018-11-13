@@ -16,8 +16,7 @@
  */
 
 import QtQuick 2.7
-import QtQuick.Controls 2.2
-import QtQuick.Controls 1.4 as Controls1
+import QtQuick.Controls 2.3
 import QtQuick.Layouts 1.1
 import QtQuick.Window 2.2
 import org.kde.elisa 1.0
@@ -43,16 +42,9 @@ ApplicationWindow {
 
     property var goBackAction: elisa.action("go_back")
 
-   Controls1.Action  {
+    Action {
         shortcut: goBackAction.shortcut
         onTriggered: contentView.goBack()
-    }
-
-    Controls1.Action {
-        id: applicationMenuAction
-        text: i18nc("open application menu", "Application Menu")
-        iconName: "application-menu"
-        onTriggered: applicationMenu.popup()
     }
 
     ApplicationMenu {
@@ -91,7 +83,12 @@ ApplicationWindow {
         property bool showPlaylist: true
 
         property bool headerBarIsMaximized: false
-   }
+    }
+
+    Connections {
+        target: headerBar.playerControl
+        onOpenMenu: applicationMenu.popup()
+    }
 
     Connections {
         target: Qt.application

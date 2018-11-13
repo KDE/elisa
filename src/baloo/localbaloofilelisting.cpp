@@ -126,9 +126,15 @@ void LocalBalooFileListing::applicationAboutToQuit()
 
 void LocalBalooFileListing::newBalooFile(const QString &fileName)
 {
+    auto scanFileInfo = QFileInfo(fileName);
+
+    if (!scanFileInfo.exists()) {
+        return;
+    }
+
     auto newFile = QUrl::fromLocalFile(fileName);
 
-    auto newTrack = scanOneFile(newFile);
+    auto newTrack = scanOneFile(newFile, scanFileInfo);
 
     if (newTrack.isValid()) {
         QFileInfo newFileInfo(fileName);
@@ -303,13 +309,28 @@ void LocalBalooFileListing::triggerRefreshOfContent()
     auto newFiles = QList<MusicAudioTrack>();
 
     while(resultIterator.next() && d->mStopRequest == 0) {
+        const auto &fileName = resultIterator.filePath();
         const auto &newFileUrl = QUrl::fromLocalFile(resultIterator.filePath());
-        auto scanFileInfo = QFileInfo(resultIterator.filePath());
+
+        auto scanFileInfo = QFileInfo(fileName);
+
+        if (!scanFileInfo.exists()) {
+            return;
+        }
+
+        auto itExistingFile = allFiles().find(newFileUrl);
+        if (itExistingFile != allFiles().end()) {
+            if (*itExistingFile >= scanFileInfo.fileTime(QFile::FileModificationTime)) {
+                allFiles().erase(itExistingFile);
+                continue;
+            }
+        }
+
         const auto currentDirectory = QUrl::fromLocalFile(scanFileInfo.absoluteDir().absolutePath());
 
         addFileInDirectory(newFileUrl, currentDirectory);
 
-        const auto &newTrack = scanOneFile(newFileUrl);
+        const auto &newTrack = scanOneFile(newFileUrl, scanFileInfo);
 
         if (newTrack.isValid()) {
             newFiles.push_back(newTrack);
@@ -329,24 +350,11 @@ void LocalBalooFileListing::triggerRefreshOfContent()
     Q_EMIT indexingFinished();
 }
 
-MusicAudioTrack LocalBalooFileListing::scanOneFile(const QUrl &scanFile)
+MusicAudioTrack LocalBalooFileListing::scanOneFile(const QUrl &scanFile, const QFileInfo &scanFileInfo)
 {
     auto newTrack = MusicAudioTrack();
 
     auto localFileName = scanFile.toLocalFile();
-    auto scanFileInfo = QFileInfo(localFileName);
-
-    if (!scanFileInfo.exists()) {
-        return newTrack;
-    }
-
-    auto itExistingFile = allFiles().find(scanFile);
-    if (itExistingFile != allFiles().end()) {
-        if (*itExistingFile >= scanFileInfo.fileTime(QFile::FileModificationTime)) {
-            allFiles().erase(itExistingFile);
-            return newTrack;
-        }
-    }
 
     Baloo::File match(localFileName);
 
@@ -358,7 +366,7 @@ MusicAudioTrack LocalBalooFileListing::scanOneFile(const QUrl &scanFile)
     fileScanner().scanProperties(match, newTrack);
 
     if (!newTrack.isValid()) {
-        newTrack = AbstractFileListing::scanOneFile(scanFile);
+        newTrack = AbstractFileListing::scanOneFile(scanFile, scanFileInfo);
     }
 
     if (newTrack.isValid()) {

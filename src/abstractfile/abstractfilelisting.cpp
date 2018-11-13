@@ -90,7 +90,8 @@ void AbstractFileListing::init()
 
 void AbstractFileListing::newTrackFile(const MusicAudioTrack &partialTrack)
 {
-    const auto &newTrack = scanOneFile(partialTrack.resourceURI());
+    auto scanFileInfo = QFileInfo(partialTrack.resourceURI().toLocalFile());
+    const auto &newTrack = scanOneFile(partialTrack.resourceURI(), scanFileInfo);
 
     if (newTrack.isValid() && newTrack != partialTrack) {
         Q_EMIT modifyTracksList({newTrack}, d->mAllAlbumCover, d->mSourceName);
@@ -193,7 +194,7 @@ void AbstractFileListing::scanDirectory(QList<MusicAudioTrack> &newFiles, const 
             continue;
         }
 
-        auto newTrack = scanOneFile(newFilePath);
+        auto newTrack = scanOneFile(newFilePath, oneEntry);
 
         if (newTrack.isValid() && d->mStopRequest == 0) {
             addCover(newTrack);
@@ -240,9 +241,10 @@ void AbstractFileListing::directoryChanged(const QString &path)
 
 void AbstractFileListing::fileChanged(const QString &modifiedFileName)
 {
+    QFileInfo modifiedFileInfo(modifiedFileName);
     auto modifiedFile = QUrl::fromLocalFile(modifiedFileName);
 
-    auto modifiedTrack = scanOneFile(modifiedFile);
+    auto modifiedTrack = scanOneFile(modifiedFile, modifiedFileInfo);
 
     if (modifiedTrack.isValid()) {
         Q_EMIT modifyTracksList({modifiedTrack}, d->mAllAlbumCover, d->mSourceName);
@@ -264,7 +266,7 @@ void AbstractFileListing::refreshContent()
     triggerRefreshOfContent();
 }
 
-MusicAudioTrack AbstractFileListing::scanOneFile(const QUrl &scanFile)
+MusicAudioTrack AbstractFileListing::scanOneFile(const QUrl &scanFile, const QFileInfo &scanFileInfo)
 {
     MusicAudioTrack newTrack;
 
@@ -274,8 +276,6 @@ MusicAudioTrack AbstractFileListing::scanOneFile(const QUrl &scanFile)
     if (!fileMimeType.name().startsWith(QStringLiteral("audio/"))) {
         return newTrack;
     }
-
-    QFileInfo scanFileInfo(localFileName);
 
     if (scanFileInfo.exists()) {
         auto itExistingFile = d->mAllFiles.find(scanFile);

@@ -35,6 +35,7 @@ class AbstractFileListingPrivate;
 class MusicAudioTrack;
 class NotificationItem;
 class FileScanner;
+class QFileInfo;
 
 class ELISALIB_EXPORT AbstractFileListing : public QObject
 {
@@ -95,7 +96,7 @@ protected:
 
     void scanDirectory(QList<MusicAudioTrack> &newFiles, const QUrl &path);
 
-    virtual MusicAudioTrack scanOneFile(const QUrl &scanFile);
+    virtual MusicAudioTrack scanOneFile(const QUrl &scanFile, const QFileInfo &scanFileInfo);
 
     void watchPath(const QString &pathName);
 

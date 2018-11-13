@@ -77,7 +77,7 @@ private:
 
     void triggerRefreshOfContent() override;
 
-    MusicAudioTrack scanOneFile(const QUrl &scanFile) override;
+    MusicAudioTrack scanOneFile(const QUrl &scanFile, const QFileInfo &scanFileInfo) override;
 
     bool checkBalooConfiguration();
 

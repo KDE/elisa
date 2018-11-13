@@ -168,6 +168,8 @@ private:
 
     void recordModifiedTrack(qulonglong trackId);
 
+    void recordModifiedAlbum(qulonglong albumId);
+
     bool startTransaction() const;
 
     bool finishTransaction() const;

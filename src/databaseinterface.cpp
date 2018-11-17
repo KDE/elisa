@@ -520,7 +520,7 @@ QList<MusicArtist> DatabaseInterface::allArtists()
         return result;
     }
 
-    result = internalAllPeople(d->mSelectAllArtistsQuery, d->mSelectCountAlbumsForArtistQuery);
+    result = internalAllPeople(d->mSelectAllArtistsQuery, d->mSelectCountAlbumsForArtistQuery, true);
 
     return result;
 }
@@ -573,12 +573,12 @@ QList<MusicAudioGenre> DatabaseInterface::allGenres()
 
 QList<MusicArtist> DatabaseInterface::allComposers()
 {
-    return internalAllPeople(d->mSelectAllComposersQuery, d->mSelectCountAlbumsForComposerQuery);
+    return internalAllPeople(d->mSelectAllComposersQuery, d->mSelectCountAlbumsForComposerQuery, false);
 }
 
 QList<MusicArtist> DatabaseInterface::allLyricists()
 {
-    return internalAllPeople(d->mSelectAllLyricistsQuery, d->mSelectCountAlbumsForLyricistQuery);
+    return internalAllPeople(d->mSelectAllLyricistsQuery, d->mSelectCountAlbumsForLyricistQuery, false);
 }
 
 QList<MusicAudioTrack> DatabaseInterface::tracksFromAuthor(const QString &ArtistName)
@@ -3855,7 +3855,7 @@ QList<QMap<DatabaseInterface::PropertyType, QVariant> > DatabaseInterface::inter
 
 MusicArtist DatabaseInterface::internalComposerFromId(qulonglong composerId)
 {
-    auto &result = d->mArtistsCache[composerId];
+    auto result = MusicArtist{};
 
     if (result.isValid()) {
         return result;
@@ -3962,7 +3962,7 @@ qulonglong DatabaseInterface::insertLyricist(const QString &name)
 
 MusicArtist DatabaseInterface::internalLyricistFromId(qulonglong lyricistId)
 {
-    auto &result = d->mArtistsCache[lyricistId];
+    auto result = MusicArtist{};
 
     if (result.isValid()) {
         return result;
@@ -4719,7 +4719,8 @@ QList<QMap<DatabaseInterface::PropertyType, QVariant> > DatabaseInterface::inter
 }
 
 QList<MusicArtist> DatabaseInterface::internalAllPeople(QSqlQuery allPeopleQuery,
-                                                        QSqlQuery selectCountAlbumsForPeopleQuery)
+                                                        QSqlQuery selectCountAlbumsForPeopleQuery,
+                                                        bool withCache)
 {
     auto result = QList<MusicArtist>();
 
@@ -4756,7 +4757,8 @@ QList<MusicArtist> DatabaseInterface::internalAllPeople(QSqlQuery allPeopleQuery
 
         auto artistId = currentRecord.value(0).toULongLong();
 
-        auto &newArtist = d->mArtistsCache[artistId];
+        auto fallBackArtist = MusicArtist{};
+        auto &newArtist = (withCache ? d->mArtistsCache[artistId] : fallBackArtist);
 
         if (newArtist.isValid()) {
             result.push_back(newArtist);

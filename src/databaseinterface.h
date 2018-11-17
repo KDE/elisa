@@ -281,7 +281,7 @@ private:
     QList<QMap<PropertyType, QVariant>> internalAllLyricistsPartialData();
 
     QList<MusicArtist> internalAllPeople(QSqlQuery allPeopleQuery,
-                                         QSqlQuery selectCountAlbumsForPeopleQuery);
+                                         QSqlQuery selectCountAlbumsForPeopleQuery, bool withCache);
 
     bool prepareQuery(QSqlQuery &query, const QString &queryText) const;
 

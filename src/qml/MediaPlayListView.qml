@@ -104,59 +104,45 @@ FocusScope {
         anchors.fill: parent
         spacing: 0
 
-        ColumnLayout {
-            height: elisaTheme.navigationBarHeight
-            Layout.preferredHeight: elisaTheme.navigationBarHeight
-            Layout.minimumHeight: elisaTheme.navigationBarHeight
-            Layout.maximumHeight: elisaTheme.navigationBarHeight
-            spacing: 0
-
-            Layout.leftMargin:  elisaTheme.layoutHorizontalMargin
-            Layout.rightMargin:  elisaTheme.layoutHorizontalMargin
-
-            TextMetrics {
-                id: titleHeight
-                text: viewTitleHeight.text
-                font
-                {
-                    pointSize: viewTitleHeight.font.pointSize
-                    bold: viewTitleHeight.font.bold
-                }
+        TextMetrics {
+            id: titleHeight
+            text: viewTitleHeight.text
+            font
+            {
+                pointSize: viewTitleHeight.font.pointSize
+                bold: viewTitleHeight.font.bold
             }
+        }
+
+        LabelWithToolTip {
+            id: viewTitleHeight
+            text: i18nc("Title of the view of the playlist", "Playlist")
+
+            color: myPalette.text
+            font.pointSize: elisaTheme.defaultFontPointSize * 2
+            Layout.alignment: Qt.AlignLeft | Qt.AlignTop
+            Layout.topMargin: elisaTheme.layoutVerticalMargin * 3
+        }
+
+
+        RowLayout {
+            Layout.fillWidth: true
 
             LabelWithToolTip {
-                id: viewTitleHeight
-                text: i18nc("Title of the view of the playlist", "Playlist")
+                id: playListInfo
 
+                text: i18np("1 track", "%1 tracks", playListModel.tracksCount)
+                visible: playListModelDelegate.count > 0
                 color: myPalette.text
-                font.pointSize: elisaTheme.defaultFontPointSize * 2
-                Layout.alignment: Qt.AlignLeft | Qt.AlignTop
-                Layout.topMargin: elisaTheme.layoutVerticalMargin * 3
+                Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
             }
 
+            Item { Layout.fillWidth: true }
 
-            RowLayout {
-                Layout.fillWidth: true
-
-                LabelWithToolTip {
-                    id: playListInfo
-
-                    text: i18np("1 track", "%1 tracks", playListModel.tracksCount)
-                    visible: playListModelDelegate.count > 0
-                    color: myPalette.text
-                    Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
-                }
-
-                Item { Layout.fillWidth: true }
-
-                Controls1.ToolButton { action: showCurrentTrack }
-                Controls1.ToolButton { action: savePlaylist }
-                Controls1.ToolButton { action: loadPlaylist }
-                Controls1.ToolButton { action: clearPlayList }
-            }
-
-            Item { Layout.fillHeight: true }
-
+            Controls1.ToolButton { action: showCurrentTrack }
+            Controls1.ToolButton { action: savePlaylist }
+            Controls1.ToolButton { action: loadPlaylist }
+            Controls1.ToolButton { action: clearPlayList }
         }
 
         ColumnLayout {
@@ -184,24 +170,28 @@ FocusScope {
                 }
             }
 
-            Text {
-                font.pointSize: elisaTheme.defaultFontPointSize * 2
+            Label {
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter
+                Layout.rightMargin: elisaTheme.layoutHorizontalMargin
+                Layout.leftMargin: elisaTheme.layoutHorizontalMargin
 
-                color: myPalette.text
+                font.pointSize: elisaTheme.defaultFontPointSize * 2
+                wrapMode: Text.WordWrap
+
                 horizontalAlignment: Text.AlignHCenter
                 text: i18nc("Your playlist is empty", "Your playlist is empty")
             }
 
-            Text {
+            Label {
                 Layout.topMargin: 5
-                font.pointSize: elisaTheme.defaultFontPointSize
-                Layout.maximumWidth: 300
-                Layout.preferredWidth: 300
+                Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter
+                Layout.rightMargin: elisaTheme.layoutHorizontalMargin
+                Layout.leftMargin: elisaTheme.layoutHorizontalMargin
+
                 wrapMode: Text.WordWrap
-                color: myPalette.text
+
                 horizontalAlignment: Text.AlignHCenter
                 text: i18nc("Text shown when play list is empty", "Add some songs to get started. You can browse your music using the views on the left.")
             }

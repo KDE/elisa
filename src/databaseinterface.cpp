@@ -3346,7 +3346,7 @@ qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrac
 {
     qulonglong resultId = 0;
 
-    if (oneTrack.title().isEmpty() || oneTrack.artist().isEmpty()) {
+    if (oneTrack.title().isEmpty()) {
         return resultId;
     }
 
@@ -3643,7 +3643,7 @@ void DatabaseInterface::internalRemoveTracksWithoutMapping()
         modifiedAlbums.insert(modifiedAlbumId);
         updateAlbumFromId(modifiedAlbumId, oneRemovedTrack.albumCover(), oneRemovedTrack);
 
-        if (allTracksFromArtist.isEmpty() && allAlbumsFromArtist.isEmpty()) {
+        if (removedArtistId != 0 && allTracksFromArtist.isEmpty() && allAlbumsFromArtist.isEmpty()) {
             removeArtistInDatabase(removedArtistId);
             Q_EMIT artistRemoved(removedArtist);
         }
@@ -3663,7 +3663,7 @@ void DatabaseInterface::internalRemoveTracksWithoutMapping()
             const auto &removedArtistId = internalArtistIdFromName(modifiedAlbum.artist());
             const auto &removedArtist = internalArtistFromId(removedArtistId);
 
-            if (allTracksFromArtist.isEmpty() && allAlbumsFromArtist.isEmpty()) {
+            if (removedArtistId != 0 && allTracksFromArtist.isEmpty() && allAlbumsFromArtist.isEmpty()) {
                 removeArtistInDatabase(removedArtistId);
                 Q_EMIT artistRemoved(removedArtist);
             }

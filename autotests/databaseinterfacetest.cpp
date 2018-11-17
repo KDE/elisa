@@ -259,7 +259,7 @@ private Q_SLOTS:
         QCOMPARE(musicDbArtistAddedSpy.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 0);
         QCOMPARE(musicDbTrackAddedSpy.count(), 1);
-        QCOMPARE(musicDbArtistRemovedSpy.count(), 2);
+        QCOMPARE(musicDbArtistRemovedSpy.count(), 1);
         QCOMPARE(musicDbAlbumRemovedSpy.count(), 1);
         QCOMPARE(musicDbTrackRemovedSpy.count(), 1);
         QCOMPARE(musicDbArtistModifiedSpy.count(), 0);
@@ -409,11 +409,11 @@ private Q_SLOTS:
 
         musicDbTrackAddedSpy.wait(300);
 
-        QCOMPARE(musicDb.allAlbums().count(), 0);
+        QCOMPARE(musicDb.allAlbums().count(), 1);
         QCOMPARE(musicDb.allArtists().count(), 0);
         QCOMPARE(musicDb.allTracks().count(), 1);
         QCOMPARE(musicDbArtistAddedSpy.count(), 0);
-        QCOMPARE(musicDbAlbumAddedSpy.count(), 0);
+        QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
         QCOMPARE(musicDbTrackAddedSpy.count(), 1);
         QCOMPARE(musicDbArtistRemovedSpy.count(), 0);
         QCOMPARE(musicDbAlbumRemovedSpy.count(), 0);
@@ -428,10 +428,10 @@ private Q_SLOTS:
         QCOMPARE(track.isValid(), true);
         QCOMPARE(track.title(), QStringLiteral("track11"));
         QCOMPARE(track.artist(), QString());
-        QCOMPARE(track.albumName(), QString());
+        QCOMPARE(track.albumName(), QStringLiteral("album4"));
         QCOMPARE(track.albumArtist(), QString());
         QCOMPARE(track.isValidAlbumArtist(), false);
-        QCOMPARE(track.albumCover(), QUrl());
+        QCOMPARE(track.albumCover(), QUrl::fromLocalFile(QStringLiteral("album4")));
         QCOMPARE(track.trackNumber(), 9);
         QCOMPARE(track.discNumber(), 1);
         QCOMPARE(track.duration(), QTime::fromMSecsSinceStartOfDay(26));
@@ -447,10 +447,10 @@ private Q_SLOTS:
         QCOMPARE(musicDb.allArtists().count(), 0);
         QCOMPARE(musicDb.allTracks().count(), 0);
         QCOMPARE(musicDbArtistAddedSpy.count(), 0);
-        QCOMPARE(musicDbAlbumAddedSpy.count(), 0);
+        QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
         QCOMPARE(musicDbTrackAddedSpy.count(), 1);
         QCOMPARE(musicDbArtistRemovedSpy.count(), 0);
-        QCOMPARE(musicDbAlbumRemovedSpy.count(), 0);
+        QCOMPARE(musicDbAlbumRemovedSpy.count(), 1);
         QCOMPARE(musicDbTrackRemovedSpy.count(), 1);
         QCOMPARE(musicDbArtistModifiedSpy.count(), 0);
         QCOMPARE(musicDbAlbumModifiedSpy.count(), 0);

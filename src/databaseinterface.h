@@ -210,7 +210,8 @@ private:
     qulonglong insertAlbum(const QString &title, const QString &albumArtist, const QString &trackArtist,
                            const QString &trackPath, const QUrl &albumArtURI);
 
-    bool updateAlbumFromId(qulonglong albumId, const QUrl &albumArtUri, const MusicAudioTrack &currentTrack);
+    bool updateAlbumFromId(qulonglong albumId, const QUrl &albumArtUri,
+                           const MusicAudioTrack &currentTrack, const QString &albumPath);
 
     qulonglong insertArtist(const QString &name);
 
@@ -284,7 +285,7 @@ private:
 
     bool prepareQuery(QSqlQuery &query, const QString &queryText) const;
 
-    void updateAlbumArtist(qulonglong albumId, const QString &title,
+    void updateAlbumArtist(qulonglong albumId, const QString &title, const QString &albumPath,
                            const QString &artistName);
 
     std::unique_ptr<DatabaseInterfacePrivate> d;

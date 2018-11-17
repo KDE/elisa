@@ -2112,11 +2112,13 @@ void DatabaseInterface::initRequest()
         auto insertAlbumQueryText = QStringLiteral("INSERT INTO `Albums` "
                                                    "(`ID`, "
                                                    "`Title`, "
+                                                   "`ArtistName`, "
                                                    "`AlbumPath`, "
                                                    "`CoverFileName`) "
                                                    "VALUES "
                                                    "(:albumId, "
                                                    ":title, "
+                                                   ":albumArtist, "
                                                    ":albumPath, "
                                                    ":coverFileName)");
 
@@ -2495,7 +2497,8 @@ void DatabaseInterface::initRequest()
                                                                  "SET "
                                                                  "`AlbumArtistName` = :artistName "
                                                                  "WHERE "
-                                                                 "`AlbumTitle` = :albumTitle AND"
+                                                                 "`AlbumTitle` = :albumTitle AND "
+                                                                 "`AlbumPath` = :albumPath AND "
                                                                  "`AlbumArtistName` IS NULL");
 
         auto result = prepareQuery(d->mUpdateAlbumArtistInTracksQuery, updateAlbumArtistInTracksQueryText);
@@ -2930,6 +2933,10 @@ qulonglong DatabaseInterface::insertAlbum(const QString &title, const QString &a
 
     d->mInsertAlbumQuery.bindValue(QStringLiteral(":albumId"), d->mAlbumId);
     d->mInsertAlbumQuery.bindValue(QStringLiteral(":title"), title);
+    if (!albumArtist.isEmpty()) {
+        insertArtist(albumArtist);
+        d->mInsertAlbumQuery.bindValue(QStringLiteral(":albumArtist"), albumArtist);
+    }
     d->mInsertAlbumQuery.bindValue(QStringLiteral(":albumPath"), trackPath);
     d->mInsertAlbumQuery.bindValue(QStringLiteral(":coverFileName"), albumArtURI);
 
@@ -2951,10 +2958,6 @@ qulonglong DatabaseInterface::insertAlbum(const QString &title, const QString &a
 
     d->mInsertAlbumQuery.finish();
 
-    if (!albumArtist.isEmpty()) {
-        updateAlbumArtist(d->mAlbumId, title, albumArtist);
-    }
-
     ++d->mAlbumId;
 
     d->mInsertedAlbums.insert(result);
@@ -2962,7 +2965,8 @@ qulonglong DatabaseInterface::insertAlbum(const QString &title, const QString &a
     return result;
 }
 
-bool DatabaseInterface::updateAlbumFromId(qulonglong albumId, const QUrl &albumArtUri, const MusicAudioTrack &currentTrack)
+bool DatabaseInterface::updateAlbumFromId(qulonglong albumId, const QUrl &albumArtUri,
+                                          const MusicAudioTrack &currentTrack, const QString &albumPath)
 {
     auto modifiedAlbum = false;
     modifiedAlbum = true;
@@ -2997,7 +3001,7 @@ bool DatabaseInterface::updateAlbumFromId(qulonglong albumId, const QUrl &albumA
     }
 
     if (!isValidArtist(albumId) && currentTrack.isValidAlbumArtist()) {
-        updateAlbumArtist(albumId, currentTrack.albumName(), currentTrack.albumArtist());
+        updateAlbumArtist(albumId, currentTrack.albumName(), albumPath, currentTrack.albumArtist());
 
         modifiedAlbum = true;
     }
@@ -3405,7 +3409,7 @@ qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrac
             newTrack.setDatabaseId(oldTrack.databaseId());
             updateTrackInDatabase(newTrack, trackPath);
             updateTrackOrigin(newTrack.databaseId(), oneTrack.resourceURI(), oneTrack.fileModificationTime());
-            updateAlbumFromId(albumId, oneTrack.albumCover(), oneTrack);
+            updateAlbumFromId(albumId, oneTrack.albumCover(), oneTrack, trackPath);
 
             recordModifiedTrack(originTrackId);
             if (albumId != 0) {
@@ -3485,7 +3489,7 @@ qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrac
             }
 
             if (albumId != 0) {
-                if (updateAlbumFromId(albumId, covers[oneTrack.resourceURI().toString()], oneTrack)) {
+                if (updateAlbumFromId(albumId, covers[oneTrack.resourceURI().toString()], oneTrack, trackPath)) {
                     auto modifiedTracks = fetchTrackIds(albumId);
                     for (auto oneModifiedTrack : modifiedTracks) {
                         if (oneModifiedTrack != resultId) {
@@ -3628,6 +3632,11 @@ void DatabaseInterface::internalRemoveTracksWithoutMapping()
 
     QSet<qulonglong> modifiedAlbums;
 
+    QUrl::FormattingOptions currentOptions = QUrl::PreferLocalFile |
+            QUrl::RemoveAuthority | QUrl::RemoveFilename | QUrl::RemoveFragment |
+            QUrl::RemovePassword | QUrl::RemovePort | QUrl::RemoveQuery |
+            QUrl::RemoveScheme | QUrl::RemoveUserInfo;
+
     for (const auto &oneRemovedTrack : willRemoveTrack) {
         removeTrackInDatabase(oneRemovedTrack.databaseId());
 
@@ -3638,10 +3647,11 @@ void DatabaseInterface::internalRemoveTracksWithoutMapping()
         const auto &allAlbumsFromArtist = internalAlbumIdsFromAuthor(oneRemovedTrack.artist());
         const auto &removedArtistId = internalArtistIdFromName(oneRemovedTrack.artist());
         const auto &removedArtist = internalArtistFromId(removedArtistId);
+        const auto &trackPath = oneRemovedTrack.resourceURI().toString(currentOptions);
 
         recordModifiedAlbum(modifiedAlbumId);
         modifiedAlbums.insert(modifiedAlbumId);
-        updateAlbumFromId(modifiedAlbumId, oneRemovedTrack.albumCover(), oneRemovedTrack);
+        updateAlbumFromId(modifiedAlbumId, oneRemovedTrack.albumCover(), oneRemovedTrack, trackPath);
 
         if (removedArtistId != 0 && allTracksFromArtist.isEmpty() && allAlbumsFromArtist.isEmpty()) {
             removeArtistInDatabase(removedArtistId);
@@ -4832,6 +4842,7 @@ bool DatabaseInterface::prepareQuery(QSqlQuery &query, const QString &queryText)
 }
 
 void DatabaseInterface::updateAlbumArtist(qulonglong albumId, const QString &title,
+                                          const QString &albumPath,
                                           const QString &artistName)
 {
     d->mUpdateAlbumArtistQuery.bindValue(QStringLiteral(":albumId"), albumId);
@@ -4855,6 +4866,7 @@ void DatabaseInterface::updateAlbumArtist(qulonglong albumId, const QString &tit
     d->mUpdateAlbumArtistQuery.finish();
 
     d->mUpdateAlbumArtistInTracksQuery.bindValue(QStringLiteral(":albumTitle"), title);
+    d->mUpdateAlbumArtistInTracksQuery.bindValue(QStringLiteral(":albumPath"), albumPath);
     d->mUpdateAlbumArtistInTracksQuery.bindValue(QStringLiteral(":artistName"), artistName);
 
     queryResult = d->mUpdateAlbumArtistInTracksQuery.exec();

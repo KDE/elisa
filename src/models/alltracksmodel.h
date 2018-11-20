@@ -54,7 +54,7 @@ public:
 
 public Q_SLOTS:
 
-    void tracksAdded(const QList<MusicAudioTrack> &allTracks);
+    void tracksAdded(QList<MusicAudioTrack> allTracks);
 
     void trackRemoved(qulonglong removedTrackId);
 

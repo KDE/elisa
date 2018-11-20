@@ -72,8 +72,8 @@ public:
         Fatal
     };
 
-    QAbstractItemModelTester(QAbstractItemModel *model, Qt::ConnectionType type = Qt::AutoConnection, QObject *parent = nullptr);
-    QAbstractItemModelTester(QAbstractItemModel *model, FailureReportingMode mode, Qt::ConnectionType type = Qt::AutoConnection, QObject *parent = nullptr);
+    QAbstractItemModelTester(QAbstractItemModel *model, QObject *parent = nullptr);
+    QAbstractItemModelTester(QAbstractItemModel *model, FailureReportingMode mode, QObject *parent = nullptr);
 
     QAbstractItemModel *model() const;
     FailureReportingMode failureReportingMode() const;

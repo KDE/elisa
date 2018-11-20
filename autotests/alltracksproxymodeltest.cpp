@@ -227,7 +227,7 @@ private Q_SLOTS:
         QCOMPARE(endInsertRowsSpy.count(), 2);
         QCOMPARE(beginRemoveRowsSpy.count(), 0);
         QCOMPARE(endRemoveRowsSpy.count(), 0);
-        QCOMPARE(dataChangedSpy.count(), 0);
+        QCOMPARE(dataChangedSpy.count(), 5);
 
         QCOMPARE(proxyTracksModel.rowCount(), 23);
     }
@@ -302,54 +302,9 @@ private Q_SLOTS:
         QCOMPARE(endInsertRowsSpy.count(), 2);
         QCOMPARE(beginRemoveRowsSpy.count(), 0);
         QCOMPARE(endRemoveRowsSpy.count(), 0);
-        QCOMPARE(dataChangedSpy.count(), 0);
+        QCOMPARE(dataChangedSpy.count(), 5);
 
         QCOMPARE(proxyTracksModel.rowCount(), 23);
-    }
-
-    void addDuplicateTracks()
-    {
-        AllTracksModel tracksModel;
-        QAbstractItemModelTester testModel(&tracksModel);
-        AllTracksProxyModel proxyTracksModel;
-        QAbstractItemModelTester proxyTestModel(&proxyTracksModel);
-        proxyTracksModel.setSourceModel(&tracksModel);
-
-        auto newTracks = QList<MusicAudioTrack>();
-        newTracks.push_back({true, QStringLiteral("$19"), QStringLiteral("0"), QStringLiteral("track6"),
-                             QStringLiteral("artist2"), QStringLiteral("album4"), QStringLiteral("artist2"), 6, 1,
-                             QTime::fromMSecsSinceStartOfDay(19), {QUrl::fromLocalFile(QStringLiteral("/$19"))},
-                             QDateTime::fromMSecsSinceEpoch(19),
-                             {QUrl::fromLocalFile(QStringLiteral("file://image$19"))}, 5, true,
-                             {}, QStringLiteral("composer1"), QStringLiteral("lyricist1")});
-        newTracks.push_back({true, QStringLiteral("$19"), QStringLiteral("0"), QStringLiteral("track6"),
-                             QStringLiteral("artist2"), QStringLiteral("album4"), QStringLiteral("artist2"), 6, 1,
-                             QTime::fromMSecsSinceStartOfDay(19), {QUrl::fromLocalFile(QStringLiteral("/$19"))},
-                             QDateTime::fromMSecsSinceEpoch(19),
-                             {QUrl::fromLocalFile(QStringLiteral("file://image$19"))}, 5, true,
-                             {}, QStringLiteral("composer1"), QStringLiteral("lyricist1")});
-
-        QSignalSpy beginInsertRowsSpy(&proxyTracksModel, &AllTracksModel::rowsAboutToBeInserted);
-        QSignalSpy endInsertRowsSpy(&proxyTracksModel, &AllTracksModel::rowsInserted);
-        QSignalSpy beginRemoveRowsSpy(&proxyTracksModel, &AllTracksModel::rowsAboutToBeRemoved);
-        QSignalSpy endRemoveRowsSpy(&proxyTracksModel, &AllTracksModel::rowsRemoved);
-        QSignalSpy dataChangedSpy(&proxyTracksModel, &AllTracksModel::dataChanged);
-
-        QCOMPARE(beginInsertRowsSpy.count(), 0);
-        QCOMPARE(endInsertRowsSpy.count(), 0);
-        QCOMPARE(beginRemoveRowsSpy.count(), 0);
-        QCOMPARE(endRemoveRowsSpy.count(), 0);
-        QCOMPARE(dataChangedSpy.count(), 0);
-
-        tracksModel.tracksAdded(newTracks);
-
-        QCOMPARE(beginInsertRowsSpy.count(), 1);
-        QCOMPARE(endInsertRowsSpy.count(), 1);
-        QCOMPARE(beginRemoveRowsSpy.count(), 0);
-        QCOMPARE(endRemoveRowsSpy.count(), 0);
-        QCOMPARE(dataChangedSpy.count(), 0);
-
-        QCOMPARE(proxyTracksModel.rowCount(), 1);
     }
 
     void modifyOneTrack()
@@ -508,7 +463,7 @@ private Q_SLOTS:
         QCOMPARE(endInsertRowsSpy.count(), 2);
         QCOMPARE(beginRemoveRowsSpy.count(), 0);
         QCOMPARE(endRemoveRowsSpy.count(), 0);
-        QCOMPARE(dataChangedSpy.count(), 0);
+        QCOMPARE(dataChangedSpy.count(), 5);
 
         QCOMPARE(proxyTracksModel.rowCount(), 23);
     }

@@ -168,6 +168,8 @@ private:
 
     void recordModifiedTrack(qulonglong trackId);
 
+    void recordModifiedAlbum(qulonglong albumId);
+
     bool startTransaction() const;
 
     bool finishTransaction() const;
@@ -177,8 +179,6 @@ private:
     QList<MusicAudioTrack> fetchTracks(qulonglong albumId);
 
     QList<qulonglong> fetchTrackIds(qulonglong albumId);
-
-    bool updateTracksCount(qulonglong albumId);
 
     MusicArtist internalArtistFromId(qulonglong artistId);
 
@@ -208,10 +208,10 @@ private:
     void initRequest();
 
     qulonglong insertAlbum(const QString &title, const QString &albumArtist, const QString &trackArtist,
-                           const QString &trackPath, const QUrl &albumArtURI, int tracksCount,
-                           AlbumDiscsCount isSingleDiscAlbum);
+                           const QString &trackPath, const QUrl &albumArtURI);
 
-    bool updateAlbumFromId(qulonglong albumId, const QUrl &albumArtUri, const MusicAudioTrack &currentTrack);
+    bool updateAlbumFromId(qulonglong albumId, const QUrl &albumArtUri,
+                           const MusicAudioTrack &currentTrack, const QString &albumPath);
 
     qulonglong insertArtist(const QString &name);
 
@@ -223,7 +223,7 @@ private:
 
     void removeTrackInDatabase(qulonglong trackId);
 
-    void updateTrackInDatabase(const MusicAudioTrack &oneTrack, qulonglong albumId);
+    void updateTrackInDatabase(const MusicAudioTrack &oneTrack, const QString &albumPath);
 
     void removeAlbumInDatabase(qulonglong albumId);
 
@@ -281,9 +281,12 @@ private:
     QList<QMap<PropertyType, QVariant>> internalAllLyricistsPartialData();
 
     QList<MusicArtist> internalAllPeople(QSqlQuery allPeopleQuery,
-                                         QSqlQuery selectCountAlbumsForPeopleQuery);
+                                         QSqlQuery selectCountAlbumsForPeopleQuery, bool withCache);
 
     bool prepareQuery(QSqlQuery &query, const QString &queryText) const;
+
+    void updateAlbumArtist(qulonglong albumId, const QString &title, const QString &albumPath,
+                           const QString &artistName);
 
     std::unique_ptr<DatabaseInterfacePrivate> d;
 

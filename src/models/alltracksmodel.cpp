@@ -27,9 +27,7 @@ class AllTracksModelPrivate
 {
 public:
 
-    QHash<qulonglong, MusicAudioTrack> mAllTracks;
-
-    QList<qulonglong> mIds;
+    QList<MusicAudioTrack> mAllTracks;
 
 };
 
@@ -107,23 +105,23 @@ QVariant AllTracksModel::data(const QModelIndex &index, int role) const
     Q_ASSERT(index.model() == this);
     Q_ASSERT(index.internalId() == 0);
 
-    const auto &track = d->mAllTracks[d->mIds[index.row()]];
+    const auto &track = d->mAllTracks[index.row()];
 
     switch(role)
     {
     case ElisaUtils::ColumnsRoles::TitleRole:
-        if (d->mAllTracks[d->mIds[index.row()]].title().isEmpty()) {
-            result = d->mAllTracks[d->mIds[index.row()]].resourceURI().fileName();
+        if (track.title().isEmpty()) {
+            result = track.resourceURI().fileName();
         } else {
-            result = d->mAllTracks[d->mIds[index.row()]].title();
+            result = track.title();
         }
         break;
     case ElisaUtils::ColumnsRoles::MilliSecondsDurationRole:
-        result = d->mAllTracks[d->mIds[index.row()]].duration().msecsSinceStartOfDay();
+        result = track.duration().msecsSinceStartOfDay();
         break;
     case ElisaUtils::ColumnsRoles::DurationRole:
     {
-        QTime trackDuration = d->mAllTracks[d->mIds[index.row()]].duration();
+        QTime trackDuration = track.duration();
         if (trackDuration.hour() == 0) {
             result = trackDuration.toString(QStringLiteral("mm:ss"));
         } else {
@@ -132,69 +130,69 @@ QVariant AllTracksModel::data(const QModelIndex &index, int role) const
         break;
     }
     case ElisaUtils::ColumnsRoles::ArtistRole:
-        result = d->mAllTracks[d->mIds[index.row()]].artist();
+        result = track.artist();
         break;
     case ElisaUtils::ColumnsRoles::AlbumRole:
-        result = d->mAllTracks[d->mIds[index.row()]].albumName();
+        result = track.albumName();
         break;
     case ElisaUtils::ColumnsRoles::AlbumArtistRole:
-        result = d->mAllTracks[d->mIds[index.row()]].albumArtist();
+        result = track.albumArtist();
         break;
     case ElisaUtils::ColumnsRoles::TrackNumberRole:
-        result = d->mAllTracks[d->mIds[index.row()]].trackNumber();
+        result = track.trackNumber();
         break;
     case ElisaUtils::ColumnsRoles::DiscNumberRole:
-        result = d->mAllTracks[d->mIds[index.row()]].discNumber();
+        result = track.discNumber();
         break;
     case ElisaUtils::ColumnsRoles::IsSingleDiscAlbumRole:
-        result = d->mAllTracks[d->mIds[index.row()]].isSingleDiscAlbum();
+        result = track.isSingleDiscAlbum();
         break;
     case ElisaUtils::ColumnsRoles::RatingRole:
-        result = d->mAllTracks[d->mIds[index.row()]].rating();
+        result = track.rating();
         break;
     case ElisaUtils::ColumnsRoles::GenreRole:
-        result = d->mAllTracks[d->mIds[index.row()]].genre();
+        result = track.genre();
         break;
     case ElisaUtils::ColumnsRoles::LyricistRole:
-        result = d->mAllTracks[d->mIds[index.row()]].lyricist();
+        result = track.lyricist();
         break;
     case ElisaUtils::ColumnsRoles::ComposerRole:
-        result = d->mAllTracks[d->mIds[index.row()]].composer();
+        result = track.composer();
         break;
     case ElisaUtils::ColumnsRoles::CommentRole:
-        result = d->mAllTracks[d->mIds[index.row()]].comment();
+        result = track.comment();
         break;
     case ElisaUtils::ColumnsRoles::YearRole:
-        result = d->mAllTracks[d->mIds[index.row()]].year();
+        result = track.year();
         break;
     case ElisaUtils::ColumnsRoles::ChannelsRole:
-        result = d->mAllTracks[d->mIds[index.row()]].channels();
+        result = track.channels();
         break;
     case ElisaUtils::ColumnsRoles::BitRateRole:
-        result = d->mAllTracks[d->mIds[index.row()]].bitRate();
+        result = track.bitRate();
         break;
     case ElisaUtils::ColumnsRoles::SampleRateRole:
-        result = d->mAllTracks[d->mIds[index.row()]].sampleRate();
+        result = track.sampleRate();
         break;
     case ElisaUtils::ColumnsRoles::ImageRole:
     {
-        const auto &imageUrl = d->mAllTracks[d->mIds[index.row()]].albumCover();
+        const auto &imageUrl = track.albumCover();
         if (imageUrl.isValid()) {
             result = imageUrl;
         }
         break;
     }
     case ElisaUtils::ColumnsRoles::ResourceRole:
-        result = d->mAllTracks[d->mIds[index.row()]].resourceURI();
+        result = track.resourceURI();
         break;
     case ElisaUtils::ColumnsRoles::IdRole:
-        result = d->mAllTracks[d->mIds[index.row()]].title();
+        result = track.title();
         break;
     case ElisaUtils::ColumnsRoles::DatabaseIdRole:
-        result = d->mAllTracks[d->mIds[index.row()]].databaseId();
+        result = track.databaseId();
         break;
     case ElisaUtils::ColumnsRoles::ContainerDataRole:
-        result = QVariant::fromValue(d->mAllTracks[d->mIds[index.row()]]);
+        result = QVariant::fromValue(track);
         break;
     case Qt::DisplayRole:
         result = track.title();
@@ -221,7 +219,7 @@ QVariant AllTracksModel::data(const QModelIndex &index, int role) const
     }
     case ElisaUtils::ColumnsRoles::ImageUrlRole:
     {
-        const auto &imageUrl = d->mAllTracks[d->mIds[index.row()]].albumCover();
+        const auto &imageUrl = track.albumCover();
         if (imageUrl.isValid()) {
             result = imageUrl;
         } else {
@@ -230,7 +228,7 @@ QVariant AllTracksModel::data(const QModelIndex &index, int role) const
         break;
     }
     case ElisaUtils::ColumnsRoles::ShadowForImageRole:
-        result = d->mAllTracks[d->mIds[index.row()]].albumCover().isValid();
+        result = track.albumCover().isValid();
         break;
     }
 
@@ -274,61 +272,51 @@ int AllTracksModel::columnCount(const QModelIndex &parent) const
     return 1;
 }
 
-void AllTracksModel::tracksAdded(const QList<MusicAudioTrack> &allTracks)
+void AllTracksModel::tracksAdded(QList<MusicAudioTrack> allTracks)
 {
-    auto newAllTracks = d->mAllTracks;
-    auto newTracksIds = QList<qulonglong>();
-
-    int countNewTracks = 0;
-
-    for (const auto &oneTrack : allTracks) {
-        if (!newAllTracks.contains(oneTrack.databaseId())) {
-            newAllTracks[oneTrack.databaseId()] = oneTrack;
-            newTracksIds.push_back(oneTrack.databaseId());
-            ++countNewTracks;
-        }
+    if (allTracks.isEmpty()) {
+        return;
     }
 
-    if (countNewTracks > 0) {
-        beginInsertRows({}, d->mAllTracks.size(), d->mAllTracks.size() + countNewTracks - 1);
-
-        d->mAllTracks = newAllTracks;
-        d->mIds.append(newTracksIds);
-
+    if (d->mAllTracks.isEmpty()) {
+        beginInsertRows({}, 0, allTracks.size() - 1);
+        d->mAllTracks.swap(allTracks);
+        endInsertRows();
+    } else {
+        beginInsertRows({}, d->mAllTracks.size(), d->mAllTracks.size() + allTracks.size() - 1);
+        d->mAllTracks.append(allTracks);
         endInsertRows();
     }
 }
 
 void AllTracksModel::trackRemoved(qulonglong removedTrackId)
 {
-    auto itTrack = std::find(d->mIds.begin(), d->mIds.end(), removedTrackId);
-    if (itTrack == d->mIds.end()) {
+    auto itTrack = std::find_if(d->mAllTracks.begin(), d->mAllTracks.end(),
+                                [removedTrackId](auto track) {return track.databaseId() == removedTrackId;});
+
+    if (itTrack == d->mAllTracks.end()) {
         return;
     }
 
-    auto position = itTrack - d->mIds.begin();
+    auto position = itTrack - d->mAllTracks.begin();
 
     beginRemoveRows({}, position, position);
-    d->mIds.erase(itTrack);
-    d->mAllTracks.remove(removedTrackId);
+    d->mAllTracks.erase(itTrack);
     endRemoveRows();
 }
 
 void AllTracksModel::trackModified(const MusicAudioTrack &modifiedTrack)
 {
-    auto trackExists = (d->mAllTracks.contains(modifiedTrack.databaseId()));
-    if (!trackExists) {
+    auto itTrack = std::find_if(d->mAllTracks.begin(), d->mAllTracks.end(),
+                                [modifiedTrack](auto track) {return track.databaseId() == modifiedTrack.databaseId();});
+
+    if (itTrack == d->mAllTracks.end()) {
         return;
     }
 
-    auto itTrack = std::find(d->mIds.begin(), d->mIds.end(), modifiedTrack.databaseId());
-    if (itTrack == d->mIds.end()) {
-        return;
-    }
+    auto position = itTrack - d->mAllTracks.begin();
 
-    auto position = itTrack - d->mIds.begin();
-
-    d->mAllTracks[modifiedTrack.databaseId()] = modifiedTrack;
+    d->mAllTracks[position] = modifiedTrack;
     Q_EMIT dataChanged(index(position, 0), index(position, 0));
 }
 

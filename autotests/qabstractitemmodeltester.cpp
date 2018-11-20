@@ -71,8 +71,7 @@ class QAbstractItemModelTesterPrivate : public QObjectPrivate
 {
     Q_DECLARE_PUBLIC(QAbstractItemModelTester)
 public:
-    QAbstractItemModelTesterPrivate(QAbstractItemModel *model, QAbstractItemModelTester::FailureReportingMode failureReportingMode,
-                                    Qt::ConnectionType type);
+    QAbstractItemModelTesterPrivate(QAbstractItemModel *model, QAbstractItemModelTester::FailureReportingMode failureReportingMode);
 
     void nonDestructiveBasicTest();
     void rowAndColumnCount();
@@ -114,8 +113,6 @@ private:
     QStack<Changing> remove;
 
     bool fetchingMore;
-
-    Qt::ConnectionType type;
 
     QList<QPersistentModelIndex> changing;
 };
@@ -206,8 +203,8 @@ private:
     Creates a model tester instance, with the given \a parent, that will test
     the model \a model.
 */
-QAbstractItemModelTester::QAbstractItemModelTester(QAbstractItemModel *model, Qt::ConnectionType type, QObject *parent)
-    : QAbstractItemModelTester(model, FailureReportingMode::QtTest, type, parent)
+QAbstractItemModelTester::QAbstractItemModelTester(QAbstractItemModel *model, QObject *parent)
+    : QAbstractItemModelTester(model, FailureReportingMode::QtTest, parent)
 {
 }
 
@@ -217,8 +214,8 @@ QAbstractItemModelTester::QAbstractItemModelTester(QAbstractItemModel *model, Qt
 
     \sa QAbstractItemModelTester::FailureReportingMode
 */
-QAbstractItemModelTester::QAbstractItemModelTester(QAbstractItemModel *model, FailureReportingMode mode, Qt::ConnectionType type, QObject *parent)
-    : QObject(*new QAbstractItemModelTesterPrivate(model, mode, type), parent)
+QAbstractItemModelTester::QAbstractItemModelTester(QAbstractItemModel *model, FailureReportingMode mode, QObject *parent)
+    : QObject(*new QAbstractItemModelTesterPrivate(model, mode), parent)
 {
     if (!model)
         qFatal("%s: model must not be null", Q_FUNC_INFO);
@@ -228,31 +225,31 @@ QAbstractItemModelTester::QAbstractItemModelTester(QAbstractItemModel *model, Fa
     const auto &runAllTests = [d] { d->runAllTests(); };
 
     connect(model, &QAbstractItemModel::columnsAboutToBeInserted,
-            this, runAllTests, d->type);
+            this, runAllTests);
     connect(model, &QAbstractItemModel::columnsAboutToBeRemoved,
-            this, runAllTests, d->type);
+            this, runAllTests);
     connect(model, &QAbstractItemModel::columnsInserted,
-            this, runAllTests, d->type);
+            this, runAllTests);
     connect(model, &QAbstractItemModel::columnsRemoved,
-            this, runAllTests, d->type);
+            this, runAllTests);
     connect(model, &QAbstractItemModel::dataChanged,
-            this, runAllTests, d->type);
+            this, runAllTests);
     connect(model, &QAbstractItemModel::headerDataChanged,
-            this, runAllTests, d->type);
+            this, runAllTests);
     connect(model, &QAbstractItemModel::layoutAboutToBeChanged,
-            this, runAllTests, d->type);
+            this, runAllTests);
     connect(model, &QAbstractItemModel::layoutChanged,
-            this, runAllTests, d->type);
+            this, runAllTests);
     connect(model, &QAbstractItemModel::modelReset,
-            this, runAllTests, d->type);
+            this, runAllTests);
     connect(model, &QAbstractItemModel::rowsAboutToBeInserted,
-            this, runAllTests, d->type);
+            this, runAllTests);
     connect(model, &QAbstractItemModel::rowsAboutToBeRemoved,
-            this, runAllTests, d->type);
+            this, runAllTests);
     connect(model, &QAbstractItemModel::rowsInserted,
-            this, runAllTests, d->type);
+            this, runAllTests);
     connect(model, &QAbstractItemModel::rowsRemoved,
-            this, runAllTests, d->type);
+            this, runAllTests);
 
     // Special checks for changes
     connect(model, &QAbstractItemModel::layoutAboutToBeChanged,
@@ -261,17 +258,17 @@ QAbstractItemModelTester::QAbstractItemModelTester(QAbstractItemModel *model, Fa
             this, [d]{ d->layoutChanged(); });
 
     connect(model, &QAbstractItemModel::rowsAboutToBeInserted,
-            this, [d](const QModelIndex &parent, int start, int end) { d->rowsAboutToBeInserted(parent, start, end); }, d->type);
+            this, [d](const QModelIndex &parent, int start, int end) { d->rowsAboutToBeInserted(parent, start, end); });
     connect(model, &QAbstractItemModel::rowsAboutToBeRemoved,
-            this, [d](const QModelIndex &parent, int start, int end) { d->rowsAboutToBeRemoved(parent, start, end); }, d->type);
+            this, [d](const QModelIndex &parent, int start, int end) { d->rowsAboutToBeRemoved(parent, start, end); });
     connect(model, &QAbstractItemModel::rowsInserted,
-            this, [d](const QModelIndex &parent, int start, int end) { d->rowsInserted(parent, start, end); }, d->type);
+            this, [d](const QModelIndex &parent, int start, int end) { d->rowsInserted(parent, start, end); });
     connect(model, &QAbstractItemModel::rowsRemoved,
-            this, [d](const QModelIndex &parent, int start, int end) { d->rowsRemoved(parent, start, end); }, d->type);
+            this, [d](const QModelIndex &parent, int start, int end) { d->rowsRemoved(parent, start, end); });
     connect(model, &QAbstractItemModel::dataChanged,
-            this, [d](const QModelIndex &topLeft, const QModelIndex &bottomRight) { d->dataChanged(topLeft, bottomRight); }, d->type);
+            this, [d](const QModelIndex &topLeft, const QModelIndex &bottomRight) { d->dataChanged(topLeft, bottomRight); });
     connect(model, &QAbstractItemModel::headerDataChanged,
-            this, [d](Qt::Orientation orientation, int start, int end) { d->headerDataChanged(orientation, start, end); }, d->type);
+            this, [d](Qt::Orientation orientation, int start, int end) { d->headerDataChanged(orientation, start, end); });
 
     runAllTests();
 }
@@ -302,12 +299,10 @@ bool QAbstractItemModelTester::verify(bool statement, const char *statementStr, 
     return d->verify(statement, statementStr, description, file, line);
 }
 
-QAbstractItemModelTesterPrivate::QAbstractItemModelTesterPrivate(QAbstractItemModel *model, QAbstractItemModelTester::FailureReportingMode failureReportingMode,
-                                                                 Qt::ConnectionType type)
+QAbstractItemModelTesterPrivate::QAbstractItemModelTesterPrivate(QAbstractItemModel *model, QAbstractItemModelTester::FailureReportingMode failureReportingMode)
     : model(model),
       failureReportingMode(failureReportingMode),
-      fetchingMore(false),
-      type(type)
+      fetchingMore(false)
 {
 }
 

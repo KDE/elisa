@@ -2070,13 +2070,11 @@ void DatabaseInterface::initRequest()
         auto selectAlbumIdFromTitleAndArtistQueryText = QStringLiteral("SELECT "
                                                                        "album.`ID` "
                                                                        "FROM "
-                                                                       "`Albums` album, "
-                                                                       "`Artists` albumArtist "
+                                                                       "`Albums` album "
                                                                        "WHERE "
-                                                                       "album.`ArtistName` = albumArtist.`Name` AND "
+                                                                       "album.`ArtistName` = :artistName AND "
                                                                        "album.`Title` = :title AND "
-                                                                       "album.`AlbumPath` = :albumPath AND "
-                                                                       "albumArtist.`ID` = :artistId");
+                                                                       "album.`AlbumPath` = :albumPath");
 
         auto result = prepareQuery(d->mSelectAlbumIdFromTitleAndArtistQuery, selectAlbumIdFromTitleAndArtistQueryText);
 
@@ -2872,9 +2870,9 @@ qulonglong DatabaseInterface::insertAlbum(const QString &title, const QString &a
         d->mSelectAlbumIdFromTitleAndArtistQuery.bindValue(QStringLiteral(":title"), title);
         d->mSelectAlbumIdFromTitleAndArtistQuery.bindValue(QStringLiteral(":albumPath"), trackPath);
         if (!albumArtist.isEmpty()) {
-            d->mSelectAlbumIdFromTitleAndArtistQuery.bindValue(QStringLiteral(":artistId"), insertArtist(albumArtist));
+            d->mSelectAlbumIdFromTitleAndArtistQuery.bindValue(QStringLiteral(":artistName"), albumArtist);
         } else {
-            d->mSelectAlbumIdFromTitleAndArtistQuery.bindValue(QStringLiteral(":artistId"), insertArtist(trackArtist));
+            d->mSelectAlbumIdFromTitleAndArtistQuery.bindValue(QStringLiteral(":artistName"), trackArtist);
         }
 
         auto queryResult = d->mSelectAlbumIdFromTitleAndArtistQuery.exec();
@@ -2936,6 +2934,8 @@ qulonglong DatabaseInterface::insertAlbum(const QString &title, const QString &a
     if (!albumArtist.isEmpty()) {
         insertArtist(albumArtist);
         d->mInsertAlbumQuery.bindValue(QStringLiteral(":albumArtist"), albumArtist);
+    } else {
+        d->mInsertAlbumQuery.bindValue(QStringLiteral(":albumArtist"), {});
     }
     d->mInsertAlbumQuery.bindValue(QStringLiteral(":albumPath"), trackPath);
     d->mInsertAlbumQuery.bindValue(QStringLiteral(":coverFileName"), albumArtURI);
@@ -3438,7 +3438,7 @@ qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrac
         } else {
             d->mInsertTrackQuery.bindValue(QStringLiteral(":albumArtistName"), {});
         }
-        d->mInsertTrackQuery.bindValue(QStringLiteral(":albumPath"), currentAlbum.albumPath());
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":albumPath"), trackPath);
         d->mInsertTrackQuery.bindValue(QStringLiteral(":trackNumber"), oneTrack.trackNumber());
         d->mInsertTrackQuery.bindValue(QStringLiteral(":discNumber"), oneTrack.discNumber());
         d->mInsertTrackQuery.bindValue(QStringLiteral(":trackDuration"), QVariant::fromValue<qlonglong>(oneTrack.duration().msecsSinceStartOfDay()));

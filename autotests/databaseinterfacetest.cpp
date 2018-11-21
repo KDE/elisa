@@ -67,7 +67,7 @@ private Q_SLOTS:
     void avoidCrashInAllArtists()
     {
         DatabaseInterface musicDb;
-        musicDb.allArtists();
+        musicDb.allData(DataUtils::DataType::AllArtists);
     }
 
     void avoidCrashInAllAlbums()
@@ -98,7 +98,7 @@ private Q_SLOTS:
         QSignalSpy musicDbDatabaseErrorSpy(&musicDb, &DatabaseInterface::databaseError);
 
         QCOMPARE(musicDb.allAlbums().count(), 0);
-        QCOMPARE(musicDb.allArtists().count(), 0);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 0);
         QCOMPARE(musicDb.allTracks().count(), 0);
         QCOMPARE(musicDbArtistAddedSpy.count(), 0);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 0);
@@ -127,7 +127,7 @@ private Q_SLOTS:
         musicDbTrackAddedSpy.wait(300);
 
         QCOMPARE(musicDb.allAlbums().count(), 1);
-        QCOMPARE(musicDb.allArtists().count(), 1);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 1);
         QCOMPARE(musicDb.allTracks().count(), 1);
         QCOMPARE(musicDbArtistAddedSpy.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -187,7 +187,7 @@ private Q_SLOTS:
         QSignalSpy musicDbDatabaseErrorSpy(&musicDb, &DatabaseInterface::databaseError);
 
         QCOMPARE(musicDb.allAlbums().count(), 0);
-        QCOMPARE(musicDb.allArtists().count(), 0);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 0);
         QCOMPARE(musicDb.allTracks().count(), 0);
         QCOMPARE(musicDbArtistAddedSpy.count(), 0);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 0);
@@ -215,7 +215,7 @@ private Q_SLOTS:
         musicDbTrackAddedSpy.wait(300);
 
         QCOMPARE(musicDb.allAlbums().count(), 0);
-        QCOMPARE(musicDb.allArtists().count(), 1);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 1);
         QCOMPARE(musicDb.allTracks().count(), 1);
         QCOMPARE(musicDbArtistAddedSpy.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 0);
@@ -248,7 +248,7 @@ private Q_SLOTS:
         musicDb.removeTracksList({track.resourceURI()});
 
         QCOMPARE(musicDb.allAlbums().count(), 0);
-        QCOMPARE(musicDb.allArtists().count(), 0);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 0);
         QCOMPARE(musicDb.allTracks().count(), 0);
         QCOMPARE(musicDbArtistAddedSpy.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 0);
@@ -278,7 +278,7 @@ private Q_SLOTS:
         QSignalSpy musicDbDatabaseErrorSpy(&musicDb, &DatabaseInterface::databaseError);
 
         QCOMPARE(musicDb.allAlbums().count(), 0);
-        QCOMPARE(musicDb.allArtists().count(), 0);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 0);
         QCOMPARE(musicDb.allTracks().count(), 0);
         QCOMPARE(musicDbArtistAddedSpy.count(), 0);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 0);
@@ -306,7 +306,7 @@ private Q_SLOTS:
         musicDbTrackAddedSpy.wait(300);
 
         QCOMPARE(musicDb.allAlbums().count(), 1);
-        QCOMPARE(musicDb.allArtists().count(), 1);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 1);
         QCOMPARE(musicDb.allTracks().count(), 1);
         QCOMPARE(musicDbArtistAddedSpy.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -339,7 +339,7 @@ private Q_SLOTS:
         musicDb.removeTracksList({track.resourceURI()});
 
         QCOMPARE(musicDb.allAlbums().count(), 0);
-        QCOMPARE(musicDb.allArtists().count(), 0);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 0);
         QCOMPARE(musicDb.allTracks().count(), 0);
         QCOMPARE(musicDbArtistAddedSpy.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -369,7 +369,7 @@ private Q_SLOTS:
         QSignalSpy musicDbDatabaseErrorSpy(&musicDb, &DatabaseInterface::databaseError);
 
         QCOMPARE(musicDb.allAlbums().count(), 0);
-        QCOMPARE(musicDb.allArtists().count(), 0);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 0);
         QCOMPARE(musicDb.allTracks().count(), 0);
         QCOMPARE(musicDbArtistAddedSpy.count(), 0);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 0);
@@ -397,7 +397,7 @@ private Q_SLOTS:
         musicDbTrackAddedSpy.wait(300);
 
         QCOMPARE(musicDb.allAlbums().count(), 1);
-        QCOMPARE(musicDb.allArtists().count(), 0);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 0);
         QCOMPARE(musicDb.allTracks().count(), 1);
         QCOMPARE(musicDbArtistAddedSpy.count(), 0);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -430,7 +430,7 @@ private Q_SLOTS:
         musicDb.removeTracksList({track.resourceURI()});
 
         QCOMPARE(musicDb.allAlbums().count(), 0);
-        QCOMPARE(musicDb.allArtists().count(), 0);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 0);
         QCOMPARE(musicDb.allTracks().count(), 0);
         QCOMPARE(musicDbArtistAddedSpy.count(), 0);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -460,7 +460,7 @@ private Q_SLOTS:
         QSignalSpy musicDbDatabaseErrorSpy(&musicDb, &DatabaseInterface::databaseError);
 
         QCOMPARE(musicDb.allAlbums().count(), 0);
-        QCOMPARE(musicDb.allArtists().count(), 0);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 0);
         QCOMPARE(musicDb.allTracks().count(), 0);
         QCOMPARE(musicDbArtistAddedSpy.count(), 0);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 0);
@@ -488,7 +488,7 @@ private Q_SLOTS:
         musicDbTrackAddedSpy.wait(300);
 
         QCOMPARE(musicDb.allAlbums().count(), 1);
-        QCOMPARE(musicDb.allArtists().count(), 0);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 0);
         QCOMPARE(musicDb.allTracks().count(), 1);
         QCOMPARE(musicDbArtistAddedSpy.count(), 0);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -534,7 +534,7 @@ private Q_SLOTS:
         musicDbTrackAddedSpy.wait(300);
 
         QCOMPARE(musicDb.allAlbums().count(), 2);
-        QCOMPARE(musicDb.allArtists().count(), 2);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 2);
         QCOMPARE(musicDb.allTracks().count(), 2);
         QCOMPARE(musicDbArtistAddedSpy.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 2);
@@ -569,7 +569,7 @@ private Q_SLOTS:
         QSignalSpy musicDbDatabaseErrorSpy(&musicDb, &DatabaseInterface::databaseError);
 
         QCOMPARE(musicDb.allAlbums().count(), 0);
-        QCOMPARE(musicDb.allArtists().count(), 0);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 0);
         QCOMPARE(musicDb.allTracks().count(), 0);
         QCOMPARE(musicDbArtistAddedSpy.count(), 0);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 0);
@@ -605,7 +605,7 @@ private Q_SLOTS:
         musicDbTrackAddedSpy.wait(300);
 
         QCOMPARE(musicDb.allAlbums().count(), 1);
-        QCOMPARE(musicDb.allArtists().count(), 2);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 2);
         QCOMPARE(musicDb.allTracks().count(), 2);
         QCOMPARE(musicDbArtistAddedSpy.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -687,7 +687,7 @@ private Q_SLOTS:
         QSignalSpy musicDbDatabaseErrorSpy(&musicDb, &DatabaseInterface::databaseError);
 
         QCOMPARE(musicDb.allAlbums().count(), 0);
-        QCOMPARE(musicDb.allArtists().count(), 0);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 0);
         QCOMPARE(musicDb.allTracks().count(), 0);
         QCOMPARE(musicDbArtistAddedSpy.count(), 0);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 0);
@@ -730,7 +730,7 @@ private Q_SLOTS:
         musicDbTrackAddedSpy.wait(300);
 
         QCOMPARE(musicDb.allAlbums().count(), 1);
-        QCOMPARE(musicDb.allArtists().count(), 1);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 1);
         QCOMPARE(musicDb.allTracks().count(), 3);
         QCOMPARE(musicDbArtistAddedSpy.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -839,7 +839,7 @@ private Q_SLOTS:
         QSignalSpy musicDbDatabaseErrorSpy(&musicDb, &DatabaseInterface::databaseError);
 
         QCOMPARE(musicDb.allAlbums().count(), 0);
-        QCOMPARE(musicDb.allArtists().count(), 0);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 0);
         QCOMPARE(musicDb.allTracks().count(), 0);
         QCOMPARE(musicDbArtistAddedSpy.count(), 0);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 0);
@@ -875,7 +875,7 @@ private Q_SLOTS:
         musicDbTrackAddedSpy.wait(300);
 
         QCOMPARE(musicDb.allAlbums().count(), 1);
-        QCOMPARE(musicDb.allArtists().count(), 3);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 3);
         QCOMPARE(musicDb.allTracks().count(), 2);
         QCOMPARE(musicDbArtistAddedSpy.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -1045,7 +1045,7 @@ private Q_SLOTS:
             QSignalSpy musicDbDatabaseErrorSpy(&musicDb, &DatabaseInterface::databaseError);
 
             QCOMPARE(musicDb.allAlbums().count(), 0);
-            QCOMPARE(musicDb.allArtists().count(), 0);
+            QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 0);
             QCOMPARE(musicDb.allTracks().count(), 0);
             QCOMPARE(musicDbArtistAddedSpy.count(), 0);
             QCOMPARE(musicDbAlbumAddedSpy.count(), 0);
@@ -1068,7 +1068,7 @@ private Q_SLOTS:
             musicDb.init(QStringLiteral("testDb1"), myTempDatabase.fileName());
 
             QCOMPARE(musicDb.allAlbums().count(), 0);
-            QCOMPARE(musicDb.allArtists().count(), 0);
+            QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 0);
             QCOMPARE(musicDb.allTracks().count(), 0);
             QCOMPARE(musicDbArtistAddedSpy.count(), 0);
             QCOMPARE(musicDbAlbumAddedSpy.count(), 0);
@@ -1090,7 +1090,7 @@ private Q_SLOTS:
             musicDbTrackAddedSpy.wait(300);
 
             QCOMPARE(musicDb.allAlbums().count(), 5);
-            QCOMPARE(musicDb.allArtists().count(), 7);
+            QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 7);
             QCOMPARE(musicDb.allTracks().count(), 23);
             QCOMPARE(musicDbArtistAddedSpy.count(), 1);
             QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -1138,7 +1138,7 @@ private Q_SLOTS:
             QSignalSpy musicDbDatabaseErrorSpy(&musicDb, &DatabaseInterface::databaseError);
 
             QCOMPARE(musicDb.allAlbums().count(), 0);
-            QCOMPARE(musicDb.allArtists().count(), 0);
+            QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 0);
             QCOMPARE(musicDb.allTracks().count(), 0);
             QCOMPARE(musicDbArtistAddedSpy.count(), 0);
             QCOMPARE(musicDbAlbumAddedSpy.count(), 0);
@@ -1163,7 +1163,7 @@ private Q_SLOTS:
             qDebug() << "restoreModifiedTracksWidthDatabaseFile" << myTempDatabase.fileName();
 
             QCOMPARE(musicDb.allAlbums().count(), 5);
-            QCOMPARE(musicDb.allArtists().count(), 7);
+            QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 7);
             QCOMPARE(musicDb.allTracks().count(), 23);
             QCOMPARE(musicDbArtistAddedSpy.count(), 1);
             QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -1183,7 +1183,7 @@ private Q_SLOTS:
             musicDbTrackAddedSpy.wait(300);
 
             QCOMPARE(musicDb.allAlbums().count(), 5);
-            QCOMPARE(musicDb.allArtists().count(), 7);
+            QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 7);
             QCOMPARE(musicDb.allTracks().count(), 23);
             QCOMPARE(musicDbArtistAddedSpy.count(), 1);
             QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -1322,7 +1322,7 @@ private Q_SLOTS:
         musicDbTrackAddedSpy.wait(300);
 
         QCOMPARE(musicDb.allAlbums().count(), 5);
-        QCOMPARE(musicDb.allArtists().count(), 7);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 7);
         QCOMPARE(musicDb.allTracks().count(), 22);
         QCOMPARE(musicDbArtistAddedSpy.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -1506,7 +1506,7 @@ private Q_SLOTS:
         musicDbTrackAddedSpy.wait(300);
 
         QCOMPARE(musicDb.allAlbums().count(), 5);
-        QCOMPARE(musicDb.allArtists().count(), 7);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 7);
         QCOMPARE(musicDb.allTracks().count(), 22);
         QCOMPARE(musicDbArtistAddedSpy.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -1534,7 +1534,7 @@ private Q_SLOTS:
         musicDbTrackAddedSpy.wait(300);
 
         QCOMPARE(musicDb.allAlbums().count(), 5);
-        QCOMPARE(musicDb.allArtists().count(), 8);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 8);
         QCOMPARE(musicDb.allTracks().count(), 23);
         QCOMPARE(musicDbArtistAddedSpy.count(), 2);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -1577,7 +1577,7 @@ private Q_SLOTS:
             musicDbTrackAddedSpy.wait(300);
 
             QCOMPARE(musicDb.allAlbums().count(), 5);
-            QCOMPARE(musicDb.allArtists().count(), 7);
+            QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 7);
             QCOMPARE(musicDb.allTracks().count(), 22);
             QCOMPARE(musicDbArtistAddedSpy.count(), 1);
             QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -1761,7 +1761,7 @@ private Q_SLOTS:
             musicDb.init(QStringLiteral("testDbVariousArtistAlbum2"), myDatabaseFile.fileName());
 
             QCOMPARE(musicDb.allAlbums().count(), 5);
-            QCOMPARE(musicDb.allArtists().count(), 7);
+            QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 7);
             QCOMPARE(musicDb.allTracks().count(), 22);
             QCOMPARE(musicDbArtistAddedSpy.count(), 1);
             QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -1772,7 +1772,7 @@ private Q_SLOTS:
             musicDbTrackAddedSpy.wait(300);
 
             QCOMPARE(musicDb.allAlbums().count(), 5);
-            QCOMPARE(musicDb.allArtists().count(), 7);
+            QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 7);
             QCOMPARE(musicDb.allTracks().count(), 22);
             QCOMPARE(musicDbArtistAddedSpy.count(), 1);
             QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -1964,7 +1964,7 @@ private Q_SLOTS:
             musicDbTrackAddedSpy.wait(300);
 
             QCOMPARE(musicDb.allAlbums().count(), 5);
-            QCOMPARE(musicDb.allArtists().count(), 8);
+            QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 8);
             QCOMPARE(musicDb.allTracks().count(), 23);
             QCOMPARE(musicDbArtistAddedSpy.count(), 2);
             QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -1986,7 +1986,7 @@ private Q_SLOTS:
         musicDbTrackAddedSpy.wait(300);
 
         QCOMPARE(musicDb.allAlbums().count(), 5);
-        QCOMPARE(musicDb.allArtists().count(), 7);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 7);
         QCOMPARE(musicDb.allTracks().count(), 22);
         QCOMPARE(musicDbArtistAddedSpy.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -2025,7 +2025,7 @@ private Q_SLOTS:
         QSignalSpy musicDbDatabaseErrorSpy(&musicDb, &DatabaseInterface::databaseError);
 
         QCOMPARE(musicDb.allAlbums().count(), 0);
-        QCOMPARE(musicDb.allArtists().count(), 0);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 0);
         QCOMPARE(musicDb.allTracks().count(), 0);
         QCOMPARE(musicDbArtistAddedSpy.count(), 0);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 0);
@@ -2042,7 +2042,7 @@ private Q_SLOTS:
         musicDbTrackAddedSpy.wait(300);
 
         QCOMPARE(musicDb.allAlbums().count(), 5);
-        QCOMPARE(musicDb.allArtists().count(), 7);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 7);
         QCOMPARE(musicDb.allTracks().count(), 22);
         QCOMPARE(musicDbArtistAddedSpy.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -2081,7 +2081,7 @@ private Q_SLOTS:
         musicDb.removeTracksList({firstTrack.resourceURI()});
 
         QCOMPARE(musicDb.allAlbums().count(), 5);
-        QCOMPARE(musicDb.allArtists().count(), 7);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 7);
         QCOMPARE(musicDb.allTracks().count(), 21);
         QCOMPARE(musicDbArtistAddedSpy.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -2139,7 +2139,7 @@ private Q_SLOTS:
         QSignalSpy musicDbDatabaseErrorSpy(&musicDb, &DatabaseInterface::databaseError);
 
         QCOMPARE(musicDb.allAlbums().count(), 0);
-        QCOMPARE(musicDb.allArtists().count(), 0);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 0);
         QCOMPARE(musicDb.allTracks().count(), 0);
         QCOMPARE(musicDbArtistAddedSpy.count(), 0);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 0);
@@ -2156,7 +2156,7 @@ private Q_SLOTS:
         musicDbTrackAddedSpy.wait(300);
 
         QCOMPARE(musicDb.allAlbums().count(), 5);
-        QCOMPARE(musicDb.allArtists().count(), 7);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 7);
         QCOMPARE(musicDb.allTracks().count(), 22);
         QCOMPARE(musicDbArtistAddedSpy.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -2195,7 +2195,7 @@ private Q_SLOTS:
         musicDb.removeTracksList({firstTrack.resourceURI()});
 
         QCOMPARE(musicDb.allAlbums().count(), 5);
-        QCOMPARE(musicDb.allArtists().count(), 7);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 7);
         QCOMPARE(musicDb.allTracks().count(), 21);
         QCOMPARE(musicDbArtistAddedSpy.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -2237,7 +2237,7 @@ private Q_SLOTS:
         musicDbTrackAddedSpy.wait(300);
 
         QCOMPARE(musicDb.allAlbums().count(), 5);
-        QCOMPARE(musicDb.allArtists().count(), 7);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 7);
         QCOMPARE(musicDb.allTracks().count(), 22);
         QCOMPARE(musicDbArtistAddedSpy.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -2292,7 +2292,7 @@ private Q_SLOTS:
         QSignalSpy musicDbDatabaseErrorSpy(&musicDb, &DatabaseInterface::databaseError);
 
         QCOMPARE(musicDb.allAlbums().count(), 0);
-        QCOMPARE(musicDb.allArtists().count(), 0);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 0);
         QCOMPARE(musicDb.allTracks().count(), 0);
         QCOMPARE(musicDbArtistAddedSpy.count(), 0);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 0);
@@ -2309,7 +2309,7 @@ private Q_SLOTS:
         musicDbTrackAddedSpy.wait(300);
 
         QCOMPARE(musicDb.allAlbums().count(), 5);
-        QCOMPARE(musicDb.allArtists().count(), 7);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 7);
         QCOMPARE(musicDb.allTracks().count(), 22);
         QCOMPARE(musicDbArtistAddedSpy.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -2359,7 +2359,7 @@ private Q_SLOTS:
                                   fourthTrack.resourceURI(), fithTrack.resourceURI(), sixthTrack.resourceURI()});
 
         QCOMPARE(musicDb.allAlbums().count(), 4);
-        QCOMPARE(musicDb.allArtists().count(), 6);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 6);
         QCOMPARE(musicDb.allTracks().count(), 16);
         QCOMPARE(musicDbArtistAddedSpy.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -2393,7 +2393,7 @@ private Q_SLOTS:
         QSignalSpy musicDbDatabaseErrorSpy(&musicDb, &DatabaseInterface::databaseError);
 
         QCOMPARE(musicDb.allAlbums().count(), 0);
-        QCOMPARE(musicDb.allArtists().count(), 0);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 0);
         QCOMPARE(musicDb.allTracks().count(), 0);
         QCOMPARE(musicDbArtistAddedSpy.count(), 0);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 0);
@@ -2410,7 +2410,7 @@ private Q_SLOTS:
         musicDbTrackAddedSpy.wait(300);
 
         QCOMPARE(musicDb.allAlbums().count(), 5);
-        QCOMPARE(musicDb.allArtists().count(), 7);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 7);
         QCOMPARE(musicDb.allTracks().count(), 22);
         QCOMPARE(musicDbArtistAddedSpy.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -2444,7 +2444,7 @@ private Q_SLOTS:
         musicDb.removeTracksList({track.resourceURI()});
 
         QCOMPARE(musicDb.allAlbums().count(), 5);
-        QCOMPARE(musicDb.allArtists().count(), 6);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 6);
         QCOMPARE(musicDb.allTracks().count(), 21);
         QCOMPARE(musicDbArtistAddedSpy.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -2474,7 +2474,7 @@ private Q_SLOTS:
         QSignalSpy musicDbDatabaseErrorSpy(&musicDb, &DatabaseInterface::databaseError);
 
         QCOMPARE(musicDb.allAlbums().count(), 0);
-        QCOMPARE(musicDb.allArtists().count(), 0);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 0);
         QCOMPARE(musicDb.allTracks().count(), 0);
         QCOMPARE(musicDbArtistAddedSpy.count(), 0);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 0);
@@ -2491,7 +2491,7 @@ private Q_SLOTS:
         musicDbTrackAddedSpy.wait(300);
 
         QCOMPARE(musicDb.allAlbums().count(), 5);
-        QCOMPARE(musicDb.allArtists().count(), 7);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 7);
         QCOMPARE(musicDb.allTracks().count(), 22);
         QCOMPARE(musicDbArtistAddedSpy.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -2520,7 +2520,7 @@ private Q_SLOTS:
         musicDbTrackAddedSpy.wait(300);
 
         QCOMPARE(musicDb.allAlbums().count(), 5);
-        QCOMPARE(musicDb.allArtists().count(), 7);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 7);
         QCOMPARE(musicDb.allTracks().count(), 23);
         QCOMPARE(musicDbArtistAddedSpy.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -2555,7 +2555,7 @@ private Q_SLOTS:
         QSignalSpy musicDbDatabaseErrorSpy(&musicDb, &DatabaseInterface::databaseError);
 
         QCOMPARE(musicDb.allAlbums().count(), 0);
-        QCOMPARE(musicDb.allArtists().count(), 0);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 0);
         QCOMPARE(musicDb.allTracks().count(), 0);
         QCOMPARE(musicDbArtistAddedSpy.count(), 0);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 0);
@@ -2584,7 +2584,7 @@ private Q_SLOTS:
         musicDbTrackAddedSpy.wait(300);
 
         QCOMPARE(musicDb.allAlbums().count(), 1);
-        QCOMPARE(musicDb.allArtists().count(), 1);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 1);
         QCOMPARE(musicDb.allTracks().count(), 1);
         QCOMPARE(musicDbArtistAddedSpy.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -2661,7 +2661,7 @@ private Q_SLOTS:
         musicDbTrackAddedSpy.wait(50);
 
         QCOMPARE(musicDb.allAlbums().count(), 1);
-        QCOMPARE(musicDb.allArtists().count(), 2);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 2);
         QCOMPARE(musicDb.allTracks().count(), 1);
         QCOMPARE(musicDbArtistAddedSpy.count(), 2);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -2744,7 +2744,7 @@ private Q_SLOTS:
         QSignalSpy musicDbDatabaseErrorSpy(&musicDb, &DatabaseInterface::databaseError);
 
         QCOMPARE(musicDb.allAlbums().count(), 0);
-        QCOMPARE(musicDb.allArtists().count(), 0);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 0);
         QCOMPARE(musicDb.allTracks().count(), 0);
         QCOMPARE(musicDbArtistAddedSpy.count(), 0);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 0);
@@ -2773,7 +2773,7 @@ private Q_SLOTS:
         musicDbTrackAddedSpy.wait(300);
 
         QCOMPARE(musicDb.allAlbums().count(), 1);
-        QCOMPARE(musicDb.allArtists().count(), 1);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 1);
         QCOMPARE(musicDb.allTracks().count(), 1);
         QCOMPARE(musicDbArtistAddedSpy.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -2852,7 +2852,7 @@ private Q_SLOTS:
         musicDbTrackAddedSpy.wait(50);
 
         QCOMPARE(musicDb.allAlbums().count(), 2);
-        QCOMPARE(musicDb.allArtists().count(), 2);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 2);
         QCOMPARE(musicDb.allTracks().count(), 1);
         QCOMPARE(musicDbArtistAddedSpy.count(), 2);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 2);
@@ -2953,7 +2953,7 @@ private Q_SLOTS:
         QSignalSpy musicDbDatabaseErrorSpy(&musicDb, &DatabaseInterface::databaseError);
 
         QCOMPARE(musicDb.allAlbums().count(), 0);
-        QCOMPARE(musicDb.allArtists().count(), 0);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 0);
         QCOMPARE(musicDb.allTracks().count(), 0);
         QCOMPARE(musicDbArtistAddedSpy.count(), 0);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 0);
@@ -2982,7 +2982,7 @@ private Q_SLOTS:
         musicDbTrackAddedSpy.wait(300);
 
         QCOMPARE(musicDb.allAlbums().count(), 1);
-        QCOMPARE(musicDb.allArtists().count(), 1);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 1);
         QCOMPARE(musicDb.allTracks().count(), 1);
         QCOMPARE(musicDbArtistAddedSpy.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -3061,7 +3061,7 @@ private Q_SLOTS:
         musicDbTrackAddedSpy.wait(50);
 
         QCOMPARE(musicDb.allAlbums().count(), 2);
-        QCOMPARE(musicDb.allArtists().count(), 2);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 2);
         QCOMPARE(musicDb.allTracks().count(), 2);
         QCOMPARE(musicDbArtistAddedSpy.count(), 2);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 2);
@@ -3152,7 +3152,7 @@ private Q_SLOTS:
         QSignalSpy musicDbDatabaseErrorSpy(&musicDb, &DatabaseInterface::databaseError);
 
         QCOMPARE(musicDb.allAlbums().count(), 0);
-        QCOMPARE(musicDb.allArtists().count(), 0);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 0);
         QCOMPARE(musicDb.allTracks().count(), 0);
         QCOMPARE(musicDbArtistAddedSpy.count(), 0);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 0);
@@ -3169,7 +3169,7 @@ private Q_SLOTS:
         musicDbTrackAddedSpy.wait(300);
 
         QCOMPARE(musicDb.allAlbums().count(), 5);
-        QCOMPARE(musicDb.allArtists().count(), 7);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 7);
         QCOMPARE(musicDb.allTracks().count(), 22);
         QCOMPARE(musicDbArtistAddedSpy.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -3198,7 +3198,7 @@ private Q_SLOTS:
         musicDbTrackAddedSpy.wait(300);
 
         QCOMPARE(musicDb.allAlbums().count(), 6);
-        QCOMPARE(musicDb.allArtists().count(), 7);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 7);
         QCOMPARE(musicDb.allTracks().count(), 23);
         QCOMPARE(musicDbArtistAddedSpy.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 2);
@@ -3234,7 +3234,7 @@ private Q_SLOTS:
         musicDbTrackAddedSpy.wait(300);
 
         QCOMPARE(musicDb.allAlbums().count(), 6);
-        QCOMPARE(musicDb.allArtists().count(), 7);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 7);
         QCOMPARE(musicDb.allTracks().count(), 23);
         QCOMPARE(musicDbArtistAddedSpy.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 2);
@@ -3276,7 +3276,7 @@ private Q_SLOTS:
         QSignalSpy musicDbDatabaseErrorSpy(&musicDb, &DatabaseInterface::databaseError);
 
         QCOMPARE(musicDb.allAlbums().count(), 0);
-        QCOMPARE(musicDb.allArtists().count(), 0);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 0);
         QCOMPARE(musicDb.allTracks().count(), 0);
         QCOMPARE(musicDbArtistAddedSpy.count(), 0);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 0);
@@ -3293,7 +3293,7 @@ private Q_SLOTS:
         musicDbTrackAddedSpy.wait(300);
 
         QCOMPARE(musicDb.allAlbums().count(), 5);
-        QCOMPARE(musicDb.allArtists().count(), 7);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 7);
         QCOMPARE(musicDb.allTracks().count(), 22);
         QCOMPARE(musicDbArtistAddedSpy.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -3315,7 +3315,7 @@ private Q_SLOTS:
         musicDb.modifyTracksList({modifiedTrack}, mNewCovers, QStringLiteral("autoTest"));
 
         QCOMPARE(musicDb.allAlbums().count(), 5);
-        QCOMPARE(musicDb.allArtists().count(), 7);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 7);
         QCOMPARE(musicDb.allTracks().count(), 22);
         QCOMPARE(musicDbArtistAddedSpy.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -3353,7 +3353,7 @@ private Q_SLOTS:
         QSignalSpy musicDbDatabaseErrorSpy(&musicDb, &DatabaseInterface::databaseError);
 
         QCOMPARE(musicDb.allAlbums().count(), 0);
-        QCOMPARE(musicDb.allArtists().count(), 0);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 0);
         QCOMPARE(musicDb.allTracks().count(), 0);
         QCOMPARE(musicDbArtistAddedSpy.count(), 0);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 0);
@@ -3370,7 +3370,7 @@ private Q_SLOTS:
         musicDbTrackAddedSpy.wait(300);
 
         QCOMPARE(musicDb.allAlbums().count(), 5);
-        QCOMPARE(musicDb.allArtists().count(), 7);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 7);
         QCOMPARE(musicDb.allTracks().count(), 22);
         QCOMPARE(musicDbArtistAddedSpy.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -3400,7 +3400,7 @@ private Q_SLOTS:
         musicDbTrackAddedSpy.wait(300);
 
         QCOMPARE(musicDb.allAlbums().count(), 6);
-        QCOMPARE(musicDb.allArtists().count(), 7);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 7);
         QCOMPARE(musicDb.allTracks().count(), 23);
         QCOMPARE(musicDbArtistAddedSpy.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 2);
@@ -3433,7 +3433,7 @@ private Q_SLOTS:
         QSignalSpy musicDbDatabaseErrorSpy(&musicDb, &DatabaseInterface::databaseError);
 
         QCOMPARE(musicDb.allAlbums().count(), 0);
-        QCOMPARE(musicDb.allArtists().count(), 0);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 0);
         QCOMPARE(musicDb.allTracks().count(), 0);
         QCOMPARE(musicDbArtistAddedSpy.count(), 0);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 0);
@@ -3450,7 +3450,7 @@ private Q_SLOTS:
         musicDbTrackAddedSpy.wait(300);
 
         QCOMPARE(musicDb.allAlbums().count(), 5);
-        QCOMPARE(musicDb.allArtists().count(), 7);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 7);
         QCOMPARE(musicDb.allTracks().count(), 22);
         QCOMPARE(musicDbArtistAddedSpy.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -3484,7 +3484,7 @@ private Q_SLOTS:
         musicDbTrackAddedSpy.wait(300);
 
         QCOMPARE(musicDb.allAlbums().count(), 5);
-        QCOMPARE(musicDb.allArtists().count(), 8);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 8);
         QCOMPARE(musicDb.allTracks().count(), 23);
         QCOMPARE(musicDbArtistAddedSpy.count(), 2);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -3532,7 +3532,7 @@ private Q_SLOTS:
         QSignalSpy musicDbDatabaseErrorSpy2(&musicDb2, &DatabaseInterface::databaseError);
 
         QCOMPARE(musicDb2.allAlbums().count(), 0);
-        QCOMPARE(musicDb2.allArtists().count(), 0);
+        QCOMPARE(musicDb2.allData(DataUtils::DataType::AllArtists).count(), 0);
         QCOMPARE(musicDb2.allTracks().count(), 0);
         QCOMPARE(musicDbArtistAddedSpy2.count(), 0);
         QCOMPARE(musicDbAlbumAddedSpy2.count(), 0);
@@ -3549,7 +3549,7 @@ private Q_SLOTS:
         musicDbTrackAddedSpy2.wait(300);
 
         QCOMPARE(musicDb2.allAlbums().count(), 5);
-        QCOMPARE(musicDb2.allArtists().count(), 7);
+        QCOMPARE(musicDb2.allData(DataUtils::DataType::AllArtists).count(), 7);
         QCOMPARE(musicDb2.allTracks().count(), 22);
         QCOMPARE(musicDbArtistAddedSpy2.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy2.count(), 1);
@@ -3564,7 +3564,7 @@ private Q_SLOTS:
         musicDb2.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
         QCOMPARE(musicDb2.allAlbums().count(), 5);
-        QCOMPARE(musicDb2.allArtists().count(), 7);
+        QCOMPARE(musicDb2.allData(DataUtils::DataType::AllArtists).count(), 7);
         QCOMPARE(musicDb2.allTracks().count(), 22);
         QCOMPARE(musicDbArtistAddedSpy2.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy2.count(), 1);
@@ -3594,7 +3594,7 @@ private Q_SLOTS:
         QSignalSpy musicDbDatabaseErrorSpy(&musicDb, &DatabaseInterface::databaseError);
 
         QCOMPARE(musicDb.allAlbums().count(), 0);
-        QCOMPARE(musicDb.allArtists().count(), 0);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 0);
         QCOMPARE(musicDb.allTracks().count(), 0);
         QCOMPARE(musicDbArtistAddedSpy.count(), 0);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 0);
@@ -3611,7 +3611,7 @@ private Q_SLOTS:
         musicDbTrackAddedSpy.wait(300);
 
         QCOMPARE(musicDb.allAlbums().count(), 5);
-        QCOMPARE(musicDb.allArtists().count(), 7);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 7);
         QCOMPARE(musicDb.allTracks().count(), 22);
         QCOMPARE(musicDbArtistAddedSpy.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -3626,7 +3626,7 @@ private Q_SLOTS:
         musicDb.removeAllTracksFromSource(QStringLiteral("autoTestNotValid"));
 
         QCOMPARE(musicDb.allAlbums().count(), 5);
-        QCOMPARE(musicDb.allArtists().count(), 7);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 7);
         QCOMPARE(musicDb.allTracks().count(), 22);
         QCOMPARE(musicDbArtistAddedSpy.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -3661,7 +3661,7 @@ private Q_SLOTS:
         QSignalSpy musicDbDatabaseErrorSpy(&musicDb, &DatabaseInterface::databaseError);
 
         QCOMPARE(musicDb.allAlbums().count(), 0);
-        QCOMPARE(musicDb.allArtists().count(), 0);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 0);
         QCOMPARE(musicDb.allTracks().count(), 0);
         QCOMPARE(musicDbArtistAddedSpy.count(), 0);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 0);
@@ -3678,7 +3678,7 @@ private Q_SLOTS:
         musicDbTrackAddedSpy.wait(300);
 
         QCOMPARE(musicDb.allAlbums().count(), 5);
-        QCOMPARE(musicDb.allArtists().count(), 7);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 7);
         QCOMPARE(musicDb.allTracks().count(), 22);
         QCOMPARE(musicDbArtistAddedSpy.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -3740,7 +3740,7 @@ private Q_SLOTS:
         musicDbTrackAddedSpy.wait(300);
 
         QCOMPARE(musicDb.allAlbums().count(), 6);
-        QCOMPARE(musicDb.allArtists().count(), 8);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 8);
         QCOMPARE(musicDb.allTracks().count(), 28);
         QCOMPARE(musicDbArtistAddedSpy.count(), 2);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 2);
@@ -3755,7 +3755,7 @@ private Q_SLOTS:
         musicDb.removeAllTracksFromSource(QStringLiteral("autoTest"));
 
         QCOMPARE(musicDb.allAlbums().count(), 2);
-        QCOMPARE(musicDb.allArtists().count(), 3);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 3);
         QCOMPARE(musicDb.allTracks().count(), 7);
         QCOMPARE(musicDbArtistAddedSpy.count(), 2);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 2);
@@ -3790,7 +3790,7 @@ private Q_SLOTS:
         QSignalSpy musicDbDatabaseErrorSpy(&musicDb, &DatabaseInterface::databaseError);
 
         QCOMPARE(musicDb.allAlbums().count(), 0);
-        QCOMPARE(musicDb.allArtists().count(), 0);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 0);
         QCOMPARE(musicDb.allTracks().count(), 0);
         QCOMPARE(musicDbArtistAddedSpy.count(), 0);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 0);
@@ -3852,7 +3852,7 @@ private Q_SLOTS:
         musicDbTrackAddedSpy.wait(100);
 
         QCOMPARE(musicDb.allAlbums().count(), 2);
-        QCOMPARE(musicDb.allArtists().count(), 3);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 3);
         QCOMPARE(musicDb.allTracks().count(), 7);
         QCOMPARE(musicDbArtistAddedSpy.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -3889,7 +3889,7 @@ private Q_SLOTS:
         QSignalSpy musicDbDatabaseErrorSpy(&musicDb, &DatabaseInterface::databaseError);
 
         QCOMPARE(musicDb.allAlbums().count(), 0);
-        QCOMPARE(musicDb.allArtists().count(), 0);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 0);
         QCOMPARE(musicDb.allTracks().count(), 0);
         QCOMPARE(musicDbArtistAddedSpy.count(), 0);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 0);
@@ -3918,7 +3918,7 @@ private Q_SLOTS:
         musicDbTrackAddedSpy.wait(300);
 
         QCOMPARE(musicDb.allAlbums().count(), 1);
-        QCOMPARE(musicDb.allArtists().count(), 1);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 1);
         QCOMPARE(musicDb.allTracks().count(), 1);
         QCOMPARE(musicDbArtistAddedSpy.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -3968,7 +3968,7 @@ private Q_SLOTS:
         musicDbTrackAddedSpy.wait(300);
 
         QCOMPARE(musicDb.allAlbums().count(), 1);
-        QCOMPARE(musicDb.allArtists().count(), 1);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 1);
         QCOMPARE(musicDb.allTracks().count(), 1);
         QCOMPARE(musicDbArtistAddedSpy.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -4003,7 +4003,7 @@ private Q_SLOTS:
         QSignalSpy musicDbDatabaseErrorSpy(&musicDb, &DatabaseInterface::databaseError);
 
         QCOMPARE(musicDb.allAlbums().count(), 0);
-        QCOMPARE(musicDb.allArtists().count(), 0);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 0);
         QCOMPARE(musicDb.allTracks().count(), 0);
         QCOMPARE(musicDbArtistAddedSpy.count(), 0);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 0);
@@ -4033,7 +4033,7 @@ private Q_SLOTS:
         musicDbTrackAddedSpy.wait(300);
 
         QCOMPARE(musicDb.allAlbums().count(), 1);
-        QCOMPARE(musicDb.allArtists().count(), 2);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 2);
         QCOMPARE(musicDb.allTracks().count(), 1);
         QCOMPARE(musicDbArtistAddedSpy.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -4059,7 +4059,7 @@ private Q_SLOTS:
         musicDbTrackAddedSpy.wait(300);
 
         QCOMPARE(musicDb.allAlbums().count(), 1);
-        QCOMPARE(musicDb.allArtists().count(), 2);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 2);
         QCOMPARE(musicDb.allTracks().count(), 2);
         QCOMPARE(musicDbArtistAddedSpy.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -4146,7 +4146,7 @@ private Q_SLOTS:
         QSignalSpy musicDbDatabaseErrorSpy(&musicDb, &DatabaseInterface::databaseError);
 
         QCOMPARE(musicDb.allAlbums().count(), 0);
-        QCOMPARE(musicDb.allArtists().count(), 0);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 0);
         QCOMPARE(musicDb.allTracks().count(), 0);
         QCOMPARE(musicDbArtistAddedSpy.count(), 0);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 0);
@@ -4196,7 +4196,7 @@ private Q_SLOTS:
         musicDbTrackAddedSpy.wait(300);
 
         QCOMPARE(musicDb.allAlbums().count(), 2);
-        QCOMPARE(musicDb.allArtists().count(), 4);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 4);
         QCOMPARE(musicDb.allTracks().count(), 4);
         QCOMPARE(musicDbArtistAddedSpy.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -4209,7 +4209,7 @@ private Q_SLOTS:
         QCOMPARE(musicDbDatabaseErrorSpy.count(), 0);
 
         QCOMPARE(musicDb.allAlbums().size(), 2);
-        QCOMPARE(musicDb.allArtists().size(), 4);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).size(), 4);
         QCOMPARE(musicDb.allTracks().size(), 4);
 
         auto allAlbums = musicDb.allAlbums();
@@ -4241,7 +4241,7 @@ private Q_SLOTS:
         QSignalSpy musicDbDatabaseErrorSpy(&musicDb, &DatabaseInterface::databaseError);
 
         QCOMPARE(musicDb.allAlbums().count(), 0);
-        QCOMPARE(musicDb.allArtists().count(), 0);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 0);
         QCOMPARE(musicDb.allTracks().count(), 0);
         QCOMPARE(musicDbArtistAddedSpy.count(), 0);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 0);
@@ -4305,7 +4305,7 @@ private Q_SLOTS:
         musicDbTrackAddedSpy.wait(300);
 
         QCOMPARE(musicDb.allAlbums().count(), 2);
-        QCOMPARE(musicDb.allArtists().count(), 3);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 3);
         QCOMPARE(musicDb.allTracks().count(), 6);
         QCOMPARE(musicDbArtistAddedSpy.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -4346,7 +4346,7 @@ private Q_SLOTS:
         QSignalSpy musicDbDatabaseErrorSpy(&musicDb, &DatabaseInterface::databaseError);
 
         QCOMPARE(musicDb.allAlbums().count(), 0);
-        QCOMPARE(musicDb.allArtists().count(), 0);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 0);
         QCOMPARE(musicDb.allTracks().count(), 0);
         QCOMPARE(musicDbArtistAddedSpy.count(), 0);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 0);
@@ -4375,7 +4375,7 @@ private Q_SLOTS:
         musicDbTrackAddedSpy.wait(300);
 
         QCOMPARE(musicDb.allAlbums().count(), 1);
-        QCOMPARE(musicDb.allArtists().count(), 1);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 1);
         QCOMPARE(musicDb.allTracks().count(), 1);
         QCOMPARE(musicDbArtistAddedSpy.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -4454,7 +4454,7 @@ private Q_SLOTS:
         musicDbTrackAddedSpy.wait(50);
 
         QCOMPARE(musicDb.allAlbums().count(), 1);
-        QCOMPARE(musicDb.allArtists().count(), 2);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 2);
         QCOMPARE(musicDb.allTracks().count(), 2);
         QCOMPARE(musicDbArtistAddedSpy.count(), 2);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -4565,7 +4565,7 @@ private Q_SLOTS:
         QSignalSpy musicDbDatabaseErrorSpy(&musicDb, &DatabaseInterface::databaseError);
 
         QCOMPARE(musicDb.allAlbums().count(), 0);
-        QCOMPARE(musicDb.allArtists().count(), 0);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 0);
         QCOMPARE(musicDb.allTracks().count(), 0);
         QCOMPARE(musicDbArtistAddedSpy.count(), 0);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 0);
@@ -4582,7 +4582,7 @@ private Q_SLOTS:
         musicDbTrackAddedSpy.wait(300);
 
         QCOMPARE(musicDb.allAlbums().count(), 5);
-        QCOMPARE(musicDb.allArtists().count(), 7);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 7);
         QCOMPARE(musicDb.allTracks().count(), 22);
         QCOMPARE(musicDbArtistAddedSpy.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -4609,7 +4609,7 @@ private Q_SLOTS:
         musicDbTrackAddedSpy.wait(300);
 
         QCOMPARE(musicDb.allAlbums().count(), 5);
-        QCOMPARE(musicDb.allArtists().count(), 7);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 7);
         QCOMPARE(musicDb.allTracks().count(), 22);
         QCOMPARE(musicDbArtistAddedSpy.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -4641,7 +4641,7 @@ private Q_SLOTS:
         QSignalSpy musicDbRestoredTracksSpy(&musicDb, &DatabaseInterface::restoredTracks);
 
         QCOMPARE(musicDb.allAlbums().count(), 0);
-        QCOMPARE(musicDb.allArtists().count(), 0);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 0);
         QCOMPARE(musicDb.allTracks().count(), 0);
         QCOMPARE(musicDbArtistAddedSpy.count(), 0);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 0);
@@ -4659,7 +4659,7 @@ private Q_SLOTS:
         musicDbTrackAddedSpy.wait(300);
 
         QCOMPARE(musicDb.allAlbums().count(), 5);
-        QCOMPARE(musicDb.allArtists().count(), 7);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 7);
         QCOMPARE(musicDb.allTracks().count(), 22);
         QCOMPARE(musicDbArtistAddedSpy.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -4675,7 +4675,7 @@ private Q_SLOTS:
         musicDb.askRestoredTracks(QStringLiteral("autoTest"));
 
         QCOMPARE(musicDb.allAlbums().count(), 5);
-        QCOMPARE(musicDb.allArtists().count(), 7);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 7);
         QCOMPARE(musicDb.allTracks().count(), 22);
         QCOMPARE(musicDbArtistAddedSpy.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
@@ -4715,7 +4715,7 @@ private Q_SLOTS:
         QSignalSpy musicDbDatabaseErrorSpy(&musicDb, &DatabaseInterface::databaseError);
 
         QCOMPARE(musicDb.allAlbums().count(), 0);
-        QCOMPARE(musicDb.allArtists().count(), 0);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 0);
         QCOMPARE(musicDb.allTracks().count(), 0);
         QCOMPARE(musicDbArtistAddedSpy.count(), 0);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 0);
@@ -4744,7 +4744,7 @@ private Q_SLOTS:
         musicDbTrackAddedSpy.wait(300);
 
         QCOMPARE(musicDb.allAlbums().count(), 1);
-        QCOMPARE(musicDb.allArtists().count(), 1);
+        QCOMPARE(musicDb.allData(DataUtils::DataType::AllArtists).count(), 1);
         QCOMPARE(musicDb.allTracks().count(), 1);
         QCOMPARE(musicDbArtistAddedSpy.count(), 1);
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);

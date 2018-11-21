@@ -297,6 +297,10 @@ QList<QMap<DatabaseInterface::PropertyType, QVariant>> DatabaseInterface::allDat
 {
     auto result = QList<QMap<PropertyType, QVariant>>{};
 
+    if (!d) {
+        return result;
+    }
+
     auto transactionResult = startTransaction();
     if (!transactionResult) {
         return result;

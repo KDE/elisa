@@ -370,8 +370,8 @@ private Q_SLOTS:
 
         auto changedIndex = dataChangedSignal.constFirst().toModelIndex();
 
-        QCOMPARE(proxyTracksModel.data(changedIndex, ElisaUtils::RatingRole).isValid(), true);
-        QCOMPARE(proxyTracksModel.data(changedIndex, ElisaUtils::RatingRole).toInt(), 5);
+        QCOMPARE(proxyTracksModel.data(changedIndex, DatabaseInterface::ColumnsRoles::RatingRole).isValid(), true);
+        QCOMPARE(proxyTracksModel.data(changedIndex, DatabaseInterface::ColumnsRoles::RatingRole).toInt(), 5);
     }
 
     void addEmptyTracksList()

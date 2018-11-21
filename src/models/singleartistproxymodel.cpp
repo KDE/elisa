@@ -20,13 +20,14 @@
 
 #include "genericdatamodel.h"
 #include "musicalbum.h"
+#include "databaseinterface.h"
 
 #include <QReadLocker>
 #include <QtConcurrentRun>
 
 SingleArtistProxyModel::SingleArtistProxyModel(QObject *parent) : AbstractMediaProxyModel(parent)
 {
-    this->setSortRole(ElisaUtils::ColumnsRoles::TitleRole);
+    this->setSortRole(DatabaseInterface::ColumnsRoles::TitleRole);
     this->setSortCaseSensitivity(Qt::CaseInsensitive);
     this->sortModel(Qt::AscendingOrder);
 }
@@ -62,7 +63,7 @@ bool SingleArtistProxyModel::filterAcceptsRow(int source_row, const QModelIndex 
     for (int column = 0, columnCount = sourceModel()->columnCount(source_parent); column < columnCount; ++column) {
         auto currentIndex = sourceModel()->index(source_row, column, source_parent);
 
-        const auto &genreValue = sourceModel()->data(currentIndex, ElisaUtils::ColumnsRoles::GenreRole);
+        const auto &genreValue = sourceModel()->data(currentIndex, DatabaseInterface::ColumnsRoles::GenreRole);
 
         if (!genreFilterText().isNull() && !genreValue.isValid()) {
             continue;
@@ -76,9 +77,9 @@ bool SingleArtistProxyModel::filterAcceptsRow(int source_row, const QModelIndex 
             continue;
         }
 
-        const auto &titleValue = sourceModel()->data(currentIndex, ElisaUtils::ColumnsRoles::TitleRole).toString();
-        const auto &artistValue = sourceModel()->data(currentIndex, ElisaUtils::ColumnsRoles::AllArtistsRole).toString();
-        const auto maximumRatingValue = sourceModel()->data(currentIndex, ElisaUtils::ColumnsRoles::HighestTrackRating).toInt();
+        const auto &artistValue = sourceModel()->data(currentIndex, DatabaseInterface::ColumnsRoles::TitleRole).toString();
+        const auto &allArtistsValue = sourceModel()->data(currentIndex, DatabaseInterface::ColumnsRoles::AllArtistsRole).toStringList().join(QLatin1String(", "));
+        const auto maximumRatingValue = sourceModel()->data(currentIndex, DatabaseInterface::ColumnsRoles::HighestTrackRating).toInt();
 
         if (maximumRatingValue < mFilterRating) {
             result = false;
@@ -86,7 +87,7 @@ bool SingleArtistProxyModel::filterAcceptsRow(int source_row, const QModelIndex 
         }
 
         if (mArtistExpression.match(artistValue).hasMatch()) {
-            if (mFilterExpression.match(titleValue).hasMatch()) {
+            if (mFilterExpression.match(allArtistsValue).hasMatch()) {
                 result = true;
                 continue;
             }
@@ -113,7 +114,7 @@ void SingleArtistProxyModel::enqueueToPlayList()
         allAlbums.reserve(rowCount());
         for (int rowIndex = 0, maxRowCount = rowCount(); rowIndex < maxRowCount; ++rowIndex) {
             auto currentIndex = index(rowIndex, 0);
-            allAlbums.push_back(data(currentIndex, ElisaUtils::ColumnsRoles::ContainerDataRole). value<MusicAlbum>());
+            allAlbums.push_back(data(currentIndex, DatabaseInterface::ColumnsRoles::ContainerDataRole). value<MusicAlbum>());
         }
         Q_EMIT albumToEnqueue(allAlbums,
                               ElisaUtils::AppendPlayList,
@@ -129,7 +130,7 @@ void SingleArtistProxyModel::replaceAndPlayOfPlayList()
         allAlbums.reserve(rowCount());
         for (int rowIndex = 0, maxRowCount = rowCount(); rowIndex < maxRowCount; ++rowIndex) {
             auto currentIndex = index(rowIndex, 0);
-            allAlbums.push_back(data(currentIndex, ElisaUtils::ColumnsRoles::ContainerDataRole). value<MusicAlbum>());
+            allAlbums.push_back(data(currentIndex, DatabaseInterface::ColumnsRoles::ContainerDataRole). value<MusicAlbum>());
         }
         Q_EMIT albumToEnqueue(allAlbums,
                               ElisaUtils::ReplacePlayList,

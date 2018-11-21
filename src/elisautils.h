@@ -40,41 +40,6 @@ enum PlayListEnqueueTriggerPlay {
 
 Q_ENUM_NS(PlayListEnqueueTriggerPlay)
 
-enum ColumnsRoles {
-    TitleRole = Qt::UserRole + 1,
-    SecondaryTextRole,
-    ImageUrlRole,
-    ShadowForImageRole,
-    ChildModelRole,
-    DurationRole,
-    MilliSecondsDurationRole,
-    ArtistRole,
-    AllArtistsRole,
-    HighestTrackRating,
-    AlbumRole,
-    AlbumArtistRole,
-    TrackNumberRole,
-    DiscNumberRole,
-    RatingRole,
-    GenreRole,
-    LyricistRole,
-    ComposerRole,
-    CommentRole,
-    YearRole,
-    ChannelsRole,
-    BitRateRole,
-    SampleRateRole,
-    ImageRole,
-    ResourceRole,
-    IdRole,
-    DatabaseIdRole,
-    IsSingleDiscAlbumRole,
-    ContainerDataRole,
-    IsPartialDataRole,
-};
-
-Q_ENUM_NS(ColumnsRoles)
-
 }
 
 #endif // ELISAUTILS_H

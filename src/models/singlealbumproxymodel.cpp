@@ -18,6 +18,7 @@
 #include "singlealbumproxymodel.h"
 
 #include "albummodel.h"
+#include "databaseinterface.h"
 
 #include <QReadLocker>
 #include <QtConcurrentRun>
@@ -35,7 +36,7 @@ bool SingleAlbumProxyModel::filterAcceptsRow(int source_row, const QModelIndex &
     for (int column = 0, columnCount = sourceModel()->columnCount(source_parent); column < columnCount; ++column) {
         auto currentIndex = sourceModel()->index(source_row, column, source_parent);
 
-        const auto &genreValue = sourceModel()->data(currentIndex, ElisaUtils::ColumnsRoles::GenreRole);
+        const auto &genreValue = sourceModel()->data(currentIndex, DatabaseInterface::ColumnsRoles::GenreRole);
 
         if (!genreFilterText().isNull() && !genreValue.isValid()) {
             continue;

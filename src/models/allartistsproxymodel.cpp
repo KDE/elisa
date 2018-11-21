@@ -18,7 +18,9 @@
 #include "allartistsproxymodel.h"
 
 #include "elisautils.h"
+#include "databaseinterface.h"
 
+#include <QStringList>
 #include <QReadLocker>
 #include <QtConcurrentRun>
 #include <Qt>
@@ -41,7 +43,7 @@ bool AllArtistsProxyModel::filterAcceptsRow(int source_row, const QModelIndex &s
     for (int column = 0, columnCount = sourceModel()->columnCount(source_parent); column < columnCount; ++column) {
         auto currentIndex = sourceModel()->index(source_row, column, source_parent);
 
-        const auto &genreValue = sourceModel()->data(currentIndex, ElisaUtils::ColumnsRoles::GenreRole);
+        const auto &genreValue = sourceModel()->data(currentIndex, DatabaseInterface::ColumnsRoles::GenreRole);
 
         if (!genreFilterText().isNull() && !genreValue.isValid()) {
             continue;

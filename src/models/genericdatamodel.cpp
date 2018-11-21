@@ -57,13 +57,13 @@ QHash<int, QByteArray> GenericDataModel::roleNames() const
 {
     auto roles = QAbstractItemModel::roleNames();
 
-    roles[static_cast<int>(ElisaUtils::ColumnsRoles::SecondaryTextRole)] = "secondaryText";
-    roles[static_cast<int>(ElisaUtils::ColumnsRoles::ImageUrlRole)] = "imageUrl";
-    roles[static_cast<int>(ElisaUtils::ColumnsRoles::ShadowForImageRole)] = "shadowForImage";
-    roles[static_cast<int>(ElisaUtils::ColumnsRoles::ChildModelRole)] = "childModel";
-    roles[static_cast<int>(ElisaUtils::ColumnsRoles::IsPartialDataRole)] = "isPartial";
-    roles[static_cast<int>(ElisaUtils::ColumnsRoles::ContainerDataRole)] = "containerData";
-    roles[static_cast<int>(ElisaUtils::ColumnsRoles::DatabaseIdRole)] = "databaseId";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::SecondaryTextRole)] = "secondaryText";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::ImageUrlRole)] = "imageUrl";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::ShadowForImageRole)] = "shadowForImage";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::ChildModelRole)] = "childModel";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::IsPartialDataRole)] = "isPartial";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::ContainerDataRole)] = "containerData";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::DatabaseIdRole)] = "databaseId";
 
     return roles;
 }
@@ -94,7 +94,7 @@ QVariant GenericDataModel::data(const QModelIndex &index, int role) const
         return result;
     }
 
-    if (role != Qt::DisplayRole && (role < ElisaUtils::SecondaryTextRole || role > ElisaUtils::IsPartialDataRole)) {
+    if (role != Qt::DisplayRole && (role < DatabaseInterface::SecondaryTextRole || role > DatabaseInterface::IsPartialDataRole)) {
         return result;
     }
 

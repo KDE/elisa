@@ -55,6 +55,7 @@ private Q_SLOTS:
         qRegisterMetaType<QVector<qlonglong>>("QVector<qlonglong>");
         qRegisterMetaType<QHash<qlonglong,int>>("QHash<qlonglong,int>");
         qRegisterMetaType<QHash<QUrl,QDateTime>>("QHash<QUrl,QDateTime>");
+        qRegisterMetaType<DatabaseInterface::DataListType>("DataListType");
     }
 
     void avoidCrashInTrackIdFromTitleAlbumArtist()

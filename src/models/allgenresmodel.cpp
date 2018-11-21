@@ -58,16 +58,12 @@ QHash<int, QByteArray> AllGenresModel::roleNames() const
 {
     auto roles = QAbstractItemModel::roleNames();
 
-    //roles[static_cast<int>(ElisaUtils::ColumnsRoles::NameRole)] = "name";
-    //roles[static_cast<int>(ElisaUtils::ColumnsRoles::ArtistsCountRole)] = "albumsCount";
-    roles[static_cast<int>(ElisaUtils::ColumnsRoles::ImageRole)] = "image";
-    roles[static_cast<int>(ElisaUtils::ColumnsRoles::IdRole)] = "databaseId";
-    roles[static_cast<int>(ElisaUtils::ColumnsRoles::SecondaryTextRole)] = "secondaryText";
-    roles[static_cast<int>(ElisaUtils::ColumnsRoles::ImageUrlRole)] = "imageUrl";
-    roles[static_cast<int>(ElisaUtils::ColumnsRoles::ShadowForImageRole)] = "shadowForImage";
-    roles[static_cast<int>(ElisaUtils::ColumnsRoles::ContainerDataRole)] = "containerData";
-    roles[static_cast<int>(ElisaUtils::ColumnsRoles::ChildModelRole)] = "childModel";
-    //roles[static_cast<int>(ElisaUtils::ColumnsRoles::IsTracksContainerRole)] = "isTracksContainer";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::IdRole)] = "databaseId";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::SecondaryTextRole)] = "secondaryText";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::ImageUrlRole)] = "imageUrl";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::ShadowForImageRole)] = "shadowForImage";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::ContainerDataRole)] = "containerData";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::ChildModelRole)] = "childModel";
 
     return roles;
 }
@@ -99,25 +95,25 @@ QVariant AllGenresModel::data(const QModelIndex &index, int role) const
     case Qt::DisplayRole:
         result = d->mAllGenres[index.row()].name();
         break;
-    case ElisaUtils::ColumnsRoles::ImageRole:
+    case DatabaseInterface::ColumnsRoles::ImageRole:
         break;
-    case ElisaUtils::ColumnsRoles::IdRole:
+    case DatabaseInterface::ColumnsRoles::IdRole:
         break;
-    case ElisaUtils::ColumnsRoles::SecondaryTextRole:
+    case DatabaseInterface::ColumnsRoles::SecondaryTextRole:
         result = QString();
         break;
-    case ElisaUtils::ColumnsRoles::ImageUrlRole:
+    case DatabaseInterface::ColumnsRoles::ImageUrlRole:
         result = QUrl(QStringLiteral("image://icon/view-media-genre"));
         break;
-    case ElisaUtils::ColumnsRoles::ShadowForImageRole:
+    case DatabaseInterface::ColumnsRoles::ShadowForImageRole:
         result = false;
         break;
-    case ElisaUtils::ColumnsRoles::ContainerDataRole:
+    case DatabaseInterface::ColumnsRoles::ContainerDataRole:
         break;
-    case ElisaUtils::ColumnsRoles::ChildModelRole:
+    case DatabaseInterface::ColumnsRoles::ChildModelRole:
         result = d->mAllGenres[index.row()].name();
         break;
-    /*case ElisaUtils::ColumnsRoles::IsTracksContainerRole:
+    /*case DatabaseInterface::ColumnsRoles::IsTracksContainerRole:
         result = false;
         break;*/
     }

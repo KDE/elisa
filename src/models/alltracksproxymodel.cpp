@@ -18,6 +18,7 @@
 #include "alltracksproxymodel.h"
 
 #include "genericdatamodel.h"
+#include "databaseinterface.h"
 
 #include <QReadLocker>
 #include <QtConcurrentRun>
@@ -40,7 +41,7 @@ bool AllTracksProxyModel::filterAcceptsRow(int source_row, const QModelIndex &so
     for (int column = 0, columnCount = sourceModel()->columnCount(source_parent); column < columnCount; ++column) {
         auto currentIndex = sourceModel()->index(source_row, column, source_parent);
 
-        const auto &genreValue = sourceModel()->data(currentIndex, ElisaUtils::ColumnsRoles::GenreRole);
+        const auto &genreValue = sourceModel()->data(currentIndex, DatabaseInterface::ColumnsRoles::GenreRole);
 
         if (!genreFilterText().isNull() && !genreValue.isValid()) {
             continue;
@@ -55,8 +56,8 @@ bool AllTracksProxyModel::filterAcceptsRow(int source_row, const QModelIndex &so
         }
 
         const auto &titleValue = sourceModel()->data(currentIndex, Qt::DisplayRole).toString();
-        const auto &artistValue = sourceModel()->data(currentIndex, ElisaUtils::ColumnsRoles::ArtistRole).toString();
-        const auto maximumRatingValue = sourceModel()->data(currentIndex, ElisaUtils::ColumnsRoles::RatingRole).toInt();
+        const auto &artistValue = sourceModel()->data(currentIndex, DatabaseInterface::ColumnsRoles::ArtistRole).toString();
+        const auto maximumRatingValue = sourceModel()->data(currentIndex, DatabaseInterface::ColumnsRoles::RatingRole).toInt();
 
         if (maximumRatingValue < mFilterRating) {
             result = false;
@@ -93,7 +94,7 @@ void AllTracksProxyModel::enqueueToPlayList()
         allTracks.reserve(rowCount());
         for (int rowIndex = 0, maxRowCount = rowCount(); rowIndex < maxRowCount; ++rowIndex) {
             auto currentIndex = index(rowIndex, 0);
-            allTracks.push_back(data(currentIndex, ElisaUtils::ColumnsRoles::ContainerDataRole).value<MusicAudioTrack>());
+            allTracks.push_back(data(currentIndex, DatabaseInterface::ColumnsRoles::ContainerDataRole).value<MusicAudioTrack>());
         }
         Q_EMIT trackToEnqueue(allTracks,
                               ElisaUtils::AppendPlayList,
@@ -109,7 +110,7 @@ void AllTracksProxyModel::replaceAndPlayOfPlayList()
         allTracks.reserve(rowCount());
         for (int rowIndex = 0, maxRowCount = rowCount(); rowIndex < maxRowCount; ++rowIndex) {
             auto currentIndex = index(rowIndex, 0);
-            allTracks.push_back(data(currentIndex, ElisaUtils::ColumnsRoles::ContainerDataRole).value<MusicAudioTrack>());
+            allTracks.push_back(data(currentIndex, DatabaseInterface::ColumnsRoles::ContainerDataRole).value<MusicAudioTrack>());
         }
         Q_EMIT trackToEnqueue(allTracks,
                               ElisaUtils::ReplacePlayList,

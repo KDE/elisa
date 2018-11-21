@@ -129,8 +129,6 @@ Q_SIGNALS:
 
     void trackRemoved(qulonglong id);
 
-    void artistModified(const MusicArtist &modifiedArtist);
-
     void albumModified(const MusicAlbum &modifiedAlbum, qulonglong modifiedAlbumId);
 
     void trackModified(const MusicAudioTrack &modifiedTrack);

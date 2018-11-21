@@ -169,8 +169,6 @@ MusicListenersManager::MusicListenersManager(QObject *parent)
 
     connect(&d->mDatabaseInterface, &DatabaseInterface::artistsAdded,
             &d->mAllArtistsModel, &AllArtistsModel::artistsAdded);
-    connect(&d->mDatabaseInterface, &DatabaseInterface::artistModified,
-            &d->mAllArtistsModel, &AllArtistsModel::artistModified);
     connect(&d->mDatabaseInterface, &DatabaseInterface::artistRemoved,
             &d->mAllArtistsModel, &AllArtistsModel::artistRemoved);
 

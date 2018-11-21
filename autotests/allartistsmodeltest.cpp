@@ -62,8 +62,6 @@ private Q_SLOTS:
 
         connect(&musicDb, &DatabaseInterface::artistsAdded,
                 &artistsModel, &AllArtistsModel::artistsAdded);
-        connect(&musicDb, &DatabaseInterface::artistModified,
-                &artistsModel, &AllArtistsModel::artistModified);
         connect(&musicDb, &DatabaseInterface::artistRemoved,
                 &artistsModel, &AllArtistsModel::artistRemoved);
 
@@ -119,8 +117,6 @@ private Q_SLOTS:
 
         connect(&musicDb, &DatabaseInterface::artistsAdded,
                 &artistsModel, &AllArtistsModel::artistsAdded);
-        connect(&musicDb, &DatabaseInterface::artistModified,
-                &artistsModel, &AllArtistsModel::artistModified);
         connect(&musicDb, &DatabaseInterface::artistRemoved,
                 &artistsModel, &AllArtistsModel::artistRemoved);
 

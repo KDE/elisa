@@ -516,19 +516,6 @@ QList<MusicAlbum> DatabaseInterface::allAlbums()
     return result;
 }
 
-QList<MusicArtist> DatabaseInterface::allArtists()
-{
-    auto result = QList<MusicArtist>{};
-
-    if (!d) {
-        return result;
-    }
-
-    result = internalAllPeople(d->mSelectAllArtistsQuery, d->mSelectCountAlbumsForArtistQuery, true);
-
-    return result;
-}
-
 QList<MusicAudioGenre> DatabaseInterface::allGenres()
 {
     auto result = QList<MusicAudioGenre>();
@@ -573,16 +560,6 @@ QList<MusicAudioGenre> DatabaseInterface::allGenres()
     }
 
     return result;
-}
-
-QList<MusicArtist> DatabaseInterface::allComposers()
-{
-    return internalAllPeople(d->mSelectAllComposersQuery, d->mSelectCountAlbumsForComposerQuery, false);
-}
-
-QList<MusicArtist> DatabaseInterface::allLyricists()
-{
-    return internalAllPeople(d->mSelectAllLyricistsQuery, d->mSelectCountAlbumsForLyricistQuery, false);
 }
 
 QList<MusicAudioTrack> DatabaseInterface::tracksFromAuthor(const QString &ArtistName)
@@ -4185,31 +4162,40 @@ void DatabaseInterface::reloadExistingDatabase()
         return;
     }
 
-    const auto restoredArtists = allArtists();
+    const auto restoredArtists = allData(DataUtils::DataType::AllArtists);
+    auto newArtists = QList<MusicArtist>{};
     for (const auto &oneArtist : restoredArtists) {
-        d->mArtistId = std::max(d->mArtistId, oneArtist.databaseId());
+        d->mArtistId = std::max(d->mArtistId, oneArtist[DatabaseInterface::DatabaseId].toULongLong());
+        auto newArtist = MusicArtist{};
+        newArtists.push_back(newArtist);
     }
     if (!restoredArtists.isEmpty()) {
         ++d->mArtistId;
-        Q_EMIT artistsAdded(restoredArtists);
+        Q_EMIT artistsAdded(newArtists);
     }
 
-    const auto restoredComposers = allComposers();
+    const auto restoredComposers = allData(DataUtils::DataType::AllComposers);
+    auto newComposers = QList<MusicArtist>{};
     for (const auto &oneComposer : restoredComposers) {
-        d->mComposerId = std::max(d->mComposerId, oneComposer.databaseId());
+        d->mComposerId = std::max(d->mComposerId, oneComposer[DatabaseInterface::DatabaseId].toULongLong());
+        auto newComposer = MusicArtist{};
+        newComposers.push_back(newComposer);
     }
     if (!restoredComposers.isEmpty()) {
         ++d->mComposerId;
-        Q_EMIT composersAdded(restoredComposers);
+        Q_EMIT composersAdded(newComposers);
     }
 
-    const auto restoredLyricists = allLyricists();
+    const auto restoredLyricists = allData(DataUtils::DataType::AllLyricists);
+    auto newLyricists = QList<MusicArtist>{};
     for (const auto &oneLyricist : restoredLyricists) {
-        d->mLyricistId = std::max(d->mLyricistId, oneLyricist.databaseId());
+        d->mLyricistId = std::max(d->mLyricistId, oneLyricist[DatabaseInterface::DatabaseId].toULongLong());
+        auto newLyricist = MusicArtist{};
+        newLyricists.push_back(newLyricist);
     }
     if (!restoredLyricists.isEmpty()) {
         ++d->mLyricistId;
-        Q_EMIT lyricistsAdded(restoredLyricists);
+        Q_EMIT lyricistsAdded(newLyricists);
     }
 
     const auto restoredAlbums = allAlbums();

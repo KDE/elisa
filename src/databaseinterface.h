@@ -90,13 +90,7 @@ public:
 
     QList<MusicAlbum> allAlbums();
 
-    QList<MusicArtist> allArtists();
-
     QList<MusicAudioGenre> allGenres();
-
-    QList<MusicArtist> allComposers();
-
-    QList<MusicArtist> allLyricists();
 
     QList<MusicAudioTrack> tracksFromAuthor(const QString &artistName);
 

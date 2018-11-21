@@ -18,7 +18,6 @@
 #include "genericdatamodel.h"
 
 #include "databaseinterface.h"
-#include "modeldatacache.h"
 
 #include <QList>
 #include <QMap>
@@ -29,8 +28,6 @@ class GenericDataModelPrivate
 public:
 
     QHash<qulonglong, int> mDataPositionCache;
-
-    ModelDataCache *mModelCache = nullptr;
 
     DataUtils::DataType mDataType = DataUtils::DataType::UnknownType;
 
@@ -52,8 +49,6 @@ int GenericDataModel::rowCount(const QModelIndex &parent) const
     if (parent.isValid()) {
         return rowCount;
     }
-
-    rowCount = d->mModelCache->dataCount();
 
     return rowCount;
 }
@@ -77,7 +72,7 @@ QVariant GenericDataModel::data(const QModelIndex &index, int role) const
 {
     auto result = QVariant();
 
-    const auto albumCount = d->mModelCache->dataCount();
+    const auto albumCount = 0;
 
     if (!index.isValid()) {
         return result;
@@ -106,10 +101,8 @@ QVariant GenericDataModel::data(const QModelIndex &index, int role) const
     switch(role)
     {
     case Qt::DisplayRole:
-        result = d->mModelCache->data(index.row(), ElisaUtils::TitleRole);
         break;
     default:
-        result = d->mModelCache->data(index.row(), static_cast<ElisaUtils::ColumnsRoles>(role));
         break;
     };
 
@@ -135,11 +128,6 @@ DataUtils::DataType GenericDataModel::dataType() const
     return d->mDataType;
 }
 
-ModelDataCache *GenericDataModel::modelCache() const
-{
-    return d->mModelCache;
-}
-
 bool GenericDataModel::isBusy() const
 {
     return d->mIsBusy;
@@ -155,25 +143,6 @@ void GenericDataModel::setDataType(DataUtils::DataType dataType)
 
     d->mDataType = dataType;
     Q_EMIT dataTypeChanged(d->mDataType);
-}
-
-void GenericDataModel::setModelCache(ModelDataCache *modelCache)
-{
-    if (d->mModelCache == modelCache) {
-        return;
-    }
-
-    d->mModelCache = modelCache;
-    Q_EMIT modelCacheChanged(d->mModelCache);
-
-    connect(this, &GenericDataModel::neededData,
-            d->mModelCache, &ModelDataCache::neededData);
-    connect(d->mModelCache, &ModelDataCache::receiveData,
-            this, &GenericDataModel::receiveData);
-    connect(this, &GenericDataModel::dataTypeChanged,
-            d->mModelCache, &ModelDataCache::setDataType);
-    connect(d->mModelCache, &ModelDataCache::dataChanged,
-            this, &GenericDataModel::modelDataChanged);
 }
 
 void GenericDataModel::modelDataChanged(int lowerBound, int upperBound)

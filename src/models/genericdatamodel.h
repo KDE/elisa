@@ -27,7 +27,6 @@
 #include <memory>
 
 class GenericDataModelPrivate;
-class ModelDataCache;
 
 class ELISALIB_EXPORT GenericDataModel : public QAbstractListModel
 {
@@ -35,8 +34,6 @@ class ELISALIB_EXPORT GenericDataModel : public QAbstractListModel
     Q_OBJECT
 
     Q_PROPERTY(DataUtils::DataType dataType READ dataType WRITE setDataType NOTIFY dataTypeChanged)
-
-    Q_PROPERTY(ModelDataCache* modelCache READ modelCache WRITE setModelCache NOTIFY modelCacheChanged)
 
     Q_PROPERTY(bool isBusy READ isBusy NOTIFY isBusyChanged)
 
@@ -58,8 +55,6 @@ public:
 
     DataUtils::DataType dataType() const;
 
-    ModelDataCache *modelCache() const;
-
     bool isBusy() const;
 
 Q_SIGNALS:
@@ -68,8 +63,6 @@ Q_SIGNALS:
 
     void dataTypeChanged(DataUtils::DataType dataType);
 
-    void modelCacheChanged(ModelDataCache* modelCache);
-
     void isBusyChanged(bool isBusy);
 
 public Q_SLOTS:
@@ -77,8 +70,6 @@ public Q_SLOTS:
     void receiveData(int row);
 
     void setDataType(DataUtils::DataType dataType);
-
-    void setModelCache(ModelDataCache* modelCache);
 
     void modelDataChanged(int lowerBound, int upperBound);
 

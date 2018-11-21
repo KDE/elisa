@@ -19,7 +19,6 @@ set(elisaLib_SOURCES
     elisautils.cpp
     datatype.cpp
     trackdatahelper.cpp
-    modeldatacache.cpp
     abstractfile/abstractfilelistener.cpp
     abstractfile/abstractfilelisting.cpp
     filescanner.cpp

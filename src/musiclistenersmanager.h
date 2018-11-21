@@ -27,7 +27,6 @@
 #include <QMediaPlayer>
 
 #include "musicalbum.h"
-#include "musicartist.h"
 #include "musicaudiotrack.h"
 
 #include <memory>

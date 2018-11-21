@@ -24,7 +24,6 @@
 #include "elisautils.h"
 #include "musicalbum.h"
 #include "musicaudiotrack.h"
-#include "musicartist.h"
 #include "musicaudiogenre.h"
 
 #include <QObject>
@@ -49,15 +48,44 @@ class ELISALIB_EXPORT DatabaseInterface : public QObject
 
 public:
 
-    enum class AlbumData {
-        Title,
-        Artist,
-        Image,
-        TracksCount,
-        Id,
+    enum ColumnsRoles {
+        TitleRole = Qt::UserRole + 1,
+        SecondaryTextRole,
+        ImageUrlRole,
+        ShadowForImageRole,
+        ChildModelRole,
+        DurationRole,
+        MilliSecondsDurationRole,
+        ArtistRole,
+        AllArtistsRole,
+        HighestTrackRating,
+        AlbumRole,
+        AlbumArtistRole,
+        TrackNumberRole,
+        DiscNumberRole,
+        RatingRole,
+        GenreRole,
+        LyricistRole,
+        ComposerRole,
+        CommentRole,
+        YearRole,
+        ChannelsRole,
+        BitRateRole,
+        SampleRateRole,
+        ImageRole,
+        ResourceRole,
+        IdRole,
+        DatabaseIdRole,
+        IsSingleDiscAlbumRole,
+        ContainerDataRole,
+        IsPartialDataRole,
     };
 
-    Q_ENUM(AlbumData)
+    Q_ENUM(ColumnsRoles)
+
+    using DataType = QMap<ColumnsRoles, QVariant>;
+
+    using DataListType = QList<DataType>;
 
     enum PropertyType {
         DatabaseId,
@@ -82,7 +110,7 @@ public:
 
     MusicAlbum albumFromTitleAndArtist(const QString &title, const QString &artist);
 
-    QList<QMap<PropertyType, QVariant>> allData(DataUtils::DataType aType);
+    DataListType allData(DataUtils::DataType aType);
 
     QList<MusicAudioTrack> allTracks();
 
@@ -105,11 +133,11 @@ public:
 
 Q_SIGNALS:
 
-    void artistsAdded(const QList<MusicArtist> &newArtist);
+    void artistsAdded(const DataListType &newArtists);
 
-    void composersAdded(const QList<MusicArtist> &newComposer);
+    void composersAdded(const DataListType &newComposers);
 
-    void lyricistsAdded(const QList<MusicArtist> &newLyricist);
+    void lyricistsAdded(const DataListType &newLyricists);
 
     void albumsAdded(const QList<MusicAlbum> &newAlbum);
 
@@ -117,7 +145,7 @@ Q_SIGNALS:
 
     void genresAdded(const QList<MusicAudioGenre> &allGenres);
 
-    void artistRemoved(const MusicArtist &removedArtist);
+    void artistRemoved(qulonglong removedArtistId);
 
     void albumRemoved(const MusicAlbum &removedAlbum, qulonglong removedAlbumId);
 
@@ -172,8 +200,6 @@ private:
 
     QList<qulonglong> fetchTrackIds(qulonglong albumId);
 
-    MusicArtist internalArtistFromId(qulonglong artistId);
-
     MusicAlbum internalAlbumFromId(qulonglong albumId);
 
     MusicAlbum internalAlbumFromTitleAndArtist(const QString &title, const QString &artist);
@@ -223,6 +249,10 @@ private:
 
     void reloadExistingDatabase();
 
+    qulonglong initialId(DataUtils::DataType aType);
+
+    qulonglong genericInitialId(QSqlQuery &request);
+
     qulonglong insertMusicSource(const QString &name);
 
     void insertTrackOrigin(const QUrl &fileNameURI, const QDateTime &fileModifiedTime, qulonglong discoverId);
@@ -248,32 +278,25 @@ private:
 
     qulonglong insertComposer(const QString &name);
 
-    MusicArtist internalComposerFromId(qulonglong composerId);
-
     qulonglong insertLyricist(const QString &name);
-
-    MusicArtist internalLyricistFromId(qulonglong lyricistId);
 
     qulonglong internalSourceIdFromName(const QString &sourceName);
 
     QHash<QUrl, QDateTime> internalAllFileNameFromSource(qulonglong sourceId);
 
-    QList<QMap<PropertyType, QVariant>> internalAllGenericPartialData(QSqlQuery &query, int nbFields);
+    bool internalAllGenericPartialData(QSqlQuery &query);
 
-    QList<QMap<PropertyType, QVariant>> internalAllArtistsPartialData();
+    DataListType internalAllArtistsPartialData();
 
-    QList<QMap<PropertyType, QVariant>> internalAllAlbumsPartialData();
+    DataListType internalAllAlbumsPartialData();
 
-    QList<QMap<PropertyType, QVariant>> internalAllTracksPartialData();
+    DataListType internalAllTracksPartialData();
 
-    QList<QMap<PropertyType, QVariant>> internalAllGenresPartialData();
+    DataListType internalAllGenresPartialData();
 
-    QList<QMap<PropertyType, QVariant>> internalAllComposersPartialData();
+    DataListType internalAllComposersPartialData();
 
-    QList<QMap<PropertyType, QVariant>> internalAllLyricistsPartialData();
-
-    QList<MusicArtist> internalAllPeople(QSqlQuery allPeopleQuery,
-                                         QSqlQuery selectCountAlbumsForPeopleQuery, bool withCache);
+    DataListType internalAllLyricistsPartialData();
 
     bool prepareQuery(QSqlQuery &query, const QString &queryText) const;
 

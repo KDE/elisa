@@ -595,11 +595,6 @@ void MediaPlayList::enqueue(const MusicAlbum &album)
     enqueue(album.tracksList(), ElisaUtils::AppendPlayList, ElisaUtils::DoNotTriggerPlay);
 }
 
-void MediaPlayList::enqueue(const MusicArtist &artist)
-{
-    enqueue(artist.name());
-}
-
 void MediaPlayList::enqueue(const QString &artistName)
 {
     beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size());
@@ -842,13 +837,6 @@ void MediaPlayList::replaceAndPlay(const MusicAlbum &album)
 {
     clearPlayList();
     enqueue(album);
-    Q_EMIT ensurePlay();
-}
-
-void MediaPlayList::replaceAndPlay(const MusicArtist &artist)
-{
-    clearPlayList();
-    enqueue(artist.name());
     Q_EMIT ensurePlay();
 }
 

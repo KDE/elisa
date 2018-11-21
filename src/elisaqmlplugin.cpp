@@ -143,12 +143,11 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qRegisterMetaType<QList<MusicAudioTrack>>("QList<MusicAudioTrack>");
     qRegisterMetaType<QList<MusicAudioTrack>>("QVector<MusicAudioTrack>");
     qRegisterMetaType<QList<MusicAlbum>>("QList<MusicAlbum>");
-    qRegisterMetaType<QList<MusicArtist>>("QList<MusicArtist>");
     qRegisterMetaType<QList<MusicAudioGenre>>("QList<MusicAudioGenre>");
     qRegisterMetaType<QVector<qulonglong>>("QVector<qulonglong>");
     qRegisterMetaType<QHash<qulonglong,int>>("QHash<qulonglong,int>");
     qRegisterMetaType<MusicAlbum>("MusicAlbum");
-    qRegisterMetaType<MusicArtist>("MusicArtist");
+    qRegisterMetaType<DatabaseInterface::DataListType>("DataListType");
     qRegisterMetaType<QMap<QString, int>>();
     qRegisterMetaType<QAction*>();
     qRegisterMetaType<QSortFilterProxyModel*>();

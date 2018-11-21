@@ -52,7 +52,6 @@ private Q_SLOTS:
         qRegisterMetaType<QHash<QString,QVector<MusicAudioTrack>>>("QHash<QString,QVector<MusicAudioTrack>>");
         qRegisterMetaType<QVector<qlonglong>>("QVector<qlonglong>");
         qRegisterMetaType<QHash<qlonglong,int>>("QHash<qlonglong,int>");
-        qRegisterMetaType<MusicArtist>("MusicArtist");
     }
 
     void removeOneTrack()

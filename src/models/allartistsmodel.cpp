@@ -17,7 +17,6 @@
 
 #include "allartistsmodel.h"
 #include "databaseinterface.h"
-#include "musicartist.h"
 #include "allalbumsmodel.h"
 
 #include <QUrl>
@@ -29,11 +28,7 @@ class AllArtistsModelPrivate
 {
 public:
 
-    AllArtistsModelPrivate()
-    {
-    }
-
-    QVector<MusicArtist> mAllArtists;
+    DatabaseInterface::DataListType mAllArtists;
 
     AllAlbumsModel *mAllAlbumsModel = nullptr;
 
@@ -63,17 +58,11 @@ QHash<int, QByteArray> AllArtistsModel::roleNames() const
 {
     auto roles = QAbstractItemModel::roleNames();
 
-    //roles[static_cast<int>(ElisaUtils::ColumnsRoles::NameRole)] = "name";
-    //roles[static_cast<int>(ElisaUtils::ColumnsRoles::ArtistsCountRole)] = "albumsCount";
-    roles[static_cast<int>(ElisaUtils::ColumnsRoles::ImageRole)] = "image";
-    roles[static_cast<int>(ElisaUtils::ColumnsRoles::IdRole)] = "databaseId";
-    roles[static_cast<int>(ElisaUtils::ColumnsRoles::SecondaryTextRole)] = "secondaryText";
-    roles[static_cast<int>(ElisaUtils::ColumnsRoles::ImageUrlRole)] = "imageUrl";
-    roles[static_cast<int>(ElisaUtils::ColumnsRoles::ShadowForImageRole)] = "shadowForImage";
-    roles[static_cast<int>(ElisaUtils::ColumnsRoles::ContainerDataRole)] = "containerData";
-    roles[static_cast<int>(ElisaUtils::ColumnsRoles::ChildModelRole)] = "childModel";
-    roles[static_cast<int>(ElisaUtils::ColumnsRoles::DatabaseIdRole)] = "databaseId";
-    //roles[static_cast<int>(ElisaUtils::ColumnsRoles::IsTracksContainerRole)] = "isTracksContainer";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::TitleRole)] = "title";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::DatabaseIdRole)] = "databaseId";
+
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::SecondaryTextRole)] = "secondaryText";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::ImageUrlRole)] = "imageUrl";
 
     return roles;
 }
@@ -103,39 +92,10 @@ QVariant AllArtistsModel::data(const QModelIndex &index, int role) const
     switch(role)
     {
     case Qt::DisplayRole:
-        result = d->mAllArtists[index.row()].name();
+        result = d->mAllArtists[index.row()][DataType::key_type::TitleRole];
         break;
-    /*case ElisaUtils::ColumnsRoles::ArtistsCountRole:
-        result = d->mAllArtists[index.row()].albumsCount();
-        break;*/
-    case ElisaUtils::ColumnsRoles::ImageRole:
-        break;
-    case ElisaUtils::ColumnsRoles::IdRole:
-        break;
-    case ElisaUtils::ColumnsRoles::SecondaryTextRole:
-        result = QString();
-        break;
-    case ElisaUtils::ColumnsRoles::ImageUrlRole:
-        result = QUrl(QStringLiteral("image://icon/view-media-artist"));
-        break;
-    case ElisaUtils::ColumnsRoles::ShadowForImageRole:
-        result = false;
-        break;
-    case ElisaUtils::ColumnsRoles::ContainerDataRole:
-        result = QVariant::fromValue(d->mAllArtists[index.row()]);
-        break;
-    case ElisaUtils::ColumnsRoles::ChildModelRole:
-        result = d->mAllArtists[index.row()].name();
-        break;
-    case ElisaUtils::ColumnsRoles::GenreRole:
-        result = d->mAllArtists[index.row()].genres();
-        break;
-    case ElisaUtils::ColumnsRoles::DatabaseIdRole:
-        result = QVariant::fromValue(d->mAllArtists[index.row()].databaseId());
-        break;
-    /*case ElisaUtils::ColumnsRoles::IsTracksContainerRole:
-        result = false;
-        break;*/
+    default:
+        result = d->mAllArtists[index.row()][static_cast<DataType::key_type>(role)];
     }
 
     return result;
@@ -179,18 +139,25 @@ AllAlbumsModel *AllArtistsModel::allAlbums() const
     return d->mAllAlbumsModel;
 }
 
-void AllArtistsModel::artistsAdded(const QList<MusicArtist> &newArtists)
+void AllArtistsModel::artistsAdded(DatabaseInterface::DataListType newArtists)
 {
-    if (!newArtists.isEmpty()) {
+    if (d->mAllArtists.isEmpty()) {
         beginInsertRows({}, d->mAllArtists.size(), d->mAllArtists.size() + newArtists.size() - 1);
-        d->mAllArtists += newArtists.toVector();
+        d->mAllArtists.swap(newArtists);
+        endInsertRows();
+    } else {
+        beginInsertRows({}, d->mAllArtists.size(), d->mAllArtists.size() + newArtists.size() - 1);
+        d->mAllArtists.append(newArtists);
         endInsertRows();
     }
 }
 
-void AllArtistsModel::artistRemoved(const MusicArtist &removedArtist)
+void AllArtistsModel::artistRemoved(qulonglong removedArtistId)
 {
-    auto removedArtistIterator = std::find(d->mAllArtists.begin(), d->mAllArtists.end(), removedArtist);
+    auto removedArtistIterator = d->mAllArtists.end();
+
+    removedArtistIterator = std::find_if(d->mAllArtists.begin(), d->mAllArtists.end(),
+                                        [removedArtistId](auto album) {return album[DatabaseInterface::DataType::key_type::DatabaseIdRole].toULongLong() == removedArtistId;});
 
     if (removedArtistIterator == d->mAllArtists.end()) {
         return;
@@ -199,13 +166,10 @@ void AllArtistsModel::artistRemoved(const MusicArtist &removedArtist)
     int artistIndex = removedArtistIterator - d->mAllArtists.begin();
 
     beginRemoveRows({}, artistIndex, artistIndex);
-    d->mAllArtists.erase(removedArtistIterator);
-    endRemoveRows();
-}
 
-void AllArtistsModel::artistModified(const MusicArtist &modifiedArtist)
-{
-    Q_UNUSED(modifiedArtist);
+    d->mAllArtists.erase(removedArtistIterator);
+
+    endRemoveRows();
 }
 
 void AllArtistsModel::setAllAlbums(AllAlbumsModel *model)

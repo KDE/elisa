@@ -22,7 +22,6 @@
 
 #include "musicaudiotrack.h"
 #include "musicalbum.h"
-#include "musicartist.h"
 #include "elisautils.h"
 
 #include <QAbstractListModel>
@@ -222,8 +221,6 @@ public Q_SLOTS:
 
     void enqueue(const MusicAlbum &album);
 
-    void enqueue(const MusicArtist &artist);
-
     void enqueue(const QString &artistName);
 
     void enqueue(const QUrl &fileName);
@@ -255,8 +252,6 @@ public Q_SLOTS:
     void replaceAndPlay(const MusicAudioTrack &newTrack);
 
     void replaceAndPlay(const MusicAlbum &album);
-
-    void replaceAndPlay(const MusicArtist &artist);
 
     void replaceAndPlay(const QString &artistName);
 

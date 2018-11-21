@@ -54,7 +54,6 @@ private Q_SLOTS:
         qRegisterMetaType<QList<MusicAudioTrack>>("QList<MusicAudioTrack>");
         qRegisterMetaType<QVector<qlonglong>>("QVector<qlonglong>");
         qRegisterMetaType<QHash<qlonglong,int>>("QHash<qlonglong,int>");
-        qRegisterMetaType<MusicArtist>("MusicArtist");
         qRegisterMetaType<QHash<QUrl,QDateTime>>("QHash<QUrl,QDateTime>");
     }
 

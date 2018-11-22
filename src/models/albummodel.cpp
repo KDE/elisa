@@ -27,10 +27,6 @@ class AlbumModelPrivate
 {
 public:
 
-    AlbumModelPrivate()
-    {
-    }
-
     MusicAlbum mCurrentAlbum;
 };
 
@@ -321,8 +317,9 @@ void AlbumModel::setAlbumData(const MusicAlbum &album)
 
 }
 
-void AlbumModel::albumModified(const MusicAlbum &modifiedAlbum)
+void AlbumModel::albumModified(const DataType &modifiedAlbum)
 {
+#if 0
     if (modifiedAlbum.databaseId() != d->mCurrentAlbum.databaseId()) {
         return;
     }
@@ -366,11 +363,12 @@ void AlbumModel::albumModified(const MusicAlbum &modifiedAlbum)
             trackAdded(newTrack);
         }
     }
+#endif
 }
 
-void AlbumModel::albumRemoved(const MusicAlbum &modifiedAlbum)
+void AlbumModel::albumRemoved(qulonglong modifiedAlbumId)
 {
-    if (modifiedAlbum.databaseId() != d->mCurrentAlbum.databaseId()) {
+    if (modifiedAlbumId != d->mCurrentAlbum.databaseId()) {
         return;
     }
 

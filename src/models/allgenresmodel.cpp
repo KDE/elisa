@@ -30,7 +30,7 @@ public:
 
     AllGenresModelPrivate() = default;
 
-    QVector<MusicAudioGenre> mAllGenres;
+    AllGenresModel::DataListType mAllGenres;
 
 };
 
@@ -93,29 +93,10 @@ QVariant AllGenresModel::data(const QModelIndex &index, int role) const
     switch(role)
     {
     case Qt::DisplayRole:
-        result = d->mAllGenres[index.row()].name();
+        result = d->mAllGenres[index.row()][DataType::key_type::TitleRole];
         break;
-    case DatabaseInterface::ColumnsRoles::ImageRole:
-        break;
-    case DatabaseInterface::ColumnsRoles::IdRole:
-        break;
-    case DatabaseInterface::ColumnsRoles::SecondaryTextRole:
-        result = QString();
-        break;
-    case DatabaseInterface::ColumnsRoles::ImageUrlRole:
-        result = QUrl(QStringLiteral("image://icon/view-media-genre"));
-        break;
-    case DatabaseInterface::ColumnsRoles::ShadowForImageRole:
-        result = false;
-        break;
-    case DatabaseInterface::ColumnsRoles::ContainerDataRole:
-        break;
-    case DatabaseInterface::ColumnsRoles::ChildModelRole:
-        result = d->mAllGenres[index.row()].name();
-        break;
-    /*case DatabaseInterface::ColumnsRoles::IsTracksContainerRole:
-        result = false;
-        break;*/
+    default:
+        result = d->mAllGenres[index.row()][static_cast<DataType::key_type>(role)];
     }
 
     return result;
@@ -154,18 +135,19 @@ int AllGenresModel::columnCount(const QModelIndex &parent) const
     return 1;
 }
 
-void AllGenresModel::genresAdded(const QList<MusicAudioGenre> &newGenres)
+void AllGenresModel::genresAdded(DataListType newGenres)
 {
     if (!newGenres.isEmpty()) {
         beginInsertRows({}, d->mAllGenres.size(), d->mAllGenres.size() + newGenres.size() - 1);
-        d->mAllGenres += newGenres.toVector();
+        d->mAllGenres.swap(newGenres);
         endInsertRows();
     }
 }
 
 void AllGenresModel::genreRemoved(const MusicAudioGenre &removedGenre)
 {
-    auto removedGenreIterator = std::find(d->mAllGenres.begin(), d->mAllGenres.end(), removedGenre);
+    auto removedGenreIterator = std::find_if(d->mAllGenres.begin(), d->mAllGenres.end(),
+                                        [removedGenre](auto genre) {return genre[DataType::key_type::DatabaseIdRole].toULongLong() == removedGenre.databaseId();});
 
     if (removedGenreIterator == d->mAllGenres.end()) {
         return;

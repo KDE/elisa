@@ -28,7 +28,7 @@ class AllTracksModelPrivate
 {
 public:
 
-    QList<MusicAudioTrack> mAllTracks;
+    AllTracksModel::DataListType mAllTracks;
 
 };
 
@@ -110,19 +110,9 @@ QVariant AllTracksModel::data(const QModelIndex &index, int role) const
 
     switch(role)
     {
-    case DatabaseInterface::ColumnsRoles::TitleRole:
-        if (track.title().isEmpty()) {
-            result = track.resourceURI().fileName();
-        } else {
-            result = track.title();
-        }
-        break;
-    case DatabaseInterface::ColumnsRoles::MilliSecondsDurationRole:
-        result = track.duration().msecsSinceStartOfDay();
-        break;
     case DatabaseInterface::ColumnsRoles::DurationRole:
     {
-        QTime trackDuration = track.duration();
+        QTime trackDuration = track[DataType::key_type::DurationRole].toTime();
         if (trackDuration.hour() == 0) {
             result = trackDuration.toString(QStringLiteral("mm:ss"));
         } else {
@@ -130,107 +120,8 @@ QVariant AllTracksModel::data(const QModelIndex &index, int role) const
         }
         break;
     }
-    case DatabaseInterface::ColumnsRoles::ArtistRole:
-        result = track.artist();
-        break;
-    case DatabaseInterface::ColumnsRoles::AlbumRole:
-        result = track.albumName();
-        break;
-    case DatabaseInterface::ColumnsRoles::AlbumArtistRole:
-        result = track.albumArtist();
-        break;
-    case DatabaseInterface::ColumnsRoles::TrackNumberRole:
-        result = track.trackNumber();
-        break;
-    case DatabaseInterface::ColumnsRoles::DiscNumberRole:
-        result = track.discNumber();
-        break;
-    case DatabaseInterface::ColumnsRoles::IsSingleDiscAlbumRole:
-        result = track.isSingleDiscAlbum();
-        break;
-    case DatabaseInterface::ColumnsRoles::RatingRole:
-        result = track.rating();
-        break;
-    case DatabaseInterface::ColumnsRoles::GenreRole:
-        result = track.genre();
-        break;
-    case DatabaseInterface::ColumnsRoles::LyricistRole:
-        result = track.lyricist();
-        break;
-    case DatabaseInterface::ColumnsRoles::ComposerRole:
-        result = track.composer();
-        break;
-    case DatabaseInterface::ColumnsRoles::CommentRole:
-        result = track.comment();
-        break;
-    case DatabaseInterface::ColumnsRoles::YearRole:
-        result = track.year();
-        break;
-    case DatabaseInterface::ColumnsRoles::ChannelsRole:
-        result = track.channels();
-        break;
-    case DatabaseInterface::ColumnsRoles::BitRateRole:
-        result = track.bitRate();
-        break;
-    case DatabaseInterface::ColumnsRoles::SampleRateRole:
-        result = track.sampleRate();
-        break;
-    case DatabaseInterface::ColumnsRoles::ImageRole:
-    {
-        const auto &imageUrl = track.albumCover();
-        if (imageUrl.isValid()) {
-            result = imageUrl;
-        }
-        break;
-    }
-    case DatabaseInterface::ColumnsRoles::ResourceRole:
-        result = track.resourceURI();
-        break;
-    case DatabaseInterface::ColumnsRoles::IdRole:
-        result = track.title();
-        break;
-    case DatabaseInterface::ColumnsRoles::DatabaseIdRole:
-        result = track.databaseId();
-        break;
-    case DatabaseInterface::ColumnsRoles::ContainerDataRole:
-        result = QVariant::fromValue(track);
-        break;
-    case Qt::DisplayRole:
-        result = track.title();
-        break;
-    case DatabaseInterface::ColumnsRoles::SecondaryTextRole:
-    {
-        auto secondaryText = QString();
-        secondaryText = QStringLiteral("<b>%1 - %2</b>%3");
-
-        secondaryText = secondaryText.arg(track.trackNumber());
-        secondaryText = secondaryText.arg(track.title());
-
-        if (track.artist() == track.albumArtist()) {
-            secondaryText = secondaryText.arg(QString());
-        } else {
-            auto artistText = QString();
-            artistText = QStringLiteral(" - <i>%1</i>");
-            artistText = artistText.arg(track.artist());
-            secondaryText = secondaryText.arg(artistText);
-        }
-
-        result = secondaryText;
-        break;
-    }
-    case DatabaseInterface::ColumnsRoles::ImageUrlRole:
-    {
-        const auto &imageUrl = track.albumCover();
-        if (imageUrl.isValid()) {
-            result = imageUrl;
-        } else {
-            result = QUrl(QStringLiteral("image://icon/media-optical-audio"));
-        }
-        break;
-    }
-    case DatabaseInterface::ColumnsRoles::ShadowForImageRole:
-        result = track.albumCover().isValid();
-        break;
+    default:
+        result = track[static_cast<DataType::key_type>(role)];
     }
 
     return result;
@@ -273,7 +164,7 @@ int AllTracksModel::columnCount(const QModelIndex &parent) const
     return 1;
 }
 
-void AllTracksModel::tracksAdded(QList<MusicAudioTrack> allTracks)
+void AllTracksModel::tracksAdded(DataListType allTracks)
 {
     if (allTracks.isEmpty()) {
         return;
@@ -293,7 +184,7 @@ void AllTracksModel::tracksAdded(QList<MusicAudioTrack> allTracks)
 void AllTracksModel::trackRemoved(qulonglong removedTrackId)
 {
     auto itTrack = std::find_if(d->mAllTracks.begin(), d->mAllTracks.end(),
-                                [removedTrackId](auto track) {return track.databaseId() == removedTrackId;});
+                                [removedTrackId](auto track) {return track[DataType::key_type::DatabaseIdRole].toULongLong() == removedTrackId;});
 
     if (itTrack == d->mAllTracks.end()) {
         return;
@@ -306,10 +197,12 @@ void AllTracksModel::trackRemoved(qulonglong removedTrackId)
     endRemoveRows();
 }
 
-void AllTracksModel::trackModified(const MusicAudioTrack &modifiedTrack)
+void AllTracksModel::trackModified(const DataType &modifiedTrack)
 {
     auto itTrack = std::find_if(d->mAllTracks.begin(), d->mAllTracks.end(),
-                                [modifiedTrack](auto track) {return track.databaseId() == modifiedTrack.databaseId();});
+                                [modifiedTrack](auto track) {
+        return track[DataType::key_type::DatabaseIdRole].toULongLong() == modifiedTrack[DataType::key_type::DatabaseIdRole].toULongLong();
+    });
 
     if (itTrack == d->mAllTracks.end()) {
         return;
@@ -318,6 +211,7 @@ void AllTracksModel::trackModified(const MusicAudioTrack &modifiedTrack)
     auto position = itTrack - d->mAllTracks.begin();
 
     d->mAllTracks[position] = modifiedTrack;
+
     Q_EMIT dataChanged(index(position, 0), index(position, 0));
 }
 

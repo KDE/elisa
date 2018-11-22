@@ -20,19 +20,24 @@
 
 #include "elisaLib_export.h"
 
-#include <QAbstractItemModel>
+#include "databaseinterface.h"
 
-#include "musicaudiotrack.h"
+#include <QAbstractItemModel>
 
 #include <memory>
 
 class AllTracksModelPrivate;
+class MusicAudioTrack;
 
 class ELISALIB_EXPORT AllTracksModel : public QAbstractItemModel
 {
     Q_OBJECT
 
 public:
+
+    using DataListType = DatabaseInterface::DataListType;
+
+    using DataType = DatabaseInterface::DataType;
 
     explicit AllTracksModel(QObject *parent = nullptr);
 
@@ -54,11 +59,11 @@ public:
 
 public Q_SLOTS:
 
-    void tracksAdded(QList<MusicAudioTrack> allTracks);
+    void tracksAdded(DataListType allTracks);
 
     void trackRemoved(qulonglong removedTrackId);
 
-    void trackModified(const MusicAudioTrack &modifiedTrack);
+    void trackModified(const DataType &modifiedTrack);
 
 private:
 

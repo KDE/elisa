@@ -112,6 +112,8 @@ public:
 
     DataListType allData(DataUtils::DataType aType);
 
+    DataType oneData(DataUtils::DataType aType, qulonglong databaseId);
+
     QList<MusicAudioTrack> allTracks();
 
     QList<MusicAudioTrack> allTracksFromSource(const QString &musicSource);
@@ -139,21 +141,21 @@ Q_SIGNALS:
 
     void lyricistsAdded(const DataListType &newLyricists);
 
-    void albumsAdded(const QList<MusicAlbum> &newAlbum);
+    void albumsAdded(const DataListType &newAlbums);
 
-    void tracksAdded(const QList<MusicAudioTrack> &allTracks);
+    void tracksAdded(const DataListType &allTracks);
 
-    void genresAdded(const QList<MusicAudioGenre> &allGenres);
+    void genresAdded(const DataListType &allGenres);
 
     void artistRemoved(qulonglong removedArtistId);
 
-    void albumRemoved(const MusicAlbum &removedAlbum, qulonglong removedAlbumId);
+    void albumRemoved(qulonglong removedAlbumId);
 
     void trackRemoved(qulonglong id);
 
-    void albumModified(const MusicAlbum &modifiedAlbum, qulonglong modifiedAlbumId);
+    void albumModified(const DataType &modifiedAlbum, qulonglong modifiedAlbumId);
 
-    void trackModified(const MusicAudioTrack &modifiedTrack);
+    void trackModified(const DataType &modifiedTrack);
 
     void sentAlbumData(const MusicAlbum albumData);
 
@@ -284,19 +286,31 @@ private:
 
     QHash<QUrl, QDateTime> internalAllFileNameFromSource(qulonglong sourceId);
 
-    bool internalAllGenericPartialData(QSqlQuery &query);
+    bool internalGenericPartialData(QSqlQuery &query);
 
     DataListType internalAllArtistsPartialData();
 
+    DataType internalOneArtistPartialData(qulonglong databaseId);
+
     DataListType internalAllAlbumsPartialData();
+
+    DataType internalOneAlbumPartialData(qulonglong databaseId);
 
     DataListType internalAllTracksPartialData();
 
+    DataType internalOneTrackPartialData(qulonglong databaseId);
+
     DataListType internalAllGenresPartialData();
+
+    DataType internalOneGenrePartialData(qulonglong databaseId);
 
     DataListType internalAllComposersPartialData();
 
+    DataType internalOneComposerPartialData(qulonglong databaseId);
+
     DataListType internalAllLyricistsPartialData();
+
+    DataType internalOneLyricistPartialData(qulonglong databaseId);
 
     bool prepareQuery(QSqlQuery &query, const QString &queryText) const;
 

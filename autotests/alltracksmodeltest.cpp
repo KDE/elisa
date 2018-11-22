@@ -349,7 +349,7 @@ private Q_SLOTS:
 
         QCOMPARE(tracksModel.rowCount(), 22);
 
-        auto dataChangedSignal =  dataChangedSpy.constFirst();
+        const auto &dataChangedSignal =  dataChangedSpy.constFirst();
 
         QCOMPARE(dataChangedSignal.size(), 3);
 
@@ -378,7 +378,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        tracksModel.tracksAdded(newTracks);
+        //tracksModel.tracksAdded(newTracks);
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);

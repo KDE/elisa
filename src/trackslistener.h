@@ -20,14 +20,14 @@
 
 #include "elisaLib_export.h"
 
-#include <QObject>
-
+#include "databaseinterface.h"
 #include "musicaudiotrack.h"
+
+#include <QObject>
 
 #include <memory>
 
 class TracksListenerPrivate;
-class DatabaseInterface;
 
 class ELISALIB_EXPORT TracksListener : public QObject
 {
@@ -35,13 +35,17 @@ class ELISALIB_EXPORT TracksListener : public QObject
 
 public:
 
+    using DataListType = DatabaseInterface::DataListType;
+
+    using DataType = DatabaseInterface::DataType;
+
     explicit TracksListener(DatabaseInterface *database, QObject *parent = nullptr);
 
     ~TracksListener() override;
 
 Q_SIGNALS:
 
-    void trackHasChanged(const MusicAudioTrack &audioTrack);
+    void trackHasChanged(const DataType &audioTrack);
 
     void trackHasBeenRemoved(qulonglong id);
 
@@ -49,11 +53,11 @@ Q_SIGNALS:
 
 public Q_SLOTS:
 
-    void tracksAdded(const QList<MusicAudioTrack> &allTracks);
+    void tracksAdded(const DatabaseInterface::DataListType &allTracks);
 
     void trackRemoved(qulonglong id);
 
-    void trackModified(const MusicAudioTrack &modifiedTrack);
+    void trackModified(const DataType &modifiedTrack);
 
     void trackByNameInList(const QString &title, const QString &artist, const QString &album, int trackNumber, int discNumber);
 

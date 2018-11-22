@@ -20,16 +20,16 @@
 
 #include "elisaLib_export.h"
 
+#include "databaseinterface.h"
+
 #include <QAbstractItemModel>
 #include <QVector>
 #include <QHash>
 #include <QString>
 
-#include "musicalbum.h"
-#include "musicaudiotrack.h"
-
 #include <memory>
 
+class MusicAlbum;
 class AllAlbumsModelPrivate;
 class AllArtistsModel;
 
@@ -47,6 +47,10 @@ class ELISALIB_EXPORT AllAlbumsModel : public QAbstractItemModel
                NOTIFY allArtistsChanged)
 
 public:
+
+    using DataListType = DatabaseInterface::DataListType;
+
+    using DataType = DatabaseInterface::DataType;
 
     explicit AllAlbumsModel(QObject *parent = nullptr);
 
@@ -72,11 +76,11 @@ public:
 
 public Q_SLOTS:
 
-    void albumsAdded(QList<MusicAlbum> newAlbums);
+    void albumsAdded(DataListType newAlbums);
 
-    void albumRemoved(const MusicAlbum &removedAlbum);
+    void albumRemoved(qulonglong removedAlbumId);
 
-    void albumModified(const MusicAlbum &modifiedAlbum);
+    void albumModified(const DataType &modifiedAlbum);
 
     void setAllArtists(AllArtistsModel *model);
 

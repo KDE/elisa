@@ -157,7 +157,7 @@ void AllArtistsModel::artistRemoved(qulonglong removedArtistId)
     auto removedArtistIterator = d->mAllArtists.end();
 
     removedArtistIterator = std::find_if(d->mAllArtists.begin(), d->mAllArtists.end(),
-                                        [removedArtistId](auto album) {return album[DatabaseInterface::DataType::key_type::DatabaseIdRole].toULongLong() == removedArtistId;});
+                                        [removedArtistId](auto album) {return album[DataType::key_type::DatabaseIdRole].toULongLong() == removedArtistId;});
 
     if (removedArtistIterator == d->mAllArtists.end()) {
         return;

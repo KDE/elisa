@@ -406,7 +406,7 @@ void MusicListenersManager::configChanged()
     }
 }
 
-void MusicListenersManager::increaseImportedTracksCount(const QList<MusicAudioTrack> &allTracks)
+void MusicListenersManager::increaseImportedTracksCount(const DatabaseInterface::DataListType &allTracks)
 {
     d->mImportedTracksCount += allTracks.size();
 

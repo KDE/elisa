@@ -20,16 +20,17 @@
 
 #include "elisaLib_export.h"
 
+#include "databaseinterface.h"
+#include "musicalbum.h"
+
 #include <QAbstractItemModel>
 #include <QVector>
 #include <QHash>
 #include <QString>
 
-#include "musicalbum.h"
-#include "musicaudiotrack.h"
-
 #include <memory>
 
+class MusicAudioTrack;
 class DatabaseInterface;
 class AlbumModelPrivate;
 class QMutex;
@@ -96,6 +97,10 @@ public:
 
     Q_ENUM(ColumnsRoles)
 
+    using DataListType = DatabaseInterface::DataListType;
+
+    using DataType = DatabaseInterface::DataType;
+
     explicit AlbumModel(QObject *parent = nullptr);
 
     ~AlbumModel() override;
@@ -140,9 +145,9 @@ public Q_SLOTS:
 
     void setAlbumData(const MusicAlbum &album);
 
-    void albumModified(const MusicAlbum &modifiedAlbum);
+    void albumModified(const DataType &modifiedAlbum);
 
-    void albumRemoved(const MusicAlbum &modifiedAlbum);
+    void albumRemoved(qulonglong modifiedAlbumId);
 
 private:
 

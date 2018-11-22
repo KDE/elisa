@@ -20,6 +20,8 @@
 
 #include "elisaLib_export.h"
 
+#include "databaseinterface.h"
+
 #include <QAbstractItemModel>
 #include <QVector>
 #include <QHash>
@@ -27,7 +29,6 @@
 
 #include <memory>
 
-class DatabaseInterface;
 class AllGenresModelPrivate;
 class MusicAudioGenre;
 
@@ -36,6 +37,10 @@ class ELISALIB_EXPORT AllGenresModel : public QAbstractItemModel
     Q_OBJECT
 
 public:
+
+    using DataListType = DatabaseInterface::DataListType;
+
+    using DataType = DatabaseInterface::DataType;
 
     explicit AllGenresModel(QObject *parent = nullptr);
 
@@ -61,7 +66,7 @@ Q_SIGNALS:
 
 public Q_SLOTS:
 
-    void genresAdded(const QList<MusicAudioGenre> &newGenres);
+    void genresAdded(DataListType newGenres);
 
     void genreRemoved(const MusicAudioGenre &removedGenre);
 

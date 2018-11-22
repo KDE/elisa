@@ -23,6 +23,7 @@
 #include "musicaudiotrack.h"
 #include "musicalbum.h"
 #include "elisautils.h"
+#include "databaseinterface.h"
 
 #include <QAbstractListModel>
 #include <QVector>
@@ -115,6 +116,10 @@ public:
 
     Q_ENUM(PlayState)
 
+    using DataListType = DatabaseInterface::DataListType;
+
+    using DataType = DatabaseInterface::DataType;
+
     explicit MediaPlayList(QObject *parent = nullptr);
 
     ~MediaPlayList() override;
@@ -193,7 +198,7 @@ public Q_SLOTS:
 
     void albumAdded(const QList<MusicAudioTrack> &tracks);
 
-    void trackChanged(const MusicAudioTrack &track);
+    void trackChanged(const DataType &track);
 
     void trackRemoved(qulonglong trackId);
 

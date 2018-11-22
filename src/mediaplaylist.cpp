@@ -1039,8 +1039,9 @@ void MediaPlayList::albumAdded(const QList<MusicAudioTrack> &tracks)
     }
 }
 
-void MediaPlayList::trackChanged(const MusicAudioTrack &track)
+void MediaPlayList::trackChanged(const DataType &track)
 {
+#if 0
     for (int i = 0; i < d->mData.size(); ++i) {
         auto &oneEntry = d->mData[i];
 
@@ -1113,6 +1114,7 @@ void MediaPlayList::trackChanged(const MusicAudioTrack &track)
             break;
         }
     }
+#endif
 }
 
 void MediaPlayList::trackRemoved(qulonglong trackId)

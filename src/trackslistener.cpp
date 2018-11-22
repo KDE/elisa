@@ -54,11 +54,11 @@ TracksListener::TracksListener(DatabaseInterface *database, QObject *parent) : Q
 TracksListener::~TracksListener()
 = default;
 
-void TracksListener::tracksAdded(const QList<MusicAudioTrack> &allTracks)
+void TracksListener::tracksAdded(const DatabaseInterface::DataListType &allTracks)
 {
     for (const auto &oneTrack : allTracks) {
-        if (d->mTracksByIdSet.contains(oneTrack.databaseId())) {
-            Q_EMIT trackHasChanged(oneTrack);
+        if (d->mTracksByIdSet.contains(oneTrack[DataType::key_type::DatabaseIdRole].toULongLong())) {
+            //Q_EMIT trackHasChanged(oneTrack);
         }
 
         if (d->mTracksByNameSet.isEmpty()) {
@@ -66,34 +66,34 @@ void TracksListener::tracksAdded(const QList<MusicAudioTrack> &allTracks)
         }
 
         for (auto itTrack = d->mTracksByNameSet.begin(); itTrack != d->mTracksByNameSet.end(); ) {
-            if (std::get<0>(*itTrack) != oneTrack.title()) {
+            if (std::get<0>(*itTrack) != oneTrack[DataType::key_type::TitleRole].toString()) {
                 ++itTrack;
                 continue;
             }
 
-            if (std::get<1>(*itTrack) != oneTrack.artist()) {
+            if (std::get<1>(*itTrack) != oneTrack[DataType::key_type::ArtistRole].toString()) {
                 ++itTrack;
                 continue;
             }
 
-            if (std::get<2>(*itTrack) != oneTrack.albumName()) {
+            if (std::get<2>(*itTrack) != oneTrack[DataType::key_type::AlbumRole].toString()) {
                 ++itTrack;
                 continue;
             }
 
-            if (std::get<3>(*itTrack) != oneTrack.trackNumber()) {
+            if (std::get<3>(*itTrack) != oneTrack[DataType::key_type::TrackNumberRole].toInt()) {
                 ++itTrack;
                 continue;
             }
 
-            if (std::get<4>(*itTrack) != oneTrack.discNumber()) {
+            if (std::get<4>(*itTrack) != oneTrack[DataType::key_type::DiscNumberRole].toInt()) {
                 ++itTrack;
                 continue;
             }
 
-            Q_EMIT trackHasChanged(oneTrack);
+            //Q_EMIT trackHasChanged(oneTrack);
 
-            d->mTracksByIdSet.insert(oneTrack.databaseId());
+            d->mTracksByIdSet.insert(oneTrack[DataType::key_type::DatabaseIdRole].toULongLong());
             itTrack = d->mTracksByNameSet.erase(itTrack);
         }
     }
@@ -106,9 +106,9 @@ void TracksListener::trackRemoved(qulonglong id)
     }
 }
 
-void TracksListener::trackModified(const MusicAudioTrack &modifiedTrack)
+void TracksListener::trackModified(const DataType &modifiedTrack)
 {
-    if (d->mTracksByIdSet.contains(modifiedTrack.databaseId())) {
+    if (d->mTracksByIdSet.contains(modifiedTrack[DataType::key_type::DatabaseIdRole].toULongLong())) {
         Q_EMIT trackHasChanged(modifiedTrack);
     }
 }
@@ -128,7 +128,7 @@ void TracksListener::trackByNameInList(const QString &title, const QString &arti
     auto newTrack = d->mDatabase->trackFromDatabaseId(newTrackId);
 
     if (newTrack.isValid()) {
-        Q_EMIT trackHasChanged(newTrack);
+        Q_EMIT trackHasChanged({{DataType::key_type::DatabaseIdRole, newTrackId}});
     }
 }
 
@@ -144,7 +144,7 @@ void TracksListener::trackByFileNameInList(const QUrl &fileName)
 
         if (newTrack.isValid()) {
             qDebug() << "TracksListener::trackByFileNameInList" << "trackHasChanged" << newTrack;
-            Q_EMIT trackHasChanged(newTrack);
+            Q_EMIT trackHasChanged({{DataType::key_type::DatabaseIdRole, newTrack.databaseId()}});
 
             return;
         }
@@ -162,7 +162,7 @@ void TracksListener::trackByFileNameInList(const QUrl &fileName)
 
     if (newTrack.isValid()) {
         qDebug() << "TracksListener::trackByFileNameInList" << "trackHasChanged" << newTrack;
-        Q_EMIT trackHasChanged(newTrack);
+        Q_EMIT trackHasChanged({{DataType::key_type::DatabaseIdRole, newTrack.databaseId()}});
     }
 }
 
@@ -172,7 +172,7 @@ void TracksListener::trackByIdInList(qulonglong newTrackId)
 
     auto newTrack = d->mDatabase->trackFromDatabaseId(newTrackId);
     if (newTrack.isValid()) {
-        Q_EMIT trackHasChanged(newTrack);
+        Q_EMIT trackHasChanged({{DataType::key_type::DatabaseIdRole, newTrack.databaseId()}});
     }
 }
 

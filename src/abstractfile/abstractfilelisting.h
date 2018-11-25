@@ -122,6 +122,8 @@ protected:
 
     FileScanner& fileScanner();
 
+    bool checkEmbeddedCoverImage(const QString &localFileName);
+
 private:
 
     std::unique_ptr<AbstractFileListingPrivate> d;

@@ -21,6 +21,8 @@
 #include "notificationitem.h"
 #include "filescanner.h"
 
+#include <KFileMetaData/EmbeddedImageData>
+
 #include <QThread>
 #include <QHash>
 #include <QFileInfo>
@@ -57,6 +59,8 @@ public:
     FileScanner mFileScanner;
 
     QMimeDatabase mMimeDb;
+
+    KFileMetaData::EmbeddedImageData mImageScanner;
 
     QHash<QUrl, QDateTime> mAllFiles;
 
@@ -290,6 +294,7 @@ MusicAudioTrack AbstractFileListing::scanOneFile(const QUrl &scanFile, const QFi
     newTrack = d->mFileScanner.scanOneFile(scanFile, d->mMimeDb);
 
     if (newTrack.isValid()) {
+        newTrack.setHasEmbeddedCover(checkEmbeddedCoverImage(localFileName));
         newTrack.setFileModificationTime(scanFileInfo.fileTime(QFile::FileModificationTime));
 
         if (scanFileInfo.exists()) {
@@ -439,6 +444,19 @@ void AbstractFileListing::checkFilesToRemove()
 FileScanner &AbstractFileListing::fileScanner()
 {
     return d->mFileScanner;
+}
+
+bool AbstractFileListing::checkEmbeddedCoverImage(const QString &localFileName)
+{
+    auto imageData = d->mImageScanner.imageData(localFileName);
+
+    if (imageData.contains(KFileMetaData::EmbeddedImageData::FrontCover)) {
+        if (!imageData[KFileMetaData::EmbeddedImageData::FrontCover].isEmpty()) {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 

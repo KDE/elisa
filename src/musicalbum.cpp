@@ -183,7 +183,17 @@ void MusicAlbum::setAlbumArtURI(const QUrl &value)
 
 QUrl MusicAlbum::albumArtURI() const
 {
-    return d->mAlbumArtURI;
+    if (d->mAlbumArtURI.isValid()) {
+        return d->mAlbumArtURI;
+    } else {
+        for (const auto &oneTrack : qAsConst(d->mTracks)) {
+            if (oneTrack.hasEmbeddedCover()) {
+                return oneTrack.albumCover();
+            }
+        }
+    }
+
+    return {};
 }
 
 void MusicAlbum::setResourceURI(const QUrl &value)

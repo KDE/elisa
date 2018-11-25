@@ -216,7 +216,7 @@ private Q_SLOTS:
                 QTime::fromMSecsSinceStartOfDay(23), {QUrl::fromLocalFile(QStringLiteral("/$23"))},
                 QDateTime::fromMSecsSinceEpoch(23),
                 QUrl::fromLocalFile(QStringLiteral("album1")), 5, true,
-        {}, QStringLiteral("composer1"), QStringLiteral("lyricist1")};
+        {}, QStringLiteral("composer1"), QStringLiteral("lyricist1"), false};
         auto newTracks = QList<MusicAudioTrack>();
         newTracks.push_back(newTrack);
 
@@ -243,7 +243,7 @@ private Q_SLOTS:
                 QTime::fromMSecsSinceStartOfDay(24), {QUrl::fromLocalFile(QStringLiteral("/$24"))},
                 QDateTime::fromMSecsSinceEpoch(24),
                 QUrl::fromLocalFile(QStringLiteral("album1")), 5, true,
-        {}, QStringLiteral("composer1"), QStringLiteral("lyricist1")};
+        {}, QStringLiteral("composer1"), QStringLiteral("lyricist1"), false};
         auto secondNewTracks = QList<MusicAudioTrack>();
         secondNewTracks.push_back(secondNewTrack);
 
@@ -317,7 +317,7 @@ private Q_SLOTS:
                 QTime::fromMSecsSinceStartOfDay(3), {QUrl::fromLocalFile(QStringLiteral("/$3"))},
                 QDateTime::fromMSecsSinceEpoch(23),
         QUrl::fromLocalFile(QStringLiteral("album1")), 5, true,
-        {}, QStringLiteral("composer1"), QStringLiteral("lyricist1")};
+        {}, QStringLiteral("composer1"), QStringLiteral("lyricist1"), false};
 
         musicDb.modifyTracksList({modifiedTrack}, mNewCovers, QStringLiteral("autoTest"));
 

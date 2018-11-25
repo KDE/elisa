@@ -217,7 +217,7 @@ private Q_SLOTS:
         {QUrl::fromLocalFile(QStringLiteral("/$23"))},
                 QDateTime::fromMSecsSinceEpoch(23),
         {QUrl::fromLocalFile(QStringLiteral("file://image$23"))}, 5, true,
-        {}, QStringLiteral("composer1"), QStringLiteral("lyricist1")};
+        {}, QStringLiteral("composer1"), QStringLiteral("lyricist1"), false};
         auto newTracks = QList<MusicAudioTrack>();
         newTracks.push_back(newTrack);
 
@@ -283,7 +283,7 @@ private Q_SLOTS:
         {QUrl::fromLocalFile(QStringLiteral("/$23"))},
                 QDateTime::fromMSecsSinceEpoch(23),
         {QUrl::fromLocalFile(QStringLiteral("file://image$23"))}, 5, true,
-        {}, QStringLiteral("composer1"), QStringLiteral("lyricist1")};
+        {}, QStringLiteral("composer1"), QStringLiteral("lyricist1"), false};
         auto newTracks = QList<MusicAudioTrack>();
         newTracks.push_back(newTrack);
 
@@ -351,7 +351,7 @@ private Q_SLOTS:
                 QStringLiteral("artist1"), QStringLiteral("album1"), QStringLiteral("Various Artists"),
                 1, 1, QTime::fromMSecsSinceStartOfDay(1), {QUrl::fromLocalFile(QStringLiteral("/$1"))},
                 QDateTime::fromMSecsSinceEpoch(1),
-        {QUrl::fromLocalFile(QStringLiteral("file://image$1"))}, 5, true, {}, QStringLiteral("composer1"), QStringLiteral("lyricist1")};
+        {QUrl::fromLocalFile(QStringLiteral("file://image$1"))}, 5, true, {}, QStringLiteral("composer1"), QStringLiteral("lyricist1"), false};
         auto newTracks = QList<MusicAudioTrack>();
         newTracks.push_back(newTrack);
 
@@ -452,7 +452,7 @@ private Q_SLOTS:
                 QStringLiteral("artist2"), QStringLiteral("album4"), QStringLiteral("artist2"), 23, 1, QTime::fromMSecsSinceStartOfDay(23),
         {QUrl::fromLocalFile(QStringLiteral("/$23"))},
                 QDateTime::fromMSecsSinceEpoch(23),
-        {QUrl::fromLocalFile(QStringLiteral("file://image$23"))}, 5, true, {}, QStringLiteral("composer1"), QStringLiteral("lyricist1")};
+        {QUrl::fromLocalFile(QStringLiteral("file://image$23"))}, 5, true, {}, QStringLiteral("composer1"), QStringLiteral("lyricist1"), false};
 
         auto newTracks = QList<MusicAudioTrack>();
         newTracks.push_back(newTrack);

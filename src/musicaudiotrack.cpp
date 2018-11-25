@@ -33,7 +33,7 @@ public:
                            int aTrackNumber, int aDiscNumber, QTime aDuration, QUrl aResourceURI,
                            QDateTime fileModificationTime, QUrl aAlbumCover, int rating,
                            bool aIsSingleDiscAlbum, QString aGenre, QString aComposer,
-                           QString aLyricist)
+                           QString aLyricist, bool aHasEmbeddedCover)
         : QSharedData(), mId(std::move(aId)), mParentId(std::move(aParentId)),
           mTitle(std::move(aTitle)), mArtist(std::move(aArtist)),
           mAlbumName(std::move(aAlbumName)), mAlbumArtist(std::move(aAlbumArtist)),
@@ -42,7 +42,7 @@ public:
           mAlbumCover(std::move(aAlbumCover)),
           mFileModificationTime(std::move(fileModificationTime)), mDuration(aDuration),
           mTrackNumber(aTrackNumber), mDiscNumber(aDiscNumber), mRating(rating),
-          mIsValid(aValid), mIsSingleDiscAlbum(aIsSingleDiscAlbum)
+          mIsValid(aValid), mIsSingleDiscAlbum(aIsSingleDiscAlbum), mHasBooleanCover(aHasEmbeddedCover)
     {
     }
 
@@ -96,6 +96,8 @@ public:
 
     bool mIsSingleDiscAlbum = true;
 
+    bool mHasBooleanCover = false;
+
 };
 
 MusicAudioTrack::MusicAudioTrack() : d(new MusicAudioTrackPrivate())
@@ -105,7 +107,7 @@ MusicAudioTrack::MusicAudioTrack() : d(new MusicAudioTrackPrivate())
 MusicAudioTrack::MusicAudioTrack(bool aValid, QString aId, QString aParentId, QString aTitle, QString aArtist, QString aAlbumName,
                                  QString aAlbumArtist, int aTrackNumber, int aDiscNumber, QTime aDuration, QUrl aResourceURI,
                                  const QDateTime &fileModificationTime, QUrl aAlbumCover, int rating, bool aIsSingleDiscAlbum,
-                                 QString aGenre, QString aComposer, QString aLyricist)
+                                 QString aGenre, QString aComposer, QString aLyricist, bool aHasEmbeddedCover)
     : d(new MusicAudioTrackPrivate(aValid, std::move(aId), std::move(aParentId),
                                    std::move(aTitle), std::move(aArtist),
                                    std::move(aAlbumName), std::move(aAlbumArtist),
@@ -113,7 +115,7 @@ MusicAudioTrack::MusicAudioTrack(bool aValid, QString aId, QString aParentId, QS
                                    std::move(aResourceURI), fileModificationTime,
                                    std::move(aAlbumCover), rating,
                                    aIsSingleDiscAlbum, std::move(aGenre),
-                                   std::move(aComposer), std::move(aLyricist)))
+                                   std::move(aComposer), std::move(aLyricist), aHasEmbeddedCover))
 {
 }
 
@@ -265,7 +267,11 @@ void MusicAudioTrack::setAlbumCover(const QUrl &value)
 
 QUrl MusicAudioTrack::albumCover() const
 {
-    return d->mAlbumCover;
+    if (d->mAlbumCover.isValid()) {
+        return d->mAlbumCover;
+    } else {
+        return QUrl(QStringLiteral("image://cover/") + d->mResourceURI.toLocalFile());
+    }
 }
 
 void MusicAudioTrack::setGenre(const QString &value)
@@ -416,6 +422,16 @@ void MusicAudioTrack::setIsSingleDiscAlbum(bool value)
 bool MusicAudioTrack::isSingleDiscAlbum() const
 {
     return d->mIsSingleDiscAlbum;
+}
+
+void MusicAudioTrack::setHasEmbeddedCover(bool value)
+{
+    d->mHasBooleanCover = value;
+}
+
+bool MusicAudioTrack::hasEmbeddedCover() const
+{
+    return d->mHasBooleanCover;
 }
 
 ELISALIB_EXPORT QDebug operator<<(QDebug stream, const MusicAudioTrack &data)

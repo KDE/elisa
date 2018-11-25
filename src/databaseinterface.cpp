@@ -1085,11 +1085,13 @@ void DatabaseInterface::initDatabase()
 
     auto listTables = d->mTracksDatabase.tables();
 
-    if (!listTables.contains(QStringLiteral("DatabaseVersionV6"))) {
-        auto oldTables = QStringList{QStringLiteral("DatabaseVersionV2"),
+    if (!listTables.contains(QStringLiteral("DatabaseVersionV7"))) {
+        auto oldTables = QStringList{
+                QStringLiteral("DatabaseVersionV2"),
                 QStringLiteral("DatabaseVersionV3"),
                 QStringLiteral("DatabaseVersionV4"),
                 QStringLiteral("DatabaseVersionV5"),
+                QStringLiteral("DatabaseVersionV6"),
                 QStringLiteral("AlbumsArtists"),
                 QStringLiteral("TracksArtists"),
                 QStringLiteral("TracksMapping"),
@@ -1120,10 +1122,10 @@ void DatabaseInterface::initDatabase()
         listTables = d->mTracksDatabase.tables();
     }
 
-    if (!listTables.contains(QStringLiteral("DatabaseVersionV6"))) {
+    if (!listTables.contains(QStringLiteral("DatabaseVersionV7"))) {
         QSqlQuery createSchemaQuery(d->mTracksDatabase);
 
-        const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `DatabaseVersionV6` (`Version` INTEGER PRIMARY KEY NOT NULL)"));
+        const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `DatabaseVersionV7` (`Version` INTEGER PRIMARY KEY NOT NULL)"));
 
         if (!result) {
             qDebug() << "DatabaseInterface::initDatabase" << createSchemaQuery.lastQuery();
@@ -1250,6 +1252,7 @@ void DatabaseInterface::initDatabase()
                                                                    "`Channels` INTEGER DEFAULT -1, "
                                                                    "`BitRate` INTEGER DEFAULT -1, "
                                                                    "`SampleRate` INTEGER DEFAULT -1, "
+                                                                   "`HasEmbeddedCover` BOOLEAN NOT NULL, "
                                                                    "UNIQUE ("
                                                                    "`Title`, `AlbumTitle`, `AlbumArtistName`, "
                                                                    "`AlbumPath`, `TrackNumber`, `DiscNumber`"
@@ -1585,7 +1588,8 @@ void DatabaseInterface::initRequest()
                                                   "tracks.`Year`, "
                                                   "tracks.`Channels`, "
                                                   "tracks.`BitRate`, "
-                                                  "tracks.`SampleRate` "
+                                                  "tracks.`SampleRate`, "
+                                                  "tracks.`HasEmbeddedCover` "
                                                   "FROM "
                                                   "`Tracks` tracks, "
                                                   "`TracksMapping` tracksMapping "
@@ -1666,7 +1670,8 @@ void DatabaseInterface::initRequest()
                                                                  "tracks.`Year`, "
                                                                  "tracks.`Channels`, "
                                                                  "tracks.`BitRate`, "
-                                                                 "tracks.`SampleRate` "
+                                                                 "tracks.`SampleRate`, "
+                                                                 "tracks.`HasEmbeddedCover` "
                                                                  "FROM "
                                                                  "`Tracks` tracks, "
                                                                  "`TracksMapping` tracksMapping, "
@@ -1848,7 +1853,8 @@ void DatabaseInterface::initRequest()
                                                    "tracks.`Year`, "
                                                    "tracks.`Channels`, "
                                                    "tracks.`BitRate`, "
-                                                   "tracks.`SampleRate` "
+                                                   "tracks.`SampleRate`, "
+                                                   "tracks.`HasEmbeddedCover` "
                                                    "FROM "
                                                    "`Tracks` tracks, "
                                                    "`TracksMapping` tracksMapping "
@@ -1913,7 +1919,8 @@ void DatabaseInterface::initRequest()
                                                          "tracks.`Year`, "
                                                          "tracks.`Channels`, "
                                                          "tracks.`BitRate`, "
-                                                         "tracks.`SampleRate` "
+                                                         "tracks.`SampleRate`, "
+                                                         "tracks.`HasEmbeddedCover` "
                                                          "FROM "
                                                          "`Tracks` tracks, "
                                                          "`TracksMapping` tracksMapping "
@@ -2231,7 +2238,8 @@ void DatabaseInterface::initRequest()
                                                                   "tracks.`Year`, "
                                                                   "tracks.`Channels`, "
                                                                   "tracks.`BitRate`, "
-                                                                  "tracks.`SampleRate` "
+                                                                  "tracks.`SampleRate`, "
+                                                                  "tracks.`HasEmbeddedCover` "
                                                                   "FROM "
                                                                   "`Tracks` tracks "
                                                                   "LEFT JOIN "
@@ -2408,7 +2416,8 @@ void DatabaseInterface::initRequest()
                                                    "`SampleRate`, "
                                                    "`Year`,  "
                                                    "`Duration`, "
-                                                   "`Rating` ) "
+                                                   "`Rating`, "
+                                                   "`HasEmbeddedCover`) "
                                                    "VALUES "
                                                    "("
                                                    ":trackId, "
@@ -2428,7 +2437,8 @@ void DatabaseInterface::initRequest()
                                                    ":sampleRate, "
                                                    ":year, "
                                                    ":trackDuration, "
-                                                   ":trackRating)");
+                                                   ":trackRating, "
+                                                   ":hasEmbeddedCover)");
 
         auto result = prepareQuery(d->mInsertTrackQuery, insertTrackQueryText);
 
@@ -2630,7 +2640,8 @@ void DatabaseInterface::initRequest()
                                                               "tracks.`Year`, "
                                                               "tracks.`Channels`, "
                                                               "tracks.`BitRate`, "
-                                                              "tracks.`SampleRate` "
+                                                              "tracks.`SampleRate`, "
+                                                              "tracks.`HasEmbeddedCover` "
                                                               "FROM "
                                                               "`Tracks` tracks, "
                                                               "`TracksMapping` tracksMapping "
@@ -3466,6 +3477,7 @@ qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrac
         d->mInsertTrackQuery.bindValue(QStringLiteral(":channels"), oneTrack.channels());
         d->mInsertTrackQuery.bindValue(QStringLiteral(":bitRate"), oneTrack.bitRate());
         d->mInsertTrackQuery.bindValue(QStringLiteral(":sampleRate"), oneTrack.sampleRate());
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":hasEmbeddedCover"), oneTrack.hasEmbeddedCover());
 
         auto result = d->mInsertTrackQuery.exec();
 
@@ -3551,6 +3563,7 @@ MusicAudioTrack DatabaseInterface::buildTrackFromDatabaseRecord(const QSqlRecord
     result.setBitRate(trackRecord.value(20).toInt());
     result.setSampleRate(trackRecord.value(21).toInt());
     result.setAlbumId(trackRecord.value(2).toULongLong());
+    result.setHasEmbeddedCover(trackRecord.value(22).toBool());
 
     result.setValid(true);
 

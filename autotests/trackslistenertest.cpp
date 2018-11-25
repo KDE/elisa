@@ -440,7 +440,7 @@ private Q_SLOTS:
                                                 2, 3, QTime::fromMSecsSinceStartOfDay(1000), {QUrl::fromLocalFile(QStringLiteral("/$1"))},
                                                 QDateTime::fromMSecsSinceEpoch(1),
                                                 {QUrl::fromLocalFile(QStringLiteral("file://image$1"))}, 1, false,
-                                                {}, {}, QStringLiteral("lyricist1")}
+                                                {}, {}, QStringLiteral("lyricist1"), false}
                                            }, mNewCovers, QStringLiteral("autoTest"));
 
         QCOMPARE(trackHasChangedSpy.count(), 2);

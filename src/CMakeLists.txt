@@ -232,6 +232,7 @@ set(elisaqmlplugin_SOURCES
     elisaqmlplugin.cpp
     datatype.cpp
     elisautils.cpp
+    embeddedcoverageimageprovider.cpp
 )
 
 add_library(elisaqmlplugin SHARED ${elisaqmlplugin_SOURCES})

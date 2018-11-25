@@ -370,7 +370,8 @@ MusicAudioTrack LocalBalooFileListing::scanOneFile(const QUrl &scanFile, const Q
     }
 
     if (newTrack.isValid()) {
-        AbstractFileListing::addCover(newTrack);
+        newTrack.setHasEmbeddedCover(checkEmbeddedCoverImage(localFileName));
+        addCover(newTrack);
         watchPath(localFileName);
     }
 

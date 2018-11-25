@@ -52,6 +52,7 @@
 #include "models/singleartistproxymodel.h"
 #include "models/singlealbumproxymodel.h"
 #include "models/genericdatamodel.h"
+#include "embeddedcoverageimageprovider.h"
 
 #if defined KF5KIO_FOUND && KF5KIO_FOUND
 #include "models/filebrowserproxymodel.h"
@@ -81,6 +82,7 @@
 void ElisaQmlTestPlugin::initializeEngine(QQmlEngine *engine, const char *uri)
 {
     QQmlExtensionPlugin::initializeEngine(engine, uri);
+    engine->addImageProvider(QStringLiteral("cover"), new EmbeddedCoverageImageProvider);
 }
 
 void ElisaQmlTestPlugin::registerTypes(const char *uri)

@@ -203,7 +203,7 @@ private Q_SLOTS:
         {QUrl::fromLocalFile(QStringLiteral("/$23"))},
                 QDateTime::fromMSecsSinceEpoch(23),
         {QUrl::fromLocalFile(QStringLiteral("file://image$23"))}, 5, true,
-        {}, QStringLiteral("composer1"), QStringLiteral("lyricist1")};
+        {}, QStringLiteral("composer1"), QStringLiteral("lyricist1"), false};
         auto newTracks = QList<MusicAudioTrack>();
         newTracks.push_back(newTrack);
 
@@ -262,7 +262,7 @@ private Q_SLOTS:
                 QTime::fromMSecsSinceStartOfDay(23), {QUrl::fromLocalFile(QStringLiteral("/$23"))},
                 QDateTime::fromMSecsSinceEpoch(23),
         {QUrl::fromLocalFile(QStringLiteral("file://image$23"))}, 5, true,
-        {}, QStringLiteral("composer1"), QStringLiteral("lyricist1")};
+        {}, QStringLiteral("composer1"), QStringLiteral("lyricist1"), false};
         auto newTracks = QList<MusicAudioTrack>();
         newTracks.push_back(newTrack);
 

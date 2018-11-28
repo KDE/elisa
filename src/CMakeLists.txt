@@ -311,6 +311,10 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         qml/ContentView.qml
         qml/ViewSelector.qml
         qml/ViewManager.qml
+        qml/AlbumsView.qml
+        qml/ArtistsView.qml
+        qml/GenresView.qml
+        qml/TracksView.qml
 
         qml/MediaPlayListView.qml
         qml/MediaTrackDelegate.qml

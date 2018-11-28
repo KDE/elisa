@@ -36,7 +36,10 @@ FocusScope {
     property bool delegateDisplaySecondaryText: true
     property alias expandedFilterView: navigationBar.expandedFilterView
     property var stackView
+    property url defaultIcon
 
+    signal enqueue(var data)
+    signal replaceAndPlay(var data)
     signal open(var innerMainTitle, var innerSecondaryTitle, var innerImage, var databaseId)
     signal goBack()
 
@@ -141,14 +144,16 @@ FocusScope {
 
                     mainText: model.display
                     secondaryText: if (gridView.delegateDisplaySecondaryText) {model.secondaryText} else {""}
-                    imageUrl: model.imageUrl
-                    shadowForImage: if (model.shadowForImage) {model.shadowForImage} else {false}
-                    containerData: model.containerData
+                    imageUrl: (model && model.imageUrl && model.imageUrl.toString() !== "" ? model.imageUrl : defaultIcon)
+                    shadowForImage: (model && model.imageUrl && model.imageUrl.toString() !== "" ? true : false)
+                    databaseId: model.databaseId
                     delegateDisplaySecondaryText: gridView.delegateDisplaySecondaryText
 
-                    onEnqueue: elisa.mediaPlayList.enqueue(data)
-                    onReplaceAndPlay: elisa.mediaPlayList.replaceAndPlay(data)
-                    onOpen: gridView.open(model.display, model.secondaryText, model.imageUrl, model.databaseId)
+                    onEnqueue: gridView.enqueue(data)
+                    onReplaceAndPlay: gridView.replaceAndPlay(data)
+                    onOpen: gridView.open(model.display, model.secondaryText,
+                                          (model && model.imageUrl && model.imageUrl.toString() !== "" ? model.imageUrl : defaultIcon),
+                                          model.databaseId)
                     onSelected: {
                         forceActiveFocus()
                         contentDirectoryView.currentIndex = model.index

@@ -280,34 +280,7 @@ RowLayout {
 
                             onLoaded: viewManager.allAlbumsViewIsLoaded(item.stackView)
 
-                            sourceComponent: MediaBrowser {
-                                id: localAlbums
-
-                                focus: true
-
-                                anchors {
-                                    fill: parent
-
-                                    leftMargin: elisaTheme.layoutHorizontalMargin
-                                    rightMargin: elisaTheme.layoutHorizontalMargin
-                                }
-
-                                firstPage: GridBrowserView {
-                                    id: allAlbumsView
-
-                                    focus: true
-
-                                    contentModel: elisa.allAlbumsProxyModel
-
-                                    image: elisaTheme.albumIcon
-                                    mainTitle: i18nc("Title of the view of all albums", "Albums")
-
-                                    onOpen: {
-                                        viewManager.openOneAlbum(localAlbums.stackView, innerMainTitle, innerSecondaryTitle, innerImage, databaseId)
-                                    }
-
-                                    onGoBack: viewManager.goBack()
-                                }
+                            sourceComponent: AlbumsView {
                             }
 
                             Behavior on opacity {
@@ -331,36 +304,7 @@ RowLayout {
 
                             onLoaded: viewManager.allArtistsViewIsLoaded(item.stackView)
 
-                            sourceComponent: MediaBrowser {
-                                id: localArtists
-
-                                focus: true
-
-                                anchors {
-                                    fill: parent
-
-                                    leftMargin: elisaTheme.layoutHorizontalMargin
-                                    rightMargin: elisaTheme.layoutHorizontalMargin
-                                }
-
-                                firstPage: GridBrowserView {
-                                    id: allArtistsView
-                                    focus: true
-
-                                    showRating: false
-                                    delegateDisplaySecondaryText: false
-
-                                    contentModel: elisa.allArtistsProxyModel
-
-                                    image: elisaTheme.artistIcon
-                                    mainTitle: i18nc("Title of the view of all artists", "Artists")
-
-                                    onOpen: {
-                                        viewManager.openOneArtist(localArtists.stackView, innerMainTitle, innerImage, 0)
-                                    }
-
-                                    onGoBack: viewManager.goBack()
-                                }
+                            sourceComponent: ArtistsView {
                             }
 
                             Behavior on opacity {
@@ -384,48 +328,7 @@ RowLayout {
 
                             onLoaded: viewManager.allTracksViewIsLoaded(item)
 
-                            sourceComponent: MediaBrowser {
-                                id: localTracks
-
-                                focus: true
-
-                                anchors {
-                                    fill: parent
-
-                                    leftMargin: elisaTheme.layoutHorizontalMargin
-                                    rightMargin: elisaTheme.layoutHorizontalMargin
-                                }
-
-                                firstPage: ListBrowserView {
-                                    id: allTracksView
-                                    focus: true
-
-                                    contentModel: elisa.allTracksProxyModel
-
-                                    delegate: MediaTrackDelegate {
-                                        id: entry
-
-                                        width: allTracksView.delegateWidth
-                                        height: elisaTheme.trackDelegateHeight
-
-                                        focus: true
-
-                                        trackData: model.containerData
-
-                                        isFirstTrackOfDisc: false
-
-                                        isSingleDiscAlbum: model.isSingleDiscAlbum
-
-                                        onEnqueue: elisa.mediaPlayList.enqueue(data)
-
-                                        onReplaceAndPlay: elisa.mediaPlayList.replaceAndPlay(data)
-
-                                        onClicked: contentDirectoryView.currentIndex = index
-                                    }
-
-                                    image: elisaTheme.tracksIcon
-                                    mainTitle: i18nc("Title of the view of all tracks", "Tracks")
-                                }
+                            sourceComponent: TracksView {
                             }
 
                             Behavior on opacity {
@@ -449,36 +352,7 @@ RowLayout {
 
                             onLoaded: viewManager.allGenresViewIsLoaded(item.stackView)
 
-                            sourceComponent: MediaBrowser {
-                                id: localGenres
-
-                                focus: true
-
-                                anchors {
-                                    fill: parent
-
-                                    leftMargin: elisaTheme.layoutHorizontalMargin
-                                    rightMargin: elisaTheme.layoutHorizontalMargin
-                                }
-
-                                firstPage: GridBrowserView {
-                                    id: allGenresView
-                                    focus: true
-
-                                    showRating: false
-                                    delegateDisplaySecondaryText: false
-
-                                    contentModel: elisa.allGenresProxyModel
-
-                                    image: elisaTheme.genresIcon
-                                    mainTitle: i18nc("Title of the view of all genres", "Genres")
-
-                                    onOpen: {
-                                        viewManager.openAllArtistsFromGenre(localGenres.stackView, innerMainTitle)
-                                    }
-
-                                    onGoBack: viewManager.goBack()
-                                }
+                            sourceComponent: GenresView {
                             }
 
                             Behavior on opacity {
@@ -715,13 +589,17 @@ RowLayout {
         GridBrowserView {
             id: innerAlbumGridView
 
+            focus: true
+
+            defaultIcon: elisaTheme.albumCoverIcon
+
             contentModel: elisa.singleArtistProxyModel
 
             isSubPage: true
 
-            onOpen: {
-                viewManager.openOneAlbum(stackView, innerMainTitle, innerSecondaryTitle, innerImage, databaseId)
-            }
+            onEnqueue: elisa.mediaPlayList.enqueue(data, elisa.mediaPlayList.Album)
+            onReplaceAndPlay: elisa.mediaPlayList.replaceAndPlay(data, elisa.mediaPlayList.Album)
+            onOpen: viewManager.openOneAlbum(stackView, innerMainTitle, innerSecondaryTitle, innerImage, databaseId)
 
             onGoBack: viewManager.goBack()
         }
@@ -733,13 +611,17 @@ RowLayout {
         GridBrowserView {
             id: innerAlbumGridView
 
+            focus: true
+
+            defaultIcon: elisaTheme.albumCoverIcon
+
             delegateDisplaySecondaryText: false
 
             isSubPage: true
 
-            onOpen: {
-                viewManager.openOneArtist(stackView, innerMainTitle, innerImage, 0)
-            }
+            onEnqueue: elisa.mediaPlayList.enqueue(data, elisa.mediaPlayList.Album)
+            onReplaceAndPlay: elisa.mediaPlayList.replaceAndPlay(data, elisa.mediaPlayList.Album)
+            onOpen: viewManager.openOneArtist(stackView, innerMainTitle, innerImage, 0)
 
             onGoBack: viewManager.goBack()
         }
@@ -765,14 +647,10 @@ RowLayout {
 
                 focus: true
 
-                mediaTrack.trackData: model.containerData
-
                 mediaTrack.isFirstTrackOfDisc: model.isFirstTrackOfDisc
-
                 mediaTrack.isSingleDiscAlbum: model.isSingleDiscAlbum
 
                 mediaTrack.onEnqueue: elisa.mediaPlayList.enqueue(data)
-
                 mediaTrack.onReplaceAndPlay: elisa.mediaPlayList.replaceAndPlay(data)
 
                 mediaTrack.isAlternateColor: (index % 2) === 1

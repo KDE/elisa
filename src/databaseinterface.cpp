@@ -875,7 +875,7 @@ void DatabaseInterface::insertTracksList(const QList<MusicAudioTrack> &tracks, c
 
         for (auto albumId : qAsConst(d->mInsertedAlbums)) {
             d->mModifiedAlbumIds.remove(albumId);
-            newAlbums.push_back({{DatabaseIdRole, albumId}});
+            newAlbums.push_back(internalOneAlbumPartialData(albumId));
         }
 
         Q_EMIT albumsAdded(newAlbums);
@@ -983,7 +983,7 @@ void DatabaseInterface::modifyTracksList(const QList<MusicAudioTrack> &modifiedT
 
         for (auto albumId : qAsConst(d->mInsertedAlbums)) {
             d->mModifiedAlbumIds.remove(albumId);
-            newAlbums.push_back({{DatabaseIdRole, albumId}});
+            newAlbums.push_back(internalOneAlbumPartialData(albumId));
         }
 
         Q_EMIT albumsAdded(newAlbums);
@@ -1370,15 +1370,15 @@ void DatabaseInterface::initRequest()
                                                    "SELECT "
                                                    "COUNT(*) "
                                                    "FROM "
-                                                   "`Tracks` tracks "
+                                                   "`Tracks` tracks3 "
                                                    "WHERE "
-                                                   "tracks.`AlbumTitle` = album.`Title` AND "
-                                                   "(tracks.`AlbumArtistName` = album.`ArtistName` OR "
-                                                   "(tracks.`AlbumArtistName` IS NULL AND "
+                                                   "tracks3.`AlbumTitle` = album.`Title` AND "
+                                                   "(tracks3.`AlbumArtistName` = album.`ArtistName` OR "
+                                                   "(tracks3.`AlbumArtistName` IS NULL AND "
                                                    "album.`ArtistName` IS NULL"
                                                    ")"
                                                    ") AND "
-                                                   "tracks.`AlbumPath` = album.`AlbumPath` "
+                                                   "tracks3.`AlbumPath` = album.`AlbumPath` "
                                                    ") as `TracksCount`, "
                                                    "("
                                                    "SELECT "
@@ -1393,10 +1393,27 @@ void DatabaseInterface::initRequest()
                                                    ")"
                                                    ") AND "
                                                    "tracks2.`AlbumPath` = album.`AlbumPath` "
-                                                   ") as `IsSingleDiscAlbum` "
-                                                   "FROM `Albums` album "
+                                                   ") as `IsSingleDiscAlbum`, "
+                                                   "GROUP_CONCAT(tracks.`ArtistName`, ', ') as AllArtists, "
+                                                   "MAX(tracks.`Rating`) as HighestRating, "
+                                                   "GROUP_CONCAT(genres.`Name`, ', ') as AllGenres "
+                                                   "FROM "
+                                                   "`Albums` album LEFT JOIN "
+                                                   "`Tracks` tracks ON "
+                                                   "tracks.`AlbumTitle` = album.`Title` AND "
+                                                   "("
+                                                   "tracks.`AlbumArtistName` = album.`ArtistName` OR "
+                                                   "("
+                                                   "tracks.`AlbumArtistName` IS NULL AND "
+                                                   "album.`ArtistName` IS NULL"
+                                                   ")"
+                                                   ") AND "
+                                                   "tracks.`AlbumPath` = album.`AlbumPath`"
+                                                   "LEFT JOIN "
+                                                   "`Genre` genres ON tracks.`GenreID` = genres.`ID` "
                                                    "WHERE "
-                                                   "album.`ID` = :albumId");
+                                                   "album.`ID` = :albumId "
+                                                   "GROUP BY album.`ID`");
 
         auto result = prepareQuery(d->mSelectAlbumQuery, selectAlbumQueryText);
 
@@ -1630,12 +1647,22 @@ void DatabaseInterface::initRequest()
                                                        "tracks.`ID`, "
                                                        "tracks.`Title`, "
                                                        "tracks.`ArtistName`, "
+                                                       "tracks.`AlbumTitle`, "
                                                        "tracks.`AlbumArtistName`, "
+                                                       "tracks.`Duration`, "
+                                                       "album.`CoverFileName`, "
                                                        "tracks.`TrackNumber`, "
                                                        "tracks.`DiscNumber`, "
                                                        "tracks.`Rating` "
                                                        "FROM "
-                                                       "`Tracks` tracks ");
+                                                       "`Tracks` tracks "
+                                                       "LEFT JOIN "
+                                                       "`Albums` album "
+                                                       "ON "
+                                                       "tracks.`AlbumTitle` = album.`Title` AND "
+                                                       "(tracks.`AlbumArtistName` = album.`ArtistName` OR tracks.`AlbumArtistName` IS NULL ) AND "
+                                                       "tracks.`AlbumPath` = album.`AlbumPath` "
+                                                       "");
 
         auto result = prepareQuery(d->mSelectAllTracksShortQuery, selectAllTracksShortText);
 
@@ -4828,12 +4855,12 @@ DatabaseInterface::DataType DatabaseInterface::internalOneAlbumPartialData(qulon
 
         result[DataType::key_type::DatabaseIdRole] = currentRecord.value(0);
         result[DataType::key_type::TitleRole] = currentRecord.value(1);
-        result[DataType::key_type::SecondaryTextRole] = currentRecord.value(2);
-        result[DataType::key_type::ImageUrlRole] = currentRecord.value(3);
-        result[DataType::key_type::ArtistRole] = currentRecord.value(4);
-        result[DataType::key_type::AllArtistsRole] = QVariant::fromValue(currentRecord.value(5).toString().split(QStringLiteral(", ")));
-        result[DataType::key_type::HighestTrackRating] = currentRecord.value(6);
-        result[DataType::key_type::GenreRole] = QVariant::fromValue(currentRecord.value(7).toString().split(QStringLiteral(", ")));
+        result[DataType::key_type::SecondaryTextRole] = currentRecord.value(3);
+        result[DataType::key_type::ImageUrlRole] = currentRecord.value(5);
+        result[DataType::key_type::ArtistRole] = currentRecord.value(3);
+        result[DataType::key_type::AllArtistsRole] = QVariant::fromValue(currentRecord.value(9).toString().split(QStringLiteral(", ")));
+        result[DataType::key_type::HighestTrackRating] = currentRecord.value(10);
+        result[DataType::key_type::GenreRole] = QVariant::fromValue(currentRecord.value(11).toString().split(QStringLiteral(", ")));
     }
 
     d->mSelectAlbumQuery.finish();
@@ -4857,12 +4884,14 @@ DatabaseInterface::DataListType DatabaseInterface::internalAllTracksPartialData(
         newData[DataType::key_type::DatabaseIdRole] = currentRecord.value(0);
         newData[DataType::key_type::TitleRole] = currentRecord.value(1);
         newData[DataType::key_type::ArtistRole] = currentRecord.value(2);
-        newData[DataType::key_type::AlbumArtistRole] = currentRecord.value(3);
-        newData[DataType::key_type::TrackNumberRole] = currentRecord.value(4);
-        newData[DataType::key_type::DiscNumberRole] = currentRecord.value(5);
-        newData[DataType::key_type::RatingRole] = currentRecord.value(6);
-
-        qDebug() << "DatabaseInterface::internalAllTracksPartialData" << newData;
+        newData[DataType::key_type::AlbumRole] = currentRecord.value(3);
+        newData[DataType::key_type::AlbumArtistRole] = currentRecord.value(4);
+        newData[DataType::key_type::DurationRole] = currentRecord.value(5);
+        newData[DataType::key_type::ImageUrlRole] = currentRecord.value(6);
+        newData[DataType::key_type::TrackNumberRole] = currentRecord.value(7);
+        newData[DataType::key_type::DiscNumberRole] = currentRecord.value(8);
+        newData[DataType::key_type::RatingRole] = currentRecord.value(9);
+        newData[DataType::key_type::IsSingleDiscAlbumRole] = true;
 
         result.push_back(newData);
     }

@@ -30,7 +30,7 @@ FocusScope {
     property bool shadowForImage
     property alias mainText: mainLabel.text
     property alias secondaryText: secondaryLabel.text
-    property var containerData
+    property var databaseId
     property bool delegateDisplaySecondaryText: true
     property bool isPartial
 
@@ -44,9 +44,9 @@ FocusScope {
 
         text: i18nc("Add whole container to play list", "Enqueue")
         iconName: 'media-track-add-amarok'
-        onTriggered: enqueue(containerData)
+        onTriggered: enqueue(databaseId)
 
-        enabled: containerData !== undefined
+        enabled: databaseId !== undefined
     }
 
     Controls1.Action {
@@ -62,9 +62,9 @@ FocusScope {
 
         text: i18nc("Clear play list and add whole container to play list", "Play Now and Replace Play List")
         iconName: 'media-playback-start'
-        onTriggered: replaceAndPlay(containerData)
+        onTriggered: replaceAndPlay(databaseId)
 
-        enabled: containerData !== undefined
+        enabled: databaseId !== undefined
     }
 
     Keys.onReturnPressed: openAction.trigger(this)

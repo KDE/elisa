@@ -34,6 +34,10 @@
         <file>qml/BaseTheme.qml</file>
         <file>qml/ScrollHelper.qml</file>
         <file>qml/FlatButtonWithToolTip.qml</file>
+        <file>qml/AlbumsView.qml</file>
+        <file>qml/ArtistsView.qml</file>
+        <file>qml/GenresView.qml</file>
+        <file>qml/TracksView.qml</file>
     </qresource>
     <qresource prefix="/qml/+windows">
         <file alias="Theme.qml">windows/WindowsTheme.qml</file>

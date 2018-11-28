@@ -112,7 +112,7 @@ QVariant AllTracksModel::data(const QModelIndex &index, int role) const
     {
     case DatabaseInterface::ColumnsRoles::DurationRole:
     {
-        QTime trackDuration = track[DataType::key_type::DurationRole].toTime();
+        auto trackDuration = QTime::fromMSecsSinceStartOfDay(static_cast<int>(track[DataType::key_type::DurationRole].toLongLong()));
         if (trackDuration.hour() == 0) {
             result = trackDuration.toString(QStringLiteral("mm:ss"));
         } else {

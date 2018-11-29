@@ -4940,6 +4940,7 @@ DatabaseInterface::DataType DatabaseInterface::internalOneTrackPartialData(qulon
         result[DataType::key_type::DatabaseIdRole] = currentRecord.value(0);
         result[DataType::key_type::TitleRole] = currentRecord.value(1);
         result[DataType::key_type::AlbumArtistRole] = currentRecord.value(4);
+        result[DataType::key_type::ResourceRole] = currentRecord.value(5);
         result[DataType::key_type::RatingRole] = currentRecord.value(11);
     }
 

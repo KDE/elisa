@@ -125,10 +125,10 @@ void TracksListener::trackByNameInList(const QString &title, const QString &arti
 
     d->mTracksByIdSet.insert(newTrackId);
 
-    auto newTrack = d->mDatabase->trackFromDatabaseId(newTrackId);
+    auto newTrack = d->mDatabase->trackDataFromDatabaseId(newTrackId);
 
-    if (newTrack.isValid()) {
-        Q_EMIT trackHasChanged({{DataType::key_type::DatabaseIdRole, newTrackId}});
+    if (!newTrack.isEmpty()) {
+        Q_EMIT trackHasChanged({newTrack});
     }
 }
 
@@ -156,13 +156,13 @@ void TracksListener::trackByFileNameInList(const QUrl &fileName)
 
     d->mTracksByIdSet.insert(newTrackId);
 
-    auto newTrack = d->mDatabase->trackFromDatabaseId(newTrackId);
+    auto newTrack = d->mDatabase->trackDataFromDatabaseId(newTrackId);
 
     qDebug() << "TracksListener::trackByFileNameInList" << newTrackId << newTrack;
 
-    if (newTrack.isValid()) {
+    if (!newTrack.isEmpty()) {
         qDebug() << "TracksListener::trackByFileNameInList" << "trackHasChanged" << newTrack;
-        Q_EMIT trackHasChanged({{DataType::key_type::DatabaseIdRole, newTrack.databaseId()}});
+        Q_EMIT trackHasChanged({newTrack});
     }
 }
 
@@ -170,9 +170,9 @@ void TracksListener::trackByIdInList(qulonglong newTrackId)
 {
     d->mTracksByIdSet.insert(newTrackId);
 
-    auto newTrack = d->mDatabase->trackFromDatabaseId(newTrackId);
-    if (newTrack.isValid()) {
-        Q_EMIT trackHasChanged({{DataType::key_type::DatabaseIdRole, newTrack.databaseId()}});
+    auto newTrack = d->mDatabase->trackDataFromDatabaseId(newTrackId);
+    if (!newTrack.isEmpty()) {
+        Q_EMIT trackHasChanged({newTrack});
     }
 }
 
@@ -187,7 +187,7 @@ void TracksListener::newArtistInList(const QString &artist)
         d->mTracksByIdSet.insert(oneTrack.databaseId());
     }
 
-    Q_EMIT albumAdded(newTracks);
+    //Q_EMIT albumAdded(newTracks);
 }
 
 MusicAudioTrack TracksListener::scanOneFile(const QUrl &scanFile)

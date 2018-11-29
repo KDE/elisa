@@ -4395,9 +4395,9 @@ void MediaPlayListTest::testReplaceAndPlayTrackData()
 
     QCOMPARE(firstTrackId != 0, true);
 
-    auto firstTrack = myDatabaseContent.trackFromDatabaseId(firstTrackId);
+    auto firstTrack = myDatabaseContent.trackDataFromDatabaseId(firstTrackId);
 
-    QCOMPARE(firstTrack.isValid(), true);
+    QVERIFY(!firstTrack.isEmpty());
 
     myPlayList.replaceAndPlay(firstTrack);
 
@@ -4436,9 +4436,9 @@ void MediaPlayListTest::testReplaceAndPlayTrackData()
 
     QCOMPARE(secondTrackId != 0, true);
 
-    auto secondTrack = myDatabaseContent.trackFromDatabaseId(secondTrackId);
+    auto secondTrack = myDatabaseContent.trackDataFromDatabaseId(secondTrackId);
 
-    QCOMPARE(secondTrack.isValid(), true);
+    QVERIFY(!secondTrack.isEmpty());
 
     myPlayList.replaceAndPlay(secondTrack);
 
@@ -5084,11 +5084,11 @@ void MediaPlayListTest::testTrackBeenRemoved()
 
     QCOMPARE(removedTrackId != 0, true);
 
-    auto removedTrack = myDatabaseContent.trackFromDatabaseId(removedTrackId);
+    auto removedTrack = myDatabaseContent.trackDataFromDatabaseId(removedTrackId);
 
-    QCOMPARE(removedTrack.isValid(), true);
+    QVERIFY(!removedTrack.isEmpty());
 
-    myPlayList.trackRemoved(removedTrack.databaseId());
+    myPlayList.trackRemoved(removedTrack[DatabaseInterface::DatabaseIdRole].toULongLong());
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);

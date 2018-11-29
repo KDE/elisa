@@ -49,7 +49,7 @@ Q_SIGNALS:
 
     void trackHasBeenRemoved(qulonglong id);
 
-    void albumAdded(const QList<MusicAudioTrack> &tracks);
+    void albumAdded(const DataListType &tracks);
 
 public Q_SLOTS:
 

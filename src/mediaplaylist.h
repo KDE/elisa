@@ -31,7 +31,6 @@
 #include <QMediaPlayer>
 
 class MediaPlayListPrivate;
-class DatabaseInterface;
 class MusicListenersManager;
 class MediaPlayListEntry;
 class QDebug;
@@ -196,7 +195,7 @@ public Q_SLOTS:
 
     void removeSelection(QList<int> selection);
 
-    void albumAdded(const QList<MusicAudioTrack> &tracks);
+    void albumAdded(const DatabaseInterface::DataListType &tracks);
 
     void trackChanged(const DataType &track);
 
@@ -220,9 +219,9 @@ public Q_SLOTS:
 
     void enqueue(qulonglong newTrackId);
 
-    void enqueue(const MusicAudioTrack &newTrack);
+    void enqueue(const DatabaseInterface::DataType &newTrack);
 
-    void enqueue(const MediaPlayListEntry &newEntry, const MusicAudioTrack &audioTrack = {});
+    void enqueue(const MediaPlayListEntry &newEntry, const DatabaseInterface::DataType &audioTrack = {});
 
     void enqueue(const MusicAlbum &album);
 
@@ -254,7 +253,7 @@ public Q_SLOTS:
 
     void replaceAndPlay(qulonglong newTrackId);
 
-    void replaceAndPlay(const MusicAudioTrack &newTrack);
+    void replaceAndPlay(const DatabaseInterface::DataType &newTrack);
 
     void replaceAndPlay(const MusicAlbum &album);
 
@@ -307,23 +306,32 @@ public:
           mDiscNumber(track.discNumber()), mId(track.databaseId()), mIsValid(true) {
     }
 
+    explicit MediaPlayListEntry(const DatabaseInterface::DataType &track)
+        : mTitle(track[DatabaseInterface::TitleRole]),
+          mAlbum(track[DatabaseInterface::AlbumRole]),
+          mTrackNumber(track[DatabaseInterface::TrackNumberRole]),
+          mDiscNumber(track[DatabaseInterface::DiscNumberRole]),
+          mId(track[DatabaseInterface::DatabaseIdRole].toULongLong()),
+          mIsValid(true) {
+    }
+
     explicit MediaPlayListEntry(QString artist) : mArtist(std::move(artist)), mIsArtist(true) {
     }
 
     explicit MediaPlayListEntry(QUrl fileName) : mTrackUrl(std::move(fileName)) {
     }
 
-    QString mTitle;
+    QVariant mTitle;
 
-    QString mAlbum;
+    QVariant mAlbum;
 
-    QString mArtist;
+    QVariant mArtist;
 
-    QUrl mTrackUrl;
+    QVariant mTrackUrl;
 
-    int mTrackNumber = -1;
+    QVariant mTrackNumber = -1;
 
-    int mDiscNumber = -1;
+    QVariant mDiscNumber = -1;
 
     qulonglong mId = 0;
 

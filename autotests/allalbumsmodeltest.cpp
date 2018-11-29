@@ -91,11 +91,11 @@ private Q_SLOTS:
 
         auto trackId = musicDb.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album1"), 1, 1);
 
-        auto firstTrack = musicDb.trackFromDatabaseId(trackId);
+        auto firstTrack = musicDb.trackDataFromDatabaseId(trackId);
 
-        QCOMPARE(firstTrack.isValid(), true);
+        QVERIFY(!firstTrack.isEmpty());
 
-        musicDb.removeTracksList({firstTrack.resourceURI()});
+        musicDb.removeTracksList({firstTrack[DatabaseInterface::ResourceRole].toUrl()});
 
         QCOMPARE(albumsModel.rowCount(), 5);
         QCOMPARE(beginInsertRowsSpy.count(), 1);
@@ -144,15 +144,17 @@ private Q_SLOTS:
 
         auto firstTrackId = musicDb.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist2"),
                                                                          QStringLiteral("album3"), 1, 1);
-        auto firstTrack = musicDb.trackFromDatabaseId(firstTrackId);
+        auto firstTrack = musicDb.trackDataFromDatabaseId(firstTrackId);
         auto secondTrackId = musicDb.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist2"),
                                                                           QStringLiteral("album3"), 2, 1);
-        auto secondTrack = musicDb.trackFromDatabaseId(secondTrackId);
+        auto secondTrack = musicDb.trackDataFromDatabaseId(secondTrackId);
         auto thirdTrackId = musicDb.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist2"),
                                                                          QStringLiteral("album3"), 3, 1);
-        auto thirdTrack = musicDb.trackFromDatabaseId(thirdTrackId);
+        auto thirdTrack = musicDb.trackDataFromDatabaseId(thirdTrackId);
 
-        musicDb.removeTracksList({firstTrack.resourceURI(), secondTrack.resourceURI(), thirdTrack.resourceURI()});
+        musicDb.removeTracksList({firstTrack[DatabaseInterface::ResourceRole].toUrl(),
+                                  secondTrack[DatabaseInterface::ResourceRole].toUrl(),
+                                  thirdTrack[DatabaseInterface::ResourceRole].toUrl()});
 
         QCOMPARE(albumsModel.rowCount(), 4);
         QCOMPARE(beginInsertRowsSpy.count(), 1);

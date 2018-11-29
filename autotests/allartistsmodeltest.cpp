@@ -96,9 +96,9 @@ private Q_SLOTS:
 
         auto trackId = musicDb.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track6"), QStringLiteral("artist1 and artist2"), QStringLiteral("album2"), 6, 1);
 
-        auto firstTrack = musicDb.trackFromDatabaseId(trackId);
+        auto firstTrack = musicDb.trackDataFromDatabaseId(trackId);
 
-        musicDb.removeTracksList({firstTrack.resourceURI()});
+        musicDb.removeTracksList({firstTrack[DatabaseInterface::ResourceRole].toUrl()});
 
         QCOMPARE(artistsModel.rowCount(), 6);
         QCOMPARE(beginInsertRowsSpy.count(), 1);

@@ -35,7 +35,7 @@ public:
 
     QList<MediaPlayListEntry> mData;
 
-    QList<MusicAudioTrack> mTrackData;
+    QList<DatabaseInterface::DataType> mTrackData;
 
     MusicListenersManager* mMusicListenersManager = nullptr;
 
@@ -131,138 +131,8 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
         case ColumnsRoles::IsValidRole:
             result = d->mData[index.row()].mIsValid;
             break;
-        case ColumnsRoles::TitleRole:
-            if (!d->mTrackData[index.row()].title().isEmpty()) {
-                result = d->mTrackData[index.row()].title();
-            } else {
-                if (d->mData[index.row()].mTrackUrl.isLocalFile()) {
-                    result = d->mData[index.row()].mTrackUrl.fileName();
-                } else {
-                    result = d->mData[index.row()].mTrackUrl.toString();
-                }
-            }
-            break;
-        case ColumnsRoles::DurationRole:
-        {
-            const QTime &trackDuration = d->mTrackData[index.row()].duration();
-            if (trackDuration.hour() == 0) {
-                result = trackDuration.toString(QStringLiteral("mm:ss"));
-            } else {
-                result = trackDuration.toString();
-            }
-            break;
-        }
-        case ColumnsRoles::MilliSecondsDurationRole:
-            result = d->mTrackData[index.row()].duration().msecsSinceStartOfDay();
-            break;
-        case ColumnsRoles::ArtistRole:
-            result = d->mTrackData[index.row()].artist();
-            break;
-        case ColumnsRoles::AlbumArtistRole:
-            result = d->mTrackData[index.row()].albumArtist();
-            break;
-        case ColumnsRoles::AlbumRole:
-            result = d->mTrackData[index.row()].albumName();
-            break;
-        case ColumnsRoles::TrackNumberRole:
-            result = d->mTrackData[index.row()].trackNumber();
-            break;
-        case ColumnsRoles::DiscNumberRole:
-            result = d->mTrackData[index.row()].discNumber();
-            break;
-        case ColumnsRoles::IsSingleDiscAlbumHeader:
-            result = d->mTrackData[index.row()].isSingleDiscAlbum();
-            break;
-        case ColumnsRoles::ResourceRole:
-            if (d->mTrackData[index.row()].resourceURI().isValid()) {
-                result = d->mTrackData[index.row()].resourceURI();
-            } else {
-                result = d->mData[index.row()].mTrackUrl;
-            }
-            break;
-        case ColumnsRoles::ImageRole:
-        {
-            auto albumArt = d->mTrackData[index.row()].albumCover();
-            if (albumArt.isValid()) {
-                result = albumArt;
-            }
-            break;
-        }
-        case ColumnsRoles::HasAlbumHeader:
-            result = rowHasHeader(index.row());
-            break;
-        case ColumnsRoles::RatingRole:
-            result = d->mTrackData[index.row()].rating();
-            break;
-        case ColumnsRoles::GenreRole:
-            result = d->mTrackData[index.row()].genre();
-            break;
-        case ColumnsRoles::LyricistRole:
-            result = d->mTrackData[index.row()].lyricist();
-            break;
-        case ColumnsRoles::ComposerRole:
-            result = d->mTrackData[index.row()].composer();
-            break;
-        case ColumnsRoles::CommentRole:
-            result = d->mTrackData[index.row()].comment();
-            break;
-        case ColumnsRoles::YearRole:
-            result = d->mTrackData[index.row()].year();
-            break;
-        case ColumnsRoles::ChannelsRole:
-            result = d->mTrackData[index.row()].channels();
-            break;
-        case ColumnsRoles::BitRateRole:
-            result = d->mTrackData[index.row()].bitRate();
-            break;
-        case ColumnsRoles::SampleRateRole:
-            result = d->mTrackData[index.row()].sampleRate();
-            break;
-        case ColumnsRoles::CountRole:
-            break;
-        case ColumnsRoles::IsPlayingRole:
-            result = d->mData[index.row()].mIsPlaying;
-            break;
-        case Qt::DisplayRole:
-        {
-            const auto &track = d->mTrackData[index.row()];
-            auto displayText = QString();
-            displayText = QStringLiteral("%1 - %2");
-
-            if (track.isSingleDiscAlbum()) {
-                displayText = displayText.arg(track.trackNumber());
-            } else {
-                auto numbersText = QString();
-                numbersText = QStringLiteral("%1 - %2");
-                numbersText = numbersText.arg(track.discNumber());
-                numbersText = numbersText.arg(track.trackNumber());
-                displayText = displayText.arg(numbersText);
-            }
-
-            result = displayText.arg(track.title());
-            break;
-        }
-        case ColumnsRoles::SecondaryTextRole:
-            break;
-        case ColumnsRoles::ImageUrlRole:
-        {
-            const auto &albumArt = d->mTrackData[index.row()].albumCover();
-            if (albumArt.isValid()) {
-                result = albumArt;
-            } else {
-                result = QUrl(QStringLiteral("image://icon/media-optical-audio"));
-            }
-            break;
-        }
-        case ColumnsRoles::ShadowForImageRole:
-            result = d->mTrackData[index.row()].albumCover().isValid();
-            break;
-        case ColumnsRoles::TrackDataRole:
-            result = QVariant::fromValue(d->mTrackData[index.row()]);
-            break;
-        case ColumnsRoles::AlbumIdRole:
-            result = d->mTrackData[index.row()].albumId();
-            break;
+        default:
+            result = d->mTrackData[index.row()][static_cast<DatabaseInterface::DataType::key_type>(role)];
         }
     } else {
         switch(role)
@@ -271,16 +141,7 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
             result = d->mData[index.row()].mIsValid;
             break;
         case ColumnsRoles::TitleRole:
-            if (!d->mData[index.row()].mTitle.isEmpty()) {
-                result = d->mData[index.row()].mTitle;
-            } else if (d->mData[index.row()].mTrackUrl.isValid()) {
-                if (d->mData[index.row()].mTrackUrl.isLocalFile()) {
-                    auto localFile = QFileInfo(d->mData[index.row()].mTrackUrl.toLocalFile());
-                    result = localFile.fileName();
-                } else {
-                    result = d->mData[index.row()].mTrackUrl.toString();
-                }
-            }
+            result = d->mData[index.row()].mTitle;
             break;
         case ColumnsRoles::IsPlayingRole:
             result = d->mData[index.row()].mIsPlaying;
@@ -319,7 +180,7 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
             result = QString();
             break;
         case Qt::DisplayRole:
-            result = d->mTrackData[index.row()].title();
+            result = d->mData[index.row()].mTitle;
             break;
         case ColumnsRoles::SecondaryTextRole:
             result = QString();
@@ -538,16 +399,16 @@ void MediaPlayList::enqueue(qulonglong newTrackId)
     enqueue(MediaPlayListEntry(newTrackId));
 }
 
-void MediaPlayList::enqueue(const MusicAudioTrack &newTrack)
+void MediaPlayList::enqueue(const DatabaseInterface::DataType &newTrack)
 {
     enqueue(MediaPlayListEntry(newTrack), newTrack);
 }
 
-void MediaPlayList::enqueue(const MediaPlayListEntry &newEntry, const MusicAudioTrack &audioTrack)
+void MediaPlayList::enqueue(const MediaPlayListEntry &newEntry, const DatabaseInterface::DataType &audioTrack)
 {
     beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size());
     d->mData.push_back(newEntry);
-    if (audioTrack.isValid()) {
+    if (!audioTrack.isEmpty()) {
         d->mTrackData.push_back(audioTrack);
     } else {
         d->mTrackData.push_back({});
@@ -565,15 +426,20 @@ void MediaPlayList::enqueue(const MediaPlayListEntry &newEntry, const MusicAudio
     if (!newEntry.mIsValid) {
         if (newEntry.mTrackUrl.isValid()) {
             qDebug() << "MediaPlayList::enqueue" << "newTrackByFileNameInList" << newEntry.mTrackUrl;
-            if (newEntry.mTrackUrl.isLocalFile()) {
-                QFileInfo newTrackFile(newEntry.mTrackUrl.toLocalFile());
+            auto entryURL = newEntry.mTrackUrl.toUrl();
+            if (entryURL.isLocalFile()) {
+                QFileInfo newTrackFile(entryURL.toLocalFile());
                 if (newTrackFile.exists()) {
                     d->mData.last().mIsValid = true;
                 }
-                Q_EMIT newTrackByFileNameInList(newEntry.mTrackUrl);
+                Q_EMIT newTrackByFileNameInList(entryURL);
             }
         } else {
-            Q_EMIT newTrackByNameInList(newEntry.mTitle, newEntry.mArtist, newEntry.mAlbum, newEntry.mTrackNumber, newEntry.mDiscNumber);
+            Q_EMIT newTrackByNameInList(newEntry.mTitle.toString(),
+                                        newEntry.mArtist.toString(),
+                                        newEntry.mAlbum.toString(),
+                                        newEntry.mTrackNumber.toInt(),
+                                        newEntry.mDiscNumber.toInt());
         }
     } else {
         Q_EMIT newTrackByIdInList(newEntry.mId);
@@ -687,7 +553,7 @@ void MediaPlayList::enqueue(const QList<MusicAlbum> &albums,
         for (auto oneTrackIndex = 0; oneTrackIndex < oneAlbum.tracksCount(); ++oneTrackIndex) {
             const auto &oneTrack = oneAlbum.trackFromIndex(oneTrackIndex);
             d->mData.push_back(MediaPlayListEntry{oneTrack.databaseId()});
-            d->mTrackData.push_back(oneTrack);
+            //d->mTrackData.push_back(oneTrack);
         }
     }
     endInsertRows();
@@ -722,7 +588,7 @@ void MediaPlayList::enqueue(const QList<MusicAudioTrack> &tracks,
     beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size() + tracks.size() - 1);
     for (const auto &oneTrack : tracks) {
         d->mData.push_back(MediaPlayListEntry{oneTrack.databaseId()});
-        d->mTrackData.push_back(oneTrack);
+        d->mTrackData.push_back({{DatabaseInterface::DatabaseIdRole, oneTrack.databaseId()}});
     }
     endInsertRows();
 
@@ -793,12 +659,13 @@ void MediaPlayList::enqueue(const QList<QUrl> &trackUrls,
         d->mTrackData.push_back({});
         if (newEntry.mTrackUrl.isValid()) {
             qDebug() << "MediaPlayList::enqueue" << "newTrackByFileNameInList" << oneTrackUrl;
-            if (newEntry.mTrackUrl.isLocalFile()) {
-                QFileInfo newTrackFile(newEntry.mTrackUrl.toLocalFile());
+            auto entryURL = newEntry.mTrackUrl.toUrl();
+            if (entryURL.isLocalFile()) {
+                QFileInfo newTrackFile(entryURL.toLocalFile());
                 if (newTrackFile.exists()) {
                     d->mData.last().mIsValid = true;
                 }
-                Q_EMIT newTrackByFileNameInList(newEntry.mTrackUrl);
+                Q_EMIT newTrackByFileNameInList(entryURL);
             }
         }
     }
@@ -826,7 +693,7 @@ void MediaPlayList::enqueue(const QList<QUrl> &trackUrls,
     Q_EMIT ensurePlay();
 }
 
-void MediaPlayList::replaceAndPlay(const MusicAudioTrack &newTrack)
+void MediaPlayList::replaceAndPlay(const DatabaseInterface::DataType &newTrack)
 {
     clearPlayList();
     enqueue(newTrack);
@@ -886,7 +753,7 @@ bool MediaPlayList::savePlaylist(const QUrl &fileName)
         const auto &oneTrack = d->mData.at(i);
         const auto &oneTrackData = d->mTrackData.at(i);
         if (oneTrack.mIsValid) {
-            savePlaylist.addMedia(oneTrackData.resourceURI());
+            //savePlaylist.addMedia(oneTrackData.resourceURI());
         }
     }
 
@@ -904,11 +771,11 @@ QVariantMap MediaPlayList::persistentState() const
         if (oneEntry.mIsValid) {
             const auto &oneTrack = d->mTrackData[trackIndex];
 
-            oneData.push_back(oneTrack.title());
+            /*oneData.push_back(oneTrack.title());
             oneData.push_back(oneTrack.artist());
             oneData.push_back(oneTrack.albumName());
             oneData.push_back(QString::number(oneTrack.trackNumber()));
-            oneData.push_back(QString::number(oneTrack.discNumber()));
+            oneData.push_back(QString::number(oneTrack.discNumber()));*/
 
             result.push_back(QVariant(oneData));
         }
@@ -995,7 +862,7 @@ void MediaPlayList::removeSelection(QList<int> selection)
     }
 }
 
-void MediaPlayList::albumAdded(const QList<MusicAudioTrack> &tracks)
+void MediaPlayList::albumAdded(const DatabaseInterface::DataListType &tracks)
 {
     for (int playListIndex = 0; playListIndex < d->mData.size(); ++playListIndex) {
         auto &oneEntry = d->mData[playListIndex];
@@ -1004,6 +871,7 @@ void MediaPlayList::albumAdded(const QList<MusicAudioTrack> &tracks)
             continue;
         }
 
+#if 0
         if (oneEntry.mArtist != tracks.first().artist()) {
             continue;
         }
@@ -1034,6 +902,7 @@ void MediaPlayList::albumAdded(const QList<MusicAudioTrack> &tracks)
 
             Q_EMIT tracksCountChanged();
         }
+#endif
 
         Q_EMIT persistentStateChanged();
     }
@@ -1125,11 +994,11 @@ void MediaPlayList::trackRemoved(qulonglong trackId)
         if (oneEntry.mIsValid) {
             if (oneEntry.mId == trackId) {
                 oneEntry.mIsValid = false;
-                oneEntry.mTitle = d->mTrackData[i].title();
+                /*oneEntry.mTitle = d->mTrackData[i].title();
                 oneEntry.mArtist = d->mTrackData[i].artist();
                 oneEntry.mAlbum = d->mTrackData[i].albumName();
                 oneEntry.mTrackNumber = d->mTrackData[i].trackNumber();
-                oneEntry.mDiscNumber = d->mTrackData[i].discNumber();
+                oneEntry.mDiscNumber = d->mTrackData[i].discNumber();*/
 
                 Q_EMIT dataChanged(index(i, 0), index(i, 0), {});
 
@@ -1253,10 +1122,10 @@ void MediaPlayList::trackInError(const QUrl &sourceInError, QMediaPlayer::Error 
         if (oneTrack.mIsValid) {
             const auto &oneTrackData = d->mTrackData.at(i);
 
-            if (oneTrackData.resourceURI() == sourceInError) {
+            /*if (oneTrackData.resourceURI() == sourceInError) {
                 oneTrack.mIsValid = false;
                 Q_EMIT dataChanged(index(i, 0), index(i, 0), {ColumnsRoles::IsValidRole});
-            }
+            }*/
         }
     }
 }
@@ -1278,21 +1147,21 @@ bool MediaPlayList::rowHasHeader(int row) const
     auto currentAlbumTitle = QString();
     auto currentAlbumArtist = QString();
     if (d->mData[row].mIsValid) {
-        currentAlbumTitle = d->mTrackData[row].albumName();
-        currentAlbumArtist = d->mTrackData[row].albumArtist();
+        //currentAlbumTitle = d->mTrackData[row].albumName();
+        //currentAlbumArtist = d->mTrackData[row].albumArtist();
     } else {
-        currentAlbumTitle = d->mData[row].mAlbum;
-        currentAlbumArtist = d->mData[row].mArtist;
+        //currentAlbumTitle = d->mData[row].mAlbum;
+        //currentAlbumArtist = d->mData[row].mArtist;
     }
 
     auto previousAlbumTitle = QString();
     auto previousAlbumArtist = QString();
     if (d->mData[row - 1].mIsValid) {
-        previousAlbumTitle = d->mTrackData[row - 1].albumName();
-        previousAlbumArtist = d->mTrackData[row - 1].albumArtist();
+        //previousAlbumTitle = d->mTrackData[row - 1].albumName();
+        //previousAlbumArtist = d->mTrackData[row - 1].albumArtist();
     } else {
-        previousAlbumTitle = d->mData[row - 1].mAlbum;
-        previousAlbumArtist = d->mData[row - 1].mArtist;
+        //previousAlbumTitle = d->mData[row - 1].mAlbum;
+        //previousAlbumArtist = d->mData[row - 1].mArtist;
     }
 
     if (currentAlbumTitle == previousAlbumTitle && currentAlbumArtist == previousAlbumArtist) {

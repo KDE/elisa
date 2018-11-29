@@ -124,6 +124,8 @@ public:
 
     QList<MusicAudioTrack> tracksFromAuthor(const QString &artistName);
 
+    DataType trackDataFromDatabaseId(qulonglong id);
+
     MusicAudioTrack trackFromDatabaseId(qulonglong id);
 
     qulonglong trackIdFromTitleAlbumTrackDiscNumber(const QString &title, const QString &artist, const QString &album,

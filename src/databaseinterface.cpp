@@ -639,6 +639,29 @@ QList<MusicAudioTrack> DatabaseInterface::tracksFromAuthor(const QString &Artist
     return allTracks;
 }
 
+DatabaseInterface::DataType DatabaseInterface::trackDataFromDatabaseId(qulonglong id)
+{
+    auto result = DataType();
+
+    if (!d) {
+        return result;
+    }
+
+    auto transactionResult = startTransaction();
+    if (!transactionResult) {
+        return result;
+    }
+
+    result = internalOneTrackPartialData(id);
+
+    transactionResult = finishTransaction();
+    if (!transactionResult) {
+        return result;
+    }
+
+    return result;
+}
+
 MusicAudioTrack DatabaseInterface::trackFromDatabaseId(qulonglong id)
 {
     auto result = MusicAudioTrack();

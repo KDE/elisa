@@ -131,8 +131,11 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
         case ColumnsRoles::IsValidRole:
             result = d->mData[index.row()].mIsValid;
             break;
+        case ColumnsRoles::HasAlbumHeader:
+            result = rowHasHeader(index.row());
+            break;
         default:
-            result = d->mTrackData[index.row()][static_cast<DatabaseInterface::TrackDataType::key_type>(role)];
+            result = d->mTrackData[index.row()][static_cast<TrackDataType::key_type>(role)];
         }
     } else {
         switch(role)
@@ -161,29 +164,11 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
         case ColumnsRoles::HasAlbumHeader:
             result = rowHasHeader(index.row());
             break;
-        case ColumnsRoles::DurationRole:
-            break;
-        case ColumnsRoles::DiscNumberRole:
-            break;
         case ColumnsRoles::IsSingleDiscAlbumHeader:
             result = false;
             break;
-        case ColumnsRoles::MilliSecondsDurationRole:
-            break;
-        case ColumnsRoles::ResourceRole:
-            break;
-        case ColumnsRoles::RatingRole:
-            break;
-        case ColumnsRoles::CountRole:
-            break;
-        case ColumnsRoles::ImageRole:
-            result = QString();
-            break;
         case Qt::DisplayRole:
             result = d->mData[index.row()].mTitle;
-            break;
-        case ColumnsRoles::SecondaryTextRole:
-            result = QString();
             break;
         case ColumnsRoles::ImageUrlRole:
             result = QUrl(QStringLiteral("image://icon/error"));
@@ -191,15 +176,8 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
         case ColumnsRoles::ShadowForImageRole:
             result = false;
             break;
-        case ColumnsRoles::TrackDataRole:
-        {
-            MusicAudioTrack emptyTrack;
-            result = QVariant::fromValue(emptyTrack);
-            break;
-        }
-        case ColumnsRoles::AlbumIdRole:
-            result = 0;
-            break;
+        default:
+            result = {};
         }
     }
 
@@ -559,6 +537,7 @@ void MediaPlayList::enqueue(const QList<MusicAlbum> &albums,
             oneData[DatabaseInterface::TrackDataType::key_type::TitleRole] = oneTrack.title();
             oneData[DatabaseInterface::TrackDataType::key_type::ArtistRole] = oneTrack.artist();
             oneData[DatabaseInterface::TrackDataType::key_type::AlbumRole] = oneTrack.albumName();
+            oneData[DatabaseInterface::TrackDataType::key_type::AlbumIdRole] = oneTrack.albumId();
             oneData[DatabaseInterface::TrackDataType::key_type::TrackNumberRole] = oneTrack.trackNumber();
             oneData[DatabaseInterface::TrackDataType::key_type::DiscNumberRole] = oneTrack.discNumber();
             oneData[DatabaseInterface::TrackDataType::key_type::DurationRole] = oneTrack.duration();
@@ -607,6 +586,7 @@ void MediaPlayList::enqueue(const QList<MusicAudioTrack> &tracks,
         oneData[DatabaseInterface::TrackDataType::key_type::TitleRole] = oneTrack.title();
         oneData[DatabaseInterface::TrackDataType::key_type::ArtistRole] = oneTrack.artist();
         oneData[DatabaseInterface::TrackDataType::key_type::AlbumRole] = oneTrack.albumName();
+        oneData[DatabaseInterface::TrackDataType::key_type::AlbumIdRole] = oneTrack.albumId();
         oneData[DatabaseInterface::TrackDataType::key_type::TrackNumberRole] = oneTrack.trackNumber();
         oneData[DatabaseInterface::TrackDataType::key_type::DiscNumberRole] = oneTrack.discNumber();
         oneData[DatabaseInterface::TrackDataType::key_type::DurationRole] = oneTrack.duration();
@@ -1171,21 +1151,21 @@ bool MediaPlayList::rowHasHeader(int row) const
     auto currentAlbumTitle = QString();
     auto currentAlbumArtist = QString();
     if (d->mData[row].mIsValid) {
-        //currentAlbumTitle = d->mTrackData[row].albumName();
-        //currentAlbumArtist = d->mTrackData[row].albumArtist();
+        currentAlbumTitle = d->mTrackData[row].album();
+        currentAlbumArtist = d->mTrackData[row].albumArtist();
     } else {
-        //currentAlbumTitle = d->mData[row].mAlbum;
-        //currentAlbumArtist = d->mData[row].mArtist;
+        currentAlbumTitle = d->mData[row].mAlbum.toString();
+        currentAlbumArtist = d->mData[row].mArtist.toString();
     }
 
     auto previousAlbumTitle = QString();
     auto previousAlbumArtist = QString();
     if (d->mData[row - 1].mIsValid) {
-        //previousAlbumTitle = d->mTrackData[row - 1].albumName();
-        //previousAlbumArtist = d->mTrackData[row - 1].albumArtist();
+        previousAlbumTitle = d->mTrackData[row - 1].album();
+        previousAlbumArtist = d->mTrackData[row - 1].albumArtist();
     } else {
-        //previousAlbumTitle = d->mData[row - 1].mAlbum;
-        //previousAlbumArtist = d->mData[row - 1].mArtist;
+        previousAlbumTitle = d->mData[row - 1].mAlbum.toString();
+        previousAlbumArtist = d->mData[row - 1].mArtist.toString();
     }
 
     if (currentAlbumTitle == previousAlbumTitle && currentAlbumArtist == previousAlbumArtist) {

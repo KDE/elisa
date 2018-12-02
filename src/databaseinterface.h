@@ -79,6 +79,7 @@ public:
         IsSingleDiscAlbumRole,
         ContainerDataRole,
         IsPartialDataRole,
+        AlbumIdRole,
     };
 
     Q_ENUM(ColumnsRoles)

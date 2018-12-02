@@ -3774,17 +3774,18 @@ DatabaseInterface::TrackDataType DatabaseInterface::buildTrackDataFromDatabaseRe
 {
     TrackDataType result;
 
-    result[DataType::key_type::DatabaseIdRole] = trackRecord.value(0);
-    result[DataType::key_type::TitleRole] = trackRecord.value(1);
-    result[DataType::key_type::AlbumRole] = trackRecord.value(10);
-    result[DataType::key_type::ArtistRole] = trackRecord.value(3);
-    result[DataType::key_type::AlbumArtistRole] = trackRecord.value(4);
-    result[DataType::key_type::ResourceRole] = trackRecord.value(5);
-    result[DataType::key_type::RatingRole] = trackRecord.value(11);
-    result[DataType::key_type::TrackNumberRole] = trackRecord.value(7);
-    result[DataType::key_type::DiscNumberRole] = trackRecord.value(8);
-    result[DataType::key_type::DurationRole] = QTime::fromMSecsSinceStartOfDay(trackRecord.value(9).toInt());
-    result[DataType::key_type::MilliSecondsDurationRole] = trackRecord.value(9).toInt();
+    result[TrackDataType::key_type::DatabaseIdRole] = trackRecord.value(0);
+    result[TrackDataType::key_type::TitleRole] = trackRecord.value(1);
+    result[TrackDataType::key_type::AlbumRole] = trackRecord.value(10);
+    result[TrackDataType::key_type::AlbumIdRole] = trackRecord.value(2);
+    result[TrackDataType::key_type::ArtistRole] = trackRecord.value(3);
+    result[TrackDataType::key_type::AlbumArtistRole] = trackRecord.value(4);
+    result[TrackDataType::key_type::ResourceRole] = trackRecord.value(5);
+    result[TrackDataType::key_type::TrackNumberRole] = trackRecord.value(7);
+    result[TrackDataType::key_type::DiscNumberRole] = trackRecord.value(8);
+    result[TrackDataType::key_type::DurationRole] = QTime::fromMSecsSinceStartOfDay(trackRecord.value(9).toInt());
+    result[TrackDataType::key_type::MilliSecondsDurationRole] = trackRecord.value(9).toInt();
+    result[TrackDataType::key_type::RatingRole] = trackRecord.value(11);
 
     return result;
 }

@@ -57,8 +57,8 @@ TracksListener::~TracksListener()
 void TracksListener::tracksAdded(const ListTrackDataType &allTracks)
 {
     for (const auto &oneTrack : allTracks) {
-        if (d->mTracksByIdSet.contains(oneTrack[TrackDataType::key_type::DatabaseIdRole].toULongLong())) {
-            //Q_EMIT trackHasChanged(oneTrack);
+        if (d->mTracksByIdSet.contains(oneTrack.databaseId())) {
+            Q_EMIT trackHasChanged(oneTrack);
         }
 
         if (d->mTracksByNameSet.isEmpty()) {
@@ -66,34 +66,34 @@ void TracksListener::tracksAdded(const ListTrackDataType &allTracks)
         }
 
         for (auto itTrack = d->mTracksByNameSet.begin(); itTrack != d->mTracksByNameSet.end(); ) {
-            if (std::get<0>(*itTrack) != oneTrack[TrackDataType::key_type::TitleRole].toString()) {
+            if (std::get<0>(*itTrack) != oneTrack.title()) {
                 ++itTrack;
                 continue;
             }
 
-            if (std::get<1>(*itTrack) != oneTrack[TrackDataType::key_type::ArtistRole].toString()) {
+            if (std::get<1>(*itTrack) != oneTrack.artist()) {
                 ++itTrack;
                 continue;
             }
 
-            if (std::get<2>(*itTrack) != oneTrack[TrackDataType::key_type::AlbumRole].toString()) {
+            if (std::get<2>(*itTrack) != oneTrack.album()) {
                 ++itTrack;
                 continue;
             }
 
-            if (std::get<3>(*itTrack) != oneTrack[TrackDataType::key_type::TrackNumberRole].toInt()) {
+            if (std::get<3>(*itTrack) != oneTrack.trackNumber()) {
                 ++itTrack;
                 continue;
             }
 
-            if (std::get<4>(*itTrack) != oneTrack[TrackDataType::key_type::DiscNumberRole].toInt()) {
+            if (std::get<4>(*itTrack) != oneTrack.discNumber()) {
                 ++itTrack;
                 continue;
             }
 
-            //Q_EMIT trackHasChanged(oneTrack);
+            Q_EMIT trackHasChanged(TrackDataType(oneTrack));
 
-            d->mTracksByIdSet.insert(oneTrack[TrackDataType::key_type::DatabaseIdRole].toULongLong());
+            d->mTracksByIdSet.insert(oneTrack.databaseId());
             itTrack = d->mTracksByNameSet.erase(itTrack);
         }
     }
@@ -108,7 +108,7 @@ void TracksListener::trackRemoved(qulonglong id)
 
 void TracksListener::trackModified(const TrackDataType &modifiedTrack)
 {
-    if (d->mTracksByIdSet.contains(modifiedTrack[TrackDataType::key_type::DatabaseIdRole].toULongLong())) {
+    if (d->mTracksByIdSet.contains(modifiedTrack.databaseId())) {
         Q_EMIT trackHasChanged(modifiedTrack);
     }
 }
@@ -172,7 +172,7 @@ void TracksListener::trackByIdInList(qulonglong newTrackId)
 
     auto newTrack = d->mDatabase->trackDataFromDatabaseId(newTrackId);
     if (!newTrack.isEmpty()) {
-        Q_EMIT trackHasChanged({newTrack});
+        Q_EMIT trackHasChanged(newTrack);
     }
 }
 
@@ -187,7 +187,7 @@ void TracksListener::newArtistInList(const QString &artist)
         d->mTracksByIdSet.insert(oneTrack.databaseId());
     }
 
-    //Q_EMIT albumAdded(newTracks);
+    Q_EMIT albumAdded(newTracks);
 }
 
 MusicAudioTrack TracksListener::scanOneFile(const QUrl &scanFile)

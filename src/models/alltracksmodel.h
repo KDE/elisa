@@ -35,9 +35,9 @@ class ELISALIB_EXPORT AllTracksModel : public QAbstractItemModel
 
 public:
 
-    using DataListType = DatabaseInterface::DataListType;
+    using ListTrackDataType = DatabaseInterface::ListTrackDataType;
 
-    using DataType = DatabaseInterface::DataType;
+    using TrackDataType = DatabaseInterface::TrackDataType;
 
     explicit AllTracksModel(QObject *parent = nullptr);
 
@@ -59,11 +59,11 @@ public:
 
 public Q_SLOTS:
 
-    void tracksAdded(DataListType allTracks);
+    void tracksAdded(ListTrackDataType allTracks);
 
     void trackRemoved(qulonglong removedTrackId);
 
-    void trackModified(const DataType &modifiedTrack);
+    void trackModified(const TrackDataType &modifiedTrack);
 
 private:
 

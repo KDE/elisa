@@ -306,9 +306,9 @@ MusicAlbum DatabaseInterface::albumFromTitleAndArtist(const QString &title, cons
     return result;
 }
 
-DatabaseInterface::DataListType DatabaseInterface::allData(DataUtils::DataType aType)
+DatabaseInterface::ListTrackDataType DatabaseInterface::allTracksData()
 {
-    auto result = DataListType{};
+    auto result = ListTrackDataType{};
 
     if (!d) {
         return result;
@@ -319,29 +319,76 @@ DatabaseInterface::DataListType DatabaseInterface::allData(DataUtils::DataType a
         return result;
     }
 
-    switch (aType)
-    {
-    case DataUtils::DataType::AllArtists:
-        result = internalAllArtistsPartialData();
-        break;
-    case DataUtils::DataType::AllAlbums:
-        result = internalAllAlbumsPartialData();
-        break;
-    case DataUtils::DataType::AllTracks:
-        result = internalAllTracksPartialData();
-        break;
-    case DataUtils::DataType::AllGenres:
-        result = internalAllGenresPartialData();
-        break;
-    case DataUtils::DataType::AllComposers:
-        result = internalAllComposersPartialData();
-        break;
-    case DataUtils::DataType::AllLyricists:
-        result = internalAllLyricistsPartialData();
-        break;
-    case DataUtils::DataType::UnknownType:
-        break;
-    };
+    result = internalAllTracksPartialData();
+
+    transactionResult = finishTransaction();
+    if (!transactionResult) {
+        return result;
+    }
+
+    return result;
+}
+
+DatabaseInterface::ListAlbumDataType DatabaseInterface::allAlbumsData()
+{
+    auto result = ListAlbumDataType{};
+
+    if (!d) {
+        return result;
+    }
+
+    auto transactionResult = startTransaction();
+    if (!transactionResult) {
+        return result;
+    }
+
+    result = internalAllAlbumsPartialData();
+
+    transactionResult = finishTransaction();
+    if (!transactionResult) {
+        return result;
+    }
+
+    return result;
+}
+
+DatabaseInterface::ListArtistDataType DatabaseInterface::allArtistsData()
+{
+    auto result = ListArtistDataType{};
+
+    if (!d) {
+        return result;
+    }
+
+    auto transactionResult = startTransaction();
+    if (!transactionResult) {
+        return result;
+    }
+
+    result = internalAllArtistsPartialData();
+
+    transactionResult = finishTransaction();
+    if (!transactionResult) {
+        return result;
+    }
+
+    return result;
+}
+
+DatabaseInterface::ListGenreDataType DatabaseInterface::allGenresData()
+{
+    auto result = ListGenreDataType{};
+
+    if (!d) {
+        return result;
+    }
+
+    auto transactionResult = startTransaction();
+    if (!transactionResult) {
+        return result;
+    }
+
+    result = internalAllGenresPartialData();
 
     transactionResult = finishTransaction();
     if (!transactionResult) {
@@ -620,9 +667,9 @@ QList<MusicAudioGenre> DatabaseInterface::allGenres()
     return result;
 }
 
-QList<MusicAudioTrack> DatabaseInterface::tracksFromAuthor(const QString &ArtistName)
+DatabaseInterface::ListTrackDataType DatabaseInterface::tracksFromAuthor(const QString &ArtistName)
 {
-    auto allTracks = QList<MusicAudioTrack>();
+    auto allTracks = ListTrackDataType{};
 
     auto transactionResult = startTransaction();
     if (!transactionResult) {
@@ -639,9 +686,9 @@ QList<MusicAudioTrack> DatabaseInterface::tracksFromAuthor(const QString &Artist
     return allTracks;
 }
 
-DatabaseInterface::DataType DatabaseInterface::trackDataFromDatabaseId(qulonglong id)
+DatabaseInterface::TrackDataType DatabaseInterface::trackDataFromDatabaseId(qulonglong id)
 {
-    auto result = DataType();
+    auto result = TrackDataType();
 
     if (!d) {
         return result;
@@ -753,7 +800,7 @@ void DatabaseInterface::removeAllTracksFromSource(const QString &sourceName)
     internalRemoveTracksList(allFileNames, sourceId);
 
     if (!d->mInsertedArtists.isEmpty()) {
-        DataListType newArtists;
+        ListArtistDataType newArtists;
         for (auto artistId : qAsConst(d->mInsertedArtists)) {
             newArtists.push_back({{DatabaseIdRole, artistId}});
         }
@@ -884,7 +931,7 @@ void DatabaseInterface::insertTracksList(const QList<MusicAudioTrack> &tracks, c
     }
 
     if (!d->mInsertedArtists.isEmpty()) {
-        DataListType newArtists;
+        ListArtistDataType newArtists;
 
         for (auto artistId : qAsConst(d->mInsertedArtists)) {
             newArtists.push_back({{DatabaseIdRole, artistId}});
@@ -894,7 +941,7 @@ void DatabaseInterface::insertTracksList(const QList<MusicAudioTrack> &tracks, c
     }
 
     if (!d->mInsertedAlbums.isEmpty()) {
-        DataListType newAlbums;
+        ListAlbumDataType newAlbums;
 
         for (auto albumId : qAsConst(d->mInsertedAlbums)) {
             d->mModifiedAlbumIds.remove(albumId);
@@ -909,10 +956,10 @@ void DatabaseInterface::insertTracksList(const QList<MusicAudioTrack> &tracks, c
     }
 
     if (!d->mInsertedTracks.isEmpty()) {
-        DataListType newTracks;
+        ListTrackDataType newTracks;
 
         for (auto trackId : qAsConst(d->mInsertedTracks)) {
-            newTracks.push_back({{DatabaseIdRole, trackId}});
+            newTracks.push_back(internalOneTrackPartialData(trackId));
             d->mModifiedTrackIds.remove(trackId);
         }
 
@@ -941,7 +988,7 @@ void DatabaseInterface::removeTracksList(const QList<QUrl> &removedTracks)
     internalRemoveTracksList(removedTracks);
 
     if (!d->mInsertedArtists.isEmpty()) {
-        DataListType newArtists;
+        ListArtistDataType newArtists;
         for (auto artistId : qAsConst(d->mInsertedArtists)) {
             newArtists.push_back({{DatabaseIdRole, artistId}});
         }
@@ -992,7 +1039,7 @@ void DatabaseInterface::modifyTracksList(const QList<MusicAudioTrack> &modifiedT
     }
 
     if (!d->mInsertedArtists.isEmpty()) {
-        DataListType newArtists;
+        ListArtistDataType newArtists;
 
         for (auto artistId : qAsConst(d->mInsertedArtists)) {
             newArtists.push_back({{DatabaseIdRole, artistId}});
@@ -1002,7 +1049,7 @@ void DatabaseInterface::modifyTracksList(const QList<MusicAudioTrack> &modifiedT
     }
 
     if (!d->mInsertedAlbums.isEmpty()) {
-        DataListType newAlbums;
+        ListAlbumDataType newAlbums;
 
         for (auto albumId : qAsConst(d->mInsertedAlbums)) {
             d->mModifiedAlbumIds.remove(albumId);
@@ -1017,10 +1064,10 @@ void DatabaseInterface::modifyTracksList(const QList<MusicAudioTrack> &modifiedT
     }
 
     if (!d->mInsertedTracks.isEmpty()) {
-        DataListType newTracks;
+        ListTrackDataType newTracks;
 
         for (auto trackId : qAsConst(d->mInsertedTracks)) {
-            newTracks.push_back({{DatabaseIdRole, trackId}});
+            newTracks.push_back(internalOneTrackPartialData(trackId));
             d->mModifiedTrackIds.remove(trackId);
         }
 
@@ -3723,6 +3770,25 @@ MusicAudioTrack DatabaseInterface::buildTrackFromDatabaseRecord(const QSqlRecord
     return result;
 }
 
+DatabaseInterface::TrackDataType DatabaseInterface::buildTrackDataFromDatabaseRecord(const QSqlRecord &trackRecord) const
+{
+    TrackDataType result;
+
+    result[DataType::key_type::DatabaseIdRole] = trackRecord.value(0);
+    result[DataType::key_type::TitleRole] = trackRecord.value(1);
+    result[DataType::key_type::AlbumRole] = trackRecord.value(10);
+    result[DataType::key_type::ArtistRole] = trackRecord.value(3);
+    result[DataType::key_type::AlbumArtistRole] = trackRecord.value(4);
+    result[DataType::key_type::ResourceRole] = trackRecord.value(5);
+    result[DataType::key_type::RatingRole] = trackRecord.value(11);
+    result[DataType::key_type::TrackNumberRole] = trackRecord.value(7);
+    result[DataType::key_type::DiscNumberRole] = trackRecord.value(8);
+    result[DataType::key_type::DurationRole] = QTime::fromMSecsSinceStartOfDay(trackRecord.value(9).toInt());
+    result[DataType::key_type::MilliSecondsDurationRole] = trackRecord.value(9).toInt();
+
+    return result;
+}
+
 void DatabaseInterface::internalRemoveTracksList(const QList<QUrl> &removedTracks)
 {
     for (const auto &removedTrackFileName : removedTracks) {
@@ -4227,32 +4293,26 @@ void DatabaseInterface::reloadExistingDatabase()
 
     d->mArtistId = initialId(DataUtils::DataType::AllArtists);
     if (d->mArtistId > 1) {
-        Q_EMIT artistsAdded(allData(DataUtils::DataType::AllArtists));
+        Q_EMIT artistsAdded(allArtistsData());
     }
 
     d->mComposerId = initialId(DataUtils::DataType::AllComposers);
-    if (d->mComposerId > 1) {
-        Q_EMIT composersAdded(allData(DataUtils::DataType::AllComposers));
-    }
 
     d->mLyricistId = initialId(DataUtils::DataType::AllLyricists);
-    if (d->mLyricistId > 1) {
-        Q_EMIT lyricistsAdded(allData(DataUtils::DataType::AllLyricists));
-    }
 
     d->mAlbumId = initialId(DataUtils::DataType::AllAlbums);
     if (d->mAlbumId > 1) {
-        Q_EMIT albumsAdded(allData(DataUtils::DataType::AllAlbums));
+        Q_EMIT albumsAdded(allAlbumsData());
     }
 
     d->mTrackId = initialId(DataUtils::DataType::AllTracks);
     if (d->mTrackId > 1) {
-        Q_EMIT tracksAdded(allData(DataUtils::DataType::AllTracks));
+        Q_EMIT tracksAdded(allTracksData());
     }
 
     d->mGenreId = initialId(DataUtils::DataType::AllGenres);;
     if (d->mGenreId > 1) {
-        Q_EMIT genresAdded(allData(DataUtils::DataType::AllGenres));
+        Q_EMIT genresAdded(allGenresData());
     }
 }
 
@@ -4727,9 +4787,9 @@ qulonglong DatabaseInterface::internalTrackIdFromFileName(const QUrl &fileName)
     return result;
 }
 
-QList<MusicAudioTrack> DatabaseInterface::internalTracksFromAuthor(const QString &ArtistName)
+DatabaseInterface::ListTrackDataType DatabaseInterface::internalTracksFromAuthor(const QString &ArtistName)
 {
-    auto allTracks = QList<MusicAudioTrack>();
+    auto allTracks = ListTrackDataType{};
 
     d->mSelectTracksFromArtist.bindValue(QStringLiteral(":artistName"), ArtistName);
 
@@ -4748,7 +4808,7 @@ QList<MusicAudioTrack> DatabaseInterface::internalTracksFromAuthor(const QString
     while (d->mSelectTracksFromArtist.next()) {
         const auto &currentRecord = d->mSelectTracksFromArtist.record();
 
-        allTracks.push_back(buildTrackFromDatabaseRecord(currentRecord));
+        allTracks.push_back(buildTrackDataFromDatabaseRecord(currentRecord));
     }
 
     d->mSelectTracksFromArtist.finish();
@@ -4785,16 +4845,16 @@ QList<qulonglong> DatabaseInterface::internalAlbumIdsFromAuthor(const QString &A
     return allAlbumIds;
 }
 
-DatabaseInterface::DataListType DatabaseInterface::internalAllArtistsPartialData()
+DatabaseInterface::ListArtistDataType DatabaseInterface::internalAllArtistsPartialData()
 {
-    auto result = DataListType{};
+    auto result = ListArtistDataType{};
 
     if (!internalGenericPartialData(d->mSelectAllArtistsQuery)) {
         return result;
     }
 
     while(d->mSelectAllArtistsQuery.next()) {
-        auto newData = DataType{};
+        auto newData = ArtistDataType{};
 
         const auto &currentRecord = d->mSelectAllArtistsQuery.record();
 
@@ -4810,9 +4870,9 @@ DatabaseInterface::DataListType DatabaseInterface::internalAllArtistsPartialData
     return result;
 }
 
-DatabaseInterface::DataType DatabaseInterface::internalOneArtistPartialData(qulonglong databaseId)
+DatabaseInterface::ArtistDataType DatabaseInterface::internalOneArtistPartialData(qulonglong databaseId)
 {
-    auto result = DataType{};
+    auto result = ArtistDataType{};
 
     d->mSelectArtistQuery.bindValue(QStringLiteral(":artistId"), databaseId);
 
@@ -4833,16 +4893,16 @@ DatabaseInterface::DataType DatabaseInterface::internalOneArtistPartialData(qulo
     return result;
 }
 
-DatabaseInterface::DataListType DatabaseInterface::internalAllAlbumsPartialData()
+DatabaseInterface::ListAlbumDataType DatabaseInterface::internalAllAlbumsPartialData()
 {
-    DataListType result;
+    auto result = ListAlbumDataType{};
 
     if (!internalGenericPartialData(d->mSelectAllAlbumsShortQuery)) {
         return result;
     }
 
     while(d->mSelectAllAlbumsShortQuery.next()) {
-        auto newData = DataType{};
+        auto newData = AlbumDataType{};
 
         const auto &currentRecord = d->mSelectAllAlbumsShortQuery.record();
 
@@ -4863,9 +4923,9 @@ DatabaseInterface::DataListType DatabaseInterface::internalAllAlbumsPartialData(
     return result;
 }
 
-DatabaseInterface::DataType DatabaseInterface::internalOneAlbumPartialData(qulonglong databaseId)
+DatabaseInterface::AlbumDataType DatabaseInterface::internalOneAlbumPartialData(qulonglong databaseId)
 {
-    DataType result;
+    auto result = AlbumDataType{};
 
     d->mSelectAlbumQuery.bindValue(QStringLiteral(":albumId"), databaseId);
 
@@ -4891,16 +4951,16 @@ DatabaseInterface::DataType DatabaseInterface::internalOneAlbumPartialData(qulon
     return result;
 }
 
-DatabaseInterface::DataListType DatabaseInterface::internalAllTracksPartialData()
+DatabaseInterface::ListTrackDataType DatabaseInterface::internalAllTracksPartialData()
 {
-    DataListType result;
+    auto result = ListTrackDataType{};
 
     if (!internalGenericPartialData(d->mSelectAllTracksShortQuery)) {
         return result;
     }
 
     while(d->mSelectAllTracksShortQuery.next()) {
-        auto newData = DataType{};
+        auto newData = TrackDataType{};
 
         const auto &currentRecord = d->mSelectAllTracksShortQuery.record();
 
@@ -4924,9 +4984,9 @@ DatabaseInterface::DataListType DatabaseInterface::internalAllTracksPartialData(
     return result;
 }
 
-DatabaseInterface::DataType DatabaseInterface::internalOneTrackPartialData(qulonglong databaseId)
+DatabaseInterface::TrackDataType DatabaseInterface::internalOneTrackPartialData(qulonglong databaseId)
 {
-    DataType result;
+    auto result = TrackDataType{};
 
     d->mSelectTrackFromIdQuery.bindValue(QStringLiteral(":trackId"), databaseId);
 
@@ -4937,11 +4997,7 @@ DatabaseInterface::DataType DatabaseInterface::internalOneTrackPartialData(qulon
     if (d->mSelectTrackFromIdQuery.next()) {
         const auto &currentRecord = d->mSelectTrackFromIdQuery.record();
 
-        result[DataType::key_type::DatabaseIdRole] = currentRecord.value(0);
-        result[DataType::key_type::TitleRole] = currentRecord.value(1);
-        result[DataType::key_type::AlbumArtistRole] = currentRecord.value(4);
-        result[DataType::key_type::ResourceRole] = currentRecord.value(5);
-        result[DataType::key_type::RatingRole] = currentRecord.value(11);
+        result = buildTrackDataFromDatabaseRecord(currentRecord);
     }
 
     d->mSelectTrackFromIdQuery.finish();
@@ -4949,16 +5005,16 @@ DatabaseInterface::DataType DatabaseInterface::internalOneTrackPartialData(qulon
     return result;
 }
 
-DatabaseInterface::DataListType DatabaseInterface::internalAllGenresPartialData()
+DatabaseInterface::ListGenreDataType DatabaseInterface::internalAllGenresPartialData()
 {
-    DataListType result;
+    ListGenreDataType result;
 
     if (!internalGenericPartialData(d->mSelectAllGenresQuery)) {
         return result;
     }
 
     while(d->mSelectAllGenresQuery.next()) {
-        auto newData = DataType{};
+        auto newData = GenreDataType{};
 
         const auto &currentRecord = d->mSelectAllGenresQuery.record();
 
@@ -4973,9 +5029,9 @@ DatabaseInterface::DataListType DatabaseInterface::internalAllGenresPartialData(
     return result;
 }
 
-DatabaseInterface::DataType DatabaseInterface::internalOneGenrePartialData(qulonglong databaseId)
+DatabaseInterface::GenreDataType DatabaseInterface::internalOneGenrePartialData(qulonglong databaseId)
 {
-    DataType result;
+    auto result = GenreDataType{};
 
     d->mSelectGenreQuery.bindValue(QStringLiteral(":genreId"), databaseId);
 
@@ -4995,16 +5051,16 @@ DatabaseInterface::DataType DatabaseInterface::internalOneGenrePartialData(qulon
     return result;
 }
 
-DatabaseInterface::DataListType DatabaseInterface::internalAllComposersPartialData()
+DatabaseInterface::ListArtistDataType DatabaseInterface::internalAllComposersPartialData()
 {
-    DataListType result;
+    ListArtistDataType result;
 
     if (!internalGenericPartialData(d->mSelectAllComposersQuery)) {
         return result;
     }
 
     while(d->mSelectAllComposersQuery.next()) {
-        auto newData = DataType{};
+        auto newData = ArtistDataType{};
 
         const auto &currentRecord = d->mSelectAllComposersQuery.record();
 
@@ -5019,9 +5075,9 @@ DatabaseInterface::DataListType DatabaseInterface::internalAllComposersPartialDa
     return result;
 }
 
-DatabaseInterface::DataType DatabaseInterface::internalOneComposerPartialData(qulonglong databaseId)
+DatabaseInterface::ArtistDataType DatabaseInterface::internalOneComposerPartialData(qulonglong databaseId)
 {
-    DataType result;
+    auto result = ArtistDataType{};
 
     d->mSelectComposerQuery.bindValue(QStringLiteral(":composerId"), databaseId);
 
@@ -5041,16 +5097,16 @@ DatabaseInterface::DataType DatabaseInterface::internalOneComposerPartialData(qu
     return result;
 }
 
-DatabaseInterface::DataListType DatabaseInterface::internalAllLyricistsPartialData()
+DatabaseInterface::ListArtistDataType DatabaseInterface::internalAllLyricistsPartialData()
 {
-    DataListType result;
+    ListArtistDataType result;
 
     if (!internalGenericPartialData(d->mSelectAllLyricistsQuery)) {
         return result;
     }
 
     while(d->mSelectAllLyricistsQuery.next()) {
-        auto newData = DataType{};
+        auto newData = ArtistDataType{};
 
         const auto &currentRecord = d->mSelectAllLyricistsQuery.record();
 
@@ -5065,9 +5121,9 @@ DatabaseInterface::DataListType DatabaseInterface::internalAllLyricistsPartialDa
     return result;
 }
 
-DatabaseInterface::DataType DatabaseInterface::internalOneLyricistPartialData(qulonglong databaseId)
+DatabaseInterface::ArtistDataType DatabaseInterface::internalOneLyricistPartialData(qulonglong databaseId)
 {
-    DataType result;
+    auto result = ArtistDataType{};
 
     d->mSelectLyricistQuery.bindValue(QStringLiteral(":lyricistId"), databaseId);
 

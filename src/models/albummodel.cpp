@@ -317,7 +317,7 @@ void AlbumModel::setAlbumData(const MusicAlbum &album)
 
 }
 
-void AlbumModel::albumModified(const DataType &modifiedAlbum)
+void AlbumModel::albumModified(const AlbumDataType &modifiedAlbum)
 {
 #if 0
     if (modifiedAlbum.databaseId() != d->mCurrentAlbum.databaseId()) {

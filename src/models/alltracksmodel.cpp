@@ -28,7 +28,7 @@ class AllTracksModelPrivate
 {
 public:
 
-    AllTracksModel::DataListType mAllTracks;
+    AllTracksModel::ListTrackDataType mAllTracks;
 
 };
 
@@ -56,30 +56,17 @@ QHash<int, QByteArray> AllTracksModel::roleNames() const
 {
     auto roles = QAbstractItemModel::roleNames();
 
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::DatabaseIdRole)] = "databaseId";
     roles[static_cast<int>(DatabaseInterface::ColumnsRoles::TitleRole)] = "title";
-    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::DurationRole)] = "duration";
     roles[static_cast<int>(DatabaseInterface::ColumnsRoles::ArtistRole)] = "artist";
     roles[static_cast<int>(DatabaseInterface::ColumnsRoles::AlbumRole)] = "album";
     roles[static_cast<int>(DatabaseInterface::ColumnsRoles::AlbumArtistRole)] = "albumArtist";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::DurationRole)] = "duration";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::ImageUrlRole)] = "imageUrl";
     roles[static_cast<int>(DatabaseInterface::ColumnsRoles::TrackNumberRole)] = "trackNumber";
     roles[static_cast<int>(DatabaseInterface::ColumnsRoles::DiscNumberRole)] = "discNumber";
     roles[static_cast<int>(DatabaseInterface::ColumnsRoles::RatingRole)] = "rating";
-    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::GenreRole)] = "genre";
-    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::LyricistRole)] = "lyricist";
-    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::ComposerRole)] = "composer";
-    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::CommentRole)] = "comment";
-    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::YearRole)] = "year";
-    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::ChannelsRole)] = "channels";
-    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::BitRateRole)] = "bitRate";
-    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::SampleRateRole)] = "sampleRate";
-    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::ImageRole)] = "image";
-    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::DatabaseIdRole)] = "databaseId";
     roles[static_cast<int>(DatabaseInterface::ColumnsRoles::IsSingleDiscAlbumRole)] = "isSingleDiscAlbum";
-    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::ContainerDataRole)] = "containerData";
-    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::ResourceRole)] = "trackResource";
-    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::SecondaryTextRole)] = "secondaryText";
-    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::ImageUrlRole)] = "imageUrl";
-    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::ShadowForImageRole)] = "shadowForImage";
 
     return roles;
 }
@@ -112,7 +99,7 @@ QVariant AllTracksModel::data(const QModelIndex &index, int role) const
     {
     case DatabaseInterface::ColumnsRoles::DurationRole:
     {
-        auto trackDuration = QTime::fromMSecsSinceStartOfDay(static_cast<int>(track[DataType::key_type::DurationRole].toLongLong()));
+        auto trackDuration = QTime::fromMSecsSinceStartOfDay(track.duration());
         if (trackDuration.hour() == 0) {
             result = trackDuration.toString(QStringLiteral("mm:ss"));
         } else {
@@ -121,7 +108,7 @@ QVariant AllTracksModel::data(const QModelIndex &index, int role) const
         break;
     }
     default:
-        result = track[static_cast<DataType::key_type>(role)];
+        result = track[static_cast<TrackDataType::key_type>(role)];
     }
 
     return result;
@@ -164,7 +151,7 @@ int AllTracksModel::columnCount(const QModelIndex &parent) const
     return 1;
 }
 
-void AllTracksModel::tracksAdded(DataListType allTracks)
+void AllTracksModel::tracksAdded(ListTrackDataType allTracks)
 {
     if (allTracks.isEmpty()) {
         return;
@@ -184,7 +171,7 @@ void AllTracksModel::tracksAdded(DataListType allTracks)
 void AllTracksModel::trackRemoved(qulonglong removedTrackId)
 {
     auto itTrack = std::find_if(d->mAllTracks.begin(), d->mAllTracks.end(),
-                                [removedTrackId](auto track) {return track[DataType::key_type::DatabaseIdRole].toULongLong() == removedTrackId;});
+                                [removedTrackId](auto track) {return track.databaseId() == removedTrackId;});
 
     if (itTrack == d->mAllTracks.end()) {
         return;
@@ -197,11 +184,11 @@ void AllTracksModel::trackRemoved(qulonglong removedTrackId)
     endRemoveRows();
 }
 
-void AllTracksModel::trackModified(const DataType &modifiedTrack)
+void AllTracksModel::trackModified(const TrackDataType &modifiedTrack)
 {
     auto itTrack = std::find_if(d->mAllTracks.begin(), d->mAllTracks.end(),
                                 [modifiedTrack](auto track) {
-        return track[DataType::key_type::DatabaseIdRole].toULongLong() == modifiedTrack[DataType::key_type::DatabaseIdRole].toULongLong();
+        return track.databaseId() == modifiedTrack.databaseId();
     });
 
     if (itTrack == d->mAllTracks.end()) {

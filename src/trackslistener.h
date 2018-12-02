@@ -35,9 +35,9 @@ class ELISALIB_EXPORT TracksListener : public QObject
 
 public:
 
-    using DataListType = DatabaseInterface::DataListType;
+    using ListTrackDataType = DatabaseInterface::ListTrackDataType;
 
-    using DataType = DatabaseInterface::DataType;
+    using TrackDataType = DatabaseInterface::TrackDataType;
 
     explicit TracksListener(DatabaseInterface *database, QObject *parent = nullptr);
 
@@ -45,19 +45,19 @@ public:
 
 Q_SIGNALS:
 
-    void trackHasChanged(const DataType &audioTrack);
+    void trackHasChanged(const TrackDataType &audioTrack);
 
     void trackHasBeenRemoved(qulonglong id);
 
-    void albumAdded(const DataListType &tracks);
+    void albumAdded(const ListTrackDataType &tracks);
 
 public Q_SLOTS:
 
-    void tracksAdded(const DatabaseInterface::DataListType &allTracks);
+    void tracksAdded(const ListTrackDataType &allTracks);
 
     void trackRemoved(qulonglong id);
 
-    void trackModified(const DataType &modifiedTrack);
+    void trackModified(const TrackDataType &modifiedTrack);
 
     void trackByNameInList(const QString &title, const QString &artist, const QString &album, int trackNumber, int discNumber);
 

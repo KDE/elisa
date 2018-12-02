@@ -29,7 +29,6 @@
 #include <memory>
 
 class MusicListenersManagerPrivate;
-class DatabaseInterface;
 class MediaPlayList;
 class NotificationItem;
 class ElisaApplication;
@@ -160,7 +159,7 @@ private Q_SLOTS:
 
     void configChanged();
 
-    void increaseImportedTracksCount(const DatabaseInterface::DataListType &allTracks);
+    void increaseImportedTracksCount(const DatabaseInterface::ListTrackDataType &allTracks);
 
     void decreaseImportedTracksCount();
 

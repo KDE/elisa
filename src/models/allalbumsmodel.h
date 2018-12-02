@@ -48,9 +48,9 @@ class ELISALIB_EXPORT AllAlbumsModel : public QAbstractItemModel
 
 public:
 
-    using DataListType = DatabaseInterface::DataListType;
+    using ListAlbumDataType = DatabaseInterface::ListAlbumDataType;
 
-    using DataType = DatabaseInterface::DataType;
+    using AlbumDataType = DatabaseInterface::AlbumDataType;
 
     explicit AllAlbumsModel(QObject *parent = nullptr);
 
@@ -76,11 +76,11 @@ public:
 
 public Q_SLOTS:
 
-    void albumsAdded(DataListType newAlbums);
+    void albumsAdded(ListAlbumDataType newAlbums);
 
     void albumRemoved(qulonglong removedAlbumId);
 
-    void albumModified(const DataType &modifiedAlbum);
+    void albumModified(const AlbumDataType &modifiedAlbum);
 
     void setAllArtists(AllArtistsModel *model);
 

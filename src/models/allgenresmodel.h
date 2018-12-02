@@ -38,9 +38,9 @@ class ELISALIB_EXPORT AllGenresModel : public QAbstractItemModel
 
 public:
 
-    using DataListType = DatabaseInterface::DataListType;
+    using ListGenreDataType = DatabaseInterface::ListGenreDataType;
 
-    using DataType = DatabaseInterface::DataType;
+    using GenreDataType = DatabaseInterface::GenreDataType;
 
     explicit AllGenresModel(QObject *parent = nullptr);
 
@@ -66,7 +66,7 @@ Q_SIGNALS:
 
 public Q_SLOTS:
 
-    void genresAdded(DataListType newGenres);
+    void genresAdded(ListGenreDataType newGenres);
 
     void genreRemoved(const MusicAudioGenre &removedGenre);
 

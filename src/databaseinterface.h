@@ -83,9 +83,110 @@ public:
 
     Q_ENUM(ColumnsRoles)
 
+private:
+
     using DataType = QMap<ColumnsRoles, QVariant>;
 
-    using DataListType = QList<DataType>;
+public:
+
+    class TrackDataType : public DataType
+    {
+    public:
+
+        using DataType::DataType;
+
+        qulonglong databaseId() const
+        {
+            return operator[](key_type::DatabaseIdRole).toULongLong();
+        }
+
+        QString title() const
+        {
+            return operator[](key_type::TitleRole).toString();
+        }
+
+        QString artist() const
+        {
+            return operator[](key_type::ArtistRole).toString();
+        }
+
+        QString album() const
+        {
+            return operator[](key_type::AlbumRole).toString();
+        }
+
+        QString albumArtist() const
+        {
+            return operator[](key_type::AlbumArtistRole).toString();
+        }
+
+        int trackNumber() const
+        {
+            return operator[](key_type::TrackNumberRole).toInt();
+        }
+
+        int discNumber() const
+        {
+            return operator[](key_type::DiscNumberRole).toInt();
+        }
+
+        int duration() const
+        {
+            return operator[](key_type::DurationRole).toInt();
+        }
+
+        QUrl resourceURI() const
+        {
+            return operator[](key_type::ResourceRole).toUrl();
+        }
+    };
+
+    using ListTrackDataType = QList<TrackDataType>;
+
+    class AlbumDataType : public DataType
+    {
+    public:
+
+        using DataType::DataType;
+
+        qulonglong databaseId() const
+        {
+            return operator[](key_type::DatabaseIdRole).toULongLong();
+        }
+
+    };
+
+    using ListAlbumDataType = QList<AlbumDataType>;
+
+    class ArtistDataType : public DataType
+    {
+    public:
+
+        using DataType::DataType;
+
+        qulonglong databaseId() const
+        {
+            return operator[](key_type::DatabaseIdRole).toULongLong();
+        }
+
+    };
+
+    using ListArtistDataType = QList<ArtistDataType>;
+
+    class GenreDataType : public DataType
+    {
+    public:
+
+        using DataType::DataType;
+
+        qulonglong databaseId() const
+        {
+            return operator[](key_type::DatabaseIdRole).toULongLong();
+        }
+
+    };
+
+    using ListGenreDataType = QList<GenreDataType>;
 
     enum PropertyType {
         DatabaseId,
@@ -110,7 +211,13 @@ public:
 
     MusicAlbum albumFromTitleAndArtist(const QString &title, const QString &artist);
 
-    DataListType allData(DataUtils::DataType aType);
+    ListTrackDataType allTracksData();
+
+    ListAlbumDataType allAlbumsData();
+
+    ListArtistDataType allArtistsData();
+
+    ListGenreDataType allGenresData();
 
     DataType oneData(DataUtils::DataType aType, qulonglong databaseId);
 
@@ -122,9 +229,9 @@ public:
 
     QList<MusicAudioGenre> allGenres();
 
-    QList<MusicAudioTrack> tracksFromAuthor(const QString &artistName);
+    ListTrackDataType tracksFromAuthor(const QString &artistName);
 
-    DataType trackDataFromDatabaseId(qulonglong id);
+    TrackDataType trackDataFromDatabaseId(qulonglong id);
 
     MusicAudioTrack trackFromDatabaseId(qulonglong id);
 
@@ -137,17 +244,17 @@ public:
 
 Q_SIGNALS:
 
-    void artistsAdded(const DataListType &newArtists);
+    void artistsAdded(const ListArtistDataType &newArtists);
 
-    void composersAdded(const DataListType &newComposers);
+    void composersAdded(const ListArtistDataType &newComposers);
 
-    void lyricistsAdded(const DataListType &newLyricists);
+    void lyricistsAdded(const ListArtistDataType &newLyricists);
 
-    void albumsAdded(const DataListType &newAlbums);
+    void albumsAdded(const ListAlbumDataType &newAlbums);
 
-    void tracksAdded(const DataListType &allTracks);
+    void tracksAdded(const ListTrackDataType &allTracks);
 
-    void genresAdded(const DataListType &allGenres);
+    void genresAdded(const ListGenreDataType &allGenres);
 
     void artistRemoved(qulonglong removedArtistId);
 
@@ -155,9 +262,9 @@ Q_SIGNALS:
 
     void trackRemoved(qulonglong id);
 
-    void albumModified(const DataType &modifiedAlbum, qulonglong modifiedAlbumId);
+    void albumModified(const AlbumDataType &modifiedAlbum, qulonglong modifiedAlbumId);
 
-    void trackModified(const DataType &modifiedTrack);
+    void trackModified(const TrackDataType &modifiedTrack);
 
     void sentAlbumData(const MusicAlbum albumData);
 
@@ -221,7 +328,7 @@ private:
 
     qulonglong internalTrackIdFromFileName(const QUrl &fileName);
 
-    QList<MusicAudioTrack> internalTracksFromAuthor(const QString &artistName);
+    ListTrackDataType internalTracksFromAuthor(const QString &artistName);
 
     QList<qulonglong> internalAlbumIdsFromAuthor(const QString &artistName);
 
@@ -270,6 +377,8 @@ private:
 
     MusicAudioTrack buildTrackFromDatabaseRecord(const QSqlRecord &trackRecord) const;
 
+    TrackDataType buildTrackDataFromDatabaseRecord(const QSqlRecord &trackRecord) const;
+
     void internalRemoveTracksList(const QList<QUrl> &removedTracks);
 
     void internalRemoveTracksList(const QHash<QUrl, QDateTime> &removedTracks, qulonglong sourceId);
@@ -290,29 +399,29 @@ private:
 
     bool internalGenericPartialData(QSqlQuery &query);
 
-    DataListType internalAllArtistsPartialData();
+    ListArtistDataType internalAllArtistsPartialData();
 
-    DataType internalOneArtistPartialData(qulonglong databaseId);
+    ArtistDataType internalOneArtistPartialData(qulonglong databaseId);
 
-    DataListType internalAllAlbumsPartialData();
+    ListAlbumDataType internalAllAlbumsPartialData();
 
-    DataType internalOneAlbumPartialData(qulonglong databaseId);
+    AlbumDataType internalOneAlbumPartialData(qulonglong databaseId);
 
-    DataListType internalAllTracksPartialData();
+    ListTrackDataType internalAllTracksPartialData();
 
-    DataType internalOneTrackPartialData(qulonglong databaseId);
+    TrackDataType internalOneTrackPartialData(qulonglong databaseId);
 
-    DataListType internalAllGenresPartialData();
+    ListGenreDataType internalAllGenresPartialData();
 
-    DataType internalOneGenrePartialData(qulonglong databaseId);
+    GenreDataType internalOneGenrePartialData(qulonglong databaseId);
 
-    DataListType internalAllComposersPartialData();
+    ListArtistDataType internalAllComposersPartialData();
 
-    DataType internalOneComposerPartialData(qulonglong databaseId);
+    ArtistDataType internalOneComposerPartialData(qulonglong databaseId);
 
-    DataListType internalAllLyricistsPartialData();
+    ListArtistDataType internalAllLyricistsPartialData();
 
-    DataType internalOneLyricistPartialData(qulonglong databaseId);
+    ArtistDataType internalOneLyricistPartialData(qulonglong databaseId);
 
     bool prepareQuery(QSqlQuery &query, const QString &queryText) const;
 
@@ -323,6 +432,14 @@ private:
 
 };
 
+Q_DECLARE_METATYPE(DatabaseInterface::TrackDataType)
+Q_DECLARE_METATYPE(DatabaseInterface::AlbumDataType)
+Q_DECLARE_METATYPE(DatabaseInterface::ArtistDataType)
+Q_DECLARE_METATYPE(DatabaseInterface::GenreDataType)
 
+Q_DECLARE_METATYPE(DatabaseInterface::ListTrackDataType)
+Q_DECLARE_METATYPE(DatabaseInterface::ListAlbumDataType)
+Q_DECLARE_METATYPE(DatabaseInterface::ListArtistDataType)
+Q_DECLARE_METATYPE(DatabaseInterface::ListGenreDataType)
 
 #endif // DATABASEINTERFACE_H

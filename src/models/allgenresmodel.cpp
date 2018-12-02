@@ -30,7 +30,7 @@ public:
 
     AllGenresModelPrivate() = default;
 
-    AllGenresModel::DataListType mAllGenres;
+    AllGenresModel::ListGenreDataType mAllGenres;
 
 };
 
@@ -93,10 +93,10 @@ QVariant AllGenresModel::data(const QModelIndex &index, int role) const
     switch(role)
     {
     case Qt::DisplayRole:
-        result = d->mAllGenres[index.row()][DataType::key_type::TitleRole];
+        result = d->mAllGenres[index.row()][GenreDataType::key_type::TitleRole];
         break;
     default:
-        result = d->mAllGenres[index.row()][static_cast<DataType::key_type>(role)];
+        result = d->mAllGenres[index.row()][static_cast<GenreDataType::key_type>(role)];
     }
 
     return result;
@@ -135,11 +135,15 @@ int AllGenresModel::columnCount(const QModelIndex &parent) const
     return 1;
 }
 
-void AllGenresModel::genresAdded(DataListType newGenres)
+void AllGenresModel::genresAdded(ListGenreDataType newGenres)
 {
-    if (!newGenres.isEmpty()) {
-        beginInsertRows({}, d->mAllGenres.size(), d->mAllGenres.size() + newGenres.size() - 1);
+    if (d->mAllGenres.isEmpty()) {
+        beginInsertRows({}, d->mAllGenres.size(), newGenres.size() - 1);
         d->mAllGenres.swap(newGenres);
+        endInsertRows();
+    } else {
+        beginInsertRows({}, d->mAllGenres.size(), d->mAllGenres.size() + newGenres.size() - 1);
+        d->mAllGenres.append(newGenres);
         endInsertRows();
     }
 }
@@ -147,7 +151,7 @@ void AllGenresModel::genresAdded(DataListType newGenres)
 void AllGenresModel::genreRemoved(const MusicAudioGenre &removedGenre)
 {
     auto removedGenreIterator = std::find_if(d->mAllGenres.begin(), d->mAllGenres.end(),
-                                        [removedGenre](auto genre) {return genre[DataType::key_type::DatabaseIdRole].toULongLong() == removedGenre.databaseId();});
+                                        [removedGenre](auto genre) {return genre.databaseId() == removedGenre.databaseId();});
 
     if (removedGenreIterator == d->mAllGenres.end()) {
         return;

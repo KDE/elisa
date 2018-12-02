@@ -35,7 +35,7 @@ public:
 
     QList<MediaPlayListEntry> mData;
 
-    QList<DatabaseInterface::DataType> mTrackData;
+    QList<DatabaseInterface::TrackDataType> mTrackData;
 
     MusicListenersManager* mMusicListenersManager = nullptr;
 
@@ -132,7 +132,7 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
             result = d->mData[index.row()].mIsValid;
             break;
         default:
-            result = d->mTrackData[index.row()][static_cast<DatabaseInterface::DataType::key_type>(role)];
+            result = d->mTrackData[index.row()][static_cast<DatabaseInterface::TrackDataType::key_type>(role)];
         }
     } else {
         switch(role)
@@ -399,12 +399,12 @@ void MediaPlayList::enqueue(qulonglong newTrackId)
     enqueue(MediaPlayListEntry(newTrackId));
 }
 
-void MediaPlayList::enqueue(const DatabaseInterface::DataType &newTrack)
+void MediaPlayList::enqueue(const TrackDataType &newTrack)
 {
     enqueue(MediaPlayListEntry(newTrack), newTrack);
 }
 
-void MediaPlayList::enqueue(const MediaPlayListEntry &newEntry, const DatabaseInterface::DataType &audioTrack)
+void MediaPlayList::enqueue(const MediaPlayListEntry &newEntry, const TrackDataType &audioTrack)
 {
     beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size());
     d->mData.push_back(newEntry);
@@ -553,7 +553,20 @@ void MediaPlayList::enqueue(const QList<MusicAlbum> &albums,
         for (auto oneTrackIndex = 0; oneTrackIndex < oneAlbum.tracksCount(); ++oneTrackIndex) {
             const auto &oneTrack = oneAlbum.trackFromIndex(oneTrackIndex);
             d->mData.push_back(MediaPlayListEntry{oneTrack.databaseId()});
-            //d->mTrackData.push_back(oneTrack);
+
+            auto oneData = DatabaseInterface::TrackDataType{};
+
+            oneData[DatabaseInterface::TrackDataType::key_type::TitleRole] = oneTrack.title();
+            oneData[DatabaseInterface::TrackDataType::key_type::ArtistRole] = oneTrack.artist();
+            oneData[DatabaseInterface::TrackDataType::key_type::AlbumRole] = oneTrack.albumName();
+            oneData[DatabaseInterface::TrackDataType::key_type::TrackNumberRole] = oneTrack.trackNumber();
+            oneData[DatabaseInterface::TrackDataType::key_type::DiscNumberRole] = oneTrack.discNumber();
+            oneData[DatabaseInterface::TrackDataType::key_type::DurationRole] = oneTrack.duration();
+            oneData[DatabaseInterface::TrackDataType::key_type::MilliSecondsDurationRole] = oneTrack.duration().msecsSinceStartOfDay();
+            oneData[DatabaseInterface::TrackDataType::key_type::ResourceRole] = oneTrack.resourceURI();
+            oneData[DatabaseInterface::TrackDataType::key_type::ImageUrlRole] = oneTrack.albumCover();
+
+            d->mTrackData.push_back(oneData);
         }
     }
     endInsertRows();
@@ -588,7 +601,20 @@ void MediaPlayList::enqueue(const QList<MusicAudioTrack> &tracks,
     beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size() + tracks.size() - 1);
     for (const auto &oneTrack : tracks) {
         d->mData.push_back(MediaPlayListEntry{oneTrack.databaseId()});
-        d->mTrackData.push_back({{DatabaseInterface::DatabaseIdRole, oneTrack.databaseId()}});
+
+        auto oneData = DatabaseInterface::TrackDataType{};
+
+        oneData[DatabaseInterface::TrackDataType::key_type::TitleRole] = oneTrack.title();
+        oneData[DatabaseInterface::TrackDataType::key_type::ArtistRole] = oneTrack.artist();
+        oneData[DatabaseInterface::TrackDataType::key_type::AlbumRole] = oneTrack.albumName();
+        oneData[DatabaseInterface::TrackDataType::key_type::TrackNumberRole] = oneTrack.trackNumber();
+        oneData[DatabaseInterface::TrackDataType::key_type::DiscNumberRole] = oneTrack.discNumber();
+        oneData[DatabaseInterface::TrackDataType::key_type::DurationRole] = oneTrack.duration();
+        oneData[DatabaseInterface::TrackDataType::key_type::MilliSecondsDurationRole] = oneTrack.duration().msecsSinceStartOfDay();
+        oneData[DatabaseInterface::TrackDataType::key_type::ResourceRole] = oneTrack.resourceURI();
+        oneData[DatabaseInterface::TrackDataType::key_type::ImageUrlRole] = oneTrack.albumCover();
+
+        d->mTrackData.push_back(oneData);
     }
     endInsertRows();
 
@@ -693,7 +719,7 @@ void MediaPlayList::enqueue(const QList<QUrl> &trackUrls,
     Q_EMIT ensurePlay();
 }
 
-void MediaPlayList::replaceAndPlay(const DatabaseInterface::DataType &newTrack)
+void MediaPlayList::replaceAndPlay(const TrackDataType &newTrack)
 {
     clearPlayList();
     enqueue(newTrack);
@@ -771,11 +797,11 @@ QVariantMap MediaPlayList::persistentState() const
         if (oneEntry.mIsValid) {
             const auto &oneTrack = d->mTrackData[trackIndex];
 
-            /*oneData.push_back(oneTrack.title());
+            oneData.push_back(oneTrack.title());
             oneData.push_back(oneTrack.artist());
-            oneData.push_back(oneTrack.albumName());
+            oneData.push_back(oneTrack.album());
             oneData.push_back(QString::number(oneTrack.trackNumber()));
-            oneData.push_back(QString::number(oneTrack.discNumber()));*/
+            oneData.push_back(QString::number(oneTrack.discNumber()));
 
             result.push_back(QVariant(oneData));
         }
@@ -862,16 +888,15 @@ void MediaPlayList::removeSelection(QList<int> selection)
     }
 }
 
-void MediaPlayList::albumAdded(const DatabaseInterface::DataListType &tracks)
+void MediaPlayList::albumAdded(const ListTrackDataType &tracks)
 {
     for (int playListIndex = 0; playListIndex < d->mData.size(); ++playListIndex) {
         auto &oneEntry = d->mData[playListIndex];
-
-        if (!oneEntry.mIsArtist || oneEntry.mIsValid) {
+#if 0
+        if (oneEntry.mEntryType != MediaPlayList::Artist || oneEntry.mIsValid) {
             continue;
         }
 
-#if 0
         if (oneEntry.mArtist != tracks.first().artist()) {
             continue;
         }
@@ -879,7 +904,7 @@ void MediaPlayList::albumAdded(const DatabaseInterface::DataListType &tracks)
         d->mTrackData[playListIndex] = tracks.first();
         oneEntry.mId = tracks.first().databaseId();
         oneEntry.mIsValid = true;
-        oneEntry.mIsArtist = false;
+        oneEntry.mEntryType = MediaPlayList::Track;
 
         Q_EMIT dataChanged(index(playListIndex, 0), index(playListIndex, 0), {});
 
@@ -903,18 +928,17 @@ void MediaPlayList::albumAdded(const DatabaseInterface::DataListType &tracks)
             Q_EMIT tracksCountChanged();
         }
 #endif
-
         Q_EMIT persistentStateChanged();
     }
 }
 
-void MediaPlayList::trackChanged(const DataType &track)
+void MediaPlayList::trackChanged(const TrackDataType &track)
 {
 #if 0
     for (int i = 0; i < d->mData.size(); ++i) {
         auto &oneEntry = d->mData[i];
 
-        if (!oneEntry.mIsArtist && oneEntry.mIsValid) {
+        if (oneEntry.mEntryType != MediaPlayList::Artist && oneEntry.mIsValid) {
             if (oneEntry.mTrackUrl.isValid() && track.resourceURI() != oneEntry.mTrackUrl) {
                 continue;
             }
@@ -933,12 +957,12 @@ void MediaPlayList::trackChanged(const DataType &track)
                 }
             }
             continue;
-        } else if (!oneEntry.mIsArtist && !oneEntry.mIsValid && !oneEntry.mTrackUrl.isValid()) {
+        } else if (oneEntry.mEntryType != MediaPlayList::Artist && !oneEntry.mIsValid && !oneEntry.mTrackUrl.isValid()) {
             if (track.title() != oneEntry.mTitle) {
                 continue;
             }
 
-            if (track.albumName() != oneEntry.mAlbum) {
+            if (track.album() != oneEntry.mAlbum) {
                 continue;
             }
 
@@ -994,11 +1018,11 @@ void MediaPlayList::trackRemoved(qulonglong trackId)
         if (oneEntry.mIsValid) {
             if (oneEntry.mId == trackId) {
                 oneEntry.mIsValid = false;
-                /*oneEntry.mTitle = d->mTrackData[i].title();
+                oneEntry.mTitle = d->mTrackData[i].title();
                 oneEntry.mArtist = d->mTrackData[i].artist();
-                oneEntry.mAlbum = d->mTrackData[i].albumName();
+                oneEntry.mAlbum = d->mTrackData[i].album();
                 oneEntry.mTrackNumber = d->mTrackData[i].trackNumber();
-                oneEntry.mDiscNumber = d->mTrackData[i].discNumber();*/
+                oneEntry.mDiscNumber = d->mTrackData[i].discNumber();
 
                 Q_EMIT dataChanged(index(i, 0), index(i, 0), {});
 

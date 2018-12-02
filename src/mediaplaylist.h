@@ -74,14 +74,18 @@ class ELISALIB_EXPORT MediaPlayList : public QAbstractListModel
 public:
 
     enum ColumnsRoles {
-        IsValidRole = Qt::UserRole + 1,
-        TitleRole,
+        TitleRole = DatabaseInterface::TitleRole,
+        SecondaryTextRole,
+        ImageUrlRole,
+        ShadowForImageRole,
+        ChildModelRole,
         DurationRole,
         MilliSecondsDurationRole,
-        TrackDataRole,
         ArtistRole,
-        AlbumArtistRole,
+        AllArtistsRole,
+        HighestTrackRating,
         AlbumRole,
+        AlbumArtistRole,
         TrackNumberRole,
         DiscNumberRole,
         RatingRole,
@@ -94,15 +98,19 @@ public:
         BitRateRole,
         SampleRateRole,
         ImageRole,
-        AlbumIdRole,
         ResourceRole,
+        IdRole,
+        DatabaseIdRole,
+        IsSingleDiscAlbumRole,
+        ContainerDataRole,
+        IsPartialDataRole,
+        IsValidRole,
+        TrackDataRole,
+        AlbumIdRole,
         CountRole,
         IsPlayingRole,
         HasAlbumHeader,
         IsSingleDiscAlbumHeader,
-        SecondaryTextRole,
-        ImageUrlRole,
-        ShadowForImageRole,
     };
 
     Q_ENUM(ColumnsRoles)
@@ -115,9 +123,9 @@ public:
 
     Q_ENUM(PlayState)
 
-    using DataListType = DatabaseInterface::DataListType;
+    using ListTrackDataType = DatabaseInterface::ListTrackDataType;
 
-    using DataType = DatabaseInterface::DataType;
+    using TrackDataType = DatabaseInterface::TrackDataType;
 
     explicit MediaPlayList(QObject *parent = nullptr);
 
@@ -195,9 +203,9 @@ public Q_SLOTS:
 
     void removeSelection(QList<int> selection);
 
-    void albumAdded(const DatabaseInterface::DataListType &tracks);
+    void albumAdded(const ListTrackDataType &tracks);
 
-    void trackChanged(const DataType &track);
+    void trackChanged(const TrackDataType &track);
 
     void trackRemoved(qulonglong trackId);
 
@@ -217,11 +225,13 @@ public Q_SLOTS:
 
     void loadPlaylist(const QUrl &fileName);
 
+    //void enqueue(qulonglong newDatabaseId, PlayListEntryType databaseIdType);
+
     void enqueue(qulonglong newTrackId);
 
-    void enqueue(const DatabaseInterface::DataType &newTrack);
+    void enqueue(const TrackDataType &newTrack);
 
-    void enqueue(const MediaPlayListEntry &newEntry, const DatabaseInterface::DataType &audioTrack = {});
+    void enqueue(const MediaPlayListEntry &newEntry, const TrackDataType &audioTrack = {});
 
     void enqueue(const MusicAlbum &album);
 
@@ -251,9 +261,11 @@ public Q_SLOTS:
 
     void enqueueAndPlay(const QStringList &files);
 
+    //void replaceAndPlay(qulonglong newDatabaseId, PlayListEntryType databaseIdType);
+
     void replaceAndPlay(qulonglong newTrackId);
 
-    void replaceAndPlay(const DatabaseInterface::DataType &newTrack);
+    void replaceAndPlay(const TrackDataType &newTrack);
 
     void replaceAndPlay(const MusicAlbum &album);
 
@@ -306,7 +318,7 @@ public:
           mDiscNumber(track.discNumber()), mId(track.databaseId()), mIsValid(true) {
     }
 
-    explicit MediaPlayListEntry(const DatabaseInterface::DataType &track)
+    explicit MediaPlayListEntry(const MediaPlayList::TrackDataType &track)
         : mTitle(track[DatabaseInterface::TitleRole]),
           mAlbum(track[DatabaseInterface::AlbumRole]),
           mTrackNumber(track[DatabaseInterface::TrackNumberRole]),

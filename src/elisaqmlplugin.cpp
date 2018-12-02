@@ -147,7 +147,10 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qRegisterMetaType<QVector<qulonglong>>("QVector<qulonglong>");
     qRegisterMetaType<QHash<qulonglong,int>>("QHash<qulonglong,int>");
     qRegisterMetaType<MusicAlbum>("MusicAlbum");
-    qRegisterMetaType<DatabaseInterface::DataListType>("DataListType");
+    qRegisterMetaType<DatabaseInterface::ListTrackDataType>("ListTrackDataType");
+    qRegisterMetaType<DatabaseInterface::ListAlbumDataType>("ListAlbumDataType");
+    qRegisterMetaType<DatabaseInterface::ListArtistDataType>("ListArtistDataType");
+    qRegisterMetaType<DatabaseInterface::ListGenreDataType>("ListGenreDataType");
     qRegisterMetaType<QMap<QString, int>>();
     qRegisterMetaType<QAction*>();
     qRegisterMetaType<QSortFilterProxyModel*>();
@@ -155,8 +158,10 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qRegisterMetaType<QMap<QString,int>>("QMap<QString,int>");
     qRegisterMetaType<ElisaUtils::PlayListEnqueueMode>("ElisaUtils::PlayListEnqueueMode");
     qRegisterMetaType<ElisaUtils::PlayListEnqueueTriggerPlay>("ElisaUtils::PlayListEnqueueTriggerPlay");
-    qRegisterMetaType<DatabaseInterface::DataListType>("DataListType");
-    qRegisterMetaType<DatabaseInterface::DataType>("DataType");
+    qRegisterMetaType<DatabaseInterface::TrackDataType>("TrackDataType");
+    qRegisterMetaType<DatabaseInterface::AlbumDataType>("AlbumDataType");
+    qRegisterMetaType<DatabaseInterface::ArtistDataType>("ArtistDataType");
+    qRegisterMetaType<DatabaseInterface::GenreDataType>("GenreDataType");
 
     qRegisterMetaTypeStreamOperators<ManageMediaPlayerControl::PlayerState>("PlayListControler::PlayerState");
 

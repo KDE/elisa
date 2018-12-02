@@ -28,7 +28,7 @@ class AllArtistsModelPrivate
 {
 public:
 
-    DatabaseInterface::DataListType mAllArtists;
+    AllArtistsModel::ListArtistDataType mAllArtists;
 
     AllAlbumsModel *mAllAlbumsModel = nullptr;
 
@@ -92,10 +92,10 @@ QVariant AllArtistsModel::data(const QModelIndex &index, int role) const
     switch(role)
     {
     case Qt::DisplayRole:
-        result = d->mAllArtists[index.row()][DataType::key_type::TitleRole];
+        result = d->mAllArtists[index.row()][ArtistDataType::key_type::TitleRole];
         break;
     default:
-        result = d->mAllArtists[index.row()][static_cast<DataType::key_type>(role)];
+        result = d->mAllArtists[index.row()][static_cast<ArtistDataType::key_type>(role)];
     }
 
     return result;
@@ -139,7 +139,7 @@ AllAlbumsModel *AllArtistsModel::allAlbums() const
     return d->mAllAlbumsModel;
 }
 
-void AllArtistsModel::artistsAdded(DatabaseInterface::DataListType newArtists)
+void AllArtistsModel::artistsAdded(ListArtistDataType newArtists)
 {
     if (d->mAllArtists.isEmpty()) {
         beginInsertRows({}, d->mAllArtists.size(), d->mAllArtists.size() + newArtists.size() - 1);
@@ -157,7 +157,7 @@ void AllArtistsModel::artistRemoved(qulonglong removedArtistId)
     auto removedArtistIterator = d->mAllArtists.end();
 
     removedArtistIterator = std::find_if(d->mAllArtists.begin(), d->mAllArtists.end(),
-                                        [removedArtistId](auto album) {return album[DataType::key_type::DatabaseIdRole].toULongLong() == removedArtistId;});
+                                        [removedArtistId](auto album) {return album.databaseId() == removedArtistId;});
 
     if (removedArtistIterator == d->mAllArtists.end()) {
         return;

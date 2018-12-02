@@ -97,9 +97,13 @@ public:
 
     Q_ENUM(ColumnsRoles)
 
-    using DataListType = DatabaseInterface::DataListType;
+    using ListTrackDataType = DatabaseInterface::ListTrackDataType;
 
-    using DataType = DatabaseInterface::DataType;
+    using TrackDataType = DatabaseInterface::TrackDataType;
+
+    using ListAlbumDataType = DatabaseInterface::ListAlbumDataType;
+
+    using AlbumDataType = DatabaseInterface::AlbumDataType;
 
     explicit AlbumModel(QObject *parent = nullptr);
 
@@ -145,7 +149,7 @@ public Q_SLOTS:
 
     void setAlbumData(const MusicAlbum &album);
 
-    void albumModified(const DataType &modifiedAlbum);
+    void albumModified(const AlbumDataType &modifiedAlbum);
 
     void albumRemoved(qulonglong modifiedAlbumId);
 

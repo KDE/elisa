@@ -33,7 +33,7 @@ class AllAlbumsModelPrivate
 {
 public:
 
-    AllAlbumsModel::DataListType mAllAlbums;
+    AllAlbumsModel::ListAlbumDataType mAllAlbums;
 
     AllArtistsModel *mAllArtistsModel = nullptr;
 
@@ -114,10 +114,10 @@ QVariant AllAlbumsModel::internalDataAlbum(int albumIndex, int role) const
     switch(role)
     {
     case Qt::DisplayRole:
-        result = d->mAllAlbums[albumIndex][DataType::key_type::TitleRole];
+        result = d->mAllAlbums[albumIndex][AlbumDataType::key_type::TitleRole];
         break;
     default:
-        result = d->mAllAlbums[albumIndex][static_cast<DataType::key_type>(role)];
+        result = d->mAllAlbums[albumIndex][static_cast<AlbumDataType::key_type>(role)];
     }
 
     return result;
@@ -161,7 +161,7 @@ AllArtistsModel *AllAlbumsModel::allArtists() const
     return d->mAllArtistsModel;
 }
 
-void AllAlbumsModel::albumsAdded(DataListType newAlbums)
+void AllAlbumsModel::albumsAdded(ListAlbumDataType newAlbums)
 {
     if (d->mAllAlbums.isEmpty()) {
         beginInsertRows({}, d->mAllAlbums.size(), d->mAllAlbums.size() + newAlbums.size() - 1);
@@ -181,7 +181,7 @@ void AllAlbumsModel::albumRemoved(qulonglong removedAlbumId)
     auto removedAlbumIterator = d->mAllAlbums.end();
 
     removedAlbumIterator = std::find_if(d->mAllAlbums.begin(), d->mAllAlbums.end(),
-                                        [removedAlbumId](auto album) {return album[DataType::key_type::DatabaseIdRole].toULongLong() == removedAlbumId;});
+                                        [removedAlbumId](auto album) {return album.databaseId() == removedAlbumId;});
 
     if (removedAlbumIterator == d->mAllAlbums.end()) {
         return;
@@ -198,11 +198,11 @@ void AllAlbumsModel::albumRemoved(qulonglong removedAlbumId)
     Q_EMIT albumCountChanged();
 }
 
-void AllAlbumsModel::albumModified(const DataType &modifiedAlbum)
+void AllAlbumsModel::albumModified(const AlbumDataType &modifiedAlbum)
 {
     auto modifiedAlbumIterator = std::find_if(d->mAllAlbums.begin(), d->mAllAlbums.end(),
                                               [modifiedAlbum](auto album) {
-        return album[DataType::key_type::DatabaseIdRole].toULongLong() == modifiedAlbum[DataType::key_type::DatabaseIdRole].toULongLong();
+        return album.databaseId() == modifiedAlbum.databaseId();
     });
 
     if (modifiedAlbumIterator == d->mAllAlbums.end()) {

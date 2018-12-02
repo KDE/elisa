@@ -872,7 +872,6 @@ void MediaPlayList::albumAdded(const ListTrackDataType &tracks)
 {
     for (int playListIndex = 0; playListIndex < d->mData.size(); ++playListIndex) {
         auto &oneEntry = d->mData[playListIndex];
-#if 0
         if (oneEntry.mEntryType != MediaPlayList::Artist || oneEntry.mIsValid) {
             continue;
         }
@@ -907,14 +906,12 @@ void MediaPlayList::albumAdded(const ListTrackDataType &tracks)
 
             Q_EMIT tracksCountChanged();
         }
-#endif
         Q_EMIT persistentStateChanged();
     }
 }
 
 void MediaPlayList::trackChanged(const TrackDataType &track)
 {
-#if 0
     for (int i = 0; i < d->mData.size(); ++i) {
         auto &oneEntry = d->mData[i];
 
@@ -965,7 +962,7 @@ void MediaPlayList::trackChanged(const TrackDataType &track)
             }
 
             break;
-        } else if (!oneEntry.mIsArtist && !oneEntry.mIsValid && oneEntry.mTrackUrl.isValid()) {
+        } else if (oneEntry.mEntryType != MediaPlayList::Artist && !oneEntry.mIsValid && oneEntry.mTrackUrl.isValid()) {
             qDebug() << "MediaPlayList::trackChanged" << oneEntry << track;
             qDebug() << "MediaPlayList::trackChanged" << track.resourceURI() << oneEntry.mTrackUrl;
             if (track.resourceURI() != oneEntry.mTrackUrl) {
@@ -987,7 +984,6 @@ void MediaPlayList::trackChanged(const TrackDataType &track)
             break;
         }
     }
-#endif
 }
 
 void MediaPlayList::trackRemoved(qulonglong trackId)

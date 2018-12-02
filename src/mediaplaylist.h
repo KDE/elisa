@@ -73,6 +73,16 @@ class ELISALIB_EXPORT MediaPlayList : public QAbstractListModel
 
 public:
 
+    enum PlayListEntryType {
+        Album,
+        Artist,
+        Genre,
+        Track,
+        Unknown,
+    };
+
+    Q_ENUM(PlayListEntryType)
+
     enum ColumnsRoles {
         TitleRole = DatabaseInterface::TitleRole,
         SecondaryTextRole,
@@ -327,10 +337,14 @@ public:
           mIsValid(true) {
     }
 
-    explicit MediaPlayListEntry(QString artist) : mArtist(std::move(artist)), mIsArtist(true) {
+    explicit MediaPlayListEntry(QString artist) : mArtist(std::move(artist)), mEntryType(MediaPlayList::Artist) {
     }
 
     explicit MediaPlayListEntry(QUrl fileName) : mTrackUrl(std::move(fileName)) {
+    }
+
+    explicit MediaPlayListEntry(qulonglong id, MediaPlayList::PlayListEntryType type)
+        : mId(id), mIsValid(type == MediaPlayList::Track), mEntryType(type) {
     }
 
     QVariant mTitle;
@@ -349,7 +363,7 @@ public:
 
     bool mIsValid = false;
 
-    bool mIsArtist = false;
+    MediaPlayList::PlayListEntryType mEntryType = MediaPlayList::PlayListEntryType::Unknown;
 
     MediaPlayList::PlayState mIsPlaying = MediaPlayList::NotPlaying;
 

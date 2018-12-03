@@ -123,6 +123,7 @@
       <caption xml:lang="uk">Музичний програвач Elisa</caption>
       <caption xml:lang="x-test">xxThe Elisa music playerxx</caption>
       <caption xml:lang="zh-CN">Elisa 音乐播放器</caption>
+      <caption xml:lang="zh-TW">Elisa 音樂播放器</caption>
       <image type="source" width="1366" height="744">
         https://cdn.kde.org/screenshots/elisa/elisa.png
       </image>

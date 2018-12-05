@@ -134,17 +134,11 @@ void TracksListener::trackByNameInList(const QString &title, const QString &arti
 
 void TracksListener::trackByFileNameInList(const QUrl &fileName)
 {
-    qDebug() << "TracksListener::trackByFileNameInList" << fileName;
     auto newTrackId = d->mDatabase->trackIdFromFileName(fileName);
-    qDebug() << "TracksListener::trackByFileNameInList" << fileName << newTrackId;
     if (newTrackId == 0) {
         auto newTrack = scanOneFile(fileName);
 
-        qDebug() << "TracksListener::trackByFileNameInList" << fileName << newTrack;
-
         if (newTrack.isValid()) {
-            qDebug() << "TracksListener::trackByFileNameInList" << "trackHasChanged" << newTrack;
-
             auto oneData = DatabaseInterface::TrackDataType{};
 
             oneData[DatabaseInterface::TrackDataType::key_type::TitleRole] = newTrack.title();
@@ -172,10 +166,7 @@ void TracksListener::trackByFileNameInList(const QUrl &fileName)
 
     auto newTrack = d->mDatabase->trackDataFromDatabaseId(newTrackId);
 
-    qDebug() << "TracksListener::trackByFileNameInList" << newTrackId << newTrack;
-
     if (!newTrack.isEmpty()) {
-        qDebug() << "TracksListener::trackByFileNameInList" << "trackHasChanged" << newTrack;
         Q_EMIT trackHasChanged({newTrack});
     }
 }

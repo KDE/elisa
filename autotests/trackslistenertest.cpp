@@ -86,7 +86,7 @@ private Q_SLOTS:
         connect(&myListener, &TracksListener::trackHasChanged, &myPlayList, &MediaPlayList::trackChanged);
         connect(&myListener, &TracksListener::trackHasBeenRemoved, &myPlayList, &MediaPlayList::trackRemoved);
         connect(&myListener, &TracksListener::albumAdded, &myPlayList, &MediaPlayList::albumAdded);
-        connect(&myPlayList, &MediaPlayList::newTrackByIdInList, &myListener, &TracksListener::trackByIdInList);
+        connect(&myPlayList, &MediaPlayList::newEntryInList, &myListener, &TracksListener::newEntryInList);
         connect(&myPlayList, &MediaPlayList::newTrackByNameInList, &myListener, &TracksListener::trackByNameInList);
         connect(&myPlayList, &MediaPlayList::newArtistInList, &myListener, &TracksListener::newArtistInList);
 
@@ -209,7 +209,7 @@ private Q_SLOTS:
         connect(&myListener, &TracksListener::trackHasChanged, &myPlayList, &MediaPlayList::trackChanged);
         connect(&myListener, &TracksListener::trackHasBeenRemoved, &myPlayList, &MediaPlayList::trackRemoved);
         connect(&myListener, &TracksListener::albumAdded, &myPlayList, &MediaPlayList::albumAdded);
-        connect(&myPlayList, &MediaPlayList::newTrackByIdInList, &myListener, &TracksListener::trackByIdInList);
+        connect(&myPlayList, &MediaPlayList::newEntryInList, &myListener, &TracksListener::newEntryInList);
         connect(&myPlayList, &MediaPlayList::newTrackByNameInList, &myListener, &TracksListener::trackByNameInList);
         connect(&myPlayList, &MediaPlayList::newArtistInList, &myListener, &TracksListener::newArtistInList);
 
@@ -277,7 +277,7 @@ private Q_SLOTS:
         connect(&myListener, &TracksListener::trackHasChanged, &myPlayList, &MediaPlayList::trackChanged);
         connect(&myListener, &TracksListener::trackHasBeenRemoved, &myPlayList, &MediaPlayList::trackRemoved);
         connect(&myListener, &TracksListener::albumAdded, &myPlayList, &MediaPlayList::albumAdded);
-        connect(&myPlayList, &MediaPlayList::newTrackByIdInList, &myListener, &TracksListener::trackByIdInList);
+        connect(&myPlayList, &MediaPlayList::newEntryInList, &myListener, &TracksListener::newEntryInList);
         connect(&myPlayList, &MediaPlayList::newTrackByNameInList, &myListener, &TracksListener::trackByNameInList);
         connect(&myPlayList, &MediaPlayList::newArtistInList, &myListener, &TracksListener::newArtistInList);
 
@@ -341,7 +341,7 @@ private Q_SLOTS:
         connect(&myListener, &TracksListener::trackHasChanged, &myPlayList, &MediaPlayList::trackChanged);
         connect(&myListener, &TracksListener::trackHasBeenRemoved, &myPlayList, &MediaPlayList::trackRemoved);
         connect(&myListener, &TracksListener::albumAdded, &myPlayList, &MediaPlayList::albumAdded);
-        connect(&myPlayList, &MediaPlayList::newTrackByIdInList, &myListener, &TracksListener::trackByIdInList);
+        connect(&myPlayList, &MediaPlayList::newEntryInList, &myListener, &TracksListener::newEntryInList);
         connect(&myPlayList, &MediaPlayList::newTrackByNameInList, &myListener, &TracksListener::trackByNameInList);
         connect(&myPlayList, &MediaPlayList::newArtistInList, &myListener, &TracksListener::newArtistInList);
 
@@ -412,7 +412,7 @@ private Q_SLOTS:
         connect(&myListener, &TracksListener::trackHasChanged, &myPlayList, &MediaPlayList::trackChanged);
         connect(&myListener, &TracksListener::trackHasBeenRemoved, &myPlayList, &MediaPlayList::trackRemoved);
         connect(&myListener, &TracksListener::albumAdded, &myPlayList, &MediaPlayList::albumAdded);
-        connect(&myPlayList, &MediaPlayList::newTrackByIdInList, &myListener, &TracksListener::trackByIdInList);
+        connect(&myPlayList, &MediaPlayList::newEntryInList, &myListener, &TracksListener::newEntryInList);
         connect(&myPlayList, &MediaPlayList::newTrackByNameInList, &myListener, &TracksListener::trackByNameInList);
         connect(&myPlayList, &MediaPlayList::newArtistInList, &myListener, &TracksListener::newArtistInList);
 

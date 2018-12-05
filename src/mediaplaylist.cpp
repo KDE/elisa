@@ -374,11 +374,6 @@ void MediaPlayList::move(int from, int to, int n)
     }
 }
 
-void MediaPlayList::enqueue(qulonglong newTrackId)
-{
-    enqueue(MediaPlayListEntry(newTrackId));
-}
-
 void MediaPlayList::enqueue(const TrackDataType &newTrack)
 {
     enqueue(MediaPlayListEntry(newTrack), newTrack);
@@ -422,7 +417,7 @@ void MediaPlayList::enqueue(const MediaPlayListEntry &newEntry, const TrackDataT
                                         newEntry.mDiscNumber.toInt());
         }
     } else {
-        Q_EMIT newTrackByIdInList(newEntry.mId);
+        Q_EMIT newEntryInList(newEntry.mId, {}, Track);
     }
 
     Q_EMIT trackHasBeenAdded(data(index(d->mData.size() - 1, 0), ColumnsRoles::TitleRole).toString(), data(index(d->mData.size() - 1, 0), ColumnsRoles::ImageUrlRole).toUrl());
@@ -484,29 +479,9 @@ void MediaPlayList::enqueueAndPlay(const QStringList &files)
     }
 }
 
-void MediaPlayList::enqueue(const QList<qulonglong> &newTrackIds)
+void MediaPlayList::replaceAndPlay(EntryData newEntry,
+                                   MediaPlayList::PlayListEntryType databaseIdType)
 {
-    if (newTrackIds.isEmpty()) {
-        return;
-    }
-
-    beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size() + newTrackIds.size() - 1);
-    for (auto newTrackId : newTrackIds) {
-        d->mData.push_back(MediaPlayListEntry{newTrackId});
-        d->mTrackData.push_back({});
-        Q_EMIT newTrackByIdInList(newTrackId);
-    }
-    endInsertRows();
-
-    restorePlayListPosition();
-    if (!d->mCurrentTrack.isValid()) {
-        resetCurrentTrack();
-    }
-
-    Q_EMIT tracksCountChanged();
-    Q_EMIT persistentStateChanged();
-
-    Q_EMIT dataChanged(index(rowCount() - 1, 0), index(rowCount() - 1, 0), {MediaPlayList::HasAlbumHeader});
 }
 
 void MediaPlayList::enqueue(const QList<MusicAlbum> &albums,
@@ -751,6 +726,37 @@ void MediaPlayList::loadPlaylist(const QUrl &fileName)
 {
     d->mLoadPlaylist.clear();
     d->mLoadPlaylist.load(fileName, "m3u");
+}
+
+void MediaPlayList::enqueue(EntryData newEntry,
+                            MediaPlayList::PlayListEntryType databaseIdType)
+{
+    enqueue(MediaPlayListEntry{std::get<0>(newEntry)});
+}
+
+void MediaPlayList::enqueue(QList<MediaPlayList::EntryData> newEntries, MediaPlayList::PlayListEntryType databaseIdType)
+{
+    if (newEntries.isEmpty()) {
+        return;
+    }
+
+    beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size() + newEntries.size() - 1);
+    for (const auto &newTrack : newEntries) {
+        d->mData.push_back(MediaPlayListEntry{std::get<0>(newTrack)});
+        d->mTrackData.push_back({});
+        Q_EMIT newEntryInList(std::get<0>(newTrack), std::get<1>(newTrack), databaseIdType);
+    }
+    endInsertRows();
+
+    restorePlayListPosition();
+    if (!d->mCurrentTrack.isValid()) {
+        resetCurrentTrack();
+    }
+
+    Q_EMIT tracksCountChanged();
+    Q_EMIT persistentStateChanged();
+
+    Q_EMIT dataChanged(index(rowCount() - 1, 0), index(rowCount() - 1, 0), {MediaPlayList::HasAlbumHeader});
 }
 
 bool MediaPlayList::savePlaylist(const QUrl &fileName)

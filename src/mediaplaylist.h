@@ -27,8 +27,10 @@
 
 #include <QAbstractListModel>
 #include <QVector>
-#include <utility>
 #include <QMediaPlayer>
+
+#include <utility>
+#include <tuple>
 
 class MediaPlayListPrivate;
 class MusicListenersManager;
@@ -72,6 +74,8 @@ class ELISALIB_EXPORT MediaPlayList : public QAbstractListModel
                NOTIFY repeatPlayChanged)
 
 public:
+
+    using EntryData = std::tuple<qulonglong, QString>;
 
     enum PlayListEntryType {
         Album,
@@ -177,9 +181,11 @@ Q_SIGNALS:
 
     void newTrackByFileNameInList(const QUrl &fileName);
 
-    void newTrackByIdInList(qulonglong newTrackId);
-
     void newArtistInList(const QString &artist);
+
+    void newEntryInList(qulonglong newDatabaseId,
+                        const QString &entryTitle,
+                        PlayListEntryType databaseIdType);
 
     void trackHasBeenAdded(const QString &title, const QUrl &image);
 
@@ -233,9 +239,9 @@ public Q_SLOTS:
 
     void loadPlaylist(const QUrl &fileName);
 
-    //void enqueue(qulonglong newDatabaseId, PlayListEntryType databaseIdType);
+    void enqueue(EntryData newEntry, PlayListEntryType databaseIdType);
 
-    void enqueue(qulonglong newTrackId);
+    void enqueue(QList<EntryData> newEntries, PlayListEntryType databaseIdType);
 
     void enqueue(const TrackDataType &newTrack);
 
@@ -248,8 +254,6 @@ public Q_SLOTS:
     void enqueue(const QUrl &fileName);
 
     void enqueue(const QStringList &files);
-
-    void enqueue(const QList<qulonglong> &newTrackId);
 
     void enqueue(const QList<MusicAlbum> &albums,
                  ElisaUtils::PlayListEnqueueMode enqueueMode,
@@ -269,7 +273,7 @@ public Q_SLOTS:
 
     void enqueueAndPlay(const QStringList &files);
 
-    //void replaceAndPlay(qulonglong newDatabaseId, PlayListEntryType databaseIdType);
+    void replaceAndPlay(EntryData newEntry, PlayListEntryType databaseIdType);
 
     void replaceAndPlay(qulonglong newTrackId);
 
@@ -341,8 +345,10 @@ public:
     explicit MediaPlayListEntry(QUrl fileName) : mTrackUrl(std::move(fileName)) {
     }
 
-    explicit MediaPlayListEntry(qulonglong id, MediaPlayList::PlayListEntryType type)
-        : mId(id), mIsValid(type == MediaPlayList::Track), mEntryType(type) {
+    explicit MediaPlayListEntry(qulonglong id,
+                                const QString &entryTitle,
+                                MediaPlayList::PlayListEntryType type)
+        : mTitle(entryTitle), mId(id), mIsValid(type == MediaPlayList::Track), mEntryType(type) {
     }
 
     QVariant mTitle;

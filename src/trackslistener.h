@@ -22,6 +22,7 @@
 
 #include "databaseinterface.h"
 #include "musicaudiotrack.h"
+#include "mediaplaylist.h"
 
 #include <QObject>
 
@@ -63,7 +64,9 @@ public Q_SLOTS:
 
     void trackByFileNameInList(const QUrl &fileName);
 
-    void trackByIdInList(qulonglong newTrackId);
+    void newEntryInList(qulonglong newDatabaseId,
+                        const QString &entryTitle,
+                        MediaPlayList::PlayListEntryType databaseIdType);
 
     void newArtistInList(const QString &artist);
 

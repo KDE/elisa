@@ -1880,8 +1880,8 @@ void ManageHeaderBarTest::moveCurrentTrack()
 
     connect(&myListener, &TracksListener::trackHasChanged,
             &myPlayList, &MediaPlayList::trackChanged);
-    connect(&myPlayList, &MediaPlayList::newTrackByIdInList,
-            &myListener, &TracksListener::trackByIdInList);
+    connect(&myPlayList, &MediaPlayList::newEntryInList,
+            &myListener, &TracksListener::newEntryInList);
     connect(&myPlayList, &MediaPlayList::newTrackByNameInList,
             &myListener, &TracksListener::trackByNameInList);
     connect(&myPlayList, &MediaPlayList::newTrackByFileNameInList,
@@ -2141,8 +2141,8 @@ void ManageHeaderBarTest::moveAnotherTrack()
 
     connect(&myListener, &TracksListener::trackHasChanged,
             &myPlayList, &MediaPlayList::trackChanged);
-    connect(&myPlayList, &MediaPlayList::newTrackByIdInList,
-            &myListener, &TracksListener::trackByIdInList);
+    connect(&myPlayList, &MediaPlayList::newEntryInList,
+            &myListener, &TracksListener::newEntryInList);
     connect(&myPlayList, &MediaPlayList::newTrackByNameInList,
             &myListener, &TracksListener::trackByNameInList);
     connect(&myPlayList, &MediaPlayList::newTrackByFileNameInList,
@@ -2408,8 +2408,8 @@ void ManageHeaderBarTest::setCurrentTrackTest()
 
     connect(&myListener, &TracksListener::trackHasChanged,
             &myPlayList, &MediaPlayList::trackChanged);
-    connect(&myPlayList, &MediaPlayList::newTrackByIdInList,
-            &myListener, &TracksListener::trackByIdInList);
+    connect(&myPlayList, &MediaPlayList::newEntryInList,
+            &myListener, &TracksListener::newEntryInList);
     connect(&myPlayList, &MediaPlayList::newTrackByNameInList,
             &myListener, &TracksListener::trackByNameInList);
     connect(&myPlayList, &MediaPlayList::newTrackByFileNameInList,
@@ -2673,8 +2673,8 @@ void ManageHeaderBarTest::setPlayListModelTest()
 
     connect(&myListener, &TracksListener::trackHasChanged,
             &myPlayList, &MediaPlayList::trackChanged);
-    connect(&myPlayList, &MediaPlayList::newTrackByIdInList,
-            &myListener, &TracksListener::trackByIdInList);
+    connect(&myPlayList, &MediaPlayList::newEntryInList,
+            &myListener, &TracksListener::newEntryInList);
     connect(&myPlayList, &MediaPlayList::newTrackByNameInList,
             &myListener, &TracksListener::trackByNameInList);
     connect(&myPlayList, &MediaPlayList::newTrackByFileNameInList,

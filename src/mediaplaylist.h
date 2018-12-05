@@ -249,8 +249,6 @@ public Q_SLOTS:
 
     void enqueue(const MusicAlbum &album);
 
-    void enqueue(const QString &artistName);
-
     void enqueue(const QUrl &fileName);
 
     void enqueue(const QStringList &files);
@@ -306,6 +304,8 @@ private:
     void restoreRandomPlay();
 
     void restoreRepeatPlay();
+
+    void enqueue(const QString &artistName);
 
     std::unique_ptr<MediaPlayListPrivate> d;
 

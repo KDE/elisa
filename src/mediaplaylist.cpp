@@ -731,7 +731,15 @@ void MediaPlayList::loadPlaylist(const QUrl &fileName)
 void MediaPlayList::enqueue(EntryData newEntry,
                             MediaPlayList::PlayListEntryType databaseIdType)
 {
-    enqueue(MediaPlayListEntry{std::get<0>(newEntry)});
+    switch (databaseIdType)
+    {
+    case Artist:
+        enqueue(std::get<1>(newEntry));
+        break;
+    case Track:
+        enqueue(MediaPlayListEntry{std::get<0>(newEntry)});
+        break;
+    }
 }
 
 void MediaPlayList::enqueue(QList<MediaPlayList::EntryData> newEntries, MediaPlayList::PlayListEntryType databaseIdType)

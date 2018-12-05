@@ -525,7 +525,7 @@ void MediaPlayListTest::enqueueArtistCase()
     QCOMPARE(newTrackByFileNameInListSpy.count(), 0);
     QCOMPARE(newArtistInListSpy.count(), 0);
 
-    myPlayList.enqueue(QStringLiteral("artist1"));
+    myPlayList.enqueue({0, QStringLiteral("artist1")}, MediaPlayList::Artist);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);

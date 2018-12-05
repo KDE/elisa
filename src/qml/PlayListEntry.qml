@@ -33,12 +33,17 @@ FocusScope {
     property bool isValid
     property bool isAlternateColor
     property bool containsMouse
+    property string title
+    property string artist
+    property string album
+    property string albumArtist
+    property string duration
+    property url imageUrl
+    property int trackNumber
+    property int discNumber
+    property int rating
     property bool hasAlbumHeader
-    property string titleDisplay
-    property string albumDisplay
-    property string albumArtistDisplay
-    property string artistDisplay
-    property alias trackData: dataHelper.trackData
+    property bool hasValidDiscNumber: true
     property int scrollBarWidth
 
     signal startPlayback()
@@ -94,18 +99,12 @@ FocusScope {
         }
     }
 
-    TrackDataHelper {
-        id: dataHelper
-    }
-
     Loader {
         id: metadataLoader
         active: false
         onLoaded: item.show()
 
         sourceComponent:  MediaTrackMetadataView {
-            trackDataHelper: dataHelper
-
             onRejected: metadataLoader.active = false;
         }
     }
@@ -153,7 +152,7 @@ FocusScope {
                         Image {
                             id: mainIcon
 
-                            source: (isValid ? (dataHelper.hasValidAlbumCover ? dataHelper.albumCover : Qt.resolvedUrl(elisaTheme.defaultAlbumImage)) : Qt.resolvedUrl(elisaTheme.errorIcon))
+                            source: (isValid ? (imageUrl != '' ? imageUrl : Qt.resolvedUrl(elisaTheme.defaultAlbumImage)) : Qt.resolvedUrl(elisaTheme.errorIcon))
 
                             Layout.minimumWidth: headerRow.height
                             Layout.maximumWidth: headerRow.height
@@ -198,7 +197,8 @@ FocusScope {
 
                             LabelWithToolTip {
                                 id: mainLabel
-                                text: albumDisplay
+
+                                text: album
 
                                 font.weight: Font.Bold
                                 font.pointSize: elisaTheme.defaultFontPointSize * 1.4
@@ -220,7 +220,7 @@ FocusScope {
                             LabelWithToolTip {
                                 id: authorLabel
 
-                                text: albumArtistDisplay
+                                text: albumArtist
 
                                 font.weight: Font.Light
                                 color: myPalette.text
@@ -284,7 +284,7 @@ FocusScope {
                     Item {
                         id: fakeDiscNumberItem
 
-                        visible: isValid && (!dataHelper.hasValidDiscNumber || isSingleDiscAlbum)
+                        visible: isValid && (!hasValidDiscNumber || isSingleDiscAlbum)
 
                         Layout.preferredWidth: fakeDiscNumberSize.width + (elisaTheme.layoutHorizontalMargin / 4)
                         Layout.minimumWidth: fakeDiscNumberSize.width + (elisaTheme.layoutHorizontalMargin / 4)
@@ -302,7 +302,7 @@ FocusScope {
 
                         horizontalAlignment: Text.AlignRight
 
-                        text: dataHelper.hasValidTrackNumber ? Number(dataHelper.trackNumber).toLocaleString(Qt.locale(), 'f', 0) : ''
+                        text: trackNumber !== 0 ? Number(trackNumber).toLocaleString(Qt.locale(), 'f', 0) : ''
 
                         font.weight: (isPlaying ? Font.Bold : Font.Light)
                         color: myPalette.text
@@ -315,9 +315,9 @@ FocusScope {
                         Layout.minimumWidth: (trackNumberSize.width > realTrackNumberSize.width ? trackNumberSize.width : realTrackNumberSize.width)
                         Layout.maximumWidth: (trackNumberSize.width > realTrackNumberSize.width ? trackNumberSize.width : realTrackNumberSize.width)
 
-                        Layout.rightMargin: !LayoutMirroring.enabled ? (dataHelper.hasValidDiscNumber && !isSingleDiscAlbum ?
+                        Layout.rightMargin: !LayoutMirroring.enabled ? (discNumber !== 0 && !isSingleDiscAlbum ?
                                                                             0 : elisaTheme.layoutHorizontalMargin / 2) : 0
-                        Layout.leftMargin: LayoutMirroring.enabled ? (dataHelper.hasValidDiscNumber && !isSingleDiscAlbum ?
+                        Layout.leftMargin: LayoutMirroring.enabled ? (discNumber !== 0 && !isSingleDiscAlbum ?
                                                                           0 : elisaTheme.layoutHorizontalMargin / 2) : 0
 
                         TextMetrics {
@@ -329,7 +329,7 @@ FocusScope {
                         TextMetrics {
                             id: realTrackNumberSize
 
-                            text: Number(dataHelper.trackNumber).toLocaleString(Qt.locale(), 'f', 0)
+                            text: Number(trackNumber).toLocaleString(Qt.locale(), 'f', 0)
                         }
                     }
 
@@ -338,7 +338,7 @@ FocusScope {
 
                         text: '/'
 
-                        visible: isValid && dataHelper.hasValidDiscNumber && !isSingleDiscAlbum
+                        visible: isValid && discNumber !== 0 && !isSingleDiscAlbum
 
                         font.weight: (isPlaying ? Font.Bold : Font.Light)
                         color: myPalette.text
@@ -362,9 +362,9 @@ FocusScope {
                         font.weight: (isPlaying ? Font.Bold : Font.Light)
                         color: myPalette.text
 
-                        text: Number(dataHelper.discNumber).toLocaleString(Qt.locale(), 'f', 0)
+                        text: Number(discNumber).toLocaleString(Qt.locale(), 'f', 0)
 
-                        visible: isValid && dataHelper.hasValidDiscNumber && !isSingleDiscAlbum
+                        visible: isValid && discNumber !== 0 && !isSingleDiscAlbum
 
                         Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
 
@@ -384,14 +384,14 @@ FocusScope {
                         TextMetrics {
                             id: realDiscNumberSize
 
-                            text: Number(dataHelper.discNumber).toLocaleString(Qt.locale(), 'f', 0)
+                            text: Number(discNumber).toLocaleString(Qt.locale(), 'f', 0)
                         }
                     }
 
                     LabelWithToolTip {
                         id: mainCompactLabel
 
-                        text: titleDisplay
+                        text: title
 
                         font.weight: (isPlaying ? Font.Bold : Font.Normal)
                         color: myPalette.text
@@ -409,7 +409,7 @@ FocusScope {
                     LabelWithToolTip {
                         id: mainInvalidCompactLabel
 
-                        text: titleDisplay
+                        text: title
 
                         font.weight: Font.Normal
                         color: myPalette.text
@@ -481,7 +481,7 @@ FocusScope {
                     RatingStar {
                         id: ratingWidget
 
-                        starRating: dataHelper.rating
+                        starRating: rating
 
                         starSize: elisaTheme.ratingStarSize
                     }
@@ -494,7 +494,7 @@ FocusScope {
                     LabelWithToolTip {
                         id: durationLabel
 
-                        text: dataHelper.duration
+                        text: duration
 
                         font.weight: (isPlaying ? Font.Bold : Font.Normal)
                         color: myPalette.text

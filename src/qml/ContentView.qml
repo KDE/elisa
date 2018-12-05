@@ -69,7 +69,7 @@ RowLayout {
         }
 
         onSwitchOneArtistView: {
-            elisa.singleArtistProxyModel.setArtistFilterText(mainTitle)
+            elisa.singleArtistProxyModel.artistFilter = mainTitle
             elisa.singleArtistProxyModel.genreFilterText = ''
             currentStackView.push(innerAlbumView, {
                                       mainTitle: mainTitle,
@@ -81,7 +81,7 @@ RowLayout {
         }
 
         onSwitchOneArtistFromGenreView: {
-            elisa.singleArtistProxyModel.setArtistFilterText(mainTitle)
+            elisa.singleArtistProxyModel.artistFilter = mainTitle
             elisa.singleArtistProxyModel.genreFilterText = genreName
             currentStackView.push(innerAlbumView, {
                                       mainTitle: mainTitle,

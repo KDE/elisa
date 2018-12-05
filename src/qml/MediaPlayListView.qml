@@ -270,41 +270,30 @@ FocusScope {
                         focus: true
 
                         width: scrollBar.visible ? (!LayoutMirroring.enabled ? playListView.width - scrollBar.width : playListView.width) : playListView.width
-
                         scrollBarWidth: scrollBar.visible ? scrollBar.width : 0
 
                         index: model.index
-
                         isAlternateColor: item.DelegateModel.itemsIndex % 2
-
-                        hasAlbumHeader: model.hasAlbumHeader
-
-                        isSingleDiscAlbum: model.isSingleDiscAlbum
-
-                        trackData: model.trackData
-
-                        titleDisplay: model.title
-
-                        albumDisplay: model.album
-
-                        artistDisplay: model.artist
-
-                        albumArtistDisplay: model.albumArtist
-
-                        isValid: model.isValid
-
-                        isPlaying: model.isPlaying
-
                         isSelected: playListView.currentIndex === index
-
                         containsMouse: item.containsMouse
 
+                        title: model.title
+                        artist: model.artist
+                        album: model.album
+                        albumArtist: model.albumArtist
+                        duration: model.duration
+                        imageUrl: model.imageUrl
+                        trackNumber: model.trackNumber
+                        discNumber: model.discNumber
+                        rating: model.rating
+                        hasAlbumHeader: model.hasAlbumHeader
+                        isSingleDiscAlbum: model.isSingleDiscAlbum
+                        isValid: model.isValid
+                        isPlaying: model.isPlaying
+
                         onStartPlayback: topItem.startPlayback()
-
                         onPausePlayback: topItem.pausePlayback()
-
                         onRemoveFromPlaylist: topItem.playListModel.removeRows(trackIndex, 1)
-
                         onSwitchToTrack: topItem.playListModel.switchTo(trackIndex)
                     }
 

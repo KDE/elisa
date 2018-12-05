@@ -3787,7 +3787,6 @@ DatabaseInterface::TrackDataType DatabaseInterface::buildTrackDataFromDatabaseRe
     result[TrackDataType::key_type::MilliSecondsDurationRole] = trackRecord.value(9).toInt();
     result[TrackDataType::key_type::RatingRole] = trackRecord.value(11);
     result[TrackDataType::key_type::ImageUrlRole] = QUrl(trackRecord.value(12).toString());
-    result[TrackDataType::key_type::ImageRole] = QUrl(trackRecord.value(12).toString());
     result[TrackDataType::key_type::IsSingleDiscAlbumRole] = trackRecord.value(13);
 
     return result;

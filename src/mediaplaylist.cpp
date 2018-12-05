@@ -98,7 +98,6 @@ QHash<int, QByteArray> MediaPlayList::roleNames() const
     roles[static_cast<int>(ColumnsRoles::ChannelsRole)] = "channels";
     roles[static_cast<int>(ColumnsRoles::BitRateRole)] = "bitRate";
     roles[static_cast<int>(ColumnsRoles::SampleRateRole)] = "sampleRate";
-    roles[static_cast<int>(ColumnsRoles::ImageRole)] = "image";
     roles[static_cast<int>(ColumnsRoles::CountRole)] = "count";
     roles[static_cast<int>(ColumnsRoles::IsPlayingRole)] = "isPlaying";
     roles[static_cast<int>(ColumnsRoles::HasAlbumHeader)] = "hasAlbumHeader";
@@ -426,7 +425,7 @@ void MediaPlayList::enqueue(const MediaPlayListEntry &newEntry, const TrackDataT
         Q_EMIT newTrackByIdInList(newEntry.mId);
     }
 
-    Q_EMIT trackHasBeenAdded(data(index(d->mData.size() - 1, 0), ColumnsRoles::TitleRole).toString(), data(index(d->mData.size() - 1, 0), ColumnsRoles::ImageRole).toUrl());
+    Q_EMIT trackHasBeenAdded(data(index(d->mData.size() - 1, 0), ColumnsRoles::TitleRole).toString(), data(index(d->mData.size() - 1, 0), ColumnsRoles::ImageUrlRole).toUrl());
 
     if (!newEntry.mIsValid) {
         Q_EMIT dataChanged(index(rowCount() - 1, 0), index(rowCount() - 1, 0), {MediaPlayList::HasAlbumHeader});

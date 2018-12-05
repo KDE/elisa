@@ -1982,7 +1982,7 @@ void ManageHeaderBarTest::moveCurrentTrack()
 
     QCOMPARE(myControl.albumRole(), static_cast<int>(MediaPlayList::AlbumRole));
 
-    myControl.setImageRole(MediaPlayList::ImageRole);
+    myControl.setImageRole(MediaPlayList::ImageUrlRole);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 0);
@@ -2000,7 +2000,7 @@ void ManageHeaderBarTest::moveCurrentTrack()
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
-    QCOMPARE(myControl.imageRole(), static_cast<int>(MediaPlayList::ImageRole));
+    QCOMPARE(myControl.imageRole(), static_cast<int>(MediaPlayList::ImageUrlRole));
 
     myControl.setAlbumIdRole(MediaPlayList::AlbumIdRole);
 
@@ -2243,7 +2243,7 @@ void ManageHeaderBarTest::moveAnotherTrack()
 
     QCOMPARE(myControl.albumRole(), static_cast<int>(MediaPlayList::AlbumRole));
 
-    myControl.setImageRole(MediaPlayList::ImageRole);
+    myControl.setImageRole(MediaPlayList::ImageUrlRole);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 0);
@@ -2261,7 +2261,7 @@ void ManageHeaderBarTest::moveAnotherTrack()
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
-    QCOMPARE(myControl.imageRole(), static_cast<int>(MediaPlayList::ImageRole));
+    QCOMPARE(myControl.imageRole(), static_cast<int>(MediaPlayList::ImageUrlRole));
 
     myControl.setAlbumIdRole(MediaPlayList::AlbumIdRole);
 
@@ -2510,7 +2510,7 @@ void ManageHeaderBarTest::setCurrentTrackTest()
 
     QCOMPARE(myControl.albumRole(), static_cast<int>(MediaPlayList::AlbumRole));
 
-    myControl.setImageRole(MediaPlayList::ImageRole);
+    myControl.setImageRole(MediaPlayList::ImageUrlRole);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 0);
@@ -2528,7 +2528,7 @@ void ManageHeaderBarTest::setCurrentTrackTest()
     QCOMPARE(isValidChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
-    QCOMPARE(myControl.imageRole(), static_cast<int>(MediaPlayList::ImageRole));
+    QCOMPARE(myControl.imageRole(), static_cast<int>(MediaPlayList::ImageUrlRole));
 
     myControl.setAlbumIdRole(MediaPlayList::AlbumIdRole);
 

@@ -72,7 +72,6 @@ public:
         ChannelsRole,
         BitRateRole,
         SampleRateRole,
-        ImageRole,
         ResourceRole,
         IdRole,
         DatabaseIdRole,

@@ -102,7 +102,7 @@ QHash<int, QByteArray> MediaPlayList::roleNames() const
     roles[static_cast<int>(ColumnsRoles::CountRole)] = "count";
     roles[static_cast<int>(ColumnsRoles::IsPlayingRole)] = "isPlaying";
     roles[static_cast<int>(ColumnsRoles::HasAlbumHeader)] = "hasAlbumHeader";
-    roles[static_cast<int>(ColumnsRoles::IsSingleDiscAlbumHeader)] = "isSingleDiscAlbum";
+    roles[static_cast<int>(ColumnsRoles::IsSingleDiscAlbumRole)] = "isSingleDiscAlbum";
     roles[static_cast<int>(ColumnsRoles::SecondaryTextRole)] = "secondaryText";
     roles[static_cast<int>(ColumnsRoles::ImageUrlRole)] = "imageUrl";
     roles[static_cast<int>(ColumnsRoles::ShadowForImageRole)] = "shadowForImage";
@@ -134,6 +134,9 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
         case ColumnsRoles::HasAlbumHeader:
             result = rowHasHeader(index.row());
             break;
+        case ColumnsRoles::IsPlayingRole:
+            result = d->mData[index.row()].mIsPlaying;
+            break;
         default:
             result = d->mTrackData[index.row()][static_cast<TrackDataType::key_type>(role)];
         }
@@ -164,7 +167,7 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
         case ColumnsRoles::HasAlbumHeader:
             result = rowHasHeader(index.row());
             break;
-        case ColumnsRoles::IsSingleDiscAlbumHeader:
+        case ColumnsRoles::IsSingleDiscAlbumRole:
             result = false;
             break;
         case Qt::DisplayRole:
@@ -692,7 +695,7 @@ void MediaPlayList::enqueue(const QList<QUrl> &trackUrls,
     }
 }
 
-  void MediaPlayList::replaceAndPlay(qulonglong newTrackId)
+void MediaPlayList::replaceAndPlay(qulonglong newTrackId)
 {
     clearPlayList();
     enqueue(MediaPlayListEntry(newTrackId));
@@ -759,7 +762,7 @@ bool MediaPlayList::savePlaylist(const QUrl &fileName)
         const auto &oneTrack = d->mData.at(i);
         const auto &oneTrackData = d->mTrackData.at(i);
         if (oneTrack.mIsValid) {
-            //savePlaylist.addMedia(oneTrackData.resourceURI());
+            savePlaylist.addMedia(oneTrackData.resourceURI());
         }
     }
 
@@ -916,22 +919,35 @@ void MediaPlayList::trackChanged(const TrackDataType &track)
         auto &oneEntry = d->mData[i];
 
         if (oneEntry.mEntryType != MediaPlayList::Artist && oneEntry.mIsValid) {
-            if (oneEntry.mTrackUrl.isValid() && track.resourceURI() != oneEntry.mTrackUrl) {
+            if (oneEntry.mTrackUrl.toUrl().isValid() && track.resourceURI() != oneEntry.mTrackUrl.toUrl()) {
                 continue;
             }
 
-            if (!oneEntry.mTrackUrl.isValid() && (oneEntry.mId == 0 || track.databaseId() != oneEntry.mId)) {
+            if (!oneEntry.mTrackUrl.toUrl().isValid() && (oneEntry.mId == 0 || track.databaseId() != oneEntry.mId)) {
                 continue;
             }
 
-            if (d->mTrackData[i] != track) {
-                d->mTrackData[i] = track;
+            const auto &trackData = d->mTrackData[i];
 
-                Q_EMIT dataChanged(index(i, 0), index(i, 0), {});
-
-                if (!d->mCurrentTrack.isValid()) {
-                    resetCurrentTrack();
+            if (!trackData.empty()) {
+                bool sameData = true;
+                for (const auto &oneKey : track.keys()) {
+                    if (trackData[oneKey] != track[oneKey]) {
+                        sameData = false;
+                        break;
+                    }
                 }
+                if (sameData) {
+                    continue;
+                }
+            }
+
+            d->mTrackData[i] = track;
+
+            Q_EMIT dataChanged(index(i, 0), index(i, 0), {});
+
+            if (!d->mCurrentTrack.isValid()) {
+                resetCurrentTrack();
             }
             continue;
         } else if (oneEntry.mEntryType != MediaPlayList::Artist && !oneEntry.mIsValid && !oneEntry.mTrackUrl.isValid()) {
@@ -1122,10 +1138,10 @@ void MediaPlayList::trackInError(const QUrl &sourceInError, QMediaPlayer::Error 
         if (oneTrack.mIsValid) {
             const auto &oneTrackData = d->mTrackData.at(i);
 
-            /*if (oneTrackData.resourceURI() == sourceInError) {
+            if (oneTrackData.resourceURI() == sourceInError) {
                 oneTrack.mIsValid = false;
                 Q_EMIT dataChanged(index(i, 0), index(i, 0), {ColumnsRoles::IsValidRole});
-            }*/
+            }
         }
     }
 }

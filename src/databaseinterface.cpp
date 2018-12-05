@@ -3786,6 +3786,9 @@ DatabaseInterface::TrackDataType DatabaseInterface::buildTrackDataFromDatabaseRe
     result[TrackDataType::key_type::DurationRole] = QTime::fromMSecsSinceStartOfDay(trackRecord.value(9).toInt());
     result[TrackDataType::key_type::MilliSecondsDurationRole] = trackRecord.value(9).toInt();
     result[TrackDataType::key_type::RatingRole] = trackRecord.value(11);
+    result[TrackDataType::key_type::ImageUrlRole] = QUrl(trackRecord.value(12).toString());
+    result[TrackDataType::key_type::ImageRole] = QUrl(trackRecord.value(12).toString());
+    result[TrackDataType::key_type::IsSingleDiscAlbumRole] = trackRecord.value(13);
 
     return result;
 }
@@ -4965,17 +4968,17 @@ DatabaseInterface::ListTrackDataType DatabaseInterface::internalAllTracksPartial
 
         const auto &currentRecord = d->mSelectAllTracksShortQuery.record();
 
-        newData[DataType::key_type::DatabaseIdRole] = currentRecord.value(0);
-        newData[DataType::key_type::TitleRole] = currentRecord.value(1);
-        newData[DataType::key_type::ArtistRole] = currentRecord.value(2);
-        newData[DataType::key_type::AlbumRole] = currentRecord.value(3);
-        newData[DataType::key_type::AlbumArtistRole] = currentRecord.value(4);
-        newData[DataType::key_type::DurationRole] = currentRecord.value(5);
-        newData[DataType::key_type::ImageUrlRole] = currentRecord.value(6);
-        newData[DataType::key_type::TrackNumberRole] = currentRecord.value(7);
-        newData[DataType::key_type::DiscNumberRole] = currentRecord.value(8);
-        newData[DataType::key_type::RatingRole] = currentRecord.value(9);
-        newData[DataType::key_type::IsSingleDiscAlbumRole] = true;
+        newData[TrackDataType::key_type::DatabaseIdRole] = currentRecord.value(0);
+        newData[TrackDataType::key_type::TitleRole] = currentRecord.value(1);
+        newData[TrackDataType::key_type::ArtistRole] = currentRecord.value(2);
+        newData[TrackDataType::key_type::AlbumRole] = currentRecord.value(3);
+        newData[TrackDataType::key_type::AlbumArtistRole] = currentRecord.value(4);
+        newData[TrackDataType::key_type::DurationRole] = currentRecord.value(5);
+        newData[TrackDataType::key_type::ImageUrlRole] = currentRecord.value(6);
+        newData[TrackDataType::key_type::TrackNumberRole] = currentRecord.value(7);
+        newData[TrackDataType::key_type::DiscNumberRole] = currentRecord.value(8);
+        newData[TrackDataType::key_type::RatingRole] = currentRecord.value(9);
+        newData[TrackDataType::key_type::IsSingleDiscAlbumRole] = currentRecord.value(13);
 
         result.push_back(newData);
     }

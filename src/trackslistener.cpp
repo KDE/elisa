@@ -128,7 +128,7 @@ void TracksListener::trackByNameInList(const QString &title, const QString &arti
     auto newTrack = d->mDatabase->trackDataFromDatabaseId(newTrackId);
 
     if (!newTrack.isEmpty()) {
-        Q_EMIT trackHasChanged({newTrack});
+        Q_EMIT trackHasChanged(newTrack);
     }
 }
 
@@ -144,7 +144,21 @@ void TracksListener::trackByFileNameInList(const QUrl &fileName)
 
         if (newTrack.isValid()) {
             qDebug() << "TracksListener::trackByFileNameInList" << "trackHasChanged" << newTrack;
-            Q_EMIT trackHasChanged({{TrackDataType::key_type::DatabaseIdRole, newTrack.databaseId()}});
+
+            auto oneData = DatabaseInterface::TrackDataType{};
+
+            oneData[DatabaseInterface::TrackDataType::key_type::TitleRole] = newTrack.title();
+            oneData[DatabaseInterface::TrackDataType::key_type::ArtistRole] = newTrack.artist();
+            oneData[DatabaseInterface::TrackDataType::key_type::AlbumRole] = newTrack.albumName();
+            oneData[DatabaseInterface::TrackDataType::key_type::AlbumIdRole] = newTrack.albumId();
+            oneData[DatabaseInterface::TrackDataType::key_type::TrackNumberRole] = newTrack.trackNumber();
+            oneData[DatabaseInterface::TrackDataType::key_type::DiscNumberRole] = newTrack.discNumber();
+            oneData[DatabaseInterface::TrackDataType::key_type::DurationRole] = newTrack.duration();
+            oneData[DatabaseInterface::TrackDataType::key_type::MilliSecondsDurationRole] = newTrack.duration().msecsSinceStartOfDay();
+            oneData[DatabaseInterface::TrackDataType::key_type::ResourceRole] = newTrack.resourceURI();
+            oneData[DatabaseInterface::TrackDataType::key_type::ImageUrlRole] = newTrack.albumCover();
+
+            Q_EMIT trackHasChanged(oneData);
 
             return;
         }

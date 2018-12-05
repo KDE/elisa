@@ -82,6 +82,7 @@ public:
         Artist,
         Genre,
         Track,
+        FileName,
         Unknown,
     };
 
@@ -241,17 +242,13 @@ public Q_SLOTS:
 
     void enqueue(EntryData newEntry, PlayListEntryType databaseIdType);
 
-    void enqueue(QList<EntryData> newEntries, PlayListEntryType databaseIdType);
+    void enqueue(const QList<EntryData> &newEntries, PlayListEntryType databaseIdType);
 
     void enqueue(const TrackDataType &newTrack);
 
     void enqueue(const MediaPlayListEntry &newEntry, const TrackDataType &audioTrack = {});
 
     void enqueue(const MusicAlbum &album);
-
-    void enqueue(const QUrl &fileName);
-
-    void enqueue(const QStringList &files);
 
     void enqueue(const QList<MusicAlbum> &albums,
                  ElisaUtils::PlayListEnqueueMode enqueueMode,
@@ -306,6 +303,12 @@ private:
     void restoreRepeatPlay();
 
     void enqueue(const QString &artistName);
+
+    void enqueue(const QUrl &fileName);
+
+    void enqueueFilesList(const QList<EntryData> &newEntries);
+
+    void enqueueTracksListById(const QList<EntryData> &newEntries);
 
     std::unique_ptr<MediaPlayListPrivate> d;
 

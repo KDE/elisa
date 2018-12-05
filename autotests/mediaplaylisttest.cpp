@@ -7253,7 +7253,7 @@ void MediaPlayListTest::testEnqueueFiles()
     QCOMPARE(newTrackByFileNameInListSpy.count(), 0);
     QCOMPARE(newArtistInListSpy.count(), 0);
 
-    myPlayList.enqueue({QStringLiteral("/$1"), QStringLiteral("/$2")});
+    myPlayList.enqueue({{0, QStringLiteral("/$1")}, {0, QStringLiteral("/$2")}}, MediaPlayList::FileName);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -7375,8 +7375,9 @@ void MediaPlayListTest::testEnqueueSampleFiles()
     QCOMPARE(newTrackByFileNameInListSpy.count(), 0);
     QCOMPARE(newArtistInListSpy.count(), 0);
 
-    myPlayList.enqueue({QStringLiteral(MEDIAPLAYLIST_TESTS_SAMPLE_FILES_PATH) + QStringLiteral("/test.ogg"),
-                        QStringLiteral(MEDIAPLAYLIST_TESTS_SAMPLE_FILES_PATH) + QStringLiteral("/test2.ogg")});
+    myPlayList.enqueue({{0, QStringLiteral(MEDIAPLAYLIST_TESTS_SAMPLE_FILES_PATH) + QStringLiteral("/test.ogg")},
+                        {0, QStringLiteral(MEDIAPLAYLIST_TESTS_SAMPLE_FILES_PATH) + QStringLiteral("/test2.ogg")}},
+                       MediaPlayList::FileName);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -7519,7 +7520,7 @@ void MediaPlayListTest::testEmptyEnqueue()
     QCOMPARE(newTrackByFileNameInListSpy.count(), 0);
     QCOMPARE(newArtistInListSpy.count(), 0);
 
-    myPlayList.enqueue(QStringList{});
+    myPlayList.enqueue(QList<MediaPlayList::EntryData>{}, MediaPlayList::FileName);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);

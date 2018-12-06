@@ -68,11 +68,11 @@ public Q_SLOTS:
                         const QString &entryTitle,
                         MediaPlayList::PlayListEntryType databaseIdType);
 
-    void newArtistInList(const QString &artist);
-
 private:
 
     MusicAudioTrack scanOneFile(const QUrl &scanFile);
+
+    void newArtistInList(const QString &artist);
 
     std::unique_ptr<TracksListenerPrivate> d;
 

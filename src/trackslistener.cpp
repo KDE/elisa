@@ -175,11 +175,21 @@ void TracksListener::newEntryInList(qulonglong newDatabaseId,
                                     const QString &entryTitle,
                                     MediaPlayList::PlayListEntryType databaseIdType)
 {
-    d->mTracksByIdSet.insert(newDatabaseId);
+    switch (databaseIdType)
+    {
+    case MediaPlayList::Track:
+    {
+        d->mTracksByIdSet.insert(newDatabaseId);
 
-    auto newTrack = d->mDatabase->trackDataFromDatabaseId(newDatabaseId);
-    if (!newTrack.isEmpty()) {
-        Q_EMIT trackHasChanged(newTrack);
+        auto newTrack = d->mDatabase->trackDataFromDatabaseId(newDatabaseId);
+        if (!newTrack.isEmpty()) {
+            Q_EMIT trackHasChanged(newTrack);
+        }
+        break;
+    }
+    case MediaPlayList::Artist:
+        newArtistInList(entryTitle);
+        break;
     }
 }
 

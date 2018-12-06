@@ -88,7 +88,6 @@ private Q_SLOTS:
         connect(&myListener, &TracksListener::albumAdded, &myPlayList, &MediaPlayList::albumAdded);
         connect(&myPlayList, &MediaPlayList::newEntryInList, &myListener, &TracksListener::newEntryInList);
         connect(&myPlayList, &MediaPlayList::newTrackByNameInList, &myListener, &TracksListener::trackByNameInList);
-        connect(&myPlayList, &MediaPlayList::newArtistInList, &myListener, &TracksListener::newArtistInList);
 
         QCOMPARE(trackHasChangedSpy.count(), 0);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
@@ -211,7 +210,6 @@ private Q_SLOTS:
         connect(&myListener, &TracksListener::albumAdded, &myPlayList, &MediaPlayList::albumAdded);
         connect(&myPlayList, &MediaPlayList::newEntryInList, &myListener, &TracksListener::newEntryInList);
         connect(&myPlayList, &MediaPlayList::newTrackByNameInList, &myListener, &TracksListener::trackByNameInList);
-        connect(&myPlayList, &MediaPlayList::newArtistInList, &myListener, &TracksListener::newArtistInList);
 
         QCOMPARE(trackHasChangedSpy.count(), 0);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
@@ -279,7 +277,6 @@ private Q_SLOTS:
         connect(&myListener, &TracksListener::albumAdded, &myPlayList, &MediaPlayList::albumAdded);
         connect(&myPlayList, &MediaPlayList::newEntryInList, &myListener, &TracksListener::newEntryInList);
         connect(&myPlayList, &MediaPlayList::newTrackByNameInList, &myListener, &TracksListener::trackByNameInList);
-        connect(&myPlayList, &MediaPlayList::newArtistInList, &myListener, &TracksListener::newArtistInList);
 
         QCOMPARE(trackHasChangedSpy.count(), 0);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
@@ -343,7 +340,6 @@ private Q_SLOTS:
         connect(&myListener, &TracksListener::albumAdded, &myPlayList, &MediaPlayList::albumAdded);
         connect(&myPlayList, &MediaPlayList::newEntryInList, &myListener, &TracksListener::newEntryInList);
         connect(&myPlayList, &MediaPlayList::newTrackByNameInList, &myListener, &TracksListener::trackByNameInList);
-        connect(&myPlayList, &MediaPlayList::newArtistInList, &myListener, &TracksListener::newArtistInList);
 
         QCOMPARE(trackHasChangedSpy.count(), 0);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
@@ -414,7 +410,6 @@ private Q_SLOTS:
         connect(&myListener, &TracksListener::albumAdded, &myPlayList, &MediaPlayList::albumAdded);
         connect(&myPlayList, &MediaPlayList::newEntryInList, &myListener, &TracksListener::newEntryInList);
         connect(&myPlayList, &MediaPlayList::newTrackByNameInList, &myListener, &TracksListener::trackByNameInList);
-        connect(&myPlayList, &MediaPlayList::newArtistInList, &myListener, &TracksListener::newArtistInList);
 
         QCOMPARE(trackHasChangedSpy.count(), 0);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);

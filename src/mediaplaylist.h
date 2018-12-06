@@ -182,8 +182,6 @@ Q_SIGNALS:
 
     void newTrackByFileNameInList(const QUrl &fileName);
 
-    void newArtistInList(const QString &artist);
-
     void newEntryInList(qulonglong newDatabaseId,
                         const QString &entryTitle,
                         PlayListEntryType databaseIdType);
@@ -239,6 +237,8 @@ public Q_SLOTS:
     void switchTo(int row);
 
     void loadPlaylist(const QUrl &fileName);
+
+    void enqueue(qulonglong newEntryDatabaseId, const QString &newEntryTitle, PlayListEntryType databaseIdType);
 
     void enqueue(EntryData newEntry, PlayListEntryType databaseIdType);
 
@@ -302,7 +302,7 @@ private:
 
     void restoreRepeatPlay();
 
-    void enqueue(const QString &artistName);
+    void enqueueArtist(const QString &artistName);
 
     void enqueue(const QUrl &fileName);
 

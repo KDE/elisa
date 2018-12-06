@@ -216,7 +216,6 @@ void MusicListenersManager::subscribeForTracks(MediaPlayList *client)
     connect(client, &MediaPlayList::newEntryInList, d->mTracksListener.get(), &TracksListener::newEntryInList);
     connect(client, &MediaPlayList::newTrackByNameInList, d->mTracksListener.get(), &TracksListener::trackByNameInList);
     connect(client, &MediaPlayList::newTrackByFileNameInList, d->mTracksListener.get(), &TracksListener::trackByFileNameInList);
-    connect(client, &MediaPlayList::newArtistInList, d->mTracksListener.get(), &TracksListener::newArtistInList);
 }
 
 int MusicListenersManager::importedTracksCount() const

@@ -436,7 +436,7 @@ void MediaPlayList::enqueue(const MusicAlbum &album)
     enqueue(album.tracksList(), ElisaUtils::AppendPlayList, ElisaUtils::DoNotTriggerPlay);
 }
 
-void MediaPlayList::enqueue(const QString &artistName)
+void MediaPlayList::enqueueArtist(const QString &artistName)
 {
     beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size());
     d->mData.push_back(MediaPlayListEntry{artistName});
@@ -449,7 +449,7 @@ void MediaPlayList::enqueue(const QString &artistName)
     }
 
     Q_EMIT tracksCountChanged();
-    Q_EMIT newArtistInList(artistName);
+    Q_EMIT newEntryInList(0, artistName, Artist);
     Q_EMIT persistentStateChanged();
 }
 
@@ -629,7 +629,7 @@ void MediaPlayList::enqueueArtists(const QList<QString> &artistNames,
     for (const auto &artistName : artistNames) {
         d->mData.push_back(MediaPlayListEntry{artistName});
         d->mTrackData.push_back({});
-        Q_EMIT newArtistInList(artistName);
+        Q_EMIT newEntryInList(0, artistName, Artist);
     }
     endInsertRows();
 
@@ -716,7 +716,7 @@ void MediaPlayList::replaceAndPlay(const MusicAlbum &album)
 void MediaPlayList::replaceAndPlay(const QString &artistName)
 {
     clearPlayList();
-    enqueue(artistName);
+    enqueueArtist(artistName);
     Q_EMIT ensurePlay();
 }
 
@@ -751,13 +751,18 @@ void MediaPlayList::loadPlaylist(const QUrl &fileName)
     d->mLoadPlaylist.load(fileName, "m3u");
 }
 
+void MediaPlayList::enqueue(qulonglong newEntryDatabaseId, const QString &newEntryTitle, MediaPlayList::PlayListEntryType databaseIdType)
+{
+    enqueue({newEntryDatabaseId, newEntryTitle}, databaseIdType);
+}
+
 void MediaPlayList::enqueue(EntryData newEntry,
                             MediaPlayList::PlayListEntryType databaseIdType)
 {
     switch (databaseIdType)
     {
     case Artist:
-        enqueue(std::get<1>(newEntry));
+        enqueueArtist(std::get<1>(newEntry));
         break;
     case Track:
         enqueue(MediaPlayListEntry{std::get<0>(newEntry)});

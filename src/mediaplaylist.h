@@ -75,19 +75,6 @@ class ELISALIB_EXPORT MediaPlayList : public QAbstractListModel
 
 public:
 
-    using EntryData = std::tuple<qulonglong, QString>;
-
-    enum PlayListEntryType {
-        Album,
-        Artist,
-        Genre,
-        Track,
-        FileName,
-        Unknown,
-    };
-
-    Q_ENUM(PlayListEntryType)
-
     enum ColumnsRoles {
         TitleRole = DatabaseInterface::TitleRole,
         SecondaryTextRole,
@@ -184,7 +171,7 @@ Q_SIGNALS:
 
     void newEntryInList(qulonglong newDatabaseId,
                         const QString &entryTitle,
-                        PlayListEntryType databaseIdType);
+                        ElisaUtils::PlayListEntryType databaseIdType);
 
     void trackHasBeenAdded(const QString &title, const QUrl &image);
 
@@ -238,11 +225,11 @@ public Q_SLOTS:
 
     void loadPlaylist(const QUrl &fileName);
 
-    void enqueue(qulonglong newEntryDatabaseId, const QString &newEntryTitle, PlayListEntryType databaseIdType);
+    void enqueue(qulonglong newEntryDatabaseId, const QString &newEntryTitle, ElisaUtils::PlayListEntryType databaseIdType);
 
-    void enqueue(EntryData newEntry, PlayListEntryType databaseIdType);
+    void enqueue(ElisaUtils::EntryData newEntry, ElisaUtils::PlayListEntryType databaseIdType);
 
-    void enqueue(const QList<EntryData> &newEntries, PlayListEntryType databaseIdType);
+    void enqueue(const QList<ElisaUtils::EntryData> &newEntries, ElisaUtils::PlayListEntryType databaseIdType);
 
     void enqueue(const TrackDataType &newTrack);
 
@@ -268,7 +255,7 @@ public Q_SLOTS:
 
     void enqueueAndPlay(const QStringList &files);
 
-    void replaceAndPlay(EntryData newEntry, PlayListEntryType databaseIdType);
+    void replaceAndPlay(ElisaUtils::EntryData newEntry, ElisaUtils::PlayListEntryType databaseIdType);
 
     void replaceAndPlay(qulonglong newTrackId);
 
@@ -306,9 +293,9 @@ private:
 
     void enqueue(const QUrl &fileName);
 
-    void enqueueFilesList(const QList<EntryData> &newEntries);
+    void enqueueFilesList(const QList<ElisaUtils::EntryData> &newEntries);
 
-    void enqueueTracksListById(const QList<EntryData> &newEntries);
+    void enqueueTracksListById(const QList<ElisaUtils::EntryData> &newEntries);
 
     std::unique_ptr<MediaPlayListPrivate> d;
 
@@ -342,7 +329,7 @@ public:
           mIsValid(true) {
     }
 
-    explicit MediaPlayListEntry(QString artist) : mArtist(std::move(artist)), mEntryType(MediaPlayList::Artist) {
+    explicit MediaPlayListEntry(QString artist) : mArtist(std::move(artist)), mEntryType(ElisaUtils::Artist) {
     }
 
     explicit MediaPlayListEntry(QUrl fileName) : mTrackUrl(std::move(fileName)) {
@@ -350,8 +337,8 @@ public:
 
     explicit MediaPlayListEntry(qulonglong id,
                                 const QString &entryTitle,
-                                MediaPlayList::PlayListEntryType type)
-        : mTitle(entryTitle), mId(id), mIsValid(type == MediaPlayList::Track), mEntryType(type) {
+                                ElisaUtils::PlayListEntryType type)
+        : mTitle(entryTitle), mId(id), mIsValid(type == ElisaUtils::Track), mEntryType(type) {
     }
 
     QVariant mTitle;
@@ -370,7 +357,7 @@ public:
 
     bool mIsValid = false;
 
-    MediaPlayList::PlayListEntryType mEntryType = MediaPlayList::PlayListEntryType::Unknown;
+    ElisaUtils::PlayListEntryType mEntryType = ElisaUtils::PlayListEntryType::Unknown;
 
     MediaPlayList::PlayState mIsPlaying = MediaPlayList::NotPlaying;
 

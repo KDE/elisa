@@ -173,11 +173,11 @@ void TracksListener::trackByFileNameInList(const QUrl &fileName)
 
 void TracksListener::newEntryInList(qulonglong newDatabaseId,
                                     const QString &entryTitle,
-                                    MediaPlayList::PlayListEntryType databaseIdType)
+                                    ElisaUtils::PlayListEntryType databaseIdType)
 {
     switch (databaseIdType)
     {
-    case MediaPlayList::Track:
+    case ElisaUtils::Track:
     {
         d->mTracksByIdSet.insert(newDatabaseId);
 
@@ -187,7 +187,7 @@ void TracksListener::newEntryInList(qulonglong newDatabaseId,
         }
         break;
     }
-    case MediaPlayList::Artist:
+    case ElisaUtils::Artist:
         newArtistInList(entryTitle);
         break;
     }

@@ -21,6 +21,7 @@ target_include_directories(databaseInterfaceTest PRIVATE ${CMAKE_SOURCE_DIR}/src
 
 set(managemediaplayercontrolTest_SOURCES
     managemediaplayercontroltest.cpp
+    ../src/elisautils.cpp
 )
 
 ecm_add_test(${managemediaplayercontrolTest_SOURCES}
@@ -31,6 +32,7 @@ ecm_add_test(${managemediaplayercontrolTest_SOURCES}
 
 set(manageheaderbarTest_SOURCES
     manageheaderbartest.cpp
+    ../src/elisautils.cpp
 )
 
 ecm_add_test(${manageheaderbarTest_SOURCES}
@@ -55,6 +57,7 @@ target_include_directories(manageaudioplayerTest PRIVATE ${CMAKE_SOURCE_DIR}/src
 set(mediaplaylistTest_SOURCES
     qabstractitemmodeltester.cpp
     mediaplaylisttest.cpp
+    ../src/elisautils.cpp
 )
 
 ecm_qt_declare_logging_category(mediaplaylistTest_SOURCES HEADER elisa_debug.h IDENTIFIER lcModelTest CATEGORY_NAME qt.modeltest)
@@ -69,6 +72,7 @@ target_include_directories(mediaplaylistTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 
 set(trackslistenertest_SOURCES
     trackslistenertest.cpp
+    ../src/elisautils.cpp
 )
 
 ecm_add_test(${trackslistenertest_SOURCES}

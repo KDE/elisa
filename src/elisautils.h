@@ -40,6 +40,19 @@ enum PlayListEnqueueTriggerPlay {
 
 Q_ENUM_NS(PlayListEnqueueTriggerPlay)
 
+using EntryData = std::tuple<qulonglong, QString>;
+
+enum PlayListEntryType {
+    Album,
+    Artist,
+    Genre,
+    Track,
+    FileName,
+    Unknown,
+};
+
+Q_ENUM_NS(PlayListEntryType)
+
 }
 
 #endif // ELISAUTILS_H

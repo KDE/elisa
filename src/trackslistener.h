@@ -22,7 +22,7 @@
 
 #include "databaseinterface.h"
 #include "musicaudiotrack.h"
-#include "mediaplaylist.h"
+#include "elisautils.h"
 
 #include <QObject>
 
@@ -66,7 +66,7 @@ public Q_SLOTS:
 
     void newEntryInList(qulonglong newDatabaseId,
                         const QString &entryTitle,
-                        MediaPlayList::PlayListEntryType databaseIdType);
+                        ElisaUtils::PlayListEntryType databaseIdType);
 
 private:
 

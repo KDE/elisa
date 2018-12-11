@@ -60,46 +60,34 @@ bool SingleArtistProxyModel::filterAcceptsRow(int source_row, const QModelIndex 
 {
     bool result = false;
 
-    for (int column = 0, columnCount = sourceModel()->columnCount(source_parent); column < columnCount; ++column) {
-        auto currentIndex = sourceModel()->index(source_row, column, source_parent);
+    auto currentIndex = sourceModel()->index(source_row, 0, source_parent);
 
-        const auto &genreValue = sourceModel()->data(currentIndex, DatabaseInterface::ColumnsRoles::GenreRole);
+    const auto &genreValue = sourceModel()->data(currentIndex, DatabaseInterface::ColumnsRoles::GenreRole);
 
-        if (!genreFilterText().isNull() && !genreValue.isValid()) {
-            continue;
-        }
+    if (!genreFilterText().isNull() && !genreValue.isValid()) {
+        return result;
+    }
 
-        if (!genreFilterText().isNull() && !genreValue.canConvert<QStringList>()) {
-            continue;
-        }
+    if (!genreFilterText().isNull() && !genreValue.canConvert<QStringList>()) {
+        return result;
+    }
 
-        if (!genreFilterText().isNull() && !genreValue.toStringList().contains(genreFilterText())) {
-            continue;
-        }
+    if (!genreFilterText().isNull() && !genreValue.toStringList().contains(genreFilterText())) {
+        return result;
+    }
 
-        const auto &artistValue = sourceModel()->data(currentIndex, DatabaseInterface::ColumnsRoles::TitleRole).toString();
-        const auto &allArtistsValue = sourceModel()->data(currentIndex, DatabaseInterface::ColumnsRoles::AllArtistsRole).toStringList().join(QLatin1String(", "));
-        const auto maximumRatingValue = sourceModel()->data(currentIndex, DatabaseInterface::ColumnsRoles::HighestTrackRating).toInt();
+    const auto &titleValue = sourceModel()->data(currentIndex, DatabaseInterface::ColumnsRoles::TitleRole).toString();
+    const auto &allArtistsValue = sourceModel()->data(currentIndex, DatabaseInterface::ColumnsRoles::AllArtistsRole).toStringList().join(QLatin1String(", "));
+    const auto maximumRatingValue = sourceModel()->data(currentIndex, DatabaseInterface::ColumnsRoles::HighestTrackRating).toInt();
 
-        if (maximumRatingValue < mFilterRating) {
-            result = false;
-            continue;
-        }
+    if (maximumRatingValue < mFilterRating) {
+        result = false;
+        return result;
+    }
 
-        if (mArtistExpression.match(artistValue).hasMatch()) {
-            if (mFilterExpression.match(allArtistsValue).hasMatch()) {
-                result = true;
-                continue;
-            }
-
-        }
-
-        if (result) {
-            continue;
-        }
-
-        if (!result) {
-            break;
+    if (mArtistExpression.match(allArtistsValue).hasMatch()) {
+        if (mFilterExpression.match(titleValue).hasMatch()) {
+            result = true;
         }
     }
 

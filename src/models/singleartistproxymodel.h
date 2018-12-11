@@ -45,9 +45,10 @@ public:
 
 Q_SIGNALS:
 
-    void albumToEnqueue(QList<MusicAlbum> newAlbums,
-                        ElisaUtils::PlayListEnqueueMode enqueueMode,
-                        ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
+    void albumToEnqueue(const ElisaUtils::EntryDataList&,
+                        ElisaUtils::PlayListEntryType,
+                        ElisaUtils::PlayListEnqueueMode,
+                        ElisaUtils::PlayListEnqueueTriggerPlay);
 
 public Q_SLOTS:
 
@@ -65,9 +66,14 @@ protected:
 
     bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override;
 
+private:
+
     QString mArtistFilter;
 
     QRegularExpression mArtistExpression;
+
+    void genericEnqueueToPlayList(ElisaUtils::PlayListEnqueueMode enqueueMode,
+                                  ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 
 };
 

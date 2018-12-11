@@ -709,7 +709,7 @@ QList<MusicAudioGenre> DatabaseInterface::allGenres()
     return result;
 }
 
-DatabaseInterface::ListTrackDataType DatabaseInterface::tracksFromAuthor(const QString &ArtistName)
+DatabaseInterface::ListTrackDataType DatabaseInterface::tracksDataFromAuthor(const QString &ArtistName)
 {
     auto allTracks = ListTrackDataType{};
 

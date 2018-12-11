@@ -99,7 +99,7 @@ QString MediaPlayer2Player::PlaybackStatus() const
 
     QVariantMap parameters;
 
-    if (m_manageAudioPlayer->playerPlaybackState() == QMediaPlayer::StoppedState) {
+    if (m_manageAudioPlayer->playerPlaybackState() == QMediaPlayer::StoppedState || m_audioPlayer->duration() == 0) {
         parameters.insert(QStringLiteral("progress-visible"), false);
         parameters.insert(QStringLiteral("progress"), 0);
     } else {

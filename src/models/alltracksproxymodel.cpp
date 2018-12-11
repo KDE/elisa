@@ -30,9 +30,7 @@ AllTracksProxyModel::AllTracksProxyModel(QObject *parent) : AbstractMediaProxyMo
     this->sortModel(Qt::AscendingOrder);
 }
 
-AllTracksProxyModel::~AllTracksProxyModel()
-{
-}
+AllTracksProxyModel::~AllTracksProxyModel() = default;
 
 bool AllTracksProxyModel::filterAcceptsRow(int source_row, const QModelIndex &source_parent) const
 {
@@ -86,36 +84,30 @@ bool AllTracksProxyModel::filterAcceptsRow(int source_row, const QModelIndex &so
     return result;
 }
 
-void AllTracksProxyModel::enqueueToPlayList()
+void AllTracksProxyModel::genericEnqueueToPlayList(ElisaUtils::PlayListEnqueueMode enqueueMode,
+                                                   ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
 {
     QtConcurrent::run(&mThreadPool, [=] () {
         QReadLocker locker(&mDataLock);
-        auto allTracks = QList<MusicAudioTrack>();
+        auto allTracks = ElisaUtils::EntryDataList();
         allTracks.reserve(rowCount());
         for (int rowIndex = 0, maxRowCount = rowCount(); rowIndex < maxRowCount; ++rowIndex) {
             auto currentIndex = index(rowIndex, 0);
-            allTracks.push_back(data(currentIndex, DatabaseInterface::ColumnsRoles::ContainerDataRole).value<MusicAudioTrack>());
+            allTracks.push_back({data(currentIndex, DatabaseInterface::ColumnsRoles::DatabaseIdRole).toULongLong(),
+                                 data(currentIndex, DatabaseInterface::ColumnsRoles::TitleRole).toString()});
         }
-        Q_EMIT trackToEnqueue(allTracks,
-                              ElisaUtils::AppendPlayList,
-                              ElisaUtils::DoNotTriggerPlay);
+        Q_EMIT trackToEnqueue(allTracks, ElisaUtils::Track, enqueueMode, triggerPlay);
     });
+}
+
+void AllTracksProxyModel::enqueueToPlayList()
+{
+    genericEnqueueToPlayList(ElisaUtils::AppendPlayList, ElisaUtils::DoNotTriggerPlay);
 }
 
 void AllTracksProxyModel::replaceAndPlayOfPlayList()
 {
-    QtConcurrent::run(&mThreadPool, [=] () {
-        QReadLocker locker(&mDataLock);
-        auto allTracks = QList<MusicAudioTrack>();
-        allTracks.reserve(rowCount());
-        for (int rowIndex = 0, maxRowCount = rowCount(); rowIndex < maxRowCount; ++rowIndex) {
-            auto currentIndex = index(rowIndex, 0);
-            allTracks.push_back(data(currentIndex, DatabaseInterface::ColumnsRoles::ContainerDataRole).value<MusicAudioTrack>());
-        }
-        Q_EMIT trackToEnqueue(allTracks,
-                              ElisaUtils::ReplacePlayList,
-                              ElisaUtils::TriggerPlay);
-    });
+    genericEnqueueToPlayList(ElisaUtils::ReplacePlayList, ElisaUtils::TriggerPlay);
 }
 
 

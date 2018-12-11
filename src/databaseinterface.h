@@ -231,7 +231,7 @@ public:
 
     QList<MusicAudioGenre> allGenres();
 
-    ListTrackDataType tracksFromAuthor(const QString &artistName);
+    ListTrackDataType tracksDataFromAuthor(const QString &artistName);
 
     TrackDataType trackDataFromDatabaseId(qulonglong id);
 

@@ -106,36 +106,29 @@ bool SingleArtistProxyModel::filterAcceptsRow(int source_row, const QModelIndex 
     return result;
 }
 
-void SingleArtistProxyModel::enqueueToPlayList()
+void SingleArtistProxyModel::genericEnqueueToPlayList(ElisaUtils::PlayListEnqueueMode enqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
 {
     QtConcurrent::run(&mThreadPool, [=] () {
         QReadLocker locker(&mDataLock);
-        auto allAlbums = QList<MusicAlbum>();
+        auto allAlbums = ElisaUtils::EntryDataList{};
         allAlbums.reserve(rowCount());
         for (int rowIndex = 0, maxRowCount = rowCount(); rowIndex < maxRowCount; ++rowIndex) {
             auto currentIndex = index(rowIndex, 0);
-            allAlbums.push_back(data(currentIndex, DatabaseInterface::ColumnsRoles::ContainerDataRole). value<MusicAlbum>());
+            allAlbums.push_back({data(currentIndex, DatabaseInterface::ColumnsRoles::DatabaseIdRole).toULongLong(),
+                                 data(currentIndex, DatabaseInterface::ColumnsRoles::TitleRole).toString()});
         }
-        Q_EMIT albumToEnqueue(allAlbums,
-                              ElisaUtils::AppendPlayList,
-                              ElisaUtils::DoNotTriggerPlay);
+        Q_EMIT albumToEnqueue(allAlbums, ElisaUtils::Album, enqueueMode, triggerPlay);
     });
+}
+
+void SingleArtistProxyModel::enqueueToPlayList()
+{
+    genericEnqueueToPlayList(ElisaUtils::AppendPlayList, ElisaUtils::DoNotTriggerPlay);
 }
 
 void SingleArtistProxyModel::replaceAndPlayOfPlayList()
 {
-    QtConcurrent::run(&mThreadPool, [=] () {
-        QReadLocker locker(&mDataLock);
-        auto allAlbums = QList<MusicAlbum>();
-        allAlbums.reserve(rowCount());
-        for (int rowIndex = 0, maxRowCount = rowCount(); rowIndex < maxRowCount; ++rowIndex) {
-            auto currentIndex = index(rowIndex, 0);
-            allAlbums.push_back(data(currentIndex, DatabaseInterface::ColumnsRoles::ContainerDataRole). value<MusicAlbum>());
-        }
-        Q_EMIT albumToEnqueue(allAlbums,
-                              ElisaUtils::ReplacePlayList,
-                              ElisaUtils::TriggerPlay);
-    });
+    genericEnqueueToPlayList(ElisaUtils::ReplacePlayList, ElisaUtils::TriggerPlay);
 }
 
 

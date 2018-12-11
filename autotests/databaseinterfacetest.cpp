@@ -1999,7 +1999,7 @@ private Q_SLOTS:
         QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
         QCOMPARE(musicDbTrackAddedSpy.count(), 1);
 
-        auto allTracks = musicDb.tracksFromAuthor(QStringLiteral("artist1"));
+        auto allTracks = musicDb.tracksDataFromAuthor(QStringLiteral("artist1"));
 
         QCOMPARE(allTracks.size(), 6);
         QCOMPARE(allTracks[0].albumArtist(), QStringLiteral("Various Artists"));

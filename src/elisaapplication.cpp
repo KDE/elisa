@@ -368,7 +368,8 @@ void ElisaApplication::initializeModels()
     d->mSingleAlbumProxyModel->setSourceModel(d->mMusicManager->albumModel());
 
     QObject::connect(d->mAllAlbumsProxyModel.get(), &AllAlbumsProxyModel::albumToEnqueue,
-                     d->mMediaPlayList.get(), static_cast<void (MediaPlayList::*)(const QList<MusicAlbum> &,
+                     d->mMediaPlayList.get(), static_cast<void (MediaPlayList::*)(const ElisaUtils::EntryDataList&,
+                                                                                  ElisaUtils::PlayListEntryType,
                                                                                   ElisaUtils::PlayListEnqueueMode,
                                                                                   ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayList::enqueue));
 
@@ -379,17 +380,20 @@ void ElisaApplication::initializeModels()
                                                                                   ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayList::enqueue));
 
     QObject::connect(d->mAllTracksProxyModel.get(), &AllTracksProxyModel::trackToEnqueue,
-                     d->mMediaPlayList.get(), static_cast<void (MediaPlayList::*)(const QList<MusicAudioTrack> &,
+                     d->mMediaPlayList.get(), static_cast<void (MediaPlayList::*)(const ElisaUtils::EntryDataList&,
+                                                                                  ElisaUtils::PlayListEntryType,
                                                                                   ElisaUtils::PlayListEnqueueMode,
                                                                                   ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayList::enqueue));
 
     QObject::connect(d->mSingleArtistProxyModel.get(), &SingleArtistProxyModel::albumToEnqueue,
-                     d->mMediaPlayList.get(), static_cast<void (MediaPlayList::*)(const QList<MusicAlbum> &,
+                     d->mMediaPlayList.get(), static_cast<void (MediaPlayList::*)(const ElisaUtils::EntryDataList&,
+                                                                                  ElisaUtils::PlayListEntryType,
                                                                                   ElisaUtils::PlayListEnqueueMode,
                                                                                   ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayList::enqueue));
 
     QObject::connect(d->mSingleAlbumProxyModel.get(), &SingleAlbumProxyModel::trackToEnqueue,
-                     d->mMediaPlayList.get(), static_cast<void (MediaPlayList::*)(const QList<MusicAudioTrack> &,
+                     d->mMediaPlayList.get(), static_cast<void (MediaPlayList::*)(const ElisaUtils::EntryDataList&,
+                                                                                  ElisaUtils::PlayListEntryType,
                                                                                   ElisaUtils::PlayListEnqueueMode,
                                                                                   ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayList::enqueue));
 

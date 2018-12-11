@@ -38,9 +38,10 @@ public:
 
 Q_SIGNALS:
 
-    void trackToEnqueue(QList<MusicAudioTrack> newTracks,
-                        ElisaUtils::PlayListEnqueueMode enqueueMode,
-                        ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
+    void trackToEnqueue(const ElisaUtils::EntryDataList&,
+                        ElisaUtils::PlayListEntryType,
+                        ElisaUtils::PlayListEnqueueMode,
+                        ElisaUtils::PlayListEnqueueTriggerPlay);
 
 public Q_SLOTS:
 
@@ -53,6 +54,11 @@ public Q_SLOTS:
 protected:
 
     bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override;
+
+private:
+
+    void genericEnqueueToPlayList(ElisaUtils::PlayListEnqueueMode enqueueMode,
+                                  ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 
 };
 

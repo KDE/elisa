@@ -75,36 +75,29 @@ bool SingleAlbumProxyModel::filterAcceptsRow(int source_row, const QModelIndex &
     return result;
 }
 
-void SingleAlbumProxyModel::enqueueToPlayList()
+void SingleAlbumProxyModel::genericEnqueueToPlayList(ElisaUtils::PlayListEnqueueMode enqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
 {
     QtConcurrent::run(&mThreadPool, [=] () {
         QReadLocker locker(&mDataLock);
-        auto allTracks = QList<MusicAudioTrack>();
+        auto allTracks = ElisaUtils::EntryDataList{};
         allTracks.reserve(rowCount());
         for (int rowIndex = 0, maxRowCount = rowCount(); rowIndex < maxRowCount; ++rowIndex) {
             auto currentIndex = index(rowIndex, 0);
-            allTracks.push_back(data(currentIndex, AlbumModel::ContainerDataRole).value<MusicAudioTrack>());
+            allTracks.push_back({data(currentIndex, AlbumModel::DatabaseIdRole).toULongLong(),
+                                 data(currentIndex, AlbumModel::TitleRole).toString()});
         }
-        Q_EMIT trackToEnqueue(allTracks,
-                              ElisaUtils::AppendPlayList,
-                              ElisaUtils::DoNotTriggerPlay);
+        Q_EMIT trackToEnqueue(allTracks, ElisaUtils::Track, enqueueMode, triggerPlay);
     });
+}
+
+void SingleAlbumProxyModel::enqueueToPlayList()
+{
+    genericEnqueueToPlayList(ElisaUtils::AppendPlayList, ElisaUtils::DoNotTriggerPlay);
 }
 
 void SingleAlbumProxyModel::replaceAndPlayOfPlayList()
 {
-    QtConcurrent::run(&mThreadPool, [=] () {
-        QReadLocker locker(&mDataLock);
-        auto allTracks = QList<MusicAudioTrack>();
-        allTracks.reserve(rowCount());
-        for (int rowIndex = 0, maxRowCount = rowCount(); rowIndex < maxRowCount; ++rowIndex) {
-            auto currentIndex = index(rowIndex, 0);
-            allTracks.push_back(data(currentIndex, AlbumModel::ContainerDataRole).value<MusicAudioTrack>());
-        }
-        Q_EMIT trackToEnqueue(allTracks,
-                              ElisaUtils::ReplacePlayList,
-                              ElisaUtils::TriggerPlay);
-    });
+    genericEnqueueToPlayList(ElisaUtils::ReplacePlayList, ElisaUtils::TriggerPlay);
 }
 
 void SingleAlbumProxyModel::loadAlbumData(qulonglong databaseId)

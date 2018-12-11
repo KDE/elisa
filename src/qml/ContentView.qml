@@ -619,14 +619,20 @@ RowLayout {
 
             focus: true
 
-            defaultIcon: elisaTheme.albumCoverIcon
+            defaultIcon: elisaTheme.artistIcon
 
             delegateDisplaySecondaryText: false
 
             isSubPage: true
 
-            onEnqueue: elisa.mediaPlayList.enqueue(data, elisa.mediaPlayList.Album)
-            onReplaceAndPlay: elisa.mediaPlayList.replaceAndPlay(data, elisa.mediaPlayList.Album)
+            onEnqueue: elisa.mediaPlayList.enqueue(databaseId, name, ElisaUtils.Artist,
+                                                   ElisaUtils.AppendPlayList,
+                                                   ElisaUtils.DoNotTriggerPlay)
+
+            onReplaceAndPlay: elisa.mediaPlayList.enqueue(databaseId, name, ElisaUtils.Artist,
+                                                          ElisaUtils.ReplacePlayList,
+                                                          ElisaUtils.TriggerPlay)
+
             onOpen: viewManager.openOneArtist(stackView, innerMainTitle, innerImage, 0)
 
             onGoBack: viewManager.goBack()

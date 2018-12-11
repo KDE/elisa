@@ -23,6 +23,19 @@ FocusScope {
     id: albumTrack
 
     property alias mediaTrack: mediaTrack
+    property alias databaseId: mediaTrack.databaseId
+    property alias title: mediaTrack.title
+    property alias artist: mediaTrack.artist
+    property alias album: mediaTrack.album
+    property alias albumArtist: mediaTrack.albumArtist
+    property alias duration: mediaTrack.duration
+    property alias imageUrl: mediaTrack.imageUrl
+    property alias trackNumber: mediaTrack.trackNumber
+    property alias discNumber: mediaTrack.discNumber
+    property alias rating: mediaTrack.rating
+    property alias isFirstTrackOfDisc: mediaTrack.isFirstTrackOfDisc
+    property alias isSingleDiscAlbum: mediaTrack.isSingleDiscAlbum
+    property alias isAlternateColor: mediaTrack.isAlternateColor
 
     ColumnLayout {
         anchors.fill: parent
@@ -34,14 +47,14 @@ FocusScope {
             Layout.minimumHeight: elisaTheme.delegateHeight
             Layout.maximumHeight: elisaTheme.delegateHeight
             Layout.fillWidth: true
-            color: (mediaTrack.isAlternateColor ? myPalette.alternateBase : myPalette.base)
+            color: (isAlternateColor ? myPalette.alternateBase : myPalette.base)
 
-            visible: mediaTrack.isFirstTrackOfDisc && !mediaTrack.isSingleDiscAlbum
+            visible: isFirstTrackOfDisc && !isSingleDiscAlbum
 
             LabelWithToolTip {
                 id: discHeaderLabel
 
-                text: 'CD ' + mediaTrack.discNumber
+                text: 'CD ' + discNumber
 
                 font.weight: Font.Bold
                 font.italic: true

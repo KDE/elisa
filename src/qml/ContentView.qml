@@ -659,18 +659,19 @@ RowLayout {
 
                 focus: true
 
-                mediaTrack.databaseId: model.databaseId
-                mediaTrack.title: model.title
-                mediaTrack.artist: model.artist
-                mediaTrack.album: (model.album !== undefined && model.album !== '' ? model.album : '')
-                mediaTrack.albumArtist: model.albumArtist
-                mediaTrack.duration: model.duration
-                mediaTrack.imageUrl: (model.imageUrl !== undefined && model.imageUrl !== '' ? model.imageUrl : '')
-                mediaTrack.trackNumber: model.trackNumber
-                mediaTrack.discNumber: model.discNumber
-                mediaTrack.rating: model.rating
-                mediaTrack.isFirstTrackOfDisc: false
-                mediaTrack.isSingleDiscAlbum: model.isSingleDiscAlbum
+                databaseId: model.databaseId
+                title: model.title
+                artist: model.artist
+                album: (model.album !== undefined && model.album !== '' ? model.album : '')
+                albumArtist: model.albumArtist
+                duration: model.duration
+                imageUrl: (model.imageUrl !== undefined && model.imageUrl !== '' ? model.imageUrl : '')
+                trackNumber: model.trackNumber
+                discNumber: model.discNumber
+                rating: model.rating
+                isFirstTrackOfDisc: model.isFirstTrackOfDisc
+                isSingleDiscAlbum: model.isSingleDiscAlbum
+                isAlternateColor: (index % 2) === 1
 
                 mediaTrack.onEnqueue: elisa.mediaPlayList.enqueue(databaseId, name, ElisaUtils.Track,
                                                                   ElisaUtils.AppendPlayList,
@@ -680,7 +681,6 @@ RowLayout {
                                                                          ElisaUtils.ReplacePlayList,
                                                                          ElisaUtils.TriggerPlay)
 
-                mediaTrack.isAlternateColor: (index % 2) === 1
 
                 mediaTrack.onClicked: albumGridView.currentIndex = index
             }

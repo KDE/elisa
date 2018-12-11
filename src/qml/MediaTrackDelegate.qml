@@ -43,21 +43,14 @@ FocusScope {
     property bool detailedView: true
 
     signal clicked()
-    signal enqueue(var data)
-    signal replaceAndPlay(var data)
-
-    Controls1.Action {
-        id: replaceAndPlayAction
-        text: i18nc("Clear play list and enqueue current track", "Play Now and Replace Play List")
-        iconName: "media-playback-start"
-        onTriggered: replaceAndPlay(databaseId)
-    }
+    signal enqueue(var databaseId, var name)
+    signal replaceAndPlay(var databaseId, var name)
 
     Controls1.Action {
         id: enqueueAction
         text: i18nc("Enqueue current track", "Enqueue")
         iconName: "media-track-add-amarok"
-        onTriggered: enqueue(databaseId)
+        onTriggered: enqueue(databaseId, title)
     }
 
     Controls1.Action {
@@ -73,6 +66,13 @@ FocusScope {
                 metadataLoader.active = false
             }
         }
+    }
+
+    Controls1.Action {
+        id: replaceAndPlayAction
+        text: i18nc("Clear play list and enqueue current track", "Play Now and Replace Play List")
+        iconName: "media-playback-start"
+        onTriggered: replaceAndPlay(databaseId, title)
     }
 
     TrackDataHelper {

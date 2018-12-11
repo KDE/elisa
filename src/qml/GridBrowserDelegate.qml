@@ -34,8 +34,8 @@ FocusScope {
     property bool delegateDisplaySecondaryText: true
     property bool isPartial
 
-    signal enqueue(var data)
-    signal replaceAndPlay(var data)
+    signal enqueue(var databaseId, var name)
+    signal replaceAndPlay(var databaseId, var name)
     signal open()
     signal selected()
 
@@ -44,7 +44,7 @@ FocusScope {
 
         text: i18nc("Add whole container to play list", "Enqueue")
         iconName: 'media-track-add-amarok'
-        onTriggered: enqueue(databaseId)
+        onTriggered: enqueue(databaseId, mainText)
 
         enabled: databaseId !== undefined
     }
@@ -62,7 +62,7 @@ FocusScope {
 
         text: i18nc("Clear play list and add whole container to play list", "Play Now and Replace Play List")
         iconName: 'media-playback-start'
-        onTriggered: replaceAndPlay(databaseId)
+        onTriggered: replaceAndPlay(databaseId, mainText)
 
         enabled: databaseId !== undefined
     }

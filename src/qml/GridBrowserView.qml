@@ -38,8 +38,8 @@ FocusScope {
     property var stackView
     property url defaultIcon
 
-    signal enqueue(var data)
-    signal replaceAndPlay(var data)
+    signal enqueue(var databaseId, var name)
+    signal replaceAndPlay(var databaseId, var name)
     signal open(var innerMainTitle, var innerSecondaryTitle, var innerImage, var databaseId)
     signal goBack()
 
@@ -149,8 +149,8 @@ FocusScope {
                     databaseId: model.databaseId
                     delegateDisplaySecondaryText: gridView.delegateDisplaySecondaryText
 
-                    onEnqueue: gridView.enqueue(data)
-                    onReplaceAndPlay: gridView.replaceAndPlay(data)
+                    onEnqueue: gridView.enqueue(databaseId, name)
+                    onReplaceAndPlay: gridView.replaceAndPlay(databaseId, name)
                     onOpen: gridView.open(model.display, model.secondaryText,
                                           (model && model.imageUrl && model.imageUrl.toString() !== "" ? model.imageUrl : defaultIcon),
                                           model.databaseId)

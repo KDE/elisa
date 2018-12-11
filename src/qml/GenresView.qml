@@ -44,8 +44,14 @@ MediaBrowser {
         image: elisaTheme.genresIcon
         mainTitle: i18nc("Title of the view of all genres", "Genres")
 
-        onEnqueue: elisa.mediaPlayList.enqueue(data, elisa.mediaPlayList.Genre)
-        onReplaceAndPlay: elisa.mediaPlayList.replaceAndPlay(data, elisa.mediaPlayList.Genre)
+        onEnqueue: elisa.mediaPlayList.enqueue(databaseId, name, ElisaUtils.Genre,
+                                               ElisaUtils.AppendPlayList,
+                                               ElisaUtils.DoNotTriggerPlay)
+
+        onReplaceAndPlay: elisa.mediaPlayList.enqueue(databaseId, name, ElisaUtils.Genre,
+                                                      ElisaUtils.ReplacePlayList,
+                                                      ElisaUtils.TriggerPlay)
+
         onOpen: viewManager.openAllArtistsFromGenre(localGenres.stackView, innerMainTitle)
 
         onGoBack: viewManager.goBack()

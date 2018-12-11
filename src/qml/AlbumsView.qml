@@ -43,8 +43,14 @@ MediaBrowser {
         image: elisaTheme.albumIcon
         mainTitle: i18nc("Title of the view of all albums", "Albums")
 
-        onEnqueue: elisa.mediaPlayList.enqueue(data, elisa.mediaPlayList.Album)
-        onReplaceAndPlay: elisa.mediaPlayList.replaceAndPlay(data, elisa.mediaPlayList.Album)
+        onEnqueue: elisa.mediaPlayList.enqueue(databaseId, name, ElisaUtils.Album,
+                                               ElisaUtils.AppendPlayList,
+                                               ElisaUtils.DoNotTriggerPlay)
+
+        onReplaceAndPlay: elisa.mediaPlayList.enqueue(databaseId, name, ElisaUtils.Album,
+                                                      ElisaUtils.ReplacePlayList,
+                                                      ElisaUtils.TriggerPlay)
+
         onOpen: viewManager.openOneAlbum(allAlbums.stackView, innerMainTitle,
                                          innerSecondaryTitle, innerImage, databaseId)
 

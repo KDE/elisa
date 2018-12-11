@@ -45,8 +45,14 @@ MediaBrowser {
         image: elisaTheme.artistIcon
         mainTitle: i18nc("Title of the view of all artists", "Artists")
 
-        onEnqueue: elisa.mediaPlayList.enqueue(data, elisa.mediaPlayList.Artist)
-        onReplaceAndPlay: elisa.mediaPlayList.replaceAndPlay(data, elisa.mediaPlayList.Artist)
+        onEnqueue: elisa.mediaPlayList.enqueue(databaseId, name, ElisaUtils.Artist,
+                                               ElisaUtils.AppendPlayList,
+                                               ElisaUtils.DoNotTriggerPlay)
+
+        onReplaceAndPlay: elisa.mediaPlayList.enqueue(databaseId, name, ElisaUtils.Artist,
+                                                      ElisaUtils.ReplacePlayList,
+                                                      ElisaUtils.TriggerPlay)
+
         onOpen: viewManager.openOneArtist(allArtists.stackView, innerMainTitle, innerImage, 0)
 
 

@@ -58,9 +58,13 @@ MediaBrowser {
             isFirstTrackOfDisc: false
             isSingleDiscAlbum: model.isSingleDiscAlbum
 
-            onEnqueue: elisa.mediaPlayList.enqueue(data)
+            onEnqueue: elisa.mediaPlayList.enqueue(databaseId, name, ElisaUtils.Track,
+                                                   ElisaUtils.AppendPlayList,
+                                                   ElisaUtils.DoNotTriggerPlay)
 
-            onReplaceAndPlay: elisa.mediaPlayList.replaceAndPlay(data)
+            onReplaceAndPlay: elisa.mediaPlayList.enqueue(databaseId, name, ElisaUtils.Track,
+                                                          ElisaUtils.ReplacePlayList,
+                                                          ElisaUtils.TriggerPlay)
 
             onClicked: contentDirectoryView.currentIndex = index
         }

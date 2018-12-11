@@ -647,11 +647,26 @@ RowLayout {
 
                 focus: true
 
-                mediaTrack.isFirstTrackOfDisc: model.isFirstTrackOfDisc
+                mediaTrack.databaseId: model.databaseId
+                mediaTrack.title: model.title
+                mediaTrack.artist: model.artist
+                mediaTrack.album: (model.album !== undefined && model.album !== '' ? model.album : '')
+                mediaTrack.albumArtist: model.albumArtist
+                mediaTrack.duration: model.duration
+                mediaTrack.imageUrl: (model.imageUrl !== undefined && model.imageUrl !== '' ? model.imageUrl : '')
+                mediaTrack.trackNumber: model.trackNumber
+                mediaTrack.discNumber: model.discNumber
+                mediaTrack.rating: model.rating
+                mediaTrack.isFirstTrackOfDisc: false
                 mediaTrack.isSingleDiscAlbum: model.isSingleDiscAlbum
 
-                mediaTrack.onEnqueue: elisa.mediaPlayList.enqueue(data)
-                mediaTrack.onReplaceAndPlay: elisa.mediaPlayList.replaceAndPlay(data)
+                mediaTrack.onEnqueue: elisa.mediaPlayList.enqueue(databaseId, name, ElisaUtils.Track,
+                                                                  ElisaUtils.AppendPlayList,
+                                                                  ElisaUtils.DoNotTriggerPlay)
+
+                mediaTrack.onReplaceAndPlay: elisa.mediaPlayList.enqueue(databaseId, name, ElisaUtils.Track,
+                                                                         ElisaUtils.ReplacePlayList,
+                                                                         ElisaUtils.TriggerPlay)
 
                 mediaTrack.isAlternateColor: (index % 2) === 1
 

@@ -84,13 +84,13 @@ QtObject {
         targetImageUrl = albumCover
         currentStackView = stackView
 
-        if (currentView == ViewManager.ViewsType.AllAlbums) {
+        if (currentView === ViewManager.ViewsType.AllAlbums) {
             targetView = ViewManager.ViewsType.OneAlbum
             switchOneAlbumView(currentStackView, targetAlbumTitle, targetImageUrl, targetAlbumAuthor, targetDatabaseId)
-        } else if (currentView == ViewManager.ViewsType.OneArtist) {
+        } else if (currentView === ViewManager.ViewsType.OneArtist) {
             targetView = ViewManager.ViewsType.OneAlbumFromArtist
             switchOneAlbumView(currentStackView, targetAlbumTitle, targetImageUrl, targetAlbumAuthor, targetDatabaseId)
-        } else if (currentView == ViewManager.ViewsType.OneArtistFromGenre) {
+        } else if (currentView === ViewManager.ViewsType.OneArtistFromGenre) {
             targetView = ViewManager.ViewsType.OneAlbumFromArtistAndGenre
             switchOneAlbumView(currentStackView, targetAlbumTitle, targetImageUrl, targetAlbumAuthor, targetDatabaseId)
         } else {
@@ -114,24 +114,24 @@ QtObject {
         targetImageUrl = artistImageUrl
         currentStackView = stackView
 
-        if (currentView == ViewManager.ViewsType.AllArtistsFromGenre) {
+        if (currentView === ViewManager.ViewsType.AllArtistsFromGenre) {
             targetView = ViewManager.ViewsType.OneArtistFromGenre
         } else {
             targetView = ViewManager.ViewsType.OneArtist
         }
 
-        if (currentView == ViewManager.ViewsType.AllArtists && targetView == ViewManager.ViewsType.OneArtist) {
+        if (currentView === ViewManager.ViewsType.AllArtists && targetView === ViewManager.ViewsType.OneArtist) {
             switchOneArtistView(currentStackView, targetArtistName, targetImageUrl, '', targetDatabaseId)
-        } else if (currentView == ViewManager.ViewsType.OneArtist && currentArtistName != targetArtistName &&
-                   targetView == ViewManager.ViewsType.OneArtist) {
+        } else if (currentView === ViewManager.ViewsType.OneArtist && currentArtistName != targetArtistName &&
+                   targetView === ViewManager.ViewsType.OneArtist) {
             currentStackView.pop()
             switchOneArtistView(currentStackView, targetArtistName, targetImageUrl, '', targetDatabaseId)
-        } else if (currentView == ViewManager.ViewsType.OneAlbumFromArtist && currentArtistName != targetArtistName &&
-                   targetView == ViewManager.ViewsType.OneArtist) {
+        } else if (currentView === ViewManager.ViewsType.OneAlbumFromArtist && currentArtistName != targetArtistName &&
+                   targetView === ViewManager.ViewsType.OneArtist) {
             currentStackView.pop()
             currentStackView.pop()
             switchOneArtistView(currentStackView, targetArtistName, targetImageUrl, '', targetDatabaseId)
-        } else if (currentView == ViewManager.ViewsType.AllArtistsFromGenre && targetView == ViewManager.ViewsType.OneArtistFromGenre) {
+        } else if (currentView === ViewManager.ViewsType.AllArtistsFromGenre && targetView === ViewManager.ViewsType.OneArtistFromGenre) {
             switchOneArtistFromGenreView(currentStackView, targetArtistName, targetImageUrl, '', targetDatabaseId, targetGenreName)
         } else {
             switchAllArtistsView()
@@ -161,7 +161,7 @@ QtObject {
         targetGenreName = genreName
         currentStackView = stackView
 
-        if (currentView == ViewManager.ViewsType.AllGenres) {
+        if (currentView === ViewManager.ViewsType.AllGenres) {
             switchAllArtistsFromGenreView(currentStackView, targetGenreName)
         } else {
             switchAllGenresView()
@@ -180,7 +180,7 @@ QtObject {
     {
         currentStackView = stackView
         currentView = ViewManager.ViewsType.AllAlbums
-        if (targetView == ViewManager.ViewsType.OneAlbum) {
+        if (targetView === ViewManager.ViewsType.OneAlbum) {
             switchOneAlbumView(currentStackView, targetAlbumTitle, targetImageUrl, targetArtistName, targetDatabaseId)
         }
     }
@@ -190,11 +190,11 @@ QtObject {
         currentAlbumTitle = targetAlbumTitle
         currentAlbumAuthor = targetAlbumAuthor
 
-        if (targetView == ViewManager.ViewsType.OneAlbum) {
+        if (targetView === ViewManager.ViewsType.OneAlbum) {
             currentView = ViewManager.ViewsType.OneAlbum
-        } else if (targetView == ViewManager.ViewsType.OneAlbumFromArtist) {
+        } else if (targetView === ViewManager.ViewsType.OneAlbumFromArtist) {
             currentView = ViewManager.ViewsType.OneAlbumFromArtist
-        } else if (targetView == ViewManager.ViewsType.OneAlbumFromArtistAndGenre) {
+        } else if (targetView === ViewManager.ViewsType.OneAlbumFromArtistAndGenre) {
             currentView = ViewManager.ViewsType.OneAlbumFromArtistAndGenre
         }
     }
@@ -203,7 +203,7 @@ QtObject {
     {
         currentStackView = stackView
         currentView = ViewManager.ViewsType.AllArtists
-        if (targetView == ViewManager.ViewsType.OneArtist) {
+        if (targetView === ViewManager.ViewsType.OneArtist) {
             switchOneArtistView(currentStackView, targetArtistName, targetImageUrl, '', targetDatabaseId)
         }
     }
@@ -211,7 +211,7 @@ QtObject {
     function oneArtistViewIsLoaded()
     {
         currentArtistName = targetArtistName
-        if (targetView == ViewManager.ViewsType.OneArtist) {
+        if (targetView === ViewManager.ViewsType.OneArtist) {
             currentView = ViewManager.ViewsType.OneArtist
         } else {
             currentGenreName = targetGenreName
@@ -245,17 +245,17 @@ QtObject {
     {
         currentStackView.pop()
 
-        if (currentView == ViewManager.ViewsType.OneAlbum) {
+        if (currentView === ViewManager.ViewsType.OneAlbum) {
             currentView = ViewManager.ViewsType.AllAlbums
-        } else if (currentView == ViewManager.ViewsType.OneArtist) {
+        } else if (currentView === ViewManager.ViewsType.OneArtist) {
             currentView = ViewManager.ViewsType.AllArtists
-        } else if (currentView == ViewManager.ViewsType.OneAlbumFromArtist) {
+        } else if (currentView === ViewManager.ViewsType.OneAlbumFromArtist) {
             currentView = ViewManager.ViewsType.OneArtist
-        } else if (currentView == ViewManager.ViewsType.AllArtistsFromGenre) {
+        } else if (currentView === ViewManager.ViewsType.AllArtistsFromGenre) {
             currentView = ViewManager.ViewsType.AllGenres
-        } else if (currentView == ViewManager.ViewsType.OneArtistFromGenre) {
+        } else if (currentView === ViewManager.ViewsType.OneArtistFromGenre) {
             currentView = ViewManager.ViewsType.AllArtistsFromGenre
-        } else if (currentView == ViewManager.ViewsType.OneAlbumFromArtistAndGenre) {
+        } else if (currentView === ViewManager.ViewsType.OneAlbumFromArtistAndGenre) {
             currentView = ViewManager.ViewsType.OneArtistFromGenre
         }
     }

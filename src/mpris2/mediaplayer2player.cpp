@@ -232,7 +232,7 @@ double MediaPlayer2Player::Rate() const
 
 void MediaPlayer2Player::setRate(double newRate)
 {
-    if (newRate == 0) {
+    if (abs(newRate) <= 0.0001) {
         Pause();
     } else {
         m_rate = qBound(MinimumRate(), newRate, MaximumRate());
@@ -353,7 +353,7 @@ void MediaPlayer2Player::playerIsSeekableChanged()
 
 void MediaPlayer2Player::audioPositionChanged()
 {
-    setPropertyPosition(m_manageAudioPlayer->playerPosition());
+    setPropertyPosition(static_cast<int>(m_manageAudioPlayer->playerPosition()));
 }
 
 void MediaPlayer2Player::audioDurationChanged()
@@ -365,7 +365,7 @@ void MediaPlayer2Player::audioDurationChanged()
     skipForwardControlEnabledChanged();
     playerPlaybackStateChanged();
     playerIsSeekableChanged();
-    setPropertyPosition(m_manageAudioPlayer->playerPosition());
+    setPropertyPosition(static_cast<int>(m_manageAudioPlayer->playerPosition()));
 }
 
 void MediaPlayer2Player::playerVolumeChanged()

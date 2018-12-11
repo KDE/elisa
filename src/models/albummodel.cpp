@@ -125,7 +125,7 @@ QVariant AlbumModel::internalDataTrack(const MusicAudioTrack &track, int role, i
     case ColumnsRoles::MilliSecondsDurationRole:
         result = track.duration().msecsSinceStartOfDay();
         break;
-    case ColumnsRoles::DurationRole:
+    case ColumnsRoles::StringDurationRole:
     {
         QTime trackDuration = track.duration();
         if (trackDuration.hour() == 0) {
@@ -135,6 +135,9 @@ QVariant AlbumModel::internalDataTrack(const MusicAudioTrack &track, int role, i
         }
         break;
     }
+    case ColumnsRoles::DurationRole:
+        result = track.duration();
+        break;
     case ColumnsRoles::ArtistRole:
         result = track.artist();
         break;

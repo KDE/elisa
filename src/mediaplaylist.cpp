@@ -83,7 +83,7 @@ QHash<int, QByteArray> MediaPlayList::roleNames() const
 
     roles[static_cast<int>(ColumnsRoles::IsValidRole)] = "isValid";
     roles[static_cast<int>(ColumnsRoles::TitleRole)] = "title";
-    roles[static_cast<int>(ColumnsRoles::DurationRole)] = "duration";
+    roles[static_cast<int>(ColumnsRoles::StringDurationRole)] = "duration";
     roles[static_cast<int>(ColumnsRoles::ArtistRole)] = "artist";
     roles[static_cast<int>(ColumnsRoles::AlbumArtistRole)] = "albumArtist";
     roles[static_cast<int>(ColumnsRoles::AlbumRole)] = "album";
@@ -136,6 +136,16 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
         case ColumnsRoles::IsPlayingRole:
             result = d->mData[index.row()].mIsPlaying;
             break;
+        case ColumnsRoles::StringDurationRole:
+        {
+            QTime trackDuration = d->mTrackData[index.row()][static_cast<TrackDataType::key_type>(role)].toTime();
+            if (trackDuration.hour() == 0) {
+                result = trackDuration.toString(QStringLiteral("mm:ss"));
+            } else {
+                result = trackDuration.toString();
+            }
+            break;
+        }
         default:
             result = d->mTrackData[index.row()][static_cast<TrackDataType::key_type>(role)];
         }

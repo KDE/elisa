@@ -82,6 +82,7 @@ public:
         ShadowForImageRole,
         ChildModelRole,
         DurationRole,
+        StringDurationRole,
         MilliSecondsDurationRole,
         ArtistRole,
         AllArtistsRole,

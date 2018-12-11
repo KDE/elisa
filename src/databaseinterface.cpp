@@ -352,6 +352,47 @@ DatabaseInterface::ListAlbumDataType DatabaseInterface::allAlbumsData()
     return result;
 }
 
+DatabaseInterface::ListTrackDataType DatabaseInterface::albumData(qulonglong databaseId)
+{
+    auto result = ListTrackDataType{};
+
+    if (!d) {
+        return result;
+    }
+
+    auto transactionResult = startTransaction();
+    if (!transactionResult) {
+        return result;
+    }
+
+    d->mSelectTrackQuery.bindValue(QStringLiteral(":albumId"), databaseId);
+
+    auto queryResult = d->mSelectTrackQuery.exec();
+
+    if (!queryResult || !d->mSelectTrackQuery.isSelect() || !d->mSelectTrackQuery.isActive()) {
+        Q_EMIT databaseError();
+
+        qDebug() << "DatabaseInterface::albumData" << d->mSelectTrackQuery.lastQuery();
+        qDebug() << "DatabaseInterface::albumData" << d->mSelectTrackQuery.boundValues();
+        qDebug() << "DatabaseInterface::albumData" << d->mSelectTrackQuery.lastError();
+    }
+
+    while (d->mSelectTrackQuery.next()) {
+        const auto &currentRecord = d->mSelectTrackQuery.record();
+
+        result.push_back(buildTrackDataFromDatabaseRecord(currentRecord));
+    }
+
+    d->mSelectTrackQuery.finish();
+
+    transactionResult = finishTransaction();
+    if (!transactionResult) {
+        return result;
+    }
+
+    return result;
+}
+
 DatabaseInterface::ListArtistDataType DatabaseInterface::allArtistsData()
 {
     auto result = ListArtistDataType{};
@@ -398,7 +439,7 @@ DatabaseInterface::ListGenreDataType DatabaseInterface::allGenresData()
     return result;
 }
 
-DatabaseInterface::DataType DatabaseInterface::oneData(DataUtils::DataType aType, qulonglong databaseId)
+DatabaseInterface::DataType DatabaseInterface::oneData(ElisaUtils::PlayListEntryType aType, qulonglong databaseId)
 {
     auto result = DataType{};
 
@@ -413,25 +454,26 @@ DatabaseInterface::DataType DatabaseInterface::oneData(DataUtils::DataType aType
 
     switch (aType)
     {
-    case DataUtils::DataType::AllArtists:
+    case ElisaUtils::Artist:
         result = internalOneArtistPartialData(databaseId);
         break;
-    case DataUtils::DataType::AllAlbums:
+    case ElisaUtils::Album:
         result = internalOneAlbumPartialData(databaseId);
         break;
-    case DataUtils::DataType::AllTracks:
+    case ElisaUtils::Track:
         result = internalOneTrackPartialData(databaseId);
         break;
-    case DataUtils::DataType::AllGenres:
+    case ElisaUtils::Genre:
         result = internalOneGenrePartialData(databaseId);
         break;
-    case DataUtils::DataType::AllComposers:
+    case ElisaUtils::Composer:
         result = internalOneComposerPartialData(databaseId);
         break;
-    case DataUtils::DataType::AllLyricists:
+    case ElisaUtils::Lyricist:
         result = internalOneLyricistPartialData(databaseId);
         break;
-    case DataUtils::DataType::UnknownType:
+    case ElisaUtils::Unknown:
+    case ElisaUtils::FileName:
         break;
     };
 

@@ -33,6 +33,7 @@
 #include "upnpbasictypes.h"
 #endif
 
+#include "elisautils.h"
 #include "elisaapplication.h"
 #include "progressindicator.h"
 #include "mediaplaylist.h"
@@ -156,8 +157,11 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qRegisterMetaType<QSortFilterProxyModel*>();
     qRegisterMetaType<NotificationItem>("NotificationItem");
     qRegisterMetaType<QMap<QString,int>>("QMap<QString,int>");
-    qRegisterMetaType<ElisaUtils::PlayListEnqueueMode>("ElisaUtils::PlayListEnqueueMode");
-    qRegisterMetaType<ElisaUtils::PlayListEnqueueTriggerPlay>("ElisaUtils::PlayListEnqueueTriggerPlay");
+    qRegisterMetaType<ElisaUtils::PlayListEnqueueMode>("PlayListEnqueueMode");
+    qRegisterMetaType<ElisaUtils::PlayListEnqueueTriggerPlay>("PlayListEnqueueTriggerPlay");
+    qRegisterMetaType<ElisaUtils::PlayListEntryType>("PlayListEntryType");
+    qRegisterMetaType<ElisaUtils::EntryData>("EntryData");
+    qRegisterMetaType<ElisaUtils::EntryDataList>("EntryDataList");
     qRegisterMetaType<DatabaseInterface::TrackDataType>("TrackDataType");
     qRegisterMetaType<DatabaseInterface::AlbumDataType>("AlbumDataType");
     qRegisterMetaType<DatabaseInterface::ArtistDataType>("ArtistDataType");
@@ -166,4 +170,5 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qRegisterMetaTypeStreamOperators<ManageMediaPlayerControl::PlayerState>("PlayListControler::PlayerState");
 
     qmlRegisterUncreatableType<ElisaApplication>(uri, 1, 0, "ElisaApplication", QStringLiteral("only one and done in c++"));
+    qmlRegisterUncreatableMetaObject(ElisaUtils::staticMetaObject, uri, 1, 0, "ElisaUtils", QStringLiteral("Namespace ElisaUtils"));
 }

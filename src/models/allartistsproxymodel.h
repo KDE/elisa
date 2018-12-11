@@ -36,7 +36,8 @@ public:
 
 Q_SIGNALS:
 
-    void artistToEnqueue(QList<QString> artistNames,
+    void artistToEnqueue(const ElisaUtils::EntryDataList &newEntries,
+                         ElisaUtils::PlayListEntryType databaseIdType,
                          ElisaUtils::PlayListEnqueueMode enqueueMode,
                          ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 
@@ -49,6 +50,11 @@ public Q_SLOTS:
 protected:
 
     bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override;
+
+private:
+
+    void genericEnqueueToPlayList(ElisaUtils::PlayListEnqueueMode enqueueMode,
+                                  ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 
 };
 

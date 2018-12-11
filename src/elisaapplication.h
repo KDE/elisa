@@ -22,6 +22,8 @@
 
 #include "config-upnp-qt.h"
 
+#include "elisautils.h"
+
 #include <QObject>
 #include <QString>
 
@@ -43,7 +45,7 @@ class ELISALIB_EXPORT ElisaApplication : public QObject
 
     Q_OBJECT
 
-    Q_PROPERTY(QStringList arguments
+    Q_PROPERTY(ElisaUtils::EntryDataList arguments
                READ arguments
                WRITE setArguments
                NOTIFY argumentsChanged)
@@ -117,7 +119,7 @@ public:
 
     Q_INVOKABLE QString iconName(const QIcon& icon);
 
-    const QStringList &arguments() const;
+    const ElisaUtils::EntryDataList &arguments() const;
 
     MusicListenersManager *musicManager() const;
 
@@ -183,7 +185,10 @@ Q_SIGNALS:
 
     void manageHeaderBarChanged();
 
-    void enqueue(const QStringList &files);
+    void enqueue(const ElisaUtils::EntryDataList &newEntries,
+                 ElisaUtils::PlayListEntryType databaseIdType,
+                 ElisaUtils::PlayListEnqueueMode enqueueMode,
+                 ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 
     void initializationDone();
 
@@ -199,7 +204,7 @@ public Q_SLOTS:
 
     void configureElisa();
 
-    void setArguments(const QStringList &newArguments);
+    void setArguments(const ElisaUtils::EntryDataList &newArguments);
 
     void activateActionRequested(const QString &actionName, const QVariant &parameter);
 
@@ -225,7 +230,8 @@ private:
 
     void setupActions(const QString &actionName);
 
-    QStringList checkFileListAndMakeAbsolute(const QStringList &filesList, const QString &workingDirectory) const;
+    ElisaUtils::EntryDataList checkFileListAndMakeAbsolute(const ElisaUtils::EntryDataList &filesList,
+                                                              const QString &workingDirectory) const;
 
     std::unique_ptr<ElisaApplicationPrivate> d;
 

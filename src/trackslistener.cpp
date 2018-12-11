@@ -171,6 +171,11 @@ void TracksListener::trackByFileNameInList(const QUrl &fileName)
     }
 }
 
+void TracksListener::newAlbumInList(qulonglong newDatabaseId, const QString &entryTitle)
+{
+    Q_EMIT tracksListAdded(newDatabaseId, entryTitle, ElisaUtils::Album, d->mDatabase->albumData(newDatabaseId));
+}
+
 void TracksListener::newEntryInList(qulonglong newDatabaseId,
                                     const QString &entryTitle,
                                     ElisaUtils::PlayListEntryType databaseIdType)
@@ -190,6 +195,11 @@ void TracksListener::newEntryInList(qulonglong newDatabaseId,
     case ElisaUtils::Artist:
         newArtistInList(entryTitle);
         break;
+    case ElisaUtils::FileName:
+        trackByFileNameInList(QUrl::fromLocalFile(entryTitle));
+        break;
+    case ElisaUtils::Album:
+        newAlbumInList(newDatabaseId, entryTitle);
     }
 }
 
@@ -204,7 +214,7 @@ void TracksListener::newArtistInList(const QString &artist)
         d->mTracksByIdSet.insert(oneTrack.databaseId());
     }
 
-    Q_EMIT albumAdded(newTracks);
+    Q_EMIT tracksListAdded(0, artist, ElisaUtils::Artist, newTracks);
 }
 
 MusicAudioTrack TracksListener::scanOneFile(const QUrl &scanFile)

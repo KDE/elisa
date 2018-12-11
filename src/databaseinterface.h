@@ -215,11 +215,13 @@ public:
 
     ListAlbumDataType allAlbumsData();
 
+    ListTrackDataType albumData(qulonglong databaseId);
+
     ListArtistDataType allArtistsData();
 
     ListGenreDataType allGenresData();
 
-    DataType oneData(DataUtils::DataType aType, qulonglong databaseId);
+    DataType oneData(ElisaUtils::PlayListEntryType aType, qulonglong databaseId);
 
     QList<MusicAudioTrack> allTracks();
 

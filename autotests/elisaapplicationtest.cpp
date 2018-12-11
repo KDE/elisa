@@ -50,6 +50,10 @@ private Q_SLOTS:
         qRegisterMetaType<QVector<qlonglong>>("QVector<qlonglong>");
         qRegisterMetaType<QHash<qlonglong,int>>("QHash<qlonglong,int>");
         qRegisterMetaType<QList<QUrl>>("QList<QUrl>");
+        qRegisterMetaType<ElisaUtils::EntryDataList>("ElisaUtils::EntryDataList");
+        qRegisterMetaType<ElisaUtils::PlayListEntryType>("ElisaUtils::PlayListEntryType");
+        qRegisterMetaType<ElisaUtils::PlayListEnqueueMode>("ElisaUtils::PlayListEnqueueMode");
+        qRegisterMetaType<ElisaUtils::PlayListEnqueueTriggerPlay>("ElisaUtils::PlayListEnqueueTriggerPlay");
     }
 
     void setArgumentsTest()
@@ -63,13 +67,13 @@ private Q_SLOTS:
         auto myDirectory = QDir::current();
         auto relativePath = myDirectory.relativeFilePath(myTestFile.canonicalFilePath());
 
-        myApp.setArguments({relativePath});
+        myApp.setArguments({{0, relativePath}});
 
         QCOMPARE(argumentsChangedSpy.count(), 1);
         QCOMPARE(enqueueSpy.count(), 1);
 
         QCOMPARE(myApp.arguments().count(), 1);
-        QCOMPARE(myApp.arguments().at(0), myTestFile.canonicalFilePath());
+        QCOMPARE(std::get<1>(myApp.arguments().at(0)), myTestFile.canonicalFilePath());
     }
 
     void activateRequestedTest()
@@ -88,8 +92,8 @@ private Q_SLOTS:
         QCOMPARE(argumentsChangedSpy.count(), 0);
         QCOMPARE(enqueueSpy.count(), 1);
 
-        QCOMPARE(enqueueSpy.at(0).count(), 1);
-        QCOMPARE(enqueueSpy.at(0).at(0).toString(), myTestFile.canonicalFilePath());
+        QCOMPARE(enqueueSpy.at(0).count(), 4);
+        QCOMPARE(std::get<1>(enqueueSpy.at(0).at(0).value<ElisaUtils::EntryDataList>().at(0)), myTestFile.canonicalFilePath());
     }
 };
 

@@ -32,9 +32,7 @@ AllArtistsProxyModel::AllArtistsProxyModel(QObject *parent) : AbstractMediaProxy
     this->sortModel(Qt::AscendingOrder);
 }
 
-AllArtistsProxyModel::~AllArtistsProxyModel()
-{
-}
+AllArtistsProxyModel::~AllArtistsProxyModel() = default;
 
 bool AllArtistsProxyModel::filterAcceptsRow(int source_row, const QModelIndex &source_parent) const
 {
@@ -76,36 +74,32 @@ bool AllArtistsProxyModel::filterAcceptsRow(int source_row, const QModelIndex &s
     return result;
 }
 
-void AllArtistsProxyModel::enqueueToPlayList()
+void AllArtistsProxyModel::genericEnqueueToPlayList(ElisaUtils::PlayListEnqueueMode enqueueMode,
+                                                    ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
 {
     QtConcurrent::run(&mThreadPool, [=] () {
         QReadLocker locker(&mDataLock);
-        auto allArtists = QStringList();
+        auto allArtists = ElisaUtils::EntryDataList{};
         allArtists.reserve(rowCount());
         for (int rowIndex = 0, maxRowCount = rowCount(); rowIndex < maxRowCount; ++rowIndex) {
             auto currentIndex = index(rowIndex, 0);
-            allArtists.push_back(data(currentIndex, Qt::DisplayRole).toString());
+            allArtists.push_back({data(currentIndex, DatabaseInterface::DatabaseIdRole).toULongLong(), data(currentIndex, Qt::DisplayRole).toString()});
         }
         Q_EMIT artistToEnqueue(allArtists,
-                               ElisaUtils::AppendPlayList,
-                               ElisaUtils::DoNotTriggerPlay);
+                               ElisaUtils::Artist,
+                               enqueueMode,
+                               triggerPlay);
     });
+}
+
+void AllArtistsProxyModel::enqueueToPlayList()
+{
+    genericEnqueueToPlayList(ElisaUtils::AppendPlayList, ElisaUtils::DoNotTriggerPlay);
 }
 
 void AllArtistsProxyModel::replaceAndPlayOfPlayList()
 {
-    QtConcurrent::run(&mThreadPool, [=] () {
-        QReadLocker locker(&mDataLock);
-        auto allArtists = QStringList();
-        allArtists.reserve(rowCount());
-        for (int rowIndex = 0, maxRowCount = rowCount(); rowIndex < maxRowCount; ++rowIndex) {
-            auto currentIndex = index(rowIndex, 0);
-            allArtists.push_back(data(currentIndex, Qt::DisplayRole).toString());
-        }
-        Q_EMIT artistToEnqueue(allArtists,
-                               ElisaUtils::ReplacePlayList,
-                               ElisaUtils::TriggerPlay);
-    });
+    genericEnqueueToPlayList(ElisaUtils::ReplacePlayList, ElisaUtils::TriggerPlay);
 }
 
 

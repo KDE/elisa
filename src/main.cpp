@@ -147,7 +147,14 @@ int main(int argc, char *argv[])
     QObject::connect(&elisaService, &KDBusService::openRequested, myApp.get(), &ElisaApplication::openRequested);
 #endif
 
-    myApp->setArguments(parser.positionalArguments());
+    auto arguments = ElisaUtils::EntryDataList{};
+    auto realArgumentsList = parser.positionalArguments();
+
+    for (auto oneArgument : realArgumentsList) {
+        arguments.push_back({0, oneArgument});
+    }
+
+    myApp->setArguments(arguments);
 
     engine.rootContext()->setContextProperty(QStringLiteral("elisa"), myApp.release());
 

@@ -50,7 +50,10 @@ Q_SIGNALS:
 
     void trackHasBeenRemoved(qulonglong id);
 
-    void albumAdded(const ListTrackDataType &tracks);
+    void tracksListAdded(qulonglong newDatabaseId,
+                         const QString &entryTitle,
+                         ElisaUtils::PlayListEntryType databaseIdType,
+                         const ListTrackDataType &tracks);
 
 public Q_SLOTS:
 
@@ -62,8 +65,6 @@ public Q_SLOTS:
 
     void trackByNameInList(const QString &title, const QString &artist, const QString &album, int trackNumber, int discNumber);
 
-    void trackByFileNameInList(const QUrl &fileName);
-
     void newEntryInList(qulonglong newDatabaseId,
                         const QString &entryTitle,
                         ElisaUtils::PlayListEntryType databaseIdType);
@@ -73,6 +74,11 @@ private:
     MusicAudioTrack scanOneFile(const QUrl &scanFile);
 
     void newArtistInList(const QString &artist);
+
+    void trackByFileNameInList(const QUrl &fileName);
+
+    void newAlbumInList(qulonglong newDatabaseId,
+                        const QString &entryTitle);
 
     std::unique_ptr<TracksListenerPrivate> d;
 

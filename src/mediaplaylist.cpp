@@ -403,11 +403,12 @@ void MediaPlayList::enqueue(const MediaPlayListEntry &newEntry, const TrackDataT
             qDebug() << "MediaPlayList::enqueue" << "newTrackByFileNameInList" << newEntry.mTrackUrl;
             auto entryURL = newEntry.mTrackUrl.toUrl();
             if (entryURL.isLocalFile()) {
-                QFileInfo newTrackFile(entryURL.toLocalFile());
+                auto entryString =  entryURL.toLocalFile();
+                QFileInfo newTrackFile(entryString);
                 if (newTrackFile.exists()) {
                     d->mData.last().mIsValid = true;
                 }
-                Q_EMIT newTrackByFileNameInList(entryURL);
+                Q_EMIT newEntryInList(0, entryString, ElisaUtils::FileName);
             }
         } else {
             Q_EMIT newTrackByNameInList(newEntry.mTitle.toString(),
@@ -419,8 +420,6 @@ void MediaPlayList::enqueue(const MediaPlayListEntry &newEntry, const TrackDataT
     } else {
         Q_EMIT newEntryInList(newEntry.mId, {}, ElisaUtils::Track);
     }
-
-    Q_EMIT trackHasBeenAdded(data(index(d->mData.size() - 1, 0), ColumnsRoles::TitleRole).toString(), data(index(d->mData.size() - 1, 0), ColumnsRoles::ImageUrlRole).toUrl());
 
     if (!newEntry.mIsValid) {
         Q_EMIT dataChanged(index(rowCount() - 1, 0), index(rowCount() - 1, 0), {MediaPlayList::HasAlbumHeader});
@@ -453,21 +452,40 @@ void MediaPlayList::enqueueArtist(const QString &artistName)
     Q_EMIT persistentStateChanged();
 }
 
-void MediaPlayList::enqueue(const QUrl &fileName)
+void MediaPlayList::enqueueFilesList(const ElisaUtils::EntryDataList &newEntries)
 {
-    enqueue(MediaPlayListEntry(fileName));
-}
-
-void MediaPlayList::enqueueFilesList(const QList<ElisaUtils::EntryData> &newEntries)
-{
-    QList<QUrl> fileUrls;
-    for (const auto &file : newEntries) {
-        fileUrls.append(QUrl::fromLocalFile(std::get<1>(file)));
+    beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size() + newEntries.size() - 1);
+    for (const auto &oneTrackUrl : newEntries) {
+        auto newEntry = MediaPlayListEntry(QUrl::fromLocalFile(std::get<1>(oneTrackUrl)));
+        d->mData.push_back(newEntry);
+        d->mTrackData.push_back({});
+        if (newEntry.mTrackUrl.isValid()) {
+            qDebug() << "MediaPlayList::enqueue" << "newTrackByFileNameInList" << std::get<1>(oneTrackUrl);
+            auto entryURL = newEntry.mTrackUrl.toUrl();
+            if (entryURL.isLocalFile()) {
+                auto entryString =  entryURL.toLocalFile();
+                QFileInfo newTrackFile(entryString);
+                if (newTrackFile.exists()) {
+                    d->mData.last().mIsValid = true;
+                }
+                Q_EMIT newEntryInList(0, entryString, ElisaUtils::FileName);
+            }
+        }
     }
-    enqueue(fileUrls, ElisaUtils::AppendPlayList, ElisaUtils::DoNotTriggerPlay);
+    endInsertRows();
+
+    restorePlayListPosition();
+    if (!d->mCurrentTrack.isValid()) {
+        resetCurrentTrack();
+    }
+
+    Q_EMIT tracksCountChanged();
+    Q_EMIT persistentStateChanged();
+
+    Q_EMIT dataChanged(index(rowCount() - 1, 0), index(rowCount() - 1, 0), {MediaPlayList::HasAlbumHeader});
 }
 
-void MediaPlayList::enqueueTracksListById(const QList<ElisaUtils::EntryData> &newEntries)
+void MediaPlayList::enqueueTracksListById(const ElisaUtils::EntryDataList &newEntries)
 {
     beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size() + newEntries.size() - 1);
     for (const auto &newTrack : newEntries) {
@@ -488,23 +506,36 @@ void MediaPlayList::enqueueTracksListById(const QList<ElisaUtils::EntryData> &ne
     Q_EMIT dataChanged(index(rowCount() - 1, 0), index(rowCount() - 1, 0), {MediaPlayList::HasAlbumHeader});
 }
 
-void MediaPlayList::enqueueAndPlay(const QStringList &files)
+void MediaPlayList::enqueueOneEntry(const ElisaUtils::EntryData &entryData, ElisaUtils::PlayListEntryType type)
 {
-    if (files.size() > 0) {
-        int previousTrackNumber = tracksCount();
-        auto newEntries = QList<ElisaUtils::EntryData>{};
-        for (const auto &oneFile : files) {
-            newEntries.push_back({0, oneFile});
-        }
-        enqueueFilesList(newEntries);
-        switchTo(previousTrackNumber);
-        Q_EMIT ensurePlay();
-    }
+    beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size());
+    d->mData.push_back(MediaPlayListEntry{std::get<0>(entryData), std::get<1>(entryData), type});
+    d->mTrackData.push_back({});
+    Q_EMIT newEntryInList(std::get<0>(entryData), std::get<1>(entryData), type);
+    endInsertRows();
+
+    Q_EMIT tracksCountChanged();
+    Q_EMIT persistentStateChanged();
 }
 
-void MediaPlayList::replaceAndPlay(ElisaUtils::EntryData newEntry,
+void MediaPlayList::enqueueMultipleEntries(const ElisaUtils::EntryDataList &entriesData, ElisaUtils::PlayListEntryType type)
+{
+    beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size() + entriesData.size() - 1);
+    for (const auto &entryData : entriesData) {
+        d->mData.push_back(MediaPlayListEntry{std::get<0>(entryData), std::get<1>(entryData), type});
+        d->mTrackData.push_back({});
+        Q_EMIT newEntryInList(std::get<0>(entryData), std::get<1>(entryData), type);
+    }
+    endInsertRows();
+
+    Q_EMIT tracksCountChanged();
+    Q_EMIT persistentStateChanged();
+}
+
+void MediaPlayList::replaceAndPlay(const ElisaUtils::EntryData &newEntry,
                                    ElisaUtils::PlayListEntryType databaseIdType)
 {
+    enqueue(newEntry, databaseIdType, ElisaUtils::PlayListEnqueueMode::ReplacePlayList, ElisaUtils::PlayListEnqueueTriggerPlay::TriggerPlay);
 }
 
 void MediaPlayList::enqueue(const QList<MusicAlbum> &albums,
@@ -613,92 +644,6 @@ void MediaPlayList::enqueue(const QList<MusicAudioTrack> &tracks,
     }
 }
 
-void MediaPlayList::enqueueArtists(const QList<QString> &artistNames,
-                                   ElisaUtils::PlayListEnqueueMode enqueueMode,
-                                   ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
-{
-    if (artistNames.isEmpty()) {
-        return;
-    }
-
-    if (enqueueMode == ElisaUtils::ReplacePlayList) {
-        clearPlayList();
-    }
-
-    beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size() + artistNames.size() - 1);
-    for (const auto &artistName : artistNames) {
-        d->mData.push_back(MediaPlayListEntry{artistName});
-        d->mTrackData.push_back({});
-        Q_EMIT newEntryInList(0, artistName, ElisaUtils::Artist);
-    }
-    endInsertRows();
-
-    restorePlayListPosition();
-    if (!d->mCurrentTrack.isValid()) {
-        resetCurrentTrack();
-    }
-
-    Q_EMIT tracksCountChanged();
-    Q_EMIT persistentStateChanged();
-
-    if (triggerPlay == ElisaUtils::TriggerPlay) {
-        Q_EMIT ensurePlay();
-    }
-}
-
-void MediaPlayList::enqueue(const QList<QUrl> &trackUrls,
-                            ElisaUtils::PlayListEnqueueMode enqueueMode,
-                            ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
-{
-    if (trackUrls.isEmpty()) {
-        return;
-    }
-
-    if (enqueueMode == ElisaUtils::ReplacePlayList) {
-        clearPlayList();
-    }
-
-    beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size() + trackUrls.size() - 1);
-    for (const auto &oneTrackUrl : trackUrls) {
-        auto newEntry = MediaPlayListEntry(oneTrackUrl);
-        d->mData.push_back(newEntry);
-        d->mTrackData.push_back({});
-        if (newEntry.mTrackUrl.isValid()) {
-            qDebug() << "MediaPlayList::enqueue" << "newTrackByFileNameInList" << oneTrackUrl;
-            auto entryURL = newEntry.mTrackUrl.toUrl();
-            if (entryURL.isLocalFile()) {
-                QFileInfo newTrackFile(entryURL.toLocalFile());
-                if (newTrackFile.exists()) {
-                    d->mData.last().mIsValid = true;
-                }
-                Q_EMIT newTrackByFileNameInList(entryURL);
-            }
-        }
-    }
-    endInsertRows();
-
-    restorePlayListPosition();
-    if (!d->mCurrentTrack.isValid()) {
-        resetCurrentTrack();
-    }
-
-    Q_EMIT tracksCountChanged();
-    Q_EMIT persistentStateChanged();
-
-    Q_EMIT dataChanged(index(rowCount() - 1, 0), index(rowCount() - 1, 0), {MediaPlayList::HasAlbumHeader});
-
-    if (triggerPlay == ElisaUtils::TriggerPlay) {
-        Q_EMIT ensurePlay();
-    }
-}
-
-void MediaPlayList::replaceAndPlay(qulonglong newTrackId)
-{
-    clearPlayList();
-    enqueue(MediaPlayListEntry(newTrackId));
-    Q_EMIT ensurePlay();
-}
-
 void MediaPlayList::replaceAndPlay(const TrackDataType &newTrack)
 {
     clearPlayList();
@@ -710,20 +655,6 @@ void MediaPlayList::replaceAndPlay(const MusicAlbum &album)
 {
     clearPlayList();
     enqueue(album);
-    Q_EMIT ensurePlay();
-}
-
-void MediaPlayList::replaceAndPlay(const QString &artistName)
-{
-    clearPlayList();
-    enqueueArtist(artistName);
-    Q_EMIT ensurePlay();
-}
-
-void MediaPlayList::replaceAndPlay(const QUrl &fileName)
-{
-    clearPlayList();
-    enqueue(fileName);
     Q_EMIT ensurePlay();
 }
 
@@ -751,32 +682,67 @@ void MediaPlayList::loadPlaylist(const QUrl &fileName)
     d->mLoadPlaylist.load(fileName, "m3u");
 }
 
+void MediaPlayList::enqueue(const ElisaUtils::EntryData &newEntry, ElisaUtils::PlayListEntryType databaseIdType)
+{
+    enqueue(newEntry, databaseIdType, ElisaUtils::PlayListEnqueueMode::AppendPlayList, ElisaUtils::PlayListEnqueueTriggerPlay::DoNotTriggerPlay);
+}
+
+void MediaPlayList::enqueue(const ElisaUtils::EntryDataList &newEntries, ElisaUtils::PlayListEntryType databaseIdType)
+{
+    enqueue(newEntries, databaseIdType, ElisaUtils::PlayListEnqueueMode::AppendPlayList, ElisaUtils::PlayListEnqueueTriggerPlay::DoNotTriggerPlay);
+}
+
 void MediaPlayList::enqueue(qulonglong newEntryDatabaseId,
                             const QString &newEntryTitle,
-                            ElisaUtils::PlayListEntryType databaseIdType)
+                            ElisaUtils::PlayListEntryType databaseIdType,
+                            ElisaUtils::PlayListEnqueueMode enqueueMode,
+                            ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
 {
-    enqueue({newEntryDatabaseId, newEntryTitle}, databaseIdType);
+    enqueue({newEntryDatabaseId, newEntryTitle}, databaseIdType, enqueueMode, triggerPlay);
 }
 
 void MediaPlayList::enqueue(ElisaUtils::EntryData newEntry,
-                            ElisaUtils::PlayListEntryType databaseIdType)
+                            ElisaUtils::PlayListEntryType databaseIdType,
+                            ElisaUtils::PlayListEnqueueMode enqueueMode,
+                            ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
 {
+    if (enqueueMode == ElisaUtils::ReplacePlayList) {
+        clearPlayList();
+    }
+
     switch (databaseIdType)
     {
+    case ElisaUtils::Album:
     case ElisaUtils::Artist:
-        enqueueArtist(std::get<1>(newEntry));
+    case ElisaUtils::Genre:
+        enqueueOneEntry(newEntry, databaseIdType);
         break;
     case ElisaUtils::Track:
         enqueue(MediaPlayListEntry{std::get<0>(newEntry)});
         break;
+    case ElisaUtils::FileName:
+        enqueueFilesList({newEntry});
+        break;
+    case ElisaUtils::Unknown:
+        break;
+    }
+
+    if (triggerPlay == ElisaUtils::TriggerPlay) {
+        Q_EMIT ensurePlay();
     }
 }
 
-void MediaPlayList::enqueue(const QList<ElisaUtils::EntryData> &newEntries,
-                            ElisaUtils::PlayListEntryType databaseIdType)
+void MediaPlayList::enqueue(const ElisaUtils::EntryDataList &newEntries,
+                            ElisaUtils::PlayListEntryType databaseIdType,
+                            ElisaUtils::PlayListEnqueueMode enqueueMode,
+                            ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
 {
     if (newEntries.isEmpty()) {
         return;
+    }
+
+    if (enqueueMode == ElisaUtils::ReplacePlayList) {
+        clearPlayList();
     }
 
     switch (databaseIdType)
@@ -787,6 +753,17 @@ void MediaPlayList::enqueue(const QList<ElisaUtils::EntryData> &newEntries,
     case ElisaUtils::FileName:
         enqueueFilesList(newEntries);
         break;
+    case ElisaUtils::Album:
+    case ElisaUtils::Artist:
+    case ElisaUtils::Genre:
+        enqueueMultipleEntries(newEntries, databaseIdType);
+        break;
+    case ElisaUtils::Unknown:
+        break;
+    }
+
+    if (triggerPlay == ElisaUtils::TriggerPlay) {
+        Q_EMIT ensurePlay();
     }
 }
 
@@ -907,15 +884,22 @@ void MediaPlayList::removeSelection(QList<int> selection)
     }
 }
 
-void MediaPlayList::albumAdded(const ListTrackDataType &tracks)
+void MediaPlayList::tracksListAdded(qulonglong newDatabaseId,
+                                    const QString &entryTitle,
+                                    ElisaUtils::PlayListEntryType databaseIdType,
+                                    const ListTrackDataType &tracks)
 {
     for (int playListIndex = 0; playListIndex < d->mData.size(); ++playListIndex) {
         auto &oneEntry = d->mData[playListIndex];
-        if (oneEntry.mEntryType != ElisaUtils::Artist || oneEntry.mIsValid) {
+        if (oneEntry.mEntryType != databaseIdType) {
             continue;
         }
 
-        if (oneEntry.mArtist != tracks.first().artist()) {
+        if (oneEntry.mTitle != entryTitle) {
+            continue;
+        }
+
+        if (newDatabaseId != 0 && oneEntry.mId != newDatabaseId) {
             continue;
         }
 
@@ -1228,7 +1212,7 @@ void MediaPlayList::loadPlayListLoaded()
     clearPlayList();
 
     for (int i = 0; i < d->mLoadPlaylist.mediaCount(); ++i) {
-        enqueue(d->mLoadPlaylist.media(i).canonicalUrl());
+        enqueue(MediaPlayListEntry{d->mLoadPlaylist.media(i).canonicalUrl()});
     }
 
     restorePlayListPosition();
@@ -1304,7 +1288,7 @@ void MediaPlayList::restoreRepeatPlay()
     }
 }
 
-QDebug operator<<(QDebug stream, const MediaPlayListEntry &data)
+QDebug operator<<(const QDebug &stream, const MediaPlayListEntry &data)
 {
     stream << data.mTitle << data.mAlbum << data.mArtist << data.mTrackUrl << data.mTrackNumber << data.mDiscNumber << data.mId << data.mIsValid;
     return stream;

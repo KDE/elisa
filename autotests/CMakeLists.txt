@@ -174,6 +174,7 @@ endif()
 if (KF5XmlGui_FOUND AND KF5KCMUtils_FOUND)
     set(elisaapplicationtest_SOURCES
         elisaapplicationtest.cpp
+        ../src/elisautils.cpp
     )
 
     ecm_add_test(${elisaapplicationtest_SOURCES}

@@ -75,8 +75,8 @@ public:
 
     explicit ElisaApplicationPrivate(QObject *parent)
 #if defined KF5XmlGui_FOUND && KF5XmlGui_FOUND
-          : mCollection(parent)
-#endif
+        : mCollection(parent)
+    #endif
     {
         Q_UNUSED(parent)
 
@@ -91,7 +91,7 @@ public:
     KActionCollection mCollection;
 #endif
 
-    QStringList mArguments;
+    ElisaUtils::EntryDataList mArguments;
 
     std::unique_ptr<MusicListenersManager> mMusicManager;
 
@@ -187,7 +187,7 @@ void ElisaApplication::setupActions(const QString &actionName)
 #endif
 }
 
-void ElisaApplication::setArguments(const QStringList &newArguments)
+void ElisaApplication::setArguments(const ElisaUtils::EntryDataList &newArguments)
 {
     if (d->mArguments == newArguments) {
         return;
@@ -197,7 +197,9 @@ void ElisaApplication::setArguments(const QStringList &newArguments)
     Q_EMIT argumentsChanged();
 
     if (!d->mArguments.isEmpty()) {
-        Q_EMIT enqueue(d->mArguments);
+        Q_EMIT enqueue(d->mArguments, ElisaUtils::FileName,
+                       ElisaUtils::PlayListEnqueueMode::AppendPlayList,
+                       ElisaUtils::PlayListEnqueueTriggerPlay::TriggerPlay);
     }
 }
 
@@ -209,10 +211,23 @@ void ElisaApplication::activateActionRequested(const QString &actionName, const 
 
 void ElisaApplication::activateRequested(const QStringList &arguments, const QString &workingDirectory)
 {
-    auto realArguments = arguments;
-    if (realArguments.size() > 1) {
-        realArguments.removeFirst();
-        Q_EMIT enqueue(checkFileListAndMakeAbsolute(realArguments, workingDirectory));
+    if (arguments.size() > 1) {
+        auto realArguments = ElisaUtils::EntryDataList{};
+
+        bool isFirst = true;
+        for (const auto &oneArgument : arguments) {
+            if (isFirst) {
+                isFirst = false;
+                continue;
+            }
+
+            realArguments.push_back({0, oneArgument});
+        }
+
+        Q_EMIT enqueue(checkFileListAndMakeAbsolute(realArguments, workingDirectory),
+                       ElisaUtils::FileName,
+                       ElisaUtils::PlayListEnqueueMode::AppendPlayList,
+                       ElisaUtils::PlayListEnqueueTriggerPlay::TriggerPlay);
     }
 }
 
@@ -277,19 +292,20 @@ void ElisaApplication::find() {}
 
 void ElisaApplication::togglePlaylist() {}
 
-QStringList ElisaApplication::checkFileListAndMakeAbsolute(const QStringList &filesList, const QString &workingDirectory) const
+ElisaUtils::EntryDataList ElisaApplication::checkFileListAndMakeAbsolute(const ElisaUtils::EntryDataList &filesList,
+                                                                            const QString &workingDirectory) const
 {
-    QStringList filesToOpen;
+    auto filesToOpen = ElisaUtils::EntryDataList{};
 
     for (const auto &oneFile : filesList) {
-        auto newFile = QFileInfo(oneFile);
+        auto newFile = QFileInfo(std::get<1>(oneFile));
 
         if (newFile.isRelative()) {
-            newFile = QFileInfo(workingDirectory + QStringLiteral("/") + oneFile);
+            newFile = QFileInfo(workingDirectory + QStringLiteral("/") + std::get<1>(oneFile));
         }
 
         if (newFile.exists()) {
-            filesToOpen.push_back(newFile.canonicalFilePath());
+            filesToOpen.push_back({0, newFile.canonicalFilePath()});
         }
     }
 
@@ -336,7 +352,11 @@ void ElisaApplication::initializeModels()
     d->mMusicManager->setElisaApplication(this);
 
     d->mMediaPlayList->setMusicListenersManager(d->mMusicManager.get());
-    QObject::connect(this, &ElisaApplication::enqueue, d->mMediaPlayList.get(), &MediaPlayList::enqueueAndPlay);
+    QObject::connect(this, &ElisaApplication::enqueue,
+                     d->mMediaPlayList.get(), static_cast<void (MediaPlayList::*)(const ElisaUtils::EntryDataList&,
+                                                                                  ElisaUtils::PlayListEntryType,
+                                                                                  ElisaUtils::PlayListEnqueueMode,
+                                                                                  ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayList::enqueue));
 
     d->mAllAlbumsProxyModel->setSourceModel(d->mMusicManager->allAlbumsModel());
     d->mAllArtistsProxyModel->setSourceModel(d->mMusicManager->allArtistsModel());
@@ -349,36 +369,38 @@ void ElisaApplication::initializeModels()
 
     QObject::connect(d->mAllAlbumsProxyModel.get(), &AllAlbumsProxyModel::albumToEnqueue,
                      d->mMediaPlayList.get(), static_cast<void (MediaPlayList::*)(const QList<MusicAlbum> &,
-                                                                         ElisaUtils::PlayListEnqueueMode,
-                                                                         ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayList::enqueue));
+                                                                                  ElisaUtils::PlayListEnqueueMode,
+                                                                                  ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayList::enqueue));
 
     QObject::connect(d->mAllArtistsProxyModel.get(), &AllArtistsProxyModel::artistToEnqueue,
-                     d->mMediaPlayList.get(), &MediaPlayList::enqueueArtists);
+                     d->mMediaPlayList.get(), static_cast<void (MediaPlayList::*)(const ElisaUtils::EntryDataList&,
+                                                                                  ElisaUtils::PlayListEntryType,
+                                                                                  ElisaUtils::PlayListEnqueueMode,
+                                                                                  ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayList::enqueue));
 
     QObject::connect(d->mAllTracksProxyModel.get(), &AllTracksProxyModel::trackToEnqueue,
                      d->mMediaPlayList.get(), static_cast<void (MediaPlayList::*)(const QList<MusicAudioTrack> &,
-                                                                         ElisaUtils::PlayListEnqueueMode,
-                                                                         ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayList::enqueue));
+                                                                                  ElisaUtils::PlayListEnqueueMode,
+                                                                                  ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayList::enqueue));
 
     QObject::connect(d->mSingleArtistProxyModel.get(), &SingleArtistProxyModel::albumToEnqueue,
                      d->mMediaPlayList.get(), static_cast<void (MediaPlayList::*)(const QList<MusicAlbum> &,
-                                                                         ElisaUtils::PlayListEnqueueMode,
-                                                                         ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayList::enqueue));
+                                                                                  ElisaUtils::PlayListEnqueueMode,
+                                                                                  ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayList::enqueue));
 
     QObject::connect(d->mSingleAlbumProxyModel.get(), &SingleAlbumProxyModel::trackToEnqueue,
                      d->mMediaPlayList.get(), static_cast<void (MediaPlayList::*)(const QList<MusicAudioTrack> &,
-                                                                         ElisaUtils::PlayListEnqueueMode,
-                                                                         ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayList::enqueue));
+                                                                                  ElisaUtils::PlayListEnqueueMode,
+                                                                                  ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayList::enqueue));
 
 #if defined KF5KIO_FOUND && KF5KIO_FOUND
-    QObject::connect(d->mFileBrowserProxyModel.get(), &FileBrowserProxyModel::replaceAndPlayFileByUrl,
-                     d->mMediaPlayList.get(), static_cast<void (MediaPlayList::*)(const QUrl &)>(&MediaPlayList::replaceAndPlay));
     QObject::connect(d->mFileBrowserProxyModel.get(), &FileBrowserProxyModel::loadPlayListFromUrl,
                      d->mMediaPlayList.get(), &MediaPlayList::loadPlaylist);
     QObject::connect(d->mFileBrowserProxyModel.get(), &FileBrowserProxyModel::filesToEnqueue,
-                     d->mMediaPlayList.get(), static_cast<void (MediaPlayList::*)(const QList<QUrl> &,
-                                                                         ElisaUtils::PlayListEnqueueMode,
-                                                                         ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayList::enqueue));
+                     d->mMediaPlayList.get(), static_cast<void (MediaPlayList::*)(const ElisaUtils::EntryDataList &,
+                                                                                  ElisaUtils::PlayListEntryType,
+                                                                                  ElisaUtils::PlayListEnqueueMode,
+                                                                                  ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayList::enqueue));
 #endif
 }
 
@@ -437,7 +459,9 @@ void ElisaApplication::initializePlayer()
     QObject::connect(d->mMediaPlayList.get(), &MediaPlayList::currentTrackChanged, d->mManageHeaderBar.get(), &ManageHeaderBar::setCurrentTrack);
 
     if (!d->mArguments.isEmpty()) {
-        Q_EMIT enqueue(d->mArguments);
+        Q_EMIT enqueue(d->mArguments, ElisaUtils::FileName,
+                       ElisaUtils::PlayListEnqueueMode::AppendPlayList,
+                       ElisaUtils::PlayListEnqueueTriggerPlay::TriggerPlay);
     }
 }
 
@@ -464,7 +488,7 @@ QString ElisaApplication::iconName(const QIcon& icon)
     return icon.name();
 }
 
-const QStringList &ElisaApplication::arguments() const
+const ElisaUtils::EntryDataList &ElisaApplication::arguments() const
 {
     return d->mArguments;
 }

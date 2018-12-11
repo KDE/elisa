@@ -88,7 +88,8 @@ public Q_SLOTS:
 
 Q_SIGNALS:
 
-    void filesToEnqueue(QList<QUrl> newFiles,
+    void filesToEnqueue(const ElisaUtils::EntryDataList &newFiles,
+                        ElisaUtils::PlayListEntryType databaseIdType,
                         ElisaUtils::PlayListEnqueueMode enqueueMode,
                         ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 
@@ -99,8 +100,6 @@ Q_SIGNALS:
     void filterTextChanged(const QString &filterText);
 
     void sortedAscendingChanged();
-
-    void replaceAndPlayFileByUrl(const QUrl &fileUrl);
 
     void loadPlayListFromUrl(const QUrl &playListUrl);
 

@@ -66,6 +66,7 @@ private Q_SLOTS:
         qRegisterMetaType<DatabaseInterface::AlbumDataType>("AlbumDataType");
         qRegisterMetaType<DatabaseInterface::ArtistDataType>("ArtistDataType");
         qRegisterMetaType<DatabaseInterface::GenreDataType>("GenreDataType");
+        qRegisterMetaType<ElisaUtils::PlayListEntryType>("PlayListEntryType");
     }
 
     void testTrackRemoval()
@@ -76,7 +77,7 @@ private Q_SLOTS:
 
         QSignalSpy trackHasChangedSpy(&myListener, &TracksListener::trackHasChanged);
         QSignalSpy trackHasBeenRemovedSpy(&myListener, &TracksListener::trackHasBeenRemoved);
-        QSignalSpy albumAddedSpy(&myListener, &TracksListener::albumAdded);
+        QSignalSpy tracksListAddedSpy(&myListener, &TracksListener::tracksListAdded);
 
         myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
@@ -85,25 +86,25 @@ private Q_SLOTS:
         connect(&myDatabaseContent, &DatabaseInterface::trackModified, &myListener, &TracksListener::trackModified);
         connect(&myListener, &TracksListener::trackHasChanged, &myPlayList, &MediaPlayList::trackChanged);
         connect(&myListener, &TracksListener::trackHasBeenRemoved, &myPlayList, &MediaPlayList::trackRemoved);
-        connect(&myListener, &TracksListener::albumAdded, &myPlayList, &MediaPlayList::albumAdded);
+        connect(&myListener, &TracksListener::tracksListAdded, &myPlayList, &MediaPlayList::tracksListAdded);
         connect(&myPlayList, &MediaPlayList::newEntryInList, &myListener, &TracksListener::newEntryInList);
         connect(&myPlayList, &MediaPlayList::newTrackByNameInList, &myListener, &TracksListener::trackByNameInList);
 
         QCOMPARE(trackHasChangedSpy.count(), 0);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
-        QCOMPARE(albumAddedSpy.count(), 0);
+        QCOMPARE(tracksListAddedSpy.count(), 0);
 
         myDatabaseContent.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
         QCOMPARE(trackHasChangedSpy.count(), 0);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
-        QCOMPARE(albumAddedSpy.count(), 0);
+        QCOMPARE(tracksListAddedSpy.count(), 0);
 
-        myPlayList.replaceAndPlay(QStringLiteral("artist1"));
+        myPlayList.replaceAndPlay({0, QStringLiteral("artist1")}, ElisaUtils::Artist);
 
         QCOMPARE(trackHasChangedSpy.count(), 0);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
-        QCOMPARE(albumAddedSpy.count(), 1);
+        QCOMPARE(tracksListAddedSpy.count(), 1);
 
         QCOMPARE(myPlayList.tracksCount(), 6);
 
@@ -148,7 +149,7 @@ private Q_SLOTS:
 
         QCOMPARE(trackHasChangedSpy.count(), 0);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 1);
-        QCOMPARE(albumAddedSpy.count(), 1);
+        QCOMPARE(tracksListAddedSpy.count(), 1);
 
         QCOMPARE(myPlayList.tracksCount(), 6);
 
@@ -198,7 +199,7 @@ private Q_SLOTS:
 
         QSignalSpy trackHasChangedSpy(&myListener, &TracksListener::trackHasChanged);
         QSignalSpy trackHasBeenRemovedSpy(&myListener, &TracksListener::trackHasBeenRemoved);
-        QSignalSpy albumAddedSpy(&myListener, &TracksListener::albumAdded);
+        QSignalSpy tracksListAddedSpy(&myListener, &TracksListener::tracksListAdded);
 
         myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
@@ -207,30 +208,30 @@ private Q_SLOTS:
         connect(&myDatabaseContent, &DatabaseInterface::trackModified, &myListener, &TracksListener::trackModified);
         connect(&myListener, &TracksListener::trackHasChanged, &myPlayList, &MediaPlayList::trackChanged);
         connect(&myListener, &TracksListener::trackHasBeenRemoved, &myPlayList, &MediaPlayList::trackRemoved);
-        connect(&myListener, &TracksListener::albumAdded, &myPlayList, &MediaPlayList::albumAdded);
+        connect(&myListener, &TracksListener::tracksListAdded, &myPlayList, &MediaPlayList::tracksListAdded);
         connect(&myPlayList, &MediaPlayList::newEntryInList, &myListener, &TracksListener::newEntryInList);
         connect(&myPlayList, &MediaPlayList::newTrackByNameInList, &myListener, &TracksListener::trackByNameInList);
 
         QCOMPARE(trackHasChangedSpy.count(), 0);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
-        QCOMPARE(albumAddedSpy.count(), 0);
+        QCOMPARE(tracksListAddedSpy.count(), 0);
 
         myDatabaseContent.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
         QCOMPARE(trackHasChangedSpy.count(), 0);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
-        QCOMPARE(albumAddedSpy.count(), 0);
+        QCOMPARE(tracksListAddedSpy.count(), 0);
 
         auto trackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"),
                                                                               QStringLiteral("album1"), 1, 1);
 
         QCOMPARE(trackId != 0, true);
 
-        myPlayList.replaceAndPlay(trackId);
+        myPlayList.replaceAndPlay({trackId, {}}, ElisaUtils::Track);
 
         QCOMPARE(trackHasChangedSpy.count(), 1);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
-        QCOMPARE(albumAddedSpy.count(), 0);
+        QCOMPARE(tracksListAddedSpy.count(), 0);
 
         QCOMPARE(myPlayList.tracksCount(), 1);
 
@@ -245,7 +246,7 @@ private Q_SLOTS:
 
         QCOMPARE(trackHasChangedSpy.count(), 1);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 1);
-        QCOMPARE(albumAddedSpy.count(), 0);
+        QCOMPARE(tracksListAddedSpy.count(), 0);
 
         QCOMPARE(myPlayList.tracksCount(), 1);
 
@@ -265,7 +266,7 @@ private Q_SLOTS:
 
         QSignalSpy trackHasChangedSpy(&myListener, &TracksListener::trackHasChanged);
         QSignalSpy trackHasBeenRemovedSpy(&myListener, &TracksListener::trackHasBeenRemoved);
-        QSignalSpy albumAddedSpy(&myListener, &TracksListener::albumAdded);
+        QSignalSpy tracksListAddedSpy(&myListener, &TracksListener::tracksListAdded);
 
         myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
@@ -274,26 +275,26 @@ private Q_SLOTS:
         connect(&myDatabaseContent, &DatabaseInterface::trackModified, &myListener, &TracksListener::trackModified);
         connect(&myListener, &TracksListener::trackHasChanged, &myPlayList, &MediaPlayList::trackChanged);
         connect(&myListener, &TracksListener::trackHasBeenRemoved, &myPlayList, &MediaPlayList::trackRemoved);
-        connect(&myListener, &TracksListener::albumAdded, &myPlayList, &MediaPlayList::albumAdded);
+        connect(&myListener, &TracksListener::tracksListAdded, &myPlayList, &MediaPlayList::tracksListAdded);
         connect(&myPlayList, &MediaPlayList::newEntryInList, &myListener, &TracksListener::newEntryInList);
         connect(&myPlayList, &MediaPlayList::newTrackByNameInList, &myListener, &TracksListener::trackByNameInList);
 
         QCOMPARE(trackHasChangedSpy.count(), 0);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
-        QCOMPARE(albumAddedSpy.count(), 0);
+        QCOMPARE(tracksListAddedSpy.count(), 0);
 
         myDatabaseContent.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
         QCOMPARE(trackHasChangedSpy.count(), 0);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
-        QCOMPARE(albumAddedSpy.count(), 0);
+        QCOMPARE(tracksListAddedSpy.count(), 0);
 
         myPlayList.enqueue(MediaPlayListEntry(QStringLiteral("track1"), QStringLiteral("artist1"),
                                                       QStringLiteral("album1"), 1, 1));
 
         QCOMPARE(trackHasChangedSpy.count(), 1);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
-        QCOMPARE(albumAddedSpy.count(), 0);
+        QCOMPARE(tracksListAddedSpy.count(), 0);
 
         QCOMPARE(myPlayList.tracksCount(), 1);
 
@@ -308,7 +309,7 @@ private Q_SLOTS:
 
         QCOMPARE(trackHasChangedSpy.count(), 1);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 1);
-        QCOMPARE(albumAddedSpy.count(), 0);
+        QCOMPARE(tracksListAddedSpy.count(), 0);
 
         QCOMPARE(myPlayList.tracksCount(), 1);
 
@@ -328,7 +329,7 @@ private Q_SLOTS:
 
         QSignalSpy trackHasChangedSpy(&myListener, &TracksListener::trackHasChanged);
         QSignalSpy trackHasBeenRemovedSpy(&myListener, &TracksListener::trackHasBeenRemoved);
-        QSignalSpy albumAddedSpy(&myListener, &TracksListener::albumAdded);
+        QSignalSpy tracksListAddedSpy(&myListener, &TracksListener::tracksListAdded);
 
         myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
@@ -337,20 +338,20 @@ private Q_SLOTS:
         connect(&myDatabaseContent, &DatabaseInterface::trackModified, &myListener, &TracksListener::trackModified);
         connect(&myListener, &TracksListener::trackHasChanged, &myPlayList, &MediaPlayList::trackChanged);
         connect(&myListener, &TracksListener::trackHasBeenRemoved, &myPlayList, &MediaPlayList::trackRemoved);
-        connect(&myListener, &TracksListener::albumAdded, &myPlayList, &MediaPlayList::albumAdded);
+        connect(&myListener, &TracksListener::tracksListAdded, &myPlayList, &MediaPlayList::tracksListAdded);
         connect(&myPlayList, &MediaPlayList::newEntryInList, &myListener, &TracksListener::newEntryInList);
         connect(&myPlayList, &MediaPlayList::newTrackByNameInList, &myListener, &TracksListener::trackByNameInList);
 
         QCOMPARE(trackHasChangedSpy.count(), 0);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
-        QCOMPARE(albumAddedSpy.count(), 0);
+        QCOMPARE(tracksListAddedSpy.count(), 0);
 
         myPlayList.enqueue(MediaPlayListEntry(QStringLiteral("track1"), QStringLiteral("artist1"),
                                                       QStringLiteral("album1"), 1, 1));
 
         QCOMPARE(trackHasChangedSpy.count(), 0);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
-        QCOMPARE(albumAddedSpy.count(), 0);
+        QCOMPARE(tracksListAddedSpy.count(), 0);
 
         QCOMPARE(myPlayList.tracksCount(), 1);
 
@@ -365,7 +366,7 @@ private Q_SLOTS:
 
         QCOMPARE(trackHasChangedSpy.count(), 1);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
-        QCOMPARE(albumAddedSpy.count(), 0);
+        QCOMPARE(tracksListAddedSpy.count(), 0);
 
         QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::IsValidRole).toBool(), true);
         QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::TitleRole).toString(), QStringLiteral("track1"));
@@ -378,7 +379,7 @@ private Q_SLOTS:
 
         QCOMPARE(trackHasChangedSpy.count(), 1);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 1);
-        QCOMPARE(albumAddedSpy.count(), 0);
+        QCOMPARE(tracksListAddedSpy.count(), 0);
 
         QCOMPARE(myPlayList.tracksCount(), 1);
 
@@ -398,7 +399,7 @@ private Q_SLOTS:
 
         QSignalSpy trackHasChangedSpy(&myListener, &TracksListener::trackHasChanged);
         QSignalSpy trackHasBeenRemovedSpy(&myListener, &TracksListener::trackHasBeenRemoved);
-        QSignalSpy albumAddedSpy(&myListener, &TracksListener::albumAdded);
+        QSignalSpy tracksListAddedSpy(&myListener, &TracksListener::tracksListAdded);
 
         myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
@@ -407,26 +408,26 @@ private Q_SLOTS:
         connect(&myDatabaseContent, &DatabaseInterface::trackModified, &myListener, &TracksListener::trackModified);
         connect(&myListener, &TracksListener::trackHasChanged, &myPlayList, &MediaPlayList::trackChanged);
         connect(&myListener, &TracksListener::trackHasBeenRemoved, &myPlayList, &MediaPlayList::trackRemoved);
-        connect(&myListener, &TracksListener::albumAdded, &myPlayList, &MediaPlayList::albumAdded);
+        connect(&myListener, &TracksListener::tracksListAdded, &myPlayList, &MediaPlayList::tracksListAdded);
         connect(&myPlayList, &MediaPlayList::newEntryInList, &myListener, &TracksListener::newEntryInList);
         connect(&myPlayList, &MediaPlayList::newTrackByNameInList, &myListener, &TracksListener::trackByNameInList);
 
         QCOMPARE(trackHasChangedSpy.count(), 0);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
-        QCOMPARE(albumAddedSpy.count(), 0);
+        QCOMPARE(tracksListAddedSpy.count(), 0);
 
         myDatabaseContent.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
         QCOMPARE(trackHasChangedSpy.count(), 0);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
-        QCOMPARE(albumAddedSpy.count(), 0);
+        QCOMPARE(tracksListAddedSpy.count(), 0);
 
         myPlayList.enqueue(MediaPlayListEntry(QStringLiteral("track1"), QStringLiteral("artist1"),
                                                       QStringLiteral("album1"), 1, 1));
 
         QCOMPARE(trackHasChangedSpy.count(), 1);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
-        QCOMPARE(albumAddedSpy.count(), 0);
+        QCOMPARE(tracksListAddedSpy.count(), 0);
 
         QCOMPARE(myPlayList.tracksCount(), 1);
 
@@ -448,7 +449,7 @@ private Q_SLOTS:
 
         QCOMPARE(trackHasChangedSpy.count(), 2);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
-        QCOMPARE(albumAddedSpy.count(), 0);
+        QCOMPARE(tracksListAddedSpy.count(), 0);
 
         QCOMPARE(myPlayList.tracksCount(), 1);
 
@@ -463,7 +464,7 @@ private Q_SLOTS:
 
         QCOMPARE(trackHasChangedSpy.count(), 2);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 1);
-        QCOMPARE(albumAddedSpy.count(), 0);
+        QCOMPARE(tracksListAddedSpy.count(), 0);
 
         QCOMPARE(myPlayList.tracksCount(), 1);
 

@@ -167,13 +167,9 @@ Q_SIGNALS:
 
     void newTrackByNameInList(const QString &title, const QString &artist, const QString &album, int trackNumber, int discNumber);
 
-    void newTrackByFileNameInList(const QUrl &fileName);
-
     void newEntryInList(qulonglong newDatabaseId,
                         const QString &entryTitle,
                         ElisaUtils::PlayListEntryType databaseIdType);
-
-    void trackHasBeenAdded(const QString &title, const QUrl &image);
 
     void persistentStateChanged();
 
@@ -203,7 +199,10 @@ public Q_SLOTS:
 
     void removeSelection(QList<int> selection);
 
-    void albumAdded(const ListTrackDataType &tracks);
+    void tracksListAdded(qulonglong newDatabaseId,
+                         const QString &entryTitle,
+                         ElisaUtils::PlayListEntryType databaseIdType,
+                         const ListTrackDataType &tracks);
 
     void trackChanged(const TrackDataType &track);
 
@@ -225,11 +224,24 @@ public Q_SLOTS:
 
     void loadPlaylist(const QUrl &fileName);
 
-    void enqueue(qulonglong newEntryDatabaseId, const QString &newEntryTitle, ElisaUtils::PlayListEntryType databaseIdType);
+    void enqueue(const ElisaUtils::EntryData &newEntry, ElisaUtils::PlayListEntryType databaseIdType);
 
-    void enqueue(ElisaUtils::EntryData newEntry, ElisaUtils::PlayListEntryType databaseIdType);
+    void enqueue(const ElisaUtils::EntryDataList &newEntries, ElisaUtils::PlayListEntryType databaseIdType);
 
-    void enqueue(const QList<ElisaUtils::EntryData> &newEntries, ElisaUtils::PlayListEntryType databaseIdType);
+    void enqueue(qulonglong newEntryDatabaseId, const QString &newEntryTitle,
+                 ElisaUtils::PlayListEntryType databaseIdType,
+                 ElisaUtils::PlayListEnqueueMode enqueueMode,
+                 ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
+
+    void enqueue(ElisaUtils::EntryData newEntry,
+                 ElisaUtils::PlayListEntryType databaseIdType,
+                 ElisaUtils::PlayListEnqueueMode enqueueMode,
+                 ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
+
+    void enqueue(const ElisaUtils::EntryDataList &newEntries,
+                 ElisaUtils::PlayListEntryType databaseIdType,
+                 ElisaUtils::PlayListEnqueueMode enqueueMode,
+                 ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 
     void enqueue(const TrackDataType &newTrack);
 
@@ -245,27 +257,11 @@ public Q_SLOTS:
                  ElisaUtils::PlayListEnqueueMode enqueueMode,
                  ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 
-    void enqueueArtists(const QList<QString> &artistName,
-                        ElisaUtils::PlayListEnqueueMode enqueueMode,
-                        ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
-
-    void enqueue(const QList<QUrl> &tracks,
-                 ElisaUtils::PlayListEnqueueMode enqueueMode,
-                 ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
-
-    void enqueueAndPlay(const QStringList &files);
-
-    void replaceAndPlay(ElisaUtils::EntryData newEntry, ElisaUtils::PlayListEntryType databaseIdType);
-
-    void replaceAndPlay(qulonglong newTrackId);
+    void replaceAndPlay(const ElisaUtils::EntryData &newEntry, ElisaUtils::PlayListEntryType databaseIdType);
 
     void replaceAndPlay(const TrackDataType &newTrack);
 
     void replaceAndPlay(const MusicAlbum &album);
-
-    void replaceAndPlay(const QString &artistName);
-
-    void replaceAndPlay(const QUrl &fileName);
 
     void trackInError(const QUrl &sourceInError, QMediaPlayer::Error playerError);
 
@@ -291,11 +287,13 @@ private:
 
     void enqueueArtist(const QString &artistName);
 
-    void enqueue(const QUrl &fileName);
+    void enqueueFilesList(const ElisaUtils::EntryDataList &newEntries);
 
-    void enqueueFilesList(const QList<ElisaUtils::EntryData> &newEntries);
+    void enqueueTracksListById(const ElisaUtils::EntryDataList &newEntries);
 
-    void enqueueTracksListById(const QList<ElisaUtils::EntryData> &newEntries);
+    void enqueueOneEntry(const ElisaUtils::EntryData &entryData, ElisaUtils::PlayListEntryType type);
+
+    void enqueueMultipleEntries(const ElisaUtils::EntryDataList &entriesData, ElisaUtils::PlayListEntryType type);
 
     std::unique_ptr<MediaPlayListPrivate> d;
 
@@ -363,7 +361,7 @@ public:
 
 };
 
-QDebug operator<<(QDebug stream, const MediaPlayListEntry &data);
+QDebug operator<<(const QDebug &stream, const MediaPlayListEntry &data);
 
 
 

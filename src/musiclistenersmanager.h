@@ -153,7 +153,7 @@ public Q_SLOTS:
 
     void setElisaApplication(ElisaApplication* elisaApplication);
 
-    void playBackError(QUrl sourceInError, QMediaPlayer::Error playerError);
+    void playBackError(const QUrl &sourceInError, QMediaPlayer::Error playerError);
 
 private Q_SLOTS:
 

@@ -20,7 +20,10 @@
 
 #include "elisaLib_export.h"
 
+#include <QList>
+#include <QString>
 #include <QMetaObject>
+#include <QMetaType>
 
 namespace ElisaUtils {
 
@@ -41,11 +44,14 @@ enum PlayListEnqueueTriggerPlay {
 Q_ENUM_NS(PlayListEnqueueTriggerPlay)
 
 using EntryData = std::tuple<qulonglong, QString>;
+using EntryDataList = QList<EntryData>;
 
 enum PlayListEntryType {
     Album,
     Artist,
     Genre,
+    Lyricist,
+    Composer,
     Track,
     FileName,
     Unknown,
@@ -54,5 +60,8 @@ enum PlayListEntryType {
 Q_ENUM_NS(PlayListEntryType)
 
 }
+
+Q_DECLARE_METATYPE(ElisaUtils::EntryData)
+Q_DECLARE_METATYPE(ElisaUtils::EntryDataList)
 
 #endif // ELISAUTILS_H

@@ -597,8 +597,14 @@ RowLayout {
 
             isSubPage: true
 
-            onEnqueue: elisa.mediaPlayList.enqueue(data, elisa.mediaPlayList.Album)
-            onReplaceAndPlay: elisa.mediaPlayList.replaceAndPlay(data, elisa.mediaPlayList.Album)
+            onEnqueue: elisa.mediaPlayList.enqueue(databaseId, name, ElisaUtils.Album,
+                                                   ElisaUtils.AppendPlayList,
+                                                   ElisaUtils.DoNotTriggerPlay)
+
+            onReplaceAndPlay: elisa.mediaPlayList.enqueue(databaseId, name, ElisaUtils.Album,
+                                                          ElisaUtils.ReplacePlayList,
+                                                          ElisaUtils.TriggerPlay)
+
             onOpen: viewManager.openOneAlbum(stackView, innerMainTitle, innerSecondaryTitle, innerImage, databaseId)
 
             onGoBack: viewManager.goBack()

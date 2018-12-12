@@ -306,6 +306,25 @@ MusicAlbum DatabaseInterface::albumFromTitleAndArtist(const QString &title, cons
     return result;
 }
 
+qulonglong DatabaseInterface::albumIdFromTitleAndArtist(const QString &title, const QString &artist)
+{
+    auto result = qulonglong{0};
+
+    auto transactionResult = startTransaction();
+    if (!transactionResult) {
+        return result;
+    }
+
+    result = internalAlbumIdFromTitleAndArtist(title, artist);
+
+    transactionResult = finishTransaction();
+    if (!transactionResult) {
+        return result;
+    }
+
+    return result;
+}
+
 DatabaseInterface::ListTrackDataType DatabaseInterface::allTracksData()
 {
     auto result = ListTrackDataType{};

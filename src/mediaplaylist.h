@@ -234,7 +234,7 @@ public Q_SLOTS:
                  ElisaUtils::PlayListEnqueueMode enqueueMode,
                  ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 
-    void enqueue(ElisaUtils::EntryData newEntry,
+    void enqueue(const ElisaUtils::EntryData &newEntry,
                  ElisaUtils::PlayListEntryType databaseIdType,
                  ElisaUtils::PlayListEnqueueMode enqueueMode,
                  ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
@@ -244,25 +244,9 @@ public Q_SLOTS:
                  ElisaUtils::PlayListEnqueueMode enqueueMode,
                  ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 
-    void enqueue(const TrackDataType &newTrack);
-
-    void enqueue(const MediaPlayListEntry &newEntry, const TrackDataType &audioTrack = {});
-
-    void enqueue(const MusicAlbum &album);
-
-    void enqueue(const QList<MusicAlbum> &albums,
-                 ElisaUtils::PlayListEnqueueMode enqueueMode,
-                 ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
-
-    void enqueue(const QList<MusicAudioTrack> &tracks,
-                 ElisaUtils::PlayListEnqueueMode enqueueMode,
-                 ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
-
     void replaceAndPlay(const ElisaUtils::EntryData &newEntry, ElisaUtils::PlayListEntryType databaseIdType);
 
-    void replaceAndPlay(const TrackDataType &newTrack);
-
-    void replaceAndPlay(const MusicAlbum &album);
+    void enqueueRestoredEntry(const MediaPlayListEntry &newEntry);
 
     void trackInError(const QUrl &sourceInError, QMediaPlayer::Error playerError);
 

@@ -462,8 +462,12 @@ void ManageMediaPlayerControlTest::moveCurrentTrack()
 
     myDatabaseContent.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
-    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("artist2"), QStringLiteral("album2"), 1, 1});
-    myPlayList.enqueue({QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album1"), 2, 2});
+    myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist2"), QStringLiteral("album2"), 1, 1),
+                        QStringLiteral("track1")},
+                       ElisaUtils::Track);
+    myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album1"), 2, 2),
+                        QStringLiteral("track2")},
+                       ElisaUtils::Track);
 
     QCOMPARE(playControlEnabledChangedSpy.count(), 0);
     QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 0);
@@ -561,8 +565,12 @@ void ManageMediaPlayerControlTest::moveAnotherTrack()
 
     myDatabaseContent.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
-    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("artist2"), QStringLiteral("album2"), 1, 1});
-    myPlayList.enqueue({QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album1"), 2, 2});
+    myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist2"), QStringLiteral("album2"), 1, 1),
+                        QStringLiteral("track1")},
+                       ElisaUtils::Track);
+    myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album1"), 2, 2),
+                        QStringLiteral("track2")},
+                       ElisaUtils::Track);
 
     QCOMPARE(playControlEnabledChangedSpy.count(), 0);
     QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 0);
@@ -660,8 +668,12 @@ void ManageMediaPlayerControlTest::setCurrentTrackTest()
 
     myDatabaseContent.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
-    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("artist2"), QStringLiteral("album2"), 1, 1});
-    myPlayList.enqueue({QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album1"), 2, 2});
+    myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist2"), QStringLiteral("album2"), 1, 1),
+                        QStringLiteral("track1")},
+                       ElisaUtils::Track);
+    myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album1"), 2, 2),
+                        QStringLiteral("track2")},
+                       ElisaUtils::Track);
 
     QCOMPARE(playControlEnabledChangedSpy.count(), 0);
     QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 0);

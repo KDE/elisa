@@ -2062,8 +2062,12 @@ void ManageHeaderBarTest::moveCurrentTrack()
 
     myDatabaseContent.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
-    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1});
-    myPlayList.enqueue({QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album1"), 2, 2});
+    myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1),
+                        QStringLiteral("track1")},
+                       ElisaUtils::Track);
+    myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album1"), 2, 2),
+                        QStringLiteral("track2")},
+                       ElisaUtils::Track);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -2327,8 +2331,12 @@ void ManageHeaderBarTest::moveAnotherTrack()
 
     myDatabaseContent.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
-    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1});
-    myPlayList.enqueue({QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album1"), 2, 2});
+    myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1),
+                        QStringLiteral("track1")},
+                       ElisaUtils::Track);
+    myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album1"), 2, 2),
+                        QStringLiteral("track2")},
+                       ElisaUtils::Track);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -2592,8 +2600,12 @@ void ManageHeaderBarTest::setCurrentTrackTest()
 
     myDatabaseContent.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
-    myPlayList.enqueue({QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1});
-    myPlayList.enqueue({QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album1"), 2, 2});
+    myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1),
+                        QStringLiteral("track1")},
+                       ElisaUtils::Track);
+    myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album1"), 2, 2),
+                        QStringLiteral("track2")},
+                       ElisaUtils::Track);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListModelChangedSpy.count(), 1);

@@ -289,8 +289,9 @@ private Q_SLOTS:
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
         QCOMPARE(tracksListAddedSpy.count(), 0);
 
-        myPlayList.enqueue(MediaPlayListEntry(QStringLiteral("track1"), QStringLiteral("artist1"),
-                                                      QStringLiteral("album1"), 1, 1));
+        myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album1"), 1, 1),
+                            QStringLiteral("track1")},
+                           ElisaUtils::Track);
 
         QCOMPARE(trackHasChangedSpy.count(), 1);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
@@ -346,8 +347,7 @@ private Q_SLOTS:
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
         QCOMPARE(tracksListAddedSpy.count(), 0);
 
-        myPlayList.enqueue(MediaPlayListEntry(QStringLiteral("track1"), QStringLiteral("artist1"),
-                                                      QStringLiteral("album1"), 1, 1));
+        myPlayList.enqueueRestoredEntry({QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album1"), 1, 1});
 
         QCOMPARE(trackHasChangedSpy.count(), 0);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
@@ -422,8 +422,9 @@ private Q_SLOTS:
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
         QCOMPARE(tracksListAddedSpy.count(), 0);
 
-        myPlayList.enqueue(MediaPlayListEntry(QStringLiteral("track1"), QStringLiteral("artist1"),
-                                                      QStringLiteral("album1"), 1, 1));
+        myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album1"), 1, 1),
+                            QStringLiteral("track1")},
+                           ElisaUtils::Track);
 
         QCOMPARE(trackHasChangedSpy.count(), 1);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);

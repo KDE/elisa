@@ -212,6 +212,8 @@ public:
 
     MusicAlbum albumFromTitleAndArtist(const QString &title, const QString &artist);
 
+    qulonglong albumIdFromTitleAndArtist(const QString &title, const QString &artist);
+
     ListTrackDataType allTracksData();
 
     ListAlbumDataType allAlbumsData();

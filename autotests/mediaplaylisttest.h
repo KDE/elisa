@@ -81,8 +81,6 @@ private Q_SLOTS:
 
     void testReplaceAndPlayTrackId();
 
-    void testReplaceAndPlayTrackData();
-
     void testSetData();
 
     void testRemoveSelection();

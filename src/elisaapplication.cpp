@@ -192,7 +192,7 @@ void ElisaApplication::activateRequested(const QStringList &arguments, const QSt
                 continue;
             }
 
-            realArguments.push_back({0, oneArgument});
+            realArguments.push_back(ElisaUtils::EntryData{0, oneArgument});
         }
 
         Q_EMIT enqueue(checkFileListAndMakeAbsolute(realArguments, workingDirectory),
@@ -276,7 +276,7 @@ ElisaUtils::EntryDataList ElisaApplication::checkFileListAndMakeAbsolute(const E
         }
 
         if (newFile.exists()) {
-            filesToOpen.push_back({0, newFile.canonicalFilePath()});
+            filesToOpen.push_back(ElisaUtils::EntryData{0, newFile.canonicalFilePath()});
         }
     }
 

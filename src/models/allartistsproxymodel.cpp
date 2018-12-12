@@ -69,7 +69,7 @@ void AllArtistsProxyModel::genericEnqueueToPlayList(ElisaUtils::PlayListEnqueueM
         allArtists.reserve(rowCount());
         for (int rowIndex = 0, maxRowCount = rowCount(); rowIndex < maxRowCount; ++rowIndex) {
             auto currentIndex = index(rowIndex, 0);
-            allArtists.push_back({data(currentIndex, DatabaseInterface::DatabaseIdRole).toULongLong(), data(currentIndex, Qt::DisplayRole).toString()});
+            allArtists.push_back(ElisaUtils::EntryData{data(currentIndex, DatabaseInterface::DatabaseIdRole).toULongLong(), data(currentIndex, Qt::DisplayRole).toString()});
         }
         Q_EMIT artistToEnqueue(allArtists,
                                ElisaUtils::Artist,

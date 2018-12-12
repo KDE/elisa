@@ -566,7 +566,7 @@ void MediaPlayList::enqueue(qulonglong newEntryDatabaseId,
                             ElisaUtils::PlayListEnqueueMode enqueueMode,
                             ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
 {
-    enqueue({newEntryDatabaseId, newEntryTitle}, databaseIdType, enqueueMode, triggerPlay);
+    enqueue(ElisaUtils::EntryData{newEntryDatabaseId, newEntryTitle}, databaseIdType, enqueueMode, triggerPlay);
 }
 
 void MediaPlayList::enqueue(const ElisaUtils::EntryData &newEntry,
@@ -1084,7 +1084,7 @@ void MediaPlayList::loadPlayListLoaded()
     clearPlayList();
 
     for (int i = 0; i < d->mLoadPlaylist.mediaCount(); ++i) {
-        enqueue({0, d->mLoadPlaylist.media(i).canonicalUrl().toLocalFile()}, ElisaUtils::FileName);
+        enqueue(ElisaUtils::EntryData{0, d->mLoadPlaylist.media(i).canonicalUrl().toLocalFile()}, ElisaUtils::FileName);
     }
 
     restorePlayListPosition();

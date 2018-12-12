@@ -55,14 +55,20 @@ Kirigami.Page {
             isPartial: false
 
             mainText: model.display
-            secondaryText: if (pageElement.delegateDisplaySecondaryText) {model.secondaryText} else {""}
-            imageUrl: model.imageUrl
-            shadowForImage: if (model.shadowForImage) {model.shadowForImage} else {false}
-            containerData: model.containerData
-            delegateDisplaySecondaryText: pageElement.delegateDisplaySecondaryText
+            secondaryText: if (gridView.delegateDisplaySecondaryText) {model.secondaryText} else {""}
+            imageUrl: (model && model.imageUrl && model.imageUrl.toString() !== "" ? model.imageUrl : defaultIcon)
+            shadowForImage: (model && model.imageUrl && model.imageUrl.toString() !== "" ? true : false)
+            databaseId: model.databaseId
+            delegateDisplaySecondaryText: gridView.delegateDisplaySecondaryText
 
-            onEnqueue: elisa.mediaPlayList.enqueue(data)
-            onReplaceAndPlay: elisa.mediaPlayList.replaceAndPlay(data)
+            onEnqueue: elisa.mediaPlayList.enqueue(databaseId, name, ElisaUtils.Album,
+                                                   ElisaUtils.AppendPlayList,
+                                                   ElisaUtils.DoNotTriggerPlay)
+
+            onReplaceAndPlay: elisa.mediaPlayList.enqueue(databaseId, name, ElisaUtils.Album,
+                                                          ElisaUtils.ReplacePlayList,
+                                                          ElisaUtils.TriggerPlay)
+
             onOpen: pageElement.open(model.display, model.secondaryText, model.imageUrl, model.databaseId)
             onSelected: {
                 forceActiveFocus()

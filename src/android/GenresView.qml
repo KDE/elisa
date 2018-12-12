@@ -58,11 +58,16 @@ Kirigami.Page {
             secondaryText: if (pageElement.delegateDisplaySecondaryText) {model.secondaryText} else {""}
             imageUrl: model.imageUrl
             shadowForImage: if (model.shadowForImage) {model.shadowForImage} else {false}
-            containerData: model.containerData
             delegateDisplaySecondaryText: pageElement.delegateDisplaySecondaryText
 
-            onEnqueue: elisa.mediaPlayList.enqueue(data)
-            onReplaceAndPlay: elisa.mediaPlayList.replaceAndPlay(data)
+            onEnqueue: elisa.mediaPlayList.enqueue(databaseId, name, ElisaUtils.Genre,
+                                                   ElisaUtils.AppendPlayList,
+                                                   ElisaUtils.DoNotTriggerPlay)
+
+            onReplaceAndPlay: elisa.mediaPlayList.enqueue(databaseId, name, ElisaUtils.Genre,
+                                                          ElisaUtils.ReplacePlayList,
+                                                          ElisaUtils.TriggerPlay)
+
             onOpen: pageElement.open(model.display, model.secondaryText, model.imageUrl, model.databaseId)
             onSelected: {
                 forceActiveFocus()

@@ -4342,42 +4342,14 @@ void DatabaseInterface::removeArtistInDatabase(qulonglong artistId)
 
 void DatabaseInterface::reloadExistingDatabase()
 {
-    auto transactionResult = startTransaction();
-    if (!transactionResult) {
-        return;
-    }
-
-    //d->mInitialUpdateTracksValidity.exec();
     qDebug() << "DatabaseInterface::reloadExistingDatabase";
 
-    transactionResult = finishTransaction();
-    if (!transactionResult) {
-        return;
-    }
-
     d->mArtistId = initialId(DataUtils::DataType::AllArtists);
-    if (d->mArtistId > 1) {
-        Q_EMIT artistsAdded(allArtistsData());
-    }
-
     d->mComposerId = initialId(DataUtils::DataType::AllComposers);
-
     d->mLyricistId = initialId(DataUtils::DataType::AllLyricists);
-
     d->mAlbumId = initialId(DataUtils::DataType::AllAlbums);
-    if (d->mAlbumId > 1) {
-        Q_EMIT albumsAdded(allAlbumsData());
-    }
-
     d->mTrackId = initialId(DataUtils::DataType::AllTracks);
-    if (d->mTrackId > 1) {
-        Q_EMIT tracksAdded(allTracksData());
-    }
-
     d->mGenreId = initialId(DataUtils::DataType::AllGenres);;
-    if (d->mGenreId > 1) {
-        Q_EMIT genresAdded(allGenresData());
-    }
 }
 
 qulonglong DatabaseInterface::initialId(DataUtils::DataType aType)

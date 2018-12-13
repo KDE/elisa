@@ -267,7 +267,7 @@ void MusicAudioTrack::setAlbumCover(const QUrl &value)
 
 QUrl MusicAudioTrack::albumCover() const
 {
-    if (d->mAlbumCover.isValid()) {
+    if (d->mAlbumCover.isValid() || !hasEmbeddedCover()) {
         return d->mAlbumCover;
     } else {
         return QUrl(QStringLiteral("image://cover/") + d->mResourceURI.toLocalFile());

@@ -38,7 +38,6 @@ RowLayout {
         id: viewManager
 
         onSwitchAllAlbumsView: {
-            elisa.allAlbumsProxyModel.genreFilterText = ''
             listViews.currentIndex = 1
             localArtistsLoader.opacity = 0
             localTracksLoader.opacity = 0
@@ -48,7 +47,6 @@ RowLayout {
         }
 
         onSwitchOneAlbumView: {
-            elisa.singleAlbumProxyModel.loadAlbumData(databaseId)
             currentStackView.push(albumView, {
                                       mainTitle: mainTitle,
                                       secondaryTitle: secondaryTitle,
@@ -59,7 +57,6 @@ RowLayout {
         }
 
         onSwitchAllArtistsView: {
-            elisa.allArtistsProxyModel.genreFilterText = ''
             listViews.currentIndex = 2
             localArtistsLoader.opacity = 1
             localTracksLoader.opacity = 0
@@ -69,31 +66,28 @@ RowLayout {
         }
 
         onSwitchOneArtistView: {
-            elisa.singleArtistProxyModel.artistFilter = mainTitle
-            elisa.singleArtistProxyModel.genreFilterText = ''
             currentStackView.push(innerAlbumView, {
                                       mainTitle: mainTitle,
                                       secondaryTitle: secondaryTitle,
                                       image: imageUrl,
                                       stackView: currentStackView,
+                                      artistFilter: mainTitle,
                                   })
             oneArtistViewIsLoaded()
         }
 
         onSwitchOneArtistFromGenreView: {
-            elisa.singleArtistProxyModel.artistFilter = mainTitle
-            elisa.singleArtistProxyModel.genreFilterText = genreName
             currentStackView.push(innerAlbumView, {
                                       mainTitle: mainTitle,
                                       secondaryTitle: secondaryTitle,
                                       image: imageUrl,
                                       stackView: currentStackView,
+                                      artistFilter: mainTitle,
                                   })
             oneArtistViewIsLoaded()
         }
 
         onSwitchAllTracksView: {
-            elisa.allTracksProxyModel.genreFilterText = ''
             listViews.currentIndex = 3
             localArtistsLoader.opacity = 0
             localTracksLoader.opacity = 1
@@ -121,13 +115,12 @@ RowLayout {
         }
 
         onSwitchAllArtistsFromGenreView: {
-            elisa.allArtistsProxyModel.genreFilterText = genreName
             currentStackView.push(innerArtistView, {
-                                      contentModel: elisa.allArtistsProxyModel,
                                       mainTitle: genreName,
                                       secondaryTitle: '',
                                       image: elisaTheme.artistIcon,
                                       stackView: currentStackView,
+                                      genreFilterText: genreName,
                                   })
             allArtistsFromGenreViewIsLoaded()
         }
@@ -241,33 +234,6 @@ RowLayout {
                         color: myPalette.base
 
                         anchors.fill: parent
-
-                        Loader {
-                            anchors.fill: parent
-
-                            anchors.leftMargin: parent.width / 3
-                            anchors.rightMargin: parent.width / 3
-                            anchors.topMargin: parent.height / 3
-                            anchors.bottomMargin: parent.height / 3
-
-                            z: 2
-
-                            sourceComponent: BusyIndicator {
-                                id: busyScanningMusic
-                                hoverEnabled: false
-
-                                anchors.fill: parent
-
-                                opacity: 0.8
-
-                                visible: true
-                                running: true
-
-                                z: 2
-                            }
-
-                            active: elisa.musicManager.indexerBusy
-                        }
 
                         Loader {
                             id: localAlbumsLoader
@@ -586,112 +552,21 @@ RowLayout {
     Component {
         id: innerAlbumView
 
-        GridBrowserView {
-            id: innerAlbumGridView
-
-            focus: true
-
-            defaultIcon: elisaTheme.albumCoverIcon
-
-            contentModel: elisa.singleArtistProxyModel
-
-            isSubPage: true
-
-            onEnqueue: elisa.mediaPlayList.enqueue(databaseId, name, ElisaUtils.Album,
-                                                   ElisaUtils.AppendPlayList,
-                                                   ElisaUtils.DoNotTriggerPlay)
-
-            onReplaceAndPlay: elisa.mediaPlayList.enqueue(databaseId, name, ElisaUtils.Album,
-                                                          ElisaUtils.ReplacePlayList,
-                                                          ElisaUtils.TriggerPlay)
-
-            onOpen: viewManager.openOneAlbum(stackView, innerMainTitle, innerSecondaryTitle, innerImage, databaseId)
-
-            onGoBack: viewManager.goBack()
+        OneArtistView {
         }
     }
 
     Component {
         id: innerArtistView
 
-        GridBrowserView {
-            id: innerAlbumGridView
-
-            focus: true
-
-            defaultIcon: elisaTheme.artistIcon
-
-            delegateDisplaySecondaryText: false
-
-            isSubPage: true
-
-            onEnqueue: elisa.mediaPlayList.enqueue(databaseId, name, ElisaUtils.Artist,
-                                                   ElisaUtils.AppendPlayList,
-                                                   ElisaUtils.DoNotTriggerPlay)
-
-            onReplaceAndPlay: elisa.mediaPlayList.enqueue(databaseId, name, ElisaUtils.Artist,
-                                                          ElisaUtils.ReplacePlayList,
-                                                          ElisaUtils.TriggerPlay)
-
-            onOpen: viewManager.openOneArtist(stackView, innerMainTitle, innerImage, 0)
-
-            onGoBack: viewManager.goBack()
+        OneGenreView {
         }
     }
 
     Component {
         id: albumView
 
-        ListBrowserView {
-            id: albumGridView
-
-            contentModel: elisa.singleAlbumProxyModel
-
-            isSubPage: true
-
-            enableSorting: false
-
-            delegate: MediaAlbumTrackDelegate {
-                id: entry
-
-                width: albumGridView.delegateWidth
-                height: ((model.isFirstTrackOfDisc && !isSingleDiscAlbum) ? elisaTheme.delegateHeight*2 : elisaTheme.delegateHeight)
-
-                focus: true
-
-                databaseId: model.databaseId
-                title: model.title
-                artist: model.artist
-                album: (model.album !== undefined && model.album !== '' ? model.album : '')
-                albumArtist: model.albumArtist
-                duration: model.duration
-                imageUrl: (model.imageUrl !== undefined && model.imageUrl !== '' ? model.imageUrl : '')
-                trackNumber: model.trackNumber
-                discNumber: model.discNumber
-                rating: model.rating
-                isFirstTrackOfDisc: model.isFirstTrackOfDisc
-                isSingleDiscAlbum: model.isSingleDiscAlbum
-                isAlternateColor: (index % 2) === 1
-
-                mediaTrack.onEnqueue: elisa.mediaPlayList.enqueue(databaseId, name, ElisaUtils.Track,
-                                                                  ElisaUtils.AppendPlayList,
-                                                                  ElisaUtils.DoNotTriggerPlay)
-
-                mediaTrack.onReplaceAndPlay: elisa.mediaPlayList.enqueue(databaseId, name, ElisaUtils.Track,
-                                                                         ElisaUtils.ReplacePlayList,
-                                                                         ElisaUtils.TriggerPlay)
-
-
-                mediaTrack.onClicked: albumGridView.currentIndex = index
-            }
-
-            allowArtistNavigation: true
-
-            onShowArtist: {
-                viewManager.openOneArtist(stackView, name, elisaTheme.artistIcon, 0)
-            }
-
-            onGoBack: viewManager.goBack()
+        AlbumView {
         }
     }
 }

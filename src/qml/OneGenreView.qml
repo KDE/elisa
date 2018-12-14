@@ -19,17 +19,14 @@ import QtQuick 2.10
 import QtQuick.Controls 2.3
 import org.kde.elisa 1.0
 
-MediaBrowser {
-    id: allArtists
+Item {
+    id: oneGenre
 
-    focus: true
-
-    anchors {
-        fill: parent
-
-        leftMargin: elisaTheme.layoutHorizontalMargin
-        rightMargin: elisaTheme.layoutHorizontalMargin
-    }
+    property alias mainTitle: albumGridView.mainTitle
+    property alias secondaryTitle: albumGridView.secondaryTitle
+    property alias image: albumGridView.image
+    property alias stackView: albumGridView.stackView
+    property alias genreFilterText: proxyModel.genreFilterText
 
     AllArtistsModel {
         id: realModel
@@ -43,19 +40,19 @@ MediaBrowser {
         onArtistToEnqueue: elisa.mediaPlayList.enqueue(newEntries, databaseIdType, enqueueMode, triggerPlay)
     }
 
-    firstPage: GridBrowserView {
-        id: allArtistsView
-
-        focus: true
-
-        showRating: false
-        delegateDisplaySecondaryText: false
-        defaultIcon: elisaTheme.artistIcon
+    GridBrowserView {
+        id: albumGridView
 
         contentModel: proxyModel
 
-        image: elisaTheme.artistIcon
-        mainTitle: i18nc("Title of the view of all artists", "Artists")
+        focus: true
+        anchors.fill: parent
+
+        defaultIcon: elisaTheme.artistIcon
+
+        delegateDisplaySecondaryText: false
+
+        isSubPage: true
 
         onEnqueue: elisa.mediaPlayList.enqueue(databaseId, name, ElisaUtils.Artist,
                                                ElisaUtils.AppendPlayList,
@@ -65,8 +62,7 @@ MediaBrowser {
                                                       ElisaUtils.ReplacePlayList,
                                                       ElisaUtils.TriggerPlay)
 
-        onOpen: viewManager.openOneArtist(allArtists.stackView, innerMainTitle, innerImage, 0)
-
+        onOpen: viewManager.openOneArtist(stackView, innerMainTitle, innerImage, 0)
 
         onGoBack: viewManager.goBack()
     }

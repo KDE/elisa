@@ -32,8 +32,7 @@ class MusicListenersManagerPrivate;
 class MediaPlayList;
 class NotificationItem;
 class ElisaApplication;
-class QAbstractItemModel;
-class AbstractMediaProxyModel;
+class ModelDataLoader;
 
 class ELISALIB_EXPORT MusicListenersManager : public QObject
 {
@@ -57,34 +56,6 @@ class ELISALIB_EXPORT MusicListenersManager : public QObject
                WRITE setElisaApplication
                NOTIFY elisaApplicationChanged)
 
-    Q_PROPERTY(QAbstractItemModel* allAlbumsModel
-               READ allAlbumsModel
-               CONSTANT)
-
-    Q_PROPERTY(QAbstractItemModel* allArtistsModel
-               READ allArtistsModel
-               CONSTANT)
-
-    Q_PROPERTY(QAbstractItemModel* allTracksModel
-               READ allTracksModel
-               CONSTANT)
-
-    Q_PROPERTY(QAbstractItemModel* allGenresModel
-               READ allGenresModel
-               CONSTANT)
-
-    Q_PROPERTY(QAbstractItemModel* allLyricistsModel
-               READ allLyricistsModel
-               CONSTANT)
-
-    Q_PROPERTY(QAbstractItemModel* allComposersModel
-               READ allComposersModel
-               CONSTANT)
-
-    Q_PROPERTY(QAbstractItemModel* albumModel
-               READ albumModel
-               CONSTANT)
-
     Q_PROPERTY(bool indexerBusy
                READ indexerBusy
                NOTIFY indexerBusyChanged)
@@ -104,20 +75,6 @@ public:
     bool isIndexingRunning() const;
 
     ElisaApplication* elisaApplication() const;
-
-    QAbstractItemModel *allAlbumsModel() const;
-
-    QAbstractItemModel *allArtistsModel() const;
-
-    QAbstractItemModel *allTracksModel() const;
-
-    QAbstractItemModel *allGenresModel() const;
-
-    QAbstractItemModel *allLyricistsModel() const;
-
-    QAbstractItemModel *allComposersModel() const;
-
-    QAbstractItemModel *albumModel() const;
 
     bool indexerBusy() const;
 
@@ -154,6 +111,8 @@ public Q_SLOTS:
     void setElisaApplication(ElisaApplication* elisaApplication);
 
     void playBackError(const QUrl &sourceInError, QMediaPlayer::Error playerError);
+
+    void connectModel(ModelDataLoader *dataLoader);
 
 private Q_SLOTS:
 

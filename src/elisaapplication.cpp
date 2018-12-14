@@ -19,15 +19,6 @@
 #include "elisaapplication.h"
 
 #include "musiclistenersmanager.h"
-#include "models/allalbumsproxymodel.h"
-#include "models/alltracksproxymodel.h"
-#include "models/allartistsproxymodel.h"
-#include "models/singleartistproxymodel.h"
-#include "models/singlealbumproxymodel.h"
-
-#if defined KF5KIO_FOUND && KF5KIO_FOUND
-#include "models/filebrowserproxymodel.h"
-#endif
 
 #include "mediaplaylist.h"
 #include "audiowrapper.h"
@@ -94,26 +85,6 @@ public:
     ElisaUtils::EntryDataList mArguments;
 
     std::unique_ptr<MusicListenersManager> mMusicManager;
-
-    std::unique_ptr<AllAlbumsProxyModel> mAllAlbumsProxyModel;
-
-    std::unique_ptr<AllArtistsProxyModel> mAllArtistsProxyModel;
-
-    std::unique_ptr<AllTracksProxyModel> mAllTracksProxyModel;
-
-    std::unique_ptr<AllArtistsProxyModel> mAllGenresProxyModel;
-
-    std::unique_ptr<AllArtistsProxyModel> mAllComposersProxyModel;
-
-    std::unique_ptr<AllArtistsProxyModel> mAllLyricistsProxyModel;
-
-    std::unique_ptr<SingleArtistProxyModel> mSingleArtistProxyModel;
-
-    std::unique_ptr<SingleAlbumProxyModel> mSingleAlbumProxyModel;
-
-#if defined KF5KIO_FOUND && KF5KIO_FOUND
-    std::unique_ptr<FileBrowserProxyModel> mFileBrowserProxyModel;
-#endif
 
     std::unique_ptr<MediaPlayList> mMediaPlayList;
 
@@ -324,27 +295,6 @@ void ElisaApplication::initializeModels()
 {
     d->mMusicManager = std::make_unique<MusicListenersManager>();
     Q_EMIT musicManagerChanged();
-    d->mAllAlbumsProxyModel = std::make_unique<AllAlbumsProxyModel>();
-    Q_EMIT allAlbumsProxyModelChanged();
-    d->mAllArtistsProxyModel = std::make_unique<AllArtistsProxyModel>();
-    Q_EMIT allArtistsProxyModelChanged();
-    d->mAllGenresProxyModel = std::make_unique<AllArtistsProxyModel>();
-    Q_EMIT allGenresProxyModelChanged();
-    d->mAllComposersProxyModel = std::make_unique<AllArtistsProxyModel>();
-    Q_EMIT allComposersProxyModelChanged();
-    d->mAllLyricistsProxyModel = std::make_unique<AllArtistsProxyModel>();
-    Q_EMIT allLyricistsProxyModelChanged();
-    d->mAllTracksProxyModel = std::make_unique<AllTracksProxyModel>();
-    Q_EMIT allTracksProxyModelChanged();
-    d->mSingleArtistProxyModel = std::make_unique<SingleArtistProxyModel>();
-    Q_EMIT singleArtistProxyModelChanged();
-    d->mSingleAlbumProxyModel = std::make_unique<SingleAlbumProxyModel>();
-    Q_EMIT singleAlbumProxyModelChanged();
-
-#if defined KF5KIO_FOUND && KF5KIO_FOUND
-    d->mFileBrowserProxyModel = std::make_unique<FileBrowserProxyModel>();
-    Q_EMIT fileBrowserProxyModelChanged();
-#endif
 
     d->mMediaPlayList = std::make_unique<MediaPlayList>();
     Q_EMIT mediaPlayListChanged();
@@ -357,55 +307,6 @@ void ElisaApplication::initializeModels()
                                                                                   ElisaUtils::PlayListEntryType,
                                                                                   ElisaUtils::PlayListEnqueueMode,
                                                                                   ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayList::enqueue));
-
-    d->mAllAlbumsProxyModel->setSourceModel(d->mMusicManager->allAlbumsModel());
-    d->mAllArtistsProxyModel->setSourceModel(d->mMusicManager->allArtistsModel());
-    d->mAllGenresProxyModel->setSourceModel(d->mMusicManager->allGenresModel());
-    d->mAllComposersProxyModel->setSourceModel(d->mMusicManager->allComposersModel());
-    d->mAllLyricistsProxyModel->setSourceModel(d->mMusicManager->allLyricistsModel());
-    d->mAllTracksProxyModel->setSourceModel(d->mMusicManager->allTracksModel());
-    d->mSingleArtistProxyModel->setSourceModel(d->mMusicManager->allAlbumsModel());
-    d->mSingleAlbumProxyModel->setSourceModel(d->mMusicManager->albumModel());
-
-    QObject::connect(d->mAllAlbumsProxyModel.get(), &AllAlbumsProxyModel::albumToEnqueue,
-                     d->mMediaPlayList.get(), static_cast<void (MediaPlayList::*)(const ElisaUtils::EntryDataList&,
-                                                                                  ElisaUtils::PlayListEntryType,
-                                                                                  ElisaUtils::PlayListEnqueueMode,
-                                                                                  ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayList::enqueue));
-
-    QObject::connect(d->mAllArtistsProxyModel.get(), &AllArtistsProxyModel::artistToEnqueue,
-                     d->mMediaPlayList.get(), static_cast<void (MediaPlayList::*)(const ElisaUtils::EntryDataList&,
-                                                                                  ElisaUtils::PlayListEntryType,
-                                                                                  ElisaUtils::PlayListEnqueueMode,
-                                                                                  ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayList::enqueue));
-
-    QObject::connect(d->mAllTracksProxyModel.get(), &AllTracksProxyModel::trackToEnqueue,
-                     d->mMediaPlayList.get(), static_cast<void (MediaPlayList::*)(const ElisaUtils::EntryDataList&,
-                                                                                  ElisaUtils::PlayListEntryType,
-                                                                                  ElisaUtils::PlayListEnqueueMode,
-                                                                                  ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayList::enqueue));
-
-    QObject::connect(d->mSingleArtistProxyModel.get(), &SingleArtistProxyModel::albumToEnqueue,
-                     d->mMediaPlayList.get(), static_cast<void (MediaPlayList::*)(const ElisaUtils::EntryDataList&,
-                                                                                  ElisaUtils::PlayListEntryType,
-                                                                                  ElisaUtils::PlayListEnqueueMode,
-                                                                                  ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayList::enqueue));
-
-    QObject::connect(d->mSingleAlbumProxyModel.get(), &SingleAlbumProxyModel::trackToEnqueue,
-                     d->mMediaPlayList.get(), static_cast<void (MediaPlayList::*)(const ElisaUtils::EntryDataList&,
-                                                                                  ElisaUtils::PlayListEntryType,
-                                                                                  ElisaUtils::PlayListEnqueueMode,
-                                                                                  ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayList::enqueue));
-
-#if defined KF5KIO_FOUND && KF5KIO_FOUND
-    QObject::connect(d->mFileBrowserProxyModel.get(), &FileBrowserProxyModel::loadPlayListFromUrl,
-                     d->mMediaPlayList.get(), &MediaPlayList::loadPlaylist);
-    QObject::connect(d->mFileBrowserProxyModel.get(), &FileBrowserProxyModel::filesToEnqueue,
-                     d->mMediaPlayList.get(), static_cast<void (MediaPlayList::*)(const ElisaUtils::EntryDataList &,
-                                                                                  ElisaUtils::PlayListEntryType,
-                                                                                  ElisaUtils::PlayListEnqueueMode,
-                                                                                  ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayList::enqueue));
-#endif
 }
 
 void ElisaApplication::initializePlayer()
@@ -500,55 +401,6 @@ const ElisaUtils::EntryDataList &ElisaApplication::arguments() const
 MusicListenersManager *ElisaApplication::musicManager() const
 {
     return d->mMusicManager.get();
-}
-
-QSortFilterProxyModel *ElisaApplication::allAlbumsProxyModel() const
-{
-    return d->mAllAlbumsProxyModel.get();
-}
-
-QSortFilterProxyModel *ElisaApplication::allArtistsProxyModel() const
-{
-    return d->mAllArtistsProxyModel.get();
-}
-
-QSortFilterProxyModel *ElisaApplication::allGenresProxyModel() const
-{
-    return d->mAllGenresProxyModel.get();
-}
-
-QSortFilterProxyModel *ElisaApplication::allComposersProxyModel() const
-{
-    return d->mAllComposersProxyModel.get();
-}
-
-QSortFilterProxyModel *ElisaApplication::allLyricistsProxyModel() const
-{
-    return d->mAllLyricistsProxyModel.get();
-}
-
-QSortFilterProxyModel *ElisaApplication::allTracksProxyModel() const
-{
-    return d->mAllTracksProxyModel.get();
-}
-
-QSortFilterProxyModel *ElisaApplication::singleArtistProxyModel() const
-{
-    return d->mSingleArtistProxyModel.get();
-}
-
-QSortFilterProxyModel *ElisaApplication::singleAlbumProxyModel() const
-{
-    return d->mSingleAlbumProxyModel.get();
-}
-
-QSortFilterProxyModel *ElisaApplication::fileBrowserProxyModel() const
-{
-#if defined KF5KIO_FOUND && KF5KIO_FOUND
-    return d->mFileBrowserProxyModel.get();
-#else
-    return nullptr;
-#endif
 }
 
 MediaPlayList *ElisaApplication::mediaPlayList() const

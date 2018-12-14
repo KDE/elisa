@@ -19,54 +19,49 @@ import QtQuick 2.10
 import QtQuick.Controls 2.3
 import org.kde.elisa 1.0
 
-MediaBrowser {
-    id: allArtists
+Item {
+    id: oneArtist
 
-    focus: true
+    property alias mainTitle: albumGridView.mainTitle
+    property alias secondaryTitle: albumGridView.secondaryTitle
+    property alias image: albumGridView.image
+    property alias stackView: albumGridView.stackView
+    property alias artistFilter: proxyModel.artistFilter
 
-    anchors {
-        fill: parent
-
-        leftMargin: elisaTheme.layoutHorizontalMargin
-        rightMargin: elisaTheme.layoutHorizontalMargin
-    }
-
-    AllArtistsModel {
+    AllAlbumsModel {
         id: realModel
     }
 
-    AllArtistsProxyModel {
+    SingleArtistProxyModel {
         id: proxyModel
 
         sourceModel: realModel
 
-        onArtistToEnqueue: elisa.mediaPlayList.enqueue(newEntries, databaseIdType, enqueueMode, triggerPlay)
+        onAlbumToEnqueue: elisa.mediaPlayList.enqueue(newEntries, databaseIdType, enqueueMode, triggerPlay)
     }
 
-    firstPage: GridBrowserView {
-        id: allArtistsView
+    GridBrowserView {
+        id: albumGridView
 
         focus: true
+        anchors.fill: parent
 
-        showRating: false
-        delegateDisplaySecondaryText: false
-        defaultIcon: elisaTheme.artistIcon
+        defaultIcon: elisaTheme.albumCoverIcon
 
         contentModel: proxyModel
 
-        image: elisaTheme.artistIcon
-        mainTitle: i18nc("Title of the view of all artists", "Artists")
+        isSubPage: true
 
-        onEnqueue: elisa.mediaPlayList.enqueue(databaseId, name, ElisaUtils.Artist,
+        onEnqueue: elisa.mediaPlayList.enqueue(databaseId, name, ElisaUtils.Album,
                                                ElisaUtils.AppendPlayList,
                                                ElisaUtils.DoNotTriggerPlay)
 
-        onReplaceAndPlay: elisa.mediaPlayList.enqueue(databaseId, name, ElisaUtils.Artist,
+        onReplaceAndPlay: elisa.mediaPlayList.enqueue(databaseId, name, ElisaUtils.Album,
                                                       ElisaUtils.ReplacePlayList,
                                                       ElisaUtils.TriggerPlay)
 
-        onOpen: viewManager.openOneArtist(allArtists.stackView, innerMainTitle, innerImage, 0)
-
+        onOpen: viewManager.openOneAlbum(stackView, innerMainTitle,
+                                         innerSecondaryTitle, innerImage, databaseId)
 
         onGoBack: viewManager.goBack()
     }

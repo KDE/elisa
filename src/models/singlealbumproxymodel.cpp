@@ -33,43 +33,31 @@ bool SingleAlbumProxyModel::filterAcceptsRow(int source_row, const QModelIndex &
 {
     bool result = false;
 
-    for (int column = 0, columnCount = sourceModel()->columnCount(source_parent); column < columnCount; ++column) {
-        auto currentIndex = sourceModel()->index(source_row, column, source_parent);
+    auto currentIndex = sourceModel()->index(source_row, 0, source_parent);
 
-        const auto &genreValue = sourceModel()->data(currentIndex, DatabaseInterface::ColumnsRoles::GenreRole);
+    const auto &genreValue = sourceModel()->data(currentIndex, DatabaseInterface::ColumnsRoles::GenreRole);
 
-        if (!genreFilterText().isNull() && !genreValue.isValid()) {
-            continue;
-        }
+    if (!genreFilterText().isNull() && !genreValue.isValid()) {
+        return result;
+    }
 
-        if (!genreFilterText().isNull() && !genreValue.canConvert<QStringList>()) {
-            continue;
-        }
+    if (!genreFilterText().isNull() && !genreValue.canConvert<QStringList>()) {
+        return result;
+    }
 
-        if (!genreFilterText().isNull() && !genreValue.toStringList().contains(genreFilterText())) {
-            continue;
-        }
+    if (!genreFilterText().isNull() && !genreValue.toStringList().contains(genreFilterText())) {
+        return result;
+    }
 
-        const auto &titleValue = sourceModel()->data(currentIndex, AlbumModel::TitleRole).toString();
-        const auto maximumRatingValue = sourceModel()->data(currentIndex, AlbumModel::RatingRole).toInt();
+    const auto &titleValue = sourceModel()->data(currentIndex, DatabaseInterface::ColumnsRoles::TitleRole).toString();
+    const auto maximumRatingValue = sourceModel()->data(currentIndex, DatabaseInterface::ColumnsRoles::RatingRole).toInt();
 
-        if (maximumRatingValue < mFilterRating) {
-            result = false;
-            continue;
-        }
+    if (maximumRatingValue < mFilterRating) {
+        return result;
+    }
 
-        if (mFilterExpression.match(titleValue).hasMatch()) {
-            result = true;
-            continue;
-        }
-
-        if (result) {
-            continue;
-        }
-
-        if (!result) {
-            break;
-        }
+    if (mFilterExpression.match(titleValue).hasMatch()) {
+        result = true;
     }
 
     return result;
@@ -83,8 +71,8 @@ void SingleAlbumProxyModel::genericEnqueueToPlayList(ElisaUtils::PlayListEnqueue
         allTracks.reserve(rowCount());
         for (int rowIndex = 0, maxRowCount = rowCount(); rowIndex < maxRowCount; ++rowIndex) {
             auto currentIndex = index(rowIndex, 0);
-            allTracks.push_back({data(currentIndex, AlbumModel::DatabaseIdRole).toULongLong(),
-                                 data(currentIndex, AlbumModel::TitleRole).toString()});
+            allTracks.push_back({data(currentIndex, DatabaseInterface::ColumnsRoles::DatabaseIdRole).toULongLong(),
+                                 data(currentIndex, DatabaseInterface::ColumnsRoles::TitleRole).toString()});
         }
         Q_EMIT trackToEnqueue(allTracks, ElisaUtils::Track, enqueueMode, triggerPlay);
     });
@@ -98,14 +86,6 @@ void SingleAlbumProxyModel::enqueueToPlayList()
 void SingleAlbumProxyModel::replaceAndPlayOfPlayList()
 {
     genericEnqueueToPlayList(ElisaUtils::ReplacePlayList, ElisaUtils::TriggerPlay);
-}
-
-void SingleAlbumProxyModel::loadAlbumData(qulonglong databaseId)
-{
-    auto albumSourceModel = qobject_cast<AlbumModel *>(this->sourceModel());
-    if(albumSourceModel) {
-        albumSourceModel->loadAlbumData(databaseId);
-    }
 }
 
 #include "moc_singlealbumproxymodel.cpp"

@@ -16,8 +16,9 @@
  */
 
 #include "allgenresmodel.h"
-#include "databaseinterface.h"
-#include "musicaudiogenre.h"
+
+#include "modeldataloader.h"
+#include "musiclistenersmanager.h"
 
 #include <QUrl>
 #include <QTimer>
@@ -28,9 +29,9 @@ class AllGenresModelPrivate
 {
 public:
 
-    AllGenresModelPrivate() = default;
-
     AllGenresModel::ListGenreDataType mAllGenres;
+
+    ModelDataLoader mDataLoader;
 
 };
 
@@ -167,6 +168,20 @@ void AllGenresModel::genreRemoved(const MusicAudioGenre &removedGenre)
 void AllGenresModel::genreModified(const MusicAudioGenre &modifiedGenre)
 {
     Q_UNUSED(modifiedGenre);
+}
+
+void AllGenresModel::initialize(MusicListenersManager *manager)
+{
+    manager->connectModel(&d->mDataLoader);
+
+    connect(manager->viewDatabase(), &DatabaseInterface::genresAdded,
+            this, &AllGenresModel::genresAdded);
+    connect(this, &AllGenresModel::needData,
+            &d->mDataLoader, &ModelDataLoader::loadData);
+    connect(&d->mDataLoader, &ModelDataLoader::allGenresData,
+            this, &AllGenresModel::genresAdded);
+
+    Q_EMIT needData(ElisaUtils::Genre);
 }
 
 #include "moc_allgenresmodel.cpp"

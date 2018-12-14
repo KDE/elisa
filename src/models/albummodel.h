@@ -20,8 +20,8 @@
 
 #include "elisaLib_export.h"
 
+#include "elisautils.h"
 #include "databaseinterface.h"
-#include "musicalbum.h"
 
 #include <QAbstractItemModel>
 #include <QVector>
@@ -30,19 +30,12 @@
 
 #include <memory>
 
-class MusicAudioTrack;
-class DatabaseInterface;
 class AlbumModelPrivate;
-class QMutex;
+class MusicListenersManager;
 
 class ELISALIB_EXPORT AlbumModel : public QAbstractItemModel
 {
     Q_OBJECT
-
-    Q_PROPERTY(MusicAlbum albumData
-               READ albumData
-               WRITE setAlbumData
-               NOTIFY albumDataChanged)
 
     Q_PROPERTY(QString title
                READ title
@@ -57,46 +50,6 @@ class ELISALIB_EXPORT AlbumModel : public QAbstractItemModel
                NOTIFY tracksCountChanged)
 
 public:
-
-    enum ItemClass {
-        Container = 0,
-        Album = 1,
-        Artist = 2,
-        AudioTrack = 3,
-    };
-
-    enum ColumnsRoles {
-        TitleRole = Qt::UserRole + 1,
-        DurationRole,
-        StringDurationRole,
-        MilliSecondsDurationRole,
-        ArtistRole,
-        AlbumRole,
-        AlbumArtistRole,
-        TrackNumberRole,
-        DiscNumberRole,
-        RatingRole,
-        GenreRole,
-        LyricistRole,
-        ComposerRole,
-        CommentRole,
-        YearRole,
-        ChannelsRole,
-        BitRateRole,
-        SampleRateRole,
-        ImageRole,
-        ResourceRole,
-        IdRole,
-        DatabaseIdRole,
-        DiscFirstTrackRole,
-        IsSingleDiscAlbumRole,
-        ContainerDataRole,
-        SecondaryTextRole,
-        ImageUrlRole,
-        ShadowForImageRole,
-    };
-
-    Q_ENUM(ColumnsRoles)
 
     using ListTrackDataType = DatabaseInterface::ListTrackDataType;
 
@@ -124,19 +77,13 @@ public:
 
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
 
-    MusicAlbum albumData() const;
-
     QString title() const;
 
     QString author() const;
 
     int tracksCount() const;
 
-    Q_INVOKABLE void loadAlbumData(qulonglong id);
-
 Q_SIGNALS:
-
-    void albumDataChanged();
 
     void titleChanged();
 
@@ -144,30 +91,24 @@ Q_SIGNALS:
 
     void tracksCountChanged();
 
-    void requestAlbumData(qulonglong id);
+    void needData(ElisaUtils::PlayListEntryType dataType);
 
 public Q_SLOTS:
 
-    void setAlbumData(const MusicAlbum &album);
+    void tracksAdded(const ListTrackDataType &newTracks);
 
-    void albumModified(const AlbumDataType &modifiedAlbum);
+    void trackModified(const TrackDataType &modifiedTrack);
 
-    void albumRemoved(qulonglong modifiedAlbumId);
+    void trackRemoved(qulonglong trackId);
+
+    void initialize(const QString &albumTitle, const QString &albumArtist, MusicListenersManager *manager);
 
 private:
 
-    void trackAdded(const MusicAudioTrack &newTrack);
-
-    void trackModified(const MusicAudioTrack &modifiedTrack);
-
-    void trackRemoved(const MusicAudioTrack &removedTrack);
-
-    QVariant internalDataTrack(const MusicAudioTrack &track, int role, int rowIndex) const;
+    int trackIndexFromId(qulonglong id) const;
 
     std::unique_ptr<AlbumModelPrivate> d;
 
 };
-
-Q_DECLARE_METATYPE(AlbumModel::ItemClass)
 
 #endif // ALBUMMODEL_H

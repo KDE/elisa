@@ -20,6 +20,7 @@
 
 #include "elisaLib_export.h"
 
+#include "elisautils.h"
 #include "databaseinterface.h"
 
 #include <QAbstractItemModel>
@@ -30,16 +31,11 @@
 #include <memory>
 
 class AllArtistsModelPrivate;
-class AllAlbumsModel;
+class MusicListenersManager;
 
 class ELISALIB_EXPORT AllArtistsModel : public QAbstractItemModel
 {
     Q_OBJECT
-
-    Q_PROPERTY(AllAlbumsModel* allAlbums
-               READ allAlbums
-               WRITE setAllAlbums
-               NOTIFY allAlbumsChanged)
 
 public:
 
@@ -65,11 +61,9 @@ public:
 
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
 
-    AllAlbumsModel* allAlbums() const;
-
 Q_SIGNALS:
 
-    void allAlbumsChanged();
+    void needData(ElisaUtils::PlayListEntryType dataType);
 
 public Q_SLOTS:
 
@@ -77,7 +71,7 @@ public Q_SLOTS:
 
     void artistRemoved(qulonglong removedArtistId);
 
-    void setAllAlbums(AllAlbumsModel *model);
+    void initialize(MusicListenersManager *manager);
 
 private:
 

@@ -44,9 +44,10 @@
 #include "musicaudiogenre.h"
 #include "musiclistenersmanager.h"
 #include "models/allalbumsmodel.h"
-#include "models/albummodel.h"
 #include "models/allartistsmodel.h"
+#include "models/allgenresmodel.h"
 #include "models/alltracksmodel.h"
+#include "models/albummodel.h"
 #include "models/allalbumsproxymodel.h"
 #include "models/alltracksproxymodel.h"
 #include "models/allartistsproxymodel.h"
@@ -117,6 +118,11 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qmlRegisterType<ManageAudioPlayer>(uri, 1, 0, "ManageAudioPlayer");
     qmlRegisterType<ProgressIndicator>(uri, 1, 0, "ProgressIndicator");
     qmlRegisterType<MusicListenersManager>(uri, 1, 0, "MusicListenersManager");
+    qmlRegisterType<AllAlbumsModel>(uri, 1, 0, "AllAlbumsModel");
+    qmlRegisterType<AllArtistsModel>(uri, 1, 0, "AllArtistsModel");
+    qmlRegisterType<AllGenresModel>(uri, 1, 0, "AllGenresModel");
+    qmlRegisterType<AllTracksModel>(uri, 1, 0, "AllTracksModel");
+    qmlRegisterType<AlbumModel>(uri, 1, 0, "AlbumModel");
     qmlRegisterType<AllAlbumsProxyModel>(uri, 1, 0, "AllAlbumsProxyModel");
     qmlRegisterType<AllArtistsProxyModel>(uri, 1, 0, "AllArtistsProxyModel");
     qmlRegisterType<AllTracksProxyModel>(uri, 1, 0, "AllTracksProxyModel");

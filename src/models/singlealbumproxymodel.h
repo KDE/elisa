@@ -38,18 +38,16 @@ public:
 
 Q_SIGNALS:
 
-    void trackToEnqueue(const ElisaUtils::EntryDataList&,
-                        ElisaUtils::PlayListEntryType,
-                        ElisaUtils::PlayListEnqueueMode,
-                        ElisaUtils::PlayListEnqueueTriggerPlay);
+    void trackToEnqueue(const ElisaUtils::EntryDataList &newEntries,
+                        ElisaUtils::PlayListEntryType databaseIdType,
+                        ElisaUtils::PlayListEnqueueMode enqueueMode,
+                        ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 
 public Q_SLOTS:
 
     void enqueueToPlayList();
 
     void replaceAndPlayOfPlayList();
-
-    void loadAlbumData(qulonglong databaseId);
 
 protected:
 

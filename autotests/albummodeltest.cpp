@@ -59,8 +59,8 @@ private Q_SLOTS:
         AlbumModel albumsModel;
         QAbstractItemModelTester testModel(&albumsModel);
 
-        connect(&musicDb, &DatabaseInterface::albumModified,
-                &albumsModel, &AlbumModel::albumModified);
+        /*connect(&musicDb, &DatabaseInterface::albumModified,
+                &albumsModel, &AlbumModel::albumModified);*/
 
         musicDb.init(QStringLiteral("testDb"));
 
@@ -84,7 +84,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        albumsModel.setAlbumData(musicDb.albumFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists")));
+        //albumsModel.setAlbumData(musicDb.albumFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists")));
 
         QCOMPARE(beginInsertRowsSpy.count(), 1);
         QCOMPARE(endInsertRowsSpy.count(), 1);
@@ -111,10 +111,10 @@ private Q_SLOTS:
         AlbumModel albumsModel;
         QAbstractItemModelTester testModel(&albumsModel);
 
-        connect(&musicDb, &DatabaseInterface::albumModified,
+        /*connect(&musicDb, &DatabaseInterface::albumModified,
                 &albumsModel, &AlbumModel::albumModified);
         connect(&musicDb, &DatabaseInterface::albumRemoved,
-                &albumsModel, &AlbumModel::albumRemoved);
+                &albumsModel, &AlbumModel::albumRemoved);*/
 
         musicDb.init(QStringLiteral("testDb"));
 
@@ -138,7 +138,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        albumsModel.setAlbumData(musicDb.albumFromTitleAndArtist(QStringLiteral("album3"), QStringLiteral("artist2")));
+        //albumsModel.setAlbumData(musicDb.albumFromTitleAndArtist(QStringLiteral("album3"), QStringLiteral("artist2")));
 
         QCOMPARE(beginInsertRowsSpy.count(), 1);
         QCOMPARE(endInsertRowsSpy.count(), 1);
@@ -173,8 +173,8 @@ private Q_SLOTS:
         AlbumModel albumsModel;
         QAbstractItemModelTester testModel(&albumsModel);
 
-        connect(&musicDb, &DatabaseInterface::albumModified,
-                &albumsModel, &AlbumModel::albumModified);
+        /*connect(&musicDb, &DatabaseInterface::albumModified,
+                &albumsModel, &AlbumModel::albumModified);*/
 
         musicDb.init(QStringLiteral("testDb"));
 
@@ -204,7 +204,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        albumsModel.setAlbumData(musicDb.albumFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists")));
+        //albumsModel.setAlbumData(musicDb.albumFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists")));
 
         QCOMPARE(beginInsertRowsSpy.count(), 1);
         QCOMPARE(endInsertRowsSpy.count(), 1);
@@ -237,7 +237,7 @@ private Q_SLOTS:
         QCOMPARE(beginInsertRowsSpy.at(1).at(1).toInt(), 4);
         QCOMPARE(beginInsertRowsSpy.at(1).at(2).toInt(), 4);
 
-        QCOMPARE(albumsModel.data(albumsModel.index(4, 0), AlbumModel::TitleRole).toString(), QStringLiteral("track6"));
+        QCOMPARE(albumsModel.data(albumsModel.index(4, 0), DatabaseInterface::ColumnsRoles::TitleRole).toString(), QStringLiteral("track6"));
 
         auto secondNewTrack = MusicAudioTrack{true, QStringLiteral("$24"), QStringLiteral("0"), QStringLiteral("track5"),
                 QStringLiteral("artist2"), QStringLiteral("album1"), QStringLiteral("Various Artists"), 5, 1,
@@ -264,7 +264,7 @@ private Q_SLOTS:
         QCOMPARE(beginInsertRowsSpy.at(2).at(1).toInt(), 4);
         QCOMPARE(beginInsertRowsSpy.at(2).at(2).toInt(), 4);
 
-        QCOMPARE(albumsModel.data(albumsModel.index(4, 0), AlbumModel::TitleRole).toString(), QStringLiteral("track5"));
+        QCOMPARE(albumsModel.data(albumsModel.index(4, 0), DatabaseInterface::ColumnsRoles::TitleRole).toString(), QStringLiteral("track5"));
     }
 
     void modifyOneTrack()
@@ -273,8 +273,8 @@ private Q_SLOTS:
         AlbumModel albumsModel;
         QAbstractItemModelTester testModel(&albumsModel);
 
-        connect(&musicDb, &DatabaseInterface::albumModified,
-                &albumsModel, &AlbumModel::albumModified);
+        /*connect(&musicDb, &DatabaseInterface::albumModified,
+                &albumsModel, &AlbumModel::albumModified);*/
 
         musicDb.init(QStringLiteral("testDb"));
 
@@ -304,7 +304,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        albumsModel.setAlbumData(musicDb.albumFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists")));
+        //albumsModel.setAlbumData(musicDb.albumFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists")));
 
         QCOMPARE(beginInsertRowsSpy.count(), 1);
         QCOMPARE(endInsertRowsSpy.count(), 1);
@@ -331,7 +331,7 @@ private Q_SLOTS:
         QCOMPARE(dataChangedSpy.at(0).at(0).toModelIndex(), albumsModel.index(2, 0));
         QCOMPARE(dataChangedSpy.at(0).at(1).toModelIndex(), albumsModel.index(2, 0));
 
-        QCOMPARE(albumsModel.data(albumsModel.index(2, 0), AlbumModel::TrackNumberRole).toInt(), 5);
+        QCOMPARE(albumsModel.data(albumsModel.index(2, 0), DatabaseInterface::ColumnsRoles::TrackNumberRole).toInt(), 5);
     }
 };
 

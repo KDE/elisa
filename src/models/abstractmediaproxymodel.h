@@ -21,6 +21,8 @@
 
 #include "elisaLib_export.h"
 
+#include "elisautils.h"
+
 #include <QSortFilterProxyModel>
 #include <QRegularExpression>
 #include <QReadWriteLock>

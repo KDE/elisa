@@ -17,8 +17,8 @@
 
 #include "alltracksmodel.h"
 
-//#include "elisautils.h"
-#include "databaseinterface.h"
+#include "modeldataloader.h"
+#include "musiclistenersmanager.h"
 
 #include <algorithm>
 
@@ -29,6 +29,8 @@ class AllTracksModelPrivate
 public:
 
     AllTracksModel::ListTrackDataType mAllTracks;
+
+    ModelDataLoader mDataLoader;
 
 };
 
@@ -200,6 +202,24 @@ void AllTracksModel::trackModified(const TrackDataType &modifiedTrack)
     d->mAllTracks[position] = modifiedTrack;
 
     Q_EMIT dataChanged(index(position, 0), index(position, 0));
+}
+
+void AllTracksModel::initialize(MusicListenersManager *manager)
+{
+    manager->connectModel(&d->mDataLoader);
+
+    connect(manager->viewDatabase(), &DatabaseInterface::tracksAdded,
+            this, &AllTracksModel::tracksAdded);
+    connect(manager->viewDatabase(), &DatabaseInterface::trackModified,
+            this, &AllTracksModel::trackModified);
+    connect(manager->viewDatabase(), &DatabaseInterface::trackRemoved,
+            this, &AllTracksModel::trackRemoved);
+    connect(this, &AllTracksModel::needData,
+            &d->mDataLoader, &ModelDataLoader::loadData);
+    connect(&d->mDataLoader, &ModelDataLoader::allTracksData,
+            this, &AllTracksModel::tracksAdded);
+
+    Q_EMIT needData(ElisaUtils::Track);
 }
 
 

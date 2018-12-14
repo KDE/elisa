@@ -31,11 +31,23 @@ MediaBrowser {
         rightMargin: elisaTheme.layoutHorizontalMargin
     }
 
+    AllTracksModel {
+        id: realModel
+    }
+
+    AllTracksProxyModel {
+        id: proxyModel
+
+        sourceModel: realModel
+
+        onTrackToEnqueue: elisa.mediaPlayList.enqueue(newEntries, databaseIdType, enqueueMode, triggerPlay)
+    }
+
     firstPage: ListBrowserView {
         id: allTracksView
         focus: true
 
-        contentModel: elisa.allTracksProxyModel
+        contentModel: proxyModel
 
         delegate: MediaTrackDelegate {
             id: entry
@@ -71,5 +83,17 @@ MediaBrowser {
 
         image: elisaTheme.tracksIcon
         mainTitle: i18nc("Title of the view of all tracks", "Tracks")
+    }
+
+    Connections {
+        target: elisa
+
+        onMusicManagerChanged: realModel.initialize(elisa.musicManager)
+    }
+
+    Component.onCompleted: {
+        if (elisa.musicManager) {
+            realModel.initialize(elisa.musicManager)
+        }
     }
 }

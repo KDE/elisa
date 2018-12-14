@@ -32,7 +32,6 @@
 class QIcon;
 class QAction;
 class MusicListenersManager;
-class QSortFilterProxyModel;
 class MediaPlayList;
 class AudioWrapper;
 class ManageAudioPlayer;
@@ -53,42 +52,6 @@ class ELISALIB_EXPORT ElisaApplication : public QObject
     Q_PROPERTY(MusicListenersManager *musicManager
                READ musicManager
                NOTIFY musicManagerChanged)
-
-    Q_PROPERTY(QSortFilterProxyModel* allAlbumsProxyModel
-               READ allAlbumsProxyModel
-               NOTIFY allAlbumsProxyModelChanged)
-
-    Q_PROPERTY(QSortFilterProxyModel* allArtistsProxyModel
-               READ allArtistsProxyModel
-               NOTIFY allArtistsProxyModelChanged)
-
-    Q_PROPERTY(QSortFilterProxyModel* allTracksProxyModel
-               READ allTracksProxyModel
-               NOTIFY allTracksProxyModelChanged)
-
-    Q_PROPERTY(QSortFilterProxyModel* allGenresProxyModel
-               READ allGenresProxyModel
-               NOTIFY allGenresProxyModelChanged)
-
-    Q_PROPERTY(QSortFilterProxyModel* allComposersProxyModel
-               READ allComposersProxyModel
-               NOTIFY allComposersProxyModelChanged)
-
-    Q_PROPERTY(QSortFilterProxyModel* allLyricistsProxyModel
-               READ allLyricistsProxyModel
-               NOTIFY allLyricistsProxyModelChanged)
-
-    Q_PROPERTY(QSortFilterProxyModel* singleArtistProxyModel
-               READ singleArtistProxyModel
-               NOTIFY singleArtistProxyModelChanged)
-
-    Q_PROPERTY(QSortFilterProxyModel* singleAlbumProxyModel
-               READ singleAlbumProxyModel
-               NOTIFY singleAlbumProxyModelChanged)
-
-    Q_PROPERTY(QSortFilterProxyModel* fileBrowserProxyModel
-               READ fileBrowserProxyModel
-               NOTIFY fileBrowserProxyModelChanged)
 
     Q_PROPERTY(MediaPlayList *mediaPlayList
                READ mediaPlayList
@@ -123,24 +86,6 @@ public:
 
     MusicListenersManager *musicManager() const;
 
-    QSortFilterProxyModel *allAlbumsProxyModel() const;
-
-    QSortFilterProxyModel *allArtistsProxyModel() const;
-
-    QSortFilterProxyModel *allGenresProxyModel() const;
-
-    QSortFilterProxyModel *allComposersProxyModel() const;
-
-    QSortFilterProxyModel *allLyricistsProxyModel() const;
-
-    QSortFilterProxyModel *allTracksProxyModel() const;
-
-    QSortFilterProxyModel *singleArtistProxyModel() const;
-
-    QSortFilterProxyModel *singleAlbumProxyModel() const;
-
-    QSortFilterProxyModel *fileBrowserProxyModel() const;
-
     MediaPlayList *mediaPlayList() const;
 
     AudioWrapper *audioPlayer() const;
@@ -156,24 +101,6 @@ Q_SIGNALS:
     void argumentsChanged();
 
     void musicManagerChanged();
-
-    void allAlbumsProxyModelChanged();
-
-    void allArtistsProxyModelChanged();
-
-    void allGenresProxyModelChanged();
-
-    void allComposersProxyModelChanged();
-
-    void allLyricistsProxyModelChanged();
-
-    void allTracksProxyModelChanged();
-
-    void singleArtistProxyModelChanged();
-
-    void singleAlbumProxyModelChanged();
-
-    void fileBrowserProxyModelChanged();
 
     void mediaPlayListChanged();
 

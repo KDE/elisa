@@ -31,6 +31,47 @@ MediaBrowser {
         rightMargin: elisaTheme.layoutHorizontalMargin
     }
 
+    Loader {
+        id: modelLoaderIndicator
+
+        anchors.fill: parent
+
+        anchors.leftMargin: parent.width / 3
+        anchors.rightMargin: parent.width / 3
+        anchors.topMargin: parent.height / 3
+        anchors.bottomMargin: parent.height / 3
+
+        z: 2
+
+        sourceComponent: BusyIndicator {
+            id: busyScanningMusic
+            hoverEnabled: false
+
+            anchors.fill: parent
+
+            opacity: 0.8
+
+            visible: true
+            running: true
+
+            z: 2
+        }
+
+        active: false
+    }
+
+    AllAlbumsModel {
+        id: realModel
+    }
+
+    AllAlbumsProxyModel {
+        id: proxyModel
+
+        sourceModel: realModel
+
+        onAlbumToEnqueue: elisa.mediaPlayList.enqueue(newEntries, databaseIdType, enqueueMode, triggerPlay)
+    }
+
     firstPage: GridBrowserView {
         id: allAlbumsView
 
@@ -38,7 +79,7 @@ MediaBrowser {
 
         defaultIcon: elisaTheme.albumCoverIcon
 
-        contentModel: elisa.allAlbumsProxyModel
+        contentModel: proxyModel
 
         image: elisaTheme.albumIcon
         mainTitle: i18nc("Title of the view of all albums", "Albums")
@@ -55,5 +96,17 @@ MediaBrowser {
                                          innerSecondaryTitle, innerImage, databaseId)
 
         onGoBack: viewManager.goBack()
+    }
+
+    Connections {
+        target: elisa
+
+        onMusicManagerChanged: realModel.initialize(elisa.musicManager)
+    }
+
+    Component.onCompleted: {
+        if (elisa.musicManager) {
+            realModel.initialize(elisa.musicManager)
+        }
     }
 }

@@ -16,8 +16,9 @@
  */
 
 #include "allartistsmodel.h"
-#include "databaseinterface.h"
-#include "allalbumsmodel.h"
+
+#include "modeldataloader.h"
+#include "musiclistenersmanager.h"
 
 #include <QUrl>
 #include <QTimer>
@@ -30,7 +31,7 @@ public:
 
     AllArtistsModel::ListArtistDataType mAllArtists;
 
-    AllAlbumsModel *mAllAlbumsModel = nullptr;
+    ModelDataLoader mDataLoader;
 
 };
 
@@ -134,11 +135,6 @@ int AllArtistsModel::columnCount(const QModelIndex &parent) const
     return 1;
 }
 
-AllAlbumsModel *AllArtistsModel::allAlbums() const
-{
-    return d->mAllAlbumsModel;
-}
-
 void AllArtistsModel::artistsAdded(ListArtistDataType newArtists)
 {
     if (d->mAllArtists.isEmpty()) {
@@ -172,15 +168,20 @@ void AllArtistsModel::artistRemoved(qulonglong removedArtistId)
     endRemoveRows();
 }
 
-void AllArtistsModel::setAllAlbums(AllAlbumsModel *model)
+void AllArtistsModel::initialize(MusicListenersManager *manager)
 {
-    if (d->mAllAlbumsModel == model) {
-        return;
-    }
+    manager->connectModel(&d->mDataLoader);
 
-    d->mAllAlbumsModel = model;
+    connect(manager->viewDatabase(), &DatabaseInterface::artistsAdded,
+            this, &AllArtistsModel::artistsAdded);
+    connect(manager->viewDatabase(), &DatabaseInterface::artistRemoved,
+            this, &AllArtistsModel::artistRemoved);
+    connect(this, &AllArtistsModel::needData,
+            &d->mDataLoader, &ModelDataLoader::loadData);
+    connect(&d->mDataLoader, &ModelDataLoader::allArtistsData,
+            this, &AllArtistsModel::artistsAdded);
 
-    Q_EMIT allAlbumsChanged();
+    Q_EMIT needData(ElisaUtils::Artist);
 }
 
 #include "moc_allartistsmodel.cpp"

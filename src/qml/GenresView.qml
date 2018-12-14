@@ -31,6 +31,18 @@ MediaBrowser {
         rightMargin: elisaTheme.layoutHorizontalMargin
     }
 
+    AllGenresModel {
+        id: realModel
+    }
+
+    AllArtistsProxyModel {
+        id: proxyModel
+
+        sourceModel: realModel
+
+        onArtistToEnqueue: elisa.mediaPlayList.enqueue(newEntries, databaseIdType, enqueueMode, triggerPlay)
+    }
+
     firstPage: GridBrowserView {
         id: allGenresView
         focus: true
@@ -39,7 +51,7 @@ MediaBrowser {
         delegateDisplaySecondaryText: false
         defaultIcon: elisaTheme.genresIcon
 
-        contentModel: elisa.allGenresProxyModel
+        contentModel: proxyModel
 
         image: elisaTheme.genresIcon
         mainTitle: i18nc("Title of the view of all genres", "Genres")
@@ -55,5 +67,17 @@ MediaBrowser {
         onOpen: viewManager.openAllArtistsFromGenre(localGenres.stackView, innerMainTitle)
 
         onGoBack: viewManager.goBack()
+    }
+
+    Connections {
+        target: elisa
+
+        onMusicManagerChanged: realModel.initialize(elisa.musicManager)
+    }
+
+    Component.onCompleted: {
+        if (elisa.musicManager) {
+            realModel.initialize(elisa.musicManager)
+        }
     }
 }

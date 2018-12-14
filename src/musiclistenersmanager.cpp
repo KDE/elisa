@@ -35,17 +35,7 @@
 #include "notificationitem.h"
 #include "elisaapplication.h"
 #include "elisa_settings.h"
-#include "models/albummodel.h"
-#include "models/abstractmediaproxymodel.h"
-#include "models/allalbumsproxymodel.h"
-#include "models/allartistsproxymodel.h"
-#include "models/alltracksproxymodel.h"
-#include "models/singleartistproxymodel.h"
-#include "models/singlealbumproxymodel.h"
-#include "models/allalbumsmodel.h"
-#include "models/allartistsmodel.h"
-#include "models/alltracksmodel.h"
-#include "models/allgenresmodel.h"
+#include "modeldataloader.h"
 
 #include <KI18n/KLocalizedString>
 
@@ -88,20 +78,6 @@ public:
     QFileSystemWatcher mConfigFileWatcher;
 
     ElisaApplication *mElisaApplication = nullptr;
-
-    AllAlbumsModel mAllAlbumsModel;
-
-    AllArtistsModel mAllArtistsModel;
-
-    AllTracksModel mAllTracksModel;
-
-    AllGenresModel mAllGenresModel;
-
-    //GenericDataModel mAllComposersModel;
-
-    //GenericDataModel mAllLyricistsModel;
-
-    AlbumModel mAlbumModel;
 
     int mImportedTracksCount = 0;
 
@@ -157,44 +133,6 @@ MusicListenersManager::MusicListenersManager(QObject *parent)
 
     d->mConfigFileWatcher.addPath(Elisa::ElisaConfiguration::self()->config()->name());
 
-    d->mAllAlbumsModel.setAllArtists(&d->mAllArtistsModel);
-    d->mAllArtistsModel.setAllAlbums(&d->mAllAlbumsModel);
-
-    connect(&d->mDatabaseInterface, &DatabaseInterface::albumsAdded,
-            &d->mAllAlbumsModel, &AllAlbumsModel::albumsAdded);
-    connect(&d->mDatabaseInterface, &DatabaseInterface::albumModified,
-            &d->mAllAlbumsModel, &AllAlbumsModel::albumModified);
-    connect(&d->mDatabaseInterface, &DatabaseInterface::albumRemoved,
-            &d->mAllAlbumsModel, &AllAlbumsModel::albumRemoved);
-
-    connect(&d->mDatabaseInterface, &DatabaseInterface::artistsAdded,
-            &d->mAllArtistsModel, &AllArtistsModel::artistsAdded);
-    connect(&d->mDatabaseInterface, &DatabaseInterface::artistRemoved,
-            &d->mAllArtistsModel, &AllArtistsModel::artistRemoved);
-
-    connect(&d->mDatabaseInterface, &DatabaseInterface::tracksAdded,
-            &d->mAllTracksModel, &AllTracksModel::tracksAdded);
-    connect(&d->mDatabaseInterface, &DatabaseInterface::trackModified,
-            &d->mAllTracksModel, &AllTracksModel::trackModified);
-    connect(&d->mDatabaseInterface, &DatabaseInterface::trackRemoved,
-            &d->mAllTracksModel, &AllTracksModel::trackRemoved);
-
-    connect(&d->mDatabaseInterface, &DatabaseInterface::genresAdded,
-            &d->mAllGenresModel, &AllGenresModel::genresAdded);
-    /*connect(&d->mDatabaseInterface, &DatabaseInterface::trackModified,
-            &d->mAllGenresModel, &AllTracksModel::trackModified);
-    connect(&d->mDatabaseInterface, &DatabaseInterface::trackRemoved,
-            &d->mAllGenresModel, &AllTracksModel::trackRemoved);*/
-
-    connect(&d->mDatabaseInterface, &DatabaseInterface::albumModified,
-            &d->mAlbumModel, &AlbumModel::albumModified);
-    connect(&d->mDatabaseInterface, &DatabaseInterface::albumRemoved,
-            &d->mAlbumModel, &AlbumModel::albumRemoved);
-    connect(&d->mAlbumModel, &AlbumModel::requestAlbumData,
-            &d->mDatabaseInterface, &DatabaseInterface::getAlbumFromAlbumId);
-    connect(&d->mDatabaseInterface, &DatabaseInterface::sentAlbumData,
-            &d->mAlbumModel, &AlbumModel::setAlbumData);
-
     connect(&d->mDatabaseInterface, &DatabaseInterface::tracksAdded,
             this, &MusicListenersManager::increaseImportedTracksCount);
 }
@@ -230,41 +168,6 @@ bool MusicListenersManager::isIndexingRunning() const
 ElisaApplication *MusicListenersManager::elisaApplication() const
 {
     return d->mElisaApplication;
-}
-
-QAbstractItemModel *MusicListenersManager::allAlbumsModel() const
-{
-    return &d->mAllAlbumsModel;
-}
-
-QAbstractItemModel *MusicListenersManager::allArtistsModel() const
-{
-    return &d->mAllArtistsModel;
-}
-
-QAbstractItemModel *MusicListenersManager::allTracksModel() const
-{
-    return &d->mAllTracksModel;
-}
-
-QAbstractItemModel *MusicListenersManager::allGenresModel() const
-{
-    return &d->mAllGenresModel;
-}
-
-QAbstractItemModel *MusicListenersManager::allLyricistsModel() const
-{
-    return nullptr;/*&d->mAllLyricistsModel;*/
-}
-
-QAbstractItemModel *MusicListenersManager::allComposersModel() const
-{
-    return nullptr;/*&d->mAllComposersModel;*/
-}
-
-QAbstractItemModel *MusicListenersManager::albumModel() const
-{
-    return &d->mAlbumModel;
 }
 
 bool MusicListenersManager::indexerBusy() const
@@ -323,6 +226,12 @@ void MusicListenersManager::playBackError(const QUrl &sourceInError, QMediaPlaye
             Q_EMIT displayTrackError(sourceInError.toString());
         }
     }
+}
+
+void MusicListenersManager::connectModel(ModelDataLoader *dataLoader)
+{
+    dataLoader->moveToThread(&d->mDatabaseThread);
+    dataLoader->setDatabase(&d->mDatabaseInterface);
 }
 
 void MusicListenersManager::configChanged()
@@ -413,9 +322,9 @@ void MusicListenersManager::increaseImportedTracksCount(const DatabaseInterface:
         Q_EMIT indexerBusyChanged();
     }
 
-    if (d->mImportedTracksCount >= 4) {
+    //if (d->mImportedTracksCount >= 4) {
         Q_EMIT closeNotification(QStringLiteral("notEnoughTracks"));
-    }
+    //}
 
     Q_EMIT importedTracksCountChanged();
 }
@@ -442,7 +351,7 @@ void MusicListenersManager::monitorEndingListeners()
     --d->mActiveMusicListenersCount;
 
     if (d->mActiveMusicListenersCount == 0) {
-        if (d->mImportedTracksCount < 4 && d->mElisaApplication) {
+        /*if (d->mImportedTracksCount < 4 && d->mElisaApplication) {
             NotificationItem notEnoughTracks;
 
             notEnoughTracks.setNotificationId(QStringLiteral("notEnoughTracks"));
@@ -458,12 +367,10 @@ void MusicListenersManager::monitorEndingListeners()
             notEnoughTracks.setMainButtonMethodName(QStringLiteral("showConfiguration"));
 
             Q_EMIT newNotification(notEnoughTracks);
-        }
+        }*/
 
         d->mIndexingRunning = false;
         Q_EMIT indexingRunningChanged();
-
-        //QMetaObject::invokeMethod(&d->mDatabaseInterface, "cleanInvalidTracks", Qt::QueuedConnection);
     }
 }
 

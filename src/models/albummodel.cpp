@@ -16,7 +16,9 @@
  */
 
 #include "albummodel.h"
-#include "databaseinterface.h"
+
+#include "modeldataloader.h"
+#include "musiclistenersmanager.h"
 
 #include <QUrl>
 #include <QTimer>
@@ -27,7 +29,14 @@ class AlbumModelPrivate
 {
 public:
 
-    MusicAlbum mCurrentAlbum;
+    QString mAlbumTitle;
+
+    QString mAlbumArtist;
+
+    AlbumModel::ListTrackDataType mCurrentAlbum;
+
+    ModelDataLoader mDataLoader;
+
 };
 
 AlbumModel::AlbumModel(QObject *parent) : QAbstractItemModel(parent), d(std::make_unique<AlbumModelPrivate>())
@@ -43,38 +52,24 @@ int AlbumModel::rowCount(const QModelIndex &parent) const
         return 0;
     }
 
-    return d->mCurrentAlbum.tracksCount();
+    return d->mCurrentAlbum.count();
 }
 
 QHash<int, QByteArray> AlbumModel::roleNames() const
 {
     auto roles = QAbstractItemModel::roleNames();
 
-    roles[static_cast<int>(ColumnsRoles::TitleRole)] = "title";
-    roles[static_cast<int>(ColumnsRoles::DurationRole)] = "duration";
-    roles[static_cast<int>(ColumnsRoles::ArtistRole)] = "artist";
-    roles[static_cast<int>(ColumnsRoles::AlbumRole)] = "album";
-    roles[static_cast<int>(ColumnsRoles::AlbumArtistRole)] = "albumArtist";
-    roles[static_cast<int>(ColumnsRoles::TrackNumberRole)] = "trackNumber";
-    roles[static_cast<int>(ColumnsRoles::DiscNumberRole)] = "discNumber";
-    roles[static_cast<int>(ColumnsRoles::RatingRole)] = "rating";
-    roles[static_cast<int>(ColumnsRoles::GenreRole)] = "genre";
-    roles[static_cast<int>(ColumnsRoles::LyricistRole)] = "lyricist";
-    roles[static_cast<int>(ColumnsRoles::ComposerRole)] = "composer";
-    roles[static_cast<int>(ColumnsRoles::CommentRole)] = "comment";
-    roles[static_cast<int>(ColumnsRoles::YearRole)] = "year";
-    roles[static_cast<int>(ColumnsRoles::ChannelsRole)] = "channels";
-    roles[static_cast<int>(ColumnsRoles::BitRateRole)] = "bitRate";
-    roles[static_cast<int>(ColumnsRoles::SampleRateRole)] = "sampleRate";
-    roles[static_cast<int>(ColumnsRoles::ImageRole)] = "image";
-    roles[static_cast<int>(ColumnsRoles::DatabaseIdRole)] = "databaseId";
-    roles[static_cast<int>(ColumnsRoles::DiscFirstTrackRole)] = "isFirstTrackOfDisc";
-    roles[static_cast<int>(ColumnsRoles::IsSingleDiscAlbumRole)] = "isSingleDiscAlbum";
-    roles[static_cast<int>(ColumnsRoles::ContainerDataRole)] = "containerData";
-    roles[static_cast<int>(ColumnsRoles::ResourceRole)] = "trackResource";
-    roles[static_cast<int>(ColumnsRoles::SecondaryTextRole)] = "secondaryText";
-    roles[static_cast<int>(ColumnsRoles::ImageUrlRole)] = "imageUrl";
-    roles[static_cast<int>(ColumnsRoles::ShadowForImageRole)] = "shadowForImage";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::DatabaseIdRole)] = "databaseId";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::TitleRole)] = "title";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::ArtistRole)] = "artist";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::AlbumRole)] = "album";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::AlbumArtistRole)] = "albumArtist";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::DurationRole)] = "duration";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::ImageUrlRole)] = "imageUrl";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::TrackNumberRole)] = "trackNumber";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::DiscNumberRole)] = "discNumber";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::RatingRole)] = "rating";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::IsSingleDiscAlbumRole)] = "isSingleDiscAlbum";
 
     return roles;
 }
@@ -94,40 +89,17 @@ QVariant AlbumModel::data(const QModelIndex &index, int role) const
 
     Q_ASSERT(index.isValid());
     Q_ASSERT(index.column() == 0);
-    Q_ASSERT(index.row() >= 0 && index.row() < d->mCurrentAlbum.tracksCount());
+    Q_ASSERT(index.row() >= 0 && index.row() < d->mCurrentAlbum.count());
     Q_ASSERT(!index.parent().isValid());
     Q_ASSERT(index.model() == this);
 
-    const auto &currentTrack = d->mCurrentAlbum.trackFromIndex(index.row());
-
-    if (!currentTrack.isValid()) {
-        return result;
-    }
-
-    result = internalDataTrack(currentTrack, role, index.row());
-
-    return result;
-}
-
-QVariant AlbumModel::internalDataTrack(const MusicAudioTrack &track, int role, int rowIndex) const
-{
-    auto result = QVariant();
+    const auto &currentTrack = d->mCurrentAlbum[index.row()];
 
     switch(role)
     {
-    case ColumnsRoles::TitleRole:
-        if (track.title().isEmpty()) {
-            track.resourceURI().fileName();
-        } else {
-            result = track.title();
-        }
-        break;
-    case ColumnsRoles::MilliSecondsDurationRole:
-        result = track.duration().msecsSinceStartOfDay();
-        break;
-    case ColumnsRoles::StringDurationRole:
+    case DatabaseInterface::ColumnsRoles::DurationRole:
     {
-        QTime trackDuration = track.duration();
+        auto trackDuration = QTime::fromMSecsSinceStartOfDay(currentTrack.duration());
         if (trackDuration.hour() == 0) {
             result = trackDuration.toString(QStringLiteral("mm:ss"));
         } else {
@@ -135,111 +107,8 @@ QVariant AlbumModel::internalDataTrack(const MusicAudioTrack &track, int role, i
         }
         break;
     }
-    case ColumnsRoles::DurationRole:
-        result = track.duration();
-        break;
-    case ColumnsRoles::ArtistRole:
-        result = track.artist();
-        break;
-    case ColumnsRoles::AlbumRole:
-        result = track.albumName();
-        break;
-    case ColumnsRoles::AlbumArtistRole:
-        result = track.albumArtist();
-        break;
-    case ColumnsRoles::TrackNumberRole:
-        result = track.trackNumber();
-        break;
-    case ColumnsRoles::DiscNumberRole:
-        result = track.discNumber();
-        break;
-    case ColumnsRoles::DiscFirstTrackRole:
-        if (rowIndex == 0) {
-            result = true;
-        } else {
-            auto previousTrack = d->mCurrentAlbum.trackFromIndex(rowIndex - 1);
-            result = (previousTrack.discNumber() != track.discNumber());
-        }
-        break;
-    case ColumnsRoles::IsSingleDiscAlbumRole:
-        result = track.isSingleDiscAlbum();
-        break;
-    case ColumnsRoles::RatingRole:
-        result = track.rating();
-        break;
-    case ColumnsRoles::GenreRole:
-        result = track.genre();
-        break;
-    case ColumnsRoles::LyricistRole:
-        result = track.lyricist();
-        break;
-    case ColumnsRoles::ComposerRole:
-        result = track.composer();
-        break;
-    case ColumnsRoles::YearRole:
-        result = track.year();
-        break;
-    case ColumnsRoles::ChannelsRole:
-        result = track.channels();
-        break;
-    case ColumnsRoles::BitRateRole:
-        result = track.bitRate();
-        break;
-    case ColumnsRoles::ImageRole:
-    {
-        if (d->mCurrentAlbum.albumArtURI().isValid()) {
-            result = d->mCurrentAlbum.albumArtURI();
-        }
-        break;
-    }
-    case ColumnsRoles::ResourceRole:
-        result = track.resourceURI();
-        break;
-    case ColumnsRoles::IdRole:
-        result = track.title();
-        break;
-    case ColumnsRoles::DatabaseIdRole:
-        result = track.databaseId();
-        break;
-    case ColumnsRoles::ContainerDataRole:
-        result = QVariant::fromValue(track);
-        break;
-    case Qt::DisplayRole:
-        result = track.title();
-        break;
-    case ColumnsRoles::SecondaryTextRole:
-    {
-        auto secondaryText = QString();
-        secondaryText = QStringLiteral("<b>%1 - %2</b>%3");
-
-        secondaryText = secondaryText.arg(track.trackNumber());
-        secondaryText = secondaryText.arg(track.title());
-
-        if (track.artist() == track.albumArtist()) {
-            secondaryText = secondaryText.arg(QString());
-        } else {
-            auto artistText = QString();
-            artistText = QStringLiteral(" - <i>%1</i>");
-            artistText = artistText.arg(track.artist());
-            secondaryText = secondaryText.arg(artistText);
-        }
-
-        result = secondaryText;
-        break;
-    }
-    case ColumnsRoles::ImageUrlRole:
-    {
-        const auto &albumArtUri = d->mCurrentAlbum.albumArtURI();
-        if (albumArtUri.isValid()) {
-            result = albumArtUri;
-        } else {
-            result = QUrl(QStringLiteral("image://icon/media-optical-audio"));
-        }
-        break;
-    }
-    case ColumnsRoles::ShadowForImageRole:
-        result = d->mCurrentAlbum.albumArtURI().isValid();
-        break;
+    default:
+        result = currentTrack[static_cast<TrackDataType::key_type>(role)];
     }
 
     return result;
@@ -257,7 +126,7 @@ QModelIndex AlbumModel::index(int row, int column, const QModelIndex &parent) co
         return result;
     }
 
-    if (row >= d->mCurrentAlbum.tracksCount()) {
+    if (row >= d->mCurrentAlbum.count()) {
         return result;
     }
 
@@ -277,177 +146,123 @@ int AlbumModel::columnCount(const QModelIndex &parent) const
     return 1;
 }
 
-MusicAlbum AlbumModel::albumData() const
-{
-    return d->mCurrentAlbum;
-}
-
 QString AlbumModel::title() const
 {
-    return d->mCurrentAlbum.title();
+    return d->mAlbumTitle;
 }
 
 QString AlbumModel::author() const
 {
-    return d->mCurrentAlbum.artist();
+    return d->mAlbumArtist;
 }
 
 int AlbumModel::tracksCount() const
 {
-    return d->mCurrentAlbum.tracksCount();
+    return d->mCurrentAlbum.count();
 }
 
-void AlbumModel::setAlbumData(const MusicAlbum &album)
+void AlbumModel::initialize(const QString &albumTitle, const QString &albumArtist,
+                            MusicListenersManager *manager)
 {
-    if (d->mCurrentAlbum == album) {
-        return;
-    }
+    d->mAlbumTitle = albumTitle;
+    d->mAlbumArtist = albumArtist;
 
-    if (d->mCurrentAlbum.tracksCount() > 0) {
-        beginRemoveRows({}, 0, d->mCurrentAlbum.tracksCount() - 1);
-        d->mCurrentAlbum = {};
-        endRemoveRows();
-    }
+    manager->connectModel(&d->mDataLoader);
 
-    beginInsertRows({}, 0, album.tracksCount() - 1);
-    d->mCurrentAlbum = album;
-    endInsertRows();
+    connect(manager->viewDatabase(), &DatabaseInterface::tracksAdded,
+            this, &AlbumModel::tracksAdded);
+    connect(manager->viewDatabase(), &DatabaseInterface::trackModified,
+            this, &AlbumModel::trackModified);
+    connect(manager->viewDatabase(), &DatabaseInterface::trackRemoved,
+            this, &AlbumModel::trackRemoved);
+    connect(this, &AlbumModel::needData,
+            &d->mDataLoader, &ModelDataLoader::loadData);
+    connect(&d->mDataLoader, &ModelDataLoader::allTracksData,
+            this, &AlbumModel::tracksAdded);
 
-    Q_EMIT albumDataChanged();
-    Q_EMIT tracksCountChanged();
-    Q_EMIT authorChanged();
-    Q_EMIT titleChanged();
-
+    Q_EMIT needData(ElisaUtils::Track);
 }
 
-void AlbumModel::albumModified(const AlbumDataType &modifiedAlbum)
+int AlbumModel::trackIndexFromId(qulonglong id) const
 {
-#if 0
-    if (modifiedAlbum.databaseId() != d->mCurrentAlbum.databaseId()) {
-        return;
+    int result;
+
+    for (result = 0; result < d->mCurrentAlbum.size(); ++result) {
+        if (d->mCurrentAlbum[result].databaseId() == id) {
+            return result;
+        }
     }
 
-    auto removedTracks = QList<MusicAudioTrack>();
+    result = -1;
 
-    for (auto i = 0; i < d->mCurrentAlbum.tracksCount(); ++i) {
-        bool trackExist = false;
+    return result;
+}
 
-        for (auto j = 0; j < modifiedAlbum.tracksCount() && !trackExist; ++j) {
-            trackExist = (d->mCurrentAlbum.trackIdFromIndex(i) == modifiedAlbum.trackIdFromIndex(j));
-            if (trackExist) {
-                const auto &oldTrack = d->mCurrentAlbum.trackFromIndex(i);
-                const auto &newTrack = modifiedAlbum.trackFromIndex(j);
+void AlbumModel::tracksAdded(const ListTrackDataType &newTracks)
+{
+    for (const auto &newTrack : newTracks) {
+        if (newTrack.album() != d->mAlbumTitle) {
+            continue;
+        }
 
-                if (oldTrack != newTrack) {
-                    trackModified(newTrack);
-                }
+        if (newTrack.albumArtist() != d->mAlbumArtist) {
+            continue;
+        }
+
+        auto trackIndex = trackIndexFromId(newTrack.databaseId());
+
+        if (trackIndex != -1) {
+            continue;
+        }
+
+        bool trackInserted = false;
+        for (int trackIndex = 0; trackIndex < d->mCurrentAlbum.count(); ++trackIndex) {
+            const auto &oneTrack = d->mCurrentAlbum[trackIndex];
+
+            if (oneTrack.discNumber() == newTrack.discNumber() && oneTrack.trackNumber() > newTrack.trackNumber()) {
+                beginInsertRows({}, trackIndex, trackIndex);
+                d->mCurrentAlbum.insert(trackIndex, newTrack);
+                endInsertRows();
+                trackInserted = true;
+                break;
             }
         }
 
-        if (!trackExist) {
-            const auto &oldTrack = d->mCurrentAlbum.trackFromIndex(i);
-            removedTracks.push_back(oldTrack);
-        }
-    }
-
-    for (const auto &removedTrack : removedTracks) {
-        trackRemoved(removedTrack);
-    }
-
-    for (auto j = 0; j < modifiedAlbum.tracksCount(); ++j) {
-        bool trackExist = false;
-
-        for (auto i = 0; i < d->mCurrentAlbum.tracksCount() && !trackExist; ++i) {
-            trackExist = (d->mCurrentAlbum.trackIdFromIndex(i) == modifiedAlbum.trackIdFromIndex(j));
-        }
-
-        if (!trackExist) {
-            const auto &newTrack = modifiedAlbum.trackFromIndex(j);
-            trackAdded(newTrack);
-        }
-    }
-#endif
-}
-
-void AlbumModel::albumRemoved(qulonglong modifiedAlbumId)
-{
-    if (modifiedAlbumId != d->mCurrentAlbum.databaseId()) {
-        return;
-    }
-
-    for (int trackIndex = d->mCurrentAlbum.tracksCount() - 1; trackIndex >= 0 ; --trackIndex) {
-        trackRemoved(d->mCurrentAlbum.trackFromIndex(trackIndex));
-    }
-}
-
-void AlbumModel::trackAdded(const MusicAudioTrack &newTrack)
-{
-    if (newTrack.albumName() != d->mCurrentAlbum.title()) {
-        return;
-    }
-
-    auto trackIndex = d->mCurrentAlbum.trackIndexFromId(newTrack.databaseId());
-
-    if (trackIndex != -1) {
-        return;
-    }
-
-    bool trackInserted = false;
-    for (int trackIndex = 0; trackIndex < d->mCurrentAlbum.tracksCount(); ++trackIndex) {
-        const auto &oneTrack = d->mCurrentAlbum.trackFromIndex(trackIndex);
-
-        if (oneTrack.discNumber() == newTrack.discNumber() && oneTrack.trackNumber() > newTrack.trackNumber()) {
-            beginInsertRows({}, trackIndex, trackIndex);
-            d->mCurrentAlbum.insertTrack(newTrack, trackIndex);
+        if (!trackInserted) {
+            beginInsertRows({}, d->mCurrentAlbum.count(), d->mCurrentAlbum.count());
+            d->mCurrentAlbum.insert(d->mCurrentAlbum.count(), newTrack);
             endInsertRows();
-            trackInserted = true;
-            break;
         }
-    }
-
-    if (!trackInserted) {
-        beginInsertRows({}, d->mCurrentAlbum.tracksCount(), d->mCurrentAlbum.tracksCount());
-        d->mCurrentAlbum.insertTrack(newTrack, d->mCurrentAlbum.tracksCount());
-        endInsertRows();
     }
 }
 
-void AlbumModel::trackModified(const MusicAudioTrack &modifiedTrack)
+void AlbumModel::trackModified(const TrackDataType &modifiedTrack)
 {
-    if (modifiedTrack.albumName() != d->mCurrentAlbum.title()) {
+    if (modifiedTrack.album() != d->mAlbumTitle) {
         return;
     }
 
-    auto trackIndex = d->mCurrentAlbum.trackIndexFromId(modifiedTrack.databaseId());
+    auto trackIndex = trackIndexFromId(modifiedTrack.databaseId());
 
     if (trackIndex == -1) {
         return;
     }
 
-    d->mCurrentAlbum.updateTrack(modifiedTrack, trackIndex);
+    d->mCurrentAlbum[trackIndex] = modifiedTrack;
     Q_EMIT dataChanged(index(trackIndex, 0), index(trackIndex, 0));
 }
 
-void AlbumModel::trackRemoved(const MusicAudioTrack &removedTrack)
+void AlbumModel::trackRemoved(qulonglong trackId)
 {
-    if (removedTrack.albumName() != d->mCurrentAlbum.title()) {
-        return;
-    }
-
-    auto trackIndex = d->mCurrentAlbum.trackIndexFromId(removedTrack.databaseId());
+    auto trackIndex = trackIndexFromId(trackId);
 
     if (trackIndex == -1) {
         return;
     }
 
     beginRemoveRows({}, trackIndex, trackIndex);
-    d->mCurrentAlbum.removeTrackFromIndex(trackIndex);
+    d->mCurrentAlbum.removeAt(trackIndex);
     endRemoveRows();
-}
-
-void AlbumModel::loadAlbumData(qulonglong id)
-{
-    Q_EMIT requestAlbumData(id);
 }
 
 #include "moc_albummodel.cpp"

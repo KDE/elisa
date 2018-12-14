@@ -20,6 +20,7 @@
 
 #include "elisaLib_export.h"
 
+#include "elisautils.h"
 #include "databaseinterface.h"
 
 #include <QAbstractItemModel>
@@ -30,7 +31,7 @@
 #include <memory>
 
 class AllGenresModelPrivate;
-class MusicAudioGenre;
+class MusicListenersManager;
 
 class ELISALIB_EXPORT AllGenresModel : public QAbstractItemModel
 {
@@ -62,7 +63,7 @@ public:
 
 Q_SIGNALS:
 
-    void allAlbumsChanged();
+    void needData(ElisaUtils::PlayListEntryType dataType);
 
 public Q_SLOTS:
 
@@ -71,6 +72,8 @@ public Q_SLOTS:
     void genreRemoved(const MusicAudioGenre &removedGenre);
 
     void genreModified(const MusicAudioGenre &modifiedGenre);
+
+    void initialize(MusicListenersManager *manager);
 
 private:
 

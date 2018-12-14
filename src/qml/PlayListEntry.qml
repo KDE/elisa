@@ -105,6 +105,9 @@ FocusScope {
         onLoaded: item.show()
 
         sourceComponent:  MediaTrackMetadataView {
+            trackDataHelper: TrackDataHelper {
+            }
+
             onRejected: metadataLoader.active = false;
         }
     }

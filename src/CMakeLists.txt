@@ -13,6 +13,7 @@ set(elisaLib_SOURCES
     manageaudioplayer.cpp
     trackslistener.cpp
     elisaapplication.cpp
+    modeldataloader.cpp
     notificationitem.cpp
     topnotificationmanager.cpp
     elisautils.cpp
@@ -315,6 +316,9 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         qml/ArtistsView.qml
         qml/GenresView.qml
         qml/TracksView.qml
+        qml/AlbumView.qml
+        qml/OneArtistView.qml
+        qml/OneGenreView.qml
 
         qml/MediaPlayListView.qml
         qml/MediaTrackDelegate.qml

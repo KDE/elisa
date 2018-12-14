@@ -82,6 +82,7 @@ RowLayout {
                                       secondaryTitle: secondaryTitle,
                                       image: imageUrl,
                                       stackView: currentStackView,
+                                      genreFilterText: genreName,
                                       artistFilter: mainTitle,
                                   })
             oneArtistViewIsLoaded()

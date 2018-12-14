@@ -26,6 +26,7 @@ Item {
     property alias secondaryTitle: albumGridView.secondaryTitle
     property alias image: albumGridView.image
     property alias stackView: albumGridView.stackView
+    property alias genreFilterText: proxyModel.genreFilterText
     property alias artistFilter: proxyModel.artistFilter
 
     AllAlbumsModel {

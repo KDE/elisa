@@ -56,5 +56,71 @@ void ModelDataLoader::loadData(ElisaUtils::PlayListEntryType dataType)
     }
 }
 
+void ModelDataLoader::loadDataByGenre(ElisaUtils::PlayListEntryType dataType, const QString &genre)
+{
+    if (!mDatabase) {
+        return;
+    }
+
+    switch (dataType)
+    {
+    case ElisaUtils::Artist:
+        Q_EMIT allArtistsData(mDatabase->allArtistsDataByGenre(genre));
+        break;
+    case ElisaUtils::Album:
+    case ElisaUtils::Composer:
+    case ElisaUtils::Track:
+    case ElisaUtils::Genre:
+    case ElisaUtils::Lyricist:
+    case ElisaUtils::FileName:
+    case ElisaUtils::Unknown:
+        break;
+    }
+}
+
+void ModelDataLoader::loadDataByArtist(ElisaUtils::PlayListEntryType dataType, const QString &artist)
+{
+    if (!mDatabase) {
+        return;
+    }
+
+    switch (dataType)
+    {
+    case ElisaUtils::Album:
+        Q_EMIT allAlbumsData(mDatabase->allAlbumsDataByArtist(artist));
+        break;
+    case ElisaUtils::Artist:
+    case ElisaUtils::Composer:
+    case ElisaUtils::Track:
+    case ElisaUtils::Genre:
+    case ElisaUtils::Lyricist:
+    case ElisaUtils::FileName:
+    case ElisaUtils::Unknown:
+        break;
+    }
+}
+
+void ModelDataLoader::loadDataByGenreAndArtist(ElisaUtils::PlayListEntryType dataType, const QString &genre, const QString &artist)
+{
+    if (!mDatabase) {
+        return;
+    }
+
+    switch (dataType)
+    {
+    case ElisaUtils::Album:
+        Q_EMIT allAlbumsData(mDatabase->allAlbumsDataByGenreAndArtist(genre, artist));
+        break;
+    case ElisaUtils::Artist:
+    case ElisaUtils::Composer:
+    case ElisaUtils::Genre:
+    case ElisaUtils::Lyricist:
+    case ElisaUtils::Track:
+    case ElisaUtils::FileName:
+    case ElisaUtils::Unknown:
+        break;
+    }
+}
+
 
 #include "moc_modeldataloader.cpp"

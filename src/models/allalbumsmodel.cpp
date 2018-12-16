@@ -225,4 +225,41 @@ void AllAlbumsModel::initialize(MusicListenersManager *manager)
     Q_EMIT needData(ElisaUtils::Album);
 }
 
+void AllAlbumsModel::initializeByArtist(MusicListenersManager *manager, const QString &artist)
+{
+    manager->connectModel(&d->mDataLoader);
+
+    connect(manager->viewDatabase(), &DatabaseInterface::albumsAdded,
+            this, &AllAlbumsModel::albumsAdded);
+    connect(manager->viewDatabase(), &DatabaseInterface::albumModified,
+            this, &AllAlbumsModel::albumModified);
+    connect(manager->viewDatabase(), &DatabaseInterface::albumRemoved,
+            this, &AllAlbumsModel::albumRemoved);
+    connect(this, &AllAlbumsModel::needDataByArtist,
+            &d->mDataLoader, &ModelDataLoader::loadDataByArtist);
+    connect(&d->mDataLoader, &ModelDataLoader::allAlbumsData,
+            this, &AllAlbumsModel::albumsAdded);
+
+    Q_EMIT needDataByArtist(ElisaUtils::Album, artist);
+}
+
+void AllAlbumsModel::initializeByGenreAndArtist(MusicListenersManager *manager,
+                                                const QString &genre, const QString &artist)
+{
+    manager->connectModel(&d->mDataLoader);
+
+    connect(manager->viewDatabase(), &DatabaseInterface::albumsAdded,
+            this, &AllAlbumsModel::albumsAdded);
+    connect(manager->viewDatabase(), &DatabaseInterface::albumModified,
+            this, &AllAlbumsModel::albumModified);
+    connect(manager->viewDatabase(), &DatabaseInterface::albumRemoved,
+            this, &AllAlbumsModel::albumRemoved);
+    connect(this, &AllAlbumsModel::needDataByGenreAndArtist,
+            &d->mDataLoader, &ModelDataLoader::loadDataByGenreAndArtist);
+    connect(&d->mDataLoader, &ModelDataLoader::allAlbumsData,
+            this, &AllAlbumsModel::albumsAdded);
+
+    Q_EMIT needDataByGenreAndArtist(ElisaUtils::Album, genre, artist);
+}
+
 #include "moc_allalbumsmodel.cpp"

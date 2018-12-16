@@ -35,20 +35,6 @@ bool SingleAlbumProxyModel::filterAcceptsRow(int source_row, const QModelIndex &
 
     auto currentIndex = sourceModel()->index(source_row, 0, source_parent);
 
-    const auto &genreValue = sourceModel()->data(currentIndex, DatabaseInterface::ColumnsRoles::GenreRole);
-
-    if (!genreFilterText().isNull() && !genreValue.isValid()) {
-        return result;
-    }
-
-    if (!genreFilterText().isNull() && !genreValue.canConvert<QStringList>()) {
-        return result;
-    }
-
-    if (!genreFilterText().isNull() && !genreValue.toStringList().contains(genreFilterText())) {
-        return result;
-    }
-
     const auto &titleValue = sourceModel()->data(currentIndex, DatabaseInterface::ColumnsRoles::TitleRole).toString();
     const auto maximumRatingValue = sourceModel()->data(currentIndex, DatabaseInterface::ColumnsRoles::RatingRole).toInt();
 

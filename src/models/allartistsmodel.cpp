@@ -184,4 +184,23 @@ void AllArtistsModel::initialize(MusicListenersManager *manager)
     Q_EMIT needData(ElisaUtils::Artist);
 }
 
+void AllArtistsModel::initializeByGenre(MusicListenersManager *manager, const QString &genre)
+{
+    qDebug() << "AllArtistsModel::initializeByGenre" << genre;
+
+    manager->connectModel(&d->mDataLoader);
+
+    connect(manager->viewDatabase(), &DatabaseInterface::artistsAdded,
+            this, &AllArtistsModel::artistsAdded);
+    connect(manager->viewDatabase(), &DatabaseInterface::artistRemoved,
+            this, &AllArtistsModel::artistRemoved);
+    connect(this, &AllArtistsModel::needDataByGenre,
+            &d->mDataLoader, &ModelDataLoader::loadDataByGenre);
+    connect(&d->mDataLoader, &ModelDataLoader::allArtistsData,
+            this, &AllArtistsModel::artistsAdded);
+
+    Q_EMIT needDataByGenre(ElisaUtils::Artist, genre);
+}
+
+
 #include "moc_allartistsmodel.cpp"

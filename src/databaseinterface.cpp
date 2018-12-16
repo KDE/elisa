@@ -71,7 +71,8 @@ public:
           mUpdateAlbumArtistInTracksQuery(mTracksDatabase), mQueryMaximumTrackIdQuery(mTracksDatabase),
           mQueryMaximumAlbumIdQuery(mTracksDatabase), mQueryMaximumArtistIdQuery(mTracksDatabase),
           mQueryMaximumLyricistIdQuery(mTracksDatabase), mQueryMaximumComposerIdQuery(mTracksDatabase),
-          mQueryMaximumGenreIdQuery(mTracksDatabase)
+          mQueryMaximumGenreIdQuery(mTracksDatabase), mSelectAllArtistsWithGenreFilterQuery(mTracksDatabase),
+          mSelectAllAlbumsShortWithGenreArtistFilterQuery(mTracksDatabase), mSelectAllAlbumsShortWithArtistFilterQuery(mTracksDatabase)
     {
     }
 
@@ -209,9 +210,11 @@ public:
 
     QSqlQuery mQueryMaximumGenreIdQuery;
 
-    QHash<qulonglong, MusicAudioTrack> mTracksCache;
+    QSqlQuery mSelectAllArtistsWithGenreFilterQuery;
 
-    QHash<qulonglong, MusicAlbum> mAlbumsCache;
+    QSqlQuery mSelectAllAlbumsShortWithGenreArtistFilterQuery;
+
+    QSqlQuery mSelectAllAlbumsShortWithArtistFilterQuery;
 
     QSet<qulonglong> mModifiedTrackIds;
 
@@ -361,7 +364,58 @@ DatabaseInterface::ListAlbumDataType DatabaseInterface::allAlbumsData()
         return result;
     }
 
-    result = internalAllAlbumsPartialData();
+    result = internalAllAlbumsPartialData(d->mSelectAllAlbumsShortQuery);
+
+    transactionResult = finishTransaction();
+    if (!transactionResult) {
+        return result;
+    }
+
+    return result;
+}
+
+DatabaseInterface::ListAlbumDataType DatabaseInterface::allAlbumsDataByGenreAndArtist(const QString &genre, const QString &artist)
+{
+    auto result = ListAlbumDataType{};
+
+    if (!d) {
+        return result;
+    }
+
+    auto transactionResult = startTransaction();
+    if (!transactionResult) {
+        return result;
+    }
+
+    d->mSelectAllAlbumsShortWithGenreArtistFilterQuery.bindValue(QStringLiteral(":artistFilter"), artist);
+    d->mSelectAllAlbumsShortWithGenreArtistFilterQuery.bindValue(QStringLiteral(":genreFilter"), genre);
+
+    result = internalAllAlbumsPartialData(d->mSelectAllAlbumsShortWithGenreArtistFilterQuery);
+
+    transactionResult = finishTransaction();
+    if (!transactionResult) {
+        return result;
+    }
+
+    return result;
+}
+
+DatabaseInterface::ListAlbumDataType DatabaseInterface::allAlbumsDataByArtist(const QString &artist)
+{
+    auto result = ListAlbumDataType{};
+
+    if (!d) {
+        return result;
+    }
+
+    auto transactionResult = startTransaction();
+    if (!transactionResult) {
+        return result;
+    }
+
+    d->mSelectAllAlbumsShortWithArtistFilterQuery.bindValue(QStringLiteral(":artistFilter"), artist);
+
+    result = internalAllAlbumsPartialData(d->mSelectAllAlbumsShortWithArtistFilterQuery);
 
     transactionResult = finishTransaction();
     if (!transactionResult) {
@@ -425,7 +479,36 @@ DatabaseInterface::ListArtistDataType DatabaseInterface::allArtistsData()
         return result;
     }
 
-    result = internalAllArtistsPartialData();
+    result = internalAllArtistsPartialData(d->mSelectAllArtistsQuery);
+
+    transactionResult = finishTransaction();
+    if (!transactionResult) {
+        return result;
+    }
+
+    return result;
+}
+
+DatabaseInterface::ListArtistDataType DatabaseInterface::allArtistsDataByGenre(const QString &genre)
+{
+    qDebug() << "DatabaseInterface::allArtistsDataByGenre" << genre;
+
+    auto result = ListArtistDataType{};
+
+    if (!d) {
+        return result;
+    }
+
+    auto transactionResult = startTransaction();
+    if (!transactionResult) {
+        return result;
+    }
+
+    d->mSelectAllArtistsWithGenreFilterQuery.bindValue(QStringLiteral(":genreFilter"), genre);
+
+    result = internalAllArtistsPartialData(d->mSelectAllArtistsWithGenreFilterQuery);
+
+    qDebug() << "DatabaseInterface::allArtistsDataByGenre" << result.count();
 
     transactionResult = finishTransaction();
     if (!transactionResult) {
@@ -626,7 +709,7 @@ QList<MusicAlbum> DatabaseInterface::allAlbums()
 
         auto albumId = currentRecord.value(0).toULongLong();
 
-        auto &newAlbum = d->mAlbumsCache[albumId];
+        auto newAlbum = MusicAlbum{};
 
         if (newAlbum.isValid()) {
             result.push_back(newAlbum);
@@ -923,13 +1006,11 @@ void DatabaseInterface::initChangesTrackers()
 void DatabaseInterface::recordModifiedTrack(qulonglong trackId)
 {
     d->mModifiedTrackIds.insert(trackId);
-    d->mTracksCache.remove(trackId);
 }
 
 void DatabaseInterface::recordModifiedAlbum(qulonglong albumId)
 {
     d->mModifiedAlbumIds.insert(albumId);
-    d->mAlbumsCache.remove(albumId);
 }
 
 void DatabaseInterface::insertTracksList(const QList<MusicAudioTrack> &tracks, const QHash<QString, QUrl> &covers, const QString &musicSource)
@@ -1465,6 +1546,38 @@ void DatabaseInterface::initDatabase()
 
         const auto &result = createTrackIndex.exec(QStringLiteral("CREATE INDEX "
                                                                   "IF NOT EXISTS "
+                                                                  "`ArtistNameIndex` ON `Tracks` "
+                                                                  "(`ArtistName`)"));
+
+        if (!result) {
+            qDebug() << "DatabaseInterface::initDatabase" << createTrackIndex.lastQuery();
+            qDebug() << "DatabaseInterface::initDatabase" << createTrackIndex.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        QSqlQuery createTrackIndex(d->mTracksDatabase);
+
+        const auto &result = createTrackIndex.exec(QStringLiteral("CREATE INDEX "
+                                                                  "IF NOT EXISTS "
+                                                                  "`AlbumArtistNameIndex` ON `Tracks` "
+                                                                  "(`AlbumArtistName`)"));
+
+        if (!result) {
+            qDebug() << "DatabaseInterface::initDatabase" << createTrackIndex.lastQuery();
+            qDebug() << "DatabaseInterface::initDatabase" << createTrackIndex.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        QSqlQuery createTrackIndex(d->mTracksDatabase);
+
+        const auto &result = createTrackIndex.exec(QStringLiteral("CREATE INDEX "
+                                                                  "IF NOT EXISTS "
                                                                   "`TracksFileNameIndex` ON `TracksMapping` "
                                                                   "(`FileName`)"));
 
@@ -1658,6 +1771,97 @@ void DatabaseInterface::initRequest()
     }
 
     {
+        auto selectAllAlbumsText = QStringLiteral("SELECT "
+                                                  "album.`ID`, "
+                                                  "album.`Title`, "
+                                                  "album.`ArtistName` as SecondaryText, "
+                                                  "album.`CoverFileName`, "
+                                                  "album.`ArtistName`, "
+                                                  "GROUP_CONCAT(tracks.`ArtistName`, ', ') as AllArtists, "
+                                                  "MAX(tracks.`Rating`) as HighestRating, "
+                                                  "GROUP_CONCAT(genres.`Name`, ', ') as AllGenres "
+                                                  "FROM "
+                                                  "`Albums` album, "
+                                                  "`Tracks` tracks LEFT JOIN "
+                                                  "`Genre` genres ON tracks.`GenreID` = genres.`ID` "
+                                                  "WHERE "
+                                                  "tracks.`AlbumTitle` = album.`Title` AND "
+                                                  "(tracks.`AlbumArtistName` = album.`ArtistName` OR "
+                                                  "(tracks.`AlbumArtistName` IS NULL AND "
+                                                  "album.`ArtistName` IS NULL"
+                                                  ")"
+                                                  ") AND "
+                                                  "tracks.`AlbumPath` = album.`AlbumPath` AND "
+                                                  "EXISTS ("
+                                                  "  SELECT tracks2.`GenreID` "
+                                                  "  FROM "
+                                                  "  `Tracks` tracks2, "
+                                                  "  `Genre` genre2 "
+                                                  "  WHERE "
+                                                  "  tracks2.`AlbumTitle` = album.`Title` AND "
+                                                  "  tracks2.`AlbumArtistName` = album.`ArtistName` AND "
+                                                  "  tracks2.`GenreID` = genre2.`ID` AND "
+                                                  "  genre2.`Name` = :genreFilter AND "
+                                                  "  (tracks2.`ArtistName` = :artistFilter OR tracks2.`AlbumArtistName` = :artistFilter) "
+                                                  ") "
+                                                  "GROUP BY album.`ID`, album.`Title`, album.`AlbumPath` "
+                                                  "ORDER BY album.`Title` COLLATE NOCASE");
+
+        auto result = prepareQuery(d->mSelectAllAlbumsShortWithGenreArtistFilterQuery, selectAllAlbumsText);
+
+        if (!result) {
+            qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllAlbumsShortWithGenreArtistFilterQuery.lastQuery();
+            qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllAlbumsShortWithGenreArtistFilterQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        auto selectAllAlbumsText = QStringLiteral("SELECT "
+                                                  "album.`ID`, "
+                                                  "album.`Title`, "
+                                                  "album.`ArtistName` as SecondaryText, "
+                                                  "album.`CoverFileName`, "
+                                                  "album.`ArtistName`, "
+                                                  "GROUP_CONCAT(tracks.`ArtistName`, ', ') as AllArtists, "
+                                                  "MAX(tracks.`Rating`) as HighestRating, "
+                                                  "GROUP_CONCAT(genres.`Name`, ', ') as AllGenres "
+                                                  "FROM "
+                                                  "`Albums` album, "
+                                                  "`Tracks` tracks LEFT JOIN "
+                                                  "`Genre` genres ON tracks.`GenreID` = genres.`ID` "
+                                                  "WHERE "
+                                                  "tracks.`AlbumTitle` = album.`Title` AND "
+                                                  "(tracks.`AlbumArtistName` = album.`ArtistName` OR "
+                                                  "(tracks.`AlbumArtistName` IS NULL AND "
+                                                  "album.`ArtistName` IS NULL"
+                                                  ")"
+                                                  ") AND "
+                                                  "tracks.`AlbumPath` = album.`AlbumPath` AND "
+                                                  "EXISTS ("
+                                                  "  SELECT tracks2.`GenreID` "
+                                                  "  FROM "
+                                                  "  `Tracks` tracks2 "
+                                                  "  WHERE "
+                                                  "  tracks2.`AlbumTitle` = album.`Title` AND "
+                                                  "  tracks2.`AlbumArtistName` = album.`ArtistName` AND "
+                                                  "  (tracks2.`ArtistName` = :artistFilter OR tracks2.`AlbumArtistName` = :artistFilter) "
+                                                  ") "
+                                                  "GROUP BY album.`ID`, album.`Title`, album.`AlbumPath` "
+                                                  "ORDER BY album.`Title` COLLATE NOCASE");
+
+        auto result = prepareQuery(d->mSelectAllAlbumsShortWithArtistFilterQuery, selectAllAlbumsText);
+
+        if (!result) {
+            qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllAlbumsShortWithArtistFilterQuery.lastQuery();
+            qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllAlbumsShortWithArtistFilterQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
         auto selectAllArtistsWithFilterText = QStringLiteral("SELECT artists.`ID`, "
                                                              "artists.`Name`, "
                                                              "GROUP_CONCAT(genres.`Name`, ', ') as AllGenres "
@@ -1672,6 +1876,37 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllArtistsQuery.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllArtistsQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        auto selectAllArtistsWithGenreFilterText = QStringLiteral("SELECT artists.`ID`, "
+                                                                  "artists.`Name`, "
+                                                                  "GROUP_CONCAT(genres.`Name`, ', ') as AllGenres "
+                                                                  "FROM `Artists` artists  LEFT JOIN "
+                                                                  "`Tracks` tracks ON (tracks.`ArtistName` = artists.`Name` OR tracks.`AlbumArtistName` = artists.`Name`) LEFT JOIN "
+                                                                  "`Genre` genres ON tracks.`GenreID` = genres.`ID` "
+                                                                  "WHERE "
+                                                                  "EXISTS ("
+                                                                  "  SELECT tracks2.`GenreID` "
+                                                                  "  FROM "
+                                                                  "  `Tracks` tracks2, "
+                                                                  "  `Genre` genre2 "
+                                                                  "  WHERE "
+                                                                  "  (tracks2.`ArtistName` = artists.`Name` OR tracks2.`AlbumArtistName` = artists.`Name`) AND "
+                                                                  "  tracks2.`GenreID` = genre2.`ID` AND "
+                                                                  "  genre2.`Name` = :genreFilter "
+                                                                  ") "
+                                                                  "GROUP BY artists.`ID` "
+                                                                  "ORDER BY artists.`Name` COLLATE NOCASE");
+
+        auto result = prepareQuery(d->mSelectAllArtistsWithGenreFilterQuery, selectAllArtistsWithGenreFilterText);
+
+        if (!result) {
+            qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllArtistsWithGenreFilterQuery.lastQuery();
+            qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllArtistsWithGenreFilterQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -3791,7 +4026,7 @@ MusicAudioTrack DatabaseInterface::buildTrackFromDatabaseRecord(const QSqlRecord
 {
     auto id = trackRecord.value(0).toULongLong();
 
-    auto &result = d->mTracksCache[id];
+    auto result = MusicAudioTrack{};
 
     if (result.isValid()) {
         return result;
@@ -4235,8 +4470,6 @@ void DatabaseInterface::removeTrackInDatabase(qulonglong trackId)
 {
     d->mRemoveTrackQuery.bindValue(QStringLiteral(":trackId"), trackId);
 
-    d->mTracksCache.remove(trackId);
-
     auto result = d->mRemoveTrackQuery.exec();
 
     if (!result || !d->mRemoveTrackQuery.isActive()) {
@@ -4307,8 +4540,6 @@ void DatabaseInterface::updateTrackInDatabase(const MusicAudioTrack &oneTrack, c
 void DatabaseInterface::removeAlbumInDatabase(qulonglong albumId)
 {
     d->mRemoveAlbumQuery.bindValue(QStringLiteral(":albumId"), albumId);
-
-    d->mAlbumsCache.remove(albumId);
 
     auto result = d->mRemoveAlbumQuery.exec();
 
@@ -4526,7 +4757,7 @@ QList<qulonglong> DatabaseInterface::fetchTrackIds(qulonglong albumId)
 
 MusicAlbum DatabaseInterface::internalAlbumFromId(qulonglong albumId)
 {
-    auto &retrievedAlbum = d->mAlbumsCache[albumId];
+    auto retrievedAlbum = MusicAlbum{};
 
     if (retrievedAlbum.isValid()) {
         return retrievedAlbum;
@@ -4881,18 +5112,18 @@ QList<qulonglong> DatabaseInterface::internalAlbumIdsFromAuthor(const QString &A
     return allAlbumIds;
 }
 
-DatabaseInterface::ListArtistDataType DatabaseInterface::internalAllArtistsPartialData()
+DatabaseInterface::ListArtistDataType DatabaseInterface::internalAllArtistsPartialData(QSqlQuery &artistsQuery)
 {
     auto result = ListArtistDataType{};
 
-    if (!internalGenericPartialData(d->mSelectAllArtistsQuery)) {
+    if (!internalGenericPartialData(artistsQuery)) {
         return result;
     }
 
-    while(d->mSelectAllArtistsQuery.next()) {
+    while(artistsQuery.next()) {
         auto newData = ArtistDataType{};
 
-        const auto &currentRecord = d->mSelectAllArtistsQuery.record();
+        const auto &currentRecord = artistsQuery.record();
 
         newData[DataType::key_type::DatabaseIdRole] = currentRecord.value(0);
         newData[DataType::key_type::TitleRole] = currentRecord.value(1);
@@ -4901,7 +5132,7 @@ DatabaseInterface::ListArtistDataType DatabaseInterface::internalAllArtistsParti
         result.push_back(newData);
     }
 
-    d->mSelectAllArtistsQuery.finish();
+    artistsQuery.finish();
 
     return result;
 }
@@ -4929,18 +5160,18 @@ DatabaseInterface::ArtistDataType DatabaseInterface::internalOneArtistPartialDat
     return result;
 }
 
-DatabaseInterface::ListAlbumDataType DatabaseInterface::internalAllAlbumsPartialData()
+DatabaseInterface::ListAlbumDataType DatabaseInterface::internalAllAlbumsPartialData(QSqlQuery &query)
 {
     auto result = ListAlbumDataType{};
 
-    if (!internalGenericPartialData(d->mSelectAllAlbumsShortQuery)) {
+    if (!internalGenericPartialData(query)) {
         return result;
     }
 
-    while(d->mSelectAllAlbumsShortQuery.next()) {
+    while(query.next()) {
         auto newData = AlbumDataType{};
 
-        const auto &currentRecord = d->mSelectAllAlbumsShortQuery.record();
+        const auto &currentRecord = query.record();
 
         newData[DataType::key_type::DatabaseIdRole] = currentRecord.value(0);
         newData[DataType::key_type::TitleRole] = currentRecord.value(1);
@@ -4954,7 +5185,7 @@ DatabaseInterface::ListAlbumDataType DatabaseInterface::internalAllAlbumsPartial
         result.push_back(newData);
     }
 
-    d->mSelectAllAlbumsShortQuery.finish();
+    query.finish();
 
     return result;
 }

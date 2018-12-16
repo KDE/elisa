@@ -83,17 +83,4 @@ void AbstractMediaProxyModel::sortModel(Qt::SortOrder order)
     Q_EMIT sortedAscendingChanged();
 }
 
-void AbstractMediaProxyModel::setGenreFilterText(const QString &filterText)
-{
-    if (mGenreFilterText == filterText)
-    {
-        return;
-    }
-
-    mGenreFilterText = filterText;
-    invalidateFilter();
-
-    Q_EMIT genreFilterTextChanged(mGenreFilterText);
-}
-
 #include "moc_abstractmediaproxymodel.cpp"

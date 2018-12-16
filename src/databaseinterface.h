@@ -218,9 +218,15 @@ public:
 
     ListAlbumDataType allAlbumsData();
 
+    ListAlbumDataType allAlbumsDataByGenreAndArtist(const QString &genre, const QString &artist);
+
+    ListAlbumDataType allAlbumsDataByArtist(const QString &artist);
+
     ListTrackDataType albumData(qulonglong databaseId);
 
     ListArtistDataType allArtistsData();
+
+    ListArtistDataType allArtistsDataByGenre(const QString &genre);
 
     ListGenreDataType allGenresData();
 
@@ -404,11 +410,11 @@ private:
 
     bool internalGenericPartialData(QSqlQuery &query);
 
-    ListArtistDataType internalAllArtistsPartialData();
+    ListArtistDataType internalAllArtistsPartialData(QSqlQuery &artistsQuery);
 
     ArtistDataType internalOneArtistPartialData(qulonglong databaseId);
 
-    ListAlbumDataType internalAllAlbumsPartialData();
+    ListAlbumDataType internalAllAlbumsPartialData(QSqlQuery &query);
 
     AlbumDataType internalOneAlbumPartialData(qulonglong databaseId);
 

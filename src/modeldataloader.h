@@ -53,6 +53,15 @@ public Q_SLOTS:
 
     void loadData(ElisaUtils::PlayListEntryType dataType);
 
+    void loadDataByGenre(ElisaUtils::PlayListEntryType dataType,
+                         const QString &genre);
+
+    void loadDataByArtist(ElisaUtils::PlayListEntryType dataType,
+                          const QString &artist);
+
+    void loadDataByGenreAndArtist(ElisaUtils::PlayListEntryType dataType,
+                                  const QString &genre, const QString &artist);
+
 private:
 
     DatabaseInterface *mDatabase = nullptr;

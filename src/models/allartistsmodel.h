@@ -65,6 +65,8 @@ Q_SIGNALS:
 
     void needData(ElisaUtils::PlayListEntryType dataType);
 
+    void needDataByGenre(ElisaUtils::PlayListEntryType dataType, const QString &genre);
+
 public Q_SLOTS:
 
     void artistsAdded(ListArtistDataType newArtists);
@@ -73,10 +75,14 @@ public Q_SLOTS:
 
     void initialize(MusicListenersManager *manager);
 
+    void initializeByGenre(MusicListenersManager *manager, const QString &genre);
+
 private:
 
     std::unique_ptr<AllArtistsModelPrivate> d;
 
 };
+
+
 
 #endif // ALLARTISTSMODEL_H

@@ -26,14 +26,14 @@ Item {
     property alias secondaryTitle: albumGridView.secondaryTitle
     property alias image: albumGridView.image
     property alias stackView: albumGridView.stackView
-    property alias genreFilterText: proxyModel.genreFilterText
-    property alias artistFilter: proxyModel.artistFilter
+    property string genreFilterText
+    property string artistFilter
 
     AllAlbumsModel {
         id: realModel
     }
 
-    SingleArtistProxyModel {
+    AllAlbumsProxyModel {
         id: proxyModel
 
         sourceModel: realModel
@@ -70,12 +70,22 @@ Item {
     Connections {
         target: elisa
 
-        onMusicManagerChanged: realModel.initialize(elisa.musicManager)
+        onMusicManagerChanged: {
+            if (genreFilterText) {
+                realModel.initializeByGenreAndArtist(elisa.musicManager, genreFilterText, artistFilter)
+            } else {
+                realModel.initializeByArtist(elisa.musicManager, artistFilter)
+            }
+        }
     }
 
     Component.onCompleted: {
         if (elisa.musicManager) {
-            realModel.initialize(elisa.musicManager)
+            if (genreFilterText) {
+                realModel.initializeByGenreAndArtist(elisa.musicManager, genreFilterText, artistFilter)
+            } else {
+                realModel.initializeByArtist(elisa.musicManager, artistFilter)
+            }
         }
     }
 }

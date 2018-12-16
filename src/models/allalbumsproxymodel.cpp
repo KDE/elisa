@@ -41,20 +41,6 @@ bool AllAlbumsProxyModel::filterAcceptsRow(int source_row, const QModelIndex &so
     for (int column = 0, columnCount = sourceModel()->columnCount(source_parent); column < columnCount; ++column) {
         auto currentIndex = sourceModel()->index(source_row, column, source_parent);
 
-        const auto &genreValue = sourceModel()->data(currentIndex, DatabaseInterface::ColumnsRoles::GenreRole);
-
-        if (!genreFilterText().isNull() && !genreValue.isValid()) {
-            continue;
-        }
-
-        if (!genreFilterText().isNull() && !genreValue.canConvert<QStringList>()) {
-            continue;
-        }
-
-        if (!genreFilterText().isNull() && !genreValue.toStringList().contains(genreFilterText())) {
-            continue;
-        }
-
         const auto &titleValue = sourceModel()->data(currentIndex, DatabaseInterface::ColumnsRoles::TitleRole).toString();
         const auto &artistValue = sourceModel()->data(currentIndex, DatabaseInterface::ColumnsRoles::ArtistRole).toString();
         const auto &allArtistsValue = sourceModel()->data(currentIndex, DatabaseInterface::ColumnsRoles::AllArtistsRole).toStringList();

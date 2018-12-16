@@ -33,7 +33,6 @@ set(elisaLib_SOURCES
     models/allalbumsproxymodel.cpp
     models/allartistsproxymodel.cpp
     models/alltracksproxymodel.cpp
-    models/singleartistproxymodel.cpp
     models/singlealbumproxymodel.cpp
     models/genericdatamodel.cpp
 )

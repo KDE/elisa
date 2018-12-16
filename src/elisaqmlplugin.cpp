@@ -51,7 +51,6 @@
 #include "models/allalbumsproxymodel.h"
 #include "models/alltracksproxymodel.h"
 #include "models/allartistsproxymodel.h"
-#include "models/singleartistproxymodel.h"
 #include "models/singlealbumproxymodel.h"
 #include "models/genericdatamodel.h"
 #include "embeddedcoverageimageprovider.h"
@@ -127,7 +126,6 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qmlRegisterType<AllArtistsProxyModel>(uri, 1, 0, "AllArtistsProxyModel");
     qmlRegisterType<AllTracksProxyModel>(uri, 1, 0, "AllTracksProxyModel");
     qmlRegisterType<SingleAlbumProxyModel>(uri, 1, 0, "SingleAlbumProxyModel");
-    qmlRegisterType<SingleArtistProxyModel>(uri, 1, 0, "SingleArtistProxyModel");
     qmlRegisterType<GenericDataModel>(uri, 1, 0, "GenericDataModel");
 
 #if defined KF5KIO_FOUND && KF5KIO_FOUND

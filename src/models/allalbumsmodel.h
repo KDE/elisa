@@ -77,11 +77,21 @@ public Q_SLOTS:
 
     void initialize(MusicListenersManager *manager);
 
+    void initializeByArtist(MusicListenersManager *manager, const QString &artist);
+
+    void initializeByGenreAndArtist(MusicListenersManager *manager,
+                                    const QString &genre, const QString &artist);
+
 Q_SIGNALS:
 
     void albumCountChanged();
 
     void needData(ElisaUtils::PlayListEntryType dataType);
+
+    void needDataByArtist(ElisaUtils::PlayListEntryType dataType, const QString &artist);
+
+    void needDataByGenreAndArtist(ElisaUtils::PlayListEntryType dataType,
+                                  const QString &genre, const QString &artist);
 
 private:
 

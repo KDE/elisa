@@ -149,27 +149,6 @@ void AllGenresModel::genresAdded(ListGenreDataType newGenres)
     }
 }
 
-void AllGenresModel::genreRemoved(const MusicAudioGenre &removedGenre)
-{
-    auto removedGenreIterator = std::find_if(d->mAllGenres.begin(), d->mAllGenres.end(),
-                                        [removedGenre](auto genre) {return genre.databaseId() == removedGenre.databaseId();});
-
-    if (removedGenreIterator == d->mAllGenres.end()) {
-        return;
-    }
-
-    int genreIndex = removedGenreIterator - d->mAllGenres.begin();
-
-    beginRemoveRows({}, genreIndex, genreIndex);
-    d->mAllGenres.erase(removedGenreIterator);
-    endRemoveRows();
-}
-
-void AllGenresModel::genreModified(const MusicAudioGenre &modifiedGenre)
-{
-    Q_UNUSED(modifiedGenre);
-}
-
 void AllGenresModel::initialize(MusicListenersManager *manager)
 {
     manager->connectModel(&d->mDataLoader);

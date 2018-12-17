@@ -765,52 +765,6 @@ QList<MusicAlbum> DatabaseInterface::allAlbums()
     return result;
 }
 
-QList<MusicAudioGenre> DatabaseInterface::allGenres()
-{
-    auto result = QList<MusicAudioGenre>();
-
-    if (!d) {
-        return result;
-    }
-
-    auto transactionResult = startTransaction();
-    if (!transactionResult) {
-        return result;
-    }
-
-    auto queryResult = d->mSelectAllGenresQuery.exec();
-
-    if (!queryResult || !d->mSelectAllGenresQuery.isSelect() || !d->mSelectAllGenresQuery.isActive()) {
-        Q_EMIT databaseError();
-
-        qDebug() << "DatabaseInterface::allAlbums" << d->mSelectAllGenresQuery.lastQuery();
-        qDebug() << "DatabaseInterface::allAlbums" << d->mSelectAllGenresQuery.boundValues();
-        qDebug() << "DatabaseInterface::allAlbums" << d->mSelectAllGenresQuery.lastError();
-
-        return result;
-    }
-
-    while(d->mSelectAllGenresQuery.next()) {
-        auto newGenre = MusicAudioGenre();
-
-        const auto &currentRecord = d->mSelectAllGenresQuery.record();
-
-        newGenre.setDatabaseId(currentRecord.value(0).toULongLong());
-        newGenre.setName(currentRecord.value(1).toString());
-
-        result.push_back(newGenre);
-    }
-
-    d->mSelectAllGenresQuery.finish();
-
-    transactionResult = finishTransaction();
-    if (!transactionResult) {
-        return result;
-    }
-
-    return result;
-}
-
 DatabaseInterface::ListTrackDataType DatabaseInterface::tracksDataFromAuthor(const QString &ArtistName)
 {
     auto allTracks = ListTrackDataType{};
@@ -3699,46 +3653,6 @@ qulonglong DatabaseInterface::insertGenre(const QString &name)
     d->mInsertGenreQuery.finish();
 
     Q_EMIT genresAdded({{{DatabaseIdRole, result}}});
-
-    return result;
-}
-
-MusicAudioGenre DatabaseInterface::internalGenreFromId(qulonglong genreId)
-{
-    auto result = MusicAudioGenre{};
-
-    if (!d || !d->mTracksDatabase.isValid() || !d->mInitFinished) {
-        return result;
-    }
-
-    d->mSelectGenreQuery.bindValue(QStringLiteral(":genreId"), genreId);
-
-    auto queryResult = d->mSelectGenreQuery.exec();
-
-    if (!queryResult || !d->mSelectGenreQuery.isSelect() || !d->mSelectGenreQuery.isActive()) {
-        Q_EMIT databaseError();
-
-        qDebug() << "DatabaseInterface::internalGenreFromId" << d->mSelectGenreQuery.lastQuery();
-        qDebug() << "DatabaseInterface::internalGenreFromId" << d->mSelectGenreQuery.boundValues();
-        qDebug() << "DatabaseInterface::internalGenreFromId" << d->mSelectGenreQuery.lastError();
-
-        d->mSelectGenreQuery.finish();
-
-        return result;
-    }
-
-    if (!d->mSelectGenreQuery.next()) {
-        d->mSelectGenreQuery.finish();
-
-        return result;
-    }
-
-    const auto &currentRecord = d->mSelectGenreQuery.record();
-
-    result.setDatabaseId(currentRecord.value(0).toULongLong());
-    result.setName(currentRecord.value(1).toString());
-
-    d->mSelectGenreQuery.finish();
 
     return result;
 }

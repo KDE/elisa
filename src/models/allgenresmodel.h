@@ -69,10 +69,6 @@ public Q_SLOTS:
 
     void genresAdded(ListGenreDataType newGenres);
 
-    void genreRemoved(const MusicAudioGenre &removedGenre);
-
-    void genreModified(const MusicAudioGenre &modifiedGenre);
-
     void initialize(MusicListenersManager *manager);
 
 private:

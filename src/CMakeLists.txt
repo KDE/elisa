@@ -4,7 +4,6 @@ set(elisaLib_SOURCES
     mediaplaylist.cpp
     musicalbum.cpp
     musicaudiotrack.cpp
-    musicaudiogenre.cpp
     progressindicator.cpp
     databaseinterface.cpp
     musiclistenersmanager.cpp

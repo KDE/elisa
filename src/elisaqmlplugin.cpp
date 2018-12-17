@@ -41,7 +41,6 @@
 #include "manageheaderbar.h"
 #include "manageaudioplayer.h"
 #include "musicaudiotrack.h"
-#include "musicaudiogenre.h"
 #include "musiclistenersmanager.h"
 #include "models/allalbumsmodel.h"
 #include "models/allartistsmodel.h"
@@ -148,7 +147,6 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qRegisterMetaType<QList<MusicAudioTrack>>("QList<MusicAudioTrack>");
     qRegisterMetaType<QList<MusicAudioTrack>>("QVector<MusicAudioTrack>");
     qRegisterMetaType<QList<MusicAlbum>>("QList<MusicAlbum>");
-    qRegisterMetaType<QList<MusicAudioGenre>>("QList<MusicAudioGenre>");
     qRegisterMetaType<QVector<qulonglong>>("QVector<qulonglong>");
     qRegisterMetaType<QHash<qulonglong,int>>("QHash<qulonglong,int>");
     qRegisterMetaType<MusicAlbum>("MusicAlbum");

@@ -24,7 +24,6 @@
 #include "elisautils.h"
 #include "musicalbum.h"
 #include "musicaudiotrack.h"
-#include "musicaudiogenre.h"
 
 #include <QObject>
 #include <QString>
@@ -238,8 +237,6 @@ public:
 
     QList<MusicAlbum> allAlbums();
 
-    QList<MusicAudioGenre> allGenres();
-
     ListTrackDataType tracksDataFromAuthor(const QString &artistName);
 
     TrackDataType trackDataFromDatabaseId(qulonglong id);
@@ -358,8 +355,6 @@ private:
     qulonglong internalArtistIdFromName(const QString &name);
 
     qulonglong insertGenre(const QString &name);
-
-    MusicAudioGenre internalGenreFromId(qulonglong genreId);
 
     void removeTrackInDatabase(qulonglong trackId);
 

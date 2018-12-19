@@ -17,7 +17,6 @@
 
 #include "databasetestdata.h"
 
-#include "musicalbum.h"
 #include "musicaudiotrack.h"
 #include "databaseinterface.h"
 #include "models/albummodel.h"

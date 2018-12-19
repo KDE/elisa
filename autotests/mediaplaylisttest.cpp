@@ -20,7 +20,6 @@
 
 #include "mediaplaylist.h"
 #include "databaseinterface.h"
-#include "musicalbum.h"
 #include "musicaudiotrack.h"
 #include "trackslistener.h"
 #include "qabstractitemmodeltester.h"

@@ -21,7 +21,6 @@
 #include "elisaLib_export.h"
 
 #include "musicaudiotrack.h"
-#include "musicalbum.h"
 #include "elisautils.h"
 #include "databaseinterface.h"
 

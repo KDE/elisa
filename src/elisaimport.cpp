@@ -35,7 +35,6 @@ int main(int argc, char *argv[])
     qRegisterMetaType<QList<MusicAudioTrack>>("QVector<MusicAudioTrack>");
     qRegisterMetaType<QVector<qulonglong>>("QVector<qulonglong>");
     qRegisterMetaType<QHash<qulonglong,int>>("QHash<qulonglong,int>");
-    qRegisterMetaType<MusicAlbum>("MusicAlbum");
     qRegisterMetaType<QMap<QString, int>>();
     qRegisterMetaType<NotificationItem>("NotificationItem");
     qRegisterMetaType<QMap<QString,int>>("QMap<QString,int>");

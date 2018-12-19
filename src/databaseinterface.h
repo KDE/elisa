@@ -22,7 +22,6 @@
 
 #include "datatype.h"
 #include "elisautils.h"
-#include "musicalbum.h"
 #include "musicaudiotrack.h"
 
 #include <QObject>
@@ -95,6 +94,11 @@ public:
 
         using DataType::DataType;
 
+        bool isValid() const
+        {
+            return !isEmpty();
+        }
+
         qulonglong databaseId() const
         {
             return operator[](key_type::DatabaseIdRole).toULongLong();
@@ -132,12 +136,27 @@ public:
 
         int duration() const
         {
-            return operator[](key_type::DurationRole).toInt();
+            return operator[](key_type::DurationRole).toTime().msecsSinceStartOfDay();
         }
 
         QUrl resourceURI() const
         {
             return operator[](key_type::ResourceRole).toUrl();
+        }
+
+        QUrl albumCover() const
+        {
+            return operator[](key_type::ImageUrlRole).toUrl();
+        }
+
+        bool isSingleDiscAlbum() const
+        {
+            return operator[](key_type::IsSingleDiscAlbumRole).toBool();
+        }
+
+        int rating() const
+        {
+            return operator[](key_type::RatingRole).toInt();
         }
     };
 
@@ -152,6 +171,37 @@ public:
         qulonglong databaseId() const
         {
             return operator[](key_type::DatabaseIdRole).toULongLong();
+        }
+
+        QString title() const
+        {
+            return operator[](key_type::TitleRole).toString();
+        }
+
+        QString artist() const
+        {
+            return operator[](key_type::ArtistRole).toString();
+        }
+
+        bool isValidArtist() const
+        {
+            const auto &artistData = operator[](key_type::ArtistRole);
+            return artistData.isValid() && !artistData.toString().isEmpty();
+        }
+
+        QUrl albumArtURI() const
+        {
+            return operator[](key_type::ImageUrlRole).toUrl();
+        }
+
+        bool isSingleDiscAlbum() const
+        {
+            return operator[](key_type::IsSingleDiscAlbumRole).toBool();
+        }
+
+        bool isValid() const
+        {
+            return !isEmpty();
         }
 
     };
@@ -209,8 +259,6 @@ public:
 
     Q_INVOKABLE void init(const QString &dbName, const QString &databaseFileName = {});
 
-    MusicAlbum albumFromTitleAndArtist(const QString &title, const QString &artist);
-
     qulonglong albumIdFromTitleAndArtist(const QString &title, const QString &artist);
 
     ListTrackDataType allTracksData();
@@ -220,6 +268,8 @@ public:
     ListAlbumDataType allAlbumsDataByGenreAndArtist(const QString &genre, const QString &artist);
 
     ListAlbumDataType allAlbumsDataByArtist(const QString &artist);
+
+    AlbumDataType albumDataFromDatabaseId(qulonglong id);
 
     ListTrackDataType albumData(qulonglong databaseId);
 
@@ -234,8 +284,6 @@ public:
     QList<MusicAudioTrack> allTracks();
 
     QList<MusicAudioTrack> allTracksFromSource(const QString &musicSource);
-
-    QList<MusicAlbum> allAlbums();
 
     ListTrackDataType tracksDataFromAuthor(const QString &artistName);
 
@@ -274,8 +322,6 @@ Q_SIGNALS:
 
     void trackModified(const TrackDataType &modifiedTrack);
 
-    void sentAlbumData(const MusicAlbum albumData);
-
     void requestsInitDone();
 
     void databaseError();
@@ -291,8 +337,6 @@ public Q_SLOTS:
     void modifyTracksList(const QList<MusicAudioTrack> &modifiedTracks, const QHash<QString, QUrl> &covers, const QString &musicSource);
 
     void removeAllTracksFromSource(const QString &sourceName);
-
-    void getAlbumFromAlbumId(qulonglong id);
 
     void askRestoredTracks(const QString &musicSource);
 
@@ -319,10 +363,6 @@ private:
 
     QList<qulonglong> fetchTrackIds(qulonglong albumId);
 
-    MusicAlbum internalAlbumFromId(qulonglong albumId);
-
-    MusicAlbum internalAlbumFromTitleAndArtist(const QString &title, const QString &artist);
-
     qulonglong internalAlbumIdFromTitleAndArtist(const QString &title, const QString &artist);
 
     MusicAudioTrack internalTrackFromDatabaseId(qulonglong id);
@@ -330,7 +370,7 @@ private:
     qulonglong internalTrackIdFromTitleAlbumTracDiscNumber(const QString &title, const QString &artist, const QString &album,
                                                            int trackNumber, int discNumber);
 
-    qulonglong getDuplicateTrackIdFromTitleAlbumTrackDiscNumber(const QString &title, const QString &album,
+    qulonglong getDuplicateTrackIdFromTitleAlbumTrackDiscNumber(const QString &title, const QString &trackArtist, const QString &album,
                                                                 const QString &albumArtist, const QString &trackPath,
                                                                 int trackNumber, int discNumber);
 

@@ -19,7 +19,6 @@
 #include "allalbumsproxymodel.h"
 
 #include "genericdatamodel.h"
-#include "musicalbum.h"
 #include "databaseinterface.h"
 
 #include <QReadLocker>

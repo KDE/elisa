@@ -146,10 +146,8 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qRegisterMetaType<QHash<QUrl,QDateTime>>("QHash<QUrl,QDateTime>");
     qRegisterMetaType<QList<MusicAudioTrack>>("QList<MusicAudioTrack>");
     qRegisterMetaType<QList<MusicAudioTrack>>("QVector<MusicAudioTrack>");
-    qRegisterMetaType<QList<MusicAlbum>>("QList<MusicAlbum>");
     qRegisterMetaType<QVector<qulonglong>>("QVector<qulonglong>");
     qRegisterMetaType<QHash<qulonglong,int>>("QHash<qulonglong,int>");
-    qRegisterMetaType<MusicAlbum>("MusicAlbum");
     qRegisterMetaType<DatabaseInterface::ListTrackDataType>("ListTrackDataType");
     qRegisterMetaType<DatabaseInterface::ListAlbumDataType>("ListAlbumDataType");
     qRegisterMetaType<DatabaseInterface::ListArtistDataType>("ListArtistDataType");

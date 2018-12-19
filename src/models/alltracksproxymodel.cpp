@@ -17,7 +17,6 @@
 
 #include "alltracksproxymodel.h"
 
-#include "genericdatamodel.h"
 #include "databaseinterface.h"
 
 #include <QReadLocker>

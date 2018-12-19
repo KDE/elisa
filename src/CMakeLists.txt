@@ -32,7 +32,6 @@ set(elisaLib_SOURCES
     models/allartistsproxymodel.cpp
     models/alltracksproxymodel.cpp
     models/singlealbumproxymodel.cpp
-    models/genericdatamodel.cpp
 )
 
 if (LIBVLC_FOUND)

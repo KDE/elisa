@@ -18,7 +18,6 @@
 
 #include "allalbumsproxymodel.h"
 
-#include "genericdatamodel.h"
 #include "databaseinterface.h"
 
 #include <QReadLocker>

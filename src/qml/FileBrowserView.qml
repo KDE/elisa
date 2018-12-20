@@ -30,11 +30,11 @@ FocusScope {
     property alias expandedFilterView: navigationBar.expandedFilterView
 
     function goBack() {
-        contentModel.openParentFolder()
+        proxyModel.openParentFolder()
     }
 
     function loadFolderAndClear(data) {
-        contentModel.openFolder(data)
+        proxyModel.openFolder(data)
         navigationBar.filterText = ""
     }
 
@@ -46,13 +46,17 @@ FocusScope {
         id: proxyModel
 
         sourceModel: realModel
+
+        onLoadPlayListFromUrl: elisa.mediaPlayList.loadPlaylist(playListUrl)
+
+        onFilesToEnqueue: elisa.mediaPlayList.enqueue(newFiles, databaseIdType, enqueueMode, triggerPlay)
     }
 
     MouseArea {
         anchors.fill: parent
         hoverEnabled: false
         acceptedButtons: Qt.BackButton
-        onClicked: contentModel.openParentFolder()
+        onClicked: proxyModel.openParentFolder()
     }
 
     ColumnLayout {
@@ -81,10 +85,10 @@ FocusScope {
                 value: navigationBar.filterText
             }
 
-            onEnqueue: contentModel.enqueueToPlayList()
-            onReplaceAndPlay: contentModel.replaceAndPlayOfPlayList()
-            onGoBack: contentModel.openParentFolder()
-            onSort: contentModel.sortModel(order)
+            onEnqueue: proxyModel.enqueueToPlayList()
+            onReplaceAndPlay: proxyModel.replaceAndPlayOfPlayList()
+            onGoBack: proxyModel.openParentFolder()
+            onSort: proxyModel.sortModel(order)
         }
 
         Rectangle {
@@ -145,10 +149,10 @@ FocusScope {
                     fileName: model.name
                     fileUrl: model.containerData
                     imageUrl: model.imageUrl
-                    contentModel: fileView.contentModel
+                    contentModel: proxyModel
 
                     onEnqueue: elisa.mediaPlayList.enqueue(data)
-                    onReplaceAndPlay: contentModel.replaceAndPlayOfUrl(data)
+                    onReplaceAndPlay: proxyModel.replaceAndPlayOfUrl(data)
                     onSelected: {
                         forceActiveFocus()
                         contentDirectoryView.currentIndex = model.index

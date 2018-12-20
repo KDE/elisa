@@ -1030,13 +1030,14 @@ void DatabaseInterface::initDatabase()
 
     auto listTables = d->mTracksDatabase.tables();
 
-    if (!listTables.contains(QStringLiteral("DatabaseVersionV7"))) {
+    if (!listTables.contains(QStringLiteral("DatabaseVersionV8"))) {
         auto oldTables = QStringList{
                 QStringLiteral("DatabaseVersionV2"),
                 QStringLiteral("DatabaseVersionV3"),
                 QStringLiteral("DatabaseVersionV4"),
                 QStringLiteral("DatabaseVersionV5"),
                 QStringLiteral("DatabaseVersionV6"),
+                QStringLiteral("DatabaseVersionV7"),
                 QStringLiteral("AlbumsArtists"),
                 QStringLiteral("TracksArtists"),
                 QStringLiteral("TracksMapping"),
@@ -1067,10 +1068,10 @@ void DatabaseInterface::initDatabase()
         listTables = d->mTracksDatabase.tables();
     }
 
-    if (!listTables.contains(QStringLiteral("DatabaseVersionV7"))) {
+    if (!listTables.contains(QStringLiteral("DatabaseVersionV8"))) {
         QSqlQuery createSchemaQuery(d->mTracksDatabase);
 
-        const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `DatabaseVersionV7` (`Version` INTEGER PRIMARY KEY NOT NULL)"));
+        const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `DatabaseVersionV8` (`Version` INTEGER PRIMARY KEY NOT NULL)"));
 
         if (!result) {
             qDebug() << "DatabaseInterface::initDatabase" << createSchemaQuery.lastQuery();
@@ -1189,10 +1190,10 @@ void DatabaseInterface::initDatabase()
                                                                    "`DiscNumber` INTEGER DEFAULT -1, "
                                                                    "`Duration` INTEGER NOT NULL, "
                                                                    "`Rating` INTEGER NOT NULL DEFAULT 0, "
-                                                                   "`GenreID` INTEGER DEFAULT -1, "
-                                                                   "`ComposerID` INTEGER, "
-                                                                   "`LyricistID` INTEGER, "
-                                                                   "`Comment` VARCHAR(85) DEFAULT '', "
+                                                                   "`Genre` VARCHAR(55), "
+                                                                   "`Composer` VARCHAR(55), "
+                                                                   "`Lyricist` VARCHAR(55), "
+                                                                   "`Comment` VARCHAR(255) DEFAULT '', "
                                                                    "`Year` INTEGER DEFAULT 0, "
                                                                    "`Channels` INTEGER DEFAULT -1, "
                                                                    "`BitRate` INTEGER DEFAULT -1, "
@@ -1203,9 +1204,9 @@ void DatabaseInterface::initDatabase()
                                                                    "`AlbumPath`, `TrackNumber`, `DiscNumber`"
                                                                    "), "
                                                                    "CONSTRAINT fk_artist FOREIGN KEY (`ArtistName`) REFERENCES `Artists`(`Name`), "
-                                                                   "CONSTRAINT fk_tracks_composer FOREIGN KEY (`ComposerID`) REFERENCES `Composer`(`ID`), "
-                                                                   "CONSTRAINT fk_tracks_lyricist FOREIGN KEY (`LyricistID`) REFERENCES `Lyricist`(`ID`), "
-                                                                   "CONSTRAINT fk_tracks_genre FOREIGN KEY (`GenreID`) REFERENCES `Genre`(`ID`), "
+                                                                   "CONSTRAINT fk_tracks_composer FOREIGN KEY (`Composer`) REFERENCES `Composer`(`Name`), "
+                                                                   "CONSTRAINT fk_tracks_lyricist FOREIGN KEY (`Lyricist`) REFERENCES `Lyricist`(`Name`), "
+                                                                   "CONSTRAINT fk_tracks_genre FOREIGN KEY (`Genre`) REFERENCES `Genre`(`Name`), "
                                                                    "CONSTRAINT fk_tracks_album FOREIGN KEY ("
                                                                    "`AlbumTitle`, `AlbumArtistName`, `AlbumPath`)"
                                                                    "REFERENCES `Albums`(`Title`, `ArtistName`, `AlbumPath`))"));
@@ -1399,7 +1400,7 @@ void DatabaseInterface::initRequest()
                                                    ") AND "
                                                    "tracks.`AlbumPath` = album.`AlbumPath`"
                                                    "LEFT JOIN "
-                                                   "`Genre` genres ON tracks.`GenreID` = genres.`ID` "
+                                                   "`Genre` genres ON tracks.`Genre` = genres.`Name` "
                                                    "WHERE "
                                                    "album.`ID` = :albumId "
                                                    "GROUP BY album.`ID`");
@@ -1507,7 +1508,7 @@ void DatabaseInterface::initRequest()
                                                   "FROM "
                                                   "`Albums` album, "
                                                   "`Tracks` tracks LEFT JOIN "
-                                                  "`Genre` genres ON tracks.`GenreID` = genres.`ID` "
+                                                  "`Genre` genres ON tracks.`Genre` = genres.`Name` "
                                                   "WHERE "
                                                   "tracks.`AlbumTitle` = album.`Title` AND "
                                                   "(tracks.`AlbumArtistName` = album.`ArtistName` OR "
@@ -1542,7 +1543,7 @@ void DatabaseInterface::initRequest()
                                                   "FROM "
                                                   "`Albums` album, "
                                                   "`Tracks` tracks LEFT JOIN "
-                                                  "`Genre` genres ON tracks.`GenreID` = genres.`ID` "
+                                                  "`Genre` genres ON tracks.`Genre` = genres.`Name` "
                                                   "WHERE "
                                                   "tracks.`AlbumTitle` = album.`Title` AND "
                                                   "(tracks.`AlbumArtistName` = album.`ArtistName` OR "
@@ -1552,14 +1553,14 @@ void DatabaseInterface::initRequest()
                                                   ") AND "
                                                   "tracks.`AlbumPath` = album.`AlbumPath` AND "
                                                   "EXISTS ("
-                                                  "  SELECT tracks2.`GenreID` "
+                                                  "  SELECT tracks2.`Genre` "
                                                   "  FROM "
                                                   "  `Tracks` tracks2, "
                                                   "  `Genre` genre2 "
                                                   "  WHERE "
                                                   "  tracks2.`AlbumTitle` = album.`Title` AND "
                                                   "  tracks2.`AlbumArtistName` = album.`ArtistName` AND "
-                                                  "  tracks2.`GenreID` = genre2.`ID` AND "
+                                                  "  tracks2.`Genre` = genre2.`Name` AND "
                                                   "  genre2.`Name` = :genreFilter AND "
                                                   "  (tracks2.`ArtistName` = :artistFilter OR tracks2.`AlbumArtistName` = :artistFilter) "
                                                   ") "
@@ -1589,7 +1590,7 @@ void DatabaseInterface::initRequest()
                                                   "FROM "
                                                   "`Albums` album, "
                                                   "`Tracks` tracks LEFT JOIN "
-                                                  "`Genre` genres ON tracks.`GenreID` = genres.`ID` "
+                                                  "`Genre` genres ON tracks.`Genre` = genres.`Name` "
                                                   "WHERE "
                                                   "tracks.`AlbumTitle` = album.`Title` AND "
                                                   "(tracks.`AlbumArtistName` = album.`ArtistName` OR "
@@ -1599,7 +1600,7 @@ void DatabaseInterface::initRequest()
                                                   ") AND "
                                                   "tracks.`AlbumPath` = album.`AlbumPath` AND "
                                                   "EXISTS ("
-                                                  "  SELECT tracks2.`GenreID` "
+                                                  "  SELECT tracks2.`Genre` "
                                                   "  FROM "
                                                   "  `Tracks` tracks2 "
                                                   "  WHERE "
@@ -1626,7 +1627,7 @@ void DatabaseInterface::initRequest()
                                                              "GROUP_CONCAT(genres.`Name`, ', ') as AllGenres "
                                                              "FROM `Artists` artists  LEFT JOIN "
                                                              "`Tracks` tracks ON artists.`Name` = tracks.`ArtistName` LEFT JOIN "
-                                                             "`Genre` genres ON tracks.`GenreID` = genres.`ID` "
+                                                             "`Genre` genres ON tracks.`Genre` = genres.`Name` "
                                                              "GROUP BY artists.`ID` "
                                                              "ORDER BY artists.`Name` COLLATE NOCASE");
 
@@ -1646,16 +1647,16 @@ void DatabaseInterface::initRequest()
                                                                   "GROUP_CONCAT(genres.`Name`, ', ') as AllGenres "
                                                                   "FROM `Artists` artists  LEFT JOIN "
                                                                   "`Tracks` tracks ON (tracks.`ArtistName` = artists.`Name` OR tracks.`AlbumArtistName` = artists.`Name`) LEFT JOIN "
-                                                                  "`Genre` genres ON tracks.`GenreID` = genres.`ID` "
+                                                                  "`Genre` genres ON tracks.`Genre` = genres.`Name` "
                                                                   "WHERE "
                                                                   "EXISTS ("
-                                                                  "  SELECT tracks2.`GenreID` "
+                                                                  "  SELECT tracks2.`Genre` "
                                                                   "  FROM "
                                                                   "  `Tracks` tracks2, "
                                                                   "  `Genre` genre2 "
                                                                   "  WHERE "
                                                                   "  (tracks2.`ArtistName` = artists.`Name` OR tracks2.`AlbumArtistName` = artists.`Name`) AND "
-                                                                  "  tracks2.`GenreID` = genre2.`ID` AND "
+                                                                  "  tracks2.`Genre` = genre2.`Name` AND "
                                                                   "  genre2.`Name` = :genreFilter "
                                                                   ") "
                                                                   "GROUP BY artists.`ID` "
@@ -1750,9 +1751,9 @@ void DatabaseInterface::initRequest()
                                                   "tracks.`AlbumTitle` = album.`Title` AND "
                                                   "(tracks.`AlbumArtistName` = album.`ArtistName` OR tracks.`AlbumArtistName` IS NULL ) AND "
                                                   "tracks.`AlbumPath` = album.`AlbumPath` "
-                                                  "LEFT JOIN `Genre` trackGenre ON trackGenre.`ID` = tracks.`GenreID` "
-                                                  "LEFT JOIN `Composer` trackComposer ON trackComposer.`ID` = tracks.`ComposerID` "
-                                                  "LEFT JOIN `Lyricist` trackLyricist ON trackLyricist.`ID` = tracks.`LyricistID` "
+                                                  "LEFT JOIN `Genre` trackGenre ON trackGenre.`Name` = tracks.`Genre` "
+                                                  "LEFT JOIN `Composer` trackComposer ON trackComposer.`Name` = tracks.`Composer` "
+                                                  "LEFT JOIN `Lyricist` trackLyricist ON trackLyricist.`Name` = tracks.`Lyricist` "
                                                   "WHERE "
                                                   "tracksMapping.`TrackID` = tracks.`ID` AND "
                                                   "tracksMapping.`Priority` = (SELECT MIN(`Priority`) FROM `TracksMapping` WHERE `TrackID` = tracks.`ID`)");
@@ -1847,9 +1848,9 @@ void DatabaseInterface::initRequest()
                                                                  "tracks.`AlbumTitle` = album.`Title` AND "
                                                                  "(tracks.`AlbumArtistName` = album.`ArtistName` OR tracks.`AlbumArtistName` IS NULL ) AND "
                                                                  "tracks.`AlbumPath` = album.`AlbumPath` "
-                                                                 "LEFT JOIN `Composer` trackComposer ON trackComposer.`ID` = tracks.`ComposerID` "
-                                                                 "LEFT JOIN `Lyricist` trackLyricist ON trackLyricist.`ID` = tracks.`LyricistID` "
-                                                                 "LEFT JOIN `Genre` trackGenre ON trackGenre.`ID` = tracks.`GenreID` "
+                                                                 "LEFT JOIN `Composer` trackComposer ON trackComposer.`Name` = tracks.`Composer` "
+                                                                 "LEFT JOIN `Lyricist` trackLyricist ON trackLyricist.`Name` = tracks.`Lyricist` "
+                                                                 "LEFT JOIN `Genre` trackGenre ON trackGenre.`Name` = tracks.`Genre` "
                                                                  "WHERE "
                                                                  "source.`Name` = :source AND "
                                                                  "source.`ID` = tracksMapping.`DiscoverID` AND "
@@ -2029,9 +2030,9 @@ void DatabaseInterface::initRequest()
                                                    "tracks.`AlbumTitle` = album.`Title` AND "
                                                    "(tracks.`AlbumArtistName` = album.`ArtistName` OR tracks.`AlbumArtistName` IS NULL ) AND "
                                                    "tracks.`AlbumPath` = album.`AlbumPath` "
-                                                   "LEFT JOIN `Composer` trackComposer ON trackComposer.`ID` = tracks.`ComposerID` "
-                                                   "LEFT JOIN `Lyricist` trackLyricist ON trackLyricist.`ID` = tracks.`LyricistID` "
-                                                   "LEFT JOIN `Genre` trackGenre ON trackGenre.`ID` = tracks.`GenreID` "
+                                                   "LEFT JOIN `Composer` trackComposer ON trackComposer.`Name` = tracks.`Composer` "
+                                                   "LEFT JOIN `Lyricist` trackLyricist ON trackLyricist.`Name` = tracks.`Lyricist` "
+                                                   "LEFT JOIN `Genre` trackGenre ON trackGenre.`Name` = tracks.`Genre` "
                                                    "WHERE "
                                                    "tracksMapping.`TrackID` = tracks.`ID` AND "
                                                    "album.`ID` = :albumId AND "
@@ -2095,9 +2096,9 @@ void DatabaseInterface::initRequest()
                                                          "tracks.`AlbumTitle` = album.`Title` AND "
                                                          "(tracks.`AlbumArtistName` = album.`ArtistName` OR tracks.`AlbumArtistName` IS NULL ) AND "
                                                          "tracks.`AlbumPath` = album.`AlbumPath` "
-                                                         "LEFT JOIN `Composer` trackComposer ON trackComposer.`ID` = tracks.`ComposerID` "
-                                                         "LEFT JOIN `Lyricist` trackLyricist ON trackLyricist.`ID` = tracks.`LyricistID` "
-                                                         "LEFT JOIN `Genre` trackGenre ON trackGenre.`ID` = tracks.`GenreID` "
+                                                         "LEFT JOIN `Composer` trackComposer ON trackComposer.`Name` = tracks.`Composer` "
+                                                         "LEFT JOIN `Lyricist` trackLyricist ON trackLyricist.`Name` = tracks.`Lyricist` "
+                                                         "LEFT JOIN `Genre` trackGenre ON trackGenre.`Name` = tracks.`Genre` "
                                                          "WHERE "
                                                          "tracks.`ID` = :trackId AND "
                                                          "tracksMapping.`TrackID` = tracks.`ID` AND "
@@ -2137,7 +2138,7 @@ void DatabaseInterface::initRequest()
                                                             "tracks.`AlbumTitle` = album.`Title` AND "
                                                             "(tracks.`AlbumArtistName` = album.`ArtistName` OR tracks.`AlbumArtistName` IS NULL ) AND "
                                                             "tracks.`AlbumPath` = album.`AlbumPath` "
-                                                            "LEFT JOIN `Genre` trackGenre ON trackGenre.`ID` = tracks.`GenreID` "
+                                                            "LEFT JOIN `Genre` trackGenre ON trackGenre.`Name` = tracks.`Genre` "
                                                             "WHERE "
                                                             "album.`ArtistName` = :artistName");
 
@@ -2161,7 +2162,7 @@ void DatabaseInterface::initRequest()
                                                            "tracks.`AlbumTitle` = album.`Title` AND "
                                                            "(tracks.`AlbumArtistName` = album.`ArtistName` OR tracks.`AlbumArtistName` IS NULL ) AND "
                                                            "tracks.`AlbumPath` = album.`AlbumPath` "
-                                                           "LEFT JOIN `Genre` trackGenre ON trackGenre.`ID` = tracks.`GenreID` "
+                                                           "LEFT JOIN `Genre` trackGenre ON trackGenre.`Name` = tracks.`Genre` "
                                                            "WHERE "
                                                            "album.`ID` = :albumId");
 
@@ -2180,7 +2181,7 @@ void DatabaseInterface::initRequest()
                                                          "FROM "
                                                          "`Tracks` tracks, "
                                                          "`Albums` album "
-                                                         "LEFT JOIN `Composer` albumComposer ON albumComposer.`ID` = tracks.`ComposerID` "
+                                                         "LEFT JOIN `Composer` albumComposer ON albumComposer.`Name` = tracks.`Composer` "
                                                          "WHERE "
                                                          "(tracks.`AlbumTitle` = album.`Title` OR tracks.`AlbumTitle` IS NULL ) AND "
                                                          "(tracks.`AlbumArtistName` = album.`ArtistName` OR tracks.`AlbumArtistName` IS NULL ) AND "
@@ -2202,7 +2203,7 @@ void DatabaseInterface::initRequest()
                                                          "FROM "
                                                          "`Tracks` tracks, "
                                                          "`Albums` album "
-                                                         "LEFT JOIN `Lyricist` albumLyricist ON albumLyricist.`ID` = tracks.`LyricistID` "
+                                                         "LEFT JOIN `Lyricist` albumLyricist ON albumLyricist.`Name` = tracks.`Lyricist` "
                                                          "WHERE "
                                                          "(tracks.`AlbumTitle` = album.`Title` OR tracks.`AlbumTitle` IS NULL ) AND "
                                                          "(tracks.`AlbumArtistName` = album.`ArtistName` OR tracks.`AlbumArtistName` IS NULL ) AND "
@@ -2413,9 +2414,9 @@ void DatabaseInterface::initRequest()
                                                                   "tracks.`AlbumTitle` = album.`Title` AND "
                                                                   "(tracks.`AlbumArtistName` = album.`ArtistName` OR tracks.`AlbumArtistName` IS NULL ) AND "
                                                                   "tracks.`AlbumPath` = album.`AlbumPath` "
-                                                                  "LEFT JOIN `Composer` trackComposer ON trackComposer.`ID` = tracks.`ComposerID` "
-                                                                  "LEFT JOIN `Lyricist` trackLyricist ON trackLyricist.`ID` = tracks.`LyricistID` "
-                                                                  "LEFT JOIN `Genre` trackGenre ON trackGenre.`ID` = tracks.`GenreID` "
+                                                                  "LEFT JOIN `Composer` trackComposer ON trackComposer.`Name` = tracks.`Composer` "
+                                                                  "LEFT JOIN `Lyricist` trackLyricist ON trackLyricist.`Name` = tracks.`Lyricist` "
+                                                                  "LEFT JOIN `Genre` trackGenre ON trackGenre.`Name` = tracks.`Genre` "
                                                                   "WHERE "
                                                                   "tracks.`ID` NOT IN (SELECT tracksMapping2.`TrackID` FROM `TracksMapping` tracksMapping2)");
 
@@ -2570,9 +2571,9 @@ void DatabaseInterface::initRequest()
                                                    "`AlbumTitle`, "
                                                    "`AlbumArtistName`, "
                                                    "`AlbumPath`, "
-                                                   "`GenreID`, "
-                                                   "`ComposerID`, "
-                                                   "`LyricistID`, "
+                                                   "`Genre`, "
+                                                   "`Composer`, "
+                                                   "`Lyricist`, "
                                                    "`Comment`, "
                                                    "`TrackNumber`, "
                                                    "`DiscNumber`, "
@@ -2591,9 +2592,9 @@ void DatabaseInterface::initRequest()
                                                    ":albumTitle, "
                                                    ":albumArtistName, "
                                                    ":albumPath, "
-                                                   ":genreId, "
-                                                   ":composerId, "
-                                                   ":lyricistId, "
+                                                   ":genre, "
+                                                   ":composer, "
+                                                   ":lyricist, "
                                                    ":comment, "
                                                    ":trackNumber, "
                                                    ":discNumber, "
@@ -2623,9 +2624,9 @@ void DatabaseInterface::initRequest()
                                                    "`AlbumTitle` = :albumTitle, "
                                                    "`AlbumArtistName` = :albumArtistName, "
                                                    "`AlbumPath` = :albumPath, "
-                                                   "`GenreID` = :genreId, "
-                                                   "`ComposerID` = :composerId, "
-                                                   "`LyricistID` = :lyricistId, "
+                                                   "`Genre` = :genre, "
+                                                   "`Composer` = :composer, "
+                                                   "`Lyricist` = :lyricist, "
                                                    "`Comment` = :comment, "
                                                    "`TrackNumber` = :trackNumber, "
                                                    "`DiscNumber` = :discNumber, "
@@ -2900,9 +2901,9 @@ void DatabaseInterface::initRequest()
                                                               "tracks.`AlbumTitle` = album.`Title` AND "
                                                               "(tracks.`AlbumArtistName` = album.`ArtistName` OR tracks.`AlbumArtistName` IS NULL ) AND "
                                                               "tracks.`AlbumPath` = album.`AlbumPath` "
-                                                              "LEFT JOIN `Composer` trackComposer ON trackComposer.`ID` = tracks.`ComposerID` "
-                                                              "LEFT JOIN `Lyricist` trackLyricist ON trackLyricist.`ID` = tracks.`LyricistID` "
-                                                              "LEFT JOIN `Genre` trackGenre ON trackGenre.`ID` = tracks.`GenreID` "
+                                                              "LEFT JOIN `Composer` trackComposer ON trackComposer.`Name` = tracks.`Composer` "
+                                                              "LEFT JOIN `Lyricist` trackLyricist ON trackLyricist.`Name` = tracks.`Lyricist` "
+                                                              "LEFT JOIN `Genre` trackGenre ON trackGenre.`Name` = tracks.`Genre` "
                                                               "WHERE "
                                                               "tracks.`ArtistName` = :artistName AND "
                                                               "tracksMapping.`TrackID` = tracks.`ID` AND "
@@ -3048,9 +3049,9 @@ void DatabaseInterface::initRequest()
                                                                "tracks.`AlbumTitle` = album.`Title` AND "
                                                                "(tracks.`AlbumArtistName` = album.`ArtistName` OR tracks.`AlbumArtistName` IS NULL ) AND "
                                                                "tracks.`AlbumPath` = album.`AlbumPath` "
-                                                               "LEFT JOIN `Composer` trackComposer ON trackComposer.`ID` = tracks.`ComposerID` "
-                                                               "LEFT JOIN `Lyricist` trackLyricist ON trackLyricist.`ID` = tracks.`LyricistID` "
-                                                               "LEFT JOIN `Genre` trackGenre ON trackGenre.`ID` = tracks.`GenreID` "
+                                                               "LEFT JOIN `Composer` trackComposer ON trackComposer.`Name` = tracks.`Composer` "
+                                                               "LEFT JOIN `Lyricist` trackLyricist ON trackLyricist.`Name` = tracks.`Lyricist` "
+                                                               "LEFT JOIN `Genre` trackGenre ON trackGenre.`Name` = tracks.`Genre` "
                                                                "WHERE "
                                                                "tracksMapping.`TrackID` = tracks.`ID` AND "
                                                                "tracksMapping.`FileName` = :filePath AND "
@@ -3667,23 +3668,20 @@ qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrac
         d->mInsertTrackQuery.bindValue(QStringLiteral(":discNumber"), oneTrack.discNumber());
         d->mInsertTrackQuery.bindValue(QStringLiteral(":trackDuration"), QVariant::fromValue<qlonglong>(oneTrack.duration().msecsSinceStartOfDay()));
         d->mInsertTrackQuery.bindValue(QStringLiteral(":trackRating"), oneTrack.rating());
-        auto genreId = insertGenre(oneTrack.genre());
-        if (genreId != 0) {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":genreId"), genreId);
+        if (insertGenre(oneTrack.genre()) != 0) {
+            d->mInsertTrackQuery.bindValue(QStringLiteral(":genre"), oneTrack.genre());
         } else {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":genreId"), {});
+            d->mInsertTrackQuery.bindValue(QStringLiteral(":genre"), {});
         }
-        auto composerId = insertComposer(oneTrack.composer());
-        if (composerId != 0) {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":composerId"), composerId);
+        if (insertComposer(oneTrack.composer()) != 0) {
+            d->mInsertTrackQuery.bindValue(QStringLiteral(":composer"), oneTrack.composer());
         } else {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":composerId"), {});
+            d->mInsertTrackQuery.bindValue(QStringLiteral(":composer"), {});
         }
-        auto lyricistId = insertLyricist(oneTrack.lyricist());
-        if (lyricistId != 0) {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":lyricistId"), lyricistId);
+        if (insertLyricist(oneTrack.lyricist()) != 0) {
+            d->mInsertTrackQuery.bindValue(QStringLiteral(":lyricist"), oneTrack.lyricist());
         } else {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":lyricistId"), {});
+            d->mInsertTrackQuery.bindValue(QStringLiteral(":lyricist"), {});
         }
         d->mInsertTrackQuery.bindValue(QStringLiteral(":comment"), oneTrack.comment());
         d->mInsertTrackQuery.bindValue(QStringLiteral(":year"), oneTrack.year());
@@ -4224,23 +4222,20 @@ void DatabaseInterface::updateTrackInDatabase(const MusicAudioTrack &oneTrack, c
     d->mUpdateTrackQuery.bindValue(QStringLiteral(":discNumber"), oneTrack.discNumber());
     d->mUpdateTrackQuery.bindValue(QStringLiteral(":trackDuration"), QVariant::fromValue<qlonglong>(oneTrack.duration().msecsSinceStartOfDay()));
     d->mUpdateTrackQuery.bindValue(QStringLiteral(":trackRating"), oneTrack.rating());
-    auto genreId = insertGenre(oneTrack.genre());
-    if (genreId != 0) {
-        d->mUpdateTrackQuery.bindValue(QStringLiteral(":genreId"), genreId);
+    if (insertGenre(oneTrack.genre()) != 0) {
+        d->mUpdateTrackQuery.bindValue(QStringLiteral(":genre"), oneTrack.genre());
     } else {
-        d->mUpdateTrackQuery.bindValue(QStringLiteral(":genreId"), {});
+        d->mUpdateTrackQuery.bindValue(QStringLiteral(":genre"), {});
     }
-    auto composerId = insertComposer(oneTrack.composer());
-    if (composerId != 0) {
-        d->mUpdateTrackQuery.bindValue(QStringLiteral(":composerId"), composerId);
+    if (insertComposer(oneTrack.composer()) != 0) {
+        d->mUpdateTrackQuery.bindValue(QStringLiteral(":composer"), oneTrack.composer());
     } else {
-        d->mUpdateTrackQuery.bindValue(QStringLiteral(":composerId"), {});
+        d->mUpdateTrackQuery.bindValue(QStringLiteral(":composer"), {});
     }
-    auto lyricistId = insertLyricist(oneTrack.lyricist());
-    if (lyricistId != 0) {
-        d->mUpdateTrackQuery.bindValue(QStringLiteral(":lyricistId"), lyricistId);
+    if (insertLyricist(oneTrack.lyricist()) != 0) {
+        d->mUpdateTrackQuery.bindValue(QStringLiteral(":lyricist"), oneTrack.lyricist());
     } else {
-        d->mUpdateTrackQuery.bindValue(QStringLiteral(":lyricistId"), {});
+        d->mUpdateTrackQuery.bindValue(QStringLiteral(":lyricist"), {});
     }
     d->mUpdateTrackQuery.bindValue(QStringLiteral(":comment"), oneTrack.comment());
     d->mUpdateTrackQuery.bindValue(QStringLiteral(":year"), oneTrack.year());

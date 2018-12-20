@@ -63,6 +63,8 @@ public:
 
     bool operator !=(const MusicAudioTrack &other) const;
 
+    static MusicAudioTrack trackFromData(const DatabaseInterface::TrackDataType &data);
+
     void setValid(bool value);
 
     bool isValid() const;

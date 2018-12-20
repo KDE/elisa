@@ -106,6 +106,8 @@ public:
         ContainerDataRole,
         IsPartialDataRole,
         AlbumIdRole,
+        HasEmbeddedCover,
+        FileModificationTime,
         IsValidRole,
         TrackDataRole,
         CountRole,

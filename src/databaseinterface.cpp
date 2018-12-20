@@ -593,98 +593,6 @@ DatabaseInterface::DataType DatabaseInterface::oneData(ElisaUtils::PlayListEntry
     return result;
 }
 
-
-QList<MusicAudioTrack> DatabaseInterface::allTracks()
-{
-    auto result = QList<MusicAudioTrack>();
-
-    if (!d) {
-        return result;
-    }
-
-    auto transactionResult = startTransaction();
-    if (!transactionResult) {
-        return result;
-    }
-
-    auto queryResult = d->mSelectAllTracksQuery.exec();
-
-    if (!queryResult || !d->mSelectAllTracksQuery.isSelect() || !d->mSelectAllTracksQuery.isActive()) {
-        Q_EMIT databaseError();
-
-        qDebug() << "DatabaseInterface::allAlbums" << d->mSelectAllTracksQuery.lastQuery();
-        qDebug() << "DatabaseInterface::allAlbums" << d->mSelectAllTracksQuery.boundValues();
-        qDebug() << "DatabaseInterface::allAlbums" << d->mSelectAllTracksQuery.lastError();
-
-        return result;
-    }
-
-    while(d->mSelectAllTracksQuery.next()) {
-        const auto &currentRecord = d->mSelectAllTracksQuery.record();
-
-        result.push_back(buildTrackFromDatabaseRecord(currentRecord));
-    }
-
-    d->mSelectAllTracksQuery.finish();
-
-    transactionResult = finishTransaction();
-    if (!transactionResult) {
-        return result;
-    }
-
-    return result;
-}
-
-QList<MusicAudioTrack> DatabaseInterface::allTracksFromSource(const QString &musicSource)
-{
-    auto result = QList<MusicAudioTrack>();
-
-    if (!d) {
-        return result;
-    }
-
-    auto transactionResult = startTransaction();
-    if (!transactionResult) {
-        return result;
-    }
-
-    d->mSelectAllTracksFromSourceQuery.bindValue(QStringLiteral(":source"), musicSource);
-
-    auto queryResult = d->mSelectAllTracksFromSourceQuery.exec();
-
-    if (!queryResult || !d->mSelectAllTracksFromSourceQuery.isSelect() || !d->mSelectAllTracksFromSourceQuery.isActive()) {
-        Q_EMIT databaseError();
-
-        qDebug() << "DatabaseInterface::allAlbums" << d->mSelectAllTracksFromSourceQuery.lastQuery();
-        qDebug() << "DatabaseInterface::allAlbums" << d->mSelectAllTracksFromSourceQuery.boundValues();
-        qDebug() << "DatabaseInterface::allAlbums" << d->mSelectAllTracksFromSourceQuery.lastError();
-
-        d->mSelectAllTracksFromSourceQuery.finish();
-
-        transactionResult = finishTransaction();
-        if (!transactionResult) {
-            return result;
-        }
-
-        return result;
-    }
-
-    while(d->mSelectAllTracksFromSourceQuery.next()) {
-        const auto &currentRecord = d->mSelectAllTracksFromSourceQuery.record();
-
-        result.push_back(buildTrackFromDatabaseRecord(currentRecord));
-    }
-
-    d->mSelectAllTracksFromSourceQuery.finish();
-
-    transactionResult = finishTransaction();
-    if (!transactionResult) {
-        return result;
-    }
-
-    return result;
-}
-
 DatabaseInterface::ListTrackDataType DatabaseInterface::tracksDataFromAuthor(const QString &ArtistName)
 {
     auto allTracks = ListTrackDataType{};
@@ -718,29 +626,6 @@ DatabaseInterface::TrackDataType DatabaseInterface::trackDataFromDatabaseId(qulo
     }
 
     result = internalOneTrackPartialData(id);
-
-    transactionResult = finishTransaction();
-    if (!transactionResult) {
-        return result;
-    }
-
-    return result;
-}
-
-MusicAudioTrack DatabaseInterface::trackFromDatabaseId(qulonglong id)
-{
-    auto result = MusicAudioTrack();
-
-    if (!d) {
-        return result;
-    }
-
-    auto transactionResult = startTransaction();
-    if (!transactionResult) {
-        return result;
-    }
-
-    result = internalTrackFromDatabaseId(id);
 
     transactionResult = finishTransaction();
     if (!transactionResult) {
@@ -3911,6 +3796,11 @@ DatabaseInterface::TrackDataType DatabaseInterface::buildTrackDataFromDatabaseRe
     result[TrackDataType::key_type::RatingRole] = trackRecord.value(11);
     result[TrackDataType::key_type::ImageUrlRole] = QUrl(trackRecord.value(12).toString());
     result[TrackDataType::key_type::IsSingleDiscAlbumRole] = trackRecord.value(13);
+    result[TrackDataType::key_type::GenreRole] = trackRecord.value(14);
+    result[TrackDataType::key_type::ComposerRole] = trackRecord.value(15);
+    result[TrackDataType::key_type::LyricistRole] = trackRecord.value(16);
+    result[TrackDataType::key_type::HasEmbeddedCover] = trackRecord.value(22);
+    result[TrackDataType::key_type::FileModificationTime] = trackRecord.value(6);
 
     return result;
 }
@@ -4530,33 +4420,6 @@ qulonglong DatabaseInterface::insertMusicSource(const QString &name)
     return d->mDiscoverId - 1;
 }
 
-QList<MusicAudioTrack> DatabaseInterface::fetchTracks(qulonglong albumId)
-{
-    auto allTracks = QList<MusicAudioTrack>();
-
-    d->mSelectTrackQuery.bindValue(QStringLiteral(":albumId"), albumId);
-
-    auto result = d->mSelectTrackQuery.exec();
-
-    if (!result || !d->mSelectTrackQuery.isSelect() || !d->mSelectTrackQuery.isActive()) {
-        Q_EMIT databaseError();
-
-        qDebug() << "DatabaseInterface::fetchTracks" << d->mSelectTrackQuery.lastQuery();
-        qDebug() << "DatabaseInterface::fetchTracks" << d->mSelectTrackQuery.boundValues();
-        qDebug() << "DatabaseInterface::fetchTracks" << d->mSelectTrackQuery.lastError();
-    }
-
-    while (d->mSelectTrackQuery.next()) {
-        const auto &currentRecord = d->mSelectTrackQuery.record();
-
-        allTracks.push_back(buildTrackFromDatabaseRecord(currentRecord));
-    }
-
-    d->mSelectTrackQuery.finish();
-
-    return allTracks;
-}
-
 QList<qulonglong> DatabaseInterface::fetchTrackIds(qulonglong albumId)
 {
     auto allTracks = QList<qulonglong>();
@@ -4568,9 +4431,9 @@ QList<qulonglong> DatabaseInterface::fetchTrackIds(qulonglong albumId)
     if (!result || !d->mSelectTrackQuery.isSelect() || !d->mSelectTrackQuery.isActive()) {
         Q_EMIT databaseError();
 
-        qDebug() << "DatabaseInterface::fetchTracks" << d->mSelectTrackQuery.lastQuery();
-        qDebug() << "DatabaseInterface::fetchTracks" << d->mSelectTrackQuery.boundValues();
-        qDebug() << "DatabaseInterface::fetchTracks" << d->mSelectTrackQuery.lastError();
+        qDebug() << "DatabaseInterface::fetchTrackIds" << d->mSelectTrackQuery.lastQuery();
+        qDebug() << "DatabaseInterface::fetchTrackIds" << d->mSelectTrackQuery.boundValues();
+        qDebug() << "DatabaseInterface::fetchTrackIds" << d->mSelectTrackQuery.lastError();
     }
 
     while (d->mSelectTrackQuery.next()) {
@@ -4980,7 +4843,8 @@ DatabaseInterface::ListTrackDataType DatabaseInterface::internalAllTracksPartial
         newData[TrackDataType::key_type::ArtistRole] = currentRecord.value(2);
         newData[TrackDataType::key_type::AlbumRole] = currentRecord.value(3);
         newData[TrackDataType::key_type::AlbumArtistRole] = currentRecord.value(4);
-        newData[TrackDataType::key_type::DurationRole] = currentRecord.value(5);
+        newData[TrackDataType::key_type::DurationRole] = QTime::fromMSecsSinceStartOfDay(currentRecord.value(5).toInt());
+        newData[TrackDataType::key_type::MilliSecondsDurationRole] = currentRecord.value(5);
         newData[TrackDataType::key_type::ImageUrlRole] = currentRecord.value(6);
         newData[TrackDataType::key_type::TrackNumberRole] = currentRecord.value(7);
         newData[TrackDataType::key_type::DiscNumberRole] = currentRecord.value(8);

@@ -114,6 +114,8 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
         case DatabaseInterface::ContainerDataRole:
         case DatabaseInterface::IsPartialDataRole:
         case DatabaseInterface::AlbumIdRole:
+        case DatabaseInterface::HasEmbeddedCover:
+        case DatabaseInterface::FileModificationTime:
             break;
         }
         break;
@@ -175,6 +177,8 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
         case DatabaseInterface::ContainerDataRole:
         case DatabaseInterface::IsPartialDataRole:
         case DatabaseInterface::AlbumIdRole:
+        case DatabaseInterface::HasEmbeddedCover:
+        case DatabaseInterface::FileModificationTime:
             break;
         }
         break;

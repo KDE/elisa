@@ -99,7 +99,7 @@ QVariant AlbumModel::data(const QModelIndex &index, int role) const
     {
     case DatabaseInterface::ColumnsRoles::DurationRole:
     {
-        auto trackDuration = QTime::fromMSecsSinceStartOfDay(currentTrack.duration());
+        auto trackDuration = currentTrack.duration();
         if (trackDuration.hour() == 0) {
             result = trackDuration.toString(QStringLiteral("mm:ss"));
         } else {

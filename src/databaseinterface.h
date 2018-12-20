@@ -78,6 +78,8 @@ public:
         ContainerDataRole,
         IsPartialDataRole,
         AlbumIdRole,
+        HasEmbeddedCover,
+        FileModificationTime,
     };
 
     Q_ENUM(ColumnsRoles)
@@ -134,9 +136,9 @@ public:
             return operator[](key_type::DiscNumberRole).toInt();
         }
 
-        int duration() const
+        QTime duration() const
         {
-            return operator[](key_type::DurationRole).toTime().msecsSinceStartOfDay();
+            return operator[](key_type::DurationRole).toTime();
         }
 
         QUrl resourceURI() const
@@ -157,6 +159,31 @@ public:
         int rating() const
         {
             return operator[](key_type::RatingRole).toInt();
+        }
+
+        QString genre() const
+        {
+            return operator[](key_type::GenreRole).toString();
+        }
+
+        QString composer() const
+        {
+            return operator[](key_type::ComposerRole).toString();
+        }
+
+        QString lyricist() const
+        {
+            return operator[](key_type::LyricistRole).toString();
+        }
+
+        bool hasEmbeddedCover() const
+        {
+            return operator[](key_type::HasEmbeddedCover).toBool();
+        }
+
+        QDateTime fileModificationTime() const
+        {
+            return operator[](key_type::FileModificationTime).toDateTime();
         }
     };
 
@@ -281,15 +308,9 @@ public:
 
     DataType oneData(ElisaUtils::PlayListEntryType aType, qulonglong databaseId);
 
-    QList<MusicAudioTrack> allTracks();
-
-    QList<MusicAudioTrack> allTracksFromSource(const QString &musicSource);
-
     ListTrackDataType tracksDataFromAuthor(const QString &artistName);
 
     TrackDataType trackDataFromDatabaseId(qulonglong id);
-
-    MusicAudioTrack trackFromDatabaseId(qulonglong id);
 
     qulonglong trackIdFromTitleAlbumTrackDiscNumber(const QString &title, const QString &artist, const QString &album,
                                                     int trackNumber, int discNumber);
@@ -358,8 +379,6 @@ private:
     bool finishTransaction() const;
 
     bool rollBackTransaction() const;
-
-    QList<MusicAudioTrack> fetchTracks(qulonglong albumId);
 
     QList<qulonglong> fetchTrackIds(qulonglong albumId);
 

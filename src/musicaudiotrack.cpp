@@ -165,6 +165,34 @@ bool MusicAudioTrack::operator !=(const MusicAudioTrack &other) const
             d->mBitRate != other.d->mBitRate || d->mSampleRate != other.d->mSampleRate;
 }
 
+MusicAudioTrack MusicAudioTrack::trackFromData(const DatabaseInterface::TrackDataType &data)
+{
+    auto result = MusicAudioTrack{};
+
+    result.setDatabaseId(data.databaseId());
+    result.setTitle(data.title());
+    result.setArtist(data.artist());
+    result.setAlbumName(data.album());
+    result.setAlbumArtist(data.albumArtist());
+    result.setGenre(data.genre());
+    result.setComposer(data.composer());
+    result.setLyricist(data.lyricist());
+    //result.setComment(data.comment());
+    result.setAlbumCover(data.albumCover());
+    result.setTrackNumber(data.trackNumber());
+    result.setDiscNumber(data.discNumber());
+    //result.setYear(data.year());
+    //result.setChannels(data.channels());
+    //result.setBitRate(data.bitRate());
+    //result.setSampleRate(data.sampleRate());
+    result.setResourceURI(data.resourceURI());
+    result.setRating(data.rating());
+    result.setDuration(data[MusicAudioTrack::TrackDataType::key_type::DurationRole].toTime());
+    result.setFileModificationTime(data.fileModificationTime());
+
+    return result;
+}
+
 void MusicAudioTrack::setValid(bool value)
 {
     d->mIsValid = value;

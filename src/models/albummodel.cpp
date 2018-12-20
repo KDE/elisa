@@ -167,6 +167,10 @@ void AlbumModel::initialize(const QString &albumTitle, const QString &albumArtis
     d->mAlbumTitle = albumTitle;
     d->mAlbumArtist = albumArtist;
 
+    if (!manager) {
+        return;
+    }
+
     manager->connectModel(&d->mDataLoader);
 
     connect(manager->viewDatabase(), &DatabaseInterface::tracksAdded,

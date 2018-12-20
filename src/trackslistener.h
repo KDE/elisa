@@ -46,22 +46,22 @@ public:
 
 Q_SIGNALS:
 
-    void trackHasChanged(const TrackDataType &audioTrack);
+    void trackHasChanged(const TracksListener::TrackDataType &audioTrack);
 
     void trackHasBeenRemoved(qulonglong id);
 
     void tracksListAdded(qulonglong newDatabaseId,
                          const QString &entryTitle,
                          ElisaUtils::PlayListEntryType databaseIdType,
-                         const ListTrackDataType &tracks);
+                         const TracksListener::ListTrackDataType &tracks);
 
 public Q_SLOTS:
 
-    void tracksAdded(const ListTrackDataType &allTracks);
+    void tracksAdded(const TracksListener::ListTrackDataType &allTracks);
 
     void trackRemoved(qulonglong id);
 
-    void trackModified(const TrackDataType &modifiedTrack);
+    void trackModified(const TracksListener::TrackDataType &modifiedTrack);
 
     void trackByNameInList(const QString &title, const QString &artist, const QString &album, int trackNumber, int discNumber);
 

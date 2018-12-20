@@ -95,9 +95,9 @@ Q_SIGNALS:
 
 public Q_SLOTS:
 
-    void tracksAdded(const ListTrackDataType &newTracks);
+    void tracksAdded(const AlbumModel::ListTrackDataType &newTracks);
 
-    void trackModified(const TrackDataType &modifiedTrack);
+    void trackModified(const AlbumModel::TrackDataType &modifiedTrack);
 
     void trackRemoved(qulonglong trackId);
 

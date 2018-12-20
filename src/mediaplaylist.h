@@ -202,9 +202,9 @@ public Q_SLOTS:
     void tracksListAdded(qulonglong newDatabaseId,
                          const QString &entryTitle,
                          ElisaUtils::PlayListEntryType databaseIdType,
-                         const ListTrackDataType &tracks);
+                         const MediaPlayList::ListTrackDataType &tracks);
 
-    void trackChanged(const TrackDataType &track);
+    void trackChanged(const MediaPlayList::TrackDataType &track);
 
     void trackRemoved(qulonglong trackId);
 

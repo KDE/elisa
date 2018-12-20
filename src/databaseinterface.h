@@ -300,17 +300,17 @@ public:
 
 Q_SIGNALS:
 
-    void artistsAdded(const ListArtistDataType &newArtists);
+    void artistsAdded(const DatabaseInterface::ListArtistDataType &newArtists);
 
-    void composersAdded(const ListArtistDataType &newComposers);
+    void composersAdded(const DatabaseInterface::ListArtistDataType &newComposers);
 
-    void lyricistsAdded(const ListArtistDataType &newLyricists);
+    void lyricistsAdded(const DatabaseInterface::ListArtistDataType &newLyricists);
 
-    void albumsAdded(const ListAlbumDataType &newAlbums);
+    void albumsAdded(const DatabaseInterface::ListAlbumDataType &newAlbums);
 
-    void tracksAdded(const ListTrackDataType &allTracks);
+    void tracksAdded(const DatabaseInterface::ListTrackDataType &allTracks);
 
-    void genresAdded(const ListGenreDataType &allGenres);
+    void genresAdded(const DatabaseInterface::ListGenreDataType &allGenres);
 
     void artistRemoved(qulonglong removedArtistId);
 
@@ -318,9 +318,9 @@ Q_SIGNALS:
 
     void trackRemoved(qulonglong id);
 
-    void albumModified(const AlbumDataType &modifiedAlbum, qulonglong modifiedAlbumId);
+    void albumModified(const DatabaseInterface::AlbumDataType &modifiedAlbum, qulonglong modifiedAlbumId);
 
-    void trackModified(const TrackDataType &modifiedTrack);
+    void trackModified(const DatabaseInterface::TrackDataType &modifiedTrack);
 
     void requestsInitDone();
 

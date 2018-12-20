@@ -69,11 +69,11 @@ public:
 
 public Q_SLOTS:
 
-    void albumsAdded(ListAlbumDataType newAlbums);
+    void albumsAdded(AllAlbumsModel::ListAlbumDataType newAlbums);
 
     void albumRemoved(qulonglong removedAlbumId);
 
-    void albumModified(const AlbumDataType &modifiedAlbum);
+    void albumModified(const AllAlbumsModel::AlbumDataType &modifiedAlbum);
 
     void initialize(MusicListenersManager *manager);
 

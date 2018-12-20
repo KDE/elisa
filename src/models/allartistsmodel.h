@@ -69,7 +69,7 @@ Q_SIGNALS:
 
 public Q_SLOTS:
 
-    void artistsAdded(ListArtistDataType newArtists);
+    void artistsAdded(AllArtistsModel::ListArtistDataType newArtists);
 
     void artistRemoved(qulonglong removedArtistId);
 

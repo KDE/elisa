@@ -589,6 +589,8 @@ void MediaPlayList::enqueue(const ElisaUtils::EntryData &newEntry,
     case ElisaUtils::FileName:
         enqueueFilesList({newEntry});
         break;
+    case ElisaUtils::Lyricist:
+    case ElisaUtils::Composer:
     case ElisaUtils::Unknown:
         break;
     }
@@ -624,6 +626,8 @@ void MediaPlayList::enqueue(const ElisaUtils::EntryDataList &newEntries,
     case ElisaUtils::Genre:
         enqueueMultipleEntries(newEntries, databaseIdType);
         break;
+    case ElisaUtils::Lyricist:
+    case ElisaUtils::Composer:
     case ElisaUtils::Unknown:
         break;
     }
@@ -817,8 +821,8 @@ void MediaPlayList::trackChanged(const TrackDataType &track)
 
             if (!trackData.empty()) {
                 bool sameData = true;
-                for (const auto &oneKey : track.keys()) {
-                    if (trackData[oneKey] != track[oneKey]) {
+                for (auto oneKeyIterator = track.constKeyValueBegin(); oneKeyIterator != track.constKeyValueEnd(); ++oneKeyIterator) {
+                    if (trackData[(*oneKeyIterator).first] != (*oneKeyIterator).second) {
                         sameData = false;
                         break;
                     }

@@ -365,7 +365,7 @@ private Q_SLOTS:
         AllTracksModel tracksModel;
         QAbstractItemModelTester testModel(&tracksModel);
 
-        auto newTracks = QList<MusicAudioTrack>();
+        auto newTracks = AllTracksModel::ListTrackDataType{};
 
         QSignalSpy beginInsertRowsSpy(&tracksModel, &AllTracksModel::rowsAboutToBeInserted);
         QSignalSpy endInsertRowsSpy(&tracksModel, &AllTracksModel::rowsInserted);
@@ -379,7 +379,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        //tracksModel.tracksAdded(newTracks);
+        tracksModel.tracksAdded(newTracks);
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);

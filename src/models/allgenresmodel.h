@@ -67,7 +67,7 @@ Q_SIGNALS:
 
 public Q_SLOTS:
 
-    void genresAdded(ListGenreDataType newGenres);
+    void genresAdded(AllGenresModel::ListGenreDataType newGenres);
 
     void initialize(MusicListenersManager *manager);
 

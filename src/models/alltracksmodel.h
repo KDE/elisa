@@ -64,11 +64,11 @@ Q_SIGNALS:
 
 public Q_SLOTS:
 
-    void tracksAdded(ListTrackDataType allTracks);
+    void tracksAdded(AllTracksModel::ListTrackDataType allTracks);
 
     void trackRemoved(qulonglong removedTrackId);
 
-    void trackModified(const TrackDataType &modifiedTrack);
+    void trackModified(const AllTracksModel::TrackDataType &modifiedTrack);
 
     void initialize(MusicListenersManager *manager);
 

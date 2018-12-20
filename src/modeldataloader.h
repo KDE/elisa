@@ -50,15 +50,15 @@ public:
 
 Q_SIGNALS:
 
-    void allAlbumsData(const ListAlbumDataType &allData);
+    void allAlbumsData(const ModelDataLoader::ListAlbumDataType &allData);
 
-    void allArtistsData(const ListArtistDataType &allData);
+    void allArtistsData(const ModelDataLoader::ListArtistDataType &allData);
 
-    void allGenresData(const ListGenreDataType &allData);
+    void allGenresData(const ModelDataLoader::ListGenreDataType &allData);
 
-    void allTracksData(const ListTrackDataType &allData);
+    void allTracksData(const ModelDataLoader::ListTrackDataType &allData);
 
-    void allTrackData(const TrackDataType &allData);
+    void allTrackData(const ModelDataLoader::TrackDataType &allData);
 
 public Q_SLOTS:
 

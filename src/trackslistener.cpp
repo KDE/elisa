@@ -200,6 +200,12 @@ void TracksListener::newEntryInList(qulonglong newDatabaseId,
         break;
     case ElisaUtils::Album:
         newAlbumInList(newDatabaseId, entryTitle);
+        break;
+    case ElisaUtils::Lyricist:
+    case ElisaUtils::Composer:
+    case ElisaUtils::Genre:
+    case ElisaUtils::Unknown:
+        break;
     }
 }
 

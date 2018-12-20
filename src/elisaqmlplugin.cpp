@@ -47,14 +47,16 @@
 #include "models/allgenresmodel.h"
 #include "models/alltracksmodel.h"
 #include "models/albummodel.h"
+#include "models/trackmetadatamodel.h"
 #include "models/allalbumsproxymodel.h"
 #include "models/alltracksproxymodel.h"
 #include "models/allartistsproxymodel.h"
 #include "models/singlealbumproxymodel.h"
-#include "models/trackmetadatamodel.h"
+#include "models/filebrowserproxymodel.h"
 #include "embeddedcoverageimageprovider.h"
 
 #if defined KF5KIO_FOUND && KF5KIO_FOUND
+#include "models/filebrowsermodel.h"
 #include "models/filebrowserproxymodel.h"
 #endif
 
@@ -127,6 +129,7 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qmlRegisterType<SingleAlbumProxyModel>(uri, 1, 0, "SingleAlbumProxyModel");
 
 #if defined KF5KIO_FOUND && KF5KIO_FOUND
+    qmlRegisterType<FileBrowserModel>(uri, 1, 0, "FileBrowserModel");
     qmlRegisterType<FileBrowserProxyModel>(uri, 1, 0, "FileBrowserProxyModel");
 #endif
 

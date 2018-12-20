@@ -27,7 +27,6 @@ FocusScope {
     id: fileView
 
     property bool isSubPage: false
-    property alias contentModel: contentDirectoryView.model
     property alias expandedFilterView: navigationBar.expandedFilterView
 
     function goBack() {
@@ -39,13 +38,14 @@ FocusScope {
         navigationBar.filterText = ""
     }
 
-    SystemPalette {
-        id: myPalette
-        colorGroup: SystemPalette.Active
+    FileBrowserModel {
+        id: realModel
     }
 
-    Theme {
-        id: elisaTheme
+    FileBrowserProxyModel {
+        id: proxyModel
+
+        sourceModel: realModel
     }
 
     MouseArea {
@@ -64,9 +64,9 @@ FocusScope {
 
             mainTitle: i18nc("Title of the file browser view", "Files")
             image: elisaTheme.folderIcon
-            secondaryTitle: contentModel.url
-            enableGoBack: contentModel.canGoBack
-            sortOrder: contentModel.sortedAscending
+            secondaryTitle: proxyModel.url
+            enableGoBack: proxyModel.canGoBack
+            sortOrder: proxyModel.sortedAscending
             showRating: false
 
             height: elisaTheme.navigationBarHeight
@@ -76,7 +76,7 @@ FocusScope {
             Layout.fillWidth: true
 
             Binding {
-                target: contentModel
+                target: proxyModel
                 property: 'filterText'
                 value: navigationBar.filterText
             }
@@ -105,6 +105,8 @@ FocusScope {
                     id: scrollBar
                 }
                 boundsBehavior: Flickable.StopAtBounds
+
+                model: proxyModel
 
                 ScrollHelper {
                     id: scrollHelper

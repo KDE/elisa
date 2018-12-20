@@ -353,8 +353,6 @@ RowLayout {
                                 id: localFiles
 
                                 focus: true
-
-                                contentModel: elisa.fileBrowserProxyModel
                             }
 
                             Behavior on opacity {

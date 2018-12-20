@@ -75,10 +75,6 @@ FocusScope {
         onTriggered: replaceAndPlay(databaseId, title)
     }
 
-    TrackDataHelper {
-        id: dataHelper
-    }
-
     Keys.onReturnPressed: enqueueToPlaylist(trackData)
     Keys.onEnterPressed: enqueueToPlaylist(trackData)
 
@@ -88,8 +84,7 @@ FocusScope {
         onLoaded: item.show()
 
         sourceComponent:  MediaTrackMetadataView {
-            trackDataHelper: dataHelper
-
+            databaseId: mediaTrack.databaseId
             onRejected: metadataLoader.active = false;
         }
     }

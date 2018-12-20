@@ -82,10 +82,7 @@ FocusScope {
         onLoaded: item.show()
 
         sourceComponent:  MediaTrackMetadataView {
-            trackDataHelper: TrackDataHelper {
-                id: dataHelper
-            }
-
+            fileName: fileDelegate.fileUrl
             onRejected: metadataLoader.active = false;
         }
     }

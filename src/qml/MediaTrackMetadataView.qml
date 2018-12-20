@@ -1,5 +1,6 @@
 /*
  * Copyright 2017 Alexander Stippich <a.stippich@gmx.net>
+ * Copyright 2018 Matthieu Gallien <matthieu_gallien@yahoo.fr>
  *
  * This program is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,13 +22,13 @@ import QtQuick.Window 2.2
 import QtQml.Models 2.2
 import QtQuick.Layouts 1.2
 import QtGraphicalEffects 1.0
+import org.kde.elisa 1.0
 
 Window {
     id: trackMetadata
 
-    property var trackDataHelper
-    property real labelWidth: trackData.width * 0.33
-    property real metadataWidth: trackData.width * 0.66
+    property int databaseId: 0
+    property url fileName
 
     signal rejected()
 
@@ -36,236 +37,153 @@ Window {
 
     title: i18nc("Window title for track metadata", "View Details")
 
-    function updateData()
-    {
-        trackList.clear()
-        if (trackDataHelper.isValid) {
-            if (trackDataHelper.hasValidTitle)
-                trackList.append({"name": i18nc("Track title for track metadata view", "Title:"), "content": trackDataHelper.title})
-            if (trackDataHelper.hasValidArtist)
-                trackList.append({"name": i18nc("Track artist for track metadata view", "Artist:"), "content": trackDataHelper.artist})
-            if (trackDataHelper.hasValidAlbumName)
-                trackList.append({"name": i18nc("Album name for track metadata view", "Album:"), "content": trackDataHelper.albumName})
-            if (trackDataHelper.hasValidTrackNumber)
-                trackList.append({"name": i18nc("Track number for track metadata view", "Track Number:"), "content": trackDataHelper.trackNumber.toString()})
-            if (trackDataHelper.hasValidDiscNumber)
-                trackList.append({"name": i18nc("Disc number for track metadata view", "Disc Number:"), "content": trackDataHelper.discNumber.toString()})
-            if (trackDataHelper.hasValidAlbumArtist)
-                trackList.append({"name": i18nc("Album artist for track metadata view", "Album Artist:"), "content": trackDataHelper.albumArtist})
-            if (trackDataHelper.hasValidDuration)
-                trackList.append({"name": i18nc("Duration label for track metadata view", "Duration:"), "content": trackDataHelper.duration})
-            if (trackDataHelper.hasValidYear)
-                trackList.append({"name": i18nc("Year label for track metadata view", "Year:"), "content": trackDataHelper.year.toString()})
-            if (trackDataHelper.hasValidGenre)
-                trackList.append({"name": i18nc("Genre label for track metadata view", "Genre:"), "content": trackDataHelper.genre})
-            if (trackDataHelper.hasValidComposer)
-                trackList.append({"name": i18nc("Composer name for track metadata view", "Composer:"), "content": trackDataHelper.composer})
-            if (trackDataHelper.hasValidLyricist)
-                trackList.append({"name": i18nc("Lyricist label for track metadata view", "Lyricist:"), "content": trackDataHelper.lyricist})
-            if (trackDataHelper.hasValidBitRate)
-                trackList.append({"name": i18nc("Bit rate label for track metadata view", "Bit Rate:"), "content": (trackDataHelper.bitRate / 1000) + " " + i18nc("Unit of the bit rate in thousand", "kbit/s")})
-            if (trackDataHelper.hasValidSampleRate)
-                trackList.append({"name": i18nc("Sample Rate label for track metadata view", "Sample Rate:"), "content": trackDataHelper.sampleRate + " " + i18nc("Unit of the sample rate", "Hz")})
-            if (trackDataHelper.hasValidChannels)
-                trackList.append({"name": i18nc("Channels label for track metadata view", "Channels:"), "content": trackDataHelper.channels.toString()})
-            if (trackDataHelper.hasValidComment)
-                trackList.append({"name": i18nc("Comment label for track metadata view", "Comment:"), "content": trackDataHelper.comment})
-        }
-    }
-
-    function resize() {
-        trackData.Layout.preferredHeight = textSize.height * trackData.count
-        trackMetadata.height = textSize.height * (trackData.count + 1 + ( trackDataHelper.hasValidRating ? 1 : 0 ) + ( !trackDataHelper.isValid ? 1 : 0 ) )
-                + buttons.height + elisaTheme.layoutHorizontalMargin * 3
-        trackMetadata.minimumHeight = trackMetadata.height
-        trackMetadata.maximumHeight = trackMetadata.height
-        trackMetadata.width = (trackDataHelper.hasValidAlbumCover ? elisaTheme.coverImageSize : 0) + labelWidth + metadataWidth + 2 * elisaTheme.layoutHorizontalMargin
-        trackMetadata.minimumWidth = trackDataHelper.isValid ? trackMetadata.width : emptyMetaData.width + elisaTheme.layoutHorizontalMargin * 2
-    }
-
-    Connections {
-        target: trackDataHelper
-
-        onTrackDataChanged: {
-            updateData()
-            resize()
-        }
+    TrackMetadataModel {
+        id: realModel
     }
 
     modality: Qt.NonModal
     flags: Qt.Dialog | Qt.WindowCloseButtonHint
 
-    Component.onCompleted: {
-        updateData()
-        resize()
-    }
+    color: myPalette.window
 
-    Rectangle {
+    minimumHeight: elisaTheme.coverImageSize * 1.5
+    minimumWidth: elisaTheme.coverImageSize * 2.5
+
+    ColumnLayout {
         anchors.fill: parent
 
-        color: myPalette.window
+        spacing: 0
 
-        ColumnLayout {
-            anchors.fill: parent
-            anchors.margins: elisaTheme.layoutHorizontalMargin
+        RowLayout {
+            id: metadataView
+
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+
             spacing: 0
 
-            RowLayout {
+            Image {
+                source: (realModel.coverUrl != "" ? realModel.coverUrl : elisaTheme.tracksIcon)
+
+                sourceSize.width: elisaTheme.coverImageSize
+                sourceSize.height: elisaTheme.coverImageSize
+
+                fillMode: Image.PreserveAspectFit
+
+                Layout.alignment: Qt.AlignTop | Qt.AlignHCenter
+                Layout.preferredHeight: elisaTheme.coverImageSize
+                Layout.preferredWidth: elisaTheme.coverImageSize
+                Layout.minimumHeight: elisaTheme.coverImageSize
+                Layout.minimumWidth: elisaTheme.coverImageSize
+                Layout.maximumHeight: elisaTheme.coverImageSize
+                Layout.maximumWidth: elisaTheme.coverImageSize
+            }
+
+            ListView {
+                id: trackData
+
+                Layout.fillWidth: true
                 Layout.fillHeight: true
-                Layout.fillWidth: true
-                spacing: 0
 
-                Image {
-                    source: trackDataHelper.albumCover
-                    visible: trackDataHelper.hasValidAlbumCover
-                    width: elisaTheme.coverImageSize
-                    height: elisaTheme.coverImageSize
-                    fillMode: Image.PreserveAspectFit
-                    Layout.preferredHeight: height
-                    Layout.preferredWidth: width
-                    Layout.minimumHeight: height
-                    Layout.minimumWidth: width
-                    Layout.maximumHeight: height
-                    Layout.maximumWidth: width
+                focus: true
+
+                ScrollBar.vertical: ScrollBar {
+                    id: scrollBar
                 }
+                boundsBehavior: Flickable.StopAtBounds
+                clip: true
 
-                ColumnLayout {
-                    Layout.leftMargin: elisaTheme.layoutHorizontalMargin
-                    Layout.fillHeight: true
-                    Layout.fillWidth: true
-                    spacing: 0
 
-                    ListView {
-                        id: trackData
-                        interactive: false
-                        Layout.fillWidth: true
-
-                        model: ListModel {
-                            id: trackList
-                        }
-
-                        onCountChanged: resize()
-
-                        delegate: RowLayout {
-                            id: delegateRow
-                            spacing: 0
-
-                            Label {
-                                id: metaDataLabels
-                                text: name
-                                color: myPalette.text
-                                horizontalAlignment: Text.AlignRight
-
-                                Layout.preferredWidth: labelWidth
-                                Layout.minimumHeight: textSize.height
-                                Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-                                Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-                                Component.onCompleted: {
-                                    if(labelWidth < metaDataLabels.implicitWidth) {
-                                          labelWidth = metaDataLabels.implicitWidth
-                                    }
-                                }
-                            }
-
-                            Label {
-                                id: metaData
-                                text: content
-                                color: myPalette.text
-
-                                horizontalAlignment: Text.AlignLeft
-                                elide: Text.ElideRight
-
-                                Layout.preferredWidth: trackMetadata.width - labelWidth - 2 * elisaTheme.layoutHorizontalMargin - (trackDataHelper.hasValidAlbumCover ? elisaTheme.coverImageSize : 0)
-                                Layout.fillWidth: true
-                                Layout.minimumHeight: textSize.height
-                                Component.onCompleted: {
-                                    if(metadataWidth < metaData.implicitWidth) {
-                                        if (metaData.implicitWidth > elisaTheme.maximumMetadataWidth) {
-                                            metadataWidth = elisaTheme.maximumMetadataWidth
-                                        } else {
-                                            metadataWidth = metaData.implicitWidth + 1
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    RowLayout {
-                        anchors.margins: 0
-                        spacing: 0
-
-                        visible: trackDataHelper.hasValidRating
-
-                        Layout.minimumHeight: textSize.height
-
-                        Label {
-                            id: ratingText
-                            text: i18nc("Rating label for information panel", "Rating:")
-                            color: myPalette.text
-
-                            horizontalAlignment: Text.AlignRight
-                            Layout.preferredWidth: labelWidth
-                            Layout.rightMargin: elisaTheme.layoutHorizontalMargin
-                        }
-
-                        TextMetrics {
-                            id: textSize
-                            font: ratingText.font
-                            text: ratingText.text
-                        }
-
-                        RatingStar {
-                            id: ratingWidget
-                            starRating: trackDataHelper.rating
-                            readOnly: true
-
-                            starSize: elisaTheme.ratingStarSize
-
-                            Layout.fillWidth: true
-                            layer.effect: ColorOverlay {
-                                source: ratingWidget
-                                color: myPalette.text
-                            }
-                        }
-                    }
+                ScrollHelper {
+                    id: scrollHelper
+                    flickable: trackData
+                    anchors.fill: trackData
                 }
+                model: realModel
+
+                delegate: metadataDelegate
             }
+        }
+
+        DialogButtonBox {
+            id: buttons
+
+            Layout.fillWidth: true
+
+            standardButtons: DialogButtonBox.Close
+            alignment: Qt.AlignRight
+            onRejected: trackMetadata.rejected()
+        }
+    }
+
+    Component {
+        id: metadataDelegate
+
+        RowLayout {
+            id: delegateRow
+            spacing: 0
+
+            width: scrollBar.visible ? trackData.width - scrollBar.width : trackData.width
 
             Label {
-                id: emptyMetaData
-                text: i18nc("Label when metadata of the track could not be scanned", "Metadata is not available.")
-
-                horizontalAlignment: implicitWidth > trackMetadata.width ? Text.AlignRight : Text.AlignLeft
-
-                Layout.minimumHeight: textSize.height
-                Layout.preferredWidth: trackMetadata.width * 0.98 - 2 * elisaTheme.layoutHorizontalMargin
-                Layout.topMargin: elisaTheme.layoutVerticalMargin
-                visible: !trackDataHelper.isValid
-            }
-
-            Label {
-                id: trackResource
-                text: trackDataHelper.resourceURI
+                id: metaDataLabels
+                text: model.name
                 color: myPalette.text
-                font.italic: true
+                horizontalAlignment: Text.AlignRight
 
-                elide: Text.ElideLeft
-                horizontalAlignment: implicitWidth > trackMetadata.width ? Text.AlignRight : Text.AlignLeft
-
-                Layout.minimumHeight: textSize.height
-                Layout.preferredWidth: trackMetadata.width * 0.98 - 2 * elisaTheme.layoutHorizontalMargin
-                Layout.topMargin: elisaTheme.layoutVerticalMargin
+                Layout.preferredWidth: 0.8 * elisaTheme.coverImageSize
+                Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+                Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
             }
 
-            DialogButtonBox {
-                id: buttons
-
-                standardButtons: DialogButtonBox.Close
-                alignment: Qt.AlignRight
-                onRejected: trackMetadata.rejected()
+            Loader {
+                active: model.type === TrackMetadataModel.TextEntry || model.type === TrackMetadataModel.IntegerEntry
 
                 Layout.fillWidth: true
+
+                sourceComponent: LabelWithToolTip {
+                    text: model.display
+
+                    horizontalAlignment: Text.AlignLeft
+                    elide: Text.ElideRight
+
+                    anchors.fill: parent
+                }
+            }
+
+            Loader {
+                active: model.type === TrackMetadataModel.RatingEntry
+
+                Layout.fillWidth: true
+
+                sourceComponent: RatingStar {
+                    starRating: model.display
+                    starSize: elisaTheme.ratingStarSize
+
+                    readOnly: true
+
+                    anchors {
+                        left: parent.left
+                        top: parent.top
+                        bottom: parent.bottom
+                    }
+                }
+            }
+        }
+    }
+
+    Connections {
+        target: elisa
+
+        onMusicManagerChanged: realModel.initialize(elisa.musicManager)
+    }
+
+    Component.onCompleted: {
+        if (elisa.musicManager) {
+            if (databaseId !== 0) {
+                realModel.initializeByTrackId(elisa.musicManager, databaseId)
+            } else {
+                realModel.initializeByTrackFileName(elisa.musicManager, fileName)
             }
         }
     }

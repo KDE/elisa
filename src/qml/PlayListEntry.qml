@@ -33,11 +33,13 @@ FocusScope {
     property bool isValid
     property bool isAlternateColor
     property bool containsMouse
+    property int databaseId: 0
     property string title
     property string artist
     property string album
     property string albumArtist
     property string duration
+    property url fileName
     property url imageUrl
     property int trackNumber
     property int discNumber
@@ -105,9 +107,8 @@ FocusScope {
         onLoaded: item.show()
 
         sourceComponent:  MediaTrackMetadataView {
-            trackDataHelper: TrackDataHelper {
-            }
-
+            databaseId: playListEntry.databaseId
+            fileName: playListEntry.fileName
             onRejected: metadataLoader.active = false;
         }
     }

@@ -434,6 +434,87 @@ bool MusicAudioTrack::hasEmbeddedCover() const
     return d->mHasBooleanCover;
 }
 
+MusicAudioTrack::TrackDataType MusicAudioTrack::toTrackData() const
+{
+    auto result = MusicAudioTrack::TrackDataType{};
+
+    result[MusicAudioTrack::TrackDataType::key_type::DatabaseIdRole] = databaseId();
+
+    if (!title().isEmpty()) {
+        result[MusicAudioTrack::TrackDataType::key_type::TitleRole] = title();
+    }
+
+    if (!artist().isEmpty()) {
+        result[MusicAudioTrack::TrackDataType::key_type::ArtistRole] = artist();
+    }
+
+    if (!albumName().isEmpty()) {
+        result[MusicAudioTrack::TrackDataType::key_type::AlbumRole] = albumName();
+    }
+
+    if (!albumArtist().isEmpty()) {
+        result[MusicAudioTrack::TrackDataType::key_type::AlbumArtistRole] = albumArtist();
+    }
+
+    if (!genre().isEmpty()) {
+        result[MusicAudioTrack::TrackDataType::key_type::GenreRole] = genre();
+    }
+
+    if (!composer().isEmpty()) {
+        result[MusicAudioTrack::TrackDataType::key_type::ComposerRole] = composer();
+    }
+
+    if (!lyricist().isEmpty()) {
+        result[MusicAudioTrack::TrackDataType::key_type::LyricistRole] = lyricist();
+    }
+
+    if (!comment().isEmpty()) {
+        result[MusicAudioTrack::TrackDataType::key_type::CommentRole] = comment();
+    }
+
+    if (!albumCover().isEmpty()) {
+        result[MusicAudioTrack::TrackDataType::key_type::ImageUrlRole] = albumCover();
+    }
+
+    if (trackNumber() != -1) {
+        result[MusicAudioTrack::TrackDataType::key_type::TrackNumberRole] = trackNumber();
+    }
+
+    if (discNumber()) {
+        result[MusicAudioTrack::TrackDataType::key_type::DiscNumberRole] = discNumber();
+    }
+
+    if (year()) {
+        result[MusicAudioTrack::TrackDataType::key_type::YearRole] = year();
+    }
+
+    if (channels()) {
+        result[MusicAudioTrack::TrackDataType::key_type::ChannelsRole] = channels();
+    }
+
+    if (bitRate()) {
+        result[MusicAudioTrack::TrackDataType::key_type::BitRateRole] = bitRate();
+    }
+
+    if (sampleRate()) {
+        result[MusicAudioTrack::TrackDataType::key_type::SampleRateRole] = sampleRate();
+    }
+
+    if (!resourceURI().isEmpty()) {
+        result[MusicAudioTrack::TrackDataType::key_type::ResourceRole] = resourceURI();
+    }
+
+    if (rating()) {
+        result[MusicAudioTrack::TrackDataType::key_type::RatingRole] = rating();
+    }
+
+    if (duration().isValid()) {
+        result[MusicAudioTrack::TrackDataType::key_type::DurationRole] = duration();
+    }
+
+    return result;
+}
+
 ELISALIB_EXPORT QDebug operator<<(QDebug stream, const MusicAudioTrack &data)
 {
     stream << data.title() << data.artist() << data.albumName() << data.albumArtist() << data.duration() << data.resourceURI();

@@ -22,7 +22,6 @@
 
 #include "datatype.h"
 #include "elisautils.h"
-#include "musicaudiotrack.h"
 
 #include <QObject>
 #include <QString>
@@ -39,6 +38,7 @@ class DatabaseInterfacePrivate;
 class QMutex;
 class QSqlRecord;
 class QSqlQuery;
+class MusicAudioTrack;
 
 class ELISALIB_EXPORT DatabaseInterface : public QObject
 {

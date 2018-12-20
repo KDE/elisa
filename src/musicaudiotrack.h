@@ -20,6 +20,8 @@
 
 #include "elisaLib_export.h"
 
+#include "databaseinterface.h"
+
 #include <QString>
 #include <QTime>
 #include <QUrl>
@@ -35,6 +37,8 @@ class ELISALIB_EXPORT MusicAudioTrack
 {
 
 public:
+
+    using TrackDataType = DatabaseInterface::TrackDataType;
 
     MusicAudioTrack();
 
@@ -164,6 +168,8 @@ public:
     void setHasEmbeddedCover(bool value);
 
     bool hasEmbeddedCover() const;
+
+    TrackDataType toTrackData() const;
 
 private:
 

@@ -18,12 +18,18 @@
 #ifndef MODELDATALOADER_H
 #define MODELDATALOADER_H
 
-#include <QObject>
+#include "elisaLib_export.h"
 
 #include "elisautils.h"
 #include "databaseinterface.h"
 
-class ModelDataLoader : public QObject
+#include <QObject>
+
+#include <memory>
+
+class ModelDataLoaderPrivate;
+
+class ELISALIB_EXPORT ModelDataLoader : public QObject
 {
 
     Q_OBJECT
@@ -34,8 +40,11 @@ public:
     using ListArtistDataType = DatabaseInterface::ListArtistDataType;
     using ListGenreDataType = DatabaseInterface::ListGenreDataType;
     using ListTrackDataType = DatabaseInterface::ListTrackDataType;
+    using TrackDataType = DatabaseInterface::TrackDataType;
 
     explicit ModelDataLoader(QObject *parent = nullptr);
+
+    ~ModelDataLoader() override;
 
     void setDatabase(DatabaseInterface *database);
 
@@ -48,6 +57,8 @@ Q_SIGNALS:
     void allGenresData(const ListGenreDataType &allData);
 
     void allTracksData(const ListTrackDataType &allData);
+
+    void allTrackData(const TrackDataType &allData);
 
 public Q_SLOTS:
 
@@ -62,9 +73,15 @@ public Q_SLOTS:
     void loadDataByGenreAndArtist(ElisaUtils::PlayListEntryType dataType,
                                   const QString &genre, const QString &artist);
 
+    void loadDataByDatabaseId(ElisaUtils::PlayListEntryType dataType,
+                              qulonglong databaseId);
+
+    void loadDataByFileName(ElisaUtils::PlayListEntryType dataType,
+                            const QUrl &fileName);
+
 private:
 
-    DatabaseInterface *mDatabase = nullptr;
+    std::unique_ptr<ModelDataLoaderPrivate> d;
 
 };
 

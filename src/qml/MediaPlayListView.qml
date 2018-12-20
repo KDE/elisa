@@ -277,11 +277,13 @@ FocusScope {
                         isSelected: playListView.currentIndex === index
                         containsMouse: item.containsMouse
 
+                        databaseId: model.databaseId
                         title: model.title
                         artist: model.artist
                         album: model.album
                         albumArtist: model.albumArtist
                         duration: model.duration
+                        fileName: model.trackResource
                         imageUrl: model.imageUrl
                         trackNumber: model.trackNumber
                         discNumber: model.discNumber

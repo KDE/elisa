@@ -16,7 +16,6 @@ set(elisaLib_SOURCES
     topnotificationmanager.cpp
     elisautils.cpp
     datatype.cpp
-    trackdatahelper.cpp
     abstractfile/abstractfilelistener.cpp
     abstractfile/abstractfilelisting.cpp
     filescanner.cpp
@@ -32,6 +31,7 @@ set(elisaLib_SOURCES
     models/allartistsproxymodel.cpp
     models/alltracksproxymodel.cpp
     models/singlealbumproxymodel.cpp
+    models/trackmetadatamodel.cpp
 )
 
 if (LIBVLC_FOUND)

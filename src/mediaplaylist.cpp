@@ -82,6 +82,7 @@ QHash<int, QByteArray> MediaPlayList::roleNames() const
     auto roles = QAbstractItemModel::roleNames();
 
     roles[static_cast<int>(ColumnsRoles::IsValidRole)] = "isValid";
+    roles[static_cast<int>(ColumnsRoles::DatabaseIdRole)] = "databaseId";
     roles[static_cast<int>(ColumnsRoles::TitleRole)] = "title";
     roles[static_cast<int>(ColumnsRoles::StringDurationRole)] = "duration";
     roles[static_cast<int>(ColumnsRoles::ArtistRole)] = "artist";

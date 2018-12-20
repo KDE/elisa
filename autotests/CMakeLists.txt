@@ -112,6 +112,21 @@ ecm_add_test(${albummodeltest_SOURCES}
 
 target_include_directories(albummodeltest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 
+set(trackmetadatamodeltest_SOURCES
+    qabstractitemmodeltester.cpp
+    trackmetadatamodeltest.cpp
+)
+
+ecm_qt_declare_logging_category(trackmetadatamodeltest_SOURCES HEADER elisa_debug.h IDENTIFIER lcModelTest CATEGORY_NAME qt.modeltest)
+
+ecm_add_test(${trackmetadatamodeltest_SOURCES}
+    TEST_NAME "trackmetadatamodeltest"
+    LINK_LIBRARIES
+        Qt5::Test elisaLib Qt5::CorePrivate
+)
+
+target_include_directories(trackmetadatamodeltest PRIVATE ${CMAKE_SOURCE_DIR}/src)
+
 set(allartistsmodeltest_SOURCES
     qabstractitemmodeltester.cpp
     allartistsmodeltest.cpp

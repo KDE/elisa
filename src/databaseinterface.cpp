@@ -17,6 +17,8 @@
 
 #include "databaseinterface.h"
 
+#include "musicaudiotrack.h"
+
 #include <KI18n/KLocalizedString>
 
 #include <QSqlDatabase>

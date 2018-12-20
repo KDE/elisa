@@ -19,7 +19,7 @@ import QtQuick 2.7
 import QtQuick.Layouts 1.2
 import QtGraphicalEffects 1.0
 
-RowLayout {
+Row {
     property int starSize
     property int starRating
     property bool readOnly: true
@@ -38,12 +38,9 @@ RowLayout {
 
         Item {
             property int ratingThreshold: 2 + index * 2
-            Layout.preferredHeight: starSize
-            Layout.preferredWidth: starSize
-            Layout.maximumHeight: starSize
-            Layout.maximumWidth: starSize
-            Layout.minimumHeight: starSize
-            Layout.minimumWidth: starSize
+
+            height: starSize
+            width: starSize
 
             Image {
                 width: starSize

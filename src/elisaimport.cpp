@@ -20,6 +20,7 @@
 #include "musiclistenersmanager.h"
 #include "elisaimportapplication.h"
 #include "elisa_settings.h"
+#include "musicaudiotrack.h"
 
 #include <QCoreApplication>
 #include <QCommandLineParser>

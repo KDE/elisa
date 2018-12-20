@@ -51,6 +51,7 @@
 #include "models/alltracksproxymodel.h"
 #include "models/allartistsproxymodel.h"
 #include "models/singlealbumproxymodel.h"
+#include "models/trackmetadatamodel.h"
 #include "embeddedcoverageimageprovider.h"
 
 #if defined KF5KIO_FOUND && KF5KIO_FOUND
@@ -60,7 +61,6 @@
 #include "audiowrapper.h"
 #include "notificationitem.h"
 #include "topnotificationmanager.h"
-#include "trackdatahelper.h"
 #include "elisautils.h"
 #include "datatype.h"
 
@@ -120,6 +120,7 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qmlRegisterType<AllGenresModel>(uri, 1, 0, "AllGenresModel");
     qmlRegisterType<AllTracksModel>(uri, 1, 0, "AllTracksModel");
     qmlRegisterType<AlbumModel>(uri, 1, 0, "AlbumModel");
+    qmlRegisterType<TrackMetadataModel>(uri, 1, 0, "TrackMetadataModel");
     qmlRegisterType<AllAlbumsProxyModel>(uri, 1, 0, "AllAlbumsProxyModel");
     qmlRegisterType<AllArtistsProxyModel>(uri, 1, 0, "AllArtistsProxyModel");
     qmlRegisterType<AllTracksProxyModel>(uri, 1, 0, "AllTracksProxyModel");
@@ -131,7 +132,6 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
 
     qmlRegisterType<AudioWrapper>(uri, 1, 0, "AudioWrapper");
     qmlRegisterType<TopNotificationManager>(uri, 1, 0, "TopNotificationManager");
-    qmlRegisterType<TrackDataHelper>(uri, 1, 0, "TrackDataHelper");
     qmlRegisterUncreatableMetaObject(DataUtils::staticMetaObject, uri, 1, 0, "DataUtils", QStringLiteral("Only enums"));
 
 #if defined Qt5DBus_FOUND && Qt5DBus_FOUND

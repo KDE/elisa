@@ -30,13 +30,8 @@ FileBrowserProxyModel::FileBrowserProxyModel(QObject *parent) : KDirSortFilterPr
 {
     setFilterCaseSensitivity(Qt::CaseInsensitive);
     mThreadPool.setMaxThreadCount(1);
-    mFileModel = std::make_unique<FileBrowserModel>();
-    setSourceModel(mFileModel.get());
     setSortFoldersFirst(true);
     sort(Qt::AscendingOrder);
-    connect(mFileModel.get(), &FileBrowserModel::urlChanged,this, &FileBrowserProxyModel::urlChanged);
-    mTopFolder = QDir::homePath();
-    openFolder(mTopFolder, true);
 }
 
 FileBrowserProxyModel::~FileBrowserProxyModel() = default;
@@ -141,8 +136,14 @@ void FileBrowserProxyModel::replaceAndPlayOfUrl(const QUrl &fileUrl)
 
 QString FileBrowserProxyModel::parentFolder() const
 {
+    auto fileBrowserModel = dynamic_cast<FileBrowserModel*>(sourceModel());
+
+    if (!fileBrowserModel) {
+        return {};
+    }
+
     //return to the top folder if parent directory does not exist
-    QDir dir(mFileModel->dirLister()->url().toLocalFile());
+    QDir dir(fileBrowserModel->dirLister()->url().toLocalFile());
     if (dir.cdUp()) {
         return dir.path();
     } else {
@@ -152,9 +153,15 @@ QString FileBrowserProxyModel::parentFolder() const
 
 void FileBrowserProxyModel::openParentFolder()
 {
+    auto fileBrowserModel = dynamic_cast<FileBrowserModel*>(sourceModel());
+
+    if (!fileBrowserModel) {
+        return;
+    }
+
     if (canGoBack()) {
         QString parent = parentFolder();
-        mFileModel->setUrl(parent);
+        fileBrowserModel->setUrl(parent);
         if (parent == mTopFolder) {
             Q_EMIT canGoBackChanged();
         }
@@ -163,15 +170,29 @@ void FileBrowserProxyModel::openParentFolder()
 
 bool FileBrowserProxyModel::canGoBack() const
 {
-    return mFileModel->dirLister()->url().toLocalFile() != mTopFolder;
+    auto fileBrowserModel = dynamic_cast<FileBrowserModel*>(sourceModel());
+
+    if (!fileBrowserModel) {
+        return false;
+    }
+
+    return fileBrowserModel->dirLister()->url().toLocalFile() != mTopFolder;
 }
 
 void FileBrowserProxyModel::openFolder(const QString &folder, bool isDisplayRoot)
 {
+    auto fileBrowserModel = dynamic_cast<FileBrowserModel*>(sourceModel());
+
+    if (!fileBrowserModel) {
+        return;
+    }
+
     if (folder.isEmpty()) {
         return;
     }
-    mFileModel->setUrl(folder);
+
+    fileBrowserModel->setUrl(folder);
+
     if (!isDisplayRoot) {
         Q_EMIT canGoBackChanged();
     }
@@ -186,12 +207,33 @@ MusicAudioTrack FileBrowserProxyModel::loadMetaDataFromUrl(const QUrl &url)
 
 QString FileBrowserProxyModel::url() const
 {
-    return mFileModel->dirLister()->url().toLocalFile();
+    auto fileBrowserModel = dynamic_cast<FileBrowserModel*>(sourceModel());
+
+    if (!fileBrowserModel) {
+        return {};
+    }
+
+    return fileBrowserModel->dirLister()->url().toLocalFile();
 }
 
 bool FileBrowserProxyModel::sortedAscending() const
 {
     return sortOrder() ? false : true;
+}
+
+void FileBrowserProxyModel::setSourceModel(QAbstractItemModel *sourceModel)
+{
+    KDirSortFilterProxyModel::setSourceModel(sourceModel);
+
+    auto fileBrowserModel = dynamic_cast<FileBrowserModel*>(sourceModel);
+
+    if (!fileBrowserModel) {
+        return;
+    }
+
+    connect(fileBrowserModel, &FileBrowserModel::urlChanged,this, &FileBrowserProxyModel::urlChanged);
+    mTopFolder = QDir::homePath();
+    openFolder(mTopFolder, true);
 }
 
 void FileBrowserProxyModel::sortModel(Qt::SortOrder order)

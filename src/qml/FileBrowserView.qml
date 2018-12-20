@@ -151,8 +151,8 @@ FocusScope {
                     imageUrl: model.imageUrl
                     contentModel: proxyModel
 
-                    onEnqueue: elisa.mediaPlayList.enqueue(data)
-                    onReplaceAndPlay: proxyModel.replaceAndPlayOfUrl(data)
+                    onEnqueue: elisa.mediaPlayList.enqueue(0, data, ElisaUtils.FileName, ElisaUtils.AppendPlayList, ElisaUtils.DoNotTriggerPlay)
+                    onReplaceAndPlay: elisa.mediaPlayList.enqueue(0, data, ElisaUtils.FileName, ElisaUtils.ReplacePlayList, ElisaUtils.TriggerPlay)
                     onSelected: {
                         forceActiveFocus()
                         contentDirectoryView.currentIndex = model.index

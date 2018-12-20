@@ -21,7 +21,6 @@
 
 #include "elisaLib_export.h"
 
-#include "filebrowsermodel.h"
 #include "musicaudiotrack.h"
 #include "filescanner.h"
 #include "elisautils.h"
@@ -69,6 +68,8 @@ public:
     Q_INVOKABLE MusicAudioTrack loadMetaDataFromUrl(const QUrl &url);
 
     bool sortedAscending() const;
+
+    void setSourceModel(QAbstractItemModel *sourceModel) override;
 
 public Q_SLOTS:
 
@@ -124,8 +125,6 @@ private:
     QReadWriteLock mDataLock;
 
     QThreadPool mThreadPool;
-
-    std::unique_ptr<FileBrowserModel> mFileModel;
 
 };
 

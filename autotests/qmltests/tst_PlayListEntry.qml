@@ -33,7 +33,7 @@ Item {
         isAlternateColor: false
         hasAlbumHeader: false
         isSingleDiscAlbum: false
-        titleDisplay: "hello"
+        title: "hello"
         isValid: true
         isPlaying: MediaPlayList.IsPaused
         isSelected: true

@@ -232,7 +232,7 @@ double MediaPlayer2Player::Rate() const
 
 void MediaPlayer2Player::setRate(double newRate)
 {
-    if (abs(newRate) <= 0.0001) {
+    if (newRate <= 0.0001 && newRate >= -0.0001) {
         Pause();
     } else {
         m_rate = qBound(MinimumRate(), newRate, MaximumRate());

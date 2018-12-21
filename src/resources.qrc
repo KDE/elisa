@@ -30,7 +30,7 @@
         <file>qml/FileBrowserView.qml</file>
         <file>qtquickcontrols2.conf</file>
         <file>background.png</file>
-        <file>qml/ViewManager.qml</file>
+        <file>qml/ViewNavigation.qml</file>
         <file>qml/BaseTheme.qml</file>
         <file>qml/ScrollHelper.qml</file>
         <file>qml/FlatButtonWithToolTip.qml</file>

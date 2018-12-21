@@ -69,9 +69,9 @@ Q_SIGNALS:
 
 public Q_SLOTS:
 
-    void artistsAdded(AllArtistsModel::ListArtistDataType newArtists);
+    void artistsAdded(AllArtistsModel::ListArtistDataType newData);
 
-    void artistRemoved(qulonglong removedArtistId);
+    void artistRemoved(qulonglong removedDatabaseId);
 
     void initialize(MusicListenersManager *manager);
 

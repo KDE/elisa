@@ -43,6 +43,7 @@
 #include "musicaudiotrack.h"
 #include "musiclistenersmanager.h"
 #include "trackslistener.h"
+#include "viewmanager.h"
 #include "models/allalbumsmodel.h"
 #include "models/allartistsmodel.h"
 #include "models/allgenresmodel.h"
@@ -118,6 +119,7 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qmlRegisterType<ManageAudioPlayer>(uri, 1, 0, "ManageAudioPlayer");
     qmlRegisterType<ProgressIndicator>(uri, 1, 0, "ProgressIndicator");
     qmlRegisterType<MusicListenersManager>(uri, 1, 0, "MusicListenersManager");
+    qmlRegisterType<ViewManager>(uri, 1, 0, "ViewManager");
     qmlRegisterType<AllAlbumsModel>(uri, 1, 0, "AllAlbumsModel");
     qmlRegisterType<AllArtistsModel>(uri, 1, 0, "AllArtistsModel");
     qmlRegisterType<AllGenresModel>(uri, 1, 0, "AllGenresModel");

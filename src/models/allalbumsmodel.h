@@ -37,10 +37,6 @@ class ELISALIB_EXPORT AllAlbumsModel : public QAbstractItemModel
 {
     Q_OBJECT
 
-    Q_PROPERTY(int albumCount
-               READ albumCount
-               NOTIFY albumCountChanged)
-
 public:
 
     using ListAlbumDataType = DatabaseInterface::ListAlbumDataType;
@@ -50,8 +46,6 @@ public:
     explicit AllAlbumsModel(QObject *parent = nullptr);
 
     ~AllAlbumsModel() override;
-
-    Q_INVOKABLE int albumCount() const;
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
 
@@ -69,9 +63,9 @@ public:
 
 public Q_SLOTS:
 
-    void albumsAdded(AllAlbumsModel::ListAlbumDataType newAlbums);
+    void albumsAdded(AllAlbumsModel::ListAlbumDataType newData);
 
-    void albumRemoved(qulonglong removedAlbumId);
+    void albumRemoved(qulonglong removedDatabaseId);
 
     void albumModified(const AllAlbumsModel::AlbumDataType &modifiedAlbum);
 
@@ -84,8 +78,6 @@ public Q_SLOTS:
 
 Q_SIGNALS:
 
-    void albumCountChanged();
-
     void needData(ElisaUtils::PlayListEntryType dataType);
 
     void needDataByArtist(ElisaUtils::PlayListEntryType dataType, const QString &artist);
@@ -94,8 +86,6 @@ Q_SIGNALS:
                                   const QString &genre, const QString &artist);
 
 private:
-
-    QVariant internalDataAlbum(int albumIndex, int role) const;
 
     std::unique_ptr<AllAlbumsModelPrivate> d;
 

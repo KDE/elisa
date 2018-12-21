@@ -29,7 +29,7 @@ class AllArtistsModelPrivate
 {
 public:
 
-    AllArtistsModel::ListArtistDataType mAllArtists;
+    AllArtistsModel::ListArtistDataType mAllData;
 
     ModelDataLoader mDataLoader;
 
@@ -44,15 +44,15 @@ AllArtistsModel::~AllArtistsModel()
 
 int AllArtistsModel::rowCount(const QModelIndex &parent) const
 {
-    auto artistCount = 0;
+    auto dataCount = 0;
 
     if (parent.isValid()) {
-        return artistCount;
+        return dataCount;
     }
 
-    artistCount = d->mAllArtists.size();
+    dataCount = d->mAllData.size();
 
-    return artistCount;
+    return dataCount;
 }
 
 QHash<int, QByteArray> AllArtistsModel::roleNames() const
@@ -81,11 +81,11 @@ QVariant AllArtistsModel::data(const QModelIndex &index, int role) const
 {
     auto result = QVariant();
 
-    const auto artistsCount = d->mAllArtists.size();
+    const auto dataCount = d->mAllData.size();
 
     Q_ASSERT(index.isValid());
     Q_ASSERT(index.column() == 0);
-    Q_ASSERT(index.row() >= 0 && index.row() < artistsCount);
+    Q_ASSERT(index.row() >= 0 && index.row() < dataCount);
     Q_ASSERT(!index.parent().isValid());
     Q_ASSERT(index.model() == this);
     Q_ASSERT(index.internalId() == 0);
@@ -93,10 +93,10 @@ QVariant AllArtistsModel::data(const QModelIndex &index, int role) const
     switch(role)
     {
     case Qt::DisplayRole:
-        result = d->mAllArtists[index.row()][ArtistDataType::key_type::TitleRole];
+        result = d->mAllData[index.row()][ArtistDataType::key_type::TitleRole];
         break;
     default:
-        result = d->mAllArtists[index.row()][static_cast<ArtistDataType::key_type>(role)];
+        result = d->mAllData[index.row()][static_cast<ArtistDataType::key_type>(role)];
     }
 
     return result;
@@ -135,35 +135,35 @@ int AllArtistsModel::columnCount(const QModelIndex &parent) const
     return 1;
 }
 
-void AllArtistsModel::artistsAdded(ListArtistDataType newArtists)
+void AllArtistsModel::artistsAdded(ListArtistDataType newData)
 {
-    if (d->mAllArtists.isEmpty()) {
-        beginInsertRows({}, d->mAllArtists.size(), d->mAllArtists.size() + newArtists.size() - 1);
-        d->mAllArtists.swap(newArtists);
+    if (d->mAllData.isEmpty()) {
+        beginInsertRows({}, d->mAllData.size(), d->mAllData.size() + newData.size() - 1);
+        d->mAllData.swap(newData);
         endInsertRows();
     } else {
-        beginInsertRows({}, d->mAllArtists.size(), d->mAllArtists.size() + newArtists.size() - 1);
-        d->mAllArtists.append(newArtists);
+        beginInsertRows({}, d->mAllData.size(), d->mAllData.size() + newData.size() - 1);
+        d->mAllData.append(newData);
         endInsertRows();
     }
 }
 
-void AllArtistsModel::artistRemoved(qulonglong removedArtistId)
+void AllArtistsModel::artistRemoved(qulonglong removedDatabaseId)
 {
-    auto removedArtistIterator = d->mAllArtists.end();
+    auto removedDataIterator = d->mAllData.end();
 
-    removedArtistIterator = std::find_if(d->mAllArtists.begin(), d->mAllArtists.end(),
-                                        [removedArtistId](auto album) {return album.databaseId() == removedArtistId;});
+    removedDataIterator = std::find_if(d->mAllData.begin(), d->mAllData.end(),
+                                        [removedDatabaseId](auto album) {return album.databaseId() == removedDatabaseId;});
 
-    if (removedArtistIterator == d->mAllArtists.end()) {
+    if (removedDataIterator == d->mAllData.end()) {
         return;
     }
 
-    int artistIndex = removedArtistIterator - d->mAllArtists.begin();
+    int dataIndex = removedDataIterator - d->mAllData.begin();
 
-    beginRemoveRows({}, artistIndex, artistIndex);
+    beginRemoveRows({}, dataIndex, dataIndex);
 
-    d->mAllArtists.erase(removedArtistIterator);
+    d->mAllData.erase(removedDataIterator);
 
     endRemoveRows();
 }

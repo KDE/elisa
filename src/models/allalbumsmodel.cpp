@@ -31,7 +31,7 @@ class AllAlbumsModelPrivate
 {
 public:
 
-    AllAlbumsModel::ListAlbumDataType mAllAlbums;
+    AllAlbumsModel::ListAlbumDataType mAllData;
 
     ModelDataLoader mDataLoader;
 
@@ -44,22 +44,17 @@ AllAlbumsModel::AllAlbumsModel(QObject *parent) : QAbstractItemModel(parent), d(
 AllAlbumsModel::~AllAlbumsModel()
 = default;
 
-int AllAlbumsModel::albumCount() const
-{
-    return d->mAllAlbums.size();
-}
-
 int AllAlbumsModel::rowCount(const QModelIndex &parent) const
 {
-    auto albumCount = 0;
+    auto dataCount = 0;
 
     if (parent.isValid()) {
-        return albumCount;
+        return dataCount;
     }
 
-    albumCount = d->mAllAlbums.size();
+    dataCount = d->mAllData.size();
 
-    return albumCount;
+    return dataCount;
 }
 
 QHash<int, QByteArray> AllAlbumsModel::roleNames() const
@@ -92,30 +87,22 @@ QVariant AllAlbumsModel::data(const QModelIndex &index, int role) const
 {
     auto result = QVariant();
 
-    const auto albumCount = d->mAllAlbums.size();
+    const auto dataCount = d->mAllData.size();
 
     Q_ASSERT(index.isValid());
     Q_ASSERT(index.column() == 0);
-    Q_ASSERT(index.row() >= 0 && index.row() < albumCount);
+    Q_ASSERT(index.row() >= 0 && index.row() < dataCount);
     Q_ASSERT(!index.parent().isValid());
     Q_ASSERT(index.model() == this);
     Q_ASSERT(index.internalId() == 0);
 
-    result = internalDataAlbum(index.row(), role);
-    return result;
-}
-
-QVariant AllAlbumsModel::internalDataAlbum(int albumIndex, int role) const
-{
-    auto result = QVariant();
-
     switch(role)
     {
     case Qt::DisplayRole:
-        result = d->mAllAlbums[albumIndex][AlbumDataType::key_type::TitleRole];
+        result = d->mAllData[index.row()][AlbumDataType::key_type::TitleRole];
         break;
     default:
-        result = d->mAllAlbums[albumIndex][static_cast<AlbumDataType::key_type>(role)];
+        result = d->mAllData[index.row()][static_cast<AlbumDataType::key_type>(role)];
     }
 
     return result;
@@ -154,55 +141,51 @@ int AllAlbumsModel::columnCount(const QModelIndex &parent) const
     return 1;
 }
 
-void AllAlbumsModel::albumsAdded(ListAlbumDataType newAlbums)
+void AllAlbumsModel::albumsAdded(ListAlbumDataType newData)
 {
-    if (d->mAllAlbums.isEmpty()) {
-        beginInsertRows({}, d->mAllAlbums.size(), d->mAllAlbums.size() + newAlbums.size() - 1);
-        d->mAllAlbums.swap(newAlbums);
+    if (d->mAllData.isEmpty()) {
+        beginInsertRows({}, d->mAllData.size(), d->mAllData.size() + newData.size() - 1);
+        d->mAllData.swap(newData);
         endInsertRows();
     } else {
-        beginInsertRows({}, d->mAllAlbums.size(), d->mAllAlbums.size() + newAlbums.size() - 1);
-        d->mAllAlbums.append(newAlbums);
+        beginInsertRows({}, d->mAllData.size(), d->mAllData.size() + newData.size() - 1);
+        d->mAllData.append(newData);
         endInsertRows();
     }
-
-    Q_EMIT albumCountChanged();
 }
 
-void AllAlbumsModel::albumRemoved(qulonglong removedAlbumId)
+void AllAlbumsModel::albumRemoved(qulonglong removedDatabaseId)
 {
-    auto removedAlbumIterator = d->mAllAlbums.end();
+    auto removedDataIterator = d->mAllData.end();
 
-    removedAlbumIterator = std::find_if(d->mAllAlbums.begin(), d->mAllAlbums.end(),
-                                        [removedAlbumId](auto album) {return album.databaseId() == removedAlbumId;});
+    removedDataIterator = std::find_if(d->mAllData.begin(), d->mAllData.end(),
+                                        [removedDatabaseId](auto album) {return album.databaseId() == removedDatabaseId;});
 
-    if (removedAlbumIterator == d->mAllAlbums.end()) {
+    if (removedDataIterator == d->mAllData.end()) {
         return;
     }
 
-    int albumIndex = removedAlbumIterator - d->mAllAlbums.begin();
+    int dataIndex = removedDataIterator - d->mAllData.begin();
 
-    beginRemoveRows({}, albumIndex, albumIndex);
+    beginRemoveRows({}, dataIndex, dataIndex);
 
-    d->mAllAlbums.erase(removedAlbumIterator);
+    d->mAllData.erase(removedDataIterator);
 
     endRemoveRows();
-
-    Q_EMIT albumCountChanged();
 }
 
 void AllAlbumsModel::albumModified(const AlbumDataType &modifiedAlbum)
 {
-    auto modifiedAlbumIterator = std::find_if(d->mAllAlbums.begin(), d->mAllAlbums.end(),
+    auto modifiedAlbumIterator = std::find_if(d->mAllData.begin(), d->mAllData.end(),
                                               [modifiedAlbum](auto album) {
         return album.databaseId() == modifiedAlbum.databaseId();
     });
 
-    if (modifiedAlbumIterator == d->mAllAlbums.end()) {
+    if (modifiedAlbumIterator == d->mAllData.end()) {
         return;
     }
 
-    auto albumIndex = modifiedAlbumIterator - d->mAllAlbums.begin();
+    auto albumIndex = modifiedAlbumIterator - d->mAllData.begin();
 
     Q_EMIT dataChanged(index(albumIndex, 0), index(albumIndex, 0));
 }

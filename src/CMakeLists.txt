@@ -19,6 +19,7 @@ set(elisaLib_SOURCES
     abstractfile/abstractfilelistener.cpp
     abstractfile/abstractfilelisting.cpp
     filescanner.cpp
+    viewmanager.cpp
     file/filelistener.cpp
     file/localfilelisting.cpp
     models/albummodel.cpp
@@ -325,7 +326,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         qml/ContextView.qml
         qml/ContentView.qml
         qml/ViewSelector.qml
-        qml/ViewManager.qml
+        qml/ViewNavigation.qml
         qml/AlbumsView.qml
         qml/ArtistsView.qml
         qml/GenresView.qml

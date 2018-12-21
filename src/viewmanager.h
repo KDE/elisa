@@ -79,32 +79,32 @@ public Q_SLOTS:
 
     void openAllAlbums();
 
-    void openOneAlbum(const QString &albumTitle, const QString &albumAuthor,
+    void abstractOpenOneAlbum(const QString &albumTitle, const QString &albumAuthor,
                       const QUrl &albumCover, qulonglong albumDatabaseId);
 
     void openAllArtists();
 
-    void openOneArtist(const QString &artistName, const QUrl &artistImageUrl, qulonglong artistDatabaseId);
+    void abstractOpenOneArtist(const QString &artistName, const QUrl &artistImageUrl, qulonglong artistDatabaseId);
 
     void openAllTracks();
 
     void openAllGenres();
 
-    void openAllArtistsFromGenre(const QString &genreName);
+    void abstractOpenAllArtistsFromGenre(const QString &genreName);
 
     void openFilesBrowser();
 
-    void allAlbumsViewIsLoaded();
+    void abstractAllAlbumsViewIsLoaded();
 
     void oneAlbumViewIsLoaded();
 
-    void allArtistsViewIsLoaded();
+    void abstractAllArtistsViewIsLoaded();
 
     void oneArtistViewIsLoaded();
 
     void allTracksViewIsLoaded();
 
-    void allGenresViewIsLoaded();
+    void abstractAllGenresViewIsLoaded();
 
     void allArtistsFromGenreViewIsLoaded();
 

@@ -24,36 +24,38 @@ ViewManager {
     function openOneAlbum(stackView, albumTitle, albumAuthor, albumCover, albumDatabaseId)
     {
         currentStackView = stackView
-        openOneAlbum(albumTitle, albumAuthor, albumCover, albumDatabaseId)
+        abstractOpenOneAlbum(albumTitle, albumAuthor, albumCover, albumDatabaseId)
     }
 
     function openOneArtist(stackView, artistName, artistImageUrl, artistDatabaseId)
     {
         currentStackView = stackView
-        openOneArtist(artistName, artistImageUrl, artistDatabaseId)
+        abstractOpenOneArtist(artistName, artistImageUrl, artistDatabaseId)
     }
 
     function openAllArtistsFromGenre(stackView, genreName)
     {
         currentStackView = stackView
-        openAllArtistsFromGenre(genreName)
+        abstractOpenAllArtistsFromGenre(genreName)
     }
 
     function allAlbumsViewIsLoaded(stackView)
     {
         currentStackView = stackView
-        allAlbumsViewIsLoaded()
+        abstractAllAlbumsViewIsLoaded()
     }
 
     function allArtistsViewIsLoaded(stackView)
     {
         currentStackView = stackView
-        allArtistsViewIsLoaded()
+        abstractAllArtistsViewIsLoaded()
     }
 
     function allGenresViewIsLoaded(stackView)
     {
         currentStackView = stackView
-        allGenresViewIsLoaded()
+        abstractAllGenresViewIsLoaded()
     }
+
+    onPopOneView: currentStackView.pop()
 }

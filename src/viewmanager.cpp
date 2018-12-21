@@ -37,7 +37,7 @@ void ViewManager::openAllAlbums()
     }
 }
 
-void ViewManager::openOneAlbum(const QString &albumTitle, const QString &albumAuthor,
+void ViewManager::abstractOpenOneAlbum(const QString &albumTitle, const QString &albumAuthor,
                                const QUrl &albumCover, qulonglong albumDatabaseId)
 {
     mTargetAlbumTitle = albumTitle;
@@ -68,7 +68,7 @@ void ViewManager::openAllArtists()
     }
 }
 
-void ViewManager::openOneArtist(const QString &artistName, const QUrl &artistImageUrl, qulonglong artistDatabaseId)
+void ViewManager::abstractOpenOneArtist(const QString &artistName, const QUrl &artistImageUrl, qulonglong artistDatabaseId)
 {
     mTargetArtistName = artistName;
     mTargetDatabaseId = artistDatabaseId;
@@ -84,9 +84,12 @@ void ViewManager::openOneArtist(const QString &artistName, const QUrl &artistIma
         Q_EMIT switchOneArtistView(mTargetArtistName, mTargetImageUrl, {}, mTargetDatabaseId);
     } else if (mCurrentView == ViewsType::OneArtist && mCurrentArtistName != mTargetArtistName &&
                mTargetView == ViewsType::OneArtist) {
+        Q_EMIT popOneView();
         Q_EMIT switchOneArtistView(mTargetArtistName, mTargetImageUrl, {}, mTargetDatabaseId);
     } else if (mCurrentView == ViewsType::OneAlbumFromArtist && mCurrentArtistName != mTargetArtistName &&
                mTargetView == ViewsType::OneArtist) {
+        Q_EMIT popOneView();
+        Q_EMIT popOneView();
         Q_EMIT switchOneArtistView(mTargetArtistName, mTargetImageUrl, {}, mTargetDatabaseId);
     } else if (mCurrentView == ViewsType::AllArtistsFromGenre && mTargetView == ViewsType::OneArtistFromGenre) {
         Q_EMIT switchOneArtistFromGenreView(mTargetArtistName, mTargetImageUrl, {}, mTargetDatabaseId, mTargetGenreName);
@@ -112,7 +115,7 @@ void ViewManager::openAllGenres()
     }
 }
 
-void ViewManager::openAllArtistsFromGenre(const QString &genreName)
+void ViewManager::abstractOpenAllArtistsFromGenre(const QString &genreName)
 {
     mTargetView = ViewsType::AllArtistsFromGenre;
     mTargetGenreName = genreName;
@@ -132,7 +135,7 @@ void ViewManager::openFilesBrowser()
     }
 }
 
-void ViewManager::allAlbumsViewIsLoaded()
+void ViewManager::abstractAllAlbumsViewIsLoaded()
 {
     mCurrentView = ViewsType::AllAlbums;
     if (mTargetView == ViewsType::OneAlbum) {
@@ -154,7 +157,7 @@ void ViewManager::oneAlbumViewIsLoaded()
     }
 }
 
-void ViewManager::allArtistsViewIsLoaded()
+void ViewManager::abstractAllArtistsViewIsLoaded()
 {
     mCurrentView = ViewsType::AllArtists;
     if (mTargetView == ViewsType::OneArtist) {
@@ -178,7 +181,7 @@ void ViewManager::allTracksViewIsLoaded()
     mCurrentView = ViewsType::AllTracks;
 }
 
-void ViewManager::allGenresViewIsLoaded()
+void ViewManager::abstractAllGenresViewIsLoaded()
 {
     mCurrentView = ViewsType::AllGenres;
 }
@@ -196,6 +199,8 @@ void ViewManager::filesBrowserViewIsLoaded()
 
 void ViewManager::goBack()
 {
+    Q_EMIT popOneView();
+
     if (mCurrentView == ViewsType::OneAlbum) {
         mCurrentView = ViewsType::AllAlbums;
     } else if (mCurrentView == ViewsType::OneArtist) {

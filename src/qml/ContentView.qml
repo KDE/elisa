@@ -34,7 +34,7 @@ RowLayout {
         viewManager.goBack()
     }
 
-    ViewManager {
+    ViewNavigation {
         id: viewManager
 
         onSwitchAllAlbumsView: {

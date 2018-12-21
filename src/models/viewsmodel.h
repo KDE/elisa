@@ -53,8 +53,6 @@ public:
 
     QModelIndex parent(const QModelIndex &child) const override;
 
-    int columnCount(const QModelIndex &parent = QModelIndex()) const override;
-
 private:
 
     std::unique_ptr<ViewsModelPrivate> d;

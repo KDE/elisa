@@ -24,6 +24,9 @@
 #include <QTimer>
 #include <QPointer>
 #include <QVector>
+#include <QDebug>
+
+#include <algorithm>
 
 class AlbumModelPrivate
 {
@@ -33,13 +36,13 @@ public:
 
     QString mAlbumArtist;
 
-    AlbumModel::ListTrackDataType mCurrentAlbum;
+    AlbumModel::ListTrackDataType mAllData;
 
     ModelDataLoader mDataLoader;
 
 };
 
-AlbumModel::AlbumModel(QObject *parent) : QAbstractItemModel(parent), d(std::make_unique<AlbumModelPrivate>())
+AlbumModel::AlbumModel(QObject *parent) : QAbstractListModel(parent), d(std::make_unique<AlbumModelPrivate>())
 {
 }
 
@@ -48,24 +51,34 @@ AlbumModel::~AlbumModel()
 
 int AlbumModel::rowCount(const QModelIndex &parent) const
 {
+    auto dataCount = 0;
+
     if (parent.isValid()) {
-        return 0;
+        return dataCount;
     }
 
-    return d->mCurrentAlbum.count();
+    dataCount = d->mAllData.size();
+
+    return dataCount;
 }
 
 QHash<int, QByteArray> AlbumModel::roleNames() const
 {
-    auto roles = QAbstractItemModel::roleNames();
+    auto roles = QAbstractListModel::roleNames();
 
-    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::DatabaseIdRole)] = "databaseId";
     roles[static_cast<int>(DatabaseInterface::ColumnsRoles::TitleRole)] = "title";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::SecondaryTextRole)] = "secondaryText";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::ImageUrlRole)] = "imageUrl";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::DatabaseIdRole)] = "databaseId";
+
     roles[static_cast<int>(DatabaseInterface::ColumnsRoles::ArtistRole)] = "artist";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::AllArtistsRole)] = "allArtists";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::HighestTrackRating)] = "highestTrackRating";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::GenreRole)] = "genre";
+
     roles[static_cast<int>(DatabaseInterface::ColumnsRoles::AlbumRole)] = "album";
     roles[static_cast<int>(DatabaseInterface::ColumnsRoles::AlbumArtistRole)] = "albumArtist";
     roles[static_cast<int>(DatabaseInterface::ColumnsRoles::DurationRole)] = "duration";
-    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::ImageUrlRole)] = "imageUrl";
     roles[static_cast<int>(DatabaseInterface::ColumnsRoles::TrackNumberRole)] = "trackNumber";
     roles[static_cast<int>(DatabaseInterface::ColumnsRoles::DiscNumberRole)] = "discNumber";
     roles[static_cast<int>(DatabaseInterface::ColumnsRoles::RatingRole)] = "rating";
@@ -87,19 +100,23 @@ QVariant AlbumModel::data(const QModelIndex &index, int role) const
 {
     auto result = QVariant();
 
+    const auto dataCount = d->mAllData.size();
+
     Q_ASSERT(index.isValid());
     Q_ASSERT(index.column() == 0);
-    Q_ASSERT(index.row() >= 0 && index.row() < d->mCurrentAlbum.count());
+    Q_ASSERT(index.row() >= 0 && index.row() < dataCount);
     Q_ASSERT(!index.parent().isValid());
     Q_ASSERT(index.model() == this);
-
-    const auto &currentTrack = d->mCurrentAlbum[index.row()];
+    Q_ASSERT(index.internalId() == 0);
 
     switch(role)
     {
+    case Qt::DisplayRole:
+        result = d->mAllData[index.row()][TrackDataType::key_type::TitleRole];
+        break;
     case DatabaseInterface::ColumnsRoles::DurationRole:
     {
-        auto trackDuration = currentTrack.duration();
+        auto trackDuration = d->mAllData[index.row()][TrackDataType::key_type::DurationRole].toTime();
         if (trackDuration.hour() == 0) {
             result = trackDuration.toString(QStringLiteral("mm:ss"));
         } else {
@@ -108,7 +125,7 @@ QVariant AlbumModel::data(const QModelIndex &index, int role) const
         break;
     }
     default:
-        result = currentTrack[static_cast<TrackDataType::key_type>(role)];
+        result = d->mAllData[index.row()][static_cast<TrackDataType::key_type>(role)];
     }
 
     return result;
@@ -126,24 +143,18 @@ QModelIndex AlbumModel::index(int row, int column, const QModelIndex &parent) co
         return result;
     }
 
-    if (row >= d->mCurrentAlbum.count()) {
-        return result;
-    }
+    result = createIndex(row, column);
 
-    return createIndex(row, column);
+    return result;
 }
 
 QModelIndex AlbumModel::parent(const QModelIndex &child) const
 {
     Q_UNUSED(child)
-    return {};
-}
 
-int AlbumModel::columnCount(const QModelIndex &parent) const
-{
-    Q_UNUSED(parent);
+    auto result = QModelIndex();
 
-    return 1;
+    return result;
 }
 
 QString AlbumModel::title() const
@@ -154,11 +165,6 @@ QString AlbumModel::title() const
 QString AlbumModel::author() const
 {
     return d->mAlbumArtist;
-}
-
-int AlbumModel::tracksCount() const
-{
-    return d->mCurrentAlbum.count();
 }
 
 void AlbumModel::initialize(const QString &albumTitle, const QString &albumArtist,
@@ -191,8 +197,8 @@ int AlbumModel::trackIndexFromId(qulonglong id) const
 {
     int result;
 
-    for (result = 0; result < d->mCurrentAlbum.size(); ++result) {
-        if (d->mCurrentAlbum[result].databaseId() == id) {
+    for (result = 0; result < d->mAllData.size(); ++result) {
+        if (d->mAllData[result].databaseId() == id) {
             return result;
         }
     }
@@ -220,12 +226,12 @@ void AlbumModel::tracksAdded(const ListTrackDataType &newTracks)
         }
 
         bool trackInserted = false;
-        for (int trackIndex = 0; trackIndex < d->mCurrentAlbum.count(); ++trackIndex) {
-            const auto &oneTrack = d->mCurrentAlbum[trackIndex];
+        for (int trackIndex = 0; trackIndex < d->mAllData.count(); ++trackIndex) {
+            const auto &oneTrack = d->mAllData[trackIndex];
 
             if (oneTrack.discNumber() == newTrack.discNumber() && oneTrack.trackNumber() > newTrack.trackNumber()) {
                 beginInsertRows({}, trackIndex, trackIndex);
-                d->mCurrentAlbum.insert(trackIndex, newTrack);
+                d->mAllData.insert(trackIndex, newTrack);
                 endInsertRows();
                 trackInserted = true;
                 break;
@@ -233,8 +239,8 @@ void AlbumModel::tracksAdded(const ListTrackDataType &newTracks)
         }
 
         if (!trackInserted) {
-            beginInsertRows({}, d->mCurrentAlbum.count(), d->mCurrentAlbum.count());
-            d->mCurrentAlbum.insert(d->mCurrentAlbum.count(), newTrack);
+            beginInsertRows({}, d->mAllData.count(), d->mAllData.count());
+            d->mAllData.insert(d->mAllData.count(), newTrack);
             endInsertRows();
         }
     }
@@ -252,7 +258,7 @@ void AlbumModel::trackModified(const TrackDataType &modifiedTrack)
         return;
     }
 
-    d->mCurrentAlbum[trackIndex] = modifiedTrack;
+    d->mAllData[trackIndex] = modifiedTrack;
     Q_EMIT dataChanged(index(trackIndex, 0), index(trackIndex, 0));
 }
 
@@ -265,7 +271,7 @@ void AlbumModel::trackRemoved(qulonglong trackId)
     }
 
     beginRemoveRows({}, trackIndex, trackIndex);
-    d->mCurrentAlbum.removeAt(trackIndex);
+    d->mAllData.removeAt(trackIndex);
     endRemoveRows();
 }
 

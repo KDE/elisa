@@ -23,7 +23,7 @@
 #include "elisautils.h"
 #include "databaseinterface.h"
 
-#include <QAbstractItemModel>
+#include <QAbstractListModel>
 #include <QVector>
 #include <QHash>
 #include <QString>
@@ -33,7 +33,7 @@
 class AlbumModelPrivate;
 class MusicListenersManager;
 
-class ELISALIB_EXPORT AlbumModel : public QAbstractItemModel
+class ELISALIB_EXPORT AlbumModel : public QAbstractListModel
 {
     Q_OBJECT
 
@@ -44,10 +44,6 @@ class ELISALIB_EXPORT AlbumModel : public QAbstractItemModel
     Q_PROPERTY(QString author
                READ author
                NOTIFY authorChanged)
-
-    Q_PROPERTY(int tracksCount
-               READ tracksCount
-               NOTIFY tracksCountChanged)
 
 public:
 
@@ -75,21 +71,15 @@ public:
 
     QModelIndex parent(const QModelIndex &child) const override;
 
-    int columnCount(const QModelIndex &parent = QModelIndex()) const override;
-
     QString title() const;
 
     QString author() const;
-
-    int tracksCount() const;
 
 Q_SIGNALS:
 
     void titleChanged();
 
     void authorChanged();
-
-    void tracksCountChanged();
 
     void needData(ElisaUtils::PlayListEntryType dataType);
 

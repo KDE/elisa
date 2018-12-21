@@ -23,14 +23,14 @@
 #include "elisautils.h"
 #include "databaseinterface.h"
 
-#include <QAbstractItemModel>
+#include <QAbstractListModel>
 
 #include <memory>
 
 class AllTracksModelPrivate;
 class MusicListenersManager;
 
-class ELISALIB_EXPORT AllTracksModel : public QAbstractItemModel
+class ELISALIB_EXPORT AllTracksModel : public QAbstractListModel
 {
     Q_OBJECT
 
@@ -55,8 +55,6 @@ public:
     QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const override;
 
     QModelIndex parent(const QModelIndex &child) const override;
-
-    int columnCount(const QModelIndex &parent = QModelIndex()) const override;
 
 Q_SIGNALS:
 

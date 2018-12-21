@@ -24,18 +24,21 @@
 #include <QTimer>
 #include <QPointer>
 #include <QVector>
+#include <QDebug>
+
+#include <algorithm>
 
 class AllGenresModelPrivate
 {
 public:
 
-    AllGenresModel::ListGenreDataType mAllGenres;
+    AllGenresModel::ListGenreDataType mAllData;
 
     ModelDataLoader mDataLoader;
 
 };
 
-AllGenresModel::AllGenresModel(QObject *parent) : QAbstractItemModel(parent), d(std::make_unique<AllGenresModelPrivate>())
+AllGenresModel::AllGenresModel(QObject *parent) : QAbstractListModel(parent), d(std::make_unique<AllGenresModelPrivate>())
 {
 }
 
@@ -44,27 +47,38 @@ AllGenresModel::~AllGenresModel()
 
 int AllGenresModel::rowCount(const QModelIndex &parent) const
 {
-    auto artistCount = 0;
+    auto dataCount = 0;
 
     if (parent.isValid()) {
-        return artistCount;
+        return dataCount;
     }
 
-    artistCount = d->mAllGenres.size();
+    dataCount = d->mAllData.size();
 
-    return artistCount;
+    return dataCount;
 }
 
 QHash<int, QByteArray> AllGenresModel::roleNames() const
 {
-    auto roles = QAbstractItemModel::roleNames();
+    auto roles = QAbstractListModel::roleNames();
 
-    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::IdRole)] = "databaseId";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::TitleRole)] = "title";
     roles[static_cast<int>(DatabaseInterface::ColumnsRoles::SecondaryTextRole)] = "secondaryText";
     roles[static_cast<int>(DatabaseInterface::ColumnsRoles::ImageUrlRole)] = "imageUrl";
-    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::ShadowForImageRole)] = "shadowForImage";
-    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::ContainerDataRole)] = "containerData";
-    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::ChildModelRole)] = "childModel";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::DatabaseIdRole)] = "databaseId";
+
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::ArtistRole)] = "artist";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::AllArtistsRole)] = "allArtists";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::HighestTrackRating)] = "highestTrackRating";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::GenreRole)] = "genre";
+
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::AlbumRole)] = "album";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::AlbumArtistRole)] = "albumArtist";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::DurationRole)] = "duration";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::TrackNumberRole)] = "trackNumber";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::DiscNumberRole)] = "discNumber";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::RatingRole)] = "rating";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::IsSingleDiscAlbumRole)] = "isSingleDiscAlbum";
 
     return roles;
 }
@@ -82,11 +96,11 @@ QVariant AllGenresModel::data(const QModelIndex &index, int role) const
 {
     auto result = QVariant();
 
-    const auto artistsCount = d->mAllGenres.size();
+    const auto dataCount = d->mAllData.size();
 
     Q_ASSERT(index.isValid());
     Q_ASSERT(index.column() == 0);
-    Q_ASSERT(index.row() >= 0 && index.row() < artistsCount);
+    Q_ASSERT(index.row() >= 0 && index.row() < dataCount);
     Q_ASSERT(!index.parent().isValid());
     Q_ASSERT(index.model() == this);
     Q_ASSERT(index.internalId() == 0);
@@ -94,10 +108,10 @@ QVariant AllGenresModel::data(const QModelIndex &index, int role) const
     switch(role)
     {
     case Qt::DisplayRole:
-        result = d->mAllGenres[index.row()][GenreDataType::key_type::TitleRole];
+        result = d->mAllData[index.row()][GenreDataType::key_type::TitleRole];
         break;
     default:
-        result = d->mAllGenres[index.row()][static_cast<GenreDataType::key_type>(role)];
+        result = d->mAllData[index.row()][static_cast<GenreDataType::key_type>(role)];
     }
 
     return result;
@@ -129,22 +143,15 @@ QModelIndex AllGenresModel::parent(const QModelIndex &child) const
     return result;
 }
 
-int AllGenresModel::columnCount(const QModelIndex &parent) const
+void AllGenresModel::genresAdded(ListGenreDataType newData)
 {
-    Q_UNUSED(parent);
-
-    return 1;
-}
-
-void AllGenresModel::genresAdded(ListGenreDataType newGenres)
-{
-    if (d->mAllGenres.isEmpty()) {
-        beginInsertRows({}, d->mAllGenres.size(), newGenres.size() - 1);
-        d->mAllGenres.swap(newGenres);
+    if (d->mAllData.isEmpty()) {
+        beginInsertRows({}, d->mAllData.size(), newData.size() - 1);
+        d->mAllData.swap(newData);
         endInsertRows();
     } else {
-        beginInsertRows({}, d->mAllGenres.size(), d->mAllGenres.size() + newGenres.size() - 1);
-        d->mAllGenres.append(newGenres);
+        beginInsertRows({}, d->mAllData.size(), d->mAllData.size() + newData.size() - 1);
+        d->mAllData.append(newData);
         endInsertRows();
     }
 }

@@ -23,7 +23,7 @@
 #include "elisautils.h"
 #include "databaseinterface.h"
 
-#include <QAbstractItemModel>
+#include <QAbstractListModel>
 #include <QVector>
 #include <QHash>
 #include <QString>
@@ -33,7 +33,7 @@
 class AllArtistsModelPrivate;
 class MusicListenersManager;
 
-class ELISALIB_EXPORT AllArtistsModel : public QAbstractItemModel
+class ELISALIB_EXPORT AllArtistsModel : public QAbstractListModel
 {
     Q_OBJECT
 
@@ -58,8 +58,6 @@ public:
     QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const override;
 
     QModelIndex parent(const QModelIndex &child) const override;
-
-    int columnCount(const QModelIndex &parent = QModelIndex()) const override;
 
 Q_SIGNALS:
 

@@ -142,12 +142,5 @@ QModelIndex ViewsModel::parent(const QModelIndex &child) const
     return result;
 }
 
-int ViewsModel::columnCount(const QModelIndex &parent) const
-{
-    Q_UNUSED(parent);
-
-    return 1;
-}
-
 
 #include "moc_viewsmodel.cpp"

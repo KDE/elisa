@@ -25,6 +25,8 @@
 #include <QPointer>
 #include <QVector>
 
+#include <algorithm>
+
 class AllArtistsModelPrivate
 {
 public:
@@ -35,7 +37,7 @@ public:
 
 };
 
-AllArtistsModel::AllArtistsModel(QObject *parent) : QAbstractItemModel(parent), d(std::make_unique<AllArtistsModelPrivate>())
+AllArtistsModel::AllArtistsModel(QObject *parent) : QAbstractListModel(parent), d(std::make_unique<AllArtistsModelPrivate>())
 {
 }
 
@@ -57,13 +59,25 @@ int AllArtistsModel::rowCount(const QModelIndex &parent) const
 
 QHash<int, QByteArray> AllArtistsModel::roleNames() const
 {
-    auto roles = QAbstractItemModel::roleNames();
+    auto roles = QAbstractListModel::roleNames();
 
     roles[static_cast<int>(DatabaseInterface::ColumnsRoles::TitleRole)] = "title";
-    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::DatabaseIdRole)] = "databaseId";
-
     roles[static_cast<int>(DatabaseInterface::ColumnsRoles::SecondaryTextRole)] = "secondaryText";
     roles[static_cast<int>(DatabaseInterface::ColumnsRoles::ImageUrlRole)] = "imageUrl";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::DatabaseIdRole)] = "databaseId";
+
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::ArtistRole)] = "artist";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::AllArtistsRole)] = "allArtists";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::HighestTrackRating)] = "highestTrackRating";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::GenreRole)] = "genre";
+
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::AlbumRole)] = "album";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::AlbumArtistRole)] = "albumArtist";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::DurationRole)] = "duration";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::TrackNumberRole)] = "trackNumber";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::DiscNumberRole)] = "discNumber";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::RatingRole)] = "rating";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::IsSingleDiscAlbumRole)] = "isSingleDiscAlbum";
 
     return roles;
 }
@@ -128,17 +142,10 @@ QModelIndex AllArtistsModel::parent(const QModelIndex &child) const
     return result;
 }
 
-int AllArtistsModel::columnCount(const QModelIndex &parent) const
-{
-    Q_UNUSED(parent);
-
-    return 1;
-}
-
 void AllArtistsModel::artistsAdded(ListArtistDataType newData)
 {
     if (d->mAllData.isEmpty()) {
-        beginInsertRows({}, d->mAllData.size(), d->mAllData.size() + newData.size() - 1);
+        beginInsertRows({}, d->mAllData.size(), newData.size() - 1);
         d->mAllData.swap(newData);
         endInsertRows();
     } else {

@@ -16,6 +16,7 @@
  */
 
 #include "allalbumsmodel.h"
+
 #include "modeldataloader.h"
 #include "musiclistenersmanager.h"
 
@@ -37,7 +38,7 @@ public:
 
 };
 
-AllAlbumsModel::AllAlbumsModel(QObject *parent) : QAbstractItemModel(parent), d(std::make_unique<AllAlbumsModelPrivate>())
+AllAlbumsModel::AllAlbumsModel(QObject *parent) : QAbstractListModel(parent), d(std::make_unique<AllAlbumsModelPrivate>())
 {
 }
 
@@ -59,7 +60,7 @@ int AllAlbumsModel::rowCount(const QModelIndex &parent) const
 
 QHash<int, QByteArray> AllAlbumsModel::roleNames() const
 {
-    auto roles = QAbstractItemModel::roleNames();
+    auto roles = QAbstractListModel::roleNames();
 
     roles[static_cast<int>(DatabaseInterface::ColumnsRoles::TitleRole)] = "title";
     roles[static_cast<int>(DatabaseInterface::ColumnsRoles::SecondaryTextRole)] = "secondaryText";
@@ -70,6 +71,14 @@ QHash<int, QByteArray> AllAlbumsModel::roleNames() const
     roles[static_cast<int>(DatabaseInterface::ColumnsRoles::AllArtistsRole)] = "allArtists";
     roles[static_cast<int>(DatabaseInterface::ColumnsRoles::HighestTrackRating)] = "highestTrackRating";
     roles[static_cast<int>(DatabaseInterface::ColumnsRoles::GenreRole)] = "genre";
+
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::AlbumRole)] = "album";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::AlbumArtistRole)] = "albumArtist";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::DurationRole)] = "duration";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::TrackNumberRole)] = "trackNumber";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::DiscNumberRole)] = "discNumber";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::RatingRole)] = "rating";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::IsSingleDiscAlbumRole)] = "isSingleDiscAlbum";
 
     return roles;
 }
@@ -134,17 +143,10 @@ QModelIndex AllAlbumsModel::parent(const QModelIndex &child) const
     return result;
 }
 
-int AllAlbumsModel::columnCount(const QModelIndex &parent) const
-{
-    Q_UNUSED(parent);
-
-    return 1;
-}
-
 void AllAlbumsModel::albumsAdded(ListAlbumDataType newData)
 {
     if (d->mAllData.isEmpty()) {
-        beginInsertRows({}, d->mAllData.size(), d->mAllData.size() + newData.size() - 1);
+        beginInsertRows({}, d->mAllData.size(), newData.size() - 1);
         d->mAllData.swap(newData);
         endInsertRows();
     } else {

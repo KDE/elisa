@@ -20,21 +20,25 @@
 #include "modeldataloader.h"
 #include "musiclistenersmanager.h"
 
-#include <algorithm>
-
+#include <QUrl>
+#include <QTimer>
+#include <QPointer>
+#include <QVector>
 #include <QDebug>
+
+#include <algorithm>
 
 class AllTracksModelPrivate
 {
 public:
 
-    AllTracksModel::ListTrackDataType mAllTracks;
+    AllTracksModel::ListTrackDataType mAllData;
 
     ModelDataLoader mDataLoader;
 
 };
 
-AllTracksModel::AllTracksModel(QObject *parent) : QAbstractItemModel(parent), d(std::make_unique<AllTracksModelPrivate>())
+AllTracksModel::AllTracksModel(QObject *parent) : QAbstractListModel(parent), d(std::make_unique<AllTracksModelPrivate>())
 {
 }
 
@@ -43,28 +47,34 @@ AllTracksModel::~AllTracksModel()
 
 int AllTracksModel::rowCount(const QModelIndex &parent) const
 {
-    auto tracksCount = 0;
+    auto dataCount = 0;
 
     if (parent.isValid()) {
-        return tracksCount;
+        return dataCount;
     }
 
-    tracksCount = d->mAllTracks.size();
+    dataCount = d->mAllData.size();
 
-    return tracksCount;
+    return dataCount;
 }
 
 QHash<int, QByteArray> AllTracksModel::roleNames() const
 {
-    auto roles = QAbstractItemModel::roleNames();
+    auto roles = QAbstractListModel::roleNames();
 
-    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::DatabaseIdRole)] = "databaseId";
     roles[static_cast<int>(DatabaseInterface::ColumnsRoles::TitleRole)] = "title";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::SecondaryTextRole)] = "secondaryText";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::ImageUrlRole)] = "imageUrl";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::DatabaseIdRole)] = "databaseId";
+
     roles[static_cast<int>(DatabaseInterface::ColumnsRoles::ArtistRole)] = "artist";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::AllArtistsRole)] = "allArtists";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::HighestTrackRating)] = "highestTrackRating";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::GenreRole)] = "genre";
+
     roles[static_cast<int>(DatabaseInterface::ColumnsRoles::AlbumRole)] = "album";
     roles[static_cast<int>(DatabaseInterface::ColumnsRoles::AlbumArtistRole)] = "albumArtist";
     roles[static_cast<int>(DatabaseInterface::ColumnsRoles::DurationRole)] = "duration";
-    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::ImageUrlRole)] = "imageUrl";
     roles[static_cast<int>(DatabaseInterface::ColumnsRoles::TrackNumberRole)] = "trackNumber";
     roles[static_cast<int>(DatabaseInterface::ColumnsRoles::DiscNumberRole)] = "discNumber";
     roles[static_cast<int>(DatabaseInterface::ColumnsRoles::RatingRole)] = "rating";
@@ -86,22 +96,23 @@ QVariant AllTracksModel::data(const QModelIndex &index, int role) const
 {
     auto result = QVariant();
 
-    const auto tracksCount = d->mAllTracks.size();
+    const auto dataCount = d->mAllData.size();
 
     Q_ASSERT(index.isValid());
     Q_ASSERT(index.column() == 0);
-    Q_ASSERT(index.row() >= 0 && index.row() < tracksCount);
+    Q_ASSERT(index.row() >= 0 && index.row() < dataCount);
     Q_ASSERT(!index.parent().isValid());
     Q_ASSERT(index.model() == this);
     Q_ASSERT(index.internalId() == 0);
 
-    const auto &track = d->mAllTracks[index.row()];
-
     switch(role)
     {
+    case Qt::DisplayRole:
+        result = d->mAllData[index.row()][TrackDataType::key_type::TitleRole];
+        break;
     case DatabaseInterface::ColumnsRoles::DurationRole:
     {
-        auto trackDuration = track.duration();
+        auto trackDuration = d->mAllData[index.row()][TrackDataType::key_type::DurationRole].toTime();
         if (trackDuration.hour() == 0) {
             result = trackDuration.toString(QStringLiteral("mm:ss"));
         } else {
@@ -110,7 +121,7 @@ QVariant AllTracksModel::data(const QModelIndex &index, int role) const
         break;
     }
     default:
-        result = track[static_cast<TrackDataType::key_type>(role)];
+        result = d->mAllData[index.row()][static_cast<TrackDataType::key_type>(role)];
     }
 
     return result;
@@ -128,10 +139,6 @@ QModelIndex AllTracksModel::index(int row, int column, const QModelIndex &parent
         return result;
     }
 
-    if (row > d->mAllTracks.size() - 1) {
-        return result;
-    }
-
     result = createIndex(row, column);
 
     return result;
@@ -146,60 +153,53 @@ QModelIndex AllTracksModel::parent(const QModelIndex &child) const
     return result;
 }
 
-int AllTracksModel::columnCount(const QModelIndex &parent) const
-{
-    Q_UNUSED(parent);
-
-    return 1;
-}
-
 void AllTracksModel::tracksAdded(ListTrackDataType allTracks)
 {
     if (allTracks.isEmpty()) {
         return;
     }
 
-    if (d->mAllTracks.isEmpty()) {
+    if (d->mAllData.isEmpty()) {
         beginInsertRows({}, 0, allTracks.size() - 1);
-        d->mAllTracks.swap(allTracks);
+        d->mAllData.swap(allTracks);
         endInsertRows();
     } else {
-        beginInsertRows({}, d->mAllTracks.size(), d->mAllTracks.size() + allTracks.size() - 1);
-        d->mAllTracks.append(allTracks);
+        beginInsertRows({}, d->mAllData.size(), d->mAllData.size() + allTracks.size() - 1);
+        d->mAllData.append(allTracks);
         endInsertRows();
     }
 }
 
 void AllTracksModel::trackRemoved(qulonglong removedTrackId)
 {
-    auto itTrack = std::find_if(d->mAllTracks.begin(), d->mAllTracks.end(),
+    auto itTrack = std::find_if(d->mAllData.begin(), d->mAllData.end(),
                                 [removedTrackId](auto track) {return track.databaseId() == removedTrackId;});
 
-    if (itTrack == d->mAllTracks.end()) {
+    if (itTrack == d->mAllData.end()) {
         return;
     }
 
-    auto position = itTrack - d->mAllTracks.begin();
+    auto position = itTrack - d->mAllData.begin();
 
     beginRemoveRows({}, position, position);
-    d->mAllTracks.erase(itTrack);
+    d->mAllData.erase(itTrack);
     endRemoveRows();
 }
 
 void AllTracksModel::trackModified(const TrackDataType &modifiedTrack)
 {
-    auto itTrack = std::find_if(d->mAllTracks.begin(), d->mAllTracks.end(),
+    auto itTrack = std::find_if(d->mAllData.begin(), d->mAllData.end(),
                                 [modifiedTrack](auto track) {
         return track.databaseId() == modifiedTrack.databaseId();
     });
 
-    if (itTrack == d->mAllTracks.end()) {
+    if (itTrack == d->mAllData.end()) {
         return;
     }
 
-    auto position = itTrack - d->mAllTracks.begin();
+    auto position = itTrack - d->mAllData.begin();
 
-    d->mAllTracks[position] = modifiedTrack;
+    d->mAllData[position] = modifiedTrack;
 
     Q_EMIT dataChanged(index(position, 0), index(position, 0));
 }

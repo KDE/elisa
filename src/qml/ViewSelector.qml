@@ -20,6 +20,8 @@ import QtQuick.Controls 2.2
 import QtQml.Models 2.2
 import QtGraphicalEffects 1.0
 
+import org.kde.elisa 1.0
+
 FocusScope {
     id: rootFocusScope
 
@@ -60,7 +62,7 @@ FocusScope {
                 model: DelegateModel {
                     id: pageDelegateModel
 
-                    model: ListModel {
+                    model: ViewsModel {
                         id: pageModel
                     }
 
@@ -79,11 +81,11 @@ FocusScope {
 
                             sourceComponent: ToolTip {
                                 delay: Qt.styleHints.mousePressAndHoldInterval
-                                text: nameLabel.text
+                                text: model.display
                                 visible: itemMouseArea && itemMouseArea.containsMouse && !nameLabel.visible
 
                                 contentItem: Label {
-                                    text: nameLabel.text
+                                    text: model.display
                                     color: myPalette.highlightedText
                                 }
 
@@ -125,31 +127,16 @@ FocusScope {
                                 height: elisaTheme.viewSelectorDelegateHeight
                             }
 
-                            source: iconName
+                            source: model.image
 
-                            visible: false
-                        }
+                            layer.effect:  ColorOverlay {
 
-                        ColorOverlay {
-                            source: viewIcon
+                                color: (index === viewModeView.currentIndex || itemMouseArea.containsMouse ? myPalette.highlight : "transparent")
 
-                            z: 2
-
-                            anchors {
-                                verticalCenter: parent.verticalCenter
-                                leftMargin: elisaTheme.layoutHorizontalMargin
-                                left: parent.left
-                                rightMargin: nameLabel.visible ? 0 : elisaTheme.layoutHorizontalMargin
-                            }
-
-                            height: elisaTheme.viewSelectorDelegateHeight
-                            width: elisaTheme.viewSelectorDelegateHeight
-
-                            color: (index === viewModeView.currentIndex || itemMouseArea.containsMouse ? myPalette.highlight : "transparent")
-
-                            Behavior on color {
-                                ColorAnimation {
-                                    duration: 300
+                                Behavior on color {
+                                    ColorAnimation {
+                                        duration: 300
+                                    }
                                 }
                             }
                         }
@@ -168,7 +155,7 @@ FocusScope {
 
                             font.pointSize: elisaTheme.defaultFontPointSize * 1.4
 
-                            text: model.name
+                            text: model.display
                             elide: Text.ElideRight
 
                             opacity: textOpacity
@@ -223,13 +210,6 @@ FocusScope {
         target: elisa
 
         onInitializationDone: {
-            pageModel.insert(0, {"name": i18nc("Title of the view of the playlist", "Now Playing"), "iconName": elisaTheme.playlistIcon})
-            pageModel.insert(1, {"name": i18nc("Title of the view of all albums", "Albums"), "iconName": elisaTheme.albumIcon})
-            pageModel.insert(2, {"name": i18nc("Title of the view of all artists", "Artists"), "iconName": elisaTheme.artistIcon})
-            pageModel.insert(3, {"name": i18nc("Title of the view of all tracks", "Tracks"), "iconName": elisaTheme.tracksIcon})
-            pageModel.insert(4, {"name": i18nc("Title of the view of all genres", "Genres"), "iconName": elisaTheme.genresIcon})
-            pageModel.insert(5, {"name": i18nc("Title of the file browser view", "Files"), "iconName": elisaTheme.folderIcon})
-
             viewModeView.currentIndex = 1
             switchView(1)
         }

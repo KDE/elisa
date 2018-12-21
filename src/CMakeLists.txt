@@ -33,6 +33,7 @@ set(elisaLib_SOURCES
     models/alltracksproxymodel.cpp
     models/singlealbumproxymodel.cpp
     models/trackmetadatamodel.cpp
+    models/viewsmodel.cpp
 )
 
 if (LIBVLC_FOUND)

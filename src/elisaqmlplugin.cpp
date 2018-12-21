@@ -50,6 +50,7 @@
 #include "models/alltracksmodel.h"
 #include "models/albummodel.h"
 #include "models/trackmetadatamodel.h"
+#include "models/viewsmodel.h"
 #include "models/allalbumsproxymodel.h"
 #include "models/alltracksproxymodel.h"
 #include "models/allartistsproxymodel.h"
@@ -126,6 +127,7 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qmlRegisterType<AllTracksModel>(uri, 1, 0, "AllTracksModel");
     qmlRegisterType<AlbumModel>(uri, 1, 0, "AlbumModel");
     qmlRegisterType<TrackMetadataModel>(uri, 1, 0, "TrackMetadataModel");
+    qmlRegisterType<ViewsModel>(uri, 1, 0, "ViewsModel");
     qmlRegisterType<AllAlbumsProxyModel>(uri, 1, 0, "AllAlbumsProxyModel");
     qmlRegisterType<AllArtistsProxyModel>(uri, 1, 0, "AllArtistsProxyModel");
     qmlRegisterType<AllTracksProxyModel>(uri, 1, 0, "AllTracksProxyModel");

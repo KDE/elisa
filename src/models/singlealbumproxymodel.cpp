@@ -17,7 +17,6 @@
 
 #include "singlealbumproxymodel.h"
 
-#include "albummodel.h"
 #include "databaseinterface.h"
 
 #include <QReadLocker>

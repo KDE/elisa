@@ -24,7 +24,6 @@
 #include "abstractmediaproxymodel.h"
 #include "musicaudiotrack.h"
 #include "elisautils.h"
-#include "albummodel.h"
 
 class ELISALIB_EXPORT SingleAlbumProxyModel : public AbstractMediaProxyModel
 {

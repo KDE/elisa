@@ -60,7 +60,7 @@ MediaBrowser {
         active: false
     }
 
-    AllAlbumsModel {
+    DataModel {
         id: realModel
     }
 
@@ -101,12 +101,12 @@ MediaBrowser {
     Connections {
         target: elisa
 
-        onMusicManagerChanged: realModel.initialize(elisa.musicManager)
+        onMusicManagerChanged: realModel.initialize(elisa.musicManager, ElisaUtils.Album)
     }
 
     Component.onCompleted: {
         if (elisa.musicManager) {
-            realModel.initialize(elisa.musicManager)
+            realModel.initialize(elisa.musicManager, ElisaUtils.Album)
         }
     }
 }

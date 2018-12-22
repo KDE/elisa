@@ -31,7 +31,7 @@ MediaBrowser {
         rightMargin: elisaTheme.layoutHorizontalMargin
     }
 
-    AllArtistsModel {
+    DataModel {
         id: realModel
     }
 
@@ -74,12 +74,12 @@ MediaBrowser {
     Connections {
         target: elisa
 
-        onMusicManagerChanged: realModel.initialize(elisa.musicManager)
+        onMusicManagerChanged: realModel.initialize(elisa.musicManager, ElisaUtils.Artist)
     }
 
     Component.onCompleted: {
         if (elisa.musicManager) {
-            realModel.initialize(elisa.musicManager)
+            realModel.initialize(elisa.musicManager, ElisaUtils.Artist)
         }
     }
 }

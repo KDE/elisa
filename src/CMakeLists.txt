@@ -22,11 +22,7 @@ set(elisaLib_SOURCES
     viewmanager.cpp
     file/filelistener.cpp
     file/localfilelisting.cpp
-    models/albummodel.cpp
-    models/allalbumsmodel.cpp
-    models/allartistsmodel.cpp
-    models/alltracksmodel.cpp
-    models/allgenresmodel.cpp
+    models/datamodel.cpp
     models/abstractmediaproxymodel.cpp
     models/allalbumsproxymodel.cpp
     models/allartistsproxymodel.cpp

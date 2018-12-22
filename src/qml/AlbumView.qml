@@ -27,7 +27,7 @@ Item {
     property alias image: albumGridView.image
     property alias stackView: albumGridView.stackView
 
-    AlbumModel {
+    DataModel {
         id: realModel
     }
 
@@ -96,12 +96,12 @@ Item {
     Connections {
         target: elisa
 
-        onMusicManagerChanged: realModel.initialize(mainTitle, secondaryTitle, elisa.musicManager)
+        onMusicManagerChanged: realModel.initializeByAlbumTitleAndArtist(elisa.musicManager, ElisaUtils.Track, mainTitle, secondaryTitle)
     }
 
     Component.onCompleted: {
         if (elisa.musicManager) {
-            realModel.initialize(mainTitle, secondaryTitle, elisa.musicManager)
+            realModel.initializeByAlbumTitleAndArtist(elisa.musicManager, ElisaUtils.Track, mainTitle, secondaryTitle)
         }
     }
 }

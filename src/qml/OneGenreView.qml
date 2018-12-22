@@ -28,7 +28,7 @@ Item {
     property alias stackView: albumGridView.stackView
     property string genreFilterText
 
-    AllArtistsModel {
+    DataModel {
         id: realModel
     }
 
@@ -70,12 +70,12 @@ Item {
     Connections {
         target: elisa
 
-        onMusicManagerChanged: realModel.initializeByGenre(elisa.musicManager, genreFilterText)
+        onMusicManagerChanged: realModel.initializeByGenre(elisa.musicManager, ElisaUtils.Artist, genreFilterText)
     }
 
     Component.onCompleted: {
         if (elisa.musicManager) {
-            realModel.initializeByGenre(elisa.musicManager, genreFilterText)
+            realModel.initializeByGenre(elisa.musicManager, ElisaUtils.Artist, genreFilterText)
         }
     }
 }

@@ -29,7 +29,7 @@ Item {
     property string genreFilterText
     property string artistFilter
 
-    AllAlbumsModel {
+    DataModel {
         id: realModel
     }
 
@@ -72,9 +72,9 @@ Item {
 
         onMusicManagerChanged: {
             if (genreFilterText) {
-                realModel.initializeByGenreAndArtist(elisa.musicManager, genreFilterText, artistFilter)
+                realModel.initializeByGenreAndArtist(elisa.musicManager, ElisaUtils.Album, genreFilterText, artistFilter)
             } else {
-                realModel.initializeByArtist(elisa.musicManager, artistFilter)
+                realModel.initializeByArtist(elisa.musicManager, ElisaUtils.Album, artistFilter)
             }
         }
     }
@@ -82,9 +82,9 @@ Item {
     Component.onCompleted: {
         if (elisa.musicManager) {
             if (genreFilterText) {
-                realModel.initializeByGenreAndArtist(elisa.musicManager, genreFilterText, artistFilter)
+                realModel.initializeByGenreAndArtist(elisa.musicManager, ElisaUtils.Album, genreFilterText, artistFilter)
             } else {
-                realModel.initializeByArtist(elisa.musicManager, artistFilter)
+                realModel.initializeByArtist(elisa.musicManager, ElisaUtils.Album, artistFilter)
             }
         }
     }

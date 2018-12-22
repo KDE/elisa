@@ -83,34 +83,20 @@ ecm_add_test(${trackslistenertest_SOURCES}
 
 target_include_directories(trackslistenertest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 
-set(allalbumsmodeltest_SOURCES
+set(datamodeltest_SOURCES
     qabstractitemmodeltester.cpp
-    allalbumsmodeltest.cpp
+    datamodeltest.cpp
 )
 
-ecm_qt_declare_logging_category(allalbumsmodeltest_SOURCES HEADER elisa_debug.h IDENTIFIER lcModelTest CATEGORY_NAME qt.modeltest)
+ecm_qt_declare_logging_category(datamodeltest_SOURCES HEADER elisa_debug.h IDENTIFIER lcModelTest CATEGORY_NAME qt.modeltest)
 
-ecm_add_test(${allalbumsmodeltest_SOURCES}
-    TEST_NAME "allalbumsmodeltest"
-    LINK_LIBRARIES Qt5::Test elisaLib Qt5::CorePrivate
-)
-
-target_include_directories(allalbumsmodeltest PRIVATE ${CMAKE_SOURCE_DIR}/src)
-
-set(albummodeltest_SOURCES
-    qabstractitemmodeltester.cpp
-    albummodeltest.cpp
-)
-
-ecm_qt_declare_logging_category(albummodeltest_SOURCES HEADER elisa_debug.h IDENTIFIER lcModelTest CATEGORY_NAME qt.modeltest)
-
-ecm_add_test(${albummodeltest_SOURCES}
-    TEST_NAME "albummodeltest"
+ecm_add_test(${datamodeltest_SOURCES}
+    TEST_NAME "datamodeltest"
     LINK_LIBRARIES
         Qt5::Test elisaLib Qt5::CorePrivate
 )
 
-target_include_directories(albummodeltest PRIVATE ${CMAKE_SOURCE_DIR}/src)
+target_include_directories(datamodeltest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 
 set(trackmetadatamodeltest_SOURCES
     qabstractitemmodeltester.cpp
@@ -126,36 +112,6 @@ ecm_add_test(${trackmetadatamodeltest_SOURCES}
 )
 
 target_include_directories(trackmetadatamodeltest PRIVATE ${CMAKE_SOURCE_DIR}/src)
-
-set(allartistsmodeltest_SOURCES
-    qabstractitemmodeltester.cpp
-    allartistsmodeltest.cpp
-)
-
-ecm_qt_declare_logging_category(allartistsmodeltest_SOURCES HEADER elisa_debug.h IDENTIFIER lcModelTest CATEGORY_NAME qt.modeltest)
-
-ecm_add_test(${allartistsmodeltest_SOURCES}
-    TEST_NAME "allartistsmodeltest"
-    LINK_LIBRARIES
-        Qt5::Test elisaLib Qt5::CorePrivate
-)
-
-target_include_directories(allartistsmodeltest PRIVATE ${CMAKE_SOURCE_DIR}/src)
-
-set(alltracksmodeltest_SOURCES
-    qabstractitemmodeltester.cpp
-    alltracksmodeltest.cpp
-)
-
-ecm_qt_declare_logging_category(alltracksmodeltest_SOURCES HEADER elisa_debug.h IDENTIFIER lcModelTest CATEGORY_NAME qt.modeltest)
-
-ecm_add_test(${alltracksmodeltest_SOURCES}
-    TEST_NAME "alltracksmodeltest"
-    LINK_LIBRARIES
-        Qt5::Test elisaLib Qt5::CorePrivate
-)
-
-target_include_directories(alltracksmodeltest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 
 set(alltracksproxymodeltest_SOURCES
     qabstractitemmodeltester.cpp

@@ -44,11 +44,7 @@
 #include "musiclistenersmanager.h"
 #include "trackslistener.h"
 #include "viewmanager.h"
-#include "models/allalbumsmodel.h"
-#include "models/allartistsmodel.h"
-#include "models/allgenresmodel.h"
-#include "models/alltracksmodel.h"
-#include "models/albummodel.h"
+#include "models/datamodel.h"
 #include "models/trackmetadatamodel.h"
 #include "models/viewsmodel.h"
 #include "models/allalbumsproxymodel.h"
@@ -121,11 +117,7 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qmlRegisterType<ProgressIndicator>(uri, 1, 0, "ProgressIndicator");
     qmlRegisterType<MusicListenersManager>(uri, 1, 0, "MusicListenersManager");
     qmlRegisterType<ViewManager>(uri, 1, 0, "ViewManager");
-    qmlRegisterType<AllAlbumsModel>(uri, 1, 0, "AllAlbumsModel");
-    qmlRegisterType<AllArtistsModel>(uri, 1, 0, "AllArtistsModel");
-    qmlRegisterType<AllGenresModel>(uri, 1, 0, "AllGenresModel");
-    qmlRegisterType<AllTracksModel>(uri, 1, 0, "AllTracksModel");
-    qmlRegisterType<AlbumModel>(uri, 1, 0, "AlbumModel");
+    qmlRegisterType<DataModel>(uri, 1, 0, "DataModel");
     qmlRegisterType<TrackMetadataModel>(uri, 1, 0, "TrackMetadataModel");
     qmlRegisterType<ViewsModel>(uri, 1, 0, "ViewsModel");
     qmlRegisterType<AllAlbumsProxyModel>(uri, 1, 0, "AllAlbumsProxyModel");

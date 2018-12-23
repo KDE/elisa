@@ -364,7 +364,7 @@ void DataModel::connectModel(MusicListenersManager *manager)
 
 void DataModel::tracksAdded(ListTrackDataType newData)
 {
-    if (newData.isEmpty() || d->mModelType == ElisaUtils::Unknown) {
+    if (newData.isEmpty() || d->mModelType != ElisaUtils::Track) {
         return;
     }
 
@@ -418,6 +418,10 @@ void DataModel::tracksAdded(ListTrackDataType newData)
 
 void DataModel::trackModified(const TrackDataType &modifiedTrack)
 {
+    if (d->mModelType != ElisaUtils::Track) {
+        return;
+    }
+
     if (!d->mAlbumTitle.isEmpty() && !d->mAlbumArtist.isEmpty()) {
         if (modifiedTrack.album() != d->mAlbumTitle) {
             return;
@@ -451,6 +455,10 @@ void DataModel::trackModified(const TrackDataType &modifiedTrack)
 
 void DataModel::trackRemoved(qulonglong removedTrackId)
 {
+    if (d->mModelType != ElisaUtils::Track) {
+        return;
+    }
+
     if (!d->mAlbumTitle.isEmpty() && !d->mAlbumArtist.isEmpty()) {
         auto trackIndex = trackIndexFromId(removedTrackId);
 
@@ -479,7 +487,7 @@ void DataModel::trackRemoved(qulonglong removedTrackId)
 
 void DataModel::genresAdded(DataModel::ListGenreDataType newData)
 {
-    if (newData.isEmpty() || d->mModelType == ElisaUtils::Unknown) {
+    if (newData.isEmpty() || d->mModelType != ElisaUtils::Genre) {
         return;
     }
 
@@ -496,7 +504,7 @@ void DataModel::genresAdded(DataModel::ListGenreDataType newData)
 
 void DataModel::artistsAdded(DataModel::ListArtistDataType newData)
 {
-    if (newData.isEmpty() || d->mModelType == ElisaUtils::Unknown) {
+    if (newData.isEmpty() || d->mModelType != ElisaUtils::Artist) {
         return;
     }
 
@@ -513,6 +521,10 @@ void DataModel::artistsAdded(DataModel::ListArtistDataType newData)
 
 void DataModel::artistRemoved(qulonglong removedDatabaseId)
 {
+    if (d->mModelType != ElisaUtils::Artist) {
+        return;
+    }
+
     auto removedDataIterator = d->mAllArtistData.end();
 
     removedDataIterator = std::find_if(d->mAllArtistData.begin(), d->mAllArtistData.end(),
@@ -533,7 +545,7 @@ void DataModel::artistRemoved(qulonglong removedDatabaseId)
 
 void DataModel::albumsAdded(DataModel::ListAlbumDataType newData)
 {
-    if (newData.isEmpty() || d->mModelType == ElisaUtils::Unknown) {
+    if (newData.isEmpty() || d->mModelType != ElisaUtils::Album) {
         return;
     }
 
@@ -550,6 +562,10 @@ void DataModel::albumsAdded(DataModel::ListAlbumDataType newData)
 
 void DataModel::albumRemoved(qulonglong removedDatabaseId)
 {
+    if (d->mModelType != ElisaUtils::Album) {
+        return;
+    }
+
     auto removedDataIterator = d->mAllAlbumData.end();
 
     removedDataIterator = std::find_if(d->mAllAlbumData.begin(), d->mAllAlbumData.end(),
@@ -570,6 +586,10 @@ void DataModel::albumRemoved(qulonglong removedDatabaseId)
 
 void DataModel::albumModified(const DataModel::AlbumDataType &modifiedAlbum)
 {
+    if (d->mModelType != ElisaUtils::Album) {
+        return;
+    }
+
     auto modifiedAlbumIterator = std::find_if(d->mAllAlbumData.begin(), d->mAllAlbumData.end(),
                                               [modifiedAlbum](auto album) {
         return album.databaseId() == modifiedAlbum.databaseId();

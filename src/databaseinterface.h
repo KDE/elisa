@@ -290,6 +290,10 @@ public:
 
     ListTrackDataType allTracksData();
 
+    ListTrackDataType recentlyPlayedTracksData(int count);
+
+    ListTrackDataType frequentlyPlayedTracksData(int count);
+
     ListAlbumDataType allAlbumsData();
 
     ListAlbumDataType allAlbumsDataByGenreAndArtist(const QString &genre, const QString &artist);
@@ -360,6 +364,8 @@ public Q_SLOTS:
     void removeAllTracksFromSource(const QString &sourceName);
 
     void askRestoredTracks(const QString &musicSource);
+
+    void trackHasStartedPlaying(const QUrl &fileName, const QDateTime &time);
 
 private:
 
@@ -474,6 +480,10 @@ private:
 
     ListTrackDataType internalAllTracksPartialData();
 
+    ListTrackDataType internalRecentlyPlayedTracksData(int count);
+
+    ListTrackDataType internalFrequentlyPlayedTracksData(int count);
+
     TrackDataType internalOneTrackPartialData(qulonglong databaseId);
 
     ListGenreDataType internalAllGenresPartialData();
@@ -492,6 +502,8 @@ private:
 
     void updateAlbumArtist(qulonglong albumId, const QString &title, const QString &albumPath,
                            const QString &artistName);
+
+    void updateTrackStatistics(qulonglong databaseId, const QDateTime &time);
 
     std::unique_ptr<DatabaseInterfacePrivate> d;
 

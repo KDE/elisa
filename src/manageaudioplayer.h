@@ -26,6 +26,8 @@
 #include <QUrl>
 #include <QMediaPlayer>
 
+class QDateTime;
+
 class ELISALIB_EXPORT ManageAudioPlayer : public QObject
 {
     Q_OBJECT
@@ -194,6 +196,8 @@ Q_SIGNALS:
     void sourceInError(QUrl source, QMediaPlayer::Error playerError);
 
     void displayTrackError(const QString &fileName);
+
+    void startedPlayingTrack(const QUrl &fileName, const QDateTime &time);
 
 public Q_SLOTS:
 

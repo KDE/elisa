@@ -20,6 +20,7 @@
 #include "mediaplaylist.h"
 
 #include <QTimer>
+#include <QDateTime>
 
 ManageAudioPlayer::ManageAudioPlayer(QObject *parent) : QObject(parent)
 {
@@ -259,6 +260,7 @@ void ManageAudioPlayer::setPlayerPlaybackState(QMediaPlayer::State playerPlaybac
         case QMediaPlayer::PlayingState:
             if (mPlayListModel && mCurrentTrack.isValid()) {
                 mPlayListModel->setData(mCurrentTrack, MediaPlayList::IsPlaying, mIsPlayingRole);
+                Q_EMIT startedPlayingTrack(mCurrentTrack.data(mUrlRole).toUrl(), QDateTime::currentDateTime());
             }
             break;
         case QMediaPlayer::PausedState:
@@ -279,6 +281,7 @@ void ManageAudioPlayer::setPlayerPlaybackState(QMediaPlayer::State playerPlaybac
         case QMediaPlayer::PlayingState:
             if (mPlayListModel && mCurrentTrack.isValid()) {
                 mPlayListModel->setData(mCurrentTrack, MediaPlayList::IsPlaying, mIsPlayingRole);
+                Q_EMIT startedPlayingTrack(mCurrentTrack.data(mUrlRole).toUrl(), QDateTime::currentDateTime());
             }
             break;
         case QMediaPlayer::PausedState:

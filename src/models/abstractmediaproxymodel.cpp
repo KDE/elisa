@@ -79,7 +79,7 @@ bool AbstractMediaProxyModel::sortedAscending() const
 
 void AbstractMediaProxyModel::sortModel(Qt::SortOrder order)
 {
-    this->sort(0,order);
+    this->sort(0, order);
     Q_EMIT sortedAscendingChanged();
 }
 

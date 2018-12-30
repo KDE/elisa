@@ -37,11 +37,35 @@ RowLayout {
     ViewNavigation {
         id: viewManager
 
-        onSwitchAllAlbumsView: {
+        onSwitchRecentlyPlayedTracksView: {
             listViews.currentIndex = 1
+            localRecentlyPlayedTracksLoader.opacity = 1
+            localFrequentlyPlayedTracksLoader.opacity = 0
+            localAlbumsLoader.opacity = 0
             localArtistsLoader.opacity = 0
             localTracksLoader.opacity = 0
+            localGenresLoader.opacity = 0
+            localFilesLoader.opacity = 0
+        }
+
+        onSwitchFrequentlyPlayedTracksView: {
+            listViews.currentIndex = 2
+            localRecentlyPlayedTracksLoader.opacity = 0
+            localFrequentlyPlayedTracksLoader.opacity = 1
+            localAlbumsLoader.opacity = 0
+            localArtistsLoader.opacity = 0
+            localTracksLoader.opacity = 0
+            localGenresLoader.opacity = 0
+            localFilesLoader.opacity = 0
+        }
+
+        onSwitchAllAlbumsView: {
+            listViews.currentIndex = 3
+            localRecentlyPlayedTracksLoader.opacity = 0
+            localFrequentlyPlayedTracksLoader.opacity = 0
             localAlbumsLoader.opacity = 1
+            localArtistsLoader.opacity = 0
+            localTracksLoader.opacity = 0
             localGenresLoader.opacity = 0
             localFilesLoader.opacity = 0
         }
@@ -57,10 +81,12 @@ RowLayout {
         }
 
         onSwitchAllArtistsView: {
-            listViews.currentIndex = 2
+            listViews.currentIndex = 4
+            localRecentlyPlayedTracksLoader.opacity = 0
+            localFrequentlyPlayedTracksLoader.opacity = 0
+            localAlbumsLoader.opacity = 0
             localArtistsLoader.opacity = 1
             localTracksLoader.opacity = 0
-            localAlbumsLoader.opacity = 0
             localGenresLoader.opacity = 0
             localFilesLoader.opacity = 0
         }
@@ -89,28 +115,34 @@ RowLayout {
         }
 
         onSwitchAllTracksView: {
-            listViews.currentIndex = 3
+            listViews.currentIndex = 5
+            localRecentlyPlayedTracksLoader.opacity = 0
+            localFrequentlyPlayedTracksLoader.opacity = 0
+            localAlbumsLoader.opacity = 0
             localArtistsLoader.opacity = 0
             localTracksLoader.opacity = 1
-            localAlbumsLoader.opacity = 0
             localGenresLoader.opacity = 0
             localFilesLoader.opacity = 0
         }
 
         onSwitchAllGenresView: {
-            listViews.currentIndex = 4
+            listViews.currentIndex = 6
+            localRecentlyPlayedTracksLoader.opacity = 0
+            localFrequentlyPlayedTracksLoader.opacity = 0
+            localAlbumsLoader.opacity = 0
             localArtistsLoader.opacity = 0
             localTracksLoader.opacity = 0
-            localAlbumsLoader.opacity = 0
             localGenresLoader.opacity = 1
             localFilesLoader.opacity = 0
         }
 
         onSwitchFilesBrowserView: {
-            listViews.currentIndex = 5
+            listViews.currentIndex = 7
+            localRecentlyPlayedTracksLoader.opacity = 0
+            localFrequentlyPlayedTracksLoader.opacity = 0
+            localAlbumsLoader.opacity = 0
             localArtistsLoader.opacity = 0
             localTracksLoader.opacity = 0
-            localAlbumsLoader.opacity = 0
             localGenresLoader.opacity = 0
             localFilesLoader.opacity = 1
         }
@@ -127,9 +159,11 @@ RowLayout {
         }
 
         onSwitchOffAllViews: {
+            localRecentlyPlayedTracksLoader.opacity = 0
+            localFrequentlyPlayedTracksLoader.opacity = 0
+            localAlbumsLoader.opacity = 0
             localArtistsLoader.opacity = 0
             localTracksLoader.opacity = 0
-            localAlbumsLoader.opacity = 0
             localGenresLoader.opacity = 0
             localFilesLoader.opacity = 0
         }
@@ -150,14 +184,18 @@ RowLayout {
         }
 
         onSwitchView: if (index === 1) {
-                          viewManager.openAllAlbums()
+                          viewManager.openRecentlyPlayedTracks()
                       } else if (index === 2) {
-                          viewManager.openAllArtists()
+                          viewManager.openFrequentlyPlayedTracks()
                       } else if (index === 3) {
-                          viewManager.openAllTracks()
+                          viewManager.openAllAlbums()
                       } else if (index === 4) {
-                          viewManager.openAllGenres()
+                          viewManager.openAllArtists()
                       } else if (index === 5) {
+                          viewManager.openAllTracks()
+                      } else if (index === 6) {
+                          viewManager.openAllGenres()
+                      } else if (index === 7) {
                           viewManager.openFilesBrowser()
                       } else {
                           viewManager.closeAllViews()
@@ -235,6 +273,54 @@ RowLayout {
                         color: myPalette.base
 
                         anchors.fill: parent
+
+                        Loader {
+                            id: localRecentlyPlayedTracksLoader
+
+                            active: opacity > 0
+
+                            visible: opacity > 0
+
+                            opacity: 0
+
+                            anchors.fill: parent
+
+                            onLoaded: viewManager.recentlyPlayedTracksIsLoaded(item.stackView)
+
+                            sourceComponent: RecentlyPlayedTracks {
+                            }
+
+                            Behavior on opacity {
+                                NumberAnimation {
+                                    easing.type: Easing.InOutQuad
+                                    duration: 300
+                                }
+                            }
+                        }
+
+                        Loader {
+                            id: localFrequentlyPlayedTracksLoader
+
+                            active: opacity > 0
+
+                            visible: opacity > 0
+
+                            opacity: 0
+
+                            anchors.fill: parent
+
+                            onLoaded: viewManager.frequentlyPlayedTracksIsLoaded(item.stackView)
+
+                            sourceComponent: FrequentlyPlayedTracks {
+                            }
+
+                            Behavior on opacity {
+                                NumberAnimation {
+                                    easing.type: Easing.InOutQuad
+                                    duration: 300
+                                }
+                            }
+                        }
 
                         Loader {
                             id: localAlbumsLoader

@@ -38,7 +38,7 @@ MediaBrowser {
     AllTracksProxyModel {
         id: proxyModel
 
-        sortRole: Qt.DisplayRole
+        sortRole: DatabaseInterface.PlayFrequency
         sourceModel: realModel
 
         onTrackToEnqueue: elisa.mediaPlayList.enqueue(newEntries, databaseIdType, enqueueMode, triggerPlay)
@@ -82,19 +82,21 @@ MediaBrowser {
             onClicked: contentDirectoryView.currentIndex = index
         }
 
-        image: elisaTheme.tracksIcon
-        mainTitle: i18nc("Title of the view of all tracks", "Tracks")
+        image: elisaTheme.frequentlyPlayedTracksIcon
+        mainTitle: i18nc("Title of the view of frequently played tracks", "Frequently Played")
     }
 
     Connections {
         target: elisa
 
-        onMusicManagerChanged: realModel.initialize(elisa.musicManager, ElisaUtils.Track)
+        onMusicManagerChanged: realModel.initializeFrequentlyPlayed(elisa.musicManager, ElisaUtils.Track)
     }
 
     Component.onCompleted: {
         if (elisa.musicManager) {
-            realModel.initialize(elisa.musicManager, ElisaUtils.Track)
+            realModel.initializeFrequentlyPlayed(elisa.musicManager, ElisaUtils.Track)
         }
+
+        proxyModel.sortModel(Qt.DescendingOrder)
     }
 }

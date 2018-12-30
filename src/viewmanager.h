@@ -40,6 +40,8 @@ public:
         AllArtistsFromGenre,
         OneArtistFromGenre,
         OneAlbumFromArtistAndGenre,
+        FrequentlyPlayedTracks,
+        RecentlyPlayedTracks,
         FilesBrowser
     };
 
@@ -48,6 +50,10 @@ public:
     explicit ViewManager(QObject *parent = nullptr);
 
 Q_SIGNALS:
+
+    void switchRecentlyPlayedTracksView();
+
+    void switchFrequentlyPlayedTracksView();
 
     void switchAllAlbumsView();
 
@@ -77,6 +83,10 @@ public Q_SLOTS:
 
     void closeAllViews();
 
+    void openRecentlyPlayedTracks();
+
+    void openFrequentlyPlayedTracks();
+
     void openAllAlbums();
 
     void abstractOpenOneAlbum(const QString &albumTitle, const QString &albumAuthor,
@@ -93,6 +103,10 @@ public Q_SLOTS:
     void abstractOpenAllArtistsFromGenre(const QString &genreName);
 
     void openFilesBrowser();
+
+    void abstractRecentlyPlayedTracksIsLoaded();
+
+    void abstractFrequentlyPlayedTracksIsLoaded();
 
     void abstractAllAlbumsViewIsLoaded();
 

@@ -80,6 +80,10 @@ public:
         AlbumIdRole,
         HasEmbeddedCover,
         FileModificationTime,
+        FirstPlayDate,
+        LastPlayDate,
+        PlayCounter,
+        PlayFrequency,
     };
 
     Q_ENUM(ColumnsRoles)

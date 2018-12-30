@@ -28,6 +28,24 @@ void ViewManager::closeAllViews()
     Q_EMIT switchOffAllViews();
 }
 
+void ViewManager::openRecentlyPlayedTracks()
+{
+    mTargetView = ViewsType::RecentlyPlayedTracks;
+
+    if (mCurrentView != mTargetView) {
+        Q_EMIT switchRecentlyPlayedTracksView();
+    }
+}
+
+void ViewManager::openFrequentlyPlayedTracks()
+{
+    mTargetView = ViewsType::FrequentlyPlayedTracks;
+
+    if (mCurrentView != mTargetView) {
+        Q_EMIT switchFrequentlyPlayedTracksView();
+    }
+}
+
 void ViewManager::openAllAlbums()
 {
     mTargetView = ViewsType::AllAlbums;
@@ -133,6 +151,16 @@ void ViewManager::openFilesBrowser()
     if (mCurrentView != mTargetView) {
         Q_EMIT switchFilesBrowserView();
     }
+}
+
+void ViewManager::abstractRecentlyPlayedTracksIsLoaded()
+{
+    mCurrentView = ViewsType::RecentlyPlayedTracks;
+}
+
+void ViewManager::abstractFrequentlyPlayedTracksIsLoaded()
+{
+    mCurrentView = ViewsType::FrequentlyPlayedTracks;
 }
 
 void ViewManager::abstractAllAlbumsViewIsLoaded()

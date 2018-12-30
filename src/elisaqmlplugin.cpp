@@ -44,6 +44,7 @@
 #include "musiclistenersmanager.h"
 #include "trackslistener.h"
 #include "viewmanager.h"
+#include "databaseinterface.h"
 #include "models/datamodel.h"
 #include "models/trackmetadatamodel.h"
 #include "models/viewsmodel.h"
@@ -133,6 +134,7 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qmlRegisterType<AudioWrapper>(uri, 1, 0, "AudioWrapper");
     qmlRegisterType<TopNotificationManager>(uri, 1, 0, "TopNotificationManager");
     qmlRegisterUncreatableMetaObject(DataUtils::staticMetaObject, uri, 1, 0, "DataUtils", QStringLiteral("Only enums"));
+    qmlRegisterUncreatableType<DatabaseInterface>(uri, 1, 0, "DatabaseInterface", QStringLiteral("Only created in c++"));
 
 #if defined Qt5DBus_FOUND && Qt5DBus_FOUND
     qmlRegisterType<Mpris2>(uri, 1, 0, "Mpris2");
@@ -157,7 +159,6 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qRegisterMetaType<TracksListener::ListTrackDataType>("TracksListener::ListTrackDataType");
     qRegisterMetaType<QMap<QString, int>>();
     qRegisterMetaType<QAction*>();
-    qRegisterMetaType<QSortFilterProxyModel*>();
     qRegisterMetaType<NotificationItem>("NotificationItem");
     qRegisterMetaType<QMap<QString,int>>("QMap<QString,int>");
     qRegisterMetaType<ElisaUtils::PlayListEnqueueMode>("PlayListEnqueueMode");

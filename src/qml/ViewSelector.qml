@@ -210,8 +210,8 @@ FocusScope {
         target: elisa
 
         onInitializationDone: {
-            viewModeView.currentIndex = 1
-            switchView(1)
+            viewModeView.currentIndex = 3
+            switchView(viewModeView.currentIndex)
         }
     }
 

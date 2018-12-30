@@ -98,6 +98,10 @@ Q_SIGNALS:
     void needDataByGenreAndArtist(ElisaUtils::PlayListEntryType dataType,
                                   const QString &genre, const QString &artist);
 
+    void needRecentlyPlayedData(ElisaUtils::PlayListEntryType dataType);
+
+    void needFrequentlyPlayedData(ElisaUtils::PlayListEntryType dataType);
+
 public Q_SLOTS:
 
     void tracksAdded(ListTrackDataType newData);
@@ -131,6 +135,10 @@ public Q_SLOTS:
 
     void initializeByGenreAndArtist(MusicListenersManager *manager, ElisaUtils::PlayListEntryType modelType,
                                     const QString &genre, const QString &artist);
+
+    void initializeRecentlyPlayed(MusicListenersManager *manager, ElisaUtils::PlayListEntryType modelType);
+
+    void initializeFrequentlyPlayed(MusicListenersManager *manager, ElisaUtils::PlayListEntryType modelType);
 
 private:
 

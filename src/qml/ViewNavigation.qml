@@ -57,5 +57,17 @@ ViewManager {
         abstractAllGenresViewIsLoaded()
     }
 
+    function recentlyPlayedTracksIsLoaded(stackView)
+    {
+        currentStackView = stackView
+        abstractRecentlyPlayedTracksIsLoaded()
+    }
+
+    function frequentlyPlayedTracksIsLoaded(stackView)
+    {
+        currentStackView = stackView
+        abstractFrequentlyPlayedTracksIsLoaded()
+    }
+
     onPopOneView: currentStackView.pop()
 }

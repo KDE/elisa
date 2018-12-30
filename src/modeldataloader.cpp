@@ -187,5 +187,49 @@ void ModelDataLoader::loadDataByFileName(ElisaUtils::PlayListEntryType dataType,
     }
 }
 
+void ModelDataLoader::loadRecentlyPlayedData(ElisaUtils::PlayListEntryType dataType)
+{
+    if (!d->mDatabase) {
+        return;
+    }
+
+    switch (dataType)
+    {
+    case ElisaUtils::Track:
+        Q_EMIT allTracksData(d->mDatabase->recentlyPlayedTracksData(50));
+        break;
+    case ElisaUtils::Album:
+    case ElisaUtils::Artist:
+    case ElisaUtils::Composer:
+    case ElisaUtils::Genre:
+    case ElisaUtils::Lyricist:
+    case ElisaUtils::FileName:
+    case ElisaUtils::Unknown:
+        break;
+    }
+}
+
+void ModelDataLoader::loadFrequentlyPlayedData(ElisaUtils::PlayListEntryType dataType)
+{
+    if (!d->mDatabase) {
+        return;
+    }
+
+    switch (dataType)
+    {
+    case ElisaUtils::Track:
+        Q_EMIT allTracksData(d->mDatabase->frequentlyPlayedTracksData(50));
+        break;
+    case ElisaUtils::Album:
+    case ElisaUtils::Artist:
+    case ElisaUtils::Composer:
+    case ElisaUtils::Genre:
+    case ElisaUtils::Lyricist:
+    case ElisaUtils::FileName:
+    case ElisaUtils::Unknown:
+        break;
+    }
+}
+
 
 #include "moc_modeldataloader.cpp"

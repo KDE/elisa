@@ -97,6 +97,12 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
         case DatabaseInterface::SampleRateRole:
             result = i18nc("Sample Rate label for track metadata view", "Sample Rate:");
             break;
+        case DatabaseInterface::LastPlayDate:
+            result = i18nc("Last play date label for track metadata view", "Last played:");
+            break;
+        case DatabaseInterface::PlayCounter:
+            result = i18nc("Play counter label for track metadata view", "Play count:");
+            break;
         case DatabaseInterface::SecondaryTextRole:
         case DatabaseInterface::ImageUrlRole:
         case DatabaseInterface::ShadowForImageRole:
@@ -114,6 +120,8 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
         case DatabaseInterface::AlbumIdRole:
         case DatabaseInterface::HasEmbeddedCover:
         case DatabaseInterface::FileModificationTime:
+        case DatabaseInterface::FirstPlayDate:
+        case DatabaseInterface::PlayFrequency:
             break;
         }
         break;
@@ -156,6 +164,12 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
         case DatabaseInterface::YearRole:
             result = IntegerEntry;
             break;
+        case DatabaseInterface::LastPlayDate:
+            result = DateEntry;
+            break;
+        case DatabaseInterface::PlayCounter:
+            result = IntegerEntry;
+            break;
         case DatabaseInterface::DurationRole:
         case DatabaseInterface::SampleRateRole:
         case DatabaseInterface::BitRateRole:
@@ -177,6 +191,8 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
         case DatabaseInterface::AlbumIdRole:
         case DatabaseInterface::HasEmbeddedCover:
         case DatabaseInterface::FileModificationTime:
+        case DatabaseInterface::FirstPlayDate:
+        case DatabaseInterface::PlayFrequency:
             break;
         }
         break;

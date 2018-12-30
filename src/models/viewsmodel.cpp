@@ -36,11 +36,14 @@ public:
 
     ViewsModelPrivate()
     {
-        mTypes = {ViewManager::NoViews, ViewManager::AllAlbums,
+        mTypes = {ViewManager::NoViews, ViewManager::RecentlyPlayedTracks,
+                  ViewManager::FrequentlyPlayedTracks, ViewManager::AllAlbums,
                   ViewManager::AllArtists, ViewManager::AllTracks,
                   ViewManager::AllGenres, ViewManager::FilesBrowser};
 
         mNames = {{ViewManager::NoViews, {i18nc("Title of the view of the playlist", "Now Playing")}},
+                  {ViewManager::RecentlyPlayedTracks, {i18nc("Title of the view of recently played tracks", "Recently Played")}},
+                  {ViewManager::FrequentlyPlayedTracks, {i18nc("Title of the view of frequently played tracks", "Frequently Played")}},
                   {ViewManager::AllAlbums, {i18nc("Title of the view of all albums", "Albums")}},
                   {ViewManager::AllArtists, {i18nc("Title of the view of all artists", "Artists")}},
                   {ViewManager::AllTracks, {i18nc("Title of the view of all tracks", "Tracks")}},
@@ -48,6 +51,8 @@ public:
                   {ViewManager::FilesBrowser, {i18nc("Title of the file browser view", "Files")}}};
 
         mIcons = {{ViewManager::NoViews, QUrl{QStringLiteral("image://icon/view-media-playlist")}},
+                  {ViewManager::RecentlyPlayedTracks, QUrl{QStringLiteral("image://icon/media-playlist-play")}},
+                  {ViewManager::FrequentlyPlayedTracks, QUrl{QStringLiteral("image://icon/amarok_playcount")}},
                   {ViewManager::AllAlbums, QUrl{QStringLiteral("image://icon/view-media-album-cover")}},
                   {ViewManager::AllArtists, QUrl{QStringLiteral("image://icon/view-media-artist")}},
                   {ViewManager::AllTracks, QUrl{QStringLiteral("image://icon/view-media-track")}},

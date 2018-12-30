@@ -331,6 +331,8 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         qml/AlbumView.qml
         qml/OneArtistView.qml
         qml/OneGenreView.qml
+        qml/RecentlyPlayedTracks.qml
+        qml/FrequentlyPlayedTracks.qml
 
         qml/MediaPlayListView.qml
         qml/MediaTrackDelegate.qml

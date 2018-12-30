@@ -50,6 +50,7 @@ public:
         TextEntry,
         IntegerEntry,
         RatingEntry,
+        DateEntry,
     };
 
     Q_ENUM(ItemType)

@@ -79,6 +79,10 @@ public Q_SLOTS:
     void loadDataByFileName(ElisaUtils::PlayListEntryType dataType,
                             const QUrl &fileName);
 
+    void loadRecentlyPlayedData(ElisaUtils::PlayListEntryType dataType);
+
+    void loadFrequentlyPlayedData(ElisaUtils::PlayListEntryType dataType);
+
 private:
 
     std::unique_ptr<ModelDataLoaderPrivate> d;

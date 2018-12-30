@@ -316,6 +316,40 @@ void DataModel::initializeByGenreAndArtist(MusicListenersManager *manager, Elisa
     Q_EMIT needDataByGenreAndArtist(d->mModelType, genre, artist);
 }
 
+void DataModel::initializeRecentlyPlayed(MusicListenersManager *manager, ElisaUtils::PlayListEntryType modelType)
+{
+    d->mModelType = modelType;
+
+    if (!manager) {
+        return;
+    }
+    manager->connectModel(&d->mDataLoader);
+
+    connectModel(manager);
+
+    connect(this, &DataModel::needRecentlyPlayedData,
+            &d->mDataLoader, &ModelDataLoader::loadRecentlyPlayedData);
+
+    Q_EMIT needRecentlyPlayedData(d->mModelType);
+}
+
+void DataModel::initializeFrequentlyPlayed(MusicListenersManager *manager, ElisaUtils::PlayListEntryType modelType)
+{
+    d->mModelType = modelType;
+
+    if (!manager) {
+        return;
+    }
+    manager->connectModel(&d->mDataLoader);
+
+    connectModel(manager);
+
+    connect(this, &DataModel::needFrequentlyPlayedData,
+            &d->mDataLoader, &ModelDataLoader::loadFrequentlyPlayedData);
+
+    Q_EMIT needFrequentlyPlayedData(d->mModelType);
+}
+
 int DataModel::trackIndexFromId(qulonglong id) const
 {
     int result;

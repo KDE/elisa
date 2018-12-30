@@ -24,9 +24,8 @@
 
 AllTracksProxyModel::AllTracksProxyModel(QObject *parent) : AbstractMediaProxyModel(parent)
 {
-    this->setSortRole(Qt::DisplayRole);
-    this->setSortCaseSensitivity(Qt::CaseInsensitive);
-    this->sortModel(Qt::AscendingOrder);
+    setSortCaseSensitivity(Qt::CaseInsensitive);
+    sortModel(Qt::AscendingOrder);
 }
 
 AllTracksProxyModel::~AllTracksProxyModel() = default;

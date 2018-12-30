@@ -34,6 +34,8 @@ Item {
     property string tracksIcon: 'image://icon/view-media-track'
     property string genresIcon: 'image://icon/view-media-genre'
     property string clearIcon: 'image://icon/edit-clear'
+    property string recentlyPlayedTracksIcon: 'image://icon/media-playlist-play'
+    property string frequentlyPlayedTracksIcon: 'image://icon/amarok_playcount'
     property string pausedIndicatorIcon: 'image://icon/media-playback-paused'
     property string playingIndicatorIcon: 'image://icon/media-playback-playing'
     property string ratingIcon: 'image://icon/rating'

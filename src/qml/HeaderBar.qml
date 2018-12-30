@@ -297,7 +297,8 @@ FocusScope {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
 
-                    Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
+                    Layout.alignment: Qt.AlignRight | Qt.AlignTop
+                    Layout.topMargin: elisaTheme.layoutHorizontalMargin * 6
                     Layout.bottomMargin: elisaTheme.layoutHorizontalMargin * 2
                     Layout.leftMargin: elisaTheme.layoutHorizontalMargin * 7
                     Layout.rightMargin: elisaTheme.layoutHorizontalMargin * 2

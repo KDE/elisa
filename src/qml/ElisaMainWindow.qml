@@ -259,6 +259,22 @@ ApplicationWindow {
         id: mainWindowState
         states: [
             State {
+                name: "headerBarIsNormal"
+                when: !headerBar.isMaximized
+                changes: [
+                    PropertyChanges {
+                        target: mainWindow
+                        minimumHeight: 600
+                        explicit: true
+                    },
+                    PropertyChanges {
+                        target: headerBarParent
+                        Layout.minimumHeight: mainWindow.height * 0.2 + elisaTheme.mediaPlayerControlHeight
+                        Layout.maximumHeight: mainWindow.height * 0.2 + elisaTheme.mediaPlayerControlHeight
+                    }
+                ]
+            },
+            State {
                 name: "headerBarIsMaximized"
                 when: headerBar.isMaximized
                 changes: [
@@ -271,15 +287,17 @@ ApplicationWindow {
                         target: headerBarParent
                         Layout.minimumHeight: mainWindow.height
                         Layout.maximumHeight: mainWindow.height
-                    },
-                    PropertyChanges {
-                        target: contentView
-                        height: 0
-                        visible: false
                     }
                 ]
             }
         ]
+        transitions: Transition {
+            NumberAnimation {
+                properties: "Layout.minimumHeight, Layout.maximumHeight, minimumHeight"
+                easing.type: Easing.InOutQuad
+                duration: 300
+            }
+        }
     }
 
     Component.onCompleted:

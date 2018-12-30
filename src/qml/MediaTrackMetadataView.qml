@@ -47,7 +47,7 @@ Window {
     color: myPalette.window
 
     minimumHeight: elisaTheme.coverImageSize * 1.5
-    minimumWidth: elisaTheme.coverImageSize * 2.5
+    minimumWidth: elisaTheme.coverImageSize * 2.8
 
     ColumnLayout {
         anchors.fill: parent
@@ -152,6 +152,23 @@ Window {
             }
 
             Loader {
+                active: model.type === TrackMetadataModel.DateEntry
+
+                Layout.fillWidth: true
+
+                sourceComponent: LabelWithToolTip {
+                    text: rawDate.toLocaleDateString()
+
+                    horizontalAlignment: Text.AlignLeft
+                    elide: Text.ElideRight
+
+                    anchors.fill: parent
+
+                    property date rawDate: new Date(model.display)
+                }
+            }
+
+            Loader {
                 active: model.type === TrackMetadataModel.RatingEntry
 
                 Layout.fillWidth: true
@@ -175,7 +192,13 @@ Window {
     Connections {
         target: elisa
 
-        onMusicManagerChanged: realModel.initialize(elisa.musicManager)
+        onMusicManagerChanged: {
+            if (databaseId !== 0) {
+                realModel.initializeByTrackId(elisa.musicManager, databaseId)
+            } else {
+                realModel.initializeByTrackFileName(elisa.musicManager, fileName)
+            }
+        }
     }
 
     Component.onCompleted: {

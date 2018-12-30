@@ -261,7 +261,8 @@ void TrackMetadataModel::trackData(const TrackMetadataModel::TrackDataType &trac
     for (auto role : {DatabaseInterface::TitleRole, DatabaseInterface::ArtistRole, DatabaseInterface::AlbumRole,
          DatabaseInterface::AlbumArtistRole, DatabaseInterface::TrackNumberRole, DatabaseInterface::DiscNumberRole,
          DatabaseInterface::RatingRole, DatabaseInterface::GenreRole, DatabaseInterface::LyricistRole,
-         DatabaseInterface::ComposerRole, DatabaseInterface::CommentRole, DatabaseInterface::YearRole}) {
+         DatabaseInterface::ComposerRole, DatabaseInterface::CommentRole, DatabaseInterface::YearRole,
+         DatabaseInterface::LastPlayDate, DatabaseInterface::PlayCounter}) {
         if (trackData.constFind(role) != trackData.constEnd()) {
             if (role == DatabaseInterface::RatingRole) {
                 if (trackData[role].toInt() == 0) {

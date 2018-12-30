@@ -47,6 +47,7 @@ FocusScope {
     property bool hasAlbumHeader
     property bool hasValidDiscNumber: true
     property int scrollBarWidth
+    property bool noBackground: false
 
     signal startPlayback()
     signal pausePlayback()
@@ -119,7 +120,7 @@ FocusScope {
         anchors.fill: parent
         anchors.rightMargin: LayoutMirroring.enabled ? scrollBarWidth : 0
 
-        color: (isAlternateColor ? myPalette.alternateBase : myPalette.base)
+        color: (noBackground ? 'transparent' : (isAlternateColor ? myPalette.alternateBase : myPalette.base))
 
         height: (hasAlbumHeader ? elisaTheme.playListDelegateWithHeaderHeight : elisaTheme.playListDelegateHeight)
 
@@ -140,7 +141,7 @@ FocusScope {
                 active: hasAlbumHeader
 
                 sourceComponent: Rectangle {
-                    color: myPalette.midlight
+                    color: (noBackground ? 'transparent' : myPalette.midlight)
 
                     anchors.fill: parent
 
@@ -206,7 +207,7 @@ FocusScope {
 
                                 font.weight: Font.Bold
                                 font.pointSize: elisaTheme.defaultFontPointSize * 1.4
-                                color: myPalette.text
+                                color: (playListEntry.noBackground ? myPalette.highlightedText : myPalette.text)
 
                                 horizontalAlignment: Text.AlignLeft
 
@@ -227,7 +228,7 @@ FocusScope {
                                 text: albumArtist
 
                                 font.weight: Font.Light
-                                color: myPalette.text
+                                color: (playListEntry.noBackground ? myPalette.highlightedText : myPalette.text)
 
                                 horizontalAlignment: Text.AlignLeft
 
@@ -309,7 +310,7 @@ FocusScope {
                         text: trackNumber !== 0 ? Number(trackNumber).toLocaleString(Qt.locale(), 'f', 0) : ''
 
                         font.weight: (isPlaying ? Font.Bold : Font.Light)
-                        color: myPalette.text
+                        color: (playListEntry.noBackground ? myPalette.highlightedText : myPalette.text)
 
                         Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
 
@@ -345,7 +346,7 @@ FocusScope {
                         visible: isValid && discNumber !== 0 && !isSingleDiscAlbum
 
                         font.weight: (isPlaying ? Font.Bold : Font.Light)
-                        color: myPalette.text
+                        color: (playListEntry.noBackground ? myPalette.highlightedText : myPalette.text)
 
                         Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
 
@@ -364,7 +365,7 @@ FocusScope {
                         horizontalAlignment: Text.AlignRight
 
                         font.weight: (isPlaying ? Font.Bold : Font.Light)
-                        color: myPalette.text
+                        color: (playListEntry.noBackground ? myPalette.highlightedText : myPalette.text)
 
                         text: Number(discNumber).toLocaleString(Qt.locale(), 'f', 0)
 
@@ -398,7 +399,7 @@ FocusScope {
                         text: title
 
                         font.weight: (isPlaying ? Font.Bold : Font.Normal)
-                        color: myPalette.text
+                        color: (playListEntry.noBackground ? myPalette.highlightedText : myPalette.text)
 
                         Layout.maximumWidth: mainCompactLabel.implicitWidth + 1
                         Layout.fillWidth: true
@@ -416,7 +417,7 @@ FocusScope {
                         text: title
 
                         font.weight: Font.Normal
-                        color: myPalette.text
+                        color: (playListEntry.noBackground ? myPalette.highlightedText : myPalette.text)
 
                         Layout.fillWidth: true
                         Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
@@ -501,7 +502,7 @@ FocusScope {
                         text: duration
 
                         font.weight: (isPlaying ? Font.Bold : Font.Normal)
-                        color: myPalette.text
+                        color: (playListEntry.noBackground ? myPalette.highlightedText : myPalette.text)
 
                         Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
                         Layout.preferredWidth: durationTextMetrics.width + 1
@@ -537,7 +538,7 @@ FocusScope {
             }
             PropertyChanges {
                 target: entryBackground
-                color: (isAlternateColor ? myPalette.alternateBase : myPalette.base)
+                color: (noBackground ? 'transparent' : (isAlternateColor ? myPalette.alternateBase : myPalette.base))
             }
             PropertyChanges {
                 target: ratingWidget
@@ -565,7 +566,7 @@ FocusScope {
             }
             PropertyChanges {
                 target: entryBackground
-                color: myPalette.mid
+                color: (noBackground ? 'transparent' : myPalette.mid)
             }
             PropertyChanges {
                 target: ratingWidget

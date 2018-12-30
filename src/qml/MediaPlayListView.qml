@@ -20,13 +20,11 @@ import QtQuick.Controls 2.2
 import QtQuick.Controls 1.3 as Controls1
 import QtQuick.Layouts 1.1
 import QtQuick.Window 2.2
-import QtQml.Models 2.1
 import Qt.labs.platform 1.0 as PlatformDialog
 import org.kde.elisa 1.0
 
 FocusScope {
     property StackView parentStackView
-    property MediaPlayList playListModel
 
     property int placeholderHeight: elisaTheme.dragDropPlaceholderHeight
 
@@ -40,18 +38,18 @@ FocusScope {
         id: clearPlayList
         text: i18nc("Remove all tracks from play list", "Clear Playlist")
         iconName: 'edit-clear-all'
-        enabled: playListModelDelegate.items.count > 0
-        onTriggered: playListModel.clearPlayList()
+        enabled: elisa.mediaPlayList ? elisa.mediaPlayList.tracksCount > 0 : false
+        onTriggered: elisa.mediaPlayList.clearPlayList()
     }
 
     Controls1.Action {
         id: showCurrentTrack
         text: i18nc("Show currently played track inside playlist", "Show Current Track")
         iconName: 'media-show-active-track-amarok'
-        enabled: playListModelDelegate.items.count > 0
+        enabled: elisa.mediaPlayList ? elisa.mediaPlayList.tracksCount > 0 : false
         onTriggered: {
-            playListView.positionViewAtIndex(playListModel.currentTrackRow, ListView.Contain)
-            playListView.currentIndex = playListModel.currentTrackRow
+            playListView.positionViewAtIndex(elisa.mediaPlayList.currentTrackRow, ListView.Contain)
+            playListView.currentIndex = elisa.mediaPlayList.currentTrackRow
             playListView.currentItem.forceActiveFocus()
         }
     }
@@ -72,7 +70,7 @@ FocusScope {
         id: savePlaylist
         text: i18nc("Save a playlist file", "Save Playlist...")
         iconName: 'document-save'
-        enabled: playListModelDelegate.items.count > 0
+        enabled: elisa.mediaPlayList ? elisa.mediaPlayList.tracksCount > 0 : false
         onTriggered:
         {
             fileDialog.fileMode = PlatformDialog.FileDialog.SaveFile
@@ -91,11 +89,11 @@ FocusScope {
         onAccepted:
         {
             if (fileMode === PlatformDialog.FileDialog.SaveFile) {
-                if (!playListModel.savePlaylist(fileDialog.file)) {
+                if (!elisa.mediaPlayList.savePlaylist(fileDialog.file)) {
                     displayError(i18nc("message of passive notification when playlist load failed", "Save of playlist failed"))
                 }
             } else {
-                playListModel.loadPlaylist(fileDialog.file)
+                elisa.mediaPlayList.loadPlaylist(fileDialog.file)
             }
         }
     }
@@ -131,8 +129,8 @@ FocusScope {
             LabelWithToolTip {
                 id: playListInfo
 
-                text: i18np("1 track", "%1 tracks", playListModel.tracksCount)
-                visible: playListModelDelegate.count > 0
+                text: i18np("1 track", "%1 tracks", (elisa.mediaPlayList ? elisa.mediaPlayList.tracksCount : 0))
+                visible: elisa.mediaPlayList ? elisa.mediaPlayList.tracksCount > 0 : false
                 color: myPalette.text
                 Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
             }
@@ -148,7 +146,7 @@ FocusScope {
         ColumnLayout {
             id: emptyPlaylistText
             spacing: 0
-            visible: playListModelDelegate.count === 0
+            visible: elisa.mediaPlayList ? elisa.mediaPlayList.tracksCount === 0 : true
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             Layout.fillHeight: true
             Layout.fillWidth: true
@@ -200,127 +198,23 @@ FocusScope {
 
         }
 
-        ListView {
+        PlayListBasicView {
             id: playListView
+
             Layout.fillWidth: true
             Layout.fillHeight: true
 
+            playListModel: elisa.mediaPlayList
+
             focus: true
 
-            ScrollBar.vertical: ScrollBar {
-                id: scrollBar
-            }
-            boundsBehavior: Flickable.StopAtBounds
-            clip: true
+            onStartPlayback: topItem.startPlayback()
 
-            ScrollHelper {
-                id: scrollHelper
-                flickable: playListView
-                anchors.fill: playListView
-            }
+            onPausePlayback: topItem.pausePlayback()
 
-            add: Transition {
-                NumberAnimation {
-                    property: "opacity";
-                    from: 0;
-                    to: 1;
-                    duration: 100 }
-            }
+            onDisplayError: topItem.displayError(errorText)
 
-            populate: Transition {
-                NumberAnimation {
-                    property: "opacity";
-                    from: 0;
-                    to: 1;
-                    duration: 100 }
-            }
-
-            remove: Transition {
-                NumberAnimation {
-                    property: "opacity";
-                    from: 1.0;
-                    to: 0;
-                    duration: 100 }
-            }
-
-            displaced: Transition {
-                NumberAnimation {
-                    properties: "x,y";
-                    duration: 100;
-                    easing.type: Easing.InOutQuad}
-            }
-
-            model: DelegateModel {
-                id: playListModelDelegate
-                model: playListModel
-
-                groups: [
-                    DelegateModelGroup { name: "selected" }
-                ]
-
-                delegate: DraggableItem {
-                    id: item
-                    placeholderHeight: topItem.placeholderHeight
-
-                    focus: true
-
-                    PlayListEntry {
-                        id: entry
-
-                        focus: true
-
-                        width: scrollBar.visible ? (!LayoutMirroring.enabled ? playListView.width - scrollBar.width : playListView.width) : playListView.width
-                        scrollBarWidth: scrollBar.visible ? scrollBar.width : 0
-
-                        index: model.index
-                        isAlternateColor: item.DelegateModel.itemsIndex % 2
-                        isSelected: playListView.currentIndex === index
-                        containsMouse: item.containsMouse
-
-                        databaseId: model.databaseId
-                        title: model.title
-                        artist: model.artist
-                        album: model.album
-                        albumArtist: model.albumArtist
-                        duration: model.duration
-                        fileName: model.trackResource
-                        imageUrl: model.imageUrl
-                        trackNumber: model.trackNumber
-                        discNumber: model.discNumber
-                        rating: model.rating
-                        hasAlbumHeader: model.hasAlbumHeader
-                        isSingleDiscAlbum: model.isSingleDiscAlbum
-                        isValid: model.isValid
-                        isPlaying: model.isPlaying
-
-                        onStartPlayback: topItem.startPlayback()
-                        onPausePlayback: topItem.pausePlayback()
-                        onRemoveFromPlaylist: topItem.playListModel.removeRows(trackIndex, 1)
-                        onSwitchToTrack: topItem.playListModel.switchTo(trackIndex)
-                    }
-
-                    draggedItemParent: topItem
-
-                    onClicked: {
-                        playListView.currentIndex = index
-                        entry.forceActiveFocus()
-                    }
-
-                    onDoubleClicked: {
-                        if (model.isValid) {
-                            topItem.playListModel.switchTo(model.index)
-                            topItem.startPlayback()
-                        }
-                    }
-
-                    onMoveItemRequested: {
-                        playListModel.move(from, to, 1);
-                    }
-                }
-            }
         }
-
-
     }
 }
 

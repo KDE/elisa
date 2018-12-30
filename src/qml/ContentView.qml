@@ -480,8 +480,6 @@ RowLayout {
                 MediaPlayListView {
                     id: playList
 
-                    playListModel: elisa.mediaPlayList
-
                     Layout.fillHeight: true
                     Layout.leftMargin: elisaTheme.layoutHorizontalMargin
                     Layout.rightMargin: elisaTheme.layoutHorizontalMargin

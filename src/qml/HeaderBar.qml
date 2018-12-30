@@ -142,11 +142,6 @@ FocusScope {
 
         spacing: 0
 
-        Item {
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-        }
-
         RowLayout {
             spacing: 0
 
@@ -206,11 +201,14 @@ FocusScope {
             ColumnLayout {
                 spacing: 0
 
-                Layout.alignment: Qt.AlignTop | Qt.AlignHCenter
                 Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
                 Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+                Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+                Layout.preferredHeight: contentZone.height * 0.9
+                Layout.minimumHeight: contentZone.height * 0.9
+                Layout.maximumHeight: contentZone.height * 0.9
+
                 Layout.fillWidth: true
-                Layout.fillHeight: true
 
                 TextMetrics {
                     id: titleFontInfo
@@ -282,24 +280,41 @@ FocusScope {
                     starRating: trackRating
                     Layout.alignment: Qt.AlignLeft
                 }
-            }
 
-            LabelWithToolTip {
-                id: remainingTracksLabel
-                text: i18np("1 track remaining", "%1 tracks remaining", tracksCount)
-                Layout.alignment: Qt.AlignRight | Qt.AlignBottom
-                Layout.bottomMargin: elisaTheme.layoutVerticalMargin
-                Layout.leftMargin: elisaTheme.layoutHorizontalMargin
-                Layout.rightMargin: elisaTheme.layoutHorizontalMargin * 1.75
-                elide: Text.ElideRight
-                visible: tracksCount > 0
-                color: myPalette.highlightedText
-            }
-        }
+                Loader {
+                    active: headerBar.isMaximized
 
-        Item {
-            Layout.fillHeight: true
-            Layout.fillWidth: true
+                    sourceComponent:
+                        PlayListBasicView {
+                        id: playList
+
+                        playListModel: elisa.mediaPlayList
+                        noBackground: true
+
+                        anchors.fill: parent
+                    }
+
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+
+                    Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
+                    Layout.bottomMargin: elisaTheme.layoutHorizontalMargin * 2
+                    Layout.leftMargin: elisaTheme.layoutHorizontalMargin * 7
+                    Layout.rightMargin: elisaTheme.layoutHorizontalMargin * 2
+                }
+
+                LabelWithToolTip {
+                    id: remainingTracksLabel
+                    text: i18np("1 track remaining", "%1 tracks remaining", tracksCount)
+                    Layout.alignment: Qt.AlignRight | Qt.AlignBottom
+                    Layout.bottomMargin: elisaTheme.layoutVerticalMargin
+                    Layout.leftMargin: elisaTheme.layoutHorizontalMargin
+                    Layout.rightMargin: elisaTheme.layoutHorizontalMargin * 1.75
+                    elide: Text.ElideRight
+                    visible: tracksCount > 0
+                    color: myPalette.highlightedText
+                }
+            }
         }
     }
 

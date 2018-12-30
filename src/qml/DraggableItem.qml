@@ -79,7 +79,7 @@ FocusScope {
         }
         height: contentItem.height
 
-        Rectangle {
+        Item {
             id: contentItemWrapper
             anchors.fill: parent
             Drag.active: dragArea.drag.active

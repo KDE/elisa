@@ -225,6 +225,13 @@ FocusScope {
                             mirror: LayoutMirroring.enabled
                             visible: opacity > 0.0
 
+                            layer.enabled: true
+                            layer.effect: ColorOverlay {
+                                cached: true
+
+                                color: myPalette.highlightedText
+                            }
+
                             Behavior on opacity {
                                 NumberAnimation {
                                     easing.type: Easing.InOutQuad

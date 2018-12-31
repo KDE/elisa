@@ -26,8 +26,6 @@ ListView {
 
     property alias playListModel: playListModelDelegate.model
 
-    property bool noBackground: false
-
     signal startPlayback()
     signal pausePlayback()
     signal displayError(var errorText)
@@ -94,8 +92,6 @@ ListView {
                 id: entry
 
                 focus: true
-
-                noBackground: playListView.noBackground
 
                 width: scrollBar.visible ? (!LayoutMirroring.enabled ? playListView.width - scrollBar.width : playListView.width) : playListView.width
                 scrollBarWidth: scrollBar.visible ? scrollBar.width : 0

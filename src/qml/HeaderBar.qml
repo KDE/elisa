@@ -286,11 +286,10 @@ FocusScope {
                     visible: headerBar.isMaximized
 
                     sourceComponent:
-                        PlayListBasicView {
+                        SimplePlayListView {
                         id: playList
 
                         playListModel: elisa.mediaPlayList
-                        noBackground: true
 
                         anchors.fill: parent
                     }

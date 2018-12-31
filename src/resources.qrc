@@ -44,6 +44,8 @@
         <file>qml/RecentlyPlayedTracks.qml</file>
         <file>qml/FrequentlyPlayedTracks.qml</file>
         <file>qml/PlayListBasicView.qml</file>
+        <file>qml/SimplePlayListView.qml</file>
+        <file>qml/SimplePlayListEntry.qml</file>
     </qresource>
     <qresource prefix="/qml/+windows">
         <file alias="Theme.qml">windows/WindowsTheme.qml</file>

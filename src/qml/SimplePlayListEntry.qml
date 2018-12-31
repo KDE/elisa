@@ -29,10 +29,7 @@ FocusScope {
     property var index
     property bool isSingleDiscAlbum
     property int isPlaying
-    property bool isSelected
     property bool isValid
-    property bool isAlternateColor
-    property bool containsMouse
     property int databaseId: 0
     property string title
     property string artist
@@ -47,23 +44,10 @@ FocusScope {
     property bool hasAlbumHeader
     property bool hasValidDiscNumber: true
     property int scrollBarWidth
-    property bool noBackground: false
 
-    signal startPlayback()
-    signal pausePlayback()
-    signal removeFromPlaylist(var trackIndex)
     signal switchToTrack(var trackIndex)
 
     height: (hasAlbumHeader ? elisaTheme.playListDelegateWithHeaderHeight : elisaTheme.playListDelegateHeight)
-
-    Controls1.Action {
-        id: removeFromPlayList
-        text: i18nc("Remove current track from play list", "Remove")
-        iconName: "error"
-        onTriggered: {
-            playListEntry.removeFromPlaylist(playListEntry.index)
-        }
-    }
 
     Controls1.Action {
         id: playNow
@@ -71,56 +55,15 @@ FocusScope {
         iconName: "media-playback-start"
         enabled: !(isPlaying === MediaPlayList.IsPlaying) && isValid
         onTriggered: {
-            if (isPlaying === MediaPlayList.NotPlaying) {
-                playListEntry.switchToTrack(playListEntry.index)
-            }
-            playListEntry.startPlayback()
+            playListEntry.switchToTrack(playListEntry.index)
         }
     }
 
-    Controls1.Action {
-        id: pauseNow
-        text: i18nc("Pause current track from play list", "Pause")
-        iconName: "media-playback-pause"
-        enabled: isPlaying == MediaPlayList.IsPlaying && isValid
-        onTriggered: playListEntry.pausePlayback()
-    }
-
-    Controls1.Action {
-        id: showInfo
-        text: i18nc("Show track metadata", "View Details")
-        iconName: "help-about"
-        enabled: isValid
-        onTriggered: {
-            if (metadataLoader.active === false) {
-                metadataLoader.active = true
-            }
-            else {
-                metadataLoader.item.close();
-                metadataLoader.active = false
-            }
-        }
-    }
-
-    Loader {
-        id: metadataLoader
-        active: false
-        onLoaded: item.show()
-
-        sourceComponent:  MediaTrackMetadataView {
-            databaseId: playListEntry.databaseId
-            fileName: playListEntry.fileName
-            onRejected: metadataLoader.active = false;
-        }
-    }
-
-    Rectangle {
+    Item {
         id: entryBackground
 
         anchors.fill: parent
         anchors.rightMargin: LayoutMirroring.enabled ? scrollBarWidth : 0
-
-        color: (isAlternateColor ? myPalette.alternateBase : myPalette.base)
 
         height: (hasAlbumHeader ? elisaTheme.playListDelegateWithHeaderHeight : elisaTheme.playListDelegateHeight)
 
@@ -140,9 +83,7 @@ FocusScope {
                 visible: hasAlbumHeader
                 active: hasAlbumHeader
 
-                sourceComponent: Rectangle {
-                    color: myPalette.midlight
-
+                sourceComponent: Item {
                     anchors.fill: parent
 
                     RowLayout {
@@ -207,7 +148,7 @@ FocusScope {
 
                                 font.weight: Font.Bold
                                 font.pointSize: elisaTheme.defaultFontPointSize * 1.4
-                                color: myPalette.text
+                                color: myPalette.highlightedText
 
                                 horizontalAlignment: Text.AlignLeft
 
@@ -228,7 +169,7 @@ FocusScope {
                                 text: albumArtist
 
                                 font.weight: Font.Light
-                                color: myPalette.text
+                                color: myPalette.highlightedText
 
                                 horizontalAlignment: Text.AlignLeft
 
@@ -270,7 +211,7 @@ FocusScope {
 
                             anchors.fill: parent
 
-                            opacity: 0
+                            opacity: ((isPlaying === MediaPlayList.IsPlaying || isPlaying === MediaPlayList.IsPaused) ? 1.0 : 0.0)
 
                             source: (isPlaying === MediaPlayList.IsPlaying ?
                                          Qt.resolvedUrl(elisaTheme.playingIndicatorIcon) : Qt.resolvedUrl(elisaTheme.pausedIndicatorIcon))
@@ -283,6 +224,13 @@ FocusScope {
                             fillMode: Image.PreserveAspectFit
                             mirror: LayoutMirroring.enabled
                             visible: opacity > 0.0
+
+                            Behavior on opacity {
+                                NumberAnimation {
+                                    easing.type: Easing.InOutQuad
+                                    duration: 250
+                                }
+                            }
                         }
                     }
 
@@ -310,7 +258,7 @@ FocusScope {
                         text: trackNumber !== 0 ? Number(trackNumber).toLocaleString(Qt.locale(), 'f', 0) : ''
 
                         font.weight: (isPlaying ? Font.Bold : Font.Light)
-                        color: myPalette.text
+                        color: myPalette.highlightedText
 
                         Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
 
@@ -346,7 +294,7 @@ FocusScope {
                         visible: isValid && discNumber !== 0 && !isSingleDiscAlbum
 
                         font.weight: (isPlaying ? Font.Bold : Font.Light)
-                        color: myPalette.text
+                        color: myPalette.highlightedText
 
                         Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
 
@@ -365,7 +313,7 @@ FocusScope {
                         horizontalAlignment: Text.AlignRight
 
                         font.weight: (isPlaying ? Font.Bold : Font.Light)
-                        color: myPalette.text
+                        color: myPalette.highlightedText
 
                         text: Number(discNumber).toLocaleString(Qt.locale(), 'f', 0)
 
@@ -399,7 +347,7 @@ FocusScope {
                         text: title
 
                         font.weight: (isPlaying ? Font.Bold : Font.Normal)
-                        color: myPalette.text
+                        color: myPalette.highlightedText
 
                         Layout.maximumWidth: mainCompactLabel.implicitWidth + 1
                         Layout.fillWidth: true
@@ -417,7 +365,7 @@ FocusScope {
                         text: title
 
                         font.weight: Font.Normal
-                        color: myPalette.text
+                        color: myPalette.highlightedText
 
                         Layout.fillWidth: true
                         Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
@@ -430,57 +378,6 @@ FocusScope {
                     Item {
                         Layout.fillWidth: true
                         Layout.preferredWidth: 0
-                    }
-
-                    Controls1.ToolButton {
-                        id: infoButton
-                        objectName: 'infoButton'
-
-                        implicitHeight: elisaTheme.smallDelegateToolButtonSize
-                        implicitWidth: elisaTheme.smallDelegateToolButtonSize
-
-                        opacity: 0
-
-                        visible: opacity > 0.1
-
-                        action: showInfo
-                        Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
-                    }
-
-                    Controls1.ToolButton {
-                        id: playPauseButton
-                        objectName: 'playPauseButton'
-
-                        implicitHeight: elisaTheme.smallDelegateToolButtonSize
-                        implicitWidth: elisaTheme.smallDelegateToolButtonSize
-
-                        opacity: 0
-
-                        scale: LayoutMirroring.enabled ? -1 : 1 // We can mirror the symmetrical pause icon
-
-                        visible: opacity > 0.1
-                        action: !(isPlaying === MediaPlayList.IsPlaying) ? playNow : pauseNow
-                        Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
-                    }
-
-                    Item {
-                        implicitHeight: elisaTheme.smallDelegateToolButtonSize
-                        implicitWidth: elisaTheme.smallDelegateToolButtonSize
-                        Layout.maximumWidth: elisaTheme.smallDelegateToolButtonSize
-                        Layout.maximumHeight: elisaTheme.smallDelegateToolButtonSize
-                        Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-
-                        Controls1.ToolButton {
-                            id: removeButton
-                            objectName: 'removeButton'
-
-                            anchors.fill: parent
-
-                            opacity: 0
-
-                            visible: opacity > 0.1
-                            action: removeFromPlayList
-                        }
                     }
 
                     RatingStar {
@@ -502,7 +399,7 @@ FocusScope {
                         text: duration
 
                         font.weight: (isPlaying ? Font.Bold : Font.Normal)
-                        color: myPalette.text
+                        color: myPalette.highlightedText
 
                         Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
                         Layout.preferredWidth: durationTextMetrics.width + 1
@@ -516,76 +413,10 @@ FocusScope {
         }
     }
 
-    states: [
-        State {
-            name: 'notSelected'
-            when: !containsMouse && (!playListEntry.activeFocus || !isSelected)
-            PropertyChanges {
-                target: removeButton
-                opacity: 0
-            }
-            PropertyChanges {
-                target: infoButton
-                opacity: 0
-            }
-            PropertyChanges {
-                target: playPauseButton
-                opacity: 0
-            }
-            PropertyChanges {
-                target: playIcon
-                opacity: (isPlaying === MediaPlayList.IsPlaying || isPlaying === MediaPlayList.IsPaused ? 1.0 : 0.0)
-            }
-            PropertyChanges {
-                target: entryBackground
-                color: (isAlternateColor ? myPalette.alternateBase : myPalette.base)
-            }
-            PropertyChanges {
-                target: ratingWidget
-                hoverWidgetOpacity: 0.0
-            }
-        },
-        State {
-            name: 'hoveredOrSelected'
-            when: containsMouse || (playListEntry.activeFocus && isSelected)
-            PropertyChanges {
-                target: removeButton
-                opacity: 1
-            }
-            PropertyChanges {
-                target: playPauseButton
-                opacity: 1
-            }
-            PropertyChanges {
-                target: infoButton
-                opacity: 1
-            }
-            PropertyChanges {
-                target: playIcon
-                opacity: (isPlaying === MediaPlayList.IsPlaying || isPlaying === MediaPlayList.IsPaused ? 1.0 : 0.0)
-            }
-            PropertyChanges {
-                target: entryBackground
-                color: myPalette.mid
-            }
-            PropertyChanges {
-                target: ratingWidget
-                hoverWidgetOpacity: 1.0
-            }
-        }
-    ]
-    transitions: Transition {
-        ParallelAnimation {
-            NumberAnimation {
-                properties: "opacity, hoverWidgetOpacity"
-                easing.type: Easing.InOutQuad
-                duration: 250
-            }
-            ColorAnimation {
-                properties: "color"
-                duration: 250
-            }
-        }
+    MouseArea {
+        anchors.fill: entryBackground
+
+        onClicked: playNow.trigger(this)
     }
 }
 

@@ -309,7 +309,6 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         qml/LabelWithToolTip.qml
 
         qml/RatingStar.qml
-        qml/PlayListEntry.qml
         qml/MediaBrowser.qml
         qml/DraggableItem.qml
         qml/PassiveNotification.qml
@@ -335,6 +334,11 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         qml/FrequentlyPlayedTracks.qml
 
         qml/MediaPlayListView.qml
+        qml/PlayListBasicView.qml
+        qml/PlayListEntry.qml
+        qml/SimplePlayListView.qml
+        qml/SimplePlayListEntry.qml
+
         qml/MediaTrackDelegate.qml
         qml/MediaAlbumTrackDelegate.qml
         qml/MediaTrackMetadataView.qml

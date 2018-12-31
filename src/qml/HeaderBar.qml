@@ -283,6 +283,7 @@ FocusScope {
 
                 Loader {
                     active: headerBar.isMaximized
+                    visible: headerBar.isMaximized
 
                     sourceComponent:
                         PlayListBasicView {

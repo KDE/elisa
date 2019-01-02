@@ -131,7 +131,7 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
             break;
         case ColumnsRoles::StringDurationRole:
         {
-            QTime trackDuration = d->mTrackData[index.row()][static_cast<TrackDataType::key_type>(role)].toTime();
+            QTime trackDuration = d->mTrackData[index.row()][TrackDataType::key_type::DurationRole].toTime();
             if (trackDuration.hour() == 0) {
                 result = trackDuration.toString(QStringLiteral("mm:ss"));
             } else {

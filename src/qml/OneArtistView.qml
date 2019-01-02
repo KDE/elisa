@@ -19,13 +19,12 @@ import QtQuick 2.10
 import QtQuick.Controls 2.3
 import org.kde.elisa 1.0
 
-Item {
+FocusScope {
     id: oneArtist
 
-    property alias mainTitle: albumGridView.mainTitle
-    property alias secondaryTitle: albumGridView.secondaryTitle
-    property alias image: albumGridView.image
-    property alias stackView: albumGridView.stackView
+    property alias mainTitle: gridView.mainTitle
+    property alias secondaryTitle: gridView.secondaryTitle
+    property alias image: gridView.image
     property string genreFilterText
     property string artistFilter
 
@@ -42,9 +41,10 @@ Item {
     }
 
     GridBrowserView {
-        id: albumGridView
+        id: gridView
 
         focus: true
+
         anchors.fill: parent
 
         defaultIcon: elisaTheme.albumCoverIcon
@@ -61,8 +61,7 @@ Item {
                                                       ElisaUtils.ReplacePlayList,
                                                       ElisaUtils.TriggerPlay)
 
-        onOpen: viewManager.openOneAlbum(stackView, innerMainTitle,
-                                         innerSecondaryTitle, innerImage, databaseId)
+        onOpen: viewManager.openOneAlbum(innerMainTitle, innerSecondaryTitle, innerImage, databaseId)
 
         onGoBack: viewManager.goBack()
     }

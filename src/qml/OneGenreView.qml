@@ -19,13 +19,12 @@ import QtQuick 2.10
 import QtQuick.Controls 2.3
 import org.kde.elisa 1.0
 
-Item {
+FocusScope {
     id: oneGenre
 
-    property alias mainTitle: albumGridView.mainTitle
-    property alias secondaryTitle: albumGridView.secondaryTitle
-    property alias image: albumGridView.image
-    property alias stackView: albumGridView.stackView
+    property alias mainTitle: gridView.mainTitle
+    property alias secondaryTitle: gridView.secondaryTitle
+    property alias image: gridView.image
     property string genreFilterText
 
     DataModel {
@@ -41,11 +40,12 @@ Item {
     }
 
     GridBrowserView {
-        id: albumGridView
+        id: gridView
 
         contentModel: proxyModel
 
         focus: true
+
         anchors.fill: parent
 
         defaultIcon: elisaTheme.artistIcon
@@ -62,7 +62,7 @@ Item {
                                                       ElisaUtils.ReplacePlayList,
                                                       ElisaUtils.TriggerPlay)
 
-        onOpen: viewManager.openOneArtist(stackView, innerMainTitle, innerImage, 0)
+        onOpen: viewManager.openOneArtist(innerMainTitle, innerImage, 0)
 
         onGoBack: viewManager.goBack()
     }

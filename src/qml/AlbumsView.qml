@@ -19,46 +19,13 @@ import QtQuick 2.10
 import QtQuick.Controls 2.3
 import org.kde.elisa 1.0
 
-MediaBrowser {
+FocusScope {
     id: allAlbums
 
+    property alias mainTitle: gridView.mainTitle
+    property alias image: gridView.image
+
     focus: true
-
-    anchors {
-        fill: parent
-
-        leftMargin: elisaTheme.layoutHorizontalMargin
-        rightMargin: elisaTheme.layoutHorizontalMargin
-    }
-
-    Loader {
-        id: modelLoaderIndicator
-
-        anchors.fill: parent
-
-        anchors.leftMargin: parent.width / 3
-        anchors.rightMargin: parent.width / 3
-        anchors.topMargin: parent.height / 3
-        anchors.bottomMargin: parent.height / 3
-
-        z: 2
-
-        sourceComponent: BusyIndicator {
-            id: busyScanningMusic
-            hoverEnabled: false
-
-            anchors.fill: parent
-
-            opacity: 0.8
-
-            visible: true
-            running: true
-
-            z: 2
-        }
-
-        active: false
-    }
 
     DataModel {
         id: realModel
@@ -72,10 +39,12 @@ MediaBrowser {
         onAlbumToEnqueue: elisa.mediaPlayList.enqueue(newEntries, databaseIdType, enqueueMode, triggerPlay)
     }
 
-    firstPage: GridBrowserView {
-        id: allAlbumsView
+    GridBrowserView {
+        id: gridView
 
         focus: true
+
+        anchors.fill: parent
 
         defaultIcon: elisaTheme.albumCoverIcon
 
@@ -92,8 +61,7 @@ MediaBrowser {
                                                       ElisaUtils.ReplacePlayList,
                                                       ElisaUtils.TriggerPlay)
 
-        onOpen: viewManager.openOneAlbum(allAlbums.stackView, innerMainTitle,
-                                         innerSecondaryTitle, innerImage, databaseId)
+        onOpen: viewManager.openOneAlbum(innerMainTitle, innerSecondaryTitle, innerImage, databaseId)
 
         onGoBack: viewManager.goBack()
     }

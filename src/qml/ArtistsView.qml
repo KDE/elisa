@@ -19,17 +19,13 @@ import QtQuick 2.10
 import QtQuick.Controls 2.3
 import org.kde.elisa 1.0
 
-MediaBrowser {
+FocusScope {
     id: allArtists
 
+    property alias mainTitle: gridView.mainTitle
+    property alias image: gridView.image
+
     focus: true
-
-    anchors {
-        fill: parent
-
-        leftMargin: elisaTheme.layoutHorizontalMargin
-        rightMargin: elisaTheme.layoutHorizontalMargin
-    }
 
     DataModel {
         id: realModel
@@ -43,10 +39,12 @@ MediaBrowser {
         onArtistToEnqueue: elisa.mediaPlayList.enqueue(newEntries, databaseIdType, enqueueMode, triggerPlay)
     }
 
-    firstPage: GridBrowserView {
-        id: allArtistsView
+    GridBrowserView {
+        id: gridView
 
         focus: true
+
+        anchors.fill: parent
 
         showRating: false
         delegateDisplaySecondaryText: false
@@ -65,7 +63,7 @@ MediaBrowser {
                                                       ElisaUtils.ReplacePlayList,
                                                       ElisaUtils.TriggerPlay)
 
-        onOpen: viewManager.openOneArtist(allArtists.stackView, innerMainTitle, innerImage, 0)
+        onOpen: viewManager.openOneArtist(innerMainTitle, innerImage, 0)
 
 
         onGoBack: viewManager.goBack()

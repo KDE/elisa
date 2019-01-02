@@ -28,34 +28,34 @@ void ViewManager::closeAllViews()
     Q_EMIT switchOffAllViews();
 }
 
-void ViewManager::openRecentlyPlayedTracks()
+void ViewManager::openRecentlyPlayedTracks(const QString &mainTitle, const QUrl &imageUrl)
 {
     mTargetView = ViewsType::RecentlyPlayedTracks;
 
     if (mCurrentView != mTargetView) {
-        Q_EMIT switchRecentlyPlayedTracksView();
+        Q_EMIT switchRecentlyPlayedTracksView(mainTitle, imageUrl);
     }
 }
 
-void ViewManager::openFrequentlyPlayedTracks()
+void ViewManager::openFrequentlyPlayedTracks(const QString &mainTitle, const QUrl &imageUrl)
 {
     mTargetView = ViewsType::FrequentlyPlayedTracks;
 
     if (mCurrentView != mTargetView) {
-        Q_EMIT switchFrequentlyPlayedTracksView();
+        Q_EMIT switchFrequentlyPlayedTracksView(mainTitle, imageUrl);
     }
 }
 
-void ViewManager::openAllAlbums()
+void ViewManager::openAllAlbums(const QString &mainTitle, const QUrl &imageUrl)
 {
     mTargetView = ViewsType::AllAlbums;
 
     if (mCurrentView != mTargetView) {
-        Q_EMIT switchAllAlbumsView();
+        Q_EMIT switchAllAlbumsView(mainTitle, imageUrl);
     }
 }
 
-void ViewManager::abstractOpenOneAlbum(const QString &albumTitle, const QString &albumAuthor,
+void ViewManager::openOneAlbum(const QString &albumTitle, const QString &albumAuthor,
                                const QUrl &albumCover, qulonglong albumDatabaseId)
 {
     mTargetAlbumTitle = albumTitle;
@@ -73,20 +73,20 @@ void ViewManager::abstractOpenOneAlbum(const QString &albumTitle, const QString 
         mTargetView = ViewsType::OneAlbumFromArtistAndGenre;
         Q_EMIT switchOneAlbumView(mTargetAlbumTitle, mTargetImageUrl, mTargetAlbumAuthor, mTargetDatabaseId);
     } else {
-        switchAllAlbumsView();
+        switchAllAlbumsView({}, {});
     }
 }
 
-void ViewManager::openAllArtists()
+void ViewManager::openAllArtists(const QString &mainTitle, const QUrl &imageUrl)
 {
     mTargetView = ViewsType::AllArtists;
 
     if (mCurrentView != mTargetView) {
-        Q_EMIT switchAllArtistsView();
+        Q_EMIT switchAllArtistsView(mainTitle, imageUrl);
     }
 }
 
-void ViewManager::abstractOpenOneArtist(const QString &artistName, const QUrl &artistImageUrl, qulonglong artistDatabaseId)
+void ViewManager::openOneArtist(const QString &artistName, const QUrl &artistImageUrl, qulonglong artistDatabaseId)
 {
     mTargetArtistName = artistName;
     mTargetDatabaseId = artistDatabaseId;
@@ -112,28 +112,28 @@ void ViewManager::abstractOpenOneArtist(const QString &artistName, const QUrl &a
     } else if (mCurrentView == ViewsType::AllArtistsFromGenre && mTargetView == ViewsType::OneArtistFromGenre) {
         Q_EMIT switchOneArtistFromGenreView(mTargetArtistName, mTargetImageUrl, {}, mTargetDatabaseId, mTargetGenreName);
     } else {
-        Q_EMIT switchAllArtistsView();
+        Q_EMIT switchAllArtistsView({}, {});
     }
 }
 
-void ViewManager::openAllTracks()
+void ViewManager::openAllTracks(const QString &mainTitle, const QUrl &imageUrl)
 {
     mTargetView = ViewsType::AllTracks;
     if (mCurrentView != mTargetView) {
-        Q_EMIT switchAllTracksView();
+        Q_EMIT switchAllTracksView(mainTitle, imageUrl);
     }
 }
 
-void ViewManager::openAllGenres()
+void ViewManager::openAllGenres(const QString &mainTitle, const QUrl &imageUrl)
 {
     mTargetView = ViewsType::AllGenres;
 
     if (mCurrentView != mTargetView) {
-        Q_EMIT switchAllGenresView();
+        Q_EMIT switchAllGenresView(mainTitle, imageUrl);
     }
 }
 
-void ViewManager::abstractOpenAllArtistsFromGenre(const QString &genreName)
+void ViewManager::openAllArtistsFromGenre(const QString &genreName)
 {
     mTargetView = ViewsType::AllArtistsFromGenre;
     mTargetGenreName = genreName;
@@ -141,29 +141,29 @@ void ViewManager::abstractOpenAllArtistsFromGenre(const QString &genreName)
     if (mCurrentView == ViewsType::AllGenres) {
         Q_EMIT switchAllArtistsFromGenreView(mTargetGenreName);
     } else {
-        Q_EMIT switchAllGenresView();
+        Q_EMIT switchAllGenresView({}, {});
     }
 }
 
-void ViewManager::openFilesBrowser()
+void ViewManager::openFilesBrowser(const QString &mainTitle, const QUrl &imageUrl)
 {
     mTargetView = ViewsType::FilesBrowser;
     if (mCurrentView != mTargetView) {
-        Q_EMIT switchFilesBrowserView();
+        Q_EMIT switchFilesBrowserView(mainTitle, imageUrl);
     }
 }
 
-void ViewManager::abstractRecentlyPlayedTracksIsLoaded()
+void ViewManager::recentlyPlayedTracksIsLoaded()
 {
     mCurrentView = ViewsType::RecentlyPlayedTracks;
 }
 
-void ViewManager::abstractFrequentlyPlayedTracksIsLoaded()
+void ViewManager::frequentlyPlayedTracksIsLoaded()
 {
     mCurrentView = ViewsType::FrequentlyPlayedTracks;
 }
 
-void ViewManager::abstractAllAlbumsViewIsLoaded()
+void ViewManager::allAlbumsViewIsLoaded()
 {
     mCurrentView = ViewsType::AllAlbums;
     if (mTargetView == ViewsType::OneAlbum) {
@@ -185,7 +185,7 @@ void ViewManager::oneAlbumViewIsLoaded()
     }
 }
 
-void ViewManager::abstractAllArtistsViewIsLoaded()
+void ViewManager::allArtistsViewIsLoaded()
 {
     mCurrentView = ViewsType::AllArtists;
     if (mTargetView == ViewsType::OneArtist) {
@@ -209,7 +209,7 @@ void ViewManager::allTracksViewIsLoaded()
     mCurrentView = ViewsType::AllTracks;
 }
 
-void ViewManager::abstractAllGenresViewIsLoaded()
+void ViewManager::allGenresViewIsLoaded()
 {
     mCurrentView = ViewsType::AllGenres;
 }

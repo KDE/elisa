@@ -51,21 +51,21 @@ public:
 
 Q_SIGNALS:
 
-    void switchRecentlyPlayedTracksView();
+    void switchRecentlyPlayedTracksView(const QString &mainTitle, const QUrl &imageUrl);
 
-    void switchFrequentlyPlayedTracksView();
+    void switchFrequentlyPlayedTracksView(const QString &mainTitle, const QUrl &imageUrl);
 
-    void switchAllAlbumsView();
+    void switchAllAlbumsView(const QString &mainTitle, const QUrl &imageUrl);
 
     void switchOneAlbumView(const QString &mainTitle, const QUrl &imageUrl, const QString &secondaryTitle, qulonglong databaseId);
 
-    void switchAllArtistsView();
+    void switchAllArtistsView(const QString &mainTitle, const QUrl &imageUrl);
 
     void switchOneArtistView(const QString &mainTitle, const QUrl &imageUrl, const QString &secondaryTitle, qulonglong databaseId);
 
-    void switchAllTracksView();
+    void switchAllTracksView(const QString &mainTitle, const QUrl &imageUrl);
 
-    void switchAllGenresView();
+    void switchAllGenresView(const QString &mainTitle, const QUrl &imageUrl);
 
     void switchAllArtistsFromGenreView(const QString &genreName);
 
@@ -73,7 +73,7 @@ Q_SIGNALS:
                                       const QString &secondaryTitle, qulonglong databaseId,
                                       const QString &genreName);
 
-    void switchFilesBrowserView();
+    void switchFilesBrowserView(const QString &mainTitle, const QUrl &imageUrl);
 
     void switchOffAllViews();
 
@@ -83,42 +83,42 @@ public Q_SLOTS:
 
     void closeAllViews();
 
-    void openRecentlyPlayedTracks();
+    void openRecentlyPlayedTracks(const QString &mainTitle, const QUrl &imageUrl);
 
-    void openFrequentlyPlayedTracks();
+    void openFrequentlyPlayedTracks(const QString &mainTitle, const QUrl &imageUrl);
 
-    void openAllAlbums();
+    void openAllAlbums(const QString &mainTitle, const QUrl &imageUrl);
 
-    void abstractOpenOneAlbum(const QString &albumTitle, const QString &albumAuthor,
+    void openOneAlbum(const QString &albumTitle, const QString &albumAuthor,
                       const QUrl &albumCover, qulonglong albumDatabaseId);
 
-    void openAllArtists();
+    void openAllArtists(const QString &mainTitle, const QUrl &imageUrl);
 
-    void abstractOpenOneArtist(const QString &artistName, const QUrl &artistImageUrl, qulonglong artistDatabaseId);
+    void openOneArtist(const QString &artistName, const QUrl &artistImageUrl, qulonglong artistDatabaseId);
 
-    void openAllTracks();
+    void openAllTracks(const QString &mainTitle, const QUrl &imageUrl);
 
-    void openAllGenres();
+    void openAllGenres(const QString &mainTitle, const QUrl &imageUrl);
 
-    void abstractOpenAllArtistsFromGenre(const QString &genreName);
+    void openAllArtistsFromGenre(const QString &genreName);
 
-    void openFilesBrowser();
+    void openFilesBrowser(const QString &mainTitle, const QUrl &imageUrl);
 
-    void abstractRecentlyPlayedTracksIsLoaded();
+    void recentlyPlayedTracksIsLoaded();
 
-    void abstractFrequentlyPlayedTracksIsLoaded();
+    void frequentlyPlayedTracksIsLoaded();
 
-    void abstractAllAlbumsViewIsLoaded();
+    void allAlbumsViewIsLoaded();
 
     void oneAlbumViewIsLoaded();
 
-    void abstractAllArtistsViewIsLoaded();
+    void allArtistsViewIsLoaded();
 
     void oneArtistViewIsLoaded();
 
     void allTracksViewIsLoaded();
 
-    void abstractAllGenresViewIsLoaded();
+    void allGenresViewIsLoaded();
 
     void allArtistsFromGenreViewIsLoaded();
 

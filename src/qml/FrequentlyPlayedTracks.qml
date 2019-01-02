@@ -19,17 +19,13 @@ import QtQuick 2.10
 import QtQuick.Controls 2.3
 import org.kde.elisa 1.0
 
-MediaBrowser {
+FocusScope {
     id: localTracks
 
+    property alias mainTitle: listView.mainTitle
+    property alias image: listView.image
+
     focus: true
-
-    anchors {
-        fill: parent
-
-        leftMargin: elisaTheme.layoutHorizontalMargin
-        rightMargin: elisaTheme.layoutHorizontalMargin
-    }
 
     DataModel {
         id: realModel
@@ -44,16 +40,19 @@ MediaBrowser {
         onTrackToEnqueue: elisa.mediaPlayList.enqueue(newEntries, databaseIdType, enqueueMode, triggerPlay)
     }
 
-    firstPage: ListBrowserView {
-        id: allTracksView
+    ListBrowserView {
+        id: listView
+
         focus: true
+
+        anchors.fill: parent
 
         contentModel: proxyModel
 
         delegate: MediaTrackDelegate {
             id: entry
 
-            width: allTracksView.delegateWidth
+            width: listView.delegateWidth
             height: elisaTheme.trackDelegateHeight
 
             focus: true

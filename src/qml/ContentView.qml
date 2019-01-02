@@ -34,139 +34,180 @@ RowLayout {
         viewManager.goBack()
     }
 
-    ViewNavigation {
+    ViewManager {
         id: viewManager
+
+        onSwitchOffAllViews: {
+            listViews.currentIndex = 0
+
+            while(browseStackView.depth > 1) {
+                browseStackView.pop()
+            }
+        }
 
         onSwitchRecentlyPlayedTracksView: {
             listViews.currentIndex = 1
-            localRecentlyPlayedTracksLoader.opacity = 1
-            localFrequentlyPlayedTracksLoader.opacity = 0
-            localAlbumsLoader.opacity = 0
-            localArtistsLoader.opacity = 0
-            localTracksLoader.opacity = 0
-            localGenresLoader.opacity = 0
-            localFilesLoader.opacity = 0
+
+            while(browseStackView.depth > 1) {
+                browseStackView.pop()
+            }
+
+            browseStackView.push(allRecentlyPlayedTracksView, {
+                                        mainTitle: mainTitle,
+                                        image: imageUrl,
+                                        stackView: browseStackView,
+                                        opacity: 0,
+                                    })
+
+            recentlyPlayedTracksIsLoaded()
         }
 
         onSwitchFrequentlyPlayedTracksView: {
             listViews.currentIndex = 2
-            localRecentlyPlayedTracksLoader.opacity = 0
-            localFrequentlyPlayedTracksLoader.opacity = 1
-            localAlbumsLoader.opacity = 0
-            localArtistsLoader.opacity = 0
-            localTracksLoader.opacity = 0
-            localGenresLoader.opacity = 0
-            localFilesLoader.opacity = 0
+
+            while(browseStackView.depth > 1) {
+                browseStackView.pop()
+            }
+
+            browseStackView.push(allRecentlyPlayedTracksView, {
+                                        mainTitle: mainTitle,
+                                        image: imageUrl,
+                                        stackView: browseStackView,
+                                        opacity: 0,
+                                    })
+
+            frequentlyPlayedTracksIsLoaded()
         }
 
         onSwitchAllAlbumsView: {
             listViews.currentIndex = 3
-            localRecentlyPlayedTracksLoader.opacity = 0
-            localFrequentlyPlayedTracksLoader.opacity = 0
-            localAlbumsLoader.opacity = 1
-            localArtistsLoader.opacity = 0
-            localTracksLoader.opacity = 0
-            localGenresLoader.opacity = 0
-            localFilesLoader.opacity = 0
+
+            while(browseStackView.depth > 1) {
+                browseStackView.pop()
+            }
+
+            browseStackView.push(allAlbumsView, {
+                                        mainTitle: mainTitle,
+                                        image: imageUrl,
+                                        stackView: browseStackView,
+                                        opacity: 0,
+                                    })
+
+            allAlbumsViewIsLoaded()
         }
 
         onSwitchOneAlbumView: {
-            currentStackView.push(albumView, {
-                                      mainTitle: mainTitle,
-                                      secondaryTitle: secondaryTitle,
-                                      image: imageUrl,
-                                      stackView: currentStackView,
-                                  })
+            browseStackView.push(albumView, {
+                                     mainTitle: mainTitle,
+                                     secondaryTitle: secondaryTitle,
+                                     image: imageUrl,
+                                     stackView: browseStackView,
+                                     opacity: 0,
+                                 })
+
             oneAlbumViewIsLoaded()
         }
 
         onSwitchAllArtistsView: {
             listViews.currentIndex = 4
-            localRecentlyPlayedTracksLoader.opacity = 0
-            localFrequentlyPlayedTracksLoader.opacity = 0
-            localAlbumsLoader.opacity = 0
-            localArtistsLoader.opacity = 1
-            localTracksLoader.opacity = 0
-            localGenresLoader.opacity = 0
-            localFilesLoader.opacity = 0
+
+            while(browseStackView.depth > 1) {
+                browseStackView.pop()
+            }
+
+            browseStackView.push(allArtistsView, {
+                                        mainTitle: mainTitle,
+                                        image: imageUrl,
+                                        stackView: browseStackView,
+                                        opacity: 0,
+                                    })
+
+            allArtistsViewIsLoaded()
         }
 
         onSwitchOneArtistView: {
-            currentStackView.push(innerAlbumView, {
-                                      mainTitle: mainTitle,
-                                      secondaryTitle: secondaryTitle,
-                                      image: imageUrl,
-                                      stackView: currentStackView,
-                                      artistFilter: mainTitle,
-                                  })
+            browseStackView.push(innerAlbumView, {
+                                     mainTitle: mainTitle,
+                                     secondaryTitle: secondaryTitle,
+                                     image: imageUrl,
+                                     stackView: browseStackView,
+                                     artistFilter: mainTitle,
+                                     opacity: 0,
+                                 })
+
             oneArtistViewIsLoaded()
         }
 
         onSwitchOneArtistFromGenreView: {
-            currentStackView.push(innerAlbumView, {
-                                      mainTitle: mainTitle,
-                                      secondaryTitle: secondaryTitle,
-                                      image: imageUrl,
-                                      stackView: currentStackView,
-                                      genreFilterText: genreName,
-                                      artistFilter: mainTitle,
-                                  })
+            browseStackView.push(innerAlbumView, {
+                                     mainTitle: mainTitle,
+                                     secondaryTitle: secondaryTitle,
+                                     image: imageUrl,
+                                     stackView: browseStackView,
+                                     genreFilterText: genreName,
+                                     artistFilter: mainTitle,
+                                     opacity: 0,
+                                 })
+
             oneArtistViewIsLoaded()
         }
 
         onSwitchAllTracksView: {
             listViews.currentIndex = 5
-            localRecentlyPlayedTracksLoader.opacity = 0
-            localFrequentlyPlayedTracksLoader.opacity = 0
-            localAlbumsLoader.opacity = 0
-            localArtistsLoader.opacity = 0
-            localTracksLoader.opacity = 1
-            localGenresLoader.opacity = 0
-            localFilesLoader.opacity = 0
+
+            while(browseStackView.depth > 1) {
+                browseStackView.pop()
+            }
+
+            browseStackView.push(allTracksView, {
+                                        mainTitle: mainTitle,
+                                        image: imageUrl,
+                                        stackView: browseStackView,
+                                        opacity: 0,
+                                    })
+
+            allTracksViewIsLoaded()
         }
 
         onSwitchAllGenresView: {
             listViews.currentIndex = 6
-            localRecentlyPlayedTracksLoader.opacity = 0
-            localFrequentlyPlayedTracksLoader.opacity = 0
-            localAlbumsLoader.opacity = 0
-            localArtistsLoader.opacity = 0
-            localTracksLoader.opacity = 0
-            localGenresLoader.opacity = 1
-            localFilesLoader.opacity = 0
+
+            while(browseStackView.depth > 1) {
+                browseStackView.pop()
+            }
+
+            browseStackView.push(allGenresView, {
+                                        mainTitle: mainTitle,
+                                        image: imageUrl,
+                                        stackView: browseStackView,
+                                        opacity: 0,
+                                    })
+
+            allGenresViewIsLoaded()
         }
 
         onSwitchFilesBrowserView: {
             listViews.currentIndex = 7
-            localRecentlyPlayedTracksLoader.opacity = 0
-            localFrequentlyPlayedTracksLoader.opacity = 0
-            localAlbumsLoader.opacity = 0
-            localArtistsLoader.opacity = 0
-            localTracksLoader.opacity = 0
-            localGenresLoader.opacity = 0
-            localFilesLoader.opacity = 1
+
+            while(browseStackView.depth > 1) {
+                browseStackView.pop()
+            }
         }
 
         onSwitchAllArtistsFromGenreView: {
-            currentStackView.push(innerArtistView, {
-                                      mainTitle: genreName,
-                                      secondaryTitle: '',
-                                      image: elisaTheme.artistIcon,
-                                      stackView: currentStackView,
-                                      genreFilterText: genreName,
-                                  })
+            browseStackView.push(innerArtistView, {
+                                     mainTitle: genreName,
+                                     secondaryTitle: '',
+                                     image: elisaTheme.artistIcon,
+                                     stackView: browseStackView,
+                                     genreFilterText: genreName,
+                                     opacity: 0,
+                                 })
+
             allArtistsFromGenreViewIsLoaded()
         }
 
-        onSwitchOffAllViews: {
-            localRecentlyPlayedTracksLoader.opacity = 0
-            localFrequentlyPlayedTracksLoader.opacity = 0
-            localAlbumsLoader.opacity = 0
-            localArtistsLoader.opacity = 0
-            localTracksLoader.opacity = 0
-            localGenresLoader.opacity = 0
-            localFilesLoader.opacity = 0
-        }
+        onPopOneView: browseStackView.pop()
     }
 
     ViewSelector {
@@ -184,19 +225,19 @@ RowLayout {
         }
 
         onSwitchView: if (index === 1) {
-                          viewManager.openRecentlyPlayedTracks()
+                          viewManager.openRecentlyPlayedTracks(mainTitle, imageUrl)
                       } else if (index === 2) {
-                          viewManager.openFrequentlyPlayedTracks()
+                          viewManager.openFrequentlyPlayedTracks(mainTitle, imageUrl)
                       } else if (index === 3) {
-                          viewManager.openAllAlbums()
+                          viewManager.openAllAlbums(mainTitle, imageUrl)
                       } else if (index === 4) {
-                          viewManager.openAllArtists()
+                          viewManager.openAllArtists(mainTitle, imageUrl)
                       } else if (index === 5) {
-                          viewManager.openAllTracks()
+                          viewManager.openAllTracks(mainTitle, imageUrl)
                       } else if (index === 6) {
-                          viewManager.openAllGenres()
+                          viewManager.openAllGenres(mainTitle, imageUrl)
                       } else if (index === 7) {
-                          viewManager.openFilesBrowser()
+                          viewManager.openFilesBrowser(mainTitle, imageUrl)
                       } else {
                           viewManager.closeAllViews()
                       }
@@ -274,176 +315,60 @@ RowLayout {
 
                         anchors.fill: parent
 
-                        Loader {
-                            id: localRecentlyPlayedTracksLoader
-
-                            active: opacity > 0
-
-                            visible: opacity > 0
-
-                            opacity: 0
+                        StackView {
+                            id: browseStackView
 
                             anchors.fill: parent
 
-                            onLoaded: viewManager.recentlyPlayedTracksIsLoaded(item.stackView)
+                            clip: true
 
-                            sourceComponent: RecentlyPlayedTracks {
+                            initialItem: Item {
                             }
 
-                            Behavior on opacity {
-                                NumberAnimation {
-                                    easing.type: Easing.InOutQuad
+                            popEnter: Transition {
+                                OpacityAnimator {
+                                    from: 0.0
+                                    to: 1.0
                                     duration: 300
                                 }
                             }
-                        }
 
-                        Loader {
-                            id: localFrequentlyPlayedTracksLoader
-
-                            active: opacity > 0
-
-                            visible: opacity > 0
-
-                            opacity: 0
-
-                            anchors.fill: parent
-
-                            onLoaded: viewManager.frequentlyPlayedTracksIsLoaded(item.stackView)
-
-                            sourceComponent: FrequentlyPlayedTracks {
-                            }
-
-                            Behavior on opacity {
-                                NumberAnimation {
-                                    easing.type: Easing.InOutQuad
+                            popExit: Transition {
+                                OpacityAnimator {
+                                    from: 1.0
+                                    to: 0.0
                                     duration: 300
                                 }
                             }
-                        }
 
-                        Loader {
-                            id: localAlbumsLoader
-
-                            active: opacity > 0
-
-                            visible: opacity > 0
-
-                            anchors.fill: parent
-
-                            onLoaded: viewManager.allAlbumsViewIsLoaded(item.stackView)
-
-                            sourceComponent: AlbumsView {
-                            }
-
-                            Behavior on opacity {
-                                NumberAnimation {
-                                    easing.type: Easing.InOutQuad
+                            pushEnter: Transition {
+                                OpacityAnimator {
+                                    from: 0.0
+                                    to: 1.0
                                     duration: 300
                                 }
                             }
-                        }
 
-                        Loader {
-                            id: localArtistsLoader
-
-                            active: opacity > 0
-
-                            visible: opacity > 0
-
-                            opacity: 0
-
-                            anchors.fill: parent
-
-                            onLoaded: viewManager.allArtistsViewIsLoaded(item.stackView)
-
-                            sourceComponent: ArtistsView {
-                            }
-
-                            Behavior on opacity {
-                                NumberAnimation {
-                                    easing.type: Easing.InOutQuad
+                            pushExit: Transition {
+                                OpacityAnimator {
+                                    from: 1.0
+                                    to: 0.0
                                     duration: 300
                                 }
                             }
-                        }
 
-                        Loader {
-                            id: localTracksLoader
-
-                            active: opacity > 0
-
-                            visible: opacity > 0
-
-                            opacity: 0
-
-                            anchors.fill: parent
-
-                            onLoaded: viewManager.allTracksViewIsLoaded(item)
-
-                            sourceComponent: TracksView {
-                            }
-
-                            Behavior on opacity {
-                                NumberAnimation {
-                                    easing.type: Easing.InOutQuad
+                            replaceEnter: Transition {
+                                OpacityAnimator {
+                                    from: 0.0
+                                    to: 1.0
                                     duration: 300
                                 }
                             }
-                        }
 
-                        Loader {
-                            id: localGenresLoader
-
-                            active: opacity > 0
-
-                            visible: opacity > 0
-
-                            opacity: 0
-
-                            anchors.fill: parent
-
-                            onLoaded: viewManager.allGenresViewIsLoaded(item.stackView)
-
-                            sourceComponent: GenresView {
-                            }
-
-                            Behavior on opacity {
-                                NumberAnimation {
-                                    easing.type: Easing.InOutQuad
-                                    duration: 300
-                                }
-                            }
-                        }
-
-                        Loader {
-                            id: localFilesLoader
-                            anchors.fill: parent
-
-                            active: opacity > 0
-
-                            visible: opacity > 0
-
-                            opacity: 0
-
-                            anchors {
-                                fill: parent
-
-                                leftMargin: elisaTheme.layoutHorizontalMargin
-                                rightMargin: elisaTheme.layoutHorizontalMargin
-                            }
-
-                            onLoaded: viewManager.filesBrowserViewIsLoaded(item)
-
-                            sourceComponent: FileBrowserView {
-                                id: localFiles
-
-                                focus: true
-                            }
-
-                            Behavior on opacity {
-                                NumberAnimation {
-                                    easing.type: Easing.InOutQuad
+                            replaceExit: Transition {
+                                OpacityAnimator {
+                                    from: 1.0
+                                    to: 0.0
                                     duration: 300
                                 }
                             }
@@ -629,6 +554,48 @@ RowLayout {
                 easing.type: Easing.InOutQuad
                 duration: 300
             }
+        }
+    }
+
+    Component {
+        id: allFrequentlyPlayedTracksView
+
+        FrequentlyPlayedTracks {
+        }
+    }
+
+    Component {
+        id: allRecentlyPlayedTracksView
+
+        RecentlyPlayedTracks {
+        }
+    }
+
+    Component {
+        id: allAlbumsView
+
+        AlbumsView {
+        }
+    }
+
+    Component {
+        id: allArtistsView
+
+        ArtistsView {
+        }
+    }
+
+    Component {
+        id: allGenresView
+
+        GenresView {
+        }
+    }
+
+    Component {
+        id: allTracksView
+
+        TracksView {
         }
     }
 

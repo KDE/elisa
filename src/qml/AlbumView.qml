@@ -19,13 +19,12 @@ import QtQuick 2.10
 import QtQuick.Controls 2.3
 import org.kde.elisa 1.0
 
-Item {
+FocusScope {
     id: albumView
 
     property alias mainTitle: albumGridView.mainTitle
     property alias secondaryTitle: albumGridView.secondaryTitle
     property alias image: albumGridView.image
-    property alias stackView: albumGridView.stackView
 
     DataModel {
         id: realModel
@@ -42,13 +41,13 @@ Item {
     ListBrowserView {
         id: albumGridView
 
+        anchors.fill: parent
+
         contentModel: proxyModel
 
         isSubPage: true
 
         enableSorting: false
-
-        anchors.fill: parent
 
         delegate: MediaAlbumTrackDelegate {
             id: entry
@@ -87,7 +86,7 @@ Item {
         allowArtistNavigation: true
 
         onShowArtist: {
-            viewManager.openOneArtist(stackView, name, elisaTheme.artistIcon, 0)
+            viewManager.openOneArtist(name, elisaTheme.artistIcon, 0)
         }
 
         onGoBack: viewManager.goBack()

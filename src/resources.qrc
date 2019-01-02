@@ -12,7 +12,6 @@
         <file>qml/PassiveNotification.qml</file>
         <file>qml/NavigationActionBar.qml</file>
         <file>qml/PlayListEntry.qml</file>
-        <file>qml/MediaBrowser.qml</file>
         <file>qml/Theme.qml</file>
         <file>qml/PlatformIntegration.qml</file>
         <file>qml/LabelWithToolTip.qml</file>

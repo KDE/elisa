@@ -315,7 +315,6 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         qml/LabelWithToolTip.qml
 
         qml/RatingStar.qml
-        qml/MediaBrowser.qml
         qml/DraggableItem.qml
         qml/PassiveNotification.qml
         qml/TopNotification.qml

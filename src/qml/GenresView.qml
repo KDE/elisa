@@ -24,6 +24,7 @@ FocusScope {
 
     property alias mainTitle: gridView.mainTitle
     property alias image: gridView.image
+    property var modelType
 
     focus: true
 
@@ -52,14 +53,11 @@ FocusScope {
 
         contentModel: proxyModel
 
-        image: elisaTheme.genresIcon
-        mainTitle: i18nc("Title of the view of all genres", "Genres")
-
-        onEnqueue: elisa.mediaPlayList.enqueue(databaseId, name, ElisaUtils.Genre,
+        onEnqueue: elisa.mediaPlayList.enqueue(databaseId, name, modelType,
                                                ElisaUtils.AppendPlayList,
                                                ElisaUtils.DoNotTriggerPlay)
 
-        onReplaceAndPlay: elisa.mediaPlayList.enqueue(databaseId, name, ElisaUtils.Genre,
+        onReplaceAndPlay: elisa.mediaPlayList.enqueue(databaseId, name, modelType,
                                                       ElisaUtils.ReplacePlayList,
                                                       ElisaUtils.TriggerPlay)
 
@@ -71,12 +69,12 @@ FocusScope {
     Connections {
         target: elisa
 
-        onMusicManagerChanged: realModel.initialize(elisa.musicManager, ElisaUtils.Genre)
+        onMusicManagerChanged: realModel.initialize(elisa.musicManager, modelType)
     }
 
     Component.onCompleted: {
         if (elisa.musicManager) {
-            realModel.initialize(elisa.musicManager, ElisaUtils.Genre)
+            realModel.initialize(elisa.musicManager, modelType)
         }
     }
 }

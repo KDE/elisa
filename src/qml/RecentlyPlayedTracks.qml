@@ -24,6 +24,7 @@ FocusScope {
 
     property alias mainTitle: listView.mainTitle
     property alias image: listView.image
+    property var modelType
 
     focus: true
 
@@ -70,30 +71,27 @@ FocusScope {
             isFirstTrackOfDisc: false
             isSingleDiscAlbum: model.isSingleDiscAlbum
 
-            onEnqueue: elisa.mediaPlayList.enqueue(databaseId, name, ElisaUtils.Track,
+            onEnqueue: elisa.mediaPlayList.enqueue(databaseId, name, modelType,
                                                    ElisaUtils.AppendPlayList,
                                                    ElisaUtils.DoNotTriggerPlay)
 
-            onReplaceAndPlay: elisa.mediaPlayList.enqueue(databaseId, name, ElisaUtils.Track,
+            onReplaceAndPlay: elisa.mediaPlayList.enqueue(databaseId, name, modelType,
                                                           ElisaUtils.ReplacePlayList,
                                                           ElisaUtils.TriggerPlay)
 
             onClicked: contentDirectoryView.currentIndex = index
         }
-
-        image: elisaTheme.recentlyPlayedTracksIcon
-        mainTitle: i18nc("Title of the view of recently played tracks", "Recently Played")
     }
 
     Connections {
         target: elisa
 
-        onMusicManagerChanged: realModel.initializeRecentlyPlayed(elisa.musicManager, ElisaUtils.Track)
+        onMusicManagerChanged: realModel.initializeRecentlyPlayed(elisa.musicManager, modelType)
     }
 
     Component.onCompleted: {
         if (elisa.musicManager) {
-            realModel.initializeRecentlyPlayed(elisa.musicManager, ElisaUtils.Track)
+            realModel.initializeRecentlyPlayed(elisa.musicManager, modelType)
         }
 
         proxyModel.sortModel(Qt.DescendingOrder)

@@ -33,7 +33,7 @@ void ViewManager::openRecentlyPlayedTracks(const QString &mainTitle, const QUrl 
     mTargetView = ViewsType::RecentlyPlayedTracks;
 
     if (mCurrentView != mTargetView) {
-        Q_EMIT switchRecentlyPlayedTracksView(mainTitle, imageUrl);
+        Q_EMIT switchRecentlyPlayedTracksView(mainTitle, imageUrl, ElisaUtils::Track);
     }
 }
 
@@ -42,7 +42,7 @@ void ViewManager::openFrequentlyPlayedTracks(const QString &mainTitle, const QUr
     mTargetView = ViewsType::FrequentlyPlayedTracks;
 
     if (mCurrentView != mTargetView) {
-        Q_EMIT switchFrequentlyPlayedTracksView(mainTitle, imageUrl);
+        Q_EMIT switchFrequentlyPlayedTracksView(mainTitle, imageUrl, ElisaUtils::Track);
     }
 }
 
@@ -51,7 +51,7 @@ void ViewManager::openAllAlbums(const QString &mainTitle, const QUrl &imageUrl)
     mTargetView = ViewsType::AllAlbums;
 
     if (mCurrentView != mTargetView) {
-        Q_EMIT switchAllAlbumsView(mainTitle, imageUrl);
+        Q_EMIT switchAllAlbumsView(mainTitle, imageUrl, ElisaUtils::Album);
     }
 }
 
@@ -73,7 +73,7 @@ void ViewManager::openOneAlbum(const QString &albumTitle, const QString &albumAu
         mTargetView = ViewsType::OneAlbumFromArtistAndGenre;
         Q_EMIT switchOneAlbumView(mTargetAlbumTitle, mTargetImageUrl, mTargetAlbumAuthor, mTargetDatabaseId);
     } else {
-        switchAllAlbumsView({}, {});
+        switchAllAlbumsView({}, {}, ElisaUtils::Album);
     }
 }
 
@@ -82,7 +82,7 @@ void ViewManager::openAllArtists(const QString &mainTitle, const QUrl &imageUrl)
     mTargetView = ViewsType::AllArtists;
 
     if (mCurrentView != mTargetView) {
-        Q_EMIT switchAllArtistsView(mainTitle, imageUrl);
+        Q_EMIT switchAllArtistsView(mainTitle, imageUrl, ElisaUtils::Artist);
     }
 }
 
@@ -112,7 +112,7 @@ void ViewManager::openOneArtist(const QString &artistName, const QUrl &artistIma
     } else if (mCurrentView == ViewsType::AllArtistsFromGenre && mTargetView == ViewsType::OneArtistFromGenre) {
         Q_EMIT switchOneArtistFromGenreView(mTargetArtistName, mTargetImageUrl, {}, mTargetDatabaseId, mTargetGenreName);
     } else {
-        Q_EMIT switchAllArtistsView({}, {});
+        Q_EMIT switchAllArtistsView({}, {}, ElisaUtils::Artist);
     }
 }
 
@@ -120,7 +120,7 @@ void ViewManager::openAllTracks(const QString &mainTitle, const QUrl &imageUrl)
 {
     mTargetView = ViewsType::AllTracks;
     if (mCurrentView != mTargetView) {
-        Q_EMIT switchAllTracksView(mainTitle, imageUrl);
+        Q_EMIT switchAllTracksView(mainTitle, imageUrl, ElisaUtils::Track);
     }
 }
 
@@ -129,7 +129,7 @@ void ViewManager::openAllGenres(const QString &mainTitle, const QUrl &imageUrl)
     mTargetView = ViewsType::AllGenres;
 
     if (mCurrentView != mTargetView) {
-        Q_EMIT switchAllGenresView(mainTitle, imageUrl);
+        Q_EMIT switchAllGenresView(mainTitle, imageUrl, ElisaUtils::Genre);
     }
 }
 
@@ -141,7 +141,7 @@ void ViewManager::openAllArtistsFromGenre(const QString &genreName)
     if (mCurrentView == ViewsType::AllGenres) {
         Q_EMIT switchAllArtistsFromGenreView(mTargetGenreName);
     } else {
-        Q_EMIT switchAllGenresView({}, {});
+        Q_EMIT switchAllGenresView({}, {}, ElisaUtils::Genre);
     }
 }
 

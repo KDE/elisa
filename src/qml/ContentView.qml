@@ -53,11 +53,12 @@ RowLayout {
             }
 
             browseStackView.push(allRecentlyPlayedTracksView, {
-                                        mainTitle: mainTitle,
-                                        image: imageUrl,
-                                        stackView: browseStackView,
-                                        opacity: 0,
-                                    })
+                                     mainTitle: mainTitle,
+                                     image: imageUrl,
+                                     modelType: dataType,
+                                     stackView: browseStackView,
+                                     opacity: 0,
+                                 })
 
             recentlyPlayedTracksIsLoaded()
         }
@@ -70,11 +71,12 @@ RowLayout {
             }
 
             browseStackView.push(allRecentlyPlayedTracksView, {
-                                        mainTitle: mainTitle,
-                                        image: imageUrl,
-                                        stackView: browseStackView,
-                                        opacity: 0,
-                                    })
+                                     mainTitle: mainTitle,
+                                     image: imageUrl,
+                                     modelType: dataType,
+                                     stackView: browseStackView,
+                                     opacity: 0,
+                                 })
 
             frequentlyPlayedTracksIsLoaded()
         }
@@ -87,11 +89,12 @@ RowLayout {
             }
 
             browseStackView.push(allAlbumsView, {
-                                        mainTitle: mainTitle,
-                                        image: imageUrl,
-                                        stackView: browseStackView,
-                                        opacity: 0,
-                                    })
+                                     mainTitle: mainTitle,
+                                     image: imageUrl,
+                                     modelType: dataType,
+                                     stackView: browseStackView,
+                                     opacity: 0,
+                                 })
 
             allAlbumsViewIsLoaded()
         }
@@ -116,11 +119,12 @@ RowLayout {
             }
 
             browseStackView.push(allArtistsView, {
-                                        mainTitle: mainTitle,
-                                        image: imageUrl,
-                                        stackView: browseStackView,
-                                        opacity: 0,
-                                    })
+                                     mainTitle: mainTitle,
+                                     image: imageUrl,
+                                     modelType: dataType,
+                                     stackView: browseStackView,
+                                     opacity: 0,
+                                 })
 
             allArtistsViewIsLoaded()
         }
@@ -160,11 +164,12 @@ RowLayout {
             }
 
             browseStackView.push(allTracksView, {
-                                        mainTitle: mainTitle,
-                                        image: imageUrl,
-                                        stackView: browseStackView,
-                                        opacity: 0,
-                                    })
+                                     mainTitle: mainTitle,
+                                     image: imageUrl,
+                                     modelType: dataType,
+                                     stackView: browseStackView,
+                                     opacity: 0,
+                                 })
 
             allTracksViewIsLoaded()
         }
@@ -177,11 +182,12 @@ RowLayout {
             }
 
             browseStackView.push(allGenresView, {
-                                        mainTitle: mainTitle,
-                                        image: imageUrl,
-                                        stackView: browseStackView,
-                                        opacity: 0,
-                                    })
+                                     mainTitle: mainTitle,
+                                     image: imageUrl,
+                                     modelType: dataType,
+                                     stackView: browseStackView,
+                                     opacity: 0,
+                                 })
 
             allGenresViewIsLoaded()
         }

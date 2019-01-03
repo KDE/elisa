@@ -20,6 +20,8 @@
 
 #include "elisaLib_export.h"
 
+#include "elisautils.h"
+
 #include <QObject>
 #include <QUrl>
 
@@ -51,21 +53,21 @@ public:
 
 Q_SIGNALS:
 
-    void switchRecentlyPlayedTracksView(const QString &mainTitle, const QUrl &imageUrl);
+    void switchRecentlyPlayedTracksView(const QString &mainTitle, const QUrl &imageUrl, ElisaUtils::PlayListEntryType dataType);
 
-    void switchFrequentlyPlayedTracksView(const QString &mainTitle, const QUrl &imageUrl);
+    void switchFrequentlyPlayedTracksView(const QString &mainTitle, const QUrl &imageUrl, ElisaUtils::PlayListEntryType dataType);
 
-    void switchAllAlbumsView(const QString &mainTitle, const QUrl &imageUrl);
+    void switchAllAlbumsView(const QString &mainTitle, const QUrl &imageUrl, ElisaUtils::PlayListEntryType dataType);
 
     void switchOneAlbumView(const QString &mainTitle, const QUrl &imageUrl, const QString &secondaryTitle, qulonglong databaseId);
 
-    void switchAllArtistsView(const QString &mainTitle, const QUrl &imageUrl);
+    void switchAllArtistsView(const QString &mainTitle, const QUrl &imageUrl, ElisaUtils::PlayListEntryType dataType);
 
     void switchOneArtistView(const QString &mainTitle, const QUrl &imageUrl, const QString &secondaryTitle, qulonglong databaseId);
 
-    void switchAllTracksView(const QString &mainTitle, const QUrl &imageUrl);
+    void switchAllTracksView(const QString &mainTitle, const QUrl &imageUrl, ElisaUtils::PlayListEntryType dataType);
 
-    void switchAllGenresView(const QString &mainTitle, const QUrl &imageUrl);
+    void switchAllGenresView(const QString &mainTitle, const QUrl &imageUrl, ElisaUtils::PlayListEntryType dataType);
 
     void switchAllArtistsFromGenreView(const QString &genreName);
 

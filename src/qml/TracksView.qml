@@ -24,6 +24,7 @@ FocusScope {
 
     property alias mainTitle: listView.mainTitle
     property alias image: listView.image
+    property var modelType
 
     focus: true
 
@@ -70,30 +71,27 @@ FocusScope {
             isFirstTrackOfDisc: false
             isSingleDiscAlbum: model.isSingleDiscAlbum
 
-            onEnqueue: elisa.mediaPlayList.enqueue(databaseId, name, ElisaUtils.Track,
+            onEnqueue: elisa.mediaPlayList.enqueue(databaseId, name, modelType,
                                                    ElisaUtils.AppendPlayList,
                                                    ElisaUtils.DoNotTriggerPlay)
 
-            onReplaceAndPlay: elisa.mediaPlayList.enqueue(databaseId, name, ElisaUtils.Track,
+            onReplaceAndPlay: elisa.mediaPlayList.enqueue(databaseId, name, modelType,
                                                           ElisaUtils.ReplacePlayList,
                                                           ElisaUtils.TriggerPlay)
 
             onClicked: contentDirectoryView.currentIndex = index
         }
-
-        image: elisaTheme.tracksIcon
-        mainTitle: i18nc("Title of the view of all tracks", "Tracks")
     }
 
     Connections {
         target: elisa
 
-        onMusicManagerChanged: realModel.initialize(elisa.musicManager, ElisaUtils.Track)
+        onMusicManagerChanged: realModel.initialize(elisa.musicManager, modelType)
     }
 
     Component.onCompleted: {
         if (elisa.musicManager) {
-            realModel.initialize(elisa.musicManager, ElisaUtils.Track)
+            realModel.initialize(elisa.musicManager, modelType)
         }
     }
 }

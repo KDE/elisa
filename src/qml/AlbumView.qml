@@ -20,7 +20,7 @@ import QtQuick.Controls 2.3
 import org.kde.elisa 1.0
 
 FocusScope {
-    id: albumView
+    id: viewHeader
 
     property alias mainTitle: albumGridView.mainTitle
     property alias secondaryTitle: albumGridView.secondaryTitle
@@ -35,7 +35,7 @@ FocusScope {
 
         sourceModel: realModel
 
-        onTrackToEnqueue: elisa.mediaPlayList.enqueue(newEntries, databaseIdType, enqueueMode, triggerPlay)
+        onEntriesToEnqueue: elisa.mediaPlayList.enqueue(newEntries, databaseIdType, enqueueMode, triggerPlay)
     }
 
     ListBrowserView {

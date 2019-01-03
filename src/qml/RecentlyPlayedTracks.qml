@@ -20,7 +20,7 @@ import QtQuick.Controls 2.3
 import org.kde.elisa 1.0
 
 FocusScope {
-    id: localTracks
+    id: viewHeader
 
     property alias mainTitle: listView.mainTitle
     property alias image: listView.image
@@ -38,7 +38,7 @@ FocusScope {
         sortRole: DatabaseInterface.LastPlayDate
         sourceModel: realModel
 
-        onTrackToEnqueue: elisa.mediaPlayList.enqueue(newEntries, databaseIdType, enqueueMode, triggerPlay)
+        onEntriesToEnqueue: elisa.mediaPlayList.enqueue(newEntries, databaseIdType, enqueueMode, triggerPlay)
     }
 
     ListBrowserView {

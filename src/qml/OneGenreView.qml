@@ -20,7 +20,7 @@ import QtQuick.Controls 2.3
 import org.kde.elisa 1.0
 
 FocusScope {
-    id: oneGenre
+    id: viewHeader
 
     property alias mainTitle: gridView.mainTitle
     property alias secondaryTitle: gridView.secondaryTitle
@@ -36,7 +36,7 @@ FocusScope {
 
         sourceModel: realModel
 
-        onArtistToEnqueue: elisa.mediaPlayList.enqueue(newEntries, databaseIdType, enqueueMode, triggerPlay)
+        onEntriesToEnqueue: elisa.mediaPlayList.enqueue(newEntries, databaseIdType, enqueueMode, triggerPlay)
     }
 
     GridBrowserView {

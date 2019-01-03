@@ -90,7 +90,7 @@ void AllAlbumsProxyModel::genericEnqueueToPlayList(ElisaUtils::PlayListEnqueueMo
             allAlbums.push_back(ElisaUtils::EntryData{data(currentIndex, DatabaseInterface::ColumnsRoles::DatabaseIdRole).toULongLong(),
                                  data(currentIndex, DatabaseInterface::ColumnsRoles::TitleRole).toString()});
         }
-        Q_EMIT albumToEnqueue(allAlbums, ElisaUtils::Album, enqueueMode, triggerPlay);
+        Q_EMIT entriesToEnqueue(allAlbums, ElisaUtils::Album, enqueueMode, triggerPlay);
     });
 }
 

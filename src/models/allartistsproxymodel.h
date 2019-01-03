@@ -36,10 +36,10 @@ public:
 
 Q_SIGNALS:
 
-    void artistToEnqueue(const ElisaUtils::EntryDataList &newEntries,
-                         ElisaUtils::PlayListEntryType databaseIdType,
-                         ElisaUtils::PlayListEnqueueMode enqueueMode,
-                         ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
+    void entriesToEnqueue(const ElisaUtils::EntryDataList &newEntries,
+                          ElisaUtils::PlayListEntryType databaseIdType,
+                          ElisaUtils::PlayListEnqueueMode enqueueMode,
+                          ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 
 public Q_SLOTS:
 

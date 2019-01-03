@@ -59,7 +59,7 @@ void SingleAlbumProxyModel::genericEnqueueToPlayList(ElisaUtils::PlayListEnqueue
             allTracks.push_back(ElisaUtils::EntryData{data(currentIndex, DatabaseInterface::ColumnsRoles::DatabaseIdRole).toULongLong(),
                                  data(currentIndex, DatabaseInterface::ColumnsRoles::TitleRole).toString()});
         }
-        Q_EMIT trackToEnqueue(allTracks, ElisaUtils::Track, enqueueMode, triggerPlay);
+        Q_EMIT entriesToEnqueue(allTracks, ElisaUtils::Track, enqueueMode, triggerPlay);
     });
 }
 

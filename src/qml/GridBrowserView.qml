@@ -38,9 +38,9 @@ FocusScope {
     property var stackView
     property url defaultIcon
 
-    signal enqueue(var databaseId, var name)
-    signal replaceAndPlay(var databaseId, var name)
-    signal open(var innerMainTitle, var innerSecondaryTitle, var innerImage, var databaseId)
+    signal enqueue(int databaseId, string name)
+    signal replaceAndPlay(int databaseId, string name)
+    signal open(string innerMainTitle, string innerSecondaryTitle, url innerImage, int databaseId, var dataType)
     signal goBack()
 
     SystemPalette {
@@ -153,7 +153,7 @@ FocusScope {
                     onReplaceAndPlay: gridView.replaceAndPlay(databaseId, name)
                     onOpen: gridView.open(model.display, model.secondaryText,
                                           (model && model.imageUrl && model.imageUrl.toString() !== "" ? model.imageUrl : defaultIcon),
-                                          model.databaseId)
+                                          model.databaseId, model.dataType)
                     onSelected: {
                         forceActiveFocus()
                         contentDirectoryView.currentIndex = model.index

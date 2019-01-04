@@ -86,7 +86,7 @@ FocusScope {
         allowArtistNavigation: true
 
         onShowArtist: {
-            viewManager.openOneArtist(name, elisaTheme.artistIcon, 0)
+            viewManager.openChildView(name, '', elisaTheme.artistIcon, 0, ElisaUtils.Artist)
         }
 
         onGoBack: viewManager.goBack()

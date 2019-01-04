@@ -122,6 +122,7 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
         case DatabaseInterface::FileModificationTime:
         case DatabaseInterface::FirstPlayDate:
         case DatabaseInterface::PlayFrequency:
+        case DatabaseInterface::ElementTypeRole:
             break;
         }
         break;
@@ -193,6 +194,7 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
         case DatabaseInterface::FileModificationTime:
         case DatabaseInterface::FirstPlayDate:
         case DatabaseInterface::PlayFrequency:
+        case DatabaseInterface::ElementTypeRole:
             break;
         }
         break;

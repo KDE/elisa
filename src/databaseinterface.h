@@ -84,6 +84,7 @@ public:
         LastPlayDate,
         PlayCounter,
         PlayFrequency,
+        ElementTypeRole,
     };
 
     Q_ENUM(ColumnsRoles)

@@ -3962,6 +3962,7 @@ DatabaseInterface::TrackDataType DatabaseInterface::buildTrackDataFromDatabaseRe
     result[TrackDataType::key_type::LastPlayDate] = trackRecord.value(25);
     result[TrackDataType::key_type::PlayCounter] = trackRecord.value(26);
     result[TrackDataType::key_type::PlayFrequency] = trackRecord.value(27);
+    result[DataType::key_type::ElementTypeRole] = ElisaUtils::Track;
 
     return result;
 }
@@ -4891,6 +4892,7 @@ DatabaseInterface::ListArtistDataType DatabaseInterface::internalAllArtistsParti
         newData[DataType::key_type::DatabaseIdRole] = currentRecord.value(0);
         newData[DataType::key_type::TitleRole] = currentRecord.value(1);
         newData[DataType::key_type::GenreRole] = QVariant::fromValue(currentRecord.value(2).toString().split(QStringLiteral(", ")));
+        newData[DataType::key_type::ElementTypeRole] = ElisaUtils::Artist;
 
         result.push_back(newData);
     }
@@ -4916,6 +4918,7 @@ DatabaseInterface::ArtistDataType DatabaseInterface::internalOneArtistPartialDat
         result[DataType::key_type::DatabaseIdRole] = currentRecord.value(0);
         result[DataType::key_type::TitleRole] = currentRecord.value(1);
         result[DataType::key_type::GenreRole] = QVariant::fromValue(currentRecord.value(2).toString().split(QStringLiteral(", ")));
+        result[DataType::key_type::ElementTypeRole] = ElisaUtils::Artist;
     }
 
     d->mSelectArtistQuery.finish();
@@ -4945,6 +4948,7 @@ DatabaseInterface::ListAlbumDataType DatabaseInterface::internalAllAlbumsPartial
         newData[DataType::key_type::HighestTrackRating] = currentRecord.value(6);
         newData[DataType::key_type::IsSingleDiscAlbumRole] = currentRecord.value(8);
         newData[DataType::key_type::GenreRole] = QVariant::fromValue(currentRecord.value(7).toString().split(QStringLiteral(", ")));
+        newData[DataType::key_type::ElementTypeRole] = ElisaUtils::Album;
 
         result.push_back(newData);
     }
@@ -4976,6 +4980,7 @@ DatabaseInterface::AlbumDataType DatabaseInterface::internalOneAlbumPartialData(
         result[DataType::key_type::HighestTrackRating] = currentRecord.value(10);
         result[DataType::key_type::IsSingleDiscAlbumRole] = currentRecord.value(8);
         result[DataType::key_type::GenreRole] = QVariant::fromValue(currentRecord.value(11).toString().split(QStringLiteral(", ")));
+        result[DataType::key_type::ElementTypeRole] = ElisaUtils::Album;
     }
 
     d->mSelectAlbumQuery.finish();
@@ -5086,6 +5091,7 @@ DatabaseInterface::ListGenreDataType DatabaseInterface::internalAllGenresPartial
 
         newData[DataType::key_type::DatabaseIdRole] = currentRecord.value(0);
         newData[DataType::key_type::TitleRole] = currentRecord.value(1);
+        newData[DataType::key_type::ElementTypeRole] = ElisaUtils::Genre;
 
         result.push_back(newData);
     }
@@ -5110,6 +5116,7 @@ DatabaseInterface::GenreDataType DatabaseInterface::internalOneGenrePartialData(
 
         result[DataType::key_type::DatabaseIdRole] = currentRecord.value(0);
         result[DataType::key_type::TitleRole] = currentRecord.value(1);
+        result[DataType::key_type::ElementTypeRole] = ElisaUtils::Genre;
     }
 
     d->mSelectGenreQuery.finish();
@@ -5132,6 +5139,7 @@ DatabaseInterface::ListArtistDataType DatabaseInterface::internalAllComposersPar
 
         newData[DataType::key_type::DatabaseIdRole] = currentRecord.value(0);
         newData[DataType::key_type::TitleRole] = currentRecord.value(1);
+        newData[DataType::key_type::ElementTypeRole] = ElisaUtils::Composer;
 
         result.push_back(newData);
     }
@@ -5156,6 +5164,7 @@ DatabaseInterface::ArtistDataType DatabaseInterface::internalOneComposerPartialD
 
         result[DataType::key_type::DatabaseIdRole] = currentRecord.value(0);
         result[DataType::key_type::TitleRole] = currentRecord.value(1);
+        result[DataType::key_type::ElementTypeRole] = ElisaUtils::Composer;
     }
 
     d->mSelectComposerQuery.finish();
@@ -5178,6 +5187,7 @@ DatabaseInterface::ListArtistDataType DatabaseInterface::internalAllLyricistsPar
 
         newData[DataType::key_type::DatabaseIdRole] = currentRecord.value(0);
         newData[DataType::key_type::TitleRole] = currentRecord.value(1);
+        newData[DataType::key_type::ElementTypeRole] = ElisaUtils::Lyricist;
 
         result.push_back(newData);
     }
@@ -5202,6 +5212,7 @@ DatabaseInterface::ArtistDataType DatabaseInterface::internalOneLyricistPartialD
 
         result[DataType::key_type::DatabaseIdRole] = currentRecord.value(0);
         result[DataType::key_type::TitleRole] = currentRecord.value(1);
+        result[DataType::key_type::ElementTypeRole] = ElisaUtils::Lyricist;
     }
 
     d->mSelectLyricistQuery.finish();

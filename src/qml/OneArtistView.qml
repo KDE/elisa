@@ -62,7 +62,7 @@ FocusScope {
                                                       ElisaUtils.ReplacePlayList,
                                                       ElisaUtils.TriggerPlay)
 
-        onOpen: viewManager.openOneAlbum(innerMainTitle, innerSecondaryTitle, innerImage, databaseId)
+        onOpen: viewManager.openChildView(innerMainTitle, innerSecondaryTitle, innerImage, databaseId, dataType)
 
         onGoBack: viewManager.goBack()
     }

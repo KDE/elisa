@@ -112,6 +112,7 @@ public:
         LastPlayDate,
         PlayCounter,
         PlayFrequency,
+        ElementTypeRole,
         IsValidRole,
         TrackDataRole,
         CountRole,

@@ -80,6 +80,7 @@ QHash<int, QByteArray> DataModel::roleNames() const
     roles[static_cast<int>(DatabaseInterface::ColumnsRoles::SecondaryTextRole)] = "secondaryText";
     roles[static_cast<int>(DatabaseInterface::ColumnsRoles::ImageUrlRole)] = "imageUrl";
     roles[static_cast<int>(DatabaseInterface::ColumnsRoles::DatabaseIdRole)] = "databaseId";
+    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::ElementTypeRole)] = "dataType";
 
     roles[static_cast<int>(DatabaseInterface::ColumnsRoles::ArtistRole)] = "artist";
     roles[static_cast<int>(DatabaseInterface::ColumnsRoles::AllArtistsRole)] = "allArtists";

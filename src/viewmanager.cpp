@@ -28,6 +28,28 @@ void ViewManager::closeAllViews()
     Q_EMIT switchOffAllViews();
 }
 
+void ViewManager::openChildView(const QString &innerMainTitle, const QString &innerSecondaryTitle,
+                                const QUrl &innerImage, qulonglong databaseId,
+                                ElisaUtils::PlayListEntryType dataType)
+{
+    switch(dataType)
+    {
+    case ElisaUtils::Album:
+        openOneAlbum(innerMainTitle, innerSecondaryTitle, innerImage, databaseId);
+        break;
+    case ElisaUtils::Artist:
+        openOneArtist(innerMainTitle, innerImage, databaseId);
+        break;
+    case ElisaUtils::Genre:
+        openAllArtistsFromGenre(innerMainTitle);
+        break;
+    case ElisaUtils::Track:
+    case ElisaUtils::FileName:
+    case ElisaUtils::Unknown:
+        break;
+    }
+}
+
 void ViewManager::openRecentlyPlayedTracks(const QString &mainTitle, const QUrl &imageUrl)
 {
     mTargetView = ViewsType::RecentlyPlayedTracks;

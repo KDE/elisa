@@ -51,7 +51,8 @@ void ViewManager::openAllAlbums(const QString &mainTitle, const QUrl &imageUrl)
     mTargetView = ViewsType::AllAlbums;
 
     if (mCurrentView != mTargetView) {
-        Q_EMIT switchAllAlbumsView(mainTitle, imageUrl, ElisaUtils::Album);
+        Q_EMIT switchAllAlbumsView(mainTitle, imageUrl, ElisaUtils::Album,
+                                   QUrl(QStringLiteral("image://icon/media-optical-audio")), true, true);
     }
 }
 
@@ -73,7 +74,8 @@ void ViewManager::openOneAlbum(const QString &albumTitle, const QString &albumAu
         mTargetView = ViewsType::OneAlbumFromArtistAndGenre;
         Q_EMIT switchOneAlbumView(mTargetAlbumTitle, mTargetImageUrl, mTargetAlbumAuthor, mTargetDatabaseId);
     } else {
-        switchAllAlbumsView({}, {}, ElisaUtils::Album);
+        switchAllAlbumsView({}, {}, ElisaUtils::Album,
+                            QUrl(QStringLiteral("image://icon/media-optical-audio")), true, true);
     }
 }
 
@@ -82,7 +84,8 @@ void ViewManager::openAllArtists(const QString &mainTitle, const QUrl &imageUrl)
     mTargetView = ViewsType::AllArtists;
 
     if (mCurrentView != mTargetView) {
-        Q_EMIT switchAllArtistsView(mainTitle, imageUrl, ElisaUtils::Artist);
+        Q_EMIT switchAllArtistsView(mainTitle, imageUrl, ElisaUtils::Artist,
+                                    QUrl(QStringLiteral("image://icon/view-media-artist")), false, false);
     }
 }
 
@@ -110,9 +113,12 @@ void ViewManager::openOneArtist(const QString &artistName, const QUrl &artistIma
         Q_EMIT popOneView();
         Q_EMIT switchOneArtistView(mTargetArtistName, mTargetImageUrl, {}, mTargetDatabaseId);
     } else if (mCurrentView == ViewsType::AllArtistsFromGenre && mTargetView == ViewsType::OneArtistFromGenre) {
-        Q_EMIT switchOneArtistFromGenreView(mTargetArtistName, mTargetImageUrl, {}, mTargetDatabaseId, mTargetGenreName);
+        Q_EMIT switchOneArtistFromGenreView(mTargetArtistName, {}, mTargetImageUrl, ElisaUtils::Album,
+                                            QUrl(QStringLiteral("image://icon/media-optical-audio")), true, true,
+                                            mTargetDatabaseId, mTargetGenreName);
     } else {
-        Q_EMIT switchAllArtistsView({}, {}, ElisaUtils::Artist);
+        Q_EMIT switchAllArtistsView({}, {}, ElisaUtils::Artist,
+                                    QUrl(QStringLiteral("image://icon/view-media-artist")), false, false);
     }
 }
 
@@ -129,7 +135,8 @@ void ViewManager::openAllGenres(const QString &mainTitle, const QUrl &imageUrl)
     mTargetView = ViewsType::AllGenres;
 
     if (mCurrentView != mTargetView) {
-        Q_EMIT switchAllGenresView(mainTitle, imageUrl, ElisaUtils::Genre);
+        Q_EMIT switchAllGenresView(mainTitle, imageUrl, ElisaUtils::Genre,
+                                   QUrl(QStringLiteral("image://icon/view-media-genre")), false, false);
     }
 }
 
@@ -139,9 +146,11 @@ void ViewManager::openAllArtistsFromGenre(const QString &genreName)
     mTargetGenreName = genreName;
 
     if (mCurrentView == ViewsType::AllGenres) {
-        Q_EMIT switchAllArtistsFromGenreView(mTargetGenreName);
+        Q_EMIT switchAllArtistsFromGenreView(mTargetGenreName, {}, QUrl(QStringLiteral("image://icon/view-media-artist")),
+                                             ElisaUtils::Artist, QUrl(QStringLiteral("image://icon/view-media-artist")), false, false);
     } else {
-        Q_EMIT switchAllGenresView({}, {}, ElisaUtils::Genre);
+        Q_EMIT switchAllGenresView({}, {}, ElisaUtils::Genre,
+                                   QUrl(QStringLiteral("image://icon/view-media-genre")), false, false);
     }
 }
 

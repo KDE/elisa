@@ -25,6 +25,9 @@ FocusScope {
     property alias mainTitle: gridView.mainTitle
     property alias image: gridView.image
     property var modelType
+    property alias defaultIcon: gridView.defaultIcon
+    property alias showRating: gridView.showRating
+    property alias delegateDisplaySecondaryText: gridView.delegateDisplaySecondaryText
 
     focus: true
 
@@ -46,10 +49,6 @@ FocusScope {
         focus: true
 
         anchors.fill: parent
-
-        showRating: false
-        delegateDisplaySecondaryText: false
-        defaultIcon: elisaTheme.artistIcon
 
         contentModel: proxyModel
 

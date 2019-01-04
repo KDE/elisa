@@ -92,6 +92,9 @@ RowLayout {
                                      mainTitle: mainTitle,
                                      image: imageUrl,
                                      modelType: dataType,
+                                     defaultIcon: viewDefaultIcon,
+                                     showRating: viewShowRating,
+                                     delegateDisplaySecondaryText: viewDelegateDisplaySecondaryText,
                                      stackView: browseStackView,
                                      opacity: 0,
                                  })
@@ -122,6 +125,9 @@ RowLayout {
                                      mainTitle: mainTitle,
                                      image: imageUrl,
                                      modelType: dataType,
+                                     defaultIcon: viewDefaultIcon,
+                                     showRating: viewShowRating,
+                                     delegateDisplaySecondaryText: viewDelegateDisplaySecondaryText,
                                      stackView: browseStackView,
                                      opacity: 0,
                                  })
@@ -135,20 +141,6 @@ RowLayout {
                                      secondaryTitle: secondaryTitle,
                                      image: imageUrl,
                                      stackView: browseStackView,
-                                     artistFilter: mainTitle,
-                                     opacity: 0,
-                                 })
-
-            oneArtistViewIsLoaded()
-        }
-
-        onSwitchOneArtistFromGenreView: {
-            browseStackView.push(innerAlbumView, {
-                                     mainTitle: mainTitle,
-                                     secondaryTitle: secondaryTitle,
-                                     image: imageUrl,
-                                     stackView: browseStackView,
-                                     genreFilterText: genreName,
                                      artistFilter: mainTitle,
                                      opacity: 0,
                                  })
@@ -185,11 +177,45 @@ RowLayout {
                                      mainTitle: mainTitle,
                                      image: imageUrl,
                                      modelType: dataType,
+                                     defaultIcon: viewDefaultIcon,
+                                     showRating: viewShowRating,
+                                     delegateDisplaySecondaryText: viewDelegateDisplaySecondaryText,
                                      stackView: browseStackView,
                                      opacity: 0,
                                  })
 
             allGenresViewIsLoaded()
+        }
+
+        onSwitchAllArtistsFromGenreView: {
+            browseStackView.push(innerArtistView, {
+                                     mainTitle: mainTitle,
+                                     image: imageUrl,
+                                     modelType: dataType,
+                                     defaultIcon: viewDefaultIcon,
+                                     showRating: viewShowRating,
+                                     delegateDisplaySecondaryText: viewDelegateDisplaySecondaryText,
+                                     genreFilterText: mainTitle,
+                                     opacity: 0,
+                                 })
+
+            allArtistsFromGenreViewIsLoaded()
+        }
+
+        onSwitchOneArtistFromGenreView: {
+            browseStackView.push(innerAlbumView, {
+                                     mainTitle: mainTitle,
+                                     image: imageUrl,
+                                     modelType: dataType,
+                                     defaultIcon: viewDefaultIcon,
+                                     showRating: viewShowRating,
+                                     delegateDisplaySecondaryText: viewDelegateDisplaySecondaryText,
+                                     genreFilterText: genreName,
+                                     artistFilter: mainTitle,
+                                     opacity: 0,
+                                 })
+
+            oneArtistViewIsLoaded()
         }
 
         onSwitchFilesBrowserView: {
@@ -198,19 +224,6 @@ RowLayout {
             while(browseStackView.depth > 1) {
                 browseStackView.pop()
             }
-        }
-
-        onSwitchAllArtistsFromGenreView: {
-            browseStackView.push(innerArtistView, {
-                                     mainTitle: genreName,
-                                     secondaryTitle: '',
-                                     image: elisaTheme.artistIcon,
-                                     stackView: browseStackView,
-                                     genreFilterText: genreName,
-                                     opacity: 0,
-                                 })
-
-            allArtistsFromGenreViewIsLoaded()
         }
 
         onPopOneView: browseStackView.pop()

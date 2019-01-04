@@ -95,6 +95,7 @@ RowLayout {
                                      defaultIcon: viewDefaultIcon,
                                      showRating: viewShowRating,
                                      delegateDisplaySecondaryText: viewDelegateDisplaySecondaryText,
+                                     isSubPage: false,
                                      stackView: browseStackView,
                                      opacity: 0,
                                  })
@@ -128,6 +129,7 @@ RowLayout {
                                      defaultIcon: viewDefaultIcon,
                                      showRating: viewShowRating,
                                      delegateDisplaySecondaryText: viewDelegateDisplaySecondaryText,
+                                     isSubPage: false,
                                      stackView: browseStackView,
                                      opacity: 0,
                                  })
@@ -138,9 +140,12 @@ RowLayout {
         onSwitchOneArtistView: {
             browseStackView.push(innerAlbumView, {
                                      mainTitle: mainTitle,
-                                     secondaryTitle: secondaryTitle,
                                      image: imageUrl,
-                                     stackView: browseStackView,
+                                     modelType: dataType,
+                                     defaultIcon: viewDefaultIcon,
+                                     showRating: viewShowRating,
+                                     delegateDisplaySecondaryText: viewDelegateDisplaySecondaryText,
+                                     isSubPage: true,
                                      artistFilter: mainTitle,
                                      opacity: 0,
                                  })
@@ -180,6 +185,7 @@ RowLayout {
                                      defaultIcon: viewDefaultIcon,
                                      showRating: viewShowRating,
                                      delegateDisplaySecondaryText: viewDelegateDisplaySecondaryText,
+                                     isSubPage: false,
                                      stackView: browseStackView,
                                      opacity: 0,
                                  })
@@ -195,6 +201,7 @@ RowLayout {
                                      defaultIcon: viewDefaultIcon,
                                      showRating: viewShowRating,
                                      delegateDisplaySecondaryText: viewDelegateDisplaySecondaryText,
+                                     isSubPage: true,
                                      genreFilterText: mainTitle,
                                      opacity: 0,
                                  })
@@ -210,6 +217,7 @@ RowLayout {
                                      defaultIcon: viewDefaultIcon,
                                      showRating: viewShowRating,
                                      delegateDisplaySecondaryText: viewDelegateDisplaySecondaryText,
+                                     isSubPage: true,
                                      genreFilterText: genreName,
                                      artistFilter: mainTitle,
                                      opacity: 0,

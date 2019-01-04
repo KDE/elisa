@@ -23,11 +23,15 @@ FocusScope {
     id: viewHeader
 
     property alias mainTitle: gridView.mainTitle
+    property alias secondaryTitle: gridView.secondaryTitle
     property alias image: gridView.image
     property var modelType
     property alias defaultIcon: gridView.defaultIcon
     property alias showRating: gridView.showRating
     property alias delegateDisplaySecondaryText: gridView.delegateDisplaySecondaryText
+    property alias isSubPage: gridView.isSubPage
+    property string genreFilterText
+    property string artistFilter
 
     focus: true
 
@@ -68,12 +72,30 @@ FocusScope {
     Connections {
         target: elisa
 
-        onMusicManagerChanged: realModel.initialize(elisa.musicManager, modelType)
+        onMusicManagerChanged: {
+            if (genreFilterText && artistFilter) {
+                realModel.initializeByGenreAndArtist(elisa.musicManager, modelType, genreFilterText, artistFilter)
+            } else if (genreFilterText) {
+                realModel.initializeByGenre(elisa.musicManager, modelType, genreFilterText)
+            } else if (artistFilter) {
+                realModel.initializeByArtist(elisa.musicManager, modelType, artistFilter)
+            } else {
+                realModel.initialize(elisa.musicManager, modelType)
+            }
+        }
     }
 
     Component.onCompleted: {
         if (elisa.musicManager) {
-            realModel.initialize(elisa.musicManager, modelType)
+            if (genreFilterText && artistFilter) {
+                realModel.initializeByGenreAndArtist(elisa.musicManager, modelType, genreFilterText, artistFilter)
+            } else if (genreFilterText) {
+                realModel.initializeByGenre(elisa.musicManager, modelType, genreFilterText)
+            } else if (artistFilter) {
+                realModel.initializeByArtist(elisa.musicManager, modelType, artistFilter)
+            } else {
+                realModel.initialize(elisa.musicManager, modelType)
+            }
         }
     }
 }

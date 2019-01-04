@@ -68,7 +68,10 @@ Q_SIGNALS:
                               ElisaUtils::PlayListEntryType dataType, const QUrl &viewDefaultIcon,
                               bool viewShowRating, bool viewDelegateDisplaySecondaryText);
 
-    void switchOneArtistView(const QString &mainTitle, const QUrl &imageUrl, const QString &secondaryTitle, qulonglong databaseId);
+    void switchOneArtistView(const QString &mainTitle, const QString &secondaryTitle,
+                             const QUrl &imageUrl, ElisaUtils::PlayListEntryType dataType,
+                             const QUrl &viewDefaultIcon, bool viewShowRating,
+                             bool viewDelegateDisplaySecondaryText, qulonglong databaseId);
 
     void switchAllTracksView(const QString &mainTitle, const QUrl &imageUrl, ElisaUtils::PlayListEntryType dataType);
 

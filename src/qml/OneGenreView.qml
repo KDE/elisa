@@ -25,10 +25,15 @@ FocusScope {
     property alias mainTitle: gridView.mainTitle
     property alias secondaryTitle: gridView.secondaryTitle
     property alias image: gridView.image
+    property var modelType
     property alias defaultIcon: gridView.defaultIcon
     property alias showRating: gridView.showRating
     property alias delegateDisplaySecondaryText: gridView.delegateDisplaySecondaryText
+    property alias isSubPage: gridView.isSubPage
     property string genreFilterText
+    property string artistFilter
+
+    focus: true
 
     DataModel {
         id: realModel
@@ -45,19 +50,17 @@ FocusScope {
     GridBrowserView {
         id: gridView
 
-        contentModel: proxyModel
-
         focus: true
 
         anchors.fill: parent
 
-        isSubPage: true
+        contentModel: proxyModel
 
-        onEnqueue: elisa.mediaPlayList.enqueue(databaseId, name, ElisaUtils.Artist,
+        onEnqueue: elisa.mediaPlayList.enqueue(databaseId, name, modelType,
                                                ElisaUtils.AppendPlayList,
                                                ElisaUtils.DoNotTriggerPlay)
 
-        onReplaceAndPlay: elisa.mediaPlayList.enqueue(databaseId, name, ElisaUtils.Artist,
+        onReplaceAndPlay: elisa.mediaPlayList.enqueue(databaseId, name, modelType,
                                                       ElisaUtils.ReplacePlayList,
                                                       ElisaUtils.TriggerPlay)
 
@@ -69,12 +72,30 @@ FocusScope {
     Connections {
         target: elisa
 
-        onMusicManagerChanged: realModel.initializeByGenre(elisa.musicManager, ElisaUtils.Artist, genreFilterText)
+        onMusicManagerChanged: {
+            if (genreFilterText && artistFilter) {
+                realModel.initializeByGenreAndArtist(elisa.musicManager, modelType, genreFilterText, artistFilter)
+            } else if (genreFilterText) {
+                realModel.initializeByGenre(elisa.musicManager, modelType, genreFilterText)
+            } else if (artistFilter) {
+                realModel.initializeByArtist(elisa.musicManager, modelType, artistFilter)
+            } else {
+                realModel.initialize(elisa.musicManager, modelType)
+            }
+        }
     }
 
     Component.onCompleted: {
         if (elisa.musicManager) {
-            realModel.initializeByGenre(elisa.musicManager, ElisaUtils.Artist, genreFilterText)
+            if (genreFilterText && artistFilter) {
+                realModel.initializeByGenreAndArtist(elisa.musicManager, modelType, genreFilterText, artistFilter)
+            } else if (genreFilterText) {
+                realModel.initializeByGenre(elisa.musicManager, modelType, genreFilterText)
+            } else if (artistFilter) {
+                realModel.initializeByArtist(elisa.musicManager, modelType, artistFilter)
+            } else {
+                realModel.initialize(elisa.musicManager, modelType)
+            }
         }
     }
 }

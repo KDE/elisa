@@ -124,16 +124,22 @@ void ViewManager::openOneArtist(const QString &artistName, const QUrl &artistIma
     }
 
     if (mCurrentView == ViewsType::AllArtists && mTargetView == ViewsType::OneArtist) {
-        Q_EMIT switchOneArtistView(mTargetArtistName, mTargetImageUrl, {}, mTargetDatabaseId);
+        Q_EMIT switchOneArtistView(mTargetArtistName, {}, mTargetImageUrl, ElisaUtils::Album,
+                                   QUrl(QStringLiteral("image://icon/media-optical-audio")), true, true,
+                                   mTargetDatabaseId);
     } else if (mCurrentView == ViewsType::OneArtist && mCurrentArtistName != mTargetArtistName &&
                mTargetView == ViewsType::OneArtist) {
         Q_EMIT popOneView();
-        Q_EMIT switchOneArtistView(mTargetArtistName, mTargetImageUrl, {}, mTargetDatabaseId);
+        Q_EMIT switchOneArtistView(mTargetArtistName, {}, mTargetImageUrl, ElisaUtils::Album,
+                                   QUrl(QStringLiteral("image://icon/media-optical-audio")), true, true,
+                                   mTargetDatabaseId);
     } else if (mCurrentView == ViewsType::OneAlbumFromArtist && mCurrentArtistName != mTargetArtistName &&
                mTargetView == ViewsType::OneArtist) {
         Q_EMIT popOneView();
         Q_EMIT popOneView();
-        Q_EMIT switchOneArtistView(mTargetArtistName, mTargetImageUrl, {}, mTargetDatabaseId);
+        Q_EMIT switchOneArtistView(mTargetArtistName, {}, mTargetImageUrl, ElisaUtils::Album,
+                                   QUrl(QStringLiteral("image://icon/media-optical-audio")), true, true,
+                                   mTargetDatabaseId);
     } else if (mCurrentView == ViewsType::AllArtistsFromGenre && mTargetView == ViewsType::OneArtistFromGenre) {
         Q_EMIT switchOneArtistFromGenreView(mTargetArtistName, {}, mTargetImageUrl, ElisaUtils::Album,
                                             QUrl(QStringLiteral("image://icon/media-optical-audio")), true, true,
@@ -220,7 +226,9 @@ void ViewManager::allArtistsViewIsLoaded()
 {
     mCurrentView = ViewsType::AllArtists;
     if (mTargetView == ViewsType::OneArtist) {
-        Q_EMIT switchOneArtistView(mTargetArtistName, mTargetImageUrl, {}, mTargetDatabaseId);
+        Q_EMIT switchOneArtistView(mTargetArtistName, {}, mTargetImageUrl, ElisaUtils::Album,
+                                   QUrl(QStringLiteral("image://icon/media-optical-audio")), true, true,
+                                   mTargetDatabaseId);
     }
 }
 

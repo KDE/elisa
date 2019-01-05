@@ -1,6 +1,6 @@
 /*
+ * Copyright 2016-2018 Matthieu Gallien <matthieu_gallien@yahoo.fr>
  * Copyright 2017 Alexander Stippich <a.stippich@gmx.net>
- * Copyright 2018 Matthieu Gallien <matthieu_gallien@yahoo.fr>
  *
  * This program is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -16,23 +16,28 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef ALLARTISTSPROXYMODEL_H
-#define ALLARTISTSPROXYMODEL_H
+#ifndef GRIDVIEWPROXYMODEL_H
+#define GRIDVIEWPROXYMODEL_H
 
 #include "elisaLib_export.h"
 
 #include "abstractmediaproxymodel.h"
 #include "elisautils.h"
 
-class ELISALIB_EXPORT AllArtistsProxyModel : public AbstractMediaProxyModel
+class ELISALIB_EXPORT GridViewProxyModel : public AbstractMediaProxyModel
 {
+
     Q_OBJECT
+
+    Q_PROPERTY(ElisaUtils::PlayListEntryType dataType READ dataType WRITE setDataType NOTIFY dataTypeChanged)
 
 public:
 
-    explicit AllArtistsProxyModel(QObject *parent = nullptr);
+    explicit GridViewProxyModel(QObject *parent = nullptr);
 
-    ~AllArtistsProxyModel() override;
+    ~GridViewProxyModel() override;
+
+    ElisaUtils::PlayListEntryType dataType() const;
 
 Q_SIGNALS:
 
@@ -41,11 +46,15 @@ Q_SIGNALS:
                           ElisaUtils::PlayListEnqueueMode enqueueMode,
                           ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 
+    void dataTypeChanged();
+
 public Q_SLOTS:
 
     void enqueueToPlayList();
 
     void replaceAndPlayOfPlayList();
+
+    void setDataType(ElisaUtils::PlayListEntryType newDataType);
 
 protected:
 
@@ -56,7 +65,8 @@ private:
     void genericEnqueueToPlayList(ElisaUtils::PlayListEnqueueMode enqueueMode,
                                   ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 
+    ElisaUtils::PlayListEntryType mDataType = ElisaUtils::Unknown;
+
 };
 
-
-#endif // ALLARTISTSPROXYMODEL_H
+#endif // GRIDVIEWPROXYMODEL_H

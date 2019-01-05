@@ -48,9 +48,8 @@
 #include "models/datamodel.h"
 #include "models/trackmetadatamodel.h"
 #include "models/viewsmodel.h"
-#include "models/allalbumsproxymodel.h"
+#include "models/gridviewproxymodel.h"
 #include "models/alltracksproxymodel.h"
-#include "models/allartistsproxymodel.h"
 #include "models/singlealbumproxymodel.h"
 
 #if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
@@ -125,8 +124,7 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qmlRegisterType<DataModel>(uri, 1, 0, "DataModel");
     qmlRegisterType<TrackMetadataModel>(uri, 1, 0, "TrackMetadataModel");
     qmlRegisterType<ViewsModel>(uri, 1, 0, "ViewsModel");
-    qmlRegisterType<AllAlbumsProxyModel>(uri, 1, 0, "AllAlbumsProxyModel");
-    qmlRegisterType<AllArtistsProxyModel>(uri, 1, 0, "AllArtistsProxyModel");
+    qmlRegisterType<GridViewProxyModel>(uri, 1, 0, "GridViewProxyModel");
     qmlRegisterType<AllTracksProxyModel>(uri, 1, 0, "AllTracksProxyModel");
     qmlRegisterType<SingleAlbumProxyModel>(uri, 1, 0, "SingleAlbumProxyModel");
 

@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "allalbumsproxymodel.h"
+#include "gridviewproxymodel.h"
 
 #include "databaseinterface.h"
 #include "elisautils.h"
@@ -25,16 +25,21 @@
 #include <QReadLocker>
 #include <QtConcurrentRun>
 
-AllAlbumsProxyModel::AllAlbumsProxyModel(QObject *parent) : AbstractMediaProxyModel(parent)
+GridViewProxyModel::GridViewProxyModel(QObject *parent) : AbstractMediaProxyModel(parent)
 {
     setSortRole(Qt::DisplayRole);
     setSortCaseSensitivity(Qt::CaseInsensitive);
     sortModel(Qt::AscendingOrder);
 }
 
-AllAlbumsProxyModel::~AllAlbumsProxyModel() = default;
+ElisaUtils::PlayListEntryType GridViewProxyModel::dataType() const
+{
+    return mDataType;
+}
 
-bool AllAlbumsProxyModel::filterAcceptsRow(int source_row, const QModelIndex &source_parent) const
+GridViewProxyModel::~GridViewProxyModel() = default;
+
+bool GridViewProxyModel::filterAcceptsRow(int source_row, const QModelIndex &source_parent) const
 {
     bool result = false;
 
@@ -70,7 +75,7 @@ bool AllAlbumsProxyModel::filterAcceptsRow(int source_row, const QModelIndex &so
     return result;
 }
 
-void AllAlbumsProxyModel::genericEnqueueToPlayList(ElisaUtils::PlayListEnqueueMode enqueueMode,
+void GridViewProxyModel::genericEnqueueToPlayList(ElisaUtils::PlayListEnqueueMode enqueueMode,
                                                    ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
 {
     QtConcurrent::run(&mThreadPool, [=] () {
@@ -82,19 +87,30 @@ void AllAlbumsProxyModel::genericEnqueueToPlayList(ElisaUtils::PlayListEnqueueMo
             allData.push_back(ElisaUtils::EntryData{data(currentIndex, DatabaseInterface::DatabaseIdRole).toULongLong(),
                                                     data(currentIndex, Qt::DisplayRole).toString()});
         }
-        Q_EMIT entriesToEnqueue(allData, ElisaUtils::Album, enqueueMode, triggerPlay);
+        Q_EMIT entriesToEnqueue(allData, mDataType, enqueueMode, triggerPlay);
     });
 }
 
-void AllAlbumsProxyModel::enqueueToPlayList()
+void GridViewProxyModel::enqueueToPlayList()
 {
     genericEnqueueToPlayList(ElisaUtils::AppendPlayList, ElisaUtils::DoNotTriggerPlay);
 }
 
-void AllAlbumsProxyModel::replaceAndPlayOfPlayList()
+void GridViewProxyModel::replaceAndPlayOfPlayList()
 {
     genericEnqueueToPlayList(ElisaUtils::ReplacePlayList, ElisaUtils::TriggerPlay);
 }
 
+void GridViewProxyModel::setDataType(ElisaUtils::PlayListEntryType newDataType)
+{
+    if (mDataType == newDataType) {
+        return;
+    }
 
-#include "moc_allalbumsproxymodel.cpp"
+    mDataType = newDataType;
+
+    Q_EMIT dataTypeChanged();
+}
+
+
+#include "moc_gridviewproxymodel.cpp"

@@ -24,8 +24,7 @@ set(elisaLib_SOURCES
     file/localfilelisting.cpp
     models/datamodel.cpp
     models/abstractmediaproxymodel.cpp
-    models/allalbumsproxymodel.cpp
-    models/allartistsproxymodel.cpp
+    models/gridviewproxymodel.cpp
     models/alltracksproxymodel.cpp
     models/singlealbumproxymodel.cpp
     models/trackmetadatamodel.cpp

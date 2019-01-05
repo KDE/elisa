@@ -17,13 +17,12 @@
 
 #include "allartistsproxymodel.h"
 
-#include "elisautils.h"
 #include "databaseinterface.h"
+#include "elisautils.h"
 
 #include <QStringList>
 #include <QReadLocker>
 #include <QtConcurrentRun>
-#include <Qt>
 
 AllArtistsProxyModel::AllArtistsProxyModel(QObject *parent) : AbstractMediaProxyModel(parent)
 {
@@ -38,23 +37,13 @@ bool AllArtistsProxyModel::filterAcceptsRow(int source_row, const QModelIndex &s
 {
     bool result = false;
 
-    for (int column = 0, columnCount = sourceModel()->columnCount(source_parent); column < columnCount; ++column) {
-        auto currentIndex = sourceModel()->index(source_row, column, source_parent);
+    auto currentIndex = sourceModel()->index(source_row, 0, source_parent);
 
-        const auto &artistValue = sourceModel()->data(currentIndex, Qt::DisplayRole).toString();
+    const auto &mainValue = sourceModel()->data(currentIndex, Qt::DisplayRole).toString();
 
-        if (mFilterExpression.match(artistValue).hasMatch()) {
-            result = true;
-            continue;
-        }
-
-        if (result) {
-            continue;
-        }
-
-        if (!result) {
-            break;
-        }
+    if (mFilterExpression.match(mainValue).hasMatch()) {
+        result = true;
+        return result;
     }
 
     return result;
@@ -65,13 +54,14 @@ void AllArtistsProxyModel::genericEnqueueToPlayList(ElisaUtils::PlayListEnqueueM
 {
     QtConcurrent::run(&mThreadPool, [=] () {
         QReadLocker locker(&mDataLock);
-        auto allArtists = ElisaUtils::EntryDataList{};
-        allArtists.reserve(rowCount());
+        auto allData = ElisaUtils::EntryDataList{};
+        allData.reserve(rowCount());
         for (int rowIndex = 0, maxRowCount = rowCount(); rowIndex < maxRowCount; ++rowIndex) {
             auto currentIndex = index(rowIndex, 0);
-            allArtists.push_back(ElisaUtils::EntryData{data(currentIndex, DatabaseInterface::DatabaseIdRole).toULongLong(), data(currentIndex, Qt::DisplayRole).toString()});
+            allData.push_back(ElisaUtils::EntryData{data(currentIndex, DatabaseInterface::DatabaseIdRole).toULongLong(),
+                                                    data(currentIndex, Qt::DisplayRole).toString()});
         }
-        Q_EMIT entriesToEnqueue(allArtists, ElisaUtils::Artist, enqueueMode, triggerPlay);
+        Q_EMIT entriesToEnqueue(allData, ElisaUtils::Artist, enqueueMode, triggerPlay);
     });
 }
 

@@ -88,7 +88,7 @@ RowLayout {
                 browseStackView.pop()
             }
 
-            browseStackView.push(allAlbumsView, {
+            browseStackView.push(dataGridView, {
                                      mainTitle: mainTitle,
                                      image: imageUrl,
                                      modelType: dataType,
@@ -122,7 +122,7 @@ RowLayout {
                 browseStackView.pop()
             }
 
-            browseStackView.push(allArtistsView, {
+            browseStackView.push(dataGridView, {
                                      mainTitle: mainTitle,
                                      image: imageUrl,
                                      modelType: dataType,
@@ -138,7 +138,7 @@ RowLayout {
         }
 
         onSwitchOneArtistView: {
-            browseStackView.push(innerAlbumView, {
+            browseStackView.push(dataGridView, {
                                      mainTitle: mainTitle,
                                      image: imageUrl,
                                      modelType: dataType,
@@ -178,7 +178,7 @@ RowLayout {
                 browseStackView.pop()
             }
 
-            browseStackView.push(allGenresView, {
+            browseStackView.push(dataGridView, {
                                      mainTitle: mainTitle,
                                      image: imageUrl,
                                      modelType: dataType,
@@ -194,7 +194,7 @@ RowLayout {
         }
 
         onSwitchAllArtistsFromGenreView: {
-            browseStackView.push(innerArtistView, {
+            browseStackView.push(dataGridView, {
                                      mainTitle: mainTitle,
                                      image: imageUrl,
                                      modelType: dataType,
@@ -210,7 +210,7 @@ RowLayout {
         }
 
         onSwitchOneArtistFromGenreView: {
-            browseStackView.push(innerAlbumView, {
+            browseStackView.push(dataGridView, {
                                      mainTitle: mainTitle,
                                      image: imageUrl,
                                      modelType: dataType,
@@ -599,23 +599,9 @@ RowLayout {
     }
 
     Component {
-        id: allAlbumsView
+        id: dataGridView
 
-        AlbumsView {
-        }
-    }
-
-    Component {
-        id: allArtistsView
-
-        ArtistsView {
-        }
-    }
-
-    Component {
-        id: allGenresView
-
-        GenresView {
+        DataGridView {
         }
     }
 
@@ -623,20 +609,6 @@ RowLayout {
         id: allTracksView
 
         TracksView {
-        }
-    }
-
-    Component {
-        id: innerAlbumView
-
-        OneArtistView {
-        }
-    }
-
-    Component {
-        id: innerArtistView
-
-        OneGenreView {
         }
     }
 

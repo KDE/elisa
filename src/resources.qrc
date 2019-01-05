@@ -31,13 +31,9 @@
         <file>qml/BaseTheme.qml</file>
         <file>qml/ScrollHelper.qml</file>
         <file>qml/FlatButtonWithToolTip.qml</file>
-        <file>qml/AlbumsView.qml</file>
-        <file>qml/ArtistsView.qml</file>
-        <file>qml/GenresView.qml</file>
+        <file>qml/DataGridView.qml</file>
         <file>qml/TracksView.qml</file>
         <file>qml/AlbumView.qml</file>
-        <file>qml/OneArtistView.qml</file>
-        <file>qml/OneGenreView.qml</file>
         <file>qml/RecentlyPlayedTracks.qml</file>
         <file>qml/FrequentlyPlayedTracks.qml</file>
         <file>qml/PlayListBasicView.qml</file>

@@ -326,13 +326,9 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         qml/ContextView.qml
         qml/ContentView.qml
         qml/ViewSelector.qml
-        qml/AlbumsView.qml
-        qml/ArtistsView.qml
-        qml/GenresView.qml
+        qml/DataGridView.qml
         qml/TracksView.qml
         qml/AlbumView.qml
-        qml/OneArtistView.qml
-        qml/OneGenreView.qml
         qml/RecentlyPlayedTracks.qml
         qml/FrequentlyPlayedTracks.qml
 
@@ -352,11 +348,6 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         qml/FileBrowserView.qml
         qml/ScrollHelper.qml
         qml/FlatButtonWithToolTip.qml
-
-        qml/AlbumsView.qml
-        qml/ArtistsView.qml
-        qml/TracksView.qml
-        qml/GenresView.qml
     )
 
     qt5_add_resources(elisa_SOURCES resources.qrc)

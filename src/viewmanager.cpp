@@ -25,7 +25,7 @@ void ViewManager::closeAllViews()
 {
     mCurrentView = ViewsType::NoViews;
     mTargetView = ViewsType::NoViews;
-    Q_EMIT switchOffAllViews();
+    Q_EMIT switchOffAllViews(mTargetView);
 }
 
 void ViewManager::openParentView(ViewManager::ViewsType viewType, const QString &mainTitle, const QUrl &mainImage)
@@ -93,7 +93,7 @@ void ViewManager::openRecentlyPlayedTracks(const QString &mainTitle, const QUrl 
     mTargetView = ViewsType::RecentlyPlayedTracks;
 
     if (mCurrentView != mTargetView) {
-        Q_EMIT switchRecentlyPlayedTracksView(mainTitle, imageUrl, ElisaUtils::Track);
+        Q_EMIT switchRecentlyPlayedTracksView(mTargetView, mainTitle, imageUrl, ElisaUtils::Track);
     }
 }
 
@@ -102,7 +102,7 @@ void ViewManager::openFrequentlyPlayedTracks(const QString &mainTitle, const QUr
     mTargetView = ViewsType::FrequentlyPlayedTracks;
 
     if (mCurrentView != mTargetView) {
-        Q_EMIT switchFrequentlyPlayedTracksView(mainTitle, imageUrl, ElisaUtils::Track);
+        Q_EMIT switchFrequentlyPlayedTracksView(mTargetView, mainTitle, imageUrl, ElisaUtils::Track);
     }
 }
 
@@ -111,7 +111,8 @@ void ViewManager::openAllAlbums(const QString &mainTitle, const QUrl &imageUrl)
     mTargetView = ViewsType::AllAlbums;
 
     if (mCurrentView != mTargetView) {
-        Q_EMIT switchAllAlbumsView(mainTitle, imageUrl, ElisaUtils::Album,
+        Q_EMIT switchAllAlbumsView(mTargetView,
+                                   mainTitle, imageUrl, ElisaUtils::Album,
                                    QUrl(QStringLiteral("image://icon/media-optical-audio")), true, true);
     }
 }
@@ -126,15 +127,18 @@ void ViewManager::openOneAlbum(const QString &albumTitle, const QString &albumAu
 
     if (mCurrentView == ViewsType::AllAlbums) {
         mTargetView = ViewsType::OneAlbum;
-        Q_EMIT switchOneAlbumView(mTargetAlbumTitle, mTargetImageUrl, mTargetAlbumAuthor, mTargetDatabaseId);
+        Q_EMIT switchOneAlbumView(mTargetView,
+                                  mTargetAlbumTitle, mTargetImageUrl, mTargetAlbumAuthor, mTargetDatabaseId);
     } else if (mCurrentView == ViewsType::OneArtist) {
         mTargetView = ViewsType::OneAlbumFromArtist;
-        Q_EMIT switchOneAlbumView(mTargetAlbumTitle, mTargetImageUrl, mTargetAlbumAuthor, mTargetDatabaseId);
+        Q_EMIT switchOneAlbumView(mTargetView,
+                                  mTargetAlbumTitle, mTargetImageUrl, mTargetAlbumAuthor, mTargetDatabaseId);
     } else if (mCurrentView == ViewsType::OneArtistFromGenre) {
         mTargetView = ViewsType::OneAlbumFromArtistAndGenre;
-        Q_EMIT switchOneAlbumView(mTargetAlbumTitle, mTargetImageUrl, mTargetAlbumAuthor, mTargetDatabaseId);
+        Q_EMIT switchOneAlbumView(mTargetView,
+                                  mTargetAlbumTitle, mTargetImageUrl, mTargetAlbumAuthor, mTargetDatabaseId);
     } else {
-        switchAllAlbumsView({}, {}, ElisaUtils::Album,
+        switchAllAlbumsView(ViewsType::AllAlbums, {}, {}, ElisaUtils::Album,
                             QUrl(QStringLiteral("image://icon/media-optical-audio")), true, true);
     }
 }
@@ -144,7 +148,7 @@ void ViewManager::openAllArtists(const QString &mainTitle, const QUrl &imageUrl)
     mTargetView = ViewsType::AllArtists;
 
     if (mCurrentView != mTargetView) {
-        Q_EMIT switchAllArtistsView(mainTitle, imageUrl, ElisaUtils::Artist,
+        Q_EMIT switchAllArtistsView(ViewsType::AllArtists, mainTitle, imageUrl, ElisaUtils::Artist,
                                     QUrl(QStringLiteral("image://icon/view-media-artist")), false, false);
     }
 }
@@ -162,28 +166,28 @@ void ViewManager::openOneArtist(const QString &artistName, const QUrl &artistIma
     }
 
     if (mCurrentView == ViewsType::AllArtists && mTargetView == ViewsType::OneArtist) {
-        Q_EMIT switchOneArtistView(mTargetArtistName, {}, mTargetImageUrl, ElisaUtils::Album,
+        Q_EMIT switchOneArtistView(mTargetView, mTargetArtistName, {}, mTargetImageUrl, ElisaUtils::Album,
                                    QUrl(QStringLiteral("image://icon/media-optical-audio")), true, true,
                                    mTargetDatabaseId);
     } else if (mCurrentView == ViewsType::OneArtist && mCurrentArtistName != mTargetArtistName &&
                mTargetView == ViewsType::OneArtist) {
         Q_EMIT popOneView();
-        Q_EMIT switchOneArtistView(mTargetArtistName, {}, mTargetImageUrl, ElisaUtils::Album,
+        Q_EMIT switchOneArtistView(mTargetView, mTargetArtistName, {}, mTargetImageUrl, ElisaUtils::Album,
                                    QUrl(QStringLiteral("image://icon/media-optical-audio")), true, true,
                                    mTargetDatabaseId);
     } else if (mCurrentView == ViewsType::OneAlbumFromArtist && mCurrentArtistName != mTargetArtistName &&
                mTargetView == ViewsType::OneArtist) {
         Q_EMIT popOneView();
         Q_EMIT popOneView();
-        Q_EMIT switchOneArtistView(mTargetArtistName, {}, mTargetImageUrl, ElisaUtils::Album,
+        Q_EMIT switchOneArtistView(mTargetView, mTargetArtistName, {}, mTargetImageUrl, ElisaUtils::Album,
                                    QUrl(QStringLiteral("image://icon/media-optical-audio")), true, true,
                                    mTargetDatabaseId);
     } else if (mCurrentView == ViewsType::AllArtistsFromGenre && mTargetView == ViewsType::OneArtistFromGenre) {
-        Q_EMIT switchOneArtistFromGenreView(mTargetArtistName, {}, mTargetImageUrl, ElisaUtils::Album,
+        Q_EMIT switchOneArtistFromGenreView(mTargetView, mTargetArtistName, {}, mTargetImageUrl, ElisaUtils::Album,
                                             QUrl(QStringLiteral("image://icon/media-optical-audio")), true, true,
                                             mTargetDatabaseId, mTargetGenreName);
     } else {
-        Q_EMIT switchAllArtistsView({}, {}, ElisaUtils::Artist,
+        Q_EMIT switchAllArtistsView(ViewsType::AllArtists, {}, {}, ElisaUtils::Artist,
                                     QUrl(QStringLiteral("image://icon/view-media-artist")), false, false);
     }
 }
@@ -192,7 +196,7 @@ void ViewManager::openAllTracks(const QString &mainTitle, const QUrl &imageUrl)
 {
     mTargetView = ViewsType::AllTracks;
     if (mCurrentView != mTargetView) {
-        Q_EMIT switchAllTracksView(mainTitle, imageUrl, ElisaUtils::Track);
+        Q_EMIT switchAllTracksView(mTargetView, mainTitle, imageUrl, ElisaUtils::Track);
     }
 }
 
@@ -201,7 +205,7 @@ void ViewManager::openAllGenres(const QString &mainTitle, const QUrl &imageUrl)
     mTargetView = ViewsType::AllGenres;
 
     if (mCurrentView != mTargetView) {
-        Q_EMIT switchAllGenresView(mainTitle, imageUrl, ElisaUtils::Genre,
+        Q_EMIT switchAllGenresView(mTargetView, mainTitle, imageUrl, ElisaUtils::Genre,
                                    QUrl(QStringLiteral("image://icon/view-media-genre")), false, false);
     }
 }
@@ -212,10 +216,10 @@ void ViewManager::openAllArtistsFromGenre(const QString &genreName)
     mTargetGenreName = genreName;
 
     if (mCurrentView == ViewsType::AllGenres) {
-        Q_EMIT switchAllArtistsFromGenreView(mTargetGenreName, {}, QUrl(QStringLiteral("image://icon/view-media-artist")),
+        Q_EMIT switchAllArtistsFromGenreView(mTargetView, mTargetGenreName, {}, QUrl(QStringLiteral("image://icon/view-media-artist")),
                                              ElisaUtils::Artist, QUrl(QStringLiteral("image://icon/view-media-artist")), false, false);
     } else {
-        Q_EMIT switchAllGenresView({}, {}, ElisaUtils::Genre,
+        Q_EMIT switchAllGenresView(ViewsType::AllGenres, {}, {}, ElisaUtils::Genre,
                                    QUrl(QStringLiteral("image://icon/view-media-genre")), false, false);
     }
 }
@@ -224,7 +228,7 @@ void ViewManager::openFilesBrowser(const QString &mainTitle, const QUrl &imageUr
 {
     mTargetView = ViewsType::FilesBrowser;
     if (mCurrentView != mTargetView) {
-        Q_EMIT switchFilesBrowserView(mainTitle, imageUrl);
+        Q_EMIT switchFilesBrowserView(mTargetView, mainTitle, imageUrl);
     }
 }
 
@@ -242,7 +246,7 @@ void ViewManager::allAlbumsViewIsLoaded()
 {
     mCurrentView = ViewsType::AllAlbums;
     if (mTargetView == ViewsType::OneAlbum) {
-        Q_EMIT switchOneAlbumView(mTargetAlbumTitle, mTargetImageUrl, mTargetArtistName, mTargetDatabaseId);
+        Q_EMIT switchOneAlbumView(mTargetView, mTargetAlbumTitle, mTargetImageUrl, mTargetArtistName, mTargetDatabaseId);
     }
 }
 
@@ -264,7 +268,7 @@ void ViewManager::allArtistsViewIsLoaded()
 {
     mCurrentView = ViewsType::AllArtists;
     if (mTargetView == ViewsType::OneArtist) {
-        Q_EMIT switchOneArtistView(mTargetArtistName, {}, mTargetImageUrl, ElisaUtils::Album,
+        Q_EMIT switchOneArtistView(mTargetView, mTargetArtistName, {}, mTargetImageUrl, ElisaUtils::Album,
                                    QUrl(QStringLiteral("image://icon/media-optical-audio")), true, true,
                                    mTargetDatabaseId);
     }

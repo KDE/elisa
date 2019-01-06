@@ -20,6 +20,8 @@
 
 #include "elisaLib_export.h"
 
+#include "viewmanager.h"
+
 #include <QAbstractListModel>
 
 #include <memory>
@@ -52,6 +54,8 @@ public:
     QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const override;
 
     QModelIndex parent(const QModelIndex &child) const override;
+
+    Q_INVOKABLE int indexFromViewType(ViewManager::ViewsType type);
 
 private:
 

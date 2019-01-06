@@ -38,7 +38,7 @@ RowLayout {
         id: viewManager
 
         onSwitchOffAllViews: {
-            listViews.currentIndex = 0
+            listViews.currentIndex = pageModel.indexFromViewType(viewType)
 
             while(browseStackView.depth > 1) {
                 browseStackView.pop()
@@ -46,7 +46,7 @@ RowLayout {
         }
 
         onSwitchRecentlyPlayedTracksView: {
-            listViews.currentIndex = 1
+            listViews.currentIndex = pageModel.indexFromViewType(viewType)
 
             while(browseStackView.depth > 1) {
                 browseStackView.pop()
@@ -64,7 +64,7 @@ RowLayout {
         }
 
         onSwitchFrequentlyPlayedTracksView: {
-            listViews.currentIndex = 2
+            listViews.currentIndex = pageModel.indexFromViewType(viewType)
 
             while(browseStackView.depth > 1) {
                 browseStackView.pop()
@@ -82,7 +82,7 @@ RowLayout {
         }
 
         onSwitchAllAlbumsView: {
-            listViews.currentIndex = 3
+            listViews.currentIndex = pageModel.indexFromViewType(viewType)
 
             while(browseStackView.depth > 1) {
                 browseStackView.pop()
@@ -116,7 +116,7 @@ RowLayout {
         }
 
         onSwitchAllArtistsView: {
-            listViews.currentIndex = 4
+            listViews.currentIndex = pageModel.indexFromViewType(viewType)
 
             while(browseStackView.depth > 1) {
                 browseStackView.pop()
@@ -154,7 +154,7 @@ RowLayout {
         }
 
         onSwitchAllTracksView: {
-            listViews.currentIndex = 5
+            listViews.currentIndex = pageModel.indexFromViewType(viewType)
 
             while(browseStackView.depth > 1) {
                 browseStackView.pop()
@@ -172,7 +172,7 @@ RowLayout {
         }
 
         onSwitchAllGenresView: {
-            listViews.currentIndex = 6
+            listViews.currentIndex = pageModel.indexFromViewType(viewType)
 
             while(browseStackView.depth > 1) {
                 browseStackView.pop()
@@ -227,7 +227,7 @@ RowLayout {
         }
 
         onSwitchFilesBrowserView: {
-            listViews.currentIndex = 7
+            listViews.currentIndex = pageModel.indexFromViewType(viewType)
 
             while(browseStackView.depth > 1) {
                 browseStackView.pop()
@@ -237,12 +237,18 @@ RowLayout {
         onPopOneView: browseStackView.pop()
     }
 
+    ViewsModel {
+        id: pageModel
+    }
+
     ViewSelector {
         id: listViews
 
-        Layout.fillHeight: true
+        model: pageModel
 
+        Layout.fillHeight: true
         Layout.maximumWidth: mainWindow.width * 0.14
+
         maximumSize: mainWindow.width * 0.14
 
         Behavior on Layout.maximumWidth {

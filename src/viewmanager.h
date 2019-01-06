@@ -53,46 +53,57 @@ public:
 
 Q_SIGNALS:
 
-    void switchRecentlyPlayedTracksView(const QString &mainTitle, const QUrl &imageUrl,
+    void switchRecentlyPlayedTracksView(ViewManager::ViewsType viewType,
+                                        const QString &mainTitle, const QUrl &imageUrl,
                                         ElisaUtils::PlayListEntryType dataType);
 
-    void switchFrequentlyPlayedTracksView(const QString &mainTitle, const QUrl &imageUrl, ElisaUtils::PlayListEntryType dataType);
+    void switchFrequentlyPlayedTracksView(ViewManager::ViewsType viewType,
+                                          const QString &mainTitle, const QUrl &imageUrl,
+                                          ElisaUtils::PlayListEntryType dataType);
 
-    void switchAllAlbumsView(const QString &mainTitle, const QUrl &imageUrl,
+    void switchAllAlbumsView(ViewManager::ViewsType viewType,
+                             const QString &mainTitle, const QUrl &imageUrl,
                              ElisaUtils::PlayListEntryType dataType, const QUrl &viewDefaultIcon,
                              bool viewShowRating, bool viewDelegateDisplaySecondaryText);
 
-    void switchOneAlbumView(const QString &mainTitle, const QUrl &imageUrl, const QString &secondaryTitle, qulonglong databaseId);
+    void switchOneAlbumView(ViewManager::ViewsType viewType,
+                            const QString &mainTitle, const QUrl &imageUrl, const QString &secondaryTitle, qulonglong databaseId);
 
-    void switchAllArtistsView(const QString &mainTitle, const QUrl &imageUrl,
+    void switchAllArtistsView(ViewManager::ViewsType viewType,
+                              const QString &mainTitle, const QUrl &imageUrl,
                               ElisaUtils::PlayListEntryType dataType, const QUrl &viewDefaultIcon,
                               bool viewShowRating, bool viewDelegateDisplaySecondaryText);
 
-    void switchOneArtistView(const QString &mainTitle, const QString &secondaryTitle,
+    void switchOneArtistView(ViewManager::ViewsType viewType,
+                             const QString &mainTitle, const QString &secondaryTitle,
                              const QUrl &imageUrl, ElisaUtils::PlayListEntryType dataType,
                              const QUrl &viewDefaultIcon, bool viewShowRating,
                              bool viewDelegateDisplaySecondaryText, qulonglong databaseId);
 
-    void switchAllTracksView(const QString &mainTitle, const QUrl &imageUrl, ElisaUtils::PlayListEntryType dataType);
+    void switchAllTracksView(ViewManager::ViewsType viewType, const QString &mainTitle,
+                             const QUrl &imageUrl, ElisaUtils::PlayListEntryType dataType);
 
-    void switchAllGenresView(const QString &mainTitle, const QUrl &imageUrl,
+    void switchAllGenresView(ViewManager::ViewsType viewType,
+                             const QString &mainTitle, const QUrl &imageUrl,
                              ElisaUtils::PlayListEntryType dataType, const QUrl &viewDefaultIcon,
                              bool viewShowRating, bool viewDelegateDisplaySecondaryText);
 
-    void switchAllArtistsFromGenreView(const QString &mainTitle, const QString &secondaryTitle,
+    void switchAllArtistsFromGenreView(ViewManager::ViewsType viewType,
+                                       const QString &mainTitle, const QString &secondaryTitle,
                                        const QUrl &imageUrl, ElisaUtils::PlayListEntryType dataType,
                                        const QUrl &viewDefaultIcon, bool viewShowRating,
                                        bool viewDelegateDisplaySecondaryText);
 
-    void switchOneArtistFromGenreView(const QString &mainTitle, const QString &secondaryTitle,
+    void switchOneArtistFromGenreView(ViewManager::ViewsType viewType,
+                                      const QString &mainTitle, const QString &secondaryTitle,
                                       const QUrl &imageUrl, ElisaUtils::PlayListEntryType dataType,
                                       const QUrl &viewDefaultIcon, bool viewShowRating,
                                       bool viewDelegateDisplaySecondaryText, qulonglong databaseId,
                                       const QString &genreName);
 
-    void switchFilesBrowserView(const QString &mainTitle, const QUrl &imageUrl);
+    void switchFilesBrowserView(ViewManager::ViewsType viewType, const QString &mainTitle, const QUrl &imageUrl);
 
-    void switchOffAllViews();
+    void switchOffAllViews(ViewManager::ViewsType viewType);
 
     void popOneView();
 

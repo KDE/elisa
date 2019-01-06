@@ -147,5 +147,37 @@ QModelIndex ViewsModel::parent(const QModelIndex &child) const
     return result;
 }
 
+int ViewsModel::indexFromViewType(ViewManager::ViewsType type)
+{
+    switch(type)
+    {
+    case ViewManager::NoViews:
+        return 0;
+    case ViewManager::RecentlyPlayedTracks:
+        return 1;
+    case ViewManager::FrequentlyPlayedTracks:
+        return 2;
+    case ViewManager::AllAlbums:
+        return 3;
+    case ViewManager::AllArtists:
+        return 4;
+    case ViewManager::AllTracks:
+        return 5;
+    case ViewManager::AllGenres:
+        return 6;
+    case ViewManager::FilesBrowser:
+        return 7;
+    case ViewManager::OneAlbum:
+    case ViewManager::OneArtist:
+    case ViewManager::OneAlbumFromArtist:
+    case ViewManager::OneArtistFromGenre:
+    case ViewManager::OneAlbumFromArtistAndGenre:
+    case ViewManager::AllArtistsFromGenre:
+        break;
+    }
+
+    return -1;
+}
+
 
 #include "moc_viewsmodel.cpp"

@@ -28,6 +28,7 @@ FocusScope {
     property alias currentIndex: viewModeView.currentIndex
     property double textOpacity
     property double maximumSize
+    property alias model: pageDelegateModel.model
 
     signal switchView(int index, string mainTitle, url imageUrl, var viewType)
 
@@ -61,10 +62,6 @@ FocusScope {
 
                 model: DelegateModel {
                     id: pageDelegateModel
-
-                    model: ViewsModel {
-                        id: pageModel
-                    }
 
                     delegate: MouseArea {
                         id: itemMouseArea

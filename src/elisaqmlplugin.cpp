@@ -52,7 +52,6 @@
 #include "models/alltracksproxymodel.h"
 #include "models/allartistsproxymodel.h"
 #include "models/singlealbumproxymodel.h"
-#include "models/filebrowserproxymodel.h"
 
 #if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
 #include "embeddedcoverageimageprovider.h"

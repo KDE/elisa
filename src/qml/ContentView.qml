@@ -232,6 +232,14 @@ RowLayout {
             while(browseStackView.depth > 1) {
                 browseStackView.pop()
             }
+
+            browseStackView.push(filesBrowserView, {
+                                     mainTitle: mainTitle,
+                                     image: imageUrl,
+                                     opacity: 0,
+                                 })
+
+            filesBrowserViewIsLoaded()
         }
 
         onPopOneView: browseStackView.pop()
@@ -606,6 +614,13 @@ RowLayout {
         id: albumView
 
         AlbumView {
+        }
+    }
+
+    Component {
+        id: filesBrowserView
+
+        FileBrowserView {
         }
     }
 }

@@ -53,7 +53,10 @@
 #include "models/allartistsproxymodel.h"
 #include "models/singlealbumproxymodel.h"
 #include "models/filebrowserproxymodel.h"
+
+#if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
 #include "embeddedcoverageimageprovider.h"
+#endif
 
 #if defined KF5KIO_FOUND && KF5KIO_FOUND
 #include "models/filebrowsermodel.h"
@@ -83,7 +86,9 @@
 void ElisaQmlTestPlugin::initializeEngine(QQmlEngine *engine, const char *uri)
 {
     QQmlExtensionPlugin::initializeEngine(engine, uri);
+#if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
     engine->addImageProvider(QStringLiteral("cover"), new EmbeddedCoverageImageProvider);
+#endif
 }
 
 void ElisaQmlTestPlugin::registerTypes(const char *uri)

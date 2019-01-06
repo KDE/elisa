@@ -239,8 +239,14 @@ set(elisaqmlplugin_SOURCES
     elisaqmlplugin.cpp
     datatype.cpp
     elisautils.cpp
-    embeddedcoverageimageprovider.cpp
 )
+
+if (KF5FileMetaData_FOUND)
+    set(elisaqmlplugin_SOURCES
+        ${elisaqmlplugin_SOURCES}
+        embeddedcoverageimageprovider.cpp
+    )
+endif()
 
 add_library(elisaqmlplugin SHARED ${elisaqmlplugin_SOURCES})
 target_link_libraries(elisaqmlplugin

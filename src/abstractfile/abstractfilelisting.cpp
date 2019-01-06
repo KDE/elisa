@@ -17,11 +17,15 @@
 
 #include "abstractfilelisting.h"
 
+#include "config-upnp-qt.h"
+
 #include "musicaudiotrack.h"
 #include "notificationitem.h"
 #include "filescanner.h"
 
+#if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
 #include <KFileMetaData/EmbeddedImageData>
+#endif
 
 #include <QThread>
 #include <QHash>
@@ -60,7 +64,9 @@ public:
 
     QMimeDatabase mMimeDb;
 
+#if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
     KFileMetaData::EmbeddedImageData mImageScanner;
+#endif
 
     QHash<QUrl, QDateTime> mAllFiles;
 
@@ -448,6 +454,7 @@ FileScanner &AbstractFileListing::fileScanner()
 
 bool AbstractFileListing::checkEmbeddedCoverImage(const QString &localFileName)
 {
+#if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
     auto imageData = d->mImageScanner.imageData(localFileName);
 
     if (imageData.contains(KFileMetaData::EmbeddedImageData::FrontCover)) {
@@ -455,6 +462,7 @@ bool AbstractFileListing::checkEmbeddedCoverImage(const QString &localFileName)
             return true;
         }
     }
+#endif
 
     return false;
 }

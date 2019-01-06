@@ -22,6 +22,7 @@ import org.kde.elisa 1.0
 FocusScope {
     id: viewHeader
 
+    property var viewType
     property alias mainTitle: albumGridView.mainTitle
     property alias secondaryTitle: albumGridView.secondaryTitle
     property alias image: albumGridView.image

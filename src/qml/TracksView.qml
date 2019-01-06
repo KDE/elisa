@@ -22,6 +22,7 @@ import org.kde.elisa 1.0
 FocusScope {
     id: viewHeader
 
+    property var viewType
     property alias mainTitle: listView.mainTitle
     property alias image: listView.image
     property var modelType

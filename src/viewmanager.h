@@ -53,55 +53,28 @@ public:
 
 Q_SIGNALS:
 
-    void switchRecentlyPlayedTracksView(ViewManager::ViewsType viewType,
+    void openGridView(ViewManager::ViewsType viewType, int expectedDepth,
+                      const QString &mainTitle, const QString &secondaryTitle, const QUrl &imageUrl,
+                      ElisaUtils::PlayListEntryType dataType, const QUrl &viewDefaultIcon,
+                      const QString &genreNameFilter, const QString &artistNameFilter,
+                      bool viewShowRating, bool viewDelegateDisplaySecondaryText);
+
+    void switchRecentlyPlayedTracksView(ViewManager::ViewsType viewType, int expectedDepth,
                                         const QString &mainTitle, const QUrl &imageUrl,
                                         ElisaUtils::PlayListEntryType dataType);
 
-    void switchFrequentlyPlayedTracksView(ViewManager::ViewsType viewType,
+    void switchFrequentlyPlayedTracksView(ViewManager::ViewsType viewType, int expectedDepth,
                                           const QString &mainTitle, const QUrl &imageUrl,
                                           ElisaUtils::PlayListEntryType dataType);
 
-    void switchAllAlbumsView(ViewManager::ViewsType viewType,
-                             const QString &mainTitle, const QUrl &imageUrl,
-                             ElisaUtils::PlayListEntryType dataType, const QUrl &viewDefaultIcon,
-                             bool viewShowRating, bool viewDelegateDisplaySecondaryText);
-
-    void switchOneAlbumView(ViewManager::ViewsType viewType,
+    void switchOneAlbumView(ViewManager::ViewsType viewType, int expectedDepth,
                             const QString &mainTitle, const QUrl &imageUrl, const QString &secondaryTitle, qulonglong databaseId);
 
-    void switchAllArtistsView(ViewManager::ViewsType viewType,
-                              const QString &mainTitle, const QUrl &imageUrl,
-                              ElisaUtils::PlayListEntryType dataType, const QUrl &viewDefaultIcon,
-                              bool viewShowRating, bool viewDelegateDisplaySecondaryText);
-
-    void switchOneArtistView(ViewManager::ViewsType viewType,
-                             const QString &mainTitle, const QString &secondaryTitle,
-                             const QUrl &imageUrl, ElisaUtils::PlayListEntryType dataType,
-                             const QUrl &viewDefaultIcon, bool viewShowRating,
-                             bool viewDelegateDisplaySecondaryText, qulonglong databaseId);
-
-    void switchAllTracksView(ViewManager::ViewsType viewType, const QString &mainTitle,
+    void switchAllTracksView(ViewManager::ViewsType viewType, int expectedDepth, const QString &mainTitle,
                              const QUrl &imageUrl, ElisaUtils::PlayListEntryType dataType);
 
-    void switchAllGenresView(ViewManager::ViewsType viewType,
-                             const QString &mainTitle, const QUrl &imageUrl,
-                             ElisaUtils::PlayListEntryType dataType, const QUrl &viewDefaultIcon,
-                             bool viewShowRating, bool viewDelegateDisplaySecondaryText);
-
-    void switchAllArtistsFromGenreView(ViewManager::ViewsType viewType,
-                                       const QString &mainTitle, const QString &secondaryTitle,
-                                       const QUrl &imageUrl, ElisaUtils::PlayListEntryType dataType,
-                                       const QUrl &viewDefaultIcon, bool viewShowRating,
-                                       bool viewDelegateDisplaySecondaryText);
-
-    void switchOneArtistFromGenreView(ViewManager::ViewsType viewType,
-                                      const QString &mainTitle, const QString &secondaryTitle,
-                                      const QUrl &imageUrl, ElisaUtils::PlayListEntryType dataType,
-                                      const QUrl &viewDefaultIcon, bool viewShowRating,
-                                      bool viewDelegateDisplaySecondaryText, qulonglong databaseId,
-                                      const QString &genreName);
-
-    void switchFilesBrowserView(ViewManager::ViewsType viewType, const QString &mainTitle, const QUrl &imageUrl);
+    void switchFilesBrowserView(ViewManager::ViewsType viewType, int expectedDepth,
+                                const QString &mainTitle, const QUrl &imageUrl);
 
     void switchOffAllViews(ViewManager::ViewsType viewType);
 
@@ -117,25 +90,7 @@ public Q_SLOTS:
                        const QUrl &innerImage, qulonglong databaseId,
                        ElisaUtils::PlayListEntryType dataType);
 
-    void recentlyPlayedTracksIsLoaded();
-
-    void frequentlyPlayedTracksIsLoaded();
-
-    void allAlbumsViewIsLoaded();
-
-    void oneAlbumViewIsLoaded();
-
-    void allArtistsViewIsLoaded();
-
-    void oneArtistViewIsLoaded();
-
-    void allTracksViewIsLoaded();
-
-    void allGenresViewIsLoaded();
-
-    void allArtistsFromGenreViewIsLoaded();
-
-    void filesBrowserViewIsLoaded();
+    void viewIsLoaded(ViewManager::ViewsType viewType);
 
     void goBack();
 
@@ -161,6 +116,26 @@ private:
     void openOneArtist(const QString &artistName, const QUrl &artistImageUrl, qulonglong artistDatabaseId);
 
     void openAllArtistsFromGenre(const QString &genreName);
+
+    void recentlyPlayedTracksIsLoaded();
+
+    void frequentlyPlayedTracksIsLoaded();
+
+    void allAlbumsViewIsLoaded();
+
+    void oneAlbumViewIsLoaded();
+
+    void allArtistsViewIsLoaded();
+
+    void oneArtistViewIsLoaded();
+
+    void allTracksViewIsLoaded();
+
+    void allGenresViewIsLoaded();
+
+    void allArtistsFromGenreViewIsLoaded();
+
+    void filesBrowserViewIsLoaded();
 
     ViewsType mCurrentView = ViewsType::NoViews;
     QString mCurrentAlbumTitle;

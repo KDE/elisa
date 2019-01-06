@@ -48,201 +48,113 @@ RowLayout {
         onSwitchRecentlyPlayedTracksView: {
             listViews.currentIndex = pageModel.indexFromViewType(viewType)
 
-            while(browseStackView.depth > 1) {
+            while(browseStackView.depth > expectedDepth) {
                 browseStackView.pop()
             }
 
             browseStackView.push(allRecentlyPlayedTracksView, {
+                                     viewType: viewType,
                                      mainTitle: mainTitle,
                                      image: imageUrl,
                                      modelType: dataType,
                                      stackView: browseStackView,
                                      opacity: 0,
                                  })
-
-            recentlyPlayedTracksIsLoaded()
         }
 
         onSwitchFrequentlyPlayedTracksView: {
             listViews.currentIndex = pageModel.indexFromViewType(viewType)
 
-            while(browseStackView.depth > 1) {
+            while(browseStackView.depth > expectedDepth) {
                 browseStackView.pop()
             }
 
             browseStackView.push(allRecentlyPlayedTracksView, {
+                                     viewType: viewType,
                                      mainTitle: mainTitle,
                                      image: imageUrl,
                                      modelType: dataType,
                                      stackView: browseStackView,
                                      opacity: 0,
                                  })
-
-            frequentlyPlayedTracksIsLoaded()
         }
 
-        onSwitchAllAlbumsView: {
-            listViews.currentIndex = pageModel.indexFromViewType(viewType)
+        onOpenGridView: {
+            if (expectedDepth === 1) {
+                listViews.currentIndex = pageModel.indexFromViewType(viewType)
+            }
 
-            while(browseStackView.depth > 1) {
+            while(browseStackView.depth > expectedDepth) {
                 browseStackView.pop()
             }
 
             browseStackView.push(dataGridView, {
+                                     viewType: viewType,
                                      mainTitle: mainTitle,
+                                     secondaryTitle: secondaryTitle,
                                      image: imageUrl,
                                      modelType: dataType,
                                      defaultIcon: viewDefaultIcon,
                                      showRating: viewShowRating,
                                      delegateDisplaySecondaryText: viewDelegateDisplaySecondaryText,
-                                     isSubPage: false,
+                                     genreFilterText: genreNameFilter,
+                                     artistFilter: artistNameFilter,
+                                     isSubPage: (browseStackView.depth >= 2),
                                      stackView: browseStackView,
                                      opacity: 0,
                                  })
-
-            allAlbumsViewIsLoaded()
         }
 
         onSwitchOneAlbumView: {
+            while(browseStackView.depth > expectedDepth) {
+                browseStackView.pop()
+            }
+
             browseStackView.push(albumView, {
+                                     viewType: viewType,
                                      mainTitle: mainTitle,
                                      secondaryTitle: secondaryTitle,
                                      image: imageUrl,
                                      stackView: browseStackView,
                                      opacity: 0,
                                  })
-
-            oneAlbumViewIsLoaded()
-        }
-
-        onSwitchAllArtistsView: {
-            listViews.currentIndex = pageModel.indexFromViewType(viewType)
-
-            while(browseStackView.depth > 1) {
-                browseStackView.pop()
-            }
-
-            browseStackView.push(dataGridView, {
-                                     mainTitle: mainTitle,
-                                     image: imageUrl,
-                                     modelType: dataType,
-                                     defaultIcon: viewDefaultIcon,
-                                     showRating: viewShowRating,
-                                     delegateDisplaySecondaryText: viewDelegateDisplaySecondaryText,
-                                     isSubPage: false,
-                                     stackView: browseStackView,
-                                     opacity: 0,
-                                 })
-
-            allArtistsViewIsLoaded()
-        }
-
-        onSwitchOneArtistView: {
-            browseStackView.push(dataGridView, {
-                                     mainTitle: mainTitle,
-                                     image: imageUrl,
-                                     modelType: dataType,
-                                     defaultIcon: viewDefaultIcon,
-                                     showRating: viewShowRating,
-                                     delegateDisplaySecondaryText: viewDelegateDisplaySecondaryText,
-                                     isSubPage: true,
-                                     artistFilter: mainTitle,
-                                     opacity: 0,
-                                 })
-
-            oneArtistViewIsLoaded()
         }
 
         onSwitchAllTracksView: {
             listViews.currentIndex = pageModel.indexFromViewType(viewType)
 
-            while(browseStackView.depth > 1) {
+            while(browseStackView.depth > expectedDepth) {
                 browseStackView.pop()
             }
 
             browseStackView.push(allTracksView, {
+                                     viewType: viewType,
                                      mainTitle: mainTitle,
                                      image: imageUrl,
                                      modelType: dataType,
                                      stackView: browseStackView,
                                      opacity: 0,
                                  })
-
-            allTracksViewIsLoaded()
-        }
-
-        onSwitchAllGenresView: {
-            listViews.currentIndex = pageModel.indexFromViewType(viewType)
-
-            while(browseStackView.depth > 1) {
-                browseStackView.pop()
-            }
-
-            browseStackView.push(dataGridView, {
-                                     mainTitle: mainTitle,
-                                     image: imageUrl,
-                                     modelType: dataType,
-                                     defaultIcon: viewDefaultIcon,
-                                     showRating: viewShowRating,
-                                     delegateDisplaySecondaryText: viewDelegateDisplaySecondaryText,
-                                     isSubPage: false,
-                                     stackView: browseStackView,
-                                     opacity: 0,
-                                 })
-
-            allGenresViewIsLoaded()
-        }
-
-        onSwitchAllArtistsFromGenreView: {
-            browseStackView.push(dataGridView, {
-                                     mainTitle: mainTitle,
-                                     image: imageUrl,
-                                     modelType: dataType,
-                                     defaultIcon: viewDefaultIcon,
-                                     showRating: viewShowRating,
-                                     delegateDisplaySecondaryText: viewDelegateDisplaySecondaryText,
-                                     isSubPage: true,
-                                     genreFilterText: mainTitle,
-                                     opacity: 0,
-                                 })
-
-            allArtistsFromGenreViewIsLoaded()
-        }
-
-        onSwitchOneArtistFromGenreView: {
-            browseStackView.push(dataGridView, {
-                                     mainTitle: mainTitle,
-                                     image: imageUrl,
-                                     modelType: dataType,
-                                     defaultIcon: viewDefaultIcon,
-                                     showRating: viewShowRating,
-                                     delegateDisplaySecondaryText: viewDelegateDisplaySecondaryText,
-                                     isSubPage: true,
-                                     genreFilterText: genreName,
-                                     artistFilter: mainTitle,
-                                     opacity: 0,
-                                 })
-
-            oneArtistViewIsLoaded()
         }
 
         onSwitchFilesBrowserView: {
             listViews.currentIndex = pageModel.indexFromViewType(viewType)
 
-            while(browseStackView.depth > 1) {
+            while(browseStackView.depth > expectedDepth) {
                 browseStackView.pop()
             }
 
             browseStackView.push(filesBrowserView, {
+                                     viewType: viewType,
                                      mainTitle: mainTitle,
                                      image: imageUrl,
                                      opacity: 0,
                                  })
-
-            filesBrowserViewIsLoaded()
         }
 
-        onPopOneView: browseStackView.pop()
+        onPopOneView: {
+            browseStackView.pop()
+        }
     }
 
     ViewsModel {
@@ -586,6 +498,7 @@ RowLayout {
         id: allFrequentlyPlayedTracksView
 
         FrequentlyPlayedTracks {
+            StackView.onActivated: viewManager.viewIsLoaded(viewType)
         }
     }
 
@@ -593,6 +506,7 @@ RowLayout {
         id: allRecentlyPlayedTracksView
 
         RecentlyPlayedTracks {
+            StackView.onActivated: viewManager.viewIsLoaded(viewType)
         }
     }
 
@@ -600,6 +514,7 @@ RowLayout {
         id: dataGridView
 
         DataGridView {
+            StackView.onActivated: viewManager.viewIsLoaded(viewType)
         }
     }
 
@@ -607,6 +522,7 @@ RowLayout {
         id: allTracksView
 
         TracksView {
+            StackView.onActivated: viewManager.viewIsLoaded(viewType)
         }
     }
 
@@ -614,6 +530,7 @@ RowLayout {
         id: albumView
 
         AlbumView {
+            StackView.onActivated: viewManager.viewIsLoaded(viewType)
         }
     }
 
@@ -621,6 +538,7 @@ RowLayout {
         id: filesBrowserView
 
         FileBrowserView {
+            StackView.onActivated: viewManager.viewIsLoaded(viewType)
         }
     }
 }

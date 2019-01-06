@@ -29,7 +29,7 @@ FocusScope {
     property double textOpacity
     property double maximumSize
 
-    signal switchView(int index, string mainTitle, url imageUrl)
+    signal switchView(int index, string mainTitle, url imageUrl, var viewType)
 
     implicitWidth: elisaTheme.dp(500)
 
@@ -180,7 +180,7 @@ FocusScope {
                         {
                             viewModeView.currentIndex = index
                             rootFocusScope.focus = true
-                            switchView(index, model.display, model.image)
+                            switchView(index, model.display, model.image, model.type)
                         }
                     }
                 }

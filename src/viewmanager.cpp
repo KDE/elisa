@@ -28,6 +28,44 @@ void ViewManager::closeAllViews()
     Q_EMIT switchOffAllViews();
 }
 
+void ViewManager::openParentView(ViewManager::ViewsType viewType, const QString &mainTitle, const QUrl &mainImage)
+{
+    switch(viewType)
+    {
+    case NoViews:
+        closeAllViews();
+        break;
+    case RecentlyPlayedTracks:
+        openRecentlyPlayedTracks(mainTitle, mainImage);
+        break;
+    case FrequentlyPlayedTracks:
+        openFrequentlyPlayedTracks(mainTitle, mainImage);
+        break;
+    case AllAlbums:
+        openAllAlbums(mainTitle, mainImage);
+        break;
+    case AllArtists:
+        openAllArtists(mainTitle, mainImage);
+        break;
+    case AllTracks:
+        openAllTracks(mainTitle, mainImage);
+        break;
+    case AllGenres:
+        openAllGenres(mainTitle, mainImage);
+        break;
+    case FilesBrowser:
+        openFilesBrowser(mainTitle, mainImage);
+        break;
+    case OneAlbum:
+    case OneArtist:
+    case OneAlbumFromArtist:
+    case OneArtistFromGenre:
+    case OneAlbumFromArtistAndGenre:
+    case AllArtistsFromGenre:
+        break;
+    }
+}
+
 void ViewManager::openChildView(const QString &innerMainTitle, const QString &innerSecondaryTitle,
                                 const QUrl &innerImage, qulonglong databaseId,
                                 ElisaUtils::PlayListEntryType dataType)

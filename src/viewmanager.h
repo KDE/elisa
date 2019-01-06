@@ -100,23 +100,11 @@ public Q_SLOTS:
 
     void closeAllViews();
 
+    void openParentView(ViewManager::ViewsType viewType, const QString &mainTitle, const QUrl &mainImage);
+
     void openChildView(const QString &innerMainTitle, const QString & innerSecondaryTitle,
                        const QUrl &innerImage, qulonglong databaseId,
                        ElisaUtils::PlayListEntryType dataType);
-
-    void openRecentlyPlayedTracks(const QString &mainTitle, const QUrl &imageUrl);
-
-    void openFrequentlyPlayedTracks(const QString &mainTitle, const QUrl &imageUrl);
-
-    void openAllAlbums(const QString &mainTitle, const QUrl &imageUrl);
-
-    void openAllArtists(const QString &mainTitle, const QUrl &imageUrl);
-
-    void openAllTracks(const QString &mainTitle, const QUrl &imageUrl);
-
-    void openAllGenres(const QString &mainTitle, const QUrl &imageUrl);
-
-    void openFilesBrowser(const QString &mainTitle, const QUrl &imageUrl);
 
     void recentlyPlayedTracksIsLoaded();
 
@@ -141,6 +129,20 @@ public Q_SLOTS:
     void goBack();
 
 private:
+
+    void openRecentlyPlayedTracks(const QString &mainTitle, const QUrl &imageUrl);
+
+    void openFrequentlyPlayedTracks(const QString &mainTitle, const QUrl &imageUrl);
+
+    void openAllAlbums(const QString &mainTitle, const QUrl &imageUrl);
+
+    void openAllArtists(const QString &mainTitle, const QUrl &imageUrl);
+
+    void openAllTracks(const QString &mainTitle, const QUrl &imageUrl);
+
+    void openAllGenres(const QString &mainTitle, const QUrl &imageUrl);
+
+    void openFilesBrowser(const QString &mainTitle, const QUrl &imageUrl);
 
     void openOneAlbum(const QString &albumTitle, const QString &albumAuthor,
                       const QUrl &albumCover, qulonglong albumDatabaseId);

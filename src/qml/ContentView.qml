@@ -251,23 +251,7 @@ RowLayout {
             }
         }
 
-        onSwitchView: if (index === 1) {
-                          viewManager.openRecentlyPlayedTracks(mainTitle, imageUrl)
-                      } else if (index === 2) {
-                          viewManager.openFrequentlyPlayedTracks(mainTitle, imageUrl)
-                      } else if (index === 3) {
-                          viewManager.openAllAlbums(mainTitle, imageUrl)
-                      } else if (index === 4) {
-                          viewManager.openAllArtists(mainTitle, imageUrl)
-                      } else if (index === 5) {
-                          viewManager.openAllTracks(mainTitle, imageUrl)
-                      } else if (index === 6) {
-                          viewManager.openAllGenres(mainTitle, imageUrl)
-                      } else if (index === 7) {
-                          viewManager.openFilesBrowser(mainTitle, imageUrl)
-                      } else {
-                          viewManager.closeAllViews()
-                      }
+        onSwitchView: viewManager.openParentView(viewType, mainTitle, imageUrl)
     }
 
     Rectangle {

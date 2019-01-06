@@ -104,7 +104,7 @@ Q_SIGNALS:
 
 public Q_SLOTS:
 
-    void tracksAdded(ListTrackDataType newData);
+    void tracksAdded(DataModel::ListTrackDataType newData);
 
     void trackModified(const DataModel::TrackDataType &modifiedTrack);
 

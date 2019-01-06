@@ -20,6 +20,7 @@
 #include "androidmusiclistener.h"
 
 #include "databaseinterface.h"
+#include "musicaudiotrack.h"
 
 #include <QDateTime>
 #include <QMetaObject>

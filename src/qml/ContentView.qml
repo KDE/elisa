@@ -90,9 +90,9 @@ RowLayout {
 
             browseStackView.push(dataGridView, {
                                      viewType: viewType,
-                                     mainTitle: mainTitle,
+                                     mainTitle: pageModel.viewMainTitle(viewType, mainTitle),
                                      secondaryTitle: secondaryTitle,
-                                     image: imageUrl,
+                                     image: pageModel.viewImageUrl(viewType, imageUrl),
                                      modelType: dataType,
                                      defaultIcon: viewDefaultIcon,
                                      showRating: viewShowRating,

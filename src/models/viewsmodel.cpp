@@ -179,5 +179,31 @@ int ViewsModel::indexFromViewType(ViewManager::ViewsType type)
     return -1;
 }
 
+QString ViewsModel::viewMainTitle(ViewManager::ViewsType type, QString suggestedMainTitle) const
+{
+    auto result = std::move(suggestedMainTitle);
+
+    if (!result.isEmpty()) {
+        return result;
+    }
+
+    result = d->mNames[type];
+
+    return result;
+}
+
+QUrl ViewsModel::viewImageUrl(ViewManager::ViewsType type, QUrl suggestedImageUrl) const
+{
+    auto result = std::move(suggestedImageUrl);
+
+    if (!result.isEmpty()) {
+        return result;
+    }
+
+    result = d->mIcons[type];
+
+    return result;
+}
+
 
 #include "moc_viewsmodel.cpp"

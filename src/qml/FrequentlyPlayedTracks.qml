@@ -82,6 +82,17 @@ FocusScope {
 
             onClicked: contentDirectoryView.currentIndex = index
         }
+
+        Loader {
+            anchors.fill: parent
+
+            visible: realModel.isBusy
+            active: realModel.isBusy
+
+            sourceComponent: BusyIndicator {
+                anchors.fill: parent
+            }
+        }
     }
 
     Connections {

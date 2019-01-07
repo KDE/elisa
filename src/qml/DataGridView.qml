@@ -69,6 +69,17 @@ FocusScope {
         onOpen: viewManager.openChildView(innerMainTitle, innerSecondaryTitle, innerImage, databaseId, dataType)
 
         onGoBack: viewManager.goBack()
+
+        Loader {
+            anchors.fill: parent
+
+            visible: realModel.isBusy
+            active: realModel.isBusy
+
+            sourceComponent: BusyIndicator {
+                anchors.fill: parent
+            }
+        }
     }
 
     Connections {

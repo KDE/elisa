@@ -45,6 +45,8 @@ class ELISALIB_EXPORT DataModel : public QAbstractListModel
                READ author
                NOTIFY authorChanged)
 
+    Q_PROPERTY(bool isBusy READ isBusy NOTIFY isBusyChanged)
+
 public:
 
     using ListTrackDataType = DatabaseInterface::ListTrackDataType;
@@ -83,6 +85,8 @@ public:
 
     QString author() const;
 
+    bool isBusy() const;
+
 Q_SIGNALS:
 
     void titleChanged();
@@ -101,6 +105,8 @@ Q_SIGNALS:
     void needRecentlyPlayedData(ElisaUtils::PlayListEntryType dataType);
 
     void needFrequentlyPlayedData(ElisaUtils::PlayListEntryType dataType);
+
+    void isBusyChanged();
 
 public Q_SLOTS:
 
@@ -145,6 +151,8 @@ private:
     int trackIndexFromId(qulonglong id) const;
 
     void connectModel(MusicListenersManager *manager);
+
+    void setBusy(bool value);
 
     std::unique_ptr<DataModelPrivate> d;
 

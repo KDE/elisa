@@ -50,6 +50,8 @@ public:
 
     QString mGenre;
 
+    bool mIsBusy = false;
+
 };
 
 DataModel::DataModel(QObject *parent) : QAbstractListModel(parent), d(std::make_unique<DataModelPrivate>())
@@ -218,6 +220,11 @@ QString DataModel::author() const
     return d->mAlbumArtist;
 }
 
+bool DataModel::isBusy() const
+{
+    return d->mIsBusy;
+}
+
 void DataModel::initialize(MusicListenersManager *manager, ElisaUtils::PlayListEntryType modelType)
 {
     d->mModelType = modelType;
@@ -231,6 +238,8 @@ void DataModel::initialize(MusicListenersManager *manager, ElisaUtils::PlayListE
 
     connect(this, &DataModel::needData,
             &d->mDataLoader, &ModelDataLoader::loadData);
+
+    setBusy(true);
 
     Q_EMIT needData(d->mModelType);
 }
@@ -253,6 +262,8 @@ void DataModel::initializeByAlbumTitleAndArtist(MusicListenersManager *manager, 
     connect(this, &DataModel::needData,
             &d->mDataLoader, &ModelDataLoader::loadData);
 
+    setBusy(true);
+
     Q_EMIT needData(d->mModelType);
 }
 
@@ -273,6 +284,8 @@ void DataModel::initializeByGenre(MusicListenersManager *manager, ElisaUtils::Pl
     connect(this, &DataModel::needDataByGenre,
             &d->mDataLoader, &ModelDataLoader::loadDataByGenre);
 
+    setBusy(true);
+
     Q_EMIT needDataByGenre(d->mModelType, genre);
 }
 
@@ -292,6 +305,8 @@ void DataModel::initializeByArtist(MusicListenersManager *manager, ElisaUtils::P
 
     connect(this, &DataModel::needDataByArtist,
             &d->mDataLoader, &ModelDataLoader::loadDataByArtist);
+
+    setBusy(true);
 
     Q_EMIT needDataByArtist(d->mModelType, artist);
 }
@@ -314,6 +329,8 @@ void DataModel::initializeByGenreAndArtist(MusicListenersManager *manager, Elisa
     connect(this, &DataModel::needDataByGenreAndArtist,
             &d->mDataLoader, &ModelDataLoader::loadDataByGenreAndArtist);
 
+    setBusy(true);
+
     Q_EMIT needDataByGenreAndArtist(d->mModelType, genre, artist);
 }
 
@@ -330,6 +347,8 @@ void DataModel::initializeRecentlyPlayed(MusicListenersManager *manager, ElisaUt
 
     connect(this, &DataModel::needRecentlyPlayedData,
             &d->mDataLoader, &ModelDataLoader::loadRecentlyPlayedData);
+
+    setBusy(true);
 
     Q_EMIT needRecentlyPlayedData(d->mModelType);
 }
@@ -348,7 +367,19 @@ void DataModel::initializeFrequentlyPlayed(MusicListenersManager *manager, Elisa
     connect(this, &DataModel::needFrequentlyPlayedData,
             &d->mDataLoader, &ModelDataLoader::loadFrequentlyPlayedData);
 
+    setBusy(true);
+
     Q_EMIT needFrequentlyPlayedData(d->mModelType);
+}
+
+void DataModel::setBusy(bool value)
+{
+    if (d->mIsBusy == value) {
+        return;
+    }
+
+    d->mIsBusy = value;
+    Q_EMIT isBusyChanged();
 }
 
 int DataModel::trackIndexFromId(qulonglong id) const
@@ -427,6 +458,11 @@ void DataModel::tracksAdded(ListTrackDataType newData)
                     beginInsertRows({}, trackIndex, trackIndex);
                     d->mAllTrackData.insert(trackIndex, newTrack);
                     endInsertRows();
+
+                    if (d->mAllTrackData.size() == 1) {
+                        setBusy(false);
+                    }
+
                     trackInserted = true;
                     break;
                 }
@@ -436,6 +472,10 @@ void DataModel::tracksAdded(ListTrackDataType newData)
                 beginInsertRows({}, d->mAllTrackData.count(), d->mAllTrackData.count());
                 d->mAllTrackData.insert(d->mAllTrackData.count(), newTrack);
                 endInsertRows();
+
+                if (d->mAllTrackData.size() == 1) {
+                    setBusy(false);
+                }
             }
         }
     } else {
@@ -443,6 +483,8 @@ void DataModel::tracksAdded(ListTrackDataType newData)
             beginInsertRows({}, 0, newData.size() - 1);
             d->mAllTrackData.swap(newData);
             endInsertRows();
+
+            setBusy(false);
         } else {
             beginInsertRows({}, d->mAllTrackData.size(), d->mAllTrackData.size() + newData.size() - 1);
             d->mAllTrackData.append(newData);
@@ -530,6 +572,8 @@ void DataModel::genresAdded(DataModel::ListGenreDataType newData)
         beginInsertRows({}, d->mAllGenreData.size(), newData.size() - 1);
         d->mAllGenreData.swap(newData);
         endInsertRows();
+
+        setBusy(false);
     } else {
         beginInsertRows({}, d->mAllGenreData.size(), d->mAllGenreData.size() + newData.size() - 1);
         d->mAllGenreData.append(newData);
@@ -547,6 +591,8 @@ void DataModel::artistsAdded(DataModel::ListArtistDataType newData)
         beginInsertRows({}, d->mAllArtistData.size(), newData.size() - 1);
         d->mAllArtistData.swap(newData);
         endInsertRows();
+
+        setBusy(false);
     } else {
         beginInsertRows({}, d->mAllArtistData.size(), d->mAllArtistData.size() + newData.size() - 1);
         d->mAllArtistData.append(newData);
@@ -588,6 +634,8 @@ void DataModel::albumsAdded(DataModel::ListAlbumDataType newData)
         beginInsertRows({}, d->mAllAlbumData.size(), newData.size() - 1);
         d->mAllAlbumData.swap(newData);
         endInsertRows();
+
+        setBusy(false);
     } else {
         beginInsertRows({}, d->mAllAlbumData.size(), d->mAllAlbumData.size() + newData.size() - 1);
         d->mAllAlbumData.append(newData);

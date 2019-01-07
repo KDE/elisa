@@ -69,7 +69,7 @@ RowLayout {
                 browseStackView.pop()
             }
 
-            browseStackView.push(allRecentlyPlayedTracksView, {
+            browseStackView.push(allFrequentlyPlayedTracksView, {
                                      viewType: viewType,
                                      mainTitle: mainTitle,
                                      image: imageUrl,

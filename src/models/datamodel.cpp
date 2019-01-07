@@ -430,6 +430,10 @@ void DataModel::connectModel(MusicListenersManager *manager)
 
 void DataModel::tracksAdded(ListTrackDataType newData)
 {
+    if (newData.isEmpty() && d->mModelType == ElisaUtils::Track) {
+        setBusy(false);
+    }
+
     if (newData.isEmpty() || d->mModelType != ElisaUtils::Track) {
         return;
     }
@@ -564,6 +568,10 @@ void DataModel::trackRemoved(qulonglong removedTrackId)
 
 void DataModel::genresAdded(DataModel::ListGenreDataType newData)
 {
+    if (newData.isEmpty() && d->mModelType == ElisaUtils::Genre) {
+        setBusy(false);
+    }
+
     if (newData.isEmpty() || d->mModelType != ElisaUtils::Genre) {
         return;
     }
@@ -583,6 +591,10 @@ void DataModel::genresAdded(DataModel::ListGenreDataType newData)
 
 void DataModel::artistsAdded(DataModel::ListArtistDataType newData)
 {
+    if (newData.isEmpty() && d->mModelType == ElisaUtils::Artist) {
+        setBusy(false);
+    }
+
     if (newData.isEmpty() || d->mModelType != ElisaUtils::Artist) {
         return;
     }
@@ -626,6 +638,10 @@ void DataModel::artistRemoved(qulonglong removedDatabaseId)
 
 void DataModel::albumsAdded(DataModel::ListAlbumDataType newData)
 {
+    if (newData.isEmpty() && d->mModelType == ElisaUtils::Album) {
+        setBusy(false);
+    }
+
     if (newData.isEmpty() || d->mModelType != ElisaUtils::Album) {
         return;
     }

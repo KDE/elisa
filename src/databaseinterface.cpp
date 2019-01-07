@@ -1905,6 +1905,7 @@ void DatabaseInterface::initRequest()
                                                   "LEFT JOIN `Lyricist` trackLyricist ON trackLyricist.`Name` = tracks.`Lyricist` "
                                                   "WHERE "
                                                   "tracksMapping.`TrackID` = tracks.`ID` AND "
+                                                  "tracks.`PlayCounter` > 0 AND "
                                                   "tracksMapping.`Priority` = (SELECT MIN(`Priority`) FROM `TracksMapping` WHERE `TrackID` = tracks.`ID`) "
                                                   "ORDER BY tracks.`LastPlayDate` DESC "
                                                   "LIMIT :maximumResults");
@@ -1976,6 +1977,7 @@ void DatabaseInterface::initRequest()
                                                   "LEFT JOIN `Lyricist` trackLyricist ON trackLyricist.`Name` = tracks.`Lyricist` "
                                                   "WHERE "
                                                   "tracksMapping.`TrackID` = tracks.`ID` AND "
+                                                  "tracks.`PlayCounter` > 0 AND "
                                                   "tracksMapping.`Priority` = (SELECT MIN(`Priority`) FROM `TracksMapping` WHERE `TrackID` = tracks.`ID`) "
                                                   "ORDER BY tracks.`PlayCounter` / (strftime('%s', 'now') - tracks.`FirstPlayDate`) DESC "
                                                   "LIMIT :maximumResults");

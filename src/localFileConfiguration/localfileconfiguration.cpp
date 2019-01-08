@@ -25,9 +25,7 @@
 
 #include <QStandardPaths>
 
-K_PLUGIN_FACTORY_WITH_JSON(KCMElisaLocalFileFactory,
-                           "kcm_elisa_local_file.json",
-                           registerPlugin<KCMElisaLocalFile>();)
+K_PLUGIN_CLASS_WITH_JSON(KCMElisaLocalFile, "kcm_elisa_local_file.json")
 
 KCMElisaLocalFile::KCMElisaLocalFile(QObject* parent, const QVariantList &args)
     : ConfigModule(parent, args)

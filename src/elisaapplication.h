@@ -149,6 +149,10 @@ private Q_SLOTS:
 
     void togglePlaylist();
 
+    void seek();
+
+    void scrub();
+
 private:
 
     void initializeModels();

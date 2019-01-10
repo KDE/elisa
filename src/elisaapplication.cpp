@@ -149,6 +149,16 @@ void ElisaApplication::setupActions(const QString &actionName)
         togglePlaylistAction->setText(QStringLiteral("Toggle Playlist"));
     }
 
+    if (actionName == QStringLiteral("Seek") && KAuthorized::authorizeAction(actionName)) {
+            auto seekAction = d->mCollection.addAction(actionName, this, &ElisaApplication::seek);
+            d->mCollection.setDefaultShortcut(seekAction, QKeySequence(tr("Shift+Right")));
+    }
+
+    if (actionName == QStringLiteral("Scrub") && KAuthorized::authorizeAction(actionName)) {
+            auto scrubAction = d->mCollection.addAction(actionName, this, &ElisaApplication::scrub);
+            d->mCollection.setDefaultShortcut(scrubAction, QKeySequence(tr("Shift+Left")));
+    }
+
     if (actionName == QStringLiteral("edit_find") && KAuthorized::authorizeAction(actionName)) {
         auto findAction = KStandardAction::find(this, &ElisaApplication::find, this);
         d->mCollection.addAction(findAction->objectName(), findAction);
@@ -262,6 +272,10 @@ void ElisaApplication::goBack() {}
 void ElisaApplication::find() {}
 
 void ElisaApplication::togglePlaylist() {}
+
+void ElisaApplication::seek() {}
+
+void ElisaApplication::scrub() {}
 
 ElisaUtils::EntryDataList ElisaApplication::checkFileListAndMakeAbsolute(const ElisaUtils::EntryDataList &filesList,
                                                                             const QString &workingDirectory) const

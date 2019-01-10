@@ -41,10 +41,22 @@ ApplicationWindow {
     title: i18n("Elisa")
 
     property var goBackAction: elisa.action("go_back")
+    property var seekAction: elisa.action("Seek")
+    property var scrubAction: elisa.action("Scrub")
 
     Action {
         shortcut: goBackAction.shortcut
         onTriggered: contentView.goBack()
+    }
+
+    Action {
+            shortcut: seekAction.shortcut
+            onTriggered: elisa.audioControl.seek(headerBar.playerControl.position + 10000)
+    }
+
+    Action {
+            shortcut: scrubAction.shortcut
+            onTriggered: elisa.audioControl.seek(headerBar.playerControl.position - 10000)
     }
 
     ApplicationMenu {

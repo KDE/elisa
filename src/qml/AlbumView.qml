@@ -42,6 +42,9 @@ FocusScope {
     ListBrowserView {
         id: albumGridView
 
+        focus: true
+        activeFocusOnTab: true
+
         anchors.fill: parent
 
         contentModel: proxyModel

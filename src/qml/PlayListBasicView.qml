@@ -31,6 +31,8 @@ ListView {
     signal displayError(var errorText)
 
     focus: true
+    activeFocusOnTab: true
+    keyNavigationEnabled: true
 
     ScrollBar.vertical: ScrollBar {
         id: scrollBar

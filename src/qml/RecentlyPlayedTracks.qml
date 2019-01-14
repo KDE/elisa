@@ -46,6 +46,7 @@ FocusScope {
         id: listView
 
         focus: true
+        activeFocusOnTab: true
 
         anchors.fill: parent
 

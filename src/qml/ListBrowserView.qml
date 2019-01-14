@@ -104,6 +104,8 @@ FocusScope {
                 anchors.fill: parent
 
                 focus: true
+                activeFocusOnTab: true
+                keyNavigationEnabled: true
 
                 ScrollBar.vertical: ScrollBar {
                     id: scrollBar

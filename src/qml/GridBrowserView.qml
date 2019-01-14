@@ -91,8 +91,7 @@ FocusScope {
             onSort: contentModel.sortModel(order)
         }
 
-        Rectangle {
-            color: myPalette.base
+        FocusScope {
 
             Layout.fillHeight: true
             Layout.fillWidth: true
@@ -104,6 +103,9 @@ FocusScope {
                 anchors.topMargin: 20
 
                 focus: true
+                activeFocusOnTab: true
+                keyNavigationEnabled: true
+
                 anchors.fill: parent
 
                 ScrollBar.vertical: ScrollBar {

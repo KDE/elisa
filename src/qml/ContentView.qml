@@ -177,7 +177,7 @@ RowLayout {
             }
         }
 
-        onSwitchView: viewManager.openParentView(viewType, mainTitle, imageUrl)
+        onSwitchView: viewManager.openParentView(viewType, pageModel.viewMainTitle(viewType, ""), pageModel.viewImageUrl(viewType, ""))
     }
 
     Rectangle {

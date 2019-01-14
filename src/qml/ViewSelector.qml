@@ -30,7 +30,7 @@ FocusScope {
     property double maximumSize
     property alias model: pageDelegateModel.model
 
-    signal switchView(int index, string mainTitle, url imageUrl, var viewType)
+    signal switchView(var viewType)
 
     implicitWidth: elisaTheme.dp(500)
 
@@ -56,6 +56,9 @@ FocusScope {
                 id: viewModeView
 
                 focus: true
+                activeFocusOnTab: true
+                keyNavigationEnabled: true
+
                 z: 2
 
                 anchors.topMargin: elisaTheme.layoutHorizontalMargin * 2
@@ -65,6 +68,8 @@ FocusScope {
 
                     delegate: MouseArea {
                         id: itemMouseArea
+
+                        property var viewType: model.type
 
                         height: elisaTheme.viewSelectorDelegateHeight * 1.4
                         width: viewModeView.width
@@ -173,12 +178,7 @@ FocusScope {
                             }
                         }
 
-                        onClicked:
-                        {
-                            viewModeView.currentIndex = index
-                            rootFocusScope.focus = true
-                            switchView(index, model.display, model.image, model.type)
-                        }
+                        onClicked: viewModeView.currentIndex = index
                     }
                 }
 
@@ -193,6 +193,8 @@ FocusScope {
                         rootFocusScope.focus = true
                     }
                 }
+
+                onCurrentItemChanged: switchView(currentItem.viewType)
             }
         }
 
@@ -207,8 +209,7 @@ FocusScope {
         target: elisa
 
         onInitializationDone: {
-            viewModeView.currentIndex = 0
-            switchView(viewModeView.currentIndex, "", "", "")
+            viewModeView.currentIndex = 3
         }
     }
 

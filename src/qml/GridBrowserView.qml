@@ -43,15 +43,6 @@ FocusScope {
     signal open(string innerMainTitle, string innerSecondaryTitle, url innerImage, int databaseId, var dataType)
     signal goBack()
 
-    SystemPalette {
-        id: myPalette
-        colorGroup: SystemPalette.Active
-    }
-
-    Theme {
-        id: elisaTheme
-    }
-
     ColumnLayout {
         anchors.fill: parent
         spacing: 0

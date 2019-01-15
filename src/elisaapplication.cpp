@@ -56,6 +56,7 @@
 #include <QUrl>
 #include <QFileInfo>
 #include <QDir>
+#include <QKeyEvent>
 #include <QDebug>
 
 #include <memory>
@@ -157,6 +158,11 @@ void ElisaApplication::setupActions(const QString &actionName)
     if (actionName == QStringLiteral("Scrub") && KAuthorized::authorizeAction(actionName)) {
             auto scrubAction = d->mCollection.addAction(actionName, this, &ElisaApplication::scrub);
             d->mCollection.setDefaultShortcut(scrubAction, QKeySequence(tr("Shift+Left")));
+    }
+
+    if (actionName == QStringLiteral("Play-Pause") && KAuthorized::authorizeAction(actionName)) {
+            auto playPauseAction = d->mCollection.addAction(actionName, this, &ElisaApplication::playPause);
+            d->mCollection.setDefaultShortcut(playPauseAction, QKeySequence(tr("Space")));
     }
 
     if (actionName == QStringLiteral("edit_find") && KAuthorized::authorizeAction(actionName)) {
@@ -276,6 +282,8 @@ void ElisaApplication::togglePlaylist() {}
 void ElisaApplication::seek() {}
 
 void ElisaApplication::scrub() {}
+
+void ElisaApplication::playPause() {}
 
 ElisaUtils::EntryDataList ElisaApplication::checkFileListAndMakeAbsolute(const ElisaUtils::EntryDataList &filesList,
                                                                             const QString &workingDirectory) const
@@ -407,6 +415,28 @@ QAction * ElisaApplication::action(const QString& name)
 QString ElisaApplication::iconName(const QIcon& icon)
 {
     return icon.name();
+}
+
+void ElisaApplication::installKeyEventFilter(QObject *object)
+{
+    if(!object) {
+        return;
+    }
+
+    object->installEventFilter(this);
+}
+
+bool ElisaApplication::eventFilter(QObject *object, QEvent *event)
+{
+    Q_UNUSED(object);
+
+    QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
+    auto playPauseAction = d->mCollection.action(tr("Play-Pause"));
+    if (keyEvent->key() == Qt::Key_Space && playPauseAction->shortcut()[0] == Qt::Key_Space) {
+        return true;
+    }
+
+    return false;
 }
 
 const ElisaUtils::EntryDataList &ElisaApplication::arguments() const

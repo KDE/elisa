@@ -26,6 +26,10 @@ import org.kde.elisa 1.0
 Button {
     id: flatButtonWithToolTip
 
+    activeFocusOnTab: true
+
+    Keys.onReturnPressed: action.trigger()
+
     contentItem: Image {
         anchors.fill: parent
 

@@ -137,10 +137,25 @@ FocusScope {
 
             Item { Layout.fillWidth: true }
 
-            Controls1.ToolButton { action: showCurrentTrack }
-            Controls1.ToolButton { action: savePlaylist }
-            Controls1.ToolButton { action: loadPlaylist }
-            Controls1.ToolButton { action: clearPlayList }
+            Controls1.ToolButton {
+                action: showCurrentTrack
+                Keys.onReturnPressed: action.trigger()
+            }
+
+            Controls1.ToolButton {
+                action: savePlaylist
+                Keys.onReturnPressed: action.trigger()
+            }
+
+            Controls1.ToolButton {
+                action: loadPlaylist
+                Keys.onReturnPressed: action.trigger()
+            }
+
+            Controls1.ToolButton {
+                action: clearPlayList
+                Keys.onReturnPressed: action.trigger()
+            }
         }
 
         ColumnLayout {

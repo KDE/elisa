@@ -82,6 +82,10 @@ public:
 
     Q_INVOKABLE QString iconName(const QIcon& icon);
 
+    Q_INVOKABLE void installKeyEventFilter(QObject *object);
+
+    bool eventFilter(QObject *object, QEvent *event) override;
+
     const ElisaUtils::EntryDataList &arguments() const;
 
     MusicListenersManager *musicManager() const;
@@ -152,6 +156,8 @@ private Q_SLOTS:
     void seek();
 
     void scrub();
+
+    void playPause();
 
 private:
 

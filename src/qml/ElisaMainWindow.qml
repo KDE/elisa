@@ -43,6 +43,7 @@ ApplicationWindow {
     property var goBackAction: elisa.action("go_back")
     property var seekAction: elisa.action("Seek")
     property var scrubAction: elisa.action("Scrub")
+    property var playPauseAction: elisa.action("Play-Pause")
 
     Action {
         shortcut: goBackAction.shortcut
@@ -57,6 +58,11 @@ ApplicationWindow {
     Action {
             shortcut: scrubAction.shortcut
             onTriggered: elisa.audioControl.seek(headerBar.playerControl.position - 10000)
+    }
+
+    Action {
+            shortcut: playPauseAction.shortcut
+            onTriggered: elisa.audioControl.playPause()
     }
 
     ApplicationMenu {

@@ -128,7 +128,7 @@ FocusScope {
         spacing: 5
 
         FlatButtonWithToolTip {
-            id: minimzeMaximizeAction
+            id: minimizeMaximizeButton
             action: minimizeMaximizeAction
 
             Layout.preferredWidth: elisaTheme.smallControlButtonSize
@@ -421,6 +421,18 @@ FocusScope {
             musicWidget.maximize()
         } else {
             musicWidget.minimize()
+        }
+    }
+
+    Component.onCompleted: {
+
+        var elementList = [menuButton, repeatButton, shuffleButton, muteButton, skipForwardButton, skipBackwardButton, playPauseButton, minimizeMaximizeButton]
+
+        for (var i=0; i<elementList.length; i++)
+            installFilter(elementList[i])
+
+        function installFilter(element) {
+            elisa.installKeyEventFilter(element)
         }
     }
 }

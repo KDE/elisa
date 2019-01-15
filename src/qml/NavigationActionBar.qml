@@ -90,6 +90,9 @@ FocusScope {
             Controls1.ToolButton {
                 action: goPreviousAction
                 objectName: 'goPreviousButton'
+
+                Keys.onReturnPressed: action.trigger()
+
                 Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
                 Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
                 visible: enableGoBack
@@ -196,6 +199,7 @@ FocusScope {
                         iconName: "media-track-add-amarok"
 
                         onClicked: enqueue()
+                        Keys.onReturnPressed: enqueue()
 
                         Layout.leftMargin: 0
                         Layout.rightMargin: 0
@@ -208,6 +212,7 @@ FocusScope {
                         iconName: "media-playback-start"
 
                         onClicked: replaceAndPlay()
+                        Keys.onReturnPressed: replaceAndPlay()
 
                         Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
                         Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
@@ -222,6 +227,7 @@ FocusScope {
                         iconName: "view-media-artist"
 
                         onClicked: showArtist()
+                        Keys.onReturnPressed: showArtist()
 
                         Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
                         Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
@@ -234,6 +240,8 @@ FocusScope {
                     Controls1.ToolButton {
                         action: showFilterAction
                         objectName: 'showFilterButton'
+
+                        Keys.onReturnPressed: action.trigger()
 
                         Layout.alignment: Qt.AlignRight
                         Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
@@ -355,6 +363,8 @@ FocusScope {
             Controls1.ToolButton {
                 action: sortAction
                 objectName: 'sortAscendingButton'
+
+                Keys.onReturnPressed: action.trigger()
 
                 Layout.alignment: Qt.AlignRight
                 Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0

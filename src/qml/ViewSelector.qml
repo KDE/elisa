@@ -25,12 +25,19 @@ import org.kde.elisa 1.0
 FocusScope {
     id: rootFocusScope
 
-    property alias currentIndex: viewModeView.currentIndex
+    readonly property alias currentIndex: viewModeView.currentIndex
     property double textOpacity
     property double maximumSize
     property alias model: pageDelegateModel.model
 
     signal switchView(var viewType)
+
+    function setCurrentIndex(index)
+    {
+        viewModeView.ignoreCurrentItemChanges = true
+        viewModeView.currentIndex = index
+        viewModeView.ignoreCurrentItemChanges = false
+    }
 
     implicitWidth: elisaTheme.dp(500)
 
@@ -58,6 +65,8 @@ FocusScope {
                 focus: true
                 activeFocusOnTab: true
                 keyNavigationEnabled: true
+
+                property bool ignoreCurrentItemChanges: false
 
                 z: 2
 
@@ -194,7 +203,7 @@ FocusScope {
                     }
                 }
 
-                onCurrentItemChanged: switchView(currentItem.viewType)
+                onCurrentItemChanged: if (!ignoreCurrentItemChanges) switchView(currentItem.viewType)
             }
         }
 

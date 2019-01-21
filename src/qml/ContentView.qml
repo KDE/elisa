@@ -38,7 +38,7 @@ RowLayout {
         id: viewManager
 
         onSwitchOffAllViews: {
-            listViews.currentIndex = pageModel.indexFromViewType(viewType)
+            listViews.setCurrentIndex(pageModel.indexFromViewType(viewType))
 
             while(browseStackView.depth > 1) {
                 browseStackView.pop()
@@ -46,7 +46,7 @@ RowLayout {
         }
 
         onSwitchRecentlyPlayedTracksView: {
-            listViews.currentIndex = pageModel.indexFromViewType(viewType)
+            listViews.setCurrentIndex(pageModel.indexFromViewType(viewType))
 
             while(browseStackView.depth > expectedDepth) {
                 browseStackView.pop()
@@ -63,7 +63,7 @@ RowLayout {
         }
 
         onSwitchFrequentlyPlayedTracksView: {
-            listViews.currentIndex = pageModel.indexFromViewType(viewType)
+            listViews.setCurrentIndex(pageModel.indexFromViewType(viewType))
 
             while(browseStackView.depth > expectedDepth) {
                 browseStackView.pop()
@@ -81,7 +81,7 @@ RowLayout {
 
         onOpenGridView: {
             if (expectedDepth === 1) {
-                listViews.currentIndex = pageModel.indexFromViewType(viewType)
+                listViews.setCurrentIndex(pageModel.indexFromViewType(viewType))
             }
 
             while(browseStackView.depth > expectedDepth) {
@@ -121,7 +121,7 @@ RowLayout {
         }
 
         onSwitchAllTracksView: {
-            listViews.currentIndex = pageModel.indexFromViewType(viewType)
+            listViews.setCurrentIndex(pageModel.indexFromViewType(viewType))
 
             while(browseStackView.depth > expectedDepth) {
                 browseStackView.pop()
@@ -138,7 +138,7 @@ RowLayout {
         }
 
         onSwitchFilesBrowserView: {
-            listViews.currentIndex = pageModel.indexFromViewType(viewType)
+            listViews.setCurrentIndex(pageModel.indexFromViewType(viewType))
 
             while(browseStackView.depth > expectedDepth) {
                 browseStackView.pop()

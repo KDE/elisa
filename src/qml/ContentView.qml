@@ -401,7 +401,6 @@ RowLayout {
                 when: listViews.currentIndex === 0
                 PropertyChanges {
                     target: mainContentView
-                    Layout.fillWidth: false
                     Layout.minimumWidth: 0
                     Layout.maximumWidth: 0
                     Layout.preferredWidth: 0
@@ -437,7 +436,6 @@ RowLayout {
                 extend: "browsingViews"
                 PropertyChanges {
                     target: mainContentView
-                    Layout.fillWidth: true
                     Layout.minimumWidth: contentZone.width
                     Layout.maximumWidth: contentZone.width
                     Layout.preferredWidth: contentZone.width
@@ -454,7 +452,6 @@ RowLayout {
                 when: listViews.currentIndex !== 0
                 PropertyChanges {
                     target: mainContentView
-                    Layout.fillWidth: true
                     Layout.minimumWidth: contentZone.width * 0.66
                     Layout.maximumWidth: contentZone.width * 0.68
                     Layout.preferredWidth: contentZone.width * 0.68

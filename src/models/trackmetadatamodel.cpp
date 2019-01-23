@@ -50,58 +50,58 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
         switch (currentKey)
         {
         case DatabaseInterface::TitleRole:
-            result = i18nc("Track title for track metadata view", "Title:");
+            result = i18nc("Track title for track metadata view", "Title");
             break;
         case DatabaseInterface::DurationRole:
-            result = i18nc("Duration label for track metadata view", "Duration:");
+            result = i18nc("Duration label for track metadata view", "Duration");
             break;
         case DatabaseInterface::ArtistRole:
-            result = i18nc("Track artist for track metadata view", "Artist:");
+            result = i18nc("Track artist for track metadata view", "Artist");
             break;
         case DatabaseInterface::AlbumRole:
-            result = i18nc("Album name for track metadata view", "Album:");
+            result = i18nc("Album name for track metadata view", "Album");
             break;
         case DatabaseInterface::AlbumArtistRole:
-            result = i18nc("Album artist for track metadata view", "Album Artist:");
+            result = i18nc("Album artist for track metadata view", "Album Artist");
             break;
         case DatabaseInterface::TrackNumberRole:
-            result = i18nc("Track number for track metadata view", "Track Number:");
+            result = i18nc("Track number for track metadata view", "Track Number");
             break;
         case DatabaseInterface::DiscNumberRole:
-            result = i18nc("Disc number for track metadata view", "Disc Number:");
+            result = i18nc("Disc number for track metadata view", "Disc Number");
             break;
         case DatabaseInterface::RatingRole:
-            result = i18nc("Rating label for information panel", "Rating:");
+            result = i18nc("Rating label for information panel", "Rating");
             break;
         case DatabaseInterface::GenreRole:
-            result = i18nc("Genre label for track metadata view", "Genre:");
+            result = i18nc("Genre label for track metadata view", "Genre");
             break;
         case DatabaseInterface::LyricistRole:
-            result = i18nc("Lyricist label for track metadata view", "Lyricist:");
+            result = i18nc("Lyricist label for track metadata view", "Lyricist");
             break;
         case DatabaseInterface::ComposerRole:
-            result = i18nc("Composer name for track metadata view", "Composer:");
+            result = i18nc("Composer name for track metadata view", "Composer");
             break;
         case DatabaseInterface::CommentRole:
-            result = i18nc("Comment label for track metadata view", "Comment:");
+            result = i18nc("Comment label for track metadata view", "Comment");
             break;
         case DatabaseInterface::YearRole:
-            result = i18nc("Year label for track metadata view", "Year:");
+            result = i18nc("Year label for track metadata view", "Year");
             break;
         case DatabaseInterface::ChannelsRole:
-            result = i18nc("Channels label for track metadata view", "Channels:");
+            result = i18nc("Channels label for track metadata view", "Channels");
             break;
         case DatabaseInterface::BitRateRole:
-            result = i18nc("Bit rate label for track metadata view", "Bit Rate:");
+            result = i18nc("Bit rate label for track metadata view", "Bit Rate");
             break;
         case DatabaseInterface::SampleRateRole:
-            result = i18nc("Sample Rate label for track metadata view", "Sample Rate:");
+            result = i18nc("Sample Rate label for track metadata view", "Sample Rate");
             break;
         case DatabaseInterface::LastPlayDate:
-            result = i18nc("Last play date label for track metadata view", "Last played:");
+            result = i18nc("Last play date label for track metadata view", "Last played");
             break;
         case DatabaseInterface::PlayCounter:
-            result = i18nc("Play counter label for track metadata view", "Play count:");
+            result = i18nc("Play counter label for track metadata view", "Play count");
             break;
         case DatabaseInterface::SecondaryTextRole:
         case DatabaseInterface::ImageUrlRole:

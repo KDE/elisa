@@ -157,7 +157,7 @@ Window {
 
             Label {
                 id: metaDataLabels
-                text: model.name
+                text: i18nc('name of a property for the track metadata detailled view', '%1:', model.name)
                 color: myPalette.text
                 horizontalAlignment: Text.AlignRight
 

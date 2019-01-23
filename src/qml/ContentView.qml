@@ -430,9 +430,9 @@ RowLayout {
                 }
                 PropertyChanges {
                     target: playList
-                    Layout.minimumWidth: contentZone.width / 2
-                    Layout.maximumWidth: contentZone.width / 2
-                    Layout.preferredWidth: contentZone.width / 2
+                    Layout.minimumWidth: contentZone.width * 2 / 5
+                    Layout.maximumWidth: contentZone.width * 2 / 5
+                    Layout.preferredWidth: contentZone.width * 2 / 5
                 }
                 PropertyChanges {
                     target: viewSeparatorItem
@@ -442,9 +442,9 @@ RowLayout {
                 }
                 PropertyChanges {
                     target: albumContext
-                    Layout.minimumWidth: contentZone.width / 2
-                    Layout.maximumWidth: contentZone.width / 2
-                    Layout.preferredWidth: contentZone.width / 2
+                    Layout.minimumWidth: contentZone.width * 3 / 5
+                    Layout.maximumWidth: contentZone.width * 3 / 5
+                    Layout.preferredWidth: contentZone.width * 3 / 5
                 }
             },
             State {

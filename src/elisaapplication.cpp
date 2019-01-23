@@ -388,6 +388,7 @@ void ElisaApplication::initializePlayer()
     d->mManageHeaderBar->setAlbumArtistRole(MediaPlayList::AlbumArtistRole);
     d->mManageHeaderBar->setArtistRole(MediaPlayList::ArtistRole);
     d->mManageHeaderBar->setImageRole(MediaPlayList::ImageUrlRole);
+    d->mManageHeaderBar->setDatabaseIdRole(MediaPlayList::DatabaseIdRole);
     d->mManageHeaderBar->setAlbumIdRole(MediaPlayList::AlbumIdRole);
     d->mManageHeaderBar->setIsValidRole(MediaPlayList::IsValidRole);
     d->mManageHeaderBar->setPlayListModel(d->mMediaPlayList.get());

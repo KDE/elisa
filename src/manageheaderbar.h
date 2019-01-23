@@ -66,6 +66,11 @@ class ELISALIB_EXPORT ManageHeaderBar : public QObject
                WRITE setImageRole
                NOTIFY imageRoleChanged)
 
+    Q_PROPERTY(int databaseIdRole
+               READ databaseIdRole
+               WRITE setDatabaseIdRole
+               NOTIFY databaseIdRoleChanged)
+
     Q_PROPERTY(int albumIdRole
                READ albumIdRole
                WRITE setAlbumIdRole
@@ -95,6 +100,10 @@ class ELISALIB_EXPORT ManageHeaderBar : public QObject
     Q_PROPERTY(QUrl image
                READ image
                NOTIFY imageChanged)
+
+    Q_PROPERTY(qulonglong databaseId
+               READ databaseId
+               NOTIFY databaseIdChanged)
 
     Q_PROPERTY(qulonglong albumId
                READ albumId
@@ -126,6 +135,8 @@ public:
 
     int imageRole() const;
 
+    int databaseIdRole() const;
+
     int albumIdRole() const;
 
     int isValidRole() const;
@@ -139,6 +150,8 @@ public:
     QVariant albumArtist() const;
 
     QUrl image() const;
+
+    qulonglong databaseId() const;
 
     qulonglong albumId() const;
 
@@ -162,6 +175,8 @@ Q_SIGNALS:
 
     void imageRoleChanged();
 
+    void databaseIdRoleChanged();
+
     void albumIdRoleChanged();
 
     void isValidRoleChanged();
@@ -177,6 +192,8 @@ Q_SIGNALS:
     void imageChanged();
 
     void remainingTracksChanged();
+
+    void databaseIdChanged();
 
     void albumIdChanged();
 
@@ -197,6 +214,8 @@ public Q_SLOTS:
     void setAlbumArtistRole(int value);
 
     void setImageRole(int value);
+
+    void setDatabaseIdRole(int databaseIdRole);
 
     void setAlbumIdRole(int albumIdRole);
 
@@ -226,6 +245,8 @@ private:
 
     void notifyImageProperty();
 
+    void notifyDatabaseIdProperty();
+
     void notifyAlbumIdProperty();
 
     void notifyIsValidProperty();
@@ -246,6 +267,8 @@ private:
 
     int mImageRole = Qt::DisplayRole;
 
+    int mDatabaseIdRole = Qt::DisplayRole;
+
     int mAlbumIdRole = Qt::DisplayRole;
 
     int mIsValidRole = Qt::DisplayRole;
@@ -259,6 +282,8 @@ private:
     QVariant mOldAlbumArtist;
 
     QVariant mOldImage;
+
+    qulonglong mOldDatabaseId = 0;
 
     qulonglong mOldAlbumId = 0;
 

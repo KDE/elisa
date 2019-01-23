@@ -78,9 +78,20 @@ void ManageHeaderBar::setImageRole(int value)
     Q_EMIT imageRoleChanged();
 }
 
+void ManageHeaderBar::setDatabaseIdRole(int databaseIdRole)
+{
+    mDatabaseIdRole = databaseIdRole;
+    Q_EMIT databaseIdRoleChanged();
+}
+
 int ManageHeaderBar::imageRole() const
 {
     return mImageRole;
+}
+
+int ManageHeaderBar::databaseIdRole() const
+{
+    return mDatabaseIdRole;
 }
 
 void ManageHeaderBar::setAlbumIdRole(int albumIdRole)
@@ -137,6 +148,15 @@ QUrl ManageHeaderBar::image() const
     }
 
     return mCurrentTrack.data(mImageRole).toUrl();
+}
+
+qulonglong ManageHeaderBar::databaseId() const
+{
+    if (!mCurrentTrack.isValid()) {
+        return 0;
+    }
+
+    return mCurrentTrack.data(mDatabaseIdRole).toULongLong();
 }
 
 qulonglong ManageHeaderBar::albumId() const
@@ -222,6 +242,7 @@ void ManageHeaderBar::tracksDataChanged(const QModelIndex &topLeft, const QModel
         notifyAlbumProperty();
         notifyAlbumArtistProperty();
         notifyImageProperty();
+        notifyDatabaseIdProperty();
         notifyAlbumIdProperty();
         notifyIsValidProperty();
     } else {
@@ -240,6 +261,9 @@ void ManageHeaderBar::tracksDataChanged(const QModelIndex &topLeft, const QModel
             }
             if (oneRole == mImageRole) {
                 notifyImageProperty();
+            }
+            if (oneRole == mDatabaseIdRole) {
+                notifyDatabaseIdProperty();
             }
             if (oneRole == mAlbumIdRole) {
                 notifyAlbumIdProperty();
@@ -288,6 +312,7 @@ void ManageHeaderBar::tracksRemoved(const QModelIndex &parent, int first, int la
         notifyAlbumProperty();
         notifyAlbumArtistProperty();
         notifyImageProperty();
+        notifyDatabaseIdProperty();
         notifyAlbumIdProperty();
         notifyIsValidProperty();
         notifyRemainingTracksProperty();
@@ -345,6 +370,21 @@ void ManageHeaderBar::notifyImageProperty()
         Q_EMIT imageChanged();
 
         mOldImage = newImageValue;
+    }
+}
+
+void ManageHeaderBar::notifyDatabaseIdProperty()
+{
+    bool conversionOk;
+    auto newDatabaseIdValue = mCurrentTrack.data(mDatabaseIdRole).toULongLong(&conversionOk);
+    if (conversionOk && mOldDatabaseId != newDatabaseIdValue) {
+        Q_EMIT databaseIdChanged();
+
+        mOldDatabaseId = newDatabaseIdValue;
+    } else if (!conversionOk && mOldDatabaseId != 0) {
+        Q_EMIT databaseIdChanged();
+
+        mOldDatabaseId = 0;
     }
 }
 
@@ -410,6 +450,7 @@ void ManageHeaderBar::setCurrentTrack(const QPersistentModelIndex &currentTrack)
     notifyAlbumProperty();
     notifyAlbumArtistProperty();
     notifyImageProperty();
+    notifyDatabaseIdProperty();
     notifyAlbumIdProperty();
     notifyIsValidProperty();
 }

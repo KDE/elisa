@@ -154,8 +154,6 @@ void FileScanner::scanProperties(const QString &localFileName, MusicAudioTrack &
 
     if (discNumberProperty != d->mAllProperties.end()) {
         trackData.setDiscNumber(discNumberProperty->toInt());
-    } else {
-        trackData.setDiscNumber(1);
     }
 
     if (albumArtistProperty != d->mAllProperties.end()) {

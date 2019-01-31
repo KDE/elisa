@@ -464,9 +464,9 @@ RowLayout {
                 }
                 PropertyChanges {
                     target: playList
-                    Layout.minimumWidth: contentZone.width * 0.33
-                    Layout.maximumWidth: contentZone.width * 0.33
-                    Layout.preferredWidth: contentZone.width * 0.33
+                    Layout.minimumWidth: contentZone.width * 0.33 - 3 * elisaTheme.layoutHorizontalMargin + 2
+                    Layout.maximumWidth: contentZone.width * 0.33 - 3 * elisaTheme.layoutHorizontalMargin + 2
+                    Layout.preferredWidth: contentZone.width * 0.33 - 3 * elisaTheme.layoutHorizontalMargin + 2
                 }
                 PropertyChanges {
                     target: viewSeparatorItem

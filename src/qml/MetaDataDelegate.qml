@@ -103,12 +103,4 @@ RowLayout {
             }
         }
     }
-
-    Component.onCompleted: {
-        console.log("hello world")
-    }
-
-    Component.onDestruction: {
-        console.log("bye cruel world")
-    }
 }

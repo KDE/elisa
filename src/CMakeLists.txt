@@ -28,6 +28,7 @@ set(elisaLib_SOURCES
     models/alltracksproxymodel.cpp
     models/singlealbumproxymodel.cpp
     models/trackmetadatamodel.cpp
+    models/trackcontextmetadatamodel.cpp
     models/viewsmodel.cpp
 )
 

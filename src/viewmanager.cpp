@@ -83,6 +83,8 @@ void ViewManager::openChildView(const QString &innerMainTitle, const QString &in
         break;
     case ElisaUtils::Track:
     case ElisaUtils::FileName:
+    case ElisaUtils::Lyricist:
+    case ElisaUtils::Composer:
     case ElisaUtils::Unknown:
         break;
     }

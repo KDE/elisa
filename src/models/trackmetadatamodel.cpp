@@ -259,11 +259,14 @@ const QUrl &TrackMetadataModel::coverUrl() const
 
 void TrackMetadataModel::trackData(const TrackMetadataModel::TrackDataType &trackData)
 {
+    fillDataFromTrackData(trackData);
+}
+
+void TrackMetadataModel::fillDataFromTrackData(const TrackMetadataModel::TrackDataType &trackData)
+{
     beginResetModel();
-    if (mTrackData.isValid()) {
-        mTrackData.clear();
-        mTrackKeys.clear();
-    }
+    mTrackData.clear();
+    mTrackKeys.clear();
 
     for (auto role : {DatabaseInterface::TitleRole, DatabaseInterface::ArtistRole, DatabaseInterface::AlbumRole,
          DatabaseInterface::AlbumArtistRole, DatabaseInterface::TrackNumberRole, DatabaseInterface::DiscNumberRole,
@@ -281,6 +284,7 @@ void TrackMetadataModel::trackData(const TrackMetadataModel::TrackDataType &trac
             mTrackData[role] = trackData[role];
         }
     }
+    filterDataFromTrackData();
     endResetModel();
 
     mCoverImage = trackData[DatabaseInterface::ImageUrlRole].toUrl();
@@ -294,6 +298,21 @@ void TrackMetadataModel::trackData(const TrackMetadataModel::TrackDataType &trac
         mFileUrl = rawFileUrl.toString();
     }
     Q_EMIT fileUrlChanged();
+}
+
+void TrackMetadataModel::filterDataFromTrackData()
+{
+}
+
+void TrackMetadataModel::removeMetaData(DatabaseInterface::ColumnsRoles metaData)
+{
+    auto itMetaData = std::find(mTrackKeys.begin(), mTrackKeys.end(), metaData);
+    if (itMetaData == mTrackKeys.end()) {
+        return;
+    }
+
+    mTrackKeys.erase(itMetaData);
+    mTrackData.remove(metaData);
 }
 
 void TrackMetadataModel::initializeByTrackId(MusicListenersManager *manager, qulonglong databaseId)

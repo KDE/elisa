@@ -100,6 +100,14 @@ public Q_SLOTS:
 
     void initializeByTrackFileName(MusicListenersManager *manager, const QUrl &fileName);
 
+protected:
+
+    void fillDataFromTrackData(const TrackMetadataModel::TrackDataType &trackData);
+
+    virtual void filterDataFromTrackData();
+
+    void removeMetaData(DatabaseInterface::ColumnsRoles metaData);
+
 private:
 
     TrackDataType mTrackData;

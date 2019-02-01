@@ -377,6 +377,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         qml/PlayListAlbumHeader.qml
         qml/BasicPlayListAlbumHeader.qml
 
+        qml/MetaDataDelegate.qml
         qml/MediaTrackDelegate.qml
         qml/MediaAlbumTrackDelegate.qml
         qml/MediaTrackMetadataView.qml

@@ -394,20 +394,30 @@ RowLayout {
                     Layout.maximumWidth: 1
                 }
 
-                ContextView {
+                Loader {
                     id: albumContext
+
+                    active: Layout.minimumWidth != 0
+
+                    sourceComponent: ContextView {
+
+                        anchors.fill: parent
+
+                        databaseId: elisa.manageHeaderBar.databaseId
+                        title: elisa.manageHeaderBar.title
+                        artistName: elisa.manageHeaderBar.artist
+                        albumName: elisa.manageHeaderBar.album
+                        albumArtUrl: elisa.manageHeaderBar.image
+                    }
 
                     Layout.fillHeight: true
 
                     Layout.minimumWidth: contentZone.width
                     Layout.maximumWidth: contentZone.width
                     Layout.preferredWidth: contentZone.width
+                    Layout.leftMargin: elisaTheme.layoutHorizontalMargin * 3
 
                     visible: Layout.minimumWidth != 0
-
-                    artistName: elisa.manageHeaderBar.artist
-                    albumName: elisa.manageHeaderBar.album
-                    albumArtUrl: elisa.manageHeaderBar.image
                 }
             }
         }

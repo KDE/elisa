@@ -15,154 +15,129 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.7
+import QtQuick 2.10
 import QtQuick.Window 2.2
 import QtQuick.Controls 2.2
 import QtQml.Models 2.2
-import org.kde.elisa 1.0
 import QtQuick.Layouts 1.2
 
-Item {
+import org.kde.elisa 1.0
+
+FocusScope {
     id: topItem
 
-    property var albumName
-    property var artistName
-    property var tracksCount
-    property var albumArtUrl
+    property int databaseId: 0
+    property alias title: titleLabel.text
+    property string albumName: ''
+    property string artistName: ''
+    property url albumArtUrl: ''
+
+    TrackContextMetaDataModel {
+        id: metaDataModel
+
+        manager: elisa.musicManager
+    }
 
     ColumnLayout {
         anchors.fill: parent
 
         spacing: 0
 
-        Item {
-            Layout.fillHeight: true
+        TextMetrics {
+            id: titleHeight
+            text: viewTitleHeight.text
+            font
+            {
+                pointSize: viewTitleHeight.font.pointSize
+                bold: viewTitleHeight.font.bold
+            }
+        }
+
+        LabelWithToolTip {
+            id: viewTitleHeight
+            text: i18nc("Title of the context view related to the currently playing track", "Now Playing")
+
+            font.pointSize: elisaTheme.defaultFontPointSize * 2
+
+            Layout.alignment: Qt.AlignLeft | Qt.AlignTop
+            Layout.topMargin: elisaTheme.layoutVerticalMargin * 3
+            Layout.bottomMargin: titleHeight.height
         }
 
         Image {
             id: albumIcon
 
             source: albumArtUrl.toString() === '' ? Qt.resolvedUrl(elisaTheme.defaultAlbumImage) : albumArtUrl
-            Layout.preferredWidth: elisaTheme.coverImageSize
-            Layout.preferredHeight: elisaTheme.coverImageSize
-            Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-            Layout.maximumWidth: elisaTheme.coverImageSize
+
+            Layout.fillWidth: true
             Layout.maximumHeight: elisaTheme.coverImageSize
+            Layout.preferredHeight: elisaTheme.coverImageSize
+
             Layout.bottomMargin: elisaTheme.layoutVerticalMargin
 
             width: elisaTheme.coverImageSize
             height: elisaTheme.coverImageSize
 
-            sourceSize.width: elisaTheme.coverImageSize
+            sourceSize.width: parent.width
             sourceSize.height: elisaTheme.coverImageSize
 
             asynchronous: true
 
-            fillMode: Image.PreserveAspectFit
+            fillMode: Image.PreserveAspectCrop
         }
 
         LabelWithToolTip {
             id: titleLabel
 
-            text: if (albumName !== undefined)
-                      albumName
-                  else
-                      ''
-
+            font.pointSize: elisaTheme.defaultFontPointSize * 2
             font.weight: Font.Bold
-            color: myPalette.text
 
-            horizontalAlignment: Text.AlignHCenter
-
-            Layout.fillWidth: true
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
-            Layout.bottomMargin: elisaTheme.layoutVerticalMargin
+            Layout.alignment: Qt.AlignLeft | Qt.AlignTop
+            Layout.topMargin: elisaTheme.layoutVerticalMargin
 
             elide: Text.ElideRight
         }
 
         LabelWithToolTip {
-            id: artistLabel
+            id: albumArtistLabel
 
-            text: if (artistName !== undefined)
-                      artistName
-                  else
-                      ''
+            text: i18nc('display of artist and album in context view', '<i>by</i> <b>%1</b> <i>from</i> <b>%2</b>', artistName, albumName)
 
-            font.weight: Font.Normal
-            color: myPalette.text
+            font.pointSize: elisaTheme.defaultFontPointSize * 1.4
 
-            horizontalAlignment: Text.AlignHCenter
-
-            Layout.fillWidth: true
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
+            Layout.alignment: Qt.AlignLeft | Qt.AlignTop
+            Layout.bottomMargin: elisaTheme.layoutVerticalMargin
 
             elide: Text.ElideRight
         }
 
-        LabelWithToolTip {
-            id: numberLabel
+        Repeater {
+            model: metaDataModel
 
-            text: i18np("1 track", "%1 track", tracksCount)
-
-            visible: tracksCount !== undefined
-
-            font.weight: Font.Light
-            color: myPalette.text
-
-            horizontalAlignment: Text.AlignHCenter
-
-            Layout.fillWidth: true
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
-            Layout.bottomMargin: elisaTheme.layoutVerticalMargin
-
-            elide: Text.ElideRight
+            delegate: MetaDataDelegate {
+            }
         }
 
         Item {
             Layout.fillHeight: true
         }
+    }
 
-        RowLayout {
-            Layout.fillWidth: true
-            Layout.bottomMargin: elisaTheme.layoutVerticalMargin * 2
+    onDatabaseIdChanged: {
+        metaDataModel.initializeByTrackId(databaseId)
+    }
 
-            spacing: 0
+    Connections {
+        target: elisa
 
-            Image {
-                id: artistJumpIcon
+        onMusicManagerChanged: {
+            metaDataModel.initializeByTrackId(databaseId)
+        }
+    }
 
-                source: Qt.resolvedUrl(elisaTheme.defaultArtistImage)
-
-                Layout.preferredWidth: elisaTheme.smallImageSize
-                Layout.preferredHeight: elisaTheme.smallImageSize
-                Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-                Layout.maximumWidth: elisaTheme.smallImageSize
-                Layout.maximumHeight: elisaTheme.smallImageSize
-                Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-                Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-
-                visible: artistName !== undefined
-                width: elisaTheme.smallImageSize
-                height: elisaTheme.smallImageSize
-
-                sourceSize.width: elisaTheme.smallImageSize
-                sourceSize.height: elisaTheme.smallImageSize
-
-                fillMode: Image.PreserveAspectFit
-            }
-
-            LabelWithToolTip {
-                text: if (artistName !== undefined)
-                          artistName
-                      else
-                          ''
-
-                font.weight: Font.Normal
-                color: myPalette.text
-
-                horizontalAlignment: Text.AlignLeft
-            }
+    Component.onCompleted: {
+        if (elisa.musicManager) {
+            metaDataModel.initializeByTrackId(databaseId)
         }
     }
 }

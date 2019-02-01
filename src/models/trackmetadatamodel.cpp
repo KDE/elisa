@@ -223,33 +223,9 @@ QHash<int, QByteArray> TrackMetadataModel::roleNames() const
     return names;
 }
 
-Qt::ItemFlags TrackMetadataModel::flags(const QModelIndex &index) const
-{
-    if (!index.isValid())
-        return Qt::NoItemFlags;
-
-    return Qt::ItemIsEditable | QAbstractListModel::flags(index);
-}
-
 QString TrackMetadataModel::fileUrl() const
 {
     return mFileUrl;
-}
-
-bool TrackMetadataModel::insertRows(int row, int count, const QModelIndex &parent)
-{
-    beginInsertRows(parent, row, row + count - 1);
-    endInsertRows();
-
-    return true;
-}
-
-bool TrackMetadataModel::removeRows(int row, int count, const QModelIndex &parent)
-{
-    beginRemoveRows(parent, row, row + count - 1);
-    endRemoveRows();
-
-    return true;
 }
 
 const QUrl &TrackMetadataModel::coverUrl() const

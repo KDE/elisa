@@ -72,12 +72,6 @@ public:
 
     QHash<int, QByteArray> roleNames() const override;
 
-    Qt::ItemFlags flags(const QModelIndex& index) const override;
-
-    bool insertRows(int row, int count, const QModelIndex &parent = QModelIndex()) override;
-
-    bool removeRows(int row, int count, const QModelIndex &parent = QModelIndex()) override;
-
     const QUrl& coverUrl() const;
 
     QString fileUrl() const;

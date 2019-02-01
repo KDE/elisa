@@ -73,6 +73,7 @@ Item {
     property int trackDelegateHeight: dp(45)
 
     property int coverImageSize: dp(180)
+    property int contextCoverImageSize: dp(100)
     property int smallImageSize: dp(32)
 
     property int maximumMetadataWidth: dp(300)

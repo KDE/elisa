@@ -70,16 +70,16 @@ FocusScope {
             source: albumArtUrl.toString() === '' ? Qt.resolvedUrl(elisaTheme.defaultAlbumImage) : albumArtUrl
 
             Layout.fillWidth: true
-            Layout.maximumHeight: elisaTheme.coverImageSize
-            Layout.preferredHeight: elisaTheme.coverImageSize
+            Layout.maximumHeight: elisaTheme.contextCoverImageSize
+            Layout.preferredHeight: elisaTheme.contextCoverImageSize
 
             Layout.bottomMargin: elisaTheme.layoutVerticalMargin
 
-            width: elisaTheme.coverImageSize
-            height: elisaTheme.coverImageSize
+            width: elisaTheme.contextCoverImageSize
+            height: elisaTheme.contextCoverImageSize
 
             sourceSize.width: parent.width
-            sourceSize.height: elisaTheme.coverImageSize
+            sourceSize.height: elisaTheme.contextCoverImageSize
 
             asynchronous: true
 

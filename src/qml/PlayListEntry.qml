@@ -44,7 +44,6 @@ FocusScope {
     property int trackNumber
     property int discNumber
     property int rating
-    property bool hasAlbumHeader
     property bool hasValidDiscNumber: true
     property int scrollBarWidth
     property bool noBackground: false
@@ -54,7 +53,7 @@ FocusScope {
     signal removeFromPlaylist(var trackIndex)
     signal switchToTrack(var trackIndex)
 
-    height: (hasAlbumHeader ? elisaTheme.playListDelegateWithHeaderHeight : elisaTheme.playListDelegateHeight)
+    height: elisaTheme.playListDelegateHeight
 
     Controls1.Action {
         id: removeFromPlayList
@@ -122,7 +121,7 @@ FocusScope {
 
         color: (isAlternateColor ? myPalette.alternateBase : myPalette.base)
 
-        height: (hasAlbumHeader ? elisaTheme.playListDelegateWithHeaderHeight : elisaTheme.playListDelegateHeight)
+        height: elisaTheme.playListDelegateHeight
 
         focus: true
 
@@ -130,118 +129,6 @@ FocusScope {
             spacing: 0
 
             anchors.fill: parent
-
-            Loader {
-                Layout.fillWidth: true
-                Layout.preferredHeight: elisaTheme.playListDelegateWithHeaderHeight - elisaTheme.playListDelegateHeight
-                Layout.minimumHeight: elisaTheme.playListDelegateWithHeaderHeight - elisaTheme.playListDelegateHeight
-                Layout.maximumHeight: elisaTheme.playListDelegateWithHeaderHeight - elisaTheme.playListDelegateHeight
-
-                visible: hasAlbumHeader
-                active: hasAlbumHeader
-
-                sourceComponent: Rectangle {
-                    color: myPalette.midlight
-
-                    anchors.fill: parent
-
-                    RowLayout {
-                        id: headerRow
-
-                        spacing: elisaTheme.layoutHorizontalMargin
-
-                        anchors.fill: parent
-                        anchors.topMargin: elisaTheme.layoutVerticalMargin * 1.5
-                        anchors.bottomMargin: elisaTheme.layoutVerticalMargin * 1.5
-
-                        Image {
-                            id: mainIcon
-
-                            source: (isValid ? (imageUrl != '' ? imageUrl : Qt.resolvedUrl(elisaTheme.defaultAlbumImage)) : Qt.resolvedUrl(elisaTheme.errorIcon))
-
-                            Layout.minimumWidth: headerRow.height
-                            Layout.maximumWidth: headerRow.height
-                            Layout.preferredWidth: headerRow.height
-                            Layout.minimumHeight: headerRow.height
-                            Layout.maximumHeight: headerRow.height
-                            Layout.preferredHeight: headerRow.height
-                            Layout.leftMargin: !LayoutMirroring.enabled ?
-                                                   (elisaTheme.smallDelegateToolButtonSize +
-                                                    trackNumberSize.width +
-                                                    fakeDiscNumberSize.width +
-                                                    (elisaTheme.layoutHorizontalMargin * 5 / 4) -
-                                                    headerRow.height) :
-                                                   0
-                            Layout.rightMargin: LayoutMirroring.enabled ?
-                                                    (elisaTheme.smallDelegateToolButtonSize +
-                                                     trackNumberSize.width +
-                                                     fakeDiscNumberSize.width +
-                                                     (elisaTheme.layoutHorizontalMargin * 5 / 4) -
-                                                     headerRow.height) :
-                                                    0
-                            Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-
-                            sourceSize.width: headerRow.height
-                            sourceSize.height: headerRow.height
-
-                            fillMode: Image.PreserveAspectFit
-                            asynchronous: true
-
-                            opacity: isValid ? 1 : 0.5
-                        }
-
-                        ColumnLayout {
-                            id: albumHeaderTextColumn
-
-                            Layout.fillWidth: true
-                            Layout.fillHeight: true
-                            Layout.leftMargin: !LayoutMirroring.enabled ? - elisaTheme.layoutHorizontalMargin / 4 : 0
-                            Layout.rightMargin: LayoutMirroring.enabled ? - elisaTheme.layoutHorizontalMargin / 4 : 0
-
-                            spacing: 0
-
-                            LabelWithToolTip {
-                                id: mainLabel
-
-                                text: album
-
-                                font.weight: Font.Bold
-                                font.pointSize: elisaTheme.defaultFontPointSize * 1.4
-                                color: myPalette.text
-
-                                horizontalAlignment: Text.AlignLeft
-
-                                Layout.fillWidth: true
-                                Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
-                                Layout.topMargin: elisaTheme.layoutVerticalMargin
-
-                                elide: Text.ElideRight
-                            }
-
-                            Item {
-                                Layout.fillHeight: true
-                            }
-
-                            LabelWithToolTip {
-                                id: authorLabel
-
-                                text: albumArtist
-
-                                font.weight: Font.Light
-                                color: myPalette.text
-
-                                horizontalAlignment: Text.AlignLeft
-
-                                Layout.fillWidth: true
-                                Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
-                                Layout.bottomMargin: elisaTheme.layoutVerticalMargin
-
-                                elide: Text.ElideRight
-                            }
-                        }
-                    }
-                }
-            }
 
             Item {
                 Layout.fillWidth: true

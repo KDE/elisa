@@ -69,6 +69,9 @@ Item {
                                                    elisaTheme.layoutVerticalMargin * 5 +
                                                    playListAuthorTextHeight.height +
                                                    playListAlbumTextHeight.height
+    property int playListHeaderHeight: elisaTheme.layoutVerticalMargin * 5 +
+                                       playListAuthorTextHeight.height +
+                                       playListAlbumTextHeight.height
 
     property int trackDelegateHeight: dp(45)
 

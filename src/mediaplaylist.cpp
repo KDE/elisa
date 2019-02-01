@@ -25,6 +25,8 @@
 #include <QList>
 #include <QMediaPlaylist>
 #include <QFileInfo>
+#include <QJsonArray>
+#include <QJsonDocument>
 #include <QDebug>
 
 #include <algorithm>
@@ -101,7 +103,6 @@ QHash<int, QByteArray> MediaPlayList::roleNames() const
     roles[static_cast<int>(ColumnsRoles::SampleRateRole)] = "sampleRate";
     roles[static_cast<int>(ColumnsRoles::CountRole)] = "count";
     roles[static_cast<int>(ColumnsRoles::IsPlayingRole)] = "isPlaying";
-    roles[static_cast<int>(ColumnsRoles::HasAlbumHeader)] = "hasAlbumHeader";
     roles[static_cast<int>(ColumnsRoles::IsSingleDiscAlbumRole)] = "isSingleDiscAlbum";
     roles[static_cast<int>(ColumnsRoles::SecondaryTextRole)] = "secondaryText";
     roles[static_cast<int>(ColumnsRoles::ImageUrlRole)] = "imageUrl";
@@ -109,6 +110,7 @@ QHash<int, QByteArray> MediaPlayList::roleNames() const
     roles[static_cast<int>(ColumnsRoles::ResourceRole)] = "trackResource";
     roles[static_cast<int>(ColumnsRoles::TrackDataRole)] = "trackData";
     roles[static_cast<int>(ColumnsRoles::AlbumIdRole)] = "albumId";
+    roles[static_cast<int>(ColumnsRoles::AlbumSectionRole)] = "albumSection";
 
     return roles;
 }
@@ -123,9 +125,6 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
         case ColumnsRoles::IsValidRole:
             result = d->mData[index.row()].mIsValid;
             break;
-        case ColumnsRoles::HasAlbumHeader:
-            result = rowHasHeader(index.row());
-            break;
         case ColumnsRoles::IsPlayingRole:
             result = d->mData[index.row()].mIsPlaying;
             break;
@@ -139,6 +138,11 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
             }
             break;
         }
+        case ColumnsRoles::AlbumSectionRole:
+            result = QJsonDocument{QJsonArray{d->mTrackData[index.row()][TrackDataType::key_type::AlbumRole].toString(),
+                                              d->mTrackData[index.row()][TrackDataType::key_type::AlbumArtistRole].toString(),
+                                              d->mTrackData[index.row()][TrackDataType::key_type::ImageUrlRole].toUrl().toString()}}.toJson();
+            break;
         default:
             result = d->mTrackData[index.row()][static_cast<TrackDataType::key_type>(role)];
         }
@@ -166,9 +170,6 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
         case ColumnsRoles::TrackNumberRole:
             result = -1;
             break;
-        case ColumnsRoles::HasAlbumHeader:
-            result = rowHasHeader(index.row());
-            break;
         case ColumnsRoles::IsSingleDiscAlbumRole:
             result = false;
             break;
@@ -180,6 +181,11 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
             break;
         case ColumnsRoles::ShadowForImageRole:
             result = false;
+            break;
+        case ColumnsRoles::AlbumSectionRole:
+            result = QJsonDocument{QJsonArray{d->mData[index.row()].mAlbum.toString(),
+                                              d->mData[index.row()].mArtist.toString(),
+                                              QUrl(QStringLiteral("image://icon/error")).toString()}}.toJson();
             break;
         default:
             result = {};
@@ -201,7 +207,7 @@ bool MediaPlayList::setData(const QModelIndex &index, const QVariant &value, int
         return modelModified;
     }
 
-    if (role < ColumnsRoles::IsValidRole || role > ColumnsRoles::HasAlbumHeader) {
+    if (role < ColumnsRoles::IsValidRole || role > ColumnsRoles::IsPlayingRole) {
         return modelModified;
     }
 
@@ -233,12 +239,6 @@ bool MediaPlayList::removeRows(int row, int count, const QModelIndex &parent)
 {
     beginRemoveRows(parent, row, row + count - 1);
 
-    bool hadAlbumHeader = false;
-
-    if (rowCount() > row + count) {
-        hadAlbumHeader = rowHasHeader(row + count);
-    }
-
     for (int i = row, cpt = 0; cpt < count; ++i, ++cpt) {
         d->mData.removeAt(i);
         d->mTrackData.removeAt(i);
@@ -266,15 +266,6 @@ bool MediaPlayList::removeRows(int row, int count, const QModelIndex &parent)
     }
 
     Q_EMIT tracksCountChanged();
-
-    if (hadAlbumHeader != rowHasHeader(row)) {
-        Q_EMIT dataChanged(index(row, 0), index(row, 0), {ColumnsRoles::HasAlbumHeader});
-
-        if (!d->mCurrentTrack.isValid()) {
-            resetCurrentTrack();
-        }
-    }
-
     Q_EMIT persistentStateChanged();
 
     return false;
@@ -290,13 +281,6 @@ bool MediaPlayList::moveRows(const QModelIndex &sourceParent, int sourceRow, int
         return false;
     }
 
-    auto firstMovedTrackHasHeader = rowHasHeader(sourceRow);
-    auto nextTrackHasHeader = rowHasHeader(sourceRow + count);
-    auto futureNextTrackHasHeader = rowHasHeader(destinationChild);
-    if (sourceRow < destinationChild) {
-        nextTrackHasHeader = rowHasHeader(sourceRow + count);
-    }
-
     for (auto cptItem = 0; cptItem < count; ++cptItem) {
         if (sourceRow < destinationChild) {
             d->mData.move(sourceRow, destinationChild - 1);
@@ -308,60 +292,6 @@ bool MediaPlayList::moveRows(const QModelIndex &sourceParent, int sourceRow, int
     }
 
     endMoveRows();
-
-    if (sourceRow < destinationChild) {
-        if (firstMovedTrackHasHeader != rowHasHeader(destinationChild - count)) {
-            Q_EMIT dataChanged(index(destinationChild - count, 0), index(destinationChild - count, 0), {ColumnsRoles::HasAlbumHeader});
-
-            if (!d->mCurrentTrack.isValid()) {
-                resetCurrentTrack();
-            }
-        }
-    } else {
-        if (firstMovedTrackHasHeader != rowHasHeader(destinationChild)) {
-            Q_EMIT dataChanged(index(destinationChild, 0), index(destinationChild, 0), {ColumnsRoles::HasAlbumHeader});
-
-            if (!d->mCurrentTrack.isValid()) {
-                resetCurrentTrack();
-            }
-        }
-    }
-
-    if (sourceRow < destinationChild) {
-        if (nextTrackHasHeader != rowHasHeader(sourceRow)) {
-            Q_EMIT dataChanged(index(sourceRow, 0), index(sourceRow, 0), {ColumnsRoles::HasAlbumHeader});
-
-            if (!d->mCurrentTrack.isValid()) {
-                resetCurrentTrack();
-            }
-        }
-    } else {
-        if (nextTrackHasHeader != rowHasHeader(sourceRow + count)) {
-            Q_EMIT dataChanged(index(sourceRow + count, 0), index(sourceRow + count, 0), {ColumnsRoles::HasAlbumHeader});
-
-            if (!d->mCurrentTrack.isValid()) {
-                resetCurrentTrack();
-            }
-        }
-    }
-
-    if (sourceRow < destinationChild) {
-        if (futureNextTrackHasHeader != rowHasHeader(destinationChild + count - 1)) {
-            Q_EMIT dataChanged(index(destinationChild + count - 1, 0), index(destinationChild + count - 1, 0), {ColumnsRoles::HasAlbumHeader});
-
-            if (!d->mCurrentTrack.isValid()) {
-                resetCurrentTrack();
-            }
-        }
-    } else {
-        if (futureNextTrackHasHeader != rowHasHeader(destinationChild + count)) {
-            Q_EMIT dataChanged(index(destinationChild + count, 0), index(destinationChild + count, 0), {ColumnsRoles::HasAlbumHeader});
-
-            if (!d->mCurrentTrack.isValid()) {
-                resetCurrentTrack();
-            }
-        }
-    }
 
     Q_EMIT persistentStateChanged();
 
@@ -415,7 +345,7 @@ void MediaPlayList::enqueueRestoredEntry(const MediaPlayListEntry &newEntry)
     }
 
     if (!newEntry.mIsValid) {
-        Q_EMIT dataChanged(index(rowCount() - 1, 0), index(rowCount() - 1, 0), {MediaPlayList::HasAlbumHeader});
+        Q_EMIT dataChanged(index(rowCount() - 1, 0), index(rowCount() - 1, 0), {MediaPlayList::IsPlayingRole});
 
         if (!d->mCurrentTrack.isValid()) {
             resetCurrentTrack();
@@ -469,7 +399,7 @@ void MediaPlayList::enqueueFilesList(const ElisaUtils::EntryDataList &newEntries
     Q_EMIT tracksCountChanged();
     Q_EMIT persistentStateChanged();
 
-    Q_EMIT dataChanged(index(rowCount() - 1, 0), index(rowCount() - 1, 0), {MediaPlayList::HasAlbumHeader});
+    Q_EMIT dataChanged(index(rowCount() - 1, 0), index(rowCount() - 1, 0), {MediaPlayList::IsPlayingRole});
 }
 
 void MediaPlayList::enqueueTracksListById(const ElisaUtils::EntryDataList &newEntries)
@@ -490,7 +420,7 @@ void MediaPlayList::enqueueTracksListById(const ElisaUtils::EntryDataList &newEn
     Q_EMIT tracksCountChanged();
     Q_EMIT persistentStateChanged();
 
-    Q_EMIT dataChanged(index(rowCount() - 1, 0), index(rowCount() - 1, 0), {MediaPlayList::HasAlbumHeader});
+    Q_EMIT dataChanged(index(rowCount() - 1, 0), index(rowCount() - 1, 0), {MediaPlayList::IsPlayingRole});
 }
 
 void MediaPlayList::enqueueOneEntry(const ElisaUtils::EntryData &entryData, ElisaUtils::PlayListEntryType type)
@@ -1036,47 +966,6 @@ void MediaPlayList::trackInError(const QUrl &sourceInError, QMediaPlayer::Error 
             }
         }
     }
-}
-
-bool MediaPlayList::rowHasHeader(int row) const
-{
-    if (row >= rowCount()) {
-        return false;
-    }
-
-    if (row < 0) {
-        return false;
-    }
-
-    if (row - 1 < 0) {
-        return true;
-    }
-
-    auto currentAlbumTitle = QString();
-    auto currentAlbumArtist = QString();
-    if (d->mData[row].mIsValid) {
-        currentAlbumTitle = d->mTrackData[row].album();
-        currentAlbumArtist = d->mTrackData[row].albumArtist();
-    } else {
-        currentAlbumTitle = d->mData[row].mAlbum.toString();
-        currentAlbumArtist = d->mData[row].mArtist.toString();
-    }
-
-    auto previousAlbumTitle = QString();
-    auto previousAlbumArtist = QString();
-    if (d->mData[row - 1].mIsValid) {
-        previousAlbumTitle = d->mTrackData[row - 1].album();
-        previousAlbumArtist = d->mTrackData[row - 1].albumArtist();
-    } else {
-        previousAlbumTitle = d->mData[row - 1].mAlbum.toString();
-        previousAlbumArtist = d->mData[row - 1].mArtist.toString();
-    }
-
-    if (currentAlbumTitle == previousAlbumTitle && currentAlbumArtist == previousAlbumArtist) {
-        return false;
-    }
-
-    return true;
 }
 
 void MediaPlayList::loadPlayListLoaded()

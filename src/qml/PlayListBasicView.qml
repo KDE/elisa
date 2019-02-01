@@ -34,6 +34,15 @@ ListView {
     activeFocusOnTab: true
     keyNavigationEnabled: true
 
+    section.property: 'albumSection'
+    section.criteria: ViewSection.FullString
+    section.labelPositioning: ViewSection.InlineLabels
+    section.delegate: PlayListAlbumHeader {
+        headerData: JSON.parse(section)
+        width: scrollBar.visible ? (!LayoutMirroring.enabled ? playListView.width - scrollBar.width : playListView.width) : playListView.width
+        height: elisaTheme.playListHeaderHeight
+    }
+
     ScrollBar.vertical: ScrollBar {
         id: scrollBar
     }
@@ -114,7 +123,6 @@ ListView {
                 trackNumber: model.trackNumber
                 discNumber: model.discNumber
                 rating: model.rating
-                hasAlbumHeader: model.hasAlbumHeader
                 isSingleDiscAlbum: model.isSingleDiscAlbum
                 isValid: model.isValid
                 isPlaying: model.isPlaying

@@ -31,7 +31,6 @@ Item {
         width: 300
 
         isAlternateColor: false
-        hasAlbumHeader: false
         isSingleDiscAlbum: false
         title: "hello"
         isValid: true

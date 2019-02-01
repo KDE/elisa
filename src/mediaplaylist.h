@@ -117,7 +117,7 @@ public:
         TrackDataRole,
         CountRole,
         IsPlayingRole,
-        HasAlbumHeader,
+        AlbumSectionRole,
     };
 
     Q_ENUM(ColumnsRoles)
@@ -263,8 +263,6 @@ private Q_SLOTS:
     void loadPlayListLoadFailed();
 
 private:
-
-    bool rowHasHeader(int row) const;
 
     void resetCurrentTrack();
 

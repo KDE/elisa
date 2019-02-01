@@ -41,6 +41,11 @@ class ELISALIB_EXPORT TrackMetadataModel : public QAbstractListModel
                READ fileUrl
                NOTIFY fileUrlChanged)
 
+    Q_PROPERTY(MusicListenersManager* manager
+               READ manager
+               WRITE setManager
+               NOTIFY managerChanged)
+
 public:
 
     enum ColumnRoles
@@ -76,6 +81,8 @@ public:
 
     QString fileUrl() const;
 
+    MusicListenersManager* manager() const;
+
 Q_SIGNALS:
 
     void needDataByDatabaseId(ElisaUtils::PlayListEntryType dataType, qulonglong databaseId);
@@ -86,13 +93,17 @@ Q_SIGNALS:
 
     void fileUrlChanged();
 
+    void managerChanged();
+
 public Q_SLOTS:
 
     void trackData(const TrackMetadataModel::TrackDataType &trackData);
 
-    void initializeByTrackId(MusicListenersManager *manager, qulonglong databaseId);
+    void initializeByTrackId(qulonglong databaseId);
 
-    void initializeByTrackFileName(MusicListenersManager *manager, const QUrl &fileName);
+    void initializeByTrackFileName(const QUrl &fileName);
+
+    void setManager(MusicListenersManager *newManager);
 
 protected:
 
@@ -113,6 +124,8 @@ private:
     QList<TrackDataType::key_type> mTrackKeys;
 
     ModelDataLoader mDataLoader;
+
+    MusicListenersManager *mManager = nullptr;
 
 };
 

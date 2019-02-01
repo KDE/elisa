@@ -233,6 +233,11 @@ const QUrl &TrackMetadataModel::coverUrl() const
     return mCoverImage;
 }
 
+MusicListenersManager *TrackMetadataModel::manager() const
+{
+    return mManager;
+}
+
 void TrackMetadataModel::trackData(const TrackMetadataModel::TrackDataType &trackData)
 {
     fillDataFromTrackData(trackData);
@@ -291,30 +296,32 @@ void TrackMetadataModel::removeMetaData(DatabaseInterface::ColumnsRoles metaData
     mTrackData.remove(metaData);
 }
 
-void TrackMetadataModel::initializeByTrackId(MusicListenersManager *manager, qulonglong databaseId)
+void TrackMetadataModel::initializeByTrackId(qulonglong databaseId)
 {
-    mDataLoader.setDatabase(manager->viewDatabase());
-    manager->connectModel(&mDataLoader);
-
-    connect(this, &TrackMetadataModel::needDataByDatabaseId,
-            &mDataLoader, &ModelDataLoader::loadDataByDatabaseId);
-    connect(&mDataLoader, &ModelDataLoader::allTrackData,
-            this, &TrackMetadataModel::trackData);
-
     Q_EMIT needDataByDatabaseId(ElisaUtils::Track, databaseId);
 }
 
-void TrackMetadataModel::initializeByTrackFileName(MusicListenersManager *manager, const QUrl &fileName)
+void TrackMetadataModel::initializeByTrackFileName(const QUrl &fileName)
 {
-    mDataLoader.setDatabase(manager->viewDatabase());
-    manager->connectModel(&mDataLoader);
-
-    connect(this, &TrackMetadataModel::needDataByFileName,
-            &mDataLoader, &ModelDataLoader::loadDataByFileName);
-    connect(&mDataLoader, &ModelDataLoader::allTrackData,
-            this, &TrackMetadataModel::trackData);
-
     Q_EMIT needDataByFileName(ElisaUtils::FileName, fileName);
+}
+
+void TrackMetadataModel::setManager(MusicListenersManager *newManager)
+{
+    mManager = newManager;
+    Q_EMIT managerChanged();
+
+    if (mManager) {
+        mDataLoader.setDatabase(mManager->viewDatabase());
+        mManager->connectModel(&mDataLoader);
+
+        connect(this, &TrackMetadataModel::needDataByDatabaseId,
+                &mDataLoader, &ModelDataLoader::loadDataByDatabaseId);
+        connect(this, &TrackMetadataModel::needDataByFileName,
+                &mDataLoader, &ModelDataLoader::loadDataByFileName);
+        connect(&mDataLoader, &ModelDataLoader::allTrackData,
+                this, &TrackMetadataModel::trackData);
+    }
 }
 
 

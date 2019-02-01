@@ -39,6 +39,8 @@ Window {
 
     TrackMetadataModel {
         id: realModel
+
+        manager: elisa.musicManager
     }
 
     modality: Qt.NonModal
@@ -224,9 +226,9 @@ Window {
 
         onMusicManagerChanged: {
             if (databaseId !== 0) {
-                realModel.initializeByTrackId(elisa.musicManager, databaseId)
+                realModel.initializeByTrackId(databaseId)
             } else {
-                realModel.initializeByTrackFileName(elisa.musicManager, fileName)
+                realModel.initializeByTrackFileName(fileName)
             }
         }
     }
@@ -234,9 +236,9 @@ Window {
     Component.onCompleted: {
         if (elisa.musicManager) {
             if (databaseId !== 0) {
-                realModel.initializeByTrackId(elisa.musicManager, databaseId)
+                realModel.initializeByTrackId(databaseId)
             } else {
-                realModel.initializeByTrackFileName(elisa.musicManager, fileName)
+                realModel.initializeByTrackFileName(fileName)
             }
         }
     }

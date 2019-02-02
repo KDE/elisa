@@ -61,6 +61,11 @@ class ELISALIB_EXPORT ManageHeaderBar : public QObject
                WRITE setAlbumArtistRole
                NOTIFY albumArtistRoleChanged)
 
+    Q_PROPERTY(int fileNameRole
+               READ fileNameRole
+               WRITE setFileNameRole
+               NOTIFY fileNameRoleChanged)
+
     Q_PROPERTY(int imageRole
                READ imageRole
                WRITE setImageRole
@@ -96,6 +101,10 @@ class ELISALIB_EXPORT ManageHeaderBar : public QObject
     Q_PROPERTY(QVariant albumArtist
                READ albumArtist
                NOTIFY albumArtistChanged)
+
+    Q_PROPERTY(QString fileName
+               READ fileName
+               NOTIFY fileNameChanged)
 
     Q_PROPERTY(QUrl image
                READ image
@@ -133,6 +142,8 @@ public:
 
     int albumArtistRole() const;
 
+    int fileNameRole() const;
+
     int imageRole() const;
 
     int databaseIdRole() const;
@@ -148,6 +159,8 @@ public:
     QVariant album() const;
 
     QVariant albumArtist() const;
+
+    QString fileName() const;
 
     QUrl image() const;
 
@@ -173,6 +186,8 @@ Q_SIGNALS:
 
     void albumArtistRoleChanged();
 
+    void fileNameRoleChanged();
+
     void imageRoleChanged();
 
     void databaseIdRoleChanged();
@@ -188,6 +203,8 @@ Q_SIGNALS:
     void albumChanged();
 
     void albumArtistChanged();
+
+    void fileNameChanged();
 
     void imageChanged();
 
@@ -212,6 +229,8 @@ public Q_SLOTS:
     void setAlbumRole(int value);
 
     void setAlbumArtistRole(int value);
+
+    void setFileNameRole(int value);
 
     void setImageRole(int value);
 
@@ -243,6 +262,8 @@ private:
 
     void notifyAlbumArtistProperty();
 
+    void notifyFileNameProperty();
+
     void notifyImageProperty();
 
     void notifyDatabaseIdProperty();
@@ -265,6 +286,8 @@ private:
 
     int mAlbumArtistRole = Qt::DisplayRole;
 
+    int mFileNameRole = Qt::DisplayRole;
+
     int mImageRole = Qt::DisplayRole;
 
     int mDatabaseIdRole = Qt::DisplayRole;
@@ -280,6 +303,8 @@ private:
     QVariant mOldAlbum;
 
     QVariant mOldAlbumArtist;
+
+    QVariant mOldFileName;
 
     QVariant mOldImage;
 

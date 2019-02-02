@@ -62,6 +62,12 @@ void ManageHeaderBar::setAlbumArtistRole(int value)
     Q_EMIT albumArtistRoleChanged();
 }
 
+void ManageHeaderBar::setFileNameRole(int value)
+{
+    mFileNameRole = value;
+    Q_EMIT fileNameRoleChanged();
+}
+
 int ManageHeaderBar::albumRole() const
 {
     return mAlbumRole;
@@ -70,6 +76,11 @@ int ManageHeaderBar::albumRole() const
 int ManageHeaderBar::albumArtistRole() const
 {
     return mAlbumArtistRole;
+}
+
+int ManageHeaderBar::fileNameRole() const
+{
+    return mFileNameRole;
 }
 
 void ManageHeaderBar::setImageRole(int value)
@@ -121,6 +132,24 @@ QVariant ManageHeaderBar::albumArtist() const
     }
 
     return mCurrentTrack.data(mAlbumArtistRole);
+}
+
+QString ManageHeaderBar::fileName() const
+{
+    QString result;
+
+    if (!mCurrentTrack.isValid()) {
+        return result;
+    }
+
+    auto fileNameUrl = mCurrentTrack.data(mFileNameRole).toUrl();
+    if (fileNameUrl.isLocalFile()) {
+        result = fileNameUrl.toLocalFile();
+    } else {
+        result = fileNameUrl.toString();
+    }
+
+    return result;
 }
 
 QVariant ManageHeaderBar::title() const
@@ -241,6 +270,7 @@ void ManageHeaderBar::tracksDataChanged(const QModelIndex &topLeft, const QModel
         notifyTitleProperty();
         notifyAlbumProperty();
         notifyAlbumArtistProperty();
+        notifyFileNameProperty();
         notifyImageProperty();
         notifyDatabaseIdProperty();
         notifyAlbumIdProperty();
@@ -258,6 +288,9 @@ void ManageHeaderBar::tracksDataChanged(const QModelIndex &topLeft, const QModel
             }
             if (oneRole == mAlbumArtistRole) {
                 notifyAlbumArtistProperty();
+            }
+            if (oneRole == mFileNameRole) {
+                notifyFileNameProperty();
             }
             if (oneRole == mImageRole) {
                 notifyImageProperty();
@@ -311,6 +344,7 @@ void ManageHeaderBar::tracksRemoved(const QModelIndex &parent, int first, int la
         notifyTitleProperty();
         notifyAlbumProperty();
         notifyAlbumArtistProperty();
+        notifyFileNameProperty();
         notifyImageProperty();
         notifyDatabaseIdProperty();
         notifyAlbumIdProperty();
@@ -360,6 +394,16 @@ void ManageHeaderBar::notifyAlbumArtistProperty()
         Q_EMIT albumArtistChanged();
 
         mOldAlbumArtist = newAlbumArtistValue;
+    }
+}
+
+void ManageHeaderBar::notifyFileNameProperty()
+{
+    auto newFileNameValue = mCurrentTrack.data(mFileNameRole);
+    if (mOldFileName != newFileNameValue) {
+        Q_EMIT fileNameChanged();
+
+        mOldFileName = newFileNameValue;
     }
 }
 
@@ -449,6 +493,7 @@ void ManageHeaderBar::setCurrentTrack(const QPersistentModelIndex &currentTrack)
     notifyTitleProperty();
     notifyAlbumProperty();
     notifyAlbumArtistProperty();
+    notifyFileNameProperty();
     notifyImageProperty();
     notifyDatabaseIdProperty();
     notifyAlbumIdProperty();

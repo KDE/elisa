@@ -31,6 +31,7 @@ FocusScope {
     property string albumName: ''
     property string artistName: ''
     property url albumArtUrl: ''
+    property string fileUrl: ''
 
     TrackContextMetaDataModel {
         id: metaDataModel
@@ -120,6 +121,29 @@ FocusScope {
 
         Item {
             Layout.fillHeight: true
+        }
+
+        Row {
+            Layout.alignment: Qt.AlignLeft | Qt.AlignBottom
+            Layout.topMargin: elisaTheme.layoutVerticalMargin
+            Layout.bottomMargin: elisaTheme.layoutVerticalMargin
+
+            spacing: elisaTheme.layoutHorizontalMargin
+
+            Image {
+                sourceSize.width: fileNameLabel.height
+                sourceSize.height: fileNameLabel.height
+
+                source: elisaTheme.folderIcon
+            }
+
+            LabelWithToolTip {
+                id: fileNameLabel
+
+                text: fileUrl
+
+                elide: Text.ElideRight
+            }
         }
     }
 

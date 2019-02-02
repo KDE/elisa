@@ -452,9 +452,9 @@ RowLayout {
                 }
                 PropertyChanges {
                     target: albumContext
-                    Layout.minimumWidth: contentZone.width * 3 / 5
-                    Layout.maximumWidth: contentZone.width * 3 / 5
-                    Layout.preferredWidth: contentZone.width * 3 / 5
+                    Layout.minimumWidth: contentZone.width * 3 / 5 - 2 - 5 * elisaTheme.layoutHorizontalMargin
+                    Layout.maximumWidth: contentZone.width * 3 / 5 - 2 - 5 * elisaTheme.layoutHorizontalMargin
+                    Layout.preferredWidth: contentZone.width * 3 / 5 - 2 - 5 * elisaTheme.layoutHorizontalMargin
                 }
             },
             State {

@@ -361,7 +361,6 @@ RowLayout {
 
                     Layout.fillHeight: true
                     Layout.leftMargin: elisaTheme.layoutHorizontalMargin
-                    Layout.rightMargin: elisaTheme.layoutHorizontalMargin
 
                     Layout.minimumWidth: contentZone.width
                     Layout.maximumWidth: contentZone.width
@@ -413,10 +412,10 @@ RowLayout {
 
                     Layout.fillHeight: true
 
-                    Layout.minimumWidth: contentZone.width
-                    Layout.maximumWidth: contentZone.width
-                    Layout.preferredWidth: contentZone.width
-                    Layout.leftMargin: elisaTheme.layoutHorizontalMargin * 3
+                    Layout.minimumWidth: 0
+                    Layout.maximumWidth: 0
+                    Layout.preferredWidth: 0
+                    Layout.leftMargin: elisaTheme.layoutHorizontalMargin * 1.5
 
                     visible: Layout.minimumWidth != 0
                 }
@@ -441,9 +440,9 @@ RowLayout {
                 }
                 PropertyChanges {
                     target: playList
-                    Layout.minimumWidth: contentZone.width * 2 / 5
-                    Layout.maximumWidth: contentZone.width * 2 / 5
-                    Layout.preferredWidth: contentZone.width * 2 / 5
+                    Layout.minimumWidth: contentZone.width * 2 / 5 + elisaTheme.layoutHorizontalMargin
+                    Layout.maximumWidth: contentZone.width * 2 / 5 + elisaTheme.layoutHorizontalMargin
+                    Layout.preferredWidth: contentZone.width * 2 / 5 + elisaTheme.layoutHorizontalMargin
                 }
                 PropertyChanges {
                     target: viewSeparatorItem
@@ -453,9 +452,9 @@ RowLayout {
                 }
                 PropertyChanges {
                     target: albumContext
-                    Layout.minimumWidth: contentZone.width * 3 / 5 - 2 - 5 * elisaTheme.layoutHorizontalMargin
-                    Layout.maximumWidth: contentZone.width * 3 / 5 - 2 - 5 * elisaTheme.layoutHorizontalMargin
-                    Layout.preferredWidth: contentZone.width * 3 / 5 - 2 - 5 * elisaTheme.layoutHorizontalMargin
+                    Layout.minimumWidth: contentZone.width * 3 / 5 - 2 - 3.5 * elisaTheme.layoutHorizontalMargin
+                    Layout.maximumWidth: contentZone.width * 3 / 5 - 2 - 3.5 * elisaTheme.layoutHorizontalMargin
+                    Layout.preferredWidth: contentZone.width * 3 / 5 - 2 - 3.5 * elisaTheme.layoutHorizontalMargin
                 }
             },
             State {

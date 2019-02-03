@@ -231,6 +231,11 @@ Qt::ItemFlags TrackMetadataModel::flags(const QModelIndex &index) const
     return Qt::ItemIsEditable | QAbstractListModel::flags(index);
 }
 
+QString TrackMetadataModel::fileUrl() const
+{
+    return mFileUrl;
+}
+
 bool TrackMetadataModel::insertRows(int row, int count, const QModelIndex &parent)
 {
     beginInsertRows(parent, row, row + count - 1);
@@ -280,6 +285,15 @@ void TrackMetadataModel::trackData(const TrackMetadataModel::TrackDataType &trac
 
     mCoverImage = trackData[DatabaseInterface::ImageUrlRole].toUrl();
     Q_EMIT coverUrlChanged();
+
+    auto rawFileUrl = trackData[DatabaseInterface::ResourceRole].toUrl();
+
+    if (rawFileUrl.isLocalFile()) {
+        mFileUrl = rawFileUrl.toLocalFile();
+    } else {
+        mFileUrl = rawFileUrl.toString();
+    }
+    Q_EMIT fileUrlChanged();
 }
 
 void TrackMetadataModel::initializeByTrackId(MusicListenersManager *manager, qulonglong databaseId)

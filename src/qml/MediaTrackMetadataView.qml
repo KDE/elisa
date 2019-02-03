@@ -105,6 +105,29 @@ Window {
             }
         }
 
+        Row {
+            Layout.alignment: Qt.AlignLeft | Qt.AlignBottom
+            Layout.topMargin: elisaTheme.layoutVerticalMargin
+            Layout.bottomMargin: elisaTheme.layoutVerticalMargin
+
+            spacing: elisaTheme.layoutHorizontalMargin
+
+            Image {
+                sourceSize.width: fileNameLabel.height
+                sourceSize.height: fileNameLabel.height
+
+                source: elisaTheme.folderIcon
+            }
+
+            LabelWithToolTip {
+                id: fileNameLabel
+
+                text: realModel.fileUrl
+
+                elide: Text.ElideRight
+            }
+        }
+
         DialogButtonBox {
             id: buttons
 

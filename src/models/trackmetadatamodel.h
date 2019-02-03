@@ -37,6 +37,10 @@ class ELISALIB_EXPORT TrackMetadataModel : public QAbstractListModel
                READ coverUrl
                NOTIFY coverUrlChanged)
 
+    Q_PROPERTY(QString fileUrl
+               READ fileUrl
+               NOTIFY fileUrlChanged)
+
 public:
 
     enum ColumnRoles
@@ -76,6 +80,8 @@ public:
 
     const QUrl& coverUrl() const;
 
+    QString fileUrl() const;
+
 Q_SIGNALS:
 
     void needDataByDatabaseId(ElisaUtils::PlayListEntryType dataType, qulonglong databaseId);
@@ -83,6 +89,8 @@ Q_SIGNALS:
     void needDataByFileName(ElisaUtils::PlayListEntryType dataType, const QUrl &fileName);
 
     void coverUrlChanged();
+
+    void fileUrlChanged();
 
 public Q_SLOTS:
 
@@ -97,6 +105,8 @@ private:
     TrackDataType mTrackData;
 
     QUrl mCoverImage;
+
+    QString mFileUrl;
 
     QList<TrackDataType::key_type> mTrackKeys;
 

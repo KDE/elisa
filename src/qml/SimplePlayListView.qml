@@ -34,6 +34,16 @@ ListView {
     activeFocusOnTab: true
     keyNavigationEnabled: true
 
+    section.property: 'albumSection'
+    section.criteria: ViewSection.FullString
+    section.labelPositioning: ViewSection.InlineLabels
+    section.delegate: BasicPlayListAlbumHeader {
+        headerData: JSON.parse(section)
+        width: scrollBar.visible ? (!LayoutMirroring.enabled ? playListView.width - scrollBar.width : playListView.width) : playListView.width
+        height: elisaTheme.playListHeaderHeight - 3 * elisaTheme.layoutVerticalMargin
+        textColor: myPalette.highlightedText
+    }
+
     ScrollBar.vertical: ScrollBar {
         id: scrollBar
     }

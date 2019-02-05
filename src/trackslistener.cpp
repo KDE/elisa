@@ -141,7 +141,13 @@ void TracksListener::trackByFileNameInList(const QUrl &fileName)
         if (newTrack.isValid()) {
             auto oneData = DatabaseInterface::TrackDataType{};
 
-            oneData[DatabaseInterface::TrackDataType::key_type::TitleRole] = newTrack.title();
+            if (!newTrack.title().isEmpty()) {
+                oneData[DatabaseInterface::TrackDataType::key_type::TitleRole] = newTrack.title();
+            } else {
+                const auto &fileUrl = newTrack.resourceURI();
+                oneData[DatabaseInterface::TrackDataType::key_type::TitleRole] = fileUrl.fileName();
+            }
+
             oneData[DatabaseInterface::TrackDataType::key_type::ArtistRole] = newTrack.artist();
             oneData[DatabaseInterface::TrackDataType::key_type::AlbumRole] = newTrack.albumName();
             oneData[DatabaseInterface::TrackDataType::key_type::AlbumIdRole] = newTrack.albumId();

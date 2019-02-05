@@ -112,18 +112,18 @@ ListView {
                 isSelected: playListView.currentIndex === index
                 containsMouse: item.containsMouse
 
-                databaseId: model.databaseId
+                databaseId: (model.databaseId ? model.databaseId : 0)
                 title: model.title
                 artist: model.artist
                 album: model.album
-                albumArtist: model.albumArtist
-                duration: model.duration
-                fileName: model.trackResource
+                albumArtist: (model.albumArtist ? model.albumArtist : '')
+                duration: (model.duration ? model.duration : '')
+                fileName: (model.trackResource ? model.trackResource : '')
                 imageUrl: model.imageUrl
-                trackNumber: model.trackNumber
-                discNumber: model.discNumber
-                rating: model.rating
-                isSingleDiscAlbum: model.isSingleDiscAlbum
+                trackNumber: (model.trackNumber ? model.trackNumber : -1)
+                discNumber: (model.discNumber ? model.discNumber : -1)
+                rating: (model.rating ? model.rating : 0)
+                isSingleDiscAlbum: (model.isSingleDiscAlbum ? model.isSingleDiscAlbum : true)
                 isValid: model.isValid
                 isPlaying: model.isPlaying
 

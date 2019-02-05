@@ -194,7 +194,7 @@ FocusScope {
 
                         horizontalAlignment: Text.AlignRight
 
-                        text: trackNumber !== 0 ? Number(trackNumber).toLocaleString(Qt.locale(), 'f', 0) : ''
+                        text: trackNumber !== 0 && trackNumber !== -1 ? Number(trackNumber).toLocaleString(Qt.locale(), 'f', 0) : ''
 
                         font.weight: (isPlaying ? Font.Bold : Font.Light)
                         color: myPalette.text

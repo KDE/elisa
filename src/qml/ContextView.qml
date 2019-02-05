@@ -106,6 +106,38 @@ FocusScope {
 
             font.pointSize: elisaTheme.defaultFontPointSize * 1.4
 
+            visible: artistName !== '' && albumName !== ''
+
+            Layout.alignment: Qt.AlignLeft | Qt.AlignTop
+            Layout.bottomMargin: elisaTheme.layoutVerticalMargin
+
+            elide: Text.ElideRight
+        }
+
+        LabelWithToolTip {
+            id: albumLabel
+
+            text: i18nc('display of album in context view', '<i>from</i> <b>%2</b>', albumName)
+
+            font.pointSize: elisaTheme.defaultFontPointSize * 1.4
+
+            visible: artistName === '' && albumName !== ''
+
+            Layout.alignment: Qt.AlignLeft | Qt.AlignTop
+            Layout.bottomMargin: elisaTheme.layoutVerticalMargin
+
+            elide: Text.ElideRight
+        }
+
+        LabelWithToolTip {
+            id: artistLabel
+
+            text: i18nc('display of artist in context view', '<i>by</i> <b>%1</b>', artistName)
+
+            font.pointSize: elisaTheme.defaultFontPointSize * 1.4
+
+            visible: artistName !== '' && albumName === ''
+
             Layout.alignment: Qt.AlignLeft | Qt.AlignTop
             Layout.bottomMargin: elisaTheme.layoutVerticalMargin
 

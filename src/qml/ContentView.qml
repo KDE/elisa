@@ -45,9 +45,6 @@ RowLayout {
 
     function openNowPlaying() {
         viewManager.closeAllViews();
-
-        // This is needed to trigger the state change
-        listViews.currentIndex = 0;
     }
 
     ViewManager {

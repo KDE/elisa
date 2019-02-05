@@ -46,13 +46,14 @@ Window {
 
     color: myPalette.window
 
-    minimumHeight: elisaTheme.coverImageSize * 1.5
+    minimumHeight: elisaTheme.coverImageSize * 1.8
     minimumWidth: elisaTheme.coverImageSize * 2.8
 
     ColumnLayout {
         anchors.fill: parent
+        anchors.margins: elisaTheme.layoutVerticalMargin
 
-        spacing: 0
+        spacing: elisaTheme.layoutVerticalMargin
 
         RowLayout {
             id: metadataView
@@ -105,7 +106,7 @@ Window {
             }
         }
 
-        Row {
+        RowLayout {
             Layout.alignment: Qt.AlignLeft | Qt.AlignBottom
             Layout.topMargin: elisaTheme.layoutVerticalMargin
             Layout.bottomMargin: elisaTheme.layoutVerticalMargin
@@ -113,6 +114,9 @@ Window {
             spacing: elisaTheme.layoutHorizontalMargin
 
             Image {
+                Layout.preferredWidth: fileNameLabel.height
+                Layout.preferredHeight: fileNameLabel.height
+
                 sourceSize.width: fileNameLabel.height
                 sourceSize.height: fileNameLabel.height
 
@@ -121,6 +125,8 @@ Window {
 
             LabelWithToolTip {
                 id: fileNameLabel
+
+                Layout.fillWidth: true
 
                 text: realModel.fileUrl
 
@@ -132,6 +138,7 @@ Window {
             id: buttons
 
             Layout.fillWidth: true
+            Layout.minimumHeight: implicitHeight
 
             standardButtons: DialogButtonBox.Close
             alignment: Qt.AlignRight

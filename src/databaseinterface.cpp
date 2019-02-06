@@ -1549,8 +1549,8 @@ void DatabaseInterface::initRequest()
         auto result = prepareQuery(d->mSelectAllGenresQuery, selectAllGenresText);
 
         if (!result) {
-            qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllAlbumsQuery.lastQuery();
-            qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllAlbumsQuery.lastError();
+            qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllGenresQuery.lastQuery();
+            qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllGenresQuery.lastError();
 
             Q_EMIT databaseError();
         }

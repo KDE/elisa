@@ -47,7 +47,7 @@ public:
           mInsertAlbumQuery(mTracksDatabase), mSelectTrackIdFromTitleAlbumIdArtistQuery(mTracksDatabase),
           mInsertTrackQuery(mTracksDatabase), mSelectTracksFromArtist(mTracksDatabase),
           mSelectTrackFromIdQuery(mTracksDatabase), mSelectCountAlbumsForArtistQuery(mTracksDatabase),
-          mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery(mTracksDatabase), mSelectAllAlbumsQuery(mTracksDatabase),
+          mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery(mTracksDatabase),
           mSelectAllAlbumsFromArtistQuery(mTracksDatabase), mSelectAllArtistsQuery(mTracksDatabase),
           mInsertArtistsQuery(mTracksDatabase), mSelectArtistByNameQuery(mTracksDatabase),
           mSelectArtistQuery(mTracksDatabase), mUpdateTrackStatistics(mTracksDatabase),
@@ -103,8 +103,6 @@ public:
     QSqlQuery mSelectCountAlbumsForArtistQuery;
 
     QSqlQuery mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery;
-
-    QSqlQuery mSelectAllAlbumsQuery;
 
     QSqlQuery mSelectAllAlbumsFromArtistQuery;
 
@@ -1236,7 +1234,6 @@ void DatabaseInterface::initDatabase()
                                                                    "`ArtistName` VARCHAR(55), "
                                                                    "`AlbumPath` VARCHAR(255) NOT NULL, "
                                                                    "`CoverFileName` VARCHAR(255) NOT NULL, "
-                                                                   "`AlbumInternalID` VARCHAR(55), "
                                                                    "UNIQUE (`Title`, `ArtistName`, `AlbumPath`), "
                                                                    "CONSTRAINT fk_artists FOREIGN KEY (`ArtistName`) REFERENCES `Artists`(`Name`) "
                                                                    "ON DELETE CASCADE)"));
@@ -1427,7 +1424,6 @@ void DatabaseInterface::initRequest()
         auto selectAlbumQueryText = QStringLiteral("SELECT "
                                                    "album.`ID`, "
                                                    "album.`Title`, "
-                                                   "album.`AlbumInternalID`, "
                                                    "album.`ArtistName`, "
                                                    "album.`AlbumPath`, "
                                                    "album.`CoverFileName`, "
@@ -1485,55 +1481,6 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAlbumQuery.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAlbumQuery.lastError();
-
-            Q_EMIT databaseError();
-        }
-    }
-
-    {
-        auto selectAllAlbumsText = QStringLiteral("SELECT "
-                                                  "album.`ID`, "
-                                                  "album.`Title`, "
-                                                  "album.`AlbumInternalID`, "
-                                                  "album.`ArtistName`, "
-                                                  "album.`AlbumPath`, "
-                                                  "album.`CoverFileName`, "
-                                                  "("
-                                                  "SELECT "
-                                                  "COUNT(*) "
-                                                  "FROM "
-                                                  "`Tracks` tracks "
-                                                  "WHERE "
-                                                  "tracks.`AlbumTitle` = album.`Title` AND "
-                                                  "(tracks.`AlbumArtistName` = album.`ArtistName` OR "
-                                                  "(tracks.`AlbumArtistName` IS NULL AND "
-                                                  "album.`ArtistName` IS NULL"
-                                                  ")"
-                                                  ") AND "
-                                                  "tracks.`AlbumPath` = album.`AlbumPath` "
-                                                  ") as `TracksCount`, "
-                                                  "("
-                                                  "SELECT "
-                                                  "COUNT(DISTINCT tracks2.DiscNumber) <= 1 "
-                                                  "FROM "
-                                                  "`Tracks` tracks2 "
-                                                  "WHERE "
-                                                  "tracks2.`AlbumTitle` = album.`Title` AND "
-                                                  "(tracks2.`AlbumArtistName` = album.`ArtistName` OR "
-                                                  "(tracks2.`AlbumArtistName` IS NULL AND "
-                                                  "album.`ArtistName` IS NULL"
-                                                  ")"
-                                                  ") AND "
-                                                  "tracks2.`AlbumPath` = album.`AlbumPath` "
-                                                  ") as `IsSingleDiscAlbum` "
-                                                  "FROM `Albums` album "
-                                                  "ORDER BY album.`Title` COLLATE NOCASE");
-
-        auto result = prepareQuery(d->mSelectAllAlbumsQuery, selectAllAlbumsText);
-
-        if (!result) {
-            qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllAlbumsQuery.lastQuery();
-            qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllAlbumsQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -4152,7 +4099,7 @@ bool DatabaseInterface::isValidArtist(qulonglong albumId)
 
     const auto &currentRecord = d->mSelectAlbumQuery.record();
 
-    result = !currentRecord.value(3).toString().isEmpty();
+    result = !currentRecord.value(2).toString().isEmpty();
 
     return result;
 }
@@ -4973,13 +4920,13 @@ DatabaseInterface::AlbumDataType DatabaseInterface::internalOneAlbumPartialData(
 
         result[DataType::key_type::DatabaseIdRole] = currentRecord.value(0);
         result[DataType::key_type::TitleRole] = currentRecord.value(1);
-        result[DataType::key_type::SecondaryTextRole] = currentRecord.value(3);
-        result[DataType::key_type::ImageUrlRole] = currentRecord.value(5);
-        result[DataType::key_type::ArtistRole] = currentRecord.value(3);
-        result[DataType::key_type::AllArtistsRole] = QVariant::fromValue(currentRecord.value(9).toString().split(QStringLiteral(", ")));
-        result[DataType::key_type::HighestTrackRating] = currentRecord.value(10);
-        result[DataType::key_type::IsSingleDiscAlbumRole] = currentRecord.value(8);
-        result[DataType::key_type::GenreRole] = QVariant::fromValue(currentRecord.value(11).toString().split(QStringLiteral(", ")));
+        result[DataType::key_type::SecondaryTextRole] = currentRecord.value(2);
+        result[DataType::key_type::ImageUrlRole] = currentRecord.value(4);
+        result[DataType::key_type::ArtistRole] = currentRecord.value(2);
+        result[DataType::key_type::AllArtistsRole] = QVariant::fromValue(currentRecord.value(8).toString().split(QStringLiteral(", ")));
+        result[DataType::key_type::HighestTrackRating] = currentRecord.value(9);
+        result[DataType::key_type::IsSingleDiscAlbumRole] = currentRecord.value(7);
+        result[DataType::key_type::GenreRole] = QVariant::fromValue(currentRecord.value(10).toString().split(QStringLiteral(", ")));
         result[DataType::key_type::ElementTypeRole] = ElisaUtils::Album;
     }
 

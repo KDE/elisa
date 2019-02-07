@@ -510,6 +510,10 @@ private:
 
     void updateTrackStatistics(qulonglong databaseId, const QDateTime &time);
 
+    void createDatabaseV9();
+
+    void upgradeDatabaseV11();
+
     std::unique_ptr<DatabaseInterfacePrivate> d;
 
 };

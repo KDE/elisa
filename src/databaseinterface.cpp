@@ -1137,7 +1137,25 @@ void DatabaseInterface::initDatabase()
         listTables = d->mTracksDatabase.tables();
     }
 
-    if (!listTables.contains(QStringLiteral("DatabaseVersionV9"))) {
+    if (listTables.contains(QStringLiteral("DatabaseVersionV9"))) {
+        if (!listTables.contains(QStringLiteral("DatabaseVersionV11"))) {
+            upgradeDatabaseV11();
+        }
+    } else {
+        createDatabaseV9();
+        upgradeDatabaseV11();
+    }
+
+
+    transactionResult = finishTransaction();
+    if (!transactionResult) {
+        return;
+    }
+}
+
+void DatabaseInterface::createDatabaseV9()
+{
+    {
         QSqlQuery createSchemaQuery(d->mTracksDatabase);
 
         const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `DatabaseVersionV9` (`Version` INTEGER PRIMARY KEY NOT NULL)"));
@@ -1150,7 +1168,7 @@ void DatabaseInterface::initDatabase()
         }
     }
 
-    if (!listTables.contains(QStringLiteral("DiscoverSource"))) {
+    {
         QSqlQuery createSchemaQuery(d->mTracksDatabase);
 
         const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `DiscoverSource` (`ID` INTEGER PRIMARY KEY NOT NULL, "
@@ -1165,7 +1183,7 @@ void DatabaseInterface::initDatabase()
         }
     }
 
-    if (!listTables.contains(QStringLiteral("Artists"))) {
+    {
         QSqlQuery createSchemaQuery(d->mTracksDatabase);
 
         const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `Artists` (`ID` INTEGER PRIMARY KEY NOT NULL, "
@@ -1180,7 +1198,7 @@ void DatabaseInterface::initDatabase()
         }
     }
 
-    if (!listTables.contains(QStringLiteral("Composer"))) {
+    {
         QSqlQuery createSchemaQuery(d->mTracksDatabase);
 
         const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `Composer` (`ID` INTEGER PRIMARY KEY NOT NULL, "
@@ -1195,7 +1213,7 @@ void DatabaseInterface::initDatabase()
         }
     }
 
-    if (!listTables.contains(QStringLiteral("Genre"))) {
+    {
         QSqlQuery createSchemaQuery(d->mTracksDatabase);
 
         const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `Genre` (`ID` INTEGER PRIMARY KEY NOT NULL, "
@@ -1210,7 +1228,7 @@ void DatabaseInterface::initDatabase()
         }
     }
 
-    if (!listTables.contains(QStringLiteral("Lyricist"))) {
+    {
         QSqlQuery createSchemaQuery(d->mTracksDatabase);
 
         const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `Lyricist` (`ID` INTEGER PRIMARY KEY NOT NULL, "
@@ -1225,7 +1243,7 @@ void DatabaseInterface::initDatabase()
         }
     }
 
-    if (!listTables.contains(QStringLiteral("Albums"))) {
+    {
         QSqlQuery createSchemaQuery(d->mTracksDatabase);
 
         const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `Albums` ("
@@ -1244,7 +1262,7 @@ void DatabaseInterface::initDatabase()
         }
     }
 
-    if (!listTables.contains(QStringLiteral("Tracks"))) {
+    {
         QSqlQuery createSchemaQuery(d->mTracksDatabase);
 
         const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `Tracks` ("
@@ -1291,7 +1309,7 @@ void DatabaseInterface::initDatabase()
         }
     }
 
-    if (!listTables.contains(QStringLiteral("TracksMapping"))) {
+    {
         QSqlQuery createSchemaQuery(d->mTracksDatabase);
 
         const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `TracksMapping` ("
@@ -1406,11 +1424,10 @@ void DatabaseInterface::initDatabase()
             Q_EMIT databaseError();
         }
     }
+}
 
-    transactionResult = finishTransaction();
-    if (!transactionResult) {
-        return;
-    }
+void DatabaseInterface::upgradeDatabaseV11()
+{
 }
 
 void DatabaseInterface::initRequest()

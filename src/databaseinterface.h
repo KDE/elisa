@@ -401,8 +401,7 @@ private:
                                                            int trackNumber, int discNumber);
 
     qulonglong getDuplicateTrackIdFromTitleAlbumTrackDiscNumber(const QString &title, const QString &trackArtist, const QString &album,
-                                                                const QString &albumArtist, const QString &trackPath,
-                                                                int trackNumber, int discNumber);
+                                                                const QString &albumArtist, const QString &trackPath);
 
     qulonglong internalTrackIdFromFileName(const QUrl &fileName);
 
@@ -442,7 +441,7 @@ private:
 
     qulonglong insertMusicSource(const QString &name);
 
-    void insertTrackOrigin(const QUrl &fileNameURI, const QDateTime &fileModifiedTime, qulonglong discoverId);
+    void insertTrackOrigin(const QUrl &fileNameURI, const QDateTime &fileModifiedTime, const QDateTime &importDate, qulonglong discoverId);
 
     void updateTrackOrigin(qulonglong trackId, const QUrl &fileName, const QDateTime &fileModifiedTime);
 
@@ -458,8 +457,6 @@ private:
     void internalRemoveTracksList(const QList<QUrl> &removedTracks);
 
     void internalRemoveTracksList(const QHash<QUrl, QDateTime> &removedTracks, qulonglong sourceId);
-
-    void internalRemoveTracksWithoutMapping();
 
     QUrl internalAlbumArtUriFromAlbumId(qulonglong albumId);
 
@@ -508,7 +505,7 @@ private:
     void updateAlbumArtist(qulonglong albumId, const QString &title, const QString &albumPath,
                            const QString &artistName);
 
-    void updateTrackStatistics(qulonglong databaseId, const QDateTime &time);
+    void updateTrackStatistics(const QUrl &fileName, const QDateTime &time);
 
     void createDatabaseV9();
 

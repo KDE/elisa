@@ -443,9 +443,9 @@ private:
 
     void insertTrackOrigin(const QUrl &fileNameURI, const QDateTime &fileModifiedTime, const QDateTime &importDate, qulonglong discoverId);
 
-    void updateTrackOrigin(qulonglong trackId, const QUrl &fileName, const QDateTime &fileModifiedTime);
+    void updateTrackOrigin(const QUrl &fileName, const QDateTime &fileModifiedTime);
 
-    int computeTrackPriority(qulonglong trackId, const QUrl &fileName);
+    int computeTrackPriority(const QUrl &fileName);
 
     qulonglong internalInsertTrack(const MusicAudioTrack &oneModifiedTrack, const QHash<QString, QUrl> &covers,
                                    qulonglong originTrackId, TrackFileInsertType insertType);

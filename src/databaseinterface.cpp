@@ -55,7 +55,7 @@ public:
           mRemoveArtistQuery(mTracksDatabase), mSelectAllTracksQuery(mTracksDatabase),
           mInsertTrackMapping(mTracksDatabase), mUpdateTrackFirstPlayStatistics(mTracksDatabase),
           mInsertMusicSource(mTracksDatabase), mSelectMusicSource(mTracksDatabase),
-          mUpdateTrackMapping(mTracksDatabase),
+          mUpdateTrackPriority(mTracksDatabase), mUpdateTrackFileModifiedTime(mTracksDatabase),
           mSelectTracksMapping(mTracksDatabase), mSelectTracksMappingPriority(mTracksDatabase),
           mUpdateAlbumArtUriFromAlbumIdQuery(mTracksDatabase), mSelectTracksMappingPriorityByTrackId(mTracksDatabase),
           mSelectAllTrackFilesFromSourceQuery(mTracksDatabase),  mSelectAlbumIdsFromArtist(mTracksDatabase),
@@ -132,7 +132,9 @@ public:
 
     QSqlQuery mSelectMusicSource;
 
-    QSqlQuery mUpdateTrackMapping;
+    QSqlQuery mUpdateTrackPriority;
+
+    QSqlQuery mUpdateTrackFileModifiedTime;
 
     QSqlQuery mSelectTracksMapping;
 
@@ -864,7 +866,7 @@ void DatabaseInterface::insertTracksList(const QList<MusicAudioTrack> &tracks, c
             insertTrackOrigin(oneTrack.resourceURI(), oneTrack.fileModificationTime(),
                               QDateTime::currentDateTime(), insertMusicSource(musicSource));
         } else if (!d->mSelectTracksMapping.record().value(0).isNull() && d->mSelectTracksMapping.record().value(0).toULongLong() != 0) {
-            updateTrackOrigin(d->mSelectTracksMapping.record().value(0).toULongLong(), oneTrack.resourceURI(), oneTrack.fileModificationTime());
+            updateTrackOrigin(oneTrack.resourceURI(), oneTrack.fileModificationTime());
         }
 
         d->mSelectTracksMapping.finish();
@@ -985,7 +987,7 @@ void DatabaseInterface::modifyTracksList(const QList<MusicAudioTrack> &modifiedT
             insertTrackOrigin(oneModifiedTrack.resourceURI(), oneModifiedTrack.fileModificationTime(),
                               QDateTime::currentDateTime(), insertMusicSource(musicSource));
         } else {
-            updateTrackOrigin(originTrackId, oneModifiedTrack.resourceURI(), oneModifiedTrack.fileModificationTime());
+            updateTrackOrigin(oneModifiedTrack.resourceURI(), oneModifiedTrack.fileModificationTime());
         }
 
         const auto insertedTrackId = internalInsertTrack(oneModifiedTrack, covers, (modifyExistingTrack ? originTrackId : 0),
@@ -1456,7 +1458,6 @@ void DatabaseInterface::upgradeDatabaseV11()
         const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `TracksData` ("
                                                                    "`DiscoverID` INTEGER NOT NULL, "
                                                                    "`FileName` VARCHAR(255) NOT NULL, "
-                                                                   "`Priority` INTEGER NOT NULL, "
                                                                    "`FileModifiedTime` DATETIME NOT NULL, "
                                                                    "`ImportDate` INTEGER NOT NULL, "
                                                                    "`FirstPlayDate` INTEGER, "
@@ -1478,7 +1479,6 @@ void DatabaseInterface::upgradeDatabaseV11()
                                                         "SELECT "
                                                         "m.`DiscoverID`, "
                                                         "m.`FileName`, "
-                                                        "m.`Priority`, "
                                                         "m.`FileModifiedTime`, "
                                                         "t.`ImportDate`, "
                                                         "t.`FirstPlayDate`, "
@@ -1504,6 +1504,7 @@ void DatabaseInterface::upgradeDatabaseV11()
         auto result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `NewTracks` ("
                                                             "`ID` INTEGER NOT NULL, "
                                                             "`FileName` VARCHAR(255) PRIMARY KEY NOT NULL, "
+                                                            "`Priority` INTEGER NOT NULL, "
                                                             "`Title` VARCHAR(85) NOT NULL, "
                                                             "`ArtistName` VARCHAR(55), "
                                                             "`AlbumTitle` VARCHAR(55), "
@@ -1553,6 +1554,7 @@ void DatabaseInterface::upgradeDatabaseV11()
                                                         "SELECT "
                                                         "t.`ID`, "
                                                         "m.`FileName`, "
+                                                        "m.`Priority`, "
                                                         "t.`Title`, "
                                                         "t.`ArtistName`, "
                                                         "t.`AlbumTitle`, "
@@ -2128,7 +2130,19 @@ void DatabaseInterface::initRequest()
                                                   "LEFT JOIN `Lyricist` trackLyricist ON trackLyricist.`Name` = tracks.`Lyricist` "
                                                   "WHERE "
                                                   "tracksMapping.`FileName` = tracks.`FileName` AND "
-                                                  "tracksMapping.`Priority` = (SELECT MIN(`Priority`) FROM `TracksData` WHERE `FileName` = tracks.`FileName`)");
+                                                  "tracks.`Priority` = ("
+                                                  "     SELECT "
+                                                  "     MIN(`Priority`) "
+                                                  "     FROM "
+                                                  "     `Tracks` tracks2 "
+                                                  "     WHERE "
+                                                  "     tracks.`Title` = tracks2.`Title` AND "
+                                                  "     (tracks.`ArtistName` IS NULL OR tracks.`ArtistName` = tracks2.`ArtistName`) AND "
+                                                  "     (tracks.`AlbumTitle` IS NULL OR tracks.`AlbumTitle` = tracks2.`AlbumTitle`) AND "
+                                                  "     (tracks.`AlbumArtistName` IS NULL OR tracks.`AlbumArtistName` = tracks2.`AlbumArtistName`) AND "
+                                                  "     (tracks.`AlbumPath` IS NULL OR tracks.`AlbumPath` = tracks2.`AlbumPath`)"
+                                                  ")"
+                                                  "");
 
         auto result = prepareQuery(d->mSelectAllTracksQuery, selectAllTracksText);
 
@@ -2198,7 +2212,18 @@ void DatabaseInterface::initRequest()
                                                   "WHERE "
                                                   "tracksMapping.`FileName` = tracks.`FileName` AND "
                                                   "tracksMapping.`PlayCounter` > 0 AND "
-                                                  "tracksMapping.`Priority` = (SELECT MIN(`Priority`) FROM `TracksData` WHERE `FileName` = tracks.`FileName`) "
+                                                  "tracks.`Priority` = ("
+                                                  "     SELECT "
+                                                  "     MIN(`Priority`) "
+                                                  "     FROM "
+                                                  "     `Tracks` tracks2 "
+                                                  "     WHERE "
+                                                  "     tracks.`Title` = tracks2.`Title` AND "
+                                                  "     (tracks.`ArtistName` IS NULL OR tracks.`ArtistName` = tracks2.`ArtistName`) AND "
+                                                  "     (tracks.`AlbumTitle` IS NULL OR tracks.`AlbumTitle` = tracks2.`AlbumTitle`) AND "
+                                                  "     (tracks.`AlbumArtistName` IS NULL OR tracks.`AlbumArtistName` = tracks2.`AlbumArtistName`) AND "
+                                                  "     (tracks.`AlbumPath` IS NULL OR tracks.`AlbumPath` = tracks2.`AlbumPath`)"
+                                                  ")"
                                                   "ORDER BY tracksMapping.`LastPlayDate` DESC "
                                                   "LIMIT :maximumResults");
 
@@ -2270,7 +2295,18 @@ void DatabaseInterface::initRequest()
                                                   "WHERE "
                                                   "tracksMapping.`FileName` = tracks.`FileName` AND "
                                                   "tracksMapping.`PlayCounter` > 0 AND "
-                                                  "tracksMapping.`Priority` = (SELECT MIN(`Priority`) FROM `TracksData` WHERE `FileName` = tracks.`FileName`) "
+                                                  "tracks.`Priority` = ("
+                                                  "     SELECT "
+                                                  "     MIN(`Priority`) "
+                                                  "     FROM "
+                                                  "     `Tracks` tracks2 "
+                                                  "     WHERE "
+                                                  "     tracks.`Title` = tracks2.`Title` AND "
+                                                  "     (tracks.`ArtistName` IS NULL OR tracks.`ArtistName` = tracks2.`ArtistName`) AND "
+                                                  "     (tracks.`AlbumTitle` IS NULL OR tracks.`AlbumTitle` = tracks2.`AlbumTitle`) AND "
+                                                  "     (tracks.`AlbumArtistName` IS NULL OR tracks.`AlbumArtistName` = tracks2.`AlbumArtistName`) AND "
+                                                  "     (tracks.`AlbumPath` IS NULL OR tracks.`AlbumPath` = tracks2.`AlbumPath`)"
+                                                  ")"
                                                   "ORDER BY tracksMapping.`PlayCounter` / (strftime('%s', 'now') - tracksMapping.`FirstPlayDate`) DESC "
                                                   "LIMIT :maximumResults");
 
@@ -2490,7 +2526,18 @@ void DatabaseInterface::initRequest()
                                                    "WHERE "
                                                    "tracksMapping.`FileName` = tracks.`FileName` AND "
                                                    "album.`ID` = :albumId AND "
-                                                   "tracksMapping.`Priority` = (SELECT MIN(`Priority`) FROM `TracksData` WHERE `FileName` = tracks.`FileName`) "
+                                                   "tracks.`Priority` = ("
+                                                   "     SELECT "
+                                                   "     MIN(`Priority`) "
+                                                   "     FROM "
+                                                   "     `Tracks` tracks2 "
+                                                   "     WHERE "
+                                                   "     tracks.`Title` = tracks2.`Title` AND "
+                                                   "     (tracks.`ArtistName` IS NULL OR tracks.`ArtistName` = tracks2.`ArtistName`) AND "
+                                                   "     (tracks.`AlbumTitle` IS NULL OR tracks.`AlbumTitle` = tracks2.`AlbumTitle`) AND "
+                                                   "     (tracks.`AlbumArtistName` IS NULL OR tracks.`AlbumArtistName` = tracks2.`AlbumArtistName`) AND "
+                                                   "     (tracks.`AlbumPath` IS NULL OR tracks.`AlbumPath` = tracks2.`AlbumPath`)"
+                                                   ")"
                                                    "ORDER BY tracks.`DiscNumber` ASC, "
                                                    "tracks.`TrackNumber` ASC");
 
@@ -2561,7 +2608,19 @@ void DatabaseInterface::initRequest()
                                                          "WHERE "
                                                          "tracks.`ID` = :trackId AND "
                                                          "tracksMapping.`FileName` = tracks.`FileName` AND "
-                                                         "tracksMapping.`Priority` = (SELECT MIN(`Priority`) FROM `TracksData` WHERE `FileName` = tracks.`FileName`)");
+                                                         "tracks.`Priority` = ("
+                                                         "     SELECT "
+                                                         "     MIN(`Priority`) "
+                                                         "     FROM "
+                                                         "     `Tracks` tracks2 "
+                                                         "     WHERE "
+                                                         "     tracks.`Title` = tracks2.`Title` AND "
+                                                         "     (tracks.`ArtistName` IS NULL OR tracks.`ArtistName` = tracks2.`ArtistName`) AND "
+                                                         "     (tracks.`AlbumTitle` IS NULL OR tracks.`AlbumTitle` = tracks2.`AlbumTitle`) AND "
+                                                         "     (tracks.`AlbumArtistName` IS NULL OR tracks.`AlbumArtistName` = tracks2.`AlbumArtistName`) AND "
+                                                         "     (tracks.`AlbumPath` IS NULL OR tracks.`AlbumPath` = tracks2.`AlbumPath`)"
+                                                         ")"
+                                                         "");
 
         auto result = prepareQuery(d->mSelectTrackFromIdQuery, selectTrackFromIdQueryText);
 
@@ -2767,11 +2826,10 @@ void DatabaseInterface::initRequest()
                                                           "`TracksData` "
                                                           "(`FileName`, "
                                                           "`DiscoverID`, "
-                                                          "`Priority`, "
                                                           "`FileModifiedTime`, "
                                                           "`ImportDate`, "
                                                           "`PlayCounter`) "
-                                                          "VALUES (:fileName, :discoverId, :priority, :mtime, :importDate, 0)");
+                                                          "VALUES (:fileName, :discoverId, :mtime, :importDate, 0)");
 
         auto result = prepareQuery(d->mInsertTrackMapping, insertTrackMappingQueryText);
 
@@ -2786,15 +2844,30 @@ void DatabaseInterface::initRequest()
     {
         auto initialUpdateTracksValidityQueryText = QStringLiteral("UPDATE `TracksData` "
                                                                    "SET "
-                                                                   "`Priority` = :priority, "
                                                                    "`FileModifiedTime` = :mtime "
                                                                    "WHERE `FileName` = :fileName");
 
-        auto result = prepareQuery(d->mUpdateTrackMapping, initialUpdateTracksValidityQueryText);
+        auto result = prepareQuery(d->mUpdateTrackFileModifiedTime, initialUpdateTracksValidityQueryText);
 
         if (!result) {
-            qDebug() << "DatabaseInterface::initRequest" << d->mUpdateTrackMapping.lastQuery();
-            qDebug() << "DatabaseInterface::initRequest" << d->mUpdateTrackMapping.lastError();
+            qDebug() << "DatabaseInterface::initRequest" << d->mUpdateTrackFileModifiedTime.lastQuery();
+            qDebug() << "DatabaseInterface::initRequest" << d->mUpdateTrackFileModifiedTime.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        auto initialUpdateTracksValidityQueryText = QStringLiteral("UPDATE `Tracks` "
+                                                                   "SET "
+                                                                   "`Priority` = :priority "
+                                                                   "WHERE `FileName` = :fileName");
+
+        auto result = prepareQuery(d->mUpdateTrackPriority, initialUpdateTracksValidityQueryText);
+
+        if (!result) {
+            qDebug() << "DatabaseInterface::initRequest" << d->mUpdateTrackPriority.lastQuery();
+            qDebug() << "DatabaseInterface::initRequest" << d->mUpdateTrackPriority.lastError();
 
             Q_EMIT databaseError();
         }
@@ -2902,7 +2975,7 @@ void DatabaseInterface::initRequest()
                                                            "track.`ID`, "
                                                            "trackData.`FileName`, "
                                                            "trackData.`DiscoverID`, "
-                                                           "trackData.`Priority`, "
+                                                           "track.`Priority`, "
                                                            "trackData.`FileModifiedTime` "
                                                            "FROM "
                                                            "`TracksData` trackData "
@@ -2925,7 +2998,7 @@ void DatabaseInterface::initRequest()
 
     {
         auto selectTracksMappingPriorityQueryText = QStringLiteral("SELECT "
-                                                                   "`Priority` "
+                                                                   "track.`Priority` "
                                                                    "FROM "
                                                                    "`TracksData` trackData, "
                                                                    "`Tracks` track "
@@ -2946,7 +3019,7 @@ void DatabaseInterface::initRequest()
 
     {
         auto selectTracksMappingPriorityQueryByTrackIdText = QStringLiteral("SELECT "
-                                                                            "MAX(`Priority`) "
+                                                                            "MAX(track.`Priority`) "
                                                                             "FROM "
                                                                             "`TracksData` trackData, "
                                                                             "`Tracks` track "
@@ -3025,7 +3098,19 @@ void DatabaseInterface::initRequest()
                                                    "(tracks.`AlbumPath` = album.`AlbumPath` OR tracks.`AlbumPath` IS NULL ) AND "
                                                    "tracks.`ArtistName` = :artist AND "
                                                    "tracksMapping.`FileName` = tracks.`FileName` AND "
-                                                   "tracksMapping.`Priority` = (SELECT MIN(`Priority`) FROM `TracksData` WHERE `FileName` = tracks.`FileName`)");
+                                                   "tracks.`Priority` = ("
+                                                   "     SELECT "
+                                                   "     MIN(`Priority`) "
+                                                   "     FROM "
+                                                   "     `Tracks` tracks2 "
+                                                   "     WHERE "
+                                                   "     tracks.`Title` = tracks2.`Title` AND "
+                                                   "     (tracks.`ArtistName` IS NULL OR tracks.`ArtistName` = tracks2.`ArtistName`) AND "
+                                                   "     (tracks.`AlbumTitle` IS NULL OR tracks.`AlbumTitle` = tracks2.`AlbumTitle`) AND "
+                                                   "     (tracks.`AlbumArtistName` IS NULL OR tracks.`AlbumArtistName` = tracks2.`AlbumArtistName`) AND "
+                                                   "     (tracks.`AlbumPath` IS NULL OR tracks.`AlbumPath` = tracks2.`AlbumPath`)"
+                                                   ")"
+                                                   "");
 
         auto result = prepareQuery(d->mSelectTrackIdFromTitleAlbumIdArtistQuery, selectTrackQueryText);
 
@@ -3042,6 +3127,7 @@ void DatabaseInterface::initRequest()
                                                    "("
                                                    "`ID`, "
                                                    "`FileName`, "
+                                                   "`Priority`, "
                                                    "`Title`, "
                                                    "`ArtistName`, "
                                                    "`AlbumTitle`, "
@@ -3064,6 +3150,7 @@ void DatabaseInterface::initRequest()
                                                    "("
                                                    ":trackId, "
                                                    ":fileName, "
+                                                   ":priority, "
                                                    ":title, "
                                                    ":artistName, "
                                                    ":albumTitle, "
@@ -3389,7 +3476,18 @@ void DatabaseInterface::initRequest()
                                                               "WHERE "
                                                               "tracks.`ArtistName` = :artistName AND "
                                                               "tracksMapping.`FileName` = tracks.`FileName` AND "
-                                                              "tracksMapping.`Priority` = (SELECT MIN(`Priority`) FROM `TracksData` WHERE `FileName` = tracks.`FileName`) "
+                                                              "tracks.`Priority` = ("
+                                                              "     SELECT "
+                                                              "     MIN(`Priority`) "
+                                                              "     FROM "
+                                                              "     `Tracks` tracks2 "
+                                                              "     WHERE "
+                                                              "     tracks.`Title` = tracks2.`Title` AND "
+                                                              "     (tracks.`ArtistName` IS NULL OR tracks.`ArtistName` = tracks2.`ArtistName`) AND "
+                                                              "     (tracks.`AlbumTitle` IS NULL OR tracks.`AlbumTitle` = tracks2.`AlbumTitle`) AND "
+                                                              "     (tracks.`AlbumArtistName` IS NULL OR tracks.`AlbumArtistName` = tracks2.`AlbumArtistName`) AND "
+                                                              "     (tracks.`AlbumPath` IS NULL OR tracks.`AlbumPath` = tracks2.`AlbumPath`)"
+                                                              ")"
                                                               "ORDER BY tracks.`Title` ASC, "
                                                               "album.`Title` ASC");
 
@@ -3937,31 +4035,48 @@ void DatabaseInterface::insertTrackOrigin(const QUrl &fileNameURI, const QDateTi
     d->mInsertTrackMapping.finish();
 }
 
-void DatabaseInterface::updateTrackOrigin(qulonglong trackId, const QUrl &fileName, const QDateTime &fileModifiedTime)
+void DatabaseInterface::updateTrackOrigin(const QUrl &fileName, const QDateTime &fileModifiedTime)
 {
-    d->mUpdateTrackMapping.bindValue(QStringLiteral(":trackId"), trackId);
-    d->mUpdateTrackMapping.bindValue(QStringLiteral(":fileName"), fileName);
-    d->mUpdateTrackMapping.bindValue(QStringLiteral(":priority"), computeTrackPriority(trackId, fileName));
-    d->mUpdateTrackMapping.bindValue(QStringLiteral(":mtime"), fileModifiedTime);
+    d->mUpdateTrackFileModifiedTime.bindValue(QStringLiteral(":fileName"), fileName);
+    d->mUpdateTrackFileModifiedTime.bindValue(QStringLiteral(":mtime"), fileModifiedTime);
 
-    auto queryResult = d->mUpdateTrackMapping.exec();
+    auto queryResult = d->mUpdateTrackFileModifiedTime.exec();
 
-    if (!queryResult || !d->mUpdateTrackMapping.isActive()) {
+    if (!queryResult || !d->mUpdateTrackFileModifiedTime.isActive()) {
         Q_EMIT databaseError();
 
-        qDebug() << "DatabaseInterface::updateTrackOrigin" << d->mUpdateTrackMapping.lastQuery();
-        qDebug() << "DatabaseInterface::updateTrackOrigin" << d->mUpdateTrackMapping.boundValues();
-        qDebug() << "DatabaseInterface::updateTrackOrigin" << d->mUpdateTrackMapping.lastError();
+        qDebug() << "DatabaseInterface::updateTrackOrigin" << d->mUpdateTrackFileModifiedTime.lastQuery();
+        qDebug() << "DatabaseInterface::updateTrackOrigin" << d->mUpdateTrackFileModifiedTime.boundValues();
+        qDebug() << "DatabaseInterface::updateTrackOrigin" << d->mUpdateTrackFileModifiedTime.lastError();
 
-        d->mUpdateTrackMapping.finish();
+        d->mUpdateTrackFileModifiedTime.finish();
 
         return;
     }
 
-    d->mInsertTrackMapping.finish();
+    d->mUpdateTrackFileModifiedTime.finish();
+
+    d->mUpdateTrackPriority.bindValue(QStringLiteral(":fileName"), fileName);
+    d->mUpdateTrackPriority.bindValue(QStringLiteral(":priority"), computeTrackPriority(fileName));
+
+    queryResult = d->mUpdateTrackPriority.exec();
+
+    if (!queryResult || !d->mUpdateTrackPriority.isActive()) {
+        Q_EMIT databaseError();
+
+        qDebug() << "DatabaseInterface::updateTrackOrigin" << d->mUpdateTrackPriority.lastQuery();
+        qDebug() << "DatabaseInterface::updateTrackOrigin" << d->mUpdateTrackPriority.boundValues();
+        qDebug() << "DatabaseInterface::updateTrackOrigin" << d->mUpdateTrackPriority.lastError();
+
+        d->mUpdateTrackPriority.finish();
+
+        return;
+    }
+
+    d->mUpdateTrackPriority.finish();
 }
 
-int DatabaseInterface::computeTrackPriority(qulonglong trackId, const QUrl &fileName)
+int DatabaseInterface::computeTrackPriority(const QUrl &fileName)
 {
     auto result = int(1);
 
@@ -3969,7 +4084,6 @@ int DatabaseInterface::computeTrackPriority(qulonglong trackId, const QUrl &file
         return result;
     }
 
-    d->mSelectTracksMappingPriority.bindValue(QStringLiteral(":trackId"), trackId);
     d->mSelectTracksMappingPriority.bindValue(QStringLiteral(":fileName"), fileName);
 
     auto queryResult = d->mSelectTracksMappingPriority.exec();
@@ -3995,28 +4109,6 @@ int DatabaseInterface::computeTrackPriority(qulonglong trackId, const QUrl &file
     }
 
     d->mSelectTracksMappingPriority.finish();
-
-    d->mSelectTracksMappingPriorityByTrackId.bindValue(QStringLiteral(":trackId"), trackId);
-
-    queryResult = d->mSelectTracksMappingPriorityByTrackId.exec();
-
-    if (!queryResult || !d->mSelectTracksMappingPriorityByTrackId.isSelect() || !d->mSelectTracksMappingPriorityByTrackId.isActive()) {
-        Q_EMIT databaseError();
-
-        qDebug() << "DatabaseInterface::internalTrackIdFromFileName" << d->mSelectTracksMappingPriorityByTrackId.lastQuery();
-        qDebug() << "DatabaseInterface::internalTrackIdFromFileName" << d->mSelectTracksMappingPriorityByTrackId.boundValues();
-        qDebug() << "DatabaseInterface::internalTrackIdFromFileName" << d->mSelectTracksMappingPriorityByTrackId.lastError();
-
-        d->mSelectTracksMappingPriorityByTrackId.finish();
-
-        return result;
-    }
-
-    if (d->mSelectTracksMappingPriorityByTrackId.next()) {
-        result = d->mSelectTracksMappingPriorityByTrackId.record().value(0).toInt() + 1;
-    }
-
-    d->mSelectTracksMappingPriorityByTrackId.finish();
 
     return result;
 }
@@ -4082,7 +4174,7 @@ qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrac
             auto newTrack = oneTrack;
             newTrack.setDatabaseId(oldTrack.databaseId());
             updateTrackInDatabase(newTrack, trackPath);
-            updateTrackOrigin(newTrack.databaseId(), oneTrack.resourceURI(), oneTrack.fileModificationTime());
+            updateTrackOrigin(oneTrack.resourceURI(), oneTrack.fileModificationTime());
             updateAlbumFromId(albumId, oneTrack.albumCover(), oneTrack, trackPath);
 
             recordModifiedTrack(originTrackId);
@@ -4113,6 +4205,7 @@ qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrac
     if (!isSameTrack) {
         d->mInsertTrackQuery.bindValue(QStringLiteral(":trackId"), originTrackId);
         d->mInsertTrackQuery.bindValue(QStringLiteral(":fileName"), oneTrack.resourceURI());
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":priority"), 1);
         d->mInsertTrackQuery.bindValue(QStringLiteral(":title"), oneTrack.title());
         insertArtist(oneTrack.artist());
         d->mInsertTrackQuery.bindValue(QStringLiteral(":artistName"), oneTrack.artist());
@@ -4154,7 +4247,7 @@ qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrac
                 ++d->mTrackId;
             }
 
-            updateTrackOrigin(originTrackId, oneTrack.resourceURI(), oneTrack.fileModificationTime());
+            updateTrackOrigin(oneTrack.resourceURI(), oneTrack.fileModificationTime());
 
             if (isModifiedTrack) {
                 recordModifiedTrack(originTrackId);

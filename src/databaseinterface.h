@@ -364,8 +364,6 @@ public Q_SLOTS:
 
     void removeTracksList(const QList<QUrl> &removedTracks);
 
-    void modifyTracksList(const QList<MusicAudioTrack> &modifiedTracks, const QHash<QString, QUrl> &covers, const QString &musicSource);
-
     void removeAllTracksFromSource(const QString &sourceName);
 
     void askRestoredTracks(const QString &musicSource);
@@ -401,7 +399,7 @@ private:
                                                            int trackNumber, int discNumber);
 
     qulonglong getDuplicateTrackIdFromTitleAlbumTrackDiscNumber(const QString &title, const QString &trackArtist, const QString &album,
-                                                                const QString &albumArtist, const QString &trackPath);
+                                                                const QString &albumArtist, const QString &trackPath, int priority);
 
     qulonglong internalTrackIdFromFileName(const QUrl &fileName);
 
@@ -445,10 +443,9 @@ private:
 
     void updateTrackOrigin(const QUrl &fileName, const QDateTime &fileModifiedTime);
 
-    int computeTrackPriority(const QUrl &fileName);
+    int computeTrackPriority(const QString &title, const QString &trackArtist, const QString &album, const QString &albumArtist, const QString &trackPath);
 
-    qulonglong internalInsertTrack(const MusicAudioTrack &oneModifiedTrack, const QHash<QString, QUrl> &covers,
-                                   qulonglong originTrackId, TrackFileInsertType insertType);
+    qulonglong internalInsertTrack(const MusicAudioTrack &oneModifiedTrack, const QHash<QString, QUrl> &covers);
 
     MusicAudioTrack buildTrackFromDatabaseRecord(const QSqlRecord &trackRecord) const;
 

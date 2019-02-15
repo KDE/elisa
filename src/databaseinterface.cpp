@@ -970,9 +970,11 @@ void DatabaseInterface::insertTracksList(const QList<MusicAudioTrack> &tracks, c
 
         d->mSelectTracksMapping.finish();
 
-        const auto insertedTrackId = internalInsertTrack(oneTrack, covers);
+        bool isInserted = false;
 
-        if (isNewTrack && insertedTrackId != 0) {
+        const auto insertedTrackId = internalInsertTrack(oneTrack, covers, isInserted);
+
+        if (isInserted && insertedTrackId != 0) {
             d->mInsertedTracks.insert(insertedTrackId);
         }
 
@@ -4249,7 +4251,7 @@ int DatabaseInterface::computeTrackPriority(const QString &title, const QString 
     return result;
 }
 
-qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrack, const QHash<QString, QUrl> &covers)
+qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrack, const QHash<QString, QUrl> &covers, bool &isInserted)
 {
     qulonglong resultId = 0;
 
@@ -4322,10 +4324,14 @@ qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrac
             }
         }
 
+        isInserted = false;
+
         return resultId;
     } else {
         oldAlbumId = 0;
         existingTrackId = d->mTrackId;
+
+        isInserted = true;
     }
 
     int priority = 1;

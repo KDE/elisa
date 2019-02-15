@@ -751,9 +751,7 @@ void DatabaseInterface::removeAllTracksFromSource(const QString &sourceName)
 
     initChangesTrackers();
 
-    auto sourceId = internalSourceIdFromName(sourceName);
-
-    auto allFileNames = internalAllFileNameFromSource(sourceId);
+    auto allFileNames = internalAllFileNameFromSource(sourceName);
 
     auto allFileUrls = QList<QUrl>{};
 
@@ -784,7 +782,7 @@ void DatabaseInterface::askRestoredTracks(const QString &musicSource)
         return;
     }
 
-    auto result = internalAllFileNameFromSource(internalSourceIdFromName(musicSource));
+    auto result = internalAllFileNameFromSource(musicSource);
 
     Q_EMIT restoredTracks(musicSource, result);
 
@@ -1697,6 +1695,22 @@ void DatabaseInterface::upgradeDatabaseV11()
                                                                   "`TracksUniqueDataPriority` ON `Tracks` "
                                                                   "(`Priority`, `Title`, `ArtistName`, "
                                                                   "`AlbumTitle`, `AlbumArtistName`, `AlbumPath`)"));
+
+        if (!result) {
+            qDebug() << "DatabaseInterface::initDatabase" << createTrackIndex.lastQuery();
+            qDebug() << "DatabaseInterface::initDatabase" << createTrackIndex.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        QSqlQuery createTrackIndex(d->mTracksDatabase);
+
+        const auto &result = createTrackIndex.exec(QStringLiteral("CREATE INDEX "
+                                                                  "IF NOT EXISTS "
+                                                                  "`TracksFileNameIndex` ON `Tracks` "
+                                                                  "(`FileName`)"));
 
         if (!result) {
             qDebug() << "DatabaseInterface::initDatabase" << createTrackIndex.lastQuery();
@@ -2993,9 +3007,13 @@ void DatabaseInterface::initRequest()
                                                                      "tracksMapping.`FileName`, "
                                                                      "tracksMapping.`FileModifiedTime` "
                                                                      "FROM "
-                                                                     "`TracksData` tracksMapping "
+                                                                     "`TracksData` tracksMapping, "
+                                                                     "`Tracks` tracks, "
+                                                                     "`DiscoverSource` source "
                                                                      "WHERE "
-                                                                     "tracksMapping.`DiscoverID` = :discoverId");
+                                                                     "tracksMapping.`DiscoverID` = source.`ID` AND "
+                                                                     "tracks.`FileName` = tracksMapping.`FileName` AND "
+                                                                     "source.`Name` = :sourceName");
 
         auto result = prepareQuery(d->mSelectAllTrackFilesFromSourceQuery, selectAllTrackFilesFromSourceQueryText);
 
@@ -4476,11 +4494,11 @@ qulonglong DatabaseInterface::internalSourceIdFromName(const QString &sourceName
     return sourceId;
 }
 
-QHash<QUrl, QDateTime> DatabaseInterface::internalAllFileNameFromSource(qulonglong sourceId)
+QHash<QUrl, QDateTime> DatabaseInterface::internalAllFileNameFromSource(const QString &sourceName)
 {
     QHash<QUrl, QDateTime> allFileNames;
 
-    d->mSelectAllTrackFilesFromSourceQuery.bindValue(QStringLiteral(":discoverId"), sourceId);
+    d->mSelectAllTrackFilesFromSourceQuery.bindValue(QStringLiteral(":sourceName"), sourceName);
 
     auto queryResult = d->mSelectAllTrackFilesFromSourceQuery.exec();
 

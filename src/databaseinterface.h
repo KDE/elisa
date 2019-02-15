@@ -465,7 +465,7 @@ private:
 
     qulonglong internalSourceIdFromName(const QString &sourceName);
 
-    QHash<QUrl, QDateTime> internalAllFileNameFromSource(qulonglong sourceId);
+    QHash<QUrl, QDateTime> internalAllFileNameFromSource(const QString &sourceName);
 
     bool internalGenericPartialData(QSqlQuery &query);
 

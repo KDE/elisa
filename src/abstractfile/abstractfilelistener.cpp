@@ -60,6 +60,8 @@ void AbstractFileListener::setDatabaseInterface(DatabaseInterface *model)
                 model, &DatabaseInterface::askRestoredTracks);
         connect(model, &DatabaseInterface::restoredTracks,
                 d->mFileListing, &AbstractFileListing::restoredTracks);
+        connect(model, &DatabaseInterface::cleanedDatabase,
+                d->mFileListing, &AbstractFileListing::refreshContent);
 
         QMetaObject::invokeMethod(d->mFileListing, "init", Qt::QueuedConnection);
     }

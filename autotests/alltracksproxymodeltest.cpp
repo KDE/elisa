@@ -406,7 +406,7 @@ private Q_SLOTS:
 
         QCOMPARE(proxyTracksModel.rowCount(), 23);
 
-        auto dataChangedSignal =  dataChangedSpy.constFirst();
+        const auto &dataChangedSignal =  dataChangedSpy.constFirst();
 
         QCOMPARE(dataChangedSignal.size(), 3);
 

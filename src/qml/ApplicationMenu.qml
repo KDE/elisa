@@ -34,6 +34,15 @@ Menu {
     property var togglePlaylistAction: elisa.action("toggle_playlist")
 
     MenuItem {
+        text: i18nc("Refresh Music Collection application menu entry", "Refresh Music Collection")
+        iconName: "collection-rescan-amarok"
+        onTriggered: elisa.musicManager.resetMusicData()
+    }
+
+    MenuSeparator {
+    }
+
+    MenuItem {
         text: configureAction.text
         shortcut: configureAction.shortcut
         iconName: elisa.iconName(configureAction.icon)

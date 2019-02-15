@@ -100,6 +100,8 @@ Q_SIGNALS:
 
     void indexerBusyChanged();
 
+    void clearDatabase();
+
 public Q_SLOTS:
 
     void databaseReady();
@@ -114,6 +116,8 @@ public Q_SLOTS:
 
     void connectModel(ModelDataLoader *dataLoader);
 
+    void resetMusicData();
+
 private Q_SLOTS:
 
     void configChanged();
@@ -125,6 +129,8 @@ private Q_SLOTS:
     void monitorStartingListeners();
 
     void monitorEndingListeners();
+
+    void cleanedDatabase();
 
 private:
 

@@ -49,6 +49,19 @@ class ELISALIB_EXPORT DataModel : public QAbstractListModel
 
 public:
 
+    enum FilterType {
+        Unknown,
+        NoFilter,
+        FilterByAlbumTitleAndArtist,
+        FilterByGenre,
+        FilterByArtist,
+        FilterByGenreAndArtist,
+        RecentlyPlayed,
+        FrequentlyPlayed,
+    };
+
+    Q_ENUM(FilterType)
+
     using ListTrackDataType = DatabaseInterface::ListTrackDataType;
 
     using TrackDataType = DatabaseInterface::TrackDataType;
@@ -146,6 +159,10 @@ public Q_SLOTS:
 
     void initializeFrequentlyPlayed(MusicListenersManager *manager, ElisaUtils::PlayListEntryType modelType);
 
+private Q_SLOTS:
+
+    void cleanedDatabase();
+
 private:
 
     int trackIndexFromId(qulonglong id) const;
@@ -153,6 +170,11 @@ private:
     void connectModel(MusicListenersManager *manager);
 
     void setBusy(bool value);
+
+    void initializeModel(MusicListenersManager *manager, ElisaUtils::PlayListEntryType modelType,
+                         FilterType type);
+
+    void askModelData();
 
     std::unique_ptr<DataModelPrivate> d;
 

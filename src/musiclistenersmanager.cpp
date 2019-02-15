@@ -107,6 +107,10 @@ MusicListenersManager::MusicListenersManager(QObject *parent)
 
     connect(&d->mDatabaseInterface, &DatabaseInterface::requestsInitDone,
             this, &MusicListenersManager::databaseReady);
+    connect(this, &MusicListenersManager::clearDatabase,
+            &d->mDatabaseInterface, &DatabaseInterface::clearData);
+    connect(&d->mDatabaseInterface, &DatabaseInterface::cleanedDatabase,
+            this, &MusicListenersManager::cleanedDatabase);
 
     const auto &localDataPaths = QStandardPaths::standardLocations(QStandardPaths::AppDataLocation);
     auto databaseFileName = QString();
@@ -240,6 +244,11 @@ void MusicListenersManager::connectModel(ModelDataLoader *dataLoader)
 {
     dataLoader->moveToThread(&d->mDatabaseThread);
     dataLoader->setDatabase(&d->mDatabaseInterface);
+}
+
+void MusicListenersManager::resetMusicData()
+{
+    Q_EMIT clearDatabase();
 }
 
 void MusicListenersManager::configChanged()
@@ -400,6 +409,12 @@ void MusicListenersManager::monitorEndingListeners()
         d->mIndexingRunning = false;
         Q_EMIT indexingRunningChanged();
     }
+}
+
+void MusicListenersManager::cleanedDatabase()
+{
+    d->mImportedTracksCount = 0;
+    Q_EMIT importedTracksCountChanged();
 }
 
 void MusicListenersManager::createTracksListener()

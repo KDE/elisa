@@ -78,7 +78,9 @@ public:
           mQueryMaximumLyricistIdQuery(mTracksDatabase), mQueryMaximumComposerIdQuery(mTracksDatabase),
           mQueryMaximumGenreIdQuery(mTracksDatabase), mSelectAllArtistsWithGenreFilterQuery(mTracksDatabase),
           mSelectAllAlbumsShortWithGenreArtistFilterQuery(mTracksDatabase), mSelectAllAlbumsShortWithArtistFilterQuery(mTracksDatabase),
-          mSelectAllRecentlyPlayedTracksQuery(mTracksDatabase), mSelectAllFrequentlyPlayedTracksQuery(mTracksDatabase)
+          mSelectAllRecentlyPlayedTracksQuery(mTracksDatabase), mSelectAllFrequentlyPlayedTracksQuery(mTracksDatabase),
+          mClearTracksTable(mTracksDatabase), mClearAlbumsTable(mTracksDatabase), mClearArtistsTable(mTracksDatabase),
+          mClearComposerTable(mTracksDatabase), mClearGenreTable(mTracksDatabase), mClearLyricistTable(mTracksDatabase)
     {
     }
 
@@ -225,6 +227,18 @@ public:
     QSqlQuery mSelectAllRecentlyPlayedTracksQuery;
 
     QSqlQuery mSelectAllFrequentlyPlayedTracksQuery;
+
+    QSqlQuery mClearTracksTable;
+
+    QSqlQuery mClearAlbumsTable;
+
+    QSqlQuery mClearArtistsTable;
+
+    QSqlQuery mClearComposerTable;
+
+    QSqlQuery mClearGenreTable;
+
+    QSqlQuery mClearLyricistTable;
 
     QSet<qulonglong> mModifiedTrackIds;
 
@@ -805,6 +819,93 @@ void DatabaseInterface::trackHasStartedPlaying(const QUrl &fileName, const QDate
     if (!transactionResult) {
         return;
     }
+}
+
+void DatabaseInterface::clearData()
+{
+    auto transactionResult = startTransaction();
+    if (!transactionResult) {
+        return;
+    }
+
+    auto queryResult = d->mClearTracksTable.exec();
+
+    if (!queryResult || !d->mClearTracksTable.isActive()) {
+        Q_EMIT databaseError();
+
+        qDebug() << "DatabaseInterface::clearData" << d->mClearTracksTable.lastQuery();
+        qDebug() << "DatabaseInterface::clearData" << d->mClearTracksTable.boundValues();
+        qDebug() << "DatabaseInterface::clearData" << d->mClearTracksTable.lastError();
+    }
+
+    d->mClearTracksTable.finish();
+
+    queryResult = d->mClearAlbumsTable.exec();
+
+    if (!queryResult || !d->mClearAlbumsTable.isActive()) {
+        Q_EMIT databaseError();
+
+        qDebug() << "DatabaseInterface::clearData" << d->mClearAlbumsTable.lastQuery();
+        qDebug() << "DatabaseInterface::clearData" << d->mClearAlbumsTable.boundValues();
+        qDebug() << "DatabaseInterface::clearData" << d->mClearAlbumsTable.lastError();
+    }
+
+    d->mClearAlbumsTable.finish();
+
+    queryResult = d->mClearComposerTable.exec();
+
+    if (!queryResult || !d->mClearComposerTable.isActive()) {
+        Q_EMIT databaseError();
+
+        qDebug() << "DatabaseInterface::clearData" << d->mClearComposerTable.lastQuery();
+        qDebug() << "DatabaseInterface::clearData" << d->mClearComposerTable.boundValues();
+        qDebug() << "DatabaseInterface::clearData" << d->mClearComposerTable.lastError();
+    }
+
+    d->mClearComposerTable.finish();
+
+    queryResult = d->mClearLyricistTable.exec();
+
+    if (!queryResult || !d->mClearLyricistTable.isActive()) {
+        Q_EMIT databaseError();
+
+        qDebug() << "DatabaseInterface::clearData" << d->mClearLyricistTable.lastQuery();
+        qDebug() << "DatabaseInterface::clearData" << d->mClearLyricistTable.boundValues();
+        qDebug() << "DatabaseInterface::clearData" << d->mClearLyricistTable.lastError();
+    }
+
+    d->mClearLyricistTable.finish();
+
+    queryResult = d->mClearGenreTable.exec();
+
+    if (!queryResult || !d->mClearGenreTable.isActive()) {
+        Q_EMIT databaseError();
+
+        qDebug() << "DatabaseInterface::clearData" << d->mClearGenreTable.lastQuery();
+        qDebug() << "DatabaseInterface::clearData" << d->mClearGenreTable.boundValues();
+        qDebug() << "DatabaseInterface::clearData" << d->mClearGenreTable.lastError();
+    }
+
+    d->mClearGenreTable.finish();
+
+    queryResult = d->mClearArtistsTable.exec();
+
+    if (!queryResult || !d->mClearArtistsTable.isActive()) {
+        Q_EMIT databaseError();
+
+        qDebug() << "DatabaseInterface::clearData" << d->mClearArtistsTable.lastQuery();
+        qDebug() << "DatabaseInterface::clearData" << d->mClearArtistsTable.boundValues();
+        qDebug() << "DatabaseInterface::clearData" << d->mClearArtistsTable.lastError();
+    }
+
+    d->mClearArtistsTable.finish();
+
+    transactionResult = finishTransaction();
+    if (!transactionResult) {
+        return;
+    }
+
+    Q_EMIT cleanedDatabase();
 }
 
 void DatabaseInterface::initChangesTrackers()
@@ -2278,6 +2379,84 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllFrequentlyPlayedTracksQuery.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllFrequentlyPlayedTracksQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        auto clearAlbumsTableText = QStringLiteral("DELETE FROM `Albums`");
+
+        auto result = prepareQuery(d->mClearAlbumsTable, clearAlbumsTableText);
+
+        if (!result) {
+            qDebug() << "DatabaseInterface::initRequest" << d->mClearAlbumsTable.lastQuery();
+            qDebug() << "DatabaseInterface::initRequest" << d->mClearAlbumsTable.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        auto clearArtistsTableText = QStringLiteral("DELETE FROM `Artists`");
+
+        auto result = prepareQuery(d->mClearArtistsTable, clearArtistsTableText);
+
+        if (!result) {
+            qDebug() << "DatabaseInterface::initRequest" << d->mClearArtistsTable.lastQuery();
+            qDebug() << "DatabaseInterface::initRequest" << d->mClearArtistsTable.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        auto clearComposerTableText = QStringLiteral("DELETE FROM `Composer`");
+
+        auto result = prepareQuery(d->mClearComposerTable, clearComposerTableText);
+
+        if (!result) {
+            qDebug() << "DatabaseInterface::initRequest" << d->mClearComposerTable.lastQuery();
+            qDebug() << "DatabaseInterface::initRequest" << d->mClearComposerTable.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        auto clearGenreTableText = QStringLiteral("DELETE FROM `Genre`");
+
+        auto result = prepareQuery(d->mClearGenreTable, clearGenreTableText);
+
+        if (!result) {
+            qDebug() << "DatabaseInterface::initRequest" << d->mClearGenreTable.lastQuery();
+            qDebug() << "DatabaseInterface::initRequest" << d->mClearGenreTable.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        auto clearLyricistTableText = QStringLiteral("DELETE FROM `Lyricist`");
+
+        auto result = prepareQuery(d->mClearLyricistTable, clearLyricistTableText);
+
+        if (!result) {
+            qDebug() << "DatabaseInterface::initRequest" << d->mClearLyricistTable.lastQuery();
+            qDebug() << "DatabaseInterface::initRequest" << d->mClearLyricistTable.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        auto clearTracksTableText = QStringLiteral("DELETE FROM `Tracks`");
+
+        auto result = prepareQuery(d->mClearTracksTable, clearTracksTableText);
+
+        if (!result) {
+            qDebug() << "DatabaseInterface::initRequest" << d->mClearTracksTable.lastQuery();
+            qDebug() << "DatabaseInterface::initRequest" << d->mClearTracksTable.lastError();
 
             Q_EMIT databaseError();
         }

@@ -44,6 +44,10 @@ public:
 
     ElisaUtils::PlayListEntryType mModelType = ElisaUtils::Unknown;
 
+    DataModel::FilterType mFilterType = DataModel::Unknown;
+
+    QString mArtist;
+
     QString mAlbumTitle;
 
     QString mAlbumArtist;
@@ -227,149 +231,51 @@ bool DataModel::isBusy() const
 
 void DataModel::initialize(MusicListenersManager *manager, ElisaUtils::PlayListEntryType modelType)
 {
-    d->mModelType = modelType;
-
-    if (!manager) {
-        return;
-    }
-    manager->connectModel(&d->mDataLoader);
-
-    connectModel(manager);
-
-    connect(this, &DataModel::needData,
-            &d->mDataLoader, &ModelDataLoader::loadData);
-
-    setBusy(true);
-
-    Q_EMIT needData(d->mModelType);
+    initializeModel(manager, modelType, FilterType::NoFilter);
 }
 
 void DataModel::initializeByAlbumTitleAndArtist(MusicListenersManager *manager, ElisaUtils::PlayListEntryType modelType,
                                                 const QString &albumTitle, const QString &albumArtist)
 {
-    d->mModelType = modelType;
     d->mAlbumTitle = albumTitle;
     d->mAlbumArtist = albumArtist;
 
-    if (!manager) {
-        return;
-    }
-
-    manager->connectModel(&d->mDataLoader);
-
-    connectModel(manager);
-
-    connect(this, &DataModel::needData,
-            &d->mDataLoader, &ModelDataLoader::loadData);
-
-    setBusy(true);
-
-    Q_EMIT needData(d->mModelType);
+    initializeModel(manager, modelType, FilterType::FilterByAlbumTitleAndArtist);
 }
 
 void DataModel::initializeByGenre(MusicListenersManager *manager, ElisaUtils::PlayListEntryType modelType,
                                   const QString &genre)
 {
-    d->mModelType = modelType;
     d->mGenre = genre;
 
-    if (!manager) {
-        return;
-    }
-
-    manager->connectModel(&d->mDataLoader);
-
-    connectModel(manager);
-
-    connect(this, &DataModel::needDataByGenre,
-            &d->mDataLoader, &ModelDataLoader::loadDataByGenre);
-
-    setBusy(true);
-
-    Q_EMIT needDataByGenre(d->mModelType, genre);
+    initializeModel(manager, modelType, FilterType::FilterByGenre);
 }
 
 void DataModel::initializeByArtist(MusicListenersManager *manager, ElisaUtils::PlayListEntryType modelType,
                                    const QString &artist)
 {
-    d->mModelType = modelType;
-    d->mAlbumArtist = artist;
+    d->mArtist = artist;
 
-    if (!manager) {
-        return;
-    }
-
-    manager->connectModel(&d->mDataLoader);
-
-    connectModel(manager);
-
-    connect(this, &DataModel::needDataByArtist,
-            &d->mDataLoader, &ModelDataLoader::loadDataByArtist);
-
-    setBusy(true);
-
-    Q_EMIT needDataByArtist(d->mModelType, artist);
+    initializeModel(manager, modelType, FilterType::FilterByArtist);
 }
 
 void DataModel::initializeByGenreAndArtist(MusicListenersManager *manager, ElisaUtils::PlayListEntryType modelType,
                                            const QString &genre, const QString &artist)
 {
-    d->mModelType = modelType;
     d->mGenre = genre;
-    d->mAlbumArtist = artist;
+    d->mArtist = artist;
 
-    if (!manager) {
-        return;
-    }
-
-    manager->connectModel(&d->mDataLoader);
-
-    connectModel(manager);
-
-    connect(this, &DataModel::needDataByGenreAndArtist,
-            &d->mDataLoader, &ModelDataLoader::loadDataByGenreAndArtist);
-
-    setBusy(true);
-
-    Q_EMIT needDataByGenreAndArtist(d->mModelType, genre, artist);
+    initializeModel(manager, modelType, FilterType::FilterByGenreAndArtist);
 }
 
 void DataModel::initializeRecentlyPlayed(MusicListenersManager *manager, ElisaUtils::PlayListEntryType modelType)
 {
-    d->mModelType = modelType;
-
-    if (!manager) {
-        return;
-    }
-    manager->connectModel(&d->mDataLoader);
-
-    connectModel(manager);
-
-    connect(this, &DataModel::needRecentlyPlayedData,
-            &d->mDataLoader, &ModelDataLoader::loadRecentlyPlayedData);
-
-    setBusy(true);
-
-    Q_EMIT needRecentlyPlayedData(d->mModelType);
+    initializeModel(manager, modelType, FilterType::RecentlyPlayed);
 }
 
 void DataModel::initializeFrequentlyPlayed(MusicListenersManager *manager, ElisaUtils::PlayListEntryType modelType)
 {
-    d->mModelType = modelType;
-
-    if (!manager) {
-        return;
-    }
-    manager->connectModel(&d->mDataLoader);
-
-    connectModel(manager);
-
-    connect(this, &DataModel::needFrequentlyPlayedData,
-            &d->mDataLoader, &ModelDataLoader::loadFrequentlyPlayedData);
-
-    setBusy(true);
-
-    Q_EMIT needFrequentlyPlayedData(d->mModelType);
+    initializeModel(manager, modelType, FilterType::FrequentlyPlayed);
 }
 
 void DataModel::setBusy(bool value)
@@ -380,6 +286,88 @@ void DataModel::setBusy(bool value)
 
     d->mIsBusy = value;
     Q_EMIT isBusyChanged();
+}
+
+void DataModel::initializeModel(MusicListenersManager *manager, ElisaUtils::PlayListEntryType modelType,
+                                DataModel::FilterType type)
+{
+    d->mModelType = modelType;
+    d->mFilterType = type;
+
+    if (!manager) {
+        return;
+    }
+    manager->connectModel(&d->mDataLoader);
+
+    connectModel(manager);
+
+    switch(d->mFilterType)
+    {
+    case NoFilter:
+        connect(this, &DataModel::needData,
+                &d->mDataLoader, &ModelDataLoader::loadData);
+        break;
+    case FilterByAlbumTitleAndArtist:
+        connect(this, &DataModel::needData,
+                &d->mDataLoader, &ModelDataLoader::loadData);
+        break;
+    case FilterByGenre:
+        connect(this, &DataModel::needDataByGenre,
+                &d->mDataLoader, &ModelDataLoader::loadDataByGenre);
+        break;
+    case FilterByArtist:
+        connect(this, &DataModel::needDataByArtist,
+                &d->mDataLoader, &ModelDataLoader::loadDataByArtist);
+        break;
+    case FilterByGenreAndArtist:
+        connect(this, &DataModel::needDataByGenreAndArtist,
+                &d->mDataLoader, &ModelDataLoader::loadDataByGenreAndArtist);
+        break;
+    case RecentlyPlayed:
+        connect(this, &DataModel::needRecentlyPlayedData,
+                &d->mDataLoader, &ModelDataLoader::loadRecentlyPlayedData);
+        break;
+    case FrequentlyPlayed:
+        connect(this, &DataModel::needFrequentlyPlayedData,
+                &d->mDataLoader, &ModelDataLoader::loadFrequentlyPlayedData);
+        break;
+    case Unknown:
+        break;
+    }
+
+    setBusy(true);
+
+    askModelData();
+}
+
+void DataModel::askModelData()
+{
+    switch(d->mFilterType)
+    {
+    case NoFilter:
+        Q_EMIT needData(d->mModelType);
+        break;
+    case FilterByAlbumTitleAndArtist:
+        Q_EMIT needData(d->mModelType);
+        break;
+    case FilterByGenre:
+        Q_EMIT needDataByGenre(d->mModelType, d->mGenre);
+        break;
+    case FilterByArtist:
+        Q_EMIT needDataByArtist(d->mModelType, d->mArtist);
+        break;
+    case FilterByGenreAndArtist:
+        Q_EMIT needDataByGenreAndArtist(d->mModelType, d->mGenre, d->mArtist);
+        break;
+    case RecentlyPlayed:
+        Q_EMIT needRecentlyPlayedData(d->mModelType);
+        break;
+    case FrequentlyPlayed:
+        Q_EMIT needFrequentlyPlayedData(d->mModelType);
+        break;
+    case Unknown:
+        break;
+    }
 }
 
 int DataModel::trackIndexFromId(qulonglong id) const
@@ -417,6 +405,8 @@ void DataModel::connectModel(MusicListenersManager *manager)
             this, &DataModel::artistsAdded);
     connect(manager->viewDatabase(), &DatabaseInterface::artistRemoved,
             this, &DataModel::artistRemoved);
+    connect(manager->viewDatabase(), &DatabaseInterface::cleanedDatabase,
+            this, &DataModel::cleanedDatabase);
 
     connect(&d->mDataLoader, &ModelDataLoader::allTracksData,
             this, &DataModel::tracksAdded);
@@ -701,6 +691,16 @@ void DataModel::albumModified(const DataModel::AlbumDataType &modifiedAlbum)
     auto albumIndex = modifiedAlbumIterator - d->mAllAlbumData.begin();
 
     Q_EMIT dataChanged(index(albumIndex, 0), index(albumIndex, 0));
+}
+
+void DataModel::cleanedDatabase()
+{
+    beginResetModel();
+    d->mAllAlbumData.clear();
+    d->mAllGenreData.clear();
+    d->mAllTrackData.clear();
+    d->mAllArtistData.clear();
+    endResetModel();
 }
 
 #include "moc_datamodel.cpp"

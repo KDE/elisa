@@ -358,6 +358,8 @@ Q_SIGNALS:
 
     void restoredTracks(const QString &musicSource, QHash<QUrl, QDateTime> allFiles);
 
+    void cleanedDatabase();
+
 public Q_SLOTS:
 
     void insertTracksList(const QList<MusicAudioTrack> &tracks, const QHash<QString, QUrl> &covers, const QString &musicSource);
@@ -369,6 +371,8 @@ public Q_SLOTS:
     void askRestoredTracks(const QString &musicSource);
 
     void trackHasStartedPlaying(const QUrl &fileName, const QDateTime &time);
+
+    void clearData();
 
 private:
 

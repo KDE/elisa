@@ -64,6 +64,8 @@ public Q_SLOTS:
 
     void loadData(ElisaUtils::PlayListEntryType dataType);
 
+    void loadDataById(ElisaUtils::PlayListEntryType dataType, qulonglong databaseId);
+
     void loadDataByGenre(ElisaUtils::PlayListEntryType dataType,
                          const QString &genre);
 

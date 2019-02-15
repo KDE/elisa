@@ -54,6 +54,8 @@ public:
 
     QString mGenre;
 
+    qulonglong mDatabaseId = 0;
+
     bool mIsBusy = false;
 
 };
@@ -234,13 +236,11 @@ void DataModel::initialize(MusicListenersManager *manager, ElisaUtils::PlayListE
     initializeModel(manager, modelType, FilterType::NoFilter);
 }
 
-void DataModel::initializeByAlbumTitleAndArtist(MusicListenersManager *manager, ElisaUtils::PlayListEntryType modelType,
-                                                const QString &albumTitle, const QString &albumArtist)
+void DataModel::initializeById(MusicListenersManager *manager, ElisaUtils::PlayListEntryType modelType, qulonglong databaseId)
 {
-    d->mAlbumTitle = albumTitle;
-    d->mAlbumArtist = albumArtist;
+    d->mDatabaseId = databaseId;
 
-    initializeModel(manager, modelType, FilterType::FilterByAlbumTitleAndArtist);
+    initializeModel(manager, modelType, FilterType::FilterById);
 }
 
 void DataModel::initializeByGenre(MusicListenersManager *manager, ElisaUtils::PlayListEntryType modelType,
@@ -307,9 +307,9 @@ void DataModel::initializeModel(MusicListenersManager *manager, ElisaUtils::Play
         connect(this, &DataModel::needData,
                 &d->mDataLoader, &ModelDataLoader::loadData);
         break;
-    case FilterByAlbumTitleAndArtist:
-        connect(this, &DataModel::needData,
-                &d->mDataLoader, &ModelDataLoader::loadData);
+    case FilterById:
+        connect(this, &DataModel::needDataById,
+                &d->mDataLoader, &ModelDataLoader::loadDataById);
         break;
     case FilterByGenre:
         connect(this, &DataModel::needDataByGenre,
@@ -347,8 +347,8 @@ void DataModel::askModelData()
     case NoFilter:
         Q_EMIT needData(d->mModelType);
         break;
-    case FilterByAlbumTitleAndArtist:
-        Q_EMIT needData(d->mModelType);
+    case FilterById:
+        Q_EMIT needDataById(d->mModelType, d->mDatabaseId);
         break;
     case FilterByGenre:
         Q_EMIT needDataByGenre(d->mModelType, d->mGenre);

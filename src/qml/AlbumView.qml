@@ -26,6 +26,7 @@ FocusScope {
     property alias mainTitle: albumGridView.mainTitle
     property alias secondaryTitle: albumGridView.secondaryTitle
     property alias image: albumGridView.image
+    property alias databaseId: albumGridView.databaseId
 
     DataModel {
         id: realModel
@@ -110,12 +111,12 @@ FocusScope {
     Connections {
         target: elisa
 
-        onMusicManagerChanged: realModel.initializeByAlbumTitleAndArtist(elisa.musicManager, ElisaUtils.Track, mainTitle, secondaryTitle)
+        onMusicManagerChanged: realModel.initializeById(elisa.musicManager, ElisaUtils.Track, databaseId)
     }
 
     Component.onCompleted: {
         if (elisa.musicManager) {
-            realModel.initializeByAlbumTitleAndArtist(elisa.musicManager, ElisaUtils.Track, mainTitle, secondaryTitle)
+            realModel.initializeById(elisa.musicManager, ElisaUtils.Track, databaseId)
         }
     }
 }

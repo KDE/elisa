@@ -2661,6 +2661,7 @@ void DatabaseInterface::initRequest()
                                                    "LEFT JOIN "
                                                    "`Albums` album "
                                                    "ON "
+                                                   "album.`ID` = :albumId AND "
                                                    "tracks.`AlbumTitle` = album.`Title` AND "
                                                    "(tracks.`AlbumArtistName` = album.`ArtistName` OR tracks.`AlbumArtistName` IS NULL ) AND "
                                                    "tracks.`AlbumPath` = album.`AlbumPath` "

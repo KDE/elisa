@@ -31,6 +31,7 @@ FocusScope {
     property alias mainTitle: navigationBar.mainTitle
     property alias secondaryTitle: navigationBar.secondaryTitle
     property alias image: navigationBar.image
+    property int databaseId
     property alias delegate: contentDirectoryView.delegate
     property alias contentModel: contentDirectoryView.model
     property alias expandedFilterView: navigationBar.expandedFilterView

@@ -115,6 +115,7 @@ RowLayout {
                                      mainTitle: mainTitle,
                                      secondaryTitle: secondaryTitle,
                                      image: imageUrl,
+                                     databaseId: databaseId,
                                      stackView: browseStackView,
                                      opacity: 0,
                                  })

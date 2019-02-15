@@ -74,6 +74,33 @@ void ModelDataLoader::loadData(ElisaUtils::PlayListEntryType dataType)
     }
 }
 
+void ModelDataLoader::loadDataById(ElisaUtils::PlayListEntryType dataType, qulonglong databaseId)
+{
+    if (!d->mDatabase) {
+        return;
+    }
+
+    switch (dataType)
+    {
+    case ElisaUtils::Album:
+        break;
+    case ElisaUtils::Artist:
+        break;
+    case ElisaUtils::Composer:
+        break;
+    case ElisaUtils::Genre:
+        break;
+    case ElisaUtils::Lyricist:
+        break;
+    case ElisaUtils::Track:
+        Q_EMIT allTracksData(d->mDatabase->albumData(databaseId));
+        break;
+    case ElisaUtils::FileName:
+    case ElisaUtils::Unknown:
+        break;
+    }
+}
+
 void ModelDataLoader::loadDataByGenre(ElisaUtils::PlayListEntryType dataType, const QString &genre)
 {
     if (!d->mDatabase) {

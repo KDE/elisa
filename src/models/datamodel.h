@@ -52,7 +52,7 @@ public:
     enum FilterType {
         Unknown,
         NoFilter,
-        FilterByAlbumTitleAndArtist,
+        FilterById,
         FilterByGenre,
         FilterByArtist,
         FilterByGenreAndArtist,
@@ -108,6 +108,8 @@ Q_SIGNALS:
 
     void needData(ElisaUtils::PlayListEntryType dataType);
 
+    void needDataById(ElisaUtils::PlayListEntryType dataType, qulonglong databaseId);
+
     void needDataByGenre(ElisaUtils::PlayListEntryType dataType, const QString &genre);
 
     void needDataByArtist(ElisaUtils::PlayListEntryType dataType, const QString &artist);
@@ -143,8 +145,8 @@ public Q_SLOTS:
 
     void initialize(MusicListenersManager *manager, ElisaUtils::PlayListEntryType modelType);
 
-    void initializeByAlbumTitleAndArtist(MusicListenersManager *manager, ElisaUtils::PlayListEntryType modelType,
-                                         const QString &albumTitle, const QString &albumArtist);
+    void initializeById(MusicListenersManager *manager, ElisaUtils::PlayListEntryType modelType,
+                        qulonglong databaseId);
 
     void initializeByGenre(MusicListenersManager *manager, ElisaUtils::PlayListEntryType modelType,
                            const QString &genre);

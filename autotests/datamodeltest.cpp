@@ -87,7 +87,8 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        albumsModel.initializeByAlbumTitleAndArtist(nullptr, ElisaUtils::Track, QStringLiteral("album1"), QStringLiteral("Various Artists"));
+        albumsModel.initializeById(nullptr, ElisaUtils::Track,
+                                   musicDb.albumIdFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists")));
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -97,8 +98,9 @@ private Q_SLOTS:
 
         albumsModel.tracksAdded(musicDb.albumData(musicDb.albumIdFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists"))));
 
-        QCOMPARE(beginInsertRowsSpy.count(), 4);
-        QCOMPARE(endInsertRowsSpy.count(), 4);
+        QCOMPARE(albumsModel.rowCount(), 4);
+        QCOMPARE(beginInsertRowsSpy.count(), 1);
+        QCOMPARE(endInsertRowsSpy.count(), 1);
         QCOMPARE(beginRemoveRowsSpy.count(), 0);
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
@@ -109,8 +111,9 @@ private Q_SLOTS:
 
         musicDb.removeTracksList({firstTrack[DatabaseInterface::ResourceRole].toUrl()});
 
-        QCOMPARE(beginInsertRowsSpy.count(), 4);
-        QCOMPARE(endInsertRowsSpy.count(), 4);
+        QCOMPARE(albumsModel.rowCount(), 3);
+        QCOMPARE(beginInsertRowsSpy.count(), 1);
+        QCOMPARE(endInsertRowsSpy.count(), 1);
         QCOMPARE(beginRemoveRowsSpy.count(), 1);
         QCOMPARE(endRemoveRowsSpy.count(), 1);
         QCOMPARE(dataChangedSpy.count(), 0);
@@ -151,7 +154,8 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        albumsModel.initializeByAlbumTitleAndArtist(nullptr, ElisaUtils::Track, QStringLiteral("album3"), QStringLiteral("artist2"));
+        albumsModel.initializeById(nullptr, ElisaUtils::Track,
+                                   musicDb.albumIdFromTitleAndArtist(QStringLiteral("album3"), QStringLiteral("artist2")));
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -161,8 +165,9 @@ private Q_SLOTS:
 
         albumsModel.tracksAdded(musicDb.albumData(musicDb.albumIdFromTitleAndArtist(QStringLiteral("album3"), QStringLiteral("artist2"))));
 
-        QCOMPARE(beginInsertRowsSpy.count(), 3);
-        QCOMPARE(endInsertRowsSpy.count(), 3);
+        QCOMPARE(albumsModel.rowCount(), 3);
+        QCOMPARE(beginInsertRowsSpy.count(), 1);
+        QCOMPARE(endInsertRowsSpy.count(), 1);
         QCOMPARE(beginRemoveRowsSpy.count(), 0);
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
@@ -181,8 +186,9 @@ private Q_SLOTS:
                                   secondTrack[DatabaseInterface::ResourceRole].toUrl(),
                                   thirdTrack[DatabaseInterface::ResourceRole].toUrl()});
 
-        QCOMPARE(beginInsertRowsSpy.count(), 3);
-        QCOMPARE(endInsertRowsSpy.count(), 3);
+        QCOMPARE(albumsModel.rowCount(), 0);
+        QCOMPARE(beginInsertRowsSpy.count(), 1);
+        QCOMPARE(endInsertRowsSpy.count(), 1);
         QCOMPARE(beginRemoveRowsSpy.count(), 3);
         QCOMPARE(endRemoveRowsSpy.count(), 3);
         QCOMPARE(dataChangedSpy.count(), 0);
@@ -229,7 +235,8 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        albumsModel.initializeByAlbumTitleAndArtist(nullptr, ElisaUtils::Track, QStringLiteral("album1"), QStringLiteral("Various Artists"));
+        albumsModel.initializeById(nullptr, ElisaUtils::Track,
+                                   musicDb.albumIdFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists")));
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -239,8 +246,9 @@ private Q_SLOTS:
 
         albumsModel.tracksAdded(musicDb.albumData(musicDb.albumIdFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists"))));
 
-        QCOMPARE(beginInsertRowsSpy.count(), 4);
-        QCOMPARE(endInsertRowsSpy.count(), 4);
+        QCOMPARE(albumsModel.rowCount(), 4);
+        QCOMPARE(beginInsertRowsSpy.count(), 1);
+        QCOMPARE(endInsertRowsSpy.count(), 1);
         QCOMPARE(beginRemoveRowsSpy.count(), 0);
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
@@ -261,14 +269,15 @@ private Q_SLOTS:
 
         musicDb.insertTracksList(newTracks, mNewCovers, QStringLiteral("autoTest"));
 
-        QCOMPARE(beginInsertRowsSpy.count(), 5);
-        QCOMPARE(endInsertRowsSpy.count(), 5);
+        QCOMPARE(albumsModel.rowCount(), 5);
+        QCOMPARE(beginInsertRowsSpy.count(), 2);
+        QCOMPARE(endInsertRowsSpy.count(), 2);
         QCOMPARE(beginRemoveRowsSpy.count(), 0);
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 4);
 
-        QCOMPARE(beginInsertRowsSpy.at(4).at(1).toInt(), 4);
-        QCOMPARE(beginInsertRowsSpy.at(4).at(2).toInt(), 4);
+        QCOMPARE(beginInsertRowsSpy.at(1).at(1).toInt(), 4);
+        QCOMPARE(beginInsertRowsSpy.at(1).at(2).toInt(), 4);
 
         QCOMPARE(albumsModel.data(albumsModel.index(4, 0), DatabaseInterface::ColumnsRoles::TitleRole).toString(), QStringLiteral("track6"));
 
@@ -288,16 +297,17 @@ private Q_SLOTS:
 
         musicDb.insertTracksList(secondNewTracks, mNewCovers, QStringLiteral("autoTest"));
 
-        QCOMPARE(beginInsertRowsSpy.count(), 6);
-        QCOMPARE(endInsertRowsSpy.count(), 6);
+        QCOMPARE(albumsModel.rowCount(), 6);
+        QCOMPARE(beginInsertRowsSpy.count(), 3);
+        QCOMPARE(endInsertRowsSpy.count(), 3);
         QCOMPARE(beginRemoveRowsSpy.count(), 0);
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 9);
 
-        QCOMPARE(beginInsertRowsSpy.at(5).at(1).toInt(), 4);
-        QCOMPARE(beginInsertRowsSpy.at(5).at(2).toInt(), 4);
+        QCOMPARE(beginInsertRowsSpy.at(2).at(1).toInt(), 5);
+        QCOMPARE(beginInsertRowsSpy.at(2).at(2).toInt(), 5);
 
-        QCOMPARE(albumsModel.data(albumsModel.index(4, 0), DatabaseInterface::ColumnsRoles::TitleRole).toString(), QStringLiteral("track5"));
+        QCOMPARE(albumsModel.data(albumsModel.index(5, 0), DatabaseInterface::ColumnsRoles::TitleRole).toString(), QStringLiteral("track5"));
     }
 
     void modifyOneTrack()
@@ -341,7 +351,8 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        albumsModel.initializeByAlbumTitleAndArtist(nullptr, ElisaUtils::Track, QStringLiteral("album1"), QStringLiteral("Various Artists"));
+        albumsModel.initializeById(nullptr, ElisaUtils::Track,
+                                   musicDb.albumIdFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists")));
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -351,8 +362,9 @@ private Q_SLOTS:
 
         albumsModel.tracksAdded(musicDb.albumData(musicDb.albumIdFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists"))));
 
-        QCOMPARE(beginInsertRowsSpy.count(), 4);
-        QCOMPARE(endInsertRowsSpy.count(), 4);
+        QCOMPARE(albumsModel.rowCount(), 4);
+        QCOMPARE(beginInsertRowsSpy.count(), 1);
+        QCOMPARE(endInsertRowsSpy.count(), 1);
         QCOMPARE(beginRemoveRowsSpy.count(), 0);
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
@@ -367,8 +379,9 @@ private Q_SLOTS:
 
         musicDb.insertTracksList({modifiedTrack}, mNewCovers, QStringLiteral("autoTest"));
 
-        QCOMPARE(beginInsertRowsSpy.count(), 4);
-        QCOMPARE(endInsertRowsSpy.count(), 4);
+        QCOMPARE(albumsModel.rowCount(), 4);
+        QCOMPARE(beginInsertRowsSpy.count(), 1);
+        QCOMPARE(endInsertRowsSpy.count(), 1);
         QCOMPARE(beginRemoveRowsSpy.count(), 0);
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 1);

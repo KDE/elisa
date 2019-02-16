@@ -81,7 +81,7 @@ FocusScope {
         id: pauseNow
         text: i18nc("Pause current track from play list", "Pause")
         iconName: "media-playback-pause"
-        enabled: isPlaying == MediaPlayList.IsPlaying && isValid
+        enabled: isPlaying === MediaPlayList.IsPlaying && isValid
         onTriggered: playListEntry.pausePlayback()
     }
 

@@ -64,7 +64,7 @@ Window {
             spacing: 0
 
             Image {
-                source: (realModel.coverUrl != "" ? realModel.coverUrl : elisaTheme.tracksIcon)
+                source: (realModel.coverUrl !== "" ? realModel.coverUrl : elisaTheme.tracksIcon)
 
                 sourceSize.width: elisaTheme.coverImageSize
                 sourceSize.height: elisaTheme.coverImageSize

@@ -65,7 +65,7 @@ MouseArea {
             return flickableItem.contentY;
         }
         //Ignore 0 events (happens at least with Christians trackpad)
-        if (wheel.pixelDelta.y == 0 && wheel.angleDelta.y == 0) {
+        if (wheel.pixelDelta.y === 0 && wheel.angleDelta.y === 0) {
             return flickableItem.contentY;
         }
         //pixelDelta seems to be the same as angleDelta/8

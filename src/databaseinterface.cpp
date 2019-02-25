@@ -961,9 +961,11 @@ void DatabaseInterface::insertTracksList(const QList<MusicAudioTrack> &tracks, c
 
         bool isNewTrack = !d->mSelectTracksMapping.next();
 
+        auto discoverId = insertMusicSource(musicSource);
+
         if (isNewTrack) {
             insertTrackOrigin(oneTrack.resourceURI(), oneTrack.fileModificationTime(),
-                              QDateTime::currentDateTime(), insertMusicSource(musicSource));
+                              QDateTime::currentDateTime(), discoverId);
         } else if (!d->mSelectTracksMapping.record().value(0).isNull() && d->mSelectTracksMapping.record().value(0).toULongLong() != 0) {
             updateTrackOrigin(oneTrack.resourceURI(), oneTrack.fileModificationTime());
         }
@@ -972,7 +974,7 @@ void DatabaseInterface::insertTracksList(const QList<MusicAudioTrack> &tracks, c
 
         bool isInserted = false;
 
-        const auto insertedTrackId = internalInsertTrack(oneTrack, covers, isInserted);
+        const auto insertedTrackId = internalInsertTrack(discoverId, oneTrack, covers, isInserted);
 
         if (isInserted && insertedTrackId != 0) {
             d->mInsertedTracks.insert(insertedTrackId);
@@ -1479,7 +1481,7 @@ void DatabaseInterface::upgradeDatabaseV11()
                                                                    "`FirstPlayDate` INTEGER, "
                                                                    "`LastPlayDate` INTEGER, "
                                                                    "`PlayCounter` INTEGER NOT NULL, "
-                                                                   "PRIMARY KEY (`FileName`), "
+                                                                   "PRIMARY KEY (`FileName`, `DiscoverID`), "
                                                                    "CONSTRAINT fk_tracksmapping_discoverID FOREIGN KEY (`DiscoverID`) REFERENCES `DiscoverSource`(`ID`))"));
 
         if (!result) {
@@ -1518,8 +1520,9 @@ void DatabaseInterface::upgradeDatabaseV11()
         QSqlQuery createSchemaQuery(d->mTracksDatabase);
 
         auto result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `NewTracks` ("
-                                                            "`ID` INTEGER NOT NULL, "
-                                                            "`FileName` VARCHAR(255) PRIMARY KEY NOT NULL, "
+                                                            "`ID` INTEGER PRIMARY KEY AUTOINCREMENT, "
+                                                            "`DiscoverID` INTEGER NOT NULL, "
+                                                            "`FileName` VARCHAR(255) NOT NULL, "
                                                             "`Priority` INTEGER NOT NULL, "
                                                             "`Title` VARCHAR(85) NOT NULL, "
                                                             "`ArtistName` VARCHAR(55), "
@@ -1540,17 +1543,19 @@ void DatabaseInterface::upgradeDatabaseV11()
                                                             "`SampleRate` INTEGER, "
                                                             "`HasEmbeddedCover` BOOLEAN NOT NULL, "
                                                             "UNIQUE ("
-                                                            "`ID`"
+                                                            "`FileName`"
                                                             "), "
                                                             "UNIQUE ("
                                                             "`Priority`, `Title`, `ArtistName`, "
                                                             "`AlbumTitle`, `AlbumArtistName`, `AlbumPath`"
                                                             "), "
-                                                            "CONSTRAINT fk_fileName FOREIGN KEY (`FileName`) REFERENCES `TracksData`(`FileName`) ON DELETE CASCADE, "
+                                                            "CONSTRAINT fk_fileName FOREIGN KEY (`FileName`, `DiscoverID`) "
+                                                            "REFERENCES `TracksData`(`FileName`, `DiscoverID`) ON DELETE CASCADE, "
                                                             "CONSTRAINT fk_artist FOREIGN KEY (`ArtistName`) REFERENCES `Artists`(`Name`), "
                                                             "CONSTRAINT fk_tracks_composer FOREIGN KEY (`Composer`) REFERENCES `Composer`(`Name`), "
                                                             "CONSTRAINT fk_tracks_lyricist FOREIGN KEY (`Lyricist`) REFERENCES `Lyricist`(`Name`), "
                                                             "CONSTRAINT fk_tracks_genre FOREIGN KEY (`Genre`) REFERENCES `Genre`(`Name`), "
+                                                            "CONSTRAINT fk_tracks_discoverID FOREIGN KEY (`DiscoverID`) REFERENCES `DiscoverSource`(`ID`)"
                                                             "CONSTRAINT fk_tracks_album FOREIGN KEY ("
                                                             "`AlbumTitle`, `AlbumArtistName`, `AlbumPath`)"
                                                             "REFERENCES `Albums`(`Title`, `ArtistName`, `AlbumPath`))"));
@@ -1566,9 +1571,32 @@ void DatabaseInterface::upgradeDatabaseV11()
     {
         QSqlQuery copyDataQuery(d->mTracksDatabase);
 
-        auto result = copyDataQuery.exec(QStringLiteral("INSERT INTO `NewTracks` "
+        auto result = copyDataQuery.exec(QStringLiteral("INSERT OR IGNORE INTO `NewTracks` "
+                                                        "("
+                                                        "`DiscoverID`, "
+                                                        "`FileName`, "
+                                                        "`Priority`, "
+                                                        "`Title`, "
+                                                        "`ArtistName`, "
+                                                        "`AlbumTitle`, "
+                                                        "`AlbumArtistName`, "
+                                                        "`AlbumPath`, "
+                                                        "`TrackNumber`, "
+                                                        "`DiscNumber`, "
+                                                        "`Duration`, "
+                                                        "`Rating`, "
+                                                        "`Genre`, "
+                                                        "`Composer`, "
+                                                        "`Lyricist`, "
+                                                        "`Comment`, "
+                                                        "`Year`, "
+                                                        "`Channels`, "
+                                                        "`BitRate`, "
+                                                        "`SampleRate`, "
+                                                        "`HasEmbeddedCover`"
+                                                        ") "
                                                         "SELECT "
-                                                        "t.`ID`, "
+                                                        "m.`DiscoverID`, "
                                                         "m.`FileName`, "
                                                         "m.`Priority`, "
                                                         "t.`Title`, "
@@ -3277,6 +3305,7 @@ void DatabaseInterface::initRequest()
         auto insertTrackQueryText = QStringLiteral("INSERT INTO `Tracks` "
                                                    "("
                                                    "`ID`, "
+                                                   "`DiscoverID`, "
                                                    "`FileName`, "
                                                    "`Priority`, "
                                                    "`Title`, "
@@ -3300,6 +3329,7 @@ void DatabaseInterface::initRequest()
                                                    "VALUES "
                                                    "("
                                                    ":trackId, "
+                                                   ":discoverId, "
                                                    ":fileName, "
                                                    ":priority, "
                                                    ":title, "
@@ -4252,7 +4282,8 @@ int DatabaseInterface::computeTrackPriority(const QString &title, const QString 
     return result;
 }
 
-qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrack, const QHash<QString, QUrl> &covers, bool &isInserted)
+qulonglong DatabaseInterface::internalInsertTrack(qulonglong discoverId, const MusicAudioTrack &oneTrack,
+                                                  const QHash<QString, QUrl> &covers, bool &isInserted)
 {
     qulonglong resultId = 0;
 
@@ -4352,6 +4383,7 @@ qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrac
     const auto &albumData = internalOneAlbumPartialData(albumId);
 
     d->mInsertTrackQuery.bindValue(QStringLiteral(":trackId"), existingTrackId);
+    d->mInsertTrackQuery.bindValue(QStringLiteral(":discoverId"), discoverId);
     d->mInsertTrackQuery.bindValue(QStringLiteral(":fileName"), oneTrack.resourceURI());
     d->mInsertTrackQuery.bindValue(QStringLiteral(":priority"), priority);
     d->mInsertTrackQuery.bindValue(QStringLiteral(":title"), oneTrack.title());

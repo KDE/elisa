@@ -22,6 +22,7 @@
 
 #include "elisautils.h"
 #include "databaseinterface.h"
+#include "models/datamodel.h"
 
 #include <QObject>
 
@@ -41,6 +42,9 @@ public:
     using ListGenreDataType = DatabaseInterface::ListGenreDataType;
     using ListTrackDataType = DatabaseInterface::ListTrackDataType;
     using TrackDataType = DatabaseInterface::TrackDataType;
+    using AlbumDataType = DatabaseInterface::AlbumDataType;
+
+    using FilterType = DataModel::FilterType;
 
     explicit ModelDataLoader(QObject *parent = nullptr);
 
@@ -60,11 +64,29 @@ Q_SIGNALS:
 
     void allTrackData(const ModelDataLoader::TrackDataType &allData);
 
+    void tracksAdded(ModelDataLoader::ListTrackDataType newData);
+
+    void trackModified(const ModelDataLoader::TrackDataType &modifiedTrack);
+
+    void trackRemoved(qulonglong removedTrackId);
+
+    void genresAdded(ModelDataLoader::ListGenreDataType newData);
+
+    void artistsAdded(ModelDataLoader::ListArtistDataType newData);
+
+    void artistRemoved(qulonglong removedDatabaseId);
+
+    void albumsAdded(ModelDataLoader::ListAlbumDataType newData);
+
+    void albumRemoved(qulonglong removedDatabaseId);
+
+    void albumModified(const ModelDataLoader::AlbumDataType &modifiedAlbum);
+
 public Q_SLOTS:
 
     void loadData(ElisaUtils::PlayListEntryType dataType);
 
-    void loadDataById(ElisaUtils::PlayListEntryType dataType, qulonglong databaseId);
+    void loadDataByAlbumId(ElisaUtils::PlayListEntryType dataType, qulonglong databaseId);
 
     void loadDataByGenre(ElisaUtils::PlayListEntryType dataType,
                          const QString &genre);
@@ -84,6 +106,26 @@ public Q_SLOTS:
     void loadRecentlyPlayedData(ElisaUtils::PlayListEntryType dataType);
 
     void loadFrequentlyPlayedData(ElisaUtils::PlayListEntryType dataType);
+
+private:
+
+    void databaseTracksAdded(const ListTrackDataType &newData);
+
+    void databaseTrackModified(const TrackDataType &modifiedTrack);
+
+    void databaseTrackRemoved(qulonglong removedTrackId);
+
+    void databaseGenresAdded(const ListGenreDataType &newData);
+
+    void databaseArtistsAdded(const ListArtistDataType &newData);
+
+    void databaseArtistRemoved(qulonglong removedDatabaseId);
+
+    void databaseAlbumsAdded(const ListAlbumDataType &newData);
+
+    void databaseAlbumRemoved(qulonglong removedDatabaseId);
+
+    void databaseAlbumModified(const AlbumDataType &modifiedAlbum);
 
 private:
 

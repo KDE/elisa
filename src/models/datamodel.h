@@ -32,6 +32,7 @@
 
 class DataModelPrivate;
 class MusicListenersManager;
+class DatabaseInterface;
 
 class ELISALIB_EXPORT DataModel : public QAbstractListModel
 {
@@ -143,23 +144,27 @@ public Q_SLOTS:
 
     void albumModified(const DataModel::AlbumDataType &modifiedAlbum);
 
-    void initialize(MusicListenersManager *manager, ElisaUtils::PlayListEntryType modelType);
+    void initialize(MusicListenersManager *manager, DatabaseInterface *database,
+                    ElisaUtils::PlayListEntryType modelType);
 
-    void initializeById(MusicListenersManager *manager, ElisaUtils::PlayListEntryType modelType,
-                        qulonglong databaseId);
+    void initializeById(MusicListenersManager *manager, DatabaseInterface *database,
+                        ElisaUtils::PlayListEntryType modelType, qulonglong databaseId);
 
-    void initializeByGenre(MusicListenersManager *manager, ElisaUtils::PlayListEntryType modelType,
-                           const QString &genre);
+    void initializeByGenre(MusicListenersManager *manager, DatabaseInterface *database,
+                           ElisaUtils::PlayListEntryType modelType, const QString &genre);
 
-    void initializeByArtist(MusicListenersManager *manager, ElisaUtils::PlayListEntryType modelType,
-                            const QString &artist);
+    void initializeByArtist(MusicListenersManager *manager, DatabaseInterface *database,
+                            ElisaUtils::PlayListEntryType modelType, const QString &artist);
 
-    void initializeByGenreAndArtist(MusicListenersManager *manager, ElisaUtils::PlayListEntryType modelType,
-                                    const QString &genre, const QString &artist);
+    void initializeByGenreAndArtist(MusicListenersManager *manager, DatabaseInterface *database,
+                                    ElisaUtils::PlayListEntryType modelType, const QString &genre,
+                                    const QString &artist);
 
-    void initializeRecentlyPlayed(MusicListenersManager *manager, ElisaUtils::PlayListEntryType modelType);
+    void initializeRecentlyPlayed(MusicListenersManager *manager, DatabaseInterface *database,
+                                  ElisaUtils::PlayListEntryType modelType);
 
-    void initializeFrequentlyPlayed(MusicListenersManager *manager, ElisaUtils::PlayListEntryType modelType);
+    void initializeFrequentlyPlayed(MusicListenersManager *manager, DatabaseInterface *database,
+                                    ElisaUtils::PlayListEntryType modelType);
 
 private Q_SLOTS:
 
@@ -169,12 +174,12 @@ private:
 
     int trackIndexFromId(qulonglong id) const;
 
-    void connectModel(MusicListenersManager *manager);
+    void connectModel(DatabaseInterface *database);
 
     void setBusy(bool value);
 
-    void initializeModel(MusicListenersManager *manager, ElisaUtils::PlayListEntryType modelType,
-                         FilterType type);
+    void initializeModel(MusicListenersManager *manager, DatabaseInterface *database,
+                         ElisaUtils::PlayListEntryType modelType, FilterType type);
 
     void askModelData();
 

@@ -243,7 +243,6 @@ void MusicListenersManager::playBackError(const QUrl &sourceInError, QMediaPlaye
 void MusicListenersManager::connectModel(ModelDataLoader *dataLoader)
 {
     dataLoader->moveToThread(&d->mDatabaseThread);
-    dataLoader->setDatabase(&d->mDatabaseInterface);
 }
 
 void MusicListenersManager::resetMusicData()

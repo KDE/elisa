@@ -121,6 +121,11 @@ public:
             return operator[](key_type::ArtistRole).toString();
         }
 
+        qulonglong albumId() const
+        {
+            return operator[](key_type::AlbumIdRole).toULongLong();
+        }
+
         QString album() const
         {
             return operator[](key_type::AlbumRole).toString();
@@ -221,6 +226,11 @@ public:
             return artistData.isValid() && !artistData.toString().isEmpty();
         }
 
+        QStringList genres() const
+        {
+            return operator[](key_type::GenreRole).toStringList();
+        }
+
         QUrl albumArtURI() const
         {
             return operator[](key_type::ImageUrlRole).toUrl();
@@ -314,6 +324,8 @@ public:
     ListArtistDataType allArtistsDataByGenre(const QString &genre);
 
     ListGenreDataType allGenresData();
+
+    bool internalArtistMatchGenre(qulonglong databaseId, const QString &genre);
 
     DataType oneData(ElisaUtils::PlayListEntryType aType, qulonglong databaseId);
 

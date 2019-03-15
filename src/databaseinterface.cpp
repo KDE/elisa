@@ -80,7 +80,8 @@ public:
           mSelectAllAlbumsShortWithGenreArtistFilterQuery(mTracksDatabase), mSelectAllAlbumsShortWithArtistFilterQuery(mTracksDatabase),
           mSelectAllRecentlyPlayedTracksQuery(mTracksDatabase), mSelectAllFrequentlyPlayedTracksQuery(mTracksDatabase),
           mClearTracksTable(mTracksDatabase), mClearAlbumsTable(mTracksDatabase), mClearArtistsTable(mTracksDatabase),
-          mClearComposerTable(mTracksDatabase), mClearGenreTable(mTracksDatabase), mClearLyricistTable(mTracksDatabase)
+          mClearComposerTable(mTracksDatabase), mClearGenreTable(mTracksDatabase), mClearLyricistTable(mTracksDatabase),
+          mArtistMatchGenreQuery(mTracksDatabase)
     {
     }
 
@@ -239,6 +240,8 @@ public:
     QSqlQuery mClearGenreTable;
 
     QSqlQuery mClearLyricistTable;
+
+    QSqlQuery mArtistMatchGenreQuery;
 
     QSet<qulonglong> mModifiedTrackIds;
 
@@ -612,6 +615,45 @@ DatabaseInterface::ListGenreDataType DatabaseInterface::allGenresData()
     if (!transactionResult) {
         return result;
     }
+
+    return result;
+}
+
+bool DatabaseInterface::internalArtistMatchGenre(qulonglong databaseId, const QString &genre)
+{
+    auto result = true;
+
+    if (!d) {
+        return result;
+    }
+
+    d->mArtistMatchGenreQuery.bindValue(QStringLiteral(":databaseId"), databaseId);
+    d->mArtistMatchGenreQuery.bindValue(QStringLiteral(":genreFilter"), genre);
+
+    auto queryResult = d->mArtistMatchGenreQuery.exec();
+
+    if (!queryResult || !d->mArtistMatchGenreQuery.isSelect() || !d->mArtistMatchGenreQuery.isActive()) {
+        Q_EMIT databaseError();
+
+        qDebug() << "DatabaseInterface::artistMatchGenre" << d->mArtistMatchGenreQuery.lastQuery();
+        qDebug() << "DatabaseInterface::artistMatchGenre" << d->mArtistMatchGenreQuery.boundValues();
+        qDebug() << "DatabaseInterface::artistMatchGenre" << d->mArtistMatchGenreQuery.lastError();
+
+        d->mArtistMatchGenreQuery.finish();
+
+        auto transactionResult = finishTransaction();
+        if (!transactionResult) {
+            return result;
+        }
+
+        return result;
+    }
+
+    result = d->mArtistMatchGenreQuery.next();
+
+    d->mArtistMatchGenreQuery.finish();
+
+    qDebug() << "DatabaseInterface::internalArtistMatchGenre" << databaseId << (result ? "match" : "does not match");
 
     return result;
 }
@@ -2130,6 +2172,34 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllArtistsWithGenreFilterQuery.lastQuery();
             qDebug() << "DatabaseInterface::initRequest" << d->mSelectAllArtistsWithGenreFilterQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        auto artistMatchGenreText = QStringLiteral("SELECT artists.`ID` "
+                                                   "FROM `Artists` artists  LEFT JOIN "
+                                                   "`Tracks` tracks ON (tracks.`ArtistName` = artists.`Name` OR tracks.`AlbumArtistName` = artists.`Name`) LEFT JOIN "
+                                                   "`Genre` genres ON tracks.`Genre` = genres.`Name` "
+                                                   "WHERE "
+                                                   "EXISTS ("
+                                                   "  SELECT tracks2.`Genre` "
+                                                   "  FROM "
+                                                   "  `Tracks` tracks2, "
+                                                   "  `Genre` genre2 "
+                                                   "  WHERE "
+                                                   "  (tracks2.`ArtistName` = artists.`Name` OR tracks2.`AlbumArtistName` = artists.`Name`) AND "
+                                                   "  tracks2.`Genre` = genre2.`Name` AND "
+                                                   "  genre2.`Name` = :genreFilter "
+                                                   ") AND "
+                                                   "artists.`ID` = :databaseId");
+
+        auto result = prepareQuery(d->mArtistMatchGenreQuery, artistMatchGenreText);
+
+        if (!result) {
+            qDebug() << "DatabaseInterface::initRequest" << d->mArtistMatchGenreQuery.lastQuery();
+            qDebug() << "DatabaseInterface::initRequest" << d->mArtistMatchGenreQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -5500,10 +5570,10 @@ DatabaseInterface::AlbumDataType DatabaseInterface::internalOneAlbumPartialData(
         result[DataType::key_type::SecondaryTextRole] = currentRecord.value(2);
         result[DataType::key_type::ImageUrlRole] = currentRecord.value(4);
         result[DataType::key_type::ArtistRole] = currentRecord.value(2);
-        result[DataType::key_type::AllArtistsRole] = QVariant::fromValue(currentRecord.value(8).toString().split(QStringLiteral(", ")));
-        result[DataType::key_type::HighestTrackRating] = currentRecord.value(9);
-        result[DataType::key_type::IsSingleDiscAlbumRole] = currentRecord.value(7);
-        result[DataType::key_type::GenreRole] = QVariant::fromValue(currentRecord.value(10).toString().split(QStringLiteral(", ")));
+        result[DataType::key_type::AllArtistsRole] = QVariant::fromValue(currentRecord.value(7).toString().split(QStringLiteral(", ")));
+        result[DataType::key_type::HighestTrackRating] = currentRecord.value(8);
+        result[DataType::key_type::IsSingleDiscAlbumRole] = currentRecord.value(6);
+        result[DataType::key_type::GenreRole] = QVariant::fromValue(currentRecord.value(9).toString().split(QStringLiteral(", ")));
         result[DataType::key_type::ElementTypeRole] = ElisaUtils::Album;
     }
 

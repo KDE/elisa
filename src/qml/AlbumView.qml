@@ -111,12 +111,14 @@ FocusScope {
     Connections {
         target: elisa
 
-        onMusicManagerChanged: realModel.initializeById(elisa.musicManager, ElisaUtils.Track, databaseId)
+        onMusicManagerChanged: realModel.initializeById(elisa.musicManager, elisa.musicManager.viewDatabase,
+                                                        ElisaUtils.Track, databaseId)
     }
 
     Component.onCompleted: {
         if (elisa.musicManager) {
-            realModel.initializeById(elisa.musicManager, ElisaUtils.Track, databaseId)
+            realModel.initializeById(elisa.musicManager, elisa.musicManager.viewDatabase,
+                                     ElisaUtils.Track, databaseId)
         }
     }
 }

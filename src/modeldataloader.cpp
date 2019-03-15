@@ -31,6 +31,20 @@ public:
 
     FileScanner mFileScanner;
 
+    ElisaUtils::PlayListEntryType mModelType = ElisaUtils::Unknown;
+
+    ModelDataLoader::FilterType mFilterType = ModelDataLoader::FilterType::Unknown;
+
+    QString mArtist;
+
+    QString mAlbumTitle;
+
+    QString mAlbumArtist;
+
+    QString mGenre;
+
+    qulonglong mDatabaseId = 0;
+
 };
 
 ModelDataLoader::ModelDataLoader(QObject *parent) : QObject(parent), d(std::make_unique<ModelDataLoaderPrivate>())
@@ -42,6 +56,25 @@ ModelDataLoader::~ModelDataLoader() = default;
 void ModelDataLoader::setDatabase(DatabaseInterface *database)
 {
     d->mDatabase = database;
+
+    connect(database, &DatabaseInterface::genresAdded,
+            this, &ModelDataLoader::databaseGenresAdded);
+    connect(database, &DatabaseInterface::albumsAdded,
+            this, &ModelDataLoader::databaseAlbumsAdded);
+    connect(database, &DatabaseInterface::albumModified,
+            this, &ModelDataLoader::databaseAlbumModified);
+    connect(database, &DatabaseInterface::albumRemoved,
+            this, &ModelDataLoader::databaseAlbumRemoved);
+    connect(database, &DatabaseInterface::tracksAdded,
+            this, &ModelDataLoader::databaseTracksAdded);
+    connect(database, &DatabaseInterface::trackModified,
+            this, &ModelDataLoader::databaseTrackModified);
+    connect(database, &DatabaseInterface::trackRemoved,
+            this, &ModelDataLoader::databaseTrackRemoved);
+    connect(database, &DatabaseInterface::artistsAdded,
+            this, &ModelDataLoader::databaseArtistsAdded);
+    connect(database, &DatabaseInterface::artistRemoved,
+            this, &ModelDataLoader::databaseArtistRemoved);
 }
 
 void ModelDataLoader::loadData(ElisaUtils::PlayListEntryType dataType)
@@ -49,6 +82,8 @@ void ModelDataLoader::loadData(ElisaUtils::PlayListEntryType dataType)
     if (!d->mDatabase) {
         return;
     }
+
+    d->mFilterType = ModelDataLoader::FilterType::NoFilter;
 
     switch (dataType)
     {
@@ -74,11 +109,14 @@ void ModelDataLoader::loadData(ElisaUtils::PlayListEntryType dataType)
     }
 }
 
-void ModelDataLoader::loadDataById(ElisaUtils::PlayListEntryType dataType, qulonglong databaseId)
+void ModelDataLoader::loadDataByAlbumId(ElisaUtils::PlayListEntryType dataType, qulonglong databaseId)
 {
     if (!d->mDatabase) {
         return;
     }
+
+    d->mFilterType = ModelDataLoader::FilterType::FilterById;
+    d->mDatabaseId = databaseId;
 
     switch (dataType)
     {
@@ -107,6 +145,9 @@ void ModelDataLoader::loadDataByGenre(ElisaUtils::PlayListEntryType dataType, co
         return;
     }
 
+    d->mFilterType = ModelDataLoader::FilterType::FilterByGenre;
+    d->mGenre = genre;
+
     switch (dataType)
     {
     case ElisaUtils::Artist:
@@ -128,6 +169,9 @@ void ModelDataLoader::loadDataByArtist(ElisaUtils::PlayListEntryType dataType, c
     if (!d->mDatabase) {
         return;
     }
+
+    d->mFilterType = ModelDataLoader::FilterType::FilterByArtist;
+    d->mArtist = artist;
 
     switch (dataType)
     {
@@ -151,6 +195,10 @@ void ModelDataLoader::loadDataByGenreAndArtist(ElisaUtils::PlayListEntryType dat
         return;
     }
 
+    d->mFilterType = ModelDataLoader::FilterType::FilterByGenreAndArtist;
+    d->mArtist = artist;
+    d->mGenre = genre;
+
     switch (dataType)
     {
     case ElisaUtils::Album:
@@ -173,6 +221,9 @@ void ModelDataLoader::loadDataByDatabaseId(ElisaUtils::PlayListEntryType dataTyp
         return;
     }
 
+    d->mFilterType = ModelDataLoader::FilterType::FilterById;
+    d->mDatabaseId = databaseId;
+
     switch (dataType)
     {
     case ElisaUtils::Track:
@@ -194,6 +245,8 @@ void ModelDataLoader::loadDataByFileName(ElisaUtils::PlayListEntryType dataType,
     if (!d->mDatabase) {
         return;
     }
+
+    d->mFilterType = ModelDataLoader::FilterType::Unknown;
 
     switch (dataType)
     {
@@ -220,6 +273,8 @@ void ModelDataLoader::loadRecentlyPlayedData(ElisaUtils::PlayListEntryType dataT
         return;
     }
 
+    d->mFilterType = ModelDataLoader::FilterType::RecentlyPlayed;
+
     switch (dataType)
     {
     case ElisaUtils::Track:
@@ -242,6 +297,8 @@ void ModelDataLoader::loadFrequentlyPlayedData(ElisaUtils::PlayListEntryType dat
         return;
     }
 
+    d->mFilterType = ModelDataLoader::FilterType::FrequentlyPlayed;
+
     switch (dataType)
     {
     case ElisaUtils::Track:
@@ -256,6 +313,130 @@ void ModelDataLoader::loadFrequentlyPlayedData(ElisaUtils::PlayListEntryType dat
     case ElisaUtils::Unknown:
         break;
     }
+}
+
+void ModelDataLoader::databaseTracksAdded(const ListTrackDataType &newData)
+{
+    switch(d->mFilterType) {
+    case ModelDataLoader::FilterType::NoFilter:
+        Q_EMIT tracksAdded(newData);
+        break;
+    case ModelDataLoader::FilterType::FilterById:
+    {
+        auto filteredData = newData;
+
+        auto new_end = std::remove_if(filteredData.begin(), filteredData.end(),
+                                      [&](const auto &oneTrack) { return oneTrack.albumId() != d->mDatabaseId; });
+        filteredData.erase(new_end, filteredData.end());
+
+        Q_EMIT tracksAdded(filteredData);
+        break;
+    }
+    case ModelDataLoader::FilterType::FilterByGenre:
+    case ModelDataLoader::FilterType::FilterByGenreAndArtist:
+    case ModelDataLoader::FilterType::FilterByArtist:
+    case ModelDataLoader::FilterType::RecentlyPlayed:
+    case ModelDataLoader::FilterType::FrequentlyPlayed:
+    case ModelDataLoader::FilterType::Unknown:
+        break;
+    }
+}
+
+void ModelDataLoader::databaseTrackModified(const TrackDataType &modifiedTrack)
+{
+    Q_EMIT trackModified(modifiedTrack);
+}
+
+void ModelDataLoader::databaseTrackRemoved(qulonglong removedTrackId)
+{
+    Q_EMIT trackRemoved(removedTrackId);
+}
+
+void ModelDataLoader::databaseGenresAdded(const ListGenreDataType &newData)
+{
+    Q_EMIT genresAdded(newData);
+}
+
+void ModelDataLoader::databaseArtistsAdded(const ListArtistDataType &newData)
+{
+    switch(d->mFilterType) {
+    case ModelDataLoader::FilterType::FilterByGenre:
+    {
+        auto filteredData = newData;
+        auto new_end = std::remove_if(filteredData.begin(), filteredData.end(),
+                                      [&](const auto &oneArtist){return !d->mDatabase->internalArtistMatchGenre(oneArtist.databaseId(), d->mGenre);});
+        filteredData.erase(new_end, filteredData.end());
+
+        Q_EMIT artistsAdded(filteredData);
+
+        break;
+    }
+    case ModelDataLoader::FilterType::NoFilter:
+        Q_EMIT artistsAdded(newData);
+        break;
+    case ModelDataLoader::FilterType::FilterByGenreAndArtist:
+    case ModelDataLoader::FilterType::FilterByArtist:
+    case ModelDataLoader::FilterType::FilterById:
+    case ModelDataLoader::FilterType::RecentlyPlayed:
+    case ModelDataLoader::FilterType::FrequentlyPlayed:
+    case ModelDataLoader::FilterType::Unknown:
+        break;
+    }
+}
+
+void ModelDataLoader::databaseArtistRemoved(qulonglong removedDatabaseId)
+{
+    Q_EMIT artistRemoved(removedDatabaseId);
+}
+
+void ModelDataLoader::databaseAlbumsAdded(const ListAlbumDataType &newData)
+{
+    switch(d->mFilterType) {
+    case ModelDataLoader::FilterType::FilterByArtist:
+    {
+        auto filteredData = newData;
+        auto new_end = std::remove_if(filteredData.begin(), filteredData.end(),
+                                      [&](const auto &oneAlbum){return oneAlbum.artist() != d->mArtist;});
+        filteredData.erase(new_end, filteredData.end());
+
+        Q_EMIT albumsAdded(filteredData);
+
+        break;
+    }
+    case ModelDataLoader::FilterType::NoFilter:
+        Q_EMIT albumsAdded(newData);
+        break;
+    case ModelDataLoader::FilterType::FilterByGenreAndArtist:
+    {
+        auto filteredData = newData;
+        auto new_end = std::remove_if(filteredData.begin(), filteredData.end(),
+                                      [&](const auto &oneAlbum){
+                                        const auto &allGenres = oneAlbum.genres();
+                                        return oneAlbum.artist() != d->mArtist || !allGenres.contains(d->mGenre);
+                                      });
+        filteredData.erase(new_end, filteredData.end());
+
+        Q_EMIT albumsAdded(filteredData);
+
+        break;
+    }
+    case ModelDataLoader::FilterType::FilterByGenre:
+    case ModelDataLoader::FilterType::FilterById:
+    case ModelDataLoader::FilterType::RecentlyPlayed:
+    case ModelDataLoader::FilterType::FrequentlyPlayed:
+    case ModelDataLoader::FilterType::Unknown:
+        break;
+    }
+}
+
+void ModelDataLoader::databaseAlbumRemoved(qulonglong removedDatabaseId)
+{
+    Q_EMIT albumRemoved(removedDatabaseId);
+}
+
+void ModelDataLoader::databaseAlbumModified(const AlbumDataType &modifiedAlbum)
+{
+    Q_EMIT albumModified(modifiedAlbum);
 }
 
 

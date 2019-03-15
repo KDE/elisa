@@ -158,6 +158,7 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qRegisterMetaType<ModelDataLoader::ListAlbumDataType>("ModelDataLoader::ListAlbumDataType");
     qRegisterMetaType<ModelDataLoader::ListArtistDataType>("ModelDataLoader::ListArtistDataType");
     qRegisterMetaType<ModelDataLoader::ListGenreDataType>("ModelDataLoader::ListGenreDataType");
+    qRegisterMetaType<ModelDataLoader::AlbumDataType>("ModelDataLoader::AlbumDataType");
     qRegisterMetaType<TracksListener::ListTrackDataType>("TracksListener::ListTrackDataType");
     qRegisterMetaType<QMap<QString, int>>();
     qRegisterMetaType<QAction*>();

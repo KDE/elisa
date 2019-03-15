@@ -99,12 +99,16 @@ FocusScope {
     Connections {
         target: elisa
 
-        onMusicManagerChanged: realModel.initializeFrequentlyPlayed(elisa.musicManager, modelType)
+        onMusicManagerChanged: realModel.initializeFrequentlyPlayed(elisa.musicManager,
+                                                                    elisa.musicManager.viewDatabase,
+                                                                    modelType)
     }
 
     Component.onCompleted: {
         if (elisa.musicManager) {
-            realModel.initializeFrequentlyPlayed(elisa.musicManager, modelType)
+            realModel.initializeFrequentlyPlayed(elisa.musicManager,
+                                                 elisa.musicManager.viewDatabase,
+                                                 modelType)
         }
 
         proxyModel.sortModel(Qt.DescendingOrder)

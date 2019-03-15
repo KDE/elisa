@@ -87,13 +87,20 @@ FocusScope {
 
         onMusicManagerChanged: {
             if (genreFilterText && artistFilter) {
-                realModel.initializeByGenreAndArtist(elisa.musicManager, modelType, genreFilterText, artistFilter)
+                realModel.initializeByGenreAndArtist(elisa.musicManager,
+                                                     elisa.musicManager.viewDatabase,
+                                                     modelType, genreFilterText, artistFilter)
             } else if (genreFilterText) {
-                realModel.initializeByGenre(elisa.musicManager, modelType, genreFilterText)
+                realModel.initializeByGenre(elisa.musicManager,
+                                            elisa.musicManager.viewDatabase,
+                                            modelType, genreFilterText)
             } else if (artistFilter) {
-                realModel.initializeByArtist(elisa.musicManager, modelType, artistFilter)
+                realModel.initializeByArtist(elisa.musicManager,
+                                             elisa.musicManager.viewDatabase,
+                                             modelType, artistFilter)
             } else {
-                realModel.initialize(elisa.musicManager, modelType)
+                realModel.initialize(elisa.musicManager, elisa.musicManager.viewDatabase,
+                                     modelType)
             }
         }
     }
@@ -101,13 +108,20 @@ FocusScope {
     Component.onCompleted: {
         if (elisa.musicManager) {
             if (genreFilterText && artistFilter) {
-                realModel.initializeByGenreAndArtist(elisa.musicManager, modelType, genreFilterText, artistFilter)
+                realModel.initializeByGenreAndArtist(elisa.musicManager,
+                                                     elisa.musicManager.viewDatabase,
+                                                     modelType, genreFilterText, artistFilter)
             } else if (genreFilterText) {
-                realModel.initializeByGenre(elisa.musicManager, modelType, genreFilterText)
+                realModel.initializeByGenre(elisa.musicManager,
+                                            elisa.musicManager.viewDatabase,
+                                            modelType, genreFilterText)
             } else if (artistFilter) {
-                realModel.initializeByArtist(elisa.musicManager, modelType, artistFilter)
+                realModel.initializeByArtist(elisa.musicManager,
+                                             elisa.musicManager.viewDatabase,
+                                             modelType, artistFilter)
             } else {
-                realModel.initialize(elisa.musicManager, modelType)
+                realModel.initialize(elisa.musicManager, elisa.musicManager.viewDatabase,
+                                     modelType)
             }
         }
     }

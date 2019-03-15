@@ -231,51 +231,56 @@ bool DataModel::isBusy() const
     return d->mIsBusy;
 }
 
-void DataModel::initialize(MusicListenersManager *manager, ElisaUtils::PlayListEntryType modelType)
+void DataModel::initialize(MusicListenersManager *manager, DatabaseInterface *database,
+                           ElisaUtils::PlayListEntryType modelType)
 {
-    initializeModel(manager, modelType, FilterType::NoFilter);
+    initializeModel(manager, database, modelType, FilterType::NoFilter);
 }
 
-void DataModel::initializeById(MusicListenersManager *manager, ElisaUtils::PlayListEntryType modelType, qulonglong databaseId)
+void DataModel::initializeById(MusicListenersManager *manager, DatabaseInterface *database,
+                               ElisaUtils::PlayListEntryType modelType, qulonglong databaseId)
 {
     d->mDatabaseId = databaseId;
 
-    initializeModel(manager, modelType, FilterType::FilterById);
+    initializeModel(manager, database, modelType, FilterType::FilterById);
 }
 
-void DataModel::initializeByGenre(MusicListenersManager *manager, ElisaUtils::PlayListEntryType modelType,
-                                  const QString &genre)
+void DataModel::initializeByGenre(MusicListenersManager *manager, DatabaseInterface *database,
+                                  ElisaUtils::PlayListEntryType modelType, const QString &genre)
 {
     d->mGenre = genre;
 
-    initializeModel(manager, modelType, FilterType::FilterByGenre);
+    initializeModel(manager, database, modelType, FilterType::FilterByGenre);
 }
 
-void DataModel::initializeByArtist(MusicListenersManager *manager, ElisaUtils::PlayListEntryType modelType,
-                                   const QString &artist)
+void DataModel::initializeByArtist(MusicListenersManager *manager, DatabaseInterface *database,
+                                   ElisaUtils::PlayListEntryType modelType, const QString &artist)
 {
     d->mArtist = artist;
 
-    initializeModel(manager, modelType, FilterType::FilterByArtist);
+    initializeModel(manager, database, modelType, FilterType::FilterByArtist);
 }
 
-void DataModel::initializeByGenreAndArtist(MusicListenersManager *manager, ElisaUtils::PlayListEntryType modelType,
-                                           const QString &genre, const QString &artist)
+void DataModel::initializeByGenreAndArtist(MusicListenersManager *manager, DatabaseInterface *database,
+                                           ElisaUtils::PlayListEntryType modelType, const QString &genre,
+                                           const QString &artist)
 {
     d->mGenre = genre;
     d->mArtist = artist;
 
-    initializeModel(manager, modelType, FilterType::FilterByGenreAndArtist);
+    initializeModel(manager, database, modelType, FilterType::FilterByGenreAndArtist);
 }
 
-void DataModel::initializeRecentlyPlayed(MusicListenersManager *manager, ElisaUtils::PlayListEntryType modelType)
+void DataModel::initializeRecentlyPlayed(MusicListenersManager *manager, DatabaseInterface *database,
+                                         ElisaUtils::PlayListEntryType modelType)
 {
-    initializeModel(manager, modelType, FilterType::RecentlyPlayed);
+    initializeModel(manager, database, modelType, FilterType::RecentlyPlayed);
 }
 
-void DataModel::initializeFrequentlyPlayed(MusicListenersManager *manager, ElisaUtils::PlayListEntryType modelType)
+void DataModel::initializeFrequentlyPlayed(MusicListenersManager *manager, DatabaseInterface *database,
+                                           ElisaUtils::PlayListEntryType modelType)
 {
-    initializeModel(manager, modelType, FilterType::FrequentlyPlayed);
+    initializeModel(manager, database, modelType, FilterType::FrequentlyPlayed);
 }
 
 void DataModel::setBusy(bool value)
@@ -288,18 +293,23 @@ void DataModel::setBusy(bool value)
     Q_EMIT isBusyChanged();
 }
 
-void DataModel::initializeModel(MusicListenersManager *manager, ElisaUtils::PlayListEntryType modelType,
-                                DataModel::FilterType type)
+void DataModel::initializeModel(MusicListenersManager *manager, DatabaseInterface *database,
+                                ElisaUtils::PlayListEntryType modelType, DataModel::FilterType type)
 {
     d->mModelType = modelType;
     d->mFilterType = type;
 
-    if (!manager) {
+    if (manager) {
+        manager->connectModel(&d->mDataLoader);
+    }
+
+    if (manager) {
+        connectModel(manager->viewDatabase());
+    } else if (database) {
+        connectModel(database);
+    } else {
         return;
     }
-    manager->connectModel(&d->mDataLoader);
-
-    connectModel(manager);
 
     switch(d->mFilterType)
     {
@@ -309,7 +319,7 @@ void DataModel::initializeModel(MusicListenersManager *manager, ElisaUtils::Play
         break;
     case FilterById:
         connect(this, &DataModel::needDataById,
-                &d->mDataLoader, &ModelDataLoader::loadDataById);
+                &d->mDataLoader, &ModelDataLoader::loadDataByAlbumId);
         break;
     case FilterByGenre:
         connect(this, &DataModel::needDataByGenre,
@@ -385,28 +395,9 @@ int DataModel::trackIndexFromId(qulonglong id) const
     return result;
 }
 
-void DataModel::connectModel(MusicListenersManager *manager)
+void DataModel::connectModel(DatabaseInterface *database)
 {
-    connect(manager->viewDatabase(), &DatabaseInterface::genresAdded,
-            this, &DataModel::genresAdded);
-    connect(manager->viewDatabase(), &DatabaseInterface::albumsAdded,
-            this, &DataModel::albumsAdded);
-    connect(manager->viewDatabase(), &DatabaseInterface::albumModified,
-            this, &DataModel::albumModified);
-    connect(manager->viewDatabase(), &DatabaseInterface::albumRemoved,
-            this, &DataModel::albumRemoved);
-    connect(manager->viewDatabase(), &DatabaseInterface::tracksAdded,
-            this, &DataModel::tracksAdded);
-    connect(manager->viewDatabase(), &DatabaseInterface::trackModified,
-            this, &DataModel::trackModified);
-    connect(manager->viewDatabase(), &DatabaseInterface::trackRemoved,
-            this, &DataModel::trackRemoved);
-    connect(manager->viewDatabase(), &DatabaseInterface::artistsAdded,
-            this, &DataModel::artistsAdded);
-    connect(manager->viewDatabase(), &DatabaseInterface::artistRemoved,
-            this, &DataModel::artistRemoved);
-    connect(manager->viewDatabase(), &DatabaseInterface::cleanedDatabase,
-            this, &DataModel::cleanedDatabase);
+    d->mDataLoader.setDatabase(database);
 
     connect(&d->mDataLoader, &ModelDataLoader::allTracksData,
             this, &DataModel::tracksAdded);
@@ -416,6 +407,24 @@ void DataModel::connectModel(MusicListenersManager *manager)
             this, &DataModel::artistsAdded);
     connect(&d->mDataLoader, &ModelDataLoader::allGenresData,
             this, &DataModel::genresAdded);
+    connect(&d->mDataLoader, &ModelDataLoader::genresAdded,
+            this, &DataModel::genresAdded);
+    connect(&d->mDataLoader, &ModelDataLoader::albumsAdded,
+            this, &DataModel::albumsAdded);
+    connect(&d->mDataLoader, &ModelDataLoader::albumModified,
+            this, &DataModel::albumModified);
+    connect(&d->mDataLoader, &ModelDataLoader::albumRemoved,
+            this, &DataModel::albumRemoved);
+    connect(&d->mDataLoader, &ModelDataLoader::tracksAdded,
+            this, &DataModel::tracksAdded);
+    connect(&d->mDataLoader, &ModelDataLoader::trackModified,
+            this, &DataModel::trackModified);
+    connect(&d->mDataLoader, &ModelDataLoader::trackRemoved,
+            this, &DataModel::trackRemoved);
+    connect(&d->mDataLoader, &ModelDataLoader::artistsAdded,
+            this, &DataModel::artistsAdded);
+    connect(&d->mDataLoader, &ModelDataLoader::artistRemoved,
+            this, &DataModel::artistRemoved);
 }
 
 void DataModel::tracksAdded(ListTrackDataType newData)

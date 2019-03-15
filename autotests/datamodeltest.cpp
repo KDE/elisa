@@ -87,7 +87,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        albumsModel.initializeById(nullptr, ElisaUtils::Track,
+        albumsModel.initializeById(nullptr, nullptr, ElisaUtils::Track,
                                    musicDb.albumIdFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists")));
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
@@ -154,7 +154,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        albumsModel.initializeById(nullptr, ElisaUtils::Track,
+        albumsModel.initializeById(nullptr, nullptr, ElisaUtils::Track,
                                    musicDb.albumIdFromTitleAndArtist(QStringLiteral("album3"), QStringLiteral("artist2")));
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
@@ -235,7 +235,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        albumsModel.initializeById(nullptr, ElisaUtils::Track,
+        albumsModel.initializeById(nullptr, nullptr, ElisaUtils::Track,
                                    musicDb.albumIdFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists")));
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
@@ -351,7 +351,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        albumsModel.initializeById(nullptr, ElisaUtils::Track,
+        albumsModel.initializeById(nullptr, nullptr, ElisaUtils::Track,
                                    musicDb.albumIdFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists")));
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
@@ -420,7 +420,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        tracksModel.initialize(nullptr, ElisaUtils::Track);
+        tracksModel.initialize(nullptr, nullptr, ElisaUtils::Track);
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -481,7 +481,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        tracksModel.initialize(nullptr, ElisaUtils::Track);
+        tracksModel.initialize(nullptr, nullptr, ElisaUtils::Track);
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -549,7 +549,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        tracksModel.initialize(nullptr, ElisaUtils::Track);
+        tracksModel.initialize(nullptr, nullptr, ElisaUtils::Track);
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -614,7 +614,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        tracksModel.initialize(nullptr, ElisaUtils::Track);
+        tracksModel.initialize(nullptr, nullptr, ElisaUtils::Track);
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -694,7 +694,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        tracksModel.initialize(nullptr, ElisaUtils::Track);
+        tracksModel.initialize(nullptr, nullptr, ElisaUtils::Track);
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -798,7 +798,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        tracksModel.initialize(nullptr, ElisaUtils::Track);
+        tracksModel.initialize(nullptr, nullptr, ElisaUtils::Track);
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -864,7 +864,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        albumsModel.initialize(nullptr, ElisaUtils::Album);
+        albumsModel.initialize(nullptr, nullptr, ElisaUtils::Album);
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -925,7 +925,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        albumsModel.initialize(nullptr, ElisaUtils::Album);
+        albumsModel.initialize(nullptr, nullptr, ElisaUtils::Album);
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -991,7 +991,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        albumsModel.initialize(nullptr, ElisaUtils::Album);
+        albumsModel.initialize(nullptr, nullptr, ElisaUtils::Album);
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -1052,7 +1052,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        albumsModel.initialize(nullptr, ElisaUtils::Album);
+        albumsModel.initialize(nullptr, nullptr, ElisaUtils::Album);
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -1102,11 +1102,6 @@ private Q_SLOTS:
         DataModel artistsModel;
         QAbstractItemModelTester testModel(&artistsModel);
 
-        connect(&musicDb, &DatabaseInterface::artistsAdded,
-                &artistsModel, &DataModel::artistsAdded);
-        connect(&musicDb, &DatabaseInterface::artistRemoved,
-                &artistsModel, &DataModel::artistRemoved);
-
         musicDb.init(QStringLiteral("testDb"));
 
         QSignalSpy beginInsertRowsSpy(&artistsModel, &DataModel::rowsAboutToBeInserted);
@@ -1122,7 +1117,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        artistsModel.initialize(nullptr, ElisaUtils::Artist);
+        artistsModel.initialize(nullptr, &musicDb, ElisaUtils::Artist);
 
         QCOMPARE(artistsModel.rowCount(), 0);
         QCOMPARE(beginInsertRowsSpy.count(), 0);
@@ -1166,11 +1161,6 @@ private Q_SLOTS:
         DataModel artistsModel;
         QAbstractItemModelTester testModel(&artistsModel);
 
-        connect(&musicDb, &DatabaseInterface::artistsAdded,
-                &artistsModel, &DataModel::artistsAdded);
-        connect(&musicDb, &DatabaseInterface::artistRemoved,
-                &artistsModel, &DataModel::artistRemoved);
-
         musicDb.init(QStringLiteral("testDb"));
 
         QSignalSpy beginInsertRowsSpy(&artistsModel, &DataModel::rowsAboutToBeInserted);
@@ -1186,7 +1176,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        artistsModel.initialize(nullptr, ElisaUtils::Artist);
+        artistsModel.initialize(nullptr, &musicDb, ElisaUtils::Artist);
 
         QCOMPARE(artistsModel.rowCount(), 0);
         QCOMPARE(beginInsertRowsSpy.count(), 0);
@@ -1232,6 +1222,273 @@ private Q_SLOTS:
         QCOMPARE(beginRemoveRowsSpy.count(), 0);
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
+    }
+
+    void displayAlbumsFromOneArtist()
+    {
+        QTemporaryFile databaseFile;
+        databaseFile.open();
+
+        qDebug() << "displayAlbumsFromOneArtist" << databaseFile.fileName();
+
+        DatabaseInterface musicDb;
+        DataModel artistsModel;
+        QAbstractItemModelTester testModel(&artistsModel);
+
+        musicDb.init(QStringLiteral("testDb"), databaseFile.fileName());
+
+        QSignalSpy beginInsertRowsSpy(&artistsModel, &DataModel::rowsAboutToBeInserted);
+        QSignalSpy endInsertRowsSpy(&artistsModel, &DataModel::rowsInserted);
+        QSignalSpy beginRemoveRowsSpy(&artistsModel, &DataModel::rowsAboutToBeRemoved);
+        QSignalSpy endRemoveRowsSpy(&artistsModel, &DataModel::rowsRemoved);
+        QSignalSpy modelAboutToBeResetSpy(&artistsModel, &DataModel::modelAboutToBeReset);
+        QSignalSpy modelResetSpy(&artistsModel, &DataModel::modelReset);
+        QSignalSpy dataChangedSpy(&artistsModel, &DataModel::dataChanged);
+
+        QCOMPARE(artistsModel.rowCount(), 0);
+        QCOMPARE(beginInsertRowsSpy.count(), 0);
+        QCOMPARE(endInsertRowsSpy.count(), 0);
+        QCOMPARE(beginRemoveRowsSpy.count(), 0);
+        QCOMPARE(endRemoveRowsSpy.count(), 0);
+        QCOMPARE(modelAboutToBeResetSpy.count(), 0);
+        QCOMPARE(modelResetSpy.count(), 0);
+        QCOMPARE(dataChangedSpy.count(), 0);
+
+        artistsModel.initializeByArtist(nullptr, &musicDb, ElisaUtils::Album, QStringLiteral("artist1"));
+
+        QCOMPARE(artistsModel.rowCount(), 0);
+        QCOMPARE(beginInsertRowsSpy.count(), 0);
+        QCOMPARE(endInsertRowsSpy.count(), 0);
+        QCOMPARE(beginRemoveRowsSpy.count(), 0);
+        QCOMPARE(endRemoveRowsSpy.count(), 0);
+        QCOMPARE(modelAboutToBeResetSpy.count(), 0);
+        QCOMPARE(modelResetSpy.count(), 0);
+        QCOMPARE(dataChangedSpy.count(), 0);
+
+        auto newFiles = QList<QUrl>();
+        const auto &constNewTracks = mNewTracks;
+        for (const auto &oneTrack : constNewTracks) {
+            newFiles.push_back(oneTrack.resourceURI());
+        }
+
+        musicDb.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("AutomaticTests"));
+
+        QCOMPARE(artistsModel.rowCount(), 1);
+        QCOMPARE(beginInsertRowsSpy.count(), 1);
+        QCOMPARE(endInsertRowsSpy.count(), 1);
+        QCOMPARE(beginRemoveRowsSpy.count(), 0);
+        QCOMPARE(endRemoveRowsSpy.count(), 0);
+        QCOMPARE(modelAboutToBeResetSpy.count(), 0);
+        QCOMPARE(modelResetSpy.count(), 0);
+        QCOMPARE(dataChangedSpy.count(), 0);
+    }
+
+    void displayArtistsFromOneGenre()
+    {
+        QTemporaryFile databaseFile;
+        databaseFile.open();
+
+        qDebug() << "displayArtistsFromOneGenre" << databaseFile.fileName();
+
+        DatabaseInterface musicDb;
+        DataModel artistsModel;
+        QAbstractItemModelTester testModel(&artistsModel);
+
+        musicDb.init(QStringLiteral("testDb"), databaseFile.fileName());
+
+        QSignalSpy beginInsertRowsSpy(&artistsModel, &DataModel::rowsAboutToBeInserted);
+        QSignalSpy endInsertRowsSpy(&artistsModel, &DataModel::rowsInserted);
+        QSignalSpy beginRemoveRowsSpy(&artistsModel, &DataModel::rowsAboutToBeRemoved);
+        QSignalSpy endRemoveRowsSpy(&artistsModel, &DataModel::rowsRemoved);
+        QSignalSpy modelAboutToBeResetSpy(&artistsModel, &DataModel::modelAboutToBeReset);
+        QSignalSpy modelResetSpy(&artistsModel, &DataModel::modelReset);
+        QSignalSpy dataChangedSpy(&artistsModel, &DataModel::dataChanged);
+
+        QCOMPARE(artistsModel.rowCount(), 0);
+        QCOMPARE(beginInsertRowsSpy.count(), 0);
+        QCOMPARE(endInsertRowsSpy.count(), 0);
+        QCOMPARE(beginRemoveRowsSpy.count(), 0);
+        QCOMPARE(endRemoveRowsSpy.count(), 0);
+        QCOMPARE(modelAboutToBeResetSpy.count(), 0);
+        QCOMPARE(modelResetSpy.count(), 0);
+        QCOMPARE(dataChangedSpy.count(), 0);
+
+        artistsModel.initializeByGenre(nullptr, &musicDb, ElisaUtils::Artist, QStringLiteral("genre1"));
+
+        QCOMPARE(artistsModel.rowCount(), 0);
+        QCOMPARE(beginInsertRowsSpy.count(), 0);
+        QCOMPARE(endInsertRowsSpy.count(), 0);
+        QCOMPARE(beginRemoveRowsSpy.count(), 0);
+        QCOMPARE(endRemoveRowsSpy.count(), 0);
+        QCOMPARE(modelAboutToBeResetSpy.count(), 0);
+        QCOMPARE(modelResetSpy.count(), 0);
+        QCOMPARE(dataChangedSpy.count(), 0);
+
+        auto newFiles = QList<QUrl>();
+        const auto &constNewTracks = mNewTracks;
+        for (const auto &oneTrack : constNewTracks) {
+            newFiles.push_back(oneTrack.resourceURI());
+        }
+
+        musicDb.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("AutomaticTests"));
+
+        QCOMPARE(artistsModel.rowCount(), 4);
+        QCOMPARE(beginInsertRowsSpy.count(), 1);
+        QCOMPARE(endInsertRowsSpy.count(), 1);
+        QCOMPARE(beginRemoveRowsSpy.count(), 0);
+        QCOMPARE(endRemoveRowsSpy.count(), 0);
+        QCOMPARE(modelAboutToBeResetSpy.count(), 0);
+        QCOMPARE(modelResetSpy.count(), 0);
+        QCOMPARE(dataChangedSpy.count(), 0);
+    }
+
+    void displayAlbumsFromOneArtistAndGenre()
+    {
+        QTemporaryFile databaseFile;
+        databaseFile.open();
+
+        qDebug() << "displayAlbumsFromOneArtistAndGenre" << databaseFile.fileName();
+
+        DatabaseInterface musicDb;
+        DataModel artistsModel;
+        QAbstractItemModelTester testModel(&artistsModel);
+
+        musicDb.init(QStringLiteral("testDb"), databaseFile.fileName());
+
+        QSignalSpy beginInsertRowsSpy(&artistsModel, &DataModel::rowsAboutToBeInserted);
+        QSignalSpy endInsertRowsSpy(&artistsModel, &DataModel::rowsInserted);
+        QSignalSpy beginRemoveRowsSpy(&artistsModel, &DataModel::rowsAboutToBeRemoved);
+        QSignalSpy endRemoveRowsSpy(&artistsModel, &DataModel::rowsRemoved);
+        QSignalSpy modelAboutToBeResetSpy(&artistsModel, &DataModel::modelAboutToBeReset);
+        QSignalSpy modelResetSpy(&artistsModel, &DataModel::modelReset);
+        QSignalSpy dataChangedSpy(&artistsModel, &DataModel::dataChanged);
+
+        QCOMPARE(artistsModel.rowCount(), 0);
+        QCOMPARE(beginInsertRowsSpy.count(), 0);
+        QCOMPARE(endInsertRowsSpy.count(), 0);
+        QCOMPARE(beginRemoveRowsSpy.count(), 0);
+        QCOMPARE(endRemoveRowsSpy.count(), 0);
+        QCOMPARE(modelAboutToBeResetSpy.count(), 0);
+        QCOMPARE(modelResetSpy.count(), 0);
+        QCOMPARE(dataChangedSpy.count(), 0);
+
+        artistsModel.initializeByGenreAndArtist(nullptr, &musicDb, ElisaUtils::Album, QStringLiteral("genre3"), QStringLiteral("artist2"));
+
+        QCOMPARE(artistsModel.rowCount(), 0);
+        QCOMPARE(beginInsertRowsSpy.count(), 0);
+        QCOMPARE(endInsertRowsSpy.count(), 0);
+        QCOMPARE(beginRemoveRowsSpy.count(), 0);
+        QCOMPARE(endRemoveRowsSpy.count(), 0);
+        QCOMPARE(modelAboutToBeResetSpy.count(), 0);
+        QCOMPARE(modelResetSpy.count(), 0);
+        QCOMPARE(dataChangedSpy.count(), 0);
+
+        auto newFiles = QList<QUrl>();
+        const auto &constNewTracks = mNewTracks;
+        for (const auto &oneTrack : constNewTracks) {
+            newFiles.push_back(oneTrack.resourceURI());
+        }
+
+        musicDb.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("AutomaticTests"));
+
+        QCOMPARE(artistsModel.rowCount(), 2);
+        QCOMPARE(beginInsertRowsSpy.count(), 1);
+        QCOMPARE(endInsertRowsSpy.count(), 1);
+        QCOMPARE(beginRemoveRowsSpy.count(), 0);
+        QCOMPARE(endRemoveRowsSpy.count(), 0);
+        QCOMPARE(modelAboutToBeResetSpy.count(), 0);
+        QCOMPARE(modelResetSpy.count(), 0);
+        QCOMPARE(dataChangedSpy.count(), 0);
+    }
+
+    void displayTracksFromOneAlbum()
+    {
+        QTemporaryFile databaseFile;
+        databaseFile.open();
+
+        qDebug() << "displayTracksFromOneAlbum" << databaseFile.fileName();
+
+        DatabaseInterface musicDb;
+        DataModel artistsModel;
+        QAbstractItemModelTester testModel(&artistsModel);
+
+        musicDb.init(QStringLiteral("testDb"), databaseFile.fileName());
+
+        QSignalSpy beginInsertRowsSpy(&artistsModel, &DataModel::rowsAboutToBeInserted);
+        QSignalSpy endInsertRowsSpy(&artistsModel, &DataModel::rowsInserted);
+        QSignalSpy beginRemoveRowsSpy(&artistsModel, &DataModel::rowsAboutToBeRemoved);
+        QSignalSpy endRemoveRowsSpy(&artistsModel, &DataModel::rowsRemoved);
+        QSignalSpy modelAboutToBeResetSpy(&artistsModel, &DataModel::modelAboutToBeReset);
+        QSignalSpy modelResetSpy(&artistsModel, &DataModel::modelReset);
+        QSignalSpy dataChangedSpy(&artistsModel, &DataModel::dataChanged);
+
+        QCOMPARE(artistsModel.rowCount(), 0);
+        QCOMPARE(beginInsertRowsSpy.count(), 0);
+        QCOMPARE(endInsertRowsSpy.count(), 0);
+        QCOMPARE(beginRemoveRowsSpy.count(), 0);
+        QCOMPARE(endRemoveRowsSpy.count(), 0);
+        QCOMPARE(modelAboutToBeResetSpy.count(), 0);
+        QCOMPARE(modelResetSpy.count(), 0);
+        QCOMPARE(dataChangedSpy.count(), 0);
+
+        musicDb.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("AutomaticTests"));
+
+        QCOMPARE(artistsModel.rowCount(), 0);
+        QCOMPARE(beginInsertRowsSpy.count(), 0);
+        QCOMPARE(endInsertRowsSpy.count(), 0);
+        QCOMPARE(beginRemoveRowsSpy.count(), 0);
+        QCOMPARE(endRemoveRowsSpy.count(), 0);
+        QCOMPARE(modelAboutToBeResetSpy.count(), 0);
+        QCOMPARE(modelResetSpy.count(), 0);
+        QCOMPARE(dataChangedSpy.count(), 0);
+
+        auto albumId = musicDb.albumIdFromTitleAndArtist(QStringLiteral("album1"),
+                                                         QStringLiteral("Various Artists"));
+
+        QVERIFY(albumId != 0);
+
+        artistsModel.initializeById(nullptr, &musicDb, ElisaUtils::Track, albumId);
+
+        QCOMPARE(artistsModel.rowCount(), 4);
+        QCOMPARE(beginInsertRowsSpy.count(), 1);
+        QCOMPARE(endInsertRowsSpy.count(), 1);
+        QCOMPARE(beginRemoveRowsSpy.count(), 0);
+        QCOMPARE(endRemoveRowsSpy.count(), 0);
+        QCOMPARE(modelAboutToBeResetSpy.count(), 0);
+        QCOMPARE(modelResetSpy.count(), 0);
+        QCOMPARE(dataChangedSpy.count(), 0);
+
+        auto newTracks = QList<MusicAudioTrack>();
+
+        newTracks = {{true, QStringLiteral("$31"), QStringLiteral("0"), QStringLiteral("track12"),
+                      QStringLiteral("artist1"), QStringLiteral("album1"), QStringLiteral("Various Artists"),
+                      12, 1, QTime::fromMSecsSinceStartOfDay(31),
+                      {QUrl::fromLocalFile(QStringLiteral("/$31"))},
+                      QDateTime::fromMSecsSinceEpoch(31),
+                      {QUrl::fromLocalFile(QStringLiteral("album1"))}, 5, true,
+                      QStringLiteral("genre4"), QStringLiteral("composer4"), QStringLiteral("lyricist4"), true},
+                     {true, QStringLiteral("$32"), QStringLiteral("0"), QStringLiteral("track13"),
+                      QStringLiteral("artist3"), QStringLiteral("album3"), QStringLiteral("artist3"),
+                      13, 1, QTime::fromMSecsSinceStartOfDay(32),
+                      {QUrl::fromLocalFile(QStringLiteral("/$32"))},
+                      QDateTime::fromMSecsSinceEpoch(32),
+                      {QUrl::fromLocalFile(QStringLiteral("album3"))}, 4, true,
+                      QStringLiteral("genre3"), QStringLiteral("composer3"), QStringLiteral("lyricist3"), false}};
+
+        auto newCovers = mNewCovers;
+        newCovers[QStringLiteral("file:///$31")] = QUrl::fromLocalFile(QStringLiteral("album1"));
+        newCovers[QStringLiteral("file:///$32")] = QUrl::fromLocalFile(QStringLiteral("album3"));
+
+        musicDb.insertTracksList(newTracks, newCovers, QStringLiteral("autoTest"));
+
+        QCOMPARE(artistsModel.rowCount(), 5);
+        QCOMPARE(beginInsertRowsSpy.count(), 2);
+        QCOMPARE(endInsertRowsSpy.count(), 2);
+        QCOMPARE(beginRemoveRowsSpy.count(), 0);
+        QCOMPARE(endRemoveRowsSpy.count(), 0);
+        QCOMPARE(modelAboutToBeResetSpy.count(), 0);
+        QCOMPARE(modelResetSpy.count(), 0);
+        QCOMPARE(dataChangedSpy.count(), 4);
     }
 };
 

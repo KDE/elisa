@@ -586,8 +586,6 @@ DatabaseInterface::ListArtistDataType DatabaseInterface::allArtistsDataByGenre(c
 
     result = internalAllArtistsPartialData(d->mSelectAllArtistsWithGenreFilterQuery);
 
-    qDebug() << "DatabaseInterface::allArtistsDataByGenre" << result.count();
-
     transactionResult = finishTransaction();
     if (!transactionResult) {
         return result;

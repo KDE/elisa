@@ -35,33 +35,14 @@ class LocalFileListingPrivate
 {
 public:
 
-    QString mRootPath;
-
 };
 
-LocalFileListing::LocalFileListing(QObject *parent) : AbstractFileListing(QStringLiteral("local"), parent), d(std::make_unique<LocalFileListingPrivate>())
+LocalFileListing::LocalFileListing(QObject *parent) : AbstractFileListing(parent), d(std::make_unique<LocalFileListingPrivate>())
 {
 }
 
 LocalFileListing::~LocalFileListing()
 = default;
-
-QString LocalFileListing::rootPath() const
-{
-    return d->mRootPath;
-}
-
-void LocalFileListing::setRootPath(const QString &rootPath)
-{
-    if (d->mRootPath == rootPath) {
-        return;
-    }
-
-    d->mRootPath = rootPath;
-    Q_EMIT rootPathChanged();
-
-    setSourceName(rootPath);
-}
 
 void LocalFileListing::executeInit(QHash<QUrl, QDateTime> allFiles)
 {
@@ -74,11 +55,18 @@ void LocalFileListing::triggerRefreshOfContent()
 
     AbstractFileListing::triggerRefreshOfContent();
 
-    scanDirectoryTree(d->mRootPath);
+    const auto &rootPaths = allRootPaths();
+    for (const auto &onePath : rootPaths) {
+        scanDirectoryTree(onePath);
+    }
+
+    setWaitEndTrackRemoval(false);
 
     checkFilesToRemove();
 
-    Q_EMIT indexingFinished();
+    if (!waitEndTrackRemoval()) {
+        Q_EMIT indexingFinished();
+    }
 }
 
 

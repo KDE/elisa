@@ -127,9 +127,13 @@ public:
 
     int trackNumber() const;
 
+    bool trackNumberIsValid() const;
+
     void setDiscNumber(int value);
 
     int discNumber() const;
+
+    bool discNumberIsValid() const;
 
     void setYear(int value);
 
@@ -139,13 +143,19 @@ public:
 
     int channels() const;
 
+    bool channelsIsValid() const;
+
     void setBitRate(int value);
 
     int bitRate() const;
 
+    bool bitRateIsValid() const;
+
     void setSampleRate(int value);
 
     int sampleRate() const;
+
+    bool sampleRateIsValid() const;
 
     void setDuration(QTime value);
 

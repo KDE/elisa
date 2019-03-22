@@ -61,7 +61,7 @@ Q_SIGNALS:
 
     void configurationChanged();
 
-    void clearDatabase(const QString &listenerName);
+    void clearDatabase();
 
     void newNotification(NotificationItem notification);
 
@@ -74,6 +74,8 @@ public Q_SLOTS:
     void applicationAboutToQuit();
 
     void quitListener();
+
+    void setAllRootPaths(const QStringList &allRootPaths);
 
 protected:
 

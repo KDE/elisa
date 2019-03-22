@@ -33,26 +33,11 @@ class ELISALIB_EXPORT LocalFileListing : public AbstractFileListing
 
     Q_OBJECT
 
-    Q_PROPERTY(QString rootPath
-               READ rootPath
-               WRITE setRootPath
-               NOTIFY rootPathChanged)
-
 public:
 
     explicit LocalFileListing(QObject *parent = nullptr);
 
     ~LocalFileListing() override;
-
-    QString rootPath() const;
-
-Q_SIGNALS:
-
-    void rootPathChanged();
-
-public Q_SLOTS:
-
-    void setRootPath(const QString &rootPath);
 
 private:
 

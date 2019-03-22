@@ -62,8 +62,10 @@ void AbstractFileListener::setDatabaseInterface(DatabaseInterface *model)
                 d->mFileListing, &AbstractFileListing::restoredTracks);
         connect(model, &DatabaseInterface::cleanedDatabase,
                 d->mFileListing, &AbstractFileListing::refreshContent);
-
-        QMetaObject::invokeMethod(d->mFileListing, "init", Qt::QueuedConnection);
+        connect(model, &DatabaseInterface::finishRemovingTracksList,
+                d->mFileListing, &AbstractFileListing::databaseFinishedRemovingTracksList);
+        connect(model, &DatabaseInterface::finishInsertingTracksList,
+                d->mFileListing, &AbstractFileListing::databaseFinishedInsertingTracksList);
     }
 
     Q_EMIT databaseInterfaceChanged();
@@ -81,7 +83,12 @@ void AbstractFileListener::quitListener()
 {
     applicationAboutToQuit();
 
-    Q_EMIT clearDatabase(d->mFileListing->sourceName());
+    Q_EMIT clearDatabase();
+}
+
+void AbstractFileListener::setAllRootPaths(const QStringList &allRootPaths)
+{
+    d->mFileListing->setAllRootPaths(allRootPaths);
 }
 
 void AbstractFileListener::setFileListing(AbstractFileListing *fileIndexer)

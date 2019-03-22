@@ -36,6 +36,7 @@ class MusicAudioTrack;
 class NotificationItem;
 class FileScanner;
 class QFileInfo;
+class QMimeDatabase;
 
 class ELISALIB_EXPORT AbstractFileListing : public QObject
 {
@@ -44,21 +45,21 @@ class ELISALIB_EXPORT AbstractFileListing : public QObject
 
 public:
 
-    explicit AbstractFileListing(const QString &sourceName, QObject *parent = nullptr);
+    explicit AbstractFileListing(QObject *parent = nullptr);
 
     ~AbstractFileListing() override;
 
     virtual void applicationAboutToQuit();
 
-    const QString &sourceName() const;
+    const QStringList& allRootPaths() const;
 
 Q_SIGNALS:
 
-    void tracksList(const QList<MusicAudioTrack> &tracks, const QHash<QString, QUrl> &covers, const QString &musicSource);
+    void tracksList(const QList<MusicAudioTrack> &tracks, const QHash<QString, QUrl> &covers);
 
     void removedTracksList(const QList<QUrl> &removedTracks);
 
-    void modifyTracksList(const QList<MusicAudioTrack> &modifiedTracks, const QHash<QString, QUrl> &covers, const QString &musicSource);
+    void modifyTracksList(const QList<MusicAudioTrack> &modifiedTracks, const QHash<QString, QUrl> &covers);
 
     void indexingStarted();
 
@@ -68,9 +69,7 @@ Q_SIGNALS:
 
     void closeNotification(QString notificationId);
 
-    void askRestoredTracks(const QString &musicSource);
-
-    void errorWatchingFiles();
+    void askRestoredTracks();
 
 public Q_SLOTS:
 
@@ -80,7 +79,13 @@ public Q_SLOTS:
 
     void newTrackFile(const MusicAudioTrack &partialTrack);
 
-    void restoredTracks(const QString &musicSource, QHash<QUrl, QDateTime> allFiles);
+    void restoredTracks(QHash<QUrl, QDateTime> allFiles);
+
+    void setAllRootPaths(const QStringList &allRootPaths);
+
+    void databaseFinishedInsertingTracksList();
+
+    void databaseFinishedRemovingTracksList();
 
 protected Q_SLOTS:
 
@@ -114,8 +119,6 @@ protected:
 
     void removeFile(const QUrl &oneRemovedTrack, QList<QUrl> &allRemovedFiles);
 
-    void setSourceName(const QString &name);
-
     QHash<QUrl, QDateTime>& allFiles();
 
     void checkFilesToRemove();
@@ -123,6 +126,12 @@ protected:
     FileScanner& fileScanner();
 
     bool checkEmbeddedCoverImage(const QString &localFileName);
+
+    bool waitEndTrackRemoval() const;
+
+    void setWaitEndTrackRemoval(bool wait);
+
+    const QMimeDatabase& mimeDatabase() const;
 
 private:
 

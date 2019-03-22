@@ -31,7 +31,35 @@ set(elisaLib_SOURCES
     models/viewsmodel.cpp
 )
 
+ecm_qt_declare_logging_category(elisaLib_SOURCES
+    HEADER "indexersManager.h"
+    IDENTIFIER "orgKdeElisaIndexersManager"
+    CATEGORY_NAME "org.kde.elisa.indexers.manager"
+    DEFAULT_SEVERITY Info
+    )
+
+ecm_qt_declare_logging_category(elisaLib_SOURCES
+    HEADER "databaseLogging.h"
+    IDENTIFIER "orgKdeElisaDatabase"
+    CATEGORY_NAME "org.kde.elisa.database"
+    DEFAULT_SEVERITY Info
+    )
+
+ecm_qt_declare_logging_category(elisaLib_SOURCES
+    HEADER "abstractfile/indexercommon.h"
+    IDENTIFIER "orgKdeElisaIndexer"
+    CATEGORY_NAME "org.kde.elisa.indexer"
+    DEFAULT_SEVERITY Info
+    )
+
 if (LIBVLC_FOUND)
+    ecm_qt_declare_logging_category(elisaLib_SOURCES
+        HEADER "vlcLogging.h"
+        IDENTIFIER "orgKdeElisaPlayerVlc"
+        CATEGORY_NAME "org.kde.elisa.player.vlc"
+        DEFAULT_SEVERITY Info
+        )
+
     set(elisaLib_SOURCES
         ${elisaLib_SOURCES}
         audiowrapper_libvlc.cpp
@@ -60,10 +88,18 @@ endif()
 
 if (KF5Baloo_FOUND)
     if (Qt5DBus_FOUND)
+        ecm_qt_declare_logging_category(elisaLib_SOURCES
+            HEADER "baloo/baloocommon.h"
+            IDENTIFIER "orgKdeElisaBaloo"
+            CATEGORY_NAME "org.kde.elisa.baloo"
+            DEFAULT_SEVERITY Info
+            )
+
         set(elisaLib_SOURCES
             ${elisaLib_SOURCES}
             baloo/localbaloofilelisting.cpp
             baloo/baloolistener.cpp
+            baloo/baloodetector.cpp
             )
 
         qt5_add_dbus_interface(elisaLib_SOURCES

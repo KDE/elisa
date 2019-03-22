@@ -17,6 +17,8 @@
 
 #include "audiowrapper.h"
 
+#include "vlcLogging.h"
+
 #include <QTimer>
 #include <QAudio>
 #include <QDir>
@@ -104,7 +106,7 @@ AudioWrapper::AudioWrapper(QObject *parent) : QObject(parent), d(std::make_uniqu
     d->mPlayer = libvlc_media_player_new(d->mInstance);
 
     if (!d->mPlayer) {
-        qDebug() << "AudioWrapper::AudioWrapper" << "failed creating player" << libvlc_errmsg();
+        qCDebug(orgKdeElisaPlayerVlc) << "AudioWrapper::AudioWrapper" << "failed creating player" << libvlc_errmsg();
         return;
     }
 
@@ -226,14 +228,14 @@ void AudioWrapper::setSource(const QUrl &source)
 {
     d->mMedia = libvlc_media_new_path(d->mInstance, QDir::toNativeSeparators(source.toLocalFile()).toUtf8().constData());
     if (!d->mMedia) {
-        qDebug() << "AudioWrapper::setSource"
+        qCDebug(orgKdeElisaPlayerVlc) << "AudioWrapper::setSource"
                  << "failed creating media"
                  << libvlc_errmsg()
                  << QDir::toNativeSeparators(source.toLocalFile()).toUtf8().constData();
 
         d->mMedia = libvlc_media_new_path(d->mInstance, QDir::toNativeSeparators(source.toLocalFile()).toLatin1().constData());
         if (!d->mMedia) {
-            qDebug() << "AudioWrapper::setSource"
+            qCDebug(orgKdeElisaPlayerVlc) << "AudioWrapper::setSource"
                      << "failed creating media"
                      << libvlc_errmsg()
                      << QDir::toNativeSeparators(source.toLocalFile()).toLatin1().constData();
@@ -262,7 +264,7 @@ void AudioWrapper::setPosition(qint64 position)
         if (!d->mHasSavedPosition) {
             d->mHasSavedPosition = true;
             d->mSavedPosition = position;
-            qDebug() << "AudioWrapper::setPosition" << "restore old position" << d->mSavedPosition;
+            qCDebug(orgKdeElisaPlayerVlc) << "AudioWrapper::setPosition" << "restore old position" << d->mSavedPosition;
         }
         return;
     }
@@ -384,48 +386,48 @@ void AudioWrapperPrivate::vlcEventCallback(const struct libvlc_event_t *p_event)
     switch(eventType)
     {
     case libvlc_MediaPlayerOpening:
-        qDebug() << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerOpening";
+        qCDebug(orgKdeElisaPlayerVlc) << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerOpening";
         signalMediaStatusChange(QMediaPlayer::LoadedMedia);
         break;
     case libvlc_MediaPlayerBuffering:
-        qDebug() << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerBuffering";
+        qCDebug(orgKdeElisaPlayerVlc) << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerBuffering";
         signalMediaStatusChange(QMediaPlayer::BufferedMedia);
         break;
     case libvlc_MediaPlayerPlaying:
-        qDebug() << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerPlaying";
+        qCDebug(orgKdeElisaPlayerVlc) << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerPlaying";
         signalPlaybackChange(QMediaPlayer::PlayingState);
         break;
     case libvlc_MediaPlayerPaused:
-        qDebug() << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerPaused";
+        qCDebug(orgKdeElisaPlayerVlc) << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerPaused";
         signalPlaybackChange(QMediaPlayer::PausedState);
         break;
     case libvlc_MediaPlayerStopped:
-        qDebug() << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerStopped";
+        qCDebug(orgKdeElisaPlayerVlc) << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerStopped";
         signalPlaybackChange(QMediaPlayer::StoppedState);
         break;
     case libvlc_MediaPlayerEndReached:
-        qDebug() << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerEndReached";
+        qCDebug(orgKdeElisaPlayerVlc) << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerEndReached";
         signalMediaStatusChange(QMediaPlayer::BufferedMedia);
         signalMediaStatusChange(QMediaPlayer::NoMedia);
         signalMediaStatusChange(QMediaPlayer::EndOfMedia);
         mediaIsEnded();
         break;
     case libvlc_MediaPlayerEncounteredError:
-        qDebug() << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerEncounteredError";
+        qCDebug(orgKdeElisaPlayerVlc) << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerEncounteredError";
         signalErrorChange(QMediaPlayer::ResourceError);
         mediaIsEnded();
         signalMediaStatusChange(QMediaPlayer::InvalidMedia);
         break;
     case libvlc_MediaPlayerPositionChanged:
-        qDebug() << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerPositionChanged";
+        qCDebug(orgKdeElisaPlayerVlc) << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerPositionChanged";
         signalPositionChange(p_event->u.media_player_position_changed.new_position);
         break;
     case libvlc_MediaPlayerSeekableChanged:
-        qDebug() << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerSeekableChanged";
+        qCDebug(orgKdeElisaPlayerVlc) << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerSeekableChanged";
         signalSeekableChange(p_event->u.media_player_seekable_changed.new_seekable);
         break;
     case libvlc_MediaPlayerLengthChanged:
-        qDebug() << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerLengthChanged";
+        qCDebug(orgKdeElisaPlayerVlc) << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerLengthChanged";
         signalDurationChange(p_event->u.media_player_length_changed.new_length);
         if (mHasSavedPosition) {
             mParent->setPosition(mSavedPosition);
@@ -433,22 +435,22 @@ void AudioWrapperPrivate::vlcEventCallback(const struct libvlc_event_t *p_event)
         }
         break;
     case libvlc_MediaPlayerMuted:
-        qDebug() << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerMuted";
+        qCDebug(orgKdeElisaPlayerVlc) << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerMuted";
         signalMutedChange(true);
         break;
     case libvlc_MediaPlayerUnmuted:
-        qDebug() << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerUnmuted";
+        qCDebug(orgKdeElisaPlayerVlc) << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerUnmuted";
         signalMutedChange(false);
         break;
     case libvlc_MediaPlayerAudioVolume:
-        qDebug() << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerAudioVolume";
+        qCDebug(orgKdeElisaPlayerVlc) << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerAudioVolume";
         signalVolumeChange(qRound(p_event->u.media_player_audio_volume.volume * 100));
         break;
     case libvlc_MediaPlayerAudioDevice:
-        qDebug() << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerAudioDevice";
+        qCDebug(orgKdeElisaPlayerVlc) << "AudioWrapperPrivate::vlcEventCallback" << "libvlc_MediaPlayerAudioDevice";
         break;
     default:
-        qDebug() << "AudioWrapperPrivate::vlcEventCallback" << "eventType" << eventType;
+        qCDebug(orgKdeElisaPlayerVlc) << "AudioWrapperPrivate::vlcEventCallback" << "eventType" << eventType;
         break;
     }
 }

@@ -17,6 +17,8 @@
 
 #include "localbaloofilelisting.h"
 
+#include "baloo/baloocommon.h"
+
 #include "musicaudiotrack.h"
 #include "notificationitem.h"
 #include "elisa_settings.h"
@@ -87,7 +89,7 @@ public:
 };
 
 LocalBalooFileListing::LocalBalooFileListing(QObject *parent)
-    : AbstractFileListing(QStringLiteral("baloo"), parent), d(std::make_unique<LocalBalooFileListingPrivate>())
+    : AbstractFileListing(parent), d(std::make_unique<LocalBalooFileListingPrivate>())
 {
     d->mQuery.addType(QStringLiteral("Audio"));
     setHandleNewFiles(false);
@@ -126,11 +128,20 @@ void LocalBalooFileListing::applicationAboutToQuit()
 
 void LocalBalooFileListing::newBalooFile(const QString &fileName)
 {
+    qCDebug(orgKdeElisaBaloo()) << "LocalBalooFileListing::newBalooFile" << fileName;
+
     auto scanFileInfo = QFileInfo(fileName);
 
     if (!scanFileInfo.exists()) {
         return;
     }
+
+    const auto &fileMimeType = mimeDatabase().mimeTypeForFile(fileName);
+    if (!fileMimeType.name().startsWith(QStringLiteral("audio/"))) {
+        return;
+    }
+
+    Q_EMIT indexingStarted();
 
     auto newFile = QUrl::fromLocalFile(fileName);
 
@@ -143,11 +154,13 @@ void LocalBalooFileListing::newBalooFile(const QString &fileName)
 
         emitNewFiles({newTrack});
     }
+
+    Q_EMIT indexingFinished();
 }
 
 void LocalBalooFileListing::registeredToBaloo(QDBusPendingCallWatcher *watcher)
 {
-    qDebug() << "LocalBalooFileListing::registeredToBaloo";
+    qCDebug(orgKdeElisaBaloo) << "LocalBalooFileListing::registeredToBaloo";
 
     if (!watcher) {
         return;
@@ -155,7 +168,7 @@ void LocalBalooFileListing::registeredToBaloo(QDBusPendingCallWatcher *watcher)
 
     QDBusPendingReply<> reply = *watcher;
     if (reply.isError()) {
-        qDebug() << "LocalBalooFileListing::registeredToBaloo" << reply.error().name() << reply.error().message();
+        qCDebug(orgKdeElisaBaloo) << "LocalBalooFileListing::registeredToBaloo" << reply.error().name() << reply.error().message();
         d->mIsRegisteredToBaloo = false;
     } else {
         d->mIsRegisteredToBaloo = true;
@@ -168,7 +181,7 @@ void LocalBalooFileListing::registeredToBaloo(QDBusPendingCallWatcher *watcher)
 
 void LocalBalooFileListing::registeredToBalooWatcher(QDBusPendingCallWatcher *watcher)
 {
-    qDebug() << "LocalBalooFileListing::registeredToBalooWatcher";
+    qCDebug(orgKdeElisaBaloo) << "LocalBalooFileListing::registeredToBalooWatcher";
 
     if (!watcher) {
         return;
@@ -176,7 +189,7 @@ void LocalBalooFileListing::registeredToBalooWatcher(QDBusPendingCallWatcher *wa
 
     QDBusPendingReply<> reply = *watcher;
     if (reply.isError()) {
-        qDebug() << "LocalBalooFileListing::registeredToBalooWatcher" << reply.error().name() << reply.error().message();
+        qCDebug(orgKdeElisaBaloo) << "LocalBalooFileListing::registeredToBalooWatcher" << reply.error().name() << reply.error().message();
         d->mIsRegisteredToBalooWatcher = false;
     } else {
         d->mIsRegisteredToBalooWatcher = true;
@@ -190,11 +203,11 @@ void LocalBalooFileListing::registeredToBalooWatcher(QDBusPendingCallWatcher *wa
 void LocalBalooFileListing::registerToBaloo()
 {
     if (d->mIsRegisteringToBaloo || d->mIsRegisteringToBalooWatcher) {
-        qDebug() << "LocalBalooFileListing::registerToBaloo" << "already registering";
+        qCDebug(orgKdeElisaBaloo) << "LocalBalooFileListing::registerToBaloo" << "already registering";
         return;
     }
 
-    qDebug() << "LocalBalooFileListing::registerToBaloo";
+    qCDebug(orgKdeElisaBaloo) << "LocalBalooFileListing::registerToBaloo";
 
     d->mIsRegisteringToBaloo = true;
     d->mIsRegisteringToBalooWatcher = true;
@@ -205,7 +218,7 @@ void LocalBalooFileListing::registerToBaloo()
                                                            sessionBus, this));
 
     if (!d->mBalooMainInterface->isValid()) {
-        qDebug() << "LocalBalooFileListing::registerToBaloo" << "invalid org.kde.baloo/main interface";
+        qCDebug(orgKdeElisaBaloo) << "LocalBalooFileListing::registerToBaloo" << "invalid org.kde.baloo/main interface";
         return;
     }
 
@@ -213,7 +226,7 @@ void LocalBalooFileListing::registerToBaloo()
                                                             sessionBus, this));
 
     if (!d->mBalooIndexer->isValid()) {
-        qDebug() << "LocalBalooFileListing::registerToBaloo" << "invalid org.kde.baloo/fileindexer interface";
+        qCDebug(orgKdeElisaBaloo) << "LocalBalooFileListing::registerToBaloo" << "invalid org.kde.baloo/fileindexer interface";
         return;
     }
 
@@ -224,15 +237,15 @@ void LocalBalooFileListing::registerToBaloo()
                                                             sessionBus, this));
 
     if (!d->mBalooScheduler->isValid()) {
-        qDebug() << "LocalBalooFileListing::registerToBaloo" << "invalid org.kde.baloo/scheduler interface";
+        qCDebug(orgKdeElisaBaloo) << "LocalBalooFileListing::registerToBaloo" << "invalid org.kde.baloo/scheduler interface";
         return;
     }
 
-    qDebug() << "LocalBalooFileListing::registerToBaloo" << "call registerMonitor";
+    qCDebug(orgKdeElisaBaloo) << "LocalBalooFileListing::registerToBaloo" << "call registerMonitor";
     auto answer = d->mBalooIndexer->registerMonitor();
 
     if (answer.isError()) {
-        qDebug() << "LocalBalooFileListing::executeInit" << answer.error().name() << answer.error().message();
+        qCDebug(orgKdeElisaBaloo) << "LocalBalooFileListing::executeInit" << answer.error().name() << answer.error().message();
     }
 
     auto pendingCallWatcher = new QDBusPendingCallWatcher(answer);
@@ -243,7 +256,7 @@ void LocalBalooFileListing::registerToBaloo()
     }
 
     auto pendingCall = d->mBalooMainInterface->registerBalooWatcher(QStringLiteral("org.mpris.MediaPlayer2.elisa/org/kde/BalooWatcherApplication"));
-    qDebug() << "LocalBalooFileListing::registerToBaloo" << "call registerBalooWatcher";
+    qCDebug(orgKdeElisaBaloo) << "LocalBalooFileListing::registerToBaloo" << "call registerBalooWatcher";
     auto pendingCallWatcher2 = new QDBusPendingCallWatcher(pendingCall);
 
     connect(pendingCallWatcher2, &QDBusPendingCallWatcher::finished, this, &LocalBalooFileListing::registeredToBalooWatcher);
@@ -254,7 +267,7 @@ void LocalBalooFileListing::registerToBaloo()
 
 void LocalBalooFileListing::renamedFiles(const QString &from, const QString &to, const QStringList &listFiles)
 {
-    qDebug() << "LocalBalooFileListing::renamedFiles" << from << to << listFiles;
+    qCDebug(orgKdeElisaBaloo) << "LocalBalooFileListing::renamedFiles" << from << to << listFiles;
 }
 
 void LocalBalooFileListing::serviceOwnerChanged(const QString &serviceName, const QString &oldOwner, const QString &newOwner)
@@ -262,7 +275,7 @@ void LocalBalooFileListing::serviceOwnerChanged(const QString &serviceName, cons
     Q_UNUSED(oldOwner);
     Q_UNUSED(newOwner);
 
-    qDebug() << "LocalBalooFileListing::serviceOwnerChanged" << serviceName << oldOwner << newOwner;
+    qCDebug(orgKdeElisaBaloo) << "LocalBalooFileListing::serviceOwnerChanged" << serviceName << oldOwner << newOwner;
 
     if (serviceName == QStringLiteral("org.kde.baloo") && !newOwner.isEmpty()) {
         d->mIsRegisteredToBaloo = false;
@@ -273,7 +286,7 @@ void LocalBalooFileListing::serviceOwnerChanged(const QString &serviceName, cons
 
 void LocalBalooFileListing::serviceRegistered(const QString &serviceName)
 {
-    qDebug() << "LocalBalooFileListing::serviceRegistered" << serviceName;
+    qCDebug(orgKdeElisaBaloo) << "LocalBalooFileListing::serviceRegistered" << serviceName;
 
     if (serviceName == QStringLiteral("org.kde.baloo")) {
         registerToBaloo();
@@ -282,7 +295,7 @@ void LocalBalooFileListing::serviceRegistered(const QString &serviceName)
 
 void LocalBalooFileListing::serviceUnregistered(const QString &serviceName)
 {
-    qDebug() << "LocalBalooFileListing::serviceUnregistered" << serviceName;
+    qCDebug(orgKdeElisaBaloo) << "LocalBalooFileListing::serviceUnregistered" << serviceName;
 
     if (serviceName == QStringLiteral("org.kde.baloo")) {
         d->mIsRegisteredToBaloo = false;
@@ -297,24 +310,46 @@ void LocalBalooFileListing::executeInit(QHash<QUrl, QDateTime> allFiles)
 
 void LocalBalooFileListing::triggerRefreshOfContent()
 {
-    if (!checkBalooConfiguration()) {
-        return;
-    }
-
+    qCDebug(orgKdeElisaBaloo()) << "LocalBalooFileListing::triggerRefreshOfContent";
     Q_EMIT indexingStarted();
 
     AbstractFileListing::triggerRefreshOfContent();
+
+    const auto &rootPaths = allRootPaths();
+    bool hasSingleRootPath = (rootPaths.size() == 1);
+    auto singleRootPath = rootPaths.at(0);
 
     auto resultIterator = d->mQuery.exec();
     auto newFiles = QList<MusicAudioTrack>();
 
     while(resultIterator.next() && d->mStopRequest == 0) {
         const auto &fileName = resultIterator.filePath();
+
+        if (hasSingleRootPath) {
+            if (!fileName.startsWith(singleRootPath)) {
+                qCDebug(orgKdeElisaBaloo()) << "LocalBalooFileListing::triggerRefreshOfContent" << fileName << "does not match root paths";
+                continue;
+            }
+        } else {
+            bool isIncluded = false;
+            for (const auto &oneRootPath : rootPaths) {
+                if (fileName.startsWith(oneRootPath)) {
+                    isIncluded = true;
+                    break;
+                }
+            }
+            if (!isIncluded) {
+                qCDebug(orgKdeElisaBaloo()) << "LocalBalooFileListing::triggerRefreshOfContent" << fileName << "does not match root paths";
+                continue;
+            }
+        }
+
         const auto &newFileUrl = QUrl::fromLocalFile(resultIterator.filePath());
 
         auto scanFileInfo = QFileInfo(fileName);
 
         if (!scanFileInfo.exists()) {
+            qCDebug(orgKdeElisaBaloo()) << "LocalBalooFileListing::triggerRefreshOfContent" << fileName << "file does not exists";
             return;
         }
 
@@ -322,6 +357,7 @@ void LocalBalooFileListing::triggerRefreshOfContent()
         if (itExistingFile != allFiles().end()) {
             if (*itExistingFile >= scanFileInfo.fileTime(QFile::FileModificationTime)) {
                 allFiles().erase(itExistingFile);
+                qCDebug(orgKdeElisaBaloo()) << "LocalBalooFileListing::triggerRefreshOfContent" << fileName << "file not modified since last scan";
                 continue;
             }
         }
@@ -335,19 +371,27 @@ void LocalBalooFileListing::triggerRefreshOfContent()
         if (newTrack.isValid()) {
             newFiles.push_back(newTrack);
             if (newFiles.size() > 500 && d->mStopRequest == 0) {
+                qCDebug(orgKdeElisaBaloo()) << "LocalBalooFileListing::triggerRefreshOfContent" << "insert new tracks in database" << newFiles.count();
                 emitNewFiles(newFiles);
                 newFiles.clear();
             }
+        } else {
+            qCDebug(orgKdeElisaBaloo()) << "LocalBalooFileListing::triggerRefreshOfContent" << fileName << "invalid track" << newTrack;
         }
     }
 
     if (!newFiles.isEmpty() && d->mStopRequest == 0) {
+        qCDebug(orgKdeElisaBaloo()) << "LocalBalooFileListing::triggerRefreshOfContent" << "insert new tracks in database" << newFiles.count();
         emitNewFiles(newFiles);
     }
 
+    setWaitEndTrackRemoval(false);
+
     checkFilesToRemove();
 
-    Q_EMIT indexingFinished();
+    if (!waitEndTrackRemoval()) {
+        Q_EMIT indexingFinished();
+    }
 }
 
 MusicAudioTrack LocalBalooFileListing::scanOneFile(const QUrl &scanFile, const QFileInfo &scanFileInfo)
@@ -366,6 +410,7 @@ MusicAudioTrack LocalBalooFileListing::scanOneFile(const QUrl &scanFile, const Q
     fileScanner().scanProperties(match, newTrack);
 
     if (!newTrack.isValid()) {
+        qCDebug(orgKdeElisaBaloo) << "LocalBalooFileListing::scanOneFile" << scanFile << "falling back to plain file metadata analysis";
         newTrack = AbstractFileListing::scanOneFile(scanFile, scanFileInfo);
     }
 
@@ -373,69 +418,11 @@ MusicAudioTrack LocalBalooFileListing::scanOneFile(const QUrl &scanFile, const Q
         newTrack.setHasEmbeddedCover(checkEmbeddedCoverImage(localFileName));
         addCover(newTrack);
         watchPath(localFileName);
+    } else {
+        qCDebug(orgKdeElisaBaloo) << "LocalBalooFileListing::scanOneFile" << scanFile << "invalid track";
     }
 
     return newTrack;
-}
-
-bool LocalBalooFileListing::checkBalooConfiguration()
-{
-    bool problemDetected = false;
-    Baloo::IndexerConfig balooConfiguration;
-
-    problemDetected = problemDetected || !balooConfiguration.fileIndexingEnabled();
-    problemDetected = problemDetected || balooConfiguration.onlyBasicIndexing();
-
-    if (problemDetected) {
-        NotificationItem balooInvalidConfiguration;
-
-        balooInvalidConfiguration.setNotificationId(QStringLiteral("balooInvalidConfiguration"));
-
-        balooInvalidConfiguration.setTargetObject(this);
-
-        balooInvalidConfiguration.setMessage(i18nc("Notification about unusable Baloo Configuration", "Cannot discover music with the current file search settings"));
-
-        balooInvalidConfiguration.setMainButtonText(i18nc("Text of button to modify Baloo Configuration", "Modify it"));
-        balooInvalidConfiguration.setMainButtonIconName(QStringLiteral("configure"));
-        balooInvalidConfiguration.setMainButtonMethodName(QStringLiteral("fixBalooConfiguration"));
-
-        balooInvalidConfiguration.setSecondaryButtonText(i18nc("Text of button to disable Baloo indexer", "Disable Baloo support"));
-        balooInvalidConfiguration.setSecondaryButtonIconName(QStringLiteral("configure"));
-        balooInvalidConfiguration.setSecondaryButtonMethodName(QStringLiteral("disableBalooIndexer"));
-
-        Q_EMIT newNotification(balooInvalidConfiguration);
-    } else {
-        Q_EMIT closeNotification(QStringLiteral("balooInvalidConfiguration"));
-    }
-
-    return !problemDetected;
-}
-
-void LocalBalooFileListing::fixBalooConfiguration()
-{
-    qDebug() << "LocalBalooFileListing::fixBalooConfiguration";
-
-    Baloo::IndexerConfig balooConfiguration;
-
-    if (!balooConfiguration.fileIndexingEnabled()) {
-        balooConfiguration.setFileIndexingEnabled(true);
-    }
-
-    if (balooConfiguration.onlyBasicIndexing()) {
-        balooConfiguration.setOnlyBasicIndexing(false);
-    }
-
-    balooConfiguration.refresh();
-
-    if (checkBalooConfiguration()) {
-        triggerRefreshOfContent();
-    }
-}
-
-void LocalBalooFileListing::disableBalooIndexer()
-{
-    Elisa::ElisaConfiguration::self()->setBalooIndexer(false);
-    Elisa::ElisaConfiguration::self()->save();
 }
 
 

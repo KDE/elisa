@@ -460,7 +460,7 @@ void ManageMediaPlayerControlTest::moveCurrentTrack()
 
     QCOMPARE(myControl.playListModel(), &myPlayList);
 
-    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     myPlayList.enqueue(ElisaUtils::EntryData{myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist2"), QStringLiteral("album2"), 1, 1),
                         QStringLiteral("track1")},
@@ -563,7 +563,7 @@ void ManageMediaPlayerControlTest::moveAnotherTrack()
 
     QCOMPARE(myControl.playListModel(), &myPlayList);
 
-    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     myPlayList.enqueue(ElisaUtils::EntryData{myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist2"), QStringLiteral("album2"), 1, 1),
                         QStringLiteral("track1")},
@@ -666,7 +666,7 @@ void ManageMediaPlayerControlTest::setCurrentTrackTest()
 
     QCOMPARE(myControl.playListModel(), &myPlayList);
 
-    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     myPlayList.enqueue(ElisaUtils::EntryData{myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist2"), QStringLiteral("album2"), 1, 1),
                         QStringLiteral("track1")},

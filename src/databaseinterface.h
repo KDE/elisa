@@ -186,6 +186,31 @@ public:
             return operator[](key_type::LyricistRole).toString();
         }
 
+        QString comment() const
+        {
+            return operator[](key_type::CommentRole).toString();
+        }
+
+        int year() const
+        {
+            return operator[](key_type::YearRole).toInt();
+        }
+
+        int channels() const
+        {
+            return operator[](key_type::ChannelsRole).toInt();
+        }
+
+        int bitRate() const
+        {
+            return operator[](key_type::BitRateRole).toInt();
+        }
+
+        int sampleRate() const
+        {
+            return operator[](key_type::SampleRateRole).toInt();
+        }
+
         bool hasEmbeddedCover() const
         {
             return operator[](key_type::HasEmbeddedCover).toBool();
@@ -371,19 +396,21 @@ Q_SIGNALS:
 
     void databaseError();
 
-    void restoredTracks(const QString &musicSource, QHash<QUrl, QDateTime> allFiles);
+    void restoredTracks(QHash<QUrl, QDateTime> allFiles);
 
     void cleanedDatabase();
 
+    void finishInsertingTracksList();
+
+    void finishRemovingTracksList();
+
 public Q_SLOTS:
 
-    void insertTracksList(const QList<MusicAudioTrack> &tracks, const QHash<QString, QUrl> &covers, const QString &musicSource);
+    void insertTracksList(const QList<MusicAudioTrack> &tracks, const QHash<QString, QUrl> &covers);
 
     void removeTracksList(const QList<QUrl> &removedTracks);
 
-    void removeAllTracksFromSource(const QString &sourceName);
-
-    void askRestoredTracks(const QString &musicSource);
+    void askRestoredTracks();
 
     void trackHasStartedPlaying(const QUrl &fileName, const QDateTime &time);
 
@@ -456,13 +483,11 @@ private:
 
     qulonglong genericInitialId(QSqlQuery &request);
 
-    qulonglong insertMusicSource(const QString &name);
-
-    void insertTrackOrigin(const QUrl &fileNameURI, const QDateTime &fileModifiedTime, const QDateTime &importDate, qulonglong discoverId);
+    void insertTrackOrigin(const QUrl &fileNameURI, const QDateTime &fileModifiedTime, const QDateTime &importDate);
 
     void updateTrackOrigin(const QUrl &fileName, const QDateTime &fileModifiedTime);
 
-    qulonglong internalInsertTrack(qulonglong discoverId, const MusicAudioTrack &oneModifiedTrack,
+    qulonglong internalInsertTrack(const MusicAudioTrack &oneModifiedTrack,
                                    const QHash<QString, QUrl> &covers, bool &isInserted);
 
     MusicAudioTrack buildTrackFromDatabaseRecord(const QSqlRecord &trackRecord) const;
@@ -481,7 +506,7 @@ private:
 
     qulonglong insertLyricist(const QString &name);
 
-    QHash<QUrl, QDateTime> internalAllFileNameFromSource(const QString &sourceName);
+    QHash<QUrl, QDateTime> internalAllFileName();
 
     bool internalGenericPartialData(QSqlQuery &query);
 
@@ -507,6 +532,8 @@ private:
 
     bool prepareQuery(QSqlQuery &query, const QString &queryText) const;
 
+    bool execQuery(QSqlQuery &query);
+
     void updateAlbumArtist(qulonglong albumId, const QString &title, const QString &albumPath,
                            const QString &artistName);
 
@@ -515,6 +542,8 @@ private:
     void createDatabaseV9();
 
     void upgradeDatabaseV11();
+
+    void upgradeDatabaseV12();
 
     std::unique_ptr<DatabaseInterfacePrivate> d;
 

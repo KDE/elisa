@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
     MusicListenersManager myMusicManager;
     ElisaImportApplication myApplication;
 
-    QObject::connect(&myMusicManager, &MusicListenersManager::indexingRunningChanged,
+    QObject::connect(&myMusicManager, &MusicListenersManager::indexerBusyChanged,
             &myApplication, &ElisaImportApplication::indexingChanged);
 
     return app.exec();

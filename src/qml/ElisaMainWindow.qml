@@ -247,24 +247,20 @@ ApplicationWindow {
                         when: elisa.musicManager !== undefined
                     }
 
-                    Loader {
-                        sourceComponent: Binding {
-                            target: importedTracksCountNotification
-                            property: 'indexingRunning'
-                            value: elisa.musicManager.indexingRunning
-                        }
+                    Binding {
+                        id: indexerBusyBinding
 
-                        active: elisa.musicManager !== undefined
+                        target: importedTracksCountNotification
+                        property: 'indexingRunning'
+                        value: elisa.musicManager.indexerBusy
+                        when: elisa.musicManager !== undefined
                     }
 
-                    Loader {
-                        sourceComponent: Binding {
-                            target: importedTracksCountNotification
-                            property: 'importedTracksCount'
-                            value: elisa.musicManager.importedTracksCount
-                        }
-
-                        active: elisa.musicManager !== undefined
+                    Binding {
+                        target: importedTracksCountNotification
+                        property: 'importedTracksCount'
+                        value: elisa.musicManager.importedTracksCount
+                        when: elisa.musicManager !== undefined
                     }
                 }
             }

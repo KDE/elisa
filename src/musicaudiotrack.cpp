@@ -38,11 +38,11 @@ public:
           mTitle(std::move(aTitle)), mArtist(std::move(aArtist)),
           mAlbumName(std::move(aAlbumName)), mAlbumArtist(std::move(aAlbumArtist)),
           mGenre(std::move(aGenre)), mComposer(std::move(aComposer)), mLyricist(std::move(aLyricist)),
-          mResourceURI(std::move(aResourceURI)),
-          mAlbumCover(std::move(aAlbumCover)),
+          mResourceURI(std::move(aResourceURI)), mAlbumCover(std::move(aAlbumCover)),
           mFileModificationTime(std::move(fileModificationTime)), mDuration(aDuration),
           mTrackNumber(aTrackNumber), mDiscNumber(aDiscNumber), mRating(rating),
-          mIsValid(aValid), mIsSingleDiscAlbum(aIsSingleDiscAlbum), mHasBooleanCover(aHasEmbeddedCover)
+          mIsValid(aValid), mIsSingleDiscAlbum(aIsSingleDiscAlbum), mHasBooleanCover(aHasEmbeddedCover),
+          mTrackNumberIsValid(true), mDiscNumberIsValid(true)
     {
     }
 
@@ -97,6 +97,16 @@ public:
     bool mIsSingleDiscAlbum = true;
 
     bool mHasBooleanCover = false;
+
+    bool mTrackNumberIsValid = false;
+
+    bool mDiscNumberIsValid = false;
+
+    bool mChannelsIsValid = false;
+
+    bool mBitRateIsValid = false;
+
+    bool mSampleRateIsValid = false;
 
 };
 
@@ -177,14 +187,14 @@ MusicAudioTrack MusicAudioTrack::trackFromData(const DatabaseInterface::TrackDat
     result.setGenre(data.genre());
     result.setComposer(data.composer());
     result.setLyricist(data.lyricist());
-    //result.setComment(data.comment());
+    result.setComment(data.comment());
     result.setAlbumCover(data.albumCover());
     result.setTrackNumber(data.trackNumber());
     result.setDiscNumber(data.discNumber());
-    //result.setYear(data.year());
-    //result.setChannels(data.channels());
-    //result.setBitRate(data.bitRate());
-    //result.setSampleRate(data.sampleRate());
+    result.setYear(data.year());
+    result.setChannels(data.channels());
+    result.setBitRate(data.bitRate());
+    result.setSampleRate(data.sampleRate());
     result.setResourceURI(data.resourceURI());
     result.setRating(data.rating());
     result.setDuration(data[MusicAudioTrack::TrackDataType::key_type::DurationRole].toTime());
@@ -345,6 +355,7 @@ QString MusicAudioTrack::comment() const
 void MusicAudioTrack::setTrackNumber(int value)
 {
     d->mTrackNumber = value;
+    d->mTrackNumberIsValid = true;
 }
 
 int MusicAudioTrack::trackNumber() const
@@ -352,14 +363,25 @@ int MusicAudioTrack::trackNumber() const
     return d->mTrackNumber;
 }
 
+bool MusicAudioTrack::trackNumberIsValid() const
+{
+    return d->mTrackNumberIsValid;
+}
+
 void MusicAudioTrack::setDiscNumber(int value)
 {
     d->mDiscNumber = value;
+    d->mDiscNumberIsValid = true;
 }
 
 int MusicAudioTrack::discNumber() const
 {
     return d->mDiscNumber;
+}
+
+bool MusicAudioTrack::discNumberIsValid() const
+{
+    return d->mDiscNumberIsValid;
 }
 
 void MusicAudioTrack::setYear(int value)
@@ -375,6 +397,7 @@ int MusicAudioTrack::year() const
 void MusicAudioTrack::setChannels(int value)
 {
     d->mChannels = value;
+    d->mChannelsIsValid = true;
 }
 
 int MusicAudioTrack::channels() const
@@ -382,9 +405,15 @@ int MusicAudioTrack::channels() const
     return d->mChannels;
 }
 
+bool MusicAudioTrack::channelsIsValid() const
+{
+    return d->mChannelsIsValid;
+}
+
 void MusicAudioTrack::setBitRate(int value)
 {
     d->mBitRate = value;
+    d->mBitRateIsValid = true;
 }
 
 int MusicAudioTrack::bitRate() const
@@ -392,14 +421,25 @@ int MusicAudioTrack::bitRate() const
     return d->mBitRate;
 }
 
+bool MusicAudioTrack::bitRateIsValid() const
+{
+    return d->mBitRateIsValid;
+}
+
 void MusicAudioTrack::setSampleRate(int value)
 {
     d->mSampleRate = value;
+    d->mSampleRateIsValid = true;
 }
 
 int MusicAudioTrack::sampleRate() const
 {
     return d->mSampleRate;
+}
+
+bool MusicAudioTrack::sampleRateIsValid() const
+{
+    return d->mSampleRateIsValid;
 }
 
 void MusicAudioTrack::setDuration(QTime value)

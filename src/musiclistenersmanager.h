@@ -47,10 +47,6 @@ class ELISALIB_EXPORT MusicListenersManager : public QObject
                READ importedTracksCount
                NOTIFY importedTracksCountChanged)
 
-    Q_PROPERTY(bool indexingRunning
-               READ isIndexingRunning
-               NOTIFY indexingRunningChanged)
-
     Q_PROPERTY(ElisaApplication* elisaApplication
                READ elisaApplication
                WRITE setElisaApplication
@@ -59,6 +55,26 @@ class ELISALIB_EXPORT MusicListenersManager : public QObject
     Q_PROPERTY(bool indexerBusy
                READ indexerBusy
                NOTIFY indexerBusyChanged)
+
+    Q_PROPERTY(bool fileSystemIndexerActive
+               READ fileSystemIndexerActive
+               NOTIFY fileSystemIndexerActiveChanged)
+
+    Q_PROPERTY(bool balooIndexerActive
+               READ balooIndexerActive
+               NOTIFY balooIndexerActiveChanged)
+
+    Q_PROPERTY(bool balooIndexerAvailable
+               READ balooIndexerAvailable
+               NOTIFY balooIndexerAvailableChanged)
+
+    Q_PROPERTY(bool androidIndexerActive
+               READ androidIndexerActive
+               NOTIFY androidIndexerActiveChanged)
+
+    Q_PROPERTY(bool androidIndexerAvailable
+               READ androidIndexerAvailable
+               NOTIFY androidIndexerAvailableChanged)
 
 public:
 
@@ -72,11 +88,19 @@ public:
 
     int importedTracksCount() const;
 
-    bool isIndexingRunning() const;
-
     ElisaApplication* elisaApplication() const;
 
     bool indexerBusy() const;
+
+    bool fileSystemIndexerActive() const;
+
+    bool balooIndexerActive() const;
+
+    bool balooIndexerAvailable() const;
+
+    bool androidIndexerActive() const;
+
+    bool androidIndexerAvailable() const;
 
 Q_SIGNALS:
 
@@ -85,8 +109,6 @@ Q_SIGNALS:
     void applicationIsTerminating();
 
     void importedTracksCountChanged();
-
-    void indexingRunningChanged();
 
     void newNotification(NotificationItem notification);
 
@@ -101,6 +123,16 @@ Q_SIGNALS:
     void indexerBusyChanged();
 
     void clearDatabase();
+
+    void fileSystemIndexerActiveChanged();
+
+    void balooIndexerActiveChanged();
+
+    void balooIndexerAvailableChanged();
+
+    void androidIndexerActiveChanged();
+
+    void androidIndexerAvailableChanged();
 
 public Q_SLOTS:
 
@@ -132,7 +164,15 @@ private Q_SLOTS:
 
     void cleanedDatabase();
 
+    void balooAvailabilityChanged();
+
 private:
+
+    void testBalooIndexerAvailability();
+
+    void startLocalFileSystemIndexing();
+
+    void startBalooIndexing();
 
     std::unique_ptr<MusicListenersManagerPrivate> d;
 

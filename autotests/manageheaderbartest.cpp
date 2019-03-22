@@ -2060,7 +2060,7 @@ void ManageHeaderBarTest::moveCurrentTrack()
 
     QCOMPARE(myControl.playListModel(), &myPlayList);
 
-    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1),
                         QStringLiteral("track1")},
@@ -2329,7 +2329,7 @@ void ManageHeaderBarTest::moveAnotherTrack()
         newFiles.push_back(oneTrack.resourceURI());
     }
 
-    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1),
                         QStringLiteral("track1")},
@@ -2598,7 +2598,7 @@ void ManageHeaderBarTest::setCurrentTrackTest()
         newFiles.push_back(oneTrack.resourceURI());
     }
 
-    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1),
                         QStringLiteral("track1")},

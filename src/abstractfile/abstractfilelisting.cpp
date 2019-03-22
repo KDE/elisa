@@ -19,6 +19,8 @@
 
 #include "config-upnp-qt.h"
 
+#include "abstractfile/indexercommon.h"
+
 #include "musicaudiotrack.h"
 #include "notificationitem.h"
 #include "filescanner.h"
@@ -48,17 +50,13 @@ class AbstractFileListingPrivate
 {
 public:
 
-    explicit AbstractFileListingPrivate(QString sourceName) : mSourceName(std::move(sourceName))
-    {
-    }
+    QStringList mAllRootPaths;
 
     QFileSystemWatcher mFileSystemWatcher;
 
     QHash<QString, QUrl> mAllAlbumCover;
 
     QHash<QUrl, QSet<QPair<QUrl, bool>>> mDiscoveredFiles;
-
-    QString mSourceName;
 
     FileScanner mFileScanner;
 
@@ -80,9 +78,11 @@ public:
 
     bool mHandleNewFiles = true;
 
+    bool mWaitEndTrackRemoval = false;
+
 };
 
-AbstractFileListing::AbstractFileListing(const QString &sourceName, QObject *parent) : QObject(parent), d(std::make_unique<AbstractFileListingPrivate>(sourceName))
+AbstractFileListing::AbstractFileListing(QObject *parent) : QObject(parent), d(std::make_unique<AbstractFileListingPrivate>())
 {
     connect(&d->mFileSystemWatcher, &QFileSystemWatcher::directoryChanged,
             this, &AbstractFileListing::directoryChanged);
@@ -95,7 +95,7 @@ AbstractFileListing::~AbstractFileListing()
 
 void AbstractFileListing::init()
 {
-    Q_EMIT askRestoredTracks(sourceName());
+    Q_EMIT askRestoredTracks();
 }
 
 void AbstractFileListing::newTrackFile(const MusicAudioTrack &partialTrack)
@@ -104,22 +104,46 @@ void AbstractFileListing::newTrackFile(const MusicAudioTrack &partialTrack)
     const auto &newTrack = scanOneFile(partialTrack.resourceURI(), scanFileInfo);
 
     if (newTrack.isValid() && newTrack != partialTrack) {
-        Q_EMIT modifyTracksList({newTrack}, d->mAllAlbumCover, d->mSourceName);
+        Q_EMIT modifyTracksList({newTrack}, d->mAllAlbumCover);
     }
 }
 
-void AbstractFileListing::restoredTracks(const QString &musicSource, QHash<QUrl, QDateTime> allFiles)
+void AbstractFileListing::restoredTracks(QHash<QUrl, QDateTime> allFiles)
 {
-    if (musicSource == sourceName()) {
-        executeInit(std::move(allFiles));
+    executeInit(std::move(allFiles));
 
-        refreshContent();
+    refreshContent();
+}
+
+void AbstractFileListing::setAllRootPaths(const QStringList &allRootPaths)
+{
+    if (d->mAllRootPaths == allRootPaths) {
+        return;
+    }
+
+    d->mAllRootPaths = allRootPaths;
+}
+
+void AbstractFileListing::databaseFinishedInsertingTracksList()
+{
+}
+
+void AbstractFileListing::databaseFinishedRemovingTracksList()
+{
+    if (waitEndTrackRemoval()) {
+        Q_EMIT indexingFinished();
+        setWaitEndTrackRemoval(false);
     }
 }
 
 void AbstractFileListing::applicationAboutToQuit()
 {
     d->mStopRequest = 1;
+}
+
+const QStringList &AbstractFileListing::allRootPaths() const
+{
+    return d->mAllRootPaths;
 }
 
 void AbstractFileListing::scanDirectory(QList<MusicAudioTrack> &newFiles, const QUrl &path)
@@ -230,11 +254,6 @@ void AbstractFileListing::scanDirectory(QList<MusicAudioTrack> &newFiles, const 
     }
 }
 
-const QString &AbstractFileListing::sourceName() const
-{
-    return d->mSourceName;
-}
-
 void AbstractFileListing::directoryChanged(const QString &path)
 {
     const auto directoryEntry = d->mDiscoveredFiles.find(QUrl::fromLocalFile(path));
@@ -257,7 +276,7 @@ void AbstractFileListing::fileChanged(const QString &modifiedFileName)
     auto modifiedTrack = scanOneFile(modifiedFile, modifiedFileInfo);
 
     if (modifiedTrack.isValid()) {
-        Q_EMIT modifyTracksList({modifiedTrack}, d->mAllAlbumCover, d->mSourceName);
+        Q_EMIT modifyTracksList({modifiedTrack}, d->mAllAlbumCover);
     }
 }
 
@@ -279,6 +298,8 @@ void AbstractFileListing::refreshContent()
 MusicAudioTrack AbstractFileListing::scanOneFile(const QUrl &scanFile, const QFileInfo &scanFileInfo)
 {
     MusicAudioTrack newTrack;
+
+    qCDebug(orgKdeElisaIndexer) << "AbstractFileListing::scanOneFile" << scanFile;
 
     auto localFileName = scanFile.toLocalFile();
 
@@ -314,9 +335,7 @@ MusicAudioTrack AbstractFileListing::scanOneFile(const QUrl &scanFile, const QFi
 void AbstractFileListing::watchPath(const QString &pathName)
 {
     if (!d->mFileSystemWatcher.addPath(pathName)) {
-        Q_EMIT errorWatchingFiles();
-
-        qDebug() << "AbstractFileListing::watchPath" << "fail for" << pathName;
+        qCDebug(orgKdeElisaIndexer) << "AbstractFileListing::watchPath" << "fail for" << pathName;
     }
 }
 
@@ -364,7 +383,7 @@ void AbstractFileListing::setHandleNewFiles(bool handleThem)
 
 void AbstractFileListing::emitNewFiles(const QList<MusicAudioTrack> &tracks)
 {
-    Q_EMIT tracksList(tracks, d->mAllAlbumCover, d->mSourceName);
+    Q_EMIT tracksList(tracks, d->mAllAlbumCover);
 }
 
 void AbstractFileListing::addCover(const MusicAudioTrack &newTrack)
@@ -424,11 +443,6 @@ void AbstractFileListing::removeFile(const QUrl &oneRemovedTrack, QList<QUrl> &a
     }
 }
 
-void AbstractFileListing::setSourceName(const QString &name)
-{
-    d->mSourceName = name;
-}
-
 QHash<QUrl, QDateTime> &AbstractFileListing::allFiles()
 {
     return d->mAllFiles;
@@ -443,6 +457,7 @@ void AbstractFileListing::checkFilesToRemove()
     }
 
     if (!allRemovedFiles.isEmpty()) {
+        setWaitEndTrackRemoval(true);
         Q_EMIT removedTracksList(allRemovedFiles);
     }
 }
@@ -465,6 +480,21 @@ bool AbstractFileListing::checkEmbeddedCoverImage(const QString &localFileName)
 #endif
 
     return false;
+}
+
+bool AbstractFileListing::waitEndTrackRemoval() const
+{
+    return d->mWaitEndTrackRemoval;
+}
+
+void AbstractFileListing::setWaitEndTrackRemoval(bool wait)
+{
+    d->mWaitEndTrackRemoval = wait;
+}
+
+const QMimeDatabase &AbstractFileListing::mimeDatabase() const
+{
+    return d->mMimeDb;
 }
 
 

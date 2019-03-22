@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Matthieu Gallien <matthieu_gallien@yahoo.fr>
+ * Copyright 2017-2019 Matthieu Gallien <matthieu_gallien@yahoo.fr>
  *
  * This program is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -15,8 +15,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.7
-import QtQuick.Controls 2.2
+import QtQuick 2.10
+import QtQuick.Layouts 1.1
+import QtQuick.Controls 2.4
 import org.kde.elisa 1.0
 
 Rectangle {
@@ -28,17 +29,33 @@ Rectangle {
 
     color: myPalette.highlight
 
-    width: Math.max(elisaTheme.gridDelegateWidth * 1.5, labelWidth.width + 2 * elisaTheme.layoutHorizontalMargin)
-    height: elisaTheme.smallControlButtonSize * 1.5
+    width: Math.max(elisaTheme.gridDelegateWidth * 1.5, labelWidth.width + 2 * elisaTheme.layoutHorizontalMargin) +
+           elisaTheme.smallControlButtonSize * 1.5 + 3 * elisaTheme.layoutHorizontalMargin
+    height: elisaTheme.smallControlButtonSize * 1.5 + 2 * elisaTheme.layoutHorizontalMargin
 
     visible: opacity > 0
-    opacity: (indexingRunning ? 1 : 0)
+    opacity: 0
 
-    Label {
-        id: importedTracksCountLabel
-        anchors.centerIn: parent
-        text: i18ncp("number of imported tracks", "Imported one track", "Imported %1 tracks", importedTracksCount)
-        color: myPalette.highlightedText
+    RowLayout {
+        anchors.fill: parent
+        spacing: elisaTheme.layoutHorizontalMargin
+
+        BusyIndicator{
+        }
+
+        Label {
+            id: importedTracksCountLabel
+            text: (importedTracksCount ?
+                       i18ncp("number of imported tracks",
+                              "Imported one track",
+                              "Imported %1 tracks",
+                              importedTracksCount) :
+                       i18nc("message to show when Elisa is scanning music files", "Scanning music"))
+            color: myPalette.highlightedText
+
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+        }
     }
 
     TextMetrics {

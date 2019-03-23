@@ -4736,7 +4736,7 @@ private Q_SLOTS:
         QCOMPARE(musicDbDatabaseErrorSpy.count(), 0);
     }
 
-    void readRecentlyplayedTracksData()
+    void readRecentlyPlayedTracksData()
     {
         DatabaseInterface musicDb;
 

@@ -276,6 +276,11 @@ public:
             return operator[](key_type::DatabaseIdRole).toULongLong();
         }
 
+        QString title() const
+        {
+            return operator[](key_type::TitleRole).toString();
+        }
+
     };
 
     using ListGenreDataType = QList<GenreDataType>;

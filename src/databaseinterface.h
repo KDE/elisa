@@ -332,8 +332,6 @@ public:
 
     bool internalArtistMatchGenre(qulonglong databaseId, const QString &genre);
 
-    DataType oneData(ElisaUtils::PlayListEntryType aType, qulonglong databaseId);
-
     ListTrackDataType tracksDataFromAuthor(const QString &artistName);
 
     TrackDataType trackDataFromDatabaseId(qulonglong id);

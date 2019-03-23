@@ -656,52 +656,6 @@ bool DatabaseInterface::internalArtistMatchGenre(qulonglong databaseId, const QS
     return result;
 }
 
-DatabaseInterface::DataType DatabaseInterface::oneData(ElisaUtils::PlayListEntryType aType, qulonglong databaseId)
-{
-    auto result = DataType{};
-
-    if (!d) {
-        return result;
-    }
-
-    auto transactionResult = startTransaction();
-    if (!transactionResult) {
-        return result;
-    }
-
-    switch (aType)
-    {
-    case ElisaUtils::Artist:
-        result = internalOneArtistPartialData(databaseId);
-        break;
-    case ElisaUtils::Album:
-        result = internalOneAlbumPartialData(databaseId);
-        break;
-    case ElisaUtils::Track:
-        result = internalOneTrackPartialData(databaseId);
-        break;
-    case ElisaUtils::Genre:
-        result = internalOneGenrePartialData(databaseId);
-        break;
-    case ElisaUtils::Composer:
-        result = internalOneComposerPartialData(databaseId);
-        break;
-    case ElisaUtils::Lyricist:
-        result = internalOneLyricistPartialData(databaseId);
-        break;
-    case ElisaUtils::Unknown:
-    case ElisaUtils::FileName:
-        break;
-    };
-
-    transactionResult = finishTransaction();
-    if (!transactionResult) {
-        return result;
-    }
-
-    return result;
-}
-
 DatabaseInterface::ListTrackDataType DatabaseInterface::tracksDataFromAuthor(const QString &ArtistName)
 {
     auto allTracks = ListTrackDataType{};

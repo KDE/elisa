@@ -2441,7 +2441,7 @@ void DatabaseInterface::initRequest()
                                                   "tracksMapping.`FirstPlayDate`, "
                                                   "tracksMapping.`LastPlayDate`, "
                                                   "tracksMapping.`PlayCounter`, "
-                                                  "tracksMapping.`PlayCounter` / (strftime('%s', 'now') - tracksMapping.`FirstPlayDate`) as PlayFrequency "
+                                                  "CAST(tracksMapping.`PlayCounter` AS REAL) / ((CAST(strftime('%s','now') as INTEGER) - CAST(tracksMapping.`FirstPlayDate` / 1000 as INTEGER)) / CAST(1000 AS REAL)) as PlayFrequency "
                                                   "FROM "
                                                   "`Tracks` tracks, "
                                                   "`TracksData` tracksMapping "
@@ -2469,7 +2469,7 @@ void DatabaseInterface::initRequest()
                                                   "     (tracks.`AlbumArtistName` IS NULL OR tracks.`AlbumArtistName` = tracks2.`AlbumArtistName`) AND "
                                                   "     (tracks.`AlbumPath` IS NULL OR tracks.`AlbumPath` = tracks2.`AlbumPath`)"
                                                   ")"
-                                                  "ORDER BY tracksMapping.`PlayCounter` / (strftime('%s', 'now') - tracksMapping.`FirstPlayDate`) DESC "
+                                                  "ORDER BY CAST(tracksMapping.`PlayCounter` AS REAL) / ((CAST(strftime('%s','now') as INTEGER) - CAST(tracksMapping.`FirstPlayDate` / 1000 as INTEGER)) / CAST(1000 AS REAL)) DESC "
                                                   "LIMIT :maximumResults");
 
         auto result = prepareQuery(d->mSelectAllFrequentlyPlayedTracksQuery, selectAllTracksText);

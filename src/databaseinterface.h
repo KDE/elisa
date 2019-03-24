@@ -462,8 +462,6 @@ private:
 
     void updateTrackOrigin(const QUrl &fileName, const QDateTime &fileModifiedTime);
 
-    int computeTrackPriority(const QString &title, const QString &trackArtist, const QString &album, const QString &albumArtist, const QString &trackPath);
-
     qulonglong internalInsertTrack(qulonglong discoverId, const MusicAudioTrack &oneModifiedTrack,
                                    const QHash<QString, QUrl> &covers, bool &isInserted);
 
@@ -483,15 +481,11 @@ private:
 
     qulonglong insertLyricist(const QString &name);
 
-    qulonglong internalSourceIdFromName(const QString &sourceName);
-
     QHash<QUrl, QDateTime> internalAllFileNameFromSource(const QString &sourceName);
 
     bool internalGenericPartialData(QSqlQuery &query);
 
     ListArtistDataType internalAllArtistsPartialData(QSqlQuery &artistsQuery);
-
-    ArtistDataType internalOneArtistPartialData(qulonglong databaseId);
 
     ListAlbumDataType internalAllAlbumsPartialData(QSqlQuery &query);
 
@@ -507,15 +501,9 @@ private:
 
     ListGenreDataType internalAllGenresPartialData();
 
-    GenreDataType internalOneGenrePartialData(qulonglong databaseId);
-
     ListArtistDataType internalAllComposersPartialData();
 
-    ArtistDataType internalOneComposerPartialData(qulonglong databaseId);
-
     ListArtistDataType internalAllLyricistsPartialData();
-
-    ArtistDataType internalOneLyricistPartialData(qulonglong databaseId);
 
     bool prepareQuery(QSqlQuery &query, const QString &queryText) const;
 

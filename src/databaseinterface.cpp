@@ -4261,49 +4261,6 @@ void DatabaseInterface::updateTrackOrigin(const QUrl &fileName, const QDateTime 
     d->mUpdateTrackFileModifiedTime.finish();
 }
 
-int DatabaseInterface::computeTrackPriority(const QString &title, const QString &trackArtist,
-                                            const QString &album, const QString &albumArtist,
-                                            const QString &trackPath)
-{
-    auto result = int(1);
-
-    if (!d) {
-        return result;
-    }
-
-    d->mSelectTracksMappingPriority.bindValue(QStringLiteral(":title"), title);
-    d->mSelectTracksMappingPriority.bindValue(QStringLiteral(":trackArtist"), trackArtist);
-    d->mSelectTracksMappingPriority.bindValue(QStringLiteral(":album"), album);
-    d->mSelectTracksMappingPriority.bindValue(QStringLiteral(":albumPath"), trackPath);
-    d->mSelectTracksMappingPriority.bindValue(QStringLiteral(":albumArtist"), albumArtist);
-
-    auto queryResult = d->mSelectTracksMappingPriority.exec();
-
-    if (!queryResult || !d->mSelectTracksMappingPriority.isSelect() || !d->mSelectTracksMappingPriority.isActive()) {
-        Q_EMIT databaseError();
-
-        qDebug() << "DatabaseInterface::internalTrackIdFromFileName" << d->mSelectTracksMappingPriority.lastQuery();
-        qDebug() << "DatabaseInterface::internalTrackIdFromFileName" << d->mSelectTracksMappingPriority.boundValues();
-        qDebug() << "DatabaseInterface::internalTrackIdFromFileName" << d->mSelectTracksMappingPriority.lastError();
-
-        d->mSelectTracksMappingPriority.finish();
-
-        return result;
-    }
-
-    if (d->mSelectTracksMappingPriority.next()) {
-        result = d->mSelectTracksMappingPriority.record().value(0).toInt();
-
-        d->mSelectTracksMappingPriority.finish();
-
-        return result + 1;
-    }
-
-    d->mSelectTracksMappingPriority.finish();
-
-    return result;
-}
-
 qulonglong DatabaseInterface::internalInsertTrack(qulonglong discoverId, const MusicAudioTrack &oneTrack,
                                                   const QHash<QString, QUrl> &covers, bool &isInserted)
 {
@@ -4701,37 +4658,6 @@ bool DatabaseInterface::isValidArtist(qulonglong albumId)
     result = !currentRecord.value(2).toString().isEmpty();
 
     return result;
-}
-
-qulonglong DatabaseInterface::internalSourceIdFromName(const QString &sourceName)
-{
-    qulonglong sourceId = 0;
-
-    d->mSelectMusicSource.bindValue(QStringLiteral(":name"), sourceName);
-
-    auto queryResult = d->mSelectMusicSource.exec();
-
-    if (!queryResult || !d->mSelectMusicSource.isSelect() || !d->mSelectMusicSource.isActive()) {
-        Q_EMIT databaseError();
-
-        qDebug() << "DatabaseInterface::insertMusicSource" << d->mSelectMusicSource.lastQuery();
-        qDebug() << "DatabaseInterface::insertMusicSource" << d->mSelectMusicSource.boundValues();
-        qDebug() << "DatabaseInterface::insertMusicSource" << d->mSelectMusicSource.lastError();
-
-        d->mSelectMusicSource.finish();
-
-        return sourceId;
-    }
-
-    if (!d->mSelectMusicSource.next()) {
-        return sourceId;
-    }
-
-    sourceId = d->mSelectMusicSource.record().value(0).toULongLong();
-
-    d->mSelectMusicSource.finish();
-
-    return sourceId;
 }
 
 QHash<QUrl, QDateTime> DatabaseInterface::internalAllFileNameFromSource(const QString &sourceName)
@@ -5448,30 +5374,6 @@ DatabaseInterface::ListArtistDataType DatabaseInterface::internalAllArtistsParti
     return result;
 }
 
-DatabaseInterface::ArtistDataType DatabaseInterface::internalOneArtistPartialData(qulonglong databaseId)
-{
-    auto result = ArtistDataType{};
-
-    d->mSelectArtistQuery.bindValue(QStringLiteral(":artistId"), databaseId);
-
-    if (!internalGenericPartialData(d->mSelectArtistQuery)) {
-        return result;
-    }
-
-    if (d->mSelectArtistQuery.next()) {
-        const auto &currentRecord = d->mSelectArtistQuery.record();
-
-        result[DataType::key_type::DatabaseIdRole] = currentRecord.value(0);
-        result[DataType::key_type::TitleRole] = currentRecord.value(1);
-        result[DataType::key_type::GenreRole] = QVariant::fromValue(currentRecord.value(2).toString().split(QStringLiteral(", ")));
-        result[DataType::key_type::ElementTypeRole] = ElisaUtils::Artist;
-    }
-
-    d->mSelectArtistQuery.finish();
-
-    return result;
-}
-
 DatabaseInterface::ListAlbumDataType DatabaseInterface::internalAllAlbumsPartialData(QSqlQuery &query)
 {
     auto result = ListAlbumDataType{};
@@ -5647,29 +5549,6 @@ DatabaseInterface::ListGenreDataType DatabaseInterface::internalAllGenresPartial
     return result;
 }
 
-DatabaseInterface::GenreDataType DatabaseInterface::internalOneGenrePartialData(qulonglong databaseId)
-{
-    auto result = GenreDataType{};
-
-    d->mSelectGenreQuery.bindValue(QStringLiteral(":genreId"), databaseId);
-
-    if (!internalGenericPartialData(d->mSelectGenreQuery)) {
-        return result;
-    }
-
-    if (d->mSelectGenreQuery.next()) {
-        const auto &currentRecord = d->mSelectGenreQuery.record();
-
-        result[DataType::key_type::DatabaseIdRole] = currentRecord.value(0);
-        result[DataType::key_type::TitleRole] = currentRecord.value(1);
-        result[DataType::key_type::ElementTypeRole] = ElisaUtils::Genre;
-    }
-
-    d->mSelectGenreQuery.finish();
-
-    return result;
-}
-
 DatabaseInterface::ListArtistDataType DatabaseInterface::internalAllComposersPartialData()
 {
     ListArtistDataType result;
@@ -5695,29 +5574,6 @@ DatabaseInterface::ListArtistDataType DatabaseInterface::internalAllComposersPar
     return result;
 }
 
-DatabaseInterface::ArtistDataType DatabaseInterface::internalOneComposerPartialData(qulonglong databaseId)
-{
-    auto result = ArtistDataType{};
-
-    d->mSelectComposerQuery.bindValue(QStringLiteral(":composerId"), databaseId);
-
-    if (!internalGenericPartialData(d->mSelectComposerQuery)) {
-        return result;
-    }
-
-    if (d->mSelectComposerQuery.next()) {
-        const auto &currentRecord = d->mSelectComposerQuery.record();
-
-        result[DataType::key_type::DatabaseIdRole] = currentRecord.value(0);
-        result[DataType::key_type::TitleRole] = currentRecord.value(1);
-        result[DataType::key_type::ElementTypeRole] = ElisaUtils::Composer;
-    }
-
-    d->mSelectComposerQuery.finish();
-
-    return result;
-}
-
 DatabaseInterface::ListArtistDataType DatabaseInterface::internalAllLyricistsPartialData()
 {
     ListArtistDataType result;
@@ -5739,29 +5595,6 @@ DatabaseInterface::ListArtistDataType DatabaseInterface::internalAllLyricistsPar
     }
 
     d->mSelectAllLyricistsQuery.finish();
-
-    return result;
-}
-
-DatabaseInterface::ArtistDataType DatabaseInterface::internalOneLyricistPartialData(qulonglong databaseId)
-{
-    auto result = ArtistDataType{};
-
-    d->mSelectLyricistQuery.bindValue(QStringLiteral(":lyricistId"), databaseId);
-
-    if (!internalGenericPartialData(d->mSelectLyricistQuery)) {
-        return result;
-    }
-
-    if (d->mSelectLyricistQuery.next()) {
-        const auto &currentRecord = d->mSelectLyricistQuery.record();
-
-        result[DataType::key_type::DatabaseIdRole] = currentRecord.value(0);
-        result[DataType::key_type::TitleRole] = currentRecord.value(1);
-        result[DataType::key_type::ElementTypeRole] = ElisaUtils::Lyricist;
-    }
-
-    d->mSelectLyricistQuery.finish();
 
     return result;
 }

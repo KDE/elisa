@@ -35,12 +35,12 @@ RowLayout {
     }
 
     function openArtist(name) {
-        viewManager.openOneArtist(viewManager.currentStackView, name, elisaTheme.artistIcon, 0)
+        viewManager.openChildView(name, '', elisaTheme.artistIcon, 0, ElisaUtils.Artist)
     }
 
     function openAlbum(artist, album, image, albumID) {
         image = !image ? elisaTheme.defaultAlbumImage : image;
-        viewManager.openOneAlbum(viewManager.currentStackView, album, artist, image, albumID);
+        viewManager.openChildView(album, artist, image, albumID, ElisaUtils.Album);
     }
 
     function openNowPlaying() {

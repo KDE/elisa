@@ -7,6 +7,18 @@ include_directories(${elisa_CURRENT_BINARY_DIR})
 include_directories(${elisa_BINARY_DIR})
 include_directories(${elisa_BINARY_DIR}/src)
 
+set(viewManagerTest_SOURCES
+    viewmanagertest.cpp
+    ../src/elisautils.cpp
+)
+
+ecm_add_test(${viewManagerTest_SOURCES}
+    TEST_NAME "viewManagerTest"
+    LINK_LIBRARIES
+        Qt5::Test elisaLib)
+
+target_include_directories(viewManagerTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
+
 set(databaseInterfaceTest_SOURCES
     databaseinterfacetest.cpp
     databasetestdata.h

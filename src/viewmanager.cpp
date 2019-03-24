@@ -187,6 +187,7 @@ void ViewManager::openOneAlbum(const QString &albumTitle, const QString &albumAu
         Q_EMIT switchOneAlbumView(mTargetView, 4,
                                   mTargetAlbumTitle, mTargetImageUrl, mTargetAlbumAuthor, mTargetDatabaseId);
     } else {
+        mTargetView = ViewsType::OneAlbum;
         Q_EMIT openGridView(ViewsType::AllAlbums, 1, {}, {}, {}, ElisaUtils::Album,
                             QUrl(QStringLiteral("image://icon/media-optical-audio")), {}, {}, true, true);
     }

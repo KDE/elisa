@@ -32,9 +32,14 @@ FocusScope {
     property string oldImage
     property string tracksCount
     property int trackRating
+    property int albumID
     property bool ratingVisible
     property alias playerControl: playControlItem
     property alias isMaximized: playControlItem.isMaximized
+
+    signal openArtist()
+    signal openAlbum()
+    signal openNowPlaying()
 
     onImageChanged:
     {
@@ -223,7 +228,6 @@ FocusScope {
                 LabelWithToolTip {
                     id: mainLabel
                     text: title
-                    Layout.fillWidth: true
                     Layout.alignment: Qt.AlignLeft
                     elide: Text.ElideRight
                     color: myPalette.highlightedText
@@ -231,16 +235,35 @@ FocusScope {
                     font.bold: true
 
                     Layout.bottomMargin: titleFontInfo.height * 0.5
+
+                    MouseArea {
+                        id: titleMouseArea
+                        hoverEnabled: true
+                        anchors.fill: parent
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: {
+                            openNowPlaying()
+                        }
+                    }
                 }
 
                 LabelWithToolTip {
                     id: authorLabel
                     text: artist
-                    Layout.fillWidth: true
                     Layout.alignment: Qt.AlignLeft
                     elide: Text.ElideRight
                     color: myPalette.highlightedText
                     font.pointSize: elisaTheme.defaultFontPointSize * 1.5
+
+                    MouseArea {
+                        id: authorMouseArea
+                        hoverEnabled: true
+                        anchors.fill: parent
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: {
+                            openArtist()
+                        }
+                    }
 
                     layer.effect: Glow {
                         cached: true
@@ -255,7 +278,6 @@ FocusScope {
                 LabelWithToolTip {
                     id: albumLabel
                     text: album
-                    Layout.fillWidth: true
                     Layout.alignment: Qt.AlignLeft
                     elide: Text.ElideRight
                     color: myPalette.highlightedText
@@ -271,6 +293,15 @@ FocusScope {
                         samples: 9
                     }
 
+                    MouseArea {
+                        id: albumMouseArea
+                        hoverEnabled: true
+                        anchors.fill: parent
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: {
+                            openAlbum()
+                        }
+                    }
                 }
 
                 RatingStar {
@@ -303,19 +334,22 @@ FocusScope {
                     Layout.leftMargin: elisaTheme.layoutHorizontalMargin * 7
                     Layout.rightMargin: elisaTheme.layoutHorizontalMargin * 2
                 }
-
-                LabelWithToolTip {
-                    id: remainingTracksLabel
-                    text: i18np("1 track remaining", "%1 tracks remaining", tracksCount)
-                    Layout.alignment: Qt.AlignRight | Qt.AlignBottom
-                    Layout.bottomMargin: elisaTheme.layoutVerticalMargin
-                    Layout.leftMargin: elisaTheme.layoutHorizontalMargin
-                    Layout.rightMargin: elisaTheme.layoutHorizontalMargin * 1.75
-                    elide: Text.ElideRight
-                    visible: tracksCount > 0
-                    color: myPalette.highlightedText
-                }
             }
+        }
+
+        LabelWithToolTip {
+            id: remainingTracksLabel
+
+            text: i18np("1 track remaining", "%1 tracks remaining", tracksCount)
+
+            elide: Text.ElideRight
+            visible: tracksCount > 0
+            color: myPalette.highlightedText
+
+            anchors.right: parent.right
+            anchors.bottom: parent.bottom
+            anchors.rightMargin: elisaTheme.layoutHorizontalMargin * 2
+            anchors.bottomMargin: elisaTheme.layoutHorizontalMargin * 2
         }
     }
 

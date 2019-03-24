@@ -34,6 +34,22 @@ RowLayout {
         viewManager.goBack()
     }
 
+    function openArtist(name) {
+        viewManager.openChildView(name, '', elisaTheme.artistIcon, 0, ElisaUtils.Artist)
+    }
+
+    function openAlbum(artist, album, image, albumID) {
+        image = !image ? elisaTheme.defaultAlbumImage : image;
+        viewManager.openChildView(album, artist, image, albumID, ElisaUtils.Album);
+    }
+
+    function openNowPlaying() {
+        viewManager.closeAllViews();
+
+        // This is needed to trigger the state change
+        listViews.currentIndex = 0;
+    }
+
     ViewManager {
         id: viewManager
 

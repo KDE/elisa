@@ -197,6 +197,7 @@ ApplicationWindow {
                     title: elisa.manageHeaderBar.title
                     artist: elisa.manageHeaderBar.artist
                     image: elisa.manageHeaderBar.image
+                    albumID: elisa.manageHeaderBar.albumId
 
                     ratingVisible: false
 
@@ -222,6 +223,9 @@ ApplicationWindow {
                     playerControl.onPlayNext: elisa.mediaPlayList.skipNextTrack()
 
                     playerControl.isMaximized: persistentSettings.headerBarIsMaximized
+                    onOpenArtist: { contentView.openArtist(artist) }
+                    onOpenNowPlaying: { contentView.openNowPlaying() }
+                    onOpenAlbum: { contentView.openAlbum(album, artist, image, albumID) }
 
                     TrackImportNotification {
                         id: importedTracksCountNotification

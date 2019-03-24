@@ -4934,6 +4934,72 @@ private Q_SLOTS:
         QCOMPARE(allGenresData[2].title(), QStringLiteral("genre3"));
         QCOMPARE(allGenresData[3].title(), QStringLiteral("genre4"));
     }
+
+    void clearDataTest()
+    {
+        DatabaseInterface musicDb;
+
+        musicDb.init(QStringLiteral("testDb"));
+
+        QSignalSpy musicDbArtistAddedSpy(&musicDb, &DatabaseInterface::artistsAdded);
+        QSignalSpy musicDbAlbumAddedSpy(&musicDb, &DatabaseInterface::albumsAdded);
+        QSignalSpy musicDbTrackAddedSpy(&musicDb, &DatabaseInterface::tracksAdded);
+        QSignalSpy musicDbArtistRemovedSpy(&musicDb, &DatabaseInterface::artistRemoved);
+        QSignalSpy musicDbAlbumRemovedSpy(&musicDb, &DatabaseInterface::albumRemoved);
+        QSignalSpy musicDbTrackRemovedSpy(&musicDb, &DatabaseInterface::trackRemoved);
+        QSignalSpy musicDbAlbumModifiedSpy(&musicDb, &DatabaseInterface::albumModified);
+        QSignalSpy musicDbTrackModifiedSpy(&musicDb, &DatabaseInterface::trackModified);
+        QSignalSpy musicDbDatabaseErrorSpy(&musicDb, &DatabaseInterface::databaseError);
+        QSignalSpy musicDbCleanedDatabaseSpy(&musicDb, &DatabaseInterface::cleanedDatabase);
+
+        QCOMPARE(musicDb.allAlbumsData().count(), 0);
+        QCOMPARE(musicDb.allArtistsData().count(), 0);
+        QCOMPARE(musicDb.allTracksData().count(), 0);
+        QCOMPARE(musicDbArtistAddedSpy.count(), 0);
+        QCOMPARE(musicDbAlbumAddedSpy.count(), 0);
+        QCOMPARE(musicDbTrackAddedSpy.count(), 0);
+        QCOMPARE(musicDbArtistRemovedSpy.count(), 0);
+        QCOMPARE(musicDbAlbumRemovedSpy.count(), 0);
+        QCOMPARE(musicDbTrackRemovedSpy.count(), 0);
+        QCOMPARE(musicDbAlbumModifiedSpy.count(), 0);
+        QCOMPARE(musicDbTrackModifiedSpy.count(), 0);
+        QCOMPARE(musicDbDatabaseErrorSpy.count(), 0);
+        QCOMPARE(musicDbCleanedDatabaseSpy.count(), 0);
+
+        musicDb.insertTracksList(mNewTracks, mNewCovers, QStringLiteral("autoTest"));
+
+        musicDbTrackAddedSpy.wait(300);
+
+        QCOMPARE(musicDb.allAlbumsData().count(), 5);
+        QCOMPARE(musicDb.allArtistsData().count(), 7);
+        QCOMPARE(musicDb.allTracksData().count(), 22);
+        QCOMPARE(musicDbArtistAddedSpy.count(), 1);
+        QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
+        QCOMPARE(musicDbTrackAddedSpy.count(), 1);
+        QCOMPARE(musicDbArtistRemovedSpy.count(), 0);
+        QCOMPARE(musicDbAlbumRemovedSpy.count(), 0);
+        QCOMPARE(musicDbTrackRemovedSpy.count(), 0);
+        QCOMPARE(musicDbAlbumModifiedSpy.count(), 0);
+        QCOMPARE(musicDbTrackModifiedSpy.count(), 0);
+        QCOMPARE(musicDbDatabaseErrorSpy.count(), 0);
+        QCOMPARE(musicDbCleanedDatabaseSpy.count(), 0);
+
+        musicDb.clearData();
+
+        QCOMPARE(musicDb.allAlbumsData().count(), 0);
+        QCOMPARE(musicDb.allArtistsData().count(), 0);
+        QCOMPARE(musicDb.allTracksData().count(), 0);
+        QCOMPARE(musicDbArtistAddedSpy.count(), 1);
+        QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
+        QCOMPARE(musicDbTrackAddedSpy.count(), 1);
+        QCOMPARE(musicDbArtistRemovedSpy.count(), 0);
+        QCOMPARE(musicDbAlbumRemovedSpy.count(), 0);
+        QCOMPARE(musicDbTrackRemovedSpy.count(), 0);
+        QCOMPARE(musicDbAlbumModifiedSpy.count(), 0);
+        QCOMPARE(musicDbTrackModifiedSpy.count(), 0);
+        QCOMPARE(musicDbDatabaseErrorSpy.count(), 0);
+        QCOMPARE(musicDbCleanedDatabaseSpy.count(), 1);
+    }
 };
 
 QTEST_GUILESS_MAIN(DatabaseInterfaceTests)

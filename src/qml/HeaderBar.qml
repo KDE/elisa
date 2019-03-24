@@ -32,9 +32,14 @@ FocusScope {
     property string oldImage
     property string tracksCount
     property int trackRating
+    property int albumID
     property bool ratingVisible
     property alias playerControl: playControlItem
     property alias isMaximized: playControlItem.isMaximized
+
+    signal openArtist()
+    signal openAlbum()
+    signal openNowPlaying()
 
     onImageChanged:
     {
@@ -231,6 +236,16 @@ FocusScope {
                     font.bold: true
 
                     Layout.bottomMargin: titleFontInfo.height * 0.5
+
+                    MouseArea {
+                        id: titleMouseArea
+                        hoverEnabled: true
+                        anchors.fill: parent
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: {
+                            openNowPlaying()
+                        }
+                    }
                 }
 
                 LabelWithToolTip {
@@ -241,6 +256,16 @@ FocusScope {
                     elide: Text.ElideRight
                     color: myPalette.highlightedText
                     font.pointSize: elisaTheme.defaultFontPointSize * 1.5
+
+                    MouseArea {
+                        id: authorMouseArea
+                        hoverEnabled: true
+                        anchors.fill: parent
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: {
+                            openArtist()
+                        }
+                    }
 
                     layer.effect: Glow {
                         cached: true
@@ -271,6 +296,15 @@ FocusScope {
                         samples: 9
                     }
 
+                    MouseArea {
+                        id: albumMouseArea
+                        hoverEnabled: true
+                        anchors.fill: parent
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: {
+                            openAlbum()
+                        }
+                    }
                 }
 
                 RatingStar {

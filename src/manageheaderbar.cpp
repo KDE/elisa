@@ -56,9 +56,20 @@ void ManageHeaderBar::setAlbumRole(int value)
     Q_EMIT albumRoleChanged();
 }
 
+void ManageHeaderBar::setAlbumArtistRole(int value)
+{
+    mAlbumArtistRole = value;
+    Q_EMIT albumArtistRoleChanged();
+}
+
 int ManageHeaderBar::albumRole() const
 {
     return mAlbumRole;
+}
+
+int ManageHeaderBar::albumArtistRole() const
+{
+    return mAlbumArtistRole;
 }
 
 void ManageHeaderBar::setImageRole(int value)
@@ -90,6 +101,15 @@ QVariant ManageHeaderBar::album() const
     }
 
     return mCurrentTrack.data(mAlbumRole);
+}
+
+QVariant ManageHeaderBar::albumArtist() const
+{
+    if (!mCurrentTrack.isValid()) {
+        return QString();
+    }
+
+    return mCurrentTrack.data(mAlbumArtistRole);
 }
 
 QVariant ManageHeaderBar::title() const
@@ -200,6 +220,7 @@ void ManageHeaderBar::tracksDataChanged(const QModelIndex &topLeft, const QModel
         notifyArtistProperty();
         notifyTitleProperty();
         notifyAlbumProperty();
+        notifyAlbumArtistProperty();
         notifyImageProperty();
         notifyAlbumIdProperty();
         notifyIsValidProperty();
@@ -213,6 +234,9 @@ void ManageHeaderBar::tracksDataChanged(const QModelIndex &topLeft, const QModel
             }
             if (oneRole == mAlbumRole) {
                 notifyAlbumProperty();
+            }
+            if (oneRole == mAlbumArtistRole) {
+                notifyAlbumArtistProperty();
             }
             if (oneRole == mImageRole) {
                 notifyImageProperty();
@@ -262,6 +286,7 @@ void ManageHeaderBar::tracksRemoved(const QModelIndex &parent, int first, int la
         notifyArtistProperty();
         notifyTitleProperty();
         notifyAlbumProperty();
+        notifyAlbumArtistProperty();
         notifyImageProperty();
         notifyAlbumIdProperty();
         notifyIsValidProperty();
@@ -300,6 +325,16 @@ void ManageHeaderBar::notifyAlbumProperty()
         Q_EMIT albumChanged();
 
         mOldAlbum = newAlbumValue;
+    }
+}
+
+void ManageHeaderBar::notifyAlbumArtistProperty()
+{
+    auto newAlbumArtistValue = mCurrentTrack.data(mAlbumArtistRole);
+    if (mOldAlbumArtist != newAlbumArtistValue) {
+        Q_EMIT albumArtistChanged();
+
+        mOldAlbumArtist = newAlbumArtistValue;
     }
 }
 
@@ -373,6 +408,7 @@ void ManageHeaderBar::setCurrentTrack(const QPersistentModelIndex &currentTrack)
     notifyArtistProperty();
     notifyTitleProperty();
     notifyAlbumProperty();
+    notifyAlbumArtistProperty();
     notifyImageProperty();
     notifyAlbumIdProperty();
     notifyIsValidProperty();

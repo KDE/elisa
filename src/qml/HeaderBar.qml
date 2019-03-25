@@ -26,6 +26,7 @@ FocusScope {
 
     property string title
     property string artist
+    property string albumArtist
     property string album
     property string image
     property string newImage

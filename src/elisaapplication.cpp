@@ -380,6 +380,7 @@ void ElisaApplication::initializePlayer()
 
     d->mManageHeaderBar->setTitleRole(MediaPlayList::TitleRole);
     d->mManageHeaderBar->setAlbumRole(MediaPlayList::AlbumRole);
+    d->mManageHeaderBar->setAlbumArtistRole(MediaPlayList::AlbumArtistRole);
     d->mManageHeaderBar->setArtistRole(MediaPlayList::ArtistRole);
     d->mManageHeaderBar->setImageRole(MediaPlayList::ImageUrlRole);
     d->mManageHeaderBar->setAlbumIdRole(MediaPlayList::AlbumIdRole);

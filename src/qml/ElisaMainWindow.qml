@@ -196,6 +196,7 @@ ApplicationWindow {
                     album: elisa.manageHeaderBar.album
                     title: elisa.manageHeaderBar.title
                     artist: elisa.manageHeaderBar.artist
+                    albumArtist: elisa.manageHeaderBar.albumArtist
                     image: elisa.manageHeaderBar.image
                     albumID: elisa.manageHeaderBar.albumId
 
@@ -225,7 +226,7 @@ ApplicationWindow {
                     playerControl.isMaximized: persistentSettings.headerBarIsMaximized
                     onOpenArtist: { contentView.openArtist(artist) }
                     onOpenNowPlaying: { contentView.openNowPlaying() }
-                    onOpenAlbum: { contentView.openAlbum(album, artist, image, albumID) }
+                    onOpenAlbum: { contentView.openAlbum(album, albumArtist, image, albumID) }
 
                     TrackImportNotification {
                         id: importedTracksCountNotification

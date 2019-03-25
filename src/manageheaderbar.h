@@ -56,6 +56,11 @@ class ELISALIB_EXPORT ManageHeaderBar : public QObject
                WRITE setAlbumRole
                NOTIFY albumRoleChanged)
 
+    Q_PROPERTY(int albumArtistRole
+               READ albumArtistRole
+               WRITE setAlbumArtistRole
+               NOTIFY albumArtistRoleChanged)
+
     Q_PROPERTY(int imageRole
                READ imageRole
                WRITE setImageRole
@@ -82,6 +87,10 @@ class ELISALIB_EXPORT ManageHeaderBar : public QObject
     Q_PROPERTY(QVariant album
                READ album
                NOTIFY albumChanged)
+
+    Q_PROPERTY(QVariant albumArtist
+               READ albumArtist
+               NOTIFY albumArtistChanged)
 
     Q_PROPERTY(QUrl image
                READ image
@@ -113,6 +122,8 @@ public:
 
     int albumRole() const;
 
+    int albumArtistRole() const;
+
     int imageRole() const;
 
     int albumIdRole() const;
@@ -124,6 +135,8 @@ public:
     QVariant title() const;
 
     QVariant album() const;
+
+    QVariant albumArtist() const;
 
     QUrl image() const;
 
@@ -145,6 +158,8 @@ Q_SIGNALS:
 
     void albumRoleChanged();
 
+    void albumArtistRoleChanged();
+
     void imageRoleChanged();
 
     void albumIdRoleChanged();
@@ -156,6 +171,8 @@ Q_SIGNALS:
     void titleChanged();
 
     void albumChanged();
+
+    void albumArtistChanged();
 
     void imageChanged();
 
@@ -176,6 +193,8 @@ public Q_SLOTS:
     void setTitleRole(int value);
 
     void setAlbumRole(int value);
+
+    void setAlbumArtistRole(int value);
 
     void setImageRole(int value);
 
@@ -203,6 +222,8 @@ private:
 
     void notifyAlbumProperty();
 
+    void notifyAlbumArtistProperty();
+
     void notifyImageProperty();
 
     void notifyAlbumIdProperty();
@@ -221,6 +242,8 @@ private:
 
     int mAlbumRole = Qt::DisplayRole;
 
+    int mAlbumArtistRole = Qt::DisplayRole;
+
     int mImageRole = Qt::DisplayRole;
 
     int mAlbumIdRole = Qt::DisplayRole;
@@ -232,6 +255,8 @@ private:
     QVariant mOldTitle;
 
     QVariant mOldAlbum;
+
+    QVariant mOldAlbumArtist;
 
     QVariant mOldImage;
 

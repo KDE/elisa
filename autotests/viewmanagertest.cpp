@@ -97,6 +97,10 @@ private Q_SLOTS:
         QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
         QCOMPARE(switchOffAllViewsSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
+
+        QCOMPARE(switchOneAlbumViewSpy.at(0).count(), 6);
+        QCOMPARE(switchOneAlbumViewSpy.at(0).at(2), QStringLiteral("album1"));
+        QCOMPARE(switchOneAlbumViewSpy.at(0).at(4), QStringLiteral("artist1"));
     }
 
     void openArtistViewTest()

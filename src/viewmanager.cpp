@@ -289,7 +289,7 @@ void ViewManager::allAlbumsViewIsLoaded()
 {
     mCurrentView = ViewsType::AllAlbums;
     if (mTargetView == ViewsType::OneAlbum) {
-        Q_EMIT switchOneAlbumView(mTargetView, 2, mTargetAlbumTitle, mTargetImageUrl, mTargetArtistName, mTargetDatabaseId);
+        Q_EMIT switchOneAlbumView(mTargetView, 2, mTargetAlbumTitle, mTargetImageUrl, mTargetAlbumAuthor, mTargetDatabaseId);
     }
 }
 

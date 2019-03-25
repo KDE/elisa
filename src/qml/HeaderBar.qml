@@ -337,21 +337,21 @@ FocusScope {
                 }
             }
         }
+    }
 
-        LabelWithToolTip {
-            id: remainingTracksLabel
+    LabelWithToolTip {
+        id: remainingTracksLabel
 
-            text: i18np("1 track remaining", "%1 tracks remaining", tracksCount)
+        text: i18np("1 track remaining", "%1 tracks remaining", tracksCount)
 
-            elide: Text.ElideRight
-            visible: tracksCount > 0
-            color: myPalette.highlightedText
+        elide: Text.ElideRight
+        visible: tracksCount > 0
+        color: myPalette.highlightedText
 
-            anchors.right: parent.right
-            anchors.bottom: parent.bottom
-            anchors.rightMargin: elisaTheme.layoutHorizontalMargin * 2
-            anchors.bottomMargin: elisaTheme.layoutHorizontalMargin * 2
-        }
+        anchors.right: contentZone.right
+        anchors.bottom: contentZone.bottom
+        anchors.rightMargin: elisaTheme.layoutHorizontalMargin * 2
+        anchors.bottomMargin: elisaTheme.layoutHorizontalMargin * 2
     }
 
     SequentialAnimation {

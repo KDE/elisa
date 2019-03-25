@@ -38,7 +38,7 @@ RowLayout {
         viewManager.openChildView(name, '', elisaTheme.artistIcon, 0, ElisaUtils.Artist)
     }
 
-    function openAlbum(artist, album, image, albumID) {
+    function openAlbum(album, artist, image, albumID) {
         image = !image ? elisaTheme.defaultAlbumImage : image;
         viewManager.openChildView(album, artist, image, albumID, ElisaUtils.Album);
     }

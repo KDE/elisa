@@ -400,7 +400,11 @@ void MusicListenersManager::cleanedDatabase()
 
 void MusicListenersManager::balooAvailabilityChanged()
 {
+#if defined KF5Baloo_FOUND && KF5Baloo_FOUND
     if (!d->mBalooDetector.balooAvailability()) {
+#else
+    if (true) {
+#endif
         if (!d->mFileSystemIndexerActive) {
             startLocalFileSystemIndexing();
         }

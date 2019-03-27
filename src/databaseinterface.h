@@ -541,6 +541,8 @@ private:
 
     void createDatabaseV9();
 
+    void upgradeDatabaseV9();
+
     void upgradeDatabaseV11();
 
     void upgradeDatabaseV12();

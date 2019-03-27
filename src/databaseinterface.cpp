@@ -1089,7 +1089,17 @@ void DatabaseInterface::initDatabase()
 {
     auto listTables = d->mTracksDatabase.tables();
 
-    if (!listTables.contains(QStringLiteral("DatabaseVersionV9"))) {
+    if (listTables.contains(QStringLiteral("DatabaseVersionV2")) ||
+        listTables.contains(QStringLiteral("DatabaseVersionV3")) ||
+        listTables.contains(QStringLiteral("DatabaseVersionV4")) ||
+        listTables.contains(QStringLiteral("DatabaseVersionV6")) ||
+        listTables.contains(QStringLiteral("DatabaseVersionV7")) ||
+        listTables.contains(QStringLiteral("DatabaseVersionV8")) ||
+        listTables.contains(QStringLiteral("DatabaseVersionV10"))) {
+
+        qCDebug(orgKdeElisaDatabase()) << "Old database schema unsupported: delete and start from scratch";
+        qCDebug(orgKdeElisaDatabase()) << "list of old tables" << d->mTracksDatabase.tables();
+
         auto oldTables = QStringList{
                 QStringLiteral("DatabaseVersionV2"),
                 QStringLiteral("DatabaseVersionV3"),
@@ -1098,6 +1108,7 @@ void DatabaseInterface::initDatabase()
                 QStringLiteral("DatabaseVersionV6"),
                 QStringLiteral("DatabaseVersionV7"),
                 QStringLiteral("DatabaseVersionV8"),
+                QStringLiteral("DatabaseVersionV10"),
                 QStringLiteral("AlbumsArtists"),
                 QStringLiteral("TracksArtists"),
                 QStringLiteral("TracksMapping"),
@@ -1128,7 +1139,12 @@ void DatabaseInterface::initDatabase()
         listTables = d->mTracksDatabase.tables();
     }
 
-    if (listTables.contains(QStringLiteral("DatabaseVersionV9"))) {
+    if (listTables.contains(QStringLiteral("DatabaseVersionV5")) &&
+        !listTables.contains(QStringLiteral("DatabaseVersionV9"))) {
+        upgradeDatabaseV9();
+        upgradeDatabaseV11();
+        upgradeDatabaseV12();
+    } else if (listTables.contains(QStringLiteral("DatabaseVersionV9"))) {
         if (!listTables.contains(QStringLiteral("DatabaseVersionV11"))) {
             upgradeDatabaseV11();
         }
@@ -1413,6 +1429,288 @@ void DatabaseInterface::createDatabaseV9()
             Q_EMIT databaseError();
         }
     }
+}
+
+void DatabaseInterface::upgradeDatabaseV9()
+{
+    qCInfo(orgKdeElisaDatabase) << "begin update to v9 of database schema";
+
+    {
+        QSqlQuery createSchemaQuery(d->mTracksDatabase);
+
+        const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `DatabaseVersionV9` (`Version` INTEGER PRIMARY KEY NOT NULL)"));
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        QSqlQuery disableForeignKeys(d->mTracksDatabase);
+
+        auto result = disableForeignKeys.exec(QStringLiteral(" PRAGMA foreign_keys=OFF"));
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << disableForeignKeys.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << disableForeignKeys.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    d->mTracksDatabase.transaction();
+
+    {
+        QSqlQuery createSchemaQuery(d->mTracksDatabase);
+
+        const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `NewAlbums` ("
+                                                                   "`ID` INTEGER PRIMARY KEY NOT NULL, "
+                                                                   "`Title` VARCHAR(55) NOT NULL, "
+                                                                   "`ArtistName` VARCHAR(55), "
+                                                                   "`AlbumPath` VARCHAR(255) NOT NULL, "
+                                                                   "`CoverFileName` VARCHAR(255) NOT NULL, "
+                                                                   "`AlbumInternalID` VARCHAR(55), "
+                                                                   "UNIQUE (`Title`, `ArtistName`, `AlbumPath`), "
+                                                                   "CONSTRAINT fk_artists FOREIGN KEY (`ArtistName`) REFERENCES `Artists`(`Name`) "
+                                                                   "ON DELETE CASCADE)"));
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastError();
+        }
+    }
+
+    {
+        QSqlQuery copyDataQuery(d->mTracksDatabase);
+
+        auto result = copyDataQuery.exec(QStringLiteral("INSERT INTO `NewAlbums` "
+                                                        "SELECT "
+                                                        "album.`ID`, "
+                                                        "album.`Title`, "
+                                                        "artist.`Name`, "
+                                                        "album.`AlbumPath`, "
+                                                        "album.`CoverFileName`, "
+                                                        "album.`AlbumInternalID` "
+                                                        "FROM "
+                                                        "`Albums` album, "
+                                                        "`AlbumsArtists` albumArtistMapping, "
+                                                        "`Artists` artist "
+                                                        "WHERE "
+                                                        "album.`ID` = albumArtistMapping.`AlbumID` AND "
+                                                        "albumArtistMapping.`ArtistID` = artist.`ID`"));
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << copyDataQuery.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << copyDataQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        QSqlQuery createSchemaQuery(d->mTracksDatabase);
+
+        auto result = createSchemaQuery.exec(QStringLiteral("DROP TABLE `Albums`"));
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        QSqlQuery createSchemaQuery(d->mTracksDatabase);
+
+        auto result = createSchemaQuery.exec(QStringLiteral("DROP TABLE `AlbumsArtists`"));
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        QSqlQuery createSchemaQuery(d->mTracksDatabase);
+
+        auto result = createSchemaQuery.exec(QStringLiteral("ALTER TABLE `NewAlbums` RENAME TO `Albums`"));
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        QSqlQuery createSchemaQuery(d->mTracksDatabase);
+
+        const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `NewTracks` ("
+                                                                   "`ID` INTEGER PRIMARY KEY NOT NULL, "
+                                                                   "`Title` VARCHAR(85) NOT NULL, "
+                                                                   "`ArtistName` VARCHAR(55), "
+                                                                   "`AlbumTitle` VARCHAR(55), "
+                                                                   "`AlbumArtistName` VARCHAR(55), "
+                                                                   "`AlbumPath` VARCHAR(255), "
+                                                                   "`TrackNumber` INTEGER DEFAULT -1, "
+                                                                   "`DiscNumber` INTEGER DEFAULT -1, "
+                                                                   "`Duration` INTEGER NOT NULL, "
+                                                                   "`Rating` INTEGER NOT NULL DEFAULT 0, "
+                                                                   "`Genre` VARCHAR(55), "
+                                                                   "`Composer` VARCHAR(55), "
+                                                                   "`Lyricist` VARCHAR(55), "
+                                                                   "`Comment` VARCHAR(255) DEFAULT '', "
+                                                                   "`Year` INTEGER DEFAULT 0, "
+                                                                   "`Channels` INTEGER DEFAULT -1, "
+                                                                   "`BitRate` INTEGER DEFAULT -1, "
+                                                                   "`SampleRate` INTEGER DEFAULT -1, "
+                                                                   "`HasEmbeddedCover` BOOLEAN NOT NULL, "
+                                                                   "`ImportDate` INTEGER NOT NULL, "
+                                                                   "`FirstPlayDate` INTEGER, "
+                                                                   "`LastPlayDate` INTEGER, "
+                                                                   "`PlayCounter` INTEGER NOT NULL, "
+                                                                   "UNIQUE ("
+                                                                   "`Title`, `AlbumTitle`, `AlbumArtistName`, "
+                                                                   "`AlbumPath`, `TrackNumber`, `DiscNumber`"
+                                                                   "), "
+                                                                   "CONSTRAINT fk_artist FOREIGN KEY (`ArtistName`) REFERENCES `Artists`(`Name`), "
+                                                                   "CONSTRAINT fk_tracks_composer FOREIGN KEY (`Composer`) REFERENCES `Composer`(`Name`), "
+                                                                   "CONSTRAINT fk_tracks_lyricist FOREIGN KEY (`Lyricist`) REFERENCES `Lyricist`(`Name`), "
+                                                                   "CONSTRAINT fk_tracks_genre FOREIGN KEY (`Genre`) REFERENCES `Genre`(`Name`), "
+                                                                   "CONSTRAINT fk_tracks_album FOREIGN KEY ("
+                                                                   "`AlbumTitle`, `AlbumArtistName`, `AlbumPath`)"
+                                                                   "REFERENCES `Albums`(`Title`, `ArtistName`, `AlbumPath`))"));
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        QSqlQuery copyDataQuery(d->mTracksDatabase);
+
+        auto result = copyDataQuery.exec(QStringLiteral("INSERT INTO `NewTracks` "
+                                                        "(`ID`, `Title`, `ArtistName`, "
+                                                        "`AlbumTitle`, `AlbumArtistName`, `AlbumPath`, "
+                                                        "`TrackNumber`, `DiscNumber`, `Duration`, "
+                                                        "`Rating`, `Genre`, `Composer`, "
+                                                        "`Lyricist`, `Comment`, `Year`, "
+                                                        "`Channels`, `BitRate`, `SampleRate`, "
+                                                        "`HasEmbeddedCover`, `ImportDate`, `PlayCounter`) "
+                                                        "SELECT "
+                                                        "track.`ID`, "
+                                                        "track.`Title`, "
+                                                        "artist.`Name`, "
+                                                        "album.`Title`, "
+                                                        "album.`ArtistName`, "
+                                                        "album.`AlbumPath`, "
+                                                        "track.`TrackNumber`, "
+                                                        "track.`DiscNumber`, "
+                                                        "track.`Duration`, "
+                                                        "track.`Rating`, "
+                                                        "genre.`Name`, "
+                                                        "composer.`Name`, "
+                                                        "lyricist.`Name`, "
+                                                        "track.`Comment`, "
+                                                        "track.`Year`, "
+                                                        "track.`Channels`, "
+                                                        "track.`BitRate`, "
+                                                        "track.`SampleRate`, "
+                                                        "FALSE, "
+                                                        "strftime('%s', 'now'), "
+                                                        "0 "
+                                                        "FROM "
+                                                        "`Tracks` track, "
+                                                        "`TracksArtists` trackArtistMapping, "
+                                                        "`Artists` artist, "
+                                                        "`Albums` album "
+                                                        "left join "
+                                                        "`Genre` genre "
+                                                        "on track.`GenreID` = genre.`ID` "
+                                                        "left join "
+                                                        "`Composer` composer "
+                                                        "on track.`ComposerID` = composer.`ID` "
+                                                        "left join "
+                                                        "`Lyricist` lyricist "
+                                                        "on track.`LyricistID` = lyricist.`ID` "
+                                                        "WHERE "
+                                                        "track.`ID` = trackArtistMapping.`TrackID` AND "
+                                                        "trackArtistMapping.`ArtistID` = artist.`ID` AND "
+                                                        "track.`AlbumID` = album.`ID`"));
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << copyDataQuery.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << copyDataQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        QSqlQuery createSchemaQuery(d->mTracksDatabase);
+
+        auto result = createSchemaQuery.exec(QStringLiteral("DROP TABLE `Tracks`"));
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        QSqlQuery createSchemaQuery(d->mTracksDatabase);
+
+        auto result = createSchemaQuery.exec(QStringLiteral("DROP TABLE `TracksArtists`"));
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        QSqlQuery createSchemaQuery(d->mTracksDatabase);
+
+        auto result = createSchemaQuery.exec(QStringLiteral("ALTER TABLE `NewTracks` RENAME TO `Tracks`"));
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    d->mTracksDatabase.commit();
+
+    {
+        QSqlQuery enableForeignKeys(d->mTracksDatabase);
+
+        auto result = enableForeignKeys.exec(QStringLiteral(" PRAGMA foreign_keys=ON"));
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << enableForeignKeys.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << enableForeignKeys.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    qCInfo(orgKdeElisaDatabase) << "finished update to v9 of database schema";
 }
 
 void DatabaseInterface::upgradeDatabaseV11()

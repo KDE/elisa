@@ -71,6 +71,8 @@ Q_SIGNALS:
 
     void askRestoredTracks();
 
+    void errorWatchingFileSystemChanges();
+
 public Q_SLOTS:
 
     void refreshContent();

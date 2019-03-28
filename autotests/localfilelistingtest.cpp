@@ -148,6 +148,7 @@ private Q_SLOTS:
 
         QSignalSpy tracksListSpy(&myListing, &LocalFileListing::tracksList);
         QSignalSpy removedTracksListSpy(&myListing, &LocalFileListing::removedTracksList);
+        QSignalSpy errorWatchingFileSystemChangesSpy(&myListing, &LocalFileListing::errorWatchingFileSystemChanges);
 
         QCOMPARE(tracksListSpy.count(), 0);
         QCOMPARE(removedTracksListSpy.count(), 0);
@@ -189,6 +190,9 @@ private Q_SLOTS:
         QString commandLine(QStringLiteral("rm -rf ") + musicPath);
         system(commandLine.toLatin1().data());
 
+        if (errorWatchingFileSystemChangesSpy.count()) {
+            QEXPECT_FAIL("", "Impossible watching file system for changes", Abort);
+        }
         QCOMPARE(removedTracksListSpy.wait(), true);
 
         QCOMPARE(tracksListSpy.count(), 1);

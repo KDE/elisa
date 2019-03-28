@@ -80,6 +80,8 @@ public:
 
     bool mWaitEndTrackRemoval = false;
 
+    bool mErrorWatchingFileSystemChanges = false;
+
 };
 
 AbstractFileListing::AbstractFileListing(QObject *parent) : QObject(parent), d(std::make_unique<AbstractFileListingPrivate>())
@@ -336,6 +338,11 @@ void AbstractFileListing::watchPath(const QString &pathName)
 {
     if (!d->mFileSystemWatcher.addPath(pathName)) {
         qCDebug(orgKdeElisaIndexer) << "AbstractFileListing::watchPath" << "fail for" << pathName;
+
+        if (!d->mErrorWatchingFileSystemChanges) {
+            d->mErrorWatchingFileSystemChanges = true;
+            Q_EMIT errorWatchingFileSystemChanges();
+        }
     }
 }
 

@@ -40,6 +40,7 @@
 #include <QTest>
 
 #include <algorithm>
+#include <filesystem>
 
 class LocalFileListingTests: public QObject, public DatabaseTestData
 {
@@ -143,7 +144,7 @@ private Q_SLOTS:
         QDir musicParentDirectory(musicParentPath);
         QDir rootDirectory(QStringLiteral(LOCAL_FILE_TESTS_WORKING_PATH));
 
-        musicParentDirectory.removeRecursively();
+        QCOMPARE(musicParentDirectory.removeRecursively(), true);
         rootDirectory.mkpath(QStringLiteral("music2/data/innerData"));
 
         QSignalSpy tracksListSpy(&myListing, &LocalFileListing::tracksList);
@@ -187,8 +188,8 @@ private Q_SLOTS:
         QCOMPARE(newTracks.count(), 1);
         QCOMPARE(newCovers.count(), 1);
 
-        QString commandLine(QStringLiteral("rm -rf ") + musicPath);
-        system(commandLine.toLatin1().data());
+        QDir musicDirectory(musicPath);
+        QCOMPARE(musicDirectory.removeRecursively(), true);
 
         auto removedFilesWorking = removedTracksListSpy.wait();
 
@@ -281,9 +282,8 @@ private Q_SLOTS:
         QCOMPARE(newTracks.count(), 1);
         QCOMPARE(newCovers.count(), 1);
 
-        QString commandLine(QStringLiteral("rm -rf ") + innerMusicPath);
-        system(commandLine.toLatin1().data());
-
+        QDir musicDirectory(innerMusicPath);
+        musicDirectory.removeRecursively();
 
         auto removedFilesWorking = removedTracksListSpy.wait();
 
@@ -386,9 +386,7 @@ private Q_SLOTS:
         QCOMPARE(newTracks.count(), 1);
         QCOMPARE(newCovers.count(), 1);
 
-        QString commandLine(QStringLiteral("mv ") + musicPath + QStringLiteral(" ") + musicFriendPath);
-        system(commandLine.toLatin1().data());
-
+        std::rename(musicPath.toStdString().c_str(), musicFriendPath.toStdString().c_str());
 
         auto removedFilesWorking = removedTracksListSpy.wait();
 

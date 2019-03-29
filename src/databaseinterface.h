@@ -547,6 +547,26 @@ private:
 
     void upgradeDatabaseV12();
 
+    void checkDatabaseSchema();
+
+    void checkAlbumsTableSchema();
+
+    void checkArtistsTableSchema();
+
+    void checkComposerTableSchema();
+
+    void checkGenreTableSchema();
+
+    void checkLyricistTableSchema();
+
+    void checkTracksTableSchema();
+
+    void checkTracksDataTableSchema();
+
+    void genericCheckTable(const QString &tableName, const QStringList &expectedColumns);
+
+    void resetDatabase();
+
     std::unique_ptr<DatabaseInterfacePrivate> d;
 
 };

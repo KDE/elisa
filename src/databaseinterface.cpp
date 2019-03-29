@@ -276,6 +276,8 @@ public:
 
     bool mInitFinished = false;
 
+    bool mIsInBadState = false;
+
 };
 
 DatabaseInterface::DatabaseInterface(QObject *parent) : QObject(parent), d(nullptr)
@@ -1138,6 +1140,9 @@ void DatabaseInterface::initDatabase()
 
         listTables = d->mTracksDatabase.tables();
     }
+
+    checkDatabaseSchema();
+    listTables = d->mTracksDatabase.tables();
 
     if (listTables.contains(QStringLiteral("DatabaseVersionV5")) &&
         !listTables.contains(QStringLiteral("DatabaseVersionV9"))) {
@@ -2452,6 +2457,164 @@ void DatabaseInterface::upgradeDatabaseV12()
     }
 
     qCInfo(orgKdeElisaDatabase) << "finished update to v12 of database schema";
+}
+
+void DatabaseInterface::checkDatabaseSchema()
+{
+    checkAlbumsTableSchema();
+    if (d->mIsInBadState)
+    {
+        resetDatabase();
+        return;
+    }
+
+    checkArtistsTableSchema();
+    if (d->mIsInBadState)
+    {
+        resetDatabase();
+        return;
+    }
+
+    checkComposerTableSchema();
+    if (d->mIsInBadState)
+    {
+        resetDatabase();
+        return;
+    }
+
+    checkGenreTableSchema();
+    if (d->mIsInBadState)
+    {
+        resetDatabase();
+        return;
+    }
+
+    checkLyricistTableSchema();
+    if (d->mIsInBadState)
+    {
+        resetDatabase();
+        return;
+    }
+
+    checkTracksTableSchema();
+    if (d->mIsInBadState)
+    {
+        resetDatabase();
+        return;
+    }
+
+    checkTracksDataTableSchema();
+    if (d->mIsInBadState)
+    {
+        resetDatabase();
+        return;
+    }
+}
+
+void DatabaseInterface::checkAlbumsTableSchema()
+{
+    auto fieldsList = QStringList{QStringLiteral("ID"), QStringLiteral("Title"),
+                                  QStringLiteral("ArtistName"), QStringLiteral("AlbumPath"),
+                                  QStringLiteral("CoverFileName")};
+
+    genericCheckTable(QStringLiteral("Albums"), fieldsList);
+}
+
+void DatabaseInterface::checkArtistsTableSchema()
+{
+    auto fieldsList = QStringList{QStringLiteral("ID"), QStringLiteral("Name")};
+
+    genericCheckTable(QStringLiteral("Artists"), fieldsList);
+}
+
+void DatabaseInterface::checkComposerTableSchema()
+{
+    auto fieldsList = QStringList{QStringLiteral("ID"), QStringLiteral("Name")};
+
+    genericCheckTable(QStringLiteral("Composer"), fieldsList);
+}
+
+void DatabaseInterface::checkGenreTableSchema()
+{
+    auto fieldsList = QStringList{QStringLiteral("ID"), QStringLiteral("Name")};
+
+    genericCheckTable(QStringLiteral("Genre"), fieldsList);
+}
+
+void DatabaseInterface::checkLyricistTableSchema()
+{
+    auto fieldsList = QStringList{QStringLiteral("ID"), QStringLiteral("Name")};
+
+    genericCheckTable(QStringLiteral("Lyricist"), fieldsList);
+}
+
+void DatabaseInterface::checkTracksTableSchema()
+{
+    auto fieldsList = QStringList{QStringLiteral("ID"), QStringLiteral("FileName"),
+                                  QStringLiteral("Priority"), QStringLiteral("Title"),
+                                  QStringLiteral("ArtistName"), QStringLiteral("AlbumTitle"),
+                                  QStringLiteral("AlbumArtistName"), QStringLiteral("AlbumPath"),
+                                  QStringLiteral("TrackNumber"), QStringLiteral("DiscNumber"),
+                                  QStringLiteral("Duration"), QStringLiteral("Rating"),
+                                  QStringLiteral("Genre"), QStringLiteral("Composer"),
+                                  QStringLiteral("Lyricist"), QStringLiteral("Comment"),
+                                  QStringLiteral("Year"), QStringLiteral("Channels"),
+                                  QStringLiteral("BitRate"), QStringLiteral("SampleRate"),
+                                  QStringLiteral("HasEmbeddedCover")};
+
+    genericCheckTable(QStringLiteral("Tracks"), fieldsList);
+}
+
+void DatabaseInterface::checkTracksDataTableSchema()
+{
+    auto fieldsList = QStringList{QStringLiteral("FileName"), QStringLiteral("FileModifiedTime"),
+                                  QStringLiteral("ImportDate"), QStringLiteral("FirstPlayDate"),
+                                  QStringLiteral("LastPlayDate"), QStringLiteral("PlayCounter")};
+
+    genericCheckTable(QStringLiteral("TracksData"), fieldsList);
+}
+
+void DatabaseInterface::genericCheckTable(const QString &tableName, const QStringList &expectedColumns)
+{
+    auto columnsList = d->mTracksDatabase.record(tableName);
+
+    if (columnsList.count() != expectedColumns.count()) {
+        qCInfo(orgKdeElisaDatabase()) << tableName << "table has wrong number of columns" << columnsList.count() << "expected" << expectedColumns.count();
+        d->mIsInBadState = true;
+        return;
+    }
+
+    for (const auto &oneField : expectedColumns) {
+        if (!columnsList.contains(oneField)) {
+            qCInfo(orgKdeElisaDatabase()) << tableName << "table has missing column" << oneField;
+            d->mIsInBadState = true;
+            return;
+        }
+    }
+}
+
+void DatabaseInterface::resetDatabase()
+{
+    qCInfo(orgKdeElisaDatabase()) << "Full reset of database due to corrupted database";
+
+    auto listTables = d->mTracksDatabase.tables();
+
+    while(!listTables.isEmpty()) {
+        for (const auto &oneTable : listTables) {
+            QSqlQuery createSchemaQuery(d->mTracksDatabase);
+
+            qCDebug(orgKdeElisaDatabase()) << "dropping table" << oneTable;
+            createSchemaQuery.exec(QStringLiteral("DROP TABLE ") + oneTable);
+        }
+
+        listTables = d->mTracksDatabase.tables();
+
+        if (listTables == QStringList{QStringLiteral("sqlite_sequence")}) {
+            break;
+        }
+    }
+
+    d->mIsInBadState = false;
 }
 
 void DatabaseInterface::initRequest()

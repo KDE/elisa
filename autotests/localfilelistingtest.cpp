@@ -190,10 +190,12 @@ private Q_SLOTS:
         QString commandLine(QStringLiteral("rm -rf ") + musicPath);
         system(commandLine.toLatin1().data());
 
-        if (errorWatchingFileSystemChangesSpy.count()) {
+        auto removedFilesWorking = removedTracksListSpy.wait();
+
+        if (!removedFilesWorking && errorWatchingFileSystemChangesSpy.count()) {
             QEXPECT_FAIL("", "Impossible watching file system for changes", Abort);
         }
-        QCOMPARE(removedTracksListSpy.wait(), true);
+        QCOMPARE(removedFilesWorking, true);
 
         QCOMPARE(tracksListSpy.count(), 1);
         QCOMPARE(removedTracksListSpy.count(), 1);
@@ -282,10 +284,13 @@ private Q_SLOTS:
         QString commandLine(QStringLiteral("rm -rf ") + innerMusicPath);
         system(commandLine.toLatin1().data());
 
-        if (errorWatchingFileSystemChangesSpy.count()) {
+
+        auto removedFilesWorking = removedTracksListSpy.wait();
+
+        if (!removedFilesWorking && errorWatchingFileSystemChangesSpy.count()) {
             QEXPECT_FAIL("", "Impossible watching file system for changes", Abort);
         }
-        QCOMPARE(removedTracksListSpy.wait(), true);
+        QCOMPARE(removedFilesWorking, true);
 
         QCOMPARE(tracksListSpy.count(), 1);
         QCOMPARE(removedTracksListSpy.count(), 1);
@@ -384,10 +389,13 @@ private Q_SLOTS:
         QString commandLine(QStringLiteral("mv ") + musicPath + QStringLiteral(" ") + musicFriendPath);
         system(commandLine.toLatin1().data());
 
-        if (errorWatchingFileSystemChangesSpy.count()) {
+
+        auto removedFilesWorking = removedTracksListSpy.wait();
+
+        if (!removedFilesWorking && errorWatchingFileSystemChangesSpy.count()) {
             QEXPECT_FAIL("", "Impossible watching file system for changes", Abort);
         }
-        QCOMPARE(removedTracksListSpy.wait(), true);
+        QCOMPARE(removedFilesWorking, true);
 
         QCOMPARE(tracksListSpy.count(), 1);
         QCOMPARE(removedTracksListSpy.count(), 1);

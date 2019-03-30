@@ -40,7 +40,10 @@
 #include <QTest>
 
 #include <algorithm>
+
+#if !defined Q_OS_FREEBSD
 #include <filesystem>
+#endif
 
 class LocalFileListingTests: public QObject, public DatabaseTestData
 {
@@ -144,7 +147,7 @@ private Q_SLOTS:
         QDir musicParentDirectory(musicParentPath);
         QDir rootDirectory(QStringLiteral(LOCAL_FILE_TESTS_WORKING_PATH));
 
-        QCOMPARE(musicParentDirectory.removeRecursively(), true);
+        musicParentDirectory.removeRecursively();
         rootDirectory.mkpath(QStringLiteral("music2/data/innerData"));
 
         QSignalSpy tracksListSpy(&myListing, &LocalFileListing::tracksList);
@@ -386,7 +389,12 @@ private Q_SLOTS:
         QCOMPARE(newTracks.count(), 1);
         QCOMPARE(newCovers.count(), 1);
 
+#if defined Q_OS_FREEBSD
+        QString commandLine(QStringLiteral("mv ") + musicPath + QStringLiteral(" ") + musicFriendPath);
+        system(commandLine.toLatin1().data());
+#else
         std::rename(musicPath.toStdString().c_str(), musicFriendPath.toStdString().c_str());
+#endif
 
         auto removedFilesWorking = removedTracksListSpy.wait();
 

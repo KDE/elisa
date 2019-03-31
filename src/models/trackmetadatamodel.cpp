@@ -298,6 +298,7 @@ void TrackMetadataModel::trackData(const TrackMetadataModel::TrackDataType &trac
 
 void TrackMetadataModel::initializeByTrackId(MusicListenersManager *manager, qulonglong databaseId)
 {
+    mDataLoader.setDatabase(manager->viewDatabase());
     manager->connectModel(&mDataLoader);
 
     connect(this, &TrackMetadataModel::needDataByDatabaseId,
@@ -310,6 +311,7 @@ void TrackMetadataModel::initializeByTrackId(MusicListenersManager *manager, qul
 
 void TrackMetadataModel::initializeByTrackFileName(MusicListenersManager *manager, const QUrl &fileName)
 {
+    mDataLoader.setDatabase(manager->viewDatabase());
     manager->connectModel(&mDataLoader);
 
     connect(this, &TrackMetadataModel::needDataByFileName,

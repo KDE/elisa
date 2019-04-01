@@ -4600,6 +4600,19 @@ private Q_SLOTS:
         musicDb.trackHasStartedPlaying(QUrl::fromLocalFile(QStringLiteral("/$5")), QDateTime::fromSecsSinceEpoch(1536689));
         musicDb.trackHasStartedPlaying(QUrl::fromLocalFile(QStringLiteral("/$13")), QDateTime::fromSecsSinceEpoch(1537689));
 
+        QCOMPARE(musicDb.allAlbumsData().count(), 5);
+        QCOMPARE(musicDb.allArtistsData().count(), 7);
+        QCOMPARE(musicDb.allTracksData().count(), 22);
+        QCOMPARE(musicDbArtistAddedSpy.count(), 1);
+        QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
+        QCOMPARE(musicDbTrackAddedSpy.count(), 1);
+        QCOMPARE(musicDbArtistRemovedSpy.count(), 0);
+        QCOMPARE(musicDbAlbumRemovedSpy.count(), 0);
+        QCOMPARE(musicDbTrackRemovedSpy.count(), 0);
+        QCOMPARE(musicDbAlbumModifiedSpy.count(), 0);
+        QCOMPARE(musicDbTrackModifiedSpy.count(), 10);
+        QCOMPARE(musicDbDatabaseErrorSpy.count(), 0);
+
         auto recentlyPlayedTracksData = musicDb.recentlyPlayedTracksData(10);
 
         QCOMPARE(recentlyPlayedTracksData.count(), 10);

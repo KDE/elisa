@@ -240,6 +240,10 @@ MusicListenersManager *TrackMetadataModel::manager() const
 
 void TrackMetadataModel::trackData(const TrackMetadataModel::TrackDataType &trackData)
 {
+    if (!mFullData.isEmpty() && trackData.databaseId() != mFullData.databaseId()) {
+        return;
+    }
+
     fillDataFromTrackData(trackData);
 }
 
@@ -302,6 +306,31 @@ TrackMetadataModel::TrackDataType::mapped_type TrackMetadataModel::dataFromType(
     return mFullData[metaData];
 }
 
+void TrackMetadataModel::initialize(MusicListenersManager *newManager, DatabaseInterface *trackDatabase)
+{
+    mManager = newManager;
+    Q_EMIT managerChanged();
+
+    if (mManager) {
+        mDataLoader.setDatabase(mManager->viewDatabase());
+    } else if (trackDatabase) {
+        mDataLoader.setDatabase(trackDatabase);
+    }
+
+    if (mManager) {
+        mManager->connectModel(&mDataLoader);
+    }
+
+    connect(this, &TrackMetadataModel::needDataByDatabaseId,
+            &mDataLoader, &ModelDataLoader::loadDataByDatabaseId);
+    connect(this, &TrackMetadataModel::needDataByFileName,
+            &mDataLoader, &ModelDataLoader::loadDataByFileName);
+    connect(&mDataLoader, &ModelDataLoader::allTrackData,
+            this, &TrackMetadataModel::trackData);
+    connect(&mDataLoader, &ModelDataLoader::trackModified,
+            this, &TrackMetadataModel::trackData);
+}
+
 void TrackMetadataModel::initializeByTrackId(qulonglong databaseId)
 {
     Q_EMIT needDataByDatabaseId(ElisaUtils::Track, databaseId);
@@ -314,20 +343,12 @@ void TrackMetadataModel::initializeByTrackFileName(const QUrl &fileName)
 
 void TrackMetadataModel::setManager(MusicListenersManager *newManager)
 {
-    mManager = newManager;
-    Q_EMIT managerChanged();
+    initialize(newManager, nullptr);
+}
 
-    if (mManager) {
-        mDataLoader.setDatabase(mManager->viewDatabase());
-        mManager->connectModel(&mDataLoader);
-
-        connect(this, &TrackMetadataModel::needDataByDatabaseId,
-                &mDataLoader, &ModelDataLoader::loadDataByDatabaseId);
-        connect(this, &TrackMetadataModel::needDataByFileName,
-                &mDataLoader, &ModelDataLoader::loadDataByFileName);
-        connect(&mDataLoader, &ModelDataLoader::allTrackData,
-                this, &TrackMetadataModel::trackData);
-    }
+void TrackMetadataModel::setDatabase(DatabaseInterface *trackDatabase)
+{
+    initialize(nullptr, trackDatabase);
 }
 
 

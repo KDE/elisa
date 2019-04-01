@@ -105,6 +105,8 @@ public Q_SLOTS:
 
     void setManager(MusicListenersManager *newManager);
 
+    void setDatabase(DatabaseInterface *trackDatabase);
+
 protected:
 
     void fillDataFromTrackData(const TrackMetadataModel::TrackDataType &trackData);
@@ -116,6 +118,9 @@ protected:
     TrackDataType::mapped_type dataFromType(TrackDataType::key_type metaData) const;
 
 private:
+
+    void initialize(MusicListenersManager *newManager,
+                    DatabaseInterface *trackDatabase);
 
     TrackDataType mFullData;
 

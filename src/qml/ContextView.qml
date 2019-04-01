@@ -102,7 +102,7 @@ FocusScope {
         LabelWithToolTip {
             id: albumArtistLabel
 
-            text: i18nc('display of artist and album in context view', '<i>by</i> <b>%1</b> <i>from</i> <b>%2</b>', artistName, albumName)
+            text: (artistName && albumName ? i18nc('display of artist and album in context view', '<i>by</i> <b>%1</b> <i>from</i> <b>%2</b>', artistName, albumName) : '')
 
             font.pointSize: elisaTheme.defaultFontPointSize * 1.4
 
@@ -117,7 +117,7 @@ FocusScope {
         LabelWithToolTip {
             id: albumLabel
 
-            text: i18nc('display of album in context view', '<i>from</i> <b>%2</b>', albumName)
+            text: (albumName ? i18nc('display of album in context view', '<i>from</i> <b>%1</b>', albumName) : '')
 
             font.pointSize: elisaTheme.defaultFontPointSize * 1.4
 
@@ -132,7 +132,7 @@ FocusScope {
         LabelWithToolTip {
             id: artistLabel
 
-            text: i18nc('display of artist in context view', '<i>by</i> <b>%1</b>', artistName)
+            text: (artistName ? i18nc('display of artist in context view', '<i>by</i> <b>%1</b>', artistName) : '')
 
             font.pointSize: elisaTheme.defaultFontPointSize * 1.4
 

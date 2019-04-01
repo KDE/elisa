@@ -26,6 +26,11 @@ void TrackContextMetaDataModel::filterDataFromTrackData()
     removeMetaData(DatabaseInterface::TitleRole);
     removeMetaData(DatabaseInterface::ArtistRole);
     removeMetaData(DatabaseInterface::AlbumRole);
+
+    if (dataFromType(DatabaseInterface::IsSingleDiscAlbumRole).toBool() &&
+            dataFromType(DatabaseInterface::DiscNumberRole).toInt() == 1) {
+        removeMetaData(DatabaseInterface::DiscNumberRole);
+    }
 }
 
 

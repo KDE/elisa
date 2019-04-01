@@ -246,6 +246,7 @@ void TrackMetadataModel::trackData(const TrackMetadataModel::TrackDataType &trac
 void TrackMetadataModel::fillDataFromTrackData(const TrackMetadataModel::TrackDataType &trackData)
 {
     beginResetModel();
+    mFullData = trackData;
     mTrackData.clear();
     mTrackKeys.clear();
 
@@ -294,6 +295,11 @@ void TrackMetadataModel::removeMetaData(DatabaseInterface::ColumnsRoles metaData
 
     mTrackKeys.erase(itMetaData);
     mTrackData.remove(metaData);
+}
+
+TrackMetadataModel::TrackDataType::mapped_type TrackMetadataModel::dataFromType(TrackDataType::key_type metaData) const
+{
+    return mFullData[metaData];
 }
 
 void TrackMetadataModel::initializeByTrackId(qulonglong databaseId)

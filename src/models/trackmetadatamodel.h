@@ -113,7 +113,11 @@ protected:
 
     void removeMetaData(DatabaseInterface::ColumnsRoles metaData);
 
+    TrackDataType::mapped_type dataFromType(TrackDataType::key_type metaData) const;
+
 private:
+
+    TrackDataType mFullData;
 
     TrackDataType mTrackData;
 

@@ -60,6 +60,8 @@ private:
 
     QDBusServiceWatcher mBalooWatcher;
 
+    bool mBalooAvailabilityFirstChange = true;
+
     bool mBalooAvailability = false;
 
 };

@@ -101,16 +101,18 @@ bool BalooDetector::checkBalooServiceIsRunning()
 void BalooDetector::signalBalooAvailability(bool isAvailable)
 {
     if (!isAvailable) {
-        if (!mBalooAvailability) {
+        if (!mBalooAvailability || mBalooAvailabilityFirstChange) {
             mBalooAvailability = true;
             Q_EMIT balooAvailabilityChanged();
         }
     } else {
-        if (mBalooAvailability) {
+        if (mBalooAvailability || mBalooAvailabilityFirstChange) {
             mBalooAvailability = false;
             Q_EMIT balooAvailabilityChanged();
         }
     }
+
+    mBalooAvailabilityFirstChange = false;
 }
 
 

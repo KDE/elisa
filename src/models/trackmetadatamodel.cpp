@@ -21,9 +21,20 @@
 
 #include <KI18n/KLocalizedString>
 
+#include <QtConcurrent/QtConcurrentRun>
+
 TrackMetadataModel::TrackMetadataModel(QObject *parent)
     : QAbstractListModel(parent)
 {
+    connect(&mLyricsValueWatcher, &QFutureWatcher<QString>::finished,
+            this, &TrackMetadataModel::lyricsValueIsReady);
+}
+
+TrackMetadataModel::~TrackMetadataModel()
+{
+    if (mLyricsValueWatcher.isRunning() && !mLyricsValueWatcher.isFinished()) {
+        mLyricsValueWatcher.waitForFinished();
+    }
 }
 
 int TrackMetadataModel::rowCount(const QModelIndex &parent) const
@@ -103,6 +114,9 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
         case DatabaseInterface::PlayCounter:
             result = i18nc("Play counter label for track metadata view", "Play count");
             break;
+        case DatabaseInterface::LyricsRole:
+            result = i18nc("Lyrics label for track metadata view", "Lyrics");
+            break;
         case DatabaseInterface::SecondaryTextRole:
         case DatabaseInterface::ImageUrlRole:
         case DatabaseInterface::ShadowForImageRole:
@@ -170,6 +184,9 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
             break;
         case DatabaseInterface::PlayCounter:
             result = IntegerEntry;
+            break;
+        case DatabaseInterface::LyricsRole:
+            result = LongTextEntry;
             break;
         case DatabaseInterface::DurationRole:
         case DatabaseInterface::SampleRateRole:
@@ -273,6 +290,8 @@ void TrackMetadataModel::fillDataFromTrackData(const TrackMetadataModel::TrackDa
     filterDataFromTrackData();
     endResetModel();
 
+    fetchLyrics();
+
     mCoverImage = trackData[DatabaseInterface::ImageUrlRole].toUrl();
     Q_EMIT coverUrlChanged();
 
@@ -306,6 +325,17 @@ TrackMetadataModel::TrackDataType::mapped_type TrackMetadataModel::dataFromType(
     return mFullData[metaData];
 }
 
+void TrackMetadataModel::lyricsValueIsReady()
+{
+    if (!mLyricsValueWatcher.result().isEmpty()) {
+        beginInsertRows({}, mTrackData.size(), mTrackData.size());
+        mTrackKeys.push_back(DatabaseInterface::LyricsRole);
+        mTrackData[DatabaseInterface::LyricsRole] = mLyricsValueWatcher.result();
+        mFullData[DatabaseInterface::LyricsRole] = mLyricsValueWatcher.result();
+        endInsertRows();
+    }
+}
+
 void TrackMetadataModel::initialize(MusicListenersManager *newManager, DatabaseInterface *trackDatabase)
 {
     mManager = newManager;
@@ -329,6 +359,19 @@ void TrackMetadataModel::initialize(MusicListenersManager *newManager, DatabaseI
             this, &TrackMetadataModel::trackData);
     connect(&mDataLoader, &ModelDataLoader::trackModified,
             this, &TrackMetadataModel::trackData);
+}
+
+void TrackMetadataModel::fetchLyrics()
+{
+    auto lyricicsValue = QtConcurrent::run(QThreadPool::globalInstance(), [=]() {
+        auto trackData = mFileScanner.scanOneFile(mFullData[DatabaseInterface::ResourceRole].toUrl(), mMimeDatabase);
+        if (!trackData.lyrics().isEmpty()) {
+            return trackData.lyrics();
+        }
+        return QString{};
+    });
+
+    mLyricsValueWatcher.setFuture(lyricicsValue);
 }
 
 void TrackMetadataModel::initializeByTrackId(qulonglong databaseId)

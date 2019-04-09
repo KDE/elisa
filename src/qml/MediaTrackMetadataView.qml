@@ -87,6 +87,7 @@ Window {
 
                 Layout.fillWidth: true
                 Layout.fillHeight: true
+                Layout.leftMargin: 2 * elisaTheme.layoutHorizontalMargin
 
                 focus: true
 
@@ -96,7 +97,6 @@ Window {
                 boundsBehavior: Flickable.StopAtBounds
                 clip: true
 
-
                 ScrollHelper {
                     id: scrollHelper
                     flickable: trackData
@@ -104,7 +104,9 @@ Window {
                 }
                 model: realModel
 
-                delegate: metadataDelegate
+                delegate: MetaDataDelegate {
+                    width: scrollBar.visible ? (!LayoutMirroring.enabled ? trackData.width - scrollBar.width : trackData.width) : trackData.width
+                }
             }
         }
 
@@ -145,79 +147,6 @@ Window {
             standardButtons: DialogButtonBox.Close
             alignment: Qt.AlignRight
             onRejected: trackMetadata.rejected()
-        }
-    }
-
-    Component {
-        id: metadataDelegate
-
-        RowLayout {
-            id: delegateRow
-            spacing: 0
-
-            width: scrollBar.visible ? trackData.width - scrollBar.width : trackData.width
-
-            Label {
-                id: metaDataLabels
-                text: i18nc('name of a property for the track metadata detailled view', '%1:', model.name)
-                color: myPalette.text
-                horizontalAlignment: Text.AlignRight
-
-                Layout.preferredWidth: 0.8 * elisaTheme.coverImageSize
-                Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-                Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-            }
-
-            Loader {
-                active: model.type === TrackMetadataModel.TextEntry || model.type === TrackMetadataModel.IntegerEntry
-
-                Layout.fillWidth: true
-
-                sourceComponent: LabelWithToolTip {
-                    text: model.display
-
-                    horizontalAlignment: Text.AlignLeft
-                    elide: Text.ElideRight
-
-                    anchors.fill: parent
-                }
-            }
-
-            Loader {
-                active: model.type === TrackMetadataModel.DateEntry
-
-                Layout.fillWidth: true
-
-                sourceComponent: LabelWithToolTip {
-                    text: rawDate.toLocaleDateString()
-
-                    horizontalAlignment: Text.AlignLeft
-                    elide: Text.ElideRight
-
-                    anchors.fill: parent
-
-                    property date rawDate: new Date(model.display)
-                }
-            }
-
-            Loader {
-                active: model.type === TrackMetadataModel.RatingEntry
-
-                Layout.fillWidth: true
-
-                sourceComponent: RatingStar {
-                    starRating: model.display
-                    starSize: elisaTheme.ratingStarSize
-
-                    readOnly: true
-
-                    anchors {
-                        left: parent.left
-                        top: parent.top
-                        bottom: parent.bottom
-                    }
-                }
-            }
         }
     }
 

@@ -144,15 +144,25 @@ FocusScope {
             elide: Text.ElideRight
         }
 
-        Repeater {
+        ListView {
+            id: trackData
+
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+
+            ScrollBar.vertical: ScrollBar {
+                id: scrollBar
+            }
+            boundsBehavior: Flickable.StopAtBounds
+            clip: true
+
+            spacing: 0
+
             model: metaDataModel
 
             delegate: MetaDataDelegate {
+                width: scrollBar.visible ? (!LayoutMirroring.enabled ? trackData.width - scrollBar.width : trackData.width) : trackData.width
             }
-        }
-
-        Item {
-            Layout.fillHeight: true
         }
 
         Row {

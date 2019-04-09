@@ -23,9 +23,12 @@
 #include "elisautils.h"
 #include "databaseinterface.h"
 #include "modeldataloader.h"
+#include "filescanner.h"
 
 #include <QUrl>
 #include <QAbstractListModel>
+#include <QMimeDatabase>
+#include <QFutureWatcher>
 
 class MusicListenersManager;
 
@@ -60,6 +63,7 @@ public:
         IntegerEntry,
         RatingEntry,
         DateEntry,
+        LongTextEntry,
     };
 
     Q_ENUM(ItemType)
@@ -67,6 +71,8 @@ public:
     using TrackDataType = DatabaseInterface::TrackDataType;
 
     explicit TrackMetadataModel(QObject *parent = nullptr);
+
+    ~TrackMetadataModel() override;
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
 
@@ -117,10 +123,16 @@ protected:
 
     TrackDataType::mapped_type dataFromType(TrackDataType::key_type metaData) const;
 
+private Q_SLOTS:
+
+    void lyricsValueIsReady();
+
 private:
 
     void initialize(MusicListenersManager *newManager,
                     DatabaseInterface *trackDatabase);
+
+    void fetchLyrics();
 
     TrackDataType mFullData;
 
@@ -135,6 +147,12 @@ private:
     ModelDataLoader mDataLoader;
 
     MusicListenersManager *mManager = nullptr;
+
+    FileScanner mFileScanner;
+
+    QMimeDatabase mMimeDatabase;
+
+    QFutureWatcher<QString> mLyricsValueWatcher;
 
 };
 

@@ -25,13 +25,12 @@ RowLayout {
     id: delegateRow
     spacing: 0
 
-    width: topItem.width
-    height: metaDataLabelMetric.height * 1.5
+    height: (model.type === TrackMetadataModel.LongTextEntry ? longTextDisplayLoader.height : metaDataLabelMetric.height) + (elisaTheme.layoutVerticalMargin / 2)
 
     TextMetrics {
         id: metaDataLabelMetric
 
-        text: model.name
+        text: 'Metadata Name'
 
         font.weight: Font.Bold
     }
@@ -45,16 +44,20 @@ RowLayout {
 
         horizontalAlignment: Text.AlignLeft
 
+        Layout.alignment: Qt.AlignTop
         Layout.preferredWidth: 0.8 * elisaTheme.coverImageSize
         Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin * 2 : 0
         Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin * 2 : 0
     }
 
     Loader {
+        id: textDisplayLoader
+
         active: model.type === TrackMetadataModel.TextEntry || model.type === TrackMetadataModel.IntegerEntry
         visible: model.type === TrackMetadataModel.TextEntry || model.type === TrackMetadataModel.IntegerEntry
 
         Layout.fillWidth: true
+        Layout.alignment: Qt.AlignTop
 
         sourceComponent: LabelWithToolTip {
             text: model.display
@@ -67,10 +70,33 @@ RowLayout {
     }
 
     Loader {
+        id: longTextDisplayLoader
+
+        active: model.type === TrackMetadataModel.LongTextEntry
+        visible: model.type === TrackMetadataModel.LongTextEntry
+
+        Layout.fillWidth: true
+        Layout.maximumWidth: delegateRow.width - (0.8 * elisaTheme.coverImageSize + elisaTheme.layoutHorizontalMargin * 2)
+        Layout.alignment: Qt.AlignTop
+
+        sourceComponent: Label {
+            text: model.display
+
+            horizontalAlignment: Text.AlignLeft
+            elide: Text.ElideRight
+
+            anchors.fill: parent
+
+            wrapMode: Text.WordWrap
+        }
+    }
+
+    Loader {
         active: model.type === TrackMetadataModel.DateEntry
         visible: model.type === TrackMetadataModel.DateEntry
 
         Layout.fillWidth: true
+        Layout.alignment: Qt.AlignTop
 
         sourceComponent: LabelWithToolTip {
             text: rawDate.toLocaleDateString()
@@ -89,6 +115,7 @@ RowLayout {
         visible: model.type === TrackMetadataModel.RatingEntry
 
         Layout.fillWidth: true
+        Layout.alignment: Qt.AlignTop
 
         sourceComponent: RatingStar {
             starRating: model.display

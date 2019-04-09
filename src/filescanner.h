@@ -18,6 +18,8 @@
 #ifndef FILESCANNER_H
 #define FILESCANNER_H
 
+#include "elisaLib_export.h"
+
 #include "musicaudiotrack.h"
 
 #include <QUrl>
@@ -40,7 +42,7 @@ class File;
 
 class FileScannerPrivate;
 
-class FileScanner
+class ELISALIB_EXPORT FileScanner
 {
 public:
 

@@ -85,6 +85,7 @@ public:
         PlayCounter,
         PlayFrequency,
         ElementTypeRole,
+        LyricsRole,
     };
 
     Q_ENUM(ColumnsRoles)
@@ -184,6 +185,11 @@ public:
         QString lyricist() const
         {
             return operator[](key_type::LyricistRole).toString();
+        }
+
+        QString lyrics() const
+        {
+            return operator[](key_type::LyricsRole).toString();
         }
 
         QString comment() const

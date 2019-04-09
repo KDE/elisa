@@ -38,7 +38,7 @@ public:
           mTitle(std::move(aTitle)), mArtist(std::move(aArtist)),
           mAlbumName(std::move(aAlbumName)), mAlbumArtist(std::move(aAlbumArtist)),
           mGenre(std::move(aGenre)), mComposer(std::move(aComposer)), mLyricist(std::move(aLyricist)),
-          mResourceURI(std::move(aResourceURI)), mAlbumCover(std::move(aAlbumCover)),
+          mLyrics(), mResourceURI(std::move(aResourceURI)), mAlbumCover(std::move(aAlbumCover)),
           mFileModificationTime(std::move(fileModificationTime)), mDuration(aDuration),
           mTrackNumber(aTrackNumber), mDiscNumber(aDiscNumber), mRating(rating),
           mIsValid(aValid), mIsSingleDiscAlbum(aIsSingleDiscAlbum), mHasBooleanCover(aHasEmbeddedCover),
@@ -63,6 +63,8 @@ public:
     QString mComposer;
 
     QString mLyricist;
+
+    QString mLyrics;
 
     QString mComment;
 
@@ -155,7 +157,8 @@ bool MusicAudioTrack::operator ==(const MusicAudioTrack &other) const
             d->mFileModificationTime == other.d->mFileModificationTime &&
             d->mAlbumCover == other.d->mAlbumCover && d->mRating == other.d->mRating &&
             d->mGenre == other.d->mGenre && d->mComposer == other.d->mComposer &&
-            d->mLyricist == other.d->mLyricist && d->mComment == other.d->mComment &&
+            d->mLyricist == other.d->mLyricist && d->mLyrics == other.d->mLyrics &&
+            d->mComment == other.d->mComment &&
             d->mYear == other.d->mYear && d->mChannels == other.d->mChannels &&
             d->mBitRate == other.d->mBitRate && d->mSampleRate == other.d->mSampleRate;
 
@@ -170,7 +173,8 @@ bool MusicAudioTrack::operator !=(const MusicAudioTrack &other) const
             d->mFileModificationTime != other.d->mFileModificationTime ||
             d->mAlbumCover != other.d->mAlbumCover || d->mRating != other.d->mRating ||
             d->mGenre != other.d->mGenre || d->mComposer != other.d->mComposer ||
-            d->mLyricist != other.d->mLyricist || d->mComment != other.d->mComment ||
+            d->mLyricist != other.d->mLyricist || d->mLyrics != other.d->mLyrics ||
+            d->mComment != other.d->mComment ||
             d->mYear != other.d->mYear || d->mChannels != other.d->mChannels ||
             d->mBitRate != other.d->mBitRate || d->mSampleRate != other.d->mSampleRate;
 }
@@ -187,6 +191,7 @@ MusicAudioTrack MusicAudioTrack::trackFromData(const DatabaseInterface::TrackDat
     result.setGenre(data.genre());
     result.setComposer(data.composer());
     result.setLyricist(data.lyricist());
+    result.setLyrics(data.lyrics());
     result.setComment(data.comment());
     result.setAlbumCover(data.albumCover());
     result.setTrackNumber(data.trackNumber());
@@ -340,6 +345,16 @@ void MusicAudioTrack::setLyricist(const QString &value)
 QString MusicAudioTrack::lyricist() const
 {
     return d->mLyricist;
+}
+
+void MusicAudioTrack::setLyrics(const QString &value)
+{
+    d->mLyrics = value;
+}
+
+QString MusicAudioTrack::lyrics() const
+{
+    return d->mLyrics;
 }
 
 void MusicAudioTrack::setComment(const QString &value)

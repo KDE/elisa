@@ -56,7 +56,7 @@ private:
 
     bool checkBalooServiceIsRunning();
 
-    void signalBalooAvailability(bool isAvailable);
+    void signalBalooAvailability(bool isNotAvailable);
 
     QDBusServiceWatcher mBalooWatcher;
 

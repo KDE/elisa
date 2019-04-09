@@ -98,9 +98,9 @@ bool BalooDetector::checkBalooServiceIsRunning()
     return problemDetected;
 }
 
-void BalooDetector::signalBalooAvailability(bool isAvailable)
+void BalooDetector::signalBalooAvailability(bool isNotAvailable)
 {
-    if (!isAvailable) {
+    if (!isNotAvailable) {
         if (!mBalooAvailability || mBalooAvailabilityFirstChange) {
             mBalooAvailability = true;
             Q_EMIT balooAvailabilityChanged();

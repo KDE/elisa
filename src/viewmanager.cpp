@@ -178,10 +178,13 @@ void ViewManager::openOneAlbum(const QString &albumTitle, const QString &albumAu
         mTargetView = ViewsType::OneAlbum;
         Q_EMIT switchOneAlbumView(mTargetView, 2,
                                   mTargetAlbumTitle, mTargetImageUrl, mTargetAlbumAuthor, mTargetDatabaseId);
-    } else if (mCurrentView == ViewsType::OneArtist) {
+    } else if (mCurrentView == ViewsType::OneArtist && mCurrentArtistName == mTargetAlbumAuthor) {
         mTargetView = ViewsType::OneAlbumFromArtist;
         Q_EMIT switchOneAlbumView(mTargetView, 3,
                                   mTargetAlbumTitle, mTargetImageUrl, mTargetAlbumAuthor, mTargetDatabaseId);
+    } else if (mCurrentView == ViewsType::OneArtist && mCurrentArtistName != mTargetAlbumAuthor) {
+        mTargetView = ViewsType::OneAlbumFromArtist;
+        Q_EMIT popOneView();
     } else if (mCurrentView == ViewsType::OneArtistFromGenre) {
         mTargetView = ViewsType::OneAlbumFromArtistAndGenre;
         Q_EMIT switchOneAlbumView(mTargetView, 4,
@@ -313,6 +316,9 @@ void ViewManager::allArtistsViewIsLoaded()
     if (mTargetView == ViewsType::OneArtist) {
         Q_EMIT openGridView(mTargetView, 2, mTargetArtistName, {}, mTargetImageUrl, ElisaUtils::Album,
                             QUrl(QStringLiteral("image://icon/media-optical-audio")), {}, mTargetArtistName, true, true);
+    } else if (mTargetView == ViewsType::OneAlbumFromArtist) {
+        Q_EMIT openGridView(ViewsType::OneArtist, 2, mTargetAlbumAuthor, {}, mTargetImageUrl, ElisaUtils::Album,
+                            QUrl(QStringLiteral("image://icon/media-optical-audio")), {}, mTargetAlbumAuthor, true, true);
     }
 }
 
@@ -321,9 +327,14 @@ void ViewManager::oneArtistViewIsLoaded()
     mCurrentArtistName = mTargetArtistName;
     if (mTargetView == ViewsType::OneArtist) {
         mCurrentView = ViewsType::OneArtist;
-    } else {
+    } else if (mTargetView == ViewsType::OneArtistFromGenre) {
         mCurrentGenreName = mTargetGenreName;
         mCurrentView = ViewsType::OneArtistFromGenre;
+    } else if (mTargetView == ViewsType::OneAlbumFromArtist) {
+        mCurrentView = ViewsType::OneArtist;
+
+        Q_EMIT switchOneAlbumView(mTargetView, 3,
+                                  mTargetAlbumTitle, mTargetImageUrl, mTargetAlbumAuthor, mTargetDatabaseId);
     }
 }
 

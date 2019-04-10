@@ -254,6 +254,98 @@ private Q_SLOTS:
 
         viewManager.viewIsLoaded(ViewManager::OneArtistFromGenre);
     }
+
+    void openArtistViewAndAlbumFromAnotherArtistTest()
+    {
+        ViewManager viewManager;
+
+        QSignalSpy openGridViewSpy(&viewManager, &ViewManager::openGridView);
+        QSignalSpy switchRecentlyPlayedTracksViewSpy(&viewManager, &ViewManager::switchRecentlyPlayedTracksView);
+        QSignalSpy switchFrequentlyPlayedTracksViewSpy(&viewManager, &ViewManager::switchFrequentlyPlayedTracksView);
+        QSignalSpy switchOneAlbumViewSpy(&viewManager, &ViewManager::switchOneAlbumView);
+        QSignalSpy switchAllTracksViewSpy(&viewManager, &ViewManager::switchAllTracksView);
+        QSignalSpy switchFilesBrowserViewSpy(&viewManager, &ViewManager::switchFilesBrowserView);
+        QSignalSpy switchOffAllViewsSpy(&viewManager, &ViewManager::switchOffAllViews);
+        QSignalSpy popOneViewSpy(&viewManager, &ViewManager::popOneView);
+
+        viewManager.openChildView(QStringLiteral("artist1"), {}, {}, 0, ElisaUtils::Artist);
+
+        QCOMPARE(openGridViewSpy.count(), 1);
+        QCOMPARE(switchRecentlyPlayedTracksViewSpy.count(), 0);
+        QCOMPARE(switchFrequentlyPlayedTracksViewSpy.count(), 0);
+        QCOMPARE(switchOneAlbumViewSpy.count(), 0);
+        QCOMPARE(switchAllTracksViewSpy.count(), 0);
+        QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
+        QCOMPARE(switchOffAllViewsSpy.count(), 0);
+        QCOMPARE(popOneViewSpy.count(), 0);
+
+        QCOMPARE(openGridViewSpy.at(0).count(), 11);
+        QCOMPARE(openGridViewSpy.at(0).at(0).value<ViewManager::ViewsType>(), ViewManager::AllArtists);
+
+        viewManager.viewIsLoaded(ViewManager::AllArtists);
+
+        QCOMPARE(openGridViewSpy.count(), 2);
+        QCOMPARE(switchRecentlyPlayedTracksViewSpy.count(), 0);
+        QCOMPARE(switchFrequentlyPlayedTracksViewSpy.count(), 0);
+        QCOMPARE(switchOneAlbumViewSpy.count(), 0);
+        QCOMPARE(switchAllTracksViewSpy.count(), 0);
+        QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
+        QCOMPARE(switchOffAllViewsSpy.count(), 0);
+        QCOMPARE(popOneViewSpy.count(), 0);
+
+        QCOMPARE(openGridViewSpy.at(1).count(), 11);
+        QCOMPARE(openGridViewSpy.at(1).at(0).value<ViewManager::ViewsType>(), ViewManager::OneArtist);
+
+        viewManager.viewIsLoaded(ViewManager::OneArtist);
+
+        QCOMPARE(openGridViewSpy.count(), 2);
+        QCOMPARE(switchRecentlyPlayedTracksViewSpy.count(), 0);
+        QCOMPARE(switchFrequentlyPlayedTracksViewSpy.count(), 0);
+        QCOMPARE(switchOneAlbumViewSpy.count(), 0);
+        QCOMPARE(switchAllTracksViewSpy.count(), 0);
+        QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
+        QCOMPARE(switchOffAllViewsSpy.count(), 0);
+        QCOMPARE(popOneViewSpy.count(), 0);
+
+        viewManager.openChildView(QStringLiteral("album1"), QStringLiteral("artist2"), {}, 0, ElisaUtils::Album);
+
+        QCOMPARE(openGridViewSpy.count(), 2);
+        QCOMPARE(switchRecentlyPlayedTracksViewSpy.count(), 0);
+        QCOMPARE(switchFrequentlyPlayedTracksViewSpy.count(), 0);
+        QCOMPARE(switchOneAlbumViewSpy.count(), 0);
+        QCOMPARE(switchAllTracksViewSpy.count(), 0);
+        QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
+        QCOMPARE(switchOffAllViewsSpy.count(), 0);
+        QCOMPARE(popOneViewSpy.count(), 1);
+
+        viewManager.viewIsLoaded(ViewManager::AllArtists);
+
+        QCOMPARE(openGridViewSpy.count(), 3);
+        QCOMPARE(switchRecentlyPlayedTracksViewSpy.count(), 0);
+        QCOMPARE(switchFrequentlyPlayedTracksViewSpy.count(), 0);
+        QCOMPARE(switchOneAlbumViewSpy.count(), 0);
+        QCOMPARE(switchAllTracksViewSpy.count(), 0);
+        QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
+        QCOMPARE(switchOffAllViewsSpy.count(), 0);
+        QCOMPARE(popOneViewSpy.count(), 1);
+
+        QCOMPARE(openGridViewSpy.at(2).count(), 11);
+        QCOMPARE(openGridViewSpy.at(2).at(0).value<ViewManager::ViewsType>(), ViewManager::OneArtist);
+
+        viewManager.viewIsLoaded(ViewManager::OneArtist);
+
+        QCOMPARE(openGridViewSpy.count(), 3);
+        QCOMPARE(switchRecentlyPlayedTracksViewSpy.count(), 0);
+        QCOMPARE(switchFrequentlyPlayedTracksViewSpy.count(), 0);
+        QCOMPARE(switchOneAlbumViewSpy.count(), 1);
+        QCOMPARE(switchAllTracksViewSpy.count(), 0);
+        QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
+        QCOMPARE(switchOffAllViewsSpy.count(), 0);
+        QCOMPARE(popOneViewSpy.count(), 1);
+
+        QCOMPARE(switchOneAlbumViewSpy.at(0).count(), 6);
+        QCOMPARE(switchOneAlbumViewSpy.at(0).at(0).value<ViewManager::ViewsType>(), ViewManager::OneAlbumFromArtist);
+    }
 };
 
 QTEST_GUILESS_MAIN(ViewManagerTests)

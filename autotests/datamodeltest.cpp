@@ -307,7 +307,7 @@ private Q_SLOTS:
         QCOMPARE(beginInsertRowsSpy.at(2).at(1).toInt(), 4);
         QCOMPARE(beginInsertRowsSpy.at(2).at(2).toInt(), 4);
 
-        QCOMPARE(albumsModel.data(albumsModel.index(5, 0), DatabaseInterface::ColumnsRoles::TitleRole).toString(), QStringLiteral("track5"));
+        QCOMPARE(albumsModel.data(albumsModel.index(4, 0), DatabaseInterface::ColumnsRoles::TitleRole).toString(), QStringLiteral("track5"));
     }
 
     void modifyOneTrack()

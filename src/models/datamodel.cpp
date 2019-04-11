@@ -437,16 +437,8 @@ void DataModel::tracksAdded(ListTrackDataType newData)
         return;
     }
 
-    if (!d->mAlbumTitle.isEmpty() && !d->mAlbumArtist.isEmpty()) {
+    if (d->mFilterType == FilterById && !d->mAllTrackData.isEmpty()) {
         for (const auto &newTrack : newData) {
-            if (newTrack.album() != d->mAlbumTitle) {
-                continue;
-            }
-
-            if (newTrack.albumArtist() != d->mAlbumArtist) {
-                continue;
-            }
-
             auto trackIndex = trackIndexFromId(newTrack.databaseId());
 
             if (trackIndex != -1) {
@@ -457,7 +449,7 @@ void DataModel::tracksAdded(ListTrackDataType newData)
             for (int trackIndex = 0; trackIndex < d->mAllTrackData.count(); ++trackIndex) {
                 const auto &oneTrack = d->mAllTrackData[trackIndex];
 
-                if (oneTrack.discNumber() == newTrack.discNumber() && oneTrack.trackNumber() > newTrack.trackNumber()) {
+                if (oneTrack.discNumber() >= newTrack.discNumber() && oneTrack.trackNumber() > newTrack.trackNumber()) {
                     beginInsertRows({}, trackIndex, trackIndex);
                     d->mAllTrackData.insert(trackIndex, newTrack);
                     endInsertRows();

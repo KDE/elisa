@@ -353,6 +353,8 @@ void ElisaApplication::initializePlayer()
     QObject::connect(d->mAudioControl.get(), &ManageAudioPlayer::playerPause, d->mAudioWrapper.get(), &AudioWrapper::pause);
     QObject::connect(d->mAudioControl.get(), &ManageAudioPlayer::playerStop, d->mAudioWrapper.get(), &AudioWrapper::stop);
     QObject::connect(d->mAudioControl.get(), &ManageAudioPlayer::seek, d->mAudioWrapper.get(), &AudioWrapper::seek);
+    QObject::connect(d->mAudioControl.get(), &ManageAudioPlayer::saveUndoPositionInAudioWrapper, d->mAudioWrapper.get(), &AudioWrapper::saveUndoPosition);
+    QObject::connect(d->mAudioControl.get(), &ManageAudioPlayer::restoreUndoPositionInAudioWrapper, d->mAudioWrapper.get(), &AudioWrapper::restoreUndoPosition);
     QObject::connect(d->mAudioControl.get(), &ManageAudioPlayer::skipNextTrack, d->mMediaPlayList.get(), &MediaPlayList::skipNextTrack);
     QObject::connect(d->mAudioControl.get(), &ManageAudioPlayer::sourceInError, d->mMediaPlayList.get(), &MediaPlayList::trackInError);
     QObject::connect(d->mAudioControl.get(), &ManageAudioPlayer::sourceInError, d->mMusicManager.get(), &MusicListenersManager::playBackError);
@@ -363,6 +365,9 @@ void ElisaApplication::initializePlayer()
     QObject::connect(d->mMediaPlayList.get(), &MediaPlayList::ensurePlay, d->mAudioControl.get(), &ManageAudioPlayer::ensurePlay);
     QObject::connect(d->mMediaPlayList.get(), &MediaPlayList::playListFinished, d->mAudioControl.get(), &ManageAudioPlayer::playListFinished);
     QObject::connect(d->mMediaPlayList.get(), &MediaPlayList::currentTrackChanged, d->mAudioControl.get(), &ManageAudioPlayer::setCurrentTrack);
+    QObject::connect(d->mMediaPlayList.get(), &MediaPlayList::clearPlayListPlayer, d->mAudioControl.get(), &ManageAudioPlayer::saveForUndoClearPlaylist);
+    QObject::connect(d->mMediaPlayList.get(), &MediaPlayList::undoClearPlayListPlayer, d->mAudioControl.get(), &ManageAudioPlayer::restoreForUndoClearPlaylist);
+
 
     QObject::connect(d->mAudioWrapper.get(), &AudioWrapper::playbackStateChanged,
                      d->mAudioControl.get(), &ManageAudioPlayer::setPlayerPlaybackState);

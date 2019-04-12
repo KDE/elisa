@@ -171,6 +171,9 @@ public:
     bool repeatPlay() const;
 
 Q_SIGNALS:
+    void displayUndoInline();
+
+    void hideUndoInline();
 
     void newTrackByNameInList(const QString &title, const QString &artist, const QString &album, int trackNumber, int discNumber);
 
@@ -185,6 +188,10 @@ Q_SIGNALS:
     void tracksCountChanged();
 
     void currentTrackChanged(QPersistentModelIndex currentTrack);
+
+    void clearPlayListPlayer();
+
+    void undoClearPlayListPlayer();
 
     void currentTrackRowChanged();
 
@@ -256,6 +263,8 @@ public Q_SLOTS:
 
     void trackInError(const QUrl &sourceInError, QMediaPlayer::Error playerError);
 
+    void undoClearPlayList();
+
 private Q_SLOTS:
 
     void loadPlayListLoaded();
@@ -263,6 +272,9 @@ private Q_SLOTS:
     void loadPlayListLoadFailed();
 
 private:
+    void displayOrHideUndoInline(bool value);
+
+    void clearPlayList(bool prepareUndo);
 
     void resetCurrentTrack();
 
@@ -284,8 +296,13 @@ private:
 
     void enqueueMultipleEntries(const ElisaUtils::EntryDataList &entriesData, ElisaUtils::PlayListEntryType type);
 
+    void enqueueCommon();
+
+    void copyD();
+
     std::unique_ptr<MediaPlayListPrivate> d;
 
+    std::unique_ptr<MediaPlayListPrivate> dOld;
 };
 
 class MediaPlayListEntry
@@ -297,9 +314,9 @@ public:
     explicit MediaPlayListEntry(qulonglong id) : mId(id), mIsValid(true) {
     }
 
-    MediaPlayListEntry(QString title, QString artist, QString album, int trackNumber, int discNumber)
+    MediaPlayListEntry(QString title, QString artist, QString album, int trackNumber, int discNumber, ElisaUtils::PlayListEntryType entryType = ElisaUtils::Unknown)
         : mTitle(std::move(title)), mAlbum(std::move(album)), mArtist(std::move(artist)),
-          mTrackNumber(trackNumber), mDiscNumber(discNumber) {
+          mTrackNumber(trackNumber), mDiscNumber(discNumber), mEntryType(entryType) {
     }
 
     explicit MediaPlayListEntry(const MusicAudioTrack &track)

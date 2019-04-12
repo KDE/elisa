@@ -166,6 +166,21 @@ void ManageAudioPlayer::setCurrentTrack(const QPersistentModelIndex &currentTrac
     }
 }
 
+void ManageAudioPlayer::saveForUndoClearPlaylist(){
+    mUndoPlayingState = mPlayingState;
+
+    mUndoPlayerPosition = mPlayerPosition;
+    Q_EMIT saveUndoPositionInAudioWrapper(mUndoPlayerPosition);
+}
+
+void ManageAudioPlayer::restoreForUndoClearPlaylist(){
+    mPlayerPosition = mUndoPlayerPosition;
+    Q_EMIT seek(mPlayerPosition);
+
+    mPlayingState = mUndoPlayingState;
+    Q_EMIT restoreUndoPositionInAudioWrapper();
+}
+
 void ManageAudioPlayer::setPlayListModel(QAbstractItemModel *aPlayListModel)
 {
     if (mPlayListModel == aPlayListModel) {

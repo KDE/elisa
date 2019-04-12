@@ -142,6 +142,10 @@ public Q_SLOTS:
 
     void setPosition(qint64 position);
 
+    void saveUndoPosition(qint64 position);
+
+    void restoreUndoPosition();
+
     void play();
 
     void pause();
@@ -163,6 +167,7 @@ private Q_SLOTS:
     void playerVolumeChanged();
 
 private:
+    void savePosition(qint64 position);
 
     void playerStateSignalChanges(QMediaPlayer::State newState);
 

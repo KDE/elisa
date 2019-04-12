@@ -137,6 +137,10 @@ private Q_SLOTS:
 
     void clearPlayListCase();
 
+    void undoClearPlayListCase();
+
+    void undoReplacePlayListCase();
+
 };
 
 class MediaPlayList;

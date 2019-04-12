@@ -21,6 +21,7 @@ import QtQuick.Controls 1.3 as Controls1
 import QtQuick.Layouts 1.1
 import QtQuick.Window 2.2
 import Qt.labs.platform 1.0 as PlatformDialog
+import org.kde.kirigami 2.5 as Kirigami
 import org.kde.elisa 1.0
 
 FocusScope {
@@ -161,14 +162,20 @@ FocusScope {
         ColumnLayout {
             id: emptyPlaylistText
             spacing: 0
-            visible: elisa.mediaPlayList ? elisa.mediaPlayList.tracksCount === 0 : true
+            visible: true
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             Layout.fillHeight: true
             Layout.fillWidth: true
 
-            Item { Layout.fillHeight: true }
+            Item {
+                id: emptyVisible
+                visible: elisa.mediaPlayList ? elisa.mediaPlayList.tracksCount === 0 : true
+                Layout.preferredHeight: (emptyPlaylistText.height-emptyImage.height-emptyLabel0.height-emptyLabel1.height)/2
+            }
 
             Image {
+                id: emptyImage
+                visible: emptyVisible.visible
                 Layout.alignment: Qt.AlignHCenter
 
                 width: elisaTheme.gridDelegateWidth * 5
@@ -184,6 +191,8 @@ FocusScope {
             }
 
             Label {
+                id: emptyLabel0
+                visible: emptyVisible.visible
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter
                 Layout.rightMargin: elisaTheme.layoutHorizontalMargin
@@ -197,6 +206,8 @@ FocusScope {
             }
 
             Label {
+                id: emptyLabel1
+                visible: emptyVisible.visible
                 Layout.topMargin: 5
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter
@@ -209,26 +220,61 @@ FocusScope {
                 text: i18nc("Text shown when play list is empty", "Add some songs to get started. You can browse your music using the views on the left.")
             }
 
-            Item { Layout.fillHeight: true }
+            Item {
+                visible: emptyVisible.visible
+                Layout.fillHeight: true
+            }
 
-        }
+            PlayListBasicView {
+                id: playListView
 
-        PlayListBasicView {
-            id: playListView
+                visible: !emptyVisible.visible
 
-            Layout.fillWidth: true
-            Layout.fillHeight: true
+                Layout.fillWidth: true
+                Layout.fillHeight: true
 
-            playListModel: elisa.mediaPlayList
+                playListModel: elisa.mediaPlayList
 
-            focus: true
+                focus: true
 
-            onStartPlayback: topItem.startPlayback()
+                onStartPlayback: topItem.startPlayback()
 
-            onPausePlayback: topItem.pausePlayback()
+                onPausePlayback: topItem.pausePlayback()
 
-            onDisplayError: topItem.displayError(errorText)
+                onDisplayError: topItem.displayError(errorText)
 
+            }
+
+            Kirigami.InlineMessage {
+
+                Connections {
+                     target: elisa.mediaPlayList
+                     onDisplayUndoInline: undoClear.visible = true
+                }
+
+                Connections {
+                     target: elisa.mediaPlayList
+                     onHideUndoInline: undoClear.visible = false
+                }
+
+                id: undoClear
+
+                text: i18nc("Playlist cleared", "Playlist cleared")
+                type: Kirigami.MessageType.Information
+                showCloseButton: true
+                Layout.topMargin: 5
+                Layout.fillWidth: true
+                Layout.rightMargin: elisaTheme.layoutHorizontalMargin
+                Layout.leftMargin: elisaTheme.layoutHorizontalMargin
+
+                actions: [
+                    Kirigami.Action {
+                        text: i18nc("Undo", "Undo")
+                        icon.name: "dialog-cancel"
+                        onTriggered: elisa.mediaPlayList.undoClearPlayList()
+                    }
+                ]
+            }
         }
     }
 }

@@ -187,6 +187,10 @@ Q_SIGNALS:
 
     void seek(qint64 position);
 
+    void saveUndoPositionInAudioWrapper(qint64 position);
+
+    void restoreUndoPositionInAudioWrapper();
+
     void titleRoleChanged();
 
     void artistNameRoleChanged();
@@ -202,6 +206,10 @@ Q_SIGNALS:
 public Q_SLOTS:
 
     void setCurrentTrack(const QPersistentModelIndex &currentTrack);
+
+    void saveForUndoClearPlaylist();
+
+    void restoreForUndoClearPlaylist();
 
     void setPlayListModel(QAbstractItemModel* aPlayListModel);
 
@@ -294,6 +302,10 @@ private:
     qint64 mPlayerPosition = 0;
 
     QVariantMap mPersistentState;
+
+    bool mUndoPlayingState = false;
+
+    qint64 mUndoPlayerPosition = 0;
 
 };
 

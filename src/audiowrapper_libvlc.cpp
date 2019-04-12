@@ -59,6 +59,8 @@ public:
 
     qint64 mSavedPosition = 0.0;
 
+    qint64 mUndoSavedPosition = 0.0;
+
     qint64 mPreviousPosition = 0;
 
     QMediaPlayer::Error mError = QMediaPlayer::NoError;
@@ -261,15 +263,31 @@ void AudioWrapper::setPosition(qint64 position)
     }
 
     if (d->mMediaDuration == -1 || d->mMediaDuration == 0) {
-        if (!d->mHasSavedPosition) {
-            d->mHasSavedPosition = true;
-            d->mSavedPosition = position;
-            qCDebug(orgKdeElisaPlayerVlc) << "AudioWrapper::setPosition" << "restore old position" << d->mSavedPosition;
-        }
+        savePosition(position);
         return;
     }
 
     libvlc_media_player_set_position(d->mPlayer, static_cast<float>(position) / d->mMediaDuration);
+}
+
+void AudioWrapper::savePosition(qint64 position)
+{
+    if (!d->mHasSavedPosition) {
+        d->mHasSavedPosition = true;
+        d->mSavedPosition = position;
+        qCDebug(orgKdeElisaPlayerVlc) << "AudioWrapper::savePosition" << "restore old position" << d->mSavedPosition;
+    }
+}
+
+void AudioWrapper::saveUndoPosition(qint64 position)
+{
+    d->mUndoSavedPosition = position;
+}
+
+void AudioWrapper::restoreUndoPosition()
+{
+    d->mHasSavedPosition = true;
+    d->mSavedPosition = d->mUndoSavedPosition;
 }
 
 void AudioWrapper::play()

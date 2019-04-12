@@ -376,11 +376,21 @@ void TrackMetadataModel::fetchLyrics()
 
 void TrackMetadataModel::initializeByTrackId(qulonglong databaseId)
 {
+    mFullData.clear();
+    mTrackData.clear();
+    mCoverImage.clear();
+    mFileUrl.clear();
+
     Q_EMIT needDataByDatabaseId(ElisaUtils::Track, databaseId);
 }
 
 void TrackMetadataModel::initializeByTrackFileName(const QUrl &fileName)
 {
+    mFullData.clear();
+    mTrackData.clear();
+    mCoverImage.clear();
+    mFileUrl.clear();
+
     Q_EMIT needDataByFileName(ElisaUtils::FileName, fileName);
 }
 

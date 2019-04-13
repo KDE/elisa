@@ -376,6 +376,8 @@ FocusScope {
                         starRating: rating
 
                         starSize: elisaTheme.ratingStarSize
+
+                        visible: rating > 0
                     }
 
                     TextMetrics {

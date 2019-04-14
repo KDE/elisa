@@ -361,6 +361,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         qml/NavigationActionBar.qml
         qml/MediaPlayerControl.qml
         qml/ContextView.qml
+        qml/ContextViewLyrics.qml
         qml/ContentView.qml
         qml/ViewSelector.qml
         qml/DataGridView.qml

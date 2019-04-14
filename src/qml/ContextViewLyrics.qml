@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Matthieu Gallien <matthieu_gallien@yahoo.fr>
+ * Copyright 2016 Matthieu Gallien <matthieu_gallien@yahoo.fr>
  *
  * This program is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -15,28 +15,34 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef TRACKCONTEXTMETADATAMODEL_H
-#define TRACKCONTEXTMETADATAMODEL_H
+import QtQuick 2.10
+import QtQuick.Controls 2.2
+import QtQuick.Layouts 1.2
 
-#include "elisaLib_export.h"
+import org.kde.elisa 1.0
 
-#include "trackmetadatamodel.h"
+ColumnLayout {
+    property string lyrics
 
-class ELISALIB_EXPORT TrackContextMetaDataModel : public TrackMetadataModel
-{
+    Label {
+        id: title
 
-    Q_OBJECT
+        horizontalAlignment: Label.AlignHCenter
 
-public:
+        text: i18nc("Lyrics label for track metadata view", "Lyrics")
 
-    TrackContextMetaDataModel(QObject *parent = nullptr);
+        font.weight: Font.Bold
 
-protected:
+        Layout.fillWidth: true
+    }
 
-    void filterDataFromTrackData() override;
+    Label {
+        text: lyrics
 
-    void fillLyricsDataFromTrack() override;
+        horizontalAlignment: Text.AlignLeft
 
-};
+        Layout.fillWidth: true
 
-#endif // TRACKCONTEXTMETADATAMODEL_H
+        wrapMode: Text.WordWrap
+    }
+}

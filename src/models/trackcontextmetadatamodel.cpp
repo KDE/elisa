@@ -33,5 +33,9 @@ void TrackContextMetaDataModel::filterDataFromTrackData()
     }
 }
 
+void TrackContextMetaDataModel::fillLyricsDataFromTrack()
+{
+}
+
 
 #include "moc_trackcontextmetadatamodel.cpp"

@@ -49,6 +49,10 @@ class ELISALIB_EXPORT TrackMetadataModel : public QAbstractListModel
                WRITE setManager
                NOTIFY managerChanged)
 
+    Q_PROPERTY(QString lyrics
+               READ lyrics
+               NOTIFY lyricsChanged)
+
 public:
 
     enum ColumnRoles
@@ -89,6 +93,8 @@ public:
 
     MusicListenersManager* manager() const;
 
+    QString lyrics() const;
+
 Q_SIGNALS:
 
     void needDataByDatabaseId(ElisaUtils::PlayListEntryType dataType, qulonglong databaseId);
@@ -100,6 +106,8 @@ Q_SIGNALS:
     void fileUrlChanged();
 
     void managerChanged();
+
+    void lyricsChanged();
 
 public Q_SLOTS:
 
@@ -122,6 +130,8 @@ protected:
     void removeMetaData(DatabaseInterface::ColumnsRoles metaData);
 
     TrackDataType::mapped_type dataFromType(TrackDataType::key_type metaData) const;
+
+    virtual void fillLyricsDataFromTrack();
 
 private Q_SLOTS:
 

@@ -255,6 +255,11 @@ MusicListenersManager *TrackMetadataModel::manager() const
     return mManager;
 }
 
+QString TrackMetadataModel::lyrics() const
+{
+    return mFullData[TrackDataType::key_type::LyricsRole].toString();
+}
+
 void TrackMetadataModel::trackData(const TrackMetadataModel::TrackDataType &trackData)
 {
     if (!mFullData.isEmpty() && trackData.databaseId() != mFullData.databaseId()) {
@@ -325,14 +330,22 @@ TrackMetadataModel::TrackDataType::mapped_type TrackMetadataModel::dataFromType(
     return mFullData[metaData];
 }
 
+void TrackMetadataModel::fillLyricsDataFromTrack()
+{
+    beginInsertRows({}, mTrackData.size(), mTrackData.size());
+    mTrackKeys.push_back(DatabaseInterface::LyricsRole);
+    mTrackData[DatabaseInterface::LyricsRole] = mLyricsValueWatcher.result();
+    endInsertRows();
+}
+
 void TrackMetadataModel::lyricsValueIsReady()
 {
     if (!mLyricsValueWatcher.result().isEmpty()) {
-        beginInsertRows({}, mTrackData.size(), mTrackData.size());
-        mTrackKeys.push_back(DatabaseInterface::LyricsRole);
-        mTrackData[DatabaseInterface::LyricsRole] = mLyricsValueWatcher.result();
+        fillLyricsDataFromTrack();
+
         mFullData[DatabaseInterface::LyricsRole] = mLyricsValueWatcher.result();
-        endInsertRows();
+
+        Q_EMIT lyricsChanged();
     }
 }
 
@@ -381,6 +394,8 @@ void TrackMetadataModel::initializeByTrackId(qulonglong databaseId)
     mCoverImage.clear();
     mFileUrl.clear();
 
+    Q_EMIT lyricsChanged();
+
     Q_EMIT needDataByDatabaseId(ElisaUtils::Track, databaseId);
 }
 
@@ -390,6 +405,8 @@ void TrackMetadataModel::initializeByTrackFileName(const QUrl &fileName)
     mTrackData.clear();
     mCoverImage.clear();
     mFileUrl.clear();
+
+    Q_EMIT lyricsChanged();
 
     Q_EMIT needDataByFileName(ElisaUtils::FileName, fileName);
 }

@@ -144,24 +144,49 @@ FocusScope {
             elide: Text.ElideRight
         }
 
-        ListView {
-            id: trackData
+        Flickable {
+            id: flickable
+            clip: true
+
+            contentWidth: topItem.width
+            contentHeight: allMetaData.height
 
             Layout.fillWidth: true
             Layout.fillHeight: true
 
+            boundsBehavior: Flickable.StopAtBounds
+
             ScrollBar.vertical: ScrollBar {
                 id: scrollBar
+                policy: ScrollBar.AlwaysOn
             }
-            boundsBehavior: Flickable.StopAtBounds
-            clip: true
 
-            spacing: 0
+            ColumnLayout {
+                id: allMetaData
 
-            model: metaDataModel
+                spacing: 0
 
-            delegate: MetaDataDelegate {
-                width: scrollBar.visible ? (!LayoutMirroring.enabled ? trackData.width - scrollBar.width : trackData.width) : trackData.width
+                width: topItem.width
+
+                Repeater {
+                    id: trackData
+
+                    model: metaDataModel
+
+                    delegate: MetaDataDelegate {
+                        Layout.fillWidth: true
+                    }
+                }
+
+                ContextViewLyrics {
+                    id: lyricsContextView
+
+                    Layout.fillWidth: true
+
+                    visible: metaDataModel.lyrics !== ""
+
+                    lyrics: metaDataModel.lyrics
+                }
             }
         }
 

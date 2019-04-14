@@ -4763,6 +4763,9 @@ qulonglong DatabaseInterface::insertAlbum(const QString &title, const QString &a
     if (!albumArtist.isEmpty()) {
         insertArtist(albumArtist);
         d->mInsertAlbumQuery.bindValue(QStringLiteral(":albumArtist"), albumArtist);
+    } else if (!trackArtist.isEmpty()) {
+        insertArtist(trackArtist);
+        d->mInsertAlbumQuery.bindValue(QStringLiteral(":albumArtist"), trackArtist);
     } else {
         d->mInsertAlbumQuery.bindValue(QStringLiteral(":albumArtist"), {});
     }

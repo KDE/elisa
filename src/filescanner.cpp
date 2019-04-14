@@ -36,6 +36,7 @@
 #endif
 
 #include <QFileInfo>
+#include <QLocale>
 
 class FileScannerPrivate
 {
@@ -112,17 +113,18 @@ void FileScanner::scanProperties(const Baloo::File &match, MusicAudioTrack &trac
 void FileScanner::scanProperties(const QString &localFileName, MusicAudioTrack &trackData)
 {
 #if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
+    auto artistString = checkForMultipleEntries(KFileMetaData::Property::Artist);
+    auto albumArtistString = checkForMultipleEntries(KFileMetaData::Property::AlbumArtist);
+    auto genreString = checkForMultipleEntries(KFileMetaData::Property::Genre);
+    auto composerString = checkForMultipleEntries(KFileMetaData::Property::Composer);
+    auto lyricistString = checkForMultipleEntries(KFileMetaData::Property::Lyricist);
+
     auto titleProperty = d->mAllProperties.find(KFileMetaData::Property::Title);
     auto durationProperty = d->mAllProperties.find(KFileMetaData::Property::Duration);
-    auto artistProperty = d->mAllProperties.find(KFileMetaData::Property::Artist);
     auto albumProperty = d->mAllProperties.find(KFileMetaData::Property::Album);
-    auto albumArtistProperty = d->mAllProperties.find(KFileMetaData::Property::AlbumArtist);
     auto trackNumberProperty = d->mAllProperties.find(KFileMetaData::Property::TrackNumber);
     auto discNumberProperty = d->mAllProperties.find(KFileMetaData::Property::DiscNumber);
-    auto genreProperty = d->mAllProperties.find(KFileMetaData::Property::Genre);
     auto yearProperty = d->mAllProperties.find(KFileMetaData::Property::ReleaseYear);
-    auto composerProperty = d->mAllProperties.find(KFileMetaData::Property::Composer);
-    auto lyricistProperty = d->mAllProperties.find(KFileMetaData::Property::Lyricist);
     auto lyricsProperty = d->mAllProperties.find(KFileMetaData::Property::Lyrics);
     auto channelsProperty = d->mAllProperties.find(KFileMetaData::Property::Channels);
     auto bitRateProperty = d->mAllProperties.find(KFileMetaData::Property::BitRate);
@@ -133,12 +135,28 @@ void FileScanner::scanProperties(const QString &localFileName, MusicAudioTrack &
     auto fileData = KFileMetaData::UserMetaData(localFileName);
 #endif
 
-    if (albumProperty != d->mAllProperties.end()) {
-        trackData.setAlbumName(albumProperty->toString());
+    if (!artistString.isEmpty()) {
+        trackData.setArtist(artistString);
     }
 
-    if (artistProperty != d->mAllProperties.end()) {
-        trackData.setArtist(artistProperty->toStringList().join(QStringLiteral(", ")));
+    if (!albumArtistString.isEmpty()) {
+        trackData.setAlbumArtist(albumArtistString);
+    }
+
+    if (genreString.isEmpty()) {
+        trackData.setGenre(genreString);
+    }
+
+    if (composerString.isEmpty()) {
+        trackData.setComposer(composerString);
+    }
+
+    if (lyricistString.isEmpty()) {
+        trackData.setLyricist(lyricistString);
+    }
+
+    if (albumProperty != d->mAllProperties.end()) {
+        trackData.setAlbumName(albumProperty->toString());
     }
 
     if (durationProperty != d->mAllProperties.end()) {
@@ -157,10 +175,6 @@ void FileScanner::scanProperties(const QString &localFileName, MusicAudioTrack &
         trackData.setDiscNumber(discNumberProperty->toInt());
     }
 
-    if (albumArtistProperty != d->mAllProperties.end()) {
-        trackData.setAlbumArtist(albumArtistProperty->toStringList().join(QStringLiteral(", ")));
-    }
-
     if (yearProperty != d->mAllProperties.end()) {
         trackData.setYear(yearProperty->toInt());
     }
@@ -177,6 +191,7 @@ void FileScanner::scanProperties(const QString &localFileName, MusicAudioTrack &
         trackData.setSampleRate(sampleRateProperty->toInt());
     }
 
+<<<<<<< HEAD
     if (genreProperty != d->mAllProperties.end()) {
         trackData.setGenre(genreProperty->toStringList().join(QStringLiteral(", ")));
     }
@@ -193,6 +208,8 @@ void FileScanner::scanProperties(const QString &localFileName, MusicAudioTrack &
         trackData.setLyrics(lyricsProperty->toString());
     }
 
+=======
+>>>>>>> Check for string lists and multi-values in property map
     if (trackData.artist().isEmpty()) {
         trackData.setArtist(trackData.albumArtist());
     }
@@ -234,4 +251,24 @@ void FileScanner::scanProperties(const QString &localFileName, MusicAudioTrack &
     Q_UNUSED(localFileName)
     Q_UNUSED(trackData)
 #endif
+}
+
+QString FileScanner::checkForMultipleEntries(KFileMetaData::Property::Property property)
+{
+    if (d->mAllProperties.count(property) > 1)  {
+        auto propertyList = d->mAllProperties.values(property);
+        return QLocale().createSeparatedList(QVariant(propertyList).toStringList());
+    } else {
+        auto variantResult = d->mAllProperties.find(property);
+        if (variantResult != d->mAllProperties.end()) {
+            auto value = variantResult.value();
+            if (value.type() == QVariant::List || value.type() == QVariant::StringList) {
+                return QLocale().createSeparatedList(value.toStringList());
+            } else {
+                return value.toString();
+            }
+        } else {
+            return QString();
+        }
+    }
 }

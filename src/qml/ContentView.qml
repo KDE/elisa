@@ -45,9 +45,6 @@ RowLayout {
 
     function openNowPlaying() {
         viewManager.closeAllViews();
-
-        // This is needed to trigger the state change
-        listViews.currentIndex = 0;
     }
 
     ViewManager {
@@ -361,7 +358,6 @@ RowLayout {
 
                     Layout.fillHeight: true
                     Layout.leftMargin: elisaTheme.layoutHorizontalMargin
-                    Layout.rightMargin: elisaTheme.layoutHorizontalMargin
 
                     Layout.minimumWidth: contentZone.width
                     Layout.maximumWidth: contentZone.width
@@ -394,20 +390,31 @@ RowLayout {
                     Layout.maximumWidth: 1
                 }
 
-                ContextView {
+                Loader {
                     id: albumContext
+
+                    active: Layout.minimumWidth != 0
+
+                    sourceComponent: ContextView {
+
+                        anchors.fill: parent
+
+                        databaseId: elisa.manageHeaderBar.databaseId
+                        title: elisa.manageHeaderBar.title
+                        artistName: elisa.manageHeaderBar.artist
+                        albumName: elisa.manageHeaderBar.album
+                        albumArtUrl: elisa.manageHeaderBar.image
+                        fileUrl: elisa.manageHeaderBar.fileName
+                    }
 
                     Layout.fillHeight: true
 
-                    Layout.minimumWidth: contentZone.width
-                    Layout.maximumWidth: contentZone.width
-                    Layout.preferredWidth: contentZone.width
+                    Layout.minimumWidth: 0
+                    Layout.maximumWidth: 0
+                    Layout.preferredWidth: 0
+                    Layout.leftMargin: elisaTheme.layoutHorizontalMargin * 1.5
 
                     visible: Layout.minimumWidth != 0
-
-                    artistName: elisa.manageHeaderBar.artist
-                    albumName: elisa.manageHeaderBar.album
-                    albumArtUrl: elisa.manageHeaderBar.image
                 }
             }
         }
@@ -430,9 +437,9 @@ RowLayout {
                 }
                 PropertyChanges {
                     target: playList
-                    Layout.minimumWidth: contentZone.width / 2
-                    Layout.maximumWidth: contentZone.width / 2
-                    Layout.preferredWidth: contentZone.width / 2
+                    Layout.minimumWidth: contentZone.width * 2 / 5 + elisaTheme.layoutHorizontalMargin
+                    Layout.maximumWidth: contentZone.width * 2 / 5 + elisaTheme.layoutHorizontalMargin
+                    Layout.preferredWidth: contentZone.width * 2 / 5 + elisaTheme.layoutHorizontalMargin
                 }
                 PropertyChanges {
                     target: viewSeparatorItem
@@ -442,9 +449,9 @@ RowLayout {
                 }
                 PropertyChanges {
                     target: albumContext
-                    Layout.minimumWidth: contentZone.width / 2
-                    Layout.maximumWidth: contentZone.width / 2
-                    Layout.preferredWidth: contentZone.width / 2
+                    Layout.minimumWidth: contentZone.width * 3 / 5 - 2 - 3.5 * elisaTheme.layoutHorizontalMargin
+                    Layout.maximumWidth: contentZone.width * 3 / 5 - 2 - 3.5 * elisaTheme.layoutHorizontalMargin
+                    Layout.preferredWidth: contentZone.width * 3 / 5 - 2 - 3.5 * elisaTheme.layoutHorizontalMargin
                 }
             },
             State {

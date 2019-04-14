@@ -61,10 +61,20 @@ class ELISALIB_EXPORT ManageHeaderBar : public QObject
                WRITE setAlbumArtistRole
                NOTIFY albumArtistRoleChanged)
 
+    Q_PROPERTY(int fileNameRole
+               READ fileNameRole
+               WRITE setFileNameRole
+               NOTIFY fileNameRoleChanged)
+
     Q_PROPERTY(int imageRole
                READ imageRole
                WRITE setImageRole
                NOTIFY imageRoleChanged)
+
+    Q_PROPERTY(int databaseIdRole
+               READ databaseIdRole
+               WRITE setDatabaseIdRole
+               NOTIFY databaseIdRoleChanged)
 
     Q_PROPERTY(int albumIdRole
                READ albumIdRole
@@ -92,9 +102,17 @@ class ELISALIB_EXPORT ManageHeaderBar : public QObject
                READ albumArtist
                NOTIFY albumArtistChanged)
 
+    Q_PROPERTY(QString fileName
+               READ fileName
+               NOTIFY fileNameChanged)
+
     Q_PROPERTY(QUrl image
                READ image
                NOTIFY imageChanged)
+
+    Q_PROPERTY(qulonglong databaseId
+               READ databaseId
+               NOTIFY databaseIdChanged)
 
     Q_PROPERTY(qulonglong albumId
                READ albumId
@@ -124,7 +142,11 @@ public:
 
     int albumArtistRole() const;
 
+    int fileNameRole() const;
+
     int imageRole() const;
+
+    int databaseIdRole() const;
 
     int albumIdRole() const;
 
@@ -138,7 +160,11 @@ public:
 
     QVariant albumArtist() const;
 
+    QString fileName() const;
+
     QUrl image() const;
+
+    qulonglong databaseId() const;
 
     qulonglong albumId() const;
 
@@ -160,7 +186,11 @@ Q_SIGNALS:
 
     void albumArtistRoleChanged();
 
+    void fileNameRoleChanged();
+
     void imageRoleChanged();
+
+    void databaseIdRoleChanged();
 
     void albumIdRoleChanged();
 
@@ -174,9 +204,13 @@ Q_SIGNALS:
 
     void albumArtistChanged();
 
+    void fileNameChanged();
+
     void imageChanged();
 
     void remainingTracksChanged();
+
+    void databaseIdChanged();
 
     void albumIdChanged();
 
@@ -196,7 +230,11 @@ public Q_SLOTS:
 
     void setAlbumArtistRole(int value);
 
+    void setFileNameRole(int value);
+
     void setImageRole(int value);
+
+    void setDatabaseIdRole(int databaseIdRole);
 
     void setAlbumIdRole(int albumIdRole);
 
@@ -224,7 +262,11 @@ private:
 
     void notifyAlbumArtistProperty();
 
+    void notifyFileNameProperty();
+
     void notifyImageProperty();
+
+    void notifyDatabaseIdProperty();
 
     void notifyAlbumIdProperty();
 
@@ -244,7 +286,11 @@ private:
 
     int mAlbumArtistRole = Qt::DisplayRole;
 
+    int mFileNameRole = Qt::DisplayRole;
+
     int mImageRole = Qt::DisplayRole;
+
+    int mDatabaseIdRole = Qt::DisplayRole;
 
     int mAlbumIdRole = Qt::DisplayRole;
 
@@ -258,7 +304,11 @@ private:
 
     QVariant mOldAlbumArtist;
 
+    QVariant mOldFileName;
+
     QVariant mOldImage;
+
+    qulonglong mOldDatabaseId = 0;
 
     qulonglong mOldAlbumId = 0;
 

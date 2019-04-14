@@ -113,6 +113,10 @@ public:
 
     QString lyricist() const;
 
+    void setLyrics(const QString &value);
+
+    QString lyrics() const;
+
     void setComment(const QString &value);
 
     QString comment() const;

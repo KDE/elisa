@@ -28,6 +28,7 @@ set(elisaLib_SOURCES
     models/alltracksproxymodel.cpp
     models/singlealbumproxymodel.cpp
     models/trackmetadatamodel.cpp
+    models/trackcontextmetadatamodel.cpp
     models/viewsmodel.cpp
 )
 
@@ -360,6 +361,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         qml/NavigationActionBar.qml
         qml/MediaPlayerControl.qml
         qml/ContextView.qml
+        qml/ContextViewLyrics.qml
         qml/ContentView.qml
         qml/ViewSelector.qml
         qml/DataGridView.qml
@@ -376,6 +378,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         qml/PlayListAlbumHeader.qml
         qml/BasicPlayListAlbumHeader.qml
 
+        qml/MetaDataDelegate.qml
         qml/MediaTrackDelegate.qml
         qml/MediaAlbumTrackDelegate.qml
         qml/MediaTrackMetadataView.qml

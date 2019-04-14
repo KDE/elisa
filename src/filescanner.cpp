@@ -123,6 +123,7 @@ void FileScanner::scanProperties(const QString &localFileName, MusicAudioTrack &
     auto yearProperty = d->mAllProperties.find(KFileMetaData::Property::ReleaseYear);
     auto composerProperty = d->mAllProperties.find(KFileMetaData::Property::Composer);
     auto lyricistProperty = d->mAllProperties.find(KFileMetaData::Property::Lyricist);
+    auto lyricsProperty = d->mAllProperties.find(KFileMetaData::Property::Lyrics);
     auto channelsProperty = d->mAllProperties.find(KFileMetaData::Property::Channels);
     auto bitRateProperty = d->mAllProperties.find(KFileMetaData::Property::BitRate);
     auto sampleRateProperty = d->mAllProperties.find(KFileMetaData::Property::SampleRate);
@@ -154,8 +155,6 @@ void FileScanner::scanProperties(const QString &localFileName, MusicAudioTrack &
 
     if (discNumberProperty != d->mAllProperties.end()) {
         trackData.setDiscNumber(discNumberProperty->toInt());
-    } else {
-        trackData.setDiscNumber(1);
     }
 
     if (albumArtistProperty != d->mAllProperties.end()) {
@@ -188,6 +187,10 @@ void FileScanner::scanProperties(const QString &localFileName, MusicAudioTrack &
 
     if (lyricistProperty != d->mAllProperties.end()) {
         trackData.setLyricist(lyricistProperty->toStringList().join(QStringLiteral(", ")));
+    }
+
+    if (lyricsProperty != d->mAllProperties.end()) {
+        trackData.setLyrics(lyricsProperty->toString());
     }
 
     if (trackData.artist().isEmpty()) {

@@ -23,9 +23,12 @@
 #include "elisautils.h"
 #include "databaseinterface.h"
 #include "modeldataloader.h"
+#include "filescanner.h"
 
 #include <QUrl>
 #include <QAbstractListModel>
+#include <QMimeDatabase>
+#include <QFutureWatcher>
 
 class MusicListenersManager;
 
@@ -41,6 +44,15 @@ class ELISALIB_EXPORT TrackMetadataModel : public QAbstractListModel
                READ fileUrl
                NOTIFY fileUrlChanged)
 
+    Q_PROPERTY(MusicListenersManager* manager
+               READ manager
+               WRITE setManager
+               NOTIFY managerChanged)
+
+    Q_PROPERTY(QString lyrics
+               READ lyrics
+               NOTIFY lyricsChanged)
+
 public:
 
     enum ColumnRoles
@@ -55,6 +67,7 @@ public:
         IntegerEntry,
         RatingEntry,
         DateEntry,
+        LongTextEntry,
     };
 
     Q_ENUM(ItemType)
@@ -62,6 +75,8 @@ public:
     using TrackDataType = DatabaseInterface::TrackDataType;
 
     explicit TrackMetadataModel(QObject *parent = nullptr);
+
+    ~TrackMetadataModel() override;
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
 
@@ -72,15 +87,13 @@ public:
 
     QHash<int, QByteArray> roleNames() const override;
 
-    Qt::ItemFlags flags(const QModelIndex& index) const override;
-
-    bool insertRows(int row, int count, const QModelIndex &parent = QModelIndex()) override;
-
-    bool removeRows(int row, int count, const QModelIndex &parent = QModelIndex()) override;
-
     const QUrl& coverUrl() const;
 
     QString fileUrl() const;
+
+    MusicListenersManager* manager() const;
+
+    QString lyrics() const;
 
 Q_SIGNALS:
 
@@ -92,15 +105,46 @@ Q_SIGNALS:
 
     void fileUrlChanged();
 
+    void managerChanged();
+
+    void lyricsChanged();
+
 public Q_SLOTS:
 
     void trackData(const TrackMetadataModel::TrackDataType &trackData);
 
-    void initializeByTrackId(MusicListenersManager *manager, qulonglong databaseId);
+    void initializeByTrackId(qulonglong databaseId);
 
-    void initializeByTrackFileName(MusicListenersManager *manager, const QUrl &fileName);
+    void initializeByTrackFileName(const QUrl &fileName);
+
+    void setManager(MusicListenersManager *newManager);
+
+    void setDatabase(DatabaseInterface *trackDatabase);
+
+protected:
+
+    void fillDataFromTrackData(const TrackMetadataModel::TrackDataType &trackData);
+
+    virtual void filterDataFromTrackData();
+
+    void removeMetaData(DatabaseInterface::ColumnsRoles metaData);
+
+    TrackDataType::mapped_type dataFromType(TrackDataType::key_type metaData) const;
+
+    virtual void fillLyricsDataFromTrack();
+
+private Q_SLOTS:
+
+    void lyricsValueIsReady();
 
 private:
+
+    void initialize(MusicListenersManager *newManager,
+                    DatabaseInterface *trackDatabase);
+
+    void fetchLyrics();
+
+    TrackDataType mFullData;
 
     TrackDataType mTrackData;
 
@@ -111,6 +155,14 @@ private:
     QList<TrackDataType::key_type> mTrackKeys;
 
     ModelDataLoader mDataLoader;
+
+    MusicListenersManager *mManager = nullptr;
+
+    FileScanner mFileScanner;
+
+    QMimeDatabase mMimeDatabase;
+
+    QFutureWatcher<QString> mLyricsValueWatcher;
 
 };
 

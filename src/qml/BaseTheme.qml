@@ -65,10 +65,7 @@ Item {
     }
 
     property int playListDelegateHeight: (playListTrackTextHeight.height > dp(28)) ? playListTrackTextHeight.height : dp(28)
-    property int playListDelegateWithHeaderHeight: playListDelegateHeight +
-                                                   elisaTheme.layoutVerticalMargin * 5 +
-                                                   playListAuthorTextHeight.height +
-                                                   playListAlbumTextHeight.height
+
     property int playListHeaderHeight: elisaTheme.layoutVerticalMargin * 5 +
                                        playListAuthorTextHeight.height +
                                        playListAlbumTextHeight.height
@@ -76,6 +73,7 @@ Item {
     property int trackDelegateHeight: dp(45)
 
     property int coverImageSize: dp(180)
+    property int contextCoverImageSize: dp(100)
     property int smallImageSize: dp(32)
 
     property int maximumMetadataWidth: dp(300)

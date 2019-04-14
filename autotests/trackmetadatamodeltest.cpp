@@ -16,13 +16,15 @@
  */
 
 #include "models/trackmetadatamodel.h"
+
 #include "qabstractitemmodeltester.h"
+#include "databasetestdata.h"
 
 #include <QDebug>
 
 #include <QtTest>
 
-class TrackMetadataModelTests: public QObject
+class TrackMetadataModelTests: public QObject, public DatabaseTestData
 {
     Q_OBJECT
 
@@ -66,6 +68,77 @@ private Q_SLOTS:
         QCOMPARE(beginRemovedRowsSpy.count(), 0);
         QCOMPARE(endRemovedRowsSpy.count(), 0);
         QCOMPARE(myModel.rowCount(), 1);
+    }
+
+    void modifyTrackInDatabase()
+    {
+        QTemporaryFile databaseFile;
+        databaseFile.open();
+
+        qDebug() << "addOneTrackWithoutAlbumArtist" << databaseFile.fileName();
+
+        DatabaseInterface musicDb;
+
+        musicDb.init(QStringLiteral("testDb"), databaseFile.fileName());
+
+        musicDb.insertTracksList(mNewTracks, mNewCovers);
+
+        TrackMetadataModel myModel;
+        QAbstractItemModelTester testModel(&myModel);
+
+        QSignalSpy beginResetSpy(&myModel, &TrackMetadataModel::modelAboutToBeReset);
+        QSignalSpy endResetSpy(&myModel, &TrackMetadataModel::modelReset);
+        QSignalSpy beginInsertRowsSpy(&myModel, &TrackMetadataModel::rowsAboutToBeInserted);
+        QSignalSpy endInsertRowsSpy(&myModel, &TrackMetadataModel::rowsInserted);
+        QSignalSpy dataChangedSpy(&myModel, &TrackMetadataModel::dataChanged);
+        QSignalSpy beginRemovedRowsSpy(&myModel, &TrackMetadataModel::rowsAboutToBeRemoved);
+        QSignalSpy endRemovedRowsSpy(&myModel, &TrackMetadataModel::rowsRemoved);
+
+        QCOMPARE(beginResetSpy.count(), 0);
+        QCOMPARE(endResetSpy.count(), 0);
+        QCOMPARE(beginInsertRowsSpy.count(), 0);
+        QCOMPARE(endInsertRowsSpy.count(), 0);
+        QCOMPARE(dataChangedSpy.count(), 0);
+        QCOMPARE(beginRemovedRowsSpy.count(), 0);
+        QCOMPARE(endRemovedRowsSpy.count(), 0);
+        QCOMPARE(myModel.rowCount(), 0);
+
+        myModel.setDatabase(&musicDb);
+
+        auto trackId = musicDb.trackIdFromFileName(QUrl::fromLocalFile(QStringLiteral("/$1")));
+
+        myModel.initializeByTrackId(trackId);
+
+        QCOMPARE(beginResetSpy.count(), 1);
+        QCOMPARE(endResetSpy.count(), 1);
+        QCOMPARE(beginInsertRowsSpy.count(), 0);
+        QCOMPARE(endInsertRowsSpy.count(), 0);
+        QCOMPARE(dataChangedSpy.count(), 0);
+        QCOMPARE(beginRemovedRowsSpy.count(), 0);
+        QCOMPARE(endRemovedRowsSpy.count(), 0);
+        QCOMPARE(myModel.rowCount(), 11);
+
+        musicDb.trackHasStartedPlaying(QUrl::fromLocalFile(QStringLiteral("/$2")), QDateTime::currentDateTime());
+
+        QCOMPARE(beginResetSpy.count(), 1);
+        QCOMPARE(endResetSpy.count(), 1);
+        QCOMPARE(beginInsertRowsSpy.count(), 0);
+        QCOMPARE(endInsertRowsSpy.count(), 0);
+        QCOMPARE(dataChangedSpy.count(), 0);
+        QCOMPARE(beginRemovedRowsSpy.count(), 0);
+        QCOMPARE(endRemovedRowsSpy.count(), 0);
+        QCOMPARE(myModel.rowCount(), 11);
+
+        musicDb.trackHasStartedPlaying(QUrl::fromLocalFile(QStringLiteral("/$1")), QDateTime::currentDateTime());
+
+        QCOMPARE(beginResetSpy.count(), 2);
+        QCOMPARE(endResetSpy.count(), 2);
+        QCOMPARE(beginInsertRowsSpy.count(), 0);
+        QCOMPARE(endInsertRowsSpy.count(), 0);
+        QCOMPARE(dataChangedSpy.count(), 0);
+        QCOMPARE(beginRemovedRowsSpy.count(), 0);
+        QCOMPARE(endRemovedRowsSpy.count(), 0);
+        QCOMPARE(myModel.rowCount(), 12);
     }
 };
 

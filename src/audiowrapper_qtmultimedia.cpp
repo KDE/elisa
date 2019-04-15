@@ -17,6 +17,8 @@
 
 #include "audiowrapper.h"
 
+#include "qtMultimediaLogging.h"
+
 #include <QTimer>
 #include <QAudio>
 
@@ -244,7 +246,7 @@ void AudioWrapper::savePosition(qint64 position)
     if (!d->mHasSavedPosition) {
         d->mHasSavedPosition = true;
         d->mSavedPosition = position;
-        //qCDebug(orgKdeElisaPlayerVlc) << "AudioWrapper::savePosition" << "restore old position" << d->mSavedPosition;
+        qCDebug(orgKdeElisaPlayerQtMultimedia) << "AudioWrapper::savePosition" << "restore old position" << d->mSavedPosition;
     }
 }
 

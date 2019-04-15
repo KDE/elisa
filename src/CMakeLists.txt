@@ -67,6 +67,13 @@ if (LIBVLC_FOUND)
         audiowrapper_libvlc.cpp
         )
 else()
+    ecm_qt_declare_logging_category(elisaLib_SOURCES
+        HEADER "qtMultimediaLogging.h"
+        IDENTIFIER "orgKdeElisaPlayerQtMultimedia"
+        CATEGORY_NAME "org.kde.elisa.player.qtMultimedia"
+        DEFAULT_SEVERITY Info
+        )
+
     set(elisaLib_SOURCES
         ${elisaLib_SOURCES}
         audiowrapper_qtmultimedia.cpp

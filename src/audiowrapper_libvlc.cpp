@@ -18,6 +18,7 @@
 #include "audiowrapper.h"
 
 #include "vlcLogging.h"
+#include "powermanagementinterface.h"
 
 #include <QTimer>
 #include <QAudio>
@@ -38,6 +39,8 @@ class AudioWrapperPrivate
 {
 
 public:
+
+    PowerManagementInterface mPowerInterface;
 
     AudioWrapper *mParent = nullptr;
 
@@ -351,12 +354,15 @@ void AudioWrapper::playerStateSignalChanges(QMediaPlayer::State newState)
         {
         case QMediaPlayer::StoppedState:
             Q_EMIT stopped();
+            d->mPowerInterface.setPreventSleep(false);
             break;
         case QMediaPlayer::PlayingState:
             Q_EMIT playing();
+            d->mPowerInterface.setPreventSleep(true);
             break;
         case QMediaPlayer::PausedState:
             Q_EMIT paused();
+            d->mPowerInterface.setPreventSleep(false);
             break;
         }
     }, Qt::QueuedConnection);

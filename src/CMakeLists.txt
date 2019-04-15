@@ -20,6 +20,7 @@ set(elisaLib_SOURCES
     abstractfile/abstractfilelisting.cpp
     filescanner.cpp
     viewmanager.cpp
+    powermanagementinterface.cpp
     file/filelistener.cpp
     file/localfilelisting.cpp
     models/datamodel.cpp

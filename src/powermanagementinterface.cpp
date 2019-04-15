@@ -30,6 +30,10 @@
 #include <QDBusUnixFileDescriptor>
 #endif
 
+#if defined Q_OS_WIN
+#include <winbase.h>
+#endif
+
 #include <QString>
 #include <QByteArray>
 

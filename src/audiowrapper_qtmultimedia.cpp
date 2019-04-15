@@ -121,37 +121,63 @@ void AudioWrapper::setMuted(bool muted)
 
 void AudioWrapper::setVolume(qreal volume)
 {
+    qCDebug(orgKdeElisaPlayerQtMultimedia) << "AudioWrapper::setVolume" << volume;
+
     auto realVolume = static_cast<qreal>(QAudio::convertVolume(volume / 100.0, QAudio::LogarithmicVolumeScale, QAudio::LinearVolumeScale));
     d->mPlayer.setVolume(qRound(realVolume * 100));
 }
 
 void AudioWrapper::setSource(const QUrl &source)
 {
+    qCDebug(orgKdeElisaPlayerQtMultimedia) << "AudioWrapper::setSource" << source;
+
     d->mPlayer.setMedia({source});
 }
 
 void AudioWrapper::setPosition(qint64 position)
 {
+    qCDebug(orgKdeElisaPlayerQtMultimedia) << "AudioWrapper::setPosition" << position;
+
+    if (d->mPlayer.duration() <= 0) {
+        savePosition(position);
+        return;
+    }
+
     d->mPlayer.setPosition(position);
 }
 
 void AudioWrapper::play()
 {
+    qCDebug(orgKdeElisaPlayerQtMultimedia) << "AudioWrapper::play";
+
     d->mPlayer.play();
+
+    if (d->mHasSavedPosition) {
+        qCDebug(orgKdeElisaPlayerQtMultimedia) << "AudioWrapper::playerDurationSignalChanges" << "restore old position" << d->mSavedPosition;
+
+        setPosition(d->mSavedPosition);
+        d->mHasSavedPosition = false;
+    }
 }
 
 void AudioWrapper::pause()
 {
+    qCDebug(orgKdeElisaPlayerQtMultimedia) << "AudioWrapper::pause";
+
     d->mPlayer.pause();
 }
 
 void AudioWrapper::stop()
 {
+    qCDebug(orgKdeElisaPlayerQtMultimedia) << "AudioWrapper::stop";
+
     d->mPlayer.stop();
 }
 
 void AudioWrapper::seek(qint64 position)
 {
+    qCDebug(orgKdeElisaPlayerQtMultimedia) << "AudioWrapper::seek" << position;
+
     d->mPlayer.setPosition(position);
 }
 
@@ -162,10 +188,13 @@ void AudioWrapper::setAudioRole(QAudio::Role audioRole)
 
 void AudioWrapper::mediaStatusChanged()
 {
+    qCDebug(orgKdeElisaPlayerQtMultimedia) << "AudioWrapper::mediaStatusChanged";
 }
 
 void AudioWrapper::playerStateChanged()
 {
+    qCDebug(orgKdeElisaPlayerQtMultimedia) << "AudioWrapper::playerStateChanged";
+
     switch(d->mPlayer.state())
     {
     case QMediaPlayer::State::StoppedState:
@@ -182,32 +211,37 @@ void AudioWrapper::playerStateChanged()
 
 void AudioWrapper::playerVolumeChanged()
 {
+    qCDebug(orgKdeElisaPlayerQtMultimedia) << "AudioWrapper::playerVolumeChanged";
+
     QTimer::singleShot(0, [this]() {Q_EMIT volumeChanged();});
 }
 
 void AudioWrapper::playerMutedChanged()
 {
+    qCDebug(orgKdeElisaPlayerQtMultimedia) << "AudioWrapper::playerMutedChanged";
+
     QTimer::singleShot(0, [this]() {Q_EMIT mutedChanged(muted());});
 }
 
 void AudioWrapper::playerStateSignalChanges(QMediaPlayer::State newState)
 {
+    qCDebug(orgKdeElisaPlayerQtMultimedia) << "AudioWrapper::playerStateSignalChanges" << newState;
+
     QMetaObject::invokeMethod(this, [this, newState]() {Q_EMIT playbackStateChanged(newState);}, Qt::QueuedConnection);
 }
 
 void AudioWrapper::mediaStatusSignalChanges(QMediaPlayer::MediaStatus newStatus)
 {
+    qCDebug(orgKdeElisaPlayerQtMultimedia) << "AudioWrapper::mediaStatusSignalChanges" << newStatus;
+
     QMetaObject::invokeMethod(this, [this, newStatus]() {Q_EMIT statusChanged(newStatus);}, Qt::QueuedConnection);
 }
 
 void AudioWrapper::playerDurationSignalChanges(qint64 newDuration)
 {
-    QMetaObject::invokeMethod(this, [this, newDuration]() {Q_EMIT durationChanged(newDuration);}, Qt::QueuedConnection);
+    qCDebug(orgKdeElisaPlayerQtMultimedia) << "AudioWrapper::playerDurationSignalChanges" << newDuration;
 
-    if (d->mHasSavedPosition) {
-        setPosition(d->mSavedPosition);
-        d->mHasSavedPosition = false;
-    }
+    QMetaObject::invokeMethod(this, [this, newDuration]() {Q_EMIT durationChanged(newDuration);}, Qt::QueuedConnection);
 }
 
 void AudioWrapper::playerPositionSignalChanges(qint64 newPosition)
@@ -232,17 +266,23 @@ void AudioWrapper::playerSeekableSignalChanges(bool isSeekable)
 
 void AudioWrapper::saveUndoPosition(qint64 position)
 {
+    qCDebug(orgKdeElisaPlayerQtMultimedia) << "AudioWrapper::saveUndoPosition" << position;
+
     d->mUndoSavedPosition = position;
 }
 
 void AudioWrapper::restoreUndoPosition()
 {
+    qCDebug(orgKdeElisaPlayerQtMultimedia) << "AudioWrapper::restoreUndoPosition";
+
     d->mHasSavedPosition = true;
     d->mSavedPosition = d->mUndoSavedPosition;
 }
 
 void AudioWrapper::savePosition(qint64 position)
 {
+    qCDebug(orgKdeElisaPlayerQtMultimedia) << "AudioWrapper::savePosition" << position;
+
     if (!d->mHasSavedPosition) {
         d->mHasSavedPosition = true;
         d->mSavedPosition = position;

@@ -31,6 +31,7 @@
 #endif
 
 #if defined Q_OS_WIN
+#include <windows.h>
 #include <winbase.h>
 #endif
 

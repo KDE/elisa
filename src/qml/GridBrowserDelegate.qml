@@ -17,7 +17,6 @@
 
 import QtQuick 2.7
 import QtQuick.Controls 2.2
-import QtQuick.Controls 1.4 as Controls1
 import QtQuick.Window 2.2
 import QtQml.Models 2.1
 import QtQuick.Layouts 1.2
@@ -39,36 +38,8 @@ FocusScope {
     signal open()
     signal selected()
 
-    Controls1.Action {
-        id: enqueueAction
-
-        text: i18nc("Add whole container to play list", "Enqueue")
-        iconName: 'media-track-add-amarok'
-        onTriggered: enqueue(databaseId, mainText)
-
-        enabled: databaseId !== undefined
-    }
-
-    Controls1.Action {
-        id: openAction
-
-        text: i18nc("Open view of the container", "Open")
-        iconName: 'document-open-folder'
-        onTriggered: open()
-    }
-
-    Controls1.Action {
-        id: replaceAndPlayAction
-
-        text: i18nc("Clear play list and add whole container to play list", "Play Now and Replace Play List")
-        iconName: 'media-playback-start'
-        onTriggered: replaceAndPlay(databaseId, mainText)
-
-        enabled: databaseId !== undefined
-    }
-
-    Keys.onReturnPressed: openAction.trigger(this)
-    Keys.onEnterPressed: openAction.trigger(this)
+    Keys.onReturnPressed: open()
+    Keys.onEnterPressed: open()
 
     ColumnLayout {
         anchors.fill: parent
@@ -88,7 +59,7 @@ FocusScope {
                 gridEntry.selected()
             }
 
-            onDoubleClicked: openAction.trigger(this)
+            onDoubleClicked: open()
 
             TextMetrics {
                 id: mainLabelSize
@@ -114,48 +85,78 @@ FocusScope {
 
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
 
+
                     Loader {
                         id: hoverLoader
                         active: false
 
-                        anchors.centerIn: parent
+                        anchors {
+                            bottom: parent.bottom
+                            bottomMargin: 2
+                            left: parent.left
+                            leftMargin: 2
+                        }
+
                         z: 1
 
                         opacity: 0
 
                         sourceComponent: Row {
+                            spacing: 2
 
-                            Controls1.ToolButton {
-                                id: enqueueButton
-                                objectName: 'enqueueButton'
-
-                                action: enqueueAction
-
-                                visible: enqueueAction.enabled
-
-                                width: elisaTheme.delegateToolButtonSize
-                                height: elisaTheme.delegateToolButtonSize
-                            }
-
-                            Controls1.ToolButton {
-                                id: openButton
-                                objectName: 'openButton'
-
-                                action: openAction
-
-                                width: elisaTheme.delegateToolButtonSize
-                                height: elisaTheme.delegateToolButtonSize
-                            }
-
-                            Controls1.ToolButton {
+                            Button {
                                 id: replaceAndPlayButton
                                 objectName: 'replaceAndPlayButton'
 
-                                scale: LayoutMirroring.enabled ? -1 : 1
+                                icon.name: 'media-playback-start'
 
-                                action: replaceAndPlayAction
+                                hoverEnabled: true
+                                ToolTip.visible: hovered
+                                ToolTip.delay: 1000
+                                ToolTip.text: i18nc("Clear play list and add whole container to play list", "Play now, replacing current playlist")
 
-                                visible: replaceAndPlayAction.enabled
+                                onClicked: replaceAndPlay(databaseId, mainText)
+                                Keys.onReturnPressed: replaceAndPlay(databaseId, mainText)
+                                Keys.onEnterPressed: replaceAndPlay(databaseId, mainText)
+
+
+                                visible: databaseId !== undefined
+
+                                width: elisaTheme.delegateToolButtonSize
+                                height: elisaTheme.delegateToolButtonSize
+                            }
+
+                            Button {
+                                id: enqueueButton
+                                objectName: 'enqueueButton'
+
+                                icon.name: 'media-track-add-amarok'
+                                hoverEnabled: true
+                                ToolTip.visible: hovered
+                                ToolTip.delay: 1000
+                                ToolTip.text: i18nc("Add whole container to play list", "Add to playlist")
+
+                                onClicked: enqueue(databaseId, mainText)
+                                Keys.onReturnPressed: enqueue(databaseId, mainText)
+                                Keys.onEnterPressed: enqueue(databaseId, mainText)
+
+                                visible: databaseId !== undefined
+
+                                width: elisaTheme.delegateToolButtonSize
+                                height: elisaTheme.delegateToolButtonSize
+                            }
+
+                            Button {
+                                id: openButton
+                                objectName: 'openButton'
+
+                                icon.name: 'go-next-view-page'
+                                hoverEnabled: true
+                                ToolTip.visible: hovered
+                                ToolTip.delay: 1000
+                                ToolTip.text: i18nc("Open view of the container", "Open")
+
+                                onClicked: open()
 
                                 width: elisaTheme.delegateToolButtonSize
                                 height: elisaTheme.delegateToolButtonSize
@@ -215,10 +216,14 @@ FocusScope {
                     font.weight: Font.Bold
                     color: myPalette.text
 
-                    horizontalAlignment: Text.AlignLeft
+                    // FIXME: Center-aligned text looks better overall, but
+                    // sometimes results in font kerning issues
+                    // See https://bugreports.qt.io/browse/QTBUG-49646
+                    horizontalAlignment: Text.AlignHCenter
 
                     Layout.topMargin: elisaTheme.layoutVerticalMargin * 0.5
-                    Layout.preferredWidth: gridEntry.width * 0.85
+                    Layout.maximumWidth: gridEntry.width * 0.9
+                    Layout.minimumWidth: Layout.maximumWidth
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
 
                     elide: Text.ElideRight
@@ -230,9 +235,13 @@ FocusScope {
                     font.weight: Font.Light
                     color: myPalette.text
 
-                    horizontalAlignment: Text.AlignLeft
+                    // FIXME: Center-aligned text looks better overall, but
+                    // sometimes results in font kerning issues
+                    // See https://bugreports.qt.io/browse/QTBUG-49646
+                    horizontalAlignment: Text.AlignHCenter
 
-                    Layout.preferredWidth: gridEntry.width * 0.85
+                    Layout.maximumWidth: gridEntry.width * 0.9
+                    Layout.minimumWidth: Layout.maximumWidth
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
 
                     visible: delegateDisplaySecondaryText
@@ -259,10 +268,6 @@ FocusScope {
                 target: hoverLoader
                 opacity: 0.0
             }
-            PropertyChanges {
-                target: coverImageLoader
-                opacity: 1
-            }
         },
         State {
             name: 'hoveredOrSelected'
@@ -274,10 +279,6 @@ FocusScope {
             PropertyChanges {
                 target: hoverLoader
                 opacity: 1.0
-            }
-            PropertyChanges {
-                target: coverImageLoader
-                opacity: 0.2
             }
         }
     ]

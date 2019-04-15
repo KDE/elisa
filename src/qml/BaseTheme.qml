@@ -97,8 +97,8 @@ Item {
     property int navigationBarHeight: dp(100)
     property int navigationBarFilterHeight: dp(44)
 
-    property int gridDelegateHeight: dp(100) + layoutVerticalMargin + fontSize.height * 2
-    property int gridDelegateWidth: dp(100)
+    property int gridDelegateHeight: dp(170) + layoutVerticalMargin + fontSize.height * 2
+    property int gridDelegateWidth: dp(170)
 
     property int viewSelectorDelegateHeight: dp(24)
 

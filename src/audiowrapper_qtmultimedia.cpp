@@ -29,6 +29,12 @@ public:
 
     QMediaPlayer mPlayer;
 
+    qint64 mSavedPosition = 0.0;
+
+    qint64 mUndoSavedPosition = 0.0;
+
+    bool mHasSavedPosition = false;
+
 };
 
 AudioWrapper::AudioWrapper(QObject *parent) : QObject(parent), d(std::make_unique<AudioWrapperPrivate>())
@@ -195,6 +201,11 @@ void AudioWrapper::mediaStatusSignalChanges(QMediaPlayer::MediaStatus newStatus)
 void AudioWrapper::playerDurationSignalChanges(qint64 newDuration)
 {
     QMetaObject::invokeMethod(this, [this, newDuration]() {Q_EMIT durationChanged(newDuration);}, Qt::QueuedConnection);
+
+    if (d->mHasSavedPosition) {
+        setPosition(d->mSavedPosition);
+        d->mHasSavedPosition = false;
+    }
 }
 
 void AudioWrapper::playerPositionSignalChanges(qint64 newPosition)
@@ -215,6 +226,26 @@ void AudioWrapper::playerMutedSignalChanges(bool isMuted)
 void AudioWrapper::playerSeekableSignalChanges(bool isSeekable)
 {
     QMetaObject::invokeMethod(this, [this, isSeekable]() {Q_EMIT seekableChanged(isSeekable);}, Qt::QueuedConnection);
+}
+
+void AudioWrapper::saveUndoPosition(qint64 position)
+{
+    d->mUndoSavedPosition = position;
+}
+
+void AudioWrapper::restoreUndoPosition()
+{
+    d->mHasSavedPosition = true;
+    d->mSavedPosition = d->mUndoSavedPosition;
+}
+
+void AudioWrapper::savePosition(qint64 position)
+{
+    if (!d->mHasSavedPosition) {
+        d->mHasSavedPosition = true;
+        d->mSavedPosition = position;
+        //qCDebug(orgKdeElisaPlayerVlc) << "AudioWrapper::savePosition" << "restore old position" << d->mSavedPosition;
+    }
 }
 
 

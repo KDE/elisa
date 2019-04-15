@@ -27,7 +27,6 @@ FocusScope {
 
     readonly property alias currentIndex: viewModeView.currentIndex
     property double textOpacity
-    property double maximumSize
     property alias model: pageDelegateModel.model
 
     signal switchView(var viewType)
@@ -39,7 +38,7 @@ FocusScope {
         viewModeView.ignoreCurrentItemChanges = false
     }
 
-    implicitWidth: elisaTheme.dp(500)
+    implicitWidth: elisaTheme.dp(225)
 
     Rectangle {
         anchors.fill: parent
@@ -164,7 +163,7 @@ FocusScope {
                             anchors.rightMargin: elisaTheme.layoutHorizontalMargin
                             verticalAlignment: "AlignVCenter"
 
-                            font.pointSize: elisaTheme.defaultFontPointSize * 1.4
+                            font.pointSize: elisaTheme.defaultFontPointSize * 1.1
 
                             text: model.display
                             elide: Text.ElideRight
@@ -237,16 +236,16 @@ FocusScope {
     states: [
         State {
             name: 'iconsAndText'
-            when: maximumSize >= elisaTheme.viewSelectorSmallSizeThreshold
+            when: mainWindow.width >= elisaTheme.viewSelectorSmallSizeThreshold
             PropertyChanges {
                 target: rootFocusScope
                 textOpacity: 1
-                implicitWidth: elisaTheme.dp(500)
+                implicitWidth: elisaTheme.dp(225)
             }
         },
         State {
             name: 'iconsOnly'
-            when: maximumSize < elisaTheme.viewSelectorSmallSizeThreshold
+            when: mainWindow.width < elisaTheme.viewSelectorSmallSizeThreshold
             PropertyChanges {
                 target: rootFocusScope
                 textOpacity: 0

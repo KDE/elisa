@@ -181,9 +181,6 @@ RowLayout {
         model: pageModel
 
         Layout.fillHeight: true
-        Layout.maximumWidth: mainWindow.width * 0.14
-
-        maximumSize: mainWindow.width * 0.14
 
         Behavior on Layout.maximumWidth {
             NumberAnimation {

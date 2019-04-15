@@ -112,7 +112,7 @@ Item {
         text: "Albums"
     }
 
-    property int viewSelectorSmallSizeThreshold: 3 * layoutHorizontalMargin + viewSelectorDelegateHeight + bigTextSize.width
+    property int viewSelectorSmallSizeThreshold: 800
 
     Label {
         id: fontSize

@@ -230,6 +230,7 @@ FocusScope {
                     id: mainLabel
                     text: title
                     Layout.alignment: Qt.AlignLeft
+                    Layout.fillWidth: true
                     elide: Text.ElideRight
                     color: myPalette.highlightedText
                     font.pointSize: elisaTheme.defaultFontPointSize * 2.5
@@ -252,6 +253,7 @@ FocusScope {
                     id: authorLabel
                     text: artist
                     Layout.alignment: Qt.AlignLeft
+                    Layout.fillWidth: true
                     elide: Text.ElideRight
                     color: myPalette.highlightedText
                     font.pointSize: elisaTheme.defaultFontPointSize * 1.5
@@ -280,6 +282,7 @@ FocusScope {
                     id: albumLabel
                     text: album
                     Layout.alignment: Qt.AlignLeft
+                    Layout.fillWidth: true
                     elide: Text.ElideRight
                     color: myPalette.highlightedText
                     font.weight: Font.Light

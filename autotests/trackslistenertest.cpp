@@ -227,7 +227,7 @@ private Q_SLOTS:
 
         QCOMPARE(trackId != 0, true);
 
-        myPlayList.replaceAndPlay({trackId, {}}, ElisaUtils::Track);
+        myPlayList.replaceAndPlay(ElisaUtils::EntryData{trackId, {}}, ElisaUtils::Track);
 
         QCOMPARE(trackHasChangedSpy.count(), 1);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);

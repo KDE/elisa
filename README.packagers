@@ -12,39 +12,40 @@ Elisa has the following dependencies:
  * Qt5Gui
  * Qt5Widgets
  * Qt5QuickTest
- * Qt5 (required version >= 5.9.0)
- * ECM (required version >= 5.32.0)
- * Qt5Core
- * Qt5CorePrivate
+ * Qt5Concurrent
+ * Qt5 (required version >= 5.10.0)
+ * Qt5QuickControls2 (required version >= 5.10.0), Qt5 Quick Controls version 2 is needed at runtime to provide the interface.
+ * KF5Kirigami2 (required version >= 5.48.0), KF5 Kirigami 2 is needed to provide the mobile UI components.
  * Gettext
- * PythonInterp
- * KF5I18n (required version >= 5.32.0), KF5 text internationalization library.
- * KF5CoreAddons (required version >= 5.32.0), Qt addon library with a collection of non-GUI utilities.
- * KF5FileMetaData (required version >= 5.32.0), Provides a simple library for extracting metadata.
- * KF5Config (required version >= 5.32.0), Persistent platform-independent application settings.
+ * KF5I18n (required version >= 5.48.0), KF5 text internationalization library.
+ * KF5CoreAddons (required version >= 5.48.0), Qt addon library with a collection of non-GUI utilities.
+ * KF5Config (required version >= 5.48.0), Persistent platform-independent application settings.
+ * ECM (required version >= 1.6.0)
+ * Qt5Core
 
 -- RECOMMENDED:
 
- * KF5Declarative (required version >= 5.32.0), Integration of QML and KDE work spaces.
- * KF5Baloo (required version >= 5.32.0), Baloo provides file searching and indexing.
- * KF5XmlGui (required version >= 5.32.0), Framework for managing menu and toolbar actions.
- * KF5ConfigWidgets (required version >= 5.32.0), Widgets for configuration dialogs.
- * KF5KCMUtils (required version >= 5.32.0), KF5 Utilities for KDE System Settings modules library.
- * KF5Package (required version >= 5.32.0), KF5 package management library needed to get the configuration dialogs.
+ * KF5Declarative (required version >= 5.48.0), Integration of QML and KDE work spaces.
+ * KF5Baloo (required version >= 5.48.0), Baloo provides file searching and indexing.
+ * KF5FileMetaData (required version >= 5.48.0), Provides a simple library for extracting metadata.
+ * KF5XmlGui (required version >= 5.48.0), Framework for managing menu and toolbar actions.
+ * KF5ConfigWidgets (required version >= 5.48.0), Widgets for configuration dialogs.
+ * KF5KCMUtils (required version >= 5.48.0), KF5 Utilities for KDE System Settings modules library.
+ * KF5Package (required version >= 5.48.0), KF5 package management library needed to get the configuration dialogs.
+ * KF5KIO (required version >= 5.48.0), File management libraries used for file browsing.
  * LIBVLC, libvlc allows to play music in Elisa, <https://www.videolan.org/vlc/libvlc.html>
 
 -- OPTIONAL:
 
- * Qt5DBus (required version >= 5.9.0), Qt5 DBus is needed to provide MPris2 interface to allow remote control by the desktop workspace.
- * KF5DocTools (required version >= 5.39.0), Create documentation from DocBook library.
- * KF5Crash (required version >= 5.32.0), Graceful handling of application crashes.
- * KF5DBusAddons (required version >= 5.32.0), Convenience classes for D-Bus.
- * UPNPQT, UPNP layer build with Qt 5., <https://gitlab.com/homeautomationqt/upnp-player-qt>
+ * Qt5DBus (required version >= 5.10.0), Qt5 DBus is needed to provide MPris2 interface to allow remote control by the desktop workspace.
+ * KF5DocTools (required version >= 5.48.0), Create documentation from DocBook library.
+ * KF5Crash (required version >= 5.48.0), Graceful handling of application crashes.
+ * KF5DBusAddons (required version >= 5.48.0), Convenience classes for D-Bus.
+ * PkgConfig
 
 -- RUNTIME:
 
  * Qt5QuickWidgets (required version >= 5.9.0), Qt5 Quick Widgets is needed at runtime to provide the interface.
- * Qt5QuickControls2 (required version >= 5.9.0), Qt5 Quick Controls version 2 is needed at runtime to provide the interface.
  * Qt.labs.platform, Qt.labs module with some qml components wrapping platform APIs
  * qml-module-qtqml-models2 (required version >= 5.9.0), qml Qt module
  * qml-module-org-kde-kcm (required version >= 5.32.0), qml module from KF5 KDeclarative framework

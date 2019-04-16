@@ -41,7 +41,7 @@
 
 #include <algorithm>
 
-#if !defined Q_OS_FREEBSD
+#if !defined Q_OS_FREEBSD && !defined Q_OS_MACOS
 #include <filesystem>
 #endif
 
@@ -389,7 +389,7 @@ private Q_SLOTS:
         QCOMPARE(newTracks.count(), 1);
         QCOMPARE(newCovers.count(), 1);
 
-#if defined Q_OS_FREEBSD
+#if defined Q_OS_FREEBSD || defined Q_OS_MACOS
         QString commandLine(QStringLiteral("mv ") + musicPath + QStringLiteral(" ") + musicFriendPath);
         system(commandLine.toLatin1().data());
 #else

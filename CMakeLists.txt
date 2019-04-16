@@ -49,15 +49,9 @@ endif()
 
 find_package(KF5Kirigami2 ${REQUIRED_KF5_VERSION} CONFIG QUIET)
 
-if (ANDROID)
-    set(KIRIGAMI_DEPENDENCY_TYPE REQUIRED)
-else()
-    set(KIRIGAMI_DEPENDENCY_TYPE RECOMMENDED)
-endif()
-
 set_package_properties(KF5Kirigami2 PROPERTIES
     DESCRIPTION "KF5 Kirigami 2 is needed to provide the mobile UI components."
-    TYPE ${KIRIGAMI_DEPENDENCY_TYPE})
+    TYPE REQUIRED)
 
 find_package(KF5I18n ${REQUIRED_KF5_VERSION} CONFIG QUIET)
 set_package_properties(KF5I18n PROPERTIES

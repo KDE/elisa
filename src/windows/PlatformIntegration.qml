@@ -27,6 +27,7 @@ Item {
     property var player
     property var headerBarManager
     property var manageMediaPlayerControl
+    property alias showProgressOnTaskBar: progressBar.active
 
     signal raisePlayer()
 
@@ -34,14 +35,24 @@ Item {
         id: elisaTheme
     }
 
-    TaskbarButton {
-        progress.minimum: 0
-        progress.maximum: player.duration
-        progress.value: player.position
-        progress.visible: manageMediaPlayerControl.musicPlaying
+    Loader {
+        id: progressBar
 
-        overlay.iconSource: (manageMediaPlayerControl.musicPlaying ?
-                                 Qt.resolvedUrl(elisaTheme.playingIndicatorIcon) : Qt.resolvedUrl(elisaTheme.pausedIndicatorIcon))
+        sourceComponent: taskBarComponent
+    }
+
+    Component {
+        id:taskBarComponent
+
+        TaskbarButton {
+            progress.minimum: 0
+            progress.maximum: player.duration
+            progress.value: player.position
+            progress.visible: manageMediaPlayerControl.musicPlaying
+
+            overlay.iconSource: (manageMediaPlayerControl.musicPlaying ?
+                                     Qt.resolvedUrl(elisaTheme.playingIndicatorIcon) : Qt.resolvedUrl(elisaTheme.pausedIndicatorIcon))
+        }
     }
 
     ThumbnailToolBar {

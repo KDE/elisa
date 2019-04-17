@@ -38,12 +38,14 @@ static const double MAX_RATE = 1.0;
 static const double MIN_RATE = 1.0;
 
 MediaPlayer2Player::MediaPlayer2Player(MediaPlayList *playListControler, ManageAudioPlayer *manageAudioPlayer,
-                                       ManageMediaPlayerControl *manageMediaPlayerControl, ManageHeaderBar *manageHeaderBar, AudioWrapper *audioPlayer, QObject* parent)
+                                       ManageMediaPlayerControl *manageMediaPlayerControl, ManageHeaderBar *manageHeaderBar,
+                                       AudioWrapper *audioPlayer, bool showProgressOnTaskBar, QObject* parent)
     : QDBusAbstractAdaptor(parent), m_playListControler(playListControler), m_manageAudioPlayer(manageAudioPlayer),
       m_manageMediaPlayerControl(manageMediaPlayerControl), m_manageHeaderBar(manageHeaderBar), m_audioPlayer(audioPlayer),
       mProgressIndicatorSignal(QDBusMessage::createSignal(QStringLiteral("/org/kde/elisa"),
                                                           QStringLiteral("com.canonical.Unity.LauncherEntry"),
-                                                          QStringLiteral("Update")))
+                                                          QStringLiteral("Update"))),
+      mShowProgressOnTaskBar(showProgressOnTaskBar)
 {
     if (!m_playListControler) {
         return;
@@ -95,19 +97,21 @@ QString MediaPlayer2Player::PlaybackStatus() const
         result = QStringLiteral("Paused");
     }
 
-    QVariantMap parameters;
+    if (mShowProgressOnTaskBar) {
+        QVariantMap parameters;
 
-    if (m_manageAudioPlayer->playerPlaybackState() == QMediaPlayer::StoppedState || m_audioPlayer->duration() == 0) {
-        parameters.insert(QStringLiteral("progress-visible"), false);
-        parameters.insert(QStringLiteral("progress"), 0);
-    } else {
-        parameters.insert(QStringLiteral("progress-visible"), true);
-        parameters.insert(QStringLiteral("progress"), qRound(static_cast<double>(m_position / m_audioPlayer->duration())) / 1000.0);
+        if (m_manageAudioPlayer->playerPlaybackState() == QMediaPlayer::StoppedState || m_audioPlayer->duration() == 0) {
+            parameters.insert(QStringLiteral("progress-visible"), false);
+            parameters.insert(QStringLiteral("progress"), 0);
+        } else {
+            parameters.insert(QStringLiteral("progress-visible"), true);
+            parameters.insert(QStringLiteral("progress"), qRound(static_cast<double>(m_position / m_audioPlayer->duration())) / 1000.0);
+        }
+
+        mProgressIndicatorSignal.setArguments({QStringLiteral("application://org.kde.elisa.desktop"), parameters});
+
+        QDBusConnection::sessionBus().send(mProgressIndicatorSignal);
     }
-
-    mProgressIndicatorSignal.setArguments({QStringLiteral("application://org.kde.elisa.desktop"), parameters});
-
-    QDBusConnection::sessionBus().send(mProgressIndicatorSignal);
 
     return result;
 }
@@ -217,7 +221,7 @@ void MediaPlayer2Player::setPropertyPosition(int newPositionInMs)
      * to limit DBus traffic
      */
     const auto incrementalProgress = static_cast<double>(newPositionInMs - mPreviousProgressPosition) / m_audioPlayer->duration();
-    if (incrementalProgress > 0.01 || incrementalProgress < 0)
+    if (mShowProgressOnTaskBar && (incrementalProgress > 0.01 || incrementalProgress < 0))
     {
         mPreviousProgressPosition = newPositionInMs;
         QVariantMap parameters;
@@ -420,6 +424,30 @@ int MediaPlayer2Player::mediaPlayerPresent() const
     return m_mediaPlayerPresent;
 }
 
+bool MediaPlayer2Player::showProgressOnTaskBar() const
+{
+    return mShowProgressOnTaskBar;
+}
+
+void MediaPlayer2Player::setShowProgressOnTaskBar(bool value)
+{
+    mShowProgressOnTaskBar = value;
+
+    QVariantMap parameters;
+
+    if (!mShowProgressOnTaskBar || m_manageAudioPlayer->playerPlaybackState() == QMediaPlayer::StoppedState || m_audioPlayer->duration() == 0) {
+        parameters.insert(QStringLiteral("progress-visible"), false);
+        parameters.insert(QStringLiteral("progress"), 0);
+    } else {
+        parameters.insert(QStringLiteral("progress-visible"), true);
+        parameters.insert(QStringLiteral("progress"), qRound(static_cast<double>(m_position / m_audioPlayer->duration())) / 1000.0);
+    }
+
+    mProgressIndicatorSignal.setArguments({QStringLiteral("application://org.kde.elisa.desktop"), parameters});
+
+    QDBusConnection::sessionBus().send(mProgressIndicatorSignal);
+}
+
 void MediaPlayer2Player::setMediaPlayerPresent(int status)
 {
     if (m_mediaPlayerPresent != status) {
@@ -443,7 +471,7 @@ void MediaPlayer2Player::signalPropertiesChange(const QString &property, const Q
     properties[property] = value;
     const int ifaceIndex = metaObject()->indexOfClassInfo("D-Bus Interface");
     QDBusMessage msg = QDBusMessage::createSignal(QStringLiteral("/org/mpris/MediaPlayer2"),
-        QStringLiteral("org.freedesktop.DBus.Properties"), QStringLiteral("PropertiesChanged"));
+                                                  QStringLiteral("org.freedesktop.DBus.Properties"), QStringLiteral("PropertiesChanged"));
 
     msg << QLatin1String(metaObject()->classInfo(ifaceIndex).value());
     msg << properties;

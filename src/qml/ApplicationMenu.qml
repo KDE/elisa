@@ -63,6 +63,12 @@ Menu {
         }
     }
 
+    MenuItem {
+        text: mainWindow.showProgressOnTaskBar ? i18nc("Do not show progress on task bar menu entry in the elisa menu", "Do Not Show Progress on Task Bar Entries") :
+                                                 i18nc("Show Progress on Task Bar Entries entry in the elisa menu", "Show Progress on Task Bar Entries")
+        onTriggered: mainWindow.showProgressOnTaskBar = !mainWindow.showProgressOnTaskBar
+    }
+
     MenuSeparator {
         visible: reportBugAction.text !== ""
     }

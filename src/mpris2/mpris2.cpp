@@ -57,7 +57,7 @@ void Mpris2::initDBusService()
 
     if (success) {
         m_mp2 = std::make_unique<MediaPlayer2>(this);
-        m_mp2p = std::make_unique<MediaPlayer2Player>(m_playListModel, m_manageAudioPlayer, m_manageMediaPlayerControl, m_manageHeaderBar, m_audioPlayer, this);
+        m_mp2p = std::make_unique<MediaPlayer2Player>(m_playListModel, m_manageAudioPlayer, m_manageMediaPlayerControl, m_manageHeaderBar, m_audioPlayer, mShowProgressOnTaskBar, this);
 
         QDBusConnection::sessionBus().registerObject(QStringLiteral("/org/mpris/MediaPlayer2"), this, QDBusConnection::ExportAdaptors);
 
@@ -96,6 +96,11 @@ ManageHeaderBar *Mpris2::headerBarManager() const
 AudioWrapper *Mpris2::audioPlayer() const
 {
     return m_audioPlayer;
+}
+
+bool Mpris2::showProgressOnTaskBar() const
+{
+    return mShowProgressOnTaskBar;
 }
 
 void Mpris2::setPlayerName(const QString &playerName)
@@ -196,6 +201,13 @@ void Mpris2::setAudioPlayer(AudioWrapper *audioPlayer)
     }
 
     emit audioPlayerChanged();
+}
+
+void Mpris2::setShowProgressOnTaskBar(bool value)
+{
+    m_mp2p->setShowProgressOnTaskBar(value);
+    mShowProgressOnTaskBar = value;
+    Q_EMIT showProgressOnTaskBarChanged();
 }
 
 #include "moc_mpris2.cpp"

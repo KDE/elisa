@@ -61,6 +61,7 @@ public:
                                 ManageMediaPlayerControl* manageMediaPlayerControl,
                                 ManageHeaderBar * manageHeaderBar,
                                 AudioWrapper *audioPlayer,
+                                bool showProgressOnTaskBar,
                                 QObject* parent = nullptr);
     ~MediaPlayer2Player() override;
 
@@ -79,6 +80,9 @@ public:
     bool CanControl() const;
     int currentTrack() const;
     int mediaPlayerPresent() const;
+
+    bool showProgressOnTaskBar() const;
+    void setShowProgressOnTaskBar(bool value);
 
 Q_SIGNALS:
     void Seeked(qlonglong Position);
@@ -162,6 +166,7 @@ private:
     AudioWrapper *m_audioPlayer = nullptr;
     mutable QDBusMessage mProgressIndicatorSignal;
     int mPreviousProgressPosition = 0;
+    bool mShowProgressOnTaskBar = true;
 };
 
 #endif // MEDIAPLAYER2PLAYER_H

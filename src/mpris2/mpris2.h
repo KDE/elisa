@@ -70,6 +70,11 @@ class ELISALIB_EXPORT Mpris2 : public QObject
                WRITE setAudioPlayer
                NOTIFY audioPlayerChanged)
 
+    Q_PROPERTY(bool showProgressOnTaskBar
+               READ showProgressOnTaskBar
+               WRITE setShowProgressOnTaskBar
+               NOTIFY showProgressOnTaskBarChanged)
+
 public:
     explicit Mpris2(QObject* parent = nullptr);
     ~Mpris2() override;
@@ -86,6 +91,8 @@ public:
 
     AudioWrapper* audioPlayer() const;
 
+    bool showProgressOnTaskBar() const;
+
 public Q_SLOTS:
 
     void setPlayerName(const QString &playerName);
@@ -99,6 +106,8 @@ public Q_SLOTS:
     void setHeaderBarManager(ManageHeaderBar* headerBarManager);
 
     void setAudioPlayer(AudioWrapper* audioPlayer);
+
+    void setShowProgressOnTaskBar(bool value);
 
 Q_SIGNALS:
     void raisePlayer();
@@ -115,6 +124,8 @@ Q_SIGNALS:
 
     void audioPlayerChanged();
 
+    void showProgressOnTaskBarChanged();
+
 private:
 
     void initDBusService();
@@ -127,6 +138,7 @@ private:
     ManageMediaPlayerControl* m_manageMediaPlayerControl = nullptr;
     ManageHeaderBar* m_manageHeaderBar = nullptr;
     AudioWrapper* m_audioPlayer = nullptr;
+    bool mShowProgressOnTaskBar = true;
 };
 
 #endif //MEDIACENTER_MPRIS2_H

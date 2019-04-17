@@ -38,6 +38,8 @@ ApplicationWindow {
     width: persistentSettings.width
     height: persistentSettings.height
 
+    property bool showProgressOnTaskBar: persistentSettings.showProgressOnTaskBar
+
     title: i18n("Elisa")
 
     Accessible.role: Accessible.Application
@@ -107,6 +109,8 @@ ApplicationWindow {
         property bool showPlaylist: true
 
         property bool headerBarIsMaximized: false
+
+        property bool showProgressOnTaskBar: true
     }
 
     Connections {
@@ -138,6 +142,8 @@ ApplicationWindow {
             persistentSettings.showPlaylist = contentView.showPlaylist
 
             persistentSettings.headerBarIsMaximized = headerBar.isMaximized
+
+            persistentSettings.showProgressOnTaskBar = showProgressOnTaskBar
         }
     }
 
@@ -153,6 +159,8 @@ ApplicationWindow {
             player: elisa.audioPlayer
             headerBarManager: elisa.manageHeaderBar
             manageMediaPlayerControl: elisa.playerControl
+            showProgressOnTaskBar: mainWindow.showProgressOnTaskBar
+
             onRaisePlayer: {
                 mainWindow.show()
                 mainWindow.raise()

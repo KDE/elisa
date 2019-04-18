@@ -75,8 +75,8 @@ FocusScope {
         onTriggered: replaceAndPlay(databaseId, title)
     }
 
-    Keys.onReturnPressed: enqueueToPlaylist(trackData)
-    Keys.onEnterPressed: enqueueToPlaylist(trackData)
+    Keys.onReturnPressed: enqueue(databaseId, title)
+    Keys.onEnterPressed: enqueue(databaseId, title)
 
     Loader {
         id: metadataLoader
@@ -110,7 +110,7 @@ FocusScope {
                 mediaTrack.clicked()
             }
 
-            onDoubleClicked: enqueue(trackData)
+            onDoubleClicked: enqueue(databaseId, title)
 
             RowLayout {
                 anchors.fill: parent

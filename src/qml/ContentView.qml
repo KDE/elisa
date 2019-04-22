@@ -167,7 +167,8 @@ RowLayout {
         }
 
         onPopOneView: {
-            browseStackView.pop()
+            if (browseStackView.depth > 2) {
+                browseStackView.pop() }
         }
     }
 
@@ -251,6 +252,12 @@ RowLayout {
 
 
                     visible: Layout.minimumWidth != 0
+
+                    MouseArea {
+                        anchors.fill: parent
+                        acceptedButtons: Qt.BackButton
+                        onClicked: goBack()
+                    }
 
                     Rectangle {
                         border {

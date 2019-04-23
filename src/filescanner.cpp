@@ -191,25 +191,10 @@ void FileScanner::scanProperties(const QString &localFileName, MusicAudioTrack &
         trackData.setSampleRate(sampleRateProperty->toInt());
     }
 
-<<<<<<< HEAD
-    if (genreProperty != d->mAllProperties.end()) {
-        trackData.setGenre(genreProperty->toStringList().join(QStringLiteral(", ")));
-    }
-
-    if (composerProperty != d->mAllProperties.end()) {
-        trackData.setComposer(composerProperty->toStringList().join(QStringLiteral(", ")));
-    }
-
-    if (lyricistProperty != d->mAllProperties.end()) {
-        trackData.setLyricist(lyricistProperty->toStringList().join(QStringLiteral(", ")));
-    }
-
     if (lyricsProperty != d->mAllProperties.end()) {
         trackData.setLyrics(lyricsProperty->toString());
     }
 
-=======
->>>>>>> Check for string lists and multi-values in property map
     if (trackData.artist().isEmpty()) {
         trackData.setArtist(trackData.albumArtist());
     }

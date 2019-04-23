@@ -28,8 +28,6 @@
 
 #include <memory>
 
-#include <KFileMetaData/PropertyInfo>
-
 namespace Baloo {
 
 class File;
@@ -55,8 +53,6 @@ public:
 private:
 
     std::unique_ptr<FileScannerPrivate> d;
-
-    QString checkForMultipleEntries(KFileMetaData::Property::Property property);
 
 };
 

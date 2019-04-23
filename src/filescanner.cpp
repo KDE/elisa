@@ -46,6 +46,8 @@ public:
     KFileMetaData::ExtractorCollection mAllExtractors;
 
     KFileMetaData::PropertyMap mAllProperties;
+
+    QString checkForMultipleEntries(KFileMetaData::Property::Property property);
 #endif
 
 };
@@ -113,11 +115,11 @@ void FileScanner::scanProperties(const Baloo::File &match, MusicAudioTrack &trac
 void FileScanner::scanProperties(const QString &localFileName, MusicAudioTrack &trackData)
 {
 #if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
-    auto artistString = checkForMultipleEntries(KFileMetaData::Property::Artist);
-    auto albumArtistString = checkForMultipleEntries(KFileMetaData::Property::AlbumArtist);
-    auto genreString = checkForMultipleEntries(KFileMetaData::Property::Genre);
-    auto composerString = checkForMultipleEntries(KFileMetaData::Property::Composer);
-    auto lyricistString = checkForMultipleEntries(KFileMetaData::Property::Lyricist);
+    auto artistString = d->checkForMultipleEntries(KFileMetaData::Property::Artist);
+    auto albumArtistString = d->checkForMultipleEntries(KFileMetaData::Property::AlbumArtist);
+    auto genreString = d->checkForMultipleEntries(KFileMetaData::Property::Genre);
+    auto composerString = d->checkForMultipleEntries(KFileMetaData::Property::Composer);
+    auto lyricistString = d->checkForMultipleEntries(KFileMetaData::Property::Lyricist);
 
     auto titleProperty = d->mAllProperties.find(KFileMetaData::Property::Title);
     auto durationProperty = d->mAllProperties.find(KFileMetaData::Property::Duration);
@@ -238,14 +240,15 @@ void FileScanner::scanProperties(const QString &localFileName, MusicAudioTrack &
 #endif
 }
 
-QString FileScanner::checkForMultipleEntries(KFileMetaData::Property::Property property)
+#if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
+QString FileScannerPrivate::checkForMultipleEntries(KFileMetaData::Property::Property property)
 {
-    if (d->mAllProperties.count(property) > 1)  {
-        auto propertyList = d->mAllProperties.values(property);
+    if (mAllProperties.count(property) > 1)  {
+        auto propertyList = mAllProperties.values(property);
         return QLocale().createSeparatedList(QVariant(propertyList).toStringList());
     } else {
-        auto variantResult = d->mAllProperties.find(property);
-        if (variantResult != d->mAllProperties.end()) {
+        auto variantResult = mAllProperties.find(property);
+        if (variantResult != mAllProperties.end()) {
             auto value = variantResult.value();
             if (value.type() == QVariant::List || value.type() == QVariant::StringList) {
                 return QLocale().createSeparatedList(value.toStringList());
@@ -257,3 +260,4 @@ QString FileScanner::checkForMultipleEntries(KFileMetaData::Property::Property p
         }
     }
 }
+#endif

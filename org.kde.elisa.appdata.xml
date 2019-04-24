@@ -5,12 +5,12 @@
   <project_license>LGPL-3.0</project_license>
   <name>Elisa</name>
   <name xml:lang="ar">إليسّا</name>
+  <name xml:lang="ast">Elisa</name>
   <name xml:lang="ca">Elisa</name>
   <name xml:lang="ca-valencia">Elisa</name>
   <name xml:lang="cs">Elisa</name>
   <name xml:lang="da">Elisa</name>
   <name xml:lang="de">Elisa</name>
-  <name xml:lang="el">Elisa</name>
   <name xml:lang="en-GB">Elisa</name>
   <name xml:lang="es">Elisa</name>
   <name xml:lang="fi">Elisa</name>
@@ -35,12 +35,12 @@
   <name xml:lang="zh-TW">Elisa</name>
   <summary>Simple Music Player</summary>
   <summary xml:lang="ar">مشغّل موسيقى بسيط</summary>
+  <summary xml:lang="ast">Reproductor cenciellu de música</summary>
   <summary xml:lang="ca">Reproductor de música senzill</summary>
   <summary xml:lang="ca-valencia">Reproductor de música senzill</summary>
   <summary xml:lang="cs">Jednoduchý přehrávač hudby</summary>
   <summary xml:lang="da">Simpel musikafspiller</summary>
   <summary xml:lang="de">Einfache Medienwiedergabe</summary>
-  <summary xml:lang="el">Απλή συσκευή αναπαραγωγής μουσικής</summary>
   <summary xml:lang="en-GB">Simple Music Player</summary>
   <summary xml:lang="es">Reproductor de música sencillo</summary>
   <summary xml:lang="fi">Yksinkertainen musiikkisoitin</summary>
@@ -62,16 +62,16 @@
   <summary xml:lang="uk">Простий музичний програвач</summary>
   <summary xml:lang="x-test">xxSimple Music Playerxx</summary>
   <summary xml:lang="zh-CN">简单的音乐播放器</summary>
-  <summary xml:lang="zh-TW">簡單的音樂播放器</summary>
+  <summary xml:lang="zh-TW">簡易音樂播放器</summary>
   <description>
     <p> A simple music player that should be easy to use. It does not require any configuration before one can use it. </p>
     <p xml:lang="ar">مشغّل موسيقى بسيط سهل الاستخدام. لا يحتاج منك ضبطه قبل أن تستخدمه.</p>
+    <p xml:lang="ast">Un reproductor cenciellu de música que debería ser fácil d'usar. Nun rique configuración dala enantes que puea usase.</p>
     <p xml:lang="ca">Un reproductor de música senzill que hauria de ser fàcil d'utilitzar. No requereix cap configuració abans de poder utilitzar-lo.</p>
     <p xml:lang="ca-valencia">Un reproductor de música senzill que hauria de ser fàcil d'utilitzar. No requereix cap configuració abans de poder utilitzar-lo.</p>
     <p xml:lang="cs">Jednoduchý snadno použitelný přehrávač hudby, Před použitím nevyžaduje jakékoliv nastavovaní.</p>
     <p xml:lang="da">En simpel musikafspiller der burde være let af bruge. Den kræver ikke nogen konfiguration inden den kan bruges.</p>
     <p xml:lang="de">Ein einfacher Medienspieler, der leicht zu benutzen sein sollte. Er kann ganz ohne vorherige Konfiguration verwendet werden.</p>
-    <p xml:lang="el">Μια απλή συσκευή αναπαραγωγής μουσικής, ευκολης στη χρήση. Δεν απαιτεί κάποια διαμόρφωση πριν τη χρήση της.</p>
     <p xml:lang="en-GB">A simple music player that should be easy to use. It does not require any configuration before one can use it.</p>
     <p xml:lang="es">Un sencillo reproductor de música que debería ser fácil de usar. No necesita ninguna configuración antes de poder usarlo.</p>
     <p xml:lang="fi">Yksinkertainen musiikkisoitin, jota tulisi olla helppo käyttää. Ei vaadi asettamista ennen käyttöä.</p>
@@ -93,7 +93,7 @@
     <p xml:lang="uk">Простий у користуванні музичний програвач. Не потребує налаштовування перед користуванням.</p>
     <p xml:lang="x-test">xxA simple music player that should be easy to use. It does not require any configuration before one can use it.xx</p>
     <p xml:lang="zh-CN">一个简单易用的音乐播放器，不需要任何配置就能够使用。</p>
-    <p xml:lang="zh-TW">一個應易用的簡易音樂玻放棄，在使用前不需任何設定。</p>
+    <p xml:lang="zh-TW">易用的簡易音樂播放器，使用它以前完全不須任何設定。</p>
   </description>
   <url type="homepage">https://community.kde.org/Elisa</url>
   <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?product=elisa</url>
@@ -106,9 +106,7 @@
       <caption xml:lang="ca">El reproductor de música Elisa</caption>
       <caption xml:lang="ca-valencia">El reproductor de música Elisa</caption>
       <caption xml:lang="cs">Přehrávač hudby Elisa</caption>
-      <caption xml:lang="da">Elisa-musikafspilleren</caption>
       <caption xml:lang="de">Elisa-Musikwiedergabe</caption>
-      <caption xml:lang="el">Η συσκευή αναπαραγωγής μoυσικής Elisa</caption>
       <caption xml:lang="en-GB">The Elisa music player</caption>
       <caption xml:lang="es">El reproductor de música Elisa</caption>
       <caption xml:lang="fi">Elisa-musiikkisoitin</caption>

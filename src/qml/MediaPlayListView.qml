@@ -257,6 +257,14 @@ FocusScope {
                      onHideUndoInline: undoClear.visible = false
                 }
 
+                Timer {
+                    id: autoHideUndoTimer
+
+                    interval: 7000
+
+                    onTriggered: undoClear.visible = false
+                }
+
                 id: undoClear
 
                 text: i18nc("Playlist cleared", "Playlist cleared")
@@ -266,6 +274,15 @@ FocusScope {
                 Layout.fillWidth: true
                 Layout.rightMargin: elisaTheme.layoutHorizontalMargin
                 Layout.leftMargin: elisaTheme.layoutHorizontalMargin
+
+                onVisibleChanged:
+                {
+                    if (visible) {
+                        autoHideUndoTimer.start()
+                    } else {
+                        autoHideUndoTimer.stop()
+                    }
+                }
 
                 actions: [
                     Kirigami.Action {

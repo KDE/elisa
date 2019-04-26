@@ -145,15 +145,15 @@ void FileScanner::scanProperties(const QString &localFileName, MusicAudioTrack &
         trackData.setAlbumArtist(albumArtistString);
     }
 
-    if (genreString.isEmpty()) {
+    if (!genreString.isEmpty()) {
         trackData.setGenre(genreString);
     }
 
-    if (composerString.isEmpty()) {
+    if (!composerString.isEmpty()) {
         trackData.setComposer(composerString);
     }
 
-    if (lyricistString.isEmpty()) {
+    if (!lyricistString.isEmpty()) {
         trackData.setLyricist(lyricistString);
     }
 

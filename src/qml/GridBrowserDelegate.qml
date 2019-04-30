@@ -21,6 +21,7 @@ import QtQuick.Window 2.2
 import QtQml.Models 2.1
 import QtQuick.Layouts 1.2
 import QtGraphicalEffects 1.0
+import org.kde.kirigami 2.5 as Kirigami
 
 FocusScope {
     id: gridEntry
@@ -200,10 +201,13 @@ FocusScope {
                     Loader {
                         active: isPartial
 
-                        anchors.fill: parent
+                        anchors.centerIn: parent
+                        height: Kirigami.Units.gridUnit * 5
+                        width: height
+
 
                         sourceComponent: BusyIndicator {
-                            anchors.fill: parent
+                            anchors.centerIn: parent
 
                             running: true
                         }

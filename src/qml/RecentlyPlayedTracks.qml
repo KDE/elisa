@@ -17,6 +17,7 @@
 
 import QtQuick 2.10
 import QtQuick.Controls 2.3
+import org.kde.kirigami 2.5 as Kirigami
 import org.kde.elisa 1.0
 
 FocusScope {
@@ -85,13 +86,15 @@ FocusScope {
         }
 
         Loader {
-            anchors.fill: parent
+            anchors.centerIn: parent
+            height: Kirigami.Units.gridUnit * 5
+            width: height
 
             visible: realModel.isBusy
             active: realModel.isBusy
 
             sourceComponent: BusyIndicator {
-                anchors.fill: parent
+                anchors.centerIn: parent
             }
         }
     }

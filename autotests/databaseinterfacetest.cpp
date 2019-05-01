@@ -20,6 +20,8 @@
 #include "databaseinterface.h"
 #include "musicaudiotrack.h"
 
+#include "config-upnp-qt.h"
+
 #include <QObject>
 #include <QUrl>
 #include <QString>
@@ -4842,6 +4844,41 @@ private Q_SLOTS:
         QCOMPARE(musicDbTrackModifiedSpy.count(), 0);
         QCOMPARE(musicDbDatabaseErrorSpy.count(), 0);
         QCOMPARE(musicDbCleanedDatabaseSpy.count(), 1);
+    }
+
+    void upgradeFromStableVersion()
+    {
+        auto dbTestFile = QString{QStringLiteral(LOCAL_FILE_TESTS_WORKING_PATH) + QStringLiteral("/elisaDatabase.v0.3.db")};
+        auto dbOriginFile = QString{QStringLiteral(LOCAL_FILE_TESTS_SAMPLE_FILES_PATH) + QStringLiteral("/elisaDatabase.v0.3.db")};
+        QFile::remove(dbTestFile);
+        QFile::copy(dbOriginFile, dbTestFile);
+
+        DatabaseInterface musicDb;
+
+        musicDb.init(QStringLiteral("testDb"), dbTestFile);
+
+        QSignalSpy musicDbArtistAddedSpy(&musicDb, &DatabaseInterface::artistsAdded);
+        QSignalSpy musicDbAlbumAddedSpy(&musicDb, &DatabaseInterface::albumsAdded);
+        QSignalSpy musicDbTrackAddedSpy(&musicDb, &DatabaseInterface::tracksAdded);
+        QSignalSpy musicDbArtistRemovedSpy(&musicDb, &DatabaseInterface::artistRemoved);
+        QSignalSpy musicDbAlbumRemovedSpy(&musicDb, &DatabaseInterface::albumRemoved);
+        QSignalSpy musicDbTrackRemovedSpy(&musicDb, &DatabaseInterface::trackRemoved);
+        QSignalSpy musicDbAlbumModifiedSpy(&musicDb, &DatabaseInterface::albumModified);
+        QSignalSpy musicDbTrackModifiedSpy(&musicDb, &DatabaseInterface::trackModified);
+        QSignalSpy musicDbDatabaseErrorSpy(&musicDb, &DatabaseInterface::databaseError);
+
+        QCOMPARE(musicDb.allAlbumsData().count(), 5);
+        QCOMPARE(musicDb.allArtistsData().count(), 7);
+        QCOMPARE(musicDb.allTracksData().count(), 22);
+        QCOMPARE(musicDbArtistAddedSpy.count(), 0);
+        QCOMPARE(musicDbAlbumAddedSpy.count(), 0);
+        QCOMPARE(musicDbTrackAddedSpy.count(), 0);
+        QCOMPARE(musicDbArtistRemovedSpy.count(), 0);
+        QCOMPARE(musicDbAlbumRemovedSpy.count(), 0);
+        QCOMPARE(musicDbTrackRemovedSpy.count(), 0);
+        QCOMPARE(musicDbAlbumModifiedSpy.count(), 0);
+        QCOMPARE(musicDbTrackModifiedSpy.count(), 0);
+        QCOMPARE(musicDbDatabaseErrorSpy.count(), 0);
     }
 };
 

@@ -1145,7 +1145,6 @@ void DatabaseInterface::initDatabase()
         listTables = d->mTracksDatabase.tables();
     }
 
-    checkDatabaseSchema();
     listTables = d->mTracksDatabase.tables();
 
     if (listTables.contains(QStringLiteral("DatabaseVersionV5")) &&
@@ -1153,6 +1152,8 @@ void DatabaseInterface::initDatabase()
         upgradeDatabaseV9();
         upgradeDatabaseV11();
         upgradeDatabaseV12();
+
+        checkDatabaseSchema();
     } else if (listTables.contains(QStringLiteral("DatabaseVersionV9"))) {
         if (!listTables.contains(QStringLiteral("DatabaseVersionV11"))) {
             upgradeDatabaseV11();
@@ -1160,6 +1161,8 @@ void DatabaseInterface::initDatabase()
         if (!listTables.contains(QStringLiteral("DatabaseVersionV12"))) {
             upgradeDatabaseV12();
         }
+
+        checkDatabaseSchema();
     } else {
         createDatabaseV9();
         upgradeDatabaseV11();
@@ -1485,7 +1488,6 @@ void DatabaseInterface::upgradeDatabaseV9()
                                                                    "`ArtistName` VARCHAR(55), "
                                                                    "`AlbumPath` VARCHAR(255) NOT NULL, "
                                                                    "`CoverFileName` VARCHAR(255) NOT NULL, "
-                                                                   "`AlbumInternalID` VARCHAR(55), "
                                                                    "UNIQUE (`Title`, `ArtistName`, `AlbumPath`), "
                                                                    "CONSTRAINT fk_artists FOREIGN KEY (`ArtistName`) REFERENCES `Artists`(`Name`) "
                                                                    "ON DELETE CASCADE)"));
@@ -1505,8 +1507,7 @@ void DatabaseInterface::upgradeDatabaseV9()
                                                         "album.`Title`, "
                                                         "artist.`Name`, "
                                                         "album.`AlbumPath`, "
-                                                        "album.`CoverFileName`, "
-                                                        "album.`AlbumInternalID` "
+                                                        "album.`CoverFileName` "
                                                         "FROM "
                                                         "`Albums` album, "
                                                         "`AlbumsArtists` albumArtistMapping, "

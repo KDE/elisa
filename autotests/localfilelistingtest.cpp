@@ -41,10 +41,6 @@
 
 #include <algorithm>
 
-#if !defined Q_OS_FREEBSD && !defined Q_OS_MACOS
-#include <filesystem>
-#endif
-
 class LocalFileListingTests: public QObject, public DatabaseTestData
 {
     Q_OBJECT
@@ -389,12 +385,7 @@ private Q_SLOTS:
         QCOMPARE(newTracks.count(), 1);
         QCOMPARE(newCovers.count(), 1);
 
-#if defined Q_OS_FREEBSD || defined Q_OS_MACOS
-        QString commandLine(QStringLiteral("mv ") + musicPath + QStringLiteral(" ") + musicFriendPath);
-        system(commandLine.toLatin1().data());
-#else
-        std::rename(musicPath.toStdString().c_str(), musicFriendPath.toStdString().c_str());
-#endif
+        QDir().rename(musicPath, musicFriendPath);
 
         auto removedFilesWorking = removedTracksListSpy.wait();
 

@@ -1145,7 +1145,6 @@ void DatabaseInterface::initDatabase()
         listTables = d->mTracksDatabase.tables();
     }
 
-    checkDatabaseSchema();
     listTables = d->mTracksDatabase.tables();
 
     if (listTables.contains(QStringLiteral("DatabaseVersionV5")) &&
@@ -1153,6 +1152,8 @@ void DatabaseInterface::initDatabase()
         upgradeDatabaseV9();
         upgradeDatabaseV11();
         upgradeDatabaseV12();
+
+        checkDatabaseSchema();
     } else if (listTables.contains(QStringLiteral("DatabaseVersionV9"))) {
         if (!listTables.contains(QStringLiteral("DatabaseVersionV11"))) {
             upgradeDatabaseV11();
@@ -1160,6 +1161,8 @@ void DatabaseInterface::initDatabase()
         if (!listTables.contains(QStringLiteral("DatabaseVersionV12"))) {
             upgradeDatabaseV12();
         }
+
+        checkDatabaseSchema();
     } else {
         createDatabaseV9();
         upgradeDatabaseV11();
@@ -1485,7 +1488,6 @@ void DatabaseInterface::upgradeDatabaseV9()
                                                                    "`ArtistName` VARCHAR(55), "
                                                                    "`AlbumPath` VARCHAR(255) NOT NULL, "
                                                                    "`CoverFileName` VARCHAR(255) NOT NULL, "
-                                                                   "`AlbumInternalID` VARCHAR(55), "
                                                                    "UNIQUE (`Title`, `ArtistName`, `AlbumPath`), "
                                                                    "CONSTRAINT fk_artists FOREIGN KEY (`ArtistName`) REFERENCES `Artists`(`Name`) "
                                                                    "ON DELETE CASCADE)"));
@@ -1505,8 +1507,7 @@ void DatabaseInterface::upgradeDatabaseV9()
                                                         "album.`Title`, "
                                                         "artist.`Name`, "
                                                         "album.`AlbumPath`, "
-                                                        "album.`CoverFileName`, "
-                                                        "album.`AlbumInternalID` "
+                                                        "album.`CoverFileName` "
                                                         "FROM "
                                                         "`Albums` album, "
                                                         "`AlbumsArtists` albumArtistMapping, "
@@ -2669,7 +2670,21 @@ void DatabaseInterface::initRequest()
                                                    ") as `IsSingleDiscAlbum`, "
                                                    "GROUP_CONCAT(tracks.`ArtistName`, ', ') as AllArtists, "
                                                    "MAX(tracks.`Rating`) as HighestRating, "
-                                                   "GROUP_CONCAT(genres.`Name`, ', ') as AllGenres "
+                                                   "GROUP_CONCAT(genres.`Name`, ', ') as AllGenres, "
+                                                   "( "
+                                                   "SELECT tracksCover.`FileName` "
+                                                   "FROM "
+                                                   "`Tracks` tracksCover "
+                                                   "WHERE "
+                                                   "tracksCover.`HasEmbeddedCover` = 1 AND "
+                                                   "tracksCover.`AlbumTitle` = album.`Title` AND "
+                                                   "(tracksCover.`AlbumArtistName` = album.`ArtistName` OR "
+                                                   "(tracksCover.`AlbumArtistName` IS NULL AND "
+                                                   "album.`ArtistName` IS NULL "
+                                                   ") "
+                                                   ") AND "
+                                                   "tracksCover.`AlbumPath` = album.`AlbumPath` "
+                                                   ") as EmbeddedCover "
                                                    "FROM "
                                                    "`Albums` album LEFT JOIN "
                                                    "`Tracks` tracks ON "
@@ -2738,7 +2753,21 @@ void DatabaseInterface::initRequest()
                                                   ")"
                                                   ") AND "
                                                   "tracks2.`AlbumPath` = album.`AlbumPath` "
-                                                  ") as `IsSingleDiscAlbum` "
+                                                  ") as `IsSingleDiscAlbum`, "
+                                                  "( "
+                                                  "SELECT tracksCover.`FileName` "
+                                                  "FROM "
+                                                  "`Tracks` tracksCover "
+                                                  "WHERE "
+                                                  "tracksCover.`HasEmbeddedCover` = 1 AND "
+                                                  "tracksCover.`AlbumTitle` = album.`Title` AND "
+                                                  "(tracksCover.`AlbumArtistName` = album.`ArtistName` OR "
+                                                  "(tracksCover.`AlbumArtistName` IS NULL AND "
+                                                  "album.`ArtistName` IS NULL "
+                                                  ") "
+                                                  ") AND "
+                                                  "tracksCover.`AlbumPath` = album.`AlbumPath` "
+                                                  ") as EmbeddedCover "
                                                   "FROM "
                                                   "`Albums` album, "
                                                   "`Tracks` tracks LEFT JOIN "
@@ -2748,7 +2777,7 @@ void DatabaseInterface::initRequest()
                                                   "(tracks.`AlbumArtistName` = album.`ArtistName` OR "
                                                   "(tracks.`AlbumArtistName` IS NULL AND "
                                                   "album.`ArtistName` IS NULL"
-                                                  ")"
+                                                  ") "
                                                   ") AND "
                                                   "tracks.`AlbumPath` = album.`AlbumPath` "
                                                   "GROUP BY album.`ID`, album.`Title`, album.`AlbumPath` "
@@ -2773,7 +2802,21 @@ void DatabaseInterface::initRequest()
                                                   "album.`ArtistName`, "
                                                   "GROUP_CONCAT(tracks.`ArtistName`, ', ') as AllArtists, "
                                                   "MAX(tracks.`Rating`) as HighestRating, "
-                                                  "GROUP_CONCAT(genres.`Name`, ', ') as AllGenres "
+                                                  "GROUP_CONCAT(genres.`Name`, ', ') as AllGenres, "
+                                                  "( "
+                                                  "SELECT tracksCover.`FileName` "
+                                                  "FROM "
+                                                  "`Tracks` tracksCover "
+                                                  "WHERE "
+                                                  "tracksCover.`HasEmbeddedCover` = 1 AND "
+                                                  "tracksCover.`AlbumTitle` = album.`Title` AND "
+                                                  "(tracksCover.`AlbumArtistName` = album.`ArtistName` OR "
+                                                  "(tracksCover.`AlbumArtistName` IS NULL AND "
+                                                  "album.`ArtistName` IS NULL "
+                                                  ") "
+                                                  ") AND "
+                                                  "tracksCover.`AlbumPath` = album.`AlbumPath` "
+                                                  ") as EmbeddedCover "
                                                   "FROM "
                                                   "`Albums` album, "
                                                   "`Tracks` tracks LEFT JOIN "
@@ -2820,7 +2863,21 @@ void DatabaseInterface::initRequest()
                                                   "album.`ArtistName`, "
                                                   "GROUP_CONCAT(tracks.`ArtistName`, ', ') as AllArtists, "
                                                   "MAX(tracks.`Rating`) as HighestRating, "
-                                                  "GROUP_CONCAT(genres.`Name`, ', ') as AllGenres "
+                                                  "GROUP_CONCAT(genres.`Name`, ', ') as AllGenres, "
+                                                  "( "
+                                                  "SELECT tracksCover.`FileName` "
+                                                  "FROM "
+                                                  "`Tracks` tracksCover "
+                                                  "WHERE "
+                                                  "tracksCover.`HasEmbeddedCover` = 1 AND "
+                                                  "tracksCover.`AlbumTitle` = album.`Title` AND "
+                                                  "(tracksCover.`AlbumArtistName` = album.`ArtistName` OR "
+                                                  "(tracksCover.`AlbumArtistName` IS NULL AND "
+                                                  "album.`ArtistName` IS NULL "
+                                                  ") "
+                                                  ") AND "
+                                                  "tracksCover.`AlbumPath` = album.`AlbumPath` "
+                                                  ") as EmbeddedCover "
                                                   "FROM "
                                                   "`Albums` album, "
                                                   "`Tracks` tracks LEFT JOIN "
@@ -3008,7 +3065,21 @@ void DatabaseInterface::initRequest()
                                                   "tracksMapping.`FirstPlayDate`, "
                                                   "tracksMapping.`LastPlayDate`, "
                                                   "tracksMapping.`PlayCounter`, "
-                                                  "tracksMapping.`PlayCounter` / (strftime('%s', 'now') - tracksMapping.`FirstPlayDate`) as PlayFrequency "
+                                                  "tracksMapping.`PlayCounter` / (strftime('%s', 'now') - tracksMapping.`FirstPlayDate`) as PlayFrequency, "
+                                                  "( "
+                                                  "SELECT tracksCover.`FileName` "
+                                                  "FROM "
+                                                  "`Tracks` tracksCover "
+                                                  "WHERE "
+                                                  "tracksCover.`HasEmbeddedCover` = 1 AND "
+                                                  "tracksCover.`AlbumTitle` = album.`Title` AND "
+                                                  "(tracksCover.`AlbumArtistName` = album.`ArtistName` OR "
+                                                  "(tracksCover.`AlbumArtistName` IS NULL AND "
+                                                  "album.`ArtistName` IS NULL "
+                                                  ") "
+                                                  ") AND "
+                                                  "tracksCover.`AlbumPath` = album.`AlbumPath` "
+                                                  ") as EmbeddedCover "
                                                   "FROM "
                                                   "`Tracks` tracks, "
                                                   "`TracksData` tracksMapping "
@@ -3089,7 +3160,21 @@ void DatabaseInterface::initRequest()
                                                   "tracksMapping.`FirstPlayDate`, "
                                                   "tracksMapping.`LastPlayDate`, "
                                                   "tracksMapping.`PlayCounter`, "
-                                                  "tracksMapping.`PlayCounter` / (strftime('%s', 'now') - tracksMapping.`FirstPlayDate`) as PlayFrequency "
+                                                  "tracksMapping.`PlayCounter` / (strftime('%s', 'now') - tracksMapping.`FirstPlayDate`) as PlayFrequency, "
+                                                  "( "
+                                                  "SELECT tracksCover.`FileName` "
+                                                  "FROM "
+                                                  "`Tracks` tracksCover "
+                                                  "WHERE "
+                                                  "tracksCover.`HasEmbeddedCover` = 1 AND "
+                                                  "tracksCover.`AlbumTitle` = album.`Title` AND "
+                                                  "(tracksCover.`AlbumArtistName` = album.`ArtistName` OR "
+                                                  "(tracksCover.`AlbumArtistName` IS NULL AND "
+                                                  "album.`ArtistName` IS NULL "
+                                                  ") "
+                                                  ") AND "
+                                                  "tracksCover.`AlbumPath` = album.`AlbumPath` "
+                                                  ") as EmbeddedCover "
                                                   "FROM "
                                                   "`Tracks` tracks, "
                                                   "`TracksData` tracksMapping "
@@ -3172,7 +3257,21 @@ void DatabaseInterface::initRequest()
                                                   "tracksMapping.`FirstPlayDate`, "
                                                   "tracksMapping.`LastPlayDate`, "
                                                   "tracksMapping.`PlayCounter`, "
-                                                  "CAST(tracksMapping.`PlayCounter` AS REAL) / ((CAST(strftime('%s','now') as INTEGER) - CAST(tracksMapping.`FirstPlayDate` / 1000 as INTEGER)) / CAST(1000 AS REAL)) as PlayFrequency "
+                                                  "CAST(tracksMapping.`PlayCounter` AS REAL) / ((CAST(strftime('%s','now') as INTEGER) - CAST(tracksMapping.`FirstPlayDate` / 1000 as INTEGER)) / CAST(1000 AS REAL)) as PlayFrequency, "
+                                                  "( "
+                                                  "SELECT tracksCover.`FileName` "
+                                                  "FROM "
+                                                  "`Tracks` tracksCover "
+                                                  "WHERE "
+                                                  "tracksCover.`HasEmbeddedCover` = 1 AND "
+                                                  "tracksCover.`AlbumTitle` = album.`Title` AND "
+                                                  "(tracksCover.`AlbumArtistName` = album.`ArtistName` OR "
+                                                  "(tracksCover.`AlbumArtistName` IS NULL AND "
+                                                  "album.`ArtistName` IS NULL "
+                                                  ") "
+                                                  ") AND "
+                                                  "tracksCover.`AlbumPath` = album.`AlbumPath` "
+                                                  ") as EmbeddedCover "
                                                   "FROM "
                                                   "`Tracks` tracks, "
                                                   "`TracksData` tracksMapping "
@@ -3481,7 +3580,21 @@ void DatabaseInterface::initRequest()
                                                    "tracksMapping.`FirstPlayDate`, "
                                                    "tracksMapping.`LastPlayDate`, "
                                                    "tracksMapping.`PlayCounter`, "
-                                                   "tracksMapping.`PlayCounter` / (strftime('%s', 'now') - tracksMapping.`FirstPlayDate`) as PlayFrequency "
+                                                   "tracksMapping.`PlayCounter` / (strftime('%s', 'now') - tracksMapping.`FirstPlayDate`) as PlayFrequency, "
+                                                   "( "
+                                                   "SELECT tracksCover.`FileName` "
+                                                   "FROM "
+                                                   "`Tracks` tracksCover "
+                                                   "WHERE "
+                                                   "tracksCover.`HasEmbeddedCover` = 1 AND "
+                                                   "tracksCover.`AlbumTitle` = album.`Title` AND "
+                                                   "(tracksCover.`AlbumArtistName` = album.`ArtistName` OR "
+                                                   "(tracksCover.`AlbumArtistName` IS NULL AND "
+                                                   "album.`ArtistName` IS NULL "
+                                                   ") "
+                                                   ") AND "
+                                                   "tracksCover.`AlbumPath` = album.`AlbumPath` "
+                                                   ") as EmbeddedCover "
                                                    "FROM "
                                                    "`Tracks` tracks, "
                                                    "`TracksData` tracksMapping "
@@ -3606,7 +3719,21 @@ void DatabaseInterface::initRequest()
                                                          "tracksMapping.`FirstPlayDate`, "
                                                          "tracksMapping.`LastPlayDate`, "
                                                          "tracksMapping.`PlayCounter`, "
-                                                         "tracksMapping.`PlayCounter` / (strftime('%s', 'now') - tracksMapping.`FirstPlayDate`) as PlayFrequency "
+                                                         "tracksMapping.`PlayCounter` / (strftime('%s', 'now') - tracksMapping.`FirstPlayDate`) as PlayFrequency, "
+                                                         "( "
+                                                         "SELECT tracksCover.`FileName` "
+                                                         "FROM "
+                                                         "`Tracks` tracksCover "
+                                                         "WHERE "
+                                                         "tracksCover.`HasEmbeddedCover` = 1 AND "
+                                                         "tracksCover.`AlbumTitle` = album.`Title` AND "
+                                                         "(tracksCover.`AlbumArtistName` = album.`ArtistName` OR "
+                                                         "(tracksCover.`AlbumArtistName` IS NULL AND "
+                                                         "album.`ArtistName` IS NULL "
+                                                         ") "
+                                                         ") AND "
+                                                         "tracksCover.`AlbumPath` = album.`AlbumPath` "
+                                                         ") as EmbeddedCover "
                                                          "FROM "
                                                          "`Tracks` tracks, "
                                                          "`TracksData` tracksMapping "
@@ -3956,7 +4083,21 @@ void DatabaseInterface::initRequest()
                                                                   "tracksMapping.`FirstPlayDate`, "
                                                                   "tracksMapping.`LastPlayDate`, "
                                                                   "tracksMapping.`PlayCounter`, "
-                                                                  "tracksMapping.`PlayCounter` / (strftime('%s', 'now') - tracksMapping.`FirstPlayDate`) as PlayFrequency "
+                                                                  "tracksMapping.`PlayCounter` / (strftime('%s', 'now') - tracksMapping.`FirstPlayDate`) as PlayFrequency, "
+                                                                  "( "
+                                                                  "SELECT tracksCover.`FileName` "
+                                                                  "FROM "
+                                                                  "`Tracks` tracksCover "
+                                                                  "WHERE "
+                                                                  "tracksCover.`HasEmbeddedCover` = 1 AND "
+                                                                  "tracksCover.`AlbumTitle` = album.`Title` AND "
+                                                                  "(tracksCover.`AlbumArtistName` = album.`ArtistName` OR "
+                                                                  "(tracksCover.`AlbumArtistName` IS NULL AND "
+                                                                  "album.`ArtistName` IS NULL "
+                                                                  ") "
+                                                                  ") AND "
+                                                                  "tracksCover.`AlbumPath` = album.`AlbumPath` "
+                                                                  ") as EmbeddedCover "
                                                                   "FROM "
                                                                   "`Tracks` tracks, "
                                                                   "`TracksData` tracksMapping "
@@ -4476,7 +4617,21 @@ void DatabaseInterface::initRequest()
                                                               "tracksMapping.`FirstPlayDate`, "
                                                               "tracksMapping.`LastPlayDate`, "
                                                               "tracksMapping.`PlayCounter`, "
-                                                              "tracksMapping.`PlayCounter` / (strftime('%s', 'now') - tracksMapping.`FirstPlayDate`) as PlayFrequency "
+                                                              "tracksMapping.`PlayCounter` / (strftime('%s', 'now') - tracksMapping.`FirstPlayDate`) as PlayFrequency, "
+                                                              "( "
+                                                              "SELECT tracksCover.`FileName` "
+                                                              "FROM "
+                                                              "`Tracks` tracksCover "
+                                                              "WHERE "
+                                                              "tracksCover.`HasEmbeddedCover` = 1 AND "
+                                                              "tracksCover.`AlbumTitle` = album.`Title` AND "
+                                                              "(tracksCover.`AlbumArtistName` = album.`ArtistName` OR "
+                                                              "(tracksCover.`AlbumArtistName` IS NULL AND "
+                                                              "album.`ArtistName` IS NULL "
+                                                              ") "
+                                                              ") AND "
+                                                              "tracksCover.`AlbumPath` = album.`AlbumPath` "
+                                                              ") as EmbeddedCover "
                                                               "FROM "
                                                               "`Tracks` tracks, "
                                                               "`TracksData` tracksMapping "
@@ -5091,8 +5246,13 @@ qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrac
 
     const auto &trackPath = oneTrack.resourceURI().toString(currentOptions);
 
+    auto albumCover = covers[oneTrack.resourceURI().toString()];
+    if (albumCover.isEmpty() && !covers.contains(oneTrack.resourceURI().toString())) {
+        albumCover = oneTrack.albumCover();
+    }
+
     auto albumId = insertAlbum(oneTrack.albumName(), (oneTrack.isValidAlbumArtist() ? oneTrack.albumArtist() : QString()),
-                               oneTrack.artist(), trackPath, covers[oneTrack.resourceURI().toString()]);
+                               oneTrack.artist(), trackPath, albumCover);
 
     auto oldAlbumId = albumId;
 
@@ -5373,8 +5533,10 @@ DatabaseInterface::TrackDataType DatabaseInterface::buildTrackDataFromDatabaseRe
     result[TrackDataType::key_type::DurationRole] = QTime::fromMSecsSinceStartOfDay(trackRecord.value(9).toInt());
     result[TrackDataType::key_type::MilliSecondsDurationRole] = trackRecord.value(9).toInt();
     result[TrackDataType::key_type::RatingRole] = trackRecord.value(11);
-    if (!trackRecord.value(12).isNull()) {
+    if (!trackRecord.value(12).toString().isEmpty()) {
         result[TrackDataType::key_type::ImageUrlRole] = QUrl(trackRecord.value(12).toString());
+    } else if (!trackRecord.value(28).toString().isEmpty()) {
+        result[TrackDataType::key_type::ImageUrlRole] = QVariant{QStringLiteral("image://cover/") + trackRecord.value(28).toUrl().toLocalFile()};
     }
     result[TrackDataType::key_type::IsSingleDiscAlbumRole] = trackRecord.value(13);
     if (!trackRecord.value(14).isNull()) {
@@ -6236,7 +6398,11 @@ DatabaseInterface::ListAlbumDataType DatabaseInterface::internalAllAlbumsPartial
         newData[DataType::key_type::DatabaseIdRole] = currentRecord.value(0);
         newData[DataType::key_type::TitleRole] = currentRecord.value(1);
         newData[DataType::key_type::SecondaryTextRole] = currentRecord.value(2);
-        newData[DataType::key_type::ImageUrlRole] = currentRecord.value(3);
+        if (!currentRecord.value(3).toString().isEmpty()) {
+            newData[DataType::key_type::ImageUrlRole] = currentRecord.value(3);
+        } else if (!currentRecord.value(9).toString().isEmpty()) {
+            newData[DataType::key_type::ImageUrlRole] = QVariant{QStringLiteral("image://cover/") + currentRecord.value(9).toUrl().toLocalFile()};
+        }
         newData[DataType::key_type::ArtistRole] = currentRecord.value(4);
         newData[DataType::key_type::AllArtistsRole] = QVariant::fromValue(currentRecord.value(5).toString().split(QStringLiteral(", ")));
         newData[DataType::key_type::HighestTrackRating] = currentRecord.value(6);
@@ -6268,7 +6434,11 @@ DatabaseInterface::AlbumDataType DatabaseInterface::internalOneAlbumPartialData(
         result[DataType::key_type::DatabaseIdRole] = currentRecord.value(0);
         result[DataType::key_type::TitleRole] = currentRecord.value(1);
         result[DataType::key_type::SecondaryTextRole] = currentRecord.value(2);
-        result[DataType::key_type::ImageUrlRole] = currentRecord.value(4);
+        if (!currentRecord.value(4).toString().isEmpty()) {
+            result[DataType::key_type::ImageUrlRole] = currentRecord.value(4);
+        } else if (!currentRecord.value(10).toString().isEmpty()) {
+            result[DataType::key_type::ImageUrlRole] = QVariant{QStringLiteral("image://cover/") + currentRecord.value(10).toUrl().toLocalFile()};
+        }
         result[DataType::key_type::ArtistRole] = currentRecord.value(2);
         result[DataType::key_type::AllArtistsRole] = QVariant::fromValue(currentRecord.value(7).toString().split(QStringLiteral(", ")));
         result[DataType::key_type::HighestTrackRating] = currentRecord.value(8);

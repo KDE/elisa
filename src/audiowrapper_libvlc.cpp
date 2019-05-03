@@ -106,7 +106,7 @@ AudioWrapper::AudioWrapper(QObject *parent) : QObject(parent), d(std::make_uniqu
     d->mParent = this;
     d->mInstance = libvlc_new(0, nullptr);
     libvlc_set_user_agent(d->mInstance, "elisa", "Elisa Music Player");
-    libvlc_set_app_id(d->mInstance, "org.kde.elisa", "0.3.80", "elisa");
+    libvlc_set_app_id(d->mInstance, "org.kde.elisa", "0.4.80", "elisa");
 
     d->mPlayer = libvlc_media_player_new(d->mInstance);
 

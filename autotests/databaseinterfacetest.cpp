@@ -4850,6 +4850,7 @@ private Q_SLOTS:
     {
         auto dbTestFile = QString{QStringLiteral(LOCAL_FILE_TESTS_WORKING_PATH) + QStringLiteral("/elisaDatabase.v0.3.db")};
         auto dbOriginFile = QString{QStringLiteral(LOCAL_FILE_TESTS_SAMPLE_FILES_PATH) + QStringLiteral("/elisaDatabase.v0.3.db")};
+        QVERIFY(QDir().mkpath(QStringLiteral(LOCAL_FILE_TESTS_WORKING_PATH)));
         QFile::remove(dbTestFile);
         QFile::copy(dbOriginFile, dbTestFile);
 

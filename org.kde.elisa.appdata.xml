@@ -138,11 +138,11 @@
   </provides>
   <project_group>KDE</project_group>
   <releases>
+    <release version="0.3.80" date="2019-05-04"/>
     <release version="0.3.0" date="2018-09-29"/>
     <release version="0.2.1" date="2018-07-10"/>
     <release version="0.2.0" date="2018-07-01"/>
     <release version="0.1.1" date="2018-04-16"/>
     <release version="0.1.0" date="2018-04-06"/>
-    <release version="0.3.80" date="2019-05-04"/>
   </releases>
 </component>

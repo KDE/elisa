@@ -393,11 +393,19 @@ QVariantMap MediaPlayer2Player::getMetadataOfCurrentTrack()
     result[QStringLiteral("mpris:trackid")] = QVariant::fromValue<QDBusObjectPath>(QDBusObjectPath(m_currentTrackId));
     result[QStringLiteral("mpris:length")] = qlonglong(m_manageAudioPlayer->audioDuration()) * 1000;
     //convert milli-seconds into micro-seconds
-    result[QStringLiteral("xesam:title")] = m_manageHeaderBar->title();
+    if (!m_manageHeaderBar->title().isNull() && !m_manageHeaderBar->title().toString().isEmpty()) {
+        result[QStringLiteral("xesam:title")] = m_manageHeaderBar->title();
+    }
     result[QStringLiteral("xesam:url")] = m_manageAudioPlayer->playerSource().toString();
-    result[QStringLiteral("xesam:album")] = m_manageHeaderBar->album();
-    result[QStringLiteral("xesam:artist")] = QStringList{m_manageHeaderBar->artist().toString()};
-    result[QStringLiteral("mpris:artUrl")] = m_manageHeaderBar->image().toString();
+    if (!m_manageHeaderBar->album().isNull() && !m_manageHeaderBar->album().toString().isEmpty()) {
+        result[QStringLiteral("xesam:album")] = m_manageHeaderBar->album();
+    }
+    if (!m_manageHeaderBar->artist().isNull() && !m_manageHeaderBar->artist().toString().isEmpty()) {
+        result[QStringLiteral("xesam:artist")] = QStringList{m_manageHeaderBar->artist().toString()};
+    }
+    if (!m_manageHeaderBar->image().isEmpty() && !m_manageHeaderBar->image().toString().isEmpty()) {
+        result[QStringLiteral("mpris:artUrl")] = m_manageHeaderBar->image().toString();
+    }
 
     return result;
 }

@@ -25,6 +25,8 @@ Label {
 
     horizontalAlignment: Text.AlignLeft
 
+    elide: Text.ElideRight
+
     Loader {
         anchors.fill: parent
 

@@ -361,7 +361,8 @@ RowLayout {
                     id: playList
 
                     Layout.fillHeight: true
-                    Layout.leftMargin: elisaTheme.layoutHorizontalMargin
+                    Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+                    Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
 
                     Layout.minimumWidth: contentZone.width
                     Layout.maximumWidth: contentZone.width
@@ -416,7 +417,8 @@ RowLayout {
                     Layout.minimumWidth: 0
                     Layout.maximumWidth: 0
                     Layout.preferredWidth: 0
-                    Layout.leftMargin: elisaTheme.layoutHorizontalMargin * 1.5
+                    Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin * 1.5 : 0
+                    Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin * 1.5 : 0
 
                     visible: Layout.minimumWidth != 0
                 }

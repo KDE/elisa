@@ -216,27 +216,16 @@ FocusScope {
 
                 Layout.fillWidth: true
 
-                TextMetrics {
-                    id: titleFontInfo
-                    font
-                    {
-                        bold: albumLabel.font.bold
-                        pointSize: albumLabel.font.pointSize
-                    }
-                    text: albumLabel.text
-                }
-
                 LabelWithToolTip {
                     id: mainLabel
                     text: title
                     Layout.alignment: Qt.AlignLeft
-                    Layout.fillWidth: true
                     elide: Text.ElideRight
                     color: myPalette.highlightedText
-                    font.pointSize: elisaTheme.defaultFontPointSize * 2.5
+                    font.pointSize: Math.round(elisaTheme.defaultFontPointSize * 2.5)
                     font.bold: true
 
-                    Layout.bottomMargin: titleFontInfo.height * 0.5
+                    Layout.bottomMargin: albumLabel.height * 0.5
 
                     MouseArea {
                         id: titleMouseArea
@@ -253,10 +242,9 @@ FocusScope {
                     id: authorLabel
                     text: artist
                     Layout.alignment: Qt.AlignLeft
-                    Layout.fillWidth: true
                     elide: Text.ElideRight
                     color: myPalette.highlightedText
-                    font.pointSize: elisaTheme.defaultFontPointSize * 1.5
+                    font.pointSize: Math.round(elisaTheme.defaultFontPointSize * 1.5)
 
                     MouseArea {
                         id: authorMouseArea
@@ -282,11 +270,10 @@ FocusScope {
                     id: albumLabel
                     text: album
                     Layout.alignment: Qt.AlignLeft
-                    Layout.fillWidth: true
                     elide: Text.ElideRight
                     color: myPalette.highlightedText
                     font.weight: Font.Light
-                    font.pointSize: elisaTheme.defaultFontPointSize * 1
+                    font.pointSize: elisaTheme.defaultFontPointSize
 
                     layer.effect: Glow {
                         cached: true

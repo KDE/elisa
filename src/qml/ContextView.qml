@@ -73,14 +73,12 @@ FocusScope {
             Layout.fillWidth: true
             Layout.maximumHeight: elisaTheme.contextCoverImageSize
             Layout.preferredHeight: elisaTheme.contextCoverImageSize
+            Layout.maximumWidth: topItem.width
 
             Layout.bottomMargin: elisaTheme.layoutVerticalMargin
 
-            width: elisaTheme.contextCoverImageSize
-            height: elisaTheme.contextCoverImageSize
-
-            sourceSize.width: parent.width
-            sourceSize.height: elisaTheme.contextCoverImageSize
+            sourceSize.width: topItem.width
+            sourceSize.height: topItem.width
 
             asynchronous: true
 
@@ -95,8 +93,8 @@ FocusScope {
 
             Layout.alignment: Qt.AlignLeft | Qt.AlignTop
             Layout.topMargin: elisaTheme.layoutVerticalMargin
-
-            elide: Text.ElideRight
+            Layout.fillWidth: true
+            Layout.maximumWidth: topItem.width
         }
 
         LabelWithToolTip {
@@ -110,8 +108,8 @@ FocusScope {
 
             Layout.alignment: Qt.AlignLeft | Qt.AlignTop
             Layout.bottomMargin: elisaTheme.layoutVerticalMargin
-
-            elide: Text.ElideRight
+            Layout.fillWidth: true
+            Layout.maximumWidth: topItem.width
         }
 
         LabelWithToolTip {
@@ -125,8 +123,8 @@ FocusScope {
 
             Layout.alignment: Qt.AlignLeft | Qt.AlignTop
             Layout.bottomMargin: elisaTheme.layoutVerticalMargin
-
-            elide: Text.ElideRight
+            Layout.fillWidth: true
+            Layout.maximumWidth: topItem.width
         }
 
         LabelWithToolTip {
@@ -140,8 +138,8 @@ FocusScope {
 
             Layout.alignment: Qt.AlignLeft | Qt.AlignTop
             Layout.bottomMargin: elisaTheme.layoutVerticalMargin
-
-            elide: Text.ElideRight
+            Layout.fillWidth: true
+            Layout.maximumWidth: topItem.width
         }
 
         Flickable {
@@ -190,10 +188,11 @@ FocusScope {
             }
         }
 
-        Row {
+        RowLayout {
             Layout.alignment: Qt.AlignLeft | Qt.AlignBottom
             Layout.topMargin: elisaTheme.layoutVerticalMargin
             Layout.bottomMargin: elisaTheme.layoutVerticalMargin
+            Layout.maximumWidth: topItem.width
 
             spacing: elisaTheme.layoutHorizontalMargin
 
@@ -207,9 +206,11 @@ FocusScope {
             LabelWithToolTip {
                 id: fileNameLabel
 
+                Layout.fillWidth: true
+
                 text: fileUrl
 
-                elide: Text.ElideRight
+                elide: Text.ElideLeft
             }
         }
     }

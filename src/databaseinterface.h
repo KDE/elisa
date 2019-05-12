@@ -451,7 +451,8 @@ private:
                                                            int trackNumber, int discNumber);
 
     qulonglong getDuplicateTrackIdFromTitleAlbumTrackDiscNumber(const QString &title, const QString &trackArtist, const QString &album,
-                                                                const QString &albumArtist, const QString &trackPath, int priority);
+                                                                const QString &albumArtist, const QString &trackPath, int trackNumber,
+                                                                int discNumber, int priority);
 
     qulonglong internalTrackIdFromFileName(const QUrl &fileName);
 
@@ -552,6 +553,8 @@ private:
     void upgradeDatabaseV11();
 
     void upgradeDatabaseV12();
+
+    void upgradeDatabaseV13();
 
     void checkDatabaseSchema();
 

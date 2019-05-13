@@ -101,7 +101,8 @@ FocusScope {
             hoverEnabled: true
             acceptedButtons: Qt.LeftButton
 
-            Layout.preferredHeight: fileDelegate.width * 0.85 + elisaTheme.layoutVerticalMargin * 0.5 + mainLabelSize.height
+            Layout.preferredHeight: fileDelegate.width * 0.85 + elisaTheme.layoutVerticalMargin * 0.5 +
+                                    (mainLabelSize.boundingRect.height - mainLabelSize.boundingRect.y)
             Layout.fillWidth: true
 
             onClicked: fileDelegate.selected()
@@ -195,7 +196,7 @@ FocusScope {
 
                     Layout.topMargin: elisaTheme.layoutVerticalMargin * 0.5
                     Layout.preferredWidth: fileDelegate.width * 0.85
-                    Layout.maximumHeight: mainLabelSize.height * 2
+                    Layout.maximumHeight: (mainLabelSize.boundingRect.height - mainLabelSize.boundingRect.y) * 2
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
 
                     text: fileName

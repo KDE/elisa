@@ -103,16 +103,6 @@ FocusScope {
         anchors.fill: parent
         spacing: 0
 
-        TextMetrics {
-            id: titleHeight
-            text: viewTitleHeight.text
-            font
-            {
-                pointSize: viewTitleHeight.font.pointSize
-                bold: viewTitleHeight.font.bold
-            }
-        }
-
         LabelWithToolTip {
             id: viewTitleHeight
             text: i18nc("Title of the view of the playlist", "Playlist")

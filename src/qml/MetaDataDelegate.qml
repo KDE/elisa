@@ -25,7 +25,8 @@ RowLayout {
     id: delegateRow
     spacing: 0
 
-    height: (model.type === TrackMetadataModel.LongTextEntry ? longTextDisplayLoader.height : metaDataLabelMetric.height) + (elisaTheme.layoutVerticalMargin / 2)
+    height: (model.type === TrackMetadataModel.LongTextEntry ? longTextDisplayLoader.height : (metaDataLabelMetric.boundingRect.height - metaDataLabelMetric.boundingRect.y)) +
+            (elisaTheme.layoutVerticalMargin / 2)
 
     TextMetrics {
         id: metaDataLabelMetric

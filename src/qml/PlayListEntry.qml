@@ -178,9 +178,9 @@ FocusScope {
 
                         visible: isValid && (!hasValidDiscNumber || isSingleDiscAlbum)
 
-                        Layout.preferredWidth: fakeDiscNumberSize.width + (elisaTheme.layoutHorizontalMargin / 4)
-                        Layout.minimumWidth: fakeDiscNumberSize.width + (elisaTheme.layoutHorizontalMargin / 4)
-                        Layout.maximumWidth: fakeDiscNumberSize.width + (elisaTheme.layoutHorizontalMargin / 4)
+                        Layout.preferredWidth: (fakeDiscNumberSize.boundingRect.width - fakeDiscNumberSize.boundingRect.x) + (elisaTheme.layoutHorizontalMargin / 4)
+                        Layout.minimumWidth: (fakeDiscNumberSize.boundingRect.width - fakeDiscNumberSize.boundingRect.x) + (elisaTheme.layoutHorizontalMargin / 4)
+                        Layout.maximumWidth: (fakeDiscNumberSize.boundingRect.width - fakeDiscNumberSize.boundingRect.x) + (elisaTheme.layoutHorizontalMargin / 4)
 
                         TextMetrics {
                             id: fakeDiscNumberSize
@@ -203,9 +203,9 @@ FocusScope {
 
                         visible: isValid
 
-                        Layout.preferredWidth: (trackNumberSize.width > realTrackNumberSize.width ? trackNumberSize.width : realTrackNumberSize.width)
-                        Layout.minimumWidth: (trackNumberSize.width > realTrackNumberSize.width ? trackNumberSize.width : realTrackNumberSize.width)
-                        Layout.maximumWidth: (trackNumberSize.width > realTrackNumberSize.width ? trackNumberSize.width : realTrackNumberSize.width)
+                        Layout.preferredWidth: ((trackNumberSize.boundingRect.width - trackNumberSize.boundingRect.x) > (realTrackNumberSize.boundingRect.width - realTrackNumberSize.boundingRect.x) ? (trackNumberSize.boundingRect.width - trackNumberSize.boundingRect.x) : (realTrackNumberSize.boundingRect.width - realTrackNumberSize.boundingRect.x))
+                        Layout.minimumWidth: ((trackNumberSize.boundingRect.width - trackNumberSize.boundingRect.x) > (realTrackNumberSize.boundingRect.width - realTrackNumberSize.boundingRect.x) ? (trackNumberSize.boundingRect.width - trackNumberSize.boundingRect.x) : (realTrackNumberSize.boundingRect.width - realTrackNumberSize.boundingRect.x))
+                        Layout.maximumWidth: ((trackNumberSize.boundingRect.width - trackNumberSize.boundingRect.x) > (realTrackNumberSize.boundingRect.width - realTrackNumberSize.boundingRect.x) ? (trackNumberSize.boundingRect.width - trackNumberSize.boundingRect.x) : (realTrackNumberSize.boundingRect.width - realTrackNumberSize.boundingRect.x))
 
                         Layout.rightMargin: !LayoutMirroring.enabled ? (discNumber !== 0 && !isSingleDiscAlbum ?
                                                                             0 : elisaTheme.layoutHorizontalMargin / 2) : 0
@@ -237,9 +237,9 @@ FocusScope {
 
                         Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
 
-                        Layout.preferredWidth: numberSeparatorSize.width
-                        Layout.minimumWidth: numberSeparatorSize.width
-                        Layout.maximumWidth: numberSeparatorSize.width
+                        Layout.preferredWidth: (numberSeparatorSize.boundingRect.width - numberSeparatorSize.boundingRect.x)
+                        Layout.minimumWidth: (numberSeparatorSize.boundingRect.width - numberSeparatorSize.boundingRect.x)
+                        Layout.maximumWidth: (numberSeparatorSize.boundingRect.width - numberSeparatorSize.boundingRect.x)
 
                         TextMetrics {
                             id: numberSeparatorSize
@@ -260,9 +260,15 @@ FocusScope {
 
                         Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
 
-                        Layout.preferredWidth: (discNumberSize.width > realDiscNumberSize.width ? discNumberSize.width : realDiscNumberSize.width)
-                        Layout.minimumWidth: (discNumberSize.width > realDiscNumberSize.width ? discNumberSize.width : realDiscNumberSize.width)
-                        Layout.maximumWidth: (discNumberSize.width > realDiscNumberSize.width ? discNumberSize.width : realDiscNumberSize.width)
+                        Layout.preferredWidth: ((discNumberSize.boundingRect.width - discNumberSize.boundingRect.x) > (realDiscNumberSize.boundingRect.width - realDiscNumberSize.boundingRect.x) ?
+                                                    (discNumberSize.boundingRect.width - discNumberSize.boundingRect.x) :
+                                                    (realDiscNumberSize.boundingRect.width - realDiscNumberSize.boundingRect.x))
+                        Layout.minimumWidth: ((discNumberSize.boundingRect.width - discNumberSize.boundingRect.x) > (realDiscNumberSize.boundingRect.width - realDiscNumberSize.boundingRect.x) ?
+                                                  (discNumberSize.boundingRect.width - discNumberSize.boundingRect.x) :
+                                                  (realDiscNumberSize.boundingRect.width - realDiscNumberSize.boundingRect.x))
+                        Layout.maximumWidth: ((discNumberSize.boundingRect.width - discNumberSize.boundingRect.x) > (realDiscNumberSize.boundingRect.width - realDiscNumberSize.boundingRect.x) ?
+                                                  (discNumberSize.boundingRect.width - discNumberSize.boundingRect.x) :
+                                                  (realDiscNumberSize.boundingRect.width - realDiscNumberSize.boundingRect.x))
 
                         Layout.rightMargin: !LayoutMirroring.enabled ? (elisaTheme.layoutHorizontalMargin / 2) : 0
                         Layout.leftMargin: LayoutMirroring.enabled ? (elisaTheme.layoutHorizontalMargin / 2) : 0
@@ -380,11 +386,6 @@ FocusScope {
                         visible: rating > 0
                     }
 
-                    TextMetrics {
-                        id: durationTextMetrics
-                        text: i18nc("This is used to preserve a fixed width for the duration text.", "00:00")
-                    }
-
                     LabelWithToolTip {
                         id: durationLabel
 
@@ -394,7 +395,6 @@ FocusScope {
                         color: myPalette.text
 
                         Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
-                        Layout.preferredWidth: durationTextMetrics.width + 1
                         Layout.leftMargin: elisaTheme.layoutHorizontalMargin / 2
                         Layout.rightMargin: elisaTheme.layoutHorizontalMargin / 2
 

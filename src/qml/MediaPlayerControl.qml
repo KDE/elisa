@@ -200,7 +200,7 @@ FocusScope {
             Layout.fillHeight: true
             Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin  : elisaTheme.layoutHorizontalMargin * 2
             Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : elisaTheme.layoutHorizontalMargin * 2
-            Layout.preferredWidth: durationTextMetrics.width+5 // be in the safe side
+            Layout.preferredWidth: (durationTextMetrics.boundingRect.width - durationTextMetrics.boundingRect.x) + 5
 
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignRight
@@ -288,7 +288,7 @@ FocusScope {
             Layout.fillHeight: true
             Layout.rightMargin: !LayoutMirroring.enabled ? (elisaTheme.layoutHorizontalMargin * 2) : 0
             Layout.leftMargin: LayoutMirroring.enabled ? (elisaTheme.layoutHorizontalMargin * 2) : 0
-            Layout.preferredWidth: durationTextMetrics.width
+            Layout.preferredWidth: (durationTextMetrics.boundingRect.width - durationTextMetrics.boundingRect.x)
 
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignLeft

@@ -53,7 +53,9 @@ FocusScope {
             hoverEnabled: true
             acceptedButtons: Qt.LeftButton
 
-            Layout.preferredHeight: gridEntry.width * 0.85 + elisaTheme.layoutVerticalMargin * 0.5 + mainLabelSize.height + secondaryLabelSize.height
+            Layout.preferredHeight: gridEntry.width * 0.85 + elisaTheme.layoutVerticalMargin * 0.5 +
+                                    (mainLabelSize.boundingRect.height - mainLabelSize.boundingRect.y) +
+                                    (secondaryLabelSize.boundingRect.height - secondaryLabelSize.boundingRect.y)
             Layout.fillWidth: true
 
             onClicked: {

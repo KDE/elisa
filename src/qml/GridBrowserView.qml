@@ -125,7 +125,9 @@ FocusScope {
                 }
 
                 cellWidth: elisaTheme.gridDelegateWidth
-                cellHeight: (delegateDisplaySecondaryText ? elisaTheme.gridDelegateHeight : elisaTheme.gridDelegateHeight - secondaryLabelSize.height)
+                cellHeight: delegateDisplaySecondaryText ?
+                                elisaTheme.gridDelegateHeight :
+                                elisaTheme.gridDelegateHeight - (secondaryLabelSize.boundingRect.height - secondaryLabelSize.boundingRect.y)
 
                 delegate: GridBrowserDelegate {
                     width: contentDirectoryView.cellWidth

@@ -56,7 +56,7 @@ Item {
     FontMetrics {
         id: playListAlbumTextHeight
         font.weight: Font.Bold
-        font.pointSize: elisaTheme.defaultFontPointSize * 1.4
+        font.pointSize: Math.round(elisaTheme.defaultFontPointSize * 1.4)
     }
 
     FontMetrics {
@@ -105,12 +105,6 @@ Item {
     property int filterClearButtonMargin: layoutVerticalMargin
 
     property alias defaultFontPointSize: fontSize.font.pointSize
-
-    TextMetrics {
-        id: bigTextSize
-        font.pointSize: defaultFontPointSize * 1.4
-        text: "Albums"
-    }
 
     property int viewSelectorSmallSizeThreshold: 800
 

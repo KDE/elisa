@@ -329,11 +329,6 @@ FocusScope {
                     Layout.rightMargin: elisaTheme.layoutHorizontalMargin
                 }
 
-                TextMetrics {
-                    id: durationTextMetrics
-                    text: i18nc("This is used to preserve a fixed width for the duration text.", "00:00")
-                }
-
                 LabelWithToolTip {
                     id: durationLabel
 
@@ -347,7 +342,6 @@ FocusScope {
                     Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
                     Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
                     Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-                    Layout.preferredWidth: durationTextMetrics.width + 1
                 }
             }
         }

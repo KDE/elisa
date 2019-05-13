@@ -47,11 +47,7 @@ FocusScope {
         TextMetrics {
             id: titleHeight
             text: viewTitleHeight.text
-            font
-            {
-                pointSize: viewTitleHeight.font.pointSize
-                bold: viewTitleHeight.font.bold
-            }
+            font: viewTitleHeight.font
         }
 
         LabelWithToolTip {
@@ -62,7 +58,7 @@ FocusScope {
 
             Layout.alignment: Qt.AlignLeft | Qt.AlignTop
             Layout.topMargin: elisaTheme.layoutVerticalMargin * 3
-            Layout.bottomMargin: titleHeight.height
+            Layout.bottomMargin: titleHeight.boundingRect.height - titleHeight.boundingRect.y
         }
 
         Image {
@@ -102,7 +98,7 @@ FocusScope {
 
             text: (artistName && albumName ? i18nc('display of artist and album in context view', '<i>by</i> <b>%1</b> <i>from</i> <b>%2</b>', artistName, albumName) : '')
 
-            font.pointSize: elisaTheme.defaultFontPointSize * 1.4
+            font.pointSize: Math.round(elisaTheme.defaultFontPointSize * 1.4)
 
             visible: artistName !== '' && albumName !== ''
 
@@ -117,7 +113,7 @@ FocusScope {
 
             text: (albumName ? i18nc('display of album in context view', '<i>from</i> <b>%1</b>', albumName) : '')
 
-            font.pointSize: elisaTheme.defaultFontPointSize * 1.4
+            font.pointSize: Math.round(elisaTheme.defaultFontPointSize * 1.4)
 
             visible: artistName === '' && albumName !== ''
 
@@ -132,7 +128,7 @@ FocusScope {
 
             text: (artistName ? i18nc('display of artist in context view', '<i>by</i> <b>%1</b>', artistName) : '')
 
-            font.pointSize: elisaTheme.defaultFontPointSize * 1.4
+            font.pointSize: Math.round(elisaTheme.defaultFontPointSize * 1.4)
 
             visible: artistName !== '' && albumName === ''
 

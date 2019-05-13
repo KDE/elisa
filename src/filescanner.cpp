@@ -201,7 +201,7 @@ void FileScanner::scanProperties(const QString &localFileName, MusicAudioTrack &
         trackData.setArtist(trackData.albumArtist());
     }
 
-#if !defined Q_OS_ANDROID
+#if !defined Q_OS_ANDROID && !defined Q_OS_WIN
     QString comment = fileData.userComment();
     if (!comment.isEmpty()) {
         trackData.setComment(comment);

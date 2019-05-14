@@ -132,13 +132,6 @@ FocusScope {
                 Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
                 Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
 
-                TextMetrics {
-                    id: albumTextSize
-                    text: albumLabel.text
-                    font.pointSize: albumLabel.font.pointSize
-                    font.bold: albumLabel.font.bold
-                }
-
                 LabelWithToolTip {
                     id: albumLabel
 
@@ -160,13 +153,6 @@ FocusScope {
                     font {
                         pointSize: elisaTheme.defaultFontPointSize * 2
                     }
-                }
-
-                TextMetrics {
-                    id: authorTextSize
-                    text: authorLabel.text
-                    font.pointSize: authorLabel.font.pointSize
-                    font.bold: authorLabel.font.bold
                 }
 
                 LabelWithToolTip {
@@ -289,8 +275,8 @@ FocusScope {
 
                 Layout.bottomMargin: 0
                 Layout.fillWidth: true
-                Layout.minimumWidth: placeHolderTextWidth.width * 1.2
-                implicitWidth: placeHolderTextWidth.width * 1.2
+                Layout.minimumWidth: (placeHolderTextWidth.boundingRect.width - placeHolderTextWidth.boundingRect.x) * 1.2
+                implicitWidth: (placeHolderTextWidth.boundingRect.width - placeHolderTextWidth.boundingRect.x) * 1.2
 
                 TextMetrics {
                     id: placeHolderTextWidth

@@ -163,7 +163,7 @@ FocusScope {
                             anchors.rightMargin: elisaTheme.layoutHorizontalMargin
                             verticalAlignment: "AlignVCenter"
 
-                            font.pointSize: elisaTheme.defaultFontPointSize * 1.1
+                            font.pointSize: Math.round(elisaTheme.defaultFontPointSize * 1.1)
 
                             text: model.display
                             elide: Text.ElideRight

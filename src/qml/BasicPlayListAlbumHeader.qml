@@ -50,8 +50,8 @@ RowLayout {
         id: mainIcon
 
         property int layoutMargin: headerRow.height - elisaTheme.smallDelegateToolButtonSize -
-                                    trackNumberSize.width -
-                                    fakeDiscNumberSize.width -
+                                    (trackNumberSize.boundingRect.width - trackNumberSize.boundingRect.x) -
+                                    (fakeDiscNumberSize.boundingRect.width - fakeDiscNumberSize.boundingRect.x) -
                                     (elisaTheme.layoutHorizontalMargin * 5 / 4)
 
         source: (imageUrl != '' ? imageUrl : Qt.resolvedUrl(elisaTheme.defaultAlbumImage))
@@ -89,7 +89,7 @@ RowLayout {
             text: album
 
             font.weight: Font.Bold
-            font.pointSize: elisaTheme.defaultFontPointSize * 1.4
+            font.pointSize: Math.round(elisaTheme.defaultFontPointSize * 1.4)
 
             horizontalAlignment: Text.AlignLeft
 

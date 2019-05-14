@@ -29,7 +29,7 @@ Rectangle {
 
     color: myPalette.highlight
 
-    width: Math.max(elisaTheme.gridDelegateWidth * 1.5, labelWidth.width + 2 * elisaTheme.layoutHorizontalMargin) +
+    width: Math.max(elisaTheme.gridDelegateWidth * 1.5, (labelWidth.boundingRect.width - labelWidth.boundingRect.x) + 2 * elisaTheme.layoutHorizontalMargin) +
            elisaTheme.smallControlButtonSize * 1.5 + 3 * elisaTheme.layoutHorizontalMargin
     height: elisaTheme.smallControlButtonSize * 1.5 + 2 * elisaTheme.layoutHorizontalMargin
 

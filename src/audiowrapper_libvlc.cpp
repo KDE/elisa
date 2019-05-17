@@ -517,7 +517,7 @@ void AudioWrapperPrivate::signalVolumeChange(int newVolume)
         return;
     }
 
-    if (abs(mPreviousVolume - newVolume) > 0.01) {
+    if (abs(int(mPreviousVolume - newVolume)) > 0.01) {
         mPreviousVolume = newVolume;
 
         mParent->playerVolumeSignalChanges();

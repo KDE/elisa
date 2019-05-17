@@ -139,7 +139,7 @@
     <binary>elisa</binary>
   </provides>
   <project_group>KDE</project_group>
-  <content_rating type="oars-1.0" />
+  <content_rating type="oars-1.0"/>
   <releases>
     <release version="0.3.80" date="2019-05-04"/>
     <release version="0.3.0" date="2018-09-29"/>

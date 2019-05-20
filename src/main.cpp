@@ -111,10 +111,10 @@ int main(int argc, char *argv[])
 
     KAboutData aboutData( QStringLiteral("elisa"),
                           i18n("Elisa"),
-                          QStringLiteral("0.3.80"),
+                          QStringLiteral("0.4.0"),
                           i18n("A Simple Music Player written with KDE Frameworks"),
                           KAboutLicense::LGPL_V3,
-                          i18n("(c) 2015-2018, Elisa contributors"));
+                          i18n("(c) 2015-2019, Elisa contributors"));
 
     aboutData.addAuthor(QStringLiteral("Matthieu Gallien"),i18n("Creator"), QStringLiteral("mgallien@mgallien.fr"));
     aboutData.addAuthor(QStringLiteral("Alexander Stippich"), i18n("Author"), QStringLiteral("a.stippich@gmx.net"));

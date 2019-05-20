@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.5)
 
 project(elisa
-    VERSION 0.4.0
+    VERSION 0.4.80
     DESCRIPTION "Elisa Music Player"
     HOMEPAGE_URL https://community.kde.org/Elisa
     LANGUAGES CXX

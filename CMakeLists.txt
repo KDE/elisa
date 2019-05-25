@@ -144,7 +144,7 @@ endif()
 
 find_package(LIBVLC QUIET)
 set_package_properties(LIBVLC PROPERTIES
-    DESCRIPTION "libvlc allows to play music in Elisa"
+    DESCRIPTION "libvlc allows to play music in Elisa (otherwise it will use QtMultimedia)"
     URL "https://www.videolan.org/vlc/libvlc.html"
     TYPE RECOMMENDED)
 

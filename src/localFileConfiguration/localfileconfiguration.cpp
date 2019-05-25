@@ -17,6 +17,8 @@
 
 #include "localfileconfiguration.h"
 
+#include "elisa-version.h"
+
 #include "elisa_settings.h"
 
 #include <KPluginFactory>
@@ -32,7 +34,7 @@ KCMElisaLocalFile::KCMElisaLocalFile(QObject* parent, const QVariantList &args)
 {
     KAboutData *about = new KAboutData(QStringLiteral("kcm_elisa_local_file"),
                                        i18n("Elisa Local Files Indexer Configuration"),
-                                       QStringLiteral("0.4.0"), {}, KAboutLicense::LGPL_V3,
+                                       QStringLiteral(ELISA_VERSION_STRING), {}, KAboutLicense::LGPL_V3,
                                        i18n("Copyright 2017-2019 Matthieu Gallien <matthieu_gallien@yahoo.fr>"));
 
     about->addAuthor(i18n("Matthieu Gallien"),i18n("Author"), QStringLiteral("mgallien@mgallien.fr"));

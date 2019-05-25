@@ -16,6 +16,7 @@
  */
 
 #include "config-upnp-qt.h"
+#include "elisa-version.h"
 
 #include "elisaapplication.h"
 #include "elisa_settings.h"
@@ -111,7 +112,7 @@ int main(int argc, char *argv[])
 
     KAboutData aboutData( QStringLiteral("elisa"),
                           i18n("Elisa"),
-                          QStringLiteral("0.4.0"),
+                          QStringLiteral(ELISA_VERSION_STRING),
                           i18n("A Simple Music Player written with KDE Frameworks"),
                           KAboutLicense::LGPL_V3,
                           i18n("(c) 2015-2019, Elisa contributors"));

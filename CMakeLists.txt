@@ -1,6 +1,8 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.8)
 
-project(elisa)
+project(elisa
+    VERSION 0.4.1
+    LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 17)
@@ -154,6 +156,10 @@ if (CMAKE_SYSTEM_NAME STREQUAL Android)
 endif()
 
 configure_file(config-upnp-qt.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-upnp-qt.h )
+
+ecm_setup_version(${PROJECT_VERSION}
+    VARIABLE_PREFIX ELISA
+    VERSION_HEADER elisa-version.h)
 
 add_subdirectory(src)
 add_subdirectory(icons)

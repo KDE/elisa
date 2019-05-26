@@ -1,9 +1,7 @@
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.8)
 
 project(elisa
     VERSION 0.4.80
-    DESCRIPTION "Elisa Music Player"
-    HOMEPAGE_URL https://community.kde.org/Elisa
     LANGUAGES CXX
     )
 
@@ -159,6 +157,10 @@ if (CMAKE_SYSTEM_NAME STREQUAL Android)
 endif()
 
 configure_file(config-upnp-qt.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-upnp-qt.h )
+
+ecm_setup_version(${PROJECT_VERSION}
+    VARIABLE_PREFIX ELISA
+    VERSION_HEADER elisa-version.h)
 
 add_subdirectory(src)
 add_subdirectory(icons)

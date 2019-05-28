@@ -18,7 +18,6 @@
 
 import QtQuick 2.7
 import QtQuick.Controls 2.2
-import QtQuick.Controls 1.4 as Controls1
 import QtQuick.Layouts 1.2
 
 import org.kde.elisa 1.0
@@ -38,43 +37,6 @@ FocusScope {
     signal loadPlayList(var data)
     signal open(var data)
     signal selected()
-
-    Controls1.Action {
-        id: replaceAndPlayAction
-        text: i18nc("Clear play list and enqueue current track", "Play Now and Replace Play List")
-        iconName: "media-playback-start"
-        onTriggered: replaceAndPlay(fileUrl)
-    }
-
-    Controls1.Action {
-        id: enqueueAction
-        text: i18nc("Enqueue current track", "Enqueue")
-        iconName: "media-track-add-amarok"
-        onTriggered: enqueue(fileUrl)
-    }
-
-    Controls1.Action {
-        id: openAction
-        text: i18nc("Enqueue current track", "Enqueue")
-        iconName: 'document-open-folder'
-        onTriggered: open(fileUrl)
-    }
-
-    Controls1.Action {
-        id: viewDetailsAction
-        text: i18nc("Show track metadata", "View Details")
-        iconName: "help-about"
-        onTriggered: {
-            if (metadataLoader.active === false) {
-                metadataLoader.active = true
-                metadataLoader.item.trackDataHelper.trackData = contentModel.loadMetaDataFromUrl(fileUrl)
-            }
-            else {
-                metadataLoader.item.close();
-                metadataLoader.active = false
-            }
-        }
-    }
 
     Loader {
         id: metadataLoader
@@ -107,7 +69,7 @@ FocusScope {
 
             onClicked: fileDelegate.selected()
 
-            onDoubleClicked: fileDelegate.enqueue(fileUrl)
+            onDoubleClicked: fileDelegate.open(fileUrl)
 
             TextMetrics {
                 id: mainLabelSize
@@ -131,42 +93,79 @@ FocusScope {
                         id: hoverLoader
                         active: false
 
-                        anchors.centerIn: parent
+                        anchors {
+                            bottom: parent.bottom
+                            bottomMargin: 2
+                            left: parent.left
+                            leftMargin: 2
+                        }
+
                         z: 1
 
                         opacity: 0
 
                         sourceComponent: Row {
+                            spacing: 2
 
-                            Controls1.ToolButton {
+                            Button {
                                 id: detailsButton
 
                                 Layout.preferredHeight: elisaTheme.delegateHeight
                                 Layout.preferredWidth: elisaTheme.delegateHeight
 
-                                action: viewDetailsAction
                                 visible: !isDirectory && !isPlayList
+
+                                icon.name: "help-about"
+                                onClicked: {
+                                    if (metadataLoader.active === false) {
+                                        metadataLoader.active = true
+                                        metadataLoader.item.trackDataHelper.trackData = contentModel.loadMetaDataFromUrl(fileUrl)
+                                    }
+                                    else {
+                                        metadataLoader.item.close();
+                                        metadataLoader.active = false
+                                    }
+                                }
+                                ToolTip {
+                                    text: i18nc("Show track metadata", "View Details")
+                                }
                             }
 
-                            Controls1.ToolButton {
+                            Button {
                                 id: enqueueOpenButton
 
                                 Layout.preferredHeight: elisaTheme.delegateHeight
                                 Layout.preferredWidth: elisaTheme.delegateHeight
 
-                                action: isDirectory ? openAction : enqueueAction
                                 visible: !isPlayList
+
+                                icon.name: isDirectory ?
+                                        "go-next-view-page" :
+                                        "media-track-add-amarok"
+                                onClicked: isDirectory ?
+                                        open(fileUrl) :
+                                        enqueue(fileUrl)
+                                ToolTip {
+                                    text: isDirectory ?
+                                        i18nc("Open view of the container", "Open") :
+                                        i18nc("Enqueue current track", "Enqueue")
+                                }
                             }
 
-                            Controls1.ToolButton {
+                            Button {
                                 id: replaceAndPlayButton
 
                                 Layout.preferredHeight: elisaTheme.delegateHeight
                                 Layout.preferredWidth: elisaTheme.delegateHeight
 
                                 scale: LayoutMirroring.enabled ? -1 : 1
-                                action: replaceAndPlayAction
                                 visible: !isDirectory
+
+                                icon.name: "media-playback-start"
+                                onClicked: replaceAndPlay(fileUrl)
+                                ToolTip {
+                                    text: i18nc("Clear play list and enqueue current track", "Play Now and Replace Play List")
+                                }
                             }
                         }
                     }
@@ -192,10 +191,14 @@ FocusScope {
                     font.weight: Font.Bold
                     color: myPalette.text
 
-                    horizontalAlignment: Text.AlignLeft
+                    // FIXME: Center-aligned text looks better overall, but
+                    // sometimes results in font kerning issues
+                    // See https://bugreports.qt.io/browse/QTBUG-49646
+                    horizontalAlignment: Text.AlignHCenter
 
                     Layout.topMargin: elisaTheme.layoutVerticalMargin * 0.5
-                    Layout.preferredWidth: fileDelegate.width * 0.85
+                    Layout.maximumWidth: fileDelegate.width * 0.9
+                    Layout.minimumWidth: Layout.maximumWidth
                     Layout.maximumHeight: (mainLabelSize.boundingRect.height - mainLabelSize.boundingRect.y) * 2
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
 
@@ -227,10 +230,6 @@ FocusScope {
                 target: hoverLoader
                 opacity: 0.0
             }
-            PropertyChanges {
-                target: icon
-                opacity: 1
-            }
         },
         State {
             name: 'hoveredOrSelected'
@@ -242,10 +241,6 @@ FocusScope {
             PropertyChanges {
                 target: hoverLoader
                 opacity: 1.0
-            }
-            PropertyChanges {
-                target: icon
-                opacity: 0.2
             }
         }
     ]

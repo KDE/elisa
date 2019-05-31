@@ -2,7 +2,7 @@
 Categories=Qt;KDE;Audio;AudioVideo
 Comment=
 Exec=elisa %U
-GenericName=Elisa Music Player
+GenericName=Music Player
 GenericName[ar]=مشغّل الموسيقى إليسّا
 GenericName[ca]=Reproductor de música Elisa
 GenericName[ca@valencia]=Reproductor de música Elisa

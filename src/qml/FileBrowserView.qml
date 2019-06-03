@@ -104,12 +104,15 @@ FocusScope {
                 anchors.topMargin: 20
                 anchors.fill: parent
 
-                focus: true
+                activeFocusOnTab: true
+                keyNavigationEnabled: true
 
                 ScrollBar.vertical: ScrollBar {
                     id: scrollBar
                 }
                 boundsBehavior: Flickable.StopAtBounds
+
+                currentIndex: -1
 
                 model: proxyModel
 
@@ -143,7 +146,10 @@ FocusScope {
                 delegate: FileBrowserDelegate {
                     width: contentDirectoryView.cellWidth
                     height: contentDirectoryView.cellHeight
+
                     focus: true
+
+                    isSelected: contentDirectoryView.currentIndex === index
 
                     isDirectory: model.directory
                     isPlayList: model.isPlaylist
@@ -158,6 +164,13 @@ FocusScope {
                         forceActiveFocus()
                         contentDirectoryView.currentIndex = model.index
                     }
+
+                    onActiveFocusChanged: {
+                        if (activeFocus && contentDirectoryView.currentIndex !== model.index) {
+                            contentDirectoryView.currentIndex = model.index
+                        }
+                    }
+
                     onOpen: loadFolderAndClear(data)
                 }
             }

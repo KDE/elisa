@@ -260,11 +260,6 @@ RowLayout {
                     }
 
                     Rectangle {
-                        border {
-                            color: (mainContentView.activeFocus ? myPalette.highlight : myPalette.base)
-                            width: 1
-                        }
-
                         radius: 3
                         color: myPalette.base
 

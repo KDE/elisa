@@ -98,15 +98,17 @@ FocusScope {
 
             Layout.fillHeight: true
             Layout.fillWidth: true
+            Layout.margins: 2
 
             ListView {
                 id: contentDirectoryView
                 anchors.topMargin: 20
                 anchors.fill: parent
 
-                focus: true
                 activeFocusOnTab: true
                 keyNavigationEnabled: true
+
+                currentIndex: -1
 
                 ScrollBar.vertical: ScrollBar {
                     id: scrollBar
@@ -119,6 +121,10 @@ FocusScope {
                     flickable: contentDirectoryView
                     anchors.fill: contentDirectoryView
                 }
+
+                onCountChanged: if (count === 0) {
+                                    currentIndex = -1;
+                                }
             }
         }
     }

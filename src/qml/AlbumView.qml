@@ -45,7 +45,6 @@ FocusScope {
         id: albumGridView
 
         focus: true
-        activeFocusOnTab: true
 
         anchors.fill: parent
 
@@ -75,6 +74,7 @@ FocusScope {
             rating: model.rating
             isFirstTrackOfDisc: true
             isSingleDiscAlbum: true
+            isSelected: albumGridView.currentIndex === index
             isAlternateColor: (index % 2) === 1
 
             mediaTrack.onEnqueue: elisa.mediaPlayList.enqueue(databaseId, name, ElisaUtils.Track,
@@ -87,6 +87,12 @@ FocusScope {
 
 
             mediaTrack.onClicked: albumGridView.currentIndex = index
+
+            onActiveFocusChanged: {
+                if (activeFocus && albumGridView.currentIndex !== index) {
+                    albumGridView.currentIndex = index
+                }
+            }
         }
 
         allowArtistNavigation: true

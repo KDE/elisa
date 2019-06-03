@@ -47,7 +47,6 @@ FocusScope {
         id: listView
 
         focus: true
-        activeFocusOnTab: true
 
         anchors.fill: parent
 
@@ -65,7 +64,7 @@ FocusScope {
             title: model.title
             artist: model.artist
             album: (model.album !== undefined && model.album !== '' ? model.album : '')
-            albumArtist: model.albumArtist
+            albumArtist: (model.albumArtist !== undefined && model.albumArtist !== '' ? model.albumArtist : '')
             duration: model.duration
             imageUrl: (model.imageUrl !== undefined && model.imageUrl !== '' ? model.imageUrl : '')
             trackNumber: model.trackNumber
@@ -73,6 +72,8 @@ FocusScope {
             rating: model.rating
             isFirstTrackOfDisc: false
             isSingleDiscAlbum: model.isSingleDiscAlbum
+            isSelected: listView.currentIndex === index
+            isAlternateColor: (index % 2) === 1
 
             onEnqueue: elisa.mediaPlayList.enqueue(databaseId, name, modelType,
                                                    ElisaUtils.AppendPlayList,
@@ -82,7 +83,10 @@ FocusScope {
                                                           ElisaUtils.ReplacePlayList,
                                                           ElisaUtils.TriggerPlay)
 
-            onClicked: contentDirectoryView.currentIndex = index
+            onClicked: {
+                listView.currentIndex = index
+                entry.forceActiveFocus()
+            }
         }
 
         Loader {

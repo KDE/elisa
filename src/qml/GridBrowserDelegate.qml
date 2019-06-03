@@ -33,6 +33,7 @@ FocusScope {
     property var databaseId
     property bool delegateDisplaySecondaryText: true
     property bool isPartial
+    property bool isSelected
 
     signal enqueue(var databaseId, var name)
     signal replaceAndPlay(var databaseId, var name)
@@ -42,8 +43,21 @@ FocusScope {
     Keys.onReturnPressed: open()
     Keys.onEnterPressed: open()
 
+    Rectangle {
+        id: stateIndicator
+
+        anchors.fill: parent
+        z: 1
+
+        color: "transparent"
+        opacity: 0.4
+
+        radius: 3
+    }
+
     ColumnLayout {
         anchors.fill: parent
+        z: 2
 
         spacing: 0
 
@@ -231,6 +245,7 @@ FocusScope {
                     Layout.maximumWidth: gridEntry.width * 0.9
                     Layout.minimumWidth: Layout.maximumWidth
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
+                    Layout.bottomMargin: delegateDisplaySecondaryText ? 0 : elisaTheme.layoutVerticalMargin
 
                     elide: Text.ElideRight
                 }
@@ -246,6 +261,7 @@ FocusScope {
                     // See https://bugreports.qt.io/browse/QTBUG-49646
                     horizontalAlignment: Text.AlignHCenter
 
+                    Layout.bottomMargin: elisaTheme.layoutVerticalMargin
                     Layout.maximumWidth: gridEntry.width * 0.9
                     Layout.minimumWidth: Layout.maximumWidth
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
@@ -265,7 +281,15 @@ FocusScope {
     states: [
         State {
             name: 'notSelected'
-            when: !gridEntry.activeFocus && !hoverHandle.containsMouse
+            when: !gridEntry.activeFocus && !hoverHandle.containsMouse && !gridEntry.isSelected
+            PropertyChanges {
+                target: stateIndicator
+                color: 'transparent'
+            }
+            PropertyChanges {
+                target: stateIndicator
+                opacity: 1.0
+            }
             PropertyChanges {
                 target: hoverLoader
                 active: false
@@ -276,8 +300,56 @@ FocusScope {
             }
         },
         State {
+            name: 'hovered'
+            when: hoverHandle.containsMouse && !gridEntry.activeFocus
+            PropertyChanges {
+                target: stateIndicator
+                color: myPalette.highlight
+            }
+            PropertyChanges {
+                target: stateIndicator
+                opacity: 0.2
+            }
+            PropertyChanges {
+                target: hoverLoader
+                active: true
+            }
+            PropertyChanges {
+                target: hoverLoader
+                opacity: 1.0
+            }
+        },
+        State {
+            name: 'selected'
+            when: gridEntry.isSelected && !gridEntry.activeFocus
+            PropertyChanges {
+                target: stateIndicator
+                color: myPalette.mid
+            }
+            PropertyChanges {
+                target: stateIndicator
+                opacity: 0.6
+            }
+            PropertyChanges {
+                target: hoverLoader
+                active: false
+            }
+            PropertyChanges {
+                target: hoverLoader
+                opacity: 0.
+            }
+        },
+        State {
             name: 'hoveredOrSelected'
-            when: gridEntry.activeFocus || hoverHandle.containsMouse
+            when: gridEntry.activeFocus
+            PropertyChanges {
+                target: stateIndicator
+                color: myPalette.highlight
+            }
+            PropertyChanges {
+                target: stateIndicator
+                opacity: 0.6
+            }
             PropertyChanges {
                 target: hoverLoader
                 active: true
@@ -291,28 +363,21 @@ FocusScope {
 
     transitions: [
         Transition {
-            to: 'hoveredOrSelected'
             SequentialAnimation {
                 PropertyAction {
                     properties: "active"
                 }
-                NumberAnimation {
-                    properties: "opacity"
-                    easing.type: Easing.InOutQuad
-                    duration: 100
-                }
-            }
-        },
-        Transition {
-            to: 'notSelected'
-            SequentialAnimation {
-                NumberAnimation {
-                    properties: "opacity"
-                    easing.type: Easing.InOutQuad
-                    duration: 100
-                }
-                PropertyAction {
-                    properties: "active"
+                ParallelAnimation {
+                    NumberAnimation {
+                        properties: "opacity"
+                        easing.type: Easing.InOutQuad
+                        duration: 300
+                    }
+                    ColorAnimation {
+                        properties: "color"
+                        easing.type: Easing.InOutQuad
+                        duration: 300
+                    }
                 }
             }
         }

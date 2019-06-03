@@ -42,174 +42,72 @@ FocusScope {
 
     Rectangle {
         anchors.fill: parent
+        z: 1
 
-        color: myPalette.base
-        border {
-            color: (rootFocusScope.activeFocus ? myPalette.highlight : "transparent")
-            width: 1
-        }
-
-        ScrollView {
-            focus: true
-
-            anchors.fill: parent
-
-            clip: true
-            ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
-
-
-            ListView {
-                id: viewModeView
-
-                focus: true
-                activeFocusOnTab: true
-                keyNavigationEnabled: true
-
-                property bool ignoreCurrentItemChanges: false
-
-                z: 2
-
-                anchors.topMargin: elisaTheme.layoutHorizontalMargin * 2
-
-                model: DelegateModel {
-                    id: pageDelegateModel
-
-                    delegate: MouseArea {
-                        id: itemMouseArea
-
-                        property var viewType: model.type
-
-                        height: elisaTheme.viewSelectorDelegateHeight * 1.4
-                        width: viewModeView.width
-
-                        hoverEnabled: true
-                        acceptedButtons: Qt.LeftButton
-
-                        Loader {
-                            anchors.fill: parent
-                            active: itemMouseArea && itemMouseArea.containsMouse && !nameLabel.visible
-
-                            sourceComponent: ToolTip {
-                                delay: Qt.styleHints.mousePressAndHoldInterval
-                                text: model.display
-                                visible: itemMouseArea && itemMouseArea.containsMouse && !nameLabel.visible
-
-                                contentItem: Label {
-                                    text: model.display
-                                    color: myPalette.highlightedText
-                                }
-
-                                enter: Transition { NumberAnimation { properties: "opacity"; easing.type: Easing.InOutQuad; from: 0.0; to: 1.0; duration: 300; } }
-                                exit: Transition { NumberAnimation { properties: "opacity"; easing.type: Easing.InOutQuad; from: 1.0; to: 0.0; duration: 300; } }
-
-                                background: Rectangle {
-                                    color: myPalette.shadow
-                                    radius: elisaTheme.tooltipRadius
-
-                                    layer.enabled: true
-                                    layer.effect: DropShadow {
-                                        horizontalOffset: elisaTheme.shadowOffset
-                                        verticalOffset: elisaTheme.shadowOffset
-                                        radius: 8
-                                        samples: 17
-                                        color: myPalette.shadow
-                                    }
-                                }
-                            }
-                        }
-
-                        Image {
-                            id: viewIcon
-
-                            z: 2
-
-                            anchors {
-                                verticalCenter: parent.verticalCenter
-                                leftMargin: elisaTheme.layoutHorizontalMargin
-                                left: parent.left
-                            }
-
-                            height: elisaTheme.viewSelectorDelegateHeight
-                            width: elisaTheme.viewSelectorDelegateHeight
-
-                            sourceSize {
-                                width: elisaTheme.viewSelectorDelegateHeight
-                                height: elisaTheme.viewSelectorDelegateHeight
-                            }
-
-                            source: model.image
-
-                            layer.effect:  ColorOverlay {
-
-                                color: (index === viewModeView.currentIndex || itemMouseArea.containsMouse ? myPalette.highlight : "transparent")
-
-                                Behavior on color {
-                                    ColorAnimation {
-                                        duration: 300
-                                    }
-                                }
-                            }
-                        }
-
-                        LabelWithToolTip {
-                            id: nameLabel
-
-                            z: 2
-
-                            anchors.verticalCenter: parent.verticalCenter
-                            anchors.leftMargin: elisaTheme.layoutHorizontalMargin
-                            anchors.left: viewIcon.right
-                            anchors.right: parent.right
-                            anchors.rightMargin: elisaTheme.layoutHorizontalMargin
-                            verticalAlignment: "AlignVCenter"
-
-                            font.pointSize: Math.round(elisaTheme.defaultFontPointSize * 1.1)
-
-                            text: model.display
-                            elide: Text.ElideRight
-
-                            opacity: textOpacity
-                            visible: opacity > 0
-
-                            Behavior on opacity {
-                                NumberAnimation {
-                                    duration: 150
-                                }
-                            }
-
-                            color: (viewModeView.currentIndex === index || itemMouseArea.containsMouse ? myPalette.highlight : myPalette.text)
-
-                            Behavior on color {
-                                ColorAnimation {
-                                    duration: 300
-                                }
-                            }
-                        }
-
-                        onClicked: viewModeView.currentIndex = index
-                    }
-                }
-
-                footer: MouseArea {
-                    width: viewModeView.width
-                    height: viewModeView.height - y
-
-                    acceptedButtons: Qt.LeftButton
-
-                    onClicked:
-                    {
-                        rootFocusScope.focus = true
-                    }
-                }
-
-                onCurrentItemChanged: if (!ignoreCurrentItemChanges) switchView(currentItem.viewType)
-            }
-        }
+        border.color: myPalette.base
 
         Behavior on border.color {
             ColorAnimation {
                 duration: 300
             }
+        }
+    }
+
+    ScrollView {
+        focus: true
+
+        anchors.fill: parent
+        z: 2
+
+        clip: true
+        ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+
+        ListView {
+            id: viewModeView
+
+            focus: true
+            activeFocusOnTab: true
+            keyNavigationEnabled: true
+
+            property bool ignoreCurrentItemChanges: false
+
+            z: 2
+
+            anchors.topMargin: elisaTheme.layoutHorizontalMargin * 2
+
+            model: DelegateModel {
+                id: pageDelegateModel
+
+                delegate: ViewSelectorDelegate {
+                    id: entry
+
+                    height: Math.round(elisaTheme.viewSelectorDelegateHeight * 1.4)
+                    width: viewModeView.width
+
+                    focus: true
+
+                    isSelected: viewModeView.currentIndex === index
+
+                    onClicked: {
+                        viewModeView.currentIndex = index
+                        entry.forceActiveFocus()
+                    }
+                }
+            }
+
+            footer: MouseArea {
+                width: viewModeView.width
+                height: viewModeView.height - y
+
+                acceptedButtons: Qt.LeftButton
+
+                onClicked:
+                {
+                    rootFocusScope.focus = true
+                }
+            }
+
+            onCurrentItemChanged: if (!ignoreCurrentItemChanges) switchView(currentItem.viewType)
         }
     }
 

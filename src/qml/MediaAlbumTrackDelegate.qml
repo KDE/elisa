@@ -35,6 +35,7 @@ FocusScope {
     property alias rating: mediaTrack.rating
     property alias isFirstTrackOfDisc: mediaTrack.isFirstTrackOfDisc
     property alias isSingleDiscAlbum: mediaTrack.isSingleDiscAlbum
+    property alias isSelected: mediaTrack.isSelected
     property alias isAlternateColor: mediaTrack.isAlternateColor
 
     ColumnLayout {

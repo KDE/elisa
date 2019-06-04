@@ -111,11 +111,16 @@ FocusScope {
             font.pointSize: elisaTheme.defaultFontPointSize * 2
             Layout.alignment: Qt.AlignLeft | Qt.AlignTop
             Layout.topMargin: elisaTheme.layoutVerticalMargin * 3
+            Layout.leftMargin: elisaTheme.layoutHorizontalMargin
+            Layout.rightMargin: elisaTheme.layoutHorizontalMargin
         }
 
 
         RowLayout {
             Layout.fillWidth: true
+
+            Layout.leftMargin: elisaTheme.layoutHorizontalMargin
+            Layout.rightMargin: elisaTheme.layoutHorizontalMargin
 
             LabelWithToolTip {
                 id: playListInfo

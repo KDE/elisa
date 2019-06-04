@@ -372,6 +372,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         qml/ContextViewLyrics.qml
         qml/ContentView.qml
         qml/ViewSelector.qml
+        qml/ViewSelectorDelegate.qml
         qml/DataGridView.qml
         qml/TracksView.qml
         qml/AlbumView.qml

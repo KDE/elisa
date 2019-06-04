@@ -31,8 +31,10 @@ ListView {
     signal displayError(var errorText)
 
     focus: true
-    activeFocusOnTab: true
     keyNavigationEnabled: true
+    activeFocusOnTab: true
+
+    currentIndex: -1
 
     section.property: 'albumSection'
     section.criteria: ViewSection.FullString
@@ -131,6 +133,12 @@ ListView {
                 onPausePlayback: playListView.pausePlayback()
                 onRemoveFromPlaylist: playListView.playListModel.removeRows(trackIndex, 1)
                 onSwitchToTrack: playListView.playListModel.switchTo(trackIndex)
+
+                onActiveFocusChanged: {
+                    if (activeFocus && playListView.currentIndex !== index) {
+                        playListView.currentIndex = index
+                    }
+                }
             }
 
             draggedItemParent: playListView
@@ -152,4 +160,8 @@ ListView {
             }
         }
     }
+
+    onCountChanged: if (count === 0) {
+                        currentIndex = -1;
+                    }
 }

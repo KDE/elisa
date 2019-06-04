@@ -23,7 +23,7 @@ import QtQuick.Layouts 1.2
 import org.kde.elisa 1.0
 
 FocusScope {
-    id: fileDelegate
+    id: gridEntry
 
     property var fileName
     property var fileUrl
@@ -31,6 +31,7 @@ FocusScope {
     property var contentModel
     property bool isDirectory
     property bool isPlayList
+    property bool isSelected
 
     signal enqueue(var data)
     signal replaceAndPlay(var data)
@@ -44,16 +45,29 @@ FocusScope {
         onLoaded: item.show()
 
         sourceComponent:  MediaTrackMetadataView {
-            fileName: fileDelegate.fileUrl
+            fileName: gridEntry.fileUrl
             onRejected: metadataLoader.active = false;
         }
     }
 
-    Keys.onReturnPressed: fileDelegate.enqueue(fileUrl)
-    Keys.onEnterPressed: fileDelegate.enqueue(fileUrl)
+    Keys.onReturnPressed: gridEntry.enqueue(fileUrl)
+    Keys.onEnterPressed: gridEntry.enqueue(fileUrl)
+
+    Rectangle {
+        id: stateIndicator
+
+        anchors.fill: parent
+        z: 1
+
+        color: "transparent"
+        opacity: 0.4
+
+        radius: 3
+    }
 
     ColumnLayout {
         anchors.fill: parent
+        z: 2
 
         spacing: 0
 
@@ -63,13 +77,13 @@ FocusScope {
             hoverEnabled: true
             acceptedButtons: Qt.LeftButton
 
-            Layout.preferredHeight: fileDelegate.width * 0.85 + elisaTheme.layoutVerticalMargin * 0.5 +
+            Layout.preferredHeight: gridEntry.width * 0.85 + elisaTheme.layoutVerticalMargin * 0.5 +
                                     (mainLabelSize.boundingRect.height - mainLabelSize.boundingRect.y)
             Layout.fillWidth: true
 
-            onClicked: fileDelegate.selected()
+            onClicked: gridEntry.selected()
 
-            onDoubleClicked: fileDelegate.open(fileUrl)
+            onDoubleClicked: gridEntry.open(fileUrl)
 
             TextMetrics {
                 id: mainLabelSize
@@ -84,8 +98,8 @@ FocusScope {
                 anchors.fill: parent
 
                 Item {
-                    Layout.preferredHeight: fileDelegate.width * 0.85
-                    Layout.preferredWidth: fileDelegate.width * 0.85
+                    Layout.preferredHeight: gridEntry.width * 0.85
+                    Layout.preferredWidth: gridEntry.width * 0.85
 
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
 
@@ -197,7 +211,7 @@ FocusScope {
                     horizontalAlignment: Text.AlignHCenter
 
                     Layout.topMargin: elisaTheme.layoutVerticalMargin * 0.5
-                    Layout.maximumWidth: fileDelegate.width * 0.9
+                    Layout.maximumWidth: gridEntry.width * 0.9
                     Layout.minimumWidth: Layout.maximumWidth
                     Layout.maximumHeight: (mainLabelSize.boundingRect.height - mainLabelSize.boundingRect.y) * 2
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
@@ -221,7 +235,15 @@ FocusScope {
     states: [
         State {
             name: 'notSelected'
-            when: !fileDelegate.activeFocus && !hoverArea.containsMouse
+            when: !gridEntry.activeFocus && !hoverHandle.containsMouse && !gridEntry.isSelected
+            PropertyChanges {
+                target: stateIndicator
+                color: 'transparent'
+            }
+            PropertyChanges {
+                target: stateIndicator
+                opacity: 1.0
+            }
             PropertyChanges {
                 target: hoverLoader
                 active: false
@@ -232,8 +254,56 @@ FocusScope {
             }
         },
         State {
+            name: 'hovered'
+            when: hoverHandle.containsMouse && !gridEntry.activeFocus
+            PropertyChanges {
+                target: stateIndicator
+                color: myPalette.highlight
+            }
+            PropertyChanges {
+                target: stateIndicator
+                opacity: 0.2
+            }
+            PropertyChanges {
+                target: hoverLoader
+                active: true
+            }
+            PropertyChanges {
+                target: hoverLoader
+                opacity: 1.0
+            }
+        },
+        State {
+            name: 'selected'
+            when: gridEntry.isSelected && !gridEntry.activeFocus
+            PropertyChanges {
+                target: stateIndicator
+                color: myPalette.mid
+            }
+            PropertyChanges {
+                target: stateIndicator
+                opacity: 0.6
+            }
+            PropertyChanges {
+                target: hoverLoader
+                active: false
+            }
+            PropertyChanges {
+                target: hoverLoader
+                opacity: 0.
+            }
+        },
+        State {
             name: 'hoveredOrSelected'
-            when: fileDelegate.activeFocus || hoverArea.containsMouse
+            when: gridEntry.activeFocus
+            PropertyChanges {
+                target: stateIndicator
+                color: myPalette.highlight
+            }
+            PropertyChanges {
+                target: stateIndicator
+                opacity: 0.6
+            }
             PropertyChanges {
                 target: hoverLoader
                 active: true
@@ -247,28 +317,21 @@ FocusScope {
 
     transitions: [
         Transition {
-            to: 'hoveredOrSelected'
             SequentialAnimation {
                 PropertyAction {
                     properties: "active"
                 }
-                NumberAnimation {
-                    properties: "opacity"
-                    easing.type: Easing.InOutQuad
-                    duration: 100
-                }
-            }
-        },
-        Transition {
-            to: 'notSelected'
-            SequentialAnimation {
-                NumberAnimation {
-                    properties: "opacity"
-                    easing.type: Easing.InOutQuad
-                    duration: 100
-                }
-                PropertyAction {
-                    properties: "active"
+                ParallelAnimation {
+                    NumberAnimation {
+                        properties: "opacity"
+                        easing.type: Easing.InOutQuad
+                        duration: 300
+                    }
+                    ColorAnimation {
+                        properties: "color"
+                        easing.type: Easing.InOutQuad
+                        duration: 300
+                    }
                 }
             }
         }

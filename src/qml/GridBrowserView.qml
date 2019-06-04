@@ -102,7 +102,6 @@ FocusScope {
                 id: contentDirectoryView
                 anchors.topMargin: 20
 
-                focus: true
                 activeFocusOnTab: true
                 keyNavigationEnabled: true
 
@@ -112,6 +111,8 @@ FocusScope {
                     id: scrollBar
                 }
                 boundsBehavior: Flickable.StopAtBounds
+
+                currentIndex: -1
 
                 TextMetrics {
                     id: secondaryLabelSize
@@ -135,6 +136,8 @@ FocusScope {
 
                     focus: true
 
+                    isSelected: contentDirectoryView.currentIndex === index
+
                     isPartial: false
 
                     mainText: model.display
@@ -152,6 +155,12 @@ FocusScope {
                     onSelected: {
                         forceActiveFocus()
                         contentDirectoryView.currentIndex = model.index
+                    }
+
+                    onActiveFocusChanged: {
+                        if (activeFocus && contentDirectoryView.currentIndex !== model.index) {
+                            contentDirectoryView.currentIndex = model.index
+                        }
                     }
                 }
             }

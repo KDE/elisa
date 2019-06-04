@@ -118,288 +118,289 @@ FocusScope {
 
         anchors.fill: parent
         anchors.rightMargin: LayoutMirroring.enabled ? scrollBarWidth : 0
+        z: 1
 
-        color: (isAlternateColor ? myPalette.alternateBase : myPalette.base)
+        color: myPalette.base
 
         height: elisaTheme.playListDelegateHeight
+    }
 
-        focus: true
+    ColumnLayout {
+        spacing: 0
 
-        ColumnLayout {
-            spacing: 0
+        anchors.fill: parent
+        anchors.rightMargin: LayoutMirroring.enabled ? scrollBarWidth : 0
+        z: 2
 
-            anchors.fill: parent
+        Item {
+            Layout.fillWidth: true
+            Layout.fillHeight: true
 
-            Item {
-                Layout.fillWidth: true
-                Layout.fillHeight: true
+            RowLayout {
+                id: trackRow
 
-                RowLayout {
-                    id: trackRow
+                anchors.fill: parent
 
-                    anchors.fill: parent
+                spacing: elisaTheme.layoutHorizontalMargin / 4
 
-                    spacing: elisaTheme.layoutHorizontalMargin / 4
+                Item {
+                    id: playIconItem
 
-                    Item {
-                        id: playIconItem
+                    implicitHeight: elisaTheme.smallDelegateToolButtonSize
+                    implicitWidth: elisaTheme.smallDelegateToolButtonSize
+                    Layout.maximumWidth: elisaTheme.smallDelegateToolButtonSize
+                    Layout.maximumHeight: elisaTheme.smallDelegateToolButtonSize
+                    Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+                    Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin / 2 : 0
+                    Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin / 2 : 0
 
-                        implicitHeight: elisaTheme.smallDelegateToolButtonSize
-                        implicitWidth: elisaTheme.smallDelegateToolButtonSize
-                        Layout.maximumWidth: elisaTheme.smallDelegateToolButtonSize
-                        Layout.maximumHeight: elisaTheme.smallDelegateToolButtonSize
-                        Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-                        Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin / 2 : 0
-                        Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin / 2 : 0
+                    Image {
+                        id: playIcon
 
-                        Image {
-                            id: playIcon
+                        anchors.fill: parent
 
-                            anchors.fill: parent
+                        opacity: 0
 
-                            opacity: 0
+                        source: (isPlaying === MediaPlayList.IsPlaying ?
+                                     Qt.resolvedUrl(elisaTheme.playingIndicatorIcon) : Qt.resolvedUrl(elisaTheme.pausedIndicatorIcon))
 
-                            source: (isPlaying === MediaPlayList.IsPlaying ?
-                                         Qt.resolvedUrl(elisaTheme.playingIndicatorIcon) : Qt.resolvedUrl(elisaTheme.pausedIndicatorIcon))
+                        width: parent.height * 1.
+                        height: parent.height * 1.
 
-                            width: parent.height * 1.
-                            height: parent.height * 1.
+                        sourceSize.width: parent.height * 1.
+                        sourceSize.height: parent.height * 1.
+                        fillMode: Image.PreserveAspectFit
+                        mirror: LayoutMirroring.enabled
+                        visible: opacity > 0.0
+                    }
+                }
 
-                            sourceSize.width: parent.height * 1.
-                            sourceSize.height: parent.height * 1.
-                            fillMode: Image.PreserveAspectFit
-                            mirror: LayoutMirroring.enabled
-                            visible: opacity > 0.0
-                        }
+                Item {
+                    id: fakeDiscNumberItem
+
+                    visible: isValid && (!hasValidDiscNumber || isSingleDiscAlbum)
+
+                    Layout.preferredWidth: (fakeDiscNumberSize.boundingRect.width - fakeDiscNumberSize.boundingRect.x) + (elisaTheme.layoutHorizontalMargin / 4)
+                    Layout.minimumWidth: (fakeDiscNumberSize.boundingRect.width - fakeDiscNumberSize.boundingRect.x) + (elisaTheme.layoutHorizontalMargin / 4)
+                    Layout.maximumWidth: (fakeDiscNumberSize.boundingRect.width - fakeDiscNumberSize.boundingRect.x) + (elisaTheme.layoutHorizontalMargin / 4)
+
+                    TextMetrics {
+                        id: fakeDiscNumberSize
+
+                        text: '/9'
+                    }
+                }
+
+                Label {
+                    id: trackNumberLabel
+
+                    horizontalAlignment: Text.AlignRight
+
+                    text: trackNumber !== 0 && trackNumber !== -1 ? Number(trackNumber).toLocaleString(Qt.locale(), 'f', 0) : ''
+
+                    font.weight: (isPlaying ? Font.Bold : Font.Light)
+                    color: myPalette.text
+
+                    Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+
+                    visible: isValid
+
+                    Layout.preferredWidth: ((trackNumberSize.boundingRect.width - trackNumberSize.boundingRect.x) > (realTrackNumberSize.boundingRect.width - realTrackNumberSize.boundingRect.x) ? (trackNumberSize.boundingRect.width - trackNumberSize.boundingRect.x) : (realTrackNumberSize.boundingRect.width - realTrackNumberSize.boundingRect.x))
+                    Layout.minimumWidth: ((trackNumberSize.boundingRect.width - trackNumberSize.boundingRect.x) > (realTrackNumberSize.boundingRect.width - realTrackNumberSize.boundingRect.x) ? (trackNumberSize.boundingRect.width - trackNumberSize.boundingRect.x) : (realTrackNumberSize.boundingRect.width - realTrackNumberSize.boundingRect.x))
+                    Layout.maximumWidth: ((trackNumberSize.boundingRect.width - trackNumberSize.boundingRect.x) > (realTrackNumberSize.boundingRect.width - realTrackNumberSize.boundingRect.x) ? (trackNumberSize.boundingRect.width - trackNumberSize.boundingRect.x) : (realTrackNumberSize.boundingRect.width - realTrackNumberSize.boundingRect.x))
+
+                    Layout.rightMargin: !LayoutMirroring.enabled ? (discNumber !== 0 && !isSingleDiscAlbum ?
+                                                                        0 : elisaTheme.layoutHorizontalMargin / 2) : 0
+                    Layout.leftMargin: LayoutMirroring.enabled ? (discNumber !== 0 && !isSingleDiscAlbum ?
+                                                                      0 : elisaTheme.layoutHorizontalMargin / 2) : 0
+
+                    TextMetrics {
+                        id: trackNumberSize
+
+                        text: (99).toLocaleString(Qt.locale(), 'f', 0)
                     }
 
-                    Item {
-                        id: fakeDiscNumberItem
+                    TextMetrics {
+                        id: realTrackNumberSize
 
-                        visible: isValid && (!hasValidDiscNumber || isSingleDiscAlbum)
-
-                        Layout.preferredWidth: (fakeDiscNumberSize.boundingRect.width - fakeDiscNumberSize.boundingRect.x) + (elisaTheme.layoutHorizontalMargin / 4)
-                        Layout.minimumWidth: (fakeDiscNumberSize.boundingRect.width - fakeDiscNumberSize.boundingRect.x) + (elisaTheme.layoutHorizontalMargin / 4)
-                        Layout.maximumWidth: (fakeDiscNumberSize.boundingRect.width - fakeDiscNumberSize.boundingRect.x) + (elisaTheme.layoutHorizontalMargin / 4)
-
-                        TextMetrics {
-                            id: fakeDiscNumberSize
-
-                            text: '/9'
-                        }
+                        text: Number(trackNumber).toLocaleString(Qt.locale(), 'f', 0)
                     }
+                }
 
-                    Label {
-                        id: trackNumberLabel
+                Label {
+                    horizontalAlignment: Text.AlignCenter
 
-                        horizontalAlignment: Text.AlignRight
+                    text: '/'
 
-                        text: trackNumber !== 0 && trackNumber !== -1 ? Number(trackNumber).toLocaleString(Qt.locale(), 'f', 0) : ''
+                    visible: isValid && discNumber !== 0 && !isSingleDiscAlbum
 
-                        font.weight: (isPlaying ? Font.Bold : Font.Light)
-                        color: myPalette.text
+                    font.weight: (isPlaying ? Font.Bold : Font.Light)
+                    color: myPalette.text
 
-                        Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+                    Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
 
-                        visible: isValid
+                    Layout.preferredWidth: (numberSeparatorSize.boundingRect.width - numberSeparatorSize.boundingRect.x)
+                    Layout.minimumWidth: (numberSeparatorSize.boundingRect.width - numberSeparatorSize.boundingRect.x)
+                    Layout.maximumWidth: (numberSeparatorSize.boundingRect.width - numberSeparatorSize.boundingRect.x)
 
-                        Layout.preferredWidth: ((trackNumberSize.boundingRect.width - trackNumberSize.boundingRect.x) > (realTrackNumberSize.boundingRect.width - realTrackNumberSize.boundingRect.x) ? (trackNumberSize.boundingRect.width - trackNumberSize.boundingRect.x) : (realTrackNumberSize.boundingRect.width - realTrackNumberSize.boundingRect.x))
-                        Layout.minimumWidth: ((trackNumberSize.boundingRect.width - trackNumberSize.boundingRect.x) > (realTrackNumberSize.boundingRect.width - realTrackNumberSize.boundingRect.x) ? (trackNumberSize.boundingRect.width - trackNumberSize.boundingRect.x) : (realTrackNumberSize.boundingRect.width - realTrackNumberSize.boundingRect.x))
-                        Layout.maximumWidth: ((trackNumberSize.boundingRect.width - trackNumberSize.boundingRect.x) > (realTrackNumberSize.boundingRect.width - realTrackNumberSize.boundingRect.x) ? (trackNumberSize.boundingRect.width - trackNumberSize.boundingRect.x) : (realTrackNumberSize.boundingRect.width - realTrackNumberSize.boundingRect.x))
-
-                        Layout.rightMargin: !LayoutMirroring.enabled ? (discNumber !== 0 && !isSingleDiscAlbum ?
-                                                                            0 : elisaTheme.layoutHorizontalMargin / 2) : 0
-                        Layout.leftMargin: LayoutMirroring.enabled ? (discNumber !== 0 && !isSingleDiscAlbum ?
-                                                                          0 : elisaTheme.layoutHorizontalMargin / 2) : 0
-
-                        TextMetrics {
-                            id: trackNumberSize
-
-                            text: (99).toLocaleString(Qt.locale(), 'f', 0)
-                        }
-
-                        TextMetrics {
-                            id: realTrackNumberSize
-
-                            text: Number(trackNumber).toLocaleString(Qt.locale(), 'f', 0)
-                        }
-                    }
-
-                    Label {
-                        horizontalAlignment: Text.AlignCenter
+                    TextMetrics {
+                        id: numberSeparatorSize
 
                         text: '/'
+                    }
+                }
 
-                        visible: isValid && discNumber !== 0 && !isSingleDiscAlbum
+                Label {
+                    horizontalAlignment: Text.AlignRight
 
-                        font.weight: (isPlaying ? Font.Bold : Font.Light)
-                        color: myPalette.text
+                    font.weight: (isPlaying ? Font.Bold : Font.Light)
+                    color: myPalette.text
 
-                        Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+                    text: Number(discNumber).toLocaleString(Qt.locale(), 'f', 0)
 
-                        Layout.preferredWidth: (numberSeparatorSize.boundingRect.width - numberSeparatorSize.boundingRect.x)
-                        Layout.minimumWidth: (numberSeparatorSize.boundingRect.width - numberSeparatorSize.boundingRect.x)
-                        Layout.maximumWidth: (numberSeparatorSize.boundingRect.width - numberSeparatorSize.boundingRect.x)
+                    visible: isValid && discNumber !== 0 && !isSingleDiscAlbum
 
-                        TextMetrics {
-                            id: numberSeparatorSize
+                    Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
 
-                            text: '/'
-                        }
+                    Layout.preferredWidth: ((discNumberSize.boundingRect.width - discNumberSize.boundingRect.x) > (realDiscNumberSize.boundingRect.width - realDiscNumberSize.boundingRect.x) ?
+                                                (discNumberSize.boundingRect.width - discNumberSize.boundingRect.x) :
+                                                (realDiscNumberSize.boundingRect.width - realDiscNumberSize.boundingRect.x))
+                    Layout.minimumWidth: ((discNumberSize.boundingRect.width - discNumberSize.boundingRect.x) > (realDiscNumberSize.boundingRect.width - realDiscNumberSize.boundingRect.x) ?
+                                              (discNumberSize.boundingRect.width - discNumberSize.boundingRect.x) :
+                                              (realDiscNumberSize.boundingRect.width - realDiscNumberSize.boundingRect.x))
+                    Layout.maximumWidth: ((discNumberSize.boundingRect.width - discNumberSize.boundingRect.x) > (realDiscNumberSize.boundingRect.width - realDiscNumberSize.boundingRect.x) ?
+                                              (discNumberSize.boundingRect.width - discNumberSize.boundingRect.x) :
+                                              (realDiscNumberSize.boundingRect.width - realDiscNumberSize.boundingRect.x))
+
+                    Layout.rightMargin: !LayoutMirroring.enabled ? (elisaTheme.layoutHorizontalMargin / 2) : 0
+                    Layout.leftMargin: LayoutMirroring.enabled ? (elisaTheme.layoutHorizontalMargin / 2) : 0
+
+                    TextMetrics {
+                        id: discNumberSize
+
+                        text: '9'
                     }
 
-                    Label {
-                        horizontalAlignment: Text.AlignRight
-
-                        font.weight: (isPlaying ? Font.Bold : Font.Light)
-                        color: myPalette.text
+                    TextMetrics {
+                        id: realDiscNumberSize
 
                         text: Number(discNumber).toLocaleString(Qt.locale(), 'f', 0)
-
-                        visible: isValid && discNumber !== 0 && !isSingleDiscAlbum
-
-                        Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
-
-                        Layout.preferredWidth: ((discNumberSize.boundingRect.width - discNumberSize.boundingRect.x) > (realDiscNumberSize.boundingRect.width - realDiscNumberSize.boundingRect.x) ?
-                                                    (discNumberSize.boundingRect.width - discNumberSize.boundingRect.x) :
-                                                    (realDiscNumberSize.boundingRect.width - realDiscNumberSize.boundingRect.x))
-                        Layout.minimumWidth: ((discNumberSize.boundingRect.width - discNumberSize.boundingRect.x) > (realDiscNumberSize.boundingRect.width - realDiscNumberSize.boundingRect.x) ?
-                                                  (discNumberSize.boundingRect.width - discNumberSize.boundingRect.x) :
-                                                  (realDiscNumberSize.boundingRect.width - realDiscNumberSize.boundingRect.x))
-                        Layout.maximumWidth: ((discNumberSize.boundingRect.width - discNumberSize.boundingRect.x) > (realDiscNumberSize.boundingRect.width - realDiscNumberSize.boundingRect.x) ?
-                                                  (discNumberSize.boundingRect.width - discNumberSize.boundingRect.x) :
-                                                  (realDiscNumberSize.boundingRect.width - realDiscNumberSize.boundingRect.x))
-
-                        Layout.rightMargin: !LayoutMirroring.enabled ? (elisaTheme.layoutHorizontalMargin / 2) : 0
-                        Layout.leftMargin: LayoutMirroring.enabled ? (elisaTheme.layoutHorizontalMargin / 2) : 0
-
-                        TextMetrics {
-                            id: discNumberSize
-
-                            text: '9'
-                        }
-
-                        TextMetrics {
-                            id: realDiscNumberSize
-
-                            text: Number(discNumber).toLocaleString(Qt.locale(), 'f', 0)
-                        }
                     }
+                }
 
-                    LabelWithToolTip {
-                        id: mainCompactLabel
+                LabelWithToolTip {
+                    id: mainCompactLabel
 
-                        text: title
+                    text: title
 
-                        font.weight: (isPlaying ? Font.Bold : Font.Normal)
-                        color: myPalette.text
+                    font.weight: (isPlaying ? Font.Bold : Font.Normal)
+                    color: myPalette.text
 
-                        Layout.maximumWidth: mainCompactLabel.implicitWidth + 1
-                        Layout.fillWidth: true
-                        Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
+                    Layout.maximumWidth: mainCompactLabel.implicitWidth + 1
+                    Layout.fillWidth: true
+                    Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
 
-                        visible: isValid
+                    visible: isValid
 
-                        elide: Text.ElideRight
-                        horizontalAlignment: Text.AlignLeft
-                    }
+                    elide: Text.ElideRight
+                    horizontalAlignment: Text.AlignLeft
+                }
 
-                    LabelWithToolTip {
-                        id: mainInvalidCompactLabel
+                LabelWithToolTip {
+                    id: mainInvalidCompactLabel
 
-                        text: title
+                    text: title
 
-                        font.weight: Font.Normal
-                        color: myPalette.text
+                    font.weight: Font.Normal
+                    color: myPalette.text
 
-                        Layout.fillWidth: true
-                        Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
+                    Layout.fillWidth: true
+                    Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
 
-                        visible: !isValid
+                    visible: !isValid
 
-                        elide: Text.ElideRight
-                    }
+                    elide: Text.ElideRight
+                }
 
-                    Item {
-                        Layout.fillWidth: true
-                        Layout.preferredWidth: 0
-                    }
+                Item {
+                    Layout.fillWidth: true
+                    Layout.preferredWidth: 0
+                }
+
+                Controls1.ToolButton {
+                    id: infoButton
+                    objectName: 'infoButton'
+
+                    implicitHeight: elisaTheme.smallDelegateToolButtonSize
+                    implicitWidth: elisaTheme.smallDelegateToolButtonSize
+
+                    opacity: 0
+
+                    visible: opacity > 0.1
+
+                    action: showInfo
+                    Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+                }
+
+                Controls1.ToolButton {
+                    id: playPauseButton
+                    objectName: 'playPauseButton'
+
+                    implicitHeight: elisaTheme.smallDelegateToolButtonSize
+                    implicitWidth: elisaTheme.smallDelegateToolButtonSize
+
+                    opacity: 0
+
+                    scale: LayoutMirroring.enabled ? -1 : 1 // We can mirror the symmetrical pause icon
+
+                    visible: opacity > 0.1
+                    action: !(isPlaying === MediaPlayList.IsPlaying) ? playNow : pauseNow
+                    Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+                }
+
+                Item {
+                    implicitHeight: elisaTheme.smallDelegateToolButtonSize
+                    implicitWidth: elisaTheme.smallDelegateToolButtonSize
+                    Layout.maximumWidth: elisaTheme.smallDelegateToolButtonSize
+                    Layout.maximumHeight: elisaTheme.smallDelegateToolButtonSize
+                    Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
 
                     Controls1.ToolButton {
-                        id: infoButton
-                        objectName: 'infoButton'
+                        id: removeButton
+                        objectName: 'removeButton'
 
-                        implicitHeight: elisaTheme.smallDelegateToolButtonSize
-                        implicitWidth: elisaTheme.smallDelegateToolButtonSize
+                        anchors.fill: parent
 
                         opacity: 0
 
                         visible: opacity > 0.1
-
-                        action: showInfo
-                        Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+                        action: removeFromPlayList
                     }
+                }
 
-                    Controls1.ToolButton {
-                        id: playPauseButton
-                        objectName: 'playPauseButton'
+                RatingStar {
+                    id: ratingWidget
 
-                        implicitHeight: elisaTheme.smallDelegateToolButtonSize
-                        implicitWidth: elisaTheme.smallDelegateToolButtonSize
+                    starRating: rating
 
-                        opacity: 0
+                    starSize: elisaTheme.ratingStarSize
 
-                        scale: LayoutMirroring.enabled ? -1 : 1 // We can mirror the symmetrical pause icon
+                    visible: rating > 0
+                }
 
-                        visible: opacity > 0.1
-                        action: !(isPlaying === MediaPlayList.IsPlaying) ? playNow : pauseNow
-                        Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
-                    }
+                LabelWithToolTip {
+                    id: durationLabel
 
-                    Item {
-                        implicitHeight: elisaTheme.smallDelegateToolButtonSize
-                        implicitWidth: elisaTheme.smallDelegateToolButtonSize
-                        Layout.maximumWidth: elisaTheme.smallDelegateToolButtonSize
-                        Layout.maximumHeight: elisaTheme.smallDelegateToolButtonSize
-                        Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+                    text: duration
 
-                        Controls1.ToolButton {
-                            id: removeButton
-                            objectName: 'removeButton'
+                    font.weight: (isPlaying ? Font.Bold : Font.Normal)
+                    color: myPalette.text
 
-                            anchors.fill: parent
+                    Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+                    Layout.leftMargin: elisaTheme.layoutHorizontalMargin / 2
+                    Layout.rightMargin: elisaTheme.layoutHorizontalMargin / 2
 
-                            opacity: 0
-
-                            visible: opacity > 0.1
-                            action: removeFromPlayList
-                        }
-                    }
-
-                    RatingStar {
-                        id: ratingWidget
-
-                        starRating: rating
-
-                        starSize: elisaTheme.ratingStarSize
-
-                        visible: rating > 0
-                    }
-
-                    LabelWithToolTip {
-                        id: durationLabel
-
-                        text: duration
-
-                        font.weight: (isPlaying ? Font.Bold : Font.Normal)
-                        color: myPalette.text
-
-                        Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
-                        Layout.leftMargin: elisaTheme.layoutHorizontalMargin / 2
-                        Layout.rightMargin: elisaTheme.layoutHorizontalMargin / 2
-
-                        horizontalAlignment: Text.AlignRight
-                    }
+                    horizontalAlignment: Text.AlignRight
                 }
             }
         }
@@ -408,7 +409,7 @@ FocusScope {
     states: [
         State {
             name: 'notSelected'
-            when: !containsMouse && (!playListEntry.activeFocus || !isSelected)
+            when: !containsMouse && !isSelected && !playListEntry.activeFocus
             PropertyChanges {
                 target: removeButton
                 opacity: 0
@@ -430,13 +431,17 @@ FocusScope {
                 color: (isAlternateColor ? myPalette.alternateBase : myPalette.base)
             }
             PropertyChanges {
+                target: entryBackground
+                opacity: 1.
+            }
+            PropertyChanges {
                 target: ratingWidget
                 hoverWidgetOpacity: 0.0
             }
         },
         State {
-            name: 'hoveredOrSelected'
-            when: containsMouse || (playListEntry.activeFocus && isSelected)
+            name: 'hovered'
+            when: containsMouse && !playListEntry.activeFocus
             PropertyChanges {
                 target: removeButton
                 opacity: 1
@@ -455,7 +460,75 @@ FocusScope {
             }
             PropertyChanges {
                 target: entryBackground
+                color: myPalette.highlight
+            }
+            PropertyChanges {
+                target: entryBackground
+                opacity: 0.2
+            }
+            PropertyChanges {
+                target: ratingWidget
+                hoverWidgetOpacity: 1.0
+            }
+        },
+        State {
+            name: 'selected'
+            when: !playListEntry.activeFocus && isSelected
+            PropertyChanges {
+                target: removeButton
+                opacity: 0
+            }
+            PropertyChanges {
+                target: playPauseButton
+                opacity: 0
+            }
+            PropertyChanges {
+                target: infoButton
+                opacity: 0
+            }
+            PropertyChanges {
+                target: playIcon
+                opacity: (isPlaying === MediaPlayList.IsPlaying || isPlaying === MediaPlayList.IsPaused ? 1.0 : 0.0)
+            }
+            PropertyChanges {
+                target: entryBackground
                 color: myPalette.mid
+            }
+            PropertyChanges {
+                target: entryBackground
+                opacity: 1.
+            }
+            PropertyChanges {
+                target: ratingWidget
+                hoverWidgetOpacity: 1.0
+            }
+        },
+        State {
+            name: 'focused'
+            when: playListEntry.activeFocus
+            PropertyChanges {
+                target: removeButton
+                opacity: 1
+            }
+            PropertyChanges {
+                target: playPauseButton
+                opacity: 1
+            }
+            PropertyChanges {
+                target: infoButton
+                opacity: 1
+            }
+            PropertyChanges {
+                target: playIcon
+                opacity: (isPlaying === MediaPlayList.IsPlaying || isPlaying === MediaPlayList.IsPaused ? 1.0 : 0.0)
+            }
+            PropertyChanges {
+                target: entryBackground
+                color: myPalette.highlight
+            }
+            PropertyChanges {
+                target: entryBackground
+                opacity: 0.6
             }
             PropertyChanges {
                 target: ratingWidget

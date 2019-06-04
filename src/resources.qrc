@@ -44,6 +44,7 @@
         <file>qml/BasicPlayListAlbumHeader.qml</file>
         <file>qml/MetaDataDelegate.qml</file>
         <file>qml/ContextViewLyrics.qml</file>
+        <file>qml/ViewSelectorDelegate.qml</file>
     </qresource>
     <qresource prefix="/qml/+windows">
         <file alias="Theme.qml">windows/WindowsTheme.qml</file>

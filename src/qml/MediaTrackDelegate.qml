@@ -39,6 +39,7 @@ FocusScope {
     property int rating
     property bool isFirstTrackOfDisc
     property bool isSingleDiscAlbum
+    property bool isSelected
     property bool isAlternateColor
     property bool detailedView: true
 
@@ -93,256 +94,256 @@ FocusScope {
         id: rowRoot
 
         anchors.fill: parent
+        z: 1
 
         color: (isAlternateColor ? myPalette.alternateBase : myPalette.base)
+    }
 
-        MouseArea {
-            id: hoverArea
+    MouseArea {
+        id: hoverArea
 
+        anchors.fill: parent
+        z: 2
+
+        hoverEnabled: true
+        acceptedButtons: Qt.LeftButton
+
+        onClicked: {
+            mediaTrack.clicked()
+        }
+
+        onDoubleClicked: enqueue(databaseId, title)
+
+        RowLayout {
             anchors.fill: parent
+            spacing: 0
 
-            hoverEnabled: true
-            focus: true
-            acceptedButtons: Qt.LeftButton
+            LabelWithToolTip {
+                id: mainLabel
 
-            onClicked: {
-                hoverArea.forceActiveFocus()
-                mediaTrack.clicked()
+                visible: !detailedView
+
+                text: {
+                    if (trackNumber !== 0) {
+                        if (artist !== albumArtist)
+                            return i18nc("%1: track number. %2: track title. %3: artist name",
+                                         "<b>%1 - %2</b> - <i>%3</i>",
+                                         trackNumber.toLocaleString(Qt.locale(), 'f', 0),
+                                         title, artist);
+                        else
+                            return i18nc("%1: track number. %2: track title.",
+                                         "<b>%1 - %2</b>",
+                                         trackNumber.toLocaleString(Qt.locale(), 'f', 0),
+                                         title);
+                    } else {
+                        if (artist !== albumArtist)
+                            return i18nc("%1: track title. %2: artist name",
+                                         "<b>%1</b> - <i>%2</i>",
+                                         title, artist);
+                        else
+                            return i18nc("%1: track title",
+                                         "<b>%1</b>",
+                                         title);
+                    }
+                }
+
+                elide: Text.ElideRight
+                horizontalAlignment: Text.AlignLeft
+
+                color: myPalette.text
+
+                Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
+                Layout.fillWidth: true
+                Layout.leftMargin: {
+                    if (!LayoutMirroring.enabled)
+                        return (!isSingleDiscAlbum ? elisaTheme.layoutHorizontalMargin * 4 : elisaTheme.layoutHorizontalMargin)
+                    else
+                        return 0
+                }
+                Layout.rightMargin: {
+                    if (LayoutMirroring.enabled)
+                        return (!isSingleDiscAlbum ? elisaTheme.layoutHorizontalMargin * 4 : elisaTheme.layoutHorizontalMargin)
+                    else
+                        return 0
+                }
             }
 
-            onDoubleClicked: enqueue(databaseId, title)
+            Item {
+                Layout.preferredHeight: mediaTrack.height * 0.9
+                Layout.preferredWidth: mediaTrack.height * 0.9
 
-            RowLayout {
-                anchors.fill: parent
+                Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
+
+                visible: detailedView
+
+                Image {
+                    id: coverImageElement
+
+                    anchors.fill: parent
+
+                    sourceSize.width: mediaTrack.height * 0.9
+                    sourceSize.height: mediaTrack.height * 0.9
+                    fillMode: Image.PreserveAspectFit
+                    smooth: true
+
+                    source: (imageUrl != '' ? imageUrl : Qt.resolvedUrl(elisaTheme.defaultAlbumImage))
+
+                    asynchronous: true
+
+                    layer.enabled: imageUrl != ''
+
+                    layer.effect: DropShadow {
+                        source: coverImageElement
+
+                        radius: 10
+                        spread: 0.1
+                        samples: 21
+
+                        color: myPalette.shadow
+                    }
+                }
+            }
+
+            ColumnLayout {
+                visible: detailedView
+
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                Layout.alignment: Qt.AlignLeft
+
                 spacing: 0
 
                 LabelWithToolTip {
-                    id: mainLabel
-
-                    visible: !detailedView
+                    id: mainLabelDetailed
 
                     text: {
                         if (trackNumber !== 0) {
-                            if (artist !== albumArtist)
-                                return i18nc("%1: track number. %2: track title. %3: artist name",
-                                             "<b>%1 - %2</b> - <i>%3</i>",
-                                             trackNumber.toLocaleString(Qt.locale(), 'f', 0),
-                                             title, artist);
-                            else
-                                return i18nc("%1: track number. %2: track title.",
-                                             "<b>%1 - %2</b>",
-                                             trackNumber.toLocaleString(Qt.locale(), 'f', 0),
-                                             title);
+                            return i18nc("%1: track number. %2: track title", "%1 - %2",
+                                         trackNumber.toLocaleString(Qt.locale(), 'f', 0), title);
                         } else {
-                            if (artist !== albumArtist)
-                                return i18nc("%1: track title. %2: artist name",
-                                             "<b>%1</b> - <i>%2</i>",
-                                             title, artist);
-                            else
-                                return i18nc("%1: track title",
-                                             "<b>%1</b>",
-                                             title);
+                            return title;
                         }
                     }
 
-                    elide: Text.ElideRight
                     horizontalAlignment: Text.AlignLeft
 
+                    font.weight: Font.Bold
                     color: myPalette.text
 
-                    Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
+                    Layout.alignment: Qt.AlignLeft | Qt.AlignTop
+                    Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+                    Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
                     Layout.fillWidth: true
-                    Layout.leftMargin: {
-                        if (!LayoutMirroring.enabled)
-                            return (!isSingleDiscAlbum ? elisaTheme.layoutHorizontalMargin * 4 : elisaTheme.layoutHorizontalMargin)
-                        else
-                            return 0
-                    }
-                    Layout.rightMargin: {
-                        if (LayoutMirroring.enabled)
-                            return (!isSingleDiscAlbum ? elisaTheme.layoutHorizontalMargin * 4 : elisaTheme.layoutHorizontalMargin)
-                        else
-                            return 0
-                    }
+                    Layout.topMargin: elisaTheme.layoutVerticalMargin / 2
+
+                    elide: Text.ElideRight
                 }
 
                 Item {
-                    Layout.preferredHeight: mediaTrack.height * 0.9
-                    Layout.preferredWidth: mediaTrack.height * 0.9
-
-                    Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
-
-                    visible: detailedView
-
-                    Image {
-                        id: coverImageElement
-
-                        anchors.fill: parent
-
-                        sourceSize.width: mediaTrack.height * 0.9
-                        sourceSize.height: mediaTrack.height * 0.9
-                        fillMode: Image.PreserveAspectFit
-                        smooth: true
-
-                        source: (imageUrl != '' ? imageUrl : Qt.resolvedUrl(elisaTheme.defaultAlbumImage))
-
-                        asynchronous: true
-
-                        layer.enabled: imageUrl != ''
-
-                        layer.effect: DropShadow {
-                            source: coverImageElement
-
-                            radius: 10
-                            spread: 0.1
-                            samples: 21
-
-                            color: myPalette.shadow
-                        }
-                    }
-                }
-
-                ColumnLayout {
-                    visible: detailedView
-
-                    Layout.fillWidth: true
                     Layout.fillHeight: true
-                    Layout.alignment: Qt.AlignLeft
-
-                    spacing: 0
-
-                    LabelWithToolTip {
-                        id: mainLabelDetailed
-
-                        text: {
-                            if (trackNumber !== 0) {
-                                return i18nc("%1: track number. %2: track title", "%1 - %2",
-                                             trackNumber.toLocaleString(Qt.locale(), 'f', 0), title);
-                            } else {
-                                return title;
-                            }
-                        }
-
-                        horizontalAlignment: Text.AlignLeft
-
-                        font.weight: Font.Bold
-                        color: myPalette.text
-
-                        Layout.alignment: Qt.AlignLeft | Qt.AlignTop
-                        Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-                        Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-                        Layout.fillWidth: true
-                        Layout.topMargin: elisaTheme.layoutVerticalMargin / 2
-
-                        elide: Text.ElideRight
-                    }
-
-                    Item {
-                        Layout.fillHeight: true
-                    }
-
-                    LabelWithToolTip {
-                        id: artistLabel
-
-                        text: {
-                            var labelText = ""
-                            if (artist) {
-                                labelText += artist
-                            }
-                            if (album !== '') {
-                                labelText += ' - ' + album
-                                if (!isSingleDiscAlbum) {
-                                    labelText += ' - CD ' + discNumber
-                                }
-                            }
-                            return labelText;
-                        }
-                        horizontalAlignment: Text.AlignLeft
-
-                        font.weight: Font.Light
-                        font.italic: true
-                        color: myPalette.text
-
-                        Layout.alignment: Qt.AlignLeft | Qt.AlignBottom
-                        Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-                        Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-                        Layout.fillWidth: true
-                        Layout.bottomMargin: elisaTheme.layoutVerticalMargin / 2
-
-                        elide: Text.ElideRight
-                    }
-                }
-
-                Loader {
-                    id: hoverLoader
-                    active: false
-
-                    Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
-                    Layout.rightMargin: 10
-
-                    z: 1
-                    opacity: 0
-
-                    sourceComponent: Row {
-                        anchors.centerIn: parent
-
-                        Controls1.ToolButton {
-                            id: detailsButton
-
-                            height: elisaTheme.delegateHeight
-                            width: elisaTheme.delegateHeight
-
-                            action: viewDetailsAction
-                        }
-
-                        Controls1.ToolButton {
-                            id: enqueueButton
-
-                            height: elisaTheme.delegateHeight
-                            width: elisaTheme.delegateHeight
-
-                            action: enqueueAction
-                        }
-
-                        Controls1.ToolButton {
-                            id: clearAndEnqueueButton
-
-                            scale: LayoutMirroring.enabled ? -1 : 1
-
-                            height: elisaTheme.delegateHeight
-                            width: elisaTheme.delegateHeight
-
-                            action: replaceAndPlayAction
-                        }
-                    }
-                }
-
-                RatingStar {
-                    id: ratingWidget
-
-                    starSize: elisaTheme.ratingStarSize
-
-                    starRating: rating
-
-                    Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
-                    Layout.leftMargin: elisaTheme.layoutHorizontalMargin
-                    Layout.rightMargin: elisaTheme.layoutHorizontalMargin
                 }
 
                 LabelWithToolTip {
-                    id: durationLabel
+                    id: artistLabel
 
-                    text: duration
+                    text: {
+                        var labelText = ""
+                        if (artist) {
+                            labelText += artist
+                        }
+                        if (album !== '') {
+                            labelText += ' - ' + album
+                            if (!isSingleDiscAlbum) {
+                                labelText += ' - CD ' + discNumber
+                            }
+                        }
+                        return labelText;
+                    }
+                    horizontalAlignment: Text.AlignLeft
 
                     font.weight: Font.Light
+                    font.italic: true
                     color: myPalette.text
 
-                    horizontalAlignment: Text.AlignRight
+                    Layout.alignment: Qt.AlignLeft | Qt.AlignBottom
+                    Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+                    Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+                    Layout.fillWidth: true
+                    Layout.bottomMargin: elisaTheme.layoutVerticalMargin / 2
 
-                    Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
-                    Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-                    Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+                    elide: Text.ElideRight
                 }
+            }
+
+            Loader {
+                id: hoverLoader
+                active: false
+
+                Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+                Layout.rightMargin: 10
+
+                z: 1
+                opacity: 0
+
+                sourceComponent: Row {
+                    anchors.centerIn: parent
+
+                    Controls1.ToolButton {
+                        id: detailsButton
+
+                        height: elisaTheme.delegateHeight
+                        width: elisaTheme.delegateHeight
+
+                        action: viewDetailsAction
+                    }
+
+                    Controls1.ToolButton {
+                        id: enqueueButton
+
+                        height: elisaTheme.delegateHeight
+                        width: elisaTheme.delegateHeight
+
+                        action: enqueueAction
+                    }
+
+                    Controls1.ToolButton {
+                        id: clearAndEnqueueButton
+
+                        scale: LayoutMirroring.enabled ? -1 : 1
+
+                        height: elisaTheme.delegateHeight
+                        width: elisaTheme.delegateHeight
+
+                        action: replaceAndPlayAction
+                    }
+                }
+            }
+
+            RatingStar {
+                id: ratingWidget
+
+                starSize: elisaTheme.ratingStarSize
+
+                starRating: rating
+
+                Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+                Layout.leftMargin: elisaTheme.layoutHorizontalMargin
+                Layout.rightMargin: elisaTheme.layoutHorizontalMargin
+            }
+
+            LabelWithToolTip {
+                id: durationLabel
+
+                text: duration
+
+                font.weight: Font.Light
+                color: myPalette.text
+
+                horizontalAlignment: Text.AlignRight
+
+                Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+                Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+                Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
             }
         }
     }
@@ -350,7 +351,7 @@ FocusScope {
     states: [
         State {
             name: 'notSelected'
-            when: !hoverArea.containsMouse && !mediaTrack.activeFocus
+            when: !mediaTrack.activeFocus && !hoverArea.containsMouse && !mediaTrack.isSelected
             PropertyChanges {
                 target: hoverLoader
                 active: false
@@ -367,10 +368,14 @@ FocusScope {
                 target: rowRoot
                 color: (isAlternateColor ? myPalette.alternateBase : myPalette.base)
             }
+            PropertyChanges {
+                target: rowRoot
+                opacity: 1
+            }
         },
         State {
-            name: 'hoveredOrSelected'
-            when: hoverArea.containsMouse || mediaTrack.activeFocus
+            name: 'hovered'
+            when: !mediaTrack.activeFocus && hoverArea.containsMouse
             PropertyChanges {
                 target: hoverLoader
                 active: true
@@ -385,14 +390,65 @@ FocusScope {
             }
             PropertyChanges {
                 target: rowRoot
+                color: myPalette.highlight
+            }
+            PropertyChanges {
+                target: rowRoot
+                opacity: 0.2
+            }
+        },
+        State {
+            name: 'selected'
+            when: !mediaTrack.activeFocus && mediaTrack.isSelected
+            PropertyChanges {
+                target: hoverLoader
+                active: false
+            }
+            PropertyChanges {
+                target: hoverLoader
+                opacity: 0.0
+            }
+            PropertyChanges {
+                target: ratingWidget
+                hoverWidgetOpacity: 1.0
+            }
+            PropertyChanges {
+                target: rowRoot
                 color: myPalette.mid
+            }
+            PropertyChanges {
+                target: rowRoot
+                opacity: 1.
+            }
+        },
+        State {
+            name: 'focused'
+            when: mediaTrack.activeFocus
+            PropertyChanges {
+                target: hoverLoader
+                active: true
+            }
+            PropertyChanges {
+                target: hoverLoader
+                opacity: 1.0
+            }
+            PropertyChanges {
+                target: ratingWidget
+                hoverWidgetOpacity: 1.0
+            }
+            PropertyChanges {
+                target: rowRoot
+                color: myPalette.highlight
+            }
+            PropertyChanges {
+                target: rowRoot
+                opacity: 0.6
             }
         }
     ]
 
     transitions: [
         Transition {
-            to: 'hoveredOrSelected'
             SequentialAnimation {
                 PropertyAction {
                     properties: "active"
@@ -401,31 +457,12 @@ FocusScope {
                     NumberAnimation {
                         properties: "opacity, hoverWidgetOpacity"
                         easing.type: Easing.InOutQuad
-                        duration: 250
+                        duration: 200
                     }
                     ColorAnimation {
                         properties: "color"
-                        duration: 250
+                        duration: 350
                     }
-                }
-            }
-        },
-        Transition {
-            to: 'notSelected'
-            SequentialAnimation {
-                ParallelAnimation {
-                    NumberAnimation {
-                        properties: "opacity, hoverWidgetOpacity"
-                        easing.type: Easing.InOutQuad
-                        duration: 250
-                    }
-                    ColorAnimation {
-                        properties: "color"
-                        duration: 250
-                    }
-                }
-                PropertyAction {
-                    properties: "active"
                 }
             }
         }

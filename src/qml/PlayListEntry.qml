@@ -140,6 +140,7 @@ FocusScope {
                 id: trackRow
 
                 anchors.fill: parent
+                anchors.leftMargin: elisaTheme.layoutHorizontalMargin
 
                 spacing: elisaTheme.layoutHorizontalMargin / 4
 
@@ -397,8 +398,8 @@ FocusScope {
                     color: myPalette.text
 
                     Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
-                    Layout.leftMargin: elisaTheme.layoutHorizontalMargin / 2
-                    Layout.rightMargin: elisaTheme.layoutHorizontalMargin / 2
+                    Layout.leftMargin: elisaTheme.layoutHorizontalMargin
+                    Layout.rightMargin: elisaTheme.layoutHorizontalMargin
 
                     horizontalAlignment: Text.AlignRight
                 }

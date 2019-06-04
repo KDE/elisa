@@ -356,12 +356,7 @@ RowLayout {
                     id: playList
 
                     Layout.fillHeight: true
-                    Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-                    Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-
-                    Layout.minimumWidth: contentZone.width
-                    Layout.maximumWidth: contentZone.width
-                    Layout.preferredWidth: contentZone.width
+                    Layout.fillWidth: true
 
                     onStartPlayback: elisa.audioControl.ensurePlay()
 
@@ -437,12 +432,6 @@ RowLayout {
                     Layout.preferredWidth: 0
                 }
                 PropertyChanges {
-                    target: playList
-                    Layout.minimumWidth: contentZone.width * 2 / 5 + elisaTheme.layoutHorizontalMargin
-                    Layout.maximumWidth: contentZone.width * 2 / 5 + elisaTheme.layoutHorizontalMargin
-                    Layout.preferredWidth: contentZone.width * 2 / 5 + elisaTheme.layoutHorizontalMargin
-                }
-                PropertyChanges {
                     target: viewSeparatorItem
                     Layout.minimumWidth: 1
                     Layout.maximumWidth: 1
@@ -486,12 +475,6 @@ RowLayout {
                     Layout.minimumWidth: 1
                     Layout.maximumWidth: 1
                     Layout.preferredWidth: 1
-                }
-                PropertyChanges {
-                    target: playList
-                    Layout.minimumWidth: contentZone.width * 0.33 - 3 * elisaTheme.layoutHorizontalMargin + 2
-                    Layout.maximumWidth: contentZone.width * 0.33 - 3 * elisaTheme.layoutHorizontalMargin + 2
-                    Layout.preferredWidth: contentZone.width * 0.33 - 3 * elisaTheme.layoutHorizontalMargin + 2
                 }
                 PropertyChanges {
                     target: viewSeparatorItem

@@ -31,8 +31,12 @@ Rectangle {
     BasicPlayListAlbumHeader {
         id: albumHeader
 
-        anchors.fill: parent
-        anchors.topMargin: elisaTheme.layoutVerticalMargin * 1.5
-        anchors.bottomMargin: elisaTheme.layoutVerticalMargin * 1.5
+        anchors {
+            fill: parent
+            topMargin: elisaTheme.layoutVerticalMargin * 1.5
+            bottomMargin: elisaTheme.layoutVerticalMargin * 1.5
+            leftMargin: elisaTheme.layoutHorizontalMargin
+            rightMargin: elisaTheme.layoutHorizontalMargin
+        }
     }
 }

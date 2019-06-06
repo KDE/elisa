@@ -79,6 +79,7 @@ FocusScope {
             text: manager.countNotifications
 
             onClicked: topItem.isViewExpanded = !topItem.isViewExpanded
+            Accessible.onPressAction: onClicked
         }
     }
 

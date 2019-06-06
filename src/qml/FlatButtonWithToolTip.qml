@@ -48,6 +48,8 @@ Button {
         border.width: 1
     }
 
+    Accessible.onPressAction: onClicked
+
     ToolTip.visible: hovered
     ToolTip.delay: Qt.styleHints.mousePressAndHoldInterval
     ToolTip.text: flatButtonWithToolTip.action.text

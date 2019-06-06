@@ -38,6 +38,10 @@ FocusScope {
     property alias isSelected: mediaTrack.isSelected
     property alias isAlternateColor: mediaTrack.isAlternateColor
 
+    Accessible.role: Accessible.ListItem
+    Accessible.name: title
+    Accessible.description: title
+
     ColumnLayout {
         anchors.fill: parent
 

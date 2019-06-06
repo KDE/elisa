@@ -35,6 +35,9 @@ FocusScope {
 
     id: topItem
 
+    Accessible.role: Accessible.Pane
+    Accessible.name: viewTitleHeight.text
+
     Controls1.Action {
         id: clearPlayList
         text: i18nc("Remove all tracks from play list", "Clear Playlist")
@@ -136,21 +139,25 @@ FocusScope {
             Controls1.ToolButton {
                 action: showCurrentTrack
                 Keys.onReturnPressed: action.trigger()
+                Accessible.onPressAction: action.trigger()
             }
 
             Controls1.ToolButton {
                 action: savePlaylist
                 Keys.onReturnPressed: action.trigger()
+                Accessible.onPressAction: action.trigger()
             }
 
             Controls1.ToolButton {
                 action: loadPlaylist
                 Keys.onReturnPressed: action.trigger()
+                Accessible.onPressAction: action.trigger()
             }
 
             Controls1.ToolButton {
                 action: clearPlayList
                 Keys.onReturnPressed: action.trigger()
+                Accessible.onPressAction: action.trigger()
             }
         }
 
@@ -228,6 +235,7 @@ FocusScope {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
 
+                title: viewTitleHeight.text
                 playListModel: elisa.mediaPlayList
 
                 focus: true

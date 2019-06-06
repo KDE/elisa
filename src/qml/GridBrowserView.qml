@@ -114,6 +114,9 @@ FocusScope {
 
                 currentIndex: -1
 
+                Accessible.role: Accessible.List
+                Accessible.name: mainTitle
+
                 TextMetrics {
                     id: secondaryLabelSize
                     text: 'example'

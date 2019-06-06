@@ -137,6 +137,7 @@ MouseArea {
                         callBack();
                     }
                 }
+                Accessible.onPressAction: onClicked
             }
         }
         layer.enabled: true

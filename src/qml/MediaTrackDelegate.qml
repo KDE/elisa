@@ -47,6 +47,10 @@ FocusScope {
     signal enqueue(var databaseId, var name)
     signal replaceAndPlay(var databaseId, var name)
 
+    Accessible.role: Accessible.ListItem
+    Accessible.name: title
+    Accessible.description: title
+
     Controls1.Action {
         id: enqueueAction
         text: i18nc("Enqueue current track", "Enqueue")
@@ -295,6 +299,7 @@ FocusScope {
                         width: elisaTheme.delegateHeight
 
                         action: viewDetailsAction
+                        Accessible.onPressAction: action.trigger()
                     }
 
                     Controls1.ToolButton {
@@ -304,6 +309,7 @@ FocusScope {
                         width: elisaTheme.delegateHeight
 
                         action: enqueueAction
+                        Accessible.onPressAction: action.trigger()
                     }
 
                     Controls1.ToolButton {
@@ -315,6 +321,7 @@ FocusScope {
                         width: elisaTheme.delegateHeight
 
                         action: replaceAndPlayAction
+                        Accessible.onPressAction: action.trigger()
                     }
                 }
             }

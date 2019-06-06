@@ -37,6 +37,9 @@ FocusScope {
 
     focus: true
 
+    Accessible.role: Accessible.Pane
+    Accessible.name: mainTitle
+
     DataModel {
         id: realModel
     }

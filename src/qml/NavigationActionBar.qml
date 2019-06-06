@@ -90,6 +90,7 @@ ColumnLayout {
             objectName: 'goPreviousButton'
 
             Keys.onReturnPressed: action.trigger()
+            Accessible.onPressAction: action.trigger()
 
             activeFocusOnTab: true
             focus: enableGoBack
@@ -190,6 +191,7 @@ ColumnLayout {
 
                     onClicked: enqueue()
                     Keys.onReturnPressed: enqueue()
+                    Accessible.onPressAction: onClicked
 
                     Layout.leftMargin: 0
                     Layout.rightMargin: 0
@@ -205,6 +207,7 @@ ColumnLayout {
 
                     onClicked: replaceAndPlay()
                     Keys.onReturnPressed: replaceAndPlay()
+                    Accessible.onPressAction: onClicked
 
                     Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
                     Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
@@ -221,7 +224,8 @@ ColumnLayout {
                     activeFocusOnTab: true
 
                     onClicked: showArtist()
-                    Keys.onReturnPressed: showArtist()
+                    Keys.onReturnPressed: onClicked
+                    Accessible.onPressAction: onClicked
 
                     Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
                     Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
@@ -238,6 +242,7 @@ ColumnLayout {
                     activeFocusOnTab: true
 
                     Keys.onReturnPressed: action.trigger()
+                    Accessible.onPressAction: action.trigger()
 
                     Layout.alignment: Qt.AlignRight
                     Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
@@ -280,6 +285,8 @@ ColumnLayout {
             objectName: 'filterTextInput'
 
             horizontalAlignment: TextInput.AlignLeft
+
+            Accessible.role: Accessible.EditableText
 
             placeholderText: i18nc("Placeholder text in the filter text box", "Album name, artist, etc.")
 
@@ -363,6 +370,7 @@ ColumnLayout {
             activeFocusOnTab: true
 
             Keys.onReturnPressed: action.trigger()
+            Accessible.onPressAction: action.trigger()
 
             Layout.alignment: Qt.AlignRight
             Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0

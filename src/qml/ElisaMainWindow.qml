@@ -40,6 +40,9 @@ ApplicationWindow {
 
     title: i18n("Elisa")
 
+    Accessible.role: Accessible.Application
+    Accessible.name: title
+
     property var goBackAction: elisa.action("go_back")
     property var seekAction: elisa.action("Seek")
     property var scrubAction: elisa.action("Scrub")

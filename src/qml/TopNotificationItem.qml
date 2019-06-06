@@ -75,6 +75,7 @@ FocusScope {
                 enableAgainMainButtonTimer.start()
                 mainButtonClicked()
             }
+            Accessible.onPressAction: onClicked
 
             Timer {
                 id: enableAgainMainButtonTimer
@@ -98,6 +99,7 @@ FocusScope {
                 enableAgainSecondaryButtonTimer.start()
                 secondaryButtonClicked()
             }
+            Accessible.onPressAction: onClicked
 
             Timer {
                 id: enableAgainSecondaryButtonTimer
@@ -121,5 +123,6 @@ FocusScope {
         iconName: 'dialog-close'
 
         onClicked: close()
+        Accessible.onPressAction: onClicked
     }
 }

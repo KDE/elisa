@@ -65,6 +65,8 @@ FocusScope {
         ListView {
             id: viewModeView
 
+            Accessible.role: Accessible.List
+
             focus: true
             activeFocusOnTab: true
             keyNavigationEnabled: true

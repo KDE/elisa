@@ -53,6 +53,9 @@ FocusScope {
     signal removeFromPlaylist(var trackIndex)
     signal switchToTrack(var trackIndex)
 
+    Accessible.role: Accessible.ListItem
+    Accessible.name: title + ' ' + album + ' ' + artist
+
     height: elisaTheme.playListDelegateHeight
 
     Controls1.Action {
@@ -340,6 +343,8 @@ FocusScope {
                     visible: opacity > 0.1
 
                     action: showInfo
+                    Accessible.onPressAction: action.trigger()
+
                     Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
                 }
 
@@ -356,6 +361,8 @@ FocusScope {
 
                     visible: opacity > 0.1
                     action: !(isPlaying === MediaPlayList.IsPlaying) ? playNow : pauseNow
+                    Accessible.onPressAction: action.trigger()
+
                     Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
                 }
 
@@ -376,6 +383,7 @@ FocusScope {
 
                         visible: opacity > 0.1
                         action: removeFromPlayList
+                        Accessible.onPressAction: action.trigger()
                     }
                 }
 

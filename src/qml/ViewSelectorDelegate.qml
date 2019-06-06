@@ -36,6 +36,10 @@ FocusScope {
         color: "transparent"
     }
 
+    Accessible.role: Accessible.ListItem
+    Accessible.description: model.display
+    Accessible.name: model.display
+
     MouseArea {
         id: hoverArea
 

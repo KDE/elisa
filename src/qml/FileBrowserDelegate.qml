@@ -53,6 +53,9 @@ FocusScope {
     Keys.onReturnPressed: gridEntry.enqueue(fileUrl)
     Keys.onEnterPressed: gridEntry.enqueue(fileUrl)
 
+    Accessible.role: Accessible.ListItem
+    Accessible.name: fileName
+
     Rectangle {
         id: stateIndicator
 
@@ -140,6 +143,9 @@ FocusScope {
                                         metadataLoader.active = false
                                     }
                                 }
+
+                                Accessible.onPressAction: onClicked
+
                                 ToolTip {
                                     text: i18nc("Show track metadata", "View Details")
                                 }
@@ -159,6 +165,9 @@ FocusScope {
                                 onClicked: isDirectory ?
                                         open(fileUrl) :
                                         enqueue(fileUrl)
+
+                                Accessible.onPressAction: onClicked
+
                                 ToolTip {
                                     text: isDirectory ?
                                         i18nc("Open view of the container", "Open") :
@@ -177,6 +186,9 @@ FocusScope {
 
                                 icon.name: "media-playback-start"
                                 onClicked: replaceAndPlay(fileUrl)
+
+                                Accessible.onPressAction: onClicked
+
                                 ToolTip {
                                     text: i18nc("Clear play list and enqueue current track", "Play Now and Replace Play List")
                                 }

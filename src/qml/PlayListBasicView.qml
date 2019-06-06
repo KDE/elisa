@@ -25,6 +25,7 @@ ListView {
     id: playListView
 
     property alias playListModel: playListModelDelegate.model
+    property string title
 
     signal startPlayback()
     signal pausePlayback()
@@ -35,6 +36,9 @@ ListView {
     activeFocusOnTab: true
 
     currentIndex: -1
+
+    Accessible.role: Accessible.List
+    Accessible.name: title
 
     section.property: 'albumSection'
     section.criteria: ViewSection.FullString

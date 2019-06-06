@@ -79,6 +79,8 @@ Item {
                     ToolButton {
                         iconName: 'list-remove'
 
+                        Accessible.onPressAction: onClicked
+
                         anchors.top: parent.top
                         anchors.right: parent.right
 
@@ -128,6 +130,8 @@ Item {
             Button {
                 text: i18n("Add new path")
                 onClicked: fileDialog.open()
+
+                Accessible.onPressAction: onClicked
 
                 Layout.alignment: Qt.AlignTop | Qt.AlignLeft
 

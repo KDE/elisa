@@ -114,6 +114,9 @@ FocusScope {
 
                 currentIndex: -1
 
+                Accessible.role: Accessible.List
+                Accessible.name: proxyModel.url
+
                 model: proxyModel
 
                 ScrollHelper {

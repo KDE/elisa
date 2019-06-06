@@ -43,6 +43,9 @@ FocusScope {
     Keys.onReturnPressed: open()
     Keys.onEnterPressed: open()
 
+    Accessible.role: Accessible.ListItem
+    Accessible.name: mainText
+
     Rectangle {
         id: stateIndicator
 
@@ -132,6 +135,11 @@ FocusScope {
                                 ToolTip.delay: 1000
                                 ToolTip.text: i18nc("Clear play list and add whole container to play list", "Play now, replacing current playlist")
 
+                                Accessible.role: Accessible.Button
+                                Accessible.name: ToolTip.text
+                                Accessible.description: ToolTip.text
+                                Accessible.onPressAction: onClicked
+
                                 onClicked: replaceAndPlay(databaseId, mainText)
                                 Keys.onReturnPressed: replaceAndPlay(databaseId, mainText)
                                 Keys.onEnterPressed: replaceAndPlay(databaseId, mainText)
@@ -153,6 +161,11 @@ FocusScope {
                                 ToolTip.delay: 1000
                                 ToolTip.text: i18nc("Add whole container to play list", "Add to playlist")
 
+                                Accessible.role: Accessible.Button
+                                Accessible.name: ToolTip.text
+                                Accessible.description: ToolTip.text
+                                Accessible.onPressAction: onClicked
+
                                 onClicked: enqueue(databaseId, mainText)
                                 Keys.onReturnPressed: enqueue(databaseId, mainText)
                                 Keys.onEnterPressed: enqueue(databaseId, mainText)
@@ -172,6 +185,11 @@ FocusScope {
                                 ToolTip.visible: hovered
                                 ToolTip.delay: 1000
                                 ToolTip.text: i18nc("Open view of the container", "Open")
+
+                                Accessible.role: Accessible.Button
+                                Accessible.name: ToolTip.text
+                                Accessible.description: ToolTip.text
+                                Accessible.onPressAction: onClicked
 
                                 onClicked: open()
 

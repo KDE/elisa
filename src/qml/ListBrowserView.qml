@@ -105,6 +105,10 @@ FocusScope {
                 anchors.topMargin: 20
                 anchors.fill: parent
 
+                Accessible.role: Accessible.List
+                Accessible.name: mainTitle
+                Accessible.description: mainTitle
+
                 activeFocusOnTab: true
                 keyNavigationEnabled: true
 

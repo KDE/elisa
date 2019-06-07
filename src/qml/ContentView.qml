@@ -195,21 +195,10 @@ RowLayout {
     Rectangle {
         id: viewSelectorSeparatorItem
 
-        border.width: 1
-        border.color: myPalette.mid
-        color: myPalette.mid
-        visible: true
-
-        Layout.bottomMargin: elisaTheme.layoutVerticalMargin
-        Layout.topMargin: elisaTheme.layoutVerticalMargin
-
-        Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-
         Layout.fillHeight: true
+        width: 1
 
-        Layout.preferredWidth: 1
-        Layout.minimumWidth: 1
-        Layout.maximumWidth: 1
+        color: myPalette.mid
     }
 
     ColumnLayout {
@@ -335,21 +324,11 @@ RowLayout {
                 Rectangle {
                     id: firstViewSeparatorItem
 
-                    border.width: 1
-                    border.color: myPalette.mid
-                    color: myPalette.mid
-                    visible: true
-
-                    Layout.bottomMargin: elisaTheme.layoutVerticalMargin
-                    Layout.topMargin: elisaTheme.layoutVerticalMargin
-
-                    Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-
                     Layout.fillHeight: true
 
-                    Layout.preferredWidth: 1
-                    Layout.minimumWidth: 1
-                    Layout.maximumWidth: 1
+                    width: 1
+
+                    color: myPalette.mid
                 }
 
                 MediaPlayListView {
@@ -368,21 +347,11 @@ RowLayout {
                 Rectangle {
                     id: viewSeparatorItem
 
-                    border.width: 1
-                    border.color: myPalette.mid
-                    color: myPalette.mid
-                    visible: Layout.minimumWidth != 0
-
-                    Layout.bottomMargin: elisaTheme.layoutVerticalMargin
-                    Layout.topMargin: elisaTheme.layoutVerticalMargin
-
-                    Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-
                     Layout.fillHeight: true
 
-                    Layout.preferredWidth: 1
-                    Layout.minimumWidth: 1
-                    Layout.maximumWidth: 1
+                    width: 1
+
+                    color: myPalette.mid
                 }
 
                 Loader {
@@ -433,9 +402,7 @@ RowLayout {
                 }
                 PropertyChanges {
                     target: viewSeparatorItem
-                    Layout.minimumWidth: 1
-                    Layout.maximumWidth: 1
-                    Layout.preferredWidth: 1
+                    visible: true
                 }
                 PropertyChanges {
                     target: albumContext
@@ -478,9 +445,7 @@ RowLayout {
                 }
                 PropertyChanges {
                     target: viewSeparatorItem
-                    Layout.minimumWidth: 0
-                    Layout.maximumWidth: 0
-                    Layout.preferredWidth: 0
+                    visible: false
                 }
                 PropertyChanges {
                     target: albumContext

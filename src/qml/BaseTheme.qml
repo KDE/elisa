@@ -106,6 +106,8 @@ Item {
 
     property alias defaultFontPointSize: fontSize.font.pointSize
 
+    property int headerTitleFontSize: defaultFontPointSize * 2
+
     property int viewSelectorSmallSizeThreshold: 800
 
     Label {

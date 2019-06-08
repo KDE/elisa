@@ -265,6 +265,12 @@ ApplicationWindow {
                 }
             }
 
+            Rectangle {
+                Layout.fillWidth: true
+                height: 1
+                color: myPalette.mid
+            }
+
             ContentView {
                 id: contentView
                 Layout.fillHeight: true

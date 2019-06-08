@@ -398,6 +398,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         qml/FileBrowserView.qml
         qml/ScrollHelper.qml
         qml/FlatButtonWithToolTip.qml
+        qml/HeaderFooterToolbar.qml
     )
 
     qt5_add_resources(elisa_SOURCES resources.qrc)

@@ -1,5 +1,6 @@
 /*
  * Copyright 2016-2017 Matthieu Gallien <matthieu_gallien@yahoo.fr>
+ * Copyright 2019 Nate Graham <nate@kde.org>
  *
  * This program is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -103,55 +104,39 @@ FocusScope {
         anchors.fill: parent
         spacing: 0
 
-        LabelWithToolTip {
-            id: viewTitleHeight
-            text: i18nc("Title of the view of the playlist", "Playlist")
+        // Header with title and toolbar buttons
+        HeaderFooterToolbar {
+            type: "header"
+            contentItems: [
 
-            color: myPalette.text
-            font.pointSize: elisaTheme.defaultFontPointSize * 2
-            Layout.alignment: Qt.AlignLeft | Qt.AlignTop
-            Layout.topMargin: elisaTheme.layoutVerticalMargin * 3
-            Layout.leftMargin: elisaTheme.layoutHorizontalMargin
-            Layout.rightMargin: elisaTheme.layoutHorizontalMargin
-        }
+                // Header title
+                LabelWithToolTip {
+                    Layout.fillWidth: true
 
+                    text: i18nc("Title of the view of the playlist", "Playlist")
 
-        RowLayout {
-            Layout.fillWidth: true
+                    font.pointSize: elisaTheme.headerTitleFontSize
+                    Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
+                },
 
-            Layout.leftMargin: elisaTheme.layoutHorizontalMargin
-            Layout.rightMargin: elisaTheme.layoutHorizontalMargin
-
-            LabelWithToolTip {
-                id: playListInfo
-
-                text: i18np("1 track", "%1 tracks", (elisa.mediaPlayList ? elisa.mediaPlayList.tracksCount : 0))
-                visible: elisa.mediaPlayList ? elisa.mediaPlayList.tracksCount > 0 : false
-                color: myPalette.text
-                Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
-            }
-
-            Item { Layout.fillWidth: true }
-
-            Controls1.ToolButton {
-                action: showCurrentTrack
-                Keys.onReturnPressed: action.trigger()
-            }
-
-            Controls1.ToolButton {
-                action: savePlaylist
-                Keys.onReturnPressed: action.trigger()
-            }
-
-            Controls1.ToolButton {
-                action: loadPlaylist
-                Keys.onReturnPressed: action.trigger()
-            }
-
-            Controls1.ToolButton {
-                action: clearPlayList
-                Keys.onReturnPressed: action.trigger()
-            }
+                // Toolbar buttons
+                Controls1.ToolButton {
+                    action: showCurrentTrack
+                    Keys.onReturnPressed: action.trigger()
+                },
+                Controls1.ToolButton {
+                    action: savePlaylist
+                    Keys.onReturnPressed: action.trigger()
+                },
+                Controls1.ToolButton {
+                    action: loadPlaylist
+                    Keys.onReturnPressed: action.trigger()
+                },
+                Controls1.ToolButton {
+                    action: clearPlayList
+                    Keys.onReturnPressed: action.trigger()
+                }
+            ]
         }
 
         ColumnLayout {
@@ -193,7 +178,7 @@ FocusScope {
                 Layout.rightMargin: elisaTheme.layoutHorizontalMargin
                 Layout.leftMargin: elisaTheme.layoutHorizontalMargin
 
-                font.pointSize: elisaTheme.defaultFontPointSize * 2
+                font.pointSize: elisaTheme.headerTitleFontSize
                 wrapMode: Text.WordWrap
 
                 horizontalAlignment: Text.AlignHCenter
@@ -287,6 +272,21 @@ FocusScope {
                     }
                 ]
             }
+        }
+
+        // Footer with number of tracks label
+        HeaderFooterToolbar {
+            type: "footer"
+            contentItems: [
+                LabelWithToolTip {
+                    id: trackCountLabel
+
+                    Layout.fillWidth: true
+
+                    text: i18np("1 track", "%1 tracks", (elisa.mediaPlayList ? elisa.mediaPlayList.tracksCount : 0))
+                    elide: Text.ElideLeft
+                }
+            ]
         }
     }
 }

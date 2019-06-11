@@ -44,7 +44,7 @@ public:
 
     ElisaUtils::PlayListEntryType mModelType = ElisaUtils::Unknown;
 
-    DataModel::FilterType mFilterType = DataModel::Unknown;
+    ElisaUtils::FilterType mFilterType = ElisaUtils::UnknownFilter;
 
     QString mArtist;
 
@@ -232,55 +232,14 @@ bool DataModel::isBusy() const
 }
 
 void DataModel::initialize(MusicListenersManager *manager, DatabaseInterface *database,
-                           ElisaUtils::PlayListEntryType modelType)
-{
-    initializeModel(manager, database, modelType, FilterType::NoFilter);
-}
-
-void DataModel::initializeById(MusicListenersManager *manager, DatabaseInterface *database,
-                               ElisaUtils::PlayListEntryType modelType, qulonglong databaseId)
+                           ElisaUtils::PlayListEntryType modelType, ElisaUtils::FilterType filter,
+                           const QString &genre, const QString &artist, qulonglong databaseId)
 {
     d->mDatabaseId = databaseId;
-
-    initializeModel(manager, database, modelType, FilterType::FilterById);
-}
-
-void DataModel::initializeByGenre(MusicListenersManager *manager, DatabaseInterface *database,
-                                  ElisaUtils::PlayListEntryType modelType, const QString &genre)
-{
-    d->mGenre = genre;
-
-    initializeModel(manager, database, modelType, FilterType::FilterByGenre);
-}
-
-void DataModel::initializeByArtist(MusicListenersManager *manager, DatabaseInterface *database,
-                                   ElisaUtils::PlayListEntryType modelType, const QString &artist)
-{
-    d->mArtist = artist;
-
-    initializeModel(manager, database, modelType, FilterType::FilterByArtist);
-}
-
-void DataModel::initializeByGenreAndArtist(MusicListenersManager *manager, DatabaseInterface *database,
-                                           ElisaUtils::PlayListEntryType modelType, const QString &genre,
-                                           const QString &artist)
-{
     d->mGenre = genre;
     d->mArtist = artist;
 
-    initializeModel(manager, database, modelType, FilterType::FilterByGenreAndArtist);
-}
-
-void DataModel::initializeRecentlyPlayed(MusicListenersManager *manager, DatabaseInterface *database,
-                                         ElisaUtils::PlayListEntryType modelType)
-{
-    initializeModel(manager, database, modelType, FilterType::RecentlyPlayed);
-}
-
-void DataModel::initializeFrequentlyPlayed(MusicListenersManager *manager, DatabaseInterface *database,
-                                           ElisaUtils::PlayListEntryType modelType)
-{
-    initializeModel(manager, database, modelType, FilterType::FrequentlyPlayed);
+    initializeModel(manager, database, modelType, filter);
 }
 
 void DataModel::setBusy(bool value)
@@ -313,35 +272,35 @@ void DataModel::initializeModel(MusicListenersManager *manager, DatabaseInterfac
 
     switch(d->mFilterType)
     {
-    case NoFilter:
+    case ElisaUtils::NoFilter:
         connect(this, &DataModel::needData,
                 &d->mDataLoader, &ModelDataLoader::loadData);
         break;
-    case FilterById:
+    case ElisaUtils::FilterById:
         connect(this, &DataModel::needDataById,
                 &d->mDataLoader, &ModelDataLoader::loadDataByAlbumId);
         break;
-    case FilterByGenre:
+    case ElisaUtils::FilterByGenre:
         connect(this, &DataModel::needDataByGenre,
                 &d->mDataLoader, &ModelDataLoader::loadDataByGenre);
         break;
-    case FilterByArtist:
+    case ElisaUtils::FilterByArtist:
         connect(this, &DataModel::needDataByArtist,
                 &d->mDataLoader, &ModelDataLoader::loadDataByArtist);
         break;
-    case FilterByGenreAndArtist:
+    case ElisaUtils::FilterByGenreAndArtist:
         connect(this, &DataModel::needDataByGenreAndArtist,
                 &d->mDataLoader, &ModelDataLoader::loadDataByGenreAndArtist);
         break;
-    case RecentlyPlayed:
+    case ElisaUtils::FilterByRecentlyPlayed:
         connect(this, &DataModel::needRecentlyPlayedData,
                 &d->mDataLoader, &ModelDataLoader::loadRecentlyPlayedData);
         break;
-    case FrequentlyPlayed:
+    case ElisaUtils::FilterByFrequentlyPlayed:
         connect(this, &DataModel::needFrequentlyPlayedData,
                 &d->mDataLoader, &ModelDataLoader::loadFrequentlyPlayedData);
         break;
-    case Unknown:
+    case ElisaUtils::UnknownFilter:
         break;
     }
 
@@ -354,28 +313,28 @@ void DataModel::askModelData()
 {
     switch(d->mFilterType)
     {
-    case NoFilter:
+    case ElisaUtils::NoFilter:
         Q_EMIT needData(d->mModelType);
         break;
-    case FilterById:
+    case ElisaUtils::FilterById:
         Q_EMIT needDataById(d->mModelType, d->mDatabaseId);
         break;
-    case FilterByGenre:
+    case ElisaUtils::FilterByGenre:
         Q_EMIT needDataByGenre(d->mModelType, d->mGenre);
         break;
-    case FilterByArtist:
+    case ElisaUtils::FilterByArtist:
         Q_EMIT needDataByArtist(d->mModelType, d->mArtist);
         break;
-    case FilterByGenreAndArtist:
+    case ElisaUtils::FilterByGenreAndArtist:
         Q_EMIT needDataByGenreAndArtist(d->mModelType, d->mGenre, d->mArtist);
         break;
-    case RecentlyPlayed:
+    case ElisaUtils::FilterByRecentlyPlayed:
         Q_EMIT needRecentlyPlayedData(d->mModelType);
         break;
-    case FrequentlyPlayed:
+    case ElisaUtils::FilterByFrequentlyPlayed:
         Q_EMIT needFrequentlyPlayedData(d->mModelType);
         break;
-    case Unknown:
+    case ElisaUtils::UnknownFilter:
         break;
     }
 }
@@ -437,7 +396,7 @@ void DataModel::tracksAdded(ListTrackDataType newData)
         return;
     }
 
-    if (d->mFilterType == FilterById && !d->mAllTrackData.isEmpty()) {
+    if (d->mFilterType == ElisaUtils::FilterById && !d->mAllTrackData.isEmpty()) {
         for (const auto &newTrack : newData) {
             auto trackIndex = trackIndexFromId(newTrack.databaseId());
 

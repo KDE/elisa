@@ -59,6 +59,19 @@ enum PlayListEntryType {
 
 Q_ENUM_NS(PlayListEntryType)
 
+enum FilterType {
+    UnknownFilter,
+    NoFilter,
+    FilterById,
+    FilterByGenre,
+    FilterByArtist,
+    FilterByGenreAndArtist,
+    FilterByRecentlyPlayed,
+    FilterByFrequentlyPlayed,
+};
+
+Q_ENUM_NS(FilterType)
+
 }
 
 Q_DECLARE_METATYPE(ElisaUtils::EntryData)

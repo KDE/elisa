@@ -33,7 +33,7 @@ public:
 
     ElisaUtils::PlayListEntryType mModelType = ElisaUtils::Unknown;
 
-    ModelDataLoader::FilterType mFilterType = ModelDataLoader::FilterType::Unknown;
+    ModelDataLoader::FilterType mFilterType = ModelDataLoader::FilterType::UnknownFilter;
 
     QString mArtist;
 
@@ -246,7 +246,7 @@ void ModelDataLoader::loadDataByFileName(ElisaUtils::PlayListEntryType dataType,
         return;
     }
 
-    d->mFilterType = ModelDataLoader::FilterType::Unknown;
+    d->mFilterType = ModelDataLoader::FilterType::UnknownFilter;
 
     switch (dataType)
     {
@@ -273,7 +273,7 @@ void ModelDataLoader::loadRecentlyPlayedData(ElisaUtils::PlayListEntryType dataT
         return;
     }
 
-    d->mFilterType = ModelDataLoader::FilterType::RecentlyPlayed;
+    d->mFilterType = ModelDataLoader::FilterType::FilterByRecentlyPlayed;
 
     switch (dataType)
     {
@@ -297,7 +297,7 @@ void ModelDataLoader::loadFrequentlyPlayedData(ElisaUtils::PlayListEntryType dat
         return;
     }
 
-    d->mFilterType = ModelDataLoader::FilterType::FrequentlyPlayed;
+    d->mFilterType = ModelDataLoader::FilterType::FilterByFrequentlyPlayed;
 
     switch (dataType)
     {
@@ -335,9 +335,9 @@ void ModelDataLoader::databaseTracksAdded(const ListTrackDataType &newData)
     case ModelDataLoader::FilterType::FilterByGenre:
     case ModelDataLoader::FilterType::FilterByGenreAndArtist:
     case ModelDataLoader::FilterType::FilterByArtist:
-    case ModelDataLoader::FilterType::RecentlyPlayed:
-    case ModelDataLoader::FilterType::FrequentlyPlayed:
-    case ModelDataLoader::FilterType::Unknown:
+    case ModelDataLoader::FilterType::FilterByRecentlyPlayed:
+    case ModelDataLoader::FilterType::FilterByFrequentlyPlayed:
+    case ModelDataLoader::FilterType::UnknownFilter:
         break;
     }
 }
@@ -377,9 +377,9 @@ void ModelDataLoader::databaseArtistsAdded(const ListArtistDataType &newData)
     case ModelDataLoader::FilterType::FilterByGenreAndArtist:
     case ModelDataLoader::FilterType::FilterByArtist:
     case ModelDataLoader::FilterType::FilterById:
-    case ModelDataLoader::FilterType::RecentlyPlayed:
-    case ModelDataLoader::FilterType::FrequentlyPlayed:
-    case ModelDataLoader::FilterType::Unknown:
+    case ModelDataLoader::FilterType::FilterByRecentlyPlayed:
+    case ModelDataLoader::FilterType::FilterByFrequentlyPlayed:
+    case ModelDataLoader::FilterType::UnknownFilter:
         break;
     }
 }
@@ -422,9 +422,9 @@ void ModelDataLoader::databaseAlbumsAdded(const ListAlbumDataType &newData)
     }
     case ModelDataLoader::FilterType::FilterByGenre:
     case ModelDataLoader::FilterType::FilterById:
-    case ModelDataLoader::FilterType::RecentlyPlayed:
-    case ModelDataLoader::FilterType::FrequentlyPlayed:
-    case ModelDataLoader::FilterType::Unknown:
+    case ModelDataLoader::FilterType::FilterByRecentlyPlayed:
+    case ModelDataLoader::FilterType::FilterByFrequentlyPlayed:
+    case ModelDataLoader::FilterType::UnknownFilter:
         break;
     }
 }

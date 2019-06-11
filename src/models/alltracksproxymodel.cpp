@@ -34,35 +34,22 @@ bool AllTracksProxyModel::filterAcceptsRow(int source_row, const QModelIndex &so
 {
     bool result = false;
 
-    for (int column = 0, columnCount = sourceModel()->columnCount(source_parent); column < columnCount; ++column) {
-        auto currentIndex = sourceModel()->index(source_row, column, source_parent);
+    auto currentIndex = sourceModel()->index(source_row, 0, source_parent);
 
-        const auto &titleValue = sourceModel()->data(currentIndex, Qt::DisplayRole).toString();
-        const auto &artistValue = sourceModel()->data(currentIndex, DatabaseInterface::ColumnsRoles::ArtistRole).toString();
-        const auto maximumRatingValue = sourceModel()->data(currentIndex, DatabaseInterface::ColumnsRoles::RatingRole).toInt();
+    const auto &titleValue = sourceModel()->data(currentIndex, Qt::DisplayRole).toString();
+    const auto &artistValue = sourceModel()->data(currentIndex, DatabaseInterface::ColumnsRoles::ArtistRole).toString();
+    const auto maximumRatingValue = sourceModel()->data(currentIndex, DatabaseInterface::ColumnsRoles::RatingRole).toInt();
 
-        if (maximumRatingValue < mFilterRating) {
-            result = false;
-            continue;
-        }
+    if (maximumRatingValue < mFilterRating) {
+        return result;
+    }
 
-        if (mFilterExpression.match(titleValue).hasMatch()) {
-            result = true;
-            continue;
-        }
+    if (mFilterExpression.match(titleValue).hasMatch()) {
+        result = true;
+    }
 
-        if (mFilterExpression.match(artistValue).hasMatch()) {
-            result = true;
-            continue;
-        }
-
-        if (result) {
-            continue;
-        }
-
-        if (!result) {
-            break;
-        }
+    if (mFilterExpression.match(artistValue).hasMatch()) {
+        result = true;
     }
 
     return result;
@@ -73,7 +60,7 @@ void AllTracksProxyModel::genericEnqueueToPlayList(ElisaUtils::PlayListEnqueueMo
 {
     QtConcurrent::run(&mThreadPool, [=] () {
         QReadLocker locker(&mDataLock);
-        auto allTracks = ElisaUtils::EntryDataList();
+        auto allTracks = ElisaUtils::EntryDataList{};
         allTracks.reserve(rowCount());
         for (int rowIndex = 0, maxRowCount = rowCount(); rowIndex < maxRowCount; ++rowIndex) {
             auto currentIndex = index(rowIndex, 0);

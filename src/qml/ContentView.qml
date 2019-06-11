@@ -58,40 +58,6 @@ RowLayout {
             }
         }
 
-        onSwitchRecentlyPlayedTracksView: {
-            listViews.setCurrentIndex(pageModel.indexFromViewType(viewType))
-
-            while(browseStackView.depth > expectedDepth) {
-                browseStackView.pop()
-            }
-
-            browseStackView.push(allRecentlyPlayedTracksView, {
-                                     viewType: viewType,
-                                     mainTitle: mainTitle,
-                                     image: imageUrl,
-                                     modelType: dataType,
-                                     stackView: browseStackView,
-                                     opacity: 0,
-                                 })
-        }
-
-        onSwitchFrequentlyPlayedTracksView: {
-            listViews.setCurrentIndex(pageModel.indexFromViewType(viewType))
-
-            while(browseStackView.depth > expectedDepth) {
-                browseStackView.pop()
-            }
-
-            browseStackView.push(allFrequentlyPlayedTracksView, {
-                                     viewType: viewType,
-                                     mainTitle: mainTitle,
-                                     image: imageUrl,
-                                     modelType: dataType,
-                                     stackView: browseStackView,
-                                     opacity: 0,
-                                 })
-        }
-
         onOpenGridView: {
             if (expectedDepth === 1) {
                 listViews.setCurrentIndex(pageModel.indexFromViewType(viewType))
@@ -103,6 +69,7 @@ RowLayout {
 
             browseStackView.push(dataGridView, {
                                      viewType: viewType,
+                                     filterType: filterType,
                                      mainTitle: pageModel.viewMainTitle(viewType, mainTitle),
                                      secondaryTitle: secondaryTitle,
                                      image: pageModel.viewImageUrl(viewType, imageUrl),
@@ -118,23 +85,7 @@ RowLayout {
                                  })
         }
 
-        onSwitchOneAlbumView: {
-            while(browseStackView.depth > expectedDepth) {
-                browseStackView.pop()
-            }
-
-            browseStackView.push(albumView, {
-                                     viewType: viewType,
-                                     mainTitle: mainTitle,
-                                     secondaryTitle: secondaryTitle,
-                                     image: imageUrl,
-                                     databaseId: databaseId,
-                                     stackView: browseStackView,
-                                     opacity: 0,
-                                 })
-        }
-
-        onSwitchAllTracksView: {
+        onOpenListView: {
             listViews.setCurrentIndex(pageModel.indexFromViewType(viewType))
 
             while(browseStackView.depth > expectedDepth) {
@@ -143,7 +94,11 @@ RowLayout {
 
             browseStackView.push(allTracksView, {
                                      viewType: viewType,
+                                     filterType: filterType,
+                                     isSubPage: expectedDepth > 1,
                                      mainTitle: mainTitle,
+                                     secondaryTitle: secondaryTitle,
+                                     databaseId: databaseId,
                                      image: imageUrl,
                                      modelType: dataType,
                                      stackView: browseStackView,
@@ -463,22 +418,6 @@ RowLayout {
     }
 
     Component {
-        id: allFrequentlyPlayedTracksView
-
-        FrequentlyPlayedTracks {
-            StackView.onActivated: viewManager.viewIsLoaded(viewType)
-        }
-    }
-
-    Component {
-        id: allRecentlyPlayedTracksView
-
-        RecentlyPlayedTracks {
-            StackView.onActivated: viewManager.viewIsLoaded(viewType)
-        }
-    }
-
-    Component {
         id: dataGridView
 
         DataGridView {
@@ -490,14 +429,6 @@ RowLayout {
         id: allTracksView
 
         TracksView {
-            StackView.onActivated: viewManager.viewIsLoaded(viewType)
-        }
-    }
-
-    Component {
-        id: albumView
-
-        AlbumView {
             StackView.onActivated: viewManager.viewIsLoaded(viewType)
         }
     }

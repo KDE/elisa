@@ -24,7 +24,11 @@ FocusScope {
     id: viewHeader
 
     property var viewType
+    property var filterType
+    property alias isSubPage: listView.isSubPage
     property alias mainTitle: listView.mainTitle
+    property alias secondaryTitle: listView.secondaryTitle
+    property int databaseId
     property alias image: listView.image
     property var modelType
 
@@ -89,6 +93,14 @@ FocusScope {
             }
         }
 
+        allowArtistNavigation: isSubPage
+
+        onShowArtist: {
+            viewManager.openChildView(secondaryTitle, '', elisaTheme.artistIcon, 0, ElisaUtils.Artist)
+        }
+
+        onGoBack: viewManager.goBack()
+
         Loader {
             anchors.centerIn: parent
             height: Kirigami.Units.gridUnit * 5
@@ -113,8 +125,7 @@ FocusScope {
 
     Component.onCompleted: {
         if (elisa.musicManager) {
-            realModel.initialize(elisa.musicManager, elisa.musicManager.viewDatabase,
-                                 modelType)
+            realModel.initialize(elisa.musicManager, elisa.musicManager.viewDatabase, modelType, filterType, mainTitle, secondaryTitle, databaseId)
         }
     }
 }

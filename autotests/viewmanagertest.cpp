@@ -32,6 +32,7 @@ private Q_SLOTS:
     void initTestCase()
     {
         qRegisterMetaType<ViewManager::ViewsType>("ViewManager::ViewsType");
+        qRegisterMetaType<ViewManager::SortOrder>("ViewManager::SortOrder");
         qRegisterMetaType<ElisaUtils::PlayListEntryType>("ElisaUtils::PlayListEntryType");
         qRegisterMetaType<ElisaUtils::FilterType>("ElisaUtils::FilterType");
     }
@@ -84,7 +85,7 @@ private Q_SLOTS:
         QCOMPARE(switchOffAllViewsSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
-        QCOMPARE(openListViewSpy.at(0).count(), 8);
+        QCOMPARE(openListViewSpy.at(0).count(), 11);
         QCOMPARE(openListViewSpy.at(0).at(3), QStringLiteral("album1"));
         QCOMPARE(openListViewSpy.at(0).at(4), QStringLiteral("artist1"));
     }
@@ -275,7 +276,7 @@ private Q_SLOTS:
         QCOMPARE(switchOffAllViewsSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 1);
 
-        QCOMPARE(openListViewSpy.at(0).count(), 8);
+        QCOMPARE(openListViewSpy.at(0).count(), 11);
         QCOMPARE(openListViewSpy.at(0).at(0).value<ViewManager::ViewsType>(), ViewManager::OneAlbumFromArtist);
     }
 };

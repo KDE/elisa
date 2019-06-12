@@ -101,7 +101,10 @@ RowLayout {
                                      databaseId: databaseId,
                                      image: imageUrl,
                                      modelType: dataType,
+                                     sortRole: sortRole,
+                                     sortAscending: sortOrder,
                                      stackView: browseStackView,
+                                     displaySingleAlbum: displaySingleAlbum,
                                      opacity: 0,
                                  })
         }

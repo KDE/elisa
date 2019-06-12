@@ -17,6 +17,8 @@
 
 #include "viewmanager.h"
 
+#include "databaseinterface.h"
+
 ViewManager::ViewManager(QObject *parent) : QObject(parent)
 {
 }
@@ -143,7 +145,9 @@ void ViewManager::openRecentlyPlayedTracks(const QString &mainTitle, const QUrl 
     mTargetView = ViewsType::RecentlyPlayedTracks;
 
     if (mCurrentView != mTargetView) {
-        Q_EMIT openListView(mTargetView, ElisaUtils::FilterByRecentlyPlayed, 1, mainTitle, {}, 0, imageUrl, ElisaUtils::Track);
+        Q_EMIT openListView(mTargetView, ElisaUtils::FilterByRecentlyPlayed, 1, mainTitle, {},
+                            0, imageUrl, ElisaUtils::Track, DatabaseInterface::LastPlayDate,
+                            SortOrder::SortDescending, MultipleAlbum);
     }
 }
 
@@ -152,7 +156,8 @@ void ViewManager::openFrequentlyPlayedTracks(const QString &mainTitle, const QUr
     mTargetView = ViewsType::FrequentlyPlayedTracks;
 
     if (mCurrentView != mTargetView) {
-        Q_EMIT openListView(mTargetView, ElisaUtils::FilterByFrequentlyPlayed, 1, mainTitle, {}, 0, imageUrl, ElisaUtils::Track);
+        Q_EMIT openListView(mTargetView, ElisaUtils::FilterByFrequentlyPlayed, 1, mainTitle, {},
+                            0, imageUrl, ElisaUtils::Track, DatabaseInterface::PlayFrequency, SortOrder::SortDescending, MultipleAlbum);
     }
 }
 
@@ -176,19 +181,22 @@ void ViewManager::openOneAlbum(const QString &albumTitle, const QString &albumAu
 
     if (mCurrentView == ViewsType::AllAlbums) {
         mTargetView = ViewsType::OneAlbum;
-        Q_EMIT openListView(mTargetView, ElisaUtils::FilterById, 2, mTargetAlbumTitle,
-                            mTargetAlbumAuthor, mTargetDatabaseId, mTargetImageUrl, ElisaUtils::Track);
+        Q_EMIT openListView(mTargetView, ElisaUtils::FilterById, 2, mTargetAlbumTitle, mTargetAlbumAuthor,
+                            mTargetDatabaseId, mTargetImageUrl, ElisaUtils::Track, Qt::DisplayRole,
+                            SortOrder::SortAscending, SingleAlbum);
     } else if (mCurrentView == ViewsType::OneArtist && mCurrentArtistName == mTargetAlbumAuthor) {
         mTargetView = ViewsType::OneAlbumFromArtist;
-        Q_EMIT openListView(mTargetView, ElisaUtils::FilterById, 3, mTargetAlbumTitle,
-                            mTargetAlbumAuthor, mTargetDatabaseId, mTargetImageUrl, ElisaUtils::Track);
+        Q_EMIT openListView(mTargetView, ElisaUtils::FilterById, 3, mTargetAlbumTitle, mTargetAlbumAuthor,
+                            mTargetDatabaseId, mTargetImageUrl, ElisaUtils::Track, Qt::DisplayRole,
+                            SortOrder::SortAscending, SingleAlbum);
     } else if (mCurrentView == ViewsType::OneArtist && mCurrentArtistName != mTargetAlbumAuthor) {
         mTargetView = ViewsType::OneAlbumFromArtist;
         Q_EMIT popOneView();
     } else if (mCurrentView == ViewsType::OneArtistFromGenre) {
         mTargetView = ViewsType::OneAlbumFromArtistAndGenre;
-        Q_EMIT openListView(mTargetView, ElisaUtils::FilterById, 4, mTargetAlbumTitle,
-                            mTargetAlbumAuthor, mTargetDatabaseId, mTargetImageUrl, ElisaUtils::Track);
+        Q_EMIT openListView(mTargetView, ElisaUtils::FilterById, 4, mTargetAlbumTitle, mTargetAlbumAuthor,
+                            mTargetDatabaseId, mTargetImageUrl, ElisaUtils::Track, Qt::DisplayRole,
+                            SortOrder::SortAscending, SingleAlbum);
     } else {
         mTargetView = ViewsType::OneAlbum;
         Q_EMIT openGridView(ViewsType::AllAlbums, ElisaUtils::NoFilter, 1, {}, {}, {}, ElisaUtils::Album,
@@ -242,7 +250,9 @@ void ViewManager::openAllTracks(const QString &mainTitle, const QUrl &imageUrl)
 {
     mTargetView = ViewsType::AllTracks;
     if (mCurrentView != mTargetView) {
-        Q_EMIT openListView(mTargetView, ElisaUtils::NoFilter, 1, mainTitle, {}, 0, imageUrl, ElisaUtils::Track);
+        Q_EMIT openListView(mTargetView, ElisaUtils::NoFilter, 1, mainTitle, {},
+                            0, imageUrl, ElisaUtils::Track, Qt::DisplayRole,
+                            SortOrder::SortAscending, MultipleAlbum);
     }
 }
 
@@ -293,7 +303,8 @@ void ViewManager::allAlbumsViewIsLoaded()
     mCurrentView = ViewsType::AllAlbums;
     if (mTargetView == ViewsType::OneAlbum) {
         Q_EMIT openListView(mTargetView, ElisaUtils::FilterById, 2, mTargetAlbumTitle, mTargetAlbumAuthor,
-                            mTargetDatabaseId, mTargetImageUrl, ElisaUtils::Track);
+                            mTargetDatabaseId, mTargetImageUrl, ElisaUtils::Track, Qt::DisplayRole,
+                            SortOrder::SortAscending, MultipleAlbum);
     }
 }
 
@@ -335,7 +346,8 @@ void ViewManager::oneArtistViewIsLoaded()
         mCurrentView = ViewsType::OneArtist;
 
         Q_EMIT openListView(mTargetView, ElisaUtils::FilterById, 3, mTargetAlbumTitle, mTargetAlbumAuthor,
-                            mTargetDatabaseId, mTargetImageUrl, ElisaUtils::Track);
+                            mTargetDatabaseId, mTargetImageUrl, ElisaUtils::Track, Qt::DisplayRole,
+                            SortOrder::SortAscending, MultipleAlbum);
     }
 }
 

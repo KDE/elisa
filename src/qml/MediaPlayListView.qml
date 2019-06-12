@@ -37,7 +37,7 @@ FocusScope {
     id: topItem
 
     Accessible.role: Accessible.Pane
-    Accessible.name: viewTitleHeight.text
+    Accessible.name: viewTitle.text
 
     Controls1.Action {
         id: clearPlayList
@@ -114,6 +114,8 @@ FocusScope {
 
                 // Header title
                 LabelWithToolTip {
+                    id: viewTitle
+
                     Layout.fillWidth: true
 
                     text: i18nc("Title of the view of the playlist", "Playlist")
@@ -220,7 +222,7 @@ FocusScope {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
 
-                title: viewTitleHeight.text
+                title: viewTitle.text
                 playListModel: elisa.mediaPlayList
 
                 focus: true

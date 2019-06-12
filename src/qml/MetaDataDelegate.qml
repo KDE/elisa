@@ -32,23 +32,21 @@ RowLayout {
         id: metaDataLabelMetric
 
         text: 'Metadata Name'
-
-        font.weight: Font.Bold
     }
 
     Label {
         id: metaDataLabels
 
-        text: model.name
+        text: i18nc("Label for a piece of metadata, e.g. 'Album Artist:'", "%1:", model.name)
 
         font.weight: Font.Bold
 
-        horizontalAlignment: Text.AlignLeft
+        horizontalAlignment: Text.AlignRight
 
         Layout.alignment: Qt.AlignTop
         Layout.preferredWidth: 0.8 * elisaTheme.coverImageSize
-        Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin * 2 : 0
-        Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin * 2 : 0
+        Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin / 2 : 0
+        Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin / 2 : 0
     }
 
     Loader {

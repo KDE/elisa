@@ -40,7 +40,6 @@
         <file>qml/PlayListAlbumHeader.qml</file>
         <file>qml/BasicPlayListAlbumHeader.qml</file>
         <file>qml/MetaDataDelegate.qml</file>
-        <file>qml/ContextViewLyrics.qml</file>
         <file>qml/ViewSelectorDelegate.qml</file>
         <file>qml/HeaderFooterToolbar.qml</file>
     </qresource>

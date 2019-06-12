@@ -90,6 +90,8 @@ FocusScope {
                 id: content
 
                 width: topItem.width
+                anchors.leftMargin: elisaTheme.layoutHorizontalMargin
+                anchors.rightMargin: elisaTheme.layoutHorizontalMargin
 
                 // Album art slice
                 Image {
@@ -99,10 +101,11 @@ FocusScope {
                     Layout.maximumHeight: elisaTheme.contextCoverImageSize
                     Layout.preferredHeight: elisaTheme.contextCoverImageSize
                     Layout.fillWidth: true
-                    Layout.leftMargin: elisaTheme.layoutHorizontalMargin
-                    Layout.rightMargin: elisaTheme.layoutHorizontalMargin
-                    Layout.topMargin: elisaTheme.layoutVerticalMargin
                     Layout.bottomMargin: elisaTheme.layoutVerticalMargin
+
+                    // Touch the sides of the scrollview
+                    Layout.leftMargin: -elisaTheme.layoutHorizontalMargin
+                    Layout.rightMargin: -elisaTheme.layoutHorizontalMargin
 
                     sourceSize.width: topItem.width
                     sourceSize.height: topItem.width
@@ -119,59 +122,47 @@ FocusScope {
                     font.pointSize: elisaTheme.headerTitleFontSize
                     font.weight: Font.Bold
 
+                    horizontalAlignment: Label.AlignHCenter
+
                     Layout.fillWidth: true
-                    Layout.alignment: Qt.AlignLeft | Qt.AlignTop
-                    Layout.leftMargin: elisaTheme.layoutHorizontalMargin
-                    Layout.rightMargin: elisaTheme.layoutHorizontalMargin
+                    Layout.alignment: Qt.AlignTop
+
                     Layout.topMargin: elisaTheme.layoutVerticalMargin
                 }
 
                 LabelWithToolTip {
-                    id: albumArtistLabel
+                    id: subtitleLabel
 
-                    text: (artistName && albumName ? i18nc('display of artist and album in context view', '<i>by</i> <b>%1</b> <i>from</i> <b>%2</b>', artistName, albumName) : '')
+                    text: {
+                        if (artistName !== '' && albumName !== '') {
+                            return i18nc('display of artist and album in context view', '<i>by</i> <b>%1</b> <i>from</i> <b>%2</b>', artistName, albumName)
+                        } else if (artistName === '' && albumName !== '') {
+                            return i18nc('display of album in context view', '<i>from</i> <b>%1</b>', albumName)
+                        } else if (artistName !== '' && albumName === '') {
+                            i18nc('display of artist in context view', '<i>by</i> <b>%1</b>', artistName)
+                        }
+                    }
 
                     font.pointSize: Math.round(elisaTheme.defaultFontPointSize * 1.4)
+                    horizontalAlignment: Label.AlignHCenter
 
                     visible: artistName !== '' && albumName !== ''
 
                     Layout.fillWidth: true
-                    Layout.alignment: Qt.AlignLeft | Qt.AlignTop
-                    Layout.leftMargin: elisaTheme.layoutHorizontalMargin
-                    Layout.rightMargin: elisaTheme.layoutHorizontalMargin
-                    Layout.bottomMargin: elisaTheme.layoutVerticalMargin
+                    Layout.alignment: Qt.AlignTop
                 }
 
-                LabelWithToolTip {
-                    id: albumLabel
-
-                    text: (albumName ? i18nc('display of album in context view', '<i>from</i> <b>%1</b>', albumName) : '')
-
-                    font.pointSize: Math.round(elisaTheme.defaultFontPointSize * 1.4)
-
-                    visible: artistName === '' && albumName !== ''
-
+                // Horizontal line separating title and subtitle from metadata
+                Rectangle {
                     Layout.fillWidth: true
-                    Layout.alignment: Qt.AlignLeft | Qt.AlignTop
-                    Layout.leftMargin: elisaTheme.layoutHorizontalMargin
-                    Layout.rightMargin: elisaTheme.layoutHorizontalMargin
-                    Layout.bottomMargin: elisaTheme.layoutVerticalMargin
-                }
+                    Layout.leftMargin: elisaTheme.layoutHorizontalMargin * 5
+                    Layout.rightMargin: elisaTheme.layoutHorizontalMargin * 5
+                    Layout.topMargin: elisaTheme.layoutVerticalMargin * 2
+                    Layout.bottomMargin: elisaTheme.layoutVerticalMargin * 2
 
-                LabelWithToolTip {
-                    id: artistLabel
+                    height: 1
 
-                    text: (artistName ? i18nc('display of artist in context view', '<i>by</i> <b>%1</b>', artistName) : '')
-
-                    font.pointSize: Math.round(elisaTheme.defaultFontPointSize * 1.4)
-
-                    visible: artistName !== '' && albumName === ''
-
-                    Layout.fillWidth: true
-                    Layout.alignment: Qt.AlignLeft | Qt.AlignTop
-                    Layout.leftMargin: elisaTheme.layoutHorizontalMargin
-                    Layout.rightMargin: elisaTheme.layoutHorizontalMargin
-                    Layout.bottomMargin: elisaTheme.layoutVerticalMargin
+                    color: myPalette.mid
                 }
 
                 // Metadata
@@ -180,8 +171,6 @@ FocusScope {
 
                     spacing: 0
                     Layout.fillWidth: true
-                    Layout.leftMargin: elisaTheme.layoutHorizontalMargin
-                    Layout.rightMargin: elisaTheme.layoutHorizontalMargin
 
                     Repeater {
                         id: trackData
@@ -194,18 +183,34 @@ FocusScope {
                     }
                 }
 
+                // Horizontal line separating metadata from lyrics
+                Rectangle {
+                    Layout.fillWidth: true
+                    Layout.leftMargin: elisaTheme.layoutHorizontalMargin * 5
+                    Layout.rightMargin: elisaTheme.layoutHorizontalMargin * 5
+                    Layout.topMargin: elisaTheme.layoutVerticalMargin * 2
+                    Layout.bottomMargin: elisaTheme.layoutVerticalMargin * 2
+
+                    height: 1
+
+                    color: myPalette.mid
+
+                    visible: metaDataModel.lyrics !== ""
+                }
+
                 // Lyrics
-                ContextViewLyrics {
-                    id: lyricsContextView
+                Label {
+                    text: metaDataModel.lyrics
+
+                    wrapMode: Text.WordWrap
+
+                    horizontalAlignment: Label.AlignHCenter
 
                     Layout.fillWidth: true
-                    Layout.leftMargin: elisaTheme.layoutHorizontalMargin
-                    Layout.rightMargin: elisaTheme.layoutHorizontalMargin
                     Layout.bottomMargin: elisaTheme.layoutVerticalMargin
 
                     visible: metaDataModel.lyrics !== ""
 
-                    lyrics: metaDataModel.lyrics
                 }
             }
         }

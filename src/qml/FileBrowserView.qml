@@ -74,10 +74,6 @@ FocusScope {
             sortOrder: proxyModel.sortedAscending
             showRating: false
 
-            height: elisaTheme.navigationBarHeight
-            Layout.preferredHeight: height
-            Layout.minimumHeight: height
-            Layout.maximumHeight: height
             Layout.fillWidth: true
 
             Binding {
@@ -101,7 +97,6 @@ FocusScope {
 
             GridView {
                 id: contentDirectoryView
-                anchors.topMargin: 20
                 anchors.fill: parent
 
                 activeFocusOnTab: true

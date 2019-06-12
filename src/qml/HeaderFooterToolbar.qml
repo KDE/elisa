@@ -54,7 +54,11 @@ ColumnLayout {
         color: myPalette.window
 
         Layout.fillWidth: true
-        height: contentLayout.height
+        height: type == "footer" ?
+            elisaTheme.footerToolbarHeight :
+            elisaTheme.headerToolbarHeight
+
+
 
         // Content layout
         RowLayout {
@@ -67,7 +71,6 @@ ColumnLayout {
                 rightMargin: elisaTheme.layoutHorizontalMargin
                 verticalCenter: parent.verticalCenter
             }
-            height: childrenRect.height + (elisaTheme.layoutVerticalMargin * 2)
             spacing: 0
 
             // Items provided by the contentItems property will go here

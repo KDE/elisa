@@ -56,10 +56,6 @@ FocusScope {
             enableGoBack: isSubPage
             sortOrder: if (contentModel) {contentModel.sortedAscending} else true
 
-            height: elisaTheme.navigationBarHeight
-            Layout.preferredHeight: height
-            Layout.minimumHeight: height
-            Layout.maximumHeight: height
             Layout.fillWidth: true
 
             Loader {
@@ -100,7 +96,6 @@ FocusScope {
 
             GridView {
                 id: contentDirectoryView
-                anchors.topMargin: 20
 
                 activeFocusOnTab: true
                 keyNavigationEnabled: true

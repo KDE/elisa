@@ -26,9 +26,6 @@ ColumnLayout {
 
     spacing: 0
 
-    anchors.topMargin: elisaTheme.layoutVerticalMargin
-    anchors.bottomMargin: elisaTheme.layoutVerticalMargin
-
     property string mainTitle
     property string secondaryTitle
     property url image
@@ -55,13 +52,30 @@ ColumnLayout {
         text: i18nc("navigate back in the views stack", "Back")
         iconName: (Qt.application.layoutDirection == Qt.RightToLeft) ? "go-next" : "go-previous"
         onTriggered: goBack()
+        enabled: enableGoBack
+    }
+
+    Controls1.Action {
+        id: replaceAndPlayAction
+        text: i18n("Play now, replacing contents of Playlist")
+        iconName: "media-playback-start"
+        onTriggered: replaceAndPlay()
+    }
+
+    Controls1.Action {
+        id: enqueueAction
+        text: i18nc("Add current list to playlist", "Enqueue")
+        iconName: "media-track-add-amarok"
+        onTriggered: enqueue()
     }
 
     Controls1.Action {
         id: showFilterAction
         shortcut: findAction.shortcut
         text: !navigationBar.expandedFilterView ? i18nc("Show filters in the navigation bar", "Show Search Options") : i18nc("Hide filters in the navigation bar", "Hide Search Options")
-        iconName: !navigationBar.expandedFilterView ? "go-down-search" : "go-up-search"
+        iconName: 'search'
+        checkable: true
+        checked: filterRow.opacity == 1.0
         onTriggered: {
             persistentSettings.expandedFilterView = !persistentSettings.expandedFilterView
             expandedFilterView = persistentSettings.expandedFilterView
@@ -78,315 +92,206 @@ ColumnLayout {
         onTriggered: sortOrder ? sort(Qt.DescendingOrder) : sort(Qt.AscendingOrder)
     }
 
-    RowLayout {
-        spacing: 0
-        Layout.alignment: Qt.AlignTop
-        Layout.preferredHeight: elisaTheme.navigationBarHeight
-        Layout.minimumHeight: elisaTheme.navigationBarHeight
-        Layout.maximumHeight: elisaTheme.navigationBarHeight
-
-        Controls1.ToolButton {
-            action: goPreviousAction
-            objectName: 'goPreviousButton'
-
-            Keys.onReturnPressed: action.trigger()
-            Accessible.onPressAction: action.trigger()
-
-            activeFocusOnTab: true
-            focus: enableGoBack
-
-            Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-            Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-            visible: enableGoBack
-        }
-
-        Image {
-            id: mainIcon
-            source: image
-
-            asynchronous: true
-
-            sourceSize.height: elisaTheme.coverImageSize / 2
-            sourceSize.width: elisaTheme.coverImageSize / 2
-
-            fillMode: Image.PreserveAspectFit
-
-            Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
-
-            Layout.preferredHeight: elisaTheme.coverImageSize / 2
-            Layout.minimumHeight: elisaTheme.coverImageSize / 2
-            Layout.maximumHeight: elisaTheme.coverImageSize / 2
-            Layout.preferredWidth: elisaTheme.coverImageSize / 2
-            Layout.minimumWidth: elisaTheme.coverImageSize / 2
-            Layout.maximumWidth: elisaTheme.coverImageSize / 2
-            Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-            Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-        }
-
-        ColumnLayout {
-            Layout.preferredHeight: elisaTheme.coverImageSize / 1.9
-            Layout.minimumHeight: elisaTheme.coverImageSize / 1.9
-            Layout.maximumHeight: elisaTheme.coverImageSize / 1.9
-
-            spacing: 0
-
-            Layout.fillWidth: true
-            Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-            Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-
-            LabelWithToolTip {
-                id: albumLabel
-
-                text: mainTitle
-
-                Layout.fillWidth: true
-                Layout.alignment: Qt.AlignTop | Qt.AlignLeft
-                Layout.topMargin: secondaryTitle !== "" ? 0 : 9
-
-                elide: Text.ElideRight
-                fontSizeMode: Text.Fit
-
-                Layout.preferredHeight: elisaTheme.coverImageSize / 5
-                Layout.minimumHeight: elisaTheme.coverImageSize / 5
-                Layout.maximumHeight: elisaTheme.coverImageSize / 5
-
-                color: myPalette.text
-
-                font {
-                    pointSize: elisaTheme.defaultFontPointSize * 2
-                }
-            }
-
-            LabelWithToolTip {
-                id: authorLabel
-
-                text: secondaryTitle
-
-                color: myPalette.text
-
-                Layout.fillWidth: true
-                Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
-
-                font {
-                    pointSize: elisaTheme.defaultFontPointSize
-                }
-
-                elide: Text.ElideRight
-
-                visible: secondaryTitle !== ""
-            }
-
-            RowLayout {
-                Layout.fillWidth: true
-                spacing: 0
-                Layout.bottomMargin: secondaryTitle !== "" ? 0 : 14
-
-                Controls1.Button {
-                    objectName: 'enqueueButton'
-                    text: i18nc("Add current list to playlist", "Enqueue")
-                    iconName: "media-track-add-amarok"
-
-                    activeFocusOnTab: true
-                    focus: true
-
-                    onClicked: enqueue()
-                    Keys.onReturnPressed: enqueue()
-                    Accessible.onPressAction: onClicked
-
-                    Layout.leftMargin: 0
-                    Layout.rightMargin: 0
-                }
-
-                Controls1.Button {
-                    objectName: 'replaceAndPlayButton'
-                    text: i18nc("Clear playlist and play", "Replace and Play")
-                    tooltip: i18nc("Clear playlist and add current list to it", "Replace PlayList and Play Now")
-                    iconName: "media-playback-start"
-
-                    activeFocusOnTab: true
-
-                    onClicked: replaceAndPlay()
-                    Keys.onReturnPressed: replaceAndPlay()
-                    Accessible.onPressAction: onClicked
-
-                    Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-                    Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-                }
-
-                Controls1.Button {
-                    objectName: 'showArtistButton'
-                    id: showArtistButton
-
-                    visible: allowArtistNavigation
-                    text: i18nc("Button to navigate to the artist of the album", "Display Artist")
-                    iconName: "view-media-artist"
-
-                    activeFocusOnTab: true
-
-                    onClicked: showArtist()
-                    Keys.onReturnPressed: onClicked
-                    Accessible.onPressAction: onClicked
-
-                    Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-                    Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-                }
-
-                Item {
-                    Layout.fillWidth: true
-                }
-
-                Controls1.ToolButton {
-                    action: showFilterAction
-                    objectName: 'showFilterButton'
-
-                    activeFocusOnTab: true
-
-                    Keys.onReturnPressed: action.trigger()
-                    Accessible.onPressAction: action.trigger()
-
-                    Layout.alignment: Qt.AlignRight
-                    Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-                    Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-                }
-            }
-        }
+    Controls1.Action {
+        id: showArtistAction
+        text: i18nc("Button to navigate to the artist of the album", "Display Artist")
+        iconName: "view-media-artist"
+        onTriggered: showArtist()
     }
 
-    RowLayout {
-        id: filterRow
+    HeaderFooterToolbar {
+        type: filterRow.visible? "other" : "header"
+        contentItems: [
 
-        spacing: 0
+            Controls1.ToolButton {
+                action: goPreviousAction
+                id: goPreviousButton
+                objectName: 'goPreviousButton'
+
+                Keys.onReturnPressed: action.trigger()
+                Accessible.onPressAction: action.trigger()
+
+                activeFocusOnTab: true
+                focus: enableGoBack
+                visible: enableGoBack
+            },
+            Item {
+                id: spacer
+                width: elisaTheme.layoutHorizontalMargin
+                visible: goPreviousButton.visible
+            },
+            Image {
+                id: mainIcon
+                source: image
+
+                height: authorAndAlbumLayout.height
+                width: height
+                sourceSize.height: height
+                sourceSize.width: width
+                fillMode: Image.PreserveAspectFit
+                asynchronous: true
+
+                Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
+            },
+            Item {
+                width: elisaTheme.layoutHorizontalMargin
+                visible: mainIcon.visible
+            },
+            ColumnLayout {
+                id: authorAndAlbumLayout
+
+                LabelWithToolTip {
+                    id: albumLabel
+                    Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
+                    Layout.fillWidth: true
+
+                    text: mainTitle
+                    font.pointSize: authorLabel.visible ?
+                        Math.round(elisaTheme.defaultFontPointSize * 1.2) :
+                        elisaTheme.headerTitleFontSize
+                    font.weight: authorLabel.visible ? Font.Bold : Font.Normal
+                    elide: Text.ElideRight
+                }
+                LabelWithToolTip {
+                    id: authorLabel
+
+                    Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
+                    Layout.fillWidth: true
+
+                    text: secondaryTitle
+                    font.pointSize: elisaTheme.defaultFontPointSize
+                    elide: Text.ElideRight
+
+                    visible: secondaryTitle !== ""
+                }
+            },
+            Controls1.ToolButton {
+                action: enqueueAction
+                objectName: 'enqueueButton'
+
+                Keys.onReturnPressed: action.trigger()
+                Accessible.onPressAction: action.trigger()
+
+                activeFocusOnTab: true
+                focus: true
+            },
+            Controls1.ToolButton {
+                action: replaceAndPlayAction
+                objectName: 'replaceAndPlayButton'
+
+                Keys.onReturnPressed: action.trigger()
+                Accessible.onPressAction: action.trigger()
+
+                activeFocusOnTab: true
+            },
+            Controls1.ToolButton {
+                action: showArtistAction
+                objectName: 'showArtistButton'
+
+                Keys.onReturnPressed: action.trigger()
+                Accessible.onPressAction: action.trigger()
+
+                activeFocusOnTab: true
+
+                visible: allowArtistNavigation
+            },
+            Controls1.ToolButton {
+                action: sortAction
+                objectName: 'sortAscendingButton'
+
+                Keys.onReturnPressed: action.trigger()
+                Accessible.onPressAction: action.trigger()
+
+                activeFocusOnTab: true
+
+                visible: enableSorting
+            },
+            Controls1.ToolButton {
+                action: showFilterAction
+                objectName: 'showFilterButton'
+
+                Keys.onReturnPressed: action.trigger()
+                Accessible.onPressAction: action.trigger()
+
+                activeFocusOnTab: true
+            }
+        ]
+    }
+
+    HeaderFooterToolbar {
+        type: "header"
+        id: filterRow
 
         visible: opacity > 0.0
 
         opacity: 0
 
-        Layout.preferredHeight: elisaTheme.navigationBarFilterHeight
-        Layout.minimumHeight: elisaTheme.navigationBarFilterHeight
-        Layout.maximumHeight: elisaTheme.navigationBarFilterHeight
-        Layout.fillWidth: true
-        Layout.topMargin: elisaTheme.layoutVerticalMargin * 2
-        Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-        Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-        Layout.alignment: Qt.AlignTop
+        contentItems: [
+            TextField {
+                id: filterTextInput
+                objectName: 'filterTextInput'
 
-        LabelWithToolTip {
-            text: i18nc("before the TextField input of the filter", "Search: ")
+                Layout.fillWidth: true
 
-            font.bold: true
+                Accessible.role: Accessible.EditableText
 
-            Layout.bottomMargin: 0
+                placeholderText: i18n("Search for album name, artist, etc.")
 
-            color: myPalette.text
-        }
+                Image {
+                    anchors.top: parent.top
+                    anchors.bottom: parent.bottom
+                    anchors.right: parent.right
+                    anchors.margins: elisaTheme.filterClearButtonMargin
+                    id: clearText
+                    fillMode: Image.PreserveAspectFit
+                    smooth: true
+                    visible: parent.text
+                    source: Qt.resolvedUrl(elisaTheme.clearIcon)
+                    height: parent.height
+                    width: parent.height
+                    sourceSize.width: parent.height
+                    sourceSize.height: parent.height
+                    mirror: LayoutMirroring.enabled
 
-        TextField {
-            id: filterTextInput
-            objectName: 'filterTextInput'
-
-            horizontalAlignment: TextInput.AlignLeft
-
-            Accessible.role: Accessible.EditableText
-
-            placeholderText: i18nc("Placeholder text in the filter text box", "Album name, artist, etc.")
-
-            Layout.bottomMargin: 0
-            Layout.fillWidth: true
-            Layout.minimumWidth: (placeHolderTextWidth.boundingRect.width - placeHolderTextWidth.boundingRect.x) * 1.2
-            implicitWidth: (placeHolderTextWidth.boundingRect.width - placeHolderTextWidth.boundingRect.x) * 1.2
-
-            TextMetrics {
-                id: placeHolderTextWidth
-                text: filterTextInput.placeholderText
-            }
-
-            Image {
-                anchors.top: parent.top
-                anchors.bottom: parent.bottom
-                anchors.right: parent.right
-                anchors.margins: elisaTheme.filterClearButtonMargin
-                id: clearText
-                fillMode: Image.PreserveAspectFit
-                smooth: true
-                visible: parent.text
-                source: Qt.resolvedUrl(elisaTheme.clearIcon)
-                height: parent.height
-                width: parent.height
-                sourceSize.width: parent.height
-                sourceSize.height: parent.height
-                mirror: LayoutMirroring.enabled
-
-                MouseArea {
-                    id: clear
-                    anchors { horizontalCenter: parent.horizontalCenter; verticalCenter: parent.verticalCenter }
-                    height: parent.parent.height
-                    width: parent.parent.height
-                    onClicked: {
-                        parent.parent.text = ""
-                        parent.parent.forceActiveFocus()
+                    MouseArea {
+                        id: clear
+                        anchors { horizontalCenter: parent.horizontalCenter; verticalCenter: parent.verticalCenter }
+                        height: parent.parent.height
+                        width: parent.parent.height
+                        onClicked: {
+                            parent.parent.text = ""
+                            parent.parent.forceActiveFocus()
+                        }
                     }
                 }
+
+            },
+            Item {
+                width: elisaTheme.layoutHorizontalMargin
+            },
+            LabelWithToolTip {
+                text: i18n("Filter by rating: ")
+
+                visible: showRating
+            },
+            RatingStar {
+                id: ratingFilter
+                objectName: 'ratingFilter'
+
+                visible: showRating
+                hoverWidgetOpacity: 1
+
+                readOnly: false
+
+                starSize: elisaTheme.ratingStarSize
             }
-        }
-
-        LabelWithToolTip {
-            text: i18nc("before the Rating widget input of the filter", "Rating: ")
-
-            visible: showRating
-
-            font.bold: true
-
-            color: myPalette.text
-
-            Layout.bottomMargin: 0
-            Layout.leftMargin: !LayoutMirroring.enabled ? (elisaTheme.layoutHorizontalMargin * 2) : 0
-            Layout.rightMargin: LayoutMirroring.enabled ? (elisaTheme.layoutHorizontalMargin * 2) : 0
-        }
-
-        RatingStar {
-            id: ratingFilter
-            objectName: 'ratingFilter'
-
-            visible: showRating
-            hoverWidgetOpacity: 1
-
-
-            readOnly: false
-
-            starSize: elisaTheme.ratingStarSize
-
-            Layout.bottomMargin: 0
-        }
-
-        Item {
-            Layout.fillWidth: true
-            implicitWidth: elisaTheme.layoutHorizontalMargin * 4
-        }
-
-        Controls1.ToolButton {
-            action: sortAction
-            objectName: 'sortAscendingButton'
-
-            activeFocusOnTab: true
-
-            Keys.onReturnPressed: action.trigger()
-            Accessible.onPressAction: action.trigger()
-
-            Layout.alignment: Qt.AlignRight
-            Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-            Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-            visible: enableSorting
-        }
+        ]
     }
 
     states: [
         State {
             name: 'collapsed'
             when: !expandedFilterView
-            PropertyChanges {
-                target: navigationBar
-                height: elisaTheme.navigationBarHeight + elisaTheme.layoutVerticalMargin * 2
-            }
             PropertyChanges {
                 target: filterRow
                 opacity: 0.0
@@ -396,10 +301,6 @@ ColumnLayout {
             name: 'expanded'
             when: expandedFilterView
             PropertyChanges {
-                target: navigationBar
-                height: elisaTheme.navigationBarHeight + elisaTheme.navigationBarFilterHeight + elisaTheme.layoutVerticalMargin * 4
-            }
-            PropertyChanges {
                 target: filterRow
                 opacity: 1.0
             }
@@ -407,11 +308,6 @@ ColumnLayout {
     ]
     transitions: Transition {
         from: "expanded,collapsed"
-        PropertyAnimation {
-            properties: "height"
-            easing.type: Easing.Linear
-            duration: 250
-        }
         PropertyAnimation {
             properties: "opacity"
             easing.type: Easing.Linear

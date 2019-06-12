@@ -108,6 +108,9 @@ Item {
 
     property int headerTitleFontSize: defaultFontPointSize * 2
 
+    property int headerToolbarHeight: dp(48)
+    property int footerToolbarHeight: dp(30)
+
     property int viewSelectorSmallSizeThreshold: 800
 
     Label {

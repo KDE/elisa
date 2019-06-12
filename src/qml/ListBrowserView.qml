@@ -65,10 +65,6 @@ FocusScope {
             enableGoBack: listView.isSubPage
             sortOrder: contentModel.sortedAscending
 
-            height: elisaTheme.navigationBarHeight
-            Layout.preferredHeight: height
-            Layout.minimumHeight: height
-            Layout.maximumHeight: height
             Layout.fillWidth: true
 
             Binding {
@@ -103,7 +99,6 @@ FocusScope {
 
             ListView {
                 id: contentDirectoryView
-                anchors.topMargin: 20
                 anchors.fill: parent
 
                 Accessible.role: Accessible.List

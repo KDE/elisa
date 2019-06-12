@@ -92,7 +92,7 @@ RowLayout {
                 browseStackView.pop()
             }
 
-            browseStackView.push(allTracksView, {
+            browseStackView.push(dataListView, {
                                      viewType: viewType,
                                      filterType: filterType,
                                      isSubPage: expectedDepth > 1,
@@ -429,9 +429,9 @@ RowLayout {
     }
 
     Component {
-        id: allTracksView
+        id: dataListView
 
-        TracksView {
+        DataListView {
             StackView.onActivated: viewManager.viewIsLoaded(viewType)
         }
     }

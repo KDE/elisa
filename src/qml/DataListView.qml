@@ -24,11 +24,16 @@ FocusScope {
     id: viewHeader
 
     property var viewType
+    property var filterType
+    property alias isSubPage: listView.isSubPage
     property alias mainTitle: listView.mainTitle
+    property alias secondaryTitle: listView.secondaryTitle
+    property int databaseId
     property alias image: listView.image
     property var modelType
-
-    focus: true
+    property alias sortRole: proxyModel.sortRole
+    property bool sortAscending: true
+    property bool displaySingleAlbum: false
 
     DataModel {
         id: realModel
@@ -37,22 +42,60 @@ FocusScope {
     AllTracksProxyModel {
         id: proxyModel
 
-        sortRole: Qt.DisplayRole
         sourceModel: realModel
 
         onEntriesToEnqueue: elisa.mediaPlayList.enqueue(newEntries, databaseIdType, enqueueMode, triggerPlay)
     }
 
-    ListBrowserView {
-        id: listView
+    Component {
+        id: singleAlbumDelegate
 
-        focus: true
+        MediaAlbumTrackDelegate {
+            id: entry
 
-        anchors.fill: parent
+            width: listView.delegateWidth
+            height: ((true && !true) ? elisaTheme.delegateHeight*2 : elisaTheme.delegateHeight)
 
-        contentModel: proxyModel
+            focus: true
 
-        delegate: MediaTrackDelegate {
+            databaseId: model.databaseId
+            title: model.title
+            artist: model.artist
+            album: (model.album !== undefined && model.album !== '' ? model.album : '')
+            albumArtist: model.albumArtist
+            duration: model.duration
+            imageUrl: (model.imageUrl !== undefined && model.imageUrl !== '' ? model.imageUrl : '')
+            trackNumber: model.trackNumber
+            discNumber: model.discNumber
+            rating: model.rating
+            isFirstTrackOfDisc: true
+            isSingleDiscAlbum: true
+            isSelected: listView.currentIndex === index
+            isAlternateColor: (index % 2) === 1
+
+            mediaTrack.onEnqueue: elisa.mediaPlayList.enqueue(databaseId, name, ElisaUtils.Track,
+                                                              ElisaUtils.AppendPlayList,
+                                                              ElisaUtils.DoNotTriggerPlay)
+
+            mediaTrack.onReplaceAndPlay: elisa.mediaPlayList.enqueue(databaseId, name, ElisaUtils.Track,
+                                                                     ElisaUtils.ReplacePlayList,
+                                                                     ElisaUtils.TriggerPlay)
+
+
+            mediaTrack.onClicked: listView.currentIndex = index
+
+            onActiveFocusChanged: {
+                if (activeFocus && listView.currentIndex !== index) {
+                    listView.currentIndex = index
+                }
+            }
+        }
+    }
+
+    Component {
+        id: multipleDiscDelegate
+
+        MediaTrackDelegate {
             id: entry
 
             width: listView.delegateWidth
@@ -88,6 +131,26 @@ FocusScope {
                 entry.forceActiveFocus()
             }
         }
+    }
+
+    ListBrowserView {
+        id: listView
+
+        focus: true
+
+        anchors.fill: parent
+
+        contentModel: proxyModel
+
+        delegate: (displaySingleAlbum ? singleAlbumDelegate : multipleDiscDelegate)
+
+        allowArtistNavigation: isSubPage
+
+        onShowArtist: {
+            viewManager.openChildView(secondaryTitle, '', elisaTheme.artistIcon, 0, ElisaUtils.Artist)
+        }
+
+        onGoBack: viewManager.goBack()
 
         Loader {
             anchors.centerIn: parent
@@ -113,8 +176,13 @@ FocusScope {
 
     Component.onCompleted: {
         if (elisa.musicManager) {
-            realModel.initialize(elisa.musicManager, elisa.musicManager.viewDatabase,
-                                 modelType)
+            realModel.initialize(elisa.musicManager, elisa.musicManager.viewDatabase, modelType, filterType, mainTitle, secondaryTitle, databaseId)
+        }
+
+        if (sortAscending) {
+            proxyModel.sortModel(Qt.AscendingOrder)
+        } else {
+            proxyModel.sortModel(Qt.DescendingOrder)
         }
     }
 }

@@ -24,6 +24,7 @@ FocusScope {
     id: viewHeader
 
     property var viewType
+    property var filterType
     property alias mainTitle: gridView.mainTitle
     property alias secondaryTitle: gridView.secondaryTitle
     property alias image: gridView.image
@@ -39,6 +40,12 @@ FocusScope {
 
     Accessible.role: Accessible.Pane
     Accessible.name: mainTitle
+
+    function initializeModel()
+    {
+        realModel.initialize(elisa.musicManager, elisa.musicManager.viewDatabase,
+                             modelType, filterType, genreFilterText, artistFilter, 0)
+    }
 
     DataModel {
         id: realModel
@@ -91,44 +98,12 @@ FocusScope {
     Connections {
         target: elisa
 
-        onMusicManagerChanged: {
-            if (genreFilterText && artistFilter) {
-                realModel.initializeByGenreAndArtist(elisa.musicManager,
-                                                     elisa.musicManager.viewDatabase,
-                                                     modelType, genreFilterText, artistFilter)
-            } else if (genreFilterText) {
-                realModel.initializeByGenre(elisa.musicManager,
-                                            elisa.musicManager.viewDatabase,
-                                            modelType, genreFilterText)
-            } else if (artistFilter) {
-                realModel.initializeByArtist(elisa.musicManager,
-                                             elisa.musicManager.viewDatabase,
-                                             modelType, artistFilter)
-            } else {
-                realModel.initialize(elisa.musicManager, elisa.musicManager.viewDatabase,
-                                     modelType)
-            }
-        }
+        onMusicManagerChanged: initializeModel()
     }
 
     Component.onCompleted: {
         if (elisa.musicManager) {
-            if (genreFilterText && artistFilter) {
-                realModel.initializeByGenreAndArtist(elisa.musicManager,
-                                                     elisa.musicManager.viewDatabase,
-                                                     modelType, genreFilterText, artistFilter)
-            } else if (genreFilterText) {
-                realModel.initializeByGenre(elisa.musicManager,
-                                            elisa.musicManager.viewDatabase,
-                                            modelType, genreFilterText)
-            } else if (artistFilter) {
-                realModel.initializeByArtist(elisa.musicManager,
-                                             elisa.musicManager.viewDatabase,
-                                             modelType, artistFilter)
-            } else {
-                realModel.initialize(elisa.musicManager, elisa.musicManager.viewDatabase,
-                                     modelType)
-            }
+            initializeModel()
         }
     }
 }

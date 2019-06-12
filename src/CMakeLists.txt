@@ -374,10 +374,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         qml/ViewSelector.qml
         qml/ViewSelectorDelegate.qml
         qml/DataGridView.qml
-        qml/TracksView.qml
-        qml/AlbumView.qml
-        qml/RecentlyPlayedTracks.qml
-        qml/FrequentlyPlayedTracks.qml
+        qml/DataListView.qml
 
         qml/MediaPlayListView.qml
         qml/PlayListBasicView.qml

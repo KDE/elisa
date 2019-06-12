@@ -83,7 +83,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        tracksModel.initialize(nullptr, nullptr, ElisaUtils::Track);
+        tracksModel.initialize(nullptr, nullptr, ElisaUtils::Track, ElisaUtils::NoFilter, {}, {}, 0);
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -147,7 +147,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        tracksModel.initialize(nullptr, nullptr, ElisaUtils::Track);
+        tracksModel.initialize(nullptr, nullptr, ElisaUtils::Track, ElisaUtils::NoFilter, {}, {}, 0);
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -219,7 +219,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        tracksModel.initialize(nullptr, nullptr, ElisaUtils::Track);
+        tracksModel.initialize(nullptr, nullptr, ElisaUtils::Track, ElisaUtils::NoFilter, {}, {}, 0);
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -287,7 +287,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        tracksModel.initialize(nullptr, nullptr, ElisaUtils::Track);
+        tracksModel.initialize(nullptr, nullptr, ElisaUtils::Track, ElisaUtils::NoFilter, {}, {}, 0);
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -370,7 +370,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        tracksModel.initialize(nullptr, nullptr, ElisaUtils::Track);
+        tracksModel.initialize(nullptr, nullptr, ElisaUtils::Track, ElisaUtils::NoFilter, {}, {}, 0);
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -479,7 +479,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        tracksModel.initialize(nullptr, nullptr, ElisaUtils::Track);
+        tracksModel.initialize(nullptr, nullptr, ElisaUtils::Track, ElisaUtils::NoFilter, {}, {}, 0);
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);

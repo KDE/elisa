@@ -44,7 +44,7 @@ public:
     using TrackDataType = DatabaseInterface::TrackDataType;
     using AlbumDataType = DatabaseInterface::AlbumDataType;
 
-    using FilterType = DataModel::FilterType;
+    using FilterType = ElisaUtils::FilterType;
 
     explicit ModelDataLoader(QObject *parent = nullptr);
 

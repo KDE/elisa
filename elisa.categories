@@ -1,0 +1,6 @@
+org.kde.elisa.indexers.manager elisa (indexer manager) DEFAULT_SEVERITY [INFO] IDENTIFIER [orgKdeElisaIndexersManager]
+org.kde.elisa.database elisa (database) DEFAULT_SEVERITY [INFO] IDENTIFIER [orgKdeElisaDatabase]
+org.kde.elisa.indexer elisa (indexer) DEFAULT_SEVERITY [INFO] IDENTIFIER [orgKdeElisaIndexer]
+org.kde.elisa.player.vlc elisa (vlc) DEFAULT_SEVERITY [INFO] IDENTIFIER [orgKdeElisaPlayerVlc]
+org.kde.elisa.player.qtMultimedia elisa (qtmultimedia) DEFAULT_SEVERITY [INFO] IDENTIFIER [orgKdeElisaPlayerQtMultimedia]
+org.kde.elisa.baloo elisa (baloo) DEFAULT_SEVERITY [INFO] IDENTIFIER [orgKdeElisaBaloo]

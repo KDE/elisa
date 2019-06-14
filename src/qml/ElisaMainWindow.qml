@@ -96,9 +96,6 @@ ApplicationWindow {
         property double playControlItemVolume : 100.0
         property bool playControlItemMuted : false
 
-        property bool playControlItemRepeat : false
-        property bool playControlItemShuffle : false
-
         property bool expandedFilterView: false
 
         property bool showPlaylist: true
@@ -126,8 +123,6 @@ ApplicationWindow {
             persistentSettings.playControlItemVolume = headerBar.playerControl.volume
             persistentSettings.playControlItemMuted = headerBar.playerControl.muted
 
-            persistentSettings.playControlItemRepeat = headerBar.playerControl.repeat
-            persistentSettings.playControlItemShuffle = headerBar.playerControl.shuffle
             persistentSettings.showPlaylist = contentView.showPlaylist
 
             persistentSettings.headerBarIsMaximized = headerBar.isMaximized
@@ -216,8 +211,8 @@ ApplicationWindow {
                     playerControl.playEnabled: elisa.playerControl.playControlEnabled
                     playerControl.isPlaying: elisa.playerControl.musicPlaying
 
-                    playerControl.repeat: persistentSettings.playControlItemRepeat
-                    playerControl.shuffle: persistentSettings.playControlItemShuffle
+                    playerControl.repeat: elisa.mediaPlayList.repeatPlay
+                    playerControl.shuffle: elisa.mediaPlayList.randomPlay
 
                     playerControl.onSeek: elisa.audioPlayer.seek(position)
 
@@ -332,10 +327,6 @@ ApplicationWindow {
     {
         elisa.initialize()
 
-        elisa.mediaPlayList.randomPlay = Qt.binding(function() { return headerBar.playerControl.shuffle })
-        elisa.mediaPlayList.repeatPlay = Qt.binding(function() { return headerBar.playerControl.repeat })
-        elisa.playerControl.randomOrContinuePlay = Qt.binding(function() { return headerBar.playerControl.shuffle || headerBar.playerControl.repeat})
-
         if (persistentSettings.playListState) {
             elisa.mediaPlayList.persistentState = persistentSettings.playListState
         }
@@ -344,6 +335,9 @@ ApplicationWindow {
             elisa.audioControl.persistentState = persistentSettings.audioPlayerState
         }
 
+        elisa.mediaPlayList.randomPlay = Qt.binding(function() { return headerBar.playerControl.shuffle })
+        elisa.mediaPlayList.repeatPlay = Qt.binding(function() { return headerBar.playerControl.repeat })
+        elisa.playerControl.randomOrContinuePlay = Qt.binding(function() { return headerBar.playerControl.shuffle || headerBar.playerControl.repeat})
         elisa.audioPlayer.muted = Qt.binding(function() { return headerBar.playerControl.muted })
         elisa.audioPlayer.volume = Qt.binding(function() { return headerBar.playerControl.volume })
 

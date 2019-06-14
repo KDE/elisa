@@ -985,14 +985,18 @@ void MediaPlayList::setMusicListenersManager(MusicListenersManager *musicListene
 
 void MediaPlayList::setRandomPlay(bool value)
 {
-    d->mRandomPlay = value;
-    Q_EMIT randomPlayChanged();
+    if (d->mRandomPlay != value) {
+        d->mRandomPlay = value;
+        Q_EMIT randomPlayChanged();
+    }
 }
 
 void MediaPlayList::setRepeatPlay(bool value)
 {
-    d->mRepeatPlay = value;
-    Q_EMIT repeatPlayChanged();
+    if (d->mRepeatPlay != value) {
+        d->mRepeatPlay = value;
+        Q_EMIT repeatPlayChanged();
+    }
 }
 
 void MediaPlayList::displayOrHideUndoInline(bool value)
@@ -1167,7 +1171,6 @@ void MediaPlayList::restoreRandomPlay()
     auto randomPlayStoredValue = d->mPersistentState.find(QStringLiteral("randomPlay"));
     if (randomPlayStoredValue != d->mPersistentState.end()) {
         setRandomPlay(randomPlayStoredValue->toBool());
-        d->mPersistentState.erase(randomPlayStoredValue);
     }
 }
 
@@ -1176,7 +1179,6 @@ void MediaPlayList::restoreRepeatPlay()
     auto repeatPlayStoredValue = d->mPersistentState.find(QStringLiteral("repeatPlay"));
     if (repeatPlayStoredValue != d->mPersistentState.end()) {
         setRepeatPlay(repeatPlayStoredValue->toBool());
-        d->mPersistentState.erase(repeatPlayStoredValue);
     }
 }
 

@@ -125,19 +125,15 @@ FocusScope {
 
     RowLayout {
         anchors.fill: parent
-        spacing: 5
+        spacing: 0
 
         FlatButtonWithToolTip {
             id: minimizeMaximizeButton
             action: minimizeMaximizeAction
 
-            Layout.preferredWidth: elisaTheme.smallControlButtonSize
-            Layout.preferredHeight: elisaTheme.smallControlButtonSize
-            Layout.alignment: Qt.AlignVCenter
-            Layout.maximumWidth: elisaTheme.smallControlButtonSize
-            Layout.maximumHeight: elisaTheme.smallControlButtonSize
-            Layout.minimumWidth: elisaTheme.smallControlButtonSize
-            Layout.minimumHeight: elisaTheme.smallControlButtonSize
+            icon.width: elisaTheme.smallControlButtonSize
+            icon.height: elisaTheme.smallControlButtonSize
+
             Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.mediaPlayerHorizontalMargin : 0
             Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.mediaPlayerHorizontalMargin : 0
         }
@@ -146,14 +142,8 @@ FocusScope {
             id: skipBackwardButton
             action: skipBackwardAction
             focus: skipBackwardEnabled
-
-            Layout.preferredWidth: elisaTheme.smallControlButtonSize
-            Layout.preferredHeight: elisaTheme.smallControlButtonSize
-            Layout.alignment: Qt.AlignVCenter
-            Layout.maximumWidth: elisaTheme.smallControlButtonSize
-            Layout.maximumHeight: elisaTheme.smallControlButtonSize
-            Layout.minimumWidth: elisaTheme.smallControlButtonSize
-            Layout.minimumHeight: elisaTheme.smallControlButtonSize
+            icon.width: elisaTheme.smallControlButtonSize
+            icon.height: elisaTheme.smallControlButtonSize
         }
 
         FlatButtonWithToolTip {
@@ -161,13 +151,8 @@ FocusScope {
             action: playPauseAction
             focus: playEnabled
 
-            Layout.preferredWidth: elisaTheme.smallControlButtonSize
-            Layout.preferredHeight: elisaTheme.smallControlButtonSize
-            Layout.alignment: Qt.AlignVCenter
-            Layout.maximumWidth: elisaTheme.smallControlButtonSize
-            Layout.maximumHeight: elisaTheme.smallControlButtonSize
-            Layout.minimumWidth: elisaTheme.smallControlButtonSize
-            Layout.minimumHeight: elisaTheme.smallControlButtonSize
+            icon.width: elisaTheme.smallControlButtonSize
+            icon.height: elisaTheme.smallControlButtonSize
         }
 
         FlatButtonWithToolTip {
@@ -175,13 +160,8 @@ FocusScope {
             action: skipForwardAction
             focus: skipForwardEnabled
 
-            Layout.preferredWidth: elisaTheme.smallControlButtonSize
-            Layout.preferredHeight: elisaTheme.smallControlButtonSize
-            Layout.alignment: Qt.AlignVCenter
-            Layout.maximumWidth: elisaTheme.smallControlButtonSize
-            Layout.maximumHeight: elisaTheme.smallControlButtonSize
-            Layout.minimumWidth: elisaTheme.smallControlButtonSize
-            Layout.minimumHeight: elisaTheme.smallControlButtonSize
+            icon.width: elisaTheme.smallControlButtonSize
+            icon.height: elisaTheme.smallControlButtonSize
         }
 
         TextMetrics {
@@ -304,13 +284,8 @@ FocusScope {
             action: muteAction
             focus: true
 
-            Layout.preferredWidth: elisaTheme.smallControlButtonSize
-            Layout.preferredHeight: elisaTheme.smallControlButtonSize
-            Layout.alignment: Qt.AlignVCenter
-            Layout.maximumWidth: elisaTheme.smallControlButtonSize
-            Layout.maximumHeight: elisaTheme.smallControlButtonSize
-            Layout.minimumWidth: elisaTheme.smallControlButtonSize
-            Layout.minimumHeight: elisaTheme.smallControlButtonSize
+            icon.width: elisaTheme.smallControlButtonSize
+            icon.height: elisaTheme.smallControlButtonSize
         }
 
         Slider {
@@ -368,13 +343,8 @@ FocusScope {
             action: shuffleAction
             id: shuffleButton
 
-            Layout.preferredWidth: elisaTheme.smallControlButtonSize
-            Layout.preferredHeight: elisaTheme.smallControlButtonSize
-            Layout.alignment: Qt.AlignCenter
-            Layout.maximumWidth: elisaTheme.smallControlButtonSize
-            Layout.maximumHeight: elisaTheme.smallControlButtonSize
-            Layout.minimumWidth: elisaTheme.smallControlButtonSize
-            Layout.minimumHeight: elisaTheme.smallControlButtonSize
+            icon.width: elisaTheme.smallControlButtonSize
+            icon.height: elisaTheme.smallControlButtonSize
         }
 
         FlatButtonWithToolTip {
@@ -382,13 +352,8 @@ FocusScope {
             action: repeatAction
             id: repeatButton
 
-            Layout.preferredWidth: elisaTheme.smallControlButtonSize
-            Layout.preferredHeight: elisaTheme.smallControlButtonSize
-            Layout.alignment: Qt.AlignCenter
-            Layout.maximumWidth: elisaTheme.smallControlButtonSize
-            Layout.maximumHeight: elisaTheme.smallControlButtonSize
-            Layout.minimumWidth: elisaTheme.smallControlButtonSize
-            Layout.minimumHeight: elisaTheme.smallControlButtonSize
+            icon.width: elisaTheme.smallControlButtonSize
+            icon.height: elisaTheme.smallControlButtonSize
         }
 
         FlatButtonWithToolTip {
@@ -396,13 +361,9 @@ FocusScope {
             action: applicationMenuAction
             focus: true
 
-            Layout.preferredWidth: elisaTheme.smallControlButtonSize
-            Layout.preferredHeight: elisaTheme.smallControlButtonSize
-            Layout.alignment: Qt.AlignVCenter
-            Layout.maximumWidth: elisaTheme.smallControlButtonSize
-            Layout.maximumHeight: elisaTheme.smallControlButtonSize
-            Layout.minimumWidth: elisaTheme.smallControlButtonSize
-            Layout.minimumHeight: elisaTheme.smallControlButtonSize
+            icon.width: elisaTheme.smallControlButtonSize
+            icon.height: elisaTheme.smallControlButtonSize
+
             Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.mediaPlayerHorizontalMargin : elisaTheme.mediaPlayerHorizontalMargin * 1.5
             Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.mediaPlayerHorizontalMargin : elisaTheme.mediaPlayerHorizontalMargin * 1.5
         }

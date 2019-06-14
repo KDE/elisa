@@ -30,23 +30,8 @@ Button {
 
     Keys.onReturnPressed: action.trigger()
 
-    contentItem: Image {
-        anchors.fill: parent
-
-        source: flatButtonWithToolTip.action.icon.name != "" ? ('image://icon/' + flatButtonWithToolTip.action.icon.name) : Qt.resolvedUrl(flatButtonWithToolTip.action.icon.source)
-
-        sourceSize.width: flatButtonWithToolTip.width
-        sourceSize.height: flatButtonWithToolTip.height
-
-        fillMode: Image.PreserveAspectFit
-        opacity: flatButtonWithToolTip.action.enabled ? 1 : 0.6
-    }
-
-    background: Rectangle {
-        color: parent.pressed ? myPalette.highlight : "transparent"
-        border.color: (parent.hovered || parent.activeFocus) ? myPalette.highlight : "transparent"
-        border.width: 1
-    }
+    flat: true
+    display: AbstractButton.IconOnly
 
     Accessible.onPressAction: onClicked
 

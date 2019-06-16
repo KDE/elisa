@@ -18,7 +18,6 @@
 import QtQuick 2.7
 import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.3
-import QtQuick.Controls 1.4 as Controls1
 import QtQuick.Window 2.2
 import QtGraphicalEffects 1.0
 import org.kde.elisa 1.0
@@ -58,19 +57,19 @@ FocusScope {
 
     height: elisaTheme.playListDelegateHeight
 
-    Controls1.Action {
+    Action {
         id: removeFromPlayList
         text: i18nc("Remove current track from play list", "Remove")
-        iconName: "error"
+        icon.name: "error"
         onTriggered: {
             playListEntry.removeFromPlaylist(playListEntry.index)
         }
     }
 
-    Controls1.Action {
+    Action {
         id: playNow
         text: i18nc("Play now current track from play list", "Play Now")
-        iconName: "media-playback-start"
+        icon.name: "media-playback-start"
         enabled: !(isPlaying === MediaPlayList.IsPlaying) && isValid
         onTriggered: {
             if (isPlaying === MediaPlayList.NotPlaying) {
@@ -80,18 +79,18 @@ FocusScope {
         }
     }
 
-    Controls1.Action {
+    Action {
         id: pauseNow
         text: i18nc("Pause current track from play list", "Pause")
-        iconName: "media-playback-pause"
+        icon.name: "media-playback-pause"
         enabled: isPlaying === MediaPlayList.IsPlaying && isValid
         onTriggered: playListEntry.pausePlayback()
     }
 
-    Controls1.Action {
+    Action {
         id: showInfo
         text: i18nc("Show track metadata", "View Details")
-        iconName: "help-about"
+        icon.name: "help-about"
         enabled: isValid
         onTriggered: {
             if (metadataLoader.active === false) {
@@ -331,12 +330,14 @@ FocusScope {
                     Layout.preferredWidth: 0
                 }
 
-                Controls1.ToolButton {
+                FlatButtonWithToolTip {
                     id: infoButton
                     objectName: 'infoButton'
 
                     implicitHeight: elisaTheme.smallDelegateToolButtonSize
                     implicitWidth: elisaTheme.smallDelegateToolButtonSize
+                    icon.height: elisaTheme.smallControlButtonSize
+                    icon.width: elisaTheme.smallControlButtonSize
 
                     opacity: 0
 
@@ -348,12 +349,14 @@ FocusScope {
                     Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
                 }
 
-                Controls1.ToolButton {
+                FlatButtonWithToolTip {
                     id: playPauseButton
                     objectName: 'playPauseButton'
 
                     implicitHeight: elisaTheme.smallDelegateToolButtonSize
                     implicitWidth: elisaTheme.smallDelegateToolButtonSize
+                    icon.height: elisaTheme.smallControlButtonSize
+                    icon.width: elisaTheme.smallControlButtonSize
 
                     opacity: 0
 
@@ -366,25 +369,20 @@ FocusScope {
                     Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
                 }
 
-                Item {
+                FlatButtonWithToolTip {
+                    id: removeButton
+                    objectName: 'removeButton'
+
+                    opacity: 0
+
+                    visible: opacity > 0.1
+                    action: removeFromPlayList
+                    Accessible.onPressAction: action.trigger()
+
                     implicitHeight: elisaTheme.smallDelegateToolButtonSize
                     implicitWidth: elisaTheme.smallDelegateToolButtonSize
-                    Layout.maximumWidth: elisaTheme.smallDelegateToolButtonSize
-                    Layout.maximumHeight: elisaTheme.smallDelegateToolButtonSize
-                    Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-
-                    Controls1.ToolButton {
-                        id: removeButton
-                        objectName: 'removeButton'
-
-                        anchors.fill: parent
-
-                        opacity: 0
-
-                        visible: opacity > 0.1
-                        action: removeFromPlayList
-                        Accessible.onPressAction: action.trigger()
-                    }
+                    icon.height: elisaTheme.smallControlButtonSize
+                    icon.width: elisaTheme.smallControlButtonSize
                 }
 
                 RatingStar {

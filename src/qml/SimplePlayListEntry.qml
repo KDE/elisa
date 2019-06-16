@@ -18,7 +18,6 @@
 import QtQuick 2.7
 import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.3
-import QtQuick.Controls 1.4 as Controls1
 import QtQuick.Window 2.2
 import QtGraphicalEffects 1.0
 import org.kde.elisa 1.0
@@ -49,10 +48,10 @@ FocusScope {
 
     height: (hasAlbumHeader ? elisaTheme.playListDelegateWithHeaderHeight : elisaTheme.playListDelegateHeight)
 
-    Controls1.Action {
+    Action {
         id: playNow
         text: i18nc("Play now current track from play list", "Play Now")
-        iconName: "media-playback-start"
+        icon.name: "media-playback-start"
         enabled: !(isPlaying === MediaPlayList.IsPlaying) && isValid
         onTriggered: {
             playListEntry.switchToTrack(playListEntry.index)

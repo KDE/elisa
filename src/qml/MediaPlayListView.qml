@@ -17,8 +17,7 @@
  */
 
 import QtQuick 2.5
-import QtQuick.Controls 2.2
-import QtQuick.Controls 1.3 as Controls1
+import QtQuick.Controls 2.3
 import QtQuick.Layouts 1.1
 import QtQuick.Window 2.2
 import Qt.labs.platform 1.0 as PlatformDialog
@@ -39,18 +38,18 @@ FocusScope {
     Accessible.role: Accessible.Pane
     Accessible.name: viewTitle.text
 
-    Controls1.Action {
+    Action {
         id: clearPlayList
         text: i18nc("Remove all tracks from play list", "Clear Playlist")
-        iconName: 'edit-clear-all'
+        icon.name: 'edit-clear-all'
         enabled: elisa.mediaPlayList ? elisa.mediaPlayList.tracksCount > 0 : false
         onTriggered: elisa.mediaPlayList.clearPlayList()
     }
 
-    Controls1.Action {
+    Action {
         id: showCurrentTrack
         text: i18nc("Show currently played track inside playlist", "Show Current Track")
-        iconName: 'media-show-active-track-amarok'
+        icon.name: 'media-show-active-track-amarok'
         enabled: elisa.mediaPlayList ? elisa.mediaPlayList.tracksCount > 0 : false
         onTriggered: {
             playListView.positionViewAtIndex(elisa.mediaPlayList.currentTrackRow, ListView.Contain)
@@ -59,10 +58,10 @@ FocusScope {
         }
     }
 
-    Controls1.Action {
+    Action {
         id: loadPlaylist
         text: i18nc("Load a playlist file", "Load Playlist...")
-        iconName: 'document-open'
+        icon.name: 'document-open'
         onTriggered:
         {
             fileDialog.fileMode = PlatformDialog.FileDialog.OpenFile
@@ -71,10 +70,10 @@ FocusScope {
         }
     }
 
-    Controls1.Action {
+    Action {
         id: savePlaylist
         text: i18nc("Save a playlist file", "Save Playlist...")
-        iconName: 'document-save'
+        icon.name: 'document-save'
         enabled: elisa.mediaPlayList ? elisa.mediaPlayList.tracksCount > 0 : false
         onTriggered:
         {
@@ -125,25 +124,29 @@ FocusScope {
                 },
 
                 // Toolbar buttons
-                Controls1.ToolButton {
+                FlatButtonWithToolTip {
                     action: showCurrentTrack
-                    Keys.onReturnPressed: action.trigger()
-                    Accessible.onPressAction: action.trigger()
+
+                    icon.height: elisaTheme.smallControlButtonSize
+                    icon.width: elisaTheme.smallControlButtonSize
                 },
-                Controls1.ToolButton {
+                FlatButtonWithToolTip {
                     action: savePlaylist
-                    Keys.onReturnPressed: action.trigger()
-                    Accessible.onPressAction: action.trigger()
+
+                    icon.height: elisaTheme.smallControlButtonSize
+                    icon.width: elisaTheme.smallControlButtonSize
                 },
-                Controls1.ToolButton {
+                FlatButtonWithToolTip {
                     action: loadPlaylist
-                    Keys.onReturnPressed: action.trigger()
-                    Accessible.onPressAction: action.trigger()
+
+                    icon.height: elisaTheme.smallControlButtonSize
+                    icon.width: elisaTheme.smallControlButtonSize
                 },
-                Controls1.ToolButton {
+                FlatButtonWithToolTip {
                     action: clearPlayList
-                    Keys.onReturnPressed: action.trigger()
-                    Accessible.onPressAction: action.trigger()
+
+                    icon.height: elisaTheme.smallControlButtonSize
+                    icon.width: elisaTheme.smallControlButtonSize
                 }
             ]
         }

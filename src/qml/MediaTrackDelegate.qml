@@ -18,8 +18,7 @@
 
 import QtQuick 2.7
 import QtQuick.Layouts 1.2
-import QtQuick.Controls 2.2
-import QtQuick.Controls 1.4 as Controls1
+import QtQuick.Controls 2.3
 import QtQuick.Window 2.2
 import QtGraphicalEffects 1.0
 import org.kde.elisa 1.0
@@ -51,17 +50,17 @@ FocusScope {
     Accessible.name: title
     Accessible.description: title
 
-    Controls1.Action {
+    Action {
         id: enqueueAction
         text: i18nc("Enqueue current track", "Enqueue")
-        iconName: "media-track-add-amarok"
+        icon.name: "media-track-add-amarok"
         onTriggered: enqueue(databaseId, title)
     }
 
-    Controls1.Action {
+    Action {
         id: viewDetailsAction
         text: i18nc("Show track metadata", "View Details")
-        iconName: "help-about"
+        icon.name: "help-about"
         onTriggered: {
             if (metadataLoader.active === false) {
                 metadataLoader.active = true
@@ -73,10 +72,10 @@ FocusScope {
         }
     }
 
-    Controls1.Action {
+    Action {
         id: replaceAndPlayAction
         text: i18nc("Clear play list and enqueue current track", "Play Now and Replace Play List")
-        iconName: "media-playback-start"
+        icon.name: "media-playback-start"
         onTriggered: replaceAndPlay(databaseId, title)
     }
 
@@ -292,33 +291,39 @@ FocusScope {
                 sourceComponent: Row {
                     anchors.centerIn: parent
 
-                    Controls1.ToolButton {
+                    FlatButtonWithToolTip {
                         id: detailsButton
 
                         height: elisaTheme.delegateHeight
                         width: elisaTheme.delegateHeight
+                        icon.height: elisaTheme.smallControlButtonSize
+                        icon.width: elisaTheme.smallControlButtonSize
 
                         action: viewDetailsAction
                         Accessible.onPressAction: action.trigger()
                     }
 
-                    Controls1.ToolButton {
+                    FlatButtonWithToolTip {
                         id: enqueueButton
 
                         height: elisaTheme.delegateHeight
                         width: elisaTheme.delegateHeight
+                        icon.height: elisaTheme.smallControlButtonSize
+                        icon.width: elisaTheme.smallControlButtonSize
 
                         action: enqueueAction
                         Accessible.onPressAction: action.trigger()
                     }
 
-                    Controls1.ToolButton {
+                    FlatButtonWithToolTip {
                         id: clearAndEnqueueButton
 
                         scale: LayoutMirroring.enabled ? -1 : 1
 
                         height: elisaTheme.delegateHeight
                         width: elisaTheme.delegateHeight
+                        icon.height: elisaTheme.smallControlButtonSize
+                        icon.width: elisaTheme.smallControlButtonSize
 
                         action: replaceAndPlayAction
                         Accessible.onPressAction: action.trigger()

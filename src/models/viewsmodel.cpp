@@ -50,7 +50,7 @@ public:
                   {ViewManager::AllGenres, {i18nc("Title of the view of all genres", "Genres")}},
                   {ViewManager::FilesBrowser, {i18nc("Title of the file browser view", "Files")}}};
 
-        mIcons = {{ViewManager::NoViews, QUrl{QStringLiteral("image://icon/view-media-playlist")}},
+        mIcons = {{ViewManager::NoViews, QUrl{QStringLiteral("image://icon/view-media-lyrics")}},
                   {ViewManager::RecentlyPlayedTracks, QUrl{QStringLiteral("image://icon/media-playlist-play")}},
                   {ViewManager::FrequentlyPlayedTracks, QUrl{QStringLiteral("image://icon/amarok_playcount")}},
                   {ViewManager::AllAlbums, QUrl{QStringLiteral("image://icon/view-media-album-cover")}},

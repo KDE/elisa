@@ -131,6 +131,8 @@ FocusScope {
             id: minimizeMaximizeButton
             action: minimizeMaximizeAction
 
+            implicitHeight: elisaTheme.mediaPlayerControlHeight
+            implicitWidth: elisaTheme.mediaPlayerControlHeight
             icon.width: elisaTheme.smallControlButtonSize
             icon.height: elisaTheme.smallControlButtonSize
 
@@ -142,6 +144,9 @@ FocusScope {
             id: skipBackwardButton
             action: skipBackwardAction
             focus: skipBackwardEnabled
+
+            implicitHeight: elisaTheme.mediaPlayerControlHeight
+            implicitWidth: elisaTheme.mediaPlayerControlHeight
             icon.width: elisaTheme.smallControlButtonSize
             icon.height: elisaTheme.smallControlButtonSize
         }
@@ -151,6 +156,8 @@ FocusScope {
             action: playPauseAction
             focus: playEnabled
 
+            implicitHeight: elisaTheme.mediaPlayerControlHeight
+            implicitWidth: elisaTheme.mediaPlayerControlHeight
             icon.width: elisaTheme.smallControlButtonSize
             icon.height: elisaTheme.smallControlButtonSize
         }
@@ -160,6 +167,8 @@ FocusScope {
             action: skipForwardAction
             focus: skipForwardEnabled
 
+            implicitHeight: elisaTheme.mediaPlayerControlHeight
+            implicitWidth: elisaTheme.mediaPlayerControlHeight
             icon.width: elisaTheme.smallControlButtonSize
             icon.height: elisaTheme.smallControlButtonSize
         }
@@ -284,6 +293,8 @@ FocusScope {
             action: muteAction
             focus: true
 
+            implicitHeight: elisaTheme.mediaPlayerControlHeight
+            implicitWidth: elisaTheme.mediaPlayerControlHeight
             icon.width: elisaTheme.smallControlButtonSize
             icon.height: elisaTheme.smallControlButtonSize
         }
@@ -343,6 +354,8 @@ FocusScope {
             action: shuffleAction
             id: shuffleButton
 
+            implicitHeight: elisaTheme.mediaPlayerControlHeight
+            implicitWidth: elisaTheme.mediaPlayerControlHeight
             icon.width: elisaTheme.smallControlButtonSize
             icon.height: elisaTheme.smallControlButtonSize
         }
@@ -352,6 +365,8 @@ FocusScope {
             action: repeatAction
             id: repeatButton
 
+            implicitHeight: elisaTheme.mediaPlayerControlHeight
+            implicitWidth: elisaTheme.mediaPlayerControlHeight
             icon.width: elisaTheme.smallControlButtonSize
             icon.height: elisaTheme.smallControlButtonSize
         }
@@ -361,6 +376,8 @@ FocusScope {
             action: applicationMenuAction
             focus: true
 
+            implicitHeight: elisaTheme.mediaPlayerControlHeight
+            implicitWidth: elisaTheme.mediaPlayerControlHeight
             icon.width: elisaTheme.smallControlButtonSize
             icon.height: elisaTheme.smallControlButtonSize
 

@@ -73,6 +73,8 @@ private Q_SLOTS:
 
     void restoreMultipleIdenticalTracks();
 
+    void restoreTrackWithoutAlbum();
+
     void testHasHeaderAlbumWithSameTitle();
 
     void testSavePersistentState();

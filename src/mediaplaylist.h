@@ -175,7 +175,7 @@ Q_SIGNALS:
 
     void hideUndoInline();
 
-    void newTrackByNameInList(const QString &title, const QString &artist, const QString &album, int trackNumber, int discNumber);
+    void newTrackByNameInList(const QVariant &title, const QVariant &artist, const QVariant &album, const QVariant &trackNumber, const QVariant &discNumber);
 
     void newEntryInList(qulonglong newDatabaseId,
                         const QString &entryTitle,
@@ -319,6 +319,12 @@ public:
           mTrackNumber(trackNumber), mDiscNumber(discNumber), mEntryType(entryType) {
     }
 
+    MediaPlayListEntry(QVariant title, QVariant artist, QVariant album, QVariant trackNumber,
+                       QVariant discNumber, ElisaUtils::PlayListEntryType entryType = ElisaUtils::Unknown)
+        : mTitle(std::move(title)), mAlbum(std::move(album)), mArtist(std::move(artist)),
+          mTrackNumber(std::move(trackNumber)), mDiscNumber(std::move(discNumber)), mEntryType(entryType) {
+    }
+
     explicit MediaPlayListEntry(const MusicAudioTrack &track)
         : mTitle(track.title()), mAlbum(track.albumName()), mTrackNumber(track.trackNumber()),
           mDiscNumber(track.discNumber()), mId(track.databaseId()), mIsValid(true) {
@@ -353,9 +359,9 @@ public:
 
     QVariant mTrackUrl;
 
-    QVariant mTrackNumber = -1;
+    QVariant mTrackNumber;
 
-    QVariant mDiscNumber = -1;
+    QVariant mDiscNumber;
 
     qulonglong mId = 0;
 

@@ -66,17 +66,17 @@ void TracksListener::tracksAdded(const ListTrackDataType &allTracks)
         }
 
         for (auto itTrack = d->mTracksByNameSet.begin(); itTrack != d->mTracksByNameSet.end(); ) {
-            if (std::get<0>(*itTrack) != oneTrack.title()) {
+            if (!std::get<0>(*itTrack).isEmpty() && std::get<0>(*itTrack) != oneTrack.title()) {
                 ++itTrack;
                 continue;
             }
 
-            if (std::get<1>(*itTrack) != oneTrack.artist()) {
+            if (!std::get<1>(*itTrack).isEmpty() && std::get<1>(*itTrack) != oneTrack.artist()) {
                 ++itTrack;
                 continue;
             }
 
-            if (std::get<2>(*itTrack) != oneTrack.album()) {
+            if (!std::get<2>(*itTrack).isEmpty() && std::get<2>(*itTrack) != oneTrack.album()) {
                 ++itTrack;
                 continue;
             }
@@ -113,11 +113,33 @@ void TracksListener::trackModified(const TrackDataType &modifiedTrack)
     }
 }
 
-void TracksListener::trackByNameInList(const QString &title, const QString &artist, const QString &album, int trackNumber, int discNumber)
+void TracksListener::trackByNameInList(const QVariant &title, const QVariant &artist, const QVariant &album,
+                                       const QVariant &trackNumber, const QVariant &discNumber)
 {
-    auto newTrackId = d->mDatabase->trackIdFromTitleAlbumTrackDiscNumber(title, artist, album, trackNumber, discNumber);
+    const auto realTitle = title.toString();
+    const auto realArtist = artist.toString();
+    const auto albumIsValid = !album.isNull() && album.isValid() && !album.toString().isEmpty();
+    auto realAlbum = std::optional<QString>{};
+    if (albumIsValid) {
+        realAlbum = album.toString();
+    }
+    auto trackNumberIsValid = bool{};
+    const auto trackNumberValue = trackNumber.toInt(&trackNumberIsValid);
+    auto realTrackNumber = std::optional<int>{};
+    if (trackNumberIsValid) {
+        realTrackNumber = trackNumberValue;
+    }
+    auto discNumberIsValid = bool{};
+    const auto discNumberValue = discNumber.toInt(&discNumberIsValid);
+    auto realDiscNumber = std::optional<int>{};
+    if (discNumberIsValid) {
+        realDiscNumber = discNumberValue;
+    }
+
+    auto newTrackId = d->mDatabase->trackIdFromTitleAlbumTrackDiscNumber(realTitle, realArtist, realAlbum,
+                                                                         realTrackNumber, realDiscNumber);
     if (newTrackId == 0) {
-        auto newTrack = std::tuple<QString, QString, QString, int, int>(title, artist, album, trackNumber, discNumber);
+        auto newTrack = std::tuple<QString, QString, QString, int, int>(realTitle, realArtist, album.toString(), trackNumber.toInt(), discNumber.toInt());
         d->mTracksByNameSet.push_back(newTrack);
 
         return;

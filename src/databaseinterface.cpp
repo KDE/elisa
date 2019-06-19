@@ -702,8 +702,8 @@ DatabaseInterface::TrackDataType DatabaseInterface::trackDataFromDatabaseId(qulo
     return result;
 }
 
-qulonglong DatabaseInterface::trackIdFromTitleAlbumTrackDiscNumber(const QString &title, const QString &artist, const QString &album,
-                                                                   int trackNumber, int discNumber)
+qulonglong DatabaseInterface::trackIdFromTitleAlbumTrackDiscNumber(const QString &title, const QString &artist, const std::optional<QString> &album,
+                                                                   std::optional<int> trackNumber, std::optional<int> discNumber)
 {
     auto result = qulonglong(0);
 
@@ -4770,9 +4770,9 @@ void DatabaseInterface::initRequest()
                                                    "`Tracks` tracks "
                                                    "WHERE "
                                                    "tracks.`Title` = :title AND "
-                                                   "tracks.`AlbumTitle` = :album AND "
-                                                   "tracks.`TrackNumber` = :trackNumber AND "
-                                                   "tracks.`DiscNumber` = :discNumber AND "
+                                                   "(tracks.`AlbumTitle` = :album OR (:album IS NULL AND tracks.`AlbumTitle` IS NULL)) AND "
+                                                   "(tracks.`TrackNumber` = :trackNumber OR (:trackNumber IS NULL AND tracks.`TrackNumber` IS NULL)) AND "
+                                                   "(tracks.`DiscNumber` = :discNumber OR (:discNumber IS NULL AND tracks.`DiscNumber` IS NULL)) AND "
                                                    "tracks.`ArtistName` = :artist");
 
         auto result = prepareQuery(d->mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery, selectTrackQueryText);
@@ -5632,9 +5632,13 @@ qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrac
     d->mInsertTrackQuery.bindValue(QStringLiteral(":albumPath"), trackPath);
     if (oneTrack.trackNumberIsValid()) {
         d->mInsertTrackQuery.bindValue(QStringLiteral(":trackNumber"), oneTrack.trackNumber());
+    } else {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":trackNumber"), {});
     }
     if (oneTrack.discNumberIsValid()) {
         d->mInsertTrackQuery.bindValue(QStringLiteral(":discNumber"), oneTrack.discNumber());
+    } else {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":discNumber"), {});
     }
     d->mInsertTrackQuery.bindValue(QStringLiteral(":trackDuration"), QVariant::fromValue<qlonglong>(oneTrack.duration().msecsSinceStartOfDay()));
     d->mInsertTrackQuery.bindValue(QStringLiteral(":trackRating"), oneTrack.rating());
@@ -5657,12 +5661,18 @@ qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrac
     d->mInsertTrackQuery.bindValue(QStringLiteral(":year"), oneTrack.year());
     if (oneTrack.channelsIsValid()) {
         d->mInsertTrackQuery.bindValue(QStringLiteral(":channels"), oneTrack.channels());
+    } else {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":channels"), {});
     }
     if (oneTrack.bitRateIsValid()) {
         d->mInsertTrackQuery.bindValue(QStringLiteral(":bitRate"), oneTrack.bitRate());
+    } else {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":bitRate"), {});
     }
     if (oneTrack.sampleRateIsValid()) {
         d->mInsertTrackQuery.bindValue(QStringLiteral(":sampleRate"), oneTrack.sampleRate());
+    } else {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":sampleRate"), {});
     }
     d->mInsertTrackQuery.bindValue(QStringLiteral(":hasEmbeddedCover"), oneTrack.hasEmbeddedCover());
 
@@ -6455,8 +6465,8 @@ MusicAudioTrack DatabaseInterface::internalTrackFromDatabaseId(qulonglong id)
     return result;
 }
 
-qulonglong DatabaseInterface::internalTrackIdFromTitleAlbumTracDiscNumber(const QString &title, const QString &artist, const QString &album,
-                                                                          int trackNumber, int discNumber)
+qulonglong DatabaseInterface::internalTrackIdFromTitleAlbumTracDiscNumber(const QString &title, const QString &artist, const std::optional<QString> &album,
+                                                                          std::optional<int> trackNumber, std::optional<int> discNumber)
 {
     auto result = qulonglong(0);
 
@@ -6466,9 +6476,21 @@ qulonglong DatabaseInterface::internalTrackIdFromTitleAlbumTracDiscNumber(const 
 
     d->mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery.bindValue(QStringLiteral(":title"), title);
     d->mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery.bindValue(QStringLiteral(":artist"), artist);
-    d->mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery.bindValue(QStringLiteral(":album"), album);
-    d->mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery.bindValue(QStringLiteral(":trackNumber"), trackNumber);
-    d->mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery.bindValue(QStringLiteral(":discNumber"), discNumber);
+    if (album.has_value()) {
+        d->mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery.bindValue(QStringLiteral(":album"), album.value());
+    } else {
+        d->mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery.bindValue(QStringLiteral(":album"), {});
+    }
+    if (trackNumber.has_value()) {
+        d->mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery.bindValue(QStringLiteral(":trackNumber"), trackNumber.value());
+    } else {
+        d->mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery.bindValue(QStringLiteral(":trackNumber"), {});
+    }
+    if (discNumber.has_value()) {
+        d->mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery.bindValue(QStringLiteral(":discNumber"), discNumber.value());
+    } else {
+        d->mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery.bindValue(QStringLiteral(":discNumber"), {});
+    }
 
     auto queryResult = execQuery(d->mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery);
 

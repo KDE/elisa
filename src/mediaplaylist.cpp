@@ -146,7 +146,14 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
                                               d->mTrackData[index.row()][TrackDataType::key_type::ImageUrlRole].toUrl().toString()}}.toJson();
             break;
         default:
-            result = d->mTrackData[index.row()][static_cast<TrackDataType::key_type>(role)];
+            const auto &trackData = d->mTrackData[index.row()];
+            auto roleEnum = static_cast<TrackDataType::key_type>(role);
+            auto itData = trackData.find(roleEnum);
+            if (itData != trackData.end()) {
+                result = itData.value();
+            } else {
+                result = {};
+            }
         }
     } else {
         switch(role)
@@ -338,11 +345,11 @@ void MediaPlayList::enqueueRestoredEntry(const MediaPlayListEntry &newEntry)
                 Q_EMIT newEntryInList(0, entryString, ElisaUtils::FileName);
             }
         } else {
-            Q_EMIT newTrackByNameInList(newEntry.mTitle.toString(),
-                                        newEntry.mArtist.toString(),
-                                        newEntry.mAlbum.toString(),
-                                        newEntry.mTrackNumber.toInt(),
-                                        newEntry.mDiscNumber.toInt());
+            Q_EMIT newTrackByNameInList(newEntry.mTitle,
+                                        newEntry.mArtist,
+                                        newEntry.mAlbum,
+                                        newEntry.mTrackNumber,
+                                        newEntry.mDiscNumber);
         }
     } else {
         Q_EMIT newEntryInList(newEntry.mId, {}, ElisaUtils::Track);
@@ -710,9 +717,21 @@ QVariantMap MediaPlayList::persistentState() const
 
             oneData.push_back(oneTrack.title());
             oneData.push_back(oneTrack.artist());
-            oneData.push_back(oneTrack.album());
-            oneData.push_back(QString::number(oneTrack.trackNumber()));
-            oneData.push_back(QString::number(oneTrack.discNumber()));
+            if (oneTrack.hasAlbum()) {
+                oneData.push_back(oneTrack.album());
+            } else {
+                oneData.push_back({});
+            }
+            if (oneTrack.hasTrackNumber()) {
+                oneData.push_back(QString::number(oneTrack.trackNumber()));
+            } else {
+                oneData.push_back({});
+            }
+            if (oneTrack.hasDiscNumber()) {
+                oneData.push_back(QString::number(oneTrack.discNumber()));
+            } else {
+                oneData.push_back({});
+            }
             oneData.push_back(QString::number(oneEntry.mEntryType));
 
             result.push_back(QVariant(oneData));
@@ -778,10 +797,10 @@ void MediaPlayList::setPersistentState(const QVariantMap &persistentStateValue)
         auto restoredTitle = trackData[0];
         auto restoredArtist = trackData[1];
         auto restoredAlbum = trackData[2];
-        auto restoredTrackNumber = trackData[3].toInt();
-        auto restoredDiscNumber = trackData[4].toInt();
+        auto restoredTrackNumber = trackData[3];
+        auto restoredDiscNumber = trackData[4];
 
-        ElisaUtils::PlayListEntryType mEntryType = static_cast<ElisaUtils::PlayListEntryType>(trackData[5].toInt());
+        auto mEntryType = static_cast<ElisaUtils::PlayListEntryType>(trackData[5].toInt());
 
         enqueueRestoredEntry({restoredTitle, restoredArtist, restoredAlbum, restoredTrackNumber, restoredDiscNumber, mEntryType});
     }
@@ -893,19 +912,23 @@ void MediaPlayList::trackChanged(const TrackDataType &track)
             }
             continue;
         } else if (oneEntry.mEntryType != ElisaUtils::Artist && !oneEntry.mIsValid && !oneEntry.mTrackUrl.isValid()) {
-            if (track.title() != oneEntry.mTitle) {
+            if (track.find(TrackDataType::key_type::TitleRole) != track.end() &&
+                    track.title() != oneEntry.mTitle) {
                 continue;
             }
 
-            if (track.album() != oneEntry.mAlbum) {
+            if (track.find(TrackDataType::key_type::AlbumRole) != track.end() &&
+                    track.album() != oneEntry.mAlbum) {
                 continue;
             }
 
-            if (track.trackNumber() != oneEntry.mTrackNumber) {
+            if (track.find(TrackDataType::key_type::TrackNumberRole) != track.end() &&
+                    track.trackNumber() != oneEntry.mTrackNumber) {
                 continue;
             }
 
-            if (track.discNumber() != oneEntry.mDiscNumber) {
+            if (track.find(TrackDataType::key_type::DiscNumberRole) != track.end() &&
+                    track.discNumber() != oneEntry.mDiscNumber) {
                 continue;
             }
 

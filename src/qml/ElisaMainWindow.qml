@@ -176,90 +176,84 @@ ApplicationWindow {
             anchors.fill: parent
             spacing: 0
 
-            Item {
-                id: headerBarParent
+            HeaderBar {
+                id: headerBar
+
+                focus: true
+
                 Layout.minimumHeight: mainWindow.height * 0.2 + elisaTheme.mediaPlayerControlHeight
                 Layout.maximumHeight: mainWindow.height * 0.2 + elisaTheme.mediaPlayerControlHeight
                 Layout.fillWidth: true
 
+                tracksCount: elisa.manageHeaderBar.remainingTracks
+                album: elisa.manageHeaderBar.album
+                title: elisa.manageHeaderBar.title
+                artist: elisa.manageHeaderBar.artist
+                albumArtist: elisa.manageHeaderBar.albumArtist
+                image: elisa.manageHeaderBar.image
+                albumID: elisa.manageHeaderBar.albumId
 
-                HeaderBar {
-                    id: headerBar
+                ratingVisible: false
 
-                    focus: true
+                playerControl.duration: elisa.audioPlayer.duration
+                playerControl.seekable: elisa.audioPlayer.seekable
 
-                    anchors.fill: parent
+                playerControl.volume: persistentSettings.playControlItemVolume
+                playerControl.muted: persistentSettings.playControlItemMuted
+                playerControl.position: elisa.audioPlayer.position
+                playerControl.skipBackwardEnabled: elisa.playerControl.skipBackwardControlEnabled
+                playerControl.skipForwardEnabled: elisa.playerControl.skipForwardControlEnabled
+                playerControl.playEnabled: elisa.playerControl.playControlEnabled
+                playerControl.isPlaying: elisa.playerControl.musicPlaying
 
-                    tracksCount: elisa.manageHeaderBar.remainingTracks
-                    album: elisa.manageHeaderBar.album
-                    title: elisa.manageHeaderBar.title
-                    artist: elisa.manageHeaderBar.artist
-                    albumArtist: elisa.manageHeaderBar.albumArtist
-                    image: elisa.manageHeaderBar.image
-                    albumID: elisa.manageHeaderBar.albumId
+                playerControl.repeat: elisa.mediaPlayList.repeatPlay
+                playerControl.shuffle: elisa.mediaPlayList.randomPlay
 
-                    ratingVisible: false
+                playerControl.onSeek: elisa.audioPlayer.seek(position)
 
-                    playerControl.duration: elisa.audioPlayer.duration
-                    playerControl.seekable: elisa.audioPlayer.seekable
+                playerControl.onPlay: elisa.audioControl.playPause()
+                playerControl.onPause: elisa.audioControl.playPause()
+                playerControl.onPlayPrevious: elisa.mediaPlayList.skipPreviousTrack()
+                playerControl.onPlayNext: elisa.mediaPlayList.skipNextTrack()
 
-                    playerControl.volume: persistentSettings.playControlItemVolume
-                    playerControl.muted: persistentSettings.playControlItemMuted
-                    playerControl.position: elisa.audioPlayer.position
-                    playerControl.skipBackwardEnabled: elisa.playerControl.skipBackwardControlEnabled
-                    playerControl.skipForwardEnabled: elisa.playerControl.skipForwardControlEnabled
-                    playerControl.playEnabled: elisa.playerControl.playControlEnabled
-                    playerControl.isPlaying: elisa.playerControl.musicPlaying
+                playerControl.isMaximized: persistentSettings.headerBarIsMaximized
+                onOpenArtist: { contentView.openArtist(artist) }
+                onOpenNowPlaying: { contentView.openNowPlaying() }
+                onOpenAlbum: { contentView.openAlbum(album, albumArtist, image, albumID) }
 
-                    playerControl.repeat: elisa.mediaPlayList.repeatPlay
-                    playerControl.shuffle: elisa.mediaPlayList.randomPlay
+                TrackImportNotification {
+                    id: importedTracksCountNotification
 
-                    playerControl.onSeek: elisa.audioPlayer.seek(position)
-
-                    playerControl.onPlay: elisa.audioControl.playPause()
-                    playerControl.onPause: elisa.audioControl.playPause()
-                    playerControl.onPlayPrevious: elisa.mediaPlayList.skipPreviousTrack()
-                    playerControl.onPlayNext: elisa.mediaPlayList.skipNextTrack()
-
-                    playerControl.isMaximized: persistentSettings.headerBarIsMaximized
-                    onOpenArtist: { contentView.openArtist(artist) }
-                    onOpenNowPlaying: { contentView.openNowPlaying() }
-                    onOpenAlbum: { contentView.openAlbum(album, albumArtist, image, albumID) }
-
-                    TrackImportNotification {
-                        id: importedTracksCountNotification
-
-                        anchors
-                        {
-                            right: headerBar.right
-                            top: headerBar.top
-                            rightMargin: elisaTheme.layoutHorizontalMargin * 1.75
-                            topMargin: elisaTheme.layoutHorizontalMargin * 3
-                        }
+                    anchors
+                    {
+                        right: headerBar.right
+                        top: headerBar.top
+                        rightMargin: elisaTheme.layoutHorizontalMargin * 1.75
+                        topMargin: elisaTheme.layoutHorizontalMargin * 3
                     }
+                }
 
-                    Binding {
-                        target: importedTracksCountNotification
-                        property: 'musicManager'
-                        value: elisa.musicManager
-                        when: elisa.musicManager !== undefined
-                    }
+                Binding {
+                    target: importedTracksCountNotification
+                    property: 'musicManager'
+                    value: elisa.musicManager
+                    when: elisa.musicManager !== undefined
+                }
 
-                    Binding {
-                        id: indexerBusyBinding
+                Binding {
+                    id: indexerBusyBinding
 
-                        target: importedTracksCountNotification
-                        property: 'indexingRunning'
-                        value: elisa.musicManager.indexerBusy
-                        when: elisa.musicManager !== undefined
-                    }
+                    target: importedTracksCountNotification
+                    property: 'indexingRunning'
+                    value: elisa.musicManager.indexerBusy
+                    when: elisa.musicManager !== undefined
+                }
 
-                    Binding {
-                        target: importedTracksCountNotification
-                        property: 'importedTracksCount'
-                        value: elisa.musicManager.importedTracksCount
-                        when: elisa.musicManager !== undefined
-                    }
+                Binding {
+                    target: importedTracksCountNotification
+                    property: 'importedTracksCount'
+                    value: elisa.musicManager.importedTracksCount
+                    when: elisa.musicManager !== undefined
                 }
             }
 
@@ -291,7 +285,7 @@ ApplicationWindow {
                         explicit: true
                     },
                     PropertyChanges {
-                        target: headerBarParent
+                        target: headerBar
                         Layout.minimumHeight: mainWindow.height * 0.2 + elisaTheme.mediaPlayerControlHeight
                         Layout.maximumHeight: mainWindow.height * 0.2 + elisaTheme.mediaPlayerControlHeight
                     }
@@ -307,7 +301,7 @@ ApplicationWindow {
                         explicit: true
                     },
                     PropertyChanges {
-                        target: headerBarParent
+                        target: headerBar
                         Layout.minimumHeight: mainWindow.height
                         Layout.maximumHeight: mainWindow.height
                     }

@@ -182,21 +182,21 @@ void ViewManager::openOneAlbum(const QString &albumTitle, const QString &albumAu
     if (mCurrentView == ViewsType::AllAlbums) {
         mTargetView = ViewsType::OneAlbum;
         Q_EMIT openListView(mTargetView, ElisaUtils::FilterById, 2, mTargetAlbumTitle, mTargetAlbumAuthor,
-                            mTargetDatabaseId, mTargetImageUrl, ElisaUtils::Track, Qt::DisplayRole,
-                            SortOrder::SortAscending, SingleAlbum);
+                            mTargetDatabaseId, mTargetImageUrl, ElisaUtils::Track, {},
+                            SortOrder::NoSort, SingleAlbum);
     } else if (mCurrentView == ViewsType::OneArtist && mCurrentArtistName == mTargetAlbumAuthor) {
         mTargetView = ViewsType::OneAlbumFromArtist;
         Q_EMIT openListView(mTargetView, ElisaUtils::FilterById, 3, mTargetAlbumTitle, mTargetAlbumAuthor,
-                            mTargetDatabaseId, mTargetImageUrl, ElisaUtils::Track, Qt::DisplayRole,
-                            SortOrder::SortAscending, SingleAlbum);
+                            mTargetDatabaseId, mTargetImageUrl, ElisaUtils::Track, {},
+                            SortOrder::NoSort, SingleAlbum);
     } else if (mCurrentView == ViewsType::OneArtist && mCurrentArtistName != mTargetAlbumAuthor) {
         mTargetView = ViewsType::OneAlbumFromArtist;
         Q_EMIT popOneView();
     } else if (mCurrentView == ViewsType::OneArtistFromGenre) {
         mTargetView = ViewsType::OneAlbumFromArtistAndGenre;
         Q_EMIT openListView(mTargetView, ElisaUtils::FilterById, 4, mTargetAlbumTitle, mTargetAlbumAuthor,
-                            mTargetDatabaseId, mTargetImageUrl, ElisaUtils::Track, Qt::DisplayRole,
-                            SortOrder::SortAscending, SingleAlbum);
+                            mTargetDatabaseId, mTargetImageUrl, ElisaUtils::Track, {},
+                            SortOrder::NoSort, SingleAlbum);
     } else {
         mTargetView = ViewsType::OneAlbum;
         Q_EMIT openGridView(ViewsType::AllAlbums, ElisaUtils::NoFilter, 1, {}, {}, {}, ElisaUtils::Album,

@@ -50,8 +50,9 @@ public:
     Q_ENUM(ViewsType)
 
     enum SortOrder {
-        SortAscending = true,
-        SortDescending = false,
+        NoSort,
+        SortAscending,
+        SortDescending,
     };
 
     Q_ENUM(SortOrder)
@@ -71,7 +72,7 @@ Q_SIGNALS:
 
     void openListView(ViewManager::ViewsType viewType, ElisaUtils::FilterType filterType, int expectedDepth,
                       const QString &mainTitle, const QString &secondaryTitle, qulonglong databaseId,
-                      const QUrl &imageUrl, ElisaUtils::PlayListEntryType dataType, int sortRole,
+                      const QUrl &imageUrl, ElisaUtils::PlayListEntryType dataType, QVariant sortRole,
                       ViewManager::SortOrder sortOrder, bool displaySingleAlbum);
 
     void switchFilesBrowserView(ViewManager::ViewsType viewType, int expectedDepth,

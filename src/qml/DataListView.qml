@@ -32,7 +32,7 @@ FocusScope {
     property alias image: listView.image
     property var modelType
     property alias sortRole: proxyModel.sortRole
-    property bool sortAscending: true
+    property var sortAscending
     property bool displaySingleAlbum: false
 
     DataModel {
@@ -179,9 +179,9 @@ FocusScope {
             realModel.initialize(elisa.musicManager, elisa.musicManager.viewDatabase, modelType, filterType, mainTitle, secondaryTitle, databaseId)
         }
 
-        if (sortAscending) {
+        if (sortAscending === ViewManager.SortAscending) {
             proxyModel.sortModel(Qt.AscendingOrder)
-        } else {
+        } else if (sortAscending === ViewManager.SortDescending) {
             proxyModel.sortModel(Qt.DescendingOrder)
         }
     }

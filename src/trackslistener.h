@@ -63,7 +63,7 @@ public Q_SLOTS:
 
     void trackModified(const TracksListener::TrackDataType &modifiedTrack);
 
-    void trackByNameInList(const QString &title, const QString &artist, const QString &album, int trackNumber, int discNumber);
+    void trackByNameInList(const QVariant &title, const QVariant &artist, const QVariant &album, const QVariant &trackNumber, const QVariant &discNumber);
 
     void newEntryInList(qulonglong newDatabaseId,
                         const QString &entryTitle,

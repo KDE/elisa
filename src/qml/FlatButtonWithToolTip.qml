@@ -28,8 +28,8 @@ Button {
 
     activeFocusOnTab: true
 
-    Keys.onReturnPressed: action.trigger()
-    Accessible.onPressAction: action.trigger()
+    Keys.onReturnPressed: onClicked
+    Accessible.onPressAction: onClicked
 
     flat: true
     display: AbstractButton.IconOnly

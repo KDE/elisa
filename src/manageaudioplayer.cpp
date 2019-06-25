@@ -557,8 +557,9 @@ void ManageAudioPlayer::restorePreviousState()
         return;
     }
 
-    if (*itTitle != mCurrentTrack.data(mTitleRole) || *itArtistName != mCurrentTrack.data(mArtistNameRole) ||
-            *itAlbumName != mCurrentTrack.data(mAlbumNameRole)) {
+    if (*itTitle != mCurrentTrack.data(mTitleRole) ||
+            (itArtistName->isValid() && *itArtistName != mCurrentTrack.data(mArtistNameRole)) ||
+            (itAlbumName->isValid() && *itAlbumName != mCurrentTrack.data(mAlbumNameRole))) {
         if (mCurrentTrack.isValid() && mCurrentTrack.data(mTitleRole).isValid() && mCurrentTrack.data(mArtistNameRole).isValid() &&
                 mCurrentTrack.data(mAlbumNameRole).isValid()) {
             mPersistentState.clear();

@@ -33,6 +33,7 @@
 #include <QPair>
 
 #include <memory>
+#include <optional>
 
 class DatabaseInterfacePrivate;
 class QMutex;
@@ -127,6 +128,11 @@ public:
             return operator[](key_type::AlbumIdRole).toULongLong();
         }
 
+        bool hasAlbum() const
+        {
+            return find(key_type::AlbumRole) != end();
+        }
+
         QString album() const
         {
             return operator[](key_type::AlbumRole).toString();
@@ -137,9 +143,19 @@ public:
             return operator[](key_type::AlbumArtistRole).toString();
         }
 
+        bool hasTrackNumber() const
+        {
+            return find(key_type::TrackNumberRole) != end();
+        }
+
         int trackNumber() const
         {
             return operator[](key_type::TrackNumberRole).toInt();
+        }
+
+        bool hasDiscNumber() const
+        {
+            return find(key_type::DiscNumberRole) != end();
         }
 
         int discNumber() const
@@ -367,8 +383,8 @@ public:
 
     TrackDataType trackDataFromDatabaseId(qulonglong id);
 
-    qulonglong trackIdFromTitleAlbumTrackDiscNumber(const QString &title, const QString &artist, const QString &album,
-                                                    int trackNumber, int discNumber);
+    qulonglong trackIdFromTitleAlbumTrackDiscNumber(const QString &title, const QString &artist, const std::optional<QString> &album,
+                                                    std::optional<int> trackNumber, std::optional<int> discNumber);
 
     qulonglong trackIdFromFileName(const QUrl &fileName);
 
@@ -447,8 +463,8 @@ private:
 
     MusicAudioTrack internalTrackFromDatabaseId(qulonglong id);
 
-    qulonglong internalTrackIdFromTitleAlbumTracDiscNumber(const QString &title, const QString &artist, const QString &album,
-                                                           int trackNumber, int discNumber);
+    qulonglong internalTrackIdFromTitleAlbumTracDiscNumber(const QString &title, const QString &artist, const std::optional<QString> &album,
+                                                           std::optional<int> trackNumber, std::optional<int> discNumber);
 
     qulonglong getDuplicateTrackIdFromTitleAlbumTrackDiscNumber(const QString &title, const QString &trackArtist, const QString &album,
                                                                 const QString &albumArtist, const QString &trackPath, int trackNumber,

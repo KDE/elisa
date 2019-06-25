@@ -40,19 +40,6 @@ FocusScope {
 
     implicitWidth: elisaTheme.dp(225)
 
-    Rectangle {
-        anchors.fill: parent
-        z: 1
-
-        border.color: myPalette.base
-
-        Behavior on border.color {
-            ColorAnimation {
-                duration: 300
-            }
-        }
-    }
-
     ScrollView {
         focus: true
 

@@ -60,6 +60,13 @@ public:
     static const bool SingleAlbum = true;
     static const bool MultipleAlbum = false;
 
+    enum AlbumViewStyle {
+        NoDiscHeaders,
+        DiscHeaders,
+    };
+
+    Q_ENUM(AlbumViewStyle)
+
     explicit ViewManager(QObject *parent = nullptr);
 
 Q_SIGNALS:
@@ -73,7 +80,7 @@ Q_SIGNALS:
     void openListView(ViewManager::ViewsType viewType, ElisaUtils::FilterType filterType, int expectedDepth,
                       const QString &mainTitle, const QString &secondaryTitle, qulonglong databaseId,
                       const QUrl &imageUrl, ElisaUtils::PlayListEntryType dataType, QVariant sortRole,
-                      ViewManager::SortOrder sortOrder, bool displaySingleAlbum);
+                      ViewManager::SortOrder sortOrder, bool displaySingleAlbum, ViewManager::AlbumViewStyle showDiscHeaders);
 
     void switchFilesBrowserView(ViewManager::ViewsType viewType, int expectedDepth,
                                 const QString &mainTitle, const QUrl &imageUrl);
@@ -90,7 +97,7 @@ public Q_SLOTS:
 
     void openChildView(const QString &innerMainTitle, const QString & innerSecondaryTitle,
                        const QUrl &innerImage, qulonglong databaseId,
-                       ElisaUtils::PlayListEntryType dataType);
+                       ElisaUtils::PlayListEntryType dataType, ViewManager::AlbumViewStyle albumDiscHeader);
 
     void viewIsLoaded(ViewManager::ViewsType viewType);
 
@@ -113,7 +120,7 @@ private:
     void openFilesBrowser(const QString &mainTitle, const QUrl &imageUrl);
 
     void openOneAlbum(const QString &albumTitle, const QString &albumAuthor,
-                      const QUrl &albumCover, qulonglong albumDatabaseId);
+                      const QUrl &albumCover, qulonglong albumDatabaseId, ViewManager::AlbumViewStyle albumDiscHeader);
 
     void openOneArtist(const QString &artistName, const QUrl &artistImageUrl, qulonglong artistDatabaseId);
 
@@ -139,19 +146,20 @@ private:
 
     void filesBrowserViewIsLoaded();
 
-    ViewsType mCurrentView = ViewsType::NoViews;
     QString mCurrentAlbumTitle;
     QString mCurrentAlbumAuthor;
     QString mCurrentArtistName;
     QString mCurrentGenreName;
 
-    ViewsType mTargetView = ViewsType::NoViews;
     QString mTargetAlbumTitle;
     QString mTargetAlbumAuthor;
     QString mTargetArtistName;
     QString mTargetGenreName;
     QUrl mTargetImageUrl;
     qulonglong mTargetDatabaseId = 0;
+    ViewsType mTargetView = ViewsType::NoViews;
+    ViewsType mCurrentView = ViewsType::NoViews;
+    ViewManager::AlbumViewStyle mAlbumDiscHeader = ViewManager::NoDiscHeaders;
 
 };
 

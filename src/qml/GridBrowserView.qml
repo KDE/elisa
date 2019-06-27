@@ -40,7 +40,7 @@ FocusScope {
 
     signal enqueue(int databaseId, string name)
     signal replaceAndPlay(int databaseId, string name)
-    signal open(string innerMainTitle, string innerSecondaryTitle, url innerImage, int databaseId, var dataType)
+    signal open(string innerMainTitle, string innerSecondaryTitle, url innerImage, int databaseId, var dataType, var showDiscHeader)
     signal goBack()
 
     ColumnLayout {
@@ -154,7 +154,7 @@ FocusScope {
                     onReplaceAndPlay: gridView.replaceAndPlay(databaseId, name)
                     onOpen: gridView.open(model.display, model.secondaryText,
                                           (model && model.imageUrl && model.imageUrl.toString() !== "" ? model.imageUrl : defaultIcon),
-                                          model.databaseId, model.dataType)
+                                          model.databaseId, model.dataType, (model.isSingleDiscAlbum ? ViewManager.NoDiscHeaders : ViewManager.DiscHeaders))
                     onSelected: {
                         forceActiveFocus()
                         contentDirectoryView.currentIndex = model.index

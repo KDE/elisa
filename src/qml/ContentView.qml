@@ -35,12 +35,12 @@ RowLayout {
     }
 
     function openArtist(name) {
-        viewManager.openChildView(name, '', elisaTheme.artistIcon, 0, ElisaUtils.Artist)
+        viewManager.openChildView(name, '', elisaTheme.artistIcon, 0, ElisaUtils.Artist, ViewManager.NoDiscHeaders)
     }
 
-    function openAlbum(album, artist, image, albumID) {
+    function openAlbum(album, artist, image, albumID, showDiscHeader) {
         image = !image ? elisaTheme.defaultAlbumImage : image;
-        viewManager.openChildView(album, artist, image, albumID, ElisaUtils.Album);
+        viewManager.openChildView(album, artist, image, albumID, ElisaUtils.Album, showDiscHeader);
     }
 
     function openNowPlaying() {
@@ -105,6 +105,7 @@ RowLayout {
                                      sortAscending: sortOrder,
                                      stackView: browseStackView,
                                      displaySingleAlbum: displaySingleAlbum,
+                                     showSection: showDiscHeaders,
                                      opacity: 0,
                                  })
         }

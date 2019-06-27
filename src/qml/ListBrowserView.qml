@@ -33,6 +33,7 @@ FocusScope {
     property alias image: navigationBar.image
     property int databaseId
     property alias delegate: contentDirectoryView.delegate
+    property bool showSection: false
     property alias contentModel: contentDirectoryView.model
     property alias expandedFilterView: navigationBar.expandedFilterView
     property alias showRating: navigationBar.showRating
@@ -113,6 +114,15 @@ FocusScope {
                 keyNavigationEnabled: true
 
                 currentIndex: -1
+
+                section.property: (showSection ? 'discNumber' : '')
+                section.criteria: ViewSection.FullString
+                section.labelPositioning: ViewSection.InlineLabels
+                section.delegate: TracksDiscHeader {
+                    discNumber: section
+                    width: scrollBar.visible ? (!LayoutMirroring.enabled ? contentDirectoryView.width - scrollBar.width : contentDirectoryView.width) : contentDirectoryView.width
+                    height: elisaTheme.delegateHeight
+                }
 
                 ScrollBar.vertical: ScrollBar {
                     id: scrollBar

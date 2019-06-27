@@ -29,6 +29,7 @@ FocusScope {
     property alias mainTitle: listView.mainTitle
     property alias secondaryTitle: listView.secondaryTitle
     property int databaseId
+    property alias showSection: listView.showSection
     property alias image: listView.image
     property var modelType
     property alias sortRole: proxyModel.sortRole
@@ -147,7 +148,7 @@ FocusScope {
         allowArtistNavigation: isSubPage
 
         onShowArtist: {
-            viewManager.openChildView(secondaryTitle, '', elisaTheme.artistIcon, 0, ElisaUtils.Artist)
+            viewManager.openChildView(secondaryTitle, '', elisaTheme.artistIcon, 0, ElisaUtils.Artist, ViewManager.NoDiscHeaders)
         }
 
         onGoBack: viewManager.goBack()

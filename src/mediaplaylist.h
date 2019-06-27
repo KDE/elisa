@@ -113,6 +113,7 @@ public:
         PlayCounter,
         PlayFrequency,
         ElementTypeRole,
+        LyricsRole,
         IsValidRole,
         TrackDataRole,
         CountRole,

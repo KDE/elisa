@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.8)
 
 project(elisa
-    VERSION 0.4.1
+    VERSION 0.4.2
     LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)

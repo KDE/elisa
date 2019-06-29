@@ -16,7 +16,7 @@
  */
 
 import QtQuick 2.7
-import QtQuick.Controls 1.4
+import QtQuick.Controls 2.3
 import QtQuick.Layouts 1.3
 import QtQuick.Dialogs 1.2
 import QtQml.Models 2.3
@@ -55,7 +55,7 @@ Item {
 
             height: 3 * 30
 
-            width: pathList.width
+            width: scrollBar.visible ? pathList.width - scrollBar.width : pathList.width
 
             Rectangle {
                 anchors.fill: parent
@@ -77,7 +77,7 @@ Item {
                     }
 
                     ToolButton {
-                        iconName: 'list-remove'
+                        icon.name: 'list-remove'
 
                         Accessible.onPressAction: onClicked
 
@@ -101,25 +101,24 @@ Item {
 
         anchors.fill: parent
 
-        ScrollView {
-            flickableItem.boundsBehavior: Flickable.StopAtBounds
+        ListView {
+            id:pathList
 
             Layout.fillWidth: true
             Layout.fillHeight: true
+            boundsBehavior: Flickable.StopAtBounds
 
-            ListView {
-                id:pathList
+            model: DelegateModel {
+                model: kcm.rootPath
 
-                anchors.fill: parent
-
-                model: DelegateModel {
-                    model: kcm.rootPath
-
-                    delegate: pathDelegate
-                }
-
-                highlight: highlightBar
+                delegate: pathDelegate
             }
+
+            ScrollBar.vertical: ScrollBar {
+                id: scrollBar
+            }
+
+            highlight: highlightBar
         }
 
         ColumnLayout {

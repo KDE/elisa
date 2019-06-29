@@ -17,8 +17,7 @@
 
 import QtQuick 2.7
 import QtQuick.Layouts 1.2
-import QtQuick.Controls 2.2
-import QtQuick.Controls 1.4 as Controls1
+import QtQuick.Controls 2.3
 import org.kde.elisa 1.0
 
 FocusScope {
@@ -31,9 +30,9 @@ FocusScope {
 
     property alias itemMessage: notificationText.text
     property alias itemMainButtonText: mainButton.text
-    property alias itemMainButtonIconName: mainButton.iconName
+    property alias itemMainButtonIconName: mainButton.icon.name
     property alias itemSecondaryButtonText: secondaryButton.text
-    property alias itemSecondaryButtonIconName: secondaryButton.iconName
+    property alias itemSecondaryButtonIconName: secondaryButton.icon.name
     property var parentList
 
     MouseArea {
@@ -60,7 +59,7 @@ FocusScope {
             opacity: (topItem.height - height) / height
         }
 
-        Controls1.Button {
+        Button {
             id: mainButton
 
             Layout.leftMargin: elisaTheme.layoutHorizontalMargin
@@ -84,7 +83,7 @@ FocusScope {
             }
         }
 
-        Controls1.Button {
+        Button {
             id: secondaryButton
 
             Layout.leftMargin: elisaTheme.layoutHorizontalMargin
@@ -113,14 +112,13 @@ FocusScope {
         }
     }
 
-    Controls1.ToolButton {
+    FlatButtonWithToolTip {
         anchors.top: parent.top
         anchors.right: parent.right
+        icon.name: 'dialog-close'
 
         visible: topItem.height > height
         opacity: (topItem.height - height) / height
-
-        iconName: 'dialog-close'
 
         onClicked: close()
         Accessible.onPressAction: onClicked

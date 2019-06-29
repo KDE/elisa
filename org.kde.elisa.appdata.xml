@@ -141,6 +141,7 @@
   <project_group>KDE</project_group>
   <content_rating type="oars-1.0"/>
   <releases>
+    <release version="0.4.2" date="2019-06-30"/>
     <release version="0.4.1" date="2019-06-20"/>
     <release version="0.4.0" date="2019-05-20"/>
     <release version="0.3.80" date="2019-05-04"/>

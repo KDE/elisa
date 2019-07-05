@@ -145,6 +145,8 @@ FocusScope {
 
         delegate: (displaySingleAlbum ? singleAlbumDelegate : multipleDiscDelegate)
 
+        enableSorting: !displaySingleAlbum
+
         allowArtistNavigation: isSubPage
 
         onShowArtist: {

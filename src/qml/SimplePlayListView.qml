@@ -98,18 +98,17 @@ ListView {
 
             index: model.index
 
-            databaseId: model.databaseId
-            title: model.title
-            artist: model.artist
-            album: model.album
-            albumArtist: model.albumArtist
-            duration: model.duration
-            fileName: model.trackResource
-            imageUrl: model.imageUrl
-            trackNumber: model.trackNumber
-            discNumber: model.discNumber
-            rating: model.rating
-            hasAlbumHeader: model.hasAlbumHeader
+            databaseId: model.databaseId ? model.databaseId : 0
+            title: model.title ? model.title : ''
+            artist: model.artist ? model.artist : ''
+            album: model.album ? model.album : ''
+            albumArtist: model.albumArtist ? model.albumArtist : ''
+            duration: model.duration ? model.duration : ''
+            fileName: model.trackResource ? model.trackResource : ''
+            imageUrl: model.imageUrl ? model.imageUrl : ''
+            trackNumber: model.trackNumber ? model.trackNumber : -1
+            discNumber: model.discNumber ? model.discNumber : -1
+            rating: model.rating ? model.rating : 0
             isSingleDiscAlbum: model.isSingleDiscAlbum
             isValid: model.isValid
             isPlaying: model.isPlaying

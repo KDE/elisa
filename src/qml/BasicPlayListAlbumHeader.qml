@@ -46,31 +46,33 @@ RowLayout {
 
     spacing: elisaTheme.layoutHorizontalMargin
 
-    Image {
-        id: mainIcon
+    Item {
+        property int widthToTrackNumber: elisaTheme.playListDelegateHeight +
+                                         elisaTheme.layoutHorizontalMargin +
+                                         (trackNumberSize.boundingRect.width - trackNumberSize.boundingRect.x) +
+                                         (fakeDiscNumberSize.boundingRect.width - fakeDiscNumberSize.boundingRect.x)
 
-        property int layoutMargin: headerRow.height - elisaTheme.smallDelegateToolButtonSize -
-                                    (trackNumberSize.boundingRect.width - trackNumberSize.boundingRect.x) -
-                                    (fakeDiscNumberSize.boundingRect.width - fakeDiscNumberSize.boundingRect.x) -
-                                    (elisaTheme.layoutHorizontalMargin * 5 / 4)
+        Layout.minimumWidth: widthToTrackNumber
+        Layout.maximumWidth: widthToTrackNumber
+        Layout.preferredWidth: widthToTrackNumber
+        Layout.fillHeight: true
 
-        source: (imageUrl != '' ? imageUrl : Qt.resolvedUrl(elisaTheme.defaultAlbumImage))
+        Image {
+            id: mainIcon
 
-        Layout.minimumWidth: headerRow.height - layoutMargin
-        Layout.maximumWidth: headerRow.height - layoutMargin
-        Layout.preferredWidth: headerRow.height - layoutMargin
-        Layout.minimumHeight: headerRow.height - layoutMargin
-        Layout.maximumHeight: headerRow.height - layoutMargin
-        Layout.preferredHeight: headerRow.height - layoutMargin
-        Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+            source: (imageUrl != '' ? imageUrl : Qt.resolvedUrl(elisaTheme.defaultAlbumImage))
 
-        sourceSize.width: headerRow.height - layoutMargin
-        sourceSize.height: headerRow.height - layoutMargin
+            anchors.right: parent.right
+            width:  headerRow.height
+            height: headerRow.height
+            sourceSize.width: headerRow.height
+            sourceSize.height: headerRow.height
 
-        fillMode: Image.PreserveAspectFit
-        asynchronous: true
+            fillMode: Image.PreserveAspectFit
+            asynchronous: true
 
-        opacity: 1
+            opacity: 1
+        }
     }
 
     ColumnLayout {

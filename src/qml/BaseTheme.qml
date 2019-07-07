@@ -27,6 +27,7 @@ Item {
     property string defaultAlbumImage: 'image://icon/media-optical-audio'
     property string defaultArtistImage: 'image://icon/view-media-artist'
     property string defaultBackgroundImage: 'qrc:///background.png'
+    property string nowPlayingIcon: 'image://icon/view-media-lyrics'
     property string artistIcon: 'image://icon/view-media-artist'
     property string albumIcon: 'image://icon/view-media-album-cover'
     property string albumCoverIcon: 'image://icon/media-optical-audio'

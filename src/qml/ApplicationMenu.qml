@@ -63,7 +63,7 @@ Menu {
         text: contentView.showPlaylist ? i18nc("Hide playlist", "Hide Playlist") : i18nc("Show playlist", "Show Playlist")
         iconName: "view-media-playlist"
         onTriggered: contentView.showPlaylist = !contentView.showPlaylist
-        enabled: contentView.currentViewIndex != 0
+        visible: togglePlaylistAction.text !== ""
     }
 
     MenuSeparator {

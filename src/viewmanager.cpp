@@ -23,20 +23,10 @@ ViewManager::ViewManager(QObject *parent) : QObject(parent)
 {
 }
 
-void ViewManager::closeAllViews()
-{
-    mCurrentView = ViewsType::NoViews;
-    mTargetView = ViewsType::NoViews;
-    Q_EMIT switchOffAllViews(mTargetView);
-}
-
 void ViewManager::openParentView(ViewManager::ViewsType viewType, const QString &mainTitle, const QUrl &mainImage)
 {
     switch(viewType)
     {
-    case NoViews:
-        closeAllViews();
-        break;
     case RecentlyPlayedTracks:
         openRecentlyPlayedTracks(mainTitle, mainImage);
         break;
@@ -57,6 +47,9 @@ void ViewManager::openParentView(ViewManager::ViewsType viewType, const QString 
         break;
     case FilesBrowser:
         openFilesBrowser(mainTitle, mainImage);
+        break;
+    case Context:
+        openContextView(mainTitle, mainImage);
         break;
     case OneAlbum:
     case OneArtist:
@@ -135,7 +128,8 @@ void ViewManager::viewIsLoaded(ViewManager::ViewsType viewType)
     case ViewsType::FilesBrowser:
         filesBrowserViewIsLoaded();
         break;
-    case ViewsType::NoViews:
+    case ViewsType::Context:
+        contextViewIsLoaded();
         break;
     }
 }
@@ -291,6 +285,15 @@ void ViewManager::openFilesBrowser(const QString &mainTitle, const QUrl &imageUr
     }
 }
 
+void ViewManager::openContextView(const QString &mainTitle, const QUrl &imageUrl)
+{
+    mTargetView = ViewsType::Context;
+    if (mCurrentView != mTargetView) {
+        Q_EMIT switchContextView(mTargetView, 1, mainTitle, imageUrl);
+    }
+
+}
+
 void ViewManager::recentlyPlayedTracksIsLoaded()
 {
     mCurrentView = ViewsType::RecentlyPlayedTracks;
@@ -373,6 +376,11 @@ void ViewManager::allArtistsFromGenreViewIsLoaded()
 void ViewManager::filesBrowserViewIsLoaded()
 {
     mCurrentView = ViewsType::FilesBrowser;
+}
+
+void ViewManager::contextViewIsLoaded()
+{
+    mCurrentView = ViewsType::Context;
 }
 
 void ViewManager::goBack()

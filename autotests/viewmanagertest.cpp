@@ -38,25 +38,6 @@ private Q_SLOTS:
         qRegisterMetaType<ElisaUtils::FilterType>("ElisaUtils::FilterType");
     }
 
-    void closeAllViewsTest()
-    {
-        ViewManager viewManager;
-
-        QSignalSpy openGridViewSpy(&viewManager, &ViewManager::openGridView);
-        QSignalSpy openListViewSpy(&viewManager, &ViewManager::openListView);
-        QSignalSpy switchFilesBrowserViewSpy(&viewManager, &ViewManager::switchFilesBrowserView);
-        QSignalSpy switchOffAllViewsSpy(&viewManager, &ViewManager::switchOffAllViews);
-        QSignalSpy popOneViewSpy(&viewManager, &ViewManager::popOneView);
-
-        viewManager.closeAllViews();
-
-        QCOMPARE(openGridViewSpy.count(), 0);
-        QCOMPARE(openListViewSpy.count(), 0);
-        QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
-        QCOMPARE(switchOffAllViewsSpy.count(), 1);
-        QCOMPARE(popOneViewSpy.count(), 0);
-    }
-
     void openAlbumViewTest()
     {
         ViewManager viewManager;

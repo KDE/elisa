@@ -31,7 +31,6 @@ class ELISALIB_EXPORT ViewManager : public QObject
 public:
 
     enum ViewsType {
-        NoViews,
         AllAlbums,
         OneAlbum,
         AllArtists,
@@ -44,7 +43,8 @@ public:
         OneAlbumFromArtistAndGenre,
         FrequentlyPlayedTracks,
         RecentlyPlayedTracks,
-        FilesBrowser
+        FilesBrowser,
+        Context
     };
 
     Q_ENUM(ViewsType)
@@ -85,13 +85,14 @@ Q_SIGNALS:
     void switchFilesBrowserView(ViewManager::ViewsType viewType, int expectedDepth,
                                 const QString &mainTitle, const QUrl &imageUrl);
 
+    void switchContextView(ViewManager::ViewsType viewType, int expectedDepth,
+                           const QString &mainTitle, const QUrl &imageUrl);
+
     void switchOffAllViews(ViewManager::ViewsType viewType);
 
     void popOneView();
 
 public Q_SLOTS:
-
-    void closeAllViews();
 
     void openParentView(ViewManager::ViewsType viewType, const QString &mainTitle, const QUrl &mainImage);
 
@@ -118,6 +119,8 @@ private:
     void openAllGenres(const QString &mainTitle, const QUrl &imageUrl);
 
     void openFilesBrowser(const QString &mainTitle, const QUrl &imageUrl);
+
+    void openContextView(const QString &mainTitle, const QUrl &imageUrl);
 
     void openOneAlbum(const QString &albumTitle, const QString &albumAuthor,
                       const QUrl &albumCover, qulonglong albumDatabaseId, ViewManager::AlbumViewStyle albumDiscHeader);
@@ -146,6 +149,8 @@ private:
 
     void filesBrowserViewIsLoaded();
 
+    void contextViewIsLoaded();
+
     QString mCurrentAlbumTitle;
     QString mCurrentAlbumAuthor;
     QString mCurrentArtistName;
@@ -157,8 +162,8 @@ private:
     QString mTargetGenreName;
     QUrl mTargetImageUrl;
     qulonglong mTargetDatabaseId = 0;
-    ViewsType mTargetView = ViewsType::NoViews;
-    ViewsType mCurrentView = ViewsType::NoViews;
+    ViewsType mTargetView = ViewsType::Context;
+    ViewsType mCurrentView = ViewsType::Context;
     ViewManager::AlbumViewStyle mAlbumDiscHeader = ViewManager::NoDiscHeaders;
 
 };

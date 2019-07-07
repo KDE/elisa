@@ -27,6 +27,7 @@ import org.kde.elisa 1.0
 FocusScope {
     id: topItem
 
+    property var viewType
     property int databaseId: 0
     property alias title: titleLabel.text
     property string albumName: ''
@@ -55,6 +56,24 @@ FocusScope {
         HeaderFooterToolbar {
             type: "header"
             contentItems: [
+                Image {
+                    id: mainIcon
+                    source: elisaTheme.nowPlayingIcon
+
+                    height: viewTitle.height
+                    width: height
+                    sourceSize.height: height
+                    sourceSize.width: width
+
+                    fillMode: Image.PreserveAspectFit
+                    asynchronous: true
+
+                    Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
+                },
+                Item {
+                    id: spacer
+                    width: elisaTheme.layoutHorizontalMargin
+                },
                 LabelWithToolTip {
                     id: viewTitle
                     Layout.fillWidth: true

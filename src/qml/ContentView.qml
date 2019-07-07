@@ -125,6 +125,22 @@ RowLayout {
                                  })
         }
 
+        onSwitchContextView: {
+             listViews.setCurrentIndex(pageModel.indexFromViewType(viewType))
+
+            while(browseStackView.depth > expectedDepth) {
+                browseStackView.pop()
+            }
+
+            browseStackView.push(albumContext, {
+                                     viewType: viewType,
+                                     mainTitle: mainTitle,
+                                     image: imageUrl,
+                                     opacity: 0,
+                                 })
+        }
+
+
         onPopOneView: {
             if (browseStackView.depth > 2) {
                 browseStackView.pop() }
@@ -193,11 +209,6 @@ RowLayout {
                     focus: true
 
                     Layout.fillHeight: true
-
-                    Layout.minimumWidth: 0
-                    Layout.maximumWidth: 0
-                    Layout.preferredWidth: 0
-
 
                     visible: Layout.minimumWidth != 0
 
@@ -302,75 +313,13 @@ RowLayout {
 
                     onDisplayError: messageNotification.showNotification(errorText)
                 }
-
-                Rectangle {
-                    id: viewSeparatorItem
-
-                    Layout.fillHeight: true
-
-                    width: 1
-
-                    color: myPalette.mid
-                }
-
-                Loader {
-                    id: albumContext
-
-                    active: Layout.minimumWidth != 0
-
-                    sourceComponent: ContextView {
-
-                        anchors.fill: parent
-
-                        databaseId: elisa.manageHeaderBar.databaseId
-                        title: elisa.manageHeaderBar.title
-                        artistName: elisa.manageHeaderBar.artist
-                        albumName: elisa.manageHeaderBar.album
-                        albumArtUrl: elisa.manageHeaderBar.image
-                        fileUrl: elisa.manageHeaderBar.fileName
-                    }
-
-                    Layout.fillHeight: true
-
-                    Layout.minimumWidth: 0
-                    Layout.maximumWidth: 0
-                    Layout.preferredWidth: 0
-
-                    visible: Layout.minimumWidth != 0
-                }
             }
         }
 
         states: [
             State {
-                name: 'playList'
-                when: listViews.currentIndex === 0
-                PropertyChanges {
-                    target: mainContentView
-                    Layout.minimumWidth: 0
-                    Layout.maximumWidth: 0
-                    Layout.preferredWidth: 0
-                }
-                PropertyChanges {
-                    target: firstViewSeparatorItem
-                    Layout.minimumWidth: 0
-                    Layout.maximumWidth: 0
-                    Layout.preferredWidth: 0
-                }
-                PropertyChanges {
-                    target: viewSeparatorItem
-                    visible: true
-                }
-                PropertyChanges {
-                    target: albumContext
-                    Layout.minimumWidth: contentZone.width * 3 / 5 - 2 - 3.5 * elisaTheme.layoutHorizontalMargin
-                    Layout.maximumWidth: contentZone.width * 3 / 5 - 2 - 3.5 * elisaTheme.layoutHorizontalMargin
-                    Layout.preferredWidth: contentZone.width * 3 / 5 - 2 - 3.5 * elisaTheme.layoutHorizontalMargin
-                }
-            },
-            State {
                 name: "browsingViewsNoPlaylist"
-                when: listViews.currentIndex !== 0 && contentViewContainer.showPlaylist !== true
+                when: contentViewContainer.showPlaylist === false
                 extend: "browsingViews"
                 PropertyChanges {
                     target: mainContentView
@@ -387,7 +336,7 @@ RowLayout {
             },
             State {
                 name: 'browsingViews'
-                when: listViews.currentIndex !== 0
+                when: contentViewContainer.showPlaylist === true
                 PropertyChanges {
                     target: mainContentView
                     Layout.minimumWidth: contentZone.width * 0.66
@@ -399,16 +348,6 @@ RowLayout {
                     Layout.minimumWidth: 1
                     Layout.maximumWidth: 1
                     Layout.preferredWidth: 1
-                }
-                PropertyChanges {
-                    target: viewSeparatorItem
-                    visible: false
-                }
-                PropertyChanges {
-                    target: albumContext
-                    Layout.minimumWidth: 0
-                    Layout.maximumWidth: 0
-                    Layout.preferredWidth: 0
                 }
             }
         ]
@@ -442,6 +381,21 @@ RowLayout {
 
         FileBrowserView {
             StackView.onActivated: viewManager.viewIsLoaded(viewType)
+        }
+    }
+
+    Component {
+        id: albumContext
+
+        ContextView {
+            StackView.onActivated: viewManager.viewIsLoaded(viewType)
+
+            databaseId: elisa.manageHeaderBar.databaseId
+            title: elisa.manageHeaderBar.title
+            artistName: elisa.manageHeaderBar.artist
+            albumName: elisa.manageHeaderBar.album
+            albumArtUrl: elisa.manageHeaderBar.image
+            fileUrl: elisa.manageHeaderBar.fileName
         }
     }
 }

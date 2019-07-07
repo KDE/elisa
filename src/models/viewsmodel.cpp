@@ -36,12 +36,12 @@ public:
 
     ViewsModelPrivate()
     {
-        mTypes = {ViewManager::NoViews, ViewManager::RecentlyPlayedTracks,
+        mTypes = {ViewManager::Context, ViewManager::RecentlyPlayedTracks,
                   ViewManager::FrequentlyPlayedTracks, ViewManager::AllAlbums,
                   ViewManager::AllArtists, ViewManager::AllTracks,
                   ViewManager::AllGenres, ViewManager::FilesBrowser};
 
-        mNames = {{ViewManager::NoViews, {i18nc("Title of the view of the playlist", "Now Playing")}},
+        mNames = {{ViewManager::Context, {i18nc("Title of the view of the playlist", "Now Playing")}},
                   {ViewManager::RecentlyPlayedTracks, {i18nc("Title of the view of recently played tracks", "Recently Played")}},
                   {ViewManager::FrequentlyPlayedTracks, {i18nc("Title of the view of frequently played tracks", "Frequently Played")}},
                   {ViewManager::AllAlbums, {i18nc("Title of the view of all albums", "Albums")}},
@@ -50,7 +50,7 @@ public:
                   {ViewManager::AllGenres, {i18nc("Title of the view of all genres", "Genres")}},
                   {ViewManager::FilesBrowser, {i18nc("Title of the file browser view", "Files")}}};
 
-        mIcons = {{ViewManager::NoViews, QUrl{QStringLiteral("image://icon/view-media-lyrics")}},
+        mIcons = {{ViewManager::Context, QUrl{QStringLiteral("image://icon/view-media-lyrics")}},
                   {ViewManager::RecentlyPlayedTracks, QUrl{QStringLiteral("image://icon/media-playlist-play")}},
                   {ViewManager::FrequentlyPlayedTracks, QUrl{QStringLiteral("image://icon/amarok_playcount")}},
                   {ViewManager::AllAlbums, QUrl{QStringLiteral("image://icon/view-media-album-cover")}},
@@ -151,7 +151,7 @@ int ViewsModel::indexFromViewType(ViewManager::ViewsType type)
 {
     switch(type)
     {
-    case ViewManager::NoViews:
+    case ViewManager::Context:
         return 0;
     case ViewManager::RecentlyPlayedTracks:
         return 1;

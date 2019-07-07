@@ -326,27 +326,5 @@ FocusScope {
             }
         }
     ]
-
-    transitions: [
-        Transition {
-            SequentialAnimation {
-                PropertyAction {
-                    properties: "active"
-                }
-                ParallelAnimation {
-                    NumberAnimation {
-                        properties: "opacity"
-                        easing.type: Easing.InOutQuad
-                        duration: 300
-                    }
-                    ColorAnimation {
-                        properties: "color"
-                        easing.type: Easing.InOutQuad
-                        duration: 300
-                    }
-                }
-            }
-        }
-    ]
 }
 

@@ -282,12 +282,6 @@ RowLayout {
                                 }
                             }
                         }
-
-                        Behavior on border.color {
-                            ColorAnimation {
-                                duration: 300
-                            }
-                        }
                     }
                 }
 

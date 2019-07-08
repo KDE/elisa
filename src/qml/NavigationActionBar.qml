@@ -18,8 +18,7 @@
 import QtQml 2.2
 import QtQuick 2.7
 import QtQuick.Layouts 1.3
-import QtQuick.Controls 2.2
-import QtQuick.Controls 1.4 as Controls1
+import QtQuick.Controls 2.3
 
 ColumnLayout {
     id: navigationBar
@@ -47,33 +46,33 @@ ColumnLayout {
     signal showArtist();
     signal sort(var order);
 
-    Controls1.Action {
+    Action {
         id: goPreviousAction
         text: i18nc("navigate back in the views stack", "Back")
-        iconName: (Qt.application.layoutDirection == Qt.RightToLeft) ? "go-next" : "go-previous"
+        icon.name: (Qt.application.layoutDirection == Qt.RightToLeft) ? "go-next" : "go-previous"
         onTriggered: goBack()
         enabled: enableGoBack
     }
 
-    Controls1.Action {
+    Action {
         id: replaceAndPlayAction
         text: i18n("Play now, replacing contents of Playlist")
-        iconName: "media-playback-start"
+        icon.name: "media-playback-start"
         onTriggered: replaceAndPlay()
     }
 
-    Controls1.Action {
+    Action {
         id: enqueueAction
         text: i18nc("Add current list to playlist", "Enqueue")
-        iconName: "media-track-add-amarok"
+        icon.name: "media-track-add-amarok"
         onTriggered: enqueue()
     }
 
-    Controls1.Action {
+    Action {
         id: showFilterAction
         shortcut: findAction.shortcut
         text: !navigationBar.expandedFilterView ? i18nc("Show filters in the navigation bar", "Show Search Options") : i18nc("Hide filters in the navigation bar", "Hide Search Options")
-        iconName: 'search'
+        icon.name: 'search'
         checkable: true
         checked: filterRow.opacity == 1.0
         onTriggered: {
@@ -85,17 +84,17 @@ ColumnLayout {
         }
     }
 
-    Controls1.Action {
+    Action {
         id: sortAction
         text: i18nc("Toggle between ascending and descending order", "Toggle sort order")
-        iconName: sortOrder ? "view-sort-ascending" : "view-sort-descending"
+        icon.name: sortOrder ? "view-sort-ascending" : "view-sort-descending"
         onTriggered: sortOrder ? sort(Qt.DescendingOrder) : sort(Qt.AscendingOrder)
     }
 
-    Controls1.Action {
+    Action {
         id: showArtistAction
         text: i18nc("Button to navigate to the artist of the album", "Display Artist")
-        iconName: "view-media-artist"
+        icon.name: "view-media-artist"
         onTriggered: showArtist()
     }
 
@@ -103,15 +102,14 @@ ColumnLayout {
         type: filterRow.visible? "other" : "header"
         contentItems: [
 
-            Controls1.ToolButton {
+            FlatButtonWithToolTip {
                 action: goPreviousAction
                 id: goPreviousButton
                 objectName: 'goPreviousButton'
 
-                Keys.onReturnPressed: action.trigger()
-                Accessible.onPressAction: action.trigger()
+                icon.height: elisaTheme.smallControlButtonSize
+                icon.width: elisaTheme.smallControlButtonSize
 
-                activeFocusOnTab: true
                 focus: enableGoBack
                 visible: enableGoBack
             },
@@ -165,55 +163,46 @@ ColumnLayout {
                     visible: secondaryTitle !== ""
                 }
             },
-            Controls1.ToolButton {
+            FlatButtonWithToolTip {
                 action: enqueueAction
                 objectName: 'enqueueButton'
 
-                Keys.onReturnPressed: action.trigger()
-                Accessible.onPressAction: action.trigger()
+                icon.height: elisaTheme.smallControlButtonSize
+                icon.width: elisaTheme.smallControlButtonSize
 
-                activeFocusOnTab: true
                 focus: true
             },
-            Controls1.ToolButton {
+            FlatButtonWithToolTip {
                 action: replaceAndPlayAction
                 objectName: 'replaceAndPlayButton'
 
-                Keys.onReturnPressed: action.trigger()
-                Accessible.onPressAction: action.trigger()
-
-                activeFocusOnTab: true
+                icon.height: elisaTheme.smallControlButtonSize
+                icon.width: elisaTheme.smallControlButtonSize
             },
-            Controls1.ToolButton {
+            FlatButtonWithToolTip {
                 action: showArtistAction
                 objectName: 'showArtistButton'
 
-                Keys.onReturnPressed: action.trigger()
-                Accessible.onPressAction: action.trigger()
-
-                activeFocusOnTab: true
+                icon.height: elisaTheme.smallControlButtonSize
+                icon.width: elisaTheme.smallControlButtonSize
 
                 visible: allowArtistNavigation
             },
-            Controls1.ToolButton {
+            FlatButtonWithToolTip {
                 action: sortAction
                 objectName: 'sortAscendingButton'
 
-                Keys.onReturnPressed: action.trigger()
-                Accessible.onPressAction: action.trigger()
-
-                activeFocusOnTab: true
+                icon.height: elisaTheme.smallControlButtonSize
+                icon.width: elisaTheme.smallControlButtonSize
 
                 visible: enableSorting
             },
-            Controls1.ToolButton {
+            FlatButtonWithToolTip {
                 action: showFilterAction
                 objectName: 'showFilterButton'
 
-                Keys.onReturnPressed: action.trigger()
-                Accessible.onPressAction: action.trigger()
-
-                activeFocusOnTab: true
+                icon.height: elisaTheme.smallControlButtonSize
+                icon.width: elisaTheme.smallControlButtonSize
             }
         ]
     }

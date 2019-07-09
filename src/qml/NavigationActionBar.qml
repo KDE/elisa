@@ -136,6 +136,9 @@ ColumnLayout {
                 visible: mainIcon.visible
             },
             ColumnLayout {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+
                 id: authorAndAlbumLayout
 
                 LabelWithToolTip {

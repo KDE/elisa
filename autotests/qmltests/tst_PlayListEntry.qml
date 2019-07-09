@@ -52,6 +52,7 @@ Item {
             property int layoutHorizontalMargin: 8
             property int smallDelegateToolButtonSize: 20
             property int ratingStarSize: 15
+            property int playListDelegateHeight: 28
         }
     }
 

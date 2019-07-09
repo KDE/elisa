@@ -28,11 +28,14 @@ Button {
 
     activeFocusOnTab: true
 
-    Keys.onReturnPressed: onClicked
-    Accessible.onPressAction: onClicked
+    Keys.onReturnPressed: action.trigger()
+    Accessible.onPressAction: action.trigger()
 
     flat: true
     display: AbstractButton.IconOnly
+
+    icon.width: elisaTheme.smallControlButtonSize
+    icon.height: elisaTheme.smallControlButtonSize
 
     ToolTip.visible: hovered
     ToolTip.delay: Qt.styleHints.mousePressAndHoldInterval

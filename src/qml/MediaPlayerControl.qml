@@ -191,69 +191,84 @@ FocusScope {
             }
         }
 
-        Slider {
-            property bool seekStarted: false
-            property int seekValue
-
-            id: musicProgress
-
-            from: 0
-            to: musicWidget.duration
-
+        MouseArea {
+            id: seekWheelHandler
             Layout.alignment: Qt.AlignVCenter
+            Layout.fillHeight: true
             Layout.fillWidth: true
             Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
             Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
 
-            enabled: musicWidget.seekable && musicWidget.playEnabled
-
-            live: true
-
-            onValueChanged: {
-                if (seekStarted) {
-                    seekValue = value
-                }
-            }
-
-            onPressedChanged: {
-                if (pressed) {
-                    seekStarted = true;
-                    seekValue = value
+            acceptedButtons: Qt.NoButton
+            onWheel: {
+                if (wheel.angleDelta.y > 0) {
+                    musicWidget.seek(position + 10000)
                 } else {
-                    musicWidget.seek(seekValue)
-                    seekStarted = false;
+                    musicWidget.seek(position - 10000)
                 }
             }
 
-            background: Rectangle {
-                x: musicProgress.leftPadding
-                y: musicProgress.topPadding + musicProgress.availableHeight / 2 - height / 2
-                implicitWidth: 200
-                implicitHeight: 6
-                width: musicProgress.availableWidth
-                height: implicitHeight
-                radius: 3
-                color: myPalette.dark
+            Slider {
+                property bool seekStarted: false
+                property int seekValue
 
-                Rectangle {
-                    x: (LayoutMirroring.enabled ? musicProgress.visualPosition * parent.width : 0)
-                    width: LayoutMirroring.enabled ? parent.width - musicProgress.visualPosition * parent.width: musicProgress.handle.x + radius
-                    height: parent.height
-                    color: myPalette.text
+                id: musicProgress
+
+                from: 0
+                to: musicWidget.duration
+                width: parent.width
+                anchors.centerIn: parent
+
+                enabled: musicWidget.seekable && musicWidget.playEnabled
+
+                live: true
+
+                onValueChanged: {
+                    if (seekStarted) {
+                        seekValue = value
+                    }
+                }
+
+                onPressedChanged: {
+                    if (pressed) {
+                        seekStarted = true;
+                        seekValue = value
+                    } else {
+                        musicWidget.seek(seekValue)
+                        seekStarted = false;
+                    }
+                }
+
+                background: Rectangle {
+                    x: musicProgress.leftPadding
+                    y: musicProgress.topPadding + musicProgress.availableHeight / 2 - height / 2
+                    implicitWidth: 200
+                    implicitHeight: 6
+                    width: musicProgress.availableWidth
+                    height: implicitHeight
                     radius: 3
+                    color: myPalette.dark
+
+                    Rectangle {
+                        x: (LayoutMirroring.enabled ? musicProgress.visualPosition * parent.width : 0)
+                        width: LayoutMirroring.enabled ? parent.width - musicProgress.visualPosition * parent.width: musicProgress.handle.x + radius
+                        height: parent.height
+                        color: myPalette.text
+                        radius: 3
+                    }
                 }
-            }
 
-            handle: Rectangle {
-                x: musicProgress.leftPadding + musicProgress.visualPosition * (musicProgress.availableWidth - width)
-                y: musicProgress.topPadding + musicProgress.availableHeight / 2 - height / 2
-                implicitWidth: 18
-                implicitHeight: 18
-                radius: 9
-                color: myPalette.base
-                border.width: 1
-                border.color: musicProgress.pressed ? myPalette.text : myPalette.dark
+                handle: Rectangle {
+                    x: musicProgress.leftPadding + musicProgress.visualPosition * (musicProgress.availableWidth - width)
+                    y: musicProgress.topPadding + musicProgress.availableHeight / 2 - height / 2
+                    implicitWidth: 18
+                    implicitHeight: 18
+                    radius: 9
+                    color: myPalette.base
+                    border.width: 1
+                    border.color: musicProgress.pressed ? myPalette.text : myPalette.dark
 
+                }
             }
         }
 
@@ -288,55 +303,70 @@ FocusScope {
             icon.height: elisaTheme.smallControlButtonSize
         }
 
-        Slider {
-            id: volumeSlider
+        MouseArea {
+            id: audioWheelHandler
 
-            from: 0
-            to: 100
-
-            enabled: !muted
-
-            Layout.alignment: Qt.AlignVCenter
             Layout.preferredWidth: elisaTheme.volumeSliderWidth
             Layout.maximumWidth: elisaTheme.volumeSliderWidth
             Layout.minimumWidth: elisaTheme.volumeSliderWidth
-            Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin * 3 : 0
-            Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin * 3 : 0
+            Layout.fillHeight: true
 
-            width: elisaTheme.volumeSliderWidth
-
-            background: Rectangle {
-                x: volumeSlider.leftPadding
-                y: volumeSlider.topPadding + volumeSlider.availableHeight / 2 - height / 2
-                implicitWidth: 200
-                implicitHeight: 6
-                width: volumeSlider.availableWidth
-                height: implicitHeight
-                radius: 3
-                color: myPalette.dark
-                opacity: muted ? 0.5 : 1
-
-                Rectangle {
-                    x: (LayoutMirroring.enabled ? volumeSlider.visualPosition * parent.width : 0)
-                    width: (LayoutMirroring.enabled ? parent.width - volumeSlider.visualPosition * parent.width : volumeSlider.visualPosition * parent.width)
-                    height: parent.height
-                    color: myPalette.text
-                    radius: 3
-                    opacity: muted ? 0.5 : 1
+            acceptedButtons: Qt.NoButton
+            onWheel: {
+                if (wheel.angleDelta.y > 0) {
+                    volumeSlider.increase()
+                } else {
+                    volumeSlider.decrease()
                 }
             }
 
-            handle: Rectangle {
-                x: volumeSlider.leftPadding + volumeSlider.visualPosition * (volumeSlider.availableWidth - width)
-                y: volumeSlider.topPadding + volumeSlider.availableHeight / 2 - height / 2
-                implicitWidth: 18
-                implicitHeight: 18
-                radius: 9
-                color: myPalette.base
-                border.width: 1
-                border.color: volumeSlider.pressed ? myPalette.text : (muted ? myPalette.mid : myPalette.dark)
+            Slider {
+                id: volumeSlider
+
+                from: 0
+                to: 100
+                stepSize: 5
+
+                enabled: !muted
+
+                anchors.centerIn: parent
+                width: elisaTheme.volumeSliderWidth
+
+                background: Rectangle {
+                    x: volumeSlider.leftPadding
+                    y: volumeSlider.topPadding + volumeSlider.availableHeight / 2 - height / 2
+                    implicitWidth: 200
+                    implicitHeight: 6
+                    width: volumeSlider.availableWidth
+                    height: implicitHeight
+                    radius: 3
+                    color: myPalette.dark
+                    opacity: muted ? 0.5 : 1
+
+                    Rectangle {
+                        x: (LayoutMirroring.enabled ? volumeSlider.visualPosition * parent.width : 0)
+                        width: (LayoutMirroring.enabled ? parent.width - volumeSlider.visualPosition * parent.width : volumeSlider.visualPosition * parent.width)
+                        height: parent.height
+                        color: myPalette.text
+                        radius: 3
+                        opacity: muted ? 0.5 : 1
+                    }
+                }
+
+                handle: Rectangle {
+                    x: volumeSlider.leftPadding + volumeSlider.visualPosition * (volumeSlider.availableWidth - width)
+                    y: volumeSlider.topPadding + volumeSlider.availableHeight / 2 - height / 2
+                    implicitWidth: 18
+                    implicitHeight: 18
+                    radius: 9
+                    color: myPalette.base
+                    border.width: 1
+                    border.color: volumeSlider.pressed ? myPalette.text : (muted ? myPalette.mid : myPalette.dark)
+                }
             }
         }
+
+
 
         FlatButtonWithToolTip {
             focus: true

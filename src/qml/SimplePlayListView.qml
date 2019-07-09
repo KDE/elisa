@@ -88,32 +88,40 @@ ListView {
             DelegateModelGroup { name: "selected" }
         ]
 
-        delegate: SimplePlayListEntry {
-            id: entry
-
-            focus: true
-
+        delegate: MouseArea {
+            id: item
+            height: elisaTheme.playListDelegateHeight
             width: scrollBar.visible ? (!LayoutMirroring.enabled ? playListView.width - scrollBar.width : playListView.width) : playListView.width
-            scrollBarWidth: scrollBar.visible ? scrollBar.width : 0
 
-            index: model.index
+            onClicked: playListView.playListModel.switchTo(index)
 
-            databaseId: model.databaseId ? model.databaseId : 0
-            title: model.title ? model.title : ''
-            artist: model.artist ? model.artist : ''
-            album: model.album ? model.album : ''
-            albumArtist: model.albumArtist ? model.albumArtist : ''
-            duration: model.duration ? model.duration : ''
-            fileName: model.trackResource ? model.trackResource : ''
-            imageUrl: model.imageUrl ? model.imageUrl : ''
-            trackNumber: model.trackNumber ? model.trackNumber : -1
-            discNumber: model.discNumber ? model.discNumber : -1
-            rating: model.rating ? model.rating : 0
-            isSingleDiscAlbum: model.isSingleDiscAlbum
-            isValid: model.isValid
-            isPlaying: model.isPlaying
+            PlayListEntry {
+                id: entry
 
-            onSwitchToTrack: playListView.playListModel.switchTo(trackIndex)
+                focus: true
+
+                width: scrollBar.visible ? (!LayoutMirroring.enabled ? playListView.width - scrollBar.width : playListView.width) : playListView.width
+                scrollBarWidth: scrollBar.visible ? scrollBar.width : 0
+
+                index: model.index
+                containsMouse: item.containsMouse
+                simpleMode: true
+
+                databaseId: model.databaseId ? model.databaseId : 0
+                title: model.title ? model.title : ''
+                artist: model.artist ? model.artist : ''
+                album: model.album ? model.album : ''
+                albumArtist: model.albumArtist ? model.albumArtist : ''
+                duration: model.duration ? model.duration : ''
+                fileName: model.trackResource ? model.trackResource : ''
+                imageUrl: model.imageUrl ? model.imageUrl : ''
+                trackNumber: model.trackNumber ? model.trackNumber : -1
+                discNumber: model.discNumber ? model.discNumber : -1
+                rating: model.rating ? model.rating : 0
+                isSingleDiscAlbum: model.isSingleDiscAlbum
+                isValid: model.isValid
+                isPlaying: model.isPlaying
+            }
         }
     }
 }

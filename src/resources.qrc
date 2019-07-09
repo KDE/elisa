@@ -35,7 +35,6 @@
         <file>qml/DataListView.qml</file>
         <file>qml/PlayListBasicView.qml</file>
         <file>qml/SimplePlayListView.qml</file>
-        <file>qml/SimplePlayListEntry.qml</file>
         <file>qml/ViewSelector.qml</file>
         <file>qml/PlayListAlbumHeader.qml</file>
         <file>qml/BasicPlayListAlbumHeader.qml</file>

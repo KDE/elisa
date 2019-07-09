@@ -45,7 +45,7 @@ FocusScope {
     property int rating
     property bool hasValidDiscNumber: true
     property int scrollBarWidth
-    property bool noBackground: false
+    property bool simpleMode: false
 
     signal startPlayback()
     signal pausePlayback()
@@ -122,7 +122,7 @@ FocusScope {
         anchors.rightMargin: LayoutMirroring.enabled ? scrollBarWidth : 0
         z: 1
 
-        color: myPalette.base
+        color: simpleMode ? "transparent" : myPalette.base
 
         height: elisaTheme.playListDelegateHeight
     }
@@ -153,7 +153,7 @@ FocusScope {
 
                 anchors.centerIn: parent
 
-                opacity: 0
+                opacity: (isPlaying === MediaPlayList.IsPlaying || isPlaying === MediaPlayList.IsPaused ? 1.0 : 0.0)
 
                 source: (isPlaying === MediaPlayList.IsPlaying ?
                              Qt.resolvedUrl(elisaTheme.playingIndicatorIcon) : Qt.resolvedUrl(elisaTheme.pausedIndicatorIcon))
@@ -166,6 +166,13 @@ FocusScope {
                 fillMode: Image.PreserveAspectFit
                 mirror: LayoutMirroring.enabled
                 visible: opacity > 0.0
+
+                layer.enabled: simpleMode
+                layer.effect: ColorOverlay {
+                    cached: true
+
+                    color: myPalette.highlightedText
+                }
             }
         }
 
@@ -193,7 +200,7 @@ FocusScope {
             text: trackNumber !== -1 ? Number(trackNumber).toLocaleString(Qt.locale(), 'f', 0) : ''
 
             font.weight: (isPlaying ? Font.Bold : Font.Light)
-            color: myPalette.text
+            color: simpleMode ? myPalette.highlightedText : myPalette.text
 
             Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
 
@@ -229,7 +236,7 @@ FocusScope {
             visible: isValid && discNumber !== 0 && !isSingleDiscAlbum
 
             font.weight: (isPlaying ? Font.Bold : Font.Light)
-            color: myPalette.text
+            color: simpleMode ? myPalette.highlightedText : myPalette.text
 
             Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
 
@@ -248,7 +255,7 @@ FocusScope {
             horizontalAlignment: Text.AlignRight
 
             font.weight: (isPlaying ? Font.Bold : Font.Light)
-            color: myPalette.text
+            color: simpleMode ? myPalette.highlightedText : myPalette.text
 
             text: Number(discNumber).toLocaleString(Qt.locale(), 'f', 0)
 
@@ -288,7 +295,7 @@ FocusScope {
             text: title
 
             font.weight: (isPlaying ? Font.Bold : Font.Normal)
-            color: myPalette.text
+            color: simpleMode ? myPalette.highlightedText : myPalette.text
 
             Layout.maximumWidth: mainCompactLabel.implicitWidth + 1
             Layout.fillWidth: true
@@ -306,7 +313,7 @@ FocusScope {
             text: title
 
             font.weight: Font.Normal
-            color: myPalette.text
+            color: simpleMode ? myPalette.highlightedText : myPalette.text
 
             Layout.fillWidth: true
             Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
@@ -321,56 +328,54 @@ FocusScope {
             Layout.preferredWidth: 0
         }
 
-        FlatButtonWithToolTip {
-            id: infoButton
-            objectName: 'infoButton'
-
-            implicitHeight: elisaTheme.playListDelegateHeight
-            implicitWidth: elisaTheme.playListDelegateHeight
-            icon.height: elisaTheme.smallControlButtonSize
-            icon.width: elisaTheme.smallControlButtonSize
-
-            opacity: 0
-
-            visible: opacity > 0.1
-
-            action: showInfo
+        Loader {
+            id: hoverLoader
+            active: false
+            visible: active
 
             Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
-        }
 
-        FlatButtonWithToolTip {
-            id: playPauseButton
-            objectName: 'playPauseButton'
+            sourceComponent: Row {
+                anchors.centerIn: parent
+                FlatButtonWithToolTip {
+                    id: infoButton
+                    objectName: 'infoButton'
 
-            implicitHeight: elisaTheme.playListDelegateHeight
-            implicitWidth: elisaTheme.playListDelegateHeight
-            icon.height: elisaTheme.smallControlButtonSize
-            icon.width: elisaTheme.smallControlButtonSize
+                    implicitHeight: elisaTheme.playListDelegateHeight
+                    implicitWidth: elisaTheme.playListDelegateHeight
+                    icon.height: elisaTheme.smallControlButtonSize
+                    icon.width: elisaTheme.smallControlButtonSize
 
-            opacity: 0
+                    action: showInfo
+                }
 
-            scale: LayoutMirroring.enabled ? -1 : 1 // We can mirror the symmetrical pause icon
+                FlatButtonWithToolTip {
+                    id: playPauseButton
+                    objectName: 'playPauseButton'
 
-            visible: opacity > 0.1
-            action: !(isPlaying === MediaPlayList.IsPlaying) ? playNow : pauseNow
+                    implicitHeight: elisaTheme.playListDelegateHeight
+                    implicitWidth: elisaTheme.playListDelegateHeight
+                    icon.height: elisaTheme.smallControlButtonSize
+                    icon.width: elisaTheme.smallControlButtonSize
 
-            Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
-        }
+                    scale: LayoutMirroring.enabled ? -1 : 1 // We can mirror the symmetrical pause icon
 
-        FlatButtonWithToolTip {
-            id: removeButton
-            objectName: 'removeButton'
+                    action: !(isPlaying === MediaPlayList.IsPlaying) ? playNow : pauseNow
+                }
 
-            opacity: 0
+                FlatButtonWithToolTip {
+                    id: removeButton
+                    objectName: 'removeButton'
 
-            visible: opacity > 0.1
-            action: removeFromPlayList
+                    action: removeFromPlayList
 
-            implicitHeight: elisaTheme.playListDelegateHeight
-            implicitWidth: elisaTheme.playListDelegateHeight
-            icon.height: elisaTheme.smallControlButtonSize
-            icon.width: elisaTheme.smallControlButtonSize
+                    implicitHeight: elisaTheme.playListDelegateHeight
+                    implicitWidth: elisaTheme.playListDelegateHeight
+                    icon.height: elisaTheme.smallControlButtonSize
+                    icon.width: elisaTheme.smallControlButtonSize
+                }
+
+            }
         }
 
         RatingStar {
@@ -389,7 +394,7 @@ FocusScope {
             text: duration
 
             font.weight: (isPlaying ? Font.Bold : Font.Normal)
-            color: myPalette.text
+            color: simpleMode ? myPalette.highlightedText : myPalette.text
 
             Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
             Layout.leftMargin: elisaTheme.layoutHorizontalMargin
@@ -402,22 +407,10 @@ FocusScope {
     states: [
         State {
             name: 'notSelected'
-            when: !containsMouse && !isSelected && !playListEntry.activeFocus
+            when: !containsMouse && !isSelected && !playListEntry.activeFocus && !simpleMode
             PropertyChanges {
-                target: removeButton
-                opacity: 0
-            }
-            PropertyChanges {
-                target: infoButton
-                opacity: 0
-            }
-            PropertyChanges {
-                target: playPauseButton
-                opacity: 0
-            }
-            PropertyChanges {
-                target: playIcon
-                opacity: (isPlaying === MediaPlayList.IsPlaying || isPlaying === MediaPlayList.IsPaused ? 1.0 : 0.0)
+                target: hoverLoader
+                active: false
             }
             PropertyChanges {
                 target: entryBackground
@@ -434,22 +427,10 @@ FocusScope {
         },
         State {
             name: 'hovered'
-            when: containsMouse && !playListEntry.activeFocus
+            when: containsMouse && !playListEntry.activeFocus && !simpleMode
             PropertyChanges {
-                target: removeButton
-                opacity: 1
-            }
-            PropertyChanges {
-                target: playPauseButton
-                opacity: 1
-            }
-            PropertyChanges {
-                target: infoButton
-                opacity: 1
-            }
-            PropertyChanges {
-                target: playIcon
-                opacity: (isPlaying === MediaPlayList.IsPlaying || isPlaying === MediaPlayList.IsPaused ? 1.0 : 0.0)
+                target: hoverLoader
+                active: true
             }
             PropertyChanges {
                 target: entryBackground
@@ -466,22 +447,10 @@ FocusScope {
         },
         State {
             name: 'selected'
-            when: !playListEntry.activeFocus && isSelected
+            when: !playListEntry.activeFocus && isSelected && !simpleMode
             PropertyChanges {
-                target: removeButton
-                opacity: 0
-            }
-            PropertyChanges {
-                target: playPauseButton
-                opacity: 0
-            }
-            PropertyChanges {
-                target: infoButton
-                opacity: 0
-            }
-            PropertyChanges {
-                target: playIcon
-                opacity: (isPlaying === MediaPlayList.IsPlaying || isPlaying === MediaPlayList.IsPaused ? 1.0 : 0.0)
+                target: hoverLoader
+                active: false
             }
             PropertyChanges {
                 target: entryBackground
@@ -498,22 +467,10 @@ FocusScope {
         },
         State {
             name: 'focused'
-            when: playListEntry.activeFocus
+            when: playListEntry.activeFocus && !simpleMode
             PropertyChanges {
-                target: removeButton
-                opacity: 1
-            }
-            PropertyChanges {
-                target: playPauseButton
-                opacity: 1
-            }
-            PropertyChanges {
-                target: infoButton
-                opacity: 1
-            }
-            PropertyChanges {
-                target: playIcon
-                opacity: (isPlaying === MediaPlayList.IsPlaying || isPlaying === MediaPlayList.IsPaused ? 1.0 : 0.0)
+                target: hoverLoader
+                active: true
             }
             PropertyChanges {
                 target: entryBackground

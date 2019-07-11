@@ -36,7 +36,6 @@ FocusScope {
     property int trackNumber
     property int discNumber
     property int rating
-    property bool isFirstTrackOfDisc
     property bool isSingleDiscAlbum
     property bool isSelected
     property bool isAlternateColor

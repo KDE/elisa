@@ -18,12 +18,11 @@
         <file>qml/TopNotification.qml</file>
         <file>qml/TrackImportNotification.qml</file>
         <file>qml/TopNotificationItem.qml</file>
-        <file>qml/MediaTrackDelegate.qml</file>
-        <file>qml/MediaAlbumTrackDelegate.qml</file>
         <file>qml/MediaTrackMetadataView.qml</file>
         <file>qml/GridBrowserView.qml</file>
         <file>qml/GridBrowserDelegate.qml</file>
         <file>qml/ListBrowserView.qml</file>
+        <file>qml/ListBrowserDelegate.qml</file>
         <file>qml/FileBrowserDelegate.qml</file>
         <file>qml/FileBrowserView.qml</file>
         <file>qtquickcontrols2.conf</file>

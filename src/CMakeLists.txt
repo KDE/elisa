@@ -383,13 +383,12 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         qml/BasicPlayListAlbumHeader.qml
 
         qml/MetaDataDelegate.qml
-        qml/MediaTrackDelegate.qml
         qml/TracksDiscHeader.qml
-        qml/MediaAlbumTrackDelegate.qml
         qml/MediaTrackMetadataView.qml
         qml/GridBrowserView.qml
         qml/GridBrowserDelegate.qml
         qml/ListBrowserView.qml
+        qml/ListBrowserDelegate.qml
         qml/FileBrowserDelegate.qml
         qml/FileBrowserView.qml
         qml/ScrollHelper.qml

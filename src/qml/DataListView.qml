@@ -51,7 +51,7 @@ FocusScope {
     Component {
         id: singleAlbumDelegate
 
-        MediaAlbumTrackDelegate {
+        ListBrowserDelegate {
             id: entry
 
             width: listView.delegateWidth
@@ -69,21 +69,21 @@ FocusScope {
             trackNumber: model.trackNumber
             discNumber: model.discNumber
             rating: model.rating
-            isFirstTrackOfDisc: true
             isSingleDiscAlbum: true
             isSelected: listView.currentIndex === index
             isAlternateColor: (index % 2) === 1
+            detailedView: false
 
-            mediaTrack.onEnqueue: elisa.mediaPlayList.enqueue(databaseId, name, ElisaUtils.Track,
+            onEnqueue: elisa.mediaPlayList.enqueue(databaseId, name, ElisaUtils.Track,
                                                               ElisaUtils.AppendPlayList,
                                                               ElisaUtils.DoNotTriggerPlay)
 
-            mediaTrack.onReplaceAndPlay: elisa.mediaPlayList.enqueue(databaseId, name, ElisaUtils.Track,
+            onReplaceAndPlay: elisa.mediaPlayList.enqueue(databaseId, name, ElisaUtils.Track,
                                                                      ElisaUtils.ReplacePlayList,
                                                                      ElisaUtils.TriggerPlay)
 
 
-            mediaTrack.onClicked: listView.currentIndex = index
+            onClicked: listView.currentIndex = index
 
             onActiveFocusChanged: {
                 if (activeFocus && listView.currentIndex !== index) {
@@ -96,7 +96,7 @@ FocusScope {
     Component {
         id: multipleDiscDelegate
 
-        MediaTrackDelegate {
+        ListBrowserDelegate {
             id: entry
 
             width: listView.delegateWidth
@@ -114,7 +114,6 @@ FocusScope {
             trackNumber: model.trackNumber
             discNumber: model.discNumber
             rating: model.rating
-            isFirstTrackOfDisc: false
             isSingleDiscAlbum: model.isSingleDiscAlbum
             isSelected: listView.currentIndex === index
             isAlternateColor: (index % 2) === 1

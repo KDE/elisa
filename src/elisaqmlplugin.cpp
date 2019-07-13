@@ -66,7 +66,6 @@
 #include "notificationitem.h"
 #include "topnotificationmanager.h"
 #include "elisautils.h"
-#include "datatype.h"
 
 #if defined Qt5DBus_FOUND && Qt5DBus_FOUND
 #include "mpris2/mpris2.h"
@@ -113,7 +112,6 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qRegisterMetaType<UpnpContentDirectoryModel*>();
     qRegisterMetaType<UpnpDeviceDescription*>();
 #endif
-    qRegisterMetaType<DataUtils::DataType>("DataUtils::DataType");
 
     qmlRegisterType<MediaPlayList>(uri, 1, 0, "MediaPlayList");
     qmlRegisterType<ManageMediaPlayerControl>(uri, 1, 0, "ManageMediaPlayerControl");
@@ -137,7 +135,6 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
 
     qmlRegisterType<AudioWrapper>(uri, 1, 0, "AudioWrapper");
     qmlRegisterType<TopNotificationManager>(uri, 1, 0, "TopNotificationManager");
-    qmlRegisterUncreatableMetaObject(DataUtils::staticMetaObject, uri, 1, 0, "DataUtils", QStringLiteral("Only enums"));
     qmlRegisterUncreatableType<DatabaseInterface>(uri, 1, 0, "DatabaseInterface", QStringLiteral("Only created in c++"));
 
 #if defined Qt5DBus_FOUND && Qt5DBus_FOUND

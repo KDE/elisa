@@ -20,7 +20,6 @@
 
 #include "elisaLib_export.h"
 
-#include "datatype.h"
 #include "elisautils.h"
 
 #include <QObject>
@@ -501,8 +500,6 @@ private:
     void removeArtistInDatabase(qulonglong artistId);
 
     void reloadExistingDatabase();
-
-    qulonglong initialId(DataUtils::DataType aType);
 
     qulonglong genericInitialId(QSqlQuery &request);
 

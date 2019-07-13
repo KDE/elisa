@@ -15,7 +15,6 @@ set(elisaLib_SOURCES
     notificationitem.cpp
     topnotificationmanager.cpp
     elisautils.cpp
-    datatype.cpp
     abstractfile/abstractfilelistener.cpp
     abstractfile/abstractfilelisting.cpp
     filescanner.cpp
@@ -281,7 +280,6 @@ endif()
 
 set(elisaqmlplugin_SOURCES
     elisaqmlplugin.cpp
-    datatype.cpp
     elisautils.cpp
 )
 

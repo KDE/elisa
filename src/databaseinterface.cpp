@@ -6297,34 +6297,12 @@ void DatabaseInterface::reloadExistingDatabase()
 {
     qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::reloadExistingDatabase";
 
-    d->mArtistId = initialId(DataUtils::DataType::AllArtists);
-    d->mComposerId = initialId(DataUtils::DataType::AllComposers);
-    d->mLyricistId = initialId(DataUtils::DataType::AllLyricists);
-    d->mAlbumId = initialId(DataUtils::DataType::AllAlbums);
-    d->mTrackId = initialId(DataUtils::DataType::AllTracks);
-    d->mGenreId = initialId(DataUtils::DataType::AllGenres);;
-}
-
-qulonglong DatabaseInterface::initialId(DataUtils::DataType aType)
-{
-    switch (aType)
-    {
-    case DataUtils::DataType::AllAlbums:
-        return genericInitialId(d->mQueryMaximumAlbumIdQuery);
-    case DataUtils::DataType::AllArtists:
-        return genericInitialId(d->mQueryMaximumArtistIdQuery);
-    case DataUtils::DataType::AllComposers:
-        return genericInitialId(d->mQueryMaximumComposerIdQuery);
-    case DataUtils::DataType::AllGenres:
-        return genericInitialId(d->mQueryMaximumGenreIdQuery);
-    case DataUtils::DataType::AllLyricists:
-        return genericInitialId(d->mQueryMaximumLyricistIdQuery);
-    case DataUtils::DataType::AllTracks:
-        return genericInitialId(d->mQueryMaximumTrackIdQuery);
-    case DataUtils::DataType::UnknownType:
-        break;
-    }
-    return 1;
+    d->mArtistId = genericInitialId(d->mQueryMaximumArtistIdQuery);
+    d->mComposerId = genericInitialId(d->mQueryMaximumComposerIdQuery);
+    d->mLyricistId = genericInitialId(d->mQueryMaximumLyricistIdQuery);
+    d->mAlbumId = genericInitialId(d->mQueryMaximumAlbumIdQuery);
+    d->mTrackId = genericInitialId(d->mQueryMaximumTrackIdQuery);
+    d->mGenreId = genericInitialId(d->mQueryMaximumGenreIdQuery);
 }
 
 qulonglong DatabaseInterface::genericInitialId(QSqlQuery &request)

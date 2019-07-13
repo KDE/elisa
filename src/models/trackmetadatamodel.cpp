@@ -245,9 +245,13 @@ QString TrackMetadataModel::fileUrl() const
     return mFileUrl;
 }
 
-const QUrl &TrackMetadataModel::coverUrl() const
+QUrl TrackMetadataModel::coverUrl() const
 {
-    return mCoverImage;
+    if (mCoverImage.isEmpty()) {
+        return QUrl(QStringLiteral("image://icon/media-optical-audio"));
+    } else {
+        return mCoverImage;
+    }
 }
 
 MusicListenersManager *TrackMetadataModel::manager() const

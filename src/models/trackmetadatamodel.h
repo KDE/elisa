@@ -87,7 +87,7 @@ public:
 
     QHash<int, QByteArray> roleNames() const override;
 
-    const QUrl& coverUrl() const;
+    QUrl coverUrl() const;
 
     QString fileUrl() const;
 

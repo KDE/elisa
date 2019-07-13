@@ -28,7 +28,7 @@ Window {
     id: trackMetadata
 
     property int databaseId: 0
-    property url fileName
+    property string fileName
 
     signal rejected()
 

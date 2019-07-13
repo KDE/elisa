@@ -399,7 +399,7 @@ void TrackMetadataModel::initializeByTrackId(qulonglong databaseId)
     Q_EMIT needDataByDatabaseId(ElisaUtils::Track, databaseId);
 }
 
-void TrackMetadataModel::initializeByTrackFileName(const QUrl &fileName)
+void TrackMetadataModel::initializeByTrackFileName(const QString &fileName)
 {
     mFullData.clear();
     mTrackData.clear();
@@ -408,7 +408,7 @@ void TrackMetadataModel::initializeByTrackFileName(const QUrl &fileName)
 
     Q_EMIT lyricsChanged();
 
-    Q_EMIT needDataByFileName(ElisaUtils::FileName, fileName);
+    Q_EMIT needDataByFileName(ElisaUtils::FileName, QUrl::fromLocalFile(fileName));
 }
 
 void TrackMetadataModel::setManager(MusicListenersManager *newManager)

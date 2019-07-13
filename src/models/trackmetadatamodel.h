@@ -115,7 +115,7 @@ public Q_SLOTS:
 
     void initializeByTrackId(qulonglong databaseId);
 
-    void initializeByTrackFileName(const QUrl &fileName);
+    void initializeByTrackFileName(const QString &fileName);
 
     void setManager(MusicListenersManager *newManager);
 

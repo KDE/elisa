@@ -26,9 +26,8 @@ FocusScope {
     id: gridEntry
 
     property var fileName
-    property var fileUrl
-    property var imageUrl
-    property var contentModel
+    property string fileUrl
+    property url imageUrl
     property bool isDirectory
     property bool isPlayList
     property bool isSelected
@@ -75,7 +74,7 @@ FocusScope {
         spacing: 0
 
         MouseArea {
-            id: hoverArea
+            id: hoverHandle
 
             hoverEnabled: true
             acceptedButtons: Qt.LeftButton
@@ -86,7 +85,7 @@ FocusScope {
 
             onClicked: gridEntry.selected()
 
-            onDoubleClicked: gridEntry.open(fileUrl)
+            onDoubleClicked: isDirectory ? open(fileUrl) : enqueue(fileUrl)
 
             TextMetrics {
                 id: mainLabelSize
@@ -136,7 +135,6 @@ FocusScope {
                                 onClicked: {
                                     if (metadataLoader.active === false) {
                                         metadataLoader.active = true
-                                        metadataLoader.item.trackDataHelper.trackData = contentModel.loadMetaDataFromUrl(fileUrl)
                                     }
                                     else {
                                         metadataLoader.item.close();

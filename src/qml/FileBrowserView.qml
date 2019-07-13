@@ -154,7 +154,6 @@ FocusScope {
                     fileName: model.name
                     fileUrl: model.containerData
                     imageUrl: model.imageUrl
-                    contentModel: proxyModel
 
                     onEnqueue: elisa.mediaPlayList.enqueue(0, data, ElisaUtils.FileName, ElisaUtils.AppendPlayList, ElisaUtils.DoNotTriggerPlay)
                     onReplaceAndPlay: elisa.mediaPlayList.enqueue(0, data, ElisaUtils.FileName, ElisaUtils.ReplacePlayList, ElisaUtils.TriggerPlay)

@@ -25,10 +25,6 @@
 #include "notificationitem.h"
 #include "filescanner.h"
 
-#if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
-#include <KFileMetaData/EmbeddedImageData>
-#endif
-
 #include <QThread>
 #include <QHash>
 #include <QFileInfo>
@@ -61,10 +57,6 @@ public:
     FileScanner mFileScanner;
 
     QMimeDatabase mMimeDb;
-
-#if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
-    KFileMetaData::EmbeddedImageData mImageScanner;
-#endif
 
     QHash<QUrl, QDateTime> mAllFiles;
 
@@ -400,24 +392,9 @@ void AbstractFileListing::addCover(const MusicAudioTrack &newTrack)
         return;
     }
 
-    QFileInfo trackFilePath(newTrack.resourceURI().toLocalFile());
-    QDir trackFileDir = trackFilePath.absoluteDir();
-    QString dirNamePattern = QStringLiteral("*") + trackFileDir.dirName() + QStringLiteral("*");
-    QStringList filters;
-    filters << QStringLiteral("*[Cc]over*.jpg") << QStringLiteral("*[Cc]over*.png")
-            << QStringLiteral("*[Ff]older*.jpg") << QStringLiteral("*[Ff]older*.png")
-            << QStringLiteral("*[Ff]ront*.jpg") << QStringLiteral("*[Ff]ront*.png")
-            << dirNamePattern + QStringLiteral(".jpg") << dirNamePattern + QStringLiteral(".png")
-            << dirNamePattern.toLower() + QStringLiteral(".jpg") << dirNamePattern.toLower() + QStringLiteral(".png");
-    dirNamePattern.remove(QLatin1Char(' '));
-    filters << dirNamePattern + QStringLiteral(".jpg") << dirNamePattern + QStringLiteral(".png")
-            << dirNamePattern.toLower() + QStringLiteral(".jpg") << dirNamePattern.toLower() + QStringLiteral(".png");
-    trackFileDir.setNameFilters(filters);
-    QFileInfoList coverFiles = trackFileDir.entryInfoList();
-    if (coverFiles.isEmpty()) {
-        return;
-    } else {
-        d->mAllAlbumCover[newTrack.resourceURI().toString()] = QUrl::fromLocalFile(coverFiles.at(0).absoluteFilePath());
+    auto coverUrl = d->mFileScanner.searchForCoverFile(newTrack.resourceURI().toLocalFile());
+    if (!coverUrl.isEmpty()) {
+        d->mAllAlbumCover[newTrack.resourceURI().toString()] = coverUrl;
     }
 }
 
@@ -476,17 +453,7 @@ FileScanner &AbstractFileListing::fileScanner()
 
 bool AbstractFileListing::checkEmbeddedCoverImage(const QString &localFileName)
 {
-#if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
-    auto imageData = d->mImageScanner.imageData(localFileName);
-
-    if (imageData.contains(KFileMetaData::EmbeddedImageData::FrontCover)) {
-        if (!imageData[KFileMetaData::EmbeddedImageData::FrontCover].isEmpty()) {
-            return true;
-        }
-    }
-#endif
-
-    return false;
+    return d->mFileScanner.checkEmbeddedCoverImage(localFileName);
 }
 
 bool AbstractFileListing::waitEndTrackRemoval() const

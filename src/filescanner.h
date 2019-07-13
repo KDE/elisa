@@ -50,6 +50,10 @@ public:
 
     void scanProperties(const QString &localFileName, MusicAudioTrack &trackData);
 
+    QUrl searchForCoverFile(const QString &localFileName);
+
+    bool checkEmbeddedCoverImage(const QString &localFileName);
+
 private:
 
     std::unique_ptr<FileScannerPrivate> d;

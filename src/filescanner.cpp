@@ -26,6 +26,7 @@
 #include <KFileMetaData/SimpleExtractionResult>
 #include <KFileMetaData/UserMetaData>
 #include <KFileMetaData/Properties>
+#include <KFileMetaData/EmbeddedImageData>
 
 #if defined KF5Baloo_FOUND && KF5Baloo_FOUND
 
@@ -37,6 +38,7 @@
 
 #include <QFileInfo>
 #include <QLocale>
+#include <QDir>
 
 class FileScannerPrivate
 {
@@ -48,6 +50,8 @@ public:
     KFileMetaData::PropertyMap mAllProperties;
 
     QString checkForMultipleEntries(KFileMetaData::Property::Property property);
+
+    KFileMetaData::EmbeddedImageData mImageScanner;
 #endif
 
 };
@@ -261,3 +265,41 @@ QString FileScannerPrivate::checkForMultipleEntries(KFileMetaData::Property::Pro
     }
 }
 #endif
+
+QUrl FileScanner::searchForCoverFile(const QString &localFileName)
+{
+    QFileInfo trackFilePath(localFileName);
+    QDir trackFileDir = trackFilePath.absoluteDir();
+    QString dirNamePattern = QStringLiteral("*") + trackFileDir.dirName() + QStringLiteral("*");
+    QStringList filters;
+    filters << QStringLiteral("*[Cc]over*.jpg") << QStringLiteral("*[Cc]over*.png")
+            << QStringLiteral("*[Ff]older*.jpg") << QStringLiteral("*[Ff]older*.png")
+            << QStringLiteral("*[Ff]ront*.jpg") << QStringLiteral("*[Ff]ront*.png")
+            << dirNamePattern + QStringLiteral(".jpg") << dirNamePattern + QStringLiteral(".png")
+            << dirNamePattern.toLower() + QStringLiteral(".jpg") << dirNamePattern.toLower() + QStringLiteral(".png");
+    dirNamePattern.remove(QLatin1Char(' '));
+    filters << dirNamePattern + QStringLiteral(".jpg") << dirNamePattern + QStringLiteral(".png")
+            << dirNamePattern.toLower() + QStringLiteral(".jpg") << dirNamePattern.toLower() + QStringLiteral(".png");
+    trackFileDir.setNameFilters(filters);
+    QFileInfoList coverFiles = trackFileDir.entryInfoList();
+    if (coverFiles.isEmpty()) {
+        return QUrl();
+    } else {
+        return QUrl::fromLocalFile(coverFiles.at(0).absoluteFilePath());
+    }
+}
+
+bool FileScanner::checkEmbeddedCoverImage(const QString &localFileName)
+{
+#if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
+    auto imageData = d->mImageScanner.imageData(localFileName);
+
+    if (imageData.contains(KFileMetaData::EmbeddedImageData::FrontCover)) {
+        if (!imageData[KFileMetaData::EmbeddedImageData::FrontCover].isEmpty()) {
+            return true;
+        }
+    }
+#endif
+
+    return false;
+}

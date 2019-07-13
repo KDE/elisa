@@ -26,11 +26,10 @@
 FileBrowserModel::FileBrowserModel(QObject *parent) : KDirModel(parent)
 {
     QMimeDatabase db;
-    QList<QMimeType> mimeList = db.allMimeTypes();
-    QStringList mimeTypes;
-    mimeTypes << QStringLiteral("inode/directory");
-    foreach (const QMimeType &mime, mimeList) {
-        if (mime.name().startsWith(QStringLiteral("audio/"))) {
+    const QList<QMimeType> mimeList = db.allMimeTypes();
+    QStringList mimeTypes = { QStringLiteral("inode/directory") };
+    for (const QMimeType &mime : mimeList) {
+        if (mime.name().startsWith(QLatin1String("audio/"))) {
             mimeTypes << mime.name();
         }
     }

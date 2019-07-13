@@ -186,3 +186,12 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND AND NOT WIN32)
 
     target_include_directories(elisaqmltests PRIVATE ${CMAKE_SOURCE_DIR}/src)
 endif()
+
+set(filescannerTest_SOURCES
+    filescannertest.cpp
+)
+
+ecm_add_test(${filescannerTest_SOURCES}
+    TEST_NAME "filescannerTest"
+    LINK_LIBRARIES Qt5::Test elisaLib
+)

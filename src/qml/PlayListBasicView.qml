@@ -129,7 +129,7 @@ ListView {
                 trackNumber: model.trackNumber ? model.trackNumber : -1
                 discNumber: model.discNumber ? model.discNumber : -1
                 rating: model.rating ? model.rating : 0
-                isSingleDiscAlbum: model.isSingleDiscAlbum
+                isSingleDiscAlbum: model.isSingleDiscAlbum !== undefined ? model.isSingleDiscAlbum : true
                 isValid: model.isValid
                 isPlaying: model.isPlaying
 

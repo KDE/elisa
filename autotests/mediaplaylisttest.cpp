@@ -22,7 +22,6 @@
 #include "databaseinterface.h"
 #include "musicaudiotrack.h"
 #include "trackslistener.h"
-#include "qabstractitemmodeltester.h"
 
 #include <QtTest>
 #include <QStandardItemModel>
@@ -30,6 +29,7 @@
 #include <QUrl>
 #include <QTime>
 #include <QTemporaryFile>
+#include <QAbstractItemModelTester>
 
 MediaPlayListTest::MediaPlayListTest(QObject *parent) : QObject(parent)
 {

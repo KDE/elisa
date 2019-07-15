@@ -17,9 +17,9 @@
 
 #include "models/trackmetadatamodel.h"
 
-#include "qabstractitemmodeltester.h"
 #include "databasetestdata.h"
 
+#include <QAbstractItemModelTester>
 #include <QDebug>
 
 #include <QtTest>

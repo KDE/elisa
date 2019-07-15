@@ -21,7 +21,6 @@
 #include "databaseinterface.h"
 #include "models/datamodel.h"
 #include "models/alltracksproxymodel.h"
-#include "qabstractitemmodeltester.h"
 
 #include <QObject>
 #include <QUrl>
@@ -33,6 +32,7 @@
 #include <QStandardPaths>
 #include <QDir>
 #include <QFile>
+#include <QAbstractItemModelTester>
 
 #include <QDebug>
 

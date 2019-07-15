@@ -67,7 +67,6 @@ ecm_add_test(${manageaudioplayerTest_SOURCES}
 target_include_directories(manageaudioplayerTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 
 set(mediaplaylistTest_SOURCES
-    qabstractitemmodeltester.cpp
     mediaplaylisttest.cpp
     ../src/elisautils.cpp
 )
@@ -96,7 +95,6 @@ ecm_add_test(${trackslistenertest_SOURCES}
 target_include_directories(trackslistenertest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 
 set(datamodeltest_SOURCES
-    qabstractitemmodeltester.cpp
     datamodeltest.cpp
 )
 
@@ -111,7 +109,6 @@ ecm_add_test(${datamodeltest_SOURCES}
 target_include_directories(datamodeltest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 
 set(trackmetadatamodeltest_SOURCES
-    qabstractitemmodeltester.cpp
     trackmetadatamodeltest.cpp
 )
 
@@ -126,7 +123,6 @@ ecm_add_test(${trackmetadatamodeltest_SOURCES}
 target_include_directories(trackmetadatamodeltest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 
 set(alltracksproxymodeltest_SOURCES
-    qabstractitemmodeltester.cpp
     alltracksproxymodeltest.cpp
 )
 

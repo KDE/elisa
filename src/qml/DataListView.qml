@@ -60,14 +60,14 @@ FocusScope {
             focus: true
 
             databaseId: model.databaseId
-            title: model.title
-            artist: model.artist
-            album: (model.album !== undefined && model.album !== '' ? model.album : '')
-            albumArtist: model.albumArtist
+            title: model.title ? model.title : ''
+            artist: model.artist ? model.artist : ''
+            album: model.album ? model.album : ''
+            albumArtist: model.albumArtist ? model.albumArtist : ''
             duration: model.duration
-            imageUrl: (model.imageUrl !== undefined && model.imageUrl !== '' ? model.imageUrl : '')
-            trackNumber: model.trackNumber
-            discNumber: model.discNumber
+            imageUrl: model.imageUrl ? model.imageUrl : ''
+            trackNumber: model.trackNumber ? model.trackNumber : -1
+            discNumber: model.discNumber ? model.discNumber : -1
             rating: model.rating
             isSingleDiscAlbum: true
             isSelected: listView.currentIndex === index
@@ -105,14 +105,14 @@ FocusScope {
             focus: true
 
             databaseId: model.databaseId
-            title: model.title
-            artist: model.artist
-            album: (model.album !== undefined && model.album !== '' ? model.album : '')
-            albumArtist: (model.albumArtist !== undefined && model.albumArtist !== '' ? model.albumArtist : '')
+            title: model.title ? model.title : ''
+            artist: model.artist ? model.artist : ''
+            album: model.album ? model.album : ''
+            albumArtist: model.albumArtist ? model.albumArtist : ''
             duration: model.duration
-            imageUrl: (model.imageUrl !== undefined && model.imageUrl !== '' ? model.imageUrl : '')
-            trackNumber: model.trackNumber
-            discNumber: model.discNumber
+            imageUrl: model.imageUrl ? model.imageUrl : ''
+            trackNumber: model.trackNumber ? model.trackNumber : -1
+            discNumber: model.discNumber ? model.discNumber : -1
             rating: model.rating
             isSingleDiscAlbum: model.isSingleDiscAlbum
             isSelected: listView.currentIndex === index

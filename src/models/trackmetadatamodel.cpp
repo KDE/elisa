@@ -55,7 +55,52 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
     switch (role)
     {
     case Qt::DisplayRole:
-        result = mTrackData[currentKey];
+        switch (currentKey)
+        {
+        case DatabaseInterface::TrackNumberRole:
+        {
+            auto trackNumber = mTrackData.trackNumber();
+            if (trackNumber > 0) {
+                result = trackNumber;
+            }
+            break;
+        }
+        case DatabaseInterface::DiscNumberRole:
+        {
+            auto discNumber = mTrackData.discNumber();
+            if (discNumber > 0) {
+                result = discNumber;
+            }
+            break;
+        }
+        case DatabaseInterface::ChannelsRole:
+        {
+            auto channels = mTrackData.channels();
+            if (channels > 0) {
+                result = channels;
+            }
+            break;
+        }
+        case DatabaseInterface::BitRateRole:
+        {
+            auto bitRate = mTrackData.bitRate();
+            if (bitRate > 0) {
+                result = bitRate;
+            }
+            break;
+        }
+        case DatabaseInterface::SampleRateRole:
+        {
+            auto sampleRate = mTrackData.sampleRate();
+            if (sampleRate > 0) {
+                result = sampleRate;
+            }
+            break;
+        }
+        default:
+            result = mTrackData[currentKey];
+            break;
+        }
         break;
     case ItemNameRole:
         switch (currentKey)

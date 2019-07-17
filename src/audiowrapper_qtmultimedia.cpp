@@ -16,6 +16,7 @@
  */
 
 #include "audiowrapper.h"
+#include "powermanagementinterface.h"
 
 #include "qtMultimediaLogging.h"
 
@@ -28,6 +29,8 @@ class AudioWrapperPrivate
 {
 
 public:
+
+    PowerManagementInterface mPowerInterface;
 
     QMediaPlayer mPlayer;
 
@@ -199,12 +202,15 @@ void AudioWrapper::playerStateChanged()
     {
     case QMediaPlayer::State::StoppedState:
         Q_EMIT stopped();
+        d->mPowerInterface.setPreventSleep(false);
         break;
     case QMediaPlayer::State::PlayingState:
         Q_EMIT playing();
+        d->mPowerInterface.setPreventSleep(true);
         break;
     case QMediaPlayer::State::PausedState:
         Q_EMIT paused();
+        d->mPowerInterface.setPreventSleep(false);
         break;
     }
 }

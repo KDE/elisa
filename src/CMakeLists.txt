@@ -360,7 +360,6 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
 
         qml/RatingStar.qml
         qml/DraggableItem.qml
-        qml/PassiveNotification.qml
         qml/TopNotification.qml
         qml/TopNotificationItem.qml
         qml/TrackImportNotification.qml

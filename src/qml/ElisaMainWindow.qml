@@ -156,18 +156,6 @@ ApplicationWindow {
         onMutedChanged: headerBar.playerControl.muted = elisa.audioPlayer.muted
     }
 
-    Connections {
-        target: elisa.mediaPlayList
-
-        onPlayListLoadFailed: {
-            messageNotification.showNotification(i18nc("message of passive notification when playlist load failed", "Load of playlist failed"), 3000)
-        }
-    }
-
-    PassiveNotification {
-        id: messageNotification
-    }
-
     Rectangle {
         color: myPalette.base
         anchors.fill: parent

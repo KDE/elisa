@@ -304,8 +304,6 @@ RowLayout {
                     onStartPlayback: elisa.audioControl.ensurePlay()
 
                     onPausePlayback: elisa.audioControl.playPause()
-
-                    onDisplayError: messageNotification.showNotification(errorText)
                 }
             }
         }

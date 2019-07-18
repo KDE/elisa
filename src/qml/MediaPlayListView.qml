@@ -31,7 +31,71 @@ FocusScope {
 
     signal startPlayback()
     signal pausePlayback()
-    signal displayError(var errorText)
+
+    function showPlayListNotification(message, type, action) {
+        if (!message) {
+            return;
+        }
+
+        if (type) {
+            playListNotification.type = type;
+        } else {
+            playListNotification.type = Kirigami.MessageType.Information;
+        }
+
+        if (action) {
+            playListNotification.actions = action;
+        } else {
+            playListNotification.actions = [];
+        }
+
+        playListNotification.text = message ? message : "";
+        playListNotification.visible = true;
+    }
+
+    function hideNotification() {
+        playListNotification.visible = false;
+    }
+
+    Kirigami.Action {
+        id: undoAction
+        text: i18nc("Undo", "Undo")
+        icon.name: "dialog-cancel"
+        onTriggered: elisa.mediaPlayList.undoClearPlayList()
+    }
+
+    Kirigami.Action {
+        id: retryLoadAction
+        text: i18nc("Retry", "Retry")
+        icon.name: "edit-redo"
+        onTriggered: loadPlaylist.trigger()
+    }
+
+    Kirigami.Action {
+        id: retrySaveAction
+        text: i18nc("Retry", "Retry")
+        icon.name: "edit-redo"
+        onTriggered: savePlaylist.trigger()
+    }
+
+    Connections {
+        target: elisa.mediaPlayList
+        onPlayListLoadFailed: {
+            showPlayListNotification(i18nc("Message when playlist load failed", "Loading failed"), Kirigami.MessageType.Error, retryLoadAction)
+        }
+    }
+
+    Connections {
+         target: elisa.mediaPlayList
+         onDisplayUndoInline: {
+             showPlayListNotification(i18nc("Playlist cleared", "Playlist cleared"), Kirigami.MessageType.Information, undoAction)
+         }
+    }
+
+    Connections {
+         target: elisa.mediaPlayList
+         onHideUndoInline: hideNotification()
+    }
 
     id: topItem
 
@@ -94,7 +158,7 @@ FocusScope {
         {
             if (fileMode === PlatformDialog.FileDialog.SaveFile) {
                 if (!elisa.mediaPlayList.savePlaylist(fileDialog.file)) {
-                    displayError(i18nc("message of passive notification when playlist load failed", "Save of playlist failed"))
+                    showPlayListNotification(i18nc("Message when saving a playlist failed", "Saving failed"), Kirigami.MessageType.Error, retrySaveAction)
                 }
             } else {
                 elisa.mediaPlayList.loadPlaylist(fileDialog.file)
@@ -234,33 +298,21 @@ FocusScope {
 
                 onPausePlayback: topItem.pausePlayback()
 
-                onDisplayError: topItem.displayError(errorText)
+                onDisplayError: showPlayListNotification(errorText, Kirigami.MessageType.Error)
 
             }
 
             Kirigami.InlineMessage {
-
-                Connections {
-                     target: elisa.mediaPlayList
-                     onDisplayUndoInline: undoClear.visible = true
-                }
-
-                Connections {
-                     target: elisa.mediaPlayList
-                     onHideUndoInline: undoClear.visible = false
-                }
+                id: playListNotification
 
                 Timer {
-                    id: autoHideUndoTimer
+                    id: autoHideNotificationTimer
 
                     interval: 7000
 
-                    onTriggered: undoClear.visible = false
+                    onTriggered: playListNotification.visible = false
                 }
 
-                id: undoClear
-
-                text: i18nc("Playlist cleared", "Playlist cleared")
                 type: Kirigami.MessageType.Information
                 showCloseButton: true
                 Layout.topMargin: 5
@@ -271,19 +323,11 @@ FocusScope {
                 onVisibleChanged:
                 {
                     if (visible) {
-                        autoHideUndoTimer.start()
+                        autoHideNotificationTimer.start()
                     } else {
-                        autoHideUndoTimer.stop()
+                        autoHideNotificationTimer.stop()
                     }
                 }
-
-                actions: [
-                    Kirigami.Action {
-                        text: i18nc("Undo", "Undo")
-                        icon.name: "dialog-cancel"
-                        onTriggered: elisa.mediaPlayList.undoClearPlayList()
-                    }
-                ]
             }
         }
 

@@ -18,29 +18,59 @@
 import QtQuick 2.10
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 2.4
+import org.kde.kirigami 2.5 as Kirigami
 import org.kde.elisa 1.0
 
+/*
+ * This visually mimics the Kirigami.InlineMessage due to the
+ * BusyIndicator, which is not supported by the InlineMessage.
+ * Consider implementing support for the BusyIndicator within
+ * the InlineMessage in the future.
+ */
 Rectangle {
     id: rootComponent
 
     property bool indexingRunning
     property int importedTracksCount
-    property MusicListenersManager musicManager
 
-    color: myPalette.highlight
+    color: Kirigami.Theme.activeTextColor
 
-    width: Math.max(elisaTheme.gridDelegateWidth * 1.5, (labelWidth.boundingRect.width - labelWidth.boundingRect.x) + 2 * elisaTheme.layoutHorizontalMargin) +
-           elisaTheme.smallControlButtonSize * 1.5 + 3 * elisaTheme.layoutHorizontalMargin
-    height: elisaTheme.smallControlButtonSize * 1.5 + 2 * elisaTheme.layoutHorizontalMargin
+    width: (labelWidth.boundingRect.width - labelWidth.boundingRect.x) + 3 * elisaTheme.layoutHorizontalMargin +
+           indicator.width
+    height: indicator.height
 
     visible: opacity > 0
     opacity: 0
+
+    radius: Kirigami.Units.smallSpacing / 2
+
+    Rectangle {
+        id: bgFillRect
+
+        anchors.fill: parent
+        anchors.margins: Kirigami.Units.devicePixelRatio
+
+        color: Kirigami.Theme.backgroundColor
+
+        radius: rootComponent.radius * 0.60
+    }
+
+    Rectangle {
+        anchors.fill: bgFillRect
+
+        color: rootComponent.color
+
+        opacity: 0.20
+
+        radius: bgFillRect.radius
+    }
 
     RowLayout {
         anchors.fill: parent
         spacing: elisaTheme.layoutHorizontalMargin
 
         BusyIndicator{
+            id: indicator
         }
 
         Label {
@@ -51,7 +81,7 @@ Rectangle {
                               "Imported %1 tracks",
                               importedTracksCount) :
                        i18nc("message to show when Elisa is scanning music files", "Scanning music"))
-            color: myPalette.highlightedText
+            color: Kirigami.Theme.textColor
 
             Layout.fillWidth: true
             Layout.fillHeight: true

@@ -24,6 +24,7 @@
 #include <QUrl>
 #include <QDateTime>
 #include <QTime>
+#include <QMimeDatabase>
 
 #include <QDebug>
 
@@ -64,6 +65,17 @@ private Q_SLOTS:
 
     }
 
+    void testFileMetaDataScan()
+    {
+        QMimeDatabase mimeDb;
+        FileScanner fileScanner;
+        auto scannedTrack = fileScanner.scanOneFile(QUrl::fromLocalFile(QStringLiteral(LOCAL_FILE_TESTS_SAMPLE_FILES_PATH) + QStringLiteral("/music/test.ogg")), mimeDb);
+        QCOMPARE(scannedTrack.title(), QStringLiteral("Title"));
+        QCOMPARE(scannedTrack.genre(), QStringLiteral("Genre"));
+        QCOMPARE(scannedTrack.albumName(), QStringLiteral("Test"));
+        QCOMPARE(scannedTrack.artist(), QStringLiteral("Artist"));
+    }
+
     void testFindCoverInDirectory()
     {
         FileScanner fileScanner;
@@ -84,6 +96,19 @@ private Q_SLOTS:
         QVERIFY(fileScanner.checkEmbeddedCoverImage(mTestTracksForMetaData.at(0)));
         QVERIFY(fileScanner.checkEmbeddedCoverImage(mTestTracksForMetaData.at(1)));
         QVERIFY(fileScanner.checkEmbeddedCoverImage(mTestTracksForMetaData.at(2)));
+    }
+
+    void benchmarkFileScan()
+    {
+        QMimeDatabase mimeDb;
+        FileScanner fileScanner;
+        QBENCHMARK {
+            for (int i = 0; i < 100; i++) {
+                auto scannedTrack = fileScanner.scanOneFile(QUrl::fromLocalFile(QStringLiteral(LOCAL_FILE_TESTS_SAMPLE_FILES_PATH) + QStringLiteral("/music/test.ogg")), mimeDb);
+                auto scannedTrack2 = fileScanner.scanOneFile(QUrl::fromLocalFile(QStringLiteral(LOCAL_FILE_TESTS_SAMPLE_FILES_PATH) + QStringLiteral("/music/testMultiple.ogg")), mimeDb);
+                auto scannedTrack3 = fileScanner.scanOneFile(QUrl::fromLocalFile(QStringLiteral(LOCAL_FILE_TESTS_SAMPLE_FILES_PATH) + QStringLiteral("/music/testMany.ogg")), mimeDb);
+            }
+        }
     }
 
     void benchmarkCoverInDirectory()

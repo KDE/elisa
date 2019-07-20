@@ -127,8 +127,8 @@ private Q_SLOTS:
         auto secondNewTracks = secondNewTracksSignal.at(0).value<QList<MusicAudioTrack>>();
         auto newCovers = secondNewTracksSignal.at(1).value<QHash<QString, QUrl>>();
 
-        QCOMPARE(firstNewTracks.count() + secondNewTracks.count(), 3);
-        QCOMPARE(newCovers.count(), 3);
+        QCOMPARE(firstNewTracks.count() + secondNewTracks.count(), 5);
+        QCOMPARE(newCovers.count(), 5);
     }
 
     void addAndRemoveTracks()

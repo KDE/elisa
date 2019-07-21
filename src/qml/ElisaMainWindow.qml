@@ -222,13 +222,6 @@ ApplicationWindow {
                 }
 
                 Binding {
-                    target: importedTracksCountNotification
-                    property: 'musicManager'
-                    value: elisa.musicManager
-                    when: elisa.musicManager !== undefined
-                }
-
-                Binding {
                     id: indexerBusyBinding
 
                     target: importedTracksCountNotification

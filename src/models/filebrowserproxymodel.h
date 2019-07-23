@@ -65,8 +65,6 @@ public:
 
     bool canGoBack() const;
 
-    Q_INVOKABLE MusicAudioTrack loadMetaDataFromUrl(const QUrl &url);
-
     bool sortedAscending() const;
 
     void setSourceModel(QAbstractItemModel *sourceModel) override;
@@ -85,8 +83,6 @@ public Q_SLOTS:
 
     void sortModel(Qt::SortOrder order);
 
-    void replaceAndPlayOfUrl(const QUrl &fileUrl);
-
 Q_SIGNALS:
 
     void filesToEnqueue(const ElisaUtils::EntryDataList &newFiles,
@@ -101,8 +97,6 @@ Q_SIGNALS:
     void filterTextChanged(const QString &filterText);
 
     void sortedAscendingChanged();
-
-    void loadPlayListFromUrl(const QUrl &playListUrl);
 
 protected:
 

@@ -92,8 +92,8 @@ void FileBrowserProxyModel::enqueueToPlayList()
         auto allTrackUrls = ElisaUtils::EntryDataList{};
         for (int rowIndex = 0, maxRowCount = rowCount(); rowIndex < maxRowCount; ++rowIndex) {
             auto currentIndex = index(rowIndex, 0);
-            if (!data(currentIndex, FileBrowserModel::DirectoryRole).toBool()) {
-                allTrackUrls.push_back({0, data(currentIndex, FileBrowserModel::ContainerDataRole).toString()});
+            if (!data(currentIndex, FileBrowserModel::IsDirectoryRole).toBool()) {
+                allTrackUrls.push_back({0, data(currentIndex, FileBrowserModel::FileUrlRole).toString()});
             }
         }
         Q_EMIT filesToEnqueue(allTrackUrls,
@@ -110,8 +110,8 @@ void FileBrowserProxyModel::replaceAndPlayOfPlayList()
         auto allTrackUrls = ElisaUtils::EntryDataList{};
         for (int rowIndex = 0, maxRowCount = rowCount(); rowIndex < maxRowCount; ++rowIndex) {
             auto currentIndex = index(rowIndex, 0);
-            if (!data(currentIndex, FileBrowserModel::DirectoryRole).toBool()) {
-                allTrackUrls.push_back({0, data(currentIndex, FileBrowserModel::ContainerDataRole).toString()});
+            if (!data(currentIndex, FileBrowserModel::IsDirectoryRole).toBool()) {
+                allTrackUrls.push_back({0, data(currentIndex, FileBrowserModel::FileUrlRole).toString()});
             }
         }
         Q_EMIT filesToEnqueue(allTrackUrls,
@@ -119,19 +119,6 @@ void FileBrowserProxyModel::replaceAndPlayOfPlayList()
                               ElisaUtils::ReplacePlayList,
                               ElisaUtils::TriggerPlay);
     });
-}
-
-void FileBrowserProxyModel::replaceAndPlayOfUrl(const QUrl &fileUrl)
-{
-    if (mMimeDb.mimeTypeForUrl(fileUrl).inherits(QStringLiteral("audio/x-mpegurl")))
-    {
-        Q_EMIT loadPlayListFromUrl(fileUrl);
-    } else {
-        Q_EMIT filesToEnqueue({{0, fileUrl.toString()}},
-                              ElisaUtils::FileName,
-                              ElisaUtils::ReplacePlayList,
-                              ElisaUtils::TriggerPlay);
-    }
 }
 
 QString FileBrowserProxyModel::parentFolder() const
@@ -196,13 +183,6 @@ void FileBrowserProxyModel::openFolder(const QString &folder, bool isDisplayRoot
     if (!isDisplayRoot) {
         Q_EMIT canGoBackChanged();
     }
-}
-
-MusicAudioTrack FileBrowserProxyModel::loadMetaDataFromUrl(const QUrl &url)
-{
-    auto newTrack = mFileScanner.scanOneFile(url, mMimeDb);
-    qDebug() << "loaded metadata " << url << newTrack;
-    return newTrack;
 }
 
 QString FileBrowserProxyModel::url() const

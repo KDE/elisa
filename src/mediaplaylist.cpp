@@ -578,6 +578,12 @@ void MediaPlayList::copyD()
     dOld->mRepeatPlay = d->mRepeatPlay;
 }
 
+void MediaPlayList::loadPlaylist(const QString &localFileName)
+{
+    d->mLoadPlaylist.clear();
+    d->mLoadPlaylist.load(QUrl::fromLocalFile(localFileName), "m3u");
+}
+
 void MediaPlayList::loadPlaylist(const QUrl &fileName)
 {
     d->mLoadPlaylist.clear();

@@ -48,8 +48,6 @@ FocusScope {
 
         sourceModel: realModel
 
-        onLoadPlayListFromUrl: elisa.mediaPlayList.loadPlaylist(playListUrl)
-
         onFilesToEnqueue: elisa.mediaPlayList.enqueue(newFiles, databaseIdType, enqueueMode, triggerPlay)
     }
 
@@ -114,6 +112,11 @@ FocusScope {
 
                 model: proxyModel
 
+                TextMetrics {
+                    id: secondaryLabelSize
+                    text: 'example'
+                }
+
                 ScrollHelper {
                     id: scrollHelper
                     flickable: contentDirectoryView
@@ -139,9 +142,9 @@ FocusScope {
                 }
 
                 cellWidth: elisaTheme.gridDelegateWidth
-                cellHeight:elisaTheme.gridDelegateHeight
+                cellHeight: elisaTheme.gridDelegateHeight
 
-                delegate: FileBrowserDelegate {
+                delegate: GridBrowserDelegate {
                     width: contentDirectoryView.cellWidth
                     height: contentDirectoryView.cellHeight
 
@@ -149,14 +152,23 @@ FocusScope {
 
                     isSelected: contentDirectoryView.currentIndex === index
 
-                    isDirectory: model.directory
-                    isPlayList: model.isPlaylist
-                    fileName: model.name
-                    fileUrl: model.containerData
+                    mainText: model.name
+                    delegateDisplaySecondaryText: false
+                    fileUrl: model.fileUrl
                     imageUrl: model.imageUrl
+                    showDetailsButton: !model.isDirectory && !model.isPlaylist
+                    showEnqueueButton: !model.isDirectory && !model.isPlaylist
+                    showPlayButton: !model.isDirectory
+                    showOpenButton: model.isDirectory && !model.isPlaylist
 
-                    onEnqueue: elisa.mediaPlayList.enqueue(0, data, ElisaUtils.FileName, ElisaUtils.AppendPlayList, ElisaUtils.DoNotTriggerPlay)
-                    onReplaceAndPlay: elisa.mediaPlayList.enqueue(0, data, ElisaUtils.FileName, ElisaUtils.ReplacePlayList, ElisaUtils.TriggerPlay)
+                    onEnqueue: elisa.mediaPlayList.enqueue(0, model.fileUrl, ElisaUtils.FileName, ElisaUtils.AppendPlayList, ElisaUtils.DoNotTriggerPlay)
+                    onReplaceAndPlay: {
+                        if (model.isPlaylist) {
+                            elisa.mediaPlayList.loadPlaylist(model.fileUrl)
+                        } else {
+                            elisa.mediaPlayList.enqueue(0, model.fileUrl, ElisaUtils.FileName, ElisaUtils.ReplacePlayList, ElisaUtils.TriggerPlay)
+                        }
+                    }
                     onSelected: {
                         forceActiveFocus()
                         contentDirectoryView.currentIndex = model.index
@@ -168,7 +180,7 @@ FocusScope {
                         }
                     }
 
-                    onOpen: loadFolderAndClear(data)
+                    onOpen: isDirectory ? loadFolderAndClear(model.fileUrl) : elisa.mediaPlayList.enqueue(0, model.fileUrl, ElisaUtils.FileName, ElisaUtils.AppendPlayList, ElisaUtils.DoNotTriggerPlay)
                 }
             }
         }

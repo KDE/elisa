@@ -28,17 +28,34 @@ FocusScope {
 
     property var imageUrl
     property bool shadowForImage
+    property string fileUrl
     property alias mainText: mainLabel.text
     property alias secondaryText: secondaryLabel.text
     property var databaseId
     property bool delegateDisplaySecondaryText: true
     property bool isPartial
     property bool isSelected
+    property bool showDetailsButton: false
+    property bool showOpenButton: true
+    property bool showPlayButton: true
+    property bool showEnqueueButton: true
 
     signal enqueue(var databaseId, var name)
     signal replaceAndPlay(var databaseId, var name)
     signal open()
     signal selected()
+
+    Loader {
+        id: metadataLoader
+        active: false && gridEntry.fileUrl
+        onLoaded: item.show()
+
+        sourceComponent:  MediaTrackMetadataView {
+            fileName: gridEntry.fileUrl ? gridEntry.fileUrl : ''
+            onRejected: metadataLoader.active = false;
+        }
+    }
+
 
     Keys.onReturnPressed: open()
     Keys.onEnterPressed: open()
@@ -125,6 +142,40 @@ FocusScope {
                             spacing: 2
 
                             Button {
+                                id: detailsButton
+                                objectName: 'detailsButton'
+
+                                icon.name: 'help-about'
+
+                                hoverEnabled: true
+                                ToolTip.visible: hovered
+                                ToolTip.delay: 1000
+                                ToolTip.text: i18nc("Show track metadata", "View Details")
+
+                                Accessible.role: Accessible.Button
+                                Accessible.name: ToolTip.text
+                                Accessible.description: ToolTip.text
+                                Accessible.onPressAction: clicked()
+
+                                onClicked: {
+                                    if (metadataLoader.active === false) {
+                                        metadataLoader.active = true
+                                    }
+                                    else {
+                                        metadataLoader.item.close();
+                                        metadataLoader.active = false
+                                    }
+                                }
+
+                                Keys.onReturnPressed: clicked()
+                                Keys.onEnterPressed: clicked()
+                                visible: showDetailsButton
+
+                                width: elisaTheme.delegateToolButtonSize
+                                height: elisaTheme.delegateToolButtonSize
+                            }
+
+                            Button {
                                 id: replaceAndPlayButton
                                 objectName: 'replaceAndPlayButton'
 
@@ -144,8 +195,7 @@ FocusScope {
                                 Keys.onReturnPressed: replaceAndPlay(databaseId, mainText)
                                 Keys.onEnterPressed: replaceAndPlay(databaseId, mainText)
 
-
-                                visible: databaseId !== undefined
+                                visible: showPlayButton
 
                                 width: elisaTheme.delegateToolButtonSize
                                 height: elisaTheme.delegateToolButtonSize
@@ -170,7 +220,7 @@ FocusScope {
                                 Keys.onReturnPressed: enqueue(databaseId, mainText)
                                 Keys.onEnterPressed: enqueue(databaseId, mainText)
 
-                                visible: databaseId !== undefined
+                                visible: showEnqueueButton
 
                                 width: elisaTheme.delegateToolButtonSize
                                 height: elisaTheme.delegateToolButtonSize
@@ -192,6 +242,8 @@ FocusScope {
                                 Accessible.onPressAction: onClicked
 
                                 onClicked: open()
+
+                                visible: showOpenButton
 
                                 width: elisaTheme.delegateToolButtonSize
                                 height: elisaTheme.delegateToolButtonSize
@@ -262,9 +314,13 @@ FocusScope {
                     Layout.topMargin: elisaTheme.layoutVerticalMargin * 0.5
                     Layout.maximumWidth: gridEntry.width * 0.9
                     Layout.minimumWidth: Layout.maximumWidth
+                    Layout.maximumHeight: delegateDisplaySecondaryText
+                                            ? (mainLabelSize.boundingRect.height - mainLabelSize.boundingRect.y)
+                                            : (mainLabelSize.boundingRect.height - mainLabelSize.boundingRect.y) * 2
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
                     Layout.bottomMargin: delegateDisplaySecondaryText ? 0 : elisaTheme.layoutVerticalMargin
 
+                    wrapMode: delegateDisplaySecondaryText ? Label.NoWrap : Label.Wrap
                     elide: Text.ElideRight
                 }
 

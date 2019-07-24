@@ -40,21 +40,21 @@ public:
     }
 
     QList<QString> mTestTracksForDirectory = {
-         createTrackUrl(QStringLiteral("/artist1/album1/not_existing.ogg")),
-         createTrackUrl(QStringLiteral("/artist1/album2/not_existing.ogg")),
-         createTrackUrl(QStringLiteral("/artist1/album3/not_existing.ogg")),
-         createTrackUrl(QStringLiteral("/artist2/album1/not_existing.ogg")),
-         createTrackUrl(QStringLiteral("/artist2/album2/not_existing.ogg")),
-         createTrackUrl(QStringLiteral("/artist2/album3/not_existing.ogg")),
-         createTrackUrl(QStringLiteral("/artist3/album1/not_existing.ogg")),
-         createTrackUrl(QStringLiteral("/artist3/album2/not_existing.ogg")),
-         createTrackUrl(QStringLiteral("/artist3/album3/not_existing.ogg")),
+        createTrackUrl(QStringLiteral("/artist1/album1/not_existing.ogg")),
+        createTrackUrl(QStringLiteral("/artist1/album2/not_existing.ogg")),
+        createTrackUrl(QStringLiteral("/artist1/album3/not_existing.ogg")),
+        createTrackUrl(QStringLiteral("/artist2/album1/not_existing.ogg")),
+        createTrackUrl(QStringLiteral("/artist2/album2/not_existing.ogg")),
+        createTrackUrl(QStringLiteral("/artist2/album3/not_existing.ogg")),
+        createTrackUrl(QStringLiteral("/artist3/album1/not_existing.ogg")),
+        createTrackUrl(QStringLiteral("/artist3/album2/not_existing.ogg")),
+        createTrackUrl(QStringLiteral("/artist3/album3/not_existing.ogg")),
     };
 
     QList<QString> mTestTracksForMetaData = {
-          createTrackUrl(QStringLiteral("/artist4/test.ogg")),
-         createTrackUrl(QStringLiteral("/artist4/test.flac")),
-         createTrackUrl(QStringLiteral("/artist4/test.mp3")),
+        createTrackUrl(QStringLiteral("/artist4/test.ogg")),
+        createTrackUrl(QStringLiteral("/artist4/test.flac")),
+        createTrackUrl(QStringLiteral("/artist4/test.mp3")),
     };
 
 private Q_SLOTS:

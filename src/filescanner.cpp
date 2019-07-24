@@ -43,7 +43,7 @@
 class FileScannerPrivate
 {
 public:
-
+    static const QStringList constSearchStrings;
 #if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
     KFileMetaData::ExtractorCollection mAllExtractors;
 
@@ -54,6 +54,15 @@ public:
     KFileMetaData::EmbeddedImageData mImageScanner;
 #endif
 
+};
+
+const QStringList FileScannerPrivate::constSearchStrings = {
+    QStringLiteral("*[Cc]over*.jpg"),
+    QStringLiteral("*[Cc]over*.png"),
+    QStringLiteral("*[Ff]older*.jpg"),
+    QStringLiteral("*[Ff]older*.png"),
+    QStringLiteral("*[Ff]ront*.jpg"),
+    QStringLiteral("*[Ff]ront*.png")
 };
 
 FileScanner::FileScanner() : d(std::make_unique<FileScannerPrivate>())
@@ -270,23 +279,26 @@ QUrl FileScanner::searchForCoverFile(const QString &localFileName)
 {
     QFileInfo trackFilePath(localFileName);
     QDir trackFileDir = trackFilePath.absoluteDir();
-    QString dirNamePattern = QStringLiteral("*") + trackFileDir.dirName() + QStringLiteral("*");
-    QStringList filters;
-    filters << QStringLiteral("*[Cc]over*.jpg") << QStringLiteral("*[Cc]over*.png")
-            << QStringLiteral("*[Ff]older*.jpg") << QStringLiteral("*[Ff]older*.png")
-            << QStringLiteral("*[Ff]ront*.jpg") << QStringLiteral("*[Ff]ront*.png")
-            << dirNamePattern + QStringLiteral(".jpg") << dirNamePattern + QStringLiteral(".png")
-            << dirNamePattern.toLower() + QStringLiteral(".jpg") << dirNamePattern.toLower() + QStringLiteral(".png");
-    dirNamePattern.remove(QLatin1Char(' '));
-    filters << dirNamePattern + QStringLiteral(".jpg") << dirNamePattern + QStringLiteral(".png")
-            << dirNamePattern.toLower() + QStringLiteral(".jpg") << dirNamePattern.toLower() + QStringLiteral(".png");
-    trackFileDir.setNameFilters(filters);
+    trackFileDir.setFilter(QDir::Files);
+    trackFileDir.setNameFilters(d->constSearchStrings);
     QFileInfoList coverFiles = trackFileDir.entryInfoList();
     if (coverFiles.isEmpty()) {
-        return QUrl();
-    } else {
-        return QUrl::fromLocalFile(coverFiles.at(0).absoluteFilePath());
+        QString dirNamePattern = QStringLiteral("*") + trackFileDir.dirName() + QStringLiteral("*");
+        QString dirNameNoSpaces = dirNamePattern.remove(QLatin1Char(' '));
+        QStringList filters = {
+            dirNamePattern + QStringLiteral(".jpg"),
+            dirNamePattern + QStringLiteral(".png"),
+
+            dirNameNoSpaces + QStringLiteral(".jpg"),
+            dirNameNoSpaces + QStringLiteral(".png")
+        };
+        trackFileDir.setNameFilters(filters);
+        coverFiles = trackFileDir.entryInfoList();
     }
+    if (coverFiles.isEmpty()) {
+        return QUrl();
+    }
+    return QUrl::fromLocalFile(coverFiles.first().absoluteFilePath());
 }
 
 bool FileScanner::checkEmbeddedCoverImage(const QString &localFileName)

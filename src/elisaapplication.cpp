@@ -152,17 +152,17 @@ void ElisaApplication::setupActions(const QString &actionName)
 
     if (actionName == QStringLiteral("Seek") && KAuthorized::authorizeAction(actionName)) {
             auto seekAction = d->mCollection.addAction(actionName, this, &ElisaApplication::seek);
-            d->mCollection.setDefaultShortcut(seekAction, QKeySequence(tr("Shift+Right")));
+            d->mCollection.setDefaultShortcut(seekAction, QKeySequence(Qt::SHIFT + Qt::Key_Right));
     }
 
     if (actionName == QStringLiteral("Scrub") && KAuthorized::authorizeAction(actionName)) {
             auto scrubAction = d->mCollection.addAction(actionName, this, &ElisaApplication::scrub);
-            d->mCollection.setDefaultShortcut(scrubAction, QKeySequence(tr("Shift+Left")));
+            d->mCollection.setDefaultShortcut(scrubAction, QKeySequence(Qt::SHIFT + Qt::Key_Left));
     }
 
     if (actionName == QStringLiteral("Play-Pause") && KAuthorized::authorizeAction(actionName)) {
             auto playPauseAction = d->mCollection.addAction(actionName, this, &ElisaApplication::playPause);
-            d->mCollection.setDefaultShortcut(playPauseAction, QKeySequence(tr("Space")));
+            d->mCollection.setDefaultShortcut(playPauseAction, QKeySequence(Qt::Key_Space));
     }
 
     if (actionName == QStringLiteral("edit_find") && KAuthorized::authorizeAction(actionName)) {

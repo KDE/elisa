@@ -119,6 +119,10 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
 {
     auto result = QVariant();
 
+    if (!index.isValid()) {
+        return result;
+    }
+
     const auto dataCount = d->mAllTrackData.size() + d->mAllAlbumData.size() + d->mAllArtistData.size() + d->mAllGenreData.size();
 
     Q_ASSERT(index.isValid());

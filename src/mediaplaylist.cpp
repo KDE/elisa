@@ -121,6 +121,10 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
 {
     auto result = QVariant();
 
+    if (!index.isValid()) {
+        return result;
+    }
+
     if (d->mData[index.row()].mIsValid) {
         switch(role)
         {

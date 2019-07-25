@@ -49,8 +49,6 @@ public:
 
     KFileMetaData::PropertyMap mAllProperties;
 
-    QString checkForMultipleEntries(KFileMetaData::Property::Property property);
-
     KFileMetaData::EmbeddedImageData mImageScanner;
 #endif
 
@@ -128,117 +126,97 @@ void FileScanner::scanProperties(const Baloo::File &match, MusicAudioTrack &trac
 void FileScanner::scanProperties(const QString &localFileName, MusicAudioTrack &trackData)
 {
 #if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
-    auto artistString = d->checkForMultipleEntries(KFileMetaData::Property::Artist);
-    auto albumArtistString = d->checkForMultipleEntries(KFileMetaData::Property::AlbumArtist);
-    auto genreString = d->checkForMultipleEntries(KFileMetaData::Property::Genre);
-    auto composerString = d->checkForMultipleEntries(KFileMetaData::Property::Composer);
-    auto lyricistString = d->checkForMultipleEntries(KFileMetaData::Property::Lyricist);
-
-    auto titleProperty = d->mAllProperties.find(KFileMetaData::Property::Title);
-    auto durationProperty = d->mAllProperties.find(KFileMetaData::Property::Duration);
-    auto albumProperty = d->mAllProperties.find(KFileMetaData::Property::Album);
-    auto trackNumberProperty = d->mAllProperties.find(KFileMetaData::Property::TrackNumber);
-    auto discNumberProperty = d->mAllProperties.find(KFileMetaData::Property::DiscNumber);
-    auto yearProperty = d->mAllProperties.find(KFileMetaData::Property::ReleaseYear);
-    auto lyricsProperty = d->mAllProperties.find(KFileMetaData::Property::Lyrics);
-    auto channelsProperty = d->mAllProperties.find(KFileMetaData::Property::Channels);
-    auto bitRateProperty = d->mAllProperties.find(KFileMetaData::Property::BitRate);
-    auto sampleRateProperty = d->mAllProperties.find(KFileMetaData::Property::SampleRate);
-    auto commentProperty = d->mAllProperties.find(KFileMetaData::Property::Comment);
-    auto ratingProperty = d->mAllProperties.find(KFileMetaData::Property::Rating);
-#if !defined Q_OS_ANDROID
-    auto fileData = KFileMetaData::UserMetaData(localFileName);
-#endif
-
-    if (!artistString.isEmpty()) {
-        trackData.setArtist(artistString);
+    if (d->mAllProperties.isEmpty()) {
+        return;
     }
+    using entry = std::pair<const KFileMetaData::Property::Property&, const QVariant&>;
 
-    if (!albumArtistString.isEmpty()) {
-        trackData.setAlbumArtist(albumArtistString);
-    }
+    auto rangeBegin = d->mAllProperties.constKeyValueBegin();
+    QVariant value;
+    while (rangeBegin != d->mAllProperties.constKeyValueEnd()) {
+        auto key = (*rangeBegin).first;
 
-    if (!genreString.isEmpty()) {
-        trackData.setGenre(genreString);
-    }
+        auto rangeEnd = std::find_if(rangeBegin, d->mAllProperties.constKeyValueEnd(),
+                                     [key](const entry& e) { return e.first != key; });
 
-    if (!composerString.isEmpty()) {
-        trackData.setComposer(composerString);
-    }
-
-    if (!lyricistString.isEmpty()) {
-        trackData.setLyricist(lyricistString);
-    }
-
-    if (albumProperty != d->mAllProperties.end()) {
-        trackData.setAlbumName(albumProperty->toString());
-    }
-
-    if (durationProperty != d->mAllProperties.end()) {
-        trackData.setDuration(QTime::fromMSecsSinceStartOfDay(int(1000 * durationProperty->toDouble())));
-    }
-
-    if (titleProperty != d->mAllProperties.end()) {
-        trackData.setTitle(titleProperty->toString());
-    }
-
-    if (trackNumberProperty != d->mAllProperties.end()) {
-        trackData.setTrackNumber(trackNumberProperty->toInt());
-    }
-
-    if (discNumberProperty != d->mAllProperties.end()) {
-        trackData.setDiscNumber(discNumberProperty->toInt());
-    }
-
-    if (yearProperty != d->mAllProperties.end()) {
-        trackData.setYear(yearProperty->toInt());
-    }
-
-    if (channelsProperty != d->mAllProperties.end()) {
-        trackData.setChannels(channelsProperty->toInt());
-    }
-
-    if (bitRateProperty != d->mAllProperties.end()) {
-        trackData.setBitRate(bitRateProperty->toInt());
-    }
-
-    if (sampleRateProperty != d->mAllProperties.end()) {
-        trackData.setSampleRate(sampleRateProperty->toInt());
-    }
-
-    if (lyricsProperty != d->mAllProperties.end()) {
-        trackData.setLyrics(lyricsProperty->toString());
-    }
-
-    if (trackData.artist().isEmpty()) {
-        trackData.setArtist(trackData.albumArtist());
+        auto distance = std::distance(rangeBegin, rangeEnd);
+        if (distance > 1) {
+            QStringList list;
+            list.reserve(static_cast<int>(distance));
+            std::for_each(rangeBegin, rangeEnd, [&list](const entry& s) { list.append(s.second.toString()); });
+            value = QLocale().createSeparatedList(list);
+        } else {
+            value = (*rangeBegin).second;
+        }
+        switch (key)
+        {
+        case KFileMetaData::Property::Artist:
+            trackData.setArtist(value.toString());
+            break;
+        case KFileMetaData::Property::AlbumArtist:
+            trackData.setAlbumArtist(value.toString());
+            break;
+        case KFileMetaData::Property::Genre:
+            trackData.setGenre(value.toString());
+            break;
+        case KFileMetaData::Property::Composer:
+            trackData.setComposer(value.toString());
+            break;
+        case KFileMetaData::Property::Lyricist:
+            trackData.setLyricist(value.toString());
+            break;
+        case KFileMetaData::Property::Title:
+            trackData.setTitle(value.toString());
+            break;
+        case KFileMetaData::Property::Duration:
+            trackData.setDuration(QTime::fromMSecsSinceStartOfDay(int(1000 * value.toDouble())));
+            break;
+        case KFileMetaData::Property::Album:
+            trackData.setAlbumName(value.toString());
+            break;
+        case KFileMetaData::Property::TrackNumber:
+            trackData.setTrackNumber(value.toInt());
+            break;
+        case KFileMetaData::Property::DiscNumber:
+            trackData.setDiscNumber(value.toInt());
+            break;
+        case KFileMetaData::Property::ReleaseYear:
+            trackData.setYear(value.toInt());
+            break;
+        case KFileMetaData::Property::Lyrics:
+            trackData.setLyrics(value.toString());
+            break;
+        case KFileMetaData::Property::Channels:
+            trackData.setChannels(value.toInt());
+            break;
+        case KFileMetaData::Property::BitRate:
+            trackData.setBitRate(value.toInt());
+            break;
+        case KFileMetaData::Property::SampleRate:
+            trackData.setSampleRate(value.toInt());
+            break;
+        case KFileMetaData::Property::Comment:
+            trackData.setComment(value.toString());
+            break;
+        case KFileMetaData::Property::Rating:
+            trackData.setRating(value.toInt());
+            break;
+        default:
+            break;
+        }
+        rangeBegin = rangeEnd;
     }
 
 #if !defined Q_OS_ANDROID && !defined Q_OS_WIN
+    auto fileData = KFileMetaData::UserMetaData(localFileName);
     QString comment = fileData.userComment();
     if (!comment.isEmpty()) {
         trackData.setComment(comment);
-    } else if (commentProperty != d->mAllProperties.end()) {
-        trackData.setComment(commentProperty->toString());
     }
 
     int rating = fileData.rating();
     if (rating > 0) {
         trackData.setRating(rating);
-    } else if (ratingProperty != d->mAllProperties.end()) {
-        trackData.setRating(ratingProperty->toInt());
-    } else {
-        trackData.setRating(0);
-    }
-#else
-    if (ratingProperty != d->mAllProperties.end()) {
-        trackData.setRating(ratingProperty->toInt());
-    } else {
-        trackData.setRating(0);
-    }
-
-    if (commentProperty != d->mAllProperties.end()) {
-        trackData.setComment(commentProperty->toString());
     }
 #endif
 
@@ -252,28 +230,6 @@ void FileScanner::scanProperties(const QString &localFileName, MusicAudioTrack &
     Q_UNUSED(trackData)
 #endif
 }
-
-#if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
-QString FileScannerPrivate::checkForMultipleEntries(KFileMetaData::Property::Property property)
-{
-    if (mAllProperties.count(property) > 1)  {
-        auto propertyList = mAllProperties.values(property);
-        return QLocale().createSeparatedList(QVariant(propertyList).toStringList());
-    } else {
-        auto variantResult = mAllProperties.find(property);
-        if (variantResult != mAllProperties.end()) {
-            auto value = variantResult.value();
-            if (value.type() == QVariant::List || value.type() == QVariant::StringList) {
-                return QLocale().createSeparatedList(value.toStringList());
-            } else {
-                return value.toString();
-            }
-        } else {
-            return QString();
-        }
-    }
-}
-#endif
 
 QUrl FileScanner::searchForCoverFile(const QString &localFileName)
 {

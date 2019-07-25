@@ -92,7 +92,7 @@ public:
 
     int mYear = 0;
 
-    int mRating = -1;
+    int mRating = 0;
 
     bool mIsValid = false;
 

@@ -19,6 +19,7 @@ import QtQml 2.2
 import QtQuick 2.7
 import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.3
+import org.kde.kirigami 2.8 as Kirigami
 
 ColumnLayout {
     id: navigationBar
@@ -212,44 +213,16 @@ ColumnLayout {
         opacity: 0
 
         contentItems: [
-            TextField {
+            Kirigami.SearchField {
                 id: filterTextInput
                 objectName: 'filterTextInput'
 
                 Layout.fillWidth: true
+                focusSequence: null
 
                 Accessible.role: Accessible.EditableText
 
                 placeholderText: i18n("Search for album name, artist, etc.")
-
-                Image {
-                    anchors.top: parent.top
-                    anchors.bottom: parent.bottom
-                    anchors.right: parent.right
-                    anchors.margins: elisaTheme.filterClearButtonMargin
-                    id: clearText
-                    fillMode: Image.PreserveAspectFit
-                    smooth: true
-                    visible: parent.text
-                    source: Qt.resolvedUrl(elisaTheme.clearIcon)
-                    height: parent.height
-                    width: parent.height
-                    sourceSize.width: parent.height
-                    sourceSize.height: parent.height
-                    mirror: LayoutMirroring.enabled
-
-                    MouseArea {
-                        id: clear
-                        anchors { horizontalCenter: parent.horizontalCenter; verticalCenter: parent.verticalCenter }
-                        height: parent.parent.height
-                        width: parent.parent.height
-                        onClicked: {
-                            parent.parent.text = ""
-                            parent.parent.forceActiveFocus()
-                        }
-                    }
-                }
-
             },
             Item {
                 width: elisaTheme.layoutHorizontalMargin

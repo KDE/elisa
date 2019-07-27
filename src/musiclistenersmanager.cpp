@@ -23,6 +23,14 @@
 #include "android/androidmusiclistener.h"
 #endif
 
+#if defined UpnpLibQt_FOUND && UpnpLibQt_FOUND
+
+#include "upnp/upnpdiscoverallmusic.h"
+
+#include <UpnpLibQt/UpnpSsdpEngine>
+
+#endif
+
 #include "databaseinterface.h"
 #include "mediaplaylist.h"
 #include "file/filelistener.h"
@@ -66,6 +74,12 @@ public:
     AndroidMusicListener mAndroidMusicListener;
 #endif
 
+#if defined UpnpLibQt_FOUND && UpnpLibQt_FOUND
+    UpnpSsdpEngine mSsdpEngine;
+
+    UpnpDiscoverAllMusic mUpnpServiceDiscovery;
+#endif
+
     DatabaseInterface mDatabaseInterface;
 
     std::unique_ptr<TracksListener> mTracksListener;
@@ -101,6 +115,19 @@ MusicListenersManager::MusicListenersManager(QObject *parent)
 #if KF5Baloo_FOUND
     connect(&d->mBalooDetector, &BalooDetector::balooAvailabilityChanged,
             this, &MusicListenersManager::balooAvailabilityChanged);
+#endif
+
+#if defined UpnpLibQt_FOUND && UpnpLibQt_FOUND
+    connect(&d->mSsdpEngine, &UpnpSsdpEngine::newService,
+            &d->mUpnpServiceDiscovery, &UpnpDiscoverAllMusic::newDevice);
+    connect(&d->mSsdpEngine, &UpnpSsdpEngine::removedService,
+            &d->mUpnpServiceDiscovery, &UpnpDiscoverAllMusic::removedDevice);
+    connect(&d->mSsdpEngine, &UpnpSsdpEngine::networkChanged,
+            &d->mUpnpServiceDiscovery, &UpnpDiscoverAllMusic::networkChanged);
+    connect(&d->mUpnpServiceDiscovery, &UpnpDiscoverAllMusic::searchAllMediaServers,
+            &d->mSsdpEngine, &UpnpSsdpEngine::searchAllUpnpDevice);
+
+    QMetaObject::invokeMethod(&d->mSsdpEngine, "initialize", Qt::QueuedConnection);
 #endif
 
     connect(&d->mDatabaseInterface, &DatabaseInterface::requestsInitDone,
@@ -226,6 +253,24 @@ auto MusicListenersManager::initializeRootPath()
     return initialRootPath;
 }
 
+UpnpSsdpEngine *MusicListenersManager::ssdpEngine() const
+{
+#if defined UpnpLibQt_FOUND && UpnpLibQt_FOUND
+    return &d->mSsdpEngine;
+#else
+    return nullptr;
+#endif
+}
+
+UpnpDiscoverAllMusic *MusicListenersManager::upnpServiceDiscovery() const
+{
+#if defined UpnpLibQt_FOUND && UpnpLibQt_FOUND
+    return &d->mUpnpServiceDiscovery;
+#else
+    return nullptr;
+#endif
+}
+
 void MusicListenersManager::databaseReady()
 {
     auto initialRootPath = Elisa::ElisaConfiguration::rootPath();
@@ -294,6 +339,7 @@ void MusicListenersManager::deleteElementById(ElisaUtils::PlayListEntryType entr
     case ElisaUtils::Unknown:
     case ElisaUtils::Container:
     case ElisaUtils::PlayList:
+    case ElisaUtils::UpnpMediaServer:
         break;
     }
 }
@@ -419,6 +465,19 @@ void MusicListenersManager::configChanged()
             &d->mUpnpListener, &UpnpListener::applicationAboutToQuit, Qt::DirectConnection);
 #endif
 
+#if defined Qt5AndroidExtras_FOUND && Qt5AndroidExtras_FOUND
+    if (!d->mAndroidMusicListener) {
+        d->mAndroidMusicListener = std::make_unique<AndroidMusicListener>();
+        d->mAndroidMusicListener->moveToThread(&d->mListenerThread);
+        d->mAndroidMusicListener->setDatabaseInterface(&d->mDatabaseInterface);
+        connect(this, &MusicListenersManager::applicationIsTerminating,
+                d->mAndroidMusicListener.get(), &AndroidMusicListener::applicationAboutToQuit, Qt::DirectConnection);
+        connect(d->mAndroidMusicListener.get(), &AndroidMusicListener::indexingStarted,
+                this, &MusicListenersManager::monitorStartingListeners);
+        connect(d->mAndroidMusicListener.get(), &AndroidMusicListener::indexingFinished,
+                this, &MusicListenersManager::monitorEndingListeners);
+    }
+#endif
 }
 
 void MusicListenersManager::increaseImportedTracksCount(const DataTypes::ListTrackDataType &allTracks)

@@ -56,6 +56,7 @@
     <choice name="AllAlbums" />
     <choice name="AllArtists" />
     <choice name="AllGenres" />
+    <choice name="AllUpnpMediaServers" />
    </choices>
   </entry>
   <entry key="InitialView" type="Enum">

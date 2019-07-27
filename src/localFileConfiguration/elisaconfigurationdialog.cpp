@@ -97,6 +97,9 @@ void ElisaConfigurationDialog::save()
     case ElisaUtils::Genre:
         Elisa::ElisaConfiguration::setEmbeddedView(Elisa::ElisaConfiguration::EnumEmbeddedView::AllGenres);
         break;
+    case ElisaUtils::UpnpMediaServer:
+        Elisa::ElisaConfiguration::setEmbeddedView(Elisa::ElisaConfiguration::EnumEmbeddedView::AllUpnpMediaServers);
+        break;
     case ElisaUtils::Radio:
     case ElisaUtils::Track:
     case ElisaUtils::Composer:
@@ -304,6 +307,9 @@ void ElisaConfigurationDialog::configChanged()
         break;
     case Elisa::ElisaConfiguration::EnumEmbeddedView::AllGenres:
         mEmbeddedView = ElisaUtils::Genre;
+        break;
+    case Elisa::ElisaConfiguration::EnumEmbeddedView::AllUpnpMediaServers:
+        setEmbeddedView(ElisaUtils::UpnpMediaServer);
         break;
     }
     Q_EMIT embeddedViewChanged();

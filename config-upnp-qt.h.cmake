@@ -8,7 +8,7 @@
 
 #cmakedefine01 KF5Crash_FOUND
 
-#cmakedefine01 UPNPQT_FOUND
+#cmakedefine01 UpnpLibQt_FOUND
 
 #cmakedefine01 QtDBus_FOUND
 

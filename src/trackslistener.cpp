@@ -225,6 +225,7 @@ void TracksListener::newEntryInList(qulonglong newDatabaseId,
     case ElisaUtils::Unknown:
     case ElisaUtils::Container:
     case ElisaUtils::PlayList:
+    case ElisaUtils::UpnpMediaServer:
         break;
     }
 }
@@ -277,6 +278,7 @@ void TracksListener::newUrlInList(const QUrl &entryUrl, ElisaUtils::PlayListEntr
     case ElisaUtils::Unknown:
     case ElisaUtils::Container:
     case ElisaUtils::PlayList:
+    case ElisaUtils::UpnpMediaServer:
         break;
     }
 }

@@ -110,6 +110,9 @@ QVariant ViewsModel::data(const QModelIndex &index, int role) const
             case ElisaUtils::Artist:
                 result = i18nc("@title:window Title of the view of all artists", "Artists");
                 break;
+            case ElisaUtils::UpnpMediaServer:
+                result = i18nc("Title of the view of all genres", "UPnP Shares");
+                break;
             case ElisaUtils::Radio:
             case ElisaUtils::Track:
             case ElisaUtils::Unknown:

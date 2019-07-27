@@ -23,6 +23,8 @@ class MediaPlayList;
 class ElisaApplication;
 class ModelDataLoader;
 class TracksListener;
+class UpnpSsdpEngine;
+class UpnpDiscoverAllMusic;
 
 class ELISALIB_EXPORT MusicListenersManager : public QObject
 {
@@ -103,6 +105,10 @@ public:
     [[nodiscard]] bool androidIndexerActive() const;
 
     [[nodiscard]] bool androidIndexerAvailable() const;
+
+    [[nodiscard]] [[nodiscard]] UpnpSsdpEngine* ssdpEngine() const;
+
+    [[nodiscard]] [[nodiscard]] UpnpDiscoverAllMusic* upnpServiceDiscovery() const;
 
 Q_SIGNALS:
 

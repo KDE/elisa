@@ -28,6 +28,10 @@
 #include <KDBusService>
 #endif
 
+#if defined UpnpLibQt_FOUND && UpnpLibQt_FOUND
+#include <UpnpLibQt/UpnpDiscoveryResult>
+#endif
+
 #include "elisautils.h"
 #include "elisaapplication.h"
 #include "progressindicator.h"
@@ -112,6 +116,7 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qRegisterMetaType<UpnpControlConnectionManager*>();
     qRegisterMetaType<UpnpContentDirectoryModel*>();
     qRegisterMetaType<UpnpDeviceDescription*>();
+    qRegisterMetaType<UpnpDiscoveryResult>("UpnpDiscoveryResult");
 #endif
 
     qmlRegisterType<MediaPlayList>(uri, 1, 0, "MediaPlayList");
@@ -160,12 +165,15 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qRegisterMetaType<DataTypes::ListAlbumDataType>("DataTypes::ListAlbumDataType");
     qRegisterMetaType<DataTypes::ListArtistDataType>("DataTypes::ListArtistDataType");
     qRegisterMetaType<DataTypes::ListGenreDataType>("DataTypes::ListGenreDataType");
+    qRegisterMetaType<DataTypes::ListNetworkServiceDataType>("DataTypes::ListNetworkServiceDataType");
     qRegisterMetaType<ModelDataLoader::ListTrackDataType>("ModelDataLoader::ListTrackDataType");
     qRegisterMetaType<ModelDataLoader::ListRadioDataType>("ModelDataLoader::ListRadioDataType");
     qRegisterMetaType<ModelDataLoader::ListAlbumDataType>("ModelDataLoader::ListAlbumDataType");
     qRegisterMetaType<ModelDataLoader::ListArtistDataType>("ModelDataLoader::ListArtistDataType");
     qRegisterMetaType<ModelDataLoader::ListGenreDataType>("ModelDataLoader::ListGenreDataType");
+    qRegisterMetaType<ModelDataLoader::ListNetworkServiceDataType>("ModelDataLoader::ListNetworkServiceDataType");
     qRegisterMetaType<ModelDataLoader::AlbumDataType>("ModelDataLoader::AlbumDataType");
+    qRegisterMetaType<ModelDataLoader::NetworkServiceDataType>("ModelDataLoader::NetworkServiceDataType");
     qRegisterMetaType<TracksListener::ListTrackDataType>("TracksListener::ListTrackDataType");
     qRegisterMetaType<QMap<QString, int>>();
     qRegisterMetaType<QAction*>();
@@ -180,6 +188,7 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qRegisterMetaType<DataTypes::AlbumDataType>("DataTypes::AlbumDataType");
     qRegisterMetaType<DataTypes::ArtistDataType>("DataTypes::ArtistDataType");
     qRegisterMetaType<DataTypes::GenreDataType>("DataTypes::GenreDataType");
+    qRegisterMetaType<DataTypes::NetworkServiceDataType>("DataTypes::NetworkServiceDataType");
     qRegisterMetaType<DataTypes::ColumnsRoles>("DataTypes::ColumnsRoles");
     qRegisterMetaType<ModelDataLoader::TrackDataType>("ModelDataLoader::TrackDataType");
     qRegisterMetaType<TracksListener::TrackDataType>("TracksListener::TrackDataType");

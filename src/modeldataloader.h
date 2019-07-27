@@ -19,6 +19,8 @@
 #include <memory>
 
 class ModelDataLoaderPrivate;
+class UpnpSsdpEngine;
+class UpnpDiscoverAllMusic;
 
 class ELISALIB_EXPORT ModelDataLoader : public QObject
 {
@@ -32,8 +34,10 @@ public:
     using ListGenreDataType = DataTypes::ListGenreDataType;
     using ListTrackDataType = DataTypes::ListTrackDataType;
     using ListRadioDataType = DataTypes::ListRadioDataType;
+    using ListNetworkServiceDataType = DataTypes::ListNetworkServiceDataType;
     using TrackDataType = DataTypes::TrackDataType;
     using AlbumDataType = DataTypes::AlbumDataType;
+    using NetworkServiceDataType = DataTypes::NetworkServiceDataType;
 
     using FilterType = ElisaUtils::FilterType;
 
@@ -42,6 +46,8 @@ public:
     ~ModelDataLoader() override;
 
     void setDatabase(DatabaseInterface *database);
+
+    void setUpnpDiscoverAllMusic(UpnpDiscoverAllMusic *discoveryEngine);
 
 Q_SIGNALS:
 
@@ -89,6 +95,10 @@ Q_SIGNALS:
 
     void clearedDatabase();
 
+    void networkServicesAdded(const DataTypes::ListNetworkServiceDataType &newData);
+
+    void networkServiceRemoved(const DataTypes::NetworkServiceDataType &removedService);
+
 public Q_SLOTS:
 
     void loadData(ElisaUtils::PlayListEntryType dataType);
@@ -121,6 +131,9 @@ public Q_SLOTS:
     void trackHasBeenModified(ListTrackDataType trackDataType, const QHash<QString, QUrl> &covers);
 
 private Q_SLOTS:
+    void newUpnpContentDirectoryService(const QString &name, const QString &uuid);
+
+    void removedUpnpContentDirectoryService(const QString &name);
 
     void databaseTracksAdded(const ModelDataLoader::ListTrackDataType &newData);
 

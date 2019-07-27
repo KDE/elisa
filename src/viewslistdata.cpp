@@ -26,7 +26,7 @@ public:
                                               {{i18nc("@title:window Title of the view of recently played tracks", "Recently Played")},
                                                QUrl{QStringLiteral("image://icon/media-playlist-play")},
                                                ViewManager::ListView,
-                                               ViewManager::GenericDataModel,
+                                               ViewManager::GenericDataModelType,
                                                ElisaUtils::FilterByRecentlyPlayed,
                                                ElisaUtils::Track,
                                                DataTypes::LastPlayDate,
@@ -41,7 +41,7 @@ public:
                                               {{i18nc("@title:window Title of the view of frequently played tracks", "Frequently Played")},
                                                QUrl{QStringLiteral("image://icon/view-media-playcount")},
                                                ViewManager::ListView,
-                                               ViewManager::GenericDataModel,
+                                               ViewManager::GenericDataModelType,
                                                ElisaUtils::FilterByFrequentlyPlayed,
                                                ElisaUtils::Track,
                                                DataTypes::PlayCounter,
@@ -56,7 +56,7 @@ public:
                                               {{i18nc("@title:window Title of the view of all albums", "Albums")},
                                                QUrl{QStringLiteral("image://icon/view-media-album-cover")},
                                                ViewManager::GridView,
-                                               ViewManager::GenericDataModel,
+                                               ViewManager::GenericDataModelType,
                                                ElisaUtils::NoFilter,
                                                ElisaUtils::Album,
                                                DataTypes::TitleRole,
@@ -71,7 +71,7 @@ public:
                                               {{i18nc("@title:window Title of the view of all artists", "Artists")},
                                                QUrl{QStringLiteral("image://icon/view-media-artist")},
                                                ViewManager::GridView,
-                                               ViewManager::GenericDataModel,
+                                               ViewManager::GenericDataModelType,
                                                ElisaUtils::NoFilter,
                                                ElisaUtils::Artist,
                                                Qt::DisplayRole,
@@ -86,7 +86,7 @@ public:
                                               {{i18nc("@title:window Title of the view of all tracks", "Tracks")},
                                                QUrl{QStringLiteral("image://icon/view-media-track")},
                                                ViewManager::ListView,
-                                               ViewManager::GenericDataModel,
+                                               ViewManager::GenericDataModelType,
                                                ElisaUtils::NoFilter,
                                                ElisaUtils::Track,
                                                DataTypes::TitleRole,
@@ -108,7 +108,7 @@ public:
                                               {{i18nc("@title:window Title of the view of all genres", "Genres")},
                                                QUrl{QStringLiteral("image://icon/view-media-genre")},
                                                ViewManager::GridView,
-                                               ViewManager::GenericDataModel,
+                                               ViewManager::GenericDataModelType,
                                                ElisaUtils::NoFilter,
                                                ElisaUtils::Genre,
                                                Qt::DisplayRole,
@@ -123,7 +123,7 @@ public:
                                               {{i18nc("@title:window Title of the file browser view", "Files")},
                                                QUrl{QStringLiteral("image://icon/document-open-folder")},
                                                ViewManager::GridView,
-                                               ViewManager::FileBrowserModel,
+                                               ViewManager::FileBrowserModelType,
                                                ElisaUtils::NoFilter,
                                                ElisaUtils::FileName,
                                                QUrl{QStringLiteral("image://icon/document-open-folder")},
@@ -135,7 +135,7 @@ public:
                                               {{i18nc("@title:window Title of the file radios browser view", "Radio Stations")},
                                                QUrl{QStringLiteral("image://icon/radio")},
                                                ViewManager::ListView,
-                                               ViewManager::GenericDataModel,
+                                               ViewManager::GenericDataModelType,
                                                ElisaUtils::NoFilter,
                                                ElisaUtils::Radio,
                                                Qt::DisplayRole,
@@ -146,6 +146,21 @@ public:
                                                ViewManager::MultipleAlbum,
                                                ViewManager::NoDiscHeaders,
                                                ViewManager::IsRadio,
+                                               ViewManager::IsFlatModel},
+                                              {{i18nc("Title of the view of all genres", "UPnP Shares")},
+                                               QUrl{QStringLiteral("image://icon/network-server")},
+                                               ViewManager::GridView,
+                                               ViewManager::GenericDataModelType,
+                                               ElisaUtils::NoFilter,
+                                               ElisaUtils::UpnpMediaServer,
+                                               Qt::DisplayRole,
+                                               {Qt::DisplayRole},
+                                               {i18n("Name")},
+                                               Qt::AscendingOrder,
+                                               {i18n("A-Z"), i18n("Z-A")},
+                                               QUrl{QStringLiteral("image://icon/network-server")},
+                                               ViewManager::DelegateWithoutSecondaryText,
+                                               ViewManager::ViewHideRating,
                                                ViewManager::IsFlatModel}};
 
     QMap<ElisaUtils::PlayListEntryType, QUrl> mDefaultIcons = {{ElisaUtils::Album, QUrl{QStringLiteral("image://icon/view-media-album-cover")}},
@@ -295,7 +310,7 @@ void ViewsListData::genresAdded(const DataTypes::ListGenreDataType &newData)
         d->mViewsParameters.push_back({oneGenre.title(),
                                        QUrl{QStringLiteral("image://icon/view-media-genre")},
                                        ViewManager::GridView,
-                                       ViewManager::GenericDataModel,
+                                       ViewManager::GenericDataModelType,
                                        ElisaUtils::FilterByGenre,
                                        oneGenre.databaseId(),
                                        ElisaUtils::Artist,
@@ -325,7 +340,7 @@ void ViewsListData::artistsAdded(const DataTypes::ListArtistDataType &newData)
         d->mViewsParameters.push_back({oneArtist.name(),
                                        oneArtist.artistArtURI(),
                                        ViewManager::GridView,
-                                       ViewManager::GenericDataModel,
+                                       ViewManager::GenericDataModelType,
                                        ElisaUtils::FilterByArtist,
                                        oneArtist.databaseId(),
                                        ElisaUtils::Album,
@@ -378,7 +393,7 @@ void ViewsListData::albumsAdded(const DataTypes::ListAlbumDataType &newData)
         d->mViewsParameters.push_back({oneAlbum.title(),
                                        coverImage,
                                        ViewManager::ListView,
-                                       ViewManager::GenericDataModel,
+                                       ViewManager::GenericDataModelType,
                                        ElisaUtils::FilterById,
                                        oneAlbum.databaseId(),
                                        ElisaUtils::Track,
@@ -449,6 +464,7 @@ void ViewsListData::cleanedDatabase()
     case ElisaUtils::Album:
     case ElisaUtils::Genre:
     case ElisaUtils::Artist:
+    case ElisaUtils::UpnpMediaServer:
         Q_EMIT dataAboutToBeReset();
         for (int i = 0; i < d->mViewsParameters.size(); ) {
             if (d->mViewsParameters.at(i).mEntryType == d->mEmbeddedCategory) {
@@ -480,6 +496,7 @@ void ViewsListData::refreshEmbeddedCategory()
     case ElisaUtils::Album:
     case ElisaUtils::Artist:
     case ElisaUtils::Genre:
+    case ElisaUtils::UpnpMediaServer:
         elementsCategoryToRemove = d->mOldEmbeddedCategory;
         for (int i = 0; i < d->mViewsParameters.size(); ) {
             if (d->mViewsParameters.at(i).mEntryType == elementsCategoryToRemove) {
@@ -509,6 +526,7 @@ void ViewsListData::refreshEmbeddedCategory()
     case ElisaUtils::Album:
     case ElisaUtils::Genre:
     case ElisaUtils::Artist:
+    case ElisaUtils::UpnpMediaServer:
         categoryToRemove = d->mEmbeddedCategory;
         for (int i = 0; i < d->mViewsParameters.size(); ) {
             if (d->mViewsParameters.at(i).mDataType == categoryToRemove) {
@@ -536,6 +554,7 @@ void ViewsListData::refreshEmbeddedCategory()
     case ElisaUtils::Album:
     case ElisaUtils::Artist:
     case ElisaUtils::Genre:
+    case ElisaUtils::UpnpMediaServer:
         Q_EMIT needData(d->mEmbeddedCategory);
         break;
     case ElisaUtils::Radio:
@@ -556,7 +575,7 @@ void ViewsListData::refreshEmbeddedCategory()
         d->mViewsParameters.insert(3, {{i18nc("@title:window Title of the view of all albums", "Albums")},
                                        QUrl{QStringLiteral("image://icon/view-media-album-cover")},
                                        ViewManager::GridView,
-                                       ViewManager::GenericDataModel,
+                                       ViewManager::GenericDataModelType,
                                        ElisaUtils::NoFilter,
                                        ElisaUtils::Album,
                                        Qt::DisplayRole,
@@ -575,7 +594,7 @@ void ViewsListData::refreshEmbeddedCategory()
         d->mViewsParameters.insert(4, {{i18nc("@title:window Title of the view of all artists", "Artists")},
                                        QUrl{QStringLiteral("image://icon/view-media-artist")},
                                        ViewManager::GridView,
-                                       ViewManager::GenericDataModel,
+                                       ViewManager::GenericDataModelType,
                                        ElisaUtils::NoFilter,
                                        ElisaUtils::Artist,
                                        Qt::DisplayRole,
@@ -594,7 +613,7 @@ void ViewsListData::refreshEmbeddedCategory()
         d->mViewsParameters.insert(6, {{i18nc("@title:window Title of the view of all genres", "Genres")},
                                        QUrl{QStringLiteral("image://icon/view-media-genre")},
                                        ViewManager::GridView,
-                                       ViewManager::GenericDataModel,
+                                       ViewManager::GenericDataModelType,
                                        ElisaUtils::NoFilter,
                                        ElisaUtils::Genre,
                                        Qt::DisplayRole,
@@ -603,6 +622,25 @@ void ViewsListData::refreshEmbeddedCategory()
                                        Qt::AscendingOrder,
                                        {QStringLiteral("A-Z"), QStringLiteral("Z-A")},
                                        QUrl{QStringLiteral("image://icon/view-media-genre")},
+                                       ViewManager::DelegateWithoutSecondaryText,
+                                       ViewManager::ViewHideRating,
+                                       ViewManager::IsFlatModel});
+        Q_EMIT dataAdded();
+        break;
+    case ElisaUtils::UpnpMediaServer:
+        Q_EMIT dataAboutToBeAdded(9, 9);
+        d->mViewsParameters.insert(9, {{i18nc("Title of the view of all genres", "UPnP Shares")},
+                                       QUrl{QStringLiteral("image://icon/network-server")},
+                                       ViewManager::GridView,
+                                       ViewManager::GenericDataModelType,
+                                       ElisaUtils::NoFilter,
+                                       ElisaUtils::UpnpMediaServer,
+                                       Qt::DisplayRole,
+                                       {Qt::DisplayRole},
+                                       {i18n("Name")},
+                                       Qt::AscendingOrder,
+                                       {i18n("A-Z"), i18n("Z-A")},
+                                       QUrl{QStringLiteral("image://icon/network-server")},
                                        ViewManager::DelegateWithoutSecondaryText,
                                        ViewManager::ViewHideRating,
                                        ViewManager::IsFlatModel});

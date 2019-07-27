@@ -6,10 +6,18 @@
 
 #include "modeldataloader.h"
 
+#include "config-upnp-qt.h"
+
 #include "filescanner.h"
 #include "filewriter.h"
 
 #include <QFileInfo>
+
+#if defined UpnpLibQt_FOUND && UpnpLibQt_FOUND
+
+#include "upnp/upnpdiscoverallmusic.h"
+
+#endif
 
 class ModelDataLoaderPrivate
 {
@@ -34,6 +42,10 @@ public:
     FileScanner mFileScanner;
 
     FileWriter mFileWriter;
+
+#if defined UpnpLibQt_FOUND && UpnpLibQt_FOUND
+    UpnpDiscoverAllMusic *mDiscoveryEngine = nullptr;
+#endif
 };
 
 ModelDataLoader::ModelDataLoader(QObject *parent) : QObject(parent), d(std::make_unique<ModelDataLoaderPrivate>())
@@ -78,6 +90,26 @@ void ModelDataLoader::setDatabase(DatabaseInterface *database)
             this, &ModelDataLoader::clearedDatabase);
 }
 
+void ModelDataLoader::setUpnpDiscoverAllMusic(UpnpDiscoverAllMusic *discoveryEngine)
+{
+#if defined UpnpLibQt_FOUND && UpnpLibQt_FOUND
+    if (d->mDiscoveryEngine != discoveryEngine) {
+        if (d->mDiscoveryEngine) {
+            disconnect(d->mDiscoveryEngine);
+        }
+
+        d->mDiscoveryEngine = discoveryEngine;
+
+        connect(d->mDiscoveryEngine, &UpnpDiscoverAllMusic::newUpnpContentDirectoryService,
+                this, &ModelDataLoader::newUpnpContentDirectoryService);
+        connect(d->mDiscoveryEngine, &UpnpDiscoverAllMusic::removedUpnpContentDirectoryService,
+                this, &ModelDataLoader::removedUpnpContentDirectoryService);
+    }
+#else
+    Q_UNUSED(discoveryEngine)
+#endif
+}
+
 void ModelDataLoader::loadData(ElisaUtils::PlayListEntryType dataType)
 {
     if (!d->mDatabase) {
@@ -103,6 +135,12 @@ void ModelDataLoader::loadData(ElisaUtils::PlayListEntryType dataType)
         break;
     case ElisaUtils::Track:
         Q_EMIT allTracksData(d->mDatabase->allTracksData());
+        break;
+    case ElisaUtils::UpnpMediaServer:
+#if defined UpnpLibQt_FOUND && UpnpLibQt_FOUND
+        Q_EMIT d->mDiscoveryEngine->searchAllMediaServers(1);
+        Q_EMIT networkServicesAdded(d->mDiscoveryEngine->existingMediaServers());
+#endif
         break;
     case ElisaUtils::FileName:
     case ElisaUtils::Unknown:
@@ -144,6 +182,7 @@ void ModelDataLoader::loadDataByAlbumId(ElisaUtils::PlayListEntryType dataType, 
     case ElisaUtils::Radio:
     case ElisaUtils::Container:
     case ElisaUtils::PlayList:
+    case ElisaUtils::UpnpMediaServer:
         break;
     }
 }
@@ -172,6 +211,7 @@ void ModelDataLoader::loadDataByGenre(ElisaUtils::PlayListEntryType dataType, co
     case ElisaUtils::Radio:
     case ElisaUtils::Container:
     case ElisaUtils::PlayList:
+    case ElisaUtils::UpnpMediaServer:
         break;
     }
 }
@@ -200,6 +240,7 @@ void ModelDataLoader::loadDataByArtist(ElisaUtils::PlayListEntryType dataType, c
     case ElisaUtils::Radio:
     case ElisaUtils::Container:
     case ElisaUtils::PlayList:
+    case ElisaUtils::UpnpMediaServer:
         break;
     }
 }
@@ -229,6 +270,7 @@ void ModelDataLoader::loadDataByGenreAndArtist(ElisaUtils::PlayListEntryType dat
     case ElisaUtils::Radio:
     case ElisaUtils::Container:
     case ElisaUtils::PlayList:
+    case ElisaUtils::UpnpMediaServer:
         break;
     }
 }
@@ -260,6 +302,7 @@ void ModelDataLoader::loadDataByDatabaseIdAndUrl(ElisaUtils::PlayListEntryType d
     case ElisaUtils::Unknown:
     case ElisaUtils::Container:
     case ElisaUtils::PlayList:
+    case ElisaUtils::UpnpMediaServer:
         break;
     }
 }
@@ -305,6 +348,7 @@ void ModelDataLoader::loadDataByUrl(ElisaUtils::PlayListEntryType dataType, cons
     case ElisaUtils::Unknown:
     case ElisaUtils::Container:
     case ElisaUtils::PlayList:
+    case ElisaUtils::UpnpMediaServer:
         break;
     }
 }
@@ -332,6 +376,7 @@ void ModelDataLoader::loadRecentlyPlayedData(ElisaUtils::PlayListEntryType dataT
     case ElisaUtils::Radio:
     case ElisaUtils::Container:
     case ElisaUtils::PlayList:
+    case ElisaUtils::UpnpMediaServer:
         break;
     }
 }
@@ -359,8 +404,25 @@ void ModelDataLoader::loadFrequentlyPlayedData(ElisaUtils::PlayListEntryType dat
     case ElisaUtils::Radio:
     case ElisaUtils::Container:
     case ElisaUtils::PlayList:
+    case ElisaUtils::UpnpMediaServer:
         break;
     }
+}
+
+void ModelDataLoader::newUpnpContentDirectoryService(const QString &name, const QString &uuid)
+{
+    Q_EMIT networkServicesAdded({{{DataTypes::ElementTypeRole, QVariant::fromValue(ElisaUtils::UpnpMediaServer)},
+                                  {DataTypes::TitleRole, name},
+                                  {DataTypes::UUIDRole, uuid},}});
+}
+
+void ModelDataLoader::removedUpnpContentDirectoryService(const QString &name)
+{
+    NetworkServiceDataType removedService;
+
+    removedService[NetworkServiceDataType::key_type::TitleRole] = name;
+
+    Q_EMIT networkServiceRemoved(removedService);
 }
 
 void ModelDataLoader::databaseTracksAdded(const ListTrackDataType &newData)
@@ -386,6 +448,7 @@ void ModelDataLoader::databaseTracksAdded(const ListTrackDataType &newData)
     case ModelDataLoader::FilterType::FilterByRecentlyPlayed:
     case ModelDataLoader::FilterType::FilterByFrequentlyPlayed:
     case ModelDataLoader::FilterType::FilterByPath:
+    case ModelDataLoader::FilterType::FilterByData:
     case ModelDataLoader::FilterType::UnknownFilter:
         break;
     }
@@ -414,6 +477,7 @@ void ModelDataLoader::databaseArtistsAdded(const ListArtistDataType &newData)
     case ModelDataLoader::FilterType::FilterByRecentlyPlayed:
     case ModelDataLoader::FilterType::FilterByFrequentlyPlayed:
     case ModelDataLoader::FilterType::FilterByPath:
+    case ModelDataLoader::FilterType::FilterByData:
     case ModelDataLoader::FilterType::UnknownFilter:
         break;
     }
@@ -455,6 +519,7 @@ void ModelDataLoader::databaseAlbumsAdded(const ListAlbumDataType &newData)
     case ModelDataLoader::FilterType::FilterByRecentlyPlayed:
     case ModelDataLoader::FilterType::FilterByFrequentlyPlayed:
     case ModelDataLoader::FilterType::FilterByPath:
+    case ModelDataLoader::FilterType::FilterByData:
     case ModelDataLoader::FilterType::UnknownFilter:
         break;
     }

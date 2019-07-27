@@ -56,6 +56,10 @@ public:
 
     using GenreDataType = DataTypes::GenreDataType;
 
+    using ListNetworkServiceDataType = DataTypes::ListNetworkServiceDataType;
+
+    using NetworkServiceDataType = DataTypes::NetworkServiceDataType;
+
     using FilterType = ElisaUtils::FilterType;
 
     explicit DataModel(QObject *parent = nullptr);
@@ -126,6 +130,10 @@ public Q_SLOTS:
     void albumRemoved(qulonglong removedDatabaseId);
 
     void albumModified(const DataModel::AlbumDataType &modifiedAlbum);
+
+    void networkServicesAdded(const DataTypes::ListNetworkServiceDataType &newData);
+
+    void networkServiceRemoved(const DataTypes::NetworkServiceDataType &removedService);
 
     void initialize(MusicListenersManager *manager, DatabaseInterface *database,
                     ElisaUtils::PlayListEntryType modelType, ElisaUtils::FilterType filter,

@@ -12,6 +12,7 @@
 #include <KDirLister>
 
 #include "models/modelLogging.h"
+#include "datatypes.h"
 
 FileBrowserModel::FileBrowserModel(QObject *parent) : KDirModel(parent)
 {

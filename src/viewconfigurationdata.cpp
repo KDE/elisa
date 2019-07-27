@@ -6,6 +6,9 @@
 
 #include "viewconfigurationdata.h"
 
+#include <QAbstractItemModel>
+#include <QAbstractProxyModel>
+
 class ViewConfigurationDataPrivate
 {
 public:
@@ -15,7 +18,7 @@ public:
     ViewConfigurationDataPrivate(ElisaUtils::FilterType filterType, int expectedDepth,
                                  QString mainTitle, QString secondaryTitle,
                                  QUrl imageUrl, ElisaUtils::PlayListEntryType dataType,
-                                 QAbstractItemModel *model, QAbstractProxyModel *associatedProxyModel,
+                                 std::unique_ptr<QAbstractItemModel> model, std::unique_ptr<QAbstractProxyModel> associatedProxyModel,
                                  QUrl viewDefaultIcon, DataTypes::DataType dataFilter,
                                  int sortRole, QVector<int> sortRoles, QVector<QString> sortRoleNames,
                                  Qt::SortOrder sortOrder, QVector<QString> sortOrderNames,
@@ -28,8 +31,8 @@ public:
         , mSecondaryTitle(std::move(secondaryTitle))
         , mImageUrl(std::move(imageUrl))
         , mDataType(dataType)
-        , mModel(model)
-        , mAssociatedProxyModel(associatedProxyModel)
+        , mModel(model.release())
+        , mAssociatedProxyModel(associatedProxyModel.release())
         , mViewDefaultIcon(std::move(viewDefaultIcon))
         , mDataFilter(std::move(dataFilter))
         , mViewShowRating(viewShowRating)
@@ -46,7 +49,7 @@ public:
     ViewConfigurationDataPrivate(ElisaUtils::FilterType filterType, int expectedDepth,
                                  QString mainTitle, QString secondaryTitle,
                                  QUrl imageUrl, ElisaUtils::PlayListEntryType dataType,
-                                 QAbstractItemModel *model, QAbstractProxyModel *associatedProxyModel,
+                                 std::unique_ptr<QAbstractItemModel> model, std::unique_ptr<QAbstractProxyModel> associatedProxyModel,
                                  DataTypes::DataType dataFilter,
                                  int sortRole, QVector<int> sortRoles, QVector<QString> sortRoleNames,
                                  Qt::SortOrder sortOrder, QVector<QString> sortOrderNames,
@@ -60,8 +63,8 @@ public:
         , mSecondaryTitle(std::move(secondaryTitle))
         , mImageUrl(std::move(imageUrl))
         , mDataType(dataType)
-        , mModel(model)
-        , mAssociatedProxyModel(associatedProxyModel)
+        , mModel(model.release())
+        , mAssociatedProxyModel(associatedProxyModel.release())
         , mDataFilter(std::move(dataFilter))
         , mIsTreeModel(isTreeModel)
         , mSortRole(sortRole)
@@ -127,7 +130,7 @@ ViewConfigurationData::ViewConfigurationData(QObject *parent)
 ViewConfigurationData::ViewConfigurationData(ElisaUtils::FilterType filterType, int expectedDepth,
                                              QString mainTitle, QString secondaryTitle,
                                              QUrl imageUrl, ElisaUtils::PlayListEntryType dataType,
-                                             QAbstractItemModel *model, QAbstractProxyModel *associatedProxyModel,
+                                             std::unique_ptr<QAbstractItemModel> model, std::unique_ptr<QAbstractProxyModel> associatedProxyModel,
                                              QUrl viewDefaultIcon, DataTypes::DataType dataFilter,
                                              int sortRole, QVector<int> sortRoles, QVector<QString> sortRoleNames,
                                              Qt::SortOrder sortOrder, QVector<QString> sortOrderNames,
@@ -137,7 +140,7 @@ ViewConfigurationData::ViewConfigurationData(ElisaUtils::FilterType filterType, 
     : QObject(parent)
     , d(std::make_unique<ViewConfigurationDataPrivate>(filterType, expectedDepth, std::move(mainTitle),
                                                        std::move(secondaryTitle), std::move(imageUrl),
-                                                       dataType, model, associatedProxyModel,
+                                                       dataType, std::move(model), std::move(associatedProxyModel),
                                                        std::move(viewDefaultIcon), std::move(dataFilter),
                                                        sortRole, std::move(sortRoles), std::move(sortRoleNames),
                                                        sortOrder, std::move(sortOrderNames),
@@ -148,19 +151,17 @@ ViewConfigurationData::ViewConfigurationData(ElisaUtils::FilterType filterType, 
 
 ViewConfigurationData::ViewConfigurationData(ElisaUtils::FilterType filterType, int expectedDepth,
                                              QString mainTitle, QString secondaryTitle,
-                                             QUrl imageUrl, ElisaUtils::PlayListEntryType dataType,
-                                             QAbstractItemModel *model, QAbstractProxyModel *associatedProxyModel,
-                                             DataTypes::DataType dataFilter,
+                                             QUrl imageUrl, ElisaUtils::PlayListEntryType dataType, std::unique_ptr<QAbstractItemModel> model,
+                                             std::unique_ptr<QAbstractProxyModel> associatedProxyModel, DataTypes::DataType dataFilter,
                                              int sortRole, QVector<int> sortRoles, QVector<QString> sortRoleNames,
                                              Qt::SortOrder sortOrder, QVector<QString> sortOrderNames,
                                              ViewManager::AlbumCardinality displaySingleAlbum,
-                                             ViewManager::AlbumViewStyle showDiscHeaders,
-                                             ViewManager::RadioSpecificStyle radioCase,
+                                             ViewManager::AlbumViewStyle showDiscHeaders, ViewManager::RadioSpecificStyle radioCase,
                                              ViewManager::IsTreeModelType isTreeModel, QObject *parent)
     : QObject(parent)
     , d(std::make_unique<ViewConfigurationDataPrivate>(filterType, expectedDepth, std::move(mainTitle),
                                                        std::move(secondaryTitle), std::move(imageUrl),
-                                                       dataType, model, associatedProxyModel, std::move(dataFilter),
+                                                       dataType, std::move(model), std::move(associatedProxyModel), std::move(dataFilter),
                                                        sortRole, std::move(sortRoles), std::move(sortRoleNames),
                                                        sortOrder, std::move(sortOrderNames), displaySingleAlbum, showDiscHeaders,
                                                        radioCase, isTreeModel))

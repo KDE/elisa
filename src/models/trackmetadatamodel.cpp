@@ -236,6 +236,9 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
         case DataTypes::MultipleImageUrlsRole:
         case DataTypes::LyricsLocationRole:
         case DataTypes::TracksCountRole:
+        case DataTypes::ChildCountRole:
+        case DataTypes::HasModelChildrenRole:
+        case DataTypes::UUIDRole:
             break;
         }
         break;
@@ -612,6 +615,9 @@ QString TrackMetadataModel::nameFromRole(DataTypes::ColumnsRoles role)
     case DataTypes::MultipleImageUrlsRole:
     case DataTypes::LyricsLocationRole:
     case DataTypes::TracksCountRole:
+    case DataTypes::ChildCountRole:
+    case DataTypes::HasModelChildrenRole:
+    case DataTypes::UUIDRole:
         break;
     }
     return result;
@@ -649,7 +655,7 @@ void TrackMetadataModel::fetchLyrics()
                 prober.feed(fileContent);
                 const QByteArray encoding(prober.encoding());
                 QString decodedContent;
-                
+
                 QStringDecoder toUtf16;
                 if (prober.confidence() > 0.5 && prober.state() != KEncodingProber::Probing) {
 

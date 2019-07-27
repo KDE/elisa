@@ -209,7 +209,14 @@ if (Qt6DBus_FOUND)
     )
 endif()
 
-if (UPNPQT_FOUND)
+if (UpnpLibQt_FOUND)
+    ecm_qt_declare_logging_category(elisaLib_SOURCES
+        HEADER "upnpLogging.h"
+        IDENTIFIER "orgKdeElisaUpnp"
+        CATEGORY_NAME "org.kde.elisa.upnp"
+        DEFAULT_SEVERITY Info
+        )
+
     set(elisaLib_SOURCES
         ${elisaLib_SOURCES}
         upnp/upnpcontrolcontentdirectory.cpp
@@ -217,7 +224,6 @@ if (UPNPQT_FOUND)
         upnp/upnpcontrolconnectionmanager.cpp
         upnp/upnpcontrolmediaserver.cpp
         upnp/didlparser.cpp
-        upnp/upnplistener.cpp
         upnp/upnpdiscoverallmusic.cpp
         )
     set(elisaLib_INCLUDEDIRS
@@ -291,6 +297,13 @@ endif()
 
 if (ANDROID)
     target_link_libraries(elisaLib PRIVATE Qt6::CorePrivate Qt6::Quick jnigraphics)
+endif()
+
+if (UpnpLibQt_FOUND)
+    target_link_libraries(elisaLib
+        LINK_PUBLIC
+        UPNP::UpnpLibQt
+        )
 endif()
 
 generate_export_header(elisaLib BASE_NAME ElisaLib EXPORT_FILE_NAME elisaLib_export.h)

@@ -6,6 +6,8 @@
 
 #include "viewmanager.h"
 
+#include "config-upnp-qt.h"
+
 #include "viewslistdata.h"
 #include "viewconfigurationdata.h"
 #include "viewsLogging.h"
@@ -21,6 +23,10 @@
 
 #include <KLocalizedString>
 
+#if defined UpnpLibQt_FOUND && UpnpLibQt_FOUND
+#include "upnp/upnpcontentdirectorymodel.h"
+#endif
+
 #include <QQmlEngine>
 #include <QMetaEnum>
 
@@ -32,8 +38,8 @@ public:
     QMap<ElisaUtils::PlayListEntryType, ViewParameters> mChildViews = {
         {ElisaUtils::Album, {{},
                              QUrl{QStringLiteral("image://icon/view-media-track")},
-                             ViewManager::TrackView,
-                             ViewManager::GenericDataModel,
+                             ViewManager::ListView,
+                             ViewManager::GenericDataModelType,
                              ElisaUtils::FilterById,
                              ElisaUtils::Track,
                              DataTypes::TrackNumberRole,
@@ -47,7 +53,7 @@ public:
         {ElisaUtils::Genre, {{},
                              QUrl{QStringLiteral("image://icon/view-media-artist")},
                              ViewManager::GridView,
-                             ViewManager::GenericDataModel,
+                             ViewManager::GenericDataModelType,
                              ElisaUtils::FilterByGenre,
                              ElisaUtils::Artist,
                              Qt::DisplayRole,
@@ -61,7 +67,7 @@ public:
         {ElisaUtils::Artist, {{},
                               QUrl{QStringLiteral("image://icon/view-media-album-cover")},
                               ViewManager::GridView,
-                              ViewManager::GenericDataModel,
+                              ViewManager::GenericDataModelType,
                               ElisaUtils::FilterByArtist,
                               ElisaUtils::Album,
                               DataTypes::TitleRole,
@@ -75,7 +81,7 @@ public:
         {ElisaUtils::Container, {{},
                                  QUrl{QStringLiteral("image://icon/folder")},
                                  ViewManager::GridView,
-                                 ViewManager::FileBrowserModel,
+                                 ViewManager::FileBrowserModelType,
                                  ElisaUtils::FilterByPath,
                                  ElisaUtils::FileName,
                                  Qt::DisplayRole,
@@ -106,6 +112,21 @@ public:
                              i18nc("@item:inmenu", "Oldest First"), i18nc("@item:inmenu", "Newest First")},
                              ViewManager::MultipleAlbum,
                              ViewManager::NoDiscHeaders}},
+        {ElisaUtils::UpnpMediaServer, {{},
+                                       QUrl{QStringLiteral("image://icon/network-server")},
+                                       ViewManager::GridView,
+                                       ViewManager::UpnpContentDirectoryModelType,
+                                       ElisaUtils::FilterByData,
+                                       ElisaUtils::UpnpMediaServer,
+                                       Qt::DisplayRole,
+                                       {Qt::DisplayRole},
+                                       {i18n("Name")},
+                                       Qt::AscendingOrder,
+                                       {i18n("A-Z"), i18n("Z-A")},
+                                       QUrl{QStringLiteral("image://icon/network-server")},
+                                       ViewManager::DelegateWithoutSecondaryText,
+                                       ViewManager::ViewHideRating,
+                                       ViewManager::IsFlatModel}},
     };
 
     int mViewIndex = -1;
@@ -279,34 +300,34 @@ void ViewManager::openViewFromData(const ViewParameters &viewParamaters)
 {
     qCDebug(orgKdeElisaViews()) << "ViewManager::openViewFromData" << d->mViewParametersStack.size();
 
-    QAbstractItemModel *newModel = nullptr;
-    QAbstractProxyModel *proxyModel = nullptr;
+    std::unique_ptr<QAbstractItemModel> newModel;
+    std::unique_ptr<QAbstractProxyModel> proxyModel;
 
     switch (viewParamaters.mModelType)
     {
-    case FileBrowserModel:
-    {
+    case FileBrowserModelType:
 #if KFKIO_FOUND
-        newModel = new ::FileBrowserModel;
-        auto *realProxyModel = new FileBrowserProxyModel;
-        proxyModel = realProxyModel;
-#else
-        newModel = nullptr;
-        proxyModel = nullptr;
+        newModel = std::make_unique<FileBrowserModel>();
+        proxyModel = std::make_unique<FileBrowserProxyModel>();
 #endif
         break;
-    }
-    case GenericDataModel:
-        newModel = new DataModel;
-        proxyModel = new GridViewProxyModel;
+    case GenericDataModelType:
+        newModel = std::make_unique<DataModel>();
+        proxyModel = std::make_unique<GridViewProxyModel>();
+        break;
+    case UpnpContentDirectoryModelType:
+#if defined UpnpLibQt_FOUND && UpnpLibQt_FOUND
+        newModel = std::make_unique<UpnpContentDirectoryModel>();
+        proxyModel = std::make_unique<GridViewProxyModel>();
+#endif
         break;
     case UnknownModelType:
         qCDebug(orgKdeElisaViews()) << "ViewManager::openViewFromData" << "unknown model type";
         break;
     }
 
-    QQmlEngine::setObjectOwnership(newModel, QQmlEngine::JavaScriptOwnership);
-    QQmlEngine::setObjectOwnership(proxyModel, QQmlEngine::JavaScriptOwnership);
+    QQmlEngine::setObjectOwnership(newModel.get(), QQmlEngine::JavaScriptOwnership);
+    QQmlEngine::setObjectOwnership(proxyModel.get(), QQmlEngine::JavaScriptOwnership);
 
     d->mViewParametersStack.push_back(viewParamaters);
     switch (viewParamaters.mViewPresentationType)
@@ -324,7 +345,7 @@ void ViewManager::openViewFromData(const ViewParameters &viewParamaters)
         auto configurationData = std::make_unique<ViewConfigurationData>(viewParamaters.mFilterType, viewParamaters.mDepth,
                                                                          viewParamaters.mMainTitle, viewParamaters.mSecondaryTitle,
                                                                          viewParamaters.mMainImage, viewParamaters.mDataType,
-                                                                         newModel, proxyModel, viewParamaters.mFallbackItemIcon,
+                                                                         std::move(newModel), std::move(proxyModel), viewParamaters.mFallbackItemIcon,
                                                                          viewParamaters.mDataFilter,
                                                                          computePreferredSortRole(viewParamaters.mSortRole, viewParamaters.mFilterType),
                                                                          viewParamaters.mSortRoles, viewParamaters.mSortRoleNames,
@@ -351,7 +372,7 @@ void ViewManager::openViewFromData(const ViewParameters &viewParamaters)
         auto configurationData = std::make_unique<ViewConfigurationData>(viewParamaters.mFilterType, viewParamaters.mDepth,
                                                                          viewParamaters.mMainTitle, viewParamaters.mSecondaryTitle,
                                                                          viewParamaters.mMainImage, viewParamaters.mDataType,
-                                                                         newModel, proxyModel, viewParamaters.mDataFilter,
+                                                                         std::move(newModel), std::move(proxyModel), viewParamaters.mDataFilter,
                                                                          computePreferredSortRole(viewParamaters.mSortRole, viewParamaters.mFilterType),
                                                                          viewParamaters.mSortRoles, viewParamaters.mSortRoleNames,
                                                                          computePreferredSortOrder(viewParamaters.mSortOrder, viewParamaters.mFilterType),
@@ -386,6 +407,7 @@ void ViewManager::applyFilter(ViewParameters &nextViewParameters,
     case ElisaUtils::FilterByPath:
     case ElisaUtils::FilterById:
     case ElisaUtils::UnknownFilter:
+    case ElisaUtils::FilterByData:
         break;
     case ElisaUtils::FilterByGenre:
         nextViewParameters.mDataFilter[DataTypes::GenreRole] = std::move(title);

@@ -78,6 +78,9 @@ public:
         MultipleImageUrlsRole,
         LyricsLocationRole,
         TracksCountRole,
+        UUIDRole,
+        ChildCountRole,
+        HasModelChildrenRole,
     };
 
     Q_ENUM(ColumnsRoles)
@@ -159,6 +162,16 @@ public:
         [[nodiscard]] qulonglong albumId() const
         {
             return operator[](key_type::AlbumIdRole).toULongLong();
+        }
+
+        [[nodiscard]] QString id() const
+        {
+            return operator[](key_type::IdRole).toString();
+        }
+
+        [[nodiscard]] QString parentId() const
+        {
+            return operator[](key_type::ParentIdRole).toString();
         }
 
         [[nodiscard]] bool hasAlbum() const
@@ -336,6 +349,70 @@ public:
 
     using ListRadioDataType = QList<TrackDataType>;
 
+    class UpnpTrackDataType : public TrackDataType
+    {
+    public:
+
+        using TrackDataType::TrackDataType;
+
+        [[nodiscard]] QString id() const
+        {
+            return operator[](key_type::IdRole).toString();
+        }
+
+        void setId(const QString &id)
+        {
+            operator[](key_type::IdRole) = id;
+        }
+
+        [[nodiscard]] QString parentId() const
+        {
+            return operator[](key_type::ParentIdRole).toString();
+        }
+
+        void setParentId(const QString &parentId)
+        {
+            operator[](key_type::ParentIdRole) = parentId;
+        }
+
+        void setTitle(const QString &title)
+        {
+            operator[](key_type::TitleRole) = title;
+        }
+
+        void setArtist(const QString &artist)
+        {
+            operator[](key_type::ArtistRole) = artist;
+        }
+
+        void setAlbumArtist(const QString &albumArtist)
+        {
+            operator[](key_type::AlbumArtistRole) = albumArtist;
+        }
+
+        void setAlbum(const QString &album)
+        {
+            operator[](key_type::AlbumRole) = album;
+        }
+
+        void setResourceURI(const QUrl &resourceURI)
+        {
+            operator[](key_type::ResourceRole) = resourceURI;
+        }
+
+        void setDuration(QTime duration)
+        {
+            operator[](key_type::DurationRole) = duration;
+        }
+
+        void setTrackNumber(int track)
+        {
+            operator[](key_type::TrackNumberRole) = track;
+        }
+    };
+
+    using ListUpnpTrackDataType = QList<UpnpTrackDataType>;
+
     class AlbumDataType : public MusicDataType
     {
     public:
@@ -433,6 +510,21 @@ public:
     };
     using EntryDataList = QList<EntryData>;
 
+    class NetworkServiceDataType : public MusicDataType
+    {
+    public:
+
+        using MusicDataType::MusicDataType;
+
+        QString title() const
+        {
+            return operator[](key_type::TitleRole).toString();
+        }
+
+    };
+
+    using ListNetworkServiceDataType = QList<NetworkServiceDataType>;
+
 };
 
 Q_DECLARE_METATYPE(DataTypes::MusicDataType)
@@ -440,11 +532,13 @@ Q_DECLARE_METATYPE(DataTypes::TrackDataType)
 Q_DECLARE_METATYPE(DataTypes::AlbumDataType)
 Q_DECLARE_METATYPE(DataTypes::ArtistDataType)
 Q_DECLARE_METATYPE(DataTypes::GenreDataType)
+Q_DECLARE_METATYPE(DataTypes::UpnpTrackDataType)
 
 Q_DECLARE_METATYPE(DataTypes::ListTrackDataType)
 Q_DECLARE_METATYPE(DataTypes::ListAlbumDataType)
 Q_DECLARE_METATYPE(DataTypes::ListArtistDataType)
 Q_DECLARE_METATYPE(DataTypes::ListGenreDataType)
+Q_DECLARE_METATYPE(DataTypes::ListUpnpTrackDataType)
 
 Q_DECLARE_METATYPE(DataTypes::EntryData)
 Q_DECLARE_METATYPE(DataTypes::EntryDataList)

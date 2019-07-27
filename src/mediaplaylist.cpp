@@ -398,11 +398,13 @@ void MediaPlayList::enqueueMultipleEntries(const DataTypes::EntryDataList &entri
 
         const auto trackUrl = entryData.url.isValid() ? entryData.url : entryData.musicData[DataTypes::ResourceRole].toUrl();
         if (!entryData.musicData.databaseId() && trackUrl.isValid()) {
+            qCDebug(orgKdeElisaPlayList()) << "MediaPlayList::enqueueMultipleEntries" << "enqueue by filename";
             auto newEntry = MediaPlayListEntry{trackUrl};
             newEntry.mEntryType = ElisaUtils::FileName;
             d->mData.insert(i, std::move(newEntry));
             d->mTrackData.insert(i, {});
         } else {
+            qCDebug(orgKdeElisaPlayList()) << "MediaPlayList::enqueueMultipleEntries" << "enqueue directly by data";
             d->mData.insert(i, MediaPlayListEntry{entryData.musicData.databaseId(), entryData.title, entryData.musicData.elementType()});
             const auto &data = entryData.musicData;
             switch (data.elementType())
@@ -422,6 +424,7 @@ void MediaPlayList::enqueueMultipleEntries(const DataTypes::EntryDataList &entri
                                            << entryData.musicData.hasElementType() << entryData.musicData.elementType();
             Q_EMIT newUrlInList(trackUrl, entryData.musicData.hasElementType() ? entryData.musicData.elementType() : ElisaUtils::FileName);
         } else {
+            qCDebug(orgKdeElisaPlayList()) << "MediaPlayList::enqueueMultipleEntries" << "new entry in list";
             Q_EMIT newEntryInList(entryData.musicData.databaseId(), entryData.title, entryData.musicData.elementType());
         }
         ++i;

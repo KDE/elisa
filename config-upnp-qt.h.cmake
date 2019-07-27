@@ -6,7 +6,7 @@
 
 #cmakedefine01 KFCrash_FOUND
 
-#cmakedefine01 UPNPQT_FOUND
+#cmakedefine01 UpnpLibQt_FOUND
 
 #cmakedefine01 QtDBus_FOUND
 

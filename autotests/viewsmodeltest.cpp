@@ -28,7 +28,7 @@ class ViewsModelTests : public QObject, public DatabaseTestData
     Q_OBJECT
 
 private:
-    const int mNumOfBaseViews = 9;
+    const int mNumOfBaseViews = 10;
 
 private Q_SLOTS:
 
@@ -384,6 +384,7 @@ private Q_SLOTS:
         QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(5, 0), Qt::DisplayRole), QStringLiteral("Genres"));
         QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(6, 0), Qt::DisplayRole), QStringLiteral("Files"));
         QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(7, 0), Qt::DisplayRole), QStringLiteral("Radio Stations"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(8, 0), Qt::DisplayRole), QStringLiteral("UPnP Shares"));
     }
 
     void simpleSwitchToEmbeddedArtistCategory()
@@ -435,6 +436,7 @@ private Q_SLOTS:
         QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(5, 0), Qt::DisplayRole), QStringLiteral("Genres"));
         QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(6, 0), Qt::DisplayRole), QStringLiteral("Files"));
         QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(7, 0), Qt::DisplayRole), QStringLiteral("Radio Stations"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(8, 0), Qt::DisplayRole), QStringLiteral("UPnP Shares"));
     }
 
     void simpleSwitchToEmbeddedGenreCategory()
@@ -486,6 +488,7 @@ private Q_SLOTS:
         QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(5, 0), Qt::DisplayRole), QStringLiteral("Tracks"));
         QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(6, 0), Qt::DisplayRole), QStringLiteral("Files"));
         QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(7, 0), Qt::DisplayRole), QStringLiteral("Radio Stations"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(8, 0), Qt::DisplayRole), QStringLiteral("UPnP Shares"));
     }
 
     void simpleSwitchToEmbeddedAlbumCategoryWithoutDatabase()
@@ -532,6 +535,7 @@ private Q_SLOTS:
         QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(5, 0), Qt::DisplayRole), QStringLiteral("Genres"));
         QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(6, 0), Qt::DisplayRole), QStringLiteral("Files"));
         QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(7, 0), Qt::DisplayRole), QStringLiteral("Radio Stations"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(8, 0), Qt::DisplayRole), QStringLiteral("UPnP Shares"));
     }
 
     void simpleSwitchToEmbeddedArtistCategoryWithoutDatabase()
@@ -578,6 +582,7 @@ private Q_SLOTS:
         QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(5, 0), Qt::DisplayRole), QStringLiteral("Genres"));
         QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(6, 0), Qt::DisplayRole), QStringLiteral("Files"));
         QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(7, 0), Qt::DisplayRole), QStringLiteral("Radio Stations"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(8, 0), Qt::DisplayRole), QStringLiteral("UPnP Shares"));
     }
 
     void simpleSwitchToEmbeddedGenreCategoryWithoutDatabase()
@@ -624,6 +629,7 @@ private Q_SLOTS:
         QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(5, 0), Qt::DisplayRole), QStringLiteral("Tracks"));
         QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(6, 0), Qt::DisplayRole), QStringLiteral("Files"));
         QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(7, 0), Qt::DisplayRole), QStringLiteral("Radio Stations"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(8, 0), Qt::DisplayRole), QStringLiteral("UPnP Shares"));
     }
 
     void switchToEmbeddedAlbumCategoryAndToEmbeddedArtistCategory()
@@ -724,6 +730,7 @@ private Q_SLOTS:
         QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(5, 0), Qt::DisplayRole), QStringLiteral("Genres"));
         QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(6, 0), Qt::DisplayRole), QStringLiteral("Files"));
         QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(7, 0), Qt::DisplayRole), QStringLiteral("Radio Stations"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(8, 0), Qt::DisplayRole), QStringLiteral("UPnP Shares"));
         QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(8, 0), Qt::DisplayRole), QStringLiteral("artist1"));
         QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(9, 0), Qt::DisplayRole), QStringLiteral("artist1 and artist2"));
         QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(10, 0), Qt::DisplayRole), QStringLiteral("artist2"));
@@ -754,6 +761,7 @@ private Q_SLOTS:
         QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(6, 0), Qt::DisplayRole), QStringLiteral("Genres"));
         QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(7, 0), Qt::DisplayRole), QStringLiteral("Files"));
         QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(8, 0), Qt::DisplayRole), QStringLiteral("Radio Stations"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(8, 0), Qt::DisplayRole), QStringLiteral("UPnP Shares"));
     }
 };
 

@@ -29,6 +29,8 @@ public:
 
     ModelDataLoader *mDataLoader = nullptr;
 
+    DataModel::ListNetworkServiceDataType mAllNetworkServicesData;
+
     ElisaUtils::PlayListEntryType mModelType = ElisaUtils::Unknown;
 
     ElisaUtils::FilterType mFilterType = ElisaUtils::UnknownFilter;
@@ -97,6 +99,7 @@ QHash<int, QByteArray> DataModel::roleNames() const
     roles[static_cast<int>(DataTypes::ColumnsRoles::IsSingleDiscAlbumRole)] = "isSingleDiscAlbum";
     roles[static_cast<int>(DataTypes::ColumnsRoles::FullDataRole)] = "fullData";
     roles[static_cast<int>(DataTypes::ColumnsRoles::HasChildrenRole)] = "hasChildren";
+    roles[static_cast<int>(DataTypes::ColumnsRoles::HasModelChildrenRole)] = "hasModelChildren";
 
     return roles;
 }
@@ -118,7 +121,9 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
         return result;
     }
 
-    const auto dataCount = d->mModelType == ElisaUtils::Radio ? d->mAllRadiosData.size() : d->mAllTrackData.size() + d->mAllAlbumData.size() + d->mAllArtistData.size() + d->mAllGenreData.size();
+    const auto dataCount = d->mAllTrackData.size() + d->mAllAlbumData.size() +
+            d->mAllArtistData.size() + d->mAllGenreData.size() + d->mAllRadiosData.size() +
+            d->mAllNetworkServicesData.size();
 
     Q_ASSERT(index.isValid());
     Q_ASSERT(index.column() == 0);
@@ -149,6 +154,9 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
             break;
         case ElisaUtils::Radio:
             result = d->mAllRadiosData[index.row()][GenreDataType::key_type::TitleRole];
+            break;
+        case ElisaUtils::UpnpMediaServer:
+            result = d->mAllNetworkServicesData[index.row()][NetworkServiceDataType::key_type::TitleRole];
             break;
         case ElisaUtils::Lyricist:
         case ElisaUtils::Composer:
@@ -183,6 +191,7 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
         case ElisaUtils::Container:
         case ElisaUtils::Unknown:
         case ElisaUtils::PlayList:
+        case ElisaUtils::UpnpMediaServer:
             break;
         }
         break;
@@ -208,6 +217,7 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
         case ElisaUtils::Container:
         case ElisaUtils::Unknown:
         case ElisaUtils::PlayList:
+        case ElisaUtils::UpnpMediaServer:
             break;
         }
         break;
@@ -244,6 +254,7 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
         case ElisaUtils::Container:
         case ElisaUtils::Unknown:
         case ElisaUtils::PlayList:
+        case ElisaUtils::UpnpMediaServer:
             break;
         }
         break;
@@ -265,6 +276,9 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
             break;
         case ElisaUtils::Genre:
             result = QVariant::fromValue(static_cast<DataTypes::MusicDataType>(d->mAllGenreData[index.row()]));
+            break;
+        case ElisaUtils::UpnpMediaServer:
+            result = QVariant::fromValue(static_cast<DataTypes::MusicDataType>(d->mAllNetworkServicesData[index.row()]));
             break;
         case ElisaUtils::Lyricist:
         case ElisaUtils::Composer:
@@ -294,6 +308,7 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
         case ElisaUtils::Container:
         case ElisaUtils::Unknown:
         case ElisaUtils::PlayList:
+        case ElisaUtils::UpnpMediaServer:
             result = QUrl{};
             break;
         }
@@ -338,6 +353,9 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
             break;
         case ElisaUtils::Radio:
             result = d->mAllRadiosData[index.row()][static_cast<TrackDataType::key_type>(role)];
+            break;
+        case ElisaUtils::UpnpMediaServer:
+            result = d->mAllNetworkServicesData[index.row()][static_cast<TrackDataType::key_type>(role)];
             break;
         case ElisaUtils::Lyricist:
         case ElisaUtils::Composer:
@@ -434,6 +452,10 @@ void DataModel::initializeModel(MusicListenersManager *manager, DatabaseInterfac
         return;
     }
 
+    if (manager && manager->ssdpEngine() && manager->upnpServiceDiscovery()) {
+        d->mDataLoader->setUpnpDiscoverAllMusic(manager->upnpServiceDiscovery());
+    }
+
     switch(d->mFilterType)
     {
     case ElisaUtils::NoFilter:
@@ -465,6 +487,7 @@ void DataModel::initializeModel(MusicListenersManager *manager, DatabaseInterfac
                 d->mDataLoader, &ModelDataLoader::loadFrequentlyPlayedData);
         break;
     case ElisaUtils::FilterByPath:
+    case ModelDataLoader::FilterType::FilterByData:
     case ElisaUtils::UnknownFilter:
         break;
     }
@@ -500,6 +523,7 @@ void DataModel::askModelData()
         Q_EMIT needFrequentlyPlayedData(d->mModelType);
         break;
     case ElisaUtils::FilterByPath:
+    case ModelDataLoader::FilterType::FilterByData:
     case ElisaUtils::UnknownFilter:
         break;
     }
@@ -562,6 +586,10 @@ void DataModel::connectModel(DatabaseInterface *database)
             this, &DataModel::radioRemoved);
     connect(d->mDataLoader, &ModelDataLoader::clearedDatabase,
             this, &DataModel::cleanedDatabase);
+    connect(d->mDataLoader, &ModelDataLoader::networkServicesAdded,
+            this, &DataModel::networkServicesAdded);
+    connect(d->mDataLoader, &ModelDataLoader::networkServiceRemoved,
+            this, &DataModel::networkServiceRemoved);
 }
 
 void DataModel::tracksAdded(ListTrackDataType newData)
@@ -986,6 +1014,53 @@ void DataModel::initialize(MusicListenersManager *manager, DatabaseInterface *da
     d->mArtist = artist;
 
     initializeModel(manager, database, modelType, filter);
+}
+
+void DataModel::networkServicesAdded(const DataTypes::ListNetworkServiceDataType &newData)
+{
+    if (newData.isEmpty() && d->mModelType == ElisaUtils::UpnpMediaServer) {
+        setBusy(false);
+    }
+
+    if (newData.isEmpty() || d->mModelType != ElisaUtils::UpnpMediaServer) {
+        return;
+    }
+
+    if (d->mAllNetworkServicesData.isEmpty()) {
+        beginInsertRows({}, d->mAllNetworkServicesData.size(), newData.size() - 1);
+        d->mAllNetworkServicesData = std::move(newData);
+        endInsertRows();
+
+        setBusy(false);
+    } else {
+        beginInsertRows({}, d->mAllNetworkServicesData.size(), d->mAllNetworkServicesData.size() + newData.size() - 1);
+        d->mAllNetworkServicesData.append(newData);
+        endInsertRows();
+    }
+}
+
+void DataModel::networkServiceRemoved(const DataModel::NetworkServiceDataType &removedService)
+{
+    if (d->mModelType != ElisaUtils::UpnpMediaServer) {
+        return;
+    }
+
+    auto removedDataIterator = d->mAllNetworkServicesData.end();
+
+    removedDataIterator = std::find_if(d->mAllNetworkServicesData.begin(), d->mAllNetworkServicesData.end(),
+                                       [removedService](auto networkService) { return networkService.title() == removedService.title(); });
+
+    if (removedDataIterator == d->mAllNetworkServicesData.end()) {
+        return;
+    }
+
+    int dataIndex = removedDataIterator - d->mAllNetworkServicesData.begin();
+
+    beginRemoveRows({}, dataIndex, dataIndex);
+
+    d->mAllNetworkServicesData.erase(removedDataIterator);
+
+    endRemoveRows();
 }
 
 void DataModel::cleanedDatabase()

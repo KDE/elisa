@@ -56,6 +56,7 @@ enum PlayListEntryType {
     Container,
     Radio,
     PlayList,
+    UpnpMediaServer,
     Unknown,
 };
 
@@ -71,6 +72,7 @@ enum FilterType {
     FilterByRecentlyPlayed,
     FilterByFrequentlyPlayed,
     FilterByPath,
+    FilterByData,
 };
 
 Q_ENUM_NS(FilterType)

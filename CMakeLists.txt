@@ -137,13 +137,13 @@ else()
         TYPE RUNTIME)
 endif()
 
-find_package(UPNPQT CONFIG QUIET)
-set_package_properties(UPNPQT PROPERTIES
+find_package(UpnpLibQt CONFIG QUIET)
+set_package_properties(UpnpLibQt PROPERTIES
     DESCRIPTION "UPNP layer build with Qt. UPnP support is currently broken. You should probably avoid this dependency."
-    URL "https://gitlab.com/homeautomationqt/upnp-player-qt"
+    URL "https://invent.kde.org/libraries/upnp-lib-qt"
     TYPE OPTIONAL)
 
-if (UPNPQT_FOUND)
+if (UpnpLibQt_FOUND)
     message(WARNING "UPnP support is experimental and may not work.")
 endif()
 

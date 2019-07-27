@@ -88,8 +88,9 @@ public:
     Q_ENUM(ViewPresentationType)
 
     enum ModelType {
-        GenericDataModel,
-        FileBrowserModel,
+        GenericDataModelType,
+        FileBrowserModelType,
+        UpnpContentDirectoryModelType,
         UnknownModelType,
     };
 

@@ -251,13 +251,14 @@ ColumnLayout {
             model: [KI18n.i18nc("@item:inlistbox Configure dialog, embed no category in views navigation list", "Nothing"),
                 KI18n.i18nc("@item:inlistbox Configure dialog, embed all albums in views navigation list", "Albums"),
                 KI18n.i18nc("@item:inlistbox Configure dialog, embed all artists in views navigation list", "Artists"),
-                KI18n.i18nc("@item:inlistbox Configure dialog, embed all genres in views navigation list", "Genres")]
+                KI18n.i18nc("@item:inlistbox Configure dialog, embed all genres in views navigation list", "Genres"),
+                KI18n.i18nc("@item:inlistbox Configure dialog, embed all UPnP Media Servers in views navigation list", "Embed UPnP Media Servers")]
 
             editable: false
-            currentIndex: (ElisaConfigurationDialog.embeddedView === ElisaUtils.Genre ? 3 : (ElisaConfigurationDialog.embeddedView === ElisaUtils.Album ? 1 : (ElisaConfigurationDialog.embeddedView === ElisaUtils.Artist ? 2 : 0)))
+            currentIndex: (ElisaConfigurationDialog.embeddedView === ElisaUtils.Genre ? 3 : (ElisaConfigurationDialog.embeddedView === ElisaUtils.Album ? 1 : (ElisaConfigurationDialog.embeddedView === ElisaUtils.Artist ? 2 : (ElisaConfigurationDialog.embeddedView === ElisaUtils.UpnpMediaServer ? 4 : 0))))
 
             onActivated: {
-                ElisaConfigurationDialog.embeddedView = (currentIndex === 0 ? ElisaUtils.Unknown : (currentIndex === 1 ? ElisaUtils.Album : (currentIndex === 2 ? ElisaUtils.Artist : ElisaUtils.Genre)))
+                ElisaConfigurationDialog.embeddedView = (currentIndex === 0 ? ElisaUtils.Unknown : (currentIndex === 1 ? ElisaUtils.Album : (currentIndex === 2 ? ElisaUtils.Artist : (currentIndex === 3 ? ElisaUtils.Genre : ElisaUtils.UpnpMediaServer))))
             }
 
             Connections {
@@ -272,6 +273,8 @@ ColumnLayout {
                         embeddedCategoryCombo.currentIndex = 2
                     } else if (ElisaConfigurationDialog.embeddedView == ElisaUtils.Genre) {
                         embeddedCategoryCombo.currentIndex = 3
+                    } else if (ElisaConfigurationDialog.embeddedView == ElisaUtils.UpnpMediaServer) {
+                        embeddedCategoryCombo.currentIndex = 4
                     }
                 }
             }

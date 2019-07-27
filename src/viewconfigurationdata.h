@@ -116,8 +116,8 @@ public:
     // Grid/List views
     explicit ViewConfigurationData(ElisaUtils::FilterType filterType, int expectedDepth,
                                    QString mainTitle, QString secondaryTitle, QUrl imageUrl,
-                                   ElisaUtils::PlayListEntryType dataType, QAbstractItemModel *model,
-                                   QAbstractProxyModel *associatedProxyModel, QUrl viewDefaultIcon,
+                                   ElisaUtils::PlayListEntryType dataType, std::unique_ptr<QAbstractItemModel> model,
+                                   std::unique_ptr<QAbstractProxyModel> associatedProxyModel, QUrl viewDefaultIcon,
                                    DataTypes::DataType dataFilter,
                                    int sortRole, QList<int> sortRoles, QList<QString> sortRoleNames,
                                    Qt::SortOrder sortOrder, QList<QString> sortOrderNames,
@@ -129,8 +129,8 @@ public:
     // Track views
     explicit ViewConfigurationData(ElisaUtils::FilterType filterType, int expectedDepth,
                                    QString mainTitle, QString secondaryTitle,
-                                   QUrl imageUrl, ElisaUtils::PlayListEntryType dataType, QAbstractItemModel *model,
-                                   QAbstractProxyModel *associatedProxyModel, DataTypes::DataType dataFilter,
+                                   QUrl imageUrl, ElisaUtils::PlayListEntryType dataType, std::unique_ptr<QAbstractItemModel> model,
+                                   std::unique_ptr<QAbstractProxyModel> associatedProxyModel, DataTypes::DataType dataFilter,
                                    int sortRole, QList<int> sortRoles, QList<QString> sortRoleNames,
                                    Qt::SortOrder sortOrder, QList<QString> sortOrderNames,
                                    ViewManager::AlbumCardinality displaySingleAlbum,

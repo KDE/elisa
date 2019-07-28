@@ -33,6 +33,7 @@ FocusScope {
     property alias showRating: gridView.showRating
     property alias delegateDisplaySecondaryText: gridView.delegateDisplaySecondaryText
     property alias isSubPage: gridView.isSubPage
+    property alias expandedFilterView: gridView.expandedFilterView
     property string genreFilterText
     property string artistFilter
 

@@ -47,6 +47,7 @@ ApplicationWindow {
     property var seekAction: elisa.action("Seek")
     property var scrubAction: elisa.action("Scrub")
     property var playPauseAction: elisa.action("Play-Pause")
+    property var findAction: elisa.action("edit_find")
 
     Action {
         shortcut: goBackAction.shortcut
@@ -54,18 +55,23 @@ ApplicationWindow {
     }
 
     Action {
-            shortcut: seekAction.shortcut
-            onTriggered: elisa.audioControl.seek(headerBar.playerControl.position + 10000)
+        shortcut: seekAction.shortcut
+        onTriggered: elisa.audioControl.seek(headerBar.playerControl.position + 10000)
     }
 
     Action {
-            shortcut: scrubAction.shortcut
-            onTriggered: elisa.audioControl.seek(headerBar.playerControl.position - 10000)
+        shortcut: scrubAction.shortcut
+        onTriggered: elisa.audioControl.seek(headerBar.playerControl.position - 10000)
     }
 
     Action {
-            shortcut: playPauseAction.shortcut
-            onTriggered: elisa.audioControl.playPause()
+        shortcut: playPauseAction.shortcut
+        onTriggered: elisa.audioControl.playPause()
+    }
+
+    Action {
+        shortcut: findAction.shortcut
+        onTriggered: persistentSettings.expandedFilterView = !persistentSettings.expandedFilterView
     }
 
     ApplicationMenu {
@@ -249,6 +255,7 @@ ApplicationWindow {
                 Layout.fillHeight: true
                 Layout.fillWidth: true
                 showPlaylist: persistentSettings.showPlaylist
+                showExpandedFilterView: persistentSettings.expandedFilterView
             }
         }
     }

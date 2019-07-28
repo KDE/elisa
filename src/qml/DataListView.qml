@@ -30,6 +30,7 @@ FocusScope {
     property alias secondaryTitle: listView.secondaryTitle
     property int databaseId
     property alias showSection: listView.showSection
+    property alias expandedFilterView: listView.expandedFilterView
     property alias image: listView.image
     property var modelType
     property alias sortRole: proxyModel.sortRole

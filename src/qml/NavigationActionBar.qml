@@ -35,10 +35,10 @@ ColumnLayout {
     property alias filterText: filterTextInput.text
     property alias filterRating: ratingFilter.starRating
     property bool enableGoBack: true
-    property bool expandedFilterView: persistentSettings.expandedFilterView
+    property bool expandedFilterView
     property bool enableSorting: true
     property bool sortOrder
-    property var findAction: elisa.action("edit_find")
+
 
     signal enqueue();
     signal replaceAndPlay();
@@ -70,18 +70,11 @@ ColumnLayout {
 
     Action {
         id: showFilterAction
-        shortcut: findAction.shortcut
         text: !navigationBar.expandedFilterView ? i18nc("Show filters in the navigation bar", "Show Search Options") : i18nc("Hide filters in the navigation bar", "Hide Search Options")
         icon.name: 'search'
         checkable: true
-        checked: filterRow.opacity == 1.0
-        onTriggered: {
-            persistentSettings.expandedFilterView = !persistentSettings.expandedFilterView
-            expandedFilterView = persistentSettings.expandedFilterView
-            if (expandedFilterView) {
-                filterTextInput.forceActiveFocus()
-            }
-        }
+        checked: expandedFilterView
+        onTriggered: persistentSettings.expandedFilterView = !persistentSettings.expandedFilterView
     }
 
     Action {
@@ -295,6 +288,9 @@ ColumnLayout {
             PropertyChanges {
                 target: filterRow
                 opacity: 1.0
+            }
+            StateChangeScript {
+                script: filterTextInput.forceActiveFocus()
             }
         }
     ]

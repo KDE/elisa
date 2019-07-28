@@ -26,9 +26,8 @@ RowLayout {
     spacing: 0
 
     property bool showPlaylist
+    property bool showExpandedFilterView
     property alias currentViewIndex: listViews.currentIndex
-
-    signal toggleSearch()
 
     function goBack() {
         viewManager.goBack()
@@ -357,6 +356,7 @@ RowLayout {
 
         DataGridView {
             StackView.onActivated: viewManager.viewIsLoaded(viewType)
+            expandedFilterView: showExpandedFilterView
         }
     }
 
@@ -365,6 +365,7 @@ RowLayout {
 
         DataListView {
             StackView.onActivated: viewManager.viewIsLoaded(viewType)
+            expandedFilterView: showExpandedFilterView
         }
     }
 
@@ -373,6 +374,7 @@ RowLayout {
 
         FileBrowserView {
             StackView.onActivated: viewManager.viewIsLoaded(viewType)
+            expandedFilterView: showExpandedFilterView
         }
     }
 

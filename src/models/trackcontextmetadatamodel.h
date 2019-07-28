@@ -29,7 +29,7 @@ class ELISALIB_EXPORT TrackContextMetaDataModel : public TrackMetadataModel
 
 public:
 
-    TrackContextMetaDataModel(QObject *parent = nullptr);
+    explicit TrackContextMetaDataModel(QObject *parent = nullptr);
 
 protected:
 

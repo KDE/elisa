@@ -15,6 +15,6 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <QtQuickTest/QtQuickTest>
+#include <QtQuickTest>
 
 QUICK_TEST_MAIN(ElisaQmlTests)

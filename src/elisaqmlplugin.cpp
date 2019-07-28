@@ -65,7 +65,6 @@
 #include "audiowrapper.h"
 #include "notificationitem.h"
 #include "topnotificationmanager.h"
-#include "elisautils.h"
 
 #if defined Qt5DBus_FOUND && Qt5DBus_FOUND
 #include "mpris2/mpris2.h"

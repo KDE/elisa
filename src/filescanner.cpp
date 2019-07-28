@@ -257,10 +257,17 @@ QUrl FileScanner::searchForCoverFile(const QString &localFileName)
     return QUrl::fromLocalFile(coverFiles.first().absoluteFilePath());
 }
 
-QMap<KFileMetaData::EmbeddedImageData::ImageType,QByteArray> FileScanner::findEmbeddedCoverImage(const QString &localFileName)
+bool FileScanner::checkEmbeddedCoverImage(const QString &localFileName)
 {
 #if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
-    return d->mImageScanner.imageData(localFileName);
+    auto imageData = d->mImageScanner.imageData(localFileName);
+
+    if (imageData.contains(KFileMetaData::EmbeddedImageData::FrontCover)) {
+        if (!imageData[KFileMetaData::EmbeddedImageData::FrontCover].isEmpty()) {
+            return true;
+        }
+    }
 #endif
-    return QMap<KFileMetaData::EmbeddedImageData::ImageType, QByteArray>();
+
+    return false;
 }

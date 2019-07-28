@@ -21,7 +21,6 @@
 #include "elisaLib_export.h"
 
 #include "musicaudiotrack.h"
-#include <KFileMetaData/EmbeddedImageData>
 
 #include <QUrl>
 #include <QMimeDatabase>
@@ -53,7 +52,7 @@ public:
 
     QUrl searchForCoverFile(const QString &localFileName);
 
-    QMap<KFileMetaData::EmbeddedImageData::ImageType, QByteArray> findEmbeddedCoverImage(const QString &localFileName);
+    bool checkEmbeddedCoverImage(const QString &localFileName);
 
 private:
 

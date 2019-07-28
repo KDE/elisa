@@ -453,13 +453,7 @@ FileScanner &AbstractFileListing::fileScanner()
 
 bool AbstractFileListing::checkEmbeddedCoverImage(const QString &localFileName)
 {
-    auto images = d->mFileScanner.findEmbeddedCoverImage(localFileName);
-    if (images.contains(KFileMetaData::EmbeddedImageData::FrontCover)) {
-        if (!images[KFileMetaData::EmbeddedImageData::FrontCover].isEmpty()) {
-            return true;
-        }
-    }
-    return false;
+    return d->mFileScanner.checkEmbeddedCoverImage(localFileName);
 }
 
 bool AbstractFileListing::waitEndTrackRemoval() const

@@ -93,12 +93,9 @@ private Q_SLOTS:
     void loadCoverFromMetaData()
     {
         FileScanner fileScanner;
-        auto imageData = fileScanner.findEmbeddedCoverImage(mTestTracksForMetaData.at(0));
-        QVERIFY(imageData.contains(KFileMetaData::EmbeddedImageData::FrontCover));
-        imageData = fileScanner.findEmbeddedCoverImage(mTestTracksForMetaData.at(1));
-        QVERIFY(imageData.contains(KFileMetaData::EmbeddedImageData::FrontCover));
-        imageData = fileScanner.findEmbeddedCoverImage(mTestTracksForMetaData.at(2));
-        QVERIFY(imageData.contains(KFileMetaData::EmbeddedImageData::FrontCover));
+        QVERIFY(fileScanner.checkEmbeddedCoverImage(mTestTracksForMetaData.at(0)));
+        QVERIFY(fileScanner.checkEmbeddedCoverImage(mTestTracksForMetaData.at(1)));
+        QVERIFY(fileScanner.checkEmbeddedCoverImage(mTestTracksForMetaData.at(2)));
     }
 
     void benchmarkFileScan()
@@ -133,9 +130,9 @@ private Q_SLOTS:
     {
         FileScanner fileScanner;
         QBENCHMARK {
-            fileScanner.findEmbeddedCoverImage(mTestTracksForMetaData.at(0));
-            fileScanner.findEmbeddedCoverImage(mTestTracksForMetaData.at(1));
-            fileScanner.findEmbeddedCoverImage(mTestTracksForMetaData.at(2));
+            fileScanner.checkEmbeddedCoverImage(mTestTracksForMetaData.at(0));
+            fileScanner.checkEmbeddedCoverImage(mTestTracksForMetaData.at(1));
+            fileScanner.checkEmbeddedCoverImage(mTestTracksForMetaData.at(2));
         }
     }
 

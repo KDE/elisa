@@ -47,7 +47,7 @@
   <summary xml:lang="fr">Lecteur de musique simple</summary>
   <summary xml:lang="gl">Reprodutor de música simple</summary>
   <summary xml:lang="hu">Egyszerű zenelejátszó</summary>
-  <summary xml:lang="id">Player Musik yang Sederhana</summary>
+  <summary xml:lang="id">Pemutar Musik yang Sederhana</summary>
   <summary xml:lang="it">Semplice lettore musicale</summary>
   <summary xml:lang="ko">간편한 음악 재생기</summary>
   <summary xml:lang="nl">Eenvoudige muziekspeler</summary>
@@ -78,7 +78,7 @@
     <p xml:lang="fr">Un lecteur de musique simple qui se veut facile à utiliser. Il ne requiert aucune configuration pour pouvoir être utilisé.</p>
     <p xml:lang="gl">Un reprodutor de música simple e fácil de usar. Non require ningún tipo de configuración inicial.</p>
     <p xml:lang="hu">Egy egyszerű zenelejátszó, amely könnyen használható. Nem igényel semmilyen beállítást használat előtt.</p>
-    <p xml:lang="id">Sebuah player musik sederhana yang seharusnya mudah digunakan. Yang tidak memerlukan konfigurasi apa pun sebelum seseorang bisa menggunakannya.</p>
+    <p xml:lang="id">Sebuah pemutar musik sederhana yang seharusnya mudah digunakan. Yang tidak memerlukan konfigurasi apa pun sebelum seseorang bisa menggunakannya.</p>
     <p xml:lang="it">Un semplice lettore musicale che dovrebbe essere semplice da usare. Non richiede alcuna configurazione per iniziare a usarlo.</p>
     <p xml:lang="ko">사용하기 쉬운 간편한 음악 재생기. 먼저 설정하지 않아도 사용할 수 있습니다.</p>
     <p xml:lang="nl">Eenvoudige muziekspeler die gemakkelijk te gebruiken is. Het vereist geen enkele configuratie om te gebruiken.</p>
@@ -114,7 +114,7 @@
       <caption xml:lang="fr">Le lecteur de musique Elisa</caption>
       <caption xml:lang="gl">O reprodutor de música Elisa.</caption>
       <caption xml:lang="hu">Elisa zenelejátszó</caption>
-      <caption xml:lang="id">Elisa si player musik</caption>
+      <caption xml:lang="id">Elisa si pemutar musik</caption>
       <caption xml:lang="it">Il lettore musicale Elisa</caption>
       <caption xml:lang="ko">Elisa 음악 재생기</caption>
       <caption xml:lang="nl">De muziekspeler Elisa</caption>

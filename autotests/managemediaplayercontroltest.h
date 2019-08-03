@@ -46,20 +46,9 @@ private Q_SLOTS:
 
     void simpleInitialCase();
 
-    void addItemInModelCase();
+    void testPlayingCase();
 
-    void addItemInModelCaseV2();
-
-    void nextAndPreviousButtonAndRandomPlay();
-
-    void moveCurrentTrack();
-
-    void moveAnotherTrack();
-
-    void setCurrentTrackTest();
-
-    void setPlayListModelTest();
-
+    void testTracksCase();
 };
 
 #endif // MANAGEMEDIAPLAYERCONTROLTEST_H

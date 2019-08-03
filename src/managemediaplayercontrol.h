@@ -46,31 +46,22 @@ class ELISALIB_EXPORT ManageMediaPlayerControl : public QObject
                READ musicPlaying
                NOTIFY musicPlayingChanged)
 
-    Q_PROPERTY(QAbstractItemModel* playListModel
-               READ playListModel
-               WRITE setPlayListModel
-               NOTIFY playListModelChanged)
+    Q_PROPERTY(QPersistentModelIndex previousTrack
+               READ previousTrack
+               WRITE setPreviousTrack
+               NOTIFY previousTrackChanged)
 
     Q_PROPERTY(QPersistentModelIndex currentTrack
                READ currentTrack
                WRITE setCurrentTrack
                NOTIFY currentTrackChanged)
 
-    Q_PROPERTY(bool randomOrContinuePlay
-               READ randomOrContinuePlay
-               WRITE setRandomOrContinuePlay
-               NOTIFY randomOrContinuePlayChanged)
+    Q_PROPERTY(QPersistentModelIndex nextTrack
+               READ nextTrack
+               WRITE setNextTrack
+               NOTIFY nextTrackChanged)
 
 public:
-
-    enum class PlayerState
-    {
-        Playing,
-        Paused,
-        Stopped,
-    };
-
-    Q_ENUM(PlayerState)
 
     explicit ManageMediaPlayerControl(QObject *parent = nullptr);
 
@@ -82,11 +73,11 @@ public:
 
     bool musicPlaying() const;
 
-    QAbstractItemModel* playListModel() const;
+    QPersistentModelIndex previousTrack() const;
 
     QPersistentModelIndex currentTrack() const;
 
-    bool randomOrContinuePlay() const;
+    QPersistentModelIndex nextTrack() const;
 
 Q_SIGNALS:
 
@@ -98,47 +89,31 @@ Q_SIGNALS:
 
     void musicPlayingChanged();
 
-    void playListModelChanged();
+    void previousTrackChanged();
 
     void currentTrackChanged();
 
-    void randomOrContinuePlayChanged();
+    void nextTrackChanged();
 
 public Q_SLOTS:
 
-    void setPlayListModel(QAbstractItemModel* aPlayListModel);
-
-    void playerPaused();
+    void playerPausedOrStopped();
 
     void playerPlaying();
 
-    void playerStopped();
+    void setPreviousTrack(const QPersistentModelIndex &previousTrack);
 
     void setCurrentTrack(const QPersistentModelIndex &currentTrack);
 
-    void setRandomOrContinuePlay(bool randomOrContinuePlay);
-
-private Q_SLOTS:
-
-    void playListTracksWillBeInserted(const QModelIndex &parent, int first, int last);
-
-    void playListTracksInserted(const QModelIndex &parent, int first, int last);
-
-    void playListTracksWillBeRemoved(const QModelIndex & parent, int first, int last);
-
-    void playListTracksRemoved(const QModelIndex & parent, int first, int last);
-
-    void playListReset();
-
-    void tracksAboutToBeMoved(const QModelIndex &parent, int start, int end, const QModelIndex &destination, int row);
-
-    void tracksMoved(const QModelIndex &parent, int start, int end, const QModelIndex &destination, int row);
+    void setNextTrack(const QPersistentModelIndex &nextTrack);
 
 private:
 
-    QAbstractItemModel *mPlayListModel = nullptr;
+    QPersistentModelIndex mPreviousTrack;
 
     QPersistentModelIndex mCurrentTrack;
+
+    QPersistentModelIndex mNextTrack;
 
     bool mCurrentTrackWillBeRemoved = false;
 
@@ -148,13 +123,6 @@ private:
 
     bool mIsInPlayingState = false;
 
-    PlayerState mPlayerState = ManageMediaPlayerControl::PlayerState::Stopped;
-
-    bool mRandomOrContinuePlay = false;
-
 };
-
-ELISALIB_EXPORT QDataStream &operator<<(QDataStream &out, const ManageMediaPlayerControl::PlayerState &state);
-ELISALIB_EXPORT QDataStream &operator>>(QDataStream &in, ManageMediaPlayerControl::PlayerState &state);
 
 #endif // MANAGEMEDIAPLAYERCONTROL_H

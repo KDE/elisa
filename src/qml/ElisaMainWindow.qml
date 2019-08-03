@@ -325,7 +325,6 @@ ApplicationWindow {
 
         elisa.mediaPlayList.randomPlay = Qt.binding(function() { return headerBar.playerControl.shuffle })
         elisa.mediaPlayList.repeatPlay = Qt.binding(function() { return headerBar.playerControl.repeat })
-        elisa.playerControl.randomOrContinuePlay = Qt.binding(function() { return headerBar.playerControl.shuffle || headerBar.playerControl.repeat})
         elisa.audioPlayer.muted = Qt.binding(function() { return headerBar.playerControl.muted })
         elisa.audioPlayer.volume = Qt.binding(function() { return headerBar.playerControl.volume })
 

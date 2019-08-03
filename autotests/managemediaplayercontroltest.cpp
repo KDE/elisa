@@ -50,703 +50,122 @@ void ManageMediaPlayerControlTest::simpleInitialCase()
 {
     ManageMediaPlayerControl myControl;
 
-    QCOMPARE(myControl.playControlEnabled(), false);
-    QCOMPARE(myControl.skipBackwardControlEnabled(), false);
-    QCOMPARE(myControl.skipForwardControlEnabled(), false);
-    QCOMPARE(myControl.musicPlaying(), false);
-    QCOMPARE(myControl.playListModel(), static_cast<void*>(nullptr));
-    QCOMPARE(myControl.currentTrack().isValid(), false);
+    QVERIFY(!myControl.playControlEnabled());
+    QVERIFY(!myControl.skipBackwardControlEnabled());
+    QVERIFY(!myControl.skipForwardControlEnabled());
+    QVERIFY(!myControl.musicPlaying());
+    QVERIFY(!myControl.currentTrack().isValid());
 }
 
-void ManageMediaPlayerControlTest::addItemInModelCase()
+void ManageMediaPlayerControlTest::testPlayingCase()
 {
-    QStringListModel myPlayList;
-
     ManageMediaPlayerControl myControl;
 
-    QCOMPARE(myControl.playControlEnabled(), false);
-    QCOMPARE(myControl.skipBackwardControlEnabled(), false);
-    QCOMPARE(myControl.skipForwardControlEnabled(), false);
-    QCOMPARE(myControl.musicPlaying(), false);
-    QCOMPARE(myControl.playListModel(), static_cast<void*>(nullptr));
-    QCOMPARE(myControl.currentTrack().isValid(), false);
-
-    QSignalSpy playControlEnabledChangedSpy(&myControl, &ManageMediaPlayerControl::playControlEnabledChanged);
-    QSignalSpy skipBackwardControlEnabledChangedSpy(&myControl, &ManageMediaPlayerControl::skipBackwardControlEnabledChanged);
-    QSignalSpy skipForwardControlEnabledChangedSpy(&myControl, &ManageMediaPlayerControl::skipForwardControlEnabledChanged);
     QSignalSpy musicPlayingChangedSpy(&myControl, &ManageMediaPlayerControl::musicPlayingChanged);
-    QSignalSpy playListModelChangedSpy(&myControl, &ManageMediaPlayerControl::playListModelChanged);
-    QSignalSpy currentTrackChangedSpy(&myControl, &ManageMediaPlayerControl::currentTrackChanged);
 
-    myControl.setPlayListModel(&myPlayList);
+    QVERIFY(!myControl.playControlEnabled());
+    QVERIFY(!myControl.skipBackwardControlEnabled());
+    QVERIFY(!myControl.skipForwardControlEnabled());
+    QVERIFY(!myControl.musicPlaying());
+    QVERIFY(!myControl.currentTrack().isValid());
 
-    QCOMPARE(playControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 0);
     QCOMPARE(musicPlayingChangedSpy.count(), 0);
-    QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(currentTrackChangedSpy.count(), 0);
-
-    QCOMPARE(myControl.playListModel(), &myPlayList);
-
-    myPlayList.setStringList({QStringLiteral("tutu")});
-
-    QCOMPARE(playControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(musicPlayingChangedSpy.count(), 0);
-    QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(currentTrackChangedSpy.count(), 0);
-
-    myControl.setCurrentTrack(myPlayList.index(0, 0));
-
-    QCOMPARE(playControlEnabledChangedSpy.count(), 1);
-    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(musicPlayingChangedSpy.count(), 0);
-    QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(currentTrackChangedSpy.count(), 1);
-
-    QCOMPARE(myControl.playControlEnabled(), true);
-    QCOMPARE(myControl.currentTrack(), QPersistentModelIndex(myPlayList.index(0, 0)));
 
     myControl.playerPlaying();
 
-    QCOMPARE(playControlEnabledChangedSpy.count(), 1);
-    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 0);
     QCOMPARE(musicPlayingChangedSpy.count(), 1);
-    QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(currentTrackChangedSpy.count(), 1);
 
-    QCOMPARE(myControl.musicPlaying(), true);
+    QVERIFY(myControl.musicPlaying());
 
-    QCOMPARE(myPlayList.insertRows(1, 2, {}), true);
+    myControl.playerPausedOrStopped();
 
-    QCOMPARE(playControlEnabledChangedSpy.count(), 1);
-    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 1);
-    QCOMPARE(musicPlayingChangedSpy.count(), 1);
-    QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(currentTrackChangedSpy.count(), 1);
-
-    QCOMPARE(myControl.skipForwardControlEnabled(), true);
-
-    QCOMPARE(myPlayList.insertRows(0, 2, {}), true);
-
-    QCOMPARE(playControlEnabledChangedSpy.count(), 1);
-    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 1);
-    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 1);
-    QCOMPARE(musicPlayingChangedSpy.count(), 1);
-    QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(currentTrackChangedSpy.count(), 1);
-
-    QCOMPARE(myControl.skipBackwardControlEnabled(), true);
-
-    QCOMPARE(myPlayList.removeRows(3, 2, {}), true);
-
-    QCOMPARE(playControlEnabledChangedSpy.count(), 1);
-    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 1);
-    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 2);
-    QCOMPARE(musicPlayingChangedSpy.count(), 1);
-    QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(currentTrackChangedSpy.count(), 1);
-
-    QCOMPARE(myControl.skipForwardControlEnabled(), false);
-
-    QCOMPARE(myPlayList.removeRows(0, 2, {}), true);
-
-    QCOMPARE(playControlEnabledChangedSpy.count(), 1);
-    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 2);
-    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 2);
-    QCOMPARE(musicPlayingChangedSpy.count(), 1);
-    QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(currentTrackChangedSpy.count(), 1);
-
-    QCOMPARE(myControl.skipBackwardControlEnabled(), false);
-
-    QCOMPARE(myPlayList.removeRows(0, 1, {}), true);
-
-    QCOMPARE(playControlEnabledChangedSpy.count(), 2);
-    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 2);
-    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 2);
-    QCOMPARE(musicPlayingChangedSpy.count(), 1);
-    QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(currentTrackChangedSpy.count(), 2);
-
-    QCOMPARE(myControl.playControlEnabled(), false);
-    QCOMPARE(myControl.currentTrack().isValid(), false);
-
-    myControl.playerStopped();
-
-    QCOMPARE(playControlEnabledChangedSpy.count(), 2);
-    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 2);
-    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 2);
     QCOMPARE(musicPlayingChangedSpy.count(), 2);
-    QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(currentTrackChangedSpy.count(), 2);
 
-    QCOMPARE(myControl.musicPlaying(), false);
+    QVERIFY(!myControl.musicPlaying());
 }
 
-void ManageMediaPlayerControlTest::addItemInModelCaseV2()
+void ManageMediaPlayerControlTest::testTracksCase()
 {
     QStringListModel myPlayList;
+    myPlayList.setStringList({QStringLiteral("first"), QStringLiteral("second"), QStringLiteral("third")});
 
     ManageMediaPlayerControl myControl;
-
-    QCOMPARE(myControl.playControlEnabled(), false);
-    QCOMPARE(myControl.skipBackwardControlEnabled(), false);
-    QCOMPARE(myControl.skipForwardControlEnabled(), false);
-    QCOMPARE(myControl.musicPlaying(), false);
-    QCOMPARE(myControl.playListModel(), static_cast<void*>(nullptr));
-    QCOMPARE(myControl.currentTrack().isValid(), false);
 
     QSignalSpy playControlEnabledChangedSpy(&myControl, &ManageMediaPlayerControl::playControlEnabledChanged);
     QSignalSpy skipBackwardControlEnabledChangedSpy(&myControl, &ManageMediaPlayerControl::skipBackwardControlEnabledChanged);
     QSignalSpy skipForwardControlEnabledChangedSpy(&myControl, &ManageMediaPlayerControl::skipForwardControlEnabledChanged);
-    QSignalSpy musicPlayingChangedSpy(&myControl, &ManageMediaPlayerControl::musicPlayingChanged);
-    QSignalSpy playListModelChangedSpy(&myControl, &ManageMediaPlayerControl::playListModelChanged);
+    QSignalSpy previousTrackChangedSpy(&myControl, &ManageMediaPlayerControl::previousTrackChanged);
     QSignalSpy currentTrackChangedSpy(&myControl, &ManageMediaPlayerControl::currentTrackChanged);
+    QSignalSpy nextTrackChangedSpy(&myControl, &ManageMediaPlayerControl::nextTrackChanged);
 
-    myControl.setPlayListModel(&myPlayList);
+    QVERIFY(!myControl.playControlEnabled());
+    QVERIFY(!myControl.skipBackwardControlEnabled());
+    QVERIFY(!myControl.skipForwardControlEnabled());
+    QVERIFY(!myControl.musicPlaying());
+    QVERIFY(!myControl.currentTrack().isValid());
 
-    QCOMPARE(playControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(musicPlayingChangedSpy.count(), 0);
-    QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(currentTrackChangedSpy.count(), 0);
+    myControl.setCurrentTrack(QPersistentModelIndex(myPlayList.index(1, 0)));
 
-    QCOMPARE(myControl.playListModel(), &myPlayList);
-
-    myPlayList.setStringList({QStringLiteral("tutu")});
-
-    QCOMPARE(playControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(musicPlayingChangedSpy.count(), 0);
-    QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(currentTrackChangedSpy.count(), 0);
-
-    myControl.setCurrentTrack(myPlayList.index(0, 0));
-
-    QCOMPARE(playControlEnabledChangedSpy.count(), 1);
-    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(musicPlayingChangedSpy.count(), 0);
-    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(previousTrackChangedSpy.count(), 0);
     QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(nextTrackChangedSpy.count(), 0);
+    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 0);
+    QCOMPARE(playControlEnabledChangedSpy.count(), 1);
+    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 0);
+    QVERIFY(myControl.playControlEnabled());
+    QVERIFY(!myControl.skipBackwardControlEnabled());
+    QVERIFY(!myControl.skipForwardControlEnabled());
 
-    QCOMPARE(myControl.playControlEnabled(), true);
-    QCOMPARE(myControl.currentTrack(), QPersistentModelIndex(myPlayList.index(0, 0)));
+    myControl.setPreviousTrack(QPersistentModelIndex(myPlayList.index(0, 0)));
+
+    QCOMPARE(previousTrackChangedSpy.count(), 1);
+    QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(nextTrackChangedSpy.count(), 0);
+    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 0);
+    QCOMPARE(playControlEnabledChangedSpy.count(), 1);
+    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 0);
+    QVERIFY(myControl.playControlEnabled());
+    QVERIFY(!myControl.skipBackwardControlEnabled());
+    QVERIFY(!myControl.skipForwardControlEnabled());
 
     myControl.playerPlaying();
 
-    QCOMPARE(playControlEnabledChangedSpy.count(), 1);
-    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(musicPlayingChangedSpy.count(), 1);
-    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(previousTrackChangedSpy.count(), 1);
     QCOMPARE(currentTrackChangedSpy.count(), 1);
-
-    QCOMPARE(myControl.musicPlaying(), true);
-
-    QCOMPARE(myPlayList.insertRows(1, 2, {}), true);
-
-    QCOMPARE(playControlEnabledChangedSpy.count(), 1);
-    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 1);
-    QCOMPARE(musicPlayingChangedSpy.count(), 1);
-    QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(currentTrackChangedSpy.count(), 1);
-
-    QCOMPARE(myControl.skipForwardControlEnabled(), true);
-
-    QCOMPARE(myPlayList.insertRows(0, 2, {}), true);
-
-    QCOMPARE(playControlEnabledChangedSpy.count(), 1);
+    QCOMPARE(nextTrackChangedSpy.count(), 0);
     QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 1);
-    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 1);
-    QCOMPARE(musicPlayingChangedSpy.count(), 1);
-    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(playControlEnabledChangedSpy.count(), 1);
+    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 0);
+    QVERIFY(myControl.playControlEnabled());
+    QVERIFY(myControl.skipBackwardControlEnabled());
+    QVERIFY(!myControl.skipForwardControlEnabled());
+
+    myControl.playerPausedOrStopped();
+    myControl.setNextTrack(QPersistentModelIndex(myPlayList.index(2, 0)));
+
+    QCOMPARE(previousTrackChangedSpy.count(), 1);
     QCOMPARE(currentTrackChangedSpy.count(), 1);
-
-    QCOMPARE(myControl.skipBackwardControlEnabled(), true);
-
-    QCOMPARE(myPlayList.removeRows(2, 1, {}), true);
-
-    QCOMPARE(playControlEnabledChangedSpy.count(), 2);
+    QCOMPARE(nextTrackChangedSpy.count(), 1);
     QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 2);
-    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 2);
-    QCOMPARE(musicPlayingChangedSpy.count(), 1);
-    QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(currentTrackChangedSpy.count(), 2);
-
-    QCOMPARE(myControl.playControlEnabled(), false);
-    QCOMPARE(myControl.currentTrack().isValid(), false);
-    QCOMPARE(myControl.skipBackwardControlEnabled(), false);
-    QCOMPARE(myControl.skipForwardControlEnabled(), false);
-
-    myControl.playerStopped();
-
-    QCOMPARE(playControlEnabledChangedSpy.count(), 2);
-    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 2);
-    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 2);
-    QCOMPARE(musicPlayingChangedSpy.count(), 2);
-    QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(currentTrackChangedSpy.count(), 2);
-
-    QCOMPARE(myControl.musicPlaying(), false);
-
-    QCOMPARE(myPlayList.removeRows(0, 4, {}), true);
-
-    QCOMPARE(playControlEnabledChangedSpy.count(), 2);
-    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 2);
-    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 2);
-    QCOMPARE(musicPlayingChangedSpy.count(), 2);
-    QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(currentTrackChangedSpy.count(), 2);
-}
-void ManageMediaPlayerControlTest::nextAndPreviousButtonAndRandomPlay()
-{
-    QStringListModel myPlayList;
-
-    ManageMediaPlayerControl myControl;
-
-    QCOMPARE(myControl.playControlEnabled(), false);
-    QCOMPARE(myControl.skipBackwardControlEnabled(), false);
-    QCOMPARE(myControl.skipForwardControlEnabled(), false);
-    QCOMPARE(myControl.musicPlaying(), false);
-    QCOMPARE(myControl.playListModel(), static_cast<void*>(nullptr));
-    QCOMPARE(myControl.currentTrack().isValid(), false);
-
-    QSignalSpy playControlEnabledChangedSpy(&myControl, &ManageMediaPlayerControl::playControlEnabledChanged);
-    QSignalSpy skipBackwardControlEnabledChangedSpy(&myControl, &ManageMediaPlayerControl::skipBackwardControlEnabledChanged);
-    QSignalSpy skipForwardControlEnabledChangedSpy(&myControl, &ManageMediaPlayerControl::skipForwardControlEnabledChanged);
-    QSignalSpy musicPlayingChangedSpy(&myControl, &ManageMediaPlayerControl::musicPlayingChanged);
-    QSignalSpy playListModelChangedSpy(&myControl, &ManageMediaPlayerControl::playListModelChanged);
-    QSignalSpy currentTrackChangedSpy(&myControl, &ManageMediaPlayerControl::currentTrackChanged);
-
-    myControl.setPlayListModel(&myPlayList);
-
-    QCOMPARE(playControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(musicPlayingChangedSpy.count(), 0);
-    QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(currentTrackChangedSpy.count(), 0);
-
-    QCOMPARE(myControl.playListModel(), &myPlayList);
-
-    myPlayList.setStringList({QStringLiteral("tutu")});
-
-    QCOMPARE(playControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(musicPlayingChangedSpy.count(), 0);
-    QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(currentTrackChangedSpy.count(), 0);
-
-    myControl.setCurrentTrack(myPlayList.index(0, 0));
-
     QCOMPARE(playControlEnabledChangedSpy.count(), 1);
-    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 0);
     QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(musicPlayingChangedSpy.count(), 0);
-    QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(currentTrackChangedSpy.count(), 1);
-
-    QCOMPARE(myControl.playControlEnabled(), true);
-    QCOMPARE(myControl.currentTrack(), QPersistentModelIndex(myPlayList.index(0, 0)));
-
-    myControl.setRandomOrContinuePlay(true);
-
-    QCOMPARE(playControlEnabledChangedSpy.count(), 1);
-    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(musicPlayingChangedSpy.count(), 0);
-    QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QVERIFY(myControl.playControlEnabled());
+    QVERIFY(!myControl.skipBackwardControlEnabled());
+    QVERIFY(!myControl.skipForwardControlEnabled());
 
     myControl.playerPlaying();
 
-    QCOMPARE(playControlEnabledChangedSpy.count(), 1);
-    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 1);
-    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 1);
-    QCOMPARE(musicPlayingChangedSpy.count(), 1);
-    QCOMPARE(playListModelChangedSpy.count(), 1);
+    QCOMPARE(previousTrackChangedSpy.count(), 1);
     QCOMPARE(currentTrackChangedSpy.count(), 1);
-
-    QCOMPARE(myControl.musicPlaying(), true);
-    QCOMPARE(myControl.skipForwardControlEnabled(), true);
-    QCOMPARE(myControl.skipBackwardControlEnabled(), true);
-
-    QCOMPARE(myPlayList.insertRows(1, 2, {}), true);
-
+    QCOMPARE(nextTrackChangedSpy.count(), 1);
+    QCOMPARE(nextTrackChangedSpy.count(), 1);
+    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 3);
     QCOMPARE(playControlEnabledChangedSpy.count(), 1);
-    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 1);
     QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 1);
-    QCOMPARE(musicPlayingChangedSpy.count(), 1);
-    QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(currentTrackChangedSpy.count(), 1);
-
-    QCOMPARE(myPlayList.insertRows(0, 2, {}), true);
-
-    QCOMPARE(playControlEnabledChangedSpy.count(), 1);
-    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 1);
-    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 1);
-    QCOMPARE(musicPlayingChangedSpy.count(), 1);
-    QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(currentTrackChangedSpy.count(), 1);
-
-    QCOMPARE(myPlayList.removeRows(3, 2, {}), true);
-
-    QCOMPARE(playControlEnabledChangedSpy.count(), 1);
-    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 1);
-    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 1);
-    QCOMPARE(musicPlayingChangedSpy.count(), 1);
-    QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QVERIFY(myControl.playControlEnabled());
+    QVERIFY(myControl.skipBackwardControlEnabled());
+    QVERIFY(myControl.skipForwardControlEnabled());
 }
-
-void ManageMediaPlayerControlTest::moveCurrentTrack()
-{
-    MediaPlayList myPlayList;
-    DatabaseInterface myDatabaseContent;
-    TracksListener myListener(&myDatabaseContent);
-
-    myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
-
-    connect(&myListener, &TracksListener::trackHasChanged,
-            &myPlayList, &MediaPlayList::trackChanged,
-            Qt::QueuedConnection);
-    connect(&myListener, &TracksListener::tracksListAdded,
-            &myPlayList, &MediaPlayList::tracksListAdded,
-            Qt::QueuedConnection);
-    connect(&myPlayList, &MediaPlayList::newEntryInList,
-            &myListener, &TracksListener::newEntryInList,
-            Qt::QueuedConnection);
-    connect(&myPlayList, &MediaPlayList::newTrackByNameInList,
-            &myListener, &TracksListener::trackByNameInList,
-            Qt::QueuedConnection);
-    connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
-            &myListener, &TracksListener::tracksAdded);
-
-    ManageMediaPlayerControl myControl;
-
-    QCOMPARE(myControl.playControlEnabled(), false);
-    QCOMPARE(myControl.skipBackwardControlEnabled(), false);
-    QCOMPARE(myControl.skipForwardControlEnabled(), false);
-    QCOMPARE(myControl.musicPlaying(), false);
-    QCOMPARE(myControl.playListModel(), static_cast<void*>(nullptr));
-    QCOMPARE(myControl.currentTrack().isValid(), false);
-
-    QSignalSpy playControlEnabledChangedSpy(&myControl, &ManageMediaPlayerControl::playControlEnabledChanged);
-    QSignalSpy skipBackwardControlEnabledChangedSpy(&myControl, &ManageMediaPlayerControl::skipBackwardControlEnabledChanged);
-    QSignalSpy skipForwardControlEnabledChangedSpy(&myControl, &ManageMediaPlayerControl::skipForwardControlEnabledChanged);
-    QSignalSpy musicPlayingChangedSpy(&myControl, &ManageMediaPlayerControl::musicPlayingChanged);
-    QSignalSpy playListModelChangedSpy(&myControl, &ManageMediaPlayerControl::playListModelChanged);
-    QSignalSpy currentTrackChangedSpy(&myControl, &ManageMediaPlayerControl::currentTrackChanged);
-
-    myControl.setPlayListModel(&myPlayList);
-
-    QCOMPARE(playControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(musicPlayingChangedSpy.count(), 0);
-    QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(currentTrackChangedSpy.count(), 0);
-
-    QCOMPARE(myControl.playListModel(), &myPlayList);
-
-    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
-
-    myPlayList.enqueue(ElisaUtils::EntryData{myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist2"), QStringLiteral("album2"), 1, 1),
-                        QStringLiteral("track1")},
-                       ElisaUtils::Track);
-    myPlayList.enqueue(ElisaUtils::EntryData{myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album1"), 2, 2),
-                        QStringLiteral("track2")},
-                       ElisaUtils::Track);
-
-    QCOMPARE(playControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(musicPlayingChangedSpy.count(), 0);
-    QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(currentTrackChangedSpy.count(), 0);
-
-    myControl.setCurrentTrack(myPlayList.index(0, 0));
-
-    QCOMPARE(playControlEnabledChangedSpy.count(), 1);
-    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(musicPlayingChangedSpy.count(), 0);
-    QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(currentTrackChangedSpy.count(), 1);
-
-    QCOMPARE(myControl.playControlEnabled(), true);
-    QCOMPARE(myControl.currentTrack(), QPersistentModelIndex(myPlayList.index(0, 0)));
-
-    myControl.playerPlaying();
-
-    QCOMPARE(playControlEnabledChangedSpy.count(), 1);
-    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 1);
-    QCOMPARE(musicPlayingChangedSpy.count(), 1);
-    QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(currentTrackChangedSpy.count(), 1);
-
-    QCOMPARE(myControl.musicPlaying(), true);
-    QCOMPARE(myControl.skipForwardControlEnabled(), true);
-
-    QCOMPARE(myPlayList.moveRows({}, 0, 1, {}, 2), true);
-
-    QCOMPARE(playControlEnabledChangedSpy.count(), 1);
-    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 1);
-    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 2);
-    QCOMPARE(musicPlayingChangedSpy.count(), 1);
-    QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(currentTrackChangedSpy.count(), 1);
-
-    QCOMPARE(myControl.skipForwardControlEnabled(), false);
-    QCOMPARE(myControl.skipBackwardControlEnabled(), true);
-}
-
-void ManageMediaPlayerControlTest::moveAnotherTrack()
-{
-    MediaPlayList myPlayList;
-    DatabaseInterface myDatabaseContent;
-    TracksListener myListener(&myDatabaseContent);
-
-    myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
-
-    connect(&myListener, &TracksListener::trackHasChanged,
-            &myPlayList, &MediaPlayList::trackChanged,
-            Qt::QueuedConnection);
-    connect(&myListener, &TracksListener::tracksListAdded,
-            &myPlayList, &MediaPlayList::tracksListAdded,
-            Qt::QueuedConnection);
-    connect(&myPlayList, &MediaPlayList::newEntryInList,
-            &myListener, &TracksListener::newEntryInList,
-            Qt::QueuedConnection);
-    connect(&myPlayList, &MediaPlayList::newTrackByNameInList,
-            &myListener, &TracksListener::trackByNameInList,
-            Qt::QueuedConnection);
-    connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
-            &myListener, &TracksListener::tracksAdded);
-
-    ManageMediaPlayerControl myControl;
-
-    QCOMPARE(myControl.playControlEnabled(), false);
-    QCOMPARE(myControl.skipBackwardControlEnabled(), false);
-    QCOMPARE(myControl.skipForwardControlEnabled(), false);
-    QCOMPARE(myControl.musicPlaying(), false);
-    QCOMPARE(myControl.playListModel(), static_cast<void*>(nullptr));
-    QCOMPARE(myControl.currentTrack().isValid(), false);
-
-    QSignalSpy playControlEnabledChangedSpy(&myControl, &ManageMediaPlayerControl::playControlEnabledChanged);
-    QSignalSpy skipBackwardControlEnabledChangedSpy(&myControl, &ManageMediaPlayerControl::skipBackwardControlEnabledChanged);
-    QSignalSpy skipForwardControlEnabledChangedSpy(&myControl, &ManageMediaPlayerControl::skipForwardControlEnabledChanged);
-    QSignalSpy musicPlayingChangedSpy(&myControl, &ManageMediaPlayerControl::musicPlayingChanged);
-    QSignalSpy playListModelChangedSpy(&myControl, &ManageMediaPlayerControl::playListModelChanged);
-    QSignalSpy currentTrackChangedSpy(&myControl, &ManageMediaPlayerControl::currentTrackChanged);
-
-    myControl.setPlayListModel(&myPlayList);
-
-    QCOMPARE(playControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(musicPlayingChangedSpy.count(), 0);
-    QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(currentTrackChangedSpy.count(), 0);
-
-    QCOMPARE(myControl.playListModel(), &myPlayList);
-
-    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
-
-    myPlayList.enqueue(ElisaUtils::EntryData{myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist2"), QStringLiteral("album2"), 1, 1),
-                        QStringLiteral("track1")},
-                       ElisaUtils::Track);
-    myPlayList.enqueue(ElisaUtils::EntryData{myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album1"), 2, 2),
-                        QStringLiteral("track2")},
-                       ElisaUtils::Track);
-
-    QCOMPARE(playControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(musicPlayingChangedSpy.count(), 0);
-    QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(currentTrackChangedSpy.count(), 0);
-
-    myControl.setCurrentTrack(myPlayList.index(0, 0));
-
-    QCOMPARE(playControlEnabledChangedSpy.count(), 1);
-    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(musicPlayingChangedSpy.count(), 0);
-    QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(currentTrackChangedSpy.count(), 1);
-
-    QCOMPARE(myControl.playControlEnabled(), true);
-    QCOMPARE(myControl.currentTrack(), QPersistentModelIndex(myPlayList.index(0, 0)));
-
-    myControl.playerPlaying();
-
-    QCOMPARE(playControlEnabledChangedSpy.count(), 1);
-    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 1);
-    QCOMPARE(musicPlayingChangedSpy.count(), 1);
-    QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(currentTrackChangedSpy.count(), 1);
-
-    QCOMPARE(myControl.musicPlaying(), true);
-    QCOMPARE(myControl.skipForwardControlEnabled(), true);
-
-    QCOMPARE(myPlayList.moveRows({}, 1, 1, {}, 0), true);
-
-    QCOMPARE(playControlEnabledChangedSpy.count(), 1);
-    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 1);
-    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 2);
-    QCOMPARE(musicPlayingChangedSpy.count(), 1);
-    QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(currentTrackChangedSpy.count(), 1);
-
-    QCOMPARE(myControl.skipForwardControlEnabled(), false);
-    QCOMPARE(myControl.skipBackwardControlEnabled(), true);
-}
-
-void ManageMediaPlayerControlTest::setCurrentTrackTest()
-{
-    MediaPlayList myPlayList;
-    DatabaseInterface myDatabaseContent;
-    TracksListener myListener(&myDatabaseContent);
-
-    myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
-
-    connect(&myListener, &TracksListener::trackHasChanged,
-            &myPlayList, &MediaPlayList::trackChanged,
-            Qt::QueuedConnection);
-    connect(&myListener, &TracksListener::tracksListAdded,
-            &myPlayList, &MediaPlayList::tracksListAdded,
-            Qt::QueuedConnection);
-    connect(&myPlayList, &MediaPlayList::newEntryInList,
-            &myListener, &TracksListener::newEntryInList,
-            Qt::QueuedConnection);
-    connect(&myPlayList, &MediaPlayList::newTrackByNameInList,
-            &myListener, &TracksListener::trackByNameInList,
-            Qt::QueuedConnection);
-    connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
-            &myListener, &TracksListener::tracksAdded);
-
-    ManageMediaPlayerControl myControl;
-
-    QCOMPARE(myControl.playControlEnabled(), false);
-    QCOMPARE(myControl.skipBackwardControlEnabled(), false);
-    QCOMPARE(myControl.skipForwardControlEnabled(), false);
-    QCOMPARE(myControl.musicPlaying(), false);
-    QCOMPARE(myControl.playListModel(), static_cast<void*>(nullptr));
-    QCOMPARE(myControl.currentTrack().isValid(), false);
-
-    QSignalSpy playControlEnabledChangedSpy(&myControl, &ManageMediaPlayerControl::playControlEnabledChanged);
-    QSignalSpy skipBackwardControlEnabledChangedSpy(&myControl, &ManageMediaPlayerControl::skipBackwardControlEnabledChanged);
-    QSignalSpy skipForwardControlEnabledChangedSpy(&myControl, &ManageMediaPlayerControl::skipForwardControlEnabledChanged);
-    QSignalSpy musicPlayingChangedSpy(&myControl, &ManageMediaPlayerControl::musicPlayingChanged);
-    QSignalSpy playListModelChangedSpy(&myControl, &ManageMediaPlayerControl::playListModelChanged);
-    QSignalSpy currentTrackChangedSpy(&myControl, &ManageMediaPlayerControl::currentTrackChanged);
-
-    myControl.setPlayListModel(&myPlayList);
-
-    QCOMPARE(playControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(musicPlayingChangedSpy.count(), 0);
-    QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(currentTrackChangedSpy.count(), 0);
-
-    QCOMPARE(myControl.playListModel(), &myPlayList);
-
-    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
-
-    myPlayList.enqueue(ElisaUtils::EntryData{myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist2"), QStringLiteral("album2"), 1, 1),
-                        QStringLiteral("track1")},
-                       ElisaUtils::Track);
-    myPlayList.enqueue(ElisaUtils::EntryData{myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album1"), 2, 2),
-                        QStringLiteral("track2")},
-                       ElisaUtils::Track);
-
-    QCOMPARE(playControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(musicPlayingChangedSpy.count(), 0);
-    QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(currentTrackChangedSpy.count(), 0);
-
-    myControl.setCurrentTrack(myPlayList.index(0, 0));
-
-    QCOMPARE(playControlEnabledChangedSpy.count(), 1);
-    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(musicPlayingChangedSpy.count(), 0);
-    QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(currentTrackChangedSpy.count(), 1);
-
-    QCOMPARE(myControl.playControlEnabled(), true);
-    QCOMPARE(myControl.currentTrack(), QPersistentModelIndex(myPlayList.index(0, 0)));
-
-    myControl.setCurrentTrack(myPlayList.index(0, 0));
-
-    QCOMPARE(playControlEnabledChangedSpy.count(), 1);
-    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(musicPlayingChangedSpy.count(), 0);
-    QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(currentTrackChangedSpy.count(), 1);
-}
-
-void ManageMediaPlayerControlTest::setPlayListModelTest()
-{
-    QStringListModel myPlayList;
-
-    ManageMediaPlayerControl myControl;
-
-    QCOMPARE(myControl.playControlEnabled(), false);
-    QCOMPARE(myControl.skipBackwardControlEnabled(), false);
-    QCOMPARE(myControl.skipForwardControlEnabled(), false);
-    QCOMPARE(myControl.musicPlaying(), false);
-    QCOMPARE(myControl.playListModel(), static_cast<void*>(nullptr));
-    QCOMPARE(myControl.currentTrack().isValid(), false);
-
-    QSignalSpy playControlEnabledChangedSpy(&myControl, &ManageMediaPlayerControl::playControlEnabledChanged);
-    QSignalSpy skipBackwardControlEnabledChangedSpy(&myControl, &ManageMediaPlayerControl::skipBackwardControlEnabledChanged);
-    QSignalSpy skipForwardControlEnabledChangedSpy(&myControl, &ManageMediaPlayerControl::skipForwardControlEnabledChanged);
-    QSignalSpy musicPlayingChangedSpy(&myControl, &ManageMediaPlayerControl::musicPlayingChanged);
-    QSignalSpy playListModelChangedSpy(&myControl, &ManageMediaPlayerControl::playListModelChanged);
-    QSignalSpy currentTrackChangedSpy(&myControl, &ManageMediaPlayerControl::currentTrackChanged);
-
-    myControl.setPlayListModel(&myPlayList);
-
-    QCOMPARE(playControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(musicPlayingChangedSpy.count(), 0);
-    QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(currentTrackChangedSpy.count(), 0);
-
-    QCOMPARE(myControl.playListModel(), &myPlayList);
-
-    myControl.setPlayListModel(nullptr);
-
-    QCOMPARE(playControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 0);
-    QCOMPARE(musicPlayingChangedSpy.count(), 0);
-    QCOMPARE(playListModelChangedSpy.count(), 2);
-    QCOMPARE(currentTrackChangedSpy.count(), 0);
-
-    QCOMPARE(myControl.playListModel(), static_cast<QAbstractItemModel*>(nullptr));
-}
-
 
 QTEST_GUILESS_MAIN(ManageMediaPlayerControlTest)
 

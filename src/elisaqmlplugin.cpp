@@ -175,8 +175,6 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qRegisterMetaType<ViewManager::ViewsType>("ViewManager::ViewsType");
     qRegisterMetaType<ViewManager::SortOrder>("ViewManager::SortOrder");
 
-    qRegisterMetaTypeStreamOperators<ManageMediaPlayerControl::PlayerState>("PlayListControler::PlayerState");
-
     qmlRegisterUncreatableType<ElisaApplication>(uri, 1, 0, "ElisaApplication", QStringLiteral("only one and done in c++"));
     qmlRegisterUncreatableMetaObject(ElisaUtils::staticMetaObject, uri, 1, 0, "ElisaUtils", QStringLiteral("Namespace ElisaUtils"));
 }

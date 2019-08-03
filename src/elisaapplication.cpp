@@ -378,11 +378,13 @@ void ElisaApplication::initializePlayer()
     QObject::connect(d->mAudioWrapper.get(), &AudioWrapper::positionChanged, d->mAudioControl.get(), &ManageAudioPlayer::setPlayerPosition);
     QObject::connect(d->mAudioWrapper.get(), &AudioWrapper::currentPlayingForRadiosChanged, d->mAudioControl.get(), &ManageAudioPlayer::setCurrentPlayingForRadios);
 
-    d->mPlayerControl->setPlayListModel(d->mMediaPlayList.get());
     QObject::connect(d->mMediaPlayList.get(), &MediaPlayList::currentTrackChanged, d->mPlayerControl.get(), &ManageMediaPlayerControl::setCurrentTrack);
+    QObject::connect(d->mMediaPlayList.get(), &MediaPlayList::previousTrackChanged, d->mPlayerControl.get(), &ManageMediaPlayerControl::setPreviousTrack);
+    QObject::connect(d->mMediaPlayList.get(), &MediaPlayList::nextTrackChanged, d->mPlayerControl.get(), &ManageMediaPlayerControl::setNextTrack);
+
     QObject::connect(d->mAudioWrapper.get(), &AudioWrapper::playing, d->mPlayerControl.get(), &ManageMediaPlayerControl::playerPlaying);
-    QObject::connect(d->mAudioWrapper.get(), &AudioWrapper::paused, d->mPlayerControl.get(), &ManageMediaPlayerControl::playerPaused);
-    QObject::connect(d->mAudioWrapper.get(), &AudioWrapper::stopped, d->mPlayerControl.get(), &ManageMediaPlayerControl::playerStopped);
+    QObject::connect(d->mAudioWrapper.get(), &AudioWrapper::paused, d->mPlayerControl.get(), &ManageMediaPlayerControl::playerPausedOrStopped);
+    QObject::connect(d->mAudioWrapper.get(), &AudioWrapper::stopped, d->mPlayerControl.get(), &ManageMediaPlayerControl::playerPausedOrStopped);
 
     d->mManageHeaderBar->setTitleRole(MediaPlayList::TitleRole);
     d->mManageHeaderBar->setAlbumRole(MediaPlayList::AlbumRole);

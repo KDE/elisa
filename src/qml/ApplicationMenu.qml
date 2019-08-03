@@ -35,7 +35,7 @@ Menu {
 
     MenuItem {
         text: i18nc("Refresh Music Collection application menu entry", "Refresh Music Collection")
-        iconName: "collection-rescan-amarok"
+        iconName: "view-refresh"
         onTriggered: elisa.musicManager.resetMusicData()
     }
 

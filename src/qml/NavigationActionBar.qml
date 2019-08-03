@@ -65,7 +65,7 @@ ColumnLayout {
     Action {
         id: enqueueAction
         text: i18nc("Add current list to playlist", "Enqueue")
-        icon.name: "media-track-add-amarok"
+        icon.name: "list-add"
         onTriggered: enqueue()
     }
 

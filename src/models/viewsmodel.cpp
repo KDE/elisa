@@ -52,7 +52,7 @@ public:
 
         mIcons = {{ViewManager::Context, QUrl{QStringLiteral("image://icon/view-media-lyrics")}},
                   {ViewManager::RecentlyPlayedTracks, QUrl{QStringLiteral("image://icon/media-playlist-play")}},
-                  {ViewManager::FrequentlyPlayedTracks, QUrl{QStringLiteral("image://icon/amarok_playcount")}},
+                  {ViewManager::FrequentlyPlayedTracks, QUrl{QStringLiteral("image://icon/view-media-playcount")}},
                   {ViewManager::AllAlbums, QUrl{QStringLiteral("image://icon/view-media-album-cover")}},
                   {ViewManager::AllArtists, QUrl{QStringLiteral("image://icon/view-media-artist")}},
                   {ViewManager::AllTracks, QUrl{QStringLiteral("image://icon/view-media-track")}},

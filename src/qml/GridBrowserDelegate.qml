@@ -205,7 +205,7 @@ FocusScope {
                                 id: enqueueButton
                                 objectName: 'enqueueButton'
 
-                                icon.name: 'media-track-add-amarok'
+                                icon.name: 'list-add'
                                 hoverEnabled: true
                                 ToolTip.visible: hovered
                                 ToolTip.delay: 1000

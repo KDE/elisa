@@ -52,7 +52,7 @@ FocusScope {
     Action {
         id: enqueueAction
         text: i18nc("Enqueue current track", "Enqueue")
-        icon.name: "media-track-add-amarok"
+        icon.name: "list-add"
         onTriggered: enqueue(databaseId, title)
     }
 

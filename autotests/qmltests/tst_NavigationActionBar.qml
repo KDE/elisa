@@ -293,7 +293,8 @@ FocusScope {
             keyClick(Qt.Key_S);
             keyClick(Qt.Key_T);
             compare(navigationActionBar1.filterText, 'test');
-            mouseClick(textsFilterItem1,textsFilterItem1.width - textsFilterItem1.height);
+            wait(300)
+            mouseClick(textsFilterItem1,textsFilterItem1.width - 20);
             compare(navigationActionBar1.filterText, "");
         }
     }

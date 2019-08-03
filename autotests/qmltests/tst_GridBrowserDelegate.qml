@@ -31,7 +31,8 @@ FocusScope {
         secondaryText: "hello secondary"
         databaseId: 1
 
-        function i18nc() {
+        function i18nc(string1,string2) {
+            return string2
         }
 
         Item {
@@ -39,6 +40,7 @@ FocusScope {
 
             property color text
             property color shadow
+            property color highlight
         }
 
         Item {

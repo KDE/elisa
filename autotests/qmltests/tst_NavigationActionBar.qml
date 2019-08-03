@@ -31,6 +31,11 @@ FocusScope {
         return string2
     }
 
+    function i18n(string) {
+        return string;
+    }
+
+
     Item {
         id: elisaTheme
         property int layoutHorizontalMargin: 8
@@ -40,12 +45,7 @@ FocusScope {
         property int ratingStarSize: 15
         property int navigationBarHeight: 100
         property int navigationBarFilterHeight: 44
-    }
-
-    Item {
-        id: fakeFindAction
-
-        property var shortcut
+        property int smallControlButtonSize: 22
     }
 
     SystemPalette {
@@ -58,11 +58,11 @@ FocusScope {
 
         mainTitle: 'testTitle1'
         secondaryTitle: 'secondaryTitle1'
-        findAction: fakeFindAction
 
         enableGoBack: true
         allowArtistNavigation: true
         showRating: true
+        expandedFilterView: persistentSettings.expandedFilterView
         height: 100
     }
 
@@ -70,12 +70,11 @@ FocusScope {
         id: navigationActionBar2
         mainTitle: 'testTitle2'
         secondaryTitle: 'secondaryTitle2'
-        findAction: fakeFindAction
 
         enableGoBack: false
         allowArtistNavigation: false
         showRating: false
-        expandedFilterView: true
+        expandedFilterView: persistentSettings.expandedFilterView
 
         height: 100
         y: 200
@@ -121,18 +120,6 @@ FocusScope {
         }
 
         SignalSpy {
-            id: filterViewChangedSpy1
-            target: navigationActionBar1
-            signalName: "expandedFilterViewChanged"
-        }
-
-        SignalSpy {
-            id: filterViewChangedSpy2
-            target: navigationActionBar2
-            signalName: "expandedFilterViewChanged"
-        }
-
-        SignalSpy {
             id: showArtistSpy1
             target: navigationActionBar1
             signalName: "showArtist"
@@ -153,8 +140,6 @@ FocusScope {
             replaceAndPlaySpy2.clear();
             goBackSpy1.clear();
             goBackSpy2.clear();
-            filterViewChangedSpy1.clear();
-            filterViewChangedSpy2.clear();
             showArtistSpy1.clear();
             showArtistSpy2.clear();
             persistentSettings.expandedFilterView = false;
@@ -167,8 +152,6 @@ FocusScope {
             compare(replaceAndPlaySpy2.count, 0);
             compare(goBackSpy1.count, 0);
             compare(goBackSpy2.count, 0);
-            compare(filterViewChangedSpy1.count, 0);
-            compare(filterViewChangedSpy2.count, 0);
             compare(showArtistSpy1.count, 0);
             compare(showArtistSpy2.count, 0);
 
@@ -189,8 +172,6 @@ FocusScope {
             compare(replaceAndPlaySpy2.count, 0);
             compare(goBackSpy1.count, 0);
             compare(goBackSpy2.count, 0);
-            compare(filterViewChangedSpy1.count, 0);
-            compare(filterViewChangedSpy2.count, 0);
             compare(showArtistSpy1.count, 0);
             compare(showArtistSpy2.count, 0);
 
@@ -207,23 +188,16 @@ FocusScope {
             compare(replaceAndPlaySpy2.count, 0);
             compare(goBackSpy1.count, 0);
             compare(goBackSpy2.count, 0);
-            compare(filterViewChangedSpy1.count, 1);
-            compare(filterViewChangedSpy2.count, 0);
             compare(showArtistSpy1.count, 0);
             compare(showArtistSpy2.count, 0);
 
             var showFilterButtonItem1 = findChild(navigationActionBar1, "showFilterButton");
             verify(showFilterButtonItem1 !== null, "valid showFilterButton")
             mouseClick(showFilterButtonItem1);
-            compare(filterViewChangedSpy1.count, 2);
-            var signalArgument1 = filterViewChangedSpy1.signalArguments[0];
-            compare(navigationActionBar1.expandedFilterView, true);
             compare(navigationActionBar1.state,'expanded')
             var showFilterButtonItem2 = findChild(navigationActionBar2, "showFilterButton");
             verify(showFilterButtonItem2 !== null, "valid showFilterButton")
             mouseClick(showFilterButtonItem2);
-            compare(filterViewChangedSpy2.count, 1);
-            var signalArgument2 = filterViewChangedSpy2.signalArguments[0];
             compare(navigationActionBar2.expandedFilterView, false)
             compare(navigationActionBar2.state, 'collapsed')
         }
@@ -235,8 +209,6 @@ FocusScope {
             compare(replaceAndPlaySpy2.count, 0);
             compare(goBackSpy1.count, 0);
             compare(goBackSpy2.count, 0);
-            compare(filterViewChangedSpy1.count, 0);
-            compare(filterViewChangedSpy2.count, 0);
             compare(showArtistSpy1.count, 0);
             compare(showArtistSpy2.count, 0);
 
@@ -253,8 +225,6 @@ FocusScope {
             compare(replaceAndPlaySpy2.count, 0);
             compare(goBackSpy1.count, 0);
             compare(goBackSpy2.count, 0);
-            compare(filterViewChangedSpy1.count, 0);
-            compare(filterViewChangedSpy2.count, 0);
             compare(showArtistSpy1.count, 0);
             compare(showArtistSpy2.count, 0);
 

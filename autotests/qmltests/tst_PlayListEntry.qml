@@ -53,6 +53,7 @@ Item {
             property int smallDelegateToolButtonSize: 20
             property int ratingStarSize: 15
             property int playListDelegateHeight: 28
+            property int smallControlButtonSize: 22
         }
     }
 

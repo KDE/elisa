@@ -322,7 +322,7 @@ void DatabaseInterface::init(const QString &dbName, const QString &databaseFileN
     }
 }
 
-qulonglong DatabaseInterface::albumIdFromTitleAndArtist(const QString &title, const QString &artist)
+qulonglong DatabaseInterface::albumIdFromTitleAndArtist(const QString &title, const QString &artist, const QString &albumPath)
 {
     auto result = qulonglong{0};
 
@@ -331,7 +331,7 @@ qulonglong DatabaseInterface::albumIdFromTitleAndArtist(const QString &title, co
         return result;
     }
 
-    result = internalAlbumIdFromTitleAndArtist(title, artist);
+    result = internalAlbumIdFromTitleAndArtist(title, artist, albumPath);
 
     transactionResult = finishTransaction();
     if (!transactionResult) {
@@ -2935,6 +2935,7 @@ void DatabaseInterface::initRequest()
                                                    ") AND "
                                                    "tracks2.`AlbumPath` = album.`AlbumPath` "
                                                    ") as `IsSingleDiscAlbum`, "
+                                                   "COUNT(DISTINCT tracks.`ArtistName`) as ArtistsCount, "
                                                    "GROUP_CONCAT(tracks.`ArtistName`, ', ') as AllArtists, "
                                                    "MAX(tracks.`Rating`) as HighestRating, "
                                                    "GROUP_CONCAT(genres.`Name`, ', ') as AllGenres, "
@@ -3004,6 +3005,7 @@ void DatabaseInterface::initRequest()
                                                   "album.`ArtistName` as SecondaryText, "
                                                   "album.`CoverFileName`, "
                                                   "album.`ArtistName`, "
+                                                  "COUNT(DISTINCT tracks.`ArtistName`) as ArtistsCount, "
                                                   "GROUP_CONCAT(tracks.`ArtistName`, ', ') as AllArtists, "
                                                   "MAX(tracks.`Rating`) as HighestRating, "
                                                   "GROUP_CONCAT(genres.`Name`, ', ') as AllGenres, "
@@ -3067,6 +3069,7 @@ void DatabaseInterface::initRequest()
                                                   "album.`ArtistName` as SecondaryText, "
                                                   "album.`CoverFileName`, "
                                                   "album.`ArtistName`, "
+                                                  "COUNT(DISTINCT tracks.`ArtistName`) as ArtistsCount, "
                                                   "GROUP_CONCAT(tracks.`ArtistName`, ', ') as AllArtists, "
                                                   "MAX(tracks.`Rating`) as HighestRating, "
                                                   "GROUP_CONCAT(genres.`Name`, ', ') as AllGenres, "
@@ -3142,6 +3145,7 @@ void DatabaseInterface::initRequest()
                                                   "album.`ArtistName` as SecondaryText, "
                                                   "album.`CoverFileName`, "
                                                   "album.`ArtistName`, "
+                                                  "COUNT(DISTINCT tracks.`ArtistName`) as ArtistsCount, "
                                                   "GROUP_CONCAT(tracks.`ArtistName`, ', ') as AllArtists, "
                                                   "MAX(tracks.`Rating`) as HighestRating, "
                                                   "GROUP_CONCAT(genres.`Name`, ', ') as AllGenres, "
@@ -3324,6 +3328,34 @@ void DatabaseInterface::initRequest()
                                                   "tracks.`Title`, "
                                                   "album.`ID`, "
                                                   "tracks.`ArtistName`, "
+                                                  "( "
+                                                  "SELECT "
+                                                  "COUNT(DISTINCT tracksFromAlbum1.`ArtistName`) "
+                                                  "FROM "
+                                                  "`Tracks` tracksFromAlbum1 "
+                                                  "WHERE "
+                                                  "tracksFromAlbum1.`AlbumTitle` = album.`Title` AND "
+                                                  "(tracksFromAlbum1.`AlbumArtistName` = album.`ArtistName` OR "
+                                                  "(tracksFromAlbum1.`AlbumArtistName` IS NULL AND "
+                                                  "album.`ArtistName` IS NULL "
+                                                  ") "
+                                                  ") AND "
+                                                  "tracksFromAlbum1.`AlbumPath` = album.`AlbumPath` "
+                                                  ") AS ArtistsCount, "
+                                                  "( "
+                                                  "SELECT "
+                                                  "GROUP_CONCAT(tracksFromAlbum2.`ArtistName`) "
+                                                  "FROM "
+                                                  "`Tracks` tracksFromAlbum2 "
+                                                  "WHERE "
+                                                  "tracksFromAlbum2.`AlbumTitle` = album.`Title` AND "
+                                                  "(tracksFromAlbum2.`AlbumArtistName` = album.`ArtistName` OR "
+                                                  "(tracksFromAlbum2.`AlbumArtistName` IS NULL AND "
+                                                  "album.`ArtistName` IS NULL "
+                                                  ") "
+                                                  ") AND "
+                                                  "tracksFromAlbum2.`AlbumPath` = album.`AlbumPath` "
+                                                  ") AS AllArtists, "
                                                   "tracks.`AlbumArtistName`, "
                                                   "tracksMapping.`FileName`, "
                                                   "tracksMapping.`FileModifiedTime`, "
@@ -3419,6 +3451,34 @@ void DatabaseInterface::initRequest()
                                                   "tracks.`Title`, "
                                                   "album.`ID`, "
                                                   "tracks.`ArtistName`, "
+                                                  "( "
+                                                  "SELECT "
+                                                  "COUNT(DISTINCT tracksFromAlbum1.`ArtistName`) "
+                                                  "FROM "
+                                                  "`Tracks` tracksFromAlbum1 "
+                                                  "WHERE "
+                                                  "tracksFromAlbum1.`AlbumTitle` = album.`Title` AND "
+                                                  "(tracksFromAlbum1.`AlbumArtistName` = album.`ArtistName` OR "
+                                                  "(tracksFromAlbum1.`AlbumArtistName` IS NULL AND "
+                                                  "album.`ArtistName` IS NULL "
+                                                  ") "
+                                                  ") AND "
+                                                  "tracksFromAlbum1.`AlbumPath` = album.`AlbumPath` "
+                                                  ") AS ArtistsCount, "
+                                                  "( "
+                                                  "SELECT "
+                                                  "GROUP_CONCAT(tracksFromAlbum2.`ArtistName`) "
+                                                  "FROM "
+                                                  "`Tracks` tracksFromAlbum2 "
+                                                  "WHERE "
+                                                  "tracksFromAlbum2.`AlbumTitle` = album.`Title` AND "
+                                                  "(tracksFromAlbum2.`AlbumArtistName` = album.`ArtistName` OR "
+                                                  "(tracksFromAlbum2.`AlbumArtistName` IS NULL AND "
+                                                  "album.`ArtistName` IS NULL "
+                                                  ") "
+                                                  ") AND "
+                                                  "tracksFromAlbum2.`AlbumPath` = album.`AlbumPath` "
+                                                  ") AS AllArtists, "
                                                   "tracks.`AlbumArtistName`, "
                                                   "tracksMapping.`FileName`, "
                                                   "tracksMapping.`FileModifiedTime`, "
@@ -3516,6 +3576,34 @@ void DatabaseInterface::initRequest()
                                                   "tracks.`Title`, "
                                                   "album.`ID`, "
                                                   "tracks.`ArtistName`, "
+                                                  "( "
+                                                  "SELECT "
+                                                  "COUNT(DISTINCT tracksFromAlbum1.`ArtistName`) "
+                                                  "FROM "
+                                                  "`Tracks` tracksFromAlbum1 "
+                                                  "WHERE "
+                                                  "tracksFromAlbum1.`AlbumTitle` = album.`Title` AND "
+                                                  "(tracksFromAlbum1.`AlbumArtistName` = album.`ArtistName` OR "
+                                                  "(tracksFromAlbum1.`AlbumArtistName` IS NULL AND "
+                                                  "album.`ArtistName` IS NULL "
+                                                  ") "
+                                                  ") AND "
+                                                  "tracksFromAlbum1.`AlbumPath` = album.`AlbumPath` "
+                                                  ") AS ArtistsCount, "
+                                                  "( "
+                                                  "SELECT "
+                                                  "GROUP_CONCAT(tracksFromAlbum2.`ArtistName`) "
+                                                  "FROM "
+                                                  "`Tracks` tracksFromAlbum2 "
+                                                  "WHERE "
+                                                  "tracksFromAlbum2.`AlbumTitle` = album.`Title` AND "
+                                                  "(tracksFromAlbum2.`AlbumArtistName` = album.`ArtistName` OR "
+                                                  "(tracksFromAlbum2.`AlbumArtistName` IS NULL AND "
+                                                  "album.`ArtistName` IS NULL "
+                                                  ") "
+                                                  ") AND "
+                                                  "tracksFromAlbum2.`AlbumPath` = album.`AlbumPath` "
+                                                  ") AS AllArtists, "
                                                   "tracks.`AlbumArtistName`, "
                                                   "tracksMapping.`FileName`, "
                                                   "tracksMapping.`FileModifiedTime`, "
@@ -3691,6 +3779,34 @@ void DatabaseInterface::initRequest()
                                                        "tracks.`Title`, "
                                                        "tracks.`ArtistName`, "
                                                        "tracks.`AlbumTitle`, "
+                                                       "( "
+                                                       "SELECT "
+                                                       "COUNT(DISTINCT tracksFromAlbum1.`ArtistName`) "
+                                                       "FROM "
+                                                       "`Tracks` tracksFromAlbum1 "
+                                                       "WHERE "
+                                                       "tracksFromAlbum1.`AlbumTitle` = album.`Title` AND "
+                                                       "(tracksFromAlbum1.`AlbumArtistName` = album.`ArtistName` OR "
+                                                       "(tracksFromAlbum1.`AlbumArtistName` IS NULL AND "
+                                                       "album.`ArtistName` IS NULL "
+                                                       ") "
+                                                       ") AND "
+                                                       "tracksFromAlbum1.`AlbumPath` = album.`AlbumPath` "
+                                                       ") AS ArtistsCount, "
+                                                       "( "
+                                                       "SELECT "
+                                                       "GROUP_CONCAT(tracksFromAlbum2.`ArtistName`) "
+                                                       "FROM "
+                                                       "`Tracks` tracksFromAlbum2 "
+                                                       "WHERE "
+                                                       "tracksFromAlbum2.`AlbumTitle` = album.`Title` AND "
+                                                       "(tracksFromAlbum2.`AlbumArtistName` = album.`ArtistName` OR "
+                                                       "(tracksFromAlbum2.`AlbumArtistName` IS NULL AND "
+                                                       "album.`ArtistName` IS NULL "
+                                                       ") "
+                                                       ") AND "
+                                                       "tracksFromAlbum2.`AlbumPath` = album.`AlbumPath` "
+                                                       ") AS AllArtists, "
                                                        "tracks.`AlbumArtistName`, "
                                                        "tracks.`Duration`, "
                                                        "album.`CoverFileName`, "
@@ -3839,6 +3955,34 @@ void DatabaseInterface::initRequest()
                                                    "tracks.`Title`, "
                                                    "album.`ID`, "
                                                    "tracks.`ArtistName`, "
+                                                   "( "
+                                                   "SELECT "
+                                                   "COUNT(DISTINCT tracksFromAlbum1.`ArtistName`) "
+                                                   "FROM "
+                                                   "`Tracks` tracksFromAlbum1 "
+                                                   "WHERE "
+                                                   "tracksFromAlbum1.`AlbumTitle` = album.`Title` AND "
+                                                   "(tracksFromAlbum1.`AlbumArtistName` = album.`ArtistName` OR "
+                                                   "(tracksFromAlbum1.`AlbumArtistName` IS NULL AND "
+                                                   "album.`ArtistName` IS NULL "
+                                                   ") "
+                                                   ") AND "
+                                                   "tracksFromAlbum1.`AlbumPath` = album.`AlbumPath` "
+                                                   ") AS ArtistsCount, "
+                                                   "( "
+                                                   "SELECT "
+                                                   "GROUP_CONCAT(tracksFromAlbum2.`ArtistName`) "
+                                                   "FROM "
+                                                   "`Tracks` tracksFromAlbum2 "
+                                                   "WHERE "
+                                                   "tracksFromAlbum2.`AlbumTitle` = album.`Title` AND "
+                                                   "(tracksFromAlbum2.`AlbumArtistName` = album.`ArtistName` OR "
+                                                   "(tracksFromAlbum2.`AlbumArtistName` IS NULL AND "
+                                                   "album.`ArtistName` IS NULL "
+                                                   ") "
+                                                   ") AND "
+                                                   "tracksFromAlbum2.`AlbumPath` = album.`AlbumPath` "
+                                                   ") AS AllArtists, "
                                                    "tracks.`AlbumArtistName`, "
                                                    "tracksMapping.`FileName`, "
                                                    "tracksMapping.`FileModifiedTime`, "
@@ -3978,6 +4122,34 @@ void DatabaseInterface::initRequest()
                                                          "tracks.`Title`, "
                                                          "album.`ID`, "
                                                          "tracks.`ArtistName`, "
+                                                         "( "
+                                                         "SELECT "
+                                                         "COUNT(DISTINCT tracksFromAlbum1.`ArtistName`) "
+                                                         "FROM "
+                                                         "`Tracks` tracksFromAlbum1 "
+                                                         "WHERE "
+                                                         "tracksFromAlbum1.`AlbumTitle` = album.`Title` AND "
+                                                         "(tracksFromAlbum1.`AlbumArtistName` = album.`ArtistName` OR "
+                                                         "(tracksFromAlbum1.`AlbumArtistName` IS NULL AND "
+                                                         "album.`ArtistName` IS NULL "
+                                                         ") "
+                                                         ") AND "
+                                                         "tracksFromAlbum1.`AlbumPath` = album.`AlbumPath` "
+                                                         ") AS ArtistsCount, "
+                                                         "( "
+                                                         "SELECT "
+                                                         "GROUP_CONCAT(tracksFromAlbum2.`ArtistName`) "
+                                                         "FROM "
+                                                         "`Tracks` tracksFromAlbum2 "
+                                                         "WHERE "
+                                                         "tracksFromAlbum2.`AlbumTitle` = album.`Title` AND "
+                                                         "(tracksFromAlbum2.`AlbumArtistName` = album.`ArtistName` OR "
+                                                         "(tracksFromAlbum2.`AlbumArtistName` IS NULL AND "
+                                                         "album.`ArtistName` IS NULL "
+                                                         ") "
+                                                         ") AND "
+                                                         "tracksFromAlbum2.`AlbumPath` = album.`AlbumPath` "
+                                                         ") AS AllArtists, "
                                                          "tracks.`AlbumArtistName`, "
                                                          "tracksMapping.`FileName`, "
                                                          "tracksMapping.`FileModifiedTime`, "
@@ -4199,7 +4371,7 @@ void DatabaseInterface::initRequest()
                                                                        "FROM "
                                                                        "`Albums` album "
                                                                        "WHERE "
-                                                                       "album.`ArtistName` = :artistName AND "
+                                                                       "(album.`ArtistName` = :artistName OR :artistName IS NULL OR album.`ArtistName` IS NULL) AND "
                                                                        "album.`Title` = :title AND "
                                                                        "album.`AlbumPath` = :albumPath");
 
@@ -4342,6 +4514,34 @@ void DatabaseInterface::initRequest()
                                                                   "tracks.`Title`, "
                                                                   "album.`ID`, "
                                                                   "tracks.`ArtistName`, "
+                                                                  "( "
+                                                                  "SELECT "
+                                                                  "COUNT(DISTINCT tracksFromAlbum1.`ArtistName`) "
+                                                                  "FROM "
+                                                                  "`Tracks` tracksFromAlbum1 "
+                                                                  "WHERE "
+                                                                  "tracksFromAlbum1.`AlbumTitle` = album.`Title` AND "
+                                                                  "(tracksFromAlbum1.`AlbumArtistName` = album.`ArtistName` OR "
+                                                                  "(tracksFromAlbum1.`AlbumArtistName` IS NULL AND "
+                                                                  "album.`ArtistName` IS NULL "
+                                                                  ") "
+                                                                  ") AND "
+                                                                  "tracksFromAlbum1.`AlbumPath` = album.`AlbumPath` "
+                                                                  ") AS ArtistsCount, "
+                                                                  "( "
+                                                                  "SELECT "
+                                                                  "GROUP_CONCAT(tracksFromAlbum2.`ArtistName`) "
+                                                                  "FROM "
+                                                                  "`Tracks` tracksFromAlbum2 "
+                                                                  "WHERE "
+                                                                  "tracksFromAlbum2.`AlbumTitle` = album.`Title` AND "
+                                                                  "(tracksFromAlbum2.`AlbumArtistName` = album.`ArtistName` OR "
+                                                                  "(tracksFromAlbum2.`AlbumArtistName` IS NULL AND "
+                                                                  "album.`ArtistName` IS NULL "
+                                                                  ") "
+                                                                  ") AND "
+                                                                  "tracksFromAlbum2.`AlbumPath` = album.`AlbumPath` "
+                                                                  ") AS AllArtists, "
                                                                   "tracks.`AlbumArtistName`, "
                                                                   "\"\" as FileName, "
                                                                   "NULL as FileModifiedTime, "
@@ -4879,6 +5079,34 @@ void DatabaseInterface::initRequest()
                                                               "tracks.`Title`, "
                                                               "album.`ID`, "
                                                               "tracks.`ArtistName`, "
+                                                              "( "
+                                                              "SELECT "
+                                                              "COUNT(DISTINCT tracksFromAlbum1.`ArtistName`) "
+                                                              "FROM "
+                                                              "`Tracks` tracksFromAlbum1 "
+                                                              "WHERE "
+                                                              "tracksFromAlbum1.`AlbumTitle` = album.`Title` AND "
+                                                              "(tracksFromAlbum1.`AlbumArtistName` = album.`ArtistName` OR "
+                                                              "(tracksFromAlbum1.`AlbumArtistName` IS NULL AND "
+                                                              "album.`ArtistName` IS NULL "
+                                                              ") "
+                                                              ") AND "
+                                                              "tracksFromAlbum1.`AlbumPath` = album.`AlbumPath` "
+                                                              ") AS ArtistsCount, "
+                                                              "( "
+                                                              "SELECT "
+                                                              "GROUP_CONCAT(tracksFromAlbum2.`ArtistName`) "
+                                                              "FROM "
+                                                              "`Tracks` tracksFromAlbum2 "
+                                                              "WHERE "
+                                                              "tracksFromAlbum2.`AlbumTitle` = album.`Title` AND "
+                                                              "(tracksFromAlbum2.`AlbumArtistName` = album.`ArtistName` OR "
+                                                              "(tracksFromAlbum2.`AlbumArtistName` IS NULL AND "
+                                                              "album.`ArtistName` IS NULL "
+                                                              ") "
+                                                              ") AND "
+                                                              "tracksFromAlbum2.`AlbumPath` = album.`AlbumPath` "
+                                                              ") AS AllArtists, "
                                                               "tracks.`AlbumArtistName`, "
                                                               "tracksMapping.`FileName`, "
                                                               "tracksMapping.`FileModifiedTime`, "
@@ -5139,7 +5367,7 @@ void DatabaseInterface::initRequest()
     Q_EMIT requestsInitDone();
 }
 
-qulonglong DatabaseInterface::insertAlbum(const QString &title, const QString &albumArtist, const QString &trackArtist,
+qulonglong DatabaseInterface::insertAlbum(const QString &title, const QString &albumArtist,
                                           const QString &trackPath, const QUrl &albumArtURI)
 {
     auto result = qulonglong(0);
@@ -5148,84 +5376,51 @@ qulonglong DatabaseInterface::insertAlbum(const QString &title, const QString &a
         return result;
     }
 
-    if (!albumArtist.isEmpty() || !trackArtist.isEmpty()) {
-        d->mSelectAlbumIdFromTitleAndArtistQuery.bindValue(QStringLiteral(":title"), title);
-        d->mSelectAlbumIdFromTitleAndArtistQuery.bindValue(QStringLiteral(":albumPath"), trackPath);
-        if (!albumArtist.isEmpty()) {
-            d->mSelectAlbumIdFromTitleAndArtistQuery.bindValue(QStringLiteral(":artistName"), albumArtist);
-        } else {
-            d->mSelectAlbumIdFromTitleAndArtistQuery.bindValue(QStringLiteral(":artistName"), trackArtist);
-        }
+    d->mSelectAlbumIdFromTitleAndArtistQuery.bindValue(QStringLiteral(":title"), title);
+    d->mSelectAlbumIdFromTitleAndArtistQuery.bindValue(QStringLiteral(":albumPath"), trackPath);
+    d->mSelectAlbumIdFromTitleAndArtistQuery.bindValue(QStringLiteral(":artistName"), albumArtist);
 
-        auto queryResult = execQuery(d->mSelectAlbumIdFromTitleAndArtistQuery);
+    auto queryResult = execQuery(d->mSelectAlbumIdFromTitleAndArtistQuery);
 
-        if (!queryResult || !d->mSelectAlbumIdFromTitleAndArtistQuery.isSelect() || !d->mSelectAlbumIdFromTitleAndArtistQuery.isActive()) {
-            Q_EMIT databaseError();
+    if (!queryResult || !d->mSelectAlbumIdFromTitleAndArtistQuery.isSelect() || !d->mSelectAlbumIdFromTitleAndArtistQuery.isActive()) {
+        Q_EMIT databaseError();
 
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertAlbum" << d->mSelectAlbumIdFromTitleAndArtistQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertAlbum" << d->mSelectAlbumIdFromTitleAndArtistQuery.boundValues();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertAlbum" << d->mSelectAlbumIdFromTitleAndArtistQuery.lastError();
-
-            d->mSelectAlbumIdFromTitleAndArtistQuery.finish();
-
-            return result;
-        }
-
-        if (d->mSelectAlbumIdFromTitleAndArtistQuery.next()) {
-            result = d->mSelectAlbumIdFromTitleAndArtistQuery.record().value(0).toULongLong();
-
-            d->mSelectAlbumIdFromTitleAndArtistQuery.finish();
-
-            return result;
-        }
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertAlbum" << d->mSelectAlbumIdFromTitleAndArtistQuery.lastQuery();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertAlbum" << d->mSelectAlbumIdFromTitleAndArtistQuery.boundValues();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertAlbum" << d->mSelectAlbumIdFromTitleAndArtistQuery.lastError();
 
         d->mSelectAlbumIdFromTitleAndArtistQuery.finish();
+
+        return result;
     }
 
-    if (result == 0) {
-        d->mSelectAlbumIdFromTitleWithoutArtistQuery.bindValue(QStringLiteral(":title"), title);
-        d->mSelectAlbumIdFromTitleWithoutArtistQuery.bindValue(QStringLiteral(":albumPath"), trackPath);
+    if (d->mSelectAlbumIdFromTitleAndArtistQuery.next()) {
+        result = d->mSelectAlbumIdFromTitleAndArtistQuery.record().value(0).toULongLong();
 
-        auto queryResult = execQuery(d->mSelectAlbumIdFromTitleWithoutArtistQuery);
+        d->mSelectAlbumIdFromTitleAndArtistQuery.finish();
 
-        if (!queryResult || !d->mSelectAlbumIdFromTitleWithoutArtistQuery.isSelect() || !d->mSelectAlbumIdFromTitleWithoutArtistQuery.isActive()) {
-            Q_EMIT databaseError();
-
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertAlbum" << d->mSelectAlbumIdFromTitleWithoutArtistQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertAlbum" << d->mSelectAlbumIdFromTitleWithoutArtistQuery.boundValues();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertAlbum" << d->mSelectAlbumIdFromTitleWithoutArtistQuery.lastError();
-
-            d->mSelectAlbumIdFromTitleWithoutArtistQuery.finish();
-
-            return result;
+        if (!albumArtist.isEmpty()) {
+            const auto similarAlbum = internalOneAlbumPartialData(result);
+            updateAlbumArtist(result, title, trackPath, albumArtist);
         }
 
-        if (d->mSelectAlbumIdFromTitleWithoutArtistQuery.next()) {
-            result = d->mSelectAlbumIdFromTitleWithoutArtistQuery.record().value(0).toULongLong();
-
-            d->mSelectAlbumIdFromTitleWithoutArtistQuery.finish();
-
-            return result;
-        }
-
-        d->mSelectAlbumIdFromTitleWithoutArtistQuery.finish();
+        return result;
     }
+
+    d->mSelectAlbumIdFromTitleAndArtistQuery.finish();
 
     d->mInsertAlbumQuery.bindValue(QStringLiteral(":albumId"), d->mAlbumId);
     d->mInsertAlbumQuery.bindValue(QStringLiteral(":title"), title);
     if (!albumArtist.isEmpty()) {
         insertArtist(albumArtist);
         d->mInsertAlbumQuery.bindValue(QStringLiteral(":albumArtist"), albumArtist);
-    } else if (!trackArtist.isEmpty()) {
-        insertArtist(trackArtist);
-        d->mInsertAlbumQuery.bindValue(QStringLiteral(":albumArtist"), trackArtist);
     } else {
         d->mInsertAlbumQuery.bindValue(QStringLiteral(":albumArtist"), {});
     }
     d->mInsertAlbumQuery.bindValue(QStringLiteral(":albumPath"), trackPath);
     d->mInsertAlbumQuery.bindValue(QStringLiteral(":coverFileName"), albumArtURI);
 
-    auto queryResult = execQuery(d->mInsertAlbumQuery);
+    queryResult = execQuery(d->mInsertAlbumQuery);
 
     if (!queryResult || !d->mInsertAlbumQuery.isActive()) {
         Q_EMIT databaseError();
@@ -5550,7 +5745,7 @@ qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrac
     }
 
     auto albumId = insertAlbum(oneTrack.albumName(), (oneTrack.isValidAlbumArtist() ? oneTrack.albumArtist() : QString()),
-                               oneTrack.artist(), trackPath, albumCover);
+                               trackPath, albumCover);
 
     auto oldAlbumId = albumId;
 
@@ -5655,8 +5850,12 @@ qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrac
     d->mInsertTrackQuery.bindValue(QStringLiteral(":title"), oneTrack.title());
     insertArtist(oneTrack.artist());
     d->mInsertTrackQuery.bindValue(QStringLiteral(":artistName"), oneTrack.artist());
-    d->mInsertTrackQuery.bindValue(QStringLiteral(":albumTitle"), albumData[AlbumDataType::key_type::TitleRole]);
-    d->mInsertTrackQuery.bindValue(QStringLiteral(":albumArtistName"), albumData[AlbumDataType::key_type::ArtistRole]);
+    d->mInsertTrackQuery.bindValue(QStringLiteral(":albumTitle"), oneTrack.albumName());
+    if (oneTrack.isValidAlbumArtist()) {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":albumArtistName"), oneTrack.albumArtist());
+    } else {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":albumArtistName"), {});
+    }
     d->mInsertTrackQuery.bindValue(QStringLiteral(":albumPath"), trackPath);
     if (oneTrack.trackNumberIsValid()) {
         d->mInsertTrackQuery.bindValue(QStringLiteral(":trackNumber"), oneTrack.trackNumber());
@@ -5765,51 +5964,57 @@ MusicAudioTrack DatabaseInterface::buildTrackFromDatabaseRecord(const QSqlRecord
     result.setParentId(trackRecord.value(2).toString());
     result.setArtist(trackRecord.value(3).toString());
 
-    if (trackRecord.value(4).isValid()) {
-        result.setAlbumArtist(trackRecord.value(4).toString());
+    if (trackRecord.value(6).isValid()) {
+        result.setAlbumArtist(trackRecord.value(6).toString());
+    } else {
+        if (trackRecord.value(5).toInt() == 1) {
+            result.setAlbumArtist(trackRecord.value(6).toString());
+        } else if (trackRecord.value(5).toInt() > 1) {
+            result.setAlbumArtist(QStringLiteral("Various Artists"));
+        }
     }
 
-    result.setResourceURI(trackRecord.value(5).toUrl());
-    result.setFileModificationTime(trackRecord.value(6).toDateTime());
-    if (trackRecord.value(7).isValid()) {
-        result.setTrackNumber(trackRecord.value(7).toInt());
+    result.setResourceURI(trackRecord.value(7).toUrl());
+    result.setFileModificationTime(trackRecord.value(8).toDateTime());
+    if (trackRecord.value(9).isValid()) {
+        result.setTrackNumber(trackRecord.value(9).toInt());
     }
-    if (trackRecord.value(8).isValid()) {
-        result.setDiscNumber(trackRecord.value(8).toInt());
+    if (trackRecord.value(10).isValid()) {
+        result.setDiscNumber(trackRecord.value(10).toInt());
     }
-    result.setDuration(QTime::fromMSecsSinceStartOfDay(trackRecord.value(9).toInt()));
-    result.setAlbumName(trackRecord.value(10).toString());
-    result.setRating(trackRecord.value(11).toInt());
-    result.setAlbumCover(trackRecord.value(12).toUrl());
-    result.setIsSingleDiscAlbum(trackRecord.value(13).toBool());
-    result.setGenre(trackRecord.value(14).toString());
-    result.setComposer(trackRecord.value(15).toString());
-    result.setLyricist(trackRecord.value(16).toString());
-    result.setComment(trackRecord.value(17).toString());
-    result.setYear(trackRecord.value(18).toInt());
-    if (trackRecord.value(19).isValid()) {
+    result.setDuration(QTime::fromMSecsSinceStartOfDay(trackRecord.value(11).toInt()));
+    result.setAlbumName(trackRecord.value(12).toString());
+    result.setRating(trackRecord.value(13).toInt());
+    result.setAlbumCover(trackRecord.value(14).toUrl());
+    result.setIsSingleDiscAlbum(trackRecord.value(15).toBool());
+    result.setGenre(trackRecord.value(16).toString());
+    result.setComposer(trackRecord.value(17).toString());
+    result.setLyricist(trackRecord.value(18).toString());
+    result.setComment(trackRecord.value(19).toString());
+    result.setYear(trackRecord.value(20).toInt());
+    if (trackRecord.value(21).isValid()) {
         bool isValid;
-        auto value = trackRecord.value(19).toInt(&isValid);
+        auto value = trackRecord.value(21).toInt(&isValid);
         if (isValid) {
             result.setChannels(value);
         }
     }
-    if (trackRecord.value(20).isValid()) {
+    if (trackRecord.value(22).isValid()) {
         bool isValid;
-        auto value = trackRecord.value(20).toInt(&isValid);
+        auto value = trackRecord.value(22).toInt(&isValid);
         if (isValid) {
             result.setBitRate(value);
         }
     }
-    if (trackRecord.value(21).isValid()) {
+    if (trackRecord.value(23).isValid()) {
         bool isValid;
-        auto value = trackRecord.value(21).toInt(&isValid);
+        auto value = trackRecord.value(23).toInt(&isValid);
         if (isValid) {
             result.setSampleRate(value);
         }
     }
     result.setAlbumId(trackRecord.value(2).toULongLong());
-    result.setHasEmbeddedCover(trackRecord.value(22).toBool());
+    result.setHasEmbeddedCover(trackRecord.value(24).toBool());
 
     result.setValid(true);
 
@@ -5822,51 +6027,61 @@ DatabaseInterface::TrackDataType DatabaseInterface::buildTrackDataFromDatabaseRe
 
     result[TrackDataType::key_type::DatabaseIdRole] = trackRecord.value(0);
     result[TrackDataType::key_type::TitleRole] = trackRecord.value(1);
-    if (!trackRecord.value(10).isNull()) {
-        result[TrackDataType::key_type::AlbumRole] = trackRecord.value(10);
+    if (!trackRecord.value(12).isNull()) {
+        result[TrackDataType::key_type::AlbumRole] = trackRecord.value(12);
         result[TrackDataType::key_type::AlbumIdRole] = trackRecord.value(2);
     }
     if (!trackRecord.value(3).isNull()) {
         result[TrackDataType::key_type::ArtistRole] = trackRecord.value(3);
     }
-    if (!trackRecord.value(4).isNull()) {
-        result[TrackDataType::key_type::AlbumArtistRole] = trackRecord.value(4);
+
+    if (!trackRecord.value(6).isNull()) {
+        result[TrackDataType::key_type::IsValidAlbumArtistRole] = true;
+        result[TrackDataType::key_type::AlbumArtistRole] = trackRecord.value(6);
+    } else {
+        result[TrackDataType::key_type::IsValidAlbumArtistRole] = false;
+        if (trackRecord.value(4).toInt() == 1) {
+            result[TrackDataType::key_type::AlbumArtistRole] = trackRecord.value(3);
+        } else if (trackRecord.value(4).toInt() > 1) {
+            result[TrackDataType::key_type::AlbumArtistRole] = QStringLiteral("Various Artists");
+        }
     }
-    result[TrackDataType::key_type::ResourceRole] = trackRecord.value(5);
-    if (!trackRecord.value(7).isNull()) {
-        result[TrackDataType::key_type::TrackNumberRole] = trackRecord.value(7);
+
+    result[TrackDataType::key_type::ResourceRole] = trackRecord.value(7);
+    if (!trackRecord.value(9).isNull()) {
+        result[TrackDataType::key_type::TrackNumberRole] = trackRecord.value(9);
     }
-    if (!trackRecord.value(8).isNull()) {
-        result[TrackDataType::key_type::DiscNumberRole] = trackRecord.value(8);
+    if (!trackRecord.value(10).isNull()) {
+        result[TrackDataType::key_type::DiscNumberRole] = trackRecord.value(10);
     }
-    result[TrackDataType::key_type::DurationRole] = QTime::fromMSecsSinceStartOfDay(trackRecord.value(9).toInt());
-    result[TrackDataType::key_type::MilliSecondsDurationRole] = trackRecord.value(9).toInt();
-    result[TrackDataType::key_type::RatingRole] = trackRecord.value(11);
-    if (!trackRecord.value(12).toString().isEmpty()) {
-        result[TrackDataType::key_type::ImageUrlRole] = QUrl(trackRecord.value(12).toString());
-    } else if (!trackRecord.value(28).toString().isEmpty()) {
-        result[TrackDataType::key_type::ImageUrlRole] = QVariant{QStringLiteral("image://cover/") + trackRecord.value(28).toUrl().toLocalFile()};
+    result[TrackDataType::key_type::DurationRole] = QTime::fromMSecsSinceStartOfDay(trackRecord.value(11).toInt());
+    result[TrackDataType::key_type::MilliSecondsDurationRole] = trackRecord.value(11).toInt();
+    result[TrackDataType::key_type::RatingRole] = trackRecord.value(13);
+    if (!trackRecord.value(14).toString().isEmpty()) {
+        result[TrackDataType::key_type::ImageUrlRole] = QUrl(trackRecord.value(14).toString());
+    } else if (!trackRecord.value(30).toString().isEmpty()) {
+        result[TrackDataType::key_type::ImageUrlRole] = QVariant{QStringLiteral("image://cover/") + trackRecord.value(30).toUrl().toLocalFile()};
     }
-    result[TrackDataType::key_type::IsSingleDiscAlbumRole] = trackRecord.value(13);
-    if (!trackRecord.value(14).isNull()) {
-        result[TrackDataType::key_type::GenreRole] = trackRecord.value(14);
-    }
-    if (!trackRecord.value(15).isNull()) {
-        result[TrackDataType::key_type::ComposerRole] = trackRecord.value(15);
-    }
+    result[TrackDataType::key_type::IsSingleDiscAlbumRole] = trackRecord.value(15);
     if (!trackRecord.value(16).isNull()) {
-        result[TrackDataType::key_type::LyricistRole] = trackRecord.value(16);
+        result[TrackDataType::key_type::GenreRole] = trackRecord.value(16);
     }
-    result[TrackDataType::key_type::HasEmbeddedCover] = trackRecord.value(22);
-    result[TrackDataType::key_type::FileModificationTime] = trackRecord.value(6);
-    if (!trackRecord.value(24).isNull()) {
-        result[TrackDataType::key_type::FirstPlayDate] = trackRecord.value(24);
+    if (!trackRecord.value(17).isNull()) {
+        result[TrackDataType::key_type::ComposerRole] = trackRecord.value(17);
     }
-    if (!trackRecord.value(25).isNull()) {
-        result[TrackDataType::key_type::LastPlayDate] = trackRecord.value(25);
+    if (!trackRecord.value(18).isNull()) {
+        result[TrackDataType::key_type::LyricistRole] = trackRecord.value(18);
     }
-    result[TrackDataType::key_type::PlayCounter] = trackRecord.value(26);
-    result[TrackDataType::key_type::PlayFrequency] = trackRecord.value(27);
+    result[TrackDataType::key_type::HasEmbeddedCover] = trackRecord.value(24);
+    result[TrackDataType::key_type::FileModificationTime] = trackRecord.value(8);
+    if (!trackRecord.value(26).isNull()) {
+        result[TrackDataType::key_type::FirstPlayDate] = trackRecord.value(26);
+    }
+    if (!trackRecord.value(27).isNull()) {
+        result[TrackDataType::key_type::LastPlayDate] = trackRecord.value(27);
+    }
+    result[TrackDataType::key_type::PlayCounter] = trackRecord.value(28);
+    result[TrackDataType::key_type::PlayFrequency] = trackRecord.value(29);
     result[DataType::key_type::ElementTypeRole] = ElisaUtils::Track;
 
     return result;
@@ -5890,11 +6105,11 @@ void DatabaseInterface::internalRemoveTracksList(const QList<QUrl> &removedTrack
 
         removeTrackInDatabase(removedTrackId);
 
-        const auto &modifiedAlbumId = internalAlbumIdFromTitleAndArtist(oneRemovedTrack.albumName(), oneRemovedTrack.albumArtist());
+        const auto &trackPath = oneRemovedTrack.resourceURI().toString(currentOptions);
+        const auto &modifiedAlbumId = internalAlbumIdFromTitleAndArtist(oneRemovedTrack.albumName(), oneRemovedTrack.albumArtist(), trackPath);
         const auto &allTracksFromArtist = internalTracksFromAuthor(oneRemovedTrack.artist());
         const auto &allAlbumsFromArtist = internalAlbumIdsFromAuthor(oneRemovedTrack.artist());
         const auto &removedArtistId = internalArtistIdFromName(oneRemovedTrack.artist());
-        const auto &trackPath = oneRemovedTrack.resourceURI().toString(currentOptions);
 
         if (modifiedAlbumId) {
             recordModifiedAlbum(modifiedAlbumId);
@@ -6374,7 +6589,7 @@ QList<qulonglong> DatabaseInterface::fetchTrackIds(qulonglong albumId)
     return allTracks;
 }
 
-qulonglong DatabaseInterface::internalAlbumIdFromTitleAndArtist(const QString &title, const QString &artist)
+qulonglong DatabaseInterface::internalAlbumIdFromTitleAndArtist(const QString &title, const QString &artist, const QString &albumPath)
 {
     auto result = qulonglong(0);
 
@@ -6403,6 +6618,7 @@ qulonglong DatabaseInterface::internalAlbumIdFromTitleAndArtist(const QString &t
 
     if (result == 0) {
         d->mSelectAlbumIdFromTitleWithoutArtistQuery.bindValue(QStringLiteral(":title"), title);
+        d->mSelectAlbumIdFromTitleWithoutArtistQuery.bindValue(QStringLiteral(":albumPath"), albumPath);
 
         auto queryResult = execQuery(d->mSelectAlbumIdFromTitleWithoutArtistQuery);
 
@@ -6699,17 +6915,29 @@ DatabaseInterface::ListAlbumDataType DatabaseInterface::internalAllAlbumsPartial
 
         newData[DataType::key_type::DatabaseIdRole] = currentRecord.value(0);
         newData[DataType::key_type::TitleRole] = currentRecord.value(1);
-        newData[DataType::key_type::SecondaryTextRole] = currentRecord.value(2);
         if (!currentRecord.value(3).toString().isEmpty()) {
             newData[DataType::key_type::ImageUrlRole] = currentRecord.value(3);
-        } else if (!currentRecord.value(9).toString().isEmpty()) {
-            newData[DataType::key_type::ImageUrlRole] = QVariant{QStringLiteral("image://cover/") + currentRecord.value(9).toUrl().toLocalFile()};
+        } else if (!currentRecord.value(10).toString().isEmpty()) {
+            newData[DataType::key_type::ImageUrlRole] = QVariant{QStringLiteral("image://cover/") + currentRecord.value(10).toUrl().toLocalFile()};
         }
-        newData[DataType::key_type::ArtistRole] = currentRecord.value(4);
-        newData[DataType::key_type::AllArtistsRole] = QVariant::fromValue(currentRecord.value(5).toString().split(QStringLiteral(", ")));
-        newData[DataType::key_type::HighestTrackRating] = currentRecord.value(6);
-        newData[DataType::key_type::IsSingleDiscAlbumRole] = currentRecord.value(8);
-        newData[DataType::key_type::GenreRole] = QVariant::fromValue(currentRecord.value(7).toString().split(QStringLiteral(", ")));
+        auto allArtists = currentRecord.value(6).toString().split(QStringLiteral(", "));
+        allArtists.removeDuplicates();
+        newData[DataType::key_type::AllArtistsRole] = QVariant::fromValue(allArtists);
+        if (!currentRecord.value(4).isNull()) {
+            newData[DataType::key_type::IsValidAlbumArtistRole] = true;
+            newData[DataType::key_type::SecondaryTextRole] = currentRecord.value(4);
+        } else {
+            newData[DataType::key_type::IsValidAlbumArtistRole] = false;
+            if (currentRecord.value(5).toInt() == 1) {
+                newData[DataType::key_type::SecondaryTextRole] = allArtists.first();
+            } else if (currentRecord.value(5).toInt() > 1) {
+                newData[DataType::key_type::SecondaryTextRole] = QStringLiteral("Various Artists");
+            }
+        }
+        newData[DataType::key_type::ArtistRole] = newData[DataType::key_type::SecondaryTextRole];
+        newData[DataType::key_type::HighestTrackRating] = currentRecord.value(7);
+        newData[DataType::key_type::IsSingleDiscAlbumRole] = currentRecord.value(9);
+        newData[DataType::key_type::GenreRole] = QVariant::fromValue(currentRecord.value(8).toString().split(QStringLiteral(", ")));
         newData[DataType::key_type::ElementTypeRole] = ElisaUtils::Album;
 
         result.push_back(newData);
@@ -6735,17 +6963,31 @@ DatabaseInterface::AlbumDataType DatabaseInterface::internalOneAlbumPartialData(
 
         result[DataType::key_type::DatabaseIdRole] = currentRecord.value(0);
         result[DataType::key_type::TitleRole] = currentRecord.value(1);
-        result[DataType::key_type::SecondaryTextRole] = currentRecord.value(2);
         if (!currentRecord.value(4).toString().isEmpty()) {
             result[DataType::key_type::ImageUrlRole] = currentRecord.value(4);
-        } else if (!currentRecord.value(10).toString().isEmpty()) {
-            result[DataType::key_type::ImageUrlRole] = QVariant{QStringLiteral("image://cover/") + currentRecord.value(10).toUrl().toLocalFile()};
+        } else if (!currentRecord.value(11).toString().isEmpty()) {
+            result[DataType::key_type::ImageUrlRole] = QVariant{QStringLiteral("image://cover/") + currentRecord.value(11).toUrl().toLocalFile()};
         }
-        result[DataType::key_type::ArtistRole] = currentRecord.value(2);
-        result[DataType::key_type::AllArtistsRole] = QVariant::fromValue(currentRecord.value(7).toString().split(QStringLiteral(", ")));
-        result[DataType::key_type::HighestTrackRating] = currentRecord.value(8);
+
+        auto allArtists = currentRecord.value(8).toString().split(QStringLiteral(", "));
+        allArtists.removeDuplicates();
+        result[DataType::key_type::AllArtistsRole] = QVariant::fromValue(allArtists);
+
+        if (!currentRecord.value(2).isNull()) {
+            result[DataType::key_type::IsValidAlbumArtistRole] = true;
+            result[DataType::key_type::SecondaryTextRole] = currentRecord.value(2);
+        } else {
+            result[DataType::key_type::IsValidAlbumArtistRole] = false;
+            if (currentRecord.value(7).toInt() == 1) {
+                result[DataType::key_type::SecondaryTextRole] = allArtists.first();
+            } else if (currentRecord.value(7).toInt() > 1) {
+                result[DataType::key_type::SecondaryTextRole] = QStringLiteral("Various Artists");
+            }
+        }
+        result[DataType::key_type::ArtistRole] = result[DataType::key_type::SecondaryTextRole];
+        result[DataType::key_type::HighestTrackRating] = currentRecord.value(9);
         result[DataType::key_type::IsSingleDiscAlbumRole] = currentRecord.value(6);
-        result[DataType::key_type::GenreRole] = QVariant::fromValue(currentRecord.value(9).toString().split(QStringLiteral(", ")));
+        result[DataType::key_type::GenreRole] = QVariant::fromValue(currentRecord.value(10).toString().split(QStringLiteral(", ")));
         result[DataType::key_type::ElementTypeRole] = ElisaUtils::Album;
     }
 

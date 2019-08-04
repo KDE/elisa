@@ -168,6 +168,7 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
         case DatabaseInterface::ChildModelRole:
         case DatabaseInterface::StringDurationRole:
         case DatabaseInterface::MilliSecondsDurationRole:
+        case DatabaseInterface::IsValidAlbumArtistRole:
         case DatabaseInterface::AllArtistsRole:
         case DatabaseInterface::HighestTrackRating:
         case DatabaseInterface::ResourceRole:
@@ -243,6 +244,7 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
         case DatabaseInterface::ChildModelRole:
         case DatabaseInterface::StringDurationRole:
         case DatabaseInterface::MilliSecondsDurationRole:
+        case DatabaseInterface::IsValidAlbumArtistRole:
         case DatabaseInterface::AllArtistsRole:
         case DatabaseInterface::HighestTrackRating:
         case DatabaseInterface::ResourceRole:

@@ -88,6 +88,7 @@ public:
         HighestTrackRating,
         AlbumRole,
         AlbumArtistRole,
+        IsValidAlbumArtistRole,
         TrackNumberRole,
         DiscNumberRole,
         RatingRole,

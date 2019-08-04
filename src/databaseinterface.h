@@ -60,6 +60,7 @@ public:
         HighestTrackRating,
         AlbumRole,
         AlbumArtistRole,
+        IsValidAlbumArtistRole,
         TrackNumberRole,
         DiscNumberRole,
         RatingRole,
@@ -352,7 +353,7 @@ public:
 
     Q_INVOKABLE void init(const QString &dbName, const QString &databaseFileName = {});
 
-    qulonglong albumIdFromTitleAndArtist(const QString &title, const QString &artist);
+    qulonglong albumIdFromTitleAndArtist(const QString &title, const QString &artist, const QString &albumPath);
 
     ListTrackDataType allTracksData();
 
@@ -458,7 +459,7 @@ private:
 
     QList<qulonglong> fetchTrackIds(qulonglong albumId);
 
-    qulonglong internalAlbumIdFromTitleAndArtist(const QString &title, const QString &artist);
+    qulonglong internalAlbumIdFromTitleAndArtist(const QString &title, const QString &artist, const QString &albumPath);
 
     MusicAudioTrack internalTrackFromDatabaseId(qulonglong id);
 
@@ -479,7 +480,7 @@ private:
 
     void initRequest();
 
-    qulonglong insertAlbum(const QString &title, const QString &albumArtist, const QString &trackArtist,
+    qulonglong insertAlbum(const QString &title, const QString &albumArtist,
                            const QString &trackPath, const QUrl &albumArtURI);
 
     bool updateAlbumFromId(qulonglong albumId, const QUrl &albumArtUri,

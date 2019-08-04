@@ -188,7 +188,7 @@ void MediaPlayListTest::enqueueAlbumCase()
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newEntryInListSpy.count(), 0);
 
-    myPlayList.enqueue({myDatabaseContent.albumIdFromTitleAndArtist(QStringLiteral("album2"), QStringLiteral("artist1")),
+    myPlayList.enqueue({myDatabaseContent.albumIdFromTitleAndArtist(QStringLiteral("album2"), QStringLiteral("artist1"), QStringLiteral("/")),
                         QStringLiteral("album2")},
                        ElisaUtils::Album);
 
@@ -316,7 +316,7 @@ void MediaPlayListTest::clearPlayListCase()
     QCOMPARE(newEntryInListSpy.count(), 0);
     QCOMPARE(currentTrackChangedSpy.count(), 0);
 
-    myPlayList.enqueue({myDatabaseContent.albumIdFromTitleAndArtist(QStringLiteral("album2"), QStringLiteral("artist1")),
+    myPlayList.enqueue({myDatabaseContent.albumIdFromTitleAndArtist(QStringLiteral("album2"), QStringLiteral("artist1"), QStringLiteral("/")),
                         QStringLiteral("album2")},
                        ElisaUtils::Album);
 
@@ -462,7 +462,7 @@ void MediaPlayListTest::undoClearPlayListCase()
     QCOMPARE(newEntryInListSpy.count(), 0);
     QCOMPARE(currentTrackChangedSpy.count(), 0);
 
-    myPlayList.enqueue({myDatabaseContent.albumIdFromTitleAndArtist(QStringLiteral("album2"), QStringLiteral("artist1")),
+    myPlayList.enqueue({myDatabaseContent.albumIdFromTitleAndArtist(QStringLiteral("album2"), QStringLiteral("artist1"), QStringLiteral("/")),
                         QStringLiteral("album2")},
                        ElisaUtils::Album);
 
@@ -667,7 +667,7 @@ void MediaPlayListTest::undoReplacePlayListCase()
     QCOMPARE(newEntryInListSpy.count(), 0);
     QCOMPARE(currentTrackChangedSpy.count(), 0);
 
-    myPlayList.enqueue({myDatabaseContent.albumIdFromTitleAndArtist(QStringLiteral("album2"), QStringLiteral("artist1")),
+    myPlayList.enqueue({myDatabaseContent.albumIdFromTitleAndArtist(QStringLiteral("album2"), QStringLiteral("artist1"), QStringLiteral("/")),
                         QStringLiteral("album2")},
                        ElisaUtils::Album);
 
@@ -727,7 +727,7 @@ void MediaPlayListTest::undoReplacePlayListCase()
 
     QCOMPARE(myPlayList.currentTrack(), QPersistentModelIndex(myPlayList.index(0, 0)));
 
-    myPlayList.enqueue({myDatabaseContent.albumIdFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists")),
+    myPlayList.enqueue({myDatabaseContent.albumIdFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists"), QStringLiteral("/")),
                         QStringLiteral("album1")},
                        ElisaUtils::Album,
                        ElisaUtils::ReplacePlayList,
@@ -1023,7 +1023,7 @@ void MediaPlayListTest::removeFirstTrackOfAlbum()
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newEntryInListSpy.count(), 0);
 
-    myPlayList.enqueue({myDatabaseContent.albumIdFromTitleAndArtist(QStringLiteral("album2"), QStringLiteral("artist1")),
+    myPlayList.enqueue({myDatabaseContent.albumIdFromTitleAndArtist(QStringLiteral("album2"), QStringLiteral("artist1"), QStringLiteral("/")),
                         QStringLiteral("album2")},
                        ElisaUtils::Album);
 
@@ -2632,7 +2632,7 @@ void MediaPlayListTest::enqueueReplaceAndPlay()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), MediaPlayList::TrackNumberRole).toInt(), 1);
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), MediaPlayList::DiscNumberRole).toInt(), 1);
 
-    myPlayList.enqueue({myDatabaseContent.albumIdFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists")),
+    myPlayList.enqueue({myDatabaseContent.albumIdFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists"), QStringLiteral("/")),
                         QStringLiteral("album1")},
                        ElisaUtils::Album,
                        ElisaUtils::ReplacePlayList,

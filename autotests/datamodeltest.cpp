@@ -88,7 +88,7 @@ private Q_SLOTS:
         QCOMPARE(dataChangedSpy.count(), 0);
 
         albumsModel.initialize(nullptr, nullptr, ElisaUtils::Track, ElisaUtils::FilterById, {}, {},
-                               musicDb.albumIdFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists")));
+                               musicDb.albumIdFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists"), QStringLiteral("/")));
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -96,7 +96,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        albumsModel.tracksAdded(musicDb.albumData(musicDb.albumIdFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists"))));
+        albumsModel.tracksAdded(musicDb.albumData(musicDb.albumIdFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists"), QStringLiteral("/"))));
 
         QCOMPARE(albumsModel.rowCount(), 4);
         QCOMPARE(beginInsertRowsSpy.count(), 1);
@@ -155,7 +155,7 @@ private Q_SLOTS:
         QCOMPARE(dataChangedSpy.count(), 0);
 
         albumsModel.initialize(nullptr, nullptr, ElisaUtils::Track, ElisaUtils::FilterById, {}, {},
-                               musicDb.albumIdFromTitleAndArtist(QStringLiteral("album3"), QStringLiteral("artist2")));
+                               musicDb.albumIdFromTitleAndArtist(QStringLiteral("album3"), QStringLiteral("artist2"), QStringLiteral("/")));
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -163,7 +163,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        albumsModel.tracksAdded(musicDb.albumData(musicDb.albumIdFromTitleAndArtist(QStringLiteral("album3"), QStringLiteral("artist2"))));
+        albumsModel.tracksAdded(musicDb.albumData(musicDb.albumIdFromTitleAndArtist(QStringLiteral("album3"), QStringLiteral("artist2"), QStringLiteral("/"))));
 
         QCOMPARE(albumsModel.rowCount(), 3);
         QCOMPARE(beginInsertRowsSpy.count(), 1);
@@ -236,7 +236,7 @@ private Q_SLOTS:
         QCOMPARE(dataChangedSpy.count(), 0);
 
         albumsModel.initialize(nullptr, nullptr, ElisaUtils::Track, ElisaUtils::FilterById, {}, {},
-                               musicDb.albumIdFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists")));
+                               musicDb.albumIdFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists"), QStringLiteral("/")));
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -244,7 +244,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        albumsModel.tracksAdded(musicDb.albumData(musicDb.albumIdFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists"))));
+        albumsModel.tracksAdded(musicDb.albumData(musicDb.albumIdFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists"), QStringLiteral("/"))));
 
         QCOMPARE(albumsModel.rowCount(), 4);
         QCOMPARE(beginInsertRowsSpy.count(), 1);
@@ -352,7 +352,7 @@ private Q_SLOTS:
         QCOMPARE(dataChangedSpy.count(), 0);
 
         albumsModel.initialize(nullptr, nullptr, ElisaUtils::Track, ElisaUtils::FilterById, {}, {},
-                               musicDb.albumIdFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists")));
+                               musicDb.albumIdFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists"), QStringLiteral("/")));
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -360,7 +360,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        albumsModel.tracksAdded(musicDb.albumData(musicDb.albumIdFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists"))));
+        albumsModel.tracksAdded(musicDb.albumData(musicDb.albumIdFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists"), QStringLiteral("/"))));
 
         QCOMPARE(albumsModel.rowCount(), 4);
         QCOMPARE(beginInsertRowsSpy.count(), 1);
@@ -1444,7 +1444,8 @@ private Q_SLOTS:
         QCOMPARE(dataChangedSpy.count(), 0);
 
         auto albumId = musicDb.albumIdFromTitleAndArtist(QStringLiteral("album1"),
-                                                         QStringLiteral("Various Artists"));
+                                                         QStringLiteral("Various Artists"),
+                                                         QStringLiteral("/"));
 
         QVERIFY(albumId != 0);
 
@@ -1534,7 +1535,7 @@ private Q_SLOTS:
         QCOMPARE(dataChangedSpy.count(), 0);
 
         albumsModel.initialize(nullptr, nullptr, ElisaUtils::Track, ElisaUtils::FilterById, {}, {},
-                               musicDb.albumIdFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists")));
+                               musicDb.albumIdFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists"), QStringLiteral("/")));
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -1542,7 +1543,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        albumsModel.tracksAdded(musicDb.albumData(musicDb.albumIdFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists"))));
+        albumsModel.tracksAdded(musicDb.albumData(musicDb.albumIdFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists"), QStringLiteral("/"))));
 
         QCOMPARE(albumsModel.rowCount(), 4);
         QCOMPARE(beginInsertRowsSpy.count(), 1);

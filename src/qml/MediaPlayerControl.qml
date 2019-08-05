@@ -208,6 +208,18 @@ FocusScope {
                 }
             }
 
+            // Synthesized slider background that's not actually a part of the
+            // slider. This is done so the slider's own background can be full
+            // height yet transparent, for easier clicking
+            Rectangle {
+                x: musicProgress.leftPadding
+                y: musicProgress.topPadding + musicProgress.availableHeight / 2 - height / 2
+                implicitWidth: seekWheelHandler.width
+                implicitHeight: 6
+                color: myPalette.dark
+                radius: 3
+            }
+
             Slider {
                 property bool seekStarted: false
                 property int seekValue
@@ -239,20 +251,22 @@ FocusScope {
                     }
                 }
 
+                // This only provides a full-height area for clicking; see
+                // https://bugs.kde.org/show_bug.cgi?id=408703. The actual visual
+                // background is generated above ^^
                 background: Rectangle {
                     x: musicProgress.leftPadding
                     y: musicProgress.topPadding + musicProgress.availableHeight / 2 - height / 2
-                    implicitWidth: 200
-                    implicitHeight: 6
-                    width: musicProgress.availableWidth
-                    height: implicitHeight
-                    radius: 3
-                    color: myPalette.dark
+                    anchors.fill: parent
+                    implicitWidth: seekWheelHandler.width
+                    implicitHeight: seekWheelHandler.height
+                    color: "transparent"
 
                     Rectangle {
+                        anchors.verticalCenter: parent.verticalCenter
                         x: (LayoutMirroring.enabled ? musicProgress.visualPosition * parent.width : 0)
                         width: LayoutMirroring.enabled ? parent.width - musicProgress.visualPosition * parent.width: musicProgress.handle.x + radius
-                        height: parent.height
+                        height: 6
                         color: myPalette.text
                         radius: 3
                     }
@@ -320,6 +334,19 @@ FocusScope {
                 }
             }
 
+            // Synthesized slider background that's not actually a part of the
+            // slider. This is done so the slider's own background can be full
+            // height yet transparent, for easier clicking
+            Rectangle {
+                x: volumeSlider.leftPadding
+                y: volumeSlider.topPadding + volumeSlider.availableHeight / 2 - height / 2
+                implicitWidth: audioWheelHandler.width
+                implicitHeight: 6
+                radius: 3
+                color: myPalette.dark
+                opacity: muted ? 0.5 : 1
+            }
+
             Slider {
                 id: volumeSlider
 
@@ -332,21 +359,20 @@ FocusScope {
                 anchors.centerIn: parent
                 width: elisaTheme.volumeSliderWidth
 
+                // This only provides a full-height area for clicking; see
+                // https://bugs.kde.org/show_bug.cgi?id=408703. The actual visual
+                // background is generated above ^^
                 background: Rectangle {
-                    x: volumeSlider.leftPadding
-                    y: volumeSlider.topPadding + volumeSlider.availableHeight / 2 - height / 2
-                    implicitWidth: 200
-                    implicitHeight: 6
-                    width: volumeSlider.availableWidth
-                    height: implicitHeight
-                    radius: 3
-                    color: myPalette.dark
-                    opacity: muted ? 0.5 : 1
+                    anchors.fill: parent
+                    implicitWidth: audioWheelHandler.width
+                    implicitHeight: audioWheelHandler.height
+                    color: "transparent"
 
                     Rectangle {
+                        anchors.verticalCenter: parent.verticalCenter
                         x: (LayoutMirroring.enabled ? volumeSlider.visualPosition * parent.width : 0)
                         width: (LayoutMirroring.enabled ? parent.width - volumeSlider.visualPosition * parent.width : volumeSlider.visualPosition * parent.width)
-                        height: parent.height
+                        height: 6
                         color: myPalette.text
                         radius: 3
                         opacity: muted ? 0.5 : 1

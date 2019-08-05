@@ -221,7 +221,10 @@ FocusScope {
                     text: title
                     Layout.alignment: Qt.AlignLeft
                     elide: Text.ElideRight
-                    color: myPalette.highlightedText
+                    // Hardcoded because the headerbar blur always makes a dark-ish
+                    // background, so we don't want to use a color scheme color that
+                    // might also be dark
+                    color: "white"
                     font.pointSize: Math.round(elisaTheme.defaultFontPointSize * 2.5)
                     font.bold: true
 
@@ -243,7 +246,10 @@ FocusScope {
                     text: artist
                     Layout.alignment: Qt.AlignLeft
                     elide: Text.ElideRight
-                    color: myPalette.highlightedText
+                    // Hardcoded because the headerbar blur always makes a dark-ish
+                    // background, so we don't want to use a color scheme color that
+                    // might also be dark
+                    color: "white"
                     font.pointSize: Math.round(elisaTheme.defaultFontPointSize * 1.5)
 
                     MouseArea {
@@ -255,15 +261,6 @@ FocusScope {
                             openArtist()
                         }
                     }
-
-                    layer.effect: Glow {
-                        cached: true
-
-                        color: myPalette.shadow
-
-                        radius: 4.0
-                        samples: 9
-                    }
                 }
 
                 LabelWithToolTip {
@@ -271,18 +268,12 @@ FocusScope {
                     text: album
                     Layout.alignment: Qt.AlignLeft
                     elide: Text.ElideRight
-                    color: myPalette.highlightedText
+                    // Hardcoded because the headerbar blur always makes a dark-ish
+                    // background, so we don't want to use a color scheme color that
+                    // might also be dark
+                    color: "white"
                     font.weight: Font.Light
                     font.pointSize: elisaTheme.defaultFontPointSize
-
-                    layer.effect: Glow {
-                        cached: true
-
-                        color: myPalette.shadow
-
-                        radius: 4.0
-                        samples: 9
-                    }
 
                     MouseArea {
                         id: albumMouseArea
@@ -336,7 +327,10 @@ FocusScope {
 
         elide: Text.ElideRight
         visible: tracksCount > 0
-        color: myPalette.highlightedText
+        // Hardcoded because the headerbar blur always makes a dark-ish
+        // background, so we don't want to use a color scheme color that
+        // might also be dark
+        color: "white"
 
         anchors.right: contentZone.right
         anchors.bottom: contentZone.bottom

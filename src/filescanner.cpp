@@ -147,6 +147,9 @@ void FileScanner::scanProperties(const QString &localFileName, MusicAudioTrack &
             value = QLocale().createSeparatedList(list);
         } else {
             value = (*rangeBegin).second;
+            if (value.canConvert<QStringList>()) {
+                value = QLocale().createSeparatedList(value.toStringList());
+            }
         }
         switch (key)
         {

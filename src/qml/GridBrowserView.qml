@@ -96,11 +96,13 @@ FocusScope {
 
             GridView {
                 id: contentDirectoryView
+                property int availableWidth: width - scrollBar.width
 
                 activeFocusOnTab: true
                 keyNavigationEnabled: true
 
                 anchors.fill: parent
+                anchors.margins: elisaTheme.layoutHorizontalMargin
 
                 ScrollBar.vertical: ScrollBar {
                     id: scrollBar
@@ -123,13 +125,13 @@ FocusScope {
                     anchors.fill: contentDirectoryView
                 }
 
-                cellWidth: elisaTheme.gridDelegateWidth
+                cellWidth: Math.floor(availableWidth / Math.max(Math.floor(availableWidth / elisaTheme.gridDelegateWidth), 2))
                 cellHeight: delegateDisplaySecondaryText ?
                                 elisaTheme.gridDelegateHeight :
                                 elisaTheme.gridDelegateHeight - (secondaryLabelSize.boundingRect.height - secondaryLabelSize.boundingRect.y)
 
                 delegate: GridBrowserDelegate {
-                    width: contentDirectoryView.cellWidth
+                    width: elisaTheme.gridDelegateWidth
                     height: contentDirectoryView.cellHeight
 
                     focus: true

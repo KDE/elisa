@@ -125,6 +125,8 @@ private Q_SLOTS:
 
     void singleTrack();
 
+    void remainingTracksTest();
+
     void testBringUpAndRemoveLastCase();
 
     void testSaveAndRestoreSettings();

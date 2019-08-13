@@ -183,7 +183,7 @@ ApplicationWindow {
                 Layout.maximumHeight: mainWindow.height * 0.2 + elisaTheme.mediaPlayerControlHeight
                 Layout.fillWidth: true
 
-                tracksCount: elisa.manageHeaderBar.remainingTracks
+                tracksCount: elisa.mediaPlayList.remainingTracks
                 album: elisa.manageHeaderBar.album
                 title: elisa.manageHeaderBar.title
                 artist: elisa.manageHeaderBar.artist

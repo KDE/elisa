@@ -19,9 +19,6 @@
 
 #include <QTime>
 #include <QTimer>
-#include <QDebug>
-
-#include <cstdlib>
 
 ManageHeaderBar::ManageHeaderBar(QObject *parent)
     : QObject(parent)
@@ -206,15 +203,6 @@ bool ManageHeaderBar::isValid() const
     return mCurrentTrack.data(mIsValidRole).toBool();
 }
 
-int ManageHeaderBar::remainingTracks() const
-{
-    if (!mCurrentTrack.isValid()) {
-        return 0;
-    }
-
-    return mPlayListModel->rowCount(mCurrentTrack.parent()) - mCurrentTrack.row() - 1;
-}
-
 int ManageHeaderBar::isValidRole() const
 {
     return mIsValidRole;
@@ -223,138 +211,6 @@ int ManageHeaderBar::isValidRole() const
 QPersistentModelIndex ManageHeaderBar::currentTrack() const
 {
     return mCurrentTrack;
-}
-
-void ManageHeaderBar::playListLayoutChanged(const QList<QPersistentModelIndex> &parents, QAbstractItemModel::LayoutChangeHint hint)
-{
-    Q_UNUSED(parents);
-    Q_UNUSED(hint);
-
-    qDebug() << "ManageHeaderBar::playListLayoutChanged" << "not implemented";
-}
-
-void ManageHeaderBar::tracksInserted(const QModelIndex &parent, int first, int last)
-{
-    Q_UNUSED(parent);
-    Q_UNUSED(first);
-    Q_UNUSED(last);
-
-    if (!mCurrentTrack.isValid()) {
-        return;
-    }
-
-    if (mCurrentTrack.row() >= first) {
-        return;
-    }
-
-    Q_EMIT remainingTracksChanged();
-    mOldRemainingTracks = remainingTracks();
-}
-
-void ManageHeaderBar::tracksDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles)
-{
-    if (!mCurrentTrack.isValid()) {
-        return;
-    }
-
-    if (mCurrentTrack.row() > bottomRight.row() || mCurrentTrack.row() < topLeft.row()) {
-        return;
-    }
-
-    if (mCurrentTrack.column() > bottomRight.column() || mCurrentTrack.column() < topLeft.column()) {
-        return;
-    }
-
-    if (roles.isEmpty()) {
-        notifyArtistProperty();
-        notifyTitleProperty();
-        notifyAlbumProperty();
-        notifyAlbumArtistProperty();
-        notifyFileNameProperty();
-        notifyImageProperty();
-        notifyDatabaseIdProperty();
-        notifyAlbumIdProperty();
-        notifyIsValidProperty();
-    } else {
-        for(auto oneRole : roles) {
-            if (oneRole == mArtistRole) {
-                notifyArtistProperty();
-            }
-            if (oneRole == mTitleRole) {
-                notifyTitleProperty();
-            }
-            if (oneRole == mAlbumRole) {
-                notifyAlbumProperty();
-            }
-            if (oneRole == mAlbumArtistRole) {
-                notifyAlbumArtistProperty();
-            }
-            if (oneRole == mFileNameRole) {
-                notifyFileNameProperty();
-            }
-            if (oneRole == mImageRole) {
-                notifyImageProperty();
-            }
-            if (oneRole == mDatabaseIdRole) {
-                notifyDatabaseIdProperty();
-            }
-            if (oneRole == mAlbumIdRole) {
-                notifyAlbumIdProperty();
-            }
-            if (oneRole == mIsValidRole) {
-                notifyIsValidProperty();
-            }
-        }
-    }
-}
-
-void ManageHeaderBar::tracksAboutToBeMoved(const QModelIndex &parent, int start, int end, const QModelIndex &destination, int row)
-{
-    Q_UNUSED(parent);
-    Q_UNUSED(start);
-    Q_UNUSED(end);
-    Q_UNUSED(destination);
-    Q_UNUSED(row);
-
-    mOldRemainingTracks = remainingTracks();
-}
-
-void ManageHeaderBar::tracksMoved(const QModelIndex &parent, int start, int end, const QModelIndex &destination, int row)
-{
-    Q_UNUSED(parent);
-    Q_UNUSED(start);
-    Q_UNUSED(end);
-    Q_UNUSED(destination);
-    Q_UNUSED(row);
-
-    auto newRemainingTracks = remainingTracks();
-    if (mOldRemainingTracks != newRemainingTracks) {
-        Q_EMIT remainingTracksChanged();
-    }
-}
-
-void ManageHeaderBar::tracksRemoved(const QModelIndex &parent, int first, int last)
-{
-    Q_UNUSED(parent);
-    Q_UNUSED(first);
-    Q_UNUSED(last);
-
-    if (!mCurrentTrack.isValid()) {
-        notifyArtistProperty();
-        notifyTitleProperty();
-        notifyAlbumProperty();
-        notifyAlbumArtistProperty();
-        notifyFileNameProperty();
-        notifyImageProperty();
-        notifyDatabaseIdProperty();
-        notifyAlbumIdProperty();
-        notifyIsValidProperty();
-        notifyRemainingTracksProperty();
-
-        return;
-    }
-
-    notifyRemainingTracksProperty();
 }
 
 void ManageHeaderBar::notifyArtistProperty()
@@ -457,16 +313,6 @@ void ManageHeaderBar::notifyIsValidProperty()
     }
 }
 
-void ManageHeaderBar::notifyRemainingTracksProperty()
-{
-    auto newRemainingTracksValue = remainingTracks();
-    if (mOldRemainingTracks != newRemainingTracksValue) {
-        Q_EMIT remainingTracksChanged();
-
-        mOldRemainingTracks = newRemainingTracksValue;
-    }
-}
-
 void ManageHeaderBar::setIsValidRole(int isValidRole)
 {
     mIsValidRole = isValidRole;
@@ -475,19 +321,8 @@ void ManageHeaderBar::setIsValidRole(int isValidRole)
 
 void ManageHeaderBar::setCurrentTrack(const QPersistentModelIndex &currentTrack)
 {
-    if (mCurrentTrack == currentTrack) {
-        return;
-    }
-
-    auto oldRemainingTracksCount = remainingTracks();
-
     mCurrentTrack = currentTrack;
     Q_EMIT currentTrackChanged();
-
-    if (mCurrentTrack.isValid() && oldRemainingTracksCount != remainingTracks()) {
-        Q_EMIT remainingTracksChanged();
-        mOldRemainingTracks = remainingTracks();
-    }
 
     notifyArtistProperty();
     notifyTitleProperty();
@@ -499,36 +334,5 @@ void ManageHeaderBar::setCurrentTrack(const QPersistentModelIndex &currentTrack)
     notifyAlbumIdProperty();
     notifyIsValidProperty();
 }
-
-void ManageHeaderBar::setPlayListModel(QAbstractItemModel *aPlayListModel)
-{
-    if (mPlayListModel) {
-        disconnect(mPlayListModel, &QAbstractItemModel::rowsInserted, this, &ManageHeaderBar::tracksInserted);
-        disconnect(mPlayListModel, &QAbstractItemModel::rowsAboutToBeMoved, this, &ManageHeaderBar::tracksAboutToBeMoved);
-        disconnect(mPlayListModel, &QAbstractItemModel::rowsMoved, this, &ManageHeaderBar::tracksMoved);
-        disconnect(mPlayListModel, &QAbstractItemModel::rowsRemoved, this, &ManageHeaderBar::tracksRemoved);
-        disconnect(mPlayListModel, &QAbstractItemModel::dataChanged, this, &ManageHeaderBar::tracksDataChanged);
-        disconnect(mPlayListModel, &QAbstractItemModel::layoutChanged, this, &ManageHeaderBar::playListLayoutChanged);
-    }
-
-    mPlayListModel = aPlayListModel;
-
-    if (mPlayListModel) {
-        connect(mPlayListModel, &QAbstractItemModel::rowsInserted, this, &ManageHeaderBar::tracksInserted);
-        connect(mPlayListModel, &QAbstractItemModel::rowsAboutToBeMoved, this, &ManageHeaderBar::tracksAboutToBeMoved);
-        connect(mPlayListModel, &QAbstractItemModel::rowsMoved, this, &ManageHeaderBar::tracksMoved);
-        connect(mPlayListModel, &QAbstractItemModel::rowsRemoved, this, &ManageHeaderBar::tracksRemoved);
-        connect(mPlayListModel, &QAbstractItemModel::dataChanged, this, &ManageHeaderBar::tracksDataChanged);
-        connect(mPlayListModel, &QAbstractItemModel::layoutChanged, this, &ManageHeaderBar::playListLayoutChanged);
-    }
-
-    Q_EMIT playListModelChanged();
-}
-
-QAbstractItemModel *ManageHeaderBar::playListModel() const
-{
-    return mPlayListModel;
-}
-
 
 #include "moc_manageheaderbar.cpp"

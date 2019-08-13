@@ -36,11 +36,6 @@ class ELISALIB_EXPORT ManageHeaderBar : public QObject
                WRITE setCurrentTrack
                NOTIFY currentTrackChanged)
 
-    Q_PROPERTY(QAbstractItemModel* playListModel
-               READ playListModel
-               WRITE setPlayListModel
-               NOTIFY playListModelChanged)
-
     Q_PROPERTY(int artistRole
                READ artistRole
                WRITE setArtistRole
@@ -122,17 +117,11 @@ class ELISALIB_EXPORT ManageHeaderBar : public QObject
                READ isValid
                NOTIFY isValidChanged)
 
-    Q_PROPERTY(int remainingTracks
-               READ remainingTracks
-               NOTIFY remainingTracksChanged)
-
 public:
 
     explicit ManageHeaderBar(QObject *parent = nullptr);
 
     QPersistentModelIndex currentTrack() const;
-
-    QAbstractItemModel* playListModel() const;
 
     int artistRole() const;
 
@@ -170,13 +159,9 @@ public:
 
     bool isValid() const;
 
-    int remainingTracks() const;
-
 Q_SIGNALS:
 
     void currentTrackChanged();
-
-    void playListModelChanged();
 
     void artistRoleChanged();
 
@@ -208,8 +193,6 @@ Q_SIGNALS:
 
     void imageChanged();
 
-    void remainingTracksChanged();
-
     void databaseIdChanged();
 
     void albumIdChanged();
@@ -219,8 +202,6 @@ Q_SIGNALS:
 public Q_SLOTS:
 
     void setCurrentTrack(const QPersistentModelIndex &currentTrack);
-
-    void setPlayListModel(QAbstractItemModel* aPlayListModel);
 
     void setArtistRole(int value);
 
@@ -239,18 +220,6 @@ public Q_SLOTS:
     void setAlbumIdRole(int albumIdRole);
 
     void setIsValidRole(int isValidRole);
-
-    void playListLayoutChanged(const QList<QPersistentModelIndex> &parents, QAbstractItemModel::LayoutChangeHint hint);
-
-    void tracksInserted(const QModelIndex &parent, int first, int last);
-
-    void tracksDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles);
-
-    void tracksAboutToBeMoved(const QModelIndex &parent, int start, int end, const QModelIndex &destination, int row);
-
-    void tracksMoved(const QModelIndex &parent, int start, int end, const QModelIndex &destination, int row);
-
-    void tracksRemoved(const QModelIndex &parent, int first, int last);
 
 private:
 
@@ -272,11 +241,7 @@ private:
 
     void notifyIsValidProperty();
 
-    void notifyRemainingTracksProperty();
-
     QPersistentModelIndex mCurrentTrack;
-
-    QAbstractItemModel *mPlayListModel = nullptr;
 
     int mArtistRole = Qt::DisplayRole;
 

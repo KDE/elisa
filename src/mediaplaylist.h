@@ -72,6 +72,10 @@ class ELISALIB_EXPORT MediaPlayList : public QAbstractListModel
                WRITE setRepeatPlay
                NOTIFY repeatPlayChanged)
 
+    Q_PROPERTY(int remainingTracks
+               READ remainingTracks
+               NOTIFY remainingTracksChanged)
+
 public:
 
     enum ColumnsRoles {
@@ -172,6 +176,8 @@ public:
 
     bool repeatPlay() const;
 
+    int remainingTracks() const;
+
 Q_SIGNALS:
     void displayUndoInline();
 
@@ -208,6 +214,8 @@ Q_SIGNALS:
     void playListLoadFailed();
 
     void ensurePlay();
+
+    void remainingTracksChanged();
 
 public Q_SLOTS:
 

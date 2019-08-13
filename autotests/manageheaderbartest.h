@@ -65,25 +65,9 @@ private Q_SLOTS:
 
     void simpleInitialCase();
 
-    void setCurrentTrackCase();
+    void setCurrentTrackWithInvalidData();
 
-    void setCurrentTrackCaseFromNewAlbum();
-
-    void completeCase();
-
-    void setCurrentTrackAndInvalidCase();
-
-    void setCurrentTrackAndRemoveItCase();
-
-    void insertBeforeCurrentTrack();
-
-    void moveCurrentTrack();
-
-    void moveAnotherTrack();
-
-    void setCurrentTrackTest();
-
-    void setPlayListModelTest();
+    void setCurrentTrackWithData();
 
 };
 

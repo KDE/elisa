@@ -146,66 +146,66 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
         }
         case ColumnsRoles::AlbumSectionRole:
             result = QJsonDocument{QJsonArray{d->mTrackData[index.row()][TrackDataType::key_type::AlbumRole].toString(),
-                                              d->mTrackData[index.row()][TrackDataType::key_type::AlbumArtistRole].toString(),
-                                              d->mTrackData[index.row()][TrackDataType::key_type::ImageUrlRole].toUrl().toString()}}.toJson();
-            break;
-        default:
-            const auto &trackData = d->mTrackData[index.row()];
-            auto roleEnum = static_cast<TrackDataType::key_type>(role);
-            auto itData = trackData.find(roleEnum);
-            if (itData != trackData.end()) {
-                result = itData.value();
-            } else {
-                result = {};
-            }
-        }
-    } else {
-        switch(role)
-        {
-        case ColumnsRoles::IsValidRole:
-            result = d->mData[index.row()].mIsValid;
-            break;
-        case ColumnsRoles::TitleRole:
-            result = d->mData[index.row()].mTitle;
-            break;
-        case ColumnsRoles::IsPlayingRole:
-            result = d->mData[index.row()].mIsPlaying;
-            break;
-        case ColumnsRoles::ArtistRole:
-            result = d->mData[index.row()].mArtist;
-            break;
-        case ColumnsRoles::AlbumArtistRole:
-            result = d->mData[index.row()].mArtist;
-            break;
-        case ColumnsRoles::AlbumRole:
-            result = d->mData[index.row()].mAlbum;
-            break;
-        case ColumnsRoles::TrackNumberRole:
-            result = -1;
-            break;
-        case ColumnsRoles::IsSingleDiscAlbumRole:
-            result = false;
-            break;
-        case Qt::DisplayRole:
-            result = d->mData[index.row()].mTitle;
-            break;
-        case ColumnsRoles::ImageUrlRole:
-            result = QUrl(QStringLiteral("image://icon/error"));
-            break;
-        case ColumnsRoles::ShadowForImageRole:
-            result = false;
-            break;
-        case ColumnsRoles::AlbumSectionRole:
-            result = QJsonDocument{QJsonArray{d->mData[index.row()].mAlbum.toString(),
-                                              d->mData[index.row()].mArtist.toString(),
-                                              QUrl(QStringLiteral("image://icon/error")).toString()}}.toJson();
-            break;
-        default:
+                    d->mTrackData[index.row()][TrackDataType::key_type::AlbumArtistRole].toString(),
+                    d->mTrackData[index.row()][TrackDataType::key_type::ImageUrlRole].toUrl().toString()}}.toJson();
+    break;
+    default:
+        const auto &trackData = d->mTrackData[index.row()];
+        auto roleEnum = static_cast<TrackDataType::key_type>(role);
+        auto itData = trackData.find(roleEnum);
+        if (itData != trackData.end()) {
+            result = itData.value();
+        } else {
             result = {};
         }
-    }
+}
+} else {
+switch(role)
+{
+    case ColumnsRoles::IsValidRole:
+        result = d->mData[index.row()].mIsValid;
+        break;
+    case ColumnsRoles::TitleRole:
+        result = d->mData[index.row()].mTitle;
+        break;
+    case ColumnsRoles::IsPlayingRole:
+        result = d->mData[index.row()].mIsPlaying;
+        break;
+    case ColumnsRoles::ArtistRole:
+        result = d->mData[index.row()].mArtist;
+        break;
+    case ColumnsRoles::AlbumArtistRole:
+        result = d->mData[index.row()].mArtist;
+        break;
+    case ColumnsRoles::AlbumRole:
+        result = d->mData[index.row()].mAlbum;
+        break;
+    case ColumnsRoles::TrackNumberRole:
+        result = -1;
+        break;
+    case ColumnsRoles::IsSingleDiscAlbumRole:
+        result = false;
+        break;
+    case Qt::DisplayRole:
+        result = d->mData[index.row()].mTitle;
+        break;
+    case ColumnsRoles::ImageUrlRole:
+        result = QUrl(QStringLiteral("image://icon/error"));
+        break;
+    case ColumnsRoles::ShadowForImageRole:
+        result = false;
+        break;
+    case ColumnsRoles::AlbumSectionRole:
+        result = QJsonDocument{QJsonArray{d->mData[index.row()].mAlbum.toString(),
+                d->mData[index.row()].mArtist.toString(),
+                QUrl(QStringLiteral("image://icon/error")).toString()}}.toJson();
+break;
+default:
+result = {};
+}
+}
 
-    return result;
+return result;
 }
 
 bool MediaPlayList::setData(const QModelIndex &index, const QVariant &value, int role)
@@ -305,6 +305,7 @@ bool MediaPlayList::removeRows(int row, int count, const QModelIndex &parent)
     }
 
     Q_EMIT tracksCountChanged();
+    Q_EMIT remainingTracksChanged();
     Q_EMIT persistentStateChanged();
 
     return false;
@@ -361,6 +362,7 @@ void MediaPlayList::enqueueRestoredEntry(const MediaPlayListEntry &newEntry)
     }
 
     Q_EMIT tracksCountChanged();
+    Q_EMIT remainingTracksChanged();
     Q_EMIT persistentStateChanged();
 
     if (!newEntry.mIsValid) {
@@ -414,6 +416,7 @@ void MediaPlayList::enqueueArtist(const QString &artistName)
     }
 
     Q_EMIT tracksCountChanged();
+    Q_EMIT remainingTracksChanged();
     Q_EMIT newEntryInList(0, artistName, newEntry.mEntryType);
     Q_EMIT persistentStateChanged();
 }
@@ -448,6 +451,7 @@ void MediaPlayList::enqueueFilesList(const ElisaUtils::EntryDataList &newEntries
     }
 
     Q_EMIT tracksCountChanged();
+    Q_EMIT remainingTracksChanged();
     Q_EMIT persistentStateChanged();
 
     Q_EMIT dataChanged(index(rowCount() - 1, 0), index(rowCount() - 1, 0), {MediaPlayList::IsPlayingRole});
@@ -472,6 +476,7 @@ void MediaPlayList::enqueueTracksListById(const ElisaUtils::EntryDataList &newEn
     }
 
     Q_EMIT tracksCountChanged();
+    Q_EMIT remainingTracksChanged();
     Q_EMIT persistentStateChanged();
 
     Q_EMIT dataChanged(index(rowCount() - 1, 0), index(rowCount() - 1, 0), {MediaPlayList::IsPlayingRole});
@@ -488,6 +493,7 @@ void MediaPlayList::enqueueOneEntry(const ElisaUtils::EntryData &entryData, Elis
     endInsertRows();
 
     Q_EMIT tracksCountChanged();
+    Q_EMIT remainingTracksChanged();
     Q_EMIT persistentStateChanged();
 }
 
@@ -504,6 +510,7 @@ void MediaPlayList::enqueueMultipleEntries(const ElisaUtils::EntryDataList &entr
     endInsertRows();
 
     Q_EMIT tracksCountChanged();
+    Q_EMIT remainingTracksChanged();
     Q_EMIT persistentStateChanged();
 }
 
@@ -535,6 +542,7 @@ void MediaPlayList::clearPlayList(bool prepareUndo)
 
     displayOrHideUndoInline(true);
     Q_EMIT tracksCountChanged();
+    Q_EMIT remainingTracksChanged();
     Q_EMIT persistentStateChanged();
 }
 
@@ -586,6 +594,7 @@ void MediaPlayList::undoClearPlayList()
     }
 
     Q_EMIT tracksCountChanged();
+    Q_EMIT remainingTracksChanged();
     Q_EMIT persistentStateChanged();
 
     Q_EMIT dataChanged(index(rowCount() - 1, 0), index(rowCount() - 1, 0), {MediaPlayList::IsPlayingRole});
@@ -917,6 +926,7 @@ void MediaPlayList::tracksListAdded(qulonglong newDatabaseId,
             }
 
             Q_EMIT tracksCountChanged();
+            Q_EMIT remainingTracksChanged();
         }
         Q_EMIT persistentStateChanged();
     }
@@ -1010,6 +1020,8 @@ void MediaPlayList::trackChanged(const TrackDataType &track)
 
             if (!d->mCurrentTrack.isValid()) {
                 resetCurrentTrack();
+            } else if (i == d->mCurrentTrack.row()) {
+                notifyCurrentTrackChanged();
             }
 
             break;
@@ -1028,6 +1040,8 @@ void MediaPlayList::trackChanged(const TrackDataType &track)
 
             if (!d->mCurrentTrack.isValid()) {
                 resetCurrentTrack();
+            } else if (i == d->mCurrentTrack.row()) {
+                notifyCurrentTrackChanged();
             }
 
             break;
@@ -1079,6 +1093,7 @@ void MediaPlayList::setRandomPlay(bool value)
     if (d->mRandomPlay != value) {
         d->mRandomPlay = value;
         Q_EMIT randomPlayChanged();
+        Q_EMIT remainingTracksChanged();
     }
 }
 
@@ -1087,6 +1102,7 @@ void MediaPlayList::setRepeatPlay(bool value)
     if (d->mRepeatPlay != value) {
         d->mRepeatPlay = value;
         Q_EMIT repeatPlayChanged();
+        Q_EMIT remainingTracksChanged();
     }
 }
 
@@ -1235,6 +1251,7 @@ void MediaPlayList::notifyCurrentTrackChanged()
 {
     Q_EMIT currentTrackChanged(d->mCurrentTrack);
     Q_EMIT currentTrackRowChanged();
+    Q_EMIT remainingTracksChanged();
     bool currentTrackIsValid = d->mCurrentTrack.isValid();
     if (currentTrackIsValid) {
         d->mCurrentPlayListPosition = d->mCurrentTrack.row();
@@ -1277,6 +1294,19 @@ QDebug operator<<(const QDebug &stream, const MediaPlayListEntry &data)
 {
     stream << data.mTitle << data.mAlbum << data.mArtist << data.mTrackUrl << data.mTrackNumber << data.mDiscNumber << data.mId << data.mIsValid;
     return stream;
+}
+
+int MediaPlayList::remainingTracks() const
+{
+    if (!d->mCurrentTrack.isValid()) {
+        return -1;
+    }
+
+    if (d->mRandomPlay || d->mRepeatPlay) {
+        return -1;
+    } else {
+        return rowCount() - d->mCurrentTrack.row() - 1;
+    }
 }
 
 #include "moc_mediaplaylist.cpp"

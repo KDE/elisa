@@ -323,10 +323,10 @@ FocusScope {
     LabelWithToolTip {
         id: remainingTracksLabel
 
-        text: i18np("1 track remaining", "%1 tracks remaining", tracksCount)
+        text: tracksCount > 0 ? i18np("1 track remaining", "%1 tracks remaining", tracksCount) : i18n("No remaining tracks")
 
         elide: Text.ElideRight
-        visible: tracksCount > 0
+        visible: tracksCount >= 0
         // Hardcoded because the headerbar blur always makes a dark-ish
         // background, so we don't want to use a color scheme color that
         // might also be dark

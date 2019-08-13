@@ -6231,6 +6231,99 @@ void MediaPlayListTest::singleTrack()
     QCOMPARE(myPlayList.currentTrack(), QPersistentModelIndex(myPlayList.index(0, 0)));
 }
 
+void MediaPlayListTest::remainingTracksTest()
+{
+    MediaPlayList myPlayList;
+    QAbstractItemModelTester testModel(&myPlayList);
+    DatabaseInterface myDatabaseContent;
+    TracksListener myListener(&myDatabaseContent);
+
+    QSignalSpy currentTrackChangedSpy(&myPlayList, &MediaPlayList::currentTrackChanged);
+    QSignalSpy randomPlayChangedSpy(&myPlayList, &MediaPlayList::randomPlayChanged);
+    QSignalSpy repeatPlayChangedSpy(&myPlayList, &MediaPlayList::repeatPlayChanged);
+    QSignalSpy remainingTracksChangedSpy(&myPlayList, &MediaPlayList::remainingTracksChanged);
+
+    myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
+
+    connect(&myListener, &TracksListener::trackHasChanged,
+            &myPlayList, &MediaPlayList::trackChanged,
+            Qt::QueuedConnection);
+    connect(&myListener, &TracksListener::tracksListAdded,
+            &myPlayList, &MediaPlayList::tracksListAdded,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newTrackByNameInList,
+            &myListener, &TracksListener::trackByNameInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newEntryInList,
+            &myListener, &TracksListener::newEntryInList,
+            Qt::QueuedConnection);
+    connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
+            &myListener, &TracksListener::tracksAdded);
+
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
+
+    QCOMPARE(currentTrackChangedSpy.count(), 0);
+    QCOMPARE(randomPlayChangedSpy.count(), 0);
+    QCOMPARE(repeatPlayChangedSpy.count(), 0);
+    QCOMPARE(remainingTracksChangedSpy.count(), 0);
+
+    myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1),
+                        QStringLiteral("track1")},
+                       ElisaUtils::Track);
+    myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist3"), QStringLiteral("album1"), 3, 3),
+                        QStringLiteral("track3")},
+                       ElisaUtils::Track);
+    myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track4"), QStringLiteral("artist1"), QStringLiteral("album1"), 4, 4),
+                        QStringLiteral("track4")},
+                       ElisaUtils::Track);
+    myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album1"), 2, 2),
+                        QStringLiteral("track2")},
+                       ElisaUtils::Track);
+    myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1),
+                        QStringLiteral("track1")},
+                       ElisaUtils::Track);
+
+    QCOMPARE(currentTrackChangedSpy.count(), 0);
+    QCOMPARE(randomPlayChangedSpy.count(), 0);
+    QCOMPARE(repeatPlayChangedSpy.count(), 0);
+    QCOMPARE(remainingTracksChangedSpy.count(), 5);
+
+    QCOMPARE(currentTrackChangedSpy.wait(), true);
+
+    QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(randomPlayChangedSpy.count(), 0);
+    QCOMPARE(repeatPlayChangedSpy.count(), 0);
+    QCOMPARE(remainingTracksChangedSpy.count(), 6);
+
+    QCOMPARE(myPlayList.currentTrack(), QPersistentModelIndex(myPlayList.index(0, 0)));
+    QCOMPARE(myPlayList.remainingTracks(), 4);
+
+    myPlayList.skipNextTrack();
+
+    QCOMPARE(remainingTracksChangedSpy.count(), 7);
+    QCOMPARE(myPlayList.currentTrack(), QPersistentModelIndex(myPlayList.index(1, 0)));
+    QCOMPARE(myPlayList.remainingTracks(), 3);
+
+    myPlayList.setRandomPlay(true);
+
+    QCOMPARE(currentTrackChangedSpy.count(), 2);
+    QCOMPARE(randomPlayChangedSpy.count(), 1);
+    QCOMPARE(repeatPlayChangedSpy.count(), 0);
+    QCOMPARE(remainingTracksChangedSpy.count(), 8);
+
+    QCOMPARE(myPlayList.remainingTracks(), -1);
+
+    myPlayList.setRandomPlay(false);
+    myPlayList.setRepeatPlay(true);
+
+    QCOMPARE(currentTrackChangedSpy.count(), 2);
+    QCOMPARE(randomPlayChangedSpy.count(), 2);
+    QCOMPARE(repeatPlayChangedSpy.count(), 1);
+    QCOMPARE(remainingTracksChangedSpy.count(), 10);
+
+    QCOMPARE(myPlayList.remainingTracks(), -1);
+}
+
 void MediaPlayListTest::testBringUpAndRemoveLastCase()
 {
     MediaPlayList myPlayList;

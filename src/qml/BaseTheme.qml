@@ -19,11 +19,6 @@ import QtQuick 2.7
 import QtQuick.Controls 2.2
 
 Item {
-    function dp(pixel) {
-        // 96 - common, "base" DPI value
-        return Math.round(pixel * logicalDpi / 96);
-    }
-
     property string defaultAlbumImage: 'image://icon/media-optical-audio'
     property string defaultArtistImage: 'image://icon/view-media-artist'
     property string defaultBackgroundImage: 'qrc:///background.png'
@@ -44,10 +39,10 @@ Item {
     property string errorIcon: 'image://icon/error'
     property string folderIcon: 'image://icon/document-open-folder'
 
-    property int layoutHorizontalMargin: dp(8)
-    property int layoutVerticalMargin: dp(6)
+    property int layoutHorizontalMargin: 8
+    property int layoutVerticalMargin: 6
 
-    property int delegateHeight: dp(28)
+    property int delegateHeight: 28
 
     FontMetrics {
         id: playListAuthorTextHeight
@@ -65,43 +60,43 @@ Item {
         font.weight: Font.Bold
     }
 
-    property int playListDelegateHeight: (playListTrackTextHeight.height > dp(28)) ? playListTrackTextHeight.height : dp(28)
+    property int playListDelegateHeight: (playListTrackTextHeight.height > 28) ? playListTrackTextHeight.height : 28
 
     property int playListHeaderHeight: elisaTheme.layoutVerticalMargin * 5 +
                                        playListAuthorTextHeight.height +
                                        playListAlbumTextHeight.height
 
-    property int trackDelegateHeight: dp(45)
+    property int trackDelegateHeight: 45
 
-    property int coverImageSize: dp(180)
-    property int contextCoverImageSize: dp(100)
-    property int smallImageSize: dp(32)
+    property int coverImageSize: 180
+    property int contextCoverImageSize: 100
+    property int smallImageSize: 32
 
-    property int maximumMetadataWidth: dp(300)
+    property int maximumMetadataWidth: 300
 
-    property int tooltipRadius: dp(3)
-    property int shadowOffset: dp(2)
+    property int tooltipRadius: 3
+    property int shadowOffset: 2
 
-    property int delegateToolButtonSize: dp(34)
-    property int smallDelegateToolButtonSize: dp(20)
+    property int delegateToolButtonSize: 34
+    property int smallDelegateToolButtonSize: 20
 
-    property int ratingStarSize: dp(15)
+    property int ratingStarSize: 15
 
-    property int mediaPlayerControlHeight: dp(42)
-    property int mediaPlayerHorizontalMargin: dp(10)
+    property int mediaPlayerControlHeight: 42
+    property int mediaPlayerHorizontalMargin: 10
     property real mediaPlayerControlOpacity: 0.6
-    property int smallControlButtonSize: dp(22)
-    property int volumeSliderWidth: dp(100)
+    property int smallControlButtonSize: 22
+    property int volumeSliderWidth: 100
 
-    property int dragDropPlaceholderHeight: dp(28)
+    property int dragDropPlaceholderHeight: 28
 
-    property int navigationBarHeight: dp(100)
-    property int navigationBarFilterHeight: dp(44)
+    property int navigationBarHeight: 100
+    property int navigationBarFilterHeight: 44
 
-    property int gridDelegateHeight: dp(170) + layoutVerticalMargin + fontSize.height * 2
-    property int gridDelegateWidth: dp(170)
+    property int gridDelegateHeight: 170 + layoutVerticalMargin + fontSize.height * 2
+    property int gridDelegateWidth: 170
 
-    property int viewSelectorDelegateHeight: dp(24)
+    property int viewSelectorDelegateHeight: 24
 
     property int filterClearButtonMargin: layoutVerticalMargin
 
@@ -109,8 +104,8 @@ Item {
 
     property int headerTitleFontSize: defaultFontPointSize * 2
 
-    property int headerToolbarHeight: dp(48)
-    property int footerToolbarHeight: dp(30)
+    property int headerToolbarHeight: 48
+    property int footerToolbarHeight: 30
 
     property int viewSelectorSmallSizeThreshold: 800
 

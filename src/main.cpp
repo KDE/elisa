@@ -88,6 +88,7 @@ int main(int argc, char *argv[])
 #endif
 
     QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
+    QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     qputenv("QT_GSTREAMER_USE_PLAYBIN_VOLUME", "true");
 
@@ -151,7 +152,6 @@ int main(int argc, char *argv[])
 #endif
 
     engine.rootContext()->setContextObject(new KLocalizedContext(&engine));
-    engine.rootContext()->setContextProperty(QStringLiteral("logicalDpi"), QGuiApplication::primaryScreen()->logicalDotsPerInch());
 
 #if defined KF5DBusAddons_FOUND && KF5DBusAddons_FOUND
     KDBusService elisaService(KDBusService::Unique);

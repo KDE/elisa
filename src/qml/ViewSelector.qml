@@ -38,7 +38,7 @@ FocusScope {
         viewModeView.ignoreCurrentItemChanges = false
     }
 
-    implicitWidth: elisaTheme.dp(225)
+    implicitWidth: 225
 
     ScrollView {
         focus: true
@@ -127,7 +127,7 @@ FocusScope {
             PropertyChanges {
                 target: rootFocusScope
                 textOpacity: 1
-                implicitWidth: elisaTheme.dp(225)
+                implicitWidth: 225
             }
         },
         State {

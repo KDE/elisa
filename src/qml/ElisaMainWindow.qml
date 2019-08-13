@@ -111,7 +111,11 @@ ApplicationWindow {
 
     Connections {
         target: headerBar.playerControl
-        onOpenMenu: applicationMenu.popup()
+        onOpenMenu: if (applicationMenu.visible) {
+                        applicationMenu.close()
+                    } else {
+                        applicationMenu.popup()
+                    }
     }
 
     Connections {

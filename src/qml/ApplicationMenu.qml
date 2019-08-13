@@ -17,8 +17,7 @@
  */
 
 import QtQuick 2.7
-//explore menu from Qt 5.10 once we can require it, but it is item-based
-import QtQuick.Controls 1.4
+import QtQuick.Controls 2.3
 import org.kde.elisa 1.0
 
 Menu {
@@ -33,80 +32,73 @@ Menu {
     property var configureAction: elisa.action("options_configure")
     property var togglePlaylistAction: elisa.action("toggle_playlist")
 
-    MenuItem {
+    Action {
         text: i18nc("Refresh Music Collection application menu entry", "Refresh Music Collection")
-        iconName: "view-refresh"
+        icon.name: "view-refresh"
         onTriggered: elisa.musicManager.resetMusicData()
     }
 
     MenuSeparator {
     }
 
-    MenuItem {
+    Action {
         text: configureAction.text
         shortcut: configureAction.shortcut
-        iconName: elisa.iconName(configureAction.icon)
+        icon.name: elisa.iconName(configureAction.icon)
         onTriggered: configureAction.trigger()
-        visible: configureAction.text !== ""
     }
 
-    MenuItem {
+    Action {
         text: configureShortcutsAction.text
         shortcut: configureShortcutsAction.shortcut
-        iconName: elisa.iconName(configureShortcutsAction.icon)
+        icon.name: elisa.iconName(configureShortcutsAction.icon)
         onTriggered: configureShortcutsAction.trigger()
-        visible: configureShortcutsAction.text !== ""
     }
 
-    MenuItem {
+    Action {
         shortcut: togglePlaylistAction.shortcut
         text: contentView.showPlaylist ? i18nc("Hide playlist", "Hide Playlist") : i18nc("Show playlist", "Show Playlist")
-        iconName: "view-media-playlist"
+        icon.name: "view-media-playlist"
         onTriggered: contentView.showPlaylist = !contentView.showPlaylist
-        visible: togglePlaylistAction.text !== ""
     }
 
     MenuSeparator {
         visible: reportBugAction.text !== ""
     }
 
-    MenuItem {
+    Action {
         text: reportBugAction.text
         shortcut: reportBugAction.shortcut
-        iconName: elisa.iconName(reportBugAction.icon)
+        icon.name: elisa.iconName(reportBugAction.icon)
         onTriggered: reportBugAction.trigger()
-        visible: reportBugAction.text !== ""
     }
 
     MenuSeparator {
         visible: helpAction.text !== ""
     }
 
-    MenuItem {
+    Action {
         text: helpAction.text
         shortcut: helpAction.shortcut
-        iconName: elisa.iconName(helpAction.icon)
+        icon.name: elisa.iconName(helpAction.icon)
         onTriggered: helpAction.trigger()
-        visible: helpAction.text !== ""
     }
 
-    MenuItem {
+    Action {
         text: aboutAppAction.text
         shortcut: aboutAppAction.shortcut
-        iconName: elisa.iconName(aboutAppAction.icon)
+        icon.name: elisa.iconName(aboutAppAction.icon)
         onTriggered: aboutAppAction.trigger()
-        visible: aboutAppAction.text !== ""
     }
 
     MenuSeparator {
         visible: quitApplication.text !== ""
     }
 
-    MenuItem {
+    Action {
         text: quitApplication.text
         shortcut: quitApplication.shortcut
-        iconName: elisa.iconName(quitApplication.icon)
+        icon.name: elisa.iconName(quitApplication.icon)
         onTriggered: quitApplication.trigger()
-        visible: quitApplication.text !== ""
     }
 }

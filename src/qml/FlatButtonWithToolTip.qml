@@ -37,6 +37,9 @@ Button {
     icon.width: elisaTheme.smallControlButtonSize
     icon.height: elisaTheme.smallControlButtonSize
 
+    implicitWidth: icon.width + 16
+    implicitHeight: icon.height + 16
+
     ToolTip.visible: hovered
     ToolTip.delay: Qt.styleHints.mousePressAndHoldInterval
     ToolTip.text: flatButtonWithToolTip.action.text

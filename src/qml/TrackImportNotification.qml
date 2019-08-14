@@ -71,6 +71,7 @@ Rectangle {
 
         BusyIndicator{
             id: indicator
+            Layout.alignment: Qt.AlignVCenter
         }
 
         Label {
@@ -85,6 +86,7 @@ Rectangle {
 
             Layout.fillWidth: true
             Layout.fillHeight: true
+            Layout.alignment: Qt.AlignVCenter
         }
     }
 

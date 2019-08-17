@@ -20,6 +20,7 @@ import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.2
 import QtQuick.Window 2.2
 import org.kde.elisa 1.0
+import org.kde.kirigami 2.8 as Kirigami
 
 RowLayout {
     id: contentViewContainer
@@ -166,13 +167,9 @@ RowLayout {
         onSwitchView: viewManager.openParentView(viewType, pageModel.viewMainTitle(viewType, ""), pageModel.viewImageUrl(viewType, ""))
     }
 
-    Rectangle {
+    Kirigami.Separator {
         id: viewSelectorSeparatorItem
-
         Layout.fillHeight: true
-        width: 1
-
-        color: myPalette.mid
     }
 
     ColumnLayout {
@@ -284,14 +281,9 @@ RowLayout {
                     }
                 }
 
-                Rectangle {
-                    id: firstViewSeparatorItem
-
+                Kirigami.Separator {
+                    id: playListSeparatorItem
                     Layout.fillHeight: true
-
-                    width: 1
-
-                    color: myPalette.mid
                 }
 
                 MediaPlayListView {
@@ -324,6 +316,10 @@ RowLayout {
                     Layout.maximumWidth: 0
                     Layout.preferredWidth: 0
                 }
+                PropertyChanges {
+                    target: playListSeparatorItem
+                    visible: false
+                }
             },
             State {
                 name: 'browsingViews'
@@ -335,10 +331,8 @@ RowLayout {
                     Layout.preferredWidth: contentZone.width * 0.68
                 }
                 PropertyChanges {
-                    target: firstViewSeparatorItem
-                    Layout.minimumWidth: 1
-                    Layout.maximumWidth: 1
-                    Layout.preferredWidth: 1
+                    target: playListSeparatorItem
+                    visible: true
                 }
             }
         ]

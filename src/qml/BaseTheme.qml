@@ -66,7 +66,7 @@ Item {
                                        playListAuthorTextHeight.height +
                                        playListAlbumTextHeight.height
 
-    property int trackDelegateHeight: (elisaTheme.layoutVerticalMargin + fontSize.height) * 2
+    property int trackDelegateHeight: elisaTheme.layoutVerticalMargin + fontSize.height * 2
 
     property int coverImageSize: 180
     property int contextCoverImageSize: 100

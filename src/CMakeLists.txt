@@ -12,8 +12,6 @@ set(elisaLib_SOURCES
     trackslistener.cpp
     elisaapplication.cpp
     modeldataloader.cpp
-    notificationitem.cpp
-    topnotificationmanager.cpp
     elisautils.cpp
     abstractfile/abstractfilelistener.cpp
     abstractfile/abstractfilelisting.cpp
@@ -358,8 +356,6 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
 
         qml/RatingStar.qml
         qml/DraggableItem.qml
-        qml/TopNotification.qml
-        qml/TopNotificationItem.qml
         qml/TrackImportNotification.qml
 
         qml/HeaderBar.qml

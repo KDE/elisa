@@ -20,8 +20,6 @@
 
 #include "elisaLib_export.h"
 
-#include "notificationitem.h"
-
 #include <QObject>
 #include <QString>
 #include <QUrl>
@@ -33,7 +31,6 @@
 
 class AbstractFileListingPrivate;
 class MusicAudioTrack;
-class NotificationItem;
 class FileScanner;
 class QFileInfo;
 class QMimeDatabase;
@@ -64,10 +61,6 @@ Q_SIGNALS:
     void indexingStarted();
 
     void indexingFinished();
-
-    void newNotification(NotificationItem notification);
-
-    void closeNotification(QString notificationId);
 
     void askRestoredTracks();
 

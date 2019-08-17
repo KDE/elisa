@@ -61,7 +61,6 @@ private Q_SLOTS:
         qRegisterMetaType<QVector<qlonglong>>("QVector<qlonglong>");
         qRegisterMetaType<QHash<qlonglong,int>>("QHash<qlonglong,int>");
         qRegisterMetaType<QList<QUrl>>("QList<QUrl>");
-        qRegisterMetaType<NotificationItem>("NotificationItem");
     }
 
     void initialTestWithNoTrack()
@@ -432,8 +431,6 @@ private Q_SLOTS:
         QSignalSpy modifiedTracksListSpy(&myListing, &LocalFileListing::modifyTracksList);
         QSignalSpy indexingStartedSpy(&myListing, &LocalFileListing::indexingStarted);
         QSignalSpy indexingFinishedSpy(&myListing, &LocalFileListing::indexingFinished);
-        QSignalSpy newNotificationSpy(&myListing, &LocalFileListing::newNotification);
-        QSignalSpy closeNotificationSpy(&myListing, &LocalFileListing::closeNotification);
         QSignalSpy askRestoredTracksSpy(&myListing, &LocalFileListing::askRestoredTracks);
 
         QCOMPARE(tracksListSpy.count(), 0);
@@ -441,8 +438,6 @@ private Q_SLOTS:
         QCOMPARE(modifiedTracksListSpy.count(), 0);
         QCOMPARE(indexingStartedSpy.count(), 0);
         QCOMPARE(indexingFinishedSpy.count(), 0);
-        QCOMPARE(newNotificationSpy.count(), 0);
-        QCOMPARE(closeNotificationSpy.count(), 0);
         QCOMPARE(askRestoredTracksSpy.count(), 0);
 
         myListing.setAllRootPaths({QStringLiteral("/does/not/exists")});
@@ -452,8 +447,6 @@ private Q_SLOTS:
         QCOMPARE(modifiedTracksListSpy.count(), 0);
         QCOMPARE(indexingStartedSpy.count(), 0);
         QCOMPARE(indexingFinishedSpy.count(), 0);
-        QCOMPARE(newNotificationSpy.count(), 0);
-        QCOMPARE(closeNotificationSpy.count(), 0);
         QCOMPARE(askRestoredTracksSpy.count(), 0);
 
         myListing.init();
@@ -463,8 +456,6 @@ private Q_SLOTS:
         QCOMPARE(modifiedTracksListSpy.count(), 0);
         QCOMPARE(indexingStartedSpy.count(), 0);
         QCOMPARE(indexingFinishedSpy.count(), 0);
-        QCOMPARE(newNotificationSpy.count(), 0);
-        QCOMPARE(closeNotificationSpy.count(), 0);
         QCOMPARE(askRestoredTracksSpy.count(), 1);
 
         myListing.restoredTracks({{QUrl::fromLocalFile(QStringLiteral("/removed/files1")), QDateTime::fromMSecsSinceEpoch(1)},
@@ -475,8 +466,6 @@ private Q_SLOTS:
         QCOMPARE(modifiedTracksListSpy.count(), 0);
         QCOMPARE(indexingStartedSpy.count(), 1);
         QCOMPARE(indexingFinishedSpy.count(), 0);
-        QCOMPARE(newNotificationSpy.count(), 0);
-        QCOMPARE(closeNotificationSpy.count(), 0);
         QCOMPARE(askRestoredTracksSpy.count(), 1);
 
         auto removedTracksSignal = removedTracksListSpy.at(0);

@@ -19,7 +19,6 @@
 
 #include "abstractfilelisting.h"
 #include "databaseinterface.h"
-#include "notificationitem.h"
 
 #include <QThread>
 
@@ -100,10 +99,6 @@ void AbstractFileListener::setFileListing(AbstractFileListing *fileIndexer)
             this, &AbstractFileListener::indexingStarted);
     connect(fileIndexer, &AbstractFileListing::indexingFinished,
             this, &AbstractFileListener::indexingFinished);
-    connect(fileIndexer, &AbstractFileListing::newNotification,
-            this, &AbstractFileListener::newNotification);
-    connect(fileIndexer, &AbstractFileListing::closeNotification,
-            this, &AbstractFileListener::closeNotification);
 }
 
 AbstractFileListing *AbstractFileListener::fileListing() const

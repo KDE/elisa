@@ -158,10 +158,12 @@ FocusScope {
             var goPreviousButtonItem1 = findChild(navigationActionBar1, "goPreviousButton");
             verify(goPreviousButtonItem1 !== null, "valid goPreviousButton")
             mouseClick(goPreviousButtonItem1);
+            wait(200)
             compare(goBackSpy1.count, 1);
             var goPreviousButtonItem2 = findChild(navigationActionBar2, "goPreviousButton");
             verify(goPreviousButtonItem2 !== null, "valid goPreviousButton")
             mouseClick(goPreviousButtonItem2);
+            wait(200)
             compare(goBackSpy2.count, 0);
         }
 

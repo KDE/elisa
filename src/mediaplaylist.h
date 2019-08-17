@@ -54,9 +54,17 @@ class ELISALIB_EXPORT MediaPlayList : public QAbstractListModel
                READ tracksCount
                NOTIFY tracksCountChanged)
 
+    Q_PROPERTY(QPersistentModelIndex previousTrack
+               READ previousTrack
+               NOTIFY previousTrackChanged)
+
     Q_PROPERTY(QPersistentModelIndex currentTrack
                READ currentTrack
                NOTIFY currentTrackChanged)
+
+    Q_PROPERTY(QPersistentModelIndex nextTrack
+               READ nextTrack
+               NOTIFY nextTrackChanged)
 
     Q_PROPERTY(int currentTrackRow
                READ currentTrackRow
@@ -168,7 +176,11 @@ public:
 
     int tracksCount() const;
 
+    QPersistentModelIndex previousTrack() const;
+
     QPersistentModelIndex currentTrack() const;
+
+    QPersistentModelIndex nextTrack() const;
 
     int currentTrackRow() const;
 
@@ -195,7 +207,11 @@ Q_SIGNALS:
 
     void tracksCountChanged();
 
+    void previousTrackChanged(QPersistentModelIndex previousTrack);
+
     void currentTrackChanged(QPersistentModelIndex currentTrack);
+
+    void nextTrackChanged(QPersistentModelIndex nextTrack);
 
     void clearPlayListPlayer();
 
@@ -299,6 +315,8 @@ private:
     void createRandomList();
 
     void restoreRepeatPlay();
+
+    void notifyPreviousAndNextTracks();
 
     void enqueueArtist(const QString &artistName);
 

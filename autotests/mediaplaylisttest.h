@@ -123,6 +123,8 @@ private Q_SLOTS:
 
     void switchToTrackTest();
 
+    void previousAndNextTracksTest();
+
     void singleTrack();
 
     void remainingTracksTest();

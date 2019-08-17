@@ -42,7 +42,11 @@ public:
 
     MusicListenersManager* mMusicListenersManager = nullptr;
 
+    QPersistentModelIndex mPreviousTrack;
+
     QPersistentModelIndex mCurrentTrack;
+
+    QPersistentModelIndex mNextTrack;
 
     QVariantMap mPersistentState;
 
@@ -295,6 +299,9 @@ bool MediaPlayList::removeRows(int row, int count, const QModelIndex &parent)
                 notifyCurrentTrackChanged();
             }
         }
+    }
+    if (!d->mNextTrack.isValid() || !d->mPreviousTrack.isValid()) {
+        notifyPreviousAndNextTracks();
     }
 
     if (!d->mCurrentTrack.isValid() && rowCount(parent) <= row) {
@@ -815,9 +822,19 @@ int MediaPlayList::tracksCount() const
     return rowCount();
 }
 
+QPersistentModelIndex MediaPlayList::previousTrack() const
+{
+    return d->mPreviousTrack;
+}
+
 QPersistentModelIndex MediaPlayList::currentTrack() const
 {
     return d->mCurrentTrack;
+}
+
+QPersistentModelIndex MediaPlayList::nextTrack() const
+{
+    return d->mNextTrack;
 }
 
 int MediaPlayList::currentTrackRow() const
@@ -1026,6 +1043,8 @@ void MediaPlayList::trackChanged(const TrackDataType &track)
                 resetCurrentTrack();
             } else if (i == d->mCurrentTrack.row()) {
                 notifyCurrentTrackChanged();
+            } else if (i == d->mNextTrack.row() || i == d->mPreviousTrack.row()) {
+                notifyPreviousAndNextTracks();
             }
 
             break;
@@ -1046,6 +1065,8 @@ void MediaPlayList::trackChanged(const TrackDataType &track)
                 resetCurrentTrack();
             } else if (i == d->mCurrentTrack.row()) {
                 notifyCurrentTrackChanged();
+            } else if (i == d->mNextTrack.row() || i == d->mPreviousTrack.row()) {
+                notifyPreviousAndNextTracks();
             }
 
             break;
@@ -1099,6 +1120,7 @@ void MediaPlayList::setRandomPlay(bool value)
         createRandomList();
         Q_EMIT randomPlayChanged();
         Q_EMIT remainingTracksChanged();
+        notifyPreviousAndNextTracks();
     }
 }
 
@@ -1108,6 +1130,7 @@ void MediaPlayList::setRepeatPlay(bool value)
         d->mRepeatPlay = value;
         Q_EMIT repeatPlayChanged();
         Q_EMIT remainingTracksChanged();
+        notifyPreviousAndNextTracks();
     }
 }
 
@@ -1241,8 +1264,56 @@ void MediaPlayList::resetCurrentTrack()
     }
 }
 
+void MediaPlayList::notifyPreviousAndNextTracks()
+{
+    if (!d->mCurrentTrack.isValid()) {
+        d->mPreviousTrack = QPersistentModelIndex();
+        d->mNextTrack = QPersistentModelIndex();
+    }
+    auto mOldPreviousTrack = d->mPreviousTrack;
+    auto mOldNextTrack = d->mNextTrack;
+    // use random list for previous and next types
+    if (d->mRandomPlay) {
+        d->mPreviousTrack = index(d->mRandomPositions.first(), 0);
+        d->mNextTrack = index(d->mRandomPositions.last(), 0);
+    } else if (d->mRepeatPlay) {
+        // forward to end or begin when repeating
+        if (d->mCurrentTrack.row() == 0) {
+            d->mPreviousTrack = index(rowCount() - 1, 0);
+        } else {
+            d->mPreviousTrack = index(d->mCurrentTrack.row() - 1, 0);
+        }
+        if (d->mCurrentTrack.row() == rowCount() - 1) {
+            d->mNextTrack = index(0, 0);
+        } else {
+            d->mNextTrack = index(d->mCurrentTrack.row() + 1, 0);
+        }
+    } else {
+        // return nothing if no tracks available
+        if (d->mCurrentTrack.row() == 0) {
+            d->mPreviousTrack = QPersistentModelIndex();
+        } else {
+            d->mPreviousTrack = index(d->mCurrentTrack.row() - 1, 0);
+        }
+        if (d->mCurrentTrack.row() == rowCount() - 1) {
+            d->mNextTrack = QPersistentModelIndex();
+        } else {
+            d->mNextTrack = index(d->mCurrentTrack.row() + 1, 0);
+        }
+    }
+    if (d->mPreviousTrack != mOldPreviousTrack) {
+        Q_EMIT previousTrackChanged(d->mPreviousTrack);
+    }
+    if (d->mNextTrack != mOldNextTrack) {
+        Q_EMIT nextTrackChanged(d->mNextTrack);
+    }
+}
+
 void MediaPlayList::notifyCurrentTrackChanged()
 {
+    // determine previous and next tracks first
+    notifyPreviousAndNextTracks();
+
     Q_EMIT currentTrackChanged(d->mCurrentTrack);
     Q_EMIT currentTrackRowChanged();
     Q_EMIT remainingTracksChanged();

@@ -87,9 +87,7 @@ FocusScope {
             hoverEnabled: true
             acceptedButtons: Qt.LeftButton
 
-            Layout.preferredHeight: gridEntry.width * 0.85 + elisaTheme.layoutVerticalMargin * 0.5 +
-                                    (mainLabelSize.boundingRect.height - mainLabelSize.boundingRect.y) +
-                                    (secondaryLabelSize.boundingRect.height - secondaryLabelSize.boundingRect.y)
+            Layout.preferredHeight: gridEntry.height
             Layout.fillWidth: true
 
             onClicked: {
@@ -117,11 +115,10 @@ FocusScope {
                 anchors.fill: parent
 
                 Item {
-                    Layout.preferredHeight: gridEntry.width * 0.85
-                    Layout.preferredWidth: gridEntry.width * 0.85
+                    Layout.preferredHeight: gridEntry.width * elisaTheme.gridDelegateThumbnail
+                    Layout.preferredWidth: gridEntry.width * elisaTheme.gridDelegateThumbnail
 
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-
 
                     Loader {
                         id: hoverLoader

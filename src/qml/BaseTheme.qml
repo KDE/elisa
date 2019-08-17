@@ -66,7 +66,7 @@ Item {
                                        playListAuthorTextHeight.height +
                                        playListAlbumTextHeight.height
 
-    property int trackDelegateHeight: 45
+    property int trackDelegateHeight: (elisaTheme.layoutVerticalMargin + fontSize.height) * 2
 
     property int coverImageSize: 180
     property int contextCoverImageSize: 100
@@ -93,7 +93,8 @@ Item {
     property int navigationBarHeight: 100
     property int navigationBarFilterHeight: 44
 
-    property int gridDelegateHeight: 170 + layoutVerticalMargin + fontSize.height * 2
+    property real gridDelegateThumbnail: 0.85
+    property int gridDelegateHeight: 170 * gridDelegateThumbnail + layoutVerticalMargin
     property int gridDelegateWidth: 170
 
     property int viewSelectorDelegateHeight: 24

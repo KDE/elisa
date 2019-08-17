@@ -178,6 +178,16 @@ RowLayout {
 
         spacing: 0
 
+        TopNotification {
+            id: invalidBalooConfiguration
+
+            Layout.fillWidth: true
+
+            musicManager: elisa.musicManager
+
+            focus: true
+        }
+
         Item {
             Layout.fillHeight: true
             Layout.fillWidth: true

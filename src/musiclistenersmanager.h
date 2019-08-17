@@ -20,6 +20,7 @@
 
 #include "elisaLib_export.h"
 
+#include "notificationitem.h"
 #include "databaseinterface.h"
 
 #include <QObject>
@@ -29,6 +30,7 @@
 
 class MusicListenersManagerPrivate;
 class MediaPlayList;
+class NotificationItem;
 class ElisaApplication;
 class ModelDataLoader;
 
@@ -107,6 +109,10 @@ Q_SIGNALS:
     void applicationIsTerminating();
 
     void importedTracksCountChanged();
+
+    void newNotification(NotificationItem notification);
+
+    void closeNotification(QString notificationId);
 
     void elisaApplicationChanged();
 

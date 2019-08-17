@@ -20,6 +20,7 @@
 #include "baloo/baloocommon.h"
 
 #include "musicaudiotrack.h"
+#include "notificationitem.h"
 #include "elisa_settings.h"
 #include "elisautils.h"
 
@@ -116,6 +117,7 @@ LocalBalooFileListing::LocalBalooFileListing(QObject *parent)
 
 LocalBalooFileListing::~LocalBalooFileListing()
 {
+    Q_EMIT closeNotification(QStringLiteral("balooInvalidConfiguration"));
 }
 
 void LocalBalooFileListing::applicationAboutToQuit()

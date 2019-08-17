@@ -39,6 +39,7 @@
 #include "file/filelistener.h"
 #include "file/localfilelisting.h"
 #include "trackslistener.h"
+#include "notificationitem.h"
 #include "elisaapplication.h"
 #include "elisa_settings.h"
 #include "modeldataloader.h"
@@ -335,6 +336,10 @@ void MusicListenersManager::configChanged()
                 this, &MusicListenersManager::monitorEndingListeners);
         connect(d->mAndroidMusicListener.get(), &AndroidMusicListener::clearDatabase,
                 &d->mDatabaseInterface, &DatabaseInterface::removeAllTracksFromSource);
+        connect(d->mAndroidMusicListener.get(), &AndroidMusicListener::newNotification,
+                this, &MusicListenersManager::newNotification);
+        connect(d->mAndroidMusicListener.get(), &AndroidMusicListener::closeNotification,
+                this, &MusicListenersManager::closeNotification);
     }
 #endif
 }
@@ -342,6 +347,10 @@ void MusicListenersManager::configChanged()
 void MusicListenersManager::increaseImportedTracksCount(const DatabaseInterface::ListTrackDataType &allTracks)
 {
     d->mImportedTracksCount += allTracks.size();
+
+    //if (d->mImportedTracksCount >= 4) {
+        Q_EMIT closeNotification(QStringLiteral("notEnoughTracks"));
+    //}
 
     Q_EMIT importedTracksCountChanged();
 }
@@ -361,6 +370,24 @@ void MusicListenersManager::monitorStartingListeners()
 
 void MusicListenersManager::monitorEndingListeners()
 {
+    /*if (d->mImportedTracksCount < 4 && d->mElisaApplication) {
+        NotificationItem notEnoughTracks;
+
+        notEnoughTracks.setNotificationId(QStringLiteral("notEnoughTracks"));
+
+        notEnoughTracks.setTargetObject(this);
+
+        notEnoughTracks.setMessage(i18nc("No track found message", "No track have been found"));
+
+        auto configureAction = d->mElisaApplication->action(QStringLiteral("options_configure"));
+
+        notEnoughTracks.setMainButtonText(configureAction->text());
+        notEnoughTracks.setMainButtonIconName(configureAction->icon().name());
+        notEnoughTracks.setMainButtonMethodName(QStringLiteral("showConfiguration"));
+
+        Q_EMIT newNotification(notEnoughTracks);
+    }*/
+
     d->mIndexerBusy = false;
     Q_EMIT indexerBusyChanged();
 }
@@ -422,6 +449,10 @@ void MusicListenersManager::startLocalFileSystemIndexing()
             this, &MusicListenersManager::monitorStartingListeners);
     connect(&d->mFileListener, &FileListener::indexingFinished,
             this, &MusicListenersManager::monitorEndingListeners);
+    connect(&d->mFileListener, &FileListener::newNotification,
+            this, &MusicListenersManager::newNotification);
+    connect(&d->mFileListener, &FileListener::closeNotification,
+            this, &MusicListenersManager::closeNotification);
 
     QMetaObject::invokeMethod(d->mFileListener.fileListing(), "init", Qt::QueuedConnection);
 
@@ -444,6 +475,10 @@ void MusicListenersManager::startBalooIndexing()
             this, &MusicListenersManager::monitorEndingListeners);
     connect(&d->mBalooListener, &BalooListener::clearDatabase,
             &d->mDatabaseInterface, &DatabaseInterface::clearData);
+    connect(&d->mBalooListener, &BalooListener::newNotification,
+            this, &MusicListenersManager::newNotification);
+    connect(&d->mBalooListener, &BalooListener::closeNotification,
+            this, &MusicListenersManager::closeNotification);
 
     QMetaObject::invokeMethod(d->mBalooListener.fileListing(), "init", Qt::QueuedConnection);
 

@@ -63,6 +63,8 @@
 #endif
 
 #include "audiowrapper.h"
+#include "notificationitem.h"
+#include "topnotificationmanager.h"
 
 #if defined Qt5DBus_FOUND && Qt5DBus_FOUND
 #include "mpris2/mpris2.h"
@@ -131,6 +133,7 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
 #endif
 
     qmlRegisterType<AudioWrapper>(uri, 1, 0, "AudioWrapper");
+    qmlRegisterType<TopNotificationManager>(uri, 1, 0, "TopNotificationManager");
     qmlRegisterUncreatableType<DatabaseInterface>(uri, 1, 0, "DatabaseInterface", QStringLiteral("Only created in c++"));
 
 #if defined Qt5DBus_FOUND && Qt5DBus_FOUND
@@ -157,6 +160,7 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qRegisterMetaType<TracksListener::ListTrackDataType>("TracksListener::ListTrackDataType");
     qRegisterMetaType<QMap<QString, int>>();
     qRegisterMetaType<QAction*>();
+    qRegisterMetaType<NotificationItem>("NotificationItem");
     qRegisterMetaType<QMap<QString,int>>("QMap<QString,int>");
     qRegisterMetaType<ElisaUtils::PlayListEnqueueMode>("ElisaUtils::PlayListEnqueueMode");
     qRegisterMetaType<ElisaUtils::PlayListEnqueueTriggerPlay>("ElisaUtils::PlayListEnqueueTriggerPlay");

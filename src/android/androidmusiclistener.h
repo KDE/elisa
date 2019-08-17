@@ -20,6 +20,8 @@
 #ifndef ANDROIDMUSICLISTENER_H
 #define ANDROIDMUSICLISTENER_H
 
+#include "notificationitem.h"
+
 #include <QObject>
 #include <QList>
 #include <QHash>
@@ -75,6 +77,10 @@ Q_SIGNALS:
     void indexingFinished();
 
     void clearDatabase(const QString &listenerName);
+
+    void newNotification(NotificationItem notification);
+
+    void closeNotification(QString notificationId);
 
     void tracksList(const QList<MusicAudioTrack> &tracks, const QHash<QString, QUrl> &covers, const QString &musicSource);
 

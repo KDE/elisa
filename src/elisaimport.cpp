@@ -37,6 +37,7 @@ int main(int argc, char *argv[])
     qRegisterMetaType<QVector<qulonglong>>("QVector<qulonglong>");
     qRegisterMetaType<QHash<qulonglong,int>>("QHash<qulonglong,int>");
     qRegisterMetaType<QMap<QString, int>>();
+    qRegisterMetaType<NotificationItem>("NotificationItem");
     qRegisterMetaType<QMap<QString,int>>("QMap<QString,int>");
 
     QCommandLineParser parser;

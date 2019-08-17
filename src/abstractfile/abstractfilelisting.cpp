@@ -22,6 +22,7 @@
 #include "abstractfile/indexercommon.h"
 
 #include "musicaudiotrack.h"
+#include "notificationitem.h"
 #include "filescanner.h"
 
 #include <QThread>
@@ -62,6 +63,8 @@ public:
     QAtomicInt mStopRequest = 0;
 
     int mImportedTracksCount = 0;
+
+    int mNotificationUpdateInterval = 1;
 
     int mNewFilesEmitInterval = 1;
 
@@ -228,6 +231,9 @@ void AbstractFileListing::scanDirectory(QList<MusicAudioTrack> &newFiles, const 
             newFiles.push_back(newTrack);
 
             ++d->mImportedTracksCount;
+            if (d->mImportedTracksCount % d->mNotificationUpdateInterval == 0) {
+                d->mNotificationUpdateInterval = std::min(50, 1 + d->mNotificationUpdateInterval * 2);
+            }
 
             if (newFiles.size() > d->mNewFilesEmitInterval && d->mStopRequest == 0) {
                 d->mNewFilesEmitInterval = std::min(50, 1 + d->mNewFilesEmitInterval * d->mNewFilesEmitInterval);

@@ -18,6 +18,8 @@
 #ifndef ABSTRACTFILELISTENER_H
 #define ABSTRACTFILELISTENER_H
 
+#include "notificationitem.h"
+
 #include <QObject>
 #include <QVector>
 #include <QString>
@@ -61,6 +63,10 @@ Q_SIGNALS:
 
     void clearDatabase();
 
+    void newNotification(NotificationItem notification);
+
+    void closeNotification(QString notificationId);
+
 public Q_SLOTS:
 
     void setDatabaseInterface(DatabaseInterface* databaseInterface);
@@ -74,6 +80,8 @@ public Q_SLOTS:
 protected:
 
     void setFileListing(AbstractFileListing *fileIndexer);
+
+    NotificationItem& currentNotification();
 
 private:
 

@@ -14,7 +14,9 @@
         <file>qml/Theme.qml</file>
         <file>qml/PlatformIntegration.qml</file>
         <file>qml/LabelWithToolTip.qml</file>
+        <file>qml/TopNotification.qml</file>
         <file>qml/TrackImportNotification.qml</file>
+        <file>qml/TopNotificationItem.qml</file>
         <file>qml/MediaTrackMetadataView.qml</file>
         <file>qml/GridBrowserView.qml</file>
         <file>qml/GridBrowserDelegate.qml</file>

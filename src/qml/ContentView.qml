@@ -127,7 +127,7 @@ RowLayout {
         }
 
         onSwitchContextView: {
-             listViews.setCurrentIndex(pageModel.indexFromViewType(viewType))
+            listViews.setCurrentIndex(pageModel.indexFromViewType(viewType))
 
             while(browseStackView.depth > expectedDepth) {
                 browseStackView.pop()
@@ -172,166 +172,136 @@ RowLayout {
         Layout.fillHeight: true
     }
 
-    ColumnLayout {
+    FocusScope {
+        id: mainContentView
+
+        focus: true
+
         Layout.fillHeight: true
         Layout.fillWidth: true
 
-        spacing: 0
+        MouseArea {
+            anchors.fill: parent
+            acceptedButtons: Qt.BackButton
+            onClicked: goBack()
+        }
 
-        Item {
-            Layout.fillHeight: true
-            Layout.fillWidth: true
+        Rectangle {
+            radius: 3
+            color: myPalette.base
 
-            RowLayout {
+            anchors.fill: parent
+
+            StackView {
+                id: browseStackView
+
                 anchors.fill: parent
 
-                spacing: 0
+                clip: true
 
-                id: contentZone
+                initialItem: Item {
+                }
 
-                FocusScope {
-                    id: mainContentView
-
-                    focus: true
-
-                    Layout.fillHeight: true
-
-                    visible: Layout.minimumWidth != 0
-
-                    MouseArea {
-                        anchors.fill: parent
-                        acceptedButtons: Qt.BackButton
-                        onClicked: goBack()
-                    }
-
-                    Rectangle {
-                        radius: 3
-                        color: myPalette.base
-
-                        anchors.fill: parent
-
-                        StackView {
-                            id: browseStackView
-
-                            anchors.fill: parent
-
-                            clip: true
-
-                            initialItem: Item {
-                            }
-
-                            popEnter: Transition {
-                                OpacityAnimator {
-                                    from: 0.0
-                                    to: 1.0
-                                    duration: 300
-                                }
-                            }
-
-                            popExit: Transition {
-                                OpacityAnimator {
-                                    from: 1.0
-                                    to: 0.0
-                                    duration: 300
-                                }
-                            }
-
-                            pushEnter: Transition {
-                                OpacityAnimator {
-                                    from: 0.0
-                                    to: 1.0
-                                    duration: 300
-                                }
-                            }
-
-                            pushExit: Transition {
-                                OpacityAnimator {
-                                    from: 1.0
-                                    to: 0.0
-                                    duration: 300
-                                }
-                            }
-
-                            replaceEnter: Transition {
-                                OpacityAnimator {
-                                    from: 0.0
-                                    to: 1.0
-                                    duration: 300
-                                }
-                            }
-
-                            replaceExit: Transition {
-                                OpacityAnimator {
-                                    from: 1.0
-                                    to: 0.0
-                                    duration: 300
-                                }
-                            }
-                        }
+                popEnter: Transition {
+                    OpacityAnimator {
+                        from: 0.0
+                        to: 1.0
+                        duration: 300
                     }
                 }
 
-                Kirigami.Separator {
-                    id: playListSeparatorItem
-                    Layout.fillHeight: true
+                popExit: Transition {
+                    OpacityAnimator {
+                        from: 1.0
+                        to: 0.0
+                        duration: 300
+                    }
                 }
 
-                MediaPlayListView {
-                    id: playList
+                pushEnter: Transition {
+                    OpacityAnimator {
+                        from: 0.0
+                        to: 1.0
+                        duration: 300
+                    }
+                }
 
-                    Layout.fillHeight: true
-                    Layout.fillWidth: true
+                pushExit: Transition {
+                    OpacityAnimator {
+                        from: 1.0
+                        to: 0.0
+                        duration: 300
+                    }
+                }
 
-                    onStartPlayback: elisa.audioControl.ensurePlay()
+                replaceEnter: Transition {
+                    OpacityAnimator {
+                        from: 0.0
+                        to: 1.0
+                        duration: 300
+                    }
+                }
 
-                    onPausePlayback: elisa.audioControl.playPause()
+                replaceExit: Transition {
+                    OpacityAnimator {
+                        from: 1.0
+                        to: 0.0
+                        duration: 300
+                    }
                 }
             }
         }
+    }
 
-        states: [
-            State {
-                name: "browsingViewsNoPlaylist"
-                when: contentViewContainer.showPlaylist === false
-                extend: "browsingViews"
-                PropertyChanges {
-                    target: mainContentView
-                    Layout.minimumWidth: contentZone.width
-                    Layout.maximumWidth: contentZone.width
-                    Layout.preferredWidth: contentZone.width
-                }
-                PropertyChanges {
-                    target: playList
-                    Layout.minimumWidth: 0
-                    Layout.maximumWidth: 0
-                    Layout.preferredWidth: 0
-                }
-                PropertyChanges {
-                    target: playListSeparatorItem
-                    visible: false
-                }
-            },
-            State {
-                name: 'browsingViews'
-                when: contentViewContainer.showPlaylist === true
-                PropertyChanges {
-                    target: mainContentView
-                    Layout.minimumWidth: contentZone.width * 0.66
-                    Layout.maximumWidth: contentZone.width * 0.68
-                    Layout.preferredWidth: contentZone.width * 0.68
-                }
-                PropertyChanges {
-                    target: playListSeparatorItem
-                    visible: true
-                }
+    Kirigami.Separator {
+        id: playListSeparatorItem
+        Layout.fillHeight: true
+    }
+
+    MediaPlayListView {
+        id: playList
+
+        Layout.fillHeight: true
+
+        onStartPlayback: elisa.audioControl.ensurePlay()
+        onPausePlayback: elisa.audioControl.playPause()
+    }
+
+    states: [
+        State {
+            name: "browsingViewsNoPlaylist"
+            when: contentViewContainer.showPlaylist === false
+            PropertyChanges {
+                target: playList
+                Layout.minimumWidth: 0
+                Layout.maximumWidth: 0
+                Layout.preferredWidth: 0
             }
-        ]
-        transitions: Transition {
-            NumberAnimation {
-                properties: "Layout.minimumWidth, Layout.maximumWidth, Layout.preferredWidth, opacity"
-                easing.type: Easing.InOutQuad
-                duration: 300
+            PropertyChanges {
+                target: playListSeparatorItem
+                visible: false
             }
+        },
+        State {
+            name: 'browsingViews'
+            when: contentViewContainer.showPlaylist === true
+            PropertyChanges {
+                target: playList
+                Layout.minimumWidth: contentViewContainer.width * 0.28
+                Layout.maximumWidth: contentViewContainer.width * 0.28
+                Layout.preferredWidth: contentViewContainer.width * 0.28
+            }
+            PropertyChanges {
+                target: playListSeparatorItem
+                visible: true
+            }
+        }
+    ]
+    transitions: Transition {
+        NumberAnimation {
+            properties: "Layout.minimumWidth, Layout.maximumWidth, Layout.preferredWidth, opacity"
+            easing.type: Easing.InOutQuad
+            duration: 300
         }
     }
 

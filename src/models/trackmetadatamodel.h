@@ -196,7 +196,7 @@ private:
 
     MusicListenersManager *mManager = nullptr;
 
-    bool mIsRadio;
+    bool mIsRadio = false;
 
     FileScanner mFileScanner;
 

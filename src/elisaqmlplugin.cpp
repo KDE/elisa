@@ -146,10 +146,12 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qRegisterMetaType<QVector<qulonglong>>("QVector<qulonglong>");
     qRegisterMetaType<QHash<qulonglong,int>>("QHash<qulonglong,int>");
     qRegisterMetaType<DatabaseInterface::ListTrackDataType>("DatabaseInterface::ListTrackDataType");
+    qRegisterMetaType<DatabaseInterface::ListRadioDataType>("DatabaseInterface::ListRadioDataType");
     qRegisterMetaType<DatabaseInterface::ListAlbumDataType>("DatabaseInterface::ListAlbumDataType");
     qRegisterMetaType<DatabaseInterface::ListArtistDataType>("DatabaseInterface::ListArtistDataType");
     qRegisterMetaType<DatabaseInterface::ListGenreDataType>("DatabaseInterface::ListGenreDataType");
     qRegisterMetaType<ModelDataLoader::ListTrackDataType>("ModelDataLoader::ListTrackDataType");
+    qRegisterMetaType<ModelDataLoader::ListRadioDataType>("ModelDataLoader::ListRadioDataType");
     qRegisterMetaType<ModelDataLoader::ListAlbumDataType>("ModelDataLoader::ListAlbumDataType");
     qRegisterMetaType<ModelDataLoader::ListArtistDataType>("ModelDataLoader::ListArtistDataType");
     qRegisterMetaType<ModelDataLoader::ListGenreDataType>("ModelDataLoader::ListGenreDataType");

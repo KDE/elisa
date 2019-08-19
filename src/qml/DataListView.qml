@@ -36,6 +36,12 @@ FocusScope {
     property alias sortRole: proxyModel.sortRole
     property var sortAscending
     property bool displaySingleAlbum: false
+    property alias radioCase: listView.showCreateRadioButton
+
+    function openMetaDataView(databaseId){
+        metadataLoader.setSource("MediaTrackMetadataView.qml", {"databaseId": databaseId, "isRadio": viewHeader.radioCase});
+        metadataLoader.active = true
+    }
 
     DataModel {
         id: realModel
@@ -47,6 +53,12 @@ FocusScope {
         sourceModel: realModel
 
         onEntriesToEnqueue: elisa.mediaPlayList.enqueue(newEntries, databaseIdType, enqueueMode, triggerPlay)
+    }
+
+    Loader {
+        id: metadataLoader
+        active: false
+        onLoaded: item.show()
     }
 
     Component {
@@ -65,7 +77,7 @@ FocusScope {
             artist: model.artist ? model.artist : ''
             album: model.album ? model.album : ''
             albumArtist: model.albumArtist ? model.albumArtist : ''
-            duration: model.duration
+            duration: model.duration ? model.duration : ''
             imageUrl: model.imageUrl ? model.imageUrl : ''
             trackNumber: model.trackNumber ? model.trackNumber : -1
             discNumber: model.discNumber ? model.discNumber : -1
@@ -91,6 +103,10 @@ FocusScope {
                     listView.currentIndex = index
                 }
             }
+
+            onCallOpenMetaDataView: {
+                openMetaDataView(databaseId)
+            }
         }
     }
 
@@ -110,7 +126,7 @@ FocusScope {
             artist: model.artist ? model.artist : ''
             album: model.album ? model.album : ''
             albumArtist: model.albumArtist ? model.albumArtist : ''
-            duration: model.duration
+            duration: model.duration ? model.duration : ''
             imageUrl: model.imageUrl ? model.imageUrl : ''
             trackNumber: model.trackNumber ? model.trackNumber : -1
             discNumber: model.discNumber ? model.discNumber : -1
@@ -130,6 +146,10 @@ FocusScope {
             onClicked: {
                 listView.currentIndex = index
                 entry.forceActiveFocus()
+            }
+
+            onCallOpenMetaDataView: {
+                openMetaDataView(databaseId)
             }
         }
     }
@@ -175,6 +195,14 @@ FocusScope {
         onMusicManagerChanged: realModel.initialize(elisa.musicManager,
                                                     elisa.musicManager.viewDatabase,
                                                     modelType)
+    }
+
+    Connections {
+        target: listView.navigationBar
+
+        onCreateRadio: {
+            openMetaDataView(-1)
+        }
     }
 
     Component.onCompleted: {

@@ -44,6 +44,7 @@ FocusScope {
     signal clicked()
     signal enqueue(var databaseId, var name)
     signal replaceAndPlay(var databaseId, var name)
+    signal callOpenMetaDataView(var databaseId)
 
     Accessible.role: Accessible.ListItem
     Accessible.name: title
@@ -61,13 +62,7 @@ FocusScope {
         text: i18nc("Show track metadata", "View Details")
         icon.name: "help-about"
         onTriggered: {
-            if (metadataLoader.active === false) {
-                metadataLoader.active = true
-            }
-            else {
-                metadataLoader.item.close();
-                metadataLoader.active = false
-            }
+            callOpenMetaDataView(databaseId)
         }
     }
 
@@ -80,17 +75,6 @@ FocusScope {
 
     Keys.onReturnPressed: enqueue(databaseId, title)
     Keys.onEnterPressed: enqueue(databaseId, title)
-
-    Loader {
-        id: metadataLoader
-        active: false
-        onLoaded: item.show()
-
-        sourceComponent:  MediaTrackMetadataView {
-            databaseId: mediaTrack.databaseId
-            onRejected: metadataLoader.active = false;
-        }
-    }
 
     Rectangle {
         id: rowRoot
@@ -219,7 +203,7 @@ FocusScope {
                     id: mainLabelDetailed
 
                     text: {
-                        if (trackNumber !== 0) {
+                        if (trackNumber >= 0) {
                             return i18nc("%1: track number. %2: track title", "%1 - %2",
                                          trackNumber.toLocaleString(Qt.locale(), 'f', 0), title);
                         } else {
@@ -255,7 +239,7 @@ FocusScope {
                         }
                         if (album !== '') {
                             labelText += ' - ' + album
-                            if (!isSingleDiscAlbum) {
+                            if (!isSingleDiscAlbum && discNumber !== -1) {
                                 labelText += ' - CD ' + discNumber
                             }
                         }

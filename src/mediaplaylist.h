@@ -269,6 +269,8 @@ public Q_SLOTS:
 
     void undoClearPlayList();
 
+    void updateRadioData(const QVariant &value, int role);
+
 private Q_SLOTS:
 
     void loadPlayListLoaded();
@@ -294,7 +296,7 @@ private:
 
     void enqueueFilesList(const ElisaUtils::EntryDataList &newEntries);
 
-    void enqueueTracksListById(const ElisaUtils::EntryDataList &newEntries);
+    void enqueueTracksListById(const ElisaUtils::EntryDataList &newEntries, ElisaUtils::PlayListEntryType type);
 
     void enqueueOneEntry(const ElisaUtils::EntryData &entryData, ElisaUtils::PlayListEntryType type);
 
@@ -323,10 +325,9 @@ public:
           mTrackNumber(trackNumber), mDiscNumber(discNumber), mEntryType(entryType) {
     }
 
-    MediaPlayListEntry(QVariant title, QVariant artist, QVariant album, QVariant trackNumber,
-                       QVariant discNumber, ElisaUtils::PlayListEntryType entryType = ElisaUtils::Unknown)
+    MediaPlayListEntry(qulonglong id, QVariant title, QVariant artist, QVariant album, QVariant trackNumber, QVariant discNumber, ElisaUtils::PlayListEntryType entryType = ElisaUtils::Unknown)
         : mTitle(std::move(title)), mAlbum(std::move(album)), mArtist(std::move(artist)),
-          mTrackNumber(std::move(trackNumber)), mDiscNumber(std::move(discNumber)), mEntryType(entryType) {
+          mTrackNumber(trackNumber), mDiscNumber(discNumber), mId(id), mEntryType(entryType) {
     }
 
     explicit MediaPlayListEntry(const MusicAudioTrack &track)

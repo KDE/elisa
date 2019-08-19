@@ -34,6 +34,8 @@ public:
 
     QSet<qulonglong> mTracksByIdSet;
 
+    QSet<qulonglong> mRadiosByIdSet;
+
     QList<std::tuple<QString, QString, QString, int, int>> mTracksByNameSet;
 
     QList<QUrl> mTracksByFileNameSet;
@@ -217,6 +219,16 @@ void TracksListener::newEntryInList(qulonglong newDatabaseId,
         auto newTrack = d->mDatabase->trackDataFromDatabaseId(newDatabaseId);
         if (!newTrack.isEmpty()) {
             Q_EMIT trackHasChanged(newTrack);
+        }
+        break;
+    }
+    case ElisaUtils::Radio:
+    {
+        d->mRadiosByIdSet.insert(newDatabaseId);
+
+        auto newRadio = d->mDatabase->radioDataFromDatabaseId(newDatabaseId);
+        if (!newRadio.isEmpty()) {
+            Q_EMIT trackHasChanged(newRadio);
         }
         break;
     }

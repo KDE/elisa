@@ -53,6 +53,10 @@ class ELISALIB_EXPORT TrackMetadataModel : public QAbstractListModel
                READ lyrics
                NOTIFY lyricsChanged)
 
+    Q_PROPERTY(bool isRadio
+               READ isRadio
+               WRITE setIsRadio)
+
 public:
 
     enum ColumnRoles
@@ -95,6 +99,8 @@ public:
 
     QString lyrics() const;
 
+    bool isRadio();
+
 Q_SIGNALS:
 
     void needDataByDatabaseId(ElisaUtils::PlayListEntryType dataType, qulonglong databaseId);
@@ -109,6 +115,18 @@ Q_SIGNALS:
 
     void lyricsChanged();
 
+    void saveRadioData(DatabaseInterface::TrackDataType trackDataType);
+
+    void deleteRadioData(qulonglong radioId);
+
+    void disableApplyButton();
+
+    void hideDeleteButton();
+
+    void showDeleteButton();
+
+    void closeWindow();
+
 public Q_SLOTS:
 
     void trackData(const TrackMetadataModel::TrackDataType &trackData);
@@ -117,13 +135,29 @@ public Q_SLOTS:
 
     void initializeByTrackFileName(const QString &fileName);
 
+    void initializeForNewRadio();
+
     void setManager(MusicListenersManager *newManager);
 
+    void setIsRadio(bool isRadio);
+
     void setDatabase(DatabaseInterface *trackDatabase);
+
+    void saveData();
+
+    void deleteRadio();
+
+    void radioAdded(TrackMetadataModel::TrackDataType radiosData);
+
+    void radioModified();
+
+    void radioRemoved();
 
 protected:
 
     void fillDataFromTrackData(const TrackMetadataModel::TrackDataType &trackData);
+
+    void fillDataForNewRadio();
 
     virtual void filterDataFromTrackData();
 
@@ -144,6 +178,10 @@ private:
 
     void fetchLyrics();
 
+    QVariant dataGeneral(const QModelIndex &index, int role) const;
+
+    QVariant dataRadio(const QModelIndex &index, int role) const;
+
     TrackDataType mFullData;
 
     TrackDataType mTrackData;
@@ -158,12 +196,13 @@ private:
 
     MusicListenersManager *mManager = nullptr;
 
+    bool mIsRadio;
+
     FileScanner mFileScanner;
 
     QMimeDatabase mMimeDatabase;
 
     QFutureWatcher<QString> mLyricsValueWatcher;
-
 };
 
 #endif // TRACKMETADATAMODEL_H

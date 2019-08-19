@@ -51,6 +51,9 @@ void ViewManager::openParentView(ViewManager::ViewsType viewType, const QString 
     case Context:
         openContextView(mainTitle, mainImage);
         break;
+    case RadiosBrowser:
+        openRadiosBrowser(mainTitle, mainImage);
+        break;
     case OneAlbum:
     case OneArtist:
     case OneAlbumFromArtist:
@@ -80,6 +83,7 @@ void ViewManager::openChildView(const QString &innerMainTitle, const QString &in
     case ElisaUtils::FileName:
     case ElisaUtils::Lyricist:
     case ElisaUtils::Composer:
+    case ElisaUtils::Radio:
     case ElisaUtils::Unknown:
         break;
     }
@@ -131,6 +135,9 @@ void ViewManager::viewIsLoaded(ViewManager::ViewsType viewType)
     case ViewsType::Context:
         contextViewIsLoaded();
         break;
+    case ViewsType::RadiosBrowser:
+        radiosBrowserViewIsLoaded();
+        break;
     }
 }
 
@@ -141,7 +148,7 @@ void ViewManager::openRecentlyPlayedTracks(const QString &mainTitle, const QUrl 
     if (mCurrentView != mTargetView) {
         Q_EMIT openListView(mTargetView, ElisaUtils::FilterByRecentlyPlayed, 1, mainTitle, {},
                             0, imageUrl, ElisaUtils::Track, DatabaseInterface::LastPlayDate,
-                            SortOrder::SortDescending, MultipleAlbum, NoDiscHeaders);
+                            SortOrder::SortDescending, MultipleAlbum, NoDiscHeaders, IsTrack);
     }
 }
 
@@ -152,7 +159,7 @@ void ViewManager::openFrequentlyPlayedTracks(const QString &mainTitle, const QUr
     if (mCurrentView != mTargetView) {
         Q_EMIT openListView(mTargetView, ElisaUtils::FilterByFrequentlyPlayed, 1, mainTitle, {},
                             0, imageUrl, ElisaUtils::Track, DatabaseInterface::PlayFrequency,
-                            SortOrder::SortDescending, MultipleAlbum, NoDiscHeaders);
+                            SortOrder::SortDescending, MultipleAlbum, NoDiscHeaders, IsTrack);
     }
 }
 
@@ -180,12 +187,12 @@ void ViewManager::openOneAlbum(const QString &albumTitle, const QString &albumAu
         mTargetView = ViewsType::OneAlbum;
         Q_EMIT openListView(mTargetView, ElisaUtils::FilterById, 2, mTargetAlbumTitle, mTargetAlbumAuthor,
                             mTargetDatabaseId, mTargetImageUrl, ElisaUtils::Track, {},
-                            SortOrder::NoSort, SingleAlbum, mAlbumDiscHeader);
+                            SortOrder::NoSort, SingleAlbum, mAlbumDiscHeader, IsTrack);
     } else if (mCurrentView == ViewsType::OneArtist && mCurrentArtistName == mTargetAlbumAuthor) {
         mTargetView = ViewsType::OneAlbumFromArtist;
         Q_EMIT openListView(mTargetView, ElisaUtils::FilterById, 3, mTargetAlbumTitle, mTargetAlbumAuthor,
                             mTargetDatabaseId, mTargetImageUrl, ElisaUtils::Track, {},
-                            SortOrder::NoSort, SingleAlbum, mAlbumDiscHeader);
+                            SortOrder::NoSort, SingleAlbum, mAlbumDiscHeader, IsTrack);
     } else if (mCurrentView == ViewsType::OneArtist && mCurrentArtistName != mTargetAlbumAuthor) {
         mTargetView = ViewsType::OneAlbumFromArtist;
         Q_EMIT popOneView();
@@ -193,7 +200,7 @@ void ViewManager::openOneAlbum(const QString &albumTitle, const QString &albumAu
         mTargetView = ViewsType::OneAlbumFromArtistAndGenre;
         Q_EMIT openListView(mTargetView, ElisaUtils::FilterById, 4, mTargetAlbumTitle, mTargetAlbumAuthor,
                             mTargetDatabaseId, mTargetImageUrl, ElisaUtils::Track, {},
-                            SortOrder::NoSort, SingleAlbum, mAlbumDiscHeader);
+                            SortOrder::NoSort, SingleAlbum, mAlbumDiscHeader, IsTrack);
     } else {
         mTargetView = ViewsType::OneAlbum;
         Q_EMIT openGridView(ViewsType::AllAlbums, ElisaUtils::NoFilter, 1, {}, {}, {}, ElisaUtils::Album,
@@ -249,7 +256,7 @@ void ViewManager::openAllTracks(const QString &mainTitle, const QUrl &imageUrl)
     if (mCurrentView != mTargetView) {
         Q_EMIT openListView(mTargetView, ElisaUtils::NoFilter, 1, mainTitle, {},
                             0, imageUrl, ElisaUtils::Track, Qt::DisplayRole,
-                            SortOrder::SortAscending, MultipleAlbum, NoDiscHeaders);
+                            SortOrder::SortAscending, MultipleAlbum, NoDiscHeaders, IsTrack);
     }
 }
 
@@ -291,7 +298,16 @@ void ViewManager::openContextView(const QString &mainTitle, const QUrl &imageUrl
     if (mCurrentView != mTargetView) {
         Q_EMIT switchContextView(mTargetView, 1, mainTitle, imageUrl);
     }
+}
 
+void ViewManager::openRadiosBrowser(const QString &mainTitle, const QUrl &imageUrl)
+{
+    mTargetView = ViewsType::RadiosBrowser;
+    if (mCurrentView != mTargetView) {
+        Q_EMIT openListView(mTargetView, ElisaUtils::NoFilter, 1, mainTitle, {},
+                            0, imageUrl, ElisaUtils::Radio, Qt::DisplayRole,
+                            SortOrder::SortAscending, MultipleAlbum, NoDiscHeaders, IsRadio);
+    }
 }
 
 void ViewManager::recentlyPlayedTracksIsLoaded()
@@ -310,7 +326,7 @@ void ViewManager::allAlbumsViewIsLoaded()
     if (mTargetView == ViewsType::OneAlbum) {
         Q_EMIT openListView(mTargetView, ElisaUtils::FilterById, 2, mTargetAlbumTitle, mTargetAlbumAuthor,
                             mTargetDatabaseId, mTargetImageUrl, ElisaUtils::Track, Qt::DisplayRole,
-                            SortOrder::SortAscending, MultipleAlbum, NoDiscHeaders);
+                            SortOrder::SortAscending, MultipleAlbum, NoDiscHeaders, IsTrack);
     }
 }
 
@@ -353,7 +369,7 @@ void ViewManager::oneArtistViewIsLoaded()
 
         Q_EMIT openListView(mTargetView, ElisaUtils::FilterById, 3, mTargetAlbumTitle, mTargetAlbumAuthor,
                             mTargetDatabaseId, mTargetImageUrl, ElisaUtils::Track, Qt::DisplayRole,
-                            SortOrder::SortAscending, MultipleAlbum, NoDiscHeaders);
+                            SortOrder::SortAscending, MultipleAlbum, NoDiscHeaders, IsTrack);
     }
 }
 
@@ -381,6 +397,11 @@ void ViewManager::filesBrowserViewIsLoaded()
 void ViewManager::contextViewIsLoaded()
 {
     mCurrentView = ViewsType::Context;
+}
+
+void ViewManager::radiosBrowserViewIsLoaded()
+{
+    mCurrentView = ViewsType::RadiosBrowser;
 }
 
 void ViewManager::goBack()

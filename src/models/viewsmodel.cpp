@@ -39,7 +39,8 @@ public:
         mTypes = {ViewManager::Context, ViewManager::RecentlyPlayedTracks,
                   ViewManager::FrequentlyPlayedTracks, ViewManager::AllAlbums,
                   ViewManager::AllArtists, ViewManager::AllTracks,
-                  ViewManager::AllGenres, ViewManager::FilesBrowser};
+                  ViewManager::AllGenres, ViewManager::FilesBrowser,
+                  ViewManager::RadiosBrowser};
 
         mNames = {{ViewManager::Context, {i18nc("Title of the view of the playlist", "Now Playing")}},
                   {ViewManager::RecentlyPlayedTracks, {i18nc("Title of the view of recently played tracks", "Recently Played")}},
@@ -48,7 +49,8 @@ public:
                   {ViewManager::AllArtists, {i18nc("Title of the view of all artists", "Artists")}},
                   {ViewManager::AllTracks, {i18nc("Title of the view of all tracks", "Tracks")}},
                   {ViewManager::AllGenres, {i18nc("Title of the view of all genres", "Genres")}},
-                  {ViewManager::FilesBrowser, {i18nc("Title of the file browser view", "Files")}}};
+                  {ViewManager::FilesBrowser, {i18nc("Title of the file browser view", "Files")}},
+                  {ViewManager::RadiosBrowser, {i18nc("Title of the file radios browser view", "Radios")}}};
 
         mIcons = {{ViewManager::Context, QUrl{QStringLiteral("image://icon/view-media-lyrics")}},
                   {ViewManager::RecentlyPlayedTracks, QUrl{QStringLiteral("image://icon/media-playlist-play")}},
@@ -57,7 +59,8 @@ public:
                   {ViewManager::AllArtists, QUrl{QStringLiteral("image://icon/view-media-artist")}},
                   {ViewManager::AllTracks, QUrl{QStringLiteral("image://icon/view-media-track")}},
                   {ViewManager::AllGenres, QUrl{QStringLiteral("image://icon/view-media-genre")}},
-                  {ViewManager::FilesBrowser, QUrl{QStringLiteral("image://icon/document-open-folder")}}};
+                  {ViewManager::FilesBrowser, QUrl{QStringLiteral("image://icon/document-open-folder")}},
+                  {ViewManager::RadiosBrowser, QUrl{QStringLiteral("image://icon/radio")}}};
     }
 
 };
@@ -167,6 +170,8 @@ int ViewsModel::indexFromViewType(ViewManager::ViewsType type)
         return 6;
     case ViewManager::FilesBrowser:
         return 7;
+    case ViewManager::RadiosBrowser:
+        return 8;
     case ViewManager::OneAlbum:
     case ViewManager::OneArtist:
     case ViewManager::OneAlbumFromArtist:

@@ -44,7 +44,8 @@ public:
         FrequentlyPlayedTracks,
         RecentlyPlayedTracks,
         FilesBrowser,
-        Context
+        Context,
+        RadiosBrowser
     };
 
     Q_ENUM(ViewsType)
@@ -67,6 +68,13 @@ public:
 
     Q_ENUM(AlbumViewStyle)
 
+    enum RadioSpecificStyle {
+        IsTrack,
+        IsRadio,
+    };
+
+    Q_ENUM(RadioSpecificStyle)
+
     explicit ViewManager(QObject *parent = nullptr);
 
 Q_SIGNALS:
@@ -80,7 +88,8 @@ Q_SIGNALS:
     void openListView(ViewManager::ViewsType viewType, ElisaUtils::FilterType filterType, int expectedDepth,
                       const QString &mainTitle, const QString &secondaryTitle, qulonglong databaseId,
                       const QUrl &imageUrl, ElisaUtils::PlayListEntryType dataType, QVariant sortRole,
-                      ViewManager::SortOrder sortOrder, bool displaySingleAlbum, ViewManager::AlbumViewStyle showDiscHeaders);
+                      ViewManager::SortOrder sortOrder, bool displaySingleAlbum, ViewManager::AlbumViewStyle showDiscHeaders,
+                      ViewManager::RadioSpecificStyle radioCase);
 
     void switchFilesBrowserView(ViewManager::ViewsType viewType, int expectedDepth,
                                 const QString &mainTitle, const QUrl &imageUrl);
@@ -122,6 +131,8 @@ private:
 
     void openContextView(const QString &mainTitle, const QUrl &imageUrl);
 
+    void openRadiosBrowser(const QString &mainTitle, const QUrl &imageUrl);
+
     void openOneAlbum(const QString &albumTitle, const QString &albumAuthor,
                       const QUrl &albumCover, qulonglong albumDatabaseId, ViewManager::AlbumViewStyle albumDiscHeader);
 
@@ -150,6 +161,8 @@ private:
     void filesBrowserViewIsLoaded();
 
     void contextViewIsLoaded();
+
+    void radiosBrowserViewIsLoaded();
 
     QString mCurrentAlbumTitle;
     QString mCurrentAlbumAuthor;

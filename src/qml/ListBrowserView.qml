@@ -42,6 +42,9 @@ FocusScope {
     property alias currentIndex: contentDirectoryView.currentIndex
     property alias enableSorting: navigationBar.enableSorting
     property var stackView
+    property bool showEnqueueButton: true
+    property bool showCreateRadioButton: false
+    property alias navigationBar: navigationBar
 
     signal goBack()
     signal showArtist(var name)
@@ -66,6 +69,9 @@ FocusScope {
             sortOrder: contentModel.sortedAscending
 
             Layout.fillWidth: true
+
+            showEnqueueButton: listView.showEnqueueButton
+            showCreateRadioButton: listView.showCreateRadioButton
 
             Binding {
                 target: contentModel

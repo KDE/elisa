@@ -29,13 +29,20 @@ Window {
 
     property int databaseId: 0
     property string fileName
+    property alias isRadio: realModel.isRadio
 
     signal rejected()
 
     LayoutMirroring.enabled: Qt.application.layoutDirection == Qt.RightToLeft
     LayoutMirroring.childrenInherit: true
 
-    title: i18nc("Window title for track metadata", "View Details")
+    title: {
+        if (trackMetadata.isRadio && databaseId === -1) {
+            return i18nc("Window title for track metadata", "Create a Radio")
+        }
+
+        return i18nc("Window title for track metadata", "View Details")
+    }
 
     TrackMetadataModel {
         id: realModel
@@ -80,6 +87,8 @@ Window {
                 Layout.minimumWidth: elisaTheme.coverImageSize
                 Layout.maximumHeight: elisaTheme.coverImageSize
                 Layout.maximumWidth: elisaTheme.coverImageSize
+
+                visible: !trackMetadata.isRadio
             }
 
             ListView {
@@ -104,9 +113,24 @@ Window {
                 }
                 model: realModel
 
-                delegate: MetaDataDelegate {
-                    width: scrollBar.visible ? (!LayoutMirroring.enabled ? trackData.width - scrollBar.width : trackData.width) : trackData.width
+                Component {
+                    id: metaDataDelegate
+
+                    MetaDataDelegate {
+                        width: scrollBar.visible ? (!LayoutMirroring.enabled ? trackData.width - scrollBar.width : trackData.width) : trackData.width
+                    }
                 }
+
+                Component {
+                    id: editableMetaDataDelegate
+
+                    EditableMetaDataDelegate {
+                        width: scrollBar.visible ? (!LayoutMirroring.enabled ? trackData.width - scrollBar.width : trackData.width) : trackData.width
+                        onRadioEdited: applyButton.enabled = true
+                    }
+                }
+
+                delegate: trackMetadata.isRadio ? editableMetaDataDelegate: metaDataDelegate
             }
         }
 
@@ -136,17 +160,61 @@ Window {
 
                 elide: Text.ElideRight
             }
+
+            visible: !trackMetadata.isRadio
+        }
+
+        RowLayout{
+            spacing: elisaTheme.layoutVerticalMargin
+
+            DialogButtonBox {
+                Layout.minimumHeight: implicitHeight
+                alignment: Qt.AlignLeft
+
+                Button {
+                    id: deleteButton
+                    text: qsTr("Delete")
+                    DialogButtonBox.buttonRole: DialogButtonBox.DestructiveRole
+                    onClicked: realModel.deleteRadio()
+                }
+            }
+
+            DialogButtonBox {
+                id: buttons
+
+                Layout.fillWidth: true
+                Layout.minimumHeight: implicitHeight
+                alignment: Qt.AlignRight
+
+                Button {
+                    id: applyButton
+
+                    text: qsTr("Apply")
+                    DialogButtonBox.buttonRole: DialogButtonBox.ApplyRole
+                    onClicked: realModel.saveData()
+                    enabled: false
+                }
+                Button {
+                    text: qsTr("Close")
+                    DialogButtonBox.buttonRole: DialogButtonBox.DestructiveRole
+                    onClicked: trackMetadata.close()
+                }
+            }
+
+            visible: trackMetadata.isRadio
         }
 
         DialogButtonBox {
-            id: buttons
+            id: buttonsTrack
 
             Layout.fillWidth: true
             Layout.minimumHeight: implicitHeight
 
             standardButtons: DialogButtonBox.Close
             alignment: Qt.AlignRight
-            onRejected: trackMetadata.rejected()
+            onRejected: trackMetadata.close()
+
+            visible: !trackMetadata.isRadio
         }
     }
 
@@ -154,7 +222,9 @@ Window {
         target: elisa
 
         onMusicManagerChanged: {
-            if (databaseId !== 0) {
+            if (databaseId === -1) {
+                realModel.initializeForNewRadio()
+            } else if (databaseId !== 0) {
                 realModel.initializeByTrackId(databaseId)
             } else {
                 realModel.initializeByTrackFileName(fileName)
@@ -162,9 +232,20 @@ Window {
         }
     }
 
+    Connections{
+        target: realModel
+
+        onDisableApplyButton: applyButton.enabled = false
+        onShowDeleteButton: deleteButton.visible = true
+        onHideDeleteButton: deleteButton.visible = false
+        onCloseWindow: trackMetadata.close()
+    }
+
     Component.onCompleted: {
         if (elisa.musicManager) {
-            if (databaseId !== 0) {
+            if (databaseId === -1) {
+                realModel.initializeForNewRadio()
+            } else if (databaseId !== 0) {
                 realModel.initializeByTrackId(databaseId)
             } else {
                 realModel.initializeByTrackFileName(fileName)

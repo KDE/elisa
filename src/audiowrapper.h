@@ -122,6 +122,8 @@ Q_SIGNALS:
 
     void positionChanged(qint64 position);
 
+    void currentPlayingForRadiosChanged(QString title, QString nowPlaying);
+
     void seekableChanged(bool seekable);
 
     void playing();

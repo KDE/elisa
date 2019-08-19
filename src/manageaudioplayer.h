@@ -203,6 +203,8 @@ Q_SIGNALS:
 
     void startedPlayingTrack(const QUrl &fileName, const QDateTime &time);
 
+    void currentPlayingForRadiosChanged(const QVariant &value, int role);
+
 public Q_SLOTS:
 
     void setCurrentTrack(const QPersistentModelIndex &currentTrack);
@@ -236,6 +238,8 @@ public Q_SLOTS:
     void setPlayerIsSeekable(bool playerIsSeekable);
 
     void setPlayerPosition(qint64 playerPosition);
+
+    void setCurrentPlayingForRadios(const QString title, const QString nowPlaying);
 
     void setPlayControlPosition(int playerPosition);
 

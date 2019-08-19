@@ -233,7 +233,15 @@ void AudioWrapper::setVolume(qreal volume)
 
 void AudioWrapper::setSource(const QUrl &source)
 {
-    d->mMedia = libvlc_media_new_path(d->mInstance, QDir::toNativeSeparators(source.toLocalFile()).toUtf8().constData());
+    if (source.isLocalFile()) {
+        qCDebug(orgKdeElisaPlayerVlc) << "AudioWrapper::setSource reading local resource";
+        d->mMedia = libvlc_media_new_path(d->mInstance, QDir::toNativeSeparators(source.toLocalFile()).toUtf8().constData());
+    } else {
+        qCDebug(orgKdeElisaPlayerVlc) << "AudioWrapper::setSource reading remote resource";
+        const char * charUrl = source.url().toUtf8().constData();
+        d->mMedia = libvlc_media_new_location(d->mInstance, charUrl);
+    }
+
     if (!d->mMedia) {
         qCDebug(orgKdeElisaPlayerVlc) << "AudioWrapper::setSource"
                  << "failed creating media"
@@ -556,6 +564,13 @@ void AudioWrapperPrivate::signalPositionChange(float newPosition)
         mPreviousPosition = computedPosition;
 
         mParent->playerPositionSignalChanges(mPreviousPosition);
+    }
+
+    if (this->mMedia) {
+        QString title = QLatin1String(libvlc_media_get_meta(this->mMedia, libvlc_meta_Title));
+        QString nowPlaying = QLatin1String(libvlc_media_get_meta(this->mMedia, libvlc_meta_NowPlaying));
+
+        Q_EMIT mParent->currentPlayingForRadiosChanged(title, nowPlaying);
     }
 }
 

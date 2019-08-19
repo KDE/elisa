@@ -41,6 +41,7 @@ public:
     using ListArtistDataType = DatabaseInterface::ListArtistDataType;
     using ListGenreDataType = DatabaseInterface::ListGenreDataType;
     using ListTrackDataType = DatabaseInterface::ListTrackDataType;
+    using ListRadioDataType = DatabaseInterface::ListRadioDataType;
     using TrackDataType = DatabaseInterface::TrackDataType;
     using AlbumDataType = DatabaseInterface::AlbumDataType;
 
@@ -62,7 +63,15 @@ Q_SIGNALS:
 
     void allTracksData(const ModelDataLoader::ListTrackDataType &allData);
 
+    void allRadiosData(const ModelDataLoader::ListRadioDataType &radiosData);
+
+    void radioAdded(const ModelDataLoader::TrackDataType radiosData);
+
+    void radioModified(const ModelDataLoader::TrackDataType radiosData);
+
     void allTrackData(const ModelDataLoader::TrackDataType &allData);
+
+    void allRadioData(const ModelDataLoader::TrackDataType &allData);
 
     void tracksAdded(ModelDataLoader::ListTrackDataType newData);
 
@@ -81,6 +90,12 @@ Q_SIGNALS:
     void albumRemoved(qulonglong removedDatabaseId);
 
     void albumModified(const ModelDataLoader::AlbumDataType &modifiedAlbum);
+
+    void saveRadioModified(const ModelDataLoader::TrackDataType trackDataType);
+
+    void removeRadio(qulonglong radioId);
+
+    void radioRemoved(qulonglong radioId);
 
 public Q_SLOTS:
 
@@ -107,6 +122,10 @@ public Q_SLOTS:
 
     void loadFrequentlyPlayedData(ElisaUtils::PlayListEntryType dataType);
 
+    void updateRadioData(ModelDataLoader::TrackDataType trackDataType);
+
+    void deleteRadioData(qulonglong radioId);
+
 private:
 
     void databaseTracksAdded(const ListTrackDataType &newData);
@@ -126,6 +145,12 @@ private:
     void databaseAlbumRemoved(qulonglong removedDatabaseId);
 
     void databaseAlbumModified(const AlbumDataType &modifiedAlbum);
+
+    void databaseRadioAdded(const TrackDataType radio);
+
+    void databaseRadioModified(const TrackDataType radio);
+
+    void databaseRadioRemoved(qulonglong radioId);
 
 private:
 

@@ -30,6 +30,8 @@ ColumnLayout {
     property string secondaryTitle
     property url image
     property bool allowArtistNavigation: false
+    property bool showEnqueueButton: true
+    property bool showCreateRadioButton
 
     property string labelText
     property bool showRating: true
@@ -43,6 +45,7 @@ ColumnLayout {
 
     signal enqueue();
     signal replaceAndPlay();
+    signal createRadio();
     signal goBack();
     signal showArtist();
     signal sort(var order);
@@ -67,6 +70,13 @@ ColumnLayout {
         text: i18nc("Add current list to playlist", "Enqueue")
         icon.name: "list-add"
         onTriggered: enqueue()
+    }
+
+    Action {
+        id: createRadioAction
+        text: i18nc("Create a new radio", "Create a radio")
+        icon.name: "media-track-add-amarok"
+        onTriggered: createRadio()
     }
 
     Action {
@@ -161,6 +171,17 @@ ColumnLayout {
                 }
             },
             FlatButtonWithToolTip {
+                action: createRadioAction
+                objectName: 'createRadioButton'
+
+                icon.height: elisaTheme.smallControlButtonSize
+                icon.width: elisaTheme.smallControlButtonSize
+
+                focus: true
+
+                visible: showCreateRadioButton
+            },
+            FlatButtonWithToolTip {
                 action: enqueueAction
                 objectName: 'enqueueButton'
 
@@ -168,6 +189,8 @@ ColumnLayout {
                 icon.width: elisaTheme.smallControlButtonSize
 
                 focus: true
+
+                visible: !showCreateRadioButton
             },
             FlatButtonWithToolTip {
                 action: replaceAndPlayAction
@@ -175,6 +198,8 @@ ColumnLayout {
 
                 icon.height: elisaTheme.smallControlButtonSize
                 icon.width: elisaTheme.smallControlButtonSize
+
+                visible: !showCreateRadioButton
             },
             FlatButtonWithToolTip {
                 action: showArtistAction
@@ -183,7 +208,7 @@ ColumnLayout {
                 icon.height: elisaTheme.smallControlButtonSize
                 icon.width: elisaTheme.smallControlButtonSize
 
-                visible: allowArtistNavigation
+                visible: allowArtistNavigation && !showCreateRadioButton
             },
             FlatButtonWithToolTip {
                 action: sortAction
@@ -192,7 +217,7 @@ ColumnLayout {
                 icon.height: elisaTheme.smallControlButtonSize
                 icon.width: elisaTheme.smallControlButtonSize
 
-                visible: enableSorting
+                visible: enableSorting && !showCreateRadioButton
             },
             FlatButtonWithToolTip {
                 action: showFilterAction
@@ -200,6 +225,8 @@ ColumnLayout {
 
                 icon.height: elisaTheme.smallControlButtonSize
                 icon.width: elisaTheme.smallControlButtonSize
+
+                visible: !showCreateRadioButton
             }
         ]
     }

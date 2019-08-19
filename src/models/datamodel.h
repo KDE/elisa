@@ -50,6 +50,8 @@ class ELISALIB_EXPORT DataModel : public QAbstractListModel
 
 public:
 
+    using ListRadioDataType = DatabaseInterface::ListRadioDataType;
+
     using ListTrackDataType = DatabaseInterface::ListTrackDataType;
 
     using TrackDataType = DatabaseInterface::TrackDataType;
@@ -117,9 +119,13 @@ public Q_SLOTS:
 
     void tracksAdded(DataModel::ListTrackDataType newData);
 
+    void radiosAdded(DataModel::ListRadioDataType newData);
+
     void trackModified(const DataModel::TrackDataType &modifiedTrack);
 
     void trackRemoved(qulonglong removedTrackId);
+
+    void radioRemoved(qulonglong removedRadioId);
 
     void genresAdded(DataModel::ListGenreDataType newData);
 
@@ -143,7 +149,11 @@ private Q_SLOTS:
 
 private:
 
-    int trackIndexFromId(qulonglong id) const;
+    void radioAdded(const DataModel::TrackDataType radiosData);
+
+    void radioModified(const DataModel::TrackDataType &modifiedRadio);
+
+    int indexFromId(qulonglong id) const;
 
     void connectModel(DatabaseInterface *database);
 
@@ -153,6 +163,8 @@ private:
                          ElisaUtils::PlayListEntryType modelType, ElisaUtils::FilterType type);
 
     void askModelData();
+
+    void removeRadios();
 
     std::unique_ptr<DataModelPrivate> d;
 

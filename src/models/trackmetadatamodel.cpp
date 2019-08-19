@@ -23,6 +23,16 @@
 
 #include <QtConcurrent>
 
+const QList<DatabaseInterface::ColumnsRoles> mFieldsForClassicTrack({DatabaseInterface::TitleRole, DatabaseInterface::ArtistRole, DatabaseInterface::AlbumRole,
+                                                                  DatabaseInterface::AlbumArtistRole, DatabaseInterface::TrackNumberRole, DatabaseInterface::DiscNumberRole,
+                                                                  DatabaseInterface::RatingRole, DatabaseInterface::GenreRole, DatabaseInterface::LyricistRole,
+                                                                  DatabaseInterface::ComposerRole, DatabaseInterface::CommentRole, DatabaseInterface::YearRole,
+                                                                  DatabaseInterface::LastPlayDate, DatabaseInterface::PlayCounter});
+
+const QList mFieldsForRadioTrack({DatabaseInterface::TitleRole,DatabaseInterface::ResourceRole, DatabaseInterface::CommentRole, DatabaseInterface::DatabaseIdRole,
+                                        DatabaseInterface::ArtistRole, DatabaseInterface::AlbumRole});
+
+
 TrackMetadataModel::TrackMetadataModel(QObject *parent)
     : QAbstractListModel(parent)
 {
@@ -46,7 +56,7 @@ int TrackMetadataModel::rowCount(const QModelIndex &parent) const
     return mTrackData.count();
 }
 
-QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
+QVariant TrackMetadataModel::dataGeneral(const QModelIndex &index, int role) const
 {
     auto result = QVariant{};
 
@@ -162,6 +172,9 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
         case DatabaseInterface::LyricsRole:
             result = i18nc("Lyrics label for track metadata view", "Lyrics");
             break;
+        case DatabaseInterface::ResourceRole:
+            result = i18nc("Radio HTTP address for radio metadata view", "Stream Http Address");
+            break;
         case DatabaseInterface::SecondaryTextRole:
         case DatabaseInterface::ImageUrlRole:
         case DatabaseInterface::ShadowForImageRole:
@@ -171,7 +184,6 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
         case DatabaseInterface::IsValidAlbumArtistRole:
         case DatabaseInterface::AllArtistsRole:
         case DatabaseInterface::HighestTrackRating:
-        case DatabaseInterface::ResourceRole:
         case DatabaseInterface::IdRole:
         case DatabaseInterface::DatabaseIdRole:
         case DatabaseInterface::IsSingleDiscAlbumRole:
@@ -190,6 +202,9 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
         switch (currentKey)
         {
         case DatabaseInterface::TitleRole:
+            result = TextEntry;
+            break;
+        case DatabaseInterface::ResourceRole:
             result = TextEntry;
             break;
         case DatabaseInterface::ArtistRole:
@@ -247,7 +262,6 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
         case DatabaseInterface::IsValidAlbumArtistRole:
         case DatabaseInterface::AllArtistsRole:
         case DatabaseInterface::HighestTrackRating:
-        case DatabaseInterface::ResourceRole:
         case DatabaseInterface::IdRole:
         case DatabaseInterface::DatabaseIdRole:
         case DatabaseInterface::IsSingleDiscAlbumRole:
@@ -267,10 +281,138 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
     return result;
 }
 
+QVariant TrackMetadataModel::dataRadio(const QModelIndex &index, int role) const
+{
+    auto result = QVariant{};
+
+    const auto currentKey = mTrackKeys[index.row()];
+
+    switch (role)
+    {
+    case Qt::DisplayRole:
+        result = mTrackData[currentKey];
+        break;
+    case ItemNameRole:
+        switch (currentKey)
+        {
+        case DatabaseInterface::TitleRole:
+            result = i18nc("Track title for track metadata view", "Title");
+            break;
+        case DatabaseInterface::CommentRole:
+            result = i18nc("Comment label for track metadata view", "Comment");
+            break;
+        case DatabaseInterface::ResourceRole:
+            result = i18nc("Radio HTTP address for radio metadata view", "Stream Http Address");
+            break;
+        case DatabaseInterface::ChannelsRole:
+        case DatabaseInterface::BitRateRole:
+        case DatabaseInterface::SampleRateRole:
+        case DatabaseInterface::LastPlayDate:
+        case DatabaseInterface::PlayCounter:
+        case DatabaseInterface::LyricsRole:
+        case DatabaseInterface::YearRole:
+        case DatabaseInterface::ComposerRole:
+        case DatabaseInterface::ArtistRole:
+        case DatabaseInterface::AlbumRole:
+        case DatabaseInterface::AlbumArtistRole:
+        case DatabaseInterface::TrackNumberRole:
+        case DatabaseInterface::DiscNumberRole:
+        case DatabaseInterface::RatingRole:
+        case DatabaseInterface::GenreRole:
+        case DatabaseInterface::LyricistRole:
+        case DatabaseInterface::DurationRole:
+        case DatabaseInterface::SecondaryTextRole:
+        case DatabaseInterface::ImageUrlRole:
+        case DatabaseInterface::ShadowForImageRole:
+        case DatabaseInterface::ChildModelRole:
+        case DatabaseInterface::StringDurationRole:
+        case DatabaseInterface::MilliSecondsDurationRole:
+        case DatabaseInterface::AllArtistsRole:
+        case DatabaseInterface::HighestTrackRating:
+        case DatabaseInterface::IdRole:
+        case DatabaseInterface::DatabaseIdRole:
+        case DatabaseInterface::IsSingleDiscAlbumRole:
+        case DatabaseInterface::ContainerDataRole:
+        case DatabaseInterface::IsPartialDataRole:
+        case DatabaseInterface::AlbumIdRole:
+        case DatabaseInterface::HasEmbeddedCover:
+        case DatabaseInterface::FileModificationTime:
+        case DatabaseInterface::FirstPlayDate:
+        case DatabaseInterface::PlayFrequency:
+        case DatabaseInterface::ElementTypeRole:
+            break;
+        }
+        break;
+    case ItemTypeRole:
+        switch (currentKey)
+        {
+        case DatabaseInterface::TitleRole:
+            result = TextEntry;
+            break;
+        case DatabaseInterface::ResourceRole:
+            result = TextEntry;
+            break;
+        case DatabaseInterface::CommentRole:
+            result = TextEntry;
+            break;
+        case DatabaseInterface::ArtistRole:
+        case DatabaseInterface::AlbumRole:
+        case DatabaseInterface::AlbumArtistRole:
+        case DatabaseInterface::TrackNumberRole:
+        case DatabaseInterface::DiscNumberRole:
+        case DatabaseInterface::RatingRole:
+        case DatabaseInterface::GenreRole:
+        case DatabaseInterface::LyricistRole:
+        case DatabaseInterface::ComposerRole:
+        case DatabaseInterface::YearRole:
+        case DatabaseInterface::LastPlayDate:
+        case DatabaseInterface::PlayCounter:
+        case DatabaseInterface::LyricsRole:
+        case DatabaseInterface::DurationRole:
+        case DatabaseInterface::SampleRateRole:
+        case DatabaseInterface::BitRateRole:
+        case DatabaseInterface::ChannelsRole:
+        case DatabaseInterface::SecondaryTextRole:
+        case DatabaseInterface::ImageUrlRole:
+        case DatabaseInterface::ShadowForImageRole:
+        case DatabaseInterface::ChildModelRole:
+        case DatabaseInterface::StringDurationRole:
+        case DatabaseInterface::MilliSecondsDurationRole:
+        case DatabaseInterface::AllArtistsRole:
+        case DatabaseInterface::HighestTrackRating:
+        case DatabaseInterface::IdRole:
+        case DatabaseInterface::DatabaseIdRole:
+        case DatabaseInterface::IsSingleDiscAlbumRole:
+        case DatabaseInterface::ContainerDataRole:
+        case DatabaseInterface::IsPartialDataRole:
+        case DatabaseInterface::AlbumIdRole:
+        case DatabaseInterface::HasEmbeddedCover:
+        case DatabaseInterface::FileModificationTime:
+        case DatabaseInterface::FirstPlayDate:
+        case DatabaseInterface::PlayFrequency:
+        case DatabaseInterface::ElementTypeRole:
+            break;
+        }
+        break;
+    }
+
+    return result;
+}
+
+QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
+{
+    if (this->mIsRadio) {
+        return dataRadio(index, role);
+    } else {
+        return dataGeneral(index, role);
+    }
+}
+
 bool TrackMetadataModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
     if (data(index, role) != value) {
-        // FIXME: Implement me!
+        mTrackData[mTrackKeys[index.row()]] = value;
+
         emit dataChanged(index, index, QVector<int>() << role);
         return true;
     }
@@ -327,11 +469,7 @@ void TrackMetadataModel::fillDataFromTrackData(const TrackMetadataModel::TrackDa
     mTrackData.clear();
     mTrackKeys.clear();
 
-    for (auto role : {DatabaseInterface::TitleRole, DatabaseInterface::ArtistRole, DatabaseInterface::AlbumRole,
-         DatabaseInterface::AlbumArtistRole, DatabaseInterface::TrackNumberRole, DatabaseInterface::DiscNumberRole,
-         DatabaseInterface::RatingRole, DatabaseInterface::GenreRole, DatabaseInterface::LyricistRole,
-         DatabaseInterface::ComposerRole, DatabaseInterface::CommentRole, DatabaseInterface::YearRole,
-         DatabaseInterface::LastPlayDate, DatabaseInterface::PlayCounter}) {
+    for (DatabaseInterface::ColumnsRoles role : (isRadio() ? mFieldsForRadioTrack : mFieldsForClassicTrack)){
         if (trackData.constFind(role) != trackData.constEnd()) {
             if (role == DatabaseInterface::RatingRole) {
                 if (trackData[role].toInt() == 0) {
@@ -419,10 +557,26 @@ void TrackMetadataModel::initialize(MusicListenersManager *newManager, DatabaseI
             &mDataLoader, &ModelDataLoader::loadDataByDatabaseId);
     connect(this, &TrackMetadataModel::needDataByFileName,
             &mDataLoader, &ModelDataLoader::loadDataByFileName);
-    connect(&mDataLoader, &ModelDataLoader::allTrackData,
-            this, &TrackMetadataModel::trackData);
-    connect(&mDataLoader, &ModelDataLoader::trackModified,
-            this, &TrackMetadataModel::trackData);
+
+    if (isRadio()) {
+        connect(this, &TrackMetadataModel::saveRadioData,
+                &mDataLoader, &ModelDataLoader::updateRadioData);
+        connect(this, &TrackMetadataModel::deleteRadioData,
+                &mDataLoader, &ModelDataLoader::deleteRadioData);
+        connect(&mDataLoader, &ModelDataLoader::radioAdded,
+                this, &TrackMetadataModel::radioAdded);
+        connect(&mDataLoader, &ModelDataLoader::radioModified,
+                this, &TrackMetadataModel::radioModified);
+        connect(&mDataLoader, &ModelDataLoader::radioRemoved,
+                this, &TrackMetadataModel::radioRemoved);
+        connect(&mDataLoader, &ModelDataLoader::allRadioData,
+                this, &TrackMetadataModel::trackData);
+    } else {
+        connect(&mDataLoader, &ModelDataLoader::trackModified,
+                this, &TrackMetadataModel::trackData);
+        connect(&mDataLoader, &ModelDataLoader::allTrackData,
+                this, &TrackMetadataModel::trackData);
+    }
 }
 
 void TrackMetadataModel::fetchLyrics()
@@ -447,7 +601,41 @@ void TrackMetadataModel::initializeByTrackId(qulonglong databaseId)
 
     Q_EMIT lyricsChanged();
 
-    Q_EMIT needDataByDatabaseId(ElisaUtils::Track, databaseId);
+    Q_EMIT needDataByDatabaseId((isRadio() ? ElisaUtils::Radio : ElisaUtils::Track), databaseId);
+}
+
+void TrackMetadataModel::initializeForNewRadio()
+{
+    mFullData.clear();
+    mTrackData.clear();
+
+    fillDataForNewRadio();
+}
+
+void TrackMetadataModel::fillDataForNewRadio()
+{
+    beginResetModel();
+    mTrackData.clear();
+    mTrackKeys.clear();
+
+    for (auto role : {
+         DatabaseInterface::TitleRole,
+         DatabaseInterface::ResourceRole,
+         DatabaseInterface::CommentRole,
+         DatabaseInterface::DatabaseIdRole
+
+    }) {
+        mTrackKeys.push_back(role);
+        if (role == DatabaseInterface::DatabaseIdRole) {
+            mTrackData[role] = -1;
+            Q_EMIT hideDeleteButton();
+        } else {
+            mTrackData[role] = QStringLiteral("");
+        }
+
+    }
+    filterDataFromTrackData();
+    endResetModel();
 }
 
 void TrackMetadataModel::initializeByTrackFileName(const QString &fileName)
@@ -467,10 +655,43 @@ void TrackMetadataModel::setManager(MusicListenersManager *newManager)
     initialize(newManager, nullptr);
 }
 
+void TrackMetadataModel::setIsRadio(bool isRadio){
+    this->mIsRadio = isRadio;
+}
+
 void TrackMetadataModel::setDatabase(DatabaseInterface *trackDatabase)
 {
     initialize(nullptr, trackDatabase);
 }
 
+bool TrackMetadataModel::isRadio(){
+    return this->mIsRadio;
+}
+
+void TrackMetadataModel::saveData()
+{
+    Q_EMIT saveRadioData(mTrackData);
+}
+
+void TrackMetadataModel::deleteRadio()
+{
+    if (mTrackData[DatabaseInterface::DatabaseIdRole]>=0) {
+        Q_EMIT deleteRadioData(mTrackData[DatabaseInterface::DatabaseIdRole].toULongLong());
+    }
+}
+
+void TrackMetadataModel::radioAdded(TrackDataType radiosData){
+    mTrackData[DatabaseInterface::DatabaseIdRole] = radiosData[DatabaseInterface::DatabaseIdRole];
+    Q_EMIT showDeleteButton();
+    radioModified();
+}
+
+void TrackMetadataModel::radioModified(){
+    Q_EMIT disableApplyButton();
+}
+
+void TrackMetadataModel::radioRemoved(){
+    Q_EMIT closeWindow();
+}
 
 #include "moc_trackmetadatamodel.cpp"

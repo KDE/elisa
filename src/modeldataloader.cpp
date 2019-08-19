@@ -75,6 +75,16 @@ void ModelDataLoader::setDatabase(DatabaseInterface *database)
             this, &ModelDataLoader::databaseArtistsAdded);
     connect(database, &DatabaseInterface::artistRemoved,
             this, &ModelDataLoader::databaseArtistRemoved);
+    connect(this, &ModelDataLoader::saveRadioModified,
+            database, &DatabaseInterface::insertRadio);
+    connect(this, &ModelDataLoader::removeRadio,
+            database, &DatabaseInterface::removeRadio);
+    connect(database, &DatabaseInterface::radioAdded,
+            this, &ModelDataLoader::databaseRadioAdded);
+    connect(database, &DatabaseInterface::radioModified,
+            this, &ModelDataLoader::databaseRadioModified);
+    connect(database, &DatabaseInterface::radioRemoved,
+            this, &ModelDataLoader::databaseRadioRemoved);
 }
 
 void ModelDataLoader::loadData(ElisaUtils::PlayListEntryType dataType)
@@ -106,6 +116,9 @@ void ModelDataLoader::loadData(ElisaUtils::PlayListEntryType dataType)
     case ElisaUtils::FileName:
     case ElisaUtils::Unknown:
         break;
+    case ElisaUtils::Radio:
+        Q_EMIT allRadiosData(d->mDatabase->allRadiosData());
+        break;
     }
 }
 
@@ -135,6 +148,7 @@ void ModelDataLoader::loadDataByAlbumId(ElisaUtils::PlayListEntryType dataType, 
         break;
     case ElisaUtils::FileName:
     case ElisaUtils::Unknown:
+    case ElisaUtils::Radio:
         break;
     }
 }
@@ -160,6 +174,7 @@ void ModelDataLoader::loadDataByGenre(ElisaUtils::PlayListEntryType dataType, co
     case ElisaUtils::Lyricist:
     case ElisaUtils::FileName:
     case ElisaUtils::Unknown:
+    case ElisaUtils::Radio:
         break;
     }
 }
@@ -185,6 +200,7 @@ void ModelDataLoader::loadDataByArtist(ElisaUtils::PlayListEntryType dataType, c
     case ElisaUtils::Lyricist:
     case ElisaUtils::FileName:
     case ElisaUtils::Unknown:
+    case ElisaUtils::Radio:
         break;
     }
 }
@@ -211,6 +227,7 @@ void ModelDataLoader::loadDataByGenreAndArtist(ElisaUtils::PlayListEntryType dat
     case ElisaUtils::Track:
     case ElisaUtils::FileName:
     case ElisaUtils::Unknown:
+    case ElisaUtils::Radio:
         break;
     }
 }
@@ -228,6 +245,9 @@ void ModelDataLoader::loadDataByDatabaseId(ElisaUtils::PlayListEntryType dataTyp
     {
     case ElisaUtils::Track:
         Q_EMIT allTrackData(d->mDatabase->trackDataFromDatabaseId(databaseId));
+        break;
+    case ElisaUtils::Radio:
+        Q_EMIT allRadioData(d->mDatabase->radioDataFromDatabaseId(databaseId));
         break;
     case ElisaUtils::Album:
     case ElisaUtils::Artist:
@@ -263,6 +283,7 @@ void ModelDataLoader::loadDataByFileName(ElisaUtils::PlayListEntryType dataType,
     case ElisaUtils::Genre:
     case ElisaUtils::Lyricist:
     case ElisaUtils::Unknown:
+    case ElisaUtils::Radio:
         break;
     }
 }
@@ -287,6 +308,7 @@ void ModelDataLoader::loadRecentlyPlayedData(ElisaUtils::PlayListEntryType dataT
     case ElisaUtils::Lyricist:
     case ElisaUtils::FileName:
     case ElisaUtils::Unknown:
+    case ElisaUtils::Radio:
         break;
     }
 }
@@ -311,6 +333,7 @@ void ModelDataLoader::loadFrequentlyPlayedData(ElisaUtils::PlayListEntryType dat
     case ElisaUtils::Lyricist:
     case ElisaUtils::FileName:
     case ElisaUtils::Unknown:
+    case ElisaUtils::Radio:
         break;
     }
 }
@@ -439,5 +462,29 @@ void ModelDataLoader::databaseAlbumModified(const AlbumDataType &modifiedAlbum)
     Q_EMIT albumModified(modifiedAlbum);
 }
 
+void ModelDataLoader::updateRadioData(TrackDataType trackDataType)
+{
+    Q_EMIT saveRadioModified(trackDataType);
+}
+
+void ModelDataLoader::deleteRadioData(qulonglong radioId)
+{
+    Q_EMIT removeRadio(radioId);
+}
+
+void ModelDataLoader::databaseRadioAdded(TrackDataType radio)
+{
+    Q_EMIT radioAdded(radio);
+}
+
+void ModelDataLoader::databaseRadioModified(TrackDataType radio)
+{
+    Q_EMIT radioModified(radio);
+}
+
+void ModelDataLoader::databaseRadioRemoved(qulonglong radioId)
+{
+    Q_EMIT radioRemoved(radioId);
+}
 
 #include "moc_modeldataloader.cpp"

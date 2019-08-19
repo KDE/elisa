@@ -49,17 +49,20 @@ public:
           mSelectTrackQuery(mTracksDatabase), mSelectAlbumIdFromTitleQuery(mTracksDatabase),
           mInsertAlbumQuery(mTracksDatabase), mSelectTrackIdFromTitleAlbumIdArtistQuery(mTracksDatabase),
           mInsertTrackQuery(mTracksDatabase), mSelectTracksFromArtist(mTracksDatabase),
-          mSelectTrackFromIdQuery(mTracksDatabase), mSelectCountAlbumsForArtistQuery(mTracksDatabase),
+          mSelectTrackFromIdQuery(mTracksDatabase), mSelectRadioFromIdQuery(mTracksDatabase),
+          mSelectCountAlbumsForArtistQuery(mTracksDatabase),
           mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery(mTracksDatabase),
           mSelectAllAlbumsFromArtistQuery(mTracksDatabase), mSelectAllArtistsQuery(mTracksDatabase),
           mInsertArtistsQuery(mTracksDatabase), mSelectArtistByNameQuery(mTracksDatabase),
           mSelectArtistQuery(mTracksDatabase), mUpdateTrackStatistics(mTracksDatabase),
           mRemoveTrackQuery(mTracksDatabase), mRemoveAlbumQuery(mTracksDatabase),
           mRemoveArtistQuery(mTracksDatabase), mSelectAllTracksQuery(mTracksDatabase),
+          mSelectAllRadiosQuery(mTracksDatabase),
           mInsertTrackMapping(mTracksDatabase), mUpdateTrackFirstPlayStatistics(mTracksDatabase),
           mInsertMusicSource(mTracksDatabase), mSelectMusicSource(mTracksDatabase),
           mUpdateTrackPriority(mTracksDatabase), mUpdateTrackFileModifiedTime(mTracksDatabase),
           mSelectTracksMapping(mTracksDatabase), mSelectTracksMappingPriority(mTracksDatabase),
+          mSelectRadioIdFromHttpAddress(mTracksDatabase),
           mUpdateAlbumArtUriFromAlbumIdQuery(mTracksDatabase), mSelectTracksMappingPriorityByTrackId(mTracksDatabase),
           mSelectAlbumIdsFromArtist(mTracksDatabase), mSelectAllTrackFilesQuery(mTracksDatabase),
           mRemoveTracksMappingFromSource(mTracksDatabase), mRemoveTracksMapping(mTracksDatabase),
@@ -76,6 +79,7 @@ public:
           mSelectCountAlbumsForLyricistQuery(mTracksDatabase), mSelectAllGenresQuery(mTracksDatabase),
           mSelectGenreForArtistQuery(mTracksDatabase), mSelectGenreForAlbumQuery(mTracksDatabase),
           mUpdateTrackQuery(mTracksDatabase), mUpdateAlbumArtistQuery(mTracksDatabase),
+          mUpdateRadioQuery(mTracksDatabase),
           mUpdateAlbumArtistInTracksQuery(mTracksDatabase), mQueryMaximumTrackIdQuery(mTracksDatabase),
           mQueryMaximumAlbumIdQuery(mTracksDatabase), mQueryMaximumArtistIdQuery(mTracksDatabase),
           mQueryMaximumLyricistIdQuery(mTracksDatabase), mQueryMaximumComposerIdQuery(mTracksDatabase),
@@ -84,7 +88,8 @@ public:
           mSelectAllRecentlyPlayedTracksQuery(mTracksDatabase), mSelectAllFrequentlyPlayedTracksQuery(mTracksDatabase),
           mClearTracksTable(mTracksDatabase), mClearAlbumsTable(mTracksDatabase), mClearArtistsTable(mTracksDatabase),
           mClearComposerTable(mTracksDatabase), mClearGenreTable(mTracksDatabase), mClearLyricistTable(mTracksDatabase),
-          mArtistMatchGenreQuery(mTracksDatabase), mSelectTrackIdQuery(mTracksDatabase)
+          mArtistMatchGenreQuery(mTracksDatabase), mSelectTrackIdQuery(mTracksDatabase),
+          mInsertRadioQuery(mTracksDatabase), mDeleteRadioQuery(mTracksDatabase)
     {
     }
 
@@ -105,6 +110,8 @@ public:
     QSqlQuery mSelectTracksFromArtist;
 
     QSqlQuery mSelectTrackFromIdQuery;
+
+    QSqlQuery mSelectRadioFromIdQuery;
 
     QSqlQuery mSelectCountAlbumsForArtistQuery;
 
@@ -130,6 +137,8 @@ public:
 
     QSqlQuery mSelectAllTracksQuery;
 
+    QSqlQuery mSelectAllRadiosQuery;
+
     QSqlQuery mInsertTrackMapping;
 
     QSqlQuery mUpdateTrackFirstPlayStatistics;
@@ -145,6 +154,8 @@ public:
     QSqlQuery mSelectTracksMapping;
 
     QSqlQuery mSelectTracksMappingPriority;
+
+    QSqlQuery mSelectRadioIdFromHttpAddress;
 
     QSqlQuery mUpdateAlbumArtUriFromAlbumIdQuery;
 
@@ -208,6 +219,8 @@ public:
 
     QSqlQuery mUpdateAlbumArtistQuery;
 
+    QSqlQuery mUpdateRadioQuery;
+
     QSqlQuery mUpdateAlbumArtistInTracksQuery;
 
     QSqlQuery mQueryMaximumTrackIdQuery;
@@ -247,6 +260,10 @@ public:
     QSqlQuery mArtistMatchGenreQuery;
 
     QSqlQuery mSelectTrackIdQuery;
+
+    QSqlQuery mInsertRadioQuery;
+
+    QSqlQuery mDeleteRadioQuery;
 
     QSet<qulonglong> mModifiedTrackIds;
 
@@ -355,6 +372,29 @@ DatabaseInterface::ListTrackDataType DatabaseInterface::allTracksData()
     }
 
     result = internalAllTracksPartialData();
+
+    transactionResult = finishTransaction();
+    if (!transactionResult) {
+        return result;
+    }
+
+    return result;
+}
+
+DatabaseInterface::ListRadioDataType DatabaseInterface::allRadiosData()
+{
+    auto result = ListRadioDataType{};
+
+    if (!d) {
+        return result;
+    }
+
+    auto transactionResult = startTransaction();
+    if (!transactionResult) {
+        return result;
+    }
+
+    result = internalAllRadiosPartialData();
 
     transactionResult = finishTransaction();
     if (!transactionResult) {
@@ -702,8 +742,31 @@ DatabaseInterface::TrackDataType DatabaseInterface::trackDataFromDatabaseId(qulo
     return result;
 }
 
+DatabaseInterface::TrackDataType DatabaseInterface::radioDataFromDatabaseId(qulonglong id)
+{
+    auto result = TrackDataType();
+
+    if (!d) {
+        return result;
+    }
+
+    auto transactionResult = startTransaction();
+    if (!transactionResult) {
+        return result;
+    }
+
+    result = internalOneRadioPartialData(id);
+
+    transactionResult = finishTransaction();
+    if (!transactionResult) {
+        return result;
+    }
+
+    return result;
+}
+
 qulonglong DatabaseInterface::trackIdFromTitleAlbumTrackDiscNumber(const QString &title, const QString &artist, const std::optional<QString> &album,
-                                                                   std::optional<int> trackNumber, std::optional<int> discNumber)
+                                                                     std::optional<int> trackNumber, std::optional<int> discNumber)
 {
     auto result = qulonglong(0);
 
@@ -1153,6 +1216,7 @@ void DatabaseInterface::initDatabase()
         upgradeDatabaseV11();
         upgradeDatabaseV12();
         upgradeDatabaseV13();
+        upgradeDatabaseV14();
 
         checkDatabaseSchema();
     } else if (listTables.contains(QStringLiteral("DatabaseVersionV9"))) {
@@ -1165,6 +1229,9 @@ void DatabaseInterface::initDatabase()
         if (!listTables.contains(QStringLiteral("DatabaseVersionV13"))) {
             upgradeDatabaseV13();
         }
+        if (!listTables.contains(QStringLiteral("DatabaseVersionV14"))) {
+            upgradeDatabaseV14();
+        }
 
         checkDatabaseSchema();
     } else {
@@ -1172,6 +1239,7 @@ void DatabaseInterface::initDatabase()
         upgradeDatabaseV11();
         upgradeDatabaseV12();
         upgradeDatabaseV13();
+        upgradeDatabaseV14();
     }
 }
 
@@ -2735,6 +2803,107 @@ void DatabaseInterface::upgradeDatabaseV13()
     qCInfo(orgKdeElisaDatabase) << "finished update to v13 of database schema";
 }
 
+void DatabaseInterface::upgradeDatabaseV14()
+{
+    qCInfo(orgKdeElisaDatabase) << "begin update to v14 of database schema";
+
+    {
+        QSqlQuery createSchemaQuery(d->mTracksDatabase);
+
+        const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `DatabaseVersionV14` (`Version` INTEGER PRIMARY KEY NOT NULL)"));
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV14" << createSchemaQuery.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV14" << createSchemaQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        QSqlQuery disableForeignKeys(d->mTracksDatabase);
+
+        auto result = disableForeignKeys.exec(QStringLiteral(" PRAGMA foreign_keys=OFF"));
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV14" << disableForeignKeys.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV14" << disableForeignKeys.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    d->mTracksDatabase.transaction();
+
+    {
+        QSqlQuery createSchemaQuery(d->mTracksDatabase);
+
+        const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `Radios` ("
+                                                                   "`ID` INTEGER PRIMARY KEY AUTOINCREMENT, "
+                                                                   "`HttpAddress` VARCHAR(255) NOT NULL, "
+                                                                   "`Priority` INTEGER NOT NULL, "
+                                                                   "`Title` VARCHAR(85) NOT NULL, "
+                                                                   "`Rating` INTEGER NOT NULL DEFAULT 0, "
+                                                                   "`Genre` VARCHAR(55), "
+                                                                   "`Comment` VARCHAR(255), "
+                                                                   "UNIQUE ("
+                                                                   "`HttpAddress`"
+                                                                   "), "
+                                                                   "UNIQUE ("
+                                                                   "`Priority`, `Title`, `HttpAddress`"
+                                                                   ") "
+                                                                   "CONSTRAINT fk_tracks_genre FOREIGN KEY (`Genre`) REFERENCES `Genre`(`Name`))"
+                                                                   ));
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV14" << createSchemaQuery.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV14" << createSchemaQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        QSqlQuery createSchemaQuery(d->mTracksDatabase);
+
+        //Find webradios (french): https://doc.ubuntu-fr.org/liste_radio_france
+        //English: https://www.radio.fr/language/english (to get the link play a radio and look for streamUrl in the html elements page).
+        const auto &result = createSchemaQuery.exec(QStringLiteral("INSERT INTO `Radios` (`HttpAddress`, `Priority`, `Title`) "
+                                        "SELECT 'http://classicrock.stream.ouifm.fr/ouifm3.mp3', 1, 'OuiFM_Classic_Rock' UNION ALL "
+                                        "SELECT 'http://rock70s.stream.ouifm.fr/ouifmseventies.mp3', 1, 'OuiFM_70s' UNION ALL "
+                                        "SELECT 'http://jazzradio.ice.infomaniak.ch/jazzradio-high.mp3', 2 , 'Jazz_Radio' UNION ALL "
+                                        "SELECT 'http://cdn.nrjaudio.fm/audio1/fr/30601/mp3_128.mp3?origine=playerweb', 1, 'Nostalgie' UNION ALL "
+                                        "SELECT 'https://scdn.nrjaudio.fm/audio1/fr/30713/aac_64.mp3?origine=playerweb', 1, 'Nostalgie Johnny' UNION ALL "
+                                        "SELECT 'http://sc-classrock.1.fm:8200', 1, 'Classic rock replay' UNION ALL "
+                                        "SELECT 'http://agnes.torontocast.com:8151/stream', 1, 'Instrumentals Forever' UNION ALL "
+                                        "SELECT 'https://stream.laut.fm/jahfari', 1, 'Jahfari'"
+                                                                   ));
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initRequest" << createSchemaQuery.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initRequest" << createSchemaQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    d->mTracksDatabase.commit();
+
+    {
+        QSqlQuery enableForeignKeys(d->mTracksDatabase);
+
+        auto result = enableForeignKeys.exec(QStringLiteral(" PRAGMA foreign_keys=ON"));
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV14" << enableForeignKeys.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV14" << enableForeignKeys.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    qCInfo(orgKdeElisaDatabase) << "finished update to v14 of database schema";
+}
+
 void DatabaseInterface::checkDatabaseSchema()
 {
     checkAlbumsTableSchema();
@@ -3446,6 +3615,29 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initRequest" << d->mSelectAllTracksQuery.lastQuery();
             qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initRequest" << d->mSelectAllTracksQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        auto selectAllRadiosText = QStringLiteral("SELECT "
+                                                  "radios.`ID`, "
+                                                  "radios.`Title`, "
+                                                  "radios.`HttpAddress`, "
+                                                  "radios.`Rating`, "
+                                                  "trackGenre.`Name`, "
+                                                  "radios.`Comment` "
+                                                  "FROM "
+                                                  "`Radios` radios "
+                                                  "LEFT JOIN `Genre` trackGenre ON trackGenre.`Name` = radios.`Genre` "
+                                                  "");
+
+        auto result = prepareQuery(d->mSelectAllRadiosQuery, selectAllRadiosText);
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initRequest" << d->mSelectAllRadiosQuery.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initRequest" << d->mSelectAllRadiosQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -4245,6 +4437,31 @@ void DatabaseInterface::initRequest()
             Q_EMIT databaseError();
         }
     }
+
+    {
+        auto selectRadioFromIdQueryText = QStringLiteral("SELECT "
+                                                  "radios.`ID`, "
+                                                  "radios.`Title`, "
+                                                  "radios.`HttpAddress`, "
+                                                  "radios.`Rating`, "
+                                                  "trackGenre.`Name`, "
+                                                  "radios.`Comment` "
+                                                  "FROM "
+                                                  "`Radios` radios "
+                                                  "LEFT JOIN `Genre` trackGenre ON trackGenre.`Name` = radios.`Genre` "
+                                                  "WHERE "
+                                                  "radios.`ID` = :radioId "
+                                                  "");
+
+        auto result = prepareQuery(d->mSelectRadioFromIdQuery, selectRadioFromIdQueryText);
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initRequest" << d->mSelectRadioFromIdQuery.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initRequest" << d->mSelectRadioFromIdQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
     {
         auto selectCountAlbumsQueryText = QStringLiteral("SELECT count(*) "
                                                          "FROM `Albums` album "
@@ -4651,6 +4868,24 @@ void DatabaseInterface::initRequest()
     }
 
     {
+        auto selectRadioIdFromHttpAddress = QStringLiteral("SELECT "
+                                                           "`ID` "
+                                                           "FROM "
+                                                           "`Radios` "
+                                                           "WHERE "
+                                                           "`HttpAddress` = :httpAddress");
+
+        auto result = prepareQuery(d->mSelectRadioIdFromHttpAddress, selectRadioIdFromHttpAddress);
+
+        if (!result) {
+            qCInfo(orgKdeElisaDatabase) << "DatabaseInterface::initRequest" << d->mSelectRadioIdFromHttpAddress.lastQuery();
+            qCInfo(orgKdeElisaDatabase) << "DatabaseInterface::initRequest" << d->mSelectRadioIdFromHttpAddress.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
         auto selectTracksMappingPriorityQueryText = QStringLiteral("SELECT "
                                                                    "max(tracks.`Priority`) AS Priority "
                                                                    "FROM "
@@ -4866,6 +5101,66 @@ void DatabaseInterface::initRequest()
         if (!result) {
             qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initRequest" << d->mUpdateTrackQuery.lastQuery();
             qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initRequest" << d->mUpdateTrackQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        auto insertRadioQueryText = QStringLiteral("INSERT INTO `Radios` "
+                                                   "("
+                                                   "`Title`, "
+                                                   "`httpAddress`, "
+                                                   "`Comment`, "
+                                                   "`Rating`, "
+                                                   "`Priority`) "
+                                                   "VALUES "
+                                                   "("
+                                                   ":title, "
+                                                   ":httpAddress, "
+                                                   ":comment, "
+                                                   ":trackRating,"
+                                                   "1)");
+
+        auto result = prepareQuery(d->mInsertRadioQuery, insertRadioQueryText);
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initRequest" << d->mInsertRadioQuery.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initRequest" << d->mInsertRadioQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        auto deleteRadioQueryText = QStringLiteral("DELETE FROM `Radios` "
+                                                   "WHERE `ID` = :radioId");
+
+        auto result = prepareQuery(d->mDeleteRadioQuery, deleteRadioQueryText);
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initRequest" << d->mDeleteRadioQuery.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initRequest" << d->mDeleteRadioQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        auto updateRadioQueryText = QStringLiteral("UPDATE `Radios` "
+                                                   "SET "
+                                                   "`HttpAddress` = :httpAddress, "
+                                                   "`Title` = :title, "
+                                                   "`Comment` = :comment, "
+                                                   "`Rating` = :trackRating "
+                                                   "WHERE "
+                                                   "`ID` = :radioId");
+
+        auto result = prepareQuery(d->mUpdateRadioQuery, updateRadioQueryText);
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initRequest" << d->mUpdateRadioQuery.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initRequest" << d->mUpdateRadioQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -6093,6 +6388,27 @@ DatabaseInterface::TrackDataType DatabaseInterface::buildTrackDataFromDatabaseRe
     return result;
 }
 
+DatabaseInterface::TrackDataType DatabaseInterface::buildRadioDataFromDatabaseRecord(const QSqlRecord &trackRecord) const
+{
+    TrackDataType result;
+
+    result[TrackDataType::key_type::DatabaseIdRole] = trackRecord.value(0);
+    result[TrackDataType::key_type::TitleRole] = trackRecord.value(1);
+
+    result[TrackDataType::key_type::AlbumRole] = QStringLiteral("Radios");
+    result[TrackDataType::key_type::ArtistRole] = trackRecord.value(1);
+
+    result[TrackDataType::key_type::ResourceRole] = trackRecord.value(2);
+    result[TrackDataType::key_type::RatingRole] = trackRecord.value(3);
+    if (!trackRecord.value(4).isNull()) {
+        result[TrackDataType::key_type::GenreRole] = trackRecord.value(4);
+    }
+    result[TrackDataType::key_type::CommentRole] = trackRecord.value(5);
+    result[DataType::key_type::ElementTypeRole] = ElisaUtils::Radio;
+
+    return result;
+}
+
 void DatabaseInterface::internalRemoveTracksList(const QList<QUrl> &removedTracks)
 {
     QSet<qulonglong> modifiedAlbums;
@@ -6480,6 +6796,68 @@ void DatabaseInterface::updateTrackInDatabase(const MusicAudioTrack &oneTrack, c
     d->mUpdateTrackQuery.finish();
 }
 
+void DatabaseInterface::insertRadio(const TrackDataType &oneTrack)
+{
+    QSqlQuery query = d->mUpdateRadioQuery;
+
+    if (oneTrack.databaseId() == -1ull) {
+        query = d->mInsertRadioQuery;
+    }
+
+    query.bindValue(QStringLiteral(":httpAddress"), oneTrack.resourceURI());
+    query.bindValue(QStringLiteral(":radioId"), oneTrack.databaseId());
+    query.bindValue(QStringLiteral(":title"), oneTrack.title());
+    query.bindValue(QStringLiteral(":comment"), oneTrack.comment());
+    query.bindValue(QStringLiteral(":trackRating"), oneTrack.rating());
+
+    auto result = execQuery(query);
+
+    if (!result || !query.isActive()) {
+        Q_EMIT databaseError();
+
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackInDatabase" << query.lastQuery();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackInDatabase" << query.boundValues();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackInDatabase" << query.lastError();
+    }else{
+        TrackDataType radio(oneTrack);
+        radio[TrackDataType::key_type::ArtistRole] = radio[TrackDataType::key_type::TitleRole];
+        if (radio[TrackDataType::key_type::DatabaseIdRole] == -1) {
+            radio[TrackDataType::key_type::DatabaseIdRole] = internalRadioIdFromHttpAddress(oneTrack.resourceURI().toString());
+            radio[TrackDataType::key_type::AlbumRole] = QStringLiteral("Radios");
+            radio[TrackDataType::key_type::ArtistRole] = radio[TrackDataType::key_type::TitleRole];
+            radio[DataType::key_type::ElementTypeRole] = ElisaUtils::Radio;
+            // Genre and rating missing for now, see buildRadioDataFromDatabaseRecord. Should be added if used for radios.
+
+            Q_EMIT radioAdded(radio);
+        } else {
+            Q_EMIT radioModified(radio);
+        }
+    }
+
+    query.finish();
+}
+
+void DatabaseInterface::removeRadio(qulonglong radioId)
+{
+    QSqlQuery query = d->mDeleteRadioQuery;
+
+    query.bindValue(QStringLiteral(":radioId"), radioId);
+
+    auto result = execQuery(query);
+
+    if (!result || !query.isActive()) {
+        Q_EMIT databaseError();
+
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackInDatabase" << query.lastQuery();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackInDatabase" << query.boundValues();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackInDatabase" << query.lastError();
+    }else{
+        Q_EMIT radioRemoved(radioId);
+    }
+
+    query.finish();
+}
+
 void DatabaseInterface::removeAlbumInDatabase(qulonglong albumId)
 {
     d->mRemoveAlbumQuery.bindValue(QStringLiteral(":albumId"), albumId);
@@ -6822,6 +7200,42 @@ qulonglong DatabaseInterface::internalTrackIdFromFileName(const QUrl &fileName)
     return result;
 }
 
+qulonglong DatabaseInterface::internalRadioIdFromHttpAddress(const QString &httpAddress)
+{
+    auto result = qulonglong(0);
+
+    if (!d) {
+        return result;
+    }
+
+    d->mSelectRadioIdFromHttpAddress.bindValue(QStringLiteral(":httpAddress"), httpAddress);
+
+    auto queryResult = execQuery(d->mSelectRadioIdFromHttpAddress);
+
+    if (!queryResult || !d->mSelectRadioIdFromHttpAddress.isSelect() || !d->mSelectRadioIdFromHttpAddress.isActive()) {
+        Q_EMIT databaseError();
+
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalTrackIdFromFileName" << d->mSelectRadioIdFromHttpAddress.lastQuery();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalTrackIdFromFileName" << d->mSelectRadioIdFromHttpAddress.boundValues();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalTrackIdFromFileName" << d->mSelectRadioIdFromHttpAddress.lastError();
+
+        d->mSelectRadioIdFromHttpAddress.finish();
+
+        return result;
+    }
+
+    if (d->mSelectRadioIdFromHttpAddress.next()) {
+        const auto &currentRecordValue = d->mSelectRadioIdFromHttpAddress.record().value(0);
+        if (currentRecordValue.isValid()) {
+            result = currentRecordValue.toULongLong();
+        }
+    }
+
+    d->mSelectRadioIdFromHttpAddress.finish();
+
+    return result;
+}
+
 DatabaseInterface::ListTrackDataType DatabaseInterface::internalTracksFromAuthor(const QString &ArtistName)
 {
     auto allTracks = ListTrackDataType{};
@@ -7023,6 +7437,27 @@ DatabaseInterface::ListTrackDataType DatabaseInterface::internalAllTracksPartial
     return result;
 }
 
+DatabaseInterface::ListRadioDataType DatabaseInterface::internalAllRadiosPartialData()
+{
+    auto result = ListRadioDataType{};
+
+    if (!internalGenericPartialData(d->mSelectAllRadiosQuery)) {
+        return result;
+    }
+
+    while(d->mSelectAllRadiosQuery.next()) {
+        const auto &currentRecord = d->mSelectAllRadiosQuery.record();
+
+        auto newData = buildRadioDataFromDatabaseRecord(currentRecord);
+
+        result.push_back(newData);
+    }
+
+    d->mSelectAllRadiosQuery.finish();
+
+    return result;
+}
+
 DatabaseInterface::ListTrackDataType DatabaseInterface::internalRecentlyPlayedTracksData(int count)
 {
     auto result = ListTrackDataType{};
@@ -7086,6 +7521,27 @@ DatabaseInterface::TrackDataType DatabaseInterface::internalOneTrackPartialData(
     }
 
     d->mSelectTrackFromIdQuery.finish();
+
+    return result;
+}
+
+DatabaseInterface::TrackDataType DatabaseInterface::internalOneRadioPartialData(qulonglong databaseId)
+{
+    auto result = TrackDataType{};
+
+    d->mSelectRadioFromIdQuery.bindValue(QStringLiteral(":radioId"), databaseId);
+
+    if (!internalGenericPartialData(d->mSelectRadioFromIdQuery)) {
+        return result;
+    }
+
+    if (d->mSelectRadioFromIdQuery.next()) {
+        const auto &currentRecord = d->mSelectRadioFromIdQuery.record();
+
+        result = buildRadioDataFromDatabaseRecord(currentRecord);
+    }
+
+    d->mSelectRadioFromIdQuery.finish();
 
     return result;
 }

@@ -246,6 +246,8 @@ public:
 
     using ListTrackDataType = QList<TrackDataType>;
 
+    using ListRadioDataType = QList<TrackDataType>;
+
     class AlbumDataType : public DataType
     {
     public:
@@ -357,6 +359,8 @@ public:
 
     ListTrackDataType allTracksData();
 
+    ListRadioDataType allRadiosData();
+
     ListTrackDataType recentlyPlayedTracksData(int count);
 
     ListTrackDataType frequentlyPlayedTracksData(int count);
@@ -383,8 +387,9 @@ public:
 
     TrackDataType trackDataFromDatabaseId(qulonglong id);
 
-    qulonglong trackIdFromTitleAlbumTrackDiscNumber(const QString &title, const QString &artist, const std::optional<QString> &album,
-                                                    std::optional<int> trackNumber, std::optional<int> discNumber);
+    TrackDataType radioDataFromDatabaseId(qulonglong id);
+
+    qulonglong trackIdFromTitleAlbumTrackDiscNumber(const QString &title, const QString &artist, const std::optional<QString> &album, std::optional<int> trackNumber, std::optional<int> discNumber);
 
     qulonglong trackIdFromFileName(const QUrl &fileName);
 
@@ -426,6 +431,12 @@ Q_SIGNALS:
 
     void finishRemovingTracksList();
 
+    void radioAdded(const DatabaseInterface::TrackDataType radio);
+
+    void radioModified(const DatabaseInterface::TrackDataType radio);
+
+    void radioRemoved(qulonglong radioId);
+
 public Q_SLOTS:
 
     void insertTracksList(const QList<MusicAudioTrack> &tracks, const QHash<QString, QUrl> &covers);
@@ -437,6 +448,10 @@ public Q_SLOTS:
     void trackHasStartedPlaying(const QUrl &fileName, const QDateTime &time);
 
     void clearData();
+
+    void insertRadio(const TrackDataType &oneTrack);
+
+    void removeRadio(qulonglong radioId);
 
 private:
 
@@ -471,6 +486,8 @@ private:
                                                                 int discNumber, int priority);
 
     qulonglong internalTrackIdFromFileName(const QUrl &fileName);
+
+    qulonglong internalRadioIdFromHttpAddress(const QString &httpAddress);
 
     ListTrackDataType internalTracksFromAuthor(const QString &artistName);
 
@@ -515,6 +532,8 @@ private:
 
     TrackDataType buildTrackDataFromDatabaseRecord(const QSqlRecord &trackRecord) const;
 
+    TrackDataType buildRadioDataFromDatabaseRecord(const QSqlRecord &trackRecord) const;
+
     void internalRemoveTracksList(const QList<QUrl> &removedTracks);
 
     void internalRemoveTracksList(const QHash<QUrl, QDateTime> &removedTracks, qulonglong sourceId);
@@ -539,11 +558,15 @@ private:
 
     ListTrackDataType internalAllTracksPartialData();
 
+    ListRadioDataType internalAllRadiosPartialData();
+
     ListTrackDataType internalRecentlyPlayedTracksData(int count);
 
     ListTrackDataType internalFrequentlyPlayedTracksData(int count);
 
     TrackDataType internalOneTrackPartialData(qulonglong databaseId);
+
+    TrackDataType internalOneRadioPartialData(qulonglong databaseId);
 
     ListGenreDataType internalAllGenresPartialData();
 
@@ -569,6 +592,8 @@ private:
     void upgradeDatabaseV12();
 
     void upgradeDatabaseV13();
+
+    void upgradeDatabaseV14();
 
     void checkDatabaseSchema();
 

@@ -220,7 +220,8 @@ bool MediaPlayList::setData(const QModelIndex &index, const QVariant &value, int
         return modelModified;
     }
 
-    if (role < ColumnsRoles::IsValidRole || role > ColumnsRoles::IsPlayingRole) {
+    if ((role != ColumnsRoles::TitleRole && role != ColumnsRoles::ArtistRole) &&
+            (role < ColumnsRoles::IsValidRole || role > ColumnsRoles::IsPlayingRole)) {
         return modelModified;
     }
 
@@ -233,6 +234,32 @@ bool MediaPlayList::setData(const QModelIndex &index, const QVariant &value, int
         modelModified = true;
         auto newState = static_cast<PlayState>(value.toInt());
         d->mData[index.row()].mIsPlaying = newState;
+        Q_EMIT dataChanged(index, index, {role});
+
+        if (!d->mCurrentTrack.isValid()) {
+            resetCurrentTrack();
+        }
+
+        break;
+    }
+    case ColumnsRoles::TitleRole:
+    {
+        modelModified = true;
+        d->mData[index.row()].mTitle = value;
+        d->mTrackData[index.row()][static_cast<TrackDataType::key_type>(role)] = value;
+        Q_EMIT dataChanged(index, index, {role});
+
+        if (!d->mCurrentTrack.isValid()) {
+            resetCurrentTrack();
+        }
+
+        break;
+    }
+    case ColumnsRoles::ArtistRole:
+    {
+        modelModified = true;
+        d->mData[index.row()].mArtist = value;
+        d->mTrackData[index.row()][static_cast<TrackDataType::key_type>(role)] = value;
         Q_EMIT dataChanged(index, index, {role});
 
         if (!d->mCurrentTrack.isValid()) {
@@ -338,7 +365,9 @@ void MediaPlayList::enqueueRestoredEntry(const MediaPlayListEntry &newEntry)
     Q_EMIT persistentStateChanged();
 
     if (!newEntry.mIsValid) {
-        if (newEntry.mTrackUrl.isValid()) {
+        if (newEntry.mEntryType == ElisaUtils::Radio) {
+            Q_EMIT newEntryInList(newEntry.mId, {}, ElisaUtils::Radio);
+        } else if (newEntry.mTrackUrl.isValid()) {
             auto entryURL = newEntry.mTrackUrl.toUrl();
             if (entryURL.isLocalFile()) {
                 auto entryString =  entryURL.toLocalFile();
@@ -425,13 +454,13 @@ void MediaPlayList::enqueueFilesList(const ElisaUtils::EntryDataList &newEntries
     Q_EMIT dataChanged(index(rowCount() - 1, 0), index(rowCount() - 1, 0), {MediaPlayList::IsPlayingRole});
 }
 
-void MediaPlayList::enqueueTracksListById(const ElisaUtils::EntryDataList &newEntries)
+void MediaPlayList::enqueueTracksListById(const ElisaUtils::EntryDataList &newEntries, ElisaUtils::PlayListEntryType type)
 {
     enqueueCommon();
 
     beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size() + newEntries.size() - 1);
     for (const auto &newTrack : newEntries) {
-        auto newMediaPlayListEntry = MediaPlayListEntry{std::get<0>(newTrack), std::get<1>(newTrack), ElisaUtils::Track};
+        auto newMediaPlayListEntry = MediaPlayListEntry{std::get<0>(newTrack), std::get<1>(newTrack), type};
         d->mData.push_back(newMediaPlayListEntry);
         d->mTrackData.push_back({});
         Q_EMIT newEntryInList(newMediaPlayListEntry.mId, newMediaPlayListEntry.mTitle.toString(), newMediaPlayListEntry.mEntryType);
@@ -565,6 +594,14 @@ void MediaPlayList::undoClearPlayList()
     Q_EMIT undoClearPlayListPlayer();
 }
 
+void MediaPlayList::updateRadioData(const QVariant &value, int role)
+{
+    auto convertedRole = static_cast<ColumnsRoles>(role);
+    if (d->mCurrentTrack.data(convertedRole) != value) {
+        this->setData(d->mCurrentTrack, value, role);
+    }
+}
+
 void MediaPlayList::enqueueCommon()
 {
     displayOrHideUndoInline(false);
@@ -633,6 +670,7 @@ void MediaPlayList::enqueue(const ElisaUtils::EntryData &newEntry,
     case ElisaUtils::Artist:
     case ElisaUtils::Genre:
     case ElisaUtils::Track:
+    case ElisaUtils::Radio:
         enqueueOneEntry(newEntry, databaseIdType);
         break;
     case ElisaUtils::FileName:
@@ -674,7 +712,8 @@ void MediaPlayList::enqueue(const ElisaUtils::EntryDataList &newEntries,
     switch (databaseIdType)
     {
     case ElisaUtils::Track:
-        enqueueTracksListById(newEntries);
+    case ElisaUtils::Radio:
+        enqueueTracksListById(newEntries, databaseIdType);
         break;
     case ElisaUtils::FileName:
         enqueueFilesList(newEntries);
@@ -725,6 +764,7 @@ QVariantMap MediaPlayList::persistentState() const
         if (oneEntry.mIsValid) {
             const auto &oneTrack = d->mTrackData[trackIndex];
 
+            oneData.push_back(QString::number(oneTrack.databaseId()));
             oneData.push_back(oneTrack.title());
             oneData.push_back(oneTrack.artist());
             if (oneTrack.hasAlbum()) {
@@ -800,19 +840,20 @@ void MediaPlayList::setPersistentState(const QVariantMap &persistentStateValue)
 
     for (auto &oneData : persistentState) {
         auto trackData = oneData.toStringList();
-        if (trackData.size() != 6) {
+        if (trackData.size() != 7) {
             continue;
         }
 
-        auto restoredTitle = trackData[0];
-        auto restoredArtist = trackData[1];
-        auto restoredAlbum = trackData[2];
-        auto restoredTrackNumber = trackData[3];
-        auto restoredDiscNumber = trackData[4];
+        auto restoredId = trackData[0].toULongLong();
+        auto restoredTitle = trackData[1];
+        auto restoredArtist = trackData[2];
+        auto restoredAlbum = trackData[3];
+        auto restoredTrackNumber = trackData[4];
+        auto restoredDiscNumber = trackData[5];
 
-        auto mEntryType = static_cast<ElisaUtils::PlayListEntryType>(trackData[5].toInt());
+        auto mEntryType = static_cast<ElisaUtils::PlayListEntryType>(trackData[6].toInt());
 
-        enqueueRestoredEntry({restoredTitle, restoredArtist, restoredAlbum, restoredTrackNumber, restoredDiscNumber, mEntryType});
+        enqueueRestoredEntry({restoredId, restoredTitle, restoredArtist, restoredAlbum, restoredTrackNumber, restoredDiscNumber, mEntryType});
     }
 
     restorePlayListPosition();
@@ -921,6 +962,24 @@ void MediaPlayList::trackChanged(const TrackDataType &track)
                 resetCurrentTrack();
             }
             continue;
+        } else if (oneEntry.mEntryType == ElisaUtils::Radio ) {
+            if (track.databaseId() != oneEntry.mId) {
+                continue;
+            }
+
+            d->mTrackData[i] = track;
+            oneEntry.mId = track.databaseId();
+            oneEntry.mIsValid = true;
+
+            Q_EMIT dataChanged(index(i, 0), index(i, 0), {});
+
+            restorePlayListPosition();
+
+            if (!d->mCurrentTrack.isValid()) {
+                resetCurrentTrack();
+            }
+
+            break;
         } else if (oneEntry.mEntryType != ElisaUtils::Artist && !oneEntry.mIsValid && !oneEntry.mTrackUrl.isValid()) {
             if (track.find(TrackDataType::key_type::TitleRole) != track.end() &&
                     track.title() != oneEntry.mTitle) {

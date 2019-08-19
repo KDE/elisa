@@ -34,6 +34,8 @@ public:
 
     DataModel::ListTrackDataType mAllTrackData;
 
+    DataModel::ListRadioDataType mAllRadiosData;
+
     DataModel::ListAlbumDataType mAllAlbumData;
 
     DataModel::ListArtistDataType mAllArtistData;
@@ -123,14 +125,14 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
         return result;
     }
 
-    const auto dataCount = d->mAllTrackData.size() + d->mAllAlbumData.size() + d->mAllArtistData.size() + d->mAllGenreData.size();
+    const auto dataCount = d->mModelType == ElisaUtils::Radio ? d->mAllRadiosData.size() : d->mAllTrackData.size() + d->mAllAlbumData.size() + d->mAllArtistData.size() + d->mAllGenreData.size();
 
     Q_ASSERT(index.isValid());
     Q_ASSERT(index.column() == 0);
-    Q_ASSERT(index.row() >= 0 && index.row() < dataCount);
     Q_ASSERT(!index.parent().isValid());
     Q_ASSERT(index.model() == this);
     Q_ASSERT(index.internalId() == 0);
+    Q_ASSERT(index.row() >= 0 && index.row() < dataCount);
 
     switch(role)
     {
@@ -149,6 +151,9 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
         case ElisaUtils::Genre:
             result = d->mAllGenreData[index.row()][GenreDataType::key_type::TitleRole];
             break;
+        case ElisaUtils::Radio:
+            result = d->mAllRadiosData[index.row()][GenreDataType::key_type::TitleRole];
+            break;
         case ElisaUtils::Lyricist:
         case ElisaUtils::Composer:
         case ElisaUtils::FileName:
@@ -158,13 +163,46 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
         break;
     case DatabaseInterface::ColumnsRoles::DurationRole:
     {
-        if (d->mModelType == ElisaUtils::Track) {
+        switch (d->mModelType)
+        {
+        case ElisaUtils::Track:
+        {
             auto trackDuration = d->mAllTrackData[index.row()][TrackDataType::key_type::DurationRole].toTime();
             if (trackDuration.hour() == 0) {
                 result = trackDuration.toString(QStringLiteral("mm:ss"));
             } else {
                 result = trackDuration.toString();
             }
+            break;
+        }
+        case ElisaUtils::Album:
+        case ElisaUtils::Artist:
+        case ElisaUtils::Genre:
+        case ElisaUtils::Lyricist:
+        case ElisaUtils::Composer:
+        case ElisaUtils::FileName:
+        case ElisaUtils::Radio:
+        case ElisaUtils::Unknown:
+            break;
+        }
+        break;
+    }
+    case DatabaseInterface::ColumnsRoles::IsSingleDiscAlbumRole:
+    {
+        switch (d->mModelType)
+        {
+        case ElisaUtils::Track:
+        case ElisaUtils::Radio:
+            result = false;
+            break;
+        case ElisaUtils::Album:
+        case ElisaUtils::Artist:
+        case ElisaUtils::Genre:
+        case ElisaUtils::Lyricist:
+        case ElisaUtils::Composer:
+        case ElisaUtils::FileName:
+        case ElisaUtils::Unknown:
+            break;
         }
         break;
     }
@@ -182,6 +220,9 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
             break;
         case ElisaUtils::Genre:
             result = d->mAllGenreData[index.row()][static_cast<GenreDataType::key_type>(role)];
+            break;
+        case ElisaUtils::Radio:
+            result = d->mAllRadiosData[index.row()][static_cast<TrackDataType::key_type>(role)];
             break;
         case ElisaUtils::Lyricist:
         case ElisaUtils::Composer:
@@ -343,12 +384,13 @@ void DataModel::askModelData()
     }
 }
 
-int DataModel::trackIndexFromId(qulonglong id) const
+int DataModel::indexFromId(qulonglong id) const
 {
     int result;
+    DataModel::ListTrackDataType mAllData = d->mModelType == ElisaUtils::Radio ? d->mAllRadiosData: d->mAllTrackData;
 
-    for (result = 0; result < d->mAllTrackData.size(); ++result) {
-        if (d->mAllTrackData[result].databaseId() == id) {
+    for (result = 0; result < mAllData.size(); ++result) {
+        if (mAllData[result].databaseId() == id) {
             return result;
         }
     }
@@ -364,6 +406,8 @@ void DataModel::connectModel(DatabaseInterface *database)
 
     connect(&d->mDataLoader, &ModelDataLoader::allTracksData,
             this, &DataModel::tracksAdded);
+    connect(&d->mDataLoader, &ModelDataLoader::allRadiosData,
+            this, &DataModel::radiosAdded);
     connect(&d->mDataLoader, &ModelDataLoader::allAlbumsData,
             this, &DataModel::albumsAdded);
     connect(&d->mDataLoader, &ModelDataLoader::allArtistsData,
@@ -388,6 +432,12 @@ void DataModel::connectModel(DatabaseInterface *database)
             this, &DataModel::artistsAdded);
     connect(&d->mDataLoader, &ModelDataLoader::artistRemoved,
             this, &DataModel::artistRemoved);
+    connect(&d->mDataLoader, &ModelDataLoader::radioAdded,
+            this, &DataModel::radioAdded);
+    connect(&d->mDataLoader, &ModelDataLoader::radioModified,
+            this, &DataModel::radioModified);
+    connect(&d->mDataLoader, &ModelDataLoader::radioRemoved,
+            this, &DataModel::radioRemoved);
 }
 
 void DataModel::tracksAdded(ListTrackDataType newData)
@@ -402,7 +452,7 @@ void DataModel::tracksAdded(ListTrackDataType newData)
 
     if (d->mFilterType == ElisaUtils::FilterById && !d->mAllTrackData.isEmpty()) {
         for (const auto &newTrack : newData) {
-            auto trackIndex = trackIndexFromId(newTrack.databaseId());
+            auto trackIndex = indexFromId(newTrack.databaseId());
 
             if (trackIndex != -1) {
                 continue;
@@ -451,6 +501,67 @@ void DataModel::tracksAdded(ListTrackDataType newData)
     }
 }
 
+void DataModel::radiosAdded(ListRadioDataType newData)
+{
+    if (newData.isEmpty() && d->mModelType == ElisaUtils::Radio) {
+        setBusy(false);
+    }
+
+    if (newData.isEmpty() || d->mModelType != ElisaUtils::Radio) {
+        return;
+    }
+
+    if (d->mFilterType == ElisaUtils::FilterById && !d->mAllRadiosData.isEmpty()) {
+        for (const auto &newTrack : newData) {
+            auto trackIndex = indexFromId(newTrack.databaseId());
+
+            if (trackIndex != -1) {
+                continue;
+            }
+
+            bool trackInserted = false;
+            for (int trackIndex = 0; trackIndex < d->mAllRadiosData.count(); ++trackIndex) {
+                const auto &oneTrack = d->mAllRadiosData[trackIndex];
+
+                if (oneTrack.trackNumber() > newTrack.trackNumber()) {
+                    beginInsertRows({}, trackIndex, trackIndex);
+                    d->mAllRadiosData.insert(trackIndex, newTrack);
+                    endInsertRows();
+
+                    if (d->mAllRadiosData.size() == 1) {
+                        setBusy(false);
+                    }
+
+                    trackInserted = true;
+                    break;
+                }
+            }
+
+            if (!trackInserted) {
+                beginInsertRows({}, d->mAllRadiosData.count(), d->mAllRadiosData.count());
+                d->mAllRadiosData.insert(d->mAllRadiosData.count(), newTrack);
+                endInsertRows();
+
+                if (d->mAllRadiosData.size() == 1) {
+                    setBusy(false);
+                }
+            }
+        }
+    } else {
+        if (d->mAllRadiosData.isEmpty()) {
+            beginInsertRows({}, 0, newData.size() - 1);
+            d->mAllRadiosData.swap(newData);
+            endInsertRows();
+
+            setBusy(false);
+        } else {
+            beginInsertRows({}, d->mAllRadiosData.size(), d->mAllRadiosData.size() + newData.size() - 1);
+            d->mAllRadiosData.append(newData);
+            endInsertRows();
+        }
+    }
+}
+
 void DataModel::trackModified(const TrackDataType &modifiedTrack)
 {
     if (d->mModelType != ElisaUtils::Track) {
@@ -462,7 +573,7 @@ void DataModel::trackModified(const TrackDataType &modifiedTrack)
             return;
         }
 
-        auto trackIndex = trackIndexFromId(modifiedTrack.databaseId());
+        auto trackIndex = indexFromId(modifiedTrack.databaseId());
 
         if (trackIndex == -1) {
             return;
@@ -488,6 +599,22 @@ void DataModel::trackModified(const TrackDataType &modifiedTrack)
     }
 }
 
+void DataModel::radioModified(const TrackDataType &modifiedRadio)
+{
+    if (d->mModelType != ElisaUtils::Radio) {
+        return;
+    }
+
+    auto trackIndex = indexFromId(modifiedRadio.databaseId());
+
+    if (trackIndex == -1) {
+        return;
+    }
+
+    d->mAllRadiosData[trackIndex] = modifiedRadio;
+    Q_EMIT dataChanged(index(trackIndex, 0), index(trackIndex, 0));
+}
+
 void DataModel::trackRemoved(qulonglong removedTrackId)
 {
     if (d->mModelType != ElisaUtils::Track) {
@@ -495,7 +622,7 @@ void DataModel::trackRemoved(qulonglong removedTrackId)
     }
 
     if (!d->mAlbumTitle.isEmpty() && !d->mAlbumArtist.isEmpty()) {
-        auto trackIndex = trackIndexFromId(removedTrackId);
+        auto trackIndex = indexFromId(removedTrackId);
 
         if (trackIndex == -1) {
             return;
@@ -518,6 +645,49 @@ void DataModel::trackRemoved(qulonglong removedTrackId)
         d->mAllTrackData.erase(itTrack);
         endRemoveRows();
     }
+}
+
+void DataModel::radioRemoved(qulonglong removedRadioId)
+{
+    if (d->mModelType != ElisaUtils::Radio) {
+        return;
+    }
+
+
+    auto itRadio = std::find_if(d->mAllRadiosData.begin(), d->mAllRadiosData.end(),
+                                [removedRadioId](auto track) {return track.databaseId() == removedRadioId;});
+
+    if (itRadio == d->mAllRadiosData.end()) {
+        return;
+    }
+
+    auto position = itRadio - d->mAllRadiosData.begin();
+
+    beginRemoveRows({}, position, position);
+    d->mAllRadiosData.erase(itRadio);
+    endRemoveRows();
+}
+
+void DataModel::radioAdded(const DataModel::TrackDataType radioData)
+{
+    if (d->mModelType != ElisaUtils::Radio) {
+        return;
+    }
+
+    ListRadioDataType list;
+    list.append(radioData);
+    radiosAdded(list);
+}
+
+void DataModel::removeRadios()
+{
+    if (d->mModelType != ElisaUtils::Radio) {
+        return;
+    }
+
+    beginRemoveRows({}, 0, d->mAllRadiosData.size());
+    d->mAllRadiosData.clear();
+    endRemoveRows();
 }
 
 void DataModel::genresAdded(DataModel::ListGenreDataType newData)

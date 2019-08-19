@@ -27,7 +27,6 @@ RowLayout {
 
     height: (model.type === TrackMetadataModel.LongTextEntry ? longTextDisplayLoader.height : (metaDataLabelMetric.boundingRect.height + elisaTheme.layoutVerticalMargin / 2))
 
-
     TextMetrics {
         id: metaDataLabelMetric
 
@@ -57,6 +56,7 @@ RowLayout {
 
         Layout.fillWidth: true
         Layout.alignment: Qt.AlignTop
+
 
         sourceComponent: LabelWithToolTip {
             text: model.display

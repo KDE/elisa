@@ -107,6 +107,7 @@ RowLayout {
                                      displaySingleAlbum: displaySingleAlbum,
                                      showSection: showDiscHeaders,
                                      opacity: 0,
+                                     radioCase: radioCase
                                  })
         }
 
@@ -139,7 +140,6 @@ RowLayout {
                                      opacity: 0,
                                  })
         }
-
 
         onPopOneView: {
             if (browseStackView.depth > 2) {
@@ -363,7 +363,7 @@ RowLayout {
     }
 
     Component {
-        id: albumContext
+            id: albumContext
 
         ContextView {
             StackView.onActivated: viewManager.viewIsLoaded(viewType)

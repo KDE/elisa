@@ -361,13 +361,13 @@ void ElisaApplication::initializePlayer()
     QObject::connect(d->mAudioControl.get(), &ManageAudioPlayer::playerSourceChanged, d->mAudioWrapper.get(), &AudioWrapper::setSource);
     QObject::connect(d->mAudioControl.get(), &ManageAudioPlayer::startedPlayingTrack,
                      d->mMusicManager->viewDatabase(), &DatabaseInterface::trackHasStartedPlaying);
+    QObject::connect(d->mAudioControl.get(), &ManageAudioPlayer::currentPlayingForRadiosChanged, d->mMediaPlayList.get(), &MediaPlayList::updateRadioData);
 
     QObject::connect(d->mMediaPlayList.get(), &MediaPlayList::ensurePlay, d->mAudioControl.get(), &ManageAudioPlayer::ensurePlay);
     QObject::connect(d->mMediaPlayList.get(), &MediaPlayList::playListFinished, d->mAudioControl.get(), &ManageAudioPlayer::playListFinished);
     QObject::connect(d->mMediaPlayList.get(), &MediaPlayList::currentTrackChanged, d->mAudioControl.get(), &ManageAudioPlayer::setCurrentTrack);
     QObject::connect(d->mMediaPlayList.get(), &MediaPlayList::clearPlayListPlayer, d->mAudioControl.get(), &ManageAudioPlayer::saveForUndoClearPlaylist);
     QObject::connect(d->mMediaPlayList.get(), &MediaPlayList::undoClearPlayListPlayer, d->mAudioControl.get(), &ManageAudioPlayer::restoreForUndoClearPlaylist);
-
 
     QObject::connect(d->mAudioWrapper.get(), &AudioWrapper::playbackStateChanged,
                      d->mAudioControl.get(), &ManageAudioPlayer::setPlayerPlaybackState);
@@ -376,6 +376,7 @@ void ElisaApplication::initializePlayer()
     QObject::connect(d->mAudioWrapper.get(), &AudioWrapper::durationChanged, d->mAudioControl.get(), &ManageAudioPlayer::setAudioDuration);
     QObject::connect(d->mAudioWrapper.get(), &AudioWrapper::seekableChanged, d->mAudioControl.get(), &ManageAudioPlayer::setPlayerIsSeekable);
     QObject::connect(d->mAudioWrapper.get(), &AudioWrapper::positionChanged, d->mAudioControl.get(), &ManageAudioPlayer::setPlayerPosition);
+    QObject::connect(d->mAudioWrapper.get(), &AudioWrapper::currentPlayingForRadiosChanged, d->mAudioControl.get(), &ManageAudioPlayer::setCurrentPlayingForRadios);
 
     d->mPlayerControl->setPlayListModel(d->mMediaPlayList.get());
     QObject::connect(d->mMediaPlayList.get(), &MediaPlayList::currentTrackChanged, d->mPlayerControl.get(), &ManageMediaPlayerControl::setCurrentTrack);

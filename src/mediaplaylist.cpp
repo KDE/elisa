@@ -220,8 +220,7 @@ bool MediaPlayList::setData(const QModelIndex &index, const QVariant &value, int
         return modelModified;
     }
 
-    if ((role != ColumnsRoles::TitleRole && role != ColumnsRoles::ArtistRole) &&
-            (role < ColumnsRoles::IsValidRole || role > ColumnsRoles::IsPlayingRole)) {
+    if (role < ColumnsRoles::IsValidRole || role > ColumnsRoles::IsPlayingRole) {
         return modelModified;
     }
 

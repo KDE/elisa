@@ -4095,7 +4095,7 @@ void MediaPlayListTest::testSetData()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), MediaPlayList::ColumnsRoles::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), MediaPlayList::ColumnsRoles::IsPlayingRole).toBool(), true);
 
-    QCOMPARE(myPlayList.setData(myPlayList.index(2, 0), true, MediaPlayList::ColumnsRoles::TitleRole), false);
+    QCOMPARE(myPlayList.setData(myPlayList.index(2, 0), true, MediaPlayList::ColumnsRoles::SecondaryTextRole), false);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);

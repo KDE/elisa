@@ -111,11 +111,13 @@ ApplicationWindow {
 
     Connections {
         target: headerBar.playerControl
-        onOpenMenu: if (applicationMenu.visible) {
-                        applicationMenu.close()
-                    } else {
-                        applicationMenu.popup()
-                    }
+        onOpenMenu: {
+            if (applicationMenu.visible) {
+                applicationMenu.close()
+            } else {
+                applicationMenu.popup(mainWindow.width - applicationMenu.width, headerBar.height)
+            }
+        }
     }
 
     Connections {

@@ -5428,8 +5428,6 @@ void MediaPlayListTest::randomPlayList()
     QCOMPARE(repeatPlayChangedSpy.count(), 0);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
-    myPlayList.seedRandomGenerator(0);
-
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
     QCOMPARE(repeatPlayChangedSpy.count(), 0);
@@ -5535,8 +5533,6 @@ void MediaPlayListTest::randomAndContinuePlayList()
     QCOMPARE(randomPlayChangedSpy.count(), 0);
     QCOMPARE(repeatPlayChangedSpy.count(), 0);
     QCOMPARE(playListFinishedSpy.count(), 0);
-
-    myPlayList.seedRandomGenerator(0);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
@@ -5654,8 +5650,6 @@ void MediaPlayListTest::continuePlayList()
     QCOMPARE(randomPlayChangedSpy.count(), 0);
     QCOMPARE(repeatPlayChangedSpy.count(), 0);
     QCOMPARE(playListFinishedSpy.count(), 0);
-
-    myPlayList.seedRandomGenerator(0);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
@@ -5776,8 +5770,6 @@ void MediaPlayListTest::testRestoreSettings()
     QCOMPARE(repeatPlayChangedSpy.count(), 1);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
-    myPlayList.seedRandomGenerator(0);
-
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(randomPlayChangedSpy.count(), 1);
     QCOMPARE(repeatPlayChangedSpy.count(), 1);
@@ -5867,8 +5859,6 @@ void MediaPlayListTest::testSaveAndRestoreSettings()
     QCOMPARE(randomPlayChangedRestoreSpy.count(), 0);
     QCOMPARE(repeatPlayChangedRestoreSpy.count(), 0);
     QCOMPARE(playListFinishedRestoreSpy.count(), 0);
-
-    myPlayListSave.seedRandomGenerator(0);
 
     QCOMPARE(currentTrackChangedSaveSpy.count(), 0);
     QCOMPARE(randomPlayChangedSaveSpy.count(), 0);
@@ -6223,7 +6213,7 @@ void MediaPlayListTest::singleTrack()
 
     myPlayList.skipNextTrack();
 
-    QCOMPARE(currentTrackChangedSpy.count(), 3);
+    QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
     QCOMPARE(repeatPlayChangedSpy.count(), 0);
     QCOMPARE(playListFinishedSpy.count(), 1);
@@ -6484,8 +6474,6 @@ void MediaPlayListTest::testSaveLoadPlayList()
     QCOMPARE(playListFinishedRestoreSpy.count(), 0);
     QCOMPARE(playListLoadedRestoreSpy.count(), 0);
     QCOMPARE(playListLoadFailedRestoreSpy.count(), 0);
-
-    myPlayListSave.seedRandomGenerator(0);
 
     QCOMPARE(currentTrackChangedSaveSpy.count(), 0);
     QCOMPARE(randomPlayChangedSaveSpy.count(), 0);

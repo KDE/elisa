@@ -28,6 +28,7 @@
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QDebug>
+#include <QRandomGenerator>
 
 #include <algorithm>
 
@@ -55,18 +56,14 @@ public:
 
     bool mForceUndo = false;
 
+    QList<int> mRandomPositions = {0, 0, 0};
+
 };
 
 MediaPlayList::MediaPlayList(QObject *parent) : QAbstractListModel(parent), d(new MediaPlayListPrivate), dOld(new MediaPlayListPrivate)
 {
     connect(&d->mLoadPlaylist, &QMediaPlaylist::loaded, this, &MediaPlayList::loadPlayListLoaded);
     connect(&d->mLoadPlaylist, &QMediaPlaylist::loadFailed, this, &MediaPlayList::loadPlayListLoadFailed);
-
-    auto currentMsecTime = QTime::currentTime().msec();
-
-    if (currentMsecTime != -1) {
-        seedRandomGenerator(static_cast<unsigned int>(currentMsecTime));
-    }
 }
 
 MediaPlayList::~MediaPlayList()
@@ -302,6 +299,10 @@ bool MediaPlayList::removeRows(int row, int count, const QModelIndex &parent)
 
     if (!d->mCurrentTrack.isValid() && rowCount(parent) <= row) {
         resetCurrentTrack();
+    }
+
+    if (d->mRandomPlay) {
+        createRandomList();
     }
 
     Q_EMIT tracksCountChanged();
@@ -878,6 +879,9 @@ void MediaPlayList::removeSelection(QList<int> selection)
     for (auto oneItem : selection) {
         removeRow(oneItem);
     }
+    if (d->mRandomPlay) {
+        createRandomList();
+    }
 }
 
 void MediaPlayList::tracksListAdded(qulonglong newDatabaseId,
@@ -1092,6 +1096,7 @@ void MediaPlayList::setRandomPlay(bool value)
 {
     if (d->mRandomPlay != value) {
         d->mRandomPlay = value;
+        createRandomList();
         Q_EMIT randomPlayChanged();
         Q_EMIT remainingTracksChanged();
     }
@@ -1123,27 +1128,19 @@ void MediaPlayList::skipNextTrack()
         return;
     }
 
-    if (!d->mRandomPlay && (d->mCurrentTrack.row() >= (rowCount() - 1))) {
-        if (!d->mRepeatPlay) {
-            Q_EMIT playListFinished();
-        }
-
-        if (rowCount() == 1) {
-            d->mCurrentTrack = QPersistentModelIndex{};
-            notifyCurrentTrackChanged();
-        }
-
-        resetCurrentTrack();
-
-        return;
-    }
-
     if (d->mRandomPlay) {
-        int randomValue = qrand();
-        randomValue = randomValue % (rowCount());
-        d->mCurrentTrack = index(randomValue, 0);
+        d->mRandomPositions.removeFirst();
+        d->mCurrentTrack = index(d->mRandomPositions.at(1), 0);
+        d->mRandomPositions.append(QRandomGenerator::global()->bounded(rowCount()));
     } else {
-        d->mCurrentTrack = index(d->mCurrentTrack.row() + 1, 0);
+        if (d->mCurrentTrack.row() >= rowCount() - 1) {
+            d->mCurrentTrack = index(0, 0);
+            if (!d->mRepeatPlay) {
+                Q_EMIT playListFinished();
+            }
+        } else {
+            d->mCurrentTrack = index(d->mCurrentTrack.row() + 1, 0);
+        }
     }
 
     notifyCurrentTrackChanged();
@@ -1155,31 +1152,23 @@ void MediaPlayList::skipPreviousTrack()
         return;
     }
 
-    if (!d->mRandomPlay && !d->mRepeatPlay && d->mCurrentTrack.row() <= 0) {
-        return;
-    }
-
     if (d->mRandomPlay) {
-        int randomValue = qrand();
-        randomValue = randomValue % (rowCount());
-        d->mCurrentTrack = index(randomValue, 0);
+        d->mRandomPositions.removeLast();
+        d->mCurrentTrack = index(d->mRandomPositions.at(0), 0);
+        d->mRandomPositions.prepend(QRandomGenerator::global()->bounded(rowCount()));
     } else {
-        if (d->mRepeatPlay) {
-            if (d->mCurrentTrack.row() == 0) {
+        if (d->mCurrentTrack.row() == 0) {
+            if (d->mRepeatPlay) {
                 d->mCurrentTrack = index(rowCount() - 1, 0);
             } else {
-                d->mCurrentTrack = index(d->mCurrentTrack.row() - 1, 0);
+                return;
             }
         } else {
-            d->mCurrentTrack = index(d->mCurrentTrack.row() - 1, d->mCurrentTrack.column(), d->mCurrentTrack.parent());
+            d->mCurrentTrack = index(d->mCurrentTrack.row() - 1, 0);
         }
     }
-    notifyCurrentTrackChanged();
-}
 
-void MediaPlayList::seedRandomGenerator(uint seed)
-{
-    qsrand(seed);
+    notifyCurrentTrackChanged();
 }
 
 void MediaPlayList::switchTo(int row)
@@ -1188,7 +1177,12 @@ void MediaPlayList::switchTo(int row)
         return;
     }
 
-    d->mCurrentTrack = index(row, 0);
+    if (d->mRandomPlay) {
+        d->mCurrentTrack = index(row, 0);
+        d->mRandomPositions.replace(1, row);
+    } else {
+        d->mCurrentTrack = index(row, 0);
+    }
 
     notifyCurrentTrackChanged();
 }
@@ -1306,6 +1300,16 @@ int MediaPlayList::remainingTracks() const
         return -1;
     } else {
         return rowCount() - d->mCurrentTrack.row() - 1;
+    }
+}
+
+void MediaPlayList::createRandomList()
+{
+    for (auto& position : d->mRandomPositions) {
+        position = QRandomGenerator::global()->bounded(rowCount());
+    }
+    if (d->mCurrentTrack.isValid()) {
+        d->mRandomPositions.replace(1, d->mCurrentTrack.row());
     }
 }
 

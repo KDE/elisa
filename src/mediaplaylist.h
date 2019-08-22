@@ -242,8 +242,6 @@ public Q_SLOTS:
 
     void skipPreviousTrack();
 
-    void seedRandomGenerator(uint seed);
-
     void switchTo(int row);
 
     void loadPlaylist(const QString &localFileName);
@@ -297,6 +295,8 @@ private:
     void restorePlayListPosition();
 
     void restoreRandomPlay();
+
+    void createRandomList();
 
     void restoreRepeatPlay();
 

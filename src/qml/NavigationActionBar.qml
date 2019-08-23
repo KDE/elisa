@@ -119,15 +119,15 @@ ColumnLayout {
             },
             Item {
                 id: spacer
-                width: elisaTheme.layoutHorizontalMargin
+                Layout.preferredWidth: elisaTheme.layoutHorizontalMargin
                 visible: goPreviousButton.visible
             },
             Image {
                 id: mainIcon
                 source: image
 
-                height: authorAndAlbumLayout.height
-                width: height
+                Layout.preferredHeight: authorAndAlbumLayout.height
+                Layout.preferredWidth: height
                 sourceSize.height: height
                 sourceSize.width: width
                 fillMode: Image.PreserveAspectFit
@@ -136,7 +136,7 @@ ColumnLayout {
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
             },
             Item {
-                width: elisaTheme.layoutHorizontalMargin
+                Layout.preferredWidth: elisaTheme.layoutHorizontalMargin
                 visible: mainIcon.visible
             },
             ColumnLayout {

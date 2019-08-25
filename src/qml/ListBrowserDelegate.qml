@@ -36,7 +36,7 @@ FocusScope {
     property int trackNumber
     property int discNumber
     property int rating
-    property bool isSingleDiscAlbum
+    property bool hideDiscNumber
     property bool isSelected
     property bool isAlternateColor
     property bool detailedView: true
@@ -142,13 +142,13 @@ FocusScope {
                 Layout.fillWidth: true
                 Layout.leftMargin: {
                     if (!LayoutMirroring.enabled)
-                        return (!isSingleDiscAlbum ? elisaTheme.layoutHorizontalMargin * 4 : elisaTheme.layoutHorizontalMargin)
+                        return (!hideDiscNumber ? elisaTheme.layoutHorizontalMargin * 4 : elisaTheme.layoutHorizontalMargin)
                     else
                         return 0
                 }
                 Layout.rightMargin: {
                     if (LayoutMirroring.enabled)
-                        return (!isSingleDiscAlbum ? elisaTheme.layoutHorizontalMargin * 4 : elisaTheme.layoutHorizontalMargin)
+                        return (!hideDiscNumber ? elisaTheme.layoutHorizontalMargin * 4 : elisaTheme.layoutHorizontalMargin)
                     else
                         return 0
                 }
@@ -239,7 +239,7 @@ FocusScope {
                         }
                         if (album !== '') {
                             labelText += ' - ' + album
-                            if (!isSingleDiscAlbum && discNumber !== -1) {
+                            if (!hideDiscNumber && discNumber !== -1) {
                                 labelText += ' - CD ' + discNumber
                             }
                         }

@@ -62,13 +62,13 @@ FocusScope {
     }
 
     Component {
-        id: singleAlbumDelegate
+        id: albumDelegate
 
         ListBrowserDelegate {
             id: entry
 
             width: listView.delegateWidth
-            height: ((true && !true) ? elisaTheme.delegateHeight*2 : elisaTheme.delegateHeight)
+            height: elisaTheme.delegateHeight
 
             focus: true
 
@@ -82,7 +82,6 @@ FocusScope {
             trackNumber: model.trackNumber ? model.trackNumber : -1
             discNumber: model.discNumber ? model.discNumber : -1
             rating: model.rating
-            isSingleDiscAlbum: true
             isSelected: listView.currentIndex === index
             isAlternateColor: (index % 2) === 1
             detailedView: false
@@ -111,7 +110,7 @@ FocusScope {
     }
 
     Component {
-        id: multipleDiscDelegate
+        id: detailedTrackDelegate
 
         ListBrowserDelegate {
             id: entry
@@ -131,7 +130,7 @@ FocusScope {
             trackNumber: model.trackNumber ? model.trackNumber : -1
             discNumber: model.discNumber ? model.discNumber : -1
             rating: model.rating
-            isSingleDiscAlbum: model.isSingleDiscAlbum
+            hideDiscNumber: model.isSingleDiscAlbum
             isSelected: listView.currentIndex === index
             isAlternateColor: (index % 2) === 1
 
@@ -163,7 +162,7 @@ FocusScope {
 
         contentModel: proxyModel
 
-        delegate: (displaySingleAlbum ? singleAlbumDelegate : multipleDiscDelegate)
+        delegate: (displaySingleAlbum ? albumDelegate : detailedTrackDelegate)
 
         enableSorting: !displaySingleAlbum
 

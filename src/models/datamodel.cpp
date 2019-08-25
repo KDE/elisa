@@ -192,10 +192,14 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
         switch (d->mModelType)
         {
         case ElisaUtils::Track:
+            result = d->mAllTrackData[index.row()][TrackDataType::key_type::IsSingleDiscAlbumRole];
+            break;
         case ElisaUtils::Radio:
             result = false;
             break;
         case ElisaUtils::Album:
+            result = d->mAllAlbumData[index.row()][AlbumDataType::key_type::IsSingleDiscAlbumRole];
+            break;
         case ElisaUtils::Artist:
         case ElisaUtils::Genre:
         case ElisaUtils::Lyricist:

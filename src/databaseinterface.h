@@ -423,7 +423,7 @@ Q_SIGNALS:
 
     void databaseError();
 
-    void restoredTracks(QHash<QUrl, QDateTime> allFiles);
+    void restoredTracks(const QHash<QUrl, QDateTime> &allFiles);
 
     void cleanedDatabase();
 
@@ -431,9 +431,9 @@ Q_SIGNALS:
 
     void finishRemovingTracksList();
 
-    void radioAdded(const DatabaseInterface::TrackDataType radio);
+    void radioAdded(const DatabaseInterface::TrackDataType &radio);
 
-    void radioModified(const DatabaseInterface::TrackDataType radio);
+    void radioModified(const DatabaseInterface::TrackDataType &radio);
 
     void radioRemoved(qulonglong radioId);
 
@@ -449,7 +449,7 @@ public Q_SLOTS:
 
     void clearData();
 
-    void insertRadio(const TrackDataType &oneTrack);
+    void insertRadio(const DatabaseInterface::TrackDataType &oneTrack);
 
     void removeRadio(qulonglong radioId);
 

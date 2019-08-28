@@ -23,15 +23,6 @@
 
 #include <QtConcurrent>
 
-const QList<DatabaseInterface::ColumnsRoles> mFieldsForClassicTrack({DatabaseInterface::TitleRole, DatabaseInterface::ArtistRole, DatabaseInterface::AlbumRole,
-                                                                  DatabaseInterface::AlbumArtistRole, DatabaseInterface::TrackNumberRole, DatabaseInterface::DiscNumberRole,
-                                                                  DatabaseInterface::RatingRole, DatabaseInterface::GenreRole, DatabaseInterface::LyricistRole,
-                                                                  DatabaseInterface::ComposerRole, DatabaseInterface::CommentRole, DatabaseInterface::YearRole,
-                                                                  DatabaseInterface::LastPlayDate, DatabaseInterface::PlayCounter});
-
-const QList mFieldsForRadioTrack({DatabaseInterface::TitleRole,DatabaseInterface::ResourceRole, DatabaseInterface::CommentRole, DatabaseInterface::DatabaseIdRole,
-                                        DatabaseInterface::ArtistRole, DatabaseInterface::AlbumRole});
-
 
 TrackMetadataModel::TrackMetadataModel(QObject *parent)
     : QAbstractListModel(parent)
@@ -340,6 +331,7 @@ QVariant TrackMetadataModel::dataRadio(const QModelIndex &index, int role) const
         case DatabaseInterface::FirstPlayDate:
         case DatabaseInterface::PlayFrequency:
         case DatabaseInterface::ElementTypeRole:
+        case DatabaseInterface::IsValidAlbumArtistRole:
             break;
         }
         break;
@@ -391,6 +383,7 @@ QVariant TrackMetadataModel::dataRadio(const QModelIndex &index, int role) const
         case DatabaseInterface::FirstPlayDate:
         case DatabaseInterface::PlayFrequency:
         case DatabaseInterface::ElementTypeRole:
+        case DatabaseInterface::IsValidAlbumArtistRole:
             break;
         }
         break;
@@ -464,6 +457,15 @@ void TrackMetadataModel::trackData(const TrackMetadataModel::TrackDataType &trac
 
 void TrackMetadataModel::fillDataFromTrackData(const TrackMetadataModel::TrackDataType &trackData)
 {
+    const QList<DatabaseInterface::ColumnsRoles> mFieldsForClassicTrack({DatabaseInterface::TitleRole, DatabaseInterface::ArtistRole, DatabaseInterface::AlbumRole,
+                                                                      DatabaseInterface::AlbumArtistRole, DatabaseInterface::TrackNumberRole, DatabaseInterface::DiscNumberRole,
+                                                                      DatabaseInterface::RatingRole, DatabaseInterface::GenreRole, DatabaseInterface::LyricistRole,
+                                                                      DatabaseInterface::ComposerRole, DatabaseInterface::CommentRole, DatabaseInterface::YearRole,
+                                                                      DatabaseInterface::LastPlayDate, DatabaseInterface::PlayCounter});
+
+    const QList mFieldsForRadioTrack({DatabaseInterface::TitleRole,DatabaseInterface::ResourceRole, DatabaseInterface::CommentRole, DatabaseInterface::DatabaseIdRole,
+                                            DatabaseInterface::ArtistRole, DatabaseInterface::AlbumRole});
+
     beginResetModel();
     mFullData = trackData;
     mTrackData.clear();
@@ -630,7 +632,7 @@ void TrackMetadataModel::fillDataForNewRadio()
             mTrackData[role] = -1;
             Q_EMIT hideDeleteButton();
         } else {
-            mTrackData[role] = QStringLiteral("");
+            mTrackData[role] = QString();
         }
 
     }
@@ -657,6 +659,8 @@ void TrackMetadataModel::setManager(MusicListenersManager *newManager)
 
 void TrackMetadataModel::setIsRadio(bool isRadio){
     this->mIsRadio = isRadio;
+
+    Q_EMIT isRadioChanged();
 }
 
 void TrackMetadataModel::setDatabase(DatabaseInterface *trackDatabase)
@@ -680,7 +684,7 @@ void TrackMetadataModel::deleteRadio()
     }
 }
 
-void TrackMetadataModel::radioAdded(TrackDataType radiosData){
+void TrackMetadataModel::radioAdded(const TrackDataType &radiosData){
     mTrackData[DatabaseInterface::DatabaseIdRole] = radiosData[DatabaseInterface::DatabaseIdRole];
     Q_EMIT showDeleteButton();
     radioModified();

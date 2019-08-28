@@ -55,7 +55,8 @@ class ELISALIB_EXPORT TrackMetadataModel : public QAbstractListModel
 
     Q_PROPERTY(bool isRadio
                READ isRadio
-               WRITE setIsRadio)
+               WRITE setIsRadio
+               NOTIFY isRadioChanged)
 
 public:
 
@@ -115,7 +116,7 @@ Q_SIGNALS:
 
     void lyricsChanged();
 
-    void saveRadioData(DatabaseInterface::TrackDataType trackDataType);
+    void saveRadioData(const DatabaseInterface::TrackDataType &trackDataType);
 
     void deleteRadioData(qulonglong radioId);
 
@@ -126,6 +127,8 @@ Q_SIGNALS:
     void showDeleteButton();
 
     void closeWindow();
+
+    void isRadioChanged();
 
 public Q_SLOTS:
 
@@ -147,7 +150,7 @@ public Q_SLOTS:
 
     void deleteRadio();
 
-    void radioAdded(TrackMetadataModel::TrackDataType radiosData);
+    void radioAdded(const TrackMetadataModel::TrackDataType &radiosData);
 
     void radioModified();
 

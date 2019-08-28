@@ -239,7 +239,7 @@ public Q_SLOTS:
 
     void setPlayerPosition(qint64 playerPosition);
 
-    void setCurrentPlayingForRadios(const QString title, const QString nowPlaying);
+    void setCurrentPlayingForRadios(QString title, QString nowPlaying);
 
     void setPlayControlPosition(int playerPosition);
 

@@ -110,7 +110,7 @@ Q_SIGNALS:
 
     void elisaApplicationChanged();
 
-    void removeTracksInError(QList<QUrl> tracks);
+    void removeTracksInError(const QList<QUrl> &tracks);
 
     void displayTrackError(const QString &fileName);
 

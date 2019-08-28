@@ -6147,8 +6147,6 @@ qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrac
 
     resultId = existingTrackId;
 
-    const auto &albumData = internalOneAlbumPartialData(albumId);
-
     d->mInsertTrackQuery.bindValue(QStringLiteral(":trackId"), existingTrackId);
     d->mInsertTrackQuery.bindValue(QStringLiteral(":fileName"), oneTrack.resourceURI());
     d->mInsertTrackQuery.bindValue(QStringLiteral(":priority"), priority);

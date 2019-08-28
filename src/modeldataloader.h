@@ -65,33 +65,33 @@ Q_SIGNALS:
 
     void allRadiosData(const ModelDataLoader::ListRadioDataType &radiosData);
 
-    void radioAdded(const ModelDataLoader::TrackDataType radiosData);
+    void radioAdded(const ModelDataLoader::TrackDataType &radiosData);
 
-    void radioModified(const ModelDataLoader::TrackDataType radiosData);
+    void radioModified(const ModelDataLoader::TrackDataType &radiosData);
 
     void allTrackData(const ModelDataLoader::TrackDataType &allData);
 
     void allRadioData(const ModelDataLoader::TrackDataType &allData);
 
-    void tracksAdded(ModelDataLoader::ListTrackDataType newData);
+    void tracksAdded(const ModelDataLoader::ListTrackDataType &newData);
 
     void trackModified(const ModelDataLoader::TrackDataType &modifiedTrack);
 
     void trackRemoved(qulonglong removedTrackId);
 
-    void genresAdded(ModelDataLoader::ListGenreDataType newData);
+    void genresAdded(const ModelDataLoader::ListGenreDataType &newData);
 
-    void artistsAdded(ModelDataLoader::ListArtistDataType newData);
+    void artistsAdded(const ModelDataLoader::ListArtistDataType &newData);
 
     void artistRemoved(qulonglong removedDatabaseId);
 
-    void albumsAdded(ModelDataLoader::ListAlbumDataType newData);
+    void albumsAdded(const ModelDataLoader::ListAlbumDataType &newData);
 
     void albumRemoved(qulonglong removedDatabaseId);
 
     void albumModified(const ModelDataLoader::AlbumDataType &modifiedAlbum);
 
-    void saveRadioModified(const ModelDataLoader::TrackDataType trackDataType);
+    void saveRadioModified(const ModelDataLoader::TrackDataType &trackDataType);
 
     void removeRadio(qulonglong radioId);
 
@@ -122,7 +122,7 @@ public Q_SLOTS:
 
     void loadFrequentlyPlayedData(ElisaUtils::PlayListEntryType dataType);
 
-    void updateRadioData(ModelDataLoader::TrackDataType trackDataType);
+    void updateRadioData(const ModelDataLoader::TrackDataType &trackDataType);
 
     void deleteRadioData(qulonglong radioId);
 

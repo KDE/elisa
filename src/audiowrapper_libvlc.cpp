@@ -238,8 +238,7 @@ void AudioWrapper::setSource(const QUrl &source)
         d->mMedia = libvlc_media_new_path(d->mInstance, QDir::toNativeSeparators(source.toLocalFile()).toUtf8().constData());
     } else {
         qCDebug(orgKdeElisaPlayerVlc) << "AudioWrapper::setSource reading remote resource";
-        const char * charUrl = source.url().toUtf8().constData();
-        d->mMedia = libvlc_media_new_location(d->mInstance, charUrl);
+        d->mMedia = libvlc_media_new_location(d->mInstance, source.url().toUtf8().constData());
     }
 
     if (!d->mMedia) {
@@ -337,6 +336,7 @@ void AudioWrapper::seek(qint64 position)
 
 void AudioWrapper::setAudioRole(QAudio::Role audioRole)
 {
+    Q_UNUSED(audioRole)
     //    d->mPlayer.setAudioRole(audioRole);
 }
 

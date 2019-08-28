@@ -207,11 +207,11 @@ Q_SIGNALS:
 
     void tracksCountChanged();
 
-    void previousTrackChanged(QPersistentModelIndex previousTrack);
+    void previousTrackChanged(const QPersistentModelIndex &previousTrack);
 
-    void currentTrackChanged(QPersistentModelIndex currentTrack);
+    void currentTrackChanged(const QPersistentModelIndex &currentTrack);
 
-    void nextTrackChanged(QPersistentModelIndex nextTrack);
+    void nextTrackChanged(const QPersistentModelIndex &nextTrack);
 
     void clearPlayListPlayer();
 

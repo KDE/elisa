@@ -5170,7 +5170,7 @@ private Q_SLOTS:
         QCOMPARE(newAlbum.artist(), QStringLiteral("Various Artists"));
         QCOMPARE(newAlbum[DatabaseInterface::ColumnsRoles::SecondaryTextRole], QStringLiteral("Various Artists"));
 
-        const auto oneAlbum = musicDb.allAlbumsData()[0];
+        const auto oneAlbum = musicDb.allAlbumsData().at(0);
         QCOMPARE(oneAlbum.title(), QStringLiteral("album3"));
         QCOMPARE(oneAlbum.artist(), QStringLiteral("Various Artists"));
         QCOMPARE(oneAlbum[DatabaseInterface::ColumnsRoles::SecondaryTextRole], QStringLiteral("Various Artists"));

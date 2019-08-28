@@ -279,8 +279,6 @@ private:
 
     bool mOldIsValid = false;
 
-    int mOldRemainingTracks = 0;
-
 };
 
 

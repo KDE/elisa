@@ -462,7 +462,7 @@ void ModelDataLoader::databaseAlbumModified(const AlbumDataType &modifiedAlbum)
     Q_EMIT albumModified(modifiedAlbum);
 }
 
-void ModelDataLoader::updateRadioData(TrackDataType trackDataType)
+void ModelDataLoader::updateRadioData(const TrackDataType &trackDataType)
 {
     Q_EMIT saveRadioModified(trackDataType);
 }

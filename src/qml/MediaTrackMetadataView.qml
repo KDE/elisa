@@ -27,22 +27,21 @@ import org.kde.elisa 1.0
 Window {
     id: trackMetadata
 
-    property int databaseId: 0
+    property int initialDatabaseId: 0
+    property var modelType
     property string fileName
-    property alias isRadio: realModel.isRadio
+    property bool editableMetadata
+    property alias showImage: metadataImage.visible
+    property alias showTrackFileName: fileNameRow.visible
+    property alias showDeleteButton: deleteButtonBox.visible
+    property alias showApplyButton: applyButton.visible
 
     signal rejected()
 
     LayoutMirroring.enabled: Qt.application.layoutDirection == Qt.RightToLeft
     LayoutMirroring.childrenInherit: true
 
-    title: {
-        if (trackMetadata.isRadio && databaseId === -1) {
-            return i18nc("Window title for track metadata", "Create a Radio")
-        }
-
-        return i18nc("Window title for track metadata", "View Details")
-    }
+    title: (initialDatabaseId === -1) ? i18nc("Window title for track metadata", "Create a Radio") : i18nc("Window title for track metadata", "View Details")
 
     TrackMetadataModel {
         id: realModel
@@ -73,6 +72,8 @@ Window {
             spacing: 0
 
             Image {
+                id: metadataImage
+
                 source: realModel.coverUrl
 
                 sourceSize.width: elisaTheme.coverImageSize
@@ -87,8 +88,6 @@ Window {
                 Layout.minimumWidth: elisaTheme.coverImageSize
                 Layout.maximumHeight: elisaTheme.coverImageSize
                 Layout.maximumWidth: elisaTheme.coverImageSize
-
-                visible: !trackMetadata.isRadio
             }
 
             ListView {
@@ -130,11 +129,13 @@ Window {
                     }
                 }
 
-                delegate: trackMetadata.isRadio ? editableMetaDataDelegate: metaDataDelegate
+                delegate: editableMetadata ? editableMetaDataDelegate: metaDataDelegate
             }
         }
 
         RowLayout {
+            id: fileNameRow
+
             Layout.alignment: Qt.AlignLeft | Qt.AlignBottom
             Layout.topMargin: elisaTheme.layoutVerticalMargin
             Layout.bottomMargin: elisaTheme.layoutVerticalMargin
@@ -160,14 +161,14 @@ Window {
 
                 elide: Text.ElideRight
             }
-
-            visible: !trackMetadata.isRadio
         }
 
-        RowLayout{
+        RowLayout {
             spacing: elisaTheme.layoutVerticalMargin
 
             DialogButtonBox {
+                id: deleteButtonBox
+
                 Layout.minimumHeight: implicitHeight
                 alignment: Qt.AlignLeft
 
@@ -175,7 +176,11 @@ Window {
                     id: deleteButton
                     text: qsTr("Delete")
                     DialogButtonBox.buttonRole: DialogButtonBox.DestructiveRole
-                    onClicked: realModel.deleteRadio()
+                    onClicked:
+                    {
+                        elisa.musicManager.deleteElementById(modelType, realModel.databaseId)
+                        trackMetadata.close()
+                    }
                 }
             }
 
@@ -191,7 +196,14 @@ Window {
 
                     text: qsTr("Apply")
                     DialogButtonBox.buttonRole: DialogButtonBox.ApplyRole
-                    onClicked: realModel.saveData()
+                    onClicked:
+                    {
+                        realModel.saveData()
+                        enabled = false
+                        if (!deleteButtonBox.visible && editableMetadata) {
+                            deleteButtonBox.visible = true
+                        }
+                    }
                     enabled: false
                 }
                 Button {
@@ -200,21 +212,6 @@ Window {
                     onClicked: trackMetadata.close()
                 }
             }
-
-            visible: trackMetadata.isRadio
-        }
-
-        DialogButtonBox {
-            id: buttonsTrack
-
-            Layout.fillWidth: true
-            Layout.minimumHeight: implicitHeight
-
-            standardButtons: DialogButtonBox.Close
-            alignment: Qt.AlignRight
-            onRejected: trackMetadata.close()
-
-            visible: !trackMetadata.isRadio
         }
     }
 
@@ -222,31 +219,22 @@ Window {
         target: elisa
 
         onMusicManagerChanged: {
-            if (databaseId === -1) {
+            if (initialDatabaseId === -1) {
                 realModel.initializeForNewRadio()
-            } else if (databaseId !== 0) {
-                realModel.initializeByTrackId(databaseId)
+            } else if (initialDatabaseId !== 0) {
+                realModel.initializeById(modelType, initialDatabaseId)
             } else {
                 realModel.initializeByTrackFileName(fileName)
             }
         }
     }
 
-    Connections{
-        target: realModel
-
-        onDisableApplyButton: applyButton.enabled = false
-        onShowDeleteButton: deleteButton.visible = true
-        onHideDeleteButton: deleteButton.visible = false
-        onCloseWindow: trackMetadata.close()
-    }
-
     Component.onCompleted: {
         if (elisa.musicManager) {
-            if (databaseId === -1) {
+            if (initialDatabaseId === -1) {
                 realModel.initializeForNewRadio()
-            } else if (databaseId !== 0) {
-                realModel.initializeByTrackId(databaseId)
+            } else if (initialDatabaseId !== 0) {
+                realModel.initializeById(modelType, initialDatabaseId)
             } else {
                 realModel.initializeByTrackFileName(fileName)
             }

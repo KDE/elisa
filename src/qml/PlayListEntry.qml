@@ -33,6 +33,7 @@ FocusScope {
     property bool isAlternateColor
     property bool containsMouse
     property int databaseId: 0
+    property var entryType
     property string title
     property string artist
     property string album
@@ -109,9 +110,16 @@ FocusScope {
         onLoaded: item.show()
 
         sourceComponent:  MediaTrackMetadataView {
-            databaseId: playListEntry.databaseId
+            initialDatabaseId: playListEntry.databaseId
             fileName: playListEntry.fileName
-            onRejected: metadataLoader.active = false;
+            showImage: entryType == ElisaUtils.Track
+            modelType: entryType
+            showTrackFileName: entryType == ElisaUtils.Track
+            showDeleteButton: entryType != ElisaUtils.Track
+            showApplyButton: entryType != ElisaUtils.Track
+            editableMetadata: entryType != ElisaUtils.Track
+
+            onRejected: metadataLoader.active = false
         }
     }
 

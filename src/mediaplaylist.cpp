@@ -114,6 +114,7 @@ QHash<int, QByteArray> MediaPlayList::roleNames() const
     roles[static_cast<int>(ColumnsRoles::TrackDataRole)] = "trackData";
     roles[static_cast<int>(ColumnsRoles::AlbumIdRole)] = "albumId";
     roles[static_cast<int>(ColumnsRoles::AlbumSectionRole)] = "albumSection";
+    roles[static_cast<int>(ColumnsRoles::ElementTypeRole)] = "entryType";
 
     return roles;
 }

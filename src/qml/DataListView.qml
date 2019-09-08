@@ -39,7 +39,29 @@ FocusScope {
     property alias radioCase: listView.showCreateRadioButton
 
     function openMetaDataView(databaseId){
-        metadataLoader.setSource("MediaTrackMetadataView.qml", {"databaseId": databaseId, "isRadio": viewHeader.radioCase});
+        if (viewHeader.radioCase) {
+            metadataLoader.setSource("MediaTrackMetadataView.qml",
+                                     {
+                                         "initialDatabaseId": databaseId,
+                                         "modelType": modelType,
+                                         "showImage": false,
+                                         "showTrackFileName": false,
+                                         "showDeleteButton": databaseId !== -1,
+                                         "showApplyButton": true,
+                                         "editableMetadata": true,
+                                     });
+        } else {
+            metadataLoader.setSource("MediaTrackMetadataView.qml",
+                                     {
+                                         "initialDatabaseId": databaseId,
+                                         "modelType": modelType,
+                                         "showImage": true,
+                                         "showTrackFileName": true,
+                                         "showDeleteButton": false,
+                                         "showApplyButton": false,
+                                         "editableMetadata": false,
+                                     });
+        }
         metadataLoader.active = true
     }
 

@@ -6385,7 +6385,7 @@ DatabaseInterface::TrackDataType DatabaseInterface::buildTrackDataFromDatabaseRe
     }
     result[TrackDataType::key_type::PlayCounter] = trackRecord.value(28);
     result[TrackDataType::key_type::PlayFrequency] = trackRecord.value(29);
-    result[DataType::key_type::ElementTypeRole] = ElisaUtils::Track;
+    result[TrackDataType::key_type::ElementTypeRole] = ElisaUtils::Track;
 
     return result;
 }
@@ -6406,7 +6406,7 @@ DatabaseInterface::TrackDataType DatabaseInterface::buildRadioDataFromDatabaseRe
         result[TrackDataType::key_type::GenreRole] = trackRecord.value(4);
     }
     result[TrackDataType::key_type::CommentRole] = trackRecord.value(5);
-    result[DataType::key_type::ElementTypeRole] = ElisaUtils::Radio;
+    result[TrackDataType::key_type::ElementTypeRole] = ElisaUtils::Radio;
 
     return result;
 }
@@ -6820,18 +6820,14 @@ void DatabaseInterface::insertRadio(const TrackDataType &oneTrack)
         qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackInDatabase" << query.lastQuery();
         qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackInDatabase" << query.boundValues();
         qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackInDatabase" << query.lastError();
-    }else{
-        TrackDataType radio(oneTrack);
-        radio[TrackDataType::key_type::ArtistRole] = radio[TrackDataType::key_type::TitleRole];
-        if (radio[TrackDataType::key_type::DatabaseIdRole] == -1) {
-            radio[TrackDataType::key_type::DatabaseIdRole] = internalRadioIdFromHttpAddress(oneTrack.resourceURI().toString());
-            radio[TrackDataType::key_type::AlbumRole] = QStringLiteral("Radios");
-            radio[TrackDataType::key_type::ArtistRole] = radio[TrackDataType::key_type::TitleRole];
-            radio[DataType::key_type::ElementTypeRole] = ElisaUtils::Radio;
-            // Genre and rating missing for now, see buildRadioDataFromDatabaseRecord. Should be added if used for radios.
+    } else {
+        if (oneTrack[TrackDataType::key_type::DatabaseIdRole] == -1) {
+            auto radio = internalOneRadioPartialData(internalRadioIdFromHttpAddress(oneTrack.resourceURI().toString()));
 
             Q_EMIT radioAdded(radio);
         } else {
+            auto radio = internalOneRadioPartialData(oneTrack.databaseId());
+
             Q_EMIT radioModified(radio);
         }
     }

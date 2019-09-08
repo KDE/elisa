@@ -58,33 +58,33 @@ void ModelDataLoader::setDatabase(DatabaseInterface *database)
     d->mDatabase = database;
 
     connect(database, &DatabaseInterface::genresAdded,
-            this, &ModelDataLoader::databaseGenresAdded);
+            this, &ModelDataLoader::genresAdded);
     connect(database, &DatabaseInterface::albumsAdded,
             this, &ModelDataLoader::databaseAlbumsAdded);
     connect(database, &DatabaseInterface::albumModified,
-            this, &ModelDataLoader::databaseAlbumModified);
+            this, &ModelDataLoader::albumModified);
     connect(database, &DatabaseInterface::albumRemoved,
-            this, &ModelDataLoader::databaseAlbumRemoved);
+            this, &ModelDataLoader::albumRemoved);
     connect(database, &DatabaseInterface::tracksAdded,
             this, &ModelDataLoader::databaseTracksAdded);
     connect(database, &DatabaseInterface::trackModified,
-            this, &ModelDataLoader::databaseTrackModified);
+            this, &ModelDataLoader::trackModified);
     connect(database, &DatabaseInterface::trackRemoved,
-            this, &ModelDataLoader::databaseTrackRemoved);
+            this, &ModelDataLoader::trackRemoved);
     connect(database, &DatabaseInterface::artistsAdded,
             this, &ModelDataLoader::databaseArtistsAdded);
     connect(database, &DatabaseInterface::artistRemoved,
-            this, &ModelDataLoader::databaseArtistRemoved);
+            this, &ModelDataLoader::artistRemoved);
     connect(this, &ModelDataLoader::saveRadioModified,
             database, &DatabaseInterface::insertRadio);
     connect(this, &ModelDataLoader::removeRadio,
             database, &DatabaseInterface::removeRadio);
     connect(database, &DatabaseInterface::radioAdded,
-            this, &ModelDataLoader::databaseRadioAdded);
+            this, &ModelDataLoader::radioAdded);
     connect(database, &DatabaseInterface::radioModified,
-            this, &ModelDataLoader::databaseRadioModified);
+            this, &ModelDataLoader::radioModified);
     connect(database, &DatabaseInterface::radioRemoved,
-            this, &ModelDataLoader::databaseRadioRemoved);
+            this, &ModelDataLoader::radioRemoved);
 }
 
 void ModelDataLoader::loadData(ElisaUtils::PlayListEntryType dataType)
@@ -365,21 +365,6 @@ void ModelDataLoader::databaseTracksAdded(const ListTrackDataType &newData)
     }
 }
 
-void ModelDataLoader::databaseTrackModified(const TrackDataType &modifiedTrack)
-{
-    Q_EMIT trackModified(modifiedTrack);
-}
-
-void ModelDataLoader::databaseTrackRemoved(qulonglong removedTrackId)
-{
-    Q_EMIT trackRemoved(removedTrackId);
-}
-
-void ModelDataLoader::databaseGenresAdded(const ListGenreDataType &newData)
-{
-    Q_EMIT genresAdded(newData);
-}
-
 void ModelDataLoader::databaseArtistsAdded(const ListArtistDataType &newData)
 {
     switch(d->mFilterType) {
@@ -405,11 +390,6 @@ void ModelDataLoader::databaseArtistsAdded(const ListArtistDataType &newData)
     case ModelDataLoader::FilterType::UnknownFilter:
         break;
     }
-}
-
-void ModelDataLoader::databaseArtistRemoved(qulonglong removedDatabaseId)
-{
-    Q_EMIT artistRemoved(removedDatabaseId);
 }
 
 void ModelDataLoader::databaseAlbumsAdded(const ListAlbumDataType &newData)
@@ -450,41 +430,6 @@ void ModelDataLoader::databaseAlbumsAdded(const ListAlbumDataType &newData)
     case ModelDataLoader::FilterType::UnknownFilter:
         break;
     }
-}
-
-void ModelDataLoader::databaseAlbumRemoved(qulonglong removedDatabaseId)
-{
-    Q_EMIT albumRemoved(removedDatabaseId);
-}
-
-void ModelDataLoader::databaseAlbumModified(const AlbumDataType &modifiedAlbum)
-{
-    Q_EMIT albumModified(modifiedAlbum);
-}
-
-void ModelDataLoader::updateRadioData(const TrackDataType &trackDataType)
-{
-    Q_EMIT saveRadioModified(trackDataType);
-}
-
-void ModelDataLoader::deleteRadioData(qulonglong radioId)
-{
-    Q_EMIT removeRadio(radioId);
-}
-
-void ModelDataLoader::databaseRadioAdded(TrackDataType radio)
-{
-    Q_EMIT radioAdded(radio);
-}
-
-void ModelDataLoader::databaseRadioModified(TrackDataType radio)
-{
-    Q_EMIT radioModified(radio);
-}
-
-void ModelDataLoader::databaseRadioRemoved(qulonglong radioId)
-{
-    Q_EMIT radioRemoved(radioId);
 }
 
 #include "moc_modeldataloader.cpp"

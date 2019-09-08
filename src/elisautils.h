@@ -54,8 +54,8 @@ enum PlayListEntryType {
     Composer,
     Track,
     FileName,
-    Unknown,
     Radio,
+    Unknown,
 };
 
 Q_ENUM_NS(PlayListEntryType)

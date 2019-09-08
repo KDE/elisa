@@ -277,6 +277,26 @@ void MusicListenersManager::playBackError(const QUrl &sourceInError, QMediaPlaye
     }
 }
 
+void MusicListenersManager::deleteElementById(ElisaUtils::PlayListEntryType entryType, qulonglong databaseId)
+{
+    switch(entryType)
+    {
+    case ElisaUtils::Radio:
+        QMetaObject::invokeMethod(&d->mDatabaseInterface, "removeRadio", Qt::QueuedConnection,
+                                  Q_ARG(qulonglong, databaseId));
+        break;
+    case ElisaUtils::Album:
+    case ElisaUtils::Artist:
+    case ElisaUtils::Genre:
+    case ElisaUtils::Lyricist:
+    case ElisaUtils::Composer:
+    case ElisaUtils::Track:
+    case ElisaUtils::FileName:
+    case ElisaUtils::Unknown:
+        break;
+    }
+}
+
 void MusicListenersManager::connectModel(ModelDataLoader *dataLoader)
 {
     dataLoader->moveToThread(&d->mDatabaseThread);

@@ -52,6 +52,13 @@ FocusScope {
 
         sourceComponent:  MediaTrackMetadataView {
             fileName: gridEntry.fileUrl ? gridEntry.fileUrl : ''
+            showImage: true
+            modelType: modelType
+            showTrackFileName: true
+            showDeleteButton: false
+            showApplyButton: false
+            editableMetadata: false
+
             onRejected: metadataLoader.active = false;
         }
     }

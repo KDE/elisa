@@ -140,6 +140,8 @@ public Q_SLOTS:
 
     void playBackError(const QUrl &sourceInError, QMediaPlayer::Error playerError);
 
+    void deleteElementById(ElisaUtils::PlayListEntryType entryType, qulonglong databaseId);
+
     void connectModel(ModelDataLoader *dataLoader);
 
     void resetMusicData();

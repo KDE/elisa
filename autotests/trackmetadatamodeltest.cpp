@@ -67,7 +67,7 @@ private Q_SLOTS:
         QCOMPARE(dataChangedSpy.count(), 0);
         QCOMPARE(beginRemovedRowsSpy.count(), 0);
         QCOMPARE(endRemovedRowsSpy.count(), 0);
-        QCOMPARE(myModel.rowCount(), 1);
+        QCOMPARE(myModel.rowCount(), 2);
     }
 
     void modifyTrackInDatabase()
@@ -107,7 +107,7 @@ private Q_SLOTS:
 
         auto trackId = musicDb.trackIdFromFileName(QUrl::fromLocalFile(QStringLiteral("/$1")));
 
-        myModel.initializeByTrackId(trackId);
+        myModel.initializeById(ElisaUtils::Track, trackId);
 
         QCOMPARE(beginResetSpy.count(), 1);
         QCOMPARE(endResetSpy.count(), 1);
@@ -116,7 +116,7 @@ private Q_SLOTS:
         QCOMPARE(dataChangedSpy.count(), 0);
         QCOMPARE(beginRemovedRowsSpy.count(), 0);
         QCOMPARE(endRemovedRowsSpy.count(), 0);
-        QCOMPARE(myModel.rowCount(), 11);
+        QCOMPARE(myModel.rowCount(), 12);
 
         musicDb.trackHasStartedPlaying(QUrl::fromLocalFile(QStringLiteral("/$2")), QDateTime::currentDateTime());
 
@@ -127,7 +127,7 @@ private Q_SLOTS:
         QCOMPARE(dataChangedSpy.count(), 0);
         QCOMPARE(beginRemovedRowsSpy.count(), 0);
         QCOMPARE(endRemovedRowsSpy.count(), 0);
-        QCOMPARE(myModel.rowCount(), 11);
+        QCOMPARE(myModel.rowCount(), 12);
 
         musicDb.trackHasStartedPlaying(QUrl::fromLocalFile(QStringLiteral("/$1")), QDateTime::currentDateTime());
 
@@ -138,7 +138,7 @@ private Q_SLOTS:
         QCOMPARE(dataChangedSpy.count(), 0);
         QCOMPARE(beginRemovedRowsSpy.count(), 0);
         QCOMPARE(endRemovedRowsSpy.count(), 0);
-        QCOMPARE(myModel.rowCount(), 12);
+        QCOMPARE(myModel.rowCount(), 13);
     }
 };
 

@@ -119,6 +119,7 @@ ListView {
                 containsMouse: item.containsMouse
 
                 databaseId: model.databaseId ? model.databaseId : 0
+                entryType: model.entryType ? model.entryType : ElisaUtils.Unknown
                 title: model.title ? model.title : ''
                 artist: model.artist ? model.artist : ''
                 album: model.album ? model.album : ''

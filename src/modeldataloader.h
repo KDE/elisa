@@ -122,35 +122,13 @@ public Q_SLOTS:
 
     void loadFrequentlyPlayedData(ElisaUtils::PlayListEntryType dataType);
 
-    void updateRadioData(const ModelDataLoader::TrackDataType &trackDataType);
-
-    void deleteRadioData(qulonglong radioId);
-
-private:
+private Q_SLOTS:
 
     void databaseTracksAdded(const ListTrackDataType &newData);
 
-    void databaseTrackModified(const TrackDataType &modifiedTrack);
-
-    void databaseTrackRemoved(qulonglong removedTrackId);
-
-    void databaseGenresAdded(const ListGenreDataType &newData);
-
     void databaseArtistsAdded(const ListArtistDataType &newData);
 
-    void databaseArtistRemoved(qulonglong removedDatabaseId);
-
     void databaseAlbumsAdded(const ListAlbumDataType &newData);
-
-    void databaseAlbumRemoved(qulonglong removedDatabaseId);
-
-    void databaseAlbumModified(const AlbumDataType &modifiedAlbum);
-
-    void databaseRadioAdded(const TrackDataType radio);
-
-    void databaseRadioModified(const TrackDataType radio);
-
-    void databaseRadioRemoved(qulonglong radioId);
 
 private:
 

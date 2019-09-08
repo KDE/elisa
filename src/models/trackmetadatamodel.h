@@ -44,6 +44,10 @@ class ELISALIB_EXPORT TrackMetadataModel : public QAbstractListModel
                READ fileUrl
                NOTIFY fileUrlChanged)
 
+    Q_PROPERTY(qulonglong databaseId
+               READ databaseId
+               NOTIFY databaseIdChanged)
+
     Q_PROPERTY(MusicListenersManager* manager
                READ manager
                WRITE setManager
@@ -52,11 +56,6 @@ class ELISALIB_EXPORT TrackMetadataModel : public QAbstractListModel
     Q_PROPERTY(QString lyrics
                READ lyrics
                NOTIFY lyricsChanged)
-
-    Q_PROPERTY(bool isRadio
-               READ isRadio
-               WRITE setIsRadio
-               NOTIFY isRadioChanged)
 
 public:
 
@@ -100,7 +99,7 @@ public:
 
     QString lyrics() const;
 
-    bool isRadio();
+    qulonglong databaseId() const;
 
 Q_SIGNALS:
 
@@ -120,21 +119,13 @@ Q_SIGNALS:
 
     void deleteRadioData(qulonglong radioId);
 
-    void disableApplyButton();
-
-    void hideDeleteButton();
-
-    void showDeleteButton();
-
-    void closeWindow();
-
-    void isRadioChanged();
+    void databaseIdChanged();
 
 public Q_SLOTS:
 
     void trackData(const TrackMetadataModel::TrackDataType &trackData);
 
-    void initializeByTrackId(qulonglong databaseId);
+    void initializeById(ElisaUtils::PlayListEntryType type, qulonglong databaseId);
 
     void initializeByTrackFileName(const QString &fileName);
 
@@ -142,23 +133,18 @@ public Q_SLOTS:
 
     void setManager(MusicListenersManager *newManager);
 
-    void setIsRadio(bool isRadio);
-
     void setDatabase(DatabaseInterface *trackDatabase);
 
     void saveData();
 
     void deleteRadio();
 
-    void radioAdded(const TrackMetadataModel::TrackDataType &radiosData);
-
-    void radioModified();
-
-    void radioRemoved();
+    void radioData(const TrackMetadataModel::TrackDataType &radiosData);
 
 protected:
 
-    void fillDataFromTrackData(const TrackMetadataModel::TrackDataType &trackData);
+    void fillDataFromTrackData(const TrackMetadataModel::TrackDataType &trackData,
+                               const QList<DatabaseInterface::ColumnsRoles> &fieldsForTrack);
 
     void fillDataForNewRadio();
 
@@ -181,10 +167,6 @@ private:
 
     void fetchLyrics();
 
-    QVariant dataGeneral(const QModelIndex &index, int role) const;
-
-    QVariant dataRadio(const QModelIndex &index, int role) const;
-
     TrackDataType mFullData;
 
     TrackDataType mTrackData;
@@ -193,13 +175,13 @@ private:
 
     QString mFileUrl;
 
+    qulonglong mDatabaseId = 0;
+
     QList<TrackDataType::key_type> mTrackKeys;
 
     ModelDataLoader mDataLoader;
 
     MusicListenersManager *mManager = nullptr;
-
-    bool mIsRadio = false;
 
     FileScanner mFileScanner;
 

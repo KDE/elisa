@@ -21,6 +21,7 @@ import QtQuick.Layouts 1.1
 import QtQuick.Window 2.2
 import org.kde.elisa 1.0
 import Qt.labs.settings 1.0
+import Qt.labs.platform 1.0 as NativeMenu
 
 ApplicationWindow {
     id: mainWindow
@@ -76,6 +77,11 @@ ApplicationWindow {
 
     ApplicationMenu {
         id: applicationMenu
+    }
+
+    NativeMenu.MenuBar {
+        NativeApplicationMenu {
+        }
     }
 
     SystemPalette {

@@ -94,6 +94,8 @@ int main(int argc, char *argv[])
 
     QApplication app(argc, argv);
 
+    KLocalizedString::setApplicationDomain("elisa");
+
 #if defined Qt5AndroidExtras_FOUND && Qt5AndroidExtras_FOUND
     qInfo() << QCoreApplication::arguments();
 
@@ -108,8 +110,6 @@ int main(int argc, char *argv[])
 #endif
 
     QApplication::setWindowIcon(QIcon::fromTheme(QStringLiteral("elisa")));
-
-    KLocalizedString::setApplicationDomain("elisa");
 
     KAboutData aboutData( QStringLiteral("elisa"),
                           i18n("Elisa"),
@@ -127,8 +127,6 @@ int main(int argc, char *argv[])
     aboutData.addCredit(QStringLiteral("Diego Gangl"), i18n("Various improvements to the interface"), QStringLiteral("diego@sinestesia.co"));
 
     KAboutData::setApplicationData(aboutData);
-
-    KLocalizedString::setApplicationDomain("elisa");
 
     QCommandLineParser parser;
     parser.addHelpOption();

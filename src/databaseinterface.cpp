@@ -6375,6 +6375,21 @@ DatabaseInterface::TrackDataType DatabaseInterface::buildTrackDataFromDatabaseRe
     if (!trackRecord.value(18).isNull()) {
         result[TrackDataType::key_type::LyricistRole] = trackRecord.value(18);
     }
+    if (!trackRecord.value(19).isNull()) {
+        result[TrackDataType::key_type::CommentRole] = trackRecord.value(19);
+    }
+    if (!trackRecord.value(20).isNull()) {
+        result[TrackDataType::key_type::YearRole] = trackRecord.value(20);
+    }
+    if (!trackRecord.value(21).isNull()) {
+        result[TrackDataType::key_type::ChannelsRole] = trackRecord.value(21);
+    }
+    if (!trackRecord.value(22).isNull()) {
+        result[TrackDataType::key_type::BitRateRole] = trackRecord.value(22);
+    }
+    if (!trackRecord.value(23).isNull()) {
+        result[TrackDataType::key_type::SampleRateRole] = trackRecord.value(23);
+    }
     result[TrackDataType::key_type::HasEmbeddedCover] = trackRecord.value(24);
     result[TrackDataType::key_type::FileModificationTime] = trackRecord.value(8);
     if (!trackRecord.value(26).isNull()) {

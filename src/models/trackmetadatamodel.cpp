@@ -333,8 +333,7 @@ void TrackMetadataModel::trackData(const TrackMetadataModel::TrackDataType &trac
                                                                  DatabaseInterface::RatingRole, DatabaseInterface::GenreRole,
                                                                  DatabaseInterface::LyricistRole, DatabaseInterface::ComposerRole,
                                                                  DatabaseInterface::CommentRole, DatabaseInterface::YearRole,
-                                                                 DatabaseInterface::LastPlayDate, DatabaseInterface::PlayCounter,
-                                                                 DatabaseInterface::DatabaseIdRole});
+                                                                 DatabaseInterface::LastPlayDate, DatabaseInterface::PlayCounter});
 
     fillDataFromTrackData(trackData, fieldsForTrack);
 }

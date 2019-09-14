@@ -57,7 +57,8 @@ private Q_SLOTS:
         QCOMPARE(myModel.rowCount(), 0);
 
         auto trackData = TrackMetadataModel::TrackDataType{{DatabaseInterface::DatabaseIdRole, 1},
-                                                           {DatabaseInterface::TitleRole, QStringLiteral("title")}};
+                                                           {DatabaseInterface::TitleRole, QStringLiteral("title")},
+                                                           {DatabaseInterface::AlbumRole, QStringLiteral("album")}};
         myModel.trackData(trackData);
 
         QCOMPARE(beginResetSpy.count(), 1);

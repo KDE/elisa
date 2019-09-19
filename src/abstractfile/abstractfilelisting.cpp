@@ -299,7 +299,7 @@ MusicAudioTrack AbstractFileListing::scanOneFile(const QUrl &scanFile, const QFi
     auto localFileName = scanFile.toLocalFile();
 
     const auto &fileMimeType = d->mMimeDb.mimeTypeForFile(localFileName);
-    if (!fileMimeType.name().startsWith(QStringLiteral("audio/"))) {
+    if (!fileMimeType.name().startsWith(QLatin1String("audio/"))) {
         return newTrack;
     }
 

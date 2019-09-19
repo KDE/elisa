@@ -81,7 +81,7 @@ MusicAudioTrack FileScanner::scanOneFile(const QUrl &scanFile, const QMimeDataba
     newTrack.setResourceURI(scanFile);
 
     const auto &fileMimeType = mimeDatabase.mimeTypeForFile(localFileName);
-    if (!fileMimeType.name().startsWith(QStringLiteral("audio/"))) {
+    if (!fileMimeType.name().startsWith(QLatin1String("audio/"))) {
         return newTrack;
     }
 
@@ -242,7 +242,7 @@ QUrl FileScanner::searchForCoverFile(const QString &localFileName)
     trackFileDir.setNameFilters(d->constSearchStrings);
     QFileInfoList coverFiles = trackFileDir.entryInfoList();
     if (coverFiles.isEmpty()) {
-        QString dirNamePattern = QStringLiteral("*") + trackFileDir.dirName() + QStringLiteral("*");
+        QString dirNamePattern = QLatin1String("*") + trackFileDir.dirName() + QLatin1String("*");
         QString dirNameNoSpaces = dirNamePattern.remove(QLatin1Char(' '));
         QStringList filters = {
             dirNamePattern + QStringLiteral(".jpg"),

@@ -52,9 +52,9 @@ void Mpris2::initDBusService()
     // following:
     if (!success) {
 #if defined Q_OS_WIN
-        success = QDBusConnection::sessionBus().registerService(mspris2Name + QStringLiteral(".instance") + QString::number(GetCurrentProcessId()));
+        success = QDBusConnection::sessionBus().registerService(mspris2Name + QLatin1String(".instance") + QString::number(GetCurrentProcessId()));
 #else
-        success = QDBusConnection::sessionBus().registerService(mspris2Name + QStringLiteral(".instance") + QString::number(getpid()));
+        success = QDBusConnection::sessionBus().registerService(mspris2Name + QLatin1String(".instance") + QString::number(getpid()));
 #endif
     }
 

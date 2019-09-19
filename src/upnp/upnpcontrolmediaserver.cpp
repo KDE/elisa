@@ -48,7 +48,7 @@ bool UpnpControlMediaServer::hasAVTransport() const
 
     auto servicesList(servicesName());
 
-    d->mHasAVTransport = servicesList.contains(QStringLiteral("urn:schemas-upnp-org:service:AVTransport:1.0"));
+    d->mHasAVTransport = servicesList.contains(QLatin1String("urn:schemas-upnp-org:service:AVTransport:1.0"));
     Q_EMIT hasAVTransportChanged();
 }*/
 

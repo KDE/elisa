@@ -89,9 +89,9 @@ void KCMElisaLocalFile::setRootPath(QStringList rootPath)
 
     mRootPath.clear();
     for (const auto &onePath : rootPath) {
-        if (onePath.startsWith(QStringLiteral("file:///"))) {
+        if (onePath.startsWith(QLatin1String("file:///"))) {
             mRootPath.push_back(onePath.mid(7));
-        } else if (onePath.startsWith(QStringLiteral("file:/"))) {
+        } else if (onePath.startsWith(QLatin1String("file:/"))) {
             mRootPath.push_back(onePath.mid(5));
         } else {
             mRootPath.push_back(onePath);

@@ -127,19 +127,19 @@ void AndroidMusicListener::newMusicTrack(const QString &trackDescription)
     auto newTrack = MusicAudioTrack{};
     newTrack.setTitle(trackData[1]);
     bool conversionOK = false;
-    if (trackData[2] != QStringLiteral("null")) {
+    if (trackData[2] != QLatin1String("null")) {
         newTrack.setTrackNumber(trackData[2].toInt(&conversionOK));
         if (!conversionOK) {
             qInfo() << "newMusicTrack" << trackData[1] << trackData[2];
         }
     }
-    if (trackData[3] != QStringLiteral("null")) {
+    if (trackData[3] != QLatin1String("null")) {
         newTrack.setYear(trackData[3].toInt(&conversionOK));
         if (!conversionOK) {
             qInfo() << "newMusicTrack" << trackData[1] << trackData[3];
         }
     }
-    if (trackData[4] != QStringLiteral("null")) {
+    if (trackData[4] != QLatin1String("null")) {
         newTrack.setDuration(QTime::fromMSecsSinceStartOfDay(trackData[4].toInt()));
     }
     newTrack.setResourceURI(QUrl::fromLocalFile(trackData[5]));
@@ -162,7 +162,7 @@ void AndroidMusicListener::newMusicAlbum(const QString &albumDescription)
 {
     auto albumData = albumDescription.split(QStringLiteral("||"));
 
-    if (albumData[2] != QStringLiteral("null)")) {
+    if (albumData[2] != QLatin1String("null)")) {
         d->mCovers[albumData[1]] = QUrl::fromLocalFile(albumData[2]);
     }
 }

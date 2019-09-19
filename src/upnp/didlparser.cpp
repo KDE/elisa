@@ -383,11 +383,11 @@ void DidlParser::decodeContainerNode(const QDomNode &containerNode, QHash<QStrin
 
 #if 0
     const QDomNode &classNode = containerNode.firstChildElement(QStringLiteral("upnp:class"));
-    if (classNode.toElement().text().startsWith(QStringLiteral("object.container.album.musicAlbum"))) {
+    if (classNode.toElement().text().startsWith(QLatin1String("object.container.album.musicAlbum"))) {
         chilData[ColumnsRoles::ItemClassRole] = DidlParser::Album;
-    } else if (classNode.toElement().text().startsWith(QStringLiteral("object.container.person.musicArtist"))) {
+    } else if (classNode.toElement().text().startsWith(QLatin1String("object.container.person.musicArtist"))) {
         chilData[ColumnsRoles::ItemClassRole] = DidlParser::Artist;
-    } else if (classNode.toElement().text().startsWith(QStringLiteral("object.container"))) {
+    } else if (classNode.toElement().text().startsWith(QLatin1String("object.container"))) {
         chilData[ColumnsRoles::ItemClassRole] = DidlParser::Container;
     }
 #endif
@@ -446,14 +446,14 @@ void DidlParser::decodeAudioTrackNode(const QDomNode &itemNode, QHash<QString, M
     const QDomNode &resourceNode = itemNode.firstChildElement(QStringLiteral("res"));
     if (!resourceNode.isNull()) {
         chilData.setResourceURI(QUrl::fromUserInput(resourceNode.toElement().text()));
-        if (resourceNode.attributes().contains(QStringLiteral("duration"))) {
+        if (resourceNode.attributes().contains(QLatin1String("duration"))) {
             const QDomNode &durationNode = resourceNode.attributes().namedItem(QStringLiteral("duration"));
             QString durationValue = durationNode.nodeValue();
-            if (durationValue.startsWith(QStringLiteral("0:"))) {
-                durationValue = durationValue.mid(2);
+            if (durationValue.startsWith(QLatin1String("0:"))) {
+                durationValue.remove(0, 2);
             }
             if (durationValue.contains(uint('.'))) {
-                durationValue = durationValue.split(QStringLiteral(".")).first();
+                durationValue = durationValue.split(QLatin1Char('.')).first();
             }
 
             chilData.setDuration(QTime::fromString(durationValue, QStringLiteral("mm:ss")));
@@ -471,7 +471,7 @@ void DidlParser::decodeAudioTrackNode(const QDomNode &itemNode, QHash<QString, M
         }
 
 #if 0
-        if (resourceNode.attributes().contains(QStringLiteral("artist"))) {
+        if (resourceNode.attributes().contains(QLatin1String("artist"))) {
             const QDomNode &artistNode = resourceNode.attributes().namedItem(QStringLiteral("artist"));
             //chilData[ColumnsRoles::ArtistRole] = artistNode.nodeValue();
         }

@@ -123,7 +123,7 @@ void UpnpControlContentDirectory::finishedGetSearchCapabilitiesCall(KDSoapPendin
     QString searchCaps;
 
     for (KDSoapValue oneValue : allValues) {
-        if (oneValue.name() == QStringLiteral("SearchCaps")) {
+        if (oneValue.name() == QLatin1String("SearchCaps")) {
             searchCaps = oneValue.value().toString();
         }
     }
@@ -142,7 +142,7 @@ void UpnpControlContentDirectory::finishedGetSortCapabilitiesCall(KDSoapPendingC
     QString sortCaps;
 
     for (KDSoapValue oneValue : allValues) {
-        if (oneValue.name() == QStringLiteral("SortCaps")) {
+        if (oneValue.name() == QLatin1String("SortCaps")) {
             sortCaps = oneValue.value().toString();
         }
     }
@@ -160,7 +160,7 @@ void UpnpControlContentDirectory::finishedGetSystemUpdateIDCall(KDSoapPendingCal
     auto allValues = answer.childValues();
 
     for (KDSoapValue oneValue : allValues) {
-        if (oneValue.name() == QStringLiteral("Id")) {
+        if (oneValue.name() == QLatin1String("Id")) {
             d->mSystemUpdateID = oneValue.value().toInt();
         }
     }
@@ -182,16 +182,16 @@ void UpnpControlContentDirectory::finishedSearchCall(KDSoapPendingCallWatcher *s
     int totalMatches = 0;
 
     for (KDSoapValue oneValue : allValues) {
-        if (oneValue.name() == QStringLiteral("Result")) {
+        if (oneValue.name() == QLatin1String("Result")) {
             result = oneValue.value().toString();
         }
-        if (oneValue.name() == QStringLiteral("NumberReturned")) {
+        if (oneValue.name() == QLatin1String("NumberReturned")) {
             numberReturned = oneValue.value().toInt();
         }
-        if (oneValue.name() == QStringLiteral("TotalMatches")) {
+        if (oneValue.name() == QLatin1String("TotalMatches")) {
             totalMatches = oneValue.value().toInt();
         }
-        if (oneValue.name() == QStringLiteral("UpdateID")) {
+        if (oneValue.name() == QLatin1String("UpdateID")) {
             d->mSystemUpdateID = oneValue.value().toInt();
         }
     }
@@ -215,16 +215,16 @@ void UpnpControlContentDirectory::finishedBrowseCall(KDSoapPendingCallWatcher *s
     int totalMatches = 0;
 
     for (KDSoapValue oneValue : allValues) {
-        if (oneValue.name() == QStringLiteral("Result")) {
+        if (oneValue.name() == QLatin1String("Result")) {
             result = oneValue.value().toString();
         }
-        if (oneValue.name() == QStringLiteral("NumberReturned")) {
+        if (oneValue.name() == QLatin1String("NumberReturned")) {
             numberReturned = oneValue.value().toInt();
         }
-        if (oneValue.name() == QStringLiteral("TotalMatches")) {
+        if (oneValue.name() == QLatin1String("TotalMatches")) {
             totalMatches = oneValue.value().toInt();
         }
-        if (oneValue.name() == QStringLiteral("UpdateID")) {
+        if (oneValue.name() == QLatin1String("UpdateID")) {
             d->mSystemUpdateID = oneValue.value().toInt();
         }
     }
@@ -244,7 +244,7 @@ void UpnpControlContentDirectory::parseServiceDescription(QIODevice *serviceDesc
 
     const QList<QString> &allVariables(stateVariables());
 
-    d->mHasTransferIDs = allVariables.contains(QStringLiteral("TransferIDs"));
+    d->mHasTransferIDs = allVariables.contains(QLatin1String("TransferIDs"));
     Q_EMIT hasTransferIDsChanged();
 
     //const QList<QString> &allActions(actions());
@@ -252,11 +252,11 @@ void UpnpControlContentDirectory::parseServiceDescription(QIODevice *serviceDesc
 
 void UpnpControlContentDirectory::parseEventNotification(const QString &eventName, const QString &eventValue)
 {
-    if (eventName == QStringLiteral("TransferIDs")) {
+    if (eventName == QLatin1String("TransferIDs")) {
         d->mTransferIDs = eventValue;
         Q_EMIT transferIDsChanged(d->mTransferIDs);
     }
-    if (eventName == QStringLiteral("SystemUpdateID")) {
+    if (eventName == QLatin1String("SystemUpdateID")) {
         d->mSystemUpdateID = eventValue.toInt();
         Q_EMIT systemUpdateIDChanged(d->mSystemUpdateID);
     }

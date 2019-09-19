@@ -124,10 +124,10 @@ void UpnpControlConnectionManager::finishedGetProtocolInfoCall(KDSoapPendingCall
     auto answer = self->returnMessage();
     auto allValues = answer.childValues();
     for (KDSoapValue oneValue : allValues) {
-        if (oneValue.name() == QStringLiteral("Source")) {
+        if (oneValue.name() == QLatin1String("Source")) {
             d->mSourceProtocolInfo = oneValue.value().toString();
         }
-        if (oneValue.name() == QStringLiteral("Sink")) {
+        if (oneValue.name() == QLatin1String("Sink")) {
             d->mSinkProtocolInfo = oneValue.value().toString();
         }
     }
@@ -182,25 +182,25 @@ void UpnpControlConnectionManager::finishedGetCurrentConnectionInfoCall(KDSoapPe
     QString connectionStatus;
 
     for (KDSoapValue oneValue : allValues) {
-        if (oneValue.name() == QStringLiteral("RcsID")) {
+        if (oneValue.name() == QLatin1String("RcsID")) {
             rcsID = oneValue.value().toInt();
         }
-        if (oneValue.name() == QStringLiteral("AVTransportID")) {
+        if (oneValue.name() == QLatin1String("AVTransportID")) {
             avTransportID = oneValue.value().toInt();
         }
-        if (oneValue.name() == QStringLiteral("protocolInfo")) {
+        if (oneValue.name() == QLatin1String("protocolInfo")) {
             protocolInfo = oneValue.value().toInt();
         }
-        if (oneValue.name() == QStringLiteral("PeerConnectionManager")) {
+        if (oneValue.name() == QLatin1String("PeerConnectionManager")) {
             connectionManager = oneValue.value().toInt();
         }
-        if (oneValue.name() == QStringLiteral("PeerConnectionID")) {
+        if (oneValue.name() == QLatin1String("PeerConnectionID")) {
             peerConnectionID = oneValue.value().toInt();
         }
-        if (oneValue.name() == QStringLiteral("Direction")) {
+        if (oneValue.name() == QLatin1String("Direction")) {
             direction = oneValue.value().toInt();
         }
-        if (oneValue.name() == QStringLiteral("Status")) {
+        if (oneValue.name() == QLatin1String("Status")) {
             connectionStatus = oneValue.value().toInt();
         }
     }
@@ -224,24 +224,24 @@ void UpnpControlConnectionManager::parseServiceDescription(QIODevice *serviceDes
 
     const QList<QString> &allActions(actions());
 
-    d->mHasPrepareForConnection = allActions.contains(QStringLiteral("PrepareForConnection"));
+    d->mHasPrepareForConnection = allActions.contains(QLatin1String("PrepareForConnection"));
     Q_EMIT hasPrepareForConnectionChanged();
 
-    d->mHasConnectionComplete = allActions.contains(QStringLiteral("ConnectionComplete"));
+    d->mHasConnectionComplete = allActions.contains(QLatin1String("ConnectionComplete"));
     Q_EMIT hasConnectionCompleteChanged();
 }
 
 void UpnpControlConnectionManager::parseEventNotification(const QString &eventName, const QString &eventValue)
 {
-    if (eventName == QStringLiteral("SourceProtocolInfo")) {
+    if (eventName == QLatin1String("SourceProtocolInfo")) {
         d->mSourceProtocolInfo = eventValue;
         Q_EMIT sourceProtocolInfoChanged(d->mSourceProtocolInfo);
     }
-    if (eventName == QStringLiteral("SinkProtocolInfo")) {
+    if (eventName == QLatin1String("SinkProtocolInfo")) {
         d->mSinkProtocolInfo = eventValue;
         Q_EMIT sinkProtocolInfoChanged(d->mSinkProtocolInfo);
     }
-    if (eventName == QStringLiteral("CurrentConnectionIDs")) {
+    if (eventName == QLatin1String("CurrentConnectionIDs")) {
         d->mCurrentConnectionIDs = eventValue;
         Q_EMIT currentConnectionIDsChanged(d->mCurrentConnectionIDs);
     }

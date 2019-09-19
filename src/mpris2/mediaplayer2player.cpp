@@ -381,7 +381,7 @@ int MediaPlayer2Player::currentTrack() const
 void MediaPlayer2Player::setCurrentTrack(int newTrackPosition)
 {
     m_currentTrack = m_manageAudioPlayer->playerSource().toString();
-    m_currentTrackId = QDBusObjectPath(QStringLiteral("/org/kde/elisa/playlist/") + QString::number(newTrackPosition)).path();
+    m_currentTrackId = QDBusObjectPath(QLatin1String("/org/kde/elisa/playlist/") + QString::number(newTrackPosition)).path();
 
     emit currentTrackChanged();
 }

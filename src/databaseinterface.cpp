@@ -1158,13 +1158,13 @@ void DatabaseInterface::initDatabase()
 {
     auto listTables = d->mTracksDatabase.tables();
 
-    if (listTables.contains(QStringLiteral("DatabaseVersionV2")) ||
-        listTables.contains(QStringLiteral("DatabaseVersionV3")) ||
-        listTables.contains(QStringLiteral("DatabaseVersionV4")) ||
-        listTables.contains(QStringLiteral("DatabaseVersionV6")) ||
-        listTables.contains(QStringLiteral("DatabaseVersionV7")) ||
-        listTables.contains(QStringLiteral("DatabaseVersionV8")) ||
-        listTables.contains(QStringLiteral("DatabaseVersionV10"))) {
+    if (listTables.contains(QLatin1String("DatabaseVersionV2")) ||
+        listTables.contains(QLatin1String("DatabaseVersionV3")) ||
+        listTables.contains(QLatin1String("DatabaseVersionV4")) ||
+        listTables.contains(QLatin1String("DatabaseVersionV6")) ||
+        listTables.contains(QLatin1String("DatabaseVersionV7")) ||
+        listTables.contains(QLatin1String("DatabaseVersionV8")) ||
+        listTables.contains(QLatin1String("DatabaseVersionV10"))) {
 
         qCDebug(orgKdeElisaDatabase()) << "Old database schema unsupported: delete and start from scratch";
         qCDebug(orgKdeElisaDatabase()) << "list of old tables" << d->mTracksDatabase.tables();
@@ -1195,7 +1195,7 @@ void DatabaseInterface::initDatabase()
 
             QSqlQuery createSchemaQuery(d->mTracksDatabase);
 
-            auto result = createSchemaQuery.exec(QStringLiteral("DROP TABLE ") + oneTable);
+            auto result = createSchemaQuery.exec(QLatin1String("DROP TABLE ") + oneTable);
 
             if (!result) {
                 qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDatabase" << createSchemaQuery.lastQuery();
@@ -1210,8 +1210,8 @@ void DatabaseInterface::initDatabase()
 
     listTables = d->mTracksDatabase.tables();
 
-    if (listTables.contains(QStringLiteral("DatabaseVersionV5")) &&
-        !listTables.contains(QStringLiteral("DatabaseVersionV9"))) {
+    if (listTables.contains(QLatin1String("DatabaseVersionV5")) &&
+        !listTables.contains(QLatin1String("DatabaseVersionV9"))) {
         upgradeDatabaseV9();
         upgradeDatabaseV11();
         upgradeDatabaseV12();
@@ -1219,17 +1219,17 @@ void DatabaseInterface::initDatabase()
         upgradeDatabaseV14();
 
         checkDatabaseSchema();
-    } else if (listTables.contains(QStringLiteral("DatabaseVersionV9"))) {
-        if (!listTables.contains(QStringLiteral("DatabaseVersionV11"))) {
+    } else if (listTables.contains(QLatin1String("DatabaseVersionV9"))) {
+        if (!listTables.contains(QLatin1String("DatabaseVersionV11"))) {
             upgradeDatabaseV11();
         }
-        if (!listTables.contains(QStringLiteral("DatabaseVersionV12"))) {
+        if (!listTables.contains(QLatin1String("DatabaseVersionV12"))) {
             upgradeDatabaseV12();
         }
-        if (!listTables.contains(QStringLiteral("DatabaseVersionV13"))) {
+        if (!listTables.contains(QLatin1String("DatabaseVersionV13"))) {
             upgradeDatabaseV13();
         }
-        if (!listTables.contains(QStringLiteral("DatabaseVersionV14"))) {
+        if (!listTables.contains(QLatin1String("DatabaseVersionV14"))) {
             upgradeDatabaseV14();
         }
 
@@ -6363,7 +6363,7 @@ DatabaseInterface::TrackDataType DatabaseInterface::buildTrackDataFromDatabaseRe
     if (!trackRecord.value(14).toString().isEmpty()) {
         result[TrackDataType::key_type::ImageUrlRole] = QUrl(trackRecord.value(14).toString());
     } else if (!trackRecord.value(30).toString().isEmpty()) {
-        result[TrackDataType::key_type::ImageUrlRole] = QVariant{QStringLiteral("image://cover/") + trackRecord.value(30).toUrl().toLocalFile()};
+        result[TrackDataType::key_type::ImageUrlRole] = QVariant{QLatin1String("image://cover/") + trackRecord.value(30).toUrl().toLocalFile()};
     }
     result[TrackDataType::key_type::IsSingleDiscAlbumRole] = trackRecord.value(15);
     if (!trackRecord.value(16).isNull()) {
@@ -7351,7 +7351,7 @@ DatabaseInterface::ListAlbumDataType DatabaseInterface::internalAllAlbumsPartial
         if (!currentRecord.value(3).toString().isEmpty()) {
             newData[DataType::key_type::ImageUrlRole] = currentRecord.value(3);
         } else if (!currentRecord.value(10).toString().isEmpty()) {
-            newData[DataType::key_type::ImageUrlRole] = QVariant{QStringLiteral("image://cover/") + currentRecord.value(10).toUrl().toLocalFile()};
+            newData[DataType::key_type::ImageUrlRole] = QVariant{QLatin1String("image://cover/") + currentRecord.value(10).toUrl().toLocalFile()};
         }
         auto allArtists = currentRecord.value(6).toString().split(QStringLiteral(", "));
         allArtists.removeDuplicates();
@@ -7399,7 +7399,7 @@ DatabaseInterface::AlbumDataType DatabaseInterface::internalOneAlbumPartialData(
         if (!currentRecord.value(4).toString().isEmpty()) {
             result[DataType::key_type::ImageUrlRole] = currentRecord.value(4);
         } else if (!currentRecord.value(11).toString().isEmpty()) {
-            result[DataType::key_type::ImageUrlRole] = QVariant{QStringLiteral("image://cover/") + currentRecord.value(11).toUrl().toLocalFile()};
+            result[DataType::key_type::ImageUrlRole] = QVariant{QLatin1String("image://cover/") + currentRecord.value(11).toUrl().toLocalFile()};
         }
 
         auto allArtists = currentRecord.value(8).toString().split(QStringLiteral(", "));

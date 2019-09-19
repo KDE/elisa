@@ -109,63 +109,63 @@ ElisaApplication::~ElisaApplication()
 void ElisaApplication::setupActions(const QString &actionName)
 {
 #if defined KF5XmlGui_FOUND && KF5XmlGui_FOUND
-    if (actionName == QStringLiteral("file_quit")) {
+    if (actionName == QLatin1String("file_quit")) {
         auto quitAction = KStandardAction::quit(QCoreApplication::instance(), &QCoreApplication::quit, &d->mCollection);
         d->mCollection.addAction(actionName, quitAction);
     }
 
-    if (actionName == QStringLiteral("help_contents") && KAuthorized::authorizeAction(actionName)) {
+    if (actionName == QLatin1String("help_contents") && KAuthorized::authorizeAction(actionName)) {
         auto handBookAction = KStandardAction::helpContents(this, &ElisaApplication::appHelpActivated, &d->mCollection);
         d->mCollection.addAction(handBookAction->objectName(), handBookAction);
     }
 
-    if (actionName == QStringLiteral("help_report_bug") && KAuthorized::authorizeAction(actionName) && !KAboutData::applicationData().bugAddress().isEmpty()) {
+    if (actionName == QLatin1String("help_report_bug") && KAuthorized::authorizeAction(actionName) && !KAboutData::applicationData().bugAddress().isEmpty()) {
         auto reportBugAction = KStandardAction::reportBug(this, &ElisaApplication::reportBug, &d->mCollection);
         d->mCollection.addAction(reportBugAction->objectName(), reportBugAction);
     }
 
-    if (actionName == QStringLiteral("help_about_app") && KAuthorized::authorizeAction(actionName)) {
+    if (actionName == QLatin1String("help_about_app") && KAuthorized::authorizeAction(actionName)) {
         auto aboutAppAction = KStandardAction::aboutApp(this, &ElisaApplication::aboutApplication, this);
         d->mCollection.addAction(aboutAppAction->objectName(), aboutAppAction);
     }
 
-    if (actionName == QStringLiteral("options_configure") && KAuthorized::authorizeAction(actionName)) {
+    if (actionName == QLatin1String("options_configure") && KAuthorized::authorizeAction(actionName)) {
         auto preferencesAction = KStandardAction::preferences(this, &ElisaApplication::configureElisa, this);
         d->mCollection.addAction(preferencesAction->objectName(), preferencesAction);
     }
 
-    if (actionName == QStringLiteral("options_configure_keybinding") && KAuthorized::authorizeAction(actionName)) {
+    if (actionName == QLatin1String("options_configure_keybinding") && KAuthorized::authorizeAction(actionName)) {
         auto keyBindingsAction = KStandardAction::keyBindings(this, &ElisaApplication::configureShortcuts, this);
         d->mCollection.addAction(keyBindingsAction->objectName(), keyBindingsAction);
     }
 
-    if (actionName == QStringLiteral("go_back") && KAuthorized::authorizeAction(actionName)) {
+    if (actionName == QLatin1String("go_back") && KAuthorized::authorizeAction(actionName)) {
         auto goBackAction = KStandardAction::back(this, &ElisaApplication::goBack, this);
         d->mCollection.addAction(goBackAction->objectName(), goBackAction);
     }
 
-    if (actionName == QStringLiteral("toggle_playlist") && KAuthorized::authorizeAction(actionName)) {
+    if (actionName == QLatin1String("toggle_playlist") && KAuthorized::authorizeAction(actionName)) {
         auto togglePlaylistAction = d->mCollection.addAction(actionName, this, &ElisaApplication::togglePlaylist);
         togglePlaylistAction->setShortcut(QKeySequence(Qt::Key_F9));
         togglePlaylistAction->setText(QStringLiteral("Toggle Playlist"));
     }
 
-    if (actionName == QStringLiteral("Seek") && KAuthorized::authorizeAction(actionName)) {
+    if (actionName == QLatin1String("Seek") && KAuthorized::authorizeAction(actionName)) {
             auto seekAction = d->mCollection.addAction(actionName, this, &ElisaApplication::seek);
             d->mCollection.setDefaultShortcut(seekAction, QKeySequence(Qt::SHIFT + Qt::Key_Right));
     }
 
-    if (actionName == QStringLiteral("Scrub") && KAuthorized::authorizeAction(actionName)) {
+    if (actionName == QLatin1String("Scrub") && KAuthorized::authorizeAction(actionName)) {
             auto scrubAction = d->mCollection.addAction(actionName, this, &ElisaApplication::scrub);
             d->mCollection.setDefaultShortcut(scrubAction, QKeySequence(Qt::SHIFT + Qt::Key_Left));
     }
 
-    if (actionName == QStringLiteral("Play-Pause") && KAuthorized::authorizeAction(actionName)) {
+    if (actionName == QLatin1String("Play-Pause") && KAuthorized::authorizeAction(actionName)) {
             auto playPauseAction = d->mCollection.addAction(actionName, this, &ElisaApplication::playPause);
             d->mCollection.setDefaultShortcut(playPauseAction, QKeySequence(Qt::Key_Space));
     }
 
-    if (actionName == QStringLiteral("edit_find") && KAuthorized::authorizeAction(actionName)) {
+    if (actionName == QLatin1String("edit_find") && KAuthorized::authorizeAction(actionName)) {
         auto findAction = KStandardAction::find(this, &ElisaApplication::find, this);
         d->mCollection.addAction(findAction->objectName(), findAction);
     }
@@ -294,7 +294,7 @@ ElisaUtils::EntryDataList ElisaApplication::checkFileListAndMakeAbsolute(const E
         auto newFile = QFileInfo(std::get<1>(oneFile));
 
         if (newFile.isRelative()) {
-            newFile = QFileInfo(workingDirectory + QStringLiteral("/") + std::get<1>(oneFile));
+            newFile = QFileInfo(workingDirectory + QLatin1String("/") + std::get<1>(oneFile));
         }
 
         if (newFile.exists()) {

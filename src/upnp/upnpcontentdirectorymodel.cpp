@@ -240,7 +240,7 @@ QModelIndex UpnpContentDirectoryModel::parent(const QModelIndex &child) const
     auto parentInternalId = d->mUpnpIds[parentStringId];
 
     // special case if we are already at top of model
-    if (parentStringId == QStringLiteral("0")) {
+    if (parentStringId == QLatin1Char('0')) {
         return createIndex(0, 0, parentInternalId);
     }
 
@@ -325,7 +325,7 @@ void UpnpContentDirectoryModel::fetchMore(const QModelIndex &parent)
         return;
     }
 
-    if (d->mData[parentInternalId][ColumnsRoles::IdRole].toString() == QStringLiteral("0")) {
+    if (d->mData[parentInternalId][ColumnsRoles::IdRole].toString() == QLatin1Char('0')) {
         d->mContentDirectory->search(d->mData[parentInternalId][ColumnsRoles::IdRole].toString(),
                 QStringLiteral("upnp:class derivedfrom \"object.container.album\""), d->mFilter, 0, 0, d->mSortCriteria);
     } else {
@@ -497,11 +497,11 @@ void UpnpContentDirectoryModel::browseFinished(const QString &result, int number
             }
 
             const QDomNode &classNode = containerNode.firstChildElement(QStringLiteral("upnp:class"));
-            if (classNode.toElement().text().startsWith(QStringLiteral("object.item.audioItem"))) {
+            if (classNode.toElement().text().startsWith(QLatin1String("object.item.audioItem"))) {
                 chilData[ColumnsRoles::ItemClassRole] = UpnpContentDirectoryModel::AudioTrack;
-            } else if (classNode.toElement().text().startsWith(QStringLiteral("object.container.album"))) {
+            } else if (classNode.toElement().text().startsWith(QLatin1String("object.container.album"))) {
                 chilData[ColumnsRoles::ItemClassRole] = UpnpContentDirectoryModel::Album;
-            } else if (classNode.toElement().text().startsWith(QStringLiteral("object.container"))) {
+            } else if (classNode.toElement().text().startsWith(QLatin1String("object.container"))) {
                 chilData[ColumnsRoles::ItemClassRole] = UpnpContentDirectoryModel::Container;
             }
 
@@ -557,19 +557,19 @@ void UpnpContentDirectoryModel::browseFinished(const QString &result, int number
             const QDomNode &resourceNode = itemNode.firstChildElement(QStringLiteral("res"));
             if (!resourceNode.isNull()) {
                 chilData[ColumnsRoles::ResourceRole] = resourceNode.toElement().text();
-                if (resourceNode.attributes().contains(QStringLiteral("duration"))) {
+                if (resourceNode.attributes().contains(QLatin1String("duration"))) {
                     const QDomNode &durationNode = resourceNode.attributes().namedItem(QStringLiteral("duration"));
                     QString durationValue = durationNode.nodeValue();
-                    if (durationValue.startsWith(QStringLiteral("0:"))) {
-                        durationValue = durationValue.mid(2);
+                    if (durationValue.startsWith(QLatin1String("0:"))) {
+                        durationValue.remove(0, 2);
                     }
                     if (durationValue.contains(uint('.'))) {
-                        durationValue = durationValue.split(QStringLiteral(".")).first();
+                        durationValue = durationValue.split(QLatin1Char('.')).first();
                     }
 
                     chilData[ColumnsRoles::DurationRole] = durationValue;
                 }
-                if (resourceNode.attributes().contains(QStringLiteral("artist"))) {
+                if (resourceNode.attributes().contains(QLatin1String("artist"))) {
                     const QDomNode &artistNode = resourceNode.attributes().namedItem(QStringLiteral("artist"));
                     chilData[ColumnsRoles::ArtistRole] = artistNode.nodeValue();
                 }
@@ -577,11 +577,11 @@ void UpnpContentDirectoryModel::browseFinished(const QString &result, int number
 
             const QDomNode &classNode = itemNode.firstChildElement(QStringLiteral("upnp:class"));
             if (!classNode.isNull()) {
-                if (classNode.toElement().text().startsWith(QStringLiteral("object.item.audioItem"))) {
+                if (classNode.toElement().text().startsWith(QLatin1String("object.item.audioItem"))) {
                     chilData[ColumnsRoles::ItemClassRole] = UpnpContentDirectoryModel::AudioTrack;
-                } else if (classNode.toElement().text().startsWith(QStringLiteral("object.container.album"))) {
+                } else if (classNode.toElement().text().startsWith(QLatin1String("object.container.album"))) {
                     chilData[ColumnsRoles::ItemClassRole] = UpnpContentDirectoryModel::Album;
-                } else if (classNode.toElement().text().startsWith(QStringLiteral("object.container"))) {
+                } else if (classNode.toElement().text().startsWith(QLatin1String("object.container"))) {
                     chilData[ColumnsRoles::ItemClassRole] = UpnpContentDirectoryModel::Container;
                 }
             }

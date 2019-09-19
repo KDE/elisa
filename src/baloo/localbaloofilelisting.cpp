@@ -135,7 +135,7 @@ void LocalBalooFileListing::newBalooFile(const QString &fileName)
     }
 
     const auto &fileMimeType = mimeDatabase().mimeTypeForFile(fileName);
-    if (!fileMimeType.name().startsWith(QStringLiteral("audio/"))) {
+    if (!fileMimeType.name().startsWith(QLatin1String("audio/"))) {
         return;
     }
 
@@ -275,7 +275,7 @@ void LocalBalooFileListing::serviceOwnerChanged(const QString &serviceName, cons
 
     qCDebug(orgKdeElisaBaloo) << "LocalBalooFileListing::serviceOwnerChanged" << serviceName << oldOwner << newOwner;
 
-    if (serviceName == QStringLiteral("org.kde.baloo") && !newOwner.isEmpty()) {
+    if (serviceName == QLatin1String("org.kde.baloo") && !newOwner.isEmpty()) {
         d->mIsRegisteredToBaloo = false;
         d->mIsRegisteredToBalooWatcher = false;
         registerToBaloo();
@@ -286,7 +286,7 @@ void LocalBalooFileListing::serviceRegistered(const QString &serviceName)
 {
     qCDebug(orgKdeElisaBaloo) << "LocalBalooFileListing::serviceRegistered" << serviceName;
 
-    if (serviceName == QStringLiteral("org.kde.baloo")) {
+    if (serviceName == QLatin1String("org.kde.baloo")) {
         registerToBaloo();
     }
 }
@@ -295,7 +295,7 @@ void LocalBalooFileListing::serviceUnregistered(const QString &serviceName)
 {
     qCDebug(orgKdeElisaBaloo) << "LocalBalooFileListing::serviceUnregistered" << serviceName;
 
-    if (serviceName == QStringLiteral("org.kde.baloo")) {
+    if (serviceName == QLatin1String("org.kde.baloo")) {
         d->mIsRegisteredToBaloo = false;
         d->mIsRegisteredToBalooWatcher = false;
     }

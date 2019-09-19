@@ -202,7 +202,7 @@ void UpnpDiscoverAllMusic::contentChanged(const QString &uuid, const QString &pa
         return;
     }
 
-    if (parentId == QStringLiteral("0")) {
+    if (parentId == QLatin1Char('0')) {
         auto currentDidlParser = d->mDidlParsers[uuid];
         if (!currentDidlParser) {
             return;

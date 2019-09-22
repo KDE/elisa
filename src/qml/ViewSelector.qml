@@ -4,8 +4,8 @@
    SPDX-License-Identifier: LGPL-3.0-or-later
  */
 
-import QtQuick 2.7
-import QtQuick.Controls 2.2
+import QtQuick 2.11
+import QtQuick.Controls 2.4
 import QtQml.Models 2.2
 import QtGraphicalEffects 1.0
 import org.kde.kirigami 2.5 as Kirigami
@@ -29,64 +29,68 @@ FocusScope {
 
     implicitWidth: 225
 
-    ScrollView {
-        focus: true
+    ListView {
+        id: viewModeView
 
         anchors.fill: parent
-        z: 2
 
-        clip: true
-        ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+        Accessible.role: Accessible.List
 
-        ListView {
-            id: viewModeView
+        focus: true
 
-            Accessible.role: Accessible.List
+        activeFocusOnTab: true
+        keyNavigationEnabled: true
+        interactive: true
 
-            focus: true
-            activeFocusOnTab: true
-            keyNavigationEnabled: true
-
-            property bool ignoreCurrentItemChanges: false
-
-            z: 2
+        ScrollBar.vertical: ScrollBar {
+            id: scrollBar
 
             anchors.topMargin: Kirigami.Units.largeSpacing * 2
 
-            model: DelegateModel {
-                id: pageDelegateModel
-
-                delegate: ViewSelectorDelegate {
-                    id: entry
-
-                    height: Kirigami.Units.iconSizes.smallMedium + 3 * Kirigami.Units.smallSpacing
-                    width: viewModeView.width
-
-                    focus: true
-
-                    isSelected: viewModeView.currentIndex === index
-
-                    onClicked: {
-                        viewModeView.currentIndex = index
-                        entry.forceActiveFocus()
-                    }
-                }
-            }
-
-            footer: MouseArea {
-                width: viewModeView.width
-                height: viewModeView.height - y
-
-                acceptedButtons: Qt.LeftButton
-
-                onClicked:
-                {
-                    rootFocusScope.focus = true
-                }
-            }
-
-            onCurrentItemChanged: if (!ignoreCurrentItemChanges) switchView(currentIndex)
+            policy: ScrollBar.AlwaysOn
+            active: true
+            interactive: true
         }
+
+        boundsBehavior: Flickable.StopAtBounds
+        clip: true
+
+        ScrollHelper {
+            id: scrollHelper
+            flickable: viewModeView
+            anchors.fill: viewModeView
+        }
+
+        property bool ignoreCurrentItemChanges: false
+
+        model: DelegateModel {
+            id: pageDelegateModel
+
+            delegate: ViewSelectorDelegate {
+                id: entry
+
+                height: Kirigami.Units.iconSizes.smallMedium + 3 * Kirigami.Units.smallSpacing
+                width: viewModeView.width
+
+                focus: true
+
+                isSelected: viewModeView.currentIndex === index
+
+                colorizeIcon: model.useColorOverlay
+                image: model.image
+                title: model.display
+                secondTitle: model.secondTitle
+                useSecondTitle: model.useSecondTitle
+                databaseId: model.databaseId
+
+                onClicked: {
+                    viewModeView.currentIndex = index
+                    entry.forceActiveFocus()
+                }
+            }
+        }
+
+        onCurrentItemChanged: if (!ignoreCurrentItemChanges) switchView(currentIndex)
     }
 
     Connections {

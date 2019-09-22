@@ -13,6 +13,12 @@ FocusScope {
     id: rootItem
 
     property bool isSelected
+    property alias colorizeIcon: viewIcon.colorizeIcon
+    property string title
+    property alias image: viewIcon.source
+    property int databaseId
+    property string secondTitle
+    property bool useSecondTitle
 
     signal clicked()
 
@@ -20,20 +26,22 @@ FocusScope {
         id: backgroundHighlight
 
         anchors.fill: parent
-        z: 1
+
+        z: 0
 
         color: "transparent"
     }
 
     Accessible.role: Accessible.ListItem
-    Accessible.description: model.display
-    Accessible.name: model.display
+    Accessible.description: title
+    Accessible.name: title
 
     MouseArea {
         id: hoverArea
 
         anchors.fill: parent
-        z: 2
+
+        z: 1
 
         hoverEnabled: true
         acceptedButtons: Qt.LeftButton
@@ -50,11 +58,11 @@ FocusScope {
 
             sourceComponent: ToolTip {
                 delay: Qt.styleHints.mousePressAndHoldInterval
-                text: model.display
+                text: title
                 visible: hoverArea && hoverArea.containsMouse && !nameLabel.visible
 
                 contentItem: Label {
-                    text: model.display
+                    text: title
                     color: myPalette.highlightedText
                 }
 
@@ -80,7 +88,9 @@ FocusScope {
         Image {
             id: viewIcon
 
-            z: 2
+            property bool colorizeIcon
+
+            z: 1
 
             anchors {
                 verticalCenter: parent.verticalCenter
@@ -96,9 +106,7 @@ FocusScope {
                 height: Kirigami.Units.iconSizes.smallMedium
             }
 
-            source: model.image
-
-            layer.enabled: true
+            layer.enabled: viewIcon.colorizeIcon
             layer.effect:  ColorOverlay {
                 color: nameLabel.color
             }
@@ -107,8 +115,6 @@ FocusScope {
         LabelWithToolTip {
             id: nameLabel
 
-            z: 2
-
             anchors.verticalCenter: parent.verticalCenter
             anchors.leftMargin: Kirigami.Units.largeSpacing
             anchors.left: viewIcon.right
@@ -116,7 +122,7 @@ FocusScope {
             anchors.rightMargin: Kirigami.Units.largeSpacing
             verticalAlignment: "AlignVCenter"
 
-            text: model.display
+            text: title
             elide: Text.ElideRight
 
             opacity: textOpacity

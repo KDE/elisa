@@ -15,6 +15,11 @@ public:
 
     ViewsListData *mViewsData = nullptr;
 
+    ElisaUtils::PlayListEntryType mEmbeddedCategory = ElisaUtils::Unknown;
+
+    QMap<ElisaUtils::PlayListEntryType, QUrl> mDefaultIcons = {{ElisaUtils::Album, QUrl{QStringLiteral("image://icon/view-media-album-cover")}},
+                                                               {ElisaUtils::Artist, QUrl{QStringLiteral("image://icon/view-media-artist")}},
+                                                               {ElisaUtils::Genre, QUrl{QStringLiteral("image://icon/view-media-genre")}},};
 };
 
 ViewsModel::ViewsModel(QObject *parent)
@@ -29,6 +34,10 @@ QHash<int, QByteArray> ViewsModel::roleNames() const
     auto result = QAbstractListModel::roleNames();
 
     result[ImageNameRole] = "image";
+    result[UseColorOverlayRole] = "useColorOverlay";
+    result[DatabaseIdRole] = "databaseId";
+    result[UseSecondTitleRole] = "useSecondTitle";
+    result[SecondTitleRole] = "secondTitle";
 
     return result;
 }
@@ -75,6 +84,18 @@ QVariant ViewsModel::data(const QModelIndex &index, int role) const
     case ColumnRoles::ImageNameRole:
         result = d->mViewsData->iconUrl(index.row());
         break;
+    case ColumnRoles::UseColorOverlayRole:
+        result = d->mViewsData->iconUseColorOverlay(index.row());
+        break;
+    case ColumnRoles::DatabaseIdRole:
+        result = d->mViewsData->databaseId(index.row());
+        break;
+    case ColumnRoles::SecondTitleRole:
+        result = d->mViewsData->secondTitle(index.row());
+        break;
+    case ColumnRoles::UseSecondTitleRole:
+        result = d->mViewsData->useSecondTitle(index.row());
+        break;
     }
 
     return result;
@@ -117,10 +138,52 @@ void ViewsModel::setViewsData(ViewsListData *viewsData)
         return;
     }
 
-    beginResetModel();
+    if (viewsData) {
+        beginResetModel();
+    }
+
     d->mViewsData = viewsData;
     Q_EMIT viewsDataChanged();
-    endResetModel();
+
+    if (d->mViewsData) {
+        connect(d->mViewsData, &ViewsListData::dataAboutToBeAdded,
+                this, &ViewsModel::dataAboutToBeAdded);
+        connect(d->mViewsData, &ViewsListData::dataAdded,
+                this, &ViewsModel::dataAdded);
+        connect(d->mViewsData, &ViewsListData::dataAboutToBeRemoved,
+                this, &ViewsModel::dataAboutToBeRemoved);
+        connect(d->mViewsData, &ViewsListData::dataRemoved,
+                this, &ViewsModel::dataRemoved);
+        connect(d->mViewsData, &ViewsListData::dataModified,
+                this, &ViewsModel::dataModified);
+
+        endResetModel();
+    }
+}
+
+void ViewsModel::dataAboutToBeAdded(int startIndex, int lastIndex)
+{
+    beginInsertRows({}, startIndex, lastIndex);
+}
+
+void ViewsModel::dataAdded()
+{
+    endInsertRows();
+}
+
+void ViewsModel::dataAboutToBeRemoved(int startIndex, int lastIndex)
+{
+    beginRemoveRows({}, startIndex, lastIndex);
+}
+
+void ViewsModel::dataRemoved()
+{
+    endRemoveRows();
+}
+
+void ViewsModel::dataModified(int currentIndex)
+{
+    Q_EMIT dataChanged(index(currentIndex, 0), index(currentIndex, 0));
 }
 
 

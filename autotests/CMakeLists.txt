@@ -75,8 +75,6 @@ set(mediaplaylistTest_SOURCES
     ../src/elisautils.cpp
 )
 
-ecm_qt_declare_logging_category(mediaplaylistTest_SOURCES HEADER elisa_debug.h IDENTIFIER lcModelTest CATEGORY_NAME qt.modeltest)
-
 ecm_add_test(${mediaplaylistTest_SOURCES}
     TEST_NAME "mediaplaylistTest"
     LINK_LIBRARIES
@@ -117,8 +115,6 @@ set(datamodeltest_SOURCES
     datamodeltest.cpp
 )
 
-ecm_qt_declare_logging_category(datamodeltest_SOURCES HEADER elisa_debug.h IDENTIFIER lcModelTest CATEGORY_NAME qt.modeltest)
-
 ecm_add_test(${datamodeltest_SOURCES}
     TEST_NAME "datamodeltest"
     LINK_LIBRARIES
@@ -127,11 +123,21 @@ ecm_add_test(${datamodeltest_SOURCES}
 
 target_include_directories(datamodeltest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 
+set(viewsmodeltest_SOURCES
+    viewsmodeltest.cpp
+)
+
+ecm_add_test(${viewsmodeltest_SOURCES}
+    TEST_NAME "viewsmodeltest"
+    LINK_LIBRARIES
+        Qt5::Test elisaLib Qt5::CorePrivate
+)
+
+target_include_directories(viewsmodeltest PRIVATE ${CMAKE_SOURCE_DIR}/src)
+
 set(trackmetadatamodeltest_SOURCES
     trackmetadatamodeltest.cpp
 )
-
-ecm_qt_declare_logging_category(trackmetadatamodeltest_SOURCES HEADER elisa_debug.h IDENTIFIER lcModelTest CATEGORY_NAME qt.modeltest)
 
 ecm_add_test(${trackmetadatamodeltest_SOURCES}
     TEST_NAME "trackmetadatamodeltest"

@@ -42,6 +42,10 @@ class ELISALIB_EXPORT ElisaApplication : public QObject
                WRITE setArguments
                NOTIFY argumentsChanged)
 
+    Q_PROPERTY(ElisaUtils::PlayListEntryType embeddedView
+               READ embeddedView
+               NOTIFY embeddedViewChanged)
+
     Q_PROPERTY(MusicListenersManager *musicManager
                READ musicManager
                NOTIFY musicManagerChanged)
@@ -113,6 +117,8 @@ public:
 
     bool showSystemTrayIcon() const;
 
+    ElisaUtils::PlayListEntryType embeddedView() const;
+
 Q_SIGNALS:
 
     void argumentsChanged();
@@ -142,6 +148,8 @@ Q_SIGNALS:
     void showSystemTrayIconChanged();
 
     void commitDataRequest(QSessionManager &manager);
+
+    void embeddedViewChanged();
 
 public Q_SLOTS:
 

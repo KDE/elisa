@@ -138,6 +138,9 @@ private:
 
     void openViewFromData(const ViewParameters &viewParamaters);
 
+    void applyFilter(ViewParameters &nextViewParameters,
+                     QString title, const ViewParameters &lastView) const;
+
 private:
 
     std::unique_ptr<ViewManagerPrivate> d;

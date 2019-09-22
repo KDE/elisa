@@ -19,6 +19,8 @@
 
 class QUrl;
 class QString;
+class MusicListenersManager;
+class DatabaseInterface;
 class ViewsListDataPrivate;
 
 class ViewParameters
@@ -126,6 +128,64 @@ public:
     {
     }
 
+    ViewParameters(QString mainTitle,
+                   QUrl mainImage,
+                   ViewManager::ViewPresentationType viewPresentationType,
+                   ViewManager::ModelType modelType,
+                   ElisaUtils::FilterType filterType,
+                   qulonglong databaseId,
+                   ElisaUtils::PlayListEntryType dataType,
+                   ElisaUtils::PlayListEntryType entryType,
+                   QUrl fallbackItemIcon,
+                   ViewManager::DelegateUseSecondaryText showSecondaryTextOnDelegates,
+                   ViewManager::ViewCanBeRated viewCanBeRated)
+        : mMainTitle(std::move(mainTitle))
+        , mMainImage(std::move(mainImage))
+        , mViewPresentationType(viewPresentationType)
+        , mModelType(modelType)
+        , mFilterType(filterType)
+        , mDataType(dataType)
+        , mEntryType(entryType)
+        , mFallbackItemIcon(fallbackItemIcon)
+        , mShowSecondaryTextOnDelegates(showSecondaryTextOnDelegates)
+        , mViewCanBeRated(viewCanBeRated)
+        , mIsValid(true)
+    {
+        mDataFilter = {{DataTypes::DatabaseIdRole, databaseId}};
+    }
+
+    ViewParameters(QString mainTitle,
+                   QUrl mainImage,
+                   ViewManager::ViewPresentationType viewPresentationType,
+                   ViewManager::ModelType modelType,
+                   ElisaUtils::FilterType filterType,
+                   qulonglong databaseId,
+                   ElisaUtils::PlayListEntryType dataType,
+                   ElisaUtils::PlayListEntryType entryType,
+                   int sortRole,
+                   Qt::SortOrder sortOrder,
+                   ViewManager::AlbumCardinality albumCardinality,
+                   ViewManager::AlbumViewStyle albumViewStyle,
+                   ViewManager::RadioSpecificStyle radioSpecificStyle,
+                   ElisaUtils::IconUseColorOverlay iconUseColorOverlay)
+        : mMainTitle(std::move(mainTitle))
+        , mMainImage(std::move(mainImage))
+        , mViewPresentationType(viewPresentationType)
+        , mModelType(modelType)
+        , mFilterType(filterType)
+        , mDataType(dataType)
+        , mEntryType(entryType)
+        , mSortRole(sortRole)
+        , mSortOrder(sortOrder)
+        , mAlbumCardinality(albumCardinality)
+        , mAlbumViewStyle(albumViewStyle)
+        , mRadioSpecificStyle(radioSpecificStyle)
+        , mIconUseColorOverlay(iconUseColorOverlay)
+        , mIsValid(true)
+    {
+        mDataFilter = {{DataTypes::DatabaseIdRole, databaseId}};
+    }
+
     bool operator==(const ViewParameters &other) const {
         return mMainTitle == other.mMainTitle && mMainImage == other.mMainImage &&
                 mSecondaryTitle == other.mSecondaryTitle && mViewPresentationType == other.mViewPresentationType &&
@@ -164,6 +224,8 @@ public:
 
     ElisaUtils::PlayListEntryType mDataType = ElisaUtils::Unknown;
 
+    ElisaUtils::PlayListEntryType mEntryType = ElisaUtils::Unknown;
+
     QUrl mFallbackItemIcon;
 
     ViewManager::DelegateUseSecondaryText mShowSecondaryTextOnDelegates = ViewManager::DelegateWithSecondaryText;
@@ -184,7 +246,11 @@ public:
 
     int mDepth = 1;
 
-    DataTypes::DataType mDataFilter;
+    DataTypes::MusicDataType mDataFilter;
+
+    ElisaUtils::IconUseColorOverlay mIconUseColorOverlay = ElisaUtils::UseColorOverlay;
+
+    bool mUseSecondTitle = false;
 
     bool mIsValid = false;
 };
@@ -193,8 +259,22 @@ class ELISALIB_EXPORT ViewsListData : public QObject
 {
     Q_OBJECT
 
-public:
+    Q_PROPERTY(ElisaUtils::PlayListEntryType embeddedCategory
+               READ embeddedCategory
+               WRITE setEmbeddedCategory
+               NOTIFY embeddedCategoryChanged)
 
+    Q_PROPERTY(MusicListenersManager* manager
+               READ manager
+               WRITE setManager
+               NOTIFY managerChanged)
+
+    Q_PROPERTY(DatabaseInterface* database
+               READ database
+               WRITE setDatabase
+               NOTIFY databaseChanged)
+
+public:
     explicit ViewsListData(QObject *parent = nullptr);
 
     ~ViewsListData();
@@ -207,11 +287,67 @@ public:
 
     const QUrl& iconUrl(int index) const;
 
+    const QString& secondTitle(int index) const;
+
+    bool useSecondTitle(int index) const;
+
+    ElisaUtils::IconUseColorOverlay iconUseColorOverlay(int index) const;
+
+    qulonglong databaseId(int index) const;
+
+    int indexFromEmbeddedDatabaseId(qulonglong databaseId) const;
+
+    int indexFromEmbeddedName(const QString &name) const;
+
+    ElisaUtils::PlayListEntryType embeddedCategory() const;
+
+    MusicListenersManager* manager() const;
+
+    DatabaseInterface* database() const;
+
 Q_SIGNALS:
+
+    void embeddedCategoryChanged();
+
+    void managerChanged();
+
+    void databaseChanged();
+
+    void needData(ElisaUtils::PlayListEntryType dataType);
+
+    void dataAboutToBeAdded(int startIndex, int endIndex);
+
+    void dataAdded();
+
+    void dataAboutToBeRemoved(int startIndex, int endIndex);
+
+    void dataRemoved();
+
+    void dataModified(int index);
 
 public Q_SLOTS:
 
+    void setEmbeddedCategory(ElisaUtils::PlayListEntryType aEmbeddedView);
+
+    void setManager(MusicListenersManager *aManager);
+
+    void setDatabase(DatabaseInterface *aDatabase);
+
+    void genresAdded(DataTypes::ListGenreDataType newData);
+
+    void artistsAdded(DataTypes::ListArtistDataType newData);
+
+    void artistRemoved(qulonglong removedDatabaseId);
+
+    void albumsAdded(DataTypes::ListAlbumDataType newData);
+
+    void albumRemoved(qulonglong removedDatabaseId);
+
+    void albumModified(const DataTypes::AlbumDataType &modifiedAlbum);
+
 private:
+
+    void refreshEmbeddedCategory();
 
     std::unique_ptr<ViewsListDataPrivate> d;
 };

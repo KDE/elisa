@@ -1125,6 +1125,8 @@ private Q_SLOTS:
 
         musicDb.insertTracksList(mNewTracks, mNewCovers);
 
+        beginInsertRowsSpy.wait();
+
         QCOMPARE(artistsModel.rowCount(), 7);
         QCOMPARE(beginInsertRowsSpy.count(), 1);
         QCOMPARE(endInsertRowsSpy.count(), 1);
@@ -1137,6 +1139,8 @@ private Q_SLOTS:
         auto firstTrack = musicDb.trackDataFromDatabaseId(trackId);
 
         musicDb.removeTracksList({firstTrack[DataTypes::ResourceRole].toUrl()});
+
+        beginRemoveRowsSpy.wait();
 
         QCOMPARE(artistsModel.rowCount(), 6);
         QCOMPARE(beginInsertRowsSpy.count(), 1);
@@ -1184,6 +1188,8 @@ private Q_SLOTS:
 
         musicDb.insertTracksList(mNewTracks, mNewCovers);
 
+        beginInsertRowsSpy.wait();
+
         QCOMPARE(artistsModel.rowCount(), 7);
         QCOMPARE(beginInsertRowsSpy.count(), 1);
         QCOMPARE(endInsertRowsSpy.count(), 1);
@@ -1206,6 +1212,8 @@ private Q_SLOTS:
         }
 
         musicDb.insertTracksList(newTracks, mNewCovers);
+
+        beginInsertRowsSpy.wait();
 
         QCOMPARE(artistsModel.rowCount(), 8);
         QCOMPARE(beginInsertRowsSpy.count(), 2);
@@ -1263,6 +1271,8 @@ private Q_SLOTS:
         }
 
         musicDb.insertTracksList(mNewTracks, mNewCovers);
+
+        beginInsertRowsSpy.wait();
 
         QCOMPARE(artistsModel.rowCount(), 1);
         QCOMPARE(beginInsertRowsSpy.count(), 1);
@@ -1322,6 +1332,8 @@ private Q_SLOTS:
         }
 
         musicDb.insertTracksList(mNewTracks, mNewCovers);
+
+        beginInsertRowsSpy.wait();
 
         QCOMPARE(artistsModel.rowCount(), 4);
         QCOMPARE(beginInsertRowsSpy.count(), 1);
@@ -1383,6 +1395,8 @@ private Q_SLOTS:
 
         musicDb.insertTracksList(mNewTracks, mNewCovers);
 
+        beginInsertRowsSpy.wait();
+
         QCOMPARE(artistsModel.rowCount(), 2);
         QCOMPARE(beginInsertRowsSpy.count(), 1);
         QCOMPARE(endInsertRowsSpy.count(), 1);
@@ -1442,6 +1456,8 @@ private Q_SLOTS:
 
         artistsModel.initialize(nullptr, &musicDb, ElisaUtils::Track, ElisaUtils::FilterById, {}, {}, albumId, {});
 
+        beginInsertRowsSpy.wait();
+
         QCOMPARE(artistsModel.rowCount(), 4);
         QCOMPARE(beginInsertRowsSpy.count(), 1);
         QCOMPARE(endInsertRowsSpy.count(), 1);
@@ -1473,6 +1489,8 @@ private Q_SLOTS:
         newCovers[QStringLiteral("file:///$32")] = QUrl::fromLocalFile(QStringLiteral("album3"));
 
         musicDb.insertTracksList(newTracks, newCovers);
+
+        beginInsertRowsSpy.wait();
 
         QCOMPARE(artistsModel.rowCount(), 5);
         QCOMPARE(beginInsertRowsSpy.count(), 2);

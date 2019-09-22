@@ -96,6 +96,8 @@ ViewManager::~ViewManager() = default;
 
 void ViewManager::openView(int viewIndex)
 {
+    qCDebug(orgKdeElisaViews()) << "ViewManager::openView" << viewIndex << d->mViewParametersStack.size() << d->mViewsListData;
+
     if (!d->mViewsListData) {
         return;
     }
@@ -104,16 +106,22 @@ void ViewManager::openView(int viewIndex)
         return;
     }
 
-    qCDebug(orgKdeElisaViews()) << "ViewManager::openView" << viewIndex << d->mViewParametersStack.size();
+    if (viewIndex < 0 || viewIndex >= d->mViewsListData->count()) {
+        viewIndex = 0;
+    }
 
     const auto &viewParameters = d->mViewsListData->viewParameters(viewIndex);
 
+    qCDebug(orgKdeElisaViews()) << "ViewManager::openView" << "selected view";
+
     if (viewParameters != d->mViewParametersStack.back()) {
+        qCDebug(orgKdeElisaViews()) << "ViewManager::openView" << "changing view";
         d->mViewIndex = viewIndex;
         Q_EMIT viewIndexChanged();
 
         d->mNextViewParameters = viewParameters;
-        openViewFromData(viewParameters);
+        applyFilter(d->mNextViewParameters, viewParameters.mMainTitle, d->mNextViewParameters);
+        openViewFromData(d->mNextViewParameters);
     }
 }
 
@@ -130,6 +138,10 @@ void ViewManager::openChildView(const DataTypes::MusicDataType &fullData)
                                 << d->mViewParametersStack.size();
 
     if (!d->mViewParametersStack.size()) {
+        return;
+    }
+
+    if (!d->mViewsListData) {
         return;
     }
 
@@ -151,26 +163,7 @@ void ViewManager::openChildView(const DataTypes::MusicDataType &fullData)
         nextViewParameters.mFilterType = ElisaUtils::FilterByGenreAndArtist;
     }
 
-    switch (nextViewParameters.mFilterType)
-    {
-    case ElisaUtils::NoFilter:
-    case ElisaUtils::FilterByRecentlyPlayed:
-    case ElisaUtils::FilterByFrequentlyPlayed:
-    case ElisaUtils::FilterByPath:
-    case ElisaUtils::FilterById:
-    case ElisaUtils::UnknownFilter:
-        break;
-    case ElisaUtils::FilterByGenre:
-        nextViewParameters.mDataFilter[DataTypes::GenreRole] = title;
-        break;
-    case ElisaUtils::FilterByGenreAndArtist:
-        nextViewParameters.mDataFilter = lastView.mDataFilter;
-        nextViewParameters.mDataFilter[DataTypes::ArtistRole] = title;
-        break;
-    case ElisaUtils::FilterByArtist:
-        nextViewParameters.mDataFilter[DataTypes::ArtistRole] = title;
-        break;
-    }
+    applyFilter(nextViewParameters, title, lastView);
 
     if (dataType == ElisaUtils::Album && nextViewParameters.mDataFilter[DataTypes::IsSingleDiscAlbumRole].toBool())
     {
@@ -201,22 +194,43 @@ void ViewManager::openChildView(const DataTypes::MusicDataType &fullData)
 
 void ViewManager::openAlbumView(const QString &title, const QString &artist, qulonglong databaseId, const QUrl &albumCoverUrl)
 {
-    openChildView({{DataTypes::ElementTypeRole, ElisaUtils::Album},
-                   {DataTypes::DatabaseIdRole, databaseId},
-                   {DataTypes::TitleRole, title},
-                   {DataTypes::ArtistRole, artist},
-                   {DataTypes::ImageUrlRole, albumCoverUrl},});
+    if (d->mViewsListData->embeddedCategory() == ElisaUtils::Album) {
+        auto index = d->mViewsListData->indexFromEmbeddedDatabaseId(databaseId);
+
+        if (index == -1) {
+            return;
+        }
+
+        openView(index);
+    } else {
+        openChildView({{DataTypes::ElementTypeRole, ElisaUtils::Album},
+                       {DataTypes::DatabaseIdRole, databaseId},
+                       {DataTypes::TitleRole, title},
+                       {DataTypes::ArtistRole, artist},
+                       {DataTypes::ImageUrlRole, albumCoverUrl},});
+    }
 }
 
 void ViewManager::openArtistView(const QString &artist)
 {
-    openChildView({{DataTypes::ElementTypeRole, ElisaUtils::Artist},
-                   {DataTypes::TitleRole, artist},});
+    if (d->mViewsListData->embeddedCategory() == ElisaUtils::Artist) {
+        auto index = d->mViewsListData->indexFromEmbeddedName(artist);
+
+        if (index == -1) {
+            return;
+        }
+
+        openView(index);
+    } else {
+        openChildView({{DataTypes::ElementTypeRole, ElisaUtils::Artist},
+                       {DataTypes::TitleRole, artist},});
+    }
 }
 
 void ViewManager::viewIsLoaded()
 {
-    qCDebug(orgKdeElisaViews()) << "ViewManager::viewIsLoaded" << d->mViewParametersStack.size();
+    qCDebug(orgKdeElisaViews()) << "ViewManager::viewIsLoaded" << d->mViewParametersStack.size()
+                                << d->mViewsListData;
 
     if (!d->mViewParametersStack.size()) {
         return;
@@ -324,9 +338,39 @@ void ViewManager::openViewFromData(const ViewParameters &viewParamaters)
     }
 }
 
+void ViewManager::applyFilter(ViewParameters &nextViewParameters,
+                              QString title, const ViewParameters &lastView) const
+{
+    switch (nextViewParameters.mFilterType)
+    {
+    case ElisaUtils::NoFilter:
+    case ElisaUtils::FilterByRecentlyPlayed:
+    case ElisaUtils::FilterByFrequentlyPlayed:
+    case ElisaUtils::FilterByPath:
+    case ElisaUtils::FilterById:
+    case ElisaUtils::UnknownFilter:
+        break;
+    case ElisaUtils::FilterByGenre:
+        nextViewParameters.mDataFilter[DataTypes::GenreRole] = std::move(title);
+        break;
+    case ElisaUtils::FilterByGenreAndArtist:
+        nextViewParameters.mDataFilter = lastView.mDataFilter;
+        nextViewParameters.mDataFilter[DataTypes::ArtistRole] = std::move(title);
+        break;
+    case ElisaUtils::FilterByArtist:
+        nextViewParameters.mDataFilter[DataTypes::ArtistRole] = std::move(title);
+        break;
+    }
+}
+
 void ViewManager::goBack()
 {
-    qCDebug(orgKdeElisaViews()) << "ViewManager::goBack" << d->mViewParametersStack.size();
+    qCDebug(orgKdeElisaViews()) << "ViewManager::goBack" << d->mViewParametersStack.size()
+                                << d->mViewsListData;
+
+    if (d->mViewParametersStack.size() <= 1) {
+        return;
+    }
 
     Q_EMIT popOneView();
 
@@ -349,6 +393,8 @@ void ViewManager::setViewsData(ViewsListData *viewsData)
 
     if (d->mViewsListData) {
         d->mViewParametersStack = {d->mViewsListData->viewParameters(d->mViewIndex)};
+
+        openView(d->mViewIndex);
     }
 }
 

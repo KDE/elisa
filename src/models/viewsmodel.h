@@ -9,7 +9,8 @@
 
 #include "elisaLib_export.h"
 
-#include "viewmanager.h"
+#include "elisautils.h"
+#include "datatypes.h"
 
 #include <QAbstractListModel>
 
@@ -25,9 +26,13 @@ class ELISALIB_EXPORT ViewsModel : public QAbstractListModel
     Q_PROPERTY(ViewsListData* viewsData READ viewsData WRITE setViewsData NOTIFY viewsDataChanged)
 
 public:
-
     enum ColumnRoles {
         ImageNameRole = Qt::UserRole + 1,
+        SecondTitleRole,
+        UseSecondTitleRole,
+        DatabaseIdRole,
+        EntryTypeRole,
+        UseColorOverlayRole,
     };
 
     explicit ViewsModel(QObject *parent = nullptr);
@@ -55,6 +60,18 @@ Q_SIGNALS:
 public Q_SLOTS:
 
     void setViewsData(ViewsListData* viewsData);
+
+private Q_SLOTS:
+
+    void dataAboutToBeAdded(int startIndex, int lastIndex);
+
+    void dataAdded();
+
+    void dataAboutToBeRemoved(int startIndex, int lastIndex);
+
+    void dataRemoved();
+
+    void dataModified(int currentIndex);
 
 private:
 

@@ -61,6 +61,14 @@ enum FilterType {
 
 Q_ENUM_NS(FilterType)
 
+enum IconUseColorOverlay
+{
+    UseColorOverlay = true,
+    DoNotUseColorOverlay = false,
+};
+
+Q_ENUM_NS(IconUseColorOverlay)
+
 }
 
 #endif // ELISAUTILS_H

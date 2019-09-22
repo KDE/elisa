@@ -45,6 +45,7 @@
 #include <QUrl>
 #include <QFileInfo>
 #include <QDir>
+#include <QFileSystemWatcher>
 #include <QKeyEvent>
 #include <QDebug>
 #include <QFileSystemWatcher>
@@ -61,14 +62,6 @@ public:
     #endif
     {
         Q_UNUSED(parent)
-
-        auto configurationFileName = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
-        configurationFileName += QStringLiteral("/elisarc");
-        Elisa::ElisaConfiguration::instance(configurationFileName);
-        Elisa::ElisaConfiguration::self()->load();
-        Elisa::ElisaConfiguration::self()->save();
-
-        mConfigFileWatcher.addPath(configurationFileName);
     }
 
 #if defined KF5XmlGui_FOUND && KF5XmlGui_FOUND
@@ -99,6 +92,14 @@ public:
 
 ElisaApplication::ElisaApplication(QObject *parent) : QObject(parent), d(std::make_unique<ElisaApplicationPrivate>(this))
 {
+    auto configurationFileName = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
+    configurationFileName += QStringLiteral("/elisarc");
+    Elisa::ElisaConfiguration::instance(configurationFileName);
+    Elisa::ElisaConfiguration::self()->load();
+    Elisa::ElisaConfiguration::self()->save();
+
+    d->mConfigFileWatcher.addPath(Elisa::ElisaConfiguration::self()->config()->name());
+
     connect(Elisa::ElisaConfiguration::self(), &Elisa::ElisaConfiguration::configChanged,
             this, &ElisaApplication::configChanged);
 
@@ -303,6 +304,7 @@ void ElisaApplication::configChanged()
 
     Q_EMIT showProgressOnTaskBarChanged();
     Q_EMIT showSystemTrayIconChanged();
+    Q_EMIT embeddedViewChanged();
 }
 
 DataTypes::EntryDataList ElisaApplication::checkFileListAndMakeAbsolute(const DataTypes::EntryDataList &filesList,
@@ -482,7 +484,7 @@ void ElisaApplication::installKeyEventFilter(QObject *object)
 
 bool ElisaApplication::eventFilter(QObject *object, QEvent *event)
 {
-    Q_UNUSED(object);
+    Q_UNUSED(object)
 
     QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
     auto playPauseAction = d->mCollection.action(tr("Play-Pause"));
@@ -546,6 +548,29 @@ bool ElisaApplication::showSystemTrayIcon() const
     auto currentConfiguration = Elisa::ElisaConfiguration::self();
 
     return currentConfiguration->showSystemTrayIcon();
+}
+
+ElisaUtils::PlayListEntryType ElisaApplication::embeddedView() const
+{
+    ElisaUtils::PlayListEntryType result = ElisaUtils::Unknown;
+
+    switch (Elisa::ElisaConfiguration::self()->embeddedView())
+    {
+    case 0:
+        result = ElisaUtils::Unknown;
+        break;
+    case 1:
+        result = ElisaUtils::Album;
+        break;
+    case 2:
+        result = ElisaUtils::Artist;
+        break;
+    case 3:
+        result = ElisaUtils::Genre;
+        break;
+    }
+
+    return result;
 }
 
 #include "moc_elisaapplication.cpp"

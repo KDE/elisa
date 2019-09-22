@@ -128,6 +128,7 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qmlRegisterType<TrackContextMetaDataModel>(uri, 1, 0, "TrackContextMetaDataModel");
     qmlRegisterType<EditableTrackMetadataModel>(uri, 1, 0, "EditableTrackMetadataModel");
     qmlRegisterType<ViewsModel>(uri, 1, 0, "ViewsModel");
+    qmlRegisterType<ViewsListData>(uri, 1, 0, "ViewsListData");
     qmlRegisterType<GridViewProxyModel>(uri, 1, 0, "GridViewProxyModel");
 
 #if defined KF5KIO_FOUND && KF5KIO_FOUND

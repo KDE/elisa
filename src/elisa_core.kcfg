@@ -22,4 +22,14 @@
     </default>
   </entry>
  </group>
+ <group name="Views">
+  <entry key="EmbeddedView" type="Enum">
+   <choices>
+    <choice name="NoView" />
+    <choice name="AllAlbums" />
+    <choice name="AllArtists" />
+    <choice name="AllGenres" />
+   </choices>
+  </entry>
+ </group>
 </kcfg>

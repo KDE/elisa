@@ -192,10 +192,10 @@ ApplicationWindow {
                 Layout.fillWidth: true
 
                 tracksCount: elisa.mediaPlayList.remainingTracks
-                album: elisa.manageHeaderBar.album
+                album: (elisa.manageHeaderBar.album !== undefined ? elisa.manageHeaderBar.album : '')
                 title: elisa.manageHeaderBar.title
-                artist: elisa.manageHeaderBar.artist
-                albumArtist: elisa.manageHeaderBar.albumArtist
+                artist: (elisa.manageHeaderBar.artist !== undefined ? elisa.manageHeaderBar.artist : '')
+                albumArtist: (elisa.manageHeaderBar.albumArtist !== undefined ? elisa.manageHeaderBar.albumArtist : '')
                 image: elisa.manageHeaderBar.image
                 albumID: elisa.manageHeaderBar.albumId
 

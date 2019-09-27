@@ -937,8 +937,8 @@ void MediaPlayList::tracksListAdded(qulonglong newDatabaseId,
             for (int trackIndex = 1; trackIndex < tracks.size(); ++trackIndex) {
                 auto newEntry = MediaPlayListEntry{tracks[trackIndex]};
                 newEntry.mEntryType = ElisaUtils::Track;
-                d->mData.push_back(newEntry);
-                d->mTrackData.push_back(tracks[trackIndex]);
+                d->mData.insert(playListIndex + trackIndex, newEntry);
+                d->mTrackData.insert(playListIndex + trackIndex, tracks[trackIndex]);
             }
             endInsertRows();
 

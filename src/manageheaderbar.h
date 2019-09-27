@@ -20,6 +20,8 @@
 
 #include "elisaLib_export.h"
 
+#include "elisautils.h"
+
 #include <QObject>
 #include <QList>
 #include <QPersistentModelIndex>
@@ -71,6 +73,11 @@ class ELISALIB_EXPORT ManageHeaderBar : public QObject
                WRITE setDatabaseIdRole
                NOTIFY databaseIdRoleChanged)
 
+    Q_PROPERTY(int trackTypeRole
+               READ trackTypeRole
+               WRITE setTrackTypeRole
+               NOTIFY trackTypeRoleChanged)
+
     Q_PROPERTY(int albumIdRole
                READ albumIdRole
                WRITE setAlbumIdRole
@@ -109,6 +116,10 @@ class ELISALIB_EXPORT ManageHeaderBar : public QObject
                READ databaseId
                NOTIFY databaseIdChanged)
 
+    Q_PROPERTY(ElisaUtils::PlayListEntryType trackType
+               READ trackType
+               NOTIFY trackTypeChanged)
+
     Q_PROPERTY(qulonglong albumId
                READ albumId
                NOTIFY albumIdChanged)
@@ -137,6 +148,8 @@ public:
 
     int databaseIdRole() const;
 
+    int trackTypeRole() const;
+
     int albumIdRole() const;
 
     int isValidRole() const;
@@ -154,6 +167,8 @@ public:
     QUrl image() const;
 
     qulonglong databaseId() const;
+
+    ElisaUtils::PlayListEntryType trackType() const;
 
     qulonglong albumId() const;
 
@@ -177,6 +192,8 @@ Q_SIGNALS:
 
     void databaseIdRoleChanged();
 
+    void trackTypeRoleChanged();
+
     void albumIdRoleChanged();
 
     void isValidRoleChanged();
@@ -196,6 +213,8 @@ Q_SIGNALS:
     void databaseIdChanged();
 
     void albumIdChanged();
+
+    void trackTypeChanged();
 
     void isValidChanged();
 
@@ -217,6 +236,8 @@ public Q_SLOTS:
 
     void setDatabaseIdRole(int databaseIdRole);
 
+    void setTrackTypeRole(int trackTypeRole);
+
     void setAlbumIdRole(int albumIdRole);
 
     void setIsValidRole(int isValidRole);
@@ -236,6 +257,8 @@ private:
     void notifyImageProperty();
 
     void notifyDatabaseIdProperty();
+
+    void notifyTrackTypeProperty();
 
     void notifyAlbumIdProperty();
 
@@ -257,6 +280,8 @@ private:
 
     int mDatabaseIdRole = Qt::DisplayRole;
 
+    int mTrackTypeIdRole = Qt::DisplayRole;
+
     int mAlbumIdRole = Qt::DisplayRole;
 
     int mIsValidRole = Qt::DisplayRole;
@@ -274,6 +299,8 @@ private:
     QVariant mOldImage;
 
     qulonglong mOldDatabaseId = 0;
+
+    ElisaUtils::PlayListEntryType mOldTrackType = ElisaUtils::Unknown;
 
     qulonglong mOldAlbumId = 0;
 

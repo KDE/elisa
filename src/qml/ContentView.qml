@@ -339,6 +339,7 @@ RowLayout {
             StackView.onActivated: viewManager.viewIsLoaded(viewType)
 
             databaseId: elisa.manageHeaderBar.databaseId
+            trackType: elisa.manageHeaderBar.trackType
             title: elisa.manageHeaderBar.title
             artistName: elisa.manageHeaderBar.artist
             albumName: elisa.manageHeaderBar.album

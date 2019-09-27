@@ -92,6 +92,12 @@ void ManageHeaderBar::setDatabaseIdRole(int databaseIdRole)
     Q_EMIT databaseIdRoleChanged();
 }
 
+void ManageHeaderBar::setTrackTypeRole(int trackTypeRole)
+{
+    mTrackTypeIdRole = trackTypeRole;
+    Q_EMIT trackTypeRoleChanged();
+}
+
 int ManageHeaderBar::imageRole() const
 {
     return mImageRole;
@@ -100,6 +106,11 @@ int ManageHeaderBar::imageRole() const
 int ManageHeaderBar::databaseIdRole() const
 {
     return mDatabaseIdRole;
+}
+
+int ManageHeaderBar::trackTypeRole() const
+{
+    return mTrackTypeIdRole;
 }
 
 void ManageHeaderBar::setAlbumIdRole(int albumIdRole)
@@ -183,6 +194,15 @@ qulonglong ManageHeaderBar::databaseId() const
     }
 
     return mCurrentTrack.data(mDatabaseIdRole).toULongLong();
+}
+
+ElisaUtils::PlayListEntryType ManageHeaderBar::trackType() const
+{
+    if (!mCurrentTrack.isValid()) {
+        return ElisaUtils::Unknown;
+    }
+
+    return mCurrentTrack.data(mTrackTypeIdRole).value<ElisaUtils::PlayListEntryType>();
 }
 
 qulonglong ManageHeaderBar::albumId() const
@@ -288,6 +308,16 @@ void ManageHeaderBar::notifyDatabaseIdProperty()
     }
 }
 
+void ManageHeaderBar::notifyTrackTypeProperty()
+{
+    auto newTrackTypeValue = mCurrentTrack.data(mTrackTypeIdRole).value<ElisaUtils::PlayListEntryType>();
+    if (mOldTrackType != newTrackTypeValue) {
+        Q_EMIT trackTypeRoleChanged();
+
+        mOldTrackType = newTrackTypeValue;
+    }
+}
+
 void ManageHeaderBar::notifyAlbumIdProperty()
 {
     bool conversionOk;
@@ -331,6 +361,7 @@ void ManageHeaderBar::setCurrentTrack(const QPersistentModelIndex &currentTrack)
     notifyFileNameProperty();
     notifyImageProperty();
     notifyDatabaseIdProperty();
+    notifyTrackTypeProperty();
     notifyAlbumIdProperty();
     notifyIsValidProperty();
 }

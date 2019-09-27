@@ -29,6 +29,7 @@ FocusScope {
 
     property var viewType
     property int databaseId: 0
+    property var trackType
     property alias title: titleLabel.text
     property string albumName: ''
     property string artistName: ''
@@ -258,20 +259,20 @@ FocusScope {
     }
 
     onDatabaseIdChanged: {
-        metaDataModel.initializeByTrackId(databaseId)
+        metaDataModel.initializeById(trackType, databaseId)
     }
 
     Connections {
         target: elisa
 
         onMusicManagerChanged: {
-            metaDataModel.initializeByTrackId(databaseId)
+            metaDataModel.initializeById(trackType, databaseId)
         }
     }
 
     Component.onCompleted: {
         if (elisa.musicManager) {
-            metaDataModel.initializeByTrackId(databaseId)
+            metaDataModel.initializeById(trackType, databaseId)
         }
     }
 }

@@ -155,11 +155,11 @@ FocusScope {
 
                     text: {
                         if (artistName !== '' && albumName !== '') {
-                            return i18nc('display of artist and album in context view', '<i>by</i> <b>%1</b> <i>from</i> <b>%2</b>', artistName, albumName)
+                            return i18nc("display of artist and album in context view", "<i>by</i> <b>%1</b> <i>from</i> <b>%2</b>", artistName, albumName)
                         } else if (artistName === '' && albumName !== '') {
-                            return i18nc('display of album in context view', '<i>from</i> <b>%1</b>', albumName)
+                            return i18nc("display of album in context view", "<i>from</i> <b>%1</b>", albumName)
                         } else if (artistName !== '' && albumName === '') {
-                            i18nc('display of artist in context view', '<i>by</i> <b>%1</b>', artistName)
+                            i18nc("display of artist in context view", "<i>by</i> <b>%1</b>", artistName)
                         }
                     }
 

@@ -174,7 +174,7 @@ Window {
 
                 Button {
                     id: deleteButton
-                    text: qsTr("Delete")
+                    text: i18n("Delete")
                     DialogButtonBox.buttonRole: DialogButtonBox.DestructiveRole
                     onClicked:
                     {
@@ -194,7 +194,7 @@ Window {
                 Button {
                     id: applyButton
 
-                    text: qsTr("Apply")
+                    text: i18n("Apply")
                     DialogButtonBox.buttonRole: DialogButtonBox.ApplyRole
                     onClicked:
                     {
@@ -207,7 +207,7 @@ Window {
                     enabled: false
                 }
                 Button {
-                    text: qsTr("Close")
+                    text: i18n("Close")
                     DialogButtonBox.buttonRole: DialogButtonBox.DestructiveRole
                     onClicked: trackMetadata.close()
                 }

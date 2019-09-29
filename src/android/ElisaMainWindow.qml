@@ -30,7 +30,7 @@ Kirigami.ApplicationWindow {
 
     globalDrawer: Kirigami.GlobalDrawer {
         id: drawer
-        title: "Elisa"
+        title: i18n("Elisa")
         titleIcon: "elisa"
         contentItem.implicitWidth: Math.min (Kirigami.Units.gridUnit * 15, mainWindow.width * 0.8)
     }

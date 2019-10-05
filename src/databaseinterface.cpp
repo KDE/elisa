@@ -6346,7 +6346,7 @@ DatabaseInterface::TrackDataType DatabaseInterface::buildTrackDataFromDatabaseRe
         if (trackRecord.value(4).toInt() == 1) {
             result[TrackDataType::key_type::AlbumArtistRole] = trackRecord.value(3);
         } else if (trackRecord.value(4).toInt() > 1) {
-            result[TrackDataType::key_type::AlbumArtistRole] = QStringLiteral("Various Artists");
+            result[TrackDataType::key_type::AlbumArtistRole] = i18n("Various Artists");
         }
     }
 
@@ -6412,7 +6412,7 @@ DatabaseInterface::TrackDataType DatabaseInterface::buildRadioDataFromDatabaseRe
     result[TrackDataType::key_type::DatabaseIdRole] = trackRecord.value(0);
     result[TrackDataType::key_type::TitleRole] = trackRecord.value(1);
 
-    result[TrackDataType::key_type::AlbumRole] = QStringLiteral("Radios");
+    result[TrackDataType::key_type::AlbumRole] = i18n("Radios");
     result[TrackDataType::key_type::ArtistRole] = trackRecord.value(1);
 
     result[TrackDataType::key_type::ResourceRole] = trackRecord.value(2);
@@ -7364,7 +7364,7 @@ DatabaseInterface::ListAlbumDataType DatabaseInterface::internalAllAlbumsPartial
             if (currentRecord.value(5).toInt() == 1) {
                 newData[DataType::key_type::SecondaryTextRole] = allArtists.first();
             } else if (currentRecord.value(5).toInt() > 1) {
-                newData[DataType::key_type::SecondaryTextRole] = QStringLiteral("Various Artists");
+                newData[DataType::key_type::SecondaryTextRole] = i18n("Various Artists");
             }
         }
         newData[DataType::key_type::ArtistRole] = newData[DataType::key_type::SecondaryTextRole];
@@ -7414,7 +7414,7 @@ DatabaseInterface::AlbumDataType DatabaseInterface::internalOneAlbumPartialData(
             if (currentRecord.value(7).toInt() == 1) {
                 result[DataType::key_type::SecondaryTextRole] = allArtists.first();
             } else if (currentRecord.value(7).toInt() > 1) {
-                result[DataType::key_type::SecondaryTextRole] = QStringLiteral("Various Artists");
+                result[DataType::key_type::SecondaryTextRole] = i18n("Various Artists");
             }
         }
         result[DataType::key_type::ArtistRole] = result[DataType::key_type::SecondaryTextRole];

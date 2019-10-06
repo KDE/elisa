@@ -18,6 +18,7 @@
 #include "databasetestdata.h"
 
 #include "databaseinterface.h"
+#include "datatypes.h"
 #include "musicaudiotrack.h"
 
 #include "config-upnp-qt.h"
@@ -56,14 +57,14 @@ private Q_SLOTS:
         qRegisterMetaType<QVector<qlonglong>>("QVector<qlonglong>");
         qRegisterMetaType<QHash<qlonglong,int>>("QHash<qlonglong,int>");
         qRegisterMetaType<QHash<QUrl,QDateTime>>("QHash<QUrl,QDateTime>");
-        qRegisterMetaType<DatabaseInterface::ListTrackDataType>("ListTrackDataType");
-        qRegisterMetaType<DatabaseInterface::ListAlbumDataType>("ListAlbumDataType");
-        qRegisterMetaType<DatabaseInterface::ListArtistDataType>("ListArtistDataType");
-        qRegisterMetaType<DatabaseInterface::ListGenreDataType>("ListGenreDataType");
-        qRegisterMetaType<DatabaseInterface::TrackDataType>("TrackDataType");
-        qRegisterMetaType<DatabaseInterface::AlbumDataType>("AlbumDataType");
-        qRegisterMetaType<DatabaseInterface::ArtistDataType>("ArtistDataType");
-        qRegisterMetaType<DatabaseInterface::GenreDataType>("GenreDataType");
+        qRegisterMetaType<DataTypes::ListTrackDataType>("ListTrackDataType");
+        qRegisterMetaType<DataTypes::ListAlbumDataType>("ListAlbumDataType");
+        qRegisterMetaType<DataTypes::ListArtistDataType>("ListArtistDataType");
+        qRegisterMetaType<DataTypes::ListGenreDataType>("ListGenreDataType");
+        qRegisterMetaType<DataTypes::TrackDataType>("TrackDataType");
+        qRegisterMetaType<DataTypes::AlbumDataType>("AlbumDataType");
+        qRegisterMetaType<DataTypes::ArtistDataType>("ArtistDataType");
+        qRegisterMetaType<DataTypes::GenreDataType>("GenreDataType");
     }
 
     void avoidCrashInTrackIdFromTitleAlbumArtist()
@@ -174,7 +175,7 @@ private Q_SLOTS:
         QCOMPARE(albumData.count(), 1);
         QCOMPARE(album.title(), QStringLiteral("album3"));
         QCOMPARE(album.artist(), QStringLiteral("artist2"));
-        QCOMPARE(album[DatabaseInterface::ColumnsRoles::SecondaryTextRole], QStringLiteral("artist2"));
+        QCOMPARE(album[DataTypes::ColumnsRoles::SecondaryTextRole], QStringLiteral("artist2"));
         QVERIFY(album.isValidArtist());
         QCOMPARE(album.albumArtURI(), QUrl::fromLocalFile(QStringLiteral("album3")));
         QCOMPARE(album.isSingleDiscAlbum(), true);
@@ -2215,7 +2216,7 @@ private Q_SLOTS:
                                                                            QStringLiteral("album1"), 1, 1);
         QCOMPARE(removedTrackId, qulonglong(0));
 
-        firstTrack[DatabaseInterface::DatabaseIdRole] = 0;
+        firstTrack[DataTypes::DatabaseIdRole] = 0;
 
         musicDb.insertTracksList({MusicAudioTrack::trackFromData(firstTrack)}, mNewCovers);
 
@@ -4291,7 +4292,7 @@ private Q_SLOTS:
 
         const auto &modifiedTrackSignal = musicDbTrackModifiedSpy.at(0);
         QCOMPARE(modifiedTrackSignal.count(), 1);
-        const auto &modifiedTrack = modifiedTrackSignal.at(0).value<DatabaseInterface::TrackDataType>();
+        const auto &modifiedTrack = modifiedTrackSignal.at(0).value<DataTypes::TrackDataType>();
 
         auto modifiedTrackTitle = modifiedTrack.title();
         auto modifiedTrackArtist = modifiedTrack.artist();
@@ -5163,17 +5164,17 @@ private Q_SLOTS:
 
         const auto newAlbumSignal = musicDbAlbumAddedSpy.at(0);
         QCOMPARE(newAlbumSignal.size(), 1);
-        const auto newAlbums = newAlbumSignal.at(0).value<DatabaseInterface::ListAlbumDataType>();
+        const auto newAlbums = newAlbumSignal.at(0).value<DataTypes::ListAlbumDataType>();
         QCOMPARE(newAlbums.size(), 1);
         const auto newAlbum = newAlbums.at(0);
         QCOMPARE(newAlbum.title(), QStringLiteral("album3"));
         QCOMPARE(newAlbum.artist(), QStringLiteral("Various Artists"));
-        QCOMPARE(newAlbum[DatabaseInterface::ColumnsRoles::SecondaryTextRole], QStringLiteral("Various Artists"));
+        QCOMPARE(newAlbum[DataTypes::ColumnsRoles::SecondaryTextRole], QStringLiteral("Various Artists"));
 
         const auto oneAlbum = musicDb.allAlbumsData().at(0);
         QCOMPARE(oneAlbum.title(), QStringLiteral("album3"));
         QCOMPARE(oneAlbum.artist(), QStringLiteral("Various Artists"));
-        QCOMPARE(oneAlbum[DatabaseInterface::ColumnsRoles::SecondaryTextRole], QStringLiteral("Various Artists"));
+        QCOMPARE(oneAlbum[DataTypes::ColumnsRoles::SecondaryTextRole], QStringLiteral("Various Artists"));
     }
 
     void testAlbumFromGenreAndArtistWithoutAlbumArtist()

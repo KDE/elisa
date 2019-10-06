@@ -179,7 +179,7 @@ bool MusicAudioTrack::operator !=(const MusicAudioTrack &other) const
             d->mBitRate != other.d->mBitRate || d->mSampleRate != other.d->mSampleRate;
 }
 
-MusicAudioTrack MusicAudioTrack::trackFromData(const DatabaseInterface::TrackDataType &data)
+MusicAudioTrack MusicAudioTrack::trackFromData(const DataTypes::TrackDataType &data)
 {
     auto result = MusicAudioTrack{};
 

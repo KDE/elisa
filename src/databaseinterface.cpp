@@ -358,9 +358,9 @@ qulonglong DatabaseInterface::albumIdFromTitleAndArtist(const QString &title, co
     return result;
 }
 
-DatabaseInterface::ListTrackDataType DatabaseInterface::allTracksData()
+DataTypes::ListTrackDataType DatabaseInterface::allTracksData()
 {
-    auto result = ListTrackDataType{};
+    auto result = DataTypes::ListTrackDataType{};
 
     if (!d) {
         return result;
@@ -381,9 +381,9 @@ DatabaseInterface::ListTrackDataType DatabaseInterface::allTracksData()
     return result;
 }
 
-DatabaseInterface::ListRadioDataType DatabaseInterface::allRadiosData()
+DataTypes::ListRadioDataType DatabaseInterface::allRadiosData()
 {
-    auto result = ListRadioDataType{};
+    auto result = DataTypes::ListRadioDataType{};
 
     if (!d) {
         return result;
@@ -404,9 +404,9 @@ DatabaseInterface::ListRadioDataType DatabaseInterface::allRadiosData()
     return result;
 }
 
-DatabaseInterface::ListTrackDataType DatabaseInterface::recentlyPlayedTracksData(int count)
+DataTypes::ListTrackDataType DatabaseInterface::recentlyPlayedTracksData(int count)
 {
-    auto result = ListTrackDataType{};
+    auto result = DataTypes::ListTrackDataType{};
 
     if (!d) {
         return result;
@@ -427,9 +427,9 @@ DatabaseInterface::ListTrackDataType DatabaseInterface::recentlyPlayedTracksData
     return result;
 }
 
-DatabaseInterface::ListTrackDataType DatabaseInterface::frequentlyPlayedTracksData(int count)
+DataTypes::ListTrackDataType DatabaseInterface::frequentlyPlayedTracksData(int count)
 {
-    auto result = ListTrackDataType{};
+    auto result = DataTypes::ListTrackDataType{};
 
     if (!d) {
         return result;
@@ -450,9 +450,9 @@ DatabaseInterface::ListTrackDataType DatabaseInterface::frequentlyPlayedTracksDa
     return result;
 }
 
-DatabaseInterface::ListAlbumDataType DatabaseInterface::allAlbumsData()
+DataTypes::ListAlbumDataType DatabaseInterface::allAlbumsData()
 {
-    auto result = ListAlbumDataType{};
+    auto result = DataTypes::ListAlbumDataType{};
 
     if (!d) {
         return result;
@@ -473,9 +473,9 @@ DatabaseInterface::ListAlbumDataType DatabaseInterface::allAlbumsData()
     return result;
 }
 
-DatabaseInterface::ListAlbumDataType DatabaseInterface::allAlbumsDataByGenreAndArtist(const QString &genre, const QString &artist)
+DataTypes::ListAlbumDataType DatabaseInterface::allAlbumsDataByGenreAndArtist(const QString &genre, const QString &artist)
 {
-    auto result = ListAlbumDataType{};
+    auto result = DataTypes::ListAlbumDataType{};
 
     if (!d) {
         return result;
@@ -499,9 +499,9 @@ DatabaseInterface::ListAlbumDataType DatabaseInterface::allAlbumsDataByGenreAndA
     return result;
 }
 
-DatabaseInterface::ListAlbumDataType DatabaseInterface::allAlbumsDataByArtist(const QString &artist)
+DataTypes::ListAlbumDataType DatabaseInterface::allAlbumsDataByArtist(const QString &artist)
 {
-    auto result = ListAlbumDataType{};
+    auto result = DataTypes::ListAlbumDataType{};
 
     if (!d) {
         return result;
@@ -524,9 +524,9 @@ DatabaseInterface::ListAlbumDataType DatabaseInterface::allAlbumsDataByArtist(co
     return result;
 }
 
-DatabaseInterface::AlbumDataType DatabaseInterface::albumDataFromDatabaseId(qulonglong id)
+DataTypes::AlbumDataType DatabaseInterface::albumDataFromDatabaseId(qulonglong id)
 {
-    auto result = DatabaseInterface::AlbumDataType{};
+    auto result = DataTypes::AlbumDataType{};
 
     if (!d) {
         return result;
@@ -547,9 +547,9 @@ DatabaseInterface::AlbumDataType DatabaseInterface::albumDataFromDatabaseId(qulo
     return result;
 }
 
-DatabaseInterface::ListTrackDataType DatabaseInterface::albumData(qulonglong databaseId)
+DataTypes::ListTrackDataType DatabaseInterface::albumData(qulonglong databaseId)
 {
-    auto result = ListTrackDataType{};
+    auto result = DataTypes::ListTrackDataType{};
 
     if (!d) {
         return result;
@@ -588,9 +588,9 @@ DatabaseInterface::ListTrackDataType DatabaseInterface::albumData(qulonglong dat
     return result;
 }
 
-DatabaseInterface::ListArtistDataType DatabaseInterface::allArtistsData()
+DataTypes::ListArtistDataType DatabaseInterface::allArtistsData()
 {
-    auto result = ListArtistDataType{};
+    auto result = DataTypes::ListArtistDataType{};
 
     if (!d) {
         return result;
@@ -611,11 +611,11 @@ DatabaseInterface::ListArtistDataType DatabaseInterface::allArtistsData()
     return result;
 }
 
-DatabaseInterface::ListArtistDataType DatabaseInterface::allArtistsDataByGenre(const QString &genre)
+DataTypes::ListArtistDataType DatabaseInterface::allArtistsDataByGenre(const QString &genre)
 {
     qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::allArtistsDataByGenre" << genre;
 
-    auto result = ListArtistDataType{};
+    auto result = DataTypes::ListArtistDataType{};
 
     if (!d) {
         return result;
@@ -638,9 +638,9 @@ DatabaseInterface::ListArtistDataType DatabaseInterface::allArtistsDataByGenre(c
     return result;
 }
 
-DatabaseInterface::ListGenreDataType DatabaseInterface::allGenresData()
+DataTypes::ListGenreDataType DatabaseInterface::allGenresData()
 {
-    auto result = ListGenreDataType{};
+    auto result = DataTypes::ListGenreDataType{};
 
     if (!d) {
         return result;
@@ -700,9 +700,9 @@ bool DatabaseInterface::internalArtistMatchGenre(qulonglong databaseId, const QS
     return result;
 }
 
-DatabaseInterface::ListTrackDataType DatabaseInterface::tracksDataFromAuthor(const QString &ArtistName)
+DataTypes::ListTrackDataType DatabaseInterface::tracksDataFromAuthor(const QString &ArtistName)
 {
-    auto allTracks = ListTrackDataType{};
+    auto allTracks = DataTypes::ListTrackDataType{};
 
     auto transactionResult = startTransaction();
     if (!transactionResult) {
@@ -719,9 +719,9 @@ DatabaseInterface::ListTrackDataType DatabaseInterface::tracksDataFromAuthor(con
     return allTracks;
 }
 
-DatabaseInterface::TrackDataType DatabaseInterface::trackDataFromDatabaseId(qulonglong id)
+DataTypes::TrackDataType DatabaseInterface::trackDataFromDatabaseId(qulonglong id)
 {
-    auto result = TrackDataType();
+    auto result = DataTypes::TrackDataType();
 
     if (!d) {
         return result;
@@ -742,9 +742,9 @@ DatabaseInterface::TrackDataType DatabaseInterface::trackDataFromDatabaseId(qulo
     return result;
 }
 
-DatabaseInterface::TrackDataType DatabaseInterface::radioDataFromDatabaseId(qulonglong id)
+DataTypes::TrackDataType DatabaseInterface::radioDataFromDatabaseId(qulonglong id)
 {
-    auto result = TrackDataType();
+    auto result = DataTypes::TrackDataType();
 
     if (!d) {
         return result;
@@ -1026,17 +1026,17 @@ void DatabaseInterface::insertTracksList(const QList<MusicAudioTrack> &tracks, c
     }
 
     if (!d->mInsertedArtists.isEmpty()) {
-        ListArtistDataType newArtists;
+        DataTypes::ListArtistDataType newArtists;
 
         for (auto artistId : qAsConst(d->mInsertedArtists)) {
-            newArtists.push_back({{DatabaseIdRole, artistId}});
+            newArtists.push_back({{DataTypes::DatabaseIdRole, artistId}});
         }
         qCInfo(orgKdeElisaDatabase) << "artistsAdded" << newArtists.size();
         Q_EMIT artistsAdded(newArtists);
     }
 
     if (!d->mInsertedAlbums.isEmpty()) {
-        ListAlbumDataType newAlbums;
+        DataTypes::ListAlbumDataType newAlbums;
 
         for (auto albumId : qAsConst(d->mInsertedAlbums)) {
             d->mModifiedAlbumIds.remove(albumId);
@@ -1048,11 +1048,11 @@ void DatabaseInterface::insertTracksList(const QList<MusicAudioTrack> &tracks, c
     }
 
     for (auto albumId : qAsConst(d->mModifiedAlbumIds)) {
-        Q_EMIT albumModified({{DatabaseIdRole, albumId}}, albumId);
+        Q_EMIT albumModified({{DataTypes::DatabaseIdRole, albumId}}, albumId);
     }
 
     if (!d->mInsertedTracks.isEmpty()) {
-        ListTrackDataType newTracks;
+        DataTypes::ListTrackDataType newTracks;
 
         for (auto trackId : qAsConst(d->mInsertedTracks)) {
             newTracks.push_back(internalOneTrackPartialData(trackId));
@@ -1088,9 +1088,9 @@ void DatabaseInterface::removeTracksList(const QList<QUrl> &removedTracks)
     internalRemoveTracksList(removedTracks);
 
     if (!d->mInsertedArtists.isEmpty()) {
-        ListArtistDataType newArtists;
+        DataTypes::ListArtistDataType newArtists;
         for (auto artistId : qAsConst(d->mInsertedArtists)) {
-            newArtists.push_back({{DatabaseIdRole, artistId}});
+            newArtists.push_back({{DataTypes::DatabaseIdRole, artistId}});
         }
         Q_EMIT artistsAdded(newArtists);
     }
@@ -5976,7 +5976,7 @@ qulonglong DatabaseInterface::insertGenre(const QString &name)
 
     d->mInsertGenreQuery.finish();
 
-    Q_EMIT genresAdded({{{DatabaseIdRole, result}}});
+    Q_EMIT genresAdded({{{DataTypes::DatabaseIdRole, result}}});
 
     return result;
 }
@@ -6324,104 +6324,104 @@ MusicAudioTrack DatabaseInterface::buildTrackFromDatabaseRecord(const QSqlRecord
     return result;
 }
 
-DatabaseInterface::TrackDataType DatabaseInterface::buildTrackDataFromDatabaseRecord(const QSqlRecord &trackRecord) const
+DataTypes::TrackDataType DatabaseInterface::buildTrackDataFromDatabaseRecord(const QSqlRecord &trackRecord) const
 {
-    TrackDataType result;
+    DataTypes::TrackDataType result;
 
-    result[TrackDataType::key_type::DatabaseIdRole] = trackRecord.value(0);
-    result[TrackDataType::key_type::TitleRole] = trackRecord.value(1);
+    result[DataTypes::TrackDataType::key_type::DatabaseIdRole] = trackRecord.value(0);
+    result[DataTypes::TrackDataType::key_type::TitleRole] = trackRecord.value(1);
     if (!trackRecord.value(12).isNull()) {
-        result[TrackDataType::key_type::AlbumRole] = trackRecord.value(12);
-        result[TrackDataType::key_type::AlbumIdRole] = trackRecord.value(2);
+        result[DataTypes::TrackDataType::key_type::AlbumRole] = trackRecord.value(12);
+        result[DataTypes::TrackDataType::key_type::AlbumIdRole] = trackRecord.value(2);
     }
     if (!trackRecord.value(3).isNull()) {
-        result[TrackDataType::key_type::ArtistRole] = trackRecord.value(3);
+        result[DataTypes::TrackDataType::key_type::ArtistRole] = trackRecord.value(3);
     }
 
     if (!trackRecord.value(6).isNull()) {
-        result[TrackDataType::key_type::IsValidAlbumArtistRole] = true;
-        result[TrackDataType::key_type::AlbumArtistRole] = trackRecord.value(6);
+        result[DataTypes::TrackDataType::key_type::IsValidAlbumArtistRole] = true;
+        result[DataTypes::TrackDataType::key_type::AlbumArtistRole] = trackRecord.value(6);
     } else {
-        result[TrackDataType::key_type::IsValidAlbumArtistRole] = false;
+        result[DataTypes::TrackDataType::key_type::IsValidAlbumArtistRole] = false;
         if (trackRecord.value(4).toInt() == 1) {
-            result[TrackDataType::key_type::AlbumArtistRole] = trackRecord.value(3);
+            result[DataTypes::TrackDataType::key_type::AlbumArtistRole] = trackRecord.value(3);
         } else if (trackRecord.value(4).toInt() > 1) {
-            result[TrackDataType::key_type::AlbumArtistRole] = i18n("Various Artists");
+            result[DataTypes::TrackDataType::key_type::AlbumArtistRole] = i18n("Various Artists");
         }
     }
 
-    result[TrackDataType::key_type::ResourceRole] = trackRecord.value(7);
+    result[DataTypes::TrackDataType::key_type::ResourceRole] = trackRecord.value(7);
     if (!trackRecord.value(9).isNull()) {
-        result[TrackDataType::key_type::TrackNumberRole] = trackRecord.value(9);
+        result[DataTypes::TrackDataType::key_type::TrackNumberRole] = trackRecord.value(9);
     }
     if (!trackRecord.value(10).isNull()) {
-        result[TrackDataType::key_type::DiscNumberRole] = trackRecord.value(10);
+        result[DataTypes::TrackDataType::key_type::DiscNumberRole] = trackRecord.value(10);
     }
-    result[TrackDataType::key_type::DurationRole] = QTime::fromMSecsSinceStartOfDay(trackRecord.value(11).toInt());
-    result[TrackDataType::key_type::MilliSecondsDurationRole] = trackRecord.value(11).toInt();
-    result[TrackDataType::key_type::RatingRole] = trackRecord.value(13);
+    result[DataTypes::TrackDataType::key_type::DurationRole] = QTime::fromMSecsSinceStartOfDay(trackRecord.value(11).toInt());
+    result[DataTypes::TrackDataType::key_type::MilliSecondsDurationRole] = trackRecord.value(11).toInt();
+    result[DataTypes::TrackDataType::key_type::RatingRole] = trackRecord.value(13);
     if (!trackRecord.value(14).toString().isEmpty()) {
-        result[TrackDataType::key_type::ImageUrlRole] = QUrl(trackRecord.value(14).toString());
+        result[DataTypes::TrackDataType::key_type::ImageUrlRole] = QUrl(trackRecord.value(14).toString());
     } else if (!trackRecord.value(30).toString().isEmpty()) {
-        result[TrackDataType::key_type::ImageUrlRole] = QVariant{QLatin1String("image://cover/") + trackRecord.value(30).toUrl().toLocalFile()};
+        result[DataTypes::TrackDataType::key_type::ImageUrlRole] = QVariant{QLatin1String("image://cover/") + trackRecord.value(30).toUrl().toLocalFile()};
     }
-    result[TrackDataType::key_type::IsSingleDiscAlbumRole] = trackRecord.value(15);
+    result[DataTypes::TrackDataType::key_type::IsSingleDiscAlbumRole] = trackRecord.value(15);
     if (!trackRecord.value(16).isNull()) {
-        result[TrackDataType::key_type::GenreRole] = trackRecord.value(16);
+        result[DataTypes::TrackDataType::key_type::GenreRole] = trackRecord.value(16);
     }
     if (!trackRecord.value(17).isNull()) {
-        result[TrackDataType::key_type::ComposerRole] = trackRecord.value(17);
+        result[DataTypes::TrackDataType::key_type::ComposerRole] = trackRecord.value(17);
     }
     if (!trackRecord.value(18).isNull()) {
-        result[TrackDataType::key_type::LyricistRole] = trackRecord.value(18);
+        result[DataTypes::TrackDataType::key_type::LyricistRole] = trackRecord.value(18);
     }
     if (!trackRecord.value(19).isNull()) {
-        result[TrackDataType::key_type::CommentRole] = trackRecord.value(19);
+        result[DataTypes::TrackDataType::key_type::CommentRole] = trackRecord.value(19);
     }
     if (!trackRecord.value(20).isNull()) {
-        result[TrackDataType::key_type::YearRole] = trackRecord.value(20);
+        result[DataTypes::TrackDataType::key_type::YearRole] = trackRecord.value(20);
     }
     if (!trackRecord.value(21).isNull()) {
-        result[TrackDataType::key_type::ChannelsRole] = trackRecord.value(21);
+        result[DataTypes::TrackDataType::key_type::ChannelsRole] = trackRecord.value(21);
     }
     if (!trackRecord.value(22).isNull()) {
-        result[TrackDataType::key_type::BitRateRole] = trackRecord.value(22);
+        result[DataTypes::TrackDataType::key_type::BitRateRole] = trackRecord.value(22);
     }
     if (!trackRecord.value(23).isNull()) {
-        result[TrackDataType::key_type::SampleRateRole] = trackRecord.value(23);
+        result[DataTypes::TrackDataType::key_type::SampleRateRole] = trackRecord.value(23);
     }
-    result[TrackDataType::key_type::HasEmbeddedCover] = trackRecord.value(24);
-    result[TrackDataType::key_type::FileModificationTime] = trackRecord.value(8);
+    result[DataTypes::TrackDataType::key_type::HasEmbeddedCover] = trackRecord.value(24);
+    result[DataTypes::TrackDataType::key_type::FileModificationTime] = trackRecord.value(8);
     if (!trackRecord.value(26).isNull()) {
-        result[TrackDataType::key_type::FirstPlayDate] = trackRecord.value(26);
+        result[DataTypes::TrackDataType::key_type::FirstPlayDate] = trackRecord.value(26);
     }
     if (!trackRecord.value(27).isNull()) {
-        result[TrackDataType::key_type::LastPlayDate] = trackRecord.value(27);
+        result[DataTypes::TrackDataType::key_type::LastPlayDate] = trackRecord.value(27);
     }
-    result[TrackDataType::key_type::PlayCounter] = trackRecord.value(28);
-    result[TrackDataType::key_type::PlayFrequency] = trackRecord.value(29);
-    result[TrackDataType::key_type::ElementTypeRole] = ElisaUtils::Track;
+    result[DataTypes::TrackDataType::key_type::PlayCounter] = trackRecord.value(28);
+    result[DataTypes::TrackDataType::key_type::PlayFrequency] = trackRecord.value(29);
+    result[DataTypes::TrackDataType::key_type::ElementTypeRole] = ElisaUtils::Track;
 
     return result;
 }
 
-DatabaseInterface::TrackDataType DatabaseInterface::buildRadioDataFromDatabaseRecord(const QSqlRecord &trackRecord) const
+DataTypes::TrackDataType DatabaseInterface::buildRadioDataFromDatabaseRecord(const QSqlRecord &trackRecord) const
 {
-    TrackDataType result;
+    DataTypes::TrackDataType result;
 
-    result[TrackDataType::key_type::DatabaseIdRole] = trackRecord.value(0);
-    result[TrackDataType::key_type::TitleRole] = trackRecord.value(1);
+    result[DataTypes::TrackDataType::key_type::DatabaseIdRole] = trackRecord.value(0);
+    result[DataTypes::TrackDataType::key_type::TitleRole] = trackRecord.value(1);
 
-    result[TrackDataType::key_type::AlbumRole] = i18n("Radios");
-    result[TrackDataType::key_type::ArtistRole] = trackRecord.value(1);
+    result[DataTypes::TrackDataType::key_type::AlbumRole] = i18n("Radios");
+    result[DataTypes::TrackDataType::key_type::ArtistRole] = trackRecord.value(1);
 
-    result[TrackDataType::key_type::ResourceRole] = trackRecord.value(2);
-    result[TrackDataType::key_type::RatingRole] = trackRecord.value(3);
+    result[DataTypes::TrackDataType::key_type::ResourceRole] = trackRecord.value(2);
+    result[DataTypes::TrackDataType::key_type::RatingRole] = trackRecord.value(3);
     if (!trackRecord.value(4).isNull()) {
-        result[TrackDataType::key_type::GenreRole] = trackRecord.value(4);
+        result[DataTypes::TrackDataType::key_type::GenreRole] = trackRecord.value(4);
     }
-    result[TrackDataType::key_type::CommentRole] = trackRecord.value(5);
-    result[TrackDataType::key_type::ElementTypeRole] = ElisaUtils::Radio;
+    result[DataTypes::TrackDataType::key_type::CommentRole] = trackRecord.value(5);
+    result[DataTypes::TrackDataType::key_type::ElementTypeRole] = ElisaUtils::Radio;
 
     return result;
 }
@@ -6484,14 +6484,14 @@ void DatabaseInterface::internalRemoveTracksList(const QList<QUrl> &removedTrack
         auto tracksCount = fetchTrackIds(modifiedAlbumId).count();
 
         if (!modifiedAlbumData.isEmpty() && tracksCount) {
-            Q_EMIT albumModified({{DatabaseIdRole, modifiedAlbumId}}, modifiedAlbumId);
+            Q_EMIT albumModified({{DataTypes::DatabaseIdRole, modifiedAlbumId}}, modifiedAlbumId);
         } else {
             removeAlbumInDatabase(modifiedAlbumId);
             Q_EMIT albumRemoved(modifiedAlbumId);
 
-            const auto &allTracksFromArtist = internalTracksFromAuthor(modifiedAlbumData[AlbumDataType::key_type::ArtistRole].toString());
-            const auto &allAlbumsFromArtist = internalAlbumIdsFromAuthor(modifiedAlbumData[AlbumDataType::key_type::ArtistRole].toString());
-            const auto &removedArtistId = internalArtistIdFromName(modifiedAlbumData[AlbumDataType::key_type::ArtistRole].toString());
+            const auto &allTracksFromArtist = internalTracksFromAuthor(modifiedAlbumData[DataTypes::AlbumDataType::key_type::ArtistRole].toString());
+            const auto &allAlbumsFromArtist = internalAlbumIdsFromAuthor(modifiedAlbumData[DataTypes::AlbumDataType::key_type::ArtistRole].toString());
+            const auto &removedArtistId = internalArtistIdFromName(modifiedAlbumData[DataTypes::AlbumDataType::key_type::ArtistRole].toString());
 
             if (removedArtistId != 0 && allTracksFromArtist.isEmpty() && allAlbumsFromArtist.isEmpty()) {
                 removeArtistInDatabase(removedArtistId);
@@ -6813,7 +6813,7 @@ void DatabaseInterface::updateTrackInDatabase(const MusicAudioTrack &oneTrack, c
     d->mUpdateTrackQuery.finish();
 }
 
-void DatabaseInterface::insertRadio(const TrackDataType &oneTrack)
+void DatabaseInterface::insertRadio(const DataTypes::TrackDataType &oneTrack)
 {
     QSqlQuery query = d->mUpdateRadioQuery;
 
@@ -6836,7 +6836,7 @@ void DatabaseInterface::insertRadio(const TrackDataType &oneTrack)
         qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackInDatabase" << query.boundValues();
         qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackInDatabase" << query.lastError();
     } else {
-        if (oneTrack[TrackDataType::key_type::DatabaseIdRole] == -1) {
+        if (oneTrack[DataTypes::TrackDataType::key_type::DatabaseIdRole] == -1) {
             auto radio = internalOneRadioPartialData(internalRadioIdFromHttpAddress(oneTrack.resourceURI().toString()));
 
             Q_EMIT radioAdded(radio);
@@ -7249,9 +7249,9 @@ qulonglong DatabaseInterface::internalRadioIdFromHttpAddress(const QString &http
     return result;
 }
 
-DatabaseInterface::ListTrackDataType DatabaseInterface::internalTracksFromAuthor(const QString &ArtistName)
+DataTypes::ListTrackDataType DatabaseInterface::internalTracksFromAuthor(const QString &ArtistName)
 {
-    auto allTracks = ListTrackDataType{};
+    auto allTracks = DataTypes::ListTrackDataType{};
 
     d->mSelectTracksFromArtist.bindValue(QStringLiteral(":artistName"), ArtistName);
 
@@ -7307,23 +7307,23 @@ QList<qulonglong> DatabaseInterface::internalAlbumIdsFromAuthor(const QString &A
     return allAlbumIds;
 }
 
-DatabaseInterface::ListArtistDataType DatabaseInterface::internalAllArtistsPartialData(QSqlQuery &artistsQuery)
+DataTypes::ListArtistDataType DatabaseInterface::internalAllArtistsPartialData(QSqlQuery &artistsQuery)
 {
-    auto result = ListArtistDataType{};
+    auto result = DataTypes::ListArtistDataType{};
 
     if (!internalGenericPartialData(artistsQuery)) {
         return result;
     }
 
     while(artistsQuery.next()) {
-        auto newData = ArtistDataType{};
+        auto newData = DataTypes::ArtistDataType{};
 
         const auto &currentRecord = artistsQuery.record();
 
-        newData[DataType::key_type::DatabaseIdRole] = currentRecord.value(0);
-        newData[DataType::key_type::TitleRole] = currentRecord.value(1);
-        newData[DataType::key_type::GenreRole] = QVariant::fromValue(currentRecord.value(2).toString().split(QStringLiteral(", ")));
-        newData[DataType::key_type::ElementTypeRole] = ElisaUtils::Artist;
+        newData[DataTypes::DatabaseIdRole] = currentRecord.value(0);
+        newData[DataTypes::TitleRole] = currentRecord.value(1);
+        newData[DataTypes::GenreRole] = QVariant::fromValue(currentRecord.value(2).toString().split(QStringLiteral(", ")));
+        newData[DataTypes::ElementTypeRole] = ElisaUtils::Artist;
 
         result.push_back(newData);
     }
@@ -7333,45 +7333,45 @@ DatabaseInterface::ListArtistDataType DatabaseInterface::internalAllArtistsParti
     return result;
 }
 
-DatabaseInterface::ListAlbumDataType DatabaseInterface::internalAllAlbumsPartialData(QSqlQuery &query)
+DataTypes::ListAlbumDataType DatabaseInterface::internalAllAlbumsPartialData(QSqlQuery &query)
 {
-    auto result = ListAlbumDataType{};
+    auto result = DataTypes::ListAlbumDataType{};
 
     if (!internalGenericPartialData(query)) {
         return result;
     }
 
     while(query.next()) {
-        auto newData = AlbumDataType{};
+        auto newData = DataTypes::AlbumDataType{};
 
         const auto &currentRecord = query.record();
 
-        newData[DataType::key_type::DatabaseIdRole] = currentRecord.value(0);
-        newData[DataType::key_type::TitleRole] = currentRecord.value(1);
+        newData[DataTypes::DatabaseIdRole] = currentRecord.value(0);
+        newData[DataTypes::TitleRole] = currentRecord.value(1);
         if (!currentRecord.value(3).toString().isEmpty()) {
-            newData[DataType::key_type::ImageUrlRole] = currentRecord.value(3);
+            newData[DataTypes::ImageUrlRole] = currentRecord.value(3);
         } else if (!currentRecord.value(10).toString().isEmpty()) {
-            newData[DataType::key_type::ImageUrlRole] = QVariant{QLatin1String("image://cover/") + currentRecord.value(10).toUrl().toLocalFile()};
+            newData[DataTypes::ImageUrlRole] = QVariant{QLatin1String("image://cover/") + currentRecord.value(10).toUrl().toLocalFile()};
         }
         auto allArtists = currentRecord.value(6).toString().split(QStringLiteral(", "));
         allArtists.removeDuplicates();
-        newData[DataType::key_type::AllArtistsRole] = QVariant::fromValue(allArtists);
+        newData[DataTypes::AllArtistsRole] = QVariant::fromValue(allArtists);
         if (!currentRecord.value(4).isNull()) {
-            newData[DataType::key_type::IsValidAlbumArtistRole] = true;
-            newData[DataType::key_type::SecondaryTextRole] = currentRecord.value(4);
+            newData[DataTypes::IsValidAlbumArtistRole] = true;
+            newData[DataTypes::SecondaryTextRole] = currentRecord.value(4);
         } else {
-            newData[DataType::key_type::IsValidAlbumArtistRole] = false;
+            newData[DataTypes::IsValidAlbumArtistRole] = false;
             if (currentRecord.value(5).toInt() == 1) {
-                newData[DataType::key_type::SecondaryTextRole] = allArtists.first();
+                newData[DataTypes::SecondaryTextRole] = allArtists.first();
             } else if (currentRecord.value(5).toInt() > 1) {
-                newData[DataType::key_type::SecondaryTextRole] = i18n("Various Artists");
+                newData[DataTypes::SecondaryTextRole] = i18n("Various Artists");
             }
         }
-        newData[DataType::key_type::ArtistRole] = newData[DataType::key_type::SecondaryTextRole];
-        newData[DataType::key_type::HighestTrackRating] = currentRecord.value(7);
-        newData[DataType::key_type::IsSingleDiscAlbumRole] = currentRecord.value(9);
-        newData[DataType::key_type::GenreRole] = QVariant::fromValue(currentRecord.value(8).toString().split(QStringLiteral(", ")));
-        newData[DataType::key_type::ElementTypeRole] = ElisaUtils::Album;
+        newData[DataTypes::ArtistRole] = newData[DataTypes::SecondaryTextRole];
+        newData[DataTypes::HighestTrackRating] = currentRecord.value(7);
+        newData[DataTypes::IsSingleDiscAlbumRole] = currentRecord.value(9);
+        newData[DataTypes::GenreRole] = QVariant::fromValue(currentRecord.value(8).toString().split(QStringLiteral(", ")));
+        newData[DataTypes::ElementTypeRole] = ElisaUtils::Album;
 
         result.push_back(newData);
     }
@@ -7381,9 +7381,9 @@ DatabaseInterface::ListAlbumDataType DatabaseInterface::internalAllAlbumsPartial
     return result;
 }
 
-DatabaseInterface::AlbumDataType DatabaseInterface::internalOneAlbumPartialData(qulonglong databaseId)
+DataTypes::AlbumDataType DatabaseInterface::internalOneAlbumPartialData(qulonglong databaseId)
 {
-    auto result = AlbumDataType{};
+    auto result = DataTypes::AlbumDataType{};
 
     d->mSelectAlbumQuery.bindValue(QStringLiteral(":albumId"), databaseId);
 
@@ -7394,34 +7394,35 @@ DatabaseInterface::AlbumDataType DatabaseInterface::internalOneAlbumPartialData(
     if (d->mSelectAlbumQuery.next()) {
         const auto &currentRecord = d->mSelectAlbumQuery.record();
 
-        result[DataType::key_type::DatabaseIdRole] = currentRecord.value(0);
-        result[DataType::key_type::TitleRole] = currentRecord.value(1);
+        result[DataTypes::DatabaseIdRole] = currentRecord.value(0);
+        result[DataTypes::TitleRole] = currentRecord.value(1);
         if (!currentRecord.value(4).toString().isEmpty()) {
-            result[DataType::key_type::ImageUrlRole] = currentRecord.value(4);
+            result[DataTypes::ImageUrlRole] = currentRecord.value(4);
         } else if (!currentRecord.value(11).toString().isEmpty()) {
-            result[DataType::key_type::ImageUrlRole] = QVariant{QLatin1String("image://cover/") + currentRecord.value(11).toUrl().toLocalFile()};
+            result[DataTypes::ImageUrlRole] = QVariant{QLatin1String("image://cover/") + currentRecord.value(11).toUrl().toLocalFile()};
         }
 
         auto allArtists = currentRecord.value(8).toString().split(QStringLiteral(", "));
         allArtists.removeDuplicates();
-        result[DataType::key_type::AllArtistsRole] = QVariant::fromValue(allArtists);
+        result[DataTypes::AllArtistsRole] = QVariant::fromValue(allArtists);
 
         if (!currentRecord.value(2).isNull()) {
-            result[DataType::key_type::IsValidAlbumArtistRole] = true;
-            result[DataType::key_type::SecondaryTextRole] = currentRecord.value(2);
+            result[DataTypes::IsValidAlbumArtistRole] = true;
+            result[DataTypes::SecondaryTextRole] = currentRecord.value(2);
         } else {
-            result[DataType::key_type::IsValidAlbumArtistRole] = false;
+            result[DataTypes::IsValidAlbumArtistRole] = false;
             if (currentRecord.value(7).toInt() == 1) {
-                result[DataType::key_type::SecondaryTextRole] = allArtists.first();
+                result[DataTypes::SecondaryTextRole] = allArtists.first();
             } else if (currentRecord.value(7).toInt() > 1) {
-                result[DataType::key_type::SecondaryTextRole] = i18n("Various Artists");
+                result[DataTypes::SecondaryTextRole] = i18n("Various Artists");
             }
         }
-        result[DataType::key_type::ArtistRole] = result[DataType::key_type::SecondaryTextRole];
-        result[DataType::key_type::HighestTrackRating] = currentRecord.value(9);
-        result[DataType::key_type::IsSingleDiscAlbumRole] = currentRecord.value(6);
-        result[DataType::key_type::GenreRole] = QVariant::fromValue(currentRecord.value(10).toString().split(QStringLiteral(", ")));
-        result[DataType::key_type::ElementTypeRole] = ElisaUtils::Album;
+        result[DataTypes::ArtistRole] = result[DataTypes::SecondaryTextRole];
+        result[DataTypes::HighestTrackRating] = currentRecord.value(9);
+        result[DataTypes::IsSingleDiscAlbumRole] = currentRecord.value(6);
+        result[DataTypes::GenreRole] = QVariant::fromValue(currentRecord.value(10).toString().split(QStringLiteral(", ")));
+        result[DataTypes::ElementTypeRole] = ElisaUtils::Album;
+
     }
 
     d->mSelectAlbumQuery.finish();
@@ -7429,9 +7430,9 @@ DatabaseInterface::AlbumDataType DatabaseInterface::internalOneAlbumPartialData(
     return result;
 }
 
-DatabaseInterface::ListTrackDataType DatabaseInterface::internalAllTracksPartialData()
+DataTypes::ListTrackDataType DatabaseInterface::internalAllTracksPartialData()
 {
-    auto result = ListTrackDataType{};
+    auto result = DataTypes::ListTrackDataType{};
 
     if (!internalGenericPartialData(d->mSelectAllTracksQuery)) {
         return result;
@@ -7450,9 +7451,9 @@ DatabaseInterface::ListTrackDataType DatabaseInterface::internalAllTracksPartial
     return result;
 }
 
-DatabaseInterface::ListRadioDataType DatabaseInterface::internalAllRadiosPartialData()
+DataTypes::ListRadioDataType DatabaseInterface::internalAllRadiosPartialData()
 {
-    auto result = ListRadioDataType{};
+    auto result = DataTypes::ListRadioDataType{};
 
     if (!internalGenericPartialData(d->mSelectAllRadiosQuery)) {
         return result;
@@ -7471,9 +7472,9 @@ DatabaseInterface::ListRadioDataType DatabaseInterface::internalAllRadiosPartial
     return result;
 }
 
-DatabaseInterface::ListTrackDataType DatabaseInterface::internalRecentlyPlayedTracksData(int count)
+DataTypes::ListTrackDataType DatabaseInterface::internalRecentlyPlayedTracksData(int count)
 {
-    auto result = ListTrackDataType{};
+    auto result = DataTypes::ListTrackDataType{};
 
     d->mSelectAllRecentlyPlayedTracksQuery.bindValue(QStringLiteral(":maximumResults"), count);
 
@@ -7494,9 +7495,9 @@ DatabaseInterface::ListTrackDataType DatabaseInterface::internalRecentlyPlayedTr
     return result;
 }
 
-DatabaseInterface::ListTrackDataType DatabaseInterface::internalFrequentlyPlayedTracksData(int count)
+DataTypes::ListTrackDataType DatabaseInterface::internalFrequentlyPlayedTracksData(int count)
 {
-    auto result = ListTrackDataType{};
+    auto result = DataTypes::ListTrackDataType{};
 
     d->mSelectAllFrequentlyPlayedTracksQuery.bindValue(QStringLiteral(":maximumResults"), count);
 
@@ -7517,9 +7518,9 @@ DatabaseInterface::ListTrackDataType DatabaseInterface::internalFrequentlyPlayed
     return result;
 }
 
-DatabaseInterface::TrackDataType DatabaseInterface::internalOneTrackPartialData(qulonglong databaseId)
+DataTypes::TrackDataType DatabaseInterface::internalOneTrackPartialData(qulonglong databaseId)
 {
-    auto result = TrackDataType{};
+    auto result = DataTypes::TrackDataType{};
 
     d->mSelectTrackFromIdQuery.bindValue(QStringLiteral(":trackId"), databaseId);
 
@@ -7538,9 +7539,9 @@ DatabaseInterface::TrackDataType DatabaseInterface::internalOneTrackPartialData(
     return result;
 }
 
-DatabaseInterface::TrackDataType DatabaseInterface::internalOneRadioPartialData(qulonglong databaseId)
+DataTypes::TrackDataType DatabaseInterface::internalOneRadioPartialData(qulonglong databaseId)
 {
-    auto result = TrackDataType{};
+    auto result = DataTypes::TrackDataType{};
 
     d->mSelectRadioFromIdQuery.bindValue(QStringLiteral(":radioId"), databaseId);
 
@@ -7559,22 +7560,22 @@ DatabaseInterface::TrackDataType DatabaseInterface::internalOneRadioPartialData(
     return result;
 }
 
-DatabaseInterface::ListGenreDataType DatabaseInterface::internalAllGenresPartialData()
+DataTypes::ListGenreDataType DatabaseInterface::internalAllGenresPartialData()
 {
-    ListGenreDataType result;
+    DataTypes::ListGenreDataType result;
 
     if (!internalGenericPartialData(d->mSelectAllGenresQuery)) {
         return result;
     }
 
     while(d->mSelectAllGenresQuery.next()) {
-        auto newData = GenreDataType{};
+        auto newData = DataTypes::GenreDataType{};
 
         const auto &currentRecord = d->mSelectAllGenresQuery.record();
 
-        newData[DataType::key_type::DatabaseIdRole] = currentRecord.value(0);
-        newData[DataType::key_type::TitleRole] = currentRecord.value(1);
-        newData[DataType::key_type::ElementTypeRole] = ElisaUtils::Genre;
+        newData[DataTypes::DatabaseIdRole] = currentRecord.value(0);
+        newData[DataTypes::TitleRole] = currentRecord.value(1);
+        newData[DataTypes::ElementTypeRole] = ElisaUtils::Genre;
 
         result.push_back(newData);
     }
@@ -7584,22 +7585,22 @@ DatabaseInterface::ListGenreDataType DatabaseInterface::internalAllGenresPartial
     return result;
 }
 
-DatabaseInterface::ListArtistDataType DatabaseInterface::internalAllComposersPartialData()
+DataTypes::ListArtistDataType DatabaseInterface::internalAllComposersPartialData()
 {
-    ListArtistDataType result;
+    DataTypes::ListArtistDataType result;
 
     if (!internalGenericPartialData(d->mSelectAllComposersQuery)) {
         return result;
     }
 
     while(d->mSelectAllComposersQuery.next()) {
-        auto newData = ArtistDataType{};
+        auto newData = DataTypes::ArtistDataType{};
 
         const auto &currentRecord = d->mSelectAllComposersQuery.record();
 
-        newData[DataType::key_type::DatabaseIdRole] = currentRecord.value(0);
-        newData[DataType::key_type::TitleRole] = currentRecord.value(1);
-        newData[DataType::key_type::ElementTypeRole] = ElisaUtils::Composer;
+        newData[DataTypes::DatabaseIdRole] = currentRecord.value(0);
+        newData[DataTypes::TitleRole] = currentRecord.value(1);
+        newData[DataTypes::ElementTypeRole] = ElisaUtils::Composer;
 
         result.push_back(newData);
     }
@@ -7609,22 +7610,22 @@ DatabaseInterface::ListArtistDataType DatabaseInterface::internalAllComposersPar
     return result;
 }
 
-DatabaseInterface::ListArtistDataType DatabaseInterface::internalAllLyricistsPartialData()
+DataTypes::ListArtistDataType DatabaseInterface::internalAllLyricistsPartialData()
 {
-    ListArtistDataType result;
+    DataTypes::ListArtistDataType result;
 
     if (!internalGenericPartialData(d->mSelectAllLyricistsQuery)) {
         return result;
     }
 
     while(d->mSelectAllLyricistsQuery.next()) {
-        auto newData = ArtistDataType{};
+        auto newData = DataTypes::ArtistDataType{};
 
         const auto &currentRecord = d->mSelectAllLyricistsQuery.record();
 
-        newData[DataType::key_type::DatabaseIdRole] = currentRecord.value(0);
-        newData[DataType::key_type::TitleRole] = currentRecord.value(1);
-        newData[DataType::key_type::ElementTypeRole] = ElisaUtils::Lyricist;
+        newData[DataTypes::DatabaseIdRole] = currentRecord.value(0);
+        newData[DataTypes::TitleRole] = currentRecord.value(1);
+        newData[DataTypes::ElementTypeRole] = ElisaUtils::Lyricist;
 
         result.push_back(newData);
     }

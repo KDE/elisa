@@ -22,6 +22,7 @@
 
 #include "elisautils.h"
 #include "databaseinterface.h"
+#include "datatypes.h"
 #include "models/datamodel.h"
 
 #include <QObject>
@@ -37,13 +38,13 @@ class ELISALIB_EXPORT ModelDataLoader : public QObject
 
 public:
 
-    using ListAlbumDataType = DatabaseInterface::ListAlbumDataType;
-    using ListArtistDataType = DatabaseInterface::ListArtistDataType;
-    using ListGenreDataType = DatabaseInterface::ListGenreDataType;
-    using ListTrackDataType = DatabaseInterface::ListTrackDataType;
-    using ListRadioDataType = DatabaseInterface::ListRadioDataType;
-    using TrackDataType = DatabaseInterface::TrackDataType;
-    using AlbumDataType = DatabaseInterface::AlbumDataType;
+    using ListAlbumDataType = DataTypes::ListAlbumDataType;
+    using ListArtistDataType = DataTypes::ListArtistDataType;
+    using ListGenreDataType = DataTypes::ListGenreDataType;
+    using ListTrackDataType = DataTypes::ListTrackDataType;
+    using ListRadioDataType = DataTypes::ListRadioDataType;
+    using TrackDataType = DataTypes::TrackDataType;
+    using AlbumDataType = DataTypes::AlbumDataType;
 
     using FilterType = ElisaUtils::FilterType;
 

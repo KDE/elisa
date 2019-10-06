@@ -25,6 +25,7 @@
 #include "manageaudioplayer.h"
 #include "managemediaplayercontrol.h"
 #include "manageheaderbar.h"
+#include "databaseinterface.h"
 
 #include "elisa_settings.h"
 #include <KConfigCore/KAuthorized>

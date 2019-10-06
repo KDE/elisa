@@ -4442,7 +4442,7 @@ void MediaPlayListTest::testTrackBeenRemoved()
 
     QVERIFY(!removedTrack.isEmpty());
 
-    myPlayList.trackRemoved(removedTrack[DatabaseInterface::DatabaseIdRole].toULongLong());
+    myPlayList.trackRemoved(removedTrack[DataTypes::DatabaseIdRole].toULongLong());
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);

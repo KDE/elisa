@@ -45,6 +45,7 @@
 #include "trackslistener.h"
 #include "viewmanager.h"
 #include "databaseinterface.h"
+#include "datatypes.h"
 #include "models/datamodel.h"
 #include "models/trackmetadatamodel.h"
 #include "models/trackcontextmetadatamodel.h"
@@ -145,11 +146,11 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qRegisterMetaType<QList<MusicAudioTrack>>("QVector<MusicAudioTrack>");
     qRegisterMetaType<QVector<qulonglong>>("QVector<qulonglong>");
     qRegisterMetaType<QHash<qulonglong,int>>("QHash<qulonglong,int>");
-    qRegisterMetaType<DatabaseInterface::ListTrackDataType>("DatabaseInterface::ListTrackDataType");
-    qRegisterMetaType<DatabaseInterface::ListRadioDataType>("DatabaseInterface::ListRadioDataType");
-    qRegisterMetaType<DatabaseInterface::ListAlbumDataType>("DatabaseInterface::ListAlbumDataType");
-    qRegisterMetaType<DatabaseInterface::ListArtistDataType>("DatabaseInterface::ListArtistDataType");
-    qRegisterMetaType<DatabaseInterface::ListGenreDataType>("DatabaseInterface::ListGenreDataType");
+    qRegisterMetaType<DataTypes::ListTrackDataType>("DataTypes::ListTrackDataType");
+    qRegisterMetaType<DataTypes::ListRadioDataType>("DataTypes::ListRadioDataType");
+    qRegisterMetaType<DataTypes::ListAlbumDataType>("DataTypes::ListAlbumDataType");
+    qRegisterMetaType<DataTypes::ListArtistDataType>("DataTypes::ListArtistDataType");
+    qRegisterMetaType<DataTypes::ListGenreDataType>("DataTypes::ListGenreDataType");
     qRegisterMetaType<ModelDataLoader::ListTrackDataType>("ModelDataLoader::ListTrackDataType");
     qRegisterMetaType<ModelDataLoader::ListRadioDataType>("ModelDataLoader::ListRadioDataType");
     qRegisterMetaType<ModelDataLoader::ListAlbumDataType>("ModelDataLoader::ListAlbumDataType");
@@ -166,10 +167,10 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qRegisterMetaType<ElisaUtils::EntryData>("ElisaUtils::EntryData");
     qRegisterMetaType<ElisaUtils::EntryDataList>("ElisaUtils::EntryDataList");
     qRegisterMetaType<ElisaUtils::FilterType>("ElisaUtils::FilterType");
-    qRegisterMetaType<DatabaseInterface::TrackDataType>("DatabaseInterface::TrackDataType");
-    qRegisterMetaType<DatabaseInterface::AlbumDataType>("DatabaseInterface::AlbumDataType");
-    qRegisterMetaType<DatabaseInterface::ArtistDataType>("DatabaseInterface::ArtistDataType");
-    qRegisterMetaType<DatabaseInterface::GenreDataType>("DatabaseInterface::GenreDataType");
+    qRegisterMetaType<DataTypes::TrackDataType>("DataTypes::TrackDataType");
+    qRegisterMetaType<DataTypes::AlbumDataType>("DataTypes::AlbumDataType");
+    qRegisterMetaType<DataTypes::ArtistDataType>("DataTypes::ArtistDataType");
+    qRegisterMetaType<DataTypes::GenreDataType>("DataTypes::GenreDataType");
     qRegisterMetaType<ModelDataLoader::TrackDataType>("ModelDataLoader::TrackDataType");
     qRegisterMetaType<TracksListener::TrackDataType>("TracksListener::TrackDataType");
     qRegisterMetaType<ViewManager::ViewsType>("ViewManager::ViewsType");

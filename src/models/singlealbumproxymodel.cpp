@@ -17,7 +17,7 @@
 
 #include "singlealbumproxymodel.h"
 
-#include "databaseinterface.h"
+#include "datatypes.h"
 
 #include <QReadLocker>
 #include <QtConcurrentRun>
@@ -34,8 +34,8 @@ bool SingleAlbumProxyModel::filterAcceptsRow(int source_row, const QModelIndex &
 
     auto currentIndex = sourceModel()->index(source_row, 0, source_parent);
 
-    const auto &titleValue = sourceModel()->data(currentIndex, DatabaseInterface::ColumnsRoles::TitleRole).toString();
-    const auto maximumRatingValue = sourceModel()->data(currentIndex, DatabaseInterface::ColumnsRoles::RatingRole).toInt();
+    const auto &titleValue = sourceModel()->data(currentIndex, DataTypes::ColumnsRoles::TitleRole).toString();
+    const auto maximumRatingValue = sourceModel()->data(currentIndex, DataTypes::ColumnsRoles::RatingRole).toInt();
 
     if (maximumRatingValue < mFilterRating) {
         return result;
@@ -56,8 +56,8 @@ void SingleAlbumProxyModel::genericEnqueueToPlayList(ElisaUtils::PlayListEnqueue
         allTracks.reserve(rowCount());
         for (int rowIndex = 0, maxRowCount = rowCount(); rowIndex < maxRowCount; ++rowIndex) {
             auto currentIndex = index(rowIndex, 0);
-            allTracks.push_back(ElisaUtils::EntryData{data(currentIndex, DatabaseInterface::ColumnsRoles::DatabaseIdRole).toULongLong(),
-                                 data(currentIndex, DatabaseInterface::ColumnsRoles::TitleRole).toString()});
+            allTracks.push_back(ElisaUtils::EntryData{data(currentIndex, DataTypes::ColumnsRoles::DatabaseIdRole).toULongLong(),
+                                 data(currentIndex, DataTypes::ColumnsRoles::TitleRole).toString()});
         }
         Q_EMIT entriesToEnqueue(allTracks, ElisaUtils::Track, enqueueMode, triggerPlay);
     });

@@ -16,7 +16,7 @@
  */
 
 #include "mediaplaylist.h"
-#include "databaseinterface.h"
+#include "datatypes.h"
 #include "musicaudiotrack.h"
 #include "musiclistenersmanager.h"
 
@@ -38,7 +38,7 @@ public:
 
     QList<MediaPlayListEntry> mData;
 
-    QList<DatabaseInterface::TrackDataType> mTrackData;
+    QList<DataTypes::TrackDataType> mTrackData;
 
     MusicListenersManager* mMusicListenersManager = nullptr;
 

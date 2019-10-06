@@ -57,7 +57,7 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
     case Qt::DisplayRole:
         switch (currentKey)
         {
-        case DatabaseInterface::TrackNumberRole:
+        case DataTypes::TrackNumberRole:
         {
             auto trackNumber = mTrackData.trackNumber();
             if (trackNumber > 0) {
@@ -65,7 +65,7 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
             }
             break;
         }
-        case DatabaseInterface::DiscNumberRole:
+        case DataTypes::DiscNumberRole:
         {
             auto discNumber = mTrackData.discNumber();
             if (discNumber > 0) {
@@ -73,7 +73,7 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
             }
             break;
         }
-        case DatabaseInterface::ChannelsRole:
+        case DataTypes::ChannelsRole:
         {
             auto channels = mTrackData.channels();
             if (channels > 0) {
@@ -81,7 +81,7 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
             }
             break;
         }
-        case DatabaseInterface::BitRateRole:
+        case DataTypes::BitRateRole:
         {
             auto bitRate = mTrackData.bitRate();
             if (bitRate > 0) {
@@ -89,7 +89,7 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
             }
             break;
         }
-        case DatabaseInterface::SampleRateRole:
+        case DataTypes::SampleRateRole:
         {
             auto sampleRate = mTrackData.sampleRate();
             if (sampleRate > 0) {
@@ -105,164 +105,164 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
     case ItemNameRole:
         switch (currentKey)
         {
-        case DatabaseInterface::TitleRole:
+        case DataTypes::TitleRole:
             result = i18nc("Track title for track metadata view", "Title");
             break;
-        case DatabaseInterface::DurationRole:
+        case DataTypes::DurationRole:
             result = i18nc("Duration label for track metadata view", "Duration");
             break;
-        case DatabaseInterface::ArtistRole:
+        case DataTypes::ArtistRole:
             result = i18nc("Track artist for track metadata view", "Artist");
             break;
-        case DatabaseInterface::AlbumRole:
+        case DataTypes::AlbumRole:
             result = i18nc("Album name for track metadata view", "Album");
             break;
-        case DatabaseInterface::AlbumArtistRole:
+        case DataTypes::AlbumArtistRole:
             result = i18nc("Album artist for track metadata view", "Album Artist");
             break;
-        case DatabaseInterface::TrackNumberRole:
+        case DataTypes::TrackNumberRole:
             result = i18nc("Track number for track metadata view", "Track Number");
             break;
-        case DatabaseInterface::DiscNumberRole:
+        case DataTypes::DiscNumberRole:
             result = i18nc("Disc number for track metadata view", "Disc Number");
             break;
-        case DatabaseInterface::RatingRole:
+        case DataTypes::RatingRole:
             result = i18nc("Rating label for information panel", "Rating");
             break;
-        case DatabaseInterface::GenreRole:
+        case DataTypes::GenreRole:
             result = i18nc("Genre label for track metadata view", "Genre");
             break;
-        case DatabaseInterface::LyricistRole:
+        case DataTypes::LyricistRole:
             result = i18nc("Lyricist label for track metadata view", "Lyricist");
             break;
-        case DatabaseInterface::ComposerRole:
+        case DataTypes::ComposerRole:
             result = i18nc("Composer name for track metadata view", "Composer");
             break;
-        case DatabaseInterface::CommentRole:
+        case DataTypes::CommentRole:
             result = i18nc("Comment label for track metadata view", "Comment");
             break;
-        case DatabaseInterface::YearRole:
+        case DataTypes::YearRole:
             result = i18nc("Year label for track metadata view", "Year");
             break;
-        case DatabaseInterface::ChannelsRole:
+        case DataTypes::ChannelsRole:
             result = i18nc("Channels label for track metadata view", "Channels");
             break;
-        case DatabaseInterface::BitRateRole:
+        case DataTypes::BitRateRole:
             result = i18nc("Bit rate label for track metadata view", "Bit Rate");
             break;
-        case DatabaseInterface::SampleRateRole:
+        case DataTypes::SampleRateRole:
             result = i18nc("Sample Rate label for track metadata view", "Sample Rate");
             break;
-        case DatabaseInterface::LastPlayDate:
+        case DataTypes::LastPlayDate:
             result = i18nc("Last play date label for track metadata view", "Last played");
             break;
-        case DatabaseInterface::PlayCounter:
+        case DataTypes::PlayCounter:
             result = i18nc("Play counter label for track metadata view", "Play count");
             break;
-        case DatabaseInterface::LyricsRole:
+        case DataTypes::LyricsRole:
             result = i18nc("Lyrics label for track metadata view", "Lyrics");
             break;
-        case DatabaseInterface::ResourceRole:
+        case DataTypes::ResourceRole:
             result = i18nc("Radio HTTP address for radio metadata view", "Stream Http Address");
             break;
-        case DatabaseInterface::SecondaryTextRole:
-        case DatabaseInterface::ImageUrlRole:
-        case DatabaseInterface::ShadowForImageRole:
-        case DatabaseInterface::ChildModelRole:
-        case DatabaseInterface::StringDurationRole:
-        case DatabaseInterface::MilliSecondsDurationRole:
-        case DatabaseInterface::IsValidAlbumArtistRole:
-        case DatabaseInterface::AllArtistsRole:
-        case DatabaseInterface::HighestTrackRating:
-        case DatabaseInterface::IdRole:
-        case DatabaseInterface::DatabaseIdRole:
-        case DatabaseInterface::IsSingleDiscAlbumRole:
-        case DatabaseInterface::ContainerDataRole:
-        case DatabaseInterface::IsPartialDataRole:
-        case DatabaseInterface::AlbumIdRole:
-        case DatabaseInterface::HasEmbeddedCover:
-        case DatabaseInterface::FileModificationTime:
-        case DatabaseInterface::FirstPlayDate:
-        case DatabaseInterface::PlayFrequency:
-        case DatabaseInterface::ElementTypeRole:
+        case DataTypes::SecondaryTextRole:
+        case DataTypes::ImageUrlRole:
+        case DataTypes::ShadowForImageRole:
+        case DataTypes::ChildModelRole:
+        case DataTypes::StringDurationRole:
+        case DataTypes::MilliSecondsDurationRole:
+        case DataTypes::IsValidAlbumArtistRole:
+        case DataTypes::AllArtistsRole:
+        case DataTypes::HighestTrackRating:
+        case DataTypes::IdRole:
+        case DataTypes::DatabaseIdRole:
+        case DataTypes::IsSingleDiscAlbumRole:
+        case DataTypes::ContainerDataRole:
+        case DataTypes::IsPartialDataRole:
+        case DataTypes::AlbumIdRole:
+        case DataTypes::HasEmbeddedCover:
+        case DataTypes::FileModificationTime:
+        case DataTypes::FirstPlayDate:
+        case DataTypes::PlayFrequency:
+        case DataTypes::ElementTypeRole:
             break;
         }
         break;
     case ItemTypeRole:
         switch (currentKey)
         {
-        case DatabaseInterface::TitleRole:
+        case DataTypes::TitleRole:
             result = TextEntry;
             break;
-        case DatabaseInterface::ResourceRole:
+        case DataTypes::ResourceRole:
             result = TextEntry;
             break;
-        case DatabaseInterface::ArtistRole:
+        case DataTypes::ArtistRole:
             result = TextEntry;
             break;
-        case DatabaseInterface::AlbumRole:
+        case DataTypes::AlbumRole:
             result = TextEntry;
             break;
-        case DatabaseInterface::AlbumArtistRole:
+        case DataTypes::AlbumArtistRole:
             result = TextEntry;
             break;
-        case DatabaseInterface::TrackNumberRole:
+        case DataTypes::TrackNumberRole:
             result = IntegerEntry;
             break;
-        case DatabaseInterface::DiscNumberRole:
+        case DataTypes::DiscNumberRole:
             result = IntegerEntry;
             break;
-        case DatabaseInterface::RatingRole:
+        case DataTypes::RatingRole:
             result = RatingEntry;
             break;
-        case DatabaseInterface::GenreRole:
+        case DataTypes::GenreRole:
             result = TextEntry;
             break;
-        case DatabaseInterface::LyricistRole:
+        case DataTypes::LyricistRole:
             result = TextEntry;
             break;
-        case DatabaseInterface::ComposerRole:
+        case DataTypes::ComposerRole:
             result = TextEntry;
             break;
-        case DatabaseInterface::CommentRole:
+        case DataTypes::CommentRole:
             result = TextEntry;
             break;
-        case DatabaseInterface::YearRole:
+        case DataTypes::YearRole:
             result = IntegerEntry;
             break;
-        case DatabaseInterface::LastPlayDate:
+        case DataTypes::LastPlayDate:
             result = DateEntry;
             break;
-        case DatabaseInterface::PlayCounter:
+        case DataTypes::PlayCounter:
             result = IntegerEntry;
             break;
-        case DatabaseInterface::LyricsRole:
+        case DataTypes::LyricsRole:
             result = LongTextEntry;
             break;
-        case DatabaseInterface::DurationRole:
-        case DatabaseInterface::SampleRateRole:
-        case DatabaseInterface::BitRateRole:
-        case DatabaseInterface::ChannelsRole:
-        case DatabaseInterface::SecondaryTextRole:
-        case DatabaseInterface::ImageUrlRole:
-        case DatabaseInterface::ShadowForImageRole:
-        case DatabaseInterface::ChildModelRole:
-        case DatabaseInterface::StringDurationRole:
-        case DatabaseInterface::MilliSecondsDurationRole:
-        case DatabaseInterface::IsValidAlbumArtistRole:
-        case DatabaseInterface::AllArtistsRole:
-        case DatabaseInterface::HighestTrackRating:
-        case DatabaseInterface::IdRole:
-        case DatabaseInterface::DatabaseIdRole:
-        case DatabaseInterface::IsSingleDiscAlbumRole:
-        case DatabaseInterface::ContainerDataRole:
-        case DatabaseInterface::IsPartialDataRole:
-        case DatabaseInterface::AlbumIdRole:
-        case DatabaseInterface::HasEmbeddedCover:
-        case DatabaseInterface::FileModificationTime:
-        case DatabaseInterface::FirstPlayDate:
-        case DatabaseInterface::PlayFrequency:
-        case DatabaseInterface::ElementTypeRole:
+        case DataTypes::DurationRole:
+        case DataTypes::SampleRateRole:
+        case DataTypes::BitRateRole:
+        case DataTypes::ChannelsRole:
+        case DataTypes::SecondaryTextRole:
+        case DataTypes::ImageUrlRole:
+        case DataTypes::ShadowForImageRole:
+        case DataTypes::ChildModelRole:
+        case DataTypes::StringDurationRole:
+        case DataTypes::MilliSecondsDurationRole:
+        case DataTypes::IsValidAlbumArtistRole:
+        case DataTypes::AllArtistsRole:
+        case DataTypes::HighestTrackRating:
+        case DataTypes::IdRole:
+        case DataTypes::DatabaseIdRole:
+        case DataTypes::IsSingleDiscAlbumRole:
+        case DataTypes::ContainerDataRole:
+        case DataTypes::IsPartialDataRole:
+        case DataTypes::AlbumIdRole:
+        case DataTypes::HasEmbeddedCover:
+        case DataTypes::FileModificationTime:
+        case DataTypes::FirstPlayDate:
+        case DataTypes::PlayFrequency:
+        case DataTypes::ElementTypeRole:
             break;
         }
         break;
@@ -327,28 +327,28 @@ void TrackMetadataModel::trackData(const TrackMetadataModel::TrackDataType &trac
         return;
     }
 
-    const QList<DatabaseInterface::ColumnsRoles> fieldsForTrack({DatabaseInterface::TitleRole, DatabaseInterface::ArtistRole,
-                                                                 DatabaseInterface::AlbumRole, DatabaseInterface::AlbumArtistRole,
-                                                                 DatabaseInterface::TrackNumberRole, DatabaseInterface::DiscNumberRole,
-                                                                 DatabaseInterface::RatingRole, DatabaseInterface::GenreRole,
-                                                                 DatabaseInterface::LyricistRole, DatabaseInterface::ComposerRole,
-                                                                 DatabaseInterface::CommentRole, DatabaseInterface::YearRole,
-                                                                 DatabaseInterface::LastPlayDate, DatabaseInterface::PlayCounter});
+    const QList<DataTypes::ColumnsRoles> fieldsForTrack({DataTypes::TitleRole, DataTypes::ArtistRole,
+                                                                 DataTypes::AlbumRole, DataTypes::AlbumArtistRole,
+                                                                 DataTypes::TrackNumberRole, DataTypes::DiscNumberRole,
+                                                                 DataTypes::RatingRole, DataTypes::GenreRole,
+                                                                 DataTypes::LyricistRole, DataTypes::ComposerRole,
+                                                                 DataTypes::CommentRole, DataTypes::YearRole,
+                                                                 DataTypes::LastPlayDate, DataTypes::PlayCounter});
 
     fillDataFromTrackData(trackData, fieldsForTrack);
 }
 
 void TrackMetadataModel::fillDataFromTrackData(const TrackMetadataModel::TrackDataType &trackData,
-                                               const QList<DatabaseInterface::ColumnsRoles> &fieldsForTrack)
+                                               const QList<DataTypes::ColumnsRoles> &fieldsForTrack)
 {
     beginResetModel();
     mFullData = trackData;
     mTrackData.clear();
     mTrackKeys.clear();
 
-    for (DatabaseInterface::ColumnsRoles role : fieldsForTrack) {
+    for (DataTypes::ColumnsRoles role : fieldsForTrack) {
         if (trackData.constFind(role) != trackData.constEnd()) {
-            if (role == DatabaseInterface::RatingRole) {
+            if (role == DataTypes::RatingRole) {
                 if (trackData[role].toInt() == 0) {
                     continue;
                 }
@@ -363,13 +363,13 @@ void TrackMetadataModel::fillDataFromTrackData(const TrackMetadataModel::TrackDa
 
     fetchLyrics();
 
-    mDatabaseId = trackData[DatabaseInterface::DatabaseIdRole].toULongLong();
+    mDatabaseId = trackData[DataTypes::DatabaseIdRole].toULongLong();
     Q_EMIT databaseIdChanged();
 
-    mCoverImage = trackData[DatabaseInterface::ImageUrlRole].toUrl();
+    mCoverImage = trackData[DataTypes::ImageUrlRole].toUrl();
     Q_EMIT coverUrlChanged();
 
-    auto rawFileUrl = trackData[DatabaseInterface::ResourceRole].toUrl();
+    auto rawFileUrl = trackData[DataTypes::ResourceRole].toUrl();
 
     if (rawFileUrl.isLocalFile()) {
         mFileUrl = rawFileUrl.toLocalFile();
@@ -383,7 +383,7 @@ void TrackMetadataModel::filterDataFromTrackData()
 {
 }
 
-void TrackMetadataModel::removeMetaData(DatabaseInterface::ColumnsRoles metaData)
+void TrackMetadataModel::removeMetaData(DataTypes::ColumnsRoles metaData)
 {
     auto itMetaData = std::find(mTrackKeys.begin(), mTrackKeys.end(), metaData);
     if (itMetaData == mTrackKeys.end()) {
@@ -402,8 +402,8 @@ TrackMetadataModel::TrackDataType::mapped_type TrackMetadataModel::dataFromType(
 void TrackMetadataModel::fillLyricsDataFromTrack()
 {
     beginInsertRows({}, mTrackData.size(), mTrackData.size());
-    mTrackKeys.push_back(DatabaseInterface::LyricsRole);
-    mTrackData[DatabaseInterface::LyricsRole] = mLyricsValueWatcher.result();
+    mTrackKeys.push_back(DataTypes::LyricsRole);
+    mTrackData[DataTypes::LyricsRole] = mLyricsValueWatcher.result();
     endInsertRows();
 }
 
@@ -412,7 +412,7 @@ void TrackMetadataModel::lyricsValueIsReady()
     if (!mLyricsValueWatcher.result().isEmpty()) {
         fillLyricsDataFromTrack();
 
-        mFullData[DatabaseInterface::LyricsRole] = mLyricsValueWatcher.result();
+        mFullData[DataTypes::LyricsRole] = mLyricsValueWatcher.result();
 
         Q_EMIT lyricsChanged();
     }
@@ -468,7 +468,7 @@ void TrackMetadataModel::initialize(MusicListenersManager *newManager, DatabaseI
 void TrackMetadataModel::fetchLyrics()
 {
     auto lyricicsValue = QtConcurrent::run(QThreadPool::globalInstance(), [=]() {
-        auto trackData = mFileScanner.scanOneFile(mFullData[DatabaseInterface::ResourceRole].toUrl(), mMimeDatabase);
+        auto trackData = mFileScanner.scanOneFile(mFullData[DataTypes::ResourceRole].toUrl(), mMimeDatabase);
         if (!trackData.lyrics().isEmpty()) {
             return trackData.lyrics();
         }
@@ -493,14 +493,14 @@ void TrackMetadataModel::fillDataForNewRadio()
     mTrackKeys.clear();
 
     for (auto role : {
-         DatabaseInterface::TitleRole,
-         DatabaseInterface::ResourceRole,
-         DatabaseInterface::CommentRole,
-         DatabaseInterface::DatabaseIdRole
+         DataTypes::TitleRole,
+         DataTypes::ResourceRole,
+         DataTypes::CommentRole,
+         DataTypes::DatabaseIdRole
 
 }) {
         mTrackKeys.push_back(role);
-        if (role == DatabaseInterface::DatabaseIdRole) {
+        if (role == DataTypes::DatabaseIdRole) {
             mTrackData[role] = -1;
         } else {
             mTrackData[role] = QString();
@@ -540,20 +540,20 @@ void TrackMetadataModel::saveData()
 
 void TrackMetadataModel::deleteRadio()
 {
-    if (mTrackData[DatabaseInterface::DatabaseIdRole]>=0) {
-        Q_EMIT deleteRadioData(mTrackData[DatabaseInterface::DatabaseIdRole].toULongLong());
+    if (mTrackData[DataTypes::DatabaseIdRole]>=0) {
+        Q_EMIT deleteRadioData(mTrackData[DataTypes::DatabaseIdRole].toULongLong());
     }
 }
 
 void TrackMetadataModel::radioData(const TrackDataType &radiosData)
 {
-    if (!mFullData.isEmpty() && mFullData[DatabaseInterface::DatabaseIdRole].toInt() != -1 &&
+    if (!mFullData.isEmpty() && mFullData[DataTypes::DatabaseIdRole].toInt() != -1 &&
             mFullData.databaseId() != radiosData.databaseId()) {
         return;
     }
 
-    const QList<DatabaseInterface::ColumnsRoles> fieldsForTrack({DatabaseInterface::TitleRole, DatabaseInterface::ResourceRole,
-                                                                 DatabaseInterface::CommentRole, DatabaseInterface::DatabaseIdRole});
+    const QList<DataTypes::ColumnsRoles> fieldsForTrack({DataTypes::TitleRole, DataTypes::ResourceRole,
+                                                                 DataTypes::CommentRole, DataTypes::DatabaseIdRole});
 
     fillDataFromTrackData(radiosData, fieldsForTrack);
 }

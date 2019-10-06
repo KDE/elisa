@@ -21,6 +21,7 @@
 #include "elisaLib_export.h"
 
 #include "databaseinterface.h"
+#include "datatypes.h"
 #include "musicaudiotrack.h"
 #include "elisautils.h"
 
@@ -36,9 +37,9 @@ class ELISALIB_EXPORT TracksListener : public QObject
 
 public:
 
-    using ListTrackDataType = DatabaseInterface::ListTrackDataType;
+    using ListTrackDataType = DataTypes::ListTrackDataType;
 
-    using TrackDataType = DatabaseInterface::TrackDataType;
+    using TrackDataType = DataTypes::TrackDataType;
 
     explicit TracksListener(DatabaseInterface *database, QObject *parent = nullptr);
 

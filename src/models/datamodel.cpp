@@ -86,24 +86,24 @@ QHash<int, QByteArray> DataModel::roleNames() const
 {
     auto roles = QAbstractListModel::roleNames();
 
-    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::TitleRole)] = "title";
-    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::SecondaryTextRole)] = "secondaryText";
-    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::ImageUrlRole)] = "imageUrl";
-    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::DatabaseIdRole)] = "databaseId";
-    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::ElementTypeRole)] = "dataType";
+    roles[static_cast<int>(DataTypes::ColumnsRoles::TitleRole)] = "title";
+    roles[static_cast<int>(DataTypes::ColumnsRoles::SecondaryTextRole)] = "secondaryText";
+    roles[static_cast<int>(DataTypes::ColumnsRoles::ImageUrlRole)] = "imageUrl";
+    roles[static_cast<int>(DataTypes::ColumnsRoles::DatabaseIdRole)] = "databaseId";
+    roles[static_cast<int>(DataTypes::ColumnsRoles::ElementTypeRole)] = "dataType";
 
-    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::ArtistRole)] = "artist";
-    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::AllArtistsRole)] = "allArtists";
-    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::HighestTrackRating)] = "highestTrackRating";
-    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::GenreRole)] = "genre";
+    roles[static_cast<int>(DataTypes::ColumnsRoles::ArtistRole)] = "artist";
+    roles[static_cast<int>(DataTypes::ColumnsRoles::AllArtistsRole)] = "allArtists";
+    roles[static_cast<int>(DataTypes::ColumnsRoles::HighestTrackRating)] = "highestTrackRating";
+    roles[static_cast<int>(DataTypes::ColumnsRoles::GenreRole)] = "genre";
 
-    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::AlbumRole)] = "album";
-    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::AlbumArtistRole)] = "albumArtist";
-    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::DurationRole)] = "duration";
-    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::TrackNumberRole)] = "trackNumber";
-    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::DiscNumberRole)] = "discNumber";
-    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::RatingRole)] = "rating";
-    roles[static_cast<int>(DatabaseInterface::ColumnsRoles::IsSingleDiscAlbumRole)] = "isSingleDiscAlbum";
+    roles[static_cast<int>(DataTypes::ColumnsRoles::AlbumRole)] = "album";
+    roles[static_cast<int>(DataTypes::ColumnsRoles::AlbumArtistRole)] = "albumArtist";
+    roles[static_cast<int>(DataTypes::ColumnsRoles::DurationRole)] = "duration";
+    roles[static_cast<int>(DataTypes::ColumnsRoles::TrackNumberRole)] = "trackNumber";
+    roles[static_cast<int>(DataTypes::ColumnsRoles::DiscNumberRole)] = "discNumber";
+    roles[static_cast<int>(DataTypes::ColumnsRoles::RatingRole)] = "rating";
+    roles[static_cast<int>(DataTypes::ColumnsRoles::IsSingleDiscAlbumRole)] = "isSingleDiscAlbum";
 
     return roles;
 }
@@ -161,7 +161,7 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
             break;
         }
         break;
-    case DatabaseInterface::ColumnsRoles::DurationRole:
+    case DataTypes::ColumnsRoles::DurationRole:
     {
         switch (d->mModelType)
         {
@@ -187,7 +187,7 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
         }
         break;
     }
-    case DatabaseInterface::ColumnsRoles::IsSingleDiscAlbumRole:
+    case DataTypes::ColumnsRoles::IsSingleDiscAlbumRole:
     {
         switch (d->mModelType)
         {

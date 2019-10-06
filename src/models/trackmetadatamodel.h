@@ -21,7 +21,7 @@
 #include "elisaLib_export.h"
 
 #include "elisautils.h"
-#include "databaseinterface.h"
+#include "datatypes.h"
 #include "modeldataloader.h"
 #include "filescanner.h"
 
@@ -76,7 +76,7 @@ public:
 
     Q_ENUM(ItemType)
 
-    using TrackDataType = DatabaseInterface::TrackDataType;
+    using TrackDataType = DataTypes::TrackDataType;
 
     explicit TrackMetadataModel(QObject *parent = nullptr);
 
@@ -115,7 +115,7 @@ Q_SIGNALS:
 
     void lyricsChanged();
 
-    void saveRadioData(const DatabaseInterface::TrackDataType &trackDataType);
+    void saveRadioData(const DataTypes::TrackDataType &trackDataType);
 
     void deleteRadioData(qulonglong radioId);
 
@@ -144,13 +144,13 @@ public Q_SLOTS:
 protected:
 
     void fillDataFromTrackData(const TrackMetadataModel::TrackDataType &trackData,
-                               const QList<DatabaseInterface::ColumnsRoles> &fieldsForTrack);
+                               const QList<DataTypes::ColumnsRoles> &fieldsForTrack);
 
     void fillDataForNewRadio();
 
     virtual void filterDataFromTrackData();
 
-    void removeMetaData(DatabaseInterface::ColumnsRoles metaData);
+    void removeMetaData(DataTypes::ColumnsRoles metaData);
 
     TrackDataType::mapped_type dataFromType(TrackDataType::key_type metaData) const;
 

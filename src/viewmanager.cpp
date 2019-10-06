@@ -17,7 +17,7 @@
 
 #include "viewmanager.h"
 
-#include "databaseinterface.h"
+#include "datatypes.h"
 
 ViewManager::ViewManager(QObject *parent) : QObject(parent)
 {
@@ -147,7 +147,7 @@ void ViewManager::openRecentlyPlayedTracks(const QString &mainTitle, const QUrl 
 
     if (mCurrentView != mTargetView) {
         Q_EMIT openListView(mTargetView, ElisaUtils::FilterByRecentlyPlayed, 1, mainTitle, {},
-                            0, imageUrl, ElisaUtils::Track, DatabaseInterface::LastPlayDate,
+                            0, imageUrl, ElisaUtils::Track, DataTypes::LastPlayDate,
                             SortOrder::SortDescending, MultipleAlbum, NoDiscHeaders, IsTrack);
     }
 }
@@ -158,7 +158,7 @@ void ViewManager::openFrequentlyPlayedTracks(const QString &mainTitle, const QUr
 
     if (mCurrentView != mTargetView) {
         Q_EMIT openListView(mTargetView, ElisaUtils::FilterByFrequentlyPlayed, 1, mainTitle, {},
-                            0, imageUrl, ElisaUtils::Track, DatabaseInterface::PlayFrequency,
+                            0, imageUrl, ElisaUtils::Track, DataTypes::PlayFrequency,
                             SortOrder::SortDescending, MultipleAlbum, NoDiscHeaders, IsTrack);
     }
 }

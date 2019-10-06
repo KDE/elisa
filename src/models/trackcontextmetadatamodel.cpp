@@ -23,14 +23,14 @@ TrackContextMetaDataModel::TrackContextMetaDataModel(QObject *parent) : TrackMet
 
 void TrackContextMetaDataModel::filterDataFromTrackData()
 {
-    removeMetaData(DatabaseInterface::TitleRole);
-    removeMetaData(DatabaseInterface::ArtistRole);
-    removeMetaData(DatabaseInterface::AlbumRole);
-    removeMetaData(DatabaseInterface::AlbumArtistRole);
+    removeMetaData(DataTypes::TitleRole);
+    removeMetaData(DataTypes::ArtistRole);
+    removeMetaData(DataTypes::AlbumRole);
+    removeMetaData(DataTypes::AlbumArtistRole);
 
-    if (dataFromType(DatabaseInterface::IsSingleDiscAlbumRole).toBool() &&
-            dataFromType(DatabaseInterface::DiscNumberRole).toInt() == 1) {
-        removeMetaData(DatabaseInterface::DiscNumberRole);
+    if (dataFromType(DataTypes::IsSingleDiscAlbumRole).toBool() &&
+            dataFromType(DataTypes::DiscNumberRole).toInt() == 1) {
+        removeMetaData(DataTypes::DiscNumberRole);
     }
 }
 

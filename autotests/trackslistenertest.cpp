@@ -20,6 +20,7 @@
 #include "trackslistener.h"
 #include "mediaplaylist.h"
 #include "databaseinterface.h"
+#include "datatypes.h"
 
 #include "config-upnp-qt.h"
 
@@ -58,14 +59,14 @@ private Q_SLOTS:
         qRegisterMetaType<QVector<qlonglong>>("QVector<qlonglong>");
         qRegisterMetaType<QHash<qlonglong,int>>("QHash<qlonglong,int>");
         qRegisterMetaType<QList<QUrl>>("QList<QUrl>");
-        qRegisterMetaType<DatabaseInterface::ListTrackDataType>("ListTrackDataType");
-        qRegisterMetaType<DatabaseInterface::ListAlbumDataType>("ListAlbumDataType");
-        qRegisterMetaType<DatabaseInterface::ListArtistDataType>("ListArtistDataType");
-        qRegisterMetaType<DatabaseInterface::ListGenreDataType>("ListGenreDataType");
-        qRegisterMetaType<DatabaseInterface::TrackDataType>("TrackDataType");
-        qRegisterMetaType<DatabaseInterface::AlbumDataType>("AlbumDataType");
-        qRegisterMetaType<DatabaseInterface::ArtistDataType>("ArtistDataType");
-        qRegisterMetaType<DatabaseInterface::GenreDataType>("GenreDataType");
+        qRegisterMetaType<DataTypes::ListTrackDataType>("ListTrackDataType");
+        qRegisterMetaType<DataTypes::ListAlbumDataType>("ListAlbumDataType");
+        qRegisterMetaType<DataTypes::ListArtistDataType>("ListArtistDataType");
+        qRegisterMetaType<DataTypes::ListGenreDataType>("ListGenreDataType");
+        qRegisterMetaType<DataTypes::TrackDataType>("TrackDataType");
+        qRegisterMetaType<DataTypes::AlbumDataType>("AlbumDataType");
+        qRegisterMetaType<DataTypes::ArtistDataType>("ArtistDataType");
+        qRegisterMetaType<DataTypes::GenreDataType>("GenreDataType");
         qRegisterMetaType<ElisaUtils::PlayListEntryType>("PlayListEntryType");
     }
 

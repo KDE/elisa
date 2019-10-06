@@ -5,6 +5,7 @@ set(elisaLib_SOURCES
     musicaudiotrack.cpp
     progressindicator.cpp
     databaseinterface.cpp
+    datatypes.cpp
     musiclistenersmanager.cpp
     managemediaplayercontrol.cpp
     manageheaderbar.cpp

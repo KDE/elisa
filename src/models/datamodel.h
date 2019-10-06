@@ -21,7 +21,7 @@
 #include "elisaLib_export.h"
 
 #include "elisautils.h"
-#include "databaseinterface.h"
+#include "datatypes.h"
 
 #include <QAbstractListModel>
 #include <QVector>
@@ -50,23 +50,23 @@ class ELISALIB_EXPORT DataModel : public QAbstractListModel
 
 public:
 
-    using ListRadioDataType = DatabaseInterface::ListRadioDataType;
+    using ListRadioDataType = DataTypes::ListRadioDataType;
 
-    using ListTrackDataType = DatabaseInterface::ListTrackDataType;
+    using ListTrackDataType = DataTypes::ListTrackDataType;
 
-    using TrackDataType = DatabaseInterface::TrackDataType;
+    using TrackDataType = DataTypes::TrackDataType;
 
-    using ListAlbumDataType = DatabaseInterface::ListAlbumDataType;
+    using ListAlbumDataType = DataTypes::ListAlbumDataType;
 
-    using AlbumDataType = DatabaseInterface::AlbumDataType;
+    using AlbumDataType = DataTypes::AlbumDataType;
 
-    using ListArtistDataType = DatabaseInterface::ListArtistDataType;
+    using ListArtistDataType = DataTypes::ListArtistDataType;
 
-    using ArtistDataType = DatabaseInterface::ArtistDataType;
+    using ArtistDataType = DataTypes::ArtistDataType;
 
-    using ListGenreDataType = DatabaseInterface::ListGenreDataType;
+    using ListGenreDataType = DataTypes::ListGenreDataType;
 
-    using GenreDataType = DatabaseInterface::GenreDataType;
+    using GenreDataType = DataTypes::GenreDataType;
 
     using FilterType = ElisaUtils::FilterType;
 

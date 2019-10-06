@@ -18,7 +18,7 @@
 
 #include "gridviewproxymodel.h"
 
-#include "databaseinterface.h"
+#include "datatypes.h"
 #include "elisautils.h"
 
 #include <QStringList>
@@ -46,9 +46,9 @@ bool GridViewProxyModel::filterAcceptsRow(int source_row, const QModelIndex &sou
     auto currentIndex = sourceModel()->index(source_row, 0, source_parent);
 
     const auto &mainValue = sourceModel()->data(currentIndex, Qt::DisplayRole).toString();
-    const auto &artistValue = sourceModel()->data(currentIndex, DatabaseInterface::ArtistRole).toString();
-    const auto &allArtistsValue = sourceModel()->data(currentIndex, DatabaseInterface::AllArtistsRole).toStringList();
-    const auto maximumRatingValue = sourceModel()->data(currentIndex, DatabaseInterface::HighestTrackRating).toInt();
+    const auto &artistValue = sourceModel()->data(currentIndex, DataTypes::ArtistRole).toString();
+    const auto &allArtistsValue = sourceModel()->data(currentIndex, DataTypes::AllArtistsRole).toStringList();
+    const auto maximumRatingValue = sourceModel()->data(currentIndex, DataTypes::HighestTrackRating).toInt();
 
     if (maximumRatingValue < mFilterRating) {
         result = false;
@@ -84,7 +84,7 @@ void GridViewProxyModel::genericEnqueueToPlayList(ElisaUtils::PlayListEnqueueMod
         allData.reserve(rowCount());
         for (int rowIndex = 0, maxRowCount = rowCount(); rowIndex < maxRowCount; ++rowIndex) {
             auto currentIndex = index(rowIndex, 0);
-            allData.push_back(ElisaUtils::EntryData{data(currentIndex, DatabaseInterface::DatabaseIdRole).toULongLong(),
+            allData.push_back(ElisaUtils::EntryData{data(currentIndex, DataTypes::DatabaseIdRole).toULongLong(),
                                                     data(currentIndex, Qt::DisplayRole).toString()});
         }
         Q_EMIT entriesToEnqueue(allData, mDataType, enqueueMode, triggerPlay);

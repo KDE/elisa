@@ -18,6 +18,7 @@
 #include "trackslistener.h"
 
 #include "databaseinterface.h"
+#include "datatypes.h"
 #include "filescanner.h"
 
 #include <QMimeDatabase>
@@ -163,24 +164,24 @@ void TracksListener::trackByFileNameInList(const QUrl &fileName)
         auto newTrack = scanOneFile(fileName);
 
         if (newTrack.isValid()) {
-            auto oneData = DatabaseInterface::TrackDataType{};
+            auto oneData = DataTypes::TrackDataType{};
 
             if (!newTrack.title().isEmpty()) {
-                oneData[DatabaseInterface::TrackDataType::key_type::TitleRole] = newTrack.title();
+                oneData[DataTypes::TrackDataType::key_type::TitleRole] = newTrack.title();
             } else {
                 const auto &fileUrl = newTrack.resourceURI();
-                oneData[DatabaseInterface::TrackDataType::key_type::TitleRole] = fileUrl.fileName();
+                oneData[DataTypes::TrackDataType::key_type::TitleRole] = fileUrl.fileName();
             }
 
-            oneData[DatabaseInterface::TrackDataType::key_type::ArtistRole] = newTrack.artist();
-            oneData[DatabaseInterface::TrackDataType::key_type::AlbumRole] = newTrack.albumName();
-            oneData[DatabaseInterface::TrackDataType::key_type::AlbumIdRole] = newTrack.albumId();
-            oneData[DatabaseInterface::TrackDataType::key_type::TrackNumberRole] = newTrack.trackNumber();
-            oneData[DatabaseInterface::TrackDataType::key_type::DiscNumberRole] = newTrack.discNumber();
-            oneData[DatabaseInterface::TrackDataType::key_type::DurationRole] = newTrack.duration();
-            oneData[DatabaseInterface::TrackDataType::key_type::MilliSecondsDurationRole] = newTrack.duration().msecsSinceStartOfDay();
-            oneData[DatabaseInterface::TrackDataType::key_type::ResourceRole] = newTrack.resourceURI();
-            oneData[DatabaseInterface::TrackDataType::key_type::ImageUrlRole] = newTrack.albumCover();
+            oneData[DataTypes::TrackDataType::key_type::ArtistRole] = newTrack.artist();
+            oneData[DataTypes::TrackDataType::key_type::AlbumRole] = newTrack.albumName();
+            oneData[DataTypes::TrackDataType::key_type::AlbumIdRole] = newTrack.albumId();
+            oneData[DataTypes::TrackDataType::key_type::TrackNumberRole] = newTrack.trackNumber();
+            oneData[DataTypes::TrackDataType::key_type::DiscNumberRole] = newTrack.discNumber();
+            oneData[DataTypes::TrackDataType::key_type::DurationRole] = newTrack.duration();
+            oneData[DataTypes::TrackDataType::key_type::MilliSecondsDurationRole] = newTrack.duration().msecsSinceStartOfDay();
+            oneData[DataTypes::TrackDataType::key_type::ResourceRole] = newTrack.resourceURI();
+            oneData[DataTypes::TrackDataType::key_type::ImageUrlRole] = newTrack.albumCover();
 
             Q_EMIT trackHasChanged(oneData);
 

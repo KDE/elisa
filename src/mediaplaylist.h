@@ -22,7 +22,7 @@
 
 #include "musicaudiotrack.h"
 #include "elisautils.h"
-#include "databaseinterface.h"
+#include "datatypes.h"
 
 #include <QAbstractListModel>
 #include <QVector>
@@ -87,7 +87,7 @@ class ELISALIB_EXPORT MediaPlayList : public QAbstractListModel
 public:
 
     enum ColumnsRoles {
-        TitleRole = DatabaseInterface::TitleRole,
+        TitleRole = DataTypes::TitleRole,
         SecondaryTextRole,
         ImageUrlRole,
         ShadowForImageRole,
@@ -144,9 +144,9 @@ public:
 
     Q_ENUM(PlayState)
 
-    using ListTrackDataType = DatabaseInterface::ListTrackDataType;
+    using ListTrackDataType = DataTypes::ListTrackDataType;
 
-    using TrackDataType = DatabaseInterface::TrackDataType;
+    using TrackDataType = DataTypes::TrackDataType;
 
     explicit MediaPlayList(QObject *parent = nullptr);
 
@@ -362,11 +362,11 @@ public:
     }
 
     explicit MediaPlayListEntry(const MediaPlayList::TrackDataType &track)
-        : mTitle(track[DatabaseInterface::TitleRole]),
-          mAlbum(track[DatabaseInterface::AlbumRole]),
-          mTrackNumber(track[DatabaseInterface::TrackNumberRole]),
-          mDiscNumber(track[DatabaseInterface::DiscNumberRole]),
-          mId(track[DatabaseInterface::DatabaseIdRole].toULongLong()),
+        : mTitle(track[DataTypes::TitleRole]),
+          mAlbum(track[DataTypes::AlbumRole]),
+          mTrackNumber(track[DataTypes::TrackNumberRole]),
+          mDiscNumber(track[DataTypes::DiscNumberRole]),
+          mId(track[DataTypes::DatabaseIdRole].toULongLong()),
           mIsValid(true) {
     }
 

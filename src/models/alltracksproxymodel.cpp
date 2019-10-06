@@ -17,7 +17,7 @@
 
 #include "alltracksproxymodel.h"
 
-#include "databaseinterface.h"
+#include "datatypes.h"
 
 #include <QReadLocker>
 #include <QtConcurrentRun>
@@ -36,8 +36,8 @@ bool AllTracksProxyModel::filterAcceptsRow(int source_row, const QModelIndex &so
     auto currentIndex = sourceModel()->index(source_row, 0, source_parent);
 
     const auto &titleValue = sourceModel()->data(currentIndex, Qt::DisplayRole).toString();
-    const auto &artistValue = sourceModel()->data(currentIndex, DatabaseInterface::ColumnsRoles::ArtistRole).toString();
-    const auto maximumRatingValue = sourceModel()->data(currentIndex, DatabaseInterface::ColumnsRoles::RatingRole).toInt();
+    const auto &artistValue = sourceModel()->data(currentIndex, DataTypes::ColumnsRoles::ArtistRole).toString();
+    const auto maximumRatingValue = sourceModel()->data(currentIndex, DataTypes::ColumnsRoles::RatingRole).toInt();
 
     if (maximumRatingValue < mFilterRating) {
         return result;
@@ -63,8 +63,8 @@ void AllTracksProxyModel::genericEnqueueToPlayList(ElisaUtils::PlayListEnqueueMo
         allTracks.reserve(rowCount());
         for (int rowIndex = 0, maxRowCount = rowCount(); rowIndex < maxRowCount; ++rowIndex) {
             auto currentIndex = index(rowIndex, 0);
-            allTracks.push_back(ElisaUtils::EntryData{data(currentIndex, DatabaseInterface::ColumnsRoles::DatabaseIdRole).toULongLong(),
-                                 data(currentIndex, DatabaseInterface::ColumnsRoles::TitleRole).toString()});
+            allTracks.push_back(ElisaUtils::EntryData{data(currentIndex, DataTypes::ColumnsRoles::DatabaseIdRole).toULongLong(),
+                                 data(currentIndex, DataTypes::ColumnsRoles::TitleRole).toString()});
         }
         Q_EMIT entriesToEnqueue(allTracks, ElisaUtils::Track, enqueueMode, triggerPlay);
     });

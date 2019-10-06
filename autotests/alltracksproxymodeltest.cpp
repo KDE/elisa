@@ -106,7 +106,7 @@ private Q_SLOTS:
 
         auto firstTrack = musicDb.trackDataFromDatabaseId(trackId);
 
-        musicDb.removeTracksList({firstTrack[DatabaseInterface::ResourceRole].toUrl()});
+        musicDb.removeTracksList({firstTrack[DataTypes::ResourceRole].toUrl()});
 
         QCOMPARE(beginInsertRowsSpy.count(), 1);
         QCOMPARE(endInsertRowsSpy.count(), 1);
@@ -175,10 +175,10 @@ private Q_SLOTS:
                                                                          QStringLiteral("album3"), 3, 1);
         auto thirdTrack = musicDb.trackDataFromDatabaseId(thirdTrackId);
 
-        musicDb.removeTracksList({firstTrack[DatabaseInterface::ResourceRole].toUrl()
+        musicDb.removeTracksList({firstTrack[DataTypes::ResourceRole].toUrl()
                                   ,
-                                  secondTrack[DatabaseInterface::ResourceRole].toUrl(),
-                                  thirdTrack[DatabaseInterface::ResourceRole].toUrl()});
+                                  secondTrack[DataTypes::ResourceRole].toUrl(),
+                                  thirdTrack[DataTypes::ResourceRole].toUrl()});
 
         QCOMPARE(beginInsertRowsSpy.count(), 1);
         QCOMPARE(endInsertRowsSpy.count(), 1);
@@ -412,8 +412,8 @@ private Q_SLOTS:
 
         auto changedIndex = dataChangedSignal.constFirst().toModelIndex();
 
-        QCOMPARE(proxyTracksModel.data(changedIndex, DatabaseInterface::ColumnsRoles::RatingRole).isValid(), true);
-        QCOMPARE(proxyTracksModel.data(changedIndex, DatabaseInterface::ColumnsRoles::RatingRole).toInt(), 5);
+        QCOMPARE(proxyTracksModel.data(changedIndex, DataTypes::ColumnsRoles::RatingRole).isValid(), true);
+        QCOMPARE(proxyTracksModel.data(changedIndex, DataTypes::ColumnsRoles::RatingRole).toInt(), 5);
     }
 
     void addEmptyTracksList()

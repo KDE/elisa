@@ -359,7 +359,7 @@ void MusicListenersManager::configChanged()
 #endif
 }
 
-void MusicListenersManager::increaseImportedTracksCount(const DatabaseInterface::ListTrackDataType &allTracks)
+void MusicListenersManager::increaseImportedTracksCount(const DataTypes::ListTrackDataType &allTracks)
 {
     d->mImportedTracksCount += allTracks.size();
 

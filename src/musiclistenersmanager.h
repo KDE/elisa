@@ -20,13 +20,15 @@
 
 #include "elisaLib_export.h"
 
-#include "databaseinterface.h"
+#include "datatypes.h"
+#include "elisautils.h"
 
 #include <QObject>
 #include <QMediaPlayer>
 
 #include <memory>
 
+class DatabaseInterface;
 class MusicListenersManagerPrivate;
 class MediaPlayList;
 class ElisaApplication;
@@ -150,7 +152,7 @@ private Q_SLOTS:
 
     void configChanged();
 
-    void increaseImportedTracksCount(const DatabaseInterface::ListTrackDataType &allTracks);
+    void increaseImportedTracksCount(const DataTypes::ListTrackDataType &allTracks);
 
     void decreaseImportedTracksCount();
 

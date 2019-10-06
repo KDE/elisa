@@ -20,7 +20,7 @@
 
 #include "elisaLib_export.h"
 
-#include "databaseinterface.h"
+#include "datatypes.h"
 
 #include <QString>
 #include <QTime>
@@ -38,7 +38,7 @@ class ELISALIB_EXPORT MusicAudioTrack
 
 public:
 
-    using TrackDataType = DatabaseInterface::TrackDataType;
+    using TrackDataType = DataTypes::TrackDataType;
 
     MusicAudioTrack();
 
@@ -63,7 +63,7 @@ public:
 
     bool operator !=(const MusicAudioTrack &other) const;
 
-    static MusicAudioTrack trackFromData(const DatabaseInterface::TrackDataType &data);
+    static MusicAudioTrack trackFromData(const DataTypes::TrackDataType &data);
 
     void setValid(bool value);
 

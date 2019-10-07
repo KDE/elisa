@@ -8,4 +8,8 @@
   <entry key="RootPath" type="PathList" >
   </entry>
  </group>
+ <group name="PlayerSettings">
+  <entry key="ShowProgressOnTaskBar" type="Bool" >
+  </entry>
+ </group>
 </kcfg>

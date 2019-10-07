@@ -60,6 +60,7 @@
 #include <QDir>
 #include <QKeyEvent>
 #include <QDebug>
+#include <QFileSystemWatcher>
 
 #include <memory>
 
@@ -79,6 +80,8 @@ public:
         Elisa::ElisaConfiguration::instance(configurationFileName);
         Elisa::ElisaConfiguration::self()->load();
         Elisa::ElisaConfiguration::self()->save();
+
+        mConfigFileWatcher.addPath(configurationFileName);
     }
 
 #if defined KF5XmlGui_FOUND && KF5XmlGui_FOUND
@@ -101,10 +104,17 @@ public:
 
     QQmlApplicationEngine *mEngine = nullptr;
 
+    QFileSystemWatcher mConfigFileWatcher;
+
 };
 
 ElisaApplication::ElisaApplication(QObject *parent) : QObject(parent), d(std::make_unique<ElisaApplicationPrivate>(this))
 {
+    connect(Elisa::ElisaConfiguration::self(), &Elisa::ElisaConfiguration::configChanged,
+            this, &ElisaApplication::configChanged);
+
+    connect(&d->mConfigFileWatcher, &QFileSystemWatcher::fileChanged,
+            this, &ElisaApplication::configChanged);
 }
 
 ElisaApplication::~ElisaApplication()
@@ -287,6 +297,18 @@ void ElisaApplication::seek() {}
 void ElisaApplication::scrub() {}
 
 void ElisaApplication::playPause() {}
+
+void ElisaApplication::configChanged()
+{
+    auto currentConfiguration = Elisa::ElisaConfiguration::self();
+
+    d->mConfigFileWatcher.addPath(currentConfiguration->config()->name());
+
+    currentConfiguration->load();
+    currentConfiguration->read();
+
+    Q_EMIT showProgressOnTaskBarChanged();
+}
 
 ElisaUtils::EntryDataList ElisaApplication::checkFileListAndMakeAbsolute(const ElisaUtils::EntryDataList &filesList,
                                                                          const QString &workingDirectory) const
@@ -502,6 +524,13 @@ ManageMediaPlayerControl *ElisaApplication::playerControl() const
 ManageHeaderBar *ElisaApplication::manageHeaderBar() const
 {
     return d->mManageHeaderBar.get();
+}
+
+bool ElisaApplication::showProgressOnTaskBar() const
+{
+    auto currentConfiguration = Elisa::ElisaConfiguration::self();
+
+    return currentConfiguration->showProgressOnTaskBar();
 }
 
 #include "moc_elisaapplication.cpp"

@@ -19,6 +19,8 @@
 
 #include "config-upnp-qt.h"
 
+#include "abstractfile/indexercommon.h"
+
 #if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
 
 #include <KFileMetaData/ExtractorCollection>
@@ -35,6 +37,7 @@
 
 #endif
 
+#include <QLoggingCategory>
 #include <QFileInfo>
 #include <QLocale>
 
@@ -60,7 +63,6 @@ FileScanner::~FileScanner() = default;
 
 MusicAudioTrack FileScanner::scanOneFile(const QUrl &scanFile, const QMimeDatabase &mimeDatabase)
 {
-#if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
     MusicAudioTrack newTrack;
 
     auto localFileName = scanFile.toLocalFile();
@@ -68,7 +70,9 @@ MusicAudioTrack FileScanner::scanOneFile(const QUrl &scanFile, const QMimeDataba
     QFileInfo scanFileInfo(localFileName);
     newTrack.setFileModificationTime(scanFileInfo.fileTime(QFile::FileModificationTime));
     newTrack.setResourceURI(scanFile);
+    newTrack.setRating(0);
 
+#if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
     const auto &fileMimeType = mimeDatabase.mimeTypeForFile(localFileName);
     if (!fileMimeType.name().startsWith(QStringLiteral("audio/"))) {
         return newTrack;
@@ -92,13 +96,17 @@ MusicAudioTrack FileScanner::scanOneFile(const QUrl &scanFile, const QMimeDataba
 
     scanProperties(localFileName, newTrack);
 
-    return newTrack;
+    qCDebug(orgKdeElisaIndexer()) << "scanOneFile" << scanFile << "using KFileMetaData" << newTrack;
 #else
-    Q_UNUSED(scanFile)
     Q_UNUSED(mimeDatabase)
 
-    return {};
+    newTrack.setTitle(scanFileInfo.fileName());
+    newTrack.setValid(true);
+
+    qCDebug(orgKdeElisaIndexer()) << "scanOneFile" << scanFile << "no metadata provider" << newTrack;
 #endif
+
+    return newTrack;
 }
 
 void FileScanner::scanProperties(const Baloo::File &match, MusicAudioTrack &trackData)
@@ -106,9 +114,13 @@ void FileScanner::scanProperties(const Baloo::File &match, MusicAudioTrack &trac
 #if defined KF5Baloo_FOUND && KF5Baloo_FOUND
     d->mAllProperties = match.properties();
     scanProperties(match.path(), trackData);
+
+    qCDebug(orgKdeElisaIndexer()) << "scanProperties" << match.path() << "using Baloo" << trackData;
 #else
     Q_UNUSED(match)
     Q_UNUSED(trackData)
+
+    qCDebug(orgKdeElisaIndexer()) << "scanProperties" << "no metadata provider" << trackData;
 #endif
 }
 

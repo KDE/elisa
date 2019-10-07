@@ -124,6 +124,15 @@ MusicListenersManager::MusicListenersManager(QObject *parent)
     connect(&d->mDatabaseInterface, &DatabaseInterface::cleanedDatabase,
             this, &MusicListenersManager::cleanedDatabase);
 
+#if defined KF5Baloo_FOUND && KF5Baloo_FOUND
+    connect(&d->mBalooDetector, &BalooDetector::balooAvailabilityChanged,
+            this, &MusicListenersManager::balooAvailabilityChanged);
+#endif
+
+    qCInfo(orgKdeElisaIndexersManager) << "Local file system indexer is inactive";
+    qCInfo(orgKdeElisaIndexersManager) << "Baloo indexer is unavailable";
+    qCInfo(orgKdeElisaIndexersManager) << "Baloo indexer is inactive";
+
     const auto &localDataPaths = QStandardPaths::standardLocations(QStandardPaths::AppDataLocation);
     auto databaseFileName = QString();
     if (!localDataPaths.isEmpty()) {
@@ -159,15 +168,6 @@ MusicListenersManager::MusicListenersManager(QObject *parent)
 
     connect(&d->mDatabaseInterface, &DatabaseInterface::tracksAdded,
             this, &MusicListenersManager::increaseImportedTracksCount);
-
-#if defined KF5Baloo_FOUND && KF5Baloo_FOUND
-    connect(&d->mBalooDetector, &BalooDetector::balooAvailabilityChanged,
-            this, &MusicListenersManager::balooAvailabilityChanged);
-#endif
-
-    qCInfo(orgKdeElisaIndexersManager) << "Local file system indexer is inactive";
-    qCInfo(orgKdeElisaIndexersManager) << "Baloo indexer is unavailable";
-    qCInfo(orgKdeElisaIndexersManager) << "Baloo indexer is inactive";
 }
 
 MusicListenersManager::~MusicListenersManager()
@@ -306,14 +306,6 @@ void MusicListenersManager::configChanged()
 
     if (!d->mBalooIndexerActive && !d->mFileSystemIndexerActive) {
         testBalooIndexerAvailability();
-    } else {
-        if (d->mBalooIndexerActive) {
-#if defined KF5Baloo_FOUND && KF5Baloo_FOUND
-            QMetaObject::invokeMethod(d->mBalooListener.fileListing(), "init", Qt::QueuedConnection);
-#endif
-        } else if (d->mFileSystemIndexerActive) {
-            QMetaObject::invokeMethod(d->mFileListener.fileListing(), "init", Qt::QueuedConnection);
-        }
     }
 
 #if defined UPNPQT_FOUND && UPNPQT_FOUND

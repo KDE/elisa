@@ -19,6 +19,8 @@
 
 #include "musicaudiotrack.h"
 
+#include "abstractfile/indexercommon.h"
+
 #include <QThread>
 #include <QHash>
 #include <QFileInfo>
@@ -46,12 +48,15 @@ LocalFileListing::~LocalFileListing()
 
 void LocalFileListing::executeInit(QHash<QUrl, QDateTime> allFiles)
 {
+    qCDebug(orgKdeElisaIndexer()) << "LocalFileListing::executeInit" << "with" << allFiles.size() << "files";
     AbstractFileListing::executeInit(std::move(allFiles));
 }
 
 void LocalFileListing::triggerRefreshOfContent()
 {
     Q_EMIT indexingStarted();
+
+    qCDebug(orgKdeElisaIndexer()) << "LocalFileListing::triggerRefreshOfContent" << allRootPaths();
 
     AbstractFileListing::triggerRefreshOfContent();
 

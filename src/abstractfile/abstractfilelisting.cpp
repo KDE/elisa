@@ -34,7 +34,6 @@
 #include <QSet>
 #include <QPair>
 #include <QAtomicInt>
-#include <QDebug>
 
 #include <QtGlobal>
 
@@ -241,6 +240,8 @@ void AbstractFileListing::scanDirectory(QList<MusicAudioTrack> &newFiles, const 
                 emitNewFiles(newFiles);
                 newFiles.clear();
             }
+        } else {
+            qCDebug(orgKdeElisaIndexer()) << "AbstractFileListing::scanDirectory" << newFilePath << "is not a valid track";
         }
 
         if (d->mStopRequest == 1) {
@@ -369,6 +370,8 @@ void AbstractFileListing::scanDirectoryTree(const QString &path)
 {
     auto newFiles = QList<MusicAudioTrack>();
 
+    qCDebug(orgKdeElisaIndexer()) << "AbstractFileListing::scanDirectoryTree" << path;
+
     scanDirectory(newFiles, QUrl::fromLocalFile(path));
 
     if (!newFiles.isEmpty() && d->mStopRequest == 0) {
@@ -440,6 +443,8 @@ void AbstractFileListing::checkFilesToRemove()
     for (auto itFile = d->mAllFiles.begin(); itFile != d->mAllFiles.end(); ++itFile) {
         allRemovedFiles.push_back(itFile.key());
     }
+
+    qCDebug(orgKdeElisaIndexer()) << "AbstractFileListing::checkFilesToRemove" << allRemovedFiles.size();
 
     if (!allRemovedFiles.isEmpty()) {
         setWaitEndTrackRemoval(true);

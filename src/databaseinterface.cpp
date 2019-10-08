@@ -6031,9 +6031,12 @@ void DatabaseInterface::updateTrackOrigin(const QUrl &fileName, const QDateTime 
 qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrack,
                                                   const QHash<QString, QUrl> &covers, bool &isInserted)
 {
+    qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalInsertTrack trying to insert" << oneTrack;
+
     qulonglong resultId = 0;
 
     if (oneTrack.title().isEmpty()) {
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalInsertTrack" << oneTrack << "is not inserted";
         return resultId;
     }
 
@@ -6207,6 +6210,7 @@ qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrac
     d->mInsertTrackQuery.bindValue(QStringLiteral(":hasEmbeddedCover"), oneTrack.hasEmbeddedCover());
 
     auto result = execQuery(d->mInsertTrackQuery);
+    qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalInsertTrack" << oneTrack << "is inserted";
 
     if (result && d->mInsertTrackQuery.isActive()) {
         d->mInsertTrackQuery.finish();

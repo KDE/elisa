@@ -348,7 +348,7 @@ void LocalBalooFileListing::triggerRefreshOfContent()
 
         if (!scanFileInfo.exists()) {
             qCDebug(orgKdeElisaBaloo()) << "LocalBalooFileListing::triggerRefreshOfContent" << fileName << "file does not exists";
-            return;
+            continue;
         }
 
         auto itExistingFile = allFiles().find(newFileUrl);

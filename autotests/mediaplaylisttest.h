@@ -147,6 +147,8 @@ private Q_SLOTS:
 
     void undoReplacePlayListCase();
 
+    void enqueueMultipleAlbumsCase();
+
 };
 
 class MediaPlayList;

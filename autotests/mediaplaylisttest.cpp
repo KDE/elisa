@@ -7074,6 +7074,149 @@ void MediaPlayListTest::testEmptyEnqueue()
     QCOMPARE(newEntryInListSpy.count(), 0);
 }
 
+void MediaPlayListTest::enqueueMultipleAlbumsCase()
+{
+    MediaPlayList myPlayList;
+    QAbstractItemModelTester testModel(&myPlayList);
+    DatabaseInterface myDatabaseContent;
+    TracksListener myListener(&myDatabaseContent);
+
+    QSignalSpy rowsAboutToBeMovedSpy(&myPlayList, &MediaPlayList::rowsAboutToBeMoved);
+    QSignalSpy rowsAboutToBeRemovedSpy(&myPlayList, &MediaPlayList::rowsAboutToBeRemoved);
+    QSignalSpy rowsAboutToBeInsertedSpy(&myPlayList, &MediaPlayList::rowsAboutToBeInserted);
+    QSignalSpy rowsMovedSpy(&myPlayList, &MediaPlayList::rowsMoved);
+    QSignalSpy rowsRemovedSpy(&myPlayList, &MediaPlayList::rowsRemoved);
+    QSignalSpy rowsInsertedSpy(&myPlayList, &MediaPlayList::rowsInserted);
+    QSignalSpy persistentStateChangedSpy(&myPlayList, &MediaPlayList::persistentStateChanged);
+    QSignalSpy dataChangedSpy(&myPlayList, &MediaPlayList::dataChanged);
+    QSignalSpy newTrackByNameInListSpy(&myPlayList, &MediaPlayList::newTrackByNameInList);
+    QSignalSpy newEntryInListSpy(&myPlayList, &MediaPlayList::newEntryInList);
+
+    QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
+    QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
+    QCOMPARE(rowsAboutToBeInsertedSpy.count(), 0);
+    QCOMPARE(rowsRemovedSpy.count(), 0);
+    QCOMPARE(rowsMovedSpy.count(), 0);
+    QCOMPARE(rowsInsertedSpy.count(), 0);
+    QCOMPARE(dataChangedSpy.count(), 0);
+    QCOMPARE(newTrackByNameInListSpy.count(), 0);
+    QCOMPARE(newEntryInListSpy.count(), 0);
+
+    myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
+
+    connect(&myListener, &TracksListener::trackHasChanged,
+            &myPlayList, &MediaPlayList::trackChanged,
+            Qt::QueuedConnection);
+    connect(&myListener, &TracksListener::tracksListAdded,
+            &myPlayList, &MediaPlayList::tracksListAdded,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newTrackByNameInList,
+            &myListener, &TracksListener::trackByNameInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newEntryInList,
+            &myListener, &TracksListener::newEntryInList,
+            Qt::QueuedConnection);
+    connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
+            &myListener, &TracksListener::tracksAdded);
+
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
+
+    QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
+    QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
+    QCOMPARE(rowsAboutToBeInsertedSpy.count(), 0);
+    QCOMPARE(rowsRemovedSpy.count(), 0);
+    QCOMPARE(rowsMovedSpy.count(), 0);
+    QCOMPARE(rowsInsertedSpy.count(), 0);
+    QCOMPARE(dataChangedSpy.count(), 0);
+    QCOMPARE(newTrackByNameInListSpy.count(), 0);
+    QCOMPARE(newEntryInListSpy.count(), 0);
+
+    myPlayList.enqueue({{myDatabaseContent.albumIdFromTitleAndArtist(QStringLiteral("album2"), QStringLiteral("artist1"), QStringLiteral("/")),
+                         QStringLiteral("album2")},
+                        {myDatabaseContent.albumIdFromTitleAndArtist(QStringLiteral("album3"), QStringLiteral("artist2"), QStringLiteral("/")),
+                         QStringLiteral("album3")}},
+                       ElisaUtils::Album);
+
+    QVERIFY(dataChangedSpy.wait());
+
+    QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
+    QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
+    QCOMPARE(rowsAboutToBeInsertedSpy.count(), 3);
+    QCOMPARE(rowsRemovedSpy.count(), 0);
+    QCOMPARE(rowsMovedSpy.count(), 0);
+    QCOMPARE(rowsInsertedSpy.count(), 3);
+    QCOMPARE(persistentStateChangedSpy.count(), 3);
+    QCOMPARE(dataChangedSpy.count(), 2);
+    QCOMPARE(newTrackByNameInListSpy.count(), 0);
+    QCOMPARE(newEntryInListSpy.count(), 2);
+
+    QCOMPARE(myPlayList.rowCount(), 9);
+
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::TitleRole).toString(), QStringLiteral("track1"));
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::AlbumRole).toString(), QStringLiteral("album2"));
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ArtistRole).toString(), QStringLiteral("artist1"));
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::TrackNumberRole).toInt(), 1);
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::DiscNumberRole).toInt(), 1);
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::MilliSecondsDurationRole).toInt(), 5);
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::AlbumIdRole).toULongLong(), 2);
+    QCOMPARE(myPlayList.data(myPlayList.index(1, 0), MediaPlayList::TitleRole).toString(), QStringLiteral("track2"));
+    QCOMPARE(myPlayList.data(myPlayList.index(1, 0), MediaPlayList::AlbumRole).toString(), QStringLiteral("album2"));
+    QCOMPARE(myPlayList.data(myPlayList.index(1, 0), MediaPlayList::ArtistRole).toString(), QStringLiteral("artist1"));
+    QCOMPARE(myPlayList.data(myPlayList.index(1, 0), MediaPlayList::TrackNumberRole).toInt(), 2);
+    QCOMPARE(myPlayList.data(myPlayList.index(1, 0), MediaPlayList::DiscNumberRole).toInt(), 1);
+    QCOMPARE(myPlayList.data(myPlayList.index(1, 0), MediaPlayList::MilliSecondsDurationRole).toInt(), 6);
+    QCOMPARE(myPlayList.data(myPlayList.index(1, 0), MediaPlayList::AlbumIdRole).toULongLong(), 2);
+    QCOMPARE(myPlayList.data(myPlayList.index(2, 0), MediaPlayList::TitleRole).toString(), QStringLiteral("track3"));
+    QCOMPARE(myPlayList.data(myPlayList.index(2, 0), MediaPlayList::AlbumRole).toString(), QStringLiteral("album2"));
+    QCOMPARE(myPlayList.data(myPlayList.index(2, 0), MediaPlayList::ArtistRole).toString(), QStringLiteral("artist1"));
+    QCOMPARE(myPlayList.data(myPlayList.index(2, 0), MediaPlayList::TrackNumberRole).toInt(), 3);
+    QCOMPARE(myPlayList.data(myPlayList.index(2, 0), MediaPlayList::DiscNumberRole).toInt(), 1);
+    QCOMPARE(myPlayList.data(myPlayList.index(2, 0), MediaPlayList::MilliSecondsDurationRole).toInt(), 7);
+    QCOMPARE(myPlayList.data(myPlayList.index(2, 0), MediaPlayList::AlbumIdRole).toULongLong(), 2);
+    QCOMPARE(myPlayList.data(myPlayList.index(3, 0), MediaPlayList::TitleRole).toString(), QStringLiteral("track4"));
+    QCOMPARE(myPlayList.data(myPlayList.index(3, 0), MediaPlayList::AlbumRole).toString(), QStringLiteral("album2"));
+    QCOMPARE(myPlayList.data(myPlayList.index(3, 0), MediaPlayList::ArtistRole).toString(), QStringLiteral("artist1"));
+    QCOMPARE(myPlayList.data(myPlayList.index(3, 0), MediaPlayList::TrackNumberRole).toInt(), 4);
+    QCOMPARE(myPlayList.data(myPlayList.index(3, 0), MediaPlayList::DiscNumberRole).toInt(), 1);
+    QCOMPARE(myPlayList.data(myPlayList.index(3, 0), MediaPlayList::MilliSecondsDurationRole).toInt(), 8);
+    QCOMPARE(myPlayList.data(myPlayList.index(3, 0), MediaPlayList::AlbumIdRole).toULongLong(), 2);
+    QCOMPARE(myPlayList.data(myPlayList.index(4, 0), MediaPlayList::TitleRole).toString(), QStringLiteral("track5"));
+    QCOMPARE(myPlayList.data(myPlayList.index(4, 0), MediaPlayList::AlbumRole).toString(), QStringLiteral("album2"));
+    QCOMPARE(myPlayList.data(myPlayList.index(4, 0), MediaPlayList::ArtistRole).toString(), QStringLiteral("artist1"));
+    QCOMPARE(myPlayList.data(myPlayList.index(4, 0), MediaPlayList::TrackNumberRole).toInt(), 5);
+    QCOMPARE(myPlayList.data(myPlayList.index(4, 0), MediaPlayList::DiscNumberRole).toInt(), 1);
+    QCOMPARE(myPlayList.data(myPlayList.index(4, 0), MediaPlayList::MilliSecondsDurationRole).toInt(), 9);
+    QCOMPARE(myPlayList.data(myPlayList.index(4, 0), MediaPlayList::AlbumIdRole).toULongLong(), 2);
+    QCOMPARE(myPlayList.data(myPlayList.index(5, 0), MediaPlayList::TitleRole).toString(), QStringLiteral("track6"));
+    QCOMPARE(myPlayList.data(myPlayList.index(5, 0), MediaPlayList::AlbumRole).toString(), QStringLiteral("album2"));
+    QCOMPARE(myPlayList.data(myPlayList.index(5, 0), MediaPlayList::ArtistRole).toString(), QStringLiteral("artist1 and artist2"));
+    QCOMPARE(myPlayList.data(myPlayList.index(5, 0), MediaPlayList::TrackNumberRole).toInt(), 6);
+    QCOMPARE(myPlayList.data(myPlayList.index(5, 0), MediaPlayList::DiscNumberRole).toInt(), 1);
+    QCOMPARE(myPlayList.data(myPlayList.index(5, 0), MediaPlayList::MilliSecondsDurationRole).toInt(), 10);
+    QCOMPARE(myPlayList.data(myPlayList.index(5, 0), MediaPlayList::AlbumIdRole).toULongLong(), 2);
+    QCOMPARE(myPlayList.data(myPlayList.index(6, 0), MediaPlayList::TitleRole).toString(), QStringLiteral("track1"));
+    QCOMPARE(myPlayList.data(myPlayList.index(6, 0), MediaPlayList::AlbumRole).toString(), QStringLiteral("album3"));
+    QCOMPARE(myPlayList.data(myPlayList.index(6, 0), MediaPlayList::ArtistRole).toString(), QStringLiteral("artist2"));
+    QCOMPARE(myPlayList.data(myPlayList.index(6, 0), MediaPlayList::TrackNumberRole).toInt(), 1);
+    QCOMPARE(myPlayList.data(myPlayList.index(6, 0), MediaPlayList::DiscNumberRole).toInt(), 1);
+    QCOMPARE(myPlayList.data(myPlayList.index(6, 0), MediaPlayList::MilliSecondsDurationRole).toInt(), 11);
+    QCOMPARE(myPlayList.data(myPlayList.index(6, 0), MediaPlayList::AlbumIdRole).toULongLong(), 3);
+    QCOMPARE(myPlayList.data(myPlayList.index(7, 0), MediaPlayList::TitleRole).toString(), QStringLiteral("track2"));
+    QCOMPARE(myPlayList.data(myPlayList.index(7, 0), MediaPlayList::AlbumRole).toString(), QStringLiteral("album3"));
+    QCOMPARE(myPlayList.data(myPlayList.index(7, 0), MediaPlayList::ArtistRole).toString(), QStringLiteral("artist2"));
+    QCOMPARE(myPlayList.data(myPlayList.index(7, 0), MediaPlayList::TrackNumberRole).toInt(), 2);
+    QCOMPARE(myPlayList.data(myPlayList.index(7, 0), MediaPlayList::DiscNumberRole).toInt(), 1);
+    QCOMPARE(myPlayList.data(myPlayList.index(7, 0), MediaPlayList::MilliSecondsDurationRole).toInt(), 12);
+    QCOMPARE(myPlayList.data(myPlayList.index(7, 0), MediaPlayList::AlbumIdRole).toULongLong(), 3);
+    QCOMPARE(myPlayList.data(myPlayList.index(8, 0), MediaPlayList::TitleRole).toString(), QStringLiteral("track3"));
+    QCOMPARE(myPlayList.data(myPlayList.index(8, 0), MediaPlayList::AlbumRole).toString(), QStringLiteral("album3"));
+    QCOMPARE(myPlayList.data(myPlayList.index(8, 0), MediaPlayList::ArtistRole).toString(), QStringLiteral("artist2"));
+    QCOMPARE(myPlayList.data(myPlayList.index(8, 0), MediaPlayList::TrackNumberRole).toInt(), 3);
+    QCOMPARE(myPlayList.data(myPlayList.index(8, 0), MediaPlayList::DiscNumberRole).toInt(), 1);
+    QCOMPARE(myPlayList.data(myPlayList.index(8, 0), MediaPlayList::MilliSecondsDurationRole).toInt(), 13);
+    QCOMPARE(myPlayList.data(myPlayList.index(8, 0), MediaPlayList::AlbumIdRole).toULongLong(), 3);
+}
+
 QTEST_GUILESS_MAIN(MediaPlayListTest)
 
 

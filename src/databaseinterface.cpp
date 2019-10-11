@@ -5490,8 +5490,12 @@ void DatabaseInterface::initRequest()
                                                               "     (tracks.`AlbumArtistName` IS NULL OR tracks.`AlbumArtistName` = tracks2.`AlbumArtistName`) AND "
                                                               "     (tracks.`AlbumPath` IS NULL OR tracks.`AlbumPath` = tracks2.`AlbumPath`)"
                                                               ")"
-                                                              "ORDER BY tracks.`Title` ASC, "
-                                                              "album.`Title` ASC");
+                                                              "ORDER BY "
+                                                              "album.`Title` ASC, "
+                                                              "tracks.`DiscNumber` ASC, "
+                                                              "tracks.`TrackNumber` ASC, "
+                                                              "tracks.`Title` ASC"
+                                                              "");
 
         auto result = prepareQuery(d->mSelectTracksFromArtist, selectTracksFromArtistQueryText);
 

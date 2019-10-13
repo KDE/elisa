@@ -65,6 +65,8 @@ public:
 
     static MusicAudioTrack trackFromData(const DataTypes::TrackDataType &data);
 
+    static QList<MusicAudioTrack> trackFromListData(const DataTypes::ListTrackDataType &list);
+
     void setValid(bool value);
 
     bool isValid() const;

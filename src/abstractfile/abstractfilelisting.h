@@ -19,6 +19,7 @@
 #define ABSTRACTFILELISTING_H
 
 #include "elisaLib_export.h"
+#include "datatypes.h"
 
 #include <QObject>
 #include <QString>
@@ -72,7 +73,7 @@ public Q_SLOTS:
 
     void init();
 
-    void newTrackFile(const MusicAudioTrack &partialTrack);
+    void newTrackFile(const DataTypes::TrackDataType &partialTrack);
 
     void restoredTracks(QHash<QUrl, QDateTime> allFiles);
 
@@ -94,9 +95,9 @@ protected:
 
     virtual void triggerRefreshOfContent();
 
-    void scanDirectory(QList<MusicAudioTrack> &newFiles, const QUrl &path);
+    void scanDirectory(DataTypes::ListTrackDataType &newFiles, const QUrl &path);
 
-    virtual MusicAudioTrack scanOneFile(const QUrl &scanFile, const QFileInfo &scanFileInfo);
+    virtual DataTypes::TrackDataType scanOneFile(const QUrl &scanFile, const QFileInfo &scanFileInfo);
 
     void watchPath(const QString &pathName);
 
@@ -108,7 +109,7 @@ protected:
 
     void emitNewFiles(const QList<MusicAudioTrack> &tracks);
 
-    void addCover(const MusicAudioTrack &newTrack);
+    void addCover(const DataTypes::TrackDataType &newTrack);
 
     void removeDirectory(const QUrl &removedDirectory, QList<QUrl> &allRemovedFiles);
 

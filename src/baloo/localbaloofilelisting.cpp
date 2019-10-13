@@ -150,7 +150,7 @@ void LocalBalooFileListing::newBalooFile(const QString &fileName)
 
         addFileInDirectory(newFile, QUrl::fromLocalFile(newFileInfo.absoluteDir().absolutePath()));
 
-        emitNewFiles({newTrack});
+        emitNewFiles({MusicAudioTrack::trackFromData(newTrack)});
     }
 
     Q_EMIT indexingFinished();
@@ -318,7 +318,7 @@ void LocalBalooFileListing::triggerRefreshOfContent()
     auto singleRootPath = rootPaths.at(0);
 
     auto resultIterator = d->mQuery.exec();
-    auto newFiles = QList<MusicAudioTrack>();
+    auto newFiles = DataTypes::ListTrackDataType();
 
     while(resultIterator.next() && d->mStopRequest == 0) {
         const auto &fileName = resultIterator.filePath();
@@ -370,7 +370,7 @@ void LocalBalooFileListing::triggerRefreshOfContent()
             newFiles.push_back(newTrack);
             if (newFiles.size() > 500 && d->mStopRequest == 0) {
                 qCDebug(orgKdeElisaBaloo()) << "LocalBalooFileListing::triggerRefreshOfContent" << "insert new tracks in database" << newFiles.count();
-                emitNewFiles(newFiles);
+                emitNewFiles(MusicAudioTrack::trackFromListData(newFiles));
                 newFiles.clear();
             }
         } else {
@@ -380,7 +380,7 @@ void LocalBalooFileListing::triggerRefreshOfContent()
 
     if (!newFiles.isEmpty() && d->mStopRequest == 0) {
         qCDebug(orgKdeElisaBaloo()) << "LocalBalooFileListing::triggerRefreshOfContent" << "insert new tracks in database" << newFiles.count();
-        emitNewFiles(newFiles);
+        emitNewFiles(MusicAudioTrack::trackFromListData(newFiles));
     }
 
     setWaitEndTrackRemoval(false);
@@ -392,7 +392,7 @@ void LocalBalooFileListing::triggerRefreshOfContent()
     }
 }
 
-MusicAudioTrack LocalBalooFileListing::scanOneFile(const QUrl &scanFile, const QFileInfo &scanFileInfo)
+DataTypes::TrackDataType LocalBalooFileListing::scanOneFile(const QUrl &scanFile, const QFileInfo &scanFileInfo)
 {
     DataTypes::TrackDataType trackData;
 
@@ -402,25 +402,22 @@ MusicAudioTrack LocalBalooFileListing::scanOneFile(const QUrl &scanFile, const Q
 
     match.load();
     fileScanner().scanProperties(match, trackData);
+    trackData[DataTypes::FileModificationTime] = scanFileInfo.metadataChangeTime();
+    trackData[DataTypes::ResourceRole] = scanFile;
 
-    auto newTrack = MusicAudioTrack::trackFromData(trackData);
-
-    newTrack.setFileModificationTime(scanFileInfo.metadataChangeTime());
-    newTrack.setResourceURI(scanFile);
-
-    if (!newTrack.isValid()) {
+    if (!trackData.isValid()) {
         qCDebug(orgKdeElisaBaloo) << "LocalBalooFileListing::scanOneFile" << scanFile << "falling back to plain file metadata analysis";
-        newTrack = AbstractFileListing::scanOneFile(scanFile, scanFileInfo);
+        trackData = AbstractFileListing::scanOneFile(scanFile, scanFileInfo);
     }
 
-    if (newTrack.isValid()) {
-        newTrack.setHasEmbeddedCover(checkEmbeddedCoverImage(localFileName));
-        addCover(newTrack);
+    if (trackData.isValid()) {
+        trackData[DataTypes::HasEmbeddedCover] = checkEmbeddedCoverImage(localFileName);
+        addCover(trackData);
     } else {
         qCDebug(orgKdeElisaBaloo) << "LocalBalooFileListing::scanOneFile" << scanFile << "invalid track";
     }
 
-    return newTrack;
+    return trackData;
 }
 
 

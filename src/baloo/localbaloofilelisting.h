@@ -29,7 +29,6 @@
 #include <memory>
 
 class LocalBalooFileListingPrivate;
-class MusicAudioTrack;
 class QDBusPendingCallWatcher;
 
 class LocalBalooFileListing : public AbstractFileListing
@@ -73,7 +72,7 @@ private:
 
     void triggerRefreshOfContent() override;
 
-    MusicAudioTrack scanOneFile(const QUrl &scanFile, const QFileInfo &scanFileInfo) override;
+    DataTypes::TrackDataType scanOneFile(const QUrl &scanFile, const QFileInfo &scanFileInfo) override;
 
     std::unique_ptr<LocalBalooFileListingPrivate> d;
 

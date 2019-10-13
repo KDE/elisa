@@ -22,6 +22,8 @@
 #include <QVector>
 #include <QString>
 
+#include "datatypes.h"
+
 #include <memory>
 
 class AbstractFileListenerPrivate;
@@ -51,7 +53,7 @@ Q_SIGNALS:
 
     void databaseInterfaceChanged();
 
-    void newTrackFile(const MusicAudioTrack &newTrack);
+    void newTrackFile(const DataTypes::TrackDataType &newTrack);
 
     void indexingStarted();
 

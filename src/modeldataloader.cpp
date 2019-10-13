@@ -17,19 +17,11 @@
 
 #include "modeldataloader.h"
 
-#include "filescanner.h"
-
-#include <QMimeDatabase>
-
 class ModelDataLoaderPrivate
 {
 public:
 
     DatabaseInterface *mDatabase = nullptr;
-
-    QMimeDatabase mMimeDatabase;
-
-    FileScanner mFileScanner;
 
     ElisaUtils::PlayListEntryType mModelType = ElisaUtils::Unknown;
 
@@ -256,34 +248,6 @@ void ModelDataLoader::loadDataByDatabaseId(ElisaUtils::PlayListEntryType dataTyp
     case ElisaUtils::Lyricist:
     case ElisaUtils::FileName:
     case ElisaUtils::Unknown:
-        break;
-    }
-}
-
-void ModelDataLoader::loadDataByFileName(ElisaUtils::PlayListEntryType dataType, const QUrl &fileName)
-{
-    if (!d->mDatabase) {
-        return;
-    }
-
-    d->mFilterType = ModelDataLoader::FilterType::UnknownFilter;
-
-    switch (dataType)
-    {
-    case ElisaUtils::FileName:
-    {
-        auto result = d->mFileScanner.scanOneFile(fileName, d->mMimeDatabase);
-        Q_EMIT allTrackData(result.toTrackData());
-        break;
-    }
-    case ElisaUtils::Track:
-    case ElisaUtils::Album:
-    case ElisaUtils::Artist:
-    case ElisaUtils::Composer:
-    case ElisaUtils::Genre:
-    case ElisaUtils::Lyricist:
-    case ElisaUtils::Unknown:
-    case ElisaUtils::Radio:
         break;
     }
 }

@@ -72,8 +72,6 @@ public Q_SLOTS:
 
 private:
 
-    MusicAudioTrack scanOneFile(const QUrl &scanFile);
-
     void newArtistInList(qulonglong newDatabaseId, const QString &artist);
 
     void trackByFileNameInList(const QUrl &fileName);

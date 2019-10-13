@@ -202,8 +202,9 @@ MusicAudioTrack MusicAudioTrack::trackFromData(const DataTypes::TrackDataType &d
     result.setSampleRate(data.sampleRate());
     result.setResourceURI(data.resourceURI());
     result.setRating(data.rating());
-    result.setDuration(data[MusicAudioTrack::TrackDataType::key_type::DurationRole].toTime());
+    result.setDuration(data.duration());
     result.setFileModificationTime(data.fileModificationTime());
+    result.setValid(data.isValid());
 
     return result;
 }

@@ -105,7 +105,7 @@ Q_SIGNALS:
 
     void needDataByDatabaseId(ElisaUtils::PlayListEntryType dataType, qulonglong databaseId);
 
-    void needDataByFileName(ElisaUtils::PlayListEntryType dataType, const QUrl &fileName);
+    void needDataByFileName(const QUrl &fileName);
 
     void coverUrlChanged();
 

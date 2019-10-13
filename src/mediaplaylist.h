@@ -94,7 +94,6 @@ public:
         ChildModelRole,
         DurationRole,
         StringDurationRole,
-        MilliSecondsDurationRole,
         ArtistRole,
         AllArtistsRole,
         HighestTrackRating,

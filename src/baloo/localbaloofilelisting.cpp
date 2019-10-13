@@ -394,18 +394,19 @@ void LocalBalooFileListing::triggerRefreshOfContent()
 
 MusicAudioTrack LocalBalooFileListing::scanOneFile(const QUrl &scanFile, const QFileInfo &scanFileInfo)
 {
-    auto newTrack = MusicAudioTrack();
+    DataTypes::TrackDataType trackData;
 
     auto localFileName = scanFile.toLocalFile();
 
     Baloo::File match(localFileName);
 
     match.load();
+    fileScanner().scanProperties(match, trackData);
+
+    auto newTrack = MusicAudioTrack::trackFromData(trackData);
 
     newTrack.setFileModificationTime(scanFileInfo.metadataChangeTime());
     newTrack.setResourceURI(scanFile);
-
-    fileScanner().scanProperties(match, newTrack);
 
     if (!newTrack.isValid()) {
         qCDebug(orgKdeElisaBaloo) << "LocalBalooFileListing::scanOneFile" << scanFile << "falling back to plain file metadata analysis";

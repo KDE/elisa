@@ -43,7 +43,6 @@ public:
         ChildModelRole,
         DurationRole,
         StringDurationRole,
-        MilliSecondsDurationRole,
         ArtistRole,
         AllArtistsRole,
         HighestTrackRating,
@@ -94,7 +93,7 @@ public:
 
         bool isValid() const
         {
-            return !isEmpty();
+            return !isEmpty() && duration().isValid();
         }
 
         qulonglong databaseId() const

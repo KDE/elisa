@@ -6366,7 +6366,6 @@ DataTypes::TrackDataType DatabaseInterface::buildTrackDataFromDatabaseRecord(con
         result[DataTypes::TrackDataType::key_type::DiscNumberRole] = trackRecord.value(10);
     }
     result[DataTypes::TrackDataType::key_type::DurationRole] = QTime::fromMSecsSinceStartOfDay(trackRecord.value(11).toInt());
-    result[DataTypes::TrackDataType::key_type::MilliSecondsDurationRole] = trackRecord.value(11).toInt();
     result[DataTypes::TrackDataType::key_type::RatingRole] = trackRecord.value(13);
     if (!trackRecord.value(14).toString().isEmpty()) {
         result[DataTypes::TrackDataType::key_type::ImageUrlRole] = QUrl(trackRecord.value(14).toString());

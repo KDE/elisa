@@ -314,7 +314,7 @@ MusicAudioTrack AbstractFileListing::scanOneFile(const QUrl &scanFile, const QFi
         }
     }
 
-    newTrack = d->mFileScanner.scanOneFile(scanFile, d->mMimeDb);
+    newTrack = MusicAudioTrack::trackFromData(d->mFileScanner.scanOneFile(scanFile, d->mMimeDb));
 
     if (newTrack.isValid()) {
         newTrack.setHasEmbeddedCover(checkEmbeddedCoverImage(localFileName));

@@ -20,11 +20,10 @@
 
 #include "elisaLib_export.h"
 
-#include "musicaudiotrack.h"
+#include "datatypes.h"
 
 #include <QUrl>
 #include <QMimeDatabase>
-#include <QObject>
 
 #include <memory>
 
@@ -44,11 +43,11 @@ public:
 
     virtual ~FileScanner();
 
-    MusicAudioTrack scanOneFile(const QUrl &scanFile, const QMimeDatabase &mimeDatabase);
+    DataTypes::TrackDataType scanOneFile(const QUrl &scanFile, const QMimeDatabase &mimeDatabase);
 
-    void scanProperties(const Baloo::File &match, MusicAudioTrack &trackData);
+    void scanProperties(const Baloo::File &match, DataTypes::TrackDataType &trackData);
 
-    void scanProperties(const QString &localFileName, MusicAudioTrack &trackData);
+    void scanProperties(const QString &localFileName, DataTypes::TrackDataType &trackData);
 
     QUrl searchForCoverFile(const QString &localFileName);
 

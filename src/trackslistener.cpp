@@ -162,35 +162,15 @@ void TracksListener::trackByFileNameInList(const QUrl &fileName)
 {
     auto newTrackId = d->mDatabase->trackIdFromFileName(fileName);
     if (newTrackId == 0) {
-        auto newTrack = scanOneFile(fileName);
+        auto newTrack = d->mFileScanner.scanOneFile(fileName, d->mMimeDb);
 
         if (newTrack.isValid()) {
-            auto oneData = DataTypes::TrackDataType{};
 
-            if (!newTrack.title().isEmpty()) {
-                oneData[DataTypes::TrackDataType::key_type::TitleRole] = newTrack.title();
-            } else {
-                const auto &fileUrl = newTrack.resourceURI();
-                oneData[DataTypes::TrackDataType::key_type::TitleRole] = fileUrl.fileName();
-            }
-
-            oneData[DataTypes::TrackDataType::key_type::ArtistRole] = newTrack.artist();
-            oneData[DataTypes::TrackDataType::key_type::AlbumRole] = newTrack.albumName();
-            oneData[DataTypes::TrackDataType::key_type::AlbumIdRole] = newTrack.albumId();
-            oneData[DataTypes::TrackDataType::key_type::TrackNumberRole] = newTrack.trackNumber();
-            oneData[DataTypes::TrackDataType::key_type::DiscNumberRole] = newTrack.discNumber();
-            oneData[DataTypes::TrackDataType::key_type::DurationRole] = newTrack.duration();
-            oneData[DataTypes::TrackDataType::key_type::MilliSecondsDurationRole] = newTrack.duration().msecsSinceStartOfDay();
-            oneData[DataTypes::TrackDataType::key_type::ResourceRole] = newTrack.resourceURI();
-            oneData[DataTypes::TrackDataType::key_type::ImageUrlRole] = newTrack.albumCover();
-
-            Q_EMIT trackHasChanged(oneData);
-
+            Q_EMIT trackHasChanged(newTrack);
             return;
         }
 
         d->mTracksByFileNameSet.push_back(fileName);
-
         return;
     }
 
@@ -266,11 +246,5 @@ void TracksListener::newArtistInList(qulonglong newDatabaseId, const QString &ar
 
     Q_EMIT tracksListAdded(newDatabaseId, artist, ElisaUtils::Artist, newTracks);
 }
-
-MusicAudioTrack TracksListener::scanOneFile(const QUrl &scanFile)
-{
-    return d->mFileScanner.scanOneFile(scanFile, d->mMimeDb);
-}
-
 
 #include "moc_trackslistener.cpp"

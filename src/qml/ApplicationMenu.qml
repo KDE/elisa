@@ -35,7 +35,10 @@ Menu {
     Action {
         text: i18nc("Refresh Music Collection application menu entry", "Refresh Music Collection")
         icon.name: "view-refresh"
-        onTriggered: elisa.musicManager.resetMusicData()
+        onTriggered: {
+            applicationMenu.close()
+            elisa.musicManager.resetMusicData()
+        }
     }
 
     MenuSeparator {
@@ -45,21 +48,30 @@ Menu {
         text: configureAction.text
         shortcut: configureAction.shortcut
         icon.name: elisa.iconName(configureAction.icon)
-        onTriggered: configureAction.trigger()
+        onTriggered: {
+            applicationMenu.close()
+            configureAction.trigger()
+        }
     }
 
     Action {
         text: configureShortcutsAction.text
         shortcut: configureShortcutsAction.shortcut
         icon.name: elisa.iconName(configureShortcutsAction.icon)
-        onTriggered: configureShortcutsAction.trigger()
+        onTriggered: {
+            applicationMenu.close()
+            configureShortcutsAction.trigger()
+        }
     }
 
     Action {
         shortcut: togglePlaylistAction.shortcut
         text: contentView.showPlaylist ? i18nc("Hide playlist", "Hide Playlist") : i18nc("Show playlist", "Show Playlist")
         icon.name: "view-media-playlist"
-        onTriggered: contentView.showPlaylist = !contentView.showPlaylist
+        onTriggered: {
+            contentView.showPlaylist = !contentView.showPlaylist
+            applicationMenu.close()
+        }
     }
 
     MenuSeparator {
@@ -70,7 +82,10 @@ Menu {
         text: reportBugAction.text
         shortcut: reportBugAction.shortcut
         icon.name: elisa.iconName(reportBugAction.icon)
-        onTriggered: reportBugAction.trigger()
+        onTriggered: {
+            applicationMenu.close()
+            reportBugAction.trigger()
+        }
     }
 
     MenuSeparator {
@@ -81,14 +96,20 @@ Menu {
         text: helpAction.text
         shortcut: helpAction.shortcut
         icon.name: elisa.iconName(helpAction.icon)
-        onTriggered: helpAction.trigger()
+        onTriggered: {
+            applicationMenu.close()
+            helpAction.trigger()
+        }
     }
 
     Action {
         text: aboutAppAction.text
         shortcut: aboutAppAction.shortcut
         icon.name: elisa.iconName(aboutAppAction.icon)
-        onTriggered: aboutAppAction.trigger()
+        onTriggered: {
+            applicationMenu.close()
+            aboutAppAction.trigger()
+        }
     }
 
     MenuSeparator {

@@ -112,10 +112,13 @@ public:
 MusicListenersManager::MusicListenersManager(QObject *parent)
     : QObject(parent), d(std::make_unique<MusicListenersManagerPrivate>())
 {
-    d->mListenerThread.start();
-    d->mDatabaseThread.start();
+    connect(&d->mDatabaseInterface, &DatabaseInterface::tracksAdded,
+            this, &MusicListenersManager::increaseImportedTracksCount);
 
-    d->mDatabaseInterface.moveToThread(&d->mDatabaseThread);
+#if defined KF5Baloo_FOUND && KF5Baloo_FOUND
+    connect(&d->mBalooDetector, &BalooDetector::balooAvailabilityChanged,
+            this, &MusicListenersManager::balooAvailabilityChanged);
+#endif
 
     connect(&d->mDatabaseInterface, &DatabaseInterface::requestsInitDone,
             this, &MusicListenersManager::databaseReady);
@@ -124,14 +127,16 @@ MusicListenersManager::MusicListenersManager(QObject *parent)
     connect(&d->mDatabaseInterface, &DatabaseInterface::cleanedDatabase,
             this, &MusicListenersManager::cleanedDatabase);
 
-#if defined KF5Baloo_FOUND && KF5Baloo_FOUND
-    connect(&d->mBalooDetector, &BalooDetector::balooAvailabilityChanged,
-            this, &MusicListenersManager::balooAvailabilityChanged);
-#endif
+    connect(QCoreApplication::instance(), &QCoreApplication::aboutToQuit,
+            this, &MusicListenersManager::applicationAboutToQuit);
 
-    qCInfo(orgKdeElisaIndexersManager) << "Local file system indexer is inactive";
-    qCInfo(orgKdeElisaIndexersManager) << "Baloo indexer is unavailable";
-    qCInfo(orgKdeElisaIndexersManager) << "Baloo indexer is inactive";
+    connect(&d->mConfigFileWatcher, &QFileSystemWatcher::fileChanged,
+            this, &MusicListenersManager::configChanged);
+
+    d->mListenerThread.start();
+    d->mDatabaseThread.start();
+
+    d->mDatabaseInterface.moveToThread(&d->mDatabaseThread);
 
     const auto &localDataPaths = QStandardPaths::standardLocations(QStandardPaths::AppDataLocation);
     auto databaseFileName = QString();
@@ -144,30 +149,9 @@ MusicListenersManager::MusicListenersManager(QObject *parent)
     QMetaObject::invokeMethod(&d->mDatabaseInterface, "init", Qt::QueuedConnection,
                               Q_ARG(QString, QStringLiteral("listeners")), Q_ARG(QString, databaseFileName));
 
-    connect(QCoreApplication::instance(), &QCoreApplication::aboutToQuit,
-            this, &MusicListenersManager::applicationAboutToQuit);
-
-    connect(Elisa::ElisaConfiguration::self(), &Elisa::ElisaConfiguration::configChanged,
-            this, &MusicListenersManager::configChanged);
-
-    connect(&d->mConfigFileWatcher, &QFileSystemWatcher::fileChanged,
-            this, &MusicListenersManager::configChanged);
-
-    auto initialRootPath = Elisa::ElisaConfiguration::rootPath();
-    if (initialRootPath.isEmpty()) {
-        auto systemMusicPaths = QStandardPaths::standardLocations(QStandardPaths::MusicLocation);
-        for (const auto &musicPath : qAsConst(systemMusicPaths)) {
-            initialRootPath.push_back(musicPath);
-        }
-
-        Elisa::ElisaConfiguration::setRootPath(initialRootPath);
-        Elisa::ElisaConfiguration::self()->save();
-    }
-
-    d->mConfigFileWatcher.addPath(Elisa::ElisaConfiguration::self()->config()->name());
-
-    connect(&d->mDatabaseInterface, &DatabaseInterface::tracksAdded,
-            this, &MusicListenersManager::increaseImportedTracksCount);
+    qCInfo(orgKdeElisaIndexersManager) << "Local file system indexer is inactive";
+    qCInfo(orgKdeElisaIndexersManager) << "Baloo indexer is unavailable";
+    qCInfo(orgKdeElisaIndexersManager) << "Baloo indexer is inactive";
 }
 
 MusicListenersManager::~MusicListenersManager()
@@ -230,6 +214,19 @@ bool MusicListenersManager::androidIndexerAvailable() const
 
 void MusicListenersManager::databaseReady()
 {
+    auto initialRootPath = Elisa::ElisaConfiguration::rootPath();
+    if (initialRootPath.isEmpty()) {
+        auto systemMusicPaths = QStandardPaths::standardLocations(QStandardPaths::MusicLocation);
+        for (const auto &musicPath : qAsConst(systemMusicPaths)) {
+            initialRootPath.push_back(musicPath);
+        }
+
+        Elisa::ElisaConfiguration::setRootPath(initialRootPath);
+        Elisa::ElisaConfiguration::self()->save();
+    }
+
+    d->mConfigFileWatcher.addPath(Elisa::ElisaConfiguration::self()->config()->name());
+
     configChanged();
 }
 
@@ -306,6 +303,13 @@ void MusicListenersManager::configChanged()
 
     if (!d->mBalooIndexerActive && !d->mFileSystemIndexerActive) {
         testBalooIndexerAvailability();
+    }
+    if (d->mBalooIndexerActive) {
+#if defined KF5Baloo_FOUND && KF5Baloo_FOUND
+        QMetaObject::invokeMethod(d->mBalooListener.fileListing(), "init", Qt::QueuedConnection);
+#endif
+    } else if (d->mFileSystemIndexerActive) {
+        QMetaObject::invokeMethod(d->mFileListener.fileListing(), "init", Qt::QueuedConnection);
     }
 
 #if defined UPNPQT_FOUND && UPNPQT_FOUND
@@ -446,8 +450,6 @@ void MusicListenersManager::startLocalFileSystemIndexing()
     connect(&d->mFileListener, &FileListener::closeNotification,
             this, &MusicListenersManager::closeNotification);
 
-    QMetaObject::invokeMethod(d->mFileListener.fileListing(), "init", Qt::QueuedConnection);
-
     qCInfo(orgKdeElisaIndexersManager) << "Local file system indexer is active";
 
     d->mFileSystemIndexerActive = true;
@@ -471,8 +473,6 @@ void MusicListenersManager::startBalooIndexing()
             this, &MusicListenersManager::newNotification);
     connect(&d->mBalooListener, &BalooListener::closeNotification,
             this, &MusicListenersManager::closeNotification);
-
-    QMetaObject::invokeMethod(d->mBalooListener.fileListing(), "init", Qt::QueuedConnection);
 
     qCInfo(orgKdeElisaIndexersManager) << "Baloo indexer is active";
 

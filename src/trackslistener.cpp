@@ -17,6 +17,7 @@
 
 #include "trackslistener.h"
 
+#include "playListLogging.h"
 #include "databaseinterface.h"
 #include "datatypes.h"
 #include "filescanner.h"
@@ -204,6 +205,7 @@ void TracksListener::trackByFileNameInList(const QUrl &fileName)
 
 void TracksListener::newAlbumInList(qulonglong newDatabaseId, const QString &entryTitle)
 {
+    qCDebug(orgKdeElisaPlayList()) << "TracksListener::newAlbumInList" << newDatabaseId << entryTitle << d->mDatabase->albumData(newDatabaseId);
     Q_EMIT tracksListAdded(newDatabaseId, entryTitle, ElisaUtils::Album, d->mDatabase->albumData(newDatabaseId));
 }
 
@@ -211,6 +213,7 @@ void TracksListener::newEntryInList(qulonglong newDatabaseId,
                                     const QString &entryTitle,
                                     ElisaUtils::PlayListEntryType databaseIdType)
 {
+    qCDebug(orgKdeElisaPlayList()) << "TracksListener::newEntryInList" << newDatabaseId << entryTitle << databaseIdType;
     switch (databaseIdType)
     {
     case ElisaUtils::Track:

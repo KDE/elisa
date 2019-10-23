@@ -5097,10 +5097,7 @@ void DatabaseInterface::initRequest()
                                                                      "tracksMapping.`FileName`, "
                                                                      "tracksMapping.`FileModifiedTime` "
                                                                      "FROM "
-                                                                     "`TracksData` tracksMapping, "
-                                                                     "`Tracks` tracks "
-                                                                     "WHERE "
-                                                                     "tracks.`FileName` = tracksMapping.`FileName`");
+                                                                     "`TracksData` tracksMapping");
 
         auto result = prepareQuery(d->mSelectAllTrackFilesQuery, selectAllTrackFilesFromSourceQueryText);
 

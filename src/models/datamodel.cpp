@@ -145,6 +145,9 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
         {
         case ElisaUtils::Track:
             result = d->mAllTrackData[index.row()][TrackDataType::key_type::TitleRole];
+            if (result.toString().isEmpty()) {
+                result = d->mAllTrackData[index.row()][TrackDataType::key_type::ResourceRole].toUrl().fileName();
+            }
             break;
         case ElisaUtils::Album:
             result = d->mAllAlbumData[index.row()][AlbumDataType::key_type::TitleRole];
@@ -273,6 +276,26 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
             break;
         }
         break;
+    case DataTypes::ColumnsRoles::ResourceRole:
+    {
+        switch (d->mModelType)
+        {
+        case ElisaUtils::Track:
+        case ElisaUtils::Radio:
+        case ElisaUtils::FileName:
+            result = d->mAllTrackData[index.row()][TrackDataType::key_type::ResourceRole];
+            break;
+        case ElisaUtils::Album:
+        case ElisaUtils::Artist:
+        case ElisaUtils::Genre:
+        case ElisaUtils::Lyricist:
+        case ElisaUtils::Composer:
+        case ElisaUtils::Unknown:
+            result = QUrl{};
+            break;
+        }
+        break;
+    }
     default:
         switch(d->mModelType)
         {

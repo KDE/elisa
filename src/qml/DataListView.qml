@@ -38,32 +38,31 @@ FocusScope {
     property bool displaySingleAlbum: false
     property alias radioCase: listView.showCreateRadioButton
 
-    function openMetaDataView(databaseId, url) {
-        if (viewHeader.radioCase) {
-            metadataLoader.setSource("MediaTrackMetadataView.qml",
-                                     {
-                                         "initialDatabaseId": databaseId,
-                                         "fileName": url,
-                                         "modelType": viewHeader.modelType,
-                                         "showImage": false,
-                                         "showTrackFileName": false,
-                                         "showDeleteButton": databaseId !== -1,
-                                         "showApplyButton": true,
-                                         "editableMetadata": true,
-                                     });
-        } else {
-            metadataLoader.setSource("MediaTrackMetadataView.qml",
-                                     {
-                                         "initialDatabaseId": databaseId,
-                                         "fileName": url,
-                                         "modelType": viewHeader.modelType,
-                                         "showImage": true,
-                                         "showTrackFileName": true,
-                                         "showDeleteButton": false,
-                                         "showApplyButton": false,
-                                         "editableMetadata": false,
-                                     });
-        }
+    function openMetaDataView(databaseId, url, entryType) {
+        metadataLoader.setSource("MediaTrackMetadataView.qml",
+                                 {
+                                     "fileName": url,
+                                     "modelType": entryType,
+                                     "showImage": entryType !== ElisaUtils.Radio,
+                                     "showTrackFileName": entryType !== ElisaUtils.Radio,
+                                     "showDeleteButton": entryType === ElisaUtils.Radio,
+                                     "showApplyButton": entryType === ElisaUtils.Radio,
+                                     "editableMetadata": entryType === ElisaUtils.Radio,
+                                 });
+        metadataLoader.active = true
+    }
+    function openCreateRadioView()
+    {
+        metadataLoader.setSource("MediaTrackMetadataView.qml",
+                                 {
+                                     "modelType": ElisaUtils.Radio,
+                                     "isCreation": true,
+                                     "showImage": true,
+                                     "showTrackFileName": false,
+                                     "showDeleteButton": false,
+                                     "showApplyButton": true,
+                                     "editableMetadata": true,
+                                 });
         metadataLoader.active = true
     }
 
@@ -95,8 +94,9 @@ FocusScope {
 
             focus: true
 
-            databaseId: model.databaseId
-            title: model.title ? model.title : ''
+            trackUrl: model.url
+            dataType: model.dataType
+            title: model.display ? model.display : ''
             artist: model.artist ? model.artist : ''
             album: model.album ? model.album : ''
             albumArtist: model.albumArtist ? model.albumArtist : ''
@@ -109,13 +109,13 @@ FocusScope {
             isAlternateColor: (index % 2) === 1
             detailedView: false
 
-            onEnqueue: elisa.mediaPlayList.enqueue(databaseId, name, ElisaUtils.Track,
-                                                              ElisaUtils.AppendPlayList,
-                                                              ElisaUtils.DoNotTriggerPlay)
+            onEnqueue: elisa.mediaPlayList.enqueue(url, entryType,
+                                                   ElisaUtils.AppendPlayList,
+                                                   ElisaUtils.DoNotTriggerPlay)
 
-            onReplaceAndPlay: elisa.mediaPlayList.enqueue(databaseId, name, ElisaUtils.Track,
-                                                                     ElisaUtils.ReplacePlayList,
-                                                                     ElisaUtils.TriggerPlay)
+            onReplaceAndPlay: elisa.mediaPlayList.enqueue(url, entryType,
+                                                          ElisaUtils.ReplacePlayList,
+                                                          ElisaUtils.TriggerPlay)
 
 
             onClicked: listView.currentIndex = index
@@ -127,7 +127,7 @@ FocusScope {
             }
 
             onCallOpenMetaDataView: {
-                openMetaDataView(databaseId, model.url)
+                openMetaDataView(databaseId, model.url, entryType)
             }
         }
     }
@@ -143,8 +143,9 @@ FocusScope {
 
             focus: true
 
-            databaseId: model.databaseId
-            title: model.title ? model.title : ''
+            trackUrl: model.url
+            dataType: model.dataType
+            title: model.display ? model.display : ''
             artist: model.artist ? model.artist : ''
             album: model.album ? model.album : ''
             albumArtist: model.albumArtist ? model.albumArtist : ''
@@ -157,11 +158,11 @@ FocusScope {
             isSelected: listView.currentIndex === index
             isAlternateColor: (index % 2) === 1
 
-            onEnqueue: elisa.mediaPlayList.enqueue(databaseId, name, modelType,
+            onEnqueue: elisa.mediaPlayList.enqueue(url, entryType,
                                                    ElisaUtils.AppendPlayList,
                                                    ElisaUtils.DoNotTriggerPlay)
 
-            onReplaceAndPlay: elisa.mediaPlayList.enqueue(databaseId, name, modelType,
+            onReplaceAndPlay: elisa.mediaPlayList.enqueue(url, entryType,
                                                           ElisaUtils.ReplacePlayList,
                                                           ElisaUtils.TriggerPlay)
 
@@ -171,7 +172,7 @@ FocusScope {
             }
 
             onCallOpenMetaDataView: {
-                openMetaDataView(databaseId, model.url)
+                openMetaDataView(databaseId, model.url, entryType)
             }
         }
     }
@@ -190,6 +191,9 @@ FocusScope {
         enableSorting: !displaySingleAlbum
 
         allowArtistNavigation: isSubPage
+
+        showCreateRadioButton: modelType === ElisaUtils.Radio
+        showEnqueueButton: modelType !== ElisaUtils.Radio
 
         onShowArtist: {
             viewManager.openChildView(secondaryTitle, '', elisaTheme.artistIcon, 0, ElisaUtils.Artist, ViewManager.NoDiscHeaders)
@@ -223,7 +227,7 @@ FocusScope {
         target: listView.navigationBar
 
         onCreateRadio: {
-            openMetaDataView(-1, '')
+            openCreateRadioView()
         }
     }
 

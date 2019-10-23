@@ -181,7 +181,7 @@ FocusScope {
                         }
                     }
 
-                    onOpen: isDirectory ? loadFolderAndClear(model.fileUrl) : elisa.mediaPlayList.enqueue(0, model.fileUrl, ElisaUtils.FileName, ElisaUtils.AppendPlayList, ElisaUtils.DoNotTriggerPlay)
+                    onOpen: isDirectory ? loadFolderAndClear(model.fileUrl) : elisa.mediaPlayList.enqueue(model.fileUrl, ElisaUtils.FileName, ElisaUtils.AppendPlayList, ElisaUtils.DoNotTriggerPlay)
                 }
             }
         }

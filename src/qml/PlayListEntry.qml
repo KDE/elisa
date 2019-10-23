@@ -110,7 +110,6 @@ FocusScope {
         onLoaded: item.show()
 
         sourceComponent:  MediaTrackMetadataView {
-            initialDatabaseId: playListEntry.databaseId
             fileName: playListEntry.fileName
             showImage: entryType !== ElisaUtils.Radio
             modelType: entryType

@@ -52,6 +52,20 @@ ecm_qt_declare_logging_category(elisaLib_SOURCES
     DEFAULT_SEVERITY Info
     )
 
+ecm_qt_declare_logging_category(elisaLib_SOURCES
+    HEADER "models/modelLogging.h"
+    IDENTIFIER "orgKdeElisaModel"
+    CATEGORY_NAME "org.kde.elisa.model"
+    DEFAULT_SEVERITY Info
+    )
+
+ecm_qt_declare_logging_category(elisaLib_SOURCES
+    HEADER "playListLogging.h"
+    IDENTIFIER "orgKdeElisaPlayList"
+    CATEGORY_NAME "org.kde.elisa.playlist"
+    DEFAULT_SEVERITY Info
+    )
+
 if (LIBVLC_FOUND)
     ecm_qt_declare_logging_category(elisaLib_SOURCES
         HEADER "vlcLogging.h"

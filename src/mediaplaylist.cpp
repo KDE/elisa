@@ -16,6 +16,8 @@
  */
 
 #include "mediaplaylist.h"
+
+#include "playListLogging.h"
 #include "datatypes.h"
 #include "musicaudiotrack.h"
 #include "musiclistenersmanager.h"
@@ -409,6 +411,7 @@ void MediaPlayList::enqueueRestoredEntry(const MediaPlayListEntry &newEntry)
 
 void MediaPlayList::enqueueArtist(const QString &artistName)
 {
+    qCDebug(orgKdeElisaPlayList()) << "MediaPlayList::enqueueArtist" << artistName;
     enqueueCommon();
 
     auto newEntry = MediaPlayListEntry{artistName};
@@ -432,6 +435,7 @@ void MediaPlayList::enqueueArtist(const QString &artistName)
 
 void MediaPlayList::enqueueFilesList(const ElisaUtils::EntryDataList &newEntries)
 {
+    qCDebug(orgKdeElisaPlayList()) << "MediaPlayList::enqueueFilesList";
     enqueueCommon();
 
     beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size() + newEntries.size() - 1);
@@ -468,6 +472,7 @@ void MediaPlayList::enqueueFilesList(const ElisaUtils::EntryDataList &newEntries
 
 void MediaPlayList::enqueueTracksListById(const ElisaUtils::EntryDataList &newEntries, ElisaUtils::PlayListEntryType type)
 {
+    qCDebug(orgKdeElisaPlayList()) << "MediaPlayList::enqueueTracksListById" << newEntries.size() << type;
     enqueueCommon();
 
     beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size() + newEntries.size() - 1);
@@ -493,6 +498,7 @@ void MediaPlayList::enqueueTracksListById(const ElisaUtils::EntryDataList &newEn
 
 void MediaPlayList::enqueueOneEntry(const ElisaUtils::EntryData &entryData, ElisaUtils::PlayListEntryType type)
 {
+    qCDebug(orgKdeElisaPlayList()) << "MediaPlayList::enqueueOneEntry" << std::get<0>(entryData) << std::get<1>(entryData) << type;
     enqueueCommon();
 
     beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size());
@@ -508,6 +514,7 @@ void MediaPlayList::enqueueOneEntry(const ElisaUtils::EntryData &entryData, Elis
 
 void MediaPlayList::enqueueMultipleEntries(const ElisaUtils::EntryDataList &entriesData, ElisaUtils::PlayListEntryType type)
 {
+    qCDebug(orgKdeElisaPlayList()) << "MediaPlayList::enqueueMultipleEntries" << entriesData.size() << type;
     enqueueCommon();
 
     beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size() + entriesData.size() - 1);
@@ -526,6 +533,7 @@ void MediaPlayList::enqueueMultipleEntries(const ElisaUtils::EntryDataList &entr
 void MediaPlayList::replaceAndPlay(const ElisaUtils::EntryData &newEntry,
                                    ElisaUtils::PlayListEntryType databaseIdType)
 {
+    qCDebug(orgKdeElisaPlayList()) << "MediaPlayList::replaceAndPlay" << std::get<0>(newEntry) << std::get<1>(newEntry) << databaseIdType;
     enqueue(newEntry, databaseIdType, ElisaUtils::PlayListEnqueueMode::ReplacePlayList, ElisaUtils::PlayListEnqueueTriggerPlay::TriggerPlay);
 }
 

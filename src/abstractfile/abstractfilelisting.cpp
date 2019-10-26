@@ -307,7 +307,7 @@ MusicAudioTrack AbstractFileListing::scanOneFile(const QUrl &scanFile, const QFi
     if (scanFileInfo.exists()) {
         auto itExistingFile = d->mAllFiles.find(scanFile);
         if (itExistingFile != d->mAllFiles.end()) {
-            if (*itExistingFile >= scanFileInfo.fileTime(QFile::FileModificationTime)) {
+            if (*itExistingFile >= scanFileInfo.metadataChangeTime()) {
                 d->mAllFiles.erase(itExistingFile);
                 return newTrack;
             }
@@ -318,7 +318,7 @@ MusicAudioTrack AbstractFileListing::scanOneFile(const QUrl &scanFile, const QFi
 
     if (newTrack.isValid()) {
         newTrack.setHasEmbeddedCover(checkEmbeddedCoverImage(localFileName));
-        newTrack.setFileModificationTime(scanFileInfo.fileTime(QFile::FileModificationTime));
+        newTrack.setFileModificationTime(scanFileInfo.metadataChangeTime());
 
         if (scanFileInfo.exists()) {
             watchPath(scanFile.toLocalFile());

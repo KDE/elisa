@@ -79,7 +79,7 @@ MusicAudioTrack FileScanner::scanOneFile(const QUrl &scanFile, const QMimeDataba
     auto localFileName = scanFile.toLocalFile();
 
     QFileInfo scanFileInfo(localFileName);
-    newTrack.setFileModificationTime(scanFileInfo.fileTime(QFile::FileModificationTime));
+    newTrack.setFileModificationTime(scanFileInfo.metadataChangeTime());
     newTrack.setResourceURI(scanFile);
     newTrack.setRating(0);
 

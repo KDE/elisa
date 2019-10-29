@@ -415,7 +415,6 @@ MusicAudioTrack LocalBalooFileListing::scanOneFile(const QUrl &scanFile, const Q
     if (newTrack.isValid()) {
         newTrack.setHasEmbeddedCover(checkEmbeddedCoverImage(localFileName));
         addCover(newTrack);
-        watchPath(localFileName);
     } else {
         qCDebug(orgKdeElisaBaloo) << "LocalBalooFileListing::scanOneFile" << scanFile << "invalid track";
     }

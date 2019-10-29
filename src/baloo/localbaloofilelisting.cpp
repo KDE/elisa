@@ -402,7 +402,7 @@ MusicAudioTrack LocalBalooFileListing::scanOneFile(const QUrl &scanFile, const Q
 
     match.load();
 
-    newTrack.setFileModificationTime(scanFileInfo.fileTime(QFile::FileModificationTime));
+    newTrack.setFileModificationTime(scanFileInfo.metadataChangeTime());
     newTrack.setResourceURI(scanFile);
 
     fileScanner().scanProperties(match, newTrack);

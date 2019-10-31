@@ -230,7 +230,7 @@ void FileScanner::scanProperties(const QString &localFileName, MusicAudioTrack &
     }
 
     int rating = fileData.rating();
-    if (rating > 0) {
+    if (rating >= 0) {
         trackData.setRating(rating);
     }
 #endif

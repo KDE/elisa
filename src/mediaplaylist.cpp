@@ -1163,7 +1163,9 @@ void MediaPlayList::skipNextTrack()
     if (d->mRandomPlay) {
         d->mRandomPositions.removeFirst();
         d->mCurrentTrack = index(d->mRandomPositions.at(1), 0);
-        d->mRandomPositions.append(QRandomGenerator::global()->bounded(rowCount()));
+        if (rowCount()) {
+            d->mRandomPositions.append(QRandomGenerator::global()->bounded(rowCount()));
+        }
     } else {
         if (d->mCurrentTrack.row() >= rowCount() - 1) {
             d->mCurrentTrack = index(0, 0);
@@ -1187,7 +1189,9 @@ void MediaPlayList::skipPreviousTrack()
     if (d->mRandomPlay) {
         d->mRandomPositions.removeLast();
         d->mCurrentTrack = index(d->mRandomPositions.at(0), 0);
-        d->mRandomPositions.prepend(QRandomGenerator::global()->bounded(rowCount()));
+        if (rowCount()) {
+            d->mRandomPositions.prepend(QRandomGenerator::global()->bounded(rowCount()));
+        }
     } else {
         if (d->mCurrentTrack.row() == 0) {
             if (d->mRepeatPlay) {
@@ -1385,8 +1389,10 @@ int MediaPlayList::remainingTracks() const
 
 void MediaPlayList::createRandomList()
 {
-    for (auto& position : d->mRandomPositions) {
-        position = QRandomGenerator::global()->bounded(rowCount());
+    if (rowCount()) {
+        for (auto& position : d->mRandomPositions) {
+            position = QRandomGenerator::global()->bounded(rowCount());
+        }
     }
     if (d->mCurrentTrack.isValid()) {
         d->mRandomPositions.replace(1, d->mCurrentTrack.row());

@@ -19,8 +19,6 @@
 
 #include "databaseLogging.h"
 
-#include "musicaudiotrack.h"
-
 #include <KI18n/KLocalizedString>
 
 #include <QCoreApplication>
@@ -960,7 +958,7 @@ void DatabaseInterface::recordModifiedAlbum(qulonglong albumId)
     d->mModifiedAlbumIds.insert(albumId);
 }
 
-void DatabaseInterface::insertTracksList(const QList<MusicAudioTrack> &tracks, const QHash<QString, QUrl> &covers)
+void DatabaseInterface::insertTracksList(const DataTypes::ListTrackDataType &tracks, const QHash<QString, QUrl> &covers)
 {
     qCDebug(orgKdeElisaDatabase()) << "DatabaseInterface::insertTracksList" << tracks.count();
     if (d->mStopRequest == 1) {
@@ -5755,7 +5753,7 @@ qulonglong DatabaseInterface::insertAlbum(const QString &title, const QString &a
 }
 
 bool DatabaseInterface::updateAlbumFromId(qulonglong albumId, const QUrl &albumArtUri,
-                                          const MusicAudioTrack &currentTrack, const QString &albumPath)
+                                          const DataTypes::TrackDataType &currentTrack, const QString &albumPath)
 {
     auto modifiedAlbum = false;
     modifiedAlbum = true;
@@ -5789,8 +5787,8 @@ bool DatabaseInterface::updateAlbumFromId(qulonglong albumId, const QUrl &albumA
         modifiedAlbum = true;
     }
 
-    if (!isValidArtist(albumId) && currentTrack.isValidAlbumArtist()) {
-        updateAlbumArtist(albumId, currentTrack.albumName(), albumPath, currentTrack.albumArtist());
+    if (!isValidArtist(albumId) && currentTrack.hasAlbum()) {
+        updateAlbumArtist(albumId, currentTrack.album(), albumPath, currentTrack.albumArtist());
 
         modifiedAlbum = true;
     }
@@ -6032,7 +6030,7 @@ void DatabaseInterface::updateTrackOrigin(const QUrl &fileName, const QDateTime 
     d->mUpdateTrackFileModifiedTime.finish();
 }
 
-qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrack,
+qulonglong DatabaseInterface::internalInsertTrack(const DataTypes::TrackDataType &oneTrack,
                                                   const QHash<QString, QUrl> &covers, bool &isInserted)
 {
     qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalInsertTrack trying to insert" << oneTrack;
@@ -6056,7 +6054,7 @@ qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrac
         albumCover = oneTrack.albumCover();
     }
 
-    auto albumId = insertAlbum(oneTrack.albumName(), (oneTrack.isValidAlbumArtist() ? oneTrack.albumArtist() : QString()),
+    auto albumId = insertAlbum(oneTrack.album(), (oneTrack.hasAlbumArtist() ? oneTrack.albumArtist() : QString()),
                                trackPath, albumCover);
 
     auto oldAlbumId = albumId;
@@ -6072,15 +6070,15 @@ qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrac
 
         auto isSameTrack = true;
         isSameTrack = isSameTrack && (oldTrack.title() == oneTrack.title());
-        isSameTrack = isSameTrack && (oldTrack.albumName() == oneTrack.albumName());
+        isSameTrack = isSameTrack && (oldTrack.album() == oneTrack.album());
         isSameTrack = isSameTrack && (oldTrack.artist() == oneTrack.artist());
         isSameTrack = isSameTrack && (oldTrack.albumArtist() == oneTrack.albumArtist());
-        isSameTrack = isSameTrack && (oldTrack.trackNumberIsValid() == oneTrack.trackNumberIsValid());
-        if (isSameTrack && oldTrack.trackNumberIsValid()) {
+        isSameTrack = isSameTrack && (oldTrack.hasTrackNumber() == oneTrack.hasTrackNumber());
+        if (isSameTrack && oldTrack.hasTrackNumber()) {
             isSameTrack = isSameTrack && (oldTrack.trackNumber() == oneTrack.trackNumber());
         }
-        isSameTrack = isSameTrack && (oldTrack.discNumberIsValid() == oneTrack.discNumberIsValid());
-        if (isSameTrack && oldTrack.discNumberIsValid()) {
+        isSameTrack = isSameTrack && (oldTrack.hasDiscNumber() == oneTrack.hasDiscNumber());
+        if (isSameTrack && oldTrack.hasDiscNumber()) {
             isSameTrack = isSameTrack && (oldTrack.discNumber() == oneTrack.discNumber());
         }
         isSameTrack = isSameTrack && (oldTrack.duration() == oneTrack.duration());
@@ -6091,16 +6089,16 @@ qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrac
         isSameTrack = isSameTrack && (oldTrack.lyricist() == oneTrack.lyricist());
         isSameTrack = isSameTrack && (oldTrack.comment() == oneTrack.comment());
         isSameTrack = isSameTrack && (oldTrack.year() == oneTrack.year());
-        isSameTrack = isSameTrack && (oldTrack.channelsIsValid() == oneTrack.channelsIsValid());
-        if (isSameTrack && oldTrack.channelsIsValid()) {
+        isSameTrack = isSameTrack && (oldTrack.hasChannels() == oneTrack.hasChannels());
+        if (isSameTrack && oldTrack.hasChannels()) {
             isSameTrack = isSameTrack && (oldTrack.channels() == oneTrack.channels());
         }
-        isSameTrack = isSameTrack && (oldTrack.bitRateIsValid() == oneTrack.bitRateIsValid());
-        if (isSameTrack && oldTrack.bitRateIsValid()) {
+        isSameTrack = isSameTrack && (oldTrack.hasBitRate() == oneTrack.hasBitRate());
+        if (isSameTrack && oldTrack.hasBitRate()) {
             isSameTrack = isSameTrack && (oldTrack.bitRate() == oneTrack.bitRate());
         }
-        isSameTrack = isSameTrack && (oldTrack.sampleRateIsValid() == oneTrack.sampleRateIsValid());
-        if (isSameTrack && oldTrack.sampleRateIsValid()) {
+        isSameTrack = isSameTrack && (oldTrack.hasSampleRate() == oneTrack.hasSampleRate());
+        if (isSameTrack && oldTrack.hasSampleRate()) {
             isSameTrack = isSameTrack && (oldTrack.sampleRate() == oneTrack.sampleRate());
         }
 
@@ -6109,7 +6107,7 @@ qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrac
         }
 
         auto newTrack = oneTrack;
-        newTrack.setDatabaseId(resultId);
+        newTrack[DataTypes::ColumnsRoles::DatabaseIdRole] = resultId;
         updateTrackInDatabase(newTrack, trackPath);
         updateTrackOrigin(oneTrack.resourceURI(), oneTrack.fileModificationTime());
         updateAlbumFromId(albumId, oneTrack.albumCover(), oneTrack, trackPath);
@@ -6141,7 +6139,7 @@ qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrac
 
     int priority = 1;
     while(true) {
-        auto otherTrackId = getDuplicateTrackIdFromTitleAlbumTrackDiscNumber(oneTrack.title(), oneTrack.artist(), oneTrack.albumName(),
+        auto otherTrackId = getDuplicateTrackIdFromTitleAlbumTrackDiscNumber(oneTrack.title(), oneTrack.artist(), oneTrack.album(),
                                                                              oneTrack.albumArtist(), trackPath, oneTrack.trackNumber(),
                                                                              oneTrack.discNumber(), priority);
 
@@ -6160,19 +6158,19 @@ qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrac
     d->mInsertTrackQuery.bindValue(QStringLiteral(":title"), oneTrack.title());
     insertArtist(oneTrack.artist());
     d->mInsertTrackQuery.bindValue(QStringLiteral(":artistName"), oneTrack.artist());
-    d->mInsertTrackQuery.bindValue(QStringLiteral(":albumTitle"), oneTrack.albumName());
-    if (oneTrack.isValidAlbumArtist()) {
+    d->mInsertTrackQuery.bindValue(QStringLiteral(":albumTitle"), oneTrack.album());
+    if (oneTrack.hasAlbumArtist()) {
         d->mInsertTrackQuery.bindValue(QStringLiteral(":albumArtistName"), oneTrack.albumArtist());
     } else {
         d->mInsertTrackQuery.bindValue(QStringLiteral(":albumArtistName"), {});
     }
     d->mInsertTrackQuery.bindValue(QStringLiteral(":albumPath"), trackPath);
-    if (oneTrack.trackNumberIsValid()) {
+    if (oneTrack.hasTrackNumber()) {
         d->mInsertTrackQuery.bindValue(QStringLiteral(":trackNumber"), oneTrack.trackNumber());
     } else {
         d->mInsertTrackQuery.bindValue(QStringLiteral(":trackNumber"), {});
     }
-    if (oneTrack.discNumberIsValid()) {
+    if (oneTrack.hasDiscNumber()) {
         d->mInsertTrackQuery.bindValue(QStringLiteral(":discNumber"), oneTrack.discNumber());
     } else {
         d->mInsertTrackQuery.bindValue(QStringLiteral(":discNumber"), {});
@@ -6196,17 +6194,17 @@ qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrac
     }
     d->mInsertTrackQuery.bindValue(QStringLiteral(":comment"), oneTrack.comment());
     d->mInsertTrackQuery.bindValue(QStringLiteral(":year"), oneTrack.year());
-    if (oneTrack.channelsIsValid()) {
+    if (oneTrack.hasChannels()) {
         d->mInsertTrackQuery.bindValue(QStringLiteral(":channels"), oneTrack.channels());
     } else {
         d->mInsertTrackQuery.bindValue(QStringLiteral(":channels"), {});
     }
-    if (oneTrack.bitRateIsValid()) {
+    if (oneTrack.hasBitRate()) {
         d->mInsertTrackQuery.bindValue(QStringLiteral(":bitRate"), oneTrack.bitRate());
     } else {
         d->mInsertTrackQuery.bindValue(QStringLiteral(":bitRate"), {});
     }
-    if (oneTrack.sampleRateIsValid()) {
+    if (oneTrack.hasSampleRate()) {
         d->mInsertTrackQuery.bindValue(QStringLiteral(":sampleRate"), oneTrack.sampleRate());
     } else {
         d->mInsertTrackQuery.bindValue(QStringLiteral(":sampleRate"), {});
@@ -6260,74 +6258,71 @@ qulonglong DatabaseInterface::internalInsertTrack(const MusicAudioTrack &oneTrac
     return resultId;
 }
 
-MusicAudioTrack DatabaseInterface::buildTrackFromDatabaseRecord(const QSqlRecord &trackRecord) const
+DataTypes::TrackDataType DatabaseInterface::buildTrackFromDatabaseRecord(const QSqlRecord &trackRecord) const
 {
     auto id = trackRecord.value(0).toULongLong();
 
-    auto result = MusicAudioTrack{};
+    auto result = DataTypes::TrackDataType();
 
     if (result.isValid()) {
         return result;
     }
 
-    result.setDatabaseId(id);
-    result.setTitle(trackRecord.value(1).toString());
-    result.setParentId(trackRecord.value(2).toString());
-    result.setArtist(trackRecord.value(3).toString());
+    result[DataTypes::ColumnsRoles::DatabaseIdRole] = id;
+    result[DataTypes::ColumnsRoles::TitleRole] = trackRecord.value(1).toString();
+    result[DataTypes::ColumnsRoles::AlbumIdRole] = trackRecord.value(2).toULongLong();
+    result[DataTypes::ColumnsRoles::ArtistRole] = trackRecord.value(3).toString();
 
     if (trackRecord.value(6).isValid()) {
-        result.setAlbumArtist(trackRecord.value(6).toString());
+        result[DataTypes::ColumnsRoles::AlbumArtistRole] = trackRecord.value(6).toString();
     } else {
         if (trackRecord.value(5).toInt() == 1) {
-            result.setAlbumArtist(trackRecord.value(6).toString());
+            result[DataTypes::ColumnsRoles::AlbumArtistRole] = trackRecord.value(6).toString();
         } else if (trackRecord.value(5).toInt() > 1) {
-            result.setAlbumArtist(QStringLiteral("Various Artists"));
+            result[DataTypes::ColumnsRoles::AlbumArtistRole] = QStringLiteral("Various Artists");
         }
     }
 
-    result.setResourceURI(trackRecord.value(7).toUrl());
-    result.setFileModificationTime(trackRecord.value(8).toDateTime());
+    result[DataTypes::ColumnsRoles::ResourceRole] = trackRecord.value(7).toUrl();
+    result[DataTypes::ColumnsRoles::FileModificationTime] = trackRecord.value(8).toDateTime();
     if (trackRecord.value(9).isValid()) {
-        result.setTrackNumber(trackRecord.value(9).toInt());
+        result[DataTypes::ColumnsRoles::TrackNumberRole] = trackRecord.value(9).toInt();
     }
     if (trackRecord.value(10).isValid()) {
-        result.setDiscNumber(trackRecord.value(10).toInt());
+        result[DataTypes::ColumnsRoles::DiscNumberRole] = trackRecord.value(10).toInt();
     }
-    result.setDuration(QTime::fromMSecsSinceStartOfDay(trackRecord.value(11).toInt()));
-    result.setAlbumName(trackRecord.value(12).toString());
-    result.setRating(trackRecord.value(13).toInt());
-    result.setAlbumCover(trackRecord.value(14).toUrl());
-    result.setIsSingleDiscAlbum(trackRecord.value(15).toBool());
-    result.setGenre(trackRecord.value(16).toString());
-    result.setComposer(trackRecord.value(17).toString());
-    result.setLyricist(trackRecord.value(18).toString());
-    result.setComment(trackRecord.value(19).toString());
-    result.setYear(trackRecord.value(20).toInt());
+    result[DataTypes::ColumnsRoles::DurationRole] = QTime::fromMSecsSinceStartOfDay(trackRecord.value(11).toInt());
+    result[DataTypes::ColumnsRoles::AlbumRole] = trackRecord.value(12).toString();
+    result[DataTypes::ColumnsRoles::RatingRole] = trackRecord.value(13).toInt();
+    result[DataTypes::ColumnsRoles::ImageUrlRole] = trackRecord.value(14).toUrl();
+    result[DataTypes::ColumnsRoles::IsSingleDiscAlbumRole] = trackRecord.value(15).toBool();
+    result[DataTypes::ColumnsRoles::GenreRole] = trackRecord.value(16).toString();
+    result[DataTypes::ColumnsRoles::ComposerRole] = trackRecord.value(17).toString();
+    result[DataTypes::ColumnsRoles::LyricistRole] = trackRecord.value(18).toString();
+    result[DataTypes::ColumnsRoles::CommentRole] = trackRecord.value(19).toString();
+    result[DataTypes::ColumnsRoles::YearRole] = trackRecord.value(20).toInt();
     if (trackRecord.value(21).isValid()) {
         bool isValid;
         auto value = trackRecord.value(21).toInt(&isValid);
         if (isValid) {
-            result.setChannels(value);
+            result[DataTypes::ColumnsRoles::ChannelsRole] = value;
         }
     }
     if (trackRecord.value(22).isValid()) {
         bool isValid;
         auto value = trackRecord.value(22).toInt(&isValid);
         if (isValid) {
-            result.setBitRate(value);
+            result[DataTypes::ColumnsRoles::BitRateRole] = value;
         }
     }
     if (trackRecord.value(23).isValid()) {
         bool isValid;
         auto value = trackRecord.value(23).toInt(&isValid);
         if (isValid) {
-            result.setSampleRate(value);
+            result[DataTypes::ColumnsRoles::SampleRateRole] = value;
         }
     }
-    result.setAlbumId(trackRecord.value(2).toULongLong());
-    result.setHasEmbeddedCover(trackRecord.value(24).toBool());
-
-    result.setValid(true);
+    result[DataTypes::ColumnsRoles::HasEmbeddedCover] = trackRecord.value(24).toBool();
 
     return result;
 }
@@ -6452,7 +6447,7 @@ void DatabaseInterface::internalRemoveTracksList(const QList<QUrl> &removedTrack
         removeTrackInDatabase(removedTrackId);
 
         const auto &trackPath = oneRemovedTrack.resourceURI().toString(currentOptions);
-        const auto &modifiedAlbumId = internalAlbumIdFromTitleAndArtist(oneRemovedTrack.albumName(), oneRemovedTrack.albumArtist(), trackPath);
+        const auto &modifiedAlbumId = internalAlbumIdFromTitleAndArtist(oneRemovedTrack.album(), oneRemovedTrack.albumArtist(), trackPath);
         const auto &allTracksFromArtist = internalTracksFromAuthor(oneRemovedTrack.artist());
         const auto &allAlbumsFromArtist = internalAlbumIdsFromAuthor(oneRemovedTrack.artist());
         const auto &removedArtistId = internalArtistIdFromName(oneRemovedTrack.artist());
@@ -6748,26 +6743,26 @@ void DatabaseInterface::removeTrackInDatabase(qulonglong trackId)
     d->mRemoveTrackQuery.finish();
 }
 
-void DatabaseInterface::updateTrackInDatabase(const MusicAudioTrack &oneTrack, const QString &albumPath)
+void DatabaseInterface::updateTrackInDatabase(const DataTypes::TrackDataType &oneTrack, const QString &albumPath)
 {
     d->mUpdateTrackQuery.bindValue(QStringLiteral(":fileName"), oneTrack.resourceURI());
     d->mUpdateTrackQuery.bindValue(QStringLiteral(":trackId"), oneTrack.databaseId());
     d->mUpdateTrackQuery.bindValue(QStringLiteral(":title"), oneTrack.title());
     insertArtist(oneTrack.artist());
     d->mUpdateTrackQuery.bindValue(QStringLiteral(":artistName"), oneTrack.artist());
-    d->mUpdateTrackQuery.bindValue(QStringLiteral(":albumTitle"), oneTrack.albumName());
-    if (oneTrack.isValidAlbumArtist()) {
+    d->mUpdateTrackQuery.bindValue(QStringLiteral(":albumTitle"), oneTrack.album());
+    if (oneTrack.hasAlbumArtist()) {
         d->mUpdateTrackQuery.bindValue(QStringLiteral(":albumArtistName"), oneTrack.albumArtist());
     } else {
         d->mUpdateTrackQuery.bindValue(QStringLiteral(":albumArtistName"), {});
     }
     d->mUpdateTrackQuery.bindValue(QStringLiteral(":albumPath"), albumPath);
-    if (oneTrack.trackNumberIsValid()) {
+    if (oneTrack.hasTrackNumber()) {
         d->mUpdateTrackQuery.bindValue(QStringLiteral(":trackNumber"), oneTrack.trackNumber());
     } else {
         d->mUpdateTrackQuery.bindValue(QStringLiteral(":trackNumber"), {});
     }
-    if (oneTrack.discNumberIsValid()) {
+    if (oneTrack.hasDiscNumber()) {
         d->mUpdateTrackQuery.bindValue(QStringLiteral(":discNumber"), oneTrack.discNumber());
     } else {
         d->mUpdateTrackQuery.bindValue(QStringLiteral(":discNumber"), {});
@@ -6791,17 +6786,17 @@ void DatabaseInterface::updateTrackInDatabase(const MusicAudioTrack &oneTrack, c
     }
     d->mUpdateTrackQuery.bindValue(QStringLiteral(":comment"), oneTrack.comment());
     d->mUpdateTrackQuery.bindValue(QStringLiteral(":year"), oneTrack.year());
-    if (oneTrack.channelsIsValid()) {
+    if (oneTrack.hasChannels()) {
         d->mUpdateTrackQuery.bindValue(QStringLiteral(":channels"), oneTrack.channels());
     } else {
         d->mUpdateTrackQuery.bindValue(QStringLiteral(":channels"), {});
     }
-    if (oneTrack.bitRateIsValid()) {
+    if (oneTrack.hasBitRate()) {
         d->mUpdateTrackQuery.bindValue(QStringLiteral(":bitRate"), oneTrack.bitRate());
     } else {
         d->mUpdateTrackQuery.bindValue(QStringLiteral(":bitRate"), {});
     }
-    if (oneTrack.sampleRateIsValid()) {
+    if (oneTrack.hasSampleRate()) {
         d->mUpdateTrackQuery.bindValue(QStringLiteral(":sampleRate"), oneTrack.sampleRate());
     } else {
         d->mUpdateTrackQuery.bindValue(QStringLiteral(":sampleRate"), {});
@@ -7048,9 +7043,9 @@ qulonglong DatabaseInterface::internalAlbumIdFromTitleAndArtist(const QString &t
     return result;
 }
 
-MusicAudioTrack DatabaseInterface::internalTrackFromDatabaseId(qulonglong id)
+DataTypes::TrackDataType DatabaseInterface::internalTrackFromDatabaseId(qulonglong id)
 {
-    auto result = MusicAudioTrack();
+    auto result = DataTypes::TrackDataType();
 
     if (result.isValid()) {
         return result;

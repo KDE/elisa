@@ -20,7 +20,6 @@
 #include "musiclistenersmanager.h"
 #include "elisaimportapplication.h"
 #include "elisa_settings.h"
-#include "musicaudiotrack.h"
 
 #include <QCoreApplication>
 #include <QCommandLineParser>
@@ -32,8 +31,6 @@ int main(int argc, char *argv[])
     QCoreApplication app(argc, argv);
 
     qRegisterMetaType<QHash<QString,QUrl>>("QHash<QString,QUrl>");
-    qRegisterMetaType<QList<MusicAudioTrack>>("QList<MusicAudioTrack>");
-    qRegisterMetaType<QList<MusicAudioTrack>>("QVector<MusicAudioTrack>");
     qRegisterMetaType<QVector<qulonglong>>("QVector<qulonglong>");
     qRegisterMetaType<QHash<qulonglong,int>>("QHash<qulonglong,int>");
     qRegisterMetaType<QMap<QString, int>>();

@@ -31,7 +31,6 @@
 #include <memory>
 
 class AbstractFileListingPrivate;
-class MusicAudioTrack;
 class FileScanner;
 class QFileInfo;
 class QMimeDatabase;
@@ -53,11 +52,11 @@ public:
 
 Q_SIGNALS:
 
-    void tracksList(const QList<MusicAudioTrack> &tracks, const QHash<QString, QUrl> &covers);
+    void tracksList(const DataTypes::ListTrackDataType &tracks, const QHash<QString, QUrl> &covers);
 
     void removedTracksList(const QList<QUrl> &removedTracks);
 
-    void modifyTracksList(const QList<MusicAudioTrack> &modifiedTracks, const QHash<QString, QUrl> &covers);
+    void modifyTracksList(const DataTypes::ListTrackDataType &modifiedTracks, const QHash<QString, QUrl> &covers);
 
     void indexingStarted();
 
@@ -107,7 +106,7 @@ protected:
 
     void setHandleNewFiles(bool handleThem);
 
-    void emitNewFiles(const QList<MusicAudioTrack> &tracks);
+    void emitNewFiles(const DataTypes::ListTrackDataType &tracks);
 
     void addCover(const DataTypes::TrackDataType &newTrack);
 

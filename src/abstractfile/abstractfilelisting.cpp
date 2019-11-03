@@ -21,7 +21,6 @@
 
 #include "abstractfile/indexercommon.h"
 
-#include "musicaudiotrack.h"
 #include "filescanner.h"
 
 #include <QThread>
@@ -94,7 +93,7 @@ void AbstractFileListing::newTrackFile(const DataTypes::TrackDataType &partialTr
     const auto &newTrack = scanOneFile(partialTrack.resourceURI(), scanFileInfo);
 
     if (newTrack.isValid() && newTrack != partialTrack) {
-        Q_EMIT modifyTracksList({MusicAudioTrack::trackFromData(newTrack)}, d->mAllAlbumCover);
+        Q_EMIT modifyTracksList({newTrack}, d->mAllAlbumCover);
     }
 }
 
@@ -237,7 +236,7 @@ void AbstractFileListing::scanDirectory(DataTypes::ListTrackDataType &newFiles, 
 
             if (newFiles.size() > d->mNewFilesEmitInterval && d->mStopRequest == 0) {
                 d->mNewFilesEmitInterval = std::min(50, 1 + d->mNewFilesEmitInterval * d->mNewFilesEmitInterval);
-                emitNewFiles(MusicAudioTrack::trackFromListData(newFiles));
+                emitNewFiles(newFiles);
                 newFiles.clear();
             }
         } else {
@@ -272,7 +271,7 @@ void AbstractFileListing::fileChanged(const QString &modifiedFileName)
     auto modifiedTrack = scanOneFile(modifiedFile, modifiedFileInfo);
 
     if (modifiedTrack.isValid()) {
-        Q_EMIT modifyTracksList({MusicAudioTrack::trackFromData(modifiedTrack)}, d->mAllAlbumCover);
+        Q_EMIT modifyTracksList({modifiedTrack}, d->mAllAlbumCover);
     }
 }
 
@@ -375,7 +374,7 @@ void AbstractFileListing::scanDirectoryTree(const QString &path)
     scanDirectory(newFiles, QUrl::fromLocalFile(path));
 
     if (!newFiles.isEmpty() && d->mStopRequest == 0) {
-        emitNewFiles(MusicAudioTrack::trackFromListData(newFiles));
+        emitNewFiles(newFiles);
     }
 }
 
@@ -384,7 +383,7 @@ void AbstractFileListing::setHandleNewFiles(bool handleThem)
     d->mHandleNewFiles = handleThem;
 }
 
-void AbstractFileListing::emitNewFiles(const QList<MusicAudioTrack> &tracks)
+void AbstractFileListing::emitNewFiles(const DataTypes::ListTrackDataType &tracks)
 {
     Q_EMIT tracksList(tracks, d->mAllAlbumCover);
 }

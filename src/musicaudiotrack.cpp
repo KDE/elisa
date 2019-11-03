@@ -41,8 +41,7 @@ public:
           mLyrics(), mResourceURI(std::move(aResourceURI)), mAlbumCover(std::move(aAlbumCover)),
           mFileModificationTime(std::move(fileModificationTime)), mDuration(aDuration),
           mTrackNumber(aTrackNumber), mDiscNumber(aDiscNumber), mRating(rating),
-          mIsValid(aValid), mIsSingleDiscAlbum(aIsSingleDiscAlbum), mHasBooleanCover(aHasEmbeddedCover),
-          mTrackNumberIsValid(true), mDiscNumberIsValid(true)
+          mIsValid(aValid), mIsSingleDiscAlbum(aIsSingleDiscAlbum), mHasBooleanCover(aHasEmbeddedCover)
     {
     }
 
@@ -99,16 +98,6 @@ public:
     bool mIsSingleDiscAlbum = true;
 
     bool mHasBooleanCover = false;
-
-    bool mTrackNumberIsValid = false;
-
-    bool mDiscNumberIsValid = false;
-
-    bool mChannelsIsValid = false;
-
-    bool mBitRateIsValid = false;
-
-    bool mSampleRateIsValid = false;
 
 };
 
@@ -204,6 +193,8 @@ MusicAudioTrack MusicAudioTrack::trackFromData(const DataTypes::TrackDataType &d
     result.setRating(data.rating());
     result.setDuration(data.duration());
     result.setFileModificationTime(data.fileModificationTime());
+    result.setHasEmbeddedCover(data.hasEmbeddedCover());
+    result.setIsSingleDiscAlbum(data.isSingleDiscAlbum());
     result.setValid(data.isValid());
 
     return result;
@@ -371,7 +362,6 @@ QString MusicAudioTrack::comment() const
 void MusicAudioTrack::setTrackNumber(int value)
 {
     d->mTrackNumber = value;
-    d->mTrackNumberIsValid = true;
 }
 
 int MusicAudioTrack::trackNumber() const
@@ -381,13 +371,12 @@ int MusicAudioTrack::trackNumber() const
 
 bool MusicAudioTrack::trackNumberIsValid() const
 {
-    return d->mTrackNumberIsValid;
+    return d->mTrackNumber != -1;
 }
 
 void MusicAudioTrack::setDiscNumber(int value)
 {
     d->mDiscNumber = value;
-    d->mDiscNumberIsValid = true;
 }
 
 int MusicAudioTrack::discNumber() const
@@ -397,7 +386,7 @@ int MusicAudioTrack::discNumber() const
 
 bool MusicAudioTrack::discNumberIsValid() const
 {
-    return d->mDiscNumberIsValid;
+    return d->mDiscNumber != -1;
 }
 
 void MusicAudioTrack::setYear(int value)
@@ -413,7 +402,6 @@ int MusicAudioTrack::year() const
 void MusicAudioTrack::setChannels(int value)
 {
     d->mChannels = value;
-    d->mChannelsIsValid = true;
 }
 
 int MusicAudioTrack::channels() const
@@ -423,13 +411,12 @@ int MusicAudioTrack::channels() const
 
 bool MusicAudioTrack::channelsIsValid() const
 {
-    return d->mChannelsIsValid;
+    return d->mChannels != -1;
 }
 
 void MusicAudioTrack::setBitRate(int value)
 {
     d->mBitRate = value;
-    d->mBitRateIsValid = true;
 }
 
 int MusicAudioTrack::bitRate() const
@@ -439,13 +426,12 @@ int MusicAudioTrack::bitRate() const
 
 bool MusicAudioTrack::bitRateIsValid() const
 {
-    return d->mBitRateIsValid;
+    return d->mBitRate != -1;
 }
 
 void MusicAudioTrack::setSampleRate(int value)
 {
     d->mSampleRate = value;
-    d->mSampleRateIsValid = true;
 }
 
 int MusicAudioTrack::sampleRate() const
@@ -455,7 +441,7 @@ int MusicAudioTrack::sampleRate() const
 
 bool MusicAudioTrack::sampleRateIsValid() const
 {
-    return d->mSampleRateIsValid;
+    return d->mSampleRate != -1;
 }
 
 void MusicAudioTrack::setDuration(QTime value)
@@ -523,6 +509,7 @@ MusicAudioTrack::TrackDataType MusicAudioTrack::toTrackData() const
     auto result = MusicAudioTrack::TrackDataType{};
 
     result[MusicAudioTrack::TrackDataType::key_type::DatabaseIdRole] = databaseId();
+    result[MusicAudioTrack::TrackDataType::key_type::AlbumIdRole] = albumId();
 
     if (!title().isEmpty()) {
         result[MusicAudioTrack::TrackDataType::key_type::TitleRole] = title();
@@ -536,7 +523,7 @@ MusicAudioTrack::TrackDataType MusicAudioTrack::toTrackData() const
         result[MusicAudioTrack::TrackDataType::key_type::AlbumRole] = albumName();
     }
 
-    if (!albumArtist().isEmpty()) {
+    if (!d->mAlbumArtist.isEmpty()) {
         result[MusicAudioTrack::TrackDataType::key_type::AlbumArtistRole] = albumArtist();
     }
 
@@ -552,6 +539,10 @@ MusicAudioTrack::TrackDataType MusicAudioTrack::toTrackData() const
         result[MusicAudioTrack::TrackDataType::key_type::LyricistRole] = lyricist();
     }
 
+    if (!lyrics().isEmpty()) {
+        result[MusicAudioTrack::TrackDataType::key_type::LyricsRole] = lyrics();
+    }
+
     if (!comment().isEmpty()) {
         result[MusicAudioTrack::TrackDataType::key_type::CommentRole] = comment();
     }
@@ -564,23 +555,23 @@ MusicAudioTrack::TrackDataType MusicAudioTrack::toTrackData() const
         result[MusicAudioTrack::TrackDataType::key_type::TrackNumberRole] = trackNumber();
     }
 
-    if (discNumber()) {
+    if (discNumber() != -1) {
         result[MusicAudioTrack::TrackDataType::key_type::DiscNumberRole] = discNumber();
     }
 
-    if (year()) {
+    if (year() != 0) {
         result[MusicAudioTrack::TrackDataType::key_type::YearRole] = year();
     }
 
-    if (channels()) {
+    if (channels() != -1) {
         result[MusicAudioTrack::TrackDataType::key_type::ChannelsRole] = channels();
     }
 
-    if (bitRate()) {
+    if (bitRate() != -1) {
         result[MusicAudioTrack::TrackDataType::key_type::BitRateRole] = bitRate();
     }
 
-    if (sampleRate()) {
+    if (sampleRate() != -1) {
         result[MusicAudioTrack::TrackDataType::key_type::SampleRateRole] = sampleRate();
     }
 
@@ -588,13 +579,20 @@ MusicAudioTrack::TrackDataType MusicAudioTrack::toTrackData() const
         result[MusicAudioTrack::TrackDataType::key_type::ResourceRole] = resourceURI();
     }
 
-    if (rating()) {
+    if (rating() >= 0) {
         result[MusicAudioTrack::TrackDataType::key_type::RatingRole] = rating();
     }
 
     if (duration().isValid()) {
         result[MusicAudioTrack::TrackDataType::key_type::DurationRole] = duration();
     }
+
+    if (fileModificationTime().isValid()) {
+        result[MusicAudioTrack::TrackDataType::key_type::FileModificationTime] = fileModificationTime();
+    }
+
+    result[MusicAudioTrack::TrackDataType::key_type::HasEmbeddedCover] = hasEmbeddedCover();
+    result[MusicAudioTrack::TrackDataType::key_type::IsSingleDiscAlbumRole] = isSingleDiscAlbum();
 
     return result;
 }
@@ -605,6 +603,16 @@ QList<MusicAudioTrack> MusicAudioTrack::trackFromListData(const DataTypes::ListT
     audioTracksList.reserve(list.count());
     for (const auto &entry : list) {
         audioTracksList.append(MusicAudioTrack::trackFromData(entry));
+    }
+    return audioTracksList;
+}
+
+DataTypes::ListTrackDataType MusicAudioTrack::tracksToListData(const QList<MusicAudioTrack> &list)
+{
+    DataTypes::ListTrackDataType audioTracksList;
+    audioTracksList.reserve(list.count());
+    for (const auto &entry : list) {
+        audioTracksList.append(entry.toTrackData());
     }
     return audioTracksList;
 }

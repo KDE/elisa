@@ -19,7 +19,6 @@
 
 #include "baloo/baloocommon.h"
 
-#include "musicaudiotrack.h"
 #include "elisa_settings.h"
 #include "elisautils.h"
 
@@ -62,8 +61,6 @@ class LocalBalooFileListingPrivate
 public:
 
     Baloo::Query mQuery;
-
-    QHash<QString, QVector<MusicAudioTrack>> mAllAlbums;
 
     QDBusServiceWatcher mServiceWatcher;
 
@@ -150,7 +147,7 @@ void LocalBalooFileListing::newBalooFile(const QString &fileName)
 
         addFileInDirectory(newFile, QUrl::fromLocalFile(newFileInfo.absoluteDir().absolutePath()));
 
-        emitNewFiles({MusicAudioTrack::trackFromData(newTrack)});
+        emitNewFiles({newTrack});
     }
 
     Q_EMIT indexingFinished();
@@ -370,7 +367,7 @@ void LocalBalooFileListing::triggerRefreshOfContent()
             newFiles.push_back(newTrack);
             if (newFiles.size() > 500 && d->mStopRequest == 0) {
                 qCDebug(orgKdeElisaBaloo()) << "LocalBalooFileListing::triggerRefreshOfContent" << "insert new tracks in database" << newFiles.count();
-                emitNewFiles(MusicAudioTrack::trackFromListData(newFiles));
+                emitNewFiles(newFiles);
                 newFiles.clear();
             }
         } else {
@@ -380,7 +377,7 @@ void LocalBalooFileListing::triggerRefreshOfContent()
 
     if (!newFiles.isEmpty() && d->mStopRequest == 0) {
         qCDebug(orgKdeElisaBaloo()) << "LocalBalooFileListing::triggerRefreshOfContent" << "insert new tracks in database" << newFiles.count();
-        emitNewFiles(MusicAudioTrack::trackFromListData(newFiles));
+        emitNewFiles(newFiles);
     }
 
     setWaitEndTrackRemoval(false);

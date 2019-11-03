@@ -433,27 +433,49 @@ void MediaPlayList::enqueueArtist(const QString &artistName)
     Q_EMIT persistentStateChanged();
 }
 
-void MediaPlayList::enqueueFilesList(const ElisaUtils::EntryDataList &newEntries)
+void MediaPlayList::enqueueFilesList(const ElisaUtils::EntryDataList &newEntries, ElisaUtils::PlayListEntryType databaseIdType)
 {
     qCDebug(orgKdeElisaPlayList()) << "MediaPlayList::enqueueFilesList";
     enqueueCommon();
 
     beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size() + newEntries.size() - 1);
     for (const auto &oneTrackUrl : newEntries) {
-        auto newEntry = MediaPlayListEntry(QUrl::fromLocalFile(std::get<1>(oneTrackUrl)));
-        newEntry.mEntryType = ElisaUtils::FileName;
-        d->mData.push_back(newEntry);
-        d->mTrackData.push_back({});
-        if (newEntry.mTrackUrl.isValid()) {
-            auto entryURL = newEntry.mTrackUrl.toUrl();
-            if (entryURL.isLocalFile()) {
-                auto entryString =  entryURL.toLocalFile();
-                QFileInfo newTrackFile(entryString);
-                if (newTrackFile.exists()) {
+        switch (databaseIdType)
+        {
+        case ElisaUtils::Radio:
+        case ElisaUtils::Track:
+        case ElisaUtils::FileName:
+        {
+            const auto &trackUrl = std::get<2>(oneTrackUrl);
+            auto newEntry = MediaPlayListEntry(trackUrl);
+            newEntry.mEntryType = databaseIdType;
+            d->mData.push_back(newEntry);
+            if (std::get<2>(oneTrackUrl).isValid()) {
+                if (std::get<2>(oneTrackUrl).isLocalFile()) {
+                    d->mTrackData.push_back({{DataTypes::ColumnsRoles::ResourceRole, trackUrl}});
+                    auto entryString =  std::get<2>(oneTrackUrl).toLocalFile();
+                    QFileInfo newTrackFile(entryString);
+                    if (newTrackFile.exists()) {
+                        d->mData.last().mIsValid = true;
+                    }
+                } else {
+                    d->mTrackData.push_back({{DataTypes::ColumnsRoles::ResourceRole, trackUrl},
+                                             {DataTypes::ColumnsRoles::TitleRole, trackUrl.fileName()}});
                     d->mData.last().mIsValid = true;
                 }
-                Q_EMIT newEntryInList(0, entryString, newEntry.mEntryType);
+                Q_EMIT newUrlInList(std::get<2>(oneTrackUrl), newEntry.mEntryType);
+            } else {
+                d->mTrackData.push_back({});
             }
+            break;
+        }
+        case ElisaUtils::Album:
+        case ElisaUtils::Artist:
+        case ElisaUtils::Genre:
+        case ElisaUtils::Lyricist:
+        case ElisaUtils::Composer:
+        case ElisaUtils::Unknown:
+            break;
         }
     }
     endInsertRows();
@@ -519,9 +541,17 @@ void MediaPlayList::enqueueMultipleEntries(const ElisaUtils::EntryDataList &entr
 
     beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size() + entriesData.size() - 1);
     for (const auto &entryData : entriesData) {
-        d->mData.push_back(MediaPlayListEntry{std::get<0>(entryData), std::get<1>(entryData), type});
+        if (std::get<2>(entryData).isValid()) {
+            d->mData.push_back(MediaPlayListEntry{std::get<2>(entryData)});
+        } else {
+            d->mData.push_back(MediaPlayListEntry{std::get<0>(entryData), std::get<1>(entryData), type});
+        }
         d->mTrackData.push_back({});
-        Q_EMIT newEntryInList(std::get<0>(entryData), std::get<1>(entryData), type);
+        if (std::get<2>(entryData).isValid()) {
+            Q_EMIT newUrlInList(std::get<2>(entryData), type);
+        } else {
+            Q_EMIT newEntryInList(std::get<0>(entryData), std::get<1>(entryData), type);
+        }
     }
     endInsertRows();
 
@@ -672,7 +702,14 @@ void MediaPlayList::enqueue(qulonglong newEntryDatabaseId,
                             ElisaUtils::PlayListEnqueueMode enqueueMode,
                             ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
 {
-    enqueue(ElisaUtils::EntryData{newEntryDatabaseId, newEntryTitle}, databaseIdType, enqueueMode, triggerPlay);
+    enqueue(ElisaUtils::EntryData{newEntryDatabaseId, newEntryTitle, {}}, databaseIdType, enqueueMode, triggerPlay);
+}
+
+void MediaPlayList::enqueue(const QUrl &entryUrl, ElisaUtils::PlayListEntryType databaseIdType,
+                            ElisaUtils::PlayListEnqueueMode enqueueMode,
+                            ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
+{
+    enqueue(ElisaUtils::EntryData{{}, {}, entryUrl}, databaseIdType, enqueueMode, triggerPlay);
 }
 
 void MediaPlayList::enqueue(const ElisaUtils::EntryData &newEntry,
@@ -694,12 +731,18 @@ void MediaPlayList::enqueue(const ElisaUtils::EntryData &newEntry,
     case ElisaUtils::Album:
     case ElisaUtils::Artist:
     case ElisaUtils::Genre:
-    case ElisaUtils::Track:
-    case ElisaUtils::Radio:
         enqueueOneEntry(newEntry, databaseIdType);
         break;
+    case ElisaUtils::Track:
+    case ElisaUtils::Radio:
+        if (std::get<2>(newEntry).isValid()) {
+            enqueueFilesList({newEntry}, databaseIdType);
+        } else {
+            enqueueOneEntry(newEntry, databaseIdType);
+        }
+        break;
     case ElisaUtils::FileName:
-        enqueueFilesList({newEntry});
+        enqueueFilesList({newEntry}, databaseIdType);
         break;
     case ElisaUtils::Lyricist:
     case ElisaUtils::Composer:
@@ -738,10 +781,10 @@ void MediaPlayList::enqueue(const ElisaUtils::EntryDataList &newEntries,
     {
     case ElisaUtils::Track:
     case ElisaUtils::Radio:
-        enqueueTracksListById(newEntries, databaseIdType);
+        enqueueMultipleEntries(newEntries, databaseIdType);
         break;
     case ElisaUtils::FileName:
-        enqueueFilesList(newEntries);
+        enqueueFilesList(newEntries, databaseIdType);
         break;
     case ElisaUtils::Album:
     case ElisaUtils::Artist:
@@ -1245,7 +1288,7 @@ void MediaPlayList::loadPlayListLoaded()
     clearPlayList();
 
     for (int i = 0; i < d->mLoadPlaylist.mediaCount(); ++i) {
-        enqueue(ElisaUtils::EntryData{0, d->mLoadPlaylist.media(i).canonicalUrl().toLocalFile()}, ElisaUtils::FileName);
+        enqueue(ElisaUtils::EntryData{{}, {}, d->mLoadPlaylist.media(i).canonicalUrl()}, ElisaUtils::FileName);
     }
 
     restorePlayListPosition();

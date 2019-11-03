@@ -167,7 +167,7 @@ int main(int argc, char *argv[])
     auto realArgumentsList = parser.positionalArguments();
 
     for (auto oneArgument : realArgumentsList) {
-        arguments.push_back(ElisaUtils::EntryData{0, oneArgument});
+        arguments.push_back(ElisaUtils::EntryData{{}, {}, QUrl(oneArgument)});
     }
 
     myApp->setArguments(arguments);

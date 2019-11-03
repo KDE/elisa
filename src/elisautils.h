@@ -21,6 +21,7 @@
 #include "elisaLib_export.h"
 
 #include <QList>
+#include <QUrl>
 #include <QString>
 #include <QMetaObject>
 #include <QMetaType>
@@ -43,7 +44,7 @@ enum PlayListEnqueueTriggerPlay {
 
 Q_ENUM_NS(PlayListEnqueueTriggerPlay)
 
-using EntryData = std::tuple<qulonglong, QString>;
+using EntryData = std::tuple<qulonglong, QString, QUrl>;
 using EntryDataList = QList<EntryData>;
 
 enum PlayListEntryType {

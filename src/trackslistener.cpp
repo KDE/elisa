@@ -155,29 +155,40 @@ void TracksListener::trackByNameInList(const QVariant &title, const QVariant &ar
     }
 }
 
-void TracksListener::trackByFileNameInList(const QUrl &fileName)
+void TracksListener::trackByFileNameInList(ElisaUtils::PlayListEntryType dataType, const QUrl &fileName)
 {
     auto newTrackId = d->mDatabase->trackIdFromFileName(fileName);
-    if (newTrackId == 0) {
-        auto newTrack = d->mFileScanner.scanOneFile(fileName);
 
-        if (newTrack.isValid()) {
+    if (newTrackId != 0) {
+        d->mTracksByIdSet.insert(newTrackId);
 
-            Q_EMIT trackHasChanged(newTrack);
-            return;
+        auto newTrack = d->mDatabase->trackDataFromDatabaseIdAndUrl(newTrackId, fileName);
+
+        if (!newTrack.isEmpty()) {
+            Q_EMIT trackHasChanged({newTrack});
         }
+    } else {
+        auto newRadioId = d->mDatabase->radioIdFromFileName(fileName);
+        if (newRadioId) {
+            auto newRadio = d->mDatabase->radioDataFromDatabaseId(newRadioId);
 
+            if (!newRadio.isEmpty()) {
+                Q_EMIT trackHasChanged({newRadio});
+            }
+        }
+    }
+
+    auto newTrack = d->mFileScanner.scanOneFile(fileName, d->mMimeDb);
+
+    if (newTrack.isValid()) {
         d->mTracksByFileNameSet.push_back(fileName);
+
+        Q_EMIT trackHasChanged(newTrack);
         return;
     }
 
-    d->mTracksByIdSet.insert(newTrackId);
-
-    auto newTrack = d->mDatabase->trackDataFromDatabaseId(newTrackId);
-
-    if (!newTrack.isEmpty()) {
-        Q_EMIT trackHasChanged({newTrack});
-    }
+    d->mTracksByFileNameSet.push_back(fileName);
+    return;
 }
 
 void TracksListener::newAlbumInList(qulonglong newDatabaseId, const QString &entryTitle)
@@ -217,11 +228,61 @@ void TracksListener::newEntryInList(qulonglong newDatabaseId,
         newArtistInList(newDatabaseId, entryTitle);
         break;
     case ElisaUtils::FileName:
-        trackByFileNameInList(QUrl::fromLocalFile(entryTitle));
+        newUrlInList(QUrl::fromLocalFile(entryTitle), ElisaUtils::FileName);
         break;
     case ElisaUtils::Album:
         newAlbumInList(newDatabaseId, entryTitle);
         break;
+    case ElisaUtils::Lyricist:
+    case ElisaUtils::Composer:
+    case ElisaUtils::Genre:
+    case ElisaUtils::Unknown:
+        break;
+    }
+}
+
+void TracksListener::newUrlInList(const QUrl &entryUrl, ElisaUtils::PlayListEntryType databaseIdType)
+{
+    switch (databaseIdType)
+    {
+    case ElisaUtils::Track:
+    case ElisaUtils::FileName:
+    {
+        auto newDatabaseId = d->mDatabase->trackIdFromFileName(entryUrl);
+
+        if (!newDatabaseId)
+        {
+            trackByFileNameInList({}, entryUrl);
+            return;
+        }
+
+        d->mTracksByIdSet.insert(newDatabaseId);
+
+        auto newTrack = d->mDatabase->trackDataFromDatabaseId(newDatabaseId);
+        if (!newTrack.isEmpty()) {
+            Q_EMIT trackHasChanged(newTrack);
+        }
+        break;
+    }
+    case ElisaUtils::Radio:
+    {
+        auto newDatabaseId = d->mDatabase->radioIdFromFileName(entryUrl);
+
+        if (!newDatabaseId)
+        {
+            return;
+        }
+
+        d->mRadiosByIdSet.insert(newDatabaseId);
+
+        auto newRadio = d->mDatabase->radioDataFromDatabaseId(newDatabaseId);
+        if (!newRadio.isEmpty()) {
+            Q_EMIT trackHasChanged(newRadio);
+        }
+        break;
+    }
+    case ElisaUtils::Artist:
+    case ElisaUtils::Album:
     case ElisaUtils::Lyricist:
     case ElisaUtils::Composer:
     case ElisaUtils::Genre:

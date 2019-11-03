@@ -84,11 +84,15 @@ public:
 
     DataTypes::TrackDataType trackDataFromDatabaseId(qulonglong id);
 
+    DataTypes::TrackDataType trackDataFromDatabaseIdAndUrl(qulonglong id, const QUrl &trackUrl);
+
     DataTypes::TrackDataType radioDataFromDatabaseId(qulonglong id);
 
     qulonglong trackIdFromTitleAlbumTrackDiscNumber(const QString &title, const QString &artist, const std::optional<QString> &album, std::optional<int> trackNumber, std::optional<int> discNumber);
 
     qulonglong trackIdFromFileName(const QUrl &fileName);
+
+    qulonglong radioIdFromFileName(const QUrl &fileName);
 
     void applicationAboutToQuit();
 
@@ -262,6 +266,8 @@ private:
     DataTypes::ListTrackDataType internalFrequentlyPlayedTracksData(int count);
 
     DataTypes::TrackDataType internalOneTrackPartialData(qulonglong databaseId);
+
+    DataTypes::TrackDataType internalOneTrackPartialDataByIdAndUrl(qulonglong databaseId, const QUrl &trackUrl);
 
     DataTypes::TrackDataType internalOneRadioPartialData(qulonglong databaseId);
 

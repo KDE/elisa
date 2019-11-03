@@ -103,9 +103,9 @@ public:
 
 Q_SIGNALS:
 
-    void needDataByDatabaseId(ElisaUtils::PlayListEntryType dataType, qulonglong databaseId);
+    void needDataByDatabaseIdAndUrl(ElisaUtils::PlayListEntryType dataType, qulonglong databaseId, const QUrl &url);
 
-    void needDataByFileName(const QUrl &fileName);
+    void needDataByUrl(ElisaUtils::PlayListEntryType dataType, const QUrl &fileName);
 
     void coverUrlChanged();
 
@@ -125,9 +125,9 @@ public Q_SLOTS:
 
     void trackData(const TrackMetadataModel::TrackDataType &trackData);
 
-    void initializeById(ElisaUtils::PlayListEntryType type, qulonglong databaseId);
+    void initializeByIdAndUrl(ElisaUtils::PlayListEntryType type, qulonglong databaseId, const QUrl &url);
 
-    void initializeByTrackFileName(const QString &fileName);
+    void initializeByUrl(ElisaUtils::PlayListEntryType type, const QUrl &url);
 
     void initializeForNewRadio();
 

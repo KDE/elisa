@@ -67,13 +67,13 @@ private Q_SLOTS:
         auto myDirectory = QDir::current();
         auto relativePath = myDirectory.relativeFilePath(myTestFile.canonicalFilePath());
 
-        myApp.setArguments({{0, relativePath}});
+        myApp.setArguments({{{}, {}, QUrl::fromLocalFile(relativePath)}});
 
         QCOMPARE(argumentsChangedSpy.count(), 1);
         QCOMPARE(enqueueSpy.count(), 1);
 
         QCOMPARE(myApp.arguments().count(), 1);
-        QCOMPARE(std::get<1>(myApp.arguments().at(0)), myTestFile.canonicalFilePath());
+        QCOMPARE(std::get<2>(myApp.arguments().at(0)), QUrl::fromLocalFile(myTestFile.canonicalFilePath()));
     }
 
     void activateRequestedTest()
@@ -93,7 +93,7 @@ private Q_SLOTS:
         QCOMPARE(enqueueSpy.count(), 1);
 
         QCOMPARE(enqueueSpy.at(0).count(), 4);
-        QCOMPARE(std::get<1>(enqueueSpy.at(0).at(0).value<ElisaUtils::EntryDataList>().at(0)), myTestFile.canonicalFilePath());
+        QCOMPARE(std::get<2>(enqueueSpy.at(0).at(0).value<ElisaUtils::EntryDataList>().at(0)), QUrl::fromLocalFile(myTestFile.canonicalFilePath()));
     }
 };
 

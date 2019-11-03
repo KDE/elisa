@@ -29,7 +29,7 @@ Window {
 
     property int initialDatabaseId: 0
     property var modelType
-    property string fileName
+    property url fileName
     property bool editableMetadata
     property alias showImage: metadataImage.visible
     property alias showTrackFileName: fileNameRow.visible
@@ -222,9 +222,9 @@ Window {
             if (initialDatabaseId === -1) {
                 realModel.initializeForNewRadio()
             } else if (initialDatabaseId !== 0) {
-                realModel.initializeById(modelType, initialDatabaseId)
+                realModel.initializeByIdAndUrl(modelType, initialDatabaseId, fileName)
             } else {
-                realModel.initializeByTrackFileName(fileName)
+                realModel.initializeByUrl(modelType, fileName)
             }
         }
     }
@@ -234,9 +234,9 @@ Window {
             if (initialDatabaseId === -1) {
                 realModel.initializeForNewRadio()
             } else if (initialDatabaseId !== 0) {
-                realModel.initializeById(modelType, initialDatabaseId)
+                realModel.initializeByIdAndUrl(modelType, initialDatabaseId, fileName)
             } else {
-                realModel.initializeByTrackFileName(fileName)
+                realModel.initializeByUrl(modelType, fileName)
             }
         }
     }

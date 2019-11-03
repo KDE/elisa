@@ -209,7 +209,7 @@ void ElisaApplication::activateRequested(const QStringList &arguments, const QSt
                 continue;
             }
 
-            realArguments.push_back(ElisaUtils::EntryData{0, oneArgument});
+            realArguments.push_back(ElisaUtils::EntryData{0, {}, QUrl(oneArgument)});
         }
 
         Q_EMIT enqueue(checkFileListAndMakeAbsolute(realArguments, workingDirectory),
@@ -287,19 +287,30 @@ void ElisaApplication::scrub() {}
 void ElisaApplication::playPause() {}
 
 ElisaUtils::EntryDataList ElisaApplication::checkFileListAndMakeAbsolute(const ElisaUtils::EntryDataList &filesList,
-                                                                            const QString &workingDirectory) const
+                                                                         const QString &workingDirectory) const
 {
     auto filesToOpen = ElisaUtils::EntryDataList{};
 
     for (const auto &oneFile : filesList) {
-        auto newFile = QFileInfo(std::get<1>(oneFile));
+        if (std::get<2>(oneFile).scheme().isEmpty() || std::get<2>(oneFile).isLocalFile()) {
+            auto newFile = QFileInfo(std::get<2>(oneFile).toLocalFile());
+            if (std::get<2>(oneFile).scheme().isEmpty()) {
+                newFile = QFileInfo(std::get<2>(oneFile).toString());
+            }
 
-        if (newFile.isRelative()) {
-            newFile = QFileInfo(workingDirectory + QLatin1String("/") + std::get<1>(oneFile));
-        }
+            if (newFile.isRelative()) {
+                if (std::get<2>(oneFile).scheme().isEmpty()) {
+                    newFile.setFile(workingDirectory, std::get<2>(oneFile).toString());
+                } else {
+                    newFile.setFile(workingDirectory, std::get<2>(oneFile).toLocalFile());
+                }
+            }
 
-        if (newFile.exists()) {
-            filesToOpen.push_back(ElisaUtils::EntryData{0, newFile.canonicalFilePath()});
+            if (newFile.exists()) {
+                filesToOpen.push_back(ElisaUtils::EntryData{0, {}, QUrl::fromLocalFile(newFile.canonicalFilePath())});
+            }
+        } else {
+            filesToOpen.push_back(ElisaUtils::EntryData{0, {}, std::get<2>(oneFile)});
         }
     }
 

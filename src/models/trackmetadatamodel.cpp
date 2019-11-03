@@ -416,7 +416,7 @@ void TrackMetadataModel::lyricsValueIsReady()
     }
 }
 
-void TrackMetadataModel::initializeById(ElisaUtils::PlayListEntryType type, qulonglong databaseId)
+void TrackMetadataModel::initializeByIdAndUrl(ElisaUtils::PlayListEntryType type, qulonglong databaseId, const QUrl &url)
 {
     mFullData.clear();
     mTrackData.clear();
@@ -425,7 +425,7 @@ void TrackMetadataModel::initializeById(ElisaUtils::PlayListEntryType type, qulo
 
     Q_EMIT lyricsChanged();
 
-    Q_EMIT needDataByDatabaseId(type, databaseId);
+    Q_EMIT needDataByDatabaseIdAndUrl(type, databaseId, url);
 }
 
 void TrackMetadataModel::initialize(MusicListenersManager *newManager, DatabaseInterface *trackDatabase)
@@ -435,7 +435,7 @@ void TrackMetadataModel::initialize(MusicListenersManager *newManager, DatabaseI
 
     if (mManager) {
         mDataLoader.setDatabase(mManager->viewDatabase());
-        connect(this, &TrackMetadataModel::needDataByFileName,
+        connect(this, &TrackMetadataModel::needDataByUrl,
                 mManager->tracksListener(), &TracksListener::trackByFileNameInList);
         connect(mManager->tracksListener(), &TracksListener::trackHasChanged,
                 this, &TrackMetadataModel::trackData);
@@ -447,8 +447,10 @@ void TrackMetadataModel::initialize(MusicListenersManager *newManager, DatabaseI
         mManager->connectModel(&mDataLoader);
     }
 
-    connect(this, &TrackMetadataModel::needDataByDatabaseId,
-            &mDataLoader, &ModelDataLoader::loadDataByDatabaseId);
+    connect(this, &TrackMetadataModel::needDataByDatabaseIdAndUrl,
+            &mDataLoader, &ModelDataLoader::loadDataByDatabaseIdAndUrl);
+    connect(this, &TrackMetadataModel::needDataByUrl,
+            &mDataLoader, &ModelDataLoader::loadDataByUrl);
     connect(this, &TrackMetadataModel::saveRadioData,
             &mDataLoader, &ModelDataLoader::saveRadioModified);
     connect(this, &TrackMetadataModel::deleteRadioData,
@@ -511,7 +513,7 @@ void TrackMetadataModel::fillDataForNewRadio()
     endResetModel();
 }
 
-void TrackMetadataModel::initializeByTrackFileName(const QString &fileName)
+void TrackMetadataModel::initializeByUrl(ElisaUtils::PlayListEntryType type, const QUrl &url)
 {
     mFullData.clear();
     mTrackData.clear();
@@ -520,7 +522,7 @@ void TrackMetadataModel::initializeByTrackFileName(const QString &fileName)
 
     Q_EMIT lyricsChanged();
 
-    Q_EMIT needDataByFileName(QUrl::fromLocalFile(fileName));
+    Q_EMIT needDataByUrl(type, url);
 }
 
 void TrackMetadataModel::setManager(MusicListenersManager *newManager)

@@ -200,6 +200,9 @@ Q_SIGNALS:
                         const QString &entryTitle,
                         ElisaUtils::PlayListEntryType databaseIdType);
 
+    void newUrlInList(const QUrl &entryUrl,
+                      ElisaUtils::PlayListEntryType databaseIdType);
+
     void persistentStateChanged();
 
     void musicListenersManagerChanged();
@@ -272,6 +275,11 @@ public Q_SLOTS:
                  ElisaUtils::PlayListEnqueueMode enqueueMode,
                  ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 
+    void enqueue(const QUrl &entryUrl,
+                 ElisaUtils::PlayListEntryType databaseIdType,
+                 ElisaUtils::PlayListEnqueueMode enqueueMode,
+                 ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
+
     void enqueue(const ElisaUtils::EntryData &newEntry,
                  ElisaUtils::PlayListEntryType databaseIdType,
                  ElisaUtils::PlayListEnqueueMode enqueueMode,
@@ -319,7 +327,7 @@ private:
 
     void enqueueArtist(const QString &artistName);
 
-    void enqueueFilesList(const ElisaUtils::EntryDataList &newEntries);
+    void enqueueFilesList(const ElisaUtils::EntryDataList &newEntries, ElisaUtils::PlayListEntryType databaseIdType);
 
     void enqueueTracksListById(const ElisaUtils::EntryDataList &newEntries, ElisaUtils::PlayListEntryType type);
 

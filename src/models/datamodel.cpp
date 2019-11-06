@@ -42,7 +42,7 @@ public:
 
     DataModel::ListGenreDataType mAllGenreData;
 
-    ModelDataLoader mDataLoader;
+    ModelDataLoader *mDataLoader = nullptr;
 
     ElisaUtils::PlayListEntryType mModelType = ElisaUtils::Unknown;
 
@@ -64,6 +64,8 @@ public:
 
 DataModel::DataModel(QObject *parent) : QAbstractListModel(parent), d(std::make_unique<DataModelPrivate>())
 {
+    d->mDataLoader = new ModelDataLoader;
+    connect(this, &DataModel::destroyed, d->mDataLoader, &ModelDataLoader::deleteLater);
 }
 
 DataModel::~DataModel()
@@ -308,7 +310,7 @@ void DataModel::initializeModel(MusicListenersManager *manager, DatabaseInterfac
     d->mFilterType = type;
 
     if (manager) {
-        manager->connectModel(&d->mDataLoader);
+        manager->connectModel(d->mDataLoader);
     }
 
     if (manager) {
@@ -323,31 +325,31 @@ void DataModel::initializeModel(MusicListenersManager *manager, DatabaseInterfac
     {
     case ElisaUtils::NoFilter:
         connect(this, &DataModel::needData,
-                &d->mDataLoader, &ModelDataLoader::loadData);
+                d->mDataLoader, &ModelDataLoader::loadData);
         break;
     case ElisaUtils::FilterById:
         connect(this, &DataModel::needDataById,
-                &d->mDataLoader, &ModelDataLoader::loadDataByAlbumId);
+                d->mDataLoader, &ModelDataLoader::loadDataByAlbumId);
         break;
     case ElisaUtils::FilterByGenre:
         connect(this, &DataModel::needDataByGenre,
-                &d->mDataLoader, &ModelDataLoader::loadDataByGenre);
+                d->mDataLoader, &ModelDataLoader::loadDataByGenre);
         break;
     case ElisaUtils::FilterByArtist:
         connect(this, &DataModel::needDataByArtist,
-                &d->mDataLoader, &ModelDataLoader::loadDataByArtist);
+                d->mDataLoader, &ModelDataLoader::loadDataByArtist);
         break;
     case ElisaUtils::FilterByGenreAndArtist:
         connect(this, &DataModel::needDataByGenreAndArtist,
-                &d->mDataLoader, &ModelDataLoader::loadDataByGenreAndArtist);
+                d->mDataLoader, &ModelDataLoader::loadDataByGenreAndArtist);
         break;
     case ElisaUtils::FilterByRecentlyPlayed:
         connect(this, &DataModel::needRecentlyPlayedData,
-                &d->mDataLoader, &ModelDataLoader::loadRecentlyPlayedData);
+                d->mDataLoader, &ModelDataLoader::loadRecentlyPlayedData);
         break;
     case ElisaUtils::FilterByFrequentlyPlayed:
         connect(this, &DataModel::needFrequentlyPlayedData,
-                &d->mDataLoader, &ModelDataLoader::loadFrequentlyPlayedData);
+                d->mDataLoader, &ModelDataLoader::loadFrequentlyPlayedData);
         break;
     case ElisaUtils::UnknownFilter:
         break;
@@ -406,41 +408,41 @@ int DataModel::indexFromId(qulonglong id) const
 
 void DataModel::connectModel(DatabaseInterface *database)
 {
-    d->mDataLoader.setDatabase(database);
+    d->mDataLoader->setDatabase(database);
 
-    connect(&d->mDataLoader, &ModelDataLoader::allTracksData,
+    connect(d->mDataLoader, &ModelDataLoader::allTracksData,
             this, &DataModel::tracksAdded);
-    connect(&d->mDataLoader, &ModelDataLoader::allRadiosData,
+    connect(d->mDataLoader, &ModelDataLoader::allRadiosData,
             this, &DataModel::radiosAdded);
-    connect(&d->mDataLoader, &ModelDataLoader::allAlbumsData,
+    connect(d->mDataLoader, &ModelDataLoader::allAlbumsData,
             this, &DataModel::albumsAdded);
-    connect(&d->mDataLoader, &ModelDataLoader::allArtistsData,
+    connect(d->mDataLoader, &ModelDataLoader::allArtistsData,
             this, &DataModel::artistsAdded);
-    connect(&d->mDataLoader, &ModelDataLoader::allGenresData,
+    connect(d->mDataLoader, &ModelDataLoader::allGenresData,
             this, &DataModel::genresAdded);
-    connect(&d->mDataLoader, &ModelDataLoader::genresAdded,
+    connect(d->mDataLoader, &ModelDataLoader::genresAdded,
             this, &DataModel::genresAdded);
-    connect(&d->mDataLoader, &ModelDataLoader::albumsAdded,
+    connect(d->mDataLoader, &ModelDataLoader::albumsAdded,
             this, &DataModel::albumsAdded);
-    connect(&d->mDataLoader, &ModelDataLoader::albumModified,
+    connect(d->mDataLoader, &ModelDataLoader::albumModified,
             this, &DataModel::albumModified);
-    connect(&d->mDataLoader, &ModelDataLoader::albumRemoved,
+    connect(d->mDataLoader, &ModelDataLoader::albumRemoved,
             this, &DataModel::albumRemoved);
-    connect(&d->mDataLoader, &ModelDataLoader::tracksAdded,
+    connect(d->mDataLoader, &ModelDataLoader::tracksAdded,
             this, &DataModel::tracksAdded);
-    connect(&d->mDataLoader, &ModelDataLoader::trackModified,
+    connect(d->mDataLoader, &ModelDataLoader::trackModified,
             this, &DataModel::trackModified);
-    connect(&d->mDataLoader, &ModelDataLoader::trackRemoved,
+    connect(d->mDataLoader, &ModelDataLoader::trackRemoved,
             this, &DataModel::trackRemoved);
-    connect(&d->mDataLoader, &ModelDataLoader::artistsAdded,
+    connect(d->mDataLoader, &ModelDataLoader::artistsAdded,
             this, &DataModel::artistsAdded);
-    connect(&d->mDataLoader, &ModelDataLoader::artistRemoved,
+    connect(d->mDataLoader, &ModelDataLoader::artistRemoved,
             this, &DataModel::artistRemoved);
-    connect(&d->mDataLoader, &ModelDataLoader::radioAdded,
+    connect(d->mDataLoader, &ModelDataLoader::radioAdded,
             this, &DataModel::radioAdded);
-    connect(&d->mDataLoader, &ModelDataLoader::radioModified,
+    connect(d->mDataLoader, &ModelDataLoader::radioModified,
             this, &DataModel::radioModified);
-    connect(&d->mDataLoader, &ModelDataLoader::radioRemoved,
+    connect(d->mDataLoader, &ModelDataLoader::radioRemoved,
             this, &DataModel::radioRemoved);
 }
 

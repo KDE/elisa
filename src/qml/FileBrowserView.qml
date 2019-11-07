@@ -156,6 +156,7 @@ FocusScope {
                     mainText: model.name
                     delegateDisplaySecondaryText: false
                     fileUrl: model.fileUrl
+                    entryType: ElisaUtils.FileName
                     imageUrl: model.imageUrl
                     showDetailsButton: !model.isDirectory && !model.isPlaylist
                     showEnqueueButton: !model.isDirectory && !model.isPlaylist

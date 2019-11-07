@@ -93,6 +93,7 @@ QHash<int, QByteArray> DataModel::roleNames() const
     roles[static_cast<int>(DataTypes::ColumnsRoles::ImageUrlRole)] = "imageUrl";
     roles[static_cast<int>(DataTypes::ColumnsRoles::DatabaseIdRole)] = "databaseId";
     roles[static_cast<int>(DataTypes::ColumnsRoles::ElementTypeRole)] = "dataType";
+    roles[static_cast<int>(DataTypes::ColumnsRoles::ResourceRole)] = "url";
 
     roles[static_cast<int>(DataTypes::ColumnsRoles::ArtistRole)] = "artist";
     roles[static_cast<int>(DataTypes::ColumnsRoles::AllArtistsRole)] = "allArtists";

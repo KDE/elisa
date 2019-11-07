@@ -146,6 +146,7 @@ FocusScope {
                     shadowForImage: (model && model.imageUrl && model.imageUrl.toString() !== "" ? true : false)
                     databaseId: model.databaseId
                     delegateDisplaySecondaryText: gridView.delegateDisplaySecondaryText
+                    entryType: model.dataType
 
                     onEnqueue: gridView.enqueue(databaseId, name)
                     onReplaceAndPlay: gridView.replaceAndPlay(databaseId, name)

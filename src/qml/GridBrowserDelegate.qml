@@ -29,6 +29,7 @@ FocusScope {
     property var imageUrl
     property bool shadowForImage
     property url fileUrl
+    property var entryType
     property alias mainText: mainLabel.text
     property alias secondaryText: secondaryLabel.text
     property var databaseId
@@ -53,7 +54,7 @@ FocusScope {
         sourceComponent:  MediaTrackMetadataView {
             fileName: gridEntry.fileUrl ? gridEntry.fileUrl : ''
             showImage: true
-            modelType: gridEntry.modelType
+            modelType: gridEntry.entryType
             showTrackFileName: true
             showDeleteButton: false
             showApplyButton: false

@@ -265,8 +265,13 @@ void ModelDataLoader::loadDataByUrl(ElisaUtils::PlayListEntryType dataType, cons
     {
     case ElisaUtils::FileName:
     {
-        //auto result = d->mFileScanner.scanOneFile(url, d->mMimeDatabase);
-        //Q_EMIT allTrackData(result.toTrackData());
+        auto databaseId = d->mDatabase->trackIdFromFileName(url);
+        if (databaseId != 0) {
+            Q_EMIT allTrackData(d->mDatabase->trackDataFromDatabaseIdAndUrl(databaseId, url));
+        } else {
+            //auto result = d->mFileScanner.scanOneFile(url, d->mMimeDatabase);
+            //Q_EMIT allTrackData(result.toTrackData());
+        }
         break;
     }
     case ElisaUtils::Track:

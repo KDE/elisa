@@ -161,8 +161,11 @@ QUrl AudioWrapper::source() const
     if (!d->mPlayer) {
         return {};
     }
-
-    return {}/*d->mPlayer.media().canonicalUrl()*/;
+    if (d->mMedia) {
+        auto filePath = QString::fromUtf8(libvlc_media_get_mrl(d->mMedia));
+        return QUrl::fromUserInput(filePath);
+    }
+    return {};
 }
 
 QMediaPlayer::Error AudioWrapper::error() const
@@ -191,15 +194,6 @@ qint64 AudioWrapper::position() const
 bool AudioWrapper::seekable() const
 {
     return d->mIsSeekable;
-}
-
-QAudio::Role AudioWrapper::audioRole() const
-{
-    if (!d->mPlayer) {
-        return {};
-    }
-
-    return {}/*d->mPlayer.audioRole()*/;
 }
 
 QMediaPlayer::State AudioWrapper::playbackState() const
@@ -332,12 +326,6 @@ void AudioWrapper::stop()
 void AudioWrapper::seek(qint64 position)
 {
     setPosition(position);
-}
-
-void AudioWrapper::setAudioRole(QAudio::Role audioRole)
-{
-    Q_UNUSED(audioRole)
-    //    d->mPlayer.setAudioRole(audioRole);
 }
 
 void AudioWrapper::mediaStatusChanged()

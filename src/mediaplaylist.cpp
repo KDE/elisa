@@ -152,64 +152,64 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
             result = QJsonDocument{QJsonArray{d->mTrackData[index.row()][TrackDataType::key_type::AlbumRole].toString(),
                     d->mTrackData[index.row()][TrackDataType::key_type::AlbumArtistRole].toString(),
                     d->mTrackData[index.row()][TrackDataType::key_type::ImageUrlRole].toUrl().toString()}}.toJson();
-    break;
-    default:
-        const auto &trackData = d->mTrackData[index.row()];
-        auto roleEnum = static_cast<TrackDataType::key_type>(role);
-        auto itData = trackData.find(roleEnum);
-        if (itData != trackData.end()) {
-            result = itData.value();
-        } else {
+            break;
+        default:
+            const auto &trackData = d->mTrackData[index.row()];
+            auto roleEnum = static_cast<TrackDataType::key_type>(role);
+            auto itData = trackData.find(roleEnum);
+            if (itData != trackData.end()) {
+                result = itData.value();
+            } else {
+                result = {};
+            }
+        }
+    } else {
+        switch(role)
+        {
+        case ColumnsRoles::IsValidRole:
+            result = d->mData[index.row()].mIsValid;
+            break;
+        case ColumnsRoles::TitleRole:
+            result = d->mData[index.row()].mTitle;
+            break;
+        case ColumnsRoles::IsPlayingRole:
+            result = d->mData[index.row()].mIsPlaying;
+            break;
+        case ColumnsRoles::ArtistRole:
+            result = d->mData[index.row()].mArtist;
+            break;
+        case ColumnsRoles::AlbumArtistRole:
+            result = d->mData[index.row()].mArtist;
+            break;
+        case ColumnsRoles::AlbumRole:
+            result = d->mData[index.row()].mAlbum;
+            break;
+        case ColumnsRoles::TrackNumberRole:
+            result = -1;
+            break;
+        case ColumnsRoles::IsSingleDiscAlbumRole:
+            result = false;
+            break;
+        case Qt::DisplayRole:
+            result = d->mData[index.row()].mTitle;
+            break;
+        case ColumnsRoles::ImageUrlRole:
+            result = QUrl(QStringLiteral("image://icon/error"));
+            break;
+        case ColumnsRoles::ShadowForImageRole:
+            result = false;
+            break;
+        case ColumnsRoles::AlbumSectionRole:
+            result = QJsonDocument{QJsonArray{d->mData[index.row()].mAlbum.toString(),
+                    d->mData[index.row()].mArtist.toString(),
+                    QUrl(QStringLiteral("image://icon/error")).toString()}}.toJson();
+            break;
+        default:
             result = {};
         }
-}
-} else {
-switch(role)
-{
-    case ColumnsRoles::IsValidRole:
-        result = d->mData[index.row()].mIsValid;
-        break;
-    case ColumnsRoles::TitleRole:
-        result = d->mData[index.row()].mTitle;
-        break;
-    case ColumnsRoles::IsPlayingRole:
-        result = d->mData[index.row()].mIsPlaying;
-        break;
-    case ColumnsRoles::ArtistRole:
-        result = d->mData[index.row()].mArtist;
-        break;
-    case ColumnsRoles::AlbumArtistRole:
-        result = d->mData[index.row()].mArtist;
-        break;
-    case ColumnsRoles::AlbumRole:
-        result = d->mData[index.row()].mAlbum;
-        break;
-    case ColumnsRoles::TrackNumberRole:
-        result = -1;
-        break;
-    case ColumnsRoles::IsSingleDiscAlbumRole:
-        result = false;
-        break;
-    case Qt::DisplayRole:
-        result = d->mData[index.row()].mTitle;
-        break;
-    case ColumnsRoles::ImageUrlRole:
-        result = QUrl(QStringLiteral("image://icon/error"));
-        break;
-    case ColumnsRoles::ShadowForImageRole:
-        result = false;
-        break;
-    case ColumnsRoles::AlbumSectionRole:
-        result = QJsonDocument{QJsonArray{d->mData[index.row()].mAlbum.toString(),
-                d->mData[index.row()].mArtist.toString(),
-                QUrl(QStringLiteral("image://icon/error")).toString()}}.toJson();
-break;
-default:
-result = {};
-}
-}
+    }
 
-return result;
+    return result;
 }
 
 bool MediaPlayList::setData(const QModelIndex &index, const QVariant &value, int role)

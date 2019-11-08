@@ -157,15 +157,21 @@ void TracksListener::trackByNameInList(const QVariant &title, const QVariant &ar
 
 void TracksListener::trackByFileNameInList(ElisaUtils::PlayListEntryType dataType, const QUrl &fileName)
 {
-    auto newTrackId = d->mDatabase->trackIdFromFileName(fileName);
+    if (fileName.isLocalFile() || fileName.scheme().isEmpty()) {
+        auto newTrackId = d->mDatabase->trackIdFromFileName(fileName);
+        if (newTrackId == 0) {
+            auto newTrack = d->mFileScanner.scanOneFile(fileName, d->mMimeDb);
 
-    if (newTrackId != 0) {
-        d->mTracksByIdSet.insert(newTrackId);
+            if (newTrack.isValid()) {
+                d->mTracksByFileNameSet.push_back(fileName);
 
-        auto newTrack = d->mDatabase->trackDataFromDatabaseIdAndUrl(newTrackId, fileName);
+                Q_EMIT trackHasChanged(newTrack);
+                return;
+            }
 
-        if (!newTrack.isEmpty()) {
-            Q_EMIT trackHasChanged({newTrack});
+            d->mTracksByFileNameSet.push_back(fileName);
+
+            return;
         }
     } else {
         auto newRadioId = d->mDatabase->radioIdFromFileName(fileName);
@@ -177,18 +183,6 @@ void TracksListener::trackByFileNameInList(ElisaUtils::PlayListEntryType dataTyp
             }
         }
     }
-
-    auto newTrack = d->mFileScanner.scanOneFile(fileName, d->mMimeDb);
-
-    if (newTrack.isValid()) {
-        d->mTracksByFileNameSet.push_back(fileName);
-
-        Q_EMIT trackHasChanged(newTrack);
-        return;
-    }
-
-    d->mTracksByFileNameSet.push_back(fileName);
-    return;
 }
 
 void TracksListener::newAlbumInList(qulonglong newDatabaseId, const QString &entryTitle)

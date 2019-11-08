@@ -153,6 +153,17 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
                     d->mTrackData[index.row()][TrackDataType::key_type::AlbumArtistRole].toString(),
                     d->mTrackData[index.row()][TrackDataType::key_type::ImageUrlRole].toUrl().toString()}}.toJson();
             break;
+        case ColumnsRoles::TitleRole:
+        {
+            const auto &trackData = d->mTrackData[index.row()];
+            auto titleData = trackData[TrackDataType::key_type::TitleRole];
+            if (titleData.toString().isEmpty()) {
+                result = trackData[TrackDataType::key_type::ResourceRole].toUrl().fileName();
+            } else {
+                result = titleData;
+            }
+            break;
+        }
         default:
             const auto &trackData = d->mTrackData[index.row()];
             auto roleEnum = static_cast<TrackDataType::key_type>(role);

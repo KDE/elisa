@@ -21,6 +21,7 @@
 #include "elisaLib_export.h"
 
 #include "elisautils.h"
+#include "trackslistener.h"
 #include "datatypes.h"
 #include "modeldataloader.h"
 #include "filescanner.h"

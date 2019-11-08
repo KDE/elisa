@@ -435,6 +435,10 @@ void TrackMetadataModel::initialize(MusicListenersManager *newManager, DatabaseI
 
     if (mManager) {
         mDataLoader.setDatabase(mManager->viewDatabase());
+        connect(this, &TrackMetadataModel::needDataByFileName,
+                mManager->tracksListener(), &TracksListener::trackByFileNameInList);
+        connect(mManager->tracksListener(), &TracksListener::trackHasChanged,
+                this, &TrackMetadataModel::trackData);
     } else if (trackDatabase) {
         mDataLoader.setDatabase(trackDatabase);
     }

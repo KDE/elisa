@@ -80,7 +80,7 @@ public:
 
 };
 
-const QStringList constSearchStrings = {
+static const QStringList constSearchStrings = {
     QStringLiteral("*[Cc]over*.jpg"),
     QStringLiteral("*[Cc]over*.png"),
     QStringLiteral("*[Ff]older*.jpg"),

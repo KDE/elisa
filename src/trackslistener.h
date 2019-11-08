@@ -70,11 +70,11 @@ public Q_SLOTS:
                         const QString &entryTitle,
                         ElisaUtils::PlayListEntryType databaseIdType);
 
+    void trackByFileNameInList(const QUrl &fileName);
+
 private:
 
     void newArtistInList(qulonglong newDatabaseId, const QString &artist);
-
-    void trackByFileNameInList(const QUrl &fileName);
 
     void newAlbumInList(qulonglong newDatabaseId,
                         const QString &entryTitle);

@@ -73,11 +73,6 @@ class ELISALIB_EXPORT AudioWrapper : public QObject
                READ seekable
                NOTIFY seekableChanged)
 
-    Q_PROPERTY(QAudio::Role audioRole
-               READ audioRole
-               WRITE setAudioRole
-               NOTIFY audioRoleChanged)
-
 public:
 
     explicit AudioWrapper(QObject *parent = nullptr);
@@ -101,8 +96,6 @@ public:
     qint64 position() const;
 
     bool seekable() const;
-
-    QAudio::Role audioRole() const;
 
 Q_SIGNALS:
 
@@ -132,8 +125,6 @@ Q_SIGNALS:
 
     void stopped();
 
-    void audioRoleChanged();
-
 public Q_SLOTS:
 
     void setMuted(bool muted);
@@ -155,8 +146,6 @@ public Q_SLOTS:
     void stop();
 
     void seek(qint64 position);
-
-    void setAudioRole(QAudio::Role audioRole);
 
 private Q_SLOTS:
 

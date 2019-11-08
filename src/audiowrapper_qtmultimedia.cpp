@@ -102,11 +102,6 @@ bool AudioWrapper::seekable() const
     return d->mPlayer.isSeekable();
 }
 
-QAudio::Role AudioWrapper::audioRole() const
-{
-    return d->mPlayer.audioRole();
-}
-
 QMediaPlayer::State AudioWrapper::playbackState() const
 {
     return d->mPlayer.state();
@@ -182,11 +177,6 @@ void AudioWrapper::seek(qint64 position)
     qCDebug(orgKdeElisaPlayerQtMultimedia) << "AudioWrapper::seek" << position;
 
     d->mPlayer.setPosition(position);
-}
-
-void AudioWrapper::setAudioRole(QAudio::Role audioRole)
-{
-    d->mPlayer.setAudioRole(audioRole);
 }
 
 void AudioWrapper::mediaStatusChanged()

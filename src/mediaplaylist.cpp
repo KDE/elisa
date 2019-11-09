@@ -1017,6 +1017,8 @@ void MediaPlayList::tracksListAdded(qulonglong newDatabaseId,
 
 void MediaPlayList::trackChanged(const TrackDataType &track)
 {
+    qCDebug(orgKdeElisaPlayList()) << "MediaPlayList::trackChanged" << track[DataTypes::TitleRole];
+
     for (int i = 0; i < d->mData.size(); ++i) {
         auto &oneEntry = d->mData[i];
 

@@ -29,7 +29,6 @@
 #include <QFile>
 #include <QDir>
 #include <QFileSystemWatcher>
-#include <QMimeDatabase>
 #include <QSet>
 #include <QPair>
 #include <QAtomicInt>
@@ -52,8 +51,6 @@ public:
     QHash<QUrl, QSet<QPair<QUrl, bool>>> mDiscoveredFiles;
 
     FileScanner mFileScanner;
-
-    QMimeDatabase mMimeDb;
 
     QHash<QUrl, QDateTime> mAllFiles;
 
@@ -298,8 +295,7 @@ DataTypes::TrackDataType AbstractFileListing::scanOneFile(const QUrl &scanFile, 
 
     auto localFileName = scanFile.toLocalFile();
 
-    const auto &fileMimeType = d->mMimeDb.mimeTypeForFile(localFileName);
-    if (!fileMimeType.name().startsWith(QLatin1String("audio/"))) {
+    if (!d->mFileScanner.shouldScanFile(localFileName)) {
         return newTrack;
     }
 
@@ -313,7 +309,7 @@ DataTypes::TrackDataType AbstractFileListing::scanOneFile(const QUrl &scanFile, 
         }
     }
 
-    newTrack = d->mFileScanner.scanOneFile(scanFile, d->mMimeDb);
+    newTrack = d->mFileScanner.scanOneFile(scanFile);
 
     if (newTrack.isValid()) {
         newTrack[DataTypes::HasEmbeddedCover] = checkEmbeddedCoverImage(localFileName);
@@ -469,11 +465,6 @@ bool AbstractFileListing::waitEndTrackRemoval() const
 void AbstractFileListing::setWaitEndTrackRemoval(bool wait)
 {
     d->mWaitEndTrackRemoval = wait;
-}
-
-const QMimeDatabase &AbstractFileListing::mimeDatabase() const
-{
-    return d->mMimeDb;
 }
 
 

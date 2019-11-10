@@ -63,6 +63,7 @@ void MediaPlayListTest::simpleInitialCase()
     QSignalSpy dataChangedSpy(&myPlayList, &MediaPlayList::dataChanged);
     QSignalSpy newTrackByNameInListSpy(&myPlayList, &MediaPlayList::newTrackByNameInList);
     QSignalSpy newEntryInListSpy(&myPlayList, &MediaPlayList::newEntryInList);
+    QSignalSpy newUrlInListSpy(&myPlayList, &MediaPlayList::newUrlInList);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -86,6 +87,9 @@ void MediaPlayListTest::simpleInitialCase()
     connect(&myPlayList, &MediaPlayList::newEntryInList,
             &myListener, &TracksListener::newEntryInList,
             Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
+            Qt::QueuedConnection);
     connect(&myPlayList, &MediaPlayList::newTrackByNameInList,
             &myListener, &TracksListener::trackByNameInList,
             Qt::QueuedConnection);
@@ -106,7 +110,8 @@ void MediaPlayListTest::simpleInitialCase()
     QCOMPARE(newEntryInListSpy.count(), 0);
 
     auto newTrackID = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track6"), QStringLiteral("artist1 and artist2"), QStringLiteral("album2"), 6, 1);
-    myPlayList.enqueue({newTrackID, {}}, ElisaUtils::Track);
+    auto newTrackData = myDatabaseContent.trackDataFromDatabaseId(newTrackID);
+    myPlayList.enqueue({newTrackID, {}, {}}, ElisaUtils::Track);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -150,6 +155,7 @@ void MediaPlayListTest::enqueueAlbumCase()
     QSignalSpy dataChangedSpy(&myPlayList, &MediaPlayList::dataChanged);
     QSignalSpy newTrackByNameInListSpy(&myPlayList, &MediaPlayList::newTrackByNameInList);
     QSignalSpy newEntryInListSpy(&myPlayList, &MediaPlayList::newEntryInList);
+    QSignalSpy newUrlInListSpy(&myPlayList, &MediaPlayList::newUrlInList);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -175,6 +181,9 @@ void MediaPlayListTest::enqueueAlbumCase()
     connect(&myPlayList, &MediaPlayList::newEntryInList,
             &myListener, &TracksListener::newEntryInList,
             Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
@@ -191,7 +200,7 @@ void MediaPlayListTest::enqueueAlbumCase()
     QCOMPARE(newEntryInListSpy.count(), 0);
 
     myPlayList.enqueue({myDatabaseContent.albumIdFromTitleAndArtist(QStringLiteral("album2"), QStringLiteral("artist1"), QStringLiteral("/")),
-                        QStringLiteral("album2")},
+                        QStringLiteral("album2"), {}},
                        ElisaUtils::Album);
 
     QVERIFY(dataChangedSpy.wait());
@@ -271,6 +280,7 @@ void MediaPlayListTest::clearPlayListCase()
     QSignalSpy dataChangedSpy(&myPlayList, &MediaPlayList::dataChanged);
     QSignalSpy newTrackByNameInListSpy(&myPlayList, &MediaPlayList::newTrackByNameInList);
     QSignalSpy newEntryInListSpy(&myPlayList, &MediaPlayList::newEntryInList);
+    QSignalSpy newUrlInListSpy(&myPlayList, &MediaPlayList::newUrlInList);
     QSignalSpy currentTrackChangedSpy(&myPlayList, &MediaPlayList::currentTrackChanged);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
@@ -300,6 +310,9 @@ void MediaPlayListTest::clearPlayListCase()
     connect(&myPlayList, &MediaPlayList::newEntryInList,
             &myListener, &TracksListener::newEntryInList,
             Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
@@ -319,7 +332,7 @@ void MediaPlayListTest::clearPlayListCase()
     QCOMPARE(currentTrackChangedSpy.count(), 0);
 
     myPlayList.enqueue({myDatabaseContent.albumIdFromTitleAndArtist(QStringLiteral("album2"), QStringLiteral("artist1"), QStringLiteral("/")),
-                        QStringLiteral("album2")},
+                        QStringLiteral("album2"), {}},
                        ElisaUtils::Album);
 
     QVERIFY(dataChangedSpy.wait());
@@ -416,6 +429,7 @@ void MediaPlayListTest::undoClearPlayListCase()
     QSignalSpy dataChangedSpy(&myPlayList, &MediaPlayList::dataChanged);
     QSignalSpy newTrackByNameInListSpy(&myPlayList, &MediaPlayList::newTrackByNameInList);
     QSignalSpy newEntryInListSpy(&myPlayList, &MediaPlayList::newEntryInList);
+    QSignalSpy newUrlInListSpy(&myPlayList, &MediaPlayList::newUrlInList);
     QSignalSpy currentTrackChangedSpy(&myPlayList, &MediaPlayList::currentTrackChanged);
     QSignalSpy displayUndoInlineSpy(&myPlayList, &MediaPlayList::displayUndoInline);
 
@@ -446,6 +460,9 @@ void MediaPlayListTest::undoClearPlayListCase()
     connect(&myPlayList, &MediaPlayList::newEntryInList,
             &myListener, &TracksListener::newEntryInList,
             Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
@@ -465,7 +482,7 @@ void MediaPlayListTest::undoClearPlayListCase()
     QCOMPARE(currentTrackChangedSpy.count(), 0);
 
     myPlayList.enqueue({myDatabaseContent.albumIdFromTitleAndArtist(QStringLiteral("album2"), QStringLiteral("artist1"), QStringLiteral("/")),
-                        QStringLiteral("album2")},
+                        QStringLiteral("album2"), {}},
                        ElisaUtils::Album);
 
     QVERIFY(dataChangedSpy.wait());
@@ -621,6 +638,7 @@ void MediaPlayListTest::undoReplacePlayListCase()
     QSignalSpy dataChangedSpy(&myPlayList, &MediaPlayList::dataChanged);
     QSignalSpy newTrackByNameInListSpy(&myPlayList, &MediaPlayList::newTrackByNameInList);
     QSignalSpy newEntryInListSpy(&myPlayList, &MediaPlayList::newEntryInList);
+    QSignalSpy newUrlInListSpy(&myPlayList, &MediaPlayList::newUrlInList);
     QSignalSpy currentTrackChangedSpy(&myPlayList, &MediaPlayList::currentTrackChanged);
     QSignalSpy displayUndoInlineSpy(&myPlayList, &MediaPlayList::displayUndoInline);
 
@@ -651,6 +669,9 @@ void MediaPlayListTest::undoReplacePlayListCase()
     connect(&myPlayList, &MediaPlayList::newEntryInList,
             &myListener, &TracksListener::newEntryInList,
             Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
@@ -670,7 +691,7 @@ void MediaPlayListTest::undoReplacePlayListCase()
     QCOMPARE(currentTrackChangedSpy.count(), 0);
 
     myPlayList.enqueue({myDatabaseContent.albumIdFromTitleAndArtist(QStringLiteral("album2"), QStringLiteral("artist1"), QStringLiteral("/")),
-                        QStringLiteral("album2")},
+                        QStringLiteral("album2"), {}},
                        ElisaUtils::Album);
 
     QVERIFY(dataChangedSpy.wait());
@@ -730,7 +751,7 @@ void MediaPlayListTest::undoReplacePlayListCase()
     QCOMPARE(myPlayList.currentTrack(), QPersistentModelIndex(myPlayList.index(0, 0)));
 
     myPlayList.enqueue({myDatabaseContent.albumIdFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists"), QStringLiteral("/")),
-                        QStringLiteral("album1")},
+                        QStringLiteral("album1"), {}},
                        ElisaUtils::Album,
                        ElisaUtils::ReplacePlayList,
                        ElisaUtils::TriggerPlay);
@@ -850,6 +871,7 @@ void MediaPlayListTest::enqueueArtistCase()
     QSignalSpy dataChangedSpy(&myPlayList, &MediaPlayList::dataChanged);
     QSignalSpy newTrackByNameInListSpy(&myPlayList, &MediaPlayList::newTrackByNameInList);
     QSignalSpy newEntryInListSpy(&myPlayList, &MediaPlayList::newEntryInList);
+    QSignalSpy newUrlInListSpy(&myPlayList, &MediaPlayList::newUrlInList);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -876,6 +898,9 @@ void MediaPlayListTest::enqueueArtistCase()
     connect(&myPlayList, &MediaPlayList::newEntryInList,
             &myListener, &TracksListener::newEntryInList,
             Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
@@ -892,7 +917,7 @@ void MediaPlayListTest::enqueueArtistCase()
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newEntryInListSpy.count(), 0);
 
-    myPlayList.enqueue({0, QStringLiteral("artist1")}, ElisaUtils::Artist);
+    myPlayList.enqueue({0, QStringLiteral("artist1"), {}}, ElisaUtils::Artist);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -983,6 +1008,7 @@ void MediaPlayListTest::removeFirstTrackOfAlbum()
     QSignalSpy dataChangedSpy(&myPlayList, &MediaPlayList::dataChanged);
     QSignalSpy newTrackByNameInListSpy(&myPlayList, &MediaPlayList::newTrackByNameInList);
     QSignalSpy newEntryInListSpy(&myPlayList, &MediaPlayList::newEntryInList);
+    QSignalSpy newUrlInListSpy(&myPlayList, &MediaPlayList::newUrlInList);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -1009,6 +1035,9 @@ void MediaPlayListTest::removeFirstTrackOfAlbum()
     connect(&myPlayList, &MediaPlayList::newEntryInList,
             &myListener, &TracksListener::newEntryInList,
             Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
@@ -1026,7 +1055,7 @@ void MediaPlayListTest::removeFirstTrackOfAlbum()
     QCOMPARE(newEntryInListSpy.count(), 0);
 
     myPlayList.enqueue({myDatabaseContent.albumIdFromTitleAndArtist(QStringLiteral("album2"), QStringLiteral("artist1"), QStringLiteral("/")),
-                        QStringLiteral("album2")},
+                        QStringLiteral("album2"), {}},
                        ElisaUtils::Album);
 
     QVERIFY(dataChangedSpy.wait());
@@ -1073,6 +1102,7 @@ void MediaPlayListTest::testHasHeader()
     QSignalSpy dataChangedSpy(&myPlayList, &MediaPlayList::dataChanged);
     QSignalSpy newTrackByNameInListSpy(&myPlayList, &MediaPlayList::newTrackByNameInList);
     QSignalSpy newEntryInListSpy(&myPlayList, &MediaPlayList::newEntryInList);
+    QSignalSpy newUrlInListSpy(&myPlayList, &MediaPlayList::newUrlInList);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -1099,6 +1129,9 @@ void MediaPlayListTest::testHasHeader()
     connect(&myPlayList, &MediaPlayList::newEntryInList,
             &myListener, &TracksListener::newEntryInList,
             Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
@@ -1116,7 +1149,7 @@ void MediaPlayListTest::testHasHeader()
     QCOMPARE(newEntryInListSpy.count(), 0);
 
     auto firstTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1);
-    myPlayList.enqueue({firstTrackId, {}}, ElisaUtils::Track);
+    myPlayList.enqueue({firstTrackId, {}, {}}, ElisaUtils::Track);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -1143,7 +1176,7 @@ void MediaPlayListTest::testHasHeader()
     QCOMPARE(newEntryInListSpy.count(), 1);
 
     auto secondTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album1"), 1, 1);
-    myPlayList.enqueue({secondTrackId, {}}, ElisaUtils::Track);
+    myPlayList.enqueue({secondTrackId, {}, {}}, ElisaUtils::Track);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -1170,7 +1203,7 @@ void MediaPlayListTest::testHasHeader()
     QCOMPARE(newEntryInListSpy.count(), 2);
 
     auto thirdTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album2"), 2, 1);
-    myPlayList.enqueue({thirdTrackId, {}}, ElisaUtils::Track);
+    myPlayList.enqueue({thirdTrackId, {}, {}}, ElisaUtils::Track);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -1197,7 +1230,7 @@ void MediaPlayListTest::testHasHeader()
     QCOMPARE(newEntryInListSpy.count(), 3);
 
     auto fourthTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist1"), QStringLiteral("album2"), 3, 1);
-    myPlayList.enqueue({fourthTrackId, {}}, ElisaUtils::Track);
+    myPlayList.enqueue({fourthTrackId, {}, {}}, ElisaUtils::Track);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -1254,6 +1287,7 @@ void MediaPlayListTest::testHasHeaderWithRestore()
     QSignalSpy dataChangedSpy(&myPlayList, &MediaPlayList::dataChanged);
     QSignalSpy newTrackByNameInListSpy(&myPlayList, &MediaPlayList::newTrackByNameInList);
     QSignalSpy newEntryInListSpy(&myPlayList, &MediaPlayList::newEntryInList);
+    QSignalSpy newUrlInListSpy(&myPlayList, &MediaPlayList::newUrlInList);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -1279,6 +1313,9 @@ void MediaPlayListTest::testHasHeaderWithRestore()
             Qt::QueuedConnection);
     connect(&myPlayList, &MediaPlayList::newEntryInList,
             &myListener, &TracksListener::newEntryInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
             Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
@@ -1412,6 +1449,7 @@ void MediaPlayListTest::testHasHeaderWithRemove()
     QSignalSpy dataChangedSpy(&myPlayList, &MediaPlayList::dataChanged);
     QSignalSpy newTrackByNameInListSpy(&myPlayList, &MediaPlayList::newTrackByNameInList);
     QSignalSpy newEntryInListSpy(&myPlayList, &MediaPlayList::newEntryInList);
+    QSignalSpy newUrlInListSpy(&myPlayList, &MediaPlayList::newUrlInList);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -1438,6 +1476,9 @@ void MediaPlayListTest::testHasHeaderWithRemove()
     connect(&myPlayList, &MediaPlayList::newEntryInList,
             &myListener, &TracksListener::newEntryInList,
             Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
@@ -1455,7 +1496,7 @@ void MediaPlayListTest::testHasHeaderWithRemove()
     QCOMPARE(newEntryInListSpy.count(), 0);
 
     auto firstTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1);
-    myPlayList.enqueue({firstTrackId, {}}, ElisaUtils::Track);
+    myPlayList.enqueue({firstTrackId, {}, {}}, ElisaUtils::Track);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -1482,7 +1523,7 @@ void MediaPlayListTest::testHasHeaderWithRemove()
     QCOMPARE(newEntryInListSpy.count(), 1);
 
     auto secondTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album2"), 2, 1);
-    myPlayList.enqueue({secondTrackId, {}}, ElisaUtils::Track);
+    myPlayList.enqueue({secondTrackId, {}, {}}, ElisaUtils::Track);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -1509,7 +1550,7 @@ void MediaPlayListTest::testHasHeaderWithRemove()
     QCOMPARE(newEntryInListSpy.count(), 2);
 
     auto thirdTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album1"), 1, 1);
-    myPlayList.enqueue({thirdTrackId, {}}, ElisaUtils::Track);
+    myPlayList.enqueue({thirdTrackId, {}, {}}, ElisaUtils::Track);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -1536,7 +1577,7 @@ void MediaPlayListTest::testHasHeaderWithRemove()
     QCOMPARE(newEntryInListSpy.count(), 3);
 
     auto fourthTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist1"), QStringLiteral("album2"), 3, 1);
-    myPlayList.enqueue({fourthTrackId, {}}, ElisaUtils::Track);
+    myPlayList.enqueue({fourthTrackId, {}, {}}, ElisaUtils::Track);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -1606,6 +1647,7 @@ void MediaPlayListTest::testHasHeaderMoveFirst()
     QSignalSpy dataChangedSpy(&myPlayList, &MediaPlayList::dataChanged);
     QSignalSpy newTrackByNameInListSpy(&myPlayList, &MediaPlayList::newTrackByNameInList);
     QSignalSpy newEntryInListSpy(&myPlayList, &MediaPlayList::newEntryInList);
+    QSignalSpy newUrlInListSpy(&myPlayList, &MediaPlayList::newUrlInList);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -1632,6 +1674,9 @@ void MediaPlayListTest::testHasHeaderMoveFirst()
     connect(&myPlayList, &MediaPlayList::newEntryInList,
             &myListener, &TracksListener::newEntryInList,
             Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
@@ -1649,7 +1694,7 @@ void MediaPlayListTest::testHasHeaderMoveFirst()
     QCOMPARE(newEntryInListSpy.count(), 0);
 
     auto firstTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1);
-    myPlayList.enqueue({firstTrackId, {}}, ElisaUtils::Track);
+    myPlayList.enqueue({firstTrackId, {}, {}}, ElisaUtils::Track);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -1676,7 +1721,7 @@ void MediaPlayListTest::testHasHeaderMoveFirst()
     QCOMPARE(newEntryInListSpy.count(), 1);
 
     auto secondTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album2"), 2, 1);
-    myPlayList.enqueue({secondTrackId, {}}, ElisaUtils::Track);
+    myPlayList.enqueue({secondTrackId, {}, {}}, ElisaUtils::Track);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -1703,7 +1748,7 @@ void MediaPlayListTest::testHasHeaderMoveFirst()
     QCOMPARE(newEntryInListSpy.count(), 2);
 
     auto thirdTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist1"), QStringLiteral("album2"), 3, 1);
-    myPlayList.enqueue({thirdTrackId, {}}, ElisaUtils::Track);
+    myPlayList.enqueue({thirdTrackId, {}, {}}, ElisaUtils::Track);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -1730,7 +1775,7 @@ void MediaPlayListTest::testHasHeaderMoveFirst()
     QCOMPARE(newEntryInListSpy.count(), 3);
 
     auto fourthTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track4"), QStringLiteral("artist1"), QStringLiteral("album2"), 4, 1);
-    myPlayList.enqueue({fourthTrackId, {}}, ElisaUtils::Track);
+    myPlayList.enqueue({fourthTrackId, {}, {}}, ElisaUtils::Track);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -1787,6 +1832,7 @@ void MediaPlayListTest::testHasHeaderMoveAnother()
     QSignalSpy dataChangedSpy(&myPlayList, &MediaPlayList::dataChanged);
     QSignalSpy newTrackByNameInListSpy(&myPlayList, &MediaPlayList::newTrackByNameInList);
     QSignalSpy newEntryInListSpy(&myPlayList, &MediaPlayList::newEntryInList);
+    QSignalSpy newUrlInListSpy(&myPlayList, &MediaPlayList::newUrlInList);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -1813,6 +1859,9 @@ void MediaPlayListTest::testHasHeaderMoveAnother()
     connect(&myPlayList, &MediaPlayList::newEntryInList,
             &myListener, &TracksListener::newEntryInList,
             Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
@@ -1830,7 +1879,7 @@ void MediaPlayListTest::testHasHeaderMoveAnother()
     QCOMPARE(newEntryInListSpy.count(), 0);
 
     auto firstTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1);
-    myPlayList.enqueue({firstTrackId, {}}, ElisaUtils::Track);
+    myPlayList.enqueue({firstTrackId, {}, {}}, ElisaUtils::Track);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -1857,7 +1906,7 @@ void MediaPlayListTest::testHasHeaderMoveAnother()
     QCOMPARE(newEntryInListSpy.count(), 1);
 
     auto secondTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album2"), 2, 1);
-    myPlayList.enqueue({secondTrackId, {}}, ElisaUtils::Track);
+    myPlayList.enqueue({secondTrackId, {}, {}}, ElisaUtils::Track);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -1884,7 +1933,7 @@ void MediaPlayListTest::testHasHeaderMoveAnother()
     QCOMPARE(newEntryInListSpy.count(), 2);
 
     auto thirdTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist1"), QStringLiteral("album2"), 3, 1);
-    myPlayList.enqueue({thirdTrackId, {}}, ElisaUtils::Track);
+    myPlayList.enqueue({thirdTrackId, {}, {}}, ElisaUtils::Track);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -1911,7 +1960,7 @@ void MediaPlayListTest::testHasHeaderMoveAnother()
     QCOMPARE(newEntryInListSpy.count(), 3);
 
     auto fourthTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track4"), QStringLiteral("artist1"), QStringLiteral("album2"), 4, 1);
-    myPlayList.enqueue({fourthTrackId, {}}, ElisaUtils::Track);
+    myPlayList.enqueue({fourthTrackId, {}, {}}, ElisaUtils::Track);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -1968,6 +2017,7 @@ void MediaPlayListTest::testHasHeaderMoveFirstLikeQml()
     QSignalSpy dataChangedSpy(&myPlayList, &MediaPlayList::dataChanged);
     QSignalSpy newTrackByNameInListSpy(&myPlayList, &MediaPlayList::newTrackByNameInList);
     QSignalSpy newEntryInListSpy(&myPlayList, &MediaPlayList::newEntryInList);
+    QSignalSpy newUrlInListSpy(&myPlayList, &MediaPlayList::newUrlInList);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -1994,6 +2044,9 @@ void MediaPlayListTest::testHasHeaderMoveFirstLikeQml()
     connect(&myPlayList, &MediaPlayList::newEntryInList,
             &myListener, &TracksListener::newEntryInList,
             Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
@@ -2011,7 +2064,7 @@ void MediaPlayListTest::testHasHeaderMoveFirstLikeQml()
     QCOMPARE(newEntryInListSpy.count(), 0);
 
     auto firstTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1);
-    myPlayList.enqueue({firstTrackId, {}}, ElisaUtils::Track);
+    myPlayList.enqueue({firstTrackId, {}, {}}, ElisaUtils::Track);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -2038,7 +2091,7 @@ void MediaPlayListTest::testHasHeaderMoveFirstLikeQml()
     QCOMPARE(newEntryInListSpy.count(), 1);
 
     auto secondTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album2"), 2, 1);
-    myPlayList.enqueue({secondTrackId, {}}, ElisaUtils::Track);
+    myPlayList.enqueue({secondTrackId, {}, {}}, ElisaUtils::Track);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -2065,7 +2118,7 @@ void MediaPlayListTest::testHasHeaderMoveFirstLikeQml()
     QCOMPARE(newEntryInListSpy.count(), 2);
 
     auto thirdTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist1"), QStringLiteral("album2"), 3, 1);
-    myPlayList.enqueue({thirdTrackId, {}}, ElisaUtils::Track);
+    myPlayList.enqueue({thirdTrackId, {}, {}}, ElisaUtils::Track);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -2092,7 +2145,7 @@ void MediaPlayListTest::testHasHeaderMoveFirstLikeQml()
     QCOMPARE(newEntryInListSpy.count(), 3);
 
     auto fourthTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track4"), QStringLiteral("artist1"), QStringLiteral("album2"), 4, 1);
-    myPlayList.enqueue({fourthTrackId, {}}, ElisaUtils::Track);
+    myPlayList.enqueue({fourthTrackId, {}, {}}, ElisaUtils::Track);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -2149,6 +2202,7 @@ void MediaPlayListTest::testHasHeaderMoveAnotherLikeQml()
     QSignalSpy dataChangedSpy(&myPlayList, &MediaPlayList::dataChanged);
     QSignalSpy newTrackByNameInListSpy(&myPlayList, &MediaPlayList::newTrackByNameInList);
     QSignalSpy newEntryInListSpy(&myPlayList, &MediaPlayList::newEntryInList);
+    QSignalSpy newUrlInListSpy(&myPlayList, &MediaPlayList::newUrlInList);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -2175,6 +2229,9 @@ void MediaPlayListTest::testHasHeaderMoveAnotherLikeQml()
     connect(&myPlayList, &MediaPlayList::newEntryInList,
             &myListener, &TracksListener::newEntryInList,
             Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
@@ -2192,7 +2249,7 @@ void MediaPlayListTest::testHasHeaderMoveAnotherLikeQml()
     QCOMPARE(newEntryInListSpy.count(), 0);
 
     auto firstTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1);
-    myPlayList.enqueue({firstTrackId, {}}, ElisaUtils::Track);
+    myPlayList.enqueue({firstTrackId, {}, {}}, ElisaUtils::Track);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -2219,7 +2276,7 @@ void MediaPlayListTest::testHasHeaderMoveAnotherLikeQml()
     QCOMPARE(newEntryInListSpy.count(), 1);
 
     auto secondTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album2"), 2, 1);
-    myPlayList.enqueue({secondTrackId, {}}, ElisaUtils::Track);
+    myPlayList.enqueue({secondTrackId, {}, {}}, ElisaUtils::Track);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -2246,7 +2303,7 @@ void MediaPlayListTest::testHasHeaderMoveAnotherLikeQml()
     QCOMPARE(newEntryInListSpy.count(), 2);
 
     auto thirdTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist1"), QStringLiteral("album2"), 3, 1);
-    myPlayList.enqueue({thirdTrackId, {}}, ElisaUtils::Track);
+    myPlayList.enqueue({thirdTrackId, {}, {}}, ElisaUtils::Track);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -2273,7 +2330,7 @@ void MediaPlayListTest::testHasHeaderMoveAnotherLikeQml()
     QCOMPARE(newEntryInListSpy.count(), 3);
 
     auto fourthTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track4"), QStringLiteral("artist1"), QStringLiteral("album2"), 4, 1);
-    myPlayList.enqueue({fourthTrackId, {}}, ElisaUtils::Track);
+    myPlayList.enqueue({fourthTrackId, {}, {}}, ElisaUtils::Track);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -2330,6 +2387,7 @@ void MediaPlayListTest::testHasHeaderYetAnotherMoveLikeQml()
     QSignalSpy dataChangedSpy(&myPlayList, &MediaPlayList::dataChanged);
     QSignalSpy newTrackByNameInListSpy(&myPlayList, &MediaPlayList::newTrackByNameInList);
     QSignalSpy newEntryInListSpy(&myPlayList, &MediaPlayList::newEntryInList);
+    QSignalSpy newUrlInListSpy(&myPlayList, &MediaPlayList::newUrlInList);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -2356,6 +2414,9 @@ void MediaPlayListTest::testHasHeaderYetAnotherMoveLikeQml()
     connect(&myPlayList, &MediaPlayList::newEntryInList,
             &myListener, &TracksListener::newEntryInList,
             Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
@@ -2373,7 +2434,7 @@ void MediaPlayListTest::testHasHeaderYetAnotherMoveLikeQml()
     QCOMPARE(newEntryInListSpy.count(), 0);
 
     auto firstTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1);
-    myPlayList.enqueue({firstTrackId, {}}, ElisaUtils::Track);
+    myPlayList.enqueue({firstTrackId, {}, {}}, ElisaUtils::Track);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -2400,7 +2461,7 @@ void MediaPlayListTest::testHasHeaderYetAnotherMoveLikeQml()
     QCOMPARE(newEntryInListSpy.count(), 1);
 
     auto secondTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album2"), 2, 1);
-    myPlayList.enqueue({secondTrackId, {}}, ElisaUtils::Track);
+    myPlayList.enqueue({secondTrackId, {}, {}}, ElisaUtils::Track);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -2427,7 +2488,7 @@ void MediaPlayListTest::testHasHeaderYetAnotherMoveLikeQml()
     QCOMPARE(newEntryInListSpy.count(), 2);
 
     auto thirdTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album1"), 1, 1);
-    myPlayList.enqueue({thirdTrackId, {}}, ElisaUtils::Track);
+    myPlayList.enqueue({thirdTrackId, {}, {}}, ElisaUtils::Track);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -2454,7 +2515,7 @@ void MediaPlayListTest::testHasHeaderYetAnotherMoveLikeQml()
     QCOMPARE(newEntryInListSpy.count(), 3);
 
     auto fourthTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track4"), QStringLiteral("artist1"), QStringLiteral("album2"), 4, 1);
-    myPlayList.enqueue({fourthTrackId, {}}, ElisaUtils::Track);
+    myPlayList.enqueue({fourthTrackId, {}, {}}, ElisaUtils::Track);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -2524,6 +2585,7 @@ void MediaPlayListTest::enqueueReplaceAndPlay()
     QSignalSpy dataChangedSpy(&myPlayList, &MediaPlayList::dataChanged);
     QSignalSpy newTrackByNameInListSpy(&myPlayList, &MediaPlayList::newTrackByNameInList);
     QSignalSpy newEntryInListSpy(&myPlayList, &MediaPlayList::newEntryInList);
+    QSignalSpy newUrlInListSpy(&myPlayList, &MediaPlayList::newUrlInList);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -2550,6 +2612,9 @@ void MediaPlayListTest::enqueueReplaceAndPlay()
     connect(&myPlayList, &MediaPlayList::newEntryInList,
             &myListener, &TracksListener::newEntryInList,
             Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
@@ -2568,7 +2633,7 @@ void MediaPlayListTest::enqueueReplaceAndPlay()
 
     auto firstTrackID = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track6"), QStringLiteral("artist1 and artist2"),
                                                                                QStringLiteral("album2"), 6, 1);
-    myPlayList.enqueue({firstTrackID, {}}, ElisaUtils::Track);
+    myPlayList.enqueue({firstTrackID, {}, {}}, ElisaUtils::Track);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -2602,7 +2667,7 @@ void MediaPlayListTest::enqueueReplaceAndPlay()
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::DurationRole).toTime().msecsSinceStartOfDay(), 10);
 
     auto secondTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album1"), 1, 1);
-    myPlayList.enqueue({secondTrackId, {}}, ElisaUtils::Track);
+    myPlayList.enqueue({secondTrackId, {}, {}}, ElisaUtils::Track);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -2635,7 +2700,7 @@ void MediaPlayListTest::enqueueReplaceAndPlay()
     QCOMPARE(myPlayList.data(myPlayList.index(1, 0), MediaPlayList::DiscNumberRole).toInt(), 1);
 
     myPlayList.enqueue({myDatabaseContent.albumIdFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists"), QStringLiteral("/")),
-                        QStringLiteral("album1")},
+                        QStringLiteral("album1"), {}},
                        ElisaUtils::Album,
                        ElisaUtils::ReplacePlayList,
                        ElisaUtils::TriggerPlay);
@@ -2699,6 +2764,7 @@ void MediaPlayListTest::crashOnEnqueue()
     QSignalSpy dataChangedSpy(&myPlayList, &MediaPlayList::dataChanged);
     QSignalSpy newTrackByNameInListSpy(&myPlayList, &MediaPlayList::newTrackByNameInList);
     QSignalSpy newEntryInListSpy(&myPlayList, &MediaPlayList::newEntryInList);
+    QSignalSpy newUrlInListSpy(&myPlayList, &MediaPlayList::newUrlInList);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -2725,6 +2791,9 @@ void MediaPlayListTest::crashOnEnqueue()
     connect(&myPlayList, &MediaPlayList::newEntryInList,
             &myListener, &TracksListener::newEntryInList,
             Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
@@ -2743,7 +2812,7 @@ void MediaPlayListTest::crashOnEnqueue()
 
     auto newTrackID = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track6"), QStringLiteral("artist1 and artist2"),
                                                                              QStringLiteral("album2"), 6, 1);
-    myPlayList.enqueue({newTrackID, {}}, ElisaUtils::Track);
+    myPlayList.enqueue({newTrackID, {}, {}}, ElisaUtils::Track);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -2787,6 +2856,7 @@ void MediaPlayListTest::restoreMultipleIdenticalTracks()
     QSignalSpy dataChangedSpy(&myPlayList, &MediaPlayList::dataChanged);
     QSignalSpy newTrackByNameInListSpy(&myPlayList, &MediaPlayList::newTrackByNameInList);
     QSignalSpy newEntryInListSpy(&myPlayList, &MediaPlayList::newEntryInList);
+    QSignalSpy newUrlInListSpy(&myPlayList, &MediaPlayList::newUrlInList);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -2812,6 +2882,9 @@ void MediaPlayListTest::restoreMultipleIdenticalTracks()
             Qt::QueuedConnection);
     connect(&myPlayList, &MediaPlayList::newEntryInList,
             &myListener, &TracksListener::newEntryInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
             Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
@@ -2942,6 +3015,7 @@ void MediaPlayListTest::restoreTrackWithoutAlbum()
     QSignalSpy dataChangedSpy(&myPlayList, &MediaPlayList::dataChanged);
     QSignalSpy newTrackByNameInListSpy(&myPlayList, &MediaPlayList::newTrackByNameInList);
     QSignalSpy newEntryInListSpy(&myPlayList, &MediaPlayList::newEntryInList);
+    QSignalSpy newUrlInListSpy(&myPlayList, &MediaPlayList::newUrlInList);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -2967,6 +3041,9 @@ void MediaPlayListTest::restoreTrackWithoutAlbum()
             Qt::QueuedConnection);
     connect(&myPlayList, &MediaPlayList::newEntryInList,
             &myListener, &TracksListener::newEntryInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
             Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
@@ -3071,6 +3148,7 @@ void MediaPlayListTest::testHasHeaderAlbumWithSameTitle()
     QSignalSpy dataChangedSpy(&myPlayList, &MediaPlayList::dataChanged);
     QSignalSpy newTrackByNameInListSpy(&myPlayList, &MediaPlayList::newTrackByNameInList);
     QSignalSpy newEntryInListSpy(&myPlayList, &MediaPlayList::newEntryInList);
+    QSignalSpy newUrlInListSpy(&myPlayList, &MediaPlayList::newUrlInList);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -3097,6 +3175,9 @@ void MediaPlayListTest::testHasHeaderAlbumWithSameTitle()
     connect(&myPlayList, &MediaPlayList::newEntryInList,
             &myListener, &TracksListener::newEntryInList,
             Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
@@ -3115,7 +3196,7 @@ void MediaPlayListTest::testHasHeaderAlbumWithSameTitle()
 
     auto firstTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist2"),
                                                                                QStringLiteral("album3"), 1, 1);
-    myPlayList.enqueue({firstTrackId, {}}, ElisaUtils::Track);
+    myPlayList.enqueue({firstTrackId, {}, {}}, ElisaUtils::Track);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -3143,7 +3224,7 @@ void MediaPlayListTest::testHasHeaderAlbumWithSameTitle()
 
     auto secondTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"),
                                                                                 QStringLiteral("album1"), 1, 1);
-    myPlayList.enqueue({secondTrackId, {}}, ElisaUtils::Track);
+    myPlayList.enqueue({secondTrackId, {}, {}}, ElisaUtils::Track);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -3171,7 +3252,7 @@ void MediaPlayListTest::testHasHeaderAlbumWithSameTitle()
 
     auto thirdTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist2"),
                                                                                QStringLiteral("album3"), 2, 1);
-    myPlayList.enqueue({thirdTrackId, {}}, ElisaUtils::Track);
+    myPlayList.enqueue({thirdTrackId, {}, {}}, ElisaUtils::Track);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -3199,7 +3280,7 @@ void MediaPlayListTest::testHasHeaderAlbumWithSameTitle()
 
     auto fourthTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist2"),
                                                                                 QStringLiteral("album3"), 3, 1);
-    myPlayList.enqueue({fourthTrackId, {}}, ElisaUtils::Track);
+    myPlayList.enqueue({fourthTrackId, {}, {}}, ElisaUtils::Track);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -3227,7 +3308,7 @@ void MediaPlayListTest::testHasHeaderAlbumWithSameTitle()
 
     auto fithTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track9"), QStringLiteral("artist2"),
                                                                               QStringLiteral("album3"), 9, 1);
-    myPlayList.enqueue({fithTrackId, {}}, ElisaUtils::Track);
+    myPlayList.enqueue({fithTrackId, {}, {}}, ElisaUtils::Track);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -3255,7 +3336,7 @@ void MediaPlayListTest::testHasHeaderAlbumWithSameTitle()
 
     auto sixthTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist7"),
                                                                                QStringLiteral("album3"), 1, 1);
-    myPlayList.enqueue({sixthTrackId, {}}, ElisaUtils::Track);
+    myPlayList.enqueue({sixthTrackId, {}, {}}, ElisaUtils::Track);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -3390,7 +3471,7 @@ void MediaPlayListTest::testSavePersistentState()
 
     auto firstTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist2"),
                                                                                QStringLiteral("album3"), 1, 1);
-    myPlayListSave.enqueue({firstTrackId, {}}, ElisaUtils::Track);
+    myPlayListSave.enqueue({firstTrackId, {}, {}}, ElisaUtils::Track);
 
     QCOMPARE(rowsAboutToBeRemovedSpySave.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpySave.count(), 0);
@@ -3438,7 +3519,7 @@ void MediaPlayListTest::testSavePersistentState()
 
     auto secondTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"),
                                                                                 QStringLiteral("album1"), 1, 1);
-    myPlayListSave.enqueue({secondTrackId, {}}, ElisaUtils::Track);
+    myPlayListSave.enqueue({secondTrackId, {}, {}}, ElisaUtils::Track);
 
     QCOMPARE(rowsAboutToBeRemovedSpySave.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpySave.count(), 0);
@@ -3486,7 +3567,7 @@ void MediaPlayListTest::testSavePersistentState()
 
     auto thirdTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist2"),
                                                                                QStringLiteral("album3"), 2, 1);
-    myPlayListSave.enqueue({thirdTrackId, {}}, ElisaUtils::Track);
+    myPlayListSave.enqueue({thirdTrackId, {}, {}}, ElisaUtils::Track);
 
     QCOMPARE(rowsAboutToBeRemovedSpySave.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpySave.count(), 0);
@@ -3651,6 +3732,7 @@ void MediaPlayListTest::testReplaceAndPlayArtist()
     QSignalSpy dataChangedSpy(&myPlayList, &MediaPlayList::dataChanged);
     QSignalSpy newTrackByNameInListSpy(&myPlayList, &MediaPlayList::newTrackByNameInList);
     QSignalSpy newEntryInListSpy(&myPlayList, &MediaPlayList::newEntryInList);
+    QSignalSpy newUrlInListSpy(&myPlayList, &MediaPlayList::newUrlInList);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -3677,6 +3759,9 @@ void MediaPlayListTest::testReplaceAndPlayArtist()
     connect(&myPlayList, &MediaPlayList::newEntryInList,
             &myListener, &TracksListener::newEntryInList,
             Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
@@ -3693,7 +3778,7 @@ void MediaPlayListTest::testReplaceAndPlayArtist()
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newEntryInListSpy.count(), 0);
 
-    myPlayList.replaceAndPlay({0, QStringLiteral("artist3")}, ElisaUtils::Artist);
+    myPlayList.replaceAndPlay({0, QStringLiteral("artist3"), {}}, ElisaUtils::Artist);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -3734,7 +3819,7 @@ void MediaPlayListTest::testReplaceAndPlayArtist()
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::IsSingleDiscAlbumRole).toBool(), false);
 
-    myPlayList.replaceAndPlay({0, QStringLiteral("artist4")}, ElisaUtils::Artist);
+    myPlayList.replaceAndPlay({0, QStringLiteral("artist4"), {}}, ElisaUtils::Artist);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 1);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -3793,6 +3878,7 @@ void MediaPlayListTest::testReplaceAndPlayTrackId()
     QSignalSpy dataChangedSpy(&myPlayList, &MediaPlayList::dataChanged);
     QSignalSpy newTrackByNameInListSpy(&myPlayList, &MediaPlayList::newTrackByNameInList);
     QSignalSpy newEntryInListSpy(&myPlayList, &MediaPlayList::newEntryInList);
+    QSignalSpy newUrlInListSpy(&myPlayList, &MediaPlayList::newUrlInList);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -3819,6 +3905,9 @@ void MediaPlayListTest::testReplaceAndPlayTrackId()
     connect(&myPlayList, &MediaPlayList::newEntryInList,
             &myListener, &TracksListener::newEntryInList,
             Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
@@ -3840,7 +3929,7 @@ void MediaPlayListTest::testReplaceAndPlayTrackId()
 
     QCOMPARE(firstTrackId != 0, true);
 
-    myPlayList.replaceAndPlay(ElisaUtils::EntryData{firstTrackId, {}}, ElisaUtils::Track);
+    myPlayList.replaceAndPlay(ElisaUtils::EntryData{firstTrackId, {}, {}}, ElisaUtils::Track);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -3886,7 +3975,7 @@ void MediaPlayListTest::testReplaceAndPlayTrackId()
 
     QCOMPARE(secondTrackId != 0, true);
 
-    myPlayList.replaceAndPlay(ElisaUtils::EntryData{secondTrackId, {}}, ElisaUtils::Track);
+    myPlayList.replaceAndPlay(ElisaUtils::EntryData{secondTrackId, {}, {}}, ElisaUtils::Track);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 1);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -3945,6 +4034,7 @@ void MediaPlayListTest::testSetData()
     QSignalSpy dataChangedSpy(&myPlayList, &MediaPlayList::dataChanged);
     QSignalSpy newTrackByNameInListSpy(&myPlayList, &MediaPlayList::newTrackByNameInList);
     QSignalSpy newEntryInListSpy(&myPlayList, &MediaPlayList::newEntryInList);
+    QSignalSpy newUrlInListSpy(&myPlayList, &MediaPlayList::newUrlInList);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -3971,6 +4061,9 @@ void MediaPlayListTest::testSetData()
     connect(&myPlayList, &MediaPlayList::newEntryInList,
             &myListener, &TracksListener::newEntryInList,
             Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
@@ -3989,7 +4082,7 @@ void MediaPlayListTest::testSetData()
 
     auto firstTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist2"),
                                                                                QStringLiteral("album3"), 1, 1);
-    myPlayList.enqueue(ElisaUtils::EntryData{firstTrackId, {}}, ElisaUtils::Track);
+    myPlayList.enqueue(ElisaUtils::EntryData{firstTrackId, {}, {}}, ElisaUtils::Track);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -4019,7 +4112,7 @@ void MediaPlayListTest::testSetData()
 
     auto secondTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"),
                                                                                 QStringLiteral("album1"), 1, 1);
-    myPlayList.enqueue(ElisaUtils::EntryData{secondTrackId, {}}, ElisaUtils::Track);
+    myPlayList.enqueue(ElisaUtils::EntryData{secondTrackId, {}, {}}, ElisaUtils::Track);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -4050,7 +4143,7 @@ void MediaPlayListTest::testSetData()
 
     auto thirdTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist2"),
                                                                                QStringLiteral("album3"), 2, 1);
-    myPlayList.enqueue(ElisaUtils::EntryData{thirdTrackId, {}}, ElisaUtils::Track);
+    myPlayList.enqueue(ElisaUtils::EntryData{thirdTrackId, {}, {}}, ElisaUtils::Track);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -4154,6 +4247,7 @@ void MediaPlayListTest::testRemoveSelection()
     QSignalSpy dataChangedSpy(&myPlayList, &MediaPlayList::dataChanged);
     QSignalSpy newTrackByNameInListSpy(&myPlayList, &MediaPlayList::newTrackByNameInList);
     QSignalSpy newEntryInListSpy(&myPlayList, &MediaPlayList::newEntryInList);
+    QSignalSpy newUrlInListSpy(&myPlayList, &MediaPlayList::newUrlInList);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -4180,6 +4274,9 @@ void MediaPlayListTest::testRemoveSelection()
     connect(&myPlayList, &MediaPlayList::newEntryInList,
             &myListener, &TracksListener::newEntryInList,
             Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
@@ -4196,7 +4293,7 @@ void MediaPlayListTest::testRemoveSelection()
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newEntryInListSpy.count(), 0);
 
-    myPlayList.replaceAndPlay({0, QStringLiteral("artist1")}, ElisaUtils::Artist);
+    myPlayList.replaceAndPlay({0, QStringLiteral("artist1"), {}}, ElisaUtils::Artist);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -4322,6 +4419,7 @@ void MediaPlayListTest::testTrackBeenRemoved()
     QSignalSpy dataChangedSpy(&myPlayList, &MediaPlayList::dataChanged);
     QSignalSpy newTrackByNameInListSpy(&myPlayList, &MediaPlayList::newTrackByNameInList);
     QSignalSpy newEntryInListSpy(&myPlayList, &MediaPlayList::newEntryInList);
+    QSignalSpy newUrlInListSpy(&myPlayList, &MediaPlayList::newUrlInList);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -4348,6 +4446,9 @@ void MediaPlayListTest::testTrackBeenRemoved()
     connect(&myPlayList, &MediaPlayList::newEntryInList,
             &myListener, &TracksListener::newEntryInList,
             Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
@@ -4364,7 +4465,7 @@ void MediaPlayListTest::testTrackBeenRemoved()
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newEntryInListSpy.count(), 0);
 
-    myPlayList.replaceAndPlay({0, QStringLiteral("artist1")}, ElisaUtils::Artist);
+    myPlayList.replaceAndPlay({0, QStringLiteral("artist1"), {}}, ElisaUtils::Artist);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -4538,6 +4639,9 @@ void MediaPlayListTest::testBringUpCase()
     connect(&myPlayList, &MediaPlayList::newEntryInList,
             &myListener, &TracksListener::newEntryInList,
             Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
@@ -4554,7 +4658,7 @@ void MediaPlayListTest::testBringUpCase()
     QCOMPARE(playListFinishedSpy.count(), 0);
 
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1),
-                        QStringLiteral("track1")},
+                        QStringLiteral("track1"), {}},
                        ElisaUtils::Track);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
@@ -4598,6 +4702,9 @@ void MediaPlayListTest::testBringUpCaseFromNewAlbum()
     connect(&myPlayList, &MediaPlayList::newEntryInList,
             &myListener, &TracksListener::newEntryInList,
             Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
@@ -4618,7 +4725,7 @@ void MediaPlayListTest::testBringUpCaseFromNewAlbum()
 
     QVERIFY(newTrackID != 0);
 
-    myPlayList.enqueue({newTrackID, QStringLiteral("track1")}, ElisaUtils::Track);
+    myPlayList.enqueue({newTrackID, QStringLiteral("track1"), {}}, ElisaUtils::Track);
 
     QVERIFY(currentTrackChangedSpy.wait());
 
@@ -4656,6 +4763,9 @@ void MediaPlayListTest::testBringUpAndDownCase()
     connect(&myPlayList, &MediaPlayList::newEntryInList,
             &myListener, &TracksListener::newEntryInList,
             Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
@@ -4672,7 +4782,7 @@ void MediaPlayListTest::testBringUpAndDownCase()
     QCOMPARE(playListFinishedSpy.count(), 0);
 
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1),
-                        QStringLiteral("track1")},
+                        QStringLiteral("track1"), {}},
                        ElisaUtils::Track);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
@@ -4725,6 +4835,9 @@ void MediaPlayListTest::testBringUpAndRemoveCase()
     connect(&myPlayList, &MediaPlayList::newEntryInList,
             &myListener, &TracksListener::newEntryInList,
             Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
@@ -4736,7 +4849,7 @@ void MediaPlayListTest::testBringUpAndRemoveCase()
     QCOMPARE(playListFinishedSpy.count(), 0);
 
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1),
-                        QStringLiteral("track1")},
+                        QStringLiteral("track1"), {}},
                        ElisaUtils::Track);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
@@ -4789,6 +4902,9 @@ void MediaPlayListTest::testBringUpAndRemoveMultipleCase()
     connect(&myPlayList, &MediaPlayList::newEntryInList,
             &myListener, &TracksListener::newEntryInList,
             Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
@@ -4800,7 +4916,7 @@ void MediaPlayListTest::testBringUpAndRemoveMultipleCase()
     QCOMPARE(playListFinishedSpy.count(), 0);
 
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1),
-                        QStringLiteral("track1")},
+                        QStringLiteral("track1"), {}},
                        ElisaUtils::Track);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
@@ -4818,7 +4934,7 @@ void MediaPlayListTest::testBringUpAndRemoveMultipleCase()
     QCOMPARE(myPlayList.currentTrack(), QPersistentModelIndex(myPlayList.index(0, 0)));
 
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album1"), 2, 2),
-                        QStringLiteral("track2")},
+                        QStringLiteral("track2"), {}},
                        ElisaUtils::Track);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
@@ -4862,6 +4978,9 @@ void MediaPlayListTest::testBringUpAndRemoveMultipleNotBeginCase()
     connect(&myPlayList, &MediaPlayList::newEntryInList,
             &myListener, &TracksListener::newEntryInList,
             Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
@@ -4873,7 +4992,7 @@ void MediaPlayListTest::testBringUpAndRemoveMultipleNotBeginCase()
     QCOMPARE(playListFinishedSpy.count(), 0);
 
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1),
-                        QStringLiteral("track1")},
+                        QStringLiteral("track1"), {}},
                        ElisaUtils::Track);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
@@ -4891,7 +5010,7 @@ void MediaPlayListTest::testBringUpAndRemoveMultipleNotBeginCase()
     QCOMPARE(myPlayList.currentTrack(), QPersistentModelIndex(myPlayList.index(0, 0)));
 
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album1"), 2, 2),
-                        QStringLiteral("track2")},
+                        QStringLiteral("track2"), {}},
                        ElisaUtils::Track);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
@@ -4900,7 +5019,7 @@ void MediaPlayListTest::testBringUpAndRemoveMultipleNotBeginCase()
     QCOMPARE(playListFinishedSpy.count(), 0);
 
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track4"), QStringLiteral("artist1"), QStringLiteral("album1"), 4, 1),
-                        QStringLiteral("track4")},
+                        QStringLiteral("track4"), {}},
                        ElisaUtils::Track);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
@@ -4953,6 +5072,9 @@ void MediaPlayListTest::testBringUpAndPlayCase()
     connect(&myPlayList, &MediaPlayList::newEntryInList,
             &myListener, &TracksListener::newEntryInList,
             Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
@@ -4964,10 +5086,10 @@ void MediaPlayListTest::testBringUpAndPlayCase()
     QCOMPARE(playListFinishedSpy.count(), 0);
 
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1),
-                        QStringLiteral("track1")},
+                        QStringLiteral("track1"), {}},
                        ElisaUtils::Track);
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist2"), QStringLiteral("album1"), 3, 3),
-                        QStringLiteral("track3")},
+                        QStringLiteral("track3"), {}},
                        ElisaUtils::Track);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
@@ -5020,6 +5142,9 @@ void MediaPlayListTest::testBringUpAndSkipNextCase()
     connect(&myPlayList, &MediaPlayList::newEntryInList,
             &myListener, &TracksListener::newEntryInList,
             Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
@@ -5031,10 +5156,10 @@ void MediaPlayListTest::testBringUpAndSkipNextCase()
     QCOMPARE(playListFinishedSpy.count(), 0);
 
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1),
-                        QStringLiteral("track1")},
+                        QStringLiteral("track1"), {}},
                        ElisaUtils::Track);
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist2"), QStringLiteral("album1"), 3, 3),
-                        QStringLiteral("track3")},
+                        QStringLiteral("track3"), {}},
                        ElisaUtils::Track);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
@@ -5087,6 +5212,9 @@ void MediaPlayListTest::testBringUpAndSkipPreviousCase()
     connect(&myPlayList, &MediaPlayList::newEntryInList,
             &myListener, &TracksListener::newEntryInList,
             Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
@@ -5098,10 +5226,10 @@ void MediaPlayListTest::testBringUpAndSkipPreviousCase()
     QCOMPARE(playListFinishedSpy.count(), 0);
 
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1),
-                        QStringLiteral("track1")},
+                        QStringLiteral("track1"), {}},
                        ElisaUtils::Track);
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist2"), QStringLiteral("album1"), 3, 3),
-                        QStringLiteral("track3")},
+                        QStringLiteral("track3"), {}},
                        ElisaUtils::Track);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
@@ -5163,6 +5291,9 @@ void MediaPlayListTest::testBringUpAndSkipPreviousAndContinueCase()
     connect(&myPlayList, &MediaPlayList::newEntryInList,
             &myListener, &TracksListener::newEntryInList,
             Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
@@ -5186,22 +5317,22 @@ void MediaPlayListTest::testBringUpAndSkipPreviousAndContinueCase()
     QCOMPARE(playListFinishedSpy.count(), 0);
 
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1),
-                        QStringLiteral("track1")},
+                        QStringLiteral("track1"), {}},
                        ElisaUtils::Track);
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist3"), QStringLiteral("album1"), 3, 3),
-                        QStringLiteral("track3")},
+                        QStringLiteral("track3"), {}},
                        ElisaUtils::Track);
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album2"), 2, 1),
-                        QStringLiteral("track2")},
+                        QStringLiteral("track2"), {}},
                        ElisaUtils::Track);
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1),
-                        QStringLiteral("track1")},
+                        QStringLiteral("track1"), {}},
                        ElisaUtils::Track);
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist1"), QStringLiteral("album2"), 3, 1),
-                        QStringLiteral("track3")},
+                        QStringLiteral("track3"), {}},
                        ElisaUtils::Track);
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album1"), 2, 2),
-                        QStringLiteral("track2")},
+                        QStringLiteral("track2"), {}},
                        ElisaUtils::Track);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
@@ -5344,6 +5475,9 @@ void MediaPlayListTest::finishPlayList()
     connect(&myPlayList, &MediaPlayList::newEntryInList,
             &myListener, &TracksListener::newEntryInList,
             Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
@@ -5355,10 +5489,10 @@ void MediaPlayListTest::finishPlayList()
     QCOMPARE(playListFinishedSpy.count(), 0);
 
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1),
-                        QStringLiteral("track1")},
+                        QStringLiteral("track1"), {}},
                        ElisaUtils::Track);
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist2"), QStringLiteral("album1"), 3, 3),
-                        QStringLiteral("track3")},
+                        QStringLiteral("track3"), {}},
                        ElisaUtils::Track);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
@@ -5420,6 +5554,9 @@ void MediaPlayListTest::randomPlayList()
     connect(&myPlayList, &MediaPlayList::newEntryInList,
             &myListener, &TracksListener::newEntryInList,
             Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
@@ -5436,16 +5573,16 @@ void MediaPlayListTest::randomPlayList()
     QCOMPARE(playListFinishedSpy.count(), 0);
 
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1),
-                        QStringLiteral("track1")},
+                        QStringLiteral("track1"), {}},
                        ElisaUtils::Track);
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist3"), QStringLiteral("album1"), 3, 3),
-                        QStringLiteral("track3")},
+                        QStringLiteral("track3"), {}},
                        ElisaUtils::Track);
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track5"), QStringLiteral("artist1"), QStringLiteral("album2"), 5, 1),
-                        QStringLiteral("track5")},
+                        QStringLiteral("track5"), {}},
                        ElisaUtils::Track);
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1),
-                        QStringLiteral("track1")},
+                        QStringLiteral("track1"), {}},
                        ElisaUtils::Track);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
@@ -5526,6 +5663,9 @@ void MediaPlayListTest::randomAndContinuePlayList()
     connect(&myPlayList, &MediaPlayList::newEntryInList,
             &myListener, &TracksListener::newEntryInList,
             Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
@@ -5542,16 +5682,16 @@ void MediaPlayListTest::randomAndContinuePlayList()
     QCOMPARE(playListFinishedSpy.count(), 0);
 
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1),
-                        QStringLiteral("track1")},
+                        QStringLiteral("track1"), {}},
                        ElisaUtils::Track);
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist3"), QStringLiteral("album1"), 3, 3),
-                        QStringLiteral("track3")},
+                        QStringLiteral("track3"), {}},
                        ElisaUtils::Track);
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track5"), QStringLiteral("artist1"), QStringLiteral("album2"), 5, 1),
-                        QStringLiteral("track5")},
+                        QStringLiteral("track5"), {}},
                        ElisaUtils::Track);
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1),
-                        QStringLiteral("track1")},
+                        QStringLiteral("track1"), {}},
                        ElisaUtils::Track);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
@@ -5643,6 +5783,9 @@ void MediaPlayListTest::continuePlayList()
     connect(&myPlayList, &MediaPlayList::newEntryInList,
             &myListener, &TracksListener::newEntryInList,
             Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
@@ -5659,16 +5802,16 @@ void MediaPlayListTest::continuePlayList()
     QCOMPARE(playListFinishedSpy.count(), 0);
 
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1),
-                        QStringLiteral("track1")},
+                        QStringLiteral("track1"), {}},
                        ElisaUtils::Track);
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist3"), QStringLiteral("album1"), 3, 3),
-                        QStringLiteral("track3")},
+                        QStringLiteral("track3"), {}},
                        ElisaUtils::Track);
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track5"), QStringLiteral("artist1"), QStringLiteral("album2"), 5, 1),
-                        QStringLiteral("track5")},
+                        QStringLiteral("track5"), {}},
                        ElisaUtils::Track);
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1),
-                        QStringLiteral("track1")},
+                        QStringLiteral("track1"), {}},
                        ElisaUtils::Track);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
@@ -5757,6 +5900,9 @@ void MediaPlayListTest::testRestoreSettings()
     connect(&myPlayList, &MediaPlayList::newEntryInList,
             &myListener, &TracksListener::newEntryInList,
             Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
@@ -5780,16 +5926,16 @@ void MediaPlayListTest::testRestoreSettings()
     myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
 
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1),
-                        QStringLiteral("track1")},
+                        QStringLiteral("track1"), {}},
                        ElisaUtils::Track);
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist3"), QStringLiteral("album1"), 3, 3),
-                        QStringLiteral("track3")},
+                        QStringLiteral("track3"), {}},
                        ElisaUtils::Track);
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track5"), QStringLiteral("artist1"), QStringLiteral("album2"), 5, 1),
-                        QStringLiteral("track5")},
+                        QStringLiteral("track5"), {}},
                        ElisaUtils::Track);
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1),
-                        QStringLiteral("track1")},
+                        QStringLiteral("track1"), {}},
                        ElisaUtils::Track);
 
     QVERIFY(currentTrackChangedSpy.wait());
@@ -5905,16 +6051,16 @@ void MediaPlayListTest::testSaveAndRestoreSettings()
     QCOMPARE(playListFinishedRestoreSpy.count(), 0);
 
     myPlayListSave.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1),
-                        QStringLiteral("track1")},
+                        QStringLiteral("track1"), {}},
                        ElisaUtils::Track);
     myPlayListSave.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist3"), QStringLiteral("album1"), 3, 3),
-                        QStringLiteral("track3")},
+                        QStringLiteral("track3"), {}},
                        ElisaUtils::Track);
     myPlayListSave.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track5"), QStringLiteral("artist1"), QStringLiteral("album2"), 5, 1),
-                        QStringLiteral("track5")},
+                        QStringLiteral("track5"), {}},
                        ElisaUtils::Track);
     myPlayListSave.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album1"), 1, 1),
-                        QStringLiteral("track1")},
+                        QStringLiteral("track1"), {}},
                        ElisaUtils::Track);
 
     QCOMPARE(currentTrackChangedSaveSpy.count(), 0);
@@ -6006,6 +6152,9 @@ void MediaPlayListTest::removeBeforeCurrentTrack()
     connect(&myPlayList, &MediaPlayList::newEntryInList,
             &myListener, &TracksListener::newEntryInList,
             Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
@@ -6017,16 +6166,16 @@ void MediaPlayListTest::removeBeforeCurrentTrack()
     QCOMPARE(playListFinishedSpy.count(), 0);
 
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1),
-                        QStringLiteral("track1")},
+                        QStringLiteral("track1"), {}},
                        ElisaUtils::Track);
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist3"), QStringLiteral("album1"), 3, 3),
-                        QStringLiteral("track3")},
+                        QStringLiteral("track3"), {}},
                        ElisaUtils::Track);
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track5"), QStringLiteral("artist1"), QStringLiteral("album2"), 5, 1),
-                        QStringLiteral("track5")},
+                        QStringLiteral("track5"), {}},
                        ElisaUtils::Track);
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1),
-                        QStringLiteral("track1")},
+                        QStringLiteral("track1"), {}},
                        ElisaUtils::Track);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
@@ -6104,6 +6253,9 @@ void MediaPlayListTest::switchToTrackTest()
     connect(&myPlayList, &MediaPlayList::newEntryInList,
             &myListener, &TracksListener::newEntryInList,
             Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
@@ -6115,19 +6267,19 @@ void MediaPlayListTest::switchToTrackTest()
     QCOMPARE(playListFinishedSpy.count(), 0);
 
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1),
-                        QStringLiteral("track1")},
+                        QStringLiteral("track1"), {}},
                        ElisaUtils::Track);
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist3"), QStringLiteral("album1"), 3, 3),
-                        QStringLiteral("track3")},
+                        QStringLiteral("track3"), {}},
                        ElisaUtils::Track);
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track4"), QStringLiteral("artist1"), QStringLiteral("album1"), 4, 4),
-                        QStringLiteral("track4")},
+                        QStringLiteral("track4"), {}},
                        ElisaUtils::Track);
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album1"), 2, 2),
-                        QStringLiteral("track2")},
+                        QStringLiteral("track2"), {}},
                        ElisaUtils::Track);
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1),
-                        QStringLiteral("track1")},
+                        QStringLiteral("track1"), {}},
                        ElisaUtils::Track);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
@@ -6182,6 +6334,9 @@ void MediaPlayListTest::previousAndNextTracksTest()
     connect(&myPlayList, &MediaPlayList::newEntryInList,
             &myListener, &TracksListener::newEntryInList,
             Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
@@ -6195,19 +6350,19 @@ void MediaPlayListTest::previousAndNextTracksTest()
     QCOMPARE(playListFinishedSpy.count(), 0);
 
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1),
-                        QStringLiteral("track1")},
+                        QStringLiteral("track1"), {}},
                        ElisaUtils::Track);
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist3"), QStringLiteral("album1"), 3, 3),
-                        QStringLiteral("track3")},
+                        QStringLiteral("track3"), {}},
                        ElisaUtils::Track);
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track4"), QStringLiteral("artist1"), QStringLiteral("album1"), 4, 4),
-                        QStringLiteral("track4")},
+                        QStringLiteral("track4"), {}},
                        ElisaUtils::Track);
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album1"), 2, 2),
-                        QStringLiteral("track2")},
+                        QStringLiteral("track2"), {}},
                        ElisaUtils::Track);
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1),
-                        QStringLiteral("track1")},
+                        QStringLiteral("track1"), {}},
                        ElisaUtils::Track);
 
     QCOMPARE(previousTrackChangedSpy.count(), 0);
@@ -6306,6 +6461,9 @@ void MediaPlayListTest::singleTrack()
     connect(&myPlayList, &MediaPlayList::newEntryInList,
             &myListener, &TracksListener::newEntryInList,
             Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
@@ -6322,7 +6480,7 @@ void MediaPlayListTest::singleTrack()
     QCOMPARE(playListFinishedSpy.count(), 0);
 
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1),
-                        QStringLiteral("track1")},
+                        QStringLiteral("track1"), {}},
                        ElisaUtils::Track);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
@@ -6375,6 +6533,9 @@ void MediaPlayListTest::remainingTracksTest()
     connect(&myPlayList, &MediaPlayList::newEntryInList,
             &myListener, &TracksListener::newEntryInList,
             Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
@@ -6386,19 +6547,19 @@ void MediaPlayListTest::remainingTracksTest()
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1),
-                        QStringLiteral("track1")},
+                        QStringLiteral("track1"), {}},
                        ElisaUtils::Track);
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist3"), QStringLiteral("album1"), 3, 3),
-                        QStringLiteral("track3")},
+                        QStringLiteral("track3"), {}},
                        ElisaUtils::Track);
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track4"), QStringLiteral("artist1"), QStringLiteral("album1"), 4, 4),
-                        QStringLiteral("track4")},
+                        QStringLiteral("track4"), {}},
                        ElisaUtils::Track);
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album1"), 2, 2),
-                        QStringLiteral("track2")},
+                        QStringLiteral("track2"), {}},
                        ElisaUtils::Track);
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1),
-                        QStringLiteral("track1")},
+                        QStringLiteral("track1"), {}},
                        ElisaUtils::Track);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
@@ -6468,6 +6629,9 @@ void MediaPlayListTest::testBringUpAndRemoveLastCase()
     connect(&myPlayList, &MediaPlayList::newEntryInList,
             &myListener, &TracksListener::newEntryInList,
             Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
@@ -6484,13 +6648,13 @@ void MediaPlayListTest::testBringUpAndRemoveLastCase()
     QCOMPARE(playListFinishedSpy.count(), 0);
 
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1),
-                        QStringLiteral("track1")},
+                        QStringLiteral("track1"), {}},
                        ElisaUtils::Track);
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album2"), 2, 1),
-                        QStringLiteral("track2")},
+                        QStringLiteral("track2"), {}},
                        ElisaUtils::Track);
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist1"), QStringLiteral("album2"), 3, 1),
-                        QStringLiteral("track3")},
+                        QStringLiteral("track3"), {}},
                        ElisaUtils::Track);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
@@ -6572,6 +6736,9 @@ void MediaPlayListTest::testSaveLoadPlayList()
     connect(&myPlayListSave, &MediaPlayList::newEntryInList,
             &myListenerSave, &TracksListener::newEntryInList,
             Qt::QueuedConnection);
+    connect(&myPlayListSave, &MediaPlayList::newUrlInList,
+            &myListenerSave, &TracksListener::newUrlInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListenerSave, &TracksListener::tracksAdded);
 
@@ -6586,6 +6753,9 @@ void MediaPlayListTest::testSaveLoadPlayList()
             Qt::QueuedConnection);
     connect(&myPlayListRestore, &MediaPlayList::newEntryInList,
             &myListenerRestore, &TracksListener::newEntryInList,
+            Qt::QueuedConnection);
+    connect(&myPlayListRestore, &MediaPlayList::newUrlInList,
+            &myListenerRestore, &TracksListener::newUrlInList,
             Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListenerRestore, &TracksListener::tracksAdded);
@@ -6632,16 +6802,16 @@ void MediaPlayListTest::testSaveLoadPlayList()
     QCOMPARE(playListLoadFailedRestoreSpy.count(), 0);
 
     myPlayListSave.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1),
-                        QStringLiteral("track1")},
+                        QStringLiteral("track1"), {}},
                        ElisaUtils::Track);
     myPlayListSave.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist3"), QStringLiteral("album1"), 3, 3),
-                        QStringLiteral("track3")},
+                        QStringLiteral("track3"), {}},
                        ElisaUtils::Track);
     myPlayListSave.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track5"), QStringLiteral("artist1"), QStringLiteral("album2"), 5, 1),
-                        QStringLiteral("track5")},
+                        QStringLiteral("track5"), {}},
                        ElisaUtils::Track);
     myPlayListSave.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album1"), 1, 1),
-                        QStringLiteral("track1")},
+                        QStringLiteral("track1"), {}},
                        ElisaUtils::Track);
 
     QCOMPARE(currentTrackChangedSaveSpy.count(), 0);
@@ -6742,6 +6912,7 @@ void MediaPlayListTest::testEnqueueFiles()
     QSignalSpy dataChangedSpy(&myPlayList, &MediaPlayList::dataChanged);
     QSignalSpy newTrackByNameInListSpy(&myPlayList, &MediaPlayList::newTrackByNameInList);
     QSignalSpy newEntryInListSpy(&myPlayList, &MediaPlayList::newEntryInList);
+    QSignalSpy newUrlInListSpy(&myPlayList, &MediaPlayList::newUrlInList);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -6753,6 +6924,7 @@ void MediaPlayListTest::testEnqueueFiles()
     QCOMPARE(dataChangedSpy.count(), 0);
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newEntryInListSpy.count(), 0);
+    QCOMPARE(newUrlInListSpy.count(), 0);
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
@@ -6767,6 +6939,9 @@ void MediaPlayListTest::testEnqueueFiles()
             Qt::QueuedConnection);
     connect(&myPlayList, &MediaPlayList::newEntryInList,
             &myListener, &TracksListener::newEntryInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
             Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
@@ -6783,8 +6958,9 @@ void MediaPlayListTest::testEnqueueFiles()
     QCOMPARE(dataChangedSpy.count(), 0);
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newEntryInListSpy.count(), 0);
+    QCOMPARE(newUrlInListSpy.count(), 0);
 
-    myPlayList.enqueue({{0, QStringLiteral("/$1")}, {0, QStringLiteral("/$2")}}, ElisaUtils::FileName);
+    myPlayList.enqueue({{0, {}, QUrl::fromLocalFile(QStringLiteral("/$1"))}, {0, {}, QUrl::fromLocalFile(QStringLiteral("/$2"))}}, ElisaUtils::FileName);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -6795,7 +6971,8 @@ void MediaPlayListTest::testEnqueueFiles()
     QCOMPARE(persistentStateChangedSpy.count(), 1);
     QCOMPARE(dataChangedSpy.count(), 1);
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
-    QCOMPARE(newEntryInListSpy.count(), 2);
+    QCOMPARE(newEntryInListSpy.count(), 0);
+    QCOMPARE(newUrlInListSpy.count(), 2);
 
     QCOMPARE(myPlayList.rowCount(), 2);
 
@@ -6810,7 +6987,8 @@ void MediaPlayListTest::testEnqueueFiles()
     QCOMPARE(persistentStateChangedSpy.count(), 1);
     QCOMPARE(dataChangedSpy.count(), 3);
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
-    QCOMPARE(newEntryInListSpy.count(), 2);
+    QCOMPARE(newEntryInListSpy.count(), 0);
+    QCOMPARE(newUrlInListSpy.count(), 2);
 
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::TitleRole).toString(), QStringLiteral("track1"));
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::AlbumRole).toString(), QStringLiteral("album1"));
@@ -6843,6 +7021,7 @@ void MediaPlayListTest::testEnqueueSampleFiles()
     QSignalSpy dataChangedSpy(&myPlayList, &MediaPlayList::dataChanged);
     QSignalSpy newTrackByNameInListSpy(&myPlayList, &MediaPlayList::newTrackByNameInList);
     QSignalSpy newEntryInListSpy(&myPlayList, &MediaPlayList::newEntryInList);
+    QSignalSpy newUrlInListSpy(&myPlayList, &MediaPlayList::newUrlInList);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -6854,6 +7033,7 @@ void MediaPlayListTest::testEnqueueSampleFiles()
     QCOMPARE(dataChangedSpy.count(), 0);
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newEntryInListSpy.count(), 0);
+    QCOMPARE(newUrlInListSpy.count(), 0);
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
@@ -6868,6 +7048,9 @@ void MediaPlayListTest::testEnqueueSampleFiles()
             Qt::QueuedConnection);
     connect(&myPlayList, &MediaPlayList::newEntryInList,
             &myListener, &TracksListener::newEntryInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
             Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
@@ -6884,9 +7067,10 @@ void MediaPlayListTest::testEnqueueSampleFiles()
     QCOMPARE(dataChangedSpy.count(), 0);
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newEntryInListSpy.count(), 0);
+    QCOMPARE(newUrlInListSpy.count(), 0);
 
-    myPlayList.enqueue({{0, QStringLiteral(MEDIAPLAYLIST_TESTS_SAMPLE_FILES_PATH) + QStringLiteral("/test.ogg")},
-                        {0, QStringLiteral(MEDIAPLAYLIST_TESTS_SAMPLE_FILES_PATH) + QStringLiteral("/test2.ogg")}},
+    myPlayList.enqueue({{0, {}, QUrl::fromLocalFile(QStringLiteral(MEDIAPLAYLIST_TESTS_SAMPLE_FILES_PATH) + QStringLiteral("/test.ogg"))},
+                        {0, {}, QUrl::fromLocalFile(QStringLiteral(MEDIAPLAYLIST_TESTS_SAMPLE_FILES_PATH) + QStringLiteral("/test2.ogg"))}},
                        ElisaUtils::FileName);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
@@ -6898,7 +7082,8 @@ void MediaPlayListTest::testEnqueueSampleFiles()
     QCOMPARE(persistentStateChangedSpy.count(), 1);
     QCOMPARE(dataChangedSpy.count(), 1);
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
-    QCOMPARE(newEntryInListSpy.count(), 2);
+    QCOMPARE(newEntryInListSpy.count(), 0);
+    QCOMPARE(newUrlInListSpy.count(), 2);
 
     QCOMPARE(myPlayList.rowCount(), 2);
 
@@ -6915,7 +7100,8 @@ void MediaPlayListTest::testEnqueueSampleFiles()
     QCOMPARE(persistentStateChangedSpy.count(), 1);
     QCOMPARE(dataChangedSpy.count(), 3);
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
-    QCOMPARE(newEntryInListSpy.count(), 2);
+    QCOMPARE(newEntryInListSpy.count(), 0);
+    QCOMPARE(newUrlInListSpy.count(), 2);
 
 #if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
     QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::TitleRole).toString(), QStringLiteral("Title"));
@@ -6963,6 +7149,7 @@ void MediaPlayListTest::testEmptyEnqueue()
     QSignalSpy dataChangedSpy(&myPlayList, &MediaPlayList::dataChanged);
     QSignalSpy newTrackByNameInListSpy(&myPlayList, &MediaPlayList::newTrackByNameInList);
     QSignalSpy newEntryInListSpy(&myPlayList, &MediaPlayList::newEntryInList);
+    QSignalSpy newUrlInListSpy(&myPlayList, &MediaPlayList::newUrlInList);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -6988,6 +7175,9 @@ void MediaPlayListTest::testEmptyEnqueue()
             Qt::QueuedConnection);
     connect(&myPlayList, &MediaPlayList::newEntryInList,
             &myListener, &TracksListener::newEntryInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
             Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
@@ -7091,6 +7281,7 @@ void MediaPlayListTest::enqueueMultipleAlbumsCase()
     QSignalSpy dataChangedSpy(&myPlayList, &MediaPlayList::dataChanged);
     QSignalSpy newTrackByNameInListSpy(&myPlayList, &MediaPlayList::newTrackByNameInList);
     QSignalSpy newEntryInListSpy(&myPlayList, &MediaPlayList::newEntryInList);
+    QSignalSpy newUrlInListSpy(&myPlayList, &MediaPlayList::newUrlInList);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -7116,6 +7307,9 @@ void MediaPlayListTest::enqueueMultipleAlbumsCase()
     connect(&myPlayList, &MediaPlayList::newEntryInList,
             &myListener, &TracksListener::newEntryInList,
             Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
+            Qt::QueuedConnection);
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
@@ -7132,9 +7326,9 @@ void MediaPlayListTest::enqueueMultipleAlbumsCase()
     QCOMPARE(newEntryInListSpy.count(), 0);
 
     myPlayList.enqueue({{myDatabaseContent.albumIdFromTitleAndArtist(QStringLiteral("album2"), QStringLiteral("artist1"), QStringLiteral("/")),
-                         QStringLiteral("album2")},
+                         QStringLiteral("album2"), {}},
                         {myDatabaseContent.albumIdFromTitleAndArtist(QStringLiteral("album3"), QStringLiteral("artist2"), QStringLiteral("/")),
-                         QStringLiteral("album3")}},
+                         QStringLiteral("album3"), {}}},
                        ElisaUtils::Album);
 
     QVERIFY(dataChangedSpy.wait());
@@ -7215,6 +7409,200 @@ void MediaPlayListTest::enqueueMultipleAlbumsCase()
     QCOMPARE(myPlayList.data(myPlayList.index(8, 0), MediaPlayList::DiscNumberRole).toInt(), 1);
     QCOMPARE(myPlayList.data(myPlayList.index(8, 0), MediaPlayList::DurationRole).toTime().msecsSinceStartOfDay(), 13);
     QCOMPARE(myPlayList.data(myPlayList.index(8, 0), MediaPlayList::AlbumIdRole).toULongLong(), 3);
+}
+
+void MediaPlayListTest::enqueueTrackByUrl()
+{
+    MediaPlayList myPlayList;
+    QAbstractItemModelTester testModel(&myPlayList);
+    DatabaseInterface myDatabaseContent;
+    TracksListener myListener(&myDatabaseContent);
+
+    QSignalSpy rowsAboutToBeMovedSpy(&myPlayList, &MediaPlayList::rowsAboutToBeMoved);
+    QSignalSpy rowsAboutToBeRemovedSpy(&myPlayList, &MediaPlayList::rowsAboutToBeRemoved);
+    QSignalSpy rowsAboutToBeInsertedSpy(&myPlayList, &MediaPlayList::rowsAboutToBeInserted);
+    QSignalSpy rowsMovedSpy(&myPlayList, &MediaPlayList::rowsMoved);
+    QSignalSpy rowsRemovedSpy(&myPlayList, &MediaPlayList::rowsRemoved);
+    QSignalSpy rowsInsertedSpy(&myPlayList, &MediaPlayList::rowsInserted);
+    QSignalSpy persistentStateChangedSpy(&myPlayList, &MediaPlayList::persistentStateChanged);
+    QSignalSpy dataChangedSpy(&myPlayList, &MediaPlayList::dataChanged);
+    QSignalSpy newTrackByNameInListSpy(&myPlayList, &MediaPlayList::newTrackByNameInList);
+    QSignalSpy newEntryInListSpy(&myPlayList, &MediaPlayList::newEntryInList);
+    QSignalSpy newUrlInListSpy(&myPlayList, &MediaPlayList::newUrlInList);
+
+    QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
+    QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
+    QCOMPARE(rowsAboutToBeInsertedSpy.count(), 0);
+    QCOMPARE(rowsRemovedSpy.count(), 0);
+    QCOMPARE(rowsMovedSpy.count(), 0);
+    QCOMPARE(rowsInsertedSpy.count(), 0);
+    QCOMPARE(persistentStateChangedSpy.count(), 0);
+    QCOMPARE(dataChangedSpy.count(), 0);
+    QCOMPARE(newTrackByNameInListSpy.count(), 0);
+    QCOMPARE(newEntryInListSpy.count(), 0);
+    QCOMPARE(newUrlInListSpy.count(), 0);
+
+    myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
+
+    connect(&myListener, &TracksListener::trackHasChanged,
+            &myPlayList, &MediaPlayList::trackChanged,
+            Qt::QueuedConnection);
+    connect(&myListener, &TracksListener::tracksListAdded,
+            &myPlayList, &MediaPlayList::tracksListAdded,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newEntryInList,
+            &myListener, &TracksListener::newEntryInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newTrackByNameInList,
+            &myListener, &TracksListener::trackByNameInList,
+            Qt::QueuedConnection);
+    connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
+            &myListener, &TracksListener::tracksAdded);
+
+    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+
+    QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
+    QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
+    QCOMPARE(rowsAboutToBeInsertedSpy.count(), 0);
+    QCOMPARE(rowsRemovedSpy.count(), 0);
+    QCOMPARE(rowsMovedSpy.count(), 0);
+    QCOMPARE(rowsInsertedSpy.count(), 0);
+    QCOMPARE(persistentStateChangedSpy.count(), 0);
+    QCOMPARE(dataChangedSpy.count(), 0);
+    QCOMPARE(newTrackByNameInListSpy.count(), 0);
+    QCOMPARE(newEntryInListSpy.count(), 0);
+    QCOMPARE(newUrlInListSpy.count(), 0);
+
+    auto newTrackID = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track6"), QStringLiteral("artist1 and artist2"), QStringLiteral("album2"), 6, 1);
+    auto trackData = myDatabaseContent.trackDataFromDatabaseId(newTrackID);
+    myPlayList.enqueue({{}, {}, trackData.resourceURI()}, ElisaUtils::Track);
+
+    QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
+    QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
+    QCOMPARE(rowsAboutToBeInsertedSpy.count(), 1);
+    QCOMPARE(rowsRemovedSpy.count(), 0);
+    QCOMPARE(rowsMovedSpy.count(), 0);
+    QCOMPARE(rowsInsertedSpy.count(), 1);
+    QCOMPARE(persistentStateChangedSpy.count(), 1);
+    QCOMPARE(dataChangedSpy.count(), 1);
+    QCOMPARE(newTrackByNameInListSpy.count(), 0);
+    QCOMPARE(newEntryInListSpy.count(), 0);
+    QCOMPARE(newUrlInListSpy.count(), 1);
+
+    QCOMPARE(dataChangedSpy.wait(), true);
+
+    QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
+    QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
+    QCOMPARE(rowsAboutToBeInsertedSpy.count(), 1);
+    QCOMPARE(rowsRemovedSpy.count(), 0);
+    QCOMPARE(rowsMovedSpy.count(), 0);
+    QCOMPARE(rowsInsertedSpy.count(), 1);
+    QCOMPARE(persistentStateChangedSpy.count(), 1);
+    QCOMPARE(dataChangedSpy.count(), 2);
+    QCOMPARE(newTrackByNameInListSpy.count(), 0);
+    QCOMPARE(newEntryInListSpy.count(), 0);
+    QCOMPARE(newUrlInListSpy.count(), 1);
+}
+
+void MediaPlayListTest::enqueueTracksByUrl()
+{
+    MediaPlayList myPlayList;
+    QAbstractItemModelTester testModel(&myPlayList);
+    DatabaseInterface myDatabaseContent;
+    TracksListener myListener(&myDatabaseContent);
+
+    QSignalSpy rowsAboutToBeMovedSpy(&myPlayList, &MediaPlayList::rowsAboutToBeMoved);
+    QSignalSpy rowsAboutToBeRemovedSpy(&myPlayList, &MediaPlayList::rowsAboutToBeRemoved);
+    QSignalSpy rowsAboutToBeInsertedSpy(&myPlayList, &MediaPlayList::rowsAboutToBeInserted);
+    QSignalSpy rowsMovedSpy(&myPlayList, &MediaPlayList::rowsMoved);
+    QSignalSpy rowsRemovedSpy(&myPlayList, &MediaPlayList::rowsRemoved);
+    QSignalSpy rowsInsertedSpy(&myPlayList, &MediaPlayList::rowsInserted);
+    QSignalSpy persistentStateChangedSpy(&myPlayList, &MediaPlayList::persistentStateChanged);
+    QSignalSpy dataChangedSpy(&myPlayList, &MediaPlayList::dataChanged);
+    QSignalSpy newTrackByNameInListSpy(&myPlayList, &MediaPlayList::newTrackByNameInList);
+    QSignalSpy newEntryInListSpy(&myPlayList, &MediaPlayList::newEntryInList);
+    QSignalSpy newUrlInListSpy(&myPlayList, &MediaPlayList::newUrlInList);
+
+    QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
+    QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
+    QCOMPARE(rowsAboutToBeInsertedSpy.count(), 0);
+    QCOMPARE(rowsRemovedSpy.count(), 0);
+    QCOMPARE(rowsMovedSpy.count(), 0);
+    QCOMPARE(rowsInsertedSpy.count(), 0);
+    QCOMPARE(persistentStateChangedSpy.count(), 0);
+    QCOMPARE(dataChangedSpy.count(), 0);
+    QCOMPARE(newTrackByNameInListSpy.count(), 0);
+    QCOMPARE(newEntryInListSpy.count(), 0);
+    QCOMPARE(newUrlInListSpy.count(), 0);
+
+    myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
+
+    connect(&myListener, &TracksListener::trackHasChanged,
+            &myPlayList, &MediaPlayList::trackChanged,
+            Qt::QueuedConnection);
+    connect(&myListener, &TracksListener::tracksListAdded,
+            &myPlayList, &MediaPlayList::tracksListAdded,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newEntryInList,
+            &myListener, &TracksListener::newEntryInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newTrackByNameInList,
+            &myListener, &TracksListener::trackByNameInList,
+            Qt::QueuedConnection);
+    connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
+            &myListener, &TracksListener::tracksAdded);
+
+    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+
+    QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
+    QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
+    QCOMPARE(rowsAboutToBeInsertedSpy.count(), 0);
+    QCOMPARE(rowsRemovedSpy.count(), 0);
+    QCOMPARE(rowsMovedSpy.count(), 0);
+    QCOMPARE(rowsInsertedSpy.count(), 0);
+    QCOMPARE(persistentStateChangedSpy.count(), 0);
+    QCOMPARE(dataChangedSpy.count(), 0);
+    QCOMPARE(newTrackByNameInListSpy.count(), 0);
+    QCOMPARE(newEntryInListSpy.count(), 0);
+    QCOMPARE(newUrlInListSpy.count(), 0);
+
+    auto firstNewTrackID = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track6"), QStringLiteral("artist1 and artist2"), QStringLiteral("album2"), 6, 1);
+    auto firstTrackData = myDatabaseContent.trackDataFromDatabaseId(firstNewTrackID);
+    auto secondNewTrackID = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album1"), 1, 1);
+    auto secondTrackData = myDatabaseContent.trackDataFromDatabaseId(secondNewTrackID);
+    myPlayList.enqueue({{{}, {}, firstTrackData.resourceURI()}, {{}, {}, secondTrackData.resourceURI()}}, ElisaUtils::Track);
+
+    QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
+    QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
+    QCOMPARE(rowsAboutToBeInsertedSpy.count(), 1);
+    QCOMPARE(rowsRemovedSpy.count(), 0);
+    QCOMPARE(rowsMovedSpy.count(), 0);
+    QCOMPARE(rowsInsertedSpy.count(), 1);
+    QCOMPARE(persistentStateChangedSpy.count(), 1);
+    QCOMPARE(dataChangedSpy.count(), 0);
+    QCOMPARE(newTrackByNameInListSpy.count(), 0);
+    QCOMPARE(newEntryInListSpy.count(), 0);
+    QCOMPARE(newUrlInListSpy.count(), 2);
+
+    QCOMPARE(dataChangedSpy.wait(), true);
+
+    QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
+    QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
+    QCOMPARE(rowsAboutToBeInsertedSpy.count(), 1);
+    QCOMPARE(rowsRemovedSpy.count(), 0);
+    QCOMPARE(rowsMovedSpy.count(), 0);
+    QCOMPARE(rowsInsertedSpy.count(), 1);
+    QCOMPARE(persistentStateChangedSpy.count(), 1);
+    QCOMPARE(dataChangedSpy.count(), 2);
+    QCOMPARE(newTrackByNameInListSpy.count(), 0);
+    QCOMPARE(newEntryInListSpy.count(), 0);
+    QCOMPARE(newUrlInListSpy.count(), 2);
 }
 
 QTEST_GUILESS_MAIN(MediaPlayListTest)

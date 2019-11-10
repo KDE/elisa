@@ -94,7 +94,7 @@ QVariant FileBrowserModel::data(const QModelIndex &index, int role) const
     case ColumnsRoles::FileUrlRole:
     {
         KFileItem item = itemForIndex(index);
-        result = item.url().toLocalFile();
+        result = item.url();
         break;
     }
     case ColumnsRoles::ImageUrlRole:

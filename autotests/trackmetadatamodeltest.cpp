@@ -108,7 +108,7 @@ private Q_SLOTS:
 
         auto trackId = musicDb.trackIdFromFileName(QUrl::fromLocalFile(QStringLiteral("/$1")));
 
-        myModel.initializeById(ElisaUtils::Track, trackId);
+        myModel.initializeByIdAndUrl(ElisaUtils::Track, trackId, QUrl::fromLocalFile(QStringLiteral("/$1")));
 
         QCOMPARE(beginResetSpy.count(), 1);
         QCOMPARE(endResetSpy.count(), 1);

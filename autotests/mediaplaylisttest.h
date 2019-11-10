@@ -149,6 +149,10 @@ private Q_SLOTS:
 
     void enqueueMultipleAlbumsCase();
 
+    void enqueueTrackByUrl();
+
+    void enqueueTracksByUrl();
+
 };
 
 class MediaPlayList;

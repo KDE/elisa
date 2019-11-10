@@ -17,6 +17,8 @@
 
 #include "modeldataloader.h"
 
+#include "filescanner.h"
+
 class ModelDataLoaderPrivate
 {
 public:
@@ -36,6 +38,8 @@ public:
     QString mGenre;
 
     qulonglong mDatabaseId = 0;
+
+    FileScanner mFileScanner;
 
 };
 
@@ -224,7 +228,8 @@ void ModelDataLoader::loadDataByGenreAndArtist(ElisaUtils::PlayListEntryType dat
     }
 }
 
-void ModelDataLoader::loadDataByDatabaseId(ElisaUtils::PlayListEntryType dataType, qulonglong databaseId)
+void ModelDataLoader::loadDataByDatabaseIdAndUrl(ElisaUtils::PlayListEntryType dataType,
+                                                 qulonglong databaseId, const QUrl &url)
 {
     if (!d->mDatabase) {
         return;
@@ -236,7 +241,7 @@ void ModelDataLoader::loadDataByDatabaseId(ElisaUtils::PlayListEntryType dataTyp
     switch (dataType)
     {
     case ElisaUtils::Track:
-        Q_EMIT allTrackData(d->mDatabase->trackDataFromDatabaseId(databaseId));
+        Q_EMIT allTrackData(d->mDatabase->trackDataFromDatabaseIdAndUrl(databaseId, url));
         break;
     case ElisaUtils::Radio:
         Q_EMIT allRadioData(d->mDatabase->radioDataFromDatabaseId(databaseId));
@@ -248,6 +253,39 @@ void ModelDataLoader::loadDataByDatabaseId(ElisaUtils::PlayListEntryType dataTyp
     case ElisaUtils::Lyricist:
     case ElisaUtils::FileName:
     case ElisaUtils::Unknown:
+        break;
+    }
+}
+
+void ModelDataLoader::loadDataByUrl(ElisaUtils::PlayListEntryType dataType, const QUrl &url)
+{
+    if (!d->mDatabase) {
+        return;
+    }
+
+    d->mFilterType = ModelDataLoader::FilterType::UnknownFilter;
+
+    switch (dataType)
+    {
+    case ElisaUtils::FileName:
+    {
+        auto databaseId = d->mDatabase->trackIdFromFileName(url);
+        if (databaseId != 0) {
+            Q_EMIT allTrackData(d->mDatabase->trackDataFromDatabaseIdAndUrl(databaseId, url));
+        } else {
+            auto result = d->mFileScanner.scanOneFile(url);
+            Q_EMIT allTrackData(result);
+        }
+        break;
+    }
+    case ElisaUtils::Track:
+    case ElisaUtils::Album:
+    case ElisaUtils::Artist:
+    case ElisaUtils::Composer:
+    case ElisaUtils::Genre:
+    case ElisaUtils::Lyricist:
+    case ElisaUtils::Unknown:
+    case ElisaUtils::Radio:
         break;
     }
 }

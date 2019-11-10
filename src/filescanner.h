@@ -23,7 +23,6 @@
 #include "datatypes.h"
 
 #include <QUrl>
-#include <QMimeDatabase>
 
 #include <memory>
 
@@ -43,7 +42,9 @@ public:
 
     virtual ~FileScanner();
 
-    DataTypes::TrackDataType scanOneFile(const QUrl &scanFile, const QMimeDatabase &mimeDatabase);
+    bool shouldScanFile(const QString &scanFile);
+
+    DataTypes::TrackDataType scanOneFile(const QUrl &scanFile);
 
     void scanProperties(const Baloo::File &match, DataTypes::TrackDataType &trackData);
 

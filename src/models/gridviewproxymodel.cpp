@@ -85,7 +85,7 @@ void GridViewProxyModel::genericEnqueueToPlayList(ElisaUtils::PlayListEnqueueMod
         for (int rowIndex = 0, maxRowCount = rowCount(); rowIndex < maxRowCount; ++rowIndex) {
             auto currentIndex = index(rowIndex, 0);
             allData.push_back(ElisaUtils::EntryData{data(currentIndex, DataTypes::DatabaseIdRole).toULongLong(),
-                                                    data(currentIndex, Qt::DisplayRole).toString()});
+                                                    data(currentIndex, Qt::DisplayRole).toString(), {}});
         }
         Q_EMIT entriesToEnqueue(allData, mDataType, enqueueMode, triggerPlay);
     });

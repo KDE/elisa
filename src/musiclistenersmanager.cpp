@@ -168,6 +168,7 @@ void MusicListenersManager::subscribeForTracks(MediaPlayList *client)
     connect(d->mTracksListener.get(), &TracksListener::trackHasBeenRemoved, client, &MediaPlayList::trackRemoved);
     connect(d->mTracksListener.get(), &TracksListener::tracksListAdded, client, &MediaPlayList::tracksListAdded);
     connect(client, &MediaPlayList::newEntryInList, d->mTracksListener.get(), &TracksListener::newEntryInList);
+    connect(client, &MediaPlayList::newUrlInList, d->mTracksListener.get(), &TracksListener::newUrlInList);
     connect(client, &MediaPlayList::newTrackByNameInList, d->mTracksListener.get(), &TracksListener::trackByNameInList);
 }
 

@@ -21,7 +21,6 @@
 #include "elisaLib_export.h"
 
 #include <KIOWidgets/KDirModel>
-#include <QMimeDatabase>
 
 class MusicAudioTrack;
 

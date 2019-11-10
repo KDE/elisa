@@ -156,18 +156,19 @@ FocusScope {
                     mainText: model.name
                     delegateDisplaySecondaryText: false
                     fileUrl: model.fileUrl
+                    entryType: ElisaUtils.FileName
                     imageUrl: model.imageUrl
                     showDetailsButton: !model.isDirectory && !model.isPlaylist
                     showEnqueueButton: !model.isDirectory && !model.isPlaylist
                     showPlayButton: !model.isDirectory
                     showOpenButton: model.isDirectory && !model.isPlaylist
 
-                    onEnqueue: elisa.mediaPlayList.enqueue(0, model.fileUrl, ElisaUtils.FileName, ElisaUtils.AppendPlayList, ElisaUtils.DoNotTriggerPlay)
+                    onEnqueue: elisa.mediaPlayList.enqueue(url, ElisaUtils.FileName, ElisaUtils.AppendPlayList, ElisaUtils.DoNotTriggerPlay)
                     onReplaceAndPlay: {
                         if (model.isPlaylist) {
-                            elisa.mediaPlayList.loadPlaylist(model.fileUrl)
+                            elisa.mediaPlayList.loadPlaylist(url)
                         } else {
-                            elisa.mediaPlayList.enqueue(0, model.fileUrl, ElisaUtils.FileName, ElisaUtils.ReplacePlayList, ElisaUtils.TriggerPlay)
+                            elisa.mediaPlayList.enqueue(url, ElisaUtils.FileName, ElisaUtils.ReplacePlayList, ElisaUtils.TriggerPlay)
                         }
                     }
                     onSelected: {

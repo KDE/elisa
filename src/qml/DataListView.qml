@@ -38,12 +38,13 @@ FocusScope {
     property bool displaySingleAlbum: false
     property alias radioCase: listView.showCreateRadioButton
 
-    function openMetaDataView(databaseId){
+    function openMetaDataView(databaseId, url) {
         if (viewHeader.radioCase) {
             metadataLoader.setSource("MediaTrackMetadataView.qml",
                                      {
                                          "initialDatabaseId": databaseId,
-                                         "modelType": modelType,
+                                         "fileName": url,
+                                         "modelType": viewHeader.modelType,
                                          "showImage": false,
                                          "showTrackFileName": false,
                                          "showDeleteButton": databaseId !== -1,
@@ -54,7 +55,8 @@ FocusScope {
             metadataLoader.setSource("MediaTrackMetadataView.qml",
                                      {
                                          "initialDatabaseId": databaseId,
-                                         "modelType": modelType,
+                                         "fileName": url,
+                                         "modelType": viewHeader.modelType,
                                          "showImage": true,
                                          "showTrackFileName": true,
                                          "showDeleteButton": false,
@@ -126,7 +128,7 @@ FocusScope {
             }
 
             onCallOpenMetaDataView: {
-                openMetaDataView(databaseId)
+                openMetaDataView(databaseId, model.url)
             }
         }
     }
@@ -170,7 +172,7 @@ FocusScope {
             }
 
             onCallOpenMetaDataView: {
-                openMetaDataView(databaseId)
+                openMetaDataView(databaseId, model.url)
             }
         }
     }
@@ -222,7 +224,7 @@ FocusScope {
         target: listView.navigationBar
 
         onCreateRadio: {
-            openMetaDataView(-1)
+            openMetaDataView(-1, '')
         }
     }
 

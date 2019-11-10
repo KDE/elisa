@@ -87,7 +87,8 @@ public:
           mClearTracksTable(mTracksDatabase), mClearAlbumsTable(mTracksDatabase), mClearArtistsTable(mTracksDatabase),
           mClearComposerTable(mTracksDatabase), mClearGenreTable(mTracksDatabase), mClearLyricistTable(mTracksDatabase),
           mArtistMatchGenreQuery(mTracksDatabase), mSelectTrackIdQuery(mTracksDatabase),
-          mInsertRadioQuery(mTracksDatabase), mDeleteRadioQuery(mTracksDatabase)
+          mInsertRadioQuery(mTracksDatabase), mDeleteRadioQuery(mTracksDatabase),
+          mSelectTrackFromIdAndUrlQuery(mTracksDatabase)
     {
     }
 
@@ -262,6 +263,8 @@ public:
     QSqlQuery mInsertRadioQuery;
 
     QSqlQuery mDeleteRadioQuery;
+
+    QSqlQuery mSelectTrackFromIdAndUrlQuery;
 
     QSet<qulonglong> mModifiedTrackIds;
 
@@ -740,6 +743,29 @@ DataTypes::TrackDataType DatabaseInterface::trackDataFromDatabaseId(qulonglong i
     return result;
 }
 
+DataTypes::TrackDataType DatabaseInterface::trackDataFromDatabaseIdAndUrl(qulonglong id, const QUrl &trackUrl)
+{
+    auto result = DataTypes::TrackDataType();
+
+    if (!d) {
+        return result;
+    }
+
+    auto transactionResult = startTransaction();
+    if (!transactionResult) {
+        return result;
+    }
+
+    result = internalOneTrackPartialDataByIdAndUrl(id, trackUrl);
+
+    transactionResult = finishTransaction();
+    if (!transactionResult) {
+        return result;
+    }
+
+    return result;
+}
+
 DataTypes::TrackDataType DatabaseInterface::radioDataFromDatabaseId(qulonglong id)
 {
     auto result = DataTypes::TrackDataType();
@@ -801,6 +827,29 @@ qulonglong DatabaseInterface::trackIdFromFileName(const QUrl &fileName)
     }
 
     result = internalTrackIdFromFileName(fileName);
+
+    transactionResult = finishTransaction();
+    if (!transactionResult) {
+        return result;
+    }
+
+    return result;
+}
+
+qulonglong DatabaseInterface::radioIdFromFileName(const QUrl &fileName)
+{
+    auto result = qulonglong(0);
+
+    if (!d) {
+        return result;
+    }
+
+    auto transactionResult = startTransaction();
+    if (!transactionResult) {
+        return result;
+    }
+
+    result = internalRadioIdFromHttpAddress(fileName.toString());
 
     transactionResult = finishTransaction();
     if (!transactionResult) {
@@ -4441,6 +4490,119 @@ void DatabaseInterface::initRequest()
     }
 
     {
+        auto selectTrackFromIdAndUrlQueryText = QStringLiteral("SELECT "
+                                                         "tracks.`Id`, "
+                                                         "tracks.`Title`, "
+                                                         "album.`ID`, "
+                                                         "tracks.`ArtistName`, "
+                                                         "( "
+                                                         "SELECT "
+                                                         "COUNT(DISTINCT tracksFromAlbum1.`ArtistName`) "
+                                                         "FROM "
+                                                         "`Tracks` tracksFromAlbum1 "
+                                                         "WHERE "
+                                                         "tracksFromAlbum1.`AlbumTitle` = album.`Title` AND "
+                                                         "(tracksFromAlbum1.`AlbumArtistName` = album.`ArtistName` OR "
+                                                         "(tracksFromAlbum1.`AlbumArtistName` IS NULL AND "
+                                                         "album.`ArtistName` IS NULL "
+                                                         ") "
+                                                         ") AND "
+                                                         "tracksFromAlbum1.`AlbumPath` = album.`AlbumPath` "
+                                                         ") AS ArtistsCount, "
+                                                         "( "
+                                                         "SELECT "
+                                                         "GROUP_CONCAT(tracksFromAlbum2.`ArtistName`) "
+                                                         "FROM "
+                                                         "`Tracks` tracksFromAlbum2 "
+                                                         "WHERE "
+                                                         "tracksFromAlbum2.`AlbumTitle` = album.`Title` AND "
+                                                         "(tracksFromAlbum2.`AlbumArtistName` = album.`ArtistName` OR "
+                                                         "(tracksFromAlbum2.`AlbumArtistName` IS NULL AND "
+                                                         "album.`ArtistName` IS NULL "
+                                                         ") "
+                                                         ") AND "
+                                                         "tracksFromAlbum2.`AlbumPath` = album.`AlbumPath` "
+                                                         ") AS AllArtists, "
+                                                         "tracks.`AlbumArtistName`, "
+                                                         "tracksMapping.`FileName`, "
+                                                         "tracksMapping.`FileModifiedTime`, "
+                                                         "tracks.`TrackNumber`, "
+                                                         "tracks.`DiscNumber`, "
+                                                         "tracks.`Duration`, "
+                                                         "tracks.`AlbumTitle`, "
+                                                         "tracks.`Rating`, "
+                                                         "album.`CoverFileName`, "
+                                                         "("
+                                                         "SELECT "
+                                                         "COUNT(DISTINCT tracks2.DiscNumber) <= 1 "
+                                                         "FROM "
+                                                         "`Tracks` tracks2 "
+                                                         "WHERE "
+                                                         "tracks2.`AlbumTitle` = album.`Title` AND "
+                                                         "(tracks2.`AlbumArtistName` = album.`ArtistName` OR "
+                                                         "(tracks2.`AlbumArtistName` IS NULL AND "
+                                                         "album.`ArtistName` IS NULL"
+                                                         ")"
+                                                         ") AND "
+                                                         "tracks2.`AlbumPath` = album.`AlbumPath` "
+                                                         ") as `IsSingleDiscAlbum`, "
+                                                         "trackGenre.`Name`, "
+                                                         "trackComposer.`Name`, "
+                                                         "trackLyricist.`Name`, "
+                                                         "tracks.`Comment`, "
+                                                         "tracks.`Year`, "
+                                                         "tracks.`Channels`, "
+                                                         "tracks.`BitRate`, "
+                                                         "tracks.`SampleRate`, "
+                                                         "tracks.`HasEmbeddedCover`, "
+                                                         "tracksMapping.`ImportDate`, "
+                                                         "tracksMapping.`FirstPlayDate`, "
+                                                         "tracksMapping.`LastPlayDate`, "
+                                                         "tracksMapping.`PlayCounter`, "
+                                                         "tracksMapping.`PlayCounter` / (strftime('%s', 'now') - tracksMapping.`FirstPlayDate`) as PlayFrequency, "
+                                                         "( "
+                                                         "SELECT tracksCover.`FileName` "
+                                                         "FROM "
+                                                         "`Tracks` tracksCover "
+                                                         "WHERE "
+                                                         "tracksCover.`HasEmbeddedCover` = 1 AND "
+                                                         "tracksCover.`AlbumTitle` = album.`Title` AND "
+                                                         "(tracksCover.`AlbumArtistName` = album.`ArtistName` OR "
+                                                         "(tracksCover.`AlbumArtistName` IS NULL AND "
+                                                         "album.`ArtistName` IS NULL "
+                                                         ") "
+                                                         ") AND "
+                                                         "tracksCover.`AlbumPath` = album.`AlbumPath` "
+                                                         ") as EmbeddedCover "
+                                                         "FROM "
+                                                         "`Tracks` tracks, "
+                                                         "`TracksData` tracksMapping "
+                                                         "LEFT JOIN "
+                                                         "`Albums` album "
+                                                         "ON "
+                                                         "tracks.`AlbumTitle` = album.`Title` AND "
+                                                         "(tracks.`AlbumArtistName` = album.`ArtistName` OR tracks.`AlbumArtistName` IS NULL ) AND "
+                                                         "tracks.`AlbumPath` = album.`AlbumPath` "
+                                                         "LEFT JOIN `Composer` trackComposer ON trackComposer.`Name` = tracks.`Composer` "
+                                                         "LEFT JOIN `Lyricist` trackLyricist ON trackLyricist.`Name` = tracks.`Lyricist` "
+                                                         "LEFT JOIN `Genre` trackGenre ON trackGenre.`Name` = tracks.`Genre` "
+                                                         "WHERE "
+                                                         "tracks.`ID` = :trackId AND "
+                                                         "tracksMapping.`FileName` = tracks.`FileName` AND "
+                                                         "tracksMapping.`FileName` = :trackUrl "
+                                                         "");
+
+        auto result = prepareQuery(d->mSelectTrackFromIdAndUrlQuery, selectTrackFromIdAndUrlQueryText);
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initRequest" << d->mSelectTrackFromIdAndUrlQuery.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initRequest" << d->mSelectTrackFromIdAndUrlQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
         auto selectRadioFromIdQueryText = QStringLiteral("SELECT "
                                                   "radios.`ID`, "
                                                   "radios.`Title`, "
@@ -7537,6 +7699,28 @@ DataTypes::TrackDataType DatabaseInterface::internalOneTrackPartialData(qulonglo
     }
 
     d->mSelectTrackFromIdQuery.finish();
+
+    return result;
+}
+
+DataTypes::TrackDataType DatabaseInterface::internalOneTrackPartialDataByIdAndUrl(qulonglong databaseId, const QUrl &trackUrl)
+{
+    auto result = DataTypes::TrackDataType{};
+
+    d->mSelectTrackFromIdAndUrlQuery.bindValue(QStringLiteral(":trackId"), databaseId);
+    d->mSelectTrackFromIdAndUrlQuery.bindValue(QStringLiteral(":trackUrl"), trackUrl);
+
+    if (!internalGenericPartialData(d->mSelectTrackFromIdAndUrlQuery)) {
+        return result;
+    }
+
+    if (d->mSelectTrackFromIdAndUrlQuery.next()) {
+        const auto &currentRecord = d->mSelectTrackFromIdAndUrlQuery.record();
+
+        result = buildTrackDataFromDatabaseRecord(currentRecord);
+    }
+
+    d->mSelectTrackFromIdAndUrlQuery.finish();
 
     return result;
 }

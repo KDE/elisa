@@ -110,8 +110,6 @@ private:
 
     FileScanner mFileScanner;
 
-    QMimeDatabase mMimeDb;
-
     QString mFilterText;
 
     QRegularExpression mFilterExpression;

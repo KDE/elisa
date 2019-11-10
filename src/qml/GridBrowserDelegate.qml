@@ -28,7 +28,8 @@ FocusScope {
 
     property var imageUrl
     property bool shadowForImage
-    property string fileUrl
+    property url fileUrl
+    property var entryType
     property alias mainText: mainLabel.text
     property alias secondaryText: secondaryLabel.text
     property var databaseId
@@ -40,8 +41,8 @@ FocusScope {
     property bool showPlayButton: true
     property bool showEnqueueButton: true
 
-    signal enqueue(var databaseId, var name)
-    signal replaceAndPlay(var databaseId, var name)
+    signal enqueue(var databaseId, var name, var url)
+    signal replaceAndPlay(var databaseId, var name, var url)
     signal open()
     signal selected()
 
@@ -53,7 +54,7 @@ FocusScope {
         sourceComponent:  MediaTrackMetadataView {
             fileName: gridEntry.fileUrl ? gridEntry.fileUrl : ''
             showImage: true
-            modelType: modelType
+            modelType: gridEntry.entryType
             showTrackFileName: true
             showDeleteButton: false
             showApplyButton: false
@@ -195,9 +196,9 @@ FocusScope {
                                 Accessible.description: ToolTip.text
                                 Accessible.onPressAction: onClicked
 
-                                onClicked: replaceAndPlay(databaseId, mainText)
-                                Keys.onReturnPressed: replaceAndPlay(databaseId, mainText)
-                                Keys.onEnterPressed: replaceAndPlay(databaseId, mainText)
+                                onClicked: replaceAndPlay(databaseId, mainText, fileUrl)
+                                Keys.onReturnPressed: replaceAndPlay(databaseId, mainText, fileUrl)
+                                Keys.onEnterPressed: replaceAndPlay(databaseId, mainText, fileUrl)
 
                                 visible: showPlayButton
 
@@ -220,9 +221,9 @@ FocusScope {
                                 Accessible.description: ToolTip.text
                                 Accessible.onPressAction: onClicked
 
-                                onClicked: enqueue(databaseId, mainText)
-                                Keys.onReturnPressed: enqueue(databaseId, mainText)
-                                Keys.onEnterPressed: enqueue(databaseId, mainText)
+                                onClicked: enqueue(databaseId, mainText, fileUrl)
+                                Keys.onReturnPressed: enqueue(databaseId, mainText, fileUrl)
+                                Keys.onEnterPressed: enqueue(databaseId, mainText, fileUrl)
 
                                 visible: showEnqueueButton
 

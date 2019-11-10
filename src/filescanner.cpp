@@ -43,6 +43,7 @@
 #include <QLocale>
 #include <QDir>
 #include <QHash>
+#include <QMimeDatabase>
 
 #if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
 
@@ -78,6 +79,7 @@ public:
     KFileMetaData::EmbeddedImageData mImageScanner;
 #endif
 
+    QMimeDatabase mMimeDb;
 };
 
 static const QStringList constSearchStrings = {
@@ -93,12 +95,22 @@ FileScanner::FileScanner() : d(std::make_unique<FileScannerPrivate>())
 {
 }
 
+bool FileScanner::shouldScanFile(const QString &scanFile)
+{
+    const auto &fileMimeType = d->mMimeDb.mimeTypeForFile(scanFile);
+    return fileMimeType.name().startsWith(QLatin1String("audio/"));
+}
+
 FileScanner::~FileScanner() = default;
 
-DataTypes::TrackDataType FileScanner::scanOneFile(const QUrl &scanFile, const QMimeDatabase &mimeDatabase)
+DataTypes::TrackDataType FileScanner::scanOneFile(const QUrl &scanFile)
 {
 
     DataTypes::TrackDataType newTrack;
+
+    if (!scanFile.isLocalFile() && !scanFile.scheme().isEmpty()) {
+        return newTrack;
+    }
 
     auto localFileName = scanFile.toLocalFile();
 
@@ -108,7 +120,7 @@ DataTypes::TrackDataType FileScanner::scanOneFile(const QUrl &scanFile, const QM
     newTrack[DataTypes::RatingRole] = 0;
 
 #if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
-    const auto &fileMimeType = mimeDatabase.mimeTypeForFile(localFileName);
+    const auto &fileMimeType = d->mMimeDb.mimeTypeForFile(localFileName);
     if (!fileMimeType.name().startsWith(QLatin1String("audio/"))) {
         return newTrack;
     }

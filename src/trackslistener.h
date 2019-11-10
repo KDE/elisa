@@ -70,7 +70,7 @@ public Q_SLOTS:
                         const QString &entryTitle,
                         ElisaUtils::PlayListEntryType databaseIdType);
 
-    void trackByFileNameInList(ElisaUtils::PlayListEntryType dataType, const QUrl &fileName);
+    void trackByFileNameInList(ElisaUtils::PlayListEntryType databaseIdType, const QUrl &fileName);
 
     void newUrlInList(const QUrl &entryUrl,
                       ElisaUtils::PlayListEntryType databaseIdType);

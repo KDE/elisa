@@ -155,12 +155,12 @@ void TracksListener::trackByNameInList(const QVariant &title, const QVariant &ar
     }
 }
 
-void TracksListener::trackByFileNameInList(ElisaUtils::PlayListEntryType dataType, const QUrl &fileName)
+void TracksListener::trackByFileNameInList(ElisaUtils::PlayListEntryType databaseIdType, const QUrl &fileName)
 {
     if (fileName.isLocalFile() || fileName.scheme().isEmpty()) {
         auto newTrackId = d->mDatabase->trackIdFromFileName(fileName);
         if (newTrackId == 0) {
-            auto newTrack = d->mFileScanner.scanOneFile(fileName, d->mMimeDb);
+            auto newTrack = d->mFileScanner.scanOneFile(fileName);
 
             if (newTrack.isValid()) {
                 d->mTracksByFileNameSet.push_back(fileName);
@@ -246,13 +246,13 @@ void TracksListener::newUrlInList(const QUrl &entryUrl, ElisaUtils::PlayListEntr
 
         if (!newDatabaseId)
         {
-            trackByFileNameInList({}, entryUrl);
+            trackByFileNameInList(databaseIdType, entryUrl);
             return;
         }
 
         d->mTracksByIdSet.insert(newDatabaseId);
 
-        auto newTrack = d->mDatabase->trackDataFromDatabaseId(newDatabaseId);
+        auto newTrack = d->mDatabase->trackDataFromDatabaseIdAndUrl(newDatabaseId, entryUrl);
         if (!newTrack.isEmpty()) {
             Q_EMIT trackHasChanged(newTrack);
         }

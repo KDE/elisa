@@ -461,10 +461,10 @@ void MediaPlayList::enqueueFilesList(const ElisaUtils::EntryDataList &newEntries
             auto newEntry = MediaPlayListEntry(trackUrl);
             newEntry.mEntryType = databaseIdType;
             d->mData.push_back(newEntry);
-            if (std::get<2>(oneTrackUrl).isValid()) {
-                if (std::get<2>(oneTrackUrl).isLocalFile()) {
+            if (trackUrl.isValid()) {
+                if (trackUrl.isLocalFile()) {
                     d->mTrackData.push_back({{DataTypes::ColumnsRoles::ResourceRole, trackUrl}});
-                    auto entryString =  std::get<2>(oneTrackUrl).toLocalFile();
+                    auto entryString =  trackUrl.toLocalFile();
                     QFileInfo newTrackFile(entryString);
                     if (newTrackFile.exists()) {
                         d->mData.last().mIsValid = true;
@@ -474,7 +474,7 @@ void MediaPlayList::enqueueFilesList(const ElisaUtils::EntryDataList &newEntries
                                              {DataTypes::ColumnsRoles::TitleRole, trackUrl.fileName()}});
                     d->mData.last().mIsValid = true;
                 }
-                Q_EMIT newUrlInList(std::get<2>(oneTrackUrl), newEntry.mEntryType);
+                Q_EMIT newUrlInList(trackUrl, newEntry.mEntryType);
             } else {
                 d->mTrackData.push_back({});
             }

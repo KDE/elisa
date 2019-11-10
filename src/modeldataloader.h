@@ -114,10 +114,10 @@ public Q_SLOTS:
                                   const QString &genre, const QString &artist);
 
     void loadDataByDatabaseIdAndUrl(ElisaUtils::PlayListEntryType dataType,
-                              qulonglong databaseId, const QUrl &url);
+                                    qulonglong databaseId, const QUrl &url);
 
     void loadDataByUrl(ElisaUtils::PlayListEntryType dataType,
-                            const QUrl &url);
+                       const QUrl &url);
 
     void loadRecentlyPlayedData(ElisaUtils::PlayListEntryType dataType);
 

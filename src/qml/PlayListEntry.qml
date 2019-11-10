@@ -112,12 +112,12 @@ FocusScope {
         sourceComponent:  MediaTrackMetadataView {
             initialDatabaseId: playListEntry.databaseId
             fileName: playListEntry.fileName
-            showImage: entryType == ElisaUtils.Track
+            showImage: entryType !== ElisaUtils.Radio
             modelType: entryType
-            showTrackFileName: entryType == ElisaUtils.Track
-            showDeleteButton: entryType != ElisaUtils.Track
-            showApplyButton: entryType != ElisaUtils.Track
-            editableMetadata: entryType != ElisaUtils.Track
+            showTrackFileName: entryType !== ElisaUtils.Radio
+            showDeleteButton: entryType === ElisaUtils.Radio
+            showApplyButton: entryType === ElisaUtils.Radio
+            editableMetadata: entryType === ElisaUtils.Radio
 
             onRejected: metadataLoader.active = false
         }

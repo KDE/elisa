@@ -17,6 +17,8 @@
 
 #include "modeldataloader.h"
 
+#include "filescanner.h"
+
 class ModelDataLoaderPrivate
 {
 public:
@@ -36,6 +38,8 @@ public:
     QString mGenre;
 
     qulonglong mDatabaseId = 0;
+
+    FileScanner mFileScanner;
 
 };
 
@@ -269,8 +273,8 @@ void ModelDataLoader::loadDataByUrl(ElisaUtils::PlayListEntryType dataType, cons
         if (databaseId != 0) {
             Q_EMIT allTrackData(d->mDatabase->trackDataFromDatabaseIdAndUrl(databaseId, url));
         } else {
-            //auto result = d->mFileScanner.scanOneFile(url, d->mMimeDatabase);
-            //Q_EMIT allTrackData(result.toTrackData());
+            auto result = d->mFileScanner.scanOneFile(url);
+            Q_EMIT allTrackData(result);
         }
         break;
     }

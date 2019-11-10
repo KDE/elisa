@@ -33,6 +33,7 @@ class MusicListenersManagerPrivate;
 class MediaPlayList;
 class ElisaApplication;
 class ModelDataLoader;
+class TracksListener;
 
 class ELISALIB_EXPORT MusicListenersManager : public QObject
 {
@@ -51,6 +52,10 @@ class ELISALIB_EXPORT MusicListenersManager : public QObject
                READ elisaApplication
                WRITE setElisaApplication
                NOTIFY elisaApplicationChanged)
+
+    Q_PROPERTY(TracksListener* tracksListener
+               READ tracksListener
+               NOTIFY tracksListenerChanged)
 
     Q_PROPERTY(bool indexerBusy
                READ indexerBusy
@@ -90,6 +95,8 @@ public:
 
     ElisaApplication* elisaApplication() const;
 
+    TracksListener* tracksListener() const;
+
     bool indexerBusy() const;
 
     bool fileSystemIndexerActive() const;
@@ -107,6 +114,8 @@ Q_SIGNALS:
     void viewDatabaseChanged();
 
     void applicationIsTerminating();
+
+    void tracksListenerChanged();
 
     void importedTracksCountChanged();
 

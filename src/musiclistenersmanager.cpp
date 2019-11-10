@@ -181,6 +181,11 @@ ElisaApplication *MusicListenersManager::elisaApplication() const
     return d->mElisaApplication;
 }
 
+TracksListener *MusicListenersManager::tracksListener() const
+{
+    return d->mTracksListener.get();
+}
+
 bool MusicListenersManager::indexerBusy() const
 {
     return d->mIndexerBusy;

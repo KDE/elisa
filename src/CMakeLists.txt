@@ -2,7 +2,6 @@ include_directories(${elisa_BINARY_DIR})
 
 set(elisaLib_SOURCES
     mediaplaylist.cpp
-    musicaudiotrack.cpp
     progressindicator.cpp
     databaseinterface.cpp
     datatypes.cpp

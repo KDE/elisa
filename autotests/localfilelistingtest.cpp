@@ -121,9 +121,9 @@ private Q_SLOTS:
         QCOMPARE(removedTracksListSpy.count(), 0);
 
         const auto &firstNewTracksSignal = tracksListSpy.at(0);
-        auto firstNewTracks = firstNewTracksSignal.at(0).value<QList<MusicAudioTrack>>();
+        auto firstNewTracks = firstNewTracksSignal.at(0).value<DataTypes::ListTrackDataType>();
         const auto &secondNewTracksSignal = tracksListSpy.at(1);
-        auto secondNewTracks = secondNewTracksSignal.at(0).value<QList<MusicAudioTrack>>();
+        auto secondNewTracks = secondNewTracksSignal.at(0).value<DataTypes::ListTrackDataType>();
         auto newCovers = secondNewTracksSignal.at(1).value<QHash<QString, QUrl>>();
 
         QCOMPARE(firstNewTracks.count() + secondNewTracks.count(), 5);
@@ -180,7 +180,7 @@ private Q_SLOTS:
         QCOMPARE(removedTracksListSpy.count(), 0);
 
         auto newTracksSignal = tracksListSpy.at(0);
-        auto newTracks = newTracksSignal.at(0).value<QList<MusicAudioTrack>>();
+        auto newTracks = newTracksSignal.at(0).value<DataTypes::ListTrackDataType>();
         auto newCovers = newTracksSignal.at(1).value<QHash<QString, QUrl>>();
 
         QCOMPARE(newTracks.count(), 1);
@@ -215,7 +215,7 @@ private Q_SLOTS:
         QCOMPARE(removedTracksListSpy.count(), 1);
 
         auto newTracksSignalLast = tracksListSpy.at(1);
-        auto newTracksLast = newTracksSignalLast.at(0).value<QList<MusicAudioTrack>>();
+        auto newTracksLast = newTracksSignalLast.at(0).value<DataTypes::ListTrackDataType>();
         auto newCoversLast = newTracksSignalLast.at(1).value<QHash<QString, QUrl>>();
 
         QCOMPARE(newTracksLast.count(), 1);
@@ -274,7 +274,7 @@ private Q_SLOTS:
         QCOMPARE(removedTracksListSpy.count(), 0);
 
         auto newTracksSignal = tracksListSpy.at(0);
-        auto newTracks = newTracksSignal.at(0).value<QList<MusicAudioTrack>>();
+        auto newTracks = newTracksSignal.at(0).value<DataTypes::ListTrackDataType>();
         auto newCovers = newTracksSignal.at(1).value<QHash<QString, QUrl>>();
 
         QCOMPARE(newTracks.count(), 1);
@@ -309,7 +309,7 @@ private Q_SLOTS:
         QCOMPARE(removedTracksListSpy.count(), 1);
 
         auto newTracksSignalLast = tracksListSpy.at(1);
-        auto newTracksLast = newTracksSignalLast.at(0).value<QList<MusicAudioTrack>>();
+        auto newTracksLast = newTracksSignalLast.at(0).value<DataTypes::ListTrackDataType>();
         auto newCoversLast = newTracksSignalLast.at(1).value<QHash<QString, QUrl>>();
 
         QCOMPARE(newTracksLast.count(), 1);
@@ -378,7 +378,7 @@ private Q_SLOTS:
         QCOMPARE(modifiedTracksListSpy.count(), 0);
 
         auto newTracksSignal = tracksListSpy.at(0);
-        auto newTracks = newTracksSignal.at(0).value<QList<MusicAudioTrack>>();
+        auto newTracks = newTracksSignal.at(0).value<DataTypes::ListTrackDataType>();
         auto newCovers = newTracksSignal.at(1).value<QHash<QString, QUrl>>();
 
         QCOMPARE(newTracks.count(), 1);

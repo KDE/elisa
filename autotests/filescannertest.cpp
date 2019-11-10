@@ -72,7 +72,7 @@ private Q_SLOTS:
         auto scannedTrack = fileScanner.scanOneFile(QUrl::fromLocalFile(QStringLiteral(LOCAL_FILE_TESTS_SAMPLE_FILES_PATH) + QStringLiteral("/music/test.ogg")), mimeDb);
         QCOMPARE(scannedTrack.title(), QStringLiteral("Title"));
         QCOMPARE(scannedTrack.genre(), QStringLiteral("Genre"));
-        QCOMPARE(scannedTrack.albumName(), QStringLiteral("Test"));
+        QCOMPARE(scannedTrack.album(), QStringLiteral("Test"));
         QCOMPARE(scannedTrack.artist(), QStringLiteral("Artist"));
     }
 

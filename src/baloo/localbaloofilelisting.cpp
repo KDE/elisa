@@ -19,7 +19,6 @@
 
 #include "baloo/baloocommon.h"
 
-#include "musicaudiotrack.h"
 #include "elisa_settings.h"
 #include "elisautils.h"
 
@@ -62,8 +61,6 @@ class LocalBalooFileListingPrivate
 public:
 
     Baloo::Query mQuery;
-
-    QHash<QString, QVector<MusicAudioTrack>> mAllAlbums;
 
     QDBusServiceWatcher mServiceWatcher;
 
@@ -318,7 +315,7 @@ void LocalBalooFileListing::triggerRefreshOfContent()
     auto singleRootPath = rootPaths.at(0);
 
     auto resultIterator = d->mQuery.exec();
-    auto newFiles = QList<MusicAudioTrack>();
+    auto newFiles = DataTypes::ListTrackDataType();
 
     while(resultIterator.next() && d->mStopRequest == 0) {
         const auto &fileName = resultIterator.filePath();
@@ -392,34 +389,32 @@ void LocalBalooFileListing::triggerRefreshOfContent()
     }
 }
 
-MusicAudioTrack LocalBalooFileListing::scanOneFile(const QUrl &scanFile, const QFileInfo &scanFileInfo)
+DataTypes::TrackDataType LocalBalooFileListing::scanOneFile(const QUrl &scanFile, const QFileInfo &scanFileInfo)
 {
-    auto newTrack = MusicAudioTrack();
+    DataTypes::TrackDataType trackData;
 
     auto localFileName = scanFile.toLocalFile();
 
     Baloo::File match(localFileName);
 
     match.load();
+    fileScanner().scanProperties(match, trackData);
+    trackData[DataTypes::FileModificationTime] = scanFileInfo.metadataChangeTime();
+    trackData[DataTypes::ResourceRole] = scanFile;
 
-    newTrack.setFileModificationTime(scanFileInfo.metadataChangeTime());
-    newTrack.setResourceURI(scanFile);
-
-    fileScanner().scanProperties(match, newTrack);
-
-    if (!newTrack.isValid()) {
+    if (!trackData.isValid()) {
         qCDebug(orgKdeElisaBaloo) << "LocalBalooFileListing::scanOneFile" << scanFile << "falling back to plain file metadata analysis";
-        newTrack = AbstractFileListing::scanOneFile(scanFile, scanFileInfo);
+        trackData = AbstractFileListing::scanOneFile(scanFile, scanFileInfo);
     }
 
-    if (newTrack.isValid()) {
-        newTrack.setHasEmbeddedCover(checkEmbeddedCoverImage(localFileName));
-        addCover(newTrack);
+    if (trackData.isValid()) {
+        trackData[DataTypes::HasEmbeddedCover] = checkEmbeddedCoverImage(localFileName);
+        addCover(trackData);
     } else {
         qCDebug(orgKdeElisaBaloo) << "LocalBalooFileListing::scanOneFile" << scanFile << "invalid track";
     }
 
-    return newTrack;
+    return trackData;
 }
 
 

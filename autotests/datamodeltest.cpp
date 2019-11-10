@@ -80,7 +80,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        musicDb.insertTracksList(mNewTracks, mNewCovers);
+        musicDb.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -147,7 +147,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        musicDb.insertTracksList(mNewTracks, mNewCovers);
+        musicDb.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -228,7 +228,7 @@ private Q_SLOTS:
             newFiles.push_back(oneTrack.resourceURI());
         }
 
-        musicDb.insertTracksList(mNewTracks, mNewCovers);
+        musicDb.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -268,7 +268,7 @@ private Q_SLOTS:
             newFiles2.push_back(oneTrack.resourceURI());
         }
 
-        musicDb.insertTracksList(newTracks, mNewCovers);
+        musicDb.insertTracksList(MusicAudioTrack::tracksToListData(newTracks), mNewCovers);
 
         QCOMPARE(albumsModel.rowCount(), 5);
         QCOMPARE(beginInsertRowsSpy.count(), 2);
@@ -296,7 +296,7 @@ private Q_SLOTS:
             newFiles3.push_back(oneTrack.resourceURI());
         }
 
-        musicDb.insertTracksList(secondNewTracks, mNewCovers);
+        musicDb.insertTracksList(MusicAudioTrack::tracksToListData(secondNewTracks), mNewCovers);
 
         QCOMPARE(albumsModel.rowCount(), 6);
         QCOMPARE(beginInsertRowsSpy.count(), 3);
@@ -344,7 +344,7 @@ private Q_SLOTS:
             newFiles.push_back(oneTrack.resourceURI());
         }
 
-        musicDb.insertTracksList(mNewTracks, mNewCovers);
+        musicDb.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -378,7 +378,7 @@ private Q_SLOTS:
                 QUrl::fromLocalFile(QStringLiteral("album1")), 5, true,
         {}, QStringLiteral("composer1"), QStringLiteral("lyricist1"), false};
 
-        musicDb.insertTracksList({modifiedTrack}, mNewCovers);
+        musicDb.insertTracksList({modifiedTrack.toTrackData()}, mNewCovers);
 
         QCOMPARE(albumsModel.rowCount(), 4);
         QCOMPARE(beginInsertRowsSpy.count(), 1);
@@ -429,7 +429,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        musicDb.insertTracksList(mNewTracks, mNewCovers);
+        musicDb.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
 
         QCOMPARE(beginInsertRowsSpy.count(), 1);
         QCOMPARE(endInsertRowsSpy.count(), 1);
@@ -490,7 +490,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        musicDb.insertTracksList(mNewTracks, mNewCovers);
+        musicDb.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
 
         QCOMPARE(beginInsertRowsSpy.count(), 1);
         QCOMPARE(endInsertRowsSpy.count(), 1);
@@ -558,7 +558,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        musicDb.insertTracksList(mNewTracks, mNewCovers);
+        musicDb.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
 
         QCOMPARE(beginInsertRowsSpy.count(), 1);
         QCOMPARE(endInsertRowsSpy.count(), 1);
@@ -577,7 +577,7 @@ private Q_SLOTS:
         auto newTracks = QList<MusicAudioTrack>();
         newTracks.push_back(newTrack);
 
-        musicDb.insertTracksList(newTracks, mNewCovers);
+        musicDb.insertTracksList(MusicAudioTrack::tracksToListData(newTracks), mNewCovers);
 
         QCOMPARE(beginInsertRowsSpy.count(), 2);
         QCOMPARE(endInsertRowsSpy.count(), 2);
@@ -629,7 +629,7 @@ private Q_SLOTS:
             newFiles.push_back(oneTrack.resourceURI());
         }
 
-        musicDb.insertTracksList(mNewTracks, mNewCovers);
+        musicDb.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
 
         QCOMPARE(beginInsertRowsSpy.count(), 1);
         QCOMPARE(endInsertRowsSpy.count(), 1);
@@ -657,7 +657,7 @@ private Q_SLOTS:
             newFiles2.push_back(oneTrack.resourceURI());
         }
 
-        musicDb.insertTracksList(newTracks, newCovers);
+        musicDb.insertTracksList(MusicAudioTrack::tracksToListData(newTracks), newCovers);
 
         QCOMPARE(beginInsertRowsSpy.count(), 2);
         QCOMPARE(endInsertRowsSpy.count(), 2);
@@ -703,7 +703,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        musicDb.insertTracksList(mNewTracks, mNewCovers);
+        musicDb.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
 
         QCOMPARE(beginInsertRowsSpy.count(), 1);
         QCOMPARE(endInsertRowsSpy.count(), 1);
@@ -722,7 +722,7 @@ private Q_SLOTS:
         auto newTracks = QList<MusicAudioTrack>();
         newTracks.push_back(newTrack);
 
-        musicDb.insertTracksList(newTracks, mNewCovers);
+        musicDb.insertTracksList(MusicAudioTrack::tracksToListData(newTracks), mNewCovers);
 
         QCOMPARE(beginInsertRowsSpy.count(), 1);
         QCOMPARE(endInsertRowsSpy.count(), 1);
@@ -807,7 +807,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        musicDb.insertTracksList(mNewTracks, mNewCovers);
+        musicDb.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
 
         QCOMPARE(beginInsertRowsSpy.count(), 1);
         QCOMPARE(endInsertRowsSpy.count(), 1);
@@ -827,7 +827,7 @@ private Q_SLOTS:
         auto newTracks = QList<MusicAudioTrack>();
         newTracks.push_back(newTrack);
 
-        musicDb.insertTracksList(newTracks, mNewCovers);
+        musicDb.insertTracksList(MusicAudioTrack::tracksToListData(newTracks), mNewCovers);
 
         QCOMPARE(beginInsertRowsSpy.count(), 2);
         QCOMPARE(endInsertRowsSpy.count(), 2);
@@ -873,7 +873,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        musicDb.insertTracksList(mNewTracks, mNewCovers);
+        musicDb.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
 
         QCOMPARE(albumsModel.rowCount(), 5);
         QCOMPARE(beginInsertRowsSpy.count(), 1);
@@ -934,7 +934,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        musicDb.insertTracksList(mNewTracks, mNewCovers);
+        musicDb.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
 
         QCOMPARE(albumsModel.rowCount(), 5);
         QCOMPARE(beginInsertRowsSpy.count(), 1);
@@ -1000,7 +1000,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        musicDb.insertTracksList(mNewTracks, mNewCovers);
+        musicDb.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
 
         QCOMPARE(beginInsertRowsSpy.count(), 1);
         QCOMPARE(endInsertRowsSpy.count(), 1);
@@ -1017,7 +1017,7 @@ private Q_SLOTS:
         auto newTracks = QList<MusicAudioTrack>();
         newTracks.push_back(newTrack);
 
-        musicDb.insertTracksList(newTracks, mNewCovers);
+        musicDb.insertTracksList(MusicAudioTrack::tracksToListData(newTracks), mNewCovers);
 
         QCOMPARE(beginInsertRowsSpy.count(), 1);
         QCOMPARE(endInsertRowsSpy.count(), 1);
@@ -1067,7 +1067,7 @@ private Q_SLOTS:
             newFiles.push_back(oneTrack.resourceURI());
         }
 
-        musicDb.insertTracksList(mNewTracks, mNewCovers);
+        musicDb.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
 
         QCOMPARE(beginInsertRowsSpy.count(), 1);
         QCOMPARE(endInsertRowsSpy.count(), 1);
@@ -1088,7 +1088,7 @@ private Q_SLOTS:
         auto newCovers = QHash<QString, QUrl>();
         newCovers[QStringLiteral("album5")] = newCover;
 
-        musicDb.insertTracksList(newTracks, newCovers);
+        musicDb.insertTracksList(MusicAudioTrack::tracksToListData(newTracks), newCovers);
 
         QCOMPARE(beginInsertRowsSpy.count(), 2);
         QCOMPARE(endInsertRowsSpy.count(), 2);
@@ -1133,7 +1133,7 @@ private Q_SLOTS:
             newFiles.push_back(oneTrack.resourceURI());
         }
 
-        musicDb.insertTracksList(mNewTracks, mNewCovers);
+        musicDb.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
 
         QCOMPARE(artistsModel.rowCount(), 7);
         QCOMPARE(beginInsertRowsSpy.count(), 1);
@@ -1192,7 +1192,7 @@ private Q_SLOTS:
             newFiles.push_back(oneTrack.resourceURI());
         }
 
-        musicDb.insertTracksList(mNewTracks, mNewCovers);
+        musicDb.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
 
         QCOMPARE(artistsModel.rowCount(), 7);
         QCOMPARE(beginInsertRowsSpy.count(), 1);
@@ -1215,7 +1215,7 @@ private Q_SLOTS:
             newFiles2.push_back(oneTrack.resourceURI());
         }
 
-        musicDb.insertTracksList(newTracks, mNewCovers);
+        musicDb.insertTracksList(MusicAudioTrack::tracksToListData(newTracks), mNewCovers);
 
         QCOMPARE(artistsModel.rowCount(), 8);
         QCOMPARE(beginInsertRowsSpy.count(), 2);
@@ -1272,7 +1272,7 @@ private Q_SLOTS:
             newFiles.push_back(oneTrack.resourceURI());
         }
 
-        musicDb.insertTracksList(mNewTracks, mNewCovers);
+        musicDb.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
 
         QCOMPARE(artistsModel.rowCount(), 1);
         QCOMPARE(beginInsertRowsSpy.count(), 1);
@@ -1331,7 +1331,7 @@ private Q_SLOTS:
             newFiles.push_back(oneTrack.resourceURI());
         }
 
-        musicDb.insertTracksList(mNewTracks, mNewCovers);
+        musicDb.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
 
         QCOMPARE(artistsModel.rowCount(), 4);
         QCOMPARE(beginInsertRowsSpy.count(), 1);
@@ -1391,7 +1391,7 @@ private Q_SLOTS:
             newFiles.push_back(oneTrack.resourceURI());
         }
 
-        musicDb.insertTracksList(mNewTracks, mNewCovers);
+        musicDb.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
 
         QCOMPARE(artistsModel.rowCount(), 2);
         QCOMPARE(beginInsertRowsSpy.count(), 1);
@@ -1433,7 +1433,7 @@ private Q_SLOTS:
         QCOMPARE(modelResetSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        musicDb.insertTracksList(mNewTracks, mNewCovers);
+        musicDb.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
 
         QCOMPARE(artistsModel.rowCount(), 0);
         QCOMPARE(beginInsertRowsSpy.count(), 0);
@@ -1482,7 +1482,7 @@ private Q_SLOTS:
         newCovers[QStringLiteral("file:///$31")] = QUrl::fromLocalFile(QStringLiteral("album1"));
         newCovers[QStringLiteral("file:///$32")] = QUrl::fromLocalFile(QStringLiteral("album3"));
 
-        musicDb.insertTracksList(newTracks, newCovers);
+        musicDb.insertTracksList(MusicAudioTrack::tracksToListData(newTracks), newCovers);
 
         QCOMPARE(artistsModel.rowCount(), 5);
         QCOMPARE(beginInsertRowsSpy.count(), 2);
@@ -1527,7 +1527,7 @@ private Q_SLOTS:
             newFiles.push_back(oneTrack.resourceURI());
         }
 
-        musicDb.insertTracksList(mNewTracks, mNewCovers);
+        musicDb.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -1567,7 +1567,7 @@ private Q_SLOTS:
             newFiles2.push_back(oneTrack.resourceURI());
         }
 
-        musicDb.insertTracksList(newTracks, mNewCovers);
+        musicDb.insertTracksList(MusicAudioTrack::tracksToListData(newTracks), mNewCovers);
 
         QCOMPARE(albumsModel.rowCount(), 5);
         QCOMPARE(beginInsertRowsSpy.count(), 2);

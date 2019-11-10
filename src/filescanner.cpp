@@ -42,11 +42,34 @@
 #include <QFileInfo>
 #include <QLocale>
 #include <QDir>
+#include <QHash>
 
+#if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
+
+static const QHash<KFileMetaData::Property::Property, DataTypes::ColumnsRoles> propertyTranslation = {
+    {KFileMetaData::Property::Artist, DataTypes::ColumnsRoles::ArtistRole},
+    {KFileMetaData::Property::AlbumArtist, DataTypes::ColumnsRoles::AlbumArtistRole},
+    {KFileMetaData::Property::Genre, DataTypes::ColumnsRoles::GenreRole},
+    {KFileMetaData::Property::Composer, DataTypes::ColumnsRoles::ComposerRole},
+    {KFileMetaData::Property::Lyricist, DataTypes::ColumnsRoles::LyricistRole},
+    {KFileMetaData::Property::Title, DataTypes::ColumnsRoles::TitleRole},
+    {KFileMetaData::Property::Album, DataTypes::ColumnsRoles::AlbumRole},
+    {KFileMetaData::Property::TrackNumber, DataTypes::ColumnsRoles::TrackNumberRole},
+    {KFileMetaData::Property::DiscNumber, DataTypes::ColumnsRoles::DiscNumberRole},
+    {KFileMetaData::Property::ReleaseYear, DataTypes::ColumnsRoles::YearRole},
+    {KFileMetaData::Property::Lyrics, DataTypes::ColumnsRoles::LyricsRole},
+    {KFileMetaData::Property::Comment, DataTypes::ColumnsRoles::CommentRole},
+    {KFileMetaData::Property::Rating, DataTypes::ColumnsRoles::RatingRole},
+    {KFileMetaData::Property::Channels, DataTypes::ColumnsRoles::ChannelsRole},
+    {KFileMetaData::Property::SampleRate, DataTypes::ColumnsRoles::SampleRateRole},
+    {KFileMetaData::Property::BitRate, DataTypes::ColumnsRoles::BitRateRole},
+    {KFileMetaData::Property::Duration, DataTypes::ColumnsRoles::DurationRole},
+};
+
+#endif
 class FileScannerPrivate
 {
 public:
-    static const QStringList constSearchStrings;
 #if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
     KFileMetaData::ExtractorCollection mAllExtractors;
 
@@ -57,7 +80,7 @@ public:
 
 };
 
-const QStringList FileScannerPrivate::constSearchStrings = {
+static const QStringList constSearchStrings = {
     QStringLiteral("*[Cc]over*.jpg"),
     QStringLiteral("*[Cc]over*.png"),
     QStringLiteral("*[Ff]older*.jpg"),
@@ -72,16 +95,17 @@ FileScanner::FileScanner() : d(std::make_unique<FileScannerPrivate>())
 
 FileScanner::~FileScanner() = default;
 
-MusicAudioTrack FileScanner::scanOneFile(const QUrl &scanFile, const QMimeDatabase &mimeDatabase)
+DataTypes::TrackDataType FileScanner::scanOneFile(const QUrl &scanFile, const QMimeDatabase &mimeDatabase)
 {
-    MusicAudioTrack newTrack;
+
+    DataTypes::TrackDataType newTrack;
 
     auto localFileName = scanFile.toLocalFile();
 
     QFileInfo scanFileInfo(localFileName);
-    newTrack.setFileModificationTime(scanFileInfo.metadataChangeTime());
-    newTrack.setResourceURI(scanFile);
-    newTrack.setRating(0);
+    newTrack[DataTypes::FileModificationTime] = scanFileInfo.metadataChangeTime();
+    newTrack[DataTypes::ResourceRole] = scanFile;
+    newTrack[DataTypes::RatingRole] = 0;
 
 #if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
     const auto &fileMimeType = mimeDatabase.mimeTypeForFile(localFileName);
@@ -109,10 +133,8 @@ MusicAudioTrack FileScanner::scanOneFile(const QUrl &scanFile, const QMimeDataba
 
     qCDebug(orgKdeElisaIndexer()) << "scanOneFile" << scanFile << "using KFileMetaData" << newTrack;
 #else
+    Q_UNUSED(scanFile)
     Q_UNUSED(mimeDatabase)
-
-    newTrack.setTitle(scanFileInfo.fileName());
-    newTrack.setValid(true);
 
     qCDebug(orgKdeElisaIndexer()) << "scanOneFile" << scanFile << "no metadata provider" << newTrack;
 #endif
@@ -120,7 +142,7 @@ MusicAudioTrack FileScanner::scanOneFile(const QUrl &scanFile, const QMimeDataba
     return newTrack;
 }
 
-void FileScanner::scanProperties(const Baloo::File &match, MusicAudioTrack &trackData)
+void FileScanner::scanProperties(const Baloo::File &match, DataTypes::TrackDataType &trackData)
 {
 #if defined KF5Baloo_FOUND && KF5Baloo_FOUND
     d->mAllProperties = match.properties();
@@ -135,7 +157,7 @@ void FileScanner::scanProperties(const Baloo::File &match, MusicAudioTrack &trac
 #endif
 }
 
-void FileScanner::scanProperties(const QString &localFileName, MusicAudioTrack &trackData)
+void FileScanner::scanProperties(const QString &localFileName, DataTypes::TrackDataType &trackData)
 {
 #if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
     if (d->mAllProperties.isEmpty()) {
@@ -163,61 +185,11 @@ void FileScanner::scanProperties(const QString &localFileName, MusicAudioTrack &
                 value = QLocale().createSeparatedList(value.toStringList());
             }
         }
-        switch (key)
-        {
-        case KFileMetaData::Property::Artist:
-            trackData.setArtist(value.toString());
-            break;
-        case KFileMetaData::Property::AlbumArtist:
-            trackData.setAlbumArtist(value.toString());
-            break;
-        case KFileMetaData::Property::Genre:
-            trackData.setGenre(value.toString());
-            break;
-        case KFileMetaData::Property::Composer:
-            trackData.setComposer(value.toString());
-            break;
-        case KFileMetaData::Property::Lyricist:
-            trackData.setLyricist(value.toString());
-            break;
-        case KFileMetaData::Property::Title:
-            trackData.setTitle(value.toString());
-            break;
-        case KFileMetaData::Property::Duration:
-            trackData.setDuration(QTime::fromMSecsSinceStartOfDay(int(1000 * value.toDouble())));
-            break;
-        case KFileMetaData::Property::Album:
-            trackData.setAlbumName(value.toString());
-            break;
-        case KFileMetaData::Property::TrackNumber:
-            trackData.setTrackNumber(value.toInt());
-            break;
-        case KFileMetaData::Property::DiscNumber:
-            trackData.setDiscNumber(value.toInt());
-            break;
-        case KFileMetaData::Property::ReleaseYear:
-            trackData.setYear(value.toInt());
-            break;
-        case KFileMetaData::Property::Lyrics:
-            trackData.setLyrics(value.toString());
-            break;
-        case KFileMetaData::Property::Channels:
-            trackData.setChannels(value.toInt());
-            break;
-        case KFileMetaData::Property::BitRate:
-            trackData.setBitRate(value.toInt());
-            break;
-        case KFileMetaData::Property::SampleRate:
-            trackData.setSampleRate(value.toInt());
-            break;
-        case KFileMetaData::Property::Comment:
-            trackData.setComment(value.toString());
-            break;
-        case KFileMetaData::Property::Rating:
-            trackData.setRating(value.toInt());
-            break;
-        default:
-            break;
+        auto translatedKey = propertyTranslation.find(key);
+        if (translatedKey.value() == DataTypes::DurationRole) {
+            trackData.insert(translatedKey.value(), QTime::fromMSecsSinceStartOfDay(int(1000 * (*rangeBegin).second.toDouble())));
+        } else if (translatedKey != propertyTranslation.end()) {
+            trackData.insert(translatedKey.value(), (*rangeBegin).second);
         }
         rangeBegin = rangeEnd;
     }
@@ -226,20 +198,15 @@ void FileScanner::scanProperties(const QString &localFileName, MusicAudioTrack &
     auto fileData = KFileMetaData::UserMetaData(localFileName);
     QString comment = fileData.userComment();
     if (!comment.isEmpty()) {
-        trackData.setComment(comment);
+        trackData[DataTypes::CommentRole] = comment;
     }
 
     int rating = fileData.rating();
     if (rating >= 0) {
-        trackData.setRating(rating);
+        trackData[DataTypes::RatingRole] = rating;
     }
 #endif
 
-    if (!trackData.duration().isValid()) {
-        return;
-    }
-
-    trackData.setValid(true);
 #else
     Q_UNUSED(localFileName)
     Q_UNUSED(trackData)
@@ -251,7 +218,7 @@ QUrl FileScanner::searchForCoverFile(const QString &localFileName)
     QFileInfo trackFilePath(localFileName);
     QDir trackFileDir = trackFilePath.absoluteDir();
     trackFileDir.setFilter(QDir::Files);
-    trackFileDir.setNameFilters(d->constSearchStrings);
+    trackFileDir.setNameFilters(constSearchStrings);
     QFileInfoList coverFiles = trackFileDir.entryInfoList();
     if (coverFiles.isEmpty()) {
         QString dirNamePattern = QLatin1String("*") + trackFileDir.dirName() + QLatin1String("*");

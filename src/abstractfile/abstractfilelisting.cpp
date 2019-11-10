@@ -21,7 +21,6 @@
 
 #include "abstractfile/indexercommon.h"
 
-#include "musicaudiotrack.h"
 #include "filescanner.h"
 
 #include <QThread>
@@ -88,7 +87,7 @@ void AbstractFileListing::init()
     Q_EMIT askRestoredTracks();
 }
 
-void AbstractFileListing::newTrackFile(const MusicAudioTrack &partialTrack)
+void AbstractFileListing::newTrackFile(const DataTypes::TrackDataType &partialTrack)
 {
     auto scanFileInfo = QFileInfo(partialTrack.resourceURI().toLocalFile());
     const auto &newTrack = scanOneFile(partialTrack.resourceURI(), scanFileInfo);
@@ -143,7 +142,7 @@ const QStringList &AbstractFileListing::allRootPaths() const
     return d->mAllRootPaths;
 }
 
-void AbstractFileListing::scanDirectory(QList<MusicAudioTrack> &newFiles, const QUrl &path)
+void AbstractFileListing::scanDirectory(DataTypes::ListTrackDataType &newFiles, const QUrl &path)
 {
     if (d->mStopRequest == 1) {
         return;
@@ -291,9 +290,9 @@ void AbstractFileListing::refreshContent()
     triggerRefreshOfContent();
 }
 
-MusicAudioTrack AbstractFileListing::scanOneFile(const QUrl &scanFile, const QFileInfo &scanFileInfo)
+DataTypes::TrackDataType AbstractFileListing::scanOneFile(const QUrl &scanFile, const QFileInfo &scanFileInfo)
 {
-    MusicAudioTrack newTrack;
+    DataTypes::TrackDataType newTrack;
 
     qCDebug(orgKdeElisaIndexer) << "AbstractFileListing::scanOneFile" << scanFile;
 
@@ -317,8 +316,8 @@ MusicAudioTrack AbstractFileListing::scanOneFile(const QUrl &scanFile, const QFi
     newTrack = d->mFileScanner.scanOneFile(scanFile, d->mMimeDb);
 
     if (newTrack.isValid()) {
-        newTrack.setHasEmbeddedCover(checkEmbeddedCoverImage(localFileName));
-        newTrack.setFileModificationTime(scanFileInfo.metadataChangeTime());
+        newTrack[DataTypes::HasEmbeddedCover] = checkEmbeddedCoverImage(localFileName);
+        newTrack[DataTypes::FileModificationTime] = scanFileInfo.metadataChangeTime();
 
         if (scanFileInfo.exists()) {
             watchPath(scanFile.toLocalFile());
@@ -368,7 +367,7 @@ void AbstractFileListing::addFileInDirectory(const QUrl &newFile, const QUrl &di
 
 void AbstractFileListing::scanDirectoryTree(const QString &path)
 {
-    auto newFiles = QList<MusicAudioTrack>();
+    auto newFiles = DataTypes::ListTrackDataType();
 
     qCDebug(orgKdeElisaIndexer()) << "AbstractFileListing::scanDirectoryTree" << path;
 
@@ -384,14 +383,14 @@ void AbstractFileListing::setHandleNewFiles(bool handleThem)
     d->mHandleNewFiles = handleThem;
 }
 
-void AbstractFileListing::emitNewFiles(const QList<MusicAudioTrack> &tracks)
+void AbstractFileListing::emitNewFiles(const DataTypes::ListTrackDataType &tracks)
 {
     Q_EMIT tracksList(tracks, d->mAllAlbumCover);
 }
 
-void AbstractFileListing::addCover(const MusicAudioTrack &newTrack)
+void AbstractFileListing::addCover(const DataTypes::TrackDataType &newTrack)
 {
-    auto itCover = d->mAllAlbumCover.find(newTrack.albumName());
+    auto itCover = d->mAllAlbumCover.find(newTrack.album());
     if (itCover != d->mAllAlbumCover.end()) {
         return;
     }

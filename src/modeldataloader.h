@@ -116,9 +116,6 @@ public Q_SLOTS:
     void loadDataByDatabaseId(ElisaUtils::PlayListEntryType dataType,
                               qulonglong databaseId);
 
-    void loadDataByFileName(ElisaUtils::PlayListEntryType dataType,
-                            const QUrl &fileName);
-
     void loadRecentlyPlayedData(ElisaUtils::PlayListEntryType dataType);
 
     void loadFrequentlyPlayedData(ElisaUtils::PlayListEntryType dataType);

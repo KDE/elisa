@@ -43,7 +43,6 @@ public:
         ChildModelRole,
         DurationRole,
         StringDurationRole,
-        MilliSecondsDurationRole,
         ArtistRole,
         AllArtistsRole,
         HighestTrackRating,
@@ -94,7 +93,7 @@ public:
 
         bool isValid() const
         {
-            return !isEmpty();
+            return !isEmpty() && duration().isValid();
         }
 
         qulonglong databaseId() const
@@ -130,6 +129,11 @@ public:
         QString albumArtist() const
         {
             return operator[](key_type::AlbumArtistRole).toString();
+        }
+
+        bool hasAlbumArtist() const
+        {
+            return find(key_type::AlbumArtistRole) != end();
         }
 
         bool hasTrackNumber() const
@@ -212,15 +216,31 @@ public:
             return operator[](key_type::ChannelsRole).toInt();
         }
 
+        bool hasChannels() const
+        {
+            return find(key_type::ChannelsRole) != end();
+        }
+
         int bitRate() const
         {
             return operator[](key_type::BitRateRole).toInt();
+        }
+
+        bool hasBitRate() const
+        {
+            return find(key_type::BitRateRole) != end();
         }
 
         int sampleRate() const
         {
             return operator[](key_type::SampleRateRole).toInt();
         }
+
+        bool hasSampleRate() const
+        {
+            return find(key_type::SampleRateRole) != end();
+        }
+
 
         bool hasEmbeddedCover() const
         {

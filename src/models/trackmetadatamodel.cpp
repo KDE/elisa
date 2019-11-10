@@ -170,7 +170,6 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
         case DataTypes::ShadowForImageRole:
         case DataTypes::ChildModelRole:
         case DataTypes::StringDurationRole:
-        case DataTypes::MilliSecondsDurationRole:
         case DataTypes::IsValidAlbumArtistRole:
         case DataTypes::AllArtistsRole:
         case DataTypes::HighestTrackRating:
@@ -248,7 +247,6 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
         case DataTypes::ShadowForImageRole:
         case DataTypes::ChildModelRole:
         case DataTypes::StringDurationRole:
-        case DataTypes::MilliSecondsDurationRole:
         case DataTypes::IsValidAlbumArtistRole:
         case DataTypes::AllArtistsRole:
         case DataTypes::HighestTrackRating:
@@ -437,6 +435,10 @@ void TrackMetadataModel::initialize(MusicListenersManager *newManager, DatabaseI
 
     if (mManager) {
         mDataLoader.setDatabase(mManager->viewDatabase());
+        connect(this, &TrackMetadataModel::needDataByFileName,
+                mManager->tracksListener(), &TracksListener::trackByFileNameInList);
+        connect(mManager->tracksListener(), &TracksListener::trackHasChanged,
+                this, &TrackMetadataModel::trackData);
     } else if (trackDatabase) {
         mDataLoader.setDatabase(trackDatabase);
     }
@@ -447,8 +449,6 @@ void TrackMetadataModel::initialize(MusicListenersManager *newManager, DatabaseI
 
     connect(this, &TrackMetadataModel::needDataByDatabaseId,
             &mDataLoader, &ModelDataLoader::loadDataByDatabaseId);
-    connect(this, &TrackMetadataModel::needDataByFileName,
-            &mDataLoader, &ModelDataLoader::loadDataByFileName);
     connect(this, &TrackMetadataModel::saveRadioData,
             &mDataLoader, &ModelDataLoader::saveRadioModified);
     connect(this, &TrackMetadataModel::deleteRadioData,
@@ -520,7 +520,7 @@ void TrackMetadataModel::initializeByTrackFileName(const QString &fileName)
 
     Q_EMIT lyricsChanged();
 
-    Q_EMIT needDataByFileName(ElisaUtils::FileName, QUrl::fromLocalFile(fileName));
+    Q_EMIT needDataByFileName(QUrl::fromLocalFile(fileName));
 }
 
 void TrackMetadataModel::setManager(MusicListenersManager *newManager)

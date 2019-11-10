@@ -39,7 +39,6 @@ class DatabaseInterfacePrivate;
 class QMutex;
 class QSqlRecord;
 class QSqlQuery;
-class MusicAudioTrack;
 
 class ELISALIB_EXPORT DatabaseInterface : public QObject
 {
@@ -137,7 +136,7 @@ Q_SIGNALS:
 
 public Q_SLOTS:
 
-    void insertTracksList(const QList<MusicAudioTrack> &tracks, const QHash<QString, QUrl> &covers);
+    void insertTracksList(const DataTypes::ListTrackDataType &tracks, const QHash<QString, QUrl> &covers);
 
     void removeTracksList(const QList<QUrl> &removedTracks);
 
@@ -174,7 +173,7 @@ private:
 
     qulonglong internalAlbumIdFromTitleAndArtist(const QString &title, const QString &artist, const QString &albumPath);
 
-    MusicAudioTrack internalTrackFromDatabaseId(qulonglong id);
+    DataTypes::TrackDataType internalTrackFromDatabaseId(qulonglong id);
 
     qulonglong internalTrackIdFromTitleAlbumTracDiscNumber(const QString &title, const QString &artist, const std::optional<QString> &album,
                                                            std::optional<int> trackNumber, std::optional<int> discNumber);
@@ -199,7 +198,7 @@ private:
                            const QString &trackPath, const QUrl &albumArtURI);
 
     bool updateAlbumFromId(qulonglong albumId, const QUrl &albumArtUri,
-                           const MusicAudioTrack &currentTrack, const QString &albumPath);
+                           const DataTypes::TrackDataType &currentTrack, const QString &albumPath);
 
     qulonglong insertArtist(const QString &name);
 
@@ -209,7 +208,7 @@ private:
 
     void removeTrackInDatabase(qulonglong trackId);
 
-    void updateTrackInDatabase(const MusicAudioTrack &oneTrack, const QString &albumPath);
+    void updateTrackInDatabase(const DataTypes::TrackDataType &oneTrack, const QString &albumPath);
 
     void removeAlbumInDatabase(qulonglong albumId);
 
@@ -223,10 +222,10 @@ private:
 
     void updateTrackOrigin(const QUrl &fileName, const QDateTime &fileModifiedTime);
 
-    qulonglong internalInsertTrack(const MusicAudioTrack &oneModifiedTrack,
+    qulonglong internalInsertTrack(const DataTypes::TrackDataType &oneModifiedTrack,
                                    const QHash<QString, QUrl> &covers, bool &isInserted);
 
-    MusicAudioTrack buildTrackFromDatabaseRecord(const QSqlRecord &trackRecord) const;
+    DataTypes::TrackDataType buildTrackFromDatabaseRecord(const QSqlRecord &trackRecord) const;
 
     DataTypes::TrackDataType buildTrackDataFromDatabaseRecord(const QSqlRecord &trackRecord) const;
 

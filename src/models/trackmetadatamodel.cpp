@@ -468,7 +468,7 @@ void TrackMetadataModel::initialize(MusicListenersManager *newManager, DatabaseI
 void TrackMetadataModel::fetchLyrics()
 {
     auto lyricicsValue = QtConcurrent::run(QThreadPool::globalInstance(), [=]() {
-        auto trackData = mFileScanner.scanOneFile(mFullData[DataTypes::ResourceRole].toUrl(), mMimeDatabase);
+        auto trackData = mFileScanner.scanOneFile(mFullData[DataTypes::ResourceRole].toUrl());
         if (!trackData.lyrics().isEmpty()) {
             return trackData.lyrics();
         }

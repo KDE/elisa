@@ -26,7 +26,6 @@
 #include <QFileInfo>
 #include <QDir>
 #include <QFileSystemWatcher>
-#include <QMimeDatabase>
 #include <QStandardPaths>
 
 #include <QDebug>

@@ -28,7 +28,6 @@
 
 #include <QUrl>
 #include <QAbstractListModel>
-#include <QMimeDatabase>
 #include <QFutureWatcher>
 
 class MusicListenersManager;
@@ -185,8 +184,6 @@ private:
     MusicListenersManager *mManager = nullptr;
 
     FileScanner mFileScanner;
-
-    QMimeDatabase mMimeDatabase;
 
     QFutureWatcher<QString> mLyricsValueWatcher;
 };

@@ -22,7 +22,6 @@
 #include "datatypes.h"
 #include "filescanner.h"
 
-#include <QMimeDatabase>
 #include <QSet>
 #include <QList>
 #include <QDebug>
@@ -45,8 +44,6 @@ public:
     DatabaseInterface *mDatabase = nullptr;
 
     FileScanner mFileScanner;
-
-    QMimeDatabase mMimeDb;
 
 };
 
@@ -162,7 +159,7 @@ void TracksListener::trackByFileNameInList(const QUrl &fileName)
 {
     auto newTrackId = d->mDatabase->trackIdFromFileName(fileName);
     if (newTrackId == 0) {
-        auto newTrack = d->mFileScanner.scanOneFile(fileName, d->mMimeDb);
+        auto newTrack = d->mFileScanner.scanOneFile(fileName);
 
         if (newTrack.isValid()) {
 

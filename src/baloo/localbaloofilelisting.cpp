@@ -131,8 +131,7 @@ void LocalBalooFileListing::newBalooFile(const QString &fileName)
         return;
     }
 
-    const auto &fileMimeType = mimeDatabase().mimeTypeForFile(fileName);
-    if (!fileMimeType.name().startsWith(QLatin1String("audio/"))) {
+    if (!fileScanner().shouldScanFile(fileName)) {
         return;
     }
 

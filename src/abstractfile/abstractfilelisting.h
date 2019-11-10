@@ -33,7 +33,6 @@
 class AbstractFileListingPrivate;
 class FileScanner;
 class QFileInfo;
-class QMimeDatabase;
 
 class ELISALIB_EXPORT AbstractFileListing : public QObject
 {
@@ -125,8 +124,6 @@ protected:
     bool waitEndTrackRemoval() const;
 
     void setWaitEndTrackRemoval(bool wait);
-
-    const QMimeDatabase& mimeDatabase() const;
 
 private:
 

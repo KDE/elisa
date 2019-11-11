@@ -373,4 +373,4 @@ Q_DECLARE_METATYPE(DataTypes::ListAlbumDataType)
 Q_DECLARE_METATYPE(DataTypes::ListArtistDataType)
 Q_DECLARE_METATYPE(DataTypes::ListGenreDataType)
 
-#endif // DATABASEINTERFACE_H
+#endif // DATATYPES_H

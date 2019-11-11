@@ -76,6 +76,7 @@ public:
         PlayFrequency,
         ElementTypeRole,
         LyricsRole,
+        FullDataRole,
     };
 
     Q_ENUM(ColumnsRoles)

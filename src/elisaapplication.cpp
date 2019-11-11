@@ -212,7 +212,7 @@ void ElisaApplication::activateRequested(const QStringList &arguments, const QSt
                 continue;
             }
 
-            realArguments.push_back(ElisaUtils::EntryData{0, {}, QUrl(oneArgument)});
+            realArguments.push_back(ElisaUtils::EntryData{{}, {}, QUrl(oneArgument)});
         }
 
         Q_EMIT enqueue(checkFileListAndMakeAbsolute(realArguments, workingDirectory),
@@ -309,10 +309,10 @@ ElisaUtils::EntryDataList ElisaApplication::checkFileListAndMakeAbsolute(const E
             }
 
             if (newFile.exists()) {
-                filesToOpen.push_back(ElisaUtils::EntryData{0, {}, QUrl::fromLocalFile(newFile.canonicalFilePath())});
+                filesToOpen.push_back(ElisaUtils::EntryData{{}, {}, QUrl::fromLocalFile(newFile.canonicalFilePath())});
             }
         } else {
-            filesToOpen.push_back(ElisaUtils::EntryData{0, {}, std::get<2>(oneFile)});
+            filesToOpen.push_back(ElisaUtils::EntryData{{}, {}, std::get<2>(oneFile)});
         }
     }
 

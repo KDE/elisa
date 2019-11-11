@@ -94,7 +94,7 @@ void FileBrowserProxyModel::enqueueToPlayList()
         for (int rowIndex = 0, maxRowCount = rowCount(); rowIndex < maxRowCount; ++rowIndex) {
             auto currentIndex = index(rowIndex, 0);
             if (!data(currentIndex, FileBrowserModel::IsDirectoryRole).toBool()) {
-                allTrackUrls.push_back({0, {}, data(currentIndex, FileBrowserModel::FileUrlRole).toUrl()});
+                allTrackUrls.push_back({{}, {}, data(currentIndex, FileBrowserModel::FileUrlRole).toUrl()});
             }
         }
         Q_EMIT filesToEnqueue(allTrackUrls,
@@ -112,7 +112,7 @@ void FileBrowserProxyModel::replaceAndPlayOfPlayList()
         for (int rowIndex = 0, maxRowCount = rowCount(); rowIndex < maxRowCount; ++rowIndex) {
             auto currentIndex = index(rowIndex, 0);
             if (!data(currentIndex, FileBrowserModel::IsDirectoryRole).toBool()) {
-                allTrackUrls.push_back({0, {}, data(currentIndex, FileBrowserModel::FileUrlRole).toUrl()});
+                allTrackUrls.push_back({{}, {}, data(currentIndex, FileBrowserModel::FileUrlRole).toUrl()});
             }
         }
         Q_EMIT filesToEnqueue(allTrackUrls,

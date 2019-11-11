@@ -107,6 +107,7 @@ QHash<int, QByteArray> DataModel::roleNames() const
     roles[static_cast<int>(DataTypes::ColumnsRoles::DiscNumberRole)] = "discNumber";
     roles[static_cast<int>(DataTypes::ColumnsRoles::RatingRole)] = "rating";
     roles[static_cast<int>(DataTypes::ColumnsRoles::IsSingleDiscAlbumRole)] = "isSingleDiscAlbum";
+    roles[static_cast<int>(DataTypes::ColumnsRoles::FullDataRole)] = "fullData";
 
     return roles;
 }
@@ -247,6 +248,31 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
         }
         break;
     }
+    case DataTypes::ColumnsRoles::FullDataRole:
+        switch (d->mModelType)
+        {
+        case ElisaUtils::Track:
+            result = QVariant::fromValue(d->mAllTrackData[index.row()]);
+            break;
+        case ElisaUtils::Radio:
+            result = QVariant::fromValue(d->mAllRadiosData[index.row()]);
+            break;
+        case ElisaUtils::Album:
+            result = QVariant::fromValue(d->mAllAlbumData[index.row()]);
+            break;
+        case ElisaUtils::Artist:
+            result = QVariant::fromValue(d->mAllArtistData[index.row()]);
+            break;
+        case ElisaUtils::Genre:
+            result = QVariant::fromValue(d->mAllGenreData[index.row()]);
+            break;
+        case ElisaUtils::Lyricist:
+        case ElisaUtils::Composer:
+        case ElisaUtils::FileName:
+        case ElisaUtils::Unknown:
+            break;
+        }
+        break;
     default:
         switch(d->mModelType)
         {

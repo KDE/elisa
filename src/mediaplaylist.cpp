@@ -112,7 +112,7 @@ QHash<int, QByteArray> MediaPlayList::roleNames() const
     roles[static_cast<int>(ColumnsRoles::ImageUrlRole)] = "imageUrl";
     roles[static_cast<int>(ColumnsRoles::ShadowForImageRole)] = "shadowForImage";
     roles[static_cast<int>(ColumnsRoles::ResourceRole)] = "trackResource";
-    roles[static_cast<int>(ColumnsRoles::TrackDataRole)] = "trackData";
+    roles[static_cast<int>(ColumnsRoles::FullDataRole)] = "trackData";
     roles[static_cast<int>(ColumnsRoles::AlbumIdRole)] = "albumId";
     roles[static_cast<int>(ColumnsRoles::AlbumSectionRole)] = "albumSection";
     roles[static_cast<int>(ColumnsRoles::ElementTypeRole)] = "entryType";
@@ -509,9 +509,9 @@ void MediaPlayList::enqueueTracksListById(const ElisaUtils::EntryDataList &newEn
 
     beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size() + newEntries.size() - 1);
     for (const auto &newTrack : newEntries) {
-        auto newMediaPlayListEntry = MediaPlayListEntry{std::get<0>(newTrack), std::get<1>(newTrack), type};
+        auto newMediaPlayListEntry = MediaPlayListEntry{std::get<0>(newTrack).databaseId(), std::get<1>(newTrack), type};
         d->mData.push_back(newMediaPlayListEntry);
-        d->mTrackData.push_back({});
+        d->mTrackData.push_back(std::get<0>(newTrack));
         Q_EMIT newEntryInList(newMediaPlayListEntry.mId, newMediaPlayListEntry.mTitle.toString(), newMediaPlayListEntry.mEntryType);
     }
     endInsertRows();
@@ -534,9 +534,9 @@ void MediaPlayList::enqueueOneEntry(const ElisaUtils::EntryData &entryData, Elis
     enqueueCommon();
 
     beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size());
-    d->mData.push_back(MediaPlayListEntry{std::get<0>(entryData), std::get<1>(entryData), type});
-    d->mTrackData.push_back({});
-    Q_EMIT newEntryInList(std::get<0>(entryData), std::get<1>(entryData), type);
+    d->mData.push_back(MediaPlayListEntry{std::get<0>(entryData).databaseId(), std::get<1>(entryData), type});
+    d->mTrackData.push_back(std::get<0>(entryData));
+    Q_EMIT newEntryInList(std::get<0>(entryData).databaseId(), std::get<1>(entryData), type);
     endInsertRows();
 
     Q_EMIT tracksCountChanged();
@@ -553,14 +553,15 @@ void MediaPlayList::enqueueMultipleEntries(const ElisaUtils::EntryDataList &entr
     for (const auto &entryData : entriesData) {
         if (std::get<2>(entryData).isValid()) {
             d->mData.push_back(MediaPlayListEntry{std::get<2>(entryData)});
+            d->mTrackData.push_back({});
         } else {
-            d->mData.push_back(MediaPlayListEntry{std::get<0>(entryData), std::get<1>(entryData), type});
+            d->mData.push_back(MediaPlayListEntry{std::get<0>(entryData).databaseId(), std::get<1>(entryData), type});
+            d->mTrackData.push_back(std::get<0>(entryData));
         }
-        d->mTrackData.push_back({});
         if (std::get<2>(entryData).isValid()) {
             Q_EMIT newUrlInList(std::get<2>(entryData), type);
         } else {
-            Q_EMIT newEntryInList(std::get<0>(entryData), std::get<1>(entryData), type);
+            Q_EMIT newEntryInList(std::get<0>(entryData).databaseId(), std::get<1>(entryData), type);
         }
     }
     endInsertRows();
@@ -712,7 +713,7 @@ void MediaPlayList::enqueue(qulonglong newEntryDatabaseId,
                             ElisaUtils::PlayListEnqueueMode enqueueMode,
                             ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
 {
-    enqueue(ElisaUtils::EntryData{newEntryDatabaseId, newEntryTitle, {}}, databaseIdType, enqueueMode, triggerPlay);
+    enqueue(ElisaUtils::EntryData{{{DataTypes::DatabaseIdRole, newEntryDatabaseId}}, newEntryTitle, {}}, databaseIdType, enqueueMode, triggerPlay);
 }
 
 void MediaPlayList::enqueue(const QUrl &entryUrl, ElisaUtils::PlayListEntryType databaseIdType,
@@ -968,6 +969,11 @@ void MediaPlayList::tracksListAdded(qulonglong newDatabaseId,
                                     ElisaUtils::PlayListEntryType databaseIdType,
                                     const ListTrackDataType &tracks)
 {
+    if (tracks.isEmpty()) {
+        qDebug() << "empty tracks list";
+        return;
+    }
+
     for (int playListIndex = 0; playListIndex < d->mData.size(); ++playListIndex) {
         auto &oneEntry = d->mData[playListIndex];
         if (oneEntry.mEntryType != databaseIdType) {

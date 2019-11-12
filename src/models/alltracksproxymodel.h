@@ -22,7 +22,6 @@
 #include "elisaLib_export.h"
 
 #include "abstractmediaproxymodel.h"
-#include "musicaudiotrack.h"
 #include "elisautils.h"
 
 class ELISALIB_EXPORT AllTracksProxyModel : public AbstractMediaProxyModel

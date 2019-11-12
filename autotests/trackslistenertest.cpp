@@ -55,7 +55,6 @@ private Q_SLOTS:
     {
         qRegisterMetaType<QHash<qulonglong,int>>("QHash<qulonglong,int>");
         qRegisterMetaType<QHash<QString,QUrl>>("QHash<QString,QUrl>");
-        qRegisterMetaType<QList<MusicAudioTrack>>("QList<MusicAudioTrack>");
         qRegisterMetaType<QVector<qlonglong>>("QVector<qlonglong>");
         qRegisterMetaType<QHash<qlonglong,int>>("QHash<qlonglong,int>");
         qRegisterMetaType<QList<QUrl>>("QList<QUrl>");
@@ -95,7 +94,7 @@ private Q_SLOTS:
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
         QCOMPARE(tracksListAddedSpy.count(), 0);
 
-        myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+        myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
         QCOMPARE(trackHasChangedSpy.count(), 0);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
@@ -217,7 +216,7 @@ private Q_SLOTS:
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
         QCOMPARE(tracksListAddedSpy.count(), 0);
 
-        myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+        myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
         QCOMPARE(trackHasChangedSpy.count(), 0);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
@@ -284,7 +283,7 @@ private Q_SLOTS:
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
         QCOMPARE(tracksListAddedSpy.count(), 0);
 
-        myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+        myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
         QCOMPARE(trackHasChangedSpy.count(), 0);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
@@ -363,7 +362,7 @@ private Q_SLOTS:
         QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::TrackNumberRole).toInt(), -1);
         QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::DiscNumberRole).toInt(), 0);
 
-        myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+        myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
         QCOMPARE(trackHasChangedSpy.count(), 1);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
@@ -417,7 +416,7 @@ private Q_SLOTS:
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
         QCOMPARE(tracksListAddedSpy.count(), 0);
 
-        myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+        myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
         QCOMPARE(trackHasChangedSpy.count(), 0);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
@@ -440,14 +439,14 @@ private Q_SLOTS:
         QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::TrackNumberRole).toInt(), 1);
         QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::DiscNumberRole).toInt(), 1);
 
-        myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData({
+        myDatabaseContent.insertTracksList({
                                                {true, QStringLiteral("$1"), QStringLiteral("0"), QStringLiteral("track1"),
                                                 QStringLiteral("artist1"), QStringLiteral("album1"), QStringLiteral("Various Artists"),
                                                 2, 3, QTime::fromMSecsSinceStartOfDay(1000), {QUrl::fromLocalFile(QStringLiteral("/$1"))},
                                                 QDateTime::fromMSecsSinceEpoch(1),
                                                 {QUrl::fromLocalFile(QStringLiteral("file://image$1"))}, 1, false,
                                                 {}, {}, QStringLiteral("lyricist1"), false}
-                                           }), mNewCovers);
+                                           }, mNewCovers);
 
         QCOMPARE(trackHasChangedSpy.count(), 2);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);

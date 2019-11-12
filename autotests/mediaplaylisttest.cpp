@@ -20,7 +20,6 @@
 
 #include "mediaplaylist.h"
 #include "databaseinterface.h"
-#include "musicaudiotrack.h"
 #include "trackslistener.h"
 
 #include "config-upnp-qt.h"
@@ -40,7 +39,6 @@ MediaPlayListTest::MediaPlayListTest(QObject *parent) : QObject(parent)
 void MediaPlayListTest::initTestCase()
 {
     qRegisterMetaType<QHash<QString,QUrl>>("QHash<QString,QUrl>");
-    qRegisterMetaType<QHash<QString,QVector<MusicAudioTrack>>>("QHash<QString,QVector<MusicAudioTrack>>");
     qRegisterMetaType<QVector<qlonglong>>("QVector<qlonglong>");
     qRegisterMetaType<QHash<qlonglong,int>>("QHash<qlonglong,int>");
     qRegisterMetaType<ElisaUtils::PlayListEntryType>("PlayListEntryType");
@@ -96,7 +94,7 @@ void MediaPlayListTest::simpleInitialCase()
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -187,7 +185,7 @@ void MediaPlayListTest::enqueueAlbumCase()
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -316,7 +314,7 @@ void MediaPlayListTest::clearPlayListCase()
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -466,7 +464,7 @@ void MediaPlayListTest::undoClearPlayListCase()
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -675,7 +673,7 @@ void MediaPlayListTest::undoReplacePlayListCase()
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -904,7 +902,7 @@ void MediaPlayListTest::enqueueArtistCase()
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -1041,7 +1039,7 @@ void MediaPlayListTest::removeFirstTrackOfAlbum()
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -1135,7 +1133,7 @@ void MediaPlayListTest::testHasHeader()
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -1389,7 +1387,7 @@ void MediaPlayListTest::testHasHeaderWithRestore()
     QCOMPARE(newTrackByNameInListSpy.count(), 4);
     QCOMPARE(newEntryInListSpy.count(), 0);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     while (dataChangedSpy.count() < 8) {
         QCOMPARE(dataChangedSpy.wait(), true);
@@ -1482,7 +1480,7 @@ void MediaPlayListTest::testHasHeaderWithRemove()
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -1680,7 +1678,7 @@ void MediaPlayListTest::testHasHeaderMoveFirst()
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -1865,7 +1863,7 @@ void MediaPlayListTest::testHasHeaderMoveAnother()
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -2050,7 +2048,7 @@ void MediaPlayListTest::testHasHeaderMoveFirstLikeQml()
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -2235,7 +2233,7 @@ void MediaPlayListTest::testHasHeaderMoveAnotherLikeQml()
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -2420,7 +2418,7 @@ void MediaPlayListTest::testHasHeaderYetAnotherMoveLikeQml()
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -2618,7 +2616,7 @@ void MediaPlayListTest::enqueueReplaceAndPlay()
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -2797,7 +2795,7 @@ void MediaPlayListTest::crashOnEnqueue()
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -2941,7 +2939,7 @@ void MediaPlayListTest::restoreMultipleIdenticalTracks()
     QCOMPARE(newTrackByNameInListSpy.count(), 4);
     QCOMPARE(newEntryInListSpy.count(), 0);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -3048,7 +3046,7 @@ void MediaPlayListTest::restoreTrackWithoutAlbum()
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -3061,25 +3059,24 @@ void MediaPlayListTest::restoreTrackWithoutAlbum()
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newEntryInListSpy.count(), 0);
 
-    auto newTrack = MusicAudioTrack{};
+    auto newTrack = DataTypes::TrackDataType{};
 
-    newTrack.setValid(true);
-    newTrack.setId(QStringLiteral("$29"));
-    newTrack.setParentId(QStringLiteral("0"));
-    newTrack.setTitle(QStringLiteral("track19"));
-    newTrack.setArtist(QStringLiteral("artist2"));
-    newTrack.setDuration(QTime::fromMSecsSinceStartOfDay(29));
-    newTrack.setResourceURI(QUrl::fromLocalFile(QStringLiteral("/$29")));
-    newTrack.setFileModificationTime(QDateTime::fromMSecsSinceEpoch(29));
-    newTrack.setAlbumCover(QUrl::fromLocalFile(QStringLiteral("withoutAlbum")));
-    newTrack.setRating(9);
-    newTrack.setIsSingleDiscAlbum(true);
-    newTrack.setGenre(QStringLiteral("genre1"));
-    newTrack.setComposer(QStringLiteral("composer1"));
-    newTrack.setLyricist(QStringLiteral("lyricist1"));
-    newTrack.setHasEmbeddedCover(false);
+    newTrack[DataTypes::IdRole] = QStringLiteral("$29");
+    newTrack[DataTypes::ParentIdRole] = QStringLiteral("0");
+    newTrack[DataTypes::TitleRole] = QStringLiteral("track19");
+    newTrack[DataTypes::ArtistRole] = QStringLiteral("artist2");
+    newTrack[DataTypes::DurationRole] = QTime::fromMSecsSinceStartOfDay(29);
+    newTrack[DataTypes::ResourceRole] = QUrl::fromLocalFile(QStringLiteral("/$29"));
+    newTrack[DataTypes::FileModificationTime] = QDateTime::fromMSecsSinceEpoch(29);
+    newTrack[DataTypes::ImageUrlRole] = QUrl::fromLocalFile(QStringLiteral("withoutAlbum"));
+    newTrack[DataTypes::RatingRole] = 9;
+    newTrack[DataTypes::IsSingleDiscAlbumRole] = true;
+    newTrack[DataTypes::GenreRole] = QStringLiteral("genre1");
+    newTrack[DataTypes::ComposerRole] = QStringLiteral("composer1");
+    newTrack[DataTypes::LyricistRole] = QStringLiteral("lyricist1");
+    newTrack[DataTypes::HasEmbeddedCover] = false;
 
-    myDatabaseContent.insertTracksList({newTrack.toTrackData()}, mNewCovers);
+    myDatabaseContent.insertTracksList({newTrack}, mNewCovers);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -3181,7 +3178,7 @@ void MediaPlayListTest::testHasHeaderAlbumWithSameTitle()
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -3446,7 +3443,7 @@ void MediaPlayListTest::testSavePersistentState()
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListenerRead, &TracksListener::tracksAdded);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(rowsAboutToBeRemovedSpySave.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpySave.count(), 0);
@@ -3765,7 +3762,7 @@ void MediaPlayListTest::testReplaceAndPlayArtist()
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -3911,7 +3908,7 @@ void MediaPlayListTest::testReplaceAndPlayTrackId()
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -4067,7 +4064,7 @@ void MediaPlayListTest::testSetData()
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -4280,7 +4277,7 @@ void MediaPlayListTest::testRemoveSelection()
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -4452,7 +4449,7 @@ void MediaPlayListTest::testTrackBeenRemoved()
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -4650,7 +4647,7 @@ void MediaPlayListTest::testBringUpCase()
     QCOMPARE(repeatPlayChangedSpy.count(), 0);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
@@ -4713,7 +4710,7 @@ void MediaPlayListTest::testBringUpCaseFromNewAlbum()
     QCOMPARE(repeatPlayChangedSpy.count(), 0);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
@@ -4774,7 +4771,7 @@ void MediaPlayListTest::testBringUpAndDownCase()
     QCOMPARE(repeatPlayChangedSpy.count(), 0);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
@@ -4841,7 +4838,7 @@ void MediaPlayListTest::testBringUpAndRemoveCase()
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
@@ -4908,7 +4905,7 @@ void MediaPlayListTest::testBringUpAndRemoveMultipleCase()
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
@@ -4984,7 +4981,7 @@ void MediaPlayListTest::testBringUpAndRemoveMultipleNotBeginCase()
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
@@ -5078,7 +5075,7 @@ void MediaPlayListTest::testBringUpAndPlayCase()
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
@@ -5148,7 +5145,7 @@ void MediaPlayListTest::testBringUpAndSkipNextCase()
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
@@ -5218,7 +5215,7 @@ void MediaPlayListTest::testBringUpAndSkipPreviousCase()
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
@@ -5309,7 +5306,7 @@ void MediaPlayListTest::testBringUpAndSkipPreviousAndContinueCase()
     QCOMPARE(repeatPlayChangedSpy.count(), 1);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
@@ -5481,7 +5478,7 @@ void MediaPlayListTest::finishPlayList()
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
@@ -5560,7 +5557,7 @@ void MediaPlayListTest::randomPlayList()
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
@@ -5669,7 +5666,7 @@ void MediaPlayListTest::randomAndContinuePlayList()
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
@@ -5789,7 +5786,7 @@ void MediaPlayListTest::continuePlayList()
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
@@ -5923,7 +5920,7 @@ void MediaPlayListTest::testRestoreSettings()
     QCOMPARE(repeatPlayChangedSpy.count(), 1);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1),
                         QStringLiteral("track1"), {}},
@@ -6017,7 +6014,7 @@ void MediaPlayListTest::testSaveAndRestoreSettings()
     QCOMPARE(repeatPlayChangedRestoreSpy.count(), 0);
     QCOMPARE(playListFinishedRestoreSpy.count(), 0);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(currentTrackChangedSaveSpy.count(), 0);
     QCOMPARE(randomPlayChangedSaveSpy.count(), 0);
@@ -6158,7 +6155,7 @@ void MediaPlayListTest::removeBeforeCurrentTrack()
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
@@ -6259,7 +6256,7 @@ void MediaPlayListTest::switchToTrackTest()
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
@@ -6340,7 +6337,7 @@ void MediaPlayListTest::previousAndNextTracksTest()
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(previousTrackChangedSpy.count(), 0);
     QCOMPARE(currentTrackChangedSpy.count(), 0);
@@ -6472,7 +6469,7 @@ void MediaPlayListTest::singleTrack()
     QCOMPARE(repeatPlayChangedSpy.count(), 0);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
@@ -6539,7 +6536,7 @@ void MediaPlayListTest::remainingTracksTest()
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
@@ -6640,7 +6637,7 @@ void MediaPlayListTest::testBringUpAndRemoveLastCase()
     QCOMPARE(repeatPlayChangedSpy.count(), 0);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(randomPlayChangedSpy.count(), 0);
@@ -6786,7 +6783,7 @@ void MediaPlayListTest::testSaveLoadPlayList()
     QCOMPARE(playListLoadedRestoreSpy.count(), 0);
     QCOMPARE(playListLoadFailedRestoreSpy.count(), 0);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(currentTrackChangedSaveSpy.count(), 0);
     QCOMPARE(randomPlayChangedSaveSpy.count(), 0);
@@ -6946,7 +6943,7 @@ void MediaPlayListTest::testEnqueueFiles()
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -7055,7 +7052,7 @@ void MediaPlayListTest::testEnqueueSampleFiles()
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -7182,7 +7179,7 @@ void MediaPlayListTest::testEmptyEnqueue()
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -7313,7 +7310,7 @@ void MediaPlayListTest::enqueueMultipleAlbumsCase()
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -7462,7 +7459,7 @@ void MediaPlayListTest::enqueueTrackByUrl()
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -7558,7 +7555,7 @@ void MediaPlayListTest::enqueueTracksByUrl()
     connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
             &myListener, &TracksListener::tracksAdded);
 
-    myDatabaseContent.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);

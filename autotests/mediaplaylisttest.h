@@ -20,8 +20,6 @@
 
 #include "databasetestdata.h"
 
-#include "musicaudiotrack.h"
-
 #include <QObject>
 #include <QHash>
 #include <QVector>

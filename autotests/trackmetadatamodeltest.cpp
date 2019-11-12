@@ -82,7 +82,7 @@ private Q_SLOTS:
 
         musicDb.init(QStringLiteral("testDb"), databaseFile.fileName());
 
-        musicDb.insertTracksList(MusicAudioTrack::tracksToListData(mNewTracks), mNewCovers);
+        musicDb.insertTracksList(mNewTracks, mNewCovers);
 
         TrackMetadataModel myModel;
         QAbstractItemModelTester testModel(&myModel);

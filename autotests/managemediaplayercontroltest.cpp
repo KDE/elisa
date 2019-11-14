@@ -20,7 +20,6 @@
 #include "managemediaplayercontrol.h"
 #include "mediaplaylist.h"
 #include "databaseinterface.h"
-#include "musicaudiotrack.h"
 #include "trackslistener.h"
 
 #include <QHash>

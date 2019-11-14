@@ -22,7 +22,6 @@ target_include_directories(viewManagerTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 set(databaseInterfaceTest_SOURCES
     databaseinterfacetest.cpp
     databasetestdata.h
-    ../src/musicaudiotrack.cpp
 )
 
 ecm_add_test(${databaseInterfaceTest_SOURCES}
@@ -34,7 +33,6 @@ target_include_directories(databaseInterfaceTest PRIVATE ${CMAKE_SOURCE_DIR}/src
 
 set(managemediaplayercontrolTest_SOURCES
     managemediaplayercontroltest.cpp
-    ../src/musicaudiotrack.cpp
     ../src/elisautils.cpp
 )
 
@@ -46,7 +44,6 @@ ecm_add_test(${managemediaplayercontrolTest_SOURCES}
 
 set(manageheaderbarTest_SOURCES
     manageheaderbartest.cpp
-    ../src/musicaudiotrack.cpp
     ../src/elisautils.cpp
 )
 
@@ -72,7 +69,6 @@ target_include_directories(manageaudioplayerTest PRIVATE ${CMAKE_SOURCE_DIR}/src
 set(mediaplaylistTest_SOURCES
     mediaplaylisttest.cpp
     ../src/elisautils.cpp
-    ../src/musicaudiotrack.cpp
 )
 
 ecm_qt_declare_logging_category(mediaplaylistTest_SOURCES HEADER elisa_debug.h IDENTIFIER lcModelTest CATEGORY_NAME qt.modeltest)
@@ -88,7 +84,6 @@ target_include_directories(mediaplaylistTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 set(trackslistenertest_SOURCES
     trackslistenertest.cpp
     ../src/elisautils.cpp
-    ../src/musicaudiotrack.cpp
 )
 
 ecm_add_test(${trackslistenertest_SOURCES}
@@ -101,7 +96,6 @@ target_include_directories(trackslistenertest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 
 set(datamodeltest_SOURCES
     datamodeltest.cpp
-    ../src/musicaudiotrack.cpp
 )
 
 ecm_qt_declare_logging_category(datamodeltest_SOURCES HEADER elisa_debug.h IDENTIFIER lcModelTest CATEGORY_NAME qt.modeltest)
@@ -116,7 +110,6 @@ target_include_directories(datamodeltest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 
 set(trackmetadatamodeltest_SOURCES
     trackmetadatamodeltest.cpp
-    ../src/musicaudiotrack.cpp
 )
 
 ecm_qt_declare_logging_category(trackmetadatamodeltest_SOURCES HEADER elisa_debug.h IDENTIFIER lcModelTest CATEGORY_NAME qt.modeltest)
@@ -131,7 +124,6 @@ target_include_directories(trackmetadatamodeltest PRIVATE ${CMAKE_SOURCE_DIR}/sr
 
 set(alltracksproxymodeltest_SOURCES
     alltracksproxymodeltest.cpp
-    ../src/musicaudiotrack.cpp
 )
 
 ecm_qt_declare_logging_category(alltracksproxymodeltest_SOURCES HEADER elisa_debug.h IDENTIFIER lcModelTest CATEGORY_NAME qt.modeltest)
@@ -147,7 +139,6 @@ target_include_directories(alltracksproxymodeltest PRIVATE ${CMAKE_SOURCE_DIR}/s
 if (KF5FileMetaData_FOUND)
     set(localfilelistingtest_SOURCES
         localfilelistingtest.cpp
-        ../src/musicaudiotrack.cpp
     )
 
     ecm_add_test(${localfilelistingtest_SOURCES}

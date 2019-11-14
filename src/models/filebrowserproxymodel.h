@@ -21,7 +21,6 @@
 
 #include "elisaLib_export.h"
 
-#include "musicaudiotrack.h"
 #include "filescanner.h"
 #include "elisautils.h"
 

@@ -62,6 +62,7 @@ public:
         SampleRateRole,
         ResourceRole,
         IdRole,
+        ParentIdRole,
         DatabaseIdRole,
         IsSingleDiscAlbumRole,
         ContainerDataRole,
@@ -90,6 +91,23 @@ public:
     public:
 
         using DataType::DataType;
+
+        TrackDataType(bool aValid, QString aId, QString aParentId, QString aTitle, QString aArtist, QString aAlbumName,
+                      QString aAlbumArtist, int aTrackNumber, int aDiscNumber, QTime aDuration, QUrl aResourceURI,
+                      const QDateTime &fileModificationTime, QUrl aAlbumCover, int rating, bool aIsSingleDiscAlbum,
+                      QString aGenre, QString aComposer, QString aLyricist, bool aHasEmbeddedCover)
+            : DataType({{key_type::TitleRole, aTitle}, {key_type::AlbumRole, aAlbumName},
+                        {key_type::ArtistRole, aArtist}, {key_type::AlbumArtistRole, aAlbumArtist},
+                        {key_type::IdRole, aId}, {key_type::ParentIdRole, aParentId},
+                        {key_type::TrackNumberRole, aTrackNumber}, {key_type::DiscNumberRole, aDiscNumber},
+                        {key_type::DurationRole, aDuration}, {key_type::ResourceRole, aResourceURI},
+                        {key_type::FileModificationTime, fileModificationTime}, {key_type::ImageUrlRole, aAlbumCover},
+                        {key_type::RatingRole, rating}, {key_type::IsSingleDiscAlbumRole, aIsSingleDiscAlbum},
+                        {key_type::GenreRole, aGenre}, {key_type::ComposerRole, aComposer},
+                        {key_type::LyricistRole, aLyricist}, {key_type::HasEmbeddedCover, aHasEmbeddedCover},})
+        {
+            Q_UNUSED(aValid)
+        }
 
         bool isValid() const
         {

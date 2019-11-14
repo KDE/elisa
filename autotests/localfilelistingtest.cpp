@@ -18,7 +18,6 @@
 #include "databasetestdata.h"
 
 #include "file/localfilelisting.h"
-#include "musicaudiotrack.h"
 
 #include "config-upnp-qt.h"
 
@@ -57,7 +56,6 @@ private Q_SLOTS:
     {
         qRegisterMetaType<QHash<qulonglong,int>>("QHash<qulonglong,int>");
         qRegisterMetaType<QHash<QString,QUrl>>("QHash<QString,QUrl>");
-        qRegisterMetaType<QList<MusicAudioTrack>>("QList<MusicAudioTrack>");
         qRegisterMetaType<QVector<qlonglong>>("QVector<qlonglong>");
         qRegisterMetaType<QHash<qlonglong,int>>("QHash<qlonglong,int>");
         qRegisterMetaType<QList<QUrl>>("QList<QUrl>");
@@ -415,7 +413,7 @@ private Q_SLOTS:
         QCOMPARE(modifiedTracksListSpy.count(), 0);
 
         auto newTracksSignalLast = tracksListSpy.at(1);
-        auto newTracksLast = newTracksSignalLast.at(0).value<QList<MusicAudioTrack>>();
+        auto newTracksLast = newTracksSignalLast.at(0).value<DataTypes::ListTrackDataType>();
         auto newCoversLast = newTracksSignalLast.at(1).value<QHash<QString, QUrl>>();
 
         QCOMPARE(newTracksLast.count(), 1);

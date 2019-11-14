@@ -18,7 +18,7 @@
 #ifndef DATABASETESTDATA_H
 #define DATABASETESTDATA_H
 
-#include "musicaudiotrack.h"
+#include "datatypes.h"
 
 #include <QList>
 #include <QUrl>
@@ -35,7 +35,7 @@ public:
 
 protected:
 
-    QList<MusicAudioTrack> mNewTracks = {
+    DataTypes::ListTrackDataType mNewTracks = {
         {true, QStringLiteral("$1"), QStringLiteral("0"), QStringLiteral("track1"),
          QStringLiteral("artist1"), QStringLiteral("album1"), QStringLiteral("Various Artists"),
          1, 1, QTime::fromMSecsSinceStartOfDay(1), {QUrl::fromLocalFile(QStringLiteral("/$1"))}, QDateTime::fromMSecsSinceEpoch(1),

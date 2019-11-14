@@ -20,7 +20,6 @@
 
 #include "elisaLib_export.h"
 
-#include "musicaudiotrack.h"
 #include "elisautils.h"
 #include "datatypes.h"
 
@@ -30,6 +29,7 @@
 
 #include <utility>
 #include <tuple>
+#include <memory>
 
 class MediaPlayListPrivate;
 class MusicListenersManager;
@@ -113,6 +113,7 @@ public:
         SampleRateRole,
         ResourceRole,
         IdRole,
+        ParentIdRole,
         DatabaseIdRole,
         IsSingleDiscAlbumRole,
         ContainerDataRole,
@@ -361,11 +362,6 @@ public:
     MediaPlayListEntry(qulonglong id, QVariant title, QVariant artist, QVariant album, QVariant trackNumber, QVariant discNumber, ElisaUtils::PlayListEntryType entryType = ElisaUtils::Unknown)
         : mTitle(std::move(title)), mAlbum(std::move(album)), mArtist(std::move(artist)),
           mTrackNumber(trackNumber), mDiscNumber(discNumber), mId(id), mEntryType(entryType) {
-    }
-
-    explicit MediaPlayListEntry(const MusicAudioTrack &track)
-        : mTitle(track.title()), mAlbum(track.albumName()), mTrackNumber(track.trackNumber()),
-          mDiscNumber(track.discNumber()), mId(track.databaseId()), mIsValid(true) {
     }
 
     explicit MediaPlayListEntry(const MediaPlayList::TrackDataType &track)

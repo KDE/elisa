@@ -22,8 +22,6 @@
 
 #include "databasetestdata.h"
 
-#include "musicaudiotrack.h"
-
 #include <QList>
 #include <QHash>
 #include <QString>

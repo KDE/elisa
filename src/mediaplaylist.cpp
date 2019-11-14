@@ -19,7 +19,6 @@
 
 #include "playListLogging.h"
 #include "datatypes.h"
-#include "musicaudiotrack.h"
 #include "musiclistenersmanager.h"
 
 #include <QUrl>

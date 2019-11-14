@@ -17,8 +17,6 @@
 
 #include "localfilelisting.h"
 
-#include "musicaudiotrack.h"
-
 #include "abstractfile/indexercommon.h"
 
 #include <QThread>

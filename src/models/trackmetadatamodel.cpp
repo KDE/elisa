@@ -174,6 +174,7 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
         case DataTypes::AllArtistsRole:
         case DataTypes::HighestTrackRating:
         case DataTypes::IdRole:
+        case DataTypes::ParentIdRole:
         case DataTypes::DatabaseIdRole:
         case DataTypes::IsSingleDiscAlbumRole:
         case DataTypes::ContainerDataRole:
@@ -251,6 +252,7 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
         case DataTypes::AllArtistsRole:
         case DataTypes::HighestTrackRating:
         case DataTypes::IdRole:
+        case DataTypes::ParentIdRole:
         case DataTypes::DatabaseIdRole:
         case DataTypes::IsSingleDiscAlbumRole:
         case DataTypes::ContainerDataRole:

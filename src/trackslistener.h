@@ -22,7 +22,6 @@
 
 #include "databaseinterface.h"
 #include "datatypes.h"
-#include "musicaudiotrack.h"
 #include "elisautils.h"
 
 #include <QObject>

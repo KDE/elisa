@@ -677,7 +677,7 @@ void DataModel::radioRemoved(qulonglong removedRadioId)
     endRemoveRows();
 }
 
-void DataModel::radioAdded(const DataModel::TrackDataType radioData)
+void DataModel::radioAdded(const DataModel::TrackDataType &radioData)
 {
     if (d->mModelType != ElisaUtils::Radio) {
         return;

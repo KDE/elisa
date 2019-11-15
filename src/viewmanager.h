@@ -87,7 +87,7 @@ Q_SIGNALS:
 
     void openListView(ViewManager::ViewsType viewType, ElisaUtils::FilterType filterType, int expectedDepth,
                       const QString &mainTitle, const QString &secondaryTitle, qulonglong databaseId,
-                      const QUrl &imageUrl, ElisaUtils::PlayListEntryType dataType, QVariant sortRole,
+                      const QUrl &imageUrl, ElisaUtils::PlayListEntryType dataType, const QVariant &sortRole,
                       ViewManager::SortOrder sortOrder, bool displaySingleAlbum, ViewManager::AlbumViewStyle showDiscHeaders,
                       ViewManager::RadioSpecificStyle radioCase);
 

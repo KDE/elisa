@@ -182,13 +182,13 @@ void FileScanner::scanProperties(const QString &localFileName, DataTypes::TrackD
         auto key = (*rangeBegin).first;
 
         auto rangeEnd = std::find_if(rangeBegin, d->mAllProperties.constKeyValueEnd(),
-                                     [key](const entry& e) { return e.first != key; });
+                                     [key](entry e) { return e.first != key; });
 
         auto distance = std::distance(rangeBegin, rangeEnd);
         if (distance > 1) {
             QStringList list;
             list.reserve(static_cast<int>(distance));
-            std::for_each(rangeBegin, rangeEnd, [&list](const entry& s) { list.append(s.second.toString()); });
+            std::for_each(rangeBegin, rangeEnd, [&list](entry s) { list.append(s.second.toString()); });
             value = QLocale().createSeparatedList(list);
         } else {
             value = (*rangeBegin).second;

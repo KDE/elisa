@@ -28,6 +28,8 @@ class ElisaQmlTestPlugin : public QQmlExtensionPlugin
     Q_PLUGIN_METADATA(IID "org.qt-project.Qt.QQmlExtensionInterface")
 
 public:
+    explicit ElisaQmlTestPlugin(QObject *aParent = nullptr);
+
     void initializeEngine(QQmlEngine *engine, const char *uri) override;
     void registerTypes(const char *uri) override;
 };

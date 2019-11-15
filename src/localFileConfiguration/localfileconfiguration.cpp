@@ -81,7 +81,7 @@ void KCMElisaLocalFile::save()
     Elisa::ElisaConfiguration::self()->save();
 }
 
-void KCMElisaLocalFile::setRootPath(QStringList rootPath)
+void KCMElisaLocalFile::setRootPath(const QStringList &rootPath)
 {
     if (mRootPath == rootPath && !mRootPath.isEmpty()) {
         return;

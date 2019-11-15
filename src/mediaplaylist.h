@@ -354,14 +354,18 @@ public:
     explicit MediaPlayListEntry(qulonglong id) : mId(id), mIsValid(true) {
     }
 
-    MediaPlayListEntry(QString title, QString artist, QString album, int trackNumber, int discNumber, ElisaUtils::PlayListEntryType entryType = ElisaUtils::Unknown)
+    MediaPlayListEntry(QString title, QString artist,
+                       QString album, int trackNumber,
+                       int discNumber, ElisaUtils::PlayListEntryType entryType = ElisaUtils::Unknown)
         : mTitle(std::move(title)), mAlbum(std::move(album)), mArtist(std::move(artist)),
           mTrackNumber(trackNumber), mDiscNumber(discNumber), mEntryType(entryType) {
     }
 
-    MediaPlayListEntry(qulonglong id, QVariant title, QVariant artist, QVariant album, QVariant trackNumber, QVariant discNumber, ElisaUtils::PlayListEntryType entryType = ElisaUtils::Unknown)
+    MediaPlayListEntry(qulonglong id, QVariant title, QVariant artist, QVariant album,
+                       QVariant trackNumber, QVariant discNumber,
+                       ElisaUtils::PlayListEntryType entryType = ElisaUtils::Unknown)
         : mTitle(std::move(title)), mAlbum(std::move(album)), mArtist(std::move(artist)),
-          mTrackNumber(trackNumber), mDiscNumber(discNumber), mId(id), mEntryType(entryType) {
+          mTrackNumber(std::move(trackNumber)), mDiscNumber(std::move(discNumber)), mId(id), mEntryType(entryType) {
     }
 
     explicit MediaPlayListEntry(const MediaPlayList::TrackDataType &track)

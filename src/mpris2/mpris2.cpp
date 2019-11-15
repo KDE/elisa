@@ -64,7 +64,7 @@ void Mpris2::initDBusService()
 
         QDBusConnection::sessionBus().registerObject(QStringLiteral("/org/mpris/MediaPlayer2"), this, QDBusConnection::ExportAdaptors);
 
-        connect(m_mp2.get(), SIGNAL(raisePlayer()), this, SIGNAL(raisePlayer()));
+        connect(m_mp2.get(), &MediaPlayer2::raisePlayer, this, &Mpris2::raisePlayer);
     }
 }
 

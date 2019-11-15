@@ -410,7 +410,7 @@ void ManageAudioPlayer::setPlayerPosition(qint64 playerPosition)
 
     mPlayerPosition = playerPosition;
     Q_EMIT playerPositionChanged();
-    QTimer::singleShot(0, [this]() {Q_EMIT playControlPositionChanged();});
+    QTimer::singleShot(0, this, [this]() {Q_EMIT playControlPositionChanged();});
 }
 
 void ManageAudioPlayer::setCurrentPlayingForRadios(QString title, QString nowPlaying)
@@ -532,22 +532,22 @@ void ManageAudioPlayer::notifyPlayerSourceProperty()
 
 void ManageAudioPlayer::triggerPlay()
 {
-    QTimer::singleShot(0, [this]() {Q_EMIT playerPlay();});
+    QTimer::singleShot(0, this, [this]() {Q_EMIT playerPlay();});
 }
 
 void ManageAudioPlayer::triggerPause()
 {
-    QTimer::singleShot(0, [this]() {Q_EMIT playerPause();});
+    QTimer::singleShot(0, this, [this]() {Q_EMIT playerPause();});
 }
 
 void ManageAudioPlayer::triggerStop()
 {
-    QTimer::singleShot(0, [this]() {Q_EMIT playerStop();});
+    QTimer::singleShot(0, this, [this]() {Q_EMIT playerStop();});
 }
 
 void ManageAudioPlayer::triggerSkipNextTrack()
 {
-    QTimer::singleShot(0, [this]() {Q_EMIT skipNextTrack();});
+    QTimer::singleShot(0, this, [this]() {Q_EMIT skipNextTrack();});
 }
 
 void ManageAudioPlayer::restorePreviousState()

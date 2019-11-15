@@ -437,10 +437,6 @@ void TrackMetadataModel::initialize(MusicListenersManager *newManager, DatabaseI
 
     if (mManager) {
         mDataLoader.setDatabase(mManager->viewDatabase());
-        connect(this, &TrackMetadataModel::needDataByUrl,
-                mManager->tracksListener(), &TracksListener::trackByFileNameInList);
-        connect(mManager->tracksListener(), &TracksListener::trackHasChanged,
-                this, &TrackMetadataModel::trackData);
     } else if (trackDatabase) {
         mDataLoader.setDatabase(trackDatabase);
     }
@@ -467,6 +463,8 @@ void TrackMetadataModel::initialize(MusicListenersManager *newManager, DatabaseI
             this, &TrackMetadataModel::radioData);
     connect(&mDataLoader, &ModelDataLoader::radioModified,
             this, &TrackMetadataModel::radioData);
+    connect(this, &TrackMetadataModel::needDataByUrl,
+            &mDataLoader, &ModelDataLoader::loadDataByUrl);
 }
 
 void TrackMetadataModel::fetchLyrics()

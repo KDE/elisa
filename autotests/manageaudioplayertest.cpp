@@ -102,7 +102,7 @@ void ManageAudioPlayerTest::simpleInitialCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 0);
+    QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 0);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
@@ -124,7 +124,7 @@ void ManageAudioPlayerTest::simpleInitialCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
@@ -147,7 +147,7 @@ void ManageAudioPlayerTest::simpleInitialCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
@@ -169,7 +169,7 @@ void ManageAudioPlayerTest::simpleInitialCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
@@ -191,7 +191,7 @@ void ManageAudioPlayerTest::simpleInitialCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
@@ -211,7 +211,7 @@ void ManageAudioPlayerTest::simpleInitialCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
@@ -231,7 +231,7 @@ void ManageAudioPlayerTest::simpleInitialCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 2);
@@ -253,7 +253,7 @@ void ManageAudioPlayerTest::simpleInitialCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -275,7 +275,7 @@ void ManageAudioPlayerTest::simpleInitialCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -295,7 +295,7 @@ void ManageAudioPlayerTest::simpleInitialCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -315,7 +315,7 @@ void ManageAudioPlayerTest::simpleInitialCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -337,7 +337,7 @@ void ManageAudioPlayerTest::simpleInitialCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
@@ -359,7 +359,7 @@ void ManageAudioPlayerTest::simpleInitialCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
@@ -381,7 +381,7 @@ void ManageAudioPlayerTest::simpleInitialCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 5);
@@ -403,7 +403,7 @@ void ManageAudioPlayerTest::simpleInitialCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 5);
@@ -484,7 +484,7 @@ void ManageAudioPlayerTest::noPlayCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 0);
+    QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 0);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
@@ -503,7 +503,7 @@ void ManageAudioPlayerTest::noPlayCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
@@ -523,7 +523,7 @@ void ManageAudioPlayerTest::noPlayCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
@@ -542,7 +542,7 @@ void ManageAudioPlayerTest::noPlayCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
@@ -561,7 +561,7 @@ void ManageAudioPlayerTest::noPlayCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
@@ -578,7 +578,7 @@ void ManageAudioPlayerTest::noPlayCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
@@ -595,7 +595,7 @@ void ManageAudioPlayerTest::noPlayCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 2);
@@ -612,7 +612,7 @@ void ManageAudioPlayerTest::noPlayCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 2);
@@ -629,7 +629,7 @@ void ManageAudioPlayerTest::noPlayCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -648,7 +648,7 @@ void ManageAudioPlayerTest::noPlayCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -732,7 +732,7 @@ void ManageAudioPlayerTest::skipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 0);
+    QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 0);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
@@ -754,7 +754,7 @@ void ManageAudioPlayerTest::skipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
@@ -777,7 +777,7 @@ void ManageAudioPlayerTest::skipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
@@ -799,7 +799,7 @@ void ManageAudioPlayerTest::skipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
@@ -821,7 +821,7 @@ void ManageAudioPlayerTest::skipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
@@ -841,7 +841,7 @@ void ManageAudioPlayerTest::skipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
@@ -861,7 +861,7 @@ void ManageAudioPlayerTest::skipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 2);
@@ -883,7 +883,7 @@ void ManageAudioPlayerTest::skipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -905,7 +905,7 @@ void ManageAudioPlayerTest::skipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -925,7 +925,7 @@ void ManageAudioPlayerTest::skipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -945,7 +945,7 @@ void ManageAudioPlayerTest::skipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -967,7 +967,7 @@ void ManageAudioPlayerTest::skipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
@@ -989,7 +989,7 @@ void ManageAudioPlayerTest::skipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
@@ -1011,7 +1011,7 @@ void ManageAudioPlayerTest::skipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
@@ -1031,7 +1031,7 @@ void ManageAudioPlayerTest::skipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
@@ -1055,7 +1055,7 @@ void ManageAudioPlayerTest::skipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 5);
@@ -1077,7 +1077,7 @@ void ManageAudioPlayerTest::skipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 6);
@@ -1099,7 +1099,7 @@ void ManageAudioPlayerTest::skipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 6);
@@ -1186,7 +1186,7 @@ void ManageAudioPlayerTest::skipNextTrackWithRandomPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 0);
+    QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 0);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
@@ -1208,7 +1208,7 @@ void ManageAudioPlayerTest::skipNextTrackWithRandomPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
@@ -1231,7 +1231,7 @@ void ManageAudioPlayerTest::skipNextTrackWithRandomPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
@@ -1253,7 +1253,7 @@ void ManageAudioPlayerTest::skipNextTrackWithRandomPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
@@ -1275,7 +1275,7 @@ void ManageAudioPlayerTest::skipNextTrackWithRandomPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
@@ -1295,7 +1295,7 @@ void ManageAudioPlayerTest::skipNextTrackWithRandomPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
@@ -1315,7 +1315,7 @@ void ManageAudioPlayerTest::skipNextTrackWithRandomPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 2);
@@ -1337,7 +1337,7 @@ void ManageAudioPlayerTest::skipNextTrackWithRandomPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -1359,7 +1359,7 @@ void ManageAudioPlayerTest::skipNextTrackWithRandomPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -1379,7 +1379,7 @@ void ManageAudioPlayerTest::skipNextTrackWithRandomPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -1399,7 +1399,7 @@ void ManageAudioPlayerTest::skipNextTrackWithRandomPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -1421,7 +1421,7 @@ void ManageAudioPlayerTest::skipNextTrackWithRandomPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
@@ -1443,7 +1443,7 @@ void ManageAudioPlayerTest::skipNextTrackWithRandomPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
@@ -1465,7 +1465,7 @@ void ManageAudioPlayerTest::skipNextTrackWithRandomPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
@@ -1485,7 +1485,7 @@ void ManageAudioPlayerTest::skipNextTrackWithRandomPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
@@ -1509,7 +1509,7 @@ void ManageAudioPlayerTest::skipNextTrackWithRandomPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 5);
@@ -1531,7 +1531,7 @@ void ManageAudioPlayerTest::skipNextTrackWithRandomPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 6);
@@ -1553,7 +1553,7 @@ void ManageAudioPlayerTest::skipNextTrackWithRandomPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 6);
@@ -1634,7 +1634,7 @@ void ManageAudioPlayerTest::skipPreviousTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 0);
+    QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 0);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
@@ -1653,7 +1653,7 @@ void ManageAudioPlayerTest::skipPreviousTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
@@ -1674,7 +1674,7 @@ void ManageAudioPlayerTest::skipPreviousTrack()
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
@@ -1693,7 +1693,7 @@ void ManageAudioPlayerTest::skipPreviousTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
@@ -1712,7 +1712,7 @@ void ManageAudioPlayerTest::skipPreviousTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
@@ -1729,7 +1729,7 @@ void ManageAudioPlayerTest::skipPreviousTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
@@ -1746,7 +1746,7 @@ void ManageAudioPlayerTest::skipPreviousTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 2);
@@ -1765,7 +1765,7 @@ void ManageAudioPlayerTest::skipPreviousTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -1784,7 +1784,7 @@ void ManageAudioPlayerTest::skipPreviousTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -1801,7 +1801,7 @@ void ManageAudioPlayerTest::skipPreviousTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -1818,7 +1818,7 @@ void ManageAudioPlayerTest::skipPreviousTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -1837,7 +1837,7 @@ void ManageAudioPlayerTest::skipPreviousTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
@@ -1856,7 +1856,7 @@ void ManageAudioPlayerTest::skipPreviousTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
@@ -1875,7 +1875,7 @@ void ManageAudioPlayerTest::skipPreviousTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
@@ -1892,7 +1892,7 @@ void ManageAudioPlayerTest::skipPreviousTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
@@ -1913,7 +1913,7 @@ void ManageAudioPlayerTest::skipPreviousTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 5);
@@ -1932,7 +1932,7 @@ void ManageAudioPlayerTest::skipPreviousTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 6);
@@ -1951,7 +1951,7 @@ void ManageAudioPlayerTest::skipPreviousTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 6);
@@ -2029,7 +2029,7 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 0);
+    QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 0);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
@@ -2048,7 +2048,7 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
@@ -2068,7 +2068,7 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
@@ -2087,7 +2087,7 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
@@ -2106,7 +2106,7 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
@@ -2123,7 +2123,7 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
@@ -2140,7 +2140,7 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 2);
@@ -2159,7 +2159,7 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -2178,7 +2178,7 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -2195,7 +2195,7 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -2212,7 +2212,7 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -2231,7 +2231,7 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
@@ -2250,7 +2250,7 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
@@ -2269,7 +2269,7 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 5);
@@ -2288,7 +2288,7 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 5);
@@ -2305,7 +2305,7 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 5);
@@ -2325,7 +2325,7 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 6);
@@ -2344,7 +2344,7 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 7);
@@ -2363,7 +2363,7 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 7);
@@ -2380,7 +2380,7 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 7);
@@ -2399,7 +2399,7 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 8);
@@ -2418,7 +2418,7 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 8);
@@ -2437,7 +2437,7 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 8);
@@ -2454,7 +2454,7 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 3);
+    QCOMPARE(playerSourceChangedSpy.count(), 4);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 8);
@@ -2476,7 +2476,7 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 3);
+    QCOMPARE(playerSourceChangedSpy.count(), 4);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 9);
@@ -2495,7 +2495,7 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 3);
+    QCOMPARE(playerSourceChangedSpy.count(), 4);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 10);
@@ -2514,7 +2514,7 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 3);
+    QCOMPARE(playerSourceChangedSpy.count(), 4);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 10);
@@ -2531,7 +2531,7 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 3);
+    QCOMPARE(playerSourceChangedSpy.count(), 4);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 10);
@@ -2611,7 +2611,7 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 0);
+    QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 0);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
@@ -2630,7 +2630,7 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
@@ -2650,7 +2650,7 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
@@ -2669,7 +2669,7 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
@@ -2688,7 +2688,7 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
@@ -2705,7 +2705,7 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
@@ -2722,7 +2722,7 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 2);
@@ -2741,7 +2741,7 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -2760,7 +2760,7 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -2777,7 +2777,7 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -2794,7 +2794,7 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -2813,7 +2813,7 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
@@ -2832,7 +2832,7 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
@@ -2851,7 +2851,7 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 5);
@@ -2870,7 +2870,7 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 5);
@@ -2887,7 +2887,7 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 5);
@@ -2907,7 +2907,7 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 6);
@@ -2926,7 +2926,7 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 7);
@@ -2945,7 +2945,7 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 7);
@@ -2962,7 +2962,7 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 7);
@@ -2981,7 +2981,7 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 8);
@@ -3000,7 +3000,7 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 8);
@@ -3019,7 +3019,7 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 8);
@@ -3036,7 +3036,7 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 3);
+    QCOMPARE(playerSourceChangedSpy.count(), 4);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 8);
@@ -3058,7 +3058,7 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 3);
+    QCOMPARE(playerSourceChangedSpy.count(), 4);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 9);
@@ -3077,7 +3077,7 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 3);
+    QCOMPARE(playerSourceChangedSpy.count(), 4);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 10);
@@ -3096,7 +3096,7 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 3);
+    QCOMPARE(playerSourceChangedSpy.count(), 4);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 10);
@@ -3113,7 +3113,7 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 3);
+    QCOMPARE(playerSourceChangedSpy.count(), 4);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 10);
@@ -3193,7 +3193,7 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 0);
+    QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 0);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
@@ -3212,7 +3212,7 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
@@ -3232,7 +3232,7 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
@@ -3251,7 +3251,7 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
@@ -3270,7 +3270,7 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
@@ -3287,7 +3287,7 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
@@ -3304,7 +3304,7 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 2);
@@ -3323,7 +3323,7 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -3342,7 +3342,7 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -3359,7 +3359,7 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -3376,7 +3376,7 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -3395,7 +3395,7 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
@@ -3414,7 +3414,7 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
@@ -3433,7 +3433,7 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
@@ -3450,7 +3450,7 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
@@ -3472,7 +3472,7 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 5);
@@ -3491,7 +3491,7 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 6);
@@ -3510,7 +3510,7 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 6);
@@ -3527,7 +3527,7 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 6);
@@ -3546,7 +3546,7 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 7);
@@ -3565,7 +3565,7 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 7);
@@ -3584,7 +3584,7 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 8);
@@ -3603,7 +3603,7 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 8);
@@ -3620,7 +3620,7 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 3);
+    QCOMPARE(playerSourceChangedSpy.count(), 4);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 8);
@@ -3640,7 +3640,7 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 3);
+    QCOMPARE(playerSourceChangedSpy.count(), 4);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 9);
@@ -3659,7 +3659,7 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 3);
+    QCOMPARE(playerSourceChangedSpy.count(), 4);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 10);
@@ -3678,7 +3678,7 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 3);
+    QCOMPARE(playerSourceChangedSpy.count(), 4);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 10);
@@ -3756,7 +3756,7 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 0);
+    QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 0);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
@@ -3775,7 +3775,7 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
@@ -3795,7 +3795,7 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
@@ -3814,7 +3814,7 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
@@ -3833,7 +3833,7 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
@@ -3850,7 +3850,7 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
@@ -3867,7 +3867,7 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 2);
@@ -3886,7 +3886,7 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -3905,7 +3905,7 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -3922,7 +3922,7 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -3939,7 +3939,7 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -3958,7 +3958,7 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
@@ -3977,7 +3977,7 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
@@ -3996,7 +3996,7 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
@@ -4013,7 +4013,7 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
@@ -4035,7 +4035,7 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 5);
@@ -4054,7 +4054,7 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 6);
@@ -4073,7 +4073,7 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 6);
@@ -4090,7 +4090,7 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 6);
@@ -4109,7 +4109,7 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 7);
@@ -4128,7 +4128,7 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 7);
@@ -4147,7 +4147,7 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 8);
@@ -4166,7 +4166,7 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 8);
@@ -4183,7 +4183,7 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 3);
+    QCOMPARE(playerSourceChangedSpy.count(), 4);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 8);
@@ -4203,7 +4203,7 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 3);
+    QCOMPARE(playerSourceChangedSpy.count(), 4);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 9);
@@ -4222,7 +4222,7 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 3);
+    QCOMPARE(playerSourceChangedSpy.count(), 4);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 10);
@@ -4241,7 +4241,7 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 3);
+    QCOMPARE(playerSourceChangedSpy.count(), 4);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 10);
@@ -4322,7 +4322,7 @@ void ManageAudioPlayerTest::playLastCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 0);
+    QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 0);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
@@ -4344,7 +4344,7 @@ void ManageAudioPlayerTest::playLastCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
@@ -4367,7 +4367,7 @@ void ManageAudioPlayerTest::playLastCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
@@ -4389,7 +4389,7 @@ void ManageAudioPlayerTest::playLastCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
@@ -4411,7 +4411,7 @@ void ManageAudioPlayerTest::playLastCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
@@ -4431,7 +4431,7 @@ void ManageAudioPlayerTest::playLastCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
@@ -4451,7 +4451,7 @@ void ManageAudioPlayerTest::playLastCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 2);
@@ -4473,7 +4473,7 @@ void ManageAudioPlayerTest::playLastCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -4495,7 +4495,7 @@ void ManageAudioPlayerTest::playLastCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -4515,7 +4515,7 @@ void ManageAudioPlayerTest::playLastCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -4535,7 +4535,7 @@ void ManageAudioPlayerTest::playLastCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -4557,7 +4557,7 @@ void ManageAudioPlayerTest::playLastCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
@@ -4579,7 +4579,7 @@ void ManageAudioPlayerTest::playLastCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
@@ -4601,7 +4601,7 @@ void ManageAudioPlayerTest::playLastCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 5);
@@ -4623,7 +4623,7 @@ void ManageAudioPlayerTest::playLastCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 5);
@@ -4643,7 +4643,7 @@ void ManageAudioPlayerTest::playLastCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 5);
@@ -4663,7 +4663,7 @@ void ManageAudioPlayerTest::playLastCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 5);
@@ -4685,7 +4685,7 @@ void ManageAudioPlayerTest::playLastCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 6);
@@ -4707,7 +4707,7 @@ void ManageAudioPlayerTest::playLastCase()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 6);
@@ -4785,7 +4785,7 @@ void ManageAudioPlayerTest::playSingleAndClearPlayListTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 0);
+    QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 0);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
@@ -4805,7 +4805,7 @@ void ManageAudioPlayerTest::playSingleAndClearPlayListTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
@@ -4826,7 +4826,7 @@ void ManageAudioPlayerTest::playSingleAndClearPlayListTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
@@ -4846,7 +4846,7 @@ void ManageAudioPlayerTest::playSingleAndClearPlayListTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
@@ -4866,7 +4866,7 @@ void ManageAudioPlayerTest::playSingleAndClearPlayListTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
@@ -4884,7 +4884,7 @@ void ManageAudioPlayerTest::playSingleAndClearPlayListTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
@@ -4902,7 +4902,7 @@ void ManageAudioPlayerTest::playSingleAndClearPlayListTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 2);
@@ -4922,7 +4922,7 @@ void ManageAudioPlayerTest::playSingleAndClearPlayListTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -4942,7 +4942,7 @@ void ManageAudioPlayerTest::playSingleAndClearPlayListTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -4960,7 +4960,7 @@ void ManageAudioPlayerTest::playSingleAndClearPlayListTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -4978,7 +4978,7 @@ void ManageAudioPlayerTest::playSingleAndClearPlayListTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -4998,7 +4998,7 @@ void ManageAudioPlayerTest::playSingleAndClearPlayListTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
@@ -5018,7 +5018,7 @@ void ManageAudioPlayerTest::playSingleAndClearPlayListTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
@@ -5038,7 +5038,7 @@ void ManageAudioPlayerTest::playSingleAndClearPlayListTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
@@ -5056,7 +5056,7 @@ void ManageAudioPlayerTest::playSingleAndClearPlayListTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
@@ -5076,7 +5076,7 @@ void ManageAudioPlayerTest::playSingleAndClearPlayListTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 3);
+    QCOMPARE(playerSourceChangedSpy.count(), 4);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
@@ -5096,7 +5096,7 @@ void ManageAudioPlayerTest::playSingleAndClearPlayListTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 3);
+    QCOMPARE(playerSourceChangedSpy.count(), 4);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 5);
@@ -5116,7 +5116,7 @@ void ManageAudioPlayerTest::playSingleAndClearPlayListTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 3);
+    QCOMPARE(playerSourceChangedSpy.count(), 4);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 6);
@@ -5136,7 +5136,7 @@ void ManageAudioPlayerTest::playSingleAndClearPlayListTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 3);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 3);
+    QCOMPARE(playerSourceChangedSpy.count(), 4);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 6);
@@ -5212,7 +5212,7 @@ void ManageAudioPlayerTest::playSingleTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 0);
+    QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 0);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
@@ -5232,7 +5232,7 @@ void ManageAudioPlayerTest::playSingleTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
@@ -5253,7 +5253,7 @@ void ManageAudioPlayerTest::playSingleTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
@@ -5273,7 +5273,7 @@ void ManageAudioPlayerTest::playSingleTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
@@ -5293,7 +5293,7 @@ void ManageAudioPlayerTest::playSingleTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
@@ -5311,7 +5311,7 @@ void ManageAudioPlayerTest::playSingleTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
@@ -5329,7 +5329,7 @@ void ManageAudioPlayerTest::playSingleTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 2);
@@ -5349,7 +5349,7 @@ void ManageAudioPlayerTest::playSingleTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -5369,7 +5369,7 @@ void ManageAudioPlayerTest::playSingleTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -5387,7 +5387,7 @@ void ManageAudioPlayerTest::playSingleTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -5405,7 +5405,7 @@ void ManageAudioPlayerTest::playSingleTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -5425,7 +5425,7 @@ void ManageAudioPlayerTest::playSingleTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
@@ -5445,7 +5445,7 @@ void ManageAudioPlayerTest::playSingleTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
@@ -5465,7 +5465,7 @@ void ManageAudioPlayerTest::playSingleTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 5);
@@ -5485,7 +5485,7 @@ void ManageAudioPlayerTest::playSingleTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 5);
@@ -5503,7 +5503,7 @@ void ManageAudioPlayerTest::playSingleTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 5);
@@ -5521,7 +5521,7 @@ void ManageAudioPlayerTest::playSingleTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 5);
@@ -5541,7 +5541,7 @@ void ManageAudioPlayerTest::playSingleTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 6);
@@ -5561,7 +5561,7 @@ void ManageAudioPlayerTest::playSingleTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 6);
@@ -5686,7 +5686,7 @@ void ManageAudioPlayerTest::playRestoredTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 0);
+    QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
@@ -5710,7 +5710,7 @@ void ManageAudioPlayerTest::playRestoredTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
@@ -5732,7 +5732,7 @@ void ManageAudioPlayerTest::playRestoredTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
@@ -5754,7 +5754,7 @@ void ManageAudioPlayerTest::playRestoredTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
@@ -5774,7 +5774,7 @@ void ManageAudioPlayerTest::playRestoredTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
@@ -5794,7 +5794,7 @@ void ManageAudioPlayerTest::playRestoredTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 2);
@@ -5816,7 +5816,7 @@ void ManageAudioPlayerTest::playRestoredTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -5838,7 +5838,7 @@ void ManageAudioPlayerTest::playRestoredTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -5858,7 +5858,7 @@ void ManageAudioPlayerTest::playRestoredTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -6082,7 +6082,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 0);
+    QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 0);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -6107,7 +6107,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -6133,7 +6133,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -6156,7 +6156,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -6181,7 +6181,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -6206,7 +6206,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -6229,7 +6229,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -6252,7 +6252,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -6277,7 +6277,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -6302,7 +6302,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -6325,7 +6325,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -6350,7 +6350,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -6375,7 +6375,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -6400,7 +6400,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -6425,7 +6425,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -6558,7 +6558,7 @@ void ManageAudioPlayerTest::testRestoreSettingsNoAutomaticPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 0);
+    QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 0);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(titleRoleChangedSpy.count(), 0);
@@ -6583,7 +6583,7 @@ void ManageAudioPlayerTest::testRestoreSettingsNoAutomaticPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(titleRoleChangedSpy.count(), 0);
@@ -6609,7 +6609,7 @@ void ManageAudioPlayerTest::testRestoreSettingsNoAutomaticPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 0);
@@ -6634,7 +6634,7 @@ void ManageAudioPlayerTest::testRestoreSettingsNoAutomaticPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -6659,7 +6659,7 @@ void ManageAudioPlayerTest::testRestoreSettingsNoAutomaticPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -6684,7 +6684,7 @@ void ManageAudioPlayerTest::testRestoreSettingsNoAutomaticPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -6709,7 +6709,7 @@ void ManageAudioPlayerTest::testRestoreSettingsNoAutomaticPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -6734,7 +6734,7 @@ void ManageAudioPlayerTest::testRestoreSettingsNoAutomaticPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -6757,7 +6757,7 @@ void ManageAudioPlayerTest::testRestoreSettingsNoAutomaticPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -6780,7 +6780,7 @@ void ManageAudioPlayerTest::testRestoreSettingsNoAutomaticPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -6805,7 +6805,7 @@ void ManageAudioPlayerTest::testRestoreSettingsNoAutomaticPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -6830,7 +6830,7 @@ void ManageAudioPlayerTest::testRestoreSettingsNoAutomaticPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -6962,7 +6962,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlayAndPosition()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 0);
+    QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 0);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(titleRoleChangedSpy.count(), 0);
@@ -6987,7 +6987,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlayAndPosition()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(titleRoleChangedSpy.count(), 0);
@@ -7013,7 +7013,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlayAndPosition()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 0);
@@ -7038,7 +7038,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlayAndPosition()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -7063,7 +7063,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlayAndPosition()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -7088,7 +7088,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlayAndPosition()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -7114,7 +7114,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlayAndPosition()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -7139,7 +7139,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlayAndPosition()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -7162,7 +7162,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlayAndPosition()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -7185,7 +7185,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlayAndPosition()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -7210,7 +7210,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlayAndPosition()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -7235,7 +7235,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlayAndPosition()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -7258,7 +7258,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlayAndPosition()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -7283,7 +7283,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlayAndPosition()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -7308,7 +7308,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlayAndPosition()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -7333,7 +7333,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlayAndPosition()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -7358,7 +7358,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlayAndPosition()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -7442,7 +7442,7 @@ void ManageAudioPlayerTest::playTrackPauseAndSkipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 0);
+    QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 0);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
@@ -7461,7 +7461,7 @@ void ManageAudioPlayerTest::playTrackPauseAndSkipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
@@ -7481,7 +7481,7 @@ void ManageAudioPlayerTest::playTrackPauseAndSkipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 0);
@@ -7500,7 +7500,7 @@ void ManageAudioPlayerTest::playTrackPauseAndSkipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
@@ -7519,7 +7519,7 @@ void ManageAudioPlayerTest::playTrackPauseAndSkipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
@@ -7536,7 +7536,7 @@ void ManageAudioPlayerTest::playTrackPauseAndSkipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 1);
@@ -7553,7 +7553,7 @@ void ManageAudioPlayerTest::playTrackPauseAndSkipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 2);
@@ -7572,7 +7572,7 @@ void ManageAudioPlayerTest::playTrackPauseAndSkipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -7591,7 +7591,7 @@ void ManageAudioPlayerTest::playTrackPauseAndSkipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -7608,7 +7608,7 @@ void ManageAudioPlayerTest::playTrackPauseAndSkipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -7625,7 +7625,7 @@ void ManageAudioPlayerTest::playTrackPauseAndSkipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 3);
@@ -7644,7 +7644,7 @@ void ManageAudioPlayerTest::playTrackPauseAndSkipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
@@ -7663,7 +7663,7 @@ void ManageAudioPlayerTest::playTrackPauseAndSkipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
@@ -7680,7 +7680,7 @@ void ManageAudioPlayerTest::playTrackPauseAndSkipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
@@ -7697,7 +7697,7 @@ void ManageAudioPlayerTest::playTrackPauseAndSkipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
@@ -7716,7 +7716,7 @@ void ManageAudioPlayerTest::playTrackPauseAndSkipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
@@ -7735,7 +7735,7 @@ void ManageAudioPlayerTest::playTrackPauseAndSkipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
@@ -7752,7 +7752,7 @@ void ManageAudioPlayerTest::playTrackPauseAndSkipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 4);
@@ -7774,7 +7774,7 @@ void ManageAudioPlayerTest::playTrackPauseAndSkipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 5);
@@ -7793,7 +7793,7 @@ void ManageAudioPlayerTest::playTrackPauseAndSkipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 6);
@@ -7812,7 +7812,7 @@ void ManageAudioPlayerTest::playTrackPauseAndSkipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 6);
@@ -7829,7 +7829,7 @@ void ManageAudioPlayerTest::playTrackPauseAndSkipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 6);
@@ -7846,7 +7846,7 @@ void ManageAudioPlayerTest::playTrackPauseAndSkipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 6);
@@ -7865,7 +7865,7 @@ void ManageAudioPlayerTest::playTrackPauseAndSkipNextTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 2);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.count(), 3);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(playerStatusChangedSpy.count(), 7);
@@ -8091,7 +8091,7 @@ void ManageAudioPlayerTest::testRestoreSettingsNoPlayWrongTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 0);
+    QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 0);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -8116,7 +8116,7 @@ void ManageAudioPlayerTest::testRestoreSettingsNoPlayWrongTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -8142,7 +8142,7 @@ void ManageAudioPlayerTest::testRestoreSettingsNoPlayWrongTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -8165,7 +8165,7 @@ void ManageAudioPlayerTest::testRestoreSettingsNoPlayWrongTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -8190,7 +8190,7 @@ void ManageAudioPlayerTest::testRestoreSettingsNoPlayWrongTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -8215,7 +8215,7 @@ void ManageAudioPlayerTest::testRestoreSettingsNoPlayWrongTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -8238,7 +8238,7 @@ void ManageAudioPlayerTest::testRestoreSettingsNoPlayWrongTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -8261,7 +8261,7 @@ void ManageAudioPlayerTest::testRestoreSettingsNoPlayWrongTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -8286,7 +8286,7 @@ void ManageAudioPlayerTest::testRestoreSettingsNoPlayWrongTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -8311,7 +8311,7 @@ void ManageAudioPlayerTest::testRestoreSettingsNoPlayWrongTrack()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -8541,7 +8541,7 @@ void ManageAudioPlayerTest::testRestorePlayListAndSettingsAutomaticPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 0);
+    QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 0);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -8566,7 +8566,7 @@ void ManageAudioPlayerTest::testRestorePlayListAndSettingsAutomaticPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 0);
+    QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -8591,7 +8591,7 @@ void ManageAudioPlayerTest::testRestorePlayListAndSettingsAutomaticPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 0);
+    QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 0);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -8614,7 +8614,7 @@ void ManageAudioPlayerTest::testRestorePlayListAndSettingsAutomaticPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 0);
+    QCOMPARE(playerSourceChangedSpy.count(), 1);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -8641,7 +8641,7 @@ void ManageAudioPlayerTest::testRestorePlayListAndSettingsAutomaticPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -8666,7 +8666,7 @@ void ManageAudioPlayerTest::testRestorePlayListAndSettingsAutomaticPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -8691,7 +8691,7 @@ void ManageAudioPlayerTest::testRestorePlayListAndSettingsAutomaticPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -8714,7 +8714,7 @@ void ManageAudioPlayerTest::testRestorePlayListAndSettingsAutomaticPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -8737,7 +8737,7 @@ void ManageAudioPlayerTest::testRestorePlayListAndSettingsAutomaticPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -8762,7 +8762,7 @@ void ManageAudioPlayerTest::testRestorePlayListAndSettingsAutomaticPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -8787,7 +8787,7 @@ void ManageAudioPlayerTest::testRestorePlayListAndSettingsAutomaticPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -8810,7 +8810,7 @@ void ManageAudioPlayerTest::testRestorePlayListAndSettingsAutomaticPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -8835,7 +8835,7 @@ void ManageAudioPlayerTest::testRestorePlayListAndSettingsAutomaticPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -8860,7 +8860,7 @@ void ManageAudioPlayerTest::testRestorePlayListAndSettingsAutomaticPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -8885,7 +8885,7 @@ void ManageAudioPlayerTest::testRestorePlayListAndSettingsAutomaticPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);
@@ -8908,7 +8908,7 @@ void ManageAudioPlayerTest::testRestorePlayListAndSettingsAutomaticPlay()
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
-    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
     QCOMPARE(urlRoleChangedSpy.count(), 1);
     QCOMPARE(isPlayingRoleChangedSpy.count(), 1);
     QCOMPARE(titleRoleChangedSpy.count(), 1);

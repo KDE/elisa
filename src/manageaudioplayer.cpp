@@ -153,7 +153,7 @@ void ManageAudioPlayer::setCurrentTrack(const QPersistentModelIndex &currentTrac
 
     switch (mPlayerPlaybackState) {
     case QMediaPlayer::StoppedState:
-        notifyPlayerSourceProperty();
+        Q_EMIT playerSourceChanged(mCurrentTrack.data(mUrlRole).toUrl());
         break;
     case QMediaPlayer::PlayingState:
     case QMediaPlayer::PausedState:

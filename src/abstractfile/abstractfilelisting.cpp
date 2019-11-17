@@ -103,18 +103,7 @@ void AbstractFileListing::restoredTracks(QHash<QUrl, QDateTime> allFiles)
 
 void AbstractFileListing::setAllRootPaths(const QStringList &allRootPaths)
 {
-    //resolve symlinks
-    QStringList allPaths;
-    for (const auto &path : allRootPaths) {
-        QFileInfo newPath(path);
-        if (newPath.isSymLink()) {
-            allPaths << newPath.symLinkTarget();
-        } else {
-            allPaths << path;
-        }
-    }
-
-    d->mAllRootPaths = allPaths;
+    d->mAllRootPaths = allRootPaths;
 }
 
 void AbstractFileListing::databaseFinishedInsertingTracksList()

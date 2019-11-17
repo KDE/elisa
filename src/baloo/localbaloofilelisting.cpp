@@ -349,7 +349,7 @@ void LocalBalooFileListing::triggerRefreshOfContent()
 
         auto itExistingFile = allFiles().find(newFileUrl);
         if (itExistingFile != allFiles().end()) {
-            if (*itExistingFile >= scanFileInfo.fileTime(QFile::FileModificationTime)) {
+            if (*itExistingFile >= scanFileInfo.metadataChangeTime()) {
                 allFiles().erase(itExistingFile);
                 qCDebug(orgKdeElisaBaloo()) << "LocalBalooFileListing::triggerRefreshOfContent" << fileName << "file not modified since last scan";
                 continue;

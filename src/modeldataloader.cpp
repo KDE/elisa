@@ -81,6 +81,8 @@ void ModelDataLoader::setDatabase(DatabaseInterface *database)
             this, &ModelDataLoader::radioModified);
     connect(database, &DatabaseInterface::radioRemoved,
             this, &ModelDataLoader::radioRemoved);
+    connect(database, &DatabaseInterface::cleanedDatabase,
+            this, &ModelDataLoader::clearedDatabase);
 }
 
 void ModelDataLoader::loadData(ElisaUtils::PlayListEntryType dataType)

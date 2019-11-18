@@ -391,6 +391,7 @@ void MusicListenersManager::cleanedDatabase()
 {
     d->mImportedTracksCount = 0;
     Q_EMIT importedTracksCountChanged();
+    Q_EMIT clearedDatabase();
 }
 
 void MusicListenersManager::balooAvailabilityChanged()

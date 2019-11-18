@@ -445,6 +445,8 @@ void DataModel::connectModel(DatabaseInterface *database)
             this, &DataModel::radioModified);
     connect(d->mDataLoader, &ModelDataLoader::radioRemoved,
             this, &DataModel::radioRemoved);
+    connect(d->mDataLoader, &ModelDataLoader::clearedDatabase,
+            this, &DataModel::cleanedDatabase);
 }
 
 void DataModel::tracksAdded(ListTrackDataType newData)

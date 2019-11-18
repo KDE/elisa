@@ -129,6 +129,8 @@ Q_SIGNALS:
 
     void clearDatabase();
 
+    void clearedDatabase();
+
     void fileSystemIndexerActiveChanged();
 
     void balooIndexerActiveChanged();

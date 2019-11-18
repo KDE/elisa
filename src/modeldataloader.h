@@ -98,6 +98,8 @@ Q_SIGNALS:
 
     void radioRemoved(qulonglong radioId);
 
+    void clearedDatabase();
+
 public Q_SLOTS:
 
     void loadData(ElisaUtils::PlayListEntryType dataType);

@@ -31,7 +31,7 @@
 class ELISALIB_EXPORT MediaPlayer2 : public QDBusAbstractAdaptor
 {
     Q_OBJECT
-    Q_CLASSINFO("D-Bus Interface", "org.mpris.MediaPlayer2") // Docs: http://specifications.freedesktop.org/mpris-spec/latest/Media_Player.html
+    Q_CLASSINFO("D-Bus Interface", "org.mpris.MediaPlayer2") // Docs: https://specifications.freedesktop.org/mpris-spec/latest/Media_Player.html
 
     Q_PROPERTY(bool CanQuit READ CanQuit CONSTANT)
     Q_PROPERTY(bool CanRaise READ CanRaise CONSTANT)

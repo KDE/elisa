@@ -319,7 +319,16 @@ void MusicListenersManager::configChanged()
     currentConfiguration->load();
     currentConfiguration->read();
 
-    const auto &allRootPaths = currentConfiguration->rootPath();
+    //resolve symlinks
+    QStringList allRootPaths;
+    for (const auto &path : currentConfiguration->rootPath()) {
+        QFileInfo pathFileInfo(path);
+        auto directoryPath = pathFileInfo.canonicalFilePath();
+        //directory must always end with a slash
+        directoryPath.append(QLatin1Char('/'));
+        allRootPaths << directoryPath;
+    }
+
     d->mFileListener.setAllRootPaths(allRootPaths);
 
 #if defined KF5Baloo_FOUND && KF5Baloo_FOUND

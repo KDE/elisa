@@ -184,9 +184,7 @@ install(
     DESTINATION ${KDE_INSTALL_METAINFODIR}
 )
 
-if (IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/po")
-    ki18n_install(po)
-endif()
+ki18n_install(po)
 
 if (${ECM_VERSION} STRGREATER "5.58.0")
     install(FILES elisa.categories DESTINATION  ${KDE_INSTALL_LOGGINGCATEGORIESDIR})

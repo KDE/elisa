@@ -88,16 +88,16 @@ int main(int argc, char *argv[])
     qInfo() << "Application starting...";
 #endif
 
-#if defined KF5Declarative_FOUND && KF5Declarative_FOUND
-    KQuickAddons::QtQuickSettings::init();
-#endif
-
     QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
     QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     qputenv("QT_GSTREAMER_USE_PLAYBIN_VOLUME", "true");
 
     QApplication app(argc, argv);
+
+#if defined KF5Declarative_FOUND && KF5Declarative_FOUND
+    KQuickAddons::QtQuickSettings::init();
+#endif
 
     KLocalizedString::setApplicationDomain("elisa");
 

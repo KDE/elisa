@@ -448,6 +448,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         target_link_libraries(elisa
             LINK_PRIVATE
             KF5::Declarative
+            KF5::QuickAddons
             )
     endif()
 

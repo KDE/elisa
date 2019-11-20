@@ -162,6 +162,12 @@ if (KF5XmlGui_FOUND AND KF5KCMUtils_FOUND)
             Qt5::Test elisaLib
     )
 
+    if (KF5Declarative_FOUND)
+        target_link_libraries(elisaapplicationtest
+            KF5::Declarative
+            )
+    endif()
+
     target_include_directories(elisaapplicationtest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 endif()
 

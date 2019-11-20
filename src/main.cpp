@@ -25,6 +25,7 @@
 
 #if defined KF5Declarative_FOUND && KF5Declarative_FOUND
 #include <KDeclarative/KDeclarative>
+#include <KQuickAddons/QtQuickSettings>
 #endif
 
 #include <KI18n/KLocalizedString>
@@ -85,6 +86,10 @@ int main(int argc, char *argv[])
     }
 
     qInfo() << "Application starting...";
+#endif
+
+#if defined KF5Declarative_FOUND && KF5Declarative_FOUND
+    KQuickAddons::QtQuickSettings::init();
 #endif
 
     QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);

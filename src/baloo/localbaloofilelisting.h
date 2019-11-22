@@ -44,6 +44,8 @@ public:
 
     void applicationAboutToQuit() override;
 
+    bool canHandleRootPaths() const override;
+
 Q_SIGNALS:
 
 public Q_SLOTS:
@@ -55,6 +57,8 @@ public Q_SLOTS:
     void serviceRegistered(const QString &serviceName);
 
     void serviceUnregistered(const QString &serviceName);
+
+    void stop();
 
 private Q_SLOTS:
 

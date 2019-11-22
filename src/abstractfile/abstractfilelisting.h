@@ -49,6 +49,8 @@ public:
 
     const QStringList& allRootPaths() const;
 
+    virtual bool canHandleRootPaths() const;
+
 Q_SIGNALS:
 
     void tracksList(const DataTypes::ListTrackDataType &tracks, const QHash<QString, QUrl> &covers);

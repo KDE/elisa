@@ -121,6 +121,11 @@ void LocalBalooFileListing::applicationAboutToQuit()
     d->mStopRequest = 1;
 }
 
+bool LocalBalooFileListing::canHandleRootPaths() const
+{
+    return false;
+}
+
 void LocalBalooFileListing::newBalooFile(const QString &fileName)
 {
     qCDebug(orgKdeElisaBaloo()) << "LocalBalooFileListing::newBalooFile" << fileName;
@@ -295,6 +300,11 @@ void LocalBalooFileListing::serviceUnregistered(const QString &serviceName)
         d->mIsRegisteredToBaloo = false;
         d->mIsRegisteredToBalooWatcher = false;
     }
+}
+
+void LocalBalooFileListing::stop()
+{
+    qCInfo(orgKdeElisaBaloo()) << "LocalBalooFileListing::stop";
 }
 
 void LocalBalooFileListing::executeInit(QHash<QUrl, QDateTime> allFiles)

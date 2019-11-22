@@ -81,6 +81,7 @@ AbstractFileListing::~AbstractFileListing()
 
 void AbstractFileListing::init()
 {
+    qCDebug(orgKdeElisaIndexer()) << "AbstractFileListing::init";
     Q_EMIT askRestoredTracks();
 }
 
@@ -126,6 +127,11 @@ void AbstractFileListing::applicationAboutToQuit()
 const QStringList &AbstractFileListing::allRootPaths() const
 {
     return d->mAllRootPaths;
+}
+
+bool AbstractFileListing::canHandleRootPaths() const
+{
+    return true;
 }
 
 void AbstractFileListing::scanDirectory(DataTypes::ListTrackDataType &newFiles, const QUrl &path)

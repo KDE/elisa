@@ -49,6 +49,8 @@ public:
 
     AbstractFileListing* fileListing() const;
 
+    bool canHandleRootPaths() const;
+
 Q_SIGNALS:
 
     void databaseInterfaceChanged();

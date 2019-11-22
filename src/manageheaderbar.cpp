@@ -142,20 +142,15 @@ QVariant ManageHeaderBar::albumArtist() const
     return mCurrentTrack.data(mAlbumArtistRole);
 }
 
-QString ManageHeaderBar::fileName() const
+QUrl ManageHeaderBar::fileUrl() const
 {
-    QString result;
+    QUrl result;
 
     if (!mCurrentTrack.isValid()) {
         return result;
     }
 
-    auto fileNameUrl = mCurrentTrack.data(mFileNameRole).toUrl();
-    if (fileNameUrl.isLocalFile()) {
-        result = fileNameUrl.toLocalFile();
-    } else {
-        result = fileNameUrl.toString();
-    }
+    result = mCurrentTrack.data(mFileNameRole).toUrl();
 
     return result;
 }
@@ -277,7 +272,7 @@ void ManageHeaderBar::notifyFileNameProperty()
 {
     auto newFileNameValue = mCurrentTrack.data(mFileNameRole);
     if (mOldFileName != newFileNameValue) {
-        Q_EMIT fileNameChanged();
+        Q_EMIT fileUrlChanged();
 
         mOldFileName = newFileNameValue;
     }

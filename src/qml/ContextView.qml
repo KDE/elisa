@@ -34,7 +34,7 @@ FocusScope {
     property string albumName: ''
     property string artistName: ''
     property url albumArtUrl: ''
-    property string fileUrl: ''
+    property url fileUrl: ''
 
     TrackContextMetaDataModel {
         id: metaDataModel
@@ -251,7 +251,7 @@ FocusScope {
 
                     Layout.fillWidth: true
 
-                    text: fileUrl
+                    text: metaDataModel.fileUrl
                     elide: Text.ElideLeft
                 }
             ]
@@ -259,20 +259,20 @@ FocusScope {
     }
 
     onDatabaseIdChanged: {
-        metaDataModel.initializeById(trackType, databaseId)
+        metaDataModel.initializeByIdAndUrl(trackType, databaseId, fileUrl)
     }
 
     Connections {
         target: elisa
 
         onMusicManagerChanged: {
-            metaDataModel.initializeById(trackType, databaseId)
+            metaDataModel.initializeByIdAndUrl(trackType, databaseId, fileUrl)
         }
     }
 
     Component.onCompleted: {
         if (elisa.musicManager) {
-            metaDataModel.initializeById(trackType, databaseId)
+            metaDataModel.initializeByIdAndUrl(trackType, databaseId, fileUrl)
         }
     }
 }

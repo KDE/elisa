@@ -104,9 +104,9 @@ class ELISALIB_EXPORT ManageHeaderBar : public QObject
                READ albumArtist
                NOTIFY albumArtistChanged)
 
-    Q_PROPERTY(QString fileName
-               READ fileName
-               NOTIFY fileNameChanged)
+    Q_PROPERTY(QUrl fileUrl
+               READ fileUrl
+               NOTIFY fileUrlChanged)
 
     Q_PROPERTY(QUrl image
                READ image
@@ -162,7 +162,7 @@ public:
 
     QVariant albumArtist() const;
 
-    QString fileName() const;
+    QUrl fileUrl() const;
 
     QUrl image() const;
 
@@ -206,7 +206,7 @@ Q_SIGNALS:
 
     void albumArtistChanged();
 
-    void fileNameChanged();
+    void fileUrlChanged();
 
     void imageChanged();
 

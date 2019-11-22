@@ -344,7 +344,7 @@ RowLayout {
             artistName: elisa.manageHeaderBar.artist
             albumName: elisa.manageHeaderBar.album
             albumArtUrl: elisa.manageHeaderBar.image
-            fileUrl: elisa.manageHeaderBar.fileName
+            fileUrl: elisa.manageHeaderBar.fileUrl
         }
     }
 }

@@ -31,7 +31,6 @@
 #include <memory>
 
 class MediaPlayListPrivate;
-class MusicListenersManager;
 class MediaPlayListEntry;
 class QDebug;
 
@@ -43,11 +42,6 @@ class ELISALIB_EXPORT MediaPlayList : public QAbstractListModel
                READ persistentState
                WRITE setPersistentState
                NOTIFY persistentStateChanged)
-
-    Q_PROPERTY(MusicListenersManager* musicListenersManager
-               READ musicListenersManager
-               WRITE setMusicListenersManager
-               NOTIFY musicListenersManagerChanged)
 
     Q_PROPERTY(int tracksCount
                READ tracksCount
@@ -171,8 +165,6 @@ public:
 
     QVariantMap persistentState() const;
 
-    MusicListenersManager* musicListenersManager() const;
-
     int tracksCount() const;
 
     QPersistentModelIndex previousTrack() const;
@@ -189,6 +181,8 @@ public:
 
     int remainingTracks() const;
 
+    void enqueueRestoredEntries(const QVariantList &newEntries);
+
 Q_SIGNALS:
     void displayUndoInline();
 
@@ -204,8 +198,6 @@ Q_SIGNALS:
                       ElisaUtils::PlayListEntryType databaseIdType);
 
     void persistentStateChanged();
-
-    void musicListenersManagerChanged();
 
     void tracksCountChanged();
 
@@ -250,8 +242,6 @@ public Q_SLOTS:
 
     void trackRemoved(qulonglong trackId);
 
-    void setMusicListenersManager(MusicListenersManager* musicListenersManager);
-
     void setRandomPlay(bool value);
 
     void setRepeatPlay(bool value);
@@ -292,8 +282,6 @@ public Q_SLOTS:
 
     void replaceAndPlay(const ElisaUtils::EntryData &newEntry, ElisaUtils::PlayListEntryType databaseIdType);
 
-    void enqueueRestoredEntry(const MediaPlayListEntry &newEntry);
-
     void trackInError(const QUrl &sourceInError, QMediaPlayer::Error playerError);
 
     void undoClearPlayList();
@@ -315,13 +303,7 @@ private:
 
     void notifyCurrentTrackChanged();
 
-    void restorePlayListPosition();
-
-    void restoreRandomPlay();
-
     void createRandomList();
-
-    void restoreRepeatPlay();
 
     void notifyPreviousAndNextTracks();
 

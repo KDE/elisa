@@ -360,11 +360,11 @@ void ElisaApplication::initializeModels()
     Q_EMIT musicManagerChanged();
 
     d->mMediaPlayList = std::make_unique<MediaPlayList>();
+    d->mMusicManager->subscribeForTracks(d->mMediaPlayList.get());
     Q_EMIT mediaPlayListChanged();
 
     d->mMusicManager->setElisaApplication(this);
 
-    d->mMediaPlayList->setMusicListenersManager(d->mMusicManager.get());
     QObject::connect(this, &ElisaApplication::enqueue,
                      d->mMediaPlayList.get(), static_cast<void (MediaPlayList::*)(const ElisaUtils::EntryDataList&,
                                                                                   ElisaUtils::PlayListEntryType,

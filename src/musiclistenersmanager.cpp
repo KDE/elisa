@@ -321,12 +321,24 @@ void MusicListenersManager::configChanged()
 
     //resolve symlinks
     QStringList allRootPaths;
-    for (const auto &path : currentConfiguration->rootPath()) {
-        QFileInfo pathFileInfo(path);
+    for (const auto &onePath : currentConfiguration->rootPath()) {
+        auto workPath = onePath;
+        if (workPath.startsWith(QLatin1String("file:/"))) {
+            auto urlPath = QUrl{workPath};
+            workPath = urlPath.toLocalFile();
+        }
+
+        QFileInfo pathFileInfo(workPath);
         auto directoryPath = pathFileInfo.canonicalFilePath();
-        //directory must always end with a slash
-        directoryPath.append(QLatin1Char('/'));
-        allRootPaths << directoryPath;
+        if (!directoryPath.isEmpty()) {
+            if (directoryPath.rightRef(1) != QLatin1Char('/'))
+            {
+                directoryPath.append(QLatin1Char('/'));
+            }
+            allRootPaths.push_back(directoryPath);
+        }
+        currentConfiguration->setRootPath(allRootPaths);
+        currentConfiguration->save();
     }
 
     d->mFileListener.setAllRootPaths(allRootPaths);

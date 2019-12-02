@@ -1298,7 +1298,11 @@ void MediaPlayList::loadPlayListLoaded()
     clearPlayList();
 
     for (int i = 0; i < d->mLoadPlaylist.mediaCount(); ++i) {
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
         enqueue(ElisaUtils::EntryData{{}, {}, d->mLoadPlaylist.media(i).canonicalUrl()}, ElisaUtils::FileName);
+#else
+        enqueue(ElisaUtils::EntryData{{}, {}, d->mLoadPlaylist.media(i).request().url()}, ElisaUtils::FileName);
+#endif
     }
 
     restorePlayListPosition();

@@ -361,13 +361,13 @@ void MusicListenersManager::configChanged()
     if (!d->mBalooIndexerActive && !d->mFileSystemIndexerActive) {
         testBalooIndexerAvailability();
     }
-    if (d->mBalooIndexerActive && d->mBalooListener.canHandleRootPaths()) {
+    if (d->mBalooIndexerActive) {
         qCInfo(orgKdeElisaIndexersManager()) << "trigger init of baloo file indexer";
 #if defined KF5Baloo_FOUND && KF5Baloo_FOUND
         QMetaObject::invokeMethod(d->mBalooListener.fileListing(), "init", Qt::QueuedConnection);
 #endif
     } else if (d->mFileSystemIndexerActive) {
-        if (d->mBalooIndexerActive && !d->mBalooListener.canHandleRootPaths()) {
+        if (d->mBalooIndexerActive) {
             qCInfo(orgKdeElisaIndexersManager()) << "trigger stop of baloo file indexer";
             QMetaObject::invokeMethod(d->mBalooListener.fileListing(), "stop", Qt::QueuedConnection);
         }
@@ -435,10 +435,14 @@ void MusicListenersManager::cleanedDatabase()
 void MusicListenersManager::balooAvailabilityChanged()
 {
 #if defined KF5Baloo_FOUND && KF5Baloo_FOUND
-    if (!d->mBalooDetector.balooAvailability()) {
+    if (!d->mBalooDetector.balooAvailability() || !d->mBalooListener.canHandleRootPaths()) {
 #else
     if (true) {
 #endif
+        if (!d->mBalooListener.canHandleRootPaths() && d->mBalooDetector.balooAvailability())
+        {
+            qCInfo(orgKdeElisaIndexersManager()) << "Baloo cannot handle all configured paths: falling back to plain filex indexer";
+        }
         if (!d->mFileSystemIndexerActive) {
             startLocalFileSystemIndexing();
         }

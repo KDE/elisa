@@ -402,7 +402,7 @@ void ElisaApplication::initializePlayer()
     QObject::connect(d->mAudioControl.get(), &ManageAudioPlayer::playerSourceChanged, d->mAudioWrapper.get(), &AudioWrapper::setSource);
     QObject::connect(d->mAudioControl.get(), &ManageAudioPlayer::startedPlayingTrack,
                      d->mMusicManager->viewDatabase(), &DatabaseInterface::trackHasStartedPlaying);
-    QObject::connect(d->mAudioControl.get(), &ManageAudioPlayer::currentPlayingForRadiosChanged, d->mMediaPlayList.get(), &MediaPlayList::updateRadioData);
+    QObject::connect(d->mAudioControl.get(), &ManageAudioPlayer::updateData, d->mMediaPlayList.get(), &MediaPlayList::setData);
 
     QObject::connect(d->mMediaPlayList.get(), &MediaPlayList::ensurePlay, d->mAudioControl.get(), &ManageAudioPlayer::ensurePlay);
     QObject::connect(d->mMediaPlayList.get(), &MediaPlayList::playListFinished, d->mAudioControl.get(), &ManageAudioPlayer::playListFinished);

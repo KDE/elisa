@@ -578,13 +578,6 @@ void MediaPlayList::enqueueMultipleEntries(const ElisaUtils::EntryDataList &entr
     Q_EMIT persistentStateChanged();
 }
 
-void MediaPlayList::replaceAndPlay(const ElisaUtils::EntryData &newEntry,
-                                   ElisaUtils::PlayListEntryType databaseIdType)
-{
-    qCDebug(orgKdeElisaPlayList()) << "MediaPlayList::replaceAndPlay" << std::get<0>(newEntry) << std::get<1>(newEntry) << databaseIdType;
-    enqueue(newEntry, databaseIdType, ElisaUtils::PlayListEnqueueMode::ReplacePlayList, ElisaUtils::PlayListEnqueueTriggerPlay::TriggerPlay);
-}
-
 void MediaPlayList::clearPlayList(bool prepareUndo)
 {
     if (d->mData.isEmpty()) {
@@ -663,14 +656,6 @@ void MediaPlayList::undoClearPlayList()
     Q_EMIT dataChanged(index(rowCount() - 1, 0), index(rowCount() - 1, 0), {MediaPlayList::IsPlayingRole});
     displayOrHideUndoInline(false);
     Q_EMIT undoClearPlayListPlayer();
-}
-
-void MediaPlayList::updateRadioData(const QVariant &value, int role)
-{
-    auto convertedRole = static_cast<ColumnsRoles>(role);
-    if (d->mCurrentTrack.data(convertedRole) != value) {
-        this->setData(d->mCurrentTrack, value, role);
-    }
 }
 
 void MediaPlayList::enqueueCommon()

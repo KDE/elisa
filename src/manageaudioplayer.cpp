@@ -416,8 +416,8 @@ void ManageAudioPlayer::setPlayerPosition(qint64 playerPosition)
 void ManageAudioPlayer::setCurrentPlayingForRadios(const QString &title, const QString &nowPlaying)
 {
     if (mPlayListModel && mCurrentTrack.isValid()) {
-        Q_EMIT currentPlayingForRadiosChanged(title, MediaPlayList::TitleRole);
-        Q_EMIT currentPlayingForRadiosChanged(nowPlaying, MediaPlayList::ArtistRole);
+        Q_EMIT updateData(mCurrentTrack, title, MediaPlayList::TitleRole);
+        Q_EMIT updateData(mCurrentTrack, nowPlaying, MediaPlayList::ArtistRole);
     }
 }
 

@@ -280,13 +280,9 @@ public Q_SLOTS:
                  ElisaUtils::PlayListEnqueueMode enqueueMode,
                  ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 
-    void replaceAndPlay(const ElisaUtils::EntryData &newEntry, ElisaUtils::PlayListEntryType databaseIdType);
-
     void trackInError(const QUrl &sourceInError, QMediaPlayer::Error playerError);
 
     void undoClearPlayList();
-
-    void updateRadioData(const QVariant &value, int role);
 
 private Q_SLOTS:
 

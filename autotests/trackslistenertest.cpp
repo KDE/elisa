@@ -96,7 +96,7 @@ private Q_SLOTS:
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
         QCOMPARE(tracksListAddedSpy.count(), 0);
 
-        myPlayList.replaceAndPlay({{}, QStringLiteral("artist1"), {}}, ElisaUtils::Artist);
+        myPlayList.enqueue(ElisaUtils::EntryData{{}, QStringLiteral("artist1"), {}}, ElisaUtils::Artist, ElisaUtils::PlayListEnqueueMode::ReplacePlayList, ElisaUtils::PlayListEnqueueTriggerPlay::TriggerPlay);
 
         QCOMPARE(trackHasChangedSpy.count(), 0);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
@@ -223,7 +223,7 @@ private Q_SLOTS:
 
         QCOMPARE(trackId != 0, true);
 
-        myPlayList.replaceAndPlay(ElisaUtils::EntryData{{{DataTypes::DatabaseIdRole, trackId}}, {}, {}}, ElisaUtils::Track);
+        myPlayList.enqueue(ElisaUtils::EntryData{{{DataTypes::DatabaseIdRole, trackId}}, {}, {}}, ElisaUtils::Track, ElisaUtils::PlayListEnqueueMode::ReplacePlayList, ElisaUtils::PlayListEnqueueTriggerPlay::TriggerPlay);
 
         QCOMPARE(trackHasChangedSpy.count(), 1);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);

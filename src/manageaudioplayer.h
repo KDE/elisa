@@ -203,7 +203,7 @@ Q_SIGNALS:
 
     void startedPlayingTrack(const QUrl &fileName, const QDateTime &time);
 
-    void currentPlayingForRadiosChanged(const QVariant &value, int role);
+    void updateData(const QPersistentModelIndex &index, const QVariant &value, int role);
 
 public Q_SLOTS:
 

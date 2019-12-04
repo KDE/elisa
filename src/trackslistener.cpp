@@ -155,8 +155,10 @@ void TracksListener::trackByNameInList(const QVariant &title, const QVariant &ar
     }
 }
 
-void TracksListener::trackByFileNameInList(const QUrl &fileName)
+void TracksListener::trackByFileNameInList(ElisaUtils::PlayListEntryType type, const QUrl &fileName)
 {
+    Q_UNUSED(type)
+
     if (fileName.isLocalFile() || fileName.scheme().isEmpty()) {
         auto newTrackId = d->mDatabase->trackIdFromFileName(fileName);
         if (newTrackId == 0) {
@@ -246,7 +248,7 @@ void TracksListener::newUrlInList(const QUrl &entryUrl, ElisaUtils::PlayListEntr
 
         if (!newDatabaseId)
         {
-            trackByFileNameInList(entryUrl);
+            trackByFileNameInList(databaseIdType, entryUrl);
             return;
         }
 

@@ -217,17 +217,25 @@ bool MusicListenersManager::androidIndexerAvailable() const
     return d->mAndroidIndexerAvailable;
 }
 
+auto MusicListenersManager::initializeRootPath()
+{
+    auto initialRootPath = QStringList{};
+    auto systemMusicPaths = QStandardPaths::standardLocations(QStandardPaths::MusicLocation);
+    for (const auto &musicPath : qAsConst(systemMusicPaths)) {
+        initialRootPath.push_back(musicPath);
+    }
+
+    Elisa::ElisaConfiguration::setRootPath(initialRootPath);
+    Elisa::ElisaConfiguration::self()->save();
+
+    return initialRootPath;
+}
+
 void MusicListenersManager::databaseReady()
 {
     auto initialRootPath = Elisa::ElisaConfiguration::rootPath();
     if (initialRootPath.isEmpty()) {
-        auto systemMusicPaths = QStandardPaths::standardLocations(QStandardPaths::MusicLocation);
-        for (const auto &musicPath : qAsConst(systemMusicPaths)) {
-            initialRootPath.push_back(musicPath);
-        }
-
-        Elisa::ElisaConfiguration::setRootPath(initialRootPath);
-        Elisa::ElisaConfiguration::self()->save();
+        initializeRootPath();
     }
 
     d->mConfigFileWatcher.addPath(Elisa::ElisaConfiguration::self()->config()->name());
@@ -337,8 +345,10 @@ void MusicListenersManager::configChanged()
             }
             allRootPaths.push_back(directoryPath);
         }
-        currentConfiguration->setRootPath(allRootPaths);
-        currentConfiguration->save();
+    }
+
+    if (allRootPaths.isEmpty()) {
+        allRootPaths = initializeRootPath();
     }
 
     d->mFileListener.setAllRootPaths(allRootPaths);

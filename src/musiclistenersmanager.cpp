@@ -217,17 +217,25 @@ bool MusicListenersManager::androidIndexerAvailable() const
     return d->mAndroidIndexerAvailable;
 }
 
+auto MusicListenersManager::initializeRootPath()
+{
+    auto initialRootPath = QStringList{};
+    auto systemMusicPaths = QStandardPaths::standardLocations(QStandardPaths::MusicLocation);
+    for (const auto &musicPath : qAsConst(systemMusicPaths)) {
+        initialRootPath.push_back(musicPath);
+    }
+
+    Elisa::ElisaConfiguration::setRootPath(initialRootPath);
+    Elisa::ElisaConfiguration::self()->save();
+
+    return initialRootPath;
+}
+
 void MusicListenersManager::databaseReady()
 {
     auto initialRootPath = Elisa::ElisaConfiguration::rootPath();
     if (initialRootPath.isEmpty()) {
-        auto systemMusicPaths = QStandardPaths::standardLocations(QStandardPaths::MusicLocation);
-        for (const auto &musicPath : qAsConst(systemMusicPaths)) {
-            initialRootPath.push_back(musicPath);
-        }
-
-        Elisa::ElisaConfiguration::setRootPath(initialRootPath);
-        Elisa::ElisaConfiguration::self()->save();
+        initializeRootPath();
     }
 
     d->mConfigFileWatcher.addPath(Elisa::ElisaConfiguration::self()->config()->name());
@@ -321,12 +329,26 @@ void MusicListenersManager::configChanged()
 
     //resolve symlinks
     QStringList allRootPaths;
-    for (const auto &path : currentConfiguration->rootPath()) {
-        QFileInfo pathFileInfo(path);
+    for (const auto &onePath : currentConfiguration->rootPath()) {
+        auto workPath = onePath;
+        if (workPath.startsWith(QLatin1String("file:/"))) {
+            auto urlPath = QUrl{workPath};
+            workPath = urlPath.toLocalFile();
+        }
+
+        QFileInfo pathFileInfo(workPath);
         auto directoryPath = pathFileInfo.canonicalFilePath();
-        //directory must always end with a slash
-        directoryPath.append(QLatin1Char('/'));
-        allRootPaths << directoryPath;
+        if (!directoryPath.isEmpty()) {
+            if (directoryPath.rightRef(1) != QLatin1Char('/'))
+            {
+                directoryPath.append(QLatin1Char('/'));
+            }
+            allRootPaths.push_back(directoryPath);
+        }
+    }
+
+    if (allRootPaths.isEmpty()) {
+        allRootPaths = initializeRootPath();
     }
 
     d->mFileListener.setAllRootPaths(allRootPaths);

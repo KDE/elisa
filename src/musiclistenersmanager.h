@@ -183,6 +183,8 @@ private:
 
     void startBalooIndexing();
 
+    auto initializeRootPath();
+
     std::unique_ptr<MusicListenersManagerPrivate> d;
 
     void createTracksListener();

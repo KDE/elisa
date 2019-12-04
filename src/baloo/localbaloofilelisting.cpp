@@ -123,7 +123,30 @@ void LocalBalooFileListing::applicationAboutToQuit()
 
 bool LocalBalooFileListing::canHandleRootPaths() const
 {
-    return false;
+    Baloo::IndexerConfig balooConfiguration;
+
+    auto balooIncludedFolders = balooConfiguration.includeFolders();
+
+    for (const auto &onePath : allRootPaths()) {
+        auto onePathInfo = QFileInfo{onePath};
+        auto onePathCanonicalPath = onePathInfo.canonicalFilePath();
+
+        auto includedPath = false;
+
+        for (const auto &balooIncludedPath : balooIncludedFolders) {
+            auto balooIncludedPathInfo = QFileInfo{balooIncludedPath};
+            auto balooIncludedCanonicalPath = balooIncludedPathInfo.canonicalFilePath();
+
+            if (onePathCanonicalPath.startsWith(balooIncludedCanonicalPath)) {
+                includedPath = true;
+                break;
+            }
+        }
+        if (!includedPath) {
+            return false;
+        }
+    }
+    return true;
 }
 
 void LocalBalooFileListing::newBalooFile(const QString &fileName)

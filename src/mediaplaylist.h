@@ -252,8 +252,6 @@ public Q_SLOTS:
 
     void switchTo(int row);
 
-    void loadPlaylist(const QString &localFileName);
-
     void loadPlaylist(const QUrl &fileName);
 
     void enqueue(const ElisaUtils::EntryData &newEntry, ElisaUtils::PlayListEntryType databaseIdType);

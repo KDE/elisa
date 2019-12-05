@@ -88,7 +88,8 @@ public:
           mClearComposerTable(mTracksDatabase), mClearGenreTable(mTracksDatabase), mClearLyricistTable(mTracksDatabase),
           mArtistMatchGenreQuery(mTracksDatabase), mSelectTrackIdQuery(mTracksDatabase),
           mInsertRadioQuery(mTracksDatabase), mDeleteRadioQuery(mTracksDatabase),
-          mSelectTrackFromIdAndUrlQuery(mTracksDatabase)
+          mSelectTrackFromIdAndUrlQuery(mTracksDatabase),
+          mUpdateDatabaseVersionQuery(mTracksDatabase), mSelectDatabaseVersionQuery(mTracksDatabase)
     {
     }
 
@@ -265,6 +266,10 @@ public:
     QSqlQuery mDeleteRadioQuery;
 
     QSqlQuery mSelectTrackFromIdAndUrlQuery;
+
+    QSqlQuery mUpdateDatabaseVersionQuery;
+
+    QSqlQuery mSelectDatabaseVersionQuery;
 
     QSet<qulonglong> mModifiedTrackIds;
 
@@ -1251,43 +1256,9 @@ void DatabaseInterface::initDatabase()
                 Q_EMIT databaseError();
             }
         }
-
-        listTables = d->mTracksDatabase.tables();
     }
 
-    listTables = d->mTracksDatabase.tables();
-
-    if (listTables.contains(QLatin1String("DatabaseVersionV5")) &&
-        !listTables.contains(QLatin1String("DatabaseVersionV9"))) {
-        upgradeDatabaseV9();
-        upgradeDatabaseV11();
-        upgradeDatabaseV12();
-        upgradeDatabaseV13();
-        upgradeDatabaseV14();
-
-        checkDatabaseSchema();
-    } else if (listTables.contains(QLatin1String("DatabaseVersionV9"))) {
-        if (!listTables.contains(QLatin1String("DatabaseVersionV11"))) {
-            upgradeDatabaseV11();
-        }
-        if (!listTables.contains(QLatin1String("DatabaseVersionV12"))) {
-            upgradeDatabaseV12();
-        }
-        if (!listTables.contains(QLatin1String("DatabaseVersionV13"))) {
-            upgradeDatabaseV13();
-        }
-        if (!listTables.contains(QLatin1String("DatabaseVersionV14"))) {
-            upgradeDatabaseV14();
-        }
-
-        checkDatabaseSchema();
-    } else {
-        createDatabaseV9();
-        upgradeDatabaseV11();
-        upgradeDatabaseV12();
-        upgradeDatabaseV13();
-        upgradeDatabaseV14();
-    }
+    manageNewDatabaseVersion();
 }
 
 void DatabaseInterface::createDatabaseV9()
@@ -2850,6 +2821,16 @@ void DatabaseInterface::upgradeDatabaseV13()
     qCInfo(orgKdeElisaDatabase) << "finished update to v13 of database schema";
 }
 
+void DatabaseInterface::upgradeDatabaseV15()
+{
+
+}
+
+void DatabaseInterface::upgradeDatabaseV16()
+{
+
+}
+
 void DatabaseInterface::upgradeDatabaseV14()
 {
     qCInfo(orgKdeElisaDatabase) << "begin update to v14 of database schema";
@@ -3107,6 +3088,179 @@ void DatabaseInterface::resetDatabase()
     }
 
     d->mIsInBadState = false;
+}
+
+void DatabaseInterface::manageNewDatabaseVersion()
+{
+    int versionBegin = 0;
+
+    auto listTables = d->mTracksDatabase.tables();
+
+    if (listTables.contains(QLatin1String("DatabaseVersion"))) {
+        manageNewDatabaseVersionInitRequests();
+
+        auto queryResult = execQuery(d->mSelectDatabaseVersionQuery);
+        if (!queryResult) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::manageNewDatabaseVersion" << d->mUpdateDatabaseVersionQuery.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::manageNewDatabaseVersion" << d->mUpdateDatabaseVersionQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+
+        if(d->mSelectDatabaseVersionQuery.next()) {
+            const auto &currentRecord = d->mSelectDatabaseVersionQuery.record();
+
+            versionBegin = currentRecord.value(0).toInt();
+        }
+    } else if (listTables.contains(QLatin1String("DatabaseVersionV5")) &&
+               !listTables.contains(QLatin1String("DatabaseVersionV9"))) {
+        versionBegin = DatabaseInterface::V9;
+    } else {
+        createDatabaseVersionTable();
+        manageNewDatabaseVersionInitRequests();
+
+        if(listTables.contains(QLatin1String("DatabaseVersionV9"))) {
+            if (!listTables.contains(QLatin1String("DatabaseVersionV11"))) {
+                versionBegin = DatabaseInterface::V11;
+            } else if (!listTables.contains(QLatin1String("DatabaseVersionV12"))) {
+                versionBegin = DatabaseInterface::V12;
+            } else if (!listTables.contains(QLatin1String("DatabaseVersionV13"))) {
+                versionBegin = DatabaseInterface::V13;
+            } else if (!listTables.contains(QLatin1String("DatabaseVersionV14"))) {
+                versionBegin = DatabaseInterface::V14;
+            } else {
+                versionBegin = DatabaseInterface::V15;
+            }
+        } else {
+            createDatabaseV9();
+            versionBegin = DatabaseInterface::V11;
+        }
+    }
+
+    int version = versionBegin;
+    for (; version-1 != DatabaseInterface::V16; version++) {
+        callUpgradeFunctionForVersion(static_cast<DatabaseVersion>(version));
+    }
+
+    if (version-1 != versionBegin) {
+        dropTable(QStringLiteral("DROP TABLE DatabaseVersionV9"));
+        dropTable(QStringLiteral("DROP TABLE DatabaseVersionV11"));
+        dropTable(QStringLiteral("DROP TABLE DatabaseVersionV12"));
+        dropTable(QStringLiteral("DROP TABLE DatabaseVersionV13"));
+        dropTable(QStringLiteral("DROP TABLE DatabaseVersionV14"));
+    }
+
+    setDatabaseVersionInTable(DatabaseInterface::V16);
+
+    checkDatabaseSchema();
+}
+
+void DatabaseInterface::dropTable(QString query)
+{
+    QSqlQuery dropQueryQuery(d->mTracksDatabase);
+
+    const auto &result = dropQueryQuery.exec(query);
+
+    if (!result) {
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::dropTable" << dropQueryQuery.lastQuery();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::dropTable" << dropQueryQuery.lastError();
+
+        Q_EMIT databaseError();
+    }
+}
+
+void DatabaseInterface::setDatabaseVersionInTable(int version)
+{
+    d->mUpdateDatabaseVersionQuery.bindValue(QStringLiteral(":version"), version);
+
+    auto queryResult = execQuery(d->mUpdateDatabaseVersionQuery);
+
+    if (!queryResult) {
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::setDatabaseVersionInTable" << d->mUpdateDatabaseVersionQuery.lastQuery();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::setDatabaseVersionInTable" << d->mUpdateDatabaseVersionQuery.lastError();
+
+        Q_EMIT databaseError();
+    }
+}
+
+void DatabaseInterface::createDatabaseVersionTable()
+{
+    qCInfo(orgKdeElisaDatabase) << "begin creation of DatabaseVersion table";
+    QSqlQuery createSchemaQuery(d->mTracksDatabase);
+
+    const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `DatabaseVersion` (`Version` INTEGER PRIMARY KEY NOT NULL default 0)"));
+
+    if (!result) {
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseVersionTable" << createSchemaQuery.lastQuery();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseVersionTable" << createSchemaQuery.lastError();
+
+        Q_EMIT databaseError();
+    }
+
+    const auto resultInsert = createSchemaQuery.exec(QStringLiteral("INSERT INTO `DatabaseVersion` VALUES (0)"));
+    if (!resultInsert) {
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseVersionTable" << createSchemaQuery.lastQuery();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseVersionTable" << createSchemaQuery.lastError();
+
+        Q_EMIT databaseError();
+    }
+}
+
+void DatabaseInterface::manageNewDatabaseVersionInitRequests()
+{
+    {
+        auto  initDatabaseVersionQuery = QStringLiteral("UPDATE `DatabaseVersion` set `Version` = :version ");
+
+        auto result = prepareQuery(d->mUpdateDatabaseVersionQuery, initDatabaseVersionQuery);
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::manageNewDatabaseVersionInitRequests" << d->mUpdateDatabaseVersionQuery.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::manageNewDatabaseVersionInitRequests" << d->mUpdateDatabaseVersionQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        auto  selectDatabaseVersionQuery = QStringLiteral("SELECT versionTable.`Version` FROM `DatabaseVersion` versionTable");
+
+        auto result = prepareQuery(d->mSelectDatabaseVersionQuery, selectDatabaseVersionQuery);
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::manageNewDatabaseVersionInitRequests" << d->mSelectDatabaseVersionQuery.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::manageNewDatabaseVersionInitRequests" << d->mSelectDatabaseVersionQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+}
+
+void DatabaseInterface::callUpgradeFunctionForVersion(DatabaseVersion databaseVersion)
+{
+    switch(databaseVersion)
+    {
+    case DatabaseInterface::V9:
+        upgradeDatabaseV9();
+        break;
+    case DatabaseInterface::V11:
+        upgradeDatabaseV11();
+        break;
+    case DatabaseInterface::V12:
+        upgradeDatabaseV12();
+        break;
+    case DatabaseInterface::V13:
+        upgradeDatabaseV13();
+        break;
+    case DatabaseInterface::V14:
+        upgradeDatabaseV14();
+        break;
+    case DatabaseInterface::V15:
+        upgradeDatabaseV15();
+        break;
+    case DatabaseInterface::V16:
+        upgradeDatabaseV16();
+        break;
+    }
 }
 
 void DatabaseInterface::initRequest()

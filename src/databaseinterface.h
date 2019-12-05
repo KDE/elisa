@@ -46,6 +46,16 @@ class ELISALIB_EXPORT DatabaseInterface : public QObject
 
 public:
 
+    enum DatabaseVersion {
+        V9 = 9,
+        V11 = 11,
+        V12 = 12,
+        V13 = 13,
+        V14 = 14,
+        V15 = 15,
+        V16 = 16, //Does not exist yet, for testing purpose only.
+    };
+
     explicit DatabaseInterface(QObject *parent = nullptr);
 
     ~DatabaseInterface() override;
@@ -298,6 +308,10 @@ private:
 
     void upgradeDatabaseV14();
 
+    void upgradeDatabaseV15();
+
+    void upgradeDatabaseV16();
+
     void checkDatabaseSchema();
 
     void checkAlbumsTableSchema();
@@ -317,6 +331,18 @@ private:
     void genericCheckTable(const QString &tableName, const QStringList &expectedColumns);
 
     void resetDatabase();
+
+    void manageNewDatabaseVersion();
+
+    void dropTable(QString table);
+
+    void setDatabaseVersionInTable(int version);
+
+    void createDatabaseVersionTable();
+
+    void manageNewDatabaseVersionInitRequests();
+
+    void callUpgradeFunctionForVersion(DatabaseVersion databaseVersion);
 
     std::unique_ptr<DatabaseInterfacePrivate> d;
 

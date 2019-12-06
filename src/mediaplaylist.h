@@ -301,8 +301,6 @@ private:
 
     void notifyPreviousAndNextTracks();
 
-    void enqueueArtist(const QString &artistName);
-
     void enqueueFilesList(const ElisaUtils::EntryDataList &newEntries, ElisaUtils::PlayListEntryType databaseIdType);
 
     void enqueueTracksListById(const ElisaUtils::EntryDataList &newEntries, ElisaUtils::PlayListEntryType type);

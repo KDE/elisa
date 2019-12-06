@@ -429,29 +429,6 @@ void MediaPlayList::enqueueRestoredEntries(const QVariantList &newEntries)
     Q_EMIT remainingTracksChanged();
 }
 
-void MediaPlayList::enqueueArtist(const QString &artistName)
-{
-    qCDebug(orgKdeElisaPlayList()) << "MediaPlayList::enqueueArtist" << artistName;
-    enqueueCommon();
-
-    auto newEntry = MediaPlayListEntry{artistName};
-    newEntry.mEntryType = ElisaUtils::Artist;
-
-    beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size());
-    d->mData.push_back(newEntry);
-    d->mTrackData.push_back({});
-    endInsertRows();
-
-    if (!d->mCurrentTrack.isValid()) {
-        resetCurrentTrack();
-    }
-
-    Q_EMIT tracksCountChanged();
-    Q_EMIT remainingTracksChanged();
-    Q_EMIT newEntryInList(0, artistName, newEntry.mEntryType);
-    Q_EMIT persistentStateChanged();
-}
-
 void MediaPlayList::enqueueFilesList(const ElisaUtils::EntryDataList &newEntries, ElisaUtils::PlayListEntryType databaseIdType)
 {
     qCDebug(orgKdeElisaPlayList()) << "MediaPlayList::enqueueFilesList";

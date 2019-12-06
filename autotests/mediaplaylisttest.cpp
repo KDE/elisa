@@ -568,10 +568,10 @@ void MediaPlayListTest::undoClearPlayListCase()
     QCOMPARE(rowsInsertedSpy.count(), 3);
     QCOMPARE(tracksCountChangedSpy.count(), 4);
     QCOMPARE(persistentStateChangedSpy.count(), 4);
-    QCOMPARE(dataChangedSpy.count(), 8);
-    QCOMPARE(newTrackByNameInListSpy.count(), 0);
-    QCOMPARE(newEntryInListSpy.count(), 7);
-    QCOMPARE(currentTrackChangedSpy.count(), 3);
+    QCOMPARE(dataChangedSpy.count(), 13);
+    QCOMPARE(newTrackByNameInListSpy.count(), 6);
+    QCOMPARE(newEntryInListSpy.count(), 1);
+    QCOMPARE(currentTrackChangedSpy.count(), 4);
     QCOMPARE(displayUndoNotificationSpy.count(), 1);
 
     QCOMPARE(myPlayList.rowCount(), 6);
@@ -802,10 +802,10 @@ void MediaPlayListTest::undoReplacePlayListCase()
     QCOMPARE(rowsInsertedSpy.count(), 5);
     QCOMPARE(tracksCountChangedSpy.count(), 7);
     QCOMPARE(persistentStateChangedSpy.count(), 7);
-    QCOMPARE(dataChangedSpy.count(), 9);
-    QCOMPARE(newTrackByNameInListSpy.count(), 0);
-    QCOMPARE(newEntryInListSpy.count(), 8);
-    QCOMPARE(currentTrackChangedSpy.count(), 5);
+    QCOMPARE(dataChangedSpy.count(), 14);
+    QCOMPARE(newTrackByNameInListSpy.count(), 6);
+    QCOMPARE(newEntryInListSpy.count(), 2);
+    QCOMPARE(currentTrackChangedSpy.count(), 6);
     QCOMPARE(displayUndoNotificationSpy.count(), 2);
 
     QCOMPARE(myPlayList.rowCount(), 6);

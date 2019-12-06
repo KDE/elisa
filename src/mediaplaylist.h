@@ -308,11 +308,7 @@ private:
 
     void enqueueMultipleEntries(const ElisaUtils::EntryDataList &entriesData, ElisaUtils::PlayListEntryType type);
 
-    void copyD();
-
     std::unique_ptr<MediaPlayListPrivate> d;
-
-    std::unique_ptr<MediaPlayListPrivate> dOld;
 };
 
 class MediaPlayListEntry

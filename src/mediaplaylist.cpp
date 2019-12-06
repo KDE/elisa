@@ -56,9 +56,10 @@ public:
 
     QList<int> mRandomPositions = {0, 0, 0};
 
+    QVariantMap mPersistentSettingsForUndo;
 };
 
-MediaPlayList::MediaPlayList(QObject *parent) : QAbstractListModel(parent), d(new MediaPlayListPrivate), dOld(new MediaPlayListPrivate)
+MediaPlayList::MediaPlayList(QObject *parent) : QAbstractListModel(parent), d(new MediaPlayListPrivate)
 {
     connect(&d->mLoadPlaylist, &QMediaPlaylist::loaded, this, &MediaPlayList::loadPlayListLoaded);
     connect(&d->mLoadPlaylist, &QMediaPlaylist::loadFailed, this, &MediaPlayList::loadPlayListLoadFailed);
@@ -554,9 +555,9 @@ void MediaPlayList::clearPlayList(bool prepareUndo)
         return;
     }
 
-    if(prepareUndo){
+    if (prepareUndo) {
         Q_EMIT clearPlayListPlayer();
-        this->copyD();
+        d->mPersistentSettingsForUndo = persistentState();
     }
 
     beginRemoveRows({}, 0, d->mData.count() - 1);
@@ -583,58 +584,8 @@ void MediaPlayList::undoClearPlayList()
 {
     clearPlayList(false);
 
-    beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size() + dOld->mData.size() - 1);
-    for (auto &newTrack : dOld->mData) {
-        d->mData.push_back(newTrack);
-        d->mTrackData.push_back({});
-
-        if (ElisaUtils::FileName == newTrack.mEntryType  && newTrack.mTrackUrl.isValid()) {
-            auto entryURL = newTrack.mTrackUrl.toUrl();
-            if (entryURL.isLocalFile()) {
-                auto entryString =  entryURL.toLocalFile();
-                QFileInfo newTrackFile(entryString);
-                if (newTrackFile.exists()) {
-                    d->mData.last().mIsValid = true;
-                }
-                Q_EMIT newEntryInList(0, entryString, newTrack.mEntryType);
-            }
-        }
-        else if(ElisaUtils::Artist == newTrack.mEntryType){
-            Q_EMIT newEntryInList(0, newTrack.mArtist.toString(), newTrack.mEntryType);
-        }
-        else{
-            Q_EMIT newEntryInList(newTrack.mId, newTrack.mTitle.toString(), newTrack.mEntryType);
-        }
-    }
-    endInsertRows();
-
-    d->mCurrentPlayListPosition = dOld->mCurrentPlayListPosition;
-    d->mRandomPlay = dOld->mRandomPlay;
-    d->mRepeatPlay = dOld->mRepeatPlay;
-
-    auto candidateTrack = index(dOld->mCurrentPlayListPosition, 0);
-
-    if (candidateTrack.isValid() && candidateTrack.data(ColumnsRoles::IsValidRole).toBool()) {
-        d->mCurrentTrack = candidateTrack;
-        notifyCurrentTrackChanged();
-    }
-
-    Q_EMIT tracksCountChanged();
-    Q_EMIT remainingTracksChanged();
-    Q_EMIT persistentStateChanged();
-
-    Q_EMIT dataChanged(index(rowCount() - 1, 0), index(rowCount() - 1, 0), {MediaPlayList::IsPlayingRole});
+    setPersistentState(d->mPersistentSettingsForUndo);
     Q_EMIT undoClearPlayListPlayer();
-}
-
-void MediaPlayList::copyD()
-{
-    dOld->mData = d->mData;
-    dOld->mTrackData = d->mTrackData;
-    dOld->mCurrentTrack = d->mCurrentTrack;
-    dOld->mCurrentPlayListPosition = d->mCurrentPlayListPosition;
-    dOld->mRandomPlay = d->mRandomPlay;
-    dOld->mRepeatPlay = d->mRepeatPlay;
 }
 
 void MediaPlayList::loadPlaylist(const QUrl &fileName)

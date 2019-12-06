@@ -87,14 +87,14 @@ FocusScope {
 
     Connections {
          target: elisa.mediaPlayList
-         onDisplayUndoInline: {
+         onDisplayUndoNotification: {
              showPlayListNotification(i18nc("Playlist cleared", "Playlist cleared"), Kirigami.MessageType.Information, undoAction)
          }
     }
 
     Connections {
          target: elisa.mediaPlayList
-         onHideUndoInline: hideNotification()
+         onHideUndoNotification: hideNotification()
     }
 
     id: topItem

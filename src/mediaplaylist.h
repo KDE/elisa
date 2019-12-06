@@ -184,9 +184,9 @@ public:
     void enqueueRestoredEntries(const QVariantList &newEntries);
 
 Q_SIGNALS:
-    void displayUndoInline();
+    void displayUndoNotification();
 
-    void hideUndoInline();
+    void hideUndoNotification();
 
     void newTrackByNameInList(const QVariant &title, const QVariant &artist, const QVariant &album, const QVariant &trackNumber, const QVariant &discNumber);
 

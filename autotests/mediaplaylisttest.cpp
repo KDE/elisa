@@ -427,7 +427,7 @@ void MediaPlayListTest::undoClearPlayListCase()
     QSignalSpy newEntryInListSpy(&myPlayList, &MediaPlayList::newEntryInList);
     QSignalSpy newUrlInListSpy(&myPlayList, &MediaPlayList::newUrlInList);
     QSignalSpy currentTrackChangedSpy(&myPlayList, &MediaPlayList::currentTrackChanged);
-    QSignalSpy displayUndoInlineSpy(&myPlayList, &MediaPlayList::displayUndoInline);
+    QSignalSpy displayUndoNotificationSpy(&myPlayList, &MediaPlayList::displayUndoNotification);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -572,7 +572,7 @@ void MediaPlayListTest::undoClearPlayListCase()
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newEntryInListSpy.count(), 7);
     QCOMPARE(currentTrackChangedSpy.count(), 3);
-    QCOMPARE(displayUndoInlineSpy.count(), 1);
+    QCOMPARE(displayUndoNotificationSpy.count(), 1);
 
     QCOMPARE(myPlayList.rowCount(), 6);
 
@@ -636,7 +636,7 @@ void MediaPlayListTest::undoReplacePlayListCase()
     QSignalSpy newEntryInListSpy(&myPlayList, &MediaPlayList::newEntryInList);
     QSignalSpy newUrlInListSpy(&myPlayList, &MediaPlayList::newUrlInList);
     QSignalSpy currentTrackChangedSpy(&myPlayList, &MediaPlayList::currentTrackChanged);
-    QSignalSpy displayUndoInlineSpy(&myPlayList, &MediaPlayList::displayUndoInline);
+    QSignalSpy displayUndoNotificationSpy(&myPlayList, &MediaPlayList::displayUndoNotification);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -806,7 +806,7 @@ void MediaPlayListTest::undoReplacePlayListCase()
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newEntryInListSpy.count(), 8);
     QCOMPARE(currentTrackChangedSpy.count(), 5);
-    QCOMPARE(displayUndoInlineSpy.count(), 2);
+    QCOMPARE(displayUndoNotificationSpy.count(), 2);
 
     QCOMPARE(myPlayList.rowCount(), 6);
 

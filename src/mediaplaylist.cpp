@@ -568,7 +568,7 @@ void MediaPlayList::clearPlayList(bool prepareUndo)
     d->mCurrentTrack = QPersistentModelIndex{};
     notifyCurrentTrackChanged();
 
-    Q_EMIT displayUndoInline();
+    Q_EMIT displayUndoNotification();
     Q_EMIT tracksCountChanged();
     Q_EMIT remainingTracksChanged();
     Q_EMIT persistentStateChanged();
@@ -676,7 +676,7 @@ void MediaPlayList::enqueue(const ElisaUtils::EntryData &newEntry,
 {
     if (enqueueMode == ElisaUtils::ReplacePlayList) {
         if (d->mData.size() == 0) {
-            Q_EMIT hideUndoInline();
+            Q_EMIT hideUndoNotification();
         }
         clearPlayList();
     }
@@ -721,7 +721,7 @@ void MediaPlayList::enqueue(const ElisaUtils::EntryDataList &newEntries,
 
     if (enqueueMode == ElisaUtils::ReplacePlayList) {
         if (d->mData.size() == 0) {
-            Q_EMIT hideUndoInline();
+            Q_EMIT hideUndoNotification();
         }
         clearPlayList();
     }

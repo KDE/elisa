@@ -289,7 +289,6 @@ private Q_SLOTS:
     void loadPlayListLoadFailed();
 
 private:
-    void displayOrHideUndoInline(bool value);
 
     void clearPlayList(bool prepareUndo);
 
@@ -308,8 +307,6 @@ private:
     void enqueueOneEntry(const ElisaUtils::EntryData &entryData, ElisaUtils::PlayListEntryType type);
 
     void enqueueMultipleEntries(const ElisaUtils::EntryDataList &entriesData, ElisaUtils::PlayListEntryType type);
-
-    void enqueueCommon();
 
     void copyD();
 

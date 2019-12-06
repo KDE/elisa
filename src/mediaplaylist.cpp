@@ -54,8 +54,6 @@ public:
 
     bool mRepeatPlay = false;
 
-    bool mForceUndo = false;
-
     QList<int> mRandomPositions = {0, 0, 0};
 
 };
@@ -365,7 +363,6 @@ void MediaPlayList::move(int from, int to, int n)
 
 void MediaPlayList::enqueueRestoredEntries(const QVariantList &newEntries)
 {
-    enqueueCommon();
     beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size() + newEntries.size() - 1);
     for (auto &oneData : newEntries) {
         auto trackData = oneData.toStringList();
@@ -432,7 +429,6 @@ void MediaPlayList::enqueueRestoredEntries(const QVariantList &newEntries)
 void MediaPlayList::enqueueFilesList(const ElisaUtils::EntryDataList &newEntries, ElisaUtils::PlayListEntryType databaseIdType)
 {
     qCDebug(orgKdeElisaPlayList()) << "MediaPlayList::enqueueFilesList";
-    enqueueCommon();
 
     beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size() + newEntries.size() - 1);
     for (const auto &oneTrackUrl : newEntries) {
@@ -490,7 +486,6 @@ void MediaPlayList::enqueueFilesList(const ElisaUtils::EntryDataList &newEntries
 void MediaPlayList::enqueueTracksListById(const ElisaUtils::EntryDataList &newEntries, ElisaUtils::PlayListEntryType type)
 {
     qCDebug(orgKdeElisaPlayList()) << "MediaPlayList::enqueueTracksListById" << newEntries.size() << type;
-    enqueueCommon();
 
     beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size() + newEntries.size() - 1);
     for (const auto &newTrack : newEntries) {
@@ -515,7 +510,6 @@ void MediaPlayList::enqueueTracksListById(const ElisaUtils::EntryDataList &newEn
 void MediaPlayList::enqueueOneEntry(const ElisaUtils::EntryData &entryData, ElisaUtils::PlayListEntryType type)
 {
     qCDebug(orgKdeElisaPlayList()) << "MediaPlayList::enqueueOneEntry" << std::get<0>(entryData) << std::get<1>(entryData) << type;
-    enqueueCommon();
 
     beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size());
     d->mData.push_back(MediaPlayListEntry{std::get<0>(entryData).databaseId(), std::get<1>(entryData), type});
@@ -531,7 +525,6 @@ void MediaPlayList::enqueueOneEntry(const ElisaUtils::EntryData &entryData, Elis
 void MediaPlayList::enqueueMultipleEntries(const ElisaUtils::EntryDataList &entriesData, ElisaUtils::PlayListEntryType type)
 {
     qCDebug(orgKdeElisaPlayList()) << "MediaPlayList::enqueueMultipleEntries" << entriesData.size() << type;
-    enqueueCommon();
 
     beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size() + entriesData.size() - 1);
     for (const auto &entryData : entriesData) {
@@ -575,7 +568,7 @@ void MediaPlayList::clearPlayList(bool prepareUndo)
     d->mCurrentTrack = QPersistentModelIndex{};
     notifyCurrentTrackChanged();
 
-    displayOrHideUndoInline(true);
+    Q_EMIT displayUndoInline();
     Q_EMIT tracksCountChanged();
     Q_EMIT remainingTracksChanged();
     Q_EMIT persistentStateChanged();
@@ -631,13 +624,7 @@ void MediaPlayList::undoClearPlayList()
     Q_EMIT persistentStateChanged();
 
     Q_EMIT dataChanged(index(rowCount() - 1, 0), index(rowCount() - 1, 0), {MediaPlayList::IsPlayingRole});
-    displayOrHideUndoInline(false);
     Q_EMIT undoClearPlayListPlayer();
-}
-
-void MediaPlayList::enqueueCommon()
-{
-    displayOrHideUndoInline(false);
 }
 
 void MediaPlayList::copyD()
@@ -688,13 +675,11 @@ void MediaPlayList::enqueue(const ElisaUtils::EntryData &newEntry,
                             ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
 {
     if (enqueueMode == ElisaUtils::ReplacePlayList) {
-        if(d->mData.size()>0){
-            d->mForceUndo = true;
+        if (d->mData.size() == 0) {
+            Q_EMIT hideUndoInline();
         }
         clearPlayList();
     }
-
-    enqueueCommon();
 
     switch (databaseIdType)
     {
@@ -723,10 +708,6 @@ void MediaPlayList::enqueue(const ElisaUtils::EntryData &newEntry,
     if (triggerPlay == ElisaUtils::TriggerPlay) {
         Q_EMIT ensurePlay();
     }
-
-    if (enqueueMode == ElisaUtils::ReplacePlayList) {
-        d->mForceUndo = false;
-    }
 }
 
 void MediaPlayList::enqueue(const ElisaUtils::EntryDataList &newEntries,
@@ -739,13 +720,11 @@ void MediaPlayList::enqueue(const ElisaUtils::EntryDataList &newEntries,
     }
 
     if (enqueueMode == ElisaUtils::ReplacePlayList) {
-        if(d->mData.size()>0){
-            d->mForceUndo = true;
+        if (d->mData.size() == 0) {
+            Q_EMIT hideUndoInline();
         }
         clearPlayList();
     }
-
-    enqueueCommon();
 
     switch (databaseIdType)
     {
@@ -769,10 +748,6 @@ void MediaPlayList::enqueue(const ElisaUtils::EntryDataList &newEntries,
 
     if (triggerPlay == ElisaUtils::TriggerPlay) {
         Q_EMIT ensurePlay();
-    }
-
-    if (enqueueMode == ElisaUtils::ReplacePlayList) {
-        d->mForceUndo = false;
     }
 }
 
@@ -1125,17 +1100,6 @@ void MediaPlayList::setRepeatPlay(bool value)
         Q_EMIT repeatPlayChanged();
         Q_EMIT remainingTracksChanged();
         notifyPreviousAndNextTracks();
-    }
-}
-
-void MediaPlayList::displayOrHideUndoInline(bool value)
-{
-    if(value){
-        Q_EMIT displayUndoInline();
-    }else {
-        if(!d->mForceUndo){
-            Q_EMIT hideUndoInline();
-        }
     }
 }
 

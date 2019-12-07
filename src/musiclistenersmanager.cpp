@@ -329,7 +329,8 @@ void MusicListenersManager::configChanged()
 
     //resolve symlinks
     QStringList allRootPaths;
-    for (const auto &onePath : currentConfiguration->rootPath()) {
+    auto inputRootPath = currentConfiguration->rootPath();
+    for (const auto &onePath : inputRootPath) {
         auto workPath = onePath;
         if (workPath.startsWith(QLatin1String("file:/"))) {
             auto urlPath = QUrl{workPath};

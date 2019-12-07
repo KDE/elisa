@@ -25,7 +25,7 @@ class AsyncImageResponse : public QQuickImageResponse, public QRunnable
 {
 public:
     AsyncImageResponse(QString id, QSize requestedSize)
-        : mId(std::move(id)), mRequestedSize(requestedSize)
+        : QQuickImageResponse(), mId(std::move(id)), mRequestedSize(requestedSize)
     {
         setAutoDelete(false);
     }

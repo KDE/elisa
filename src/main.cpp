@@ -171,7 +171,7 @@ int main(int argc, char *argv[])
     auto arguments = ElisaUtils::EntryDataList{};
     auto realArgumentsList = parser.positionalArguments();
 
-    for (auto oneArgument : realArgumentsList) {
+    for (const auto &oneArgument : realArgumentsList) {
         arguments.push_back(ElisaUtils::EntryData{{}, {}, QUrl(oneArgument)});
     }
 

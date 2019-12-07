@@ -44,7 +44,11 @@ class DatabaseInterfaceTests: public QObject, public DatabaseTestData
 {
     Q_OBJECT
 
-private:
+public:
+
+    explicit DatabaseInterfaceTests(QObject *aParent = nullptr) : QObject(aParent)
+    {
+    }
 
 private Q_SLOTS:
 

@@ -78,6 +78,11 @@
 #include <QQmlEngine>
 #include <QQmlContext>
 
+ElisaQmlTestPlugin::ElisaQmlTestPlugin(QObject *aParent)
+    : QQmlExtensionPlugin(aParent)
+{
+}
+
 void ElisaQmlTestPlugin::initializeEngine(QQmlEngine *engine, const char *uri)
 {
     QQmlExtensionPlugin::initializeEngine(engine, uri);

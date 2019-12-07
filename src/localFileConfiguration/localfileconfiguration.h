@@ -42,7 +42,7 @@ public:
 
 Q_SIGNALS:
 
-    void rootPathChanged(QStringList rootPath);
+    void rootPathChanged(const QStringList &rootPath);
 
 public Q_SLOTS:
 
@@ -52,7 +52,7 @@ public Q_SLOTS:
 
     void save() override final;
 
-    void setRootPath(QStringList rootPath);
+    void setRootPath(const QStringList &rootPath);
 
 private Q_SLOTS:
 

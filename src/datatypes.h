@@ -96,15 +96,15 @@ public:
                       QString aAlbumArtist, int aTrackNumber, int aDiscNumber, QTime aDuration, QUrl aResourceURI,
                       const QDateTime &fileModificationTime, QUrl aAlbumCover, int rating, bool aIsSingleDiscAlbum,
                       QString aGenre, QString aComposer, QString aLyricist, bool aHasEmbeddedCover)
-            : DataType({{key_type::TitleRole, aTitle}, {key_type::AlbumRole, aAlbumName},
-                        {key_type::ArtistRole, aArtist}, {key_type::AlbumArtistRole, aAlbumArtist},
-                        {key_type::IdRole, aId}, {key_type::ParentIdRole, aParentId},
+            : DataType({{key_type::TitleRole, std::move(aTitle)}, {key_type::AlbumRole, std::move(aAlbumName)},
+                        {key_type::ArtistRole, std::move(aArtist)}, {key_type::AlbumArtistRole, std::move(aAlbumArtist)},
+                        {key_type::IdRole, std::move(aId)}, {key_type::ParentIdRole, std::move(aParentId)},
                         {key_type::TrackNumberRole, aTrackNumber}, {key_type::DiscNumberRole, aDiscNumber},
-                        {key_type::DurationRole, aDuration}, {key_type::ResourceRole, aResourceURI},
-                        {key_type::FileModificationTime, fileModificationTime}, {key_type::ImageUrlRole, aAlbumCover},
+                        {key_type::DurationRole, aDuration}, {key_type::ResourceRole, std::move(aResourceURI)},
+                        {key_type::FileModificationTime, fileModificationTime}, {key_type::ImageUrlRole, std::move(aAlbumCover)},
                         {key_type::RatingRole, rating}, {key_type::IsSingleDiscAlbumRole, aIsSingleDiscAlbum},
-                        {key_type::GenreRole, aGenre}, {key_type::ComposerRole, aComposer},
-                        {key_type::LyricistRole, aLyricist}, {key_type::HasEmbeddedCover, aHasEmbeddedCover},})
+                        {key_type::GenreRole, std::move(aGenre)}, {key_type::ComposerRole, std::move(aComposer)},
+                        {key_type::LyricistRole, std::move(aLyricist)}, {key_type::HasEmbeddedCover, aHasEmbeddedCover},})
         {
             Q_UNUSED(aValid)
         }

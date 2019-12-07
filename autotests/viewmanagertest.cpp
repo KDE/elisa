@@ -25,7 +25,11 @@ class ViewManagerTests: public QObject
 {
     Q_OBJECT
 
-private:
+public:
+
+    explicit ViewManagerTests(QObject *aParent = nullptr) : QObject(aParent)
+    {
+    }
 
 private Q_SLOTS:
 

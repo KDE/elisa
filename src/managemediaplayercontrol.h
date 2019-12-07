@@ -115,12 +115,6 @@ private:
 
     QPersistentModelIndex mNextTrack;
 
-    bool mCurrentTrackWillBeRemoved = false;
-
-    bool mSkipBackwardControlWasEnabled = false;
-
-    bool mSkipForwardControlWasEnabled = false;
-
     bool mIsInPlayingState = false;
 
 };

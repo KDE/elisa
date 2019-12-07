@@ -127,11 +127,11 @@ public Q_SLOTS:
 
 private Q_SLOTS:
 
-    void databaseTracksAdded(const ListTrackDataType &newData);
+    void databaseTracksAdded(const ModelDataLoader::ListTrackDataType &newData);
 
-    void databaseArtistsAdded(const ListArtistDataType &newData);
+    void databaseArtistsAdded(const ModelDataLoader::ListArtistDataType &newData);
 
-    void databaseAlbumsAdded(const ListAlbumDataType &newData);
+    void databaseAlbumsAdded(const ModelDataLoader::ListAlbumDataType &newData);
 
 private:
 

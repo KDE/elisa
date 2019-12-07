@@ -155,7 +155,7 @@ Q_SIGNALS:
 
     void playListModelChanged();
 
-    void playerSourceChanged(QUrl url);
+    void playerSourceChanged(const QUrl &url);
 
     void urlRoleChanged();
 
@@ -197,7 +197,7 @@ Q_SIGNALS:
 
     void albumNameRoleChanged();
 
-    void sourceInError(QUrl source, QMediaPlayer::Error playerError);
+    void sourceInError(const QUrl &source, QMediaPlayer::Error playerError);
 
     void displayTrackError(const QString &fileName);
 
@@ -239,7 +239,7 @@ public Q_SLOTS:
 
     void setPlayerPosition(qint64 playerPosition);
 
-    void setCurrentPlayingForRadios(QString title, QString nowPlaying);
+    void setCurrentPlayingForRadios(const QString &title, const QString &nowPlaying);
 
     void setPlayControlPosition(int playerPosition);
 

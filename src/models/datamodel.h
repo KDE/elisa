@@ -149,7 +149,7 @@ private Q_SLOTS:
 
 private:
 
-    void radioAdded(const DataModel::TrackDataType radiosData);
+    void radioAdded(const TrackDataType &radiosData);
 
     void radioModified(const DataModel::TrackDataType &modifiedRadio);
 

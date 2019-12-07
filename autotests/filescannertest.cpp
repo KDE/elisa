@@ -34,7 +34,13 @@ class FileScannerTest: public QObject
 
 public:
 
-    QString createTrackUrl(QString subpath) {
+    explicit FileScannerTest(QObject *aParent = nullptr) : QObject(aParent)
+    {
+    }
+
+public:
+
+    QString createTrackUrl(const QString &subpath) {
         return QStringLiteral(LOCAL_FILE_TESTS_SAMPLE_FILES_PATH) + QStringLiteral("/cover_art") + subpath;
     }
 

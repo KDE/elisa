@@ -41,6 +41,12 @@ class DataModelTests: public QObject, public DatabaseTestData
 {
     Q_OBJECT
 
+public:
+
+    explicit DataModelTests(QObject *aParent = nullptr) : QObject(aParent)
+    {
+    }
+
 private Q_SLOTS:
 
     void initTestCase()

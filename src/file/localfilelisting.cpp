@@ -45,12 +45,24 @@ LocalFileListing::~LocalFileListing()
 
 void LocalFileListing::executeInit(QHash<QUrl, QDateTime> allFiles)
 {
+    if (!isActive()) {
+        qCDebug(orgKdeElisaIndexer()) << "LocalFileListing::executeInit is inactive";
+        return;
+    }
+
     qCDebug(orgKdeElisaIndexer()) << "LocalFileListing::executeInit" << "with" << allFiles.size() << "files";
     AbstractFileListing::executeInit(std::move(allFiles));
 }
 
 void LocalFileListing::triggerRefreshOfContent()
 {
+    qCDebug(orgKdeElisaIndexer()) << "LocalFileListing::triggerRefreshOfContent";
+
+    if (!isActive()) {
+        qCDebug(orgKdeElisaIndexer()) << "LocalFileListing::triggerRefreshOfContent is inactive";
+        return;
+    }
+
     Q_EMIT indexingStarted();
 
     qCDebug(orgKdeElisaIndexer()) << "LocalFileListing::triggerRefreshOfContent" << allRootPaths();
@@ -69,6 +81,12 @@ void LocalFileListing::triggerRefreshOfContent()
     if (!waitEndTrackRemoval()) {
         Q_EMIT indexingFinished();
     }
+}
+
+void LocalFileListing::triggerStop()
+{
+    qCDebug(orgKdeElisaIndexer()) << "LocalFileListing::triggerStop";
+    AbstractFileListing::triggerStop();
 }
 
 

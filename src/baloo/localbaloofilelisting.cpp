@@ -153,6 +153,11 @@ void LocalBalooFileListing::newBalooFile(const QString &fileName)
 {
     qCDebug(orgKdeElisaBaloo()) << "LocalBalooFileListing::newBalooFile" << fileName;
 
+    if (!isActive()) {
+        qCDebug(orgKdeElisaBaloo()) << "LocalBalooFileListing::newBalooFile is inactive";
+        return;
+    }
+
     auto scanFileInfo = QFileInfo(fileName);
 
     if (!scanFileInfo.exists()) {
@@ -325,19 +330,26 @@ void LocalBalooFileListing::serviceUnregistered(const QString &serviceName)
     }
 }
 
-void LocalBalooFileListing::stop()
-{
-    qCInfo(orgKdeElisaBaloo()) << "LocalBalooFileListing::stop";
-}
-
 void LocalBalooFileListing::executeInit(QHash<QUrl, QDateTime> allFiles)
 {
+    if (!isActive()) {
+        qCDebug(orgKdeElisaBaloo()) << "LocalBalooFileListing::executeInit is inactive";
+        return;
+    }
+
+    qCDebug(orgKdeElisaBaloo()) << "LocalBalooFileListing::executeInit" << "with" << allFiles.size() << "files";
     AbstractFileListing::executeInit(std::move(allFiles));
 }
 
 void LocalBalooFileListing::triggerRefreshOfContent()
 {
     qCDebug(orgKdeElisaBaloo()) << "LocalBalooFileListing::triggerRefreshOfContent";
+
+    if (!isActive()) {
+        qCDebug(orgKdeElisaBaloo()) << "LocalBalooFileListing::triggerRefreshOfContent is inactive";
+        return;
+    }
+
     Q_EMIT indexingStarted();
 
     AbstractFileListing::triggerRefreshOfContent();
@@ -419,6 +431,12 @@ void LocalBalooFileListing::triggerRefreshOfContent()
     if (!waitEndTrackRemoval()) {
         Q_EMIT indexingFinished();
     }
+}
+
+void LocalBalooFileListing::triggerStop()
+{
+    qCDebug(orgKdeElisaBaloo()) << "LocalBalooFileListing::triggerStop";
+    AbstractFileListing::triggerStop();
 }
 
 DataTypes::TrackDataType LocalBalooFileListing::scanOneFile(const QUrl &scanFile, const QFileInfo &scanFileInfo)

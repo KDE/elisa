@@ -58,8 +58,6 @@ public Q_SLOTS:
 
     void serviceUnregistered(const QString &serviceName);
 
-    void stop();
-
 private Q_SLOTS:
 
     void newBalooFile(const QString &fileName);
@@ -75,6 +73,8 @@ private:
     void executeInit(QHash<QUrl, QDateTime> allFiles) override;
 
     void triggerRefreshOfContent() override;
+
+    void triggerStop() override;
 
     DataTypes::TrackDataType scanOneFile(const QUrl &scanFile, const QFileInfo &scanFileInfo) override;
 

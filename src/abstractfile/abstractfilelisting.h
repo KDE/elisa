@@ -73,6 +73,8 @@ public Q_SLOTS:
 
     void init();
 
+    void stop();
+
     void newTrackFile(const DataTypes::TrackDataType &partialTrack);
 
     void restoredTracks(QHash<QUrl, QDateTime> allFiles);
@@ -94,6 +96,8 @@ protected:
     virtual void executeInit(QHash<QUrl, QDateTime> allFiles);
 
     virtual void triggerRefreshOfContent();
+
+    virtual void triggerStop();
 
     void scanDirectory(DataTypes::ListTrackDataType &newFiles, const QUrl &path);
 
@@ -126,6 +130,8 @@ protected:
     bool waitEndTrackRemoval() const;
 
     void setWaitEndTrackRemoval(bool wait);
+
+    bool isActive() const;
 
 private:
 

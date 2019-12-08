@@ -66,6 +66,8 @@ public:
 
     bool mErrorWatchingFileSystemChanges = false;
 
+    bool mIsActive = false;
+
 };
 
 AbstractFileListing::AbstractFileListing(QObject *parent) : QObject(parent), d(std::make_unique<AbstractFileListingPrivate>())
@@ -82,7 +84,17 @@ AbstractFileListing::~AbstractFileListing()
 void AbstractFileListing::init()
 {
     qCDebug(orgKdeElisaIndexer()) << "AbstractFileListing::init";
+
+    d->mIsActive = true;
+
     Q_EMIT askRestoredTracks();
+}
+
+void AbstractFileListing::stop()
+{
+    d->mIsActive = false;
+
+    triggerStop();
 }
 
 void AbstractFileListing::newTrackFile(const DataTypes::TrackDataType &partialTrack)
@@ -270,6 +282,10 @@ void AbstractFileListing::fileChanged(const QString &modifiedFileName)
 void AbstractFileListing::executeInit(QHash<QUrl, QDateTime> allFiles)
 {
     d->mAllFiles = std::move(allFiles);
+}
+
+void AbstractFileListing::triggerStop()
+{
 }
 
 void AbstractFileListing::triggerRefreshOfContent()
@@ -460,6 +476,11 @@ bool AbstractFileListing::waitEndTrackRemoval() const
 void AbstractFileListing::setWaitEndTrackRemoval(bool wait)
 {
     d->mWaitEndTrackRemoval = wait;
+}
+
+bool AbstractFileListing::isActive() const
+{
+    return d->mIsActive;
 }
 
 

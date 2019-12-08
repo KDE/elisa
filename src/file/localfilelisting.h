@@ -45,6 +45,8 @@ private:
 
     void triggerRefreshOfContent() override;
 
+    void triggerStop() override;
+
     std::unique_ptr<LocalFileListingPrivate> d;
 
 };

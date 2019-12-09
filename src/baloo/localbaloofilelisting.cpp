@@ -126,6 +126,7 @@ bool LocalBalooFileListing::canHandleRootPaths() const
     Baloo::IndexerConfig balooConfiguration;
 
     auto balooIncludedFolders = balooConfiguration.includeFolders();
+    auto balooExcludedFolders = balooConfiguration.excludeFolders();
 
     for (const auto &onePath : allRootPaths()) {
         auto onePathInfo = QFileInfo{onePath};
@@ -142,6 +143,17 @@ bool LocalBalooFileListing::canHandleRootPaths() const
                 break;
             }
         }
+
+        for (const auto &balooExcludedPath : balooExcludedFolders) {
+            auto balooExcludedPathInfo = QFileInfo{balooExcludedPath};
+            auto balooExcludedCanonicalPath = balooExcludedPathInfo.canonicalFilePath();
+
+            if (onePathCanonicalPath.startsWith(balooExcludedCanonicalPath)) {
+                includedPath = false;
+                break;
+            }
+        }
+
         if (!includedPath) {
             return false;
         }

@@ -365,7 +365,7 @@ void MusicListenersManager::configChanged()
     {
         qCDebug(orgKdeElisaIndexersManager()) << "trigger start of baloo file indexer";
         QMetaObject::invokeMethod(d->mFileListener.fileListing(), "stop", Qt::BlockingQueuedConnection);
-        d->mFileSystemIndexerActive = true;
+        d->mFileSystemIndexerActive = false;
         startBalooIndexing();
     } else if (!d->mFileSystemIndexerActive && d->mBalooIndexerActive && !d->mBalooListener.canHandleRootPaths())
     {
@@ -446,6 +446,10 @@ void MusicListenersManager::balooAvailabilityChanged()
 {
 #if defined KF5Baloo_FOUND && KF5Baloo_FOUND
     if (!d->mBalooDetector.balooAvailability() || !d->mBalooListener.canHandleRootPaths()) {
+        if (d->mBalooDetector.balooAvailability()) {
+            qCInfo(orgKdeElisaIndexersManager) << "Baloo indexer is available";
+            d->mBalooIndexerAvailable = true;
+        }
 #else
     if (true) {
 #endif

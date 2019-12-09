@@ -228,6 +228,15 @@ void AbstractFileListing::scanDirectory(DataTypes::ListTrackDataType &newFiles, 
             continue;
         }
 
+        auto itExistingFile = allFiles().find(newFilePath);
+        if (itExistingFile != allFiles().end()) {
+            if (*itExistingFile >= oneEntry.metadataChangeTime()) {
+                allFiles().erase(itExistingFile);
+                qCDebug(orgKdeElisaIndexer()) << "AbstractFileListing::scanDirectory" << newFilePath << "file not modified since last scan";
+                continue;
+            }
+        }
+
         auto newTrack = scanOneFile(newFilePath, oneEntry);
 
         if (newTrack.isValid() && d->mStopRequest == 0) {
@@ -307,6 +316,7 @@ DataTypes::TrackDataType AbstractFileListing::scanOneFile(const QUrl &scanFile, 
     auto localFileName = scanFile.toLocalFile();
 
     if (!d->mFileScanner.shouldScanFile(localFileName)) {
+        qCDebug(orgKdeElisaIndexer) << "AbstractFileListing::scanOneFile" << "invalid mime type";
         return newTrack;
     }
 
@@ -315,6 +325,7 @@ DataTypes::TrackDataType AbstractFileListing::scanOneFile(const QUrl &scanFile, 
         if (itExistingFile != d->mAllFiles.end()) {
             if (*itExistingFile >= scanFileInfo.metadataChangeTime()) {
                 d->mAllFiles.erase(itExistingFile);
+                qCDebug(orgKdeElisaIndexer) << "AbstractFileListing::scanOneFile" << "not changed file";
                 return newTrack;
             }
         }

@@ -23,7 +23,8 @@ import QtQml.Models 2.3
 
 Dialogs.Dialog {
     id: dialog
-    title: 'Configure'
+
+    title: i18n("Configure")
 
     visible: true
     modality: Qt.ApplicationModal

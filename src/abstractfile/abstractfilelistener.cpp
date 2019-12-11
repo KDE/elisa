@@ -106,5 +106,10 @@ AbstractFileListing *AbstractFileListener::fileListing() const
     return d->mFileListing;
 }
 
+bool AbstractFileListener::canHandleRootPaths() const
+{
+    return d->mFileListing->canHandleRootPaths();
+}
+
 
 #include "moc_abstractfilelistener.cpp"

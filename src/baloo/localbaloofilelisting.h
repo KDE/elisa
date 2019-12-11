@@ -44,6 +44,8 @@ public:
 
     void applicationAboutToQuit() override;
 
+    bool canHandleRootPaths() const override;
+
 Q_SIGNALS:
 
 public Q_SLOTS:
@@ -71,6 +73,8 @@ private:
     void executeInit(QHash<QUrl, QDateTime> allFiles) override;
 
     void triggerRefreshOfContent() override;
+
+    void triggerStop() override;
 
     DataTypes::TrackDataType scanOneFile(const QUrl &scanFile, const QFileInfo &scanFileInfo) override;
 

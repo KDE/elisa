@@ -361,11 +361,27 @@ void MusicListenersManager::configChanged()
     if (!d->mBalooIndexerActive && !d->mFileSystemIndexerActive) {
         testBalooIndexerAvailability();
     }
+    if (d->mBalooIndexerAvailable && !d->mBalooIndexerActive && d->mBalooListener.canHandleRootPaths())
+    {
+        qCDebug(orgKdeElisaIndexersManager()) << "trigger start of baloo file indexer";
+        QMetaObject::invokeMethod(d->mFileListener.fileListing(), "stop", Qt::BlockingQueuedConnection);
+        d->mFileSystemIndexerActive = false;
+        startBalooIndexing();
+    } else if (!d->mFileSystemIndexerActive && d->mBalooIndexerActive && !d->mBalooListener.canHandleRootPaths())
+    {
+        qCDebug(orgKdeElisaIndexersManager()) << "trigger stop of baloo file indexer";
+        QMetaObject::invokeMethod(d->mBalooListener.fileListing(), "stop", Qt::BlockingQueuedConnection);
+        d->mBalooIndexerActive = false;
+        startLocalFileSystemIndexing();
+    }
+
     if (d->mBalooIndexerActive) {
+        qCInfo(orgKdeElisaIndexersManager()) << "trigger init of baloo file indexer";
 #if defined KF5Baloo_FOUND && KF5Baloo_FOUND
         QMetaObject::invokeMethod(d->mBalooListener.fileListing(), "init", Qt::QueuedConnection);
 #endif
     } else if (d->mFileSystemIndexerActive) {
+        qCInfo(orgKdeElisaIndexersManager()) << "trigger init of local file indexer";
         QMetaObject::invokeMethod(d->mFileListener.fileListing(), "init", Qt::QueuedConnection);
     }
 
@@ -429,10 +445,18 @@ void MusicListenersManager::cleanedDatabase()
 void MusicListenersManager::balooAvailabilityChanged()
 {
 #if defined KF5Baloo_FOUND && KF5Baloo_FOUND
-    if (!d->mBalooDetector.balooAvailability()) {
+    if (!d->mBalooDetector.balooAvailability() || !d->mBalooListener.canHandleRootPaths()) {
+        if (d->mBalooDetector.balooAvailability()) {
+            qCInfo(orgKdeElisaIndexersManager) << "Baloo indexer is available";
+            d->mBalooIndexerAvailable = true;
+        }
 #else
     if (true) {
 #endif
+        if (!d->mBalooListener.canHandleRootPaths() && d->mBalooDetector.balooAvailability())
+        {
+            qCInfo(orgKdeElisaIndexersManager()) << "Baloo cannot handle all configured paths: falling back to plain filex indexer";
+        }
         if (!d->mFileSystemIndexerActive) {
             startLocalFileSystemIndexing();
         }

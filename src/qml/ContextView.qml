@@ -88,8 +88,7 @@ FocusScope {
         }
 
         // Scrollview to hold all the content
-        Flickable {
-            id: flickable
+        ScrollView {
             clip: true
 
             contentWidth: content.width
@@ -97,13 +96,6 @@ FocusScope {
 
             Layout.fillWidth: true
             Layout.fillHeight: true
-
-            boundsBehavior: Flickable.StopAtBounds
-
-            ScrollBar.vertical: ScrollBar {
-                id: scrollBar
-                policy: ScrollBar.AlwaysOn
-            }
 
             // Album Art + title + metadata + lyrics
             ColumnLayout {

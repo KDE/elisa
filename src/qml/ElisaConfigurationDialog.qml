@@ -15,23 +15,19 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.7
-import QtQuick.Controls 2.3
+import QtQuick 2.11
+import QtQuick.Controls 2.4
 import QtQuick.Layouts 1.3
-import QtQuick.Dialogs 1.2
+import QtQuick.Dialogs 1.2 as Dialogs
 import QtQml.Models 2.3
-import org.kde.kcm 1.0
 
-Item {
-    //implicitWidth and implicitHeight will be used as initial size
-    //when loaded in kcmshell5
-    implicitWidth: 400
-    implicitHeight: 200
+Dialogs.Dialog {
+    id: dialog
+    title: 'Configure'
 
-    LayoutMirroring.enabled: Qt.application.layoutDirection == Qt.RightToLeft
-    LayoutMirroring.childrenInherit: true
-
-    ConfigModule.buttons: ConfigModule.Help|ConfigModule.Apply
+    visible: true
+    modality: Qt.ApplicationModal
+    standardButtons: Dialogs.StandardButton.Ok | Dialogs.StandardButton.Apply | Dialogs.StandardButton.Cancel
 
     SystemPalette {
         id: myPalette
@@ -86,9 +82,9 @@ Item {
 
                         onClicked:
                         {
-                            var oldPaths = kcm.rootPath
+                            var oldPaths = config.rootPath
                             oldPaths.splice(delegateItem.DelegateModel.itemsIndex, 1)
-                            kcm.rootPath = oldPaths
+                            config.rootPath = oldPaths
                         }
                     }
                 }
@@ -99,7 +95,13 @@ Item {
     RowLayout {
         spacing: 0
 
-        anchors.fill: parent
+        LayoutMirroring.enabled: Qt.application.layoutDirection == Qt.RightToLeft
+        LayoutMirroring.childrenInherit: true
+
+        height: 400
+        width: 600
+        implicitHeight: 400
+        implicitWidth: 600
 
         ListView {
             id:pathList
@@ -109,7 +111,7 @@ Item {
             boundsBehavior: Flickable.StopAtBounds
 
             model: DelegateModel {
-                model: kcm.rootPath
+                model: config.rootPath
 
                 delegate: pathDelegate
             }
@@ -134,7 +136,7 @@ Item {
 
                 Layout.alignment: Qt.AlignTop | Qt.AlignLeft
 
-                FileDialog {
+                Dialogs.FileDialog {
                     id: fileDialog
                     title: i18n("Choose a Folder")
                     folder: shortcuts.home
@@ -143,9 +145,9 @@ Item {
                     visible: false
 
                     onAccepted: {
-                        var oldPaths = kcm.rootPath
+                        var oldPaths = config.rootPath
                         oldPaths.push(fileDialog.fileUrls)
-                        kcm.rootPath = oldPaths
+                        config.rootPath = oldPaths
                     }
                 }
             }
@@ -155,4 +157,11 @@ Item {
             }
         }
     }
+
+    onAccepted: {
+        config.save()
+        close()
+    }
+
+    onApply: config.save()
 }

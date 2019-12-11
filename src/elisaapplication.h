@@ -37,6 +37,7 @@ class AudioWrapper;
 class ManageAudioPlayer;
 class ManageMediaPlayerControl;
 class ManageHeaderBar;
+class QQmlApplicationEngine;
 class ElisaApplicationPrivate;
 
 class ELISALIB_EXPORT ElisaApplication : public QObject
@@ -144,6 +145,10 @@ public Q_SLOTS:
     void openRequested(const QList< QUrl > &uris);
 
     void initialize();
+
+public:
+
+    void setQmlEngine(QQmlApplicationEngine *engine);
 
 private Q_SLOTS:
 

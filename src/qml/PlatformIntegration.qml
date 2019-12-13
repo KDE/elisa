@@ -16,6 +16,7 @@
  */
 
 import QtQuick 2.7
+import Qt.labs.platform 1.0 as NativeMenu
 import org.kde.elisa 1.0
 
 Item {
@@ -28,6 +29,11 @@ Item {
     property alias manageMediaPlayerControl: mpris2Interface.manageMediaPlayerControl
 
     signal raisePlayer()
+
+    NativeMenu.MenuBar {
+        NativeApplicationMenu {
+        }
+    }
 
     Mpris2 {
         id: mpris2Interface

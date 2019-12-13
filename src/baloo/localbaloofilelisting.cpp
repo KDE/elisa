@@ -448,16 +448,8 @@ void LocalBalooFileListing::triggerStop()
 
 DataTypes::TrackDataType LocalBalooFileListing::scanOneFile(const QUrl &scanFile, const QFileInfo &scanFileInfo)
 {
-    DataTypes::TrackDataType trackData;
 
-    auto localFileName = scanFile.toLocalFile();
-
-    Baloo::File match(localFileName);
-
-    match.load();
-    fileScanner().scanProperties(match, trackData);
-    trackData[DataTypes::FileModificationTime] = scanFileInfo.metadataChangeTime();
-    trackData[DataTypes::ResourceRole] = scanFile;
+    auto trackData = fileScanner().scanOneBalooFile(scanFile, scanFileInfo);
 
     if (!trackData.isValid()) {
         qCDebug(orgKdeElisaBaloo) << "LocalBalooFileListing::scanOneFile" << scanFile << "falling back to plain file metadata analysis";
@@ -465,7 +457,6 @@ DataTypes::TrackDataType LocalBalooFileListing::scanOneFile(const QUrl &scanFile
     }
 
     if (trackData.isValid()) {
-        trackData[DataTypes::HasEmbeddedCover] = checkEmbeddedCoverImage(localFileName);
         addCover(trackData);
     } else {
         qCDebug(orgKdeElisaBaloo) << "LocalBalooFileListing::scanOneFile" << scanFile << "invalid track";
@@ -473,6 +464,5 @@ DataTypes::TrackDataType LocalBalooFileListing::scanOneFile(const QUrl &scanFile
 
     return trackData;
 }
-
 
 #include "moc_localbaloofilelisting.cpp"

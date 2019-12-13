@@ -124,8 +124,6 @@ protected:
 
     FileScanner& fileScanner();
 
-    bool checkEmbeddedCoverImage(const QString &localFileName);
-
     bool waitEndTrackRemoval() const;
 
     void setWaitEndTrackRemoval(bool wait);

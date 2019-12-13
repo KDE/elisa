@@ -22,16 +22,10 @@
 
 #include "datatypes.h"
 
-#include <QUrl>
-
 #include <memory>
 
-namespace Baloo {
-
-class File;
-
-}
-
+class QFileInfo;
+class QUrl;
 class FileScannerPrivate;
 
 class ELISALIB_EXPORT FileScanner
@@ -46,15 +40,17 @@ public:
 
     DataTypes::TrackDataType scanOneFile(const QUrl &scanFile);
 
-    void scanProperties(const Baloo::File &match, DataTypes::TrackDataType &trackData);
+    DataTypes::TrackDataType scanOneFile(const QUrl &scanFile, const QFileInfo &scanFileInfo);
 
-    void scanProperties(const QString &localFileName, DataTypes::TrackDataType &trackData);
+    DataTypes::TrackDataType scanOneBalooFile(const QUrl &scanFile, const QFileInfo &scanFileInfo);
 
     QUrl searchForCoverFile(const QString &localFileName);
 
-    bool checkEmbeddedCoverImage(const QString &localFileName);
-
 private:
+
+    void scanProperties(const QString &localFileName, DataTypes::TrackDataType &trackData);
+
+    bool checkEmbeddedCoverImage(const QString &localFileName);
 
     std::unique_ptr<FileScannerPrivate> d;
 

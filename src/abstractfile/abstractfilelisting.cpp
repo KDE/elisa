@@ -330,15 +330,10 @@ DataTypes::TrackDataType AbstractFileListing::scanOneFile(const QUrl &scanFile, 
         }
     }
 
-    newTrack = d->mFileScanner.scanOneFile(scanFile);
+    newTrack = d->mFileScanner.scanOneFile(scanFile, scanFileInfo);
 
-    if (newTrack.isValid()) {
-        newTrack[DataTypes::HasEmbeddedCover] = checkEmbeddedCoverImage(localFileName);
-        newTrack[DataTypes::FileModificationTime] = scanFileInfo.metadataChangeTime();
-
-        if (scanFileInfo.exists()) {
-            watchPath(scanFile.toLocalFile());
-        }
+    if (newTrack.isValid() && scanFileInfo.exists()) {
+        watchPath(scanFile.toLocalFile());
     }
 
     return newTrack;
@@ -471,11 +466,6 @@ void AbstractFileListing::checkFilesToRemove()
 FileScanner &AbstractFileListing::fileScanner()
 {
     return d->mFileScanner;
-}
-
-bool AbstractFileListing::checkEmbeddedCoverImage(const QString &localFileName)
-{
-    return d->mFileScanner.checkEmbeddedCoverImage(localFileName);
 }
 
 bool AbstractFileListing::waitEndTrackRemoval() const

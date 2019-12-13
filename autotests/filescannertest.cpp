@@ -74,6 +74,16 @@ private Q_SLOTS:
         QCOMPARE(scannedTrack.genre(), QStringLiteral("Genre"));
         QCOMPARE(scannedTrack.album(), QStringLiteral("Test"));
         QCOMPARE(scannedTrack.artist(), QStringLiteral("Artist"));
+
+        auto scannedTrackCover1 = fileScanner.scanOneFile(QUrl::fromLocalFile(mTestTracksForMetaData.at(0)));
+        QCOMPARE(scannedTrackCover1.hasEmbeddedCover(), true);
+
+        auto scannedTrackCover2 = fileScanner.scanOneFile(QUrl::fromLocalFile(mTestTracksForMetaData.at(1)));
+        QCOMPARE(scannedTrackCover2.hasEmbeddedCover(), true);
+
+        auto scannedTrackCover3 = fileScanner.scanOneFile(QUrl::fromLocalFile(mTestTracksForMetaData.at(2)));
+        QCOMPARE(scannedTrackCover2.hasEmbeddedCover(), true);
+
     }
 
     void testFindCoverInDirectory()
@@ -88,14 +98,6 @@ private Q_SLOTS:
         QVERIFY(!fileScanner.searchForCoverFile(mTestTracksForDirectory.at(6)).isEmpty());
         QVERIFY(!fileScanner.searchForCoverFile(mTestTracksForDirectory.at(7)).isEmpty());
         QVERIFY(!fileScanner.searchForCoverFile(mTestTracksForDirectory.at(8)).isEmpty());
-    }
-
-    void loadCoverFromMetaData()
-    {
-        FileScanner fileScanner;
-        QVERIFY(fileScanner.checkEmbeddedCoverImage(mTestTracksForMetaData.at(0)));
-        QVERIFY(fileScanner.checkEmbeddedCoverImage(mTestTracksForMetaData.at(1)));
-        QVERIFY(fileScanner.checkEmbeddedCoverImage(mTestTracksForMetaData.at(2)));
     }
 
     void benchmarkFileScan()
@@ -125,16 +127,6 @@ private Q_SLOTS:
             fileScanner.searchForCoverFile(mTestTracksForDirectory.at(8));
         }
     }
-    void benchmarkCoverFromMetadata()
-    {
-        FileScanner fileScanner;
-        QBENCHMARK {
-            fileScanner.checkEmbeddedCoverImage(mTestTracksForMetaData.at(0));
-            fileScanner.checkEmbeddedCoverImage(mTestTracksForMetaData.at(1));
-            fileScanner.checkEmbeddedCoverImage(mTestTracksForMetaData.at(2));
-        }
-    }
-
 };
 
 QTEST_GUILESS_MAIN(FileScannerTest)

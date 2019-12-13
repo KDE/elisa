@@ -101,9 +101,8 @@ bool FileScanner::shouldScanFile(const QString &scanFile)
 
 FileScanner::~FileScanner() = default;
 
-DataTypes::TrackDataType FileScanner::scanOneFile(const QUrl &scanFile)
+DataTypes::TrackDataType FileScanner::scanOneFile(const QUrl &scanFile, const QFileInfo &scanFileInfo)
 {
-
     DataTypes::TrackDataType newTrack;
 
     if (!scanFile.isLocalFile() && !scanFile.scheme().isEmpty()) {
@@ -112,7 +111,6 @@ DataTypes::TrackDataType FileScanner::scanOneFile(const QUrl &scanFile)
 
     auto localFileName = scanFile.toLocalFile();
 
-    QFileInfo scanFileInfo(localFileName);
     newTrack[DataTypes::FileModificationTime] = scanFileInfo.metadataChangeTime();
     newTrack[DataTypes::ResourceRole] = scanFile;
     newTrack[DataTypes::RatingRole] = 0;
@@ -144,6 +142,7 @@ DataTypes::TrackDataType FileScanner::scanOneFile(const QUrl &scanFile)
     qCDebug(orgKdeElisaIndexer()) << "scanOneFile" << scanFile << "using KFileMetaData" << newTrack;
 #else
     Q_UNUSED(scanFile)
+    Q_UNUSED(scanFileInfo)
 
     qCDebug(orgKdeElisaIndexer()) << "scanOneFile" << scanFile << "no metadata provider" << newTrack;
 #endif
@@ -151,19 +150,41 @@ DataTypes::TrackDataType FileScanner::scanOneFile(const QUrl &scanFile)
     return newTrack;
 }
 
-void FileScanner::scanProperties(const Baloo::File &match, DataTypes::TrackDataType &trackData)
+DataTypes::TrackDataType FileScanner::scanOneFile(const QUrl &scanFile)
 {
+    if (!scanFile.isLocalFile()){
+        return {};
+    } else {
+        QFileInfo scanFileInfo(scanFile.toLocalFile());
+        return FileScanner::scanOneFile(scanFile, scanFileInfo);
+    }
+}
+
+DataTypes::TrackDataType FileScanner::scanOneBalooFile(const QUrl &scanFile, const QFileInfo &scanFileInfo)
+{
+    DataTypes::TrackDataType newTrack;
 #if defined KF5Baloo_FOUND && KF5Baloo_FOUND
+    auto localFileName = scanFile.toLocalFile();
+
+    newTrack[DataTypes::FileModificationTime] = scanFileInfo.metadataChangeTime();
+    newTrack[DataTypes::ResourceRole] = scanFile;
+    newTrack[DataTypes::RatingRole] = 0;
+
+    Baloo::File match(localFileName);
+
+    match.load();
+
     d->mAllProperties = match.properties();
-    scanProperties(match.path(), trackData);
+    scanProperties(match.path(), newTrack);
 
-    qCDebug(orgKdeElisaIndexer()) << "scanProperties" << match.path() << "using Baloo" << trackData;
+    qCDebug(orgKdeElisaIndexer()) << "scanOneFile" << scanFile << "using Baloo" << newTrack;
 #else
-    Q_UNUSED(match)
-    Q_UNUSED(trackData)
+    Q_UNUSED(scanFile)
+    Q_UNUSED(scanFileInfo)
 
-    qCDebug(orgKdeElisaIndexer()) << "scanProperties" << "no metadata provider" << trackData;
+    qCDebug(orgKdeElisaIndexer()) << "scanOneFile" << scanFile << "no baloo metadata provider" << newTrack;
 #endif
+    return newTrack;
 }
 
 void FileScanner::scanProperties(const QString &localFileName, DataTypes::TrackDataType &trackData)
@@ -202,6 +223,12 @@ void FileScanner::scanProperties(const QString &localFileName, DataTypes::TrackD
         }
         rangeBegin = rangeEnd;
     }
+
+    if (!trackData.isValid()) {
+        return;
+    }
+
+    trackData[DataTypes::HasEmbeddedCover] = checkEmbeddedCoverImage(localFileName);
 
 #if !defined Q_OS_ANDROID && !defined Q_OS_WIN
     auto fileData = KFileMetaData::UserMetaData(localFileName);

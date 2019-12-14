@@ -50,7 +50,8 @@ Window {
     }
 
     modality: Qt.NonModal
-    flags: Qt.Dialog | Qt.WindowCloseButtonHint
+    flags: Qt.Dialog | Qt.CustomizeWindowHint | Qt.WindowTitleHint
+        | Qt.WindowCloseButtonHint | Qt.WindowMinimizeButtonHint | Qt.WindowMaximizeButtonHint
 
     color: myPalette.window
 

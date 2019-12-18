@@ -49,6 +49,8 @@ public:
 
     const QStringList& allRootPaths() const;
 
+    virtual bool canHandleRootPaths() const;
+
 Q_SIGNALS:
 
     void tracksList(const DataTypes::ListTrackDataType &tracks, const QHash<QString, QUrl> &covers);
@@ -71,6 +73,8 @@ public Q_SLOTS:
 
     void init();
 
+    void stop();
+
     void newTrackFile(const DataTypes::TrackDataType &partialTrack);
 
     void restoredTracks(QHash<QUrl, QDateTime> allFiles);
@@ -92,6 +96,8 @@ protected:
     virtual void executeInit(QHash<QUrl, QDateTime> allFiles);
 
     virtual void triggerRefreshOfContent();
+
+    virtual void triggerStop();
 
     void scanDirectory(DataTypes::ListTrackDataType &newFiles, const QUrl &path);
 
@@ -124,6 +130,8 @@ protected:
     bool waitEndTrackRemoval() const;
 
     void setWaitEndTrackRemoval(bool wait);
+
+    bool isActive() const;
 
 private:
 

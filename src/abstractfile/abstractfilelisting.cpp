@@ -66,6 +66,8 @@ public:
 
     bool mErrorWatchingFileSystemChanges = false;
 
+    bool mIsActive = false;
+
 };
 
 AbstractFileListing::AbstractFileListing(QObject *parent) : QObject(parent), d(std::make_unique<AbstractFileListingPrivate>())
@@ -81,7 +83,18 @@ AbstractFileListing::~AbstractFileListing()
 
 void AbstractFileListing::init()
 {
+    qCDebug(orgKdeElisaIndexer()) << "AbstractFileListing::init";
+
+    d->mIsActive = true;
+
     Q_EMIT askRestoredTracks();
+}
+
+void AbstractFileListing::stop()
+{
+    d->mIsActive = false;
+
+    triggerStop();
 }
 
 void AbstractFileListing::newTrackFile(const DataTypes::TrackDataType &partialTrack)
@@ -126,6 +139,11 @@ void AbstractFileListing::applicationAboutToQuit()
 const QStringList &AbstractFileListing::allRootPaths() const
 {
     return d->mAllRootPaths;
+}
+
+bool AbstractFileListing::canHandleRootPaths() const
+{
+    return true;
 }
 
 void AbstractFileListing::scanDirectory(DataTypes::ListTrackDataType &newFiles, const QUrl &path)
@@ -210,6 +228,15 @@ void AbstractFileListing::scanDirectory(DataTypes::ListTrackDataType &newFiles, 
             continue;
         }
 
+        auto itExistingFile = allFiles().find(newFilePath);
+        if (itExistingFile != allFiles().end()) {
+            if (*itExistingFile >= oneEntry.metadataChangeTime()) {
+                allFiles().erase(itExistingFile);
+                qCDebug(orgKdeElisaIndexer()) << "AbstractFileListing::scanDirectory" << newFilePath << "file not modified since last scan";
+                continue;
+            }
+        }
+
         auto newTrack = scanOneFile(newFilePath, oneEntry);
 
         if (newTrack.isValid() && d->mStopRequest == 0) {
@@ -266,6 +293,10 @@ void AbstractFileListing::executeInit(QHash<QUrl, QDateTime> allFiles)
     d->mAllFiles = std::move(allFiles);
 }
 
+void AbstractFileListing::triggerStop()
+{
+}
+
 void AbstractFileListing::triggerRefreshOfContent()
 {
     d->mImportedTracksCount = 0;
@@ -285,6 +316,7 @@ DataTypes::TrackDataType AbstractFileListing::scanOneFile(const QUrl &scanFile, 
     auto localFileName = scanFile.toLocalFile();
 
     if (!d->mFileScanner.shouldScanFile(localFileName)) {
+        qCDebug(orgKdeElisaIndexer) << "AbstractFileListing::scanOneFile" << "invalid mime type";
         return newTrack;
     }
 
@@ -293,6 +325,7 @@ DataTypes::TrackDataType AbstractFileListing::scanOneFile(const QUrl &scanFile, 
         if (itExistingFile != d->mAllFiles.end()) {
             if (*itExistingFile >= scanFileInfo.metadataChangeTime()) {
                 d->mAllFiles.erase(itExistingFile);
+                qCDebug(orgKdeElisaIndexer) << "AbstractFileListing::scanOneFile" << "not changed file";
                 return newTrack;
             }
         }
@@ -454,6 +487,11 @@ bool AbstractFileListing::waitEndTrackRemoval() const
 void AbstractFileListing::setWaitEndTrackRemoval(bool wait)
 {
     d->mWaitEndTrackRemoval = wait;
+}
+
+bool AbstractFileListing::isActive() const
+{
+    return d->mIsActive;
 }
 
 

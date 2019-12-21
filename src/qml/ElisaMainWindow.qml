@@ -27,7 +27,7 @@ ApplicationWindow {
 
     visible: true
 
-    minimumWidth: contentView.showPlaylist ? 1100 : 700
+    minimumWidth: 700
     minimumHeight: 600
 
     LayoutMirroring.enabled: Qt.application.layoutDirection == Qt.RightToLeft

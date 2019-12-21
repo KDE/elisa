@@ -412,7 +412,7 @@ FocusScope {
             icon.height: elisaTheme.smallControlButtonSize
         }
 
-        // Not a FlatButtonWithToolTip because sometimes we want text
+        // Not a FlatButtonWithToolTip because we want text
         Button {
             id: showHidePlaylistAction
             action: Action {
@@ -420,8 +420,10 @@ FocusScope {
                 onTriggered: contentView.showPlaylist = !contentView.showPlaylist
             }
 
+            visible: mainWindow.width >= elisaTheme.viewSelectorSmallSizeThreshold
+
             flat: true
-            text: mainWindow.width >= elisaTheme.viewSelectorSmallSizeThreshold ? i18n("Show Playlist") : undefined
+            text: i18n("Show Playlist")
             icon.name: "view-media-playlist"
 
             checkable: true

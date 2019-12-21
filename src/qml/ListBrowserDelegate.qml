@@ -213,7 +213,6 @@ FocusScope {
 
                     horizontalAlignment: Text.AlignLeft
 
-                    font.weight: Font.Bold
                     color: myPalette.text
 
                     Layout.alignment: Qt.AlignLeft | Qt.AlignTop
@@ -247,8 +246,7 @@ FocusScope {
                     }
                     horizontalAlignment: Text.AlignLeft
 
-                    font.weight: Font.Light
-                    font.italic: true
+                    opacity: 0.6
                     color: myPalette.text
 
                     Layout.alignment: Qt.AlignLeft | Qt.AlignBottom

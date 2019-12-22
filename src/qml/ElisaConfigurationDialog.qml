@@ -98,10 +98,11 @@ Dialogs.Dialog {
         LayoutMirroring.enabled: Qt.application.layoutDirection == Qt.RightToLeft
         LayoutMirroring.childrenInherit: true
 
-        height: 400
-        width: 600
-        implicitHeight: 400
+        anchors.fill: parent
+        anchors.margins: 0
+
         implicitWidth: 600
+        implicitHeight: 400
 
         ListView {
             id:pathList

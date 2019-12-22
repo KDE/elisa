@@ -308,7 +308,6 @@ FocusScope {
                 LabelWithToolTip {
                     id: mainLabel
 
-                    font.weight: Font.Bold
                     color: myPalette.text
 
                     // FIXME: Center-aligned text looks better overall, but
@@ -332,7 +331,7 @@ FocusScope {
                 LabelWithToolTip {
                     id: secondaryLabel
 
-                    font.weight: Font.Light
+                    opacity: 0.6
                     color: myPalette.text
 
                     // FIXME: Center-aligned text looks better overall, but

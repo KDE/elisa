@@ -44,29 +44,26 @@ Item {
 
     property int delegateHeight: 28
 
+    // FIXME: don't hardcode these; derive them from the layouts they're used in
     FontMetrics {
         id: playListAuthorTextHeight
         font.weight: Font.Light
     }
-
     FontMetrics {
         id: playListAlbumTextHeight
         font.weight: Font.Bold
-        font.pointSize: Math.round(elisaTheme.defaultFontPointSize * 1.4)
+        font.pointSize: Math.round(fontSize.font.pointSize * 1.4)
     }
-
     FontMetrics {
         id: playListTrackTextHeight
         font.weight: Font.Bold
     }
-
     property int playListDelegateHeight: (playListTrackTextHeight.height > 28) ? playListTrackTextHeight.height : 28
-
     property int playListHeaderHeight: elisaTheme.layoutVerticalMargin * 5 +
                                        playListAuthorTextHeight.height +
                                        playListAlbumTextHeight.height
-
     property int trackDelegateHeight: elisaTheme.layoutVerticalMargin + fontSize.height * 2
+    // END FIXME
 
     property int coverImageSize: 180
     property int contextCoverImageSize: 100
@@ -100,10 +97,6 @@ Item {
     property int viewSelectorDelegateHeight: 24
 
     property int filterClearButtonMargin: layoutVerticalMargin
-
-    property alias defaultFontPointSize: fontSize.font.pointSize
-
-    property int headerTitleFontSize: defaultFontPointSize * 2
 
     property int headerToolbarHeight: 48
     property int footerToolbarHeight: 30

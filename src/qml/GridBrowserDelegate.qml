@@ -308,6 +308,8 @@ FocusScope {
                 LabelWithToolTip {
                     id: mainLabel
 
+                    level: 4
+
                     color: myPalette.text
 
                     // FIXME: Center-aligned text looks better overall, but

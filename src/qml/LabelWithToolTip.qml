@@ -19,9 +19,12 @@ import QtQuick 2.7
 import QtQuick.Controls 2.2
 import QtGraphicalEffects 1.0
 import QtQuick.Window 2.2
+import org.kde.kirigami 2.5 as Kirigami
 
-Label {
+Kirigami.Heading {
     id: theLabel
+
+    level: 5
 
     horizontalAlignment: Text.AlignLeft
 

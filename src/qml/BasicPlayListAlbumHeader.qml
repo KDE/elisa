@@ -90,8 +90,8 @@ RowLayout {
 
             text: album
 
+            level: 2
             font.weight: Font.Bold
-            font.pointSize: Math.round(elisaTheme.defaultFontPointSize * 1.4)
 
             horizontalAlignment: Text.AlignLeft
 

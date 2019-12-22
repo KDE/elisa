@@ -40,7 +40,6 @@ FocusScope {
         id: elisaTheme
         property int layoutHorizontalMargin: 8
         property int layoutVerticalMargin: 6
-        property int defaultFontPointSize: 12
         property int filterClearButtonMargin: layoutVerticalMargin
         property int ratingStarSize: 15
         property int navigationBarHeight: 100

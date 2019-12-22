@@ -361,6 +361,8 @@ void MusicListenersManager::configChanged()
     if (!d->mBalooIndexerActive && !d->mFileSystemIndexerActive) {
         testBalooIndexerAvailability();
     }
+
+#if defined KF5Baloo_FOUND && KF5Baloo_FOUND
     if (d->mBalooIndexerAvailable && !d->mBalooIndexerActive && d->mBalooListener.canHandleRootPaths())
     {
         qCDebug(orgKdeElisaIndexersManager()) << "trigger start of baloo file indexer";
@@ -374,6 +376,7 @@ void MusicListenersManager::configChanged()
         d->mBalooIndexerActive = false;
         startLocalFileSystemIndexing();
     }
+#endif
 
     if (d->mBalooIndexerActive) {
         qCInfo(orgKdeElisaIndexersManager()) << "trigger init of baloo file indexer";
@@ -453,10 +456,14 @@ void MusicListenersManager::balooAvailabilityChanged()
 #else
     if (true) {
 #endif
+
+#if defined KF5Baloo_FOUND && KF5Baloo_FOUND
         if (!d->mBalooListener.canHandleRootPaths() && d->mBalooDetector.balooAvailability())
         {
             qCInfo(orgKdeElisaIndexersManager()) << "Baloo cannot handle all configured paths: falling back to plain filex indexer";
         }
+#endif
+
         if (!d->mFileSystemIndexerActive) {
             startLocalFileSystemIndexing();
         }

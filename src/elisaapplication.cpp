@@ -48,6 +48,7 @@
 
 #include <KCoreAddons/KAboutData>
 
+#include <QQmlApplicationEngine>
 #include <QCoreApplication>
 #include <QDesktopServices>
 #include <QDialog>
@@ -97,6 +98,8 @@ public:
     std::unique_ptr<ManageMediaPlayerControl> mPlayerControl;
 
     std::unique_ptr<ManageHeaderBar> mManageHeaderBar;
+
+    QQmlApplicationEngine *mEngine = nullptr;
 
 };
 
@@ -265,13 +268,12 @@ void ElisaApplication::configureShortcuts()
 
 void ElisaApplication::configureElisa()
 {
-#if defined KF5KCMUtils_FOUND && KF5KCMUtils_FOUND
-    KCMultiDialog configurationDialog;
+    if (!d->mEngine)
+    {
+        return;
+    }
 
-    configurationDialog.addModule(QStringLiteral("kcm_elisa_local_file"));
-    configurationDialog.setModal(true);
-    configurationDialog.exec();
-#endif
+    d->mEngine->load(QUrl(QStringLiteral("qrc:/qml/ElisaConfigurationDialog.qml")));
 }
 
 void ElisaApplication::goBack() {}
@@ -323,6 +325,11 @@ void ElisaApplication::initialize()
     initializePlayer();
 
     Q_EMIT initializationDone();
+}
+
+void ElisaApplication::setQmlEngine(QQmlApplicationEngine *engine)
+{
+    d->mEngine = engine;
 }
 
 void ElisaApplication::initializeModels()

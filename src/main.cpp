@@ -21,6 +21,8 @@
 #include "elisaapplication.h"
 #include "elisa_settings.h"
 
+#include "localFileConfiguration/elisaconfigurationdialog.h"
+
 //#define QT_QML_DEBUG
 
 #if defined KF5Declarative_FOUND && KF5Declarative_FOUND
@@ -162,6 +164,8 @@ int main(int argc, char *argv[])
 
     std::unique_ptr<ElisaApplication> myApp = std::make_unique<ElisaApplication>();
 
+    myApp->setQmlEngine(&engine);
+
 #if defined KF5DBusAddons_FOUND && KF5DBusAddons_FOUND
     QObject::connect(&elisaService, &KDBusService::activateActionRequested, myApp.get(), &ElisaApplication::activateActionRequested);
     QObject::connect(&elisaService, &KDBusService::activateRequested, myApp.get(), &ElisaApplication::activateRequested);
@@ -178,6 +182,7 @@ int main(int argc, char *argv[])
     myApp->setArguments(arguments);
 
     engine.rootContext()->setContextProperty(QStringLiteral("elisa"), myApp.release());
+    engine.rootContext()->setContextProperty(QStringLiteral("config"), new ElisaConfigurationDialog);
 
     engine.load(QUrl(QStringLiteral("qrc:/qml/ElisaMainWindow.qml")));
 

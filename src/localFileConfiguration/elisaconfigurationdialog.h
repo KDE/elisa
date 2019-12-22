@@ -15,14 +15,15 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#if !defined LOCALFILECONFIGURATION_H_
-#define LOCALFILECONFIGURATION_H_
+#if !defined ELISACONFIGURATIONDIALOG_H_
+#define ELISACONFIGURATIONDIALOG_H_
 
-#include <KQuickAddons/ConfigModule>
+#include "elisaLib_export.h"
+
 #include <QStringList>
 #include <QFileSystemWatcher>
 
-class KCMElisaLocalFile : public KQuickAddons::ConfigModule
+class ELISALIB_EXPORT ElisaConfigurationDialog : public QObject
 {
 
     Q_OBJECT
@@ -34,9 +35,9 @@ class KCMElisaLocalFile : public KQuickAddons::ConfigModule
 
 public:
 
-    explicit KCMElisaLocalFile(QObject *parent, const QVariantList &args);
+    explicit ElisaConfigurationDialog(QObject *parent = nullptr);
 
-    ~KCMElisaLocalFile() override;
+    ~ElisaConfigurationDialog() override;
 
     QStringList rootPath() const;
 
@@ -46,13 +47,9 @@ Q_SIGNALS:
 
 public Q_SLOTS:
 
-    void defaults() override final;
-
-    void load() override final;
-
-    void save() override final;
-
     void setRootPath(const QStringList &rootPath);
+
+    void save();
 
 private Q_SLOTS:
 

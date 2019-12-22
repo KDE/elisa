@@ -28,7 +28,8 @@ set(elisaLib_SOURCES
     models/trackmetadatamodel.cpp
     models/trackcontextmetadatamodel.cpp
     models/viewsmodel.cpp
-)
+    localFileConfiguration/elisaconfigurationdialog.cpp
+    )
 
 ecm_qt_declare_logging_category(elisaLib_SOURCES
     HEADER "indexersManager.h"
@@ -402,6 +403,8 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         qml/ScrollHelper.qml
         qml/FlatButtonWithToolTip.qml
         qml/HeaderFooterToolbar.qml
+
+        qml/ElisaConfigurationDialog.qml
     )
 
     qt5_add_resources(elisa_SOURCES resources.qrc)
@@ -459,10 +462,6 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
     endif()
 
     install(TARGETS elisa ${INSTALL_TARGETS_DEFAULT_ARGS})
-endif()
-
-if (KF5ConfigWidgets_FOUND AND KF5Declarative_FOUND)
-    add_subdirectory(localFileConfiguration)
 endif()
 
 set(elisaImport_SOURCES

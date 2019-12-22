@@ -52,6 +52,7 @@
 #include "models/gridviewproxymodel.h"
 #include "models/alltracksproxymodel.h"
 #include "models/singlealbumproxymodel.h"
+#include "localFileConfiguration/elisaconfigurationdialog.h"
 
 #if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
 #include "embeddedcoverageimageprovider.h"
@@ -178,6 +179,7 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qRegisterMetaType<TracksListener::TrackDataType>("TracksListener::TrackDataType");
     qRegisterMetaType<ViewManager::ViewsType>("ViewManager::ViewsType");
     qRegisterMetaType<ViewManager::SortOrder>("ViewManager::SortOrder");
+    qmlRegisterUncreatableType<ElisaConfigurationDialog>(uri, 1, 0, "ElisaConfigurationDialog", QStringLiteral("only one and done in c++"));
 
     qmlRegisterUncreatableType<ElisaApplication>(uri, 1, 0, "ElisaApplication", QStringLiteral("only one and done in c++"));
     qmlRegisterUncreatableMetaObject(ElisaUtils::staticMetaObject, uri, 1, 0, "ElisaUtils", QStringLiteral("Namespace ElisaUtils"));

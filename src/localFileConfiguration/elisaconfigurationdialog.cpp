@@ -15,39 +15,24 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "localfileconfiguration.h"
+#include "elisaconfigurationdialog.h"
 
 #include "elisa-version.h"
 
 #include "elisa_settings.h"
 
-#include <KPluginFactory>
-#include <KAboutData>
 #include <KLocalizedString>
 
 #include <QStandardPaths>
+#include <QFileInfo>
 
-K_PLUGIN_CLASS_WITH_JSON(KCMElisaLocalFile, "kcm_elisa_local_file.json")
-
-KCMElisaLocalFile::KCMElisaLocalFile(QObject* parent, const QVariantList &args)
-    : ConfigModule(parent, args)
+ElisaConfigurationDialog::ElisaConfigurationDialog(QObject* parent)
+    : QObject(parent)
 {
-    KAboutData *about = new KAboutData(QStringLiteral("kcm_elisa_local_file"),
-                                       i18n("Elisa Local Files Indexer Configuration"),
-                                       QStringLiteral(ELISA_VERSION_STRING), {}, KAboutLicense::LGPL_V3,
-                                       i18n("Copyright 2017-2019 Matthieu Gallien <matthieu_gallien@yahoo.fr>"));
-
-    about->addAuthor(i18n("Matthieu Gallien"),i18n("Author"), QStringLiteral("mgallien@mgallien.fr"));
-    setAboutData(about);
-
-    auto configurationFileName = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
-    configurationFileName += QStringLiteral("/elisarc");
-    Elisa::ElisaConfiguration::instance(configurationFileName);
-
     connect(Elisa::ElisaConfiguration::self(), &Elisa::ElisaConfiguration::configChanged,
-            this, &KCMElisaLocalFile::configChanged);
+            this, &ElisaConfigurationDialog::configChanged);
     connect(&mConfigFileWatcher, &QFileSystemWatcher::fileChanged,
-            this, &KCMElisaLocalFile::configChanged);
+            this, &ElisaConfigurationDialog::configChanged);
 
 
     setRootPath(Elisa::ElisaConfiguration::rootPath());
@@ -57,31 +42,15 @@ KCMElisaLocalFile::KCMElisaLocalFile(QObject* parent, const QVariantList &args)
     mConfigFileWatcher.addPath(Elisa::ElisaConfiguration::self()->config()->name());
 }
 
-KCMElisaLocalFile::~KCMElisaLocalFile()
+ElisaConfigurationDialog::~ElisaConfigurationDialog()
 = default;
 
-QStringList KCMElisaLocalFile::rootPath() const
+QStringList ElisaConfigurationDialog::rootPath() const
 {
     return mRootPath;
 }
 
-void KCMElisaLocalFile::defaults()
-{
-    setRootPath(QStandardPaths::standardLocations(QStandardPaths::MusicLocation));
-}
-
-void KCMElisaLocalFile::load()
-{
-    setRootPath(Elisa::ElisaConfiguration::rootPath());
-}
-
-void KCMElisaLocalFile::save()
-{
-    Elisa::ElisaConfiguration::setRootPath(mRootPath);
-    Elisa::ElisaConfiguration::self()->save();
-}
-
-void KCMElisaLocalFile::setRootPath(const QStringList &rootPath)
+void ElisaConfigurationDialog::setRootPath(const QStringList &rootPath)
 {
     if (mRootPath == rootPath && !mRootPath.isEmpty()) {
         return;
@@ -110,15 +79,18 @@ void KCMElisaLocalFile::setRootPath(const QStringList &rootPath)
     }
 
     Q_EMIT rootPathChanged(mRootPath);
-
-    setNeedsSave(true);
-    Q_EMIT needsSaveChanged();
 }
 
-void KCMElisaLocalFile::configChanged()
+void ElisaConfigurationDialog::save()
+{
+    Elisa::ElisaConfiguration::setRootPath(mRootPath);
+    Elisa::ElisaConfiguration::self()->save();
+}
+
+void ElisaConfigurationDialog::configChanged()
 {
     setRootPath(Elisa::ElisaConfiguration::rootPath());
 }
 
 
-#include "localfileconfiguration.moc"
+#include "moc_elisaconfigurationdialog.cpp"

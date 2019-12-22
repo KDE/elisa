@@ -183,7 +183,7 @@ FocusScope {
 
                     text: i18nc("Title of the view of the playlist", "Playlist")
 
-                    font.pointSize: elisaTheme.headerTitleFontSize
+                    level: 1
                     Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
                 },
 
@@ -246,7 +246,7 @@ FocusScope {
                 }
             }
 
-            Label {
+            LabelWithToolTip {
                 id: emptyLabel0
                 visible: emptyVisible.visible
                 Layout.fillWidth: true
@@ -254,7 +254,7 @@ FocusScope {
                 Layout.rightMargin: elisaTheme.layoutHorizontalMargin
                 Layout.leftMargin: elisaTheme.layoutHorizontalMargin
 
-                font.pointSize: elisaTheme.headerTitleFontSize
+                level: 1
                 wrapMode: Text.WordWrap
 
                 horizontalAlignment: Text.AlignHCenter

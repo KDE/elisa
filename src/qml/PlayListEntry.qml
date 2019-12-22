@@ -320,7 +320,6 @@ FocusScope {
 
             text: title
 
-            font.weight: Font.Normal
             color: simpleMode ? myPalette.highlightedText : myPalette.text
 
             Layout.fillWidth: true

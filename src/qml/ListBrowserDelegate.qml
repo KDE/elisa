@@ -202,6 +202,8 @@ FocusScope {
                 LabelWithToolTip {
                     id: mainLabelDetailed
 
+                    level: 4
+
                     text: {
                         if (trackNumber >= 0) {
                             return i18nc("%1: track number. %2: track title", "%1 - %2",

@@ -82,7 +82,7 @@ FocusScope {
 
                     text: i18nc("Title of the context view related to the currently playing track", "Now Playing")
 
-                    font.pointSize: elisaTheme.headerTitleFontSize
+                    level: 1
                 }
             ]
         }
@@ -131,8 +131,7 @@ FocusScope {
                 LabelWithToolTip {
                     id: titleLabel
 
-                    font.pointSize: elisaTheme.headerTitleFontSize
-                    font.weight: Font.Bold
+                    level: 1
 
                     horizontalAlignment: Label.AlignHCenter
 
@@ -155,7 +154,9 @@ FocusScope {
                         }
                     }
 
-                    font.pointSize: Math.round(elisaTheme.defaultFontPointSize * 1.4)
+                    level: 3
+                    opacity: 0.6
+
                     horizontalAlignment: Label.AlignHCenter
 
                     visible: artistName !== '' && albumName !== ''

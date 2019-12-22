@@ -225,7 +225,7 @@ FocusScope {
                     // background, so we don't want to use a color scheme color that
                     // might also be dark
                     color: "white"
-                    font.pointSize: Math.round(elisaTheme.defaultFontPointSize * 2.5)
+                    level: 1
                     font.bold: true
 
                     Layout.bottomMargin: albumLabel.height * 0.5
@@ -250,7 +250,7 @@ FocusScope {
                     // background, so we don't want to use a color scheme color that
                     // might also be dark
                     color: "white"
-                    font.pointSize: Math.round(elisaTheme.defaultFontPointSize * 1.5)
+                    level: 3
 
                     MouseArea {
                         id: authorMouseArea
@@ -272,8 +272,7 @@ FocusScope {
                     // background, so we don't want to use a color scheme color that
                     // might also be dark
                     color: "white"
-                    font.weight: Font.Light
-                    font.pointSize: elisaTheme.defaultFontPointSize
+                    level: 3
 
                     MouseArea {
                         id: albumMouseArea

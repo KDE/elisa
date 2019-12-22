@@ -151,9 +151,7 @@ ColumnLayout {
                     Layout.fillWidth: true
 
                     text: mainTitle
-                    font.pointSize: authorLabel.visible ?
-                        Math.round(elisaTheme.defaultFontPointSize * 1.2) :
-                        elisaTheme.headerTitleFontSize
+                    level: authorLabel.visible ? 4 : 1
                     font.weight: authorLabel.visible ? Font.Bold : Font.Normal
                     elide: Text.ElideRight
                 }
@@ -164,7 +162,6 @@ ColumnLayout {
                     Layout.fillWidth: true
 
                     text: secondaryTitle
-                    font.pointSize: elisaTheme.defaultFontPointSize
                     elide: Text.ElideRight
 
                     visible: secondaryTitle !== ""

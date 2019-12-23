@@ -213,6 +213,40 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
         }
         break;
     }
+    case DataTypes::ColumnsRoles::ArtistRole:
+    {
+        switch (d->mModelType)
+        {
+        case ElisaUtils::Track:
+        {
+            auto itArtist = d->mAllTrackData[index.row()].find(TrackDataType::key_type::ArtistRole);
+            if (itArtist != d->mAllTrackData[index.row()].end()) {
+                result = d->mAllTrackData[index.row()][TrackDataType::key_type::ArtistRole];
+            } else {
+                result = d->mAllTrackData[index.row()][TrackDataType::key_type::AlbumArtistRole];
+            }
+            break;
+        }
+        case ElisaUtils::Album:
+            result = d->mAllAlbumData[index.row()][static_cast<AlbumDataType::key_type>(role)];
+            break;
+        case ElisaUtils::Artist:
+            result = d->mAllArtistData[index.row()][static_cast<ArtistDataType::key_type>(role)];
+            break;
+        case ElisaUtils::Genre:
+            result = d->mAllGenreData[index.row()][static_cast<GenreDataType::key_type>(role)];
+            break;
+        case ElisaUtils::Radio:
+            result = d->mAllRadiosData[index.row()][static_cast<TrackDataType::key_type>(role)];
+            break;
+        case ElisaUtils::Lyricist:
+        case ElisaUtils::Composer:
+        case ElisaUtils::FileName:
+        case ElisaUtils::Unknown:
+            break;
+        }
+        break;
+    }
     default:
         switch(d->mModelType)
         {

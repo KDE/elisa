@@ -270,7 +270,7 @@ RowLayout {
     states: [
         State {
             name: "browsingViewsNoPlaylist"
-            when: contentViewContainer.showPlaylist === false
+            when: contentViewContainer.showPlaylist === false || mainWindow.width < elisaTheme.viewSelectorSmallSizeThreshold
             PropertyChanges {
                 target: playList
                 Layout.minimumWidth: 0
@@ -284,7 +284,7 @@ RowLayout {
         },
         State {
             name: 'browsingViews'
-            when: contentViewContainer.showPlaylist === true
+            when: contentViewContainer.showPlaylist === true || mainWindow.width >= elisaTheme.viewSelectorSmallSizeThreshold
             PropertyChanges {
                 target: playList
                 Layout.minimumWidth: contentViewContainer.width * 0.28

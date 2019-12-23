@@ -30,7 +30,6 @@ Menu {
     property var aboutAppAction: elisa.action("help_about_app")
     property var configureShortcutsAction: elisa.action("options_configure_keybinding")
     property var configureAction: elisa.action("options_configure")
-    property var togglePlaylistAction: elisa.action("toggle_playlist")
 
     Action {
         text: i18nc("Refresh Music Collection application menu entry", "Refresh Music Collection")
@@ -61,16 +60,6 @@ Menu {
         onTriggered: {
             applicationMenu.close()
             configureShortcutsAction.trigger()
-        }
-    }
-
-    Action {
-        shortcut: togglePlaylistAction.shortcut
-        text: contentView.showPlaylist ? i18nc("Hide playlist", "Hide Playlist") : i18nc("Show playlist", "Show Playlist")
-        icon.name: "view-media-playlist"
-        onTriggered: {
-            contentView.showPlaylist = !contentView.showPlaylist
-            applicationMenu.close()
         }
     }
 

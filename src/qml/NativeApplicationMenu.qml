@@ -60,8 +60,10 @@ Menu {
 
     MenuItem {
         shortcut: togglePlaylistAction.shortcut
-        text: contentView.showPlaylist ? i18nc("Hide playlist", "Hide Playlist") : i18nc("Show playlist", "Show Playlist")
+        text: i18n("Show Playlist")
         iconName: "view-media-playlist"
+        checkable: true
+        checked: contentView.showPlaylist
         onTriggered: contentView.showPlaylist = !contentView.showPlaylist
         enabled: contentView.currentViewIndex != 0
     }

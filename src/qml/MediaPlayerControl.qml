@@ -412,6 +412,29 @@ FocusScope {
             icon.height: elisaTheme.smallControlButtonSize
         }
 
+        // Not a FlatButtonWithToolTip because we want text
+        Button {
+            id: showHidePlaylistAction
+            action: Action {
+                shortcut: elisa.action("toggle_playlist").shortcut
+                onTriggered: contentView.showPlaylist = !contentView.showPlaylist
+            }
+
+            visible: mainWindow.width >= elisaTheme.viewSelectorSmallSizeThreshold
+
+            flat: true
+            text: i18n("Show Playlist")
+            icon.name: "view-media-playlist"
+
+            checkable: true
+            checked: contentView.showPlaylist
+
+            activeFocusOnTab: true
+            Keys.onReturnPressed: action.trigger()
+            Accessible.onPressAction: action.trigger()
+
+        }
+
         FlatButtonWithToolTip {
             id: menuButton
             action: applicationMenuAction
@@ -419,9 +442,6 @@ FocusScope {
 
             icon.width: elisaTheme.smallControlButtonSize
             icon.height: elisaTheme.smallControlButtonSize
-
-            Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.mediaPlayerHorizontalMargin : elisaTheme.mediaPlayerHorizontalMargin * 1.5
-            Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.mediaPlayerHorizontalMargin : elisaTheme.mediaPlayerHorizontalMargin * 1.5
         }
     }
 

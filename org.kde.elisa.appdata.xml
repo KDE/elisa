@@ -66,7 +66,7 @@
   <summary xml:lang="uk">Простий музичний програвач</summary>
   <summary xml:lang="x-test">xxSimple Music Playerxx</summary>
   <summary xml:lang="zh-CN">简单的音乐播放器</summary>
-  <summary xml:lang="zh-TW">簡單的音樂播放器</summary>
+  <summary xml:lang="zh-TW">簡易音樂播放器</summary>
   <description>
     <p> A simple music player that should be easy to use. It does not require any configuration before one can use it. </p>
     <p xml:lang="ar">مشغّل موسيقى بسيط سهل الاستخدام. لا يحتاج منك ضبطه قبل أن تستخدمه.</p>
@@ -99,7 +99,7 @@
     <p xml:lang="uk">Простий у користуванні музичний програвач. Не потребує налаштовування перед користуванням.</p>
     <p xml:lang="x-test">xxA simple music player that should be easy to use. It does not require any configuration before one can use it.xx</p>
     <p xml:lang="zh-CN">一个简单易用的音乐播放器，不需要任何配置就能够使用。</p>
-    <p xml:lang="zh-TW">一個應易用的簡易音樂玻放棄，在使用前不需任何設定。</p>
+    <p xml:lang="zh-TW">一款或許易用的簡易音樂播放器，使用前不須任何設定。</p>
   </description>
   <url type="homepage">https://community.kde.org/Elisa</url>
   <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?product=elisa</url>

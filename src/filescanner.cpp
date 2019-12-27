@@ -145,7 +145,6 @@ DataTypes::TrackDataType FileScanner::scanOneFile(const QUrl &scanFile)
     qCDebug(orgKdeElisaIndexer()) << "scanOneFile" << scanFile << "using KFileMetaData" << newTrack;
 #else
     Q_UNUSED(scanFile)
-    Q_UNUSED(mimeDatabase)
 
     qCDebug(orgKdeElisaIndexer()) << "scanOneFile" << scanFile << "no metadata provider" << newTrack;
 #endif

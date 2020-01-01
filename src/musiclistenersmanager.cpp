@@ -406,8 +406,6 @@ void MusicListenersManager::configChanged()
                 this, &MusicListenersManager::monitorStartingListeners);
         connect(d->mAndroidMusicListener.get(), &AndroidMusicListener::indexingFinished,
                 this, &MusicListenersManager::monitorEndingListeners);
-        connect(d->mAndroidMusicListener.get(), &AndroidMusicListener::clearDatabase,
-                &d->mDatabaseInterface, &DatabaseInterface::removeAllTracksFromSource);
     }
 #endif
 }

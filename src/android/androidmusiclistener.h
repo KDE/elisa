@@ -20,6 +20,8 @@
 #ifndef ANDROIDMUSICLISTENER_H
 #define ANDROIDMUSICLISTENER_H
 
+#include "datatypes.h"
+
 #include <QObject>
 #include <QList>
 #include <QHash>
@@ -76,11 +78,9 @@ Q_SIGNALS:
 
     void clearDatabase(const QString &listenerName);
 
-    void tracksList(const QList<MusicAudioTrack> &tracks, const QHash<QString, QUrl> &covers, const QString &musicSource);
+    void tracksList(const DataTypes::ListTrackDataType &tracks, const QHash<QString, QUrl> &covers);
 
     void removedTracksList(const QList<QUrl> &removedTracks);
-
-    void modifyTracksList(const QList<MusicAudioTrack> &modifiedTracks, const QHash<QString, QUrl> &covers, const QString &musicSource);
 
     void askRestoredTracks(const QString &musicSource);
 
@@ -92,7 +92,7 @@ public Q_SLOTS:
 
     void quitListener();
 
-    void restoredTracks(const QString &musicSource, QHash<QUrl, QDateTime> allFiles);
+    void restoredTracks(QHash<QUrl, QDateTime> allFiles);
 
     void init();
 

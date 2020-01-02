@@ -56,6 +56,8 @@ FocusScope {
     Accessible.role: Accessible.ListItem
     Accessible.name: title + ' ' + album + ' ' + artist
 
+    Keys.onReturnPressed: playNow.trigger()
+
     height: elisaTheme.playListDelegateHeight
 
     Action {

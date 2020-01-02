@@ -247,6 +247,8 @@ ColumnLayout {
                 Accessible.role: Accessible.EditableText
 
                 placeholderText: i18n("Search for album name, artist, etc.")
+
+                Keys.onEscapePressed: persistentSettings.expandedFilterView = false;
             },
             Item {
                 width: elisaTheme.layoutHorizontalMargin
@@ -277,6 +279,11 @@ ColumnLayout {
             PropertyChanges {
                 target: filterRow
                 opacity: 0.0
+            }
+            StateChangeScript {
+                // Focus main content view since that's probably what the user
+                // wants to interact with next
+                script: contentDirectoryView.forceActiveFocus();
             }
         },
         State {

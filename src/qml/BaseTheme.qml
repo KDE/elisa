@@ -59,9 +59,6 @@ Item {
         font.weight: Font.Bold
     }
     property int playListDelegateHeight: (playListTrackTextHeight.height > 28) ? playListTrackTextHeight.height : 28
-    property int playListHeaderHeight: elisaTheme.layoutVerticalMargin * 5 +
-                                       playListAuthorTextHeight.height +
-                                       playListAlbumTextHeight.height
     property int trackDelegateHeight: elisaTheme.layoutVerticalMargin + fontSize.height * 2
     // END FIXME
 

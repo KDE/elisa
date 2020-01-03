@@ -23,104 +23,99 @@ import org.kde.elisa 1.0
 
 import QtQuick 2.0
 
-RowLayout {
-    id: headerRow
+Rectangle {
+    id: background
 
     property var headerData
     property string album: headerData[0]
     property string albumArtist: headerData[1]
     property url imageUrl: headerData[2]
     property alias textColor: mainLabel.color
+    property alias backgroundColor: background.color
 
-    TextMetrics {
-        id: trackNumberSize
+    implicitHeight: contentLayout.implicitHeight
 
-        text: (99).toLocaleString(Qt.locale(), 'f', 0)
-    }
+    color: myPalette.midlight
 
-    TextMetrics {
-        id: fakeDiscNumberSize
+    RowLayout {
+        id: contentLayout
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: parent.top
+        // No bottom anchor so it can grow vertically
 
-        text: '/9'
-    }
+        TextMetrics {
+            id: trackNumberSize
 
-    spacing: elisaTheme.layoutHorizontalMargin
+            text: (99).toLocaleString(Qt.locale(), 'f', 0)
+        }
 
-    Item {
-        property int widthToTrackNumber: elisaTheme.playListDelegateHeight +
-                                         elisaTheme.layoutHorizontalMargin +
-                                         (trackNumberSize.boundingRect.width - trackNumberSize.boundingRect.x) +
-                                         (fakeDiscNumberSize.boundingRect.width - fakeDiscNumberSize.boundingRect.x)
+        TextMetrics {
+            id: fakeDiscNumberSize
 
-        Layout.minimumWidth: widthToTrackNumber
-        Layout.maximumWidth: widthToTrackNumber
-        Layout.preferredWidth: widthToTrackNumber
-        Layout.fillHeight: true
+            text: '/9'
+        }
+
+        spacing: elisaTheme.layoutHorizontalMargin
 
         Image {
-            id: mainIcon
+            property int widthToTrackNumber: elisaTheme.playListDelegateHeight +
+                                            elisaTheme.layoutHorizontalMargin +
+                                            (trackNumberSize.boundingRect.width - trackNumberSize.boundingRect.x) +
+                                            (fakeDiscNumberSize.boundingRect.width - fakeDiscNumberSize.boundingRect.x)
+
+            Layout.preferredWidth: widthToTrackNumber
+            Layout.preferredHeight: widthToTrackNumber
+            Layout.margins: elisaTheme.layoutHorizontalMargin
 
             source: (imageUrl != '' ? imageUrl : Qt.resolvedUrl(elisaTheme.defaultAlbumImage))
-
-            anchors.right: parent.right
-            width:  headerRow.height
-            height: headerRow.height
-            sourceSize.width: headerRow.height
-            sourceSize.height: headerRow.height
+            sourceSize.width: widthToTrackNumber
+            sourceSize.height: widthToTrackNumber
 
             fillMode: Image.PreserveAspectFit
             asynchronous: true
-
-            opacity: 1
         }
-    }
 
-    ColumnLayout {
-        id: albumHeaderTextColumn
-
-        Layout.fillWidth: true
-        Layout.fillHeight: true
-        Layout.leftMargin: !LayoutMirroring.enabled ? - elisaTheme.layoutHorizontalMargin / 4 : 0
-        Layout.rightMargin: LayoutMirroring.enabled ? - elisaTheme.layoutHorizontalMargin / 4 : 0
-
-        spacing: 0
-
-        LabelWithToolTip {
-            id: mainLabel
-
-            text: album
-
-            level: 2
-            font.weight: Font.Bold
-
-            horizontalAlignment: Text.AlignLeft
+        ColumnLayout {
+            id: albumHeaderTextColumn
 
             Layout.fillWidth: true
-            Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
-            Layout.topMargin: elisaTheme.layoutVerticalMargin
-
-            elide: Text.ElideRight
-        }
-
-        Item {
             Layout.fillHeight: true
-        }
-
-        LabelWithToolTip {
-            id: authorLabel
-
-            text: albumArtist
-
-            font.weight: Font.Light
-            color: mainLabel.color
-
-            horizontalAlignment: Text.AlignLeft
-
-            Layout.fillWidth: true
-            Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
+            Layout.leftMargin: !LayoutMirroring.enabled ? - elisaTheme.layoutHorizontalMargin / 4 : 0
+            Layout.rightMargin: LayoutMirroring.enabled ? - elisaTheme.layoutHorizontalMargin / 4 : 0
+            Layout.topMargin: elisaTheme.layoutVerticalMargin
             Layout.bottomMargin: elisaTheme.layoutVerticalMargin
 
-            elide: Text.ElideRight
+            spacing: elisaTheme.layoutVerticalMargin
+
+            LabelWithToolTip {
+                id: mainLabel
+
+                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignBottom | Qt.AlignLeft
+
+                text: album
+                level: 2
+                font.weight: Font.Bold
+
+                elide: Text.ElideRight
+                wrapMode: Text.WordWrap
+                maximumLineCount: 2
+            }
+
+            LabelWithToolTip {
+                id: authorLabel
+
+                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignTop | Qt.AlignLeft
+
+                text: albumArtist
+                color: mainLabel.color
+
+                elide: Text.ElideRight
+                wrapMode: Text.WordWrap
+                maximumLineCount: 2
+            }
         }
     }
 }

@@ -163,7 +163,7 @@ FocusScope {
 
                 anchors.centerIn: parent
 
-                opacity: (isPlaying === MediaPlayList.IsPlaying || isPlaying === MediaPlayList.IsPaused ? 1.0 : 0.0)
+                visible: isPlaying === MediaPlayList.IsPlaying || isPlaying === MediaPlayList.IsPaused
 
                 source: (isPlaying === MediaPlayList.IsPlaying ?
                              Qt.resolvedUrl(elisaTheme.playingIndicatorIcon) : Qt.resolvedUrl(elisaTheme.pausedIndicatorIcon))
@@ -175,7 +175,6 @@ FocusScope {
                 sourceSize.height: elisaTheme.smallControlButtonSize
                 fillMode: Image.PreserveAspectFit
                 mirror: LayoutMirroring.enabled
-                visible: opacity > 0.0
 
                 layer.enabled: simpleMode
                 layer.effect: ColorOverlay {

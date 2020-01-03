@@ -31,7 +31,6 @@
         <file>qml/PlayListBasicView.qml</file>
         <file>qml/SimplePlayListView.qml</file>
         <file>qml/ViewSelector.qml</file>
-        <file>qml/PlayListAlbumHeader.qml</file>
         <file>qml/BasicPlayListAlbumHeader.qml</file>
         <file>qml/MetaDataDelegate.qml</file>
         <file>qml/EditableMetaDataDelegate.qml</file>

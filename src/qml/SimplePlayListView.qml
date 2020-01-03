@@ -40,8 +40,9 @@ ListView {
     section.delegate: BasicPlayListAlbumHeader {
         headerData: JSON.parse(section)
         width: scrollBar.visible ? (!LayoutMirroring.enabled ? playListView.width - scrollBar.width : playListView.width) : playListView.width
-        height: elisaTheme.playListHeaderHeight - 3 * elisaTheme.layoutVerticalMargin
+        // In party mode, adjust the colors to be suitable for a dark background
         textColor: myPalette.highlightedText
+        backgroundColor: "transparent"
     }
 
     ScrollBar.vertical: ScrollBar {

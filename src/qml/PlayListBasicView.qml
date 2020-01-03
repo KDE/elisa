@@ -43,10 +43,9 @@ ListView {
     section.property: 'albumSection'
     section.criteria: ViewSection.FullString
     section.labelPositioning: ViewSection.InlineLabels
-    section.delegate: PlayListAlbumHeader {
+    section.delegate: BasicPlayListAlbumHeader {
         headerData: JSON.parse(section)
         width: scrollBar.visible ? (!LayoutMirroring.enabled ? playListView.width - scrollBar.width : playListView.width) : playListView.width
-        height: elisaTheme.playListHeaderHeight
     }
 
     ScrollBar.vertical: ScrollBar {

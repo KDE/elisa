@@ -170,7 +170,13 @@ QVariant ManageHeaderBar::artist() const
         return QString();
     }
 
-    return mCurrentTrack.data(mArtistRole);
+    auto artistValue = mCurrentTrack.data(mArtistRole);
+
+    if (!artistValue.isValid()) {
+        return mCurrentTrack.data(mAlbumArtistRole);
+    }
+
+    return artistValue;
 }
 
 QUrl ManageHeaderBar::image() const

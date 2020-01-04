@@ -20,7 +20,6 @@
 #include "androidmusiclistener.h"
 
 #include "databaseinterface.h"
-#include "musicaudiotrack.h"
 
 #include <QDateTime>
 #include <QMetaObject>
@@ -40,7 +39,7 @@ public:
 
     QHash<QUrl, QDateTime> mAllFiles;
 
-    QList<MusicAudioTrack> mNewTracks;
+    DataTypes::ListTrackDataType mNewTracks;
     QHash<QString, QUrl> mCovers;
 
 };
@@ -124,28 +123,28 @@ void AndroidMusicListener::androidMusicTracksScanStarted()
 void AndroidMusicListener::newMusicTrack(const QString &trackDescription)
 {
     auto trackData = trackDescription.split(QStringLiteral("||"));
-    auto newTrack = MusicAudioTrack{};
-    newTrack.setTitle(trackData[1]);
+    auto newTrack = DataTypes::TrackDataType{};
+    newTrack[DataTypes::TitleRole] = trackData[1];
     bool conversionOK = false;
     if (trackData[2] != QLatin1String("null")) {
-        newTrack.setTrackNumber(trackData[2].toInt(&conversionOK));
+        newTrack[DataTypes::TrackNumberRole] = trackData[2].toInt(&conversionOK);
         if (!conversionOK) {
             qInfo() << "newMusicTrack" << trackData[1] << trackData[2];
         }
     }
     if (trackData[3] != QLatin1String("null")) {
-        newTrack.setYear(trackData[3].toInt(&conversionOK));
+        newTrack[DataTypes::YearRole] = trackData[3].toInt(&conversionOK);
         if (!conversionOK) {
             qInfo() << "newMusicTrack" << trackData[1] << trackData[3];
         }
     }
     if (trackData[4] != QLatin1String("null")) {
-        newTrack.setDuration(QTime::fromMSecsSinceStartOfDay(trackData[4].toInt()));
+        newTrack[DataTypes::DurationRole] = QTime::fromMSecsSinceStartOfDay(trackData[4].toInt());
     }
-    newTrack.setResourceURI(QUrl::fromLocalFile(trackData[5]));
-    newTrack.setArtist(trackData[6]);
-    newTrack.setAlbumName(trackData[8]);
-    newTrack.setComposer(trackData[10]);
+    newTrack[DataTypes::ResourceRole] = QUrl::fromLocalFile(trackData[5]);
+    newTrack[DataTypes::ArtistRole] = trackData[6];
+    newTrack[DataTypes::AlbumRole] = trackData[8];
+    newTrack[DataTypes::ComposerRole] = trackData[10];
 
     d->mNewTracks.push_back(newTrack);
 }
@@ -169,7 +168,7 @@ void AndroidMusicListener::newMusicAlbum(const QString &albumDescription)
 
 void AndroidMusicListener::androidMusicAlbumsScanFinished()
 {
-    Q_EMIT tracksList(d->mNewTracks, d->mCovers, d->mSourceName);
+    Q_EMIT tracksList(d->mNewTracks, d->mCovers);
 }
 
 void AndroidMusicListener::setDatabaseInterface(DatabaseInterface *model)
@@ -177,7 +176,6 @@ void AndroidMusicListener::setDatabaseInterface(DatabaseInterface *model)
     if (model) {
         connect(this, &AndroidMusicListener::tracksList, model, &DatabaseInterface::insertTracksList);
         connect(this, &AndroidMusicListener::removedTracksList, model, &DatabaseInterface::removeTracksList);
-        connect(this, &AndroidMusicListener::modifyTracksList, model, &DatabaseInterface::modifyTracksList);
         connect(this, &AndroidMusicListener::askRestoredTracks, model, &DatabaseInterface::askRestoredTracks);
         connect(model, &DatabaseInterface::restoredTracks, this, &AndroidMusicListener::restoredTracks);
     }
@@ -200,16 +198,14 @@ void AndroidMusicListener::quitListener()
     Q_EMIT clearDatabase(d->mSourceName);
 }
 
-void AndroidMusicListener::restoredTracks(const QString &musicSource, QHash<QUrl, QDateTime> allFiles)
+void AndroidMusicListener::restoredTracks(QHash<QUrl, QDateTime> allFiles)
 {
-    if (d->mSourceName == musicSource) {
-        d->mAllFiles = allFiles;
+    d->mAllFiles = allFiles;
 
-        QAndroidJniObject::callStaticMethod<void>("org/kde/elisa/ElisaAndroidMusicScanner",
-                                                  "listAudioFiles",
-                                                  "(Landroid/content/Context;)V",
-                                                  QtAndroid::androidContext().object());
-    }
+    QAndroidJniObject::callStaticMethod<void>("org/kde/elisa/ElisaAndroidMusicScanner",
+                                              "listAudioFiles",
+                                              "(Landroid/content/Context;)V",
+                                              QtAndroid::androidContext().object());
 }
 
 void AndroidMusicListener::init()

@@ -50,72 +50,17 @@ ColumnLayout {
     signal showArtist();
     signal sort(var order);
 
-    Action {
-        id: goPreviousAction
-        text: i18nc("navigate back in the views stack", "Back")
-        icon.name: (Qt.application.layoutDirection == Qt.RightToLeft) ? "go-next" : "go-previous"
-        onTriggered: goBack()
-        enabled: enableGoBack
-    }
-
-    Action {
-        id: replaceAndPlayAction
-        text: i18n("Play now, replacing contents of Playlist")
-        icon.name: "media-playback-start"
-        onTriggered: replaceAndPlay()
-    }
-
-    Action {
-        id: enqueueAction
-        text: i18nc("Add current list to playlist", "Enqueue")
-        icon.name: "list-add"
-        onTriggered: enqueue()
-    }
-
-    Action {
-        id: createRadioAction
-        text: i18nc("Create a new radio", "Create a radio")
-        icon.name: "media-track-add-amarok"
-        onTriggered: createRadio()
-    }
-
-    Action {
-        id: showFilterAction
-        text: !navigationBar.expandedFilterView ? i18nc("Show filters in the navigation bar", "Show Search Options") : i18nc("Hide filters in the navigation bar", "Hide Search Options")
-        icon.name: 'search'
-        checkable: true
-        checked: expandedFilterView
-        onTriggered: persistentSettings.expandedFilterView = !persistentSettings.expandedFilterView
-    }
-
-    Action {
-        id: sortAction
-        text: i18nc("Toggle between ascending and descending order", "Toggle sort order")
-        icon.name: sortOrder ? "view-sort-ascending" : "view-sort-descending"
-        onTriggered: sortOrder ? sort(Qt.DescendingOrder) : sort(Qt.AscendingOrder)
-    }
-
-    Action {
-        id: showArtistAction
-        text: i18nc("Button to navigate to the artist of the album", "Display Artist")
-        icon.name: "view-media-artist"
-        onTriggered: showArtist()
-    }
-
     HeaderFooterToolbar {
         type: filterRow.visible? "other" : "header"
         contentItems: [
 
             FlatButtonWithToolTip {
-                action: goPreviousAction
                 id: goPreviousButton
                 objectName: 'goPreviousButton'
-
-                icon.height: elisaTheme.smallControlButtonSize
-                icon.width: elisaTheme.smallControlButtonSize
-
-                focus: enableGoBack
                 visible: enableGoBack
+                text: i18nc("navigate back in the views stack", "Back")
+                icon.name: (Qt.application.layoutDirection == Qt.RightToLeft) ? "go-next" : "go-previous"
+                onClicked: goBack()
             },
             Item {
                 id: spacer
@@ -168,62 +113,48 @@ ColumnLayout {
                 }
             },
             FlatButtonWithToolTip {
-                action: createRadioAction
                 objectName: 'createRadioButton'
-
-                icon.height: elisaTheme.smallControlButtonSize
-                icon.width: elisaTheme.smallControlButtonSize
-
-                focus: true
-
                 visible: showCreateRadioButton
+                text: i18nc("Create a new radio", "Create a radio")
+                icon.name: "media-track-add-amarok"
+                onClicked: createRadio()
             },
             FlatButtonWithToolTip {
-                action: enqueueAction
                 objectName: 'enqueueButton'
-
-                icon.height: elisaTheme.smallControlButtonSize
-                icon.width: elisaTheme.smallControlButtonSize
-
-                focus: true
-
                 visible: !showCreateRadioButton
+                text: i18nc("Add current list to playlist", "Enqueue")
+                icon.name: "list-add"
+                onClicked: enqueue()
             },
             FlatButtonWithToolTip {
-                action: replaceAndPlayAction
                 objectName: 'replaceAndPlayButton'
-
-                icon.height: elisaTheme.smallControlButtonSize
-                icon.width: elisaTheme.smallControlButtonSize
-
                 visible: !showCreateRadioButton
+                text: i18n("Play now, replacing contents of Playlist")
+                icon.name: "media-playback-start"
+                onClicked: replaceAndPlay()
             },
             FlatButtonWithToolTip {
-                action: showArtistAction
                 objectName: 'showArtistButton'
-
-                icon.height: elisaTheme.smallControlButtonSize
-                icon.width: elisaTheme.smallControlButtonSize
-
                 visible: allowArtistNavigation && !showCreateRadioButton
+                text: i18nc("Button to navigate to the artist of the album", "Display Artist")
+                icon.name: "view-media-artist"
+                onClicked: showArtist()
             },
             FlatButtonWithToolTip {
-                action: sortAction
                 objectName: 'sortAscendingButton'
-
-                icon.height: elisaTheme.smallControlButtonSize
-                icon.width: elisaTheme.smallControlButtonSize
-
                 visible: enableSorting && !showCreateRadioButton
+                text: i18nc("Toggle between ascending and descending order", "Toggle sort order")
+                icon.name: sortOrder ? "view-sort-ascending" : "view-sort-descending"
+                onClicked: sortOrder ? sort(Qt.DescendingOrder) : sort(Qt.AscendingOrder)
             },
             FlatButtonWithToolTip {
-                action: showFilterAction
                 objectName: 'showFilterButton'
-
-                icon.height: elisaTheme.smallControlButtonSize
-                icon.width: elisaTheme.smallControlButtonSize
-
                 visible: !showCreateRadioButton
+                text: !navigationBar.expandedFilterView ? i18nc("Show filters in the navigation bar", "Show Search Options") : i18nc("Hide filters in the navigation bar", "Hide Search Options")
+                icon.name: 'search'
+                checkable: true
+                checked: expandedFilterView
+                onClicked: persistentSettings.expandedFilterView = !persistentSettings.expandedFilterView
             }
         ]
     }
@@ -242,7 +173,7 @@ ColumnLayout {
                 objectName: 'filterTextInput'
 
                 Layout.fillWidth: true
-                focusSequence: null
+                focusSequence: ""
 
                 Accessible.role: Accessible.EditableText
 

@@ -68,14 +68,14 @@ FocusScope {
         id: retryLoadAction
         text: i18nc("Retry", "Retry")
         icon.name: "edit-redo"
-        onTriggered: loadPlaylist.trigger()
+        onTriggered: loadPlaylistButton.clicked()
     }
 
     Kirigami.Action {
         id: retrySaveAction
         text: i18nc("Retry", "Retry")
         icon.name: "edit-redo"
-        onTriggered: savePlaylist.trigger()
+        onTriggered: savePlaylistButton.clicked()
     }
 
     Connections {
@@ -101,51 +101,6 @@ FocusScope {
 
     Accessible.role: Accessible.Pane
     Accessible.name: viewTitle.text
-
-    Action {
-        id: clearPlayList
-        text: i18nc("Remove all tracks from play list", "Clear Playlist")
-        icon.name: 'edit-clear-all'
-        enabled: elisa.mediaPlayList ? elisa.mediaPlayList.tracksCount > 0 : false
-        onTriggered: elisa.mediaPlayList.clearPlayList()
-    }
-
-    Action {
-        id: showCurrentTrack
-        text: i18nc("Show currently played track inside playlist", "Show Current Track")
-        icon.name: 'media-show-active-track-amarok'
-        enabled: elisa.mediaPlayList ? elisa.mediaPlayList.tracksCount > 0 : false
-        onTriggered: {
-            playListView.positionViewAtIndex(elisa.mediaPlayList.currentTrackRow, ListView.Contain)
-            playListView.currentIndex = elisa.mediaPlayList.currentTrackRow
-            playListView.currentItem.forceActiveFocus()
-        }
-    }
-
-    Action {
-        id: loadPlaylist
-        text: i18nc("Load a playlist file", "Load Playlist...")
-        icon.name: 'document-open'
-        onTriggered:
-        {
-            fileDialog.fileMode = PlatformDialog.FileDialog.OpenFile
-            fileDialog.file = ''
-            fileDialog.open()
-        }
-    }
-
-    Action {
-        id: savePlaylist
-        text: i18nc("Save a playlist file", "Save Playlist...")
-        icon.name: 'document-save'
-        enabled: elisa.mediaPlayList ? elisa.mediaPlayList.tracksCount > 0 : false
-        onTriggered:
-        {
-            fileDialog.fileMode = PlatformDialog.FileDialog.SaveFile
-            fileDialog.file = ''
-            fileDialog.open()
-        }
-    }
 
     PlatformDialog.FileDialog {
         id: fileDialog
@@ -189,28 +144,41 @@ FocusScope {
 
                 // Toolbar buttons
                 FlatButtonWithToolTip {
-                    action: showCurrentTrack
-
-                    icon.height: elisaTheme.smallControlButtonSize
-                    icon.width: elisaTheme.smallControlButtonSize
+                    text: i18nc("Show currently played track inside playlist", "Show Current Track")
+                    icon.name: 'media-show-active-track-amarok'
+                    enabled: elisa.mediaPlayList ? elisa.mediaPlayList.tracksCount > 0 : false
+                    onClicked: {
+                        playListView.positionViewAtIndex(elisa.mediaPlayList.currentTrackRow, ListView.Contain)
+                        playListView.currentIndex = elisa.mediaPlayList.currentTrackRow
+                        playListView.currentItem.forceActiveFocus()
+                    }
                 },
                 FlatButtonWithToolTip {
-                    action: savePlaylist
-
-                    icon.height: elisaTheme.smallControlButtonSize
-                    icon.width: elisaTheme.smallControlButtonSize
+                    id: savePlaylistButton
+                    text: i18nc("Save a playlist file", "Save Playlist...")
+                    icon.name: 'document-save'
+                    enabled: elisa.mediaPlayList ? elisa.mediaPlayList.tracksCount > 0 : false
+                    onClicked: {
+                        fileDialog.fileMode = PlatformDialog.FileDialog.SaveFile
+                        fileDialog.file = ''
+                        fileDialog.open()
+                    }
                 },
                 FlatButtonWithToolTip {
-                    action: loadPlaylist
-
-                    icon.height: elisaTheme.smallControlButtonSize
-                    icon.width: elisaTheme.smallControlButtonSize
+                    id: loadPlaylistButton
+                    text: i18nc("Load a playlist file", "Load Playlist...")
+                    icon.name: 'document-open'
+                    onClicked: {
+                        fileDialog.fileMode = PlatformDialog.FileDialog.OpenFile
+                        fileDialog.file = ''
+                        fileDialog.open()
+                    }
                 },
                 FlatButtonWithToolTip {
-                    action: clearPlayList
-
-                    icon.height: elisaTheme.smallControlButtonSize
-                    icon.width: elisaTheme.smallControlButtonSize
+                    text: i18nc("Remove all tracks from play list", "Clear Playlist")
+                    icon.name: 'edit-clear-all'
+                    enabled: elisa.mediaPlayList ? elisa.mediaPlayList.tracksCount > 0 : false
+                    onClicked: elisa.mediaPlayList.clearPlayList()
                 }
             ]
         }

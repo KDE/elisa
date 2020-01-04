@@ -50,29 +50,6 @@ FocusScope {
     Accessible.name: title
     Accessible.description: title
 
-    Action {
-        id: enqueueAction
-        text: i18nc("Enqueue current track", "Enqueue")
-        icon.name: "list-add"
-        onTriggered: enqueue(databaseId, title)
-    }
-
-    Action {
-        id: viewDetailsAction
-        text: i18nc("Show track metadata", "View Details")
-        icon.name: "help-about"
-        onTriggered: {
-            callOpenMetaDataView(databaseId)
-        }
-    }
-
-    Action {
-        id: replaceAndPlayAction
-        text: i18nc("Clear play list and enqueue current track", "Play Now and Replace Play List")
-        icon.name: "media-playback-start"
-        onTriggered: replaceAndPlay(databaseId, title)
-    }
-
     Keys.onReturnPressed: enqueue(databaseId, title)
     Keys.onEnterPressed: enqueue(databaseId, title)
 
@@ -276,40 +253,33 @@ FocusScope {
 
                     FlatButtonWithToolTip {
                         id: detailsButton
-
                         height: elisaTheme.delegateHeight
                         width: elisaTheme.delegateHeight
-                        icon.height: elisaTheme.smallControlButtonSize
-                        icon.width: elisaTheme.smallControlButtonSize
 
-                        action: viewDetailsAction
-                        Accessible.onPressAction: action.trigger()
+                        text: i18nc("Show track metadata", "View Details")
+                        icon.name: "help-about"
+                        onClicked: callOpenMetaDataView(databaseId)
                     }
 
                     FlatButtonWithToolTip {
                         id: enqueueButton
-
                         height: elisaTheme.delegateHeight
                         width: elisaTheme.delegateHeight
-                        icon.height: elisaTheme.smallControlButtonSize
-                        icon.width: elisaTheme.smallControlButtonSize
 
-                        action: enqueueAction
-                        Accessible.onPressAction: action.trigger()
+                        text: i18nc("Enqueue current track", "Enqueue")
+                        icon.name: "list-add"
+                        onClicked: enqueue(databaseId, title)
                     }
 
                     FlatButtonWithToolTip {
                         id: clearAndEnqueueButton
-
                         scale: LayoutMirroring.enabled ? -1 : 1
-
                         height: elisaTheme.delegateHeight
                         width: elisaTheme.delegateHeight
-                        icon.height: elisaTheme.smallControlButtonSize
-                        icon.width: elisaTheme.smallControlButtonSize
 
-                        action: replaceAndPlayAction
-                        Accessible.onPressAction: action.trigger()
+                        text: i18nc("Clear play list and enqueue current track", "Play Now and Replace Play List")
+                        icon.name: "media-playback-start"
+                        onClicked: replaceAndPlay(databaseId, title)
                     }
                 }
             }

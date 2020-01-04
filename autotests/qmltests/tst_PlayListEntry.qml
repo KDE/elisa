@@ -117,7 +117,7 @@ Item {
             compare(startPlaybackSpy.count, 1);
             compare(pausePlaybackSpy.count, 0);
             compare(removeFromPlaylistSpy.count, 0);
-            compare(switchToTrackSpy.count, 0);
+            compare(switchToTrackSpy.count, 1);
 
 
         }

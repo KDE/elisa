@@ -57,65 +57,6 @@ FocusScope {
         id: elisaTheme
     }
 
-    Action {
-        id: applicationMenuAction
-        text: i18nc("open application menu", "Application Menu")
-        icon.name: "application-menu"
-        onTriggered: openMenu()
-    }
-
-    Action {
-        id: repeatAction
-        text: i18nc("toggle repeat mode for playlist", "Toggle Repeat")
-        icon.name: musicWidget.repeat ? "media-repeat-all" : "media-repeat-none"
-        onTriggered: musicWidget.repeat = !musicWidget.repeat
-    }
-
-    Action {
-        id: shuffleAction
-        text: i18nc("toggle shuffle mode for playlist", "Toggle Shuffle")
-        icon.name: musicWidget.shuffle ? "media-playlist-shuffle" : "media-playlist-normal"
-        onTriggered: musicWidget.shuffle = !musicWidget.shuffle
-    }
-
-    Action {
-        id: muteAction
-        text: i18nc("toggle mute mode for player", "Toggle Mute")
-        icon.name: musicWidget.muted ? "player-volume-muted" : "player-volume"
-        onTriggered: musicWidget.muted = !musicWidget.muted
-    }
-
-    Action {
-        id: playPauseAction
-        text: i18nc("toggle play and pause for the audio player", "Toggle Play and Pause")
-        icon.name: musicWidget.isPlaying? "media-playback-pause" : "media-playback-start"
-        onTriggered: musicWidget.isPlaying ? musicWidget.pause() : musicWidget.play()
-        enabled: playEnabled
-    }
-
-    Action {
-        id: skipBackwardAction
-        text: i18nc("skip backward in playlists", "Skip Backward")
-        icon.name: musicWidget.LayoutMirroring.enabled ? "media-skip-forward" : "media-skip-backward"
-        onTriggered: musicWidget.playPrevious()
-        enabled: skipBackwardEnabled
-    }
-
-    Action {
-        id: skipForwardAction
-        text: i18nc("skip forward in playlists", "Skip Forward")
-        icon.name: musicWidget.LayoutMirroring.enabled ? "media-skip-backward" : "media-skip-forward"
-        onTriggered: musicWidget.playNext()
-        enabled: skipForwardEnabled
-    }
-
-    Action {
-        id: minimizeMaximizeAction
-        text: i18nc("toggle between maximized and minimized ivre", "Toggle Maximize")
-        icon.name: musicWidget.isMaximized ? "draw-arrow-up" : "draw-arrow-down"
-        onTriggered: musicWidget.isMaximized = !musicWidget.isMaximized
-    }
-
     Rectangle {
         anchors.fill: parent
 
@@ -129,39 +70,33 @@ FocusScope {
 
         FlatButtonWithToolTip {
             id: minimizeMaximizeButton
-            action: minimizeMaximizeAction
-
-            icon.width: elisaTheme.smallControlButtonSize
-            icon.height: elisaTheme.smallControlButtonSize
-
-            Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.mediaPlayerHorizontalMargin : 0
-            Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.mediaPlayerHorizontalMargin : 0
+            text: i18nc("toggle between maximized and minimized ivre", "Toggle Maximize")
+            icon.name: musicWidget.isMaximized ? "draw-arrow-up" : "draw-arrow-down"
+            onClicked: musicWidget.isMaximized = !musicWidget.isMaximized
         }
 
         FlatButtonWithToolTip {
             id: skipBackwardButton
-            action: skipBackwardAction
-            focus: skipBackwardEnabled
-            icon.width: elisaTheme.smallControlButtonSize
-            icon.height: elisaTheme.smallControlButtonSize
+            enabled: skipBackwardEnabled
+            text: i18nc("skip backward in playlists", "Skip Backward")
+            icon.name: musicWidget.LayoutMirroring.enabled ? "media-skip-forward" : "media-skip-backward"
+            onClicked: musicWidget.playPrevious()
         }
 
         FlatButtonWithToolTip {
             id: playPauseButton
-            action: playPauseAction
-            focus: playEnabled
-
-            icon.width: elisaTheme.smallControlButtonSize
-            icon.height: elisaTheme.smallControlButtonSize
+            enabled: playEnabled
+            text: i18nc("toggle play and pause for the audio player", "Toggle Play and Pause")
+            icon.name: musicWidget.isPlaying? "media-playback-pause" : "media-playback-start"
+            onClicked: musicWidget.isPlaying ? musicWidget.pause() : musicWidget.play()
         }
 
         FlatButtonWithToolTip {
             id: skipForwardButton
-            action: skipForwardAction
-            focus: skipForwardEnabled
-
-            icon.width: elisaTheme.smallControlButtonSize
-            icon.height: elisaTheme.smallControlButtonSize
+            enabled: skipForwardEnabled
+            text: i18nc("skip forward in playlists", "Skip Forward")
+            icon.name: musicWidget.LayoutMirroring.enabled ? "media-skip-backward" : "media-skip-forward"
+            onClicked: musicWidget.playNext()
         }
 
         TextMetrics {
@@ -310,11 +245,9 @@ FocusScope {
 
         FlatButtonWithToolTip {
             id: muteButton
-            action: muteAction
-            focus: true
-
-            icon.width: elisaTheme.smallControlButtonSize
-            icon.height: elisaTheme.smallControlButtonSize
+            text: i18nc("toggle mute mode for player", "Toggle Mute")
+            icon.name: musicWidget.muted ? "player-volume-muted" : "player-volume"
+            onClicked: musicWidget.muted = !musicWidget.muted
         }
 
         MouseArea {
@@ -395,21 +328,17 @@ FocusScope {
 
 
         FlatButtonWithToolTip {
-            focus: true
-            action: shuffleAction
             id: shuffleButton
-
-            icon.width: elisaTheme.smallControlButtonSize
-            icon.height: elisaTheme.smallControlButtonSize
+            text: i18nc("toggle shuffle mode for playlist", "Toggle Shuffle")
+            icon.name: musicWidget.shuffle ? "media-playlist-shuffle" : "media-playlist-normal"
+            onClicked: musicWidget.shuffle = !musicWidget.shuffle
         }
 
         FlatButtonWithToolTip {
-            focus: true
-            action: repeatAction
             id: repeatButton
-
-            icon.width: elisaTheme.smallControlButtonSize
-            icon.height: elisaTheme.smallControlButtonSize
+            text: i18nc("toggle repeat mode for playlist", "Toggle Repeat")
+            icon.name: musicWidget.repeat ? "media-repeat-all" : "media-repeat-none"
+            onClicked: musicWidget.repeat = !musicWidget.repeat
         }
 
         // Not a FlatButtonWithToolTip because we want text
@@ -437,11 +366,9 @@ FocusScope {
 
         FlatButtonWithToolTip {
             id: menuButton
-            action: applicationMenuAction
-            focus: true
-
-            icon.width: elisaTheme.smallControlButtonSize
-            icon.height: elisaTheme.smallControlButtonSize
+            text: i18nc("open application menu", "Application Menu")
+            icon.name: "application-menu"
+            onClicked: openMenu()
         }
     }
 

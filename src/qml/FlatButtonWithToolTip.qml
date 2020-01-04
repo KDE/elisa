@@ -28,8 +28,8 @@ Button {
 
     activeFocusOnTab: true
 
-    Keys.onReturnPressed: action.trigger()
-    Accessible.onPressAction: action.trigger()
+    Keys.onReturnPressed: flatButtonWithToolTip.clicked()
+    Accessible.onPressAction: flatButtonWithToolTip.clicked()
 
     flat: true
     display: AbstractButton.IconOnly
@@ -42,5 +42,5 @@ Button {
 
     ToolTip.visible: hovered
     ToolTip.delay: Qt.styleHints.mousePressAndHoldInterval
-    ToolTip.text: flatButtonWithToolTip.action.text
+    ToolTip.text: flatButtonWithToolTip.text
 }

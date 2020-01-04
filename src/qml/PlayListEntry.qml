@@ -60,52 +60,6 @@ FocusScope {
 
     height: elisaTheme.playListDelegateHeight
 
-    Action {
-        id: removeFromPlayList
-        text: i18nc("Remove current track from play list", "Remove")
-        icon.name: "error"
-        onTriggered: {
-            playListEntry.removeFromPlaylist(playListEntry.index)
-        }
-    }
-
-    Action {
-        id: playNow
-        text: i18nc("Play now current track from play list", "Play Now")
-        icon.name: "media-playback-start"
-        enabled: !(isPlaying === MediaPlayList.IsPlaying) && isValid
-        onTriggered: {
-            if (isPlaying === MediaPlayList.NotPlaying) {
-                playListEntry.switchToTrack(playListEntry.index)
-            }
-            playListEntry.startPlayback()
-        }
-    }
-
-    Action {
-        id: pauseNow
-        text: i18nc("Pause current track from play list", "Pause")
-        icon.name: "media-playback-pause"
-        enabled: isPlaying === MediaPlayList.IsPlaying && isValid
-        onTriggered: playListEntry.pausePlayback()
-    }
-
-    Action {
-        id: showInfo
-        text: i18nc("Show track metadata", "View Details")
-        icon.name: "help-about"
-        enabled: isValid
-        onTriggered: {
-            if (metadataLoader.active === false) {
-                metadataLoader.active = true
-            }
-            else {
-                metadataLoader.item.close();
-                metadataLoader.active = false
-            }
-        }
-    }
-
     Loader {
         id: metadataLoader
         active: false
@@ -345,16 +299,26 @@ FocusScope {
 
             sourceComponent: Row {
                 anchors.centerIn: parent
+                enabled: isValid
+
                 FlatButtonWithToolTip {
                     id: infoButton
                     objectName: 'infoButton'
 
                     implicitHeight: elisaTheme.playListDelegateHeight
                     implicitWidth: elisaTheme.playListDelegateHeight
-                    icon.height: elisaTheme.smallControlButtonSize
-                    icon.width: elisaTheme.smallControlButtonSize
 
-                    action: showInfo
+                    text: i18nc("Show track metadata", "View Details")
+                    icon.name: "help-about"
+                    onClicked: {
+                        if (metadataLoader.active === false) {
+                            metadataLoader.active = true
+                        }
+                        else {
+                            metadataLoader.item.close();
+                            metadataLoader.active = false
+                        }
+                    }
                 }
 
                 FlatButtonWithToolTip {
@@ -363,24 +327,29 @@ FocusScope {
 
                     implicitHeight: elisaTheme.playListDelegateHeight
                     implicitWidth: elisaTheme.playListDelegateHeight
-                    icon.height: elisaTheme.smallControlButtonSize
-                    icon.width: elisaTheme.smallControlButtonSize
 
                     scale: LayoutMirroring.enabled ? -1 : 1 // We can mirror the symmetrical pause icon
 
-                    action: !(isPlaying === MediaPlayList.IsPlaying) ? playNow : pauseNow
+                    text: (isPlaying === MediaPlayList.IsPlaying) ? i18nc("Pause current track from play list", "Pause") : i18nc("Play this track from play list", "Play")
+                    icon.name: (isPlaying === MediaPlayList.IsPlaying) ? "media-playback-pause" : "media-playback-start"
+                    onClicked: if (isPlaying === MediaPlayList.IsPlaying) {
+                        playListEntry.pausePlayback()
+                    } else {
+                        playListEntry.switchToTrack(playListEntry.index)
+                        playListEntry.startPlayback()
+                    }
                 }
 
                 FlatButtonWithToolTip {
                     id: removeButton
                     objectName: 'removeButton'
 
-                    action: removeFromPlayList
-
                     implicitHeight: elisaTheme.playListDelegateHeight
                     implicitWidth: elisaTheme.playListDelegateHeight
-                    icon.height: elisaTheme.smallControlButtonSize
-                    icon.width: elisaTheme.smallControlButtonSize
+
+                    text: i18nc("Remove current track from play list", "Remove")
+                    icon.name: "error"
+                    onClicked: playListEntry.removeFromPlaylist(playListEntry.index)
                 }
 
             }

@@ -57,7 +57,7 @@ FocusScope {
                                  {
                                      "modelType": ElisaUtils.Radio,
                                      "isCreation": true,
-                                     "showImage": true,
+                                     "showImage": false,
                                      "showTrackFileName": false,
                                      "showDeleteButton": false,
                                      "showApplyButton": true,

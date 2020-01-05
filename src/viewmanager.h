@@ -58,8 +58,12 @@ public:
 
     Q_ENUM(SortOrder)
 
-    static const bool SingleAlbum = true;
-    static const bool MultipleAlbum = false;
+    enum AlbumCardinality {
+        SingleAlbum = true,
+        MultipleAlbum = false,
+    };
+
+    Q_ENUM(AlbumCardinality)
 
     enum AlbumViewStyle {
         NoDiscHeaders,

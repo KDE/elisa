@@ -66,7 +66,7 @@ FocusScope {
             anchors.fill: parent
             fillMode: Image.PreserveAspectCrop
 
-            sourceSize.width: parent.width
+            sourceSize.width: 512
 
             opacity: 1
 
@@ -100,7 +100,7 @@ FocusScope {
             anchors.fill: parent
             fillMode: Image.PreserveAspectCrop
 
-            sourceSize.width: parent.width
+            sourceSize.width: 512
 
             visible: false
             opacity: 0

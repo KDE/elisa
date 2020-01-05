@@ -127,7 +127,7 @@ FocusScope {
             }
 
             onCallOpenMetaDataView: {
-                openMetaDataView(databaseId, model.url, entryType)
+                openMetaDataView(databaseId, url, entryType)
             }
         }
     }
@@ -172,7 +172,7 @@ FocusScope {
             }
 
             onCallOpenMetaDataView: {
-                openMetaDataView(databaseId, model.url, entryType)
+                openMetaDataView(databaseId, url, entryType)
             }
         }
     }

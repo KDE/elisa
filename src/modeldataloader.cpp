@@ -270,6 +270,7 @@ void ModelDataLoader::loadDataByUrl(ElisaUtils::PlayListEntryType dataType, cons
     switch (dataType)
     {
     case ElisaUtils::FileName:
+    case ElisaUtils::Track:
     {
         auto databaseId = d->mDatabase->trackIdFromFileName(url);
         if (databaseId != 0) {
@@ -280,7 +281,6 @@ void ModelDataLoader::loadDataByUrl(ElisaUtils::PlayListEntryType dataType, cons
         }
         break;
     }
-    case ElisaUtils::Track:
     case ElisaUtils::Album:
     case ElisaUtils::Artist:
     case ElisaUtils::Composer:

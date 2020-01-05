@@ -281,9 +281,11 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
         switch (d->mModelType)
         {
         case ElisaUtils::Track:
-        case ElisaUtils::Radio:
         case ElisaUtils::FileName:
             result = d->mAllTrackData[index.row()][TrackDataType::key_type::ResourceRole];
+            break;
+        case ElisaUtils::Radio:
+            result = d->mAllRadiosData[index.row()][TrackDataType::key_type::ResourceRole];
             break;
         case ElisaUtils::Album:
         case ElisaUtils::Artist:

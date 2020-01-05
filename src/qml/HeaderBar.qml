@@ -37,6 +37,7 @@ FocusScope {
     property bool ratingVisible
     property alias playerControl: playControlItem
     property alias isMaximized: playControlItem.isMaximized
+    property int imageSourceSize: 512
 
     signal openArtist()
     signal openAlbum()
@@ -66,7 +67,7 @@ FocusScope {
             anchors.fill: parent
             fillMode: Image.PreserveAspectCrop
 
-            sourceSize.width: 512
+            sourceSize.width: imageSourceSize
 
             opacity: 1
 
@@ -100,7 +101,7 @@ FocusScope {
             anchors.fill: parent
             fillMode: Image.PreserveAspectCrop
 
-            sourceSize.width: 512
+            sourceSize.width: imageSourceSize
 
             visible: false
             opacity: 0
@@ -172,12 +173,13 @@ FocusScope {
                     anchors.fill: parent
 
                     asynchronous: true
+                    mipmap: true
 
                     source: (oldImage ? oldImage : Qt.resolvedUrl(elisaTheme.defaultAlbumImage))
 
                     sourceSize {
-                        width: contentZone.height * 0.9
-                        height: contentZone.height * 0.9
+                        width: imageSourceSize
+                        height: imageSourceSize
                     }
 
                     fillMode: Image.PreserveAspectFit
@@ -189,6 +191,7 @@ FocusScope {
                     anchors.fill: parent
 
                     asynchronous: true
+                    mipmap: true
 
                     source: (newImage ? newImage : Qt.resolvedUrl(elisaTheme.defaultAlbumImage))
 
@@ -196,8 +199,8 @@ FocusScope {
                     opacity: 0
 
                     sourceSize {
-                        width: contentZone.height * 0.9
-                        height: contentZone.height * 0.9
+                        width: imageSourceSize
+                        height: imageSourceSize
                     }
 
                     fillMode: Image.PreserveAspectFit

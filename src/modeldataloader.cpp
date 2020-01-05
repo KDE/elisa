@@ -281,13 +281,23 @@ void ModelDataLoader::loadDataByUrl(ElisaUtils::PlayListEntryType dataType, cons
         }
         break;
     }
+    case ElisaUtils::Radio:
+    {
+        auto databaseId = d->mDatabase->radioIdFromFileName(url);
+        if (databaseId != 0) {
+            Q_EMIT allRadioData(d->mDatabase->radioDataFromDatabaseId(databaseId));
+        } else {
+            auto result = d->mFileScanner.scanOneFile(url);
+            Q_EMIT allRadioData(result);
+        }
+        break;
+    }
     case ElisaUtils::Album:
     case ElisaUtils::Artist:
     case ElisaUtils::Composer:
     case ElisaUtils::Genre:
     case ElisaUtils::Lyricist:
     case ElisaUtils::Unknown:
-    case ElisaUtils::Radio:
         break;
     }
 }

@@ -69,7 +69,7 @@ RowLayout {
 
             anchors.fill: parent
 
-            onEditingFinished: {
+            onTextEdited: {
                 if (model.display !== text) {
                     model.display = text
                     delegateRow.radioEdited()

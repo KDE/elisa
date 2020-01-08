@@ -104,7 +104,7 @@
   <url type="homepage">https://community.kde.org/Elisa</url>
   <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?product=elisa</url>
   <url type="donation">https://www.kde.org/community/donations</url>
-  <url type="help">https://docs.kde.org/trunk5/en/extragear-multimedia/elisa/</url>
+  <url type="help">https://docs.kde.org/trunk5/en/kdemultimedia/elisa/</url>
   <screenshots>
     <screenshot type="default">
       <caption>The Elisa music player</caption>

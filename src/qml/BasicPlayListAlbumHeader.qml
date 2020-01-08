@@ -44,33 +44,16 @@ Rectangle {
         anchors.top: parent.top
         // No bottom anchor so it can grow vertically
 
-        TextMetrics {
-            id: trackNumberSize
-
-            text: (99).toLocaleString(Qt.locale(), 'f', 0)
-        }
-
-        TextMetrics {
-            id: fakeDiscNumberSize
-
-            text: '/9'
-        }
-
-        spacing: elisaTheme.layoutHorizontalMargin
+        spacing: elisaTheme.layoutHorizontalMargin / 4
 
         Image {
-            property int widthToTrackNumber: elisaTheme.playListDelegateHeight +
-                                            elisaTheme.layoutHorizontalMargin +
-                                            (trackNumberSize.boundingRect.width - trackNumberSize.boundingRect.x) +
-                                            (fakeDiscNumberSize.boundingRect.width - fakeDiscNumberSize.boundingRect.x)
-
-            Layout.preferredWidth: widthToTrackNumber
-            Layout.preferredHeight: widthToTrackNumber
+            Layout.preferredWidth: elisaTheme.playListAlbumArtSize
+            Layout.preferredHeight: elisaTheme.playListAlbumArtSize
             Layout.margins: elisaTheme.layoutHorizontalMargin
 
             source: (imageUrl != '' ? imageUrl : Qt.resolvedUrl(elisaTheme.defaultAlbumImage))
-            sourceSize.width: widthToTrackNumber
-            sourceSize.height: widthToTrackNumber
+            sourceSize.width: elisaTheme.playListAlbumArtSize
+            sourceSize.height: elisaTheme.playListAlbumArtSize
 
             fillMode: Image.PreserveAspectFit
             asynchronous: true

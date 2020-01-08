@@ -101,13 +101,17 @@ FocusScope {
 
         spacing: elisaTheme.layoutHorizontalMargin / 4
 
+        // Container for the play/pause icon and the track/disc label
         Item {
-            id: playIconItem
+            TextMetrics {
+                id: fakeLabel
+                text: '99/9'
+            }
 
-            implicitHeight: elisaTheme.playListDelegateHeight
-            implicitWidth: elisaTheme.playListDelegateHeight
-            Layout.maximumWidth: elisaTheme.playListDelegateHeight
-            Layout.maximumHeight: elisaTheme.playListDelegateHeight
+            Layout.minimumWidth: fakeLabel.width
+            Layout.preferredWidth: fakeLabel.width
+            Layout.maximumWidth: fakeLabel.width
+            Layout.preferredHeight: elisaTheme.playListDelegateHeight
             Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
             Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin / 2 : 0
             Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin / 2 : 0
@@ -117,14 +121,11 @@ FocusScope {
 
                 anchors.centerIn: parent
 
-                visible: isPlaying === MediaPlayList.IsPlaying || isPlaying === MediaPlayList.IsPaused
-
                 source: (isPlaying === MediaPlayList.IsPlaying ?
                              Qt.resolvedUrl(elisaTheme.playingIndicatorIcon) : Qt.resolvedUrl(elisaTheme.pausedIndicatorIcon))
 
                 width: elisaTheme.smallControlButtonSize
                 height: elisaTheme.smallControlButtonSize
-
                 sourceSize.width: elisaTheme.smallControlButtonSize
                 sourceSize.height: elisaTheme.smallControlButtonSize
                 fillMode: Image.PreserveAspectFit
@@ -136,119 +137,37 @@ FocusScope {
 
                     color: myPalette.highlightedText
                 }
-            }
-        }
 
-        Item {
-            id: fakeDiscNumberItem
-
-            visible: isValid && (!hasValidDiscNumber || isSingleDiscAlbum)
-
-            Layout.preferredWidth: (fakeDiscNumberSize.boundingRect.width - fakeDiscNumberSize.boundingRect.x) + (elisaTheme.layoutHorizontalMargin / 4)
-            Layout.minimumWidth: (fakeDiscNumberSize.boundingRect.width - fakeDiscNumberSize.boundingRect.x) + (elisaTheme.layoutHorizontalMargin / 4)
-            Layout.maximumWidth: (fakeDiscNumberSize.boundingRect.width - fakeDiscNumberSize.boundingRect.x) + (elisaTheme.layoutHorizontalMargin / 4)
-
-            TextMetrics {
-                id: fakeDiscNumberSize
-
-                text: '/9'
-            }
-        }
-
-        Label {
-            id: trackNumberLabel
-
-            horizontalAlignment: Text.AlignRight
-
-            text: trackNumber !== -1 ? Number(trackNumber).toLocaleString(Qt.locale(), 'f', 0) : ''
-
-            font.weight: (isPlaying ? Font.Bold : Font.Light)
-            color: simpleMode ? myPalette.highlightedText : myPalette.text
-
-            Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
-
-            visible: isValid
-
-            Layout.preferredWidth: ((trackNumberSize.boundingRect.width - trackNumberSize.boundingRect.x) > (realTrackNumberSize.boundingRect.width - realTrackNumberSize.boundingRect.x) ? (trackNumberSize.boundingRect.width - trackNumberSize.boundingRect.x) : (realTrackNumberSize.boundingRect.width - realTrackNumberSize.boundingRect.x))
-            Layout.minimumWidth: ((trackNumberSize.boundingRect.width - trackNumberSize.boundingRect.x) > (realTrackNumberSize.boundingRect.width - realTrackNumberSize.boundingRect.x) ? (trackNumberSize.boundingRect.width - trackNumberSize.boundingRect.x) : (realTrackNumberSize.boundingRect.width - realTrackNumberSize.boundingRect.x))
-            Layout.maximumWidth: ((trackNumberSize.boundingRect.width - trackNumberSize.boundingRect.x) > (realTrackNumberSize.boundingRect.width - realTrackNumberSize.boundingRect.x) ? (trackNumberSize.boundingRect.width - trackNumberSize.boundingRect.x) : (realTrackNumberSize.boundingRect.width - realTrackNumberSize.boundingRect.x))
-
-            Layout.rightMargin: !LayoutMirroring.enabled ? (discNumber !== 0 && !isSingleDiscAlbum ?
-                                                                0 : elisaTheme.layoutHorizontalMargin / 2) : 0
-            Layout.leftMargin: LayoutMirroring.enabled ? (discNumber !== 0 && !isSingleDiscAlbum ?
-                                                              0 : elisaTheme.layoutHorizontalMargin / 2) : 0
-
-            TextMetrics {
-                id: trackNumberSize
-
-                text: (99).toLocaleString(Qt.locale(), 'f', 0)
+                visible: isPlaying === MediaPlayList.IsPlaying || isPlaying === MediaPlayList.IsPaused
             }
 
-            TextMetrics {
-                id: realTrackNumberSize
+            Label {
+                id: trackAndDiscNumberLabel
 
-                text: Number(trackNumber).toLocaleString(Qt.locale(), 'f', 0)
-            }
-        }
+                anchors.fill: parent
+                anchors.rightMargin: LayoutMirroring.enabled ? 0 : elisaTheme.layoutHorizontalMargin
+                anchors.leftMargin: !LayoutMirroring.enabled ? 0 : elisaTheme.layoutHorizontalMargin
 
-        Label {
-            horizontalAlignment: Text.AlignCenter
+                horizontalAlignment: Text.AlignRight
 
-            text: '/'
+                text: {
+                    var trackNumberString;
+                    if (trackNumber !== -1) {
+                        trackNumberString = Number(trackNumber).toLocaleString(Qt.locale(), 'f', 0);
+                    } else {
+                        trackNumberString = ''
+                    }
+                    if (!isSingleDiscAlbum && discNumber !== 0 ) {
+                        return trackNumberString + "/" + Number(discNumber).toLocaleString(Qt.locale(), 'f', 0)
+                    } else {
+                        return trackNumberString
+                    }
+                }
 
-            visible: isValid && discNumber !== 0 && !isSingleDiscAlbum
+                font.weight: (isPlaying ? Font.Bold : Font.Light)
+                color: simpleMode ? myPalette.highlightedText : myPalette.text
 
-            font.weight: (isPlaying ? Font.Bold : Font.Light)
-            color: simpleMode ? myPalette.highlightedText : myPalette.text
-
-            Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-
-            Layout.preferredWidth: (numberSeparatorSize.boundingRect.width - numberSeparatorSize.boundingRect.x)
-            Layout.minimumWidth: (numberSeparatorSize.boundingRect.width - numberSeparatorSize.boundingRect.x)
-            Layout.maximumWidth: (numberSeparatorSize.boundingRect.width - numberSeparatorSize.boundingRect.x)
-
-            TextMetrics {
-                id: numberSeparatorSize
-
-                text: '/'
-            }
-        }
-
-        Label {
-            horizontalAlignment: Text.AlignRight
-
-            font.weight: (isPlaying ? Font.Bold : Font.Light)
-            color: simpleMode ? myPalette.highlightedText : myPalette.text
-
-            text: Number(discNumber).toLocaleString(Qt.locale(), 'f', 0)
-
-            visible: isValid && discNumber !== 0 && !isSingleDiscAlbum
-
-            Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
-
-            Layout.preferredWidth: ((discNumberSize.boundingRect.width - discNumberSize.boundingRect.x) > (realDiscNumberSize.boundingRect.width - realDiscNumberSize.boundingRect.x) ?
-                                        (discNumberSize.boundingRect.width - discNumberSize.boundingRect.x) :
-                                        (realDiscNumberSize.boundingRect.width - realDiscNumberSize.boundingRect.x))
-            Layout.minimumWidth: ((discNumberSize.boundingRect.width - discNumberSize.boundingRect.x) > (realDiscNumberSize.boundingRect.width - realDiscNumberSize.boundingRect.x) ?
-                                      (discNumberSize.boundingRect.width - discNumberSize.boundingRect.x) :
-                                      (realDiscNumberSize.boundingRect.width - realDiscNumberSize.boundingRect.x))
-            Layout.maximumWidth: ((discNumberSize.boundingRect.width - discNumberSize.boundingRect.x) > (realDiscNumberSize.boundingRect.width - realDiscNumberSize.boundingRect.x) ?
-                                      (discNumberSize.boundingRect.width - discNumberSize.boundingRect.x) :
-                                      (realDiscNumberSize.boundingRect.width - realDiscNumberSize.boundingRect.x))
-
-            Layout.rightMargin: !LayoutMirroring.enabled ? (elisaTheme.layoutHorizontalMargin / 2) : 0
-            Layout.leftMargin: LayoutMirroring.enabled ? (elisaTheme.layoutHorizontalMargin / 2) : 0
-
-            TextMetrics {
-                id: discNumberSize
-
-                text: '9'
-            }
-
-            TextMetrics {
-                id: realDiscNumberSize
-
-                text: Number(discNumber).toLocaleString(Qt.locale(), 'f', 0)
+                visible: isValid && !playIcon.visible
             }
         }
 

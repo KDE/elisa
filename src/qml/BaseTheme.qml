@@ -62,6 +62,8 @@ Item {
     property int trackDelegateHeight: elisaTheme.layoutVerticalMargin + fontSize.height * 2
     // END FIXME
 
+    property int playListAlbumArtSize: 70
+
     property int coverImageSize: 180
     property int contextCoverImageSize: 100
     property int smallImageSize: 32

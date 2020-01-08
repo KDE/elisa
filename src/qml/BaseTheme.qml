@@ -89,9 +89,7 @@ Item {
     property int navigationBarHeight: 100
     property int navigationBarFilterHeight: 44
 
-    property real gridDelegateThumbnail: 0.85
-    property int gridDelegateHeight: 170 * gridDelegateThumbnail + layoutVerticalMargin
-    property int gridDelegateWidth: 170
+    property int gridDelegateSize: 170
 
     property int viewSelectorDelegateHeight: 24
 

@@ -83,278 +83,276 @@ FocusScope {
         radius: 3
     }
 
-    ColumnLayout {
+    MouseArea {
+        id: hoverHandle
+
         anchors.fill: parent
         z: 2
 
-        spacing: 0
+        hoverEnabled: true
+        acceptedButtons: Qt.LeftButton
 
-        MouseArea {
-            id: hoverHandle
+        Layout.preferredHeight: gridEntry.height
+        Layout.fillWidth: true
 
-            hoverEnabled: true
-            acceptedButtons: Qt.LeftButton
+        onClicked: {
+            gridEntry.selected()
+        }
 
-            Layout.preferredHeight: gridEntry.height
-            Layout.fillWidth: true
+        onDoubleClicked: open()
 
-            onClicked: {
-                gridEntry.selected()
-            }
+        TextMetrics {
+            id: mainLabelSize
+            font: mainLabel.font
+            text: mainLabel.text
+        }
 
-            onDoubleClicked: open()
+        TextMetrics {
+            id: secondaryLabelSize
+            font: secondaryLabel.font
+            text: secondaryLabel.text
+        }
 
-            TextMetrics {
-                id: mainLabelSize
-                font: mainLabel.font
-                text: mainLabel.text
-            }
+        ColumnLayout {
+            id: mainData
 
-            TextMetrics {
-                id: secondaryLabelSize
-                font: secondaryLabel.font
-                text: secondaryLabel.text
-            }
+            spacing: 0
+            anchors.fill: parent
 
-            ColumnLayout {
-                id: mainData
+            Item {
 
-                spacing: 0
-                anchors.fill: parent
+                Layout.margins: 2 * elisaTheme.layoutVerticalMargin
+                Layout.preferredHeight: gridEntry.width - 4 * elisaTheme.layoutVerticalMargin
+                Layout.preferredWidth: gridEntry.width - 4 * elisaTheme.layoutVerticalMargin
 
-                Item {
-                    Layout.preferredHeight: gridEntry.width * elisaTheme.gridDelegateThumbnail
-                    Layout.preferredWidth: gridEntry.width * elisaTheme.gridDelegateThumbnail
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
 
-                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                Loader {
+                    id: hoverLoader
+                    active: false
 
-                    Loader {
-                        id: hoverLoader
-                        active: false
-
-                        anchors {
-                            bottom: parent.bottom
-                            bottomMargin: 2
-                            left: parent.left
-                            leftMargin: 2
-                        }
-
-                        z: 1
-
-                        opacity: 0
-
-                        sourceComponent: Row {
-                            spacing: 2
-
-                            Button {
-                                id: detailsButton
-                                objectName: 'detailsButton'
-
-                                icon.name: 'help-about'
-
-                                hoverEnabled: true
-                                ToolTip.visible: hovered
-                                ToolTip.delay: 1000
-                                ToolTip.text: i18nc("Show track metadata", "View Details")
-
-                                Accessible.role: Accessible.Button
-                                Accessible.name: ToolTip.text
-                                Accessible.description: ToolTip.text
-                                Accessible.onPressAction: clicked()
-
-                                onClicked: {
-                                    if (metadataLoader.active === false) {
-                                        metadataLoader.active = true
-                                    }
-                                    else {
-                                        metadataLoader.item.close();
-                                        metadataLoader.active = false
-                                    }
-                                }
-
-                                Keys.onReturnPressed: clicked()
-                                Keys.onEnterPressed: clicked()
-                                visible: showDetailsButton
-
-                                width: elisaTheme.delegateToolButtonSize
-                                height: elisaTheme.delegateToolButtonSize
-                            }
-
-                            Button {
-                                id: replaceAndPlayButton
-                                objectName: 'replaceAndPlayButton'
-
-                                icon.name: 'media-playback-start'
-
-                                hoverEnabled: true
-                                ToolTip.visible: hovered
-                                ToolTip.delay: 1000
-                                ToolTip.text: i18nc("Clear play list and add whole container to play list", "Play now, replacing current playlist")
-
-                                Accessible.role: Accessible.Button
-                                Accessible.name: ToolTip.text
-                                Accessible.description: ToolTip.text
-                                Accessible.onPressAction: onClicked
-
-                                onClicked: replaceAndPlay(databaseId, mainText, fileUrl)
-                                Keys.onReturnPressed: replaceAndPlay(databaseId, mainText, fileUrl)
-                                Keys.onEnterPressed: replaceAndPlay(databaseId, mainText, fileUrl)
-
-                                visible: showPlayButton
-
-                                width: elisaTheme.delegateToolButtonSize
-                                height: elisaTheme.delegateToolButtonSize
-                            }
-
-                            Button {
-                                id: enqueueButton
-                                objectName: 'enqueueButton'
-
-                                icon.name: 'list-add'
-                                hoverEnabled: true
-                                ToolTip.visible: hovered
-                                ToolTip.delay: 1000
-                                ToolTip.text: i18nc("Add whole container to play list", "Add to playlist")
-
-                                Accessible.role: Accessible.Button
-                                Accessible.name: ToolTip.text
-                                Accessible.description: ToolTip.text
-                                Accessible.onPressAction: onClicked
-
-                                onClicked: enqueue(databaseId, mainText, fileUrl)
-                                Keys.onReturnPressed: enqueue(databaseId, mainText, fileUrl)
-                                Keys.onEnterPressed: enqueue(databaseId, mainText, fileUrl)
-
-                                visible: showEnqueueButton
-
-                                width: elisaTheme.delegateToolButtonSize
-                                height: elisaTheme.delegateToolButtonSize
-                            }
-
-                            Button {
-                                id: openButton
-                                objectName: 'openButton'
-
-                                icon.name: 'go-next-view-page'
-                                hoverEnabled: true
-                                ToolTip.visible: hovered
-                                ToolTip.delay: 1000
-                                ToolTip.text: i18nc("Open view of the container", "Open")
-
-                                Accessible.role: Accessible.Button
-                                Accessible.name: ToolTip.text
-                                Accessible.description: ToolTip.text
-                                Accessible.onPressAction: onClicked
-
-                                onClicked: open()
-
-                                visible: showOpenButton
-
-                                width: elisaTheme.delegateToolButtonSize
-                                height: elisaTheme.delegateToolButtonSize
-                            }
-                        }
+                    anchors {
+                        bottom: parent.bottom
+                        bottomMargin: 2
+                        left: parent.left
+                        leftMargin: 2
                     }
 
-                    Loader {
-                        id: coverImageLoader
+                    z: 1
 
-                        active: !isPartial
+                    opacity: 0
+
+                    sourceComponent: Row {
+                        spacing: 2
+
+                        Button {
+                            id: detailsButton
+                            objectName: 'detailsButton'
+
+                            icon.name: 'help-about'
+
+                            hoverEnabled: true
+                            ToolTip.visible: hovered
+                            ToolTip.delay: 1000
+                            ToolTip.text: i18nc("Show track metadata", "View Details")
+
+                            Accessible.role: Accessible.Button
+                            Accessible.name: ToolTip.text
+                            Accessible.description: ToolTip.text
+                            Accessible.onPressAction: clicked()
+
+                            onClicked: {
+                                if (metadataLoader.active === false) {
+                                    metadataLoader.active = true
+                                }
+                                else {
+                                    metadataLoader.item.close();
+                                    metadataLoader.active = false
+                                }
+                            }
+
+                            Keys.onReturnPressed: clicked()
+                            Keys.onEnterPressed: clicked()
+                            visible: showDetailsButton
+
+                            width: elisaTheme.delegateToolButtonSize
+                            height: elisaTheme.delegateToolButtonSize
+                        }
+
+                        Button {
+                            id: replaceAndPlayButton
+                            objectName: 'replaceAndPlayButton'
+
+                            icon.name: 'media-playback-start'
+
+                            hoverEnabled: true
+                            ToolTip.visible: hovered
+                            ToolTip.delay: 1000
+                            ToolTip.text: i18nc("Clear play list and add whole container to play list", "Play now, replacing current playlist")
+
+                            Accessible.role: Accessible.Button
+                            Accessible.name: ToolTip.text
+                            Accessible.description: ToolTip.text
+                            Accessible.onPressAction: onClicked
+
+                            onClicked: replaceAndPlay(databaseId, mainText, fileUrl)
+                            Keys.onReturnPressed: replaceAndPlay(databaseId, mainText, fileUrl)
+                            Keys.onEnterPressed: replaceAndPlay(databaseId, mainText, fileUrl)
+
+                            visible: showPlayButton
+
+                            width: elisaTheme.delegateToolButtonSize
+                            height: elisaTheme.delegateToolButtonSize
+                        }
+
+                        Button {
+                            id: enqueueButton
+                            objectName: 'enqueueButton'
+
+                            icon.name: 'list-add'
+                            hoverEnabled: true
+                            ToolTip.visible: hovered
+                            ToolTip.delay: 1000
+                            ToolTip.text: i18nc("Add whole container to play list", "Add to playlist")
+
+                            Accessible.role: Accessible.Button
+                            Accessible.name: ToolTip.text
+                            Accessible.description: ToolTip.text
+                            Accessible.onPressAction: onClicked
+
+                            onClicked: enqueue(databaseId, mainText, fileUrl)
+                            Keys.onReturnPressed: enqueue(databaseId, mainText, fileUrl)
+                            Keys.onEnterPressed: enqueue(databaseId, mainText, fileUrl)
+
+                            visible: showEnqueueButton
+
+                            width: elisaTheme.delegateToolButtonSize
+                            height: elisaTheme.delegateToolButtonSize
+                        }
+
+                        Button {
+                            id: openButton
+                            objectName: 'openButton'
+
+                            icon.name: 'go-next-view-page'
+                            hoverEnabled: true
+                            ToolTip.visible: hovered
+                            ToolTip.delay: 1000
+                            ToolTip.text: i18nc("Open view of the container", "Open")
+
+                            Accessible.role: Accessible.Button
+                            Accessible.name: ToolTip.text
+                            Accessible.description: ToolTip.text
+                            Accessible.onPressAction: onClicked
+
+                            onClicked: open()
+
+                            visible: showOpenButton
+
+                            width: elisaTheme.delegateToolButtonSize
+                            height: elisaTheme.delegateToolButtonSize
+                        }
+                    }
+                }
+
+                Loader {
+                    id: coverImageLoader
+
+                    active: !isPartial
+
+                    anchors.fill: parent
+
+                    sourceComponent: Image {
+                        id: coverImage
 
                         anchors.fill: parent
 
-                        sourceComponent: Image {
-                            id: coverImage
+                        sourceSize.width: parent.width
+                        sourceSize.height: parent.height
+                        fillMode: Image.PreserveAspectFit
+                        smooth: true
 
-                            anchors.fill: parent
+                        source: (gridEntry.imageUrl !== undefined ? gridEntry.imageUrl : "")
 
-                            sourceSize.width: parent.width
-                            sourceSize.height: parent.height
-                            fillMode: Image.PreserveAspectFit
-                            smooth: true
+                        asynchronous: true
 
-                            source: (gridEntry.imageUrl !== undefined ? gridEntry.imageUrl : "")
+                        layer.enabled: shadowForImage
+                        layer.effect: DropShadow {
+                            source: coverImage
 
-                            asynchronous: true
+                            radius: 10
+                            spread: 0.1
+                            samples: 21
 
-                            layer.enabled: shadowForImage
-                            layer.effect: DropShadow {
-                                source: coverImage
-
-                                radius: 10
-                                spread: 0.1
-                                samples: 21
-
-                                color: myPalette.shadow
-                            }
+                            color: myPalette.shadow
                         }
                     }
-                    Loader {
-                        active: isPartial
+                }
+                Loader {
+                    active: isPartial
 
+                    anchors.centerIn: parent
+                    height: Kirigami.Units.gridUnit * 5
+                    width: height
+
+
+                    sourceComponent: BusyIndicator {
                         anchors.centerIn: parent
-                        height: Kirigami.Units.gridUnit * 5
-                        width: height
 
-
-                        sourceComponent: BusyIndicator {
-                            anchors.centerIn: parent
-
-                            running: true
-                        }
+                        running: true
                     }
-                }
-
-                LabelWithToolTip {
-                    id: mainLabel
-
-                    level: 4
-
-                    color: myPalette.text
-
-                    // FIXME: Center-aligned text looks better overall, but
-                    // sometimes results in font kerning issues
-                    // See https://bugreports.qt.io/browse/QTBUG-49646
-                    horizontalAlignment: Text.AlignHCenter
-
-                    Layout.topMargin: elisaTheme.layoutVerticalMargin * 0.5
-                    Layout.maximumWidth: gridEntry.width * 0.9
-                    Layout.minimumWidth: Layout.maximumWidth
-                    Layout.maximumHeight: delegateDisplaySecondaryText
-                                            ? (mainLabelSize.boundingRect.height - mainLabelSize.boundingRect.y)
-                                            : (mainLabelSize.boundingRect.height - mainLabelSize.boundingRect.y) * 2
-                    Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
-                    Layout.bottomMargin: delegateDisplaySecondaryText ? 0 : elisaTheme.layoutVerticalMargin
-
-                    wrapMode: delegateDisplaySecondaryText ? Label.NoWrap : Label.Wrap
-                    elide: Text.ElideRight
-                }
-
-                LabelWithToolTip {
-                    id: secondaryLabel
-
-                    opacity: 0.6
-                    color: myPalette.text
-
-                    // FIXME: Center-aligned text looks better overall, but
-                    // sometimes results in font kerning issues
-                    // See https://bugreports.qt.io/browse/QTBUG-49646
-                    horizontalAlignment: Text.AlignHCenter
-
-                    Layout.bottomMargin: elisaTheme.layoutVerticalMargin
-                    Layout.maximumWidth: gridEntry.width * 0.9
-                    Layout.minimumWidth: Layout.maximumWidth
-                    Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
-
-                    visible: delegateDisplaySecondaryText
-
-                    elide: Text.ElideRight
                 }
             }
-        }
 
-        Item {
-            Layout.fillHeight: true
+            LabelWithToolTip {
+                id: mainLabel
+
+                level: 4
+
+                color: myPalette.text
+
+                // FIXME: Center-aligned text looks better overall, but
+                // sometimes results in font kerning issues
+                // See https://bugreports.qt.io/browse/QTBUG-49646
+                horizontalAlignment: Text.AlignHCenter
+
+                Layout.maximumWidth: gridEntry.width * 0.9
+                Layout.minimumWidth: Layout.maximumWidth
+                Layout.maximumHeight: delegateDisplaySecondaryText
+                                      ? (mainLabelSize.boundingRect.height - mainLabelSize.boundingRect.y)
+                                      : (mainLabelSize.boundingRect.height - mainLabelSize.boundingRect.y) * 2
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
+                Layout.bottomMargin: delegateDisplaySecondaryText ? 0 : elisaTheme.layoutVerticalMargin
+
+                wrapMode: delegateDisplaySecondaryText ? Label.NoWrap : Label.Wrap
+                maximumLineCount: 2
+                elide: Text.ElideRight
+            }
+
+            LabelWithToolTip {
+                id: secondaryLabel
+
+                opacity: 0.6
+                color: myPalette.text
+
+                // FIXME: Center-aligned text looks better overall, but
+                // sometimes results in font kerning issues
+                // See https://bugreports.qt.io/browse/QTBUG-49646
+                horizontalAlignment: Text.AlignHCenter
+
+                Layout.bottomMargin: elisaTheme.layoutVerticalMargin
+                Layout.maximumWidth: gridEntry.width * 0.9
+                Layout.minimumWidth: Layout.maximumWidth
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
+
+                visible: delegateDisplaySecondaryText
+
+                elide: Text.ElideRight
+            }
+
+            Item {
+                Layout.fillHeight: true
+            }
         }
     }
 

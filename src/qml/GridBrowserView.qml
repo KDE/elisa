@@ -125,13 +125,11 @@ FocusScope {
                     anchors.fill: contentDirectoryView
                 }
 
-                cellWidth: Math.floor(availableWidth / Math.max(Math.floor(availableWidth / elisaTheme.gridDelegateWidth), 2))
-                cellHeight: elisaTheme.gridDelegateHeight +
-                            (secondaryLabelSize.boundingRect.height - secondaryLabelSize.boundingRect.y) *
-                            (delegateDisplaySecondaryText ? 2 : 1)
+                cellWidth: Math.floor(availableWidth / Math.max(Math.floor(availableWidth / elisaTheme.gridDelegateSize), 2))
+                cellHeight: elisaTheme.gridDelegateSize + secondaryLabelSize.boundingRect.height * 2 + elisaTheme.layoutVerticalMargin * 2
 
                 delegate: GridBrowserDelegate {
-                    width: elisaTheme.gridDelegateWidth
+                    width: elisaTheme.gridDelegateSize
                     height: contentDirectoryView.cellHeight
 
                     focus: true

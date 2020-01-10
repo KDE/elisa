@@ -30,11 +30,9 @@
 
 #include <QCryptographicHash>
 #include <QStringList>
-#include <QMetaClassInfo>
 #include <QDBusMessage>
 #include <QDBusConnection>
 
-#include <QDebug>
 
 static const double MAX_RATE = 1.0;
 static const double MIN_RATE = 1.0;

@@ -36,7 +36,6 @@
 #endif
 
 #include <QString>
-#include <QByteArray>
 
 #include <QCoreApplication>
 

@@ -22,7 +22,6 @@
 
 #include "../abstractfile/abstractfilelisting.h"
 
-#include <QString>
 
 #include <memory>
 

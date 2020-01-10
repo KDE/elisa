@@ -20,11 +20,6 @@
 #include "modeldataloader.h"
 #include "musiclistenersmanager.h"
 
-#include <QUrl>
-#include <QTimer>
-#include <QPointer>
-#include <QVector>
-#include <QDebug>
 
 #include <algorithm>
 

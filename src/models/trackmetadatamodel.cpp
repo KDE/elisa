@@ -21,7 +21,7 @@
 
 #include <KI18n/KLocalizedString>
 
-#include <QtConcurrentRun>
+#include <QtConcurrent>
 
 TrackMetadataModel::TrackMetadataModel(QObject *parent)
     : QAbstractListModel(parent)

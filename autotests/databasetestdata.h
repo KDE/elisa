@@ -20,7 +20,6 @@
 
 #include "datatypes.h"
 
-#include <QList>
 #include <QUrl>
 #include <QString>
 #include <QDateTime>

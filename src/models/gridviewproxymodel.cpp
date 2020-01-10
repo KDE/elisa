@@ -21,9 +21,8 @@
 #include "datatypes.h"
 #include "elisautils.h"
 
-#include <QStringList>
 #include <QReadLocker>
-#include <QtConcurrentRun>
+#include <QtConcurrent>
 
 GridViewProxyModel::GridViewProxyModel(QObject *parent) : AbstractMediaProxyModel(parent)
 {

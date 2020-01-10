@@ -19,9 +19,8 @@
 #define MANAGEMEDIAPLAYERCONTROL_H
 
 #include "elisaLib_export.h"
-
+#include <QPersistentModelIndex>
 #include <QObject>
-#include <QModelIndex>
 
 class QAbstractItemModel;
 

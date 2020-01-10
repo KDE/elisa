@@ -19,7 +19,6 @@
 
 #include <QUrl>
 #include <QString>
-#include <QDebug>
 #include <QMimeDatabase>
 #include <KIOWidgets/KDirLister>
 

@@ -24,7 +24,6 @@
 
 #include <QSet>
 #include <QList>
-#include <QDebug>
 
 #include <array>
 #include <algorithm>

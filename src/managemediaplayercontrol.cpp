@@ -17,7 +17,6 @@
 
 #include "managemediaplayercontrol.h"
 
-#include <QDebug>
 
 ManageMediaPlayerControl::ManageMediaPlayerControl(QObject *parent) : QObject(parent)
 {

@@ -23,10 +23,7 @@
 #include "elisautils.h"
 
 #include <QObject>
-#include <QList>
 #include <QPersistentModelIndex>
-#include <QAbstractItemModel>
-#include <QModelIndex>
 #include <QUrl>
 
 class ELISALIB_EXPORT ManageHeaderBar : public QObject

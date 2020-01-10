@@ -21,8 +21,6 @@
 #include "../abstractfile/abstractfilelistener.h"
 
 #include <QObject>
-#include <QVector>
-#include <QString>
 
 class FileListenerPrivate;
 class LocalFileListing;

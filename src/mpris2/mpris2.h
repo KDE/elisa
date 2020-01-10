@@ -26,7 +26,6 @@
 
 #include <QObject>
 #include <QSharedPointer>
-#include <QVariantMap>
 #include <memory>
 
 class MediaPlayer2Player;

@@ -17,7 +17,6 @@
 
 #include "viewmanager.h"
 
-#include <QDebug>
 
 #include <QtTest>
 

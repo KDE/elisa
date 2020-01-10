@@ -19,7 +19,6 @@
 #define ABSTRACTFILELISTENER_H
 
 #include <QObject>
-#include <QVector>
 #include <QString>
 
 #include "datatypes.h"

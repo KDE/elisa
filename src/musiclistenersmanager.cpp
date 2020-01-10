@@ -46,17 +46,11 @@
 #include <KI18n/KLocalizedString>
 
 #include <QThread>
-#include <QMutex>
 #include <QStandardPaths>
 #include <QDir>
 #include <QCoreApplication>
-#include <QList>
-#include <QScopedPointer>
-#include <QPointer>
 #include <QFileSystemWatcher>
 #include <QAction>
-
-#include <QDebug>
 
 #include <list>
 

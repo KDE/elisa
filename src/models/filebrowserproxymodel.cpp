@@ -21,8 +21,9 @@
 #include "filebrowsermodel.h"
 
 #include <QReadLocker>
-#include <QtConcurrentRun>
 #include <QDir>
+#include <QtConcurrent>
+
 #include <KIOWidgets/KDirLister>
 #include "elisautils.h"
 

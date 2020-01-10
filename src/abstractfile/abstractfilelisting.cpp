@@ -33,7 +33,6 @@
 #include <QPair>
 #include <QAtomicInt>
 
-#include <QtGlobal>
 
 #include <algorithm>
 #include <utility>

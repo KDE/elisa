@@ -23,7 +23,6 @@
 #include <QList>
 #include <QUrl>
 #include <QString>
-#include <QMetaObject>
 #include <QMetaType>
 
 namespace ElisaUtils {

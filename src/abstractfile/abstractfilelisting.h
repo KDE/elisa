@@ -25,7 +25,6 @@
 #include <QString>
 #include <QUrl>
 #include <QHash>
-#include <QVector>
 #include <QDateTime>
 
 #include <memory>

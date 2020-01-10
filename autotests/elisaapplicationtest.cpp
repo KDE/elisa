@@ -25,7 +25,6 @@
 #include <QDir>
 #include <QFileInfo>
 
-#include <QDebug>
 
 #include <QtTest>
 

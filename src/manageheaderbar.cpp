@@ -18,7 +18,6 @@
 #include "manageheaderbar.h"
 
 #include <QTime>
-#include <QTimer>
 
 ManageHeaderBar::ManageHeaderBar(QObject *parent)
     : QObject(parent)

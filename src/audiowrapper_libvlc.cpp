@@ -22,7 +22,6 @@
 #include "vlcLogging.h"
 #include "powermanagementinterface.h"
 
-#include <QTimer>
 #include <QAudio>
 #include <QDir>
 

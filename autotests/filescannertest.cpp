@@ -21,10 +21,7 @@
 #include <QObject>
 #include <QList>
 #include <QUrl>
-#include <QDateTime>
-#include <QTime>
 
-#include <QDebug>
 
 #include <QtTest>
 

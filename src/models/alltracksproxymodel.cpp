@@ -20,7 +20,7 @@
 #include "datatypes.h"
 
 #include <QReadLocker>
-#include <QtConcurrentRun>
+#include <QtConcurrent>
 
 AllTracksProxyModel::AllTracksProxyModel(QObject *parent) : AbstractMediaProxyModel(parent)
 {

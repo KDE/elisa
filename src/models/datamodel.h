@@ -24,7 +24,6 @@
 #include "datatypes.h"
 
 #include <QAbstractListModel>
-#include <QVector>
 #include <QHash>
 #include <QString>
 

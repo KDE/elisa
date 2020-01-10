@@ -43,22 +43,17 @@
 #include <KDBusService>
 #endif
 
-#include <QSortFilterProxyModel>
 
 #include <QIcon>
 
 #include <QApplication>
 #include <QCommandLineParser>
-#include <QtGlobal>
 #include <QStandardPaths>
 
 #include <QQmlApplicationEngine>
-#include <QQmlEngine>
 #include <QQmlFileSelector>
-#include <QQmlDebuggingEnabler>
-#include <QQmlContext>
 #include <QQuickStyle>
-#include <QScreen>
+#include <QQmlContext>
 
 #if defined Qt5AndroidExtras_FOUND && Qt5AndroidExtras_FOUND
 #include <QAndroidService>

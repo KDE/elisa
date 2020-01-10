@@ -22,9 +22,6 @@
 
 #include <QObject>
 #include <QHash>
-#include <QVector>
-#include <QUrl>
-#include <QString>
 
 class MediaPlayListTest : public QObject, public DatabaseTestData
 {

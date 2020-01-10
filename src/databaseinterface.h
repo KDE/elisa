@@ -27,10 +27,8 @@
 #include <QString>
 #include <QHash>
 #include <QList>
-#include <QVariant>
 #include <QUrl>
 #include <QDateTime>
-#include <QPair>
 
 #include <memory>
 #include <optional>

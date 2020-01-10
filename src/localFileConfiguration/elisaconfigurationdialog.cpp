@@ -21,7 +21,6 @@
 
 #include "elisa_settings.h"
 
-#include <KLocalizedString>
 
 #include <QStandardPaths>
 #include <QFileInfo>

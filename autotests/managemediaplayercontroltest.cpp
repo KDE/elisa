@@ -26,8 +26,6 @@
 #include <QString>
 #include <QUrl>
 #include <QVector>
-#include <QVariant>
-#include <QList>
 
 #include <QStringListModel>
 

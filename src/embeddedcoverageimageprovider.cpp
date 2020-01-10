@@ -18,7 +18,6 @@
 #include "embeddedcoverageimageprovider.h"
 
 #include <KFileMetaData/EmbeddedImageData>
-#include <QUrl>
 #include <QImage>
 
 class AsyncImageResponse : public QQuickImageResponse, public QRunnable

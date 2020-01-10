@@ -37,21 +37,16 @@
 #include <KFileMetaData/Properties>
 #include <KFileMetaData/UserMetaData>
 
-#include <KLocalizedString>
 
 #include <QDBusConnection>
 #include <QDBusConnectionInterface>
-#include <QDBusMessage>
 #include <QDBusServiceWatcher>
 
 #include <QThread>
 #include <QHash>
 #include <QFileInfo>
-#include <QDir>
 #include <QAtomicInt>
 #include <QScopedPointer>
-#include <QDebug>
-#include <QGuiApplication>
 
 #include <algorithm>
 #include <memory>

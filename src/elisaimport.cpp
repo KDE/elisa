@@ -23,7 +23,6 @@
 
 #include <QCoreApplication>
 #include <QCommandLineParser>
-#include <QtGlobal>
 #include <QStandardPaths>
 
 int main(int argc, char *argv[])

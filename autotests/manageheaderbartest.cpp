@@ -24,14 +24,8 @@
 
 #include <QHash>
 #include <QString>
-#include <QUrl>
-#include <QVector>
-#include <QVariant>
-#include <QList>
 
 #include <QStringListModel>
-#include <QStandardItemModel>
-#include <QStandardItem>
 
 #include <QtTest>
 

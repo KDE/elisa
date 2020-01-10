@@ -70,14 +70,12 @@
 #include "mpris2/mediaplayer2player.h"
 #endif
 
-#include <QSortFilterProxyModel>
 
 #include <QAction>
 #include <QStandardPaths>
 
 #include <QQmlExtensionPlugin>
 #include <QQmlEngine>
-#include <QQmlContext>
 
 ElisaQmlTestPlugin::ElisaQmlTestPlugin(QObject *aParent)
     : QQmlExtensionPlugin(aParent)

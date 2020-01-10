@@ -25,10 +25,7 @@
 #include "mediaplaylist.h"
 
 #include <QDBusConnection>
-#include <QDir>
-#include <QAbstractItemModel>
 
-#include <QtGlobal>
 
 #if defined Q_OS_WIN
 #include <Windows.h>

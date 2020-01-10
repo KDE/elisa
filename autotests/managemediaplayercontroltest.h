@@ -22,10 +22,7 @@
 
 #include "databasetestdata.h"
 
-#include <QList>
 #include <QHash>
-#include <QString>
-#include <QUrl>
 
 class ManageMediaPlayerControlTest : public QObject, public DatabaseTestData
 {

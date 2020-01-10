@@ -38,7 +38,6 @@
 
 #endif
 
-#include <QLoggingCategory>
 #include <QFileInfo>
 #include <QLocale>
 #include <QDir>

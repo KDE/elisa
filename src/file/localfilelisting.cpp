@@ -21,12 +21,9 @@
 
 #include <QThread>
 #include <QHash>
-#include <QFileInfo>
-#include <QDir>
 #include <QFileSystemWatcher>
 #include <QStandardPaths>
 
-#include <QDebug>
 
 #include <algorithm>
 

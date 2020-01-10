@@ -26,8 +26,6 @@
 
 #include <QDBusAbstractAdaptor>
 #include <QDBusObjectPath>
-#include <QPointer>
-#include <QUrl>
 #include <QDBusMessage>
 
 class MediaPlayList;

@@ -24,7 +24,8 @@
 #include "filescanner.h"
 #include "elisautils.h"
 
-#include <KIOFileWidgets/KDirSortFilterProxyModel>
+#include <KDirSortFilterProxyModel>
+
 #include <QRegularExpression>
 #include <QReadWriteLock>
 #include <QThreadPool>

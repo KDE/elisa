@@ -25,8 +25,6 @@
 #include "config-upnp-qt.h"
 
 #include <QtTest>
-#include <QStandardItemModel>
-#include <QStandardItem>
 #include <QUrl>
 #include <QTime>
 #include <QTemporaryFile>

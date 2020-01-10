@@ -27,13 +27,9 @@
 #include <QHash>
 #include <QVector>
 #include <QThread>
-#include <QMetaObject>
 #include <QStandardPaths>
-#include <QDir>
-#include <QFile>
 #include <QAbstractItemModelTester>
 
-#include <QDebug>
 
 #include <QtTest>
 

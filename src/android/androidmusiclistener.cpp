@@ -29,6 +29,7 @@
 #include <QAndroidJniObject>
 #include <QAndroidJniEnvironment>
 #include <QtAndroid>
+#include <QDebug>
 
 class AndroidMusicListenerPrivate
 {

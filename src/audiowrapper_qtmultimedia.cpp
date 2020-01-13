@@ -75,11 +75,7 @@ qreal AudioWrapper::volume() const
 
 QUrl AudioWrapper::source() const
 {
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
-    return d->mPlayer.media().request().url();
-#else
     return d->mPlayer.media().canonicalUrl();
-#endif
 }
 
 QMediaPlayer::Error AudioWrapper::error() const

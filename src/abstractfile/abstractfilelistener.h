@@ -27,7 +27,6 @@
 
 class AbstractFileListenerPrivate;
 class DatabaseInterface;
-class MusicAudioTrack;
 class AbstractFileListing;
 
 class AbstractFileListener : public QObject

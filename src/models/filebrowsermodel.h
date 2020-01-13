@@ -22,7 +22,6 @@
 
 #include <KIOWidgets/KDirModel>
 
-class MusicAudioTrack;
 
 class ELISALIB_EXPORT FileBrowserModel : public KDirModel
 {

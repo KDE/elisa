@@ -27,8 +27,6 @@
 class UpnpListenerPrivate;
 
 class DatabaseInterface;
-class UpnpDiscoverAllMusic;
-class UpnpSsdpEngine;
 class MusicAudioTrack;
 
 class UpnpListener : public QObject

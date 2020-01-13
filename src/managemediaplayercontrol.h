@@ -22,7 +22,6 @@
 #include <QPersistentModelIndex>
 #include <QObject>
 
-class QAbstractItemModel;
 
 class ELISALIB_EXPORT ManageMediaPlayerControl : public QObject
 {

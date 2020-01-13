@@ -22,7 +22,6 @@
 
 #include <memory>
 
-class UpnpControlConnectionManager;
 
 class UpnpControlMediaServerPrivate;
 

@@ -31,7 +31,6 @@
 #include <memory>
 
 class DatabaseInterface;
-class MusicAudioTrack;
 class AndroidMusicListenerPrivate;
 
 class AndroidMusicListener : public QObject

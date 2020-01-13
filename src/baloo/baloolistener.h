@@ -25,8 +25,6 @@
 #include <memory>
 
 class BalooListenerPrivate;
-class DatabaseInterface;
-class MusicAudioTrack;
 
 class BalooListener : public AbstractFileListener
 {

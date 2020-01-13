@@ -30,7 +30,6 @@
 
 class MediaPlayer2Player;
 class MediaPlayer2;
-class QAbstractItemModel;
 class MediaPlayList;
 class ManageAudioPlayer;
 class ManageMediaPlayerControl;

@@ -34,7 +34,6 @@
 #include <optional>
 
 class DatabaseInterfacePrivate;
-class QMutex;
 class QSqlRecord;
 class QSqlQuery;
 

@@ -57,8 +57,7 @@ FocusScope {
 
         sourceModel: realModel
         dataType: modelType
-
-        onEntriesToEnqueue: elisa.mediaPlayList.enqueue(newEntries, databaseIdType, enqueueMode, triggerPlay)
+        playList: elisa.mediaPlayList
     }
 
     GridBrowserView {

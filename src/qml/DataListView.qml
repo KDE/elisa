@@ -75,8 +75,6 @@ FocusScope {
         id: proxyModel
 
         sourceModel: realModel
-
-        onEntriesToEnqueue: elisa.mediaPlayList.enqueue(newEntries, databaseIdType, enqueueMode, triggerPlay)
     }
 
     Loader {

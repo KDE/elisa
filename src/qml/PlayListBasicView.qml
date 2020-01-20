@@ -61,6 +61,10 @@ ListView {
         anchors.fill: playListView
     }
 
+    /* currently disabled animations due to display corruption
+      because of https://bugreports.qt.io/browse/QTBUG-49868
+      causing https://bugs.kde.org/show_bug.cgi?id=406524
+      and https://bugs.kde.org/show_bug.cgi?id=398093      
     add: Transition {
         NumberAnimation {
             property: "opacity";
@@ -91,6 +95,7 @@ ListView {
             duration: 100;
             easing.type: Easing.InOutQuad}
     }
+    */
 
     model: DelegateModel {
         id: playListModelDelegate

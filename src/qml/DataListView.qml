@@ -75,6 +75,7 @@ FocusScope {
         id: proxyModel
 
         sourceModel: realModel
+        playList: elisa.mediaPlayList
     }
 
     Loader {

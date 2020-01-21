@@ -19,6 +19,7 @@
 #include "filebrowserproxymodel.h"
 
 #include "filebrowsermodel.h"
+#include "mediaplaylist.h"
 
 #include <QReadLocker>
 #include <QtConcurrentRun>
@@ -138,6 +139,22 @@ QString FileBrowserProxyModel::parentFolder() const
     }
 }
 
+void FileBrowserProxyModel::disconnectPlayList()
+{
+    if (mPlayList) {
+        disconnect(this, &FileBrowserProxyModel::filesToEnqueue,
+                   mPlayList, static_cast<void(MediaPlayList::*)(const ElisaUtils::EntryDataList&, ElisaUtils::PlayListEntryType, ElisaUtils::PlayListEnqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayList::enqueue));
+    }
+}
+
+void FileBrowserProxyModel::connectPlayList()
+{
+    if (mPlayList) {
+        connect(this, &FileBrowserProxyModel::filesToEnqueue,
+                mPlayList, static_cast<void(MediaPlayList::*)(const ElisaUtils::EntryDataList&, ElisaUtils::PlayListEntryType, ElisaUtils::PlayListEnqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayList::enqueue));
+    }
+}
+
 void FileBrowserProxyModel::openParentFolder()
 {
     auto fileBrowserModel = dynamic_cast<FileBrowserModel*>(sourceModel());
@@ -216,10 +233,29 @@ void FileBrowserProxyModel::setSourceModel(QAbstractItemModel *sourceModel)
     openFolder(mTopFolder, true);
 }
 
+MediaPlayList *FileBrowserProxyModel::playList() const
+{
+    return mPlayList;
+}
+
 void FileBrowserProxyModel::sortModel(Qt::SortOrder order)
 {
     this->sort(0,order);
     Q_EMIT sortedAscendingChanged();
+}
+
+void FileBrowserProxyModel::setPlayList(MediaPlayList *playList)
+{
+    disconnectPlayList();
+
+    if (mPlayList == playList) {
+        return;
+    }
+
+    mPlayList = playList;
+    Q_EMIT playListChanged();
+
+    connectPlayList();
 }
 
 #include "moc_filebrowserproxymodel.cpp"

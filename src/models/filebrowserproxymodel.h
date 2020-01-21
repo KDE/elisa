@@ -31,6 +31,8 @@
 
 #include <memory>
 
+class MediaPlayList;
+
 class ELISALIB_EXPORT FileBrowserProxyModel : public KDirSortFilterProxyModel
 {
     Q_OBJECT
@@ -52,6 +54,8 @@ class ELISALIB_EXPORT FileBrowserProxyModel : public KDirSortFilterProxyModel
                READ sortedAscending
                NOTIFY sortedAscendingChanged)
 
+    Q_PROPERTY(MediaPlayList* playList READ playList WRITE setPlayList NOTIFY playListChanged)
+
 public:
 
     explicit FileBrowserProxyModel(QObject *parent = nullptr);
@@ -68,6 +72,8 @@ public:
 
     void setSourceModel(QAbstractItemModel *sourceModel) override;
 
+    MediaPlayList* playList() const;
+
 public Q_SLOTS:
 
     void enqueueToPlayList();
@@ -81,6 +87,8 @@ public Q_SLOTS:
     void openFolder(const QString &folder, bool isDisplayRoot = false);
 
     void sortModel(Qt::SortOrder order);
+
+    void setPlayList(MediaPlayList* playList);
 
 Q_SIGNALS:
 
@@ -97,6 +105,8 @@ Q_SIGNALS:
 
     void sortedAscendingChanged();
 
+    void playListChanged();
+
 protected:
 
     bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override;
@@ -104,6 +114,10 @@ protected:
 private:
 
     QString parentFolder() const;
+
+    void disconnectPlayList();
+
+    void connectPlayList();
 
     QString mTopFolder;
 
@@ -116,6 +130,8 @@ private:
     QReadWriteLock mDataLock;
 
     QThreadPool mThreadPool;
+
+    MediaPlayList* mPlayList = nullptr;
 
 };
 

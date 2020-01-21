@@ -47,8 +47,7 @@ FocusScope {
         id: proxyModel
 
         sourceModel: realModel
-
-        onFilesToEnqueue: elisa.mediaPlayList.enqueue(newFiles, databaseIdType, enqueueMode, triggerPlay)
+        playList: elisa.mediaPlayList
     }
 
     MouseArea {

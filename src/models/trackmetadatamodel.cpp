@@ -165,8 +165,10 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
         case DataTypes::ResourceRole:
             result = i18nc("Radio HTTP address for radio metadata view", "Stream Http Address");
             break;
-        case DataTypes::SecondaryTextRole:
         case DataTypes::ImageUrlRole:
+            result = i18nc("Image address for radio metadata view", "Image Address");
+            break;
+        case DataTypes::SecondaryTextRole:
         case DataTypes::ShadowForImageRole:
         case DataTypes::ChildModelRole:
         case DataTypes::StringDurationRole:
@@ -174,7 +176,6 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
         case DataTypes::AllArtistsRole:
         case DataTypes::HighestTrackRating:
         case DataTypes::IdRole:
-        case DataTypes::ParentIdRole:
         case DataTypes::DatabaseIdRole:
         case DataTypes::IsSingleDiscAlbumRole:
         case DataTypes::ContainerDataRole:
@@ -195,6 +196,7 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
             result = TextEntry;
             break;
         case DataTypes::ResourceRole:
+        case DataTypes::ImageUrlRole:
             result = TextEntry;
             break;
         case DataTypes::ArtistRole:
@@ -244,7 +246,6 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
         case DataTypes::BitRateRole:
         case DataTypes::ChannelsRole:
         case DataTypes::SecondaryTextRole:
-        case DataTypes::ImageUrlRole:
         case DataTypes::ShadowForImageRole:
         case DataTypes::ChildModelRole:
         case DataTypes::StringDurationRole:
@@ -500,6 +501,7 @@ void TrackMetadataModel::fillDataForNewRadio()
          DataTypes::TitleRole,
          DataTypes::ResourceRole,
          DataTypes::CommentRole,
+         DataTypes::ImageUrlRole,
          DataTypes::DatabaseIdRole
 
 }) {
@@ -539,6 +541,14 @@ void TrackMetadataModel::setDatabase(DatabaseInterface *trackDatabase)
 
 void TrackMetadataModel::saveData()
 {
+    QString imageUrl = mTrackData[DataTypes::ImageUrlRole].toString();
+    if (!imageUrl.isEmpty()
+            && !imageUrl.startsWith(QStringLiteral("http://"))
+            && !imageUrl.startsWith(QStringLiteral("https://"))
+            && !imageUrl.startsWith(QStringLiteral("file://"))) {
+        mTrackData[DataTypes::ImageUrlRole] = QStringLiteral("file:/").append(imageUrl);
+    }
+
     Q_EMIT saveRadioData(mTrackData);
 }
 
@@ -557,7 +567,8 @@ void TrackMetadataModel::radioData(const TrackDataType &radiosData)
     }
 
     const QList<DataTypes::ColumnsRoles> fieldsForTrack({DataTypes::TitleRole, DataTypes::ResourceRole,
-                                                                 DataTypes::CommentRole, DataTypes::DatabaseIdRole});
+                                                                 DataTypes::CommentRole, DataTypes::ImageUrlRole,
+                                                                 DataTypes::DatabaseIdRole});
 
     fillDataFromTrackData(radiosData, fieldsForTrack);
 }

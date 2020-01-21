@@ -45,11 +45,12 @@ FocusScope {
                                          "initialDatabaseId": databaseId,
                                          "fileName": url,
                                          "modelType": viewHeader.modelType,
-                                         "showImage": false,
+                                         "showImage": true,
                                          "showTrackFileName": false,
                                          "showDeleteButton": databaseId !== -1,
                                          "showApplyButton": true,
                                          "editableMetadata": true,
+                                         "widthIndex": 4.5,
                                      });
         } else {
             metadataLoader.setSource("MediaTrackMetadataView.qml",

@@ -35,6 +35,7 @@ Window {
     property alias showTrackFileName: fileNameRow.visible
     property alias showDeleteButton: deleteButtonBox.visible
     property alias showApplyButton: applyButton.visible
+    property double widthIndex: 2.8
 
     signal rejected()
 
@@ -56,7 +57,7 @@ Window {
     color: myPalette.window
 
     minimumHeight: elisaTheme.coverImageSize * 1.8
-    minimumWidth: elisaTheme.coverImageSize * 2.8
+    minimumWidth: elisaTheme.coverImageSize * trackMetadata.widthIndex
 
     ColumnLayout {
         anchors.fill: parent
@@ -89,6 +90,12 @@ Window {
                 Layout.minimumWidth: elisaTheme.coverImageSize
                 Layout.maximumHeight: elisaTheme.coverImageSize
                 Layout.maximumWidth: elisaTheme.coverImageSize
+
+                onStatusChanged: {
+                    if (metadataImage.status === Image.Error) {
+                        source = Qt.resolvedUrl(elisaTheme.defaultAlbumImage)
+                    }
+                }
             }
 
             ListView {
@@ -227,6 +234,14 @@ Window {
             } else {
                 realModel.initializeByUrl(modelType, fileName)
             }
+        }
+    }
+
+    Connections {
+        target: realModel
+
+        onCoverUrlChanged: {
+            metadataImage.source = realModel.coverUrl
         }
     }
 

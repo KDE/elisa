@@ -164,6 +164,12 @@ FocusScope {
 
                         color: myPalette.shadow
                     }
+
+                    onStatusChanged: {
+                        if (coverImageElement.status === Image.Error) {
+                            source = 'image://icon/media-optical-audio'
+                        }
+                    }
                 }
             }
 
@@ -309,6 +315,16 @@ FocusScope {
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
                 Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
                 Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+            }
+        }
+    }
+
+    Connections {
+        target: mediaTrack
+
+        onImageUrlChanged: {
+            if (coverImageElement.source !== imageUrl) {
+                coverImageElement.source = (imageUrl != '' ? imageUrl : Qt.resolvedUrl(elisaTheme.defaultAlbumImage))
             }
         }
     }

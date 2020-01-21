@@ -2821,16 +2821,6 @@ void DatabaseInterface::upgradeDatabaseV13()
     qCInfo(orgKdeElisaDatabase) << "finished update to v13 of database schema";
 }
 
-void DatabaseInterface::upgradeDatabaseV15()
-{
-
-}
-
-void DatabaseInterface::upgradeDatabaseV16()
-{
-
-}
-
 void DatabaseInterface::upgradeDatabaseV14()
 {
     qCInfo(orgKdeElisaDatabase) << "begin update to v14 of database schema";
@@ -2930,6 +2920,141 @@ void DatabaseInterface::upgradeDatabaseV14()
     }
 
     qCInfo(orgKdeElisaDatabase) << "finished update to v14 of database schema";
+}
+
+void DatabaseInterface::upgradeDatabaseV15()
+{
+    qCInfo(orgKdeElisaDatabase) << "begin update to v15 of database schema";
+
+    {
+        QSqlQuery createSchemaQuery(d->mTracksDatabase);
+
+        const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `DatabaseVersionV15` (`Version` INTEGER PRIMARY KEY NOT NULL)"));
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV15" << createSchemaQuery.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV15" << createSchemaQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        QSqlQuery disableForeignKeys(d->mTracksDatabase);
+
+        auto result = disableForeignKeys.exec(QStringLiteral(" PRAGMA foreign_keys=OFF"));
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV15" << disableForeignKeys.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV15" << disableForeignKeys.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    d->mTracksDatabase.transaction();
+
+    {
+        QSqlQuery createSchemaQuery(d->mTracksDatabase);
+
+        const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `RadiosNew` ("
+                                                                   "`ID` INTEGER PRIMARY KEY AUTOINCREMENT, "
+                                                                   "`HttpAddress` VARCHAR(255) NOT NULL, "
+                                                                   "`ImageAddress` VARCHAR(255) NOT NULL, "
+                                                                   "`Title` VARCHAR(85) NOT NULL, "
+                                                                   "`Rating` INTEGER NOT NULL DEFAULT 0, "
+                                                                   "`Genre` VARCHAR(55), "
+                                                                   "`Comment` VARCHAR(255), "
+                                                                   "UNIQUE ("
+                                                                   "`HttpAddress`"
+                                                                   "), "
+                                                                   "UNIQUE ("
+                                                                   "`Title`, `HttpAddress`"
+                                                                   ") "
+                                                                   "CONSTRAINT fk_tracks_genre FOREIGN KEY (`Genre`) REFERENCES `Genre`(`Name`))"
+                                                                   ));
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV15" << createSchemaQuery.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV15" << createSchemaQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        QSqlQuery createSchemaQuery(d->mTracksDatabase);
+
+        const auto &result = createSchemaQuery.exec(QStringLiteral("INSERT INTO RadiosNew SELECT ID, HttpAddress, '', Title, Rating, Genre, Comment FROM Radios"));
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV15" << createSchemaQuery.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV15" << createSchemaQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        QSqlQuery createSchemaQuery(d->mTracksDatabase);
+
+        const auto &result = createSchemaQuery.exec(QStringLiteral("DROP TABLE `Radios`"));
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV15" << createSchemaQuery.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV15" << createSchemaQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        QSqlQuery createSchemaQuery(d->mTracksDatabase);
+
+        const auto &result = createSchemaQuery.exec(QStringLiteral("ALTER TABLE `RadiosNew` RENAME TO `Radios`"));
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV15" << createSchemaQuery.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV15" << createSchemaQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        QSqlQuery createSchemaQuery(d->mTracksDatabase);
+        const auto &result = createSchemaQuery.exec(QStringLiteral("INSERT INTO `Radios` (`HttpAddress`, `ImageAddress`, `Title`) "
+                                        "SELECT 'https://chai5she.cdn.dvmr.fr/francemusique-lofi.mp3', 'https://static.radio.fr/images/broadcasts/07/f7/3366/c44.png', 'France Musique'"
+                                                                   ));
+        if (!result) {
+            qCInfo(orgKdeElisaDatabase) << "DatabaseInterface::initRequest" << createSchemaQuery.lastQuery();
+            qCInfo(orgKdeElisaDatabase) << "DatabaseInterface::initRequest" << createSchemaQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    d->mTracksDatabase.commit();
+
+    {
+        QSqlQuery enableForeignKeys(d->mTracksDatabase);
+
+        auto result = enableForeignKeys.exec(QStringLiteral(" PRAGMA foreign_keys=ON"));
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV15" << enableForeignKeys.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV15" << enableForeignKeys.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    qCInfo(orgKdeElisaDatabase) << "finished update to v15 of database schema";
+}
+
+void DatabaseInterface::upgradeDatabaseV16()
+{
+
 }
 
 void DatabaseInterface::checkDatabaseSchema()
@@ -3830,6 +3955,7 @@ void DatabaseInterface::initRequest()
                                                   "radios.`ID`, "
                                                   "radios.`Title`, "
                                                   "radios.`HttpAddress`, "
+                                                  "radios.`ImageAddress`, "
                                                   "radios.`Rating`, "
                                                   "trackGenre.`Name`, "
                                                   "radios.`Comment` "
@@ -4761,6 +4887,7 @@ void DatabaseInterface::initRequest()
                                                   "radios.`ID`, "
                                                   "radios.`Title`, "
                                                   "radios.`HttpAddress`, "
+                                                  "radios.`ImageAddress`, "
                                                   "radios.`Rating`, "
                                                   "trackGenre.`Name`, "
                                                   "radios.`Comment` "
@@ -5431,14 +5558,14 @@ void DatabaseInterface::initRequest()
                                                    "`httpAddress`, "
                                                    "`Comment`, "
                                                    "`Rating`, "
-                                                   "`Priority`) "
+                                                   "`ImageAddress`) "
                                                    "VALUES "
                                                    "("
                                                    ":title, "
                                                    ":httpAddress, "
                                                    ":comment, "
                                                    ":trackRating,"
-                                                   "1)");
+                                                   ":imageAddress)");
 
         auto result = prepareQuery(d->mInsertRadioQuery, insertRadioQueryText);
 
@@ -5470,7 +5597,8 @@ void DatabaseInterface::initRequest()
                                                    "`HttpAddress` = :httpAddress, "
                                                    "`Title` = :title, "
                                                    "`Comment` = :comment, "
-                                                   "`Rating` = :trackRating "
+                                                   "`Rating` = :trackRating, "
+                                                   "`ImageAddress` = :imageAddress "
                                                    "WHERE "
                                                    "`ID` = :radioId");
 
@@ -6729,16 +6857,15 @@ DataTypes::TrackDataType DatabaseInterface::buildRadioDataFromDatabaseRecord(con
 
     result[DataTypes::TrackDataType::key_type::DatabaseIdRole] = trackRecord.value(0);
     result[DataTypes::TrackDataType::key_type::TitleRole] = trackRecord.value(1);
-
     result[DataTypes::TrackDataType::key_type::AlbumRole] = i18n("Radios");
     result[DataTypes::TrackDataType::key_type::ArtistRole] = trackRecord.value(1);
-
     result[DataTypes::TrackDataType::key_type::ResourceRole] = trackRecord.value(2);
-    result[DataTypes::TrackDataType::key_type::RatingRole] = trackRecord.value(3);
-    if (!trackRecord.value(4).isNull()) {
-        result[DataTypes::TrackDataType::key_type::GenreRole] = trackRecord.value(4);
+    result[DataTypes::TrackDataType::key_type::ImageUrlRole] = trackRecord.value(3);
+    result[DataTypes::TrackDataType::key_type::RatingRole] = trackRecord.value(4);
+    if (!trackRecord.value(5).isNull()) {
+        result[DataTypes::TrackDataType::key_type::GenreRole] = trackRecord.value(5);
     }
-    result[DataTypes::TrackDataType::key_type::CommentRole] = trackRecord.value(5);
+    result[DataTypes::TrackDataType::key_type::CommentRole] = trackRecord.value(6);
     result[DataTypes::TrackDataType::key_type::ElementTypeRole] = ElisaUtils::Radio;
 
     return result;
@@ -7144,6 +7271,7 @@ void DatabaseInterface::insertRadio(const DataTypes::TrackDataType &oneTrack)
     query.bindValue(QStringLiteral(":title"), oneTrack.title());
     query.bindValue(QStringLiteral(":comment"), oneTrack.comment());
     query.bindValue(QStringLiteral(":trackRating"), oneTrack.rating());
+    query.bindValue(QStringLiteral(":imageAddress"), oneTrack.albumCover());
 
     auto result = execQuery(query);
 

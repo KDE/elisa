@@ -47,8 +47,7 @@ FocusScope {
         id: proxyModel
 
         sourceModel: realModel
-
-        onFilesToEnqueue: elisa.mediaPlayList.enqueue(newFiles, databaseIdType, enqueueMode, triggerPlay)
+        playList: elisa.mediaPlayList
     }
 
     MouseArea {
@@ -182,7 +181,7 @@ FocusScope {
                         }
                     }
 
-                    onOpen: isDirectory ? loadFolderAndClear(model.fileUrl) : elisa.mediaPlayList.enqueue(0, model.fileUrl, ElisaUtils.FileName, ElisaUtils.AppendPlayList, ElisaUtils.DoNotTriggerPlay)
+                    onOpen: isDirectory ? loadFolderAndClear(model.fileUrl) : elisa.mediaPlayList.enqueue(model.fileUrl, ElisaUtils.FileName, ElisaUtils.AppendPlayList, ElisaUtils.DoNotTriggerPlay)
                 }
             }
         }

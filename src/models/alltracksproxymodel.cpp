@@ -63,8 +63,9 @@ void AllTracksProxyModel::genericEnqueueToPlayList(ElisaUtils::PlayListEnqueueMo
         allTracks.reserve(rowCount());
         for (int rowIndex = 0, maxRowCount = rowCount(); rowIndex < maxRowCount; ++rowIndex) {
             auto currentIndex = index(rowIndex, 0);
-            allTracks.push_back(ElisaUtils::EntryData{data(currentIndex, DataTypes::ColumnsRoles::DatabaseIdRole).toULongLong(),
-                                                      data(currentIndex, DataTypes::ColumnsRoles::TitleRole).toString(), {}});
+            allTracks.push_back(ElisaUtils::EntryData{data(currentIndex, DataTypes::FullDataRole).value<DataTypes::TrackDataType>(),
+                                                      data(currentIndex, DataTypes::ColumnsRoles::TitleRole).toString(),
+                                                      data(currentIndex, DataTypes::ColumnsRoles::ResourceRole).toUrl()});
         }
         Q_EMIT entriesToEnqueue(allTracks, ElisaUtils::Track, enqueueMode, triggerPlay);
     });

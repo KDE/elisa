@@ -141,6 +141,7 @@ FocusScope {
                     isPartial: false
 
                     mainText: model.display
+                    fileUrl: model.url
                     secondaryText: if (gridView.delegateDisplaySecondaryText) {model.secondaryText} else {""}
                     imageUrl: (model && model.imageUrl && model.imageUrl.toString() !== "" ? model.imageUrl : defaultIcon)
                     shadowForImage: (model && model.imageUrl && model.imageUrl.toString() !== "" ? true : false)

@@ -96,7 +96,7 @@ private Q_SLOTS:
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
         QCOMPARE(tracksListAddedSpy.count(), 0);
 
-        myPlayList.replaceAndPlay({0, QStringLiteral("artist1"), {}}, ElisaUtils::Artist);
+        myPlayList.replaceAndPlay({{}, QStringLiteral("artist1"), {}}, ElisaUtils::Artist);
 
         QCOMPARE(trackHasChangedSpy.count(), 0);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
@@ -223,7 +223,7 @@ private Q_SLOTS:
 
         QCOMPARE(trackId != 0, true);
 
-        myPlayList.replaceAndPlay(ElisaUtils::EntryData{trackId, {}, {}}, ElisaUtils::Track);
+        myPlayList.replaceAndPlay(ElisaUtils::EntryData{{{DataTypes::DatabaseIdRole, trackId}}, {}, {}}, ElisaUtils::Track);
 
         QCOMPARE(trackHasChangedSpy.count(), 1);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
@@ -285,7 +285,7 @@ private Q_SLOTS:
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
         QCOMPARE(tracksListAddedSpy.count(), 0);
 
-        myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album1"), 1, 1),
+        myPlayList.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album1"), 1, 1)}},
                             QStringLiteral("track1"), {}},
                            ElisaUtils::Track);
 
@@ -418,7 +418,7 @@ private Q_SLOTS:
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
         QCOMPARE(tracksListAddedSpy.count(), 0);
 
-        myPlayList.enqueue({myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album1"), 1, 1),
+        myPlayList.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album1"), 1, 1)}},
                             QStringLiteral("track1"), {}},
                            ElisaUtils::Track);
 

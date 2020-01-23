@@ -19,6 +19,7 @@
 #include "filebrowserproxymodel.h"
 
 #include "filebrowsermodel.h"
+#include "mediaplaylist.h"
 
 #include <QReadLocker>
 #include <QDir>
@@ -94,7 +95,7 @@ void FileBrowserProxyModel::enqueueToPlayList()
         for (int rowIndex = 0, maxRowCount = rowCount(); rowIndex < maxRowCount; ++rowIndex) {
             auto currentIndex = index(rowIndex, 0);
             if (!data(currentIndex, FileBrowserModel::IsDirectoryRole).toBool()) {
-                allTrackUrls.push_back({0, {}, data(currentIndex, FileBrowserModel::FileUrlRole).toUrl()});
+                allTrackUrls.push_back({{}, {}, data(currentIndex, FileBrowserModel::FileUrlRole).toUrl()});
             }
         }
         Q_EMIT filesToEnqueue(allTrackUrls,
@@ -112,7 +113,7 @@ void FileBrowserProxyModel::replaceAndPlayOfPlayList()
         for (int rowIndex = 0, maxRowCount = rowCount(); rowIndex < maxRowCount; ++rowIndex) {
             auto currentIndex = index(rowIndex, 0);
             if (!data(currentIndex, FileBrowserModel::IsDirectoryRole).toBool()) {
-                allTrackUrls.push_back({0, {}, data(currentIndex, FileBrowserModel::FileUrlRole).toUrl()});
+                allTrackUrls.push_back({{}, {}, data(currentIndex, FileBrowserModel::FileUrlRole).toUrl()});
             }
         }
         Q_EMIT filesToEnqueue(allTrackUrls,
@@ -136,6 +137,22 @@ QString FileBrowserProxyModel::parentFolder() const
         return dir.path();
     } else {
         return mTopFolder;
+    }
+}
+
+void FileBrowserProxyModel::disconnectPlayList()
+{
+    if (mPlayList) {
+        disconnect(this, &FileBrowserProxyModel::filesToEnqueue,
+                   mPlayList, static_cast<void(MediaPlayList::*)(const ElisaUtils::EntryDataList&, ElisaUtils::PlayListEntryType, ElisaUtils::PlayListEnqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayList::enqueue));
+    }
+}
+
+void FileBrowserProxyModel::connectPlayList()
+{
+    if (mPlayList) {
+        connect(this, &FileBrowserProxyModel::filesToEnqueue,
+                mPlayList, static_cast<void(MediaPlayList::*)(const ElisaUtils::EntryDataList&, ElisaUtils::PlayListEntryType, ElisaUtils::PlayListEnqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayList::enqueue));
     }
 }
 
@@ -217,10 +234,29 @@ void FileBrowserProxyModel::setSourceModel(QAbstractItemModel *sourceModel)
     openFolder(mTopFolder, true);
 }
 
+MediaPlayList *FileBrowserProxyModel::playList() const
+{
+    return mPlayList;
+}
+
 void FileBrowserProxyModel::sortModel(Qt::SortOrder order)
 {
     this->sort(0,order);
     Q_EMIT sortedAscendingChanged();
+}
+
+void FileBrowserProxyModel::setPlayList(MediaPlayList *playList)
+{
+    disconnectPlayList();
+
+    if (mPlayList == playList) {
+        return;
+    }
+
+    mPlayList = playList;
+    Q_EMIT playListChanged();
+
+    connectPlayList();
 }
 
 #include "moc_filebrowserproxymodel.cpp"

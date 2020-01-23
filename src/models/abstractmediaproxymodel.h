@@ -28,6 +28,8 @@
 #include <QReadWriteLock>
 #include <QThreadPool>
 
+class MediaPlayList;
+
 class ELISALIB_EXPORT AbstractMediaProxyModel : public QSortFilterProxyModel
 {
 
@@ -47,6 +49,8 @@ class ELISALIB_EXPORT AbstractMediaProxyModel : public QSortFilterProxyModel
                READ sortedAscending
                NOTIFY sortedAscendingChanged)
 
+    Q_PROPERTY(MediaPlayList* playList READ playList WRITE setPlayList NOTIFY playListChanged)
+
 public:
 
     explicit AbstractMediaProxyModel(QObject *parent = nullptr);
@@ -59,6 +63,8 @@ public:
 
     bool sortedAscending() const;
 
+    MediaPlayList* playList() const;
+
 public Q_SLOTS:
 
     void setFilterText(const QString &filterText);
@@ -66,6 +72,8 @@ public Q_SLOTS:
     void setFilterRating(int filterRating);
 
     void sortModel(Qt::SortOrder order);
+
+    void setPlayList(MediaPlayList* playList);
 
 Q_SIGNALS:
 
@@ -75,9 +83,20 @@ Q_SIGNALS:
 
     void sortedAscendingChanged();
 
+    void playListChanged();
+
+    void entriesToEnqueue(const ElisaUtils::EntryDataList &newEntries,
+                          ElisaUtils::PlayListEntryType databaseIdType,
+                          ElisaUtils::PlayListEnqueueMode enqueueMode,
+                          ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
+
 protected:
 
     bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override = 0;
+
+    void disconnectPlayList();
+
+    void connectPlayList();
 
     QString mFilterText;
 
@@ -88,6 +107,8 @@ protected:
     QReadWriteLock mDataLock;
 
     QThreadPool mThreadPool;
+
+    MediaPlayList* mPlayList = nullptr;
 
 };
 

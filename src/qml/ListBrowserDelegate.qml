@@ -26,7 +26,8 @@ import org.kde.elisa 1.0
 FocusScope {
     id: mediaTrack
 
-    property var databaseId
+    property url trackUrl
+    property var dataType
     property string title
     property string artist
     property string album
@@ -42,16 +43,16 @@ FocusScope {
     property bool detailedView: true
 
     signal clicked()
-    signal enqueue(var databaseId, var name)
-    signal replaceAndPlay(var databaseId, var name)
-    signal callOpenMetaDataView(var databaseId)
+    signal enqueue(var url, var entryType, var name)
+    signal replaceAndPlay(var url, var entryType, var name)
+    signal callOpenMetaDataView(var url, var entryType)
 
     Accessible.role: Accessible.ListItem
     Accessible.name: title
     Accessible.description: title
 
-    Keys.onReturnPressed: enqueue(databaseId, title)
-    Keys.onEnterPressed: enqueue(databaseId, title)
+    Keys.onReturnPressed: enqueue(trackUrl, dataType, title)
+    Keys.onEnterPressed: enqueue(trackUrl, dataType, title)
 
     Rectangle {
         id: rowRoot
@@ -75,7 +76,7 @@ FocusScope {
             mediaTrack.clicked()
         }
 
-        onDoubleClicked: enqueue(databaseId, title)
+        onDoubleClicked: enqueue(trackUrl, dataType, title)
 
         RowLayout {
             anchors.fill: parent
@@ -87,8 +88,8 @@ FocusScope {
                 visible: !detailedView
 
                 text: {
-                    if (trackNumber !== 0) {
-                        if (artist !== albumArtist)
+                    if (trackNumber !== 0 && trackNumber !== -1 && trackNumber !== undefined) {
+                        if (albumArtist !== undefined && artist !== albumArtist)
                             return i18nc("%1: track number. %2: track title. %3: artist name",
                                          "<b>%1 - %2</b> - <i>%3</i>",
                                          trackNumber.toLocaleString(Qt.locale(), 'f', 0),
@@ -99,7 +100,7 @@ FocusScope {
                                          trackNumber.toLocaleString(Qt.locale(), 'f', 0),
                                          title);
                     } else {
-                        if (artist !== albumArtist)
+                        if (albumArtist !== undefined && artist !== albumArtist)
                             return i18nc("%1: track title. %2: artist name",
                                          "<b>%1</b> - <i>%2</i>",
                                          title, artist);
@@ -264,7 +265,7 @@ FocusScope {
 
                         text: i18nc("Show track metadata", "View Details")
                         icon.name: "help-about"
-                        onClicked: callOpenMetaDataView(databaseId)
+                        onClicked: callOpenMetaDataView(trackUrl, dataType)
                     }
 
                     FlatButtonWithToolTip {
@@ -274,7 +275,7 @@ FocusScope {
 
                         text: i18nc("Enqueue current track", "Enqueue")
                         icon.name: "list-add"
-                        onClicked: enqueue(databaseId, title)
+                        onClicked: enqueue(trackUrl, dataType, title)
                     }
 
                     FlatButtonWithToolTip {
@@ -285,7 +286,7 @@ FocusScope {
 
                         text: i18nc("Clear play list and enqueue current track", "Play Now and Replace Play List")
                         icon.name: "media-playback-start"
-                        onClicked: replaceAndPlay(databaseId, title)
+                        onClicked: replaceAndPlay(trackUrl, dataType, title)
                     }
                 }
             }

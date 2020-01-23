@@ -27,10 +27,10 @@ import org.kde.elisa 1.0
 Window {
     id: trackMetadata
 
-    property int initialDatabaseId: 0
     property var modelType
     property url fileName
     property bool editableMetadata
+    property bool isCreation: false
     property alias showImage: metadataImage.visible
     property alias showTrackFileName: fileNameRow.visible
     property alias showDeleteButton: deleteButtonBox.visible
@@ -42,7 +42,8 @@ Window {
     LayoutMirroring.enabled: Qt.application.layoutDirection == Qt.RightToLeft
     LayoutMirroring.childrenInherit: true
 
-    title: (initialDatabaseId === -1) ? i18nc("Window title for track metadata", "Create a Radio") : i18nc("Window title for track metadata", "View Details")
+    title: isCreation ? i18nc("Window title for track metadata", "Create a Radio") :
+                        i18nc("Window title for track metadata", "View Details")
 
     TrackMetadataModel {
         id: realModel
@@ -227,10 +228,8 @@ Window {
         target: elisa
 
         onMusicManagerChanged: {
-            if (initialDatabaseId === -1) {
+            if (isCreation) {
                 realModel.initializeForNewRadio()
-            } else if (initialDatabaseId !== 0) {
-                realModel.initializeByIdAndUrl(modelType, initialDatabaseId, fileName)
             } else {
                 realModel.initializeByUrl(modelType, fileName)
             }
@@ -247,10 +246,8 @@ Window {
 
     Component.onCompleted: {
         if (elisa.musicManager) {
-            if (initialDatabaseId === -1) {
+            if (isCreation) {
                 realModel.initializeForNewRadio()
-            } else if (initialDatabaseId !== 0) {
-                realModel.initializeByIdAndUrl(modelType, initialDatabaseId, fileName)
             } else {
                 realModel.initializeByUrl(modelType, fileName)
             }

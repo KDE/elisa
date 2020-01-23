@@ -41,11 +41,6 @@ public:
 
 Q_SIGNALS:
 
-    void entriesToEnqueue(const ElisaUtils::EntryDataList &newEntries,
-                          ElisaUtils::PlayListEntryType databaseIdType,
-                          ElisaUtils::PlayListEnqueueMode enqueueMode,
-                          ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
-
     void dataTypeChanged();
 
 public Q_SLOTS:

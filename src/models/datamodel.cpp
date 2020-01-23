@@ -102,6 +102,7 @@ QHash<int, QByteArray> DataModel::roleNames() const
     roles[static_cast<int>(DataTypes::ColumnsRoles::DiscNumberRole)] = "discNumber";
     roles[static_cast<int>(DataTypes::ColumnsRoles::RatingRole)] = "rating";
     roles[static_cast<int>(DataTypes::ColumnsRoles::IsSingleDiscAlbumRole)] = "isSingleDiscAlbum";
+    roles[static_cast<int>(DataTypes::ColumnsRoles::FullDataRole)] = "fullData";
 
     return roles;
 }
@@ -139,6 +140,9 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
         {
         case ElisaUtils::Track:
             result = d->mAllTrackData[index.row()][TrackDataType::key_type::TitleRole];
+            if (result.toString().isEmpty()) {
+                result = d->mAllTrackData[index.row()][TrackDataType::key_type::ResourceRole].toUrl().fileName();
+            }
             break;
         case ElisaUtils::Album:
             result = d->mAllAlbumData[index.row()][AlbumDataType::key_type::TitleRole];
@@ -238,6 +242,53 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
         case ElisaUtils::Composer:
         case ElisaUtils::FileName:
         case ElisaUtils::Unknown:
+            break;
+        }
+        break;
+    }
+    case DataTypes::ColumnsRoles::FullDataRole:
+        switch (d->mModelType)
+        {
+        case ElisaUtils::Track:
+            result = QVariant::fromValue(d->mAllTrackData[index.row()]);
+            break;
+        case ElisaUtils::Radio:
+            result = QVariant::fromValue(d->mAllRadiosData[index.row()]);
+            break;
+        case ElisaUtils::Album:
+            result = QVariant::fromValue(d->mAllAlbumData[index.row()]);
+            break;
+        case ElisaUtils::Artist:
+            result = QVariant::fromValue(d->mAllArtistData[index.row()]);
+            break;
+        case ElisaUtils::Genre:
+            result = QVariant::fromValue(d->mAllGenreData[index.row()]);
+            break;
+        case ElisaUtils::Lyricist:
+        case ElisaUtils::Composer:
+        case ElisaUtils::FileName:
+        case ElisaUtils::Unknown:
+            break;
+        }
+        break;
+    case DataTypes::ColumnsRoles::ResourceRole:
+    {
+        switch (d->mModelType)
+        {
+        case ElisaUtils::Track:
+        case ElisaUtils::FileName:
+            result = d->mAllTrackData[index.row()][TrackDataType::key_type::ResourceRole];
+            break;
+        case ElisaUtils::Radio:
+            result = d->mAllRadiosData[index.row()][TrackDataType::key_type::ResourceRole];
+            break;
+        case ElisaUtils::Album:
+        case ElisaUtils::Artist:
+        case ElisaUtils::Genre:
+        case ElisaUtils::Lyricist:
+        case ElisaUtils::Composer:
+        case ElisaUtils::Unknown:
+            result = QUrl{};
             break;
         }
         break;

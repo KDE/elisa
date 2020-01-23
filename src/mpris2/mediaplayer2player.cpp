@@ -210,7 +210,6 @@ qlonglong MediaPlayer2Player::Position() const
 void MediaPlayer2Player::setPropertyPosition(int newPositionInMs)
 {
     m_position = qlonglong(newPositionInMs) * 1000;
-    signalPropertiesChange(QStringLiteral("Position"), Position());
 
     Q_EMIT Seeked(m_position);
 

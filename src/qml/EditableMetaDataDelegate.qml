@@ -56,8 +56,8 @@ RowLayout {
     Loader {
         id: textDisplayLoader
 
-        active: model.type === TrackMetadataModel.TextEntry || model.type === TrackMetadataModel.IntegerEntry
-        visible: model.type === TrackMetadataModel.TextEntry || model.type === TrackMetadataModel.IntegerEntry
+        active: model.type === TrackMetadataModel.TextEntry || model.type === TrackMetadataModel.UrlEntry || model.type === TrackMetadataModel.IntegerEntry
+        visible: model.type === TrackMetadataModel.TextEntry || model.type === TrackMetadataModel.UrlEntry || model.type === TrackMetadataModel.IntegerEntry
 
         Layout.fillWidth: true
         Layout.alignment: Qt.AlignTop
@@ -69,11 +69,25 @@ RowLayout {
 
             anchors.fill: parent
 
+            validator: ((model.type === TrackMetadataModel.UrlEntry) ? urlValidator : allValidator)
+            placeholderText: ((model.type === TrackMetadataModel.UrlEntry) ? 'https://' : '')
+            color: acceptableInput ? myPalette.text : 'red'
+
             onTextEdited: {
                 if (model.display !== text) {
                     model.display = text
                     delegateRow.radioEdited()
                 }
+            }
+
+            RegExpValidator {
+                id: allValidator
+                regExp: /.*/
+            }
+
+            RegExpValidator {
+                id: urlValidator
+                regExp: /http[s]?:\/\/.+/
             }
         }
     }

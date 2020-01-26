@@ -68,6 +68,7 @@ public:
     enum ItemType
     {
         TextEntry,
+        UrlEntry,
         IntegerEntry,
         RatingEntry,
         DateEntry,

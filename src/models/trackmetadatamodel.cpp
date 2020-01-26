@@ -199,7 +199,7 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
             break;
         case DataTypes::ResourceRole:
         case DataTypes::ImageUrlRole:
-            result = TextEntry;
+            result = UrlEntry;
             break;
         case DataTypes::ArtistRole:
             result = TextEntry;

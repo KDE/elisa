@@ -229,9 +229,11 @@ void TracksListener::newEntryInList(qulonglong newDatabaseId,
     case ElisaUtils::Album:
         newAlbumInList(newDatabaseId, entryTitle);
         break;
+    case ElisaUtils::Genre:
+        newGenreInList(newDatabaseId, entryTitle);
+        break;
     case ElisaUtils::Lyricist:
     case ElisaUtils::Composer:
-    case ElisaUtils::Genre:
     case ElisaUtils::Unknown:
         break;
     }
@@ -299,6 +301,21 @@ void TracksListener::newArtistInList(qulonglong newDatabaseId, const QString &ar
     }
 
     Q_EMIT tracksListAdded(newDatabaseId, artist, ElisaUtils::Artist, newTracks);
+}
+
+void TracksListener::newGenreInList(qulonglong newDatabaseId, const QString &entryTitle)
+{
+    auto newTracks = d->mDatabase->tracksDataFromGenre(entryTitle);
+
+    if (newTracks.isEmpty()) {
+        return;
+    }
+
+    for (const auto &oneTrack : newTracks) {
+        d->mTracksByIdSet.insert(oneTrack.databaseId());
+    }
+
+    Q_EMIT tracksListAdded(newDatabaseId, entryTitle, ElisaUtils::Genre, newTracks);
 }
 
 #include "moc_trackslistener.cpp"

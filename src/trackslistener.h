@@ -78,6 +78,8 @@ private:
 
     void newArtistInList(qulonglong newDatabaseId, const QString &artist);
 
+    void newGenreInList(qulonglong newDatabaseId, const QString &entryTitle);
+
     void newAlbumInList(qulonglong newDatabaseId,
                         const QString &entryTitle);
 

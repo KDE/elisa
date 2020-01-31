@@ -47,17 +47,19 @@ void EditableTrackMetadataModel::saveData()
     mIsDirty = false;
     Q_EMIT isDirtyChanged();
 
+    auto newTrackData = allTrackData();
+
+    newTrackData[DataTypes::ResourceRole] = QUrl::fromUserInput(newTrackData[DataTypes::ResourceRole].toString());
+
     QString imageUrl = dataFromType(DataTypes::ImageUrlRole).toString();
     if (!imageUrl.isEmpty()
             && !imageUrl.startsWith(QStringLiteral("http://"))
             && !imageUrl.startsWith(QStringLiteral("https://"))
             && !imageUrl.startsWith(QStringLiteral("file://"))) {
-        auto newTrackData = allTrackData();
-        newTrackData[DataTypes::ImageUrlRole] = QStringLiteral("file:/").append(imageUrl);
-        Q_EMIT saveRadioData(newTrackData);
-    } else {
-        Q_EMIT saveRadioData(allTrackData());
+        newTrackData[DataTypes::ImageUrlRole] = QUrl::fromUserInput(QStringLiteral("file:/").append(imageUrl));
     }
+
+    Q_EMIT saveRadioData(newTrackData);
 }
 
 void EditableTrackMetadataModel::filterDataFromTrackData()

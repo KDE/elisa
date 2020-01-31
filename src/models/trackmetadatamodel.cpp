@@ -278,9 +278,12 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
 bool TrackMetadataModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
     if (data(index, role) != value) {
-        mTrackData[mTrackKeys[index.row()]] = value;
+        const auto dataType = mTrackKeys[index.row()];
 
-        emit dataChanged(index, index, QVector<int>() << role);
+        mTrackData[dataType] = value;
+        mFullData[dataType] = value;
+
+        Q_EMIT dataChanged(index, index, QVector<int>() << role);
         return true;
     }
     return false;

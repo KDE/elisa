@@ -25,8 +25,6 @@ RowLayout {
     id: delegateRow
     spacing: 0
 
-    signal radioEdited()
-
     TextMetrics {
         id: metaDataLabelMetric
 
@@ -72,7 +70,6 @@ RowLayout {
             onTextEdited: {
                 if (model.display !== text) {
                     model.display = text
-                    delegateRow.radioEdited()
                 }
             }
         }

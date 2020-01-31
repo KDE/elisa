@@ -17,6 +17,8 @@
 
 #include "editabletrackmetadatamodel.h"
 
+#include <KI18n/KLocalizedString>
+
 #include <QDebug>
 
 EditableTrackMetadataModel::EditableTrackMetadataModel(QObject *parent)
@@ -83,10 +85,20 @@ void EditableTrackMetadataModel::validData()
         newValidState = false;
     }
 
+    if (!newValidState) {
+        mErrorMessage = i18nc("Error message when track URL is invalid", "Invalid URL.");
+        Q_EMIT errorMessageChanged();
+    }
+
     if (newValidState) {
         const auto &titleData = dataFromType(TrackDataType::key_type::TitleRole);
 
         newValidState = newValidState && !titleData.toString().isEmpty();
+
+        if (!newValidState) {
+            mErrorMessage = i18nc("Error message when track title is empty", "Empty title.");
+            Q_EMIT errorMessageChanged();
+        }
     }
 
     if (mIsDataValid != newValidState) {

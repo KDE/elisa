@@ -175,7 +175,7 @@ Window {
         Kirigami.InlineMessage {
             id: formInvalidNotification
 
-            text: i18n("Data are not valid. Radio cannot be created or modified.")
+            text: i18nc("Form validation error message for track data", "Data are not valid. %1", realModel.errorMessage)
             type: Kirigami.MessageType.Error
             showCloseButton: false
             visible: !realModel.isDataValid

@@ -30,6 +30,10 @@ class ELISALIB_EXPORT EditableTrackMetadataModel : public TrackMetadataModel
                READ isDataValid
                NOTIFY isDataValidChanged)
 
+    Q_PROPERTY(QString errorMessage
+               READ errorMessage
+               NOTIFY errorMessageChanged)
+
     Q_PROPERTY(bool isDirty
                READ isDirty
                NOTIFY isDirtyChanged)
@@ -50,10 +54,17 @@ public:
         return mIsDirty;
     }
 
+    QString errorMessage() const
+    {
+        return mErrorMessage;
+    }
+
 Q_SIGNALS:
     void isDataValidChanged();
 
     void isDirtyChanged();
+
+    void errorMessageChanged();
 
 public Q_SLOTS:
 
@@ -72,6 +83,8 @@ private:
     bool mIsDataValid = false;
 
     bool mIsDirty = false;
+
+    QString mErrorMessage;
 };
 
 

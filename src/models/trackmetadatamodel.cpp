@@ -278,7 +278,7 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
 bool TrackMetadataModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
     if (data(index, role) != value) {
-        const auto dataType = mTrackKeys[index.row()];
+        auto dataType = mTrackKeys[index.row()];
 
         mTrackData[dataType] = value;
         mFullData[dataType] = value;
@@ -414,6 +414,11 @@ void TrackMetadataModel::fillLyricsDataFromTrack()
     endInsertRows();
 }
 
+const TrackMetadataModel::TrackDataType &TrackMetadataModel::allTrackData() const
+{
+    return mTrackData;
+}
+
 void TrackMetadataModel::lyricsValueIsReady()
 {
     if (!mLyricsValueWatcher.result().isEmpty()) {
@@ -503,14 +508,11 @@ void TrackMetadataModel::fillDataForNewRadio()
     mTrackData.clear();
     mTrackKeys.clear();
 
-    for (auto role : {
-         DataTypes::TitleRole,
-         DataTypes::ResourceRole,
-         DataTypes::CommentRole,
-         DataTypes::ImageUrlRole,
-         DataTypes::DatabaseIdRole
+    auto allRoles = {DataTypes::TitleRole, DataTypes::ResourceRole,
+                     DataTypes::CommentRole, DataTypes::ImageUrlRole,
+                     DataTypes::DatabaseIdRole};
 
-}) {
+    for (auto role : allRoles) {
         mTrackKeys.push_back(role);
         if (role == DataTypes::DatabaseIdRole) {
             mTrackData[role] = -1;
@@ -543,19 +545,6 @@ void TrackMetadataModel::setManager(MusicListenersManager *newManager)
 void TrackMetadataModel::setDatabase(DatabaseInterface *trackDatabase)
 {
     initialize(nullptr, trackDatabase);
-}
-
-void TrackMetadataModel::saveData()
-{
-    QString imageUrl = mTrackData[DataTypes::ImageUrlRole].toString();
-    if (!imageUrl.isEmpty()
-            && !imageUrl.startsWith(QStringLiteral("http://"))
-            && !imageUrl.startsWith(QStringLiteral("https://"))
-            && !imageUrl.startsWith(QStringLiteral("file://"))) {
-        mTrackData[DataTypes::ImageUrlRole] = QStringLiteral("file:/").append(imageUrl);
-    }
-
-    Q_EMIT saveRadioData(mTrackData);
 }
 
 void TrackMetadataModel::deleteRadio()

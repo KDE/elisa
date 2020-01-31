@@ -136,8 +136,6 @@ public Q_SLOTS:
 
     void setDatabase(DatabaseInterface *trackDatabase);
 
-    void saveData();
-
     void deleteRadio();
 
     void radioData(const TrackMetadataModel::TrackDataType &radiosData);
@@ -156,6 +154,8 @@ protected:
     TrackDataType::mapped_type dataFromType(TrackDataType::key_type metaData) const;
 
     virtual void fillLyricsDataFromTrack();
+
+    const TrackDataType& allTrackData() const;
 
 private Q_SLOTS:
 

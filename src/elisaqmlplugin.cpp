@@ -48,6 +48,7 @@
 #include "models/datamodel.h"
 #include "models/trackmetadatamodel.h"
 #include "models/trackcontextmetadatamodel.h"
+#include "models/editabletrackmetadatamodel.h"
 #include "models/viewsmodel.h"
 #include "models/gridviewproxymodel.h"
 #include "models/alltracksproxymodel.h"
@@ -124,6 +125,7 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qmlRegisterType<DataModel>(uri, 1, 0, "DataModel");
     qmlRegisterType<TrackMetadataModel>(uri, 1, 0, "TrackMetadataModel");
     qmlRegisterType<TrackContextMetaDataModel>(uri, 1, 0, "TrackContextMetaDataModel");
+    qmlRegisterType<EditableTrackMetadataModel>(uri, 1, 0, "EditableTrackMetadataModel");
     qmlRegisterType<ViewsModel>(uri, 1, 0, "ViewsModel");
     qmlRegisterType<GridViewProxyModel>(uri, 1, 0, "GridViewProxyModel");
     qmlRegisterType<AllTracksProxyModel>(uri, 1, 0, "AllTracksProxyModel");

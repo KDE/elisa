@@ -22,6 +22,7 @@ import QtQuick.Window 2.2
 import QtQml.Models 2.2
 import QtQuick.Layouts 1.2
 import QtGraphicalEffects 1.0
+import org.kde.kirigami 2.5 as Kirigami
 import org.kde.elisa 1.0
 
 Window {
@@ -45,7 +46,7 @@ Window {
     title: isCreation ? i18nc("Window title for track metadata", "Create a Radio") :
                         i18nc("Window title for track metadata", "View Details")
 
-    TrackMetadataModel {
+    EditableTrackMetadataModel {
         id: realModel
 
         manager: elisa.musicManager
@@ -134,7 +135,6 @@ Window {
 
                     EditableMetaDataDelegate {
                         width: scrollBar.visible ? (!LayoutMirroring.enabled ? trackData.width - scrollBar.width : trackData.width) : trackData.width
-                        onRadioEdited: applyButton.enabled = true
                     }
                 }
 
@@ -172,6 +172,20 @@ Window {
             }
         }
 
+        Kirigami.InlineMessage {
+            id: formInvalidNotification
+
+            text: i18n("Data are not valid. Radio cannot be created or modified.")
+            type: Kirigami.MessageType.Error
+            showCloseButton: false
+            visible: !realModel.isDataValid
+
+            Layout.topMargin: 5
+            Layout.fillWidth: true
+            Layout.rightMargin: elisaTheme.layoutHorizontalMargin
+            Layout.leftMargin: elisaTheme.layoutHorizontalMargin
+        }
+
         RowLayout {
             spacing: elisaTheme.layoutVerticalMargin
 
@@ -203,17 +217,17 @@ Window {
                 Button {
                     id: applyButton
 
+                    enabled: realModel.isDataValid && realModel.isDirty
+
                     text: i18n("Apply")
                     DialogButtonBox.buttonRole: DialogButtonBox.ApplyRole
                     onClicked:
                     {
                         realModel.saveData()
-                        enabled = false
                         if (!deleteButtonBox.visible && editableMetadata) {
                             deleteButtonBox.visible = true
                         }
                     }
-                    enabled: false
                 }
                 Button {
                     text: i18n("Close")

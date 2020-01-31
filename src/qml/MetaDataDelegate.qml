@@ -25,7 +25,7 @@ RowLayout {
     id: delegateRow
     spacing: 0
 
-    height: (model.type === TrackMetadataModel.LongTextEntry ? longTextDisplayLoader.height : (metaDataLabelMetric.boundingRect.height + elisaTheme.layoutVerticalMargin / 2))
+    height: (model.type === EditableTrackMetadataModel.LongTextEntry ? longTextDisplayLoader.height : (metaDataLabelMetric.boundingRect.height + elisaTheme.layoutVerticalMargin / 2))
 
     TextMetrics {
         id: metaDataLabelMetric
@@ -51,8 +51,8 @@ RowLayout {
     Loader {
         id: textDisplayLoader
 
-        active: model.type === TrackMetadataModel.TextEntry || model.type === TrackMetadataModel.IntegerEntry
-        visible: model.type === TrackMetadataModel.TextEntry || model.type === TrackMetadataModel.IntegerEntry
+        active: model.type === EditableTrackMetadataModel.TextEntry || model.type === EditableTrackMetadataModel.IntegerEntry
+        visible: model.type === EditableTrackMetadataModel.TextEntry || model.type === EditableTrackMetadataModel.IntegerEntry
 
         Layout.fillWidth: true
         Layout.alignment: Qt.AlignTop
@@ -71,8 +71,8 @@ RowLayout {
     Loader {
         id: longTextDisplayLoader
 
-        active: model.type === TrackMetadataModel.LongTextEntry
-        visible: model.type === TrackMetadataModel.LongTextEntry
+        active: model.type === EditableTrackMetadataModel.LongTextEntry
+        visible: model.type === EditableTrackMetadataModel.LongTextEntry
 
         Layout.fillWidth: true
         Layout.maximumWidth: delegateRow.width - (0.8 * elisaTheme.coverImageSize + elisaTheme.layoutHorizontalMargin * 2)
@@ -91,8 +91,8 @@ RowLayout {
     }
 
     Loader {
-        active: model.type === TrackMetadataModel.DateEntry
-        visible: model.type === TrackMetadataModel.DateEntry
+        active: model.type === EditableTrackMetadataModel.DateEntry
+        visible: model.type === EditableTrackMetadataModel.DateEntry
 
         Layout.fillWidth: true
         Layout.alignment: Qt.AlignTop
@@ -110,8 +110,8 @@ RowLayout {
     }
 
     Loader {
-        active: model.type === TrackMetadataModel.RatingEntry
-        visible: model.type === TrackMetadataModel.RatingEntry
+        active: model.type === EditableTrackMetadataModel.RatingEntry
+        visible: model.type === EditableTrackMetadataModel.RatingEntry
 
         Layout.fillWidth: true
         Layout.alignment: Qt.AlignTop

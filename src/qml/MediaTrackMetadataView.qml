@@ -178,7 +178,7 @@ Window {
             text: i18nc("Form validation error message for track data", "Data are not valid. %1", realModel.errorMessage)
             type: Kirigami.MessageType.Error
             showCloseButton: false
-            visible: !realModel.isDataValid
+            visible: !realModel.isDataValid && realModel.isDirty
 
             Layout.topMargin: 5
             Layout.fillWidth: true

@@ -116,17 +116,19 @@ int main(int argc, char *argv[])
     KAboutData aboutData( QStringLiteral("elisa"),
                           i18n("Elisa"),
                           QStringLiteral(ELISA_VERSION_STRING),
-                          i18n("A Simple Music Player written with KDE Frameworks"),
+                          i18n("A Simple Music Player made with love by the KDE community"),
                           KAboutLicense::LGPL_V3,
-                          i18n("(c) 2015-2019, Elisa contributors"));
+                          i18n("(c) 2015-2020, Elisa contributors"));
 
     aboutData.addAuthor(QStringLiteral("Matthieu Gallien"),i18n("Creator"), QStringLiteral("mgallien@mgallien.fr"));
     aboutData.addAuthor(QStringLiteral("Alexander Stippich"), i18n("Author"), QStringLiteral("a.stippich@gmx.net"));
+    aboutData.addAuthor(QStringLiteral("Nate Graham"), i18n("Author"), QStringLiteral("nate@kde.org"));
 
     aboutData.addCredit(QStringLiteral("Andrew Lake"), i18n("Concept and design work"), QStringLiteral("jamboarder@gmail.com"));
     aboutData.addCredit(QStringLiteral("Luigi Toscano"), i18n("Localization support"), QStringLiteral("luigi.toscano@tiscali.it"));
     aboutData.addCredit(QStringLiteral("Safa Alfulaij"), i18n("Right to left support in interface"), QStringLiteral("safa1996alfulaij@gmail.com"));
     aboutData.addCredit(QStringLiteral("Diego Gangl"), i18n("Various improvements to the interface"), QStringLiteral("diego@sinestesia.co"));
+    aboutData.addCredit(QStringLiteral("Jérôme Guidon"), i18n("Support for online radios"), QStringLiteral("guidon@live.fr"));
 
     KAboutData::setApplicationData(aboutData);
 

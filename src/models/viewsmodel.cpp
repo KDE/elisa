@@ -17,51 +17,14 @@
 
 #include "viewsmodel.h"
 
-#include "viewmanager.h"
-
-#include <KI18n/KLocalizedString>
-
-#include <QUrl>
+#include "viewslistdata.h"
 
 class ViewsModelPrivate
 {
 
 public:
 
-    QList<ViewManager::ViewsType> mTypes;
-
-    QHash<ViewManager::ViewsType, QString> mNames;
-
-    QHash<ViewManager::ViewsType, QUrl> mIcons;
-
-    ViewsModelPrivate()
-    {
-        mTypes = {ViewManager::Context, ViewManager::RecentlyPlayedTracks,
-                  ViewManager::FrequentlyPlayedTracks, ViewManager::AllAlbums,
-                  ViewManager::AllArtists, ViewManager::AllTracks,
-                  ViewManager::AllGenres, ViewManager::FilesBrowser,
-                  ViewManager::RadiosBrowser};
-
-        mNames = {{ViewManager::Context, {i18nc("Title of the view of the playlist", "Now Playing")}},
-                  {ViewManager::RecentlyPlayedTracks, {i18nc("Title of the view of recently played tracks", "Recently Played")}},
-                  {ViewManager::FrequentlyPlayedTracks, {i18nc("Title of the view of frequently played tracks", "Frequently Played")}},
-                  {ViewManager::AllAlbums, {i18nc("Title of the view of all albums", "Albums")}},
-                  {ViewManager::AllArtists, {i18nc("Title of the view of all artists", "Artists")}},
-                  {ViewManager::AllTracks, {i18nc("Title of the view of all tracks", "Tracks")}},
-                  {ViewManager::AllGenres, {i18nc("Title of the view of all genres", "Genres")}},
-                  {ViewManager::FilesBrowser, {i18nc("Title of the file browser view", "Files")}},
-                  {ViewManager::RadiosBrowser, {i18nc("Title of the file radios browser view", "Radios")}}};
-
-        mIcons = {{ViewManager::Context, QUrl{QStringLiteral("image://icon/view-media-lyrics")}},
-                  {ViewManager::RecentlyPlayedTracks, QUrl{QStringLiteral("image://icon/media-playlist-play")}},
-                  {ViewManager::FrequentlyPlayedTracks, QUrl{QStringLiteral("image://icon/view-media-playcount")}},
-                  {ViewManager::AllAlbums, QUrl{QStringLiteral("image://icon/view-media-album-cover")}},
-                  {ViewManager::AllArtists, QUrl{QStringLiteral("image://icon/view-media-artist")}},
-                  {ViewManager::AllTracks, QUrl{QStringLiteral("image://icon/view-media-track")}},
-                  {ViewManager::AllGenres, QUrl{QStringLiteral("image://icon/view-media-genre")}},
-                  {ViewManager::FilesBrowser, QUrl{QStringLiteral("image://icon/document-open-folder")}},
-                  {ViewManager::RadiosBrowser, QUrl{QStringLiteral("image://icon/radio")}}};
-    }
+    ViewsListData *mViewsData = nullptr;
 
 };
 
@@ -76,8 +39,7 @@ QHash<int, QByteArray> ViewsModel::roleNames() const
 {
     auto result = QAbstractListModel::roleNames();
 
-    result[ItemType] = "type";
-    result[ImageName] = "image";
+    result[ImageNameRole] = "image";
 
     return result;
 }
@@ -97,12 +59,20 @@ int ViewsModel::rowCount(const QModelIndex &parent) const
         return 0;
     }
 
-    return d->mTypes.count();
+    if (!d->mViewsData) {
+        return 0;
+    }
+
+    return d->mViewsData->count();
 }
 
 QVariant ViewsModel::data(const QModelIndex &index, int role) const
 {
     auto result = QVariant{};
+
+    if (!d->mViewsData) {
+        return result;
+    }
 
     if (!index.isValid()) {
         return result;
@@ -111,13 +81,10 @@ QVariant ViewsModel::data(const QModelIndex &index, int role) const
     switch(role)
     {
     case Qt::DisplayRole:
-        result = d->mNames[d->mTypes[index.row()]];
+        result = d->mViewsData->title(index.row());
         break;
-    case ColumnRoles::ImageName:
-        result = d->mIcons[d->mTypes[index.row()]];
-        break;
-    case ColumnRoles::ItemType:
-        result = d->mTypes[index.row()];
+    case ColumnRoles::ImageNameRole:
+        result = d->mViewsData->iconUrl(index.row());
         break;
     }
 
@@ -148,6 +115,23 @@ QModelIndex ViewsModel::parent(const QModelIndex &child) const
     auto result = QModelIndex();
 
     return result;
+}
+
+ViewsListData *ViewsModel::viewsData() const
+{
+    return d->mViewsData;
+}
+
+void ViewsModel::setViewsData(ViewsListData *viewsData)
+{
+    if (d->mViewsData == viewsData) {
+        return;
+    }
+
+    beginResetModel();
+    d->mViewsData = viewsData;
+    Q_EMIT viewsDataChanged();
+    endResetModel();
 }
 
 

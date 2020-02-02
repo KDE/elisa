@@ -333,6 +333,11 @@ public:
 
         using DataType::DataType;
 
+        QString name() const
+        {
+            return operator[](key_type::TitleRole).toString();
+        }
+
         qulonglong databaseId() const
         {
             return operator[](key_type::DatabaseIdRole).toULongLong();

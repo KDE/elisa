@@ -23,7 +23,6 @@ import org.kde.kirigami 2.5 as Kirigami
 FocusScope {
     id: rootItem
 
-    property var viewType: model.type
     property bool isSelected
 
     signal clicked()

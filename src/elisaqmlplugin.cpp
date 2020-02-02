@@ -44,6 +44,7 @@
 #include "musiclistenersmanager.h"
 #include "trackslistener.h"
 #include "viewmanager.h"
+#include "viewslistdata.h"
 #include "databaseinterface.h"
 #include "datatypes.h"
 #include "models/datamodel.h"
@@ -123,6 +124,7 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qmlRegisterType<ProgressIndicator>(uri, 1, 0, "ProgressIndicator");
     qmlRegisterType<MusicListenersManager>(uri, 1, 0, "MusicListenersManager");
     qmlRegisterType<ViewManager>(uri, 1, 0, "ViewManager");
+    qmlRegisterType<ViewsListData>(uri, 1, 0, "ViewsListData");
     qmlRegisterType<DataModel>(uri, 1, 0, "DataModel");
     qmlRegisterType<TrackMetadataModel>(uri, 1, 0, "TrackMetadataModel");
     qmlRegisterType<TrackContextMetaDataModel>(uri, 1, 0, "TrackContextMetaDataModel");

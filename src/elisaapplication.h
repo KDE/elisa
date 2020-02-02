@@ -38,6 +38,7 @@ class AudioWrapper;
 class ManageAudioPlayer;
 class ManageMediaPlayerControl;
 class ManageHeaderBar;
+class ViewsListData;
 class QQmlApplicationEngine;
 class ElisaApplicationPrivate;
 
@@ -81,6 +82,8 @@ class ELISALIB_EXPORT ElisaApplication : public QObject
                READ manageHeaderBar
                NOTIFY manageHeaderBarChanged)
 
+    Q_PROPERTY(ViewsListData* viewsListData READ viewsListData NOTIFY viewsListDataChanged)
+
     Q_PROPERTY(bool showProgressOnTaskBar
                READ showProgressOnTaskBar
                NOTIFY showProgressOnTaskBarChanged)
@@ -118,6 +121,8 @@ public:
 
     ManageHeaderBar *manageHeaderBar() const;
 
+    ViewsListData* viewsListData() const;
+
     bool showProgressOnTaskBar() const;
 
     bool showSystemTrayIcon() const;
@@ -150,6 +155,8 @@ Q_SIGNALS:
     void showProgressOnTaskBarChanged();
 
     void showSystemTrayIconChanged();
+
+    void viewsListDataChanged();
 
 public Q_SLOTS:
 

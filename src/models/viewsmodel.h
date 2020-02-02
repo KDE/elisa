@@ -27,16 +27,18 @@
 #include <memory>
 
 class ViewsModelPrivate;
+class ViewsListData;
 
 class ELISALIB_EXPORT ViewsModel : public QAbstractListModel
 {
     Q_OBJECT
 
+    Q_PROPERTY(ViewsListData* viewsData READ viewsData WRITE setViewsData NOTIFY viewsDataChanged)
+
 public:
 
     enum ColumnRoles {
-        ItemType = Qt::UserRole + 1,
-        ImageName,
+        ImageNameRole = Qt::UserRole + 1,
     };
 
     explicit ViewsModel(QObject *parent = nullptr);
@@ -55,10 +57,19 @@ public:
 
     QModelIndex parent(const QModelIndex &child) const override;
 
+    ViewsListData* viewsData() const;
+
+Q_SIGNALS:
+
+    void viewsDataChanged();
+
+public Q_SLOTS:
+
+void setViewsData(ViewsListData* viewsData);
+
 private:
 
     std::unique_ptr<ViewsModelPrivate> d;
-
 };
 
 #endif // VIEWSMODEL_H

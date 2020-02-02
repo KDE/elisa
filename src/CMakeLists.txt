@@ -30,6 +30,7 @@ set(elisaLib_SOURCES
     models/editabletrackmetadatamodel.cpp
     models/trackcontextmetadatamodel.cpp
     models/viewsmodel.cpp
+    viewslistdata.cpp
     localFileConfiguration/elisaconfigurationdialog.cpp
 )
 

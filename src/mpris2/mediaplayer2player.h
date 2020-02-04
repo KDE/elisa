@@ -163,6 +163,7 @@ private:
     ManageHeaderBar * m_manageHeaderBar = nullptr;
     AudioWrapper *m_audioPlayer = nullptr;
     mutable QDBusMessage mProgressIndicatorSignal;
+    int mPreviousProgressPosition = 0;
 };
 
 #endif // MEDIAPLAYER2PLAYER_H

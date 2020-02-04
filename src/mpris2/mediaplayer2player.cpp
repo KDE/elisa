@@ -215,13 +215,21 @@ void MediaPlayer2Player::setPropertyPosition(int newPositionInMs)
 
     Q_EMIT Seeked(m_position);
 
-    QVariantMap parameters;
-    parameters.insert(QStringLiteral("progress-visible"), true);
-    parameters.insert(QStringLiteral("progress"), static_cast<double>(newPositionInMs) / m_audioPlayer->duration());
+    /* only sent new progress when it has advanced more than 1 %
+     * to limit DBus traffic
+     */
+    const auto incrementalProgress = static_cast<double>(newPositionInMs - mPreviousProgressPosition) / m_audioPlayer->duration();
+    if (incrementalProgress > 0.01 || incrementalProgress < 0)
+    {
+        mPreviousProgressPosition = newPositionInMs;
+        QVariantMap parameters;
+        parameters.insert(QStringLiteral("progress-visible"), true);
+        parameters.insert(QStringLiteral("progress"), static_cast<double>(newPositionInMs) / m_audioPlayer->duration());
 
-    mProgressIndicatorSignal.setArguments({QStringLiteral("application://org.kde.elisa.desktop"), parameters});
+        mProgressIndicatorSignal.setArguments({QStringLiteral("application://org.kde.elisa.desktop"), parameters});
 
-    QDBusConnection::sessionBus().send(mProgressIndicatorSignal);
+        QDBusConnection::sessionBus().send(mProgressIndicatorSignal);
+    }
 }
 
 double MediaPlayer2Player::Rate() const

@@ -56,12 +56,18 @@ FocusScope {
     Accessible.role: Accessible.ListItem
     Accessible.name: title + ' ' + album + ' ' + artist
 
+    TextMetrics {
+        id: mainCompactLabelSize
+        font: mainCompactLabel.font
+        text: mainCompactLabel.text
+    }
+
     Keys.onReturnPressed: {
         playListEntry.switchToTrack(playListEntry.index)
         playListEntry.startPlayback()
     }
 
-    height: elisaTheme.playListDelegateHeight
+    height: mainCompactLabelSize.height + 2 * elisaTheme.layoutVerticalMargin
 
     Loader {
         id: metadataLoader

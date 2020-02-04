@@ -42,14 +42,6 @@ Item {
     property int layoutHorizontalMargin: 8
     property int layoutVerticalMargin: 6
 
-    // FIXME: don't hardcode these; derive them from the layouts they're used in
-    FontMetrics {
-        id: playListTrackTextHeight
-        font.weight: Font.Bold
-    }
-    property int playListDelegateHeight: (playListTrackTextHeight.height > 28) ? playListTrackTextHeight.height : 28
-    // END FIXME
-
     property int playListAlbumArtSize: 60
 
     property int coverImageSize: 180

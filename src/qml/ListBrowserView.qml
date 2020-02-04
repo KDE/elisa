@@ -119,7 +119,6 @@ FocusScope {
                 section.delegate: TracksDiscHeader {
                     discNumber: section
                     width: scrollBar.visible ? (!LayoutMirroring.enabled ? contentDirectoryView.width - scrollBar.width : contentDirectoryView.width) : contentDirectoryView.width
-                    height: elisaTheme.delegateHeight
                 }
 
                 ScrollBar.vertical: ScrollBar {

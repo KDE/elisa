@@ -92,7 +92,6 @@ FocusScope {
             id: entry
 
             width: listView.delegateWidth
-            height: elisaTheme.delegateHeight
 
             focus: true
 
@@ -141,7 +140,6 @@ FocusScope {
             id: entry
 
             width: listView.delegateWidth
-            height: elisaTheme.trackDelegateHeight
 
             focus: true
 

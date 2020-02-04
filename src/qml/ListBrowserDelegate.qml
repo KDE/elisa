@@ -54,6 +54,15 @@ FocusScope {
     Keys.onReturnPressed: enqueue(trackUrl, dataType, title)
     Keys.onEnterPressed: enqueue(trackUrl, dataType, title)
 
+    TextMetrics {
+        id: mainLabelSize
+        font: mainLabel.font
+        text: mainLabel.text
+    }
+
+    property int singleLineHeight:  elisaTheme.layoutVerticalMargin * 2 + mainLabelSize.height
+    height: singleLineHeight + (detailedView ? mainLabelSize.height : 0)
+
     Rectangle {
         id: rowRoot
 
@@ -132,44 +141,42 @@ FocusScope {
                 }
             }
 
-            Item {
-                Layout.preferredHeight: mediaTrack.height * 0.9
-                Layout.preferredWidth: mediaTrack.height * 0.9
+            Image {
+                id: coverImageElement
 
-                Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
+                Layout.preferredHeight: mediaTrack.height - elisaTheme.layoutVerticalMargin
+                Layout.preferredWidth: mediaTrack.height - elisaTheme.layoutVerticalMargin
+                Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutVerticalMargin : 0
+                Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutVerticalMargin : 0
+
+                Layout.alignment: Qt.AlignCenter
 
                 visible: detailedView
 
-                Image {
-                    id: coverImageElement
+                sourceSize.width: mediaTrack.height - elisaTheme.layoutVerticalMargin
+                sourceSize.height: mediaTrack.height - elisaTheme.layoutVerticalMargin
+                fillMode: Image.PreserveAspectFit
+                smooth: true
 
-                    anchors.fill: parent
+                source: (imageUrl != '' ? imageUrl : Qt.resolvedUrl(elisaTheme.defaultAlbumImage))
 
-                    sourceSize.width: mediaTrack.height * 0.9
-                    sourceSize.height: mediaTrack.height * 0.9
-                    fillMode: Image.PreserveAspectFit
-                    smooth: true
+                asynchronous: true
 
-                    source: (imageUrl != '' ? imageUrl : Qt.resolvedUrl(elisaTheme.defaultAlbumImage))
+                layer.enabled: imageUrl != ''
 
-                    asynchronous: true
+                layer.effect: DropShadow {
+                    source: coverImageElement
 
-                    layer.enabled: imageUrl != ''
+                    radius: 10
+                    spread: 0.1
+                    samples: 21
 
-                    layer.effect: DropShadow {
-                        source: coverImageElement
+                    color: myPalette.shadow
+                }
 
-                        radius: 10
-                        spread: 0.1
-                        samples: 21
-
-                        color: myPalette.shadow
-                    }
-
-                    onStatusChanged: {
-                        if (coverImageElement.status === Image.Error) {
-                            source = 'image://icon/media-optical-audio'
-                        }
+                onStatusChanged: {
+                    if (coverImageElement.status === Image.Error) {
+                        source = 'image://icon/media-optical-audio'
                     }
                 }
             }
@@ -260,8 +267,8 @@ FocusScope {
 
                     FlatButtonWithToolTip {
                         id: detailsButton
-                        height: elisaTheme.delegateHeight
-                        width: elisaTheme.delegateHeight
+                        height: singleLineHeight
+                        width: singleLineHeight
 
                         text: i18nc("Show track metadata", "View Details")
                         icon.name: "help-about"
@@ -270,8 +277,8 @@ FocusScope {
 
                     FlatButtonWithToolTip {
                         id: enqueueButton
-                        height: elisaTheme.delegateHeight
-                        width: elisaTheme.delegateHeight
+                        height: singleLineHeight
+                        width: singleLineHeight
 
                         text: i18nc("Enqueue current track", "Enqueue")
                         icon.name: "list-add"
@@ -281,8 +288,8 @@ FocusScope {
                     FlatButtonWithToolTip {
                         id: clearAndEnqueueButton
                         scale: LayoutMirroring.enabled ? -1 : 1
-                        height: elisaTheme.delegateHeight
-                        width: elisaTheme.delegateHeight
+                        height: singleLineHeight
+                        width: singleLineHeight
 
                         text: i18nc("Clear play list and enqueue current track", "Play Now and Replace Play List")
                         icon.name: "media-playback-start"

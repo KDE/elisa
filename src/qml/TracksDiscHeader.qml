@@ -22,6 +22,13 @@ Rectangle {
     property int discNumber
 
     color: myPalette.mid
+    height: discHeaderSize.height + elisaTheme.layoutVerticalMargin * 2
+
+    TextMetrics {
+        id: discHeaderSize
+        font: discHeaderLabel.font
+        text: discHeaderLabel.text
+    }
 
     LabelWithToolTip {
         id: discHeaderLabel

@@ -42,24 +42,12 @@ Item {
     property int layoutHorizontalMargin: 8
     property int layoutVerticalMargin: 6
 
-    property int delegateHeight: 28
-
     // FIXME: don't hardcode these; derive them from the layouts they're used in
-    FontMetrics {
-        id: playListAuthorTextHeight
-        font.weight: Font.Light
-    }
-    FontMetrics {
-        id: playListAlbumTextHeight
-        font.weight: Font.Bold
-        font.pointSize: Math.round(fontSize.font.pointSize * 1.4)
-    }
     FontMetrics {
         id: playListTrackTextHeight
         font.weight: Font.Bold
     }
     property int playListDelegateHeight: (playListTrackTextHeight.height > 28) ? playListTrackTextHeight.height : 28
-    property int trackDelegateHeight: elisaTheme.layoutVerticalMargin + fontSize.height * 2
     // END FIXME
 
     property int playListAlbumArtSize: 70
@@ -68,32 +56,23 @@ Item {
     property int contextCoverImageSize: 100
     property int smallImageSize: 32
 
-    property int maximumMetadataWidth: 300
-
     property int tooltipRadius: 3
     property int shadowOffset: 2
 
     property int delegateToolButtonSize: 34
-    property int smallDelegateToolButtonSize: 20
 
     property int ratingStarSize: 15
 
     property int mediaPlayerControlHeight: 42
-    property int mediaPlayerHorizontalMargin: 10
     property real mediaPlayerControlOpacity: 0.6
     property int smallControlButtonSize: 22
     property int volumeSliderWidth: 100
 
     property int dragDropPlaceholderHeight: 28
 
-    property int navigationBarHeight: 100
-    property int navigationBarFilterHeight: 44
-
     property int gridDelegateSize: 170
 
     property int viewSelectorDelegateHeight: 24
-
-    property int filterClearButtonMargin: layoutVerticalMargin
 
     property int headerToolbarHeight: 48
     property int footerToolbarHeight: 30

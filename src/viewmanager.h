@@ -79,6 +79,20 @@ public:
 
     Q_ENUM(RadioSpecificStyle)
 
+    enum DelegateUseSecondaryText {
+        DelegateWithSecondaryText = true,
+        DelegateWithoutSecondaryText = false,
+    };
+
+    Q_ENUM(DelegateUseSecondaryText)
+
+    enum ViewCanBeRated {
+        ViewShowRating = true,
+        ViewHideRating = false,
+    };
+
+    Q_ENUM(ViewCanBeRated)
+
     explicit ViewManager(QObject *parent = nullptr);
 
 Q_SIGNALS:
@@ -87,13 +101,14 @@ Q_SIGNALS:
                       const QString &mainTitle, const QString &secondaryTitle, const QUrl &imageUrl,
                       ElisaUtils::PlayListEntryType dataType, const QUrl &viewDefaultIcon,
                       const QString &genreNameFilter, const QString &artistNameFilter,
-                      bool viewShowRating, bool viewDelegateDisplaySecondaryText);
+                      ViewManager::ViewCanBeRated viewShowRating,
+                      ViewManager::DelegateUseSecondaryText viewDelegateDisplaySecondaryText);
 
     void openListView(ViewManager::ViewsType viewType, ElisaUtils::FilterType filterType, int expectedDepth,
                       const QString &mainTitle, const QString &secondaryTitle, qulonglong databaseId,
                       const QUrl &imageUrl, ElisaUtils::PlayListEntryType dataType, const QVariant &sortRole,
-                      ViewManager::SortOrder sortOrder, bool displaySingleAlbum, ViewManager::AlbumViewStyle showDiscHeaders,
-                      ViewManager::RadioSpecificStyle radioCase);
+                      ViewManager::SortOrder sortOrder, ViewManager::AlbumCardinality displaySingleAlbum,
+                      ViewManager::AlbumViewStyle showDiscHeaders, ViewManager::RadioSpecificStyle radioCase);
 
     void switchFilesBrowserView(ViewManager::ViewsType viewType, int expectedDepth,
                                 const QString &mainTitle, const QUrl &imageUrl);

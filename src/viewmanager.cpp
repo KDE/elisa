@@ -169,7 +169,7 @@ void ViewManager::openAllAlbums(const QString &mainTitle, const QUrl &imageUrl)
 
     if (mCurrentView != mTargetView) {
         Q_EMIT openGridView(mTargetView, ElisaUtils::NoFilter, 1, mainTitle, {}, imageUrl, ElisaUtils::Album,
-                            QUrl(QStringLiteral("image://icon/media-optical-audio")), {}, {}, true, true);
+                            QUrl(QStringLiteral("image://icon/media-optical-audio")), {}, {}, ViewShowRating, DelegateWithSecondaryText);
     }
 }
 
@@ -204,7 +204,7 @@ void ViewManager::openOneAlbum(const QString &albumTitle, const QString &albumAu
     } else {
         mTargetView = ViewsType::OneAlbum;
         Q_EMIT openGridView(ViewsType::AllAlbums, ElisaUtils::NoFilter, 1, {}, {}, {}, ElisaUtils::Album,
-                            QUrl(QStringLiteral("image://icon/media-optical-audio")), {}, {}, true, true);
+                            QUrl(QStringLiteral("image://icon/media-optical-audio")), {}, {}, ViewShowRating, DelegateWithSecondaryText);
     }
 }
 
@@ -214,7 +214,7 @@ void ViewManager::openAllArtists(const QString &mainTitle, const QUrl &imageUrl)
 
     if (mCurrentView != mTargetView) {
         Q_EMIT openGridView(ViewsType::AllArtists, ElisaUtils::NoFilter, 1, mainTitle, {}, imageUrl, ElisaUtils::Artist,
-                            QUrl(QStringLiteral("image://icon/view-media-artist")), {}, {}, false, false);
+                            QUrl(QStringLiteral("image://icon/view-media-artist")), {}, {}, ViewHideRating, DelegateWithoutSecondaryText);
     }
 }
 
@@ -232,21 +232,21 @@ void ViewManager::openOneArtist(const QString &artistName, const QUrl &artistIma
 
     if (mCurrentView == ViewsType::AllArtists && mTargetView == ViewsType::OneArtist) {
         Q_EMIT openGridView(mTargetView, ElisaUtils::FilterByArtist, 2, mTargetArtistName, {}, mTargetImageUrl, ElisaUtils::Album,
-                            QUrl(QStringLiteral("image://icon/media-optical-audio")), {}, mTargetArtistName, true, true);
+                            QUrl(QStringLiteral("image://icon/media-optical-audio")), {}, mTargetArtistName, ViewShowRating, DelegateWithSecondaryText);
     } else if (mCurrentView == ViewsType::OneArtist && mCurrentArtistName != mTargetArtistName &&
                mTargetView == ViewsType::OneArtist) {
         Q_EMIT openGridView(mTargetView, ElisaUtils::FilterByArtist, 2, mTargetArtistName, {}, mTargetImageUrl, ElisaUtils::Album,
-                            QUrl(QStringLiteral("image://icon/media-optical-audio")), {}, mTargetArtistName, true, true);
+                            QUrl(QStringLiteral("image://icon/media-optical-audio")), {}, mTargetArtistName, ViewShowRating, DelegateWithSecondaryText);
     } else if (mCurrentView == ViewsType::OneAlbumFromArtist && mCurrentArtistName != mTargetArtistName &&
                mTargetView == ViewsType::OneArtist) {
         Q_EMIT openGridView(mTargetView, ElisaUtils::FilterByArtist, 2, mTargetArtistName, {}, mTargetImageUrl, ElisaUtils::Album,
-                            QUrl(QStringLiteral("image://icon/media-optical-audio")), {}, mTargetArtistName, true, true);
+                            QUrl(QStringLiteral("image://icon/media-optical-audio")), {}, mTargetArtistName, ViewShowRating, DelegateWithSecondaryText);
     } else if (mCurrentView == ViewsType::AllArtistsFromGenre && mTargetView == ViewsType::OneArtistFromGenre) {
         Q_EMIT openGridView(mTargetView, ElisaUtils::FilterByGenreAndArtist, 3, mTargetArtistName, {}, mTargetImageUrl, ElisaUtils::Album,
-                            QUrl(QStringLiteral("image://icon/media-optical-audio")), mTargetGenreName, mTargetArtistName, true, true);
+                            QUrl(QStringLiteral("image://icon/media-optical-audio")), mTargetGenreName, mTargetArtistName, ViewShowRating, DelegateWithSecondaryText);
     } else {
         Q_EMIT openGridView(ViewsType::AllArtists, ElisaUtils::NoFilter, 1, {}, {}, {}, ElisaUtils::Artist,
-                            QUrl(QStringLiteral("image://icon/view-media-artist")), {}, {}, false, false);
+                            QUrl(QStringLiteral("image://icon/view-media-artist")), {}, {}, ViewHideRating, DelegateWithoutSecondaryText);
     }
 }
 
@@ -266,7 +266,7 @@ void ViewManager::openAllGenres(const QString &mainTitle, const QUrl &imageUrl)
 
     if (mCurrentView != mTargetView) {
         Q_EMIT openGridView(mTargetView, ElisaUtils::NoFilter, 1, mainTitle, {}, imageUrl, ElisaUtils::Genre,
-                            QUrl(QStringLiteral("image://icon/view-media-genre")), {}, {}, false, false);
+                            QUrl(QStringLiteral("image://icon/view-media-genre")), {}, {}, ViewHideRating, DelegateWithoutSecondaryText);
     }
 }
 
@@ -277,10 +277,10 @@ void ViewManager::openAllArtistsFromGenre(const QString &genreName)
 
     if (mCurrentView == ViewsType::AllGenres) {
         Q_EMIT openGridView(mTargetView, ElisaUtils::FilterByGenre, 2, mTargetGenreName, {}, QUrl(QStringLiteral("image://icon/view-media-artist")),
-                            ElisaUtils::Artist, QUrl(QStringLiteral("image://icon/view-media-artist")), mTargetGenreName, {}, false, false);
+                            ElisaUtils::Artist, QUrl(QStringLiteral("image://icon/view-media-artist")), mTargetGenreName, {}, ViewHideRating, DelegateWithoutSecondaryText);
     } else {
         Q_EMIT openGridView(ViewsType::AllGenres, ElisaUtils::NoFilter, 1, {}, {}, {}, ElisaUtils::Genre,
-                            QUrl(QStringLiteral("image://icon/view-media-genre")), {}, {}, false, false);
+                            QUrl(QStringLiteral("image://icon/view-media-genre")), {}, {}, ViewHideRating, DelegateWithoutSecondaryText);
     }
 }
 
@@ -349,10 +349,10 @@ void ViewManager::allArtistsViewIsLoaded()
     mCurrentView = ViewsType::AllArtists;
     if (mTargetView == ViewsType::OneArtist) {
         Q_EMIT openGridView(mTargetView, ElisaUtils::FilterByArtist, 2, mTargetArtistName, {}, mTargetImageUrl, ElisaUtils::Album,
-                            QUrl(QStringLiteral("image://icon/media-optical-audio")), {}, mTargetArtistName, true, true);
+                            QUrl(QStringLiteral("image://icon/media-optical-audio")), {}, mTargetArtistName, ViewShowRating, DelegateWithSecondaryText);
     } else if (mTargetView == ViewsType::OneAlbumFromArtist) {
         Q_EMIT openGridView(ViewsType::OneArtist, ElisaUtils::FilterByArtist, 2, mTargetAlbumAuthor, {}, mTargetImageUrl, ElisaUtils::Album,
-                            QUrl(QStringLiteral("image://icon/media-optical-audio")), {}, mTargetAlbumAuthor, true, true);
+                            QUrl(QStringLiteral("image://icon/media-optical-audio")), {}, mTargetAlbumAuthor, ViewShowRating, DelegateWithSecondaryText);
     }
 }
 

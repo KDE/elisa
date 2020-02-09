@@ -37,7 +37,6 @@ FocusScope {
     property bool isPartial
     property bool isSelected
     property bool showDetailsButton: false
-    property bool showOpenButton: true
     property bool showPlayButton: true
     property bool showEnqueueButton: true
 
@@ -91,15 +90,12 @@ FocusScope {
 
         hoverEnabled: true
         acceptedButtons: Qt.LeftButton
+        cursorShape: Qt.PointingHandCursor
 
         Layout.preferredHeight: gridEntry.height
         Layout.fillWidth: true
 
-        onClicked: {
-            gridEntry.selected()
-        }
-
-        onDoubleClicked: open()
+        onClicked: open()
 
         TextMetrics {
             id: mainLabelSize
@@ -225,29 +221,6 @@ FocusScope {
                             Keys.onEnterPressed: enqueue(databaseId, mainText, fileUrl)
 
                             visible: showEnqueueButton
-
-                            width: elisaTheme.delegateToolButtonSize
-                            height: elisaTheme.delegateToolButtonSize
-                        }
-
-                        Button {
-                            id: openButton
-                            objectName: 'openButton'
-
-                            icon.name: 'go-next-view-page'
-                            hoverEnabled: true
-                            ToolTip.visible: hovered
-                            ToolTip.delay: 1000
-                            ToolTip.text: i18nc("Open view of the container", "Open")
-
-                            Accessible.role: Accessible.Button
-                            Accessible.name: ToolTip.text
-                            Accessible.description: ToolTip.text
-                            Accessible.onPressAction: onClicked
-
-                            onClicked: open()
-
-                            visible: showOpenButton
 
                             width: elisaTheme.delegateToolButtonSize
                             height: elisaTheme.delegateToolButtonSize

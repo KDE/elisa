@@ -114,14 +114,11 @@ FocusScope {
 
             var replaceAndPlayButtonItem = findChild(delegateItem, "replaceAndPlayButton");
             var enqueueButtonItem = findChild(delegateItem, "enqueueButton");
-            var openButtonItem = findChild(delegateItem, "openButton");
             verify(replaceAndPlayButtonItem !== null, "valid replaceAndPlayButton")
             verify(enqueueButtonItem !== null, "valid enqueueButton")
-            verify(openButtonItem !== null, "valid openButton")
 
             compare(replaceAndPlayButtonItem.focus, false, "enqueueButton.focus");
             compare(enqueueButtonItem.focus, false, "enqueueButton.focus");
-            compare(openButtonItem.focus, false, "enqueueButton.focus");
 
             keyClick(Qt.Key_Tab)
             compare(enqueueSpy.count, 0)
@@ -131,7 +128,6 @@ FocusScope {
             compare(delegateItem.focus, true, "delegateItem.focus");
             compare(replaceAndPlayButtonItem.focus, true, "enqueueButton.focus");
             compare(enqueueButtonItem.focus, false, "enqueueButton.focus");
-            compare(openButtonItem.focus, false, "enqueueButton.focus");
 
             keyClick(Qt.Key_Tab)
             compare(enqueueSpy.count, 0)
@@ -141,20 +137,8 @@ FocusScope {
             compare(delegateItem.focus, true, "delegateItem.focus");
             compare(replaceAndPlayButtonItem.focus, false, "enqueueButton.focus");
             compare(enqueueButtonItem.focus, true, "enqueueButton.focus");
-            compare(openButtonItem.focus, false, "enqueueButton.focus");
-
-            keyClick(Qt.Key_Tab)
-            compare(enqueueSpy.count, 0)
-            compare(replaceAndPlaySpy.count, 0)
-            compare(openSpy.count, 0)
-            compare(selectedSpy.count, 0)
-            compare(delegateItem.focus, true, "delegateItem.focus");
-            compare(replaceAndPlayButtonItem.focus, false, "enqueueButton.focus");
-            compare(enqueueButtonItem.focus, false, "enqueueButton.focus");
-            compare(openButtonItem.focus, true, "enqueueButton.focus");
 
             enqueueButtonItem.focus = false;
-            openButtonItem.focus = false;
             replaceAndPlayButtonItem.focus = false;
             otherItem.focus = true;
             compare(enqueueSpy.count, 0)
@@ -180,80 +164,60 @@ FocusScope {
 
             var replaceAndPlayButtonItem = findChild(delegateItem, "replaceAndPlayButton");
             var enqueueButtonItem = findChild(delegateItem, "enqueueButton");
-            var openButtonItem = findChild(delegateItem, "openButton");
             verify(replaceAndPlayButtonItem !== null, "valid replaceAndPlayButton")
             verify(enqueueButtonItem !== null, "valid enqueueButton")
-            verify(openButtonItem !== null, "valid openButton")
             compare(replaceAndPlayButtonItem.focus, false, "enqueueButton.focus");
             compare(enqueueButtonItem.focus, false, "enqueueButton.focus");
-            compare(openButtonItem.focus, false, "enqueueButton.focus");
 
             mouseClick(delegateItem, 0, 0);
             compare(delegateItem.focus, false, "delegateItem.focus");
             compare(replaceAndPlayButtonItem.focus, false, "enqueueButton.focus");
             compare(enqueueButtonItem.focus, false, "enqueueButton.focus");
-            compare(openButtonItem.focus, false, "enqueueButton.focus");
             compare(enqueueSpy.count, 0);
             compare(replaceAndPlaySpy.count, 0);
-            compare(openSpy.count, 0);
-            compare(selectedSpy.count, 1);
+            compare(openSpy.count, 1);
+            compare(selectedSpy.count, 0);
 
             mouseMove(enqueueButtonItem);
             mouseClick(enqueueButtonItem);
             compare(delegateItem.focus, true, "delegateItem.focus");
             compare(replaceAndPlayButtonItem.focus, false, "enqueueButton.focus");
             compare(enqueueButtonItem.focus, true, "enqueueButton.focus");
-            compare(openButtonItem.focus, false, "enqueueButton.focus");
-            compare(enqueueSpy.count, 1);
-            compare(replaceAndPlaySpy.count, 0);
-            compare(openSpy.count, 0);
-            compare(selectedSpy.count, 1);
-
-            mouseMove(openButtonItem);
-            mouseClick(openButtonItem);
-            compare(delegateItem.focus, true, "delegateItem.focus");
-            compare(replaceAndPlayButtonItem.focus, false, "enqueueButton.focus");
-            compare(enqueueButtonItem.focus, false, "enqueueButton.focus");
-            compare(openButtonItem.focus, true, "enqueueButton.focus");
             compare(enqueueSpy.count, 1);
             compare(replaceAndPlaySpy.count, 0);
             compare(openSpy.count, 1);
-            compare(selectedSpy.count, 1);
+            compare(selectedSpy.count, 0);
 
             mouseMove(replaceAndPlayButtonItem);
             mouseClick(replaceAndPlayButtonItem);
             compare(delegateItem.focus, true, "delegateItem.focus");
             compare(replaceAndPlayButtonItem.focus, true, "enqueueButton.focus");
             compare(enqueueButtonItem.focus, false, "enqueueButton.focus");
-            compare(openButtonItem.focus, false, "enqueueButton.focus");
             compare(enqueueSpy.count, 1);
             compare(replaceAndPlaySpy.count, 1);
             compare(openSpy.count, 1);
-            compare(selectedSpy.count, 1);
+            compare(selectedSpy.count, 0);
 
             mouseMove(otherItem, 0, 0);
             compare(delegateItem.focus, true, "delegateItem.focus");
             compare(replaceAndPlayButtonItem.focus, true, "enqueueButton.focus");
             compare(enqueueButtonItem.focus, false, "enqueueButton.focus");
-            compare(openButtonItem.focus, false, "enqueueButton.focus");
             compare(enqueueSpy.count, 1);
             compare(replaceAndPlaySpy.count, 1);
             compare(openSpy.count, 1);
-            compare(selectedSpy.count, 1);
+            compare(selectedSpy.count, 0);
 
-            mouseDoubleClickSequence(delegateItem, 0, 0);
+            mouseClick(delegateItem, 0, 0);
             openSpy.wait(150);
             compare(delegateItem.focus, true, "delegateItem.focus");
             compare(replaceAndPlayButtonItem.focus, true, "enqueueButton.focus");
             compare(enqueueButtonItem.focus, false, "enqueueButton.focus");
-            compare(openButtonItem.focus, false, "enqueueButton.focus");
             compare(enqueueSpy.count, 1);
             compare(replaceAndPlaySpy.count, 1);
             compare(openSpy.count, 2);
-            compare(selectedSpy.count, 2);
+            compare(selectedSpy.count, 0);
 
             enqueueButtonItem.focus = false;
-            openButtonItem.focus = false;
             replaceAndPlayButtonItem.focus = false;
             otherItem.focus = true;
         }
@@ -274,14 +238,11 @@ FocusScope {
 
             var replaceAndPlayButtonItem = findChild(delegateItem, "replaceAndPlayButton");
             var enqueueButtonItem = findChild(delegateItem, "enqueueButton");
-            var openButtonItem = findChild(delegateItem, "openButton");
             verify(replaceAndPlayButtonItem !== null, "valid replaceAndPlayButton")
             verify(enqueueButtonItem !== null, "valid enqueueButton")
-            verify(openButtonItem !== null, "valid openButton")
 
             compare(replaceAndPlayButtonItem.focus, false, "enqueueButton.focus");
             compare(enqueueButtonItem.focus, false, "enqueueButton.focus");
-            compare(openButtonItem.focus, false, "enqueueButton.focus");
 
             keyClick(Qt.Key_Tab);
             compare(replaceAndPlaySpy.count, 0);
@@ -291,7 +252,6 @@ FocusScope {
             compare(delegateItem.focus, true, "delegateItem.focus");
             compare(replaceAndPlayButtonItem.focus, true, "enqueueButton.focus");
             compare(enqueueButtonItem.focus, false, "enqueueButton.focus");
-            compare(openButtonItem.focus, false, "enqueueButton.focus");
 
             keyClick(Qt.Key_Enter);
             compare(replaceAndPlaySpy.count, 1);
@@ -301,7 +261,6 @@ FocusScope {
             compare(delegateItem.focus, true, "delegateItem.focus");
             compare(replaceAndPlayButtonItem.focus, true, "enqueueButton.focus");
             compare(enqueueButtonItem.focus, false, "enqueueButton.focus");
-            compare(openButtonItem.focus, false, "enqueueButton.focus");
 
             keyClick(Qt.Key_Return);
             compare(replaceAndPlaySpy.count, 2);
@@ -311,7 +270,6 @@ FocusScope {
             compare(delegateItem.focus, true, "delegateItem.focus");
             compare(replaceAndPlayButtonItem.focus, true, "enqueueButton.focus");
             compare(enqueueButtonItem.focus, false, "enqueueButton.focus");
-            compare(openButtonItem.focus, false, "enqueueButton.focus");
 
             keyClick(Qt.Key_Tab);
             compare(replaceAndPlaySpy.count, 2);
@@ -321,7 +279,6 @@ FocusScope {
             compare(delegateItem.focus, true, "delegateItem.focus");
             compare(replaceAndPlayButtonItem.focus, false, "enqueueButton.focus");
             compare(enqueueButtonItem.focus, true, "enqueueButton.focus");
-            compare(openButtonItem.focus, false, "enqueueButton.focus");
 
             keyClick(Qt.Key_Enter);
             compare(replaceAndPlaySpy.count, 2);
@@ -331,7 +288,6 @@ FocusScope {
             compare(delegateItem.focus, true, "delegateItem.focus");
             compare(replaceAndPlayButtonItem.focus, false, "enqueueButton.focus");
             compare(enqueueButtonItem.focus, true, "enqueueButton.focus");
-            compare(openButtonItem.focus, false, "enqueueButton.focus");
 
             keyClick(Qt.Key_Return);
             compare(replaceAndPlaySpy.count, 2);
@@ -341,7 +297,6 @@ FocusScope {
             compare(delegateItem.focus, true, "delegateItem.focus");
             compare(replaceAndPlayButtonItem.focus, false, "enqueueButton.focus");
             compare(enqueueButtonItem.focus, true, "enqueueButton.focus");
-            compare(openButtonItem.focus, false, "enqueueButton.focus");
 
             keyClick(Qt.Key_Tab);
             compare(replaceAndPlaySpy.count, 2);
@@ -349,12 +304,10 @@ FocusScope {
             compare(openSpy.count, 0);
             compare(selectedSpy.count, 0);
             compare(delegateItem.focus, true, "delegateItem.focus");
-            compare(replaceAndPlayButtonItem.focus, false, "enqueueButton.focus");
+            compare(replaceAndPlayButtonItem.focus, true, "enqueueButton.focus");
             compare(enqueueButtonItem.focus, false, "enqueueButton.focus");
-            compare(openButtonItem.focus, true, "enqueueButton.focus");
 
             enqueueButtonItem.focus = false;
-            openButtonItem.focus = false;
             replaceAndPlayButtonItem.focus = false;
             otherItem.focus = true;
         }

@@ -159,7 +159,6 @@ FocusScope {
                     showDetailsButton: !model.isDirectory && !model.isPlaylist
                     showEnqueueButton: !model.isDirectory && !model.isPlaylist
                     showPlayButton: !model.isDirectory
-                    showOpenButton: model.isDirectory && !model.isPlaylist
 
                     onEnqueue: elisa.mediaPlayList.enqueue(url, ElisaUtils.FileName, ElisaUtils.AppendPlayList, ElisaUtils.DoNotTriggerPlay)
                     onReplaceAndPlay: {

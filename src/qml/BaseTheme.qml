@@ -50,7 +50,7 @@ Item {
     property int playListDelegateHeight: (playListTrackTextHeight.height > 28) ? playListTrackTextHeight.height : 28
     // END FIXME
 
-    property int playListAlbumArtSize: 70
+    property int playListAlbumArtSize: 60
 
     property int coverImageSize: 180
     property int contextCoverImageSize: 100

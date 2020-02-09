@@ -96,7 +96,7 @@ FocusScope {
 
         color: simpleMode ? "transparent" : myPalette.base
 
-        height: elisaTheme.playListDelegateHeight
+        height: playListEntry.height
     }
 
     RowLayout {
@@ -119,7 +119,7 @@ FocusScope {
             Layout.minimumWidth: fakeLabel.width
             Layout.preferredWidth: fakeLabel.width
             Layout.maximumWidth: fakeLabel.width
-            Layout.preferredHeight: elisaTheme.playListDelegateHeight
+            Layout.preferredHeight: playListEntry.height
             Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
             Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin / 2 : 0
             Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin / 2 : 0
@@ -232,8 +232,8 @@ FocusScope {
                     id: infoButton
                     objectName: 'infoButton'
 
-                    implicitHeight: elisaTheme.playListDelegateHeight
-                    implicitWidth: elisaTheme.playListDelegateHeight
+                    implicitHeight: playListEntry.height
+                    implicitWidth: playListEntry.height
 
                     text: i18nc("Show track metadata", "View Details")
                     icon.name: "help-about"
@@ -252,8 +252,8 @@ FocusScope {
                     id: playPauseButton
                     objectName: 'playPauseButton'
 
-                    implicitHeight: elisaTheme.playListDelegateHeight
-                    implicitWidth: elisaTheme.playListDelegateHeight
+                    implicitHeight: playListEntry.height
+                    implicitWidth: playListEntry.height
 
                     scale: LayoutMirroring.enabled ? -1 : 1 // We can mirror the symmetrical pause icon
 
@@ -271,8 +271,8 @@ FocusScope {
                     id: removeButton
                     objectName: 'removeButton'
 
-                    implicitHeight: elisaTheme.playListDelegateHeight
-                    implicitWidth: elisaTheme.playListDelegateHeight
+                    implicitHeight: playListEntry.height
+                    implicitWidth: playListEntry.height
 
                     text: i18nc("Remove current track from play list", "Remove")
                     icon.name: "error"

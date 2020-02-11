@@ -17,18 +17,21 @@
 
 import QtQuick 2.11
 import QtQuick.Controls 2.4
-import QtQuick.Layouts 1.3
-import QtQuick.Dialogs 1.2 as Dialogs
+import QtQuick.Layouts 1.12
+import QtQuick.Window 2.12
 import QtQml.Models 2.3
+import org.kde.kirigami 2.5 as Kirigami
 
-Dialogs.Dialog {
+Window {
     id: dialog
 
     title: i18n("Configure")
 
     visible: true
     modality: Qt.ApplicationModal
-    standardButtons: Dialogs.StandardButton.Ok | Dialogs.StandardButton.Apply | Dialogs.StandardButton.Cancel
+
+    minimumWidth: 600
+    minimumHeight: 400
 
     SystemPalette {
         id: myPalette
@@ -44,78 +47,31 @@ Dialogs.Dialog {
         }
     }
 
-    Component {
-        id: pathDelegate
-
-        Item {
-            id: delegateItem
-
-            height: 3 * 30
-
-            width: scrollBar.visible ? pathList.width - scrollBar.width : pathList.width
-
-            Rectangle {
-                anchors.fill: parent
-                anchors.margins: 0.1 * 30
-
-                color: myPalette.base
-
-                MouseArea {
-                    anchors.fill: parent
-
-                    hoverEnabled: true
-
-                    onEntered: pathList.currentIndex = delegateItem.DelegateModel.itemsIndex
-
-                    Label {
-                        text: modelData
-
-                        anchors.centerIn: parent
-                    }
-
-                    ToolButton {
-                        icon.name: 'list-remove'
-
-                        Accessible.onPressAction: onClicked
-
-                        anchors.top: parent.top
-                        anchors.right: parent.right
-
-                        onClicked:
-                        {
-                            var oldPaths = config.rootPath
-                            oldPaths.splice(delegateItem.DelegateModel.itemsIndex, 1)
-                            config.rootPath = oldPaths
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     RowLayout {
         spacing: 0
-
-        LayoutMirroring.enabled: Qt.application.layoutDirection == Qt.RightToLeft
-        LayoutMirroring.childrenInherit: true
 
         anchors.fill: parent
         anchors.margins: 0
 
-        implicitWidth: 600
-        implicitHeight: 400
-
         ListView {
-            id:pathList
+            id: pagesList
 
-            Layout.fillWidth: true
             Layout.fillHeight: true
+            Layout.preferredWidth: 150
+
             boundsBehavior: Flickable.StopAtBounds
 
-            model: DelegateModel {
-                model: config.rootPath
+            delegate: ItemDelegate {
+                text: model.pageName
+                icon.name: model.iconName
 
-                delegate: pathDelegate
+                width: pagesList.width
+
+                onClicked: pagesList.currentIndex = index
+            }
+
+            model: ListModel {
+                id: settingsPagesModel
             }
 
             ScrollBar.vertical: ScrollBar {
@@ -125,45 +81,59 @@ Dialogs.Dialog {
             highlight: highlightBar
         }
 
-        ColumnLayout {
+        Kirigami.Separator {
             Layout.fillHeight: true
-            Layout.leftMargin: !LayoutMirroring.enabled ? (0.3 * 30) : 0
-            Layout.rightMargin: LayoutMirroring.enabled ? (0.3 * 30) : 0
+        }
 
-            Button {
-                text: i18n("Add new path")
-                onClicked: fileDialog.open()
+        Rectangle {
+            Layout.fillHeight: true
+            Layout.fillWidth: true
 
-                Accessible.onPressAction: onClicked
+            color: myPalette.window
 
-                Layout.alignment: Qt.AlignTop | Qt.AlignLeft
+            ColumnLayout {
+                spacing: 0
 
-                Dialogs.FileDialog {
-                    id: fileDialog
-                    title: i18n("Choose a Folder")
-                    folder: shortcuts.home
-                    selectFolder: true
+                anchors.fill: parent
 
-                    visible: false
+                StackLayout {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
 
-                    onAccepted: {
-                        var oldPaths = config.rootPath
-                        oldPaths.push(fileDialog.fileUrls)
-                        config.rootPath = oldPaths
+                    Layout.leftMargin: 10
+                    Layout.rightMargin: 10
+                    Layout.topMargin: 10
+                    Layout.bottomMargin: 10
+
+                    currentIndex: pagesList.currentIndex
+
+                    Item {
+                    }
+
+                    FileScanningConfiguration {
                     }
                 }
-            }
 
-            Item {
-                Layout.fillHeight: true
+                DialogButtonBox {
+                    Layout.fillWidth: true
+
+                    standardButtons: DialogButtonBox.Ok | DialogButtonBox.Apply | DialogButtonBox.Cancel
+
+                    onAccepted: {
+                        config.save()
+                        close()
+                    }
+
+                    onApplied: config.save()
+
+                    onRejected: close()
+                }
             }
         }
     }
 
-    onAccepted: {
-        config.save()
-        close()
+    Component.onCompleted: {
+        settingsPagesModel.insert(0, { "pageName": i18nc("Settings page about main preference", "General"), "iconName": 'settings-configure' })
+        settingsPagesModel.insert(1, { "pageName": i18nc("Settings page about music search folders configuration", "Music Search Folders"), "iconName": 'folder-music' })
     }
-
-    onApply: config.save()
 }

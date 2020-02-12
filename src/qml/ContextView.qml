@@ -21,6 +21,7 @@ import QtQuick.Window 2.2
 import QtQuick.Controls 2.2
 import QtQml.Models 2.2
 import QtQuick.Layouts 1.2
+import QtGraphicalEffects 1.0
 
 import org.kde.elisa 1.0
 
@@ -87,143 +88,150 @@ FocusScope {
             ]
         }
 
-        // Scrollview to hold all the content
-        ScrollView {
-            clip: true
-
-            contentWidth: content.width
-            contentHeight: content.height
-
+        // Container to hold both the blurred background and the scrollview
+        // We can't make the scrollview a child of the background item since then
+        // everything in the scrollview will be blurred and transparent too!
+        Item {
             Layout.fillWidth: true
             Layout.fillHeight: true
 
-            // Album Art + title + metadata + lyrics
-            ColumnLayout {
-                id: content
+            // Blurred album art background
+            Image {
+                id: albumArtBackground
+                anchors.fill: parent
 
-                width: topItem.width
-                anchors.leftMargin: elisaTheme.layoutHorizontalMargin
-                anchors.rightMargin: elisaTheme.layoutHorizontalMargin
+                source: albumArtUrl.toString() === '' ? Qt.resolvedUrl(elisaTheme.defaultAlbumImage) : albumArtUrl
 
-                // Album art slice
-                Image {
-                    id: albumIcon
-                    source: albumArtUrl.toString() === '' ? Qt.resolvedUrl(elisaTheme.defaultAlbumImage) : albumArtUrl
+                sourceSize.width: topItem.width
+                sourceSize.height: topItem.height
 
-                    Layout.maximumHeight: elisaTheme.contextCoverImageSize
-                    Layout.preferredHeight: elisaTheme.contextCoverImageSize
-                    Layout.fillWidth: true
-                    Layout.bottomMargin: elisaTheme.layoutVerticalMargin
+                asynchronous: true
 
-                    // Touch the sides of the scrollview
-                    Layout.leftMargin: -elisaTheme.layoutHorizontalMargin
-                    Layout.rightMargin: -elisaTheme.layoutHorizontalMargin
+                fillMode: Image.PreserveAspectCrop
 
-                    sourceSize.width: topItem.width
-                    sourceSize.height: topItem.width
-
-                    asynchronous: true
-
-                    fillMode: Image.PreserveAspectCrop
+                layer.enabled: true
+                opacity: 0.2
+                layer.effect: FastBlur {
+                    source: albumArtBackground
+//                     anchors.fill: parent
+                    radius: 40
                 }
+            }
 
-                // Song title
-                LabelWithToolTip {
-                    id: titleLabel
+            // Scrollview to hold all the content
+            ScrollView {
+                anchors.fill: parent
+                clip: true
 
-                    level: 1
+                contentWidth: content.width
+                contentHeight: content.height
 
-                    horizontalAlignment: Label.AlignHCenter
-
-                    Layout.fillWidth: true
-                    Layout.alignment: Qt.AlignTop
-
-                    Layout.topMargin: elisaTheme.layoutVerticalMargin
-                }
-
-                LabelWithToolTip {
-                    id: subtitleLabel
-
-                    text: {
-                        if (artistName !== '' && albumName !== '') {
-                            return i18nc("display of artist and album in context view", "<i>by</i> <b>%1</b> <i>from</i> <b>%2</b>", artistName, albumName)
-                        } else if (artistName === '' && albumName !== '') {
-                            return i18nc("display of album in context view", "<i>from</i> <b>%1</b>", albumName)
-                        } else if (artistName !== '' && albumName === '') {
-                            i18nc("display of artist in context view", "<i>by</i> <b>%1</b>", artistName)
-                        }
-                    }
-
-                    level: 3
-                    opacity: 0.6
-
-                    horizontalAlignment: Label.AlignHCenter
-
-                    visible: artistName !== '' && albumName !== ''
-
-                    Layout.fillWidth: true
-                    Layout.alignment: Qt.AlignTop
-                }
-
-                // Horizontal line separating title and subtitle from metadata
-                Rectangle {
-                    Layout.fillWidth: true
-                    Layout.leftMargin: elisaTheme.layoutHorizontalMargin * 5
-                    Layout.rightMargin: elisaTheme.layoutHorizontalMargin * 5
-                    Layout.topMargin: elisaTheme.layoutVerticalMargin * 2
-                    Layout.bottomMargin: elisaTheme.layoutVerticalMargin * 2
-
-                    height: 1
-
-                    color: myPalette.mid
-                }
-
-                // Metadata
+                // Title + metadata + lyrics
                 ColumnLayout {
-                    id: allMetaData
+                    id: content
 
-                    spacing: 0
-                    Layout.fillWidth: true
+                    width: topItem.width
+                    anchors.leftMargin: elisaTheme.layoutHorizontalMargin
+                    anchors.rightMargin: elisaTheme.layoutHorizontalMargin
 
-                    Repeater {
-                        id: trackData
+                    // Song title
+                    LabelWithToolTip {
+                        id: titleLabel
 
-                        model: metaDataModel
+                        level: 1
 
-                        delegate: MetaDataDelegate {
-                            Layout.fillWidth: true
+                        horizontalAlignment: Label.AlignHCenter
+
+                        Layout.fillWidth: true
+                        Layout.alignment: Qt.AlignTop
+
+                        Layout.topMargin: elisaTheme.layoutVerticalMargin
+                    }
+
+                    LabelWithToolTip {
+                        id: subtitleLabel
+
+                        text: {
+                            if (artistName !== '' && albumName !== '') {
+                                return i18nc("display of artist and album in context view", "<i>by</i> <b>%1</b> <i>from</i> <b>%2</b>", artistName, albumName)
+                            } else if (artistName === '' && albumName !== '') {
+                                return i18nc("display of album in context view", "<i>from</i> <b>%1</b>", albumName)
+                            } else if (artistName !== '' && albumName === '') {
+                                i18nc("display of artist in context view", "<i>by</i> <b>%1</b>", artistName)
+                            }
+                        }
+
+                        level: 3
+                        opacity: 0.6
+
+                        horizontalAlignment: Label.AlignHCenter
+
+                        visible: artistName !== '' && albumName !== ''
+
+                        Layout.fillWidth: true
+                        Layout.alignment: Qt.AlignTop
+                    }
+
+                    // Horizontal line separating title and subtitle from metadata
+                    Rectangle {
+                        Layout.fillWidth: true
+                        Layout.leftMargin: elisaTheme.layoutHorizontalMargin * 5
+                        Layout.rightMargin: elisaTheme.layoutHorizontalMargin * 5
+                        Layout.topMargin: elisaTheme.layoutVerticalMargin * 2
+                        Layout.bottomMargin: elisaTheme.layoutVerticalMargin * 2
+
+                        height: 1
+
+                        color: myPalette.mid
+                    }
+
+                    // Metadata
+                    ColumnLayout {
+                        id: allMetaData
+
+                        spacing: 0
+                        Layout.fillWidth: true
+
+                        Repeater {
+                            id: trackData
+
+                            model: metaDataModel
+
+                            delegate: MetaDataDelegate {
+                                Layout.fillWidth: true
+                            }
                         }
                     }
-                }
 
-                // Horizontal line separating metadata from lyrics
-                Rectangle {
-                    Layout.fillWidth: true
-                    Layout.leftMargin: elisaTheme.layoutHorizontalMargin * 5
-                    Layout.rightMargin: elisaTheme.layoutHorizontalMargin * 5
-                    Layout.topMargin: elisaTheme.layoutVerticalMargin * 2
-                    Layout.bottomMargin: elisaTheme.layoutVerticalMargin * 2
+                    // Horizontal line separating metadata from lyrics
+                    Rectangle {
+                        Layout.fillWidth: true
+                        Layout.leftMargin: elisaTheme.layoutHorizontalMargin * 5
+                        Layout.rightMargin: elisaTheme.layoutHorizontalMargin * 5
+                        Layout.topMargin: elisaTheme.layoutVerticalMargin * 2
+                        Layout.bottomMargin: elisaTheme.layoutVerticalMargin * 2
 
-                    height: 1
+                        height: 1
 
-                    color: myPalette.mid
+                        color: myPalette.mid
 
-                    visible: metaDataModel.lyrics !== ""
-                }
+                        visible: metaDataModel.lyrics !== ""
+                    }
 
-                // Lyrics
-                Label {
-                    text: metaDataModel.lyrics
+                    // Lyrics
+                    Label {
+                        text: metaDataModel.lyrics
 
-                    wrapMode: Text.WordWrap
+                        wrapMode: Text.WordWrap
 
-                    horizontalAlignment: Label.AlignHCenter
+                        horizontalAlignment: Label.AlignHCenter
 
-                    Layout.fillWidth: true
-                    Layout.bottomMargin: elisaTheme.layoutVerticalMargin
+                        Layout.fillWidth: true
+                        Layout.bottomMargin: elisaTheme.layoutVerticalMargin
 
-                    visible: metaDataModel.lyrics !== ""
+                        visible: metaDataModel.lyrics !== ""
 
+                    }
                 }
             }
         }

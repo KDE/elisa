@@ -84,6 +84,8 @@ public:
 
     QFileSystemWatcher mConfigFileWatcher;
 
+    QStringList mPreviousRootPathValue;
+
     ElisaApplication *mElisaApplication = nullptr;
 
     int mImportedTracksCount = 0;
@@ -321,9 +323,15 @@ void MusicListenersManager::configChanged()
     currentConfiguration->load();
     currentConfiguration->read();
 
+    auto inputRootPath = currentConfiguration->rootPath();
+    if (d->mPreviousRootPathValue == inputRootPath) {
+        qCDebug(orgKdeElisaIndexersManager()) << "root paths configuration is not changed";
+        return;
+    }
+    d->mPreviousRootPathValue = inputRootPath;
+
     //resolve symlinks
     QStringList allRootPaths;
-    auto inputRootPath = currentConfiguration->rootPath();
     for (const auto &onePath : inputRootPath) {
         auto workPath = onePath;
         if (workPath.startsWith(QLatin1String("file:/"))) {

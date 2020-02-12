@@ -33,6 +33,12 @@ Window {
     minimumWidth: 600
     minimumHeight: 400
 
+    Shortcut {
+        sequence: StandardKey.Cancel
+
+        onActivated: close()
+    }
+
     SystemPalette {
         id: myPalette
         colorGroup: SystemPalette.Active

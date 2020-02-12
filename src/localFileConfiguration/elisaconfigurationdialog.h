@@ -33,6 +33,11 @@ class ELISALIB_EXPORT ElisaConfigurationDialog : public QObject
                WRITE setRootPath
                NOTIFY rootPathChanged)
 
+    Q_PROPERTY(bool showProgressInTaskBar
+               READ showProgressInTaskBar
+               WRITE setShowProgressInTaskBar
+               NOTIFY showProgressInTaskBarChanged)
+
     Q_PROPERTY(bool isDirty
                READ isDirty
                NOTIFY isDirtyChanged)
@@ -50,11 +55,18 @@ public:
         return mIsDirty;
     }
 
+    bool showProgressInTaskBar() const
+    {
+        return mShowProgressInTaskBar;
+    }
+
 Q_SIGNALS:
 
     void rootPathChanged(const QStringList &rootPath);
 
     void isDirtyChanged();
+
+    void showProgressInTaskBarChanged();
 
 public Q_SLOTS:
 
@@ -62,11 +74,15 @@ public Q_SLOTS:
 
     void save();
 
+    void setShowProgressInTaskBar(bool showProgressInTaskBar);
+
 private Q_SLOTS:
 
     void configChanged();
 
 private:
+
+    void setDirty();
 
     QStringList mRootPath;
 
@@ -74,6 +90,7 @@ private:
 
     bool mIsDirty = false;
 
+    bool mShowProgressInTaskBar = true;
 };
 
 #endif

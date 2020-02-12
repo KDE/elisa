@@ -113,7 +113,7 @@ Window {
 
                     currentIndex: pagesList.currentIndex
 
-                    Item {
+                    GeneralConfiguration {
                     }
 
                     FileScanningConfiguration {

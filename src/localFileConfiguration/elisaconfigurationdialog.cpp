@@ -35,6 +35,7 @@ ElisaConfigurationDialog::ElisaConfigurationDialog(QObject* parent)
 
 
     setRootPath(Elisa::ElisaConfiguration::rootPath());
+    setShowProgressInTaskBar(Elisa::ElisaConfiguration::showProgressOnTaskBar());
     save();
 
     mConfigFileWatcher.addPath(Elisa::ElisaConfiguration::self()->config()->name());
@@ -78,22 +79,40 @@ void ElisaConfigurationDialog::setRootPath(const QStringList &rootPath)
 
     Q_EMIT rootPathChanged(mRootPath);
 
-    mIsDirty = true;
-    Q_EMIT isDirtyChanged();
+    setDirty();
 }
 
 void ElisaConfigurationDialog::save()
 {
     Elisa::ElisaConfiguration::setRootPath(mRootPath);
+    Elisa::ElisaConfiguration::setShowProgressOnTaskBar(mShowProgressInTaskBar);
     Elisa::ElisaConfiguration::self()->save();
 
     mIsDirty = false;
     Q_EMIT isDirtyChanged();
 }
 
+void ElisaConfigurationDialog::setShowProgressInTaskBar(bool showProgressInTaskBar)
+{
+    if (mShowProgressInTaskBar == showProgressInTaskBar) {
+        return;
+    }
+
+    mShowProgressInTaskBar = showProgressInTaskBar;
+    Q_EMIT showProgressInTaskBarChanged();
+
+    setDirty();
+}
+
 void ElisaConfigurationDialog::configChanged()
 {
     setRootPath(Elisa::ElisaConfiguration::rootPath());
+}
+
+void ElisaConfigurationDialog::setDirty()
+{
+    mIsDirty = true;
+    Q_EMIT isDirtyChanged();
 }
 
 

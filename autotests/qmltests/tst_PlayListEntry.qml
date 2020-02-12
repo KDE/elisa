@@ -50,9 +50,7 @@ Item {
             id: elisaTheme
 
             property int layoutHorizontalMargin: 8
-            property int ratingStarSize: 15
             property int playListDelegateHeight: 28
-            property int smallControlButtonSize: 22
         }
     }
 

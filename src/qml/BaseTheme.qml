@@ -53,11 +53,8 @@ Item {
 
     property int delegateToolButtonSize: 34
 
-    property int ratingStarSize: 15
-
     property int mediaPlayerControlHeight: 42
     property real mediaPlayerControlOpacity: 0.6
-    property int smallControlButtonSize: 22
     property int volumeSliderWidth: 100
 
     property int dragDropPlaceholderHeight: 28

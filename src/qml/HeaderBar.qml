@@ -294,7 +294,6 @@ FocusScope {
                 RatingStar {
                     id: mainRating
                     visible: ratingVisible
-                    starSize: elisaTheme.ratingStarSize
                     starRating: trackRating
                     Layout.alignment: Qt.AlignLeft
                 }

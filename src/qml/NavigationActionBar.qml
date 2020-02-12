@@ -198,7 +198,6 @@ ColumnLayout {
 
                 readOnly: false
 
-                starSize: elisaTheme.ratingStarSize
             }
         ]
     }

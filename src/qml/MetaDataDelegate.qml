@@ -118,7 +118,6 @@ RowLayout {
 
         sourceComponent: RatingStar {
             starRating: model.display
-            starSize: elisaTheme.ratingStarSize
 
             readOnly: true
 

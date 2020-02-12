@@ -296,8 +296,6 @@ FocusScope {
             RatingStar {
                 id: ratingWidget
 
-                starSize: elisaTheme.ratingStarSize
-
                 starRating: rating
 
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignRight

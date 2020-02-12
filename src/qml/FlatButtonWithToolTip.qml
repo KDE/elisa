@@ -21,6 +21,7 @@ import QtQuick 2.7
 import QtQuick.Layouts 1.2
 import QtGraphicalEffects 1.0
 import QtQuick.Controls 2.3
+import org.kde.kirigami 2.5 as Kirigami
 import org.kde.elisa 1.0
 
 Button {
@@ -34,8 +35,8 @@ Button {
     flat: true
     display: AbstractButton.IconOnly
 
-    icon.width: elisaTheme.smallControlButtonSize
-    icon.height: elisaTheme.smallControlButtonSize
+    icon.width: Kirigami.Units.iconSizes.smallMedium
+    icon.height: Kirigami.Units.iconSizes.smallMedium
 
     implicitWidth: icon.width + 16
     implicitHeight: icon.height + 16

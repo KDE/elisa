@@ -20,6 +20,7 @@ import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.3
 import QtQuick.Window 2.2
 import QtGraphicalEffects 1.0
+import org.kde.kirigami 2.5 as Kirigami
 import org.kde.elisa 1.0
 
 FocusScope {
@@ -132,10 +133,10 @@ FocusScope {
                 source: (isPlaying === MediaPlayList.IsPlaying ?
                              Qt.resolvedUrl(elisaTheme.playingIndicatorIcon) : Qt.resolvedUrl(elisaTheme.pausedIndicatorIcon))
 
-                width: elisaTheme.smallControlButtonSize
-                height: elisaTheme.smallControlButtonSize
-                sourceSize.width: elisaTheme.smallControlButtonSize
-                sourceSize.height: elisaTheme.smallControlButtonSize
+                width: Kirigami.Units.iconSizes.smallMedium
+                height: Kirigami.Units.iconSizes.smallMedium
+                sourceSize.width: Kirigami.Units.iconSizes.smallMedium
+                sourceSize.height: Kirigami.Units.iconSizes.smallMedium
                 fillMode: Image.PreserveAspectFit
                 mirror: LayoutMirroring.enabled
 
@@ -286,8 +287,6 @@ FocusScope {
             id: ratingWidget
 
             starRating: rating
-
-            starSize: elisaTheme.ratingStarSize
 
             visible: rating > 0
         }

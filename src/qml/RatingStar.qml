@@ -18,9 +18,9 @@
 import QtQuick 2.7
 import QtQuick.Layouts 1.2
 import QtGraphicalEffects 1.0
+import org.kde.kirigami 2.5 as Kirigami
 
 Row {
-    property int starSize
     property int starRating
     property bool readOnly: true
 
@@ -39,15 +39,15 @@ Row {
         Item {
             property int ratingThreshold: 2 + index * 2
 
-            height: starSize
-            width: starSize
+            height: Kirigami.Units.iconSizes.small
+            width: Kirigami.Units.iconSizes.small
 
             Image {
-                width: starSize
-                height: starSize
+                width: Kirigami.Units.iconSizes.small
+                height: Kirigami.Units.iconSizes.small
                 anchors.centerIn: parent
-                sourceSize.width: starSize
-                sourceSize.height: starSize
+                sourceSize.width: Kirigami.Units.iconSizes.small
+                sourceSize.height: Kirigami.Units.iconSizes.small
                 fillMode: Image.PreserveAspectFit
 
                 layer.enabled: hoveredRating >= ratingThreshold

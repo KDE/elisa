@@ -40,9 +40,7 @@ FocusScope {
         id: elisaTheme
         property int layoutHorizontalMargin: 8
         property int layoutVerticalMargin: 6
-        property int ratingStarSize: 15
-        property int navigationBarHeight: 100
-        property int smallControlButtonSize: 22
+        property int ratingStarSize: 16
     }
 
     SystemPalette {

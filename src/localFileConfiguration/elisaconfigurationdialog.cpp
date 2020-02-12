@@ -35,8 +35,7 @@ ElisaConfigurationDialog::ElisaConfigurationDialog(QObject* parent)
 
 
     setRootPath(Elisa::ElisaConfiguration::rootPath());
-    Elisa::ElisaConfiguration::setRootPath(mRootPath);
-    Elisa::ElisaConfiguration::self()->save();
+    save();
 
     mConfigFileWatcher.addPath(Elisa::ElisaConfiguration::self()->config()->name());
 }
@@ -78,12 +77,18 @@ void ElisaConfigurationDialog::setRootPath(const QStringList &rootPath)
     }
 
     Q_EMIT rootPathChanged(mRootPath);
+
+    mIsDirty = true;
+    Q_EMIT isDirtyChanged();
 }
 
 void ElisaConfigurationDialog::save()
 {
     Elisa::ElisaConfiguration::setRootPath(mRootPath);
     Elisa::ElisaConfiguration::self()->save();
+
+    mIsDirty = false;
+    Q_EMIT isDirtyChanged();
 }
 
 void ElisaConfigurationDialog::configChanged()

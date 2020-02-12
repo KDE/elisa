@@ -33,6 +33,10 @@ class ELISALIB_EXPORT ElisaConfigurationDialog : public QObject
                WRITE setRootPath
                NOTIFY rootPathChanged)
 
+    Q_PROPERTY(bool isDirty
+               READ isDirty
+               NOTIFY isDirtyChanged)
+
 public:
 
     explicit ElisaConfigurationDialog(QObject *parent = nullptr);
@@ -41,9 +45,16 @@ public:
 
     QStringList rootPath() const;
 
+    bool isDirty() const
+    {
+        return mIsDirty;
+    }
+
 Q_SIGNALS:
 
     void rootPathChanged(const QStringList &rootPath);
+
+    void isDirtyChanged();
 
 public Q_SLOTS:
 
@@ -60,6 +71,8 @@ private:
     QStringList mRootPath;
 
     QFileSystemWatcher mConfigFileWatcher;
+
+    bool mIsDirty = false;
 
 };
 

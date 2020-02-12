@@ -117,7 +117,22 @@ Window {
                 DialogButtonBox {
                     Layout.fillWidth: true
 
-                    standardButtons: DialogButtonBox.Ok | DialogButtonBox.Apply | DialogButtonBox.Cancel
+                    Button {
+                        text: i18n("OK")
+                        DialogButtonBox.buttonRole: DialogButtonBox.AcceptRole
+                    }
+
+                    Button {
+                        text: i18n("Apply")
+                        DialogButtonBox.buttonRole: DialogButtonBox.ApplyRole
+
+                        enabled: config.isDirty
+                    }
+
+                    Button {
+                        text: i18n("Cancel")
+                        DialogButtonBox.buttonRole: DialogButtonBox.RejectRole
+                    }
 
                     onAccepted: {
                         config.save()

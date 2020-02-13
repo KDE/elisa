@@ -120,6 +120,7 @@ FocusScope {
 
             // Scrollview to hold all the content
             ScrollView {
+                id: scrollView
                 anchors.fill: parent
                 clip: true
 
@@ -130,9 +131,7 @@ FocusScope {
                 ColumnLayout {
                     id: content
 
-                    width: topItem.width
-                    anchors.leftMargin: elisaTheme.layoutHorizontalMargin
-                    anchors.rightMargin: elisaTheme.layoutHorizontalMargin
+                    width: scrollView.width - scrollView.ScrollBar.vertical.width
 
                     // Song title
                     LabelWithToolTip {

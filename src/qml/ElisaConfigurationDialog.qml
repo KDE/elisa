@@ -53,108 +53,73 @@ Window {
         }
     }
 
-    RowLayout {
-        spacing: 0
-
+    Rectangle {
         anchors.fill: parent
-        anchors.margins: 0
 
-        ListView {
-            id: pagesList
+        color: myPalette.window
 
-            Layout.fillHeight: true
-            Layout.preferredWidth: 150
+        ColumnLayout {
+            spacing: 0
 
-            boundsBehavior: Flickable.StopAtBounds
+            anchors.fill: parent
 
-            delegate: ItemDelegate {
-                text: model.pageName
-                icon.name: model.iconName
-
-                width: pagesList.width
-
-                onClicked: pagesList.currentIndex = index
+            Kirigami.Heading {
+                text: i18n('General')
+                Layout.leftMargin: 5
+                Layout.rightMargin: 5
             }
 
-            model: ListModel {
-                id: settingsPagesModel
+            GeneralConfiguration {
+                Layout.fillWidth: true
+                Layout.topMargin: 10
+                Layout.leftMargin: 20
+                Layout.rightMargin: 10
             }
 
-            ScrollBar.vertical: ScrollBar {
-                id: scrollBar
+            Kirigami.Heading {
+                text: i18n('Music Search Paths')
+                Layout.leftMargin: 5
+                Layout.rightMargin: 5
+                Layout.topMargin: 15
             }
 
-            highlight: highlightBar
-        }
+            FileScanningConfiguration {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                Layout.leftMargin: 10
+                Layout.rightMargin: 10
+                Layout.topMargin: 10
+            }
 
-        Kirigami.Separator {
-            Layout.fillHeight: true
-        }
+            DialogButtonBox {
+                Layout.fillWidth: true
 
-        Rectangle {
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-
-            color: myPalette.window
-
-            ColumnLayout {
-                spacing: 0
-
-                anchors.fill: parent
-
-                StackLayout {
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-
-                    Layout.leftMargin: 10
-                    Layout.rightMargin: 10
-                    Layout.topMargin: 10
-                    Layout.bottomMargin: 10
-
-                    currentIndex: pagesList.currentIndex
-
-                    GeneralConfiguration {
-                    }
-
-                    FileScanningConfiguration {
-                    }
+                Button {
+                    text: i18n("OK")
+                    DialogButtonBox.buttonRole: DialogButtonBox.AcceptRole
                 }
 
-                DialogButtonBox {
-                    Layout.fillWidth: true
+                Button {
+                    text: i18n("Apply")
+                    DialogButtonBox.buttonRole: DialogButtonBox.ApplyRole
 
-                    Button {
-                        text: i18n("OK")
-                        DialogButtonBox.buttonRole: DialogButtonBox.AcceptRole
-                    }
-
-                    Button {
-                        text: i18n("Apply")
-                        DialogButtonBox.buttonRole: DialogButtonBox.ApplyRole
-
-                        enabled: config.isDirty
-                    }
-
-                    Button {
-                        text: i18n("Cancel")
-                        DialogButtonBox.buttonRole: DialogButtonBox.RejectRole
-                    }
-
-                    onAccepted: {
-                        config.save()
-                        close()
-                    }
-
-                    onApplied: config.save()
-
-                    onRejected: close()
+                    enabled: config.isDirty
                 }
+
+                Button {
+                    text: i18n("Cancel")
+                    DialogButtonBox.buttonRole: DialogButtonBox.RejectRole
+                }
+
+                onAccepted: {
+                    config.save()
+                    close()
+                }
+
+                onApplied: config.save()
+
+                onRejected: close()
             }
         }
-    }
-
-    Component.onCompleted: {
-        settingsPagesModel.insert(0, { "pageName": i18nc("Settings page about main preference", "General"), "iconName": 'settings-configure' })
-        settingsPagesModel.insert(1, { "pageName": i18nc("Settings page about music search folders configuration", "Music Search Folders"), "iconName": 'folder-music' })
     }
 }

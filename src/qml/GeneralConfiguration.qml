@@ -32,7 +32,7 @@ ColumnLayout {
     CheckBox {
         checked: config.showProgressInTaskBar
 
-        text: i18nc("Option to control the display of music progress on taskbar entries", "Show progress on taskbar entries")
+        text: i18n("Show progress on Task Manager entries")
 
         onCheckedChanged: config.showProgressInTaskBar = checked
     }

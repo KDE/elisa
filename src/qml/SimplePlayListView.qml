@@ -91,8 +91,9 @@ ListView {
 
         delegate: MouseArea {
             id: item
-            height: elisaTheme.playListDelegateHeight
-            width: scrollBar.visible ? (!LayoutMirroring.enabled ? playListView.width - scrollBar.width : playListView.width) : playListView.width
+
+            height: entry.height
+            width: scrollBar.visible ? (!LayoutMirroring.enabled ? playListView.width - scrollBar.width : playListView.width) : playListView.width         
 
             onClicked: playListView.playListModel.switchTo(index)
 

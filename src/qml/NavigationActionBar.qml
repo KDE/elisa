@@ -247,6 +247,8 @@ ColumnLayout {
                 Layout.fillWidth: true
                 focusSequence: null
 
+                selectByMouse: true
+
                 Accessible.role: Accessible.EditableText
 
                 placeholderText: i18n("Search for album name, artist, etc.")

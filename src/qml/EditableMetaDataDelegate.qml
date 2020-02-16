@@ -67,6 +67,8 @@ RowLayout {
 
             horizontalAlignment: Text.AlignLeft
 
+            selectByMouse: true
+
             anchors.fill: parent
 
             onTextEdited: {

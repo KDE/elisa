@@ -26,7 +26,6 @@ FocusScope {
         height: 160
         width: 100
 
-        shadowForImage: true
         mainText: "hello"
         secondaryText: "hello secondary"
         databaseId: 1

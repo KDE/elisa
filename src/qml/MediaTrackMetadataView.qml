@@ -75,10 +75,11 @@ Window {
 
             spacing: 0
 
-            Image {
+            ImageWithFallback {
                 id: metadataImage
 
                 source: realModel.coverUrl
+                fallback: elisaTheme.defaultAlbumImage
 
                 sourceSize.width: elisaTheme.coverImageSize
                 sourceSize.height: elisaTheme.coverImageSize
@@ -92,12 +93,6 @@ Window {
                 Layout.minimumWidth: elisaTheme.coverImageSize
                 Layout.maximumHeight: elisaTheme.coverImageSize
                 Layout.maximumWidth: elisaTheme.coverImageSize
-
-                onStatusChanged: {
-                    if (metadataImage.status === Image.Error) {
-                        source = Qt.resolvedUrl(elisaTheme.defaultAlbumImage)
-                    }
-                }
             }
 
             ListView {
@@ -247,14 +242,6 @@ Window {
             } else {
                 realModel.initializeByUrl(modelType, fileName)
             }
-        }
-    }
-
-    Connections {
-        target: realModel
-
-        onCoverUrlChanged: {
-            metadataImage.source = realModel.coverUrl
         }
     }
 

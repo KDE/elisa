@@ -374,6 +374,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         qml/RatingStar.qml
         qml/DraggableItem.qml
         qml/TrackImportNotification.qml
+        qml/ImageWithFallback.qml
 
         qml/HeaderBar.qml
         qml/NavigationActionBar.qml

@@ -46,12 +46,14 @@ Rectangle {
 
         spacing: elisaTheme.layoutHorizontalMargin / 4
 
-        Image {
+        ImageWithFallback {
             Layout.preferredWidth: elisaTheme.playListAlbumArtSize
             Layout.preferredHeight: elisaTheme.playListAlbumArtSize
             Layout.margins: elisaTheme.layoutHorizontalMargin
 
-            source: (imageUrl != '' ? imageUrl : Qt.resolvedUrl(elisaTheme.defaultAlbumImage))
+            source: imageUrl
+            fallback: elisaTheme.defaultAlbumImage
+
             sourceSize.width: elisaTheme.playListAlbumArtSize
             sourceSize.height: elisaTheme.playListAlbumArtSize
 

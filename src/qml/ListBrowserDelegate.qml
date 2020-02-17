@@ -141,7 +141,7 @@ FocusScope {
                 }
             }
 
-            Image {
+            ImageWithFallback {
                 id: coverImageElement
 
                 Layout.preferredHeight: mediaTrack.height - elisaTheme.layoutVerticalMargin
@@ -158,11 +158,12 @@ FocusScope {
                 fillMode: Image.PreserveAspectFit
                 smooth: true
 
-                source: (imageUrl != '' ? imageUrl : Qt.resolvedUrl(elisaTheme.defaultAlbumImage))
+                source: imageUrl
+                fallback: elisaTheme.defaultAlbumImage
 
                 asynchronous: true
 
-                layer.enabled: imageUrl != ''
+                layer.enabled: !usingFallback
 
                 layer.effect: DropShadow {
                     source: coverImageElement
@@ -172,12 +173,6 @@ FocusScope {
                     samples: 21
 
                     color: myPalette.shadow
-                }
-
-                onStatusChanged: {
-                    if (coverImageElement.status === Image.Error) {
-                        source = 'image://icon/media-optical-audio'
-                    }
                 }
             }
 
@@ -323,16 +318,6 @@ FocusScope {
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
                 Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
                 Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-            }
-        }
-    }
-
-    Connections {
-        target: mediaTrack
-
-        onImageUrlChanged: {
-            if (coverImageElement.source !== imageUrl) {
-                coverImageElement.source = (imageUrl != '' ? imageUrl : Qt.resolvedUrl(elisaTheme.defaultAlbumImage))
             }
         }
     }

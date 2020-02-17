@@ -26,8 +26,8 @@ import org.kde.kirigami 2.5 as Kirigami
 FocusScope {
     id: gridEntry
 
-    property var imageUrl
-    property bool shadowForImage
+    property url imageUrl
+    property url imageFallbackUrl
     property url fileUrl
     property var entryType
     property alias mainText: mainLabel.text
@@ -235,7 +235,7 @@ FocusScope {
 
                     anchors.fill: parent
 
-                    sourceComponent: Image {
+                    sourceComponent: ImageWithFallback {
                         id: coverImage
 
                         anchors.fill: parent
@@ -245,11 +245,12 @@ FocusScope {
                         fillMode: Image.PreserveAspectFit
                         smooth: true
 
-                        source: (gridEntry.imageUrl !== undefined ? gridEntry.imageUrl : "")
+                        source: gridEntry.imageUrl
+                        fallback: gridEntry.imageFallbackUrl
 
                         asynchronous: true
 
-                        layer.enabled: shadowForImage
+                        layer.enabled: !coverImage.usingFallback
                         layer.effect: DropShadow {
                             source: coverImage
 

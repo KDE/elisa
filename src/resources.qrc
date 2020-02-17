@@ -33,6 +33,7 @@
         <file>qml/ViewSelector.qml</file>
         <file>qml/BasicPlayListAlbumHeader.qml</file>
         <file>qml/MetaDataDelegate.qml</file>
+        <file>qml/ImageWithFallback.qml</file>
         <file>qml/EditableMetaDataDelegate.qml</file>
         <file>qml/ViewSelectorDelegate.qml</file>
         <file>qml/HeaderFooterToolbar.qml</file>

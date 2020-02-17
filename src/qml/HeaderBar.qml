@@ -57,11 +57,11 @@ FocusScope {
         id: background
         anchors.fill: parent
 
-        Image {
+        ImageWithFallback {
             id: oldBackground
 
-            source: (oldImage ? oldImage : Qt.resolvedUrl(elisaTheme.defaultBackgroundImage))
-
+            source: oldImage
+            fallback: elisaTheme.defaultBackgroundImage
             asynchronous: true
 
             anchors.fill: parent
@@ -91,10 +91,11 @@ FocusScope {
             }
         }
 
-        Image {
+        ImageWithFallback {
             id: newBackground
 
-            source: (newImage ? newImage : Qt.resolvedUrl(elisaTheme.defaultBackgroundImage))
+            source: newImage
+            fallback: Qt.resolvedUrl(elisaTheme.defaultBackgroundImage)
 
             asynchronous: true
 
@@ -167,7 +168,7 @@ FocusScope {
                 Layout.leftMargin: !LayoutMirroring.enabled ? contentZone.width * 0.15 : 0
                 Layout.rightMargin: LayoutMirroring.enabled ? contentZone.width * 0.15 : 0
 
-                Image {
+                ImageWithFallback {
                     id: oldMainIcon
 
                     anchors.fill: parent
@@ -175,7 +176,8 @@ FocusScope {
                     asynchronous: true
                     mipmap: true
 
-                    source: (oldImage ? oldImage : Qt.resolvedUrl(elisaTheme.defaultAlbumImage))
+                    source: oldImage
+                    fallback: Qt.resolvedUrl(elisaTheme.defaultAlbumImage)
 
                     sourceSize {
                         width: imageSourceSize
@@ -185,7 +187,7 @@ FocusScope {
                     fillMode: Image.PreserveAspectFit
                 }
 
-                Image {
+                ImageWithFallback {
                     id: newMainIcon
 
                     anchors.fill: parent
@@ -193,7 +195,8 @@ FocusScope {
                     asynchronous: true
                     mipmap: true
 
-                    source: (newImage ? newImage : Qt.resolvedUrl(elisaTheme.defaultAlbumImage))
+                    source: newImage
+                    fallback: Qt.resolvedUrl(elisaTheme.defaultAlbumImage)
 
                     visible: false
                     opacity: 0

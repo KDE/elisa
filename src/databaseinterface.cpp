@@ -6887,75 +6887,6 @@ qulonglong DatabaseInterface::internalInsertTrack(const DataTypes::TrackDataType
     return resultId;
 }
 
-DataTypes::TrackDataType DatabaseInterface::buildTrackFromDatabaseRecord(const QSqlRecord &trackRecord) const
-{
-    auto id = trackRecord.value(0).toULongLong();
-
-    auto result = DataTypes::TrackDataType();
-
-    if (result.isValid()) {
-        return result;
-    }
-
-    result[DataTypes::ColumnsRoles::DatabaseIdRole] = id;
-    result[DataTypes::ColumnsRoles::TitleRole] = trackRecord.value(1).toString();
-    result[DataTypes::ColumnsRoles::AlbumIdRole] = trackRecord.value(2).toULongLong();
-    result[DataTypes::ColumnsRoles::ArtistRole] = trackRecord.value(3).toString();
-
-    if (trackRecord.value(6).isValid()) {
-        result[DataTypes::ColumnsRoles::AlbumArtistRole] = trackRecord.value(6).toString();
-    } else {
-        if (trackRecord.value(5).toInt() == 1) {
-            result[DataTypes::ColumnsRoles::AlbumArtistRole] = trackRecord.value(6).toString();
-        } else if (trackRecord.value(5).toInt() > 1) {
-            result[DataTypes::ColumnsRoles::AlbumArtistRole] = QStringLiteral("Various Artists");
-        }
-    }
-
-    result[DataTypes::ColumnsRoles::ResourceRole] = trackRecord.value(7).toUrl();
-    result[DataTypes::ColumnsRoles::FileModificationTime] = trackRecord.value(8).toDateTime();
-    if (trackRecord.value(9).isValid()) {
-        result[DataTypes::ColumnsRoles::TrackNumberRole] = trackRecord.value(9).toInt();
-    }
-    if (trackRecord.value(10).isValid()) {
-        result[DataTypes::ColumnsRoles::DiscNumberRole] = trackRecord.value(10).toInt();
-    }
-    result[DataTypes::ColumnsRoles::DurationRole] = QTime::fromMSecsSinceStartOfDay(trackRecord.value(11).toInt());
-    result[DataTypes::ColumnsRoles::AlbumRole] = trackRecord.value(12).toString();
-    result[DataTypes::ColumnsRoles::RatingRole] = trackRecord.value(13).toInt();
-    result[DataTypes::ColumnsRoles::ImageUrlRole] = trackRecord.value(14).toUrl();
-    result[DataTypes::ColumnsRoles::IsSingleDiscAlbumRole] = trackRecord.value(15).toBool();
-    result[DataTypes::ColumnsRoles::GenreRole] = trackRecord.value(16).toString();
-    result[DataTypes::ColumnsRoles::ComposerRole] = trackRecord.value(17).toString();
-    result[DataTypes::ColumnsRoles::LyricistRole] = trackRecord.value(18).toString();
-    result[DataTypes::ColumnsRoles::CommentRole] = trackRecord.value(19).toString();
-    result[DataTypes::ColumnsRoles::YearRole] = trackRecord.value(20).toInt();
-    if (trackRecord.value(21).isValid()) {
-        bool isValid;
-        auto value = trackRecord.value(21).toInt(&isValid);
-        if (isValid) {
-            result[DataTypes::ColumnsRoles::ChannelsRole] = value;
-        }
-    }
-    if (trackRecord.value(22).isValid()) {
-        bool isValid;
-        auto value = trackRecord.value(22).toInt(&isValid);
-        if (isValid) {
-            result[DataTypes::ColumnsRoles::BitRateRole] = value;
-        }
-    }
-    if (trackRecord.value(23).isValid()) {
-        bool isValid;
-        auto value = trackRecord.value(23).toInt(&isValid);
-        if (isValid) {
-            result[DataTypes::ColumnsRoles::SampleRateRole] = value;
-        }
-    }
-    result[DataTypes::ColumnsRoles::HasEmbeddedCover] = trackRecord.value(24).toBool();
-
-    return result;
-}
-
 DataTypes::TrackDataType DatabaseInterface::buildTrackDataFromDatabaseRecord(const QSqlRecord &trackRecord) const
 {
     DataTypes::TrackDataType result;
@@ -7708,7 +7639,7 @@ DataTypes::TrackDataType DatabaseInterface::internalTrackFromDatabaseId(qulonglo
 
     const auto &currentRecord = d->mSelectTrackFromIdQuery.record();
 
-    result = buildTrackFromDatabaseRecord(currentRecord);
+    result = buildTrackDataFromDatabaseRecord(currentRecord);
 
     d->mSelectTrackFromIdQuery.finish();
 

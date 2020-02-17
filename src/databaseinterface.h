@@ -240,8 +240,6 @@ private:
     qulonglong internalInsertTrack(const DataTypes::TrackDataType &oneModifiedTrack,
                                    const QHash<QString, QUrl> &covers, bool &isInserted);
 
-    DataTypes::TrackDataType buildTrackFromDatabaseRecord(const QSqlRecord &trackRecord) const;
-
     DataTypes::TrackDataType buildTrackDataFromDatabaseRecord(const QSqlRecord &trackRecord) const;
 
     DataTypes::TrackDataType buildRadioDataFromDatabaseRecord(const QSqlRecord &trackRecord) const;

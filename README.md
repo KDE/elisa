@@ -11,7 +11,10 @@ configured to scan music on chosen paths. The Baloo one is much faster because
 Baloo is providing all needed data from its own database. You can build and play
 your own playlist.
 
-![Screenshot All albums from an artist view of Elisa](https://community.kde.org/images.community/2/29/Screenshot_20180128_094158.png)
+![Screenshot Elisa albums view](https://community.kde.org/images.community/3/35/Elisa_albums_view.png)
+
+![Screenshot Elisa "Now Playing"" view](https://community.kde.org/images.community/7/75/Elisa_now_playing_view.png)
+
 
 ## Contributions
 

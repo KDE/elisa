@@ -36,6 +36,7 @@ ElisaConfigurationDialog::ElisaConfigurationDialog(QObject* parent)
 
     setRootPath(Elisa::ElisaConfiguration::rootPath());
     setShowProgressInTaskBar(Elisa::ElisaConfiguration::showProgressOnTaskBar());
+    setForceUsageOfFastFileSearch(Elisa::ElisaConfiguration::forceUsageOfFastFileSearch());
     save();
 
     mConfigFileWatcher.addPath(Elisa::ElisaConfiguration::self()->config()->name());
@@ -86,6 +87,7 @@ void ElisaConfigurationDialog::save()
 {
     Elisa::ElisaConfiguration::setRootPath(mRootPath);
     Elisa::ElisaConfiguration::setShowProgressOnTaskBar(mShowProgressInTaskBar);
+    Elisa::ElisaConfiguration::setForceUsageOfFastFileSearch(mForceUsageOfFastFileSearch);
     Elisa::ElisaConfiguration::self()->save();
 
     mIsDirty = false;
@@ -100,6 +102,18 @@ void ElisaConfigurationDialog::setShowProgressInTaskBar(bool showProgressInTaskB
 
     mShowProgressInTaskBar = showProgressInTaskBar;
     Q_EMIT showProgressInTaskBarChanged();
+
+    setDirty();
+}
+
+void ElisaConfigurationDialog::setForceUsageOfFastFileSearch(bool forceUsageOfFastFileSearch)
+{
+    if (mForceUsageOfFastFileSearch == forceUsageOfFastFileSearch) {
+        return;
+    }
+
+    mForceUsageOfFastFileSearch = forceUsageOfFastFileSearch;
+    Q_EMIT forceUsageOfFastFileSearchChanged();
 
     setDirty();
 }

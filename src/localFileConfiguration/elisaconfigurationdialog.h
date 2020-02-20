@@ -33,6 +33,11 @@ class ELISALIB_EXPORT ElisaConfigurationDialog : public QObject
                WRITE setRootPath
                NOTIFY rootPathChanged)
 
+    Q_PROPERTY(bool forceUsageOfFastFileSearch
+               READ forceUsageOfFastFileSearch
+               WRITE setForceUsageOfFastFileSearch
+               NOTIFY forceUsageOfFastFileSearchChanged)
+
     Q_PROPERTY(bool showProgressInTaskBar
                READ showProgressInTaskBar
                WRITE setShowProgressInTaskBar
@@ -60,6 +65,11 @@ public:
         return mShowProgressInTaskBar;
     }
 
+    bool forceUsageOfFastFileSearch() const
+    {
+        return mForceUsageOfFastFileSearch;
+    }
+
 Q_SIGNALS:
 
     void rootPathChanged(const QStringList &rootPath);
@@ -68,6 +78,8 @@ Q_SIGNALS:
 
     void showProgressInTaskBarChanged();
 
+    void forceUsageOfFastFileSearchChanged();
+
 public Q_SLOTS:
 
     void setRootPath(const QStringList &rootPath);
@@ -75,6 +87,8 @@ public Q_SLOTS:
     void save();
 
     void setShowProgressInTaskBar(bool showProgressInTaskBar);
+
+    void setForceUsageOfFastFileSearch(bool forceUsageOfFastFileSearch);
 
 private Q_SLOTS:
 
@@ -91,6 +105,7 @@ private:
     bool mIsDirty = false;
 
     bool mShowProgressInTaskBar = true;
+    bool mForceUsageOfFastFileSearch;
 };
 
 #endif

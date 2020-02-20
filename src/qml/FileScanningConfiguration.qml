@@ -21,125 +21,144 @@ import QtQuick.Layouts 1.3
 import QtQml.Models 2.3
 import QtQuick.Dialogs 1.2 as Dialogs
 
-RowLayout {
+ColumnLayout {
     spacing: 0
 
-    SystemPalette {
-        id: myPalette
-        colorGroup: SystemPalette.Active
+    CheckBox {
+        id: forceFileIndexerUsageCheckBox
+
+        text: i18n("Force use of filesystem indexing.\nThis is much slower than usage of fast search !\nPlease activate it only if Elisa cannot find your music and searching for the file also does not work.\nPlease report this as a bug.")
+
+        checked: !config.forceUsageOfFastFileSearch
+
+        onCheckedChanged: config.forceUsageOfFastFileSearch = !checked
     }
 
-    Component {
-        id: highlightBar
+    RowLayout {
+        Layout.fillHeight: true
+        Layout.fillWidth: true
 
-        Rectangle {
-            width: 200; height: 50
-            color: myPalette.highlight
+        Layout.topMargin: 10
+
+        spacing: 0
+
+        SystemPalette {
+            id: myPalette
+            colorGroup: SystemPalette.Active
         }
-    }
 
-    Component {
-        id: pathDelegate
-
-        Item {
-            id: delegateItem
-
-            height: 3 * 30
-
-            width: scrollBar.visible ? pathList.width - scrollBar.width : pathList.width
+        Component {
+            id: highlightBar
 
             Rectangle {
-                anchors.fill: parent
-                anchors.margins: 0.1 * 30
+                width: 200; height: 50
+                color: myPalette.highlight
+            }
+        }
 
-                color: myPalette.base
+        Component {
+            id: pathDelegate
 
-                MouseArea {
+            Item {
+                id: delegateItem
+
+                height: 3 * 30
+
+                width: scrollBar.visible ? pathList.width - scrollBar.width : pathList.width
+
+                Rectangle {
                     anchors.fill: parent
+                    anchors.margins: 0.1 * 30
 
-                    hoverEnabled: true
+                    color: myPalette.base
 
-                    onEntered: pathList.currentIndex = delegateItem.DelegateModel.itemsIndex
+                    MouseArea {
+                        anchors.fill: parent
 
-                    Label {
-                        text: modelData
+                        hoverEnabled: true
 
-                        anchors.centerIn: parent
-                    }
+                        onEntered: pathList.currentIndex = delegateItem.DelegateModel.itemsIndex
 
-                    ToolButton {
-                        icon.name: 'list-remove'
+                        Label {
+                            text: modelData
 
-                        Accessible.onPressAction: onClicked
+                            anchors.centerIn: parent
+                        }
 
-                        anchors.top: parent.top
-                        anchors.right: parent.right
+                        ToolButton {
+                            icon.name: 'list-remove'
 
-                        onClicked:
-                        {
-                            var oldPaths = config.rootPath
-                            oldPaths.splice(delegateItem.DelegateModel.itemsIndex, 1)
-                            config.rootPath = oldPaths
+                            Accessible.onPressAction: onClicked
+
+                            anchors.top: parent.top
+                            anchors.right: parent.right
+
+                            onClicked:
+                            {
+                                var oldPaths = config.rootPath
+                                oldPaths.splice(delegateItem.DelegateModel.itemsIndex, 1)
+                                config.rootPath = oldPaths
+                            }
                         }
                     }
                 }
             }
         }
-    }
 
-    ListView {
-        id:pathList
+        ListView {
+            id:pathList
 
-        Layout.fillWidth: true
-        Layout.fillHeight: true
-        boundsBehavior: Flickable.StopAtBounds
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            boundsBehavior: Flickable.StopAtBounds
 
-        clip: true
+            clip: true
 
-        model: DelegateModel {
-            model: config.rootPath
+            model: DelegateModel {
+                model: config.rootPath
 
-            delegate: pathDelegate
+                delegate: pathDelegate
+            }
+
+            ScrollBar.vertical: ScrollBar {
+                id: scrollBar
+            }
+
+            highlight: highlightBar
         }
 
-        ScrollBar.vertical: ScrollBar {
-            id: scrollBar
-        }
+        ColumnLayout {
+            Layout.fillHeight: true
+            Layout.leftMargin: !LayoutMirroring.enabled ? (0.3 * 30) : 0
+            Layout.rightMargin: LayoutMirroring.enabled ? (0.3 * 30) : 0
 
-        highlight: highlightBar
-    }
+            Button {
+                text: i18n("Add new path")
+                onClicked: fileDialog.open()
 
-    ColumnLayout {
-        Layout.fillHeight: true
-        Layout.leftMargin: !LayoutMirroring.enabled ? (0.3 * 30) : 0
-        Layout.rightMargin: LayoutMirroring.enabled ? (0.3 * 30) : 0
+                Accessible.onPressAction: onClicked
 
-        Button {
-            text: i18n("Add new path")
-            onClicked: fileDialog.open()
+                Layout.alignment: Qt.AlignTop | Qt.AlignLeft
 
-            Accessible.onPressAction: onClicked
+                Dialogs.FileDialog {
+                    id: fileDialog
+                    title: i18n("Choose a Folder")
+                    folder: shortcuts.home
+                    selectFolder: true
 
-            Layout.alignment: Qt.AlignTop | Qt.AlignLeft
+                    visible: false
 
-            Dialogs.FileDialog {
-                id: fileDialog
-                title: i18n("Choose a Folder")
-                folder: shortcuts.home
-                selectFolder: true
-
-                visible: false
-
-                onAccepted: {
-                    var oldPaths = config.rootPath
-                    oldPaths.push(fileDialog.fileUrls)
-                    config.rootPath = oldPaths
+                    onAccepted: {
+                        var oldPaths = config.rootPath
+                        oldPaths.push(fileDialog.fileUrls)
+                        config.rootPath = oldPaths
+                    }
                 }
             }
-        }
 
-        Item {
-            Layout.fillHeight: true
+            Item {
+                Layout.fillHeight: true
+            }
         }
     }
 }

@@ -46,6 +46,8 @@ private:
 
     void triggerStop() override;
 
+    DataTypes::TrackDataType scanOneFile(const QUrl &scanFile, const QFileInfo &scanFileInfo) override;
+
     std::unique_ptr<LocalFileListingPrivate> d;
 
 };

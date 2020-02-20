@@ -222,6 +222,8 @@ auto MusicListenersManager::initializeRootPath()
     }
 
     Elisa::ElisaConfiguration::setRootPath(initialRootPath);
+    Elisa::ElisaConfiguration::setShowProgressOnTaskBar(true);
+    Elisa::ElisaConfiguration::setForceUsageOfFastFileSearch(true);
     Elisa::ElisaConfiguration::self()->save();
 
     return initialRootPath;
@@ -365,16 +367,17 @@ void MusicListenersManager::configChanged()
     }
 
 #if defined KF5Baloo_FOUND && KF5Baloo_FOUND
-    if (d->mBalooIndexerAvailable && !d->mBalooIndexerActive && d->mBalooListener.canHandleRootPaths())
-    {
+    if (d->mBalooIndexerAvailable && !d->mBalooIndexerActive && d->mBalooListener.canHandleRootPaths() && currentConfiguration->forceUsageOfFastFileSearch()) {
         qCDebug(orgKdeElisaIndexersManager()) << "trigger start of baloo file indexer";
         QMetaObject::invokeMethod(d->mFileListener.fileListing(), "stop", Qt::BlockingQueuedConnection);
         d->mFileSystemIndexerActive = false;
         startBalooIndexing();
-    } else if (!d->mFileSystemIndexerActive && d->mBalooIndexerActive && !d->mBalooListener.canHandleRootPaths())
-    {
-        qCDebug(orgKdeElisaIndexersManager()) << "trigger stop of baloo file indexer";
-        QMetaObject::invokeMethod(d->mBalooListener.fileListing(), "stop", Qt::BlockingQueuedConnection);
+    } else if ((!d->mFileSystemIndexerActive && d->mBalooIndexerActive && !d->mBalooListener.canHandleRootPaths()) ||
+               !currentConfiguration->forceUsageOfFastFileSearch()) {
+        if (d->mBalooIndexerActive) {
+            qCDebug(orgKdeElisaIndexersManager()) << "trigger stop of baloo file indexer";
+            QMetaObject::invokeMethod(d->mBalooListener.fileListing(), "stop", Qt::BlockingQueuedConnection);
+        }
         d->mBalooIndexerActive = false;
         startLocalFileSystemIndexing();
     }

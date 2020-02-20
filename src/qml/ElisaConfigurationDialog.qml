@@ -65,30 +65,34 @@ Window {
 
             Kirigami.Heading {
                 text: i18n('General')
+
                 Layout.leftMargin: 5
                 Layout.rightMargin: 5
             }
 
             GeneralConfiguration {
                 Layout.fillWidth: true
+
                 Layout.topMargin: 10
                 Layout.leftMargin: 20
                 Layout.rightMargin: 10
             }
 
             Kirigami.Heading {
-                text: i18n('Music Search Paths')
+                text: i18n('Music Search Configuration')
+
+                Layout.topMargin: 15
                 Layout.leftMargin: 5
                 Layout.rightMargin: 5
-                Layout.topMargin: 15
             }
 
             FileScanningConfiguration {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                Layout.leftMargin: 10
-                Layout.rightMargin: 10
+
                 Layout.topMargin: 10
+                Layout.leftMargin: 20
+                Layout.rightMargin: 10
             }
 
             DialogButtonBox {

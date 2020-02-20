@@ -17,6 +17,7 @@
 
 #include "localfilelisting.h"
 
+#include "filescanner.h"
 #include "abstractfile/indexercommon.h"
 
 #include <QThread>
@@ -84,6 +85,24 @@ void LocalFileListing::triggerStop()
 {
     qCDebug(orgKdeElisaIndexer()) << "LocalFileListing::triggerStop";
     AbstractFileListing::triggerStop();
+}
+
+DataTypes::TrackDataType LocalFileListing::scanOneFile(const QUrl &scanFile, const QFileInfo &scanFileInfo)
+{
+    auto trackData = fileScanner().scanOneBalooFile(scanFile, scanFileInfo);
+
+    if (!trackData.isValid()) {
+        qCDebug(orgKdeElisaIndexer()) << "LocalFileListing::scanOneFile" << scanFile << "falling back to plain file metadata analysis";
+        trackData = AbstractFileListing::scanOneFile(scanFile, scanFileInfo);
+    }
+
+    if (trackData.isValid()) {
+        addCover(trackData);
+    } else {
+        qCDebug(orgKdeElisaIndexer()) << "LocalFileListing::scanOneFile" << scanFile << "invalid track";
+    }
+
+    return trackData;
 }
 
 

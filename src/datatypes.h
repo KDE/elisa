@@ -359,7 +359,7 @@ public:
 
     using ListGenreDataType = QList<GenreDataType>;
 
-    using EntryData = std::tuple<TrackDataType, QString, QUrl>;
+    using EntryData = std::tuple<MusicDataType, QString, QUrl>;
     using EntryDataList = QList<EntryData>;
 
 };

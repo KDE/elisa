@@ -390,7 +390,17 @@ void MediaPlayList::enqueueTracksListById(const DataTypes::EntryDataList &newEnt
     for (const auto &newTrack : newEntries) {
         auto newMediaPlayListEntry = MediaPlayListEntry{std::get<0>(newTrack).databaseId(), std::get<1>(newTrack), type};
         d->mData.push_back(newMediaPlayListEntry);
-        d->mTrackData.push_back(std::get<0>(newTrack));
+        const auto &data = std::get<0>(newTrack);
+        switch (data.elementType())
+        {
+        case ElisaUtils::Track:
+        case ElisaUtils::Radio:
+            d->mTrackData.push_back(static_cast<const DataTypes::TrackDataType&>(data));
+            break;
+        default:
+            d->mTrackData.push_back({});
+        }
+
         Q_EMIT newEntryInList(newMediaPlayListEntry.mId, newMediaPlayListEntry.mTitle.toString(), newMediaPlayListEntry.mEntryType);
     }
     endInsertRows();
@@ -403,7 +413,16 @@ void MediaPlayList::enqueueOneEntry(const DataTypes::EntryData &entryData, Elisa
     if (!std::get<0>(entryData).isEmpty() || !std::get<1>(entryData).isEmpty()) {
         beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size());
         d->mData.push_back(MediaPlayListEntry{std::get<0>(entryData).databaseId(), std::get<1>(entryData), type});
-        d->mTrackData.push_back(std::get<0>(entryData));
+        const auto &data = std::get<0>(entryData);
+        switch (data.elementType())
+        {
+        case ElisaUtils::Track:
+        case ElisaUtils::Radio:
+            d->mTrackData.push_back(static_cast<const DataTypes::TrackDataType&>(data));
+            break;
+        default:
+            d->mTrackData.push_back({});
+        }
         Q_EMIT newEntryInList(std::get<0>(entryData).databaseId(), std::get<1>(entryData), type);
         endInsertRows();
     }
@@ -418,10 +437,22 @@ void MediaPlayList::enqueueMultipleEntries(const DataTypes::EntryDataList &entri
         if (!std::get<0>(entryData).databaseId() && std::get<2>(entryData).isValid()) {
             d->mData.push_back(MediaPlayListEntry{std::get<2>(entryData)});
             d->mTrackData.push_back({});
-            Q_EMIT newUrlInList(std::get<2>(entryData), type);
         } else {
             d->mData.push_back(MediaPlayListEntry{std::get<0>(entryData).databaseId(), std::get<1>(entryData), type});
-            d->mTrackData.push_back(std::get<0>(entryData));
+            const auto &data = std::get<0>(entryData);
+            switch (data.elementType())
+            {
+            case ElisaUtils::Track:
+            case ElisaUtils::Radio:
+                d->mTrackData.push_back(static_cast<const DataTypes::TrackDataType&>(data));
+                break;
+            default:
+                d->mTrackData.push_back({});
+            }
+        }
+        if (std::get<2>(entryData).isValid()) {
+            Q_EMIT newUrlInList(std::get<2>(entryData), type);
+        } else {
             Q_EMIT newEntryInList(std::get<0>(entryData).databaseId(), std::get<1>(entryData), type);
         }
     }

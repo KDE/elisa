@@ -94,25 +94,25 @@ public:
         }
     };
 
-    class TrackDataType : public DataType
+    class TrackDataType : public MusicDataType
     {
     public:
 
-        using DataType::DataType;
+        using MusicDataType::MusicDataType;
 
         TrackDataType(bool aValid, QString aId, QString aParentId, QString aTitle, QString aArtist, QString aAlbumName,
                       QString aAlbumArtist, int aTrackNumber, int aDiscNumber, QTime aDuration, QUrl aResourceURI,
                       const QDateTime &fileModificationTime, QUrl aAlbumCover, int rating, bool aIsSingleDiscAlbum,
                       QString aGenre, QString aComposer, QString aLyricist, bool aHasEmbeddedCover)
-            : DataType({{key_type::TitleRole, std::move(aTitle)}, {key_type::AlbumRole, std::move(aAlbumName)},
-                        {key_type::ArtistRole, std::move(aArtist)}, {key_type::AlbumArtistRole, std::move(aAlbumArtist)},
-                        {key_type::IdRole, std::move(aId)}, {key_type::ParentIdRole, std::move(aParentId)},
-                        {key_type::TrackNumberRole, aTrackNumber}, {key_type::DiscNumberRole, aDiscNumber},
-                        {key_type::DurationRole, aDuration}, {key_type::ResourceRole, std::move(aResourceURI)},
-                        {key_type::FileModificationTime, fileModificationTime}, {key_type::ImageUrlRole, std::move(aAlbumCover)},
-                        {key_type::RatingRole, rating}, {key_type::IsSingleDiscAlbumRole, aIsSingleDiscAlbum},
-                        {key_type::GenreRole, std::move(aGenre)}, {key_type::ComposerRole, std::move(aComposer)},
-                        {key_type::LyricistRole, std::move(aLyricist)}, {key_type::HasEmbeddedCover, aHasEmbeddedCover},})
+            : MusicDataType({{key_type::TitleRole, std::move(aTitle)}, {key_type::AlbumRole, std::move(aAlbumName)},
+                             {key_type::ArtistRole, std::move(aArtist)}, {key_type::AlbumArtistRole, std::move(aAlbumArtist)},
+                             {key_type::IdRole, std::move(aId)}, {key_type::ParentIdRole, std::move(aParentId)},
+                             {key_type::TrackNumberRole, aTrackNumber}, {key_type::DiscNumberRole, aDiscNumber},
+                             {key_type::DurationRole, aDuration}, {key_type::ResourceRole, std::move(aResourceURI)},
+                             {key_type::FileModificationTime, fileModificationTime}, {key_type::ImageUrlRole, std::move(aAlbumCover)},
+                             {key_type::RatingRole, rating}, {key_type::IsSingleDiscAlbumRole, aIsSingleDiscAlbum},
+                             {key_type::GenreRole, std::move(aGenre)}, {key_type::ComposerRole, std::move(aComposer)},
+                             {key_type::LyricistRole, std::move(aLyricist)}, {key_type::HasEmbeddedCover, aHasEmbeddedCover},})
         {
             Q_UNUSED(aValid)
         }
@@ -120,11 +120,6 @@ public:
         bool isValid() const
         {
             return !isEmpty() && duration().isValid();
-        }
-
-        qulonglong databaseId() const
-        {
-            return operator[](key_type::DatabaseIdRole).toULongLong();
         }
 
         QString title() const
@@ -283,16 +278,11 @@ public:
 
     using ListRadioDataType = QList<TrackDataType>;
 
-    class AlbumDataType : public DataType
+    class AlbumDataType : public MusicDataType
     {
     public:
 
-        using DataType::DataType;
-
-        qulonglong databaseId() const
-        {
-            return operator[](key_type::DatabaseIdRole).toULongLong();
-        }
+        using MusicDataType::MusicDataType;
 
         QString title() const
         {
@@ -334,11 +324,11 @@ public:
 
     using ListAlbumDataType = QList<AlbumDataType>;
 
-    class ArtistDataType : public DataType
+    class ArtistDataType : public MusicDataType
     {
     public:
 
-        using DataType::DataType;
+        using MusicDataType::MusicDataType;
 
         QString name() const
         {
@@ -354,16 +344,11 @@ public:
 
     using ListArtistDataType = QList<ArtistDataType>;
 
-    class GenreDataType : public DataType
+    class GenreDataType : public MusicDataType
     {
     public:
 
-        using DataType::DataType;
-
-        qulonglong databaseId() const
-        {
-            return operator[](key_type::DatabaseIdRole).toULongLong();
-        }
+        using MusicDataType::MusicDataType;
 
         QString title() const
         {

@@ -139,8 +139,6 @@ public Q_SLOTS:
 
     void enqueueFilesList(const DataTypes::EntryDataList &newEntries, ElisaUtils::PlayListEntryType databaseIdType);
 
-    void enqueueTracksListById(const DataTypes::EntryDataList &newEntries, ElisaUtils::PlayListEntryType type);
-
     void enqueueOneEntry(const DataTypes::EntryData &entryData, ElisaUtils::PlayListEntryType type);
 
     void enqueueMultipleEntries(const DataTypes::EntryDataList &entriesData, ElisaUtils::PlayListEntryType type);

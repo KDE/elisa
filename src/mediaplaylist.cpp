@@ -382,30 +382,6 @@ void MediaPlayList::enqueueFilesList(const DataTypes::EntryDataList &newEntries,
     endInsertRows();
 }
 
-void MediaPlayList::enqueueTracksListById(const DataTypes::EntryDataList &newEntries, ElisaUtils::PlayListEntryType type)
-{
-    qCDebug(orgKdeElisaPlayList()) << "MediaPlayList::enqueueTracksListById" << newEntries.size() << type;
-
-    beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size() + newEntries.size() - 1);
-    for (const auto &newTrack : newEntries) {
-        auto newMediaPlayListEntry = MediaPlayListEntry{std::get<0>(newTrack).databaseId(), std::get<1>(newTrack), type};
-        d->mData.push_back(newMediaPlayListEntry);
-        const auto &data = std::get<0>(newTrack);
-        switch (data.elementType())
-        {
-        case ElisaUtils::Track:
-        case ElisaUtils::Radio:
-            d->mTrackData.push_back(static_cast<const DataTypes::TrackDataType&>(data));
-            break;
-        default:
-            d->mTrackData.push_back({});
-        }
-
-        Q_EMIT newEntryInList(newMediaPlayListEntry.mId, newMediaPlayListEntry.mTitle.toString(), newMediaPlayListEntry.mEntryType);
-    }
-    endInsertRows();
-}
-
 void MediaPlayList::enqueueOneEntry(const DataTypes::EntryData &entryData, ElisaUtils::PlayListEntryType type)
 {
     qCDebug(orgKdeElisaPlayList()) << "MediaPlayList::enqueueOneEntry" << std::get<0>(entryData) << std::get<1>(entryData) << type;

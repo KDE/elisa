@@ -10,6 +10,8 @@
 
 #include "elisaLib_export.h"
 
+#include "elisautils.h"
+
 #include <QObject>
 #include <QString>
 #include <QList>
@@ -75,6 +77,22 @@ private:
     using DataType = QMap<ColumnsRoles, QVariant>;
 
 public:
+
+    class MusicDataType : public DataType
+    {
+    public:
+        using DataType::DataType;
+
+        qulonglong databaseId() const
+        {
+            return operator[](key_type::DatabaseIdRole).toULongLong();
+        }
+
+        ElisaUtils::PlayListEntryType elementType() const
+        {
+            return operator[](key_type::ElementTypeRole).value<ElisaUtils::PlayListEntryType>();
+        }
+    };
 
     class TrackDataType : public DataType
     {

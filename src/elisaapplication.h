@@ -12,6 +12,7 @@
 #include "config-upnp-qt.h"
 
 #include "elisautils.h"
+#include "datatypes.h"
 
 #include <QObject>
 #include <QString>

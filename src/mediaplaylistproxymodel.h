@@ -10,6 +10,7 @@
 
 #include "elisaLib_export.h"
 #include "elisautils.h"
+#include "datatypes.h"
 
 #include <QAbstractProxyModel>
 #include <QMediaPlayer>

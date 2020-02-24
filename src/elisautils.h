@@ -9,8 +9,6 @@
 
 #include "elisaLib_export.h"
 
-#include "datatypes.h"
-
 #include <QList>
 #include <QUrl>
 #include <QString>

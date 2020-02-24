@@ -158,8 +158,8 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qRegisterMetaType<ElisaUtils::PlayListEnqueueMode>("ElisaUtils::PlayListEnqueueMode");
     qRegisterMetaType<ElisaUtils::PlayListEnqueueTriggerPlay>("ElisaUtils::PlayListEnqueueTriggerPlay");
     qRegisterMetaType<ElisaUtils::PlayListEntryType>("ElisaUtils::PlayListEntryType");
-    qRegisterMetaType<ElisaUtils::EntryData>("ElisaUtils::EntryData");
-    qRegisterMetaType<ElisaUtils::EntryDataList>("ElisaUtils::EntryDataList");
+    qRegisterMetaType<DataTypes::EntryData>("DataTypes::EntryData");
+    qRegisterMetaType<DataTypes::EntryDataList>("DataTypes::EntryDataList");
     qRegisterMetaType<ElisaUtils::FilterType>("ElisaUtils::FilterType");
     qRegisterMetaType<DataTypes::TrackDataType>("DataTypes::TrackDataType");
     qRegisterMetaType<DataTypes::AlbumDataType>("DataTypes::AlbumDataType");

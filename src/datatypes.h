@@ -356,6 +356,9 @@ public:
 
     using ListGenreDataType = QList<GenreDataType>;
 
+    using EntryData = std::tuple<TrackDataType, QString, QUrl>;
+    using EntryDataList = QList<EntryData>;
+
 };
 
 Q_DECLARE_METATYPE(DataTypes::TrackDataType)
@@ -367,5 +370,8 @@ Q_DECLARE_METATYPE(DataTypes::ListTrackDataType)
 Q_DECLARE_METATYPE(DataTypes::ListAlbumDataType)
 Q_DECLARE_METATYPE(DataTypes::ListArtistDataType)
 Q_DECLARE_METATYPE(DataTypes::ListGenreDataType)
+
+Q_DECLARE_METATYPE(DataTypes::EntryData)
+Q_DECLARE_METATYPE(DataTypes::EntryDataList)
 
 #endif // DATATYPES_H

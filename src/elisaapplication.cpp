@@ -74,7 +74,7 @@ public:
     KActionCollection mCollection;
 #endif
 
-    ElisaUtils::EntryDataList mArguments;
+    DataTypes::EntryDataList mArguments;
 
     std::unique_ptr<MusicListenersManager> mMusicManager;
 
@@ -179,7 +179,7 @@ void ElisaApplication::setupActions(const QString &actionName)
 #endif
 }
 
-void ElisaApplication::setArguments(const ElisaUtils::EntryDataList &newArguments)
+void ElisaApplication::setArguments(const DataTypes::EntryDataList &newArguments)
 {
     if (d->mArguments == newArguments) {
         return;
@@ -204,7 +204,7 @@ void ElisaApplication::activateActionRequested(const QString &actionName, const 
 void ElisaApplication::activateRequested(const QStringList &arguments, const QString &workingDirectory)
 {
     if (arguments.size() > 1) {
-        auto realArguments = ElisaUtils::EntryDataList{};
+        auto realArguments = DataTypes::EntryDataList{};
 
         bool isFirst = true;
         for (const auto &oneArgument : arguments) {
@@ -213,7 +213,7 @@ void ElisaApplication::activateRequested(const QStringList &arguments, const QSt
                 continue;
             }
 
-            realArguments.push_back(ElisaUtils::EntryData{{}, {}, QUrl(oneArgument)});
+            realArguments.push_back(DataTypes::EntryData{{}, {}, QUrl(oneArgument)});
         }
 
         Q_EMIT enqueue(checkFileListAndMakeAbsolute(realArguments, workingDirectory),
@@ -302,10 +302,10 @@ void ElisaApplication::configChanged()
     Q_EMIT showSystemTrayIconChanged();
 }
 
-ElisaUtils::EntryDataList ElisaApplication::checkFileListAndMakeAbsolute(const ElisaUtils::EntryDataList &filesList,
+DataTypes::EntryDataList ElisaApplication::checkFileListAndMakeAbsolute(const DataTypes::EntryDataList &filesList,
                                                                          const QString &workingDirectory) const
 {
-    auto filesToOpen = ElisaUtils::EntryDataList{};
+    auto filesToOpen = DataTypes::EntryDataList{};
 
     for (const auto &oneFile : filesList) {
         if (std::get<2>(oneFile).scheme().isEmpty() || std::get<2>(oneFile).isLocalFile()) {
@@ -323,10 +323,10 @@ ElisaUtils::EntryDataList ElisaApplication::checkFileListAndMakeAbsolute(const E
             }
 
             if (newFile.exists()) {
-                filesToOpen.push_back(ElisaUtils::EntryData{{}, {}, QUrl::fromLocalFile(newFile.canonicalFilePath())});
+                filesToOpen.push_back(DataTypes::EntryData{{}, {}, QUrl::fromLocalFile(newFile.canonicalFilePath())});
             }
         } else {
-            filesToOpen.push_back(ElisaUtils::EntryData{{}, {}, std::get<2>(oneFile)});
+            filesToOpen.push_back(DataTypes::EntryData{{}, {}, std::get<2>(oneFile)});
         }
     }
 
@@ -362,10 +362,10 @@ void ElisaApplication::initializeModels()
     d->mMusicManager->setElisaApplication(this);
 
     QObject::connect(this, &ElisaApplication::enqueue,
-                     d->mMediaPlayListProxyModel.get(), static_cast<void (MediaPlayListProxyModel::*)(const ElisaUtils::EntryDataList&,
-                                                                                  ElisaUtils::PlayListEntryType,
-                                                                                  ElisaUtils::PlayListEnqueueMode,
-                                                                                  ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayListProxyModel::enqueue));
+                     d->mMediaPlayListProxyModel.get(), static_cast<void (MediaPlayListProxyModel::*)(const DataTypes::EntryDataList&,
+                                                                                            ElisaUtils::PlayListEntryType,
+                                                                                            ElisaUtils::PlayListEnqueueMode,
+                                                                                            ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayListProxyModel::enqueue));
 }
 
 void ElisaApplication::initializePlayer()
@@ -491,7 +491,7 @@ bool ElisaApplication::eventFilter(QObject *object, QEvent *event)
     return false;
 }
 
-const ElisaUtils::EntryDataList &ElisaApplication::arguments() const
+const DataTypes::EntryDataList &ElisaApplication::arguments() const
 {
     return d->mArguments;
 }

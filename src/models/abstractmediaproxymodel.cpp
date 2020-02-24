@@ -97,7 +97,7 @@ void AbstractMediaProxyModel::disconnectPlayList()
 {
     if (mPlayList) {
         disconnect(this, &AbstractMediaProxyModel::entriesToEnqueue,
-                   mPlayList, static_cast<void(MediaPlayListProxyModel::*)(const ElisaUtils::EntryDataList&, ElisaUtils::PlayListEntryType, ElisaUtils::PlayListEnqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayListProxyModel::enqueue));
+                   mPlayList, static_cast<void(MediaPlayListProxyModel::*)(const DataTypes::EntryDataList&, ElisaUtils::PlayListEntryType, ElisaUtils::PlayListEnqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayListProxyModel::enqueue));
     }
 }
 
@@ -105,7 +105,7 @@ void AbstractMediaProxyModel::connectPlayList()
 {
     if (mPlayList) {
         connect(this, &AbstractMediaProxyModel::entriesToEnqueue,
-                mPlayList, static_cast<void(MediaPlayListProxyModel::*)(const ElisaUtils::EntryDataList&, ElisaUtils::PlayListEntryType, ElisaUtils::PlayListEnqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayListProxyModel::enqueue));
+                mPlayList, static_cast<void(MediaPlayListProxyModel::*)(const DataTypes::EntryDataList&, ElisaUtils::PlayListEntryType, ElisaUtils::PlayListEnqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayListProxyModel::enqueue));
     }
 }
 

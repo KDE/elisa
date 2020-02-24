@@ -470,12 +470,12 @@ int MediaPlayListProxyModel::currentTrackRow() const
     return d->mCurrentTrack.row();
 }
 
-void MediaPlayListProxyModel::enqueue(const ElisaUtils::EntryData &newEntry, ElisaUtils::PlayListEntryType databaseIdType)
+void MediaPlayListProxyModel::enqueue(const DataTypes::EntryData &newEntry, ElisaUtils::PlayListEntryType databaseIdType)
 {
     enqueue(newEntry, databaseIdType, ElisaUtils::PlayListEnqueueMode::AppendPlayList, ElisaUtils::PlayListEnqueueTriggerPlay::DoNotTriggerPlay);
 }
 
-void MediaPlayListProxyModel::enqueue(const ElisaUtils::EntryDataList &newEntries, ElisaUtils::PlayListEntryType databaseIdType)
+void MediaPlayListProxyModel::enqueue(const DataTypes::EntryDataList &newEntries, ElisaUtils::PlayListEntryType databaseIdType)
 {
     enqueue(newEntries, databaseIdType, ElisaUtils::PlayListEnqueueMode::AppendPlayList, ElisaUtils::PlayListEnqueueTriggerPlay::DoNotTriggerPlay);
 }
@@ -486,17 +486,17 @@ void MediaPlayListProxyModel::enqueue(qulonglong newEntryDatabaseId,
                             ElisaUtils::PlayListEnqueueMode enqueueMode,
                             ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
 {
-    enqueue(ElisaUtils::EntryData{{{DataTypes::DatabaseIdRole, newEntryDatabaseId}}, newEntryTitle, {}}, databaseIdType, enqueueMode, triggerPlay);
+    enqueue(DataTypes::EntryData{{{DataTypes::DatabaseIdRole, newEntryDatabaseId}}, newEntryTitle, {}}, databaseIdType, enqueueMode, triggerPlay);
 }
 
 void MediaPlayListProxyModel::enqueue(const QUrl &entryUrl, ElisaUtils::PlayListEntryType databaseIdType,
                             ElisaUtils::PlayListEnqueueMode enqueueMode,
                             ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
 {
-    enqueue(ElisaUtils::EntryData{{}, {}, entryUrl}, databaseIdType, enqueueMode, triggerPlay);
+    enqueue(DataTypes::EntryData{{}, {}, entryUrl}, databaseIdType, enqueueMode, triggerPlay);
 }
 
-void MediaPlayListProxyModel::enqueue(const ElisaUtils::EntryData &newEntry,
+void MediaPlayListProxyModel::enqueue(const DataTypes::EntryData &newEntry,
                             ElisaUtils::PlayListEntryType databaseIdType,
                             ElisaUtils::PlayListEnqueueMode enqueueMode,
                             ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
@@ -536,7 +536,7 @@ void MediaPlayListProxyModel::enqueue(const ElisaUtils::EntryData &newEntry,
     }
 }
 
-void MediaPlayListProxyModel::enqueue(const ElisaUtils::EntryDataList &newEntries,
+void MediaPlayListProxyModel::enqueue(const DataTypes::EntryDataList &newEntries,
                             ElisaUtils::PlayListEntryType databaseIdType,
                             ElisaUtils::PlayListEnqueueMode enqueueMode,
                             ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
@@ -777,9 +777,9 @@ void MediaPlayListProxyModel::loadPlayListLoaded()
     clearPlayList();
     for (int i = 0; i < d->mLoadPlaylist.mediaCount(); ++i) {
 #if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
-        enqueue(ElisaUtils::EntryData{{}, {}, d->mLoadPlaylist.media(i).canonicalUrl()}, ElisaUtils::FileName);
+        enqueue(DataTypes::EntryData{{}, {}, d->mLoadPlaylist.media(i).canonicalUrl()}, ElisaUtils::FileName);
 #else
-        enqueue(ElisaUtils::EntryData{{}, {}, d->mLoadPlaylist.media(i).request().url()}, ElisaUtils::FileName);
+        enqueue(DataTypes::EntryData{{}, {}, d->mLoadPlaylist.media(i).request().url()}, ElisaUtils::FileName);
 #endif
     }
 
@@ -853,13 +853,13 @@ void MediaPlayListProxyModel::enqueueDirectory(const QUrl &fileName, ElisaUtils:
     // get contents of directory
     QDir dirInfo = QDir(fileName.toLocalFile());
     auto files = dirInfo.entryInfoList(QDir::NoDotAndDotDot | QDir::Readable | QDir::Files | QDir::Dirs, QDir::Name);
-    auto newFiles = ElisaUtils::EntryDataList();
+    auto newFiles = DataTypes::EntryDataList();
     for (auto file : files)
     {
         auto fileUrl = QUrl::fromLocalFile(file.filePath());
         if (file.isFile() && d->mMimeDb.mimeTypeForUrl(fileUrl).name().startsWith(QLatin1String("audio/")))
         {
-            newFiles.append({ElisaUtils::EntryData{{},{},fileUrl}});
+            newFiles.append({DataTypes::EntryData{{},{},fileUrl}});
         }
         else if (file.isDir() && depth > 1)
         {

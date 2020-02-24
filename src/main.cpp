@@ -156,11 +156,11 @@ int main(int argc, char *argv[])
     QObject::connect(&elisaService, &KDBusService::openRequested, myApp.get(), &ElisaApplication::openRequested);
 #endif
 
-    auto arguments = ElisaUtils::EntryDataList{};
+    auto arguments = DataTypes::EntryDataList{};
     auto realArgumentsList = parser.positionalArguments();
 
     for (const auto &oneArgument : realArgumentsList) {
-        arguments.push_back(ElisaUtils::EntryData{{}, {}, QUrl(oneArgument)});
+        arguments.push_back(DataTypes::EntryData{{}, {}, QUrl(oneArgument)});
     }
 
     myApp->setArguments(arguments);

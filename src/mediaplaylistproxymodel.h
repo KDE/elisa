@@ -113,9 +113,9 @@ public:
 
 public Q_SLOTS:
 
-    void enqueue(const ElisaUtils::EntryData &newEntry, ElisaUtils::PlayListEntryType databaseIdType);
+    void enqueue(const DataTypes::EntryData &newEntry, ElisaUtils::PlayListEntryType databaseIdType);
 
-    void enqueue(const ElisaUtils::EntryDataList &newEntries, ElisaUtils::PlayListEntryType databaseIdType);
+    void enqueue(const DataTypes::EntryDataList &newEntries, ElisaUtils::PlayListEntryType databaseIdType);
 
     void enqueue(qulonglong newEntryDatabaseId, const QString &newEntryTitle,
                  ElisaUtils::PlayListEntryType databaseIdType,
@@ -127,19 +127,19 @@ public Q_SLOTS:
                  ElisaUtils::PlayListEnqueueMode enqueueMode,
                  ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 
-    void enqueue(const ElisaUtils::EntryData &newEntry,
+    void enqueue(const DataTypes::EntryData &newEntry,
                  ElisaUtils::PlayListEntryType databaseIdType,
                  ElisaUtils::PlayListEnqueueMode enqueueMode,
                  ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 
-    void enqueue(const ElisaUtils::EntryDataList &newEntries,
+    void enqueue(const DataTypes::EntryDataList &newEntries,
                  ElisaUtils::PlayListEntryType databaseIdType,
                  ElisaUtils::PlayListEnqueueMode enqueueMode,
                  ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 
-    void setRepeatPlay(const bool value);
+    void setRepeatPlay(bool value);
 
-    void setShufflePlayList(const bool value);
+    void setShufflePlayList(bool value);
 
     void trackInError(const QUrl &sourceInError, QMediaPlayer::Error playerError);
 

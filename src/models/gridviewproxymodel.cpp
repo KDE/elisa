@@ -68,7 +68,7 @@ void GridViewProxyModel::genericEnqueueToPlayList(ElisaUtils::PlayListEnqueueMod
 {
     QtConcurrent::run(&mThreadPool, [=] () {
         QReadLocker locker(&mDataLock);
-        auto allData = ElisaUtils::EntryDataList{};
+        auto allData = DataTypes::EntryDataList{};
         allData.reserve(rowCount());
         for (int rowIndex = 0, maxRowCount = rowCount(); rowIndex < maxRowCount; ++rowIndex) {
             auto currentIndex = index(rowIndex, 0);
@@ -77,18 +77,18 @@ void GridViewProxyModel::genericEnqueueToPlayList(ElisaUtils::PlayListEnqueueMod
             {
             case ElisaUtils::Radio:
             case ElisaUtils::Track:
-                allData.push_back(ElisaUtils::EntryData{data(currentIndex, DataTypes::FullDataRole).value<DataTypes::TrackDataType>(),
+                allData.push_back(DataTypes::EntryData{data(currentIndex, DataTypes::FullDataRole).value<DataTypes::TrackDataType>(),
                                                         data(currentIndex, Qt::DisplayRole).toString(), {}});
                 break;
             case ElisaUtils::Album:
-                allData.push_back(ElisaUtils::EntryData{{{DataTypes::DatabaseIdRole, data(currentIndex, DataTypes::DatabaseIdRole).toULongLong()},
+                allData.push_back(DataTypes::EntryData{{{DataTypes::DatabaseIdRole, data(currentIndex, DataTypes::DatabaseIdRole).toULongLong()},
                                                          {DataTypes::ImageUrlRole, data(currentIndex, DataTypes::ImageUrlRole).toUrl()},
                                                          {DataTypes::AlbumArtistRole, data(currentIndex, DataTypes::ArtistRole).toString()},
                                                          {DataTypes::AlbumRole, data(currentIndex, DataTypes::AlbumRole).toString()}},
                                                         data(currentIndex, Qt::DisplayRole).toString(), {}});
                 break;
             case ElisaUtils::Artist:
-                allData.push_back(ElisaUtils::EntryData{{{DataTypes::DatabaseIdRole, data(currentIndex, DataTypes::DatabaseIdRole).toULongLong()},
+                allData.push_back(DataTypes::EntryData{{{DataTypes::DatabaseIdRole, data(currentIndex, DataTypes::DatabaseIdRole).toULongLong()},
                                                          {DataTypes::ImageUrlRole, data(currentIndex, DataTypes::ImageUrlRole).toUrl()},
                                                          {DataTypes::AlbumArtistRole, data(currentIndex, DataTypes::ArtistRole).toString()},
                                                          {DataTypes::AlbumRole, {}}},
@@ -98,7 +98,7 @@ void GridViewProxyModel::genericEnqueueToPlayList(ElisaUtils::PlayListEnqueueMod
             case ElisaUtils::Lyricist:
             case ElisaUtils::Composer:
             case ElisaUtils::FileName:
-                allData.push_back(ElisaUtils::EntryData{{{DataTypes::DatabaseIdRole, data(currentIndex, DataTypes::DatabaseIdRole).toULongLong()}},
+                allData.push_back(DataTypes::EntryData{{{DataTypes::DatabaseIdRole, data(currentIndex, DataTypes::DatabaseIdRole).toULongLong()}},
                                                         data(currentIndex, Qt::DisplayRole).toString(), {}});
                 break;
             case ElisaUtils::Unknown:

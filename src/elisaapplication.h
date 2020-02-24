@@ -36,7 +36,7 @@ class ELISALIB_EXPORT ElisaApplication : public QObject
 
     Q_OBJECT
 
-    Q_PROPERTY(ElisaUtils::EntryDataList arguments
+    Q_PROPERTY(DataTypes::EntryDataList arguments
                READ arguments
                WRITE setArguments
                NOTIFY argumentsChanged)
@@ -92,7 +92,7 @@ public:
 
     bool eventFilter(QObject *object, QEvent *event) override;
 
-    const ElisaUtils::EntryDataList &arguments() const;
+    const DataTypes::EntryDataList &arguments() const;
 
     MusicListenersManager *musicManager() const;
 
@@ -130,7 +130,7 @@ Q_SIGNALS:
 
     void manageHeaderBarChanged();
 
-    void enqueue(const ElisaUtils::EntryDataList &newEntries,
+    void enqueue(const DataTypes::EntryDataList &newEntries,
                  ElisaUtils::PlayListEntryType databaseIdType,
                  ElisaUtils::PlayListEnqueueMode enqueueMode,
                  ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
@@ -155,7 +155,7 @@ public Q_SLOTS:
 
     void configureElisa();
 
-    void setArguments(const ElisaUtils::EntryDataList &newArguments);
+    void setArguments(const DataTypes::EntryDataList &newArguments);
 
     void activateActionRequested(const QString &actionName, const QVariant &parameter);
 
@@ -193,7 +193,7 @@ private:
 
     void setupActions(const QString &actionName);
 
-    ElisaUtils::EntryDataList checkFileListAndMakeAbsolute(const ElisaUtils::EntryDataList &filesList,
+    DataTypes::EntryDataList checkFileListAndMakeAbsolute(const DataTypes::EntryDataList &filesList,
                                                               const QString &workingDirectory) const;
 
     std::unique_ptr<ElisaApplicationPrivate> d;

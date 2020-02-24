@@ -34,9 +34,6 @@ enum PlayListEnqueueTriggerPlay {
 
 Q_ENUM_NS(PlayListEnqueueTriggerPlay)
 
-using EntryData = std::tuple<DataTypes::TrackDataType, QString, QUrl>;
-using EntryDataList = QList<EntryData>;
-
 enum PlayListEntryType {
     Album,
     Artist,
@@ -65,8 +62,5 @@ enum FilterType {
 Q_ENUM_NS(FilterType)
 
 }
-
-Q_DECLARE_METATYPE(ElisaUtils::EntryData)
-Q_DECLARE_METATYPE(ElisaUtils::EntryDataList)
 
 #endif // ELISAUTILS_H

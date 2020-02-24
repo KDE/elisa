@@ -38,7 +38,7 @@ private Q_SLOTS:
         qRegisterMetaType<QVector<qlonglong>>("QVector<qlonglong>");
         qRegisterMetaType<QHash<qlonglong,int>>("QHash<qlonglong,int>");
         qRegisterMetaType<QList<QUrl>>("QList<QUrl>");
-        qRegisterMetaType<ElisaUtils::EntryDataList>("ElisaUtils::EntryDataList");
+        qRegisterMetaType<DataTypes::EntryDataList>("DataTypes::EntryDataList");
         qRegisterMetaType<ElisaUtils::PlayListEntryType>("ElisaUtils::PlayListEntryType");
         qRegisterMetaType<ElisaUtils::PlayListEnqueueMode>("ElisaUtils::PlayListEnqueueMode");
         qRegisterMetaType<ElisaUtils::PlayListEnqueueTriggerPlay>("ElisaUtils::PlayListEnqueueTriggerPlay");
@@ -81,7 +81,7 @@ private Q_SLOTS:
         QCOMPARE(enqueueSpy.count(), 1);
 
         QCOMPARE(enqueueSpy.at(0).count(), 4);
-        QCOMPARE(std::get<2>(enqueueSpy.at(0).at(0).value<ElisaUtils::EntryDataList>().at(0)), QUrl::fromLocalFile(myTestFile.canonicalFilePath()));
+        QCOMPARE(std::get<2>(enqueueSpy.at(0).at(0).value<DataTypes::EntryDataList>().at(0)), QUrl::fromLocalFile(myTestFile.canonicalFilePath()));
     }
 };
 

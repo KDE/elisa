@@ -80,7 +80,7 @@ void FileBrowserProxyModel::enqueueToPlayList()
 {
     QtConcurrent::run(&mThreadPool, [=] () {
         QReadLocker locker(&mDataLock);
-        auto allTrackUrls = ElisaUtils::EntryDataList{};
+        auto allTrackUrls = DataTypes::EntryDataList{};
         for (int rowIndex = 0, maxRowCount = rowCount(); rowIndex < maxRowCount; ++rowIndex) {
             auto currentIndex = index(rowIndex, 0);
             if (!data(currentIndex, FileBrowserModel::IsDirectoryRole).toBool()) {
@@ -98,7 +98,7 @@ void FileBrowserProxyModel::replaceAndPlayOfPlayList()
 {
     QtConcurrent::run(&mThreadPool, [=] () {
         QReadLocker locker(&mDataLock);
-        auto allTrackUrls = ElisaUtils::EntryDataList{};
+        auto allTrackUrls = DataTypes::EntryDataList{};
         for (int rowIndex = 0, maxRowCount = rowCount(); rowIndex < maxRowCount; ++rowIndex) {
             auto currentIndex = index(rowIndex, 0);
             if (!data(currentIndex, FileBrowserModel::IsDirectoryRole).toBool()) {
@@ -133,7 +133,7 @@ void FileBrowserProxyModel::disconnectPlayList()
 {
     if (mPlayList) {
         disconnect(this, &FileBrowserProxyModel::filesToEnqueue,
-                   mPlayList, static_cast<void(MediaPlayListProxyModel::*)(const ElisaUtils::EntryDataList&, ElisaUtils::PlayListEntryType, ElisaUtils::PlayListEnqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayListProxyModel::enqueue));
+                   mPlayList, static_cast<void(MediaPlayListProxyModel::*)(const DataTypes::EntryDataList&, ElisaUtils::PlayListEntryType, ElisaUtils::PlayListEnqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayListProxyModel::enqueue));
     }
 }
 
@@ -141,7 +141,7 @@ void FileBrowserProxyModel::connectPlayList()
 {
     if (mPlayList) {
         connect(this, &FileBrowserProxyModel::filesToEnqueue,
-                mPlayList, static_cast<void(MediaPlayListProxyModel::*)(const ElisaUtils::EntryDataList&, ElisaUtils::PlayListEntryType, ElisaUtils::PlayListEnqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayListProxyModel::enqueue));
+                mPlayList, static_cast<void(MediaPlayListProxyModel::*)(const DataTypes::EntryDataList&, ElisaUtils::PlayListEntryType, ElisaUtils::PlayListEnqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayListProxyModel::enqueue));
     }
 }
 

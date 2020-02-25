@@ -202,15 +202,15 @@ FocusScope {
                 visible: emptyVisible.visible
                 Layout.alignment: Qt.AlignHCenter
 
-                width: elisaTheme.gridDelegateWidth * 5
-                height: elisaTheme.gridDelegateWidth * 5
+                width: elisaTheme.gridDelegateSize
+                height: elisaTheme.gridDelegateSize
 
                 source: elisaTheme.playlistIcon
                 opacity: 0.25
 
                 sourceSize {
-                    width: elisaTheme.viewSelectorDelegateHeight * 5
-                    height: elisaTheme.viewSelectorDelegateHeight * 5
+                    width: elisaTheme.gridDelegateSize
+                    height: elisaTheme.gridDelegateSize
                 }
             }
 

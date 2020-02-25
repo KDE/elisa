@@ -70,7 +70,7 @@ FocusScope {
                 delegate: ViewSelectorDelegate {
                     id: entry
 
-                    height: Math.round(elisaTheme.viewSelectorDelegateHeight * 1.4)
+                    height: Kirigami.Units.iconSizes.smallMedium + 3 * Kirigami.Units.smallSpacing
                     width: viewModeView.width
 
                     focus: true
@@ -136,7 +136,8 @@ FocusScope {
             PropertyChanges {
                 target: rootFocusScope
                 textOpacity: 0
-                implicitWidth: elisaTheme.viewSelectorDelegateHeight + 2 * Kirigami.Units.largeSpacing
+                implicitWidth: Kirigami.Units.iconSizes.smallMedium + 3 * Kirigami.Units.smallSpacing
+
             }
         }
     ]

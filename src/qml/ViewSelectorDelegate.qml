@@ -100,12 +100,12 @@ FocusScope {
                 left: parent.left
             }
 
-            height: elisaTheme.viewSelectorDelegateHeight
-            width: elisaTheme.viewSelectorDelegateHeight
+            height: Kirigami.Units.iconSizes.smallMedium
+            width: Kirigami.Units.iconSizes.smallMedium
 
             sourceSize {
-                width: elisaTheme.viewSelectorDelegateHeight
-                height: elisaTheme.viewSelectorDelegateHeight
+                width: Kirigami.Units.iconSizes.smallMedium
+                height: Kirigami.Units.iconSizes.smallMedium
             }
 
             source: model.image

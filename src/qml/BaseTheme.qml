@@ -57,8 +57,6 @@ Item {
 
     property int gridDelegateSize: 170
 
-    property int viewSelectorDelegateHeight: 24
-
     property int headerToolbarHeight: 48
     property int footerToolbarHeight: 30
 

@@ -24,11 +24,11 @@ import Qt.labs.settings 1.0
 
 ApplicationWindow {
     id: mainWindow
-
+    
     visible: true
-
-    minimumWidth: 700
-    minimumHeight: 600
+    
+    minimumWidth: 590
+    property int minHeight: 320
 
     LayoutMirroring.enabled: Qt.application.layoutDirection == Qt.RightToLeft
     LayoutMirroring.childrenInherit: true
@@ -92,8 +92,8 @@ ApplicationWindow {
 
         property int x
         property int y
-        property int width : 1100
-        property int height : 600
+        property int width : 900
+        property int height : 650
 
         property var playListState
 
@@ -277,7 +277,7 @@ ApplicationWindow {
                 changes: [
                     PropertyChanges {
                         target: mainWindow
-                        minimumHeight: 600
+                        minimumHeight: mainWindow.minHeight * 1.5
                         explicit: true
                     },
                     PropertyChanges {
@@ -293,7 +293,7 @@ ApplicationWindow {
                 changes: [
                     PropertyChanges {
                         target: mainWindow
-                        minimumHeight: 120 + elisaTheme.mediaPlayerControlHeight
+                        minimumHeight: mainWindow.minHeight
                         explicit: true
                     },
                     PropertyChanges {

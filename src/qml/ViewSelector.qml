@@ -136,7 +136,7 @@ FocusScope {
             PropertyChanges {
                 target: rootFocusScope
                 textOpacity: 0
-                implicitWidth: Kirigami.Units.iconSizes.smallMedium + 3 * Kirigami.Units.smallSpacing
+                implicitWidth: Kirigami.Units.iconSizes.smallMedium + 2 * Kirigami.Units.largeSpacing
 
             }
         }

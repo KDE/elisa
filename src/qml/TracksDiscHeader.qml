@@ -17,12 +17,13 @@
 
 import QtQuick 2.7
 import QtQuick.Layouts 1.2
+import org.kde.kirigami 2.5 as Kirigami
 
 Rectangle {
     property int discNumber
 
     color: myPalette.mid
-    height: discHeaderSize.height + elisaTheme.layoutVerticalMargin * 2
+    height: discHeaderSize.height + Kirigami.Units.largeSpacing
 
     TextMetrics {
         id: discHeaderSize
@@ -42,7 +43,7 @@ Rectangle {
         verticalAlignment: Text.AlignVCenter
 
         anchors.fill: parent
-        anchors.leftMargin: elisaTheme.layoutHorizontalMargin
+        anchors.leftMargin: Kirigami.Units.largeSpacing
 
         elide: Text.ElideRight
     }

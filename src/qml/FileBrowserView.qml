@@ -20,7 +20,7 @@ import QtQuick 2.7
 import QtQuick.Controls 2.2
 import QtQml.Models 2.2
 import QtQuick.Layouts 1.2
-
+import org.kde.kirigami 2.5 as Kirigami
 import org.kde.elisa 1.0
 
 FocusScope {
@@ -141,7 +141,7 @@ FocusScope {
                 }
 
                 cellWidth: Math.floor(availableWidth / Math.max(Math.floor(availableWidth / elisaTheme.gridDelegateSize), 2))
-                cellHeight: elisaTheme.gridDelegateSize + secondaryLabelSize.boundingRect.height * 2 + elisaTheme.layoutVerticalMargin * 2
+                cellHeight: elisaTheme.gridDelegateSize + secondaryLabelSize.boundingRect.height * 2 + Kirigami.Units.largeSpacing
 
                 delegate: GridBrowserDelegate {
                     width: elisaTheme.gridDelegateSize

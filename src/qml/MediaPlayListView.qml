@@ -219,8 +219,8 @@ FocusScope {
                 visible: emptyVisible.visible
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter
-                Layout.rightMargin: elisaTheme.layoutHorizontalMargin
-                Layout.leftMargin: elisaTheme.layoutHorizontalMargin
+                Layout.rightMargin: Kirigami.Units.largeSpacing
+                Layout.leftMargin: Kirigami.Units.largeSpacing
 
                 level: 1
                 wrapMode: Text.WordWrap
@@ -232,11 +232,11 @@ FocusScope {
             Label {
                 id: emptyLabel1
                 visible: emptyVisible.visible
-                Layout.topMargin: 5
+                Layout.topMargin: Kirigami.Units.largeSpacing
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter
-                Layout.rightMargin: elisaTheme.layoutHorizontalMargin
-                Layout.leftMargin: elisaTheme.layoutHorizontalMargin
+                Layout.rightMargin: Kirigami.Units.largeSpacing
+                Layout.leftMargin: Kirigami.Units.largeSpacing
 
                 wrapMode: Text.WordWrap
 
@@ -283,10 +283,10 @@ FocusScope {
 
                 type: Kirigami.MessageType.Information
                 showCloseButton: true
-                Layout.topMargin: 5
+                Layout.topMargin: Kirigami.Units.largeSpacing
                 Layout.fillWidth: true
-                Layout.rightMargin: elisaTheme.layoutHorizontalMargin
-                Layout.leftMargin: elisaTheme.layoutHorizontalMargin
+                Layout.rightMargin: Kirigami.Units.largeSpacing
+                Layout.leftMargin: Kirigami.Units.largeSpacing
 
                 onVisibleChanged:
                 {

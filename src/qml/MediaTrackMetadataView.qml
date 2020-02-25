@@ -63,9 +63,9 @@ Window {
 
     ColumnLayout {
         anchors.fill: parent
-        anchors.margins: elisaTheme.layoutVerticalMargin
+        anchors.margins: Kirigami.Units.smallSpacing
 
-        spacing: elisaTheme.layoutVerticalMargin
+        spacing: Kirigami.Units.smallSpacing
 
         RowLayout {
             id: metadataView
@@ -100,7 +100,7 @@ Window {
 
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                Layout.leftMargin: 2 * elisaTheme.layoutHorizontalMargin
+                Layout.leftMargin: 2 * Kirigami.Units.largeSpacing
 
                 focus: true
 
@@ -141,10 +141,10 @@ Window {
             id: fileNameRow
 
             Layout.alignment: Qt.AlignLeft | Qt.AlignBottom
-            Layout.topMargin: elisaTheme.layoutVerticalMargin
-            Layout.bottomMargin: elisaTheme.layoutVerticalMargin
+            Layout.topMargin: Kirigami.Units.smallSpacing
+            Layout.bottomMargin: Kirigami.Units.smallSpacing
 
-            spacing: elisaTheme.layoutHorizontalMargin
+            spacing: Kirigami.Units.largeSpacing
 
             Image {
                 Layout.preferredWidth: fileNameLabel.height
@@ -177,12 +177,12 @@ Window {
 
             Layout.topMargin: 5
             Layout.fillWidth: true
-            Layout.rightMargin: elisaTheme.layoutHorizontalMargin
-            Layout.leftMargin: elisaTheme.layoutHorizontalMargin
+            Layout.rightMargin: Kirigami.Units.largeSpacing
+            Layout.leftMargin: Kirigami.Units.largeSpacing
         }
 
         RowLayout {
-            spacing: elisaTheme.layoutVerticalMargin
+            spacing: Kirigami.Units.smallSpacing
 
             DialogButtonBox {
                 id: deleteButtonBox

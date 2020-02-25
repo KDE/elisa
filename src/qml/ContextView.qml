@@ -22,7 +22,7 @@ import QtQuick.Controls 2.2
 import QtQml.Models 2.2
 import QtQuick.Layouts 1.2
 import QtGraphicalEffects 1.0
-
+import org.kde.kirigami 2.5 as Kirigami
 import org.kde.elisa 1.0
 
 FocusScope {
@@ -74,7 +74,7 @@ FocusScope {
                 },
                 Item {
                     id: spacer
-                    width: elisaTheme.layoutHorizontalMargin
+                    width: Kirigami.Units.largeSpacing
                 },
                 LabelWithToolTip {
                     id: viewTitle
@@ -174,10 +174,10 @@ FocusScope {
                     // Horizontal line separating title and subtitle from metadata
                     Rectangle {
                         Layout.fillWidth: true
-                        Layout.leftMargin: elisaTheme.layoutHorizontalMargin * 5
-                        Layout.rightMargin: elisaTheme.layoutHorizontalMargin * 5
-                        Layout.topMargin: elisaTheme.layoutVerticalMargin * 2
-                        Layout.bottomMargin: elisaTheme.layoutVerticalMargin * 2
+                        Layout.leftMargin: Kirigami.Units.largeSpacing* 5
+                        Layout.rightMargin: Kirigami.Units.largeSpacing * 5
+                        Layout.topMargin: Kirigami.Units.largeSpacing
+                        Layout.bottomMargin: Kirigami.Units.largeSpacing
 
                         height: 1
 
@@ -205,10 +205,10 @@ FocusScope {
                     // Horizontal line separating metadata from lyrics
                     Rectangle {
                         Layout.fillWidth: true
-                        Layout.leftMargin: elisaTheme.layoutHorizontalMargin * 5
-                        Layout.rightMargin: elisaTheme.layoutHorizontalMargin * 5
-                        Layout.topMargin: elisaTheme.layoutVerticalMargin * 2
-                        Layout.bottomMargin: elisaTheme.layoutVerticalMargin * 2
+                        Layout.leftMargin: Kirigami.Units.largeSpacing * 5
+                        Layout.rightMargin: Kirigami.Units.largeSpacing * 5
+                        Layout.topMargin: Kirigami.Units.largeSpacing
+                        Layout.bottomMargin: Kirigami.Units.largeSpacing
 
                         height: 1
 
@@ -226,8 +226,7 @@ FocusScope {
                         horizontalAlignment: Label.AlignHCenter
 
                         Layout.fillWidth: true
-                        Layout.bottomMargin: elisaTheme.layoutVerticalMargin
-
+                        Layout.bottomMargin: Kirigami.Units.smallSpacing
                         visible: metaDataModel.lyrics !== ""
 
                     }
@@ -238,7 +237,7 @@ FocusScope {
         // Footer with file path label
         HeaderFooterToolbar {
             type: "footer"
-            contentLayoutSpacing: elisaTheme.layoutHorizontalMargin
+            contentLayoutSpacing: Kirigami.Units.largeSpacing
             contentItems: [
                 Image {
                     sourceSize.width: fileNameLabel.height

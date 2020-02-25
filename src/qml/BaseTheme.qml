@@ -16,7 +16,6 @@
  */
 
 import QtQuick 2.7
-import QtQuick.Controls 2.2
 
 Item {
     property string defaultAlbumImage: 'image://icon/media-optical-audio'
@@ -38,9 +37,6 @@ Item {
     property string ratingUnratedIcon: 'image://icon/rating-unrated'
     property string errorIcon: 'image://icon/error'
     property string folderIcon: 'image://icon/document-open-folder'
-
-    property int layoutHorizontalMargin: 8
-    property int layoutVerticalMargin: 6
 
     property int playListAlbumArtSize: 60
 
@@ -67,8 +63,4 @@ Item {
     property int footerToolbarHeight: 30
 
     property int viewSelectorSmallSizeThreshold: 800
-
-    Label {
-        id: fontSize
-    }
 }

@@ -64,7 +64,7 @@ ColumnLayout {
             },
             Item {
                 id: spacer
-                Layout.preferredWidth: elisaTheme.layoutHorizontalMargin
+                Layout.preferredWidth: Kirigami.Units.largeSpacing
                 visible: goPreviousButton.visible
             },
             Image {
@@ -81,7 +81,7 @@ ColumnLayout {
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
             },
             Item {
-                Layout.preferredWidth: elisaTheme.layoutHorizontalMargin
+                Layout.preferredWidth: Kirigami.Units.largeSpacing
                 visible: mainIcon.visible
             },
             ColumnLayout {
@@ -184,7 +184,7 @@ ColumnLayout {
                 Keys.onEscapePressed: persistentSettings.expandedFilterView = false;
             },
             Item {
-                width: elisaTheme.layoutHorizontalMargin
+                width: Kirigami.Units.largeSpacing
             },
             LabelWithToolTip {
                 text: i18n("Filter by rating: ")

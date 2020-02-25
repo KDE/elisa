@@ -117,9 +117,9 @@ FocusScope {
 
             Item {
 
-                Layout.margins: 2 * elisaTheme.layoutVerticalMargin
-                Layout.preferredHeight: gridEntry.width - 4 * elisaTheme.layoutVerticalMargin
-                Layout.preferredWidth: gridEntry.width - 4 * elisaTheme.layoutVerticalMargin
+                Layout.margins: Kirigami.Units.largeSpacing
+                Layout.preferredHeight: gridEntry.width - 2 * Kirigami.Units.largeSpacing
+                Layout.preferredWidth: gridEntry.width - 2 * Kirigami.Units.largeSpacing
 
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
 
@@ -296,7 +296,7 @@ FocusScope {
                                       ? (mainLabelSize.boundingRect.height - mainLabelSize.boundingRect.y)
                                       : (mainLabelSize.boundingRect.height - mainLabelSize.boundingRect.y) * 2
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
-                Layout.bottomMargin: delegateDisplaySecondaryText ? 0 : elisaTheme.layoutVerticalMargin
+                Layout.bottomMargin: delegateDisplaySecondaryText ? 0 : Kirigami.Units.smallSpacing
 
                 wrapMode: delegateDisplaySecondaryText ? Label.NoWrap : Label.Wrap
                 maximumLineCount: 2
@@ -314,7 +314,7 @@ FocusScope {
                 // See https://bugreports.qt.io/browse/QTBUG-49646
                 horizontalAlignment: Text.AlignHCenter
 
-                Layout.bottomMargin: elisaTheme.layoutVerticalMargin
+                Layout.bottomMargin: Kirigami.Units.smallSpacing
                 Layout.maximumWidth: gridEntry.width * 0.9
                 Layout.minimumWidth: Layout.maximumWidth
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom

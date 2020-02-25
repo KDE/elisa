@@ -21,6 +21,7 @@ import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.3
 import QtQuick.Window 2.2
 import QtGraphicalEffects 1.0
+import org.kde.kirigami 2.5 as Kirigami
 import org.kde.elisa 1.0
 
 FocusScope {
@@ -60,7 +61,7 @@ FocusScope {
         text: mainLabel.text
     }
 
-    property int singleLineHeight:  elisaTheme.layoutVerticalMargin * 2 + mainLabelSize.height
+    property int singleLineHeight: 3 * Kirigami.Units.smallSpacing + mainLabelSize.height
     height: singleLineHeight + (detailedView ? mainLabelSize.height : 0)
 
     Rectangle {
@@ -129,13 +130,13 @@ FocusScope {
                 Layout.fillWidth: true
                 Layout.leftMargin: {
                     if (!LayoutMirroring.enabled)
-                        return (!hideDiscNumber ? elisaTheme.layoutHorizontalMargin * 4 : elisaTheme.layoutHorizontalMargin)
+                        return (!hideDiscNumber ? Kirigami.Units.largeSpacing * 4 : Kirigami.Units.largeSpacing)
                     else
                         return 0
                 }
                 Layout.rightMargin: {
                     if (LayoutMirroring.enabled)
-                        return (!hideDiscNumber ? elisaTheme.layoutHorizontalMargin * 4 : elisaTheme.layoutHorizontalMargin)
+                        return (!hideDiscNumber ? Kirigami.Units.largeSpacing * 4 : Kirigami.Units.largeSpacing)
                     else
                         return 0
                 }
@@ -144,17 +145,17 @@ FocusScope {
             ImageWithFallback {
                 id: coverImageElement
 
-                Layout.preferredHeight: mediaTrack.height - elisaTheme.layoutVerticalMargin
-                Layout.preferredWidth: mediaTrack.height - elisaTheme.layoutVerticalMargin
-                Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutVerticalMargin : 0
-                Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutVerticalMargin : 0
+                Layout.preferredHeight: mediaTrack.height - Kirigami.Units.smallSpacing
+                Layout.preferredWidth: mediaTrack.height - Kirigami.Units.smallSpacing
+                Layout.leftMargin: !LayoutMirroring.enabled ? Kirigami.Units.smallSpacing : 0
+                Layout.rightMargin: LayoutMirroring.enabled ? Kirigami.Units.smallSpacing : 0
 
                 Layout.alignment: Qt.AlignCenter
 
                 visible: detailedView
 
-                sourceSize.width: mediaTrack.height - elisaTheme.layoutVerticalMargin
-                sourceSize.height: mediaTrack.height - elisaTheme.layoutVerticalMargin
+                sourceSize.width: mediaTrack.height - Kirigami.Units.smallSpacing
+                sourceSize.height: mediaTrack.height - Kirigami.Units.smallSpacing
                 fillMode: Image.PreserveAspectFit
                 smooth: true
 
@@ -204,10 +205,10 @@ FocusScope {
                     color: myPalette.text
 
                     Layout.alignment: Qt.AlignLeft | Qt.AlignTop
-                    Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-                    Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+                    Layout.leftMargin: !LayoutMirroring.enabled ? Kirigami.Units.largeSpacing : 0
+                    Layout.rightMargin: LayoutMirroring.enabled ? Kirigami.Units.largeSpacing : 0
                     Layout.fillWidth: true
-                    Layout.topMargin: elisaTheme.layoutVerticalMargin / 2
+                    Layout.topMargin: Kirigami.Units.smallSpacing / 2
 
                     elide: Text.ElideRight
                 }
@@ -238,10 +239,10 @@ FocusScope {
                     color: myPalette.text
 
                     Layout.alignment: Qt.AlignLeft | Qt.AlignBottom
-                    Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-                    Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+                    Layout.leftMargin: !LayoutMirroring.enabled ? Kirigami.Units.largeSpacing : 0
+                    Layout.rightMargin: LayoutMirroring.enabled ? Kirigami.Units.largeSpacing : 0
                     Layout.fillWidth: true
-                    Layout.bottomMargin: elisaTheme.layoutVerticalMargin / 2
+                    Layout.bottomMargin: Kirigami.Units.smallSpacing / 2
 
                     elide: Text.ElideRight
                 }
@@ -299,8 +300,8 @@ FocusScope {
                 starRating: rating
 
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
-                Layout.leftMargin: elisaTheme.layoutHorizontalMargin
-                Layout.rightMargin: elisaTheme.layoutHorizontalMargin
+                Layout.leftMargin: Kirigami.Units.largeSpacing
+                Layout.rightMargin: Kirigami.Units.largeSpacing
             }
 
             LabelWithToolTip {
@@ -314,8 +315,8 @@ FocusScope {
                 horizontalAlignment: Text.AlignRight
 
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
-                Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-                Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+                Layout.rightMargin: !LayoutMirroring.enabled ? Kirigami.Units.largeSpacing : 0
+                Layout.leftMargin: LayoutMirroring.enabled ? Kirigami.Units.largeSpacing : 0
             }
         }
     }

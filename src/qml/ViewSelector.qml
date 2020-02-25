@@ -19,7 +19,7 @@ import QtQuick 2.7
 import QtQuick.Controls 2.2
 import QtQml.Models 2.2
 import QtGraphicalEffects 1.0
-
+import org.kde.kirigami 2.5 as Kirigami
 import org.kde.elisa 1.0
 
 FocusScope {
@@ -62,7 +62,7 @@ FocusScope {
 
             z: 2
 
-            anchors.topMargin: elisaTheme.layoutHorizontalMargin * 2
+            anchors.topMargin: Kirigami.Units.largeSpacing * 2
 
             model: DelegateModel {
                 id: pageDelegateModel
@@ -136,7 +136,7 @@ FocusScope {
             PropertyChanges {
                 target: rootFocusScope
                 textOpacity: 0
-                implicitWidth: elisaTheme.viewSelectorDelegateHeight + 2 * elisaTheme.layoutHorizontalMargin
+                implicitWidth: elisaTheme.viewSelectorDelegateHeight + 2 * Kirigami.Units.largeSpacing
             }
         }
     ]

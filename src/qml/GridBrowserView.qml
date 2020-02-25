@@ -21,7 +21,7 @@ import QtQuick.Window 2.2
 import QtQml.Models 2.1
 import QtQuick.Layouts 1.2
 import QtGraphicalEffects 1.0
-
+import org.kde.kirigami 2.5 as Kirigami
 import org.kde.elisa 1.0
 
 FocusScope {
@@ -102,7 +102,7 @@ FocusScope {
                 keyNavigationEnabled: true
 
                 anchors.fill: parent
-                anchors.margins: elisaTheme.layoutHorizontalMargin
+                anchors.margins: Kirigami.Units.largeSpacing
 
                 ScrollBar.vertical: ScrollBar {
                     id: scrollBar
@@ -126,7 +126,7 @@ FocusScope {
                 }
 
                 cellWidth: Math.floor(availableWidth / Math.max(Math.floor(availableWidth / elisaTheme.gridDelegateSize), 2))
-                cellHeight: elisaTheme.gridDelegateSize + secondaryLabelSize.boundingRect.height * 2 + elisaTheme.layoutVerticalMargin * 2
+                cellHeight: elisaTheme.gridDelegateSize + secondaryLabelSize.boundingRect.height * 2 + Kirigami.Units.largeSpacing
 
                 delegate: GridBrowserDelegate {
                     width: elisaTheme.gridDelegateSize

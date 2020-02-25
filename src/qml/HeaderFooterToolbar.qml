@@ -19,7 +19,7 @@
 import QtQuick 2.10
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.2
-
+import org.kde.kirigami 2.5 as Kirigami
 import org.kde.elisa 1.0
 
 ColumnLayout {
@@ -66,9 +66,9 @@ ColumnLayout {
 
             anchors {
                 left: parent.left
-                leftMargin: elisaTheme.layoutHorizontalMargin
+                leftMargin: Kirigami.Units.largeSpacing
                 right: parent.right
-                rightMargin: elisaTheme.layoutHorizontalMargin
+                rightMargin: Kirigami.Units.largeSpacing
                 verticalCenter: parent.verticalCenter
             }
             spacing: 0

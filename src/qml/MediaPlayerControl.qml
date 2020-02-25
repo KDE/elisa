@@ -19,6 +19,7 @@ import QtQuick 2.7
 import QtQuick.Layouts 1.2
 import QtGraphicalEffects 1.0
 import QtQuick.Controls 2.3
+import org.kde.kirigami 2.5 as Kirigami
 import org.kde.elisa 1.0
 
 FocusScope {
@@ -113,8 +114,8 @@ FocusScope {
 
             Layout.alignment: Qt.AlignVCenter
             Layout.fillHeight: true
-            Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin  : elisaTheme.layoutHorizontalMargin * 2
-            Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : elisaTheme.layoutHorizontalMargin * 2
+            Layout.rightMargin: !LayoutMirroring.enabled ? Kirigami.Units.largeSpacing : Kirigami.Units.largeSpacing * 2
+            Layout.leftMargin: LayoutMirroring.enabled ? Kirigami.Units.largeSpacing : Kirigami.Units.largeSpacing * 2
             Layout.preferredWidth: (durationTextMetrics.boundingRect.width - durationTextMetrics.boundingRect.x) + 5
 
             verticalAlignment: Text.AlignVCenter
@@ -131,8 +132,8 @@ FocusScope {
             Layout.alignment: Qt.AlignVCenter
             Layout.fillHeight: true
             Layout.fillWidth: true
-            Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-            Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+            Layout.rightMargin: !LayoutMirroring.enabled ? Kirigami.Units.largeSpacing : 0
+            Layout.leftMargin: LayoutMirroring.enabled ? Kirigami.Units.largeSpacing : 0
 
             acceptedButtons: Qt.NoButton
             onWheel: {
@@ -230,8 +231,8 @@ FocusScope {
 
             Layout.alignment: Qt.AlignVCenter
             Layout.fillHeight: true
-            Layout.rightMargin: !LayoutMirroring.enabled ? (elisaTheme.layoutHorizontalMargin * 2) : 0
-            Layout.leftMargin: LayoutMirroring.enabled ? (elisaTheme.layoutHorizontalMargin * 2) : 0
+            Layout.rightMargin: !LayoutMirroring.enabled ? (Kirigami.Units.largeSpacing* 2) : 0
+            Layout.leftMargin: LayoutMirroring.enabled ? (Kirigami.Units.largeSpacing* 2) : 0
             Layout.preferredWidth: (durationTextMetrics.boundingRect.width - durationTextMetrics.boundingRect.x)
 
             verticalAlignment: Text.AlignVCenter

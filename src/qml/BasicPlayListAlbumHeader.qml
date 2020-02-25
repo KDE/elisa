@@ -18,6 +18,7 @@
 import QtQuick 2.7
 import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.3
+import org.kde.kirigami 2.5 as Kirigami
 
 import org.kde.elisa 1.0
 
@@ -44,12 +45,12 @@ Rectangle {
         anchors.top: parent.top
         // No bottom anchor so it can grow vertically
 
-        spacing: elisaTheme.layoutHorizontalMargin / 4
+        spacing: Kirigami.Units.smallSpacing
 
         ImageWithFallback {
             Layout.preferredWidth: elisaTheme.playListAlbumArtSize
             Layout.preferredHeight: elisaTheme.playListAlbumArtSize
-            Layout.margins: elisaTheme.layoutHorizontalMargin
+            Layout.margins: Kirigami.Units.largeSpacing
 
             source: imageUrl
             fallback: elisaTheme.defaultAlbumImage
@@ -66,12 +67,12 @@ Rectangle {
 
             Layout.fillWidth: true
             Layout.fillHeight: true
-            Layout.leftMargin: !LayoutMirroring.enabled ? - elisaTheme.layoutHorizontalMargin / 4 : 0
-            Layout.rightMargin: LayoutMirroring.enabled ? - elisaTheme.layoutHorizontalMargin / 4 : 0
-            Layout.topMargin: elisaTheme.layoutVerticalMargin
-            Layout.bottomMargin: elisaTheme.layoutVerticalMargin
+            Layout.leftMargin: !LayoutMirroring.enabled ? - Kirigami.Units.smallSpacing : 0
+            Layout.rightMargin: LayoutMirroring.enabled ? - Kirigami.Units.smallSpacing : 0
+            Layout.topMargin: Kirigami.Units.smallSpacing
+            Layout.bottomMargin: Kirigami.Units.smallSpacing
 
-            spacing: elisaTheme.layoutVerticalMargin
+            spacing: Kirigami.Units.smallSpacing
 
             LabelWithToolTip {
                 id: mainLabel

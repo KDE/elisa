@@ -35,7 +35,7 @@ Rectangle {
 
     color: Kirigami.Theme.activeTextColor
 
-    width: (labelWidth.boundingRect.width - labelWidth.boundingRect.x) + 3 * elisaTheme.layoutHorizontalMargin +
+    width: (labelWidth.boundingRect.width - labelWidth.boundingRect.x) + 3 * Kirigami.Units.largeSpacing +
            indicator.width
     height: indicator.height
 
@@ -67,7 +67,7 @@ Rectangle {
 
     RowLayout {
         anchors.fill: parent
-        spacing: elisaTheme.layoutHorizontalMargin
+        spacing: Kirigami.Units.largeSpacing
 
         BusyIndicator{
             id: indicator

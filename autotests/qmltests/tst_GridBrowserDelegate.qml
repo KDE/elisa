@@ -46,7 +46,6 @@ FocusScope {
             id: elisaTheme
 
             property int delegateToolButtonSize: 34
-            property int layoutVerticalMargin: 6
         }
     }
 

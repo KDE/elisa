@@ -18,6 +18,7 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.2
 import QtGraphicalEffects 1.0
+import org.kde.kirigami 2.5 as Kirigami
 
 FocusScope {
     id: rootItem
@@ -95,7 +96,7 @@ FocusScope {
 
             anchors {
                 verticalCenter: parent.verticalCenter
-                leftMargin: elisaTheme.layoutHorizontalMargin
+                leftMargin: Kirigami.Units.largeSpacing
                 left: parent.left
             }
 
@@ -121,10 +122,10 @@ FocusScope {
             z: 2
 
             anchors.verticalCenter: parent.verticalCenter
-            anchors.leftMargin: elisaTheme.layoutHorizontalMargin
+            anchors.leftMargin: Kirigami.Units.largeSpacing
             anchors.left: viewIcon.right
             anchors.right: parent.right
-            anchors.rightMargin: elisaTheme.layoutHorizontalMargin
+            anchors.rightMargin: Kirigami.Units.largeSpacing
             verticalAlignment: "AlignVCenter"
 
             text: model.display

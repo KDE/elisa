@@ -68,7 +68,7 @@ FocusScope {
         playListEntry.startPlayback()
     }
 
-    height: mainCompactLabelSize.height + 2 * elisaTheme.layoutVerticalMargin
+    height: mainCompactLabelSize.height + 3 * Kirigami.Units.smallSpacing
 
     Loader {
         id: metadataLoader
@@ -105,10 +105,10 @@ FocusScope {
         z: 2
 
         anchors.fill: parent
-        anchors.leftMargin: elisaTheme.layoutHorizontalMargin
+        anchors.leftMargin: Kirigami.Units.largeSpacing
         anchors.rightMargin: LayoutMirroring.enabled ? scrollBarWidth : 0
 
-        spacing: elisaTheme.layoutHorizontalMargin / 4
+        spacing: Kirigami.Units.smallSpacing / 2
 
         // Container for the play/pause icon and the track/disc label
         Item {
@@ -122,8 +122,8 @@ FocusScope {
             Layout.maximumWidth: fakeLabel.width
             Layout.preferredHeight: playListEntry.height
             Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-            Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin / 2 : 0
-            Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin / 2 : 0
+            Layout.leftMargin: !LayoutMirroring.enabled ? Kirigami.Units.smallSpacing : 0
+            Layout.rightMargin: LayoutMirroring.enabled ? Kirigami.Units.smallSpacing : 0
 
             Image {
                 id: playIcon
@@ -154,8 +154,8 @@ FocusScope {
                 id: trackAndDiscNumberLabel
 
                 anchors.fill: parent
-                anchors.rightMargin: LayoutMirroring.enabled ? 0 : elisaTheme.layoutHorizontalMargin
-                anchors.leftMargin: !LayoutMirroring.enabled ? 0 : elisaTheme.layoutHorizontalMargin
+                anchors.rightMargin: LayoutMirroring.enabled ? 0 : Kirigami.Units.largeSpacing
+                anchors.leftMargin: !LayoutMirroring.enabled ? 0 : Kirigami.Units.largeSpacing
 
                 horizontalAlignment: Text.AlignRight
 
@@ -300,8 +300,8 @@ FocusScope {
             color: simpleMode ? myPalette.highlightedText : myPalette.text
 
             Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
-            Layout.leftMargin: elisaTheme.layoutHorizontalMargin
-            Layout.rightMargin: elisaTheme.layoutHorizontalMargin
+            Layout.leftMargin: Kirigami.Units.largeSpacing
+            Layout.rightMargin: Kirigami.Units.largeSpacing
 
             horizontalAlignment: Text.AlignRight
         }

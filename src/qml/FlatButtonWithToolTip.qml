@@ -38,8 +38,8 @@ Button {
     icon.width: Kirigami.Units.iconSizes.smallMedium
     icon.height: Kirigami.Units.iconSizes.smallMedium
 
-    implicitWidth: icon.width + 16
-    implicitHeight: icon.height + 16
+    implicitWidth: icon.width + Kirigami.Units.largeSpacing * 2
+    implicitHeight: icon.height + Kirigami.Units.largeSpacing * 2
 
     ToolTip.visible: hovered
     ToolTip.delay: Qt.styleHints.mousePressAndHoldInterval

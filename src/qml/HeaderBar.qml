@@ -20,6 +20,7 @@ import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.2
 import QtQuick.Window 2.2
 import QtGraphicalEffects 1.0
+import org.kde.kirigami 2.5 as Kirigami
 
 FocusScope {
     id: headerBar
@@ -213,8 +214,8 @@ FocusScope {
             ColumnLayout {
                 spacing: 0
 
-                Layout.leftMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
-                Layout.rightMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin : 0
+                Layout.leftMargin: !LayoutMirroring.enabled ? Kirigami.Units.largeSpacing : 0
+                Layout.rightMargin: LayoutMirroring.enabled ? Kirigami.Units.largeSpacing : 0
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
                 Layout.preferredHeight: contentZone.height * 0.9
                 Layout.minimumHeight: contentZone.height * 0.9
@@ -315,10 +316,10 @@ FocusScope {
                     Layout.fillHeight: true
 
                     Layout.alignment: Qt.AlignRight | Qt.AlignTop
-                    Layout.topMargin: elisaTheme.layoutHorizontalMargin * 6
-                    Layout.bottomMargin: elisaTheme.layoutHorizontalMargin * 2
-                    Layout.leftMargin: elisaTheme.layoutHorizontalMargin * 7
-                    Layout.rightMargin: elisaTheme.layoutHorizontalMargin * 2
+                    Layout.topMargin: Kirigami.Units.largeSpacing * 6
+                    Layout.bottomMargin: Kirigami.Units.largeSpacing * 2
+                    Layout.leftMargin: Kirigami.Units.largeSpacing * 7
+                    Layout.rightMargin: Kirigami.Units.largeSpacing * 2
                 }
             }
         }
@@ -338,8 +339,8 @@ FocusScope {
 
         anchors.right: contentZone.right
         anchors.bottom: contentZone.bottom
-        anchors.rightMargin: elisaTheme.layoutHorizontalMargin * 2
-        anchors.bottomMargin: elisaTheme.layoutHorizontalMargin * 2
+        anchors.rightMargin: Kirigami.Units.largeSpacing * 2
+        anchors.bottomMargin: Kirigami.Units.largeSpacing * 2
     }
 
     SequentialAnimation {

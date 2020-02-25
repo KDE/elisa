@@ -39,7 +39,6 @@ FocusScope {
     Item {
         id: elisaTheme
         property int layoutHorizontalMargin: 8
-        property int layoutVerticalMargin: 6
         property int ratingStarSize: 16
     }
 

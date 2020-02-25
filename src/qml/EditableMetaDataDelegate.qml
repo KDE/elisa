@@ -18,7 +18,7 @@
 import QtQuick 2.10
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.2
-
+import org.kde.kirigami 2.5 as Kirigami
 import org.kde.elisa 1.0
 
 RowLayout {
@@ -47,8 +47,8 @@ RowLayout {
 
         Layout.alignment: Qt.AlignCenter
         Layout.preferredWidth: 0.8 * elisaTheme.coverImageSize
-        Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin / 2 : 0
-        Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin / 2 : 0
+        Layout.rightMargin: !LayoutMirroring.enabled ? Kirigami.Units.smallSpacing : 0
+        Layout.leftMargin: LayoutMirroring.enabled ? Kirigami.Units.smallSpacing : 0
     }
 
     Loader {

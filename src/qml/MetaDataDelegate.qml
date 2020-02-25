@@ -18,14 +18,14 @@
 import QtQuick 2.10
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.2
-
+import org.kde.kirigami 2.5 as Kirigami
 import org.kde.elisa 1.0
 
 RowLayout {
     id: delegateRow
     spacing: 0
 
-    height: (model.type === EditableTrackMetadataModel.LongTextEntry ? longTextDisplayLoader.height : (metaDataLabelMetric.boundingRect.height + elisaTheme.layoutVerticalMargin / 2))
+    height: (model.type === EditableTrackMetadataModel.LongTextEntry ? longTextDisplayLoader.height : (metaDataLabelMetric.boundingRect.height + Kirigami.Units.smallSpacing / 2))
 
     TextMetrics {
         id: metaDataLabelMetric
@@ -44,8 +44,8 @@ RowLayout {
 
         Layout.alignment: Qt.AlignTop
         Layout.preferredWidth: 0.8 * elisaTheme.coverImageSize
-        Layout.rightMargin: !LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin / 2 : 0
-        Layout.leftMargin: LayoutMirroring.enabled ? elisaTheme.layoutHorizontalMargin / 2 : 0
+        Layout.rightMargin: !LayoutMirroring.enabled ? Kirigami.Units.smallSpacing : 0
+        Layout.leftMargin: LayoutMirroring.enabled ? Kirigami.Units.smallSpacing : 0
     }
 
     Loader {
@@ -75,7 +75,7 @@ RowLayout {
         visible: model.type === EditableTrackMetadataModel.LongTextEntry
 
         Layout.fillWidth: true
-        Layout.maximumWidth: delegateRow.width - (0.8 * elisaTheme.coverImageSize + elisaTheme.layoutHorizontalMargin * 2)
+        Layout.maximumWidth: delegateRow.width - (0.8 * elisaTheme.coverImageSize + Kirigami.Units.largeSpacing * 2)
         Layout.alignment: Qt.AlignTop
 
         sourceComponent: Label {

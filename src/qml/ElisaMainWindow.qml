@@ -19,6 +19,7 @@ import QtQuick 2.7
 import QtQuick.Controls 2.3
 import QtQuick.Layouts 1.1
 import QtQuick.Window 2.2
+import org.kde.kirigami 2.5 as Kirigami
 import org.kde.elisa 1.0
 import Qt.labs.settings 1.0
 
@@ -230,8 +231,8 @@ ApplicationWindow {
                     {
                         right: headerBar.right
                         top: headerBar.top
-                        rightMargin: elisaTheme.layoutHorizontalMargin * 1.75
-                        topMargin: elisaTheme.layoutHorizontalMargin * 3
+                        rightMargin: Kirigami.Units.largeSpacing * 2
+                        topMargin: Kirigami.Units.largeSpacing * 3
                     }
                 }
 

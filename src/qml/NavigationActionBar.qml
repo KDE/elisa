@@ -235,7 +235,7 @@ ColumnLayout {
         PropertyAnimation {
             properties: "opacity"
             easing.type: Easing.Linear
-            duration: 250
+            duration: Kirigami.Units.longDuration
         }
     }
 }

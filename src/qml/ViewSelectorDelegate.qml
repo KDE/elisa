@@ -70,8 +70,8 @@ FocusScope {
                     color: myPalette.highlightedText
                 }
 
-                enter: Transition { NumberAnimation { properties: "opacity"; easing.type: Easing.InOutQuad; from: 0.0; to: 1.0; duration: 300; } }
-                exit: Transition { NumberAnimation { properties: "opacity"; easing.type: Easing.InOutQuad; from: 1.0; to: 0.0; duration: 300; } }
+                enter: Transition { NumberAnimation { properties: "opacity"; easing.type: Easing.InOutQuad; from: 0.0; to: 1.0; duration: Kirigami.Units.longDuration; } }
+                exit: Transition { NumberAnimation { properties: "opacity"; easing.type: Easing.InOutQuad; from: 1.0; to: 0.0; duration: Kirigami.Units.longDuration; } }
 
                 background: Rectangle {
                     color: myPalette.shadow

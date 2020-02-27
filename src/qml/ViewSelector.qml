@@ -110,13 +110,13 @@ FocusScope {
 
     Behavior on implicitWidth {
         NumberAnimation {
-            duration: 150
+            duration: Kirigami.Units.shortDuration
         }
     }
 
     Behavior on width {
         NumberAnimation {
-            duration: 150
+            duration: Kirigami.Units.shortDuration
         }
     }
 

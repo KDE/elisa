@@ -19,6 +19,7 @@ import QtQuick 2.7
 import QtQuick.Controls 2.2
 import QtGraphicalEffects 1.0
 import QtQuick.Window 2.2
+import org.kde.kirigami 2.5 as Kirigami
 
 Label {
     id: theLabel
@@ -38,8 +39,8 @@ Label {
                 visible: parent.containsMouse && theLabel.truncated
                 text: theLabel.text
 
-                enter: Transition { NumberAnimation { properties: "opacity"; easing.type: Easing.InOutQuad; from: 0.0; to: 1.0; duration: 300; } }
-                exit: Transition { NumberAnimation { properties: "opacity"; easing.type: Easing.InOutQuad; from: 1.0; to: 0.0; duration: 300; } }
+                enter: Transition { NumberAnimation { properties: "opacity"; easing.type: Easing.InOutQuad; from: 0.0; to: 1.0; duration: Kirigami.Units.longDuration; } }
+                exit: Transition { NumberAnimation { properties: "opacity"; easing.type: Easing.InOutQuad; from: 1.0; to: 0.0; duration: Kirigami.Units.longDuration; } }
             }
         }
     }

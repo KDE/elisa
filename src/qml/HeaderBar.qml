@@ -376,7 +376,7 @@ FocusScope {
                 property: 'opacity'
                 from: 0
                 to: 1
-                duration: 250
+                duration: Kirigami.Units.longDuration
                 easing.type: Easing.Linear
             }
 
@@ -385,7 +385,7 @@ FocusScope {
                 property: 'opacity'
                 from: 1
                 to: 0
-                duration: 250
+                duration: Kirigami.Units.longDuration
                 easing.type: Easing.Linear
             }
         }

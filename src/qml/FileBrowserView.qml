@@ -122,7 +122,7 @@ FocusScope {
                         property: "opacity"
                         from: 0
                         to: 1
-                        duration: 100
+                        duration: Kirigami.Units.shortDuration
                     }
                 }
 
@@ -131,7 +131,7 @@ FocusScope {
                         property: "opacity"
                         from: 0
                         to: 1
-                        duration: 100
+                        duration: Kirigami.Units.shortDuration
                     }
                 }
 

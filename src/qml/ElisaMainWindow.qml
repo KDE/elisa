@@ -309,7 +309,7 @@ ApplicationWindow {
             NumberAnimation {
                 properties: "Layout.minimumHeight, Layout.maximumHeight, minimumHeight"
                 easing.type: Easing.InOutQuad
-                duration: 300
+                duration: Kirigami.Units.longDuration
             }
         }
     }

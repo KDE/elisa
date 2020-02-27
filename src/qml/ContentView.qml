@@ -160,7 +160,7 @@ RowLayout {
 
         Behavior on Layout.maximumWidth {
             NumberAnimation {
-                duration: 150
+                duration: Kirigami.Units.shortDuration
             }
         }
 
@@ -206,7 +206,7 @@ RowLayout {
                     OpacityAnimator {
                         from: 0.0
                         to: 1.0
-                        duration: 300
+                        duration: Kirigami.Units.longDuration
                     }
                 }
 
@@ -214,7 +214,7 @@ RowLayout {
                     OpacityAnimator {
                         from: 1.0
                         to: 0.0
-                        duration: 300
+                        duration: Kirigami.Units.longDuration
                     }
                 }
 
@@ -222,7 +222,7 @@ RowLayout {
                     OpacityAnimator {
                         from: 0.0
                         to: 1.0
-                        duration: 300
+                        duration: Kirigami.Units.longDuration
                     }
                 }
 
@@ -230,7 +230,7 @@ RowLayout {
                     OpacityAnimator {
                         from: 1.0
                         to: 0.0
-                        duration: 300
+                        duration: Kirigami.Units.longDuration
                     }
                 }
 
@@ -238,7 +238,7 @@ RowLayout {
                     OpacityAnimator {
                         from: 0.0
                         to: 1.0
-                        duration: 300
+                        duration: Kirigami.Units.longDuration
                     }
                 }
 
@@ -246,7 +246,7 @@ RowLayout {
                     OpacityAnimator {
                         from: 1.0
                         to: 0.0
-                        duration: 300
+                        duration: Kirigami.Units.longDuration
                     }
                 }
             }
@@ -301,7 +301,7 @@ RowLayout {
         NumberAnimation {
             properties: "Layout.minimumWidth, Layout.maximumWidth, Layout.preferredWidth, opacity"
             easing.type: Easing.InOutQuad
-            duration: 300
+            duration: Kirigami.Units.longDuration
         }
     }
 

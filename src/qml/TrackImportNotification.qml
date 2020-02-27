@@ -111,7 +111,7 @@ Rectangle {
     Behavior on opacity {
         NumberAnimation {
             easing.type: Easing.InOutQuad
-            duration: 300
+            duration: Kirigami.Units.longDuration
         }
     }
 

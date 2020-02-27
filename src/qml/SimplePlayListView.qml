@@ -56,7 +56,7 @@ ListView {
             property: "opacity";
             from: 0;
             to: 1;
-            duration: 100 }
+            duration: Kirigami.Units.shortDuration }
     }
 
     populate: Transition {
@@ -64,7 +64,7 @@ ListView {
             property: "opacity";
             from: 0;
             to: 1;
-            duration: 100 }
+            duration: Kirigami.Units.shortDuration }
     }
 
     remove: Transition {
@@ -72,13 +72,13 @@ ListView {
             property: "opacity";
             from: 1.0;
             to: 0;
-            duration: 100 }
+            duration: Kirigami.Units.shortDuration }
     }
 
     displaced: Transition {
         NumberAnimation {
             properties: "x,y";
-            duration: 100;
+            duration: Kirigami.Units.shortDuration
             easing.type: Easing.InOutQuad}
     }
 

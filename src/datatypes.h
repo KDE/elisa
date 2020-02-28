@@ -83,9 +83,19 @@ public:
     public:
         using DataType::DataType;
 
+        bool hasDatabaseId() const
+        {
+            return find(key_type::DatabaseIdRole) != end();
+        }
+
         qulonglong databaseId() const
         {
             return operator[](key_type::DatabaseIdRole).toULongLong();
+        }
+
+        bool hasElementType() const
+        {
+            return find(key_type::ElementTypeRole) != end();
         }
 
         ElisaUtils::PlayListEntryType elementType() const

@@ -72,6 +72,10 @@ public:
 
     DataTypes::ListArtistDataType allArtistsDataByGenre(const QString &genre);
 
+    DataTypes::ArtistDataType artistDataFromDatabaseId(qulonglong id);
+
+    qulonglong artistIdFromName(const QString &name);
+
     DataTypes::ListGenreDataType allGenresData();
 
     bool internalArtistMatchGenre(qulonglong databaseId, const QString &genre);
@@ -254,6 +258,8 @@ private:
     DataTypes::ListAlbumDataType internalAllAlbumsPartialData(QSqlQuery &query);
 
     DataTypes::AlbumDataType internalOneAlbumPartialData(qulonglong databaseId);
+
+    DataTypes::ArtistDataType internalOneArtistPartialData(qulonglong databaseId);
 
     DataTypes::ListTrackDataType internalAllTracksPartialData();
 

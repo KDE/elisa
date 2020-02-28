@@ -639,6 +639,48 @@ DataTypes::ListArtistDataType DatabaseInterface::allArtistsDataByGenre(const QSt
     return result;
 }
 
+DataTypes::ArtistDataType DatabaseInterface::artistDataFromDatabaseId(qulonglong id)
+{
+    auto result = DataTypes::ArtistDataType{};
+
+    if (!d) {
+        return result;
+    }
+
+    auto transactionResult = startTransaction();
+    if (!transactionResult) {
+        return result;
+    }
+
+    result = internalOneArtistPartialData(id);
+
+    transactionResult = finishTransaction();
+    if (!transactionResult) {
+        return result;
+    }
+
+    return result;
+}
+
+qulonglong DatabaseInterface::artistIdFromName(const QString &name)
+{
+    auto result = qulonglong{0};
+
+    auto transactionResult = startTransaction();
+    if (!transactionResult) {
+        return result;
+    }
+
+    result = internalArtistIdFromName(name);
+
+    transactionResult = finishTransaction();
+    if (!transactionResult) {
+        return result;
+    }
+
+    return result;
+}
+
 DataTypes::ListGenreDataType DatabaseInterface::allGenresData()
 {
     auto result = DataTypes::ListGenreDataType{};
@@ -8007,6 +8049,30 @@ DataTypes::AlbumDataType DatabaseInterface::internalOneAlbumPartialData(qulonglo
     }
 
     d->mSelectAlbumQuery.finish();
+
+    return result;
+}
+
+DataTypes::ArtistDataType DatabaseInterface::internalOneArtistPartialData(qulonglong databaseId)
+{
+    auto result = DataTypes::ArtistDataType{};
+
+    d->mSelectArtistQuery.bindValue(QStringLiteral(":artistId"), databaseId);
+
+    if (!internalGenericPartialData(d->mSelectArtistQuery)) {
+        return result;
+    }
+
+    if (d->mSelectArtistQuery.next()) {
+        const auto &currentRecord = d->mSelectArtistQuery.record();
+
+        result[DataTypes::DatabaseIdRole] = currentRecord.value(0);
+        result[DataTypes::TitleRole] = currentRecord.value(1);
+        result[DataTypes::GenreRole] = QVariant::fromValue(currentRecord.value(2).toString().split(QStringLiteral(", ")));
+        result[DataTypes::ElementTypeRole] = ElisaUtils::Artist;
+    }
+
+    d->mSelectArtistQuery.finish();
 
     return result;
 }

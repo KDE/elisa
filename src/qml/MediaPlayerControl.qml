@@ -116,7 +116,7 @@ FocusScope {
             Layout.fillHeight: true
             Layout.rightMargin: !LayoutMirroring.enabled ? Kirigami.Units.largeSpacing : Kirigami.Units.largeSpacing * 2
             Layout.leftMargin: LayoutMirroring.enabled ? Kirigami.Units.largeSpacing : Kirigami.Units.largeSpacing * 2
-            Layout.preferredWidth: (durationTextMetrics.boundingRect.width - durationTextMetrics.boundingRect.x) + 5
+            Layout.preferredWidth: (durationTextMetrics.boundingRect.width - durationTextMetrics.boundingRect.x) + Kirigami.Units.smallSpacing
 
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignRight

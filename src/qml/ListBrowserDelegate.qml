@@ -55,14 +55,8 @@ FocusScope {
     Keys.onReturnPressed: enqueue(trackUrl, dataType, title)
     Keys.onEnterPressed: enqueue(trackUrl, dataType, title)
 
-    TextMetrics {
-        id: mainLabelSize
-        font: mainLabel.font
-        text: mainLabel.text
-    }
-
-    property int singleLineHeight: 3 * Kirigami.Units.smallSpacing + mainLabelSize.height
-    height: singleLineHeight + (detailedView ? mainLabelSize.height : 0)
+    property int singleLineHeight: 3 * Kirigami.Units.smallSpacing + Kirigami.Units.gridUnit
+    height: singleLineHeight + (detailedView ? Kirigami.Units.gridUnit : 0)
 
     Rectangle {
         id: rowRoot

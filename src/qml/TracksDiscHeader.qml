@@ -23,13 +23,7 @@ Rectangle {
     property int discNumber
 
     color: myPalette.mid
-    height: discHeaderSize.height + Kirigami.Units.largeSpacing
-
-    TextMetrics {
-        id: discHeaderSize
-        font: discHeaderLabel.font
-        text: discHeaderLabel.text
-    }
+    height: Kirigami.Units.gridUnit + Kirigami.Units.largeSpacing
 
     LabelWithToolTip {
         id: discHeaderLabel

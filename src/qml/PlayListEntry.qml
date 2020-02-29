@@ -57,18 +57,12 @@ FocusScope {
     Accessible.role: Accessible.ListItem
     Accessible.name: title + ' ' + album + ' ' + artist
 
-    TextMetrics {
-        id: mainCompactLabelSize
-        font: mainCompactLabel.font
-        text: mainCompactLabel.text
-    }
-
     Keys.onReturnPressed: {
         playListEntry.switchToTrack(playListEntry.index)
         playListEntry.startPlayback()
     }
 
-    height: mainCompactLabelSize.height + 3 * Kirigami.Units.smallSpacing
+    height: Kirigami.Units.gridUnit + 3 * Kirigami.Units.smallSpacing
 
     Loader {
         id: metadataLoader

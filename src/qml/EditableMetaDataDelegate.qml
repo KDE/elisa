@@ -25,12 +25,6 @@ RowLayout {
     id: delegateRow
     spacing: 0
 
-    TextMetrics {
-        id: metaDataLabelMetric
-
-        text: 'Metadata Name'
-    }
-
     Label {
         id: metaDataLabels
 

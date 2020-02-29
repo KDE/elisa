@@ -111,11 +111,6 @@ FocusScope {
 
                 model: proxyModel
 
-                TextMetrics {
-                    id: secondaryLabelSize
-                    text: 'example'
-                }
-
                 ScrollHelper {
                     id: scrollHelper
                     flickable: contentDirectoryView
@@ -141,7 +136,7 @@ FocusScope {
                 }
 
                 cellWidth: Math.floor(availableWidth / Math.max(Math.floor(availableWidth / elisaTheme.gridDelegateSize), 2))
-                cellHeight: elisaTheme.gridDelegateSize + secondaryLabelSize.boundingRect.height * 2 + Kirigami.Units.largeSpacing
+                cellHeight: elisaTheme.gridDelegateSize + Kirigami.Units.gridUnit * 2 + Kirigami.Units.largeSpacing
 
                 delegate: GridBrowserDelegate {
                     width: elisaTheme.gridDelegateSize

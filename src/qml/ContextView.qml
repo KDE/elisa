@@ -48,12 +48,6 @@ FocusScope {
 
         spacing: 0
 
-        TextMetrics {
-            id: titleHeight
-            text: viewTitle.text
-            font: viewTitle.font
-        }
-
         // Header with title
         HeaderFooterToolbar {
             type: "header"

@@ -103,12 +103,6 @@ FocusScope {
             text: mainLabel.text
         }
 
-        TextMetrics {
-            id: secondaryLabelSize
-            font: secondaryLabel.font
-            text: secondaryLabel.text
-        }
-
         ColumnLayout {
             id: mainData
 
@@ -292,9 +286,7 @@ FocusScope {
 
                 Layout.maximumWidth: gridEntry.width * 0.9
                 Layout.minimumWidth: Layout.maximumWidth
-                Layout.maximumHeight: delegateDisplaySecondaryText
-                                      ? (mainLabelSize.boundingRect.height - mainLabelSize.boundingRect.y)
-                                      : (mainLabelSize.boundingRect.height - mainLabelSize.boundingRect.y) * 2
+                Layout.maximumHeight: delegateDisplaySecondaryText ? mainLabelSize.boundingRect.height : mainLabelSize.boundingRect.height * 2
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
                 Layout.bottomMargin: delegateDisplaySecondaryText ? 0 : Kirigami.Units.smallSpacing
 

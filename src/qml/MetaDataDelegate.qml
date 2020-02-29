@@ -25,13 +25,7 @@ RowLayout {
     id: delegateRow
     spacing: 0
 
-    height: (model.type === EditableTrackMetadataModel.LongTextEntry ? longTextDisplayLoader.height : (metaDataLabelMetric.boundingRect.height + Kirigami.Units.smallSpacing / 2))
-
-    TextMetrics {
-        id: metaDataLabelMetric
-
-        text: 'Metadata Name'
-    }
+    height: (model.type === EditableTrackMetadataModel.LongTextEntry ? longTextDisplayLoader.height : (Kirigami.Units.gridUnit + Kirigami.Units.smallSpacing / 2))
 
     Label {
         id: metaDataLabels

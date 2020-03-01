@@ -110,13 +110,15 @@ FocusScope {
 
     Behavior on implicitWidth {
         NumberAnimation {
-            duration: Kirigami.Units.shortDuration
+            easing.type: Easing.InOutQuad
+            duration: Kirigami.Units.longDuration
         }
     }
 
     Behavior on width {
         NumberAnimation {
-            duration: Kirigami.Units.shortDuration
+            easing.type: Easing.InOutQuad
+            duration: Kirigami.Units.longDuration
         }
     }
 

@@ -158,12 +158,6 @@ RowLayout {
 
         Layout.fillHeight: true
 
-        Behavior on Layout.maximumWidth {
-            NumberAnimation {
-                duration: Kirigami.Units.shortDuration
-            }
-        }
-
         onSwitchView: viewManager.openParentView(viewType, pageModel.viewMainTitle(viewType, ""), pageModel.viewImageUrl(viewType, ""))
     }
 

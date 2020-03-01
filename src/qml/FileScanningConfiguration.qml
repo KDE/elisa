@@ -27,11 +27,17 @@ ColumnLayout {
     CheckBox {
         id: forceFileIndexerUsageCheckBox
 
-        text: i18n("Force use of filesystem indexing.\nThis is much slower than usage of fast search !\nPlease activate it only if Elisa cannot find your music and searching for the file also does not work.\nPlease report this as a bug.")
+        text: i18n("Force filesystem indexing")
 
         checked: !config.forceUsageOfFastFileSearch
 
         onCheckedChanged: config.forceUsageOfFastFileSearch = !checked
+    }
+
+    Label {
+        text: i18n("This is much slower than usage of fast search !\nPlease activate it only if Elisa cannot find your music and searching for the file also does not work.\nPlease report this as a bug.")
+
+        font.pointSize: theme.smallestFont.pointSize
     }
 
     RowLayout {

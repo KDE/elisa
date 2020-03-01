@@ -83,7 +83,6 @@ public Q_SLOTS:
 Q_SIGNALS:
 
     void filesToEnqueue(const DataTypes::EntryDataList &newFiles,
-                        ElisaUtils::PlayListEntryType databaseIdType,
                         ElisaUtils::PlayListEnqueueMode enqueueMode,
                         ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 

@@ -93,7 +93,7 @@ void MediaPlayListTest::simpleInitialCase()
 
     auto newTrackID = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track6"), QStringLiteral("artist1 and artist2"), QStringLiteral("album2"), 6, 1);
     auto newTrackData = myDatabaseContent.trackDataFromDatabaseId(newTrackID);
-    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, newTrackID}}, {}, {}}, ElisaUtils::Track);
+    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, newTrackID}, {DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -179,8 +179,7 @@ void MediaPlayListTest::enqueueAlbumCase()
     QCOMPARE(newEntryInListSpy.count(), 0);
 
     myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, myDatabaseContent.albumIdFromTitleAndArtist(QStringLiteral("album2"), QStringLiteral("artist1"), QStringLiteral("/"))}},
-                        QStringLiteral("album2"), {}},
-                       ElisaUtils::Album);
+                        QStringLiteral("album2"), {}});
 
     QVERIFY(rowsAboutToBeRemovedSpy.wait());
 
@@ -300,7 +299,7 @@ void MediaPlayListTest::enqueueArtistCase()
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newEntryInListSpy.count(), 0);
 
-    myPlayList.enqueueOneEntry({{}, QStringLiteral("artist1"), {}}, ElisaUtils::Artist);
+    myPlayList.enqueueOneEntry({{{DataTypes::ElementTypeRole, ElisaUtils::Artist}}, QStringLiteral("artist1"), {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -436,7 +435,7 @@ void MediaPlayListTest::enqueueTrackByUrl()
 
     auto newTrackID = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track6"), QStringLiteral("artist1 and artist2"), QStringLiteral("album2"), 6, 1);
     auto trackData = myDatabaseContent.trackDataFromDatabaseId(newTrackID);
-    myPlayList.enqueueFilesList({{{}, {}, trackData.resourceURI()}}, ElisaUtils::Track);
+    myPlayList.enqueueFilesList({{{}, {}, trackData.resourceURI()}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -529,7 +528,7 @@ void MediaPlayListTest::enqueueTracksByUrl()
     auto firstTrackData = myDatabaseContent.trackDataFromDatabaseId(firstNewTrackID);
     auto secondNewTrackID = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album1"), 1, 1);
     auto secondTrackData = myDatabaseContent.trackDataFromDatabaseId(secondNewTrackID);
-    myPlayList.enqueueFilesList({{{}, {}, firstTrackData.resourceURI()}, {{}, {}, secondTrackData.resourceURI()}}, ElisaUtils::Track);
+    myPlayList.enqueueFilesList({{{}, {}, firstTrackData.resourceURI()}, {{}, {}, secondTrackData.resourceURI()}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -618,7 +617,7 @@ void MediaPlayListTest::enqueueFiles()
     QCOMPARE(newEntryInListSpy.count(), 0);
     QCOMPARE(newUrlInListSpy.count(), 0);
 
-    myPlayList.enqueueFilesList({{{}, {}, QUrl::fromLocalFile(QStringLiteral("/$1"))}, {{}, {}, QUrl::fromLocalFile(QStringLiteral("/$2"))}}, ElisaUtils::FileName);
+    myPlayList.enqueueFilesList({{{}, {}, QUrl::fromLocalFile(QStringLiteral("/$1"))}, {{}, {}, QUrl::fromLocalFile(QStringLiteral("/$2"))}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -723,8 +722,7 @@ void MediaPlayListTest::enqueueSampleFiles()
     QCOMPARE(newUrlInListSpy.count(), 0);
 
     myPlayList.enqueueFilesList({{{}, {}, QUrl::fromLocalFile(QStringLiteral(MEDIAPLAYLIST_TESTS_SAMPLE_FILES_PATH) + QStringLiteral("/test.ogg"))},
-                        {{}, {}, QUrl::fromLocalFile(QStringLiteral(MEDIAPLAYLIST_TESTS_SAMPLE_FILES_PATH) + QStringLiteral("/test2.ogg"))}},
-                       ElisaUtils::FileName);
+                        {{}, {}, QUrl::fromLocalFile(QStringLiteral(MEDIAPLAYLIST_TESTS_SAMPLE_FILES_PATH) + QStringLiteral("/test2.ogg"))}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -843,7 +841,7 @@ void MediaPlayListTest::enqueueEmpty()
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newEntryInListSpy.count(), 0);
 
-    myPlayList.enqueueOneEntry(DataTypes::EntryData{}, ElisaUtils::Track);
+    myPlayList.enqueueOneEntry(DataTypes::EntryData{});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -855,7 +853,7 @@ void MediaPlayListTest::enqueueEmpty()
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newEntryInListSpy.count(), 0);
 
-    myPlayList.enqueueOneEntry(DataTypes::EntryData{}, ElisaUtils::FileName);
+    myPlayList.enqueueOneEntry(DataTypes::EntryData{});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -867,7 +865,7 @@ void MediaPlayListTest::enqueueEmpty()
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newEntryInListSpy.count(), 0);
 
-    myPlayList.enqueueOneEntry(DataTypes::EntryData{}, ElisaUtils::Track);
+    myPlayList.enqueueOneEntry(DataTypes::EntryData{});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -879,7 +877,7 @@ void MediaPlayListTest::enqueueEmpty()
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newEntryInListSpy.count(), 0);
 
-    myPlayList.enqueueOneEntry(DataTypes::EntryData{}, ElisaUtils::Album);
+    myPlayList.enqueueOneEntry(DataTypes::EntryData{});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -891,7 +889,7 @@ void MediaPlayListTest::enqueueEmpty()
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newEntryInListSpy.count(), 0);
 
-    myPlayList.enqueueOneEntry(DataTypes::EntryData{}, ElisaUtils::Artist);
+    myPlayList.enqueueOneEntry(DataTypes::EntryData{});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -965,8 +963,7 @@ void MediaPlayListTest::removeFirstTrackOfAlbum()
     QCOMPARE(newEntryInListSpy.count(), 0);
 
     myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, myDatabaseContent.albumIdFromTitleAndArtist(QStringLiteral("album2"), QStringLiteral("artist1"), QStringLiteral("/"))}},
-                        QStringLiteral("album2"), {}},
-                       ElisaUtils::Album);
+                        QStringLiteral("album2"), {}});
 
     QVERIFY(rowsAboutToBeRemovedSpy.wait());
 
@@ -1053,7 +1050,7 @@ void MediaPlayListTest::testTrackBeenRemoved()
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newEntryInListSpy.count(), 0);
 
-    myPlayList.enqueueOneEntry(DataTypes::EntryData{{}, QStringLiteral("artist1"), {}}, ElisaUtils::Artist);
+    myPlayList.enqueueOneEntry(DataTypes::EntryData{{{DataTypes::ElementTypeRole, ElisaUtils::Artist}}, QStringLiteral("artist1"), {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -1251,7 +1248,7 @@ void MediaPlayListTest::testSetData()
 
     auto firstTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist2"),
                                                                                QStringLiteral("album3"), 1, 1);
-    myPlayList.enqueueOneEntry(DataTypes::EntryData{{{DataTypes::DatabaseIdRole, firstTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayList.enqueueOneEntry(DataTypes::EntryData{{{DataTypes::DatabaseIdRole, firstTrackId}, {DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -1279,7 +1276,7 @@ void MediaPlayListTest::testSetData()
 
     auto secondTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"),
                                                                                 QStringLiteral("album1"), 1, 1);
-    myPlayList.enqueueOneEntry(DataTypes::EntryData{{{DataTypes::DatabaseIdRole, secondTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayList.enqueueOneEntry(DataTypes::EntryData{{{DataTypes::DatabaseIdRole, secondTrackId}, {DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -1308,7 +1305,7 @@ void MediaPlayListTest::testSetData()
 
     auto thirdTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist2"),
                                                                                QStringLiteral("album3"), 2, 1);
-    myPlayList.enqueueOneEntry(DataTypes::EntryData{{{DataTypes::DatabaseIdRole, thirdTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayList.enqueueOneEntry(DataTypes::EntryData{{{DataTypes::DatabaseIdRole, thirdTrackId}, {DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -1450,7 +1447,7 @@ void MediaPlayListTest::testHasHeader()
     QCOMPARE(newEntryInListSpy.count(), 0);
 
     auto firstTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1);
-    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, firstTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, firstTrackId}, {DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -1475,7 +1472,7 @@ void MediaPlayListTest::testHasHeader()
     QCOMPARE(newEntryInListSpy.count(), 1);
 
     auto secondTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album1"), 1, 1);
-    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, secondTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, secondTrackId}, {DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -1500,7 +1497,7 @@ void MediaPlayListTest::testHasHeader()
     QCOMPARE(newEntryInListSpy.count(), 2);
 
     auto thirdTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album2"), 2, 1);
-    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, thirdTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, thirdTrackId}, {DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -1525,7 +1522,7 @@ void MediaPlayListTest::testHasHeader()
     QCOMPARE(newEntryInListSpy.count(), 3);
 
     auto fourthTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist1"), QStringLiteral("album2"), 3, 1);
-    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, fourthTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, fourthTrackId}, {DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -1623,7 +1620,7 @@ void MediaPlayListTest::testHasHeaderWithRemove()
     QCOMPARE(newEntryInListSpy.count(), 0);
 
     auto firstTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1);
-    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, firstTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, firstTrackId}, {DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -1648,7 +1645,7 @@ void MediaPlayListTest::testHasHeaderWithRemove()
     QCOMPARE(newEntryInListSpy.count(), 1);
 
     auto secondTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album2"), 2, 1);
-    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, secondTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, secondTrackId}, {DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -1673,7 +1670,7 @@ void MediaPlayListTest::testHasHeaderWithRemove()
     QCOMPARE(newEntryInListSpy.count(), 2);
 
     auto thirdTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album1"), 1, 1);
-    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, thirdTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, thirdTrackId}, {DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -1698,7 +1695,7 @@ void MediaPlayListTest::testHasHeaderWithRemove()
     QCOMPARE(newEntryInListSpy.count(), 3);
 
     auto fourthTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist1"), QStringLiteral("album2"), 3, 1);
-    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, fourthTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, fourthTrackId}, {DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -1916,7 +1913,7 @@ void MediaPlayListTest::testHasHeaderMoveFirst()
     QCOMPARE(newEntryInListSpy.count(), 0);
 
     auto firstTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1);
-    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, firstTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, firstTrackId}, {DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -1941,7 +1938,7 @@ void MediaPlayListTest::testHasHeaderMoveFirst()
     QCOMPARE(newEntryInListSpy.count(), 1);
 
     auto secondTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album2"), 2, 1);
-    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, secondTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, secondTrackId}, {DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -1966,7 +1963,7 @@ void MediaPlayListTest::testHasHeaderMoveFirst()
     QCOMPARE(newEntryInListSpy.count(), 2);
 
     auto thirdTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist1"), QStringLiteral("album2"), 3, 1);
-    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, thirdTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, thirdTrackId}, {DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -1991,7 +1988,7 @@ void MediaPlayListTest::testHasHeaderMoveFirst()
     QCOMPARE(newEntryInListSpy.count(), 3);
 
     auto fourthTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track4"), QStringLiteral("artist1"), QStringLiteral("album2"), 4, 1);
-    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, fourthTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, fourthTrackId}, {DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -2089,7 +2086,7 @@ void MediaPlayListTest::testHasHeaderMoveAnother()
     QCOMPARE(newEntryInListSpy.count(), 0);
 
     auto firstTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1);
-    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, firstTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, firstTrackId}, {DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -2114,7 +2111,7 @@ void MediaPlayListTest::testHasHeaderMoveAnother()
     QCOMPARE(newEntryInListSpy.count(), 1);
 
     auto secondTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album2"), 2, 1);
-    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, secondTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, secondTrackId}, {DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -2139,7 +2136,7 @@ void MediaPlayListTest::testHasHeaderMoveAnother()
     QCOMPARE(newEntryInListSpy.count(), 2);
 
     auto thirdTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist1"), QStringLiteral("album2"), 3, 1);
-    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, thirdTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, thirdTrackId}, {DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -2164,7 +2161,7 @@ void MediaPlayListTest::testHasHeaderMoveAnother()
     QCOMPARE(newEntryInListSpy.count(), 3);
 
     auto fourthTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track4"), QStringLiteral("artist1"), QStringLiteral("album2"), 4, 1);
-    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, fourthTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, fourthTrackId}, {DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -2494,7 +2491,7 @@ void MediaPlayListTest::testHasHeaderAlbumWithSameTitle()
 
     auto firstTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist2"),
                                                                                QStringLiteral("album3"), 1, 1);
-    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, firstTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, firstTrackId}, {DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -2520,7 +2517,7 @@ void MediaPlayListTest::testHasHeaderAlbumWithSameTitle()
 
     auto secondTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"),
                                                                                 QStringLiteral("album1"), 1, 1);
-    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, secondTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, secondTrackId}, {DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -2546,7 +2543,7 @@ void MediaPlayListTest::testHasHeaderAlbumWithSameTitle()
 
     auto thirdTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist2"),
                                                                                QStringLiteral("album3"), 2, 1);
-    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, thirdTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, thirdTrackId}, {DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -2572,7 +2569,7 @@ void MediaPlayListTest::testHasHeaderAlbumWithSameTitle()
 
     auto fourthTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist2"),
                                                                                 QStringLiteral("album3"), 3, 1);
-    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, fourthTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, fourthTrackId}, {DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -2598,7 +2595,7 @@ void MediaPlayListTest::testHasHeaderAlbumWithSameTitle()
 
     auto fithTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track9"), QStringLiteral("artist2"),
                                                                               QStringLiteral("album3"), 9, 1);
-    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, fithTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, fithTrackId}, {DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -2624,7 +2621,7 @@ void MediaPlayListTest::testHasHeaderAlbumWithSameTitle()
 
     auto sixthTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist7"),
                                                                                QStringLiteral("album3"), 1, 1);
-    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, sixthTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, sixthTrackId}, {DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -2710,7 +2707,7 @@ void MediaPlayListTest::testHasHeaderMoveFirstLikeQml()
     QCOMPARE(newEntryInListSpy.count(), 0);
 
     auto firstTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1);
-    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, firstTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, firstTrackId}, {DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -2735,7 +2732,7 @@ void MediaPlayListTest::testHasHeaderMoveFirstLikeQml()
     QCOMPARE(newEntryInListSpy.count(), 1);
 
     auto secondTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album2"), 2, 1);
-    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, secondTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, secondTrackId}, {DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -2760,7 +2757,7 @@ void MediaPlayListTest::testHasHeaderMoveFirstLikeQml()
     QCOMPARE(newEntryInListSpy.count(), 2);
 
     auto thirdTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist1"), QStringLiteral("album2"), 3, 1);
-    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, thirdTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, thirdTrackId}, {DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -2785,7 +2782,7 @@ void MediaPlayListTest::testHasHeaderMoveFirstLikeQml()
     QCOMPARE(newEntryInListSpy.count(), 3);
 
     auto fourthTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track4"), QStringLiteral("artist1"), QStringLiteral("album2"), 4, 1);
-    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, fourthTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, fourthTrackId}, {DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -2887,7 +2884,7 @@ void MediaPlayListTest::crashOnEnqueue()
 
     auto newTrackID = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track6"), QStringLiteral("artist1 and artist2"),
                                                                              QStringLiteral("album2"), 6, 1);
-    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, newTrackID}}, {}, {}}, ElisaUtils::Track);
+    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, newTrackID}, {DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -2973,7 +2970,7 @@ void MediaPlayListTest::testHasHeaderMoveAnotherLikeQml()
     QCOMPARE(newEntryInListSpy.count(), 0);
 
     auto firstTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1);
-    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, firstTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, firstTrackId}, {DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -2998,7 +2995,7 @@ void MediaPlayListTest::testHasHeaderMoveAnotherLikeQml()
     QCOMPARE(newEntryInListSpy.count(), 1);
 
     auto secondTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album2"), 2, 1);
-    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, secondTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, secondTrackId}, {DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -3023,7 +3020,7 @@ void MediaPlayListTest::testHasHeaderMoveAnotherLikeQml()
     QCOMPARE(newEntryInListSpy.count(), 2);
 
     auto thirdTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist1"), QStringLiteral("album2"), 3, 1);
-    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, thirdTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, thirdTrackId}, {DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -3048,7 +3045,7 @@ void MediaPlayListTest::testHasHeaderMoveAnotherLikeQml()
     QCOMPARE(newEntryInListSpy.count(), 3);
 
     auto fourthTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track4"), QStringLiteral("artist1"), QStringLiteral("album2"), 4, 1);
-    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, fourthTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, fourthTrackId}, {DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -3146,7 +3143,7 @@ void MediaPlayListTest::testHasHeaderYetAnotherMoveLikeQml()
     QCOMPARE(newEntryInListSpy.count(), 0);
 
     auto firstTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1);
-    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, firstTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, firstTrackId}, {DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -3171,7 +3168,7 @@ void MediaPlayListTest::testHasHeaderYetAnotherMoveLikeQml()
     QCOMPARE(newEntryInListSpy.count(), 1);
 
     auto secondTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album2"), 2, 1);
-    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, secondTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, secondTrackId}, {DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -3196,7 +3193,7 @@ void MediaPlayListTest::testHasHeaderYetAnotherMoveLikeQml()
     QCOMPARE(newEntryInListSpy.count(), 2);
 
     auto thirdTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album1"), 1, 1);
-    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, thirdTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, thirdTrackId}, {DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -3221,7 +3218,7 @@ void MediaPlayListTest::testHasHeaderYetAnotherMoveLikeQml()
     QCOMPARE(newEntryInListSpy.count(), 3);
 
     auto fourthTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track4"), QStringLiteral("artist1"), QStringLiteral("album2"), 4, 1);
-    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, fourthTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, fourthTrackId}, {DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);

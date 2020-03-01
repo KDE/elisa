@@ -374,6 +374,7 @@ public:
 
 };
 
+Q_DECLARE_METATYPE(DataTypes::MusicDataType)
 Q_DECLARE_METATYPE(DataTypes::TrackDataType)
 Q_DECLARE_METATYPE(DataTypes::AlbumDataType)
 Q_DECLARE_METATYPE(DataTypes::ArtistDataType)

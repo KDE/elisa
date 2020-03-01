@@ -76,7 +76,6 @@ Q_SIGNALS:
     void playListChanged();
 
     void entriesToEnqueue(const DataTypes::EntryDataList &newEntries,
-                          ElisaUtils::PlayListEntryType databaseIdType,
                           ElisaUtils::PlayListEnqueueMode enqueueMode,
                           ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 

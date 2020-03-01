@@ -143,14 +143,14 @@ FocusScope {
                     showEnqueueButton: !model.isPlaylist
                     showPlayButton: true
 
-                    onEnqueue: isDirectory ? elisa.mediaPlayListProxyModel.enqueueDirectory(url, ElisaUtils.FileName, ElisaUtils.AppendPlayList, ElisaUtils.DoNotTriggerPlay, 10) : elisa.mediaPlayListProxyModel.enqueue(url, ElisaUtils.FileName, ElisaUtils.AppendPlayList, ElisaUtils.DoNotTriggerPlay)
+                    onEnqueue: isDirectory ? elisa.mediaPlayListProxyModel.enqueueDirectory(url, ElisaUtils.FileName, ElisaUtils.AppendPlayList, ElisaUtils.DoNotTriggerPlay, 10) : elisa.mediaPlayListProxyModel.enqueue(url, ElisaUtils.AppendPlayList, ElisaUtils.DoNotTriggerPlay)
                     onReplaceAndPlay: {
                         if (model.isDirectory) {
                             elisa.mediaPlayListProxyModel.enqueueDirectory(url, ElisaUtils.FileName, ElisaUtils.ReplacePlayList, ElisaUtils.TriggerPlay, 10)
                         } else if (model.isPlaylist) {
                             elisa.mediaPlayListProxyModel.loadPlaylist(url)
                         } else {
-                            elisa.mediaPlayListProxyModel.enqueue(url, ElisaUtils.FileName, ElisaUtils.ReplacePlayList, ElisaUtils.TriggerPlay)
+                            elisa.mediaPlayListProxyModel.enqueue(url, ElisaUtils.ReplacePlayList, ElisaUtils.TriggerPlay)
                         }
                     }
                     onSelected: {
@@ -164,8 +164,7 @@ FocusScope {
                         }
                     }
 
-                    onOpen: isDirectory ? loadFolderAndClear(model.fileUrl) : elisa.mediaPlayListProxyModel.enqueue(model.fileUrl, ElisaUtils.FileName, ElisaUtils.AppendPlayList, ElisaUtils.DoNotTriggerPlay)
-
+                    onOpen: isDirectory ? loadFolderAndClear(model.fileUrl) : elisa.mediaPlayListProxyModel.enqueue(model.fileUrl, ElisaUtils.AppendPlayList, ElisaUtils.DoNotTriggerPlay)
                 }
             }
         }

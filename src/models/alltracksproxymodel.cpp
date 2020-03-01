@@ -56,7 +56,7 @@ void AllTracksProxyModel::genericEnqueueToPlayList(ElisaUtils::PlayListEnqueueMo
                                                       data(currentIndex, DataTypes::ColumnsRoles::TitleRole).toString(),
                                                       data(currentIndex, DataTypes::ColumnsRoles::ResourceRole).toUrl()});
         }
-        Q_EMIT entriesToEnqueue(allTracks, ElisaUtils::Track, enqueueMode, triggerPlay);
+        Q_EMIT entriesToEnqueue(allTracks, enqueueMode, triggerPlay);
     });
 }
 

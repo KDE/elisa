@@ -102,7 +102,7 @@ void MediaPlayListProxyModelTest::simpleInitialCase()
 
     auto newTrackID = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track6"), QStringLiteral("artist1 and artist2"), QStringLiteral("album2"), 6, 1);
     auto newTrackData = myDatabaseContent.trackDataFromDatabaseId(newTrackID);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, newTrackID}}, {}, {}}, ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, newTrackID}, {DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -193,9 +193,8 @@ void MediaPlayListProxyModelTest::enqueueAlbumCase()
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newEntryInListSpy.count(), 0);
 
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.albumIdFromTitleAndArtist(QStringLiteral("album2"), QStringLiteral("artist1"), QStringLiteral("/"))}},
-                        QStringLiteral("album2"), {}},
-                       ElisaUtils::Album);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Album}, {DataTypes::DatabaseIdRole, myDatabaseContent.albumIdFromTitleAndArtist(QStringLiteral("album2"), QStringLiteral("artist1"), QStringLiteral("/"))}},
+                                  QStringLiteral("album2"), {}});
 
     QVERIFY(rowsAboutToBeInsertedSpy.wait());
 
@@ -322,7 +321,7 @@ void MediaPlayListProxyModelTest::enqueueArtistCase()
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newEntryInListSpy.count(), 0);
 
-    myPlayListProxyModel.enqueue({{}, QStringLiteral("artist1"), {}}, ElisaUtils::Artist);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Artist}}, QStringLiteral("artist1"), {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -460,11 +459,12 @@ void MediaPlayListProxyModelTest::enqueueMultipleAlbumsCase()
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newEntryInListSpy.count(), 0);
 
-    myPlayListProxyModel.enqueue({{{{DataTypes::DatabaseIdRole, myDatabaseContent.albumIdFromTitleAndArtist(QStringLiteral("album2"), QStringLiteral("artist1"), QStringLiteral("/"))}},
-                         QStringLiteral("album2"), {}},
-                        {{{DataTypes::DatabaseIdRole, myDatabaseContent.albumIdFromTitleAndArtist(QStringLiteral("album3"), QStringLiteral("artist2"), QStringLiteral("/"))}},
-                         QStringLiteral("album3"), {}}},
-                       ElisaUtils::Album);
+    myPlayListProxyModel.enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Album},
+                                    {DataTypes::DatabaseIdRole, myDatabaseContent.albumIdFromTitleAndArtist(QStringLiteral("album2"), QStringLiteral("artist1"), QStringLiteral("/"))}},
+                                   QStringLiteral("album2"), {}},
+                                  {{{DataTypes::ElementTypeRole, ElisaUtils::Album},
+                                    {DataTypes::DatabaseIdRole, myDatabaseContent.albumIdFromTitleAndArtist(QStringLiteral("album3"), QStringLiteral("artist2"), QStringLiteral("/"))}},
+                                   QStringLiteral("album3"), {}}});
 
     QVERIFY(rowsAboutToBeInsertedSpy.wait());
 
@@ -616,7 +616,7 @@ void MediaPlayListProxyModelTest::enqueueTrackByUrl()
 
     auto newTrackID = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track6"), QStringLiteral("artist1 and artist2"), QStringLiteral("album2"), 6, 1);
     auto trackData = myDatabaseContent.trackDataFromDatabaseId(newTrackID);
-    myPlayListProxyModel.enqueue({{}, {}, trackData.resourceURI()}, ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, trackData.resourceURI()});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -717,7 +717,8 @@ void MediaPlayListProxyModelTest::enqueueTracksByUrl()
     auto firstTrackData = myDatabaseContent.trackDataFromDatabaseId(firstNewTrackID);
     auto secondNewTrackID = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album1"), 1, 1);
     auto secondTrackData = myDatabaseContent.trackDataFromDatabaseId(secondNewTrackID);
-    myPlayListProxyModel.enqueue({{{}, {}, firstTrackData.resourceURI()}, {{}, {}, secondTrackData.resourceURI()}}, ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, firstTrackData.resourceURI()},
+                                  {{{DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, secondTrackData.resourceURI()}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -814,7 +815,7 @@ void MediaPlayListProxyModelTest::enqueueReplaceAndPlay()
 
     auto firstTrackID = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track6"), QStringLiteral("artist1 and artist2"),
                                                                                QStringLiteral("album2"), 6, 1);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, firstTrackID}}, {}, {}}, ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, firstTrackID},{DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -848,7 +849,7 @@ void MediaPlayListProxyModelTest::enqueueReplaceAndPlay()
     QCOMPARE(myPlayListProxyModel.data(myPlayListProxyModel.index(0, 0), MediaPlayList::DurationRole).toTime().msecsSinceStartOfDay(), 10);
 
     auto secondTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album1"), 1, 1);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, secondTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, secondTrackId}, {DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -880,11 +881,11 @@ void MediaPlayListProxyModelTest::enqueueReplaceAndPlay()
     QCOMPARE(myPlayListProxyModel.data(myPlayListProxyModel.index(1, 0), MediaPlayList::TrackNumberRole).toInt(), 1);
     QCOMPARE(myPlayListProxyModel.data(myPlayListProxyModel.index(1, 0), MediaPlayList::DiscNumberRole).toInt(), 1);
 
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.albumIdFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists"), QStringLiteral("/"))}},
-                        QStringLiteral("album1"), {}},
-                       ElisaUtils::Album,
-                       ElisaUtils::ReplacePlayList,
-                       ElisaUtils::TriggerPlay);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Album},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.albumIdFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists"), QStringLiteral("/"))}},
+                                  QStringLiteral("album1"), {}},
+                                 ElisaUtils::ReplacePlayList,
+                                 ElisaUtils::TriggerPlay);
 
     QVERIFY(rowsAboutToBeInsertedSpy.wait());
 
@@ -991,9 +992,9 @@ void MediaPlayListProxyModelTest::removeFirstTrackOfAlbum()
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newEntryInListSpy.count(), 0);
 
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.albumIdFromTitleAndArtist(QStringLiteral("album2"), QStringLiteral("artist1"), QStringLiteral("/"))}},
-                        QStringLiteral("album2"), {}},
-                       ElisaUtils::Album);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Album},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.albumIdFromTitleAndArtist(QStringLiteral("album2"), QStringLiteral("artist1"), QStringLiteral("/"))}},
+                                  QStringLiteral("album2"), {}});
 
     QVERIFY(rowsAboutToBeInsertedSpy.wait());
 
@@ -1115,18 +1116,18 @@ void MediaPlayListProxyModelTest::testSaveLoadPlayList()
     QCOMPARE(playListLoadedRestoreSpy.count(), 0);
     QCOMPARE(playListLoadFailedRestoreSpy.count(), 0);
 
-    myPlayListProxyModelSave.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
-                        QStringLiteral("track1"), {}},
-                       ElisaUtils::Track);
-    myPlayListProxyModelSave.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist3"), QStringLiteral("album1"), 3, 3)}},
-                        QStringLiteral("track3"), {}},
-                       ElisaUtils::Track);
-    myPlayListProxyModelSave.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track5"), QStringLiteral("artist1"), QStringLiteral("album2"), 5, 1)}},
-                        QStringLiteral("track5"), {}},
-                       ElisaUtils::Track);
-    myPlayListProxyModelSave.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album1"), 1, 1)}},
-                        QStringLiteral("track1"), {}},
-                       ElisaUtils::Track);
+    myPlayListProxyModelSave.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                       {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
+                                      QStringLiteral("track1"), {}});
+    myPlayListProxyModelSave.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                       {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist3"), QStringLiteral("album1"), 3, 3)}},
+                                      QStringLiteral("track3"), {}});
+    myPlayListProxyModelSave.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                       {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track5"), QStringLiteral("artist1"), QStringLiteral("album2"), 5, 1)}},
+                                      QStringLiteral("track5"), {}});
+    myPlayListProxyModelSave.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                       {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album1"), 1, 1)}},
+                                      QStringLiteral("track1"), {}});
 
     QVERIFY(dataChangedSaveSpy.wait());
 
@@ -1298,7 +1299,8 @@ void MediaPlayListProxyModelTest::testSavePersistentState()
 
     auto firstTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist2"),
                                                                                QStringLiteral("album3"), 1, 1);
-    myPlayListSaveProxyModel.enqueue({{{DataTypes::DatabaseIdRole, firstTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayListSaveProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                       {DataTypes::DatabaseIdRole, firstTrackId}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpySave.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpySave.count(), 0);
@@ -1338,7 +1340,8 @@ void MediaPlayListProxyModelTest::testSavePersistentState()
 
     auto secondTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"),
                                                                                 QStringLiteral("album1"), 1, 1);
-    myPlayListSaveProxyModel.enqueue({{{DataTypes::DatabaseIdRole, secondTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayListSaveProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                       {DataTypes::DatabaseIdRole, secondTrackId}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpySave.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpySave.count(), 0);
@@ -1378,7 +1381,8 @@ void MediaPlayListProxyModelTest::testSavePersistentState()
 
     auto thirdTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist2"),
                                                                                QStringLiteral("album3"), 2, 1);
-    myPlayListSaveProxyModel.enqueue({{{DataTypes::DatabaseIdRole, thirdTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayListSaveProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                       {DataTypes::DatabaseIdRole, thirdTrackId}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpySave.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpySave.count(), 0);
@@ -1551,18 +1555,18 @@ void MediaPlayListProxyModelTest::testRestoreSettings()
 
     myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
-    myPlayList.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
-                        QStringLiteral("track1"), {}},
-                       ElisaUtils::Track);
-    myPlayList.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist3"), QStringLiteral("album1"), 3, 3)}},
-                        QStringLiteral("track3"), {}},
-                       ElisaUtils::Track);
-    myPlayList.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track5"), QStringLiteral("artist1"), QStringLiteral("album2"), 5, 1)}},
-                        QStringLiteral("track5"), {}},
-                       ElisaUtils::Track);
-    myPlayList.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
-                        QStringLiteral("track1"), {}},
-                       ElisaUtils::Track);
+    myPlayList.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                         {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
+                        QStringLiteral("track1"), {}});
+    myPlayList.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                         {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist3"), QStringLiteral("album1"), 3, 3)}},
+                        QStringLiteral("track3"), {}});
+    myPlayList.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                         {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track5"), QStringLiteral("artist1"), QStringLiteral("album2"), 5, 1)}},
+                        QStringLiteral("track5"), {}});
+    myPlayList.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                         {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
+                        QStringLiteral("track1"), {}});
 
     QVERIFY(dataChangedSpy.wait());
 
@@ -1693,18 +1697,18 @@ void MediaPlayListProxyModelTest::testSaveAndRestoreSettings()
     QCOMPARE(repeatPlayChangedRestoreSpy.count(), 0);
     QCOMPARE(playListFinishedRestoreSpy.count(), 0);
 
-    myPlayListSaveProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
-                        QStringLiteral("track1"), {}},
-                       ElisaUtils::Track);
-    myPlayListSaveProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist3"), QStringLiteral("album1"), 3, 3)}},
-                        QStringLiteral("track3"), {}},
-                       ElisaUtils::Track);
-    myPlayListSaveProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track5"), QStringLiteral("artist1"), QStringLiteral("album2"), 5, 1)}},
-                        QStringLiteral("track5"), {}},
-                       ElisaUtils::Track);
-    myPlayListSaveProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album1"), 1, 1)}},
-                        QStringLiteral("track1"), {}},
-                       ElisaUtils::Track);
+    myPlayListSaveProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                       {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
+                                      QStringLiteral("track1"), {}});
+    myPlayListSaveProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                       {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist3"), QStringLiteral("album1"), 3, 3)}},
+                                      QStringLiteral("track3"), {}});
+    myPlayListSaveProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                       {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track5"), QStringLiteral("artist1"), QStringLiteral("album2"), 5, 1)}},
+                                      QStringLiteral("track5"), {}});
+    myPlayListSaveProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                       {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album1"), 1, 1)}},
+                                      QStringLiteral("track1"), {}});
 
     QVERIFY(dataChangedSaveSpy.wait());
 
@@ -1798,18 +1802,18 @@ void MediaPlayListProxyModelTest::shufflePlayList()
     QCOMPARE(repeatPlayChangedSpy.count(), 0);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
-                        QStringLiteral("track1"), {}},
-                       ElisaUtils::Track);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist3"), QStringLiteral("album1"), 3, 3)}},
-                        QStringLiteral("track3"), {}},
-                       ElisaUtils::Track);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track5"), QStringLiteral("artist1"), QStringLiteral("album2"), 5, 1)}},
-                        QStringLiteral("track5"), {}},
-                       ElisaUtils::Track);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
-                        QStringLiteral("track1"), {}},
-                       ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
+                                  QStringLiteral("track1"), {}});
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist3"), QStringLiteral("album1"), 3, 3)}},
+                                  QStringLiteral("track3"), {}});
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track5"), QStringLiteral("artist1"), QStringLiteral("album2"), 5, 1)}},
+                                  QStringLiteral("track5"), {}});
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
+                                  QStringLiteral("track1"), {}});
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(shufflePlayListChangedSpy.count(), 0);
@@ -1910,18 +1914,18 @@ void MediaPlayListProxyModelTest::testShuffleMode()
     QCOMPARE(myPlayListProxyModel.shufflePlayList(), true);
     QCOMPARE(myPlayListProxyModel.repeatPlay(), true);
 
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
-                        QStringLiteral("track1"), {}},
-                       ElisaUtils::Track);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist3"), QStringLiteral("album1"), 3, 3)}},
-                        QStringLiteral("track3"), {}},
-                       ElisaUtils::Track);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track5"), QStringLiteral("artist1"), QStringLiteral("album2"), 5, 1)}},
-                        QStringLiteral("track5"), {}},
-                       ElisaUtils::Track);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
-                        QStringLiteral("track1"), {}},
-                       ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
+                                  QStringLiteral("track1"), {}});
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist3"), QStringLiteral("album1"), 3, 3)}},
+                                  QStringLiteral("track3"), {}});
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track5"), QStringLiteral("artist1"), QStringLiteral("album2"), 5, 1)}},
+                                  QStringLiteral("track5"), {}});
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
+                                  QStringLiteral("track1"), {}});
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(shufflePlayListChangedSpy.count(), 1);
@@ -2013,18 +2017,18 @@ void MediaPlayListProxyModelTest::randomAndContinuePlayList()
     QCOMPARE(repeatPlayChangedSpy.count(), 0);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
-                        QStringLiteral("track1"), {}},
-                       ElisaUtils::Track);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist3"), QStringLiteral("album1"), 3, 3)}},
-                        QStringLiteral("track3"), {}},
-                       ElisaUtils::Track);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track5"), QStringLiteral("artist1"), QStringLiteral("album2"), 5, 1)}},
-                        QStringLiteral("track5"), {}},
-                       ElisaUtils::Track);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
-                        QStringLiteral("track1"), {}},
-                       ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
+                                  QStringLiteral("track1"), {}});
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist3"), QStringLiteral("album1"), 3, 3)}},
+                                  QStringLiteral("track3"), {}});
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track5"), QStringLiteral("artist1"), QStringLiteral("album2"), 5, 1)}},
+                                  QStringLiteral("track5"), {}});
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
+                                  QStringLiteral("track1"), {}});
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(shufflePlayListChangedSpy.count(), 0);
@@ -2129,18 +2133,18 @@ void MediaPlayListProxyModelTest::continuePlayList()
     QCOMPARE(repeatPlayChangedSpy.count(), 0);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
-                        QStringLiteral("track1"), {}},
-                       ElisaUtils::Track);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist3"), QStringLiteral("album1"), 3, 3)}},
-                        QStringLiteral("track3"), {}},
-                       ElisaUtils::Track);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track5"), QStringLiteral("artist1"), QStringLiteral("album2"), 5, 1)}},
-                        QStringLiteral("track5"), {}},
-                       ElisaUtils::Track);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
-                        QStringLiteral("track1"), {}},
-                       ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
+                                  QStringLiteral("track1"), {}});
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist3"), QStringLiteral("album1"), 3, 3)}},
+                                  QStringLiteral("track3"), {}});
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track5"), QStringLiteral("artist1"), QStringLiteral("album2"), 5, 1)}},
+                                  QStringLiteral("track5"), {}});
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
+                                  QStringLiteral("track1"), {}});
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(shufflePlayListChangedSpy.count(), 0);
@@ -2241,21 +2245,21 @@ void MediaPlayListProxyModelTest::previousAndNextTracksTest()
     QCOMPARE(repeatPlayChangedSpy.count(), 0);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
-                        QStringLiteral("track1"), {}},
-                       ElisaUtils::Track);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist3"), QStringLiteral("album1"), 3, 3)}},
-                        QStringLiteral("track3"), {}},
-                       ElisaUtils::Track);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track4"), QStringLiteral("artist1"), QStringLiteral("album1"), 4, 4)}},
-                        QStringLiteral("track4"), {}},
-                       ElisaUtils::Track);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album1"), 2, 2)}},
-                        QStringLiteral("track2"), {}},
-                       ElisaUtils::Track);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
-                        QStringLiteral("track1"), {}},
-                       ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
+                                  QStringLiteral("track1"), {}});
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist3"), QStringLiteral("album1"), 3, 3)}},
+                                  QStringLiteral("track3"), {}});
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track4"), QStringLiteral("artist1"), QStringLiteral("album1"), 4, 4)}},
+                                  QStringLiteral("track4"), {}});
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album1"), 2, 2)}},
+                                  QStringLiteral("track2"), {}});
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
+                                  QStringLiteral("track1"), {}});
 
     QCOMPARE(previousTrackChangedSpy.count(), 0);
     QCOMPARE(currentTrackChangedSpy.count(), 1);
@@ -2360,21 +2364,21 @@ void MediaPlayListProxyModelTest::remainingTracksTest()
     QCOMPARE(repeatPlayChangedSpy.count(), 0);
     QCOMPARE(remainingTracksChangedSpy.count(), 0);
 
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
-                        QStringLiteral("track1"), {}},
-                       ElisaUtils::Track);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist3"), QStringLiteral("album1"), 3, 3)}},
-                        QStringLiteral("track3"), {}},
-                       ElisaUtils::Track);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track4"), QStringLiteral("artist1"), QStringLiteral("album1"), 4, 4)}},
-                        QStringLiteral("track4"), {}},
-                       ElisaUtils::Track);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album1"), 2, 2)}},
-                        QStringLiteral("track2"), {}},
-                       ElisaUtils::Track);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
-                        QStringLiteral("track1"), {}},
-                       ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
+                                  QStringLiteral("track1"), {}});
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist3"), QStringLiteral("album1"), 3, 3)}},
+                                  QStringLiteral("track3"), {}});
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track4"), QStringLiteral("artist1"), QStringLiteral("album1"), 4, 4)}},
+                                  QStringLiteral("track4"), {}});
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album1"), 2, 2)}},
+                                  QStringLiteral("track2"), {}});
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
+                                  QStringLiteral("track1"), {}});
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(shufflePlayListChangedSpy.count(), 0);
@@ -2479,9 +2483,9 @@ void MediaPlayListProxyModelTest::clearPlayListCase()
     QCOMPARE(newEntryInListSpy.count(), 0);
     QCOMPARE(currentTrackChangedSpy.count(), 0);
 
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.albumIdFromTitleAndArtist(QStringLiteral("album2"), QStringLiteral("artist1"), QStringLiteral("/"))}},
-                        QStringLiteral("album2"), {}},
-                       ElisaUtils::Album);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Album},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.albumIdFromTitleAndArtist(QStringLiteral("album2"), QStringLiteral("artist1"), QStringLiteral("/"))}},
+                                  QStringLiteral("album2"), {}});
 
     QVERIFY(rowsAboutToBeInsertedSpy.wait());
 
@@ -2632,9 +2636,9 @@ void MediaPlayListProxyModelTest::undoClearPlayListCase()
     QCOMPARE(newEntryInListSpy.count(), 0);
     QCOMPARE(currentTrackChangedSpy.count(), 0);
 
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.albumIdFromTitleAndArtist(QStringLiteral("album2"), QStringLiteral("artist1"), QStringLiteral("/"))}},
-                        QStringLiteral("album2"), {}},
-                       ElisaUtils::Album);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Album},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.albumIdFromTitleAndArtist(QStringLiteral("album2"), QStringLiteral("artist1"), QStringLiteral("/"))}},
+                                  QStringLiteral("album2"), {}});
 
     QVERIFY(rowsAboutToBeInsertedSpy.wait());
 
@@ -2844,9 +2848,9 @@ void MediaPlayListProxyModelTest::undoReplacePlayListCase()
     QCOMPARE(newEntryInListSpy.count(), 0);
     QCOMPARE(currentTrackChangedSpy.count(), 0);
 
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.albumIdFromTitleAndArtist(QStringLiteral("album2"), QStringLiteral("artist1"), QStringLiteral("/"))}},
-                        QStringLiteral("album2"), {}},
-                       ElisaUtils::Album);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Album},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.albumIdFromTitleAndArtist(QStringLiteral("album2"), QStringLiteral("artist1"), QStringLiteral("/"))}},
+                                  QStringLiteral("album2"), {}});
 
     QVERIFY(rowsAboutToBeInsertedSpy.wait());
 
@@ -2904,11 +2908,11 @@ void MediaPlayListProxyModelTest::undoReplacePlayListCase()
 
     QCOMPARE(myPlayListProxyModel.currentTrack(), QPersistentModelIndex(myPlayListProxyModel.index(0, 0)));
 
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.albumIdFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists"), QStringLiteral("/"))}},
-                        QStringLiteral("album1"), {}},
-                       ElisaUtils::Album,
-                       ElisaUtils::ReplacePlayList,
-                       ElisaUtils::TriggerPlay);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Album},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.albumIdFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists"), QStringLiteral("/"))}},
+                                  QStringLiteral("album1"), {}},
+                                 ElisaUtils::ReplacePlayList,
+                                 ElisaUtils::TriggerPlay);
 
     QVERIFY(rowsAboutToBeInsertedSpy.wait());
 
@@ -3063,24 +3067,24 @@ void MediaPlayListProxyModelTest::testBringUpAndSkipPreviousAndContinueCase()
     QCOMPARE(repeatPlayChangedSpy.count(), 1);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
-                        QStringLiteral("track1"), {}},
-                       ElisaUtils::Track);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist3"), QStringLiteral("album1"), 3, 3)}},
-                        QStringLiteral("track3"), {}},
-                       ElisaUtils::Track);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album2"), 2, 1)}},
-                        QStringLiteral("track2"), {}},
-                       ElisaUtils::Track);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
-                        QStringLiteral("track1"), {}},
-                       ElisaUtils::Track);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist1"), QStringLiteral("album2"), 3, 1)}},
-                        QStringLiteral("track3"), {}},
-                       ElisaUtils::Track);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album1"), 2, 2)}},
-                        QStringLiteral("track2"), {}},
-                       ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
+                                  QStringLiteral("track1"), {}});
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist3"), QStringLiteral("album1"), 3, 3)}},
+                                  QStringLiteral("track3"), {}});
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album2"), 2, 1)}},
+                                  QStringLiteral("track2"), {}});
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
+                                  QStringLiteral("track1"), {}});
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist1"), QStringLiteral("album2"), 3, 1)}},
+                                  QStringLiteral("track3"), {}});
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album1"), 2, 2)}},
+                                  QStringLiteral("track2"), {}});
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(shufflePlayListChangedSpy.count(), 0);
@@ -3227,25 +3231,25 @@ void MediaPlayListProxyModelTest::testBringUpAndRemoveMultipleNotBeginCase()
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
-                        QStringLiteral("track1"), {}},
-                       ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
+                                  QStringLiteral("track1"), {}});
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
     QCOMPARE(myPlayListProxyModel.currentTrack(), QPersistentModelIndex(myPlayListProxyModel.index(0, 0)));
 
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album1"), 2, 2)}},
-                        QStringLiteral("track2"), {}},
-                       ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album1"), 2, 2)}},
+                                  QStringLiteral("track2"), {}});
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track4"), QStringLiteral("artist1"), QStringLiteral("album1"), 4, 1)}},
-                        QStringLiteral("track4"), {}},
-                       ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track4"), QStringLiteral("artist1"), QStringLiteral("album1"), 4, 1)}},
+                                  QStringLiteral("track4"), {}});
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListFinishedSpy.count(), 0);
@@ -3303,12 +3307,12 @@ void MediaPlayListProxyModelTest::testBringUpAndPlayCase()
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
-                        QStringLiteral("track1"), {}},
-                       ElisaUtils::Track);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist2"), QStringLiteral("album1"), 3, 3)}},
-                        QStringLiteral("track3"), {}},
-                       ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
+                                  QStringLiteral("track1"), {}});
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist2"), QStringLiteral("album1"), 3, 3)}},
+                                  QStringLiteral("track3"), {}});
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListFinishedSpy.count(), 0);
@@ -3361,12 +3365,12 @@ void MediaPlayListProxyModelTest::testBringUpAndSkipNextCase()
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
-                        QStringLiteral("track1"), {}},
-                       ElisaUtils::Track);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist2"), QStringLiteral("album1"), 3, 3)}},
-                        QStringLiteral("track3"), {}},
-                       ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
+                                  QStringLiteral("track1"), {}});
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist2"), QStringLiteral("album1"), 3, 3)}},
+                                  QStringLiteral("track3"), {}});
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListFinishedSpy.count(), 0);
@@ -3419,12 +3423,12 @@ void MediaPlayListProxyModelTest::testBringUpAndSkipPreviousCase()
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
-                        QStringLiteral("track1"), {}},
-                       ElisaUtils::Track);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist2"), QStringLiteral("album1"), 3, 3)}},
-                        QStringLiteral("track3"), {}},
-                       ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
+                                  QStringLiteral("track1"), {}});
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist2"), QStringLiteral("album1"), 3, 3)}},
+                                  QStringLiteral("track3"), {}});
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListFinishedSpy.count(), 0);
@@ -3512,7 +3516,7 @@ void MediaPlayListProxyModelTest::testRemoveSelection()
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newEntryInListSpy.count(), 0);
 
-    myPlayListProxyModel.enqueue(DataTypes::EntryData{{}, QStringLiteral("artist1"), {}}, ElisaUtils::Artist, ElisaUtils::PlayListEnqueueMode::ReplacePlayList, ElisaUtils::PlayListEnqueueTriggerPlay::TriggerPlay);
+    myPlayListProxyModel.enqueue(DataTypes::EntryData{{{DataTypes::ElementTypeRole, ElisaUtils::Artist}}, QStringLiteral("artist1"), {}}, ElisaUtils::PlayListEnqueueMode::ReplacePlayList, ElisaUtils::PlayListEnqueueTriggerPlay::TriggerPlay);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -3687,7 +3691,7 @@ void MediaPlayListProxyModelTest::testReplaceAndPlayArtist()
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newEntryInListSpy.count(), 0);
 
-    myPlayListProxyModel.enqueue(DataTypes::EntryData{{}, QStringLiteral("artist3"), {}}, ElisaUtils::Artist, ElisaUtils::PlayListEnqueueMode::ReplacePlayList, ElisaUtils::PlayListEnqueueTriggerPlay::TriggerPlay);
+    myPlayListProxyModel.enqueue(DataTypes::EntryData{{{DataTypes::ElementTypeRole, ElisaUtils::Artist}}, QStringLiteral("artist3"), {}}, ElisaUtils::PlayListEnqueueMode::ReplacePlayList, ElisaUtils::PlayListEnqueueTriggerPlay::TriggerPlay);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -3728,7 +3732,7 @@ void MediaPlayListProxyModelTest::testReplaceAndPlayArtist()
     QCOMPARE(myPlayListProxyModel.data(myPlayListProxyModel.index(0, 0), MediaPlayList::ColumnsRoles::IsPlayingRole).toBool(), false);
     QCOMPARE(myPlayListProxyModel.data(myPlayListProxyModel.index(0, 0), MediaPlayList::ColumnsRoles::IsSingleDiscAlbumRole).toBool(), false);
 
-    myPlayListProxyModel.enqueue(DataTypes::EntryData{{}, QStringLiteral("artist4"), {}}, ElisaUtils::Artist, ElisaUtils::PlayListEnqueueMode::ReplacePlayList, ElisaUtils::PlayListEnqueueTriggerPlay::TriggerPlay);
+    myPlayListProxyModel.enqueue(DataTypes::EntryData{{{DataTypes::ElementTypeRole, ElisaUtils::Artist}}, QStringLiteral("artist4"), {}}, ElisaUtils::PlayListEnqueueMode::ReplacePlayList, ElisaUtils::PlayListEnqueueTriggerPlay::TriggerPlay);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 2);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -3841,7 +3845,8 @@ void MediaPlayListProxyModelTest::testReplaceAndPlayTrackId()
 
     QCOMPARE(firstTrackId != 0, true);
 
-    myPlayListProxyModel.enqueue(DataTypes::EntryData{{{DataTypes::DatabaseIdRole, firstTrackId}}, {}, {}}, ElisaUtils::Track, ElisaUtils::PlayListEnqueueMode::ReplacePlayList, ElisaUtils::PlayListEnqueueTriggerPlay::TriggerPlay);
+    myPlayListProxyModel.enqueue(DataTypes::EntryData{{{DataTypes::ElementTypeRole, ElisaUtils::Track}, {DataTypes::DatabaseIdRole, firstTrackId}}, {}, {}},
+                                 ElisaUtils::PlayListEnqueueMode::ReplacePlayList, ElisaUtils::PlayListEnqueueTriggerPlay::TriggerPlay);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -3887,7 +3892,8 @@ void MediaPlayListProxyModelTest::testReplaceAndPlayTrackId()
 
     QCOMPARE(secondTrackId != 0, true);
 
-    myPlayListProxyModel.enqueue(DataTypes::EntryData{{{DataTypes::DatabaseIdRole, secondTrackId}}, {}, {}}, ElisaUtils::Track, ElisaUtils::PlayListEnqueueMode::ReplacePlayList, ElisaUtils::PlayListEnqueueTriggerPlay::TriggerPlay);
+    myPlayListProxyModel.enqueue(DataTypes::EntryData{{{DataTypes::ElementTypeRole, ElisaUtils::Track}, {DataTypes::DatabaseIdRole, secondTrackId}}, {}, {}},
+                                 ElisaUtils::PlayListEnqueueMode::ReplacePlayList, ElisaUtils::PlayListEnqueueTriggerPlay::TriggerPlay);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 1);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -3995,7 +4001,8 @@ void MediaPlayListProxyModelTest::testTrackBeenRemoved()
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newEntryInListSpy.count(), 0);
 
-    myPlayListProxyModel.enqueue(DataTypes::EntryData{{}, QStringLiteral("artist1"), {}}, ElisaUtils::Artist, ElisaUtils::PlayListEnqueueMode::ReplacePlayList, ElisaUtils::PlayListEnqueueTriggerPlay::TriggerPlay);
+    myPlayListProxyModel.enqueue(DataTypes::EntryData{{{DataTypes::ElementTypeRole, ElisaUtils::Artist}}, QStringLiteral("artist1"), {}},
+                                 ElisaUtils::PlayListEnqueueMode::ReplacePlayList, ElisaUtils::PlayListEnqueueTriggerPlay::TriggerPlay);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -4172,12 +4179,12 @@ void MediaPlayListProxyModelTest::finishPlayList()
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
-                        QStringLiteral("track1"), {}},
-                       ElisaUtils::Track);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist2"), QStringLiteral("album1"), 3, 3)}},
-                        QStringLiteral("track3"), {}},
-                       ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
+                                  QStringLiteral("track1"), {}});
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist2"), QStringLiteral("album1"), 3, 3)}},
+                                  QStringLiteral("track3"), {}});
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListFinishedSpy.count(), 0);
@@ -4237,18 +4244,18 @@ void MediaPlayListProxyModelTest::removeBeforeCurrentTrack()
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
-                        QStringLiteral("track1"), {}},
-                       ElisaUtils::Track);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist3"), QStringLiteral("album1"), 3, 3)}},
-                        QStringLiteral("track3"), {}},
-                       ElisaUtils::Track);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track5"), QStringLiteral("artist1"), QStringLiteral("album2"), 5, 1)}},
-                        QStringLiteral("track5"), {}},
-                       ElisaUtils::Track);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
-                        QStringLiteral("track1"), {}},
-                       ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
+                                  QStringLiteral("track1"), {}});
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist3"), QStringLiteral("album1"), 3, 3)}},
+                                  QStringLiteral("track3"), {}});
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track5"), QStringLiteral("artist1"), QStringLiteral("album2"), 5, 1)}},
+                                  QStringLiteral("track5"), {}});
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
+                                  QStringLiteral("track1"), {}});
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListFinishedSpy.count(), 0);
@@ -4320,21 +4327,21 @@ void MediaPlayListProxyModelTest::switchToTrackTest()
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
-                        QStringLiteral("track1"), {}},
-                       ElisaUtils::Track);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist3"), QStringLiteral("album1"), 3, 3)}},
-                        QStringLiteral("track3"), {}},
-                       ElisaUtils::Track);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track4"), QStringLiteral("artist1"), QStringLiteral("album1"), 4, 4)}},
-                        QStringLiteral("track4"), {}},
-                       ElisaUtils::Track);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album1"), 2, 2)}},
-                        QStringLiteral("track2"), {}},
-                       ElisaUtils::Track);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
-                        QStringLiteral("track1"), {}},
-                       ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
+                                  QStringLiteral("track1"), {}});
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist3"), QStringLiteral("album1"), 3, 3)}},
+                                  QStringLiteral("track3"), {}});
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track4"), QStringLiteral("artist1"), QStringLiteral("album1"), 4, 4)}},
+                                  QStringLiteral("track4"), {}});
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album1"), 2, 2)}},
+                                  QStringLiteral("track2"), {}});
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
+                                  QStringLiteral("track1"), {}});
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListFinishedSpy.count(), 0);
@@ -4390,9 +4397,9 @@ void MediaPlayListProxyModelTest::singleTrack()
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
-                        QStringLiteral("track1"), {}},
-                       ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
+                                  QStringLiteral("track1"), {}});
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListFinishedSpy.count(), 0);
@@ -4445,9 +4452,9 @@ void MediaPlayListProxyModelTest::testBringUpAndRemoveCase()
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
-                        QStringLiteral("track1"), {}},
-                       ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
+                                  QStringLiteral("track1"), {}});
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListFinishedSpy.count(), 0);
@@ -4503,15 +4510,15 @@ void MediaPlayListProxyModelTest::testBringUpAndRemoveLastCase()
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
-                        QStringLiteral("track1"), {}},
-                       ElisaUtils::Track);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album2"), 2, 1)}},
-                        QStringLiteral("track2"), {}},
-                       ElisaUtils::Track);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist1"), QStringLiteral("album2"), 3, 1)}},
-                        QStringLiteral("track3"), {}},
-                       ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
+                                  QStringLiteral("track1"), {}});
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album2"), 2, 1)}},
+                                  QStringLiteral("track2"), {}});
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist1"), QStringLiteral("album2"), 3, 1)}},
+                                  QStringLiteral("track3"), {}});
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListFinishedSpy.count(), 0);
@@ -4578,18 +4585,18 @@ void MediaPlayListProxyModelTest::testBringUpAndRemoveMultipleCase()
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
-                        QStringLiteral("track1"), {}},
-                       ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
+                                  QStringLiteral("track1"), {}});
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
     QCOMPARE(myPlayListProxyModel.currentTrack(), QPersistentModelIndex(myPlayListProxyModel.index(0, 0)));
 
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album1"), 2, 2)}},
-                        QStringLiteral("track2"), {}},
-                       ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album1"), 2, 2)}},
+                                  QStringLiteral("track2"), {}});
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListFinishedSpy.count(), 0);
@@ -4643,9 +4650,9 @@ void MediaPlayListProxyModelTest::testBringUpAndDownCase()
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
-                        QStringLiteral("track1"), {}},
-                       ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
+                                  QStringLiteral("track1"), {}});
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListFinishedSpy.count(), 0);
@@ -4701,9 +4708,9 @@ void MediaPlayListProxyModelTest::testBringUpCase()
     QCOMPARE(currentTrackChangedSpy.count(), 0);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
-                        QStringLiteral("track1"), {}},
-                       ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
+                                  QStringLiteral("track1"), {}});
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListFinishedSpy.count(), 0);
@@ -4757,7 +4764,8 @@ void MediaPlayListProxyModelTest::testBringUpCaseFromNewAlbum()
 
     QVERIFY(newTrackID != 0);
 
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, newTrackID}}, QStringLiteral("track1"), {}}, ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, newTrackID}}, QStringLiteral("track1"), {}});
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListFinishedSpy.count(), 0);
@@ -4833,7 +4841,8 @@ void MediaPlayListProxyModelTest::testSetData()
 
     auto firstTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist2"),
                                                                                QStringLiteral("album3"), 1, 1);
-    myPlayListProxyModel.enqueue(DataTypes::EntryData{{{DataTypes::DatabaseIdRole, firstTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayListProxyModel.enqueue(DataTypes::EntryData{{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                                       {DataTypes::DatabaseIdRole, firstTrackId}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -4863,7 +4872,8 @@ void MediaPlayListProxyModelTest::testSetData()
 
     auto secondTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"),
                                                                                 QStringLiteral("album1"), 1, 1);
-    myPlayListProxyModel.enqueue(DataTypes::EntryData{{{DataTypes::DatabaseIdRole, secondTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayListProxyModel.enqueue(DataTypes::EntryData{{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                                       {DataTypes::DatabaseIdRole, secondTrackId}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -4894,7 +4904,8 @@ void MediaPlayListProxyModelTest::testSetData()
 
     auto thirdTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist2"),
                                                                                QStringLiteral("album3"), 2, 1);
-    myPlayListProxyModel.enqueue(DataTypes::EntryData{{{DataTypes::DatabaseIdRole, thirdTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayListProxyModel.enqueue(DataTypes::EntryData{{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                                       {DataTypes::DatabaseIdRole, thirdTrackId}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -5048,7 +5059,8 @@ void MediaPlayListProxyModelTest::testHasHeader()
     QCOMPARE(newEntryInListSpy.count(), 0);
 
     auto firstTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, firstTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, firstTrackId}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -5075,7 +5087,8 @@ void MediaPlayListProxyModelTest::testHasHeader()
     QCOMPARE(newEntryInListSpy.count(), 1);
 
     auto secondTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album1"), 1, 1);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, secondTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, secondTrackId}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -5102,7 +5115,8 @@ void MediaPlayListProxyModelTest::testHasHeader()
     QCOMPARE(newEntryInListSpy.count(), 2);
 
     auto thirdTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album2"), 2, 1);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, thirdTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, thirdTrackId}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -5129,7 +5143,8 @@ void MediaPlayListProxyModelTest::testHasHeader()
     QCOMPARE(newEntryInListSpy.count(), 3);
 
     auto fourthTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist1"), QStringLiteral("album2"), 3, 1);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, fourthTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, fourthTrackId}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -5236,7 +5251,8 @@ void MediaPlayListProxyModelTest::testHasHeaderWithRemove()
     QCOMPARE(newEntryInListSpy.count(), 0);
 
     auto firstTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, firstTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, firstTrackId}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -5263,7 +5279,8 @@ void MediaPlayListProxyModelTest::testHasHeaderWithRemove()
     QCOMPARE(newEntryInListSpy.count(), 1);
 
     auto secondTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album2"), 2, 1);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, secondTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, secondTrackId}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -5290,7 +5307,8 @@ void MediaPlayListProxyModelTest::testHasHeaderWithRemove()
     QCOMPARE(newEntryInListSpy.count(), 2);
 
     auto thirdTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album1"), 1, 1);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, thirdTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, thirdTrackId}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -5317,7 +5335,8 @@ void MediaPlayListProxyModelTest::testHasHeaderWithRemove()
     QCOMPARE(newEntryInListSpy.count(), 3);
 
     auto fourthTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist1"), QStringLiteral("album2"), 3, 1);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, fourthTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, fourthTrackId}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -5437,7 +5456,8 @@ void MediaPlayListProxyModelTest::testHasHeaderMoveFirst()
     QCOMPARE(newEntryInListSpy.count(), 0);
 
     auto firstTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, firstTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, firstTrackId}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -5464,7 +5484,8 @@ void MediaPlayListProxyModelTest::testHasHeaderMoveFirst()
     QCOMPARE(newEntryInListSpy.count(), 1);
 
     auto secondTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album2"), 2, 1);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, secondTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, secondTrackId}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -5491,7 +5512,8 @@ void MediaPlayListProxyModelTest::testHasHeaderMoveFirst()
     QCOMPARE(newEntryInListSpy.count(), 2);
 
     auto thirdTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist1"), QStringLiteral("album2"), 3, 1);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, thirdTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, thirdTrackId}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -5518,7 +5540,8 @@ void MediaPlayListProxyModelTest::testHasHeaderMoveFirst()
     QCOMPARE(newEntryInListSpy.count(), 3);
 
     auto fourthTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track4"), QStringLiteral("artist1"), QStringLiteral("album2"), 4, 1);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, fourthTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, fourthTrackId}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -5625,7 +5648,8 @@ void MediaPlayListProxyModelTest::testHasHeaderMoveAnother()
     QCOMPARE(newEntryInListSpy.count(), 0);
 
     auto firstTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, firstTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, firstTrackId}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -5652,7 +5676,8 @@ void MediaPlayListProxyModelTest::testHasHeaderMoveAnother()
     QCOMPARE(newEntryInListSpy.count(), 1);
 
     auto secondTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album2"), 2, 1);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, secondTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, secondTrackId}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -5679,7 +5704,8 @@ void MediaPlayListProxyModelTest::testHasHeaderMoveAnother()
     QCOMPARE(newEntryInListSpy.count(), 2);
 
     auto thirdTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist1"), QStringLiteral("album2"), 3, 1);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, thirdTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, thirdTrackId}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -5706,7 +5732,8 @@ void MediaPlayListProxyModelTest::testHasHeaderMoveAnother()
     QCOMPARE(newEntryInListSpy.count(), 3);
 
     auto fourthTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track4"), QStringLiteral("artist1"), QStringLiteral("album2"), 4, 1);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, fourthTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, fourthTrackId}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -5814,7 +5841,8 @@ void MediaPlayListProxyModelTest::testHasHeaderAlbumWithSameTitle()
 
     auto firstTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist2"),
                                                                                QStringLiteral("album3"), 1, 1);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, firstTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, firstTrackId}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -5842,7 +5870,8 @@ void MediaPlayListProxyModelTest::testHasHeaderAlbumWithSameTitle()
 
     auto secondTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"),
                                                                                 QStringLiteral("album1"), 1, 1);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, secondTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, secondTrackId}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -5870,7 +5899,8 @@ void MediaPlayListProxyModelTest::testHasHeaderAlbumWithSameTitle()
 
     auto thirdTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist2"),
                                                                                QStringLiteral("album3"), 2, 1);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, thirdTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, thirdTrackId}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -5898,7 +5928,8 @@ void MediaPlayListProxyModelTest::testHasHeaderAlbumWithSameTitle()
 
     auto fourthTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist2"),
                                                                                 QStringLiteral("album3"), 3, 1);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, fourthTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, fourthTrackId}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -5926,7 +5957,8 @@ void MediaPlayListProxyModelTest::testHasHeaderAlbumWithSameTitle()
 
     auto fithTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track9"), QStringLiteral("artist2"),
                                                                               QStringLiteral("album3"), 9, 1);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, fithTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, fithTrackId}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -5954,7 +5986,8 @@ void MediaPlayListProxyModelTest::testHasHeaderAlbumWithSameTitle()
 
     auto sixthTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist7"),
                                                                                QStringLiteral("album3"), 1, 1);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, sixthTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, sixthTrackId}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -6048,7 +6081,8 @@ void MediaPlayListProxyModelTest::testHasHeaderMoveFirstLikeQml()
     QCOMPARE(newEntryInListSpy.count(), 0);
 
     auto firstTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, firstTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, firstTrackId}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -6075,7 +6109,8 @@ void MediaPlayListProxyModelTest::testHasHeaderMoveFirstLikeQml()
     QCOMPARE(newEntryInListSpy.count(), 1);
 
     auto secondTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album2"), 2, 1);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, secondTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, secondTrackId}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -6102,7 +6137,8 @@ void MediaPlayListProxyModelTest::testHasHeaderMoveFirstLikeQml()
     QCOMPARE(newEntryInListSpy.count(), 2);
 
     auto thirdTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist1"), QStringLiteral("album2"), 3, 1);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, thirdTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, thirdTrackId}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -6129,7 +6165,8 @@ void MediaPlayListProxyModelTest::testHasHeaderMoveFirstLikeQml()
     QCOMPARE(newEntryInListSpy.count(), 3);
 
     auto fourthTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track4"), QStringLiteral("artist1"), QStringLiteral("album2"), 4, 1);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, fourthTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, fourthTrackId}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -6236,7 +6273,8 @@ void MediaPlayListProxyModelTest::testHasHeaderMoveAnotherLikeQml()
     QCOMPARE(newEntryInListSpy.count(), 0);
 
     auto firstTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, firstTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, firstTrackId}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -6263,7 +6301,8 @@ void MediaPlayListProxyModelTest::testHasHeaderMoveAnotherLikeQml()
     QCOMPARE(newEntryInListSpy.count(), 1);
 
     auto secondTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album2"), 2, 1);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, secondTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, secondTrackId}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -6290,7 +6329,8 @@ void MediaPlayListProxyModelTest::testHasHeaderMoveAnotherLikeQml()
     QCOMPARE(newEntryInListSpy.count(), 2);
 
     auto thirdTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist1"), QStringLiteral("album2"), 3, 1);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, thirdTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, thirdTrackId}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -6317,7 +6357,8 @@ void MediaPlayListProxyModelTest::testHasHeaderMoveAnotherLikeQml()
     QCOMPARE(newEntryInListSpy.count(), 3);
 
     auto fourthTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track4"), QStringLiteral("artist1"), QStringLiteral("album2"), 4, 1);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, fourthTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, fourthTrackId}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -6424,7 +6465,8 @@ void MediaPlayListProxyModelTest::testHasHeaderYetAnotherMoveLikeQml()
     QCOMPARE(newEntryInListSpy.count(), 0);
 
     auto firstTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, firstTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, firstTrackId}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -6451,7 +6493,8 @@ void MediaPlayListProxyModelTest::testHasHeaderYetAnotherMoveLikeQml()
     QCOMPARE(newEntryInListSpy.count(), 1);
 
     auto secondTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album2"), 2, 1);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, secondTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, secondTrackId}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -6478,7 +6521,8 @@ void MediaPlayListProxyModelTest::testHasHeaderYetAnotherMoveLikeQml()
     QCOMPARE(newEntryInListSpy.count(), 2);
 
     auto thirdTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album1"), 1, 1);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, thirdTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, thirdTrackId}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -6505,7 +6549,8 @@ void MediaPlayListProxyModelTest::testHasHeaderYetAnotherMoveLikeQml()
     QCOMPARE(newEntryInListSpy.count(), 3);
 
     auto fourthTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track4"), QStringLiteral("artist1"), QStringLiteral("album2"), 4, 1);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, fourthTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, fourthTrackId}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -6626,7 +6671,8 @@ void MediaPlayListProxyModelTest::enqueueFiles()
     QCOMPARE(newEntryInListSpy.count(), 0);
     QCOMPARE(newUrlInListSpy.count(), 0);
 
-    myPlayListProxyModel.enqueue({{{}, {}, QUrl::fromLocalFile(QStringLiteral("/$1"))}, {{}, {}, QUrl::fromLocalFile(QStringLiteral("/$2"))}}, ElisaUtils::FileName);
+    myPlayListProxyModel.enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, QUrl::fromLocalFile(QStringLiteral("/$1"))},
+                                  {{{DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, QUrl::fromLocalFile(QStringLiteral("/$2"))}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -6738,9 +6784,8 @@ void MediaPlayListProxyModelTest::enqueueSampleFiles()
     QCOMPARE(newEntryInListSpy.count(), 0);
     QCOMPARE(newUrlInListSpy.count(), 0);
 
-    myPlayListProxyModel.enqueue({{{}, {}, QUrl::fromLocalFile(QStringLiteral(MEDIAPLAYLIST_TESTS_SAMPLE_FILES_PATH) + QStringLiteral("/test.ogg"))},
-                        {{}, {}, QUrl::fromLocalFile(QStringLiteral(MEDIAPLAYLIST_TESTS_SAMPLE_FILES_PATH) + QStringLiteral("/test2.ogg"))}},
-                       ElisaUtils::FileName);
+    myPlayListProxyModel.enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, QUrl::fromLocalFile(QStringLiteral(MEDIAPLAYLIST_TESTS_SAMPLE_FILES_PATH) + QStringLiteral("/test.ogg"))},
+                                  {{{DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, QUrl::fromLocalFile(QStringLiteral(MEDIAPLAYLIST_TESTS_SAMPLE_FILES_PATH) + QStringLiteral("/test2.ogg"))}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -6867,7 +6912,7 @@ void MediaPlayListProxyModelTest::enqueueEmpty()
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newEntryInListSpy.count(), 0);
 
-    myPlayListProxyModel.enqueue(DataTypes::EntryDataList{}, ElisaUtils::Track);
+    myPlayListProxyModel.enqueue(DataTypes::EntryDataList{});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -6880,7 +6925,7 @@ void MediaPlayListProxyModelTest::enqueueEmpty()
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newEntryInListSpy.count(), 0);
 
-    myPlayListProxyModel.enqueue(DataTypes::EntryDataList{}, ElisaUtils::FileName);
+    myPlayListProxyModel.enqueue(DataTypes::EntryDataList{});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -6893,7 +6938,7 @@ void MediaPlayListProxyModelTest::enqueueEmpty()
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newEntryInListSpy.count(), 0);
 
-    myPlayListProxyModel.enqueue(DataTypes::EntryDataList{}, ElisaUtils::Track, ElisaUtils::AppendPlayList, ElisaUtils::DoNotTriggerPlay);
+    myPlayListProxyModel.enqueue(DataTypes::EntryDataList{}, ElisaUtils::AppendPlayList, ElisaUtils::DoNotTriggerPlay);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -6906,7 +6951,7 @@ void MediaPlayListProxyModelTest::enqueueEmpty()
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newEntryInListSpy.count(), 0);
 
-    myPlayListProxyModel.enqueue(DataTypes::EntryDataList{}, ElisaUtils::Album, ElisaUtils::AppendPlayList, ElisaUtils::DoNotTriggerPlay);
+    myPlayListProxyModel.enqueue(DataTypes::EntryDataList{}, ElisaUtils::AppendPlayList, ElisaUtils::DoNotTriggerPlay);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -6920,9 +6965,8 @@ void MediaPlayListProxyModelTest::enqueueEmpty()
     QCOMPARE(newEntryInListSpy.count(), 0);
 
     myPlayListProxyModel.enqueue(DataTypes::EntryDataList{},
-                       ElisaUtils::Artist,
-                       ElisaUtils::AppendPlayList,
-                       ElisaUtils::DoNotTriggerPlay);
+                                 ElisaUtils::AppendPlayList,
+                                 ElisaUtils::DoNotTriggerPlay);
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -7003,7 +7047,8 @@ void MediaPlayListProxyModelTest::testMoveAndShuffle()
     QCOMPARE(newEntryInListSpy.count(), 0);
 
     auto firstTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, firstTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, firstTrackId}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -7030,7 +7075,8 @@ void MediaPlayListProxyModelTest::testMoveAndShuffle()
     QCOMPARE(newEntryInListSpy.count(), 1);
 
     auto secondTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album2"), 2, 1);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, secondTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, secondTrackId}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -7057,7 +7103,8 @@ void MediaPlayListProxyModelTest::testMoveAndShuffle()
     QCOMPARE(newEntryInListSpy.count(), 2);
 
     auto thirdTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist1"), QStringLiteral("album2"), 3, 1);
-    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, thirdTrackId}}, {}, {}}, ElisaUtils::Track);
+    myPlayListProxyModel.enqueue({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                   {DataTypes::DatabaseIdRole, thirdTrackId}}, {}, {}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);

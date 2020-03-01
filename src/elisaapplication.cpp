@@ -189,7 +189,7 @@ void ElisaApplication::setArguments(const DataTypes::EntryDataList &newArguments
     Q_EMIT argumentsChanged();
 
     if (!d->mArguments.isEmpty()) {
-        Q_EMIT enqueue(d->mArguments, ElisaUtils::FileName,
+        Q_EMIT enqueue(d->mArguments,
                        ElisaUtils::PlayListEnqueueMode::AppendPlayList,
                        ElisaUtils::PlayListEnqueueTriggerPlay::TriggerPlay);
     }
@@ -217,7 +217,6 @@ void ElisaApplication::activateRequested(const QStringList &arguments, const QSt
         }
 
         Q_EMIT enqueue(checkFileListAndMakeAbsolute(realArguments, workingDirectory),
-                       ElisaUtils::FileName,
                        ElisaUtils::PlayListEnqueueMode::AppendPlayList,
                        ElisaUtils::PlayListEnqueueTriggerPlay::TriggerPlay);
     }
@@ -363,7 +362,6 @@ void ElisaApplication::initializeModels()
 
     QObject::connect(this, &ElisaApplication::enqueue,
                      d->mMediaPlayListProxyModel.get(), static_cast<void (MediaPlayListProxyModel::*)(const DataTypes::EntryDataList&,
-                                                                                            ElisaUtils::PlayListEntryType,
                                                                                             ElisaUtils::PlayListEnqueueMode,
                                                                                             ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayListProxyModel::enqueue));
 }
@@ -440,7 +438,7 @@ void ElisaApplication::initializePlayer()
     QObject::connect(d->mMediaPlayListProxyModel.get(), &MediaPlayListProxyModel::currentTrackDataChanged, d->mManageHeaderBar.get(), &ManageHeaderBar::updateCurrentTrackData);
 
     if (!d->mArguments.isEmpty()) {
-        Q_EMIT enqueue(d->mArguments, ElisaUtils::FileName,
+        Q_EMIT enqueue(d->mArguments,
                        ElisaUtils::PlayListEnqueueMode::AppendPlayList,
                        ElisaUtils::PlayListEnqueueTriggerPlay::TriggerPlay);
     }

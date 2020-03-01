@@ -80,7 +80,7 @@ private Q_SLOTS:
         QCOMPARE(argumentsChangedSpy.count(), 0);
         QCOMPARE(enqueueSpy.count(), 1);
 
-        QCOMPARE(enqueueSpy.at(0).count(), 4);
+        QCOMPARE(enqueueSpy.at(0).count(), 3);
         QCOMPARE(std::get<2>(enqueueSpy.at(0).at(0).value<DataTypes::EntryDataList>().at(0)), QUrl::fromLocalFile(myTestFile.canonicalFilePath()));
     }
 };

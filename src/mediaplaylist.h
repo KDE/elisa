@@ -137,11 +137,11 @@ public Q_SLOTS:
 
     void trackInError(const QUrl &sourceInError, QMediaPlayer::Error playerError);
 
-    void enqueueFilesList(const DataTypes::EntryDataList &newEntries, ElisaUtils::PlayListEntryType databaseIdType);
+    void enqueueFilesList(const DataTypes::EntryDataList &newEntries);
 
-    void enqueueOneEntry(const DataTypes::EntryData &entryData, ElisaUtils::PlayListEntryType type);
+    void enqueueOneEntry(const DataTypes::EntryData &entryData);
 
-    void enqueueMultipleEntries(const DataTypes::EntryDataList &entriesData, ElisaUtils::PlayListEntryType type);
+    void enqueueMultipleEntries(const DataTypes::EntryDataList &entriesData);
 
 private:
 

@@ -6993,7 +6993,7 @@ DataTypes::TrackDataType DatabaseInterface::buildTrackDataFromDatabaseRecord(con
     }
     result[DataTypes::TrackDataType::key_type::PlayCounter] = trackRecord.value(28);
     result[DataTypes::TrackDataType::key_type::PlayFrequency] = trackRecord.value(29);
-    result[DataTypes::TrackDataType::key_type::ElementTypeRole] = ElisaUtils::Track;
+    result[DataTypes::TrackDataType::key_type::ElementTypeRole] = QVariant::fromValue(ElisaUtils::Track);
 
     return result;
 }

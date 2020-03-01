@@ -240,19 +240,19 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
         switch (d->mModelType)
         {
         case ElisaUtils::Track:
-            result = QVariant::fromValue(d->mAllTrackData[index.row()]);
+            result = QVariant::fromValue(static_cast<DataTypes::MusicDataType>(d->mAllTrackData[index.row()]));
             break;
         case ElisaUtils::Radio:
-            result = QVariant::fromValue(d->mAllRadiosData[index.row()]);
+            result = QVariant::fromValue(static_cast<DataTypes::MusicDataType>(d->mAllRadiosData[index.row()]));
             break;
         case ElisaUtils::Album:
-            result = QVariant::fromValue(d->mAllAlbumData[index.row()]);
+            result = QVariant::fromValue(static_cast<DataTypes::MusicDataType>(d->mAllAlbumData[index.row()]));
             break;
         case ElisaUtils::Artist:
-            result = QVariant::fromValue(d->mAllArtistData[index.row()]);
+            result = QVariant::fromValue(static_cast<DataTypes::MusicDataType>(d->mAllArtistData[index.row()]));
             break;
         case ElisaUtils::Genre:
-            result = QVariant::fromValue(d->mAllGenreData[index.row()]);
+            result = QVariant::fromValue(static_cast<DataTypes::MusicDataType>(d->mAllGenreData[index.row()]));
             break;
         case ElisaUtils::Lyricist:
         case ElisaUtils::Composer:

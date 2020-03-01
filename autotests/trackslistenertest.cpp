@@ -52,6 +52,8 @@ private Q_SLOTS:
         qRegisterMetaType<DataTypes::ArtistDataType>("ArtistDataType");
         qRegisterMetaType<DataTypes::GenreDataType>("GenreDataType");
         qRegisterMetaType<ElisaUtils::PlayListEntryType>("PlayListEntryType");
+        qRegisterMetaType<TracksListener::TrackDataType>("TracksListener::TrackDataType");
+        qRegisterMetaType<TracksListener::ListTrackDataType>("TracksListener::ListTrackDataType");
     }
 
     void testTrackRemoval()
@@ -85,7 +87,7 @@ private Q_SLOTS:
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
         QCOMPARE(tracksListAddedSpy.count(), 0);
 
-        myPlayList.enqueueOneEntry(DataTypes::EntryData{{}, QStringLiteral("artist1"), {}}, ElisaUtils::Artist);
+        myPlayList.enqueueOneEntry(DataTypes::EntryData{{{DataTypes::ElementTypeRole, ElisaUtils::Artist}}, QStringLiteral("artist1"), {}});
 
         QCOMPARE(trackHasChangedSpy.count(), 0);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
@@ -212,7 +214,8 @@ private Q_SLOTS:
 
         QCOMPARE(trackId != 0, true);
 
-        myPlayList.enqueueOneEntry(DataTypes::EntryData{{{DataTypes::DatabaseIdRole, trackId}}, {}, {}}, ElisaUtils::Track);
+        myPlayList.enqueueOneEntry(DataTypes::EntryData{{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                                         {DataTypes::DatabaseIdRole, trackId}}, {}, {}});
 
         QCOMPARE(trackHasChangedSpy.count(), 1);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
@@ -274,9 +277,9 @@ private Q_SLOTS:
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
         QCOMPARE(tracksListAddedSpy.count(), 0);
 
-        myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album1"), 1, 1)}},
-                                    QStringLiteral("track1"), {}},
-                                   ElisaUtils::Track);
+        myPlayList.enqueueOneEntry({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                     {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album1"), 1, 1)}},
+                                    QStringLiteral("track1"), {}});
 
         QCOMPARE(trackHasChangedSpy.count(), 1);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
@@ -407,9 +410,9 @@ private Q_SLOTS:
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
         QCOMPARE(tracksListAddedSpy.count(), 0);
 
-        myPlayList.enqueueOneEntry({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album1"), 1, 1)}},
-                                    QStringLiteral("track1"), {}},
-                                   ElisaUtils::Track);
+        myPlayList.enqueueOneEntry({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                     {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album1"), 1, 1)}},
+                                    QStringLiteral("track1"), {}});
 
         QCOMPARE(trackHasChangedSpy.count(), 1);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);

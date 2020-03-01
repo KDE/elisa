@@ -132,7 +132,6 @@ Q_SIGNALS:
     void manageHeaderBarChanged();
 
     void enqueue(const DataTypes::EntryDataList &newEntries,
-                 ElisaUtils::PlayListEntryType databaseIdType,
                  ElisaUtils::PlayListEnqueueMode enqueueMode,
                  ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 

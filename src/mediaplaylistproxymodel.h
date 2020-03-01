@@ -114,27 +114,23 @@ public:
 
 public Q_SLOTS:
 
-    void enqueue(const DataTypes::EntryData &newEntry, ElisaUtils::PlayListEntryType databaseIdType);
+    void enqueue(const DataTypes::EntryData &newEntry);
 
-    void enqueue(const DataTypes::EntryDataList &newEntries, ElisaUtils::PlayListEntryType databaseIdType);
+    void enqueue(const DataTypes::EntryDataList &newEntries);
 
     void enqueue(qulonglong newEntryDatabaseId, const QString &newEntryTitle,
-                 ElisaUtils::PlayListEntryType databaseIdType,
                  ElisaUtils::PlayListEnqueueMode enqueueMode,
                  ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 
     void enqueue(const QUrl &entryUrl,
-                 ElisaUtils::PlayListEntryType databaseIdType,
                  ElisaUtils::PlayListEnqueueMode enqueueMode,
                  ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 
     void enqueue(const DataTypes::EntryData &newEntry,
-                 ElisaUtils::PlayListEntryType databaseIdType,
                  ElisaUtils::PlayListEnqueueMode enqueueMode,
                  ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 
     void enqueue(const DataTypes::EntryDataList &newEntries,
-                 ElisaUtils::PlayListEntryType databaseIdType,
                  ElisaUtils::PlayListEnqueueMode enqueueMode,
                  ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 

@@ -88,7 +88,6 @@ void FileBrowserProxyModel::enqueueToPlayList()
             }
         }
         Q_EMIT filesToEnqueue(allTrackUrls,
-                              ElisaUtils::FileName,
                               ElisaUtils::AppendPlayList,
                               ElisaUtils::DoNotTriggerPlay);
     });
@@ -106,7 +105,6 @@ void FileBrowserProxyModel::replaceAndPlayOfPlayList()
             }
         }
         Q_EMIT filesToEnqueue(allTrackUrls,
-                              ElisaUtils::FileName,
                               ElisaUtils::ReplacePlayList,
                               ElisaUtils::TriggerPlay);
     });
@@ -133,7 +131,7 @@ void FileBrowserProxyModel::disconnectPlayList()
 {
     if (mPlayList) {
         disconnect(this, &FileBrowserProxyModel::filesToEnqueue,
-                   mPlayList, static_cast<void(MediaPlayListProxyModel::*)(const DataTypes::EntryDataList&, ElisaUtils::PlayListEntryType, ElisaUtils::PlayListEnqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayListProxyModel::enqueue));
+                   mPlayList, static_cast<void(MediaPlayListProxyModel::*)(const DataTypes::EntryDataList&, ElisaUtils::PlayListEnqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayListProxyModel::enqueue));
     }
 }
 
@@ -141,7 +139,7 @@ void FileBrowserProxyModel::connectPlayList()
 {
     if (mPlayList) {
         connect(this, &FileBrowserProxyModel::filesToEnqueue,
-                mPlayList, static_cast<void(MediaPlayListProxyModel::*)(const DataTypes::EntryDataList&, ElisaUtils::PlayListEntryType, ElisaUtils::PlayListEnqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayListProxyModel::enqueue));
+                mPlayList, static_cast<void(MediaPlayListProxyModel::*)(const DataTypes::EntryDataList&, ElisaUtils::PlayListEnqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayListProxyModel::enqueue));
     }
 }
 

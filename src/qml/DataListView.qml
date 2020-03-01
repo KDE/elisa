@@ -98,13 +98,11 @@ FocusScope {
             isAlternateColor: (index % 2) === 1
             detailedView: false
 
-            onEnqueue: elisa.mediaPlayListProxyModel.enqueue(url, entryType,
-                                                   ElisaUtils.AppendPlayList,
-                                                   ElisaUtils.DoNotTriggerPlay)
+            onEnqueue: elisa.mediaPlayListProxyModel.enqueue(url, ElisaUtils.AppendPlayList,
+                                                             ElisaUtils.DoNotTriggerPlay)
 
-            onReplaceAndPlay: elisa.mediaPlayListProxyModel.enqueue(url, entryType,
-                                                          ElisaUtils.ReplacePlayList,
-                                                          ElisaUtils.TriggerPlay)
+            onReplaceAndPlay: elisa.mediaPlayListProxyModel.enqueue(url, ElisaUtils.ReplacePlayList,
+                                                                    ElisaUtils.TriggerPlay)
 
 
             onClicked: listView.currentIndex = index
@@ -146,13 +144,11 @@ FocusScope {
             isSelected: listView.currentIndex === index
             isAlternateColor: (index % 2) === 1
 
-            onEnqueue: elisa.mediaPlayListProxyModel.enqueue(url, entryType,
-                                                   ElisaUtils.AppendPlayList,
-                                                   ElisaUtils.DoNotTriggerPlay)
+            onEnqueue: elisa.mediaPlayListProxyModel.enqueue(url, ElisaUtils.AppendPlayList,
+                                                             ElisaUtils.DoNotTriggerPlay)
 
-            onReplaceAndPlay: elisa.mediaPlayListProxyModel.enqueue(url, entryType,
-                                                          ElisaUtils.ReplacePlayList,
-                                                          ElisaUtils.TriggerPlay)
+            onReplaceAndPlay: elisa.mediaPlayListProxyModel.enqueue(url, ElisaUtils.ReplacePlayList,
+                                                                    ElisaUtils.TriggerPlay)
 
             onClicked: {
                 listView.currentIndex = index

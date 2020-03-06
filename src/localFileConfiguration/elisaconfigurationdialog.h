@@ -9,6 +9,8 @@
 
 #include "elisaLib_export.h"
 
+#include "elisautils.h"
+
 #include <QStringList>
 #include <QFileSystemWatcher>
 
@@ -36,6 +38,11 @@ class ELISALIB_EXPORT ElisaConfigurationDialog : public QObject
                READ showSystemTrayIcon
                WRITE setShowSystemTrayIcon
                NOTIFY showSystemTrayIconChanged)
+
+    Q_PROPERTY(ElisaUtils::PlayListEntryType embeddedView
+               READ embeddedView
+               WRITE setEmbeddedView
+               NOTIFY embeddedViewChanged)
 
     Q_PROPERTY(bool isDirty
                READ isDirty
@@ -69,6 +76,11 @@ public:
         return mForceUsageOfFastFileSearch;
     }
 
+    ElisaUtils::PlayListEntryType embeddedView() const
+    {
+        return mEmbeddedView;
+    }
+
 Q_SIGNALS:
 
     void rootPathChanged(const QStringList &rootPath);
@@ -81,6 +93,8 @@ Q_SIGNALS:
 
     void forceUsageOfFastFileSearchChanged();
 
+    void embeddedViewChanged();
+
 public Q_SLOTS:
 
     void setRootPath(const QStringList &rootPath);
@@ -92,6 +106,8 @@ public Q_SLOTS:
     void setShowSystemTrayIcon(bool showSystemTrayIcon);
 
     void setForceUsageOfFastFileSearch(bool forceUsageOfFastFileSearch);
+
+    void setEmbeddedView(ElisaUtils::PlayListEntryType embeddedView);
 
 private Q_SLOTS:
 
@@ -112,6 +128,8 @@ private:
     bool mShowSystemTrayIcon = false;
 
     bool mForceUsageOfFastFileSearch = true;
+
+    ElisaUtils::PlayListEntryType mEmbeddedView = ElisaUtils::Unknown;
 };
 
 #endif

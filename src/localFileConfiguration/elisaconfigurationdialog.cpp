@@ -13,6 +13,7 @@
 
 #include <QStandardPaths>
 #include <QFileInfo>
+#include <QTimer>
 
 ElisaConfigurationDialog::ElisaConfigurationDialog(QObject* parent)
     : QObject(parent)
@@ -22,11 +23,7 @@ ElisaConfigurationDialog::ElisaConfigurationDialog(QObject* parent)
     connect(&mConfigFileWatcher, &QFileSystemWatcher::fileChanged,
             this, &ElisaConfigurationDialog::configChanged);
 
-
-    setRootPath(Elisa::ElisaConfiguration::rootPath());
-    setShowProgressInTaskBar(Elisa::ElisaConfiguration::showProgressOnTaskBar());
-    setShowSystemTrayIcon(Elisa::ElisaConfiguration::showSystemTrayIcon());
-    setForceUsageOfFastFileSearch(Elisa::ElisaConfiguration::forceUsageOfFastFileSearch());
+    configChanged();
     save();
 
     mConfigFileWatcher.addPath(Elisa::ElisaConfiguration::self()->config()->name());
@@ -79,6 +76,31 @@ void ElisaConfigurationDialog::save()
     Elisa::ElisaConfiguration::setShowProgressOnTaskBar(mShowProgressInTaskBar);
     Elisa::ElisaConfiguration::setShowSystemTrayIcon(mShowSystemTrayIcon);
     Elisa::ElisaConfiguration::setForceUsageOfFastFileSearch(mForceUsageOfFastFileSearch);
+
+    Elisa::ElisaConfiguration::setEmbeddedView(0);
+    switch (mEmbeddedView)
+    {
+    case ElisaUtils::Unknown:
+        Elisa::ElisaConfiguration::setEmbeddedView(0);
+        break;
+    case ElisaUtils::Album:
+        Elisa::ElisaConfiguration::setEmbeddedView(1);
+        break;
+    case ElisaUtils::Artist:
+        Elisa::ElisaConfiguration::setEmbeddedView(2);
+        break;
+    case ElisaUtils::Genre:
+        Elisa::ElisaConfiguration::setEmbeddedView(3);
+        break;
+    case ElisaUtils::Radio:
+    case ElisaUtils::Track:
+    case ElisaUtils::Composer:
+    case ElisaUtils::FileName:
+    case ElisaUtils::Lyricist:
+    case ElisaUtils::Container:
+        break;
+    }
+
     Elisa::ElisaConfiguration::self()->save();
 
     mIsDirty = false;
@@ -121,9 +143,38 @@ void ElisaConfigurationDialog::setForceUsageOfFastFileSearch(bool forceUsageOfFa
     setDirty();
 }
 
+void ElisaConfigurationDialog::setEmbeddedView(ElisaUtils::PlayListEntryType embeddedView)
+{
+    if (mEmbeddedView == embeddedView) {
+        return;
+    }
+
+    mEmbeddedView = embeddedView;
+    QTimer::singleShot(0, [this](){ Q_EMIT embeddedViewChanged(); });
+
+    setDirty();
+}
+
 void ElisaConfigurationDialog::configChanged()
 {
     setRootPath(Elisa::ElisaConfiguration::rootPath());
+    setShowProgressInTaskBar(Elisa::ElisaConfiguration::showProgressOnTaskBar());
+    setShowSystemTrayIcon(Elisa::ElisaConfiguration::showSystemTrayIcon());
+    switch (Elisa::ElisaConfiguration::embeddedView())
+    {
+    case 0:
+        setEmbeddedView(ElisaUtils::Unknown);
+        break;
+    case 1:
+        setEmbeddedView(ElisaUtils::Album);
+        break;
+    case 2:
+        setEmbeddedView(ElisaUtils::Artist);
+        break;
+    case 3:
+        setEmbeddedView(ElisaUtils::Genre);
+        break;
+    }
 }
 
 void ElisaConfigurationDialog::setDirty()

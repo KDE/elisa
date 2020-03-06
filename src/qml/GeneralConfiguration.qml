@@ -7,11 +7,14 @@
 import QtQuick 2.11
 import QtQuick.Controls 2.4
 import QtQuick.Layouts 1.3
+import org.kde.kirigami 2.8 as Kirigami
+
+import org.kde.elisa 1.0
 
 import org.kde.elisa 1.0
 
 ColumnLayout {
-    spacing: 0
+    spacing: Kirigami.Units.smallSpacing
 
     SystemPalette {
         id: myPalette
@@ -32,5 +35,66 @@ ColumnLayout {
         text: i18n("Keep running in System Tray when main window is closed")
 
         onToggled: ElisaConfigurationDialog.showSystemTrayIcon = checked
+    }
+
+    RowLayout {
+        spacing: Kirigami.Units.smallSpacing
+
+        Label {
+            text: i18n("Embed a category in the views navigation list:")
+        }
+
+        ComboBox {
+            id: embeddedCategoryCombo
+
+            property bool isFinished: false
+
+            model: [i18nc("Configure dialog, embed no category in views navigation list", "No embedded data"),
+                i18nc("Configure dialog, embed all albums in views navigation list", "Embed Albums"),
+                i18nc("Configure dialog, embed all artists in views navigation list", "Embed Artists"),
+                i18nc("Configure dialog, embed all genres in views navigation list", "Embed Genres")]
+
+            editable: false
+            currentIndex: (config.embeddedView === ElisaUtils.Genre ? 3 : (config.embeddedView === ElisaUtils.Album ? 1 : (config.embeddedView === ElisaUtils.Artist ? 2 : 0)))
+
+            onCurrentIndexChanged: {
+                if (!isFinished) {
+                    return
+                }
+
+                config.embeddedView = (currentIndex === 0 ? ElisaUtils.Unknown : (currentIndex === 1 ? ElisaUtils.Album : (currentIndex === 2 ? ElisaUtils.Artist : ElisaUtils.Genre)))
+            }
+        }
+
+        Connections {
+            target: config
+
+            onEmbeddedViewChanged:
+            {
+                if (config.embeddedView == ElisaUtils.Unknown) {
+                    embeddedCategoryCombo.currentIndex = 0
+                } else if (config.embeddedView == ElisaUtils.Album) {
+                    embeddedCategoryCombo.currentIndex = 1
+                } else if (config.embeddedView == ElisaUtils.Artist) {
+                    embeddedCategoryCombo.currentIndex = 2
+                } else if (config.embeddedView == ElisaUtils.Genre) {
+                    embeddedCategoryCombo.currentIndex = 3
+                }
+            }
+        }
+
+        Component.onCompleted: {
+            if (config.embeddedView == ElisaUtils.Unknown) {
+                embeddedCategoryCombo.currentIndex = 0
+            } else if (config.embeddedView == ElisaUtils.Album) {
+                embeddedCategoryCombo.currentIndex = 1
+            } else if (config.embeddedView == ElisaUtils.Artist) {
+                embeddedCategoryCombo.currentIndex = 2
+            } else if (config.embeddedView == ElisaUtils.Genre) {
+                embeddedCategoryCombo.currentIndex = 3
+            }
+
+            embeddedCategoryCombo.isFinished = true
+        }
     }
 }

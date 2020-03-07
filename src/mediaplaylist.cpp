@@ -434,16 +434,13 @@ void MediaPlayList::enqueueMultipleEntries(const ElisaUtils::EntryDataList &entr
 
     beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size() + entriesData.size() - 1);
     for (const auto &entryData : entriesData) {
-        if (std::get<2>(entryData).isValid()) {
+        if (!std::get<0>(entryData).databaseId() && std::get<2>(entryData).isValid()) {
             d->mData.push_back(MediaPlayListEntry{std::get<2>(entryData)});
             d->mTrackData.push_back({});
+            Q_EMIT newUrlInList(std::get<2>(entryData), type);
         } else {
             d->mData.push_back(MediaPlayListEntry{std::get<0>(entryData).databaseId(), std::get<1>(entryData), type});
             d->mTrackData.push_back(std::get<0>(entryData));
-        }
-        if (std::get<2>(entryData).isValid()) {
-            Q_EMIT newUrlInList(std::get<2>(entryData), type);
-        } else {
             Q_EMIT newEntryInList(std::get<0>(entryData).databaseId(), std::get<1>(entryData), type);
         }
     }

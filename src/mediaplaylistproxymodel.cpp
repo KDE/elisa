@@ -754,7 +754,6 @@ bool MediaPlayListProxyModel::savePlayList(const QUrl &fileName)
     for (int i = 0; i < rowCount(); ++i) {
         if (data(index(i,0), MediaPlayList::IsValidRole).toBool()) {
             data(index(i,0), MediaPlayList::ResourceRole).toUrl();
-            qDebug() << data(index(i,0), MediaPlayList::ResourceRole).toUrl();
             savePlaylist.addMedia(data(index(i,0), MediaPlayList::ResourceRole).toUrl());
         }
     }
@@ -771,7 +770,6 @@ void MediaPlayListProxyModel::loadPlayList(const QUrl &fileName)
 void MediaPlayListProxyModel::loadPlayListLoaded()
 {
     clearPlayList();
-    qDebug() << d->mLoadPlaylist.mediaCount();
     for (int i = 0; i < d->mLoadPlaylist.mediaCount(); ++i) {
 #if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
         enqueue(ElisaUtils::EntryData{{}, {}, d->mLoadPlaylist.media(i).canonicalUrl()}, ElisaUtils::FileName);

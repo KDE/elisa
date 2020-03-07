@@ -1611,6 +1611,7 @@ void MediaPlayListProxyModelTest::testSaveAndRestoreSettings()
     QSignalSpy randomPlayChangedSaveSpy(&myPlayListSaveProxyModel, &MediaPlayListProxyModel::randomPlayChanged);
     QSignalSpy repeatPlayChangedSaveSpy(&myPlayListSaveProxyModel, &MediaPlayListProxyModel::repeatPlayChanged);
     QSignalSpy playListFinishedSaveSpy(&myPlayListSaveProxyModel, &MediaPlayListProxyModel::playListFinished);
+    QSignalSpy dataChangedSaveSpy(&myPlayListSaveProxyModel, &MediaPlayListProxyModel::dataChanged);
     QSignalSpy currentTrackChangedRestoreSpy(&myPlayListRestoreProxyModel, &MediaPlayListProxyModel::currentTrackChanged);
     QSignalSpy randomPlayChangedRestoreSpy(&myPlayListRestoreProxyModel, &MediaPlayListProxyModel::randomPlayChanged);
     QSignalSpy repeatPlayChangedRestoreSpy(&myPlayListRestoreProxyModel, &MediaPlayListProxyModel::repeatPlayChanged);
@@ -1711,6 +1712,8 @@ void MediaPlayListProxyModelTest::testSaveAndRestoreSettings()
     myPlayListSaveProxyModel.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album1"), 1, 1)}},
                         QStringLiteral("track1"), {}},
                        ElisaUtils::Track);
+
+    QVERIFY(dataChangedSaveSpy.wait());
 
     QCOMPARE(currentTrackChangedSaveSpy.count(), 1);
     QCOMPARE(randomPlayChangedSaveSpy.count(), 1);

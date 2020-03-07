@@ -295,6 +295,10 @@ bool MediaPlayList::moveRows(const QModelIndex &sourceParent, int sourceRow, int
 
 void MediaPlayList::enqueueRestoredEntries(const QVariantList &newEntries)
 {
+    if (newEntries.isEmpty()) {
+        return;
+    }
+
     beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size() + newEntries.size() - 1);
     for (auto &oneData : newEntries) {
         auto trackData = oneData.toStringList();

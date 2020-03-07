@@ -1537,6 +1537,7 @@ void MediaPlayListProxyModelTest::testRestoreSettings()
     QSignalSpy randomPlayChangedSpy(&myPlayList, &MediaPlayListProxyModel::randomPlayChanged);
     QSignalSpy repeatPlayChangedSpy(&myPlayList, &MediaPlayListProxyModel::repeatPlayChanged);
     QSignalSpy playListFinishedSpy(&myPlayList, &MediaPlayListProxyModel::playListFinished);
+    QSignalSpy dataChangedSpy(&myPlayList, &MediaPlayListProxyModel::dataChanged);
 
     myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
 
@@ -1572,6 +1573,8 @@ void MediaPlayListProxyModelTest::testRestoreSettings()
     myPlayList.enqueue({{{DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
                         QStringLiteral("track1"), {}},
                        ElisaUtils::Track);
+
+    QVERIFY(dataChangedSpy.wait());
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(randomPlayChangedSpy.count(), 0);

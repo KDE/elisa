@@ -726,7 +726,6 @@ void MediaPlayListProxyModel::undoClearPlayList()
 
 void MediaPlayListProxyModel::determineTracks()
 {
-    qDebug() << d->mCurrentTrack;
     if (!d->mCurrentTrack.isValid()) {
         for (int row = 0; row < rowCount(); ++row) {
             auto candidateTrack = index(row, 0);

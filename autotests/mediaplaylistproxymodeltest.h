@@ -101,7 +101,7 @@ private Q_SLOTS:
 
     void testTrackBeenRemoved();
 
-    void randomPlayList();
+    void shufflePlayList();
 
     void testShuffleMode();
 

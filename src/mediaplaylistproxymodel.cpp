@@ -54,7 +54,7 @@ public:
 
     bool mRepeatPlay = false;
 
-    bool mRandomPlay = false;
+    bool mShufflePlayList = false;
 
 };
 
@@ -118,7 +118,7 @@ QModelIndex MediaPlayListProxyModel::mapToSource(const QModelIndex &proxyIndex) 
 
 int MediaPlayListProxyModel::mapRowToSource(const int proxyRow) const
 {
-    if (d->mRandomPlay) {
+    if (d->mShufflePlayList) {
         return d->mRandomMapping.at(proxyRow);
     } else {
         return proxyRow;
@@ -127,7 +127,7 @@ int MediaPlayListProxyModel::mapRowToSource(const int proxyRow) const
 
 int MediaPlayListProxyModel::mapRowFromSource(const int sourceRow) const
 {
-    if (d->mRandomPlay) {
+    if (d->mShufflePlayList) {
         return d->mRandomMapping.indexOf(sourceRow);
     } else {
         return sourceRow;
@@ -136,7 +136,7 @@ int MediaPlayListProxyModel::mapRowFromSource(const int sourceRow) const
 
 int MediaPlayListProxyModel::rowCount(const QModelIndex &parent) const
 {
-    if (d->mRandomPlay) {
+    if (d->mShufflePlayList) {
         if (parent.isValid()) {
             return 0;
         }
@@ -236,9 +236,9 @@ bool MediaPlayListProxyModel::repeatPlay() const
     return d->mRepeatPlay;
 }
 
-void MediaPlayListProxyModel::setRandomPlay(const bool value)
+void MediaPlayListProxyModel::setShufflePlayList(const bool value)
 {
-    if (d->mRandomPlay != value) {
+    if (d->mShufflePlayList != value) {
         Q_EMIT layoutAboutToBeChanged(QList<QPersistentModelIndex>(), QAbstractItemModel::VerticalSortHint);
         auto playListSize = d->mPlayListModel->rowCount();
 
@@ -278,21 +278,21 @@ void MediaPlayListProxyModel::setRandomPlay(const bool value)
             }
 
             d->mCurrentPlayListPosition = d->mCurrentTrack.row();
-            d->mRandomPlay = value;
+            d->mShufflePlayList = value;
             Q_EMIT layoutChanged(QList<QPersistentModelIndex>(), QAbstractItemModel::VerticalSortHint);
             determineAndNotifyPreviousAndNextTracks();
         } else {
-            d->mRandomPlay = value;
+            d->mShufflePlayList = value;
         }
-        Q_EMIT randomPlayChanged();
+        Q_EMIT shufflePlayListChanged();
         Q_EMIT remainingTracksChanged();
         Q_EMIT persistentStateChanged();
     }
 }
 
-bool MediaPlayListProxyModel::randomPlay() const
+bool MediaPlayListProxyModel::shufflePlayList() const
 {
-    return d->mRandomPlay;
+    return d->mShufflePlayList;
 }
 
 void MediaPlayListProxyModel::sourceRowsAboutToBeInserted(const QModelIndex &parent, int start, int end)
@@ -303,14 +303,14 @@ void MediaPlayListProxyModel::sourceRowsAboutToBeInserted(const QModelIndex &par
      * new items can be added at arbitrarily positions,
      * which requires a split of beginInsertRows
      */
-    if (!d->mRandomPlay) {
+    if (!d->mShufflePlayList) {
         beginInsertRows(parent, start, end);
     }
 }
 
 void MediaPlayListProxyModel::sourceRowsInserted(const QModelIndex &parent, int start, int end)
 {
-    if (d->mRandomPlay) {
+    if (d->mShufflePlayList) {
         const auto newItemsCount = end - start + 1;
         d->mRandomMapping.reserve(rowCount() + newItemsCount);
         if (rowCount() == 0 || newItemsCount == 1) {
@@ -341,7 +341,7 @@ void MediaPlayListProxyModel::sourceRowsInserted(const QModelIndex &parent, int 
 
 void MediaPlayListProxyModel::sourceRowsAboutToBeRemoved(const QModelIndex &parent, int start, int end)
 {
-    if (d->mRandomPlay) {
+    if (d->mShufflePlayList) {
         if (end - start + 1 == rowCount()) {
             beginRemoveRows(parent, start, end);
             d->mRandomMapping.clear();
@@ -372,7 +372,7 @@ void MediaPlayListProxyModel::sourceRowsRemoved(const QModelIndex &parent, int s
     Q_UNUSED(parent);
     Q_UNUSED(start);
     Q_UNUSED(end);
-    if (!d->mRandomPlay) {
+    if (!d->mShufflePlayList) {
         endRemoveRows();
     }
     if (!d->mCurrentTrack.isValid()) {
@@ -400,13 +400,13 @@ void MediaPlayListProxyModel::sourceRowsRemoved(const QModelIndex &parent, int s
 
 void MediaPlayListProxyModel::sourceRowsAboutToBeMoved(const QModelIndex &parent, int start, int end, const QModelIndex &destParent, int destRow)
 {
-    Q_ASSERT(!d->mRandomPlay);
+    Q_ASSERT(!d->mShufflePlayList);
     beginMoveRows(parent, start, end, destParent, destRow);
 }
 
 void MediaPlayListProxyModel::sourceRowsMoved(const QModelIndex &parent, int start, int end, const QModelIndex &destParent, int destRow)
 {
-    Q_ASSERT(!d->mRandomPlay);
+    Q_ASSERT(!d->mShufflePlayList);
     Q_UNUSED(parent);
     Q_UNUSED(start);
     Q_UNUSED(end);
@@ -651,7 +651,7 @@ void MediaPlayListProxyModel::removeRow(int row)
 
 void MediaPlayListProxyModel::moveRow(int from, int to)
 {
-    if (d->mRandomPlay) {
+    if (d->mShufflePlayList) {
         beginMoveRows({}, from, 1, {}, from < to ? to + 1 : to);
         d->mRandomMapping.move(from, to);
         endMoveRows();
@@ -808,7 +808,7 @@ QVariantMap MediaPlayListProxyModel::persistentState() const
 
     currentState[QStringLiteral("playList")] = d->mPlayListModel->getEntriesForRestore();
     currentState[QStringLiteral("currentTrack")] = d->mCurrentPlayListPosition;
-    currentState[QStringLiteral("randomPlay")] = d->mRandomPlay;
+    currentState[QStringLiteral("shufflePlayList")] = d->mShufflePlayList;
     currentState[QStringLiteral("repeatPlay")] = d->mRepeatPlay;
 
     return currentState;
@@ -832,9 +832,9 @@ void MediaPlayListProxyModel::setPersistentState(const QVariantMap &persistentSt
         }
     }
 
-    auto randomPlayStoredValue = persistentStateValue.find(QStringLiteral("randomPlay"));
-    if (randomPlayStoredValue != persistentStateValue.end()) {
-        setRandomPlay(randomPlayStoredValue->toBool());
+    auto shufflePlayListStoredValue = persistentStateValue.find(QStringLiteral("shufflePlayList"));
+    if (shufflePlayListStoredValue != persistentStateValue.end()) {
+        setShufflePlayList(shufflePlayListStoredValue->toBool());
     }
     auto repeatPlayStoredValue = persistentStateValue.find(QStringLiteral("repeatPlay"));
     if (repeatPlayStoredValue != persistentStateValue.end()) {

@@ -210,7 +210,7 @@ ApplicationWindow {
                 playerControl.isPlaying: elisa.playerControl.musicPlaying
 
                 playerControl.repeat: elisa.mediaPlayListProxyModel.repeatPlay
-                playerControl.shuffle: elisa.mediaPlayListProxyModel.randomPlay
+                playerControl.shuffle: elisa.mediaPlayListProxyModel.shufflePlayList
 
                 playerControl.onSeek: elisa.audioPlayer.seek(position)
 
@@ -326,7 +326,7 @@ ApplicationWindow {
             elisa.audioControl.persistentState = persistentSettings.audioPlayerState
         }
 
-        elisa.mediaPlayListProxyModel.randomPlay = Qt.binding(function() { return headerBar.playerControl.shuffle })
+        elisa.mediaPlayListProxyModel.shufflePlayList = Qt.binding(function() { return headerBar.playerControl.shuffle })
         elisa.mediaPlayListProxyModel.repeatPlay = Qt.binding(function() { return headerBar.playerControl.repeat })
         elisa.audioPlayer.muted = Qt.binding(function() { return headerBar.playerControl.muted })
         elisa.audioPlayer.volume = Qt.binding(function() { return headerBar.playerControl.volume })

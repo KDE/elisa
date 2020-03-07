@@ -57,10 +57,10 @@ class ELISALIB_EXPORT MediaPlayListProxyModel : public QAbstractProxyModel
                WRITE setRepeatPlay
                NOTIFY repeatPlayChanged)
 
-    Q_PROPERTY(bool randomPlay
-               READ randomPlay
-               WRITE setRandomPlay
-               NOTIFY randomPlayChanged)
+    Q_PROPERTY(bool shufflePlayList
+               READ shufflePlayList
+               WRITE setShufflePlayList
+               NOTIFY shufflePlayListChanged)
 
     Q_PROPERTY(int remainingTracks
                READ remainingTracks
@@ -112,7 +112,7 @@ public:
 
     bool repeatPlay() const;
 
-    bool randomPlay() const;
+    bool shufflePlayList() const;
 
     int remainingTracks() const;
 
@@ -150,7 +150,7 @@ public Q_SLOTS:
 
     void setRepeatPlay(const bool value);
 
-    void setRandomPlay(const bool value);
+    void setShufflePlayList(const bool value);
 
     void trackInError(const QUrl &sourceInError, QMediaPlayer::Error playerError);
 
@@ -192,7 +192,7 @@ Q_SIGNALS:
 
     void repeatPlayChanged();
 
-    void randomPlayChanged();
+    void shufflePlayListChanged();
 
     void remainingTracksChanged();
 

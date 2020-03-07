@@ -140,7 +140,7 @@ ListView {
 
                 onStartPlayback: playListView.startPlayback()
                 onPausePlayback: playListView.pausePlayback()
-                onRemoveFromPlaylist: playListView.playListModel.removeRows(trackIndex, 1)
+                onRemoveFromPlaylist: playListView.playListModel.removeRow(trackIndex)
                 onSwitchToTrack: playListView.playListModel.switchTo(trackIndex)
 
                 onActiveFocusChanged: {
@@ -165,7 +165,7 @@ ListView {
             }
 
             onMoveItemRequested: {
-                playListModel.move(from, to, 1);
+                playListModel.moveRow(from, to);
             }
         }
     }

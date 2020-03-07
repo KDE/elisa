@@ -22,7 +22,7 @@
 #include "mpris2.h"
 #include "mediaplayer2.h"
 #include "mediaplayer2player.h"
-#include "mediaplaylist.h"
+#include "mediaplaylistproxymodel.h"
 
 #include <QDBusConnection>
 
@@ -73,7 +73,7 @@ QString Mpris2::playerName() const
     return m_playerName;
 }
 
-MediaPlayList *Mpris2::playListModel() const
+MediaPlayListProxyModel *Mpris2::playListModel() const
 {
     return m_playListModel;
 }
@@ -120,7 +120,7 @@ void Mpris2::setPlayerName(const QString &playerName)
     emit playerNameChanged();
 }
 
-void Mpris2::setPlayListModel(MediaPlayList *playListModel)
+void Mpris2::setPlayListModel(MediaPlayListProxyModel *playListModel)
 {
     if (m_playListModel == playListModel) {
         return;

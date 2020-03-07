@@ -33,6 +33,7 @@ class QIcon;
 class QAction;
 class MusicListenersManager;
 class MediaPlayList;
+class MediaPlayListProxyModel;
 class AudioWrapper;
 class ManageAudioPlayer;
 class ManageMediaPlayerControl;
@@ -57,6 +58,12 @@ class ELISALIB_EXPORT ElisaApplication : public QObject
     Q_PROPERTY(MediaPlayList *mediaPlayList
                READ mediaPlayList
                NOTIFY mediaPlayListChanged)
+
+
+    Q_PROPERTY(MediaPlayListProxyModel *mediaPlayListProxyModel
+               READ mediaPlayListProxyModel
+               NOTIFY mediaPlayListProxyModelChanged)
+
 
     Q_PROPERTY(AudioWrapper *audioPlayer
                READ audioPlayer
@@ -97,6 +104,8 @@ public:
 
     MediaPlayList *mediaPlayList() const;
 
+    MediaPlayListProxyModel *mediaPlayListProxyModel() const;
+
     AudioWrapper *audioPlayer() const;
 
     ManageAudioPlayer *audioControl() const;
@@ -114,6 +123,8 @@ Q_SIGNALS:
     void musicManagerChanged();
 
     void mediaPlayListChanged();
+
+    void mediaPlayListProxyModelChanged();
 
     void audioPlayerChanged();
 

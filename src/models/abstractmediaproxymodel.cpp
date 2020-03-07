@@ -18,7 +18,7 @@
 
 #include "abstractmediaproxymodel.h"
 
-#include "mediaplaylist.h"
+#include "mediaplaylistproxymodel.h"
 
 #include <QWriteLocker>
 
@@ -79,7 +79,7 @@ bool AbstractMediaProxyModel::sortedAscending() const
     return sortOrder() ? false : true;
 }
 
-MediaPlayList *AbstractMediaProxyModel::playList() const
+MediaPlayListProxyModel *AbstractMediaProxyModel::playList() const
 {
     return mPlayList;
 }
@@ -90,7 +90,7 @@ void AbstractMediaProxyModel::sortModel(Qt::SortOrder order)
     Q_EMIT sortedAscendingChanged();
 }
 
-void AbstractMediaProxyModel::setPlayList(MediaPlayList *playList)
+void AbstractMediaProxyModel::setPlayList(MediaPlayListProxyModel *playList)
 {
     disconnectPlayList();
 
@@ -108,7 +108,7 @@ void AbstractMediaProxyModel::disconnectPlayList()
 {
     if (mPlayList) {
         disconnect(this, &AbstractMediaProxyModel::entriesToEnqueue,
-                   mPlayList, static_cast<void(MediaPlayList::*)(const ElisaUtils::EntryDataList&, ElisaUtils::PlayListEntryType, ElisaUtils::PlayListEnqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayList::enqueue));
+                   mPlayList, static_cast<void(MediaPlayListProxyModel::*)(const ElisaUtils::EntryDataList&, ElisaUtils::PlayListEntryType, ElisaUtils::PlayListEnqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayListProxyModel::enqueue));
     }
 }
 
@@ -116,7 +116,7 @@ void AbstractMediaProxyModel::connectPlayList()
 {
     if (mPlayList) {
         connect(this, &AbstractMediaProxyModel::entriesToEnqueue,
-                mPlayList, static_cast<void(MediaPlayList::*)(const ElisaUtils::EntryDataList&, ElisaUtils::PlayListEntryType, ElisaUtils::PlayListEnqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayList::enqueue));
+                mPlayList, static_cast<void(MediaPlayListProxyModel::*)(const ElisaUtils::EntryDataList&, ElisaUtils::PlayListEntryType, ElisaUtils::PlayListEnqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayListProxyModel::enqueue));
     }
 }
 

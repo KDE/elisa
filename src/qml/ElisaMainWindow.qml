@@ -130,7 +130,7 @@ ApplicationWindow {
             persistentSettings.width = mainWindow.width;
             persistentSettings.height = mainWindow.height;
 
-            persistentSettings.playListState = elisa.mediaPlayList.persistentState;
+            persistentSettings.playListState = elisa.mediaPlayListProxyModel.persistentState;
             persistentSettings.audioPlayerState = elisa.audioControl.persistentState
 
             persistentSettings.playControlItemVolume = headerBar.playerControl.volume
@@ -149,7 +149,7 @@ ApplicationWindow {
         sourceComponent:  PlatformIntegration {
             id: platformInterface
 
-            playListModel: elisa.mediaPlayList
+            playListModel: elisa.mediaPlayListProxyModel
             audioPlayerManager: elisa.audioControl
             player: elisa.audioPlayer
             headerBarManager: elisa.manageHeaderBar
@@ -188,7 +188,7 @@ ApplicationWindow {
                 Layout.maximumHeight: mainWindow.height * 0.2 + elisaTheme.mediaPlayerControlHeight
                 Layout.fillWidth: true
 
-                tracksCount: elisa.mediaPlayList.remainingTracks
+                tracksCount: elisa.mediaPlayListProxyModel.remainingTracks
                 album: (elisa.manageHeaderBar.album !== undefined ? elisa.manageHeaderBar.album : '')
                 title: elisa.manageHeaderBar.title
                 artist: (elisa.manageHeaderBar.artist !== undefined ? elisa.manageHeaderBar.artist : '')
@@ -209,15 +209,15 @@ ApplicationWindow {
                 playerControl.playEnabled: elisa.playerControl.playControlEnabled
                 playerControl.isPlaying: elisa.playerControl.musicPlaying
 
-                playerControl.repeat: elisa.mediaPlayList.repeatPlay
-                playerControl.shuffle: elisa.mediaPlayList.randomPlay
+                playerControl.repeat: elisa.mediaPlayListProxyModel.repeatPlay
+                playerControl.shuffle: elisa.mediaPlayListProxyModel.randomPlay
 
                 playerControl.onSeek: elisa.audioPlayer.seek(position)
 
                 playerControl.onPlay: elisa.audioControl.playPause()
                 playerControl.onPause: elisa.audioControl.playPause()
-                playerControl.onPlayPrevious: elisa.mediaPlayList.skipPreviousTrack()
-                playerControl.onPlayNext: elisa.mediaPlayList.skipNextTrack()
+                playerControl.onPlayPrevious: elisa.mediaPlayListProxyModel.skipPreviousTrack()
+                playerControl.onPlayNext: elisa.mediaPlayListProxyModel.skipNextTrack()
 
                 playerControl.isMaximized: persistentSettings.headerBarIsMaximized
                 onOpenArtist: { contentView.openArtist(artist) }
@@ -319,15 +319,15 @@ ApplicationWindow {
         elisa.initialize()
 
         if (persistentSettings.playListState) {
-            elisa.mediaPlayList.persistentState = persistentSettings.playListState
+            elisa.mediaPlayListProxyModel.persistentState = persistentSettings.playListState
         }
 
         if (persistentSettings.audioPlayerState) {
             elisa.audioControl.persistentState = persistentSettings.audioPlayerState
         }
 
-        elisa.mediaPlayList.randomPlay = Qt.binding(function() { return headerBar.playerControl.shuffle })
-        elisa.mediaPlayList.repeatPlay = Qt.binding(function() { return headerBar.playerControl.repeat })
+        elisa.mediaPlayListProxyModel.randomPlay = Qt.binding(function() { return headerBar.playerControl.shuffle })
+        elisa.mediaPlayListProxyModel.repeatPlay = Qt.binding(function() { return headerBar.playerControl.repeat })
         elisa.audioPlayer.muted = Qt.binding(function() { return headerBar.playerControl.muted })
         elisa.audioPlayer.volume = Qt.binding(function() { return headerBar.playerControl.volume })
 

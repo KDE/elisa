@@ -28,7 +28,7 @@
 #include <QDBusObjectPath>
 #include <QDBusMessage>
 
-class MediaPlayList;
+class MediaPlayListProxyModel;
 class ManageAudioPlayer;
 class ManageMediaPlayerControl;
 class ManageHeaderBar;
@@ -56,7 +56,7 @@ class ELISALIB_EXPORT MediaPlayer2Player : public QDBusAbstractAdaptor
     Q_PROPERTY(int mediaPlayerPresent READ mediaPlayerPresent WRITE setMediaPlayerPresent NOTIFY mediaPlayerPresentChanged)
 
 public:
-    explicit MediaPlayer2Player(MediaPlayList *playListControler,
+    explicit MediaPlayer2Player(MediaPlayListProxyModel *playListControler,
                                 ManageAudioPlayer *manageAudioPlayer,
                                 ManageMediaPlayerControl* manageMediaPlayerControl,
                                 ManageHeaderBar * manageHeaderBar,
@@ -158,7 +158,7 @@ private:
     bool m_canGoNext = false;
     bool m_canGoPrevious = false;
     qlonglong m_position = 0;
-    MediaPlayList *m_playListControler = nullptr;
+    MediaPlayListProxyModel *m_playListControler = nullptr;
     bool m_playerIsSeekableChanged = false;
     ManageAudioPlayer* m_manageAudioPlayer = nullptr;
     ManageMediaPlayerControl* m_manageMediaPlayerControl = nullptr;

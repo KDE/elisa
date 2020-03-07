@@ -38,45 +38,6 @@ class ELISALIB_EXPORT MediaPlayList : public QAbstractListModel
 {
     Q_OBJECT
 
-    Q_PROPERTY(QVariantMap persistentState
-               READ persistentState
-               WRITE setPersistentState
-               NOTIFY persistentStateChanged)
-
-    Q_PROPERTY(int tracksCount
-               READ tracksCount
-               NOTIFY tracksCountChanged)
-
-    Q_PROPERTY(QPersistentModelIndex previousTrack
-               READ previousTrack
-               NOTIFY previousTrackChanged)
-
-    Q_PROPERTY(QPersistentModelIndex currentTrack
-               READ currentTrack
-               NOTIFY currentTrackChanged)
-
-    Q_PROPERTY(QPersistentModelIndex nextTrack
-               READ nextTrack
-               NOTIFY nextTrackChanged)
-
-    Q_PROPERTY(int currentTrackRow
-               READ currentTrackRow
-               NOTIFY currentTrackRowChanged)
-
-    Q_PROPERTY(bool randomPlay
-               READ randomPlay
-               WRITE setRandomPlay
-               NOTIFY randomPlayChanged)
-
-    Q_PROPERTY(bool repeatPlay
-               READ repeatPlay
-               WRITE setRepeatPlay
-               NOTIFY repeatPlayChanged)
-
-    Q_PROPERTY(int remainingTracks
-               READ remainingTracks
-               NOTIFY remainingTracksChanged)
-
 public:
 
     enum ColumnsRoles {
@@ -153,40 +114,17 @@ public:
 
     QHash<int, QByteArray> roleNames() const override;
 
-    Q_INVOKABLE bool removeRows(int row, int count, const QModelIndex &parent = QModelIndex()) override;
+    bool removeRows(int row, int count, const QModelIndex &parent = QModelIndex()) override;
 
-    Q_INVOKABLE bool moveRows(const QModelIndex &sourceParent, int sourceRow, int count, const QModelIndex &destinationParent, int destinationChild) override;
+    bool moveRows(const QModelIndex &sourceParent, int sourceRow, int count, const QModelIndex &destinationParent, int destinationChild) override;
 
-    Q_INVOKABLE void move(int from, int to, int n);
-
-    Q_INVOKABLE void clearPlayList();
-
-    Q_INVOKABLE bool savePlaylist(const QUrl &fileName);
-
-    QVariantMap persistentState() const;
-
-    int tracksCount() const;
-
-    QPersistentModelIndex previousTrack() const;
-
-    QPersistentModelIndex currentTrack() const;
-
-    QPersistentModelIndex nextTrack() const;
-
-    int currentTrackRow() const;
-
-    bool randomPlay() const;
-
-    bool repeatPlay() const;
-
-    int remainingTracks() const;
+    void clearPlayList();
 
     void enqueueRestoredEntries(const QVariantList &newEntries);
 
-Q_SIGNALS:
-    void displayUndoNotification();
+    QVariantList getEntriesForRestore() const;
 
-    void hideUndoNotification();
+Q_SIGNALS:
 
     void newTrackByNameInList(const QVariant &title, const QVariant &artist, const QVariant &album, const QVariant &trackNumber, const QVariant &discNumber);
 
@@ -197,41 +135,7 @@ Q_SIGNALS:
     void newUrlInList(const QUrl &entryUrl,
                       ElisaUtils::PlayListEntryType databaseIdType);
 
-    void persistentStateChanged();
-
-    void tracksCountChanged();
-
-    void previousTrackChanged(const QPersistentModelIndex &previousTrack);
-
-    void currentTrackChanged(const QPersistentModelIndex &currentTrack);
-
-    void nextTrackChanged(const QPersistentModelIndex &nextTrack);
-
-    void clearPlayListPlayer();
-
-    void undoClearPlayListPlayer();
-
-    void currentTrackRowChanged();
-
-    void randomPlayChanged();
-
-    void repeatPlayChanged();
-
-    void playListFinished();
-
-    void playListLoaded();
-
-    void playListLoadFailed();
-
-    void ensurePlay();
-
-    void remainingTracksChanged();
-
 public Q_SLOTS:
-
-    void setPersistentState(const QVariantMap &persistentState);
-
-    void removeSelection(QList<int> selection);
 
     void tracksListAdded(qulonglong newDatabaseId,
                          const QString &entryTitle,
@@ -242,63 +146,7 @@ public Q_SLOTS:
 
     void trackRemoved(qulonglong trackId);
 
-    void setRandomPlay(bool value);
-
-    void setRepeatPlay(bool value);
-
-    void skipNextTrack();
-
-    void skipPreviousTrack();
-
-    void switchTo(int row);
-
-    void loadPlaylist(const QUrl &fileName);
-
-    void enqueue(const ElisaUtils::EntryData &newEntry, ElisaUtils::PlayListEntryType databaseIdType);
-
-    void enqueue(const ElisaUtils::EntryDataList &newEntries, ElisaUtils::PlayListEntryType databaseIdType);
-
-    void enqueue(qulonglong newEntryDatabaseId, const QString &newEntryTitle,
-                 ElisaUtils::PlayListEntryType databaseIdType,
-                 ElisaUtils::PlayListEnqueueMode enqueueMode,
-                 ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
-
-    void enqueue(const QUrl &entryUrl,
-                 ElisaUtils::PlayListEntryType databaseIdType,
-                 ElisaUtils::PlayListEnqueueMode enqueueMode,
-                 ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
-
-    void enqueue(const ElisaUtils::EntryData &newEntry,
-                 ElisaUtils::PlayListEntryType databaseIdType,
-                 ElisaUtils::PlayListEnqueueMode enqueueMode,
-                 ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
-
-    void enqueue(const ElisaUtils::EntryDataList &newEntries,
-                 ElisaUtils::PlayListEntryType databaseIdType,
-                 ElisaUtils::PlayListEnqueueMode enqueueMode,
-                 ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
-
     void trackInError(const QUrl &sourceInError, QMediaPlayer::Error playerError);
-
-    void undoClearPlayList();
-
-private Q_SLOTS:
-
-    void loadPlayListLoaded();
-
-    void loadPlayListLoadFailed();
-
-private:
-
-    void clearPlayList(bool prepareUndo);
-
-    void resetCurrentTrack();
-
-    void notifyCurrentTrackChanged();
-
-    void createRandomList();
-
-    void notifyPreviousAndNextTracks();
 
     void enqueueFilesList(const ElisaUtils::EntryDataList &newEntries, ElisaUtils::PlayListEntryType databaseIdType);
 
@@ -307,6 +155,8 @@ private:
     void enqueueOneEntry(const ElisaUtils::EntryData &entryData, ElisaUtils::PlayListEntryType type);
 
     void enqueueMultipleEntries(const ElisaUtils::EntryDataList &entriesData, ElisaUtils::PlayListEntryType type);
+
+private:
 
     std::unique_ptr<MediaPlayListPrivate> d;
 };

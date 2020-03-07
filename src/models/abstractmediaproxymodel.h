@@ -28,7 +28,7 @@
 #include <QReadWriteLock>
 #include <QThreadPool>
 
-class MediaPlayList;
+class MediaPlayListProxyModel;
 
 class ELISALIB_EXPORT AbstractMediaProxyModel : public QSortFilterProxyModel
 {
@@ -49,7 +49,7 @@ class ELISALIB_EXPORT AbstractMediaProxyModel : public QSortFilterProxyModel
                READ sortedAscending
                NOTIFY sortedAscendingChanged)
 
-    Q_PROPERTY(MediaPlayList* playList READ playList WRITE setPlayList NOTIFY playListChanged)
+    Q_PROPERTY(MediaPlayListProxyModel* playList READ playList WRITE setPlayList NOTIFY playListChanged)
 
 public:
 
@@ -63,7 +63,7 @@ public:
 
     bool sortedAscending() const;
 
-    MediaPlayList* playList() const;
+    MediaPlayListProxyModel* playList() const;
 
 public Q_SLOTS:
 
@@ -73,7 +73,7 @@ public Q_SLOTS:
 
     void sortModel(Qt::SortOrder order);
 
-    void setPlayList(MediaPlayList* playList);
+    void setPlayList(MediaPlayListProxyModel* playList);
 
 Q_SIGNALS:
 
@@ -108,7 +108,7 @@ protected:
 
     QThreadPool mThreadPool;
 
-    MediaPlayList* mPlayList = nullptr;
+    MediaPlayListProxyModel* mPlayList = nullptr;
 
 };
 

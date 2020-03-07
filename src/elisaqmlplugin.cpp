@@ -37,6 +37,7 @@
 #include "elisaapplication.h"
 #include "progressindicator.h"
 #include "mediaplaylist.h"
+#include "mediaplaylistproxymodel.h"
 #include "managemediaplayercontrol.h"
 #include "manageheaderbar.h"
 #include "manageaudioplayer.h"
@@ -116,6 +117,7 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
 #endif
 
     qmlRegisterType<MediaPlayList>(uri, 1, 0, "MediaPlayList");
+    qmlRegisterType<MediaPlayListProxyModel>(uri, 1, 0, "MediaPlayListProxyModel");
     qmlRegisterType<ManageMediaPlayerControl>(uri, 1, 0, "ManageMediaPlayerControl");
     qmlRegisterType<ManageHeaderBar>(uri, 1, 0, "ManageHeaderBar");
     qmlRegisterType<ManageAudioPlayer>(uri, 1, 0, "ManageAudioPlayer");

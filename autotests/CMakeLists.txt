@@ -81,6 +81,21 @@ ecm_add_test(${mediaplaylistTest_SOURCES}
 
 target_include_directories(mediaplaylistTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 
+ecm_qt_declare_logging_category(mediaplaylistproxymodelTest_SOURCES HEADER elisa_debug.h IDENTIFIER lcModelTest CATEGORY_NAME qt.modeltest)
+
+set(mediaplaylistproxymodelTest_SOURCES
+    mediaplaylistproxymodeltest.cpp
+    ../src/elisautils.cpp
+)
+
+ecm_add_test(${mediaplaylistproxymodelTest_SOURCES}
+    TEST_NAME "mediaplaylistproxymodelTest"
+    LINK_LIBRARIES
+        Qt5::Test elisaLib Qt5::CorePrivate
+)
+
+target_include_directories(mediaplaylistproxymodelTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
+
 set(trackslistenertest_SOURCES
     trackslistenertest.cpp
     ../src/elisautils.cpp

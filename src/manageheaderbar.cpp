@@ -353,7 +353,11 @@ void ManageHeaderBar::setCurrentTrack(const QPersistentModelIndex &currentTrack)
 {
     mCurrentTrack = currentTrack;
     Q_EMIT currentTrackChanged();
+    updateCurrentTrackData();
+}
 
+void ManageHeaderBar::updateCurrentTrackData()
+{
     notifyArtistProperty();
     notifyTitleProperty();
     notifyAlbumProperty();

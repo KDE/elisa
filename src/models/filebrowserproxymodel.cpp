@@ -19,7 +19,7 @@
 #include "filebrowserproxymodel.h"
 
 #include "filebrowsermodel.h"
-#include "mediaplaylist.h"
+#include "mediaplaylistproxymodel.h"
 
 #include <QReadLocker>
 #include <QDir>
@@ -144,7 +144,7 @@ void FileBrowserProxyModel::disconnectPlayList()
 {
     if (mPlayList) {
         disconnect(this, &FileBrowserProxyModel::filesToEnqueue,
-                   mPlayList, static_cast<void(MediaPlayList::*)(const ElisaUtils::EntryDataList&, ElisaUtils::PlayListEntryType, ElisaUtils::PlayListEnqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayList::enqueue));
+                   mPlayList, static_cast<void(MediaPlayListProxyModel::*)(const ElisaUtils::EntryDataList&, ElisaUtils::PlayListEntryType, ElisaUtils::PlayListEnqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayListProxyModel::enqueue));
     }
 }
 
@@ -152,7 +152,7 @@ void FileBrowserProxyModel::connectPlayList()
 {
     if (mPlayList) {
         connect(this, &FileBrowserProxyModel::filesToEnqueue,
-                mPlayList, static_cast<void(MediaPlayList::*)(const ElisaUtils::EntryDataList&, ElisaUtils::PlayListEntryType, ElisaUtils::PlayListEnqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayList::enqueue));
+                mPlayList, static_cast<void(MediaPlayListProxyModel::*)(const ElisaUtils::EntryDataList&, ElisaUtils::PlayListEntryType, ElisaUtils::PlayListEnqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayListProxyModel::enqueue));
     }
 }
 
@@ -234,7 +234,7 @@ void FileBrowserProxyModel::setSourceModel(QAbstractItemModel *sourceModel)
     openFolder(mTopFolder, true);
 }
 
-MediaPlayList *FileBrowserProxyModel::playList() const
+MediaPlayListProxyModel *FileBrowserProxyModel::playList() const
 {
     return mPlayList;
 }
@@ -245,7 +245,7 @@ void FileBrowserProxyModel::sortModel(Qt::SortOrder order)
     Q_EMIT sortedAscendingChanged();
 }
 
-void FileBrowserProxyModel::setPlayList(MediaPlayList *playList)
+void FileBrowserProxyModel::setPlayList(MediaPlayListProxyModel *playList)
 {
     disconnectPlayList();
 

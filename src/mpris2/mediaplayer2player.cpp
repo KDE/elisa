@@ -22,7 +22,7 @@
 #include "mediaplayer2player.h"
 #include "mpris2.h"
 
-#include "mediaplaylist.h"
+#include "mediaplaylistproxymodel.h"
 #include "manageaudioplayer.h"
 #include "managemediaplayercontrol.h"
 #include "manageheaderbar.h"
@@ -37,7 +37,7 @@
 static const double MAX_RATE = 1.0;
 static const double MIN_RATE = 1.0;
 
-MediaPlayer2Player::MediaPlayer2Player(MediaPlayList *playListControler, ManageAudioPlayer *manageAudioPlayer,
+MediaPlayer2Player::MediaPlayer2Player(MediaPlayListProxyModel *playListControler, ManageAudioPlayer *manageAudioPlayer,
                                        ManageMediaPlayerControl *manageMediaPlayerControl, ManageHeaderBar *manageHeaderBar,
                                        AudioWrapper *audioPlayer, bool showProgressOnTaskBar, QObject* parent)
     : QDBusAbstractAdaptor(parent), m_playListControler(playListControler), m_manageAudioPlayer(manageAudioPlayer),

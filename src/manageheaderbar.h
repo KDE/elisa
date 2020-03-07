@@ -219,6 +219,8 @@ public Q_SLOTS:
 
     void setCurrentTrack(const QPersistentModelIndex &currentTrack);
 
+    void updateCurrentTrackData();
+
     void setArtistRole(int value);
 
     void setTitleRole(int value);

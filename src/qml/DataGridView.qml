@@ -57,7 +57,7 @@ FocusScope {
 
         sourceModel: realModel
         dataType: modelType
-        playList: elisa.mediaPlayList
+        playList: elisa.mediaPlayListProxyModel
     }
 
     GridBrowserView {
@@ -69,11 +69,11 @@ FocusScope {
 
         contentModel: proxyModel
 
-        onEnqueue: elisa.mediaPlayList.enqueue(databaseId, name, modelType,
+        onEnqueue: elisa.mediaPlayListProxyModel.enqueue(databaseId, name, modelType,
                                                ElisaUtils.AppendPlayList,
                                                ElisaUtils.DoNotTriggerPlay)
 
-        onReplaceAndPlay: elisa.mediaPlayList.enqueue(databaseId, name, modelType,
+        onReplaceAndPlay: elisa.mediaPlayListProxyModel.enqueue(databaseId, name, modelType,
                                                       ElisaUtils.ReplacePlayList,
                                                       ElisaUtils.TriggerPlay)
 

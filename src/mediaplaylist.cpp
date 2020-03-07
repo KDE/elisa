@@ -40,29 +40,10 @@ public:
 
     QList<DataTypes::TrackDataType> mTrackData;
 
-    QPersistentModelIndex mPreviousTrack;
-
-    QPersistentModelIndex mCurrentTrack;
-
-    QPersistentModelIndex mNextTrack;
-
-    QMediaPlaylist mLoadPlaylist;
-
-    int mCurrentPlayListPosition = 0;
-
-    bool mRandomPlay = false;
-
-    bool mRepeatPlay = false;
-
-    QList<int> mRandomPositions = {0, 0, 0};
-
-    QVariantMap mPersistentSettingsForUndo;
 };
 
 MediaPlayList::MediaPlayList(QObject *parent) : QAbstractListModel(parent), d(new MediaPlayListPrivate)
 {
-    connect(&d->mLoadPlaylist, &QMediaPlaylist::loaded, this, &MediaPlayList::loadPlayListLoaded);
-    connect(&d->mLoadPlaylist, &QMediaPlaylist::loadFailed, this, &MediaPlayList::loadPlayListLoadFailed);
 }
 
 MediaPlayList::~MediaPlayList()
@@ -130,6 +111,9 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
             break;
         case ColumnsRoles::IsPlayingRole:
             result = d->mData[index.row()].mIsPlaying;
+            break;
+        case ColumnsRoles::ElementTypeRole:
+            result = d->mData[index.row()].mEntryType;
             break;
         case ColumnsRoles::StringDurationRole:
         {
@@ -208,6 +192,7 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
                     d->mData[index.row()].mArtist.toString(),
                     QUrl(QStringLiteral("image://icon/error")).toString()}}.toJson();
             break;
+
         default:
             result = {};
         }
@@ -243,10 +228,6 @@ bool MediaPlayList::setData(const QModelIndex &index, const QVariant &value, int
         d->mData[index.row()].mIsPlaying = newState;
         Q_EMIT dataChanged(index, index, {role});
 
-        if (!d->mCurrentTrack.isValid()) {
-            resetCurrentTrack();
-        }
-
         break;
     }
     case ColumnsRoles::TitleRole:
@@ -256,10 +237,6 @@ bool MediaPlayList::setData(const QModelIndex &index, const QVariant &value, int
         d->mTrackData[index.row()][static_cast<TrackDataType::key_type>(role)] = value;
         Q_EMIT dataChanged(index, index, {role});
 
-        if (!d->mCurrentTrack.isValid()) {
-            resetCurrentTrack();
-        }
-
         break;
     }
     case ColumnsRoles::ArtistRole:
@@ -268,10 +245,6 @@ bool MediaPlayList::setData(const QModelIndex &index, const QVariant &value, int
         d->mData[index.row()].mArtist = value;
         d->mTrackData[index.row()][static_cast<TrackDataType::key_type>(role)] = value;
         Q_EMIT dataChanged(index, index, {role});
-
-        if (!d->mCurrentTrack.isValid()) {
-            resetCurrentTrack();
-        }
 
         break;
     }
@@ -292,38 +265,7 @@ bool MediaPlayList::removeRows(int row, int count, const QModelIndex &parent)
     }
     endRemoveRows();
 
-    if (!d->mCurrentTrack.isValid()) {
-        d->mCurrentTrack = index(d->mCurrentPlayListPosition, 0);
-
-        if (d->mCurrentTrack.isValid()) {
-            notifyCurrentTrackChanged();
-        }
-
-        if (!d->mCurrentTrack.isValid()) {
-            Q_EMIT playListFinished();
-            resetCurrentTrack();
-            if (!d->mCurrentTrack.isValid()) {
-                notifyCurrentTrackChanged();
-            }
-        }
-    }
-    if (!d->mNextTrack.isValid() || !d->mPreviousTrack.isValid()) {
-        notifyPreviousAndNextTracks();
-    }
-
-    if (!d->mCurrentTrack.isValid() && rowCount(parent) <= row) {
-        resetCurrentTrack();
-    }
-
-    if (d->mRandomPlay) {
-        createRandomList();
-    }
-
-    Q_EMIT tracksCountChanged();
-    Q_EMIT remainingTracksChanged();
-    Q_EMIT persistentStateChanged();
-
-    return false;
+    return true;
 }
 
 bool MediaPlayList::moveRows(const QModelIndex &sourceParent, int sourceRow, int count, const QModelIndex &destinationParent, int destinationChild)
@@ -348,18 +290,7 @@ bool MediaPlayList::moveRows(const QModelIndex &sourceParent, int sourceRow, int
 
     endMoveRows();
 
-    Q_EMIT persistentStateChanged();
-
     return true;
-}
-
-void MediaPlayList::move(int from, int to, int n)
-{
-    if (from < to) {
-        moveRows({}, from, n, {}, to + 1);
-    } else {
-        moveRows({}, from, n, {}, to);
-    }
 }
 
 void MediaPlayList::enqueueRestoredEntries(const QVariantList &newEntries)
@@ -383,11 +314,6 @@ void MediaPlayList::enqueueRestoredEntries(const QVariantList &newEntries)
 
         d->mData.push_back(newEntry);
         d->mTrackData.push_back({});
-
-        if (!d->mCurrentTrack.isValid()) {
-            resetCurrentTrack();
-        }
-
 
         if (!newEntry.mIsValid) {
             if (newEntry.mEntryType == ElisaUtils::Radio) {
@@ -415,16 +341,9 @@ void MediaPlayList::enqueueRestoredEntries(const QVariantList &newEntries)
 
         if (!newEntry.mIsValid) {
             Q_EMIT dataChanged(index(rowCount() - 1, 0), index(rowCount() - 1, 0), {MediaPlayList::IsPlayingRole});
-
-            if (!d->mCurrentTrack.isValid()) {
-                resetCurrentTrack();
-            }
         }
     }
     endInsertRows();
-
-    Q_EMIT tracksCountChanged();
-    Q_EMIT remainingTracksChanged();
 }
 
 void MediaPlayList::enqueueFilesList(const ElisaUtils::EntryDataList &newEntries, ElisaUtils::PlayListEntryType databaseIdType)
@@ -473,14 +392,6 @@ void MediaPlayList::enqueueFilesList(const ElisaUtils::EntryDataList &newEntries
     }
     endInsertRows();
 
-    if (!d->mCurrentTrack.isValid()) {
-        resetCurrentTrack();
-    }
-
-    Q_EMIT tracksCountChanged();
-    Q_EMIT remainingTracksChanged();
-    Q_EMIT persistentStateChanged();
-
     Q_EMIT dataChanged(index(rowCount() - 1, 0), index(rowCount() - 1, 0), {MediaPlayList::IsPlayingRole});
 }
 
@@ -497,14 +408,6 @@ void MediaPlayList::enqueueTracksListById(const ElisaUtils::EntryDataList &newEn
     }
     endInsertRows();
 
-    if (!d->mCurrentTrack.isValid()) {
-        resetCurrentTrack();
-    }
-
-    Q_EMIT tracksCountChanged();
-    Q_EMIT remainingTracksChanged();
-    Q_EMIT persistentStateChanged();
-
     Q_EMIT dataChanged(index(rowCount() - 1, 0), index(rowCount() - 1, 0), {MediaPlayList::IsPlayingRole});
 }
 
@@ -512,15 +415,13 @@ void MediaPlayList::enqueueOneEntry(const ElisaUtils::EntryData &entryData, Elis
 {
     qCDebug(orgKdeElisaPlayList()) << "MediaPlayList::enqueueOneEntry" << std::get<0>(entryData) << std::get<1>(entryData) << type;
 
-    beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size());
-    d->mData.push_back(MediaPlayListEntry{std::get<0>(entryData).databaseId(), std::get<1>(entryData), type});
-    d->mTrackData.push_back(std::get<0>(entryData));
-    Q_EMIT newEntryInList(std::get<0>(entryData).databaseId(), std::get<1>(entryData), type);
-    endInsertRows();
-
-    Q_EMIT tracksCountChanged();
-    Q_EMIT remainingTracksChanged();
-    Q_EMIT persistentStateChanged();
+    if (!std::get<0>(entryData).isEmpty() || !std::get<1>(entryData).isEmpty()) {
+        beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size());
+        d->mData.push_back(MediaPlayListEntry{std::get<0>(entryData).databaseId(), std::get<1>(entryData), type});
+        d->mTrackData.push_back(std::get<0>(entryData));
+        Q_EMIT newEntryInList(std::get<0>(entryData).databaseId(), std::get<1>(entryData), type);
+        endInsertRows();
+    }
 }
 
 void MediaPlayList::enqueueMultipleEntries(const ElisaUtils::EntryDataList &entriesData, ElisaUtils::PlayListEntryType type)
@@ -543,183 +444,22 @@ void MediaPlayList::enqueueMultipleEntries(const ElisaUtils::EntryDataList &entr
         }
     }
     endInsertRows();
-
-    Q_EMIT tracksCountChanged();
-    Q_EMIT remainingTracksChanged();
-    Q_EMIT persistentStateChanged();
 }
 
-void MediaPlayList::clearPlayList(bool prepareUndo)
+void MediaPlayList::clearPlayList()
 {
     if (d->mData.isEmpty()) {
         return;
-    }
-
-    if (prepareUndo) {
-        Q_EMIT clearPlayListPlayer();
-        d->mPersistentSettingsForUndo = persistentState();
     }
 
     beginRemoveRows({}, 0, d->mData.count() - 1);
     d->mData.clear();
     d->mTrackData.clear();
     endRemoveRows();
-
-    d->mCurrentPlayListPosition = 0;
-    d->mCurrentTrack = QPersistentModelIndex{};
-    notifyCurrentTrackChanged();
-
-    Q_EMIT displayUndoNotification();
-    Q_EMIT tracksCountChanged();
-    Q_EMIT remainingTracksChanged();
-    Q_EMIT persistentStateChanged();
 }
 
-void MediaPlayList::clearPlayList()
+QVariantList MediaPlayList::getEntriesForRestore() const
 {
-    this->clearPlayList(true);
-}
-
-void MediaPlayList::undoClearPlayList()
-{
-    clearPlayList(false);
-
-    setPersistentState(d->mPersistentSettingsForUndo);
-    Q_EMIT undoClearPlayListPlayer();
-}
-
-void MediaPlayList::loadPlaylist(const QUrl &fileName)
-{
-    d->mLoadPlaylist.clear();
-    d->mLoadPlaylist.load(fileName, "m3u");
-}
-
-void MediaPlayList::enqueue(const ElisaUtils::EntryData &newEntry, ElisaUtils::PlayListEntryType databaseIdType)
-{
-    enqueue(newEntry, databaseIdType, ElisaUtils::PlayListEnqueueMode::AppendPlayList, ElisaUtils::PlayListEnqueueTriggerPlay::DoNotTriggerPlay);
-}
-
-void MediaPlayList::enqueue(const ElisaUtils::EntryDataList &newEntries, ElisaUtils::PlayListEntryType databaseIdType)
-{
-    enqueue(newEntries, databaseIdType, ElisaUtils::PlayListEnqueueMode::AppendPlayList, ElisaUtils::PlayListEnqueueTriggerPlay::DoNotTriggerPlay);
-}
-
-void MediaPlayList::enqueue(qulonglong newEntryDatabaseId,
-                            const QString &newEntryTitle,
-                            ElisaUtils::PlayListEntryType databaseIdType,
-                            ElisaUtils::PlayListEnqueueMode enqueueMode,
-                            ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
-{
-    enqueue(ElisaUtils::EntryData{{{DataTypes::DatabaseIdRole, newEntryDatabaseId}}, newEntryTitle, {}}, databaseIdType, enqueueMode, triggerPlay);
-}
-
-void MediaPlayList::enqueue(const QUrl &entryUrl, ElisaUtils::PlayListEntryType databaseIdType,
-                            ElisaUtils::PlayListEnqueueMode enqueueMode,
-                            ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
-{
-    enqueue(ElisaUtils::EntryData{{}, {}, entryUrl}, databaseIdType, enqueueMode, triggerPlay);
-}
-
-void MediaPlayList::enqueue(const ElisaUtils::EntryData &newEntry,
-                            ElisaUtils::PlayListEntryType databaseIdType,
-                            ElisaUtils::PlayListEnqueueMode enqueueMode,
-                            ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
-{
-    if (enqueueMode == ElisaUtils::ReplacePlayList) {
-        if (d->mData.size() == 0) {
-            Q_EMIT hideUndoNotification();
-        }
-        clearPlayList();
-    }
-
-    switch (databaseIdType)
-    {
-    case ElisaUtils::Album:
-    case ElisaUtils::Artist:
-    case ElisaUtils::Genre:
-        enqueueOneEntry(newEntry, databaseIdType);
-        break;
-    case ElisaUtils::Track:
-    case ElisaUtils::Radio:
-        if (std::get<2>(newEntry).isValid()) {
-            enqueueFilesList({newEntry}, databaseIdType);
-        } else {
-            enqueueOneEntry(newEntry, databaseIdType);
-        }
-        break;
-    case ElisaUtils::FileName:
-        enqueueFilesList({newEntry}, databaseIdType);
-        break;
-    case ElisaUtils::Lyricist:
-    case ElisaUtils::Composer:
-    case ElisaUtils::Unknown:
-        break;
-    }
-
-    if (triggerPlay == ElisaUtils::TriggerPlay) {
-        Q_EMIT ensurePlay();
-    }
-}
-
-void MediaPlayList::enqueue(const ElisaUtils::EntryDataList &newEntries,
-                            ElisaUtils::PlayListEntryType databaseIdType,
-                            ElisaUtils::PlayListEnqueueMode enqueueMode,
-                            ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
-{
-    if (newEntries.isEmpty()) {
-        return;
-    }
-
-    if (enqueueMode == ElisaUtils::ReplacePlayList) {
-        if (d->mData.size() == 0) {
-            Q_EMIT hideUndoNotification();
-        }
-        clearPlayList();
-    }
-
-    switch (databaseIdType)
-    {
-    case ElisaUtils::Track:
-    case ElisaUtils::Radio:
-        enqueueMultipleEntries(newEntries, databaseIdType);
-        break;
-    case ElisaUtils::FileName:
-        enqueueFilesList(newEntries, databaseIdType);
-        break;
-    case ElisaUtils::Album:
-    case ElisaUtils::Artist:
-    case ElisaUtils::Genre:
-        enqueueMultipleEntries(newEntries, databaseIdType);
-        break;
-    case ElisaUtils::Lyricist:
-    case ElisaUtils::Composer:
-    case ElisaUtils::Unknown:
-        break;
-    }
-
-    if (triggerPlay == ElisaUtils::TriggerPlay) {
-        Q_EMIT ensurePlay();
-    }
-}
-
-bool MediaPlayList::savePlaylist(const QUrl &fileName)
-{
-    QMediaPlaylist savePlaylist;
-
-    for (int i = 0; i < d->mData.size(); ++i) {
-        const auto &oneTrack = d->mData.at(i);
-        const auto &oneTrackData = d->mTrackData.at(i);
-        if (oneTrack.mIsValid) {
-            savePlaylist.addMedia(oneTrackData.resourceURI());
-        }
-    }
-
-    return savePlaylist.save(fileName, "m3u");
-}
-
-QVariantMap MediaPlayList::persistentState() const
-{
-    QVariantMap currentState;
     QVariantList result;
 
     for (int trackIndex = 0; trackIndex < d->mData.size(); ++trackIndex) {
@@ -751,91 +491,7 @@ QVariantMap MediaPlayList::persistentState() const
             result.push_back(QVariant(oneData));
         }
     }
-
-    currentState[QStringLiteral("playList")] = result;
-    currentState[QStringLiteral("currentTrack")] = d->mCurrentPlayListPosition;
-    currentState[QStringLiteral("randomPlay")] = d->mRandomPlay;
-    currentState[QStringLiteral("repeatPlay")] = d->mRepeatPlay;
-
-    return currentState;
-}
-
-int MediaPlayList::tracksCount() const
-{
-    return rowCount();
-}
-
-QPersistentModelIndex MediaPlayList::previousTrack() const
-{
-    return d->mPreviousTrack;
-}
-
-QPersistentModelIndex MediaPlayList::currentTrack() const
-{
-    return d->mCurrentTrack;
-}
-
-QPersistentModelIndex MediaPlayList::nextTrack() const
-{
-    return d->mNextTrack;
-}
-
-int MediaPlayList::currentTrackRow() const
-{
-    return d->mCurrentTrack.row();
-}
-
-bool MediaPlayList::randomPlay() const
-{
-    return d->mRandomPlay;
-}
-
-bool MediaPlayList::repeatPlay() const
-{
-    return d->mRepeatPlay;
-}
-
-void MediaPlayList::setPersistentState(const QVariantMap &persistentStateValue)
-{
-    qCDebug(orgKdeElisaPlayList()) << "MediaPlayList::setPersistentState" << persistentStateValue;
-
-    auto playListIt = persistentStateValue.find(QStringLiteral("playList"));
-    if (playListIt != persistentStateValue.end()) {
-        const auto playList = playListIt.value().toList();
-        enqueueRestoredEntries(playList);
-    }
-
-    auto playerCurrentTrack = persistentStateValue.find(QStringLiteral("currentTrack"));
-    if (playerCurrentTrack != persistentStateValue.end()) {
-        auto newIndex = index(playerCurrentTrack->toInt(), 0);
-        if (newIndex.isValid() && (newIndex != d->mCurrentTrack)) {
-            d->mCurrentTrack = newIndex;
-            notifyCurrentTrackChanged();
-        }
-    }
-
-    auto randomPlayStoredValue = persistentStateValue.find(QStringLiteral("randomPlay"));
-    if (randomPlayStoredValue != persistentStateValue.end()) {
-        setRandomPlay(randomPlayStoredValue->toBool());
-    }
-    auto repeatPlayStoredValue = persistentStateValue.find(QStringLiteral("repeatPlay"));
-    if (repeatPlayStoredValue != persistentStateValue.end()) {
-        setRepeatPlay(repeatPlayStoredValue->toBool());
-    }
-
-    Q_EMIT persistentStateChanged();
-}
-
-void MediaPlayList::removeSelection(QList<int> selection)
-{
-    std::sort(selection.begin(), selection.end());
-    std::reverse(selection.begin(), selection.end());
-    for (auto oneItem : selection) {
-        removeRow(oneItem);
-    }
-    if (d->mRandomPlay) {
-        createRandomList();
-    }
+    return result;
 }
 
 void MediaPlayList::tracksListAdded(qulonglong newDatabaseId,
@@ -844,7 +500,7 @@ void MediaPlayList::tracksListAdded(qulonglong newDatabaseId,
                                     const ListTrackDataType &tracks)
 {
     if (tracks.isEmpty()) {
-        qDebug() << "empty tracks list";
+        qCDebug(orgKdeElisaPlayList()) << "MediaPlayList::tracksListAdded" << " empty tracks list";
         return;
     }
 
@@ -862,35 +518,19 @@ void MediaPlayList::tracksListAdded(qulonglong newDatabaseId,
             continue;
         }
 
-        d->mTrackData[playListIndex] = tracks.first();
-        oneEntry.mId = tracks.first().databaseId();
-        oneEntry.mIsValid = true;
-        oneEntry.mEntryType = ElisaUtils::Track;
+        beginRemoveRows(QModelIndex(),playListIndex,playListIndex);
+        d->mData.removeAt(playListIndex);
+        d->mTrackData.removeAt(playListIndex);
+        endRemoveRows();
 
-        Q_EMIT dataChanged(index(playListIndex, 0), index(playListIndex, 0), {});
-
-        if (!d->mCurrentTrack.isValid()) {
-            resetCurrentTrack();
+        beginInsertRows(QModelIndex(), playListIndex, playListIndex - 1 + tracks.size());
+        for (int trackIndex = 0; trackIndex < tracks.size(); ++trackIndex) {
+            auto newEntry = MediaPlayListEntry{tracks[trackIndex]};
+            newEntry.mEntryType = ElisaUtils::Track;
+            d->mData.insert(playListIndex + trackIndex, newEntry);
+            d->mTrackData.insert(playListIndex + trackIndex, tracks[trackIndex]);
         }
-
-        if (tracks.size() > 1) {
-            beginInsertRows(QModelIndex(), playListIndex + 1, playListIndex - 1 + tracks.size());
-            for (int trackIndex = 1; trackIndex < tracks.size(); ++trackIndex) {
-                auto newEntry = MediaPlayListEntry{tracks[trackIndex]};
-                newEntry.mEntryType = ElisaUtils::Track;
-                d->mData.insert(playListIndex + trackIndex, newEntry);
-                d->mTrackData.insert(playListIndex + trackIndex, tracks[trackIndex]);
-            }
-            endInsertRows();
-
-            if (!d->mCurrentTrack.isValid()) {
-                resetCurrentTrack();
-            }
-
-            Q_EMIT tracksCountChanged();
-            Q_EMIT remainingTracksChanged();
-        }
-        Q_EMIT persistentStateChanged();
+        endInsertRows();
     }
 }
 
@@ -928,10 +568,6 @@ void MediaPlayList::trackChanged(const TrackDataType &track)
             d->mTrackData[i] = track;
 
             Q_EMIT dataChanged(index(i, 0), index(i, 0), {});
-
-            if (!d->mCurrentTrack.isValid()) {
-                resetCurrentTrack();
-            }
             continue;
         } else if (oneEntry.mEntryType == ElisaUtils::Radio ) {
             if (track.databaseId() != oneEntry.mId) {
@@ -943,10 +579,6 @@ void MediaPlayList::trackChanged(const TrackDataType &track)
             oneEntry.mIsValid = true;
 
             Q_EMIT dataChanged(index(i, 0), index(i, 0), {});
-
-            if (!d->mCurrentTrack.isValid()) {
-                resetCurrentTrack();
-            }
 
             break;
         } else if (oneEntry.mEntryType != ElisaUtils::Artist && !oneEntry.mIsValid && !oneEntry.mTrackUrl.isValid()) {
@@ -976,14 +608,6 @@ void MediaPlayList::trackChanged(const TrackDataType &track)
 
             Q_EMIT dataChanged(index(i, 0), index(i, 0), {});
 
-            if (!d->mCurrentTrack.isValid()) {
-                resetCurrentTrack();
-            } else if (i == d->mCurrentTrack.row()) {
-                notifyCurrentTrackChanged();
-            } else if (i == d->mNextTrack.row() || i == d->mPreviousTrack.row()) {
-                notifyPreviousAndNextTracks();
-            }
-
             break;
         } else if (oneEntry.mEntryType != ElisaUtils::Artist && !oneEntry.mIsValid && oneEntry.mTrackUrl.isValid()) {
             if (track.resourceURI() != oneEntry.mTrackUrl) {
@@ -995,15 +619,6 @@ void MediaPlayList::trackChanged(const TrackDataType &track)
             oneEntry.mIsValid = true;
 
             Q_EMIT dataChanged(index(i, 0), index(i, 0), {});
-
-            if (!d->mCurrentTrack.isValid()) {
-                resetCurrentTrack();
-            } else if (i == d->mCurrentTrack.row()) {
-                notifyCurrentTrackChanged();
-            } else if (i == d->mNextTrack.row() || i == d->mPreviousTrack.row()) {
-                notifyPreviousAndNextTracks();
-            }
-
             break;
         }
     }
@@ -1025,102 +640,9 @@ void MediaPlayList::trackRemoved(qulonglong trackId)
 
                 Q_EMIT dataChanged(index(i, 0), index(i, 0), {});
 
-                if (!d->mCurrentTrack.isValid()) {
-                    resetCurrentTrack();
-                }
             }
         }
     }
-}
-
-void MediaPlayList::setRandomPlay(bool value)
-{
-    if (d->mRandomPlay != value) {
-        d->mRandomPlay = value;
-        createRandomList();
-        Q_EMIT randomPlayChanged();
-        Q_EMIT remainingTracksChanged();
-        notifyPreviousAndNextTracks();
-    }
-}
-
-void MediaPlayList::setRepeatPlay(bool value)
-{
-    if (d->mRepeatPlay != value) {
-        d->mRepeatPlay = value;
-        Q_EMIT repeatPlayChanged();
-        Q_EMIT remainingTracksChanged();
-        notifyPreviousAndNextTracks();
-    }
-}
-
-void MediaPlayList::skipNextTrack()
-{
-    if (!d->mCurrentTrack.isValid()) {
-        return;
-    }
-
-    if (d->mRandomPlay) {
-        d->mRandomPositions.removeFirst();
-        d->mCurrentTrack = index(d->mRandomPositions.at(1), 0);
-        if (rowCount()) {
-            d->mRandomPositions.append(QRandomGenerator::global()->bounded(rowCount()));
-        }
-    } else {
-        if (d->mCurrentTrack.row() >= rowCount() - 1) {
-            d->mCurrentTrack = index(0, 0);
-            if (!d->mRepeatPlay) {
-                Q_EMIT playListFinished();
-            }
-        } else {
-            d->mCurrentTrack = index(d->mCurrentTrack.row() + 1, 0);
-        }
-    }
-
-    notifyCurrentTrackChanged();
-}
-
-void MediaPlayList::skipPreviousTrack()
-{
-    if (!d->mCurrentTrack.isValid()) {
-        return;
-    }
-
-    if (d->mRandomPlay) {
-        d->mRandomPositions.removeLast();
-        d->mCurrentTrack = index(d->mRandomPositions.at(0), 0);
-        if (rowCount()) {
-            d->mRandomPositions.prepend(QRandomGenerator::global()->bounded(rowCount()));
-        }
-    } else {
-        if (d->mCurrentTrack.row() == 0) {
-            if (d->mRepeatPlay) {
-                d->mCurrentTrack = index(rowCount() - 1, 0);
-            } else {
-                return;
-            }
-        } else {
-            d->mCurrentTrack = index(d->mCurrentTrack.row() - 1, 0);
-        }
-    }
-
-    notifyCurrentTrackChanged();
-}
-
-void MediaPlayList::switchTo(int row)
-{
-    if (!d->mCurrentTrack.isValid()) {
-        return;
-    }
-
-    if (d->mRandomPlay) {
-        d->mCurrentTrack = index(row, 0);
-        d->mRandomPositions.replace(1, row);
-    } else {
-        d->mCurrentTrack = index(row, 0);
-    }
-
-    notifyCurrentTrackChanged();
 }
 
 void MediaPlayList::trackInError(const QUrl &sourceInError, QMediaPlayer::Error playerError)
@@ -1140,131 +662,10 @@ void MediaPlayList::trackInError(const QUrl &sourceInError, QMediaPlayer::Error 
     }
 }
 
-void MediaPlayList::loadPlayListLoaded()
-{
-    clearPlayList();
-
-    for (int i = 0; i < d->mLoadPlaylist.mediaCount(); ++i) {
-#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
-        enqueue(ElisaUtils::EntryData{{}, {}, d->mLoadPlaylist.media(i).canonicalUrl()}, ElisaUtils::FileName);
-#else
-        enqueue(ElisaUtils::EntryData{{}, {}, d->mLoadPlaylist.media(i).request().url()}, ElisaUtils::FileName);
-#endif
-    }
-
-    Q_EMIT persistentStateChanged();
-
-    d->mLoadPlaylist.clear();
-    Q_EMIT playListLoaded();
-}
-
-void MediaPlayList::loadPlayListLoadFailed()
-{
-    d->mLoadPlaylist.clear();
-    Q_EMIT playListLoadFailed();
-}
-
-void MediaPlayList::resetCurrentTrack()
-{
-    for(int row = 0; row < rowCount(); ++row) {
-        auto candidateTrack = index(row, 0);
-
-        if (candidateTrack.isValid() && candidateTrack.data(ColumnsRoles::IsValidRole).toBool()) {
-            d->mCurrentTrack = candidateTrack;
-            notifyCurrentTrackChanged();
-            break;
-        }
-    }
-}
-
-void MediaPlayList::notifyPreviousAndNextTracks()
-{
-    if (!d->mCurrentTrack.isValid()) {
-        d->mPreviousTrack = QPersistentModelIndex();
-        d->mNextTrack = QPersistentModelIndex();
-    }
-    auto mOldPreviousTrack = d->mPreviousTrack;
-    auto mOldNextTrack = d->mNextTrack;
-    // use random list for previous and next types
-    if (d->mRandomPlay) {
-        d->mPreviousTrack = index(d->mRandomPositions.first(), 0);
-        d->mNextTrack = index(d->mRandomPositions.last(), 0);
-    } else if (d->mRepeatPlay) {
-        // forward to end or begin when repeating
-        if (d->mCurrentTrack.row() == 0) {
-            d->mPreviousTrack = index(rowCount() - 1, 0);
-        } else {
-            d->mPreviousTrack = index(d->mCurrentTrack.row() - 1, 0);
-        }
-        if (d->mCurrentTrack.row() == rowCount() - 1) {
-            d->mNextTrack = index(0, 0);
-        } else {
-            d->mNextTrack = index(d->mCurrentTrack.row() + 1, 0);
-        }
-    } else {
-        // return nothing if no tracks available
-        if (d->mCurrentTrack.row() == 0) {
-            d->mPreviousTrack = QPersistentModelIndex();
-        } else {
-            d->mPreviousTrack = index(d->mCurrentTrack.row() - 1, 0);
-        }
-        if (d->mCurrentTrack.row() == rowCount() - 1) {
-            d->mNextTrack = QPersistentModelIndex();
-        } else {
-            d->mNextTrack = index(d->mCurrentTrack.row() + 1, 0);
-        }
-    }
-    if (d->mPreviousTrack != mOldPreviousTrack) {
-        Q_EMIT previousTrackChanged(d->mPreviousTrack);
-    }
-    if (d->mNextTrack != mOldNextTrack) {
-        Q_EMIT nextTrackChanged(d->mNextTrack);
-    }
-}
-
-void MediaPlayList::notifyCurrentTrackChanged()
-{
-    // determine previous and next tracks first
-    notifyPreviousAndNextTracks();
-
-    Q_EMIT currentTrackChanged(d->mCurrentTrack);
-    Q_EMIT currentTrackRowChanged();
-    Q_EMIT remainingTracksChanged();
-    bool currentTrackIsValid = d->mCurrentTrack.isValid();
-    if (currentTrackIsValid) {
-        d->mCurrentPlayListPosition = d->mCurrentTrack.row();
-    }
-}
-
 QDebug operator<<(const QDebug &stream, const MediaPlayListEntry &data)
 {
     stream << data.mTitle << data.mAlbum << data.mArtist << data.mTrackUrl << data.mTrackNumber << data.mDiscNumber << data.mId << data.mIsValid;
     return stream;
-}
-
-int MediaPlayList::remainingTracks() const
-{
-    if (!d->mCurrentTrack.isValid()) {
-        return -1;
-    }
-
-    if (d->mRandomPlay || d->mRepeatPlay) {
-        return -1;
-    } else {
-        return rowCount() - d->mCurrentTrack.row() - 1;
-    }
-}
-
-void MediaPlayList::createRandomList()
-{
-    if (rowCount()) {
-        for (auto& position : d->mRandomPositions) {
-            position = QRandomGenerator::global()->bounded(rowCount());
-        }
-    }
-    if (d->mCurrentTrack.isValid()) {
-        d->mRandomPositions.replace(1, d->mCurrentTrack.row());
-    }
 }
 
 #include "moc_mediaplaylist.cpp"

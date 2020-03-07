@@ -47,7 +47,7 @@ FocusScope {
         id: proxyModel
 
         sourceModel: realModel
-        playList: elisa.mediaPlayList
+        playList: elisa.mediaPlayListProxyModel
     }
 
     MouseArea {
@@ -155,12 +155,12 @@ FocusScope {
                     showEnqueueButton: !model.isDirectory && !model.isPlaylist
                     showPlayButton: !model.isDirectory
 
-                    onEnqueue: elisa.mediaPlayList.enqueue(url, ElisaUtils.FileName, ElisaUtils.AppendPlayList, ElisaUtils.DoNotTriggerPlay)
+                    onEnqueue: elisa.mediaPlayListProxyModel.enqueue(url, ElisaUtils.FileName, ElisaUtils.AppendPlayList, ElisaUtils.DoNotTriggerPlay)
                     onReplaceAndPlay: {
                         if (model.isPlaylist) {
-                            elisa.mediaPlayList.loadPlaylist(url)
+                            elisa.mediaPlayListProxyModel.loadPlaylist(url)
                         } else {
-                            elisa.mediaPlayList.enqueue(url, ElisaUtils.FileName, ElisaUtils.ReplacePlayList, ElisaUtils.TriggerPlay)
+                            elisa.mediaPlayListProxyModel.enqueue(url, ElisaUtils.FileName, ElisaUtils.ReplacePlayList, ElisaUtils.TriggerPlay)
                         }
                     }
                     onSelected: {
@@ -174,7 +174,8 @@ FocusScope {
                         }
                     }
 
-                    onOpen: isDirectory ? loadFolderAndClear(model.fileUrl) : elisa.mediaPlayList.enqueue(model.fileUrl, ElisaUtils.FileName, ElisaUtils.AppendPlayList, ElisaUtils.DoNotTriggerPlay)
+                    onOpen: isDirectory ? loadFolderAndClear(model.fileUrl) : elisa.mediaPlayListProxyModel.enqueue(model.fileUrl, ElisaUtils.FileName, ElisaUtils.AppendPlayList, ElisaUtils.DoNotTriggerPlay)
+
                 }
             }
         }

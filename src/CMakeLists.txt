@@ -2,6 +2,7 @@ include_directories(${elisa_BINARY_DIR})
 
 set(elisaLib_SOURCES
     mediaplaylist.cpp
+    mediaplaylistproxymodel.cpp
     progressindicator.cpp
     databaseinterface.cpp
     datatypes.cpp
@@ -30,7 +31,7 @@ set(elisaLib_SOURCES
     models/trackcontextmetadatamodel.cpp
     models/viewsmodel.cpp
     localFileConfiguration/elisaconfigurationdialog.cpp
-    )
+)
 
 ecm_qt_declare_logging_category(elisaLib_SOURCES
     HEADER "indexersManager.h"

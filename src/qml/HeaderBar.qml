@@ -307,7 +307,7 @@ FocusScope {
                         SimplePlayListView {
                         id: playList
 
-                        playListModel: elisa.mediaPlayList
+                        playListModel: elisa.mediaPlayListProxyModel
 
                         anchors.fill: parent
                     }

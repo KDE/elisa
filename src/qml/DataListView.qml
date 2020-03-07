@@ -76,7 +76,7 @@ FocusScope {
         id: proxyModel
 
         sourceModel: realModel
-        playList: elisa.mediaPlayList
+        playList: elisa.mediaPlayListProxyModel
     }
 
     Loader {
@@ -110,11 +110,11 @@ FocusScope {
             isAlternateColor: (index % 2) === 1
             detailedView: false
 
-            onEnqueue: elisa.mediaPlayList.enqueue(url, entryType,
+            onEnqueue: elisa.mediaPlayListProxyModel.enqueue(url, entryType,
                                                    ElisaUtils.AppendPlayList,
                                                    ElisaUtils.DoNotTriggerPlay)
 
-            onReplaceAndPlay: elisa.mediaPlayList.enqueue(url, entryType,
+            onReplaceAndPlay: elisa.mediaPlayListProxyModel.enqueue(url, entryType,
                                                           ElisaUtils.ReplacePlayList,
                                                           ElisaUtils.TriggerPlay)
 
@@ -158,11 +158,11 @@ FocusScope {
             isSelected: listView.currentIndex === index
             isAlternateColor: (index % 2) === 1
 
-            onEnqueue: elisa.mediaPlayList.enqueue(url, entryType,
+            onEnqueue: elisa.mediaPlayListProxyModel.enqueue(url, entryType,
                                                    ElisaUtils.AppendPlayList,
                                                    ElisaUtils.DoNotTriggerPlay)
 
-            onReplaceAndPlay: elisa.mediaPlayList.enqueue(url, entryType,
+            onReplaceAndPlay: elisa.mediaPlayListProxyModel.enqueue(url, entryType,
                                                           ElisaUtils.ReplacePlayList,
                                                           ElisaUtils.TriggerPlay)
 

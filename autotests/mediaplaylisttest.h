@@ -44,27 +44,31 @@ private Q_SLOTS:
 
     void enqueueArtistCase();
 
+    void enqueueTrackByUrl();
+
+    void enqueueTracksByUrl();
+
+    void enqueueFiles();
+
+    void enqueueSampleFiles();
+
+    void enqueueEmpty();
+
     void removeFirstTrackOfAlbum();
+
+    void testTrackBeenRemoved();
+
+    void testSetData();
 
     void testHasHeader();
 
-    void testHasHeaderWithRestore();
-
     void testHasHeaderWithRemove();
+
+    void testHasHeaderWithRestore();
 
     void testHasHeaderMoveFirst();
 
     void testHasHeaderMoveAnother();
-
-    void testHasHeaderMoveFirstLikeQml();
-
-    void testHasHeaderMoveAnotherLikeQml();
-
-    void testHasHeaderYetAnotherMoveLikeQml();
-
-    void enqueueReplaceAndPlay();
-
-    void crashOnEnqueue();
 
     void restoreMultipleIdenticalTracks();
 
@@ -72,81 +76,13 @@ private Q_SLOTS:
 
     void testHasHeaderAlbumWithSameTitle();
 
-    void testSavePersistentState();
+    void testHasHeaderMoveFirstLikeQml();
 
-    void testReplaceAndPlayArtist();
+    void testHasHeaderMoveAnotherLikeQml();
 
-    void testReplaceAndPlayTrackId();
+    void testHasHeaderYetAnotherMoveLikeQml();
 
-    void testSetData();
-
-    void testRemoveSelection();
-
-    void testTrackBeenRemoved();
-
-    void testBringUpCase();
-
-    void testBringUpCaseFromNewAlbum();
-
-    void testBringUpAndDownCase();
-
-    void testBringUpAndRemoveCase();
-
-    void testBringUpAndRemoveMultipleCase();
-
-    void testBringUpAndRemoveMultipleNotBeginCase();
-
-    void testBringUpAndPlayCase();
-
-    void testBringUpAndSkipNextCase();
-
-    void testBringUpAndSkipPreviousCase();
-
-    void testBringUpAndSkipPreviousAndContinueCase();
-
-    void finishPlayList();
-
-    void randomPlayList();
-
-    void randomAndContinuePlayList();
-
-    void continuePlayList();
-
-    void testRestoreSettings();
-
-    void removeBeforeCurrentTrack();
-
-    void switchToTrackTest();
-
-    void previousAndNextTracksTest();
-
-    void singleTrack();
-
-    void remainingTracksTest();
-
-    void testBringUpAndRemoveLastCase();
-
-    void testSaveAndRestoreSettings();
-
-    void testSaveLoadPlayList();
-
-    void testEnqueueFiles();
-
-    void testEnqueueSampleFiles();
-
-    void testEmptyEnqueue();
-
-    void clearPlayListCase();
-
-    void undoClearPlayListCase();
-
-    void undoReplacePlayListCase();
-
-    void enqueueMultipleAlbumsCase();
-
-    void enqueueTrackByUrl();
-
-    void enqueueTracksByUrl();
+    void crashOnEnqueue();
 
 };
 

@@ -342,10 +342,6 @@ void MediaPlayList::enqueueRestoredEntries(const QVariantList &newEntries)
         } else {
             Q_EMIT newEntryInList(newEntry.mId, {}, ElisaUtils::Track);
         }
-
-        if (!newEntry.mIsValid) {
-            Q_EMIT dataChanged(index(rowCount() - 1, 0), index(rowCount() - 1, 0), {MediaPlayList::IsPlayingRole});
-        }
     }
     endInsertRows();
 }
@@ -395,8 +391,6 @@ void MediaPlayList::enqueueFilesList(const ElisaUtils::EntryDataList &newEntries
         }
     }
     endInsertRows();
-
-    Q_EMIT dataChanged(index(rowCount() - 1, 0), index(rowCount() - 1, 0), {MediaPlayList::IsPlayingRole});
 }
 
 void MediaPlayList::enqueueTracksListById(const ElisaUtils::EntryDataList &newEntries, ElisaUtils::PlayListEntryType type)
@@ -411,8 +405,6 @@ void MediaPlayList::enqueueTracksListById(const ElisaUtils::EntryDataList &newEn
         Q_EMIT newEntryInList(newMediaPlayListEntry.mId, newMediaPlayListEntry.mTitle.toString(), newMediaPlayListEntry.mEntryType);
     }
     endInsertRows();
-
-    Q_EMIT dataChanged(index(rowCount() - 1, 0), index(rowCount() - 1, 0), {MediaPlayList::IsPlayingRole});
 }
 
 void MediaPlayList::enqueueOneEntry(const ElisaUtils::EntryData &entryData, ElisaUtils::PlayListEntryType type)

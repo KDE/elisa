@@ -455,7 +455,7 @@ void MediaPlayListTest::enqueueTrackByUrl()
     QCOMPARE(rowsRemovedSpy.count(), 0);
     QCOMPARE(rowsMovedSpy.count(), 0);
     QCOMPARE(rowsInsertedSpy.count(), 1);
-    QCOMPARE(dataChangedSpy.count(), 1);
+    QCOMPARE(dataChangedSpy.count(), 0);
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newEntryInListSpy.count(), 0);
     QCOMPARE(newUrlInListSpy.count(), 1);
@@ -468,7 +468,7 @@ void MediaPlayListTest::enqueueTrackByUrl()
     QCOMPARE(rowsRemovedSpy.count(), 0);
     QCOMPARE(rowsMovedSpy.count(), 0);
     QCOMPARE(rowsInsertedSpy.count(), 1);
-    QCOMPARE(dataChangedSpy.count(), 2);
+    QCOMPARE(dataChangedSpy.count(), 1);
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newEntryInListSpy.count(), 0);
     QCOMPARE(newUrlInListSpy.count(), 1);
@@ -548,7 +548,7 @@ void MediaPlayListTest::enqueueTracksByUrl()
     QCOMPARE(rowsRemovedSpy.count(), 0);
     QCOMPARE(rowsMovedSpy.count(), 0);
     QCOMPARE(rowsInsertedSpy.count(), 1);
-    QCOMPARE(dataChangedSpy.count(), 1);
+    QCOMPARE(dataChangedSpy.count(), 0);
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newEntryInListSpy.count(), 0);
     QCOMPARE(newUrlInListSpy.count(), 2);
@@ -561,7 +561,7 @@ void MediaPlayListTest::enqueueTracksByUrl()
     QCOMPARE(rowsRemovedSpy.count(), 0);
     QCOMPARE(rowsMovedSpy.count(), 0);
     QCOMPARE(rowsInsertedSpy.count(), 1);
-    QCOMPARE(dataChangedSpy.count(), 3);
+    QCOMPARE(dataChangedSpy.count(), 2);
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newEntryInListSpy.count(), 0);
     QCOMPARE(newUrlInListSpy.count(), 2);
@@ -637,7 +637,7 @@ void MediaPlayListTest::enqueueFiles()
     QCOMPARE(rowsRemovedSpy.count(), 0);
     QCOMPARE(rowsMovedSpy.count(), 0);
     QCOMPARE(rowsInsertedSpy.count(), 1);
-    QCOMPARE(dataChangedSpy.count(), 1);
+    QCOMPARE(dataChangedSpy.count(), 0);
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newEntryInListSpy.count(), 0);
     QCOMPARE(newUrlInListSpy.count(), 2);
@@ -652,7 +652,7 @@ void MediaPlayListTest::enqueueFiles()
     QCOMPARE(rowsRemovedSpy.count(), 0);
     QCOMPARE(rowsMovedSpy.count(), 0);
     QCOMPARE(rowsInsertedSpy.count(), 1);
-    QCOMPARE(dataChangedSpy.count(), 3);
+    QCOMPARE(dataChangedSpy.count(), 2);
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newEntryInListSpy.count(), 0);
     QCOMPARE(newUrlInListSpy.count(), 2);
@@ -743,14 +743,14 @@ void MediaPlayListTest::enqueueSampleFiles()
     QCOMPARE(rowsRemovedSpy.count(), 0);
     QCOMPARE(rowsMovedSpy.count(), 0);
     QCOMPARE(rowsInsertedSpy.count(), 1);
-    QCOMPARE(dataChangedSpy.count(), 1);
+    QCOMPARE(dataChangedSpy.count(), 0);
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newEntryInListSpy.count(), 0);
     QCOMPARE(newUrlInListSpy.count(), 2);
 
     QCOMPARE(myPlayList.rowCount(), 2);
 
-    while (dataChangedSpy.count() < 3) {
+    while (dataChangedSpy.count() < 2) {
         QCOMPARE(dataChangedSpy.wait(), true);
     }
 
@@ -760,7 +760,7 @@ void MediaPlayListTest::enqueueSampleFiles()
     QCOMPARE(rowsRemovedSpy.count(), 0);
     QCOMPARE(rowsMovedSpy.count(), 0);
     QCOMPARE(rowsInsertedSpy.count(), 1);
-    QCOMPARE(dataChangedSpy.count(), 3);
+    QCOMPARE(dataChangedSpy.count(), 2);
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newEntryInListSpy.count(), 0);
     QCOMPARE(newUrlInListSpy.count(), 2);
@@ -1821,13 +1821,13 @@ void MediaPlayListTest::testHasHeaderWithRestore()
     QCOMPARE(rowsRemovedSpy.count(), 0);
     QCOMPARE(rowsMovedSpy.count(), 0);
     QCOMPARE(rowsInsertedSpy.count(), 1);
-    QCOMPARE(dataChangedSpy.count(), 4);
+    QCOMPARE(dataChangedSpy.count(), 0);
     QCOMPARE(newTrackByNameInListSpy.count(), 4);
     QCOMPARE(newEntryInListSpy.count(), 0);
 
     myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
 
-    while (dataChangedSpy.count() < 8) {
+    while (dataChangedSpy.count() < 4) {
         QCOMPARE(dataChangedSpy.wait(), true);
     }
 
@@ -1837,7 +1837,7 @@ void MediaPlayListTest::testHasHeaderWithRestore()
     QCOMPARE(rowsRemovedSpy.count(), 0);
     QCOMPARE(rowsMovedSpy.count(), 0);
     QCOMPARE(rowsInsertedSpy.count(), 1);
-    QCOMPARE(dataChangedSpy.count(), 8);
+    QCOMPARE(dataChangedSpy.count(), 4);
     QCOMPARE(newTrackByNameInListSpy.count(), 4);
     QCOMPARE(newEntryInListSpy.count(), 0);
 
@@ -2275,7 +2275,7 @@ void MediaPlayListTest::restoreMultipleIdenticalTracks()
     QCOMPARE(rowsRemovedSpy.count(), 0);
     QCOMPARE(rowsMovedSpy.count(), 0);
     QCOMPARE(rowsInsertedSpy.count(), 1);
-    QCOMPARE(dataChangedSpy.count(), 4);
+    QCOMPARE(dataChangedSpy.count(), 0);
     QCOMPARE(newTrackByNameInListSpy.count(), 4);
     QCOMPARE(newEntryInListSpy.count(), 0);
 
@@ -2289,7 +2289,7 @@ void MediaPlayListTest::restoreMultipleIdenticalTracks()
     QCOMPARE(rowsRemovedSpy.count(), 0);
     QCOMPARE(rowsMovedSpy.count(), 0);
     QCOMPARE(rowsInsertedSpy.count(), 1);
-    QCOMPARE(dataChangedSpy.count(), 8);
+    QCOMPARE(dataChangedSpy.count(), 4);
     QCOMPARE(newTrackByNameInListSpy.count(), 4);
     QCOMPARE(newEntryInListSpy.count(), 0);
 
@@ -2421,7 +2421,7 @@ void MediaPlayListTest::restoreTrackWithoutAlbum()
     QCOMPARE(rowsRemovedSpy.count(), 0);
     QCOMPARE(rowsMovedSpy.count(), 0);
     QCOMPARE(rowsInsertedSpy.count(), 1);
-    QCOMPARE(dataChangedSpy.count(), 1);
+    QCOMPARE(dataChangedSpy.count(), 0);
     QCOMPARE(newTrackByNameInListSpy.count(), 1);
     QCOMPARE(newEntryInListSpy.count(), 0);
 
@@ -2433,7 +2433,7 @@ void MediaPlayListTest::restoreTrackWithoutAlbum()
     QCOMPARE(rowsRemovedSpy.count(), 0);
     QCOMPARE(rowsMovedSpy.count(), 0);
     QCOMPARE(rowsInsertedSpy.count(), 1);
-    QCOMPARE(dataChangedSpy.count(), 2);
+    QCOMPARE(dataChangedSpy.count(), 1);
     QCOMPARE(newTrackByNameInListSpy.count(), 1);
     QCOMPARE(newEntryInListSpy.count(), 0);
 

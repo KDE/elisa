@@ -635,7 +635,7 @@ void MediaPlayListProxyModelTest::enqueueTrackByUrl()
     QCOMPARE(rowsMovedSpy.count(), 0);
     QCOMPARE(rowsInsertedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 1);
-    QCOMPARE(dataChangedSpy.count(), 1);
+    QCOMPARE(dataChangedSpy.count(), 0);
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newEntryInListSpy.count(), 0);
     QCOMPARE(newUrlInListSpy.count(), 1);
@@ -649,7 +649,7 @@ void MediaPlayListProxyModelTest::enqueueTrackByUrl()
     QCOMPARE(rowsMovedSpy.count(), 0);
     QCOMPARE(rowsInsertedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 1);
-    QCOMPARE(dataChangedSpy.count(), 2);
+    QCOMPARE(dataChangedSpy.count(), 1);
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newEntryInListSpy.count(), 0);
     QCOMPARE(newUrlInListSpy.count(), 1);
@@ -1482,7 +1482,7 @@ void MediaPlayListProxyModelTest::testSavePersistentState()
     QCOMPARE(rowsMovedSpyRead.count(), 0);
     QCOMPARE(rowsInsertedSpyRead.count(), 1);
     QCOMPARE(persistentStateChangedSpyRead.count(), 2);
-    QCOMPARE(dataChangedSpyRead.count(), 6);
+    QCOMPARE(dataChangedSpyRead.count(), 3);
 
     QCOMPARE(myPlayListReadProxyModel.tracksCount(), 3);
 
@@ -2731,7 +2731,7 @@ void MediaPlayListProxyModelTest::undoClearPlayListCase()
     QCOMPARE(rowsInsertedSpy.count(), 3);
     QCOMPARE(tracksCountChangedSpy.count(), 5);
     QCOMPARE(persistentStateChangedSpy.count(), 6);
-    QCOMPARE(dataChangedSpy.count(), 6);
+    QCOMPARE(dataChangedSpy.count(), 0);
     QCOMPARE(newTrackByNameInListSpy.count(), 6);
     QCOMPARE(newEntryInListSpy.count(), 1);
     QCOMPARE(currentTrackChangedSpy.count(), 4);
@@ -2969,7 +2969,7 @@ void MediaPlayListProxyModelTest::undoReplacePlayListCase()
     QCOMPARE(rowsInsertedSpy.count(), 5);
     QCOMPARE(tracksCountChangedSpy.count(), 9);
     QCOMPARE(persistentStateChangedSpy.count(), 10);
-    QCOMPARE(dataChangedSpy.count(), 6);
+    QCOMPARE(dataChangedSpy.count(), 0);
     QCOMPARE(newTrackByNameInListSpy.count(), 6);
     QCOMPARE(newEntryInListSpy.count(), 2);
     QCOMPARE(currentTrackChangedSpy.count(), 7);
@@ -6645,7 +6645,7 @@ void MediaPlayListProxyModelTest::enqueueFiles()
     QCOMPARE(rowsMovedSpy.count(), 0);
     QCOMPARE(rowsInsertedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 1);
-    QCOMPARE(dataChangedSpy.count(), 1);
+    QCOMPARE(dataChangedSpy.count(), 0);
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newEntryInListSpy.count(), 0);
     QCOMPARE(newUrlInListSpy.count(), 2);
@@ -6661,7 +6661,7 @@ void MediaPlayListProxyModelTest::enqueueFiles()
     QCOMPARE(rowsMovedSpy.count(), 0);
     QCOMPARE(rowsInsertedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 1);
-    QCOMPARE(dataChangedSpy.count(), 3);
+    QCOMPARE(dataChangedSpy.count(), 2);
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newEntryInListSpy.count(), 0);
     QCOMPARE(newUrlInListSpy.count(), 2);
@@ -6759,14 +6759,14 @@ void MediaPlayListProxyModelTest::enqueueSampleFiles()
     QCOMPARE(rowsMovedSpy.count(), 0);
     QCOMPARE(rowsInsertedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 1);
-    QCOMPARE(dataChangedSpy.count(), 1);
+    QCOMPARE(dataChangedSpy.count(), 0);
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newEntryInListSpy.count(), 0);
     QCOMPARE(newUrlInListSpy.count(), 2);
 
     QCOMPARE(myPlayListProxyModel.rowCount(), 2);
 
-    while (dataChangedSpy.count() < 3) {
+    while (dataChangedSpy.count() < 2) {
         QCOMPARE(dataChangedSpy.wait(), true);
     }
 
@@ -6777,7 +6777,7 @@ void MediaPlayListProxyModelTest::enqueueSampleFiles()
     QCOMPARE(rowsMovedSpy.count(), 0);
     QCOMPARE(rowsInsertedSpy.count(), 1);
     QCOMPARE(persistentStateChangedSpy.count(), 1);
-    QCOMPARE(dataChangedSpy.count(), 3);
+    QCOMPARE(dataChangedSpy.count(), 2);
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newEntryInListSpy.count(), 0);
     QCOMPARE(newUrlInListSpy.count(), 2);

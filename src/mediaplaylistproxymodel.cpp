@@ -241,40 +241,52 @@ void MediaPlayListProxyModel::setRandomPlay(const bool value)
     if (d->mRandomPlay != value) {
         Q_EMIT layoutAboutToBeChanged(QList<QPersistentModelIndex>(), QAbstractItemModel::VerticalSortHint);
         auto playListSize = d->mPlayListModel->rowCount();
-        if (value) {
-            d->mRandomMapping.clear();
-            d->mRandomMapping.reserve(playListSize);
 
-            QModelIndexList mTo;
-            for (int i = 0; i < playListSize; ++i) {
-                mTo.append(index(i,0));
-                d->mRandomMapping.append(i);
+        if (playListSize != 0) {
+            if (value) {
+                d->mRandomMapping.clear();
+                d->mRandomMapping.reserve(playListSize);
+
+                QModelIndexList to;
+                to.reserve(playListSize);
+                for (int i = 0; i < playListSize; ++i) {
+                    to.append(index(i,0));
+                    d->mRandomMapping.append(i);
+                }
+
+                QModelIndexList from;
+                from.reserve(playListSize);
+                // Fisher-Yates algorithm
+                for (int i = 0;  i < playListSize - 1; ++i) {
+                    const int swapIndex = d->mRandomGenerator.bounded(i, playListSize);
+                    std::swap(d->mRandomMapping[i], d->mRandomMapping[swapIndex]);
+                    from.append(index(d->mRandomMapping.at(i), 0));
+                }
+                from.append(index(d->mRandomMapping.at(playListSize - 1), 0));
+                changePersistentIndexList(from, to);
+            } else {
+                QModelIndexList from;
+                from.reserve(playListSize);
+                QModelIndexList to;
+                to.reserve(playListSize);
+                for (int i = 0; i < playListSize; ++i) {
+                    to.append(index(d->mRandomMapping.at(i), 0));
+                    from.append(index(i, 0));
+                }
+                changePersistentIndexList(from, to);
+                d->mRandomMapping.clear();
             }
 
-            QModelIndexList mFrom;
-            // Fisher-Yates algorithm
-            for (int i = 0;  i < playListSize - 1; ++i) {
-                const int swapIndex = d->mRandomGenerator.bounded(i,playListSize);
-                std::swap(d->mRandomMapping[i], d->mRandomMapping[swapIndex]);
-                mFrom.append(index(d->mRandomMapping.at(i),0));
-            }
-            changePersistentIndexList(mFrom, mTo);
+            d->mCurrentPlayListPosition = d->mCurrentTrack.row();
+            d->mRandomPlay = value;
+            Q_EMIT layoutChanged(QList<QPersistentModelIndex>(), QAbstractItemModel::VerticalSortHint);
+            determineAndNotifyPreviousAndNextTracks();
         } else {
-            QModelIndexList mFrom, mTo;
-            for (int i = 0; i < playListSize; ++i) {
-                mTo.append(index(d->mRandomMapping.at(i),0));
-                mFrom.append(index(i,0));
-            }
-            changePersistentIndexList(mFrom, mTo);
-            d->mRandomMapping.clear();
+            d->mRandomPlay = value;
         }
-        d->mRandomPlay = value;
-        d->mCurrentPlayListPosition = d->mCurrentTrack.row();
-        Q_EMIT layoutChanged(QList<QPersistentModelIndex>(), QAbstractItemModel::VerticalSortHint);
         Q_EMIT randomPlayChanged();
         Q_EMIT remainingTracksChanged();
         Q_EMIT persistentStateChanged();
-        determineAndNotifyPreviousAndNextTracks();
     }
 }
 

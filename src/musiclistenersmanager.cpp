@@ -325,12 +325,24 @@ void MusicListenersManager::configChanged()
     currentConfiguration->load();
     currentConfiguration->read();
 
+    bool configurationHasChanged = false;
+#if defined KF5Baloo_FOUND && KF5Baloo_FOUND
+    if (d->mBalooIndexerAvailable && d->mBalooIndexerActive && d->mBalooListener.canHandleRootPaths() && !currentConfiguration->forceUsageOfFastFileSearch()) {
+        configurationHasChanged = true;
+    } else if (d->mBalooIndexerAvailable && !d->mBalooIndexerActive && d->mBalooListener.canHandleRootPaths() && currentConfiguration->forceUsageOfFastFileSearch()) {
+        configurationHasChanged = true;
+    }
+#endif
+
     auto inputRootPath = currentConfiguration->rootPath();
-    if (d->mPreviousRootPathValue == inputRootPath) {
-        qCDebug(orgKdeElisaIndexersManager()) << "root paths configuration is not changed";
+    configurationHasChanged = configurationHasChanged || (d->mPreviousRootPathValue != inputRootPath);
+
+    if (configurationHasChanged) {
+        d->mPreviousRootPathValue = inputRootPath;
+    } else {
+        qCDebug(orgKdeElisaIndexersManager()) << "music paths configuration and scanning has not changed";
         return;
     }
-    d->mPreviousRootPathValue = inputRootPath;
 
     //resolve symlinks
     QStringList allRootPaths;

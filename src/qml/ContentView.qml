@@ -319,7 +319,7 @@ RowLayout {
     }
 
     Component {
-            id: albumContext
+        id: albumContext
 
         ContextView {
             StackView.onActivated: viewManager.viewIsLoaded()

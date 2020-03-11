@@ -30,8 +30,8 @@ Window {
     visible: true
     modality: Qt.ApplicationModal
 
-    minimumWidth: 600
-    minimumHeight: 400
+    minimumWidth: 750
+    minimumHeight: 500
 
     Shortcut {
         sequence: StandardKey.Cancel

@@ -18,6 +18,7 @@
 #include "modeldataloader.h"
 
 #include "filescanner.h"
+#include "filewriter.h"
 
 class ModelDataLoaderPrivate
 {
@@ -41,6 +42,7 @@ public:
 
     FileScanner mFileScanner;
 
+    FileWriter mFileWriter;
 };
 
 ModelDataLoader::ModelDataLoader(QObject *parent) : QObject(parent), d(std::make_unique<ModelDataLoaderPrivate>())
@@ -444,6 +446,16 @@ void ModelDataLoader::databaseAlbumsAdded(const ListAlbumDataType &newData)
     case ModelDataLoader::FilterType::UnknownFilter:
         break;
     }
+}
+
+void ModelDataLoader::updateFileMetaData(DataTypes::TrackDataType trackDataType, const QUrl &url)
+{
+    d->mFileWriter.writeAllMetaDataToFile(url, trackDataType);
+}
+
+void ModelDataLoader::updateSingleFileMetaData(const QUrl &url, DataTypes::ColumnsRoles role, QVariant data)
+{
+    d->mFileWriter.writeSingleMetaDataToFile(url, role, data);
 }
 
 #include "moc_modeldataloader.cpp"

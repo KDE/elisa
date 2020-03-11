@@ -355,12 +355,6 @@ void TrackMetadataModel::fillDataFromTrackData(const TrackMetadataModel::TrackDa
 
     for (DataTypes::ColumnsRoles role : fieldsForTrack) {
         if (trackData.constFind(role) != trackData.constEnd()) {
-            if (role == DataTypes::RatingRole) {
-                if (trackData[role].toInt() == 0) {
-                    continue;
-                }
-            }
-
             mTrackKeys.push_back(role);
             mTrackData[role] = trackData[role];
         }
@@ -449,10 +443,6 @@ void TrackMetadataModel::initialize(MusicListenersManager *newManager, DatabaseI
 
     if (mManager) {
         mDataLoader.setDatabase(mManager->viewDatabase());
-        connect(this, &TrackMetadataModel::needDataByUrl,
-                mManager->tracksListener(), &TracksListener::trackByFileNameInList);
-        connect(mManager->tracksListener(), &TracksListener::trackHasChanged,
-                this, &TrackMetadataModel::trackData);
     } else if (trackDatabase) {
         mDataLoader.setDatabase(trackDatabase);
     }

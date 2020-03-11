@@ -212,3 +212,12 @@ ecm_add_test(${filescannerTest_SOURCES}
     TEST_NAME "filescannerTest"
     LINK_LIBRARIES Qt5::Test elisaLib
 )
+
+set(filewriterTest_SOURCES
+    filewritertest.cpp
+)
+
+ecm_add_test(${filewriterTest_SOURCES}
+    TEST_NAME "filewriterTest"
+    LINK_LIBRARIES Qt5::Test elisaLib
+)

@@ -115,6 +115,8 @@ RowLayout {
 
             readOnly: true
 
+            hoverWidgetOpacity: 1
+
             anchors {
                 left: parent.left
                 top: parent.top

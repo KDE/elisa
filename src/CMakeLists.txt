@@ -17,6 +17,7 @@ set(elisaLib_SOURCES
     abstractfile/abstractfilelistener.cpp
     abstractfile/abstractfilelisting.cpp
     filescanner.cpp
+    filewriter.cpp
     viewmanager.cpp
     powermanagementinterface.cpp
     file/filelistener.cpp

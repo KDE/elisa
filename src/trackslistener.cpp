@@ -21,6 +21,7 @@
 #include "databaseinterface.h"
 #include "datatypes.h"
 #include "filescanner.h"
+#include "filewriter.h"
 
 #include <QSet>
 #include <QList>
@@ -44,6 +45,7 @@ public:
 
     FileScanner mFileScanner;
 
+    FileWriter mFileWriter;
 };
 
 TracksListener::TracksListener(DatabaseInterface *database, QObject *parent) : QObject(parent), d(std::make_unique<TracksListenerPrivate>())
@@ -315,6 +317,11 @@ void TracksListener::newGenreInList(qulonglong newDatabaseId, const QString &ent
     }
 
     Q_EMIT tracksListAdded(newDatabaseId, entryTitle, ElisaUtils::Genre, newTracks);
+}
+
+void TracksListener::updateSingleFileMetaData(const QUrl &url, DataTypes::ColumnsRoles role, QVariant data)
+{
+    d->mFileWriter.writeSingleMetaDataToFile(url, role, data);
 }
 
 #include "moc_trackslistener.cpp"

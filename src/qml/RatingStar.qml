@@ -30,8 +30,10 @@ Row {
 
     property int hoveredRating: 0
 
+    signal ratingEdited()
+
     spacing: 0
-    opacity: starRating > 0 ? 1 : (readOnly ? 0 : hoverWidgetOpacity)
+    opacity: starRating >= 2 ? 1 : hoverWidgetOpacity
 
     Repeater {
         model: 5
@@ -75,11 +77,14 @@ Row {
                 acceptedButtons: Qt.LeftButton
                 hoverEnabled: true
 
-                onClicked: if (starRating !== ratingThreshold) {
-                               starRating = ratingThreshold
-                           } else {
-                               starRating = 0
-                           }
+                onClicked: {
+                    if (starRating !== ratingThreshold) {
+                        starRating = ratingThreshold
+                    } else {
+                        starRating = 0
+                    }
+                    ratingEdited()
+                }
 
                 onEntered: hoveredRating = ratingThreshold
                 onExited: hoveredRating = 0

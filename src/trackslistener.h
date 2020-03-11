@@ -74,6 +74,8 @@ public Q_SLOTS:
     void newUrlInList(const QUrl &entryUrl,
                       ElisaUtils::PlayListEntryType databaseIdType);
 
+    void updateSingleFileMetaData(const QUrl &url, DataTypes::ColumnsRoles role, QVariant data);
+
 private:
 
     void newArtistInList(qulonglong newDatabaseId, const QString &artist);

@@ -226,7 +226,7 @@ FocusScope {
             Item {
                 id: emptyVisible
                 visible: elisa.mediaPlayList ? elisa.mediaPlayList.tracksCount === 0 : true
-                Layout.preferredHeight: (emptyPlaylistText.height-emptyImage.height-emptyLabel0.height-emptyLabel1.height)/2
+                Layout.fillHeight: true
             }
 
             Image {

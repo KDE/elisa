@@ -64,7 +64,7 @@ Window {
             anchors.fill: parent
 
             Kirigami.Heading {
-                text: i18n('General')
+                text: i18n("General")
 
                 Layout.leftMargin: 5
                 Layout.rightMargin: 5
@@ -79,7 +79,7 @@ Window {
             }
 
             Kirigami.Heading {
-                text: i18n('Music Search Configuration')
+                text: i18n("Music Search Configuration")
 
                 Layout.topMargin: 15
                 Layout.leftMargin: 5

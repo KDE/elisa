@@ -211,9 +211,6 @@ void FileScanner::scanProperties(const QString &localFileName, DataTypes::TrackD
             value = QLocale().createSeparatedList(list);
         } else {
             value = (*rangeBegin).second;
-            if (value.canConvert<QStringList>()) {
-                value = QLocale().createSeparatedList(value.toStringList());
-            }
         }
         const auto &translatedKey = d->propertyTranslation.find(key);
         if (translatedKey.value() == DataTypes::DurationRole) {

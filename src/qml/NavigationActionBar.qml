@@ -116,7 +116,7 @@ ColumnLayout {
                 objectName: 'createRadioButton'
                 visible: showCreateRadioButton
                 text: i18nc("Create a new radio", "Create a radio")
-                icon.name: "media-track-add-amarok"
+                icon.name: "list-add"
                 onClicked: createRadio()
             },
             FlatButtonWithToolTip {

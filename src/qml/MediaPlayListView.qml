@@ -145,7 +145,7 @@ FocusScope {
                 // Toolbar buttons
                 FlatButtonWithToolTip {
                     text: i18nc("Show currently played track inside playlist", "Show Current Track")
-                    icon.name: 'media-show-active-track-amarok'
+                    icon.name: 'media-track-show-active'
                     enabled: elisa.mediaPlayListProxyModel ? elisa.mediaPlayListProxyModel.tracksCount > 0 : false
                     onClicked: {
                         playListView.positionViewAtIndex(elisa.mediaPlayListProxyModel.currentTrackRow, ListView.Contain)

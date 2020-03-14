@@ -34,7 +34,7 @@ public:
 
     FileScanner();
 
-    virtual ~FileScanner();
+    ~FileScanner();
 
     bool shouldScanFile(const QString &scanFile);
 

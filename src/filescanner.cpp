@@ -109,7 +109,7 @@ DataTypes::TrackDataType FileScanner::scanOneFile(const QUrl &scanFile, const QF
         return newTrack;
     }
 
-    auto localFileName = scanFile.toLocalFile();
+    const auto &localFileName = scanFile.toLocalFile();
 
     newTrack[DataTypes::FileModificationTime] = scanFileInfo.metadataChangeTime();
     newTrack[DataTypes::ResourceRole] = scanFile;
@@ -121,9 +121,9 @@ DataTypes::TrackDataType FileScanner::scanOneFile(const QUrl &scanFile, const QF
         return newTrack;
     }
 
-    QString mimetype = fileMimeType.name();
+    const auto &mimetype = fileMimeType.name();
 
-    QList<KFileMetaData::Extractor*> exList = d->mAllExtractors.fetchExtractors(mimetype);
+    const QList<KFileMetaData::Extractor*> &exList = d->mAllExtractors.fetchExtractors(mimetype);
 
     if (exList.isEmpty()) {
         return newTrack;
@@ -155,7 +155,7 @@ DataTypes::TrackDataType FileScanner::scanOneFile(const QUrl &scanFile)
     if (!scanFile.isLocalFile()){
         return {};
     } else {
-        QFileInfo scanFileInfo(scanFile.toLocalFile());
+        const QFileInfo scanFileInfo(scanFile.toLocalFile());
         return FileScanner::scanOneFile(scanFile, scanFileInfo);
     }
 }
@@ -164,7 +164,7 @@ DataTypes::TrackDataType FileScanner::scanOneBalooFile(const QUrl &scanFile, con
 {
     DataTypes::TrackDataType newTrack;
 #if defined KF5Baloo_FOUND && KF5Baloo_FOUND
-    auto localFileName = scanFile.toLocalFile();
+    const auto &localFileName = scanFile.toLocalFile();
 
     newTrack[DataTypes::FileModificationTime] = scanFileInfo.metadataChangeTime();
     newTrack[DataTypes::ResourceRole] = scanFile;
@@ -198,12 +198,12 @@ void FileScanner::scanProperties(const QString &localFileName, DataTypes::TrackD
     auto rangeBegin = d->mAllProperties.constKeyValueBegin();
     QVariant value;
     while (rangeBegin != d->mAllProperties.constKeyValueEnd()) {
-        auto key = (*rangeBegin).first;
+        const auto key = (*rangeBegin).first;
 
-        auto rangeEnd = std::find_if(rangeBegin, d->mAllProperties.constKeyValueEnd(),
+        const auto rangeEnd = std::find_if(rangeBegin, d->mAllProperties.constKeyValueEnd(),
                                      [key](entry e) { return e.first != key; });
 
-        auto distance = std::distance(rangeBegin, rangeEnd);
+        const auto distance = std::distance(rangeBegin, rangeEnd);
         if (distance > 1) {
             QStringList list;
             list.reserve(static_cast<int>(distance));
@@ -215,7 +215,7 @@ void FileScanner::scanProperties(const QString &localFileName, DataTypes::TrackD
                 value = QLocale().createSeparatedList(value.toStringList());
             }
         }
-        auto translatedKey = d->propertyTranslation.find(key);
+        const auto &translatedKey = d->propertyTranslation.find(key);
         if (translatedKey.value() == DataTypes::DurationRole) {
             trackData.insert(translatedKey.value(), QTime::fromMSecsSinceStartOfDay(int(1000 * (*rangeBegin).second.toDouble())));
         } else if (translatedKey != d->propertyTranslation.end()) {
@@ -231,13 +231,13 @@ void FileScanner::scanProperties(const QString &localFileName, DataTypes::TrackD
     trackData[DataTypes::HasEmbeddedCover] = checkEmbeddedCoverImage(localFileName);
 
 #if !defined Q_OS_ANDROID && !defined Q_OS_WIN
-    auto fileData = KFileMetaData::UserMetaData(localFileName);
-    QString comment = fileData.userComment();
+    const auto fileData = KFileMetaData::UserMetaData(localFileName);
+    const auto &comment = fileData.userComment();
     if (!comment.isEmpty()) {
         trackData[DataTypes::CommentRole] = comment;
     }
 
-    int rating = fileData.rating();
+    const auto rating = fileData.rating();
     if (rating >= 0) {
         trackData[DataTypes::RatingRole] = rating;
     }
@@ -251,18 +251,17 @@ void FileScanner::scanProperties(const QString &localFileName, DataTypes::TrackD
 
 QUrl FileScanner::searchForCoverFile(const QString &localFileName)
 {
-    QFileInfo trackFilePath(localFileName);
+    const QFileInfo trackFilePath(localFileName);
     QDir trackFileDir = trackFilePath.absoluteDir();
     trackFileDir.setFilter(QDir::Files);
     trackFileDir.setNameFilters(d->constSearchStrings);
     QFileInfoList coverFiles = trackFileDir.entryInfoList();
     if (coverFiles.isEmpty()) {
-        QString dirNamePattern = QLatin1String("*") + trackFileDir.dirName() + QLatin1String("*");
-        QString dirNameNoSpaces = dirNamePattern.remove(QLatin1Char(' '));
-        QStringList filters = {
+        const QString dirNamePattern = QLatin1String("*") + trackFileDir.dirName() + QLatin1String("*");
+        const QString dirNameNoSpaces = QLatin1String("*") + trackFileDir.dirName().remove(QLatin1Char(' ')) + QLatin1String("*");
+        const QStringList filters = {
             dirNamePattern + QStringLiteral(".jpg"),
             dirNamePattern + QStringLiteral(".png"),
-
             dirNameNoSpaces + QStringLiteral(".jpg"),
             dirNameNoSpaces + QStringLiteral(".png")
         };
@@ -278,7 +277,7 @@ QUrl FileScanner::searchForCoverFile(const QString &localFileName)
 bool FileScanner::checkEmbeddedCoverImage(const QString &localFileName)
 {
 #if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
-    auto imageData = d->mImageScanner.imageData(localFileName);
+    const auto &imageData = d->mImageScanner.imageData(localFileName);
 
     if (imageData.contains(KFileMetaData::EmbeddedImageData::FrontCover)) {
         if (!imageData[KFileMetaData::EmbeddedImageData::FrontCover].isEmpty()) {

@@ -26,7 +26,6 @@ set(elisaLib_SOURCES
     models/abstractmediaproxymodel.cpp
     models/gridviewproxymodel.cpp
     models/alltracksproxymodel.cpp
-    models/singlealbumproxymodel.cpp
     models/trackmetadatamodel.cpp
     models/editabletrackmetadatamodel.cpp
     models/trackcontextmetadatamodel.cpp

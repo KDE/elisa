@@ -53,7 +53,6 @@
 #include "models/viewsmodel.h"
 #include "models/gridviewproxymodel.h"
 #include "models/alltracksproxymodel.h"
-#include "models/singlealbumproxymodel.h"
 #include "localFileConfiguration/elisaconfigurationdialog.h"
 
 #if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
@@ -131,7 +130,6 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qmlRegisterType<ViewsModel>(uri, 1, 0, "ViewsModel");
     qmlRegisterType<GridViewProxyModel>(uri, 1, 0, "GridViewProxyModel");
     qmlRegisterType<AllTracksProxyModel>(uri, 1, 0, "AllTracksProxyModel");
-    qmlRegisterType<SingleAlbumProxyModel>(uri, 1, 0, "SingleAlbumProxyModel");
 
 #if defined KF5KIO_FOUND && KF5KIO_FOUND
     qmlRegisterType<FileBrowserModel>(uri, 1, 0, "FileBrowserModel");

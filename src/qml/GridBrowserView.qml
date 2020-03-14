@@ -96,13 +96,16 @@ FocusScope {
 
             GridView {
                 id: contentDirectoryView
-                property int availableWidth: width - scrollBar.width
+                property int availableWidth: scrollBar.visible ? width - scrollBar.width : width
 
                 activeFocusOnTab: true
                 keyNavigationEnabled: true
 
                 anchors.fill: parent
-                anchors.margins: Kirigami.Units.largeSpacing
+                anchors.leftMargin: (LayoutMirroring.enabled && scrollBar.visible) ? 0 : Kirigami.Units.largeSpacing
+                anchors.rightMargin: (!LayoutMirroring.enabled && scrollBar.visible) ? 0 : Kirigami.Units.largeSpacing
+                anchors.topMargin: Kirigami.Units.largeSpacing
+                anchors.bottomMargin: Kirigami.Units.largeSpacing
 
                 ScrollBar.vertical: ScrollBar {
                     id: scrollBar

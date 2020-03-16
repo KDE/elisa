@@ -311,6 +311,7 @@ void ElisaApplication::configChanged()
     currentConfiguration->read();
 
     Q_EMIT showProgressOnTaskBarChanged();
+    Q_EMIT showSystemTrayIconChanged();
 }
 
 ElisaUtils::EntryDataList ElisaApplication::checkFileListAndMakeAbsolute(const ElisaUtils::EntryDataList &filesList,
@@ -548,6 +549,13 @@ bool ElisaApplication::showProgressOnTaskBar() const
     auto currentConfiguration = Elisa::ElisaConfiguration::self();
 
     return currentConfiguration->showProgressOnTaskBar();
+}
+
+bool ElisaApplication::showSystemTrayIcon() const
+{
+    auto currentConfiguration = Elisa::ElisaConfiguration::self();
+
+    return currentConfiguration->showSystemTrayIcon();
 }
 
 #include "moc_elisaapplication.cpp"

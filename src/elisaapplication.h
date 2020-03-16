@@ -85,6 +85,10 @@ class ELISALIB_EXPORT ElisaApplication : public QObject
                READ showProgressOnTaskBar
                NOTIFY showProgressOnTaskBarChanged)
 
+    Q_PROPERTY(bool showSystemTrayIcon
+               READ showSystemTrayIcon
+               NOTIFY showSystemTrayIconChanged)
+
 public:
     explicit ElisaApplication(QObject *parent = nullptr);
 
@@ -116,6 +120,8 @@ public:
 
     bool showProgressOnTaskBar() const;
 
+    bool showSystemTrayIcon() const;
+
 Q_SIGNALS:
 
     void argumentsChanged();
@@ -142,6 +148,8 @@ Q_SIGNALS:
     void initializationDone();
 
     void showProgressOnTaskBarChanged();
+
+    void showSystemTrayIconChanged();
 
 public Q_SLOTS:
 

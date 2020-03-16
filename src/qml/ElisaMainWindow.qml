@@ -22,6 +22,7 @@ import QtQuick.Window 2.2
 import org.kde.kirigami 2.5 as Kirigami
 import org.kde.elisa 1.0
 import Qt.labs.settings 1.0
+import Qt.labs.platform 1.1
 
 ApplicationWindow {
     id: mainWindow
@@ -155,9 +156,11 @@ ApplicationWindow {
             headerBarManager: elisa.manageHeaderBar
             manageMediaPlayerControl: elisa.playerControl
             showProgressOnTaskBar: elisa.showProgressOnTaskBar
+            showSystemTrayIcon: elisa.showSystemTrayIcon
+            elisaMainWindow: mainWindow
 
             onRaisePlayer: {
-                mainWindow.show()
+                mainWindow.visible = true
                 mainWindow.raise()
                 mainWindow.requestActivate()
             }

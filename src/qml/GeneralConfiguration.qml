@@ -34,4 +34,12 @@ ColumnLayout {
 
         onCheckedChanged: config.showProgressInTaskBar = checked
     }
+
+    CheckBox {
+        checked: config.showSystemTrayIcon
+
+        text: i18n("Show System Tray Icon")
+
+        onCheckedChanged: config.showSystemTrayIcon = checked
+    }
 }

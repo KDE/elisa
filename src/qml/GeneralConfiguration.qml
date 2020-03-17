@@ -38,7 +38,7 @@ ColumnLayout {
     CheckBox {
         checked: config.showSystemTrayIcon
 
-        text: i18n("Show System Tray Icon")
+        text: i18n("Keep running in System Tray when main window is closed")
 
         onCheckedChanged: config.showSystemTrayIcon = checked
     }

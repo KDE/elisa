@@ -120,7 +120,7 @@ private:
 
     bool mShowProgressInTaskBar = true;
 
-    bool mShowSystemTrayIcon = true;
+    bool mShowSystemTrayIcon = false;
 
     bool mForceUsageOfFastFileSearch = true;
 };

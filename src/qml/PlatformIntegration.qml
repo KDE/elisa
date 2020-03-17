@@ -37,7 +37,7 @@ Item {
         target: elisaMainWindow
 
         onClosing: {
-            if (systemTrayIcon.visible) {
+            if (systemTrayIcon.available && showSystemTrayIcon) {
                 close.accepted = false
                 elisaMainWindow.hide()
             }
@@ -66,7 +66,7 @@ Item {
 
         icon.name: 'elisa'
         tooltip: mainWindow.title
-        visible: available && showSystemTrayIcon
+        visible: available && showSystemTrayIcon && !mainWindow.visible
 
         menu: globalMenu
 

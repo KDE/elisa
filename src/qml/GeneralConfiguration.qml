@@ -40,6 +40,6 @@ ColumnLayout {
 
         text: i18n("Keep running in System Tray when main window is closed")
 
-        onCheckedChanged: config.showSystemTrayIcon = checked
+        onToggled: config.showSystemTrayIcon = checked
     }
 }

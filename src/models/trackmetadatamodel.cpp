@@ -301,7 +301,11 @@ QHash<int, QByteArray> TrackMetadataModel::roleNames() const
 
 QString TrackMetadataModel::fileUrl() const
 {
-    return mFileUrl;
+    if (mFileUrl.isLocalFile()) {
+        return mFileUrl.toLocalFile();
+    } else {
+        return mFileUrl.toString();
+    }
 }
 
 QUrl TrackMetadataModel::coverUrl() const
@@ -330,7 +334,9 @@ qulonglong TrackMetadataModel::databaseId() const
 
 void TrackMetadataModel::trackData(const TrackMetadataModel::TrackDataType &trackData)
 {
-    if (!mFullData.isEmpty() && trackData.databaseId() != mFullData.databaseId()) {
+    if ((mDatabaseId != 0 && trackData.databaseId() != mDatabaseId) ||
+            (!mFileUrl.isEmpty() && trackData.resourceURI() != mFileUrl) ||
+            (!mFullData.isEmpty() && trackData.databaseId() != mFullData.databaseId())) {
         return;
     }
 
@@ -372,11 +378,7 @@ void TrackMetadataModel::fillDataFromTrackData(const TrackMetadataModel::TrackDa
 
     auto rawFileUrl = trackData[DataTypes::ResourceRole].toUrl();
 
-    if (rawFileUrl.isLocalFile()) {
-        mFileUrl = rawFileUrl.toLocalFile();
-    } else {
-        mFileUrl = rawFileUrl.toString();
-    }
+    mFileUrl = rawFileUrl;
     Q_EMIT fileUrlChanged();
 }
 
@@ -432,6 +434,9 @@ void TrackMetadataModel::initializeByIdAndUrl(ElisaUtils::PlayListEntryType type
     mFileUrl.clear();
 
     Q_EMIT lyricsChanged();
+
+    mFileUrl = url;
+    mDatabaseId = databaseId;
 
     Q_EMIT needDataByDatabaseIdAndUrl(type, databaseId, url);
 }
@@ -523,6 +528,8 @@ void TrackMetadataModel::initializeByUrl(ElisaUtils::PlayListEntryType type, con
     mFileUrl.clear();
 
     Q_EMIT lyricsChanged();
+
+    mFileUrl = url;
 
     Q_EMIT needDataByUrl(type, url);
 }

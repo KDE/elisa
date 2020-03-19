@@ -174,7 +174,7 @@ private:
 
     QUrl mCoverImage;
 
-    QString mFileUrl;
+    QUrl mFileUrl;
 
     qulonglong mDatabaseId = 0;
 

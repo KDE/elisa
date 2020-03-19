@@ -16,7 +16,7 @@
  */
 
 import QtQuick 2.7
-import Qt.labs.platform 1.0 as NativeMenu
+import Qt.labs.platform 1.1 as NativeMenu
 import org.kde.elisa 1.0
 
 Item {
@@ -28,11 +28,25 @@ Item {
     property alias headerBarManager: mpris2Interface.headerBarManager
     property alias manageMediaPlayerControl: mpris2Interface.manageMediaPlayerControl
     property alias showProgressOnTaskBar: mpris2Interface.showProgressOnTaskBar
+    property bool showSystemTrayIcon
+    property var elisaMainWindow
 
     signal raisePlayer()
 
+    Connections {
+        target: elisaMainWindow
+
+        onClosing: {
+            if (systemTrayIcon.available && showSystemTrayIcon) {
+                close.accepted = false
+                elisaMainWindow.hide()
+            }
+        }
+    }
+
     NativeMenu.MenuBar {
         NativeApplicationMenu {
+            id: globalMenu
         }
     }
 
@@ -44,6 +58,24 @@ Item {
         onRaisePlayer:
         {
             rootItem.raisePlayer()
+        }
+    }
+
+    NativeMenu.SystemTrayIcon {
+        id: systemTrayIcon
+
+        icon.name: 'elisa'
+        tooltip: mainWindow.title
+        visible: available && showSystemTrayIcon && !mainWindow.visible
+
+        menu: globalMenu
+
+        onActivated: {
+            if (reason === NativeMenu.SystemTrayIcon.Trigger && !elisaMainWindow.visible) {
+                elisaMainWindow.visible = true
+            } else if (reason === NativeMenu.SystemTrayIcon.Trigger && elisaMainWindow.visible) {
+                raisePlayer()
+            }
         }
     }
 }

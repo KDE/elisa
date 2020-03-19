@@ -36,6 +36,7 @@ ElisaConfigurationDialog::ElisaConfigurationDialog(QObject* parent)
 
     setRootPath(Elisa::ElisaConfiguration::rootPath());
     setShowProgressInTaskBar(Elisa::ElisaConfiguration::showProgressOnTaskBar());
+    setShowSystemTrayIcon(Elisa::ElisaConfiguration::showSystemTrayIcon());
     setForceUsageOfFastFileSearch(Elisa::ElisaConfiguration::forceUsageOfFastFileSearch());
     save();
 
@@ -87,6 +88,7 @@ void ElisaConfigurationDialog::save()
 {
     Elisa::ElisaConfiguration::setRootPath(mRootPath);
     Elisa::ElisaConfiguration::setShowProgressOnTaskBar(mShowProgressInTaskBar);
+    Elisa::ElisaConfiguration::setShowSystemTrayIcon(mShowSystemTrayIcon);
     Elisa::ElisaConfiguration::setForceUsageOfFastFileSearch(mForceUsageOfFastFileSearch);
     Elisa::ElisaConfiguration::self()->save();
 
@@ -102,6 +104,18 @@ void ElisaConfigurationDialog::setShowProgressInTaskBar(bool showProgressInTaskB
 
     mShowProgressInTaskBar = showProgressInTaskBar;
     Q_EMIT showProgressInTaskBarChanged();
+
+    setDirty();
+}
+
+void ElisaConfigurationDialog::setShowSystemTrayIcon(bool showSystemTrayIcon)
+{
+    if (mShowSystemTrayIcon == showSystemTrayIcon) {
+        return;
+    }
+
+    mShowSystemTrayIcon = showSystemTrayIcon;
+    Q_EMIT showSystemTrayIconChanged();
 
     setDirty();
 }

@@ -12,6 +12,14 @@
  </group>
  <group name="PlayerSettings">
   <entry key="ShowProgressOnTaskBar" type="Bool" >
+    <default>
+      true
+    </default>
+  </entry>
+  <entry key="ShowSystemTrayIcon" type="Bool" >
+    <default>
+      false
+    </default>
   </entry>
  </group>
 </kcfg>

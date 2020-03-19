@@ -43,6 +43,11 @@ class ELISALIB_EXPORT ElisaConfigurationDialog : public QObject
                WRITE setShowProgressInTaskBar
                NOTIFY showProgressInTaskBarChanged)
 
+    Q_PROPERTY(bool showSystemTrayIcon
+               READ showSystemTrayIcon
+               WRITE setShowSystemTrayIcon
+               NOTIFY showSystemTrayIconChanged)
+
     Q_PROPERTY(bool isDirty
                READ isDirty
                NOTIFY isDirtyChanged)
@@ -65,6 +70,11 @@ public:
         return mShowProgressInTaskBar;
     }
 
+    bool showSystemTrayIcon() const
+    {
+        return mShowSystemTrayIcon;
+    }
+
     bool forceUsageOfFastFileSearch() const
     {
         return mForceUsageOfFastFileSearch;
@@ -78,6 +88,8 @@ Q_SIGNALS:
 
     void showProgressInTaskBarChanged();
 
+    void showSystemTrayIconChanged();
+
     void forceUsageOfFastFileSearchChanged();
 
 public Q_SLOTS:
@@ -87,6 +99,8 @@ public Q_SLOTS:
     void save();
 
     void setShowProgressInTaskBar(bool showProgressInTaskBar);
+
+    void setShowSystemTrayIcon(bool showSystemTrayIcon);
 
     void setForceUsageOfFastFileSearch(bool forceUsageOfFastFileSearch);
 
@@ -105,7 +119,10 @@ private:
     bool mIsDirty = false;
 
     bool mShowProgressInTaskBar = true;
-    bool mForceUsageOfFastFileSearch;
+
+    bool mShowSystemTrayIcon = false;
+
+    bool mForceUsageOfFastFileSearch = true;
 };
 
 #endif

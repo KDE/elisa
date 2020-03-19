@@ -34,4 +34,12 @@ ColumnLayout {
 
         onCheckedChanged: config.showProgressInTaskBar = checked
     }
+
+    CheckBox {
+        checked: config.showSystemTrayIcon
+
+        text: i18n("Keep running in System Tray when main window is closed")
+
+        onToggled: config.showSystemTrayIcon = checked
+    }
 }

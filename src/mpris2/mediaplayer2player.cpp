@@ -19,6 +19,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
  ***************************************************************************/
 
+#include "config-upnp-qt.h"
+
 #include "mediaplayer2player.h"
 #include "mpris2.h"
 
@@ -27,6 +29,10 @@
 #include "managemediaplayercontrol.h"
 #include "manageheaderbar.h"
 #include "audiowrapper.h"
+
+#if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
+#include <KFileMetaData/EmbeddedImageData>
+#endif
 
 #include <QCryptographicHash>
 #include <QStringList>
@@ -413,7 +419,21 @@ QVariantMap MediaPlayer2Player::getMetadataOfCurrentTrack()
         result[QStringLiteral("xesam:artist")] = QStringList{m_manageHeaderBar->artist().toString()};
     }
     if (!m_manageHeaderBar->image().isEmpty() && !m_manageHeaderBar->image().toString().isEmpty()) {
-        result[QStringLiteral("mpris:artUrl")] = m_manageHeaderBar->image().toString();
+        if (m_manageHeaderBar->image().scheme() == QStringLiteral("image")) {
+            // adding a special case for image:// URLs that are only valid because Elisa installs a special handler for them
+            // converting those URL to data URLs with embedded image data
+#if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
+            KFileMetaData::EmbeddedImageData embeddedImage;
+
+            auto imageData = embeddedImage.imageData(m_manageHeaderBar->image().toString().mid(14));
+
+            if (imageData.contains(KFileMetaData::EmbeddedImageData::FrontCover)) {
+                result[QStringLiteral("mpris:artUrl")] = QString{QStringLiteral("data:image/png;base64,") + QLatin1String{imageData[KFileMetaData::EmbeddedImageData::FrontCover].toBase64()}};
+            }
+#endif
+        } else {
+            result[QStringLiteral("mpris:artUrl")] = m_manageHeaderBar->image().toString();
+        }
     }
 
     return result;

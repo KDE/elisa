@@ -166,10 +166,6 @@ configure_file(config-upnp-qt.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-upnp-qt
 ecm_setup_version(${PROJECT_VERSION}
     VARIABLE_PREFIX ELISA
     VERSION_HEADER elisa-version.h)
-if (EXISTS "${CMAKE_SOURCE_DIR}/.git")
-   add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x060000)
-   add_definitions(-DKF_DISABLE_DEPRECATED_BEFORE_AND_AT=0x060000)
-endif()
 
 add_subdirectory(src)
 add_subdirectory(icons)

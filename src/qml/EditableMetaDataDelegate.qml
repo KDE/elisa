@@ -48,6 +48,8 @@ RowLayout {
     Loader {
         id: textDisplayLoader
 
+        focus: model.index === 0
+
         active: model.type === EditableTrackMetadataModel.TextEntry || model.type === EditableTrackMetadataModel.UrlEntry || model.type === EditableTrackMetadataModel.IntegerEntry
         visible: model.type === EditableTrackMetadataModel.TextEntry || model.type === EditableTrackMetadataModel.UrlEntry || model.type === EditableTrackMetadataModel.IntegerEntry
 
@@ -56,6 +58,8 @@ RowLayout {
 
         sourceComponent: TextField {
             text: model.display
+
+            focus: model.index === 0
 
             horizontalAlignment: Text.AlignLeft
 

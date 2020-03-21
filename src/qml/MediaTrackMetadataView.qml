@@ -193,6 +193,7 @@ Window {
                 Button {
                     id: deleteButton
                     text: i18n("Delete")
+                    icon.name: 'delete'
                     DialogButtonBox.buttonRole: DialogButtonBox.DestructiveRole
                     onClicked:
                     {
@@ -215,6 +216,7 @@ Window {
                     enabled: realModel.isDataValid && realModel.isDirty
 
                     text: i18n("Apply")
+                    icon.name: 'dialog-ok-apply'
                     DialogButtonBox.buttonRole: DialogButtonBox.ApplyRole
                     onClicked:
                     {
@@ -226,6 +228,7 @@ Window {
                 }
                 Button {
                     text: i18n("Close")
+                    icon.name: 'dialog-cancel'
                     DialogButtonBox.buttonRole: DialogButtonBox.DestructiveRole
                     onClicked: trackMetadata.close()
                 }

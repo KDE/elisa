@@ -100,11 +100,13 @@ Window {
 
                 Button {
                     text: i18n("OK")
+                    icon.name: 'dialog-ok-apply'
                     DialogButtonBox.buttonRole: DialogButtonBox.AcceptRole
                 }
 
                 Button {
                     text: i18n("Apply")
+                    icon.name: 'dialog-ok-apply'
                     DialogButtonBox.buttonRole: DialogButtonBox.ApplyRole
 
                     enabled: config.isDirty
@@ -112,6 +114,7 @@ Window {
 
                 Button {
                     text: i18n("Cancel")
+                    icon.name: 'dialog-cancel'
                     DialogButtonBox.buttonRole: DialogButtonBox.RejectRole
                 }
 

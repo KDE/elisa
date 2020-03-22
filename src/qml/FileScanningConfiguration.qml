@@ -35,7 +35,7 @@ ColumnLayout {
     }
 
     Label {
-        text: i18n("This is much slower than usage of fast search !\nPlease activate it only if Elisa cannot find your music and searching for the file also does not work.\nPlease report this as a bug.")
+        text: i18n("This is much slower than usage of fast search!\nPlease activate it only if Elisa cannot find your music and searching for the file also does not work.\nPlease report this as a bug.")
     }
 
     RowLayout {

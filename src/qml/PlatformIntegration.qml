@@ -68,7 +68,8 @@ Item {
         tooltip: mainWindow.title
         visible: available && showSystemTrayIcon && !mainWindow.visible
 
-        menu: globalMenu
+        menu: NativeApplicationMenu {
+        }
 
         onActivated: {
             if (reason === NativeMenu.SystemTrayIcon.Trigger && !elisaMainWindow.visible) {

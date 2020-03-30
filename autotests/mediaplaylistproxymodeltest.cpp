@@ -6946,6 +6946,180 @@ void MediaPlayListProxyModelTest::enqueueEmpty()
     QCOMPARE(newEntryInListSpy.count(), 0);
 }
 
+void MediaPlayListProxyModelTest::testMoveAndShuffle()
+{
+    MediaPlayList myPlayList;
+    QAbstractItemModelTester testModel(&myPlayList);
+    MediaPlayListProxyModel myPlayListProxyModel;
+    myPlayListProxyModel.setPlayListModel(&myPlayList);
+    QAbstractItemModelTester testProxyModel(&myPlayListProxyModel);
+    DatabaseInterface myDatabaseContent;
+    TracksListener myListener(&myDatabaseContent);
+
+    QSignalSpy rowsAboutToBeMovedSpy(&myPlayListProxyModel, &MediaPlayListProxyModel::rowsAboutToBeMoved);
+    QSignalSpy rowsAboutToBeRemovedSpy(&myPlayListProxyModel, &MediaPlayListProxyModel::rowsAboutToBeRemoved);
+    QSignalSpy rowsAboutToBeInsertedSpy(&myPlayListProxyModel, &MediaPlayListProxyModel::rowsAboutToBeInserted);
+    QSignalSpy rowsMovedSpy(&myPlayListProxyModel, &MediaPlayListProxyModel::rowsMoved);
+    QSignalSpy rowsRemovedSpy(&myPlayListProxyModel, &MediaPlayListProxyModel::rowsRemoved);
+    QSignalSpy rowsInsertedSpy(&myPlayListProxyModel, &MediaPlayListProxyModel::rowsInserted);
+    QSignalSpy persistentStateChangedSpy(&myPlayListProxyModel, &MediaPlayListProxyModel::persistentStateChanged);
+    QSignalSpy dataChangedSpy(&myPlayListProxyModel, &MediaPlayListProxyModel::dataChanged);
+    QSignalSpy newTrackByNameInListSpy(&myPlayList, &MediaPlayList::newTrackByNameInList);
+    QSignalSpy newEntryInListSpy(&myPlayList, &MediaPlayList::newEntryInList);
+    QSignalSpy newUrlInListSpy(&myPlayList, &MediaPlayList::newUrlInList);
+
+    QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
+    QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
+    QCOMPARE(rowsAboutToBeInsertedSpy.count(), 0);
+    QCOMPARE(rowsRemovedSpy.count(), 0);
+    QCOMPARE(rowsMovedSpy.count(), 0);
+    QCOMPARE(rowsInsertedSpy.count(), 0);
+    QCOMPARE(persistentStateChangedSpy.count(), 0);
+    QCOMPARE(dataChangedSpy.count(), 0);
+    QCOMPARE(newTrackByNameInListSpy.count(), 0);
+    QCOMPARE(newEntryInListSpy.count(), 0);
+
+    myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
+
+    connect(&myListener, &TracksListener::trackHasChanged,
+            &myPlayList, &MediaPlayList::trackChanged,
+            Qt::QueuedConnection);
+    connect(&myListener, &TracksListener::tracksListAdded,
+            &myPlayList, &MediaPlayList::tracksListAdded,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newTrackByNameInList,
+            &myListener, &TracksListener::trackByNameInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newEntryInList,
+            &myListener, &TracksListener::newEntryInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
+            Qt::QueuedConnection);
+    connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
+            &myListener, &TracksListener::tracksAdded);
+
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
+
+    QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
+    QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
+    QCOMPARE(rowsAboutToBeInsertedSpy.count(), 0);
+    QCOMPARE(rowsRemovedSpy.count(), 0);
+    QCOMPARE(rowsMovedSpy.count(), 0);
+    QCOMPARE(rowsInsertedSpy.count(), 0);
+    QCOMPARE(persistentStateChangedSpy.count(), 0);
+    QCOMPARE(dataChangedSpy.count(), 0);
+    QCOMPARE(newTrackByNameInListSpy.count(), 0);
+    QCOMPARE(newEntryInListSpy.count(), 0);
+
+    auto firstTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1);
+    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, firstTrackId}}, {}, {}}, ElisaUtils::Track);
+
+    QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
+    QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
+    QCOMPARE(rowsAboutToBeInsertedSpy.count(), 1);
+    QCOMPARE(rowsRemovedSpy.count(), 0);
+    QCOMPARE(rowsMovedSpy.count(), 0);
+    QCOMPARE(rowsInsertedSpy.count(), 1);
+    QCOMPARE(persistentStateChangedSpy.count(), 1);
+    QCOMPARE(dataChangedSpy.count(), 0);
+    QCOMPARE(newTrackByNameInListSpy.count(), 0);
+    QCOMPARE(newEntryInListSpy.count(), 1);
+
+    QCOMPARE(dataChangedSpy.wait(), true);
+
+    QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
+    QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
+    QCOMPARE(rowsAboutToBeInsertedSpy.count(), 1);
+    QCOMPARE(rowsRemovedSpy.count(), 0);
+    QCOMPARE(rowsMovedSpy.count(), 0);
+    QCOMPARE(rowsInsertedSpy.count(), 1);
+    QCOMPARE(persistentStateChangedSpy.count(), 1);
+    QCOMPARE(dataChangedSpy.count(), 1);
+    QCOMPARE(newTrackByNameInListSpy.count(), 0);
+    QCOMPARE(newEntryInListSpy.count(), 1);
+
+    auto secondTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album2"), 2, 1);
+    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, secondTrackId}}, {}, {}}, ElisaUtils::Track);
+
+    QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
+    QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
+    QCOMPARE(rowsAboutToBeInsertedSpy.count(), 2);
+    QCOMPARE(rowsRemovedSpy.count(), 0);
+    QCOMPARE(rowsMovedSpy.count(), 0);
+    QCOMPARE(rowsInsertedSpy.count(), 2);
+    QCOMPARE(persistentStateChangedSpy.count(), 2);
+    QCOMPARE(dataChangedSpy.count(), 1);
+    QCOMPARE(newTrackByNameInListSpy.count(), 0);
+    QCOMPARE(newEntryInListSpy.count(), 2);
+
+    QCOMPARE(dataChangedSpy.wait(), true);
+
+    QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
+    QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
+    QCOMPARE(rowsAboutToBeInsertedSpy.count(), 2);
+    QCOMPARE(rowsRemovedSpy.count(), 0);
+    QCOMPARE(rowsMovedSpy.count(), 0);
+    QCOMPARE(rowsInsertedSpy.count(), 2);
+    QCOMPARE(persistentStateChangedSpy.count(), 2);
+    QCOMPARE(dataChangedSpy.count(), 2);
+    QCOMPARE(newTrackByNameInListSpy.count(), 0);
+    QCOMPARE(newEntryInListSpy.count(), 2);
+
+    auto thirdTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist1"), QStringLiteral("album2"), 3, 1);
+    myPlayListProxyModel.enqueue({{{DataTypes::DatabaseIdRole, thirdTrackId}}, {}, {}}, ElisaUtils::Track);
+
+    QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
+    QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
+    QCOMPARE(rowsAboutToBeInsertedSpy.count(), 3);
+    QCOMPARE(rowsRemovedSpy.count(), 0);
+    QCOMPARE(rowsMovedSpy.count(), 0);
+    QCOMPARE(rowsInsertedSpy.count(), 3);
+    QCOMPARE(persistentStateChangedSpy.count(), 3);
+    QCOMPARE(dataChangedSpy.count(), 2);
+    QCOMPARE(newTrackByNameInListSpy.count(), 0);
+    QCOMPARE(newEntryInListSpy.count(), 3);
+
+    QCOMPARE(dataChangedSpy.wait(), true);
+
+    QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
+    QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
+    QCOMPARE(rowsAboutToBeInsertedSpy.count(), 3);
+    QCOMPARE(rowsRemovedSpy.count(), 0);
+    QCOMPARE(rowsMovedSpy.count(), 0);
+    QCOMPARE(rowsInsertedSpy.count(), 3);
+    QCOMPARE(persistentStateChangedSpy.count(), 3);
+    QCOMPARE(dataChangedSpy.count(), 3);
+    QCOMPARE(newTrackByNameInListSpy.count(), 0);
+    QCOMPARE(newEntryInListSpy.count(), 3);
+
+    myPlayListProxyModel.setShufflePlayList(true);
+
+    QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
+    QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
+    QCOMPARE(rowsAboutToBeInsertedSpy.count(), 3);
+    QCOMPARE(rowsRemovedSpy.count(), 0);
+    QCOMPARE(rowsMovedSpy.count(), 0);
+    QCOMPARE(rowsInsertedSpy.count(), 3);
+    QCOMPARE(persistentStateChangedSpy.count(), 4);
+    QCOMPARE(dataChangedSpy.count(), 3);
+    QCOMPARE(newTrackByNameInListSpy.count(), 0);
+    QCOMPARE(newEntryInListSpy.count(), 3);
+
+    myPlayListProxyModel.moveRow(2, 0);
+
+    QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
+    QCOMPARE(rowsAboutToBeMovedSpy.count(), 1);
+    QCOMPARE(rowsAboutToBeInsertedSpy.count(), 3);
+    QCOMPARE(rowsRemovedSpy.count(), 0);
+    QCOMPARE(rowsMovedSpy.count(), 1);
+    QCOMPARE(rowsInsertedSpy.count(), 3);
+    QCOMPARE(persistentStateChangedSpy.count(), 4);
+    QCOMPARE(dataChangedSpy.count(), 3);
+    QCOMPARE(newTrackByNameInListSpy.count(), 0);
+    QCOMPARE(newEntryInListSpy.count(), 3);
+}
+
 QTEST_GUILESS_MAIN(MediaPlayListProxyModelTest)
 
 

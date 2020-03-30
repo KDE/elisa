@@ -652,7 +652,7 @@ void MediaPlayListProxyModel::removeRow(int row)
 void MediaPlayListProxyModel::moveRow(int from, int to)
 {
     if (d->mShufflePlayList) {
-        beginMoveRows({}, from, 1, {}, from < to ? to + 1 : to);
+        beginMoveRows({}, from, from, {}, from < to ? to + 1 : to);
         d->mRandomMapping.move(from, to);
         endMoveRows();
     } else {

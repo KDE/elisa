@@ -143,6 +143,8 @@ private Q_SLOTS:
 
     void testHasHeaderYetAnotherMoveLikeQml();
 
+    void testMoveAndShuffle();
+
 };
 
 #endif // MEDIAPLAYLISTPROXYMODELTEST_H

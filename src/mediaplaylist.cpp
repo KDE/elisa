@@ -406,7 +406,9 @@ void MediaPlayList::enqueueMultipleEntries(const DataTypes::EntryDataList &entri
     beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size() + entriesData.size() - 1);
     for (const auto &entryData : entriesData) {
         if (!std::get<0>(entryData).databaseId() && std::get<2>(entryData).isValid()) {
-            d->mData.push_back(MediaPlayListEntry{std::get<2>(entryData)});
+            auto newEntry = MediaPlayListEntry{std::get<2>(entryData)};
+            newEntry.mEntryType = ElisaUtils::FileName;
+            d->mData.push_back(std::move(newEntry));
             d->mTrackData.push_back({});
         } else {
             d->mData.push_back(MediaPlayListEntry{std::get<0>(entryData).databaseId(), std::get<1>(entryData), std::get<0>(entryData).elementType()});

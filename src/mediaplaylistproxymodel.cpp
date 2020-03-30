@@ -470,46 +470,20 @@ int MediaPlayListProxyModel::currentTrackRow() const
     return d->mCurrentTrack.row();
 }
 
-void MediaPlayListProxyModel::enqueue(const DataTypes::EntryData &newEntry)
-{
-    enqueue(newEntry, ElisaUtils::PlayListEnqueueMode::AppendPlayList, ElisaUtils::PlayListEnqueueTriggerPlay::DoNotTriggerPlay);
-}
-
-void MediaPlayListProxyModel::enqueue(const DataTypes::EntryDataList &newEntries)
-{
-    enqueue(newEntries, ElisaUtils::PlayListEnqueueMode::AppendPlayList, ElisaUtils::PlayListEnqueueTriggerPlay::DoNotTriggerPlay);
-}
-
 void MediaPlayListProxyModel::enqueue(qulonglong newEntryDatabaseId,
                             const QString &newEntryTitle,
                             ElisaUtils::PlayListEnqueueMode enqueueMode,
                             ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
 {
-    enqueue(DataTypes::EntryData{{{DataTypes::DatabaseIdRole, newEntryDatabaseId}}, newEntryTitle, {}}, enqueueMode, triggerPlay);
+    enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track}, {DataTypes::DatabaseIdRole, newEntryDatabaseId}}, newEntryTitle, {}}},
+            enqueueMode, triggerPlay);
 }
 
 void MediaPlayListProxyModel::enqueue(const QUrl &entryUrl,
                             ElisaUtils::PlayListEnqueueMode enqueueMode,
                             ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
 {
-    enqueue(DataTypes::EntryData{{}, {}, entryUrl}, enqueueMode, triggerPlay);
-}
-
-void MediaPlayListProxyModel::enqueue(const DataTypes::EntryData &newEntry,
-                            ElisaUtils::PlayListEnqueueMode enqueueMode,
-                            ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
-{
-    d->mTriggerPlay = triggerPlay;
-
-    if (enqueueMode == ElisaUtils::ReplacePlayList) {
-        if (rowCount() == 0) {
-            Q_EMIT hideUndoNotification();
-        } else {
-            clearPlayList();
-        }
-    }
-
-    d->mPlayListModel->enqueueOneEntry(newEntry);
+    enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, entryUrl}}, enqueueMode, triggerPlay);
 }
 
 void MediaPlayListProxyModel::enqueue(const DataTypes::EntryDataList &newEntries,
@@ -732,14 +706,17 @@ void MediaPlayListProxyModel::loadPlayList(const QUrl &fileName)
 void MediaPlayListProxyModel::loadPlayListLoaded()
 {
     clearPlayList();
+
+    auto newTracks = DataTypes::EntryDataList{};
     for (int i = 0; i < d->mLoadPlaylist.mediaCount(); ++i) {
 #if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
-        enqueue(DataTypes::EntryData{{{DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, d->mLoadPlaylist.media(i).canonicalUrl()});
+        newTracks.push_back({{{{DataTypes::ElementTypeRole, ElisaUtils::FileName}}}, {}, d->mLoadPlaylist.media(i).canonicalUrl()});
 #else
-        qDebug() << "MediaPlayListProxyModel::loadPlayListLoaded()" << d->mLoadPlaylist.media(i).request().url();
-        enqueue(DataTypes::EntryData{{{DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, d->mLoadPlaylist.media(i).request().url()});
+        newTracks.push_back({{{{DataTypes::ElementTypeRole, ElisaUtils::FileName}}}, {}, d->mLoadPlaylist.media(i).request().url()});
 #endif
     }
+
+    enqueue(newTracks, ElisaUtils::ReplacePlayList, ElisaUtils::DoNotTriggerPlay);
 
     Q_EMIT persistentStateChanged();
 

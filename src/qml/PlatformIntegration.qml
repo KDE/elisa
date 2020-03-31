@@ -69,6 +69,7 @@ Item {
         visible: available && showSystemTrayIcon && !mainWindow.visible
 
         menu: NativeApplicationMenu {
+            id: exportedMenu
         }
 
         onActivated: {
@@ -77,6 +78,11 @@ Item {
             } else if (reason === NativeMenu.SystemTrayIcon.Trigger && elisaMainWindow.visible) {
                 raisePlayer()
             }
+        }
+
+        Component.onCompleted: {
+            exportedMenu.visible = false
+            exportedMenu.enabled = false
         }
     }
 }

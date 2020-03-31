@@ -16,8 +16,6 @@
 
 #cmakedefine01 KF5ConfigWidgets_FOUND
 
-#cmakedefine01 KF5KCMUtils_FOUND
-
 #cmakedefine01 KF5KIO_FOUND
 
 #cmakedefine01 KF5FileMetaData_FOUND

@@ -44,7 +44,6 @@ FocusScope {
         id: proxyModel
 
         sourceModel: realModel
-        dataType: modelType
         playList: elisa.mediaPlayListProxyModel
     }
 

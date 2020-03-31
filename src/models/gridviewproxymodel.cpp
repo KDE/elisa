@@ -20,11 +20,6 @@ GridViewProxyModel::GridViewProxyModel(QObject *parent) : AbstractMediaProxyMode
     sortModel(Qt::AscendingOrder);
 }
 
-ElisaUtils::PlayListEntryType GridViewProxyModel::dataType() const
-{
-    return mDataType;
-}
-
 GridViewProxyModel::~GridViewProxyModel() = default;
 
 bool GridViewProxyModel::filterAcceptsRow(int source_row, const QModelIndex &source_parent) const
@@ -61,44 +56,6 @@ bool GridViewProxyModel::filterAcceptsRow(int source_row, const QModelIndex &sou
     }
 
     return result;
-}
-
-void GridViewProxyModel::genericEnqueueToPlayList(ElisaUtils::PlayListEnqueueMode enqueueMode,
-                                                  ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
-{
-    QtConcurrent::run(&mThreadPool, [=] () {
-        QReadLocker locker(&mDataLock);
-        auto allData = DataTypes::EntryDataList{};
-        allData.reserve(rowCount());
-        for (int rowIndex = 0, maxRowCount = rowCount(); rowIndex < maxRowCount; ++rowIndex) {
-            auto currentIndex = index(rowIndex, 0);
-
-            allData.push_back(DataTypes::EntryData{data(currentIndex, DataTypes::FullDataRole).value<DataTypes::MusicDataType>(),
-                                                   data(currentIndex, Qt::DisplayRole).toString(), {}});
-        }
-        Q_EMIT entriesToEnqueue(allData, enqueueMode, triggerPlay);
-    });
-}
-
-void GridViewProxyModel::enqueueToPlayList()
-{
-    genericEnqueueToPlayList(ElisaUtils::AppendPlayList, ElisaUtils::DoNotTriggerPlay);
-}
-
-void GridViewProxyModel::replaceAndPlayOfPlayList()
-{
-    genericEnqueueToPlayList(ElisaUtils::ReplacePlayList, ElisaUtils::TriggerPlay);
-}
-
-void GridViewProxyModel::setDataType(ElisaUtils::PlayListEntryType newDataType)
-{
-    if (mDataType == newDataType) {
-        return;
-    }
-
-    mDataType = newDataType;
-
-    Q_EMIT dataTypeChanged();
 }
 
 

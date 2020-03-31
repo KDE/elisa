@@ -27,18 +27,11 @@ Q_SIGNALS:
 
 public Q_SLOTS:
 
-    void enqueueToPlayList();
-
-    void replaceAndPlayOfPlayList();
-
 protected:
 
     bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override;
 
 private:
-
-    void genericEnqueueToPlayList(ElisaUtils::PlayListEnqueueMode enqueueMode,
-                                  ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 
 };
 

@@ -10,6 +10,8 @@
 #include "mediaplaylistproxymodel.h"
 
 #include <QWriteLocker>
+#include <QReadLocker>
+#include <QtConcurrent>
 
 AbstractMediaProxyModel::AbstractMediaProxyModel(QObject *parent) : QSortFilterProxyModel(parent)
 {
@@ -108,5 +110,32 @@ void AbstractMediaProxyModel::connectPlayList()
                 mPlayList, static_cast<void(MediaPlayListProxyModel::*)(const DataTypes::EntryDataList&, ElisaUtils::PlayListEnqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayListProxyModel::enqueue));
     }
 }
+void AbstractMediaProxyModel::genericEnqueueToPlayList(ElisaUtils::PlayListEnqueueMode enqueueMode,
+                                                   ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
+{
+    QtConcurrent::run(&mThreadPool, [=] () {
+        QReadLocker locker(&mDataLock);
+        auto allData = DataTypes::EntryDataList{};
+        allData.reserve(rowCount());
+        for (int rowIndex = 0, maxRowCount = rowCount(); rowIndex < maxRowCount; ++rowIndex) {
+            auto currentIndex = index(rowIndex, 0);
+
+            allData.push_back(DataTypes::EntryData{data(currentIndex, DataTypes::FullDataRole).value<DataTypes::MusicDataType>(),
+                                                   data(currentIndex, Qt::DisplayRole).toString(), {}});
+        }
+        Q_EMIT entriesToEnqueue(allData, enqueueMode, triggerPlay);
+    });
+}
+
+void AbstractMediaProxyModel::enqueueToPlayList()
+{
+    genericEnqueueToPlayList(ElisaUtils::AppendPlayList, ElisaUtils::DoNotTriggerPlay);
+}
+
+void AbstractMediaProxyModel::replaceAndPlayOfPlayList()
+{
+    genericEnqueueToPlayList(ElisaUtils::ReplacePlayList, ElisaUtils::TriggerPlay);
+}
+
 
 #include "moc_abstractmediaproxymodel.cpp"

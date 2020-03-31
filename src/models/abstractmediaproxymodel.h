@@ -65,6 +65,10 @@ public Q_SLOTS:
 
     void setPlayList(MediaPlayListProxyModel* playList);
 
+    void enqueueToPlayList();
+
+    void replaceAndPlayOfPlayList();
+
 Q_SIGNALS:
 
     void filterTextChanged(const QString &filterText);
@@ -98,6 +102,11 @@ protected:
     QThreadPool mThreadPool;
 
     MediaPlayListProxyModel* mPlayList = nullptr;
+
+private:
+
+    void genericEnqueueToPlayList(ElisaUtils::PlayListEnqueueMode enqueueMode,
+                                  ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 
 };
 

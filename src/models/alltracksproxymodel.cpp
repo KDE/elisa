@@ -8,9 +8,6 @@
 
 #include "datatypes.h"
 
-#include <QReadLocker>
-#include <QtConcurrent>
-
 AllTracksProxyModel::AllTracksProxyModel(QObject *parent) : AbstractMediaProxyModel(parent)
 {
     setSortCaseSensitivity(Qt::CaseInsensitive);
@@ -41,33 +38,6 @@ bool AllTracksProxyModel::filterAcceptsRow(int source_row, const QModelIndex &so
     }
 
     return result;
-}
-
-void AllTracksProxyModel::genericEnqueueToPlayList(ElisaUtils::PlayListEnqueueMode enqueueMode,
-                                                   ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
-{
-    QtConcurrent::run(&mThreadPool, [=] () {
-        QReadLocker locker(&mDataLock);
-        auto allTracks = DataTypes::EntryDataList{};
-        allTracks.reserve(rowCount());
-        for (int rowIndex = 0, maxRowCount = rowCount(); rowIndex < maxRowCount; ++rowIndex) {
-            auto currentIndex = index(rowIndex, 0);
-            allTracks.push_back(DataTypes::EntryData{data(currentIndex, DataTypes::FullDataRole).value<DataTypes::TrackDataType>(),
-                                                      data(currentIndex, DataTypes::ColumnsRoles::TitleRole).toString(),
-                                                      data(currentIndex, DataTypes::ColumnsRoles::ResourceRole).toUrl()});
-        }
-        Q_EMIT entriesToEnqueue(allTracks, enqueueMode, triggerPlay);
-    });
-}
-
-void AllTracksProxyModel::enqueueToPlayList()
-{
-    genericEnqueueToPlayList(ElisaUtils::AppendPlayList, ElisaUtils::DoNotTriggerPlay);
-}
-
-void AllTracksProxyModel::replaceAndPlayOfPlayList()
-{
-    genericEnqueueToPlayList(ElisaUtils::ReplacePlayList, ElisaUtils::TriggerPlay);
 }
 
 

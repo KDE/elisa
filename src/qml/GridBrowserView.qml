@@ -27,9 +27,9 @@ FocusScope {
     property var stackView
     property url defaultIcon
 
-    signal enqueue(int databaseId, string name)
-    signal replaceAndPlay(int databaseId, string name)
-    signal open(string innerMainTitle, string innerSecondaryTitle, url innerImage, int databaseId, var dataType)
+    signal enqueue(var fullData, string name)
+    signal replaceAndPlay(var fullData, string name)
+    signal open(string innerMainTitle, string innerSecondaryTitle, url innerImage, int databaseId, var dataType, var showDiscHeader)
     signal goBack()
 
     ColumnLayout {
@@ -134,8 +134,8 @@ FocusScope {
                     delegateDisplaySecondaryText: gridView.delegateDisplaySecondaryText
                     entryType: model.dataType
 
-                    onEnqueue: gridView.enqueue(databaseId, name)
-                    onReplaceAndPlay: gridView.replaceAndPlay(databaseId, name)
+                    onEnqueue: gridView.enqueue(model.fullData, model.display)
+                    onReplaceAndPlay: gridView.replaceAndPlay(model.fullData, model.display)
                     onOpen: gridView.open(model.display, model.secondaryText,
                                           (model && model.imageUrl && model.imageUrl.toString() !== "" ? model.imageUrl : defaultIcon),
                                           model.databaseId, model.dataType)

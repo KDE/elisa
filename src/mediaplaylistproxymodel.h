@@ -118,7 +118,8 @@ public Q_SLOTS:
                  ElisaUtils::PlayListEnqueueMode enqueueMode,
                  ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 
-    void enqueue(qulonglong newEntryDatabaseId, const QString &newEntryTitle,
+    void enqueue(const DataTypes::MusicDataType &newEntry,
+                 const QString &newEntryTitle,
                  ElisaUtils::PlayListEnqueueMode enqueueMode,
                  ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 

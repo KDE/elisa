@@ -29,8 +29,8 @@ FocusScope {
     property bool showPlayButton: true
     property bool showEnqueueButton: true
 
-    signal enqueue(var databaseId, var name, var url)
-    signal replaceAndPlay(var databaseId, var name, var url)
+    signal enqueue()
+    signal replaceAndPlay()
     signal open()
     signal selected()
 
@@ -174,9 +174,9 @@ FocusScope {
                             Accessible.description: ToolTip.text
                             Accessible.onPressAction: onClicked
 
-                            onClicked: replaceAndPlay(databaseId, mainText, fileUrl)
-                            Keys.onReturnPressed: replaceAndPlay(databaseId, mainText, fileUrl)
-                            Keys.onEnterPressed: replaceAndPlay(databaseId, mainText, fileUrl)
+                            onClicked: replaceAndPlay()
+                            Keys.onReturnPressed: replaceAndPlay()
+                            Keys.onEnterPressed: replaceAndPlay()
 
                             visible: showPlayButton
 
@@ -199,9 +199,9 @@ FocusScope {
                             Accessible.description: ToolTip.text
                             Accessible.onPressAction: onClicked
 
-                            onClicked: enqueue(databaseId, mainText, fileUrl)
-                            Keys.onReturnPressed: enqueue(databaseId, mainText, fileUrl)
-                            Keys.onEnterPressed: enqueue(databaseId, mainText, fileUrl)
+                            onClicked: enqueue()
+                            Keys.onReturnPressed: enqueue()
+                            Keys.onEnterPressed: enqueue()
 
                             visible: showEnqueueButton
 

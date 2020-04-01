@@ -98,10 +98,12 @@ FocusScope {
             isAlternateColor: (index % 2) === 1
             detailedView: false
 
-            onEnqueue: elisa.mediaPlayListProxyModel.enqueue(url, ElisaUtils.AppendPlayList,
+            onEnqueue: elisa.mediaPlayListProxyModel.enqueue(model.fullData, model.display,
+                                                             ElisaUtils.AppendPlayList,
                                                              ElisaUtils.DoNotTriggerPlay)
 
-            onReplaceAndPlay: elisa.mediaPlayListProxyModel.enqueue(url, ElisaUtils.ReplacePlayList,
+            onReplaceAndPlay: elisa.mediaPlayListProxyModel.enqueue(model.fullData, model.display,
+                                                                    ElisaUtils.ReplacePlayList,
                                                                     ElisaUtils.TriggerPlay)
 
 
@@ -144,10 +146,12 @@ FocusScope {
             isSelected: listView.currentIndex === index
             isAlternateColor: (index % 2) === 1
 
-            onEnqueue: elisa.mediaPlayListProxyModel.enqueue(url, ElisaUtils.AppendPlayList,
+            onEnqueue: elisa.mediaPlayListProxyModel.enqueue(model.fullData, model.display,
+                                                             ElisaUtils.AppendPlayList,
                                                              ElisaUtils.DoNotTriggerPlay)
 
-            onReplaceAndPlay: elisa.mediaPlayListProxyModel.enqueue(url, ElisaUtils.ReplacePlayList,
+            onReplaceAndPlay: elisa.mediaPlayListProxyModel.enqueue(model.fullData, model.display,
+                                                                    ElisaUtils.ReplacePlayList,
                                                                     ElisaUtils.TriggerPlay)
 
             onClicked: {

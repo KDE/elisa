@@ -470,13 +470,10 @@ int MediaPlayListProxyModel::currentTrackRow() const
     return d->mCurrentTrack.row();
 }
 
-void MediaPlayListProxyModel::enqueue(qulonglong newEntryDatabaseId,
-                            const QString &newEntryTitle,
-                            ElisaUtils::PlayListEnqueueMode enqueueMode,
-                            ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
+void MediaPlayListProxyModel::enqueue(const DataTypes::MusicDataType &newEntry, const QString &newEntryTitle,
+                                      ElisaUtils::PlayListEnqueueMode enqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
 {
-    enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track}, {DataTypes::DatabaseIdRole, newEntryDatabaseId}}, newEntryTitle, {}}},
-            enqueueMode, triggerPlay);
+    enqueue({{newEntry, newEntryTitle, {}}}, enqueueMode, triggerPlay);
 }
 
 void MediaPlayListProxyModel::enqueue(const QUrl &entryUrl,

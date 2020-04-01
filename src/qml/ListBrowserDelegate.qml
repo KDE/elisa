@@ -33,16 +33,16 @@ FocusScope {
     property bool detailedView: true
 
     signal clicked()
-    signal enqueue(var url, var entryType, var name)
-    signal replaceAndPlay(var url, var entryType, var name)
+    signal enqueue()
+    signal replaceAndPlay()
     signal callOpenMetaDataView(var url, var entryType)
 
     Accessible.role: Accessible.ListItem
     Accessible.name: title
     Accessible.description: title
 
-    Keys.onReturnPressed: enqueue(trackUrl, dataType, title)
-    Keys.onEnterPressed: enqueue(trackUrl, dataType, title)
+    Keys.onReturnPressed: enqueue()
+    Keys.onEnterPressed: enqueue()
 
     property int singleLineHeight: 3 * Kirigami.Units.smallSpacing + Kirigami.Units.gridUnit
     height: singleLineHeight + (detailedView ? Kirigami.Units.gridUnit : 0)
@@ -69,7 +69,7 @@ FocusScope {
             mediaTrack.clicked()
         }
 
-        onDoubleClicked: enqueue(trackUrl, dataType, title)
+        onDoubleClicked: enqueue()
 
         RowLayout {
             anchors.fill: parent
@@ -261,7 +261,7 @@ FocusScope {
 
                         text: i18nc("Enqueue current track", "Enqueue")
                         icon.name: "list-add"
-                        onClicked: enqueue(trackUrl, dataType, title)
+                        onClicked: enqueue()
                     }
 
                     FlatButtonWithToolTip {
@@ -272,7 +272,7 @@ FocusScope {
 
                         text: i18nc("Clear play list and enqueue current track", "Play Now and Replace Play List")
                         icon.name: "media-playback-start"
-                        onClicked: replaceAndPlay(trackUrl, dataType, title)
+                        onClicked: replaceAndPlay()
                     }
                 }
             }

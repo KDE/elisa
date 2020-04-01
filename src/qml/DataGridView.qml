@@ -56,11 +56,11 @@ FocusScope {
 
         contentModel: proxyModel
 
-        onEnqueue: elisa.mediaPlayListProxyModel.enqueue(databaseId, name, modelType,
+        onEnqueue: elisa.mediaPlayListProxyModel.enqueue(fullData, name,
                                                ElisaUtils.AppendPlayList,
                                                ElisaUtils.DoNotTriggerPlay)
 
-        onReplaceAndPlay: elisa.mediaPlayListProxyModel.enqueue(databaseId, name, modelType,
+        onReplaceAndPlay: elisa.mediaPlayListProxyModel.enqueue(fullData, name,
                                                       ElisaUtils.ReplacePlayList,
                                                       ElisaUtils.TriggerPlay)
 

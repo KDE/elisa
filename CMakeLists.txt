@@ -120,11 +120,6 @@ if (NOT WIN32)
         TYPE OPTIONAL)
 endif()
 
-find_package(KF5KCMUtils ${REQUIRED_KF5_VERSION} CONFIG QUIET)
-set_package_properties(KF5KCMUtils PROPERTIES
-    DESCRIPTION "KF5 Utilities for KDE System Settings modules library."
-    TYPE RECOMMENDED)
-
 find_package(KF5Package ${REQUIRED_KF5_VERSION} CONFIG QUIET)
 set_package_properties(KF5Package PROPERTIES
     DESCRIPTION "KF5 package management library needed to get the configuration dialogs."

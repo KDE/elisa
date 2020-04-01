@@ -226,13 +226,6 @@ if (KF5ConfigWidgets_FOUND)
         )
 endif()
 
-if (KF5KCMUtils_FOUND)
-    target_link_libraries(elisaLib
-        LINK_PUBLIC
-        KF5::KCMUtils
-        )
-endif()
-
 if (KF5Baloo_FOUND)
     if (Qt5DBus_FOUND)
         target_link_libraries(elisaLib

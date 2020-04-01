@@ -43,10 +43,6 @@
 #include <KXmlGui/KShortcutsDialog>
 #endif
 
-#if defined KF5KCMUtils_FOUND && KF5KCMUtils_FOUND
-#include <KCMUtils/KCMultiDialog>
-#endif
-
 #include <KCoreAddons/KAboutData>
 
 #include <QQmlApplicationEngine>

@@ -61,13 +61,23 @@ public:
                    QUrl mainImage,
                    ViewManager::ViewPresentationType viewPresentationType,
                    ElisaUtils::FilterType filterType,
-                   ElisaUtils::PlayListEntryType dataType)
+                   ElisaUtils::PlayListEntryType dataType,
+                   int sortRole,
+                   ViewManager::SortOrder sortOrder,
+                   ViewManager::AlbumCardinality albumCardinality,
+                   ViewManager::AlbumViewStyle albumViewStyle,
+                   ViewManager::RadioSpecificStyle radioSpecificStyle)
         : mViewType(viewType)
         , mMainTitle(std::move(mainTitle))
         , mMainImage(std::move(mainImage))
         , mViewPresentationType(viewPresentationType)
         , mFilterType(filterType)
         , mDataType(dataType)
+        , mSortRole(sortRole)
+        , mSortOrder(sortOrder)
+        , mAlbumCardinality(albumCardinality)
+        , mAlbumViewStyle(albumViewStyle)
+        , mRadioSpecificStyle(radioSpecificStyle)
     {
     }
 
@@ -88,6 +98,16 @@ public:
     ViewManager::DelegateUseSecondaryText mShowSecondaryTextOnDelegates = ViewManager::DelegateWithSecondaryText;
 
     ViewManager::ViewCanBeRated mViewCanBeRated = ViewManager::ViewHideRating;
+
+    int mSortRole = Qt::DisplayRole;
+
+    ViewManager::SortOrder mSortOrder = ViewManager::SortAscending;
+
+    ViewManager::AlbumCardinality mAlbumCardinality = ViewManager::MultipleAlbum;
+
+    ViewManager::AlbumViewStyle mAlbumViewStyle = ViewManager::NoDiscHeaders;
+
+    ViewManager::RadioSpecificStyle mRadioSpecificStyle = ViewManager::IsTrack;
 };
 
 class ViewManagerPrivate
@@ -102,13 +122,23 @@ public:
                                          QUrl{QStringLiteral("image://icon/media-playlist-play")},
                                          ViewManager::ListView,
                                          ElisaUtils::FilterByRecentlyPlayed,
-                                         ElisaUtils::Track},
+                                         ElisaUtils::Track,
+                                         DataTypes::LastPlayDate,
+                                         ViewManager::SortDescending,
+                                         ViewManager::MultipleAlbum,
+                                         ViewManager::NoDiscHeaders,
+                                         ViewManager::IsTrack},
                                         {ViewManager::FrequentlyPlayedTracks,
                                          {i18nc("Title of the view of frequently played tracks", "Frequently Played")},
                                          QUrl{QStringLiteral("image://icon/view-media-playcount")},
                                          ViewManager::ListView,
                                          ElisaUtils::FilterByFrequentlyPlayed,
-                                         ElisaUtils::Track},
+                                         ElisaUtils::Track,
+                                         DataTypes::PlayFrequency,
+                                         ViewManager::SortDescending,
+                                         ViewManager::MultipleAlbum,
+                                         ViewManager::NoDiscHeaders,
+                                         ViewManager::IsTrack},
                                         {ViewManager::AllAlbums,
                                          {i18nc("Title of the view of all albums", "Albums")},
                                          QUrl{QStringLiteral("image://icon/view-media-album-cover")},
@@ -116,8 +146,8 @@ public:
                                          ElisaUtils::NoFilter,
                                          ElisaUtils::Album,
                                          QUrl{QStringLiteral("image://icon/media-optical-audio")},
-                                        ViewManager::DelegateWithSecondaryText,
-                                        ViewManager::ViewShowRating},
+                                         ViewManager::DelegateWithSecondaryText,
+                                         ViewManager::ViewShowRating},
                                         {ViewManager::AllArtists,
                                          {i18nc("Title of the view of all artists", "Artists")},
                                          QUrl{QStringLiteral("image://icon/view-media-artist")},
@@ -132,7 +162,12 @@ public:
                                          QUrl{QStringLiteral("image://icon/view-media-track")},
                                          ViewManager::ListView,
                                          ElisaUtils::NoFilter,
-                                         ElisaUtils::Track},
+                                         ElisaUtils::Track,
+                                         Qt::DisplayRole,
+                                         ViewManager::SortAscending,
+                                         ViewManager::MultipleAlbum,
+                                         ViewManager::NoDiscHeaders,
+                                         ViewManager::IsTrack},
                                         {ViewManager::AllGenres,
                                          {i18nc("Title of the view of all genres", "Genres")},
                                          QUrl{QStringLiteral("image://icon/view-media-genre")},
@@ -151,7 +186,12 @@ public:
                                          QUrl{QStringLiteral("image://icon/radio")},
                                          ViewManager::ListView,
                                          ElisaUtils::NoFilter,
-                                         ElisaUtils::Radio}};
+                                         ElisaUtils::Radio,
+                                         Qt::DisplayRole,
+                                         ViewManager::SortAscending,
+                                         ViewManager::MultipleAlbum,
+                                         ViewManager::NoDiscHeaders,
+                                         ViewManager::IsRadio}};
 
     QString mCurrentAlbumTitle;
     QString mCurrentAlbumAuthor;
@@ -193,8 +233,8 @@ void ViewManager::openView(int viewIndex)
             break;
         case ViewPresentationType::ListView:
             Q_EMIT openListView(d->mTargetView, viewData.mFilterType, 1, viewData.mMainTitle, {},
-                                0, viewData.mMainImage, viewData.mDataType, DataTypes::LastPlayDate,
-                                SortOrder::SortDescending, MultipleAlbum, NoDiscHeaders, IsTrack);
+                                0, viewData.mMainImage, viewData.mDataType, viewData.mSortRole,
+                                viewData.mSortOrder, viewData.mAlbumCardinality, viewData.mAlbumViewStyle, viewData.mRadioSpecificStyle);
             break;
         case ViewPresentationType::FileBrowserView:
             Q_EMIT switchFilesBrowserView(d->mTargetView, 1, viewData.mMainTitle, viewData.mMainImage);
@@ -287,28 +327,6 @@ void ViewManager::viewIsLoaded(ViewManager::ViewsType viewType)
     }
 }
 
-void ViewManager::openRecentlyPlayedTracks(const QString &mainTitle, const QUrl &imageUrl)
-{
-    d->mTargetView = ViewsType::RecentlyPlayedTracks;
-
-    if (d->mCurrentView != d->mTargetView) {
-        Q_EMIT openListView(d->mTargetView, ElisaUtils::FilterByRecentlyPlayed, 1, mainTitle, {},
-                            0, imageUrl, ElisaUtils::Track, DataTypes::LastPlayDate,
-                            SortOrder::SortDescending, MultipleAlbum, NoDiscHeaders, IsTrack);
-    }
-}
-
-void ViewManager::openFrequentlyPlayedTracks(const QString &mainTitle, const QUrl &imageUrl)
-{
-    d->mTargetView = ViewsType::FrequentlyPlayedTracks;
-
-    if (d->mCurrentView != d->mTargetView) {
-        Q_EMIT openListView(d->mTargetView, ElisaUtils::FilterByFrequentlyPlayed, 1, mainTitle, {},
-                            0, imageUrl, ElisaUtils::Track, DataTypes::PlayFrequency,
-                            SortOrder::SortDescending, MultipleAlbum, NoDiscHeaders, IsTrack);
-    }
-}
-
 void ViewManager::openOneAlbum(const QString &albumTitle, const QString &albumAuthor,
                                const QUrl &albumCover, qulonglong albumDatabaseId,
                                AlbumViewStyle albumDiscHeader)
@@ -376,16 +394,6 @@ void ViewManager::openOneArtist(const QString &artistName, const QUrl &artistIma
     }
 }
 
-void ViewManager::openAllTracks(const QString &mainTitle, const QUrl &imageUrl)
-{
-    d->mTargetView = ViewsType::AllTracks;
-    if (d->mCurrentView != d->mTargetView) {
-        Q_EMIT openListView(d->mTargetView, ElisaUtils::NoFilter, 1, mainTitle, {},
-                            0, imageUrl, ElisaUtils::Track, Qt::DisplayRole,
-                            SortOrder::SortAscending, MultipleAlbum, NoDiscHeaders, IsTrack);
-    }
-}
-
 void ViewManager::openAllArtistsFromGenre(const QString &genreName)
 {
     d->mTargetView = ViewsType::AllArtistsFromGenre;
@@ -397,32 +405,6 @@ void ViewManager::openAllArtistsFromGenre(const QString &genreName)
     } else {
         Q_EMIT openGridView(ViewsType::AllGenres, ElisaUtils::NoFilter, 1, {}, {}, {}, ElisaUtils::Genre,
                             QUrl(QStringLiteral("image://icon/view-media-genre")), {}, {}, ViewHideRating, DelegateWithoutSecondaryText);
-    }
-}
-
-void ViewManager::openFilesBrowser(const QString &mainTitle, const QUrl &imageUrl)
-{
-    d->mTargetView = ViewsType::FilesBrowser;
-    if (d->mCurrentView != d->mTargetView) {
-        Q_EMIT switchFilesBrowserView(d->mTargetView, 1, mainTitle, imageUrl);
-    }
-}
-
-void ViewManager::openContextView(const QString &mainTitle, const QUrl &imageUrl)
-{
-    d->mTargetView = ViewsType::Context;
-    if (d->mCurrentView != d->mTargetView) {
-        Q_EMIT switchContextView(d->mTargetView, 1, mainTitle, imageUrl);
-    }
-}
-
-void ViewManager::openRadiosBrowser(const QString &mainTitle, const QUrl &imageUrl)
-{
-    d->mTargetView = ViewsType::RadiosBrowser;
-    if (d->mCurrentView != d->mTargetView) {
-        Q_EMIT openListView(d->mTargetView, ElisaUtils::NoFilter, 1, mainTitle, {},
-                            0, imageUrl, ElisaUtils::Radio, Qt::DisplayRole,
-                            SortOrder::SortAscending, MultipleAlbum, NoDiscHeaders, IsRadio);
     }
 }
 

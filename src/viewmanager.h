@@ -151,18 +151,6 @@ public Q_SLOTS:
 
 private:
 
-    void openRecentlyPlayedTracks(const QString &mainTitle, const QUrl &imageUrl);
-
-    void openFrequentlyPlayedTracks(const QString &mainTitle, const QUrl &imageUrl);
-
-    void openAllTracks(const QString &mainTitle, const QUrl &imageUrl);
-
-    void openFilesBrowser(const QString &mainTitle, const QUrl &imageUrl);
-
-    void openContextView(const QString &mainTitle, const QUrl &imageUrl);
-
-    void openRadiosBrowser(const QString &mainTitle, const QUrl &imageUrl);
-
     void openOneAlbum(const QString &albumTitle, const QString &albumAuthor,
                       const QUrl &albumCover, qulonglong albumDatabaseId, ViewManager::AlbumViewStyle albumDiscHeader);
 

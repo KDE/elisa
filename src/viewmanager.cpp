@@ -225,26 +225,7 @@ void ViewManager::openView(int viewIndex)
     d->mTargetView = viewData.mViewType;
 
     if (d->mCurrentView != d->mTargetView) {
-        switch (viewData.mViewPresentationType)
-        {
-        case ViewPresentationType::GridView:
-            Q_EMIT openGridView(d->mTargetView, viewData.mFilterType, 1, viewData.mMainTitle, {}, viewData.mMainImage, viewData.mDataType,
-                                viewData.mFallbackItemIcon, {}, {}, viewData.mViewCanBeRated, viewData.mShowSecondaryTextOnDelegates);
-            break;
-        case ViewPresentationType::ListView:
-            Q_EMIT openListView(d->mTargetView, viewData.mFilterType, 1, viewData.mMainTitle, {},
-                                0, viewData.mMainImage, viewData.mDataType, viewData.mSortRole,
-                                viewData.mSortOrder, viewData.mAlbumCardinality, viewData.mAlbumViewStyle, viewData.mRadioSpecificStyle);
-            break;
-        case ViewPresentationType::FileBrowserView:
-            Q_EMIT switchFilesBrowserView(d->mTargetView, 1, viewData.mMainTitle, viewData.mMainImage);
-            break;
-        case ContextView:
-            Q_EMIT switchContextView(d->mTargetView, 1, viewData.mMainTitle, viewData.mMainImage);
-            break;
-        case UnknownViewPresentation:
-            break;
-        }
+        openViewFromData(viewData);
     }
 }
 
@@ -504,6 +485,30 @@ void ViewManager::contextViewIsLoaded()
 void ViewManager::radiosBrowserViewIsLoaded()
 {
     d->mCurrentView = ViewsType::RadiosBrowser;
+}
+
+void ViewManager::openViewFromData(const ViewParameters &viewData)
+{
+    switch (viewData.mViewPresentationType)
+    {
+    case ViewPresentationType::GridView:
+        Q_EMIT openGridView(d->mTargetView, viewData.mFilterType, 1, viewData.mMainTitle, {}, viewData.mMainImage, viewData.mDataType,
+                            viewData.mFallbackItemIcon, {}, {}, viewData.mViewCanBeRated, viewData.mShowSecondaryTextOnDelegates);
+        break;
+    case ViewPresentationType::ListView:
+        Q_EMIT openListView(d->mTargetView, viewData.mFilterType, 1, viewData.mMainTitle, {},
+                            0, viewData.mMainImage, viewData.mDataType, viewData.mSortRole,
+                            viewData.mSortOrder, viewData.mAlbumCardinality, viewData.mAlbumViewStyle, viewData.mRadioSpecificStyle);
+        break;
+    case ViewPresentationType::FileBrowserView:
+        Q_EMIT switchFilesBrowserView(d->mTargetView, 1, viewData.mMainTitle, viewData.mMainImage);
+        break;
+    case ContextView:
+        Q_EMIT switchContextView(d->mTargetView, 1, viewData.mMainTitle, viewData.mMainImage);
+        break;
+    case UnknownViewPresentation:
+        break;
+    }
 }
 
 void ViewManager::goBack()

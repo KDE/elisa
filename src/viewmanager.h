@@ -28,6 +28,7 @@
 #include <memory>
 
 class ViewManagerPrivate;
+class ViewParameters;
 
 class ELISALIB_EXPORT ViewManager : public QObject
 {
@@ -181,6 +182,8 @@ private:
     void contextViewIsLoaded();
 
     void radiosBrowserViewIsLoaded();
+
+    void openViewFromData(const ViewParameters &viewData);
 
 private:
 

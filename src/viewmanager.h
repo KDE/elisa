@@ -49,7 +49,8 @@ public:
         RecentlyPlayedTracks,
         FilesBrowser,
         Context,
-        RadiosBrowser
+        RadiosBrowser,
+        UnknownView,
     };
 
     Q_ENUM(ViewsType)
@@ -97,6 +98,16 @@ public:
 
     Q_ENUM(ViewCanBeRated)
 
+    enum ViewPresentationType {
+        ContextView,
+        GridView,
+        ListView,
+        FileBrowserView,
+        UnknownViewPresentation,
+    };
+
+    Q_ENUM(ViewPresentationType)
+
     explicit ViewManager(QObject *parent = nullptr);
 
     ~ViewManager() override;
@@ -130,8 +141,6 @@ public Q_SLOTS:
 
     void openView(int viewIndex);
 
-    void openParentView(ViewManager::ViewsType viewType, const QString &mainTitle, const QUrl &mainImage);
-
     void openChildView(const QString &innerMainTitle, const QString & innerSecondaryTitle,
                        const QUrl &innerImage, qulonglong databaseId,
                        ElisaUtils::PlayListEntryType dataType, ViewManager::AlbumViewStyle albumDiscHeader);
@@ -146,13 +155,7 @@ private:
 
     void openFrequentlyPlayedTracks(const QString &mainTitle, const QUrl &imageUrl);
 
-    void openAllAlbums(const QString &mainTitle, const QUrl &imageUrl);
-
-    void openAllArtists(const QString &mainTitle, const QUrl &imageUrl);
-
     void openAllTracks(const QString &mainTitle, const QUrl &imageUrl);
-
-    void openAllGenres(const QString &mainTitle, const QUrl &imageUrl);
 
     void openFilesBrowser(const QString &mainTitle, const QUrl &imageUrl);
 

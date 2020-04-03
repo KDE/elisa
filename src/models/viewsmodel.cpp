@@ -178,6 +178,7 @@ int ViewsModel::indexFromViewType(ViewManager::ViewsType type)
     case ViewManager::OneArtistFromGenre:
     case ViewManager::OneAlbumFromArtistAndGenre:
     case ViewManager::AllArtistsFromGenre:
+    case ViewManager::UnknownView:
         break;
     }
 

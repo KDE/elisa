@@ -128,6 +128,8 @@ Q_SIGNALS:
 
 public Q_SLOTS:
 
+    void openView(int viewIndex);
+
     void openParentView(ViewManager::ViewsType viewType, const QString &mainTitle, const QUrl &mainImage);
 
     void openChildView(const QString &innerMainTitle, const QString & innerSecondaryTitle,

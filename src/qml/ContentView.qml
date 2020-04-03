@@ -158,7 +158,7 @@ RowLayout {
 
         Layout.fillHeight: true
 
-        onSwitchView: viewManager.openParentView(viewType, pageModel.viewMainTitle(viewType, ""), pageModel.viewImageUrl(viewType, ""))
+        onSwitchView: viewManager.openView(viewIndex)
     }
 
     Kirigami.Separator {

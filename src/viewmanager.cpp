@@ -19,9 +19,49 @@
 
 #include "datatypes.h"
 
+#include <KI18n/KLocalizedString>
+
+class ViewParameters
+{
+public:
+
+    ViewManager::ViewsType mViewType;
+
+    QString mMainTitle;
+
+    QUrl mMainImage;
+};
+
 class ViewManagerPrivate
 {
 public:
+    QList<ViewParameters> mViewsData = {{ViewManager::Context,
+                                         {i18nc("Title of the view of the playlist", "Now Playing")},
+                                         QUrl{QStringLiteral("image://icon/view-media-lyrics")}},
+                                        {ViewManager::RecentlyPlayedTracks,
+                                         {i18nc("Title of the view of recently played tracks", "Recently Played")},
+                                         QUrl{QStringLiteral("image://icon/media-playlist-play")}},
+                                        {ViewManager::FrequentlyPlayedTracks,
+                                         {i18nc("Title of the view of frequently played tracks", "Frequently Played")},
+                                         QUrl{QStringLiteral("image://icon/view-media-playcount")}},
+                                        {ViewManager::AllAlbums,
+                                         {i18nc("Title of the view of all albums", "Albums")},
+                                         QUrl{QStringLiteral("image://icon/view-media-album-cover")}},
+                                        {ViewManager::AllArtists,
+                                         {i18nc("Title of the view of all artists", "Artists")},
+                                         QUrl{QStringLiteral("image://icon/view-media-artist")}},
+                                        {ViewManager::AllTracks,
+                                         {i18nc("Title of the view of all tracks", "Tracks")},
+                                         QUrl{QStringLiteral("image://icon/view-media-track")}},
+                                        {ViewManager::AllGenres,
+                                         {i18nc("Title of the view of all genres", "Genres")},
+                                         QUrl{QStringLiteral("image://icon/view-media-genre")}},
+                                        {ViewManager::FilesBrowser,
+                                         {i18nc("Title of the file browser view", "Files")},
+                                         QUrl{QStringLiteral("image://icon/document-open-folder")}},
+                                        {ViewManager::RadiosBrowser,
+                                         {i18nc("Title of the file radios browser view", "Radios")},
+                                         QUrl{QStringLiteral("image://icon/radio")}}};
 
     QString mCurrentAlbumTitle;
     QString mCurrentAlbumAuthor;
@@ -47,6 +87,12 @@ ViewManager::ViewManager(QObject *parent)
 }
 
 ViewManager::~ViewManager() = default;
+
+void ViewManager::openView(int viewIndex)
+{
+    const auto &viewData = d->mViewsData[viewIndex];
+    openParentView(viewData.mViewType, viewData.mMainTitle, viewData.mMainImage);
+}
 
 void ViewManager::openParentView(ViewManager::ViewsType viewType, const QString &mainTitle, const QUrl &mainImage)
 {

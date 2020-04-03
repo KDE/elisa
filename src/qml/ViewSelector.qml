@@ -29,7 +29,7 @@ FocusScope {
     property double textOpacity
     property alias model: pageDelegateModel.model
 
-    signal switchView(var viewType)
+    signal switchView(int viewIndex)
 
     function setCurrentIndex(index)
     {
@@ -96,7 +96,7 @@ FocusScope {
                 }
             }
 
-            onCurrentItemChanged: if (!ignoreCurrentItemChanges) switchView(currentItem.viewType)
+            onCurrentItemChanged: if (!ignoreCurrentItemChanges) switchView(currentIndex)
         }
     }
 

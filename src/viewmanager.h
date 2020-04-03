@@ -25,6 +25,10 @@
 #include <QObject>
 #include <QUrl>
 
+#include <memory>
+
+class ViewManagerPrivate;
+
 class ELISALIB_EXPORT ViewManager : public QObject
 {
     Q_OBJECT
@@ -94,6 +98,8 @@ public:
     Q_ENUM(ViewCanBeRated)
 
     explicit ViewManager(QObject *parent = nullptr);
+
+    ~ViewManager() override;
 
 Q_SIGNALS:
 
@@ -183,20 +189,9 @@ private:
 
     void radiosBrowserViewIsLoaded();
 
-    QString mCurrentAlbumTitle;
-    QString mCurrentAlbumAuthor;
-    QString mCurrentArtistName;
-    QString mCurrentGenreName;
+private:
 
-    QString mTargetAlbumTitle;
-    QString mTargetAlbumAuthor;
-    QString mTargetArtistName;
-    QString mTargetGenreName;
-    QUrl mTargetImageUrl;
-    qulonglong mTargetDatabaseId = 0;
-    ViewsType mTargetView = ViewsType::Context;
-    ViewsType mCurrentView = ViewsType::Context;
-    ViewManager::AlbumViewStyle mAlbumDiscHeader = ViewManager::NoDiscHeaders;
+    std::unique_ptr<ViewManagerPrivate> d;
 
 };
 

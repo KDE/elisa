@@ -270,7 +270,10 @@ public:
                                   ViewManager::ViewShowRating}},
     };
 
-    QList<ViewParameters> mViewParametersStack = {mViewsParameters[0]};
+    int mViewIndex = 0;
+
+    QList<ViewParameters> mViewParametersStack = {mViewsParameters[mViewIndex]};
+
     ViewParameters mNextViewParameters;
 };
 
@@ -278,6 +281,11 @@ ViewManager::ViewManager(QObject *parent)
     : QObject(parent)
     , d(std::make_unique<ViewManagerPrivate>())
 {
+}
+
+int ViewManager::viewIndex() const
+{
+    return d->mViewIndex;
 }
 
 ViewManager::~ViewManager() = default;
@@ -289,7 +297,9 @@ void ViewManager::openView(int viewIndex)
     const auto &viewParameters = d->mViewsParameters[viewIndex];
 
     if (viewParameters != d->mViewParametersStack.back()) {
-        d->mViewParametersStack.clear();
+        d->mViewIndex = viewIndex;
+        Q_EMIT viewIndexChanged();
+
         d->mNextViewParameters = viewParameters;
         openViewFromData(viewParameters);
     }
@@ -347,6 +357,9 @@ void ViewManager::openChildView(const QString &innerMainTitle, const QString & i
     if (lastView.mDataType != dataType) {
         for(int i = 0; i < d->mViewsParameters.size(); ++i) {
             if (d->mViewsParameters.at(i).mDataType == dataType) {
+                d->mViewIndex = i;
+                Q_EMIT viewIndexChanged();
+
                 nextViewParameters = d->mViewsParameters.at(i);
                 break;
             }

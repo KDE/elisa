@@ -33,6 +33,11 @@ class ViewParameters;
 class ELISALIB_EXPORT ViewManager : public QObject
 {
     Q_OBJECT
+
+    Q_PROPERTY(int viewIndex
+               READ viewIndex
+               NOTIFY viewIndexChanged)
+
 public:
 
     enum ViewsType {
@@ -113,6 +118,8 @@ public:
 
     ~ViewManager() override;
 
+    int viewIndex() const;
+
 Q_SIGNALS:
 
     void openGridView(ViewManager::ViewsType viewType, ElisaUtils::FilterType filterType, int expectedDepth,
@@ -135,6 +142,8 @@ Q_SIGNALS:
                            const QString &mainTitle, const QUrl &imageUrl);
 
     void popOneView();
+
+    void viewIndexChanged();
 
 public Q_SLOTS:
 

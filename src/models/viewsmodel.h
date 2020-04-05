@@ -55,8 +55,6 @@ public:
 
     QModelIndex parent(const QModelIndex &child) const override;
 
-    Q_INVOKABLE int indexFromViewType(ViewManager::ViewsType type);
-
 private:
 
     std::unique_ptr<ViewsModelPrivate> d;

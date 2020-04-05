@@ -52,7 +52,7 @@ RowLayout {
 
         onOpenGridView: {
             if (expectedDepth === 1) {
-                listViews.setCurrentIndex(pageModel.indexFromViewType(viewType))
+                listViews.setCurrentIndex(viewManager.viewIndex)
             }
 
             while(browseStackView.depth > expectedDepth) {
@@ -79,7 +79,7 @@ RowLayout {
 
         onOpenListView: {
             if (expectedDepth === 1) {
-                listViews.setCurrentIndex(pageModel.indexFromViewType(viewType))
+                listViews.setCurrentIndex(viewManager.viewIndex)
             }
 
             while(browseStackView.depth > expectedDepth) {
@@ -106,7 +106,7 @@ RowLayout {
         }
 
         onSwitchFilesBrowserView: {
-            listViews.setCurrentIndex(pageModel.indexFromViewType(viewType))
+            listViews.setCurrentIndex(viewManager.viewIndex)
 
             while(browseStackView.depth > expectedDepth) {
                 browseStackView.pop()
@@ -121,7 +121,7 @@ RowLayout {
         }
 
         onSwitchContextView: {
-            listViews.setCurrentIndex(pageModel.indexFromViewType(viewType))
+            listViews.setCurrentIndex(viewManager.viewIndex)
 
             while(browseStackView.depth > expectedDepth) {
                 browseStackView.pop()

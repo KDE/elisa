@@ -20,6 +20,7 @@
 #include "modeldataloader.h"
 #include "musiclistenersmanager.h"
 
+#include "models/modelLogging.h"
 
 #include <algorithm>
 
@@ -367,6 +368,8 @@ void DataModel::initialize(MusicListenersManager *manager, DatabaseInterface *da
                            ElisaUtils::PlayListEntryType modelType, ElisaUtils::FilterType filter,
                            const QString &genre, const QString &artist, qulonglong databaseId)
 {
+    qCDebug(orgKdeElisaModel()) << "DataModel::initialize" << modelType << filter << genre << artist << databaseId;
+
     d->mDatabaseId = databaseId;
     d->mGenre = genre;
     d->mArtist = artist;

@@ -722,7 +722,7 @@ private Q_SLOTS:
         viewManager.openChildView(QStringLiteral("album1"), QStringLiteral("artist2"), {}, 0, ElisaUtils::Album);
 
         QCOMPARE(openGridViewSpy.count(), 3);
-        QCOMPARE(openListViewSpy.count(), 1);
+        QCOMPARE(openListViewSpy.count(), 0);
         QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 

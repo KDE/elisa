@@ -28,7 +28,6 @@ import org.kde.elisa 1.0
 FocusScope {
     id: topItem
 
-    property var viewType
     property int databaseId: 0
     property var trackType
     property alias title: titleLabel.text

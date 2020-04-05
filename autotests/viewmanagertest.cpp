@@ -61,8 +61,9 @@ private Q_SLOTS:
         QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
-        QCOMPARE(openGridViewSpy.at(0).count(), 12);
-        QCOMPARE(openGridViewSpy.at(0).at(0).value<ViewManager::ViewsType>(), ViewManager::AllAlbums);
+        QCOMPARE(openGridViewSpy.at(0).count(), 11);
+        QCOMPARE(openGridViewSpy.at(0).at(0).value<ElisaUtils::FilterType>(), ElisaUtils::NoFilter);
+        QCOMPARE(openGridViewSpy.at(0).at(5).value<ElisaUtils::PlayListEntryType>(), ElisaUtils::Album);
 
         viewManager.viewIsLoaded();
 
@@ -71,10 +72,9 @@ private Q_SLOTS:
         QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
-        QCOMPARE(openListViewSpy.at(0).count(), 13);
-        QCOMPARE(openListViewSpy.at(0).at(0).value<ViewManager::ViewsType>(), ViewManager::OneAlbum);
-        QCOMPARE(openListViewSpy.at(0).at(3), QStringLiteral("album1"));
-        QCOMPARE(openListViewSpy.at(0).at(4), QStringLiteral("artist1"));
+        QCOMPARE(openListViewSpy.at(0).count(), 12);
+        QCOMPARE(openListViewSpy.at(0).at(2), QStringLiteral("album1"));
+        QCOMPARE(openListViewSpy.at(0).at(3), QStringLiteral("artist1"));
 
         viewManager.viewIsLoaded();
 
@@ -100,8 +100,9 @@ private Q_SLOTS:
         QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
-        QCOMPARE(openGridViewSpy.at(0).count(), 12);
-        QCOMPARE(openGridViewSpy.at(0).at(0).value<ViewManager::ViewsType>(), ViewManager::AllAlbums);
+        QCOMPARE(openGridViewSpy.at(0).count(), 11);
+        QCOMPARE(openGridViewSpy.at(0).at(0).value<ElisaUtils::FilterType>(), ElisaUtils::NoFilter);
+        QCOMPARE(openGridViewSpy.at(0).at(5).value<ElisaUtils::PlayListEntryType>(), ElisaUtils::Album);
 
         viewManager.viewIsLoaded();
 
@@ -117,10 +118,9 @@ private Q_SLOTS:
         QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
-        QCOMPARE(openListViewSpy.at(0).count(), 13);
-        QCOMPARE(openListViewSpy.at(0).at(0).value<ViewManager::ViewsType>(), ViewManager::OneAlbum);
-        QCOMPARE(openListViewSpy.at(0).at(3), QStringLiteral("album1"));
-        QCOMPARE(openListViewSpy.at(0).at(4), QStringLiteral("artist1"));
+        QCOMPARE(openListViewSpy.at(0).count(), 12);
+        QCOMPARE(openListViewSpy.at(0).at(2), QStringLiteral("album1"));
+        QCOMPARE(openListViewSpy.at(0).at(3), QStringLiteral("artist1"));
 
         viewManager.viewIsLoaded();
 
@@ -136,8 +136,9 @@ private Q_SLOTS:
         QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
-        QCOMPARE(openGridViewSpy.at(1).count(), 12);
-        QCOMPARE(openGridViewSpy.at(1).at(0).value<ViewManager::ViewsType>(), ViewManager::AllAlbums);
+        QCOMPARE(openGridViewSpy.at(1).count(), 11);
+        QCOMPARE(openGridViewSpy.at(1).at(0).value<ElisaUtils::FilterType>(), ElisaUtils::NoFilter);
+        QCOMPARE(openGridViewSpy.at(1).at(5).value<ElisaUtils::PlayListEntryType>(), ElisaUtils::Album);
 
         viewManager.viewIsLoaded();
 
@@ -153,10 +154,9 @@ private Q_SLOTS:
         QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
-        QCOMPARE(openListViewSpy.at(1).count(), 13);
-        QCOMPARE(openListViewSpy.at(1).at(0).value<ViewManager::ViewsType>(), ViewManager::OneAlbum);
-        QCOMPARE(openListViewSpy.at(1).at(3), QStringLiteral("album1"));
-        QCOMPARE(openListViewSpy.at(1).at(4), QStringLiteral("artist1"));
+        QCOMPARE(openListViewSpy.at(1).count(), 12);
+        QCOMPARE(openListViewSpy.at(1).at(2), QStringLiteral("album1"));
+        QCOMPARE(openListViewSpy.at(1).at(3), QStringLiteral("artist1"));
 
         viewManager.viewIsLoaded();
 
@@ -182,8 +182,9 @@ private Q_SLOTS:
         QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
-        QCOMPARE(openGridViewSpy.at(0).count(), 12);
-        QCOMPARE(openGridViewSpy.at(0).at(0).value<ViewManager::ViewsType>(), ViewManager::AllAlbums);
+        QCOMPARE(openGridViewSpy.at(0).count(), 11);
+        QCOMPARE(openGridViewSpy.at(0).at(0).value<ElisaUtils::FilterType>(), ElisaUtils::NoFilter);
+        QCOMPARE(openGridViewSpy.at(0).at(5).value<ElisaUtils::PlayListEntryType>(), ElisaUtils::Album);
 
         viewManager.viewIsLoaded();
 
@@ -199,10 +200,9 @@ private Q_SLOTS:
         QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
-        QCOMPARE(openListViewSpy.at(0).count(), 13);
-        QCOMPARE(openListViewSpy.at(0).at(0).value<ViewManager::ViewsType>(), ViewManager::OneAlbum);
-        QCOMPARE(openListViewSpy.at(0).at(3), QStringLiteral("album1"));
-        QCOMPARE(openListViewSpy.at(0).at(4), QStringLiteral("artist1"));
+        QCOMPARE(openListViewSpy.at(0).count(), 12);
+        QCOMPARE(openListViewSpy.at(0).at(2), QStringLiteral("album1"));
+        QCOMPARE(openListViewSpy.at(0).at(3), QStringLiteral("artist1"));
 
         viewManager.viewIsLoaded();
 
@@ -232,10 +232,9 @@ private Q_SLOTS:
         QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 1);
 
-        QCOMPARE(openListViewSpy.at(1).count(), 13);
-        QCOMPARE(openListViewSpy.at(1).at(0).value<ViewManager::ViewsType>(), ViewManager::OneAlbum);
-        QCOMPARE(openListViewSpy.at(1).at(3), QStringLiteral("album1"));
-        QCOMPARE(openListViewSpy.at(1).at(4), QStringLiteral("artist1"));
+        QCOMPARE(openListViewSpy.at(1).count(), 12);
+        QCOMPARE(openListViewSpy.at(1).at(2), QStringLiteral("album1"));
+        QCOMPARE(openListViewSpy.at(1).at(3), QStringLiteral("artist1"));
 
         viewManager.viewIsLoaded();
 
@@ -261,8 +260,9 @@ private Q_SLOTS:
         QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
-        QCOMPARE(openGridViewSpy.at(0).count(), 12);
-        QCOMPARE(openGridViewSpy.at(0).at(0).value<ViewManager::ViewsType>(), ViewManager::AllArtists);
+        QCOMPARE(openGridViewSpy.at(0).count(), 11);
+        QCOMPARE(openGridViewSpy.at(0).at(0).value<ElisaUtils::FilterType>(), ElisaUtils::NoFilter);
+        QCOMPARE(openGridViewSpy.at(0).at(5).value<ElisaUtils::PlayListEntryType>(), ElisaUtils::Artist);
 
         viewManager.viewIsLoaded();
 
@@ -271,8 +271,10 @@ private Q_SLOTS:
         QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
-        QCOMPARE(openGridViewSpy.at(1).count(), 12);
-        QCOMPARE(openGridViewSpy.at(1).at(0).value<ViewManager::ViewsType>(), ViewManager::OneArtist);
+        QCOMPARE(openGridViewSpy.at(1).count(), 11);
+        QCOMPARE(openGridViewSpy.at(1).at(0).value<ElisaUtils::FilterType>(), ElisaUtils::FilterByArtist);
+        QCOMPARE(openGridViewSpy.at(1).at(5).value<ElisaUtils::PlayListEntryType>(), ElisaUtils::Album);
+        QCOMPARE(openGridViewSpy.at(1).at(8).toString(), QStringLiteral("artist1"));
 
         viewManager.viewIsLoaded();
 
@@ -298,8 +300,9 @@ private Q_SLOTS:
         QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
-        QCOMPARE(openGridViewSpy.at(0).count(), 12);
-        QCOMPARE(openGridViewSpy.at(0).at(0).value<ViewManager::ViewsType>(), ViewManager::AllArtists);
+        QCOMPARE(openGridViewSpy.at(0).count(), 11);
+        QCOMPARE(openGridViewSpy.at(0).at(0).value<ElisaUtils::FilterType>(), ElisaUtils::NoFilter);
+        QCOMPARE(openGridViewSpy.at(0).at(5).value<ElisaUtils::PlayListEntryType>(), ElisaUtils::Artist);
 
         viewManager.viewIsLoaded();
 
@@ -315,8 +318,10 @@ private Q_SLOTS:
         QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
-        QCOMPARE(openGridViewSpy.at(1).count(), 12);
-        QCOMPARE(openGridViewSpy.at(1).at(0).value<ViewManager::ViewsType>(), ViewManager::OneArtist);
+        QCOMPARE(openGridViewSpy.at(1).count(), 11);
+        QCOMPARE(openGridViewSpy.at(1).at(0).value<ElisaUtils::FilterType>(), ElisaUtils::FilterByArtist);
+        QCOMPARE(openGridViewSpy.at(1).at(5).value<ElisaUtils::PlayListEntryType>(), ElisaUtils::Album);
+        QCOMPARE(openGridViewSpy.at(1).at(8).toString(), QStringLiteral("artist1"));
 
         viewManager.viewIsLoaded();
 
@@ -332,8 +337,9 @@ private Q_SLOTS:
         QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
-        QCOMPARE(openGridViewSpy.at(2).count(), 12);
-        QCOMPARE(openGridViewSpy.at(2).at(0).value<ViewManager::ViewsType>(), ViewManager::AllArtists);
+        QCOMPARE(openGridViewSpy.at(2).count(), 11);
+        QCOMPARE(openGridViewSpy.at(2).at(0).value<ElisaUtils::FilterType>(), ElisaUtils::NoFilter);
+        QCOMPARE(openGridViewSpy.at(2).at(5).value<ElisaUtils::PlayListEntryType>(), ElisaUtils::Artist);
 
         viewManager.viewIsLoaded();
 
@@ -349,8 +355,10 @@ private Q_SLOTS:
         QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
-        QCOMPARE(openGridViewSpy.at(3).count(), 12);
-        QCOMPARE(openGridViewSpy.at(3).at(0).value<ViewManager::ViewsType>(), ViewManager::OneArtist);
+        QCOMPARE(openGridViewSpy.at(3).count(), 11);
+        QCOMPARE(openGridViewSpy.at(3).at(0).value<ElisaUtils::FilterType>(), ElisaUtils::FilterByArtist);
+        QCOMPARE(openGridViewSpy.at(3).at(5).value<ElisaUtils::PlayListEntryType>(), ElisaUtils::Album);
+        QCOMPARE(openGridViewSpy.at(3).at(8).toString(), QStringLiteral("artist1"));
 
         viewManager.viewIsLoaded();
 
@@ -376,8 +384,9 @@ private Q_SLOTS:
         QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
-        QCOMPARE(openGridViewSpy.at(0).count(), 12);
-        QCOMPARE(openGridViewSpy.at(0).at(0).value<ViewManager::ViewsType>(), ViewManager::AllArtists);
+        QCOMPARE(openGridViewSpy.at(0).count(), 11);
+        QCOMPARE(openGridViewSpy.at(0).at(0).value<ElisaUtils::FilterType>(), ElisaUtils::NoFilter);
+        QCOMPARE(openGridViewSpy.at(0).at(5).value<ElisaUtils::PlayListEntryType>(), ElisaUtils::Artist);
 
         viewManager.viewIsLoaded();
 
@@ -393,8 +402,10 @@ private Q_SLOTS:
         QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
-        QCOMPARE(openGridViewSpy.at(1).count(), 12);
-        QCOMPARE(openGridViewSpy.at(1).at(0).value<ViewManager::ViewsType>(), ViewManager::OneArtist);
+        QCOMPARE(openGridViewSpy.at(1).count(), 11);
+        QCOMPARE(openGridViewSpy.at(1).at(0).value<ElisaUtils::FilterType>(), ElisaUtils::FilterByArtist);
+        QCOMPARE(openGridViewSpy.at(1).at(5).value<ElisaUtils::PlayListEntryType>(), ElisaUtils::Album);
+        QCOMPARE(openGridViewSpy.at(1).at(8).toString(), QStringLiteral("artist1"));
 
         viewManager.viewIsLoaded();
 
@@ -424,8 +435,10 @@ private Q_SLOTS:
         QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 1);
 
-        QCOMPARE(openGridViewSpy.at(2).count(), 12);
-        QCOMPARE(openGridViewSpy.at(2).at(0).value<ViewManager::ViewsType>(), ViewManager::OneArtist);
+        QCOMPARE(openGridViewSpy.at(2).count(), 11);
+        QCOMPARE(openGridViewSpy.at(2).at(0).value<ElisaUtils::FilterType>(), ElisaUtils::FilterByArtist);
+        QCOMPARE(openGridViewSpy.at(2).at(5).value<ElisaUtils::PlayListEntryType>(), ElisaUtils::Album);
+        QCOMPARE(openGridViewSpy.at(2).at(8).toString(), QStringLiteral("artist1"));
 
         viewManager.viewIsLoaded();
 
@@ -451,8 +464,9 @@ private Q_SLOTS:
         QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
-        QCOMPARE(openGridViewSpy.at(0).count(), 12);
-        QCOMPARE(openGridViewSpy.at(0).at(0).value<ViewManager::ViewsType>(), ViewManager::AllGenres);
+        QCOMPARE(openGridViewSpy.at(0).count(), 11);
+        QCOMPARE(openGridViewSpy.at(0).at(0).value<ElisaUtils::FilterType>(), ElisaUtils::NoFilter);
+        QCOMPARE(openGridViewSpy.at(0).at(5).value<ElisaUtils::PlayListEntryType>(), ElisaUtils::Genre);
 
         viewManager.viewIsLoaded();
 
@@ -461,8 +475,10 @@ private Q_SLOTS:
         QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
-        QCOMPARE(openGridViewSpy.at(1).count(), 12);
-        QCOMPARE(openGridViewSpy.at(1).at(0).value<ViewManager::ViewsType>(), ViewManager::AllArtistsFromGenre);
+        QCOMPARE(openGridViewSpy.at(1).count(), 11);
+        QCOMPARE(openGridViewSpy.at(1).at(0).value<ElisaUtils::FilterType>(), ElisaUtils::FilterByGenre);
+        QCOMPARE(openGridViewSpy.at(1).at(5).value<ElisaUtils::PlayListEntryType>(), ElisaUtils::Artist);
+        QCOMPARE(openGridViewSpy.at(1).at(7).toString(), QStringLiteral("genre1"));
 
         viewManager.viewIsLoaded();
 
@@ -488,8 +504,9 @@ private Q_SLOTS:
         QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
-        QCOMPARE(openGridViewSpy.at(0).count(), 12);
-        QCOMPARE(openGridViewSpy.at(0).at(0).value<ViewManager::ViewsType>(), ViewManager::AllGenres);
+        QCOMPARE(openGridViewSpy.at(0).count(), 11);
+        QCOMPARE(openGridViewSpy.at(0).at(0).value<ElisaUtils::FilterType>(), ElisaUtils::NoFilter);
+        QCOMPARE(openGridViewSpy.at(0).at(5).value<ElisaUtils::PlayListEntryType>(), ElisaUtils::Genre);
 
         viewManager.viewIsLoaded();
 
@@ -505,8 +522,10 @@ private Q_SLOTS:
         QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
-        QCOMPARE(openGridViewSpy.at(1).count(), 12);
-        QCOMPARE(openGridViewSpy.at(1).at(0).value<ViewManager::ViewsType>(), ViewManager::AllArtistsFromGenre);
+        QCOMPARE(openGridViewSpy.at(1).count(), 11);
+        QCOMPARE(openGridViewSpy.at(1).at(0).value<ElisaUtils::FilterType>(), ElisaUtils::FilterByGenre);
+        QCOMPARE(openGridViewSpy.at(1).at(5).value<ElisaUtils::PlayListEntryType>(), ElisaUtils::Artist);
+        QCOMPARE(openGridViewSpy.at(1).at(7).toString(), QStringLiteral("genre1"));
 
         viewManager.viewIsLoaded();
 
@@ -522,8 +541,9 @@ private Q_SLOTS:
         QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
-        QCOMPARE(openGridViewSpy.at(2).count(), 12);
-        QCOMPARE(openGridViewSpy.at(2).at(0).value<ViewManager::ViewsType>(), ViewManager::AllGenres);
+        QCOMPARE(openGridViewSpy.at(2).count(), 11);
+        QCOMPARE(openGridViewSpy.at(2).at(0).value<ElisaUtils::FilterType>(), ElisaUtils::NoFilter);
+        QCOMPARE(openGridViewSpy.at(2).at(5).value<ElisaUtils::PlayListEntryType>(), ElisaUtils::Genre);
 
         viewManager.viewIsLoaded();
 
@@ -539,8 +559,10 @@ private Q_SLOTS:
         QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
-        QCOMPARE(openGridViewSpy.at(3).count(), 12);
-        QCOMPARE(openGridViewSpy.at(3).at(0).value<ViewManager::ViewsType>(), ViewManager::AllArtistsFromGenre);
+        QCOMPARE(openGridViewSpy.at(3).count(), 11);
+        QCOMPARE(openGridViewSpy.at(3).at(0).value<ElisaUtils::FilterType>(), ElisaUtils::FilterByGenre);
+        QCOMPARE(openGridViewSpy.at(3).at(5).value<ElisaUtils::PlayListEntryType>(), ElisaUtils::Artist);
+        QCOMPARE(openGridViewSpy.at(3).at(7).toString(), QStringLiteral("genre1"));
 
         viewManager.viewIsLoaded();
 
@@ -566,8 +588,9 @@ private Q_SLOTS:
         QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
-        QCOMPARE(openGridViewSpy.at(0).count(), 12);
-        QCOMPARE(openGridViewSpy.at(0).at(0).value<ViewManager::ViewsType>(), ViewManager::AllGenres);
+        QCOMPARE(openGridViewSpy.at(0).count(), 11);
+        QCOMPARE(openGridViewSpy.at(0).at(0).value<ElisaUtils::FilterType>(), ElisaUtils::NoFilter);
+        QCOMPARE(openGridViewSpy.at(0).at(5).value<ElisaUtils::PlayListEntryType>(), ElisaUtils::Genre);
 
         viewManager.viewIsLoaded();
 
@@ -583,8 +606,10 @@ private Q_SLOTS:
         QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
-        QCOMPARE(openGridViewSpy.at(1).count(), 12);
-        QCOMPARE(openGridViewSpy.at(1).at(0).value<ViewManager::ViewsType>(), ViewManager::AllArtistsFromGenre);
+        QCOMPARE(openGridViewSpy.at(1).count(), 11);
+        QCOMPARE(openGridViewSpy.at(1).at(0).value<ElisaUtils::FilterType>(), ElisaUtils::FilterByGenre);
+        QCOMPARE(openGridViewSpy.at(1).at(5).value<ElisaUtils::PlayListEntryType>(), ElisaUtils::Artist);
+        QCOMPARE(openGridViewSpy.at(1).at(7).toString(), QStringLiteral("genre1"));
 
         viewManager.viewIsLoaded();
 
@@ -614,8 +639,10 @@ private Q_SLOTS:
         QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 1);
 
-        QCOMPARE(openGridViewSpy.at(2).count(), 12);
-        QCOMPARE(openGridViewSpy.at(2).at(0).value<ViewManager::ViewsType>(), ViewManager::AllArtistsFromGenre);
+        QCOMPARE(openGridViewSpy.at(2).count(), 11);
+        QCOMPARE(openGridViewSpy.at(2).at(0).value<ElisaUtils::FilterType>(), ElisaUtils::FilterByGenre);
+        QCOMPARE(openGridViewSpy.at(2).at(5).value<ElisaUtils::PlayListEntryType>(), ElisaUtils::Artist);
+        QCOMPARE(openGridViewSpy.at(2).at(7).toString(), QStringLiteral("genre1"));
 
         viewManager.viewIsLoaded();
 
@@ -641,8 +668,9 @@ private Q_SLOTS:
         QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
-        QCOMPARE(openGridViewSpy.at(0).count(), 12);
-        QCOMPARE(openGridViewSpy.at(0).at(0).value<ViewManager::ViewsType>(), ViewManager::AllGenres);
+        QCOMPARE(openGridViewSpy.at(0).count(), 11);
+        QCOMPARE(openGridViewSpy.at(0).at(0).value<ElisaUtils::FilterType>(), ElisaUtils::NoFilter);
+        QCOMPARE(openGridViewSpy.at(0).at(5).value<ElisaUtils::PlayListEntryType>(), ElisaUtils::Genre);
 
         viewManager.viewIsLoaded();
 
@@ -658,8 +686,10 @@ private Q_SLOTS:
         QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
-        QCOMPARE(openGridViewSpy.at(1).count(), 12);
-        QCOMPARE(openGridViewSpy.at(1).at(0).value<ViewManager::ViewsType>(), ViewManager::AllArtistsFromGenre);
+        QCOMPARE(openGridViewSpy.at(1).count(), 11);
+        QCOMPARE(openGridViewSpy.at(1).at(0).value<ElisaUtils::FilterType>(), ElisaUtils::FilterByGenre);
+        QCOMPARE(openGridViewSpy.at(1).at(5).value<ElisaUtils::PlayListEntryType>(), ElisaUtils::Artist);
+        QCOMPARE(openGridViewSpy.at(1).at(7).toString(), QStringLiteral("genre1"));
 
         viewManager.viewIsLoaded();
 
@@ -670,10 +700,11 @@ private Q_SLOTS:
         QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
-        QCOMPARE(openGridViewSpy.at(2).count(), 12);
-        QCOMPARE(openGridViewSpy.at(2).at(0).value<ViewManager::ViewsType>(), ViewManager::OneArtistFromGenre);
-        QCOMPARE(openGridViewSpy.at(2).at(8).toString(), QStringLiteral("genre1"));
-        QCOMPARE(openGridViewSpy.at(2).at(9).toString(), QStringLiteral("artist1"));
+        QCOMPARE(openGridViewSpy.at(2).count(), 11);
+        QCOMPARE(openGridViewSpy.at(2).at(0).value<ElisaUtils::FilterType>(), ElisaUtils::FilterByGenreAndArtist);
+        QCOMPARE(openGridViewSpy.at(2).at(5).value<ElisaUtils::PlayListEntryType>(), ElisaUtils::Album);
+        QCOMPARE(openGridViewSpy.at(2).at(7).toString(), QStringLiteral("genre1"));
+        QCOMPARE(openGridViewSpy.at(2).at(8).toString(), QStringLiteral("artist1"));
 
         viewManager.viewIsLoaded();
 
@@ -699,8 +730,9 @@ private Q_SLOTS:
         QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
-        QCOMPARE(openGridViewSpy.at(0).count(), 12);
-        QCOMPARE(openGridViewSpy.at(0).at(0).value<ViewManager::ViewsType>(), ViewManager::AllArtists);
+        QCOMPARE(openGridViewSpy.at(0).count(), 11);
+        QCOMPARE(openGridViewSpy.at(0).at(0).value<ElisaUtils::FilterType>(), ElisaUtils::NoFilter);
+        QCOMPARE(openGridViewSpy.at(0).at(5).value<ElisaUtils::PlayListEntryType>(), ElisaUtils::Artist);
 
         viewManager.viewIsLoaded();
 
@@ -709,8 +741,10 @@ private Q_SLOTS:
         QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
-        QCOMPARE(openGridViewSpy.at(1).count(), 12);
-        QCOMPARE(openGridViewSpy.at(1).at(0).value<ViewManager::ViewsType>(), ViewManager::OneArtist);
+        QCOMPARE(openGridViewSpy.at(1).count(), 11);
+        QCOMPARE(openGridViewSpy.at(1).at(0).value<ElisaUtils::FilterType>(), ElisaUtils::FilterByArtist);
+        QCOMPARE(openGridViewSpy.at(1).at(5).value<ElisaUtils::PlayListEntryType>(), ElisaUtils::Album);
+        QCOMPARE(openGridViewSpy.at(1).at(8).toString(), QStringLiteral("artist1"));
 
         viewManager.viewIsLoaded();
 
@@ -726,8 +760,10 @@ private Q_SLOTS:
         QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
-        QCOMPARE(openGridViewSpy.at(2).count(), 12);
-        QCOMPARE(openGridViewSpy.at(2).at(0).value<ViewManager::ViewsType>(), ViewManager::OneArtist);
+        QCOMPARE(openGridViewSpy.at(2).count(), 11);
+        QCOMPARE(openGridViewSpy.at(2).at(0).value<ElisaUtils::FilterType>(), ElisaUtils::FilterByArtist);
+        QCOMPARE(openGridViewSpy.at(2).at(5).value<ElisaUtils::PlayListEntryType>(), ElisaUtils::Album);
+        QCOMPARE(openGridViewSpy.at(2).at(8).toString(), QStringLiteral("artist2"));
 
         viewManager.viewIsLoaded();
 
@@ -736,8 +772,11 @@ private Q_SLOTS:
         QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
-        QCOMPARE(openListViewSpy.at(0).count(), 13);
-        QCOMPARE(openListViewSpy.at(0).at(0).value<ViewManager::ViewsType>(), ViewManager::OneAlbumFromArtist);
+        QCOMPARE(openListViewSpy.at(0).count(), 12);
+        QCOMPARE(openListViewSpy.at(0).at(0).value<ElisaUtils::FilterType>(), ElisaUtils::FilterById);
+        QCOMPARE(openListViewSpy.at(0).at(2).toString(), QStringLiteral("album1"));
+        QCOMPARE(openListViewSpy.at(0).at(3).toString(), QStringLiteral("artist2"));
+        QCOMPARE(openListViewSpy.at(0).at(6).value<ElisaUtils::PlayListEntryType>(), ElisaUtils::Track);
 
         viewManager.viewIsLoaded();
 

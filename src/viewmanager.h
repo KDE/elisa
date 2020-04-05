@@ -122,24 +122,22 @@ public:
 
 Q_SIGNALS:
 
-    void openGridView(ViewManager::ViewsType viewType, ElisaUtils::FilterType filterType, int expectedDepth,
+    void openGridView(ElisaUtils::FilterType filterType, int expectedDepth,
                       const QString &mainTitle, const QString &secondaryTitle, const QUrl &imageUrl,
                       ElisaUtils::PlayListEntryType dataType, const QUrl &viewDefaultIcon,
                       const QString &genreNameFilter, const QString &artistNameFilter,
                       ViewManager::ViewCanBeRated viewShowRating,
                       ViewManager::DelegateUseSecondaryText viewDelegateDisplaySecondaryText);
 
-    void openListView(ViewManager::ViewsType viewType, ElisaUtils::FilterType filterType, int expectedDepth,
+    void openListView(ElisaUtils::FilterType filterType, int expectedDepth,
                       const QString &mainTitle, const QString &secondaryTitle, qulonglong databaseId,
                       const QUrl &imageUrl, ElisaUtils::PlayListEntryType dataType, const QVariant &sortRole,
                       ViewManager::SortOrder sortOrder, ViewManager::AlbumCardinality displaySingleAlbum,
                       ViewManager::AlbumViewStyle showDiscHeaders, ViewManager::RadioSpecificStyle radioCase);
 
-    void switchFilesBrowserView(ViewManager::ViewsType viewType, int expectedDepth,
-                                const QString &mainTitle, const QUrl &imageUrl);
+    void switchFilesBrowserView(int expectedDepth, const QString &mainTitle, const QUrl &imageUrl);
 
-    void switchContextView(ViewManager::ViewsType viewType, int expectedDepth,
-                           const QString &mainTitle, const QUrl &imageUrl);
+    void switchContextView(int expectedDepth, const QString &mainTitle, const QUrl &imageUrl);
 
     void popOneView();
 

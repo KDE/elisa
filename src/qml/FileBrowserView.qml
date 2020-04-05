@@ -26,7 +26,6 @@ import org.kde.elisa 1.0
 FocusScope {
     id: fileView
 
-    property var viewType
     property bool isSubPage: false
     property alias expandedFilterView: navigationBar.expandedFilterView
 

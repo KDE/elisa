@@ -60,7 +60,6 @@ RowLayout {
             }
 
             browseStackView.push(dataGridView, {
-                                     viewType: viewType,
                                      filterType: filterType,
                                      mainTitle: mainTitle,
                                      secondaryTitle: secondaryTitle,
@@ -87,7 +86,6 @@ RowLayout {
             }
 
             browseStackView.push(dataListView, {
-                                     viewType: viewType,
                                      filterType: filterType,
                                      isSubPage: expectedDepth > 1,
                                      mainTitle: mainTitle,
@@ -113,7 +111,6 @@ RowLayout {
             }
 
             browseStackView.push(filesBrowserView, {
-                                     viewType: viewType,
                                      mainTitle: mainTitle,
                                      image: imageUrl,
                                      opacity: 0,
@@ -128,7 +125,6 @@ RowLayout {
             }
 
             browseStackView.push(albumContext, {
-                                     viewType: viewType,
                                      mainTitle: mainTitle,
                                      image: imageUrl,
                                      opacity: 0,

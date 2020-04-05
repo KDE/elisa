@@ -23,7 +23,6 @@ import org.kde.elisa 1.0
 FocusScope {
     id: viewHeader
 
-    property var viewType
     property var filterType
     property alias isSubPage: listView.isSubPage
     property alias mainTitle: listView.mainTitle

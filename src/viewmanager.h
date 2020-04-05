@@ -134,8 +134,6 @@ Q_SIGNALS:
     void switchContextView(ViewManager::ViewsType viewType, int expectedDepth,
                            const QString &mainTitle, const QUrl &imageUrl);
 
-    void switchOffAllViews(ViewManager::ViewsType viewType);
-
     void popOneView();
 
 public Q_SLOTS:

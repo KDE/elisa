@@ -310,21 +310,6 @@ public:
         {ViewManager::OneAlbumFromArtistAndGenre, ViewManager::OneArtistFromGenre},
     };
 
-    QString mCurrentAlbumTitle;
-    QString mCurrentAlbumAuthor;
-    QString mCurrentArtistName;
-    QString mCurrentGenreName;
-
-    QString mTargetAlbumTitle;
-    QString mTargetAlbumAuthor;
-    QString mTargetArtistName;
-    QString mTargetGenreName;
-    QUrl mTargetImageUrl;
-    qulonglong mTargetDatabaseId = 0;
-    ViewManager::ViewsType mTargetView = ViewManager::Context;
-    ViewManager::ViewsType mCurrentView = ViewManager::Context;
-    ViewManager::AlbumViewStyle mAlbumDiscHeader = ViewManager::NoDiscHeaders;
-
     QList<ViewParameters> mViewParametersStack = {mViewsParameters[0]};
     ViewParameters mNextViewParameters;
 };
@@ -341,9 +326,7 @@ void ViewManager::openView(int viewIndex)
 {
     const auto &viewParameters = d->mViewsParameters[viewIndex];
 
-    d->mTargetView = viewParameters.mViewType;
-
-    if (d->mCurrentView != d->mTargetView) {
+    if (viewParameters != d->mViewParametersStack.back()) {
         d->mViewParametersStack.clear();
         d->mNextViewParameters = viewParameters;
         openViewFromData(viewParameters);

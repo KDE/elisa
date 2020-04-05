@@ -78,7 +78,9 @@ RowLayout {
         }
 
         onOpenListView: {
-            listViews.setCurrentIndex(pageModel.indexFromViewType(viewType))
+            if (expectedDepth === 1) {
+                listViews.setCurrentIndex(pageModel.indexFromViewType(viewType))
+            }
 
             while(browseStackView.depth > expectedDepth) {
                 browseStackView.pop()

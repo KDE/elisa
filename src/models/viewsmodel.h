@@ -57,8 +57,6 @@ public:
 
     Q_INVOKABLE int indexFromViewType(ViewManager::ViewsType type);
 
-    Q_INVOKABLE QString viewMainTitle(ViewManager::ViewsType type, QString suggestedMainTitle) const;
-
     Q_INVOKABLE QUrl viewImageUrl(ViewManager::ViewsType type, QUrl suggestedImageUrl) const;
 
 private:

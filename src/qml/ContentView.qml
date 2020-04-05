@@ -62,7 +62,7 @@ RowLayout {
             browseStackView.push(dataGridView, {
                                      viewType: viewType,
                                      filterType: filterType,
-                                     mainTitle: pageModel.viewMainTitle(viewType, mainTitle),
+                                     mainTitle: mainTitle,
                                      secondaryTitle: secondaryTitle,
                                      image: pageModel.viewImageUrl(viewType, imageUrl),
                                      modelType: dataType,

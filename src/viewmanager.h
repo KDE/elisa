@@ -144,7 +144,7 @@ public Q_SLOTS:
 
     void openChildView(const QString &innerMainTitle, const QString & innerSecondaryTitle,
                        const QUrl &innerImage, qulonglong databaseId,
-                       ElisaUtils::PlayListEntryType dataType, ViewManager::AlbumViewStyle albumDiscHeader);
+                       ElisaUtils::PlayListEntryType dataType);
 
     void viewIsLoaded(ViewManager::ViewsType viewType);
 
@@ -183,7 +183,7 @@ private:
 
     void radiosBrowserViewIsLoaded();
 
-    void openViewFromData(const ViewParameters &viewData);
+    void openViewFromData(const ViewParameters &viewParamaters);
 
 private:
 

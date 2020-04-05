@@ -196,7 +196,7 @@ FocusScope {
         showEnqueueButton: modelType !== ElisaUtils.Radio
 
         onShowArtist: {
-            viewManager.openChildView(secondaryTitle, '', elisaTheme.artistIcon, 0, ElisaUtils.Artist, ViewManager.NoDiscHeaders)
+            viewManager.openChildView(secondaryTitle, '', elisaTheme.artistIcon, 0, ElisaUtils.Artist)
         }
 
         onGoBack: viewManager.goBack()

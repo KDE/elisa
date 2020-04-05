@@ -19,19 +19,24 @@
 
 #include "datatypes.h"
 
+#include "viewsLogging.h"
+
 #include <KI18n/KLocalizedString>
 
 class ViewParameters
 {
 public:
+    ViewParameters() = default;
+
     ViewParameters(ViewManager::ViewsType viewType,
                    QString mainTitle,
                    QUrl mainImage,
                    ViewManager::ViewPresentationType viewPresentationType)
-        : mViewType(viewType)
-        , mMainTitle(std::move(mainTitle))
+        : mMainTitle(std::move(mainTitle))
         , mMainImage(std::move(mainImage))
+        , mViewType(viewType)
         , mViewPresentationType(viewPresentationType)
+        , mIsValid(true)
     {
     }
 
@@ -44,15 +49,16 @@ public:
                    QUrl fallbackItemIcon,
                    ViewManager::DelegateUseSecondaryText showSecondaryTextOnDelegates,
                    ViewManager::ViewCanBeRated viewCanBeRated)
-        : mViewType(viewType)
-        , mMainTitle(std::move(mainTitle))
+        : mMainTitle(std::move(mainTitle))
         , mMainImage(std::move(mainImage))
+        , mViewType(viewType)
         , mViewPresentationType(viewPresentationType)
         , mFilterType(filterType)
         , mDataType(dataType)
         , mFallbackItemIcon(fallbackItemIcon)
         , mShowSecondaryTextOnDelegates(showSecondaryTextOnDelegates)
         , mViewCanBeRated(viewCanBeRated)
+        , mIsValid(true)
     {
     }
 
@@ -67,9 +73,9 @@ public:
                    ViewManager::AlbumCardinality albumCardinality,
                    ViewManager::AlbumViewStyle albumViewStyle,
                    ViewManager::RadioSpecificStyle radioSpecificStyle)
-        : mViewType(viewType)
-        , mMainTitle(std::move(mainTitle))
+        : mMainTitle(std::move(mainTitle))
         , mMainImage(std::move(mainImage))
+        , mViewType(viewType)
         , mViewPresentationType(viewPresentationType)
         , mFilterType(filterType)
         , mDataType(dataType)
@@ -78,14 +84,43 @@ public:
         , mAlbumCardinality(albumCardinality)
         , mAlbumViewStyle(albumViewStyle)
         , mRadioSpecificStyle(radioSpecificStyle)
+        , mIsValid(true)
     {
     }
 
-    ViewManager::ViewsType mViewType = ViewManager::UnknownView;
+    bool operator==(const ViewParameters &other) const {
+        return mMainTitle == other.mMainTitle && mMainImage == other.mMainImage &&
+                mSecondaryTitle == other.mSecondaryTitle && mViewType == other.mViewType &&
+                mViewPresentationType == other.mViewPresentationType && mFilterType == other.mFilterType &&
+                mDataType == other.mDataType && mFallbackItemIcon == other.mFallbackItemIcon &&
+                mShowSecondaryTextOnDelegates == other.mShowSecondaryTextOnDelegates && mViewCanBeRated == other.mViewCanBeRated &&
+                mSortRole == other.mSortRole && mSortOrder == other.mSortOrder &&
+                mAlbumCardinality == other.mAlbumCardinality && mAlbumViewStyle == other.mAlbumViewStyle &&
+                mRadioSpecificStyle == other.mRadioSpecificStyle && mDepth == other.mDepth &&
+                mDatabaseIdFilter == other.mDatabaseIdFilter && mGenreNameFilter == other.mGenreNameFilter &&
+                mArtistNameFilter == other.mArtistNameFilter;
+    }
+
+    bool operator!=(const ViewParameters &other) const {
+        return mMainTitle != other.mMainTitle || mMainImage != other.mMainImage ||
+                mSecondaryTitle != other.mSecondaryTitle || mViewType != other.mViewType ||
+                mViewPresentationType != other.mViewPresentationType || mFilterType != other.mFilterType ||
+                mDataType != other.mDataType || mFallbackItemIcon != other.mFallbackItemIcon ||
+                mShowSecondaryTextOnDelegates != other.mShowSecondaryTextOnDelegates || mViewCanBeRated != other.mViewCanBeRated ||
+                mSortRole != other.mSortRole || mSortOrder != other.mSortOrder ||
+                mAlbumCardinality != other.mAlbumCardinality || mAlbumViewStyle != other.mAlbumViewStyle ||
+                mRadioSpecificStyle != other.mRadioSpecificStyle || mDepth != other.mDepth ||
+                mDatabaseIdFilter != other.mDatabaseIdFilter || mGenreNameFilter != other.mGenreNameFilter ||
+                mArtistNameFilter != other.mArtistNameFilter;
+    }
 
     QString mMainTitle;
 
+    QString mSecondaryTitle;
+
     QUrl mMainImage;
+
+    ViewManager::ViewsType mViewType = ViewManager::UnknownView;
 
     ViewManager::ViewPresentationType mViewPresentationType = ViewManager::UnknownViewPresentation;
 
@@ -108,90 +143,100 @@ public:
     ViewManager::AlbumViewStyle mAlbumViewStyle = ViewManager::NoDiscHeaders;
 
     ViewManager::RadioSpecificStyle mRadioSpecificStyle = ViewManager::IsTrack;
+
+    int mDepth = 1;
+
+    qulonglong mDatabaseIdFilter = 0;
+
+    QString mGenreNameFilter;
+
+    QString mArtistNameFilter;
+
+    bool mIsValid = false;
 };
 
 class ViewManagerPrivate
 {
 public:
-    QList<ViewParameters> mViewsData = {{ViewManager::Context,
-                                         {i18nc("Title of the view of the playlist", "Now Playing")},
-                                         QUrl{QStringLiteral("image://icon/view-media-lyrics")},
-                                         ViewManager::ContextView},
-                                        {ViewManager::RecentlyPlayedTracks,
-                                         {i18nc("Title of the view of recently played tracks", "Recently Played")},
-                                         QUrl{QStringLiteral("image://icon/media-playlist-play")},
-                                         ViewManager::ListView,
-                                         ElisaUtils::FilterByRecentlyPlayed,
-                                         ElisaUtils::Track,
-                                         DataTypes::LastPlayDate,
-                                         ViewManager::SortDescending,
-                                         ViewManager::MultipleAlbum,
-                                         ViewManager::NoDiscHeaders,
-                                         ViewManager::IsTrack},
-                                        {ViewManager::FrequentlyPlayedTracks,
-                                         {i18nc("Title of the view of frequently played tracks", "Frequently Played")},
-                                         QUrl{QStringLiteral("image://icon/view-media-playcount")},
-                                         ViewManager::ListView,
-                                         ElisaUtils::FilterByFrequentlyPlayed,
-                                         ElisaUtils::Track,
-                                         DataTypes::PlayFrequency,
-                                         ViewManager::SortDescending,
-                                         ViewManager::MultipleAlbum,
-                                         ViewManager::NoDiscHeaders,
-                                         ViewManager::IsTrack},
-                                        {ViewManager::AllAlbums,
-                                         {i18nc("Title of the view of all albums", "Albums")},
-                                         QUrl{QStringLiteral("image://icon/view-media-album-cover")},
-                                         ViewManager::GridView,
-                                         ElisaUtils::NoFilter,
-                                         ElisaUtils::Album,
-                                         QUrl{QStringLiteral("image://icon/media-optical-audio")},
-                                         ViewManager::DelegateWithSecondaryText,
-                                         ViewManager::ViewShowRating},
-                                        {ViewManager::AllArtists,
-                                         {i18nc("Title of the view of all artists", "Artists")},
-                                         QUrl{QStringLiteral("image://icon/view-media-artist")},
-                                         ViewManager::GridView,
-                                         ElisaUtils::NoFilter,
-                                         ElisaUtils::Artist,
-                                         QUrl{QStringLiteral("image://icon/view-media-artist")},
-                                         ViewManager::DelegateWithoutSecondaryText,
-                                         ViewManager::ViewHideRating},
-                                        {ViewManager::AllTracks,
-                                         {i18nc("Title of the view of all tracks", "Tracks")},
-                                         QUrl{QStringLiteral("image://icon/view-media-track")},
-                                         ViewManager::ListView,
-                                         ElisaUtils::NoFilter,
-                                         ElisaUtils::Track,
-                                         Qt::DisplayRole,
-                                         ViewManager::SortAscending,
-                                         ViewManager::MultipleAlbum,
-                                         ViewManager::NoDiscHeaders,
-                                         ViewManager::IsTrack},
-                                        {ViewManager::AllGenres,
-                                         {i18nc("Title of the view of all genres", "Genres")},
-                                         QUrl{QStringLiteral("image://icon/view-media-genre")},
-                                         ViewManager::GridView,
-                                         ElisaUtils::NoFilter,
-                                         ElisaUtils::Genre,
-                                         QUrl{QStringLiteral("image://icon/view-media-genre")},
-                                         ViewManager::DelegateWithoutSecondaryText,
-                                         ViewManager::ViewHideRating},
-                                        {ViewManager::FilesBrowser,
-                                         {i18nc("Title of the file browser view", "Files")},
-                                         QUrl{QStringLiteral("image://icon/document-open-folder")},
-                                         ViewManager::FileBrowserView},
-                                        {ViewManager::RadiosBrowser,
-                                         {i18nc("Title of the file radios browser view", "Radios")},
-                                         QUrl{QStringLiteral("image://icon/radio")},
-                                         ViewManager::ListView,
-                                         ElisaUtils::NoFilter,
-                                         ElisaUtils::Radio,
-                                         Qt::DisplayRole,
-                                         ViewManager::SortAscending,
-                                         ViewManager::MultipleAlbum,
-                                         ViewManager::NoDiscHeaders,
-                                         ViewManager::IsRadio}};
+    QList<ViewParameters> mViewsParameters = {{ViewManager::Context,
+                                               {i18nc("Title of the view of the playlist", "Now Playing")},
+                                               QUrl{QStringLiteral("image://icon/view-media-lyrics")},
+                                               ViewManager::ContextView},
+                                              {ViewManager::RecentlyPlayedTracks,
+                                               {i18nc("Title of the view of recently played tracks", "Recently Played")},
+                                               QUrl{QStringLiteral("image://icon/media-playlist-play")},
+                                               ViewManager::ListView,
+                                               ElisaUtils::FilterByRecentlyPlayed,
+                                               ElisaUtils::Track,
+                                               DataTypes::LastPlayDate,
+                                               ViewManager::SortDescending,
+                                               ViewManager::MultipleAlbum,
+                                               ViewManager::NoDiscHeaders,
+                                               ViewManager::IsTrack},
+                                              {ViewManager::FrequentlyPlayedTracks,
+                                               {i18nc("Title of the view of frequently played tracks", "Frequently Played")},
+                                               QUrl{QStringLiteral("image://icon/view-media-playcount")},
+                                               ViewManager::ListView,
+                                               ElisaUtils::FilterByFrequentlyPlayed,
+                                               ElisaUtils::Track,
+                                               DataTypes::PlayFrequency,
+                                               ViewManager::SortDescending,
+                                               ViewManager::MultipleAlbum,
+                                               ViewManager::NoDiscHeaders,
+                                               ViewManager::IsTrack},
+                                              {ViewManager::AllAlbums,
+                                               {i18nc("Title of the view of all albums", "Albums")},
+                                               QUrl{QStringLiteral("image://icon/view-media-album-cover")},
+                                               ViewManager::GridView,
+                                               ElisaUtils::NoFilter,
+                                               ElisaUtils::Album,
+                                               QUrl{QStringLiteral("image://icon/media-optical-audio")},
+                                               ViewManager::DelegateWithSecondaryText,
+                                               ViewManager::ViewShowRating},
+                                              {ViewManager::AllArtists,
+                                               {i18nc("Title of the view of all artists", "Artists")},
+                                               QUrl{QStringLiteral("image://icon/view-media-artist")},
+                                               ViewManager::GridView,
+                                               ElisaUtils::NoFilter,
+                                               ElisaUtils::Artist,
+                                               QUrl{QStringLiteral("image://icon/view-media-artist")},
+                                               ViewManager::DelegateWithoutSecondaryText,
+                                               ViewManager::ViewHideRating},
+                                              {ViewManager::AllTracks,
+                                               {i18nc("Title of the view of all tracks", "Tracks")},
+                                               QUrl{QStringLiteral("image://icon/view-media-track")},
+                                               ViewManager::ListView,
+                                               ElisaUtils::NoFilter,
+                                               ElisaUtils::Track,
+                                               Qt::DisplayRole,
+                                               ViewManager::SortAscending,
+                                               ViewManager::MultipleAlbum,
+                                               ViewManager::NoDiscHeaders,
+                                               ViewManager::IsTrack},
+                                              {ViewManager::AllGenres,
+                                               {i18nc("Title of the view of all genres", "Genres")},
+                                               QUrl{QStringLiteral("image://icon/view-media-genre")},
+                                               ViewManager::GridView,
+                                               ElisaUtils::NoFilter,
+                                               ElisaUtils::Genre,
+                                               QUrl{QStringLiteral("image://icon/view-media-genre")},
+                                               ViewManager::DelegateWithoutSecondaryText,
+                                               ViewManager::ViewHideRating},
+                                              {ViewManager::FilesBrowser,
+                                               {i18nc("Title of the file browser view", "Files")},
+                                               QUrl{QStringLiteral("image://icon/document-open-folder")},
+                                               ViewManager::FileBrowserView},
+                                              {ViewManager::RadiosBrowser,
+                                               {i18nc("Title of the file radios browser view", "Radios")},
+                                               QUrl{QStringLiteral("image://icon/radio")},
+                                               ViewManager::ListView,
+                                               ElisaUtils::NoFilter,
+                                               ElisaUtils::Radio,
+                                               Qt::DisplayRole,
+                                               ViewManager::SortAscending,
+                                               ViewManager::MultipleAlbum,
+                                               ViewManager::NoDiscHeaders,
+                                               ViewManager::IsRadio}};
 
     QMap<ViewManager::ViewsType, ViewParameters> mChildViews = {
         {ViewManager::OneAlbum, {ViewManager::OneAlbum,
@@ -258,11 +303,11 @@ public:
 
     QMap<ViewManager::ViewsType, ViewManager::ViewsType> mViewsOrder = {
         {ViewManager::OneAlbum, ViewManager::AllAlbums},
-         {ViewManager::OneArtist, ViewManager::AllArtists},
-         {ViewManager::OneAlbumFromArtist, ViewManager::OneArtist},
-         {ViewManager::AllArtistsFromGenre, ViewManager::AllGenres},
-         {ViewManager::OneArtistFromGenre, ViewManager::AllArtistsFromGenre},
-         {ViewManager::OneAlbumFromArtistAndGenre, ViewManager::OneArtistFromGenre},
+        {ViewManager::OneArtist, ViewManager::AllArtists},
+        {ViewManager::OneAlbumFromArtist, ViewManager::OneArtist},
+        {ViewManager::AllArtistsFromGenre, ViewManager::AllGenres},
+        {ViewManager::OneArtistFromGenre, ViewManager::AllArtistsFromGenre},
+        {ViewManager::OneAlbumFromArtistAndGenre, ViewManager::OneArtistFromGenre},
     };
 
     QString mCurrentAlbumTitle;
@@ -280,6 +325,8 @@ public:
     ViewManager::ViewsType mCurrentView = ViewManager::Context;
     ViewManager::AlbumViewStyle mAlbumDiscHeader = ViewManager::NoDiscHeaders;
 
+    QList<ViewParameters> mViewParametersStack = {mViewsParameters[0]};
+    ViewParameters mNextViewParameters;
 };
 
 ViewManager::ViewManager(QObject *parent)
@@ -292,37 +339,114 @@ ViewManager::~ViewManager() = default;
 
 void ViewManager::openView(int viewIndex)
 {
-    const auto &viewData = d->mViewsData[viewIndex];
+    const auto &viewParameters = d->mViewsParameters[viewIndex];
 
-    d->mTargetView = viewData.mViewType;
+    d->mTargetView = viewParameters.mViewType;
 
     if (d->mCurrentView != d->mTargetView) {
-        openViewFromData(viewData);
+        d->mViewParametersStack.clear();
+        d->mNextViewParameters = viewParameters;
+        openViewFromData(viewParameters);
     }
 }
 
-void ViewManager::openChildView(const QString &innerMainTitle, const QString &innerSecondaryTitle,
+void ViewManager::openChildView(const QString &innerMainTitle, const QString & innerSecondaryTitle,
                                 const QUrl &innerImage, qulonglong databaseId,
-                                ElisaUtils::PlayListEntryType dataType, AlbumViewStyle albumDiscHeader)
+                                ElisaUtils::PlayListEntryType dataType)
 {
+    bool immediateOpening = true;
+
     switch(dataType)
     {
     case ElisaUtils::Album:
-        openOneAlbum(innerMainTitle, innerSecondaryTitle, innerImage, databaseId, albumDiscHeader);
+    {
+        if (d->mViewParametersStack.back().mDataType != dataType) {
+            openViewFromData(d->mViewsParameters[3]);
+            immediateOpening = false;
+        }
+        if (d->mViewParametersStack.back().mFilterType == ElisaUtils::FilterByArtist && d->mViewParametersStack.back().mArtistNameFilter != innerSecondaryTitle) {
+            d->mViewParametersStack.pop_back();
+
+            auto nextViewType = ViewManager::OneArtist;
+            switch (d->mViewParametersStack.back().mFilterType)
+            {
+            case ElisaUtils::FilterByGenre:
+                nextViewType = ViewManager::OneArtistFromGenre;
+                break;
+            default:
+                nextViewType = ViewManager::OneArtist;
+                break;
+            }
+
+            auto newParentView = d->mChildViews[nextViewType];
+            newParentView.mMainTitle = innerSecondaryTitle;
+            newParentView.mArtistNameFilter = innerSecondaryTitle;
+            newParentView.mDepth = d->mViewParametersStack.size() + 1;
+
+            openViewFromData(newParentView);
+        }
+
+        auto newViewType = OneAlbum;
+        if (d->mViewParametersStack.back().mFilterType == ElisaUtils::FilterByArtist) {
+            newViewType = OneAlbumFromArtist;
+        }
+        d->mNextViewParameters = d->mChildViews[newViewType];
+        d->mNextViewParameters.mMainTitle = innerMainTitle;
+        d->mNextViewParameters.mSecondaryTitle = innerSecondaryTitle;
+        d->mNextViewParameters.mMainImage = innerImage;
+        d->mNextViewParameters.mDatabaseIdFilter = databaseId;
+        d->mNextViewParameters.mDepth = d->mViewParametersStack.size() + 1;
         break;
+    }
     case ElisaUtils::Artist:
-        openOneArtist(innerMainTitle, innerImage, databaseId);
+    {
+        if (d->mViewParametersStack.back().mDataType != dataType) {
+            openViewFromData(d->mViewsParameters[4]);
+            immediateOpening = false;
+        }
+
+        auto nextViewType = ViewManager::OneArtist;
+        if(d->mViewParametersStack.back().mFilterType == ElisaUtils::FilterByGenre) {
+            nextViewType = ViewManager::OneArtistFromGenre;
+        }
+
+        d->mNextViewParameters = d->mChildViews[nextViewType];
+        d->mNextViewParameters.mMainTitle = innerMainTitle;
+        d->mNextViewParameters.mMainImage = innerImage;
+        d->mNextViewParameters.mDatabaseIdFilter = databaseId;
+        d->mNextViewParameters.mArtistNameFilter = innerMainTitle;
+        if(d->mViewParametersStack.back().mFilterType == ElisaUtils::FilterByGenre) {
+            d->mNextViewParameters.mGenreNameFilter = d->mViewParametersStack.back().mGenreNameFilter;
+        }
+        d->mNextViewParameters.mDepth = d->mViewParametersStack.size() + 1;
         break;
+    }
     case ElisaUtils::Genre:
-        openAllArtistsFromGenre(innerMainTitle);
+        if (d->mViewParametersStack.back().mDataType != dataType) {
+            openViewFromData(d->mViewsParameters[6]);
+            immediateOpening = false;
+        }
+
+        d->mNextViewParameters = d->mChildViews[ViewManager::AllArtistsFromGenre];
+        d->mNextViewParameters.mMainTitle = innerMainTitle;
+        d->mNextViewParameters.mMainImage = innerImage;
+        d->mNextViewParameters.mDatabaseIdFilter = databaseId;
+        d->mNextViewParameters.mGenreNameFilter = innerMainTitle;
+        d->mNextViewParameters.mDepth = d->mViewParametersStack.size() + 1;
+        break;
+    case ElisaUtils::Lyricist:
+        break;
+    case ElisaUtils::Composer:
         break;
     case ElisaUtils::Track:
     case ElisaUtils::FileName:
-    case ElisaUtils::Lyricist:
-    case ElisaUtils::Composer:
     case ElisaUtils::Radio:
     case ElisaUtils::Unknown:
         break;
+    }
+
+    if (immediateOpening) {
+        openViewFromData(d->mNextViewParameters);
     }
 }
 
@@ -473,11 +597,8 @@ void ViewManager::frequentlyPlayedTracksIsLoaded()
 
 void ViewManager::allAlbumsViewIsLoaded()
 {
-    d->mCurrentView = ViewsType::AllAlbums;
-    if (d->mTargetView == ViewsType::OneAlbum) {
-        Q_EMIT openListView(d->mTargetView, ElisaUtils::FilterById, 2, d->mTargetAlbumTitle, d->mTargetAlbumAuthor,
-                            d->mTargetDatabaseId, d->mTargetImageUrl, ElisaUtils::Track, Qt::DisplayRole,
-                            SortOrder::SortAscending, MultipleAlbum, NoDiscHeaders, IsTrack);
+    if (d->mNextViewParameters.mIsValid && d->mNextViewParameters != d->mViewParametersStack.back()) {
+        openViewFromData(d->mNextViewParameters);
     }
 }
 
@@ -497,13 +618,8 @@ void ViewManager::oneAlbumViewIsLoaded()
 
 void ViewManager::allArtistsViewIsLoaded()
 {
-    d->mCurrentView = ViewsType::AllArtists;
-    if (d->mTargetView == ViewsType::OneArtist) {
-        Q_EMIT openGridView(d->mTargetView, ElisaUtils::FilterByArtist, 2, d->mTargetArtistName, {}, d->mTargetImageUrl, ElisaUtils::Album,
-                            QUrl(QStringLiteral("image://icon/media-optical-audio")), {}, d->mTargetArtistName, ViewShowRating, DelegateWithSecondaryText);
-    } else if (d->mTargetView == ViewsType::OneAlbumFromArtist) {
-        Q_EMIT openGridView(ViewsType::OneArtist, ElisaUtils::FilterByArtist, 2, d->mTargetAlbumAuthor, {}, d->mTargetImageUrl, ElisaUtils::Album,
-                            QUrl(QStringLiteral("image://icon/media-optical-audio")), {}, d->mTargetAlbumAuthor, ViewShowRating, DelegateWithSecondaryText);
+    if (d->mNextViewParameters.mIsValid && d->mNextViewParameters != d->mViewParametersStack.back()) {
+        openViewFromData(d->mNextViewParameters);
     }
 }
 
@@ -531,10 +647,8 @@ void ViewManager::allTracksViewIsLoaded()
 
 void ViewManager::allGenresViewIsLoaded()
 {
-    d->mCurrentView = ViewsType::AllGenres;
-    if (d->mTargetView == ViewsType::AllArtistsFromGenre) {
-        Q_EMIT openGridView(ViewsType::AllArtistsFromGenre, ElisaUtils::FilterByGenre, 1, {}, {}, {}, ElisaUtils::Artist,
-                            QUrl(QStringLiteral("image://icon/view-media-artist")), d->mTargetGenreName, {}, ViewHideRating, DelegateWithoutSecondaryText);
+    if (d->mNextViewParameters.mIsValid && d->mNextViewParameters != d->mViewParametersStack.back()) {
+        openViewFromData(d->mNextViewParameters);
     }
 }
 
@@ -559,24 +673,38 @@ void ViewManager::radiosBrowserViewIsLoaded()
     d->mCurrentView = ViewsType::RadiosBrowser;
 }
 
-void ViewManager::openViewFromData(const ViewParameters &viewData)
+void ViewManager::openViewFromData(const ViewParameters &viewParamaters)
 {
-    switch (viewData.mViewPresentationType)
+    d->mViewParametersStack.push_back(viewParamaters);
+    switch (viewParamaters.mViewPresentationType)
     {
     case ViewPresentationType::GridView:
-        Q_EMIT openGridView(d->mTargetView, viewData.mFilterType, 1, viewData.mMainTitle, {}, viewData.mMainImage, viewData.mDataType,
-                            viewData.mFallbackItemIcon, {}, {}, viewData.mViewCanBeRated, viewData.mShowSecondaryTextOnDelegates);
+        qCDebug(orgKdeElisaViews()) << "ViewManager::openViewFromData" << viewParamaters.mViewType << viewParamaters.mFilterType
+                                    << viewParamaters.mDepth << viewParamaters.mMainTitle << viewParamaters.mSecondaryTitle
+                                    << viewParamaters.mMainImage << viewParamaters.mDataType << viewParamaters.mFallbackItemIcon
+                                    << viewParamaters.mGenreNameFilter << viewParamaters.mArtistNameFilter
+                                    << viewParamaters.mViewCanBeRated << viewParamaters.mShowSecondaryTextOnDelegates;
+        Q_EMIT openGridView(viewParamaters.mViewType, viewParamaters.mFilterType, viewParamaters.mDepth,
+                            viewParamaters.mMainTitle, viewParamaters.mSecondaryTitle, viewParamaters.mMainImage,
+                            viewParamaters.mDataType, viewParamaters.mFallbackItemIcon,
+                            viewParamaters.mGenreNameFilter, viewParamaters.mArtistNameFilter,
+                            viewParamaters.mViewCanBeRated, viewParamaters.mShowSecondaryTextOnDelegates);
         break;
     case ViewPresentationType::ListView:
-        Q_EMIT openListView(d->mTargetView, viewData.mFilterType, 1, viewData.mMainTitle, {},
-                            0, viewData.mMainImage, viewData.mDataType, viewData.mSortRole,
-                            viewData.mSortOrder, viewData.mAlbumCardinality, viewData.mAlbumViewStyle, viewData.mRadioSpecificStyle);
+        qCDebug(orgKdeElisaViews()) << "ViewManager::openViewFromData" << viewParamaters.mViewType << viewParamaters.mFilterType
+                                    << viewParamaters.mDepth << viewParamaters.mMainTitle << viewParamaters.mSecondaryTitle
+                                    << viewParamaters.mDatabaseIdFilter << viewParamaters.mMainImage << viewParamaters.mDataType
+                                    << viewParamaters.mSortRole << viewParamaters.mSortOrder << viewParamaters.mAlbumCardinality
+                                    << viewParamaters.mAlbumViewStyle << viewParamaters.mRadioSpecificStyle;
+        Q_EMIT openListView(viewParamaters.mViewType, viewParamaters.mFilterType, viewParamaters.mDepth, viewParamaters.mMainTitle, viewParamaters.mSecondaryTitle,
+                            viewParamaters.mDatabaseIdFilter, viewParamaters.mMainImage, viewParamaters.mDataType, viewParamaters.mSortRole,
+                            viewParamaters.mSortOrder, viewParamaters.mAlbumCardinality, viewParamaters.mAlbumViewStyle, viewParamaters.mRadioSpecificStyle);
         break;
     case ViewPresentationType::FileBrowserView:
-        Q_EMIT switchFilesBrowserView(d->mTargetView, 1, viewData.mMainTitle, viewData.mMainImage);
+        Q_EMIT switchFilesBrowserView(viewParamaters.mViewType, 1, viewParamaters.mMainTitle, viewParamaters.mMainImage);
         break;
     case ContextView:
-        Q_EMIT switchContextView(d->mTargetView, 1, viewData.mMainTitle, viewData.mMainImage);
+        Q_EMIT switchContextView(viewParamaters.mViewType, 1, viewParamaters.mMainTitle, viewParamaters.mMainImage);
         break;
     case UnknownViewPresentation:
         break;
@@ -586,21 +714,8 @@ void ViewManager::openViewFromData(const ViewParameters &viewData)
 void ViewManager::goBack()
 {
     Q_EMIT popOneView();
-
-    if (d->mCurrentView == ViewsType::OneAlbum) {
-        d->mCurrentView = ViewsType::AllAlbums;
-    } else if (d->mCurrentView == ViewsType::OneArtist) {
-        d->mCurrentView = ViewsType::AllArtists;
-    } else if (d->mCurrentView == ViewsType::OneAlbumFromArtist) {
-        d->mCurrentView = ViewsType::OneArtist;
-    } else if (d->mCurrentView == ViewsType::AllArtistsFromGenre) {
-        d->mCurrentView = ViewsType::AllGenres;
-    } else if (d->mCurrentView == ViewsType::OneArtistFromGenre) {
-        d->mCurrentView = ViewsType::AllArtistsFromGenre;
-    } else if (d->mCurrentView == ViewsType::OneAlbumFromArtistAndGenre) {
-        d->mCurrentView = ViewsType::OneArtistFromGenre;
-    }
-    d->mTargetView = d->mCurrentView;
+    d->mViewParametersStack.pop_back();
+    d->mNextViewParameters = {};
 }
 
 

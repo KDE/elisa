@@ -64,7 +64,7 @@ RowLayout {
                                      filterType: filterType,
                                      mainTitle: mainTitle,
                                      secondaryTitle: secondaryTitle,
-                                     image: pageModel.viewImageUrl(viewType, imageUrl),
+                                     image: imageUrl,
                                      modelType: dataType,
                                      defaultIcon: viewDefaultIcon,
                                      showRating: viewShowRating,

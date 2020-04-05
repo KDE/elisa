@@ -185,18 +185,5 @@ int ViewsModel::indexFromViewType(ViewManager::ViewsType type)
     return -1;
 }
 
-QUrl ViewsModel::viewImageUrl(ViewManager::ViewsType type, QUrl suggestedImageUrl) const
-{
-    auto result = std::move(suggestedImageUrl);
-
-    if (!result.isEmpty()) {
-        return result;
-    }
-
-    result = d->mIcons[type];
-
-    return result;
-}
-
 
 #include "moc_viewsmodel.cpp"

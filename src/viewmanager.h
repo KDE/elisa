@@ -146,42 +146,11 @@ public Q_SLOTS:
                        const QUrl &innerImage, qulonglong databaseId,
                        ElisaUtils::PlayListEntryType dataType);
 
-    void viewIsLoaded(ViewManager::ViewsType viewType);
+    void viewIsLoaded();
 
     void goBack();
 
 private:
-
-    void openOneAlbum(const QString &albumTitle, const QString &albumAuthor,
-                      const QUrl &albumCover, qulonglong albumDatabaseId, ViewManager::AlbumViewStyle albumDiscHeader);
-
-    void openOneArtist(const QString &artistName, const QUrl &artistImageUrl, qulonglong artistDatabaseId);
-
-    void openAllArtistsFromGenre(const QString &genreName);
-
-    void recentlyPlayedTracksIsLoaded();
-
-    void frequentlyPlayedTracksIsLoaded();
-
-    void allAlbumsViewIsLoaded();
-
-    void oneAlbumViewIsLoaded();
-
-    void allArtistsViewIsLoaded();
-
-    void oneArtistViewIsLoaded();
-
-    void allTracksViewIsLoaded();
-
-    void allGenresViewIsLoaded();
-
-    void allArtistsFromGenreViewIsLoaded();
-
-    void filesBrowserViewIsLoaded();
-
-    void contextViewIsLoaded();
-
-    void radiosBrowserViewIsLoaded();
 
     void openViewFromData(const ViewParameters &viewParamaters);
 

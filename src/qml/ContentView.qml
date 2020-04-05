@@ -303,7 +303,7 @@ RowLayout {
         id: dataGridView
 
         DataGridView {
-            StackView.onActivated: viewManager.viewIsLoaded(viewType)
+            StackView.onActivated: viewManager.viewIsLoaded()
             expandedFilterView: showExpandedFilterView
         }
     }
@@ -312,7 +312,7 @@ RowLayout {
         id: dataListView
 
         DataListView {
-            StackView.onActivated: viewManager.viewIsLoaded(viewType)
+            StackView.onActivated: viewManager.viewIsLoaded()
             expandedFilterView: showExpandedFilterView
         }
     }
@@ -321,7 +321,7 @@ RowLayout {
         id: filesBrowserView
 
         FileBrowserView {
-            StackView.onActivated: viewManager.viewIsLoaded(viewType)
+            StackView.onActivated: viewManager.viewIsLoaded()
             expandedFilterView: showExpandedFilterView
         }
     }
@@ -330,7 +330,7 @@ RowLayout {
             id: albumContext
 
         ContextView {
-            StackView.onActivated: viewManager.viewIsLoaded(viewType)
+            StackView.onActivated: viewManager.viewIsLoaded()
 
             databaseId: elisa.manageHeaderBar.databaseId
             trackType: elisa.manageHeaderBar.trackType

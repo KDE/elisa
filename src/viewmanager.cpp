@@ -381,6 +381,10 @@ void ViewManager::allTracksViewIsLoaded()
 void ViewManager::allGenresViewIsLoaded()
 {
     mCurrentView = ViewsType::AllGenres;
+    if (mTargetView == ViewsType::AllArtistsFromGenre) {
+        Q_EMIT openGridView(ViewsType::AllArtistsFromGenre, ElisaUtils::FilterByGenre, 1, {}, {}, {}, ElisaUtils::Artist,
+                            QUrl(QStringLiteral("image://icon/view-media-artist")), mTargetGenreName, {}, ViewHideRating, DelegateWithoutSecondaryText);
+    }
 }
 
 void ViewManager::allArtistsFromGenreViewIsLoaded()

@@ -29,6 +29,7 @@
 
 class ViewManagerPrivate;
 class ViewParameters;
+class ViewsListData;
 
 class ELISALIB_EXPORT ViewManager : public QObject
 {
@@ -37,6 +38,8 @@ class ELISALIB_EXPORT ViewManager : public QObject
     Q_PROPERTY(int viewIndex
                READ viewIndex
                NOTIFY viewIndexChanged)
+
+    Q_PROPERTY(ViewsListData* viewsData READ viewsData WRITE setViewsData NOTIFY viewsDataChanged)
 
 public:
 
@@ -120,6 +123,8 @@ public:
 
     int viewIndex() const;
 
+    ViewsListData* viewsData() const;
+
 Q_SIGNALS:
 
     void openGridView(ElisaUtils::FilterType filterType, int expectedDepth,
@@ -143,6 +148,8 @@ Q_SIGNALS:
 
     void viewIndexChanged();
 
+    void viewsDataChanged();
+
 public Q_SLOTS:
 
     void openView(int viewIndex);
@@ -154,6 +161,8 @@ public Q_SLOTS:
     void viewIsLoaded();
 
     void goBack();
+
+    void setViewsData(ViewsListData* viewsData);
 
 private:
 

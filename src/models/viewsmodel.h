@@ -65,7 +65,7 @@ Q_SIGNALS:
 
 public Q_SLOTS:
 
-void setViewsData(ViewsListData* viewsData);
+    void setViewsData(ViewsListData* viewsData);
 
 private:
 

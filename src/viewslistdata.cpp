@@ -21,46 +21,79 @@
 
 #include <QUrl>
 
-struct ViewItem
-{
-    QString mTitle;
-
-    QUrl mIconUrl;
-};
-
 class ViewsListDataPrivate
 {
 public:
-
-    ViewsListDataPrivate()
-    {
-        mData = {{i18nc("Title of the view of the playlist", "Now Playing"),
-                  QUrl{QStringLiteral("image://icon/view-media-lyrics")}},
-                 {i18nc("Title of the view of recently played tracks", "Recently Played"),
-                  QUrl{QStringLiteral("image://icon/media-playlist-play")}},
-                 {i18nc("Title of the view of frequently played tracks", "Frequently Played"),
-                  QUrl{QStringLiteral("image://icon/view-media-playcount")}},
-                 {i18nc("Title of the view of all albums", "Albums"),
-                  QUrl{QStringLiteral("image://icon/view-media-album-cover")}},
-                 {i18nc("Title of the view of all artists", "Artists"),
-                  QUrl{QStringLiteral("image://icon/view-media-artist")}},
-                 {i18nc("Title of the view of all tracks", "Tracks"),
-                  QUrl{QStringLiteral("image://icon/view-media-track")}},
-                 {i18nc("Title of the view of all genres", "Genres"),
-                  QUrl{QStringLiteral("image://icon/view-media-genre")}},
-                 {i18nc("Title of the file browser view", "Files"),
-                  QUrl{QStringLiteral("image://icon/document-open-folder")}},
-                 {i18nc("Title of the file radios browser view", "Radios"),
-                  QUrl{QStringLiteral("image://icon/radio")}}};
-
-        mDefaultIcons = {{ViewManager::AllAlbums, QUrl{QStringLiteral("image://icon/view-media-album-cover")}},
-                         {ViewManager::AllArtists, QUrl{QStringLiteral("image://icon/view-media-artist")}},
-                         {ViewManager::AllGenres, QUrl{QStringLiteral("image://icon/view-media-genre")}},};
-    }
-
-    QList<ViewItem> mData;
-
-    QMap<ViewManager::ViewsType, QUrl> mDefaultIcons;
+    QList<ViewParameters> mViewsParameters = {{{i18nc("Title of the view of the playlist", "Now Playing")},
+                                               QUrl{QStringLiteral("image://icon/view-media-lyrics")},
+                                               ViewManager::ContextView},
+                                              {{i18nc("Title of the view of recently played tracks", "Recently Played")},
+                                               QUrl{QStringLiteral("image://icon/media-playlist-play")},
+                                               ViewManager::ListView,
+                                               ElisaUtils::FilterByRecentlyPlayed,
+                                               ElisaUtils::Track,
+                                               DataTypes::LastPlayDate,
+                                               ViewManager::SortDescending,
+                                               ViewManager::MultipleAlbum,
+                                               ViewManager::NoDiscHeaders,
+                                               ViewManager::IsTrack},
+                                              {{i18nc("Title of the view of frequently played tracks", "Frequently Played")},
+                                               QUrl{QStringLiteral("image://icon/view-media-playcount")},
+                                               ViewManager::ListView,
+                                               ElisaUtils::FilterByFrequentlyPlayed,
+                                               ElisaUtils::Track,
+                                               DataTypes::PlayFrequency,
+                                               ViewManager::SortDescending,
+                                               ViewManager::MultipleAlbum,
+                                               ViewManager::NoDiscHeaders,
+                                               ViewManager::IsTrack},
+                                              {{i18nc("Title of the view of all albums", "Albums")},
+                                               QUrl{QStringLiteral("image://icon/view-media-album-cover")},
+                                               ViewManager::GridView,
+                                               ElisaUtils::NoFilter,
+                                               ElisaUtils::Album,
+                                               QUrl{QStringLiteral("image://icon/media-optical-audio")},
+                                               ViewManager::DelegateWithSecondaryText,
+                                               ViewManager::ViewShowRating},
+                                              {{i18nc("Title of the view of all artists", "Artists")},
+                                               QUrl{QStringLiteral("image://icon/view-media-artist")},
+                                               ViewManager::GridView,
+                                               ElisaUtils::NoFilter,
+                                               ElisaUtils::Artist,
+                                               QUrl{QStringLiteral("image://icon/view-media-artist")},
+                                               ViewManager::DelegateWithoutSecondaryText,
+                                               ViewManager::ViewHideRating},
+                                              {{i18nc("Title of the view of all tracks", "Tracks")},
+                                               QUrl{QStringLiteral("image://icon/view-media-track")},
+                                               ViewManager::ListView,
+                                               ElisaUtils::NoFilter,
+                                               ElisaUtils::Track,
+                                               Qt::DisplayRole,
+                                               ViewManager::SortAscending,
+                                               ViewManager::MultipleAlbum,
+                                               ViewManager::NoDiscHeaders,
+                                               ViewManager::IsTrack},
+                                              {{i18nc("Title of the view of all genres", "Genres")},
+                                               QUrl{QStringLiteral("image://icon/view-media-genre")},
+                                               ViewManager::GridView,
+                                               ElisaUtils::NoFilter,
+                                               ElisaUtils::Genre,
+                                               QUrl{QStringLiteral("image://icon/view-media-genre")},
+                                               ViewManager::DelegateWithoutSecondaryText,
+                                               ViewManager::ViewHideRating},
+                                              {{i18nc("Title of the file browser view", "Files")},
+                                               QUrl{QStringLiteral("image://icon/document-open-folder")},
+                                               ViewManager::FileBrowserView},
+                                              {{i18nc("Title of the file radios browser view", "Radios")},
+                                               QUrl{QStringLiteral("image://icon/radio")},
+                                               ViewManager::ListView,
+                                               ElisaUtils::NoFilter,
+                                               ElisaUtils::Radio,
+                                               Qt::DisplayRole,
+                                               ViewManager::SortAscending,
+                                               ViewManager::MultipleAlbum,
+                                               ViewManager::NoDiscHeaders,
+                                               ViewManager::IsRadio}};
 
 };
 
@@ -72,17 +105,22 @@ ViewsListData::~ViewsListData() = default;
 
 int ViewsListData::count() const
 {
-    return d->mData.count();
+    return d->mViewsParameters.count();
+}
+
+const ViewParameters &ViewsListData::viewParameters(int index) const
+{
+    return d->mViewsParameters[index];
 }
 
 const QString &ViewsListData::title(int index) const
 {
-    return d->mData[index].mTitle;
+    return d->mViewsParameters[index].mMainTitle;
 }
 
 const QUrl &ViewsListData::iconUrl(int index) const
 {
-    return d->mData[index].mIconUrl;
+    return d->mViewsParameters[index].mMainImage;
 }
 
 

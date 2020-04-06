@@ -140,7 +140,7 @@ RowLayout {
     ViewsModel {
         id: pageModel
 
-        viewsData: elisa.viewsListData
+        viewsData: viewManager.viewsListData
     }
 
     ViewSelector {

@@ -27,7 +27,6 @@
 #include "managemediaplayercontrol.h"
 #include "manageheaderbar.h"
 #include "databaseinterface.h"
-#include "viewslistdata.h"
 
 #include "elisa_settings.h"
 #include <KConfigCore/KAuthorized>
@@ -101,8 +100,6 @@ public:
     std::unique_ptr<ManageMediaPlayerControl> mPlayerControl;
 
     std::unique_ptr<ManageHeaderBar> mManageHeaderBar;
-
-    std::unique_ptr<ViewsListData> mViewsListData;
 
     QQmlApplicationEngine *mEngine = nullptr;
 
@@ -359,9 +356,6 @@ void ElisaApplication::setQmlEngine(QQmlApplicationEngine *engine)
 
 void ElisaApplication::initializeModels()
 {
-    d->mViewsListData = std::make_unique<ViewsListData>();
-    Q_EMIT viewsListDataChanged();
-
     d->mMusicManager = std::make_unique<MusicListenersManager>();
     Q_EMIT musicManagerChanged();
 
@@ -544,11 +538,6 @@ ManageMediaPlayerControl *ElisaApplication::playerControl() const
 ManageHeaderBar *ElisaApplication::manageHeaderBar() const
 {
     return d->mManageHeaderBar.get();
-}
-
-ViewsListData *ElisaApplication::viewsListData() const
-{
-    return d->mViewsListData.get();
 }
 
 bool ElisaApplication::showProgressOnTaskBar() const

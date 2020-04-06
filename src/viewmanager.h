@@ -43,27 +43,6 @@ class ELISALIB_EXPORT ViewManager : public QObject
 
 public:
 
-    enum ViewsType {
-        AllAlbums,
-        OneAlbum,
-        AllArtists,
-        OneArtist,
-        OneAlbumFromArtist,
-        AllTracks,
-        AllGenres,
-        AllArtistsFromGenre,
-        OneArtistFromGenre,
-        OneAlbumFromArtistAndGenre,
-        FrequentlyPlayedTracks,
-        RecentlyPlayedTracks,
-        FilesBrowser,
-        Context,
-        RadiosBrowser,
-        UnknownView,
-    };
-
-    Q_ENUM(ViewsType)
-
     enum SortOrder {
         NoSort,
         SortAscending,

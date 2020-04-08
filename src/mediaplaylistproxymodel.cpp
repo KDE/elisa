@@ -316,14 +316,14 @@ void MediaPlayListProxyModel::sourceRowsInserted(const QModelIndex &parent, int 
         if (rowCount() == 0 || newItemsCount == 1) {
             beginInsertRows(parent, start, end);
             for (int i = 0; i < newItemsCount; ++i) {
-                //QRandomGenerator.bounded(int) is exlusive, thus + 1
+                //QRandomGenerator.bounded(int) is exclusive, thus + 1
                 const auto random = d->mRandomGenerator.bounded(d->mRandomMapping.count()+1);
                 d->mRandomMapping.insert(random, start + i);
             }
             endInsertRows();
         } else {
             for (int i = 0; i < newItemsCount; ++i) {
-                //QRandomGenerator.bounded(int) is exlusive, thus + 1
+                //QRandomGenerator.bounded(int) is exclusive, thus + 1
                 const auto random = d->mRandomGenerator.bounded(d->mRandomMapping.count()+1);
                 beginInsertRows(parent, random, random);
                 d->mRandomMapping.insert(random, start + i);

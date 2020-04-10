@@ -50,6 +50,8 @@ RowLayout {
     ViewManager {
         id: viewManager
 
+        viewsData: viewsData
+
         onOpenGridView: {
             if (expectedDepth === 1) {
                 listViews.setCurrentIndex(viewManager.viewIndex)
@@ -140,7 +142,11 @@ RowLayout {
     ViewsModel {
         id: pageModel
 
-        viewsData: viewManager.viewsListData
+        viewsData: viewsData
+    }
+
+    ViewsListData {
+        id: viewsData
     }
 
     ViewSelector {

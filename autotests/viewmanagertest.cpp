@@ -16,7 +16,7 @@
  */
 
 #include "viewmanager.h"
-
+#include "viewslistdata.h"
 
 #include <QtTest>
 
@@ -47,6 +47,8 @@ private Q_SLOTS:
     void openAlbumViewTest()
     {
         ViewManager viewManager;
+        ViewsListData viewsData;
+        viewManager.setViewsData(&viewsData);
 
         QSignalSpy openGridViewSpy(&viewManager, &ViewManager::openGridView);
         QSignalSpy openListViewSpy(&viewManager, &ViewManager::openListView);
@@ -86,6 +88,8 @@ private Q_SLOTS:
     void openAlbumView2Test()
     {
         ViewManager viewManager;
+        ViewsListData viewsData;
+        viewManager.setViewsData(&viewsData);
 
         QSignalSpy openGridViewSpy(&viewManager, &ViewManager::openGridView);
         QSignalSpy openListViewSpy(&viewManager, &ViewManager::openListView);
@@ -168,6 +172,8 @@ private Q_SLOTS:
     void openAlbumView3Test()
     {
         ViewManager viewManager;
+        ViewsListData viewsData;
+        viewManager.setViewsData(&viewsData);
 
         QSignalSpy openGridViewSpy(&viewManager, &ViewManager::openGridView);
         QSignalSpy openListViewSpy(&viewManager, &ViewManager::openListView);
@@ -246,6 +252,8 @@ private Q_SLOTS:
     void openArtistViewTest()
     {
         ViewManager viewManager;
+        ViewsListData viewsData;
+        viewManager.setViewsData(&viewsData);
 
         QSignalSpy openGridViewSpy(&viewManager, &ViewManager::openGridView);
         QSignalSpy openListViewSpy(&viewManager, &ViewManager::openListView);
@@ -286,6 +294,8 @@ private Q_SLOTS:
     void openArtistView2Test()
     {
         ViewManager viewManager;
+        ViewsListData viewsData;
+        viewManager.setViewsData(&viewsData);
 
         QSignalSpy openGridViewSpy(&viewManager, &ViewManager::openGridView);
         QSignalSpy openListViewSpy(&viewManager, &ViewManager::openListView);
@@ -370,6 +380,8 @@ private Q_SLOTS:
     void openArtistView3Test()
     {
         ViewManager viewManager;
+        ViewsListData viewsData;
+        viewManager.setViewsData(&viewsData);
 
         QSignalSpy openGridViewSpy(&viewManager, &ViewManager::openGridView);
         QSignalSpy openListViewSpy(&viewManager, &ViewManager::openListView);
@@ -450,6 +462,8 @@ private Q_SLOTS:
     void openGenreViewTest()
     {
         ViewManager viewManager;
+        ViewsListData viewsData;
+        viewManager.setViewsData(&viewsData);
 
         QSignalSpy openGridViewSpy(&viewManager, &ViewManager::openGridView);
         QSignalSpy openListViewSpy(&viewManager, &ViewManager::openListView);
@@ -490,6 +504,8 @@ private Q_SLOTS:
     void openGenreView2Test()
     {
         ViewManager viewManager;
+        ViewsListData viewsData;
+        viewManager.setViewsData(&viewsData);
 
         QSignalSpy openGridViewSpy(&viewManager, &ViewManager::openGridView);
         QSignalSpy openListViewSpy(&viewManager, &ViewManager::openListView);
@@ -574,6 +590,8 @@ private Q_SLOTS:
     void openGenreView3Test()
     {
         ViewManager viewManager;
+        ViewsListData viewsData;
+        viewManager.setViewsData(&viewsData);
 
         QSignalSpy openGridViewSpy(&viewManager, &ViewManager::openGridView);
         QSignalSpy openListViewSpy(&viewManager, &ViewManager::openListView);
@@ -654,6 +672,8 @@ private Q_SLOTS:
     void openArtistFromGenreViewTest()
     {
         ViewManager viewManager;
+        ViewsListData viewsData;
+        viewManager.setViewsData(&viewsData);
 
         QSignalSpy openGridViewSpy(&viewManager, &ViewManager::openGridView);
         QSignalSpy openListViewSpy(&viewManager, &ViewManager::openListView);
@@ -716,6 +736,8 @@ private Q_SLOTS:
     void openArtistViewAndAlbumFromAnotherArtistTest()
     {
         ViewManager viewManager;
+        ViewsListData viewsData;
+        viewManager.setViewsData(&viewsData);
 
         QSignalSpy openGridViewSpy(&viewManager, &ViewManager::openGridView);
         QSignalSpy openListViewSpy(&viewManager, &ViewManager::openListView);

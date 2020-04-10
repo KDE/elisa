@@ -26,7 +26,7 @@
 class ViewManagerPrivate
 {
 public:
-    ViewsListData mViewsListData;
+    ViewsListData *mViewsListData = nullptr;
 
     QMap<ElisaUtils::PlayListEntryType, ViewParameters> mChildViews = {
         {ElisaUtils::Album, {{},
@@ -59,7 +59,7 @@ public:
 
     int mViewIndex = 0;
 
-    QList<ViewParameters> mViewParametersStack = {mViewsListData.viewParameters(0)};
+    QList<ViewParameters> mViewParametersStack = (mViewsListData ? QList<ViewParameters>{mViewsListData->viewParameters(0)} : QList<ViewParameters>{});
 
     ViewParameters mNextViewParameters;
 };
@@ -77,16 +77,24 @@ int ViewManager::viewIndex() const
 
 ViewsListData *ViewManager::viewsData() const
 {
-    return &d->mViewsListData;
+    return d->mViewsListData;
 }
 
 ViewManager::~ViewManager() = default;
 
 void ViewManager::openView(int viewIndex)
 {
+    if (!d->mViewsListData) {
+        return;
+    }
+
+    if (!d->mViewParametersStack.size()) {
+        return;
+    }
+
     qCDebug(orgKdeElisaViews()) << "ViewManager::openView" << viewIndex << d->mViewParametersStack.size();
 
-    const auto &viewParameters = d->mViewsListData.viewParameters(viewIndex);
+    const auto &viewParameters = d->mViewsListData->viewParameters(viewIndex);
 
     if (viewParameters != d->mViewParametersStack.back()) {
         d->mViewIndex = viewIndex;
@@ -103,6 +111,10 @@ void ViewManager::openChildView(const QString &innerMainTitle, const QString & i
 {
     qCDebug(orgKdeElisaViews()) << "ViewManager::openChildView" << innerMainTitle << innerSecondaryTitle
                                 << innerImage << databaseId << dataType << d->mViewParametersStack.size();
+
+    if (!d->mViewParametersStack.size()) {
+        return;
+    }
 
     const auto &lastView = d->mViewParametersStack.back();
 
@@ -142,12 +154,12 @@ void ViewManager::openChildView(const QString &innerMainTitle, const QString & i
     d->mNextViewParameters = nextViewParameters;
 
     if (lastView.mDataType != dataType) {
-        for(int i = 0; i < d->mViewsListData.count(); ++i) {
-            if (d->mViewsListData.viewParameters(i).mDataType == dataType) {
+        for(int i = 0; i < d->mViewsListData->count(); ++i) {
+            if (d->mViewsListData->viewParameters(i).mDataType == dataType) {
                 d->mViewIndex = i;
                 Q_EMIT viewIndexChanged();
 
-                nextViewParameters = d->mViewsListData.viewParameters(i);
+                nextViewParameters = d->mViewsListData->viewParameters(i);
                 break;
             }
         }
@@ -164,6 +176,10 @@ void ViewManager::openChildView(const QString &innerMainTitle, const QString & i
 void ViewManager::viewIsLoaded()
 {
     qCDebug(orgKdeElisaViews()) << "ViewManager::viewIsLoaded" << d->mViewParametersStack.size();
+
+    if (!d->mViewParametersStack.size()) {
+        return;
+    }
 
     if (d->mNextViewParameters.mIsValid && d->mNextViewParameters != d->mViewParametersStack.back()) {
         openViewFromData(d->mNextViewParameters);
@@ -226,6 +242,9 @@ void ViewManager::openViewFromData(const ViewParameters &viewParamaters)
 void ViewManager::goBack()
 {
     qCDebug(orgKdeElisaViews()) << "ViewManager::goBack" << d->mViewParametersStack.size();
+    if (d->mViewParametersStack.size() <= 1) {
+        return;
+    }
 
     Q_EMIT popOneView();
     d->mViewParametersStack.pop_back();
@@ -234,7 +253,16 @@ void ViewManager::goBack()
 
 void ViewManager::setViewsData(ViewsListData *viewsData)
 {
-    Q_UNUSED(viewsData)
+    if (d->mViewsListData == viewsData) {
+        return;
+    }
+
+    d->mViewsListData = viewsData;
+    Q_EMIT viewsDataChanged();
+
+    if (d->mViewsListData) {
+        d->mViewParametersStack = {d->mViewsListData->viewParameters(d->mViewIndex)};
+    }
 }
 
 

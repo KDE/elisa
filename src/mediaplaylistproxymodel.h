@@ -24,6 +24,8 @@
 
 #include <QAbstractProxyModel>
 #include <QMediaPlayer>
+#include <QDir>
+#include <QMimeDatabase>
 
 #include <memory>
 
@@ -175,6 +177,11 @@ public Q_SLOTS:
     void loadPlayList(const QUrl &fileName);
 
     void setPersistentState(const QVariantMap &persistentState);
+
+    void enqueueDirectory(const QUrl &fileName,
+                          ElisaUtils::PlayListEntryType databaseIdType,
+                          ElisaUtils::PlayListEnqueueMode enqueueMode,
+                          ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay, int depth);
 
 Q_SIGNALS:
 

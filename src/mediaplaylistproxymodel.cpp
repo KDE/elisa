@@ -48,6 +48,8 @@ public:
 
     QRandomGenerator mRandomGenerator;
 
+    QMimeDatabase mMimeDb;
+
     ElisaUtils::PlayListEnqueueTriggerPlay mTriggerPlay = ElisaUtils::DoNotTriggerPlay;
 
     int mCurrentPlayListPosition = -1;
@@ -842,6 +844,29 @@ void MediaPlayListProxyModel::setPersistentState(const QVariantMap &persistentSt
     }
 
     Q_EMIT persistentStateChanged();
+}
+
+void MediaPlayListProxyModel::enqueueDirectory(const QUrl &fileName, ElisaUtils::PlayListEntryType databaseIdType,
+                                            ElisaUtils::PlayListEnqueueMode enqueueMode,
+                                            ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay, int depth)
+{
+    if (!fileName.isLocalFile()) return;
+    QDir dirInfo = QDir(fileName.toLocalFile());
+    auto files = dirInfo.entryInfoList(QDir::NoDotAndDotDot | QDir::Readable | QDir::Files | QDir::Dirs, QDir::Name);
+    auto newFiles = ElisaUtils::EntryDataList();
+    for (auto file : files)
+    {
+        auto fileUrl = QUrl::fromLocalFile(file.filePath());
+        if (file.isFile() && d->mMimeDb.mimeTypeForUrl(fileUrl).name().startsWith(QLatin1String("audio/")))
+        {
+            newFiles.append({ElisaUtils::EntryData{{},{},fileUrl}});
+        }
+        else if (file.isDir() && depth > 1)
+        {
+            enqueueDirectory(fileUrl, databaseIdType, ElisaUtils::AppendPlayList, triggerPlay, depth-1);
+        }
+    }
+    if (newFiles.size() != 0) enqueue(newFiles, databaseIdType, enqueueMode, triggerPlay);
 }
 
 #include "moc_mediaplaylistproxymodel.cpp"

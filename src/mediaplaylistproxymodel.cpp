@@ -851,6 +851,15 @@ void MediaPlayListProxyModel::enqueueDirectory(const QUrl &fileName, ElisaUtils:
                                             ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay, int depth)
 {
     if (!fileName.isLocalFile()) return;
+    // clear playlist if required
+    if (enqueueMode == ElisaUtils::ReplacePlayList) {
+        if (rowCount() == 0) {
+            Q_EMIT hideUndoNotification();
+        } else {
+            clearPlayList();
+        }
+    }
+    // get contents of directory
     QDir dirInfo = QDir(fileName.toLocalFile());
     auto files = dirInfo.entryInfoList(QDir::NoDotAndDotDot | QDir::Readable | QDir::Files | QDir::Dirs, QDir::Name);
     auto newFiles = ElisaUtils::EntryDataList();
@@ -863,10 +872,11 @@ void MediaPlayListProxyModel::enqueueDirectory(const QUrl &fileName, ElisaUtils:
         }
         else if (file.isDir() && depth > 1)
         {
+            // recurse through directory
             enqueueDirectory(fileUrl, databaseIdType, ElisaUtils::AppendPlayList, triggerPlay, depth-1);
         }
     }
-    if (newFiles.size() != 0) enqueue(newFiles, databaseIdType, enqueueMode, triggerPlay);
+    if (newFiles.size() != 0) enqueue(newFiles, databaseIdType, ElisaUtils::AppendPlayList, triggerPlay);
 }
 
 #include "moc_mediaplaylistproxymodel.cpp"

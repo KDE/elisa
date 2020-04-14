@@ -25,6 +25,8 @@
 #include <QRandomGenerator>
 #include <QFile>
 #include <QFileInfo>
+#include <QDir>
+#include <QMimeDatabase>
 
 #include <algorithm>
 

@@ -24,8 +24,6 @@
 
 #include <QAbstractProxyModel>
 #include <QMediaPlayer>
-#include <QDir>
-#include <QMimeDatabase>
 
 #include <memory>
 

@@ -154,10 +154,10 @@ FocusScope {
                     showEnqueueButton: !model.isPlaylist
                     showPlayButton: true
 
-                    onEnqueue: isDirectory ? elisa.mediaPlayListProxyModel.enqueueDirectory(url, ElisaUtils.FileName, ElisaUtils.AppendPlayList, ElisaUtils.DoNotTriggerPlay, 5) : elisa.mediaPlayListProxyModel.enqueue(url, ElisaUtils.FileName, ElisaUtils.AppendPlayList, ElisaUtils.DoNotTriggerPlay)
+                    onEnqueue: isDirectory ? elisa.mediaPlayListProxyModel.enqueueDirectory(url, ElisaUtils.FileName, ElisaUtils.AppendPlayList, ElisaUtils.DoNotTriggerPlay, 10) : elisa.mediaPlayListProxyModel.enqueue(url, ElisaUtils.FileName, ElisaUtils.AppendPlayList, ElisaUtils.DoNotTriggerPlay)
                     onReplaceAndPlay: {
                         if (model.isDirectory) {
-                            elisa.mediaPlayListProxyModel.enqueueDirectory(url, ElisaUtils.FileName, ElisaUtils.ReplacePlayList, ElisaUtils.TriggerPlay, 5)
+                            elisa.mediaPlayListProxyModel.enqueueDirectory(url, ElisaUtils.FileName, ElisaUtils.ReplacePlayList, ElisaUtils.TriggerPlay, 10)
                         } else if (model.isPlaylist) {
                             elisa.mediaPlayListProxyModel.loadPlaylist(url)
                         } else {

@@ -283,10 +283,8 @@ FocusScope {
 
                 type: Kirigami.MessageType.Information
                 showCloseButton: true
-                Layout.topMargin: Kirigami.Units.largeSpacing
                 Layout.fillWidth: true
-                Layout.rightMargin: Kirigami.Units.largeSpacing
-                Layout.leftMargin: Kirigami.Units.largeSpacing
+                Layout.margins: Kirigami.Units.largeSpacing
 
                 onVisibleChanged:
                 {

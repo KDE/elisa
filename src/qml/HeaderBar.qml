@@ -248,108 +248,89 @@ FocusScope {
 
                 Layout.maximumHeight: (headerBar.height - playControlItem.height - 8 * Kirigami.Units.largeSpacing) < gridLayoutContent.height ? (headerBar.height - playControlItem.height - 8 * Kirigami.Units.largeSpacing): gridLayoutContent.height
 
-                GridLayout {
-                    id: gridLayoutLabels
-                    property bool doChangeLayout: (contentZone.height/contentZone.width < 0.1) || (!isMaximized && contentZone.height < 125)
 
-                    columns: doChangeLayout? 2: 1
-                    rows: doChangeLayout? 2: 4
-
-                    flow: GridLayout.TopToBottom
-
-                    Layout.fillHeight: true
+                LabelWithToolTip {
+                    id: mainLabel
+                    text: title
                     Layout.fillWidth: true
-                    Layout.alignment: (portrait? Qt.AlignHCenter: Qt.AlignLeft) | (isMaximized? Qt.AlignTop : Qt.AlignVCenter)
+                    wrapMode: Text.Wrap
+                    Layout.alignment: (portrait? Qt.AlignHCenter: Qt.AlignLeft) | Qt.AlignTop
+                    horizontalAlignment: portrait? Text.AlignHCenter : Text.AlignLeft
+                    elide: Text.ElideRight
+                    // Hardcoded because the headerbar blur always makes a dark-ish
+                    // background, so we don't want to use a color scheme color that
+                    // might also be dark
+                    color: "white"
+                    level: 1
+                    font.bold: true
 
-                    LabelWithToolTip {
-                        id: mainLabel
-                        text: title
-                        Layout.fillWidth: true
-                        Layout.maximumWidth: headerBar.width - 8 * Kirigami.Units.largeSpacing
-                        wrapMode: Text.Wrap
-                        Layout.alignment: (portrait? Qt.AlignHCenter: Qt.AlignLeft) | Qt.AlignTop
-                        horizontalAlignment: portrait? Text.AlignHCenter : Text.AlignLeft
-                        elide: Text.ElideRight
-                        // Hardcoded because the headerbar blur always makes a dark-ish
-                        // background, so we don't want to use a color scheme color that
-                        // might also be dark
-                        color: "white"
-                        level: 1
-                        font.bold: true
-
-                        Layout.bottomMargin: albumLabel.height * 0.25
-
-                        MouseArea {
-                            id: titleMouseArea
-                            hoverEnabled: true
-                            anchors.fill: parent
-                            cursorShape: Qt.PointingHandCursor
-                            onClicked: {
-                                openNowPlaying()
-                            }
+                    MouseArea {
+                        id: titleMouseArea
+                        hoverEnabled: true
+                        anchors.fill: parent
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: {
+                            openNowPlaying()
                         }
                     }
+                }
 
-                    LabelWithToolTip {
-                        id: authorLabel
-                        text: artist
-                         Layout.fillHeight: false
-                        Layout.fillWidth: true
-                        Layout.maximumWidth: headerBar.width - 8 * Kirigami.Units.largeSpacing
-                        wrapMode: Text.Wrap
-                        Layout.alignment: (portrait? Qt.AlignHCenter: Qt.AlignLeft) | Qt.AlignTop
-                        horizontalAlignment: portrait? Text.AlignHCenter : Text.AlignLeft
-                        elide: Text.ElideRight
-                        // Hardcoded because the headerbar blur always makes a dark-ish
-                        // background, so we don't want to use a color scheme color that
-                        // might also be dark
-                        color: "white"
-                        level: 3
+                LabelWithToolTip {
+                    id: authorLabel
+                    text: artist
+                    Layout.fillWidth: true
+                    wrapMode: Text.Wrap
+                    Layout.alignment: (portrait? Qt.AlignHCenter: Qt.AlignLeft) | Qt.AlignTop
+                    horizontalAlignment: portrait? Text.AlignHCenter : Text.AlignLeft
+                    elide: Text.ElideRight
+                    // Hardcoded because the headerbar blur always makes a dark-ish
+                    // background, so we don't want to use a color scheme color that
+                    // might also be dark
+                    color: "white"
+                    level: 3
 
-                        MouseArea {
-                            id: authorMouseArea
-                            hoverEnabled: true
-                            anchors.fill: parent
-                            cursorShape: Qt.PointingHandCursor
-                            onClicked: {
-                                openArtist()
-                            }
+                    MouseArea {
+                        id: authorMouseArea
+                        hoverEnabled: true
+                        anchors.fill: parent
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: {
+                            openArtist()
                         }
                     }
+                }
 
-                    LabelWithToolTip {
-                        id: albumLabel
-                        text: album
-                        Layout.fillWidth: true
-                        Layout.maximumWidth: headerBar.width - 8 * Kirigami.Units.largeSpacing
-                        wrapMode: Text.Wrap
-                        Layout.alignment: (portrait? Qt.AlignHCenter: Qt.AlignLeft) | Qt.AlignTop
-                        horizontalAlignment: portrait? Text.AlignHCenter : Text.AlignLeft
-                        elide: Text.ElideRight
-                        // Hardcoded because the headerbar blur always makes a dark-ish
-                        // background, so we don't want to use a color scheme color that
-                        // might also be dark
-                        color: "white"
-                        level: 3
+                LabelWithToolTip {
+                    id: albumLabel
+                    text: album
+                    Layout.fillWidth: true
+                    wrapMode: Text.Wrap
+                    Layout.alignment: (portrait? Qt.AlignHCenter: Qt.AlignLeft) | Qt.AlignTop
+                    horizontalAlignment: portrait? Text.AlignHCenter : Text.AlignLeft
+                    elide: Text.ElideRight
+                    // Hardcoded because the headerbar blur always makes a dark-ish
+                    // background, so we don't want to use a color scheme color that
+                    // might also be dark
+                    color: "white"
+                    level: 3
 
-                        MouseArea {
-                            id: albumMouseArea
-                            hoverEnabled: true
-                            anchors.fill: parent
-                            cursorShape: Qt.PointingHandCursor
-                            onClicked: {
-                                openAlbum()
-                            }
+                    MouseArea {
+                        id: albumMouseArea
+                        hoverEnabled: true
+                        anchors.fill: parent
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: {
+                            openAlbum()
                         }
                     }
+                }
 
-                    RatingStar {
-                        id: mainRating
-                        visible: ratingVisible
-                        starRating: trackRating
-                        Layout.fillWidth: true
-                        Layout.alignment: (portrait? Qt.AlignHCenter: Qt.AlignLeft) | Qt.AlignTop
-                    }
+                RatingStar {
+                    id: mainRating
+                    visible: ratingVisible
+                    starRating: trackRating
+                    Layout.fillWidth: true
+                    Layout.alignment: (portrait? Qt.AlignHCenter: Qt.AlignLeft) | Qt.AlignTop
                 }
 
                 Loader {
@@ -359,17 +340,13 @@ FocusScope {
 
                     Layout.fillWidth: true
                     Layout.fillHeight:  true
+                    Layout.alignment: Qt.AlignRight | Qt.AlignTop
 
-                    sourceComponent:
-                        SimplePlayListView {
-                            id: playList
+                    sourceComponent: SimplePlayListView {
+                        anchors.fill: parent
+                        playListModel: elisa.mediaPlayListProxyModel
+                    }
 
-                            playListModel: elisa.mediaPlayListProxyModel
-
-                            anchors.fill: parent
-                        }
-
-                       Layout.alignment: Qt.AlignRight | Qt.AlignTop
                 }
             }
         }

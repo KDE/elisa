@@ -19,6 +19,8 @@ import QtQuick 2.10
 import QtQuick.Controls 2.2
 import QtQml.Models 2.1
 
+import org.kde.kirigami 2.5 as Kirigami
+
 import org.kde.elisa 1.0
 
 ListView {

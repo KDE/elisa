@@ -31,7 +31,7 @@ FocusScope {
 
     signal enqueue(var fullData, string name)
     signal replaceAndPlay(var fullData, string name)
-    signal open(string innerMainTitle, string innerSecondaryTitle, url innerImage, int databaseId, var dataType)
+    signal open(var fullData)
     signal goBackRequested()
 
     function goToBack() {
@@ -126,9 +126,7 @@ FocusScope {
                         delegateModel.rootIndex = delegateModel.modelIndex(model.index)
                         ++depth
                     } else {
-                        gridView.open(model.display, model.secondaryText,
-                                      (model && model.imageUrl && model.imageUrl.toString() !== "" ? model.imageUrl : defaultIcon),
-                                      model.databaseId, model.dataType)
+                        gridView.open(model.fullData)
                     }
                 }
                 onSelected: {

@@ -70,11 +70,10 @@ public:
         FullDataRole,
         IsDirectoryRole,
         IsPlayListRole,
+        FilePathRole,
     };
 
     Q_ENUM(ColumnsRoles)
-
-private:
 
     using DataType = QMap<ColumnsRoles, QVariant>;
 

@@ -360,18 +360,15 @@ bool DataModel::isBusy() const
     return d->mIsBusy;
 }
 
-void DataModel::initialize(MusicListenersManager *manager, DatabaseInterface *database,
-                           ElisaUtils::PlayListEntryType modelType, ElisaUtils::FilterType filter,
-                           const QString &genre, const QString &artist, qulonglong databaseId,
-                           const QUrl &pathFilter)
+void DataModel::initializeByData(MusicListenersManager *manager, DatabaseInterface *database,
+                                 ElisaUtils::PlayListEntryType modelType, ElisaUtils::FilterType filter,
+                                 const DataTypes::DataType &dataFilter)
 {
-    Q_UNUSED(pathFilter)
+    qCDebug(orgKdeElisaModel()) << "DataModel::initialize" << modelType << filter << dataFilter;
 
-    qCDebug(orgKdeElisaModel()) << "DataModel::initialize" << modelType << filter << genre << artist << databaseId;
-
-    d->mDatabaseId = databaseId;
-    d->mGenre = genre;
-    d->mArtist = artist;
+    d->mDatabaseId = dataFilter[DataTypes::DatabaseIdRole].toULongLong();
+    d->mGenre = dataFilter[DataTypes::GenreRole].toString();
+    d->mArtist = dataFilter[DataTypes::ArtistRole].toString();
 
     initializeModel(manager, database, modelType, filter);
 }
@@ -918,6 +915,20 @@ void DataModel::albumModified(const DataModel::AlbumDataType &modifiedAlbum)
     auto albumIndex = modifiedAlbumIterator - d->mAllAlbumData.begin();
 
     Q_EMIT dataChanged(index(albumIndex, 0), index(albumIndex, 0));
+}
+
+void DataModel::initialize(MusicListenersManager *manager, DatabaseInterface *database,
+                           ElisaUtils::PlayListEntryType modelType, ElisaUtils::FilterType filter,
+                           const QString &genre, const QString &artist, qulonglong databaseId,
+                           const QUrl &pathFilter)
+{
+    qCDebug(orgKdeElisaModel()) << "DataModel::initialize" << modelType << filter << databaseId << genre << artist;
+
+    d->mDatabaseId = databaseId;
+    d->mGenre = genre;
+    d->mArtist = artist;
+
+    initializeModel(manager, database, modelType, filter);
 }
 
 void DataModel::cleanedDatabase()

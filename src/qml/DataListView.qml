@@ -16,11 +16,10 @@ FocusScope {
     property alias isSubPage: listView.isSubPage
     property alias mainTitle: listView.mainTitle
     property alias secondaryTitle: listView.secondaryTitle
-    property url pathFilter
-    property int databaseId
     property alias showSection: listView.showSection
     property alias expandedFilterView: listView.expandedFilterView
     property alias haveTreeModel: listView.haveTreeModel
+    property var filter
     property alias image: listView.image
     property var modelType
     property AbstractItemModel realModel
@@ -88,9 +87,8 @@ FocusScope {
             proxyModel.sortModel(sortAscending)
         }
 
-        realModel.initialize(elisa.musicManager, elisa.musicManager.viewDatabase,
-                             modelType, filterType, mainTitle, secondaryTitle, databaseId,
-                             pathFilter)
+        realModel.initializeByData(elisa.musicManager, elisa.musicManager.viewDatabase,
+                                   modelType, filterType, filter)
     }
 
     function goToBack() {
@@ -214,7 +212,7 @@ FocusScope {
         showEnqueueButton: modelType !== ElisaUtils.Radio
 
         onShowArtist: {
-            viewManager.openChildView(secondaryTitle, '', elisaTheme.artistIcon, 0, ElisaUtils.Artist)
+            viewManager.openArtistView(secondaryTitle)
         }
 
         onGoBackRequested: viewManager.goBack()

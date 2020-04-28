@@ -132,6 +132,10 @@ public Q_SLOTS:
                     const QString &genre, const QString &artist, qulonglong databaseId,
                     const QUrl &pathFilter);
 
+    void initializeByData(MusicListenersManager *manager, DatabaseInterface *database,
+                          ElisaUtils::PlayListEntryType modelType, ElisaUtils::FilterType filter,
+                          const DataTypes::DataType &dataFilter);
+
 private Q_SLOTS:
 
     void cleanedDatabase();

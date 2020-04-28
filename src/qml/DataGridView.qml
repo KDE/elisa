@@ -25,9 +25,7 @@ FocusScope {
     property alias isSubPage: gridView.isSubPage
     property alias expandedFilterView: gridView.expandedFilterView
     property alias haveTreeModel: gridView.haveTreeModel
-    property string genreFilterText
-    property string artistFilter
-    property url pathFilter
+    property var filter
     property bool modelIsInitialized: false
 
     focus: true
@@ -58,9 +56,8 @@ FocusScope {
         proxyModel.playList = elisa.mediaPlayListProxyModel
         gridView.contentModel = proxyModel
 
-        realModel.initialize(elisa.musicManager, elisa.musicManager.viewDatabase,
-                             modelType, filterType, genreFilterText, artistFilter, 0,
-                             pathFilter)
+        realModel.initializeByData(elisa.musicManager, elisa.musicManager.viewDatabase,
+                                   modelType, filterType, filter)
 
         modelIsInitialized = true
     }
@@ -77,14 +74,14 @@ FocusScope {
         anchors.fill: parent
 
         onEnqueue: elisa.mediaPlayListProxyModel.enqueue(fullData, name,
-                                               ElisaUtils.AppendPlayList,
-                                               ElisaUtils.DoNotTriggerPlay)
+                                                         ElisaUtils.AppendPlayList,
+                                                         ElisaUtils.DoNotTriggerPlay)
 
         onReplaceAndPlay: elisa.mediaPlayListProxyModel.enqueue(fullData, name,
-                                                      ElisaUtils.ReplacePlayList,
-                                                      ElisaUtils.TriggerPlay)
+                                                                ElisaUtils.ReplacePlayList,
+                                                                ElisaUtils.TriggerPlay)
 
-        onOpen: viewManager.openChildView(innerMainTitle, innerSecondaryTitle, innerImage, databaseId, dataType)
+        onOpen: viewManager.openChildView(fullData)
 
         onGoBackRequested: {
             viewManager.goBack()

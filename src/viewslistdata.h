@@ -93,7 +93,7 @@ public:
         , mShowSecondaryTextOnDelegates(showSecondaryTextOnDelegates)
         , mViewCanBeRated(viewCanBeRated)
         , mIsTreeModel(isTreeModel)
-        , mPathFilter(std::move(pathFilter))
+        , mDataFilter{{DataTypes::FilePathRole, std::move(pathFilter)}}
         , mIsValid(true)
     {
     }
@@ -135,8 +135,7 @@ public:
                 mSortRole == other.mSortRole && mSortOrder == other.mSortOrder &&
                 mAlbumCardinality == other.mAlbumCardinality && mAlbumViewStyle == other.mAlbumViewStyle &&
                 mRadioSpecificStyle == other.mRadioSpecificStyle && mDepth == other.mDepth &&
-                mDatabaseIdFilter == other.mDatabaseIdFilter && mGenreNameFilter == other.mGenreNameFilter &&
-                mArtistNameFilter == other.mArtistNameFilter && mPathFilter == other.mPathFilter;
+                mDataFilter == other.mDataFilter;
     }
 
     bool operator!=(const ViewParameters &other) const {
@@ -148,8 +147,7 @@ public:
                 mSortRole != other.mSortRole || mSortOrder != other.mSortOrder ||
                 mAlbumCardinality != other.mAlbumCardinality || mAlbumViewStyle != other.mAlbumViewStyle ||
                 mRadioSpecificStyle != other.mRadioSpecificStyle || mDepth != other.mDepth ||
-                mDatabaseIdFilter != other.mDatabaseIdFilter || mGenreNameFilter != other.mGenreNameFilter ||
-                mArtistNameFilter != other.mArtistNameFilter || mPathFilter != other.mPathFilter;
+                mDataFilter != other.mDataFilter;
     }
 
     QString mMainTitle;
@@ -186,13 +184,7 @@ public:
 
     int mDepth = 1;
 
-    qulonglong mDatabaseIdFilter = 0;
-
-    QString mGenreNameFilter;
-
-    QString mArtistNameFilter;
-
-    QUrl mPathFilter;
+    DataTypes::DataType mDataFilter;
 
     bool mIsValid = false;
 };

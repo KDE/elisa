@@ -10,6 +10,7 @@
 #include "elisaLib_export.h"
 
 #include "elisautils.h"
+#include "datatypes.h"
 
 #include <KIOWidgets/KDirModel>
 
@@ -46,6 +47,10 @@ public Q_SLOTS:
                     ElisaUtils::PlayListEntryType modelType, ElisaUtils::FilterType filter,
                     const QString &genre, const QString &artist, qulonglong databaseId,
                     const QUrl &pathFilter);
+
+    void initializeByData(MusicListenersManager *manager, DatabaseInterface *database,
+                          ElisaUtils::PlayListEntryType modelType, ElisaUtils::FilterType filter,
+                          const DataTypes::DataType &dataFilter);
 };
 
 

@@ -124,6 +124,8 @@ QVariant FileBrowserModel::data(const QModelIndex &index, int role) const
     {
         KFileItem item = itemForIndex(index);
         if (item.isDir()) {
+            result = QVariant::fromValue(DataTypes::MusicDataType{{DataTypes::ColumnsRoles::FilePathRole, item.url()},
+                                                                  {DataTypes::ColumnsRoles::ElementTypeRole, ElisaUtils::Container}});
         } else {
             if (item.currentMimeType().inherits(QStringLiteral("audio/x-mpegurl"))) {
             } else {
@@ -154,6 +156,18 @@ void FileBrowserModel::initialize(MusicListenersManager *manager, DatabaseInterf
     Q_UNUSED(databaseId)
 
     setUrl(pathFilter);
+}
+
+void FileBrowserModel::initializeByData(MusicListenersManager *manager, DatabaseInterface *database,
+                                        ElisaUtils::PlayListEntryType modelType, ElisaUtils::FilterType filter,
+                                        const DataTypes::DataType &dataFilter)
+{
+    Q_UNUSED(manager)
+    Q_UNUSED(database)
+    Q_UNUSED(modelType)
+    Q_UNUSED(filter)
+
+    setUrl(dataFilter[DataTypes::FilePathRole].toUrl());
 }
 
 

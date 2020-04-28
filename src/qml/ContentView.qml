@@ -24,12 +24,12 @@ RowLayout {
     }
 
     function openArtist(name) {
-        viewManager.openChildView(name, '', elisaTheme.artistIcon, 0, ElisaUtils.Artist)
+        viewManager.openArtistView(name)
     }
 
     function openAlbum(album, artist, image, albumID) {
         image = !image ? elisaTheme.defaultAlbumImage : image;
-        viewManager.openChildView(album, artist, image, albumID, ElisaUtils.Album);
+        viewManager.openAlbumView(album, artist, albumID, image);
     }
 
     function openNowPlaying() {
@@ -42,63 +42,60 @@ RowLayout {
         viewsData: viewsData
 
         onOpenGridView: {
-            if (expectedDepth === 1) {
+            if (configurationData.expectedDepth === 1) {
                 listViews.setCurrentIndex(viewManager.viewIndex)
             }
 
-            while(browseStackView.depth > expectedDepth) {
+            while(browseStackView.depth > configurationData.expectedDepth) {
                 browseStackView.pop()
             }
 
             browseStackView.push(dataGridView, {
-                                     filterType: filterType,
-                                     mainTitle: mainTitle,
-                                     secondaryTitle: secondaryTitle,
-                                     image: imageUrl,
-                                     modelType: dataType,
-                                     realModel: model,
-                                     proxyModel: associatedProxyModel,
-                                     defaultIcon: viewDefaultIcon,
-                                     showRating: viewShowRating,
-                                     delegateDisplaySecondaryText: viewDelegateDisplaySecondaryText,
-                                     genreFilterText: genreNameFilter,
-                                     artistFilter: artistNameFilter,
-                                     pathFilter: targetPathFilter,
+                                     filterType: configurationData.filterType,
+                                     mainTitle: configurationData.mainTitle,
+                                     secondaryTitle: configurationData.secondaryTitle,
+                                     image: configurationData.imageUrl,
+                                     modelType: configurationData.dataType,
+                                     realModel: configurationData.model,
+                                     proxyModel: configurationData.associatedProxyModel,
+                                     defaultIcon: configurationData.viewDefaultIcon,
+                                     showRating: configurationData.viewShowRating,
+                                     delegateDisplaySecondaryText: configurationData.viewDelegateDisplaySecondaryText,
+                                     filter: configurationData.dataFilter,
                                      isSubPage: (browseStackView.depth >= 2),
-                                     haveTreeModel: isTreeModel,
-                                     stackView: browseStackView,
+                                     haveTreeModel: configurationData.isTreeModel,
+                                     stackView: configurationData.browseStackView,
                                      opacity: 0,
                                  })
         }
 
         onOpenListView: {
-            if (expectedDepth === 1) {
+            if (configurationData.expectedDepth === 1) {
                 listViews.setCurrentIndex(viewManager.viewIndex)
             }
 
-            while(browseStackView.depth > expectedDepth) {
+            while(browseStackView.depth > configurationData.expectedDepth) {
                 browseStackView.pop()
             }
 
             browseStackView.push(dataListView, {
-                                     filterType: filterType,
-                                     isSubPage: expectedDepth > 1,
-                                     mainTitle: mainTitle,
-                                     secondaryTitle: secondaryTitle,
-                                     databaseId: databaseId,
-                                     pathFilter: targetPathFilter,
-                                     image: imageUrl,
-                                     modelType: dataType,
-                                     realModel: model,
-                                     proxyModel: associatedProxyModel,
-                                     sortRole: sortRole,
-                                     sortAscending: sortOrder,
+                                     filterType: configurationData.filterType,
+                                     isSubPage: configurationData.expectedDepth > 1,
+                                     mainTitle: configurationData.mainTitle,
+                                     secondaryTitle: configurationData.secondaryTitle,
+                                     filter: configurationData.dataFilter,
+                                     image: configurationData.imageUrl,
+                                     modelType: configurationData.dataType,
+                                     realModel: configurationData.model,
+                                     proxyModel: configurationData.associatedProxyModel,
+                                     sortRole: configurationData.sortRole,
+                                     sortAscending: configurationData.sortOrder,
                                      stackView: browseStackView,
-                                     displaySingleAlbum: displaySingleAlbum,
-                                     showSection: showDiscHeaders,
+                                     displaySingleAlbum: configurationData.displaySingleAlbum,
+                                     showSection: configurationData.showDiscHeaders,
                                      opacity: 0,
-                                     radioCase: radioCase,
-                                     haveTreeModel: isTreeModel,
+                                     radioCase: configurationData.radioCase,
+                                     haveTreeModel: configurationData.isTreeModel,
                                  })
         }
 

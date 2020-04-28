@@ -34,6 +34,7 @@
 #include "trackslistener.h"
 #include "viewmanager.h"
 #include "viewslistdata.h"
+#include "viewconfigurationdata.h"
 #include "databaseinterface.h"
 #include "datatypes.h"
 #include "models/datamodel.h"
@@ -115,6 +116,7 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qmlRegisterType<MusicListenersManager>(uri, 1, 0, "MusicListenersManager");
     qmlRegisterType<ViewManager>(uri, 1, 0, "ViewManager");
     qmlRegisterType<ViewsListData>(uri, 1, 0, "ViewsListData");
+    qmlRegisterType<ViewConfigurationData>(uri, 1, 0, "ViewConfigurationData");
     qmlRegisterType<DataModel>(uri, 1, 0, "DataModel");
     qmlRegisterType<TrackMetadataModel>(uri, 1, 0, "TrackMetadataModel");
     qmlRegisterType<TrackContextMetaDataModel>(uri, 1, 0, "TrackContextMetaDataModel");
@@ -170,6 +172,8 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qRegisterMetaType<DataTypes::ColumnsRoles>("DataTypes::ColumnsRoles");
     qRegisterMetaType<ModelDataLoader::TrackDataType>("ModelDataLoader::TrackDataType");
     qRegisterMetaType<TracksListener::TrackDataType>("TracksListener::TrackDataType");
+    qRegisterMetaType<ViewManager::IsTreeModelType>("ViewManager::IsTreeModelType");
+    qRegisterMetaType<DataTypes::DataType>("DataTypes::DataType");
     qmlRegisterUncreatableType<ElisaConfigurationDialog>(uri, 1, 0, "ElisaConfigurationDialog", QStringLiteral("only one and done in c++"));
 
     qmlRegisterUncreatableType<ElisaApplication>(uri, 1, 0, "ElisaApplication", QStringLiteral("only one and done in c++"));

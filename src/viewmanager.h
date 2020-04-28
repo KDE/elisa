@@ -10,6 +10,7 @@
 #include "elisaLib_export.h"
 
 #include "elisautils.h"
+#include "datatypes.h"
 
 #include <QObject>
 #include <QUrl>
@@ -20,8 +21,7 @@
 class ViewManagerPrivate;
 class ViewParameters;
 class ViewsListData;
-class QAbstractItemModel;
-class QAbstractProxyModel;
+class ViewConfigurationData;
 
 class ELISALIB_EXPORT ViewManager : public QObject
 {
@@ -104,21 +104,9 @@ public:
 
 Q_SIGNALS:
 
-    void openGridView(ElisaUtils::FilterType filterType, int expectedDepth,
-                      const QString &mainTitle, const QString &secondaryTitle, const QUrl &imageUrl,
-                      ElisaUtils::PlayListEntryType dataType, QAbstractItemModel *model,
-                      QAbstractProxyModel *associatedProxyModel, const QUrl &viewDefaultIcon, const QString &genreNameFilter,
-                      const QString &artistNameFilter, ViewManager::ViewCanBeRated viewShowRating,
-                      ViewManager::DelegateUseSecondaryText viewDelegateDisplaySecondaryText,
-                      ViewManager::IsTreeModelType isTreeModel, const QUrl &targetPathFilter);
+    void openGridView(ViewConfigurationData *configurationData);
 
-    void openListView(ElisaUtils::FilterType filterType, int expectedDepth,
-                      const QString &mainTitle, const QString &secondaryTitle, qulonglong databaseId,
-                      const QUrl &imageUrl, ElisaUtils::PlayListEntryType dataType, QAbstractItemModel *model,
-                      QAbstractProxyModel *associatedProxyModel, const QVariant &sortRole,
-                      Qt::SortOrder sortOrder, ViewManager::AlbumCardinality displaySingleAlbum,
-                      ViewManager::AlbumViewStyle showDiscHeaders, ViewManager::RadioSpecificStyle radioCase,
-                      ViewManager::IsTreeModelType isTreeModel, const QUrl &targetPathFilter);
+    void openListView(ViewConfigurationData *configurationData);
 
     void switchFilesBrowserView(int expectedDepth, const QString &mainTitle, const QUrl &imageUrl);
 
@@ -134,9 +122,11 @@ public Q_SLOTS:
 
     void openView(int viewIndex);
 
-    void openChildView(const QString &innerMainTitle, const QString & innerSecondaryTitle,
-                       const QUrl &innerImage, qulonglong databaseId,
-                       ElisaUtils::PlayListEntryType dataType);
+    void openChildView(const DataTypes::MusicDataType &fullData);
+
+    void openAlbumView(const QString &title, const QString &artist, qulonglong databaseId, const QUrl &albumCoverUrl);
+
+    void openArtistView(const QString &artist);
 
     void viewIsLoaded();
 

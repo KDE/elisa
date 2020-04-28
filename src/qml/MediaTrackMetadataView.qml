@@ -61,6 +61,10 @@ Window {
     minimumHeight: elisaTheme.coverImageSize * 1.8
     minimumWidth: elisaTheme.coverImageSize * trackMetadata.widthIndex
 
+    onClosing: {
+        trackMetadata.rejected()
+    }
+
     ColumnLayout {
         anchors.fill: parent
         anchors.margins: Kirigami.Units.smallSpacing

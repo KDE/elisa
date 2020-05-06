@@ -1,7 +1,9 @@
 # CMake module to search for LIBVLC (VLC library)
 #
-# Copyright (C) 2011-2012, Harald Sitter <sitter@kde.org>
-# Copyright (C) 2010, Rohit Yadav <rohityadav89@gmail.com>
+# SPDX-FileCopyrightText: 2010 (c) Rohit Yadav <rohityadav89@gmail.com>
+# SPDX-FileCopyrightText: 2011 (c) Harald Sitter <sitter@kde.org>
+#
+# SPDX-License-Identifier: BSD-3-Clause
 #
 # Redistribution and use is allowed according to the terms of the BSD license.
 # For details see the accompanying COPYING-CMAKE-SCRIPTS file.

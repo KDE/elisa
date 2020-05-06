@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2017 (c) Aleix Pol <aleixpol@kde.org>
+#
+# SPDX-License-Identifier: LGPL-3.0-or-later
+
 set(elisa_ICONS_PNG
     128-apps-elisa.png
     64-apps-elisa.png

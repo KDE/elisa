@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2016 (c) Matthieu Gallien <matthieu_gallien@yahoo.fr>
+#
+# SPDX-License-Identifier: LGPL-3.0-or-later
+
 enable_testing()
 
 configure_file(mediaplaylisttestconfig.h.in

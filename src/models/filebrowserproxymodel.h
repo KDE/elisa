@@ -124,8 +124,6 @@ private:
 
     QString mTopFolder;
 
-    FileScanner mFileScanner;
-
     QString mFilterText;
 
     QRegularExpression mFilterExpression;

@@ -80,6 +80,11 @@ public:
                                                QUrl{QStringLiteral("image://icon/document-open-folder")},
                                                ViewManager::GridView,
                                                ViewManager::FileBrowserModel,
+                                               ElisaUtils::NoFilter,
+                                               ElisaUtils::FileName,
+                                               QUrl{QStringLiteral("image://icon/view-media-genre")},
+                                               ViewManager::DelegateWithoutSecondaryText,
+                                               ViewManager::ViewHideRating
                                               },
                                               {{i18nc("Title of the file radios browser view", "Radios")},
                                                QUrl{QStringLiteral("image://icon/radio")},

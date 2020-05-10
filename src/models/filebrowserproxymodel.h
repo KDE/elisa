@@ -44,6 +44,11 @@ class ELISALIB_EXPORT FileBrowserProxyModel : public KDirSortFilterProxyModel
                READ sortedAscending
                NOTIFY sortedAscendingChanged)
 
+    Q_PROPERTY(int filterRating
+               READ filterRating
+               WRITE setFilterRating
+               NOTIFY filterRatingChanged)
+
     Q_PROPERTY(MediaPlayListProxyModel* playList READ playList WRITE setPlayList NOTIFY playListChanged)
 
 public:
@@ -64,6 +69,8 @@ public:
 
     MediaPlayListProxyModel* playList() const;
 
+    int filterRating() const;
+
 public Q_SLOTS:
 
     void enqueueToPlayList();
@@ -80,6 +87,8 @@ public Q_SLOTS:
 
     void setPlayList(MediaPlayListProxyModel* playList);
 
+    void setFilterRating(int filterRating);
+
 Q_SIGNALS:
 
     void entriesToEnqueue(const DataTypes::EntryDataList &newEntries,
@@ -95,6 +104,8 @@ Q_SIGNALS:
     void sortedAscendingChanged();
 
     void playListChanged();
+
+    void filterRatingChanged();
 
 protected:
 
@@ -124,6 +135,8 @@ private:
     QThreadPool mThreadPool;
 
     MediaPlayListProxyModel* mPlayList = nullptr;
+
+    bool mFilterRating = false;
 
 };
 

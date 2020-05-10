@@ -220,6 +220,11 @@ MediaPlayListProxyModel *FileBrowserProxyModel::playList() const
     return mPlayList;
 }
 
+int FileBrowserProxyModel::filterRating() const
+{
+    return mFilterRating;
+}
+
 void FileBrowserProxyModel::sortModel(Qt::SortOrder order)
 {
     this->sort(0,order);
@@ -238,6 +243,16 @@ void FileBrowserProxyModel::setPlayList(MediaPlayListProxyModel *playList)
     Q_EMIT playListChanged();
 
     connectPlayList();
+}
+
+void FileBrowserProxyModel::setFilterRating(int filterRating)
+{
+    if (mFilterRating == filterRating) {
+        return;
+    }
+
+    mFilterRating = filterRating;
+    Q_EMIT filterRatingChanged();
 }
 
 #include "moc_filebrowserproxymodel.cpp"

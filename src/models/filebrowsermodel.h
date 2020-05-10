@@ -9,12 +9,18 @@
 
 #include "elisaLib_export.h"
 
+#include "elisautils.h"
+
 #include <KIOWidgets/KDirModel>
 
+class MusicListenersManager;
+class DatabaseInterface;
 
 class ELISALIB_EXPORT FileBrowserModel : public KDirModel
 {
     Q_OBJECT
+
+    Q_PROPERTY(bool isBusy READ isBusy NOTIFY isBusyChanged)
 
 public:
 
@@ -40,10 +46,21 @@ public:
 
     void setUrl(const QString &url);
 
+    bool isBusy() const;
+
 Q_SIGNALS:
 
     void urlChanged();
 
+    void isBusyChanged();
+
+public Q_SLOTS:
+
+    void initialize(MusicListenersManager *manager, DatabaseInterface *database,
+                    ElisaUtils::PlayListEntryType modelType, ElisaUtils::FilterType filter,
+                    const QString &genre, const QString &artist, qulonglong databaseId);
 };
+
+
 
 #endif //FILEBROWSERMODEL_H

@@ -39,6 +39,19 @@ public:
     ViewParameters(QString mainTitle,
                    QUrl mainImage,
                    ViewManager::ViewPresentationType viewPresentationType,
+                   ViewManager::ModelType modelType)
+        : mMainTitle(std::move(mainTitle))
+        , mMainImage(std::move(mainImage))
+        , mViewPresentationType(viewPresentationType)
+        , mModelType(modelType)
+        , mIsValid(true)
+    {
+    }
+
+    ViewParameters(QString mainTitle,
+                   QUrl mainImage,
+                   ViewManager::ViewPresentationType viewPresentationType,
+                   ViewManager::ModelType modelType,
                    ElisaUtils::FilterType filterType,
                    ElisaUtils::PlayListEntryType dataType,
                    QUrl fallbackItemIcon,
@@ -47,6 +60,7 @@ public:
         : mMainTitle(std::move(mainTitle))
         , mMainImage(std::move(mainImage))
         , mViewPresentationType(viewPresentationType)
+        , mModelType(modelType)
         , mFilterType(filterType)
         , mDataType(dataType)
         , mFallbackItemIcon(std::move(fallbackItemIcon))
@@ -59,6 +73,7 @@ public:
     ViewParameters(QString mainTitle,
                    QUrl mainImage,
                    ViewManager::ViewPresentationType viewPresentationType,
+                   ViewManager::ModelType modelType,
                    ElisaUtils::FilterType filterType,
                    ElisaUtils::PlayListEntryType dataType,
                    int sortRole,
@@ -69,6 +84,7 @@ public:
         : mMainTitle(std::move(mainTitle))
         , mMainImage(std::move(mainImage))
         , mViewPresentationType(viewPresentationType)
+        , mModelType(modelType)
         , mFilterType(filterType)
         , mDataType(dataType)
         , mSortRole(sortRole)
@@ -83,7 +99,8 @@ public:
     bool operator==(const ViewParameters &other) const {
         return mMainTitle == other.mMainTitle && mMainImage == other.mMainImage &&
                 mSecondaryTitle == other.mSecondaryTitle && mViewPresentationType == other.mViewPresentationType &&
-                mFilterType == other.mFilterType && mDataType == other.mDataType && mFallbackItemIcon == other.mFallbackItemIcon &&
+                mModelType == other.mModelType && mFilterType == other.mFilterType &&
+                mDataType == other.mDataType && mFallbackItemIcon == other.mFallbackItemIcon &&
                 mShowSecondaryTextOnDelegates == other.mShowSecondaryTextOnDelegates && mViewCanBeRated == other.mViewCanBeRated &&
                 mSortRole == other.mSortRole && mSortOrder == other.mSortOrder &&
                 mAlbumCardinality == other.mAlbumCardinality && mAlbumViewStyle == other.mAlbumViewStyle &&
@@ -95,7 +112,8 @@ public:
     bool operator!=(const ViewParameters &other) const {
         return mMainTitle != other.mMainTitle || mMainImage != other.mMainImage ||
                 mSecondaryTitle != other.mSecondaryTitle || mViewPresentationType != other.mViewPresentationType ||
-                mFilterType != other.mFilterType || mDataType != other.mDataType || mFallbackItemIcon != other.mFallbackItemIcon ||
+                mModelType != other.mModelType || mFilterType != other.mFilterType ||
+                mDataType != other.mDataType || mFallbackItemIcon != other.mFallbackItemIcon ||
                 mShowSecondaryTextOnDelegates != other.mShowSecondaryTextOnDelegates || mViewCanBeRated != other.mViewCanBeRated ||
                 mSortRole != other.mSortRole || mSortOrder != other.mSortOrder ||
                 mAlbumCardinality != other.mAlbumCardinality || mAlbumViewStyle != other.mAlbumViewStyle ||
@@ -111,6 +129,8 @@ public:
     QUrl mMainImage;
 
     ViewManager::ViewPresentationType mViewPresentationType = ViewManager::UnknownViewPresentation;
+
+    ViewManager::ModelType mModelType = ViewManager::UnknownModelType;
 
     ElisaUtils::FilterType mFilterType = ElisaUtils::UnknownFilter;
 

@@ -58,11 +58,12 @@ FocusScope {
             }
 
             Loader {
-                active: contentModel
+                active: contentModel !== undefined
 
                 sourceComponent: Binding {
                     target: contentModel
                     property: 'filterRating'
+                    when: contentModel !== undefined
                     value: navigationBar.filterRating
                 }
             }

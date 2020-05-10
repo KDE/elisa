@@ -50,6 +50,11 @@ void FileBrowserModel::setUrl(const QString &url)
     emit urlChanged();
 }
 
+bool FileBrowserModel::isBusy() const
+{
+    return false;
+}
+
 QHash<int, QByteArray> FileBrowserModel::roleNames() const
 {
     auto roles = KDirModel::roleNames();
@@ -111,5 +116,12 @@ QVariant FileBrowserModel::data(const QModelIndex &index, int role) const
 
     return result;
 }
+
+void FileBrowserModel::initialize(MusicListenersManager *manager, DatabaseInterface *database,
+                                  ElisaUtils::PlayListEntryType modelType, ElisaUtils::FilterType filter,
+                                  const QString &genre, const QString &artist, qulonglong databaseId)
+{
+}
+
 
 #include "moc_filebrowsermodel.cpp"

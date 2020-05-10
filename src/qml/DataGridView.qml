@@ -17,6 +17,8 @@ FocusScope {
     property alias secondaryTitle: gridView.secondaryTitle
     property alias image: gridView.image
     property var modelType
+    property AbstractItemModel realModel
+    property AbstractProxyModel proxyModel
     property alias defaultIcon: gridView.defaultIcon
     property alias showRating: gridView.showRating
     property alias delegateDisplaySecondaryText: gridView.delegateDisplaySecondaryText
@@ -24,6 +26,7 @@ FocusScope {
     property alias expandedFilterView: gridView.expandedFilterView
     property string genreFilterText
     property string artistFilter
+    property bool modelIsInitialized: false
 
     focus: true
 
@@ -32,19 +35,31 @@ FocusScope {
 
     function initializeModel()
     {
+        if (!proxyModel) {
+            return
+        }
+
+        if (!realModel) {
+            return
+        }
+
+        if (!elisa.musicManager) {
+            return
+        }
+
+        if (modelIsInitialized) {
+            return
+        }
+
+        proxyModel.sourceModel = realModel
+        proxyModel.dataType = modelType
+        proxyModel.playList = elisa.mediaPlayListProxyModel
+        gridView.contentModel = proxyModel
+
         realModel.initialize(elisa.musicManager, elisa.musicManager.viewDatabase,
                              modelType, filterType, genreFilterText, artistFilter, 0)
-    }
 
-    DataModel {
-        id: realModel
-    }
-
-    GridViewProxyModel {
-        id: proxyModel
-
-        sourceModel: realModel
-        playList: elisa.mediaPlayListProxyModel
+        modelIsInitialized = true
     }
 
     GridBrowserView {
@@ -53,8 +68,6 @@ FocusScope {
         focus: true
 
         anchors.fill: parent
-
-        contentModel: proxyModel
 
         onEnqueue: elisa.mediaPlayListProxyModel.enqueue(fullData, name,
                                                ElisaUtils.AppendPlayList,
@@ -69,6 +82,7 @@ FocusScope {
         onGoBack: viewManager.goBack()
 
         Loader {
+            id: busyIndicatorLoader
             anchors.centerIn: parent
             height: Kirigami.Units.gridUnit * 5
             width: height
@@ -89,8 +103,6 @@ FocusScope {
     }
 
     Component.onCompleted: {
-        if (elisa.musicManager) {
-            initializeModel()
-        }
+        initializeModel()
     }
 }

@@ -21,10 +21,13 @@ FocusScope {
     property alias expandedFilterView: listView.expandedFilterView
     property alias image: listView.image
     property var modelType
-    property alias sortRole: proxyModel.sortRole
+    property AbstractItemModel realModel
+    property AbstractProxyModel proxyModel
+    property int sortRole
     property var sortAscending
     property bool displaySingleAlbum: false
     property alias radioCase: listView.showCreateRadioButton
+    property bool modelIsInitialized: false
 
     function openMetaDataView(databaseId, url, entryType) {
         metadataLoader.setSource("MediaTrackMetadataView.qml",
@@ -56,15 +59,35 @@ FocusScope {
         metadataLoader.active = true
     }
 
-    DataModel {
-        id: realModel
-    }
+    function initializeModel()
+    {
+        if (!proxyModel) {
+            return
+        }
 
-    AllTracksProxyModel {
-        id: proxyModel
+        if (!realModel) {
+            return
+        }
 
-        sourceModel: realModel
-        playList: elisa.mediaPlayListProxyModel
+        if (!elisa.musicManager) {
+            return
+        }
+
+        if (modelIsInitialized) {
+            return
+        }
+
+        proxyModel.sourceModel = realModel
+        proxyModel.dataType = modelType
+        proxyModel.playList = elisa.mediaPlayListProxyModel
+        listView.contentModel = proxyModel
+
+        if (!displaySingleAlbum) {
+            proxyModel.sortModel(sortAscending)
+        }
+
+        realModel.initialize(elisa.musicManager, elisa.musicManager.viewDatabase,
+                             modelType, filterType, mainTitle, secondaryTitle, databaseId)
     }
 
     Loader {
@@ -206,9 +229,7 @@ FocusScope {
     Connections {
         target: elisa
 
-        onMusicManagerChanged: realModel.initialize(elisa.musicManager,
-                                                    elisa.musicManager.viewDatabase,
-                                                    modelType)
+        onMusicManagerChanged: initializeModel()
     }
 
     Connections {
@@ -220,12 +241,6 @@ FocusScope {
     }
 
     Component.onCompleted: {
-        if (elisa.musicManager) {
-            realModel.initialize(elisa.musicManager, elisa.musicManager.viewDatabase, modelType, filterType, mainTitle, secondaryTitle, databaseId)
-        }
-
-        if (!displaySingleAlbum) {
-            proxyModel.sortModel(sortAscending)
-        }
+        initializeModel()
     }
 }

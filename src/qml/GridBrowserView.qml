@@ -20,17 +20,28 @@ FocusScope {
     property string mainTitle
     property string secondaryTitle
     property url image
-    property alias contentModel: contentDirectoryView.model
+    property alias contentModel: delegateModel.model
     property alias showRating: navigationBar.showRating
     property bool delegateDisplaySecondaryText: true
     property alias expandedFilterView: navigationBar.expandedFilterView
+    property bool haveTreeModel: false
     property var stackView
     property url defaultIcon
+    property int depth: 1
 
     signal enqueue(var fullData, string name)
     signal replaceAndPlay(var fullData, string name)
     signal open(string innerMainTitle, string innerSecondaryTitle, url innerImage, int databaseId, var dataType)
-    signal goBack()
+    signal goBackRequested()
+
+    function goToBack() {
+        if (haveTreeModel) {
+            delegateModel.rootIndex = delegateModel.parentModelIndex()
+            --depth
+        } else {
+            gridView.goBackRequested()
+        }
+    }
 
     ColumnLayout {
         anchors.fill: parent
@@ -42,7 +53,7 @@ FocusScope {
             mainTitle: gridView.mainTitle
             secondaryTitle: gridView.secondaryTitle
             image: gridView.image
-            enableGoBack: isSubPage
+            enableGoBack: gridView.isSubPage || depth > 1
             sortOrder: if (contentModel) {contentModel.sortedAscending} else true
 
             Layout.fillWidth: true
@@ -72,9 +83,58 @@ FocusScope {
 
             onReplaceAndPlay:contentModel.replaceAndPlayOfPlayList()
 
-            onGoBack: gridView.goBack()
+            onGoBack: {
+                gridView.goToBack()
+            }
 
             onSort: contentModel.sortModel(order)
+        }
+
+        DelegateModel {
+            id: delegateModel
+
+            delegate: GridBrowserDelegate {
+                width: elisaTheme.gridDelegateSize
+                height: contentDirectoryView.cellHeight
+
+                focus: true
+
+                isSelected: contentDirectoryView.currentIndex === index
+
+                isPartial: false
+
+                mainText: model.display
+                fileUrl: if (model.url) { model.url } else { '' }
+                secondaryText: if (gridView.delegateDisplaySecondaryText) {model.secondaryText} else {""}
+                imageUrl: model.imageUrl ? model.imageUrl : ''
+                imageFallbackUrl: defaultIcon
+                databaseId: model.databaseId
+                delegateDisplaySecondaryText: gridView.delegateDisplaySecondaryText
+                entryType: model.dataType
+
+                onEnqueue: gridView.enqueue(model.fullData, model.display)
+                onReplaceAndPlay: gridView.replaceAndPlay(model.fullData, model.display)
+                onOpen: {
+                    if (haveTreeModel) {
+                        delegateModel.rootIndex = delegateModel.modelIndex(model.index)
+                        ++depth
+                    } else {
+                        gridView.open(model.display, model.secondaryText,
+                                      (model && model.imageUrl && model.imageUrl.toString() !== "" ? model.imageUrl : defaultIcon),
+                                      model.databaseId, model.dataType)
+                    }
+                }
+                onSelected: {
+                    forceActiveFocus()
+                    contentDirectoryView.currentIndex = model.index
+                }
+
+                onActiveFocusChanged: {
+                    if (activeFocus && contentDirectoryView.currentIndex !== model.index) {
+                        contentDirectoryView.currentIndex = model.index
+                    }
+                }
+            }
         }
 
         FocusScope {
@@ -90,6 +150,8 @@ FocusScope {
 
                 activeFocusOnTab: true
                 keyNavigationEnabled: true
+
+                model: delegateModel
 
                 anchors.fill: parent
                 anchors.leftMargin: (LayoutMirroring.enabled && scrollBar.visible) ? 0 : Kirigami.Units.largeSpacing
@@ -115,42 +177,6 @@ FocusScope {
 
                 cellWidth: Math.floor(availableWidth / Math.max(Math.floor(availableWidth / elisaTheme.gridDelegateSize), 2))
                 cellHeight: elisaTheme.gridDelegateSize + Kirigami.Units.gridUnit * 2 + Kirigami.Units.largeSpacing
-
-                delegate: GridBrowserDelegate {
-                    width: elisaTheme.gridDelegateSize
-                    height: contentDirectoryView.cellHeight
-
-                    focus: true
-
-                    isSelected: contentDirectoryView.currentIndex === index
-
-                    isPartial: false
-
-                    mainText: model.display
-                    fileUrl: if (model.url) { model.url } else { '' }
-                    secondaryText: if (gridView.delegateDisplaySecondaryText) {model.secondaryText} else {""}
-                    imageUrl: model.imageUrl ? model.imageUrl : ''
-                    imageFallbackUrl: defaultIcon
-                    databaseId: model.databaseId
-                    delegateDisplaySecondaryText: gridView.delegateDisplaySecondaryText
-                    entryType: model.dataType
-
-                    onEnqueue: gridView.enqueue(model.fullData, model.display)
-                    onReplaceAndPlay: gridView.replaceAndPlay(model.fullData, model.display)
-                    onOpen: gridView.open(model.display, model.secondaryText,
-                                          (model && model.imageUrl && model.imageUrl.toString() !== "" ? model.imageUrl : defaultIcon),
-                                          model.databaseId, model.dataType)
-                    onSelected: {
-                        forceActiveFocus()
-                        contentDirectoryView.currentIndex = model.index
-                    }
-
-                    onActiveFocusChanged: {
-                        if (activeFocus && contentDirectoryView.currentIndex !== model.index) {
-                            contentDirectoryView.currentIndex = model.index
-                        }
-                    }
-                }
             }
         }
     }

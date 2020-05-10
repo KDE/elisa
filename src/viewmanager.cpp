@@ -32,7 +32,8 @@ public:
                              Qt::AscendingOrder,
                              ViewManager::SingleAlbum,
                              ViewManager::DiscHeaders,
-                             ViewManager::IsTrack}},
+                             ViewManager::IsTrack,
+                             ViewManager::IsFlatModel}},
         {ElisaUtils::Genre, {{},
                              QUrl{QStringLiteral("image://icon/view-media-artist")},
                              ViewManager::GridView,
@@ -41,7 +42,8 @@ public:
                              ElisaUtils::Artist,
                              QUrl{QStringLiteral("image://icon/view-media-artist")},
                              ViewManager::DelegateWithoutSecondaryText,
-                             ViewManager::ViewHideRating}},
+                             ViewManager::ViewHideRating,
+                             ViewManager::IsFlatModel}},
         {ElisaUtils::Artist, {{},
                               QUrl{QStringLiteral("image://icon/view-media-album-cover")},
                               ViewManager::GridView,
@@ -50,7 +52,8 @@ public:
                               ElisaUtils::Album,
                               QUrl{QStringLiteral("image://icon/media-optical-audio")},
                               ViewManager::DelegateWithSecondaryText,
-                              ViewManager::ViewShowRating}},
+                              ViewManager::ViewShowRating,
+                              ViewManager::IsFlatModel}},
     };
 
     int mViewIndex = 0;
@@ -219,12 +222,14 @@ void ViewManager::openViewFromData(const ViewParameters &viewParamaters)
                                     << viewParamaters.mMainImage << viewParamaters.mDataType
                                     << viewParamaters.mModelType << viewParamaters.mFallbackItemIcon
                                     << viewParamaters.mGenreNameFilter << viewParamaters.mArtistNameFilter
-                                    << viewParamaters.mViewCanBeRated << viewParamaters.mShowSecondaryTextOnDelegates;
+                                    << viewParamaters.mViewCanBeRated << viewParamaters.mShowSecondaryTextOnDelegates
+                                    << viewParamaters.mIsTreeModel;
         Q_EMIT openGridView(viewParamaters.mFilterType, viewParamaters.mDepth,
                             viewParamaters.mMainTitle, viewParamaters.mSecondaryTitle, viewParamaters.mMainImage,
                             viewParamaters.mDataType, newModel, proxyModel, viewParamaters.mFallbackItemIcon,
                             viewParamaters.mGenreNameFilter, viewParamaters.mArtistNameFilter,
-                            viewParamaters.mViewCanBeRated, viewParamaters.mShowSecondaryTextOnDelegates);
+                            viewParamaters.mViewCanBeRated, viewParamaters.mShowSecondaryTextOnDelegates,
+                            viewParamaters.mIsTreeModel);
         break;
     case ViewPresentationType::ListView:
         qCDebug(orgKdeElisaViews()) << "ViewManager::openViewFromData" << viewParamaters.mFilterType
@@ -232,11 +237,13 @@ void ViewManager::openViewFromData(const ViewParameters &viewParamaters)
                                     << viewParamaters.mDatabaseIdFilter << viewParamaters.mMainImage
                                     << viewParamaters.mModelType << viewParamaters.mDataType
                                     << viewParamaters.mSortRole << viewParamaters.mSortOrder << viewParamaters.mAlbumCardinality
-                                    << viewParamaters.mAlbumViewStyle << viewParamaters.mRadioSpecificStyle;
+                                    << viewParamaters.mAlbumViewStyle << viewParamaters.mRadioSpecificStyle
+                                    << viewParamaters.mIsTreeModel;
         Q_EMIT openListView(viewParamaters.mFilterType, viewParamaters.mDepth, viewParamaters.mMainTitle, viewParamaters.mSecondaryTitle,
                             viewParamaters.mDatabaseIdFilter, viewParamaters.mMainImage, viewParamaters.mDataType,
                             newModel, proxyModel, viewParamaters.mSortRole, viewParamaters.mSortOrder,
-                            viewParamaters.mAlbumCardinality, viewParamaters.mAlbumViewStyle, viewParamaters.mRadioSpecificStyle);
+                            viewParamaters.mAlbumCardinality, viewParamaters.mAlbumViewStyle, viewParamaters.mRadioSpecificStyle,
+                            viewParamaters.mIsTreeModel);
         break;
     case ViewPresentationType::FileBrowserView:
         qCDebug(orgKdeElisaViews()) << "ViewManager::openViewFromData" << viewParamaters.mViewPresentationType
@@ -258,13 +265,13 @@ void ViewManager::openViewFromData(const ViewParameters &viewParamaters)
 void ViewManager::goBack()
 {
     qCDebug(orgKdeElisaViews()) << "ViewManager::goBack" << d->mViewParametersStack.size();
-    if (d->mViewParametersStack.size() <= 1) {
-        return;
-    }
 
     Q_EMIT popOneView();
-    d->mViewParametersStack.pop_back();
-    d->mNextViewParameters = {};
+
+    if (d->mViewParametersStack.size() > 2) {
+        d->mViewParametersStack.pop_back();
+        d->mNextViewParameters = {};
+    }
 }
 
 void ViewManager::setViewsData(ViewsListData *viewsData)

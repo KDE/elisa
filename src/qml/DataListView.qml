@@ -19,6 +19,7 @@ FocusScope {
     property int databaseId
     property alias showSection: listView.showSection
     property alias expandedFilterView: listView.expandedFilterView
+    property alias haveTreeModel: listView.haveTreeModel
     property alias image: listView.image
     property var modelType
     property AbstractItemModel realModel
@@ -88,6 +89,10 @@ FocusScope {
 
         realModel.initialize(elisa.musicManager, elisa.musicManager.viewDatabase,
                              modelType, filterType, mainTitle, secondaryTitle, databaseId)
+    }
+
+    function goToBack() {
+        listView.goToBack()
     }
 
     Loader {
@@ -210,7 +215,7 @@ FocusScope {
             viewManager.openChildView(secondaryTitle, '', elisaTheme.artistIcon, 0, ElisaUtils.Artist)
         }
 
-        onGoBack: viewManager.goBack()
+        onGoBackRequested: viewManager.goBack()
 
         Loader {
             anchors.centerIn: parent

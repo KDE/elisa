@@ -24,6 +24,7 @@ FocusScope {
     property alias delegateDisplaySecondaryText: gridView.delegateDisplaySecondaryText
     property alias isSubPage: gridView.isSubPage
     property alias expandedFilterView: gridView.expandedFilterView
+    property alias haveTreeModel: gridView.haveTreeModel
     property string genreFilterText
     property string artistFilter
     property bool modelIsInitialized: false
@@ -62,6 +63,10 @@ FocusScope {
         modelIsInitialized = true
     }
 
+    function goToBack() {
+        gridView.goToBack()
+    }
+
     GridBrowserView {
         id: gridView
 
@@ -79,7 +84,9 @@ FocusScope {
 
         onOpen: viewManager.openChildView(innerMainTitle, innerSecondaryTitle, innerImage, databaseId, dataType)
 
-        onGoBack: viewManager.goBack()
+        onGoBackRequested: {
+            viewManager.goBack()
+        }
 
         Loader {
             id: busyIndicatorLoader

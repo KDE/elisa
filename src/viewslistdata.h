@@ -56,7 +56,8 @@ public:
                    ElisaUtils::PlayListEntryType dataType,
                    QUrl fallbackItemIcon,
                    ViewManager::DelegateUseSecondaryText showSecondaryTextOnDelegates,
-                   ViewManager::ViewCanBeRated viewCanBeRated)
+                   ViewManager::ViewCanBeRated viewCanBeRated,
+                   ViewManager::IsTreeModelType isTreeModel)
         : mMainTitle(std::move(mainTitle))
         , mMainImage(std::move(mainImage))
         , mViewPresentationType(viewPresentationType)
@@ -66,6 +67,7 @@ public:
         , mFallbackItemIcon(std::move(fallbackItemIcon))
         , mShowSecondaryTextOnDelegates(showSecondaryTextOnDelegates)
         , mViewCanBeRated(viewCanBeRated)
+        , mIsTreeModel(isTreeModel)
         , mIsValid(true)
     {
     }
@@ -80,13 +82,15 @@ public:
                    Qt::SortOrder sortOrder,
                    ViewManager::AlbumCardinality albumCardinality,
                    ViewManager::AlbumViewStyle albumViewStyle,
-                   ViewManager::RadioSpecificStyle radioSpecificStyle)
+                   ViewManager::RadioSpecificStyle radioSpecificStyle,
+                   ViewManager::IsTreeModelType isTreeModel)
         : mMainTitle(std::move(mainTitle))
         , mMainImage(std::move(mainImage))
         , mViewPresentationType(viewPresentationType)
         , mModelType(modelType)
         , mFilterType(filterType)
         , mDataType(dataType)
+        , mIsTreeModel(isTreeModel)
         , mSortRole(sortRole)
         , mSortOrder(sortOrder)
         , mAlbumCardinality(albumCardinality)
@@ -100,7 +104,7 @@ public:
         return mMainTitle == other.mMainTitle && mMainImage == other.mMainImage &&
                 mSecondaryTitle == other.mSecondaryTitle && mViewPresentationType == other.mViewPresentationType &&
                 mModelType == other.mModelType && mFilterType == other.mFilterType &&
-                mDataType == other.mDataType && mFallbackItemIcon == other.mFallbackItemIcon &&
+                mDataType == other.mDataType && mIsTreeModel == other.mIsTreeModel && mFallbackItemIcon == other.mFallbackItemIcon &&
                 mShowSecondaryTextOnDelegates == other.mShowSecondaryTextOnDelegates && mViewCanBeRated == other.mViewCanBeRated &&
                 mSortRole == other.mSortRole && mSortOrder == other.mSortOrder &&
                 mAlbumCardinality == other.mAlbumCardinality && mAlbumViewStyle == other.mAlbumViewStyle &&
@@ -113,7 +117,7 @@ public:
         return mMainTitle != other.mMainTitle || mMainImage != other.mMainImage ||
                 mSecondaryTitle != other.mSecondaryTitle || mViewPresentationType != other.mViewPresentationType ||
                 mModelType != other.mModelType || mFilterType != other.mFilterType ||
-                mDataType != other.mDataType || mFallbackItemIcon != other.mFallbackItemIcon ||
+                mDataType != other.mDataType || mIsTreeModel != other.mIsTreeModel || mFallbackItemIcon != other.mFallbackItemIcon ||
                 mShowSecondaryTextOnDelegates != other.mShowSecondaryTextOnDelegates || mViewCanBeRated != other.mViewCanBeRated ||
                 mSortRole != other.mSortRole || mSortOrder != other.mSortOrder ||
                 mAlbumCardinality != other.mAlbumCardinality || mAlbumViewStyle != other.mAlbumViewStyle ||
@@ -141,6 +145,8 @@ public:
     ViewManager::DelegateUseSecondaryText mShowSecondaryTextOnDelegates = ViewManager::DelegateWithSecondaryText;
 
     ViewManager::ViewCanBeRated mViewCanBeRated = ViewManager::ViewHideRating;
+
+    ViewManager::IsTreeModelType mIsTreeModel = ViewManager::IsFlatModel;
 
     int mSortRole = Qt::DisplayRole;
 

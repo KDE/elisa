@@ -64,6 +64,7 @@ RowLayout {
                                      genreFilterText: genreNameFilter,
                                      artistFilter: artistNameFilter,
                                      isSubPage: (browseStackView.depth >= 2),
+                                     haveTreeModel: isTreeModel,
                                      stackView: browseStackView,
                                      opacity: 0,
                                  })
@@ -94,7 +95,8 @@ RowLayout {
                                      displaySingleAlbum: displaySingleAlbum,
                                      showSection: showDiscHeaders,
                                      opacity: 0,
-                                     radioCase: radioCase
+                                     radioCase: radioCase,
+                                     haveTreeModel: isTreeModel,
                                  })
         }
 
@@ -127,8 +129,13 @@ RowLayout {
         }
 
         onPopOneView: {
+            if (browseStackView.currentItem.haveTreeModel) {
+                browseStackView.currentItem.goToBack()
+            }
+
             if (browseStackView.depth > 2) {
-                browseStackView.pop() }
+                browseStackView.pop()
+            }
         }
     }
 

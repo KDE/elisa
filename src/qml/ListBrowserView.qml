@@ -21,10 +21,11 @@ FocusScope {
     property alias secondaryTitle: navigationBar.secondaryTitle
     property alias image: navigationBar.image
     property int databaseId
-    property alias delegate: contentDirectoryView.delegate
+    property alias delegate: delegateModel.delegate
     property bool showSection: false
-    property alias contentModel: contentDirectoryView.model
+    property alias contentModel: delegateModel.model
     property alias expandedFilterView: navigationBar.expandedFilterView
+    property bool haveTreeModel: false
     property alias showRating: navigationBar.showRating
     property alias allowArtistNavigation: navigationBar.allowArtistNavigation
     property var delegateWidth: scrollBar.visible ? contentDirectoryView.width - scrollBar.width : contentDirectoryView.width
@@ -34,9 +35,19 @@ FocusScope {
     property alias showEnqueueButton: navigationBar.showEnqueueButton
     property alias showCreateRadioButton: navigationBar.showCreateRadioButton
     property alias navigationBar: navigationBar
+    property int depth: 1
 
-    signal goBack()
+    signal goBackRequested()
     signal showArtist(var name)
+
+    function goToBack() {
+        if (haveTreeModel) {
+            delegateModel.rootIndex = delegateModel.parentModelIndex()
+            --depth
+        } else {
+            listView.goBackRequested()
+        }
+    }
 
     SystemPalette {
         id: myPalette
@@ -47,6 +58,10 @@ FocusScope {
         id: elisaTheme
     }
 
+    DelegateModel {
+        id: delegateModel
+    }
+
     ColumnLayout {
         anchors.fill: parent
         spacing: 0
@@ -54,7 +69,7 @@ FocusScope {
         NavigationActionBar {
             id: navigationBar
 
-            enableGoBack: listView.isSubPage
+            enableGoBack: listView.isSubPage || depth > 1
             sortOrder: contentModel.sortedAscending
 
             Layout.fillWidth: true
@@ -75,7 +90,9 @@ FocusScope {
 
             onReplaceAndPlay: contentModel.replaceAndPlayOfPlayList()
 
-            onGoBack: listView.goBack()
+            onGoBack: {
+                listView.goToBack()
+            }
 
             onShowArtist: listView.showArtist(listView.contentModel.sourceModel.author)
 
@@ -99,6 +116,8 @@ FocusScope {
 
                 activeFocusOnTab: true
                 keyNavigationEnabled: true
+
+                model: delegateModel
 
                 currentIndex: -1
 

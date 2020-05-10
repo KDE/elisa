@@ -88,6 +88,13 @@ public:
 
     Q_ENUM(ModelType)
 
+    enum IsTreeModelType {
+        IsTreeModel = true,
+        IsFlatModel = false,
+    };
+
+    Q_ENUM(IsTreeModelType)
+
     explicit ViewManager(QObject *parent = nullptr);
 
     ~ViewManager() override;
@@ -103,14 +110,16 @@ Q_SIGNALS:
                       ElisaUtils::PlayListEntryType dataType, QAbstractItemModel *model,
                       QAbstractProxyModel *associatedProxyModel, const QUrl &viewDefaultIcon, const QString &genreNameFilter,
                       const QString &artistNameFilter, ViewManager::ViewCanBeRated viewShowRating,
-                      ViewManager::DelegateUseSecondaryText viewDelegateDisplaySecondaryText);
+                      ViewManager::DelegateUseSecondaryText viewDelegateDisplaySecondaryText,
+                      ViewManager::IsTreeModelType isTreeModel);
 
     void openListView(ElisaUtils::FilterType filterType, int expectedDepth,
                       const QString &mainTitle, const QString &secondaryTitle, qulonglong databaseId,
                       const QUrl &imageUrl, ElisaUtils::PlayListEntryType dataType, QAbstractItemModel *model,
                       QAbstractProxyModel *associatedProxyModel, const QVariant &sortRole,
                       Qt::SortOrder sortOrder, ViewManager::AlbumCardinality displaySingleAlbum,
-                      ViewManager::AlbumViewStyle showDiscHeaders, ViewManager::RadioSpecificStyle radioCase);
+                      ViewManager::AlbumViewStyle showDiscHeaders, ViewManager::RadioSpecificStyle radioCase,
+                      ViewManager::IsTreeModelType isTreeModel);
 
     void switchFilesBrowserView(int expectedDepth, const QString &mainTitle, const QUrl &imageUrl);
 

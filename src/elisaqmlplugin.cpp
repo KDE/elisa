@@ -168,7 +168,6 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qRegisterMetaType<DataTypes::ColumnsRoles>("DataTypes::ColumnsRoles");
     qRegisterMetaType<ModelDataLoader::TrackDataType>("ModelDataLoader::TrackDataType");
     qRegisterMetaType<TracksListener::TrackDataType>("TracksListener::TrackDataType");
-    qRegisterMetaType<ViewManager::SortOrder>("ViewManager::SortOrder");
     qmlRegisterUncreatableType<ElisaConfigurationDialog>(uri, 1, 0, "ElisaConfigurationDialog", QStringLiteral("only one and done in c++"));
 
     qmlRegisterUncreatableType<ElisaApplication>(uri, 1, 0, "ElisaApplication", QStringLiteral("only one and done in c++"));

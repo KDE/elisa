@@ -62,7 +62,7 @@ public:
                    ElisaUtils::FilterType filterType,
                    ElisaUtils::PlayListEntryType dataType,
                    int sortRole,
-                   ViewManager::SortOrder sortOrder,
+                   Qt::SortOrder sortOrder,
                    ViewManager::AlbumCardinality albumCardinality,
                    ViewManager::AlbumViewStyle albumViewStyle,
                    ViewManager::RadioSpecificStyle radioSpecificStyle)
@@ -124,7 +124,7 @@ public:
 
     int mSortRole = Qt::DisplayRole;
 
-    ViewManager::SortOrder mSortOrder = ViewManager::SortAscending;
+    Qt::SortOrder mSortOrder = Qt::AscendingOrder;
 
     ViewManager::AlbumCardinality mAlbumCardinality = ViewManager::MultipleAlbum;
 

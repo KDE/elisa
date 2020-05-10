@@ -13,6 +13,7 @@
 
 #include <QObject>
 #include <QUrl>
+#include <Qt>
 
 #include <memory>
 
@@ -31,14 +32,6 @@ class ELISALIB_EXPORT ViewManager : public QObject
     Q_PROPERTY(ViewsListData* viewsData READ viewsData WRITE setViewsData NOTIFY viewsDataChanged)
 
 public:
-
-    enum SortOrder {
-        NoSort,
-        SortAscending,
-        SortDescending,
-    };
-
-    Q_ENUM(SortOrder)
 
     enum AlbumCardinality {
         SingleAlbum = true,
@@ -105,7 +98,7 @@ Q_SIGNALS:
     void openListView(ElisaUtils::FilterType filterType, int expectedDepth,
                       const QString &mainTitle, const QString &secondaryTitle, qulonglong databaseId,
                       const QUrl &imageUrl, ElisaUtils::PlayListEntryType dataType, const QVariant &sortRole,
-                      ViewManager::SortOrder sortOrder, ViewManager::AlbumCardinality displaySingleAlbum,
+                      Qt::SortOrder sortOrder, ViewManager::AlbumCardinality displaySingleAlbum,
                       ViewManager::AlbumViewStyle showDiscHeaders, ViewManager::RadioSpecificStyle radioCase);
 
     void switchFilesBrowserView(int expectedDepth, const QString &mainTitle, const QUrl &imageUrl);

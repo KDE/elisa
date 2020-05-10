@@ -224,10 +224,8 @@ FocusScope {
             realModel.initialize(elisa.musicManager, elisa.musicManager.viewDatabase, modelType, filterType, mainTitle, secondaryTitle, databaseId)
         }
 
-        if (sortAscending === ViewManager.SortAscending) {
-            proxyModel.sortModel(Qt.AscendingOrder)
-        } else if (sortAscending === ViewManager.SortDescending) {
-            proxyModel.sortModel(Qt.DescendingOrder)
+        if (!displaySingleAlbum) {
+            proxyModel.sortModel(sortAscending)
         }
     }
 }

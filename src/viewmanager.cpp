@@ -24,7 +24,7 @@ public:
                              ElisaUtils::FilterById,
                              ElisaUtils::Track,
                              Qt::DisplayRole,
-                             ViewManager::NoSort,
+                             Qt::AscendingOrder,
                              ViewManager::SingleAlbum,
                              ViewManager::DiscHeaders,
                              ViewManager::IsTrack}},

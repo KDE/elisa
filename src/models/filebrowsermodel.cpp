@@ -59,11 +59,26 @@ QHash<int, QByteArray> FileBrowserModel::roleNames() const
 {
     auto roles = KDirModel::roleNames();
 
-    roles[static_cast<int>(ColumnsRoles::NameRole)] = "name";
-    roles[static_cast<int>(ColumnsRoles::FileUrlRole)] = "fileUrl";
-    roles[static_cast<int>(ColumnsRoles::ImageUrlRole)] = "imageUrl";
-    roles[static_cast<int>(ColumnsRoles::IsDirectoryRole)] = "isDirectory";
-    roles[static_cast<int>(ColumnsRoles::IsPlayListRole)] = "isPlaylist";
+    roles[static_cast<int>(DataTypes::ColumnsRoles::TitleRole)] = "title";
+    roles[static_cast<int>(DataTypes::ColumnsRoles::SecondaryTextRole)] = "secondaryText";
+    roles[static_cast<int>(DataTypes::ColumnsRoles::ImageUrlRole)] = "imageUrl";
+    roles[static_cast<int>(DataTypes::ColumnsRoles::DatabaseIdRole)] = "databaseId";
+    roles[static_cast<int>(DataTypes::ColumnsRoles::ElementTypeRole)] = "dataType";
+    roles[static_cast<int>(DataTypes::ColumnsRoles::ResourceRole)] = "url";
+
+    roles[static_cast<int>(DataTypes::ColumnsRoles::ArtistRole)] = "artist";
+    roles[static_cast<int>(DataTypes::ColumnsRoles::AllArtistsRole)] = "allArtists";
+    roles[static_cast<int>(DataTypes::ColumnsRoles::HighestTrackRating)] = "highestTrackRating";
+    roles[static_cast<int>(DataTypes::ColumnsRoles::GenreRole)] = "genre";
+
+    roles[static_cast<int>(DataTypes::ColumnsRoles::AlbumRole)] = "album";
+    roles[static_cast<int>(DataTypes::ColumnsRoles::AlbumArtistRole)] = "albumArtist";
+    roles[static_cast<int>(DataTypes::ColumnsRoles::DurationRole)] = "duration";
+    roles[static_cast<int>(DataTypes::ColumnsRoles::TrackNumberRole)] = "trackNumber";
+    roles[static_cast<int>(DataTypes::ColumnsRoles::DiscNumberRole)] = "discNumber";
+    roles[static_cast<int>(DataTypes::ColumnsRoles::RatingRole)] = "rating";
+    roles[static_cast<int>(DataTypes::ColumnsRoles::IsSingleDiscAlbumRole)] = "isSingleDiscAlbum";
+    roles[static_cast<int>(DataTypes::ColumnsRoles::FullDataRole)] = "fullData";
 
     return roles;
 }

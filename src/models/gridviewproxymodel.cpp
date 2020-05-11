@@ -17,7 +17,6 @@ GridViewProxyModel::GridViewProxyModel(QObject *parent) : AbstractMediaProxyMode
 {
     setSortRole(Qt::DisplayRole);
     setSortCaseSensitivity(Qt::CaseInsensitive);
-    sortModel(Qt::AscendingOrder);
 }
 
 GridViewProxyModel::~GridViewProxyModel() = default;

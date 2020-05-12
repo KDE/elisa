@@ -80,9 +80,9 @@ FocusScope {
                 }
             }
 
-            onEnqueue: contentModel.enqueueToPlayList()
+            onEnqueue: contentModel.enqueueToPlayList(delegateModel.rootIndex)
 
-            onReplaceAndPlay:contentModel.replaceAndPlayOfPlayList()
+            onReplaceAndPlay:contentModel.replaceAndPlayOfPlayList(delegateModel.rootIndex)
 
             onGoBack: {
                 gridView.goToBack()

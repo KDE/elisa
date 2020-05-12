@@ -110,15 +110,16 @@ void AbstractMediaProxyModel::connectPlayList()
                 mPlayList, static_cast<void(MediaPlayListProxyModel::*)(const DataTypes::EntryDataList&, ElisaUtils::PlayListEnqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayListProxyModel::enqueue));
     }
 }
-void AbstractMediaProxyModel::genericEnqueueToPlayList(ElisaUtils::PlayListEnqueueMode enqueueMode,
-                                                   ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
+void AbstractMediaProxyModel::genericEnqueueToPlayList(QModelIndex rootIndex,
+                                                       ElisaUtils::PlayListEnqueueMode enqueueMode,
+                                                       ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
 {
     QtConcurrent::run(&mThreadPool, [=] () {
         QReadLocker locker(&mDataLock);
         auto allData = DataTypes::EntryDataList{};
         allData.reserve(rowCount());
         for (int rowIndex = 0, maxRowCount = rowCount(); rowIndex < maxRowCount; ++rowIndex) {
-            auto currentIndex = index(rowIndex, 0);
+            auto currentIndex = index(rowIndex, 0, rootIndex);
 
             allData.push_back(DataTypes::EntryData{data(currentIndex, DataTypes::FullDataRole).value<DataTypes::MusicDataType>(),
                                                    data(currentIndex, Qt::DisplayRole).toString(), {}});
@@ -127,14 +128,14 @@ void AbstractMediaProxyModel::genericEnqueueToPlayList(ElisaUtils::PlayListEnque
     });
 }
 
-void AbstractMediaProxyModel::enqueueToPlayList()
+void AbstractMediaProxyModel::enqueueToPlayList(QModelIndex rootIndex)
 {
-    genericEnqueueToPlayList(ElisaUtils::AppendPlayList, ElisaUtils::DoNotTriggerPlay);
+    genericEnqueueToPlayList(rootIndex, ElisaUtils::AppendPlayList, ElisaUtils::DoNotTriggerPlay);
 }
 
-void AbstractMediaProxyModel::replaceAndPlayOfPlayList()
+void AbstractMediaProxyModel::replaceAndPlayOfPlayList(QModelIndex rootIndex)
 {
-    genericEnqueueToPlayList(ElisaUtils::ReplacePlayList, ElisaUtils::TriggerPlay);
+    genericEnqueueToPlayList(rootIndex, ElisaUtils::ReplacePlayList, ElisaUtils::TriggerPlay);
 }
 
 

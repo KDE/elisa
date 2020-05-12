@@ -76,13 +76,15 @@ bool FileBrowserProxyModel::filterAcceptsRow(int source_row, const QModelIndex &
     return result;
 }
 
-void FileBrowserProxyModel::genericEnqueueToPlayList(ElisaUtils::PlayListEnqueueMode enqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
+void FileBrowserProxyModel::genericEnqueueToPlayList(QModelIndex rootIndex,
+                                                     ElisaUtils::PlayListEnqueueMode enqueueMode,
+                                                     ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
 {
     QtConcurrent::run(&mThreadPool, [=] () {
         QReadLocker locker(&mDataLock);
         auto allTrackUrls = DataTypes::EntryDataList{};
         for (int rowIndex = 0, maxRowCount = rowCount(); rowIndex < maxRowCount; ++rowIndex) {
-            auto currentIndex = index(rowIndex, 0);
+            auto currentIndex = index(rowIndex, 0, rootIndex);
             if (!data(currentIndex, FileBrowserModel::IsDirectoryRole).toBool()) {
                 allTrackUrls.push_back({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
                                          {DataTypes::ResourceRole, data(currentIndex, FileBrowserModel::FileUrlRole).toUrl()}}, {}, {}});
@@ -92,16 +94,18 @@ void FileBrowserProxyModel::genericEnqueueToPlayList(ElisaUtils::PlayListEnqueue
     });
 }
 
-void FileBrowserProxyModel::enqueueToPlayList()
+void FileBrowserProxyModel::enqueueToPlayList(QModelIndex rootIndex)
 {
-    genericEnqueueToPlayList(ElisaUtils::AppendPlayList,
+    genericEnqueueToPlayList(rootIndex,
+                             ElisaUtils::AppendPlayList,
                              ElisaUtils::DoNotTriggerPlay);
 }
 
-void FileBrowserProxyModel::replaceAndPlayOfPlayList()
+void FileBrowserProxyModel::replaceAndPlayOfPlayList(QModelIndex rootIndex)
 {
-    genericEnqueueToPlayList(ElisaUtils::ReplacePlayList,
-                              ElisaUtils::TriggerPlay);
+    genericEnqueueToPlayList(rootIndex,
+                             ElisaUtils::ReplacePlayList,
+                             ElisaUtils::TriggerPlay);
 }
 
 QString FileBrowserProxyModel::parentFolder() const

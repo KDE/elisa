@@ -73,9 +73,9 @@ public:
 
 public Q_SLOTS:
 
-    void enqueueToPlayList();
+    void enqueueToPlayList(QModelIndex rootIndex);
 
-    void replaceAndPlayOfPlayList();
+    void replaceAndPlayOfPlayList(QModelIndex rootIndex);
 
     void setFilterText(const QString &filterText);
 
@@ -113,7 +113,8 @@ protected:
 
 private:
 
-    void genericEnqueueToPlayList(ElisaUtils::PlayListEnqueueMode enqueueMode,
+    void genericEnqueueToPlayList(QModelIndex rootIndex,
+                                  ElisaUtils::PlayListEnqueueMode enqueueMode,
                                   ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 
     QString parentFolder() const;

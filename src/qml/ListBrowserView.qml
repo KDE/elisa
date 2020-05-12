@@ -23,7 +23,7 @@ FocusScope {
     property int databaseId
     property alias delegate: delegateModel.delegate
     property bool showSection: false
-    property alias contentModel: delegateModel.model
+    property AbstractProxyModel contentModel
     property alias expandedFilterView: navigationBar.expandedFilterView
     property bool haveTreeModel: false
     property alias showRating: navigationBar.showRating
@@ -60,6 +60,8 @@ FocusScope {
 
     DelegateModel {
         id: delegateModel
+
+        model: listView.contentModel
     }
 
     ColumnLayout {
@@ -74,16 +76,26 @@ FocusScope {
 
             Layout.fillWidth: true
 
-            Binding {
-                target: contentModel
-                property: 'filterText'
-                value: navigationBar.filterText
+            Loader {
+                active: listView.contentModel
+
+                sourceComponent: Binding {
+                    target: listView.contentModel
+                    property: 'filterText'
+                    when: listView.contentModel
+                    value: navigationBar.filterText
+                }
             }
 
-            Binding {
-                target: contentModel
-                property: 'filterRating'
-                value: navigationBar.filterRating
+            Loader {
+                active: listView.contentModel
+
+                sourceComponent: Binding {
+                    target: listView.contentModel
+                    property: 'filterRating'
+                    when: listView.contentModel
+                    value: navigationBar.filterRating
+                }
             }
 
             onEnqueue: contentModel.enqueueToPlayList()

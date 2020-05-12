@@ -20,7 +20,7 @@ FocusScope {
     property string mainTitle
     property string secondaryTitle
     property url image
-    property alias contentModel: delegateModel.model
+    property AbstractProxyModel contentModel
     property alias showRating: navigationBar.showRating
     property bool delegateDisplaySecondaryText: true
     property alias expandedFilterView: navigationBar.expandedFilterView
@@ -54,27 +54,28 @@ FocusScope {
             secondaryTitle: gridView.secondaryTitle
             image: gridView.image
             enableGoBack: gridView.isSubPage || depth > 1
-            sortOrder: if (contentModel) {contentModel.sortedAscending} else true
+            sortOrder: if (gridView.contentModel) {gridView.contentModel.sortedAscending} else true
 
             Layout.fillWidth: true
 
             Loader {
-                active: contentModel !== undefined
+                active: gridView.contentModel
 
                 sourceComponent: Binding {
-                    target: contentModel
+                    target: gridView.contentModel
                     property: 'filterText'
+                    when: gridView.contentModel
                     value: navigationBar.filterText
                 }
             }
 
             Loader {
-                active: contentModel !== undefined
+                active: gridView.contentModel
 
                 sourceComponent: Binding {
-                    target: contentModel
+                    target: gridView.contentModel
                     property: 'filterRating'
-                    when: contentModel !== undefined
+                    when: gridView.contentModel
                     value: navigationBar.filterRating
                 }
             }
@@ -92,6 +93,8 @@ FocusScope {
 
         DelegateModel {
             id: delegateModel
+
+            model: gridView.contentModel
 
             delegate: GridBrowserDelegate {
                 width: elisaTheme.gridDelegateSize

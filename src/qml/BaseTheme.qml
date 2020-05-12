@@ -14,7 +14,6 @@ Item {
     property string artistIcon: 'image://icon/view-media-artist'
     property string albumIcon: 'image://icon/view-media-album-cover'
     property string albumCoverIcon: 'image://icon/media-optical-audio'
-    property string playlistIcon: 'image://icon/view-media-playlist'
     property string tracksIcon: 'image://icon/view-media-track'
     property string genresIcon: 'image://icon/view-media-genre'
     property string clearIcon: 'image://icon/edit-clear'

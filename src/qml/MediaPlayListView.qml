@@ -10,7 +10,7 @@ import QtQuick.Controls 2.3
 import QtQuick.Layouts 1.1
 import QtQuick.Window 2.2
 import Qt.labs.platform 1.0 as PlatformDialog
-import org.kde.kirigami 2.5 as Kirigami
+import org.kde.kirigami 2.12 as Kirigami
 import org.kde.elisa 1.0
 
 FocusScope {
@@ -172,116 +172,65 @@ FocusScope {
             ]
         }
 
-        ColumnLayout {
-            id: emptyPlaylistText
-            spacing: 0
-            visible: true
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+        Item {
+            id: emptyPlaylistMessage
+
+            visible: elisa.mediaPlayListProxyModel ? elisa.mediaPlayListProxyModel.tracksCount === 0 : true
+
             Layout.fillHeight: true
             Layout.fillWidth: true
 
-            Item {
-                id: emptyVisible
-                visible: elisa.mediaPlayListProxyModel ? elisa.mediaPlayListProxyModel.tracksCount === 0 : true
-                Layout.fillHeight: true
+            Kirigami.PlaceholderMessage {
+                anchors.centerIn: parent
+                width: parent.width - (Kirigami.Units.largeSpacing * 4)
+
+                text: xi18nc("@info", "Your playlist is empty.<nl/><nl/>Add some songs to get started. You can browse your music using the views on the left.")
+            }
+        }
+
+        PlayListBasicView {
+            id: playListView
+
+            visible: !emptyPlaylistMessage.visible
+
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+
+            title: viewTitle.text
+            playListModel: elisa.mediaPlayListProxyModel
+
+            focus: true
+
+            onStartPlayback: topItem.startPlayback()
+
+            onPausePlayback: topItem.pausePlayback()
+
+            onDisplayError: showPlayListNotification(errorText, Kirigami.MessageType.Error)
+
+        }
+
+        Kirigami.InlineMessage {
+            id: playListNotification
+
+            Timer {
+                id: autoHideNotificationTimer
+
+                interval: 7000
+
+                onTriggered: playListNotification.visible = false
             }
 
-            Image {
-                id: emptyImage
-                visible: emptyVisible.visible
-                Layout.alignment: Qt.AlignHCenter
+            type: Kirigami.MessageType.Information
+            showCloseButton: true
+            Layout.fillWidth: true
+            Layout.margins: Kirigami.Units.largeSpacing
 
-                width: elisaTheme.gridDelegateSize
-                height: elisaTheme.gridDelegateSize
-
-                source: elisaTheme.playlistIcon
-                opacity: 0.25
-
-                sourceSize {
-                    width: elisaTheme.gridDelegateSize
-                    height: elisaTheme.gridDelegateSize
-                }
-            }
-
-            LabelWithToolTip {
-                id: emptyLabel0
-                visible: emptyVisible.visible
-                Layout.fillWidth: true
-                Layout.alignment: Qt.AlignHCenter
-                Layout.rightMargin: Kirigami.Units.largeSpacing
-                Layout.leftMargin: Kirigami.Units.largeSpacing
-
-                level: 1
-                wrapMode: Text.WordWrap
-
-                horizontalAlignment: Text.AlignHCenter
-                text: i18nc("Your playlist is empty", "Your playlist is empty")
-            }
-
-            Label {
-                id: emptyLabel1
-                visible: emptyVisible.visible
-                Layout.topMargin: Kirigami.Units.largeSpacing
-                Layout.fillWidth: true
-                Layout.alignment: Qt.AlignHCenter
-                Layout.rightMargin: Kirigami.Units.largeSpacing
-                Layout.leftMargin: Kirigami.Units.largeSpacing
-
-                wrapMode: Text.WordWrap
-
-                horizontalAlignment: Text.AlignHCenter
-                text: i18nc("Text shown when play list is empty", "Add some songs to get started. You can browse your music using the views on the left.")
-            }
-
-            Item {
-                visible: emptyVisible.visible
-                Layout.fillHeight: true
-            }
-
-            PlayListBasicView {
-                id: playListView
-
-                visible: !emptyVisible.visible
-
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-
-                title: viewTitle.text
-                playListModel: elisa.mediaPlayListProxyModel
-
-                focus: true
-
-                onStartPlayback: topItem.startPlayback()
-
-                onPausePlayback: topItem.pausePlayback()
-
-                onDisplayError: showPlayListNotification(errorText, Kirigami.MessageType.Error)
-
-            }
-
-            Kirigami.InlineMessage {
-                id: playListNotification
-
-                Timer {
-                    id: autoHideNotificationTimer
-
-                    interval: 7000
-
-                    onTriggered: playListNotification.visible = false
-                }
-
-                type: Kirigami.MessageType.Information
-                showCloseButton: true
-                Layout.fillWidth: true
-                Layout.margins: Kirigami.Units.largeSpacing
-
-                onVisibleChanged:
-                {
-                    if (visible) {
-                        autoHideNotificationTimer.start()
-                    } else {
-                        autoHideNotificationTimer.stop()
-                    }
+            onVisibleChanged:
+            {
+                if (visible) {
+                    autoHideNotificationTimer.start()
+                } else {
+                    autoHideNotificationTimer.stop()
                 }
             }
         }

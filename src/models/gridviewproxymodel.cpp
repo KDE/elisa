@@ -30,9 +30,16 @@ bool GridViewProxyModel::filterAcceptsRow(int source_row, const QModelIndex &sou
     const auto &mainValue = sourceModel()->data(currentIndex, Qt::DisplayRole).toString();
     const auto &artistValue = sourceModel()->data(currentIndex, DataTypes::ArtistRole).toString();
     const auto &allArtistsValue = sourceModel()->data(currentIndex, DataTypes::AllArtistsRole).toStringList();
-    const auto maximumRatingValue = sourceModel()->data(currentIndex, DataTypes::HighestTrackRating).toInt();
+    bool collectionMaximumRatingValueIsValid = false;
+    const auto collectionMaximumRatingValue = sourceModel()->data(currentIndex, DataTypes::HighestTrackRating).toInt(&collectionMaximumRatingValueIsValid);
+    bool maximumRatingValueIsValid = false;
+    const auto maximumRatingValue = sourceModel()->data(currentIndex, DataTypes::RatingRole).toInt(&maximumRatingValueIsValid);
 
-    if (maximumRatingValue < mFilterRating) {
+    if ((collectionMaximumRatingValueIsValid && maximumRatingValueIsValid &&
+            collectionMaximumRatingValue < mFilterRating && maximumRatingValue < mFilterRating) ||
+        (collectionMaximumRatingValueIsValid && !maximumRatingValueIsValid && collectionMaximumRatingValue < mFilterRating) ||
+        (!collectionMaximumRatingValueIsValid && maximumRatingValueIsValid && maximumRatingValue < mFilterRating) ||
+        (!collectionMaximumRatingValueIsValid && !maximumRatingValueIsValid && mFilterRating)) {
         result = false;
         return result;
     }

@@ -118,6 +118,10 @@ FocusScope {
                 onEnqueue: gridView.enqueue(model.fullData, model.display)
                 onReplaceAndPlay: gridView.replaceAndPlay(model.fullData, model.display)
                 onOpen: {
+                    if (haveTreeModel && !model.hasModelChildren) {
+                        return
+                    }
+
                     if (haveTreeModel) {
                         delegateModel.rootIndex = delegateModel.modelIndex(model.index)
                         ++depth

@@ -74,7 +74,6 @@ public:
         ContextView,
         GridView,
         ListView,
-        FileBrowserView,
         UnknownViewPresentation,
     };
 

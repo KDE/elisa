@@ -262,12 +262,6 @@ void ViewManager::openViewFromData(const ViewParameters &viewParamaters)
                             viewParamaters.mAlbumCardinality, viewParamaters.mAlbumViewStyle, viewParamaters.mRadioSpecificStyle,
                             viewParamaters.mIsTreeModel, viewParamaters.mPathFilter);
         break;
-    case ViewPresentationType::FileBrowserView:
-        qCDebug(orgKdeElisaViews()) << "ViewManager::openViewFromData" << viewParamaters.mViewPresentationType
-                                    << viewParamaters.mDepth << viewParamaters.mMainTitle
-                                    << viewParamaters.mMainImage;
-        Q_EMIT switchFilesBrowserView(viewParamaters.mDepth, viewParamaters.mMainTitle, viewParamaters.mMainImage);
-        break;
     case ContextView:
         qCDebug(orgKdeElisaViews()) << "ViewManager::openViewFromData" << viewParamaters.mViewPresentationType
                                     << viewParamaters.mDepth << viewParamaters.mMainTitle

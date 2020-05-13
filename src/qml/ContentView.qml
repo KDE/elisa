@@ -318,15 +318,6 @@ RowLayout {
     }
 
     Component {
-        id: filesBrowserView
-
-        FileBrowserView {
-            StackView.onActivated: viewManager.viewIsLoaded()
-            expandedFilterView: showExpandedFilterView
-        }
-    }
-
-    Component {
             id: albumContext
 
         ContextView {

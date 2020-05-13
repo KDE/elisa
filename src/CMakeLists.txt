@@ -405,7 +405,6 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         qml/GridBrowserDelegate.qml
         qml/ListBrowserView.qml
         qml/ListBrowserDelegate.qml
-        qml/FileBrowserView.qml
         qml/ScrollHelper.qml
         qml/FlatButtonWithToolTip.qml
         qml/HeaderFooterToolbar.qml

@@ -20,7 +20,6 @@
         <file>qml/GridBrowserDelegate.qml</file>
         <file>qml/ListBrowserView.qml</file>
         <file>qml/ListBrowserDelegate.qml</file>
-        <file>qml/FileBrowserView.qml</file>
         <file>qtquickcontrols2.conf</file>
         <file>background.png</file>
         <file>qml/BaseTheme.qml</file>

@@ -57,7 +57,7 @@ bool FileBrowserProxyModel::filterAcceptsRow(int source_row, const QModelIndex &
     for (int column = 0, columnCount = sourceModel()->columnCount(source_parent); column < columnCount; ++column) {
         auto currentIndex = sourceModel()->index(source_row, column, source_parent);
 
-        const auto &nameValue = sourceModel()->data(currentIndex, DataTypes::TitleRole).toString();
+        const auto &nameValue = sourceModel()->data(currentIndex, Qt::DisplayRole).toString();
 
         if (mFilterExpression.match(nameValue).hasMatch()) {
             result = true;

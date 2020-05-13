@@ -141,20 +141,6 @@ ecm_add_test(${trackmetadatamodeltest_SOURCES}
 
 target_include_directories(trackmetadatamodeltest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 
-set(alltracksproxymodeltest_SOURCES
-    alltracksproxymodeltest.cpp
-)
-
-ecm_qt_declare_logging_category(alltracksproxymodeltest_SOURCES HEADER elisa_debug.h IDENTIFIER lcModelTest CATEGORY_NAME qt.modeltest)
-
-ecm_add_test(${alltracksproxymodeltest_SOURCES}
-    TEST_NAME "alltracksproxymodeltest"
-    LINK_LIBRARIES
-        Qt5::Test elisaLib Qt5::CorePrivate
-)
-
-target_include_directories(alltracksproxymodeltest PRIVATE ${CMAKE_SOURCE_DIR}/src)
-
 if (KF5FileMetaData_FOUND)
     set(localfilelistingtest_SOURCES
         localfilelistingtest.cpp
